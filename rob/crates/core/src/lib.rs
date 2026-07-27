@@ -51,4 +51,20 @@ pub use support::cells::{
     AbstractCells, AbstractWorld, MechanicalCompiledView, MechanicalState, RemainderWorld,
     RuleDerivedCellSystem, HIDDEN_SEATS,
 };
+pub use support::census::{
+    all_ternary_signatures, floor_family_count, reachable_capacity_profiles, support_census,
+    SupportCensus, TernarySignature,
+};
+pub use support::count::{
+    assignment_count, count_deletion_recurrence, count_generating_function, count_occupancy_dp,
+    OccupancyDpStats,
+};
+pub use support::normal_form::{
+    compile_exact_support, compile_total_support, feasible_world, marginal_by_scc,
+    native_compile_exact_support, native_validate_support, rank_world, ternary_signature_valid,
+    unrank_world, Ambiguity, FeasibleSupportNormalForm, NativeSupportNormalForm,
+    TotalSupportNormalForm,
+};
+pub use support::reduce::{marginal_allowed, marginal_by_projection, reduce};
+pub use support::sampler::{sample_uniform_world, world_probability, ExactRationalChoiceSource};
 pub use support::SupportError;

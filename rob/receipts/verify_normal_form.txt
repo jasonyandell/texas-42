@@ -1,0 +1,13 @@
+rob S4 verification: PASS
+r_nf_hall: 66,968 systems; 14,578 feasible; 22,620 worlds
+r_nf_count_routes: 66,968
+r_nf_capacity_dp: 512 profiles; 512 occupancy states; 1,533 candidate-holder checks; 1,344 capacity-eligible updates; 48 live states/layer; max count 399,072,960
+r_nf_marginal: 785,736
+r_nf_reduction: 66,968
+r_nf_sampler: 22,620
+r_nf_quotient: 22,620 SCC compilations; 2,151 essential exclusions; 22,620 rank/unrank
+r_nf_ternary_census: 136,514 signatures; 1,667,666 matrices; max 114/signature; 23,842 orbits; 296,721 representative matrices; 279,048 stabilizer orbits; max 103
+r_nf_census_81: empty=1; determinate=8,102,258,940,222,814; binary=11,495,078,055,913,018,482; ternary=1,830,955,704,129,296,418,354,864; total=1,830,967,207,309,611,271,596,161; fixed width 81 bits
+r_nf_capacity_profiles: 50
+r_nf_floor: 44,352,165; 26 bits necessary; 4 disjoint families; 4 legal reaching prefixes
+r_nf_zero_supplemental: 0 supplemental bits

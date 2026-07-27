@@ -18,6 +18,12 @@ if grep -rnE '\bf32\b|\bf64\b' crates --include='*.rs'; then
     exit 1
 fi
 
+echo "== vocabulary grep (INV-10)"
+if grep -rnE 'OuterCertificate|ReachabilityCertificate|OuterReachabilityCertificate' crates --include='*.rs'; then
+    echo "ERROR: forbidden certificate-style identifier (INV-10: necessary outer profile, never certificate)"
+    exit 1
+fi
+
 echo "== cargo test --workspace --release"
 cargo test --workspace --release
 

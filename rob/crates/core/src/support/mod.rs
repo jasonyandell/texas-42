@@ -2,6 +2,11 @@
 //! (Math §§6–7; Exec §§14–17).
 
 pub mod cells;
+pub mod census;
+pub mod count;
+pub mod normal_form;
+pub mod reduce;
+pub mod sampler;
 
 /// Explicit support-layer errors (Exec §24).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
