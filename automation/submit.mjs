@@ -3,6 +3,15 @@
 // Refuses if budget exhausted. On success writes NNN-slug.submitted.json
 // next to the dispatch, increments exchange/submission_count.txt, and
 // appends a ledger row placeholder is left to the operator.
+//
+// Double-send guard (2026-07-27 incident): the NNN-slug.submitted.json marker
+// is the atomic, idempotent record of a send. This script (1) refuses if the
+// marker already exists, and (2) creates it with an exclusive 'wx' write
+// *before* the composer send, so two concurrent operators cannot both post the
+// same dispatch. The count is incremented exactly once, only after a confirmed
+// server-uuid send, via a fresh read-modify-write. To force a genuine re-send,
+// delete the marker first — but only after confirming in the UI that no turn
+// actually posted.
 import { connect, openPage, shot, log, ensureProModel, currentModelLabel,
          pasteIntoComposer, composerText, attachFile, waitForUploads,
          clearComposer, sendMessage, parseDispatch, chipStem, ROOT } from './lib.mjs';
@@ -20,6 +29,16 @@ const tag = path.basename(dispatchFile, '.md');
 
 const count = parseInt(fs.readFileSync(COUNT_FILE, 'utf8').trim() || '0', 10);
 if (count >= HARD_CAP) { log(`BUDGET EXHAUSTED (${count}/${HARD_CAP}); refusing to submit ${tag}`); process.exit(3); }
+
+const metaPath = dispatchFile.replace(/\.md$/, '.submitted.json');
+// idempotency: a prior confirmed send, or an in-flight claim by another
+// operator, leaves this marker. Never re-send/re-count the same dispatch.
+if (fs.existsSync(metaPath)) {
+  let prior = {};
+  try { prior = JSON.parse(fs.readFileSync(metaPath, 'utf8')); } catch { /* unreadable marker still blocks */ }
+  log(`${tag}: ALREADY SUBMITTED/CLAIMED (${prior.conversationUrl || prior.status || 'marker present'} @ ${prior.submittedAt || prior.claimedAt || '?'}); refusing. Delete ${path.basename(metaPath)} only after confirming in the UI that no turn was sent.`);
+  process.exit(4);
+}
 
 const attachments = Array.isArray(fm.attachments) ? fm.attachments
   : (fm.attachments ? [fm.attachments] : []);
@@ -73,31 +92,62 @@ try {
   await shot(page, `${tag}-pre-send`);
   log(`${tag}: pre-send verified (model=Pro, ${attachments.length} attachments, ${want.length} chars). SENDING.`);
 
-  await sendMessage(page);
+  // ATOMIC CLAIM (double-send guard): create the marker with an exclusive
+  // write *before* sending. If a concurrent operator claimed between the early
+  // existence check and now, 'wx' throws EEXIST and we refuse WITHOUT sending.
+  const claim = {
+    tag, number: fm.number, slug: fm.slug, channel: fm.channel || 'new-chat',
+    status: 'sending', claimedAt: new Date().toISOString(), attachments,
+  };
+  try {
+    fs.writeFileSync(metaPath, JSON.stringify(claim, null, 2) + '\n', { flag: 'wx' });
+  } catch (e) {
+    if (e.code === 'EEXIST') { log(`${tag}: claim race lost — ${path.basename(metaPath)} appeared; refusing to send`); process.exit(4); }
+    throw e;
+  }
+  log(`${tag}: claimed ${path.basename(metaPath)} (atomic wx); SENDING.`);
 
-  // confirm: user turn appears, composer empties, URL becomes /c/<id>
+  const postedCount = () => page.evaluate(() =>
+    document.querySelectorAll('[data-message-author-role="user"]').length).catch(() => null);
+
   let convUrl = null;
-  for (let i = 0; i < 60; i++) {
-    await page.waitForTimeout(1000);
-    const u = page.url();
-    const userCount = await page.evaluate(() =>
-      document.querySelectorAll('[data-message-author-role="user"]').length);
-    // the URL first gets a client-side placeholder id like /c/WEB:...; wait
-    // for the server-assigned uuid before recording
-    if (userCount > baseline.user && /\/c\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f-]+$/i.test(u)) { convUrl = u; break; }
+  try {
+    await sendMessage(page);
+    // confirm: user turn appears, composer empties, URL becomes /c/<uuid>
+    for (let i = 0; i < 60; i++) {
+      await page.waitForTimeout(1000);
+      const u = page.url();
+      const userCount = await page.evaluate(() =>
+        document.querySelectorAll('[data-message-author-role="user"]').length);
+      // the URL first gets a client-side placeholder id like /c/WEB:...; wait
+      // for the server-assigned uuid before recording
+      if (userCount > baseline.user && /\/c\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f-]+$/i.test(u)) { convUrl = u; break; }
+    }
+  } catch (e) {
+    // did anything post? only clear the claim if we are SURE nothing landed
+    const posted = await postedCount();
+    if (posted !== null && posted <= baseline.user) { fs.rmSync(metaPath, { force: true }); log(`${tag}: send threw before any turn posted — claim cleared, safe to retry`); }
+    else log(`${tag}: send threw and a turn may have posted — claim KEPT to block blind retry; inspect the UI`);
+    throw e;
   }
   await shot(page, `${tag}-sent`);
-  if (!convUrl) throw new Error(`${tag}: AMBIGUOUS SEND — inspect ${tag}-sent.png before retrying`);
+  if (!convUrl) {
+    const posted = await postedCount();
+    if (posted !== null && posted <= baseline.user) { fs.rmSync(metaPath, { force: true }); throw new Error(`${tag}: send posted no turn — claim cleared, safe to retry`); }
+    throw new Error(`${tag}: AMBIGUOUS SEND (a turn appeared but no server uuid) — claim KEPT; inspect ${tag}-sent.png before deleting ${path.basename(metaPath)}`);
+  }
 
-  // send confirmed: count it and persist metadata BEFORE any further checks
-  fs.writeFileSync(COUNT_FILE, String(count + 1) + '\n');
+  // CONFIRMED send: fill the marker, then increment the count EXACTLY ONCE via a
+  // fresh read-modify-write (composes with any concurrent legitimate increment).
   const meta = {
     tag, number: fm.number, slug: fm.slug, channel: fm.channel || 'new-chat',
     conversationUrl: convUrl, submittedAt: new Date().toISOString(),
     baselineAssistantCount: baseline.assistant, attachments,
   };
-  fs.writeFileSync(dispatchFile.replace(/\.md$/, '.submitted.json'), JSON.stringify(meta, null, 2) + '\n');
-  log(`${tag}: SUBMITTED count=${count + 1}/${HARD_CAP} url=${convUrl}`);
+  fs.writeFileSync(metaPath, JSON.stringify(meta, null, 2) + '\n');
+  const cur = parseInt(fs.readFileSync(COUNT_FILE, 'utf8').trim() || '0', 10);
+  fs.writeFileSync(COUNT_FILE, String(cur + 1) + '\n');
+  log(`${tag}: SUBMITTED count=${cur + 1}/${HARD_CAP} url=${convUrl}`);
 
   // reload the recorded URL and confirm the sent turn (not a draft) carries
   // the body text and every attachment filename

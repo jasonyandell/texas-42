@@ -28,8 +28,17 @@ attachments/body). Abort if the count moved or that turn already exists. A
 coordinator's stand-down order is **not** a substitute for this check — orders
 and sends cross in flight. Dispatch 006 was double-sent exactly this way (a
 second `submit.mjs` posted a duplicate into the 001 conversation; count jumped
-5→7, wasting one lifetime submission). `submit.mjs` cannot self-guard because it
-baselines only its own view; the operator must do the pre-send check.
+5→7, wasting one lifetime submission).
+
+`submit.mjs` now self-guards in code (as of the 006 incident): it refuses if
+`NNN-slug.submitted.json` already exists, and it creates that marker with an
+exclusive `wx` write **before** the composer send, so two concurrent operators
+cannot both post the same dispatch; the count is incremented exactly once, only
+after a confirmed server-uuid send, via a fresh read-modify-write. To force a
+genuine re-send, delete the marker first — but only after confirming in the UI
+that no turn posted. The operator's manual pre-send check above is still the
+first line of defense (it catches a duplicate the harness can't, e.g. the same
+prompt hand-pasted); the marker is the backstop.
 
 **SINGLE-OPERATOR HARD RULE.** Never have two agents/sessions holding browser
 (submit) authority alive at the same time — not even briefly mid-handoff. Exactly
