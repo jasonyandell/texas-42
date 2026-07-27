@@ -1,0 +1,14 @@
+{
+  "tag": "008-no-void-exact-census",
+  "number": "8",
+  "slug": "no-void-exact-census",
+  "channel": "continuation",
+  "conversationUrl": "https://chatgpt.com/c/6a66e786-2ac0-83ea-ade0-dff707fae5e6",
+  "submittedAt": "2026-07-27T18:15:40.691Z",
+  "baselineAssistantCount": 2,
+  "attachments": [
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/10_RULES.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/20_MATHEMATICAL_FOUNDATION.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/verification/verify_minimality_and_reachability.py"
+  ]
+}

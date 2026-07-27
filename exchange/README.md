@@ -55,11 +55,13 @@ answer can be verified here without trusting the model.
 | 003 | kernel-vs-future-quotient | 2026-07-27T05:09:30Z [conv](https://chatgpt.com/c/6a66e808-a6dc-83ea-8319-5c4bfca8e863) | harvested 2026-07-27T13:03:10Z | CONFIRMED (ALL_PASS 0.4s; 3/3 SOUND) | OPEN-01 resolved: COLLAPSE — reduced kernel strictly finer than future-equivalence quotient (r=7 vs r=6 witness; dead-cut lemma); SHA provenance blemish non-load-bearing |
 | 004 | transport-reachability-commutation | 2026-07-27T05:09:54Z [conv](https://chatgpt.com/c/6a66e821-29c8-83ea-9f6f-4be358e6b9f7) | harvested 2026-07-27T13:03:23Z | CONFIRMED (ALL_PASS 4.6s; 3/3 SOUND) | f_{t,u}(R_t)=R_u proved: reachable census collapses 9→3 declaration classes; Step-15 quotient corollary CONDITIONAL on one-line cocycle lemma (closable locally) |
 | 005 | census-integer-audit | 2026-07-27T05:10:14Z [conv](https://chatgpt.com/c/6a66e834-e388-83ea-99e4-3186c6632c50) | harvested 2026-07-27T13:03:35Z | CONFIRMED (19/19 PASS 13s; 3/3 SOUND) | all 19 load-bearing census integers independently reproduced; new Burnside decomposition (136,514 / 2,156 / 35 → 23,842) added to corpus knowledge |
+| 007 | fifth-condition-ceiling | 2026-07-27T18:15:07Z [conv](https://chatgpt.com/c/6a66e7f0-57cc-83ea-b6c8-eab6080b8b76) (continuation of 002) | pending | — | ceiling attack: generalize the follower-supply obstruction + exact filtered tagged outer census; target ceiling ≤45 bits |
+| 008 | no-void-exact-census | 2026-07-27T18:15:40Z [conv](https://chatgpt.com/c/6a66e786-2ac0-83ea-ade0-dff707fae5e6) (continuation of 001/006; post-send verifier false-negative bodyOk — turn confirmed present exactly once by DOM check) | pending | — | exact no-void slice with two-sided completeness proof; fallback: interval strictly inside [36,46] |
 | 006 | exact-reachable-census | 2026-07-27T14:53:19Z [conv](https://chatgpt.com/c/6a66e786-2ac0-83ea-ade0-dff707fae5e6) (continuation of 001; double-sent, one answer) | harvested 2026-07-27T17:40:53Z | CONFIRMED (16/16 PASS 17.3s; 3/3 SOUND) | new disjoint two-void-context family of 19,245,318,365 reachable supports; combined floor 36,913,384,410 > 2^35 → interval [36,46] bits (was [35,46]); same tier caveat as REACH-17 (3,114 representative replays + referee-replayed generalization, not end-to-end); exact census still open |
 
 Adjudication run: 2026-07-27, workflow wf_775fe0ec (30 agents; programs executed unmodified from exchange/adjudication/programs/; per-response referee panel).
 
-**Budget after 006: 7/10 (3 remaining).** Incident 2026-07-27: 006 was double-sent
+**Budget after 008: 9/10 (1 remaining).** Incident 2026-07-27: 006 was double-sent
 ~28 s apart by two operator agents during an ownership handoff race (both sends
 verified in the 001 conversation DOM; one lifetime unit wasted; the duplicate
 turn is content-harmless — Pro answers once). Root causes: the outgoing operator
