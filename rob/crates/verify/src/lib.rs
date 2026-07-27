@@ -8,6 +8,8 @@
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
 
+pub mod corpus;
 pub mod prose_resolver;
 pub mod receipt;
 pub mod s1;
+pub mod s2;

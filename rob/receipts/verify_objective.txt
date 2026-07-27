@@ -1,0 +1,7 @@
+rob S2 verification: PASS
+r_obj_deals: 472,518,347,558,400
+r_obj_hidden: 399,072,960
+r_obj_auction_census: (2380, 3060, 3196, 3213, 3214, 3214, 3214); maxima (1, 2, 3, 4, 5, 5, 5); caps 5..7 identical
+r_obj_lifecycle: certified constructors enforce Exec 10.1; all-pass advances shaker without marks; events are return data
+r_obj_legal_play: 200 hands; follow-if-possible; bidder leads trick 1; winner leads next
+r_obj_conservation: 201 hands; 42 points each; P_D=42 iff seven-trick sweep

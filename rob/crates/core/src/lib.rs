@@ -11,7 +11,9 @@
 pub mod algebra;
 pub mod declaration;
 pub mod domino;
+pub mod objective;
 pub mod pip;
+pub mod rules;
 pub mod seat;
 
 pub use algebra::order::{Rank, TrickKey};
@@ -27,5 +29,19 @@ pub use domino::{
     all_ids, domino_from_id, domino_id, natural_incidence, Domino, DominoId, DominoSet, DOMINOES,
     DOMINO_COUNT,
 };
+pub use objective::auction::{
+    enumerate_terminal_histories, AuctionResult, AuctionState, AuctionWin, ObjectiveDealAttempt,
+};
+pub use objective::contract::{contract_from_auction, settle, Contract, HandAward};
+pub use objective::deal::{hidden_assignment_count, ordered_deal_count, DealWorld};
+pub use objective::events::{BasePublicEvent, PrivateDealObservation};
+pub use objective::play::{
+    apply_auction_action, apply_play, begin_contracted_play, begin_deal_attempt, close_auction,
+    complete_hand, legal_plays, CloseAuctionOutcome, ContractedPlayState, HandResult, MatchPhase,
+    MatchState, PendingDeclaration, PlayPhase, ReachableContractedPlayState,
+    UncertifiedContractedPlayStructure,
+};
+pub use objective::ObjectiveError;
 pub use pip::{Pip, PipPermutation, PIPS};
+pub use rules::{AuctionAction, BidValue, MarkAmount, PointAmount, RulesConfig};
 pub use seat::{Seat, Team};
