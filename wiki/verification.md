@@ -245,11 +245,12 @@ per-category counts (K₈ symmetry verified on two stars), and all 54 natural-su
 per-fiber-size counts (omitted-edge exclusion; 7 ordered contexts per fiber size).
 Family totals `x-r_flo_families`: **559,316,142** no-void / **8,387,350,664**
 called-suit void / **8,721,399,239** natural-suit void; grand total
-`x-r_flo_total`: **17,668,066,045 > 2³⁴** ⇒ floor **35 bits**, interval
-**[35,46]** — rob's receipt is now independent Rust evidence for the
-exchange-adjudicated narrowing (REACH-17); the corpus-proved interval statement
-(26..46, REACH-11/12) is unchanged and any evidentiary reframing belongs to the
-wiki. One rob-frozen value: the step-5 one-context verification exhausts a
+`x-r_flo_total`: **17,668,066,045 > 2³⁴** ⇒ floor **35 bits** — rob's receipt is
+independent Rust evidence for the exchange-adjudicated REACH-17 family; the
+corpus-proved interval statement (26..46, REACH-11/12) is unchanged and any
+evidentiary reframing belongs to the wiki. (The wiki-level interval has since
+tightened to **[36,46]** via the disjoint REACH-18 family, exchange 006, which
+rob has *not* yet reproduced — a natural slice-03+ receipt target.) One rob-frozen value: the step-5 one-context verification exhausts a
 principled **369-profile superset** of x:001's 216 tabled profiles, all satisfying
 the step-5 marginal descriptions (noted in the receipt and named test).
 

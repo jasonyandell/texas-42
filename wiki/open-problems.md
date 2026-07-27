@@ -8,11 +8,13 @@ OPEN-01/OPEN-12 adopted. Statuses as labeled by the packages.
 
 - **OPEN-11 — the flagship**: the exact cardinality of the strictly Straight-reachable
   support image `R_Str^m` remains open, but the proved standalone interval is now
-  **[35,46] bits** (corpus-proved [26,46], narrowed to [35,46] at the
-  exchange-adjudicated evidentiary tier by REACH-17 — certified disjoint family of
-  17,668,066,045 reachable supports; see [reachability](reachability.md)). Both packages
+  **[36,46] bits** (corpus-proved [26,46], narrowed at the exchange-adjudicated
+  evidentiary tier by REACH-17 + REACH-18 — two structurally disjoint certified
+  families totalling 36,913,384,410 > 2³⁵ reachable supports; see
+  [reachability](reachability.md)). The exact census and any *full* declaration class
+  remain open — dispatch 006 explicitly disclaims closing either. Both packages
   still refuse to collapse the exact count by guesswork. rec's symbolic support DAG
-  (REACH-16) is the obvious counting substrate; exchange 001's validated
+  (REACH-16) is the obvious counting substrate; exchange 001/006's validated
   witness-generation + split-zeta upward-closure counter (independently checked against
   brute force) is a reusable substrate for further tightening. See
   [reachability](reachability.md) and FINDINGS Q1.

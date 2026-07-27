@@ -79,7 +79,7 @@ follower-supply check rejects it (`x-r_unr_002_*` lines in
 exchange-adjudicated result, **not** a status upgrade; the exchange-adjudicated framing
 above remains primary.
 
-## The 35–46-bit interval (the flagship open problem)
+## The 36–46-bit interval (the flagship open problem)
 
 *(rob's Rust receipts (2026-07-27, slice 02 + S10) independently reproduce the outer
 censuses, the REACH-10 and x:002 unreachability witnesses (425,520 traces, 0
@@ -88,8 +88,9 @@ totals with 17,668,066,045 > 2³⁴ — conformance evidence for the exchange ti
 a status change; see [verification](verification.md) §"rob (Rust)".)*
 
 *(The corpus-proved interval is [26,46], REACH-11/12; exchange adjudication narrows the
-floor to ≥35 bits — REACH-17 below — at the exchange-adjudicated evidentiary tier, not
-the kernel-proved tier.)*
+floor to ≥36 bits — the combined REACH-17 + REACH-18 families below, floor
+36,913,384,410 > 2³⁵ — at the exchange-adjudicated evidentiary tier, not the
+kernel-proved tier.)*
 
 - **Ceiling** [Theorem — exhaustive finite verification, REACH-11]: the necessary
   outer language (reachable capacity shape × schedule-admissible void masks ×
@@ -121,7 +122,31 @@ the kernel-proved tier.)*
   (`559,316,142`) gives **≥30 bits**. Ceiling unchanged corpus ground truth (REACH-11).
   Source: `exchange/inbox/001-reachable-support-cardinality.md`, verified program
   `exchange/adjudication/programs/001.py`. (REACH-12's 44,352,165 family remains the
-  earlier *corpus-proved* floor of ≥26 bits.)
+  earlier *corpus-proved* floor of ≥26 bits.) REACH-17 is now a **component of the
+  REACH-18 combined floor** below — both families are needed for ≥36 bits; neither is
+  superseded.
+- **Second sharpened floor — two-void-context family** [exchange-adjudicated CONFIRMED
+  — program executed ALL_PASS (16/16, 17.3s); 3/3 adversarial referees SOUND; same
+  evidentiary tier and same verification-tier caveat as REACH-17, REACH-18]: a certified
+  family of **19,245,318,365** additional reachable supports built from a *two*-void-
+  context construction — a called star plus a disjoint natural effective suit under pip
+  trump, with the connecting tile `t:q` retained in the hidden pool. Phase blocks:
+  9,471,489,300 / 4,501,822,325 / 3,249,441,195 / 2,022,565,545. Structural disjointness
+  from the *entire* REACH-17 family: all 519 retained classes carry two distinct proper
+  holder categories with nonempty `N`, impossible for any 001-family support (referee-
+  verified independently, and the disjointness from the 001 *no-void* subfamily is
+  unconditional). Combined floor **17,668,066,045 + 19,245,318,365 = 36,913,384,410 >
+  2³⁵** ⇒ **≥36 bits** standalone, interval **[36,46]**; margin over 2³⁵ is
+  2,553,646,042. Verification tier (kept visible): reachability machine-replayed for
+  3,114 template representatives; within-class generalization and disjointness-from-001
+  close via prose argument + referee adversarial replay, **not** end-to-end machine
+  replay of all ~19B members. Fallbacks: the new family alone is > 2³⁴ (≥35 bits
+  independent of 001); no single sub-block reaches ≥36 without the full family
+  (largest block + 001 floor = 27,139,555,345 < 2³⁵). The REACH-11 ceiling
+  64,123,542,674,901 < 2⁴⁶ was independently re-reproduced in the same run. The
+  response explicitly disclaims closing the exact census or any full declaration
+  class. Source: `exchange/inbox/006-exact-reachable-census.md`, verified program
+  `exchange/adjudication/programs/006.py`.
 - **Transport-commutation** [exchange-adjudicated CONFIRMED — program executed ALL_PASS
   (4.6s); 3/3 adversarial referees SOUND; a new evidentiary tier, not a corpus theorem
   and not a kernel proof]: the order-preserving complement transport commutes with
@@ -149,7 +174,7 @@ the kernel-proved tier.)*
   `f_{t,u}(R_t)=R_u`, **not** a status upgrade; the exchange-adjudicated framing here
   remains primary.
 - **[UNRESOLVED, REACH-13 / OPEN-11]**: the exact `|R_Str^m|`, and hence the optimal
-  standalone width in `35..46` (exchange-adjudicated; corpus-proved `26..46`), is open.
+  standalone width in `36..46` (exchange-adjudicated; corpus-proved `26..46`), is open.
   Both packages refuse to collapse it by guesswork.
 
 Boundary [REACH-03A + rec TRANS-08]: standalone reachable support is not a complete

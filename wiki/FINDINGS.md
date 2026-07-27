@@ -89,9 +89,10 @@ exactly. Reproduction requires nothing but Python 3.12 stdlib.
    exhaustively-verified counterexample killing coordinate-only value; unusually
    strong because both histories keep all 90 worlds at positive mass.
 4. **Feasible ≠ reachable with an explicit reduced witness** (REACH-10) plus the
-   **[35,46]-bit interval** (corpus-proved [26,46], narrowed to [35,46] at the
-   exchange-adjudicated tier by REACH-17) with honest refusal to guess the exact count
-   (REACH-11..13, REACH-17). A second feasible-but-unreachable witness that *passes*
+   **[36,46]-bit interval** (corpus-proved [26,46], narrowed to [36,46] at the
+   exchange-adjudicated tier by REACH-17 + REACH-18 — combined floor 36,913,384,410 >
+   2³⁵) with honest refusal to guess the exact count
+   (REACH-11..13, REACH-17/18). A second feasible-but-unreachable witness that *passes*
    lead-witness (exchange 002) shows the outer language is not even tight.
 5. **rec's dynamic-support package** (TRANS-08..14): support-NF as a closed transition
    state, matching-minor update ≡ conditioning, monotone deletion, 63-edge budget —
@@ -103,9 +104,9 @@ exactly. Reproduction requires nothing but Python 3.12 stdlib.
 
 ## 5. Load-bearing unresolved claims
 
-- **OPEN-11**: exact `|R_Str^m|` inside **[35,46] bits** (exchange-narrowed; corpus-
+- **OPEN-11**: exact `|R_Str^m|` inside **[36,46] bits** (exchange-narrowed; corpus-
   proved [26,46]) — controls the feasibility of a precomputed reachable-support index (a
-  46-bit space is enumerable; a 35-bit one comfortably so). rec's symbolic support DAG
+  46-bit space is enumerable; a 36-bit one comfortably so). rec's symbolic support DAG
   is the counting substrate. By the transport theorem (exchange 004) the counting DP
   need only enumerate one pip-trump class plus DT and NT — restate the feasibility
   window against `7·r_pip + |R_DT| + |R_NT|` rather than nine independent classes.
@@ -193,8 +194,11 @@ packages):
   exact integer (with an independently checkable enumeration strategy) or a proved
   tighter interval than 26–46 bits. Partial credit: the exact count restricted to
   no-void states or to `j ≤ 2` completed tricks.
-  *Progress (exchange-adjudicated):* best floor now **17,668,066,045 > 2³⁴ ⇒ [35,46]**
-  (REACH-17, exchange 001); and by the transport theorem (exchange 004) the DP need only
+  *Progress (exchange-adjudicated):* best floor now **36,913,384,410 > 2³⁵ ⇒ [36,46]**
+  (REACH-17 + REACH-18, exchange 001 + 006 — the 006 family is a structurally disjoint
+  two-void-context construction of 19,245,318,365 supports; the exact census and any
+  full declaration class remain open, explicitly disclaimed by 006); and by the
+  transport theorem (exchange 004) the DP need only
   enumerate one pip-trump class plus DT and NT, so restate the feasibility window
   against `7·r_pip + |R_DT| + |R_NT|` rather than nine independent classes.
 - **Q2 (attack REACH-11's language).** Construct a feasible, support-reduced normal
