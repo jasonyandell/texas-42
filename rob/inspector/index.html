@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>rob inspector — Texas 42 self-play walkthrough</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #14171c; --panel: #1c2027; --panel2: #232833; --line: #323a47;
+    --text: #d7dce4; --dim: #8b93a1; --accent: #d9a441; --good: #6fbf73;
+    --bad: #d76c6c; --pip: #e8e4da; --bone: #f5f1e6; --bone-dark: #2a2f3a;
+    --hl: #35507a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 14px/1.45 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  header {
+    padding: 10px 16px; border-bottom: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: baseline;
+    background: var(--panel);
+  }
+  header h1 { font-size: 16px; margin: 0; color: var(--accent); }
+  header .note { color: var(--dim); font-size: 12px; }
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+    padding: 8px 16px; border-bottom: 1px solid var(--line); background: var(--panel);
+  }
+  button, select {
+    background: var(--panel2); color: var(--text); border: 1px solid var(--line);
+    border-radius: 5px; padding: 4px 10px; font: inherit; cursor: pointer;
+  }
+  button:hover { border-color: var(--accent); }
+  button.active { background: var(--hl); border-color: var(--accent); }
+  input[type=range] { width: 260px; vertical-align: middle; }
+  .kbd { color: var(--dim); font-size: 12px; }
+  main { display: grid; grid-template-columns: minmax(560px, 1.2fr) minmax(380px, 1fr); gap: 12px; padding: 12px 16px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+  .panel h2 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); }
+
+  /* table layout */
+  .table { display: grid; grid-template-rows: auto auto auto; gap: 8px; }
+  .seat-row { display: flex; justify-content: center; }
+  .mid-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: stretch; }
+  .seat {
+    background: var(--panel2); border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; min-width: 150px;
+  }
+  .seat.actor { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .seat .who { display: flex; gap: 6px; align-items: baseline; margin-bottom: 6px; flex-wrap: wrap; }
+  .seat .who .name { font-weight: 700; }
+  .badge { font-size: 10px; padding: 1px 6px; border-radius: 8px; background: var(--hl); color: var(--text); }
+  .badge.b-lead { background: #4a3f74; }
+  .badge.b-bid { background: #6b4a2b; }
+  .badge.b-team0 { background: #2b4a44; }
+  .badge.b-team1 { background: #4a2b3d; }
+  .hand { display: flex; flex-wrap: wrap; gap: 5px; min-height: 46px; }
+
+  /* dominoes */
+  .dom {
+    display: inline-flex; flex-direction: column; width: 30px; height: 58px;
+    background: var(--bone); border-radius: 5px; border: 1px solid #b9b29f;
+    overflow: hidden; position: relative; color: #222;
+  }
+  .dom .half { flex: 1; display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(3,1fr); padding: 3px; }
+  .dom .half:first-child { border-bottom: 1.5px solid #8f8873; }
+  .dom .pip { width: 5px; height: 5px; border-radius: 50%; background: #23262c; place-self: center; }
+  .dom.small { width: 24px; height: 46px; }
+  .dom.small .pip { width: 4px; height: 4px; }
+  .dom.back { background: var(--bone-dark); border-color: var(--line); }
+  .dom.back .half { visibility: hidden; }
+  .dom.back::after {
+    content: "42"; position: absolute; inset: 0; display: grid; place-items: center;
+    color: var(--dim); font-size: 11px;
+  }
+  .dom.chosen { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .dom.count5::before, .dom.count10::before {
+    content: ""; position: absolute; top: 1px; right: 1px; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--accent);
+  }
+
+  /* trick area */
+  .trick {
+    background: var(--panel2); border: 1px solid var(--line); border-radius: 8px;
+    display: grid; grid-template-areas: ". n ." "w c e" ". s ."; gap: 4px;
+    padding: 10px; min-width: 190px; min-height: 190px; place-items: center;
+  }
+  .trick .slot { min-width: 30px; min-height: 58px; display: grid; place-items: center; }
+  .trick .center { grid-area: c; color: var(--dim); font-size: 12px; text-align: center; }
+  .slot-n { grid-area: n; } .slot-e { grid-area: e; } .slot-s { grid-area: s; } .slot-w { grid-area: w; }
+
+  table.vals { border-collapse: collapse; width: 100%; }
+  table.vals th, table.vals td { padding: 3px 8px; border-bottom: 1px solid var(--line); text-align: right; }
+  table.vals th { color: var(--dim); font-weight: 400; font-size: 12px; }
+  table.vals td:first-child, table.vals th:first-child { text-align: left; }
+  tr.best td { background: var(--hl); }
+  .exact { color: var(--accent); }
+  .approx { color: var(--dim); }
+
+  table.marg { border-collapse: collapse; width: 100%; font-size: 12px; }
+  table.marg th, table.marg td { padding: 2px 6px; border-bottom: 1px solid var(--line); }
+  table.marg td.bar { min-width: 84px; }
+  .barbox { background: var(--bg); border-radius: 3px; height: 10px; position: relative; overflow: hidden; }
+  .barfill { position: absolute; inset: 0 auto 0 0; background: var(--good); opacity: .75; }
+  .zero { color: var(--dim); }
+  .certain { color: var(--good); font-weight: 700; }
+
+  .statline { display: flex; gap: 18px; flex-wrap: wrap; color: var(--dim); font-size: 12px; margin-top: 6px; }
+  .statline b { color: var(--text); }
+  .result { margin-top: 6px; padding: 6px 8px; border-radius: 6px; background: var(--panel2); }
+  .made { color: var(--good); } .set { color: var(--bad); }
+  .hiddennote { color: var(--dim); font-style: italic; padding: 8px 0; }
+  .afterline { margin-top: 8px; color: var(--dim); font-size: 12px; }
+  .afterline b { color: var(--text); }
+  footer { padding: 8px 16px; color: var(--dim); font-size: 12px; border-top: 1px solid var(--line); }
+  #drop { display: none; padding: 40px; text-align: center; color: var(--dim); }
+</style>
+</head>
+<body>
+<header>
+  <h1>rob inspector</h1>
+  <span id="meta" class="note"></span>
+  <span class="note">non-normative diagnostic view — display only; all game logic and exact values come from the Rust trace</span>
+</header>
+<div class="controls">
+  <button id="prevHand" title="previous hand (PgUp)">⇤ hand</button>
+  <button id="prev" title="previous state (←)">← state</button>
+  <input type="range" id="slider" min="0" value="0">
+  <button id="next" title="next state (→)">state →</button>
+  <button id="nextHand" title="next hand (PgDn)">hand ⇥</button>
+  <span id="pos" class="kbd"></span>
+  <span style="flex:1"></span>
+  <span class="kbd">perspective:</span>
+  <span id="persp"></span>
+  <span class="kbd">keys: ←/→ step · PgUp/PgDn hand · 0–3 seat view · O omniscient</span>
+</div>
+<div id="drop">no trace loaded — run <code>cargo run --release --bin trace_player</code> in <code>rob/</code>, or drop a <code>trace.json</code> here</div>
+<main id="main" style="display:none">
+  <section class="panel">
+    <h2 id="handTitle"></h2>
+    <div class="table">
+      <div class="seat-row"><div class="seat" id="seat2"></div></div>
+      <div class="mid-row">
+        <div class="seat" id="seat3"></div>
+        <div class="trick" id="trick"></div>
+        <div class="seat" id="seat1"></div>
+      </div>
+      <div class="seat-row"><div class="seat" id="seat0"></div></div>
+    </div>
+    <div class="statline" id="scoreline"></div>
+    <div class="afterline" id="afterline"></div>
+    <div class="result" id="auctionline"></div>
+    <div class="result" id="resultline" style="display:none"></div>
+  </section>
+  <section>
+    <div class="panel" id="decisionPanel">
+      <h2 id="decisionTitle">decision</h2>
+      <div id="decisionBody"></div>
+    </div>
+    <div class="panel" style="margin-top:12px" id="beliefPanel">
+      <h2 id="beliefTitle">belief</h2>
+      <div id="beliefBody"></div>
+    </div>
+  </section>
+</main>
+<footer>
+  Exactness: totals are integers; averages are exact reduced rationals from the trace ("≈" marks a display-only decimal).
+  Perspective masking is emitted per seat by the Rust tracer; this page never derives a seat view from the omniscient deal.
+</footer>
+<script src="./trace.js"></script>
+<script>
+"use strict";
+(function () {
+  let T = window.ROB_TRACE || null;
+  const $ = (id) => document.getElementById(id);
+
+  // ---- flat state index -------------------------------------------------
+  let steps = [];        // {h, d} indices into T.hands[h].decisions[d]
+  let cursor = 0;
+  let perspective = "omni"; // "0".."3" | "omni"
+
+  function buildIndex() {
+    steps = [];
+    T.hands.forEach((hand, h) => hand.decisions.forEach((_, d) => steps.push({ h, d })));
+    $("slider").max = String(steps.length - 1);
+  }
+
+  // ---- domino rendering -------------------------------------------------
+  const PIPS = {0:[],1:[4],2:[0,8],3:[0,4,8],4:[0,2,6,8],5:[0,2,4,6,8],6:[0,2,3,5,6,8]};
+  const COUNT5 = new Set(["5-0","4-1","3-2"]), COUNT10 = new Set(["5-5","6-4"]);
+  function domino(name, opts) {
+    opts = opts || {};
+    const el = document.createElement("div");
+    el.className = "dom" + (opts.small ? " small" : "") + (opts.chosen ? " chosen" : "");
+    if (COUNT5.has(name)) el.classList.add("count5");
+    if (COUNT10.has(name)) el.classList.add("count10");
+    el.title = name + (COUNT5.has(name) ? " (5 count)" : COUNT10.has(name) ? " (10 count)" : "");
+    const [hi, lo] = name.split("-").map(Number);
+    for (const half of [hi, lo]) {
+      const hd = document.createElement("div");
+      hd.className = "half";
+      for (let i = 0; i < 9; i++) {
+        const cell = document.createElement("div");
+        if (PIPS[half].includes(i)) cell.className = "pip";
+        hd.appendChild(cell);
+      }
+      el.appendChild(hd);
+    }
+    return el;
+  }
+  function backTile() {
+    const el = document.createElement("div");
+    el.className = "dom back";
+    el.appendChild(document.createElement("div")).className = "half";
+    el.appendChild(document.createElement("div")).className = "half";
+    return el;
+  }
+
+  // ---- helpers ----------------------------------------------------------
+  const seatName = (s) => "S" + s;
+  const teamOf = (s) => s % 2;
+  const commas = (str) => String(str).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  function marksBefore(h) {
+    return h === 0 ? [0, 0] : (T.hands[h - 1].result ? T.hands[h - 1].result.marks_after : [0, 0]);
+  }
+
+  // ---- rendering --------------------------------------------------------
+  function render() {
+    const { h, d } = steps[cursor];
+    const hand = T.hands[h];
+    const dec = hand.decisions[d];
+    $("slider").value = String(cursor);
+    $("pos").textContent =
+      `state ${cursor + 1}/${steps.length} · hand ${hand.index} · trick ${dec.trick} · play ${dec.pos + 1}/4`;
+    $("handTitle").textContent =
+      `hand ${hand.index} — shaker ${seatName(hand.shaker)}, bidder ${seatName(hand.bidder)}, ` +
+      `declaration ${hand.declaration} — viewing: ${perspective === "omni" ? "omniscient" : "seat " + seatName(+perspective)}`;
+
+    renderSeats(hand, dec);
+    renderTrick(hand, dec);
+    renderScore(hand, dec);
+    renderAfter(dec);
+    renderAuction(hand, d);
+    renderDecision(dec);
+    renderBelief(dec);
+  }
+
+  function handTilesFor(seatIdx, hand, dec) {
+    // Masking rule: a seat's face-up tiles come ONLY from that seat's own
+    // emitted view (or from truth in omniscient mode). Never derived here.
+    if (perspective === "omni") return { up: dec.truth[seatIdx] };
+    if (+perspective === seatIdx) return { up: dec.views[seatIdx].own };
+    return { down: 7 - dec.public.played[seatIdx].length };
+  }
+
+  function renderSeats(hand, dec) {
+    for (let s = 0; s < 4; s++) {
+      const el = $("seat" + s);
+      el.innerHTML = "";
+      el.classList.toggle("actor", dec.actor === s);
+      const who = document.createElement("div");
+      who.className = "who";
+      who.innerHTML =
+        `<span class="name">${seatName(s)}</span>` +
+        `<span class="badge b-team${teamOf(s)}">T${teamOf(s)}</span>` +
+        (hand.bidder === s ? `<span class="badge b-bid">bidder</span>` : "") +
+        (dec.public.leader === s ? `<span class="badge b-lead">leader</span>` : "") +
+        (dec.actor === s ? `<span class="badge">to act</span>` : "");
+      el.appendChild(who);
+      const handEl = document.createElement("div");
+      handEl.className = "hand";
+      const tiles = handTilesFor(s, hand, dec);
+      if (tiles.up) {
+        for (const t of tiles.up) {
+          const isChosen = dec.actor === s && t === dec.decision.chosen;
+          handEl.appendChild(domino(t, { chosen: isChosen }));
+        }
+      } else {
+        for (let i = 0; i < tiles.down; i++) handEl.appendChild(backTile());
+      }
+      el.appendChild(handEl);
+      const voids = dec.public.voids[s];
+      if (voids.length) {
+        const v = document.createElement("div");
+        v.className = "kbd";
+        v.textContent = "public voids: " + voids.map((q) => (q === "C" ? "called" : "suit " + q)).join(", ");
+        el.appendChild(v);
+      }
+    }
+  }
+
+  function renderTrick(hand, dec) {
+    const el = $("trick");
+    el.innerHTML = "";
+    const slots = { 0: "slot-s", 1: "slot-e", 2: "slot-n", 3: "slot-w" };
+    const played = new Map(dec.public.trick.map(([a, t]) => [a, t]));
+    for (let s = 0; s < 4; s++) {
+      const slot = document.createElement("div");
+      slot.className = "slot " + slots[s];
+      if (played.has(s)) slot.appendChild(domino(played.get(s), { small: true }));
+      el.appendChild(slot);
+    }
+    const center = document.createElement("div");
+    center.className = "center";
+    center.innerHTML = dec.public.trick.length
+      ? `trick ${dec.trick}<br>${dec.public.trick.length} played`
+      : `trick ${dec.trick}<br>${seatName(dec.public.leader)} to lead`;
+    el.appendChild(center);
+  }
+
+  function renderScore(hand, dec) {
+    const mb = marksBefore(steps[cursor].h);
+    $("scoreline").innerHTML =
+      `<span>points <b>T0 ${dec.public.points[0]} — ${dec.public.points[1]} T1</b></span>` +
+      `<span>marks before hand <b>T0 ${mb[0]} — ${mb[1]} T1</b> (target ${T.config.match_target})</span>` +
+      `<span>played ${dec.play}/28</span>`;
+  }
+
+  function renderAfter(dec) {
+    let txt = `after this play: <b>${seatName(dec.actor)}</b> plays <b>${dec.decision.chosen}</b>`;
+    if (dec.trick_complete)
+      txt += ` — trick to <b>${seatName(dec.trick_complete.winner)}</b> (+${dec.trick_complete.points}), ` +
+             `points T0 ${dec.after_points[0]} — ${dec.after_points[1]} T1, ` +
+             `<b>${seatName(dec.after_leader)}</b> leads next`;
+    $("afterline").innerHTML = txt;
+  }
+
+  function renderAuction(hand, d) {
+    $("auctionline").innerHTML =
+      `auction: ` + hand.auction.map(([s, a]) => `${seatName(s)}:${a}`).join("  ") +
+      ` <span class="kbd">(${hand.auction_note})</span>`;
+    const r = hand.result;
+    const last = d === hand.decisions.length - 1;
+    $("resultline").style.display = last && r ? "" : "none";
+    if (last && r)
+      $("resultline").innerHTML =
+        `hand result: declaring T${r.declaring_team} took <b>${r.declaring_points}</b> — ` +
+        `<span class="${r.made ? "made" : "set"}">${r.made ? "MADE" : "SET"}</span> ` +
+        `(${r.stake} mark to T${r.award_team}) — marks now T0 ${r.marks_after[0]} — ${r.marks_after[1]} T1`;
+  }
+
+  function renderDecision(dec) {
+    const el = $("decisionBody");
+    const mine = perspective !== "omni" && +perspective === dec.actor;
+    $("decisionTitle").textContent =
+      `decision — ${seatName(dec.actor)} to act` + (dec.decision.forced ? " (forced)" : "");
+    if (!(mine || perspective === "omni")) {
+      el.innerHTML = `<div class="hiddennote">${seatName(dec.actor)} is deciding — evaluation hidden from ` +
+        `${seatName(+perspective)}'s perspective (it derives from ${seatName(dec.actor)}'s private hand)</div>`;
+      return;
+    }
+    const dd = dec.decision;
+    if (dd.forced) {
+      el.innerHTML = `<div class="hiddennote">single legal play: ${dd.chosen} (no worlds sampled)</div>`;
+      return;
+    }
+    let best = 0;
+    dd.totals.forEach((t, i) => { if (t > dd.totals[best]) best = i; });
+    let rows = dd.legal.map((tile, i) => {
+      const approx = (dd.totals[i] / dd.worlds).toFixed(2);
+      return `<tr class="${i === best ? "best" : ""}"><td>${tile}${i === best ? " ◀" : ""}</td>` +
+        `<td>${dd.totals[i]}</td><td class="exact">${dd.avgs[i]}</td><td class="approx">≈${approx}</td></tr>`;
+    }).join("");
+    el.innerHTML =
+      `<div class="kbd">utility ${T.player.lens} · ${dd.worlds} worlds sampled uniformly from the exact fiber · ` +
+      `one common rollout policy fixed before sampling (average-then-max)</div>` +
+      `<table class="vals"><tr><th>action</th><th>total</th><th>exact avg</th><th>display</th></tr>${rows}</table>`;
+  }
+
+  function renderBelief(dec) {
+    const el = $("beliefBody");
+    const viewSeat = perspective === "omni" ? dec.actor : +perspective;
+    const view = dec.views[viewSeat];
+    $("beliefTitle").textContent =
+      `belief — ${seatName(viewSeat)}'s exact support` + (perspective === "omni" ? " (actor's view)" : "");
+    const total = Number(view.fiber);
+    let head =
+      `<div class="kbd">unseen pool ${view.pool.length} tiles · exact fiber count ` +
+      `<span class="exact">${commas(view.fiber)}</span> worlds</div>` +
+      `<div class="kbd">hidden seats (clockwise): ` +
+      view.hidden.map((s, i) =>
+        `${seatName(s)} cap ${view.caps[i]} / allowed ${view.psizes[i]}`).join(" · ") +
+      `</div>`;
+    let rows = view.marginals.map(([tile, c0, c1, c2]) => {
+      const cs = [c0, c1, c2];
+      const cells = cs.map((c) => {
+        const n = Number(c);
+        if (n === 0) return `<td class="bar zero" title="0/${view.fiber}">—</td>`;
+        const pct = total > 0 ? (100 * n / total) : 0;
+        const certain = n === total;
+        return `<td class="bar" title="${c}/${view.fiber} exact">` +
+          `<div class="barbox"><div class="barfill" style="width:${pct.toFixed(1)}%"></div></div>` +
+          `<span class="${certain ? "certain" : ""}">${certain ? "certain" : pct.toFixed(0) + "%"}</span></td>`;
+      }).join("");
+      return `<tr><td>${tile}</td>${cells}</tr>`;
+    }).join("");
+    el.innerHTML = head +
+      `<table class="marg"><tr><th>tile</th>` +
+      view.hidden.map((s) => `<th>${seatName(s)}</th>`).join("") +
+      `</tr>${rows}</table>` +
+      `<div class="kbd">bars are display-only; hover a cell for the exact count / fiber ratio</div>`;
+  }
+
+  // ---- controls ---------------------------------------------------------
+  function go(i) {
+    cursor = Math.max(0, Math.min(steps.length - 1, i));
+    render();
+  }
+  function handStart(h) {
+    return steps.findIndex((s) => s.h === h);
+  }
+  function prevHand() {
+    const { h, d } = steps[cursor];
+    go(d > 0 ? handStart(h) : handStart(Math.max(0, h - 1)));
+  }
+  function nextHand() {
+    const { h } = steps[cursor];
+    const i = handStart(h + 1);
+    go(i === -1 ? steps.length - 1 : i);
+  }
+  function setPerspective(p) {
+    perspective = p;
+    document.querySelectorAll("#persp button").forEach((b) =>
+      b.classList.toggle("active", b.dataset.p === p));
+    render();
+  }
+
+  function init() {
+    if (!T) { $("drop").style.display = "block"; return; }
+    $("main").style.display = "";
+    $("meta").textContent =
+      `${T.format} v${T.version} · match seed ${T.match_seed} · player seed ${T.player.seed} · ` +
+      `${T.player.worlds_per_decision} worlds/decision · lens ${T.player.lens} · ` +
+      `final T0 ${T.final_marks[0]} — ${T.final_marks[1]} T1`;
+    buildIndex();
+    const persp = $("persp");
+    persp.innerHTML = "";
+    for (const p of ["0", "1", "2", "3", "omni"]) {
+      const b = document.createElement("button");
+      b.dataset.p = p;
+      b.textContent = p === "omni" ? "omniscient" : "S" + p;
+      b.onclick = () => setPerspective(p);
+      persp.appendChild(b);
+    }
+    $("prev").onclick = () => go(cursor - 1);
+    $("next").onclick = () => go(cursor + 1);
+    $("prevHand").onclick = prevHand;
+    $("nextHand").onclick = nextHand;
+    $("slider").oninput = (e) => go(+e.target.value);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") go(cursor - 1);
+      else if (e.key === "ArrowRight") go(cursor + 1);
+      else if (e.key === "PageUp") { e.preventDefault(); prevHand(); }
+      else if (e.key === "PageDown") { e.preventDefault(); nextHand(); }
+      else if (e.key === "Home") go(0);
+      else if (e.key === "End") go(steps.length - 1);
+      else if (["0", "1", "2", "3"].includes(e.key)) setPerspective(e.key);
+      else if (e.key.toLowerCase() === "o") setPerspective("omni");
+    });
+    setPerspective("omni");
+  }
+
+  // drag-drop fallback for a trace.json
+  document.addEventListener("dragover", (e) => e.preventDefault());
+  document.addEventListener("drop", (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (!file) return;
+    file.text().then((text) => { T = JSON.parse(text); init(); });
+  });
+
+  init();
+})();
+</script>
+</body>
+</html>

@@ -16,14 +16,17 @@
 
 pub mod bidding;
 pub mod match_driver;
+pub mod observer;
 pub mod player;
 pub mod policy;
 pub mod rng;
 pub mod rollout;
+pub mod trace;
 pub mod worlds;
 
 pub use bidding::{placeholder_auction_script, placeholder_declaration};
-pub use match_driver::{self_play_match, MatchTranscript, SelfPlayStats};
+pub use match_driver::{run_match, self_play_match, MatchTranscript, SelfPlayStats};
+pub use observer::{DecisionContext, HandEndContext, HandStartContext, MatchObserver};
 pub use player::{viewer_legal, DecisionReport, MonteCarloPlayer, UtilityLens};
 pub use policy::{RandomLegal, RolloutPolicy, RolloutView};
 pub use rng::{SeededExactSource, SplitMix64};

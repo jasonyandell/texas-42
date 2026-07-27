@@ -15,6 +15,7 @@ use rob_core::{
 };
 
 use crate::bidding::{placeholder_auction_script, placeholder_declaration};
+use crate::observer::{DecisionContext, HandEndContext, HandStartContext, MatchObserver};
 use crate::player::MonteCarloPlayer;
 use crate::rng::SplitMix64;
 
@@ -39,12 +40,14 @@ pub struct MatchTranscript {
     pub final_marks: [u32; 2],
 }
 
-fn fmt_domino(id: DominoId) -> String {
+/// Compact domino display, `high-low` (e.g. `6-4`).
+pub fn fmt_domino(id: DominoId) -> String {
     let d = domino_from_id(id);
     format!("{}-{}", d.high().value(), d.low().value())
 }
 
-fn fmt_declaration(declaration: Declaration) -> String {
+/// Compact declaration display: `P<pip>`, `DT`, or `NT`.
+pub fn fmt_declaration(declaration: Declaration) -> String {
     match declaration {
         Declaration::PipTrump(p) => format!("P{}", p.value()),
         Declaration::DoublesTrump => "DT".to_string(),
@@ -70,6 +73,18 @@ pub fn self_play_match(
     player: &MonteCarloPlayer,
     seed: u64,
 ) -> MatchTranscript {
+    run_match(config, player, seed, &mut ())
+}
+
+/// [`self_play_match`] with a passive observer for trace emission. The
+/// observer never influences play: RNG usage, nonces, and the transcript
+/// are identical with or without one.
+pub fn run_match(
+    config: RulesConfig,
+    player: &MonteCarloPlayer,
+    seed: u64,
+    observer: &mut impl MatchObserver,
+) -> MatchTranscript {
     let mut rng = SplitMix64::new(seed);
     let mut lines = Vec::new();
     let mut stats = SelfPlayStats::default();
@@ -84,6 +99,7 @@ pub fn self_play_match(
             let (next, _) = apply_auction_action(&attempt, action, config).expect("legal");
             attempt = next;
         }
+        let auction_actions = attempt.auction.actions().to_vec();
         let pending = match close_auction(attempt, &m_auction, config).expect("closes") {
             CloseAuctionOutcome::Pending(p) => p,
             CloseAuctionOutcome::AllPass(_) => unreachable!("the placeholder always bids"),
@@ -101,6 +117,15 @@ pub fn self_play_match(
             fmt_declaration(declaration)
         ));
 
+        observer.on_hand_start(&HandStartContext {
+            attempt_index,
+            shaker: match_state.shaker(),
+            bidder,
+            declaration,
+            auction_actions: &auction_actions,
+            deal: &deal,
+        });
+
         // Per-seat viewer states: each seat sees only its own hand plus the
         // public prefix.
         let contract = *objective.state().contract();
@@ -117,6 +142,16 @@ pub fn self_play_match(
             let report = player.decide(&viewers[actor.index()], nonce);
             let domino = report.chosen;
             let (next, _, trick_result) = apply_play(&objective, domino).expect("legal play");
+            observer.on_decision(&DecisionContext {
+                attempt_index,
+                play_index,
+                actor,
+                report: &report,
+                viewers: &viewers,
+                objective_before: &objective,
+                objective_after: &next,
+                trick_result,
+            });
             objective = next;
             trick_line.push(format!("S{}:{}", actor.index(), fmt_domino(domino)));
             for viewer in &mut viewers {
@@ -152,6 +187,13 @@ pub fn self_play_match(
             next_match.marks()[0],
             next_match.marks()[1],
         ));
+        observer.on_hand_end(&HandEndContext {
+            attempt_index,
+            result: &hand_result,
+            marks_after: next_match.marks(),
+            declaration,
+            bidder,
+        });
         let entry = stats
             .per_declaration
             .entry(fmt_declaration(declaration))
@@ -164,6 +206,7 @@ pub fn self_play_match(
         match_state = next_match;
         attempt_index += 1;
     }
+    observer.on_match_end(match_state.marks(), stats.hands);
     lines.push(format!(
         "match result: T0 {} - {} T1 after {} hands",
         match_state.marks()[0],
