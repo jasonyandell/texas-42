@@ -18,6 +18,39 @@ open inspector/index.html                # or: python3 -m http.server -d inspect
 Keys: `←`/`→` step · `PgUp`/`PgDn` hand · `0`–`3` seat perspective ·
 `O` omniscient · `Home`/`End`.
 
+## Trump indicator
+
+The header shows a badge for the current hand's declaration — `trump: 3s` for
+a pip trump, `trump: doubles`, or `no-trump (follow-me)`. Every trump tile is
+highlighted (violet border + corner mark) wherever it renders — in the hands
+and in the current trick, identically in the per-seat and omniscient views.
+Which tiles are trump is **not** decided in JS: the Rust tracer emits the
+exact called-and-powered tile set per hand (`hands[h].trump`, the called set
+`κ_δ` of Math §3.2), and the viewer only marks those names.
+
+## Shareable links (URL hash params)
+
+The full inspector position is mirrored into the URL hash, so the address bar
+is always a copy-paste shareable link to the exact state on screen. Hash (not
+query) params are used because they update without a reload and are safe on
+`file://` URLs. Format:
+
+```
+#hand=<hand-array-index>&step=<play-index 0..27>&view=<0|1|2|3|omni>
+```
+
+Example — hand 2, the 14th play (`step=13`), from seat 0's perspective:
+
+```
+inspector/index.html#hand=2&step=13&view=0
+```
+
+Every navigation (arrows, hand paging, perspective switch, slider) rewrites
+the hash in place via `history.replaceState`. On load — or when a shared hash
+is pasted into the address bar — the viewer jumps straight to that state;
+missing or invalid params fall back gracefully to the start of hand 0 in the
+omniscient view.
+
 ## Honesty rules
 
 - The trace is **non-normative** diagnostic output, but deterministic: the

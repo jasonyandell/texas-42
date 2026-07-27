@@ -32,6 +32,21 @@ fn trace_structure_and_masking() {
     for hand in &doc.hands {
         assert_eq!(hand.decisions.len(), 28);
         assert!(hand.result.is_some(), "every hand settles");
+        // Trump is public and exact: no-trump has none, every other Straight
+        // declaration names exactly its seven called tiles, and each is a
+        // real domino name.
+        let trump_len = hand.trump.len();
+        assert!(
+            trump_len == 0 || trump_len == 7,
+            "trump is empty (no-trump) or exactly the seven called tiles"
+        );
+        assert_eq!(
+            trump_len == 0,
+            hand.declaration == "NT",
+            "empty trump iff no-trump declaration"
+        );
+        let names: BTreeSet<&String> = hand.trump.iter().collect();
+        assert_eq!(names.len(), trump_len, "trump tiles are distinct");
         let deal: [BTreeSet<&String>; 4] = core::array::from_fn(|s| hand.deal[s].iter().collect());
         for decision in &hand.decisions {
             // Chosen action is legal; argmax honesty on the emitted totals.

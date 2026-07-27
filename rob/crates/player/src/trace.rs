@@ -14,8 +14,8 @@ use num_bigint::BigUint;
 use num_traits::Zero;
 
 use rob_core::{
-    assignment_count, derive_rule_cells, AuctionAction, BidValue, DominoSet, LedSuit,
-    MechanicalState, RulesConfig, Seat, HIDDEN_SEATS,
+    all_ids, assignment_count, derive_rule_cells, domino_from_id, natural_incidence, AuctionAction,
+    BidValue, Declaration, DominoSet, LedSuit, MechanicalState, RulesConfig, Seat, HIDDEN_SEATS,
 };
 
 use crate::match_driver::{fmt_declaration, fmt_domino, run_match};
@@ -125,6 +125,10 @@ pub struct TraceHand {
     pub bidder: u8,
     /// Declaration display.
     pub declaration: String,
+    /// The declaration's trump (called-and-powered) tiles, canonical order —
+    /// exactly the public trump suit for this hand, so the viewer marks trump
+    /// tiles without recomputing any game rule (Math §3.2 called set `κ_δ`).
+    pub trump: Vec<String>,
     /// The actor-attributed auction actions.
     pub auction: Vec<(u8, String)>,
     /// The omniscient dealt hands (truth).
@@ -152,6 +156,20 @@ pub struct TraceDocument {
 
 fn fmt_set(set: &DominoSet) -> Vec<String> {
     set.iter().map(fmt_domino).collect()
+}
+
+/// The declaration's trump (called-and-powered) tile set, mirroring the
+/// called set `κ_δ` built by the core suit tables (Math §3.2): every domino
+/// bearing the trump pip, the seven doubles, or nothing for no-trump. Public
+/// information — the viewer only marks these tiles, it never derives them.
+fn trump_set(declaration: Declaration) -> DominoSet {
+    match declaration {
+        Declaration::PipTrump(pip) => natural_incidence(pip),
+        Declaration::DoublesTrump => {
+            DominoSet::from_ids(all_ids().filter(|&id| domino_from_id(id).is_double()))
+        }
+        Declaration::NoTrump => DominoSet::empty(),
+    }
 }
 
 fn fmt_context(q: LedSuit) -> String {
@@ -234,6 +252,7 @@ impl MatchObserver for TraceObserver {
             shaker: context.shaker.index() as u8,
             bidder: context.bidder.index() as u8,
             declaration: fmt_declaration(context.declaration),
+            trump: fmt_set(&trump_set(context.declaration)),
             auction: context
                 .auction_actions
                 .iter()
@@ -470,12 +489,13 @@ impl TraceHand {
             ),
         };
         format!(
-            "{{\"index\":{},\"shaker\":{},\"bidder\":{},\"declaration\":{},\"auction\":{},\
+            "{{\"index\":{},\"shaker\":{},\"bidder\":{},\"declaration\":{},\"trump\":{},\"auction\":{},\
              \"auction_note\":{},\"deal\":[{}],\"decisions\":[{}],\"result\":{}}}",
             self.index,
             self.shaker,
             self.bidder,
             json_string(&self.declaration),
+            json_str_array(&self.trump),
             json_pairs(&self.auction),
             json_string("placeholder heuristic (left of shaker bids P(30)); not a modeled policy"),
             deal.join(","),

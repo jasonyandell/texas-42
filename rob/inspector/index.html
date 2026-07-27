@@ -23,6 +23,15 @@
   }
   header h1 { font-size: 16px; margin: 0; color: var(--accent); }
   header .note { color: var(--dim); font-size: 12px; }
+  .trumpbadge {
+    font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 10px;
+    border: 1.5px solid #8f7bd6; background: #2b2540; color: #d9cffb; white-space: nowrap;
+  }
+  .trumpbadge.notrump { border-color: var(--line); background: var(--panel2); color: var(--dim); }
+  .trumpbadge .swatch {
+    display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px;
+    background: #8f7bd6; vertical-align: baseline; position: relative; top: 1px;
+  }
   .controls {
     display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
     padding: 8px 16px; border-bottom: 1px solid var(--line); background: var(--panel);
@@ -75,6 +84,12 @@
     color: var(--dim); font-size: 11px;
   }
   .dom.chosen { outline: 2px solid var(--accent); outline-offset: 1px; }
+  /* trump tiles: public declaration highlight, consistent in every view */
+  .dom.trump { border-color: #8f7bd6; box-shadow: inset 0 0 0 1.5px #8f7bd6; background: #efe9ff; }
+  .dom.trump::after {
+    content: ""; position: absolute; bottom: 1px; left: 1px; width: 0; height: 0;
+    border-left: 6px solid transparent; border-bottom: 6px solid #8f7bd6;
+  }
   .dom.count5::before, .dom.count10::before {
     content: ""; position: absolute; top: 1px; right: 1px; width: 6px; height: 6px;
     border-radius: 50%; background: var(--accent);
@@ -120,6 +135,7 @@
 <body>
 <header>
   <h1>rob inspector</h1>
+  <span id="trumpBadge" class="trumpbadge" title="current hand's declaration / trump suit"></span>
   <span id="meta" class="note"></span>
   <span class="note">non-normative diagnostic view — display only; all game logic and exact values come from the Rust trace</span>
 </header>
@@ -179,6 +195,7 @@
   let steps = [];        // {h, d} indices into T.hands[h].decisions[d]
   let cursor = 0;
   let perspective = "omni"; // "0".."3" | "omni"
+  let trumpSet = new Set(); // current hand's trump tiles (from the Rust trace)
 
   function buildIndex() {
     steps = [];
@@ -192,10 +209,15 @@
   function domino(name, opts) {
     opts = opts || {};
     const el = document.createElement("div");
-    el.className = "dom" + (opts.small ? " small" : "") + (opts.chosen ? " chosen" : "");
+    // Trump membership comes ONLY from the Rust trace (T.hands[h].trump),
+    // exposed here as trumpSet; JS never decides which tiles are trump.
+    const isTrump = trumpSet.has(name);
+    el.className = "dom" + (opts.small ? " small" : "") + (opts.chosen ? " chosen" : "") +
+      (isTrump ? " trump" : "");
     if (COUNT5.has(name)) el.classList.add("count5");
     if (COUNT10.has(name)) el.classList.add("count10");
-    el.title = name + (COUNT5.has(name) ? " (5 count)" : COUNT10.has(name) ? " (10 count)" : "");
+    el.title = name + (isTrump ? " (trump)" : "") +
+      (COUNT5.has(name) ? " (5 count)" : COUNT10.has(name) ? " (10 count)" : "");
     const [hi, lo] = name.split("-").map(Number);
     for (const half of [hi, lo]) {
       const hd = document.createElement("div");
@@ -230,6 +252,8 @@
     const { h, d } = steps[cursor];
     const hand = T.hands[h];
     const dec = hand.decisions[d];
+    trumpSet = new Set(hand.trump || []);
+    renderTrumpBadge(hand);
     $("slider").value = String(cursor);
     $("pos").textContent =
       `state ${cursor + 1}/${steps.length} · hand ${hand.index} · trick ${dec.trick} · play ${dec.pos + 1}/4`;
@@ -244,6 +268,21 @@
     renderAuction(hand, d);
     renderDecision(dec);
     renderBelief(dec);
+    updateHash();
+  }
+
+  // Display-only formatting of the Rust declaration code into a readable
+  // trump label; the trump tiles themselves come from hand.trump.
+  function renderTrumpBadge(hand) {
+    const el = $("trumpBadge");
+    const decl = hand.declaration;
+    let label, notrump = false;
+    if (decl === "NT") { label = "no-trump (follow-me)"; notrump = true; }
+    else if (decl === "DT") label = "trump: doubles";
+    else if (/^P\d$/.test(decl)) label = "trump: " + decl.slice(1) + "s";
+    else label = "trump: " + decl; // unknown code — show verbatim
+    el.classList.toggle("notrump", notrump);
+    el.innerHTML = (notrump ? "" : `<span class="swatch"></span>`) + label;
   }
 
   function handTilesFor(seatIdx, hand, dec) {
@@ -426,6 +465,47 @@
     render();
   }
 
+  // ---- shareable state via URL hash params ------------------------------
+  // Format: #hand=<h>&step=<d>&view=<0-3|omni>  (hash, not query, so it is
+  // safe and reload-free on file:// URLs). Every navigation rewrites it in
+  // place with replaceState so the address bar stays copy-paste shareable.
+  function currentHash() {
+    const { h, d } = steps[cursor];
+    return `#hand=${h}&step=${d}&view=${perspective === "omni" ? "omni" : perspective}`;
+  }
+  function updateHash() {
+    const hash = currentHash();
+    if (location.hash === hash) return;
+    try { history.replaceState(null, "", hash); }
+    catch (_) { location.hash = hash; } // file:// SecurityError fallback
+  }
+  function parseHash() {
+    const out = {};
+    for (const part of location.hash.replace(/^#/, "").split("&")) {
+      if (!part) continue;
+      const eq = part.indexOf("=");
+      const k = eq < 0 ? part : part.slice(0, eq);
+      const v = eq < 0 ? "" : part.slice(eq + 1);
+      out[k] = decodeURIComponent(v);
+    }
+    return out;
+  }
+  // Set cursor/perspective from the URL, clamping and ignoring anything
+  // invalid; missing params keep the current defaults (start + omniscient).
+  function applyHash() {
+    const p = parseHash();
+    if (p.view === "omni") perspective = "omni";
+    else if (["0", "1", "2", "3"].includes(p.view)) perspective = p.view;
+    const h = parseInt(p.hand, 10);
+    if (Number.isInteger(h) && h >= 0 && h < T.hands.length) {
+      const dRaw = parseInt(p.step, 10);
+      const d = Number.isInteger(dRaw) && dRaw >= 0 && dRaw < T.hands[h].decisions.length
+        ? dRaw : 0;
+      const idx = steps.findIndex((s) => s.h === h && s.d === d);
+      if (idx >= 0) cursor = idx;
+    }
+  }
+
   function init() {
     if (!T) { $("drop").style.display = "block"; return; }
     $("main").style.display = "";
@@ -458,7 +538,12 @@
       else if (["0", "1", "2", "3"].includes(e.key)) setPerspective(e.key);
       else if (e.key.toLowerCase() === "o") setPerspective("omni");
     });
-    setPerspective("omni");
+    // Manual edits to the address bar (a shared link opened in place) jump
+    // straight to that state; our own replaceState writes never fire this.
+    window.addEventListener("hashchange", () => { applyHash(); setPerspective(perspective); });
+    // Jump to any state named in the URL (falls back to start + omniscient).
+    applyHash();
+    setPerspective(perspective);
   }
 
   // drag-drop fallback for a trace.json
