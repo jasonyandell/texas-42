@@ -257,6 +257,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "rob-player"
+version = "0.1.0"
+dependencies = [
+ "num-bigint",
+ "num-traits",
+ "proptest",
+ "rob-core",
+]
+
+[[package]]
 name = "rob-verify"
 version = "0.1.0"
 dependencies = [

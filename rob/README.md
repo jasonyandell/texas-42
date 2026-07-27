@@ -25,15 +25,19 @@ cross-package discrepancies are already resolved in BRIEF §1.
 
 ## Layout
 
-Rust workspace (see BRIEF §2–3): `crates/core` is the pure engine, `crates/verify`
-holds the receipt binaries, `receipts/` the committed expected outputs, and
+Rust workspace (see BRIEF §2–3): `crates/core` is the pure engine (RNG-free),
+`crates/verify` holds the receipt binaries, `crates/player` the evening player
+(fixed-field Monte Carlo best response at the root, Math §11.4 — all seeded
+randomness lives there), `receipts/` the committed expected outputs, and
 `ci/check.sh` the full gate (fmt, clippy, no-float grep, tests, receipt diffs).
 
 ## Status
 
-Slice 01 (declaration algebra through support normal form + capacity DP) is assigned
-by `BRIEF.md`. Later slices — support dynamics, reduced kernel, belief, solver — are
-scoped there and not yet assigned. The Lean 4 formalization
+Slice 01 (declaration algebra through support normal form + capacity DP) is
+complete and green per `BRIEF.md`; the evening player v0 (play only, placeholder
+bidding, exact uniform-fiber belief) is its first downstream customer. Later slices
+— support dynamics, reduced kernel, belief tilt, solver — are scoped in the brief
+and not yet assigned. The Lean 4 formalization
 ([wiki/proof-assistant-plan](../wiki/proof-assistant-plan.md)) is a companion track
 that consumes rob's receipts; rob is outside the proof kernel's trust boundary by
 design.
