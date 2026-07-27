@@ -1,0 +1,4 @@
+rob S6 verification: PASS
+r_sym_corpus: 108 hands; 3,024 transitions; 3,024 three-way agreements
+r_sym_budget: 6,804 deletions; 63 per hand; no reappearance
+r_sym_reject: 324

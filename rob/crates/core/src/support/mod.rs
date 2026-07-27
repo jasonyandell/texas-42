@@ -8,6 +8,7 @@ pub mod dynamics;
 pub mod normal_form;
 pub mod reduce;
 pub mod sampler;
+pub mod symbolic;
 
 /// Explicit support-layer errors (Exec §24).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]

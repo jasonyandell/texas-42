@@ -71,4 +71,8 @@ pub use support::normal_form::{
 };
 pub use support::reduce::{marginal_allowed, marginal_by_projection, reduce};
 pub use support::sampler::{sample_uniform_world, world_probability, ExactRationalChoiceSource};
+pub use support::symbolic::{
+    validate_symbolic_trace, validate_symbolic_trace_with, AcceptedSymbolicSupport,
+    SymbolicRejection, SymbolicTraceCertificate,
+};
 pub use support::SupportError;
