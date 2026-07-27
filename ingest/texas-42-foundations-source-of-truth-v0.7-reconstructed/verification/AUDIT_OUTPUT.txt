@@ -1,0 +1,6 @@
+Texas 42 Foundations structural audit: PASS
+UTF-8 text files checked: 14; lines: 14,390
+local Markdown links checked: 14
+unique substantive claim IDs: 255
+normative/project-neutral documents checked: 8
+cross-document kernel markers checked: 17

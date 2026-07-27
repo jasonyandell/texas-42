@@ -1,0 +1,54 @@
+=== verification/verify_foundation.py ===
+Texas 42 Foundations finite verification: PASS
+dominoes: 28
+straight declarations: 9
+ordered deals: 472,518,347,558,400
+conditional hidden assignments: 399,072,960
+unique-winner cases: 737,100
+prose-rule winner agreement cases: 737,100
+auction terminal histories for caps 1..7: (2380, 3060, 3196, 3213, 3214, 3214, 3214)
+auction reached mark maxima for caps 1..7: (1, 2, 3, 4, 5, 5, 5)
+auction histories for caps 5, 6, and 7: identical
+Hall systems checked: 66,968
+exact fiber-count coefficient/recurrence agreements: 66,968
+exact uniform count-ratio sampler world probabilities checked: 22,620
+marginal holder edges checked by world projection vs Hall: 785,736
+canonical support-reduction systems checked: 66,968
+native unrestricted capacity profiles checked: 512
+native unrestricted fiber maximum: 399,072,960 worlds; count DP <= 512 occupancy states total, 1,533 candidate-holder checks, 1,344 capacity-eligible updates, 48 live states/layer
+abstract typed cell transitions (universes <= 3): 14,412 leads; 56,460 follows; 56,460 sloughs
+reachable cell/deal support parity prefixes: 972 (970 with public voids)
+typed support transitions: 864 total; 648 hidden nonincrease; 216 viewer equality
+count points: 35; seven trick points: 7; total: 42
+count-preserving pip permutations: 2
+scoped nontrivial pip transport: 2 <-> 3 only in declarations 2 and 3
+history witness auction paths: legal; bidder seat 3 at 31
+history witness fiber worlds: 90
+history anchor world 0 Q: {'3-1': 10, '4-1': -22}
+history anchor world 1 Q: {'3-1': -22, '4-1': 22}
+history A posterior 4-4-holder masses: ('1/7', '4/7', '2/7')
+history B posterior 4-4-holder masses: ('1/2', '1/4', '1/4')
+history A posterior expected Q: {'3-1': Fraction(-160, 21), '4-1': Fraction(10, 7)}
+history B posterior expected Q: {'3-1': Fraction(-217, 30), '4-1': Fraction(-52, 5)}
+history A posterior make probabilities: {'3-1': Fraction(1, 3), '4-1': Fraction(16, 35)}
+history B posterior make probabilities: {'3-1': Fraction(1, 3), '4-1': Fraction(1, 5)}
+same 90-world rule support and posterior support; opposite best leads: PASS
+negative witnesses: threat, dependent cells, local-vs-marginal edge, reduction instability, reflection: PASS
+
+=== verification/verify_minimality_and_reachability.py ===
+Texas 42 support minimality and reachability verification: PASS
+tiny global-normal-form systems: 66,968 total; 14,578 feasible; 22,620 SCC witness compilations; 2,151 essential exclusions; 22,620 rank/unrank world checks
+native ternary signatures/matrices: 136,514 signatures; 1,667,666 matrices; max 114/signature
+S3 quotient: 23,842 signature orbits; 296,721 representative matrices; 279,048 stabilizer orbits; max 103/signature
+full native exact-support census: empty=1; determinate=8,102,258,940,222,814; binary=11,495,078,055,913,018,482; ternary=1,830,955,704,129,296,418,354,864; total=1,830,967,207,309,611,271,596,161; fixed-width minimum=81 bits
+reachable hidden-capacity profiles: 50
+observable lead contexts per declaration: 7; lead-fiber sizes: 1..7
+projected schedule counts A_j: (1, 50, 1079, 13084, 97119, 450066, 1273609, 2097152)
+projected schedule counts T_j,1: (8, 323, 5524, 51759, 286770, 947017, 1817216, 2097152)
+projected schedule counts T_j,2: (22, 743, 10844, 88159, 428562, 1244937, 2080768, 2097152)
+necessary outer reachability profiles: 7,124,838,074,989/declaration; 64,123,542,674,901 total; standalone ceiling=46 bits
+context-supplied outer ceilings: declaration supplied <=43 bits; capacity profile supplied <=43 bits; both supplied <=40 bits
+universally reachable no-void supports: 44,352,165; standalone floor=26 bits
+feasible-but-unreachable witness: 18 hidden tiles; 450 static generators checked; matching generators=((0, 7, 1), (8, 0, 1)); lead-fiber sizes=(7, 1); all lead tiles hidden
+proved standalone reachable-support interval: 26..46 bits
+supplemental support/reachability bits relative to certified mechanical state: 0
