@@ -61,8 +61,10 @@ The five results and what slice 02 does with each:
    note, binding on later slices' memo keys; **no slice-02 code**.
 4. **x:004 — transport commutes with reachability:** `f_{t,u}(R_t) = R_u` for all
    ordered pip-trump pairs. Reachable-census work needs only **3 declaration
-   classes**, not 9. The response's Step-15 overlap corollary is CONDITIONAL on an
-   unproved cocycle lemma and is **excluded**. → S9.
+   classes**, not 9. The response's Step-15 overlap corollary's cocycle lemma has
+   since been closed by finite check (`exchange/adjudication/programs/004-cocycle.py`,
+   ALL_PASS over all 343 ordered triples); the corollary is nevertheless **excluded**
+   from slice-02 scope. → S9.
 5. **x:005 — census integer audit clean.** All 19 load-bearing census integers
    independently reproduced; **no corpus corrections needed** — slice-01 receipts
    stand untouched. A new Burnside decomposition (136,514 / 2,156 / 35 → 23,842)
@@ -147,8 +149,9 @@ stage's receipts are green and committed.
 - The **general (all-phase) formalization of the fifth condition** — S7 implements
   exactly the shallow-phase check the x:002 proof establishes, plus the witness
   regression; generalizing it is exchange/wiki work, not rob's.
-- **x:004's Step-15 overlap corollary** (conditional on the unproved cocycle
-  lemma) — the 3-class quotient is in scope; cross-class overlap arithmetic is not.
+- **x:004's Step-15 overlap corollary** (its cocycle lemma is now closed by finite
+  check, `004-cocycle.py`) — the 3-class quotient is in scope; cross-class overlap
+  arithmetic is not.
 - Auction solver, CLI, UI, optimization caches before correctness — never.
 
 ---
