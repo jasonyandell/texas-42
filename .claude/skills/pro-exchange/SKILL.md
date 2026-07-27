@@ -20,6 +20,17 @@ after confirmation. If a send attempt errors ambiguously, **open the
 conversation in the UI and check before deciding whether it counted — never
 risk a double-spend by retrying blind.**
 
+**PRE-SEND GUARD (multi-agent double-send lesson, 2026-07-27).** When more than
+one agent or session might be live, in the *same breath* as launching
+`submit.mjs` first (1) re-read `submission_count.txt`, and (2) open the target
+conversation and scan for an already-present identical user turn (same
+attachments/body). Abort if the count moved or that turn already exists. A
+coordinator's stand-down order is **not** a substitute for this check — orders
+and sends cross in flight. Dispatch 006 was double-sent exactly this way (a
+second `submit.mjs` posted a duplicate into the 001 conversation; count jumped
+5→7, wasting one lifetime submission). `submit.mjs` cannot self-guard because it
+baselines only its own view; the operator must do the pre-send check.
+
 ## Courier protocol
 
 - Dispatch: `exchange/outbox/NNN-slug.md` — YAML frontmatter (`number`, `slug`,
