@@ -1,0 +1,14 @@
+{
+  "tag": "001-reachable-support-cardinality",
+  "number": "1",
+  "slug": "reachable-support-cardinality",
+  "channel": "new-chat",
+  "conversationUrl": "https://chatgpt.com/c/6a66e786-2ac0-83ea-ade0-dff707fae5e6",
+  "submittedAt": "2026-07-27T05:07:18.983Z",
+  "baselineAssistantCount": 0,
+  "attachments": [
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/10_RULES.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/20_MATHEMATICAL_FOUNDATION.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/verification/verify_minimality_and_reachability.py"
+  ]
+}

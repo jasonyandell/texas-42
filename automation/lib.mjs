@@ -87,6 +87,15 @@ export async function pasteIntoComposer(page, text) {
   const mod = 'Meta';
   await page.keyboard.press(`${mod}+KeyV`);
   await page.waitForTimeout(1500);
+  // Long pastes get auto-collapsed into a "Pasted text" chip; expand it back
+  // so the body is sent inline as the message text, per protocol.
+  const expanded = await page.evaluate(() => {
+    const b = Array.from(document.querySelectorAll('button, [role="button"]'))
+      .find(x => /show in text field/i.test(x.textContent));
+    if (b) { b.click(); return true; }
+    return false;
+  });
+  if (expanded) await page.waitForTimeout(2000);
 }
 
 export async function composerText(page) {
@@ -96,6 +105,12 @@ export async function composerText(page) {
 // Attach a file via the hidden #upload-files input that backs the "+" menu.
 export async function attachFile(page, filePath) {
   await page.locator('#upload-files').setInputFiles(filePath);
+}
+
+// ChatGPT may rename duplicate uploads ("10_RULES(3).md"), so match on the
+// extension-less stem, truncated.
+export function chipStem(fileName) {
+  return fileName.replace(/\.[^.]+$/, '').slice(0, 20);
 }
 
 // Upload complete when every filename shows in the form AND the send button is
@@ -111,7 +126,7 @@ export async function waitForUploads(page, fileNames, timeoutMs = 180000) {
         sendDisabled: send ? (send.disabled || send.getAttribute('aria-disabled') === 'true') : true,
       };
     });
-    const allNamed = fileNames.every(n => state.formText.includes(n));
+    const allNamed = fileNames.every(n => state.formText.includes(chipStem(n)));
     if (allNamed && !state.sendDisabled) return true;
     await page.waitForTimeout(2000);
   }

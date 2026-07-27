@@ -5,7 +5,7 @@
 // appends a ledger row placeholder is left to the operator.
 import { connect, openPage, shot, log, ensureProModel, currentModelLabel,
          pasteIntoComposer, composerText, attachFile, waitForUploads,
-         clearComposer, sendMessage, parseDispatch, ROOT } from './lib.mjs';
+         clearComposer, sendMessage, parseDispatch, chipStem, ROOT } from './lib.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -55,7 +55,7 @@ try {
   await pasteIntoComposer(page, body);
   await page.waitForTimeout(1000);
   if (attachments.length) {
-    await waitForUploads(page, attachments.map(a => path.basename(a).slice(0, 20)));
+    await waitForUploads(page, attachments.map(a => path.basename(a)));
     log(`${tag}: uploads complete`);
   }
 
@@ -80,7 +80,9 @@ try {
     const u = page.url();
     const userCount = await page.evaluate(() =>
       document.querySelectorAll('[data-message-author-role="user"]').length);
-    if (userCount > baseline.user && /\/c\//.test(u)) { convUrl = u; break; }
+    // the URL first gets a client-side placeholder id like /c/WEB:...; wait
+    // for the server-assigned uuid before recording
+    if (userCount > baseline.user && /\/c\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f-]+$/i.test(u)) { convUrl = u; break; }
   }
   await shot(page, `${tag}-sent`);
   if (!convUrl) throw new Error(`${tag}: AMBIGUOUS SEND — inspect ${tag}-sent.png before retrying`);
@@ -106,7 +108,7 @@ try {
     return { userTurnText: turn?.innerText || '', userCount: users.length };
   });
   const missing = attachments.map(a => path.basename(a)).filter(n =>
-    !check.userTurnText.includes(n.slice(0, 20)));
+    !check.userTurnText.includes(chipStem(n)));
   const bodyOk = check.userTurnText.replace(/\s+/g, ' ').includes(norm(body).slice(0, 80));
   await shot(page, `${tag}-verified`);
   if (!bodyOk || missing.length) {

@@ -50,3 +50,4 @@ answer can be verified here without trusting the model.
 
 | # | slug | dispatched | response | adjudicated | outcome |
 |---|------|-----------|----------|-------------|---------|
+| 001 | reachable-support-cardinality | 2026-07-27T05:07:18Z [conv](https://chatgpt.com/c/6a66e786-2ac0-83ea-ade0-dff707fae5e6) | pending | — | — |
