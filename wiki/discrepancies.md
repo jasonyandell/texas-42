@@ -44,6 +44,9 @@ resolutions are realized *here in the wiki*, not by editing the packages.
 - **Resolution: v0.7 naming.** Confidence: **high**. The object provably admits
   members that decode to infeasible or unreachable support (both packages' Math
   §7.13.6 says so); "certificate" is a soundness hazard.
+- **Exchange note (dispatch 005):** the external 005 audit response used the deprecated
+  "outer certificates" naming; the D3 resolution (v0.7 "necessary outer profiles")
+  stands and all numbers agree — cosmetic only.
 
 ## D4. Verifier independence overclaim
 
@@ -160,3 +163,20 @@ resolutions are realized *here in the wiki*, not by editing the packages.
   `AUDIT_OUTPUT.txt` exactly. **Resolution:** run the audit first or delete
   `__pycache__` before auditing; note that the checked-in `ingest/` copies currently
   contain `__pycache__` directories (not covered by the MANIFESTs). Confidence: **high**.
+
+## D16. Exchange-side SHA provenance blemishes (non-load-bearing)
+
+Two exchange responses cited a verifier SHA-256 that matches no retrievable artifact;
+in both the adjudication treats the *inline fenced program* (saved under
+`exchange/adjudication/programs/`) as the authoritative artifact of record, and both
+pass with the exact claimed statistics, so the taint is confined to the "identical
+download" narrative and does not affect either verdict.
+
+- **Dispatch 003**: response-claimed SHA-256 `8e9992ed…` matches neither the fenced
+  program (`b4ae4913…`) nor any retrievable copy (sandbox download link dead).
+- **Dispatch 004**: cited sandbox SHA-256 `c56c0c50…` matches the inline fenced program
+  (actual SHA-256 `13420aa7…`) under no normalization; the download link is dead. The
+  inline block at `exchange/adjudication/programs/004.py` is the sole artifact of record.
+
+**Resolution:** fenced/inline block is authoritative in both cases. Confidence: **high**
+(does not affect the verdicts).

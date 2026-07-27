@@ -89,7 +89,10 @@ exactly. Reproduction requires nothing but Python 3.12 stdlib.
    exhaustively-verified counterexample killing coordinate-only value; unusually
    strong because both histories keep all 90 worlds at positive mass.
 4. **Feasible ≠ reachable with an explicit reduced witness** (REACH-10) plus the
-   26–46-bit interval with honest refusal to guess (REACH-11..13).
+   **[35,46]-bit interval** (corpus-proved [26,46], narrowed to [35,46] at the
+   exchange-adjudicated tier by REACH-17) with honest refusal to guess the exact count
+   (REACH-11..13, REACH-17). A second feasible-but-unreachable witness that *passes*
+   lead-witness (exchange 002) shows the outer language is not even tight.
 5. **rec's dynamic-support package** (TRANS-08..14): support-NF as a closed transition
    state, matching-minor update ≡ conditioning, monotone deletion, 63-edge budget —
    this is what makes an efficient exact implementation *obviously* possible.
@@ -100,11 +103,15 @@ exactly. Reproduction requires nothing but Python 3.12 stdlib.
 
 ## 5. Load-bearing unresolved claims
 
-- **OPEN-11**: exact `|R_Str^m|` inside 26–46 bits — controls the feasibility of a
-  precomputed reachable-support index (a 46-bit space is enumerable; 26-bit would be
-  trivially so). rec's symbolic support DAG is the counting substrate.
-- **OPEN-01 (rec)**: reduced kernel vs future-equivalence quotient — controls whether
-  the memoization key for an exact solver is already optimal.
+- **OPEN-11**: exact `|R_Str^m|` inside **[35,46] bits** (exchange-narrowed; corpus-
+  proved [26,46]) — controls the feasibility of a precomputed reachable-support index (a
+  46-bit space is enumerable; a 35-bit one comfortably so). rec's symbolic support DAG
+  is the counting substrate. By the transport theorem (exchange 004) the counting DP
+  need only enumerate one pip-trump class plus DT and NT — restate the feasibility
+  window against `7·r_pip + |R_DT| + |R_NT|` rather than nine independent classes.
+- **OPEN-01 (rec) — RESOLVED (COLLAPSE, exchange 003)**: the reduced kernel is strictly
+  finer than the future-equivalence quotient for the support-aware contract, so the
+  fold-ordinal coordinate is not an optimal memoization key (dead-cut lemma).
 - **OPEN-12**: no support-only reachability criterion — external states must replay a
   trace (now deal-free, but still ancestry-bearing).
 - **Off-path beliefs (OPEN-07)** and the **match-level horizon** (unbounded all-pass;
@@ -186,6 +193,10 @@ packages):
   exact integer (with an independently checkable enumeration strategy) or a proved
   tighter interval than 26–46 bits. Partial credit: the exact count restricted to
   no-void states or to `j ≤ 2` completed tricks.
+  *Progress (exchange-adjudicated):* best floor now **17,668,066,045 > 2³⁴ ⇒ [35,46]**
+  (REACH-17, exchange 001); and by the transport theorem (exchange 004) the DP need only
+  enumerate one pip-trump class plus DT and NT, so restate the feasibility window
+  against `7·r_pip + |R_DT| + |R_NT|` rather than nine independent classes.
 - **Q2 (attack REACH-11's language).** Construct a feasible, support-reduced normal
   form that passes **all** outer necessary checks — reachable capacity shape (range
   ≤1), schedule-admissible void masks, lead-witness tiles outside the pool, Hall —
@@ -193,6 +204,10 @@ packages):
   check, so it does not test the full conjunction). Alternatively, prove the
   conjunction is *sufficient* for the phase `j = 1`, one void context. Either outcome
   materially moves the 46-bit ceiling.
+  *Resolved (exchange-adjudicated, negative):* the witness (NT, (6,6,6), V₁={6})
+  passes **all four** outer checks yet is unreachable — refuting the sufficiency
+  direction (B) for the `j=1` equal-capacity one-void phase. New fifth necessary
+  condition established: the follower-supply obstruction (exchange 002).
 - **Q3 (attack OPEN-01/PLAY-17).** Construct two distinct reduced viewer kernels
   `K₁ ≠ K₂` (same declaration and utility interface) that are future-equivalent under
   the full support-aware output contract (legality + support output + trick reward +
@@ -200,6 +215,11 @@ packages):
   kernel *is* the Myhill–Nerode quotient. Note the candidate collapse directions:
   utility-accumulator redundancy, fold-ordinal coincidences across contexts, and
   unscored-transport coincidences.
+  *Answered (exchange-adjudicated):* the requested pair exists, is reachable, and is
+  machine-verified — two distinct reduced kernels (18-tile full-Ternary support normal
+  form, identical `ε`, `r0=r1=6`) that are future-equivalent under the support-aware
+  contract, so the kernel is strictly finer than the Myhill–Nerode quotient (COLLAPSE),
+  via the fold-ordinal / dead-cut mechanism (exchange 003).
 - **Q4 (gauge-reduce the census).** Prove or refute: the order-preserving complement
   transport `f_{t,u}` (rec Math §3.10) maps `R_Str^m` for pip trump `t` bijectively
   onto that for `u` — i.e. legal-prefix generation commutes with unscored transport.
@@ -207,6 +227,10 @@ packages):
   classes, simplifying Q1 and shaving the outer-profile count; if false, exhibit a
   reachable support whose transport is unreachable (that would be a *very*
   interesting asymmetry, since support semantics is count-blind).
+  *Answered (exchange-adjudicated, affirmative):* `f_{t,u}(R_t)=R_u` is machine-certified
+  — the transport commutes with legal-prefix generation, collapsing the census from 9
+  tags to 3 classes; the Step-15 cocycle gap is closed by finite check over all 343
+  triples (exchange 004, `programs/004-cocycle.py`).
 - **Q5 (independent audit of the load-bearing integers).** Re-derive from scratch,
   without consulting the Python, the four census families: (a) the full-schema counts
   N_det = 8,102,258,940,222,814, N_bin = 11,495,078,055,913,018,482,

@@ -71,6 +71,14 @@ executable repair; see [discrepancies D2](discrepancies.md).)
   to 23,842 orbits [CELL-22], with stabilizer-orbit sampling exactly preserving the
   labeled law [CELL-23]. Explicit packed-table byte budgets (86 KB count table…)
   are constructive upper bounds, not claimed minima.
+  - **Burnside decomposition of the 23,842 orbit count** [exchange-adjudicated
+    CONFIRMED — external, not a corpus theorem and not a kernel proof]: the `S₃`
+    fixed-point profile is **136,514** signatures fixed by the identity, **2,156** by
+    each transposition, and **35** by each three-cycle, giving
+    `(136,514 + 3·2,156 + 2·35)/6 = 23,842`. These per-element fixed counts were not
+    previously in the corpus; they are newly established, confirmed by exchange dispatch
+    005's program (`exchange/adjudication/programs/005.py`) plus two independent referee
+    derivations. Source `exchange/inbox/005-census-integer-audit.md`.
 - **Ordered completion automaton** [Theorem — proved, CELL-25]: residual-capacity
   vectors form the unique minimal partial DFA for a fixed tile order; native ternary
   state fits 9 bits universally [CELL-25A].

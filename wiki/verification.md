@@ -125,6 +125,43 @@ no cross-implementation meaning; only the 972 corpus shape does.
 Slice 02 (support dynamics: TRANS-08..14, REACH-06..16) is scoped in rob/BRIEF §4
 and has **not** been begun.
 
+## Exchange-adjudicated program runs (external evidentiary tier)
+
+Recorded 2026-07-27. Five verification programs from the Claude ↔ ChatGPT 5.6 Pro
+exchange were executed here unmodified from `exchange/adjudication/programs/`; each
+result is **exchange-adjudicated CONFIRMED** (program `ALL_PASS`; 3/3 adversarial
+referees SOUND) — a new external tier, **not** a proof-assistant kernel proof (TRUST-01).
+See [claim-ledger](claim-ledger.md) for the full set.
+
+- **Census integers independently reproduced** (dispatch 005): all 19 load-bearing
+  census integers — previously single-source verifier receipts — were reproduced by an
+  external audit, program archived at `exchange/adjudication/programs/005.py`, rerun
+  locally **19 PASS / exit 0 / ~13s**, with three SOUND referee reports. The integers:
+  N_det 8,102,258,940,222,814; N_bin 11,495,078,055,913,018,482;
+  N_ter 1,830,955,704,129,296,418,354,864; grand total
+  1,830,967,207,309,611,271,596,161 (2⁸⁰ < total < 2⁸¹); outer-profile totals
+  7,124,838,074,989 and 64,123,542,674,901; max C(k) 839,220,930,919; floor 44,352,165;
+  and the signature-census chain 136,514 / 23,842 / 1,667,666 / 114 / 296,721 / 21,686 /
+  2,121 / 35 / 279,048 / 103. Referee-side foreign methods included a max-flow validator
+  over all 343 triples reproducing the 136,514 criterion, an exact-rational EGF for
+  N_det, and a brute-forced ternary validity criterion over 16,712 structural cases.
+  The status of these integers is upgraded from single-source verifier receipts to
+  **independently reproduced**.
+- **Transport-commutation run** (dispatch 004): `programs/004.py`, stdlib-only, exit 0
+  in 4.58s, all anchors reproduced (307,328 ALG-22 comparisons; 45,472 commutation
+  checks, 38,976 nontrivial; 6,496 prefixes; 224 deals); 4/4 injected mutations caught
+  (broken order preservation, unmapped exclusions, untransported deal, unmapped void
+  contexts). Mechanical scope is **family certification per contract** (single auction
+  shape, 224 pseudo-random traces); universality is carried by the prose induction, not
+  the run. The Step-15 cocycle gap is separately closed by `programs/004-cocycle.py`
+  (all 343 ordered pip-trump triples, ALL_PASS; finite verification receipt,
+  exchange-side).
+- **Kernel-quotient adjudication tooling** (dispatch 003): `programs/003.py` is a
+  reusable synchronized-product **bisimulation checker** with diagonal closure plus
+  capacitated-Hall support-fiber conditioning, teeth-tested via forged `r/w/z`
+  perturbations — the standard instrument for future kernel-vs-quotient claims (exit 0,
+  0.43s, 8/8 checks green).
+
 ## Caveats
 
 1. **The `__pycache__` trap** ([discrepancies D15](discrepancies.md)): running the

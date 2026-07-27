@@ -15,6 +15,14 @@ COUNTEREXAMPLE · BOUNDARY · CONJECTURE · UNRESOLVED.
 "Implemented, tested, fast, useful" are explicitly **not** mathematical statuses.
 A finite program proves only the finite statement it exhausts (Math §0).
 
+**Exchange-adjudicated CONFIRMED** (new tier, external): a result from the Claude ↔
+ChatGPT 5.6 Pro exchange whose verification program executed `ALL_PASS` and whose chain
+all three adversarial referees rated SOUND. It is **not** "Theorem — proved" in the
+corpus sense and **not** a proof-assistant kernel proof; per TRUST-01 these receipts
+stay visibly external. Where such a result RESOLVES an open question, the evidentiary
+tier is kept next to the RESOLVED label. See the exchange-adjudicated results section
+below.
+
 ## Inventory shape
 
 - **v0.7 ledger**: ~230 rows in 10 sections (scope/rules, algebra, deal/auction/
@@ -44,6 +52,21 @@ A finite program proves only the finite statement it exhausts (Math §0).
 | UTIL/TEAM/QUO/SYM/FAC rows | [strategic-state](strategic-state.md), [reduced-viewer-kernel](reduced-viewer-kernel.md) |
 | TYPE-01..03, TRUST-01 (v0.7 only) | [proof-assistant-plan](proof-assistant-plan.md) |
 | OPEN-01..12 | [open-problems](open-problems.md) |
+
+## Exchange-adjudicated results (external evidentiary tier)
+
+Five results from the Claude ↔ ChatGPT 5.6 Pro exchange
+([exchange/README.md](../exchange/README.md)), adjudicated here 2026-07-27. Status is
+**exchange-adjudicated CONFIRMED** as defined above; each row cites its inbox file and
+the verified program under `exchange/adjudication/programs/`.
+
+| Result | Where explained | Status / caveat |
+|---|---|---|
+| **REACH-17** — certified disjoint family of 17,668,066,045 reachable supports ⇒ [35,46] bits (inbox/001, programs/001.py) | [reachability](reachability.md) | exchange-adjudicated CONFIRMED (ALL_PASS 15.9s; 3/3 SOUND). **Verification-tier caveat**: reachability/disjointness of the counted family are prose trace-templates closed by referee adversarial replay, **not** end-to-end machine replay. Machine-hardened fallback tiers: ≥2³³ i.e. [34,46] without the four winning-void-trick rows; no-void family alone ≥30 bits. |
+| **Outer language NOT tight** (RESOLVED negative) — witness (NT,(6,6,6),V₁={6}) (inbox/002, programs/002.py; witnesses/002.json byte-identical to inbox) | [reachability](reachability.md), [open-problems](open-problems.md) | exchange-adjudicated CONFIRMED (16/16 PASS 0.911s; 3/3 SOUND, three independent re-verifications: 1,276,560-trace single-layer enumeration; 301,860-state recursive DFS with max-flow feasibility; corpus ID/integer cross-check). New fifth necessary condition: follower-supply obstruction. |
+| **OPEN-01 collapse** — reduced kernel strictly finer than the future-equivalence quotient (inbox/003, programs/003.py, witnesses/003.json) | [reduced-viewer-kernel](reduced-viewer-kernel.md), [open-problems](open-problems.md) | exchange-adjudicated CONFIRMED 2026-07-27 (ALL_PASS 0.43s; 3/3 SOUND). Product stats 204 / 22,848 / 1,604 / 1,280 reproduced and independently re-derived; dead-cut lemma mechanism. SHA provenance blemish non-load-bearing ([discrepancies](discrepancies.md)). |
+| **Transport theorem** `f_{t,u}(R_t)=R_u` (inbox/004, programs/004.py) | [reachability](reachability.md) | exchange-adjudicated CONFIRMED (ALL_PASS 4.6s; 3/3 SOUND). Headline bijection proved + family-certified; census collapses 9→3 classes. Step-15 quotient cardinality `7·r_pip + |R_DT| + |R_NT|` was CONDITIONAL on the cocycle lemma `f_{u,v}∘f_{t,u}=f_{t,v}`; **gap now closed** by finite check over all 343 ordered pip-trump triples (`programs/004-cocycle.py`, ALL_PASS — finite verification receipt, exchange-side). Artifact of record: inline `programs/004.py` (SHA-256 13420aa7…); external sandbox SHA c56c0c50… unverifiable/dead link. |
+| **Census-integer audit** — all 19 load-bearing integers independently reproduced (inbox/005, programs/005.py) | [verification](verification.md), [minimal-support-normal-form](minimal-support-normal-form.md) | exchange-adjudicated CONFIRMED (19/19 PASS ~13s; 3/3 SOUND). CELL-27 and REACH-11/12 integers now carry an independent external reproduction via two computation routes per integer, with referee brute-force confirmation of the inherited assumptions (ternary validity over 16,712 structural cases, 0 mismatches; {1..7} lead-fiber multiset re-derived from the raw 28 dominoes for all 9 declarations). Newly established: Burnside decomposition 136,514 / 2,156 / 35 ⇒ 23,842. |
 
 ## Reading discipline
 

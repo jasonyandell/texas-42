@@ -47,7 +47,34 @@ and NT context-0, both with only seat 1 void), and in both the *entire lead fibe
 inside the hidden pool*, violating lead-witness necessity. Hence
 `R_Str ⊊ N(feasible)`: reachability is not capacities, not schedule, not Hall.
 
-## The 26–46-bit interval (the flagship open problem)
+## Second feasible-but-unreachable witness — and the follower-supply obstruction
+
+**[Exchange-adjudicated CONFIRMED — program executed ALL_PASS; 3/3 adversarial referees
+SOUND; a new evidentiary tier, not a corpus "Theorem — proved" and not a kernel proof]**
+Witness `(NT, capacities (6,6,6), V₁={6}, 18-tile pool)`. Unlike REACH-10, this support
+*passes* all four outer necessary checks — capacity shape, schedule admissibility,
+**lead-witness**, and Hall — yet is still unreachable: exhausting all 450 static
+generators yields exactly three decoder matches and, across all 425,520 trace
+candidates, **0 realizers**. So the outer necessary language is *not tight* even at the
+`j=1` equal-capacity one-void phase, settling [open-problems](open-problems.md) Q2
+negatively. Source: `exchange/inbox/002-outer-language-tightness.md`, verified program
+`exchange/adjudication/programs/002.py` (16/16 PASS, 0.9s); three referees each
+re-verified by an independent method (1,276,560-trace single-layer enumeration; a
+301,860-state recursive game DFS with max-flow feasibility; corpus ID/integer
+cross-check).
+
+**Follower-supply obstruction** — a new fifth, mechanically-checkable necessary
+condition beyond the four outer checks: a singleton hidden void in context `q` at the
+`(6,6,6)` phase requires at least two distinct `σ_q` tiles outside the used pool `U`;
+here `σ₆ \ U = {6:6}` supplies only one, which is exactly what kills this witness.
+Adding this condition can tighten the REACH-11 46-bit ceiling below (quantifying how
+far is open new work, not yet done).
+
+## The 35–46-bit interval (the flagship open problem)
+
+*(The corpus-proved interval is [26,46], REACH-11/12; exchange adjudication narrows the
+floor to ≥35 bits — REACH-17 below — at the exchange-adjudicated evidentiary tier, not
+the kernel-proved tier.)*
 
 - **Ceiling** [Theorem — exhaustive finite verification, REACH-11]: the necessary
   outer language (reachable capacity shape × schedule-admissible void masks ×
@@ -66,9 +93,41 @@ inside the hidden pool*, violating lead-witness necessity. Hence
   **44,352,165 > 2²⁵** reachable supports ⇒ ≥26 bits. (The (6,6,6) construction uses a
   pigeonhole: a 10-tile complement with ≤2 doubles has ≥18 pip incidences over 7 pips,
   so some pip sits on ≥3 tiles, providing a legal 3-play prefix.)
+- **Sharpened floor** [exchange-adjudicated CONFIRMED — program executed ALL_PASS
+  (15.9s); 3/3 adversarial referees SOUND; a new evidentiary tier, **not** a corpus
+  "Theorem — proved" and **not** a kernel proof, REACH-17]: a certified *disjoint*
+  family of **17,668,066,045 > 2³⁴** reachable supports — `559,316,142` no-void +
+  `8,387,350,664` called-void + `8,721,399,239` natural-void — proving **≥35 bits**
+  standalone and narrowing the standalone interval to **[35,46]**. Verification tier
+  (kept visible): reachability and disjointness of the counted family rest on prose
+  trace-templates closed by each referee's adversarial replay, **not** on end-to-end
+  machine replay. Machine-hardened fallback tiers: discarding all four winning-void-trick
+  rows still leaves `14,144,456,893 > 2³³` (i.e. **[34,46]**); the no-void family alone
+  (`559,316,142`) gives **≥30 bits**. Ceiling unchanged corpus ground truth (REACH-11).
+  Source: `exchange/inbox/001-reachable-support-cardinality.md`, verified program
+  `exchange/adjudication/programs/001.py`. (REACH-12's 44,352,165 family remains the
+  earlier *corpus-proved* floor of ≥26 bits.)
+- **Transport-commutation** [exchange-adjudicated CONFIRMED — program executed ALL_PASS
+  (4.6s); 3/3 adversarial referees SOUND; a new evidentiary tier, not a corpus theorem
+  and not a kernel proof]: the order-preserving complement transport commutes with
+  legal-prefix generation, `f_{t,u}(R_t)=R_u`, so `|R_t|` is independent of the pip
+  trump `t` and the declaration-tagged reachable census collapses from nine tags to
+  **three classes** (one pip-trump class, doubles-trump `R_DT`, no-trump `R_NT`). Tagged
+  census `|R~| = 7·r_pip + |R_DT| + |R_NT|`; depth-0 overlap `≥ C(28,7) = 1,184,040`
+  normal forms common to all nine `R_δ`; union bound
+  `|R| ≤ 7·r_pip + |R_DT| + |R_NT| − 8·C(28,7)`. Verified anchors: 307,328 ALG-22
+  comparisons; 45,472 commutation checks (38,976 nontrivial) over 6,496 prefixes / 224
+  deals / depths 0–28 / all 7 trumps; 4/4 injected mutations caught. The Step-15
+  quotient-cardinality corollary depended on the cocycle identity
+  `f_{u,v} ∘ f_{t,u} = f_{t,v}`; that identity is now discharged by finite check over
+  all 343 ordered pip-trump triples on the 28-tile transports (finite verification
+  receipt, exchange-side: `exchange/adjudication/programs/004-cocycle.py`, ALL_PASS),
+  so the corollary no longer stands CONDITIONAL. Source:
+  `exchange/inbox/004-transport-reachability-commutation.md`, verified program
+  `exchange/adjudication/programs/004.py`.
 - **[UNRESOLVED, REACH-13 / OPEN-11]**: the exact `|R_Str^m|`, and hence the optimal
-  standalone width in `26..46`, is open. Both packages refuse to collapse it by
-  guesswork.
+  standalone width in `35..46` (exchange-adjudicated; corpus-proved `26..46`), is open.
+  Both packages refuse to collapse it by guesswork.
 
 Boundary [REACH-03A + rec TRANS-08]: standalone reachable support is not a complete
 game state (no declaration/actor/trick/score); but rec proves support *is* a closed

@@ -55,11 +55,25 @@ Consequences:
 
 - There is **no output-independent "minimal game state"**: a support-aware contract
   cannot merge states that a purely physical contract can.
-- The reduced kernel `K` is proved *exact*; whether `K` **equals** the
-  future-equivalence quotient for a given rich contract is deliberately left open
-  (rec "Not established" #1; merged [OPEN-01](open-problems.md)). Distinct kernels
-  could conceivably be future-equivalent (e.g. via unscored transports or deeper
-  coincidences).
+- The reduced kernel `K` is proved *exact*. Whether `K` **equals** the
+  future-equivalence quotient was rec's "Not established" #1 (merged
+  [OPEN-01](open-problems.md)); exchange dispatch 003 now settles it in the **COLLAPSE**
+  direction for the support-aware `P30_DECLARING_POINTS` contract — **`K` is strictly
+  finer than the quotient** [exchange-adjudicated CONFIRMED — program executed ALL_PASS
+  (0.43s); 3/3 adversarial referees SOUND; a new evidentiary tier, not a corpus theorem
+  and not a kernel proof]. Two reachable kernels differing only in the raw fold ordinal
+  (`r=7` vs `r=6`; NT, `P(30)`, viewer 0 / bidder 3, identical `ε`, 18-tile full-Ternary
+  support normal form) are machine-verified output-equivalent, so the fold ordinal `r`
+  is **not an injective memoization coordinate**. Mechanism — the **dead-cut lemma**:
+  fold ordinals above the live cut of still-unplayed competitive tiles are unobservable
+  through the support-aware contract until trick-boundary coalescence (here the max live
+  ordinal 3 `<` 6 `<` 7, so the winner-update predicate is identical), so `r` can be
+  compressed by re-ranking through the live competitive tiles. Source
+  `exchange/inbox/003-kernel-vs-future-quotient.md`, verified program
+  `exchange/adjudication/programs/003.py` + `witnesses/003.json`; product statistics
+  204 / 22,848 / 1,604 / 1,280 reproduced and independently re-derived. (A provenance
+  blemish in the response's claimed verifier SHA is recorded, non-load-bearing, in
+  [discrepancies](discrepancies.md).)
 
 ## The final factorization (rec Math §15)
 
