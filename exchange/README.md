@@ -50,8 +50,8 @@ answer can be verified here without trusting the model.
 
 | # | slug | dispatched | response | adjudicated | outcome |
 |---|------|-----------|----------|-------------|---------|
-| 001 | reachable-support-cardinality | 2026-07-27T05:07:18Z [conv](https://chatgpt.com/c/6a66e786-2ac0-83ea-ade0-dff707fae5e6) | pending | — | — |
-| 002 | outer-language-tightness | 2026-07-27T05:09:06Z [conv](https://chatgpt.com/c/6a66e7f0-57cc-83ea-b6c8-eab6080b8b76) | pending | — | — |
-| 003 | kernel-vs-future-quotient | 2026-07-27T05:09:30Z [conv](https://chatgpt.com/c/6a66e808-a6dc-83ea-8319-5c4bfca8e863) | pending | — | — |
-| 004 | transport-reachability-commutation | 2026-07-27T05:09:54Z [conv](https://chatgpt.com/c/6a66e821-29c8-83ea-9f6f-4be358e6b9f7) | pending | — | — |
-| 005 | census-integer-audit | 2026-07-27T05:10:14Z [conv](https://chatgpt.com/c/6a66e834-e388-83ea-99e4-3186c6632c50) | pending | — | — |
+| 001 | reachable-support-cardinality | 2026-07-27T05:07:18Z [conv](https://chatgpt.com/c/6a66e786-2ac0-83ea-ade0-dff707fae5e6) | harvested 2026-07-27T13:02:58Z | — | no exact count; claims disjoint family of 17,668,066,045 supports, interval [35,46] bits |
+| 002 | outer-language-tightness | 2026-07-27T05:09:06Z [conv](https://chatgpt.com/c/6a66e7f0-57cc-83ea-b6c8-eab6080b8b76) | harvested 2026-07-27T13:01:36Z | — | claims COUNTEREXAMPLE (shallow, k=(6,6,6)) |
+| 003 | kernel-vs-future-quotient | 2026-07-27T05:09:30Z [conv](https://chatgpt.com/c/6a66e808-a6dc-83ea-8319-5c4bfca8e863) | harvested 2026-07-27T13:03:10Z | — | claims collapse witness for OPEN-01 (viewer 0, bidder 3, P(30), NT) |
+| 004 | transport-reachability-commutation | 2026-07-27T05:09:54Z [conv](https://chatgpt.com/c/6a66e821-29c8-83ea-9f6f-4be358e6b9f7) | harvested 2026-07-27T13:03:23Z | — | claims conjecture TRUE (transport commutes; proof + verifier run) |
+| 005 | census-integer-audit | 2026-07-27T05:10:14Z [conv](https://chatgpt.com/c/6a66e834-e388-83ea-99e4-3186c6632c50) | harvested 2026-07-27T13:03:35Z | — | claims all census integers reproduce exactly; no errors found |
