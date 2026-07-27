@@ -14,12 +14,14 @@ both packages `40_CLAIM_STATUS.md` §10 + Math §14 "Honest boundaries", merged 
   follower-supply-filtered outer census 33,297,009,347,414 < 2⁴⁵, the first ceiling
   movement since REACH-11; see [reachability](reachability.md)). The exact census and
   any *full* declaration class remain open — dispatch 006 explicitly disclaims closing
-  either. Both packages still refuse to collapse the exact count by guesswork. rec's
-  symbolic support DAG (REACH-16) is the obvious counting substrate; exchange
-  001/006's validated witness-generation + split-zeta upward-closure counter
-  (independently checked against brute force) is a reusable substrate for further
-  tightening. In flight: dispatch 008 (exact no-void slice), submitted, response
-  pending. See [reachability](reachability.md) and FINDINGS Q1.
+  either. **The no-void sub-slice is now RESOLVED at the exchange-adjudicated tier**
+  (REACH-20, dispatch 008): saturated, exactly **624,892,870**; the census over void
+  contexts is what remains open. Both packages still refuse to collapse the exact
+  count by guesswork. rec's symbolic support DAG (REACH-16) is the obvious counting
+  substrate; exchange 001/006's validated witness-generation + split-zeta
+  upward-closure counter (independently checked against brute force) is a reusable
+  substrate for further tightening. See [reachability](reachability.md) and
+  FINDINGS Q1.
 - **OPEN-01 (rec form) — RESOLVED, COLLAPSE** [exchange-adjudicated CONFIRMED
   (ALL_PASS 0.43s; 3/3 SOUND) — external tier, not a kernel proof
   ([claim-ledger](claim-ledger.md))]: the reduced viewer kernel `K = (δ, H_m, N, τ, α_U)` is proved

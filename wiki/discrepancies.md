@@ -4,7 +4,7 @@
 Related: [package-provenance](package-provenance.md).
 
 "v0.7" and "rec" as defined on [Home](Home.md). D1–D6 are the substantive conflicts;
-D7–D15 are structural/editorial; D16 is an exchange-side provenance note. Since
+D7–D15 are structural/editorial; D16–D17 are exchange-side notes (provenance; scope). Since
 `ingest/` is immutable, these resolutions are realized *here in the wiki*, not by
 editing the packages.
 
@@ -181,3 +181,14 @@ download" narrative and does not affect either verdict.
 
 **Resolution:** fenced/inline block is authoritative in both cases. Confidence: **high**
 (does not affect the verdicts).
+
+## D17. Inbox/001 step 11's "exactly 559,316,142" (scope, not error)
+
+001's proof said the no-void reachable count was "exactly 559,316,142". REACH-20
+(dispatch 008, CONFIRMED) shows the full no-void slice is saturated at 624,892,870;
+001's integer is exact *as the count of its regular-module grammar family* — a proper
+subfamily, undercount 65,576,728 (reconciles term-by-term: 008 reproduces 001's
+per-block partials). REACH-17's floor is unaffected (floors need only membership,
+not completeness), but any future reading of 001's "exactly" as slice-completeness
+would be wrong. **Resolution:** scope annotation; both integers stand at their own
+scopes. Confidence: **high**.

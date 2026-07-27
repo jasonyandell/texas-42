@@ -93,7 +93,9 @@ exactly. Reproduction requires nothing but Python 3.12 stdlib.
    **[36,45]-bit interval** (corpus-proved [26,46], narrowed to [36,45] at the
    exchange-adjudicated tier by REACH-17 + REACH-18 — combined floor 36,913,384,410 >
    2³⁵ — and REACH-19 — filtered outer census 33,297,009,347,414 < 2⁴⁵) with honest
-   refusal to guess the exact count (REACH-11..13, REACH-17/18/19). A second feasible-but-unreachable witness that *passes*
+   refusal to guess the exact count (REACH-11..13, REACH-17/18/19). The no-void
+   stratum is the exception: exactly counted and saturated at **624,892,870**
+   (REACH-20). A second feasible-but-unreachable witness that *passes*
    lead-witness (exchange 002) shows the outer language is not even tight.
 5. **rec's dynamic-support package** (TRANS-08..14): support-NF as a closed transition
    state, matching-minor update ≡ conditioning, monotone deletion, 63-edge budget —
@@ -203,7 +205,9 @@ packages):
   REACH-18, exchange 001 + 006 — the 006 family is a structurally disjoint
   two-void-context construction of 19,245,318,365 supports) and best ceiling **45
   bits** (REACH-19, exchange 007 — filtered outer census 33,297,009,347,414 < 2⁴⁵),
-  giving **[36,45]**; the exact census and any full declaration class remain open,
+  giving **[36,45]**; the no-void stratum is exactly closed — saturated,
+  **624,892,870** (REACH-20, exchange 008, first exact stratum; derived combined
+  floor 36,978,961,138) — while the census over void contexts remains open,
   explicitly disclaimed by 006; and by the
   transport theorem (exchange 004) the DP need only
   enumerate one pip-trump class plus DT and NT, so restate the feasibility window
@@ -258,5 +262,5 @@ violate almost-sure termination without the ε-assumption.)
 
 Of these, Q2/Q3/Q4/Q5 are answered (exchange 002/003/004/005, all CONFIRMED); Q1 is
 narrowed to [36,45] (floor: exchange 001+006; ceiling: exchange 007, the first
-ceiling movement) with dispatch 008 (no-void exact census) in flight. The wiki page
-map lives on [Home](Home.md).
+ceiling movement) with its no-void stratum exactly closed at 624,892,870 (exchange
+008). The wiki page map lives on [Home](Home.md).

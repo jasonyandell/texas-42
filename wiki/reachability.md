@@ -119,6 +119,28 @@ change ([verification](verification.md)).
   64,123,217,904,861; generalized temporal supply 63,529,591,020,871. Source:
   `exchange/inbox/007-fifth-condition-ceiling.md`, verified program
   `exchange/adjudication/programs/007.py`.
+- **Exact no-void slice — SATURATED** [exchange-adjudicated CONFIRMED (ALL_PASS 38/38,
+  71.8s; panel **2/3 SOUND + 1 UNVERIFIABLE that found no defect** — the dissent is
+  recorded in [claim-ledger](claim-ledger.md), never presented as 3/3), REACH-20]: the
+  first *exactly counted* stratum of OPEN-11. Every capacity-consistent pool is
+  void-free reachable, so the no-void slice is exactly
+  `Σ over the 50 range-≤1 profiles of C(28, Σk)` = **624,892,870**. Evidence shape:
+  necessary-coverage decomposition machine-exact per phase (covered + missing =
+  C(28,|T|)); all **5,430** exceptional pools individually realized and replayed
+  end-to-end; 1,030 strided realization replays across all 50 profiles; fixed-hand
+  j≤2 brute force matches the folded count (pip/DT/NT: 81,974 / 379 / 208,874).
+  Tier caveat (heaviest yet): the stitching lemma is machine-verified at module
+  granularity (3,808 module-winner assignments), the j=1 block rests on the checked
+  K₈-star pigeonhole + strided samples, and no-overcount rests on corpus-proved
+  CELL-14. Consequences: 001's `559,316,142` was the *grammar-family* count — a
+  proper subfamily, undercount exactly 65,576,728 (REACH-17 is not contradicted; it
+  never claimed no-void completeness — see [discrepancies D17](discrepancies.md));
+  derived corollary (not separately adjudicated): substituting the full slice into
+  the combined floor gives 36,913,384,410 → **36,978,961,138** (disjointness
+  automatic — the added supports are no-void, the other components all carry voids),
+  interval **[36,45]** unchanged. The full census over void contexts remains open.
+  Source: `exchange/inbox/008-no-void-exact-census.md`, verified program
+  `exchange/adjudication/programs/008.py`.
 - **Floor** [Theorem — proved + finite verification, REACH-12]: four disjoint
   universally reachable no-void families — pools at capacities (7,7,7), (6,7,7)×3,
   (6,6,7)×3, (6,6,6) — give `C(28,21) + 3·C(28,20) + 3·C(28,19) + C(28,18)` =
@@ -127,8 +149,10 @@ change ([verification](verification.md)).
   so some pip sits on ≥3 tiles, providing a legal 3-play prefix.)
 - **Sharpened floor** [exchange-adjudicated CONFIRMED (ALL_PASS 15.9s; 3/3 SOUND),
   REACH-17]: a certified *disjoint*
-  family of **17,668,066,045 > 2³⁴** reachable supports — `559,316,142` no-void +
-  `8,387,350,664` called-void + `8,721,399,239` natural-void — proving **≥35 bits**
+  family of **17,668,066,045 > 2³⁴** reachable supports — `559,316,142` no-void
+  (001's grammar-family count; REACH-20 later showed this a proper subfamily of the
+  full 624,892,870 no-void slice) + `8,387,350,664` called-void + `8,721,399,239`
+  natural-void — proving **≥35 bits**
   standalone and narrowing the standalone interval to **[35,46]**. Verification tier
   (kept visible): reachability and disjointness of the counted family rest on prose
   trace-templates closed by each referee's adversarial replay, **not** on end-to-end
