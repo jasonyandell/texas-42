@@ -100,7 +100,9 @@ automation/poll-loop.sh              # background loop; exits on first completio
   cookies from the real profile (Jason's Chrome must have a live session).
 - Fallbacks if CDP breaks: "ChatGPT Atlas.app" (OpenAI Chromium, natively
   logged in — CDP flag untested) and macOS UI scripting (osascript/System
-  Events + screencapture; `cliclick` is NOT installed as of 2026-07-27).
-  Neither has been needed.
+  Events + screencapture; `cliclick` 5.1 IS installed at
+  /opt/homebrew/bin/cliclick but needs an Accessibility grant — System
+  Settings → Privacy & Security → Accessibility for the terminal app — an
+  interactive step only Jason can do). Neither fallback has been needed.
 - Multi-agent repo: commit with explicit pathspecs only
   (`git add <paths> && git commit -- <paths>`), never `-A` or bare commit.
