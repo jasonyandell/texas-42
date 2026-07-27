@@ -29,7 +29,9 @@ for (const a of attachments) {
 }
 
 const isContinuation = fm.channel === 'continuation';
-const targetUrl = isContinuation ? STANDING : 'https://chatgpt.com/';
+// continuation dispatches may target a specific prior conversation via
+// frontmatter conversation_url; default is the standing conversation
+const targetUrl = isContinuation ? (fm.conversation_url || STANDING) : 'https://chatgpt.com/';
 
 const { browser, context } = await connect();
 try {

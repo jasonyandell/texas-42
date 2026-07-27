@@ -12,7 +12,8 @@ Everything lives in `exchange/` (protocol + ledger) and `automation/` (harness).
 ## Budget — read first
 
 **Hard cap: 10 submissions total, ever, across all sessions.**
-`exchange/submission_count.txt` holds the count (5 used as of 2026-07-27).
+`exchange/submission_count.txt` holds the live count — **read that file, never
+trust a number quoted here**; any count in this doc is a stale snapshot.
 A send counts once it is visually confirmed submitted. Increment the count and
 add the ledger row in `exchange/README.md` in the same commit, immediately
 after confirmation. If a send attempt errors ambiguously, **open the
@@ -22,11 +23,24 @@ risk a double-spend by retrying blind.**
 ## Courier protocol
 
 - Dispatch: `exchange/outbox/NNN-slug.md` — YAML frontmatter (`number`, `slug`,
-  `channel: new-chat | continuation`, `attachments:` list of repo-relative
-  paths, `deliverable:` one line) then the body, pasted verbatim. The file is
-  final only when the empty marker `exchange/outbox/NNN-slug.ready` exists.
-- `channel: continuation` posts into the standing conversation
-  https://chatgpt.com/c/6a64ccec-2328-83ea-b0d1-917f487297a2 instead of a new chat.
+  `channel: new-chat | continuation`, optional `conversation_url:`,
+  `attachments:` list of repo-relative paths, `deliverable:` one line) then the
+  body, pasted verbatim. The file is final only when the empty marker
+  `exchange/outbox/NNN-slug.ready` exists.
+- **Channel targeting (three modes):**
+  - `channel: new-chat` — fresh conversation at https://chatgpt.com/.
+  - `channel: continuation` with **no** `conversation_url` — posts into the
+    standing conversation
+    https://chatgpt.com/c/6a64ccec-2328-83ea-b0d1-917f487297a2 (the general
+    follow-up channel).
+  - `channel: continuation` **with** `conversation_url:` — posts the follow-up
+    into that *specific* prior conversation, so the model still has its own
+    machinery from the earlier dispatch in context (e.g. sending 006 back into
+    the 001 conversation, where its floor construction is still live). Prefer
+    this for targeted follow-ups; the standing channel is only for generic
+    continuations. Always keep the body self-contained anyway — the continuation
+    context may be unavailable or truncated, and if the targeted conversation is
+    locked you fall back to a new chat (note the channel change in the ledger).
 - Prompt discipline (see exchange/README.md): every prompt is an *adversarial
   task with a machine-checkable deliverable* — explicit witnesses, programs
   that re-derive numbers, exact fractions. Never "review this".
@@ -45,8 +59,17 @@ node automation/rehearse.mjs         # dry-run capability proof — NEVER sends
 node automation/submit.mjs exchange/outbox/NNN-slug.md   # full submission
 node automation/poll.mjs   exchange/outbox/NNN-slug.submitted.json  # exit 0 done / 2 pending
 node automation/harvest.mjs exchange/outbox/NNN-slug.submitted.json # write inbox file
-automation/poll-loop.sh              # background loop; exits on first completion/timeout
+automation/poll-loop.sh              # LEGACY background loop — see WEDGE LESSON below
 ```
+
+**WEDGE LESSON (learned the hard way).** `poll-loop.sh` (and any pattern that
+exits the watcher process on completion and *expects the harness to re-invoke
+you* to harvest) is a trap: the completion notification was delayed for HOURS in
+practice, so the response sat un-harvested and the whole exchange wedged.
+**Detection and harvest must happen in the SAME live process / same turn.** Do
+not split "notice it finished" from "grab the text" across a process exit — the
+moment you detect completion, harvest immediately in that same live turn before
+doing anything that could end the turn.
 
 - `launch-chrome.sh` copies minimal login state (Local State, Default/Cookies,
   Preferences, Login Data, Web Data) into `~/Library/Application
@@ -61,10 +84,31 @@ automation/poll-loop.sh              # background loop; exits on first completio
   verifies the sent turn contains the body and every attachment.
 - Logs append to `automation/logs/harness.log`; screenshots (`NNN-*-pre-send`,
   `-sent`, `-verified`, `NNN-final`) land in `automation/logs/`.
-- Pro responses take 1–2 h (deep research). Poll every ~10 min, 3 h timeout;
-  on timeout note it in the ledger — do **not** resubmit.
+- Pro responses take 1–2 h (deep research; one finished in ~25 min). 3 h
+  timeout per dispatch from submission; on timeout note it in the ledger — do
+  **not** resubmit.
 - Run submissions before harvests in the same session; scripts are independent
   and safe to rerun (poll/harvest are read-only).
+- Poll/harvest target a specific conversation via its
+  `exchange/outbox/NNN-slug.submitted.json` (written by submit.mjs; carries
+  `conversationUrl` + `baselineAssistantCount`). Always pass that meta file —
+  never guess URLs or rely on sidebar ordering.
+
+## Waiting protocol (post-wedge, 2026-07-27)
+
+Jason's instruction, verbatim: "run those questions through one at a time,
+staying on the single webpage and just checking it rather than reloading. if
+nothing changes, a reload once per 10 minutes as a backstop. easier to manage
+and less chance of wedge and lighter on potential limits."
+
+Concretely:
+
+- Watch **one pending conversation at a time** in ONE open tab, ordered by
+  likely completion. Check completion by observing the live DOM in place (the
+  page streams; no navigation needed), reloading that tab at most once per
+  10 min as a backstop if nothing changes. When it completes, harvest it **in
+  that same live process** (see WEDGE LESSON above), then move to the next
+  conversation.
 
 ## UI gotchas (all bitten once; selectors in automation/README.md)
 
