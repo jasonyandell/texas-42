@@ -15,6 +15,7 @@ pub mod objective;
 pub mod pip;
 pub mod rules;
 pub mod seat;
+pub mod support;
 
 pub use algebra::order::{Rank, TrickKey};
 pub use algebra::suits::{LedSuit, LedSuitSet};
@@ -45,3 +46,9 @@ pub use objective::ObjectiveError;
 pub use pip::{Pip, PipPermutation, PIPS};
 pub use rules::{AuctionAction, BidValue, MarkAmount, PointAmount, RulesConfig};
 pub use seat::{Seat, Team};
+pub use support::cells::{
+    derive_auction_cells, derive_rule_cells, initial_contracted_mechanical, update_support,
+    AbstractCells, AbstractWorld, MechanicalCompiledView, MechanicalState, RemainderWorld,
+    RuleDerivedCellSystem, HIDDEN_SEATS,
+};
+pub use support::SupportError;

@@ -1,0 +1,7 @@
+rob S3 verification: PASS
+r_cell_initial: 108 deals; U=21; P_s=U; k_s=7; holder edges 63
+r_cell_dependent: 2 of 4 componentwise assignments are worlds
+r_cell_tiny_updates: 14,412 leads; 56,460 follows; 56,460 sloughs
+r_cell_parity: 972 prefixes (970 with public voids)
+r_cell_transitions: 864 total; 648 hidden nonincrease; 216 viewer equality
+r_cell_ninety_world_support: 90
