@@ -123,7 +123,121 @@ ingest generator's 970 but is **explicitly not an ingest-corpus number** and car
 no cross-implementation meaning; only the 972 corpus shape does.
 
 Slice 02 (support dynamics: TRANS-08..14, REACH-06..16) is scoped in rob/BRIEF §4
-and has **not** been begun.
+and is recorded below.
+
+## rob (Rust) — independent reproduction, slice 02
+
+Recorded 2026-07-27. Slice 02 extends the slice-01 reproduction into **the dynamic
+support layer and symbolic reachability**
+([rob/BRIEF_SLICE_02.md](../rob/BRIEF_SLICE_02.md) — the binding second assignment;
+BRIEF.md §§1,2,5,9,11 remain binding verbatim). The five new stage binaries
+(`verify_dynamics`, `verify_symbolic`, `verify_outer`, `verify_unreachable`,
+`verify_transport`) are green and byte-diffed in `rob/ci/check.sh` against the fresh
+receipts under `rob/receipts/`; the full slice-01 CI (fmt; clippy `-D warnings
+-D float_arithmetic`; no-float grep; vocabulary grep; release test suite) stays green.
+
+**Status label: Finite verification receipt / conformance evidence — not a new
+mathematical status.** Same discipline as slice 01 (TRUST-01, §0 of either Math
+package): these runs re-derive committed corpus numbers in an independent Rust
+implementation and change no claim's status. Slice 02 introduces a second, explicitly
+labeled evidentiary layer: receipt lines whose expected value originates from an
+exchange-adjudicated result (§"Exchange-adjudicated program runs" below;
+[exchange/README.md](../exchange/README.md) ledger) carry an `x-` prefix and their
+binary's header cites the ledger entry. **Where a green `x-` line reproduces an
+exchange number in Rust, rob's receipt is independent cross-language evidence for that
+number — it still ranks below ingest and is never definitional** (BRIEF_SLICE_02 §1.1).
+
+### What was reproduced — corpus-anchored (slice-01 tier)
+
+| Receipt | Stage | Headline exact integers |
+|---|---|---|
+| `verify_dynamics` | S5 matching-minor calculus | dynamics corpus **66,969** systems / **14,579** feasible / **1,331** distinct feasible NFs (the S4 corpus extended by n = 0, quotiented by NF equality); **170,058** typed observations with matching-minor update ≡ NF of extensional conditioning + pushforward (agreeing on `Empty` both routes), **157,809** nonempty successors; **1,406,592** holder-edge inclusion checks + 157,809 rank checks (monotonicity, never reactivating); **864** game-typed transitions (**648** hidden, **216** viewer) along the S3 parity corpus; **972** native-sampler agreements through the offset↔`DominoId` bijection |
+| `verify_symbolic` | S6 symbolic trace validator | **108**-hand deterministic corpus (9 declarations × 12 hands), **3,024** transitions with symbolic support / S5 dynamics / `derive_rule_cells` NF agreeing **3,024** three ways; deletion budget **6,804** = 108·63 with every hand's ledger totalling 63, no edge reappearing, ≤2 edges lost per live tile (INV-11); **324** = 3·108 mutated certificates each rejected with the expected typed reason |
+| `verify_outer` | S7 necessary outer language | projected schedule censuses `A_j` = (1, 50, 1079, 13084, 97119, 450066, 1273609, 2097152), `T_{j,1}` = (8, 323, 5524, 51759, 286770, 947017, 1817216, 2097152), `T_{j,2}` = (22, 743, 10844, 88159, 428562, 1244937, 2080768, 2097152); `B_{n,u}` lead-witness table **176** = 22·8 entries agreeing by two independent routes (inclusion–exclusion vs polynomial convolution); **7,124,838,074,989** per declaration (< 2⁴³), **64,123,542,674,901** total (< 2⁴⁶), **839,220,930,919** max single-profile block (< 2⁴⁰), ceilings **46 / 43 / 43 / 40 bits** (standalone / declaration-supplied / capacities-supplied / both); interval line held at **26..46 bits** (rob prints only what rob computed); all big values computed from the Math §7.13.3/§7.13.6 formulas in exact `BigUint`, never hard-coded |
+| `verify_unreachable` | S8 REACH-10 regression | **450** static generators at capacities (6,6,6), exactly **2** decode to the REACH-10 witness (zeros-trump called context, NT context 0; each only hidden seat 1 void), lead-fiber sizes **(7, 1)**, both with the entire lead fiber inside the hidden pool ⇒ lead-witness necessity fails |
+| `verify_transport` | S9 transport quotient | `reachable_census_class` constant on the 7 pip trumps yielding exactly **3** classes, agreeing with S1's `unscored_mechanics_class` partition |
+
+### What was reproduced — exchange-adjudicated tier (`x-` receipt lines)
+
+Each line below carries the `x-` prefix in the committed receipt and its binary's
+header names the ledger entry. These are the exchange numbers rob now backs with an
+independent Rust receipt:
+
+- **x:002 — the four-check outer language is not tight** (`verify_unreachable`,
+  header `# exchange: 002`). The (NT, capacities (6,6,6), V₁ = {6}, 18-tile pool)
+  witness passes **all four** classic outer checks through rob's *own* S7 validators
+  (capacity shape, schedule admissibility, lead witness, Hall) and is Hall-feasible /
+  already reduced (`x-r_unr_002_outer: 4/4`); exactly **3** of the 450 generators
+  decode to it, one (doubles-trump) already killed by lead-witness necessity
+  (`x-r_unr_002_static: 3; 1 kill`); complete shallow-prefix exhaustion over the
+  surviving matches runs **425,520** candidates with **0** realizers
+  (`x-r_unr_002_traces`) — the witness is unreachable under every declaration; and the
+  fifth **follower-supply** check rejects it (`x-r_unr_002_supply: 1 < 2` for both
+  surviving candidates, since `σ₆ ∖ U = {6:6}` supplies one follower where two are
+  needed). The 425,520 shallow traces run through rob's own symbolic validator and NF
+  pipeline; the witness pool/NF was transcribed from the inbox/002 JSON as data.
+- **x:004 — transport commutes with reachability** (`verify_transport`, header
+  `# exchange: 004`). Over the 12 S3 hands of each source pip trump under all 49
+  ordered transports: **588** = 49·12 transported hands legal on the S2 machine,
+  **16,464** = 588·28 transitions each accepted by the S6 symbolic validator, and
+  **17,052** = 588·29 depth-wise NF equalities `f(N_t(prefix)) = N_u(f(prefix))`
+  (`x-r_tra_corpus_commutation`). Conformance evidence for `f_{t,u}(R_t) = R_u`, not a
+  proof of it; the 3-class quotient (corpus-anchored line above) cites the ledger entry
+  in its doc comment. Step-17 boundary enforced by a `compile_fail` doctest: nothing
+  score-conditioned transports.
+- **x:005 — Burnside supplement** (`verify_outer`, header `# exchange: 002, 005`).
+  The S₃ fixed-signature counts **136,514** (identity) / **2,156** (each transposition)
+  / **35** (each 3-cycle) with Burnside average (136,514 + 3·2,156 + 2·35)/6 =
+  **23,842**, reproducing the S4 orbit census (`x-r_out_burnside`).
+
+### Independence conditions
+
+- No ingest Python and no exchange Python (`exchange/adjudication/programs/`, inbox
+  code blocks) was read or translated as implementation source. rob re-implements each
+  construction from its prose proof and from JSON witness/tables; the BRIEF_SLICE_02 §5
+  clarification permits transcribing *witness data, corpus-shape parameters, and
+  expected numbers* exactly as for ingest receipts, and forbids transcribing program
+  logic. The x:002 witness pool/NF and any table values are consumed as data only.
+- The dynamics corpus, symbolic 108-hand corpus, and transport corpus are rob's own
+  deterministic constructions; only the corpus *shapes* (66,969/14,579/1,331 derived
+  from the S4 corpus; 108 = 9·12; 588 = 49·12) are ingest- or arithmetic-anchored.
+
+### Enforcement mechanisms
+
+INV-11 through INV-14 (rob/BRIEF_SLICE_02 §5) each have a named test, lint, or
+compile-time check:
+
+- **INV-11 EDGE-BUDGET** — `inv_edge_budget` over the S6 corpus asserts 6,804 = 108·63
+  with zero edge reappearances, plus a per-successor `debug_assert!` that every holder
+  set is a subset of its predecessor.
+- **INV-12 MONOTONE-AMBIGUITY** — `r_dyn_monotone` (157,809 cases) plus the S6 corpus
+  assert tags move only `Ternary → Binary → Determinate` and inactive seats never
+  reactivate; `debug_assert!` on every nonempty successor.
+- **INV-13 TYPED-TRANSITION-ONLY** — the type system forbids an untyped transition on
+  standalone support; a `compile_fail` doctest shows `nf.transition(domino)` does not
+  exist; the abstract calculus consumes only a `TypedHiddenObservation`.
+- **INV-14 FIVE-CHECKS-STILL-NECESSARY-ONLY** — the outer validator returns profile
+  membership only, no path to a certified/reachable type compiles, and the x:002
+  witness is the permanent regression (`r_unr_002_*` green forever) that passing every
+  implemented outer check does not imply reachability; the INV-10 vocabulary grep still
+  forbids certificate-style identifiers.
+
+### Notable: no escape hatch used
+
+The TRANS-13 counts 170,058 / 157,809 / 1,406,592 — which the ingest claim ledger
+itself labels "stated by verifier" — were reproduced from rob's principled enumeration
+of the closed-form observation space **without** invoking BRIEF_SLICE_02 §11.1's
+frozen-count escape hatch. They matched exactly, so no
+`ambiguity_trans13_observation_space` note was filed.
+
+### S10 stretch — deferred
+
+S10 (reproduce the x:001 reachable floor 17,668,066,045 and the [35,46] interval in
+Rust) is optional and slice 02 is complete without it (BRIEF_SLICE_02 §13). It was
+**not attempted this slice — no `verify_floor` receipt exists**; the task is recorded
+for a fresh session. rob's interval line therefore remains the corpus-anchored 26..46
+bits; the [35,46] narrowing stays exchange-adjudicated (REACH-17), updated by the wiki,
+not by rob.
 
 ## Exchange-adjudicated program runs (external evidentiary tier)
 

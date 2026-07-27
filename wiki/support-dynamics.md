@@ -56,6 +56,15 @@ conditioning ≡ matching-minor update, 1,406,592 monotonicity edge-tests
 transitions, exactly 6,804 = 108·63 deletions with no reappearance
 [Finite verification receipt, TRANS-14]. Both in `verify_reduced_kernel.py`.
 
+**Independent cross-language reproduction (rob, Rust):** these TRANS-13/14 receipts —
+1,331 feasible NFs / 170,058 observations / 1,406,592 monotonicity checks / 108 hands /
+3,024 transitions / 6,804 = 108·63 deletions — are reproduced end-to-end in rob's
+`verify_dynamics` and `verify_symbolic` binaries
+(`rob/receipts/verify_dynamics.txt`, `rob/receipts/verify_symbolic.txt`; see
+[verification](verification.md) §"rob (Rust) — independent reproduction, slice 02").
+This is finite verification / conformance evidence, **not** a status upgrade — the
+corpus receipt remains the ground truth.
+
 ## Why this matters for a solver
 
 The within-hand hidden-information engine is a **monotonically deleting graph** with a

@@ -70,6 +70,15 @@ here `σ₆ \ U = {6:6}` supplies only one, which is exactly what kills this wit
 Adding this condition can tighten the REACH-11 46-bit ceiling below (quantifying how
 far is open new work, not yet done).
 
+**Independent cross-language reproduction (rob, Rust):** rob's `verify_unreachable`
+binary re-runs this witness through its own outer validators — 4/4 classic checks pass,
+3 of 450 generators decode, 425,520 shallow candidates yield 0 realizers, and the fifth
+follower-supply check rejects it (`x-r_unr_002_*` lines in
+`rob/receipts/verify_unreachable.txt`; see [verification](verification.md) §"rob (Rust)
+— independent reproduction, slice 02"). This is conformance evidence for the
+exchange-adjudicated result, **not** a status upgrade; the exchange-adjudicated framing
+above remains primary.
+
 ## The 35–46-bit interval (the flagship open problem)
 
 *(The corpus-proved interval is [26,46], REACH-11/12; exchange adjudication narrows the
@@ -125,6 +134,14 @@ the kernel-proved tier.)*
   so the corollary no longer stands CONDITIONAL. Source:
   `exchange/inbox/004-transport-reachability-commutation.md`, verified program
   `exchange/adjudication/programs/004.py`.
+  *Independent cross-language reproduction (rob, Rust):* rob's `verify_transport`
+  binary reproduces the commutation on a corpus of 588 transported hands — 16,464
+  symbolically-accepted transitions and 17,052 depth-wise NF equalities
+  `f(N_t(prefix)) = N_u(f(prefix))` — plus the 3-class quotient
+  (`rob/receipts/verify_transport.txt`; see [verification](verification.md) §"rob
+  (Rust) — independent reproduction, slice 02"). Conformance evidence for
+  `f_{t,u}(R_t)=R_u`, **not** a status upgrade; the exchange-adjudicated framing here
+  remains primary.
 - **[UNRESOLVED, REACH-13 / OPEN-11]**: the exact `|R_Str^m|`, and hence the optimal
   standalone width in `35..46` (exchange-adjudicated; corpus-proved `26..46`), is open.
   Both packages refuse to collapse it by guesswork.

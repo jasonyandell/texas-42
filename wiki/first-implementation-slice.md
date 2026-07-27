@@ -6,12 +6,18 @@
 implementation effort (codename **rob**) starts from; see also
 [FINDINGS.md](FINDINGS.md) §"What rob needs first".
 
-> **Status (2026-07-27): implemented and green.** The slice was executed — in Rust,
-> per [rob/BRIEF.md](../rob/BRIEF.md), which supersedes this page's Python file plan
-> and extends the slice through S4 (normal form + capacity DP) — under `rob/`; every
-> receipt reproduced exactly (see
+> **Status (2026-07-27): implemented and green, through slice 02.** The slice was
+> executed — in Rust, per [rob/BRIEF.md](../rob/BRIEF.md), which supersedes this page's
+> Python file plan and extends the slice through S4 (normal form + capacity DP) —
+> under `rob/`; every receipt reproduced exactly (see
 > [verification.md](verification.md) §"rob (Rust) — independent reproduction,
-> slice 01"). Slice 02 (support dynamics) is not begun.
+> slice 01"). **Slice 02** (support dynamics + symbolic reachability, stages S5–S9,
+> per [rob/BRIEF_SLICE_02.md](../rob/BRIEF_SLICE_02.md)) is also implemented and green:
+> the five stage binaries `verify_{dynamics,symbolic,outer,unreachable,transport}` pass
+> and are byte-diffed in CI (see [verification.md](verification.md) §"rob (Rust) —
+> independent reproduction, slice 02"). The optional **S10** stretch (reproduce the
+> x:001 reachable floor in Rust) is **deferred to a fresh session** — not attempted, no
+> receipt; the task is recorded.
 
 ## Scope: domino universe + declaration algebra only
 
