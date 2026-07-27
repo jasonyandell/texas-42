@@ -1,11 +1,12 @@
 # Discrepancies Between the Two Packages
 
-[Home](Home.md) · [Package provenance](package-provenance.md)
+[Home](Home.md) · owns: every disagreement found, with resolution and confidence ·
+Related: [package-provenance](package-provenance.md).
 
-Every disagreement found in a doc-by-doc comparison, with a recommended resolution and
-confidence. "v0.7" and "rec" as defined on [Home](Home.md). D1–D6 are the substantive
-conflicts; D7–D15 are structural/editorial. Since `ingest/` is immutable, these
-resolutions are realized *here in the wiki*, not by editing the packages.
+"v0.7" and "rec" as defined on [Home](Home.md). D1–D6 are the substantive conflicts;
+D7–D15 are structural/editorial; D16 is an exchange-side provenance note. Since
+`ingest/` is immutable, these resolutions are realized *here in the wiki*, not by
+editing the packages.
 
 ## D1. Reachability evidence: identity-bearing vs proof-irrelevant
 

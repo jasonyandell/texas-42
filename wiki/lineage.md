@@ -1,8 +1,8 @@
 # Lineage — the mk5 project and the wall
 
-Context only. No code, data, or definitions cross from the old project into
-this one; this page exists so future sessions understand *why* texas-42 exists.
-The old corpus lives at `~/code/mk5-main/wiki` (start at `topics/the-wall.md`).
+[Home](Home.md) · owns: why texas-42 exists. **Context only** — no code, data, or
+definitions cross from the old project into this one. The old corpus lives at
+`~/code/mk5-main/wiki` (start at `topics/the-wall.md`).
 
 ## The short version
 

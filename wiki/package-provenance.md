@@ -1,6 +1,7 @@
 # Package Provenance and Merge Order
 
-[Home](Home.md) · [Discrepancies](discrepancies.md)
+[Home](Home.md) · owns: how v0.7 and rec relate, and which package wins on each
+topic · Related: [discrepancies](discrepancies.md).
 
 ## The two packages
 

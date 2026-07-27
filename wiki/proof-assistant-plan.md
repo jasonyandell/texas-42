@@ -1,10 +1,16 @@
 # Proof-Assistant Plan (Merged)
 
-[Home](Home.md) · Sources: **v0.7** `60_PROOF_ASSISTANT_HANDOFF.md` +
-`65_MECHANIZATION_LEDGER.md`; **rec** `60_PROOF_ASSISTANT_KERNEL.md`. The three
-documents are complementary: v0.7 supplies the trust boundary, type discipline,
-priorities, and milestones; rec supplies the dependency spine covering its new
-mathematics. Related: [verification](verification.md), [open-problems](open-problems.md).
+[Home](Home.md) · owns: the trust boundary, the K0–K15 spine, mechanization
+priorities · Sources: **v0.7** `60_PROOF_ASSISTANT_HANDOFF.md` +
+`65_MECHANIZATION_LEDGER.md`; **rec** `60_PROOF_ASSISTANT_KERNEL.md` — complementary:
+v0.7 supplies the trust boundary, type discipline, priorities, and milestones; rec
+the dependency spine covering its new mathematics. Related:
+[verification](verification.md), [open-problems](open-problems.md).
+
+**Status (2026-07-27): mechanization has started.** [`lean/`](../lean/README.md) is a
+Lean 4 + mathlib Lake project; first kernel theorems landed on the K0/K1 layer:
+`Fintype.card Domino = 28` (PA-A02) and `∑ d, countPoints d = 35` (PA-A04), both
+depending only on the standard axioms — no `sorry`, no `native_decide`.
 
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 
