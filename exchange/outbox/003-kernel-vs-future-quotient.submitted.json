@@ -1,0 +1,14 @@
+{
+  "tag": "003-kernel-vs-future-quotient",
+  "number": "3",
+  "slug": "kernel-vs-future-quotient",
+  "channel": "new-chat",
+  "conversationUrl": "https://chatgpt.com/c/6a66e808-a6dc-83ea-8319-5c4bfca8e863",
+  "submittedAt": "2026-07-27T05:09:30.996Z",
+  "baselineAssistantCount": 0,
+  "attachments": [
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/10_RULES.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/20_MATHEMATICAL_FOUNDATION.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/verification/verify_reduced_kernel.py"
+  ]
+}

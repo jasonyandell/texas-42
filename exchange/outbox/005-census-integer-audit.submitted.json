@@ -1,0 +1,13 @@
+{
+  "tag": "005-census-integer-audit",
+  "number": "5",
+  "slug": "census-integer-audit",
+  "channel": "new-chat",
+  "conversationUrl": "https://chatgpt.com/c/6a66e834-e388-83ea-99e4-3186c6632c50",
+  "submittedAt": "2026-07-27T05:10:14.627Z",
+  "baselineAssistantCount": 0,
+  "attachments": [
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/10_RULES.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/20_MATHEMATICAL_FOUNDATION.md"
+  ]
+}

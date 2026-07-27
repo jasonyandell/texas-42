@@ -1,0 +1,14 @@
+{
+  "tag": "002-outer-language-tightness",
+  "number": "2",
+  "slug": "outer-language-tightness",
+  "channel": "new-chat",
+  "conversationUrl": "https://chatgpt.com/c/6a66e7f0-57cc-83ea-b6c8-eab6080b8b76",
+  "submittedAt": "2026-07-27T05:09:06.140Z",
+  "baselineAssistantCount": 0,
+  "attachments": [
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/10_RULES.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/20_MATHEMATICAL_FOUNDATION.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/verification/verify_minimality_and_reachability.py"
+  ]
+}

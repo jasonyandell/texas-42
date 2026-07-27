@@ -1,0 +1,14 @@
+{
+  "tag": "004-transport-reachability-commutation",
+  "number": "4",
+  "slug": "transport-reachability-commutation",
+  "channel": "new-chat",
+  "conversationUrl": "https://chatgpt.com/c/6a66e821-29c8-83ea-9f6f-4be358e6b9f7",
+  "submittedAt": "2026-07-27T05:09:54.953Z",
+  "baselineAssistantCount": 0,
+  "attachments": [
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/10_RULES.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/20_MATHEMATICAL_FOUNDATION.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/verification/verify_foundation.py"
+  ]
+}

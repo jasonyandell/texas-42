@@ -51,3 +51,7 @@ answer can be verified here without trusting the model.
 | # | slug | dispatched | response | adjudicated | outcome |
 |---|------|-----------|----------|-------------|---------|
 | 001 | reachable-support-cardinality | 2026-07-27T05:07:18Z [conv](https://chatgpt.com/c/6a66e786-2ac0-83ea-ade0-dff707fae5e6) | pending | — | — |
+| 002 | outer-language-tightness | 2026-07-27T05:09:06Z [conv](https://chatgpt.com/c/6a66e7f0-57cc-83ea-b6c8-eab6080b8b76) | pending | — | — |
+| 003 | kernel-vs-future-quotient | 2026-07-27T05:09:30Z [conv](https://chatgpt.com/c/6a66e808-a6dc-83ea-8319-5c4bfca8e863) | pending | — | — |
+| 004 | transport-reachability-commutation | 2026-07-27T05:09:54Z [conv](https://chatgpt.com/c/6a66e821-29c8-83ea-9f6f-4be358e6b9f7) | pending | — | — |
+| 005 | census-integer-audit | 2026-07-27T05:10:14Z [conv](https://chatgpt.com/c/6a66e834-e388-83ea-99e4-3186c6632c50) | pending | — | — |
