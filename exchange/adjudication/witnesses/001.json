@@ -1,0 +1,947 @@
+[
+  {
+    "headline": {
+      "no_void_reachable": 559316142,
+      "called_suit_one_void_reachable": 8387350664,
+      "natural_suit_one_void_reachable": 8721399239,
+      "certified_disjoint_total": 17668066045,
+      "two_to_34": 17179869184,
+      "outer_certificate_total": 64123542674901,
+      "bit_interval": [
+        35,
+        46
+      ]
+    }
+  },
+  {
+    "no_void_table": [
+      {
+        "T_size": 7,
+        "capacity_profiles": [
+          [
+            7,
+            7,
+            7
+          ]
+        ],
+        "count": 1184040,
+        "construction": "initial support"
+      },
+      {
+        "T_size": 8,
+        "capacity_orbit": [
+          6,
+          7,
+          7
+        ],
+        "labelings": 3,
+        "count": 9324315,
+        "construction": "one hidden lead"
+      },
+      {
+        "T_size": 9,
+        "capacity_orbit": [
+          6,
+          6,
+          7
+        ],
+        "labelings": 3,
+        "count": 20720700,
+        "construction": "two-play fragment"
+      },
+      {
+        "T_size": 10,
+        "capacity_profiles": [
+          [
+            6,
+            6,
+            6
+          ]
+        ],
+        "count": 13123110,
+        "construction": "three hidden plays"
+      },
+      {
+        "T_size": 11,
+        "capacity_orbit": [
+          5,
+          6,
+          6
+        ],
+        "labelings": 3,
+        "count": 64422540,
+        "construction": "one called-suit trick and one hidden lead"
+      },
+      {
+        "T_size": 12,
+        "capacity_orbit": [
+          5,
+          5,
+          6
+        ],
+        "adjacent_labelings": 2,
+        "adjacent_count_each": 30402400,
+        "separated_labelings": 1,
+        "separated_count_each": 30294577,
+        "count": 91099377
+      },
+      {
+        "T_size": 13,
+        "capacity_profiles": [
+          [
+            5,
+            5,
+            5
+          ]
+        ],
+        "count": 34115923
+      },
+      {
+        "T_size": 14,
+        "capacity_orbit": [
+          4,
+          5,
+          5
+        ],
+        "labelings": 3,
+        "count_each": 39546166,
+        "count": 118638498
+      },
+      {
+        "T_size": 15,
+        "capacity_orbit": [
+          4,
+          4,
+          5
+        ],
+        "adjacent_labelings": 2,
+        "adjacent_count_each": 37400509,
+        "separated_labelings": 1,
+        "separated_count_each": 37241110,
+        "count": 112042128
+      },
+      {
+        "T_size": 16,
+        "capacity_profiles": [
+          [
+            4,
+            4,
+            4
+          ]
+        ],
+        "count": 30419732
+      },
+      {
+        "T_size": 17,
+        "capacity_orbit": [
+          3,
+          4,
+          4
+        ],
+        "labelings": 3,
+        "count_each": 21408593,
+        "count": 64225779
+      }
+    ],
+    "no_void_total": 559316142
+  },
+  {
+    "no_void_module_coverage": [
+      {
+        "pattern": [
+          4,
+          2
+        ],
+        "witness_union_masks": 25584,
+        "target_T_size": 12,
+        "covered_T_masks": 30402400
+      },
+      {
+        "pattern": [
+          4,
+          3
+        ],
+        "witness_union_masks": 36128,
+        "target_T_size": 12,
+        "covered_T_masks": 30294577
+      },
+      {
+        "pattern": [
+          4,
+          4
+        ],
+        "witness_union_masks": 19394,
+        "coverage": {
+          "13": 34115923,
+          "14": 39546166
+        }
+      },
+      {
+        "pattern": [
+          4,
+          4,
+          2
+        ],
+        "witness_union_masks": 944482,
+        "target_T_size": 15,
+        "covered_T_masks": 37400509
+      },
+      {
+        "pattern": [
+          4,
+          4,
+          3
+        ],
+        "witness_union_masks": 985332,
+        "coverage": {
+          "15": 37241110,
+          "16": 30419732
+        }
+      },
+      {
+        "pattern": [
+          4,
+          4,
+          4
+        ],
+        "witness_union_masks": 381140,
+        "target_T_size": 17,
+        "covered_T_masks": 21408593
+      }
+    ]
+  },
+  {
+    "called_suit_void_table": [
+      {
+        "name": "C12_hidden_pair",
+        "T_size": 12,
+        "modules": 1,
+        "fragment": "pair",
+        "per_category": 23966810,
+        "categories_per_declaration": 3,
+        "declarations": 8,
+        "contribution": 575203440
+      },
+      {
+        "name": "C12_viewer_m1",
+        "T_size": 12,
+        "modules": 1,
+        "fragment": "viewer_m1",
+        "per_category": 19940291,
+        "categories_per_declaration": 1,
+        "declarations": 8,
+        "contribution": 159522328
+      },
+      {
+        "name": "C12_viewer_m2",
+        "T_size": 12,
+        "modules": 1,
+        "fragment": "viewer_m2",
+        "per_category": 23966810,
+        "categories_per_declaration": 1,
+        "declarations": 8,
+        "contribution": 191734480
+      },
+      {
+        "name": "C13_m1",
+        "T_size": 13,
+        "modules": 1,
+        "fragment": "complete_void_trick_m1",
+        "per_category": 29359456,
+        "categories_per_declaration": 3,
+        "declarations": 8,
+        "contribution": 704626944
+      },
+      {
+        "name": "C13_m2",
+        "T_size": 13,
+        "modules": 1,
+        "fragment": "complete_void_trick_m2",
+        "per_category": 31177027,
+        "categories_per_declaration": 3,
+        "declarations": 8,
+        "contribution": 748248648
+      },
+      {
+        "name": "C14_m1",
+        "T_size": 14,
+        "modules": 1,
+        "fragment": "winning_void_trick_m1_then_lead",
+        "per_category": 34711089,
+        "categories_per_declaration": 6,
+        "declarations": 8,
+        "contribution": 1666132272
+      },
+      {
+        "name": "C14_m2",
+        "T_size": 14,
+        "modules": 1,
+        "fragment": "winning_void_trick_m2_then_lead",
+        "per_category": 29851710,
+        "categories_per_declaration": 3,
+        "declarations": 8,
+        "contribution": 716441040
+      },
+      {
+        "name": "C15_hidden_pair",
+        "T_size": 15,
+        "modules": 2,
+        "fragment": "pair",
+        "per_category": 26574471,
+        "categories_per_declaration": 3,
+        "declarations": 8,
+        "contribution": 637787304
+      },
+      {
+        "name": "C15_viewer_m1",
+        "T_size": 15,
+        "modules": 2,
+        "fragment": "viewer_m1",
+        "per_category": 20479830,
+        "categories_per_declaration": 1,
+        "declarations": 8,
+        "contribution": 163838640
+      },
+      {
+        "name": "C15_viewer_m2",
+        "T_size": 15,
+        "modules": 2,
+        "fragment": "viewer_m2",
+        "per_category": 25760616,
+        "categories_per_declaration": 1,
+        "declarations": 8,
+        "contribution": 206084928
+      },
+      {
+        "name": "C16_m1",
+        "T_size": 16,
+        "modules": 2,
+        "fragment": "complete_void_trick_m1",
+        "per_category": 21582309,
+        "categories_per_declaration": 3,
+        "declarations": 8,
+        "contribution": 517975416
+      },
+      {
+        "name": "C16_m2",
+        "T_size": 16,
+        "modules": 2,
+        "fragment": "complete_void_trick_m2",
+        "per_category": 22693062,
+        "categories_per_declaration": 3,
+        "declarations": 8,
+        "contribution": 544633488
+      },
+      {
+        "name": "C17_m1",
+        "T_size": 17,
+        "modules": 2,
+        "fragment": "winning_void_trick_m1_then_lead",
+        "per_category": 17212461,
+        "categories_per_declaration": 6,
+        "declarations": 8,
+        "contribution": 826198128
+      },
+      {
+        "name": "C17_m2",
+        "T_size": 17,
+        "modules": 2,
+        "fragment": "winning_void_trick_m2_then_lead",
+        "per_category": 13118238,
+        "categories_per_declaration": 3,
+        "declarations": 8,
+        "contribution": 314837712
+      },
+      {
+        "name": "C18_hidden_pair",
+        "T_size": 18,
+        "modules": 3,
+        "fragment": "pair",
+        "per_category": 8905344,
+        "categories_per_declaration": 3,
+        "declarations": 8,
+        "contribution": 213728256
+      },
+      {
+        "name": "C19_m1",
+        "T_size": 19,
+        "modules": 3,
+        "fragment": "complete_void_trick_m1",
+        "per_category": 4114740,
+        "categories_per_declaration": 3,
+        "declarations": 8,
+        "contribution": 98753760
+      },
+      {
+        "name": "C19_m2",
+        "T_size": 19,
+        "modules": 3,
+        "fragment": "complete_void_trick_m2",
+        "per_category": 4233495,
+        "categories_per_declaration": 3,
+        "declarations": 8,
+        "contribution": 101603880
+      }
+    ],
+    "called_suit_void_total": 8387350664
+  },
+  {
+    "natural_suit_void_table": [
+      {
+        "name": "N12_hidden_pair",
+        "lead_fiber_sizes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "counts": [
+          5760594,
+          9210738,
+          11360129,
+          12660550,
+          13404689,
+          13812747
+        ],
+        "sum_over_42_contexts": 463466129,
+        "categories_per_context": 3,
+        "contribution": 1390398387
+      },
+      {
+        "name": "N12_viewer_m1",
+        "lead_fiber_sizes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "counts": [
+          5205424,
+          8170230,
+          9851930,
+          10700937,
+          11015340,
+          11015340
+        ],
+        "sum_over_42_contexts": 391714407,
+        "categories_per_context": 1,
+        "contribution": 391714407
+      },
+      {
+        "name": "N12_viewer_m2",
+        "lead_fiber_sizes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "counts": [
+          5760594,
+          9210738,
+          11360129,
+          12660550,
+          13404689,
+          13812747
+        ],
+        "sum_over_42_contexts": 463466129,
+        "categories_per_context": 1,
+        "contribution": 463466129
+      },
+      {
+        "name": "N13_m1",
+        "lead_fiber_sizes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "counts": [
+          7491473,
+          11679933,
+          13902336,
+          14925464,
+          15273873,
+          15273873
+        ],
+        "sum_over_42_contexts": 549828664,
+        "categories_per_context": 3,
+        "contribution": 1649485992
+      },
+      {
+        "name": "N13_m2",
+        "lead_fiber_sizes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "counts": [
+          7908238,
+          12476855,
+          15067893,
+          16446391,
+          17134605,
+          17458845
+        ],
+        "sum_over_42_contexts": 605449789,
+        "categories_per_context": 3,
+        "contribution": 1816349367
+      },
+      {
+        "name": "N15_viewer_m1",
+        "lead_fiber_sizes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "counts": [
+          5711043,
+          8584043,
+          10057926,
+          10705653,
+          10917124,
+          10917124
+        ],
+        "sum_over_42_contexts": 398250391,
+        "categories_per_context": 1,
+        "contribution": 398250391
+      },
+      {
+        "name": "N15_viewer_m2",
+        "lead_fiber_sizes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "counts": [
+          6175761,
+          9384409,
+          11150343,
+          12046854,
+          12471751,
+          12662139
+        ],
+        "sum_over_42_contexts": 447238799,
+        "categories_per_context": 1,
+        "contribution": 447238799
+      },
+      {
+        "name": "N16_m1",
+        "lead_fiber_sizes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "counts": [
+          5238902,
+          7878214,
+          9083898,
+          9529061,
+          9652578,
+          9652578
+        ],
+        "sum_over_42_contexts": 357246617,
+        "categories_per_context": 3,
+        "contribution": 1071739851
+      },
+      {
+        "name": "N16_m2",
+        "lead_fiber_sizes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "counts": [
+          5318483,
+          8010800,
+          9254244,
+          9723064,
+          9860356,
+          9869049
+        ],
+        "sum_over_42_contexts": 364251972,
+        "categories_per_context": 3,
+        "contribution": 1092755916
+      }
+    ],
+    "natural_suit_void_total": 8721399239
+  },
+  {
+    "category_schema": {
+      "hidden_pair_profiles": [
+        {
+          "capacities": [
+            5,
+            5,
+            6
+          ],
+          "void_seats": [
+            2
+          ]
+        },
+        {
+          "capacities": [
+            6,
+            5,
+            5
+          ],
+          "void_seats": [
+            3
+          ]
+        },
+        {
+          "capacities": [
+            5,
+            6,
+            5
+          ],
+          "void_seats": [
+            1
+          ]
+        }
+      ],
+      "viewer_led_profile_at_T12": {
+        "capacities": [
+          5,
+          5,
+          6
+        ],
+        "m1_void_seats": [
+          1
+        ],
+        "m2_void_seats": [
+          1,
+          2
+        ]
+      },
+      "viewer_led_profile_at_T15": {
+        "capacities": [
+          4,
+          4,
+          5
+        ],
+        "m1_void_seats": [
+          1
+        ],
+        "m2_void_seats": [
+          1,
+          2
+        ]
+      },
+      "equal_profile_m1_memberships": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ]
+      ],
+      "equal_profile_m2_memberships": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "singleton_low_m1_examples": [
+        {
+          "capacities": [
+            4,
+            5,
+            5
+          ],
+          "winning_low_seat": 1,
+          "void_seats": [
+            2
+          ]
+        },
+        {
+          "capacities": [
+            4,
+            5,
+            5
+          ],
+          "winning_low_seat": 1,
+          "void_seats": [
+            3
+          ]
+        }
+      ],
+      "singleton_low_m2_example": {
+        "capacities": [
+          4,
+          5,
+          5
+        ],
+        "winning_low_seat": 1,
+        "void_seats": [
+          2,
+          3
+        ]
+      }
+    }
+  },
+  {
+    "brute_force_crosscheck_witness": {
+      "declaration": "NT",
+      "viewer": 0,
+      "viewer_initial_hand": [
+        [
+          6,
+          3
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          1
+        ]
+      ],
+      "public_tricks": [
+        [
+          {
+            "seat": 0,
+            "domino": [
+              6,
+              3
+            ]
+          },
+          {
+            "seat": 1,
+            "domino": [
+              6,
+              1
+            ]
+          },
+          {
+            "seat": 2,
+            "domino": [
+              6,
+              4
+            ]
+          },
+          {
+            "seat": 3,
+            "domino": [
+              6,
+              0
+            ]
+          }
+        ],
+        [
+          {
+            "seat": 2,
+            "domino": [
+              0,
+              0
+            ]
+          },
+          {
+            "seat": 3,
+            "domino": [
+              2,
+              2
+            ]
+          },
+          {
+            "seat": 0,
+            "domino": [
+              5,
+              0
+            ]
+          },
+          {
+            "seat": 1,
+            "domino": [
+              2,
+              0
+            ]
+          }
+        ],
+        [
+          {
+            "seat": 2,
+            "domino": [
+              4,
+              3
+            ]
+          },
+          {
+            "seat": 3,
+            "domino": [
+              4,
+              2
+            ]
+          },
+          {
+            "seat": 0,
+            "domino": [
+              4,
+              0
+            ]
+          },
+          {
+            "seat": 1,
+            "domino": [
+              5,
+              4
+            ]
+          }
+        ],
+        [
+          {
+            "seat": 1,
+            "domino": [
+              1,
+              1
+            ]
+          },
+          {
+            "seat": 2,
+            "domino": [
+              3,
+              0
+            ]
+          },
+          {
+            "seat": 3,
+            "domino": [
+              3,
+              3
+            ]
+          },
+          {
+            "seat": 0,
+            "domino": [
+              2,
+              1
+            ]
+          }
+        ],
+        [
+          {
+            "seat": 1,
+            "domino": [
+              1,
+              0
+            ]
+          },
+          {
+            "seat": 2,
+            "domino": [
+              6,
+              6
+            ]
+          },
+          {
+            "seat": 3,
+            "domino": [
+              5,
+              2
+            ]
+          },
+          {
+            "seat": 0,
+            "domino": [
+              5,
+              1
+            ]
+          }
+        ]
+      ],
+      "endpoint_hidden_pool": [
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "endpoint_capacities": [
+        2,
+        2,
+        2
+      ],
+      "derived_hidden_voids": {
+        "1": [],
+        "2": [
+          1
+        ],
+        "3": [
+          0,
+          1
+        ]
+      },
+      "fiber_cardinality": 90,
+      "typed_successor_crosschecks": 12
+    }
+  }
+]
