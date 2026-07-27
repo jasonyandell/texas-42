@@ -125,6 +125,19 @@ impl AbstractCells {
         }
     }
 
+    /// Remove every allowed edge `(seat, tile)` for which `keep` returns
+    /// false, keeping universe and capacities (slice-02 dynamics helper:
+    /// the slough deletion step of the matching-minor update, TRANS-09).
+    pub fn retain_edges(&mut self, keep: impl Fn(usize, usize) -> bool) {
+        for s in 0..HIDDEN_SEATS {
+            for tile in 0..self.universe {
+                if self.possible[s][tile] && !keep(s, tile) {
+                    self.possible[s][tile] = false;
+                }
+            }
+        }
+    }
+
     /// Typed update for a hidden lead or successful follow by seat `s`
     /// playing tile `d` (Math §7.5, §7.14): the tile itself is the witness —
     /// remove `d` from the pool (hence from every allowed set) and lower
@@ -551,4 +564,21 @@ impl MechanicalCompiledView {
 pub fn effective_suit_set(declaration: crate::declaration::Declaration, q: LedSuit) -> DominoSet {
     let algebra = algebra_for(declaration);
     DominoSet::from_ids(all_ids().filter(|&d| algebra.follows(d, q)))
+}
+
+/// Sample one exactly uniform native remainder world from the fiber of a
+/// rule-derived cell system (CELL-10E/F): the abstract count-ratio sampler
+/// lifted through the canonical offset ↔ `DominoId` bijection, so callers
+/// no longer re-implement the translation (slice-01 ergonomic finding).
+pub fn sample_native_world(
+    cells: &RuleDerivedCellSystem,
+    source: &mut dyn crate::support::sampler::ExactRationalChoiceSource,
+) -> RemainderWorld {
+    let (abstract_cells, tile_order) = cells.to_abstract();
+    let world = crate::support::sampler::sample_uniform_world(&abstract_cells, source);
+    RemainderWorld {
+        hidden_hands: core::array::from_fn(|s| {
+            DominoSet::from_ids(world[s].iter().map(|&t| tile_order[t]))
+        }),
+    }
 }

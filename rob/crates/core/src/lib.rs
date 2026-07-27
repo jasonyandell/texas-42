@@ -47,9 +47,9 @@ pub use pip::{Pip, PipPermutation, PIPS};
 pub use rules::{AuctionAction, BidValue, MarkAmount, PointAmount, RulesConfig};
 pub use seat::{Seat, Team};
 pub use support::cells::{
-    derive_auction_cells, derive_rule_cells, initial_contracted_mechanical, update_support,
-    AbstractCells, AbstractWorld, MechanicalCompiledView, MechanicalState, RemainderWorld,
-    RuleDerivedCellSystem, HIDDEN_SEATS,
+    derive_auction_cells, derive_rule_cells, initial_contracted_mechanical, sample_native_world,
+    update_support, AbstractCells, AbstractWorld, MechanicalCompiledView, MechanicalState,
+    RemainderWorld, RuleDerivedCellSystem, HIDDEN_SEATS,
 };
 pub use support::census::{
     all_ternary_signatures, floor_family_count, reachable_capacity_profiles, support_census,
@@ -58,6 +58,10 @@ pub use support::census::{
 pub use support::count::{
     assignment_count, count_deletion_recurrence, count_generating_function, count_occupancy_dp,
     OccupancyDpStats,
+};
+pub use support::dynamics::{
+    ambiguity_rank, certified_matching_minor_update, game_observation, matching_minor_update,
+    DeletionRecord, ObservationKind, TypedHiddenObservation,
 };
 pub use support::normal_form::{
     compile_exact_support, compile_total_support, feasible_world, marginal_by_scc,

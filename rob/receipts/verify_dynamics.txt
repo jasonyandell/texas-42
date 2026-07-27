@@ -1,0 +1,6 @@
+rob S5 verification: PASS
+r_dyn_corpus: 66,969 systems; 14,579 feasible; 1,331 distinct normal forms
+r_dyn_observations: 170,058 observations; 157,809 nonempty successors
+r_dyn_monotone: 1,406,592 edge checks; 157,809 rank checks
+r_dyn_typed_wrapper: 864 transitions; 648 hidden; 216 viewer
+r_dyn_native_sampler: 972 agreements

@@ -4,6 +4,7 @@
 pub mod cells;
 pub mod census;
 pub mod count;
+pub mod dynamics;
 pub mod normal_form;
 pub mod reduce;
 pub mod sampler;
