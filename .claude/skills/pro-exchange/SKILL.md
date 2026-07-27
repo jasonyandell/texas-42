@@ -138,6 +138,27 @@ Concretely:
   that same live process** (see WEDGE LESSON above), then move to the next
   conversation.
 
+`automation/watch-harvest.mjs` implements this and is the tool to use. Its
+hardening after the 006 silent death (where a backstop reload left an
+un-hydrated page reading 0 assistant chars and the process later exited with no
+harvest and no trace — a *second* face of the wedge, since a silent death looks
+identical to "still generating"):
+
+- **Re-baseline after every (re)navigation.** An un-hydrated page reports 0
+  assistant turns; do not trust any read until the conversation's known prior
+  turns are back (`assistantCount >= baselineAssistantCount`). The watcher's
+  `waitReady` polls up to 30 s for this before reading.
+- **A collapse to 0 is a tracking failure, not progress/completion.** If the
+  last assistant text drops to 0 (or `assistantCount` falls below baseline),
+  re-navigate (full `page.goto`, not a soft reload) and re-baseline; never
+  record the 0 as progress and never let it satisfy the completion check.
+  Require `lastLen > 0` for completion so an empty bubble can't be harvested.
+- **Never exit without a terminal artifact.** Every non-harvest exit
+  (timeout, exception, `uncaughtException`/`unhandledRejection`,
+  SIGTERM/INT/HUP) writes `exchange/inbox/<tag>.FAILED.md` with the reason and
+  the manual `harvest.mjs` re-run command, and logs the exit reason. Silence is
+  never a valid terminal state.
+
 ## UI gotchas (all bitten once; selectors in automation/README.md)
 
 - **Model picker**: composer button opens the "Intelligence" menu (Instant
