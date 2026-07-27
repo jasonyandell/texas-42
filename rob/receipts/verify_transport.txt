@@ -1,0 +1,5 @@
+rob S9 verification: PASS
+# exchange: 004 (CONFIRMED 2026-07-27)
+r_tra_class_quotient: 3
+x-r_tra_corpus_commutation: 588 legal transported hands; 16,464 accepted transitions; 17,052 NF equalities
+r_tra_unscored_only: unscored surface only; no scored transport API (compile_fail doctest)

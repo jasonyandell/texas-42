@@ -10,6 +10,7 @@ pub mod outer;
 pub mod reduce;
 pub mod sampler;
 pub mod symbolic;
+pub mod transport_reach;
 
 /// Explicit support-layer errors (Exec §24).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
