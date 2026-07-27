@@ -1,0 +1,14 @@
+rob S1 verification: PASS
+r_alg_universe: 28 dominoes; count total 35
+r_alg_k7: 28 looped-K7 edges; antidiagonal counts 10+10+5+5+5 = 35
+r_alg_contexts: 7 leadable contexts per declaration; lead-fiber sizes 1..7
+r_alg_tiers: tier and key laws hold for all 9 declarations
+r_alg_unique_winner: 737,100
+r_alg_prose_agreement: 737,100
+r_alg_scoring: count 35; seven trick points: 7; total: 42
+r_alg_beats: 56,448
+r_alg_threat_witness: NT 0-0 and 1-1 empty threat, different natural follow
+r_alg_scored_transport: 5,040 permutations; 2 count-preserving; 2<->3 order isomorphism only between declarations 2 and 3
+r_alg_unscored_transport: 49 transports; 307,328 comparisons
+r_alg_mechanics_classes: 3
+r_alg_competitive_ordinal: max 13

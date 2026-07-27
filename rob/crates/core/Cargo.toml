@@ -1,0 +1,21 @@
+[package]
+name = "rob-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+num-bigint.workspace = true
+num-rational.workspace = true
+num-integer.workspace = true
+num-traits.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+float_arithmetic = "deny"
