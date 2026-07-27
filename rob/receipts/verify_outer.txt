@@ -1,0 +1,8 @@
+rob S7 verification: PASS
+# exchange: 002, 005 (CONFIRMED 2026-07-27)
+r_out_schedule: A_j (1, 50, 1079, 13084, 97119, 450066, 1273609, 2097152); T_j1 (8, 323, 5524, 51759, 286770, 947017, 1817216, 2097152); T_j2 (22, 743, 10844, 88159, 428562, 1244937, 2080768, 2097152)
+r_out_lead_witness: 176 entries; two routes agree
+r_out_profiles: 7,124,838,074,989 per declaration; 64,123,542,674,901 total; 839,220,930,919 max block; ceilings 46/43/43/40 bits
+r_out_five_checks: necessary-only membership; no conversion to certified types
+x-r_out_burnside: 136,514 identity; 2,156 per transposition; 35 per 3-cycle; average 23,842
+r_out_interval: 26..46 bits (corpus-anchored REACH-12/13)

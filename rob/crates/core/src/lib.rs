@@ -69,6 +69,11 @@ pub use support::normal_form::{
     unrank_world, Ambiguity, FeasibleSupportNormalForm, NativeSupportNormalForm,
     TotalSupportNormalForm,
 };
+pub use support::outer::{
+    lead_witness_b_convolution, lead_witness_b_inclusion_exclusion, profile_certificate_count,
+    schedule_admissible, schedule_census_a, schedule_census_t, OuterCheckReport,
+    ReachabilityOuterNecessaryProfile,
+};
 pub use support::reduce::{marginal_allowed, marginal_by_projection, reduce};
 pub use support::sampler::{sample_uniform_world, world_probability, ExactRationalChoiceSource};
 pub use support::symbolic::{

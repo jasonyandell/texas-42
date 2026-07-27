@@ -6,6 +6,7 @@ pub mod census;
 pub mod count;
 pub mod dynamics;
 pub mod normal_form;
+pub mod outer;
 pub mod reduce;
 pub mod sampler;
 pub mod symbolic;
