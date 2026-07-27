@@ -31,6 +31,14 @@ second `submit.mjs` posted a duplicate into the 001 conversation; count jumped
 5→7, wasting one lifetime submission). `submit.mjs` cannot self-guard because it
 baselines only its own view; the operator must do the pre-send check.
 
+**SINGLE-OPERATOR HARD RULE.** Never have two agents/sessions holding browser
+(submit) authority alive at the same time — not even briefly mid-handoff. Exactly
+one operator owns the composer, count, and ledger at any instant; a successor
+takes over only after the predecessor has demonstrably released (confirmed dead
+watcher, no pending submit). The 006 double-send happened during exactly such an
+overlap. When in doubt, confirm sole ownership with the coordinator before any
+browser action.
+
 ## Courier protocol
 
 - Dispatch: `exchange/outbox/NNN-slug.md` — YAML frontmatter (`number`, `slug`,
