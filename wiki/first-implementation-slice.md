@@ -6,6 +6,13 @@
 implementation effort (codename **rob**) starts from; see also
 [FINDINGS.md](FINDINGS.md) §"What rob needs first".
 
+> **Status (2026-07-27): implemented and green.** The slice was executed — in Rust,
+> per [rob/BRIEF.md](../rob/BRIEF.md), which supersedes this page's Python file plan
+> and extends the slice through S4 (normal form + capacity DP) — under `rob/`; every
+> receipt reproduced exactly (see
+> [verification.md](verification.md) §"rob (Rust) — independent reproduction,
+> slice 01"). Slice 02 (support dynamics) is not begun.
+
 ## Scope: domino universe + declaration algebra only
 
 Fresh, dependency-minimal Python 3.12 (stdlib only, `unittest`, strict types,
