@@ -1,0 +1,5 @@
+rob S10 verification: PASS
+# exchange: 001 (CONFIRMED 2026-07-27)
+x-r_flo_modules: 3,808 declaration/group/winner cases; 369 one-context profiles verified (superset of x:001's 216 tabled)
+x-r_flo_families: 559,316,142 no-void; 8,387,350,664 called-suit void; 8,721,399,239 natural-suit void
+x-r_flo_total: 17,668,066,045 > 2^34; floor 35 bits; interval [35,46]
