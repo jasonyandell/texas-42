@@ -16,7 +16,7 @@ const HARD_CAP = 10;
 const dispatchFile = process.argv[2];
 if (!dispatchFile) { console.error('usage: submit.mjs <dispatch.md>'); process.exit(1); }
 const { frontmatter: fm, body } = parseDispatch(dispatchFile);
-const tag = `${fm.number}-${fm.slug}`;
+const tag = path.basename(dispatchFile, '.md');
 
 const count = parseInt(fs.readFileSync(COUNT_FILE, 'utf8').trim() || '0', 10);
 if (count >= HARD_CAP) { log(`BUDGET EXHAUSTED (${count}/${HARD_CAP}); refusing to submit ${tag}`); process.exit(3); }
@@ -48,9 +48,9 @@ try {
   if (!model || !/\bpro\b/i.test(model.text)) throw new Error(`model gate failed: ${model?.text}`);
   log(`${tag}: model=${model.text}`);
 
-  for (const a of attachments) {
-    await attachFile(page, path.join(ROOT, a));
-    log(`${tag}: attached ${a}`);
+  if (attachments.length) {
+    await attachFile(page, attachments.map(a => path.join(ROOT, a)));
+    log(`${tag}: attached ${attachments.length} files`);
   }
   await pasteIntoComposer(page, body);
   await page.waitForTimeout(1000);
@@ -87,7 +87,7 @@ try {
 
   fs.writeFileSync(COUNT_FILE, String(count + 1) + '\n');
   const meta = {
-    number: fm.number, slug: fm.slug, channel: fm.channel || 'new-chat',
+    tag, number: fm.number, slug: fm.slug, channel: fm.channel || 'new-chat',
     conversationUrl: convUrl, submittedAt: new Date().toISOString(),
     baselineAssistantCount: baseline.assistant, attachments,
   };

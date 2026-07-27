@@ -8,7 +8,7 @@ import fs from 'node:fs';
 
 const metaFile = process.argv[2];
 const meta = JSON.parse(fs.readFileSync(metaFile, 'utf8'));
-const tag = `${meta.number}-${meta.slug}`;
+const tag = meta.tag || `${meta.number}-${meta.slug}`;
 
 const { browser, context } = await connect();
 try {

@@ -9,7 +9,7 @@ import path from 'node:path';
 
 const metaFile = process.argv[2];
 const meta = JSON.parse(fs.readFileSync(metaFile, 'utf8'));
-const tag = `${meta.number}-${meta.slug}`;
+const tag = meta.tag || `${meta.number}-${meta.slug}`;
 const outFile = path.join(ROOT, 'exchange', 'inbox', `${tag}.md`);
 
 const { browser, context } = await connect();
