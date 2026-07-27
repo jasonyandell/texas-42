@@ -230,14 +230,28 @@ of the closed-form observation space **without** invoking BRIEF_SLICE_02 §11.1'
 frozen-count escape hatch. They matched exactly, so no
 `ambiguity_trans13_observation_space` note was filed.
 
-### S10 stretch — deferred
+### S10 stretch — completed (recorded 2026-07-27, same day, after the initial
+slice-02 record)
 
-S10 (reproduce the x:001 reachable floor 17,668,066,045 and the [35,46] interval in
-Rust) is optional and slice 02 is complete without it (BRIEF_SLICE_02 §13). It was
-**not attempted this slice — no `verify_floor` receipt exists**; the task is recorded
-for a fresh session. rob's interval line therefore remains the corpus-anchored 26..46
-bits; the [35,46] narrowing stays exchange-adjudicated (REACH-17), updated by the wiki,
-not by rob.
+S10 is now **green and committed** (`verify_floor`, eleventh byte-diffed receipt;
+header `# exchange: 001`). rob re-implemented the x:001 floor construction from the
+inbox/001 prose proof (steps 1–14) and JSON tables — never its Python: the
+eight-star admissible-module language (**119** four-groups per star; **3,808**
+declaration/group/desired-winner cases exhausted through `resolve_trick`), the
+`pair`/`m1`/`m2` fragment templates with the step-5 `|X| ≤ k_u` ranges, and an
+exact 28-dimension subset-zeta upward-closure counter. Every anchor reproduced
+exactly: all six no-void witness-language/coverage numbers, all 17 called-suit
+per-category counts (K₈ symmetry verified on two stars), and all 54 natural-suit
+per-fiber-size counts (omitted-edge exclusion; 7 ordered contexts per fiber size).
+Family totals `x-r_flo_families`: **559,316,142** no-void / **8,387,350,664**
+called-suit void / **8,721,399,239** natural-suit void; grand total
+`x-r_flo_total`: **17,668,066,045 > 2³⁴** ⇒ floor **35 bits**, interval
+**[35,46]** — rob's receipt is now independent Rust evidence for the
+exchange-adjudicated narrowing (REACH-17); the corpus-proved interval statement
+(26..46, REACH-11/12) is unchanged and any evidentiary reframing belongs to the
+wiki. One rob-frozen value: the step-5 one-context verification exhausts a
+principled **369-profile superset** of x:001's 216 tabled profiles, all satisfying
+the step-5 marginal descriptions (noted in the receipt and named test).
 
 ## Exchange-adjudicated program runs (external evidentiary tier)
 
