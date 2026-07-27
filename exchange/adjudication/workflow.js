@@ -11,7 +11,8 @@ export const meta = {
 
 // args: { files: ["exchange/inbox/00N-slug.md", ...] }
 const REPO = '/Users/jason/code/texas-42'
-const files = (args && args.files) || []
+const parsedArgs = typeof args === 'string' ? JSON.parse(args) : args
+const files = (parsedArgs && parsedArgs.files) || []
 if (!files.length) throw new Error('pass args.files: inbox paths to adjudicate')
 
 const EXTRACT_SCHEMA = {
@@ -87,7 +88,8 @@ const results = await pipeline(
     ),
     ...LENSES.map(([lens, brief]) => () => agent(
       `Repo: ${REPO} (ground truth: ingest/ packages as reconciled by wiki/; read what you need). You are an adversarial referee for the external-model response at ${f} (its dispatch is in exchange/outbox/, same number). Extraction: ${JSON.stringify(ex)}. LENS — ${lens}: ${brief} Default to FLAWED/UNVERIFIABLE unless the material survives your genuine best attack; identify what survives regardless. Be specific: name steps, lines, integers.`,
-      { label: `verify:${lens}:${f.split('/').pop()}`, phase: 'Verify', schema: LENS_SCHEMA, effort: 'xhigh' },
+      // Referees: opus, default effort (Jason's policy: xhigh <=1 per question — reserved for the verdict)
+      { label: `verify:${lens}:${f.split('/').pop()}`, phase: 'Verify', schema: LENS_SCHEMA, model: 'opus' },
     )),
   ]),
   (panel, f, i) => !panel ? null : agent(
