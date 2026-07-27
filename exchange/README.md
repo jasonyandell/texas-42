@@ -57,4 +57,15 @@ answer can be verified here without trusting the model.
 | 005 | census-integer-audit | 2026-07-27T05:10:14Z [conv](https://chatgpt.com/c/6a66e834-e388-83ea-99e4-3186c6632c50) | harvested 2026-07-27T13:03:35Z | CONFIRMED (19/19 PASS 13s; 3/3 SOUND) | all 19 load-bearing census integers independently reproduced; new Burnside decomposition (136,514 / 2,156 / 35 → 23,842) added to corpus knowledge |
 | 006 | exact-reachable-census | 2026-07-27T14:53:19Z [conv](https://chatgpt.com/c/6a66e786-2ac0-83ea-ade0-dff707fae5e6) (continuation of 001) | pending | — | — |
 
-Adjudication run: 2026-07-27, workflow wf_775fe0ec (30 agents; programs executed unmodified from exchange/adjudication/programs/; per-response referee panel). Budget after 006: 6/10.
+Adjudication run: 2026-07-27, workflow wf_775fe0ec (30 agents; programs executed unmodified from exchange/adjudication/programs/; per-response referee panel).
+
+**Budget after 006: 7/10 (3 remaining).** Incident 2026-07-27: 006 was double-sent
+~28 s apart by two operator agents during an ownership handoff race (both sends
+verified in the 001 conversation DOM; one lifetime unit wasted; the duplicate
+turn is content-harmless — Pro answers once). Root causes: the outgoing operator
+submitted before its stand-down arrived, and the incoming operator sent without
+re-reading the count and re-scanning the target conversation immediately before
+send. Rule added to the skill: **in the same breath as any send — re-read
+submission_count.txt AND scan the target conversation for an existing identical
+turn; abort on either signal.** Single-operator-at-a-time is now mandatory: never
+two agents with browser/submit authority alive simultaneously, even mid-handoff.
