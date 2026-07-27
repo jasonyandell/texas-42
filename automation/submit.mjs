@@ -85,6 +85,7 @@ try {
   await shot(page, `${tag}-sent`);
   if (!convUrl) throw new Error(`${tag}: AMBIGUOUS SEND — inspect ${tag}-sent.png before retrying`);
 
+  // send confirmed: count it and persist metadata BEFORE any further checks
   fs.writeFileSync(COUNT_FILE, String(count + 1) + '\n');
   const meta = {
     tag, number: fm.number, slug: fm.slug, channel: fm.channel || 'new-chat',
@@ -93,6 +94,25 @@ try {
   };
   fs.writeFileSync(dispatchFile.replace(/\.md$/, '.submitted.json'), JSON.stringify(meta, null, 2) + '\n');
   log(`${tag}: SUBMITTED count=${count + 1}/${HARD_CAP} url=${convUrl}`);
+
+  // reload the recorded URL and confirm the sent turn (not a draft) carries
+  // the body text and every attachment filename
+  await page.goto(convUrl, { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await page.waitForTimeout(5000);
+  const check = await page.evaluate(() => {
+    const users = document.querySelectorAll('[data-message-author-role="user"]');
+    const last = users[users.length - 1];
+    const turn = last?.closest('article') || last?.parentElement?.parentElement;
+    return { userTurnText: turn?.innerText || '', userCount: users.length };
+  });
+  const missing = attachments.map(a => path.basename(a)).filter(n =>
+    !check.userTurnText.includes(n.slice(0, 20)));
+  const bodyOk = check.userTurnText.replace(/\s+/g, ' ').includes(norm(body).slice(0, 80));
+  await shot(page, `${tag}-verified`);
+  if (!bodyOk || missing.length) {
+    throw new Error(`${tag}: SENT but verification failed (bodyOk=${bodyOk}, missing attachments=${missing.join(',')}) — count as submitted, inspect ${tag}-verified.png`);
+  }
+  log(`${tag}: post-send verification OK (body + ${attachments.length} attachments visible in sent turn)`);
   await page.close();
 } finally {
   await browser.close();
