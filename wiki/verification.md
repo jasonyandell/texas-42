@@ -1,7 +1,8 @@
 # Verification Scripts and Fresh-Run Results
 
-[Home](Home.md) · Sources: `verification/` in both packages. Fresh runs performed
-2026-07-26 with Python 3.12 on this machine.
+[Home](Home.md) · owns: every verifier and receipt — ingest Python, rob Rust
+(slices 01+02, all eleven receipts), exchange program runs. Fresh ingest runs
+2026-07-26, Python 3.12, this machine.
 
 ## Status: everything passes
 
@@ -136,10 +137,8 @@ BRIEF.md §§1,2,5,9,11 remain binding verbatim). The five new stage binaries
 receipts under `rob/receipts/`; the full slice-01 CI (fmt; clippy `-D warnings
 -D float_arithmetic`; no-float grep; vocabulary grep; release test suite) stays green.
 
-**Status label: Finite verification receipt / conformance evidence — not a new
-mathematical status.** Same discipline as slice 01 (TRUST-01, §0 of either Math
-package): these runs re-derive committed corpus numbers in an independent Rust
-implementation and change no claim's status. Slice 02 introduces a second, explicitly
+**Status label: same as slice 01** — finite verification receipt / conformance
+evidence, never a new mathematical status. Slice 02 adds a second, explicitly
 labeled evidentiary layer: receipt lines whose expected value originates from an
 exchange-adjudicated result (§"Exchange-adjudicated program runs" below;
 [exchange/README.md](../exchange/README.md) ledger) carry an `x-` prefix and their
@@ -230,10 +229,9 @@ of the closed-form observation space **without** invoking BRIEF_SLICE_02 §11.1'
 frozen-count escape hatch. They matched exactly, so no
 `ambiguity_trans13_observation_space` note was filed.
 
-### S10 stretch — completed (recorded 2026-07-27, same day, after the initial
-slice-02 record)
+### S10 stretch — completed (recorded 2026-07-27)
 
-S10 is now **green and committed** (`verify_floor`, eleventh byte-diffed receipt;
+S10 is **green and committed** (`verify_floor`, byte-diffed receipt;
 header `# exchange: 001`). rob re-implemented the x:001 floor construction from the
 inbox/001 prose proof (steps 1–14) and JSON tables — never its Python: the
 eight-star admissible-module language (**119** four-groups per star; **3,808**
@@ -253,6 +251,19 @@ tightened to **[36,46]** via the disjoint REACH-18 family, exchange 006, which
 rob has *not* yet reproduced — a natural slice-03+ receipt target.) One rob-frozen value: the step-5 one-context verification exhausts a
 principled **369-profile superset** of x:001's 216 tabled profiles, all satisfying
 the step-5 marginal descriptions (noted in the receipt and named test).
+
+### The eleventh receipt: the evening player (`verify_player`)
+
+`rob/receipts/verify_player.txt` freezes a complete self-play match transcript of the
+**evening player v0** (`rob/crates/player`): fixed-field Monte Carlo best response
+(Math §11.4) — rollout policy fixed before worlds are drawn, world identity
+unrepresentable in its view — over exact uniform fiber sampling (rejection, no modulo
+bias), exact integer/rational values, 12 worlds per decision, player seed 7, match
+seed 42: 13 hands, T0 7–6 T1. Like `FROZEN_WITH_VOIDS` above, this is a
+**determinism freeze of rob's own construction**, not an ingest-corpus number. The
+HTML inspector (`rob/inspector/`) renders the same trace per-seat with exact fiber
+counts, marginals, decision values, trump display, and shareable URL-hash state; the
+JS recomputes no game logic — everything is emitted from Rust.
 
 ## Exchange-adjudicated program runs (external evidentiary tier)
 

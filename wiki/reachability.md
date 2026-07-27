@@ -1,7 +1,8 @@
 # Strict Straight Reachability
 
-[Home](Home.md) · Sources: both packages Math §7.13 (shared), **rec Math §7.13.7**
-(rec-only). Related: [minimal-support-normal-form](minimal-support-normal-form.md),
+[Home](Home.md) · owns: feasible ≠ reachable, both witnesses, the [36,46]-bit
+interval, symbolic certificates · Sources: both packages Math §7.13, **rec Math
+§7.13.7** (rec-only). Related: [minimal-support-normal-form](minimal-support-normal-form.md),
 [support-dynamics](support-dynamics.md), [open-problems](open-problems.md).
 
 **Feasibility is not reachability.** Hall answers "does a hidden assignment exist
@@ -49,8 +50,8 @@ inside the hidden pool*, violating lead-witness necessity. Hence
 
 ## Second feasible-but-unreachable witness — and the follower-supply obstruction
 
-**[Exchange-adjudicated CONFIRMED — program executed ALL_PASS; 3/3 adversarial referees
-SOUND; a new evidentiary tier, not a corpus "Theorem — proved" and not a kernel proof]**
+**[Exchange-adjudicated CONFIRMED (ALL_PASS; 3/3 referees SOUND) — external tier
+([claim-ledger](claim-ledger.md)), not a corpus theorem, not a kernel proof]**
 Witness `(NT, capacities (6,6,6), V₁={6}, 18-tile pool)`. Unlike REACH-10, this support
 *passes* all four outer necessary checks — capacity shape, schedule admissibility,
 **lead-witness**, and Hall — yet is still unreachable: exhausting all 450 static
@@ -67,30 +68,22 @@ cross-check).
 condition beyond the four outer checks: a singleton hidden void in context `q` at the
 `(6,6,6)` phase requires at least two distinct `σ_q` tiles outside the used pool `U`;
 here `σ₆ \ U = {6:6}` supplies only one, which is exactly what kills this witness.
-Adding this condition can tighten the REACH-11 46-bit ceiling below (quantifying how
-far is open new work, not yet done).
+Adding this condition can tighten the REACH-11 46-bit ceiling below — quantifying how
+far is open new work (exchange dispatch 007, submitted, response pending).
 
-**Independent cross-language reproduction (rob, Rust):** rob's `verify_unreachable`
-binary re-runs this witness through its own outer validators — 4/4 classic checks pass,
-3 of 450 generators decode, 425,520 shallow candidates yield 0 realizers, and the fifth
-follower-supply check rejects it (`x-r_unr_002_*` lines in
-`rob/receipts/verify_unreachable.txt`; see [verification](verification.md) §"rob (Rust)
-— independent reproduction, slice 02"). This is conformance evidence for the
-exchange-adjudicated result, **not** a status upgrade; the exchange-adjudicated framing
-above remains primary.
+rob's `verify_unreachable` binary independently reproduces all of this in Rust —
+4/4 classic checks pass, 3 of 450 generators decode, 425,520 candidates, 0 realizers,
+fifth check rejects (`x-r_unr_002_*` lines; [verification](verification.md)) —
+conformance evidence, not a status upgrade.
 
 ## The 36–46-bit interval (the flagship open problem)
 
-*(rob's Rust receipts (2026-07-27, slice 02 + S10) independently reproduce the outer
-censuses, the REACH-10 and x:002 unreachability witnesses (425,520 traces, 0
-realizers), the x:004 transport commutation corpus, and the x:001 floor family
-totals with 17,668,066,045 > 2³⁴ — conformance evidence for the exchange tier, not
-a status change; see [verification](verification.md) §"rob (Rust)".)*
-
-*(The corpus-proved interval is [26,46], REACH-11/12; exchange adjudication narrows the
-floor to ≥36 bits — the combined REACH-17 + REACH-18 families below, floor
-36,913,384,410 > 2³⁵ — at the exchange-adjudicated evidentiary tier, not the
-kernel-proved tier.)*
+Tier summary: the corpus-proved interval is **[26,46]** (REACH-11/12). The combined
+REACH-17 + REACH-18 families below give floor 36,913,384,410 > 2³⁵ ⇒ **[36,46]** —
+at the exchange-adjudicated tier, not the kernel-proved tier. rob's Rust receipts
+independently reproduce the outer censuses, both unreachability witnesses, the
+transport corpus, and the x:001 floor totals — conformance evidence, not a status
+change ([verification](verification.md)).
 
 - **Ceiling** [Theorem — exhaustive finite verification, REACH-11]: the necessary
   outer language (reachable capacity shape × schedule-admissible void masks ×
@@ -109,9 +102,8 @@ kernel-proved tier.)*
   **44,352,165 > 2²⁵** reachable supports ⇒ ≥26 bits. (The (6,6,6) construction uses a
   pigeonhole: a 10-tile complement with ≤2 doubles has ≥18 pip incidences over 7 pips,
   so some pip sits on ≥3 tiles, providing a legal 3-play prefix.)
-- **Sharpened floor** [exchange-adjudicated CONFIRMED — program executed ALL_PASS
-  (15.9s); 3/3 adversarial referees SOUND; a new evidentiary tier, **not** a corpus
-  "Theorem — proved" and **not** a kernel proof, REACH-17]: a certified *disjoint*
+- **Sharpened floor** [exchange-adjudicated CONFIRMED (ALL_PASS 15.9s; 3/3 SOUND),
+  REACH-17]: a certified *disjoint*
   family of **17,668,066,045 > 2³⁴** reachable supports — `559,316,142` no-void +
   `8,387,350,664` called-void + `8,721,399,239` natural-void — proving **≥35 bits**
   standalone and narrowing the standalone interval to **[35,46]**. Verification tier
@@ -126,8 +118,8 @@ kernel-proved tier.)*
   REACH-18 combined floor** below — both families are needed for ≥36 bits; neither is
   superseded.
 - **Second sharpened floor — two-void-context family** [exchange-adjudicated CONFIRMED
-  — program executed ALL_PASS (16/16, 17.3s); 3/3 adversarial referees SOUND; same
-  evidentiary tier and same verification-tier caveat as REACH-17, REACH-18]: a certified
+  (16/16 PASS 17.3s; 3/3 SOUND); same tier and same verification-tier caveat as
+  REACH-17, REACH-18]: a certified
   family of **19,245,318,365** additional reachable supports built from a *two*-void-
   context construction — a called star plus a disjoint natural effective suit under pip
   trump, with the connecting tile `t:q` retained in the hidden pool. Phase blocks:
@@ -147,9 +139,8 @@ kernel-proved tier.)*
   response explicitly disclaims closing the exact census or any full declaration
   class. Source: `exchange/inbox/006-exact-reachable-census.md`, verified program
   `exchange/adjudication/programs/006.py`.
-- **Transport-commutation** [exchange-adjudicated CONFIRMED — program executed ALL_PASS
-  (4.6s); 3/3 adversarial referees SOUND; a new evidentiary tier, not a corpus theorem
-  and not a kernel proof]: the order-preserving complement transport commutes with
+- **Transport-commutation** [exchange-adjudicated CONFIRMED (ALL_PASS 4.6s; 3/3
+  SOUND)]: the order-preserving complement transport commutes with
   legal-prefix generation, `f_{t,u}(R_t)=R_u`, so `|R_t|` is independent of the pip
   trump `t` and the declaration-tagged reachable census collapses from nine tags to
   **three classes** (one pip-trump class, doubles-trump `R_DT`, no-trump `R_NT`). Tagged
@@ -165,17 +156,14 @@ kernel-proved tier.)*
   so the corollary no longer stands CONDITIONAL. Source:
   `exchange/inbox/004-transport-reachability-commutation.md`, verified program
   `exchange/adjudication/programs/004.py`.
-  *Independent cross-language reproduction (rob, Rust):* rob's `verify_transport`
-  binary reproduces the commutation on a corpus of 588 transported hands — 16,464
-  symbolically-accepted transitions and 17,052 depth-wise NF equalities
+  rob's `verify_transport` reproduces the commutation on 588 transported hands —
+  16,464 symbolically-accepted transitions, 17,052 depth-wise NF equalities
   `f(N_t(prefix)) = N_u(f(prefix))` — plus the 3-class quotient
-  (`rob/receipts/verify_transport.txt`; see [verification](verification.md) §"rob
-  (Rust) — independent reproduction, slice 02"). Conformance evidence for
-  `f_{t,u}(R_t)=R_u`, **not** a status upgrade; the exchange-adjudicated framing here
-  remains primary.
+  ([verification](verification.md)); conformance evidence, not a status upgrade.
 - **[UNRESOLVED, REACH-13 / OPEN-11]**: the exact `|R_Str^m|`, and hence the optimal
   standalone width in `36..46` (exchange-adjudicated; corpus-proved `26..46`), is open.
-  Both packages refuse to collapse it by guesswork.
+  Both packages refuse to collapse it by guesswork. In flight: dispatch 007 attacks
+  the ceiling via the fifth condition; dispatch 008 attacks the exact no-void slice.
 
 Boundary [REACH-03A + rec TRANS-08]: standalone reachable support is not a complete
 game state (no declaration/actor/trick/score); but rec proves support *is* a closed

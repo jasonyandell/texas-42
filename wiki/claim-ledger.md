@@ -1,7 +1,9 @@
 # Claim Ledger — Status Vocabulary and Merged Inventory
 
-[Home](Home.md) · Sources: both packages `docs/40_CLAIM_STATUS.md`. Related:
-[discrepancies D8](discrepancies.md), [open-problems](open-problems.md).
+[Home](Home.md) · owns: the status vocabulary (including the exchange-adjudicated
+tier definition) and the merged claim inventory · Sources: both packages
+`docs/40_CLAIM_STATUS.md`. Related: [discrepancies D8](discrepancies.md),
+[open-problems](open-problems.md).
 
 ## Status vocabulary (shared by both packages)
 
@@ -56,9 +58,11 @@ below.
 ## Exchange-adjudicated results (external evidentiary tier)
 
 Six results from the Claude ↔ ChatGPT 5.6 Pro exchange
-([exchange/README.md](../exchange/README.md)), adjudicated here 2026-07-27. Status is
-**exchange-adjudicated CONFIRMED** as defined above; each row cites its inbox file and
-the verified program under `exchange/adjudication/programs/`.
+([exchange/README.md](../exchange/README.md) is the ledger of record), adjudicated
+2026-07-27. Status is **exchange-adjudicated CONFIRMED** as defined above; each row
+cites its inbox file and the verified program under
+`exchange/adjudication/programs/`. Dispatches 007 and 008 are submitted and pending —
+nothing from them enters this table until adjudicated.
 
 | Result | Where explained | Status / caveat |
 |---|---|---|

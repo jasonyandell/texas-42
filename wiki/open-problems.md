@@ -1,8 +1,8 @@
 # Open Problems and Boundaries (Merged)
 
-[Home](Home.md) · Sources: both packages `40_CLAIM_STATUS.md` §10 + Math §14 "Honest
-boundaries". Merged per [package-provenance](package-provenance.md); rec's rewrites of
-OPEN-01/OPEN-12 adopted. Statuses as labeled by the packages.
+[Home](Home.md) · owns: the merged OPEN inventory and its current statuses · Sources:
+both packages `40_CLAIM_STATUS.md` §10 + Math §14 "Honest boundaries", merged per
+[package-provenance](package-provenance.md); rec's rewrites of OPEN-01/OPEN-12 adopted.
 
 ## Genuinely open mathematics (UNRESOLVED)
 
@@ -16,11 +16,12 @@ OPEN-01/OPEN-12 adopted. Statuses as labeled by the packages.
   still refuse to collapse the exact count by guesswork. rec's symbolic support DAG
   (REACH-16) is the obvious counting substrate; exchange 001/006's validated
   witness-generation + split-zeta upward-closure counter (independently checked against
-  brute force) is a reusable substrate for further tightening. See
-  [reachability](reachability.md) and FINDINGS Q1.
-- **OPEN-01 (rec form) — RESOLVED, COLLAPSE** [exchange-adjudicated CONFIRMED — program
-  executed ALL_PASS (0.43s); 3/3 adversarial referees SOUND; a new evidentiary tier,
-  not a kernel proof]: the reduced viewer kernel `K = (δ, H_m, N, τ, α_U)` is proved
+  brute force) is a reusable substrate for further tightening. In flight: dispatch
+  007 (ceiling via the fifth condition) and 008 (exact no-void slice), submitted,
+  responses pending. See [reachability](reachability.md) and FINDINGS Q1.
+- **OPEN-01 (rec form) — RESOLVED, COLLAPSE** [exchange-adjudicated CONFIRMED
+  (ALL_PASS 0.43s; 3/3 SOUND) — external tier, not a kernel proof
+  ([claim-ledger](claim-ledger.md))]: the reduced viewer kernel `K = (δ, H_m, N, τ, α_U)` is proved
   *exact*, and the global transition minimum is *defined* (future-equivalence quotient
   per output contract, QUO-10). Dispatch 003 settles the equality question **negatively
   for the support-aware `P30_DECLARING_POINTS` contract**: `K` is strictly finer than
@@ -68,9 +69,8 @@ OPEN-01/OPEN-12 adopted. Statuses as labeled by the packages.
    (rec ALG-22) biject reachable support images across the seven pip-trump
    declarations? Support content depends only on unscored mechanics (follow/lead
    relations), so plausibly yes — which would collapse the 9-declaration factor in
-   REACH-11 to 3 classes and simplify OPEN-11. **Prerequisite SATISFIED** [exchange-
-   adjudicated CONFIRMED — program executed ALL_PASS (4.6s); 3/3 adversarial referees
-   SOUND; a new evidentiary tier, not a kernel proof]: the transport theorem
+   REACH-11 to 3 classes and simplify OPEN-11. **Prerequisite SATISFIED**
+   [exchange-adjudicated CONFIRMED (ALL_PASS 4.6s; 3/3 SOUND)]: the transport theorem
    `f_{t,u}(R_t)=R_u` is machine-certified (dispatch 004,
    `exchange/adjudication/programs/004.py`), so the transport commutes with legal-prefix
    generation and the REACH-11 declaration classes collapse from nine to **3** (one
@@ -78,9 +78,8 @@ OPEN-01/OPEN-12 adopted. Statuses as labeled by the packages.
    `|R~| = 7·r_pip + |R_DT| + |R_NT|`; the Step-15 quotient corollary's cocycle gap is
    closed by finite check (`programs/004-cocycle.py`, all 343 triples). See
    [reachability](reachability.md) and [FINDINGS](FINDINGS.md) Q4.
-2. **Outer-language tightness — RESOLVED (negative)** [exchange-adjudicated CONFIRMED —
-   program executed ALL_PASS (0.9s); 3/3 adversarial referees SOUND; a new evidentiary
-   tier, not a kernel proof]: the witness `(NT, (6,6,6), V₁={6}, 18-tile pool)` passes
+2. **Outer-language tightness — RESOLVED (negative)** [exchange-adjudicated CONFIRMED
+   (ALL_PASS 0.9s; 3/3 SOUND)]: the witness `(NT, (6,6,6), V₁={6}, 18-tile pool)` passes
    **all four** outer checks (capacity shape, schedule, lead witness, Hall) yet is
    unreachable — so the outer language is *not* exact even at the `j=1` equal-capacity
    one-void phase. Exhaustion: 450 generators, 3 matches, 425,520 traces, 0 realizers.

@@ -1,8 +1,9 @@
 # FINDINGS — Texas 42 Foundations Ingest Review
 
-Date: 2026-07-26. Scope: exhaustive read of both packages, all verifiers executed,
-doc-by-doc comparison, wiki synthesis. Citations use the convention on
-[Home](Home.md) (v0.7 / rec).
+[Home](Home.md) · owns: the overall assessment — what the object is, strongest
+results, risks, next questions. Written 2026-07-26 (exhaustive read of both packages,
+all verifiers executed, doc-by-doc comparison); updated 2026-07-27 with the exchange
+adjudications and rob receipts. Citations per [Home](Home.md) (v0.7 / rec).
 
 ---
 
@@ -159,8 +160,12 @@ not yet mechanized — the risk is a scope gap, not a known bug):
 
 ## 7. What an implementation ("rob") needs first
 
-See [first-implementation-slice](first-implementation-slice.md) for the full assignment.
-Order of construction, with the reason:
+See [first-implementation-slice](first-implementation-slice.md) for the original
+assignment. *Status: steps 1–5 below are executed and green (rob slices 01+02,
+eleven byte-diffed receipts — [verification](verification.md)); step 6's
+belief/filtering layer with the 90-world posterior regression remains for a later
+slice (S3 already reproduces the witness's support side).* Order of construction,
+with the reason:
 
 1. **Slice 01 — declaration algebra** (assigned in 50_CODEX, rec superset): universe,
    nine algebras, unique winner + independent prose resolver (737,100), transports,
@@ -249,11 +254,6 @@ packages):
 witness; and formalize the match process to characterize exactly which policy classes
 violate almost-sure termination without the ε-assumption.)
 
-## 9. Wiki inventory
-
-18 pages + this document, indexed at [Home](Home.md): package-provenance,
-discrepancies (15 items, each with resolution + confidence), rules-profile,
-declaration-algebra, support-fiber, capacity-dp, minimal-support-normal-form,
-reachability, support-dynamics, reduced-viewer-kernel, belief-vs-support,
-strategic-state, claim-ledger, verification, proof-assistant-plan,
-first-implementation-slice, open-problems.
+Of these, Q2/Q3/Q4/Q5 are answered (exchange 002/003/004/005, all CONFIRMED); Q1 is
+narrowed to [36,46] with dispatches 007 (ceiling) and 008 (no-void exact census) in
+flight. The wiki page map lives on [Home](Home.md).
