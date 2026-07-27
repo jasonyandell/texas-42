@@ -1,7 +1,8 @@
 # Hall Feasibility, Exact Counting, and Exact Uniform Sampling
 
-[Home](Home.md) · Sources: both packages Math §7.7–7.8 (shared), **rec Math §7.7.1**.
-Related: [support-fiber](support-fiber.md), [minimal-support-normal-form](minimal-support-normal-form.md).
+[Home](Home.md) · owns: Hall feasibility, exact counting, the uniform sampler ·
+Sources: both packages Math §7.7–7.8, **rec Math §7.7.1**. Related:
+[support-fiber](support-fiber.md), [minimal-support-normal-form](minimal-support-normal-form.md).
 
 ## Feasibility = capacitated Hall
 

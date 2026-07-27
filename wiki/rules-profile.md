@@ -1,7 +1,8 @@
 # Rules Profile — Straight Points-and-Marks Texas 42
 
-[Home](Home.md) · Source: `docs/10_RULES.md` (**byte-identical in both packages**; all
-statements below are **Adopted rule / Clarification** unless labeled otherwise).
+[Home](Home.md) · owns: the normative rules profile · Source: `docs/10_RULES.md`
+(**byte-identical in both packages**; statements are **Adopted rule / Clarification**
+unless labeled otherwise).
 
 ## Setup
 - One double-six set (28 dominoes), four seats clockwise, opposite seats partnered

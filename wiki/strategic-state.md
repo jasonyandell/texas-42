@@ -1,7 +1,9 @@
 # Strategic State, Utility, Quotients, and Gauges
 
-[Home](Home.md) · Sources: both packages Math §§9–12 (shared), rec §12.7.1 (rec-only).
-Related: [belief-vs-support](belief-vs-support.md), [reduced-viewer-kernel](reduced-viewer-kernel.md).
+[Home](Home.md) · owns: the marked hand, the decision state (c, e, β), utility
+lenses, quotients and gauges · Sources: both packages Math §§9–12, rec §12.7.1
+(rec-only). Related: [belief-vs-support](belief-vs-support.md),
+[reduced-viewer-kernel](reduced-viewer-kernel.md).
 
 ## The native marked hand (Math §9)
 

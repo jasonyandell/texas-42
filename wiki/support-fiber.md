@@ -1,7 +1,8 @@
 # Capacity Cells and the Current-Remainder Fiber
 
-[Home](Home.md) · Sources: both packages Math §§6–7 (shared). Related:
-[capacity-dp](capacity-dp.md), [minimal-support-normal-form](minimal-support-normal-form.md),
+[Home](Home.md) · owns: the cells, the fiber, the losslessness theorem · Sources:
+both packages Math §§6–7 (shared). Related: [capacity-dp](capacity-dp.md),
+[minimal-support-normal-form](minimal-support-normal-form.md),
 [belief-vs-support](belief-vs-support.md).
 
 ## Three domains that must not be conflated

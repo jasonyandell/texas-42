@@ -1,7 +1,8 @@
 # Declaration Algebra
 
-[Home](Home.md) · Sources: both packages Math §§2–3 (shared), **rec Math §3.10**
-(rec-only). Related: [rules-profile](rules-profile.md), [support-fiber](support-fiber.md).
+[Home](Home.md) · owns: the domino universe, the nine algebras, transports and
+mechanics classes · Sources: both packages Math §§2–3, **rec Math §3.10** (rec-only).
+Related: [rules-profile](rules-profile.md), [support-fiber](support-fiber.md).
 
 ## The universe
 
@@ -54,8 +55,9 @@ sets yet follow different suits [Constructed counterexample, ALG-15].
 
 The three-class result is why a solver's *legality/mechanics* code paths need only
 three cases, while anything touching count (bidding, valuation) collapses only under
-`2↔3`. Whether the unscored transport also bijects *reachable support images* across
-pip trumps is a high-value open question — see [open-problems](open-problems.md).
+`2↔3`. The unscored transport moreover bijects *reachable support images* across pip
+trumps — `f_{t,u}(R_t) = R_u`, exchange-adjudicated CONFIRMED (x:004), collapsing the
+reachable census from nine tags to three classes — see [reachability](reachability.md).
 
 ## Lead contexts (used heavily by reachability)
 

@@ -1,6 +1,7 @@
 # Dynamic Support: the Matching-Minor Calculus (rec only)
 
-[Home](Home.md) · Source: **rec Math §7.14.1–7.14.2** (no v0.7 counterpart). Related:
+[Home](Home.md) · owns: the matching-minor calculus, monotonicity, the 63-edge
+budget · Source: **rec Math §7.14.1–7.14.2** (no v0.7 counterpart). Related:
 [minimal-support-normal-form](minimal-support-normal-form.md),
 [reduced-viewer-kernel](reduced-viewer-kernel.md), [reachability](reachability.md).
 
@@ -54,20 +55,10 @@ Receipts: 1,331 feasible small supports × 170,058 typed observations, extension
 conditioning ≡ matching-minor update, 1,406,592 monotonicity edge-tests
 [Theorem — exhaustive finite verification, TRANS-13]; 108 full hands, 3,024
 transitions, exactly 6,804 = 108·63 deletions with no reappearance
-[Finite verification receipt, TRANS-14]. Both in `verify_reduced_kernel.py`.
-**Independently reproduced in Rust** (2026-07-27): rob slice 02 S5/S6 reproduce
-every number above exactly from a principled enumeration of the stated spaces —
-see [verification](verification.md) §"rob (Rust)" — conformance evidence, not a
-status change.
-
-**Independent cross-language reproduction (rob, Rust):** these TRANS-13/14 receipts —
-1,331 feasible NFs / 170,058 observations / 1,406,592 monotonicity checks / 108 hands /
-3,024 transitions / 6,804 = 108·63 deletions — are reproduced end-to-end in rob's
-`verify_dynamics` and `verify_symbolic` binaries
-(`rob/receipts/verify_dynamics.txt`, `rob/receipts/verify_symbolic.txt`; see
-[verification](verification.md) §"rob (Rust) — independent reproduction, slice 02").
-This is finite verification / conformance evidence, **not** a status upgrade — the
-corpus receipt remains the ground truth.
+[Finite verification receipt, TRANS-14]. Both in `verify_reduced_kernel.py`; every
+number is reproduced end-to-end in Rust by rob's `verify_dynamics` and
+`verify_symbolic` binaries ([verification](verification.md)) — conformance evidence,
+not a status upgrade; the corpus receipt remains the ground truth.
 
 ## Why this matters for a solver
 

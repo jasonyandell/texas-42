@@ -1,6 +1,7 @@
 # The Globally Minimal Exact Support Normal Form
 
-[Home](Home.md) · Sources: both packages Math §7.10–7.12 (shared). Related:
+[Home](Home.md) · owns: the normal form, its minimality, the 81-bit census ·
+Sources: both packages Math §7.10–7.12 (shared). Related:
 [capacity-dp](capacity-dp.md), [reachability](reachability.md),
 [support-dynamics](support-dynamics.md).
 
@@ -72,13 +73,12 @@ executable repair; see [discrepancies D2](discrepancies.md).)
   labeled law [CELL-23]. Explicit packed-table byte budgets (86 KB count table…)
   are constructive upper bounds, not claimed minima.
   - **Burnside decomposition of the 23,842 orbit count** [exchange-adjudicated
-    CONFIRMED — external, not a corpus theorem and not a kernel proof]: the `S₃`
+    CONFIRMED (x:005) — external tier ([claim-ledger](claim-ledger.md))]: the `S₃`
     fixed-point profile is **136,514** signatures fixed by the identity, **2,156** by
-    each transposition, and **35** by each three-cycle, giving
-    `(136,514 + 3·2,156 + 2·35)/6 = 23,842`. These per-element fixed counts were not
-    previously in the corpus; they are newly established, confirmed by exchange dispatch
-    005's program (`exchange/adjudication/programs/005.py`) plus two independent referee
-    derivations. Source `exchange/inbox/005-census-integer-audit.md`.
+    each transposition, **35** by each three-cycle:
+    `(136,514 + 3·2,156 + 2·35)/6 = 23,842`. These per-element fixed counts are new
+    to the corpus — established by `exchange/adjudication/programs/005.py` plus two
+    independent referee derivations.
 - **Ordered completion automaton** [Theorem — proved, CELL-25]: residual-capacity
   vectors form the unique minimal partial DFA for a fixed tile order; native ternary
   state fits 9 bits universally [CELL-25A].

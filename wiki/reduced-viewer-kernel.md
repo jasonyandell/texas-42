@@ -1,6 +1,7 @@
 # The Reduced Viewer Kernel and Future-Equivalence Minimality (rec only)
 
-[Home](Home.md) · Sources: **rec Math §7.16, §12.10, §15** (no v0.7 counterpart).
+[Home](Home.md) · owns: the four reductions, the kernel, future equivalence, the
+OPEN-01 collapse · Sources: **rec Math §7.16, §12.10, §15** (no v0.7 counterpart).
 Related: [support-dynamics](support-dynamics.md), [strategic-state](strategic-state.md),
 [open-problems](open-problems.md).
 
@@ -59,9 +60,9 @@ Consequences:
   future-equivalence quotient was rec's "Not established" #1 (merged
   [OPEN-01](open-problems.md)); exchange dispatch 003 now settles it in the **COLLAPSE**
   direction for the support-aware `P30_DECLARING_POINTS` contract — **`K` is strictly
-  finer than the quotient** [exchange-adjudicated CONFIRMED — program executed ALL_PASS
-  (0.43s); 3/3 adversarial referees SOUND; a new evidentiary tier, not a corpus theorem
-  and not a kernel proof]. Two reachable kernels differing only in the raw fold ordinal
+  finer than the quotient** [exchange-adjudicated CONFIRMED (ALL_PASS 0.43s; 3/3
+  SOUND) — external tier ([claim-ledger](claim-ledger.md)), not a corpus theorem,
+  not a kernel proof]. Two reachable kernels differing only in the raw fold ordinal
   (`r=7` vs `r=6`; NT, `P(30)`, viewer 0 / bidder 3, identical `ε`, 18-tile full-Ternary
   support normal form) are machine-verified output-equivalent, so the fold ordinal `r`
   is **not an injective memoization coordinate**. Mechanism — the **dead-cut lemma**:

@@ -1,6 +1,7 @@
 # Support Is Not Belief
 
-[Home](Home.md) · Sources: both packages Math §6.7, §8, §10.4 (shared). Related:
+[Home](Home.md) · owns: the support/belief separation, Bayes machinery, the 90-world
+witness · Sources: both packages Math §6.7, §8, §10.4 (shared). Related:
 [support-fiber](support-fiber.md), [strategic-state](strategic-state.md).
 
 ## The separation
