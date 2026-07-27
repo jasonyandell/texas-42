@@ -81,6 +81,12 @@ above remains primary.
 
 ## The 35–46-bit interval (the flagship open problem)
 
+*(rob's Rust receipts (2026-07-27, slice 02 + S10) independently reproduce the outer
+censuses, the REACH-10 and x:002 unreachability witnesses (425,520 traces, 0
+realizers), the x:004 transport commutation corpus, and the x:001 floor family
+totals with 17,668,066,045 > 2³⁴ — conformance evidence for the exchange tier, not
+a status change; see [verification](verification.md) §"rob (Rust)".)*
+
 *(The corpus-proved interval is [26,46], REACH-11/12; exchange adjudication narrows the
 floor to ≥35 bits — REACH-17 below — at the exchange-adjudicated evidentiary tier, not
 the kernel-proved tier.)*

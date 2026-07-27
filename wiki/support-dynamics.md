@@ -55,6 +55,10 @@ conditioning ≡ matching-minor update, 1,406,592 monotonicity edge-tests
 [Theorem — exhaustive finite verification, TRANS-13]; 108 full hands, 3,024
 transitions, exactly 6,804 = 108·63 deletions with no reappearance
 [Finite verification receipt, TRANS-14]. Both in `verify_reduced_kernel.py`.
+**Independently reproduced in Rust** (2026-07-27): rob slice 02 S5/S6 reproduce
+every number above exactly from a principled enumeration of the stated spaces —
+see [verification](verification.md) §"rob (Rust)" — conformance evidence, not a
+status change.
 
 **Independent cross-language reproduction (rob, Rust):** these TRANS-13/14 receipts —
 1,331 feasible NFs / 170,058 observations / 1,406,592 monotonicity checks / 108 hands /
