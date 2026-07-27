@@ -1,0 +1,69 @@
+{
+  "baseline_tagged_outer": 64123542674901,
+  "licensed_fifth_only": 64123217904861,
+  "generalized_temporal_follower_supply": 63529591020871,
+  "filtered_tagged_outer": 33297009347414,
+  "declaration_counts": [
+    {
+      "declaration": 0,
+      "transport_multiplicity": 7,
+      "original_outer": 7124838074989,
+      "generalized_temporal": 7053861464788,
+      "filtered": 3739199825401,
+      "filtered_by_completed_tricks": {
+        "0": 216122750,
+        "1": 28318361427,
+        "2": 533890980042,
+        "3": 1827643248097,
+        "4": 1203144163244,
+        "5": 143682064920,
+        "6": 2304884920,
+        "7": 1
+      }
+    },
+    {
+      "declaration": "DT",
+      "transport_multiplicity": 1,
+      "original_outer": 7124838074989,
+      "generalized_temporal": 7053861464788,
+      "filtered": 3739199825401,
+      "filtered_by_completed_tricks": {
+        "0": 216122750,
+        "1": 28318361427,
+        "2": 533890980042,
+        "3": 1827643248097,
+        "4": 1203144163244,
+        "5": 143682064920,
+        "6": 2304884920,
+        "7": 1
+      }
+    },
+    {
+      "declaration": "NT",
+      "transport_multiplicity": 1,
+      "original_outer": 7124838074989,
+      "generalized_temporal": 7098699302567,
+      "filtered": 3383410744206,
+      "filtered_by_completed_tricks": {
+        "0": 218564630,
+        "1": 28476533605,
+        "2": 514158308965,
+        "3": 1669668137750,
+        "4": 1048210259452,
+        "5": 120758375971,
+        "6": 1920563832,
+        "7": 1
+      }
+    }
+  ],
+  "powers_of_two": {
+    "2^44": 17592186044416,
+    "2^45": 35184372088832
+  },
+  "necessity_smoke_test": {
+    "seed": 70189328,
+    "complete_hands": 4000,
+    "prefixes": 116000,
+    "prefixes_per_depth_0_through_28": 4000
+  }
+}

@@ -8,17 +8,18 @@ both packages `40_CLAIM_STATUS.md` §10 + Math §14 "Honest boundaries", merged 
 
 - **OPEN-11 — the flagship**: the exact cardinality of the strictly Straight-reachable
   support image `R_Str^m` remains open, but the proved standalone interval is now
-  **[36,46] bits** (corpus-proved [26,46], narrowed at the exchange-adjudicated
+  **[36,45] bits** (corpus-proved [26,46]; narrowed at the exchange-adjudicated
   evidentiary tier by REACH-17 + REACH-18 — two structurally disjoint certified
-  families totalling 36,913,384,410 > 2³⁵ reachable supports; see
-  [reachability](reachability.md)). The exact census and any *full* declaration class
-  remain open — dispatch 006 explicitly disclaims closing either. Both packages
-  still refuse to collapse the exact count by guesswork. rec's symbolic support DAG
-  (REACH-16) is the obvious counting substrate; exchange 001/006's validated
-  witness-generation + split-zeta upward-closure counter (independently checked against
-  brute force) is a reusable substrate for further tightening. In flight: dispatch
-  007 (ceiling via the fifth condition) and 008 (exact no-void slice), submitted,
-  responses pending. See [reachability](reachability.md) and FINDINGS Q1.
+  families totalling 36,913,384,410 > 2³⁵ reachable supports — and by REACH-19, the
+  follower-supply-filtered outer census 33,297,009,347,414 < 2⁴⁵, the first ceiling
+  movement since REACH-11; see [reachability](reachability.md)). The exact census and
+  any *full* declaration class remain open — dispatch 006 explicitly disclaims closing
+  either. Both packages still refuse to collapse the exact count by guesswork. rec's
+  symbolic support DAG (REACH-16) is the obvious counting substrate; exchange
+  001/006's validated witness-generation + split-zeta upward-closure counter
+  (independently checked against brute force) is a reusable substrate for further
+  tightening. In flight: dispatch 008 (exact no-void slice), submitted, response
+  pending. See [reachability](reachability.md) and FINDINGS Q1.
 - **OPEN-01 (rec form) — RESOLVED, COLLAPSE** [exchange-adjudicated CONFIRMED
   (ALL_PASS 0.43s; 3/3 SOUND) — external tier, not a kernel proof
   ([claim-ledger](claim-ledger.md))]: the reduced viewer kernel `K = (δ, H_m, N, τ, α_U)` is proved

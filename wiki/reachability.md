@@ -1,6 +1,6 @@
 # Strict Straight Reachability
 
-[Home](Home.md) · owns: feasible ≠ reachable, both witnesses, the [36,46]-bit
+[Home](Home.md) · owns: feasible ≠ reachable, both witnesses, the [36,45]-bit
 interval, symbolic certificates · Sources: both packages Math §7.13, **rec Math
 §7.13.7** (rec-only). Related: [minimal-support-normal-form](minimal-support-normal-form.md),
 [support-dynamics](support-dynamics.md), [open-problems](open-problems.md).
@@ -68,19 +68,21 @@ cross-check).
 condition beyond the four outer checks: a singleton hidden void in context `q` at the
 `(6,6,6)` phase requires at least two distinct `σ_q` tiles outside the used pool `U`;
 here `σ₆ \ U = {6:6}` supplies only one, which is exactly what kills this witness.
-Adding this condition can tighten the REACH-11 46-bit ceiling below — quantifying how
-far is open new work (exchange dispatch 007, submitted, response pending).
+This is exactly what dispatch 007 quantified — see REACH-19 below: the generalized
+filtered census drops the ceiling from 46 to **45 bits** (exchange-adjudicated).
 
 rob's `verify_unreachable` binary independently reproduces all of this in Rust —
 4/4 classic checks pass, 3 of 450 generators decode, 425,520 candidates, 0 realizers,
 fifth check rejects (`x-r_unr_002_*` lines; [verification](verification.md)) —
 conformance evidence, not a status upgrade.
 
-## The 36–46-bit interval (the flagship open problem)
+## The 36–45-bit interval (the flagship open problem)
 
-Tier summary: the corpus-proved interval is **[26,46]** (REACH-11/12). The combined
-REACH-17 + REACH-18 families below give floor 36,913,384,410 > 2³⁵ ⇒ **[36,46]** —
-at the exchange-adjudicated tier, not the kernel-proved tier. rob's Rust receipts
+Tier summary: the corpus-proved interval is **[26,46]** (REACH-11/12). At the
+exchange-adjudicated tier — not the kernel-proved tier — the combined REACH-17 +
+REACH-18 families give floor 36,913,384,410 > 2³⁵, and the REACH-19 filtered census
+gives ceiling 45, so the exchange-tier interval is **[36,45]**. Keep the two tiers'
+endpoints distinct: corpus [26,46], exchange [36,45]. rob's Rust receipts
 independently reproduce the outer censuses, both unreachability witnesses, the
 transport corpus, and the x:001 floor totals — conformance evidence, not a status
 change ([verification](verification.md)).
@@ -96,6 +98,27 @@ change ([verification](verification.md)).
   *Naming*: v0.7 calls these **necessary outer profiles** (they may decode to
   infeasible/unreachable supports — not certificates); rec's older "outer
   certificates" naming is deprecated ([discrepancies D3](discrepancies.md)).
+- **Sharpened ceiling — filtered outer census** [exchange-adjudicated CONFIRMED
+  (17/17 PASS 44.1s; 3/3 SOUND), REACH-19]: augmenting the outer language with the
+  proved follower-supply family — the licensed `(6,6,6)`-singleton fifth condition,
+  an unconditional **context-capacity supply bound** (`a_q ≥ |S_q| − Σ_{s∉M(q)} k_s`,
+  pure set arithmetic from the void definition), and a temporal follower rule from
+  complete finite enumeration of current-trick prefix cases — cuts the tagged census
+  to exactly **33,297,009,347,414**, strictly inside `(2⁴⁴, 2⁴⁵)`, decomposing as
+  `7·3,739,199,825,401 + 3,739,199,825,401 + 3,383,410,744,206` (pip class ×7 / DT /
+  NT). Hence **ceiling 45 bits**, interval **[36,45]**. Necessity evidence: ~986,000
+  machine-generated legal prefixes (116k in-program + 870k referee, fresh seeds) with
+  **zero** over-rejections; the 002 witness is rejected by the new filter and REACH-10
+  by lead-witness, as required. Robustness (referee-proved): keeping only the
+  unconditional capacity bound and discarding the temporal apparatus still yields
+  **33,737,166,807,767 < 2⁴⁵**, so the 45-bit ceiling does not depend on the delicate
+  rule. Tier caveats: the temporal rule's necessity rests on exhaustive finite
+  trick-prefix enumeration + smoke testing, not an end-to-end machine proof; the 7×
+  pip multiplicity is licensed by the transport theorem (REACH-19 recomputed pip-0 and
+  DT equal in-program, not all seven). Intermediate certified counts: fifth-only
+  64,123,217,904,861; generalized temporal supply 63,529,591,020,871. Source:
+  `exchange/inbox/007-fifth-condition-ceiling.md`, verified program
+  `exchange/adjudication/programs/007.py`.
 - **Floor** [Theorem — proved + finite verification, REACH-12]: four disjoint
   universally reachable no-void families — pools at capacities (7,7,7), (6,7,7)×3,
   (6,6,7)×3, (6,6,6) — give `C(28,21) + 3·C(28,20) + 3·C(28,19) + C(28,18)` =
@@ -128,7 +151,7 @@ change ([verification](verification.md)).
   holder categories with nonempty `N`, impossible for any 001-family support (referee-
   verified independently, and the disjointness from the 001 *no-void* subfamily is
   unconditional). Combined floor **17,668,066,045 + 19,245,318,365 = 36,913,384,410 >
-  2³⁵** ⇒ **≥36 bits** standalone, interval **[36,46]**; margin over 2³⁵ is
+  2³⁵** ⇒ **≥36 bits** standalone; margin over 2³⁵ is
   2,553,646,042. Verification tier (kept visible): reachability machine-replayed for
   3,114 template representatives; within-class generalization and disjointness-from-001
   close via prose argument + referee adversarial replay, **not** end-to-end machine
@@ -161,7 +184,7 @@ change ([verification](verification.md)).
   `f(N_t(prefix)) = N_u(f(prefix))` — plus the 3-class quotient
   ([verification](verification.md)); conformance evidence, not a status upgrade.
 - **[UNRESOLVED, REACH-13 / OPEN-11]**: the exact `|R_Str^m|`, and hence the optimal
-  standalone width in `36..46` (exchange-adjudicated; corpus-proved `26..46`), is open.
+  standalone width in `36..45` (exchange-adjudicated; corpus-proved `26..46`), is open.
   Both packages refuse to collapse it by guesswork. In flight: dispatch 007 attacks
   the ceiling via the fifth condition; dispatch 008 attacks the exact no-void slice.
 

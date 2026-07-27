@@ -247,8 +247,10 @@ called-suit void / **8,721,399,239** natural-suit void; grand total
 independent Rust evidence for the exchange-adjudicated REACH-17 family; the
 corpus-proved interval statement (26..46, REACH-11/12) is unchanged and any
 evidentiary reframing belongs to the wiki. (The wiki-level interval has since
-tightened to **[36,46]** via the disjoint REACH-18 family, exchange 006, which
-rob has *not* yet reproduced — a natural slice-03+ receipt target.) One rob-frozen value: the step-5 one-context verification exhausts a
+tightened to **[36,45]**: floor via the disjoint REACH-18 family, exchange 006;
+ceiling 45 via the REACH-19 filtered census, exchange 007, verifier
+`exchange/adjudication/programs/007.py`, 17/17 PASS 44.1s. rob has reproduced
+neither yet — natural slice-03+ receipt targets.) One rob-frozen value: the step-5 one-context verification exhausts a
 principled **369-profile superset** of x:001's 216 tabled profiles, all satisfying
 the step-5 marginal descriptions (noted in the receipt and named test).
 

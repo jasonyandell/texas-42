@@ -30,7 +30,7 @@ the three hidden hands is *exactly* captured by three dependent capacity cells
 canonical normal form** (certain tiles + a determinate/binary/ternary ambiguity core);
 the set of normal forms **legal play can actually reach** is a strict subset of the
 Hall-feasible ones, its exact cardinality open inside a corpus-proved 26–46-bit
-interval — narrowed to **[36,46] bits** at the exchange-adjudicated tier
+interval — narrowed to **[36,45] bits** at the exchange-adjudicated tier
 ([reachability](reachability.md)); and **support is not belief** — two legal histories
 can share the same exact 90-world support yet require opposite optimal leads under
 every named utility ([belief-vs-support](belief-vs-support.md)).
@@ -68,7 +68,7 @@ results, risks, and next questions.
 - [support-fiber](support-fiber.md) — capacity cells, the remainder fiber, the losslessness theorem.
 - [capacity-dp](capacity-dp.md) — exact counting (≤512 states), Hall feasibility, exact uniform sampling.
 - [minimal-support-normal-form](minimal-support-normal-form.md) — the coarsest exact support quotient; 81-bit census.
-- [reachability](reachability.md) — feasible ≠ reachable; the witnesses; the [36,46]-bit interval; symbolic certificates.
+- [reachability](reachability.md) — feasible ≠ reachable; the witnesses; the [36,45]-bit interval; symbolic certificates.
 - [support-dynamics](support-dynamics.md) — (rec) the matching-minor calculus; monotone 63-edge budget.
 
 ### Viewer state, belief, and value
