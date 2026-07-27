@@ -1,0 +1,7 @@
+rob S8 verification: PASS
+# exchange: 002 (CONFIRMED 2026-07-27)
+r_unr_reach10: 450 generators; 2 matches; lead-fiber sizes (7, 1); all lead tiles hidden
+x-r_unr_002_outer: 4/4 classic outer checks pass; Hall-feasible; already reduced; fifth check fails
+x-r_unr_002_static: 3 static matches; 1 lead-witness kill (DT)
+x-r_unr_002_traces: 425,520 shallow candidates; 0 realizers
+x-r_unr_002_supply: 1 follower outside the pool < 2 required, both surviving candidates
