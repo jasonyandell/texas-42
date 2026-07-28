@@ -9,6 +9,7 @@
 #![warn(missing_docs)]
 
 pub mod corpus;
+pub mod p1;
 pub mod prose_resolver;
 pub mod receipt;
 pub mod s1;

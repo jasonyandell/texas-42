@@ -21,6 +21,7 @@ pub mod player;
 pub mod policy;
 pub mod rng;
 pub mod rollout;
+pub mod sigma;
 pub mod trace;
 pub mod worlds;
 
@@ -31,4 +32,5 @@ pub use player::{viewer_legal, DecisionReport, MonteCarloPlayer, UtilityLens};
 pub use policy::{RandomLegal, RolloutPolicy, RolloutView};
 pub use rng::{SeededExactSource, SplitMix64};
 pub use rollout::{finish_hand, RolloutPosition};
+pub use sigma::{greedy_sigma, sigma_legal};
 pub use worlds::sample_worlds;

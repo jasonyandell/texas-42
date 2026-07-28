@@ -276,6 +276,7 @@ dependencies = [
  "num-traits",
  "proptest",
  "rob-core",
+ "rob-player",
 ]
 
 [[package]]
