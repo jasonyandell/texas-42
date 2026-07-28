@@ -1,4 +1,4 @@
-# rob — Player Brief 01: the endgame plan solver
+# rob — Player Brief 01: the whole-hand plan solver
 
 This is the definitive first assignment for **rob the player** — the imperfect-
 information player this repository was created to make possible. It opens a
@@ -10,9 +10,11 @@ INV-1..10, §9 receipt/CI rules, and §11 ambiguity protocol, together with
 begins only from that state and consumes only their public surface.
 
 Scope, in one sentence: **rob v1 — an exact information-set best-response plan
-solver over the exact fiber, taking over at four tricks remaining and playing a
-materialized whole-hand contingent plan to the end of the hand, against a fixed
-deterministic field policy σ, under the uniform (W0) weighting.**
+solver over the exact fiber, playing every decision from the first trick under
+a budgeted exact window (full depth to the end of the hand whenever the budget
+allows, which is guaranteed from three completed tricks on), against a fixed
+deterministic field policy σ, under the uniform (W0) weighting, with a typed
+non-tunable frontier leaf.**
 
 Citation convention as in the prior briefs, plus **mk5** = Jason's prior
 perfect-information project (`~/code/mk5-main/wiki/`), citable for design
@@ -28,21 +30,20 @@ Decided 2026-07-27/28, recorded here as binding:
   fixed-field Monte Carlo player (`MonteCarloPlayer`, Math §11.4) is demoted to
   **baseline / receipt mode**: it keeps its receipts (`verify_player.txt`) and
   its role as paired-match opponent, and it gets no name. Doc comments may be
-  updated to say "baseline"; its receipt text does not change.
+  updated to say "baseline"; its receipt text does not change. The baseline
+  plays **no part in rob's runtime** — rob plays every decision himself.
 - **PLAN-NOT-TILE (the hand-as-unit law, binding).** The decision variable
   ranges over whole-hand contingent plans ρ — one action per viewer information
-  set — and the played tile is the plan's first move. No API anywhere in the
-  workspace returns a scalar "value of a domino" (this sharpens BRIEF.md §5's
-  HAND-07 guardrail from a modeling statement into an API prohibition). Any
-  per-tile number shown to a human is a typed projection of a plan, produced
-  only by the trace/display layer.
-- **Materialized plan.** rob's solver returns the plan as an explicit tree
-  (`Plan`), not an implicit re-solve convention. Decided for inspectability,
-  receipts, and gate enforcement.
+  set within the exact window — and the played tile is the plan's first move.
+  No API anywhere in the workspace returns a scalar "value of a domino" (this
+  sharpens BRIEF.md §5's HAND-07 guardrail from a modeling statement into an
+  API prohibition). Any per-tile number shown to a human is a typed projection
+  of a plan, produced only by the trace/display layer.
 - **Fiber = information set.** rob's knowledge object at a decision is exactly
   the fiber Φ(C) of the derived cell system (CELL-05/07). No sampling, no
   approximation, anywhere in the solve path. The count-ratio sampler is not
-  used by this track.
+  used by this track. Large fibers are **streamed** by rank/unrank
+  (CELL-25/26), never materialized as vectors.
 - **σ is fixed, deterministic, and humble.** The other three seats — including
   the partner — are modeled by one fixed deterministic policy σ (§7). σ's
   determinism is the compression that makes the solve exact and small; σ's
@@ -51,17 +52,25 @@ Decided 2026-07-27/28, recorded here as binding:
   ships first and is the v1 deliverable; the σ-consistency history filter (W1)
   is the stretch stage P6, with its ablation. Precedent: mk5's graded finding
   that belief tilt is only cashable through honest info-set continuation.
-- **Endgame takeover, exact to the end.** rob v1 solves only when **≤ 4 tricks
-  remain**; the unroll runs to the end of the hand, so there is **no leaf
-  evaluation function in this brief**. Before takeover, rob's seat is played by
-  the baseline. Deeper horizons, leaf evaluations, and adaptive-H budgeting are
-  a later brief, listed out of scope in §4.
+- **Whole-hand play under a budgeted exact window (decided 2026-07-28,
+  superseding the endgame-takeover design of this brief's first commit).**
+  rob solves at **every** decision from trick 1. The exact window depth `H` at
+  a decision is the largest depth whose conservative work product (§7) fits
+  the normative budget `B = 2³²`, capped at full depth. Consequences, stated
+  as facts of the budget arithmetic (§8 bounds): at trick 1, H = 1; at trick
+  2, H ≈ 3; from the third trick on, **full depth to the end of the hand is
+  always affordable** — so the truncated regime is exactly rob's first two
+  decisions. Within the window the solve is exact; at the frontier the leaf
+  is banked points and nothing else (INV-P7). **Eyes wide open:** early plays
+  may be window-greedy (spending control to cash count the leaf can see);
+  that is a characterized, measured behavior (§8 P4 ablation), never a bug —
+  and never a license to enrich the leaf.
 - **Registered rent (from mk5's walt, honestly carried).** (a) Field-model
   rent: rob's opponents in the paired match are the *baseline*, not σ — so v1
   measures a best response to a wrong model against a real opponent, which is
   the honest experiment. (b) Partner rent: rob models his partner as field even
   though the partner seat is also rob; seats never communicate (legal play,
-  same rule as humans).
+  same rule as humans). (c) Window rent: tricks 1–2, as above.
 
 Authority order: this brief; then BRIEF.md + BRIEF_SLICE_02.md; then `wiki/`;
 then ingest; then exchange results (tier-labeled). mk5 ranks below all of them
@@ -75,16 +84,17 @@ As BRIEF.md §2 in full. No new dependencies in any crate. No floats (INV-4);
 all solver arithmetic is machine-integer with overflow checks — §8 shows the
 bounds fit comfortably in `u64`/`i64`. `rob/crates/core` is **read-only** to
 this track: the needed surface (`derive_rule_cells`, `fiber_worlds`,
-`fiber_contains`, the exact counting routes, the mechanical machine, the
-declaration algebra) already exists. If a core addition appears necessary, that
-is a finding under the ambiguity protocol, not a local edit.
+`fiber_contains`, `rank_world`/`unrank_world`, the exact counting routes, the
+mechanical machine, the declaration algebra) already exists. If a core
+addition appears necessary, that is a finding under the ambiguity protocol,
+not a local edit.
 
 ---
 
 ## 3. Project layout (additions only)
 
 All additions live in `rob/crates/player` and `rob/crates/player/src/bin`, plus
-one receipt file and the inspector page (§14 module map). `wiki/`, `ingest/`,
+one receipt file and the inspector page (§13 module map). `wiki/`, `ingest/`,
 `exchange/`, and `rob/crates/core` are untouched.
 
 ---
@@ -96,14 +106,15 @@ stage's receipts are green and committed.
 
 - **P1 — σ, the field policy**: `GreedySigma`, deterministic, total, legal;
   σ-self-play receipts over the 108-hand corpus deals.
-- **P2 — endgame position corpus + fiber enumeration**: 432 trick-boundary
-  positions from the S3 corpus; exact fiber enumeration cross-checked against
-  the capacity-DP count.
-- **P3 — the solver (W0) and the Plan type**: exact backward induction over the
-  info-set tree; the four correctness gates.
-- **P4 — the composite player + paired match**: baseline opening, endgame
-  takeover, plan followed to the end of the hand; mirrored paired match vs the
-  baseline; frozen margin.
+- **P2 — position corpus + fiber accounting**: 756 trick-boundary positions
+  from the S3 corpus (all seven boundaries 0..6); exact fiber enumeration
+  cross-checked against the capacity-DP count where enumeration fits;
+  count-only receipts where it does not.
+- **P3 — the solver (W0), the Plan type, and the window schedule**: exact
+  streaming backward induction over the info-set tree; the correctness gates.
+- **P4 — rob at the table + paired match**: rolling re-solve at every
+  decision from trick 1; schedule assertions; mirrored paired match vs the
+  baseline; frozen margin; window ablation.
 - **P5 — the contingency book**: Plan-tree trace emission and inspector view.
 - **P6 (stretch, optional)** — the W1 σ-consistency history filter with
   empty-filter fallback and the W0-vs-W1 ablation match.
@@ -111,18 +122,17 @@ stage's receipts are green and committed.
 **Explicitly out of scope** (do not begin, do not scaffold speculative APIs
 for):
 
-- Any decision with **more than 4 tricks remaining** beyond delegating to the
-  baseline: no leaf evaluation function, no adaptive horizon, no early-game
-  solver. (The `Plan` type has no leaf/heuristic variant — takeover exactness
-  is structural, §5 INV-P6.)
+- **Any leaf beyond banked points** — no count-in-hand terms, no trump-control
+  terms, no tunable weights of any kind (INV-P7). A richer frontier is a
+  future brief with its own ablation obligations.
 - **Belief distributions** beyond P6's σ-consistency filter — no Bayes over
   augmented worlds, no posteriors, nothing from census slice 04; the 90-world
   posterior flip stays untouched.
 - **Census slices 03–05** (folded trick / reduced viewer kernel, belief layer,
   symbolic-DAG census) — this track neither begins them nor depends on them.
 - **NF/equivalence pooling of worlds inside the solve** (the "identical within
-  the window" optimization) — registered as a later-brief idea; v1 iterates the
-  enumerated fiber plainly.
+  the window" optimization that would deepen early windows) — registered as a
+  later-brief idea; v1 streams the fiber plainly.
 - **Bidding** — the placeholder auction stands; rob v1 is a play-phase player.
 - Opponent modeling beyond the fixed σ; σ tuning; any learning; optimization
   caches before correctness — never.
@@ -131,7 +141,7 @@ for):
 
 ## 5. Named invariants
 
-INV-1..14 inherited unchanged. Six new invariants, P-numbered to keep the
+INV-1..14 inherited unchanged. Seven new invariants, P-numbered to keep the
 player track's ledger separate from the census ladder's:
 
 - **INV-P1 PLAN-NOT-TILE.** The solver's public output type is `Plan`; no
@@ -144,10 +154,10 @@ player track's ledger separate from the census ladder's:
 - **INV-P2 ONE-INFOSET-ONE-ACTION.** A plan is a map from observation
   sequences to actions; one action per key, keys unique by the map type;
   sibling subtrees are keyed by distinct observations. *Enforcement:* type
-  system (ordered map); test `inv_p2_partition` walks every P3 plan asserting
-  key uniqueness and bundle disjointness.
+  system (ordered map); test `inv_p2_partition` walks every materialized P3
+  plan asserting key uniqueness and bundle disjointness.
 - **INV-P3 EXACT-NO-SAMPLING.** The solve path contains no randomness source
-  and no division: values are integer *sums* of terminal utilities over world
+  and no division: values are integer *sums* of frontier utilities over world
   bundles, compared only between actions at the same node (identical bundle,
   identical denominator). Ties break to the lowest `DominoId`, recursively, so
   the canonical plan is deterministic. *Enforcement:* no `Rng`-bearing type is
@@ -159,18 +169,29 @@ player track's ledger separate from the census ladder's:
   *Enforcement:* σ is a function, not a trait object with state; test
   `inv_p4_determinism` replays σ-self-play twice and asserts byte-equal
   traces.
-- **INV-P5 BUNDLE-CONSERVATION.** At every internal node of a plan, the child
+- **INV-P5 BUNDLE-CONSERVATION.** At every internal node of a solve, the child
   bundles partition the node's bundle (each world flows to exactly one child);
-  leaf bundle sizes sum to the root fiber cardinality, which equals the
-  capacity-DP count (CELL-10) for the root cell system. *Enforcement:*
-  `debug_assert!` in the solver; test `inv_p5_conservation` asserts the sum
-  and the DP cross-check on every P2 position's solved plan.
-- **INV-P6 TAKEOVER-EXACTNESS.** The solver accepts only states with ≤ 4
-  tricks remaining and always unrolls to the end of the hand; every leaf's
+  frontier bundle sizes sum to the root fiber cardinality, which equals the
+  capacity-DP count (CELL-10) for the root cell system. Holds identically for
+  the streaming solver (accumulator world-counts) and any materialized tree.
+  *Enforcement:* accumulator totals asserted against the DP count in the
+  solver; test `inv_p5_conservation` on every P2 position's solve.
+- **INV-P6 WINDOW-EXACTNESS.** Within its window the solve is exact: every
+  world in the fiber is visited (streamed, never sampled), σ is applied
+  exactly, and when the window reaches the end of the hand every frontier
   utility is a settled hand's exact integer outcome (42-point conservation
-  asserted per unroll, reusing the S-obj machinery). *Enforcement:* the solver
-  constructor rejects deeper states (typed error); the `Plan` type has no
-  non-terminal leaf variant; per-leaf conservation `debug_assert!`.
+  asserted per unroll). The window depth is the §7 budget formula's output —
+  never a free parameter per call site. *Enforcement:* the solver computes
+  `H` internally from the normative formula; callers cannot pass a depth;
+  per-settled-leaf conservation `debug_assert!`; schedule receipts (§8 P3/P4).
+- **INV-P7 FRONTIER-LEAF-IS-LAW.** The frontier leaf is the banked team
+  points of the interrupted hand — one typed variant, no parameters, no
+  tunable terms, no alternative leaf reachable from the solver. Window-greedy
+  early play is a measured behavior, never a reason to enrich the leaf.
+  *Enforcement:* the leaf is a unit-variant enum with a single constructor;
+  INV-10-style grep forbids `LeafWeight`/`Heuristic`-style identifiers in the
+  player crate; the P4 ablation receipt is the only sanctioned response to
+  window pathology.
 
 Standing guardrails continue, one clarification: mk5 is a *design* precedent.
 Transcribing anything from mk5 — code, tables, numbers, σ heuristics — is
@@ -187,7 +208,8 @@ forbidden; walt's gates are re-derived here from this repo's own objects.
    is not), [wiki/verification](../wiki/verification.md) §player.
 3. `rob/crates/player` as it stands (the baseline, worlds, rollout, match
    driver, trace) — P1–P5 extend this crate.
-4. Math §11.4 (the baseline's contract, unchanged) and Math §7.3 (fiber).
+4. Math §11.4 (the baseline's contract, unchanged), Math §7.3 (fiber), and
+   the CELL-25/26 rank/unrank surface (S4).
 
 ---
 
@@ -201,26 +223,40 @@ forbidden; walt's gates are re-derived here from this repo's own objects.
   lowest such tile by key (then lowest id); otherwise play the legal tile with
   the lowest key (then lowest id). Implemented against the S1 algebra
   (`trick_key`, `beats`); never against pip arithmetic.
+- **window** (`player/src/window.rs`): the normative budget formula.
+  Work estimate for depth `h` at a decision: `fiber_count × Π_{i<h} b_i`
+  where `b_i = max(1, viewer_hand_size − i)` (a conservative upper bound on
+  viewer branching, deterministic and cheap). `H = ` the largest `h ≤ tricks
+  remaining` with estimate `≤ B = 2³²` (always ≥ 1; `fiber_count` from the
+  capacity DP, CELL-10). `B` is a constant of this brief, changed only by
+  amendment.
 - **plan** (`player/src/plan.rs`): `Observation` — the ordered sequence of
   (seat, tile) plays strictly between two consecutive viewer decisions
   (possibly empty when the viewer wins and immediately leads); `Plan` — root
-  action plus an ordered map `Observation → Plan`; bundle audit data
-  (world-index sets per node) carried **outside** semantic equality in the
-  INV-1/INV-2 discipline, for receipts and the inspector.
+  action plus an ordered map `Observation → Plan`, frontier variant carrying
+  only the typed leaf (INV-P7); bundle audit data (world counts per node;
+  world-index sets where materialized) carried **outside** semantic equality
+  in the INV-1/INV-2 discipline, for receipts and the inspector.
 - **solver** (`player/src/solver.rs`): `solve(state, lens) → Plan` for a
-  certified mechanical state with the viewer to act and ≤ 4 tricks remaining
-  (INV-P6): enumerate the fiber (`fiber_worlds`), advance every world in
-  lockstep — σ at hidden seats, branching at viewer decisions, partitioning
-  bundles by observation — and back-induct integer sum-values, argmax with the
-  INV-P3 tie-break. Lens-generic over the baseline's existing `UtilityLens`;
-  receipts pin `Points` (team trick-point total).
-- **rob** (`player/src/rob.rs`): the composite player — baseline decisions
-  while > 4 tricks remain; at the viewer's first decision with ≤ 4 tricks
-  remaining, `solve` once, then **follow the materialized plan to the end of
-  the hand** (each realized observation selects the child; a missing key is a
-  panic — it would mean a fiber/σ bookkeeping bug, not a recoverable state).
-- **match driver** (extension): heterogeneous seating (team A = rob composite,
-  team B = baseline) and mirrored paired deals (same deal, teams swapped),
+  certified mechanical state with the viewer to act: compute `H` (INV-P6),
+  then exact backward induction by **streaming**: worlds visited via
+  `unrank_world` (never a materialized fiber vector), each advanced in
+  lockstep — σ at hidden seats, branching at viewer decisions — with integer
+  sum-accumulators keyed by (viewer action sequence, observation prefix);
+  the accumulator count is bounded by the smaller of the fiber count and the
+  revealed-arrangement count, which is what makes trick-1 solves fit in
+  memory. Argmax with the INV-P3 tie-break; returns the materialized window
+  plan when its node count fits the P5 cap, else the plan with depth-truncated
+  materialization (values exact either way). Lens: `Points` always;
+  `ContractSuccess` permitted **only** when the window reaches the end of the
+  hand (it is undefined at a truncated frontier — typed error otherwise).
+  Receipts pin `Points`.
+- **rob** (`player/src/rob.rs`): the player — at **every** viewer decision
+  from trick 1, `solve` and play the root action (rolling re-solve; the
+  materialized plan is the inspectable object, the re-solve is the runtime
+  discipline). No baseline delegation anywhere.
+- **match driver** (extension): heterogeneous seating (team A = rob, team B =
+  baseline) and mirrored paired deals (same deal, teams swapped),
   deterministic seeds, existing scoring unchanged.
 - **trace** (P5): plan-tree emission in the existing trace JSON, typed as
   projections (INV-P1); `rob/inspector/index.html` gains a contingency-book
@@ -235,12 +271,18 @@ forbidden; walt's gates are re-derived here from this repo's own objects.
 One new binary `verify_rob` printing `rob player-p<stage> verification: PASS`
 lines per §9. This track has no corpus-anchored magic integers to reproduce;
 its receipt values are **corpus-shape-forced** (arithmetic consequences of the
-frozen S3 corpus — hard assertions) or **rob-frozen** (generator-specific,
-frozen on first green run per the BRIEF.md §8 S3 precedent, then byte-diffed
-forever). Bounds below justify machine integers: the largest endgame fiber is
-12!/(4!4!4!) = **34,650** worlds (no-void, 4 tricks remaining), the largest
-per-node value sum is ≤ 42 × 34,650 < 2²¹, and boundary fibers at 3/2/1 tricks
-remaining are ≤ **1,680** / **90** / **6**.
+frozen S3 corpus — hard assertions), **closed-form bounds** (theorems), or
+**rob-frozen** (generator-specific, frozen on first green run per the BRIEF.md
+§8 S3 precedent, then byte-diffed forever).
+
+The governing bounds, closed-form (no-void maxima; voids only shrink them):
+fiber at trick boundary `t` completed tricks ≤ `(21−3t)!/((7−t)!)³` =
+**399,072,960 / 17,153,136 / 756,756 / 34,650 / 1,680 / 90 / 6** for
+t = 0..6. Largest per-node value sum ≤ 42 × 399,072,960 < 2³⁵ (`u64`/`i64`
+comfortable). Budget consequences at the maxima (the §7 formula): H = **1** at
+t = 0 (7 × 399,072,960 ≈ 2.8×10⁹ ≤ 2³²), H = **3** at t = 1 (6·5·4 ×
+17,153,136 ≈ 2.1×10⁹), **full depth for every t ≥ 2** (5! × 756,756 ≈ 9.1×10⁷
+and shrinking). These are receipt assertions, not commentary.
 
 ### P1 — σ (tests `r_sig_*`)
 
@@ -250,52 +292,56 @@ remaining are ≤ **1,680** / **90** / **6**.
 | `r_sig_deterministic` | the full σ-self-play trace set replayed twice is byte-identical | — | INV-P4 |
 | `r_sig_total` | property test: σ returns a legal tile for arbitrary reachable states (proptest over generated hands) | proptest | INV-P4 |
 
-### P2 — endgame positions + fiber (tests `r_pos_*`)
+### P2 — position corpus + fiber accounting (tests `r_pos_*`)
 
-Position corpus, closed-form: each of the 108 S3 corpus hands truncated at the
-trick boundaries after tricks 3, 4, 5, 6 (plays 12/16/20/24), viewer = the
-seat to lead the next trick — **432** positions, of which 108 per
-tricks-remaining depth 4/3/2/1.
+Position corpus, closed-form: each of the 108 S3 corpus hands truncated at
+**every** trick boundary t = 0..6 (plays 0/4/8/12/16/20/24), viewer = the seat
+to lead the next trick — **756** positions, 108 per depth.
 
 | Test | Assertion | Numbers | Source |
 |---|---|---|---|
-| `r_pos_corpus` | 432 positions decode; every position's viewer is to act; tricks remaining ∈ {4,3,2,1} in equal counts | **432**; 4 × 108 | corpus-shape |
-| `r_pos_fiber` | per position: `fiber_worlds` cardinality equals the capacity-DP count (CELL-10 route); every enumerated world passes `fiber_contains`; no duplicates; size ≤ the closed-form bound for its depth | **432** count agreements; bounds 34,650/1,680/90/6 | CELL-05/10 |
-| `r_pos_census` | total worlds across all 432 fibers (rob-frozen on first green) | rob-frozen | CELL-10 |
+| `r_pos_corpus` | 756 positions decode; every position's viewer is to act; tricks remaining ∈ {7..1} in equal counts | **756**; 7 × 108 | corpus-shape |
+| `r_pos_count` | per position: capacity-DP fiber count ≤ its closed-form bound; at t = 0 the count **equals** 399,072,960 for all 108 (no information yet removes a world) | **756** bound checks; **108** equalities | CELL-10; Math §7 |
+| `r_pos_fiber` | for the 432 positions with t ≥ 3: `fiber_worlds` cardinality equals the DP count; every enumerated world passes `fiber_contains`; no duplicates. For t ≤ 2, streaming visit via `rank_world`/`unrank_world` round-trips on a deterministic index sample and total visited count equals the DP count | **432** enumerated agreements; **324** streamed agreements | CELL-05/10/25/26 |
+| `r_pos_schedule` | per position: the §7 window formula's H equals the value forced by the bounds table (1 / 3-or-more / full…), and H = tricks remaining for every t ≥ 2 | **756** | INV-P6 |
 
 ### P3 — the solver, W0 (tests `r_sol_*`)
 
-The four gates. Gates 2 and 3 run on the **216** tiny positions (boundaries 5
-and 6: ≤ 2 tricks remaining), where all of rob's pure plans are explicitly
-enumerable; gates 1 and 4 run on all 432.
+Gates 2 and 3 run on the **216** tiny positions (t ∈ {5,6}: ≤ 2 tricks
+remaining), where all of rob's pure plans are explicitly enumerable; gates 1
+and 4 run on all **756** (gate 1 at each position's own H and leaf).
 
 | Test | Assertion | Numbers | Source |
 |---|---|---|---|
-| `r_sol_known_world` | **known-world degeneracy**: per position, pin the cell system to the first enumerated world (each P_s = that world's hand ⇒ fiber = 1); `solve` must equal direct perfect-info backward induction against σ — same value, same canonical action | **432** agreements | gate 1 |
+| `r_sol_known_world` | **known-world degeneracy**: per position, pin the cell system to one world (each P_s = that world's hand ⇒ fiber = 1); `solve` must equal direct perfect-info backward induction against σ *to the same window H with the same frontier leaf* — same value, same canonical action | **756** agreements | gate 1 |
 | `r_sol_brute_force` | **exactness at tiny depth**: enumerate literally all of rob's pure plans, evaluate each by full unroll over the whole fiber; the solver's value equals the enumerated max and its canonical plan is in the argmax set | **216** positions | gate 2 |
 | `r_sol_undominated` | **no pointwise-dominated plan**: on the same 216, the chosen plan is not pointwise-dominated (no enumerated plan weakly better in every world, strictly in one) | **216** | gate 3 |
-| `r_sol_conservation` | **bundle conservation** (INV-P5): partitions at every node; leaf bundle sizes sum to the root fiber count = DP count | **432** plans | gate 4 |
-| `r_sol_deterministic` | double-solve byte-equal plans on all 432; plan values (rob-frozen totals per depth) | **432**; rob-frozen | INV-P3 |
+| `r_sol_conservation` | **bundle conservation** (INV-P5): accumulator/bundle partitions at every node; frontier totals sum to the root fiber count = DP count — including the 108 trick-1 solves over the full 399,072,960-world fiber | **756** solves | gate 4 |
+| `r_sol_deterministic` | double-solve byte-equal canonical plans on all 756; root values rob-frozen per depth | **756**; rob-frozen | INV-P3 |
 
-### P4 — composite + paired match (tests `r_mat_*`)
+### P4 — rob at the table + paired match (tests `r_mat_*`)
 
 | Test | Assertion | Numbers | Source |
 |---|---|---|---|
-| `r_mat_takeover` | on deterministic full-hand self-plays, rob's seat delegates to baseline until ≤ 4 tricks remain, solves exactly once, and follows the plan to the hand's end; every realized observation is a present key; the realized world is in every followed node's bundle | per-hand assertions | INV-P6 |
+| `r_mat_rolling` | on deterministic full-hand self-plays, rob solves at every one of his decisions from trick 1 (including mid-trick), plays each root action, and the per-decision H matches the §7 formula; at full-depth decisions the realized world is in every followed node's bundle | per-hand assertions | INV-P6 |
 | `r_mat_paired` | mirrored paired match, 100 deterministic deals × 2 seatings, rob team vs baseline team, `Points` lens: per-seating and net margins printed and rob-frozen on first green | **200** hands; rob-frozen margin | mk5 precedent, re-derived |
+| `r_mat_window_ablation` | the same paired match with rob's budget artificially halved and doubled (B/2, 2B — window schedule shifts at the margins): margins rob-frozen. This receipt *prices the window*; it is the sanctioned response to early-game weirdness (INV-P7) | rob-frozen ×2 | window rent, measured |
 
 The frozen margin is a *measurement*, not a target: if rob does not beat the
-baseline, that is a reportable finding, never a reason to tune σ, the corpus,
-or the seeds (INV-5 discipline applies to the freeze).
+baseline, that is a reportable finding, never a reason to tune σ, the leaf,
+the corpus, or the seeds (INV-5 discipline applies to the freeze).
 
 ### P5 — contingency book (tests `r_book_*`)
 
 | Test | Assertion | Numbers | Source |
 |---|---|---|---|
-| `r_book_roundtrip` | plan-tree JSON emission round-trips (parse → re-emit byte-equal) for all 432 P2 plans; every displayed number is typed as a projection | **432** | INV-P1 |
+| `r_book_roundtrip` | plan-tree JSON emission round-trips (parse → re-emit byte-equal) for all 756 P2 plans (depth-truncated materializations included, marked as such in the JSON); every displayed number is typed as a projection | **756** | INV-P1 |
 
-Inspector rendering is reviewed by eye (it is display only); the receipt
-covers the emitted data.
+Materialization cap: a plan is fully materialized when its node count is
+≤ 2²⁰; above the cap, materialization truncates by depth with an explicit
+`truncated` marker (values remain exact — the cap affects display data only).
+Inspector rendering is reviewed by eye (display only); the receipt covers the
+emitted data.
 
 ### P6 (stretch) — W1 σ-consistency filter (tests `r_w1_*`)
 
@@ -317,10 +363,11 @@ baseline, not σ — emptiness is expected sometimes and is counted, not hidden)
 As BRIEF.md §9: `verify_rob` prints its deterministic receipt; committed as
 `rob/receipts/verify_rob.txt`; `rob/ci/check.sh` runs it and byte-diffs.
 Rob-frozen lines follow the S3/970 precedent: computed on first green, then
-asserted exactly forever; weakening forbidden (INV-5). Everything is
-minutes-scale: the heaviest stage (P3 over 432 positions, worst fiber 34,650)
-is bounded by ≤ 24 viewer action sequences × 34,650 worlds × ≤ 16 plays per
-unroll per position — well under CI budget in Rust.
+asserted exactly forever; weakening forbidden (INV-5). Cost: every stage is
+bounded by the §7 budget by construction — the heaviest single solves are the
+108 trick-1 positions at ≈ 2.8×10⁹ world-segments each; if wall-clock exceeds
+CI budget, splitting `verify_rob` receipts across two binaries is permitted
+(receipt text unchanged); reducing coverage is not.
 
 ---
 
@@ -330,17 +377,23 @@ unroll per position — well under CI budget in Rust.
    is normative; if it admits two readings on some state, that is an
    `ambiguity_sigma_*` finding, not a silent choice. Improving σ is out of
    scope, full stop.
-2. **Mid-trick takeover.** The P2/P3 receipt corpus uses trick-boundary
-   positions (viewer leads) for closed-form shape; the composite player may
-   also first-solve mid-trick (viewer follows in trick 4). The solver handles
-   any ≤-4-tricks viewer-to-act state; the P4 takeover assertions exercise the
-   mid-trick case naturally.
+2. **The budget formula is normative** (§7): the branching estimator is the
+   stated conservative product, `B = 2³²`, no per-call overrides (INV-P6).
+   Changing `B` or the estimator is an amendment to this brief, not a code
+   decision.
 3. **A losing frozen margin is a finding** (§8 P4). Report it; do not tune.
-4. **Fiber blowup.** If any corpus position's fiber exceeds its closed-form
+4. **Early-game weirdness is a finding, not a bug.** Window-greedy plays in
+   tricks 1–2 are expected; they are characterized by the ablation receipt
+   and reported plainly. The only sanctioned responses are (a) the future
+   pooling brief that deepens early windows and (b) a future leaf brief with
+   its own ablation obligations — never in-place tuning (INV-P7).
+5. **Fiber blowup.** If any corpus position's DP count exceeds its closed-form
    bound, that is a bug in this brief's arithmetic or in the corpus decode —
    stop and report; the bounds are theorems, not estimates.
-5. **Baseline untouched.** No behavior change to the baseline player or its
+6. **Baseline untouched.** No behavior change to the baseline player or its
    receipts anywhere in this track (P4 extends the driver around it).
+7. **Lens restriction.** `ContractSuccess` at a truncated frontier is a typed
+   error, never a silent reinterpretation (§7 solver).
 
 ---
 
@@ -352,27 +405,30 @@ Unchanged from BRIEF.md §11.
 
 ## 12. Definition of done — player track v1
 
-1. **Layout**: additions match §14; core, wiki, ingest, exchange untouched;
+1. **Layout**: additions match §13; core, wiki, ingest, exchange untouched;
    nothing from §4's out-of-scope list.
 2. **Green**: `rob/ci/check.sh` end-to-end including `verify_rob` byte-identical
    to `rob/receipts/verify_rob.txt` (P6's lines included iff built).
-3. **Every number**: 108 / 3,024; 432 / 4×108; bounds 34,650 / 1,680 / 90 / 6;
-   432 fiber-count agreements; 432 known-world agreements; 216 brute-force and
-   216 dominance agreements; 432 conservation checks; 200 paired hands; and
-   every rob-frozen line frozen and diffed.
-4. **Invariants**: INV-P1..P6 each have their named enforcement present and
+3. **Every number**: 108 / 3,024; 756 = 7 × 108; the bound septuple
+   399,072,960 / 17,153,136 / 756,756 / 34,650 / 1,680 / 90 / 6; 108 trick-1
+   count equalities; 432 enumerated + 324 streamed fiber agreements; 756
+   schedule checks with H = 1 / ≥3 / full as forced; 756 known-world
+   agreements; 216 brute-force and 216 dominance agreements; 756 conservation
+   checks; 200 paired hands; the two ablation margins; and every rob-frozen
+   line frozen and diffed.
+4. **Invariants**: INV-P1..P7 each have their named enforcement present and
    green; INV-1..14 enforcement still green.
 5. **Independence**: nothing transcribed from mk5; σ and all gates implemented
    from this repo's objects only.
 6. **Documentation**: every new public item cites claim IDs where applicable
-   (CELL-05/07/10, Math §7.3, §11.4) and states its role in this brief.
+   (CELL-05/07/10/25/26, Math §7.3, §11.4) and states its role in this brief.
 7. **Report**: commands run; every count; frozen values with their first-green
-   provenance; the paired-match margins with plain-language reading; findings
-   (including a losing margin, if that is what happened); any `ambiguity_*`
-   tests.
+   provenance; the paired-match and ablation margins with plain-language
+   reading; findings (including a losing margin or ugly early plays, if that
+   is what happened); any `ambiguity_*` tests.
 
-Do not begin census slice 03, a deeper-horizon player, or belief work beyond
-P6.
+Do not begin census slice 03, a richer leaf, world pooling, or belief work
+beyond P6.
 
 ---
 
@@ -381,11 +437,12 @@ P6.
 ```
 rob/crates/player/src/
   sigma.rs        GreedySigma — fixed deterministic field policy   [INV-P4]
-  plan.rs         Observation, Plan, bundle audit (outside Eq)     [INV-P1/P2/P5]
-  solver.rs       exact W0 info-set best response, ≤ 4 tricks,
+  window.rs       normative budget formula H(fiber_count, hand)    [INV-P6]
+  plan.rs         Observation, Plan, typed frontier leaf, bundle
+                  audit (outside Eq)                               [INV-P1/P2/P5/P7]
+  solver.rs       exact W0 streaming info-set best response,
                   integer sums, canonical tie-break                [INV-P3/P6]
-  rob.rs          composite player: baseline opening + endgame
-                  takeover + plan following                        [INV-P6]
+  rob.rs          the player: rolling re-solve from trick 1        [INV-P6]
   consistency.rs  (P6) W1 σ-consistency history filter + fallback  [CELL-07]
   match_driver.rs + heterogeneous seating, mirrored pairs
   trace.rs        + plan-tree projection emission                  [INV-P1]
