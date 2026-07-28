@@ -42,9 +42,11 @@ const DEAL_SEED: u64 = 0x0d41_0000;
 /// (plans, total canonical bytes).
 pub fn roundtrip_check() -> (u64, u64) {
     let positions = all_positions();
+    // Memory-bounded parallelism (see p4::paired_match).
     let workers = std::thread::available_parallelism()
         .map(|n| n.get())
-        .unwrap_or(4);
+        .unwrap_or(4)
+        .min(10);
     let cursor = AtomicUsize::new(0);
     let results: Mutex<Vec<Option<u64>>> = Mutex::new((0..positions.len()).map(|_| None).collect());
     std::thread::scope(|scope| {

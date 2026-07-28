@@ -335,7 +335,7 @@ and 4 run on all **756** (gate 1 at each position's own H and leaf).
 
 | Test | Assertion | Numbers | Source |
 |---|---|---|---|
-| `r_mat_rolling` | on deterministic full-hand self-plays, rob solves at every one of his decisions from trick 1 (including mid-trick), plays each root action, and the per-decision H matches the §7 formula; at full-depth decisions the realized world is in every followed node's bundle | per-hand assertions | INV-P6 |
+| `r_mat_rolling` | rob solves at every one of his decisions from trick 1 (including mid-trick), plays each root action, and the per-decision H matches the §7 formula; at every rob decision the true dealt remainder world passes `fiber_contains` (CELL-05 losslessness, live). *(Amended 2026-07-28: the original "realized observation is a plan key" clause presumed σ-play; real opponents are the baseline, so under rolling re-solve the live invariant is world-in-fiber, not obs-in-children.)* | **2,800** decisions = 200 × 14 | INV-P6; CELL-05 |
 | `r_mat_paired` | mirrored paired match, 100 deterministic deals × 2 seatings, rob team vs baseline team, `Points` lens: per-seating and net margins printed and rob-frozen on first green | **200** hands; rob-frozen margin | mk5 precedent, re-derived |
 | `r_mat_window_ablation` | the same paired match with rob's budget artificially halved and doubled (B/2, 2B — window schedule shifts at the margins): margins rob-frozen. This receipt *prices the window*; it is the sanctioned response to early-game weirdness (INV-P7) | rob-frozen ×2 | window rent, measured |
 
@@ -347,7 +347,8 @@ the corpus, or the seeds (INV-5 discipline applies to the freeze).
 
 | Test | Assertion | Numbers | Source |
 |---|---|---|---|
-| `r_book_roundtrip` | plan-tree JSON emission round-trips (parse → re-emit byte-equal) for all 756 P2 plans (depth-truncated materializations included, marked as such in the JSON); every displayed number is typed as a projection | **756** | INV-P1 |
+| `r_book_roundtrip` | plan-tree JSON emission round-trips (parse → structural equality → re-emit byte-equal) for all 756 P2 plans (depth-truncated materializations included, marked as such in the JSON); every displayed number is typed as a projection | **756** | INV-P1 |
+| `r_book_trace` | the rob inspector trace: four P4-stream deals, rob playing team 0 by rolling re-solve, every rob decision carrying a capped contingency-book projection (3 levels / 24 branches, exact elision counts) | **4** hands; **112** decisions; **56** plans | INV-P1 |
 
 Materialization cap: a plan is fully materialized when its node count is
 ≤ 2²⁰; above the cap, materialization truncates by depth with an explicit
@@ -461,6 +462,14 @@ rob/crates/player/src/
   match_driver.rs + heterogeneous seating, mirrored pairs
   trace.rs        + plan-tree projection emission                  [INV-P1]
   bin/verify_rob.rs
+
+rob/crates/verify/src/
+  p1.rs p2.rs p3.rs p4.rs p5.rs      stage harnesses (frozen S3 corpus access)
+  bin/verify_rob.rs                  the receipt binary (recorded deviation:
+                                     lives beside the other stage binaries)
+  bin/trace_rob.rs                   rob inspector trace generator (writes
+                                     inspector/trace.js — the default view;
+                                     trace_player regenerates the baseline view)
 
 rob/receipts/verify_rob.txt
 rob/inspector/index.html   + contingency-book view (display only)

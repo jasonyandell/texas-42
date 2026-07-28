@@ -15,3 +15,10 @@ r_sol_undominated: 216 positions
 r_sol_conservation: 756 solves; 58,609,267 nodes checked; 62 truncated
 r_sol_deterministic: 756 double-solves byte-equal; values 160,910,645,319 / 14,433,377,305 / 779,629,916 / 21,941,700 / 1,112,428 / 46,340 / 3,716
 r_sol_engines: 540 agreements
+rob player-p4 verification: PASS
+r_mat_rolling: 2,800 rob decisions; 2,800 window agreements; 2,800 live fiber memberships
+r_mat_paired: 200 hands; seating margins 238 / 480; net 718
+r_mat_window_ablation: net B/2 768 ; net 2B 778
+rob player-p5 verification: PASS
+r_book_roundtrip: 756 plans byte-equal; 6,001,465,196 canonical bytes
+r_book_trace: 4 hands; 112 decisions; 56 plans embedded

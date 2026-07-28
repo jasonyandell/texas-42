@@ -42,9 +42,12 @@ pub fn all_positions() -> Vec<(usize, u64)> {
 /// cursor, results collected in input order (std threads only — no new
 /// dependencies).
 fn par_map<T: Send>(items: &[(usize, u64)], f: impl Fn(usize, u64) -> T + Sync) -> Vec<T> {
+    // Memory-bounded parallelism (see p4::paired_match): worst-case solves
+    // peak at several hundred MB each.
     let workers = std::thread::available_parallelism()
         .map(|n| n.get())
         .unwrap_or(4)
+        .min(10)
         .min(items.len().max(1));
     let cursor = AtomicUsize::new(0);
     let results: Mutex<Vec<Option<T>>> = Mutex::new((0..items.len()).map(|_| None).collect());

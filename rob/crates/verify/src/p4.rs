@@ -148,9 +148,14 @@ fn play_hand(deal_index: u64, rob_team: usize, budget: Option<u128>) -> HandEvid
 /// on team 0; every deal is played under both seatings.
 pub fn paired_match(budget: Option<u128>) -> (i64, i64, i64, u64, u64) {
     let deals: Vec<u64> = (0..DEALS).collect();
+    // Memory-bounded parallelism: a worst-case solve peaks at several
+    // hundred MB (fiber buffer + all-action subtree building), and the 2B
+    // ablation enumerates fibers up to ~17M worlds — full-core fan-out
+    // OOM-kills the run. Six workers keeps the peak a few GB.
     let workers = std::thread::available_parallelism()
         .map(|n| n.get())
-        .unwrap_or(4);
+        .unwrap_or(4)
+        .min(6);
     let cursor = AtomicUsize::new(0);
     let results: Mutex<Vec<Option<(HandEvidence, HandEvidence)>>> =
         Mutex::new((0..deals.len()).map(|_| None).collect());
