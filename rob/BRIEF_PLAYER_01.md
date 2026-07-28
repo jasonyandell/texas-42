@@ -227,9 +227,19 @@ forbidden; walt's gates are re-derived here from this repo's own objects.
   Work estimate for depth `h` at a decision: `fiber_count × Π_{i<h} b_i`
   where `b_i = max(1, viewer_hand_size − i)` (a conservative upper bound on
   viewer branching, deterministic and cheap). `H = ` the largest `h ≤ tricks
-  remaining` with estimate `≤ B = 2³²` (always ≥ 1; `fiber_count` from the
+  remaining` with estimate `≤ B` (always ≥ 1; `fiber_count` from the
   capacity DP, CELL-10). `B` is a constant of this brief, changed only by
-  amendment.
+  amendment. **Amended 2026-07-28: `B = 2²⁸`** (was `2³²`: the original
+  priced a work unit at ~1 ns; a real streamed world-segment costs
+  ~50–100 ns, so `2³²`-scale windows are hours, not minutes — the amendment
+  keeps every streamed solve seconds-scale and trades no exactness).
+- **engine rule** (amended 2026-07-28, same commit): window 1 solves take
+  the **response-class counting engine** — exact values by capacity-DP
+  counts over σ-response classes ("the seat holds `r` and avoids `E`"),
+  milliseconds at any fiber size, including the full 399,072,960-world
+  trick-one fiber; windows ≥ 2 take the streaming engine (estimate ≤ `B`
+  guaranteed by the formula). The two engines must agree plan-for-plan
+  wherever both can run — receipt `r_sol_engines`.
 - **plan** (`player/src/plan.rs`): `Observation` — the ordered sequence of
   (seat, tile) plays strictly between two consecutive viewer decisions
   (possibly empty when the viewer wins and immediately leads); `Plan` — root
@@ -279,10 +289,11 @@ The governing bounds, closed-form (no-void maxima; voids only shrink them):
 fiber at trick boundary `t` completed tricks ≤ `(21−3t)!/((7−t)!)³` =
 **399,072,960 / 17,153,136 / 756,756 / 34,650 / 1,680 / 90 / 6** for
 t = 0..6. Largest per-node value sum ≤ 42 × 399,072,960 < 2³⁵ (`u64`/`i64`
-comfortable). Budget consequences at the maxima (the §7 formula): H = **1** at
-t = 0 (7 × 399,072,960 ≈ 2.8×10⁹ ≤ 2³²), H = **3** at t = 1 (6·5·4 ×
-17,153,136 ≈ 2.1×10⁹), **full depth for every t ≥ 2** (5! × 756,756 ≈ 9.1×10⁷
-and shrinking). These are receipt assertions, not commentary.
+comfortable). Budget consequences (the §7 formula at `B = 2²⁸`, amended):
+H = **1** at t = 0 (budget-floored; counting engine), H **∈ {1, 2, 3}** at
+t = 1 by that position's exact fiber count (distribution frozen in the
+receipt), **full depth for every t ≥ 2** (5! × 756,756 ≈ 9.1×10⁷ ≤ 2²⁸ and
+shrinking). These are receipt assertions, not commentary.
 
 ### P1 — σ (tests `r_sig_*`)
 
@@ -303,7 +314,7 @@ to lead the next trick — **756** positions, 108 per depth.
 | `r_pos_corpus` | 756 positions decode; every position's viewer is to act; tricks remaining ∈ {7..1} in equal counts | **756**; 7 × 108 | corpus-shape |
 | `r_pos_count` | per position: capacity-DP fiber count ≤ its closed-form bound; at t = 0 the count **equals** 399,072,960 for all 108 (no information yet removes a world) | **756** bound checks; **108** equalities | CELL-10; Math §7 |
 | `r_pos_fiber` | for the 432 positions with t ≥ 3: `fiber_worlds` cardinality equals the DP count; every enumerated world passes `fiber_contains`; no duplicates. For t ≤ 2, streaming visit via `rank_world`/`unrank_world` round-trips on a deterministic index sample and total visited count equals the DP count | **432** enumerated agreements; **324** streamed agreements | CELL-05/10/25/26 |
-| `r_pos_schedule` | per position: the §7 window formula's H equals the value forced by the bounds table (1 / 3-or-more / full…), and H = tricks remaining for every t ≥ 2 | **756** | INV-P6 |
+| `r_pos_schedule` | per position: the §7 window formula's H equals the value forced by the bounds table (1 at t = 0; 1–3 at t = 1, histogram rob-frozen; full depth for every t ≥ 2) | **756** | INV-P6; §7 amendment |
 
 ### P3 — the solver, W0 (tests `r_sol_*`)
 
@@ -318,6 +329,7 @@ and 4 run on all **756** (gate 1 at each position's own H and leaf).
 | `r_sol_undominated` | **no pointwise-dominated plan**: on the same 216, the chosen plan is not pointwise-dominated (no enumerated plan weakly better in every world, strictly in one) | **216** | gate 3 |
 | `r_sol_conservation` | **bundle conservation** (INV-P5): accumulator/bundle partitions at every node; frontier totals sum to the root fiber count = DP count — including the 108 trick-1 solves over the full 399,072,960-world fiber | **756** solves | gate 4 |
 | `r_sol_deterministic` | double-solve byte-equal canonical plans on all 756; root values rob-frozen per depth | **756**; rob-frozen | INV-P3 |
+| `r_sol_engines` | the counting and streaming engines produce identical plans (values, actions, bundles) at window 1 on every position whose fiber is enumerable (t ≥ 2) | **540** agreements | §7 engine rule |
 
 ### P4 — rob at the table + paired match (tests `r_mat_*`)
 
@@ -363,11 +375,13 @@ baseline, not σ — emptiness is expected sometimes and is counted, not hidden)
 As BRIEF.md §9: `verify_rob` prints its deterministic receipt; committed as
 `rob/receipts/verify_rob.txt`; `rob/ci/check.sh` runs it and byte-diffs.
 Rob-frozen lines follow the S3/970 precedent: computed on first green, then
-asserted exactly forever; weakening forbidden (INV-5). Cost: every stage is
-bounded by the §7 budget by construction — the heaviest single solves are the
-108 trick-1 positions at ≈ 2.8×10⁹ world-segments each; if wall-clock exceeds
-CI budget, splitting `verify_rob` receipts across two binaries is permitted
-(receipt text unchanged); reducing coverage is not.
+asserted exactly forever; weakening forbidden (INV-5). Cost (measured
+2026-07-28): the full P1–P3 receipt runs ≈ 8 minutes wall on a parallel
+sweep (std threads, deterministic collection order) — dominated by the 108
+boundary-2 full-depth streaming solves; trick-one decisions are
+milliseconds via the counting engine. If wall-clock exceeds CI budget,
+splitting `verify_rob` receipts across binaries is permitted (receipt text
+unchanged); reducing coverage is not.
 
 ---
 

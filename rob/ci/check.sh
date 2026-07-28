@@ -24,6 +24,12 @@ if grep -rnE 'OuterCertificate|ReachabilityCertificate|OuterReachabilityCertific
     exit 1
 fi
 
+echo "== vocabulary grep (INV-P1, INV-P7)"
+if grep -rnE 'TileValue|DominoScore|LeafWeight|fn tile_value|fn domino_score' crates --include='*.rs'; then
+    echo "ERROR: forbidden identifier (INV-P1: no per-domino scalar value API; INV-P7: no tunable leaf)"
+    exit 1
+fi
+
 echo "== cargo test --workspace --release"
 cargo test --workspace --release
 

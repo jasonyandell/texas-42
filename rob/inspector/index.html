@@ -121,6 +121,17 @@
   .zero { color: var(--dim); }
   .certain { color: var(--good); font-weight: 700; }
 
+  /* contingency book (rob plans) */
+  details.book { margin: 2px 0 2px 12px; border-left: 1px solid var(--line); padding-left: 8px; }
+  details.book > summary { cursor: pointer; list-style: none; }
+  details.book > summary::before { content: "▸ "; color: var(--dim); }
+  details.book[open] > summary::before { content: "▾ "; }
+  .book .obs { color: var(--dim); }
+  .book .act { color: var(--accent); font-weight: 700; }
+  .book .val { color: var(--good); }
+  .book .leafk { color: var(--dim); font-style: italic; }
+  .bookhead { margin-bottom: 6px; }
+
   .statline { display: flex; gap: 18px; flex-wrap: wrap; color: var(--dim); font-size: 12px; margin-top: 6px; }
   .statline b { color: var(--text); }
   .result { margin-top: 6px; padding: 6px 8px; border-radius: 6px; background: var(--panel2); }
@@ -379,14 +390,58 @@
         `(${r.stake} mark to T${r.award_team}) — marks now T0 ${r.marks_after[0]} — ${r.marks_after[1]} T1`;
   }
 
+  // ---- contingency book (rob plans) ------------------------------------
+  // Every number is an exact integer from the Rust plan; per-node values
+  // are values OF THE PLAN at that information set (PLAN-NOT-TILE). The
+  // page only renders; it derives nothing.
+  function obsLabel(obs) {
+    return obs.length
+      ? obs.map(([s, t]) => `${seatName(s)}:${t}`).join(" ")
+      : "(no plays before rob acts again)";
+  }
+  function bookNode(node, label) {
+    const avg = node.worlds > 0 ? (node.value / node.worlds).toFixed(2) : "?";
+    const head =
+      (label !== null ? `<span class="obs">${label}</span> → ` : "") +
+      (node.leaf
+        ? `<span class="leafk">${node.leaf}</span>`
+        : `play <span class="act">${node.action}</span>`) +
+      ` · <span class="val">${node.worlds}</span> worlds` +
+      ` · value <span class="val">${node.value}</span> <span class="approx">≈${avg}/world</span>`;
+    if (node.leaf || !node.children || node.children.length === 0) {
+      const elided = node.elided ? ` <span class="obs">(${node.elided} branches below display cap)</span>` : "";
+      return `<div class="book" style="margin:2px 0 2px 12px">${head}${elided}</div>`;
+    }
+    const kids = node.children.map(([obs, child]) => bookNode(child, obsLabel(obs))).join("");
+    const elided = node.elided ? `<div class="book obs" style="margin-left:12px">… ${node.elided} more branches (display cap)</div>` : "";
+    return `<details class="book"${label === null ? " open" : ""}><summary>${head}</summary>${kids}${elided}</details>`;
+  }
+  function renderBook(dec) {
+    const p = dec.plan;
+    return (
+      `<div class="kbd bookhead">rob's plan — exact info-set best response vs σ · window <b>${p.window}</b> trick(s) · ` +
+      `exact fiber <span class="exact">${commas(p.fiber)}</span> worlds` +
+      (p.truncated ? ` · <span class="obs">display-truncated</span>` : ``) +
+      `</div>` +
+      `<div class="kbd bookhead">the plan is the unit: one action per information set, chosen after aggregation ` +
+      `over all worlds (PLAN-NOT-TILE) — expand branches to read the contingency book</div>` +
+      bookNode(p.root, null)
+    );
+  }
+
   function renderDecision(dec) {
     const el = $("decisionBody");
     const mine = perspective !== "omni" && +perspective === dec.actor;
     $("decisionTitle").textContent =
-      `decision — ${seatName(dec.actor)} to act` + (dec.decision.forced ? " (forced)" : "");
+      `decision — ${seatName(dec.actor)} to act` +
+      (dec.plan ? " (rob: plan solve)" : dec.decision.forced ? " (forced)" : "");
     if (!(mine || perspective === "omni")) {
       el.innerHTML = `<div class="hiddennote">${seatName(dec.actor)} is deciding — evaluation hidden from ` +
         `${seatName(+perspective)}'s perspective (it derives from ${seatName(dec.actor)}'s private hand)</div>`;
+      return;
+    }
+    if (dec.plan) {
+      el.innerHTML = renderBook(dec);
       return;
     }
     const dd = dec.decision;

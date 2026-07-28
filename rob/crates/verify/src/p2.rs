@@ -172,11 +172,16 @@ pub fn fiber_streamed_check() -> u64 {
     agreements
 }
 
-/// `r_pos_schedule` (INV-P6): the §7 window formula's `H` per position is
-/// exactly what the bounds force — `H = 1` at boundary 0, `H ≥ 3` at
-/// boundary 1, and full depth (`H` = tricks remaining) for boundary ≥ 2.
-pub fn schedule_check() -> u64 {
+/// `r_pos_schedule` (INV-P6; B amended `2³²` → `2²⁸` 2026-07-28, recorded
+/// in BRIEF_PLAYER_01 §7 and `rob_player::window`): the §7 window formula's
+/// `H` per position is what the bounds force — `H = 1` at boundary 0
+/// (budget-floored; the counting engine serves it), `H ∈ {1, 2, 3}` at
+/// boundary 1 (fiber-dependent; distribution frozen in the receipt), full
+/// depth (`H` = tricks remaining) for boundary ≥ 2. Returns (checks, the
+/// boundary-1 H histogram for H = 1..=3).
+pub fn schedule_check() -> (u64, [u64; 3]) {
     let mut checks = 0u64;
+    let mut t1_histogram = [0u64; 3];
     for boundary in 0..BOUNDARIES {
         for index in 0..108 {
             let state = boundary_position(index, boundary);
@@ -189,14 +194,20 @@ pub fn schedule_check() -> u64 {
             let h = window_depth(count, hand);
             match boundary {
                 0 => assert_eq!(h, 1, "boundary 0 affords exactly one trick"),
-                1 => assert!(h >= 3, "boundary 1 affords at least three tricks"),
+                1 => {
+                    assert!(
+                        (1..=3).contains(&h),
+                        "boundary 1 affords one to three tricks"
+                    );
+                    t1_histogram[h - 1] += 1;
+                }
                 _ => assert_eq!(h, hand, "boundary >= 2 affords full depth"),
             }
             checks += 1;
         }
     }
     assert_eq!(checks, 756);
-    checks
+    (checks, t1_histogram)
 }
 
 /// Build the canonical P2 receipt (BRIEF_PLAYER_01 §8–§9). Panics on any
@@ -230,10 +241,13 @@ pub fn receipt() -> String {
         "r_pos_fiber",
         &format!("{enumerated} enumerated agreements; {streamed} streamed sample round-trips"),
     );
-    let schedules = schedule_check();
+    let (schedules, t1) = schedule_check();
     r.line(
         "r_pos_schedule",
-        &format!("{schedules} schedules; H=1 at t=0; H>=3 at t=1; full depth for t>=2; B=2^32 ({WINDOW_BUDGET})"),
+        &format!(
+            "{schedules} schedules; H=1 at t=0; t=1 H 1/2/3 = {}/{}/{}; full depth for t>=2; B=2^28 ({WINDOW_BUDGET})",
+            t1[0], t1[1], t1[2]
+        ),
     );
     r.finish()
 }
@@ -262,6 +276,8 @@ mod tests {
 
     #[test]
     fn r_pos_schedule() {
-        assert_eq!(schedule_check(), 756);
+        let (checks, t1) = schedule_check();
+        assert_eq!(checks, 756);
+        assert_eq!(t1.iter().sum::<u64>(), 108);
     }
 }

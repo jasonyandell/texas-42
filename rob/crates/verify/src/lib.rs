@@ -11,6 +11,9 @@
 pub mod corpus;
 pub mod p1;
 pub mod p2;
+pub mod p3;
+pub mod p4;
+pub mod p5;
 pub mod prose_resolver;
 pub mod receipt;
 pub mod s1;

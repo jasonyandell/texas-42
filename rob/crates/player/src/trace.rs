@@ -89,6 +89,10 @@ pub struct TraceDecision {
     pub chosen: String,
     /// Whether the action was forced (single legal play).
     pub forced: bool,
+    /// rob's capped contingency-book projection when the actor is rob
+    /// (`book::plan_book_projection` JSON), `None` for baseline deciders.
+    /// Display data only (INV-P1).
+    pub plan: Option<String>,
     /// Leader after the play.
     pub after_leader: u8,
     /// Points after the play.
@@ -162,7 +166,8 @@ fn fmt_set(set: &DominoSet) -> Vec<String> {
 /// called set `κ_δ` built by the core suit tables (Math §3.2): every domino
 /// bearing the trump pip, the seven doubles, or nothing for no-trump. Public
 /// information — the viewer only marks these tiles, it never derives them.
-fn trump_set(declaration: Declaration) -> DominoSet {
+/// Public for the rob trace builder (P5).
+pub fn trump_set(declaration: Declaration) -> DominoSet {
     match declaration {
         Declaration::PipTrump(pip) => natural_incidence(pip),
         Declaration::DoublesTrump => {
@@ -179,7 +184,8 @@ fn fmt_context(q: LedSuit) -> String {
     }
 }
 
-fn fmt_action(action: AuctionAction) -> String {
+/// Auction-action display (public for the rob trace builder, P5).
+pub fn fmt_action(action: AuctionAction) -> String {
     match action {
         AuctionAction::Pass => "pass".to_string(),
         AuctionAction::Bid(BidValue::Point(n)) => format!("P({})", n.value()),
@@ -207,8 +213,9 @@ fn gcd(mut a: u64, mut b: u64) -> u64 {
 }
 
 /// Build one seat's exact view record from that seat's own mechanical
-/// state (the perspective-masking source).
-fn view_of(state: &MechanicalState) -> TraceView {
+/// state (the perspective-masking source). Public so the rob trace builder
+/// (`rob-verify` P5) reuses the identical masking path.
+pub fn view_of(state: &MechanicalState) -> TraceView {
     let cells = derive_rule_cells(state);
     let (abstract_cells, tile_order) = cells.to_abstract();
     let fiber = assignment_count(&abstract_cells);
@@ -317,6 +324,7 @@ impl MatchObserver for TraceObserver {
             },
             chosen: fmt_domino(report.chosen),
             forced,
+            plan: None,
             after_leader: after.leader().index() as u8,
             after_points: after.hand_points(),
             trick_complete: context
@@ -446,6 +454,7 @@ impl TraceDecision {
              \"public\":{{\"leader\":{},\"trick\":{},\"points\":[{},{}],\"played\":[{}],\"voids\":[{}]}},\
              \"views\":[{}],\"truth\":[{}],\
              \"decision\":{{\"legal\":{},\"totals\":[{}],\"worlds\":{},\"avgs\":{},\"chosen\":{},\"forced\":{}}},\
+             \"plan\":{},\
              \"after\":{{\"leader\":{},\"points\":[{},{}],\"trick_complete\":{}}}}}",
             self.play,
             self.trick,
@@ -465,6 +474,10 @@ impl TraceDecision {
             json_str_array(&self.avgs),
             json_string(&self.chosen),
             self.forced,
+            match &self.plan {
+                Some(book) => book.clone(),
+                None => "null".to_string(),
+            },
             self.after_leader,
             self.after_points[0],
             self.after_points[1],
