@@ -10,6 +10,7 @@
 
 pub mod corpus;
 pub mod p1;
+pub mod p2;
 pub mod prose_resolver;
 pub mod receipt;
 pub mod s1;

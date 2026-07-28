@@ -23,6 +23,7 @@ pub mod rng;
 pub mod rollout;
 pub mod sigma;
 pub mod trace;
+pub mod window;
 pub mod worlds;
 
 pub use bidding::{placeholder_auction_script, placeholder_declaration};

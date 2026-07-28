@@ -1,3 +1,10 @@
 rob player-p1 verification: PASS
 r_sig_selfplay: 108 hands; 3,024 plays; 42x108 conserved
 r_sig_deterministic: 108 traces byte-equal
+rob player-p2 verification: PASS
+r_pos_corpus: 756 positions; 7 x 108; viewer to act
+r_pos_bounds: 399,072,960 / 17,153,136 / 756,756 / 34,650 / 1,680 / 90 / 6
+r_pos_count: 756 within bounds; 108 boundary-0 equalities at 399,072,960
+r_pos_census: 44,722,908,161
+r_pos_fiber: 432 enumerated agreements; 324 streamed sample round-trips
+r_pos_schedule: 756 schedules; H=1 at t=0; H>=3 at t=1; full depth for t>=2; B=2^32 (4294967296)

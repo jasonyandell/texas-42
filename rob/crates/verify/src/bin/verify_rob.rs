@@ -9,4 +9,5 @@
 
 fn main() {
     print!("{}", rob_verify::p1::receipt());
+    print!("{}", rob_verify::p2::receipt());
 }
