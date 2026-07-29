@@ -38,8 +38,19 @@ viewer-play identity (PA-C10). Mechanization finding: the reverse construction
 uses a fact implicit in the prose — a hidden seat's played tile must respect its
 own previously recorded voids (derived from true-trajectory void soundness).
 Remaining P0 in C: none — C01–C07/C09/C10 are covered; C08 Hall (P1) and the
-counting DP (C11) are the next C-layer targets. Next: Layer D (normal form
-trichotomy, reachability predicate) and Layer E (finite belief).
+counting DP (C11) are the next C-layer targets.
+**Also landed**: PA-D09/D10 (Reachable + CertifiedState), PA-F05 (mechanical ≠
+information, the §6.6 witness), the generic K7 cell kernel with the §7.9
+canonical reduction and its coarsest-exact-quotient theorem (PA-C15 backbone),
+and the finite belief layer PA-E01–E03 (rational FinPMF, Bayes conditioning
+with normalization and the chain rule, policy-kernel history likelihood,
+posterior, pushforward) closing with `physicalBelief_support_isWorld`: the
+posterior's support lies inside the cell fiber.
+**Priority-0 scoreboard: 35 of 42 rows kernel-proved.** Open P0: PA-D01–D05
+(the §7.10 support normal form: trichotomy, well-formedness, compile/decode,
+classification) and PA-E07/E10 (strategic-state sufficiency; the 90-world
+posterior-flip witness). Each needs its own deep spec read (§7.10; §§9–10) —
+natural next slices.
 
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 

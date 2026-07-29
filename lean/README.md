@@ -100,6 +100,23 @@ prose-resolver agreement), which is a deliberate later reflection target.
   leaves implicit — a hidden seat's publicly played tile must respect that
   seat's previously recorded voids; it is derived from true-trajectory
   void soundness (`hd_allowed` inside the completeness proof).
+- `Texas42/Reachability.lean` — `Reachable`, `CertifiedState` with
+  equality through the projection (PA-D09/D10, TYPE-01).
+- `Texas42/Information.lean` — `DealLocalInfo` and `mech_not_injective`:
+  the Math §6.6 counterexample (PA-F05).
+- `Texas42/Reduction.lean` — the generic capacitated cell kernel
+  (rec K7): `CellSys`, marginal holder support, and the canonical
+  reduction — fiber-preserving, contractive, idempotent, coordinatewise
+  least, with the coarsest-exact-quotient equivalence
+  `Φ(C) = Φ(Q) ↔ red(C) = red(Q)` (Math §7.9, PA-C15 backbone); the game
+  cells instantiate it (`ViewerCtx.cellSys`).
+- `Texas42/Belief.lean` — the finite belief layer (PA-E01–E03,
+  Math §§8.1–8.3): exact rational `FinPMF` with Bayes `condition`
+  (normalization + the `condition_mul` chain rule), policy kernels and
+  the history-likelihood product, `posterior` on the fixed deal domain,
+  `physicalBelief` pushforward, and
+  `physicalBelief_support_isWorld` — the posterior's support lies inside
+  the cell fiber (support is not belief; the fiber bounds it exactly).
 
 All theorems depend only on the standard axioms
 (`propext`, `Classical.choice`, `Quot.sound`) — no `sorry`, no `native_decide`.
