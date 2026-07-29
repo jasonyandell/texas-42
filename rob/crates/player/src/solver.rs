@@ -458,7 +458,21 @@ impl Solve {
         pos: &Pos,
         mut openings: Option<&mut Vec<(u8, i64)>>,
     ) -> PlanNode {
-        let legal = self.viewer_legal(pos);
+        self.stream_solve_restricted(worlds, bundle, pos, &mut openings, None)
+    }
+
+    fn stream_solve_restricted(
+        &self,
+        worlds: &[CompactWorld],
+        bundle: &[u32],
+        pos: &Pos,
+        openings: &mut Option<&mut Vec<(u8, i64)>>,
+        root_restrict: Option<u8>,
+    ) -> PlanNode {
+        let mut legal = self.viewer_legal(pos);
+        if let Some(only) = root_restrict {
+            legal.retain(|&d| d == only);
+        }
         debug_assert!(!legal.is_empty());
         let mut best: Option<PlanNode> = None;
         for &action in &legal {
@@ -708,8 +722,22 @@ impl Solve {
         fiber_count: u64,
         mut openings: Option<&mut Vec<(u8, i64)>>,
     ) -> PlanNode {
+        self.counting_node_restricted(ctx, pos, fiber_count, &mut openings, None)
+    }
+
+    fn counting_node_restricted(
+        &self,
+        ctx: &CountCtx,
+        pos: &Pos,
+        fiber_count: u64,
+        openings: &mut Option<&mut Vec<(u8, i64)>>,
+        root_restrict: Option<u8>,
+    ) -> PlanNode {
         debug_assert_eq!(pos.tricks_done + 1, self.window_end.min(7));
-        let legal = self.viewer_legal(pos);
+        let mut legal = self.viewer_legal(pos);
+        if let Some(only) = root_restrict {
+            legal.retain(|&d| d == only);
+        }
         let mut best: Option<(i64, u8, BTreeMap<Observation, PlanChild>)> = None;
         for &action in &legal {
             let mut trick = pos.trick;
@@ -1117,6 +1145,45 @@ pub mod gate {
             fiber_count,
             truncated: false,
             root,
+        }
+    }
+
+    /// The best plan restricted to one fixed opening — the analysis
+    /// surface for pricing rejected openings' full plans (display/probe
+    /// use; play always goes through `solve`, INV-P6).
+    pub fn solve_opening(state: &MechanicalState, lens: UtilityLens, action: DominoId) -> Plan {
+        assert_decision_state(state);
+        let cells = derive_rule_cells(state);
+        let fiber_count = fiber_count_of(&cells);
+        let hand = state.own_remaining_hand().len();
+        let window = window_depth(fiber_count, hand);
+        let (solve, pos) = solve_context(state, lens, window);
+        let act = action.index() as u8;
+        if window == 1 {
+            let ctx = CountCtx::from_cells(&cells);
+            let root =
+                solve.counting_node_restricted(&ctx, &pos, fiber_count, &mut None, Some(act));
+            Plan {
+                viewer: state.viewer(),
+                window,
+                fiber_count,
+                truncated: false,
+                root,
+            }
+        } else {
+            let worlds = enumerate_compact(&cells);
+            assert_eq!(worlds.len() as u64, fiber_count, "enumeration = DP count");
+            let bundle: Vec<u32> = (0..worlds.len() as u32).collect();
+            let mut root =
+                solve.stream_solve_restricted(&worlds, &bundle, &pos, &mut None, Some(act));
+            let truncated = prune_to_cap(&mut root, MATERIALIZATION_CAP);
+            Plan {
+                viewer: state.viewer(),
+                window,
+                fiber_count,
+                truncated,
+                root,
+            }
         }
     }
 
