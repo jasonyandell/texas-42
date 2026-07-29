@@ -27,8 +27,19 @@ ceiling (PA-B01–B03), deal worlds (PA-B05 define), contract (PA-B06), the redu
 play state with legal-set characterization (PA-B07/B08), invariant-preserving
 atomic transition (PA-B09), and conservation — 28 plays, seven tricks, 42 points
 (PA-B10). Open in B: deal cardinalities (B05), auction census (B04, reflect),
-graded-DAG/Markov/settlement rows (B11–B14). Next: B13 settlement + the
-42↔sweep trajectory theorem, then Layer C (information and cells).
+graded-DAG/Markov/settlement rows (B11–B14).
+**Layer C keystone landed (K6/K8): the losslessness theorem is kernel-proved.**
+`lean/Texas42/Cells.lean` builds the public-record machine (played-by-seat,
+voids, upper-bound-only updates — PA-C01/C02/C06), the coherence invariant with
+void soundness, the derived cells and fiber (PA-C03/C04), and proves
+`Φ(c) = ρ(Ω(I))` — soundness directly from coherence, completeness by the spec's
+four-case induction (PA-C05/C07), plus the fixed-history bijection (PA-C09) and
+viewer-play identity (PA-C10). Mechanization finding: the reverse construction
+uses a fact implicit in the prose — a hidden seat's played tile must respect its
+own previously recorded voids (derived from true-trajectory void soundness).
+Remaining P0 in C: none — C01–C07/C09/C10 are covered; C08 Hall (P1) and the
+counting DP (C11) are the next C-layer targets. Next: Layer D (normal form
+trichotomy, reachability predicate) and Layer E (finite belief).
 
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 

@@ -93,7 +93,67 @@ theorem step_declaration (X : PlayState) (d : Domino) :
   unfold declaration
   rw [step_contract]
 
+/-- The actor's hand loses exactly the played tile. -/
+theorem hands_step_actor (X : PlayState) (d : Domino) :
+    (X.step d).hands X.actor = (X.hands X.actor).erase d := by
+  rw [step_hands]
+  unfold handsAfter
+  rw [Function.update_self]
+
+/-- PA-C10 (viewer-play identity groundwork): a non-actor's hand is
+untouched by the play. -/
+theorem hands_step_ne (X : PlayState) (d : Domino) {s : Seat}
+    (hs : s ≠ X.actor) : (X.step d).hands s = X.hands s := by
+  rw [step_hands]
+  unfold handsAfter
+  rw [Function.update_of_ne hs]
+
+/-- Legality is public: two states agreeing on leader, trick, contract,
+and the actor's hand have the same legal set. -/
+theorem legalSet_congr {X Y : PlayState} (hl : Y.leader = X.leader)
+    (ht : Y.trick = X.trick) (hc : Y.contract = X.contract)
+    (hh : Y.hands Y.actor = X.hands X.actor) : Y.legalSet = X.legalSet := by
+  have hdecl : Y.declaration = X.declaration := by
+    unfold declaration
+    rw [hc]
+  rcases htr : X.trick.head? with - | ⟨s0, d0⟩
+  · have hX : X.trick = [] := List.head?_eq_none_iff.mp htr
+    have hY : Y.trick = [] := by rw [ht, hX]
+    rw [Y.legalSet_lead hY, X.legalSet_lead hX, hh]
+  · have htrY : Y.trick.head? = some (s0, d0) := by rw [ht, htr]
+    have hfs : Y.followSet d0 = X.followSet d0 := by
+      unfold followSet
+      rw [hh, hdecl]
+    by_cases hne : (X.followSet d0).Nonempty
+    · rw [Y.legalSet_follow htrY (hfs ▸ hne), X.legalSet_follow htr hne, hfs]
+    · rw [Y.legalSet_slough htrY (hfs ▸ hne), X.legalSet_slough htr hne, hh]
+
 end PlayState
+
+/-- Updating one coordinate of an indexed family to insert an element
+inserts it into the indexed union. -/
+theorem biUnion_update_insert (f : Seat → Finset Domino) (a : Seat)
+    (d : Domino) :
+    Finset.univ.biUnion (Function.update f a (insert d (f a)))
+      = insert d (Finset.univ.biUnion f) := by
+  ext x
+  simp only [Finset.mem_biUnion, Finset.mem_univ, true_and,
+    Finset.mem_insert]
+  constructor
+  · rintro ⟨s, hs⟩
+    rcases eq_or_ne s a with rfl | hsa
+    · rw [Function.update_self, Finset.mem_insert] at hs
+      rcases hs with rfl | hs
+      · exact Or.inl rfl
+      · exact Or.inr ⟨s, hs⟩
+    · rw [Function.update_of_ne hsa] at hs
+      exact Or.inr ⟨s, hs⟩
+  · rintro (rfl | ⟨s, hs⟩)
+    · exact ⟨a, by rw [Function.update_self]; exact Finset.mem_insert_self ..⟩
+    · rcases eq_or_ne s a with rfl | hsa
+      · exact ⟨s, by rw [Function.update_self]
+                     exact Finset.mem_insert_of_mem hs⟩
+      · exact ⟨s, by rw [Function.update_of_ne hsa]; exact hs⟩
 
 /-! ## The public record machine (PA-C01/C02, Math §6.4) -/
 
@@ -184,6 +244,20 @@ theorem voidsAfter_slough (P : PubState) (d : Domino) {s0 : Seat}
   dsimp only
   rw [if_neg hf]
 
+theorem step_declaration (P : PubState) (d : Domino) :
+    (P.step d).declaration = P.declaration := by
+  unfold declaration
+  rw [step_contract]
+
+/-- Voids of a non-actor are untouched. -/
+theorem voidsAfter_ne (P : PubState) (d : Domino) {s : Seat}
+    (hs : s ≠ P.actor) : P.voidsAfter d s = P.voids s := by
+  rcases htr : P.trick.head? with - | ⟨s0, d0⟩
+  · rw [P.voidsAfter_lead d htr]
+  · by_cases hf : P.declaration.effMem d (P.declaration.ledSuit d0)
+    · rw [P.voidsAfter_follow d htr hf]
+    · rw [P.voidsAfter_slough d htr hf, Function.update_of_ne hs]
+
 /-- The public record at the start of a contracted hand. -/
 def init (K : Contract) : PubState :=
   ⟨K, K.bidder, [], fun _ => ∅, fun _ => ∅, fun _ => 0⟩
@@ -197,6 +271,11 @@ def replay (K : Contract) (ds : List Domino) : PubState :=
 theorem replay_append (K : Contract) (l₁ l₂ : List Domino) :
     replay K (l₁ ++ l₂) = l₂.foldl step (replay K l₁) :=
   List.foldl_append ..
+
+theorem replay_snoc (K : Contract) (l : List Domino) (d : Domino) :
+    replay K (l ++ [d]) = (replay K l).step d := by
+  rw [replay_append]
+  rfl
 
 /-- PA-C06 (upper-bound-only update): voids only accumulate — no public
 observation ever removes a recorded void. -/
@@ -523,6 +602,496 @@ theorem isWorld_remainder (v : ViewerCtx) (K : Contract) (ds : List Domino)
       refine ⟨s, Finset.mem_univ s, ?_⟩
       rw [hrem s hs, hC.hands s, Finset.mem_sdiff]
       exact ⟨hxs, hxnp s⟩
+
+/-! ## Cell updates under one public play -/
+
+/-- The viewer's public hand is untouched by a hidden actor's play. -/
+theorem hand_step_ne (v : ViewerCtx) (P : PubState) (d : Domino)
+    (hne : P.actor ≠ v.viewer) : v.hand (P.step d) = v.hand P := by
+  unfold hand
+  rw [PubState.step_played, Function.update_of_ne (Ne.symm hne)]
+
+/-- A hidden actor's play removes exactly the played tile from the pool. -/
+theorem pool_step_hidden (v : ViewerCtx) (P : PubState) (d : Domino)
+    (hne : P.actor ≠ v.viewer) :
+    v.pool (P.step d) = (v.pool P).erase d := by
+  unfold pool
+  rw [hand_step_ne v P d hne, PubState.step_played, biUnion_update_insert]
+  ext x
+  simp only [Finset.mem_sdiff, Finset.mem_union, Finset.mem_univ, true_and,
+    Finset.mem_insert, Finset.mem_erase]
+  tauto
+
+/-- The viewer's own play leaves the pool unchanged: the tile was already
+excluded through the viewer's hand. -/
+theorem pool_step_viewer (v : ViewerCtx) (P : PubState) (d : Domino)
+    (hva : P.actor = v.viewer) (hd : d ∈ v.hand P) :
+    v.pool (P.step d) = v.pool P := by
+  have hd0 : d ∈ v.hand0 ∧ d ∉ P.played v.viewer := by
+    have hdm := hd
+    unfold hand at hdm
+    rw [Finset.mem_sdiff] at hdm
+    exact hdm
+  obtain ⟨hd1, hd2⟩ := hd0
+  unfold pool hand
+  rw [PubState.step_played, hva, Function.update_self, biUnion_update_insert]
+  ext x
+  simp only [Finset.mem_sdiff, Finset.mem_union, Finset.mem_univ, true_and,
+    Finset.mem_insert]
+  by_cases hxd : x = d
+  · subst hxd
+    tauto
+  · tauto
+
+/-- A non-actor's capacity is unchanged. -/
+theorem capacity_step_ne (P : PubState) (d : Domino) {s : Seat}
+    (hs : s ≠ P.actor) : capacity (P.step d) s = capacity P s := by
+  unfold capacity
+  rw [PubState.step_played, Function.update_of_ne hs]
+
+/-- The actor's capacity drops by one. -/
+theorem capacity_step_actor (P : PubState) (d : Domino)
+    (hd : d ∉ P.played P.actor) :
+    capacity (P.step d) P.actor = capacity P P.actor - 1 := by
+  unfold capacity
+  rw [PubState.step_played, Function.update_self,
+    Finset.card_insert_of_notMem hd]
+  omega
+
+/-- A hidden play shrinks a non-actor's allowed set by exactly the played
+tile. -/
+theorem allowed_step_ne (v : ViewerCtx) (P : PubState) (d : Domino)
+    {s : Seat} (hs : s ≠ P.actor) (hne : P.actor ≠ v.viewer) :
+    v.allowed (P.step d) s = (v.allowed P s).erase d := by
+  unfold allowed
+  rw [pool_step_hidden v P d hne, PubState.step_voids,
+    PubState.voidsAfter_ne P d hs, PubState.step_declaration]
+  ext x
+  simp only [Finset.mem_sdiff, Finset.mem_erase]
+  tauto
+
+/-- One public play never grows the pool. -/
+theorem pool_step_subset (v : ViewerCtx) (P : PubState) (d : Domino) :
+    v.pool (P.step d) ⊆ v.pool P := by
+  intro x hx
+  unfold pool at hx ⊢
+  rw [Finset.mem_sdiff, Finset.mem_union] at hx ⊢
+  refine ⟨hx.1, fun hc => hx.2 ?_⟩
+  unfold hand at hc ⊢
+  rw [PubState.step_played]
+  rcases hc with hc | hc
+  · rw [Finset.mem_sdiff] at hc
+    by_cases hxp : x ∈ Function.update P.played P.actor
+        (insert d (P.played P.actor)) v.viewer
+    · right
+      exact Finset.mem_biUnion.mpr ⟨v.viewer, Finset.mem_univ _, hxp⟩
+    · left
+      rw [Finset.mem_sdiff]
+      exact ⟨hc.1, hxp⟩
+  · right
+    rw [Finset.mem_biUnion] at hc
+    obtain ⟨t, -, hct⟩ := hc
+    rw [Finset.mem_biUnion]
+    refine ⟨t, Finset.mem_univ t, ?_⟩
+    rcases eq_or_ne t P.actor with rfl | hta
+    · rw [Function.update_self]
+      exact Finset.mem_insert_of_mem hct
+    · rw [Function.update_of_ne hta]
+      exact hct
+
+/-- The actor's allowed set only shrinks. -/
+theorem allowed_step_actor_subset (v : ViewerCtx) (P : PubState)
+    (d : Domino) : v.allowed (P.step d) P.actor ⊆ v.allowed P P.actor := by
+  unfold allowed
+  intro x hx
+  rw [Finset.mem_sdiff] at hx ⊢
+  refine ⟨pool_step_subset v P d hx.1, fun hc => hx.2 ?_⟩
+  rw [Finset.mem_biUnion] at hc ⊢
+  obtain ⟨q, hq, hxq⟩ := hc
+  refine ⟨q, ?_, ?_⟩
+  · rw [PubState.step_voids]
+    exact PubState.voids_mono P d P.actor hq
+  · rwa [PubState.step_declaration]
+
+/-- Cells seen by other seats are invariant under a viewer play. -/
+theorem allowed_step_viewer (v : ViewerCtx) (P : PubState) (d : Domino)
+    {s : Seat} (hs : s ≠ P.actor) (hva : P.actor = v.viewer)
+    (hd : d ∈ v.hand P) : v.allowed (P.step d) s = v.allowed P s := by
+  unfold allowed
+  rw [pool_step_viewer v P d hva hd, PubState.step_voids,
+    PubState.voidsAfter_ne P d hs, PubState.step_declaration]
+
+/-! ## Losslessness, completeness direction (PA-C07 ⇒) -/
+
+/-- Completeness: every member of the derived cell fiber is realized by a
+rule-compatible complete deal — the spec's four-case induction on the
+public play prefix (Math §7.5). Viewer actions leave hidden cells
+untouched; a hidden lead or follow removes exactly the played tile (the
+tile itself is the witness — no positive follower clause survives); a
+failure to follow deletes the whole follow set via the recorded void, and
+adding the tile back reconstructs a legal slough. The reverse
+construction also uses a fact the prose leaves implicit: a hidden seat's
+publicly played tile respects that seat's previously recorded voids
+(derived here from true-trajectory void soundness, `hd_allowed`). -/
+theorem exists_deal_of_isWorld (ω : Deal) (K : Contract) (v : ViewerCtx)
+    (hv : ω.hands v.viewer = v.hand0) :
+    ∀ ds, (PlayState.init ω K).LegalFrom ds →
+      ∀ A, v.IsWorld (PubState.replay K ds) A →
+        ∃ ω' : Deal, v.Compatible K ds ω' ∧ v.remainder K ds ω' = A := by
+  have hcard0 : v.hand0.card = 7 := by
+    rw [← hv]
+    exact ω.card_hands v.viewer
+  intro ds
+  induction ds using List.reverseRecOn with
+  | nil =>
+      intro _ A hA
+      rw [PubState.replay_nil] at hA
+      obtain ⟨hAm, hAcell, hAdisj, hAcons⟩ := hA
+      have hbiu : (Finset.univ.biUnion fun _ : Seat => (∅ : Finset Domino))
+          = ∅ := rfl
+      have hallow0 : ∀ s, v.allowed (PubState.init K) s
+          = Finset.univ \ v.hand0 := by
+        intro s
+        unfold allowed pool hand
+        simp [PubState.init, hbiu]
+      have hcap0 : ∀ s, capacity (PubState.init K) s = 7 := by
+        intro s
+        unfold capacity
+        simp [PubState.init]
+      have hAsub : ∀ s, s ≠ v.viewer → Disjoint v.hand0 (A s) := by
+        intro s hs
+        rw [Finset.disjoint_right]
+        intro x hxA hx0
+        have hmem := (hAcell s hs).1 hxA
+        rw [hallow0 s, Finset.mem_sdiff] at hmem
+        exact hmem.2 hx0
+      refine ⟨⟨fun s => if s = v.viewer then v.hand0 else A s, ?_, ?_⟩,
+        ⟨?_, trivial⟩, ?_⟩
+      · intro s
+        split_ifs with h
+        · exact hcard0
+        · rw [(hAcell s h).2, hcap0]
+      · intro s t hst
+        split_ifs with h1 h2 h2
+        · exact absurd (h1.trans h2.symm) hst
+        · exact hAsub t h2
+        · exact (hAsub s h1).symm
+        · exact hAdisj s t hst
+      · simp
+      · funext s
+        unfold remainder
+        split_ifs with h
+        · rw [h]
+          exact hAm.symm
+        · exact if_neg h
+  | append_singleton l d ih =>
+      intro hlegal A' hA'
+      rw [PlayState.legalFrom_append] at hlegal
+      obtain ⟨hlegal_l, hstep⟩ := hlegal
+      have hd_legal : d ∈ ((PlayState.init ω K).replayFrom l).legalSet :=
+        hstep.1
+      have hCt := Coheres.replay ω K hlegal_l
+      rw [PubState.replay_snoc] at hA'
+      obtain ⟨hAm', hAcell', hAdisj', hAcons'⟩ := hA'
+      have hdh : d ∈ ((PlayState.init ω K).replayFrom l).hands
+          ((PubState.replay K l).actor) := by
+        rw [hCt.actor]
+        exact PlayState.legalSet_subset _ hd_legal
+      have hdP : d ∈ ω.hands ((PubState.replay K l).actor)
+          ∧ d ∉ (PubState.replay K l).played ((PubState.replay K l).actor) := by
+        rw [hCt.hands _, Finset.mem_sdiff] at hdh
+        exact hdh
+      have hdh2 : d ∈ ((PlayState.init ω K).replayFrom l).hands
+          ((PubState.replay K l).actor) := by
+        rw [hCt.hands _, Finset.mem_sdiff]
+        exact hdP
+      rcases eq_or_ne ((PubState.replay K l).actor) v.viewer with hva | hva
+      · -- viewer action: hidden cells untouched (PA-C10)
+        have hd_hand : d ∈ v.hand (PubState.replay K l) := by
+          unfold hand
+          rw [Finset.mem_sdiff]
+          refine ⟨?_, ?_⟩
+          · rw [← hv, ← hva]
+            exact hdP.1
+          · rw [← hva]
+            exact hdP.2
+        have hA : v.IsWorld (PubState.replay K l) A' := by
+          refine ⟨hAm', ?_, hAdisj', ?_⟩
+          · intro s hs
+            have hsa : s ≠ (PubState.replay K l).actor := by
+              rw [hva]
+              exact hs
+            have hcell := hAcell' s hs
+            rwa [allowed_step_viewer v _ d hsa hva hd_hand,
+              capacity_step_ne _ d hsa] at hcell
+          · rwa [pool_step_viewer v _ d hva hd_hand] at hAcons'
+        obtain ⟨ω', ⟨hω'hand, hω'legal⟩, hω'rem⟩ := ih hlegal_l A' hA
+        have hC' := Coheres.replay ω' K hω'legal
+        have hls : ((PlayState.init ω' K).replayFrom l).legalSet
+            = ((PlayState.init ω K).replayFrom l).legalSet := by
+          apply PlayState.legalSet_congr
+          · rw [← hC'.leader, hCt.leader]
+          · rw [← hC'.trick, hCt.trick]
+          · rw [← hC'.contract, hCt.contract]
+          · have h1 : ((PlayState.init ω' K).replayFrom l).hands
+                ((PlayState.init ω' K).replayFrom l).actor
+                = v.hand0 \ (PubState.replay K l).played v.viewer := by
+              rw [← hC'.actor, hva, hC'.hands v.viewer, hω'hand]
+            have h2 : ((PlayState.init ω K).replayFrom l).hands
+                ((PlayState.init ω K).replayFrom l).actor
+                = v.hand0 \ (PubState.replay K l).played v.viewer := by
+              rw [← hCt.actor, hva, hCt.hands v.viewer, hv]
+            rw [h1, h2]
+        refine ⟨ω', ⟨hω'hand, ?_⟩, ?_⟩
+        · rw [PlayState.legalFrom_append]
+          refine ⟨hω'legal, ?_⟩
+          rw [show ((PlayState.init ω' K).replayFrom l).LegalFrom [d]
+              = (d ∈ ((PlayState.init ω' K).replayFrom l).legalSet ∧ True)
+            from rfl, hls]
+          exact ⟨hd_legal, trivial⟩
+        · funext s
+          unfold remainder
+          split_ifs with h
+          · rw [h]
+            exact hAm'.symm
+          · show ((PlayState.init ω' K).replayFrom (l ++ [d])).hands s = A' s
+            rw [PlayState.replayFrom_append]
+            have hsa : s ≠ ((PlayState.init ω' K).replayFrom l).actor := by
+              rw [← hC'.actor, hva]
+              exact h
+            rw [show ((PlayState.init ω' K).replayFrom l).replayFrom [d]
+                = ((PlayState.init ω' K).replayFrom l).step d from rfl,
+              PlayState.hands_step_ne _ d hsa]
+            have hr := congrFun hω'rem s
+            unfold remainder at hr
+            rwa [if_neg h] at hr
+      · -- hidden action: remove/add the played tile (PA-C09)
+        have hd_pool : d ∈ v.pool (PubState.replay K l) := by
+          unfold pool
+          rw [Finset.mem_sdiff, Finset.mem_union]
+          refine ⟨Finset.mem_univ d, ?_⟩
+          rintro (hc | hc)
+          · unfold hand at hc
+            rw [Finset.mem_sdiff, ← hv] at hc
+            exact Finset.disjoint_left.mp
+              (ω.disjoint _ v.viewer hva) hdP.1 hc.1
+          · rw [Finset.mem_biUnion] at hc
+            obtain ⟨t, -, hct⟩ := hc
+            rcases eq_or_ne ((PubState.replay K l).actor) t with rfl | hta
+            · exact hdP.2 hct
+            · exact Finset.disjoint_left.mp (ω.disjoint _ t hta) hdP.1
+                (hCt.played_sub t hct)
+        have hd_allowed : d ∈ v.allowed (PubState.replay K l)
+            ((PubState.replay K l).actor) := by
+          unfold allowed
+          rw [Finset.mem_sdiff]
+          refine ⟨hd_pool, ?_⟩
+          rw [Finset.mem_biUnion]
+          rintro ⟨q, hq, hdq⟩
+          rw [Declaration.mem_effSuit] at hdq
+          exact hCt.voids_sound _ q hq d hdh2 (hCt.declaration ▸ hdq)
+        have hd_nA' : d ∉ A' ((PubState.replay K l).actor) := by
+          intro hc
+          have hmem := (hAcell' _ hva).1 hc
+          unfold allowed at hmem
+          rw [Finset.mem_sdiff, pool_step_hidden v _ d hva,
+            Finset.mem_erase] at hmem
+          exact hmem.1.1 rfl
+        have hcap_lt : ((PubState.replay K l).played
+            ((PubState.replay K l).actor)).card < 7 := by
+          have hss := Finset.card_lt_card
+            ((Finset.ssubset_iff_of_subset (hCt.played_sub _)).mpr
+              ⟨d, hdP.1, hdP.2⟩)
+          rwa [ω.card_hands] at hss
+        have hA : v.IsWorld (PubState.replay K l)
+            (Function.update A' ((PubState.replay K l).actor)
+              (insert d (A' ((PubState.replay K l).actor)))) := by
+          refine ⟨?_, ?_, ?_, ?_⟩
+          · rw [Function.update_of_ne (Ne.symm hva)]
+            exact hAm'
+          · intro s hs
+            rcases eq_or_ne s ((PubState.replay K l).actor) with rfl | hsu
+            · rw [Function.update_self]
+              constructor
+              · intro x hx
+                rw [Finset.mem_insert] at hx
+                rcases hx with rfl | hx
+                · exact hd_allowed
+                · exact allowed_step_actor_subset v _ d
+                    ((hAcell' _ hs).1 hx)
+              · rw [Finset.card_insert_of_notMem hd_nA',
+                  (hAcell' _ hs).2, capacity_step_actor _ d hdP.2]
+                have : 1 ≤ capacity (PubState.replay K l)
+                    ((PubState.replay K l).actor) := by
+                  unfold capacity
+                  omega
+                omega
+            · rw [Function.update_of_ne hsu]
+              have hcell := hAcell' s hs
+              rw [allowed_step_ne v _ d hsu hva,
+                capacity_step_ne _ d hsu] at hcell
+              exact ⟨fun x hx => (Finset.mem_erase.mp (hcell.1 hx)).2,
+                hcell.2⟩
+          · intro s t hst
+            rcases eq_or_ne s ((PubState.replay K l).actor) with rfl | hsu <;>
+              rcases eq_or_ne t ((PubState.replay K l).actor) with rfl | htu
+            · exact absurd rfl hst
+            · rw [Function.update_self, Function.update_of_ne htu]
+              rcases eq_or_ne t v.viewer with rfl | htv
+              · rw [hAm']
+                exact Finset.disjoint_empty_right _
+              · rw [Finset.disjoint_left]
+                intro x hx hxt
+                rw [Finset.mem_insert] at hx
+                rcases hx with rfl | hx
+                · have hmem := (hAcell' t htv).1 hxt
+                  unfold allowed at hmem
+                  rw [Finset.mem_sdiff, pool_step_hidden v _ x hva,
+                    Finset.mem_erase] at hmem
+                  exact hmem.1.1 rfl
+                · exact Finset.disjoint_left.mp (hAdisj' _ t hst) hx hxt
+            · rw [Function.update_of_ne hsu, Function.update_self,
+                Finset.disjoint_right]
+              intro x hx hxs
+              rw [Finset.mem_insert] at hx
+              rcases hx with rfl | hx
+              · rcases eq_or_ne s v.viewer with rfl | hsv
+                · rw [hAm'] at hxs
+                  exact absurd hxs (Finset.notMem_empty x)
+                · have hmem := (hAcell' s hsv).1 hxs
+                  unfold allowed at hmem
+                  rw [Finset.mem_sdiff, pool_step_hidden v _ x hva,
+                    Finset.mem_erase] at hmem
+                  exact hmem.1.1 rfl
+              · exact Finset.disjoint_left.mp (hAdisj' _ s hst.symm) hx hxs
+            · rw [Function.update_of_ne hsu, Function.update_of_ne htu]
+              exact hAdisj' s t hst
+          · rw [biUnion_update_insert, hAcons',
+              pool_step_hidden v _ d hva, Finset.insert_erase hd_pool]
+        obtain ⟨ω', ⟨hω'hand, hω'legal⟩, hω'rem⟩ := ih hlegal_l _ hA
+        have hC' := Coheres.replay ω' K hω'legal
+        have hxa : ((PlayState.init ω' K).replayFrom l).actor
+            = (PubState.replay K l).actor := hC'.actor.symm
+        have hrem_u : ((PlayState.init ω' K).replayFrom l).hands
+            ((PubState.replay K l).actor)
+            = insert d (A' ((PubState.replay K l).actor)) := by
+          have hr := congrFun hω'rem ((PubState.replay K l).actor)
+          unfold remainder at hr
+          rw [if_neg hva] at hr
+          rw [hr, Function.update_self]
+        have hd_legal' : d ∈ ((PlayState.init ω' K).replayFrom l).legalSet := by
+          rcases htr : (PubState.replay K l).trick.head? with - | ⟨s0, d0⟩
+          · have htr' : ((PlayState.init ω' K).replayFrom l).trick = [] := by
+              rw [← hC'.trick]
+              exact List.head?_eq_none_iff.mp htr
+            rw [PlayState.legalSet_lead _ htr', hxa, hrem_u]
+            exact Finset.mem_insert_self ..
+          · have htr' : ((PlayState.init ω' K).replayFrom l).trick.head?
+                = some (s0, d0) := by
+              rw [← hC'.trick]
+              exact htr
+            by_cases hf : (PubState.replay K l).declaration.effMem d
+                ((PubState.replay K l).declaration.ledSuit d0)
+            · have hdf : d ∈ ((PlayState.init ω' K).replayFrom l).followSet
+                  d0 := by
+                unfold PlayState.followSet
+                rw [Finset.mem_filter, hxa, hrem_u]
+                refine ⟨Finset.mem_insert_self .., ?_⟩
+                rw [← hC'.declaration]
+                exact hf
+              rw [PlayState.legalSet_follow _ htr' ⟨d, hdf⟩]
+              exact hdf
+            · have hq' : (PubState.replay K l).declaration.ledSuit d0
+                  ∈ ((PubState.replay K l).step d).voids
+                    ((PubState.replay K l).actor) := by
+                rw [PubState.step_voids,
+                  PubState.voidsAfter_slough _ d htr hf,
+                  Function.update_self]
+                exact Finset.mem_insert_self ..
+              have hemp : ¬ (((PlayState.init ω' K).replayFrom l).followSet
+                  d0).Nonempty := by
+                rintro ⟨e, he⟩
+                unfold PlayState.followSet at he
+                rw [Finset.mem_filter, hxa, hrem_u,
+                  Finset.mem_insert] at he
+                obtain ⟨he1, he2⟩ := he
+                rw [← hC'.declaration] at he2
+                rcases he1 with rfl | he1
+                · exact hf he2
+                · have hmem := (hAcell' _ hva).1 he1
+                  unfold allowed at hmem
+                  rw [Finset.mem_sdiff, Finset.mem_biUnion] at hmem
+                  apply hmem.2
+                  refine ⟨_, hq', ?_⟩
+                  rw [Declaration.mem_effSuit, PubState.step_declaration]
+                  exact he2
+              rw [PlayState.legalSet_slough _ htr' hemp, hxa, hrem_u]
+              exact Finset.mem_insert_self ..
+        refine ⟨ω', ⟨hω'hand, ?_⟩, ?_⟩
+        · rw [PlayState.legalFrom_append]
+          exact ⟨hω'legal, ⟨hd_legal', trivial⟩⟩
+        · funext s
+          unfold remainder
+          split_ifs with h
+          · rw [h]
+            exact hAm'.symm
+          · show ((PlayState.init ω' K).replayFrom (l ++ [d])).hands s = A' s
+            rw [PlayState.replayFrom_append,
+              show ((PlayState.init ω' K).replayFrom l).replayFrom [d]
+                = ((PlayState.init ω' K).replayFrom l).step d from rfl]
+            rcases eq_or_ne s ((PubState.replay K l).actor) with rfl | hsu
+            · have h1 : (((PlayState.init ω' K).replayFrom l).step d).hands
+                  ((PubState.replay K l).actor)
+                  = (((PlayState.init ω' K).replayFrom l).hands
+                      ((PubState.replay K l).actor)).erase d := by
+                have h2 := PlayState.hands_step_actor
+                  ((PlayState.init ω' K).replayFrom l) d
+                rwa [hxa] at h2
+              rw [h1, hrem_u, Finset.erase_insert hd_nA']
+            · rw [PlayState.hands_step_ne _ d (by rw [hxa]; exact hsu)]
+              have hr := congrFun hω'rem s
+              unfold remainder at hr
+              rw [if_neg h, Function.update_of_ne hsu] at hr
+              exact hr
+
+/-- PA-C07 (exact Straight 42 cell support, Math §7.5): for every legal
+public play prefix, the derived cell fiber equals the remainder image of
+the rule-compatible complete deals — **the losslessness theorem**. -/
+theorem losslessness (ω : Deal) (K : Contract) (v : ViewerCtx)
+    (hv : ω.hands v.viewer = v.hand0) {ds : List Domino}
+    (hds : (PlayState.init ω K).LegalFrom ds) (A : Seat → Finset Domino) :
+    v.IsWorld (PubState.replay K ds) A ↔
+      ∃ ω' : Deal, v.Compatible K ds ω' ∧ v.remainder K ds ω' = A := by
+  constructor
+  · exact exists_deal_of_isWorld ω K v hv ds hds A
+  · rintro ⟨ω', hω', rfl⟩
+    exact isWorld_remainder v K ds hω'
+
+/-- PA-C09 corollary (fixed-history bijection, Math §7.5): the remainder
+map is injective on compatible deals — public attribution reconstructs
+each seat's initial hand, hence the complete deal, from its current
+remainder. With `losslessness` (surjectivity onto the fiber), the
+remainder map is a bijection between compatible deals and the cell fiber. -/
+theorem remainder_injective (v : ViewerCtx) (K : Contract)
+    (ds : List Domino) {ω₁ ω₂ : Deal} (h₁ : v.Compatible K ds ω₁)
+    (h₂ : v.Compatible K ds ω₂)
+    (h : v.remainder K ds ω₁ = v.remainder K ds ω₂) : ω₁ = ω₂ := by
+  have hC₁ := Coheres.replay ω₁ K h₁.2
+  have hC₂ := Coheres.replay ω₂ K h₂.2
+  apply Deal.ext
+  funext s
+  rcases eq_or_ne s v.viewer with rfl | hs
+  · rw [h₁.1, h₂.1]
+  · have e := congrFun h s
+    unfold remainder at e
+    rw [if_neg hs, if_neg hs, hC₁.hands s, hC₂.hands s] at e
+    calc ω₁.hands s
+        = ω₁.hands s \ (PubState.replay K ds).played s
+            ∪ (PubState.replay K ds).played s :=
+          (Finset.sdiff_union_of_subset (hC₁.played_sub s)).symm
+      _ = ω₂.hands s \ (PubState.replay K ds).played s
+            ∪ (PubState.replay K ds).played s := by rw [e]
+      _ = ω₂.hands s := Finset.sdiff_union_of_subset (hC₂.played_sub s)
 
 end ViewerCtx
 

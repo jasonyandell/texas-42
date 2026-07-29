@@ -78,6 +78,28 @@ prose-resolver agreement), which is a deliberate later reflection target.
   - conservation: `gamma_init`/`gamma_step` (28 plays), and
     `terminal_scores` — seven tricks and 42 total points at any terminal
     invariant state (PA-B10).
+- `Texas42/Cells.lean` — Layer C, the public record, capacity cells, and
+  **the losslessness theorem** (Math §§6.3–6.4, 7.1–7.5):
+  - replay machinery (`replayFrom`/`LegalFrom`) and `legalSet_congr` —
+    legality is public given the actor's hand;
+  - `PubState` — the public record machine (leader, trick, played-by-seat
+    `B_s`, voids `V_s`, scores) computed from the action list alone, with
+    the upper-bound-only void update `voids_mono` (PA-C01/C02/C06);
+  - `Coheres` — the invariant tying a deal's objective replay to the
+    public replay, carrying void soundness; preserved by every legal play
+    (PA-C09/C10 groundwork);
+  - the derived cells `pool`/`allowed`/`capacity` and the fiber `IsWorld`
+    (PA-C02–C04), `Compatible` deals and the `remainder` map (Math §6.3);
+  - **`losslessness`** (PA-C05/C07): the cell fiber equals the remainder
+    image of the rule-compatible deals — soundness direct from coherence,
+    completeness by the spec's four-case induction (viewer act / hidden
+    lead / hidden follow / hidden slough);
+  - `remainder_injective` (PA-C09): the fixed-history bijection.
+
+  Mechanization finding: the reverse construction needs a fact the prose
+  leaves implicit — a hidden seat's publicly played tile must respect that
+  seat's previously recorded voids; it is derived from true-trajectory
+  void soundness (`hd_allowed` inside the completeness proof).
 
 All theorems depend only on the standard axioms
 (`propext`, `Classical.choice`, `Quot.sound`) — no `sorry`, no `native_decide`.

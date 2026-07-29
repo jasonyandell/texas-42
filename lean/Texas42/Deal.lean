@@ -57,6 +57,16 @@ theorem owner_eq (ω : Deal) {d : Domino} {s : Seat} (h : d ∈ ω.hands s) :
     ω.owner d = s :=
   ((ω.existsUnique_mem d).unique (ω.mem_owner d) h)
 
+/-- Deals are determined by their hands. -/
+theorem ext {ω₁ ω₂ : Deal} (h : ω₁.hands = ω₂.hands) : ω₁ = ω₂ := by
+  cases ω₁ with
+  | mk f hc hd =>
+      cases ω₂ with
+      | mk g hc' hd' =>
+          dsimp only at h
+          subst h
+          rfl
+
 end Deal
 
 end Texas42
