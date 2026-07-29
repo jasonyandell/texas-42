@@ -14,7 +14,9 @@ use rob_core::{
     complete_hand, initial_contracted_mechanical, update_support, CloseAuctionOutcome, MatchState,
     Play, RulesConfig, Seat, DOMINO_COUNT,
 };
-use rob_player::book::{plan_book_projection, plan_from_json, plan_to_json};
+use rob_player::book::{
+    plan_book_projection, plan_book_projection_with_openings, plan_from_json, plan_to_json,
+};
 use rob_player::player::UtilityLens;
 use rob_player::trace::{
     fmt_action, trump_set, view_of, TraceDecision, TraceDocument, TraceHand, TracePublic,
@@ -147,14 +149,16 @@ pub fn rob_trace_document() -> (TraceDocument, u64) {
             let actor = objective.state().current_actor().expect("play phase");
             let viewer_state = viewers[actor.index()].clone();
             let (domino, legal, totals, worlds, plan_book) = if actor.team().index() == 0 {
-                let plan = rob.decide(&viewer_state);
+                let (plan, openings) = rob_player::solve_with_openings(&viewer_state, rob.lens)
+                    .expect("the Points lens solves at every window");
                 plans_embedded += 1;
                 let legal: Vec<String> = rob_player::viewer_legal(&viewer_state)
                     .iter()
                     .copied()
                     .map(fmt_domino)
                     .collect();
-                let book = plan_book_projection(&plan, BOOK_DEPTH, BOOK_BREADTH);
+                let book =
+                    plan_book_projection_with_openings(&plan, &openings, BOOK_DEPTH, BOOK_BREADTH);
                 (plan.root.action, legal, Vec::new(), 0usize, Some(book))
             } else {
                 let nonce = deal_index * 64 + play_index;

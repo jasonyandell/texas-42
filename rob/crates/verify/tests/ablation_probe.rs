@@ -34,8 +34,9 @@ fn rob_vs_rob_hand(deal_index: u64, budget_by_team: [u128; 2]) -> [u32; 2] {
     };
     let bidder = pending.win().bidder();
     let declaration = placeholder_declaration(deal.hand(bidder));
-    let (mut objective, m_play, _) = begin_contracted_play(pending, declaration, &m_auction, config)
-        .expect("AUCTION precondition");
+    let (mut objective, m_play, _) =
+        begin_contracted_play(pending, declaration, &m_auction, config)
+            .expect("AUCTION precondition");
     let contract = *objective.state().contract();
     let mut viewers: [rob_core::MechanicalState; 4] = core::array::from_fn(|s| {
         initial_contracted_mechanical(Seat::ALL[s], *deal.hand(Seat::ALL[s]), contract)

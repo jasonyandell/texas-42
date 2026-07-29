@@ -418,13 +418,28 @@
   }
   function renderBook(dec) {
     const p = dec.plan;
+    // Openings table: the exact best-plan value for EVERY legal opening —
+    // the chosen plan and the rejected ones. Values are plan values
+    // (the whole contingent plan opening with that tile), never tile values.
+    let openings = "";
+    if (p.openings && p.openings.length > 1) {
+      const rows = p.openings.map(([tile, value]) => {
+        const chosen = tile === p.root.action;
+        const avg = (value / p.fiber).toFixed(2);
+        return `<tr class="${chosen ? "best" : ""}"><td>${tile}${chosen ? " ◀ chosen plan" : ""}</td>` +
+          `<td>${value}</td><td class="exact">≈${avg}/world</td></tr>`;
+      }).join("");
+      openings =
+        `<table class="vals" style="margin:6px 0"><tr><th>plan opening with</th><th>exact value total</th><th>per world</th></tr>${rows}</table>`;
+    }
     return (
       `<div class="kbd bookhead">rob's plan — exact info-set best response vs σ · window <b>${p.window}</b> trick(s) · ` +
       `exact fiber <span class="exact">${commas(p.fiber)}</span> worlds` +
       (p.truncated ? ` · <span class="obs">display-truncated</span>` : ``) +
       `</div>` +
       `<div class="kbd bookhead">the plan is the unit: one action per information set, chosen after aggregation ` +
-      `over all worlds (PLAN-NOT-TILE) — expand branches to read the contingency book</div>` +
+      `over all worlds (PLAN-NOT-TILE) — the table prices every opening's best plan; expand branches to read the chosen book</div>` +
+      openings +
       bookNode(p.root, null)
     );
   }

@@ -288,12 +288,38 @@ fn project_node(node: &PlanNode, depth: usize, breadth: usize) -> String {
 /// counts. Display data only (INV-P1); the full canonical form is
 /// [`plan_to_json`].
 pub fn plan_book_projection(plan: &Plan, depth: usize, breadth: usize) -> String {
+    book_projection_impl(plan, &[], depth, breadth)
+}
+
+/// [`plan_book_projection`] with the root opening values — the exact
+/// best-plan value for every legal opening, chosen and rejected alike
+/// (plan projections, INV-P1).
+pub fn plan_book_projection_with_openings(
+    plan: &Plan,
+    openings: &[crate::solver::OpeningValue],
+    depth: usize,
+    breadth: usize,
+) -> String {
+    book_projection_impl(plan, openings, depth, breadth)
+}
+
+fn book_projection_impl(
+    plan: &Plan,
+    openings: &[crate::solver::OpeningValue],
+    depth: usize,
+    breadth: usize,
+) -> String {
+    let openings_json: Vec<String> = openings
+        .iter()
+        .map(|o| format!("[\"{}\",{}]", fmt_tile(o.action), o.value_total))
+        .collect();
     format!(
-        "{{\"format\":\"rob-plan-book\",\"version\":1,\"viewer\":{},\"window\":{},\"fiber\":{},\"truncated\":{},\"root\":{}}}",
+        "{{\"format\":\"rob-plan-book\",\"version\":1,\"viewer\":{},\"window\":{},\"fiber\":{},\"truncated\":{},\"openings\":[{}],\"root\":{}}}",
         plan.viewer.index(),
         plan.window,
         plan.fiber_count,
         plan.truncated,
+        openings_json.join(","),
         project_node(&plan.root, depth, breadth)
     )
 }

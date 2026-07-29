@@ -40,5 +40,5 @@ pub use rng::{SeededExactSource, SplitMix64};
 pub use rob::Rob;
 pub use rollout::{finish_hand, RolloutPosition};
 pub use sigma::{greedy_sigma, sigma_legal};
-pub use solver::{solve, solve_pinned, SolveError};
+pub use solver::{solve, solve_pinned, solve_with_openings, OpeningValue, SolveError};
 pub use worlds::sample_worlds;

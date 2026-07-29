@@ -451,7 +451,13 @@ impl Solve {
     /// subtree is valued (and materialized) once; the loser subtrees are
     /// dropped at node scope, so the chosen tree survives. Ties break to
     /// the lowest action identity (INV-P3).
-    fn stream_solve(&self, worlds: &[CompactWorld], bundle: &[u32], pos: &Pos) -> PlanNode {
+    fn stream_solve(
+        &self,
+        worlds: &[CompactWorld],
+        bundle: &[u32],
+        pos: &Pos,
+        mut openings: Option<&mut Vec<(u8, i64)>>,
+    ) -> PlanNode {
         let legal = self.viewer_legal(pos);
         debug_assert!(!legal.is_empty());
         let mut best: Option<PlanNode> = None;
@@ -462,7 +468,7 @@ impl Solve {
                 let next = self.replay(pos, action, &obs);
                 let child = match end {
                     SegmentEnd::Decision => {
-                        PlanChild::Node(self.stream_solve(worlds, &members, &next))
+                        PlanChild::Node(self.stream_solve(worlds, &members, &next, None))
                     }
                     SegmentEnd::Frontier | SegmentEnd::Settled => {
                         let settled = end == SegmentEnd::Settled;
@@ -494,6 +500,9 @@ impl Solve {
                 value_total,
                 children,
             };
+            if let Some(collector) = openings.as_deref_mut() {
+                collector.push((action, value_total));
+            }
             let better = match &best {
                 None => true,
                 Some(b) => {
@@ -692,7 +701,13 @@ impl Solve {
     /// Counting engine (window 1): the exact plan without visiting a single
     /// world. Σ of response-class counts is asserted equal to the fiber
     /// count per action (INV-P5).
-    fn counting_node(&self, ctx: &CountCtx, pos: &Pos, fiber_count: u64) -> PlanNode {
+    fn counting_node(
+        &self,
+        ctx: &CountCtx,
+        pos: &Pos,
+        fiber_count: u64,
+        mut openings: Option<&mut Vec<(u8, i64)>>,
+    ) -> PlanNode {
         debug_assert_eq!(pos.tricks_done + 1, self.window_end.min(7));
         let legal = self.viewer_legal(pos);
         let mut best: Option<(i64, u8, BTreeMap<Observation, PlanChild>)> = None;
@@ -742,6 +757,9 @@ impl Solve {
                 worlds_total, fiber_count,
                 "response classes partition the fiber (INV-P5)"
             );
+            if let Some(collector) = openings.as_deref_mut() {
+                collector.push((action, value_total));
+            }
             let better = match &best {
                 None => true,
                 Some((v, a, _)) => value_total > *v || (value_total == *v && action < *a),
@@ -905,9 +923,10 @@ fn stream_plan(
     viewer: Seat,
     window: usize,
     fiber_count: u64,
+    openings: Option<&mut Vec<(u8, i64)>>,
 ) -> Plan {
     let bundle: Vec<u32> = (0..worlds.len() as u32).collect();
-    let mut root = solve.stream_solve(worlds, &bundle, pos);
+    let mut root = solve.stream_solve(worlds, &bundle, pos, openings);
     let truncated = prune_to_cap(&mut root, MATERIALIZATION_CAP);
     Plan {
         viewer,
@@ -918,11 +937,50 @@ fn stream_plan(
     }
 }
 
+/// The exact value of the best plan opening with one action — a plan
+/// projection (PLAN-NOT-TILE): this is never a value of a domino, it is
+/// the value of the whole contingent plan whose first move is `action`,
+/// aggregated over the fiber under the solve lens (INV-P1).
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub struct OpeningValue {
+    /// The opening action.
+    pub action: DominoId,
+    /// The best plan's exact integer value total over the fiber.
+    pub value_total: i64,
+}
+
 /// Solve the viewer's decision at `state` exactly (BRIEF_PLAYER_01 §7):
 /// window depth from the normative budget formula (INV-P6), the engine
 /// chosen by whether the streaming estimate fits the budget, the `Plan`
 /// materialized up to the node cap.
 pub fn solve(state: &MechanicalState, lens: UtilityLens) -> Result<Plan, SolveError> {
+    solve_inner(state, lens, None)
+}
+
+/// [`solve`], additionally reporting the exact best-plan value for every
+/// legal opening (the rejected plans' root values — display projections
+/// for the contingency book).
+pub fn solve_with_openings(
+    state: &MechanicalState,
+    lens: UtilityLens,
+) -> Result<(Plan, Vec<OpeningValue>), SolveError> {
+    let mut raw: Vec<(u8, i64)> = Vec::new();
+    let plan = solve_inner(state, lens, Some(&mut raw))?;
+    let openings = raw
+        .into_iter()
+        .map(|(action, value_total)| OpeningValue {
+            action: id_of(action),
+            value_total,
+        })
+        .collect();
+    Ok((plan, openings))
+}
+
+fn solve_inner(
+    state: &MechanicalState,
+    lens: UtilityLens,
+    mut openings: Option<&mut Vec<(u8, i64)>>,
+) -> Result<Plan, SolveError> {
     assert_decision_state(state);
     let cells = derive_rule_cells(state);
     let fiber_count = fiber_count_of(&cells);
@@ -938,7 +996,7 @@ pub fn solve(state: &MechanicalState, lens: UtilityLens) -> Result<Plan, SolveEr
         // 399,072,960-world trick-one fiber (and the only exact route when
         // the streaming estimate exceeds the budget).
         let ctx = CountCtx::from_cells(&cells);
-        let root = solve.counting_node(&ctx, &pos, fiber_count);
+        let root = solve.counting_node(&ctx, &pos, fiber_count, openings.as_deref_mut());
         Ok(Plan {
             viewer: state.viewer(),
             window,
@@ -957,6 +1015,7 @@ pub fn solve(state: &MechanicalState, lens: UtilityLens) -> Result<Plan, SolveEr
             state.viewer(),
             window,
             fiber_count,
+            openings,
         ))
     }
 }
@@ -991,6 +1050,7 @@ pub fn solve_pinned(
         state.viewer(),
         window,
         1,
+        None,
     ))
 }
 
@@ -1020,7 +1080,7 @@ pub mod gate {
         let (solve, pos) = solve_context(state, lens, window);
         if window == 1 {
             let ctx = CountCtx::from_cells(&cells);
-            let root = solve.counting_node(&ctx, &pos, fiber_count);
+            let root = solve.counting_node(&ctx, &pos, fiber_count, None);
             Ok(Plan {
                 viewer: state.viewer(),
                 window,
@@ -1038,6 +1098,7 @@ pub mod gate {
                 state.viewer(),
                 window,
                 fiber_count,
+                None,
             ))
         }
     }
@@ -1049,7 +1110,7 @@ pub mod gate {
         let fiber_count = fiber_count_of(&cells);
         let (solve, pos) = solve_context(state, lens, 1);
         let ctx = CountCtx::from_cells(&cells);
-        let root = solve.counting_node(&ctx, &pos, fiber_count);
+        let root = solve.counting_node(&ctx, &pos, fiber_count, None);
         Plan {
             viewer: state.viewer(),
             window: 1,
@@ -1067,6 +1128,6 @@ pub mod gate {
         let (solve, pos) = solve_context(state, lens, 1);
         let worlds = enumerate_compact(&cells);
         assert_eq!(worlds.len() as u64, fiber_count, "enumeration = DP count");
-        stream_plan(&solve, &pos, &worlds, state.viewer(), 1, fiber_count)
+        stream_plan(&solve, &pos, &worlds, state.viewer(), 1, fiber_count, None)
     }
 }
