@@ -4,3 +4,4 @@ import Texas42.Transport
 import Texas42.Auction
 import Texas42.Deal
 import Texas42.Play
+import Texas42.Cells
