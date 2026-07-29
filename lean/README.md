@@ -54,6 +54,31 @@ proved-sound decision procedure, or proved reflection.
 Layer A is complete except PA-A12 (the 737,100-case exhaustive
 prose-resolver agreement), which is a deliberate later reflection target.
 
+- `Texas42/Auction.lean` — Layer B, the Straight auction (Math §4.3):
+  - `Bid` (with the `P(30) < ⋯ < P(41) < M(1) < ⋯` value embedding),
+    `AuctionConfig`, `AuctionState` (PA-B01);
+  - decidable `legalBid` (range, exceedance, mark entry/overcall) and the
+    deterministic `step`; `LegalAuction` derivations (PA-B02);
+  - `mark_le_ceiling` and `mark_five_reachable` — the structural
+    reachable mark ceiling `min(maxMarkBid, 5)` (PA-B03).
+- `Texas42/Deal.lean` — Layer B, ordered deal worlds (Math §4.1, PA-B05
+  define): `Deal` (four labeled seven-tile hands, pairwise disjoint),
+  `biUnion_eq_univ`, `existsUnique_mem`, computable `owner`. The deal
+  cardinalities (`28!/(7!)⁴`; `21!/(7!)³`) remain open targets.
+- `Texas42/Play.lean` — Layer B, contract and contracted play
+  (Math §§4.5, 5.1–5.6):
+  - `Contract` with derived `threshold`/`stake`/`Makes`/`award` (PA-B06);
+  - `PlayState` — the reduced `X_t`: hands, leader, trick prefix, banked
+    scores, contract; `actor`, `gamma`, derived `tricksDone` and
+    `scoredTiles` (PA-B07);
+  - `legalSet` with the lead/follow/slough characterization and
+    `legalSet_nonempty` (PA-B08);
+  - `step` (trick resolution via the key-maximal winner), the `Inv`
+    partition/location invariant, `inv_step`, `inv_init` (PA-B09);
+  - conservation: `gamma_init`/`gamma_step` (28 plays), and
+    `terminal_scores` — seven tricks and 42 total points at any terminal
+    invariant state (PA-B10).
+
 All theorems depend only on the standard axioms
 (`propext`, `Classical.choice`, `Quot.sound`) — no `sorry`, no `native_decide`.
 

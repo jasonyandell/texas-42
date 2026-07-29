@@ -22,7 +22,13 @@ reflection, open). **Layer A is now complete** apart from PA-A12: BEATS exactnes
 forcing argument (PA-A16), and the scoped `2↔3` transport — order-isomorphic
 exactly between layers 2 and 3 (PA-A17). All depend only on the standard axioms —
 no `sorry`, no `native_decide`. Working discipline: [`lean/PROOFS.md`](../lean/PROOFS.md).
-Next: the Layer B definitional core (PA-B01/B02/B05–B07), then B08–B10.
+**Layer B core landed (K5)**: the auction machine with the `min(cap,5)` mark
+ceiling (PA-B01–B03), deal worlds (PA-B05 define), contract (PA-B06), the reduced
+play state with legal-set characterization (PA-B07/B08), invariant-preserving
+atomic transition (PA-B09), and conservation — 28 plays, seven tricks, 42 points
+(PA-B10). Open in B: deal cardinalities (B05), auction census (B04, reflect),
+graded-DAG/Markov/settlement rows (B11–B14). Next: B13 settlement + the
+42↔sweep trajectory theorem, then Layer C (information and cells).
 
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 
