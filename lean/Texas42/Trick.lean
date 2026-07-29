@@ -259,6 +259,57 @@ theorem eq_of_key_eq {δ : Declaration} {q : Suit} {d₁ d₂ : Domino}
       exact h₂ (by unfold tier; rw [if_neg hp₂, if_neg hm])
     exact eq_of_effMem_of_rank_eq hp₁ hm₁ hm₂ hr
 
+/-! ## PA-A13/PA-A14: contextual BEATS, threat, and monotone removal -/
+
+/-- PA-A13: `e` beats `d` under declaration `δ` and led context `q` —
+membership in `BEATS_δ(q, d)` (Math §3.7). -/
+def Beats (δ : Declaration) (q : Suit) (d e : Domino) : Prop :=
+  δ.key q d < δ.key q e
+
+instance (δ : Declaration) (q : Suit) (d e : Domino) :
+    Decidable (δ.Beats q d e) :=
+  inferInstanceAs (Decidable (_ < _))
+
+/-- PA-A13 (contextual `BEATS` exactness): if `d` is the current winner of a
+trick led in context `q` — its key is maximal among the plays seen — then a
+later play `e` becomes current winner exactly when `e ∈ BEATS_δ(q, d)`
+(Math §3.7). -/
+theorem beats_exact {δ : Declaration} {q : Suit} {seen : Finset Domino}
+    {d e : Domino} (hd : d ∈ seen)
+    (hmax : ∀ f ∈ seen, δ.key q f ≤ δ.key q d) :
+    (∀ f ∈ seen, δ.key q f < δ.key q e) ↔ δ.Beats q d e :=
+  ⟨fun h => h d hd, fun h f hf => lt_of_le_of_lt (hmax f hf) h⟩
+
+/-- The `BEATS_δ(q, d)` set as a finset. -/
+def beatsSet (δ : Declaration) (q : Suit) (d : Domino) : Finset Domino :=
+  Finset.univ.filter (fun e => δ.Beats q d e)
+
+/-- PA-A13: the when-led threat set
+`THREAT_δ(d) = BEATS_δ(ℓ_δ(d), d)` (Math §3.7). -/
+def threat (δ : Declaration) (d : Domino) : Finset Domino :=
+  δ.beatsSet (δ.ledSuit d) d
+
+/-- PA-A14 (monotone threat removal): the live threat query
+`R_δ(d; O) = THREAT_δ(d) ∩ O` is monotone in the live external set. This is
+monotonicity of one relational query, not of action value (Math §3.7). -/
+theorem threat_removal_mono (δ : Declaration) (d : Domino)
+    {O O' : Finset Domino} (h : O' ⊆ O) :
+    δ.threat d ∩ O' ⊆ δ.threat d ∩ O :=
+  Finset.inter_subset_inter (Finset.Subset.refl _) h
+
+/-- PA-A15 (lead-threat incompleteness witness): in no-trump, `0:0` and
+`1:1` both have empty when-led threat sets, yet `0:0` follows blanks and not
+ones while `1:1` follows ones and not blanks — threat does not determine
+follow behavior (Math §3.7, constructed counterexample). -/
+theorem lead_threat_incomplete :
+    (Declaration.notrump.threat ⟨0, 0, le_refl 0⟩ = ∅
+      ∧ Declaration.notrump.threat ⟨1, 1, le_refl 1⟩ = ∅)
+    ∧ (Declaration.notrump.effMem ⟨0, 0, le_refl 0⟩ (.natural 0)
+      ∧ ¬ Declaration.notrump.effMem ⟨0, 0, le_refl 0⟩ (.natural 1))
+    ∧ (Declaration.notrump.effMem ⟨1, 1, le_refl 1⟩ (.natural 1)
+      ∧ ¬ Declaration.notrump.effMem ⟨1, 1, le_refl 1⟩ (.natural 0)) := by
+  decide
+
 /-! ## PA-A11: the unique trick winner -/
 
 /-- PA-A11: for any four distinct dominoes with the designated lead played

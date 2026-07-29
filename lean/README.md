@@ -39,7 +39,20 @@ proved-sound decision procedure, or proved reflection.
   - `eq_of_key_eq` — key injectivity in nonzero tiers, via the structural
     shared-pip argument, not enumeration (PA-A10);
   - `existsUnique_winner` — four distinct dominoes with a designated lead
-    have a unique key-maximal winner (PA-A11).
+    have a unique key-maximal winner (PA-A11);
+  - `Beats`/`beatsSet`/`threat`, `beats_exact` (PA-A13),
+    `threat_removal_mono` (PA-A14), `lead_threat_incomplete` (PA-A15).
+- `Texas42/Transport.lean` — Layer A close-out, pip transports:
+  - `Domino.mapPips`/`Suit.mapPips`/`Declaration.mapPips` (Math §3.9);
+  - `countPreserving_iff` — a pip permutation preserves every count label
+    iff it is the identity or the swap `2 ↔ 3`, by the spec's analytic
+    forcing argument (PA-A16);
+  - `swap23_bijective`, `swap23_called`/`swap23_effMem`/`swap23_ledSuit`,
+    and `swap23_transport_iff` — the swap transports contextual game order
+    exactly between the layers of declarations 2 and 3 (PA-A17).
+
+Layer A is complete except PA-A12 (the 737,100-case exhaustive
+prose-resolver agreement), which is a deliberate later reflection target.
 
 All theorems depend only on the standard axioms
 (`propext`, `Classical.choice`, `Quot.sound`) — no `sorry`, no `native_decide`.

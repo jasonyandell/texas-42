@@ -16,9 +16,13 @@ called absorption (PA-A05/A06), follow exactness (PA-A07), rank/tier/trick key
 (PA-A08), lead-nonzero-tier (PA-A09), key injectivity in nonzero tiers (PA-A10),
 and the **unique trick winner** (PA-A11) — proved via key injectivity as the spine
 demands, not by enumerating the 737,100 cases (that receipt stays PA-A12,
-reflection, open). All depend only on the standard axioms — no `sorry`, no
-`native_decide`. Next Priority-0 targets on Layer A: contextual `BEATS` exactness
-(PA-A13) and live-threat monotonicity (PA-A14); then Layer B state types.
+reflection, open). **Layer A is now complete** apart from PA-A12: BEATS exactness
+(PA-A13), threat monotonicity (PA-A14), the lead-threat incompleteness witness
+(PA-A15), the count-preserving classification `σ ∈ {id, 2↔3}` by the analytic
+forcing argument (PA-A16), and the scoped `2↔3` transport — order-isomorphic
+exactly between layers 2 and 3 (PA-A17). All depend only on the standard axioms —
+no `sorry`, no `native_decide`. Working discipline: [`lean/PROOFS.md`](../lean/PROOFS.md).
+Next: the Layer B definitional core (PA-B01/B02/B05–B07), then B08–B10.
 
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 
