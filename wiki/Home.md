@@ -84,3 +84,4 @@ results, risks, and next questions.
 - [proof-assistant-plan](proof-assistant-plan.md) — trust boundary, K0–K15 spine, Lean status.
 - [first-implementation-slice](first-implementation-slice.md) — the original slice-01 assignment (historical; rob executed it).
 - [open-problems](open-problems.md) — merged unresolved claims and boundaries.
+- [ideas](ideas.md) — exploratory capture of unproven directions; below every tier above, cited by nothing.
