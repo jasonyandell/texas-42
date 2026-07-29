@@ -85,3 +85,4 @@ results, risks, and next questions.
 - [first-implementation-slice](first-implementation-slice.md) — the original slice-01 assignment (historical; rob executed it).
 - [open-problems](open-problems.md) — merged unresolved claims and boundaries.
 - [ideas](ideas.md) — exploratory capture of unproven directions; below every tier above, cited by nothing.
+- [analysis](analysis.md) — the game-analysis hub: probes, rigs, and dashboards over the exact machinery; display/exploratory tier, cited by nothing above ideas.
