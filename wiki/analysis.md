@@ -82,6 +82,44 @@ under max-play. This is the instrument that puts the opponent
 model in the denominator where it belongs — the nickel autopsy's number is a fact about
 the pair (fiber, σ), and this probe is how much of it is σ.
 
+### `hierarchical_fiber_probe.rs` — rung-1 deep counting, cross-checked and priced
+
+`rob/crates/verify/tests/hierarchical_fiber_probe.rs`, over the gate-only engine
+`rob_player::solver::gate::counting_deep` (`rob/crates/player/src/solver.rs`). The
+[idea-hierarchical-fibers](idea-hierarchical-fibers.md) rung-1 prototype: σ-response-class
+recursion across trick boundaries, bundles carried as conditioned cell systems, leaves
+counted by the capacity DP. The probe enforces the idea page's §4 admissibility law in
+miniature — whole-plan equality against the certified engines on 756 + 324 + 216 + 6
+positions — then measures what only this engine can: exact window-2 solves at the
+trick-one 399,072,960-world fiber (7–10 s, ≈ 350× intensional compression, 72–74 %
+exact pruning), and the class-growth-by-depth table that locates where intensional
+counting stops paying. Findings frozen in the idea page §6 and the probe file;
+exploratory throughout.
+
+### `strategic_exchange_probe.rs` — the rung-2 falsification rig
+
+`rob/crates/verify/tests/strategic_exchange_probe.rs`. Swaps candidate
+"strategically identical" tile pairs across hidden seats in every fiber world of
+solved corpus positions and replays plan-vs-σ in both worlds, crosstabbed by
+(same-team, id-adjacency). Verdict: 160,012 swaps, 28 % change the outcome; the
+per-world tile-exchange quotient of
+[idea-hierarchical-fibers](idea-hierarchical-fibers.md) §3 rung 2 is **falsified as
+stated** (findings and the failure taxonomy in that page's §7). The exchange budget
+was not spent — the falsification was local.
+
+### `fiber_factor_probe.rs` — feature coordinates priced as VOI; rung-3 bounds
+
+`rob/crates/verify/tests/fiber_factor_probe.rs`. Two instruments in one file. The
+`count_location_*` tests partition a position's fiber by a feature coordinate
+(where-are-the-live-count-tiles; contested cells refined by where-are-the-beaters),
+replay every opening's exact plan per world (self-validating against
+`solve_opening` values), and price the coordinate as exact value-of-information
+against the perfect-information gap — findings in
+[idea-hierarchical-fibers](idea-hierarchical-fibers.md) §8. The `bound_cover_*`
+tests add the rung-3 sound bounds (clairvoyant-vs-σ upper, concrete-plan lower,
+both decomposing over cells) and measure bound-only decision closure — findings in
+that page's §9, including the trick-3 wall position closing by bounds alone.
+
 ## Planned instruments
 
 *(named by Jason, 2026-07-28. Exploratory, and deliberately without a schedule — the

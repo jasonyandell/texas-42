@@ -163,7 +163,188 @@ mathematics already in the corpus, plus one discipline:
   decision is therefore *measured* in the hundreds, exactly — the open
   question rung 1 answers is how that class count grows with window depth.
 
-## 6. Order, and where it would land
+## 6. First contact — the rung-1 prototype (2026-07-28, exploratory)
+
+*Everything in this section is exploratory instrument output
+([analysis](analysis.md) tier): measured, reproducible, cited to files, and a receipt
+row nowhere. Nothing here changes the idea's tier.*
+
+Rung 1 now exists as code: `rob_player::solver::gate::counting_deep`
+(`rob/crates/player/src/solver.rs`, gate-only — play never routes through it, INV-P6)
+recurses the σ-response-class conditioning across trick boundaries. Every bundle is
+carried intensionally as a conditioned cell system `(required, excluded)` over the
+root pool; σ *leads* condition the same way σ responses do (hold `r`, hold nothing
+lead-preferred over `r`); leaves are counted by the capacity DP and never enumerated;
+zero-count extensions prune their subtrees exactly. Two depth-only subtleties the
+window-1 engine never meets are handled and documented in the code: a candidate
+already excluded for its seat must be skipped (the DP ignores exclusions on required
+tiles, so requiring it would silently count a contradicted class), and tiles already
+played can no longer preempt σ's choice.
+
+**The §4 gate, passed in miniature** (`rob/crates/verify/tests/hierarchical_fiber_probe.rs`):
+whole-`Plan` equality — values, actions, observation keys, bundle counts, leaf kinds —
+between the intensional engine and the certified extensional engines, on every
+position tested:
+
+- **756** window-1 plans ≡ the receipted counting engine (all seven boundaries,
+  including the 399,072,960-world boundary-0 fibers);
+- **324** full-depth plans ≡ streaming (boundaries 4–6);
+- **216** plans ≡ streaming at boundary 3 (windows 2 and 4, all 108 positions);
+- **6** window-2 plans ≡ streaming at boundary 2 — the trick-3 wall's own fibers,
+  up to 756,756 worlds.
+
+**The open question of §5, answered at first contact.** Exact H = 2 at the trick-one
+fiber is not minutes — it is **7–10 seconds** per decision (positions 0–2 of the P2
+corpus, release build, single thread): 3.6–5.1 M capacity-DP calls, 0.9–1.2 M nonzero
+leaf classes against 399,072,960 worlds (≈ 350× intensional compression), with
+**72–74 % of all σ-class extensions pruned as exactly infeasible** — the pruning does
+bite hardest where the naive product is largest. At all three positions the H = 2
+opening *confirms* the H = 1 opening; the value ranking of the rejected plans
+reshuffles (at position 0 the runner-up changes), which is what a window-rent
+measurement at depth would want to know. One step deeper: exact **H = 3** at position
+0 runs in **~4 minutes** (49.6 M leaf classes, 213.7 M DP calls, 73 % pruned, opening
+confirmed again). The class tree grows ≈ 55× per depth step, so the intensional
+compression against the fixed fiber erodes from ≈ 350× at H = 2 to ≈ 8× at H = 3 —
+the trick-one crossover sits near H ≈ 4.
+
+**The honest negative.** The same probe's class-growth table shows the intensional
+representation *losing* to enumeration where fibers are small: at boundary 3, full
+depth, 12 positions carry 256,690 worlds but 3.8 M leaf classes — the class tree
+outgrows the fiber, because class counts multiply per trick while fibers only shrink.
+Deep counting pays exactly where the streaming engine is priced out (early tricks,
+huge fibers) and nowhere else. That is §2's hierarchy claim made quantitative: the
+engine of interest is a *hybrid* that carries bundles intensionally while they are
+large and opens them into worlds when they are small — the crossover is now a
+measurable quantity, not a guess.
+
+## 7. Rung 2, falsified as stated — and where the quotient actually lives (2026-07-29, exploratory)
+
+*Exploratory instrument output (`rob/crates/verify/tests/strategic_exchange_probe.rs`);
+tier as §6.*
+
+Two results, one static and one measured.
+
+**Static:** the §3 conjecture's orbit generators barely exist. Two distinct dominoes
+have equal follow-sets in every context only when both are trump — a trump domino
+belongs to the trump suit alone, while a non-trump domino follows both its natural
+suits, and no two distinct dominoes share both pips. So "strategically identical"
+pairs are only equal-count trump pairs adjacent in the live key order; everything
+else was never exchangeable even in principle.
+
+**Measured:** even those pairs do not pool. 160,012 cross-seat swaps over 36 solved
+corpus positions, the solved plan replayed against σ in the world and its swap:
+**28 % of swaps change the outcome.** The failure taxonomy is structural, not noise:
+
+| swap class | equal | differ (pair collided in a trick) | differ (clean) |
+|---|---|---|---|
+| cross-team, id-gapped | 55,004 | 35,124 | 30 |
+| cross-team, id-adjacent | 10,044 | 4,024 | 12 |
+| same-team, id-gapped | 43,324 | 5,130 | 22 |
+| same-team, id-adjacent | 6,620 | 672 | 6 |
+
+- **Collision kills exchange**: when both pair members reach the same trick, the swap
+  flips which *seat* wins it. Cross-team that moves points; same-team it still moves
+  the **leader**, and the continuation diverges (5,802 same-team collision failures) —
+  control is a coordinate, exactly as §5's "roles conditional on control" warned.
+- **The clean channel is tie-break leakage**: σ breaks slough ties by raw id, and the
+  viewer's plan branches on the observed tile identity, so even collision-free swaps
+  can diverge (70 cases). No static side condition tested (team, id-adjacency)
+  eliminates them.
+
+Conclusion: **no per-world tile-exchange quotient survives for exact solving.** The
+remaining node-level symmetry — merge observation branches whose conditioned support
+and folded trick state coincide (the `(N, τ)` DAG licensed by
+[support-dynamics](support-dynamics.md) TRANS-08/09 and PLAY-12's fold congruence) —
+was then **measured, and it is weak within a single solve**: with folded-trick,
+presentation-level node keys (`gate::counting_deep_dedup`, value equality asserted on
+every collision — PLAY-12 held on all of them), dedup is **1.00×** at window 2
+everywhere, **1.11×** at boundary 4 / window 3, **1.38×** at boundary 3 / full depth.
+The explanation is structural: distinct observation paths almost always leave
+distinct played-tile multisets, so their sub-fibers genuinely differ; within-window
+transpositions are rare. What this leaves open, unmeasured and plausibly much
+better, is **cross-solve reuse** — rob re-solves at every decision, and consecutive
+solves share most of their (N, τ) frontier. Falsifying both forms cost nothing; the
+exchange budget was not touched.
+
+## 8. Feature factorization — "where's the count", priced (2026-07-29, exploratory)
+
+*Exploratory instrument output (`rob/crates/verify/tests/fiber_factor_probe.rs`);
+tier as §6. Origin: Jason's factored-fiber brainstorm (quad-tree over
+where's-the-count × where-are-my-beaters).*
+
+The coordinate: the assignment of the live count tiles to the three hidden seats —
+≤ 3⁵ cells, each an intensional sub-fiber (tile→seat conditioning is the force move,
+TRANS-08/09; and per [minimal-support-normal-form](minimal-support-normal-form.md),
+tiles certain after reduction need no split, so the tree only branches on genuine
+ambiguity). The probe prices the coordinate in the game's own currency:
+**VOI(coordinate)** = the exact value of learning it before committing to an opening
+(cell-best minus global-best margin sums, a lower bound — a cell-aware re-solve
+would do better), against **VOI(full)**, the perfect-information gap. Replayed
+margins reproduce every `solve_opening` value exactly (self-validation).
+
+Measured (24 boundary-3 positions; 2 boundary-2 wall positions):
+
+- **The coordinate is decision-relevant precisely at the wall.** At boundary 2,
+  index 1: only **96‰ of worlds** lie in cells agreeing with the global opening —
+  8 of 9 cells contested; the trick-3 decision *hangs* on where the count sits. At
+  boundary 3 the agree-share ranges 254‰–1000‰ across positions.
+- **Two coordinates capture up to ≈ 60 % of the gap.** Count-location alone:
+  0–390‰ of VOI(full). Composed with where-are-the-beaters (of the opening tile,
+  refining contested cells only): up to **613‰** at boundary 3, **592‰** at the
+  wall — 1,587 sub-cells standing in for 72,072 worlds.
+- **Zero is a result too**: at four boundary-3 positions VOI(coordinate) = 0 — the
+  global opening is optimal in *every* cell, so the decision is provably insensitive
+  to count location there, and a hierarchical engine would spend nothing on it.
+  Where a coordinate captures nothing, refinement is pruned; where it captures much,
+  the contested cells are exactly rung 3's refinement frontier.
+
+Read together with §7: the factored fiber should be built from **feature coordinates
+for the split policy** (count location, beater location, control) and **kernel
+equality for the merge policy** (the `(N, τ)` DAG) — split where the decision is
+contested, merge where continuations provably coincide.
+
+## 9. Rung 3 without new theorems — sound bounds, measured at the wall (2026-07-29, exploratory)
+
+*Exploratory instrument output (`fiber_factor_probe.rs`, the `bound_cover_*` tests);
+tier as §6.*
+
+§3 called rung 3 "furthest out" for want of sound bound theorems. Two bounds already
+in the machinery need no new mathematics, and both **decompose over any cell
+partition**:
+
+- **Upper**: `U_a(S) = Σ_{w∈S}` (perfect-information best margin against σ, first
+  move pinned to `a`) — the known-world gate's quantity, summed. Sound because one
+  plan per information set can never beat per-world best play (max of sums ≤ sum of
+  maxes). A ≤ 5!-path DFS per world; no theorems, no tuning.
+- **Lower**: any concrete plan's replayed margins summed over `S`.
+
+An opening is *decided* on `S` when the incumbent's lower clears every rival's
+upper — exact branch-and-bound over the info-set tree, refined along §8's feature
+coordinates exactly where the bounds fail to separate. Soundness (`U_a ≥ V_a`)
+asserted against the exact solver at every position.
+
+Measured (12 boundary-3 positions + the boundary-2 wall position, index 1):
+
+- **Bounds alone settle the root decision at 10 of 13 positions** — every rival's
+  ceiling below the exact best value. At the wall (72,072 worlds, the position §8
+  found most contested): **root decided**, closest rival 165,504 against V* 174,554,
+  in ≈ 6 s of DFS — so the trick-3 decision there needs *one* full exact solve (the
+  incumbent) instead of five.
+- **The clairvoyance premium `U − V` is small**: 0–353‰ of |V|, exactly 0 at two
+  positions (the info-set plan attains per-world-perfect value), 64‰ at the wall.
+  This number is also the exact strategy-fusion gap a PIMC-style sampler would
+  silently pocket — now priced per position.
+- Cell-level: decided-cell world-shares of 0–1000‰ at count-location granularity;
+  the 0‰ position (boundary 3, index 6) is also §8's worst coordinate fit — where
+  bounds and features both fail, the exact solver is genuinely needed, and that is
+  the honest residue.
+
+Together §§6–9 give the factored-fiber architecture its measured shape: **deep
+counting where fibers are huge (§6), feature splits where the decision is contested
+(§8), bound elimination before exact solving (§9) — and no world-level symmetry
+quotient (§7).**
+
+## 10. Order, and where it would land
 
 Rung 1 first (the math is in hand and it is the cheapest way to learn whether the
 intensional representation survives contact with the solver), then rung 2 alongside

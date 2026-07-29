@@ -66,6 +66,10 @@ struct Tables {
     self_key: [u32; TILES],
     /// Count points per tile.
     points: [u32; TILES],
+    /// Lowest led-tile index inducing the same context (identical key and
+    /// follow rows) — the canonical context representative for the deep
+    /// DAG-dedup key.
+    led_canon: [u8; TILES],
 }
 
 fn encode_key(key: TrickKey) -> u32 {
@@ -100,11 +104,18 @@ impl Tables {
             self_key[d.index()] = key[d.index()][d.index()];
             points[d.index()] = domino_from_id(d).count_points() as u32;
         }
+        let mut led_canon = [0u8; TILES];
+        for led in 0..TILES {
+            led_canon[led] = (0..=led)
+                .find(|&c| key[c] == key[led] && follows[c] == follows[led])
+                .expect("led itself matches") as u8;
+        }
         Tables {
             key,
             follows,
             self_key,
             points,
+            led_canon,
         }
     }
 }
@@ -887,6 +898,383 @@ impl Solve {
     }
 }
 
+// ---------------------------------------------------------------------------
+// Deep counting engine (gate-only, exploratory): σ-response-class recursion
+// across trick boundaries — wiki/idea-hierarchical-fibers rung 1. The
+// window-1 counting engine above conditions the cell system by one trick's
+// σ-response classes; this engine recurses that conditioning through
+// successive tricks (TRANS-08 closure: the family of cell systems is closed
+// under σ-response conditioning), so every leaf bundle is counted by the
+// capacity DP and never enumerated. No receipt covers this surface; its
+// correctness evidence is the probe's plan-for-plan equality with the
+// streaming engine (`hierarchical_fiber_probe.rs`).
+// ---------------------------------------------------------------------------
+
+/// Instrumentation counters for the deep counting engine (gate-only;
+/// exploratory — these numbers are probe output, never receipt rows).
+#[derive(Clone, Copy, Default, Debug)]
+pub struct DeepStats {
+    /// Capacity-DP invocations (one per σ-class extension).
+    pub dp_calls: u64,
+    /// Nonzero leaf classes emitted (the intensional frontier size).
+    pub leaf_classes: u64,
+    /// σ-class extensions pruned because their exact count is zero.
+    pub zero_pruned: u64,
+    /// Viewer decision nodes visited.
+    pub decision_nodes: u64,
+}
+
+/// The Copy-able public-context slice a deep segment advances (the viewer
+/// hand travels separately to avoid per-segment clones).
+#[derive(Clone, Copy)]
+struct DeepPos {
+    leader: u8,
+    trick: TrickBuf,
+    banked: [u32; 2],
+    tricks_done: usize,
+}
+
+impl Solve {
+    /// Serialize the decision-node identity for the DAG-dedup measurement:
+    /// two deep nodes with equal keys face the same residual game (same
+    /// public position, same conditioned cell system), so their solved
+    /// values must coincide. The unresolved trick enters **folded**
+    /// (PLAY-12: led context — canonicalized across led tiles with equal
+    /// key/follow rows — current best key, current winner, pending count,
+    /// plays made), which the fold congruence proves value-safe; the
+    /// engine asserts it on every collision. Still presentation-level on
+    /// the support side: `(required, excluded)` is not reduced to the
+    /// normal form first, so the measured dedup factor is a lower bound.
+    fn deep_node_key(
+        &self,
+        pos: &Pos,
+        required: &[(usize, usize)],
+        excluded: &[Vec<bool>; HIDDEN],
+    ) -> Vec<u8> {
+        let mut key = Vec::with_capacity(64);
+        key.push(pos.leader);
+        key.push(pos.tricks_done as u8);
+        key.push(pos.trick.len);
+        if !pos.trick.is_empty() {
+            let led = pos.trick.plays()[0].1 as usize;
+            let (mut best_key, mut winner, mut pending) = (0u32, 0u8, 0u32);
+            for &(s, d) in pos.trick.plays() {
+                let k = self.tables.key[led][d as usize];
+                if k > best_key {
+                    best_key = k;
+                    winner = s;
+                }
+                pending += 1 + self.tables.points[d as usize];
+            }
+            key.push(self.tables.led_canon[led]);
+            key.extend_from_slice(&best_key.to_le_bytes());
+            key.push(winner);
+            key.extend_from_slice(&pending.to_le_bytes());
+        }
+        key.extend_from_slice(&pos.banked[0].to_le_bytes());
+        key.extend_from_slice(&pos.banked[1].to_le_bytes());
+        key.push(pos.viewer_hand.len() as u8);
+        key.extend_from_slice(&pos.viewer_hand);
+        for (seat, seat_excluded) in excluded.iter().enumerate() {
+            let mut held: Vec<u8> = required
+                .iter()
+                .filter(|&&(s, _)| s == seat)
+                .map(|&(_, p)| p as u8)
+                .collect();
+            held.sort_unstable();
+            key.push(0xFE);
+            key.extend_from_slice(&held);
+            let mut mask = 0u32;
+            for (p, &ex) in seat_excluded.iter().enumerate() {
+                if ex && !required.iter().any(|&(_, q)| q == p) {
+                    mask |= 1 << p;
+                }
+            }
+            key.extend_from_slice(&mask.to_le_bytes());
+        }
+        key
+    }
+
+    /// Deep counting: exact backward induction where every bundle is a
+    /// conditioned cell system `(required, excluded)` over the root pool
+    /// and every leaf is counted by the capacity DP. Mirrors
+    /// `stream_solve` node-for-node (same observation keys, same
+    /// tie-breaks, same leaves) by a different arithmetic route.
+    #[allow(clippy::too_many_arguments)]
+    fn deep_node(
+        &self,
+        ctx: &CountCtx,
+        pos: &Pos,
+        node_count: u64,
+        required: &mut Vec<(usize, usize)>,
+        excluded: &mut [Vec<bool>; HIDDEN],
+        materialize: bool,
+        openings: &mut Option<&mut Vec<(u8, i64)>>,
+        dedup: &mut Option<&mut BTreeMap<Vec<u8>, (u64, i64)>>,
+        stats: &mut DeepStats,
+    ) -> PlanNode {
+        stats.decision_nodes += 1;
+        let legal = self.viewer_legal(pos);
+        debug_assert!(!legal.is_empty());
+        let mut best: Option<(i64, u8, BTreeMap<Observation, PlanChild>)> = None;
+        for &action in &legal {
+            let mut trick = pos.trick;
+            trick.push(self.viewer, action);
+            let mut viewer_hand = pos.viewer_hand.clone();
+            viewer_hand.retain(|&d| d != action);
+            let mut children: BTreeMap<Observation, PlanChild> = BTreeMap::new();
+            let mut value_total = 0i64;
+            let mut worlds_total = 0u64;
+            self.deep_segment(
+                ctx,
+                DeepPos {
+                    leader: pos.leader,
+                    trick,
+                    banked: pos.banked,
+                    tricks_done: pos.tricks_done,
+                },
+                &viewer_hand,
+                ObsBuf::new(),
+                node_count,
+                required,
+                excluded,
+                materialize,
+                &mut children,
+                &mut value_total,
+                &mut worlds_total,
+                dedup,
+                stats,
+            );
+            assert_eq!(
+                worlds_total, node_count,
+                "σ-class trees partition the bundle (INV-P5 discipline)"
+            );
+            if let Some(collector) = openings.as_deref_mut() {
+                collector.push((action, value_total));
+            }
+            let better = match &best {
+                None => true,
+                Some((v, a, _)) => value_total > *v || (value_total == *v && action < *a),
+            };
+            if better {
+                best = Some((value_total, action, children));
+            }
+        }
+        let (value_total, action, children) = best.expect("nonempty legal set");
+        if let Some(map) = dedup.as_deref_mut() {
+            let key = self.deep_node_key(pos, required, excluded);
+            if let Some(&(c, v)) = map.get(&key) {
+                assert_eq!(
+                    (c, v),
+                    (node_count, value_total),
+                    "equal node keys face equal residual solves"
+                );
+            } else {
+                map.insert(key, (node_count, value_total));
+            }
+        }
+        PlanNode {
+            action: id_of(action),
+            world_count: node_count,
+            value_total,
+            children,
+        }
+    }
+
+    /// Advance a σ-class tree from just after a play until the next viewer
+    /// decision, the frontier, or settlement — the intensional counterpart
+    /// of `simulate`+`group`: instead of pushing worlds, it pushes
+    /// hand-membership constraints and counts.
+    #[allow(clippy::too_many_arguments)]
+    fn deep_segment(
+        &self,
+        ctx: &CountCtx,
+        mut dpos: DeepPos,
+        viewer_hand: &[u8],
+        obs: ObsBuf,
+        count_here: u64,
+        required: &mut Vec<(usize, usize)>,
+        excluded: &mut [Vec<bool>; HIDDEN],
+        materialize: bool,
+        children: &mut BTreeMap<Observation, PlanChild>,
+        value_total: &mut i64,
+        worlds_total: &mut u64,
+        dedup: &mut Option<&mut BTreeMap<Vec<u8>, (u64, i64)>>,
+        stats: &mut DeepStats,
+    ) {
+        if dpos.trick.len == 4 {
+            let (winner, points) = self.resolve(&dpos.trick);
+            dpos.banked[(winner % 2) as usize] += points;
+            dpos.tricks_done += 1;
+            let settled = dpos.tricks_done == 7;
+            if settled || dpos.tricks_done == self.window_end {
+                if settled {
+                    debug_assert_eq!(
+                        dpos.banked[0] + dpos.banked[1],
+                        42,
+                        "settled hands conserve 42 points (INV-P6)"
+                    );
+                }
+                stats.leaf_classes += 1;
+                let value = count_here as i64 * self.utility(dpos.banked, settled);
+                if materialize {
+                    children.insert(
+                        obs.to_observation(),
+                        PlanChild::Leaf(PlanLeaf {
+                            kind: if settled {
+                                LeafKind::Settled
+                            } else {
+                                LeafKind::Frontier(FrontierLeaf::BankedPoints)
+                            },
+                            world_count: count_here,
+                            value_total: value,
+                        }),
+                    );
+                }
+                *value_total += value;
+                *worlds_total += count_here;
+                return;
+            }
+            dpos.leader = winner;
+            dpos.trick.clear();
+        }
+        let actor = (dpos.leader + dpos.trick.len) % SEATS;
+        if actor == self.viewer {
+            let mut hidden_played = [[false; TILES]; HIDDEN];
+            for &(seat, p) in required.iter() {
+                hidden_played[seat][ctx.pool[p] as usize] = true;
+            }
+            let child_pos = Pos {
+                leader: dpos.leader,
+                trick: dpos.trick,
+                banked: dpos.banked,
+                viewer_hand: viewer_hand.to_vec(),
+                hidden_played,
+                tricks_done: dpos.tricks_done,
+            };
+            let node = self.deep_node(
+                ctx,
+                &child_pos,
+                count_here,
+                required,
+                excluded,
+                materialize,
+                &mut None,
+                dedup,
+                stats,
+            );
+            *value_total += node.value_total;
+            *worlds_total += node.world_count;
+            if materialize {
+                children.insert(obs.to_observation(), PlanChild::Node(node));
+            }
+            return;
+        }
+        // σ-class enumeration for the hidden actor. Two deep-only skips
+        // beyond the window-1 engine's logic: a candidate `r` already
+        // excluded for the seat must be skipped (the DP never consults
+        // `excluded` on a required tile, so requiring it would silently
+        // count a contradicted class), and tiles already required — played
+        // earlier in the solve, or pinned to another seat — can no longer
+        // preempt σ's choice, so they are skipped in the exclusion scan.
+        let seat = self.hidden_index(actor);
+        let t = &self.tables;
+        let pool = &ctx.pool;
+        let leading = dpos.trick.is_empty();
+        let (led, best_key) = if leading {
+            (0usize, 0u32)
+        } else {
+            let led = dpos.trick.plays()[0].1 as usize;
+            let best_key = dpos
+                .trick
+                .plays()
+                .iter()
+                .map(|&(_, d)| t.key[led][d as usize])
+                .max()
+                .expect("nonempty trick");
+            (led, best_key)
+        };
+        let kid = |p: usize| (t.key[led][pool[p] as usize], pool[p]);
+        for r in 0..pool.len() {
+            if !ctx.possible[seat][r] || excluded[seat][r] || required.iter().any(|&(_, q)| q == r)
+            {
+                continue;
+            }
+            let r_tile = pool[r] as usize;
+            let mut extra: Vec<usize> = Vec::new();
+            for p in 0..pool.len() {
+                if p == r || excluded[seat][p] || required.iter().any(|&(_, q)| q == p) {
+                    continue;
+                }
+                let p_tile = pool[p] as usize;
+                let exclude = if leading {
+                    // σ leads the self-context-preferred tile: exclude
+                    // every tile lead-preferred over `r`.
+                    let (pk, rk) = (t.self_key[p_tile], t.self_key[r_tile]);
+                    pk > rk || (pk == rk && pool[p] < pool[r])
+                } else {
+                    let r_follows = t.follows[led][r_tile];
+                    let r_key = t.key[led][r_tile];
+                    let p_follows = t.follows[led][p_tile];
+                    let p_key = t.key[led][p_tile];
+                    if r_follows {
+                        if r_key > best_key {
+                            // Beating follower: no better beating follower.
+                            p_follows && p_key > best_key && kid(p) < kid(r)
+                        } else {
+                            // Minimal non-beating follower: no beating
+                            // follower, no lower follower.
+                            p_follows && (p_key > best_key || kid(p) < kid(r))
+                        }
+                    } else if r_key > best_key {
+                        // Void beater: void of the context, no better beater.
+                        p_follows || (p_key > best_key && kid(p) < kid(r))
+                    } else {
+                        // Void slough: void, no beater, no lower tile.
+                        p_follows || p_key > best_key || kid(p) < kid(r)
+                    }
+                };
+                if exclude {
+                    extra.push(p);
+                }
+            }
+            for &p in &extra {
+                excluded[seat][p] = true;
+            }
+            required.push((seat, r));
+            stats.dp_calls += 1;
+            let n = ctx.count(required, excluded);
+            if n == 0 {
+                stats.zero_pruned += 1;
+            } else {
+                let mut next = dpos;
+                next.trick.push(actor, pool[r]);
+                let mut next_obs = obs;
+                next_obs.push(actor, pool[r]);
+                self.deep_segment(
+                    ctx,
+                    next,
+                    viewer_hand,
+                    next_obs,
+                    n,
+                    required,
+                    excluded,
+                    materialize,
+                    children,
+                    value_total,
+                    worlds_total,
+                    dedup,
+                    stats,
+                );
+            }
+            required.pop();
+            for &p in &extra {
+                excluded[seat][p] = false;
+            }
+        }
+    }
+}
+
 /// Shared solve construction from a mechanical state.
 fn solve_context(state: &MechanicalState, lens: UtilityLens, window: usize) -> (Solve, Pos) {
     let viewer = state.viewer();
@@ -1185,6 +1573,127 @@ pub mod gate {
                 root,
             }
         }
+    }
+
+    /// Deep counting at an explicit window (exploratory;
+    /// wiki/idea-hierarchical-fibers rung 1): the σ-response-class
+    /// recursion carried across trick boundaries, every bundle held
+    /// intensionally as a conditioned cell system and counted by the
+    /// capacity DP — no world enumerated at any fiber size. Analysis/probe
+    /// surface only: play never routes through gate (INV-P6), and these
+    /// numbers are receipt rows nowhere. With `materialize` false the plan
+    /// tree is not built (root totals and stats only; `truncated` is set).
+    pub fn counting_deep(
+        state: &MechanicalState,
+        lens: UtilityLens,
+        window: usize,
+        materialize: bool,
+        openings: Option<&mut Vec<OpeningValue>>,
+    ) -> (Plan, DeepStats) {
+        assert!(window >= 1, "a window has at least one trick");
+        assert_decision_state(state);
+        let cells = derive_rule_cells(state);
+        let fiber_count = fiber_count_of(&cells);
+        let (solve, pos) = solve_context(state, lens, window);
+        let ctx = CountCtx::from_cells(&cells);
+        let mut stats = DeepStats::default();
+        let mut required: Vec<(usize, usize)> = Vec::new();
+        let mut excluded: [Vec<bool>; HIDDEN] =
+            core::array::from_fn(|_| vec![false; ctx.pool.len()]);
+        let mut raw: Vec<(u8, i64)> = Vec::new();
+        let mut raw_opt = openings.as_ref().map(|_| &mut raw);
+        let mut root = solve.deep_node(
+            &ctx,
+            &pos,
+            fiber_count,
+            &mut required,
+            &mut excluded,
+            materialize,
+            &mut raw_opt,
+            &mut None,
+            &mut stats,
+        );
+        if let Some(collector) = openings {
+            collector.extend(raw.into_iter().map(|(action, value_total)| OpeningValue {
+                action: id_of(action),
+                value_total,
+            }));
+        }
+        let truncated = if materialize {
+            prune_to_cap(&mut root, MATERIALIZATION_CAP)
+        } else {
+            true
+        };
+        (
+            Plan {
+                viewer: state.viewer(),
+                window,
+                fiber_count,
+                truncated,
+                root,
+            },
+            stats,
+        )
+    }
+
+    /// Deep counting with the DAG-dedup measurement (exploratory;
+    /// wiki/idea-hierarchical-fibers §7): run the deep engine value-only
+    /// and record every decision node's canonical identity — public
+    /// position plus conditioned cell system. Two nodes with equal keys
+    /// face the same residual game, so their solved values must coincide
+    /// (asserted on every collision). Returns
+    /// `(stats, distinct_node_keys)`; `stats.decision_nodes / distinct`
+    /// is the (presentation-level, lower-bound) DAG dedup factor.
+    pub fn counting_deep_dedup(
+        state: &MechanicalState,
+        lens: UtilityLens,
+        window: usize,
+    ) -> (DeepStats, u64) {
+        assert!(window >= 1, "a window has at least one trick");
+        assert_decision_state(state);
+        let cells = derive_rule_cells(state);
+        let fiber_count = fiber_count_of(&cells);
+        let (solve, pos) = solve_context(state, lens, window);
+        let ctx = CountCtx::from_cells(&cells);
+        let mut stats = DeepStats::default();
+        let mut required: Vec<(usize, usize)> = Vec::new();
+        let mut excluded: [Vec<bool>; HIDDEN] =
+            core::array::from_fn(|_| vec![false; ctx.pool.len()]);
+        let mut map: BTreeMap<Vec<u8>, (u64, i64)> = BTreeMap::new();
+        let mut map_opt = Some(&mut map);
+        let _ = solve.deep_node(
+            &ctx,
+            &pos,
+            fiber_count,
+            &mut required,
+            &mut excluded,
+            false,
+            &mut None,
+            &mut map_opt,
+            &mut stats,
+        );
+        (stats, map.len() as u64)
+    }
+
+    /// Force the streaming engine at an explicit window — the extensional
+    /// cross-check surface for [`counting_deep`].
+    pub fn streaming_h(state: &MechanicalState, lens: UtilityLens, window: usize) -> Plan {
+        assert!(window >= 1, "a window has at least one trick");
+        assert_decision_state(state);
+        let cells = derive_rule_cells(state);
+        let fiber_count = fiber_count_of(&cells);
+        let (solve, pos) = solve_context(state, lens, window);
+        let worlds = enumerate_compact(&cells);
+        assert_eq!(worlds.len() as u64, fiber_count, "enumeration = DP count");
+        stream_plan(
+            &solve,
+            &pos,
+            &worlds,
+            state.viewer(),
+            window,
+            fiber_count,
+            None,
+        )
     }
 
     /// Force the streaming engine at window 1.
