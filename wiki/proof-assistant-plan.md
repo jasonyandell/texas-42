@@ -7,10 +7,18 @@ v0.7 supplies the trust boundary, type discipline, priorities, and milestones; r
 the dependency spine covering its new mathematics. Related:
 [verification](verification.md), [open-problems](open-problems.md).
 
-**Status (2026-07-27): mechanization has started.** [`lean/`](../lean/README.md) is a
-Lean 4 + mathlib Lake project; first kernel theorems landed on the K0/K1 layer:
-`Fintype.card Domino = 28` (PA-A02) and `∑ d, countPoints d = 35` (PA-A04), both
-depending only on the standard axioms — no `sorry`, no `native_decide`.
+**Status (2026-07-28): K0–K3 landed.** [`lean/`](../lean/README.md) is a Lean 4 +
+mathlib Lake project. Kernel theorems now cover the K0/K1 layer —
+`Fintype.card Domino = 28` (PA-A02), the natural incidence covering and pair
+intersections (PA-A03), `∑ d, countPoints d = 35` (PA-A04) — and the K2/K3
+declaration algebra: nine declarations, effective suits with membership bounds and
+called absorption (PA-A05/A06), follow exactness (PA-A07), rank/tier/trick key
+(PA-A08), lead-nonzero-tier (PA-A09), key injectivity in nonzero tiers (PA-A10),
+and the **unique trick winner** (PA-A11) — proved via key injectivity as the spine
+demands, not by enumerating the 737,100 cases (that receipt stays PA-A12,
+reflection, open). All depend only on the standard axioms — no `sorry`, no
+`native_decide`. Next Priority-0 targets on Layer A: contextual `BEATS` exactness
+(PA-A13) and live-threat monotonicity (PA-A14); then Layer B state types.
 
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 

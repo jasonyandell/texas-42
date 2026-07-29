@@ -15,7 +15,7 @@ modified (each package carries a verifying `MANIFEST.sha256`).
 | `wiki/` (this) | The reconciled synthesis: [merge order](package-provenance.md), [discrepancies](discrepancies.md), [claim tiers](claim-ledger.md), [current findings](FINDINGS.md). |
 | [`rob/`](../rob/README.md) | The Rust engine — an executable spec with proof receipts. Slices 01+02 green: eleven byte-diffed receipts reproducing every ingest number ([verification](verification.md)). Plus the **evening player v0** (fixed-field Monte Carlo best response on exact uniform fiber sampling) and an HTML **game inspector** (per-seat perspectives, exact fiber counts and marginals, trump display, shareable URL state). |
 | [`exchange/`](../exchange/README.md) | Courier channel to ChatGPT 5.6 Pro for adversarial research. Dispatches 001–006 all adjudicated **CONFIRMED**; 007 (ceiling attack) and 008 (no-void exact census) submitted, responses pending. Hard 10-dispatch lifetime budget; ledger in the README. |
-| [`lean/`](../lean/README.md) | Lean 4 + mathlib kernel formalization, begun: `card Domino = 28` and `∑ countPoints = 35` proved with no `sorry` ([proof-assistant-plan](proof-assistant-plan.md)). |
+| [`lean/`](../lean/README.md) | Lean 4 + mathlib kernel formalization, K0–K3: domino algebra (`card Domino = 28`, covering, `∑ countPoints = 35`) and the full declaration algebra through the **unique trick winner**, proved by key injectivity, no `sorry` ([proof-assistant-plan](proof-assistant-plan.md)). |
 
 [lineage.md](lineage.md) explains the prior project (mk5), the champion, and the
 wall this repo exists to answer — context only; no code or definitions cross.

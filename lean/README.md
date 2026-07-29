@@ -17,13 +17,31 @@ proved-sound decision procedure, or proved reflection.
 ## Layout
 
 - `Texas42/Basic.lean` — Layer A finite algebra, first slice:
-  - `Pip` (`Fin 7`), `Domino` (canonical `(high, low)` pair with `low ≤ high`),
-    with `DecidableEq` and `Fintype` instances (ledger row PA-A01);
+  - `Pip` (`Fin 7`), `Seat`/`Team`, `Domino` (canonical `(high, low)` pair
+    with `low ≤ high`), with `DecidableEq` and `Fintype` instances (PA-A01);
   - `Domino.card_domino : Fintype.card Domino = 28` (PA-A02);
+  - the natural incidence covering `σ_p`: `card_incidence` (`|σ_p| = 7`),
+    `card_pip_memberships` (doubles in one incidence, mixed in two), and
+    `incidence_inter` (`σ_p ∩ σ_q = {p:q}`) (PA-A03);
   - `Domino.countPoints` and
-    `Domino.total_countPoints : ∑ d : Domino, countPoints d = 35` (PA-A04).
+    `Domino.total_countPoints : ∑ d : Domino, countPoints d = 35` (PA-A04);
+  - the shared-pip injectivity helpers behind rank injectivity
+    (`eq_of_hasPip_of_pipSum_eq`, `eq_double_of_hasPip`).
+- `Texas42/Trick.lean` — Layer A declaration algebra, second slice:
+  - `Declaration` (nine, `card_declaration`) and `Suit` (eight led contexts,
+    `card_suit`) (PA-A01/PA-A05);
+  - `called`/`powered`, `effMem` (the follow relation), `ledSuit` (PA-A05);
+  - effective-membership bounds and called absorption (`card_effMem`,
+    `not_effMem_natural_of_called`, `effMem_natural_iff`) and follow
+    exactness (`effMem_ledSuit`) (PA-A06/PA-A07);
+  - `rank`, `tier`, and the lexicographic trick `key` (PA-A08);
+  - `tier_ledSuit_pos` — a lead always occupies a nonzero tier (PA-A09);
+  - `eq_of_key_eq` — key injectivity in nonzero tiers, via the structural
+    shared-pip argument, not enumeration (PA-A10);
+  - `existsUnique_winner` — four distinct dominoes with a designated lead
+    have a unique key-maximal winner (PA-A11).
 
-Both theorems depend only on the standard axioms
+All theorems depend only on the standard axioms
 (`propext`, `Classical.choice`, `Quot.sound`) — no `sorry`, no `native_decide`.
 
 ## Building
