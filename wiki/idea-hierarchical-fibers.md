@@ -133,7 +133,37 @@ two-engine cross-check pattern already used by the receipt row `r_sol_engines` (
 counting-vs-streaming agreements at window 1). No pooling ships on an argument; it
 ships on that diff being empty.
 
-## 5. Order, and where it would land
+## 5. Candidate grouping keys (addendum, Jason 2026-07-28)
+
+What should the quotients and coverings *key on*? Two candidates, both with
+mathematics already in the corpus, plus one discipline:
+
+- **Rank-in-suit, not pips.** Relevance is declaration-relative rank within a
+  context, dynamically re-ranked as tiles fall — the 1-0 is the most important
+  domino on the field in worlds where the higher blanks are gone and it leads
+  the last trick into 25 points of count. The corpus already carries both
+  halves: `competitive_ordinal` collapses any (declaration, context) into at
+  most **13 competitive classes** [rec PLAY-12/13; rob receipt
+  `r_alg_competitive_ordinal`], and the dead-cut lemma [x:003, adjudicated
+  CONFIRMED] proves only the ordinal's **cut through still-live competitive
+  tiles** is observable — "boss-among-the-living" is the game's own coordinate.
+  A rung-2 quotient keyed this way inherits reserved math rather than inventing
+  any.
+- **Roles conditional on control.** "Highest live rank per suit" and "good
+  lead" are candidate role features — but a good lead is worthless if you
+  cannot lead, so role value is a property of (tile, control), never of the
+  tile alone (HAND-07 forbids the context-free scalar for exactly this
+  reason). The control coordinate is the kernel's leader state; path groups
+  ([analysis](analysis.md)) expose it empirically — an action prefix exists
+  only in the worlds whose intermediate tricks you won.
+- **Evidence the target is small.** The P3 counting engine already factors
+  the 399,072,960-world trick-one decision through a few hundred σ-response
+  classes per action (the trick-one plan materializes at ~475 nodes,
+  milliseconds). At window 1 the "effective world count" of the opening
+  decision is therefore *measured* in the hundreds, exactly — the open
+  question rung 1 answers is how that class count grows with window depth.
+
+## 6. Order, and where it would land
 
 Rung 1 first (the math is in hand and it is the cheapest way to learn whether the
 intensional representation survives contact with the solver), then rung 2 alongside
