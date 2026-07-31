@@ -86,3 +86,4 @@ results, risks, and next questions.
 - [open-problems](open-problems.md) — merged unresolved claims and boundaries.
 - [ideas](ideas.md) — exploratory capture of unproven directions; below every tier above, cited by nothing.
 - [analysis](analysis.md) — the game-analysis hub: probes, rigs, and dashboards over the exact machinery; display/exploratory tier, cited by nothing above ideas.
+- [field/](field/Home.md) — rob beyond the repo: the 2026-07-30 first-contact measurements vs the mk5 champion, lessons, and the direction map; field-measurement/exploratory tier, cited by nothing above ideas.
