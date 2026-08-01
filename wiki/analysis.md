@@ -120,12 +120,16 @@ tests add the rung-3 sound bounds (clairvoyant-vs-σ upper, concrete-plan lower,
 both decomposing over cells) and measure bound-only decision closure — findings in
 that page's §9, including the trick-3 wall position closing by bounds alone.
 
-### `retrograde_rank_probe.rs` — rank-preserving substitution at the endgame
+### `retrograde_rank_probe.rs` — standing-preserving substitution at the endgame
 
-`rob/crates/verify/tests/retrograde_rank_probe.rs`. At corpus endgame suffixes
+`rob/crates/verify/tests/retrograde_rank_probe.rs` (file and test names predate the
+constellation/standing vocabulary settled 2026-08-01 —
+[idea-retrograde-rank](idea-retrograde-rank.md) §1 — and are kept as the frozen
+instrument's identity). At corpus endgame suffixes
 (boundaries 6/5/4), replaces a live tile with an already-played tile whenever the
-relabeling is an isomorphism of the *live* rank structure (per-context follow and
-slough pattern, pairwise trick-key order, equal count), and compares exact
+relabeling is an isomorphism of the constellation — the *live* standing structure
+(per-context follow and
+slough pattern, pairwise trick-key order, equal count) — and compares exact
 both-teams-optimal minimax values — σ nowhere in the loop, minimax an independent
 DFS over `RolloutPosition`, cross-checked against direct `resolve_trick` resolution
 at boundary 6. Verdict frozen 2026-07-31: 32,886 substitutions, **zero value

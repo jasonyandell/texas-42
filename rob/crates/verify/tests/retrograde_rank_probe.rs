@@ -1,11 +1,17 @@
-//! Exploratory probe (retrograde rank quotient — "the pips don't matter,
-//! the relationships do"; NOT receipt rows unless promoted by amendment):
-//! does the exact minimax value of an endgame suffix depend only on the
-//! *rank structure* of the live tiles — per-context follow pattern,
-//! relative trick-key order among the living, and count carried — or does
-//! pip identity leak in?
+//! Exploratory probe (retrograde constellation quotient — "the pips don't
+//! matter, the relationships do"; NOT receipt rows unless promoted by
+//! amendment): does the exact minimax value of an endgame suffix depend
+//! only on the *constellation* of the live tiles — the standing structure:
+//! per-context follow pattern, relative trick-key order among the living,
+//! and count carried — or does pip identity leak in?
 //!
-//! The test is rank-preserving tile substitution. At a corpus endgame
+//! Vocabulary note: file, test, and frozen-record names predate the
+//! constellation/standing language settled 2026-08-01 (see
+//! wiki/idea-retrograde-rank.md §1) and are kept as the frozen
+//! instrument's identity; "standing" is relative to the living only
+//! ("rank" belongs to the static competitive ordinal).
+//!
+//! The test is standing-preserving tile substitution. At a corpus endgame
 //! position (boundaries 4/5/6 = 3/2/1 tiles per hand), take the live set
 //! L (viewer hand ∪ unseen pool), pick a live tile d and an already-played
 //! tile e ∉ L, and ask whether the relabeling d→e is an isomorphism of the
@@ -21,14 +27,14 @@
 //! seats within one world and replayed a fixed plan against σ — and was
 //! falsified. Here nothing is swapped inside the deal and no plan or σ is
 //! involved: the question is whether the suffix *game* factors through
-//! the live rank structure (dead-cut / boss-among-the-living, x:003 and
-//! idea page §5), with the rung-2 static no-go evaded because identity is
+//! the constellation (dead-cut / boss-among-the-living, x:003 and idea
+//! page §5), with the rung-2 static no-go evaded because identity is
 //! only required relative to the live suffix, not over all 28 tiles.
 //!
 //! Also measured: substitution scarcity — how many live tiles admit any
-//! rank-preserving substitute at all (the "pinned to its pips" fraction),
-//! per boundary. Scarcity is the first number behind the retrograde
-//! reachability hunch: abstract rank states with few or no concrete
+//! standing-preserving substitute at all (the "pinned to its pips"
+//! fraction), per boundary. Scarcity is the first number behind the
+//! retrograde reachability hunch: constellations with few or no concrete
 //! realizations.
 //!
 //! Findings, frozen 2026-07-31 (exploratory; quoted in
@@ -40,8 +46,8 @@
 //! fraction of live tiles *falls* as hands deepen — boundary 6: 258/432
 //! (60%), 3/108 positions fully pinned; boundary 5: 243/864 (28%),
 //! 14/108 pinned; boundary 4: 201/1296 (16%), 20/108 pinned. More of the
-//! live rank structure is load-bearing earlier — the first measured
-//! surface of the retrograde reachability hunch. Whole sweep: ~2 s.
+//! constellation is load-bearing earlier — the first measured surface of
+//! the retrograde reachability hunch. Whole sweep: ~2 s.
 
 use std::cmp::Ordering;
 
@@ -96,11 +102,11 @@ fn suffix_total(live: &[DominoId], tiles_per_hand: usize) -> u32 {
     tiles_per_hand as u32 + count
 }
 
-/// Is d→e (d live, e unused) an isomorphism of the live rank structure?
-/// Checks, for every live lead context on both sides of the relabeling:
-/// identical follow pattern, identical slough pattern, and identical
-/// pairwise trick-key order over the live set.
-fn rank_preserving(
+/// Is d→e (d live, e unused) an isomorphism of the constellation (the
+/// live standing structure)? Checks, for every live lead context on both
+/// sides of the relabeling: identical follow pattern, identical slough
+/// pattern, and identical pairwise trick-key order over the live set.
+fn standing_preserving(
     algebra: &DeclarationAlgebra,
     live: &[DominoId],
     d: DominoId,
@@ -216,7 +222,7 @@ fn probe_position(boundary: usize, index: u64, world_cap: usize) -> Tally {
     for &d in &live {
         let before = substitutes.len();
         for &e in &unused {
-            if rank_preserving(&algebra, &live, d, e) {
+            if standing_preserving(&algebra, &live, d, e) {
                 substitutes.push((d, e));
             }
         }
