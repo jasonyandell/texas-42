@@ -1,0 +1,13 @@
+{
+  "tag": "014-constellation-informal-take",
+  "number": "14",
+  "slug": "constellation-informal-take",
+  "channel": "new-chat",
+  "conversationUrl": "https://chatgpt.com/c/6a6e077a-1850-83e8-abb4-2790789e5de4",
+  "submittedAt": "2026-08-01T14:49:31.897Z",
+  "baselineAssistantCount": 0,
+  "attachments": [
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/10_RULES.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/20_MATHEMATICAL_FOUNDATION.md"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "tag": "012-carrier-staircase-burnside",
+  "number": "12",
+  "slug": "carrier-staircase-burnside",
+  "channel": "new-chat",
+  "conversationUrl": "https://chatgpt.com/c/6a6da294-5c10-83e8-b8b0-3cb643e722da",
+  "submittedAt": "2026-08-01T07:39:02.034Z",
+  "baselineAssistantCount": 0,
+  "attachments": [
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/20_MATHEMATICAL_FOUNDATION.md"
+  ]
+}

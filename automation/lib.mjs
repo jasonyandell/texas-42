@@ -66,7 +66,7 @@ export async function ensureProModel(page) {
   if (!cur) throw new Error('model picker button not found');
   await cur.el.click();
   await page.waitForTimeout(800);
-  const proItem = page.locator('[role="menuitem"]:has-text("Pro"), [role="option"]:has-text("Pro")').first();
+  const proItem = page.locator('[role="menuitem"]:has-text("Pro"), [role="option"]:has-text("Pro"), [role="menuitemradio"]:has-text("Pro")').first();
   await proItem.waitFor({ state: 'visible', timeout: 5000 });
   await proItem.click();
   await page.waitForTimeout(1000);

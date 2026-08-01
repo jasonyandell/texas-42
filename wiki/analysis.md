@@ -120,12 +120,16 @@ tests add the rung-3 sound bounds (clairvoyant-vs-σ upper, concrete-plan lower,
 both decomposing over cells) and measure bound-only decision closure — findings in
 that page's §9, including the trick-3 wall position closing by bounds alone.
 
-### `retrograde_rank_probe.rs` — rank-preserving substitution at the endgame
+### `retrograde_rank_probe.rs` — standing-preserving substitution at the endgame
 
-`rob/crates/verify/tests/retrograde_rank_probe.rs`. At corpus endgame suffixes
+`rob/crates/verify/tests/retrograde_rank_probe.rs` (file and test names predate the
+constellation/standing vocabulary settled 2026-08-01 —
+[idea-retrograde-rank](idea-retrograde-rank.md) §1 — and are kept as the frozen
+instrument's identity). At corpus endgame suffixes
 (boundaries 6/5/4), replaces a live tile with an already-played tile whenever the
-relabeling is an isomorphism of the *live* rank structure (per-context follow and
-slough pattern, pairwise trick-key order, equal count), and compares exact
+relabeling is an isomorphism of the constellation — the *live* standing structure
+(per-context follow and
+slough pattern, pairwise trick-key order, equal count) — and compares exact
 both-teams-optimal minimax values — σ nowhere in the loop, minimax an independent
 DFS over `RolloutPosition`, cross-checked against direct `resolve_trick` resolution
 at boundary 6. Verdict frozen 2026-07-31: 32,886 substitutions, **zero value
@@ -133,6 +137,38 @@ divergences**, plus the substitution-scarcity funnel (60 % → 28 % → 16 % of 
 tiles substitutable at 1/2/3 tiles per hand). Findings and the framing in
 [idea-retrograde-rank](idea-retrograde-rank.md); distinct from the rung-2
 falsification rig above, which tested per-world exchange under plan-vs-σ replay.
+
+### `constellation_k1_census.rs` — exhaustive last-trick constellation census
+
+`rob/crates/verify/tests/constellation_k1_census.rs`. Enumerates every k=1
+position — 20,475 live 4-sets × 12 role arrangements × 9 declarations =
+2,211,300 forced tricks — through `resolve_trick`, abstracting each to relational
+keys with no suit names and no declaration name (fine: all four lead contexts;
+coarse: led context only), plus the rule-free carrier skeletons (pip-edges of
+K7-with-loops up to color relabeling). Frozen 2026-08-01: **zero outcome
+collisions on either key pooled across all nine declarations**; ladder 2,211,300
+→ 15,680 fine → 1,753 coarse → 14 outcomes; carriers 486 role-free / 4,767
+role-decorated; carrier and relational quotients measured as cross-cutting (sum
+of per-carrier fine keys 81,314 vs 15,680 distinct). External corroboration
+(2026-08-01): 15,680 reproduced by two x:009 referees under swap pooling;
+486/4,767 confirmed at exchange tier by the x:012 staircase (instrument itself
+stays exploratory). Hygiene (x:009 panel): this instrument pools the opponent
+swap — safe at k=1 only by parity-invariance of the forced outcome — while
+`constellation_k2_probe.rs` canonicalizes only within-hand swaps; class counts
+across the two are not directly diffable. Findings and framing in
+[idea-retrograde-rank](idea-retrograde-rank.md) §7.
+
+### `constellation_k2_probe.rs` — k=2 suffix minimax vs the constellation key
+
+`rob/crates/verify/tests/constellation_k2_probe.rs`. Enumerates every k=2 suffix
+position over fixed 10-tile sub-universes (C(10,8) sets × 2,520 hand assignments
+× 9 declarations; census within the sub-universe, not a sample), groups by the
+k=2 constellation key (no pip names, no declaration name; within-hand swaps
+canonicalized), and solves exact minimax for every member of every multi-member
+group. Frozen 2026-08-01: 2,041,200 positions, 454,920 multi-member groups
+(279,732 cross-declaration), **817,896 value checks, zero divergences** — the
+first k≥2, cross-declaration evidence for the suffix-factorization conjecture.
+Findings in [idea-retrograde-rank](idea-retrograde-rank.md) §7.
 
 ## Planned instruments
 

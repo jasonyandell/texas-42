@@ -1,0 +1,64 @@
+INDUCED_EDGE_CYCLE_TABLE
+type=1^7 class=1 loops=1^7 proper=1^21 total=1^28
+type=2 1^5 class=21 loops=1^5 2 proper=1^11 2^5 total=1^16 2^6
+type=2^2 1^3 class=105 loops=1^3 2^2 proper=1^5 2^8 total=1^8 2^10
+type=2^3 1 class=105 loops=1 2^3 proper=1^3 2^9 total=1^4 2^12
+type=3 1^4 class=70 loops=1^4 3 proper=1^6 3^5 total=1^10 3^6
+type=3 2 1^2 class=420 loops=1^2 2 3 proper=1^2 2^2 3^3 6 total=1^4 2^3 3^4 6
+type=3 2^2 class=210 loops=2^2 3 proper=1^2 2^2 3 6^2 total=1^2 2^4 3^2 6^2
+type=3^2 1 class=280 loops=1 3^2 proper=3^7 total=1 3^9
+type=4 1^3 class=210 loops=1^3 4 proper=1^3 2 4^4 total=1^6 2 4^5
+type=4 2 1 class=630 loops=1 2 4 proper=1 2^2 4^4 total=1^2 2^3 4^5
+type=4 3 class=420 loops=3 4 proper=2 3 4 12 total=2 3^2 4^2 12
+type=5 1^2 class=504 loops=1^2 5 proper=1 5^4 total=1^3 5^5
+type=5 2 class=504 loops=2 5 proper=1 5^2 10 total=1 2 5^3 10
+type=6 1 class=840 loops=1 6 proper=3 6^3 total=1 3 6^4
+type=7 class=720 loops=7 proper=7^3 total=7^4
+PASS 15 S7 conjugacy-class sizes sum to 5040
+PASS pure cycle-index division is integral
+PASS global count-label orbit has 2520 labelings
+PASS global count-label stabilizer has size 2
+PASS orbit-stabilizer for global labelings
+PASS independent pure representative enumeration matches every a[j]
+PASS pure complementation symmetry a[j]=a[28-j]
+PASS every labeled Burnside quotient is integral
+PASS explicit fixed-point Burnside equals orbit quotient on every pure 4-carrier
+PASS direct enumerations exhaust every requested layer
+PASS direct a[j] canonicalization agrees for j=0..5,27,28
+PASS direct b[j] canonicalization agrees for j=0..5,27,28
+PASS direct role enumeration exhausts 28*27*C(26,2) objects
+PASS role direct count equals independent stabilizer-Burnside count
+STAIRCASES
+a[0]=1 b[0]=1
+a[1]=2 b[1]=5
+a[2]=5 b[2]=22
+a[3]=14 b[3]=104
+a[4]=37 b[4]=486
+a[5]=98 b[5]=2233
+a[6]=252 b[6]=9657
+a[7]=585 b[7]=37473
+a[8]=1239 b[8]=126657
+a[9]=2396 b[9]=367187
+a[10]=4135 b[10]=906917
+a[11]=6340 b[11]=1905647
+a[12]=8630 b[12]=3410313
+a[13]=10381 b[13]=5207473
+a[14]=11034 b[14]=6795644
+a[15]=10381 b[15]=7585129
+a[16]=8630 b[16]=7239878
+a[17]=6340 b[17]=5901438
+a[18]=4135 b[18]=4097566
+a[19]=2396 b[19]=2413856
+a[20]=1239 b[20]=1199770
+a[21]=585 b[21]=499342
+a[22]=252 b[22]=172266
+a[23]=98 b[23]=48575
+a[24]=37 b[24]=10980
+a[25]=14 b[25]=1932
+a[26]=5 b[26]=252
+a[27]=2 b[27]=22
+a[28]=1 b[28]=1
+total_a=79264
+total_b=47940826
+role_decorated_count_labeled_4=4767
+a4=37 b4=486 b8=126657
