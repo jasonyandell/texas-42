@@ -66,6 +66,28 @@ don't either) — use the spec's analytic argument instead
   run `lake env lean probe.lean` with `trace_state` / `exact?` rather than
   iterating on the full build. Names drift (`le_of_not_le` is gone; use
   `not_le.mp`).
+- **Projection equalities of computed structures**: to get
+  `C.pool = Q.pool` from `hred : C.red = Q.red`, elaboration works
+  outside-in, so `congrArg CellSys.pool hred` against the plain-goal
+  ascription fails; write
+  `show C.red.pool = Q.red.pool from congrArg _ hred` and let iota
+  reduction close the gap.
+- **No `rw` into proof-dependent terms**: rewriting `hX : X = {s}` inside
+  a term mentioning `theUnique X h` breaks the motive. Chain equalities
+  instead (`(eq_singleton_theUnique h).symm.trans hX`) or `set` the
+  dependent value to an opaque local first.
+- **Canonical extraction without order**: pull the unique element of a
+  card-one `Finset` with `Finset.choose (fun _ => True)` under a `dif`
+  guard — no `LinearOrder` needed, and the guarded characterization
+  (`excl_eq_some ↔ …`) replaces all definitional unfolding downstream.
+- **Function-level `have`s beat pointwise ones near binders**: state
+  intermediate equalities as `CellSys.certain C = CellSys.certain Q`
+  (full function), then `rw` rewrites the partial application even under
+  `Finset.filter`'s lambda, where a pointwise equation could not.
+- **Capacitated matching via slot expansion**: quota problems reduce to
+  mathlib's Hall theorem over `(s : H) × Fin (r s)`; group Hall
+  conditions per seat-set dominate arbitrary slot subsets
+  (`exists_partition_of_hall` in `NormalForm.lean`).
 
 ## Build mechanics
 

@@ -110,6 +110,32 @@ prose-resolver agreement), which is a deliberate later reflection target.
   least, with the coarsest-exact-quotient equivalence
   `Φ(C) = Φ(Q) ↔ red(C) = red(Q)` (Math §7.9, PA-C15 backbone); the game
   cells instantiate it (`ViewerCtx.cellSys`).
+- `Texas42/NormalForm.lean` — the exact support normal form
+  (Math §§7.10–7.11, PA-D01–D05):
+  - the marginal anatomy of a feasible system — exact holder sets
+    `A(d)`, certain marks `K_s`, ambiguous pool `W`, residuals,
+    active seats — with the pinning lemma `K_s ⊆ A s` in every world;
+  - `active_trichotomy` — with three holders `|J⁺| ∈ {0,2,3}`, plus the
+    binary (`A(d) = J⁺`) and ternary (`≤ 1` exclusion) patterns
+    (PA-D01);
+  - `strict_singleton_hall` — the §7.11 inequality `|N({s})| ≥ r_s + 1`,
+    proved at the marginal level with no matching theory;
+  - `exists_partition_of_hall` — a generic capacitated Hall lemma by
+    slot expansion into mathlib's Hall theorem (PA-C08 groundwork);
+  - `SupportNF` with `WellFormed` — the validated normal-form type of
+    handoff §6, its ternary branch carrying the §7.11 linear validator
+    (PA-D02);
+  - `decode` with `feasible_decode` and `decode_marginal` — well-formed
+    forms decode to feasible systems whose marginal relation is exactly
+    the declared payload; every declared edge is realized through the
+    forced-edge partition (PA-D03);
+  - `compile` with `wellFormed_compile`, `decode_compile`
+    (`decode (𝒩(C)) = red(C)`), and `compile_decode`
+    (`𝒩(decode N) = N`) — the inverse laws (PA-D03/D04);
+  - `totalNF` and **`fiber_eq_iff_totalNF_eq`** — the `Empty`-tagged
+    total form classifies exact fibers over *all* systems, feasible or
+    not: `Φ(C) = Φ(Q) ↔ 𝒩̄(C) = 𝒩̄(Q)` (PA-D05, the §7.10 global
+    representation-minimal support quotient).
 - `Texas42/Belief.lean` — the finite belief layer (PA-E01–E03,
   Math §§8.1–8.3): exact rational `FinPMF` with Bayes `condition`
   (normalization + the `condition_mul` chain rule), policy kernels and

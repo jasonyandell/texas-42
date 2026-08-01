@@ -46,11 +46,24 @@ and the finite belief layer PA-E01–E03 (rational FinPMF, Bayes conditioning
 with normalization and the chain rule, policy-kernel history likelihood,
 posterior, pushforward) closing with `physicalBelief_support_isWorld`: the
 posterior's support lies inside the cell fiber.
-**Priority-0 scoreboard: 35 of 42 rows kernel-proved.** Open P0: PA-D01–D05
-(the §7.10 support normal form: trichotomy, well-formedness, compile/decode,
-classification) and PA-E07/E10 (strategic-state sufficiency; the 90-world
-posterior-flip witness). Each needs its own deep spec read (§7.10; §§9–10) —
-natural next slices.
+**The §7.10 support normal form landed (K9): PA-D01–D05 kernel-proved.**
+`lean/Texas42/NormalForm.lean` builds the marginal anatomy of a feasible cell
+system (certain marks, ambiguous pool, residuals, active seats), proves the
+active-seat trichotomy `{0,2,3}` with its binary/ternary holder patterns
+(PA-D01) and the §7.11 strict singleton Hall inequality, defines the validated
+`SupportNF` type with the handoff-§6 branch invariants including the §7.11
+linear ternary validator (PA-D02), and proves the full inverse suite: decode
+is feasible and reconstructs exactly the declared marginal relation via a
+generic capacitated Hall lemma (slot expansion into mathlib Hall — also the
+PA-C08 groundwork), `decode ∘ compile = red`, `compile ∘ decode = id`
+(PA-D03/D04), and the global classification `Φ(C) = Φ(Q) ↔ 𝒩̄(C) = 𝒩̄(Q)`
+over all systems, feasible or not (PA-D05). No solver is imported anywhere —
+feasibility flows from the linear validator through Hall, exactly as §7.11
+promises.
+**Priority-0 scoreboard: 40 of 42 rows kernel-proved.** Open P0: PA-E07
+(exact augmented strategic-state sufficiency) and PA-E10 (the 90-world
+posterior/action-reversal witness, named in the acceptance standard). Both
+need the §§9–10 spec read — the final P0 slice.
 
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 
