@@ -120,6 +120,20 @@ tests add the rung-3 sound bounds (clairvoyant-vs-σ upper, concrete-plan lower,
 both decomposing over cells) and measure bound-only decision closure — findings in
 that page's §9, including the trick-3 wall position closing by bounds alone.
 
+### `retrograde_rank_probe.rs` — rank-preserving substitution at the endgame
+
+`rob/crates/verify/tests/retrograde_rank_probe.rs`. At corpus endgame suffixes
+(boundaries 6/5/4), replaces a live tile with an already-played tile whenever the
+relabeling is an isomorphism of the *live* rank structure (per-context follow and
+slough pattern, pairwise trick-key order, equal count), and compares exact
+both-teams-optimal minimax values — σ nowhere in the loop, minimax an independent
+DFS over `RolloutPosition`, cross-checked against direct `resolve_trick` resolution
+at boundary 6. Verdict frozen 2026-07-31: 32,886 substitutions, **zero value
+divergences**, plus the substitution-scarcity funnel (60 % → 28 % → 16 % of live
+tiles substitutable at 1/2/3 tiles per hand). Findings and the framing in
+[idea-retrograde-rank](idea-retrograde-rank.md); distinct from the rung-2
+falsification rig above, which tested per-world exchange under plan-vs-σ replay.
+
 ## Planned instruments
 
 *(named by Jason, 2026-07-28. Exploratory, and deliberately without a schedule — the
