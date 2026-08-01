@@ -193,7 +193,8 @@ unification, the suit-permutation transports).
 2. **Cross-declaration substitution** — the same isomorphism check across different
    trump declarations, grouped by constellation; load-bearing for §5's pooling
    claim and the measure of how much of the 9→3 transport collapse (x:004) extends
-   dynamically to suffixes.
+   dynamically to suffixes. *Status: verified exhaustively at k=1 by census (§7);
+   open for k ≥ 2, where choice enters.*
 3. **True retrograde enumeration** — enumerate constellations directly at depth k,
    count realizations per constellation via the embedding check (the reachability
    census of the idea), and back-value constellations instead of positions, with
@@ -204,6 +205,61 @@ unification, the suit-permutation transports).
    [field/directions](field/directions.md) wants for salience and world selection;
    the substitution test is the admissibility check for treating the class as one
    world.
+
+## 7. k=1 census (frozen 2026-08-01, exploratory)
+
+Instrument: `rob/crates/verify/tests/constellation_k1_census.rs` (catalog entry in
+[analysis](analysis.md)). Exhaustive, not sampled: all C(28,4) = 20,475 live
+4-sets × 12 role arrangements × all 9 declarations = 2,211,300 last-trick
+positions, each pushed through the declaration algebra (`resolve_trick`) and
+abstracted to relational keys containing no suit names and no declaration name.
+Reachability deliberately ignored (enumeration side only). Full sweep ~4 s.
+
+- **The compression ladder, measured end to end:**
+  2,211,300 positions → **15,680 fine constellations** (relations under all four
+  hypothetical lead contexts — the dynamics-candidate key) → **1,753 coarse
+  constellations** (actual led context only — the value key at k=1) → **14
+  outcomes** (leader's team wins or not × trick awards 1/6/11/16/21/26/31 — every
+  count total occurs).
+- **Cross-declaration pooling holds exhaustively at k=1: zero outcome collisions**
+  on either key, across all nine declarations pooled. Honesty note: at k=1
+  coarse-consistency is expected by construction (the led-context comparison
+  matrix determines the winner, counts determine the award); the content is that
+  the keys carry *no* trump name and no pip identity, so constancy per key is the
+  §5 pooling license at this depth, verified by census rather than sample. The
+  load-bearing cross-declaration question stays open for k ≥ 2, where choice
+  enters (§6.2).
+- **Scratch numbers promoted to instrument output:** 486 role-free carriers and
+  4,767 role-decorated carriers (the 2026-08-01 scratch census values) are
+  reproduced through the algebra.
+- **The carrier and the constellation are cross-cutting quotients, not nested.**
+  Summing fine-constellations-per-carrier gives 81,314, yet only 15,680 distinct
+  fine keys exist — each relational pattern is realized by ~5 carriers on
+  average (μ per carrier: min 4, median 12, max 155). The skeleton remembers
+  suit-sharing that the relations forget (chaff is chaff whichever suits it
+  touches), and the relations distinguish precedence the skeleton lacks. So the
+  edge-graph of §5 is a *presentation* and realizability language for
+  constellations, while identity itself is the relational key — the two
+  fibrations of the same space, neither refining the other.
+- **The two-quotients gap of §5, quantified:** the dynamics-candidate key is ~9×
+  finer than the value key at k=1 (15,680 vs 1,753). What backing up actually
+  requires sits between them; the commutation audit (§5) will locate it.
+
+## 8. The epistemic layer (Jason, 2026-08-01 — captured, unearned)
+
+Before the first trick the game is imperfect-information *in constellation
+terms*: players cannot see the terminal constellation, only steer toward or away
+from candidate ones. Jason's worked example: holding two trash tiles, the discard
+choice between them is exactly the question "which terminal constellations does
+each discard make live?" — toss the 6-2 and someone's 2-1 is *promoted* (its
+standing among the living rises); the tile you keep shapes which boss-patterns
+can exist at the end. Discards manipulate standings, not pips. If the retrograde
+table gives exact values per constellation, the early game becomes belief over
+reachable terminal constellations — support first, belief second, per
+[belief-vs-support](belief-vs-support.md) discipline — and "42 calculus" stops
+being a metaphor: symbols (canonical constellations), formation rules
+(realizability), rewrite rules (the backward step), semantics (the value table),
+and an epistemic layer (beliefs over constellations) on top.
 
 An idea leaves this page only by promotion to a brief or a dispatch, per
 [ideas](ideas.md).

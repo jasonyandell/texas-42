@@ -138,6 +138,20 @@ tiles substitutable at 1/2/3 tiles per hand). Findings and the framing in
 [idea-retrograde-rank](idea-retrograde-rank.md); distinct from the rung-2
 falsification rig above, which tested per-world exchange under plan-vs-σ replay.
 
+### `constellation_k1_census.rs` — exhaustive last-trick constellation census
+
+`rob/crates/verify/tests/constellation_k1_census.rs`. Enumerates every k=1
+position — 20,475 live 4-sets × 12 role arrangements × 9 declarations =
+2,211,300 forced tricks — through `resolve_trick`, abstracting each to relational
+keys with no suit names and no declaration name (fine: all four lead contexts;
+coarse: led context only), plus the rule-free carrier skeletons (pip-edges of
+K7-with-loops up to color relabeling). Frozen 2026-08-01: **zero outcome
+collisions on either key pooled across all nine declarations**; ladder 2,211,300
+→ 15,680 fine → 1,753 coarse → 14 outcomes; carriers 486 role-free / 4,767
+role-decorated; carrier and relational quotients measured as cross-cutting (sum
+of per-carrier fine keys 81,314 vs 15,680 distinct). Findings and framing in
+[idea-retrograde-rank](idea-retrograde-rank.md) §7.
+
 ## Planned instruments
 
 *(named by Jason, 2026-07-28. Exploratory, and deliberately without a schedule — the
