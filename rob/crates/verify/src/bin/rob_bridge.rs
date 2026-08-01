@@ -46,13 +46,17 @@ fn synthesized_contract(bidder: Seat, declaration: Declaration, config: RulesCon
     let mut auction = AuctionState::new(shaker);
     debug_assert_eq!(auction.next_actor(), Some(bidder));
     let script = [
-        AuctionAction::Bid(BidValue::Point(PointAmount::new(30).expect("30 is a point bid"))),
+        AuctionAction::Bid(BidValue::Point(
+            PointAmount::new(30).expect("30 is a point bid"),
+        )),
         AuctionAction::Pass,
         AuctionAction::Pass,
         AuctionAction::Pass,
     ];
     for action in script {
-        auction = auction.apply(action, config).expect("scripted auction is legal");
+        auction = auction
+            .apply(action, config)
+            .expect("scripted auction is legal");
     }
     let win = match auction.result().expect("complete auction has a result") {
         AuctionResult::Win(win) => win,
