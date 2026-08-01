@@ -10,3 +10,4 @@ import Texas42.Information
 import Texas42.Reduction
 import Texas42.NormalForm
 import Texas42.Belief
+import Texas42.Strategic

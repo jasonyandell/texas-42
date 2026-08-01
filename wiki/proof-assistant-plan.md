@@ -60,10 +60,25 @@ PA-C08 groundwork), `decode ∘ compile = red`, `compile ∘ decode = id`
 over all systems, feasible or not (PA-D05). No solver is imported anywhere —
 feasibility flows from the linear validator through Hall, exactly as §7.11
 promises.
-**Priority-0 scoreboard: 40 of 42 rows kernel-proved.** Open P0: PA-E07
-(exact augmented strategic-state sufficiency) and PA-E10 (the 90-world
-posterior/action-reversal witness, named in the acceptance standard). Both
-need the §§9–10 spec read — the final P0 slice.
+**Strategic sufficiency landed: PA-E07 kernel-proved.**
+`lean/Texas42/Strategic.lean` formalizes §§10.1–10.2 finite-first: a generic
+finite-horizon viewer decision process with latent state (Markov
+observation/latent kernel, exact record transition, Bayes filter, segment
+reward, terminal utility) in which the §10.2 Bellman recursion in `(s, β)`
+provably integrates the ground-truth latent value at every horizon — so every
+fixed admissible strategy's expected value, and any finite-class best
+response, is a function of the strategic state `B = (c, e, β)` alone, by
+backward induction on the remaining-play grade exactly as §10.1 argues.
+Zero-probability observation segments contribute zero with junk successors,
+as §10.2 stipulates. (The Straight-42 instantiation of this process — wiring
+`CertifiedState`/`physicalBelief` into a concrete `BeliefProc` — belongs to
+the E08+/priority-1 tier.)
+**Priority-0 scoreboard: 41 of 42 rows kernel-proved.** Open P0: PA-E10 —
+the §10.4 exact legal 90-world posterior/action-reversal witness (named in
+the acceptance standard): same mechanical endpoint, same 90-world fiber and
+posterior support under two auction histories, opposite optimal leads. Its
+internalization needs the endpoint state, the 90-world fiber enumeration, the
+two Bayes posteriors, and exact deterministic rollouts — the final P0 slice.
 
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 

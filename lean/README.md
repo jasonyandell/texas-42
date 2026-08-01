@@ -144,6 +144,20 @@ prose-resolver agreement), which is a deliberate later reflection target.
   `physicalBelief_support_isWorld` — the posterior's support lies inside
   the cell fiber (support is not belief; the fiber bounds it exactly).
 
+- `Texas42/Strategic.lean` — strategic sufficiency (PA-E07,
+  Math §§10.1–10.2): `BeliefProc`, a finite-horizon viewer decision
+  process with latent state — Markov observation/latent kernel, exact
+  record transition, Bayes filter (`filter`), segment reward and
+  terminal utility; `latentVal` (ground truth along true latent
+  trajectories) and `beliefVal` (the §10.2 Bellman recursion in
+  `(s, β)`, one boundary convention, zero-probability segments
+  contributing zero); **`beliefVal_eq_exp_latentVal`** — the expected
+  continuation value of every fixed admissible strategy is a function
+  of the strategic state `B = (c, e, β)`, by backward induction on the
+  remaining-play grade exactly as §10.1; `bestResponse_eq` — the
+  fixed-field best-response value over any finite strategy class is a
+  function of `B`.
+
 All theorems depend only on the standard axioms
 (`propext`, `Classical.choice`, `Quot.sound`) — no `sorry`, no `native_decide`.
 
