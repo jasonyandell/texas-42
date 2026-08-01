@@ -19,7 +19,7 @@ with exact information-set machinery.
 | `ingest/` | Two immutable spec packages, **v0.7** and **rec** | **Never modify.** Each has a verifying `MANIFEST.sha256` |
 | `wiki/` | Reconciled map: what's proved, at what tier, what's open | Yes — it's the living synthesis |
 | `rob/` | The Rust engine: executable spec + byte-diffed receipts, the evening player v0, the HTML inspector | Yes, per its BRIEFs |
-| `exchange/` | Courier channel to ChatGPT 5.6 Pro for adversarial research; hard 10-dispatch lifetime budget (8 used) | Per [pro-exchange protocol](exchange/README.md) |
+| `exchange/` | Courier channel to ChatGPT 5.6 Pro for adversarial research; dispatches authorized in batches, quota agreed per batch (count and ceiling in `exchange/submission_count.txt`) | Per [pro-exchange protocol](exchange/README.md) |
 | `lean/` | Lean 4 kernel formalization, just begun | Yes |
 
 ## Non-negotiables (every session, every task)
@@ -73,8 +73,9 @@ strictly finer than the true quotient via the dead-cut lemma
   hands (`r_mat_paired`). The inspector (`rob/inspector/`) shows every decision's
   plan tree and openings table; probes and rigs are cataloged in
   [analysis](wiki/analysis.md).
-- **Exchange: all 8 dispatches adjudicated CONFIRMED** (001–008; 2 remain in the
-  lifetime budget). Results table: [claim-ledger](wiki/claim-ledger.md). Headlines:
+- **Exchange: all 8 dispatches adjudicated CONFIRMED** (001–008; later batches are
+  authorized per batch, see `exchange/submission_count.txt`). Results table:
+  [claim-ledger](wiki/claim-ledger.md). Headlines:
   interval [36,45] bits (x:001/006/007), no-void stratum exactly 624,892,870
   (x:008), outer language not tight + fifth condition (x:002), kernel-vs-quotient
   COLLAPSE (x:003), transport 9→3 collapse (x:004), all 19 census integers

@@ -57,8 +57,11 @@ Binding work assignments live in `rob/BRIEF*.md`.
 
 ## Exchange channel (`exchange/`)
 
-Hard lifetime budget: **10 dispatches total, ever** (8 used — check
-`exchange/submission_count.txt`). Never submit without Jason's explicit go. Dispatch
+Dispatches are authorized by Jason **in batches, each batch's quota agreed up
+front** — monthly pacing, cleared per batch, not a lifetime cap. The running count
+and the batch ceiling live in `exchange/submission_count.txt` and `HARD_CAP` in the
+automation submit script; raise the ceiling only for a batch Jason has authorized.
+Never submit without Jason's explicit go. Dispatch
 prompts are self-contained (5.6 Pro sees only the pasted text) and adversarial with
 machine-checkable deliverables. Every inbox response is adjudicated — witnesses
 re-run, programs executed, proofs step-checked — before anything touches the wiki.
