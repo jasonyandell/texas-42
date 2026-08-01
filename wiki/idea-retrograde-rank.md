@@ -264,6 +264,18 @@ Reachability deliberately ignored (enumeration side only). Full sweep ~4 s.
   the dispatch-literal ordered-opponent count is 31,197; 009's 19,329 is a
   non-invariant artifact and is not quotable. The 15,680 was independently
   reproduced by two x:009 referees under swap pooling.
+- **R1: realizable = reachable at k=1 (x:010, exchange-adjudicated CONFIRMED).**
+  Every realizable last-trick class has a replayed legal full-hand witness —
+  independently re-replayed through the corpus ingest verifier, zero failures —
+  so the k=1 retrograde seed table equals the realizable census (15,680 under
+  this instrument's pooling; 31,197 dispatch-literal ordered-opponent, reconciled
+  as 2·15,680 − 163) and reachability filtering at k=1 is a no-op. Legal-play
+  sense only (no contract/bid consistency; no REACH-\* impact); §6.3's mandatory
+  backward-commutation audit is unaffected. The 14 outcomes are externally
+  re-confirmed over all 4,422,600 oriented positions (0 collisions, adjudication
+  re-run), and this instrument's finer key (the slough bit) provably adds no
+  distinctions at k=1. Open remainder: per-declaration reachability with δ held
+  fixed (especially NT and δ=3) — a local probe, no dispatch needed.
 - **Instrument hygiene (panel finding, 2026-08-01):** the two rob instruments
   quotient differently — `constellation_k1_census.rs` pools the opponent swap
   (seats 1↔3), which the dispatch's Con definition (hold ∈ {0,1,2,3}) does not

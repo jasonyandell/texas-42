@@ -88,7 +88,10 @@ counterweight: **backward commutation for the pooled key REFUTED**
 (exchange-adjudicated CONFIRMED witness) — value pools across declarations
 forward, but the backward step must go through realizations. Plus the
 **carrier-skeleton staircase in closed form** (x:012 CONFIRMED: a₄=37, b₄=486,
-b₈=126,657, role-decorated 4,767, Σa=79,264). Owning page:
+b₈=126,657, role-decorated 4,767, Σa=79,264). And **R1 — realizable = reachable
+at k=1** (x:010 CONFIRMED): the retrograde seed table needs no reachability
+filter (convention caveat 31,197 ordered / 15,680 swap-pooled; legal-play sense
+only, no REACH-\* impact). Owning page:
 [idea-retrograde-rank](idea-retrograde-rank.md) §§5,7.
 
 1. **Cell losslessness + fixed-history bijection** (CELL-05/07) — the license for
