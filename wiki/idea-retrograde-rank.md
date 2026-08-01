@@ -106,7 +106,10 @@ corpus world.
 
 What the record does **not** establish: nothing beyond boundary 4; nothing about
 mid-game (windowed, imperfect-information) solves; no theorem — 32,886 agreements
-are evidence the quotient conjecture is worth proving, not a proof. Caveat
+are evidence the quotient conjecture is worth proving, not a proof. *Update
+2026-08-01: the conjecture now carries an adversarially step-checked proof at the
+exchange tier (C1, x:009 — [claim-ledger](claim-ledger.md)); kernel/Lean
+mechanization pending (dispatch 011).* Caveat
 (Jason, 2026-08-01): the whole record, scarcity funnel included, was measured
 **trumps-declared-first** — inside a per-declaration coordinate frame. It is
 evidence about that frame; it is not a measurement of the constellation space of
@@ -131,7 +134,12 @@ unification, the suit-permutation transports).
   slough pattern, and pairwise precedence among the living. Identity is the whole
   thing **up to relabeling the vertices** — that is the entire content of
   colors-not-letters. Canonical form = lex-min over color relabelings (precedent:
-  [minimal-support-normal-form](minimal-support-normal-form.md)).
+  [minimal-support-normal-form](minimal-support-normal-form.md)). Vocabulary
+  split (2026-08-01, x:012 referee finding): the **rule-free carrier skeleton**
+  is the poorer object with edges + count labels only — no standings, no
+  precedence — and it is what the 37/486/4,767 counts and the x:012 staircase
+  enumerate; the **carrier** as defined here bears standings. Both were loosely
+  "carrier" before this date; any number must say which object it counts.
 - **The universe is K7-with-loops.** The 28 dominoes are exactly the edges of the
   complete graph on the 7 pips, loops included (21 + 7). A **realization** is an
   embedding of the constellation's graph into K7-with-loops — injective on colors —
@@ -177,7 +185,18 @@ unification, the suit-permutation transports).
   step — bisimulation). That is the round-2 gate, and it falls out of the
   enumeration architecture rather than preceding it; where realizations disagree,
   the predicted reachability-shaped failure is caught with the witness pair in
-  hand.
+  hand. **Answered at the exchange tier, 2026-08-01 (x:009,
+  [claim-ledger](claim-ledger.md)): value-invariance (C1) is PROVED for the
+  declaration-free key, and backward commutation for that same key is REFUTED** —
+  zeroes-trump/doubles-trump witness, predecessor trick `2:1, 2:2, 3:1, 3:0`,
+  exhaustive zero-embedding exclusion, confirmed 3/3 with two referee routes
+  disjoint from the responder's. The failure is embeddability-shaped in exactly
+  this micro-CSP sense (NOT typed reachability — feasible ≠ reachable, no REACH-*
+  impact): the pooling that the key buys forward is precisely what breaks the
+  naive backward step, so the concretize-and-re-abstract loop above is mandatory
+  architecture, not an implementation convenience. Open sharpening (panel,
+  2026-08-01): does backward commutation also fail *within a fixed declaration*?
+  Local rob probe, same shape as existing instruments — no dispatch needed.
 - **Two quotients are in play; induction keeps the finer one.** A follower's suit
   membership is not intrinsic (`A2|*`: second standing in the led suit and off-suit
   chaff both lose to `A1` at the last trick) — some distinctions are
@@ -194,12 +213,18 @@ unification, the suit-permutation transports).
    trump declarations, grouped by constellation; load-bearing for §5's pooling
    claim and the measure of how much of the 9→3 transport collapse (x:004) extends
    dynamically to suffixes. *Status: verified exhaustively at k=1 by census (§7);
-   open for k ≥ 2, where choice enters.*
+   at k=2, owned by `constellation_k2_probe.rs` (817,896 checks, 279,732
+   cross-declaration groups, zero divergences — dispatch 009's program adds
+   nothing here beyond the already-proved 2↔3 transport); now subsumed for all
+   depths by the C1 exchange-tier proof (x:009), pending Lean.*
 3. **True retrograde enumeration** — enumerate constellations directly at depth k,
    count realizations per constellation via the embedding check (the reachability
    census of the idea), and back-value constellations instead of positions, with
-   the per-class commutation audit of §5 asserted inside the loop. The scarcity
-   funnel above prices the compression available.
+   the per-class commutation audit of §5 asserted inside the loop — **the audit is
+   now mandatory, not optional** (x:009 refuted pooled-key backward commutation,
+   §5): either the backward-walk key retains the declaration (weaker pooling) or
+   predecessor sets are computed per realization, never per pooled representative.
+   The scarcity funnel above prices the compression available.
 4. **Convergence with world selection** — a constellation whose realizations all
    share a minimax value is exactly the "scenario" unit
    [field/directions](field/directions.md) wants for salience and world selection;
@@ -229,9 +254,22 @@ Reachability deliberately ignored (enumeration side only). Full sweep ~4 s.
   §5 pooling license at this depth, verified by census rather than sample. The
   load-bearing cross-declaration question stays open for k ≥ 2, where choice
   enters (§6.2).
-- **Scratch numbers promoted to instrument output:** 486 role-free carriers and
-  4,767 role-decorated carriers (the 2026-08-01 scratch census values) are
-  reproduced through the algebra.
+- **Scratch numbers promoted to instrument output — and externally corroborated:**
+  486 role-free and 4,767 role-decorated **rule-free carrier skeletons** (§5
+  vocabulary split) are reproduced through the algebra, and now carry
+  exchange-adjudicated confirmation via the x:012 staircase (a₄=37 pure;
+  b₈=126,657 at the k=2 layer; full closed-form rows in
+  [claim-ledger](claim-ledger.md)) — feasibility counts, never reachable-position
+  counts. Convention note: the corpus fine count 15,680 pools the opponent swap;
+  the dispatch-literal ordered-opponent count is 31,197; 009's 19,329 is a
+  non-invariant artifact and is not quotable. The 15,680 was independently
+  reproduced by two x:009 referees under swap pooling.
+- **Instrument hygiene (panel finding, 2026-08-01):** the two rob instruments
+  quotient differently — `constellation_k1_census.rs` pools the opponent swap
+  (seats 1↔3), which the dispatch's Con definition (hold ∈ {0,1,2,3}) does not
+  license and which is safe at k=1 only because the forced outcome is
+  parity-invariant; `constellation_k2_probe.rs` canonicalizes only within-hand
+  swaps. Cross-instrument class counts are therefore not directly diffable.
 - **The carrier and the constellation are cross-cutting quotients, not nested.**
   Summing fine-constellations-per-carrier gives 81,314, yet only 15,680 distinct
   fine keys exist — each relational pattern is realized by ~5 carriers on

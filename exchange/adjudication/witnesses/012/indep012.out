@@ -1,0 +1,12 @@
+indep a[0..28] = [1, 2, 5, 14, 37, 98, 252, 585, 1239, 2396, 4135, 6340, 8630, 10381, 11034, 10381, 8630, 6340, 4135, 2396, 1239, 585, 252, 98, 37, 14, 5, 2, 1]
+indep sum a = 79264
+indep a4 = 37
+indep j=0: a=1 (cycidx 1) b=1
+indep j=1: a=2 (cycidx 2) b=5
+indep j=2: a=5 (cycidx 5) b=22
+indep j=3: a=14 (cycidx 14) b=104
+indep j=4: a=37 (cycidx 37) b=486
+indep j=5: a=98 (cycidx 98) b=2233
+indep b4 (2nd route) = 486
+indep role_decorated = 4767
+starting b8 ...

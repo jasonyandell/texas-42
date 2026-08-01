@@ -149,7 +149,13 @@ K7-with-loops up to color relabeling). Frozen 2026-08-01: **zero outcome
 collisions on either key pooled across all nine declarations**; ladder 2,211,300
 → 15,680 fine → 1,753 coarse → 14 outcomes; carriers 486 role-free / 4,767
 role-decorated; carrier and relational quotients measured as cross-cutting (sum
-of per-carrier fine keys 81,314 vs 15,680 distinct). Findings and framing in
+of per-carrier fine keys 81,314 vs 15,680 distinct). External corroboration
+(2026-08-01): 15,680 reproduced by two x:009 referees under swap pooling;
+486/4,767 confirmed at exchange tier by the x:012 staircase (instrument itself
+stays exploratory). Hygiene (x:009 panel): this instrument pools the opponent
+swap — safe at k=1 only by parity-invariance of the forced outcome — while
+`constellation_k2_probe.rs` canonicalizes only within-hand swaps; class counts
+across the two are not directly diffable. Findings and framing in
 [idea-retrograde-rank](idea-retrograde-rank.md) §7.
 
 ### `constellation_k2_probe.rs` — k=2 suffix minimax vs the constellation key

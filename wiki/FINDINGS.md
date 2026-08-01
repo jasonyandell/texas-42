@@ -81,6 +81,16 @@ exactly. Reproduction requires nothing but Python 3.12 stdlib.
 
 ## 4. Strongest results (my ranking)
 
+*Addendum 2026-08-01 (exchange batch, [claim-ledger](claim-ledger.md) rows 9–10):*
+**C1 — suffix minimax factors through the declaration-free constellation**
+(adversarially step-checked proof, external tier, Lean pending), with its
+counterweight: **backward commutation for the pooled key REFUTED**
+(exchange-adjudicated CONFIRMED witness) — value pools across declarations
+forward, but the backward step must go through realizations. Plus the
+**carrier-skeleton staircase in closed form** (x:012 CONFIRMED: a₄=37, b₄=486,
+b₈=126,657, role-decorated 4,767, Σa=79,264). Owning page:
+[idea-retrograde-rank](idea-retrograde-rank.md) §§5,7.
+
 1. **Cell losslessness + fixed-history bijection** (CELL-05/07) — the license for
    everything downstream: exact hidden-state tracking with no history replay.
 2. **The global support quotient + 81-bit census** (CELL-14, CELL-27) — a genuine
