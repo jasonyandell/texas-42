@@ -1,0 +1,13 @@
+{
+  "tag": "011-constellation-lean-formalization",
+  "number": "11",
+  "slug": "constellation-lean-formalization",
+  "channel": "new-chat",
+  "conversationUrl": "https://chatgpt.com/c/6a6da27e-3cfc-83e8-9a7e-e01d0ebdecad",
+  "submittedAt": "2026-08-01T07:38:40.804Z",
+  "baselineAssistantCount": 0,
+  "attachments": [
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/10_RULES.md",
+    "ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/20_MATHEMATICAL_FOUNDATION.md"
+  ]
+}

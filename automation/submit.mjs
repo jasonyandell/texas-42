@@ -20,7 +20,11 @@ import path from 'node:path';
 
 const STANDING = 'https://chatgpt.com/c/6a64ccec-2328-83ea-b0d1-917f487297a2';
 const COUNT_FILE = path.join(ROOT, 'exchange', 'submission_count.txt');
-const HARD_CAP = 10;
+// Jason 2026-08-01: the fixed lifetime cap was wrong framing (quota is
+// monthly pacing, cleared with him per batch). Explicit go for up to 8
+// submissions on Aug 1 on top of the 9 already spent -> ceiling 17 for
+// this batch. Clear a new ceiling with Jason before raising again.
+const HARD_CAP = 17;
 
 const dispatchFile = process.argv[2];
 if (!dispatchFile) { console.error('usage: submit.mjs <dispatch.md>'); process.exit(1); }
