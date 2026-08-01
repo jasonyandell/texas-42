@@ -197,6 +197,12 @@ unification, the suit-permutation transports).
   architecture, not an implementation convenience. Open sharpening (panel,
   2026-08-01): does backward commutation also fail *within a fixed declaration*?
   Local rob probe, same shape as existing instruments — no dispatch needed.
+  **DECLINED (2026-08-01, Jason's call):** trump-consistent
+  (within-fixed-declaration) backward-commutation probe declined as decl-shaped —
+  trump is absorbed into standings at declaration and is not a parameter of the
+  backward dynamics. The backward direction proceeds via realization walking and
+  constraint factorization, not per-declaration commutation. Idea-tier note; the
+  sharpened question above stays on the record, unanswered by choice.
 - **Two quotients are in play; induction keeps the finer one.** A follower's suit
   membership is not intrinsic (`A2|*`: second standing in the led suit and off-suit
   chaff both lose to `A1` at the last trick) — some distinctions are
