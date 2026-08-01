@@ -2,7 +2,7 @@
 number: 9
 slug: constellation-suffix-factorization
 channel: new-chat
-status: DRAFT — not cleared for submission (quota must be cleared with Jason first; no .ready until his explicit go)
+status: cleared by Jason 2026-08-01 (explicit go, quota confirmed: up to 8 requests Aug 1)
 attachments:
   - ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/10_RULES.md
   - ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/20_MATHEMATICAL_FOUNDATION.md
@@ -30,7 +30,7 @@ The **constellation** of X is the relational structure Con(X) with universe L an
 
 Two suffix positions X, X' (possibly under DIFFERENT declarations) are **constellation-equivalent**, X ~ X', iff some bijection phi: L -> L' preserves hold, c, FOLLOW, and ORD exactly. Note ~ deliberately pools all nine declarations: trump-ness enters only through the FOLLOW/ORD relations it induces; the name is forgotten.
 
-Context for calibration (frozen instrument output exists on the corpus side; your program must compute its own numbers, ours are withheld deliberately): at k=1, exhaustively, the forced-trick outcome is constant on every ~-class across all nine declarations pooled; substitution probes at k in {1,2,3} within fixed declarations found tens of thousands of value agreements and zero divergences. Nothing beyond that is established: no theorem, no cross-declaration evidence for k >= 2. That is the gap you are hired to close or blow open.
+Context for calibration (frozen instrument output exists on the corpus side; your program must compute its own numbers, ours are withheld deliberately): at k=1, exhaustively, the forced-trick outcome is constant on every ~-class across all nine declarations pooled; substitution probes at k in {1,2,3} within fixed declarations found tens of thousands of value agreements and zero divergences; and an exhaustive k=2 census over fixed 10-tile sub-universes found hundreds of thousands of within-class exact-minimax agreements, a large fraction cross-declaration, with zero divergences. Nothing beyond that is established: no theorem, and no evidence outside those sub-universes. Empirics this one-sided usually mean a theorem is standing behind them; find it or find the crack they missed.
 
 ## 3. THE TASK
 

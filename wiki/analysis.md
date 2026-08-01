@@ -152,6 +152,18 @@ role-decorated; carrier and relational quotients measured as cross-cutting (sum
 of per-carrier fine keys 81,314 vs 15,680 distinct). Findings and framing in
 [idea-retrograde-rank](idea-retrograde-rank.md) §7.
 
+### `constellation_k2_probe.rs` — k=2 suffix minimax vs the constellation key
+
+`rob/crates/verify/tests/constellation_k2_probe.rs`. Enumerates every k=2 suffix
+position over fixed 10-tile sub-universes (C(10,8) sets × 2,520 hand assignments
+× 9 declarations; census within the sub-universe, not a sample), groups by the
+k=2 constellation key (no pip names, no declaration name; within-hand swaps
+canonicalized), and solves exact minimax for every member of every multi-member
+group. Frozen 2026-08-01: 2,041,200 positions, 454,920 multi-member groups
+(279,732 cross-declaration), **817,896 value checks, zero divergences** — the
+first k≥2, cross-declaration evidence for the suffix-factorization conjecture.
+Findings in [idea-retrograde-rank](idea-retrograde-rank.md) §7.
+
 ## Planned instruments
 
 *(named by Jason, 2026-07-28. Exploratory, and deliberately without a schedule — the

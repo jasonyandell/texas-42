@@ -245,6 +245,17 @@ Reachability deliberately ignored (enumeration side only). Full sweep ~4 s.
   finer than the value key at k=1 (15,680 vs 1,753). What backing up actually
   requires sits between them; the commutation audit (§5) will locate it.
 
+**k=2, where choice enters** (instrument:
+`rob/crates/verify/tests/constellation_k2_probe.rs`, frozen 2026-08-01): over two
+10-tile sub-universes, every k=2 suffix position — all C(10,8) live sets × 2,520
+hand assignments × 9 declarations = 2,041,200 positions, a census within each
+sub-universe, not a sample — grouped by the k=2 constellation key (within-hand
+swaps canonicalized; holders load-bearing). 454,920 multi-member groups, 279,732
+of them pooling **different declarations**; exact both-teams-optimal minimax
+solved for every member: **817,896 value checks, zero divergences**. First
+cross-declaration evidence at a depth with genuine decisions; scope caveat: two
+10-tile sub-universes, nothing asserted beyond them.
+
 ## 8. The epistemic layer (Jason, 2026-08-01 — captured, unearned)
 
 Before the first trick the game is imperfect-information *in constellation
