@@ -273,7 +273,10 @@ Recorded 2026-07-27. Five verification programs from the Claude ↔ ChatGPT 5.6 
 exchange were executed here unmodified from `exchange/adjudication/programs/`; each
 result is **exchange-adjudicated CONFIRMED** (program `ALL_PASS`; 3/3 adversarial
 referees SOUND) — a new external tier, **not** a proof-assistant kernel proof (TRUST-01).
-See [claim-ledger](claim-ledger.md) for the full set.
+See [claim-ledger](claim-ledger.md) for the full set. A second adjudication batch ran
+2026-08-01 (`programs/009.py`, `010.py`, `012.py` — the constellation batch); its run
+stats, verdicts, and caveats live in the [claim-ledger](claim-ledger.md) rows and the
+[exchange README](../exchange/README.md) ledger, which own them.
 
 - **Census integers independently reproduced** (dispatch 005): all 19 load-bearing
   census integers — previously single-source verifier receipts — were reproduced by an

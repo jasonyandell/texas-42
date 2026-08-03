@@ -1,6 +1,6 @@
-[Home](Home.md) · owns: the seat-level context frame (the player's maintained state) · Sources: conversation-tier (Jason + Claude, 2026-08-01→03); builds on [idea-retrograde-rank](idea-retrograde-rank.md); informal capture [`exchange/informal/2026-08-03-domino-constellations-theory.md`](../exchange/informal/2026-08-03-domino-constellations-theory.md) (unadjudicated)
-
 # Idea: seat-level context — the player's state as a fold over history
+
+[Home](Home.md) · owns: the seat-level context frame (the player's maintained state) · Sources: conversation-tier (Jason + Claude, 2026-08-01→03); builds on [idea-retrograde-rank](idea-retrograde-rank.md); informal capture [`exchange/informal/2026-08-03-domino-constellations-theory.md`](../exchange/informal/2026-08-03-domino-constellations-theory.md) (unadjudicated)
 
 **EXPLORATORY / IDEA TIER.** Nothing on this page is adjudicated, kernel-proved, or receipt-backed. It records a framing developed in conversation. The central question (§2) is **deliberately unresolved at Jason's request** — do not treat either reading as settled.
 

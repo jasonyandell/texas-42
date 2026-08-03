@@ -3,7 +3,9 @@
 [Home](Home.md) · owns: the overall assessment — what the object is, strongest
 results, risks, next questions. Written 2026-07-26 (exhaustive read of both packages,
 all verifiers executed, doc-by-doc comparison); updated 2026-07-27 with the exchange
-adjudications and rob receipts. Citations per [Home](Home.md) (v0.7 / rec).
+adjudications and rob receipts; addenda 2026-08-01/-02 (the constellation exchange
+batch, §4; the PA-E10 kernel tier, §4 item 3). Citations per [Home](Home.md)
+(v0.7 / rec).
 
 ---
 

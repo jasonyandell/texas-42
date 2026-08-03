@@ -1,7 +1,7 @@
 ---
 title: Review memo — "Domino Constellations Theory" ChatGPT thread
 reviewed: 2026-08-03
-subject: ./capture.md
+subject: ./2026-08-03-domino-constellations-theory.md
 tier: |
   EXPLORATORY / IDEA TIER, and this memo is too. The reviewed thread is an informal
   ChatGPT conversation outside the exchange courier protocol: it consumes no dispatch

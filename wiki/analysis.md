@@ -28,7 +28,7 @@ manufacture a fact, or leak information the viewer does not hold.
 
 ## Existing instruments
 
-*(state of the repo, 2026-07-28)*
+*(state of the repo, 2026-08-01)*
 
 ### The inspector — the per-decision contingency book
 

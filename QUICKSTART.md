@@ -19,8 +19,8 @@ with exact information-set machinery.
 | `ingest/` | Two immutable spec packages, **v0.7** and **rec** | **Never modify.** Each has a verifying `MANIFEST.sha256` |
 | `wiki/` | Reconciled map: what's proved, at what tier, what's open | Yes — it's the living synthesis |
 | `rob/` | The Rust engine: executable spec + byte-diffed receipts, the evening player v0, the HTML inspector | Yes, per its BRIEFs |
-| `exchange/` | Courier channel to ChatGPT 5.6 Pro for adversarial research; dispatches authorized in batches, quota agreed per batch (count and ceiling in `exchange/submission_count.txt`) | Per [pro-exchange protocol](exchange/README.md) |
-| `lean/` | Lean 4 kernel formalization, just begun | Yes |
+| `exchange/` | Courier channel to ChatGPT 5.6 Pro for adversarial research; dispatches authorized in batches, quota agreed per batch (count in `exchange/submission_count.txt`; batch ceiling `HARD_CAP` in `automation/submit.mjs`) | Per [pro-exchange protocol](exchange/README.md) |
+| `lean/` | Lean 4 + mathlib kernel formalization — all 42 priority-0 rows kernel-proved (2026-08-02) | Yes, per [lean/PROOFS.md](lean/PROOFS.md) |
 
 ## Non-negotiables (every session, every task)
 
@@ -63,7 +63,7 @@ shortcut. The minimal exact decision state is the reduced viewer kernel, proved
 strictly finer than the true quotient via the dead-cut lemma
 ([reduced-viewer-kernel](wiki/reduced-viewer-kernel.md), x:003).
 
-## Current state (2026-07-28)
+## Current state (2026-08-03)
 
 - **rob slices 01+02 green**: eleven byte-diffed receipts reproducing every ingest
   number, plus the x:001 floor family (S10). Full inventory:
@@ -73,28 +73,41 @@ strictly finer than the true quotient via the dead-cut lemma
   hands (`r_mat_paired`). The inspector (`rob/inspector/`) shows every decision's
   plan tree and openings table; probes and rigs are cataloged in
   [analysis](wiki/analysis.md).
-- **Exchange: all 8 dispatches adjudicated CONFIRMED** (001–008; later batches are
-  authorized per batch, see `exchange/submission_count.txt`). Results table:
-  [claim-ledger](wiki/claim-ledger.md). Headlines:
-  interval [36,45] bits (x:001/006/007), no-void stratum exactly 624,892,870
-  (x:008), outer language not tight + fifth condition (x:002), kernel-vs-quotient
-  COLLAPSE (x:003), transport 9→3 collapse (x:004), all 19 census integers
-  independently reproduced (x:005).
-- **Lean begun**: `card Domino = 28` and `∑ countPoints = 35`, no `sorry`
-  ([proof-assistant-plan](wiki/proof-assistant-plan.md) — the K0–K15 spine).
+- **Exchange: dispatches 001–015 sent** (count 16 — one double-send — against batch
+  ceiling 17). 001–008 adjudicated CONFIRMED; the 2026-08-01 constellation batch:
+  009 **PARTIAL** (C1 proof chain survived 3/3; pooled-key backward commutation
+  REFUTED), 010 **CONFIRMED** (R1: realizable = reachable at k=1), 012 **CONFIRMED**
+  (carrier-skeleton staircase); the Lean thread 011/013/015 iterated without a panel
+  (Stages 1–2 GREEN); 014 an informal capture (unadjudicated). Results table:
+  [claim-ledger](wiki/claim-ledger.md). Standing headlines: interval [36,45] bits
+  (x:001/006/007), no-void stratum exactly 624,892,870 (x:008), outer language not
+  tight + fifth condition (x:002), kernel-vs-quotient COLLAPSE (x:003), transport
+  9→3 collapse (x:004), all 19 census integers independently reproduced (x:005).
+- **Lean: all 42 priority-0 rows kernel-proved** (2026-08-02; last row PA-E10, the
+  90-world witness internalized whole; no `sorry`, no `native_decide`, standard
+  axioms only) — plus the constellation thread's self-contained Stage 1/2 files
+  (x:013/x:015, not yet reconciled with the main layers).
+  [proof-assistant-plan](wiki/proof-assistant-plan.md) has the scoreboard.
 
 ## The live frontier
 
 - **OPEN-11** — exact reachable-support census; void-context strata still open
   ([open-problems](wiki/open-problems.md), [FINDINGS Q1](wiki/FINDINGS.md)).
+- **The constellation direction** (idea tier —
+  [idea-retrograde-rank](wiki/idea-retrograde-rank.md)): backward induction over
+  constellations, with exchange-tier anchors C1 (x:009 proof chain), R1 (x:010),
+  and the x:012 staircase; C1's Lean mechanization is iterating in the exchange
+  Lean thread. The seat-level frame is captured at
+  [idea-seat-context](wiki/idea-seat-context.md) (deliberately unresolved).
 - **The trick-3 solve wall** (~756,756-world fibers, 10–17s/decision) and the
-  [hierarchical-fibers](wiki/idea-hierarchical-fibers.md) idea aimed at it (rung 1
-  math is in hand; rungs 2–3 need theorems).
+  [hierarchical-fibers](wiki/idea-hierarchical-fibers.md) idea aimed at it
+  (round 1 complete: rung 1 priced, rung 2 falsified as stated, rung 3 realized
+  via decomposable bounds — see the idea page).
 - **rob slice 03 targets**: reproduce x:007 (filtered census) and x:008 (no-void
   slice) in Rust; the belief/filtering layer with the 90-world regression is the
   unassigned slice 6 ([first-implementation-slice](wiki/first-implementation-slice.md)).
-- **Mechanization**: Priority-0 ledger rows, the 90-world witness as a named kernel
-  theorem.
+- **Mechanization**: the priority-1 tiers and the PA-A12/B04 reflection targets
+  ([proof-assistant-plan](wiki/proof-assistant-plan.md) — priority 0 is closed).
 
 ## Traps that have bitten before
 
