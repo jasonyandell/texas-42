@@ -73,12 +73,25 @@ Zero-probability observation segments contribute zero with junk successors,
 as §10.2 stipulates. (The Straight-42 instantiation of this process — wiring
 `CertifiedState`/`physicalBelief` into a concrete `BeliefProc` — belongs to
 the E08+/priority-1 tier.)
-**Priority-0 scoreboard: 41 of 42 rows kernel-proved.** Open P0: PA-E10 —
-the §10.4 exact legal 90-world posterior/action-reversal witness (named in
-the acceptance standard): same mechanical endpoint, same 90-world fiber and
-posterior support under two auction histories, opposite optimal leads. Its
-internalization needs the endpoint state, the 90-world fiber enumeration, the
-two Bayes posteriors, and exact deterministic rollouts — the final P0 slice.
+**The 90-world witness internalized: PA-E10 kernel-proved — Layer P0
+complete.** `lean/Texas42/Witness.lean` carries §10.4 whole: the endpoint
+(contract `P(31)` no-trump, five-trick prefix, six-tile pool) with its cells
+computed from the public record; the 90-world fiber enumerated and proved
+exactly equal to the cell fiber (`isWorld_iff`), every world realized by a
+rule-compatible deal that legally replays the prefix (90 kernel replays);
+both auction histories legal, distinct, same result; the two Bayes
+posteriors with identical full support; and the value columns from 180
+kernel-evaluated deterministic lowest-ID rollouts of the committed
+`PlayState.step` — reproducing §10.4's anchor values and exact class means
+(`-160/21, 10/7, -217/30, -52/5`; make `1/3, 16/35, 1/3, 1/5`) — closing
+with `ninety_world_witness`: opposite optimal leads under both the
+expected-differential and contract-make lenses. Mechanical state alone is
+not an exact strategic state; no external receipt was imported (TRUST-01).
+**Priority-0 scoreboard: 42 of 42 rows kernel-proved. The first-release
+target of the mechanization ledger is closed.** Next tiers: priority-1 rows
+(C08 Hall specialization, C11 counting DP, D06 factorization, E04–E06,
+E08–E09, B11–B14, D11–D16), the PA-A12/B04 reflection targets, and the
+game-level `BeliefProc` instantiation.
 
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 

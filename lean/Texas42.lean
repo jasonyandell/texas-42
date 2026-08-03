@@ -11,3 +11,4 @@ import Texas42.Reduction
 import Texas42.NormalForm
 import Texas42.Belief
 import Texas42.Strategic
+import Texas42.Witness

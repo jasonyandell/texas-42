@@ -88,6 +88,49 @@ don't either) — use the spec's analytic argument instead
   mathlib's Hall theorem over `(s : H) × Fin (r s)`; group Hall
   conditions per seat-set dominate arbitrary slot subsets
   (`exists_partition_of_hall` in `NormalForm.lean`).
+- **Kernel `decide` over concrete families**: never quantify over a
+  `Finset`-membership subtype (attach/pmap normal forms stall the
+  kernel) — index by `Fin n` into an explicit computable `List`, tied
+  back to the set-level enumeration by one decidable image equality.
+- **No ℚ inside `decide`**: `Rat` normalization runs `Nat.gcd`
+  (well-founded — does not kernel-reduce). Compute every heavy moment
+  in ℤ/ℕ by `decide`, and lift to exact rationals analytically
+  (`exp_weight_ratio`-style ratio lemmas + `push_cast`/`norm_num`).
+- **Opaque indicators for `FinPMF.exp`**: a bare `if`-term inside an
+  expectation makes `rw`-unification evaluate the condition (here: full
+  game rollouts) — wrap it in a named def (`makeInd`) so matching stays
+  syntactic.
+- **One-pass state fingerprints**: kernel reduction has no sharing;
+  eight projections of a replayed state cost eight replays. Pattern
+  -match the state once into a tuple (`encodeState`) and compare the
+  tuple.
+- **Amortize repeated kernel evaluation through verified tables**:
+  `decide` each expensive column once into a literal table
+  (`Q31_table : ∀ i, Q … = table.get …`), then every downstream sum is
+  cheap arithmetic after `simp only [table]`.
+- **`decide +kernel` for anything that evaluates game machinery**: plain
+  `decide` evaluates the proposition in the *elaborator* (`Meta.whnf`) —
+  orders of magnitude slower than the kernel, gigantic terms, no
+  sharing. The full 90-world witness (180 rollouts + 90 replay checks)
+  is 33 s under `decide +kernel` and OOM-killed the machine after 16 h
+  under plain `decide`. Same proof term, same axioms.
+- **Never put a heavy `decide` inside `refine ⟨…⟩`**: a `by decide`
+  filling a `refine`-created metavariable makes unification (`isDefEq` /
+  «synthesize pending MVars») symbolically evaluate the proposition —
+  the two-day hang was `refine ⟨by decide, …⟩` on four rollout anchors,
+  at line 144, blocking everything after it. State the components as
+  top-level lemmas and assemble with `exact ⟨l₁, …⟩`.
+- **`synthInstance.maxSize` for wide product `DecidableEq`**: an
+  8-component tuple with four `Finset` fields overflows the default
+  instance-size cap (128) even though every component synthesizes —
+  the failure says "failed to synthesize", not "timeout". Raise it per
+  theorem (`set_option synthInstance.maxSize 2000 in`).
+- **A silent long run is a hang until proven otherwise**: bound every
+  declaration with default heartbeats in a diagnostic pass — the
+  spinning declaration errors out *by name* in minutes. `sample <pid>`
+  distinguishes elaborator frames (`Meta_ExprDefEq`, `Elab_Term`) from
+  kernel evaluation; elaborator-dominant on a `decide` file means the
+  slow path is being taken.
 
 ## Build mechanics
 

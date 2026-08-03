@@ -158,6 +158,29 @@ prose-resolver agreement), which is a deliberate later reflection target.
   fixed-field best-response value over any finite strategy class is a
   function of `B`.
 
+- `Texas42/Witness.lean` — **the exact legal 90-world witness**
+  (PA-E10, Math §10.4; K15's named theorem):
+  - the §10.4 endpoint internalized — contract `P(31)` no-trump by
+    seat 3, the five-trick public prefix, the six-tile pool, and the
+    endpoint cells computed from the public record (voids, capacities,
+    pool) by kernel evaluation;
+  - the 90-world fiber enumerated (`Fin 90`-indexed, tied to the
+    `powersetCard` cells by decidable image equality) and characterized:
+    `isWorld_iff` proves the cell fiber is exactly the 90 worlds, and
+    `rule_fiber` realizes every world by a rule-compatible complete
+    deal replaying the prefix legally (90 kernel replays);
+  - both §10.4 auction histories legal, distinct, same result;
+  - the two Bayes posteriors (PA-E02 conditioning of the uniform fiber
+    prior), with identical full support;
+  - the value columns `Q(·, 3:1)`, `Q(·, 4:1)` kernel-verified by 180
+    deterministic lowest-ID rollouts of `PlayState.step`, matching
+    §10.4's anchors and class means exactly (`-160/21, 10/7, -217/30,
+    -52/5`; make probabilities `1/3, 16/35, 1/3, 1/5`);
+  - **`ninety_world_witness`** — same mechanical endpoint, same
+    90-world fiber, same posterior support, opposite optimal leads
+    under both the expected-differential and contract-make lenses.
+    Mechanical state alone is not an exact strategic state.
+
 All theorems depend only on the standard axioms
 (`propext`, `Classical.choice`, `Quot.sound`) — no `sorry`, no `native_decide`.
 
