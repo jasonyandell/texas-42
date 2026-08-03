@@ -1,3 +1,16 @@
 import Texas42.Basic
+import Texas42.Trick
+import Texas42.Transport
+import Texas42.Auction
+import Texas42.Deal
+import Texas42.Play
+import Texas42.Cells
+import Texas42.Reachability
+import Texas42.Information
+import Texas42.Reduction
+import Texas42.NormalForm
+import Texas42.Belief
+import Texas42.Strategic
+import Texas42.Witness
 import Texas42.ConstellationCore
 import Texas42.ConstellationSuffix

@@ -7,10 +7,91 @@ v0.7 supplies the trust boundary, type discipline, priorities, and milestones; r
 the dependency spine covering its new mathematics. Related:
 [verification](verification.md), [open-problems](open-problems.md).
 
-**Status (2026-07-27): mechanization has started.** [`lean/`](../lean/README.md) is a
-Lean 4 + mathlib Lake project; first kernel theorems landed on the K0/K1 layer:
-`Fintype.card Domino = 28` (PA-A02) and `∑ d, countPoints d = 35` (PA-A04), both
-depending only on the standard axioms — no `sorry`, no `native_decide`.
+**Status (2026-07-28): K0–K3 landed.** [`lean/`](../lean/README.md) is a Lean 4 +
+mathlib Lake project. Kernel theorems now cover the K0/K1 layer —
+`Fintype.card Domino = 28` (PA-A02), the natural incidence covering and pair
+intersections (PA-A03), `∑ d, countPoints d = 35` (PA-A04) — and the K2/K3
+declaration algebra: nine declarations, effective suits with membership bounds and
+called absorption (PA-A05/A06), follow exactness (PA-A07), rank/tier/trick key
+(PA-A08), lead-nonzero-tier (PA-A09), key injectivity in nonzero tiers (PA-A10),
+and the **unique trick winner** (PA-A11) — proved via key injectivity as the spine
+demands, not by enumerating the 737,100 cases (that receipt stays PA-A12,
+reflection, open). **Layer A is now complete** apart from PA-A12: BEATS exactness
+(PA-A13), threat monotonicity (PA-A14), the lead-threat incompleteness witness
+(PA-A15), the count-preserving classification `σ ∈ {id, 2↔3}` by the analytic
+forcing argument (PA-A16), and the scoped `2↔3` transport — order-isomorphic
+exactly between layers 2 and 3 (PA-A17). All depend only on the standard axioms —
+no `sorry`, no `native_decide`. Working discipline: [`lean/PROOFS.md`](../lean/PROOFS.md).
+**Layer B core landed (K5)**: the auction machine with the `min(cap,5)` mark
+ceiling (PA-B01–B03), deal worlds (PA-B05 define), contract (PA-B06), the reduced
+play state with legal-set characterization (PA-B07/B08), invariant-preserving
+atomic transition (PA-B09), and conservation — 28 plays, seven tricks, 42 points
+(PA-B10). Open in B: deal cardinalities (B05), auction census (B04, reflect),
+graded-DAG/Markov/settlement rows (B11–B14).
+**Layer C keystone landed (K6/K8): the losslessness theorem is kernel-proved.**
+`lean/Texas42/Cells.lean` builds the public-record machine (played-by-seat,
+voids, upper-bound-only updates — PA-C01/C02/C06), the coherence invariant with
+void soundness, the derived cells and fiber (PA-C03/C04), and proves
+`Φ(c) = ρ(Ω(I))` — soundness directly from coherence, completeness by the spec's
+four-case induction (PA-C05/C07), plus the fixed-history bijection (PA-C09) and
+viewer-play identity (PA-C10). Mechanization finding: the reverse construction
+uses a fact implicit in the prose — a hidden seat's played tile must respect its
+own previously recorded voids (derived from true-trajectory void soundness).
+Remaining P0 in C: none — C01–C07/C09/C10 are covered; C08 Hall (P1) and the
+counting DP (C11) are the next C-layer targets.
+**Also landed**: PA-D09/D10 (Reachable + CertifiedState), PA-F05 (mechanical ≠
+information, the §6.6 witness), the generic K7 cell kernel with the §7.9
+canonical reduction and its coarsest-exact-quotient theorem (PA-C15 backbone),
+and the finite belief layer PA-E01–E03 (rational FinPMF, Bayes conditioning
+with normalization and the chain rule, policy-kernel history likelihood,
+posterior, pushforward) closing with `physicalBelief_support_isWorld`: the
+posterior's support lies inside the cell fiber.
+**The §7.10 support normal form landed (K9): PA-D01–D05 kernel-proved.**
+`lean/Texas42/NormalForm.lean` builds the marginal anatomy of a feasible cell
+system (certain marks, ambiguous pool, residuals, active seats), proves the
+active-seat trichotomy `{0,2,3}` with its binary/ternary holder patterns
+(PA-D01) and the §7.11 strict singleton Hall inequality, defines the validated
+`SupportNF` type with the handoff-§6 branch invariants including the §7.11
+linear ternary validator (PA-D02), and proves the full inverse suite: decode
+is feasible and reconstructs exactly the declared marginal relation via a
+generic capacitated Hall lemma (slot expansion into mathlib Hall — also the
+PA-C08 groundwork), `decode ∘ compile = red`, `compile ∘ decode = id`
+(PA-D03/D04), and the global classification `Φ(C) = Φ(Q) ↔ 𝒩̄(C) = 𝒩̄(Q)`
+over all systems, feasible or not (PA-D05). No solver is imported anywhere —
+feasibility flows from the linear validator through Hall, exactly as §7.11
+promises.
+**Strategic sufficiency landed: PA-E07 kernel-proved.**
+`lean/Texas42/Strategic.lean` formalizes §§10.1–10.2 finite-first: a generic
+finite-horizon viewer decision process with latent state (Markov
+observation/latent kernel, exact record transition, Bayes filter, segment
+reward, terminal utility) in which the §10.2 Bellman recursion in `(s, β)`
+provably integrates the ground-truth latent value at every horizon — so every
+fixed admissible strategy's expected value, and any finite-class best
+response, is a function of the strategic state `B = (c, e, β)` alone, by
+backward induction on the remaining-play grade exactly as §10.1 argues.
+Zero-probability observation segments contribute zero with junk successors,
+as §10.2 stipulates. (The Straight-42 instantiation of this process — wiring
+`CertifiedState`/`physicalBelief` into a concrete `BeliefProc` — belongs to
+the E08+/priority-1 tier.)
+**The 90-world witness internalized: PA-E10 kernel-proved — Layer P0
+complete.** `lean/Texas42/Witness.lean` carries §10.4 whole: the endpoint
+(contract `P(31)` no-trump, five-trick prefix, six-tile pool) with its cells
+computed from the public record; the 90-world fiber enumerated and proved
+exactly equal to the cell fiber (`isWorld_iff`), every world realized by a
+rule-compatible deal that legally replays the prefix (90 kernel replays);
+both auction histories legal, distinct, same result; the two Bayes
+posteriors with identical full support; and the value columns from 180
+kernel-evaluated deterministic lowest-ID rollouts of the committed
+`PlayState.step` — reproducing §10.4's anchor values and exact class means
+(`-160/21, 10/7, -217/30, -52/5`; make `1/3, 16/35, 1/3, 1/5`) — closing
+with `ninety_world_witness`: opposite optimal leads under both the
+expected-differential and contract-make lenses. Mechanical state alone is
+not an exact strategic state; no external receipt was imported (TRUST-01).
+**Priority-0 scoreboard: 42 of 42 rows kernel-proved. The first-release
+target of the mechanization ledger is closed.** Next tiers: priority-1 rows
+(C08 Hall specialization, C11 counting DP, D06 factorization, E04–E06,
+E08–E09, B11–B14, D11–D16), the PA-A12/B04 reflection targets, and the
+game-level `BeliefProc` instantiation.
 
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 
