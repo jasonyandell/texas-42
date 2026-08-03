@@ -181,6 +181,32 @@ prose-resolver agreement), which is a deliberate later reflection target.
     under both the expected-differential and contract-make lenses.
     Mechanical state alone is not an exact strategic state.
 
+- `Texas42/ConstellationCore.lean` — the constellation thread's core, in its
+  own `Constellation` namespace (x:013):
+  - `Pip`, `Domino` (canonical `(high, low)` subtype), `countPoints`, the nine
+    `Declaration`s and eight `SuitContext`s, the called set, effective-suit
+    `follows` and `ledContext`;
+  - the lexicographic tier/rank trick key `trickKey : Fin 42`, with `winner`
+    and `award` on a completed `Trick`;
+  - `winner_maximal`, `positive_key_injective` (by `decide` over every
+    declaration/context/tile pair), and `unique_winner` — four distinct
+    dominoes led by the first play have a unique key-maximal winner; two
+    worked tricks are checked by kernel evaluation.
+- `Texas42/ConstellationSuffix.lean` — depth-`k` suffix play and its exact
+  value (x:015):
+  - `SuffixPos k` (four `k`-tile hands, a leader, a declaration) and the
+    `MidState` machine — `actor`, lead/follow-if-possible `legalMoves`,
+    trick-resolving `step`, with `legalMoves_subset_hand` and
+    `step_remaining`;
+  - fuel-indexed exact `minimax` over the `4 * k` remaining plays, signed
+    from the `(0,2)` partnership, and `value` with `value_k1_forced` — at
+    depth one the forced trick alone fixes the margin;
+  - two `k = 1` values (`-11`, `16`) evaluated by the kernel.
+
+  These two files are self-contained: they re-derive their own core rather
+  than importing Layers A–B, and are not yet reconciled with `Basic.lean` and
+  `Trick.lean`.
+
 All theorems depend only on the standard axioms
 (`propext`, `Classical.choice`, `Quot.sound`) — no `sorry`, no `native_decide`.
 

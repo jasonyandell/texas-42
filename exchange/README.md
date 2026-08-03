@@ -24,13 +24,21 @@ buddy pastes the body only, verbatim. `channel: continuation` means post into
 the standing conversation
 https://chatgpt.com/c/6a64ccec-2328-83ea-b0d1-917f487297a2 instead of a new chat.
 
-## Hard budget
+## Dispatch budget
 
-**Maximum 10 submissions total, ever, across all sessions** — tracked in
-`submission_count.txt` (one line, the integer count; buddy increments it
-before each send). A send only counts once visually confirmed submitted;
-a harness failure before the message leaves the composer does not count,
-but buddy must verify in the UI before retrying.
+Dispatches are authorized by Jason **in batches, each batch's quota agreed up
+front** — monthly pacing, cleared per batch, not a lifetime cap. **Never submit
+without Jason's explicit go.**
+
+The running count is `submission_count.txt` (one line, the integer count; buddy
+increments it before each send). The batch ceiling is `HARD_CAP` in
+`../automation/submit.mjs`, which refuses to submit once the count reaches it;
+raise the ceiling only for a batch Jason has authorized. As of 2026-08-03:
+**count 16, batch ceiling 17.**
+
+A send only counts once visually confirmed submitted; a harness failure before
+the message leaves the composer does not count, but buddy must verify in the UI
+before retrying.
 
 ## Prompt discipline
 
@@ -87,10 +95,10 @@ that never had a number to begin with.
 
 Adjudication run: 2026-07-27, workflow wf_775fe0ec (30 agents; programs executed unmodified from exchange/adjudication/programs/; per-response referee panel).
 
-**Budget after 008: 9/10 (1 remaining).** Incident 2026-07-27: 006 was double-sent
-~28 s apart by two operator agents during an ownership handoff race (both sends
-verified in the 001 conversation DOM; one lifetime unit wasted; the duplicate
-turn is content-harmless — Pro answers once). Root causes: the outgoing operator
+Incident 2026-07-27: 006 was double-sent ~28 s apart by two operator agents
+during an ownership handoff race (both sends verified in the 001 conversation
+DOM; one dispatch unit wasted; the duplicate turn is content-harmless — Pro
+answers once). Root causes: the outgoing operator
 submitted before its stand-down arrived, and the incoming operator sent without
 re-reading the count and re-scanning the target conversation immediately before
 send. Rule added to the skill: **in the same breath as any send — re-read
