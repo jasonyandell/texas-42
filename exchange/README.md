@@ -46,6 +46,25 @@ Deliverables must be machine-checkable where possible: explicit witnesses,
 Python that re-derives the number, Lean statements, exact fractions — so the
 answer can be verified here without trusting the model.
 
+## Informal captures (`informal/`)
+
+`informal/` holds **informal captures** — ChatGPT threads conducted outside the
+courier protocol. They are not dispatches: no number, no `outbox/` prompt, no
+adversarial deliverable contract, **no consumption of the dispatch count**, and
+no adjudication. They are named `YYYY-MM-DD-<slug>.md` (never `NNN-`), and a
+capture may be accompanied by a `.REVIEW.md` reading memo.
+
+Tier: **UNADJUDICATED, exploratory** — below every tier on
+[wiki/Home.md](../wiki/Home.md#evidentiary-tiers--never-promoted-never-blurred),
+at or under `wiki/ideas.md`. Nothing in a capture is quotable as a result, and a
+review memo inherits the capture's tier rather than raising it. An idea from a
+capture enters the evidentiary layers only the normal way: as a brief with named
+invariants and receipt rows, or as a numbered adversarial dispatch below.
+
+Numbered inbox responses that turn out to be informal in character stay in
+`inbox/` under their number (x:014 is the precedent) — `informal/` is for threads
+that never had a number to begin with.
+
 ## Status ledger
 
 | # | slug | dispatched | response | adjudicated | outcome |

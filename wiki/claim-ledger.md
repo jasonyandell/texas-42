@@ -82,6 +82,20 @@ verified program under `exchange/adjudication/programs/`.
 
 | **Constellation realizability = reachability at k=1 (R1)** — every realizable last-trick class is legal-play reachable via a forward-replayed full-hand witness; the realizable-but-unreachable gap is zero, so reachability filtering of the k=1 retrograde seed table is a no-op at class granularity (inbox/010, programs/010.py) | [idea-retrograde-rank](idea-retrograde-rank.md) §§5,7 | exchange-adjudicated CONFIRMED (31,830 PASS / 0 FAIL ~19s; 3/3 SOUND-high; all 31,197 witnesses independently re-replayed through the corpus ingest verifier by a referee, 0 failures; census re-derived twice with uncompressed keys, identical partition). Caveats verbatim: **convention** — 31,197 is the dispatch-literal ordered-opponent count, rob's frozen number is the swap-pooled 15,680 (163 reflection-fixed; 31,197 = 2·15,680 − 163); convert before diffing against `constellation_k1_census.rs`. **Scope** — REACHABLE = legal-play reachable (follow obligations + winner-leads; no contract/bid consistency); different predicate from the reachable-support image — **no REACH-\* impact**. **Evidence routing** — outcome-constancy is quotable only from the adjudication re-run (all 4,422,600 oriented positions, 0 collisions, 14 outcomes) or rob's `fine_collisions == 0`, never from the response's tautological per-class receipt. **Declaration skew** — 0 NT and 0 δ=3 witnesses in the exhaustive loop (NT realizes 19,069 of 31,197 classes); R1 is class-granularity only; per-declaration reachability rests on the 600-case sample covering all 216 declaration×hold cells. Step-6 FALSE-branch scope error vacuous (soundness rests on forward replay). Seed-table corollary travels with x:009's REFUTED pooled-key backward commutation. Retires x:009's 19,329 (non-invariant); proves rob's strictly finer key (extra slough bit) induces the same k=1 partition. |
 
+## Informal captures — UNADJUDICATED, recorded here so they are never mistaken for results
+
+Threads with ChatGPT that carried no deliverable contract and were never
+adjudicated. They sit **below every tier** on
+[Home](Home.md#evidentiary-tiers--never-promoted-never-blurred) — at or under
+[ideas](ideas.md) — and are listed here only so that a reader who meets one of
+their phrasings elsewhere can find its tier. No row below is a result, and
+nothing in this section may be cited by anything above it.
+
+| Capture | Topic (one line) | Status |
+|---|---|---|
+| x:014 (`exchange/inbox/014-constellation-informal-take.md`) | the constellation lens as intrinsic geometry; salience, promotion, extension-type proposals | **UNADJUDICATED** — informal exploratory capture only; numbered because it went through the courier channel, but carries no deliverable contract and no adjudication |
+| 2026-08-03 informal capture (`exchange/informal/2026-08-03-domino-constellations-theory.md`, with reading memo `…-domino-constellations-theory.REVIEW.md`) | a thinking-out-loud thread on the constellation quotient and where the theory of 42 might live | **UNADJUDICATED** — informal capture outside the courier protocol: no `x:NNN` number, no dispatch count consumed, no adversarial panel, exploratory tier. The `.REVIEW.md` memo is a single-pass reading note and inherits this tier; where it says a number "reproduces", that is one reviewer re-running arithmetic once, never a receipt. Convention: [exchange/README.md](../exchange/README.md) |
+
 ## Reading discipline
 
 When citing a claim from rec's ledger, beware its raw `|…|` pipes render broken in
