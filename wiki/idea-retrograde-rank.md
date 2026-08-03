@@ -4,6 +4,8 @@
 constellations (canonical arrangements of standings among the living), walked
 backward — and its probe record · Sources: none upward (exploratory; cites proved
 facts as background only, per [ideas](ideas.md)).
+See also [idea-seat-context](idea-seat-context.md) — what a *seat* maintains on top of
+this page's God's-eye constellations (idea tier, and deliberately unresolved).
 Related: [idea-hierarchical-fibers](idea-hierarchical-fibers.md),
 [reduced-viewer-kernel](reduced-viewer-kernel.md) (dead-cut, x:003),
 [declaration-algebra](declaration-algebra.md) (competitive ordinal, PLAY-12/13),
