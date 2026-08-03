@@ -7,8 +7,10 @@ v0.7 supplies the trust boundary, type discipline, priorities, and milestones; r
 the dependency spine covering its new mathematics. Related:
 [verification](verification.md), [open-problems](open-problems.md).
 
-**Status (2026-07-28): K0–K3 landed.** [`lean/`](../lean/README.md) is a Lean 4 +
-mathlib Lake project. Kernel theorems now cover the K0/K1 layer —
+**Status (2026-08-02): all 42 priority-0 rows kernel-proved** — the scoreboard and
+what remains are at the end of this section; the paragraphs below walk the spine
+layer by layer in the order it landed. [`lean/`](../lean/README.md) is a Lean 4 +
+mathlib Lake project. Kernel theorems cover the K0/K1 layer —
 `Fintype.card Domino = 28` (PA-A02), the natural incidence covering and pair
 intersections (PA-A03), `∑ d, countPoints d = 35` (PA-A04) — and the K2/K3
 declaration algebra: nine declarations, effective suits with membership bounds and

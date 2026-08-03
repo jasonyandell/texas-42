@@ -92,4 +92,6 @@ both packages `40_CLAIM_STATUS.md` §10 + Math §14 "Honest boundaries", merged 
    fifth necessary condition — see [reachability](reachability.md).)
 3. **Minimality of the 90-world witness**: is 90 the smallest fiber exhibiting a
    same-support posterior action flip under all four lenses, or does a smaller legal
-   witness exist?
+   witness exist? (The witness *itself* is now proof-assistant kernel tier — PA-E10,
+   `ninety_world_witness`, 2026-08-02 — which settles that it holds, not that 90 is
+   least; minimality is untouched. See [proof-assistant-plan](proof-assistant-plan.md).)

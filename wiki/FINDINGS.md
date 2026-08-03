@@ -101,7 +101,12 @@ only, no REACH-\* impact). Owning page:
    constructive rank/unrank attaining the bound.
 3. **The 90-world posterior-flip witness** (STR-06..09) — a fully legal, fully
    exhaustively-verified counterexample killing coordinate-only value; unusually
-   strong because both histories keep all 90 worlds at positive mass.
+   strong because both histories keep all 90 worlds at positive mass. **Now also
+   proof-assistant kernel tier** (PA-E10, 2026-08-02): internalized whole in
+   `lean/Texas42/Witness.lean` — fiber equality, 90 legal replays, both posteriors,
+   and the value columns from 180 kernel-evaluated rollouts, closing with
+   `ninety_world_witness`. No external receipt imported (TRUST-01); its
+   *minimality* remains open ([open-problems](open-problems.md)).
 4. **Feasible ≠ reachable with an explicit reduced witness** (REACH-10) plus the
    **[36,45]-bit interval** (corpus-proved [26,46], narrowed to [36,45] at the
    exchange-adjudicated tier by REACH-17 + REACH-18 — combined floor 36,913,384,410 >
