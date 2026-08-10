@@ -74,6 +74,48 @@ nontrivial lumpable skeleton exists on honest domains, that is a reportable
 result, not a failure (Jason: "if we don't succeed, that tells us something
 useful").
 
+## Conflict-driven lesson learning (the S5 spine, adopted 2026-08-10)
+
+Decision (Jason + Claude, 2026-08-10): the factory's outer loop is organized
+CDCL-style — **harvest failure, generalize it, prune with it**. Not an
+algorithm import; a stance import, from the one community that made
+exhaustive search industrial and whose safety culture (proof logging,
+independent verified checkers, "never trust the solver") independently
+evolved this project's own receipt/TRUST-01 discipline.
+
+- **Conflict** = a refuted line: a regretted decision (fiber-expected regret
+  > 0 for the action taken, under *declared* continuation semantics and
+  world weighting) or a checker failure. The S4 checkers already return
+  typed conflict objects (`PurityCounterexample`, `LumpabilityFailure` with
+  the witnessing pair and the exact disagreeing event) — that is the reason
+  material cut analysis walks. **Reasons everywhere** stays a standing
+  requirement: every verdict carries its derivation, or the means to re-run
+  it.
+- **Lesson** = a generalized verdict: an implicant over the descriptor/atom
+  vocabulary → an action verdict, produced by greedy constraint-dropping
+  (1UIP culture: a good cut cheaply, never a minimal core expensively),
+  widened until an exhaustive checker returns a witness. Every lesson
+  carries a **grade** (worldwise dominance > exact expectation under
+  declared semantics > sampled) and its **labels** (continuation operator,
+  weighting) — lessons are typed, tier discipline applies, and a lesson
+  never quotes above its grade.
+- **Learn from wins too** (the QBF cube analog): "this plan suffices across
+  this class" is a lesson with a witness strategy, dual to "this line is
+  refuted across this class."
+- **The database is a working set, not an archive**: lessons pay rent
+  (measured pruning/regret reduction on the receipt corpus) or are deleted;
+  application must be near-free via watched-feature indexing; synthesis
+  loops **restart freely, keeping only the lesson DB** (search state is
+  disposable, lessons are the asset).
+- **Proof-logged**: every lesson emits a certificate per v0.4 §16.11,
+  checkable by an independent implementation (the preserved Python probes
+  first; a Lean checker is the long-term crown). External PASS is still
+  never an axiom.
+- **Rate regime honesty**: SAT learns millions of shallow clauses; walt's
+  conflicts cost real solves, so the regime is *few conflicts, deeply
+  analyzed, maximally generalized* — lemma learning, not industrial SAT.
+  Lesson quality per conflict is the metric, not throughput.
+
 ## Ground-truth bridges (conformance suite from day one)
 
 1. **Receipt replay**: walt-core must replay all 13 hands of
@@ -224,11 +266,40 @@ useful").
   predictive sufficiency -- §14.7's "it reconstructed the world" recurs on
   the dynamic axis, while the genuine compression found lives in
   *history-forgetting*, not state-coarsening. Deterministic run, no seeds.
-- S5+: walt-factory corpus at scale (all 9 declarations), the dynamic
-  skeleton search proper (counterexample-guided refinement, richer
-  update-law vocabularies -- the S4 result says: search coarsenings of the
-  semantic state that keep kernel agreement, e.g. suit-profile quotients,
-  not root-fact tuples), seat chassis wiring (four seats, full hands).
+- **S4.5: unblock the exp3A pin.** The atom semantics thought lost were
+  rescued to `walt/probes/exp3a/` (commit 9357536): `lambda_probe_v3.py`
+  Part 1 holds the full 22-atom registry incl. `comp41`/`s3max2`. Port the
+  registry semantics into `walt-skeleton/src/atoms.rs`, un-`#[ignore]` the
+  pin, reproduce 90 -> 33 -> 8 through walt's own checkers, and clear the
+  DISCREPANCIES entry. High information either way: S4's holder-shaped
+  registry was UNSOUND where these four atoms succeeded, so they
+  demonstrably carry control-shaped content — they seed the lesson
+  vocabulary.
+- **S5a: the regret walker (conflict generator).** Given a transcript
+  (receipt hand or factory game) and a seat: at each decision point, the
+  fiber-expected value of every legal action on `scalar.rs`'s solver, under
+  declared knobs (continuation operator from the S3 registry; weighting =
+  uniform-over-fiber for now). Output: per-decision regret, localization
+  ("lost at the deal" as a provable verdict), and worldwise-dominance
+  detection (the semantics-free grade). Exact rationals; sampled fibers
+  (kernel sampler exists) only where enumeration is infeasible, marked.
+- **S5b: the Lesson type + generalizer.** Lesson = implicant over the atom
+  vocabulary -> graded, labeled verdict, with its conflict of origin and
+  certificate. Generalizer = greedy constraint-dropping, re-verifying via
+  the existing exhaustive checkers at each widening; the returned witness
+  ends the widening and names the load-bearing constraint. Deliverable:
+  measured basin sizes on the 13-kernel corpus — the falsification point
+  for the whole direction (tiny basins = report and rethink).
+- **S5c: the loop.** Lesson DB with watched-feature indexing, rent
+  collection (pruning/regret reduction measured on the corpus), deletion,
+  restart-with-retention in the synthesis loops, §16.11 certificate
+  emission with the Python probes as independent checkers.
+- S6+: walt-factory corpus at scale (all 9 declarations, deals + play —
+  finally exercising DT and NT), the dynamic skeleton search proper with
+  richer update-law vocabularies (the S4 result says: search coarsenings
+  of the semantic state that keep kernel agreement, e.g. suit-profile
+  quotients, not root-fact tuples), seat chassis wiring (four seats, full
+  hands), lessons flowing between all of it.
 
 ## Open decisions deliberately deferred
 
