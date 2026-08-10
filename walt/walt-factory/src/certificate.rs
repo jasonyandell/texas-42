@@ -42,9 +42,7 @@ use std::collections::BTreeMap;
 use crate::basin::BasinDomain;
 use crate::db::{verdict_kind, ContentKey};
 use crate::generalize::{cell_holds_at, lesson_applies, INTRO_BUDGET};
-use crate::ledger::{
-    HCheckerRegistry, HLessonDetail, HRowOutcome, H_BUDGET_SEMANTICS, H_CACHE_CONFIG,
-};
+use crate::ledger::{HCheckerRegistry, HLessonDetail, HRowOutcome};
 use crate::lesson::{
     Constraint, Lesson, LessonAtom, LessonOrigin, LessonVerdict, NumericAtom, StepOutcome,
     TraceStep,
@@ -267,7 +265,9 @@ pub fn emit_certificate(
                 "  (H) rows: operator (H, fixed-uniform-legal); root weighting uniform-over-fiber; \
                  budget {} particle-steps per decision; budget semantics: {}; cache: {} — the \
                  measurability envelope is part of the claim",
-                detail.budget_per_decision, H_BUDGET_SEMANTICS, H_CACHE_CONFIG
+                detail.budget_per_decision,
+                crate::ledger::semantics_description(detail.semantics),
+                crate::ledger::cache_config(detail.semantics)
             ));
         }
         None => line(
@@ -426,18 +426,33 @@ pub fn emit_certificate(
                 .to_string(),
         );
         for row in &detail.rows {
+            // dag-v1 rows carry the solver's cache statistics as
+            // tree-equiv provenance; tree rows have none.
+            let memo = match &row.memo {
+                Some(m) => format!(
+                    " [semantics={} steps={} tree-equiv={} entries={} hits={} key-particles={}]",
+                    detail.semantics.identifier(),
+                    m.steps,
+                    m.tree_steps,
+                    m.entries,
+                    m.hits,
+                    m.key_particles
+                ),
+                None => format!(" [semantics={}]", detail.semantics.identifier()),
+            };
             match &row.outcome {
                 HRowOutcome::Solved { values } => {
                     let vals: Vec<String> =
                         values.iter().map(|(a, v)| format!("{a}={v}")).collect();
                     line(format!(
-                        "    h{} {} t{} p{} fiber {}: {}",
+                        "    h{} {} t{} p{} fiber {}: {}{}",
                         row.hand,
                         row.seat,
                         row.trick_no,
                         row.ply,
                         row.fiber,
-                        vals.join(" ")
+                        vals.join(" "),
+                        memo
                     ));
                 }
                 HRowOutcome::NotFiberValid => line(format!(
@@ -447,13 +462,14 @@ pub fn emit_certificate(
                 )),
                 HRowOutcome::Capped => line(format!(
                     "    h{} {} t{} p{} fiber {}: H-CAPPED at {} particle-steps — UNMEASURED, \
-                     never zero",
+                     never zero{}",
                     row.hand,
                     row.seat,
                     row.trick_no,
                     row.ply,
                     row.fiber,
-                    detail.budget_per_decision
+                    detail.budget_per_decision,
+                    memo
                 )),
             }
         }

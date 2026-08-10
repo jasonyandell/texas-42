@@ -191,20 +191,36 @@ evolved this project's own receipt/TRUST-01 discipline.
 - Label unification (2026-08-10, post-m2): `Grade` carries the
   `OperatorPair` product everywhere; walker + lesson fixtures regenerated
   ("worldwise-dominance at (C, minimax-omniscient)").
+- **S5c-m3** (2026-08-10, daytime): dag-v1 pooled-state H memoization
+  (value-transparency CI-pinned; budget redeclared over the memoized DAG,
+  exclusion-determinism); all four big fibers lifted at declared 10^9 —
+  **1 survive / 3 FAIL at (H, fixed-uniform-legal)**, every fail
+  cross-validated byte-identical by the uncapped tree walk (4/4-decision
+  receipt): m2's "not label-fragile" was scale-limited, fragility lives
+  on the big early-trick fibers. The lesson DB economy: projected-content
+  identity with merge, candidate-complete watched index (exhaustive CI
+  cross-check), dual-ledger H-primary rent (unmeasured ≠ zero,
+  measured-consecutive deletion, per-row clearance), §16.11 certificates
+  (eleven records, checker-coverage annotations), restart-with-retention.
+  The re-priced economy: three deletions TRIGGERED (empty-basin + both
+  h1 S2 t4 H-fails), each mechanically BLOCKED — no independent H
+  checker registered. Eight walt-math forks + two post-hoc reviews
+  adjudicated in-session.
 
 ## Next
 
-- **S5c-m3: the economy.** Pooled-state H memoization for the
-  budget-capped fibers (lift the 4 unmeasured big-fiber lessons), then
-  the lesson DB as a working set priced in seat-facing H rent:
-  watched-feature indexing, purpose-specific rent collection, deletion,
-  restart-with-retention in the synthesis loops, §16.11 certificate
-  emission with the Python probes as independent checkers.
+- **m4: the independent Python H checker** — stdlib-only, written from
+  `walt-factory/docs/certificate-schema.md` and v0.4 §7.4 semantics
+  (never from the Rust), registering against `HCheckerRegistry`;
+  per-row clearance appends; the hard precondition for executing any
+  H-rent deletion. Then the first live deletion pass, and re-verification
+  of the three H-fails by a third implementation.
 - **S6+**: walt-factory corpus at scale (all 9 declarations, deals +
   play — finally exercising DT and NT), the dynamic skeleton search
   proper with richer update-law vocabularies (search coarsenings of the
   semantic state that keep kernel agreement), seat chassis wiring (four
-  seats, full hands), lessons flowing between all of it.
+  seats, full hands), lessons flowing between all of it. Noted: per-action
+  parallelism for big-fiber tree receipts if they become routine.
 
 ## Open decisions deliberately deferred
 

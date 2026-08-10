@@ -480,3 +480,60 @@ fn certificates_carry_eleven_annotated_records() {
     assert!(text.contains("checker lesson, not re-measured"));
     assert!(text.contains("no scalar value rows"));
 }
+
+/// The dag-v1 wiring (S5c-m3c) at CI cost: on a small-fiber lesson the
+/// dag path prices to the SAME exact figures as tree-v0 (identical exact
+/// values — only the budget unit changed), every row carries the
+/// solver's memo stats as tree-equiv provenance, and a starved dag
+/// budget prices as UNMEASURED carrying the dag envelope on the row —
+/// never a measured zero. The full re-priced run is the economy_run_r2
+/// example (`results/economy_2026-08-10_r2.txt`).
+#[test]
+fn dag_rent_matches_tree_rent_on_small_fibers() {
+    use walt_factory::{measure_h_detail_dag, BudgetSemantics};
+
+    let lesson = refutation_at(0, Seat::S1, 5, domain());
+    let dag = measure_h_detail_dag(&lesson, domain(), receipt(), 100_000_000)
+        .expect("a value lesson re-measures");
+    assert!(matches!(dag.semantics, BudgetSemantics::DagV1));
+    assert!(
+        dag.rows.iter().all(|r| r.memo.is_some()),
+        "dag rows carry memo stats (tree-equiv provenance)"
+    );
+    let rent = h_rent(&lesson, &dag, domain());
+    let RentMeasurement::Measured(HRent::Refutation {
+        applied,
+        strict,
+        improvement,
+        ..
+    }) = &rent
+    else {
+        panic!("the dag path prices the small lesson, got {rent:?}");
+    };
+    assert_eq!((*applied, *strict), (1, 1));
+    assert_eq!(
+        *improvement,
+        q(38, 21),
+        "identical exact price under either budget semantics"
+    );
+
+    let starved = measure_h_detail_dag(&lesson, domain(), receipt(), 1_000)
+        .expect("a value lesson re-measures");
+    let starved_rent = h_rent(&lesson, &starved, domain());
+    let RentMeasurement::Unmeasured {
+        budget,
+        semantics_id,
+        capped_decisions,
+        ..
+    } = &starved_rent
+    else {
+        panic!("a starved dag budget is UNMEASURED, got {starved_rent:?}");
+    };
+    assert_eq!((*budget, *semantics_id), (1_000, "dag-v1"));
+    assert!(*capped_decisions >= 1);
+    assert!(
+        walt_factory::render_measurement(&starved_rent).contains("semantics=dag-v1"),
+        "the unmeasured row cites its own envelope"
+    );
+    assert_eq!(starved_rent.measured_zero(), None);
+}

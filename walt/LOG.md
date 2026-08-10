@@ -488,6 +488,102 @@ provenance, as the S5a count corrections were.
   substrate); introduction candidates are equality-on-constant or
   interval-on-defined; INTRO_BUDGET = 4 per pass; bound pairs are
   relaxed independently (no joint ladder).
+- **S5c-m3 (2026-08-10, daytime): the memoized seat currency, the economy,
+  and the label-fragility discovery.** Three units, all committed
+  (f7eaa05 m3-A, 97228ad m3-B, m3-C following), all adjudicated by a
+  resident walt-math consultant across eight design forks plus per-unit
+  post-hoc review; two builder agents (walt-m3a walt-strat-side, walt-m3b
+  walt-factory-side) under strict file fences.
+  **m3-A (the dag-v1 H solver):** `hidden_scalar.rs` gains
+  `action_values_dag` — per-measurement-call cache, entries only at
+  trick-boundary pooled states, key = (canonical weighted world-multiset
+  × leader) with weights MANDATORY (pooled maximization depends on the
+  weight profile; a weight-free key is unsound — walt-math Fork 1),
+  gcd-normalized unit-fraction denominators as the projective normal
+  form, exact rescale on hit, frame carried by table scope. Soundness
+  argument as adjudicated: every entry carries the full ruled key with
+  the prefix component empty; (boundary state, observed prefix) →
+  mid-trick state is surjective determination, NOT bijection — convergent
+  mid-trick states are foregone hits by design. Budget REDECLARED as
+  particle-steps over the memoized DAG (semantics=dag-v1): hits cost zero
+  by unit definition, deterministically — measurability is a function of
+  declared inputs, never cache warmth (exclusion-determinism, Fork 2);
+  every row carries the semantics identifier and tree-equiv (the exact
+  tree-v0 cost of the identical computation). Value transparency
+  CI-pinned: byte-identical Q^H vs the unmemoized walk on all 16
+  m2-measured decisions (`tests/h_value_transparency.rs`).
+  **The measurement (r2 + r3):** at dag-v1 10^8 every previously-measured
+  value is byte-identical and the four big fibers are honestly still
+  capped (r2); at dag-v1 10^9 — a budget change only, declared — all four
+  lift (r3), and the outcome is **1 survive / 3 FAIL at
+  (H, fixed-uniform-legal)**: the h1 S2 t4 refutation (Q^H(4-3) = 79/11 <
+  Q^H(6-0) = 111269/13860 — at the seat's label the "refuted" action is
+  better), the h1 S2 t4 win (best is 1-1 at 2183/270), and the h11 S1 t3
+  win at its own origin (2-0 loses to 5-1 = -547477589/91238400; its two
+  transfer decisions hold exactly). The h11 refutation survives.
+  **Cross-validation receipt** (`h_tree_crossval_2026-08-10.txt`): the
+  uncapped, unmemoized tree walk independently reproduced every
+  per-action Q^H vector byte-identically on all four decisions —
+  1.55e10/1.08e10/4.2e9/6.5e10 tree steps (the last ~62 min of exact
+  rationals) vs 28×–122× fewer dag steps. The FAILS are label fragility,
+  not a memoization artifact. **The honest headline: m2's "not
+  label-fragile" was scale-limited** — the combined tally at the seat
+  label is 11 survive / 3 fail / 1 empty-basin of 15 value lessons
+  (quoted across two declared budgets, r2+r3 cited together), and every
+  failure lives on a big early-trick fiber, exactly where the omniscient
+  field (C) and the seat-facing field (H) diverge. §12.4's label-
+  relativity caveat, which rides every basin line, was the truth.
+  Registered-prediction check: the h1 S2 t4 fail separates on beater
+  TOTALS alone — the §14.7 team-split-beaters prediction is NOT yet
+  triggered.
+  **m3-B (the economy):** four new walt-factory modules. `db.rs` —
+  working set + append-only archive; lesson identity = projected content
+  (canonical implicant cells, verdict, DomainSpec, operator-pair labels;
+  GRADE IS NOT IDENTITY — quotable grade = max-grade archived derivation;
+  re-derivations MERGE, demonstrated live: one entry, two archived
+  derivations). `index.rs` — watched-feature index under a
+  candidate-completeness contract (index excludes only what the gate
+  provably refuses; every candidate still passes full `lesson_applies`;
+  exhaustively cross-checked in CI: 179 × 16 = 2,864 pairs, 893
+  candidates ⊇ 39 appliers at every decision). `ledger.rs` — dual ledger,
+  H-primary, never summed (Fork 3): H rent is the pricing currency,
+  (C) rent a recorded diagnostic; UNMEASURED IS NEVER ZERO — capped
+  lessons are provisionally held and never advance deletion streaks;
+  deletion = N=2 MEASURED-consecutive zero-rent epochs (capped epochs
+  neither advance nor reset; evidence patterns cite epoch ids with gaps);
+  per-row SINGLE-IMPLEMENTATION stamps with append-only clearance
+  records — a deletion must cite only independently-cleared rows, and
+  the first H-rent deletion is token-blocked until an independent H
+  checker registers (the "never trust the solver" law in types);
+  restart-with-retention keeps DB+archive+ledger, discards search state
+  (memo tables are search state). Standalone rent priced, overlap
+  recorded, never summed (Fork 7; 7 overlap decisions in the run).
+  `certificate.rs` — §16.11's ELEVEN records per lesson: value content
+  as per-decision multisets with the declared comparison protocol and
+  the world-alignment-unchecked caveat; record 9 restored to per-world
+  truth vectors in a canonical world order (the walt-math dependency
+  check caught the compression); NOT-APPLICABLE records present-and-
+  empty with reasons; per-record checker-coverage annotations, H rows
+  honestly UNCHECKED-EXTERNALLY. 16 certificates emitted against the
+  self-contained `docs/certificate-schema.md` (schema-v1, written for
+  the future independent Python H checker).
+  **m3-C (the re-priced economy, the m3 exit artifact):** the ledger
+  wired to dag-v1 at 10^9 (`economy_2026-08-10_r2.txt`). All 15 value
+  lessons now measurable; the three H-fails price as MEASURED ZEROS with
+  their reason rendered ("verdict FAILED at the H label"), and the
+  economy's deletion rule fires on all three zero-streak lessons — the
+  empty-basin refutation and both h1 S2 t4 lessons — **each TRIGGERED
+  and each mechanically BLOCKED** (no registered checker; the crossval
+  receipt is deliberately NOT a registered checker — context only, the
+  Python checker remains the only clearance path). The h11 win prices
+  positive on its two holding decisions with its origin failure in the
+  failed-count: per-decision honesty end-to-end. The seat's currency now
+  actually prices the inventory, and its first candidates for deletion
+  are exactly the lessons the seat's own label measured as worthless.
+  **Deferred, named:** the independent Python H checker (m3's exit
+  criterion for executing any H-rent deletion; hard precondition, in
+  types); tree-walk per-action parallelism if big-fiber tree receipts
+  become routine; the walt-genesis worktree reconciliation.
 - **S5c-m2 (2026-08-10): honesty amendments + the (H,
   fixed-uniform-legal) re-measurement.** **COMPLETE**: `walt/ci/check.sh`
   PASS; 1 new CI test (an H re-measurement pinned end-to-end with exact

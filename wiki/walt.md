@@ -63,11 +63,19 @@ genuine compression found lives in *history-forgetting* (5,887 nodes → 2,857
 classes), not state-coarsening. The S5 factory walked the full 52-transcript
 corpus for exact fiber-expected regret (77.5% zero-regret decisions; 25/52
 transcripts worldwise-lost from some decision on), and the lesson machinery
-survived its two designed falsification points: the atom vocabulary is
+survived its first designed falsification point: the atom vocabulary is
 expressively sufficient on a discriminative domain (pure-atom implicants that
-transfer across hands, rent equal to origin regret), and the lesson inventory
-is **not label-fragile** — every measurable lesson survived re-measurement at
-the seat-facing (H, fixed-uniform-legal) label (10 survive / 0 fail).
+transfer across hands, rent equal to origin regret). The second falsification
+point — re-measurement at the seat-facing (H, fixed-uniform-legal) label —
+produced the S5c-m3 discovery: small-fiber lessons all survive (10/0), but
+once the budget-capped big fibers became measurable (a memoized H solver,
+cross-validated byte-identical against its unmemoized reference on all four
+fibers), **3 of 4 fail at the seat's label** — label fragility is real and
+localized to the big early-trick fibers, exactly where the omniscient field
+and the seat-facing field diverge. The lesson-DB economy prices the inventory
+in seat-facing H rent (dual ledger, never summed; unmeasured never zero) and
+its first deletion candidates are precisely those failed lessons — each
+deletion mechanically blocked until an independent H checker registers.
 
 All of it exploratory; details and exact numbers in [`walt/LOG.md`](../walt/LOG.md).
 
@@ -94,10 +102,9 @@ rules, enforced in types where Rust can carry them:
 
 ## Next
 
-m3 (in progress): pooled-state H memoization for the budget-capped big
-fibers, then the lesson database as a working set priced in seat-facing H
-rent — indexing, purpose-specific rent, deletion, restart-with-retention,
-§16.11 certificate emission with the Python probes as independent checkers.
-Then S6+: corpus at scale across all nine declarations, the dynamic skeleton
-search proper, seat chassis wiring. The forward plan lives in
-[`walt/PLAN.md`](../walt/PLAN.md).
+m4: the independent Python H checker (stdlib-only, written from the
+certificate schema, never from the Rust) — the hard precondition for
+executing any H-rent deletion, and the third implementation over the three
+failed lessons. Then S6+: corpus at scale across all nine declarations, the
+dynamic skeleton search proper, seat chassis wiring. The forward plan lives
+in [`walt/PLAN.md`](../walt/PLAN.md).

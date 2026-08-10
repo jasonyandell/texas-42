@@ -68,7 +68,9 @@ use walt_strat::{ScalarHidden, ScalarValuation};
 use crate::basin::BasinDomain;
 use crate::db::{ContentKey, LessonDb};
 use crate::index::{appliers, WatchIndex};
+use crate::label_transfer::BudgetSemantics;
 use crate::lesson::{FieldLabel, FocalInfoLabel, Lesson, LessonVerdict, OperatorPair, RentReport};
+use walt_strat::MemoStats;
 
 /// The ledger format version, cited in every economy record.
 pub const LEDGER_VERSION: &str = "ledger-v1 (S5c-m3)";
@@ -86,11 +88,40 @@ pub const DELETION_EPOCHS_N: usize = 2;
 pub const EPOCH_UNIT: &str = "one full rent-collection pass over the declared corpus domain";
 
 /// Per-decision H budget and its semantics — the measurability envelope,
-/// part of every H claim (S5c-m2 values, unchanged).
+/// part of every H claim (S5c-m2 values, unchanged). tree-v0.
 pub const H_BUDGET_PARTICLE_STEPS: u64 = 100_000_000;
 pub const H_BUDGET_SEMANTICS: &str = "particle-steps-v1 (S5c-m2): one budget unit per (particle, \
      node) visit; an over-budget solve returns nothing — exclusion, never sampling";
 pub const H_CACHE_CONFIG: &str = "none (S5c-m2 recursive solver, no memoization)";
+
+/// The dag-v1 envelope (S5c-m3c, the declared raised budget of the r3
+/// supplement): one budget unit per (particle, node) visit actually
+/// computed on the memoized DAG — a pooled-state cache hit costs zero by
+/// unit definition. A lesson capped at tree-v0 and measured at dag-v1 is
+/// a SEMANTICS CHANGE, never the same statistic improving.
+pub const H_DAG_BUDGET_PARTICLE_STEPS: u64 = 1_000_000_000;
+pub const H_DAG_SEMANTICS: &str = "dag-v1 (S5c-m3): one budget unit per (particle, node) visit \
+     computed on the memoized DAG; cache hits cost zero by unit definition; an over-budget solve \
+     returns nothing — exclusion, never sampling";
+pub const H_DAG_CACHE_CONFIG: &str = "pooled-state boundary memoization, fresh per measurement \
+     call of one solver frame, unbounded, freed between calls (per-call scope — incidental \
+     warmth cannot exist)";
+
+/// The cache-configuration string of one budget semantics.
+pub fn cache_config(semantics: BudgetSemantics) -> &'static str {
+    match semantics {
+        BudgetSemantics::TreeV0 => H_CACHE_CONFIG,
+        BudgetSemantics::DagV1 => H_DAG_CACHE_CONFIG,
+    }
+}
+
+/// The full budget-semantics description of one semantics.
+pub fn semantics_description(semantics: BudgetSemantics) -> &'static str {
+    match semantics {
+        BudgetSemantics::TreeV0 => H_BUDGET_SEMANTICS,
+        BudgetSemantics::DagV1 => H_DAG_SEMANTICS,
+    }
+}
 
 /// The pricing label: seat-facing H against the §7.4 fixed uniform-legal
 /// field, root weighting uniform-over-fiber.
@@ -233,23 +264,64 @@ pub struct HRow {
     pub ply: usize,
     pub fiber: usize,
     pub outcome: HRowOutcome,
+    /// dag-v1 cache statistics of this row's measurement call, where the
+    /// solver reports them (`None` under tree semantics) — tree-equiv
+    /// provenance for results files, never verdict input.
+    pub memo: Option<MemoStats>,
 }
 
-/// The full H measurement of one lesson's gate-applied decision set.
-#[derive(Clone, Debug, Default)]
+/// The full H measurement of one lesson's gate-applied decision set. The
+/// measurability envelope — budget value AND budget semantics — is part
+/// of the claim and travels with the detail.
+#[derive(Clone, Debug)]
 pub struct HLessonDetail {
     pub rows: Vec<HRow>,
     pub budget_per_decision: u64,
+    pub semantics: BudgetSemantics,
 }
 
 /// Measures one value lesson at (H, fixed-uniform-legal) over every
-/// domain decision the gate accepts. `None` for the checker verdict —
-/// not a value comparison, not re-measured.
+/// domain decision the gate accepts, under tree-v0 budget semantics.
+/// `None` for the checker verdict — not a value comparison, not
+/// re-measured.
 pub fn measure_h_detail(
     lesson: &Lesson,
     domain: &BasinDomain,
     receipt: &Receipt,
     budget_per_decision: u64,
+) -> Option<HLessonDetail> {
+    measure_h_detail_at(
+        lesson,
+        domain,
+        receipt,
+        budget_per_decision,
+        BudgetSemantics::TreeV0,
+    )
+}
+
+/// The same measurement under dag-v1 budget semantics (the memoized DAG;
+/// rows carry the solver's cache statistics as tree-equiv provenance).
+pub fn measure_h_detail_dag(
+    lesson: &Lesson,
+    domain: &BasinDomain,
+    receipt: &Receipt,
+    budget_per_decision: u64,
+) -> Option<HLessonDetail> {
+    measure_h_detail_at(
+        lesson,
+        domain,
+        receipt,
+        budget_per_decision,
+        BudgetSemantics::DagV1,
+    )
+}
+
+fn measure_h_detail_at(
+    lesson: &Lesson,
+    domain: &BasinDomain,
+    receipt: &Receipt,
+    budget_per_decision: u64,
+    semantics: BudgetSemantics,
 ) -> Option<HLessonDetail> {
     if matches!(lesson.verdict, LessonVerdict::NotLumpable { .. }) {
         return None;
@@ -266,6 +338,7 @@ pub fn measure_h_detail(
             ply: d.ply,
             fiber: d.worlds.len(),
             outcome: HRowOutcome::Capped,
+            memo: None,
         };
         if matched.len() != d.worlds.len() {
             row.outcome = HRowOutcome::NotFiberValid;
@@ -283,14 +356,29 @@ pub fn measure_h_detail(
         let hands: Vec<[walt_core::DominoSet; Seat::COUNT]> =
             d.worlds.iter().map(|w| w.hands()).collect();
         let mut budget = budget_per_decision;
-        if let Some(values) = solver.action_values(&hands, rd.leader, &rd.prefix, &mut budget) {
-            row.outcome = HRowOutcome::Solved { values };
+        match semantics {
+            BudgetSemantics::TreeV0 => {
+                if let Some(values) =
+                    solver.action_values(&hands, rd.leader, &rd.prefix, &mut budget)
+                {
+                    row.outcome = HRowOutcome::Solved { values };
+                }
+            }
+            BudgetSemantics::DagV1 => {
+                let (values, stats) =
+                    solver.action_values_dag(&hands, rd.leader, &rd.prefix, &mut budget);
+                row.memo = Some(stats);
+                if let Some(values) = values {
+                    row.outcome = HRowOutcome::Solved { values };
+                }
+            }
         }
         rows.push(row);
     }
     Some(HLessonDetail {
         rows,
         budget_per_decision,
+        semantics,
     })
 }
 
@@ -332,11 +420,14 @@ pub enum RentMeasurement {
     Measured(HRent),
     /// At least one applied decision's H solve was budget-capped: the H
     /// rent is UNMEASURED — never zero — and the lesson is PROVISIONALLY
-    /// HELD on its diagnostic (C) ledger, label-provisional.
+    /// HELD on its diagnostic (C) ledger, label-provisional. The
+    /// measurability envelope the cap occurred under travels on the row.
     Unmeasured {
         fiber_valid_applied: usize,
         capped_decisions: usize,
         not_fiber_valid: usize,
+        budget: u64,
+        semantics_id: &'static str,
     },
     /// The checker lesson: not re-measured at H (§12.6 already lives at
     /// the fixed field); priced in its own applied-count ledger at its own
@@ -458,7 +549,9 @@ pub struct LessonEpochRecord {
     pub h_value_coverage: Option<HValueCoverage>,
 }
 
-/// One epoch: the declared unit is `EPOCH_UNIT`.
+/// One epoch: the declared unit is `EPOCH_UNIT`. The measurability
+/// envelope (budget value + budget semantics) is one declaration per
+/// epoch, restated here and on every unmeasured row.
 pub struct EpochLedger {
     pub number: usize,
     pub records: Vec<LessonEpochRecord>,
@@ -468,18 +561,22 @@ pub struct EpochLedger {
     /// Per-entry H detail (kept for certificate emission; evidence, not a
     /// second rent authority).
     pub h_details: BTreeMap<usize, HLessonDetail>,
+    pub budget_per_decision: u64,
+    pub semantics: BudgetSemantics,
 }
 
-/// Runs one full rent-collection pass (= one epoch) over the domain.
+/// Runs one full rent-collection pass (= one epoch) over the domain,
+/// under the declared budget semantics (tree-v0 or dag-v1).
 /// Deterministic: iteration is domain order and working-set admission
 /// order; every quantity is an exact solve or count.
-pub fn collect_epoch(
+pub fn collect_epoch_at(
     number: usize,
     db: &LessonDb,
     index: &WatchIndex,
     domain: &BasinDomain,
     receipt: &Receipt,
     budget_per_decision: u64,
+    semantics: BudgetSemantics,
 ) -> EpochLedger {
     assert!(
         index.is_current(db),
@@ -514,21 +611,24 @@ pub fn collect_epoch(
         let key_hash = ContentKey::of(lesson).hash();
         let diagnostic = crate::generalize::measure_rent(lesson, domain);
         let mut h_value_coverage = None;
-        let pricing = match measure_h_detail(lesson, domain, receipt, budget_per_decision) {
-            None => RentMeasurement::CheckerOwnLedger {
-                applied: applied.get(&entry).copied().unwrap_or(0),
-            },
-            Some(detail) => {
-                let rent = h_rent(lesson, &detail, domain);
-                h_details.insert(entry, detail);
-                // Today's honest stamp: every H figure is produced by the
-                // one Rust implementation lineage. No current path stamps
-                // IndependentlyReverified; clearance is per row, appended
-                // later beside the row, never rewriting this.
-                h_value_coverage = Some(HValueCoverage::SingleImplementation);
-                rent
-            }
-        };
+        let pricing =
+            match measure_h_detail_at(lesson, domain, receipt, budget_per_decision, semantics) {
+                None => RentMeasurement::CheckerOwnLedger {
+                    applied: applied.get(&entry).copied().unwrap_or(0),
+                },
+                Some(detail) => {
+                    let rent = h_rent(lesson, &detail, domain);
+                    h_details.insert(entry, detail);
+                    // Today's honest stamp: every H figure is produced by the
+                    // one Rust implementation lineage (the tree and DAG paths
+                    // are one lineage, not independent checks). No current
+                    // path stamps IndependentlyReverified; clearance is per
+                    // row, appended later beside the row, never rewriting
+                    // this.
+                    h_value_coverage = Some(HValueCoverage::SingleImplementation);
+                    rent
+                }
+            };
         records.push(LessonEpochRecord {
             entry,
             key_hash,
@@ -553,7 +653,30 @@ pub fn collect_epoch(
         records,
         overlap,
         h_details,
+        budget_per_decision,
+        semantics,
     }
+}
+
+/// `collect_epoch_at` under tree-v0 semantics — the m3-B entry point,
+/// kept for callers and pins that predate the dag path.
+pub fn collect_epoch(
+    number: usize,
+    db: &LessonDb,
+    index: &WatchIndex,
+    domain: &BasinDomain,
+    receipt: &Receipt,
+    budget_per_decision: u64,
+) -> EpochLedger {
+    collect_epoch_at(
+        number,
+        db,
+        index,
+        domain,
+        receipt,
+        budget_per_decision,
+        BudgetSemantics::TreeV0,
+    )
 }
 
 /// Prices one value lesson from its H detail (the checker lesson takes
@@ -581,6 +704,8 @@ pub fn h_rent(lesson: &Lesson, detail: &HLessonDetail, domain: &BasinDomain) -> 
             fiber_valid_applied: solved.len() + capped,
             capped_decisions: capped,
             not_fiber_valid: nfv,
+            budget: detail.budget_per_decision,
+            semantics_id: detail.semantics.identifier(),
         };
     }
     let decision_of = |row: &HRow| {
@@ -840,7 +965,7 @@ impl Ledger {
     /// "measured-zero e1, e3; e2 capped at <budget, semantics>".
     fn evidence_pattern(&self, key_hash: u64) -> (Vec<usize>, String) {
         let mut zeros: Vec<usize> = Vec::new();
-        let mut capped: Vec<usize> = Vec::new();
+        let mut capped: Vec<(usize, u64, &'static str)> = Vec::new();
         for epoch in self.epochs.iter().rev() {
             let Some(row) = epoch.records.iter().find(|r| r.key_hash == key_hash) else {
                 continue;
@@ -848,7 +973,16 @@ impl Ledger {
             match row.pricing.measured_zero() {
                 Some(true) => zeros.push(epoch.number),
                 Some(false) => break,
-                None => capped.push(epoch.number),
+                None => {
+                    if let RentMeasurement::Unmeasured {
+                        budget,
+                        semantics_id,
+                        ..
+                    } = &row.pricing
+                    {
+                        capped.push((epoch.number, *budget, semantics_id));
+                    }
+                }
             }
             if zeros.len() == DELETION_EPOCHS_N {
                 break;
@@ -857,9 +991,12 @@ impl Ledger {
         zeros.reverse();
         // Capped epochs OUTSIDE the cited zero span are not part of the
         // pattern; keep those interleaved with (after the first cited
-        // zero) only.
+        // zero) only. Each cites its own measurability envelope.
         let first_zero = zeros.first().copied().unwrap_or(usize::MAX);
-        let mut capped: Vec<usize> = capped.into_iter().filter(|&e| e > first_zero).collect();
+        let mut capped: Vec<(usize, u64, &'static str)> = capped
+            .into_iter()
+            .filter(|&(e, ..)| e > first_zero)
+            .collect();
         capped.sort_unstable();
         let zero_list = zeros
             .iter()
@@ -871,13 +1008,12 @@ impl Ledger {
         } else {
             let capped_list = capped
                 .iter()
-                .map(|e| format!("e{e}"))
+                .map(|(e, budget, id)| {
+                    format!("e{e} capped at {budget} particle-steps (semantics={id})")
+                })
                 .collect::<Vec<_>>()
                 .join(", ");
-            format!(
-                "measured-zero {zero_list}; {capped_list} capped at {H_BUDGET_PARTICLE_STEPS} \
-                 particle-steps ({H_BUDGET_SEMANTICS})"
-            )
+            format!("measured-zero {zero_list}; {capped_list}")
         };
         (zeros, citation)
     }
@@ -1063,12 +1199,14 @@ pub fn render_measurement(m: &RentMeasurement) -> String {
             fiber_valid_applied,
             capped_decisions,
             not_fiber_valid,
+            budget,
+            semantics_id,
         } => format!(
             "PROVISIONALLY HELD: (H, fixed-uniform-legal) rent UNMEASURED — {capped_decisions} of \
-             {fiber_valid_applied} fiber-valid applied decisions capped at {H_BUDGET_PARTICLE_STEPS} \
-             particle-steps ({H_BUDGET_SEMANTICS}); not-fiber-valid {not_fiber_valid}; lives on the \
-             (C, minimax-omniscient) diagnostic ledger, label-provisional; never counts toward \
-             deletion"
+             {fiber_valid_applied} fiber-valid applied decisions capped at {budget} \
+             particle-steps (semantics={semantics_id}); not-fiber-valid {not_fiber_valid}; lives \
+             on the (C, minimax-omniscient) diagnostic ledger, label-provisional; never counts \
+             toward deletion"
         ),
         RentMeasurement::CheckerOwnLedger { applied } => format!(
             "NOT RE-MEASURED at H (§12.6 lives at the fixed field); own ledger: applied \

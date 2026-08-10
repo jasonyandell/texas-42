@@ -47,13 +47,17 @@ pub use generalize::{
     measure_rent, INTRO_BUDGET,
 };
 pub use index::{appliers, WatchIndex, VOCAB_REGISTRY_VERSION};
-pub use label_transfer::{remeasure_at_h, render_h_report, HDecision, HOutcome, HReport};
+pub use label_transfer::{
+    remeasure_at_h, render_h_report, BudgetSemantics, HDecision, HOutcome, HReport,
+};
 pub use ledger::{
-    collect_epoch, diagnostic_label, display_name, h_rent, measure_h_detail, pricing_label,
-    render_measurement, render_record, ClearanceRecord, EconomyRecord, EpochLedger, HCheckerDesc,
+    cache_config, collect_epoch, collect_epoch_at, diagnostic_label, display_name, h_rent,
+    measure_h_detail, measure_h_detail_dag, pricing_label, render_measurement, render_record,
+    semantics_description, ClearanceRecord, EconomyRecord, EpochLedger, HCheckerDesc,
     HCheckerRegistry, HCheckerToken, HLessonDetail, HRent, HRow, HRowOutcome, HValueCoverage,
     Ledger, LessonEpochRecord, LifetimeRecord, RentMeasurement, DELETION_EPOCHS_N, EPOCH_UNIT,
-    H_BUDGET_PARTICLE_STEPS, H_BUDGET_SEMANTICS, H_CACHE_CONFIG, LEDGER_VERSION,
+    H_BUDGET_PARTICLE_STEPS, H_BUDGET_SEMANTICS, H_CACHE_CONFIG, H_DAG_BUDGET_PARTICLE_STEPS,
+    H_DAG_CACHE_CONFIG, H_DAG_SEMANTICS, LEDGER_VERSION,
 };
 pub use lesson::{
     ActionSelector, AtomValue, BasinReport, CarrierLabel, Constraint, DescriptorFamily,
