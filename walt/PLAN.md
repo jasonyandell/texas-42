@@ -266,15 +266,33 @@ evolved this project's own receipt/TRUST-01 discipline.
   predictive sufficiency -- §14.7's "it reconstructed the world" recurs on
   the dynamic axis, while the genuine compression found lives in
   *history-forgetting*, not state-coarsening. Deterministic run, no seeds.
-- **S4.5: unblock the exp3A pin.** The atom semantics thought lost were
-  rescued to `walt/probes/exp3a/` (commit 9357536): `lambda_probe_v3.py`
-  Part 1 holds the full 22-atom registry incl. `comp41`/`s3max2`. Port the
-  registry semantics into `walt-skeleton/src/atoms.rs`, un-`#[ignore]` the
-  pin, reproduce 90 -> 33 -> 8 through walt's own checkers, and clear the
-  DISCREPANCIES entry. High information either way: S4's holder-shaped
-  registry was UNSOUND where these four atoms succeeded, so they
-  demonstrably carry control-shaped content — they seed the lesson
-  vocabulary.
+- **S4.5 (2026-08-10): exp3A pin unblocked.** The atom semantics thought
+  lost were rescued to `walt/probes/exp3a/` (commit 9357536):
+  `lambda_probe_v3.py` Part 1 holds the full 22-atom registry incl.
+  `comp41`/`s3max2`. **COMPLETE**: `walt/ci/check.sh` PASS; the registry
+  semantics are ported as `Exp3aAtom`/`Exp3aContext`/`Exp3aDescriptor`
+  (atoms.rs; reimplemented from the probe's definitions at the partition
+  level -- walt's `Decl::rank` is order-isomorphic to the probe's ranking
+  and atoms feed only equality cells and strict comparisons; marked
+  `StaticPassenger`, §14.4 is a static result), the search driver is
+  generic over both vocabularies (synth.rs), and the blocked test is
+  replaced by three green ones (harness.rs): the context derivation lands
+  on the probe's constants (valued 4-1, decisive 2-1, suit 2, boss 2-2,
+  floor 2-0, 22 atoms); **D = {comp, focal-max, team(2-0), team(4-2)}
+  reproduces 90 -> 33 -> 8 through walt's own §12.1 checker** (and stays
+  sound at 33 cells for the 3-class action target); the full <= 4 search
+  reproduces the probe's whole Part 1 record -- minimal size 4, exactly
+  eight solutions ({comp | comp-rank} x {holder | team}) at 69/53/53/33
+  cells, both targets. Corpus-wide (walt's generalization of the
+  vocabulary parameters -- decisive tile = viewer tile whose led context
+  touches the most pool tiles -- walt-tier, not probe-backed off-design):
+  the control registry breaks EVERY ceiling the S4 holder registry hit --
+  h0 sound at size 4 on all three targets, h11 at size 4 on all three
+  (were UNSOUND at <= 4), and minimal sizes drop elsewhere (h1 4 -> 3,
+  h5 q_points 4 -> 3, both via `comp`) -- pinned in
+  `tests/synthesis_run.rs`. DISCREPANCIES "exp3A descriptor pin" moved to
+  reconciled. The four §14.4 atoms demonstrably carry control-shaped
+  content the holder vocabulary lacks; they seed the lesson vocabulary.
 - **S5a: the regret walker (conflict generator).** Given a transcript
   (receipt hand or factory game) and a seat: at each decision point, the
   fiber-expected value of every legal action on `scalar.rs`'s solver, under

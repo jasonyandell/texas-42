@@ -6,35 +6,55 @@ here rather than silently picking a reading.
 
 ## Open discrepancies
 
-### exp3A descriptor pin: blocked in S4 (atom semantics undefined)
+**None as of S4.5.**
 
-v0.4 §14.4 reports Experiment 3A's winning static descriptor on the 90-world
-design kernel:
+## Reconciled, not discrepancies
+
+### exp3A descriptor pin: blocked in S4, unblocked in S4.5
+
+S4 recorded this as open: v0.4 §14.4 reports the winning static descriptor
+on the 90-world design kernel --
 
 > "Exhaustive search over subsets of size at most four found eight minimal
 > four-observable solutions. One was D = {comp41, s3max2, team(2:0),
 > team(4:2)}. It produced 33 cells, each pure for the eight-class root-Q
 > target: 90 worlds -> 33 descriptor cells -> 8 responses."
 
-The spec defines neither the "22-observable vocabulary" nor the semantics of
-`comp41` or `s3max2` (each appears exactly once, in §14.4); §12.3 gives only
-shape names ("companion, decisive-context partner strength, forced-follower
-team, and beater team"), and no exp3A probe source survives -- the preserved
-suite at `walt/probes/` holds exp5 only. Reproducing 90 -> 33 -> 8 would
-require inventing atom semantics, which the ambiguity protocol forbids.
-Blocked test: `walt-skeleton/tests/harness.rs::exp3a_static_descriptor_pin`
-(`#[ignore]`d). Unblocks if the exp3A observable definitions are ever
-preserved the way exp5's were.
+-- but the spec defines neither the "22-observable vocabulary" nor the
+semantics of `comp41`/`s3max2`, and the exp3A probe source was thought
+lost. The block dissolved when the lambda-probe chain was preserved at
+`walt/probes/exp3a/` (commit 9357536): `lambda_probe_v3.py` Part 1
+(`build_atoms`) carries the full 22-observable registry. Extracted
+semantics: `comp41` = the tile sharing the valued tile 4-1's holder's
+two-tile hand; `s3max2` = the partner seat's best rank in the decisive
+suit-2 context (the context the viewer's remaining tile 2-1 forces at
+trick 7), with the probe's ad-hoc suit ranking (double top, then by pip);
+`team(t)` = whether the partner seat holds `t`; the other 19 atoms are
+holder coordinates and suit-2 control relations (opponent strength/top,
+opponent beater count, best-keep trick-7 winner, boss/floor companions).
 
-S4 therefore built its own fully-specified registry in the same language
-family (per-tile holder/team facts, beater counts; `walt-skeleton/src/atoms.rs`)
-and pinned walt-tier numbers for it. Notably, that registry is UNSOUND on the
-design kernel at every subset size <= 4 for all three targets
-(`tests/synthesis_run.rs`) -- walt's holder-shaped vocabulary does not
-reproduce 3A's four-atom success, which is evidence the missing 3A atoms
-carried genuinely control-shaped content, not a substitute for them.
+Reproduction (`walt-skeleton/src/atoms.rs::Exp3aAtom`,
+`tests/harness.rs`): the semantics were reimplemented from the probe's
+definitions (probes are validators, never source; nothing was copied), at
+the partition level -- walt's `Decl::rank` is order-isomorphic to the
+probe's ranking and every atom feeds only equality cells and strict order
+comparisons, so the induced world-partitions are identical. Through walt's
+own §12.1 checker: **D = {comp, focal-max, team(2-0), team(4-2)}
+reproduces 90 -> 33 -> 8 exactly**, and the full <= 4 search reproduces
+the probe's entire Part 1 record -- minimal size 4, exactly eight
+solutions (the {comp | comp-rank} x {holder | team} family) at
+69/53/53/33 cells, for BOTH the 8-class parametric target and the 3-class
+action-correspondence target. All exploratory-tier regression pins, not
+axioms.
 
-## Reconciled, not discrepancies
+One reading in the port is walt's own, recorded here: on the twelve
+non-design kernels the vocabulary's parameters (decisive tile/context) are
+derived by walt's generalization rule -- decisive tile = the viewer tile
+whose led context touches the most hidden-pool tiles, ties to the higher
+tile -- which lands exactly on the probe's constants (2-1, suit 2) for the
+design kernel but is NOT probe-backed elsewhere; the corpus-wide table in
+`tests/synthesis_run.rs::exp3a_registry_search_over_the_trick6_corpus` is
+walt-tier only.
 
 ### exp5 census pins: blocked in S2, unblocked in S3.5
 

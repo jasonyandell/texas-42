@@ -28,11 +28,14 @@ pub mod skeleton;
 pub mod soundness;
 pub mod synth;
 
-pub use atoms::{Atom, AtomDescriptor, AtomState, ChassisState, CompositeState};
+pub use atoms::{
+    exp3a_registry, Atom, AtomDescriptor, AtomState, ChassisState, CompositeState, Exp3aAtom,
+    Exp3aContext, Exp3aDescriptor, StaticValue,
+};
 pub use lumpability::{
     check_lumpability, KernelTree, LumpabilityFailure, LumpabilityReport, Node, Row,
 };
 pub use obs::{record_plays, ObservedPlay};
 pub use skeleton::{fold_record, ControlSkeleton, StaticWrap, UpdateKind};
 pub use soundness::{check_soundness, PurityCounterexample, SoundnessReport};
-pub use synth::{class_ids, registry, sound_search, MinimalSound, SoundSearch};
+pub use synth::{class_ids, exp3a_sound_search, registry, sound_search, MinimalSound, SoundSearch};

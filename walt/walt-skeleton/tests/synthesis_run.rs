@@ -99,7 +99,12 @@ fn parametric_labels(kernel: &Kernel, valued: Domino) -> Vec<Vec<walt_geom::Enve
         .collect()
 }
 
-fn sound_line(hand: usize, fiber: usize, tag: &str, s: &SoundSearch) -> String {
+fn sound_line<A: std::fmt::Display>(
+    hand: usize,
+    fiber: usize,
+    tag: &str,
+    s: &SoundSearch<A>,
+) -> String {
     match &s.minimal {
         Some(m) => {
             let first = m
@@ -352,6 +357,88 @@ fn synthesis_run_over_the_trick6_corpus() {
     assert_eq!(sound_lines, pins, "soundness table drifted");
     let pins: Vec<String> = LUMP_PINS.iter().map(|s| s.to_string()).collect();
     assert_eq!(lump_lines, pins, "lumpability table drifted");
+}
+
+/// The pinned exp3A-registry soundness table (S4.5): the ported
+/// 22-observable control vocabulary, searched at the probe's own ceiling
+/// (subsets <= 4), against the same three targets. The vocabulary
+/// parameters on the twelve non-design kernels come from walt's
+/// generalization rule (`Exp3aContext`: decisive tile = the viewer tile
+/// whose led context touches the most pool tiles) -- walt-tier, NOT probe
+/// numbers, except the h0 rows, which the probe record backs.
+const EXP3A_PINS: &[&str] = &[
+    "h0 fiber=90 q_points: min-size=4 solutions=8 first=holder(2-0)+holder(4-2)+comp+focal-max cells=69",
+    "h0 fiber=90 action: min-size=4 solutions=8 first=holder(2-0)+holder(4-2)+comp+focal-max cells=69",
+    "h0 fiber=90 parametric: min-size=4 solutions=8 first=holder(2-0)+holder(4-2)+comp+focal-max cells=69",
+    "h1 fiber=90 q_points: min-size=3 solutions=14 first=holder(5-3)+holder(5-4)+comp cells=27",
+    "h1 fiber=90 action: min-size=3 solutions=18 first=holder(4-0)+holder(5-3)+comp cells=39",
+    "h1 fiber=90 parametric: min-size=3 solutions=14 first=holder(5-3)+holder(5-4)+comp cells=27",
+    "h2 fiber=36 q_points: min-size=2 solutions=8 first=holder(2-2)+holder(4-1) cells=9",
+    "h2 fiber=36 action: min-size=0 solutions=1 first={} cells=1",
+    "h2 fiber=36 parametric: min-size=2 solutions=8 first=holder(2-2)+holder(4-1) cells=9",
+    "h3 fiber=36 q_points: min-size=0 solutions=1 first={} cells=1",
+    "h3 fiber=36 action: min-size=0 solutions=1 first={} cells=1",
+    "h3 fiber=36 parametric: min-size=0 solutions=1 first={} cells=1",
+    "h4 fiber=90 q_points: min-size=4 solutions=2 first=holder(2-0)+holder(2-1)+holder(5-1)+holder(5-5) cells=54",
+    "h4 fiber=90 action: min-size=4 solutions=3 first=holder(2-0)+holder(2-1)+holder(5-1)+holder(5-5) cells=54",
+    "h4 fiber=90 parametric: min-size=4 solutions=2 first=holder(2-0)+holder(2-1)+holder(5-1)+holder(5-5) cells=54",
+    "h5 fiber=27 q_points: min-size=3 solutions=4 first=holder(1-1)+holder(4-4)+comp cells=23",
+    "h5 fiber=27 action: min-size=3 solutions=33 first=holder(1-1)+holder(4-4)+holder(5-1) cells=16",
+    "h5 fiber=27 parametric: min-size=3 solutions=4 first=holder(1-1)+holder(4-4)+comp cells=23",
+    "h6 fiber=90 q_points: min-size=0 solutions=1 first={} cells=1",
+    "h6 fiber=90 action: min-size=0 solutions=1 first={} cells=1",
+    "h6 fiber=90 parametric: min-size=0 solutions=1 first={} cells=1",
+    "h7 fiber=90 q_points: min-size=1 solutions=6 first=holder(1-1) cells=3",
+    "h7 fiber=90 action: min-size=0 solutions=1 first={} cells=1",
+    "h7 fiber=90 parametric: min-size=3 solutions=13 first=holder(1-1)+holder(3-1)+holder(3-3) cells=24",
+    "h8 fiber=7 q_points: min-size=1 solutions=7 first=holder(5-5) cells=2",
+    "h8 fiber=7 action: min-size=1 solutions=7 first=holder(5-5) cells=2",
+    "h8 fiber=7 parametric: min-size=1 solutions=7 first=holder(5-5) cells=2",
+    "h9 fiber=30 q_points: min-size=4 solutions=73 first=holder(1-1)+holder(2-2)+holder(3-0)+holder(3-2) cells=30",
+    "h9 fiber=30 action: min-size=4 solutions=73 first=holder(1-1)+holder(2-2)+holder(3-0)+holder(3-2) cells=30",
+    "h9 fiber=30 parametric: min-size=4 solutions=73 first=holder(1-1)+holder(2-2)+holder(3-0)+holder(3-2) cells=30",
+    "h10 fiber=19 q_points: min-size=3 solutions=8 first=holder(2-0)+holder(3-2)+holder(6-3) cells=13",
+    "h10 fiber=19 action: min-size=3 solutions=8 first=holder(2-0)+holder(3-2)+holder(6-3) cells=13",
+    "h10 fiber=19 parametric: min-size=3 solutions=8 first=holder(2-0)+holder(3-2)+holder(6-3) cells=13",
+    "h11 fiber=36 q_points: min-size=4 solutions=28 first=holder(6-0)+holder(6-2)+holder(6-3)+comp cells=32",
+    "h11 fiber=36 action: min-size=4 solutions=156 first=holder(3-1)+holder(5-5)+holder(6-3)+holder(6-6) cells=30",
+    "h11 fiber=36 parametric: min-size=4 solutions=28 first=holder(6-0)+holder(6-2)+holder(6-3)+comp cells=32",
+    "h12 fiber=6 q_points: min-size=0 solutions=1 first={} cells=1",
+    "h12 fiber=6 action: min-size=0 solutions=1 first={} cells=1",
+    "h12 fiber=6 parametric: min-size=0 solutions=1 first={} cells=1",
+];
+
+/// The ported exp3A vocabulary across the corpus: does the control-shaped
+/// registry find sound small subsets where S4's holder-shaped registry hit
+/// its ceiling? (S4: h0 UNSOUND at <= 4 on all three targets; h11 on two.)
+#[test]
+fn exp3a_registry_search_over_the_trick6_corpus() {
+    let r = receipt();
+    let mut lines = Vec::new();
+    for hand in 0..13 {
+        let kernel = kernel_at(&r, hand, 6);
+        let fiber = usize::try_from(kernel.count()).expect("small fibers");
+        let valued = highest_count_unseen(&kernel);
+        let ctx = walt_skeleton::Exp3aContext::new(&kernel, valued);
+
+        let qp = q_points_labels(&kernel);
+        let (qp_ids, _) = class_ids(&qp);
+        let act = action_labels(&qp);
+        let (act_ids, _) = class_ids(&act);
+        let par = parametric_labels(&kernel, valued);
+        let (par_ids, _) = class_ids(&par);
+
+        for (tag, ids) in [
+            ("q_points", &qp_ids),
+            ("action", &act_ids),
+            ("parametric", &par_ids),
+        ] {
+            let search = walt_skeleton::exp3a_sound_search(&kernel, &ctx, 4, ids);
+            lines.push(sound_line(hand, fiber, tag, &search));
+        }
+    }
+    let pins: Vec<String> = EXP3A_PINS.iter().map(|s| s.to_string()).collect();
+    assert_eq!(lines, pins, "exp3A soundness table drifted");
 }
 
 /// The pinned trick-5 soundness lines (§14.5 kernel, fiber 1680).

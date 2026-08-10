@@ -7,18 +7,23 @@
 //! axioms (TRUST-01).
 
 use walt_core::receipt::{locate_verify_player, parse_file, Receipt};
-use walt_core::{Domino, Team};
+use walt_core::{Context, Domino, Pip, Team};
 use walt_kernel::{Kernel, World};
-use walt_strat::{InfoPartition, ScalarPi, ScalarValuation};
+use walt_strat::{Direction, InfoPartition, ScalarPi, ScalarValuation};
 
 use walt_skeleton::{
-    check_lumpability, check_soundness, fold_record, Atom, AtomDescriptor, ControlSkeleton,
-    KernelTree, LumpabilityFailure, StaticWrap, UpdateKind,
+    check_lumpability, check_soundness, class_ids, exp3a_registry, exp3a_sound_search, fold_record,
+    Atom, AtomDescriptor, ControlSkeleton, Exp3aAtom, Exp3aContext, Exp3aDescriptor, KernelTree,
+    LumpabilityFailure, StaticWrap, UpdateKind,
 };
 
 fn receipt() -> Receipt {
     let path = locate_verify_player().expect("rob/receipts/verify_player.txt above the workspace");
     parse_file(&path).expect("the receipt parses")
+}
+
+fn d(s: &str) -> Domino {
+    s.parse().expect("a domino literal")
 }
 
 /// The §14.2 design kernel: receipt hand 0, start of trick 6.
@@ -181,16 +186,154 @@ fn the_design_kernel_focal_side_is_the_viewer_team() {
     assert_eq!(k.viewer().team(), Team::T1);
 }
 
-/// BLOCKED (walt/DISCREPANCIES.md, "exp3A descriptor pin"): v0.4 §14.4
-/// reports the four-atom static descriptor {comp41, s3max2, team(2:0),
-/// team(4:2)} producing 33 purpose-sound cells for the eight-class root-Q
-/// target (90 -> 33 -> 8), but the spec defines neither the 22-observable
-/// vocabulary nor those atoms' semantics ("comp41" and "s3max2" appear
-/// nowhere else; §12.3 gives only shape names), and no exp3A probe source
-/// survives -- walt/probes/ holds exp5 only. Reproducing 33 would require
-/// inventing semantics, which the ambiguity protocol forbids.
+/// The §14.2 valued tile and the exp3A vocabulary parameters, derived by
+/// walt's `Exp3aContext` rule, land exactly on the probe's design-kernel
+/// constants: valued 4-1, decisive tile 2-1, decisive context suit 2, boss
+/// 2-2, floor 2-0, and a 22-observable registry.
 #[test]
-#[ignore = "blocked: §14.4 atom semantics undefined and no exp3A probe source survives; see walt/DISCREPANCIES.md 'exp3A descriptor pin'"]
-fn exp3a_static_descriptor_pin() {
-    panic!("unblock by supplying exp3A atom semantics, then reproduce 90 -> 33 -> 8");
+fn exp3a_context_instantiates_the_design_kernel_parameters() {
+    let k = trick6_kernel();
+    let ctx = Exp3aContext::new(&k, d("4-1"));
+    assert_eq!(ctx.decisive, d("2-1"));
+    assert_eq!(ctx.context, Context::Natural(Pip::new(2).expect("a pip")));
+    assert_eq!(
+        ctx.context_pool,
+        [d("2-0"), d("2-2"), d("4-2"), d("5-2")]
+            .into_iter()
+            .collect::<walt_core::DominoSet>()
+    );
+    assert_eq!(ctx.boss, Some(d("2-2")));
+    assert_eq!(ctx.floor, Some(d("2-0")));
+    assert_eq!(exp3a_registry(&k).len(), 22);
+}
+
+/// The parametric (§14.2) 8-class labels, in `Kernel::worlds` order.
+fn parametric_labels(kernel: &Kernel) -> Vec<Vec<walt_geom::Envelope>> {
+    let dir = Direction::trick_diff_plus_tile(d("4-1"));
+    kernel
+        .worlds()
+        .map(|w| {
+            walt_strat::pi_root_values(
+                kernel.decl(),
+                w.hands(),
+                kernel.viewer(),
+                kernel.viewer().team(),
+                &dir,
+            )
+            .into_iter()
+            .map(|(_, e)| e)
+            .collect()
+        })
+        .collect()
+}
+
+/// UNBLOCKED (S4.5; walt/DISCREPANCIES.md "exp3A descriptor pin"): the
+/// §14.4 design descriptor D = {comp41, s3max2, team(2:0), team(4:2)},
+/// ported from the preserved probe (`walt/probes/exp3a/lambda_probe_v3.py`
+/// Part 1), reproduces 90 worlds -> 33 cells -> 8 responses through walt's
+/// own §12.1 checker, and stays sound for the 3-class action target with
+/// the same 33 cells. The descriptor is marked static -- §14.4 is a static
+/// compression result.
+#[test]
+fn exp3a_design_descriptor_reproduces_90_33_8() {
+    let k = trick6_kernel();
+    let ctx = Exp3aContext::new(&k, d("4-1"));
+    let design = Exp3aDescriptor::new(
+        ctx,
+        vec![
+            Exp3aAtom::Comp,
+            Exp3aAtom::FocalMax,
+            Exp3aAtom::Team(d("2-0")),
+            Exp3aAtom::Team(d("4-2")),
+        ],
+    );
+    assert_eq!(design.kind(), UpdateKind::StaticPassenger);
+
+    let labels = parametric_labels(&k);
+    let mut i = 0usize;
+    let r8 = check_soundness(&k, &design, |_| {
+        let l = labels[i].clone();
+        i += 1;
+        l
+    });
+    assert!(r8.is_sound(), "the design descriptor factors the R8 target");
+    assert_eq!(
+        (r8.worlds, r8.cells, r8.responses),
+        (90, 33, 8),
+        "90 worlds -> 33 cells -> 8 responses (v0.4 §14.4)"
+    );
+
+    let corr: Vec<walt_geom::ArgmaxCorrespondence> = labels
+        .iter()
+        .map(|es| walt_geom::argmax_correspondence(es))
+        .collect();
+    let mut i = 0usize;
+    let r3 = check_soundness(&k, &design, |_| {
+        let l = corr[i].clone();
+        i += 1;
+        l
+    });
+    assert!(r3.is_sound());
+    assert_eq!((r3.worlds, r3.cells, r3.responses), (90, 33, 3));
+}
+
+/// The probe's full Part 1 search record reproduces through walt's own
+/// machinery: for BOTH targets (R8 parametric, R3 action correspondence),
+/// the minimal sound size is 4 with exactly eight solutions -- the four
+/// {comp | comp-rank} x {holder | team} shapes -- at 69/53/53/33 cells.
+/// Solution sets and cell counts pinned exactly against the preserved
+/// probe output (`v3_output_postfix.txt`).
+#[test]
+fn exp3a_search_reproduces_the_probe_record() {
+    let k = trick6_kernel();
+    let ctx = Exp3aContext::new(&k, d("4-1"));
+    let labels = parametric_labels(&k);
+    let (r8_ids, r8_count) = class_ids(&labels);
+    assert_eq!(r8_count, 8);
+    let corr: Vec<walt_geom::ArgmaxCorrespondence> = labels
+        .iter()
+        .map(|es| walt_geom::argmax_correspondence(es))
+        .collect();
+    let (r3_ids, r3_count) = class_ids(&corr);
+    assert_eq!(r3_count, 3);
+
+    let expected: Vec<(Vec<Exp3aAtom>, usize)> = {
+        let mut out = Vec::new();
+        for comp in [Exp3aAtom::Comp, Exp3aAtom::CompRank] {
+            for (pair, cells) in [
+                (
+                    (Exp3aAtom::Holder(d("2-0")), Exp3aAtom::Holder(d("4-2"))),
+                    69,
+                ),
+                ((Exp3aAtom::Holder(d("2-0")), Exp3aAtom::Team(d("4-2"))), 53),
+                ((Exp3aAtom::Holder(d("4-2")), Exp3aAtom::Team(d("2-0"))), 53),
+                ((Exp3aAtom::Team(d("2-0")), Exp3aAtom::Team(d("4-2"))), 33),
+            ] {
+                let mut sol = vec![pair.0, pair.1, comp, Exp3aAtom::FocalMax];
+                sol.sort();
+                out.push((sol, cells));
+            }
+        }
+        out.sort();
+        out
+    };
+
+    for (tag, ids) in [("R8", &r8_ids), ("R3", &r3_ids)] {
+        let search = exp3a_sound_search(&k, &ctx, 4, ids);
+        let minimal = search.minimal.expect("a sound descriptor exists");
+        assert_eq!(minimal.size, 4, "{tag}: smallest sound size");
+        let mut got: Vec<(Vec<Exp3aAtom>, usize)> = minimal
+            .solutions
+            .iter()
+            .zip(&minimal.cells)
+            .map(|(sol, cells)| {
+                let mut sol = sol.clone();
+                sol.sort();
+                (sol, *cells)
+            })
+            .collect();
+        got.sort();
+        assert_eq!(got.len(), 8, "{tag}: eight minimal solutions (§14.4)");
+        assert_eq!(got, expected, "{tag}: the probe's solution record");
+    }
 }
