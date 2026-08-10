@@ -1,0 +1,98 @@
+walt S5c-m3 label-transfer re-measurement (r2) — exploratory tier
+solver: walt-strat ScalarHidden + dag-v1 pooled-state boundary memoization (S5c-m3); the unmemoized tree walk is retained as the value-transparency reference, CI-asserted byte-identical on every m2-measured decision (tests/h_value_transparency.rs)
+budget: 100000000 particle-steps per decision, semantics=dag-v1 — one unit per (particle, node) visit computed on the memoized DAG; a cache hit costs zero by unit definition, deterministically (measurability is a function of declared inputs, never run history; capped is EXCLUSION, never sampling)
+cache: fresh per measurement call of one solver frame (the frame is carried by table scope), unbounded, no trimming; key = (canonical weighted world-multiset: particles sorted by packed hands, weights gcd-normalized unit-fraction denominators) x (leader), stored at trick boundaries with the ruled key's prefix component empty — sound (full key, never a coarsening); (boundary state, observed prefix) -> mid-trick state is surjective determination, not bijection, so convergent mid-trick states are foregone hits by design (walt-math, S5c-m3)
+semantics note: r1 (label_transfer_2026-08-10.txt) measured at tree-v0; a row capped there and measured here is a SEMANTICS CHANGE (tree-v0 -> dag-v1), never the same statistic improving; previously-measured rows are byte-identical in value; each measured dag row carries tree-equiv=, the exact tree-v0 cost of the identical computation
+provenance: any row measured here that r1 capped is computed by the memoized implementation only — marked SINGLE-IMPLEMENTATION until an independent checker re-verifies one
+inventory: the m1 lessons reproduced on receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 (179 decisions, 29 excluded — exclusion frontier is control-biased: fiber size anti-correlates with focal control, exp5 covariate), re-measured at (H, fixed-uniform-legal), root weighting uniform-over-fiber
+survival: 10 survive, 0 fail, 5 unmeasured of 15 value lessons; refutations 7/10 survive
+
+regret h0 S1 t5 p0: verdict [refutation: value(decisive) >= value(max-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(2-0)=4 & beaters-total(1-1)<=0] surviving [none] introduced [beaters-total(2-0)>=4, beaters-total(1-1)<=0, beaters-total(2-0)<=4] re-pinned [beaters-total(2-0)=4] intro-budget 3/4 basin 1/64 eligible decisions 1680/476545 eligible worlds frame-rate 1/64 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (488,1192,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  h0 S1 t5 p0 fiber 1680: Q^H(2-1)=80/7 Q^H(3-2)=202/21 -> HOLDS [semantics=dag-v1 steps=567492 tree-equiv=4835592 entries=5063 hits=39997 key-particles=32772]
+  H summary: measured 1 held 1 failed 0 not-fiber-valid 0 capped 0 -> SURVIVES at (H, fixed-uniform-legal) on the measured subdomain [semantics=dag-v1]
+  (H measurement 39.721375ms)
+
+regret h0 S1 t5 p0: verdict [win: decisive suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(2-0)=4 & beaters-total(1-1)<=0] surviving [none] introduced [beaters-total(2-0)<=4, beaters-total(2-0)>=4, beaters-total(1-1)<=0] re-pinned [beaters-total(2-0)=4] intro-budget 3/4 basin 1/135 eligible decisions 1680/649657 eligible worlds frame-rate 1/135 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (0,1680,0)
+  h0 S1 t5 p0 fiber 1680: Q^H(2-1)=80/7 best=80/7 -> HOLDS [semantics=dag-v1 steps=567492 tree-equiv=4835592 entries=5063 hits=39997 key-particles=32772]
+  H summary: measured 1 held 1 failed 0 not-fiber-valid 0 capped 0 -> SURVIVES at (H, fixed-uniform-legal) on the measured subdomain [semantics=dag-v1]
+  (H measurement 39.672291ms)
+
+regret h1 S0 t5 p2: verdict [refutation: value(tile(5-2)) >= value(decisive) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [bestkeep=true & beaters-total(1-0)<=2] surviving [none] introduced [bestkeep=true, beaters-total(1-0)<=2] re-pinned [none] intro-budget 2/4 basin 1/14 eligible decisions 210/14305 eligible worlds frame-rate 1/14 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (70,140,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  h1 S0 t5 p2 fiber 210: Q^H(5-2)=562/315 Q^H(3-3)=478/315 -> HOLDS [semantics=dag-v1 steps=52488 tree-equiv=114918 entries=708 hits=2865 key-particles=4572]
+  H summary: measured 1 held 1 failed 0 not-fiber-valid 0 capped 0 -> SURVIVES at (H, fixed-uniform-legal) on the measured subdomain [semantics=dag-v1]
+  (H measurement 3.642583ms)
+
+regret h1 S0 t5 p2: verdict [win: tile(5-2) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [horizon<=3 & ply=2] surviving [ply=2, horizon<=3] introduced [none] re-pinned [none] intro-budget 0/4 basin 5/20 eligible decisions 651/49980 eligible worlds frame-rate 5/5 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (0,651,0)
+  h1 S0 t5 p2 fiber 210: Q^H(5-2)=562/315 best=562/315 -> HOLDS [semantics=dag-v1 steps=52488 tree-equiv=114918 entries=708 hits=2865 key-particles=4572]
+  h1 S0 t6 p2 fiber 12: Q^H(5-2)=13/12 best=13/12 -> HOLDS [semantics=dag-v1 steps=240 tree-equiv=240 entries=8 hits=0 key-particles=36]
+  h6 S1 t5 p2 fiber 210: Q^H(5-2)=-335/21 best=-335/21 -> HOLDS [semantics=dag-v1 steps=21990 tree-equiv=51690 entries=217 hits=990 key-particles=1890]
+  h7 S2 t5 p2 fiber 210: Q^H(5-2)=1607/140 best=1607/140 -> HOLDS [semantics=dag-v1 steps=18672 tree-equiv=35922 entries=413 hits=844 key-particles=1908]
+  h9 S3 t6 p2 fiber 9: Q^H(5-2)=-3 best=-3 -> HOLDS [semantics=dag-v1 steps=162 tree-equiv=162 entries=8 hits=0 key-particles=24]
+  H summary: measured 5 held 5 failed 0 not-fiber-valid 0 capped 0 -> SURVIVES at (H, fixed-uniform-legal) on the measured subdomain [semantics=dag-v1]
+  (H measurement 6.208917ms)
+
+regret h1 S2 t3 p0: verdict [refutation: value(min-count) >= value(decisive) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(1-0)<=1] surviving [none] introduced [beaters-total(1-0)<=1] re-pinned [none] intro-budget 1/4 basin 3/89 eligible decisions 186/454235 eligible worlds frame-rate 3/89 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (48,138,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 3
+  h1 S1 t5 p3 fiber 90: Q^H(3-0)=-623/360 Q^H(4-0)=-623/360 -> HOLDS [semantics=dag-v1 steps=9132 tree-equiv=14742 entries=208 hits=287 key-particles=1092]
+  h1 S2 t6 p0 fiber 90: Q^H(1-1)=16/15 Q^H(4-3)=-2/15 -> HOLDS [semantics=dag-v1 steps=2604 tree-equiv=4284 entries=88 hits=104 key-particles=240]
+  h7 S3 t6 p3 fiber 6: Q^H(1-1)=-4/3 Q^H(3-1)=-4/3 -> HOLDS [semantics=dag-v1 steps=72 tree-equiv=72 entries=2 hits=0 key-particles=12]
+  H summary: measured 3 held 3 failed 0 not-fiber-valid 0 capped 0 -> SURVIVES at (H, fixed-uniform-legal) on the measured subdomain [semantics=dag-v1]
+  (H measurement 705.583µs)
+
+regret h1 S2 t4 p0: verdict [refutation: value(tile(4-3)) >= value(tile(6-0)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(0-0)<=0] surviving [none] introduced [beaters-total(0-0)<=0] re-pinned [none] intro-budget 1/4 basin 1/3 eligible decisions 34650/63630 eligible worlds frame-rate 1/3 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (2520,32130,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  h1 S2 t4 p0 fiber 34650: CAPPED at budget 100000000 [semantics=dag-v1 steps=99999958 tree-equiv>=9203296002 entries=114694 hits=6334855 key-particles=2514900]
+  H summary: measured 0 held 0 failed 0 not-fiber-valid 0 capped 1 -> UNMEASURED (empty basin, all inapplicable, or all capped) [semantics=dag-v1]
+  (H measurement 6.216325375s)
+
+regret h1 S2 t4 p0: verdict [win: tile(4-3) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [bestkeep=true & beaters-total(0-0)<=0 & beaters-total(1-0)<=3] surviving [none] introduced [bestkeep=true, beaters-total(0-0)<=0, beaters-total(1-0)<=3] re-pinned [none] intro-budget 3/4 basin 1/22 eligible decisions 34650/164162 eligible worlds frame-rate 1/22 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (0,34650,0)
+  h1 S2 t4 p0 fiber 34650: CAPPED at budget 100000000 [semantics=dag-v1 steps=99999958 tree-equiv>=9203296002 entries=114694 hits=6334855 key-particles=2514900]
+  H summary: measured 0 held 0 failed 0 not-fiber-valid 0 capped 1 -> UNMEASURED (empty basin, all inapplicable, or all capped) [semantics=dag-v1]
+  (H measurement 6.221081834s)
+
+regret h2 S2 t3 p0: verdict [refutation: value(tile(6-6)) >= value(tile(6-2)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [(empty)] surviving [none] introduced [none] re-pinned [none] intro-budget 0/4 basin 0/0 eligible decisions 0/0 eligible worlds frame-rate 0/0 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (0,0,0) split refutation 0 safe-substitution 0
+  H summary: measured 0 held 0 failed 0 not-fiber-valid 0 capped 0 -> UNMEASURED (empty basin, all inapplicable, or all capped) [semantics=dag-v1]
+  (H measurement 958ns)
+
+regret h2 S2 t4 p3: verdict [refutation: value(tile(6-6)) >= value(tile(6-3)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [(empty)] surviving [none] introduced [none] re-pinned [none] intro-budget 0/4 basin 1/1 eligible decisions 1120/1120 eligible worlds frame-rate 1/1 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (91,1029,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  h2 S2 t4 p3 fiber 1120: Q^H(6-6)=-1025393/241920 Q^H(6-3)=-272359/48384 -> HOLDS [semantics=dag-v1 steps=1505971 tree-equiv=9427575 entries=14055 hits=144479 key-particles=91674]
+  H summary: measured 1 held 1 failed 0 not-fiber-valid 0 capped 0 -> SURVIVES at (H, fixed-uniform-legal) on the measured subdomain [semantics=dag-v1]
+  (H measurement 105.893542ms)
+
+regret h3 S3 t4 p1: verdict [refutation: value(decisive) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(3-0)=2 & beaters-total(3-1)=4] surviving [none] introduced [beaters-total(3-0)<=2, beaters-total(3-0)>=2, beaters-total(3-1)<=4, beaters-total(3-1)>=4] re-pinned [beaters-total(3-0)=2, beaters-total(3-1)=4] intro-budget 4/4 basin 1/89 eligible decisions 2450/454235 eligible worlds frame-rate 1/89 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (191,2259,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  h3 S3 t4 p1 fiber 2450: Q^H(6-3)=-75961447/3628800 Q^H(5-3)=-557701759/25401600 -> HOLDS [semantics=dag-v1 steps=7645396 tree-equiv=75285073 entries=48228 hits=1288910 key-particles=349816]
+  H summary: measured 1 held 1 failed 0 not-fiber-valid 0 capped 0 -> SURVIVES at (H, fixed-uniform-legal) on the measured subdomain [semantics=dag-v1]
+  (H measurement 691.756375ms)
+
+regret h4 S0 t4 p3: verdict [refutation: value(decisive) >= value(tile(5-2)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(0-0)=3] surviving [none] introduced [beaters-total(0-0)<=3, beaters-total(0-0)>=3] re-pinned [beaters-total(0-0)=3] intro-budget 2/4 basin 1/14 eligible decisions 1680/14305 eligible worlds frame-rate 1/14 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (122,1558,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  h4 S0 t4 p3 fiber 1680: Q^H(4-2)=-345115/72576 Q^H(5-2)=-2377331/362880 -> HOLDS [semantics=dag-v1 steps=2410005 tree-equiv=12969894 entries=12400 hits=202388 key-particles=133068]
+  H summary: measured 1 held 1 failed 0 not-fiber-valid 0 capped 0 -> SURVIVES at (H, fixed-uniform-legal) on the measured subdomain [semantics=dag-v1]
+  (H measurement 153.246167ms)
+
+regret h4 S3 t5 p2: verdict [refutation: value(max-count) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(2-0)<=4 & beaters-total(1-1)<=0 & beaters-total(5-5)<=3] surviving [none] introduced [beaters-total(2-0)<=4, beaters-total(1-1)<=0, beaters-total(5-5)<=3] re-pinned [none] intro-budget 3/4 basin 3/130 eligible decisions 1920/706174 eligible worlds frame-rate 3/130 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (1,1919,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 3
+  h4 S1 t5 p0 fiber 1680: Q^H(5-1)=84157/15120 Q^H(2-1)=84157/15120 -> HOLDS [semantics=dag-v1 steps=622230 tree-equiv=2455746 entries=7027 hits=47945 key-particles=42042]
+  h4 S3 t5 p2 fiber 210: Q^H(5-4)=-59/12 Q^H(4-3)=-1033/210 -> HOLDS [semantics=dag-v1 steps=31020 tree-equiv=59880 entries=656 hits=1494 key-particles=3144]
+  h4 S3 t6 p1 fiber 30: Q^H(5-4)=-67/15 Q^H(2-2)=-67/15 -> HOLDS [semantics=dag-v1 steps=960 tree-equiv=1020 entries=38 hits=2 key-particles=132]
+  H summary: measured 3 held 3 failed 0 not-fiber-valid 0 capped 0 -> SURVIVES at (H, fixed-uniform-legal) on the measured subdomain [semantics=dag-v1]
+  (H measurement 40.866ms)
+
+regret h4 S3 t5 p2: verdict [win: max-count suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(2-0)<=5 & beaters-total(2-1)<=2 & beaters-total(1-1)<=0 & beaters-total(5-1)>=1] surviving [none] introduced [beaters-total(2-0)<=5, beaters-total(2-1)<=2, beaters-total(1-1)<=0, beaters-total(5-1)>=1] re-pinned [none] intro-budget 4/4 basin 3/179 eligible decisions 4440/924813 eligible worlds frame-rate 3/179 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (0,4440,0)
+  h4 S3 t4 p2 fiber 4200: Q^H(6-2)=2825887/1814400 best=2825887/1814400 -> HOLDS [semantics=dag-v1 steps=4565975 tree-equiv=25545510 entries=26951 hits=455993 key-particles=249621]
+  h4 S3 t5 p2 fiber 210: Q^H(5-4)=-59/12 best=-59/12 -> HOLDS [semantics=dag-v1 steps=31020 tree-equiv=59880 entries=656 hits=1494 key-particles=3144]
+  h4 S3 t6 p1 fiber 30: Q^H(5-4)=-67/15 best=-67/15 -> HOLDS [semantics=dag-v1 steps=960 tree-equiv=1020 entries=38 hits=2 key-particles=132]
+  H summary: measured 3 held 3 failed 0 not-fiber-valid 0 capped 0 -> SURVIVES at (H, fixed-uniform-legal) on the measured subdomain [semantics=dag-v1]
+  (H measurement 311.682041ms)
+
+regret h11 S1 t3 p3: verdict [refutation: value(tile(2-0)) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [team(1-1)=false & beaters-total(3-0)<=5] surviving [none] introduced [team(1-1)=false, beaters-total(3-0)<=5] re-pinned [none] intro-budget 2/4 basin 1/4 eligible decisions 23100/53620 eligible worlds frame-rate 1/4 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (4,23096,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  h11 S1 t3 p3 fiber 23100: CAPPED at budget 100000000 [semantics=dag-v1 steps=99999998 tree-equiv>=1377805001 entries=281469 hits=10079907 key-particles=4135353]
+  H summary: measured 0 held 0 failed 0 not-fiber-valid 0 capped 1 -> UNMEASURED (empty basin, all inapplicable, or all capped) [semantics=dag-v1]
+  (H measurement 7.074377834s)
+
+regret h11 S1 t3 p3: verdict [win: tile(2-0) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [horizon>=5 & beaters-total(5-2)<=3] surviving [horizon>=5] introduced [beaters-total(5-2)<=3] re-pinned [none] intro-budget 1/4 basin 3/20 eligible decisions 74382/148744 eligible worlds frame-rate 3/4 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (0,74382,0)
+  h1 S3 t3 p1 fiber 16632: CAPPED at budget 100000000 [semantics=dag-v1 steps=99999998 tree-equiv>=99999998 entries=275447 hits=13074330 key-particles=2841357]
+  h5 S1 t3 p3 fiber 34650: CAPPED at budget 100000000 [semantics=dag-v1 steps=99999978 tree-equiv>=99999978 entries=284760 hits=12020414 key-particles=4251311]
+  h11 S1 t3 p3 fiber 23100: CAPPED at budget 100000000 [semantics=dag-v1 steps=99999998 tree-equiv>=1377805001 entries=281469 hits=10079907 key-particles=4135353]
+  H summary: measured 0 held 0 failed 0 not-fiber-valid 0 capped 3 -> UNMEASURED (empty basin, all inapplicable, or all capped) [semantics=dag-v1]
+  (H measurement 21.468528666s)
+
+lumpability h0 t6 chassis: verdict [not-lumpable: chassis fails §12.6 at every matching decision] grade [checker (§12.6 exhaustive lumpability, uniform-legal field, q_points valuation)] final [(empty)] surviving [none] introduced [none] re-pinned [none] intro-budget 0/4 basin 13/13 eligible decisions 647/647 eligible worlds frame-rate 13/13 (carrier: lead-kernel trees (ply 0, horizon <= 2); domain context 179/924813, 29 excluded)
+  H: not re-measured (checker verdict lives at the fixed field already)
+

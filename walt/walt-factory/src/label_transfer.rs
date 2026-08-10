@@ -22,17 +22,53 @@
 //! not re-measured: §12.6 already lives at the fixed field and is not a
 //! value comparison.
 //!
+//! S5c-m3 adds the `dag-v1` budget semantics (`remeasure_at_h_dag`): the
+//! same measurement over walt-strat's memoized DAG, so the m2
+//! budget-capped big fibers become measurable at the seat-facing label.
+//! Whether a lesson is measured or capped stays a deterministic function
+//! of declared inputs — the cache is scoped to one measurement call, and
+//! the unit (not the work) is what changed. Rows and results headers
+//! carry the semantics identifier; a lesson capped at tree-v0 and
+//! measured at dag-v1 is a semantics change, never the same statistic
+//! improving.
+//!
 //! Everything exploratory tier; exact rationals; deterministic.
 
 use walt_core::receipt::Receipt;
 use walt_core::{Domino, Seat};
 use walt_geom::Q;
 use walt_kernel::ReceiptDecision;
-use walt_strat::{ScalarHidden, ScalarValuation};
+use walt_strat::{MemoStats, ScalarHidden, ScalarValuation};
 
 use crate::basin::BasinDomain;
 use crate::generalize::lesson_applies;
 use crate::lesson::{Lesson, LessonVerdict};
+
+/// The declared particle-step budget unit (S5c-m3, walt-math ruling):
+/// measurability is a deterministic function of (solver version, budget
+/// semantics, budget value, root inputs) — never of run history. A lesson
+/// capped under one semantics and measured under another is a SEMANTICS
+/// CHANGE, recorded as such, never the same statistic improving.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum BudgetSemantics {
+    /// One unit per (particle, node) visit of the observation tree — the
+    /// S5c-m2 unit.
+    TreeV0,
+    /// One unit per (particle, node) visit actually computed on the
+    /// memoized DAG; a pooled-state cache hit costs zero by unit
+    /// definition (`hidden_scalar` module doc). Cache scope is one
+    /// measurement call — incidental warmth cannot exist.
+    DagV1,
+}
+
+impl BudgetSemantics {
+    pub fn identifier(self) -> &'static str {
+        match self {
+            BudgetSemantics::TreeV0 => "tree-v0",
+            BudgetSemantics::DagV1 => "dag-v1",
+        }
+    }
+}
 
 /// One matched decision's H re-measurement.
 #[derive(Clone, Debug)]
@@ -43,6 +79,9 @@ pub struct HDecision {
     pub ply: usize,
     pub fiber: usize,
     pub outcome: HOutcome,
+    /// `dag-v1` cache statistics for this decision's measurement call
+    /// (`None` under tree semantics) — provenance, never verdict input.
+    pub memo: Option<MemoStats>,
 }
 
 #[derive(Clone, Debug)]
@@ -74,6 +113,7 @@ pub enum HOutcome {
 pub struct HReport {
     pub decisions: Vec<HDecision>,
     pub budget_per_decision: u64,
+    pub semantics: BudgetSemantics,
 }
 
 impl HReport {
@@ -113,13 +153,50 @@ impl HReport {
     }
 }
 
-/// Re-measures one lesson's matched decisions at (H, fixed-uniform-legal).
-/// `None` for the checker verdict (not a value comparison).
+/// Re-measures one lesson's matched decisions at (H, fixed-uniform-legal)
+/// under the S5c-m2 tree-v0 budget semantics (the unmemoized walk — the
+/// value-transparency reference). `None` for the checker verdict (not a
+/// value comparison).
 pub fn remeasure_at_h(
     lesson: &Lesson,
     domain: &BasinDomain,
     receipt: &Receipt,
     budget_per_decision: u64,
+) -> Option<HReport> {
+    remeasure(
+        lesson,
+        domain,
+        receipt,
+        budget_per_decision,
+        BudgetSemantics::TreeV0,
+    )
+}
+
+/// The same re-measurement under `dag-v1` budget semantics: the memoized
+/// solver, one fresh cache per decision's measurement call. Values are
+/// byte-identical to tree-v0 where both measure (CI-asserted); only
+/// measurability can differ, and that difference is a semantics change.
+pub fn remeasure_at_h_dag(
+    lesson: &Lesson,
+    domain: &BasinDomain,
+    receipt: &Receipt,
+    budget_per_decision: u64,
+) -> Option<HReport> {
+    remeasure(
+        lesson,
+        domain,
+        receipt,
+        budget_per_decision,
+        BudgetSemantics::DagV1,
+    )
+}
+
+fn remeasure(
+    lesson: &Lesson,
+    domain: &BasinDomain,
+    receipt: &Receipt,
+    budget_per_decision: u64,
+    semantics: BudgetSemantics,
 ) -> Option<HReport> {
     if matches!(lesson.verdict, LessonVerdict::NotLumpable { .. }) {
         return None;
@@ -140,6 +217,7 @@ pub fn remeasure_at_h(
             ply: m.ply,
             fiber: d.worlds.len(),
             outcome: HOutcome::Capped,
+            memo: None,
         };
         // Fiber-validity through the gated application path: the H
         // quantifier applies the implicant per decision, so every fiber
@@ -161,7 +239,18 @@ pub fn remeasure_at_h(
         let hands: Vec<[walt_core::DominoSet; Seat::COUNT]> =
             d.worlds.iter().map(|w| w.hands()).collect();
         let mut budget = budget_per_decision;
-        let Some(values) = solver.action_values(&hands, rd.leader, &rd.prefix, &mut budget) else {
+        let values = match semantics {
+            BudgetSemantics::TreeV0 => {
+                solver.action_values(&hands, rd.leader, &rd.prefix, &mut budget)
+            }
+            BudgetSemantics::DagV1 => {
+                let (values, stats) =
+                    solver.action_values_dag(&hands, rd.leader, &rd.prefix, &mut budget);
+                entry.memo = Some(stats);
+                values
+            }
+        };
+        let Some(values) = values else {
             decisions.push(entry);
             continue;
         };
@@ -200,11 +289,14 @@ pub fn remeasure_at_h(
     Some(HReport {
         decisions,
         budget_per_decision,
+        semantics,
     })
 }
 
 /// Deterministic rendering: one line per matched decision plus the
-/// survival summary.
+/// survival summary. Tree-v0 rows render exactly as in S5c-m2 (they are
+/// pinned); dag-v1 rows each carry the budget-semantics identifier and
+/// the decision's cache statistics.
 pub fn render_h_report(report: &HReport) -> String {
     let mut out = String::new();
     for d in &report.decisions {
@@ -252,6 +344,26 @@ pub fn render_h_report(report: &HReport) -> String {
             ),
         };
         out.push_str(&line);
+        if report.semantics == BudgetSemantics::DagV1 {
+            match &d.memo {
+                Some(s) => {
+                    // On a capped call the tree-equivalent count only
+                    // covers completed root actions, so render the best
+                    // available lower bound (a dag walk never charges
+                    // more than the tree walk it replaces).
+                    let (bound, tree) = if matches!(d.outcome, HOutcome::Capped) {
+                        (">=", s.tree_steps.max(u128::from(s.steps)))
+                    } else {
+                        ("=", s.tree_steps)
+                    };
+                    out.push_str(&format!(
+                        " [semantics=dag-v1 steps={} tree-equiv{bound}{tree} entries={} hits={} key-particles={}]",
+                        s.steps, s.entries, s.hits, s.key_particles
+                    ));
+                }
+                None => out.push_str(" [semantics=dag-v1]"),
+            }
+        }
         out.push('\n');
     }
     let (measured, held, failed, nfv, capped) = report.counts();
@@ -260,8 +372,12 @@ pub fn render_h_report(report: &HReport) -> String {
         Some(false) => "FAILS at (H, fixed-uniform-legal)",
         None => "UNMEASURED (empty basin, all inapplicable, or all capped)",
     };
+    let tag = match report.semantics {
+        BudgetSemantics::TreeV0 => "",
+        BudgetSemantics::DagV1 => " [semantics=dag-v1]",
+    };
     out.push_str(&format!(
-        "  H summary: measured {measured} held {held} failed {failed} not-fiber-valid {nfv} capped {capped} -> {survival}\n"
+        "  H summary: measured {measured} held {held} failed {failed} not-fiber-valid {nfv} capped {capped} -> {survival}{tag}\n"
     ));
     out
 }

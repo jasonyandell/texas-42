@@ -42,7 +42,7 @@ pub mod scalar;
 pub use census::{pi_census, PiCensus};
 pub use direction::Direction;
 pub use hidden::hidden_root_values;
-pub use hidden_scalar::ScalarHidden;
+pub use hidden_scalar::{MemoStats, ScalarHidden};
 pub use info::{policy_value, InfoPartition, InfoStateId, Policy};
 pub use label::{OperatorLabel, WeightingLabel};
 pub use pi::pi_root_values;

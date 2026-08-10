@@ -1,0 +1,25 @@
+walt S5c-m3 tree cross-validation receipt — exploratory tier
+scope: the four r2-capped decisions (r3-failed decisions first), values computed independently by BOTH implementations — the unmemoized tree walk (the m2-pinned reference, uncapped: budget u64::MAX, semantics=tree-v0) and the dag-v1 memoized walk (uncapped) — and compared exactly
+purpose: walt-math S5c-m3 amendment 4(i) — the r3 supplement's values lose their SINGLE-IMPLEMENTATION marking for exactly the decisions listed below
+regenerate: cargo test --release -p walt-factory --test h_dag_probe -- --ignored crosscheck_tree_uncapped
+
+h1 S2 t4 p0 fiber 34650: tree walk 15486288612 particle-steps in 718.524133167s; dag walk 123882398 particle-steps
+  Q^H(1-1)=2183/270 (tree) vs Q^H(1-1)=2183/270 (dag) -> IDENTICAL
+  Q^H(4-3)=79/11 (tree) vs Q^H(4-3)=79/11 (dag) -> IDENTICAL
+  Q^H(6-0)=111269/13860 (tree) vs Q^H(6-0)=111269/13860 (dag) -> IDENTICAL
+  Q^H(6-6)=111269/13860 (tree) vs Q^H(6-6)=111269/13860 (dag) -> IDENTICAL
+  verdict: byte-identical action-value vectors
+h11 S1 t3 p3 fiber 23100: tree walk 10766263412 particle-steps in 549.300634833s; dag walk 226094450 particle-steps
+  Q^H(0-0)=-2897509283/479001600 (tree) vs Q^H(0-0)=-2897509283/479001600 (dag) -> IDENTICAL
+  Q^H(2-0)=-1927714337/319334400 (tree) vs Q^H(2-0)=-1927714337/319334400 (dag) -> IDENTICAL
+  Q^H(3-1)=-3858693299/638668800 (tree) vs Q^H(3-1)=-3858693299/638668800 (dag) -> IDENTICAL
+  Q^H(5-1)=-547477589/91238400 (tree) vs Q^H(5-1)=-547477589/91238400 (dag) -> IDENTICAL
+  Q^H(6-2)=-5954632931/958003200 (tree) vs Q^H(6-2)=-5954632931/958003200 (dag) -> IDENTICAL
+  verdict: byte-identical action-value vectors
+h5 S1 t3 p3 fiber 34650: tree walk 4214899874 particle-steps in 208.416718s; dag walk 226613736 particle-steps
+  Q^H(2-0)=-82207571/12830400 (tree) vs Q^H(2-0)=-82207571/12830400 (dag) -> IDENTICAL
+  verdict: byte-identical action-value vectors
+h1 S3 t3 p1 fiber 16632: tree walk 65449828676 particle-steps in 3693.848721375s; dag walk 537862903 particle-steps
+  Q^H(2-0)=-70997804609/10346434560 (tree) vs Q^H(2-0)=-70997804609/10346434560 (dag) -> IDENTICAL
+  Q^H(2-1)=-70997804609/10346434560 (tree) vs Q^H(2-1)=-70997804609/10346434560 (dag) -> IDENTICAL
+  verdict: byte-identical action-value vectors
