@@ -157,6 +157,25 @@ useful").
   totals (60360/69600/164088) are frozen as walt-tier pins. i128 rationals
   sufficed throughout (overflow-checks on, no escalation to BigRational);
   the twelve-direction H+C+F sweep runs ~13s in release.
+- **S3.5 (2026-08-09)**: exp5 census pins unblocked. The probe suite landed
+  at `walt/probes/exp5/` (commit b3cb523), supplying the missing definition:
+  `q_points` = exact PI root value vector with each trick worth ±(1 + count
+  points of its four tiles), focal minus opponents; the h1t3/h3t3 headline
+  counts are censuses of recorded 10,000-draw uniform samples (seeds
+  42042013/42042033), i.e. sampled lower bounds of the fiber census.
+  **COMPLETE**: `walt/ci/check.sh` PASS. New `walt-strat/src/scalar.rs`
+  (integer PI minimax, trick-boundary cache with full-window-exact entries,
+  in-trick alpha-beta) + `tests/exp5_census.rs` (4 tests, ~25s release):
+  the samples regenerated via the probe's own sampler and frozen as fixtures
+  (distinct counts 9,920/9,933 match the records exactly); **h1t3 = 10 and
+  h3t3 = 5,345 q_points classes reproduce exactly**, plus act_points 8/31,
+  q_trick 2/1007, act_trick 1/31, the recorded h1t3 class representative,
+  true-world class membership for both, both exhaustive horizon-2/3 report
+  tables (13 kernels × q/act × trick/points), the trick-6 q_param row, and
+  scalar-vs-symbolic agreement on all 647 trick-6 worlds × 2 valuations.
+  `act_param` deliberately not pinned (probe canonicalizes correspondences
+  by segment identity, walt by argmax value -- different statistics;
+  `walt/DISCREPANCIES.md`, "exp5 census pins").
 - S4: walt-skeleton (trait, lumpability checker, static passenger) + first
   synthesis run against factory targets.
 - S5+: walt-factory corpus at scale (all 9 declarations), the dynamic

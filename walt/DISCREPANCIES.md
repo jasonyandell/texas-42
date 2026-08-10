@@ -6,27 +6,42 @@ here rather than silently picking a reading.
 
 ## Open discrepancies
 
-### exp5 census pins: "q_points classes" has no defining source (S2)
-
-PLAN.md's ground-truth bridges pin "exp5 census values on shared kernels
-(e.g. h1t3: 10 q_points classes; h3t3: 5345)", and the S2 brief directs that
-the exact meaning of these counts be taken from v0.4 §14 before pinning. It
-cannot be: §14 records experiments 1, 2, 3A, 3B, 4A, and 4B only (§14.2--§14.7)
-and contains neither the token "exp5" nor "q_points" anywhere in the frozen
-document. The exp5 probe corpus itself is scratchpad-era Python that is not in
-this repository -- S1 imported only its *fiber sizes* (transcribed into
-`walt-kernel/tests/common/mod.rs`), which are defined independently by v0.4
-§2.1. There is no way to reproduce "10 classes" or "5345 classes" without
-guessing what was counted (root-Q vectors at which sample points? under which
-utility? over which root-action set at a five-tile horizon?), which the
-protocol forbids.
-
-Recorded as the `#[ignore]`d test
-`walt-strat/tests/exp5_census_blocked.rs::exp5_census_h1t3_has_10_classes_and_h3t3_has_5345`.
-Unblock by adding the exp5 census definition (the probe script or its report)
-to the repository and replacing the blocked test with an exact reproduction.
+**None as of S3.5.**
 
 ## Reconciled, not discrepancies
+
+### exp5 census pins: blocked in S2, unblocked in S3.5
+
+S2 recorded this as open: PLAN.md pinned "h1t3: 10 q_points classes; h3t3:
+5345" but v0.4 §14 never defines exp5 or "q_points", and the probe scripts
+were not in the repository, so there was nothing to reproduce without
+guessing. The block dissolved when the exp5 probe suite was preserved at
+`walt/probes/exp5/` (commit b3cb523). Extracted definitions
+(`exp5_core.Solver`, `exp5_census.scalar_job`): a `q_points` class is an
+exact PI root value vector under the real scoring differential -- each trick
+worth +-(1 + count points of its four tiles), focal team minus opponents --
+and the h1t3/h3t3 counts are censuses of a **sampled** world set: 10,000
+exactly-uniform draws from the fiber at recorded seeds (42042013, 42042033),
+marked `+` (lower bounds of the fiber census) in `exp5_results.md`.
+
+Reproduction (`walt-strat/tests/exp5_census.rs`): the two samples were
+regenerated with the probe's own sampler at the recorded seeds and their
+distinct worlds frozen as fixtures (`walt-strat/tests/data/`); the distinct
+counts (9,920 / 9,933) match the records' `n_distinct_worlds_solved` exactly,
+fingerprinting the streams, and duplicates cannot add classes. walt's scalar
+PI census over those worlds reproduces every recorded value: h1t3
+q_points 10 / act_points 8 / q_trick 2 / act_trick 1; h3t3 q_points 5345 /
+act_points 31 / q_trick 1007 / act_trick 31 -- plus both exhaustive
+horizon-2/3 tables (13 kernels x 4 targets each) and the trick-6 `q_param`
+row. All exploratory-tier regression pins, not axioms.
+
+One statistic deliberately not pinned: `act_param`. The probe canonicalizes a
+parametric optimal-action correspondence by *segment identity* on the upper
+envelope; walt's `ArgmaxCorrespondence` is argmax-by-value with at-point
+events (it distinguishes an isolated boundary tie from none; the probe's
+does not). These are different statistics that often, but not provably
+always, agree in count -- pinning one against the other would blur the
+definitions rather than cross-validate one.
 
 ### §14.5 "future focal information-state counts" are choice states (S3)
 
