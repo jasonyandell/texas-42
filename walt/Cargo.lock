@@ -52,6 +52,14 @@ name = "walt-core"
 version = "0.1.0"
 
 [[package]]
+name = "walt-geom"
+version = "0.1.0"
+dependencies = [
+ "num-rational",
+ "walt-core",
+]
+
+[[package]]
 name = "walt-kernel"
 version = "0.1.0"
 dependencies = [
@@ -59,4 +67,13 @@ dependencies = [
  "num-rational",
  "num-traits",
  "walt-core",
+]
+
+[[package]]
+name = "walt-strat"
+version = "0.1.0"
+dependencies = [
+ "walt-core",
+ "walt-geom",
+ "walt-kernel",
 ]

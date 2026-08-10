@@ -106,8 +106,24 @@ useful").
   kernels, 5 sampler). Unique-winner assertion covers all 737,100 four-tile
   tricks x 9 declarations. No spec-vs-reference discrepancies
   (`walt/DISCREPANCIES.md`).
-- S2: walt-geom (exact PWL with endpoint-ownership tests) + PI minimax +
-  census cross-validation against exp5 vectors.
+- **S2 (2026-08-09)**: walt-geom + PI minimax + trick-6 census.
+  **COMPLETE except the exp5 h1t3/h3t3 pins (blocked, see below)**:
+  `walt/ci/check.sh` PASS; 27 new tests (22 walt-geom: lines, envelope
+  `_combine` with endpoint-ownership invariants unit + exhaustive small-case,
+  argmax correspondences, features/support/gauge; 4 walt-strat census; 1
+  `#[ignore]`d blocked). walt-geom: i128 rationals, continuous PWL envelopes
+  on [0, inf) with half-open piece ownership as the type invariant, argmax
+  correspondences with at-point/after-point sets, 29-dim features, finite
+  feature sets with support envelopes (§9.2, finite-first). walt-strat
+  (minimal, per the crate map): PI symbolic parametric backward induction
+  (§9.9) + fiber census + degenerate fixed-field evaluation for kernels with
+  no post-root focal choice. Trick-6 §14.2 vectors all reproduced exactly:
+  fiber 90; Q^H lines 2/3+(1/5)λ and −2/3−(1/3)λ (crossing −5/2); 180/180
+  affine world/root curves; 8 parametric classes sized (26,22,16,12,8,2,2,2);
+  4 baseline; 3 action classes (2 at λ=0); the 8-world boundary tie resolving
+  to 2:1 at 0+. The exp5 census pins (h1t3: 10 "q_points classes"; h3t3:
+  5345) are **blocked**: v0.4 §14 never defines exp5 or "q_points"
+  (`walt/DISCREPANCIES.md`, "exp5 census pins").
 - S3: walt-strat (info partitions, H/C/F operators) + information-price
   cross-check against exp4 vectors (7/19, 177/131, 19/105, ≡0).
 - S4: walt-skeleton (trait, lumpability checker, static passenger) + first

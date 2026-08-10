@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["walt-core", "walt-kernel"]
+members = ["walt-core", "walt-kernel", "walt-geom", "walt-strat"]
 
 [workspace.package]
 version = "0.1.0"
@@ -10,6 +10,8 @@ publish = false
 
 [workspace.dependencies]
 walt-core = { path = "walt-core" }
+walt-kernel = { path = "walt-kernel" }
+walt-geom = { path = "walt-geom" }
 num-bigint = "0.4"
 num-integer = "0.1"
 num-rational = "0.4"

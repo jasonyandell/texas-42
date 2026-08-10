@@ -6,11 +6,31 @@ here rather than silently picking a reading.
 
 ## Open discrepancies
 
-**None as of S1.** Everything walt-core implements is the v0.4 §1 text; the two
-places where the spec's phrasing and `rules42.py`'s code *look* different are
-reconciled below, and both were checked exhaustively rather than argued.
+### exp5 census pins: "q_points classes" has no defining source (S2)
+
+PLAN.md's ground-truth bridges pin "exp5 census values on shared kernels
+(e.g. h1t3: 10 q_points classes; h3t3: 5345)", and the S2 brief directs that
+the exact meaning of these counts be taken from v0.4 §14 before pinning. It
+cannot be: §14 records experiments 1, 2, 3A, 3B, 4A, and 4B only (§14.2--§14.7)
+and contains neither the token "exp5" nor "q_points" anywhere in the frozen
+document. The exp5 probe corpus itself is scratchpad-era Python that is not in
+this repository -- S1 imported only its *fiber sizes* (transcribed into
+`walt-kernel/tests/common/mod.rs`), which are defined independently by v0.4
+§2.1. There is no way to reproduce "10 classes" or "5345 classes" without
+guessing what was counted (root-Q vectors at which sample points? under which
+utility? over which root-action set at a five-tile horizon?), which the
+protocol forbids.
+
+Recorded as the `#[ignore]`d test
+`walt-strat/tests/exp5_census_blocked.rs::exp5_census_h1t3_has_10_classes_and_h3t3_has_5345`.
+Unblock by adding the exp5 census definition (the probe script or its report)
+to the repository and replacing the blocked test with an exact reproduction.
 
 ## Reconciled, not discrepancies
+
+Everything else walt implements is the v0.4 text; the two
+places where the spec's phrasing and `rules42.py`'s code *look* different are
+reconciled below, and both were checked exhaustively rather than argued.
 
 ### Rank of a mixed tile: "pip sum" (spec) vs. off-pip (reference)
 
