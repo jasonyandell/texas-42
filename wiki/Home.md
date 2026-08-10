@@ -7,7 +7,7 @@ reconciled map over them — what is proved, at what evidentiary tier, what is o
 and what each other layer of the repo does about it. Nothing under `ingest/` is ever
 modified (each package carries a verifying `MANIFEST.sha256`).
 
-## The repo in five layers
+## The repo in six layers
 
 | Layer | What it is |
 |---|---|
@@ -15,6 +15,7 @@ modified (each package carries a verifying `MANIFEST.sha256`).
 | `wiki/` (this) | The reconciled synthesis: [merge order](package-provenance.md), [discrepancies](discrepancies.md), [claim tiers](claim-ledger.md), [current findings](FINDINGS.md). |
 | [`rob/`](../rob/README.md) | The Rust engine — an executable spec with proof receipts. Slices 01+02 green: eleven byte-diffed receipts reproducing every ingest number ([verification](verification.md)). Plus the **evening player v0** (fixed-field Monte Carlo best response on exact uniform fiber sampling) and an HTML **game inspector** (per-seat perspectives, exact fiber counts and marginals, trump display, shareable URL state). |
 | [`exchange/`](../exchange/README.md) | Courier channel to ChatGPT 5.6 Pro for adversarial research. Dispatches 001–015: 001–008 adjudicated (007/008 CONFIRMED with caveats), 009 **PARTIAL** (C1 proof chain survived 3/3; backward-commutation refutation CONFIRMED; corroboration artifacts quarantined), 010 **CONFIRMED** (R1: realizable = reachable at k=1, seed table needs no filter), the Lean thread 011/013/015 iterating without a panel (011 an honest refusal that caught a dispatch spec error and proposed the staged build; 013 Stage 1 and 015 Stage 2 both GREEN after local repair — see the `lean/` row), 012 **CONFIRMED** (carrier-skeleton staircase), 014 an informal exploratory capture (UNADJUDICATED — see the ledger's informal-captures section). Budget: quota is monthly pacing cleared with Jason per batch (fixed lifetime cap retired 2026-08-01); count 16, batch ceiling 17; ledger in the README. |
+| [`walt/`](walt.md) | The imperfect-information **seat** (rob stays the exact solver), built math-first on its own frozen exploratory-tier basis (`walt/math/`, v0.4) with a conflict-driven lesson factory. Rules→operators stack complete and pinned against every rescued probe record; the lesson spine survived both designed falsification tests. **Everything exploratory** — see the [walt hub](walt.md) for the fence. |
 | [`lean/`](../lean/README.md) | Lean 4 + mathlib kernel formalization. **Priority-0 scoreboard: 42 of 42 rows kernel-proved** (2026-08-02) — the mechanization ledger's first-release target is closed. Spans the domino and declaration algebra through the unique trick winner, the objective hand machine and 42-point conservation, cell losslessness, the support normal form with compile/decode inverses, strategic sufficiency, and the **90-world posterior-flip witness** (PA-E10) internalized whole. No `sorry`, no `native_decide`, standard axioms only. Open: the priority-1 tiers and the PA-A12/B04 reflection targets ([proof-assistant-plan](proof-assistant-plan.md)). |
 
 [lineage.md](lineage.md) explains the prior project (mk5), the champion, and the
@@ -87,3 +88,4 @@ results, risks, and next questions.
 - [ideas](ideas.md) — exploratory capture of unproven directions; below every tier above, cited by nothing.
 - [analysis](analysis.md) — the game-analysis hub: probes, rigs, and dashboards over the exact machinery; display/exploratory tier, cited by nothing above ideas.
 - [field/](field/Home.md) — rob beyond the repo: the 2026-07-30 first-contact measurements vs the mk5 champion, lessons, and the direction map; field-measurement/exploratory tier, cited by nothing above ideas.
+- [walt](walt.md) — the imperfect-information seat: frozen v0.4 basis, the Rust build, the conflict-driven lesson factory; exploratory tier, cited by nothing above ideas.
