@@ -22,23 +22,39 @@
 //! pins and typed conflict material for S5b, never promoted statuses.
 
 pub mod basin;
+pub mod certificate;
 pub mod conflict;
 pub mod corpus;
+pub mod db;
 pub mod generalize;
+pub mod index;
 pub mod label_transfer;
+pub mod ledger;
 pub mod lesson;
 pub mod lesson_report;
 pub mod report;
 pub mod walker;
 
 pub use basin::{valued_tile, vocabulary, BasinDomain, DomainDecision, DomainSpec};
+pub use certificate::{certificate_filename, emit_certificate, RECORD_KINDS, SCHEMA_VERSION};
 pub use conflict::{Conflict, Grade, RegretConflict};
 pub use corpus::{load_receipt, walk_corpus};
+pub use db::{
+    fnv64, label_projection, verdict_kind, ArchiveEntry, ContentKey, InsertOutcome, LessonDb,
+};
 pub use generalize::{
     cell_holds_at, generalize_lumpability, generalize_regret, generalize_win, lesson_applies,
     measure_rent, INTRO_BUDGET,
 };
+pub use index::{appliers, WatchIndex, VOCAB_REGISTRY_VERSION};
 pub use label_transfer::{remeasure_at_h, render_h_report, HDecision, HOutcome, HReport};
+pub use ledger::{
+    collect_epoch, diagnostic_label, display_name, h_rent, measure_h_detail, pricing_label,
+    render_measurement, render_record, ClearanceRecord, EconomyRecord, EpochLedger, HCheckerDesc,
+    HCheckerRegistry, HCheckerToken, HLessonDetail, HRent, HRow, HRowOutcome, HValueCoverage,
+    Ledger, LessonEpochRecord, LifetimeRecord, RentMeasurement, DELETION_EPOCHS_N, EPOCH_UNIT,
+    H_BUDGET_PARTICLE_STEPS, H_BUDGET_SEMANTICS, H_CACHE_CONFIG, LEDGER_VERSION,
+};
 pub use lesson::{
     ActionSelector, AtomValue, BasinReport, CarrierLabel, Constraint, DescriptorFamily,
     DominanceClass, DominanceTriple, FieldLabel, FocalInfoLabel, Implicant, Lesson, LessonAtom,

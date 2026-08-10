@@ -1,0 +1,237 @@
+walt S5c-m3 economy run — exploratory tier
+provenance:
+  domain (the declared corpus domain): receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions / 924813 worlds, 29 in-range decisions EXCLUDED by the fiber cap (exclusion, never sampling; control-bias annotation: the excluded set skews low-control — fiber size anti-correlates with focal control, exp5 covariate)
+  seeds: the S5c-m1 inventory (falsification_2026-08-10_r2) re-walked and re-asserted: 10 dominated decisions at exhaustive threshold 100000, win form at the 5 origins admitting one, h0 t6 chassis §12.6 — 16 lessons
+  epoch unit: one full rent-collection pass over the declared corpus domain
+  deletion rule (measured-consecutive): zero rent in the last N = 2 MEASURED epochs, no intervening measured nonzero (rationale: one zero epoch cannot distinguish idle from dead at this corpus scale — the deterministic pass must confirm once before the economy acts); capped epochs are cited as gaps in the evidence pattern, never as evidence; deletion records cite the pattern verbatim
+  pricing label: (H, fixed-uniform-legal), root weighting uniform-over-fiber — the seat-facing currency; diagnostic label: (C, minimax-omniscient) — recorded, NEVER summed with H; the checker lesson is priced in its own applied-count ledger at its own label
+  H budget semantics of every H row: 100000000 particle-steps per decision; particle-steps-v1 (S5c-m2): one budget unit per (particle, node) visit; an over-budget solve returns nothing — exclusion, never sampling; cache: none (S5c-m2 recursive solver, no memoization)
+  tie-break (deletion among mutually redundant lessons): smallest implicant (cell count), then oldest certificate (archive insertion order)
+  ledger version: ledger-v1 (S5c-m3); vocabulary registry version: 1
+  H-checker registry: 0 registered — every H record is UNCHECKED-EXTERNALLY and the first H-rent deletion is mechanically blocked (sequencing law)
+  H-value coverage marking (walt-math amendment): every H rent row carries the H label's checker coverage for its lesson — SINGLE-IMPLEMENTATION until an independent checker re-verifies that lesson's values (all rows below; the Rust tree and DAG solvers are one implementation lineage, not independent checks) — and no deletion decision may cite a single-implementation figure
+
+watched-feature index (candidate-completeness cross-check, exhaustive):
+  179 decisions x 16 lessons = 2864 pairs; candidates 893 ; gate-applied 39 ; index-excluded 1971 (every exclusion provably gate-refused: VERIFIED — candidates were a superset of appliers at every decision)
+
+epoch 1 (unit: one full rent-collection pass over the declared corpus domain); dual ledger, one lesson per block:
+  regret h0 S1 t5 p0 [refutation] key ef4d2b087111c28a
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 1 strict 1 tied 0 improvement 38/21
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 61/21
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 0
+  regret h0 S1 t5 p0 [win] key c1c94208b51f9566
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 1 held 1 actions-pruned 2 (worlds-covered 1680, context)
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: win rent: applied 1 worlds-covered 1680 actions-pruned 3360
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 0
+  regret h1 S0 t5 p2 [refutation] key 89b4f074746e55da
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 1 strict 1 tied 0 improvement 4/15
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 2/3
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 0
+  regret h1 S0 t5 p2 [win] key a73463ce8d99e33e
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 5 held 5 actions-pruned 4 (worlds-covered 651, context)
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: win rent: applied 5 worlds-covered 651 actions-pruned 441
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 5 decisions, sole-applier at 4
+  regret h1 S2 t3 p0 [refutation] key 321ab8fa93b2b0f4
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 3 strict 1 tied 2 improvement 6/5
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 3 strict-applied 1 improvement 16/15
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 3 decisions, sole-applier at 2
+  regret h1 S2 t4 p0 [refutation] key 7f168f67d352a3e1
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PROVISIONALLY HELD: (H, fixed-uniform-legal) rent UNMEASURED — 1 of 1 fiber-valid applied decisions capped at 100000000 particle-steps (particle-steps-v1 (S5c-m2): one budget unit per (particle, node) visit; an over-budget solve returns nothing — exclusion, never sampling); not-fiber-valid 0; lives on the (C, minimax-omniscient) diagnostic ledger, label-provisional; never counts toward deletion
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 8/11
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 0
+  regret h1 S2 t4 p0 [win] key dd17eaf9856df52b
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PROVISIONALLY HELD: (H, fixed-uniform-legal) rent UNMEASURED — 1 of 1 fiber-valid applied decisions capped at 100000000 particle-steps (particle-steps-v1 (S5c-m2): one budget unit per (particle, node) visit; an over-budget solve returns nothing — exclusion, never sampling); not-fiber-valid 0; lives on the (C, minimax-omniscient) diagnostic ledger, label-provisional; never counts toward deletion
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: win rent: applied 1 worlds-covered 34650 actions-pruned 103950
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 0
+  regret h2 S2 t3 p0 [refutation] key 04994a29c448b18e
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 0 strict 0 tied 0 improvement 0 — measured zero (not applied: no domain decision matched)
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 0 strict-applied 0 improvement 0
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 0 decisions, sole-applier at 0
+  regret h2 S2 t4 p3 [refutation] key eb3146e35a474fb7
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 1 strict 1 tied 0 improvement 18689/13440
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 65/112
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 1
+  regret h3 S3 t4 p1 [refutation] key c9b5cb48e57e58fe
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 1 strict 1 tied 0 improvement 865721/846720
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 1243/1225
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 1
+  regret h4 S0 t4 p3 [refutation] key 547bfdc04a0e7a85
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 1 strict 1 tied 0 improvement 7759/4320
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 1163/840
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 1
+  regret h4 S3 t5 p2 [refutation] key 4933b15bfc65f5bd
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 3 strict 1 tied 2 improvement 1/420
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 3 strict-applied 1 improvement 1/105
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 3 decisions, sole-applier at 1
+  regret h4 S3 t5 p2 [win] key 1c2df39600fa60cf
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 3 held 3 actions-pruned 2 (worlds-covered 4440, context)
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: win rent: applied 3 worlds-covered 4440 actions-pruned 240
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 3 decisions, sole-applier at 1
+  regret h11 S1 t3 p3 [refutation] key 18d83c99d64d3b09
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PROVISIONALLY HELD: (H, fixed-uniform-legal) rent UNMEASURED — 1 of 1 fiber-valid applied decisions capped at 100000000 particle-steps (particle-steps-v1 (S5c-m2): one budget unit per (particle, node) visit; an over-budget solve returns nothing — exclusion, never sampling); not-fiber-valid 0; lives on the (C, minimax-omniscient) diagnostic ledger, label-provisional; never counts toward deletion
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 8/5775
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 0
+  regret h11 S1 t3 p3 [win] key cc27bea5a8e73b61
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PROVISIONALLY HELD: (H, fixed-uniform-legal) rent UNMEASURED — 3 of 3 fiber-valid applied decisions capped at 100000000 particle-steps (particle-steps-v1 (S5c-m2): one budget unit per (particle, node) visit; an over-budget solve returns nothing — exclusion, never sampling); not-fiber-valid 0; lives on the (C, minimax-omniscient) diagnostic ledger, label-provisional; never counts toward deletion
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: win rent: applied 3 worlds-covered 74382 actions-pruned 109032
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 3 decisions, sole-applier at 2
+  lumpability h0 t6 chassis [checker] key 702be084e15f7d5b
+    pricing   [checker applied-count ledger (§12.6, fixed-uniform-legal field, q_points)]: NOT RE-MEASURED at H (§12.6 lives at the fixed field); own ledger: applied 13
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: checker rent: applied 13
+    applied 13 decisions, sole-applier at 12
+  overlap: 7 decisions with >=2 applying lessons:
+    h0 S1 t5 p0: [ef4d2b087111c28a, c1c94208b51f9566]
+    h1 S2 t4 p0: [7f168f67d352a3e1, dd17eaf9856df52b]
+    h1 S0 t5 p2: [89b4f074746e55da, a73463ce8d99e33e]
+    h1 S2 t6 p0: [321ab8fa93b2b0f4, 702be084e15f7d5b]
+    h4 S3 t5 p2: [4933b15bfc65f5bd, 1c2df39600fa60cf]
+    h4 S3 t6 p1: [4933b15bfc65f5bd, 1c2df39600fa60cf]
+    h11 S1 t3 p3: [18d83c99d64d3b09, cc27bea5a8e73b61]
+
+epoch 2 (unit: one full rent-collection pass over the declared corpus domain); dual ledger, one lesson per block:
+  regret h0 S1 t5 p0 [refutation] key ef4d2b087111c28a
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 1 strict 1 tied 0 improvement 38/21
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 61/21
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 0
+  regret h0 S1 t5 p0 [win] key c1c94208b51f9566
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 1 held 1 actions-pruned 2 (worlds-covered 1680, context)
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: win rent: applied 1 worlds-covered 1680 actions-pruned 3360
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 0
+  regret h1 S0 t5 p2 [refutation] key 89b4f074746e55da
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 1 strict 1 tied 0 improvement 4/15
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 2/3
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 0
+  regret h1 S0 t5 p2 [win] key a73463ce8d99e33e
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 5 held 5 actions-pruned 4 (worlds-covered 651, context)
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: win rent: applied 5 worlds-covered 651 actions-pruned 441
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 5 decisions, sole-applier at 4
+  regret h1 S2 t3 p0 [refutation] key 321ab8fa93b2b0f4
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 3 strict 1 tied 2 improvement 6/5
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 3 strict-applied 1 improvement 16/15
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 3 decisions, sole-applier at 2
+  regret h1 S2 t4 p0 [refutation] key 7f168f67d352a3e1
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PROVISIONALLY HELD: (H, fixed-uniform-legal) rent UNMEASURED — 1 of 1 fiber-valid applied decisions capped at 100000000 particle-steps (particle-steps-v1 (S5c-m2): one budget unit per (particle, node) visit; an over-budget solve returns nothing — exclusion, never sampling); not-fiber-valid 0; lives on the (C, minimax-omniscient) diagnostic ledger, label-provisional; never counts toward deletion
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 8/11
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 0
+  regret h1 S2 t4 p0 [win] key dd17eaf9856df52b
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PROVISIONALLY HELD: (H, fixed-uniform-legal) rent UNMEASURED — 1 of 1 fiber-valid applied decisions capped at 100000000 particle-steps (particle-steps-v1 (S5c-m2): one budget unit per (particle, node) visit; an over-budget solve returns nothing — exclusion, never sampling); not-fiber-valid 0; lives on the (C, minimax-omniscient) diagnostic ledger, label-provisional; never counts toward deletion
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: win rent: applied 1 worlds-covered 34650 actions-pruned 103950
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 0
+  regret h2 S2 t3 p0 [refutation] key 04994a29c448b18e
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 0 strict 0 tied 0 improvement 0 — measured zero (not applied: no domain decision matched)
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 0 strict-applied 0 improvement 0
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 0 decisions, sole-applier at 0
+  regret h2 S2 t4 p3 [refutation] key eb3146e35a474fb7
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 1 strict 1 tied 0 improvement 18689/13440
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 65/112
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 1
+  regret h3 S3 t4 p1 [refutation] key c9b5cb48e57e58fe
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 1 strict 1 tied 0 improvement 865721/846720
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 1243/1225
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 1
+  regret h4 S0 t4 p3 [refutation] key 547bfdc04a0e7a85
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 1 strict 1 tied 0 improvement 7759/4320
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 1163/840
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 1
+  regret h4 S3 t5 p2 [refutation] key 4933b15bfc65f5bd
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 3 strict 1 tied 2 improvement 1/420
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 3 strict-applied 1 improvement 1/105
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 3 decisions, sole-applier at 1
+  regret h4 S3 t5 p2 [win] key 1c2df39600fa60cf
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PRICED: applied 3 held 3 actions-pruned 2 (worlds-covered 4440, context)
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: win rent: applied 3 worlds-covered 4440 actions-pruned 240
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 3 decisions, sole-applier at 1
+  regret h11 S1 t3 p3 [refutation] key 18d83c99d64d3b09
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PROVISIONALLY HELD: (H, fixed-uniform-legal) rent UNMEASURED — 1 of 1 fiber-valid applied decisions capped at 100000000 particle-steps (particle-steps-v1 (S5c-m2): one budget unit per (particle, node) visit; an over-budget solve returns nothing — exclusion, never sampling); not-fiber-valid 0; lives on the (C, minimax-omniscient) diagnostic ledger, label-provisional; never counts toward deletion
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: refutation rent: applied 1 strict-applied 1 improvement 8/5775
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 1 decisions, sole-applier at 0
+  regret h11 S1 t3 p3 [win] key cc27bea5a8e73b61
+    pricing   [(H, fixed-uniform-legal), uniform-over-fiber]: PROVISIONALLY HELD: (H, fixed-uniform-legal) rent UNMEASURED — 3 of 3 fiber-valid applied decisions capped at 100000000 particle-steps (particle-steps-v1 (S5c-m2): one budget unit per (particle, node) visit; an over-budget solve returns nothing — exclusion, never sampling); not-fiber-valid 0; lives on the (C, minimax-omniscient) diagnostic ledger, label-provisional; never counts toward deletion
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: win rent: applied 3 worlds-covered 74382 actions-pruned 109032
+    H-value coverage: SINGLE-IMPLEMENTATION (Rust only; no independent re-derivation of these figures — a deletion citing this row needs an appended clearance record)
+    applied 3 decisions, sole-applier at 2
+  lumpability h0 t6 chassis [checker] key 702be084e15f7d5b
+    pricing   [checker applied-count ledger (§12.6, fixed-uniform-legal field, q_points)]: NOT RE-MEASURED at H (§12.6 lives at the fixed field); own ledger: applied 13
+    diagnostic [(C, minimax-omniscient), uniform-over-fiber]: checker rent: applied 13
+    applied 13 decisions, sole-applier at 12
+  overlap: 7 decisions with >=2 applying lessons:
+    h0 S1 t5 p0: [ef4d2b087111c28a, c1c94208b51f9566]
+    h1 S2 t4 p0: [7f168f67d352a3e1, dd17eaf9856df52b]
+    h1 S0 t5 p2: [89b4f074746e55da, a73463ce8d99e33e]
+    h1 S2 t6 p0: [321ab8fa93b2b0f4, 702be084e15f7d5b]
+    h4 S3 t5 p2: [4933b15bfc65f5bd, 1c2df39600fa60cf]
+    h4 S3 t6 p1: [4933b15bfc65f5bd, 1c2df39600fa60cf]
+    h11 S1 t3 p3: [18d83c99d64d3b09, cc27bea5a8e73b61]
+
+lifetime records (decayless, cumulative):
+  key 04994a29c448b18e: epochs seen 2 measured 2 capped 0 measured-consecutive-zeros 2 cumulative-applied 0
+  key 18d83c99d64d3b09: epochs seen 2 measured 0 capped 2 measured-consecutive-zeros 0 cumulative-applied 2
+  key 1c2df39600fa60cf: epochs seen 2 measured 2 capped 0 measured-consecutive-zeros 0 cumulative-applied 6
+  key 321ab8fa93b2b0f4: epochs seen 2 measured 2 capped 0 measured-consecutive-zeros 0 cumulative-applied 6
+  key 4933b15bfc65f5bd: epochs seen 2 measured 2 capped 0 measured-consecutive-zeros 0 cumulative-applied 6
+  key 547bfdc04a0e7a85: epochs seen 2 measured 2 capped 0 measured-consecutive-zeros 0 cumulative-applied 2
+  key 702be084e15f7d5b: epochs seen 2 measured 2 capped 0 measured-consecutive-zeros 0 cumulative-applied 26
+  key 7f168f67d352a3e1: epochs seen 2 measured 0 capped 2 measured-consecutive-zeros 0 cumulative-applied 2
+  key 89b4f074746e55da: epochs seen 2 measured 2 capped 0 measured-consecutive-zeros 0 cumulative-applied 2
+  key a73463ce8d99e33e: epochs seen 2 measured 2 capped 0 measured-consecutive-zeros 0 cumulative-applied 10
+  key c1c94208b51f9566: epochs seen 2 measured 2 capped 0 measured-consecutive-zeros 0 cumulative-applied 2
+  key c9b5cb48e57e58fe: epochs seen 2 measured 2 capped 0 measured-consecutive-zeros 0 cumulative-applied 2
+  key cc27bea5a8e73b61: epochs seen 2 measured 0 capped 2 measured-consecutive-zeros 0 cumulative-applied 6
+  key dd17eaf9856df52b: epochs seen 2 measured 0 capped 2 measured-consecutive-zeros 0 cumulative-applied 2
+  key eb3146e35a474fb7: epochs seen 2 measured 2 capped 0 measured-consecutive-zeros 0 cumulative-applied 2
+  key ef4d2b087111c28a: epochs seen 2 measured 2 capped 0 measured-consecutive-zeros 0 cumulative-applied 2
+
+economy actions (proof-logged; reproducible from the epochs above):
+  DELETION TRIGGERED key 04994a29c448b18e on (H, fixed-uniform-legal), uniform-over-fiber rent: measured-zero e1, e2 (ledger-v1 (S5c-m3))
+  DELETION BLOCKED key 04994a29c448b18e: no independent H checker is registered (sequencing law: the first deletion driven by H rent is mechanically blocked until one is)
+  RESTART after epoch 2: search state discarded (the watched-feature index; memo tables are run-scoped by construction and cannot survive), lesson DB + archive + ledger retained
+  MERGE key ef4d2b087111c28a: re-derivation folded in — one working-set entry, 2 archived derivations
+
+restart-with-retention: DB retained (working 16 / archive 16), index rebuilt as a derived view; the re-derived h0 S1 t5 refutation MERGED into archive entry 0 (2 derivations, one working-set entry — identity is projected content, evidence accumulates)
+
+certificates: 16 emitted to certificates_2026-08-10/ (schema-v1; one file per lesson, filenames from content keys):
+  cert_refutation_ef4d2b087111c28a.txt <- regret h0 S1 t5 p0 [refutation]
+  cert_win_c1c94208b51f9566.txt <- regret h0 S1 t5 p0 [win]
+  cert_refutation_89b4f074746e55da.txt <- regret h1 S0 t5 p2 [refutation]
+  cert_win_a73463ce8d99e33e.txt <- regret h1 S0 t5 p2 [win]
+  cert_refutation_321ab8fa93b2b0f4.txt <- regret h1 S2 t3 p0 [refutation]
+  cert_refutation_7f168f67d352a3e1.txt <- regret h1 S2 t4 p0 [refutation]
+  cert_win_dd17eaf9856df52b.txt <- regret h1 S2 t4 p0 [win]
+  cert_refutation_04994a29c448b18e.txt <- regret h2 S2 t3 p0 [refutation]
+  cert_refutation_eb3146e35a474fb7.txt <- regret h2 S2 t4 p3 [refutation]
+  cert_refutation_c9b5cb48e57e58fe.txt <- regret h3 S3 t4 p1 [refutation]
+  cert_refutation_547bfdc04a0e7a85.txt <- regret h4 S0 t4 p3 [refutation]
+  cert_refutation_4933b15bfc65f5bd.txt <- regret h4 S3 t5 p2 [refutation]
+  cert_win_1c2df39600fa60cf.txt <- regret h4 S3 t5 p2 [win]
+  cert_refutation_18d83c99d64d3b09.txt <- regret h11 S1 t3 p3 [refutation]
+  cert_win_cc27bea5a8e73b61.txt <- regret h11 S1 t3 p3 [win]
+  cert_checker_702be084e15f7d5b.txt <- lumpability h0 t6 chassis [checker]

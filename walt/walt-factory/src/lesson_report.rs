@@ -30,7 +30,9 @@ fn render_world(world: &World) -> String {
         .join(" ")
 }
 
-fn render_witness(w: &WideningWitness) -> String {
+/// Renders one widening witness (complete world, complete value row) —
+/// shared with certificate emission (record 10).
+pub fn render_witness(w: &WideningWitness) -> String {
     match w {
         WideningWitness::World {
             hand,
