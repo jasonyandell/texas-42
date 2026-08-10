@@ -109,13 +109,38 @@ impl ScalarPi {
         hands: [DominoSet; Seat::COUNT],
         leader: Seat,
     ) -> Vec<(Domino, i64)> {
+        self.action_values(hands, leader, &[])
+    }
+
+    /// The exact continuation value for every legal play of the seat to act
+    /// at an arbitrary point of the current trick. `prefix` holds the
+    /// trick's plays so far in play order (empty when the seat leads); the
+    /// acting seat is `leader.plus(prefix.len())` and its hand still
+    /// contains the candidate tiles. Values are future increments from this
+    /// decision (§8.5 future-increment mode): the current trick counts in
+    /// full at its resolution — its capture is still undecided and shared by
+    /// every action — while completed tricks are the caller's
+    /// action-independent banked term.
+    pub fn action_values(
+        &mut self,
+        hands: [DominoSet; Seat::COUNT],
+        leader: Seat,
+        prefix: &[Domino],
+    ) -> Vec<(Domino, i64)> {
+        assert!(prefix.len() < 4, "a decision point sits inside a trick");
+        let k = prefix.len();
+        let seat = leader.plus(k);
+        let led = (k > 0).then(|| self.decl.led_context(prefix[0]));
+        let legal = legal_plays(self.decl, hands[seat.index()], led);
+        let mut tiles = [Domino::ALL[0]; 4];
+        tiles[..k].copy_from_slice(prefix);
         let mut out = Vec::new();
-        for d in hands[leader.index()].iter() {
+        for d in legal.iter() {
             let mut hands = hands;
-            hands[leader.index()].remove(d);
-            let mut tiles = [Domino::ALL[0]; 4];
-            tiles[0] = d;
-            out.push((d, self.ply(hands, leader, tiles, 1, i64::MIN, i64::MAX)));
+            hands[seat.index()].remove(d);
+            let mut tiles = tiles;
+            tiles[k] = d;
+            out.push((d, self.ply(hands, leader, tiles, k + 1, i64::MIN, i64::MAX)));
         }
         out
     }

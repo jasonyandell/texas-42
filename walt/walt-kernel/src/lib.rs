@@ -8,10 +8,12 @@
 //! Imports walt-core only. All arithmetic is integer or rational; the PRNG
 //! selects, it never computes a value.
 
+pub mod decision;
 pub mod fiber;
 pub mod kernel;
 pub mod sample;
 
+pub use decision::ReceiptDecision;
 pub use fiber::{FiberDp, FiberIter};
 pub use kernel::{Hidden, Kernel, KernelError, World, HIDDEN_SEATS};
 pub use sample::{expected_distinct, SplitMix64};

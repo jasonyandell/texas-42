@@ -6,7 +6,7 @@ here rather than silently picking a reading.
 
 ## Open discrepancies
 
-**None as of S4.5.**
+**None as of S5a.**
 
 ## Reconciled, not discrepancies
 

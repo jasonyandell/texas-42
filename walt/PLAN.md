@@ -293,14 +293,68 @@ evolved this project's own receipt/TRUST-01 discipline.
   `tests/synthesis_run.rs`. DISCREPANCIES "exp3A descriptor pin" moved to
   reconciled. The four §14.4 atoms demonstrably carry control-shaped
   content the holder vocabulary lacks; they seed the lesson vocabulary.
-- **S5a: the regret walker (conflict generator).** Given a transcript
-  (receipt hand or factory game) and a seat: at each decision point, the
-  fiber-expected value of every legal action on `scalar.rs`'s solver, under
-  declared knobs (continuation operator from the S3 registry; weighting =
-  uniform-over-fiber for now). Output: per-decision regret, localization
-  ("lost at the deal" as a provable verdict), and worldwise-dominance
-  detection (the semantics-free grade). Exact rationals; sampled fibers
-  (kernel sampler exists) only where enumeration is infeasible, marked.
+- **S5a (2026-08-10): the regret walker (conflict generator).**
+  **COMPLETE**: `walt/ci/check.sh` PASS; 3 new tests (~6.5s CI cost: 1
+  walt-kernel exhaustive constructor validation, 2 walt-factory corpus-pins
+  + byte-frozen fixture). New **walt-factory** crate (the crate map's
+  factory layer — the walker is the factory's first module), plus three
+  supporting pieces below it: `walt-kernel/src/decision.rs`
+  (`ReceiptDecision` — the §2.1 kernel at *arbitrary* decision points:
+  mid-trick pool removal, in-partial-trick led-context void revelation,
+  true-world view for validators), `ScalarPi::action_values` (mid-trick
+  solver entry; values are §8.1 future increments — the unresolved current
+  trick counts in full at resolution, completed tricks are the caller's
+  action-independent bank), and `walt-strat/src/label.rs` (`OperatorLabel`
+  {PI, H, C, F}, `WeightingLabel` {UniformOverFiber} — declared knobs as
+  data). Constructor validated three ways over all 13 x 4 x 7 = 364
+  decision points: (a) exact `Kernel` equality with `from_receipt_trick` at
+  all 91 viewer-lead trick starts; (b) the receipt's actual deal inhabits
+  the fiber at every decision point; (c) fiber counts monotonically
+  nonincreasing along every seat-transcript (the restriction-injection
+  argument is in the test header). Walker, per decision: exact fiber count
+  (counting DP) always; exhaustive enumeration at/below a declared
+  threshold, recorded-per-decision-seed exactly-uniform samples above —
+  marked `Sampled`, never silently; per-world exact scalar-PI action
+  values, fiber expectations as exact rationals (integer sums over an exact
+  count — under a *uniform* weighting no LCM accumulation arises, so i128
+  suffices; a future non-uniform weighting is the BigRational boundary);
+  regret of the transcript action; strict worldwise-dominance pairs; and an
+  all-actions-lose flag against the real made/set condition (focal points =
+  (42 + diff)/2 vs the bid). Per (hand, seat): total regret decomposed by
+  decision — exact because each decision's banked term is
+  action-independent (§8.5 future-increment mode) — and the localization
+  verdict "lost from tX pY under PI semantics, worldwise", constructed only
+  from exhaustive bases. Conflict vocabulary
+  (`walt-factory/src/conflict.rs`): one sum type — `Regret` beside the S4
+  `Purity`/`Lumpability` witnesses — and `Grade` =
+  (dominance-vs-expectation) x (operator, weighting) carried as *fields*,
+  so no verdict is quotable without its labels. Parallelization: scoped
+  std threads over fixed work chunks, per-thread solver caches; every
+  reduction is an exact integer sum or boolean lattice op (associative +
+  commutative), so results are schedule- and partition-independent (~15x
+  on this box). **S5a design notes (walt-math review, adopted)**: grades
+  are pairs — worldwise dominance is weighting-free, NOT semantics-free
+  (the exp4 record's `G^cont(2-1) ≡ 0` vs `G^cont(0-0) > 0` is the
+  action-specific gluing-gap mechanism; PI dominance never implies Q^H
+  dominance); conflicts carry grade + operator + weighting labels from day
+  one, sampled always marked; "lost at the deal" is always labeled — the
+  label-free verdict needs §7.7's max-min imperfect-information operator,
+  which is not built and not implied. **Corpus results** (CI config:
+  tricks 3-7, exhaustive <= 40,000 worlds, 64-draw recorded samples above;
+  pins in `walt-factory/tests/data/ci_corpus_pins.txt`, pip-trump-only
+  caveat restated there): 214/260 walked decisions are zero-regret
+  (82.3%); 18/52 seat-transcripts have zero total regret; 162 strict
+  dominance pairs; 12 decisions with a worldwise-dominated chosen action
+  across 9 transcripts; 25/52 transcripts earn a labeled lost verdict
+  (9 declaring, 16 defending; earliest-walked-trick t3: 7 of them). The
+  designated byte-frozen artifact (walt's first receipt-shaped output,
+  exploratory tier, marked in its own header) is hand 0 / seat S1 (the
+  bidder: ply-0 first decision = the dealt kernel), whole transcript at
+  the fixture config: total regret 10079/672, one worldwise-dominated
+  choice (t5: 3-2 chosen, 2-1 dominates), verdict "lost from t3 p3 under
+  PI semantics, worldwise". Full-corpus walk (threshold 10^6, 2,000
+  draws, whole transcripts) lives in the `walk_corpus` release binary;
+  its run is summarized in `walt-factory/results/`.
 - **S5b: the Lesson type + generalizer.** Lesson = implicant over the atom
   vocabulary -> graded, labeled verdict, with its conflict of origin and
   certificate. Generalizer = greedy constraint-dropping, re-verifying via

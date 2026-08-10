@@ -1,0 +1,5 @@
+walk_corpus: threshold 1000000 draws 2000 seed 0x000000005ea7425a min_trick 1
+hand  0 seat S0 (defending): total_regret        0 zero 7/7 dominated 0 sampled_decisions 2 verdict - [2200 ms]
+hand  0 seat S1 (declaring): total_regret 329401/21000 zero 5/7 dominated 1 sampled_decisions 1 verdict lost(t2 p3, PI, worldwise) [752241 ms]
+    conflict t1 p0: chosen 6-0 regret 12781/1000 better [0-0, 2-1, 3-3, 5-3, 6-5] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 5638360550848139707, draws: 2000 } fiber 399072960
+    conflict t5 p0: chosen 3-2 regret 61/21 better [0-0, 2-1] grade WorldwiseDominance { operator: Pi } fiber 1680

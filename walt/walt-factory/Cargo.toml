@@ -1,0 +1,13 @@
+[package]
+name = "walt-factory"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+walt-core.workspace = true
+walt-kernel.workspace = true
+walt-geom.workspace = true
+walt-strat.workspace = true
+walt-skeleton.workspace = true

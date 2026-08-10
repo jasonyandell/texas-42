@@ -1,6 +1,13 @@
 [workspace]
 resolver = "2"
-members = ["walt-core", "walt-kernel", "walt-geom", "walt-strat", "walt-skeleton"]
+members = [
+    "walt-core",
+    "walt-kernel",
+    "walt-geom",
+    "walt-strat",
+    "walt-skeleton",
+    "walt-factory",
+]
 
 [workspace.package]
 version = "0.1.0"
@@ -13,6 +20,7 @@ walt-core = { path = "walt-core" }
 walt-kernel = { path = "walt-kernel" }
 walt-geom = { path = "walt-geom" }
 walt-strat = { path = "walt-strat" }
+walt-skeleton = { path = "walt-skeleton" }
 num-bigint = "0.4"
 num-integer = "0.1"
 num-rational = "0.4"
