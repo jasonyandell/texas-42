@@ -1,5 +1,5 @@
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h0 S1 t5 p0 fiber 1680 grade worldwise-dominance (PI)
+origin: regret conflict h0 S1 t5 p0 fiber 1680 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 3-2 better [0-0 2-1] regret 61/21
 verdict: refutation: value(decisive) >= value(max-count) at every matching (decision, world)
 grade: worldwise at (C, minimax-omniscient); weighting-free

@@ -42,10 +42,10 @@ use walt_core::replay::TRICKS_PER_HAND;
 use walt_core::{legal_plays, Domino, DominoSet, Seat, Team, Trick};
 use walt_geom::{q, qi, Q};
 use walt_kernel::{FiberDp, ReceiptDecision, SplitMix64};
-use walt_strat::{OperatorLabel, ScalarPi, ScalarValuation, WeightingLabel};
+use walt_strat::{ScalarPi, ScalarValuation, WeightingLabel};
 
 use crate::conflict::{Grade, RegretConflict};
-use crate::lesson::{DominanceClass, DominanceTriple};
+use crate::lesson::{DominanceClass, DominanceTriple, OperatorPair};
 
 /// Declared walker knobs. The operator is scalar PI and the weighting is
 /// uniform-over-fiber — both recorded on every output, not implied.
@@ -122,7 +122,7 @@ pub struct DecisionRecord {
     /// Exact `|Phi(C)|` from the counting DP, even when evaluation sampled.
     pub fiber: u128,
     pub basis: EvidenceBasis,
-    pub operator: OperatorLabel,
+    pub operator: OperatorPair,
     pub weighting: WeightingLabel,
     /// Completed-trick differential for the viewer's team, in valuation
     /// units (action- and world-independent: it is public history).
@@ -220,7 +220,7 @@ impl DecisionRecord {
 pub struct LostVerdict {
     pub trick_no: usize,
     pub ply: usize,
-    pub operator: OperatorLabel,
+    pub operator: OperatorPair,
     /// This was the seat's first decision of the hand and the walk started
     /// at trick 1. With `ply == 0` the kernel is exactly the seat's dealt
     /// knowledge: "lost at the deal (PI, worldwise)". With `ply > 0` the
@@ -545,7 +545,7 @@ pub fn walk_decision(
         ply: decision.ply,
         fiber,
         basis,
-        operator: OperatorLabel::Pi,
+        operator: OperatorPair::walker_scalar(),
         weighting: WeightingLabel::UniformOverFiber,
         banked,
         chosen: decision.chosen,

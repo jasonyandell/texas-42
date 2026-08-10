@@ -14,28 +14,32 @@ use core::fmt;
 use walt_core::{Domino, Seat};
 use walt_geom::Q;
 use walt_skeleton::{LumpabilityFailure, PurityCounterexample};
-use walt_strat::{OperatorLabel, WeightingLabel};
+use walt_strat::WeightingLabel;
+
+use crate::lesson::OperatorPair;
 
 /// How strong a conflict's verdict is, and under which declared knobs. The
 /// grade is a *pair* — (dominance-vs-expectation) x (operator label) — never
 /// a bare strength: worldwise dominance under one operator does not imply
 /// dominance under another, because §7.6's policy-gluing gaps are
-/// action-specific.
+/// action-specific. The operator label is the (focal information, field)
+/// product pair of the §10.3 x §10.8 grid (walt-math amendment 2026-08-10);
+/// the walker's scalar statistic is (C, minimax-omniscient).
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum Grade {
     /// The relation holds in every world of the exhaustively enumerated
     /// fiber. Weighting-free, operator-labeled.
-    WorldwiseDominance { operator: OperatorLabel },
+    WorldwiseDominance { operator: OperatorPair },
     /// An exact expectation over the exhaustively enumerated fiber under a
     /// declared weighting.
     ExactExpectation {
-        operator: OperatorLabel,
+        operator: OperatorPair,
         weighting: WeightingLabel,
     },
     /// An expectation over a recorded uniform sample of the fiber. Evidence
     /// only, always marked; never quotable as either grade above.
     Sampled {
-        operator: OperatorLabel,
+        operator: OperatorPair,
         weighting: WeightingLabel,
         seed: u64,
         draws: u32,
@@ -46,12 +50,12 @@ impl fmt::Display for Grade {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Grade::WorldwiseDominance { operator } => {
-                write!(f, "worldwise-dominance ({operator})")
+                write!(f, "worldwise-dominance at {operator}")
             }
             Grade::ExactExpectation {
                 operator,
                 weighting,
-            } => write!(f, "exact-expectation ({operator}, {weighting})"),
+            } => write!(f, "exact-expectation at {operator}, {weighting}"),
             Grade::Sampled {
                 operator,
                 weighting,
@@ -59,7 +63,7 @@ impl fmt::Display for Grade {
                 draws,
             } => write!(
                 f,
-                "sampled ({operator}, {weighting}, seed {seed:#018x}, draws {draws})"
+                "sampled at {operator}, {weighting}, seed {seed:#018x}, draws {draws}"
             ),
         }
     }

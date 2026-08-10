@@ -21,7 +21,7 @@ regret h11 S1 t3 p3: verdict [win: tile(2-0) suffices per-world (attains the wor
 lumpability h0 t6 chassis: verdict [not-lumpable: chassis fails §12.6 at every matching decision] grade [checker (§12.6 exhaustive lumpability, uniform-legal field, q_points valuation)] final [(empty)] surviving [none] introduced [none] re-pinned [none] intro-budget 0/4 basin 13/13 eligible decisions 647/647 eligible worlds frame-rate 13/13 (carrier: lead-kernel trees (ply 0, horizon <= 2); domain context 104/23790, 0 excluded)
 
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h0 S1 t5 p0 fiber 1680 grade worldwise-dominance (PI)
+origin: regret conflict h0 S1 t5 p0 fiber 1680 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 3-2 better [0-0 2-1] regret 61/21
 verdict: refutation: value(decisive) >= value(max-count) at every matching (decision, world)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -67,7 +67,7 @@ basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere)
   h0 S1 t5 p0: worlds 1680/1680 triple (488,1192,0) class W (weak, strict somewhere)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h0 S1 t5 p0 fiber 1680 grade worldwise-dominance (PI)
+origin: regret conflict h0 S1 t5 p0 fiber 1680 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 3-2 better [0-0 2-1] regret 61/21
 verdict: win: decisive suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -112,7 +112,7 @@ basin/frame-compatible rate: 1/86 (frame-compatible = eligible decisions passing
   h0 S1 t5 p0: worlds 1680/1680 triple (0,1680,0)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h1 S0 t5 p2 fiber 210 grade worldwise-dominance (PI)
+origin: regret conflict h1 S0 t5 p2 fiber 210 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 3-3 better [5-2] regret 2/3
 verdict: refutation: value(tile(5-2)) >= value(decisive) at every matching (decision, world)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -157,7 +157,7 @@ basin split (purpose-relative, §9.6): refutation 2 decisions (strict somewhere)
   h1 S0 t6 p2: worlds 12/12 triple (3,9,0) class W (weak, strict somewhere)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h1 S0 t5 p2 fiber 210 grade worldwise-dominance (PI)
+origin: regret conflict h1 S0 t5 p2 fiber 210 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 3-3 better [5-2] regret 2/3
 verdict: win: tile(5-2) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -202,7 +202,7 @@ basin/frame-compatible rate: 5/5 (frame-compatible = eligible decisions passing 
   h9 S3 t6 p2: worlds 9/9 triple (0,9,0)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h1 S2 t3 p0 fiber 756756 grade sampled (PI, uniform-over-fiber, seed 0x7ae6fb30978a81d3, draws 64)
+origin: regret conflict h1 S2 t3 p0 fiber 756756 grade sampled at (C, minimax-omniscient), uniform-over-fiber, seed 0x7ae6fb30978a81d3, draws 64
   chosen 2-2 better [1-1 4-3] regret 5/8
 verdict: refutation: value(min-count) >= value(decisive) at every matching (decision, world)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -264,7 +264,7 @@ basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere)
   h7 S3 t6 p3: worlds 6/6 triple (0,6,0) class T (tied everywhere)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h1 S2 t4 p0 fiber 34650 grade worldwise-dominance (PI)
+origin: regret conflict h1 S2 t4 p0 fiber 34650 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 6-0 better [1-1 4-3] regret 8/11
 verdict: refutation: value(tile(4-3)) >= value(tile(6-0)) at every matching (decision, world)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -315,7 +315,7 @@ basin/frame-compatible rate: 0/0 (frame-compatible = eligible decisions passing 
 basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h1 S2 t4 p0 fiber 34650 grade worldwise-dominance (PI)
+origin: regret conflict h1 S2 t4 p0 fiber 34650 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 6-0 better [1-1 4-3] regret 8/11
 verdict: win: tile(4-3) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -365,7 +365,7 @@ basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decision
 basin/frame-compatible rate: 0/0 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h2 S2 t3 p0 fiber 756756 grade sampled (PI, uniform-over-fiber, seed 0x39dba10f3d3cf947, draws 64)
+origin: regret conflict h2 S2 t3 p0 fiber 756756 grade sampled at (C, minimax-omniscient), uniform-over-fiber, seed 0x39dba10f3d3cf947, draws 64
   chosen 6-2 better [1-1 6-6] regret 61/32
 verdict: refutation: value(tile(6-6)) >= value(tile(6-2)) at every matching (decision, world)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -422,7 +422,7 @@ basin/frame-compatible rate: 0/0 (frame-compatible = eligible decisions passing 
 basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h2 S2 t4 p3 fiber 1120 grade worldwise-dominance (PI)
+origin: regret conflict h2 S2 t4 p3 fiber 1120 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 6-3 better [1-1 6-6] regret 65/112
 verdict: refutation: value(tile(6-6)) >= value(tile(6-3)) at every matching (decision, world)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -465,7 +465,7 @@ basin/frame-compatible rate: 0/0 (frame-compatible = eligible decisions passing 
 basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h3 S3 t4 p1 fiber 2450 grade worldwise-dominance (PI)
+origin: regret conflict h3 S3 t4 p1 fiber 2450 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 5-3 better [6-3] regret 1243/1225
 verdict: refutation: value(decisive) >= value(min-count) at every matching (decision, world)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -511,7 +511,7 @@ basin/frame-compatible rate: 0/0 (frame-compatible = eligible decisions passing 
 basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h4 S0 t4 p3 fiber 1680 grade worldwise-dominance (PI)
+origin: regret conflict h4 S0 t4 p3 fiber 1680 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 5-2 better [2-0 4-2] regret 1163/840
 verdict: refutation: value(decisive) >= value(tile(5-2)) at every matching (decision, world)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -553,7 +553,7 @@ basin/frame-compatible rate: 0/0 (frame-compatible = eligible decisions passing 
 basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h4 S1 t3 p2 fiber 90090 grade sampled (PI, uniform-over-fiber, seed 0xd18989a14e865a95, draws 64)
+origin: regret conflict h4 S1 t3 p2 fiber 90090 grade sampled at (C, minimax-omniscient), uniform-over-fiber, seed 0xd18989a14e865a95, draws 64
   chosen 6-6 better [6-5] regret 111/32
 verdict: refutation: value(min-count) >= value(max-count) at every matching (decision, world)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -611,7 +611,7 @@ basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere)
   h4 S1 t6 p3: worlds 6/6 triple (0,6,0) class T (tied everywhere)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h4 S3 t5 p2 fiber 210 grade worldwise-dominance (PI)
+origin: regret conflict h4 S3 t5 p2 fiber 210 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 4-3 better [5-4] regret 1/105
 verdict: refutation: value(max-count) >= value(min-count) at every matching (decision, world)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -660,7 +660,7 @@ basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere)
   h4 S3 t6 p1: worlds 30/30 triple (0,30,0) class T (tied everywhere)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h4 S3 t5 p2 fiber 210 grade worldwise-dominance (PI)
+origin: regret conflict h4 S3 t5 p2 fiber 210 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 4-3 better [5-4] regret 1/105
 verdict: win: max-count suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -707,7 +707,7 @@ basin/frame-compatible rate: 4/104 (frame-compatible = eligible decisions passin
   h4 S3 t6 p1: worlds 30/30 triple (0,30,0)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h11 S1 t3 p3 fiber 23100 grade worldwise-dominance (PI)
+origin: regret conflict h11 S1 t3 p3 fiber 23100 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 0-0 better [2-0 3-1 5-1] regret 8/5775
 verdict: refutation: value(tile(2-0)) >= value(min-count) at every matching (decision, world)
 grade: worldwise at (C, minimax-omniscient); weighting-free
@@ -756,7 +756,7 @@ basin/frame-compatible rate: 0/0 (frame-compatible = eligible decisions passing 
 basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
 ----
 walt lesson (S5b) — exploratory tier
-origin: regret conflict h11 S1 t3 p3 fiber 23100 grade worldwise-dominance (PI)
+origin: regret conflict h11 S1 t3 p3 fiber 23100 grade worldwise-dominance at (C, minimax-omniscient)
   chosen 0-0 better [2-0 3-1 5-1] regret 8/5775
 verdict: win: tile(2-0) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
 grade: worldwise at (C, minimax-omniscient); weighting-free

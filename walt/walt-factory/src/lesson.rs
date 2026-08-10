@@ -80,8 +80,8 @@ pub struct OperatorPair {
 impl OperatorPair {
     /// The S5a walker's per-world scalar statistic: root action held
     /// common, continuation re-optimized per world, omniscient adversarial
-    /// field — (C, MinimaxOmniscient) in the grid. The S5a walker enum
-    /// spells this "PI"; an S5a part-2 amendment aligns the walker.
+    /// field — (C, MinimaxOmniscient) in the grid. The walker's Grade
+    /// carries this pair directly since the label unification.
     pub fn walker_scalar() -> OperatorPair {
         OperatorPair {
             focal_info: FocalInfoLabel::C,

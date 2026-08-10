@@ -83,7 +83,7 @@ pub fn render_walk(hand: &ReceiptHand, walk: &HandSeatWalk, config: &WalkerConfi
     );
     line(
         w,
-        "operator PI = the product pair (C, minimax-omniscient) of §10.3 x §10.8".to_string(),
+        "operator (C, minimax-omniscient) — §10.3 x §10.8 product pair: root action common, continuation re-optimized per world, omniscient adversarial field".to_string(),
     );
     for d in &walk.decisions {
         let basis = match d.basis {

@@ -398,12 +398,25 @@ evolved this project's own receipt/TRUST-01 discipline.
   live 0), with the win condition restated in the adjudicated
   role-shifted strict-< form — semantics unchanged, and the regenerated
   CI pins are byte-identical, which pins the invariance. (3) Operator
-  naming: every rendered artifact now carries "operator PI = the product
-  pair (C, minimax-omniscient) of §10.3 x §10.8". The `Grade` enum still
-  spells the label `OperatorLabel::Pi` because S5b's byte-frozen lesson
-  fixture renders origin-conflict grades through it — swapping that field
-  to `OperatorPair` is a coordinated regeneration with S5b, flagged for
-  the orchestrator, not silently done.
+  naming — the coordinated swap, step 1 (this session, post-1da8799):
+  `Grade` and the walker's record/verdict types now carry `OperatorPair`
+  (imported from the lesson module — legal intra-crate, since Rust
+  modules may reference each other; hoisting the label grid to
+  `walt-strat::label` as the long-term shared home is noted, not done,
+  to keep S5b's file untouched mid-flight). Rendered grades read the
+  product form ("worldwise-dominance at (C, minimax-omniscient)");
+  walker fixtures and CI pins regenerated (the pins' only delta is the
+  verdict wording "under (C, minimax-omniscient) semantics"; every
+  number is unchanged). `walt-strat::OperatorLabel` remains as the
+  single-rung registry enum for callers that mean a rung, not a pair.
+  Step 2 (walt-s5b's half): regenerate the lesson-side frozen receipt —
+  the one red test in the workspace is
+  `lesson_pins::h0_s1_t5_refutation_and_win_lessons_match_the_pins`,
+  whose fixture's origin line still reads "grade worldwise-dominance
+  (PI)"; the regenerated text differs in exactly that line. The
+  2026-08-10 walk artifacts keep their recorded "PI" strings — they are
+  receipts of the run that produced them, with the mapping named in the
+  assembled artifact's provenance header.
 - **S5b (2026-08-10): the Lesson type + generalizer.** **COMPLETE**:
   `walt/ci/check.sh` PASS; 4 new tests (~0.1s CI cost — the domain builds
   in ~40 ms and each generalization runs in milliseconds), the
