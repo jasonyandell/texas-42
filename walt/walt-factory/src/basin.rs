@@ -100,29 +100,48 @@ pub fn eval_atom(
 }
 
 /// The declared domain: which tricks' decision points enter (all hands,
-/// all seats, all plies). Trick 7 is excluded by default because every
-/// seat's play there is forced — no pair verdict can apply and no
-/// compression question survives.
+/// all seats, all plies), and the fiber cap. Trick 7 is excluded by
+/// default because every seat's play there is forced — no pair verdict
+/// can apply and no compression question survives. Decisions whose fiber
+/// exceeds `max_fiber` are EXCLUDED, never sampled — the S5c-m1 choice,
+/// stated: an exhaustively affordable domain restriction is honest, a
+/// sampled membership would silently downgrade every lesson verified on
+/// it. The excluded count is part of the built domain's record.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub struct DomainSpec {
     pub min_trick: usize,
     pub max_trick: usize,
+    pub max_fiber: u128,
 }
 
 impl DomainSpec {
-    /// Tonight's honest exhaustive domain (see module doc).
+    /// The S5b domain (no trick-5/6 fiber exceeds the cap: 0 excluded).
     pub fn tricks_5_to_6() -> DomainSpec {
         DomainSpec {
             min_trick: 5,
             max_trick: 6,
+            max_fiber: 40_000,
         }
     }
 
-    /// Whether a decision at `trick_no` lies inside this verified scope.
-    /// The application gate reads this before anything else (TRUST-01
-    /// shape: a verdict's scope is its verified domain).
-    pub fn contains(&self, trick_no: usize) -> bool {
-        (self.min_trick..=self.max_trick).contains(&trick_no)
+    /// The S5c-m1 falsification domain: tricks 3-6 where exhaustively
+    /// affordable — every trick-4-6 decision qualifies (t4 fibers top out
+    /// at 34,650); at trick 3 only void-constrained fibers do.
+    pub fn tricks_3_to_6() -> DomainSpec {
+        DomainSpec {
+            min_trick: 3,
+            max_trick: 6,
+            max_fiber: 40_000,
+        }
+    }
+
+    /// Whether a decision at `trick_no` with fiber size `fiber` lies
+    /// inside this verified scope. The application gate reads this before
+    /// anything else (TRUST-01 shape: a verdict's scope is its verified
+    /// domain) — an excluded-fiber decision was never verified, so it is
+    /// outside the scope exactly like an out-of-range trick.
+    pub fn covers(&self, trick_no: usize, fiber: u128) -> bool {
+        (self.min_trick..=self.max_trick).contains(&trick_no) && fiber <= self.max_fiber
     }
 }
 
@@ -130,8 +149,8 @@ impl core::fmt::Display for DomainSpec {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         write!(
             f,
-            "receipt corpus, hands 0-12, all seats, tricks {}-{}",
-            self.min_trick, self.max_trick
+            "receipt corpus, hands 0-12, all seats, tricks {}-{}, fiber <= {}",
+            self.min_trick, self.max_trick, self.max_fiber
         )
     }
 }
@@ -244,22 +263,33 @@ impl DomainDecision {
 }
 
 /// The precomputed domain: decisions in (hand, trick, seat) order.
+/// `excluded_decisions` counts the in-trick-range decision points whose
+/// fiber exceeded the cap — part of the domain's honest record.
 pub struct BasinDomain {
     pub spec: DomainSpec,
     pub decisions: Vec<DomainDecision>,
     pub worlds_total: usize,
+    pub excluded_decisions: usize,
 }
 
 impl BasinDomain {
     /// Builds the whole domain. `threads` bounds the scoped workers (0
     /// uses one); every precomputed quantity is an exact solve or an exact
-    /// enumeration, so the result is schedule-independent.
+    /// enumeration, so the result is schedule-independent. Fiber counts
+    /// (the counting DP) decide membership before any enumeration.
     pub fn build(receipt: &Receipt, spec: DomainSpec, threads: usize) -> BasinDomain {
         let mut triples: Vec<(usize, Seat, usize)> = Vec::new();
+        let mut excluded_decisions = 0usize;
         for hand in 0..receipt.hands.len() {
             for trick_no in spec.min_trick..=spec.max_trick {
                 for seat in Seat::ALL {
-                    triples.push((hand, seat, trick_no));
+                    let d = ReceiptDecision::at(&receipt.hands[hand], trick_no, seat)
+                        .expect("replay-verified receipts yield every decision point");
+                    if d.kernel.count() <= spec.max_fiber {
+                        triples.push((hand, seat, trick_no));
+                    } else {
+                        excluded_decisions += 1;
+                    }
                 }
             }
         }
@@ -289,6 +319,7 @@ impl BasinDomain {
             spec,
             decisions,
             worlds_total,
+            excluded_decisions,
         }
     }
 }

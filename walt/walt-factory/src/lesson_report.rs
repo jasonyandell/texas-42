@@ -13,7 +13,9 @@ use walt_core::{DominoSet, Seat};
 use walt_kernel::World;
 use walt_skeleton::LumpabilityFailure;
 
-use crate::lesson::{DominanceClass, DropOutcome, Lesson, LessonOrigin, WideningWitness};
+use crate::lesson::{
+    DominanceClass, Lesson, LessonOrigin, StepOutcome, TraceStep, WideningWitness,
+};
 
 fn render_set(s: DominoSet) -> String {
     let tiles: Vec<String> = s.iter().map(|d| d.to_string()).collect();
@@ -37,6 +39,7 @@ fn render_witness(w: &WideningWitness) -> String {
             ply,
             world,
             values,
+            ..
         } => {
             let vals: Vec<String> = values.iter().map(|(a, v)| format!("{a}={v}")).collect();
             format!(
@@ -118,8 +121,11 @@ pub fn render_lesson(lesson: &Lesson) -> String {
     line(format!("verdict: {}", lesson.verdict));
     line(format!("grade: {}", lesson.grade));
     line(format!(
-        "domain: {} — {} decisions, {} worlds, all fibers exhaustively enumerated",
-        lesson.basin.domain, lesson.basin.domain_decisions, lesson.basin.domain_worlds
+        "domain: {} — {} decisions, {} worlds, all fibers exhaustively enumerated ({} in-range decisions excluded by the fiber cap)",
+        lesson.basin.domain,
+        lesson.basin.domain_decisions,
+        lesson.basin.domain_worlds,
+        lesson.basin.domain_excluded
     ));
     line(format!(
         "initial implicant ({} cells): {}",
@@ -128,12 +134,21 @@ pub fn render_lesson(lesson: &Lesson) -> String {
     ));
     line("trace:".to_string());
     for step in &lesson.trace {
-        match &step.outcome {
-            DropOutcome::Dropped => line(format!("  drop {} -> dropped", step.cell)),
-            DropOutcome::LoadBearing(w) => line(format!(
-                "  drop {} -> LOAD-BEARING; {}",
-                step.cell,
-                render_witness(w)
+        match step {
+            TraceStep::Drop { cell, outcome } => match outcome {
+                StepOutcome::Dropped => line(format!("  drop {cell} -> dropped")),
+                StepOutcome::LoadBearing(w) => line(format!(
+                    "  drop {cell} -> LOAD-BEARING; {}",
+                    render_witness(w)
+                )),
+                StepOutcome::BoundHeld { held, witness } => line(format!(
+                    "  relax {cell} -> BOUND HELD at {held}; {}",
+                    render_witness(witness)
+                )),
+            },
+            TraceStep::Introduce { cell, witness } => line(format!(
+                "  introduce {cell} (cut refinement) excluding {}",
+                render_witness(witness)
             )),
         }
     }
@@ -188,6 +203,10 @@ pub fn render_lesson(lesson: &Lesson) -> String {
             );
         }
     }
+    line(format!(
+        "basin/frame-compatible rate: {}/{} (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)",
+        b.decisions_matched, b.frame_compatible
+    ));
     if let Some((refutation, safe)) = lesson.subbasins() {
         line(format!(
             "basin split (purpose-relative, §9.6): refutation {refutation} decisions (strict somewhere), safe-substitution {safe} decisions (weak dominance over the matched set; T-coverage counts)"
@@ -243,8 +262,9 @@ pub fn lesson_pin_line(lesson: &Lesson) -> String {
         None => String::new(),
     };
     let b = &lesson.basin;
+    let introduced: Vec<String> = lesson.introduced().iter().map(|c| c.to_string()).collect();
     format!(
-        "{origin}: verdict [{}] grade [{}] final [{}] load-bearing [{}] basin {}/{} eligible decisions {}/{} eligible worlds (carrier: {}; domain context {}/{}){}{}",
+        "{origin}: verdict [{}] grade [{}] final [{}] load-bearing [{}] introduced [{}] basin {}/{} eligible decisions {}/{} eligible worlds frame-rate {}/{} (carrier: {}; domain context {}/{}, {} excluded){}{}",
         lesson.verdict,
         lesson.grade,
         lesson.implicant.render(),
@@ -253,13 +273,21 @@ pub fn lesson_pin_line(lesson: &Lesson) -> String {
         } else {
             load.join(", ")
         },
+        if introduced.is_empty() {
+            "none".to_string()
+        } else {
+            introduced.join(", ")
+        },
         b.decisions_matched,
         b.decisions_eligible,
         b.worlds_matched,
         b.worlds_eligible,
+        b.decisions_matched,
+        b.frame_compatible,
         b.carrier,
         b.domain_decisions,
         b.domain_worlds,
+        b.domain_excluded,
         dominance,
         split
     )

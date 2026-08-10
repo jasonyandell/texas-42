@@ -356,6 +356,39 @@ evolved this project's own receipt/TRUST-01 discipline.
   PI semantics, worldwise". Full-corpus walk (threshold 10^6, 2,000
   draws, whole transcripts) lives in the `walk_corpus` release binary;
   its run is summarized in `walt-factory/results/`.
+  **S5a part 2 (2026-08-10): the full walk, the kill, the resume, the
+  adjudication alignment.** The first full-corpus run died at ~22/52
+  transcripts, mid h5 S2 — memory pressure, not a fault: no panic (the
+  workspace aborts loudly on overflow), no crash report, the last written
+  block internally complete, and the per-thread solver caches at
+  horizon-6/7 decisions measured at 14-19 GB for a single decision.
+  Fixes, both provably output-neutral: `ScalarPi::trim_cache` with a
+  per-thread bound in the walker (4M entries, ~4 GB total — cache entries
+  are exact values of projected states, so trimming costs only
+  recomputation), and `walk_corpus [start_hand [start_seat [max_pairs]]]`
+  resume (per-decision sample seeds are a fixed function of (base seed,
+  hand, seat, trick), never of walk order). Resume verified before
+  restarting: h5 S0 re-walked under the new binary is byte-identical to
+  the killed run's block, the wall-ms field aside; the corpus artifact is
+  assembled from the two part files in `walt-factory/results/`.
+  **Adjudication alignment (the S5b walt-math amendments applied to the
+  walker):** (1) the stored dominance primitive is now the world-count
+  triple per ordered action pair (`DecisionRecord::triples`; T/W/S/I
+  derived, conflicts fire on W; `dominance`/`chosen_dominated` kept as
+  derived-at-construction views for cross-module stability). Cross-check:
+  the walker's t5 triple for (2-1 over 3-2) on h0 S1 reads (488/1192/0) —
+  exactly the S5b basin triple for the same conflict. (2) The
+  localization primitive is the live-world count (`live_worlds`: worlds
+  whose best action still clears the win threshold; all-actions-lose =
+  live 0), with the win condition restated in the adjudicated
+  role-shifted strict-< form — semantics unchanged, and the regenerated
+  CI pins are byte-identical, which pins the invariance. (3) Operator
+  naming: every rendered artifact now carries "operator PI = the product
+  pair (C, minimax-omniscient) of §10.3 x §10.8". The `Grade` enum still
+  spells the label `OperatorLabel::Pi` because S5b's byte-frozen lesson
+  fixture renders origin-conflict grades through it — swapping that field
+  to `OperatorPair` is a coordinated regeneration with S5b, flagged for
+  the orchestrator, not silently done.
 - **S5b (2026-08-10): the Lesson type + generalizer.** **COMPLETE**:
   `walt/ci/check.sh` PASS; 4 new tests (~0.1s CI cost — the domain builds
   in ~40 ms and each generalization runs in milliseconds), the
@@ -485,6 +518,76 @@ evolved this project's own receipt/TRUST-01 discipline.
   transfer inversion (concrete 5-2 crossing h1/h6/h7/h9 where abstract
   selectors did not) flagged as §14.7-consistent and kept visible — the
   receipt's selector evaluation basis stays mandatory.
+- **S5c-m1 (2026-08-10): the falsification test proper.** **COMPLETE**:
+  `walt/ci/check.sh` PASS; 1 new CI test (the tricks-3-6 fiber-cap-3,000
+  subset domain: two t4-anchored seed pins + rent-coherence invariants;
+  whole lesson suite ~1 s), the `falsification_run` example
+  (`results/falsification_2026-08-10.txt`), the S5b-machinery record
+  regenerated as `results/lesson_basins_2026-08-10_r3.txt` (r1/r2 left
+  as committed). Built, per the adjudicated re-scope: (1) **order
+  cells** — `horizon` and the registered numerics (`beaters-total(d)` =
+  the beater vector summed; `opp-beaters`) enter implicants as bound
+  PAIRS (`>=` and `<=`, together the equality; §3.3-style registered
+  predicates with declared partial semantics — a bound over an undefined
+  numeric is unsatisfied). The generalizer RELAXES a bound stepwise,
+  witness-terminated; a refuted relaxation holds the bound at its last
+  verified value, named (`horizon>=5` held on h11 S1's win lesson) — the
+  S5b failure mode where four zero-basin lessons died on a horizon pin
+  equality could only keep or delete is gone. (2) **Cut refinement** —
+  on a failed widening the generalizer may INTRODUCE a world-selecting
+  cell from the origin's registered vocabularies (constant equality or
+  interval bound across the pairs verified under the pre-widening
+  implicant, excluding the witness; at most 4 per pass, first candidate
+  in vocabulary order, fully rolled back if the widening still fails),
+  traced as `Introduce` steps distinct from drops. (3) **The t3-6
+  domain** — `DomainSpec` gains a fiber cap with EXCLUSION semantics
+  (never sampling; the excluded count travels in every receipt, and the
+  application gate treats an excluded fiber as out of scope): 179
+  decisions / 924,813 worlds at cap 40,000 (29 in-range decisions
+  excluded, all trick-3), precomputed exhaustively in ~5 s at 12
+  threads. (4) **Milestone-1 rent** — `measure_rent` through the gated
+  application path, purpose-specific by type: refutation rent = applied
+  + strict-applied + exact mean matched-world improvement (never paid in
+  T-coverage), win rent = worlds covered + actions pruned, checker rent
+  = applied; DB/deletion/restart machinery deliberately not built (m2).
+  **The measured run** (16 lessons: 10 refutation + 5 win + 1 checker;
+  seeds = every dominated-chosen walker decision at exhaustive threshold
+  100,000 — where h4 S1 t3 p2's sampled-basis dominance did NOT survive
+  exhaustive re-examination at 90,090 worlds, so S5b's 11 seeds are 10
+  at grade: never-quote-above-grade, demonstrated on our own seed):
+  **the early negative is averted — the atom vocabulary IS load-bearing
+  on the discriminative domain.** 12/16 lessons carry surviving atom
+  cells and 12 gained cells by cut refinement; most final implicants are
+  PURE atom implicants with the whole frame dropped: h1 S2 t3 ends as
+  `beaters-total(1-0)<=1` (basin 3 decisions at frame-rate 3/89, its
+  own excluded-fiber origin not among them — pure transfer), h1 S2 t4
+  as `beaters-total(0-0)<=0` (34,650 worlds), h4 S3's win as four
+  numeric bounds at frame-rate 3/179. The basin/frame-compatible rates
+  walt-math asked for (1/64, 3/89, 3/130, 1/14, ...) show the latent
+  cells, not the frame, doing the selection. Honest caveats: absolute
+  basins stay small (refutation {0 x1, 1 x7, 3 x2}; win {1 x2, 3 x2,
+  5 x1} — few conflicts, deeply analyzed, per the declared regime); cut
+  refinement sometimes re-pins an exact total as a bound pair
+  (`beaters-total(3-0)<=2 & >=2` on h3 S3 — equality in disguise, basin
+  1); and introduced cells mean the load-bearing lists are mostly empty
+  while the selection content sits in `introduced` — both are printed.
+  Rent: each single-decision refutation basin's improvement equals its
+  origin regret exactly (65/112, 1243/1225, 1163/840, ... — an
+  independent cross-check against the S5a fixture); cross-decision
+  basins exceed it (h1 S2 t3: 16/15 over 3 applied); the largest win
+  rent covers 74,382 worlds / 109,032 pruned actions (h11 S1 t3).
+  **Falsification verdict, in the spine's vocabulary: the direction
+  survives its designed falsification point** — with relaxable bounds
+  and cut refinement, conflicts generalize into atom-vocabulary lessons
+  that pay measurable purpose-specific rent; the remaining pressure is
+  basin SCALE, which points m2 at the database economy over more
+  conflicts, and at (H, FixedUniformLegal) re-measurement (standing
+  note: everything here is at (C, MinimaxOmniscient), label-relative
+  per §12.4). Design calls flagged: numeric bounds replace per-slot
+  beater vectors in the implicant language (the vector remains column
+  substrate); introduction candidates are equality-on-constant or
+  interval-on-defined; INTRO_BUDGET = 4 per pass; bound pairs are
+  relaxed independently (no joint ladder).
 - **S5c: the loop.** Lesson DB with watched-feature indexing, rent
   collection (pruning/regret reduction measured on the corpus), deletion,
   restart-with-retention in the synthesis loops, §16.11 certificate

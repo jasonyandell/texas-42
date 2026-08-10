@@ -308,8 +308,34 @@ impl fmt::Display for AtomValue {
     }
 }
 
-/// One implicant cell: an equality constraint (the minimal cell language —
-/// order/threshold cells are deliberately not offered yet).
+/// A numeric-valued atom the order-cell language can bound (S5c-m1: the
+/// adjudicated shapes — registered derived predicates with declared
+/// semantics per §3.3; more numerics join only by registration here).
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
+pub enum NumericAtom {
+    /// Total unshown beaters of the tile across the three hidden slots
+    /// (the componentwise `Beaters` vector summed). Undefined when the
+    /// tile is not in the hidden pool.
+    BeatersTotal(Domino),
+    /// The exp3A `opp-beaters` count under the kernel's derived context.
+    OppBeaters,
+}
+
+impl fmt::Display for NumericAtom {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            NumericAtom::BeatersTotal(d) => write!(f, "beaters-total({d})"),
+            NumericAtom::OppBeaters => f.write_str("opp-beaters"),
+        }
+    }
+}
+
+/// One implicant cell: an equality cell, or a one-sided order cell over a
+/// registered numeric (S5c-m1). A numeric fact enters the initial
+/// implicant as the *pair* of bounds (`>= n` and `<= n`, together the
+/// equality), so the generalizer can relax each side stepwise instead of
+/// only keeping or deleting it — the observed S5b failure mode, where
+/// four zero-basin lessons died on a horizon pin equality could not bend.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum Constraint {
     /// The receipt hand — pure transcript identity.
@@ -318,12 +344,18 @@ pub enum Constraint {
     Seat(Seat),
     Decl(Decl),
     Role(Role),
-    /// Tiles remaining in the viewer's hand (kernel-generic; `8 - trick`).
-    Horizon(usize),
     /// The viewer's position in the trick: 0 led, 1..=3 followed.
     Ply(usize),
-    /// A latent atom cell, partial: unsatisfied where undefined.
+    /// Tiles remaining in the viewer's hand, bounded below / above
+    /// (kernel-generic; `8 - trick`).
+    HorizonGe(usize),
+    HorizonLe(usize),
+    /// A latent atom equality cell, partial: unsatisfied where undefined.
     Atom(LessonAtom, AtomValue),
+    /// Order cells over a registered numeric atom, partial like equality
+    /// cells: an undefined numeric satisfies no bound.
+    NumericGe(NumericAtom, u8),
+    NumericLe(NumericAtom, u8),
 }
 
 impl fmt::Display for Constraint {
@@ -333,9 +365,12 @@ impl fmt::Display for Constraint {
             Constraint::Seat(s) => write!(f, "seat={s}"),
             Constraint::Decl(d) => write!(f, "decl={d}"),
             Constraint::Role(r) => write!(f, "role={r}"),
-            Constraint::Horizon(n) => write!(f, "horizon={n}"),
             Constraint::Ply(p) => write!(f, "ply={p}"),
+            Constraint::HorizonGe(n) => write!(f, "horizon>={n}"),
+            Constraint::HorizonLe(n) => write!(f, "horizon<={n}"),
             Constraint::Atom(a, v) => write!(f, "{a}={v}"),
+            Constraint::NumericGe(a, k) => write!(f, "{a}>={k}"),
+            Constraint::NumericLe(a, k) => write!(f, "{a}<={k}"),
         }
     }
 }
@@ -501,7 +536,9 @@ pub enum LessonOrigin {
 pub enum WideningWitness {
     /// A matching (decision, world) where a pair verdict fails, with the
     /// full action-value row (reconstruction data: the world is the
-    /// complete deal).
+    /// complete deal). The indices locate the pair in the domain's
+    /// enumeration order (reconstructible; the cut-refinement candidate
+    /// scan reads them, receipts do not print them).
     World {
         hand: usize,
         seat: Seat,
@@ -509,6 +546,8 @@ pub enum WideningWitness {
         ply: usize,
         world: World,
         values: Vec<(Domino, i64)>,
+        decision_index: usize,
+        world_index: usize,
     },
     /// A matching decision where the descriptor family IS lumpable — the
     /// checker verdict's counterexample shape.
@@ -522,21 +561,43 @@ pub enum WideningWitness {
     },
 }
 
-/// One step of the greedy widening trace.
+/// One step of the widening trace (S5c-m1 vocabulary: Drop covers both
+/// equality cells and bound-relaxation ladders; Introduce is cut
+/// refinement proper).
 #[derive(Clone, Debug)]
-pub struct DropStep {
-    pub cell: Constraint,
-    pub outcome: DropOutcome,
+pub enum TraceStep {
+    /// One initial cell's widening attempt: for an equality cell, a
+    /// single drop; for a bound cell, a stepwise relaxation ladder whose
+    /// terminal state is the outcome.
+    Drop {
+        cell: Constraint,
+        outcome: StepOutcome,
+    },
+    /// Cut refinement: a widening failed at the witness, and this
+    /// world-selecting cell — constant across the then-verified matched
+    /// set, different or undefined at the witness — was introduced to
+    /// separate them, after which the widening re-verified.
+    Introduce {
+        cell: Constraint,
+        witness: WideningWitness,
+    },
 }
 
 #[derive(Clone, Debug)]
-pub enum DropOutcome {
-    /// The widened implicant re-verified over the whole domain; the cell
-    /// stays dropped.
+pub enum StepOutcome {
+    /// The cell is gone: the drop (or the relaxation to vacuity)
+    /// re-verified over the whole domain.
     Dropped,
-    /// The widening was refuted; the cell is restored and named
+    /// An equality cell whose drop was refuted; restored and named
     /// load-bearing by the witness.
     LoadBearing(WideningWitness),
+    /// A bound cell relaxed as far as verification allowed: it stands at
+    /// `held` (possibly its original value), and the witness refuted the
+    /// next relaxation — the load-bearing bound, named with its value.
+    BoundHeld {
+        held: Constraint,
+        witness: WideningWitness,
+    },
 }
 
 /// One matched decision of the basin, with its matched-world counts.
@@ -600,6 +661,9 @@ pub struct BasinReport {
     pub domain: DomainSpec,
     pub domain_decisions: usize,
     pub domain_worlds: usize,
+    /// In-trick-range decision points excluded by the domain's fiber cap
+    /// (never sampled — outside the verified scope entirely).
+    pub domain_excluded: usize,
     pub carrier: CarrierLabel,
     /// Domain decisions eligible for this verdict on its own carrier,
     /// independent of the implicant.
@@ -608,10 +672,64 @@ pub struct BasinReport {
     pub worlds_eligible: usize,
     pub decisions_matched: usize,
     pub worlds_matched: usize,
+    /// Eligible decisions whose *decision-sort* cells (identity, frame,
+    /// horizon bounds) hold under the final implicant — the denominator
+    /// of the basin/frame-compatible rate: how much selection work the
+    /// world-sort (atom) cells do beyond the frame.
+    pub frame_compatible: usize,
     /// The dominance primitive summed over every matched world; `None`
     /// for the checker verdict.
     pub dominance: Option<DominanceTriple>,
     pub matched: Vec<MatchedDecision>,
+}
+
+/// Milestone-1 rent (S5c-m1): coarse purpose-specific ranking statistics
+/// measured through the gated application entry point — a lesson's
+/// usefulness on the corpus, not yet the S5c database economy (no
+/// watched-feature indexing, no deletion). Purpose-specificity is typed:
+/// refutation rent is never paid in T-coverage — only strict-somewhere
+/// applications count, and the improvement is the exact mean
+/// matched-world gain (better minus worse, uniform over matched worlds)
+/// summed over those decisions.
+#[derive(Clone, Debug)]
+pub enum RentReport {
+    Refutation {
+        applied: usize,
+        strict_applied: usize,
+        improvement: walt_geom::Q,
+    },
+    Win {
+        applied: usize,
+        worlds_covered: usize,
+        actions_pruned: usize,
+    },
+    Checker {
+        applied: usize,
+    },
+}
+
+impl fmt::Display for RentReport {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            RentReport::Refutation {
+                applied,
+                strict_applied,
+                improvement,
+            } => write!(
+                f,
+                "refutation rent: applied {applied} strict-applied {strict_applied} improvement {improvement}"
+            ),
+            RentReport::Win {
+                applied,
+                worlds_covered,
+                actions_pruned,
+            } => write!(
+                f,
+                "win rent: applied {applied} worlds-covered {worlds_covered} actions-pruned {actions_pruned}"
+            ),
+            RentReport::Checker { applied } => write!(f, "checker rent: applied {applied}"),
+        }
+    }
 }
 
 /// A lesson: origin, verdict, grade, implicants (initial and final), the
@@ -623,19 +741,58 @@ pub struct Lesson {
     pub verdict: LessonVerdict,
     pub grade: LessonGrade,
     pub initial: Implicant,
-    pub trace: Vec<DropStep>,
+    pub trace: Vec<TraceStep>,
     pub implicant: Implicant,
     pub basin: BasinReport,
 }
 
 impl Lesson {
-    /// The load-bearing cells: those a widening attempt restored, in trace
-    /// order. A derived view of the trace, never stored twice.
+    /// The load-bearing cells: restored equality cells and held bounds
+    /// (at their held values), in trace order. A derived view of the
+    /// trace, never stored twice.
     pub fn load_bearing(&self) -> Vec<Constraint> {
         self.trace
             .iter()
-            .filter(|s| matches!(s.outcome, DropOutcome::LoadBearing(_)))
-            .map(|s| s.cell)
+            .filter_map(|s| match s {
+                TraceStep::Drop {
+                    cell,
+                    outcome: StepOutcome::LoadBearing(_),
+                } => Some(*cell),
+                TraceStep::Drop {
+                    outcome: StepOutcome::BoundHeld { held, .. },
+                    ..
+                } => Some(*held),
+                _ => None,
+            })
+            .collect()
+    }
+
+    /// The cut-refinement cells introduced during the kept pass, in trace
+    /// order. A derived view of the trace.
+    pub fn introduced(&self) -> Vec<Constraint> {
+        self.trace
+            .iter()
+            .filter_map(|s| match s {
+                TraceStep::Introduce { cell, .. } => Some(*cell),
+                _ => None,
+            })
+            .collect()
+    }
+
+    /// Atom-sort cells (equality or bound) surviving in the final
+    /// implicant — the falsification question's numerator shape: is the
+    /// latent vocabulary doing selection work at all?
+    pub fn surviving_atom_cells(&self) -> Vec<Constraint> {
+        self.implicant
+            .cells
+            .iter()
+            .filter(|c| {
+                matches!(
+                    c,
+                    Constraint::Atom(..) | Constraint::NumericGe(..) | Constraint::NumericLe(..)
+                )
+            })
+            .copied()
             .collect()
     }
 

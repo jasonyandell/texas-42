@@ -33,12 +33,14 @@ pub mod walker;
 pub use basin::{valued_tile, vocabulary, BasinDomain, DomainDecision, DomainSpec};
 pub use conflict::{Conflict, Grade, RegretConflict};
 pub use corpus::{load_receipt, walk_corpus};
-pub use generalize::{generalize_lumpability, generalize_regret, generalize_win, lesson_applies};
+pub use generalize::{
+    generalize_lumpability, generalize_regret, generalize_win, lesson_applies, measure_rent,
+};
 pub use lesson::{
     ActionSelector, AtomValue, BasinReport, CarrierLabel, Constraint, DescriptorFamily,
-    DominanceClass, DominanceTriple, DropOutcome, DropStep, FieldLabel, FocalInfoLabel, Implicant,
-    Lesson, LessonAtom, LessonGrade, LessonOrigin, LessonVerdict, MatchedDecision, OperatorPair,
-    Role, WideningWitness,
+    DominanceClass, DominanceTriple, FieldLabel, FocalInfoLabel, Implicant, Lesson, LessonAtom,
+    LessonGrade, LessonOrigin, LessonVerdict, MatchedDecision, NumericAtom, OperatorPair,
+    RentReport, Role, StepOutcome, TraceStep, WideningWitness,
 };
 pub use lesson_report::{lesson_pin_line, render_lesson};
 pub use report::{corpus_pin_line, render_walk};
