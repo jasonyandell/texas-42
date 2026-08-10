@@ -13,24 +13,27 @@
 //!   expectation. Per-decision regret on the future increment alone is exact
 //!   for the additive family because the banked term is action-independent
 //!   (§8.5), so the transcript total decomposes exactly by decision;
-//! - **worldwise dominance** among actions: `a` strictly dominates `b` when
-//!   `v_w(a) >= v_w(b)` in every evaluated world and strictly in at least
-//!   one. Weighting-free, but never operator-free (§7.6);
-//! - the **all-actions-lose** flag: every evaluated world x action fails the
-//!   viewer team's win condition (banked + future differential against the
-//!   bid), the raw material of the labeled "lost at the deal under PI
-//!   semantics, worldwise" verdict.
+//! - the **dominance primitive**: the world-count triple (#gt, #eq, #lt)
+//!   per ordered action pair (walt-math amendment 2026-08-10; the T/W/S/I
+//!   classes are derived views, conflicts fire on W). Weighting-free, but
+//!   never operator-free (§7.6);
+//! - the **localization primitive**: the live-world count — worlds whose
+//!   best action still clears the viewer team's win threshold (banked +
+//!   future differential against the bid, in the role-shifted strict-<
+//!   form). Live count zero is the raw material of the labeled "lost ...
+//!   under PI semantics, worldwise" verdict.
 //!
 //! Fibers at or below a declared threshold are enumerated exhaustively;
 //! above it the kernel's exactly-uniform sampler runs at a recorded
 //! per-decision seed and every downstream quantity is marked `Sampled` —
 //! never silently.
 //!
-//! Determinism: the per-world solves are partitioned into fixed chunks
-//! solved by scoped threads; every reduction is an integer sum or a boolean
-//! lattice operation, folded in chunk order, so the result is independent of
-//! the thread schedule (and of the solver caches, whose entries are exact
-//! values of projected states).
+//! Determinism: the per-world solves are partitioned into chunks solved by
+//! scoped threads; every reduction is an exact integer sum or count —
+//! associative and commutative — so the result is independent of the
+//! partition and the thread schedule (and of the solver caches, whose
+//! entries are exact values of projected states; the memory-bounding
+//! `trim_cache` therefore cannot change any output).
 
 use std::sync::atomic::{AtomicUsize, Ordering};
 
@@ -42,6 +45,7 @@ use walt_kernel::{FiberDp, ReceiptDecision, SplitMix64};
 use walt_strat::{OperatorLabel, ScalarPi, ScalarValuation, WeightingLabel};
 
 use crate::conflict::{Grade, RegretConflict};
+use crate::lesson::{DominanceClass, DominanceTriple};
 
 /// Declared walker knobs. The operator is scalar PI and the weighting is
 /// uniform-over-fiber — both recorded on every output, not implied.
@@ -132,16 +136,36 @@ pub struct DecisionRecord {
     pub values: Vec<Q>,
     /// Best expectation minus the chosen action's; zero when optimal.
     pub regret: Q,
-    /// Ordered strict dominance pairs `(i, j)`: action `i` worldwise
-    /// dominates action `j` over the evaluated world set.
+    /// The dominance primitive (walt-math amendment, 2026-08-10): the
+    /// world-count triple for every ordered action pair, flattened
+    /// `i * n + j` = (action i over action j) over the evaluated world set.
+    /// The named classes (T/W/S/I) are derived views, never stored.
+    pub triples: Vec<DominanceTriple>,
+    /// Derived view of `triples`, cached at construction for cross-module
+    /// API stability: the ordered pairs `(i, j)` where action `i`
+    /// dominates action `j` — strict somewhere, never worse (class W or S;
+    /// §9.6: conflicts fire on W, ties never collapse into dominance).
     pub dominance: Vec<(usize, usize)>,
-    /// Some alternative worldwise-dominates the chosen action.
+    /// Some alternative worldwise-dominates the chosen action. Derived
+    /// from `triples` at construction, nothing else.
     pub chosen_dominated: bool,
-    /// Every evaluated world x action fails the win condition.
-    pub all_actions_lose: bool,
+    /// The localization primitive (walt-math amendment): the number of
+    /// evaluated worlds in which some legal action still clears the win
+    /// threshold. Zero means every evaluated world x action loses.
+    pub live_worlds: usize,
 }
 
 impl DecisionRecord {
+    /// The triple for ordered pair (action `i` over action `j`).
+    pub fn triple(&self, i: usize, j: usize) -> DominanceTriple {
+        self.triples[i * self.actions.len() + j]
+    }
+
+    /// Derived view: no evaluated world has a winning action left.
+    pub fn all_actions_lose(&self) -> bool {
+        self.live_worlds == 0
+    }
+
     /// The decision's conflict, when the chosen action is regretted. The
     /// grade quotes exactly what was computed: worldwise dominance only on
     /// an exhaustive basis, sampled bases always marked.
@@ -229,32 +253,33 @@ impl HandSeatWalk {
     }
 }
 
-/// The win condition of the real objective game for one team: the declaring
-/// side makes at or above its bid. With `v` the team's full-hand q_points
-/// differential, the team's points are `(42 + v) / 2` (each trick's weight
-/// `1 + count` sums to 42 over the hand), so declaring wins iff
-/// `v >= 2*bid - 42` and defending wins iff the declarers fail:
-/// `v > 42 - 2*bid`.
+/// The win condition of the real objective game for one team, in the
+/// adjudicated role-shifted strict-< form: the focal team loses exactly
+/// when its full-hand q_points differential `v` sits strictly below one
+/// integer threshold. The team's points are `(42 + v) / 2` (each trick's
+/// weight `1 + count` sums to 42 over the hand), and the declaring side
+/// makes at or above its bid, so: declaring loses iff `v < 2*bid - 42`;
+/// defending loses iff the declarers make, `v <= 42 - 2*bid`, which over
+/// the integers is the shifted strict form `v < 43 - 2*bid`.
 #[derive(Clone, Copy, Debug)]
 struct WinCondition {
-    focal_declares: bool,
-    bid: i64,
+    lose_below: i64,
 }
 
 impl WinCondition {
     fn of(hand: &ReceiptHand, focal: Team) -> WinCondition {
+        let bid = i64::from(hand.bid_points);
         WinCondition {
-            focal_declares: hand.declaring_team == focal,
-            bid: i64::from(hand.bid_points),
+            lose_below: if hand.declaring_team == focal {
+                2 * bid - 42
+            } else {
+                43 - 2 * bid
+            },
         }
     }
 
     fn wins(self, v_total: i64) -> bool {
-        if self.focal_declares {
-            v_total >= 2 * self.bid - 42
-        } else {
-            v_total > 42 - 2 * self.bid
-        }
+        v_total >= self.lose_below
     }
 }
 
@@ -283,25 +308,27 @@ fn decision_seed(base: u64, hand: usize, seat: Seat, trick_no: usize) -> u64 {
     SplitMix64::new(base ^ id.wrapping_mul(0x9E37_79B9_7F4A_7C15)).next_u64()
 }
 
-/// Per-chunk partial aggregate. Integer sums and boolean lattice values
-/// only, so the fold is exact and order-insensitive; it is still folded in
-/// chunk order.
+/// Per-chunk partial aggregate: integer sums and world counts only, so the
+/// fold is exact and order-insensitive; it is still folded in chunk order.
+/// The pairwise counts are the dominance primitive — the triple's `lt`
+/// coordinate is the transpose's `gt`, so only `gt` and `eq` are carried.
 struct ChunkAggregate {
     sums: Vec<i128>,
-    /// `ge[i * n + j]`: `v(a_i) >= v(a_j)` in every world of the chunk.
-    ge: Vec<bool>,
-    /// `gt[i * n + j]`: `v(a_i) > v(a_j)` in some world of the chunk.
-    gt: Vec<bool>,
-    all_lose: bool,
+    /// `gt[i * n + j]`: #worlds with `v(a_i) > v(a_j)` in the chunk.
+    gt: Vec<usize>,
+    /// `eq[i * n + j]`: #worlds with `v(a_i) = v(a_j)` in the chunk.
+    eq: Vec<usize>,
+    /// #worlds whose best action still clears the win threshold.
+    live: usize,
 }
 
 impl ChunkAggregate {
     fn identity(n: usize) -> ChunkAggregate {
         ChunkAggregate {
             sums: vec![0; n],
-            ge: vec![true; n * n],
-            gt: vec![false; n * n],
-            all_lose: true,
+            gt: vec![0; n * n],
+            eq: vec![0; n * n],
+            live: 0,
         }
     }
 
@@ -312,16 +339,15 @@ impl ChunkAggregate {
             self.sums[i] += i128::from(*v);
             best = best.max(*v);
             for (j, w) in values.iter().enumerate() {
-                if v < w {
-                    self.ge[i * n + j] = false;
-                }
                 if v > w {
-                    self.gt[i * n + j] = true;
+                    self.gt[i * n + j] += 1;
+                } else if v == w {
+                    self.eq[i * n + j] += 1;
                 }
             }
         }
         if win.wins(banked + best) {
-            self.all_lose = false;
+            self.live += 1;
         }
     }
 
@@ -329,13 +355,13 @@ impl ChunkAggregate {
         for (a, b) in self.sums.iter_mut().zip(&other.sums) {
             *a += b;
         }
-        for (a, b) in self.ge.iter_mut().zip(&other.ge) {
-            *a &= b;
-        }
         for (a, b) in self.gt.iter_mut().zip(&other.gt) {
-            *a |= b;
+            *a += b;
         }
-        self.all_lose &= other.all_lose;
+        for (a, b) in self.eq.iter_mut().zip(&other.eq) {
+            *a += b;
+        }
+        self.live += other.live;
     }
 }
 
@@ -344,6 +370,15 @@ impl ChunkAggregate {
 /// associative and commutative — so the aggregate is identical under any
 /// partition and any schedule.
 const CHUNK: usize = 512;
+
+/// Per-thread bound on the solver's trick-boundary cache, in entries
+/// (~4 GB total at 18 workers). Unbounded caches at horizon-6/7 decisions
+/// were measured at 14-19 GB for a single decision and drew a
+/// memory-pressure kill mid-corpus on 2026-08-10; the bound is a memory
+/// lever only — cache entries are exact values of projected states, so
+/// trimming cannot change any output (verified by the byte-stable resume
+/// diff of that run's part 2).
+const CACHE_TRIM: usize = 4_000_000;
 
 /// Solves every world's action values and folds the aggregates, in parallel
 /// scoped threads over fixed chunks. Each thread owns a `ScalarPi` (caches
@@ -395,6 +430,7 @@ fn aggregate_worlds(
                             let values: Vec<i64> = solved.into_iter().map(|(_, v)| v).collect();
                             agg.absorb_world(&values, banked, win);
                         }
+                        pi.trim_cache(CACHE_TRIM);
                     }
                     agg
                 })
@@ -474,10 +510,30 @@ pub fn walk_decision(
     let values: Vec<Q> = agg.sums.iter().map(|s| q(*s, count)).collect();
     let best = *values.iter().max().expect("at least one legal action");
     let n = actions.len();
+    let mut triples = Vec::with_capacity(n * n);
+    for i in 0..n {
+        for j in 0..n {
+            let gt = agg.gt[i * n + j];
+            let eq = agg.eq[i * n + j];
+            let lt = agg.gt[j * n + i];
+            assert_eq!(
+                gt + eq + lt,
+                worlds.len(),
+                "the triple partitions the worlds"
+            );
+            triples.push(DominanceTriple { gt, eq, lt });
+        }
+    }
+
     let mut dominance = Vec::new();
     for i in 0..n {
         for j in 0..n {
-            if i != j && agg.ge[i * n + j] && agg.gt[i * n + j] {
+            if i != j
+                && matches!(
+                    triples[i * n + j].class(),
+                    DominanceClass::WeakStrictSomewhere | DominanceClass::StrictEverywhere
+                )
+            {
                 dominance.push((i, j));
             }
         }
@@ -497,9 +553,10 @@ pub fn walk_decision(
         regret: best - values[chosen_index],
         values,
         actions,
+        triples,
         dominance,
         chosen_dominated,
-        all_actions_lose: agg.all_lose,
+        live_worlds: agg.live,
     }
 }
 
@@ -517,7 +574,7 @@ pub fn walk_seat(hand: &ReceiptHand, seat: Seat, config: &WalkerConfig) -> HandS
     let dominated_choices = decisions.iter().filter(|d| d.chosen_dominated).count();
     let lost_from = decisions
         .iter()
-        .find(|d| d.all_actions_lose && matches!(d.basis, EvidenceBasis::Exhaustive { .. }))
+        .find(|d| d.all_actions_lose() && matches!(d.basis, EvidenceBasis::Exhaustive { .. }))
         .map(|d| LostVerdict {
             trick_no: d.trick_no,
             ply: d.ply,

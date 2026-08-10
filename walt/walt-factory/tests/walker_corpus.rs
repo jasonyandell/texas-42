@@ -40,6 +40,20 @@ fn corpus_summaries_match_the_pins() {
                 assert!(d.regret >= qi(0));
                 let best = d.values.iter().max().expect("actions");
                 assert_eq!(d.regret == qi(0), d.values[d.chosen_index] == *best);
+                // The dominance primitive partitions the evaluated worlds
+                // and is antisymmetric under transposition.
+                let n = d.actions.len();
+                for i in 0..n {
+                    for j in 0..n {
+                        let t = d.triple(i, j);
+                        let r = d.triple(j, i);
+                        assert_eq!((t.gt, t.eq, t.lt), (r.lt, r.eq, r.gt));
+                        if i == j {
+                            assert_eq!(t.gt, 0);
+                            assert_eq!(t.lt, 0);
+                        }
+                    }
+                }
                 // Worldwise dominance implies expectation order under the
                 // full-support uniform weighting (exhaustive basis only).
                 if matches!(d.basis, EvidenceBasis::Exhaustive { .. }) {
@@ -69,7 +83,8 @@ fn corpus_summaries_match_the_pins() {
                 }
                 assert!(!c.better.is_empty());
             }
-            // A lost-verdict is only ever built on an exhaustive basis.
+            // A lost-verdict is only ever built on an exhaustive basis,
+            // and it is exactly the live-world count hitting zero.
             if let Some(v) = &walk.lost_from {
                 let d = walk
                     .decisions
@@ -77,7 +92,8 @@ fn corpus_summaries_match_the_pins() {
                     .find(|d| d.trick_no == v.trick_no)
                     .expect("verdict names a walked decision");
                 assert!(matches!(d.basis, EvidenceBasis::Exhaustive { .. }));
-                assert!(d.all_actions_lose);
+                assert_eq!(d.live_worlds, 0);
+                assert!(d.all_actions_lose());
             }
 
             lines.push(corpus_pin_line(hand, &walk));

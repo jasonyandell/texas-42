@@ -81,6 +81,10 @@ pub fn render_walk(hand: &ReceiptHand, walk: &HandSeatWalk, config: &WalkerConfi
         w,
         "valuation q_points (each trick +-(1 + count))".to_string(),
     );
+    line(
+        w,
+        "operator PI = the product pair (C, minimax-omniscient) of §10.3 x §10.8".to_string(),
+    );
     for d in &walk.decisions {
         let basis = match d.basis {
             EvidenceBasis::Exhaustive { worlds } => format!("exhaustive({worlds})"),
@@ -105,17 +109,28 @@ pub fn render_walk(hand: &ReceiptHand, walk: &HandSeatWalk, config: &WalkerConfi
         let dominance: Vec<String> = d
             .dominance
             .iter()
-            .map(|(i, j)| format!("{}>{}", d.actions[*i], d.actions[*j]))
+            .map(|(i, j)| {
+                let t = d.triple(*i, *j);
+                format!(
+                    "{}>{}({}/{}/{})",
+                    d.actions[*i], d.actions[*j], t.gt, t.eq, t.lt
+                )
+            })
             .collect();
+        let evaluated = match d.basis {
+            EvidenceBasis::Exhaustive { worlds } => worlds,
+            EvidenceBasis::Sampled { draws, .. } => u128::from(draws),
+        };
         line(
             w,
             format!(
-                "  chosen {} regret {} dominance [{}] chosen_dominated {} all_actions_lose {}",
+                "  chosen {} regret {} dominance [{}] chosen_dominated {} live_worlds {}/{}",
                 d.chosen,
                 d.regret,
                 dominance.join(" "),
                 d.chosen_dominated,
-                d.all_actions_lose
+                d.live_worlds,
+                evaluated
             ),
         );
     }

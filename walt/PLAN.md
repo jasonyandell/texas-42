@@ -370,7 +370,22 @@ evolved this project's own receipt/TRUST-01 discipline.
   hand, seat, trick), never of walk order). Resume verified before
   restarting: h5 S0 re-walked under the new binary is byte-identical to
   the killed run's block, the wall-ms field aside; the corpus artifact is
-  assembled from the two part files in `walt-factory/results/`.
+  assembled from the two part files in `walt-factory/results/`
+  (`full_walk_2026-08-10_assembled.txt`, provenance header inside).
+  **Full-walk results** (52 whole transcripts, threshold 10^6, 2,000-draw
+  recorded samples above it — 276/364 decisions exhaustive, 88 sampled
+  and marked): 282/364 decisions zero-regret (77.5%); 9/52 transcripts
+  fully zero-regret (was 18/52 on the tricks-3-7 CI subset — the early
+  sampled tricks carry real regret); 82 conflicts (41 exact-expectation,
+  31 sampled-grade, 10 worldwise-dominance); 12 worldwise-dominated
+  chosen actions; 25/52 lost verdicts (9 declaring / 16 defending),
+  earliest by trick {t2: 2, t3: 7, t4: 2, t5: 3, t6: 6, t7: 5} — h0 S1
+  and h12 S3 are worldwise-lost under PI by their *second* decision.
+  Largest transcript regret: h11 S3 defending, 87569113/2494800 (~35.1
+  valuation units) — and still verdict-lost from t6, so the throwaway
+  and the doom coexist. Runtime: part 1 ~70 min for 22 pairs (unbounded
+  caches, died); part 2 20 min for the remaining 30 pairs at 17% peak
+  memory (vs 39%) — the cache bound made the walk faster, not slower.
   **Adjudication alignment (the S5b walt-math amendments applied to the
   walker):** (1) the stored dominance primitive is now the world-count
   triple per ordered action pair (`DecisionRecord::triples`; T/W/S/I

@@ -103,6 +103,16 @@ impl ScalarPi {
         self.cache.len()
     }
 
+    /// Drops the boundary cache when it has grown past `max_entries`. A
+    /// memory bound, never a semantic knob: every cache entry is the exact
+    /// minimax value of its projected state, so clearing can only cost
+    /// recomputation — values are identical with any trim policy.
+    pub fn trim_cache(&mut self, max_entries: usize) {
+        if self.cache.len() > max_entries {
+            self.cache = HashMap::default();
+        }
+    }
+
     /// The exact root value for every legal lead of `leader`, ascending.
     pub fn root_values(
         &mut self,

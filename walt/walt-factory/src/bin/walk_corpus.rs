@@ -2,22 +2,50 @@
 //! (trick 1 on), exhaustive through trick-3-scale fibers, recorded-seed
 //! samples above. Run in release; the CI tests pin only the fast subset,
 //! this binary's output is summarized selectively.
+//!
+//! Resumable: `walk_corpus [start_hand [start_seat_index [max_pairs]]]`
+//! walks the hand-major pair order from `(start_hand, start_seat)` on, at
+//! most `max_pairs` pairs. Per-decision sample seeds are a fixed function
+//! of (base seed, hand, seat, trick) — never of walk order — so a resumed
+//! run's output for a pair is identical to the original run's (the
+//! per-pair wall-time field aside), and the parts concatenate into one
+//! artifact. Flushed line-by-line so a killed run loses no completed pair.
 
+use std::io::Write as _;
 use std::time::Instant;
 
 use walt_factory::{load_receipt, walk_seat, EvidenceBasis, WalkerConfig};
 
 fn main() {
+    let args: Vec<usize> = std::env::args()
+        .skip(1)
+        .map(|a| a.parse().expect("numeric arguments"))
+        .collect();
+    let start_hand = args.first().copied().unwrap_or(0);
+    let start_seat = args.get(1).copied().unwrap_or(0);
+    let max_pairs = args.get(2).copied().unwrap_or(usize::MAX);
+
     let config = WalkerConfig::full();
     println!(
-        "walk_corpus: threshold {} draws {} seed {:#018x} min_trick {}",
-        config.enumeration_threshold, config.sample_draws, config.seed, config.min_trick
+        "walk_corpus: threshold {} draws {} seed {:#018x} min_trick {} from h{} s{} max {}",
+        config.enumeration_threshold,
+        config.sample_draws,
+        config.seed,
+        config.min_trick,
+        start_hand,
+        start_seat,
+        max_pairs
     );
     let receipt = load_receipt();
     let start = Instant::now();
     let mut conflict_total = 0usize;
+    let mut walked = 0usize;
     for hand in &receipt.hands {
         for seat in walt_core::Seat::ALL {
+            if (hand.id, seat.index()) < (start_hand, start_seat) || walked >= max_pairs {
+                continue;
+            }
+            walked += 1;
             let t0 = Instant::now();
             let walk = walk_seat(hand, seat, &config);
             let sampled = walk
@@ -58,10 +86,12 @@ fn main() {
                     c.trick_no, c.ply, c.chosen, c.regret, c.better, c.grade, c.fiber
                 );
             }
+            std::io::stdout().flush().expect("stdout");
         }
     }
     println!(
-        "walk_corpus: {} conflicts total, {} ms",
+        "walk_corpus: {} pairs walked, {} conflicts total, {} ms",
+        walked,
         conflict_total,
         start.elapsed().as_millis()
     );

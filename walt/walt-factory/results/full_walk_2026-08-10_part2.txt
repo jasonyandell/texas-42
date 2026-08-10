@@ -1,0 +1,82 @@
+walk_corpus: threshold 1000000 draws 2000 seed 0x000000005ea7425a min_trick 1 from h5 s2 max 18446744073709551615
+hand  5 seat S2 (declaring): total_regret 68919/6125 zero 4/7 dominated 0 sampled_decisions 1 verdict - [171772 ms]
+    conflict t1 p0: chosen 5-4 regret 911/125 better [0-0, 3-1, 5-5, 6-6] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 1697300034608363079, draws: 2000 } fiber 399072960
+    conflict t4 p0: chosen 3-1 regret 9668/3675 better [5-5, 6-3] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 14700
+    conflict t6 p2: chosen 5-1 regret 4/3 better [5-5] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 9
+hand  5 seat S3 (defending): total_regret        0 zero 7/7 dominated 0 sampled_decisions 1 verdict lost(t3 p1, PI, worldwise) [8295 ms]
+hand  6 seat S0 (defending): total_regret 1382831981/189189000 zero 5/7 dominated 0 sampled_decisions 2 verdict - [78174 ms]
+    conflict t2 p0: chosen 6-5 regret 1029/1000 better [6-6] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 134531309677852047, draws: 2000 } fiber 11435424
+    conflict t3 p0: chosen 6-6 regret 2376313/378378 better [3-0, 3-1, 5-4, 5-5] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 756756
+hand  6 seat S1 (declaring): total_regret 712567/63063000 zero 5/7 dominated 2 sampled_decisions 2 verdict lost(t5 p2, PI, worldwise) [25282 ms]
+    conflict t1 p2: chosen 6-1 regret 9/1000 better [6-2] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 4663266921469424598, draws: 2000 } fiber 46558512
+    conflict t3 p1: chosen 2-1 regret 145/63063 better [2-2, 5-1, 5-2] grade WorldwiseDominance { operator: Pi } fiber 252252
+hand  6 seat S2 (defending): total_regret 80174/6435 zero 5/7 dominated 0 sampled_decisions 2 verdict - [12216 ms]
+    conflict t2 p2: chosen 3-3 regret 7 better [2-0, 4-2, 4-4, 6-4] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 12723213361429723724, draws: 2000 } fiber 2018016
+    conflict t3 p2: chosen 3-2 regret 35129/6435 better [2-0, 4-2, 4-4, 6-4] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 90090
+hand  6 seat S3 (declaring): total_regret 268392863/12612600 zero 3/7 dominated 0 sampled_decisions 1 verdict lost(t6 p1, PI, worldwise) [123794 ms]
+    conflict t1 p0: chosen 6-0 regret 1213/200 better [1-1, 4-0, 4-3, 5-3] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 15298304368556750528, draws: 2000 } fiber 399072960
+    conflict t2 p3: chosen 1-0 regret 1577011/126126 better [4-0, 4-1, 4-3, 5-3] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 504504
+    conflict t4 p0: chosen 1-1 regret 10838/17325 better [4-0, 4-3] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 34650
+    conflict t5 p0: chosen 5-3 regret 73/35 better [4-0, 4-3] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 1680
+hand  7 seat S0 (declaring): total_regret 759443/73500 zero 4/7 dominated 0 sampled_decisions 2 verdict lost(t3 p3, PI, worldwise) [33216 ms]
+    conflict t1 p0: chosen 4-4 regret 397/200 better [5-5] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 680574793963562354, draws: 2000 } fiber 399072960
+    conflict t2 p0: chosen 6-2 regret 7033/1000 better [5-5, 6-3] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 2210031711688014711, draws: 2000 } fiber 4624620
+    conflict t4 p1: chosen 5-1 regret 4831/3675 better [5-3, 5-5] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 7350
+hand  7 seat S1 (defending): total_regret        0 zero 7/7 dominated 0 sampled_decisions 2 verdict - [62796 ms]
+hand  7 seat S2 (declaring): total_regret  278/125 zero 6/7 dominated 0 sampled_decisions 2 verdict lost(t4 p3, PI, worldwise) [22281 ms]
+    conflict t1 p2: chosen 3-2 regret 278/125 better [6-0] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 17381413168005459283, draws: 2000 } fiber 46558512
+hand  7 seat S3 (defending): total_regret 3037/1050 zero 6/7 dominated 0 sampled_decisions 1 verdict - [24966 ms]
+    conflict t4 p0: chosen 4-1 regret 3037/1050 better [0-0, 1-1, 3-1] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 23100
+hand  8 seat S0 (defending): total_regret 1671/1000 zero 6/7 dominated 0 sampled_decisions 2 verdict lost(t3 p3, PI, worldwise) [2373 ms]
+    conflict t2 p0: chosen 4-2 regret 1671/1000 better [2-0, 3-0, 4-1, 6-4] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 17762443116186136402, draws: 2000 } fiber 2774772
+hand  8 seat S1 (declaring): total_regret 3198107/267750 zero 4/7 dominated 0 sampled_decisions 2 verdict - [62914 ms]
+    conflict t1 p0: chosen 5-2 regret 2879/500 better [1-1, 2-1, 3-3, 5-4, 5-5] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 13542771130670328895, draws: 2000 } fiber 399072960
+    conflict t3 p0: chosen 1-1 regret 2969/4284 better [3-3] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 59976
+    conflict t4 p0: chosen 2-1 regret 412/75 better [3-3, 5-5] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 1200
+hand  8 seat S2 (defending): total_regret 160663973/57807750 zero 4/7 dominated 0 sampled_decisions 1 verdict lost(t5 p3, PI, worldwise) [130506 ms]
+    conflict t1 p1: chosen 6-3 regret 183/250 better [4-0, 4-3, 6-0] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 9205953077655124156, draws: 2000 } fiber 133024320
+    conflict t2 p2: chosen 4-4 regret 39161/231231 better [4-0] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 924924
+    conflict t3 p1: chosen 2-2 regret 723/385 better [4-0, 4-3, 6-0, 6-6] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 27720
+hand  8 seat S3 (declaring): total_regret 103/1000 zero 6/7 dominated 1 sampled_decisions 1 verdict - [10963 ms]
+    conflict t1 p2: chosen 5-1 regret 103/1000 better [5-3] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 7223127354138376144, draws: 2000 } fiber 13741728
+hand  9 seat S0 (declaring): total_regret        0 zero 7/7 dominated 0 sampled_decisions 2 verdict lost(t7 p2, PI, worldwise) [4376 ms]
+hand  9 seat S1 (defending): total_regret        0 zero 7/7 dominated 0 sampled_decisions 1 verdict - [7418 ms]
+hand  9 seat S2 (declaring): total_regret 22493/4500 zero 5/7 dominated 0 sampled_decisions 2 verdict - [48940 ms]
+    conflict t1 p0: chosen 3-3 regret 1777/500 better [4-4, 5-4, 6-4] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 18087448716653298107, draws: 2000 } fiber 399072960
+    conflict t6 p1: chosen 5-4 regret 13/9 better [3-0] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 18
+hand  9 seat S3 (defending): total_regret 566543/363825 zero 5/7 dominated 0 sampled_decisions 2 verdict - [11919 ms]
+    conflict t3 p1: chosen 0-0 regret 7586/14553 better [5-1] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 58212
+    conflict t4 p1: chosen 5-1 regret 1269/1225 better [5-5] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 7350
+hand 10 seat S0 (defending): total_regret        0 zero 7/7 dominated 0 sampled_decisions 2 verdict lost(t4 p3, PI, worldwise) [9573 ms]
+hand 10 seat S1 (declaring): total_regret 11508227/1891890 zero 5/7 dominated 0 sampled_decisions 2 verdict - [23328 ms]
+    conflict t3 p0: chosen 6-6 regret 58460/189189 better [3-3] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 756756
+    conflict t4 p0: chosen 4-2 regret 25463/4410 better [2-2, 3-3, 6-1] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 8820
+hand 10 seat S2 (defending): total_regret        0 zero 7/7 dominated 0 sampled_decisions 1 verdict lost(t5 p3, PI, worldwise) [35766 ms]
+hand 10 seat S3 (declaring): total_regret 1106153/165375 zero 4/7 dominated 0 sampled_decisions 2 verdict - [61867 ms]
+    conflict t1 p0: chosen 5-5 regret 1453/500 better [6-0, 6-3] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 17298997527128018772, draws: 2000 } fiber 399072960
+    conflict t2 p0: chosen 1-0 regret 1841/500 better [2-0, 5-2, 6-0, 6-3] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 16737241105377624478, draws: 2000 } fiber 17153136
+    conflict t3 p2: chosen 6-0 regret 1333/13230 better [6-4] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 26460
+hand 11 seat S0 (declaring): total_regret 10547/1000 zero 5/7 dominated 0 sampled_decisions 2 verdict - [49604 ms]
+    conflict t1 p0: chosen 4-2 regret 5001/1000 better [1-1, 2-2, 5-4] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 2864885008127213929, draws: 2000 } fiber 399072960
+    conflict t2 p0: chosen 1-0 regret 2773/500 better [1-1, 2-2, 5-4] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 14779400418047200748, draws: 2000 } fiber 7399392
+hand 11 seat S1 (defending): total_regret 85097/231000 zero 5/7 dominated 1 sampled_decisions 2 verdict lost(t6 p1, PI, worldwise) [10373 ms]
+    conflict t1 p1: chosen 5-0 regret 367/1000 better [3-1, 6-2] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 4397076176166887287, draws: 2000 } fiber 133024320
+    conflict t3 p3: chosen 0-0 regret 8/5775 better [2-0, 3-1, 5-1] grade WorldwiseDominance { operator: Pi } fiber 23100
+hand 11 seat S2 (declaring): total_regret 266609023/32319000 zero 5/7 dominated 0 sampled_decisions 1 verdict - [32132 ms]
+    conflict t1 p2: chosen 4-1 regret 5417/1000 better [4-3] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 10483211082274426499, draws: 2000 } fiber 8588580
+    conflict t3 p0: chosen 4-3 regret 91537/32319 better [5-2, 6-0, 6-3] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 64638
+hand 11 seat S3 (defending): total_regret 87569113/2494800 zero 4/7 dominated 0 sampled_decisions 1 verdict lost(t6 p3, PI, worldwise) [19149 ms]
+    conflict t1 p3: chosen 4-0 regret 1019/40 better [4-4] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 721423485882391220, draws: 2000 } fiber 4624620
+    conflict t2 p3: chosen 6-5 regret 96667/99792 better [4-4, 5-3, 6-6] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 199584
+    conflict t4 p0: chosen 5-3 regret 7142/825 better [3-3, 5-5, 6-6] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 23100
+hand 12 seat S0 (defending): total_regret 1699/63063 zero 6/7 dominated 0 sampled_decisions 2 verdict - [51619 ms]
+    conflict t3 p0: chosen 2-1 regret 1699/63063 better [3-1] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 756756
+hand 12 seat S1 (declaring): total_regret 27867527/3503500 zero 4/7 dominated 0 sampled_decisions 2 verdict lost(t3 p1, PI, worldwise) [35440 ms]
+    conflict t1 p0: chosen 6-1 regret 1581/500 better [2-0, 3-0, 4-0] grade Sampled { operator: Pi, weighting: UniformOverFiber, seed: 8735786261034173122, draws: 2000 } fiber 399072960
+    conflict t3 p1: chosen 5-0 regret 454/637 better [2-0, 3-0, 4-0] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 252252
+    conflict t4 p0: chosen 6-5 regret 7853/1925 better [2-0, 3-0, 4-0] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 34650
+hand 12 seat S2 (defending): total_regret 4282/5775 zero 6/7 dominated 0 sampled_decisions 2 verdict - [6317 ms]
+    conflict t4 p1: chosen 3-2 regret 4282/5775 better [1-1, 3-3, 4-3] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 11550
+hand 12 seat S3 (declaring): total_regret 2441/735 zero 6/7 dominated 0 sampled_decisions 1 verdict lost(t2 p3, PI, worldwise) [20628 ms]
+    conflict t4 p2: chosen 1-0 regret 2441/735 better [0-0, 6-0] grade ExactExpectation { operator: Pi, weighting: UniformOverFiber } fiber 2940
+walk_corpus: 30 pairs walked, 50 conflicts total, 1198013 ms
