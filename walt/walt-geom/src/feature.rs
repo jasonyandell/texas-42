@@ -133,6 +133,24 @@ impl FeatureSet {
                 .map(|x| Envelope::line(Line::new(v0.dot(x), u.dot(x)))),
         )
     }
+
+    /// The generators attaining the support in direction `v`: where the
+    /// exposed face `F(v)` of §10.6 meets the generating set, finite-first.
+    pub fn exposed(&self, v: &FeatureVec) -> Vec<&FeatureVec> {
+        let top = self.support(v);
+        self.points.iter().filter(|x| v.dot(x) == top).collect()
+    }
+}
+
+/// The §10.6 zero-information criterion, finite-first. Precondition (not
+/// checkable from generators alone): `conv(sub)` is included in `conv(sup)`,
+/// as the policy-gluing inclusion §10.2 guarantees for information-polytope
+/// pairs. Then the supports agree at `v` iff some generator of `sub` lies on
+/// `sup`'s exposed face `F(v)` -- an exposed optimal feature of the larger
+/// class is already implementable in the smaller one.
+pub fn zero_information_at(sub: &FeatureSet, sup: &FeatureSet, v: &FeatureVec) -> bool {
+    let top = sup.support(v);
+    sub.points().iter().any(|x| v.dot(x) == top)
 }
 
 impl FromIterator<FeatureVec> for FeatureSet {
@@ -195,6 +213,34 @@ mod tests {
             let v = v0.add(&u.scale(lambda));
             assert_eq!(set.support(&v), env.eval(lambda));
         }
+    }
+
+    #[test]
+    fn zero_information_iff_an_exposed_generator_is_implementable() {
+        // sup generates the segment hull of t=0 and t=3 features; sub holds
+        // only the t=0 endpoint, so conv(sub) is a face of conv(sup).
+        let low = legal_feature(0);
+        let high = legal_feature(3);
+        let sub: FeatureSet = [low.clone()].into_iter().collect();
+        let sup: FeatureSet = [low.clone(), high.clone()].into_iter().collect();
+
+        // Directions rewarding tricks expose `high`, which sub cannot reach.
+        let up = FeatureVec::unit_trick();
+        assert!(!zero_information_at(&sub, &sup, &up));
+        assert_ne!(sub.support(&up), sup.support(&up));
+        assert_eq!(sup.exposed(&up), vec![&high]);
+
+        // The opposite direction exposes `low`, which sub implements, and the
+        // criterion agrees with exact support equality.
+        let down = up.scale(qi(-1));
+        assert!(zero_information_at(&sub, &sup, &down));
+        assert_eq!(sub.support(&down), sup.support(&down));
+
+        // A direction blind to the difference (a capture coordinate neither
+        // point holds) exposes both generators; supports agree at 0.
+        let blind = FeatureVec::unit_tile(Domino::ALL[27]);
+        assert!(zero_information_at(&sub, &sup, &blind));
+        assert_eq!(sup.exposed(&blind).len(), 2);
     }
 
     #[test]

@@ -15,6 +15,15 @@ pub struct Direction {
 }
 
 impl Direction {
+    /// The bare future-trick differential: `v0 = e_star`, `u = 0` -- the
+    /// lambda-independent utility every §14 experiment shares at lambda = 0.
+    pub fn trick_diff() -> Direction {
+        Direction {
+            base: FeatureVec::unit_trick(),
+            delta: FeatureVec::zero(),
+        }
+    }
+
     /// The experiment utility `Psi(lambda)` of v0.4 §14.2: future trick
     /// differential plus lambda times the capture differential of one valued
     /// tile.

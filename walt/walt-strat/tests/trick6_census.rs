@@ -10,7 +10,7 @@ use walt_core::receipt::{locate_verify_player, parse_file, Receipt};
 use walt_core::{Decl, Domino, DominoSet, Pip, Seat, Team};
 use walt_geom::{q, Line};
 use walt_kernel::Kernel;
-use walt_strat::{fixed_field_root_lines, pi_census, Direction};
+use walt_strat::{hidden_root_values, pi_census, revealed_summary, Direction, InfoPartition};
 
 fn receipt() -> Receipt {
     let path = locate_verify_player().expect("rob/receipts/verify_player.txt above the workspace");
@@ -50,14 +50,21 @@ fn the_domain_is_the_reported_one() {
     }
 }
 
-/// §14.2 fixed-field hidden solve: `Q^H(0:0) = 2/3 + (1/5) lambda` and
-/// `Q^H(2:1) = -2/3 - (1/3) lambda`, crossing at -5/2, so 0:0 is optimal on
-/// the whole nonnegative ray.
+/// §14.2 fixed-field hidden solve, now through the general S3 H operator
+/// (S2's `fixed_field_root_lines` is superseded): `Q^H(0:0) = 2/3 + (1/5)
+/// lambda` and `Q^H(2:1) = -2/3 - (1/3) lambda`, crossing at -5/2, so 0:0 is
+/// optimal on the whole nonnegative ray.
 #[test]
-fn fixed_field_lines_match_the_report() {
+fn hidden_treatment_matches_the_report() {
     let k = trick6_kernel();
-    let lines = fixed_field_root_lines(&k, Team::T1, &direction())
-        .expect("no post-root focal choice exists at horizon 2");
+    let solved = hidden_root_values(&k, Team::T1, &direction());
+    let lines: Vec<(Domino, Line)> = solved
+        .iter()
+        .map(|(a, e)| {
+            assert!(e.is_affine(), "horizon 2 leaves no post-root choice");
+            (*a, e.pieces()[0].line)
+        })
+        .collect();
     assert_eq!(
         lines,
         vec![
@@ -67,6 +74,33 @@ fn fixed_field_lines_match_the_report() {
     );
     let cross = lines[0].1.crossing(&lines[1].1).expect("distinct slopes");
     assert_eq!(cross, q(-5, 2));
+}
+
+/// With no post-root focal choice, revelation has nothing to improve: the C
+/// treatment coincides with H root by root (every §10.5 continuation price is
+/// identically zero), and every future focal information state is forced.
+#[test]
+fn revelation_is_worthless_without_post_root_choice() {
+    let k = trick6_kernel();
+    let hidden = hidden_root_values(&k, Team::T1, &direction());
+    let revealed = revealed_summary(&k, Team::T1, &direction());
+    assert_eq!(hidden, revealed.q_c);
+    // Root revelation is different: choosing the root per world is exactly
+    // the strategy-fusion relaxation (§7.6), which no absence of post-root
+    // choices removes. `G^root >= 0` stays a strict resource here.
+    assert!(revealed
+        .v_f
+        .sub(&walt_strat::upper_value(&revealed.q_c))
+        .is_nonnegative());
+
+    for a in k.viewer_hand().iter() {
+        let partition = InfoPartition::build(&k, a);
+        assert_eq!(partition.choice_states(), 0, "the last tile is forced");
+        assert!(
+            !partition.is_empty(),
+            "the forced final play is still a state"
+        );
+    }
 }
 
 /// §14.2 worldwise perfect-information response census: 90 worlds, every

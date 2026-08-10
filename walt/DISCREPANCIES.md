@@ -28,6 +28,19 @@ to the repository and replacing the blocked test with an exact reproduction.
 
 ## Reconciled, not discrepancies
 
+### §14.5 "future focal information-state counts" are choice states (S3)
+
+§14.5 reports information-state counts 168 / 7,848 / 504 after roots
+0-0 / 2-1 / 3-2 of the trick-5 kernel without saying whether forced states
+(one legal action) are counted, and §10.9's `E_B(a)` definition does not
+settle it either. Reproduction does: walt's canonical perfect-recall
+partition reaches 60,360 / 69,600 / 164,088 future focal states, of which
+exactly 168 / 7,848 / 504 offer two or more legal actions. The record counts
+genuine choices. Pinned under that reading in
+`walt-strat/tests/exp4_information.rs::information_state_counts_match_the_record`,
+with the full totals frozen alongside as walt-tier pins consistent with (not
+sourced from) the record.
+
 Everything else walt implements is the v0.4 text; the two
 places where the spec's phrasing and `rules42.py`'s code *look* different are
 reconciled below, and both were checked exhaustively rather than argued.

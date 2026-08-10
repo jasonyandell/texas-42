@@ -17,6 +17,6 @@ pub mod rat;
 
 pub use correspond::{argmax_correspondence, ArgmaxCorrespondence};
 pub use envelope::{Envelope, Piece};
-pub use feature::{FeatureSet, FeatureVec};
+pub use feature::{zero_information_at, FeatureSet, FeatureVec};
 pub use line::Line;
 pub use rat::{q, qi, Q};

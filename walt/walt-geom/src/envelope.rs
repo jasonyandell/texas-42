@@ -171,6 +171,42 @@ impl Envelope {
         self.add(&Envelope::line(*line))
     }
 
+    /// Pointwise difference `self - other`.
+    pub fn sub(&self, other: &Envelope) -> Envelope {
+        self.add(&other.scale(qi(-1)))
+    }
+
+    /// Pointwise sum of a finite family, reduced pairwise: a left-to-right
+    /// running sum carries the union of every breakpoint seen so far into
+    /// each partial, so summing n envelopes costs n times the union size;
+    /// balancing keeps intermediate piece counts near the summand sizes.
+    pub fn sum_of<I: IntoIterator<Item = Envelope>>(terms: I) -> Envelope {
+        let mut layer: Vec<Envelope> = terms.into_iter().collect();
+        if layer.is_empty() {
+            return Envelope::zero();
+        }
+        while layer.len() > 1 {
+            let mut next = Vec::with_capacity(layer.len().div_ceil(2));
+            let mut it = layer.into_iter();
+            while let Some(a) = it.next() {
+                match it.next() {
+                    Some(b) => next.push(a.add(&b)),
+                    None => next.push(a),
+                }
+            }
+            layer = next;
+        }
+        layer.pop().expect("nonempty by the early return")
+    }
+
+    /// Whether the function is nonnegative on the whole ray: every piece is
+    /// nonnegative where it starts (continuity carries the check across each
+    /// breakpoint) and the final piece does not descend forever.
+    pub fn is_nonnegative(&self) -> bool {
+        self.pieces.iter().all(|p| p.line.eval(p.lo) >= qi(0))
+            && self.pieces.last().expect("an envelope is nonempty").line.b >= qi(0)
+    }
+
     /// Pointwise scale. A zero scale collapses to the zero envelope; a
     /// negative scale is still a valid continuous PWL function.
     pub fn scale(&self, c: Q) -> Envelope {
@@ -337,5 +373,38 @@ mod tests {
     #[should_panic(expected = "[0, inf)")]
     fn evaluation_off_the_ray_is_refused() {
         Envelope::zero().eval(qi(-1));
+    }
+
+    #[test]
+    fn sub_of_itself_is_zero_and_sub_undoes_add() {
+        let hinge = Envelope::line(Line::new(qi(0), qi(0)))
+            .max_with(&Envelope::line(Line::new(qi(-1), qi(1))));
+        assert_eq!(hinge.sub(&hinge), Envelope::zero());
+        let line = Envelope::line(Line::new(q(1, 3), q(-2, 7)));
+        assert_eq!(hinge.add(&line).sub(&line), hinge);
+    }
+
+    #[test]
+    fn sum_of_matches_sequential_addition() {
+        let a = Envelope::line(Line::new(qi(1), qi(0)));
+        let b = Envelope::line(Line::new(qi(0), qi(1))).max_with(&a);
+        let c = Envelope::line(Line::new(q(1, 2), q(1, 3)));
+        let family = [a.clone(), b.clone(), c.clone(), b.clone()];
+        let sequential = a.add(&b).add(&c).add(&b);
+        assert_eq!(Envelope::sum_of(family), sequential);
+        assert_eq!(Envelope::sum_of([]), Envelope::zero());
+        assert_eq!(Envelope::sum_of([c.clone()]), c);
+    }
+
+    #[test]
+    fn nonnegativity_checks_starts_and_the_tail() {
+        let hinge = Envelope::line(Line::new(qi(0), qi(0)))
+            .max_with(&Envelope::line(Line::new(qi(-1), qi(1))));
+        assert!(hinge.is_nonnegative());
+        assert!(Envelope::zero().is_nonnegative());
+        // Positive at 0, but the tail descends forever.
+        assert!(!Envelope::line(Line::new(qi(5), qi(-1))).is_nonnegative());
+        // Nonnegative tail, negative start.
+        assert!(!Envelope::line(Line::new(qi(-1), qi(1))).is_nonnegative());
     }
 }

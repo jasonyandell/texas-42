@@ -169,6 +169,21 @@ impl Kernel {
         self.pool
     }
 
+    /// The live set `L(K)`: the viewer's remaining tiles and the hidden pool.
+    pub const fn live(&self) -> DominoSet {
+        self.viewer_hand.union(self.pool)
+    }
+
+    /// Absolute live-set mastery (v0.4 §13.1): the live tiles no live tile
+    /// can beat when led. A relation to the current live algebra, not an
+    /// intrinsic pip magnitude.
+    pub fn masters(&self) -> DominoSet {
+        let live = self.live();
+        live.iter()
+            .filter(|d| self.decl.threat(*d).intersection(live).is_empty())
+            .collect()
+    }
+
     pub const fn hidden(&self) -> &[Hidden; HIDDEN_SEATS] {
         &self.hidden
     }

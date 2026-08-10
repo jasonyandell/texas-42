@@ -124,8 +124,39 @@ useful").
   to 2:1 at 0+. The exp5 census pins (h1t3: 10 "q_points classes"; h3t3:
   5345) are **blocked**: v0.4 §14 never defines exp5 or "q_points"
   (`walt/DISCREPANCIES.md`, "exp5 census pins").
-- S3: walt-strat (info partitions, H/C/F operators) + information-price
-  cross-check against exp4 vectors (7/19, 177/131, 19/105, ≡0).
+- **S3 (2026-08-09)**: walt-strat information layer -- partitions, H/C/F,
+  prices. **COMPLETE**: `walt/ci/check.sh` PASS; 12 new tests (4 walt-geom:
+  envelope `sub`/`sum_of`/nonnegativity and the §10.6 finite-first
+  exposed-witness criterion; 7 exp3B/exp4A cross-validation; 1 trick-6
+  revelation-degeneracy) plus the trick-6 fixed-field test rewritten through
+  the general operator. `info.rs`: decision nodes as (world, history)
+  particles over the fiber, one shared observation-tree walk, the canonical
+  perfect-recall `InfoPartition` (§10.1 validity holds by construction;
+  coarser gluings deliberately deferred -- they invalidate backward induction
+  and need their own solver), `Policy` as a map from opaque `InfoStateId`s
+  (§7.2: world-peeking unconstructible by type), and a no-maximization policy
+  evaluator. Operators registry: **H** (`hidden.rs`, exact symbolic solve on
+  pooled information states), **C**/**F** (`revealed.rs`, field held fixed
+  per §10.8, aggregated at the support level -- Minkowski sums and hulls of
+  unions never materialized), prices (`price.rs`, §10.5 nonnegativity and the
+  exact decomposition asserted on every result, §10.6 read along the ray).
+  S2's `field.rs` (`fixed_field_root_lines`, which refused any post-root
+  focal choice) is superseded by H and deleted; its trick-6 pins reproduce
+  through H, and C == H there (no post-root choice), while `G^root` stays a
+  strict resource (§7.6). The §14.5--§14.6 record reproduced exactly: fiber
+  1680; masters = {3-2}; Q^H(0-0) segments at 1/5 and 4 with the reported
+  coefficients; root switch 7/19; the nine-segment Q^C(0-0) with prices
+  {1/4, 1/3, 1/2, 2/3, 1, 3/2, 2, 3}; C root switch 177/131;
+  G^cont(0) = 19/105, G^root(0) = 4051/45360, G^total(0) = 12259/45360, the
+  same in all twelve live-tile directions; G^cont(2-1) ≡ 0 in all twelve;
+  eight control directions affine under H, seven of eight multisegment under
+  C and F, only 3-2 affine in all three treatments; V^F segment counts
+  51/51/42/53 within the reported 42--53. One reading reconciled
+  (`walt/DISCREPANCIES.md`): the reported information-state counts
+  168/7848/504 are the states with a genuine choice; walt's full reachable
+  totals (60360/69600/164088) are frozen as walt-tier pins. i128 rationals
+  sufficed throughout (overflow-checks on, no escalation to BigRational);
+  the twelve-direction H+C+F sweep runs ~13s in release.
 - S4: walt-skeleton (trait, lumpability checker, static passenger) + first
   synthesis run against factory targets.
 - S5+: walt-factory corpus at scale (all 9 declarations), the dynamic
