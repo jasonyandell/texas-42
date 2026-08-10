@@ -70,6 +70,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "walt-skeleton"
+version = "0.1.0"
+dependencies = [
+ "walt-core",
+ "walt-geom",
+ "walt-kernel",
+ "walt-strat",
+]
+
+[[package]]
 name = "walt-strat"
 version = "0.1.0"
 dependencies = [

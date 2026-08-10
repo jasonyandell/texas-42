@@ -6,7 +6,33 @@ here rather than silently picking a reading.
 
 ## Open discrepancies
 
-**None as of S3.5.**
+### exp3A descriptor pin: blocked in S4 (atom semantics undefined)
+
+v0.4 §14.4 reports Experiment 3A's winning static descriptor on the 90-world
+design kernel:
+
+> "Exhaustive search over subsets of size at most four found eight minimal
+> four-observable solutions. One was D = {comp41, s3max2, team(2:0),
+> team(4:2)}. It produced 33 cells, each pure for the eight-class root-Q
+> target: 90 worlds -> 33 descriptor cells -> 8 responses."
+
+The spec defines neither the "22-observable vocabulary" nor the semantics of
+`comp41` or `s3max2` (each appears exactly once, in §14.4); §12.3 gives only
+shape names ("companion, decisive-context partner strength, forced-follower
+team, and beater team"), and no exp3A probe source survives -- the preserved
+suite at `walt/probes/` holds exp5 only. Reproducing 90 -> 33 -> 8 would
+require inventing atom semantics, which the ambiguity protocol forbids.
+Blocked test: `walt-skeleton/tests/harness.rs::exp3a_static_descriptor_pin`
+(`#[ignore]`d). Unblocks if the exp3A observable definitions are ever
+preserved the way exp5's were.
+
+S4 therefore built its own fully-specified registry in the same language
+family (per-tile holder/team facts, beater counts; `walt-skeleton/src/atoms.rs`)
+and pinned walt-tier numbers for it. Notably, that registry is UNSOUND on the
+design kernel at every subset size <= 4 for all three targets
+(`tests/synthesis_run.rs`) -- walt's holder-shaped vocabulary does not
+reproduce 3A's four-atom success, which is evidence the missing 3A atoms
+carried genuinely control-shaped content, not a substitute for them.
 
 ## Reconciled, not discrepancies
 

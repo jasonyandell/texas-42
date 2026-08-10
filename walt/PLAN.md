@@ -176,10 +176,59 @@ useful").
   `act_param` deliberately not pinned (probe canonicalizes correspondences
   by segment identity, walt by argmax value -- different statistics;
   `walt/DISCREPANCIES.md`, "exp5 census pins").
-- S4: walt-skeleton (trait, lumpability checker, static passenger) + first
-  synthesis run against factory targets.
+- **S4 (2026-08-09)**: walt-skeleton -- trait, both checkers, static
+  passenger, first synthesis run. **COMPLETE**: `walt/ci/check.sh` PASS; 9
+  new tests (7 harness incl. 1 `#[ignore]`d blocked, 2 synthesis-run), all
+  adding ~0.1s to the gate. `ControlSkeleton` (skeleton.rs): typed
+  relational `State` + `init(kernel, world)` (the one latent read) +
+  `step(d, obs)` closed over one observed play -- a recompute-from-world
+  update is *unconstructible by signature*, so the only legal degenerate
+  form is the constant update, marked via `UpdateKind::StaticPassenger`
+  (`StaticWrap`). Observations are seat-honest (seat, tile) pairs derived
+  from walt-strat's record (obs.rs). §12.1 checker (soundness.rs):
+  exhaustive fiber-domain factorization census `|X| -> |im D| -> |im R*|`
+  with §12.9 witness pairs. §12.6 checker (lumpability.rs): the carrier is
+  ALL reachable viewer-decision nodes (world x record) from every fiber
+  world plus an absorbing terminal, `o` = field-play segments between
+  viewer decisions (exactly one trick resolves per segment, asserted), `r`
+  = that trick's signed `ScalarValuation` increment, field = the fixed
+  uniform-legal chance law; every kernel row is asserted to sum to exactly
+  1 and the carrier is cross-checked worldwise against S3's
+  `InfoPartition` (records and pooled-world counts agree; h0t6 carrier =
+  90 roots + 648 future nodes = 738). Checked exhaustively -- no sampling,
+  no bounds -- on all 13 trick-6 kernels. **Run results** (walt-tier pins,
+  `tests/synthesis_run.rs`): registry = team/holder fact per pool tile +
+  valued-tile beater counts (13 atoms at t6, valued = highest-count
+  unseen). Static axis (subsets <= 4, all three targets: q_points, action,
+  parametric): minimal sound subsets range size 0 (h3/h6/h12, single-class
+  targets) to 4; h0 -- the §14.4 design kernel -- and h11 (q_points,
+  parametric) are UNSOUND at every size <= 4: walt's holder-shaped
+  vocabulary does not reproduce 3A's four-atom result (the 3A atom
+  semantics are lost; blocked pin, `walt/DISCREPANCIES.md` "exp3A
+  descriptor pin"). Trick-5 h0 (fiber 1680, registry 19, subsets <= 3):
+  UNSOUND for both scalar targets -- the §12.3 ceiling reappears one
+  horizon deeper. Dynamic axis (7 candidates x 13 kernels): the static
+  passenger ALWAYS fails condition 1 (its frozen state merges each world's
+  root with that world's future nodes, where legal sets differ --
+  structurally forced, pinned on h0); chassis alone, +team facts,
+  +beaters, and every minimal-sound static winner fail condition 2
+  (kernel-mass witnesses) on every kernel where they compress; but
+  **chassis+holder-all is LUMPABLE and nontrivial on all 13 kernels**
+  (h0: 738 nodes -> 366 classes; corpus totals 5,887 nodes -> 2,857
+  classes, 3,030 merged) -- the semantic-state projection that remembers
+  who *holds* what but forgets who *played* what and in which order is a
+  genuine closed-update quotient, and adding beater counts changes no
+  class (they are a function of the holder map). Honest summary: at this
+  candidate-space size, the only lumpable skeletons found are exactly the
+  world-reconstructing ones; every strictly coarser candidate loses
+  predictive sufficiency -- §14.7's "it reconstructed the world" recurs on
+  the dynamic axis, while the genuine compression found lives in
+  *history-forgetting*, not state-coarsening. Deterministic run, no seeds.
 - S5+: walt-factory corpus at scale (all 9 declarations), the dynamic
-  skeleton search proper, seat chassis wiring (four seats, full hands).
+  skeleton search proper (counterexample-guided refinement, richer
+  update-law vocabularies -- the S4 result says: search coarsenings of the
+  semantic state that keep kernel agreement, e.g. suit-profile quotients,
+  not root-fact tuples), seat chassis wiring (four seats, full hands).
 
 ## Open decisions deliberately deferred
 
