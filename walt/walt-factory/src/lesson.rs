@@ -38,7 +38,7 @@ use core::fmt;
 use walt_core::{Decl, Domino, Seat};
 use walt_kernel::{World, HIDDEN_SEATS};
 use walt_skeleton::{CompositeState, Exp3aAtom, LumpabilityFailure, StaticValue};
-use walt_strat::{OperatorLabel, WeightingLabel};
+use walt_strat::WeightingLabel;
 
 use crate::basin::DomainSpec;
 use crate::conflict::RegretConflict;
@@ -389,8 +389,14 @@ pub enum LessonVerdict {
         better: ActionSelector,
     },
     /// At every matching (decision, world): the selector's action attains
-    /// the world's optimal exact PI value (the win/sufficiency form, the
-    /// QBF-cube analog at PI grade).
+    /// the world's optimal value under the lesson's operator pair — the
+    /// win/sufficiency form, the QBF-cube analog. **Per-world sufficiency
+    /// only, never a guarantee**: §7.6's fusion gap means no single
+    /// information-consistent strategy need achieve the per-world values,
+    /// so a worldwise win never yields a "guaranteed"/"safe" lesson at any
+    /// seat-facing label (walt-math design amendment, 2026-08-10; the one
+    /// exported corollary runs the other way — worldwise *loss* verdicts
+    /// negate guarantees).
     Win { action: ActionSelector },
     /// At every matching decision (ply 0, horizon <= 2): the descriptor
     /// family fails §12.6 strong controlled lumpability — the checker
@@ -407,7 +413,7 @@ impl fmt::Display for LessonVerdict {
             ),
             LessonVerdict::Win { action } => write!(
                 f,
-                "win: {action} attains the world optimum at every matching (decision, world)"
+                "win: {action} suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)"
             ),
             LessonVerdict::NotLumpable { descriptor } => write!(
                 f,
@@ -426,16 +432,17 @@ impl fmt::Display for LessonVerdict {
 #[derive(Clone, Copy, Debug)]
 pub enum LessonGrade {
     /// Verified in every world of every matching decision's exhaustively
-    /// enumerated fiber. Weighting-free, never operator-free.
-    Worldwise { operator: OperatorLabel },
+    /// enumerated fiber. Weighting-free, never operator-free — the
+    /// operator is the (focal information, field) pair.
+    Worldwise { operator: OperatorPair },
     /// Verified as an exact expectation under a declared weighting.
     ExactExpectation {
-        operator: OperatorLabel,
+        operator: OperatorPair,
         weighting: WeightingLabel,
     },
     /// Verified only on a recorded sample. Evidence, always marked.
     Sampled {
-        operator: OperatorLabel,
+        operator: OperatorPair,
         weighting: WeightingLabel,
         seed: u64,
         draws: u32,
@@ -449,12 +456,12 @@ impl fmt::Display for LessonGrade {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             LessonGrade::Worldwise { operator } => {
-                write!(f, "worldwise ({operator}; weighting-free)")
+                write!(f, "worldwise at {operator}; weighting-free")
             }
             LessonGrade::ExactExpectation {
                 operator,
                 weighting,
-            } => write!(f, "exact-expectation ({operator}, {weighting})"),
+            } => write!(f, "exact-expectation at {operator}, {weighting}"),
             LessonGrade::Sampled {
                 operator,
                 weighting,
@@ -462,7 +469,7 @@ impl fmt::Display for LessonGrade {
                 draws,
             } => write!(
                 f,
-                "sampled ({operator}, {weighting}, seed {seed:#018x}, draws {draws})"
+                "sampled at {operator}, {weighting}, seed {seed:#018x}, draws {draws}"
             ),
             LessonGrade::Checker => f.write_str(
                 "checker (§12.6 exhaustive lumpability, uniform-legal field, q_points valuation)",
@@ -545,22 +552,65 @@ pub struct MatchedDecision {
     pub worlds_matched: usize,
     /// The decision's full fiber size.
     pub worlds_total: usize,
-    /// Matched worlds where the refutation inequality is strict.
-    pub strict_worlds: usize,
+    /// The dominance primitive over this decision's matched worlds:
+    /// better-vs-worse for refutation, action-vs-world-optimum for win
+    /// (`gt` is then structurally 0). `None` for the checker verdict —
+    /// there is no per-world comparison. `lt = 0` in every verified basin
+    /// (verification aborts with the witnessing world instead).
+    pub dominance: Option<DominanceTriple>,
+}
+
+/// The carrier a basin's measure lives on (§11.1: measures are
+/// carrier-relative — a coverage rate is only meaningful against the
+/// decisions *eligible* for the verdict, never against the whole domain,
+/// which may appear as labeled context but never as a rate base).
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum CarrierLabel {
+    /// Domain decisions where the verdict's selectors resolve to legal
+    /// (and, for refutation, distinct) actions, times their fiber worlds.
+    SelectorPairs,
+    /// Viewer-lead trick-boundary kernels at horizon <= 2 — the decisions
+    /// whose §12.6 carrier trees the checker verdict is defined on.
+    LeadKernelTrees,
+}
+
+impl fmt::Display for CarrierLabel {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            CarrierLabel::SelectorPairs => {
+                f.write_str("selector-resolvable decisions x their fiber worlds")
+            }
+            CarrierLabel::LeadKernelTrees => f.write_str("lead-kernel trees (ply 0, horizon <= 2)"),
+        }
+    }
 }
 
 /// The measured basin: every domain decision matching the final implicant,
 /// verified under the verdict's quantifier. Matched and verified coincide
 /// by construction — the generalizer only accepts verified widenings —
-/// and the report records both totals and the per-decision detail.
+/// and the report records both totals and the per-decision detail. A
+/// basin is only meaningful at its label (§12.4): it is quotable solely
+/// through its `Lesson`, whose `grade` stamps the operator pair — the
+/// same measurement at another pair can shatter or merge. Its rate base
+/// is the verdict's own carrier (§11.1): `decisions_eligible` /
+/// `worlds_eligible` count the carrier, and the full-domain totals are
+/// labeled context only.
 #[derive(Clone, Debug)]
 pub struct BasinReport {
     pub domain: DomainSpec,
-    pub decisions_total: usize,
-    pub worlds_total: usize,
+    pub domain_decisions: usize,
+    pub domain_worlds: usize,
+    pub carrier: CarrierLabel,
+    /// Domain decisions eligible for this verdict on its own carrier,
+    /// independent of the implicant.
+    pub decisions_eligible: usize,
+    /// Those decisions' fiber worlds.
+    pub worlds_eligible: usize,
     pub decisions_matched: usize,
     pub worlds_matched: usize,
-    pub strict_worlds: usize,
+    /// The dominance primitive summed over every matched world; `None`
+    /// for the checker verdict.
+    pub dominance: Option<DominanceTriple>,
     pub matched: Vec<MatchedDecision>,
 }
 
@@ -587,5 +637,39 @@ impl Lesson {
             .filter(|s| matches!(s.outcome, DropOutcome::LoadBearing(_)))
             .map(|s| s.cell)
             .collect()
+    }
+
+    /// The basin's derived dominance class, for refutation lessons with a
+    /// nonempty basin. A T outcome means the lesson's domain-restricted
+    /// content is an interchangeability statement, not a refutation
+    /// (§9.6), with §10.9's seat-facing caveat.
+    pub fn dominance_class(&self) -> Option<DominanceClass> {
+        if !matches!(self.verdict, LessonVerdict::Refutation { .. }) {
+            return None;
+        }
+        let t = self.basin.dominance?;
+        (t.worlds() > 0).then(|| t.class())
+    }
+
+    /// The purpose-split subbasins of a refutation lesson (§9.6 is
+    /// purpose-relative), derived per matched decision from its triple:
+    /// `(refutation, safe_substitution)` decision counts. The refutation
+    /// subbasin holds the decisions strict somewhere (the pruning-grade
+    /// content); the safe-substitution subbasin holds every matched
+    /// decision — weak dominance is verified there, so substituting the
+    /// better selector for the worse loses nothing in any matched world,
+    /// and T-coverage counts. S5c rent is purpose-specific: a refutation
+    /// lesson may not pay rent in T-coverage.
+    pub fn subbasins(&self) -> Option<(usize, usize)> {
+        if !matches!(self.verdict, LessonVerdict::Refutation { .. }) {
+            return None;
+        }
+        let strict = self
+            .basin
+            .matched
+            .iter()
+            .filter(|m| m.dominance.is_some_and(|t| t.gt > 0))
+            .count();
+        Some((strict, self.basin.decisions_matched))
     }
 }

@@ -33,13 +33,13 @@ use walt_core::receipt::ReceiptHand;
 use walt_core::Seat;
 use walt_kernel::{Kernel, ReceiptDecision};
 use walt_skeleton::{check_lumpability, AtomDescriptor, Exp3aContext, KernelTree};
-use walt_strat::{OperatorLabel, ScalarPi, ScalarValuation};
+use walt_strat::{ScalarPi, ScalarValuation};
 
 use crate::basin::{eval_atom, valued_tile, vocabulary, BasinDomain, DomainDecision};
 use crate::lesson::{
-    ActionSelector, AtomValue, BasinReport, Constraint, DescriptorFamily, DropOutcome, DropStep,
-    Implicant, Lesson, LessonGrade, LessonOrigin, LessonVerdict, MatchedDecision, Role,
-    WideningWitness,
+    ActionSelector, AtomValue, BasinReport, CarrierLabel, Constraint, DescriptorFamily,
+    DominanceTriple, DropOutcome, DropStep, Implicant, Lesson, LessonGrade, LessonOrigin,
+    LessonVerdict, MatchedDecision, OperatorPair, Role, WideningWitness,
 };
 use crate::walker::DecisionRecord;
 
@@ -47,16 +47,22 @@ use crate::walker::DecisionRecord;
 struct Stats {
     decisions_matched: usize,
     worlds_matched: usize,
-    strict_worlds: usize,
+    /// Summed dominance triples of the matched worlds; `None` for the
+    /// checker verdict (no per-world comparison).
+    dominance: Option<DominanceTriple>,
     matched: Vec<MatchedDecision>,
 }
 
 impl Stats {
-    fn empty() -> Stats {
+    fn empty(pair_verdict: bool) -> Stats {
         Stats {
             decisions_matched: 0,
             worlds_matched: 0,
-            strict_worlds: 0,
+            dominance: pair_verdict.then_some(DominanceTriple {
+                gt: 0,
+                eq: 0,
+                lt: 0,
+            }),
             matched: Vec::new(),
         }
     }
@@ -97,6 +103,59 @@ fn atom_cells_fiber_valid(d: &DomainDecision, cells: &[Constraint]) -> bool {
     (0..d.worlds.len()).all(|w| world_matches(d, cells, w))
 }
 
+/// Is this decision on the verdict's own carrier (§11.1)? Eligibility is
+/// implicant-independent: for pair verdicts the selectors must resolve to
+/// legal (and, for refutation, distinct) actions; for the checker verdict
+/// the decision must be a viewer-lead trick boundary at horizon <= 2 (the
+/// §12.6 carrier requirement).
+fn eligible_for(d: &DomainDecision, verdict: &LessonVerdict) -> bool {
+    match verdict {
+        LessonVerdict::Refutation { worse, better } => matches!(
+            (
+                worse.resolve(&d.actions, d.decisive),
+                better.resolve(&d.actions, d.decisive),
+            ),
+            (Some(w), Some(b)) if w != b
+        ),
+        LessonVerdict::Win { action } => action.resolve(&d.actions, d.decisive).is_some(),
+        LessonVerdict::NotLumpable { .. } => d.ply == 0 && d.horizon <= 2,
+    }
+}
+
+/// Applies a lesson at one precomputed decision — the application entry
+/// point (and S5c's pruning hook). TRUST-01 shape: **a verdict's scope is
+/// its verified domain**, so the lesson's stored `DomainSpec` gates
+/// application before the implicant is even read — outside the verified
+/// domain the answer is `None` no matter how weak the implicant is (an
+/// empty implicant never matches beyond its verified domain; widening the
+/// scope means re-verifying on the wider domain, never syntactic match).
+/// Inside the domain, `Some` carries the matched world indices of the
+/// decision's fiber (every index for the checker verdict, whose claim is
+/// per decision).
+pub fn lesson_applies(lesson: &Lesson, d: &DomainDecision) -> Option<Vec<usize>> {
+    if !lesson.basin.domain.contains(d.trick_no) {
+        return None;
+    }
+    if !eligible_for(d, &lesson.verdict) {
+        return None;
+    }
+    let cells = &lesson.implicant.cells;
+    if !decision_cells_hold(d, cells) {
+        return None;
+    }
+    match &lesson.verdict {
+        LessonVerdict::Refutation { .. } | LessonVerdict::Win { .. } => {
+            let idx: Vec<usize> = (0..d.worlds.len())
+                .filter(|&w| world_matches(d, cells, w))
+                .collect();
+            (!idx.is_empty()).then_some(idx)
+        }
+        LessonVerdict::NotLumpable { .. } => {
+            atom_cells_fiber_valid(d, cells).then(|| (0..d.worlds.len()).collect())
+        }
+    }
+}
+
 /// One exhaustive verification of `verdict` under `cells` over the whole
 /// domain. `Ok` carries the basin statistics of everything that matched;
 /// `Err` carries the first counterexample in domain order.
@@ -106,7 +165,7 @@ fn verify(
     verdict: &LessonVerdict,
     trees: &mut BTreeMap<usize, KernelTree>,
 ) -> Result<Stats, WideningWitness> {
-    let mut stats = Stats::empty();
+    let mut stats = Stats::empty(!matches!(verdict, LessonVerdict::NotLumpable { .. }));
     for (di, d) in domain.decisions.iter().enumerate() {
         if !decision_cells_hold(d, cells) {
             continue;
@@ -133,19 +192,24 @@ fn verify(
                         _ => continue,
                     },
                 };
-                let mut wm = 0usize;
-                let mut strict = 0usize;
+                // The dominance primitive over this decision's matched
+                // worlds. `lt` stays 0 in any verified basin: a `lt`
+                // world is the witness that aborts the widening.
+                let mut triple = DominanceTriple {
+                    gt: 0,
+                    eq: 0,
+                    lt: 0,
+                };
                 for (widx, world) in d.worlds.iter().enumerate() {
                     if !world_matches(d, cells, widx) {
                         continue;
                     }
-                    wm += 1;
                     let row = &d.values[widx];
-                    let ok = match wi {
-                        None => row[bi] == *row.iter().max().expect("actions"),
-                        Some(wi) => row[bi] >= row[wi],
+                    let (b, w) = match wi {
+                        None => (row[bi], *row.iter().max().expect("actions")),
+                        Some(wi) => (row[bi], row[wi]),
                     };
-                    if !ok {
+                    if b < w {
                         return Err(WideningWitness::World {
                             hand: d.hand,
                             seat: d.seat,
@@ -155,16 +219,20 @@ fn verify(
                             values: d.actions.iter().copied().zip(row.iter().copied()).collect(),
                         });
                     }
-                    if let Some(wi) = wi {
-                        if row[bi] > row[wi] {
-                            strict += 1;
-                        }
+                    if b > w {
+                        triple.gt += 1;
+                    } else {
+                        triple.eq += 1;
                     }
                 }
+                let wm = triple.worlds();
                 if wm > 0 {
                     stats.decisions_matched += 1;
                     stats.worlds_matched += wm;
-                    stats.strict_worlds += strict;
+                    let total = stats.dominance.as_mut().expect("pair verdict");
+                    total.gt += triple.gt;
+                    total.eq += triple.eq;
+                    total.lt += triple.lt;
                     stats.matched.push(MatchedDecision {
                         hand: d.hand,
                         seat: d.seat,
@@ -172,7 +240,7 @@ fn verify(
                         ply: d.ply,
                         worlds_matched: wm,
                         worlds_total: d.worlds.len(),
-                        strict_worlds: strict,
+                        dominance: Some(triple),
                     });
                 }
             }
@@ -212,7 +280,7 @@ fn verify(
                     ply: d.ply,
                     worlds_matched: d.worlds.len(),
                     worlds_total: d.worlds.len(),
-                    strict_worlds: 0,
+                    dominance: None,
                 });
             }
         }
@@ -381,6 +449,17 @@ fn run(
             .map(|(c, _)| *c)
             .collect(),
     };
+    // The verdict's own carrier (§11.1): eligibility is
+    // implicant-independent, so the rate base is fixed per verdict.
+    let eligible: Vec<&DomainDecision> = domain
+        .decisions
+        .iter()
+        .filter(|d| eligible_for(d, &verdict))
+        .collect();
+    let carrier = match verdict {
+        LessonVerdict::NotLumpable { .. } => CarrierLabel::LeadKernelTrees,
+        _ => CarrierLabel::SelectorPairs,
+    };
     Lesson {
         origin,
         verdict,
@@ -390,11 +469,14 @@ fn run(
         implicant,
         basin: BasinReport {
             domain: domain.spec,
-            decisions_total: domain.decisions.len(),
-            worlds_total: domain.worlds_total,
+            domain_decisions: domain.decisions.len(),
+            domain_worlds: domain.worlds_total,
+            carrier,
+            decisions_eligible: eligible.len(),
+            worlds_eligible: eligible.iter().map(|d| d.worlds.len()).sum(),
             decisions_matched: stats.decisions_matched,
             worlds_matched: stats.worlds_matched,
-            strict_worlds: stats.strict_worlds,
+            dominance: stats.dominance,
             matched: stats.matched,
         },
     }
@@ -442,7 +524,7 @@ pub fn generalize_regret(
         LessonOrigin::Regret(conflict),
         verdict,
         LessonGrade::Worldwise {
-            operator: OperatorLabel::Pi,
+            operator: OperatorPair::walker_scalar(),
         },
         initial,
         domain,
@@ -504,7 +586,7 @@ pub fn generalize_win(
         LessonOrigin::Regret(conflict),
         verdict,
         LessonGrade::Worldwise {
-            operator: OperatorLabel::Pi,
+            operator: OperatorPair::walker_scalar(),
         },
         initial,
         domain,

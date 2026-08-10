@@ -13,7 +13,7 @@ use walt_core::{DominoSet, Seat};
 use walt_kernel::World;
 use walt_skeleton::LumpabilityFailure;
 
-use crate::lesson::{DropOutcome, Lesson, LessonOrigin, WideningWitness};
+use crate::lesson::{DominanceClass, DropOutcome, Lesson, LessonOrigin, WideningWitness};
 
 fn render_set(s: DominoSet) -> String {
     let tiles: Vec<String> = s.iter().map(|d| d.to_string()).collect();
@@ -119,7 +119,7 @@ pub fn render_lesson(lesson: &Lesson) -> String {
     line(format!("grade: {}", lesson.grade));
     line(format!(
         "domain: {} — {} decisions, {} worlds, all fibers exhaustively enumerated",
-        lesson.basin.domain, lesson.basin.decisions_total, lesson.basin.worlds_total
+        lesson.basin.domain, lesson.basin.domain_decisions, lesson.basin.domain_worlds
     ));
     line(format!(
         "initial implicant ({} cells): {}",
@@ -155,18 +155,55 @@ pub fn render_lesson(lesson: &Lesson) -> String {
             load.join(", ")
         }
     ));
+    // §12.4: a basin is only meaningful at its label — the grade (with
+    // its operator pair) is restated on the basin line itself. §11.1: the
+    // rate base is the verdict's own carrier; the full domain is labeled
+    // context, never a denominator.
+    let b = &lesson.basin;
     line(format!(
-        "basin: decisions {}/{} worlds {}/{} strict-worlds {}",
-        lesson.basin.decisions_matched,
-        lesson.basin.decisions_total,
-        lesson.basin.worlds_matched,
-        lesson.basin.worlds_total,
-        lesson.basin.strict_worlds
+        "carrier: {} — eligible {} decisions / {} worlds (domain context: {} decisions / {} worlds, not a rate base)",
+        b.carrier, b.decisions_eligible, b.worlds_eligible, b.domain_decisions, b.domain_worlds
     ));
-    for m in &lesson.basin.matched {
+    let dominance = match b.dominance {
+        Some(t) => format!(" triple {t}"),
+        None => String::new(),
+    };
+    line(format!(
+        "basin [at grade: {}]: decisions {}/{} worlds {}/{}{}",
+        lesson.grade,
+        b.decisions_matched,
+        b.decisions_eligible,
+        b.worlds_matched,
+        b.worlds_eligible,
+        dominance
+    ));
+    if let Some(class) = lesson.dominance_class() {
+        line(format!("basin dominance class: {class}"));
+        if class == DominanceClass::TiedEverywhere {
+            line(
+                "  note: tied everywhere at this label — an interchangeability statement, not a \
+                 refutation (§9.6); label-level payoff ties do not make actions interchangeable \
+                 for the seat (§10.9)"
+                    .to_string(),
+            );
+        }
+    }
+    if let Some((refutation, safe)) = lesson.subbasins() {
         line(format!(
-            "  h{} {} t{} p{}: worlds {}/{} strict {}",
-            m.hand, m.seat, m.trick_no, m.ply, m.worlds_matched, m.worlds_total, m.strict_worlds
+            "basin split (purpose-relative, §9.6): refutation {refutation} decisions (strict somewhere), safe-substitution {safe} decisions (weak dominance over the matched set; T-coverage counts)"
+        ));
+    }
+    for m in &b.matched {
+        let triple = match m.dominance {
+            Some(t) => match lesson.dominance_class() {
+                Some(_) => format!(" triple {t} class {}", t.class()),
+                None => format!(" triple {t}"),
+            },
+            None => String::new(),
+        };
+        line(format!(
+            "  h{} {} t{} p{}: worlds {}/{}{}",
+            m.hand, m.seat, m.trick_no, m.ply, m.worlds_matched, m.worlds_total, triple
         ));
     }
     out
@@ -192,8 +229,22 @@ pub fn lesson_pin_line(lesson: &Lesson) -> String {
         .iter()
         .map(|c| c.to_string())
         .collect();
+    let dominance = match lesson.basin.dominance {
+        Some(t) => match lesson.dominance_class() {
+            Some(class) => format!(" triple {t} class {class}"),
+            None => format!(" triple {t}"),
+        },
+        None => String::new(),
+    };
+    let split = match lesson.subbasins() {
+        Some((refutation, safe)) => {
+            format!(" split refutation {refutation} safe-substitution {safe}")
+        }
+        None => String::new(),
+    };
+    let b = &lesson.basin;
     format!(
-        "{origin}: verdict [{}] grade [{}] final [{}] load-bearing [{}] basin {}/{} decisions {}/{} worlds strict {}",
+        "{origin}: verdict [{}] grade [{}] final [{}] load-bearing [{}] basin {}/{} eligible decisions {}/{} eligible worlds (carrier: {}; domain context {}/{}){}{}",
         lesson.verdict,
         lesson.grade,
         lesson.implicant.render(),
@@ -202,10 +253,14 @@ pub fn lesson_pin_line(lesson: &Lesson) -> String {
         } else {
             load.join(", ")
         },
-        lesson.basin.decisions_matched,
-        lesson.basin.decisions_total,
-        lesson.basin.worlds_matched,
-        lesson.basin.worlds_total,
-        lesson.basin.strict_worlds
+        b.decisions_matched,
+        b.decisions_eligible,
+        b.worlds_matched,
+        b.worlds_eligible,
+        b.carrier,
+        b.domain_decisions,
+        b.domain_worlds,
+        dominance,
+        split
     )
 }

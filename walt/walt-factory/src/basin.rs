@@ -117,6 +117,13 @@ impl DomainSpec {
             max_trick: 6,
         }
     }
+
+    /// Whether a decision at `trick_no` lies inside this verified scope.
+    /// The application gate reads this before anything else (TRUST-01
+    /// shape: a verdict's scope is its verified domain).
+    pub fn contains(&self, trick_no: usize) -> bool {
+        (self.min_trick..=self.max_trick).contains(&trick_no)
+    }
 }
 
 impl core::fmt::Display for DomainSpec {
@@ -159,6 +166,14 @@ impl DomainDecision {
     /// kernel's vocabulary (then it is undefined at every world).
     pub fn column(&self, atom: LessonAtom) -> Option<&[Option<AtomValue>]> {
         self.columns.get(&atom).map(Vec::as_slice)
+    }
+
+    /// Precomputes one decision point outside a `BasinDomain` — the entry
+    /// the application gate is tested against, and the S5c hook for
+    /// applying lessons at decisions of other domains (which still
+    /// requires the lesson's verified `DomainSpec` to cover the trick).
+    pub fn at(receipt: &Receipt, hand: usize, seat: Seat, trick_no: usize) -> DomainDecision {
+        DomainDecision::build(receipt, hand, seat, trick_no)
     }
 
     fn build(receipt: &Receipt, hand: usize, seat: Seat, trick_no: usize) -> DomainDecision {

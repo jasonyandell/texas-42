@@ -3,7 +3,7 @@
 //! declared exhaustive domain (tricks 5-6, all hands, all seats).
 //!
 //! Writes:
-//!   - `results/lesson_basins_2026-08-10.txt`: one pin line per lesson,
+//!   - `results/lesson_basins_2026-08-10_r2.txt`: one pin line per lesson,
 //!     then every full lesson receipt (deterministic rendering);
 //!   - `tests/data/lesson_h0_S1_t5.txt`: the designated byte-frozen lesson
 //!     receipt (the h0 S1 t5 dominance conflict's refutation lesson).
@@ -97,7 +97,7 @@ fn main() {
         pins,
         full
     );
-    std::fs::write(results.join("lesson_basins_2026-08-10.txt"), &out).expect("write results");
+    std::fs::write(results.join("lesson_basins_2026-08-10_r2.txt"), &out).expect("write results");
 
     // The designated byte-frozen fixture: the first lesson is h0 S1 t5's
     // refutation (hand-major, seat-major, trick-major harvest order).

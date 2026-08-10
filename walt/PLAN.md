@@ -414,14 +414,77 @@ evolved this project's own receipt/TRUST-01 discipline.
   identity and frame cells carry every lesson. Next levers, in order:
   world-selecting (non-constant) atom cells introduced on widening
   failure (cut refinement proper, S5c+), and richer domains (full-hand
-  decision points once the corpus walk lands). Design calls flagged for
-  review: equality-only cell language; weak-dominance refutation with
-  strict counts reported, not required (h4 S3's basin is strict at 1 of
-  1,890 matched worlds — visibly near-degenerate, recorded); basin-0
-  lessons keep their vacuously-emptied final implicants (the trace says
-  why); checker eligibility (ply 0, horizon <= 2) is declared
-  applicability, not implicant content; restart policy = forward +
-  reverse only, kept by (decisions, worlds) lexicographic.
+  decision points once the corpus walk lands). **walt-math design
+  amendments (2026-08-10, adopted mid-build):** (1) the dominance
+  primitive is the world-count triple (#gt, #eq, #lt) — stored per
+  matched decision and summed per basin; T/W/S/I are *derived* views
+  (§9.6: conflicts fire on W, T is never a conflict; ties never
+  collapsed, S3.5 precedent). The triple caught a real misclassification:
+  h4 S1's "refutation" basin is (0, 1686, 0) — class T, an
+  interchangeability-at-label statement, and its receipt now carries
+  §10.9's caveat (label-level payoff ties do not make actions
+  interchangeable for the seat). h4 S3's basin reads (1, 1889, 0) —
+  class W by a single strict world, visibly near-degenerate. (2)
+  Operator labels are the (focal-info, field) product pair from §10.3 x
+  §10.8, never a single rung: lesson grades carry `OperatorPair`, the
+  walker's scalar statistic is named (C, minimax-omniscient) (S5a's enum
+  spells it "PI"; an S5a part-2 amendment aligns the walker), and §12.4
+  makes basins label-relative — every basin line restates its full grade,
+  and origin conflicts keep quoting their own S5a-recorded labels. (3)
+  Win lessons are per-world sufficiency ONLY, never "guaranteed"/"safe"
+  at any seat-facing label (§7.6 fusion gap) — enforced in the verdict's
+  rendering and type docs; the one exported corollary runs the other way
+  (worldwise *loss* negates guarantees, reserved (H, minimax-omniscient)
+  label — noted, not built tonight). Remaining design calls flagged for
+  review: equality-only cell language; basin-0 lessons keep their
+  vacuously-emptied final implicants (the trace says why); checker
+  eligibility (ply 0, horizon <= 2) is declared applicability, not
+  implicant content; restart policy = forward + reverse only, kept by
+  (decisions, worlds) lexicographic.
+- **S5b.1 (2026-08-10): design-call adjudication folded in.** walt-math
+  adjudicated the seven S5b design calls: 1, 3, 4, 7 CONFIRMED as built;
+  2, 5, 6 AMENDED and implemented (`walt/ci/check.sh` PASS; 1 new test,
+  CI cost unchanged at ~0.1s; results regenerated to
+  `results/lesson_basins_2026-08-10_r2.txt`, the committed first table
+  left in place). (2) **Purpose-split basins** (§9.6 is purpose-relative;
+  derived views only, verification unchanged): every refutation basin
+  splits into a refutation subbasin (strict-somewhere decisions — the
+  pruning-grade content) and a safe-substitution subbasin (every matched
+  decision — weak dominance verified, zero loss per matched world,
+  T-coverage counts), both in every receipt and pin line; e.g. h4 S3 t5
+  p2 = refutation 1 / safe-substitution 2, h4 S1 (the T lesson) =
+  refutation 0 / safe-substitution 2. S5c rent will be purpose-specific.
+  (5) **DomainSpec-gated application** (TRUST-01 shape: a verdict's scope
+  is its verified domain; the must-fix): the new application entry point
+  `lesson_applies` — S5c's pruning hook — checks the lesson's stored
+  `DomainSpec` before reading the implicant, so applying a lesson outside
+  its verified domain is unconstructible without re-verification; the
+  generalizer itself is unchanged (vacuous traces stay). Gate test: the
+  h2 S2 t4 empty-implicant lesson does NOT apply at its own trick-4
+  origin even though both its tiles are legal there; the h0 S1 t5 lesson
+  applies at its in-domain origin (whole 1,680-world fiber). (6)
+  **Per-carrier denominators** (§11.1: measures are carrier-relative):
+  every basin line prints covered/eligible on the verdict's own named
+  carrier (selector-resolvable decisions x fiber worlds; lead-kernel
+  trees at ply 0, horizon <= 2), with the full domain as labeled context
+  only — the checker lesson's line is now 13/13 lead-kernel trees, never
+  13/104. The carrier view separates two basin-0 kinds the flat
+  denominator hid: empty carrier (four tile-anchored refutations whose
+  tile pair is never jointly legal at tricks 5-6: eligible 0/0) vs
+  inhabited-but-unreached (h3 S3: 0/53 eligible; h4 S0: 0/9 — the
+  load-bearing horizon cell keeps them at their own horizon).
+  **Adjudicated headline: falsification deferred, falsifier sharpened.**
+  S5c's first milestone is re-scoped to BE the falsification test: a
+  t3-4 domain where the atoms are discriminative, order cells so pins
+  can relax instead of vanish, purpose-split rent, DomainSpec-gated
+  application. Standing label note: everything so far is at
+  (C, MinimaxOmniscient); basins are label-relative (§12.4), so any
+  positive here is a hypothesis about (H, FixedUniformLegal), not a
+  result. Also adjudicated: grade non-inheritance (sampled origin /
+  worldwise domain claim) confirmed correct as built; the tile-anchored
+  transfer inversion (concrete 5-2 crossing h1/h6/h7/h9 where abstract
+  selectors did not) flagged as §14.7-consistent and kept visible — the
+  receipt's selector evaluation basis stays mandatory.
 - **S5c: the loop.** Lesson DB with watched-feature indexing, rent
   collection (pruning/regret reduction measured on the corpus), deletion,
   restart-with-retention in the synthesis loops, §16.11 certificate
