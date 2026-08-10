@@ -397,23 +397,34 @@ impl Exp3aContext {
         }
     }
 
-    fn holder_slot(&self, world: &World, t: Domino) -> u8 {
-        let i = self
-            .slots
+    fn holder_slot_opt(&self, world: &World, t: Domino) -> Option<u8> {
+        self.slots
             .iter()
             .position(|s| world.hand(*s).contains(t))
-            .expect("a pool tile sits in some hidden slot");
-        u8::try_from(i).expect("three slots")
+            .map(|i| u8::try_from(i).expect("three slots"))
+    }
+
+    fn holder_slot(&self, world: &World, t: Domino) -> u8 {
+        self.holder_slot_opt(world, t)
+            .expect("a pool tile sits in some hidden slot")
     }
 
     /// The companion: the other tile in the valued tile's holder's hand.
-    /// Well-defined exactly at capacity 2 (every trick-6 kernel), asserted.
-    fn companion(&self, world: &World) -> Domino {
-        let seat = self.slots[self.holder_slot(world, self.valued) as usize];
-        let mut rest = world.hand(seat);
+    /// Well-defined exactly at capacity 2 (every trick-6 kernel); `None`
+    /// when the holder's hand is any other size.
+    fn companion_opt(&self, world: &World) -> Option<Domino> {
+        let slot = self.holder_slot_opt(world, self.valued)?;
+        let mut rest = world.hand(self.slots[slot as usize]);
         rest.remove(self.valued);
-        assert_eq!(rest.len(), 1, "the exp3A companion needs capacity 2");
-        rest.iter().next().expect("one tile")
+        if rest.len() != 1 {
+            return None;
+        }
+        rest.iter().next()
+    }
+
+    fn companion(&self, world: &World) -> Domino {
+        self.companion_opt(world)
+            .expect("the exp3A companion needs capacity 2")
     }
 
     /// The best context rank in one hidden slot's hand, if any.
@@ -428,6 +439,31 @@ impl Exp3aContext {
 
     fn is_focal(&self, seat: Seat) -> bool {
         seat.team() == self.viewer.team()
+    }
+
+    /// Partial evaluation of one atom at one world of this context's
+    /// kernel: `None` exactly where the atom's precondition fails — a
+    /// `Holder`/`Team` fact about a tile no hidden slot holds, or a
+    /// companion-family atom when the valued tile's holder does not hold
+    /// exactly two tiles (the §14.4 vocabulary is native to capacity-2
+    /// kernels; at other capacities the companion is undefined, not
+    /// defaulted). The S5 lesson machinery consumes this as the atom
+    /// vocabulary's honest domain-of-definition; `Exp3aDescriptor` keeps
+    /// the total `eval` and its asserts.
+    pub fn try_eval(&self, atom: Exp3aAtom, world: &World) -> Option<StaticValue> {
+        match atom {
+            Exp3aAtom::Holder(t) | Exp3aAtom::Team(t) => {
+                self.holder_slot_opt(world, t)?;
+            }
+            Exp3aAtom::Comp
+            | Exp3aAtom::CompInContext
+            | Exp3aAtom::CompIsFloor
+            | Exp3aAtom::CompRank => {
+                self.companion_opt(world)?;
+            }
+            _ => {}
+        }
+        Some(self.eval(atom, world))
     }
 
     fn eval(&self, atom: Exp3aAtom, world: &World) -> StaticValue {

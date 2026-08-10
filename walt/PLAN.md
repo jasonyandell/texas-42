@@ -344,8 +344,9 @@ evolved this project's own receipt/TRUST-01 discipline.
   pins in `walt-factory/tests/data/ci_corpus_pins.txt`, pip-trump-only
   caveat restated there): 214/260 walked decisions are zero-regret
   (82.3%); 18/52 seat-transcripts have zero total regret; 162 strict
-  dominance pairs; 12 decisions with a worldwise-dominated chosen action
-  across 9 transcripts; 25/52 transcripts earn a labeled lost verdict
+  dominance pairs; 11 decisions with a worldwise-dominated chosen action
+  across 9 transcripts (correction, S5b: this line first said 12; the
+  committed pins sum to 11); 25/52 transcripts earn a labeled lost verdict
   (9 declaring, 16 defending; earliest-walked-trick t3: 7 of them). The
   designated byte-frozen artifact (walt's first receipt-shaped output,
   exploratory tier, marked in its own header) is hand 0 / seat S1 (the
@@ -355,13 +356,72 @@ evolved this project's own receipt/TRUST-01 discipline.
   PI semantics, worldwise". Full-corpus walk (threshold 10^6, 2,000
   draws, whole transcripts) lives in the `walk_corpus` release binary;
   its run is summarized in `walt-factory/results/`.
-- **S5b: the Lesson type + generalizer.** Lesson = implicant over the atom
-  vocabulary -> graded, labeled verdict, with its conflict of origin and
-  certificate. Generalizer = greedy constraint-dropping, re-verifying via
-  the existing exhaustive checkers at each widening; the returned witness
-  ends the widening and names the load-bearing constraint. Deliverable:
-  measured basin sizes on the 13-kernel corpus — the falsification point
-  for the whole direction (tiny basins = report and rethink).
+- **S5b (2026-08-10): the Lesson type + generalizer.** **COMPLETE**:
+  `walt/ci/check.sh` PASS; 4 new tests (~0.1s CI cost — the domain builds
+  in ~40 ms and each generalization runs in milliseconds), the
+  `lesson_run` example (the measured run, written to
+  `walt-factory/results/lesson_basins_2026-08-10.txt`), one byte-frozen
+  lesson receipt (`tests/data/lesson_h0_S1_t5.txt`). New walt-factory
+  modules `lesson`/`basin`/`generalize`/`lesson_report`; placement: the
+  lesson machinery consumes conflicts, the corpus, and both S4 checkers,
+  so it lives in the factory — the one walt-skeleton addition is
+  `Exp3aContext::try_eval`, the vocabulary's honest partial-evaluation
+  API, so atom semantics stay owned where they are defined. **Lesson** =
+  two-sorted implicant (decision cells: hand/seat/decl/role/horizon/ply;
+  atom cells `atom = value` over the union vocabulary — holder, team, and
+  beater-count facts per pool tile plus the ten exp3A control shapes,
+  instantiated kernel-generically through the S4.5 context derivation and
+  *partial* where an atom's precondition fails) -> graded, labeled
+  verdict, with its origin conflict (whose own grade travels separately —
+  a sampled origin is never upgraded by a worldwise-verified lesson), the
+  full widening trace with every terminating witness (complete deal +
+  value row), and the measured basin. Quantifier placement is part of the
+  verdict type: refutation and win verdicts hold per matching (decision,
+  world) — atom cells select worlds inside each fiber; the checker
+  verdict (not-lumpable, the conflict-species-spanning form) holds per
+  matching decision with atom cells read fiber-valid. Actions are named
+  by kernel-generic selectors (decisive / max-count / min-count /
+  concrete-tile fallback; seeding picks the most generic selector that
+  reproduces the origin's tiles). **Generalizer** = greedy
+  drop-in-declared-order (identity cells, then atom cells, then the
+  public frame) with witness-terminated widening, re-verified
+  EXHAUSTIVELY over the whole declared domain at every step, plus one
+  reverse-order restart — a good cut cheaply, never a minimal core;
+  vacuous verification is allowed and reported as such. **Domain** (a
+  parameter): tricks 5-6, all 13 hands x 4 seats x all plies = 104
+  decisions / 23,790 worlds, every fiber enumerated, every world's exact
+  PI action values and every atom column precomputed. **Measured run**
+  (17 lessons: 11 refutation seeds = every dominated-chosen decision of
+  the CI-config walker corpus, 5 win-form lessons where an origin action
+  is worldwise-optimal, 1 checker seed; S5a's log line said "12
+  dominated" — the committed pins and the regenerated walk both sum to
+  11, corrected in place above): **refutation basins {0 x6, 1 x2, 2 x2,
+  3 x1} decisions; win basins {0 x1, 1 x2, 2 x1, 5 x1}; the chassis
+  §12.6 lesson widens to the empty implicant with basin 13/13 eligible
+  lead kernels.** Falsification verdict, honestly: dominance-lesson
+  basins on this domain are TINY — median 0-1 decisions. Six of eleven
+  refutations never reach the domain: four are t3/t4 origins whose
+  load-bearing `horizon` cell pins them to their own horizon, two are
+  tile-anchored pairs never jointly legal at tricks 5-6. But the
+  direction is not dead: the transfer that exists is exactly
+  selector-shaped — the h1 S0 lesson ("at ply 2, 5-2 beats the decisive
+  tile" / "attains the optimum") crosses hands h1/h6/h7/h9 (up to 5
+  decisions, 651 worlds), and a *sampled* t3 conflict's lesson
+  re-verifies worldwise at h1 S2 t6 (cross-horizon). The atom vocabulary
+  never ends up load-bearing: at these horizons its fiber-constant cells
+  are mostly degenerate (zero-beater vectors of masters, occasional
+  `opp-beaters=0`/`bestkeep=true` at horizon 4-5) and all drop —
+  identity and frame cells carry every lesson. Next levers, in order:
+  world-selecting (non-constant) atom cells introduced on widening
+  failure (cut refinement proper, S5c+), and richer domains (full-hand
+  decision points once the corpus walk lands). Design calls flagged for
+  review: equality-only cell language; weak-dominance refutation with
+  strict counts reported, not required (h4 S3's basin is strict at 1 of
+  1,890 matched worlds — visibly near-degenerate, recorded); basin-0
+  lessons keep their vacuously-emptied final implicants (the trace says
+  why); checker eligibility (ply 0, horizon <= 2) is declared
+  applicability, not implicant content; restart policy = forward +
+  reverse only, kept by (decisions, worlds) lexicographic.
 - **S5c: the loop.** Lesson DB with watched-feature indexing, rent
   collection (pruning/regret reduction measured on the corpus), deletion,
   restart-with-retention in the synthesis loops, §16.11 certificate

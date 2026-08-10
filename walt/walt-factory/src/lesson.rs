@@ -1,0 +1,591 @@
+//! The Lesson type of the S5 spine (S5b): a generalized conflict.
+//!
+//! A lesson is an **implicant over the atom vocabularies** — a conjunction
+//! of typed cells — paired with a **graded, labeled verdict**, its conflict
+//! of origin, the widening trace that produced it, and its measured basin
+//! (v0.4 §12's compression frame: the implicant is the small Scheme-shaped
+//! query, the verdict its answer relation — the typing discipline of §3–§4,
+//! not the full machinery). Every piece is data on the type: a lesson
+//! quotable without its grade and labels is unconstructible, the same
+//! discipline as the walker's `Grade`.
+//!
+//! **Two-sorted implicants.** Decision cells (`Hand`, `Seat`, `Decl`,
+//! `Role`, `Horizon`, `Ply`) are public facts of a decision point. Atom
+//! cells (`Atom(a, v)`) are latent facts from the union vocabulary — the
+//! S4 holder registry (holder/team/beater-counts per pool tile) and the
+//! ported exp3A control shapes — instantiated kernel-generically through
+//! the `Exp3aContext` derivation (S4.5's recorded generalization rule), so
+//! the same cell is evaluable at any decision whose pool still carries the
+//! referenced content. An atom cell is *partial*: where its precondition
+//! fails (tile not hidden, companion undefined) it is unsatisfied, never
+//! defaulted.
+//!
+//! **Quantifier placement is part of the verdict type.** Pair verdicts
+//! (`Refutation`, `Win`) quantify per matching (decision, world): atom
+//! cells select worlds inside each decision's fiber. The checker verdict
+//! (`NotLumpable`) quantifies per matching decision: atom cells must hold
+//! at *every* fiber world (fiber-valid) to count as a fact of the
+//! decision. The basin counts what was actually verified, under exactly
+//! that quantifier.
+//!
+//! Everything here is exploratory tier: lessons are computed evidence
+//! about a declared finite domain, never axioms and never promoted
+//! statuses (TRUST-01). The receipt rendering (`lesson_report`) records
+//! enough for an independent implementation to re-verify (§16.11 spirit).
+
+use core::fmt;
+
+use walt_core::{Decl, Domino, Seat};
+use walt_kernel::{World, HIDDEN_SEATS};
+use walt_skeleton::{CompositeState, Exp3aAtom, LumpabilityFailure, StaticValue};
+use walt_strat::{OperatorLabel, WeightingLabel};
+
+use crate::basin::DomainSpec;
+use crate::conflict::RegretConflict;
+
+/// The focal-information coordinate of an evaluation operator (v0.4
+/// §10.3): what the focal side is allowed to condition on.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum FocalInfoLabel {
+    /// World revealed before the root.
+    F,
+    /// Common root action, continuation re-optimized per world.
+    C,
+    /// Actual hidden information throughout.
+    H,
+}
+
+/// The field coordinate of an evaluation operator (§10.8: perfect
+/// information and fixed-field revelation are different operators, so the
+/// field is a separate label, never implied).
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum FieldLabel {
+    /// The field plays the omniscient adversarial best response.
+    MinimaxOmniscient,
+    /// The fixed uniform-over-legal chance law (§7.4).
+    FixedUniformLegal,
+}
+
+/// An operator label is the *pair* (focal information, field) from the
+/// §10.3 x §10.8 product grid — never a single rung. §12.4 makes basins
+/// label-relative: a basin measured at one pair can shatter or merge at
+/// another, so every lesson stores its pair and no verdict is quotable
+/// without it (walt-math design amendment, 2026-08-10).
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub struct OperatorPair {
+    pub focal_info: FocalInfoLabel,
+    pub field: FieldLabel,
+}
+
+impl OperatorPair {
+    /// The S5a walker's per-world scalar statistic: root action held
+    /// common, continuation re-optimized per world, omniscient adversarial
+    /// field — (C, MinimaxOmniscient) in the grid. The S5a walker enum
+    /// spells this "PI"; an S5a part-2 amendment aligns the walker.
+    pub fn walker_scalar() -> OperatorPair {
+        OperatorPair {
+            focal_info: FocalInfoLabel::C,
+            field: FieldLabel::MinimaxOmniscient,
+        }
+    }
+}
+
+impl fmt::Display for OperatorPair {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let info = match self.focal_info {
+            FocalInfoLabel::F => "F",
+            FocalInfoLabel::C => "C",
+            FocalInfoLabel::H => "H",
+        };
+        let field = match self.field {
+            FieldLabel::MinimaxOmniscient => "minimax-omniscient",
+            FieldLabel::FixedUniformLegal => "fixed-uniform-legal",
+        };
+        write!(f, "({info}, {field})")
+    }
+}
+
+/// The dominance primitive for one comparison over a set of worlds: the
+/// world-count triple (#{better > worse}, #{better = worse},
+/// #{better < worse}). The named classes are *derived views*, never
+/// stored: T (tied everywhere), W (weak dominance, strict somewhere), S
+/// (strict everywhere), I (incomparable). §9.6 settles that pruning
+/// requires strictness somewhere, so a conflict fires on W and T is never
+/// a conflict; ties are never collapsed early (the S3.5 act_param
+/// precedent).
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub struct DominanceTriple {
+    pub gt: usize,
+    pub eq: usize,
+    pub lt: usize,
+}
+
+/// The derived dominance classification of a triple.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum DominanceClass {
+    /// `gt = lt = 0`: an interchangeability statement at the label, not a
+    /// refutation — and §10.9's caveat applies: payoff equivalence at the
+    /// label does not make the actions interchangeable for the seat (they
+    /// can induce different continuation-information structure).
+    TiedEverywhere,
+    /// `gt > 0, lt = 0, eq > 0`: weak dominance, strict somewhere — the
+    /// class a conflict fires on.
+    WeakStrictSomewhere,
+    /// `lt = eq = 0, gt > 0`.
+    StrictEverywhere,
+    /// `gt > 0, lt > 0` (or `lt > 0` at all): never present in a verified
+    /// basin — verification aborts with the witnessing world instead.
+    Incomparable,
+}
+
+impl DominanceTriple {
+    pub fn class(&self) -> DominanceClass {
+        if self.lt > 0 {
+            DominanceClass::Incomparable
+        } else if self.gt == 0 {
+            DominanceClass::TiedEverywhere
+        } else if self.eq == 0 {
+            DominanceClass::StrictEverywhere
+        } else {
+            DominanceClass::WeakStrictSomewhere
+        }
+    }
+
+    pub fn worlds(&self) -> usize {
+        self.gt + self.eq + self.lt
+    }
+}
+
+impl fmt::Display for DominanceTriple {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "({},{},{})", self.gt, self.eq, self.lt)
+    }
+}
+
+impl fmt::Display for DominanceClass {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            DominanceClass::TiedEverywhere => f.write_str("T (tied everywhere)"),
+            DominanceClass::WeakStrictSomewhere => f.write_str("W (weak, strict somewhere)"),
+            DominanceClass::StrictEverywhere => f.write_str("S (strict everywhere)"),
+            DominanceClass::Incomparable => f.write_str("I (incomparable)"),
+        }
+    }
+}
+
+/// The viewer team's role in the hand — the one public fact of a decision
+/// that needs the hand context beyond the kernel.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum Role {
+    Declaring,
+    Defending,
+}
+
+impl fmt::Display for Role {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Role::Declaring => f.write_str("declaring"),
+            Role::Defending => f.write_str("defending"),
+        }
+    }
+}
+
+/// A kernel-generic action selector: how a lesson names an action at
+/// decisions other than its origin. Selectors resolve against the legal
+/// action list and the kernel's derived decisive tile; an unresolved
+/// selector (or two selectors resolving to the same tile) makes the
+/// decision inapplicable — never a default.
+///
+/// `MaxCount`/`MinCount` order by `(count, pip_sum, index)` — a global
+/// tile order that is walt-tier vocabulary (count points are globally
+/// meaningful for the q_points valuation; rank is not comparable across
+/// contexts, §1.3, so no rank-based selector is offered).
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum ActionSelector {
+    /// The kernel's decisive tile (the `Exp3aContext` derivation), when
+    /// legal.
+    Decisive,
+    /// The legal action maximal by `(count, pip_sum, index)`.
+    MaxCount,
+    /// The legal action minimal by `(count, pip_sum, index)`.
+    MinCount,
+    /// A concrete tile, when legal — the non-generic fallback.
+    Tile(Domino),
+}
+
+impl ActionSelector {
+    /// Resolves on a legal action list (ascending) given the kernel's
+    /// decisive tile. Deterministic; `None` where the selector's tile is
+    /// not legal.
+    pub fn resolve(self, legal: &[Domino], decisive: Domino) -> Option<Domino> {
+        match self {
+            ActionSelector::Decisive => legal.contains(&decisive).then_some(decisive),
+            ActionSelector::MaxCount => legal
+                .iter()
+                .copied()
+                .max_by_key(|d| (d.count(), d.pip_sum(), d.index())),
+            ActionSelector::MinCount => legal
+                .iter()
+                .copied()
+                .min_by_key(|d| (d.count(), d.pip_sum(), d.index())),
+            ActionSelector::Tile(d) => legal.contains(&d).then_some(d),
+        }
+    }
+
+    /// The most generic selector that picks exactly `tile` at a decision:
+    /// the first of `Decisive`, `MaxCount`, `MinCount` that resolves to
+    /// it, else the concrete `Tile`. The seeding rule, declared here.
+    pub fn fit(tile: Domino, legal: &[Domino], decisive: Domino) -> ActionSelector {
+        [
+            ActionSelector::Decisive,
+            ActionSelector::MaxCount,
+            ActionSelector::MinCount,
+        ]
+        .into_iter()
+        .find(|s| s.resolve(legal, decisive) == Some(tile))
+        .unwrap_or(ActionSelector::Tile(tile))
+    }
+}
+
+impl fmt::Display for ActionSelector {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            ActionSelector::Decisive => f.write_str("decisive"),
+            ActionSelector::MaxCount => f.write_str("max-count"),
+            ActionSelector::MinCount => f.write_str("min-count"),
+            ActionSelector::Tile(d) => write!(f, "tile({d})"),
+        }
+    }
+}
+
+/// One atom of the union vocabulary. `Ctl` wraps only the ten exp3A
+/// control shapes — the holder/team coordinates come through the native
+/// variants, so no atom has two names (the vocabulary builder is the one
+/// construction site).
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
+pub enum LessonAtom {
+    /// Which hidden slot (viewer-relative) holds the tile.
+    Holder(Domino),
+    /// Whether the focal (viewer's) team holds the tile.
+    Team(Domino),
+    /// Unshown beaters of the tile per hidden slot (its `THREAT` set).
+    Beaters(Domino),
+    /// One of the ten exp3A control shapes, under the kernel's derived
+    /// parameters (valued tile, decisive context).
+    Ctl(Exp3aAtom),
+}
+
+impl fmt::Display for LessonAtom {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            LessonAtom::Holder(d) => write!(f, "holder({d})"),
+            LessonAtom::Team(d) => write!(f, "team({d})"),
+            LessonAtom::Beaters(d) => write!(f, "beaters({d})"),
+            LessonAtom::Ctl(a) => write!(f, "{a}"),
+        }
+    }
+}
+
+/// An atom's value in a cell: the exp3A typed relational values, or the
+/// beater-count vector.
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
+pub enum AtomValue {
+    Static(StaticValue),
+    Counts([u8; HIDDEN_SEATS]),
+}
+
+impl fmt::Display for AtomValue {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            AtomValue::Static(StaticValue::Slot(i)) => write!(f, "slot{i}"),
+            AtomValue::Static(StaticValue::Flag(b)) => write!(f, "{b}"),
+            AtomValue::Static(StaticValue::Tile(d)) => write!(f, "{d}"),
+            AtomValue::Static(StaticValue::Rank(Some(r))) => write!(f, "r{r}"),
+            AtomValue::Static(StaticValue::Rank(None)) => f.write_str("outside"),
+            AtomValue::Static(StaticValue::Count(c)) => write!(f, "{c}"),
+            AtomValue::Counts([a, b, c]) => write!(f, "[{a},{b},{c}]"),
+        }
+    }
+}
+
+/// One implicant cell: an equality constraint (the minimal cell language —
+/// order/threshold cells are deliberately not offered yet).
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum Constraint {
+    /// The receipt hand — pure transcript identity.
+    Hand(usize),
+    /// The viewing seat — pure transcript identity.
+    Seat(Seat),
+    Decl(Decl),
+    Role(Role),
+    /// Tiles remaining in the viewer's hand (kernel-generic; `8 - trick`).
+    Horizon(usize),
+    /// The viewer's position in the trick: 0 led, 1..=3 followed.
+    Ply(usize),
+    /// A latent atom cell, partial: unsatisfied where undefined.
+    Atom(LessonAtom, AtomValue),
+}
+
+impl fmt::Display for Constraint {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Constraint::Hand(h) => write!(f, "hand={h}"),
+            Constraint::Seat(s) => write!(f, "seat={s}"),
+            Constraint::Decl(d) => write!(f, "decl={d}"),
+            Constraint::Role(r) => write!(f, "role={r}"),
+            Constraint::Horizon(n) => write!(f, "horizon={n}"),
+            Constraint::Ply(p) => write!(f, "ply={p}"),
+            Constraint::Atom(a, v) => write!(f, "{a}={v}"),
+        }
+    }
+}
+
+/// A conjunction of cells. Cell order is the vocabulary order of the
+/// origin (identity, frame, atoms); the drop order is the generalizer's,
+/// declared there.
+#[derive(Clone, Debug)]
+pub struct Implicant {
+    pub cells: Vec<Constraint>,
+}
+
+impl Implicant {
+    pub fn render(&self) -> String {
+        if self.cells.is_empty() {
+            return "(empty)".to_string();
+        }
+        self.cells
+            .iter()
+            .map(|c| c.to_string())
+            .collect::<Vec<_>>()
+            .join(" & ")
+    }
+}
+
+/// The kernel-generic descriptor families a checker lesson can name — each
+/// constructible identically at any kernel.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum DescriptorFamily {
+    /// The public chassis alone (hand, leader, prefix; no latent atoms).
+    Chassis,
+}
+
+impl fmt::Display for DescriptorFamily {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            DescriptorFamily::Chassis => f.write_str("chassis"),
+        }
+    }
+}
+
+/// What the lesson asserts across its class.
+#[derive(Clone, Copy, Debug)]
+pub enum LessonVerdict {
+    /// At every matching (decision, world): the `better` selector's exact
+    /// PI continuation value is at least the `worse` selector's (weak
+    /// dominance per world; the strict count is reported in the basin, not
+    /// required — the refutation form of the spine).
+    Refutation {
+        worse: ActionSelector,
+        better: ActionSelector,
+    },
+    /// At every matching (decision, world): the selector's action attains
+    /// the world's optimal exact PI value (the win/sufficiency form, the
+    /// QBF-cube analog at PI grade).
+    Win { action: ActionSelector },
+    /// At every matching decision (ply 0, horizon <= 2): the descriptor
+    /// family fails §12.6 strong controlled lumpability — the checker
+    /// species of conflict, generalized.
+    NotLumpable { descriptor: DescriptorFamily },
+}
+
+impl fmt::Display for LessonVerdict {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            LessonVerdict::Refutation { worse, better } => write!(
+                f,
+                "refutation: value({better}) >= value({worse}) at every matching (decision, world)"
+            ),
+            LessonVerdict::Win { action } => write!(
+                f,
+                "win: {action} attains the world optimum at every matching (decision, world)"
+            ),
+            LessonVerdict::NotLumpable { descriptor } => write!(
+                f,
+                "not-lumpable: {descriptor} fails §12.6 at every matching decision"
+            ),
+        }
+    }
+}
+
+/// The lesson's own grade: how its verdict was verified on the domain,
+/// with the declared knobs as data. The ladder is the spine's (worldwise,
+/// then exact-expectation, then sampled) and a lesson never quotes above
+/// the rung it was verified at. Tonight's domains are exhaustively enumerated,
+/// so only `Worldwise` and `Checker` are constructed; the lower rungs are
+/// typed now so the ladder is fixed before sampled domains exist.
+#[derive(Clone, Copy, Debug)]
+pub enum LessonGrade {
+    /// Verified in every world of every matching decision's exhaustively
+    /// enumerated fiber. Weighting-free, never operator-free.
+    Worldwise { operator: OperatorLabel },
+    /// Verified as an exact expectation under a declared weighting.
+    ExactExpectation {
+        operator: OperatorLabel,
+        weighting: WeightingLabel,
+    },
+    /// Verified only on a recorded sample. Evidence, always marked.
+    Sampled {
+        operator: OperatorLabel,
+        weighting: WeightingLabel,
+        seed: u64,
+        draws: u32,
+    },
+    /// Verified per decision by the exhaustive §12.6 lumpability checker
+    /// under the fixed uniform-legal field at the q_points valuation.
+    Checker,
+}
+
+impl fmt::Display for LessonGrade {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            LessonGrade::Worldwise { operator } => {
+                write!(f, "worldwise ({operator}; weighting-free)")
+            }
+            LessonGrade::ExactExpectation {
+                operator,
+                weighting,
+            } => write!(f, "exact-expectation ({operator}, {weighting})"),
+            LessonGrade::Sampled {
+                operator,
+                weighting,
+                seed,
+                draws,
+            } => write!(
+                f,
+                "sampled ({operator}, {weighting}, seed {seed:#018x}, draws {draws})"
+            ),
+            LessonGrade::Checker => f.write_str(
+                "checker (§12.6 exhaustive lumpability, uniform-legal field, q_points valuation)",
+            ),
+        }
+    }
+}
+
+/// The conflict a lesson generalizes — recorded whole, with its own grade
+/// and labels (a lesson verified worldwise on its domain does not upgrade
+/// a sampled origin; the two records travel together).
+#[derive(Clone, Debug)]
+pub enum LessonOrigin {
+    /// A walker regret conflict (S5a).
+    Regret(RegretConflict),
+    /// An S4 checker failure: the named descriptor family failed §12.6 on
+    /// the named receipt kernel, with the typed witness.
+    Lumpability {
+        hand: usize,
+        trick_no: usize,
+        descriptor: DescriptorFamily,
+        failure: LumpabilityFailure<CompositeState>,
+    },
+}
+
+/// The counterexample that ended one widening attempt and named its
+/// dropped cell load-bearing.
+#[derive(Clone, Debug)]
+pub enum WideningWitness {
+    /// A matching (decision, world) where a pair verdict fails, with the
+    /// full action-value row (reconstruction data: the world is the
+    /// complete deal).
+    World {
+        hand: usize,
+        seat: Seat,
+        trick_no: usize,
+        ply: usize,
+        world: World,
+        values: Vec<(Domino, i64)>,
+    },
+    /// A matching decision where the descriptor family IS lumpable — the
+    /// checker verdict's counterexample shape.
+    Lumpable {
+        hand: usize,
+        seat: Seat,
+        trick_no: usize,
+        ply: usize,
+        nodes: usize,
+        classes: usize,
+    },
+}
+
+/// One step of the greedy widening trace.
+#[derive(Clone, Debug)]
+pub struct DropStep {
+    pub cell: Constraint,
+    pub outcome: DropOutcome,
+}
+
+#[derive(Clone, Debug)]
+pub enum DropOutcome {
+    /// The widened implicant re-verified over the whole domain; the cell
+    /// stays dropped.
+    Dropped,
+    /// The widening was refuted; the cell is restored and named
+    /// load-bearing by the witness.
+    LoadBearing(WideningWitness),
+}
+
+/// One matched decision of the basin, with its matched-world counts.
+#[derive(Clone, Debug)]
+pub struct MatchedDecision {
+    pub hand: usize,
+    pub seat: Seat,
+    pub trick_no: usize,
+    pub ply: usize,
+    /// Worlds of this decision's fiber matching the implicant (pair
+    /// verdicts; equals `worlds_total` for the checker verdict's
+    /// fiber-valid matching).
+    pub worlds_matched: usize,
+    /// The decision's full fiber size.
+    pub worlds_total: usize,
+    /// Matched worlds where the refutation inequality is strict.
+    pub strict_worlds: usize,
+}
+
+/// The measured basin: every domain decision matching the final implicant,
+/// verified under the verdict's quantifier. Matched and verified coincide
+/// by construction — the generalizer only accepts verified widenings —
+/// and the report records both totals and the per-decision detail.
+#[derive(Clone, Debug)]
+pub struct BasinReport {
+    pub domain: DomainSpec,
+    pub decisions_total: usize,
+    pub worlds_total: usize,
+    pub decisions_matched: usize,
+    pub worlds_matched: usize,
+    pub strict_worlds: usize,
+    pub matched: Vec<MatchedDecision>,
+}
+
+/// A lesson: origin, verdict, grade, implicants (initial and final), the
+/// widening trace, and the measured basin. Constructed only by the
+/// generalizer, so every field is the record of an actual verification.
+#[derive(Clone, Debug)]
+pub struct Lesson {
+    pub origin: LessonOrigin,
+    pub verdict: LessonVerdict,
+    pub grade: LessonGrade,
+    pub initial: Implicant,
+    pub trace: Vec<DropStep>,
+    pub implicant: Implicant,
+    pub basin: BasinReport,
+}
+
+impl Lesson {
+    /// The load-bearing cells: those a widening attempt restored, in trace
+    /// order. A derived view of the trace, never stored twice.
+    pub fn load_bearing(&self) -> Vec<Constraint> {
+        self.trace
+            .iter()
+            .filter(|s| matches!(s.outcome, DropOutcome::LoadBearing(_)))
+            .map(|s| s.cell)
+            .collect()
+    }
+}

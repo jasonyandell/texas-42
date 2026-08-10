@@ -9,6 +9,8 @@
 //! kinds distinguishable and makes quoting a verdict without its operator
 //! label impossible: every variant carries the label as a field.
 
+use core::fmt;
+
 use walt_core::{Domino, Seat};
 use walt_geom::Q;
 use walt_skeleton::{LumpabilityFailure, PurityCounterexample};
@@ -38,6 +40,29 @@ pub enum Grade {
         seed: u64,
         draws: u32,
     },
+}
+
+impl fmt::Display for Grade {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Grade::WorldwiseDominance { operator } => {
+                write!(f, "worldwise-dominance ({operator})")
+            }
+            Grade::ExactExpectation {
+                operator,
+                weighting,
+            } => write!(f, "exact-expectation ({operator}, {weighting})"),
+            Grade::Sampled {
+                operator,
+                weighting,
+                seed,
+                draws,
+            } => write!(
+                f,
+                "sampled ({operator}, {weighting}, seed {seed:#018x}, draws {draws})"
+            ),
+        }
+    }
 }
 
 /// A regretted decision: the walker found the transcript's chosen action

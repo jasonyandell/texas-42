@@ -1,0 +1,23 @@
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h0 S1 t5 p0 fiber 1680 grade worldwise-dominance (PI)
+  chosen 3-2 better [0-0 2-1] regret 61/21
+verdict: refutation: value(decisive) >= value(max-count) at every matching (decision, world)
+grade: worldwise (PI; weighting-free)
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (11 cells): hand=0 & seat=S1 & decl=P3 & role=declaring & horizon=3 & ply=0 & beaters(1-1)=[0,0,0] & beaters(2-2)=[0,0,0] & beaters(4-4)=[0,0,0] & beaters(5-2)=[0,0,0] & beaters(6-2)=[0,0,0]
+trace:
+  drop hand=0 -> dropped
+  drop seat=S1 -> dropped
+  drop beaters(1-1)=[0,0,0] -> dropped
+  drop beaters(2-2)=[0,0,0] -> dropped
+  drop beaters(4-4)=[0,0,0] -> dropped
+  drop beaters(5-2)=[0,0,0] -> dropped
+  drop beaters(6-2)=[0,0,0] -> dropped
+  drop decl=P3 -> LOAD-BEARING; witness h4 S1 t5 p0 world S0={4-3 4-4 5-4} S1={2-1 4-0 5-1} S2={0-0 1-1 2-0} S3={2-2 4-2 5-5} values 2-1=9 4-0=-11 5-1=9
+  drop ply=0 -> LOAD-BEARING; witness h0 S3 t5 p2 world S0={0-0 2-0 4-1} S1={2-1 5-1} S2={4-2 5-2} S3={1-1 2-2 4-4} values 1-1=13 2-2=1 4-4=13
+  drop role=declaring -> dropped
+  drop horizon=3 -> dropped
+final implicant (2 cells): decl=P3 & ply=0
+load-bearing: [decl=P3, ply=0]
+basin: decisions 1/104 worlds 1680/23790 strict-worlds 488
+  h0 S1 t5 p0: worlds 1680/1680 strict 488

@@ -21,13 +21,25 @@
 //! Everything is exploratory tier: walker outputs are walt-tier regression
 //! pins and typed conflict material for S5b, never promoted statuses.
 
+pub mod basin;
 pub mod conflict;
 pub mod corpus;
+pub mod generalize;
+pub mod lesson;
+pub mod lesson_report;
 pub mod report;
 pub mod walker;
 
+pub use basin::{valued_tile, vocabulary, BasinDomain, DomainDecision, DomainSpec};
 pub use conflict::{Conflict, Grade, RegretConflict};
 pub use corpus::{load_receipt, walk_corpus};
+pub use generalize::{generalize_lumpability, generalize_regret, generalize_win};
+pub use lesson::{
+    ActionSelector, AtomValue, BasinReport, Constraint, DescriptorFamily, DropOutcome, DropStep,
+    Implicant, Lesson, LessonAtom, LessonGrade, LessonOrigin, LessonVerdict, MatchedDecision, Role,
+    WideningWitness,
+};
+pub use lesson_report::{lesson_pin_line, render_lesson};
 pub use report::{corpus_pin_line, render_walk};
 pub use walker::{
     walk_decision, walk_seat, DecisionRecord, EvidenceBasis, HandSeatWalk, LostVerdict,
