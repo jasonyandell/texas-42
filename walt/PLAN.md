@@ -570,22 +570,27 @@ evolved this project's own receipt/TRUST-01 discipline.
   100,000 — where h4 S1 t3 p2's sampled-basis dominance did NOT survive
   exhaustive re-examination at 90,090 worlds, so S5b's 11 seeds are 10
   at grade: never-quote-above-grade, demonstrated on our own seed):
-  **the early negative is averted — the atom vocabulary IS load-bearing
-  on the discriminative domain.** 12/16 lessons carry surviving atom
-  cells and 12 gained cells by cut refinement; most final implicants are
-  PURE atom implicants with the whole frame dropped: h1 S2 t3 ends as
-  `beaters-total(1-0)<=1` (basin 3 decisions at frame-rate 3/89, its
-  own excluded-fiber origin not among them — pure transfer), h1 S2 t4
-  as `beaters-total(0-0)<=0` (34,650 worlds), h4 S3's win as four
-  numeric bounds at frame-rate 3/179. The basin/frame-compatible rates
-  walt-math asked for (1/64, 3/89, 3/130, 1/14, ...) show the latent
-  cells, not the frame, doing the selection. Honest caveats: absolute
-  basins stay small (refutation {0 x1, 1 x7, 3 x2}; win {1 x2, 3 x2,
-  5 x1} — few conflicts, deeply analyzed, per the declared regime); cut
-  refinement sometimes re-pins an exact total as a bound pair
-  (`beaters-total(3-0)<=2 & >=2` on h3 S3 — equality in disguise, basin
-  1); and introduced cells mean the load-bearing lists are mostly empty
-  while the selection content sits in `introduced` — both are printed.
+  **On the t3-6 discriminative domain at (C, minimax-omniscient), the
+  atom vocabulary is expressively sufficient** (walt-math's sharpened
+  m2 phrasing — sufficiency, not necessity): most final implicants are
+  pure atom cells with the frame fully dropped, several transferring
+  across decisions and hands — including transfer that excludes the
+  lesson's own origin (h1 S2 t3: `beaters-total(1-0)<=1`, basin 3/89
+  frame-compatible, its excluded-fiber origin not among them). Necessity
+  holds for the cross-decision cases by the S5b contrast (the frame-only
+  language could not reach them). A minority of atom implicants are
+  equality-in-disguise re-descriptions of their origin (re-pinned bound
+  pairs, e.g. `beaters-total(3-0)=2` on h3 S3) and carry no selection
+  content beyond the frame — flagged `re-pinned` and excluded from
+  selection counts, giving the honest tally **10 of 16 lessons with
+  selecting atom cells** (12 gained cells by cut refinement). The
+  basin/frame-compatible rates (1/64, 3/89, 3/130, 1/14, ...) show the
+  latent cells, not the frame, doing the selection where it happens.
+  Honest caveats: absolute basins stay small (refutation {0 x1, 1 x7,
+  3 x2}; win {1 x2, 3 x2, 5 x1} — few conflicts, deeply analyzed, per
+  the declared regime); with introductions doing the work, the surviving
+  (drop-survivor) lists are mostly empty while the selection content
+  sits in `introduced` — both printed everywhere.
   Rent: each single-decision refutation basin's improvement equals its
   origin regret exactly (65/112, 1243/1225, 1163/840, ... — an
   independent cross-check against the S5a fixture); cross-decision
@@ -603,6 +608,61 @@ evolved this project's own receipt/TRUST-01 discipline.
   substrate); introduction candidates are equality-on-constant or
   interval-on-defined; INTRO_BUDGET = 4 per pass; bound pairs are
   relaxed independently (no joint ladder).
+- **S5c-m2 (2026-08-10): honesty amendments + the (H,
+  fixed-uniform-legal) re-measurement.** **COMPLETE**: `walt/ci/check.sh`
+  PASS; 1 new CI test (an H re-measurement pinned end-to-end with exact
+  rationals; lesson suite now 7 tests, ~0.8 s); new
+  `walt-strat/src/hidden_scalar.rs` (the scalar H solver:
+  pooled-information viewer maximization against the §7.4 fixed
+  uniform-legal field, mid-trick roots, unit-fraction particle weights so
+  rational work concentrates at trick resolutions, budgeted — an
+  over-budget solve returns nothing, exclusion never sampling) and
+  `walt-factory/src/label_transfer.rs` (the re-measurement driver);
+  results in `results/label_transfer_2026-08-10.txt`, the m1 records
+  regenerated under the amended vocabulary as
+  `falsification_2026-08-10_r2.txt` / `lesson_basins_2026-08-10_r4.txt`
+  (committed revisions untouched). **Part A, the m1 adjudication
+  amendments:** witness exclusion for introduced cells confirmed
+  enforced by construction (an in-interval witness falls through to no
+  candidate, never a budget-spending no-op), stated in the generalizer
+  doc and CI-asserted per trace (`cell_holds_at`); vocabulary renamed
+  load-bearing -> surviving (beside `introduced`; selecting = the
+  union); re-pinned pairs flagged, rendered as the derived equality
+  `atom=k` (never an interval), and excluded from atom-selection counts;
+  intro-budget spent/4 on every pin and receipt; the control-bias
+  annotation travels with every capped domain description (all 29
+  exclusions are trick-3, and fiber size anti-correlates with focal
+  control — exp5 covariate — so the excluded set skews low-control).
+  Registered prediction (failure ledger): when cut refinement first
+  meets a world pair no beater TOTAL can separate, the next registered
+  numerics are team-split beaters (focal-side / opp-side per tile) —
+  §14.7's seat-swap mode is invisible to totals by construction;
+  predicted now so the ceiling confirms rather than surprises. **Part
+  B, the label-transfer measurement** (before any DB economy: label
+  transfer is the inventory's weakest load-bearing assumption, §12.4,
+  and its outcome defines the economy's currency). At H the verdict
+  quantifier changes shape by necessity — H values live on pooled
+  information states, so a re-measured refutation is ONE inequality
+  `Q^H(better) >= Q^H(worse)` per matching decision and a win is
+  `Q^H(action) = max`, with atom cells read fiber-valid; both label
+  coordinates move to the seat-facing pair while the root weighting
+  stays the declared uniform-over-fiber. **Result: 10 survive, 0 fail,
+  5 unmeasured of 15 value lessons — every measurable lesson
+  transfers.** Refutations 7/10 survive (h0 S1: Q^H(2-1) = 80/7 >
+  202/21 = Q^H(3-2); h3 S3: -75961447/3628800 > -557701759/25401600;
+  H-ties hold weakly where present, e.g. h1 S1 t5 p3 at -623/360 both);
+  measurable wins 3/3 (tile 5-2 exactly H-optimal at all five basin
+  decisions across four hands). The five unmeasured: four budget-capped
+  (fibers 16,632-34,650 at 10^8 particle-steps — capped, never sampled)
+  and one empty basin; not-fiber-valid zero everywhere (every (C)-basin
+  membership was already fiber-valid); the checker lesson is not
+  re-measured (§12.6 already lives at the fixed field). **The inventory
+  is NOT label-fragile on the measured subdomain** — the economy's
+  currency can be seat-facing H rent for small-fiber lessons, and the
+  capped big fibers point m3 at pooled-state H memoization, not at new
+  mathematics. Honest boundary: survival is measured on each lesson's
+  OWN basin (small sets), and nothing here promotes any (C)-graded
+  claim — every H row carries its own label and quantifier.
 - **S5c: the loop.** Lesson DB with watched-feature indexing, rent
   collection (pruning/regret reduction measured on the corpus), deletion,
   restart-with-retention in the synthesis loops, §16.11 certificate

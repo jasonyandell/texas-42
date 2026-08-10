@@ -1,0 +1,839 @@
+walt S5c-m1 falsification run — exploratory tier
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions (29 in-range excluded by the fiber cap), 924813 worlds
+seeds: walker corpus, exhaustive <= 100000 (recorded 64-draw samples above), tricks 3-7; win form at origin-scan threshold 100000; h0 t6 chassis §12.6
+lessons: 16 — 10 with selecting atom cells (re-pinned pairs excluded), 12 with introduced (cut-refinement) cells
+refutation basins (matched decisions, sorted): [0, 1, 1, 1, 1, 1, 1, 1, 3, 3]
+win basins (matched decisions, sorted): [1, 1, 3, 3, 5]
+
+regret h0 S1 t5 p0: verdict [refutation: value(decisive) >= value(max-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(2-0)=4 & beaters-total(1-1)<=0] surviving [none] introduced [beaters-total(2-0)>=4, beaters-total(1-1)<=0, beaters-total(2-0)<=4] re-pinned [beaters-total(2-0)=4] intro-budget 3/4 basin 1/64 eligible decisions 1680/476545 eligible worlds frame-rate 1/64 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (488,1192,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  rent: refutation rent: applied 1 strict-applied 1 improvement 61/21
+regret h0 S1 t5 p0: verdict [win: decisive suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(2-0)=4 & beaters-total(1-1)<=0] surviving [none] introduced [beaters-total(2-0)<=4, beaters-total(2-0)>=4, beaters-total(1-1)<=0] re-pinned [beaters-total(2-0)=4] intro-budget 3/4 basin 1/135 eligible decisions 1680/649657 eligible worlds frame-rate 1/135 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (0,1680,0)
+  rent: win rent: applied 1 worlds-covered 1680 actions-pruned 3360
+regret h1 S0 t5 p2: verdict [refutation: value(tile(5-2)) >= value(decisive) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [bestkeep=true & beaters-total(1-0)<=2] surviving [none] introduced [bestkeep=true, beaters-total(1-0)<=2] re-pinned [none] intro-budget 2/4 basin 1/14 eligible decisions 210/14305 eligible worlds frame-rate 1/14 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (70,140,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  rent: refutation rent: applied 1 strict-applied 1 improvement 2/3
+regret h1 S0 t5 p2: verdict [win: tile(5-2) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [horizon<=3 & ply=2] surviving [ply=2, horizon<=3] introduced [none] re-pinned [none] intro-budget 0/4 basin 5/20 eligible decisions 651/49980 eligible worlds frame-rate 5/5 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (0,651,0)
+  rent: win rent: applied 5 worlds-covered 651 actions-pruned 441
+regret h1 S2 t3 p0: verdict [refutation: value(min-count) >= value(decisive) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(1-0)<=1] surviving [none] introduced [beaters-total(1-0)<=1] re-pinned [none] intro-budget 1/4 basin 3/89 eligible decisions 186/454235 eligible worlds frame-rate 3/89 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (48,138,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 3
+  rent: refutation rent: applied 3 strict-applied 1 improvement 16/15
+regret h1 S2 t4 p0: verdict [refutation: value(tile(4-3)) >= value(tile(6-0)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(0-0)<=0] surviving [none] introduced [beaters-total(0-0)<=0] re-pinned [none] intro-budget 1/4 basin 1/3 eligible decisions 34650/63630 eligible worlds frame-rate 1/3 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (2520,32130,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  rent: refutation rent: applied 1 strict-applied 1 improvement 8/11
+regret h1 S2 t4 p0: verdict [win: tile(4-3) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [bestkeep=true & beaters-total(0-0)<=0 & beaters-total(1-0)<=3] surviving [none] introduced [bestkeep=true, beaters-total(0-0)<=0, beaters-total(1-0)<=3] re-pinned [none] intro-budget 3/4 basin 1/22 eligible decisions 34650/164162 eligible worlds frame-rate 1/22 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (0,34650,0)
+  rent: win rent: applied 1 worlds-covered 34650 actions-pruned 103950
+regret h2 S2 t3 p0: verdict [refutation: value(tile(6-6)) >= value(tile(6-2)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [(empty)] surviving [none] introduced [none] re-pinned [none] intro-budget 0/4 basin 0/0 eligible decisions 0/0 eligible worlds frame-rate 0/0 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (0,0,0) split refutation 0 safe-substitution 0
+  rent: refutation rent: applied 0 strict-applied 0 improvement 0
+regret h2 S2 t4 p3: verdict [refutation: value(tile(6-6)) >= value(tile(6-3)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [(empty)] surviving [none] introduced [none] re-pinned [none] intro-budget 0/4 basin 1/1 eligible decisions 1120/1120 eligible worlds frame-rate 1/1 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (91,1029,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  rent: refutation rent: applied 1 strict-applied 1 improvement 65/112
+regret h3 S3 t4 p1: verdict [refutation: value(decisive) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(3-0)=2 & beaters-total(3-1)=4] surviving [none] introduced [beaters-total(3-0)<=2, beaters-total(3-0)>=2, beaters-total(3-1)<=4, beaters-total(3-1)>=4] re-pinned [beaters-total(3-0)=2, beaters-total(3-1)=4] intro-budget 4/4 basin 1/89 eligible decisions 2450/454235 eligible worlds frame-rate 1/89 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (191,2259,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  rent: refutation rent: applied 1 strict-applied 1 improvement 1243/1225
+regret h4 S0 t4 p3: verdict [refutation: value(decisive) >= value(tile(5-2)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(0-0)=3] surviving [none] introduced [beaters-total(0-0)<=3, beaters-total(0-0)>=3] re-pinned [beaters-total(0-0)=3] intro-budget 2/4 basin 1/14 eligible decisions 1680/14305 eligible worlds frame-rate 1/14 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (122,1558,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  rent: refutation rent: applied 1 strict-applied 1 improvement 1163/840
+regret h4 S3 t5 p2: verdict [refutation: value(max-count) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(2-0)<=4 & beaters-total(1-1)<=0 & beaters-total(5-5)<=3] surviving [none] introduced [beaters-total(2-0)<=4, beaters-total(1-1)<=0, beaters-total(5-5)<=3] re-pinned [none] intro-budget 3/4 basin 3/130 eligible decisions 1920/706174 eligible worlds frame-rate 3/130 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (1,1919,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 3
+  rent: refutation rent: applied 3 strict-applied 1 improvement 1/105
+regret h4 S3 t5 p2: verdict [win: max-count suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(2-0)<=5 & beaters-total(2-1)<=2 & beaters-total(1-1)<=0 & beaters-total(5-1)>=1] surviving [none] introduced [beaters-total(2-0)<=5, beaters-total(2-1)<=2, beaters-total(1-1)<=0, beaters-total(5-1)>=1] re-pinned [none] intro-budget 4/4 basin 3/179 eligible decisions 4440/924813 eligible worlds frame-rate 3/179 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (0,4440,0)
+  rent: win rent: applied 3 worlds-covered 4440 actions-pruned 240
+regret h11 S1 t3 p3: verdict [refutation: value(tile(2-0)) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [team(1-1)=false & beaters-total(3-0)<=5] surviving [none] introduced [team(1-1)=false, beaters-total(3-0)<=5] re-pinned [none] intro-budget 2/4 basin 1/4 eligible decisions 23100/53620 eligible worlds frame-rate 1/4 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (4,23096,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+  rent: refutation rent: applied 1 strict-applied 1 improvement 8/5775
+regret h11 S1 t3 p3: verdict [win: tile(2-0) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [horizon>=5 & beaters-total(5-2)<=3] surviving [horizon>=5] introduced [beaters-total(5-2)<=3] re-pinned [none] intro-budget 1/4 basin 3/20 eligible decisions 74382/148744 eligible worlds frame-rate 3/4 (carrier: selector-resolvable decisions x their fiber worlds; domain context 179/924813, 29 excluded) triple (0,74382,0)
+  rent: win rent: applied 3 worlds-covered 74382 actions-pruned 109032
+lumpability h0 t6 chassis: verdict [not-lumpable: chassis fails §12.6 at every matching decision] grade [checker (§12.6 exhaustive lumpability, uniform-legal field, q_points valuation)] final [(empty)] surviving [none] introduced [none] re-pinned [none] intro-budget 0/4 basin 13/13 eligible decisions 647/647 eligible worlds frame-rate 13/13 (carrier: lead-kernel trees (ply 0, horizon <= 2); domain context 179/924813, 29 excluded)
+  rent: checker rent: applied 13
+
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h0 S1 t5 p0 fiber 1680 grade worldwise-dominance (PI)
+  chosen 3-2 better [0-0 2-1] regret 61/21
+verdict: refutation: value(decisive) >= value(max-count) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (25 cells): hand=0 & seat=S1 & decl=P3 & role=declaring & horizon>=3 & horizon<=3 & ply=0 & beaters-total(1-1)=0 & beaters-total(2-0)=4 & beaters-total(2-2)=0 & beaters-total(4-1)=2 & beaters-total(4-2)=1 & beaters-total(4-4)=0 & beaters-total(5-1)=1 & beaters-total(5-2)=0 & beaters-total(6-2)=0
+trace:
+  drop hand=0 -> dropped
+  drop seat=S1 -> dropped
+  drop beaters-total(1-1)>=0 -> dropped
+  drop beaters-total(1-1)<=0 -> dropped
+  drop beaters-total(2-0)>=4 -> dropped
+  drop beaters-total(2-0)<=4 -> dropped
+  drop beaters-total(2-2)>=0 -> dropped
+  drop beaters-total(2-2)<=0 -> dropped
+  drop beaters-total(4-1)>=2 -> dropped
+  drop beaters-total(4-1)<=2 -> dropped
+  drop beaters-total(4-2)>=1 -> dropped
+  drop beaters-total(4-2)<=1 -> dropped
+  drop beaters-total(4-4)>=0 -> dropped
+  drop beaters-total(4-4)<=0 -> dropped
+  drop beaters-total(5-1)>=1 -> dropped
+  drop beaters-total(5-1)<=1 -> dropped
+  drop beaters-total(5-2)>=0 -> dropped
+  drop beaters-total(5-2)<=0 -> dropped
+  drop beaters-total(6-2)>=0 -> dropped
+  drop beaters-total(6-2)<=0 -> dropped
+  introduce beaters-total(2-0)>=4 (cut refinement) excluding witness h4 S1 t5 p0 world S0={4-3 4-4 5-4} S1={2-1 4-0 5-1} S2={0-0 1-1 2-0} S3={2-2 4-2 5-5} values 2-1=9 4-0=-11 5-1=9
+  drop decl=P3 -> dropped
+  drop ply=0 -> dropped
+  introduce beaters-total(1-1)<=0 (cut refinement) excluding witness h10 S0 t5 p1 world S0={3-0 4-4 6-5} S1={2-0 3-2 6-1} S2={2-2 3-3 4-0} S3={5-3 6-3} values 3-0=-6 4-4=-6 6-5=4
+  drop role=declaring -> dropped
+  drop horizon>=3 -> dropped
+  introduce beaters-total(2-0)<=4 (cut refinement) excluding witness h4 S1 t4 p0 world S0={4-4 5-4 5-5 6-2} S1={2-1 4-0 5-1 6-5} S2={0-0 1-1 2-0 2-2} S3={4-2 4-3 5-0 5-2} values 2-1=-15 4-0=-17 5-1=-15 6-5=-15
+  drop horizon<=3 -> dropped
+final implicant (3 cells): beaters-total(2-0)=4 & beaters-total(1-1)<=0
+surviving: [none]
+re-pinned: [beaters-total(2-0)=4] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 3/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 64 decisions / 476545 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/64 worlds 1680/476545 triple (488,1192,0)
+basin dominance class: W (weak, strict somewhere)
+basin/frame-compatible rate: 1/64 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere), safe-substitution 1 decisions (weak dominance over the matched set; T-coverage counts)
+  h0 S1 t5 p0: worlds 1680/1680 triple (488,1192,0) class W (weak, strict somewhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h0 S1 t5 p0 fiber 1680 grade worldwise-dominance (PI)
+  chosen 3-2 better [0-0 2-1] regret 61/21
+verdict: win: decisive suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (25 cells): hand=0 & seat=S1 & decl=P3 & role=declaring & horizon>=3 & horizon<=3 & ply=0 & beaters-total(1-1)=0 & beaters-total(2-0)=4 & beaters-total(2-2)=0 & beaters-total(4-1)=2 & beaters-total(4-2)=1 & beaters-total(4-4)=0 & beaters-total(5-1)=1 & beaters-total(5-2)=0 & beaters-total(6-2)=0
+trace:
+  drop hand=0 -> dropped
+  drop seat=S1 -> dropped
+  drop beaters-total(1-1)>=0 -> dropped
+  drop beaters-total(1-1)<=0 -> dropped
+  drop beaters-total(2-0)>=4 -> dropped
+  drop beaters-total(2-0)<=4 -> dropped
+  drop beaters-total(2-2)>=0 -> dropped
+  drop beaters-total(2-2)<=0 -> dropped
+  drop beaters-total(4-1)>=2 -> dropped
+  drop beaters-total(4-1)<=2 -> dropped
+  drop beaters-total(4-2)>=1 -> dropped
+  drop beaters-total(4-2)<=1 -> dropped
+  drop beaters-total(4-4)>=0 -> dropped
+  drop beaters-total(4-4)<=0 -> dropped
+  drop beaters-total(5-1)>=1 -> dropped
+  drop beaters-total(5-1)<=1 -> dropped
+  drop beaters-total(5-2)>=0 -> dropped
+  drop beaters-total(5-2)<=0 -> dropped
+  drop beaters-total(6-2)>=0 -> dropped
+  drop beaters-total(6-2)<=0 -> dropped
+  introduce beaters-total(2-0)<=4 (cut refinement) excluding witness h2 S3 t5 p0 world S0={1-0 2-2 4-1} S1={1-1 3-0 3-1} S2={3-2 4-3 6-6} S3={2-1 3-3 5-4} values 2-1=1 3-3=-9 5-4=-9
+  introduce beaters-total(2-0)>=4 (cut refinement) excluding witness h4 S1 t5 p0 world S0={4-3 4-4 5-4} S1={2-1 4-0 5-1} S2={0-0 1-1 2-0} S3={2-2 4-2 5-5} values 2-1=9 4-0=-11 5-1=9
+  drop decl=P3 -> dropped
+  drop ply=0 -> dropped
+  introduce beaters-total(1-1)<=0 (cut refinement) excluding witness h10 S0 t5 p1 world S0={3-0 4-4 6-5} S1={2-0 3-2 6-1} S2={2-2 3-3 4-0} S3={5-3 6-3} values 3-0=-6 4-4=-6 6-5=4
+  drop role=declaring -> dropped
+  drop horizon>=3 -> dropped
+  drop horizon<=3 -> dropped
+final implicant (3 cells): beaters-total(2-0)=4 & beaters-total(1-1)<=0
+surviving: [none]
+re-pinned: [beaters-total(2-0)=4] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 3/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 135 decisions / 649657 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/135 worlds 1680/649657 triple (0,1680,0)
+basin/frame-compatible rate: 1/135 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+  h0 S1 t5 p0: worlds 1680/1680 triple (0,1680,0)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h1 S0 t5 p2 fiber 210 grade worldwise-dominance (PI)
+  chosen 3-3 better [5-2] regret 2/3
+verdict: refutation: value(tile(5-2)) >= value(decisive) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (24 cells): hand=1 & seat=S0 & decl=P6 & role=declaring & horizon>=3 & horizon<=3 & ply=2 & bestkeep=true & beaters-total(1-0)=2 & beaters-total(1-1)=0 & beaters-total(3-0)=2 & beaters-total(3-1)=1 & beaters-total(4-0)=2 & beaters-total(4-3)=1 & beaters-total(5-4)=0 & opp-beaters=0
+trace:
+  drop hand=1 -> dropped
+  drop seat=S0 -> dropped
+  drop bestkeep=true -> dropped
+  drop beaters-total(1-0)>=2 -> dropped
+  drop beaters-total(1-0)<=2 -> dropped
+  drop beaters-total(1-1)>=0 -> dropped
+  drop beaters-total(1-1)<=0 -> dropped
+  drop beaters-total(3-0)>=2 -> dropped
+  drop beaters-total(3-0)<=2 -> dropped
+  drop beaters-total(3-1)>=1 -> dropped
+  drop beaters-total(3-1)<=1 -> dropped
+  drop beaters-total(4-0)>=2 -> dropped
+  drop beaters-total(4-0)<=2 -> dropped
+  drop beaters-total(4-3)>=1 -> dropped
+  drop beaters-total(4-3)<=1 -> dropped
+  drop beaters-total(5-4)>=0 -> dropped
+  drop beaters-total(5-4)<=0 -> dropped
+  drop opp-beaters>=0 -> dropped
+  drop opp-beaters<=0 -> dropped
+  drop decl=P6 -> dropped
+  introduce bestkeep=true (cut refinement) excluding witness h5 S0 t5 p3 world S0={4-1 5-0 5-2} S1={1-1 4-2} S2={4-3 5-1} S3={4-4 5-5} values 4-1=-11 5-0=-11 5-2=-21
+  introduce beaters-total(1-0)<=2 (cut refinement) excluding witness h10 S3 t5 p0 world S0={2-2 3-0 6-1} S1={3-2 3-3 6-5} S2={4-0 4-4 5-3} S3={2-0 5-2 6-3} values 2-0=-4 5-2=6 6-3=8
+  drop ply=2 -> dropped
+  drop role=declaring -> dropped
+  drop horizon>=3 -> dropped
+  drop horizon<=3 -> dropped
+final implicant (2 cells): bestkeep=true & beaters-total(1-0)<=2
+surviving: [none]
+re-pinned: [none] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 2/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 14 decisions / 14305 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/14 worlds 210/14305 triple (70,140,0)
+basin dominance class: W (weak, strict somewhere)
+basin/frame-compatible rate: 1/14 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere), safe-substitution 1 decisions (weak dominance over the matched set; T-coverage counts)
+  h1 S0 t5 p2: worlds 210/210 triple (70,140,0) class W (weak, strict somewhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h1 S0 t5 p2 fiber 210 grade worldwise-dominance (PI)
+  chosen 3-3 better [5-2] regret 2/3
+verdict: win: tile(5-2) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (24 cells): hand=1 & seat=S0 & decl=P6 & role=declaring & horizon>=3 & horizon<=3 & ply=2 & bestkeep=true & beaters-total(1-0)=2 & beaters-total(1-1)=0 & beaters-total(3-0)=2 & beaters-total(3-1)=1 & beaters-total(4-0)=2 & beaters-total(4-3)=1 & beaters-total(5-4)=0 & opp-beaters=0
+trace:
+  drop hand=1 -> dropped
+  drop seat=S0 -> dropped
+  drop bestkeep=true -> dropped
+  drop beaters-total(1-0)>=2 -> dropped
+  drop beaters-total(1-0)<=2 -> dropped
+  drop beaters-total(1-1)>=0 -> dropped
+  drop beaters-total(1-1)<=0 -> dropped
+  drop beaters-total(3-0)>=2 -> dropped
+  drop beaters-total(3-0)<=2 -> dropped
+  drop beaters-total(3-1)>=1 -> dropped
+  drop beaters-total(3-1)<=1 -> dropped
+  drop beaters-total(4-0)>=2 -> dropped
+  drop beaters-total(4-0)<=2 -> dropped
+  drop beaters-total(4-3)>=1 -> dropped
+  drop beaters-total(4-3)<=1 -> dropped
+  drop beaters-total(5-4)>=0 -> dropped
+  drop beaters-total(5-4)<=0 -> dropped
+  drop opp-beaters>=0 -> dropped
+  drop opp-beaters<=0 -> dropped
+  drop decl=P6 -> dropped
+  drop ply=2 -> SURVIVES; witness h5 S0 t5 p3 world S0={4-1 5-0 5-2} S1={1-1 4-2} S2={4-3 4-4} S3={5-1 5-5} values 4-1=-21 5-0=-11 5-2=-21
+  drop role=declaring -> dropped
+  drop horizon>=3 -> dropped
+  relax horizon<=3 -> BOUND HELD at horizon<=3; witness h1 S0 t4 p2 world S0={3-3 5-0 5-2 5-3} S1={0-0 1-0 1-1 3-0} S2={2-1 4-0 6-6} S3={3-1 4-3 5-4} values 3-3=7 5-0=9 5-2=7 5-3=9
+final implicant (2 cells): horizon<=3 & ply=2
+surviving: [ply=2, horizon<=3]
+re-pinned: [none] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 0/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 20 decisions / 49980 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 5/20 worlds 651/49980 triple (0,651,0)
+basin/frame-compatible rate: 5/5 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+  h1 S0 t5 p2: worlds 210/210 triple (0,210,0)
+  h1 S0 t6 p2: worlds 12/12 triple (0,12,0)
+  h6 S1 t5 p2: worlds 210/210 triple (0,210,0)
+  h7 S2 t5 p2: worlds 210/210 triple (0,210,0)
+  h9 S3 t6 p2: worlds 9/9 triple (0,9,0)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h1 S2 t3 p0 fiber 756756 grade sampled (PI, uniform-over-fiber, seed 0x7ae6fb30978a81d3, draws 64)
+  chosen 2-2 better [1-1 4-3] regret 5/8
+verdict: refutation: value(min-count) >= value(decisive) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (40 cells): hand=1 & seat=S2 & decl=P6 & role=declaring & horizon>=5 & horizon<=5 & ply=0 & bestkeep=true & beaters-total(0-0)=0 & beaters-total(1-0)=3 & beaters-total(2-0)=4 & beaters-total(2-1)=3 & beaters-total(3-0)=4 & beaters-total(3-1)=3 & beaters-total(3-2)=2 & beaters-total(3-3)=0 & beaters-total(4-0)=2 & beaters-total(4-2)=1 & beaters-total(5-0)=4 & beaters-total(5-1)=3 & beaters-total(5-2)=2 & beaters-total(5-3)=1 & beaters-total(5-4)=0 & opp-beaters=0
+trace:
+  drop horizon<=5 -> dropped
+  drop horizon>=5 -> dropped
+  drop role=declaring -> dropped
+  drop ply=0 -> dropped
+  drop decl=P6 -> dropped
+  drop opp-beaters<=0 -> dropped
+  drop opp-beaters>=0 -> dropped
+  drop beaters-total(5-4)<=0 -> dropped
+  drop beaters-total(5-4)>=0 -> dropped
+  drop beaters-total(5-3)<=1 -> dropped
+  drop beaters-total(5-3)>=1 -> dropped
+  drop beaters-total(5-2)<=2 -> dropped
+  drop beaters-total(5-2)>=2 -> dropped
+  drop beaters-total(5-1)<=3 -> dropped
+  drop beaters-total(5-1)>=3 -> dropped
+  drop beaters-total(5-0)<=4 -> dropped
+  drop beaters-total(5-0)>=4 -> dropped
+  drop beaters-total(4-2)<=1 -> dropped
+  drop beaters-total(4-2)>=1 -> dropped
+  drop beaters-total(4-0)<=2 -> dropped
+  drop beaters-total(4-0)>=2 -> dropped
+  drop beaters-total(3-3)<=0 -> dropped
+  drop beaters-total(3-3)>=0 -> dropped
+  drop beaters-total(3-2)<=2 -> dropped
+  drop beaters-total(3-2)>=2 -> dropped
+  drop beaters-total(3-1)<=3 -> dropped
+  drop beaters-total(3-1)>=3 -> dropped
+  drop beaters-total(3-0)<=4 -> dropped
+  drop beaters-total(3-0)>=4 -> dropped
+  drop beaters-total(2-1)<=3 -> dropped
+  drop beaters-total(2-1)>=3 -> dropped
+  drop beaters-total(2-0)<=4 -> dropped
+  drop beaters-total(2-0)>=4 -> dropped
+  drop beaters-total(1-0)<=3 -> dropped
+  drop beaters-total(1-0)>=3 -> dropped
+  drop beaters-total(0-0)<=0 -> dropped
+  drop beaters-total(0-0)>=0 -> dropped
+  drop bestkeep=true -> dropped
+  introduce beaters-total(1-0)<=1 (cut refinement) excluding witness h1 S3 t4 p1 world S0={0-0 5-0 5-2 5-3} S1={1-1 3-0 3-3 4-3} S2={3-1 4-0 6-6} S3={1-0 2-1 5-1 5-4} values 1-0=-7 2-1=-5 5-1=-5 5-4=-5
+  drop seat=S2 -> dropped
+  drop hand=1 -> dropped
+final implicant (1 cells): beaters-total(1-0)<=1
+surviving: [none]
+re-pinned: [none] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 1/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 89 decisions / 454235 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 3/89 worlds 186/454235 triple (48,138,0)
+basin dominance class: W (weak, strict somewhere)
+basin/frame-compatible rate: 3/89 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere), safe-substitution 3 decisions (weak dominance over the matched set; T-coverage counts)
+  h1 S1 t5 p3: worlds 90/90 triple (0,90,0) class T (tied everywhere)
+  h1 S2 t6 p0: worlds 90/90 triple (48,42,0) class W (weak, strict somewhere)
+  h7 S3 t6 p3: worlds 6/6 triple (0,6,0) class T (tied everywhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h1 S2 t4 p0 fiber 34650 grade worldwise-dominance (PI)
+  chosen 6-0 better [1-1 4-3] regret 8/11
+verdict: refutation: value(tile(4-3)) >= value(tile(6-0)) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (34 cells): hand=1 & seat=S2 & decl=P6 & role=declaring & horizon>=4 & horizon<=4 & ply=0 & bestkeep=true & beaters-total(0-0)=0 & beaters-total(1-0)=3 & beaters-total(2-1)=1 & beaters-total(3-0)=3 & beaters-total(3-1)=2 & beaters-total(3-3)=0 & beaters-total(4-0)=1 & beaters-total(5-0)=4 & beaters-total(5-1)=3 & beaters-total(5-2)=2 & beaters-total(5-3)=1 & beaters-total(5-4)=0 & opp-beaters=0
+trace:
+  drop hand=1 -> dropped
+  drop seat=S2 -> dropped
+  drop bestkeep=true -> dropped
+  drop beaters-total(0-0)>=0 -> dropped
+  drop beaters-total(0-0)<=0 -> dropped
+  drop beaters-total(1-0)>=3 -> dropped
+  drop beaters-total(1-0)<=3 -> dropped
+  drop beaters-total(2-1)>=1 -> dropped
+  drop beaters-total(2-1)<=1 -> dropped
+  drop beaters-total(3-0)>=3 -> dropped
+  drop beaters-total(3-0)<=3 -> dropped
+  drop beaters-total(3-1)>=2 -> dropped
+  drop beaters-total(3-1)<=2 -> dropped
+  drop beaters-total(3-3)>=0 -> dropped
+  drop beaters-total(3-3)<=0 -> dropped
+  drop beaters-total(4-0)>=1 -> dropped
+  drop beaters-total(4-0)<=1 -> dropped
+  drop beaters-total(5-0)>=4 -> dropped
+  drop beaters-total(5-0)<=4 -> dropped
+  drop beaters-total(5-1)>=3 -> dropped
+  drop beaters-total(5-1)<=3 -> dropped
+  drop beaters-total(5-2)>=2 -> dropped
+  drop beaters-total(5-2)<=2 -> dropped
+  drop beaters-total(5-3)>=1 -> dropped
+  drop beaters-total(5-3)<=1 -> dropped
+  drop beaters-total(5-4)>=0 -> dropped
+  drop beaters-total(5-4)<=0 -> dropped
+  drop opp-beaters>=0 -> dropped
+  drop opp-beaters<=0 -> dropped
+  drop decl=P6 -> dropped
+  drop ply=0 -> dropped
+  introduce beaters-total(0-0)<=0 (cut refinement) excluding witness h8 S2 t4 p1 world S0={3-3 4-1 5-3 6-4} S1={3-0 5-0 6-2} S2={4-0 4-3 6-0 6-6} S3={0-0 2-0 3-1 5-5} values 4-0=-22 4-3=-30 6-0=-22 6-6=-22
+  drop role=declaring -> dropped
+  drop horizon>=4 -> dropped
+  drop horizon<=4 -> dropped
+final implicant (1 cells): beaters-total(0-0)<=0
+surviving: [none]
+re-pinned: [none] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 1/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 3 decisions / 63630 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/3 worlds 34650/63630 triple (2520,32130,0)
+basin dominance class: W (weak, strict somewhere)
+basin/frame-compatible rate: 1/3 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere), safe-substitution 1 decisions (weak dominance over the matched set; T-coverage counts)
+  h1 S2 t4 p0: worlds 34650/34650 triple (2520,32130,0) class W (weak, strict somewhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h1 S2 t4 p0 fiber 34650 grade worldwise-dominance (PI)
+  chosen 6-0 better [1-1 4-3] regret 8/11
+verdict: win: tile(4-3) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (34 cells): hand=1 & seat=S2 & decl=P6 & role=declaring & horizon>=4 & horizon<=4 & ply=0 & bestkeep=true & beaters-total(0-0)=0 & beaters-total(1-0)=3 & beaters-total(2-1)=1 & beaters-total(3-0)=3 & beaters-total(3-1)=2 & beaters-total(3-3)=0 & beaters-total(4-0)=1 & beaters-total(5-0)=4 & beaters-total(5-1)=3 & beaters-total(5-2)=2 & beaters-total(5-3)=1 & beaters-total(5-4)=0 & opp-beaters=0
+trace:
+  drop hand=1 -> dropped
+  drop seat=S2 -> dropped
+  drop bestkeep=true -> dropped
+  drop beaters-total(0-0)>=0 -> dropped
+  drop beaters-total(0-0)<=0 -> dropped
+  drop beaters-total(1-0)>=3 -> dropped
+  drop beaters-total(1-0)<=3 -> dropped
+  drop beaters-total(2-1)>=1 -> dropped
+  drop beaters-total(2-1)<=1 -> dropped
+  drop beaters-total(3-0)>=3 -> dropped
+  drop beaters-total(3-0)<=3 -> dropped
+  drop beaters-total(3-1)>=2 -> dropped
+  drop beaters-total(3-1)<=2 -> dropped
+  drop beaters-total(3-3)>=0 -> dropped
+  drop beaters-total(3-3)<=0 -> dropped
+  drop beaters-total(4-0)>=1 -> dropped
+  drop beaters-total(4-0)<=1 -> dropped
+  drop beaters-total(5-0)>=4 -> dropped
+  drop beaters-total(5-0)<=4 -> dropped
+  drop beaters-total(5-1)>=3 -> dropped
+  drop beaters-total(5-1)<=3 -> dropped
+  drop beaters-total(5-2)>=2 -> dropped
+  drop beaters-total(5-2)<=2 -> dropped
+  drop beaters-total(5-3)>=1 -> dropped
+  drop beaters-total(5-3)<=1 -> dropped
+  drop beaters-total(5-4)>=0 -> dropped
+  drop beaters-total(5-4)<=0 -> dropped
+  drop opp-beaters>=0 -> dropped
+  drop opp-beaters<=0 -> dropped
+  introduce bestkeep=true (cut refinement) excluding witness h6 S3 t4 p0 world S0={0-0 2-0 2-2 3-0} S1={3-1 4-2 5-1 5-4} S2={4-4 5-2 5-5 6-4} S3={1-1 4-0 4-3 5-3} values 1-1=0 4-0=-24 4-3=-24 5-3=-24
+  introduce beaters-total(0-0)<=0 (cut refinement) excluding witness h6 S3 t4 p0 world S0={0-0 2-0 2-2 3-0} S1={4-2 4-4 5-1 5-2} S2={3-1 5-4 5-5 6-4} S3={1-1 4-0 4-3 5-3} values 1-1=0 4-0=-22 4-3=-22 5-3=-2
+  drop decl=P6 -> dropped
+  drop ply=0 -> dropped
+  introduce beaters-total(1-0)<=3 (cut refinement) excluding witness h12 S2 t4 p1 world S0={3-0 4-1 4-4 6-0} S1={4-0 5-1 6-6} S2={1-1 3-2 3-3 4-3} S3={0-0 1-0 2-0 3-1} values 1-1=-12 3-2=-10 3-3=-12 4-3=-12
+  drop role=declaring -> dropped
+  drop horizon>=4 -> dropped
+  drop horizon<=4 -> dropped
+final implicant (3 cells): bestkeep=true & beaters-total(0-0)<=0 & beaters-total(1-0)<=3
+surviving: [none]
+re-pinned: [none] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 3/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 22 decisions / 164162 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/22 worlds 34650/164162 triple (0,34650,0)
+basin/frame-compatible rate: 1/22 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+  h1 S2 t4 p0: worlds 34650/34650 triple (0,34650,0)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h2 S2 t3 p0 fiber 756756 grade sampled (PI, uniform-over-fiber, seed 0x39dba10f3d3cf947, draws 64)
+  chosen 6-2 better [1-1 6-6] regret 61/32
+verdict: refutation: value(tile(6-6)) >= value(tile(6-2)) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (40 cells): hand=2 & seat=S2 & decl=P5 & role=defending & horizon>=5 & horizon<=5 & ply=0 & bestkeep=true & beaters-total(1-0)=8 & beaters-total(2-0)=6 & beaters-total(2-1)=5 & beaters-total(2-2)=4 & beaters-total(3-0)=7 & beaters-total(3-1)=6 & beaters-total(3-3)=4 & beaters-total(4-1)=5 & beaters-total(4-3)=4 & beaters-total(5-0)=3 & beaters-total(5-2)=2 & beaters-total(5-3)=1 & beaters-total(5-4)=0 & beaters-total(6-0)=5 & beaters-total(6-1)=4 & opp-beaters=0
+trace:
+  drop hand=2 -> dropped
+  drop seat=S2 -> dropped
+  drop bestkeep=true -> dropped
+  drop beaters-total(1-0)>=8 -> dropped
+  drop beaters-total(1-0)<=8 -> dropped
+  drop beaters-total(2-0)>=6 -> dropped
+  drop beaters-total(2-0)<=6 -> dropped
+  drop beaters-total(2-1)>=5 -> dropped
+  drop beaters-total(2-1)<=5 -> dropped
+  drop beaters-total(2-2)>=4 -> dropped
+  drop beaters-total(2-2)<=4 -> dropped
+  drop beaters-total(3-0)>=7 -> dropped
+  drop beaters-total(3-0)<=7 -> dropped
+  drop beaters-total(3-1)>=6 -> dropped
+  drop beaters-total(3-1)<=6 -> dropped
+  drop beaters-total(3-3)>=4 -> dropped
+  drop beaters-total(3-3)<=4 -> dropped
+  drop beaters-total(4-1)>=5 -> dropped
+  drop beaters-total(4-1)<=5 -> dropped
+  drop beaters-total(4-3)>=4 -> dropped
+  drop beaters-total(4-3)<=4 -> dropped
+  drop beaters-total(5-0)>=3 -> dropped
+  drop beaters-total(5-0)<=3 -> dropped
+  drop beaters-total(5-2)>=2 -> dropped
+  drop beaters-total(5-2)<=2 -> dropped
+  drop beaters-total(5-3)>=1 -> dropped
+  drop beaters-total(5-3)<=1 -> dropped
+  drop beaters-total(5-4)>=0 -> dropped
+  drop beaters-total(5-4)<=0 -> dropped
+  drop beaters-total(6-0)>=5 -> dropped
+  drop beaters-total(6-0)<=5 -> dropped
+  drop beaters-total(6-1)>=4 -> dropped
+  drop beaters-total(6-1)<=4 -> dropped
+  drop opp-beaters>=0 -> dropped
+  drop opp-beaters<=0 -> dropped
+  drop decl=P5 -> dropped
+  drop ply=0 -> dropped
+  drop role=defending -> dropped
+  drop horizon>=5 -> dropped
+  drop horizon<=5 -> dropped
+final implicant (0 cells): (empty)
+surviving: [none]
+re-pinned: [none] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 0/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 0 decisions / 0 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 0/0 worlds 0/0 triple (0,0,0)
+basin/frame-compatible rate: 0/0 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h2 S2 t4 p3 fiber 1120 grade worldwise-dominance (PI)
+  chosen 6-3 better [1-1 6-6] regret 65/112
+verdict: refutation: value(tile(6-6)) >= value(tile(6-3)) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (26 cells): hand=2 & seat=S2 & decl=P5 & role=defending & horizon>=4 & horizon<=4 & ply=3 & team(5-4)=false & beaters-total(1-0)=4 & beaters-total(2-1)=2 & beaters-total(2-2)=1 & beaters-total(3-0)=4 & beaters-total(3-1)=3 & beaters-total(3-3)=1 & beaters-total(4-1)=2 & beaters-total(4-3)=1 & beaters-total(5-4)=0
+trace:
+  drop hand=2 -> dropped
+  drop seat=S2 -> dropped
+  drop team(5-4)=false -> dropped
+  drop beaters-total(1-0)>=4 -> dropped
+  drop beaters-total(1-0)<=4 -> dropped
+  drop beaters-total(2-1)>=2 -> dropped
+  drop beaters-total(2-1)<=2 -> dropped
+  drop beaters-total(2-2)>=1 -> dropped
+  drop beaters-total(2-2)<=1 -> dropped
+  drop beaters-total(3-0)>=4 -> dropped
+  drop beaters-total(3-0)<=4 -> dropped
+  drop beaters-total(3-1)>=3 -> dropped
+  drop beaters-total(3-1)<=3 -> dropped
+  drop beaters-total(3-3)>=1 -> dropped
+  drop beaters-total(3-3)<=1 -> dropped
+  drop beaters-total(4-1)>=2 -> dropped
+  drop beaters-total(4-1)<=2 -> dropped
+  drop beaters-total(4-3)>=1 -> dropped
+  drop beaters-total(4-3)<=1 -> dropped
+  drop beaters-total(5-4)>=0 -> dropped
+  drop beaters-total(5-4)<=0 -> dropped
+  drop decl=P5 -> dropped
+  drop ply=3 -> dropped
+  drop role=defending -> dropped
+  drop horizon>=4 -> dropped
+  drop horizon<=4 -> dropped
+final implicant (0 cells): (empty)
+surviving: [none]
+re-pinned: [none] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 0/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 1 decisions / 1120 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/1 worlds 1120/1120 triple (91,1029,0)
+basin dominance class: W (weak, strict somewhere)
+basin/frame-compatible rate: 1/1 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere), safe-substitution 1 decisions (weak dominance over the matched set; T-coverage counts)
+  h2 S2 t4 p3: worlds 1120/1120 triple (91,1029,0) class W (weak, strict somewhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h3 S3 t4 p1 fiber 2450 grade worldwise-dominance (PI)
+  chosen 5-3 better [6-3] regret 1243/1225
+verdict: refutation: value(decisive) >= value(min-count) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (29 cells): hand=3 & seat=S3 & decl=P0 & role=defending & horizon>=4 & horizon<=4 & ply=1 & beaters-total(3-0)=2 & beaters-total(3-1)=4 & beaters-total(3-3)=3 & beaters-total(4-0)=1 & beaters-total(4-1)=5 & beaters-total(4-2)=4 & beaters-total(5-0)=0 & beaters-total(6-1)=6 & beaters-total(6-4)=5 & beaters-total(6-5)=4 & beaters-total(6-6)=3
+trace:
+  drop hand=3 -> dropped
+  drop seat=S3 -> dropped
+  drop beaters-total(3-0)>=2 -> dropped
+  drop beaters-total(3-0)<=2 -> dropped
+  drop beaters-total(3-1)>=4 -> dropped
+  drop beaters-total(3-1)<=4 -> dropped
+  drop beaters-total(3-3)>=3 -> dropped
+  drop beaters-total(3-3)<=3 -> dropped
+  drop beaters-total(4-0)>=1 -> dropped
+  drop beaters-total(4-0)<=1 -> dropped
+  drop beaters-total(4-1)>=5 -> dropped
+  drop beaters-total(4-1)<=5 -> dropped
+  drop beaters-total(4-2)>=4 -> dropped
+  drop beaters-total(4-2)<=4 -> dropped
+  drop beaters-total(5-0)>=0 -> dropped
+  drop beaters-total(5-0)<=0 -> dropped
+  drop beaters-total(6-1)>=6 -> dropped
+  drop beaters-total(6-1)<=6 -> dropped
+  drop beaters-total(6-4)>=5 -> dropped
+  drop beaters-total(6-4)<=5 -> dropped
+  drop beaters-total(6-5)>=4 -> dropped
+  drop beaters-total(6-5)<=4 -> dropped
+  drop beaters-total(6-6)>=3 -> dropped
+  drop beaters-total(6-6)<=3 -> dropped
+  introduce beaters-total(3-0)<=2 (cut refinement) excluding witness h1 S3 t4 p1 world S0={0-0 1-1 3-0 3-1} S1={3-3 4-0 4-3 5-0} S2={5-2 5-3 6-6} S3={1-0 2-1 5-1 5-4} values 1-0=3 2-1=3 5-1=3 5-4=-9
+  introduce beaters-total(3-0)>=2 (cut refinement) excluding witness h9 S3 t4 p1 world S0={1-1 2-0 2-1 2-2} S1={3-0 5-4 6-0 6-1} S2={6-2 6-5 6-6} S3={3-2 5-1 5-2 5-5} values 3-2=20 5-1=24 5-2=24 5-5=20
+  drop decl=P0 -> dropped
+  drop ply=1 -> dropped
+  introduce beaters-total(3-1)<=4 (cut refinement) excluding witness h3 S2 t4 p0 world S0={4-2 5-0 5-3 6-3} S1={5-5 6-1 6-5 6-6} S2={3-1 4-1 4-4 6-4} S3={3-0 3-2 3-3 4-0} values 3-1=5 4-1=-7 4-4=-7 6-4=-17
+  drop role=defending -> dropped
+  introduce beaters-total(3-1)>=4 (cut refinement) excluding witness h11 S3 t5 p3 world S0={1-1 6-0} S1={3-0 3-1} S2={6-2 6-3} S3={3-3 5-5 6-6} values 3-3=-16 5-5=-16 6-6=-18
+  drop horizon>=4 -> dropped
+  drop horizon<=4 -> dropped
+final implicant (4 cells): beaters-total(3-0)=2 & beaters-total(3-1)=4
+surviving: [none]
+re-pinned: [beaters-total(3-0)=2, beaters-total(3-1)=4] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 4/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 89 decisions / 454235 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/89 worlds 2450/454235 triple (191,2259,0)
+basin dominance class: W (weak, strict somewhere)
+basin/frame-compatible rate: 1/89 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere), safe-substitution 1 decisions (weak dominance over the matched set; T-coverage counts)
+  h3 S3 t4 p1: worlds 2450/2450 triple (191,2259,0) class W (weak, strict somewhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h4 S0 t4 p3 fiber 1680 grade worldwise-dominance (PI)
+  chosen 5-2 better [2-0 4-2] regret 1163/840
+verdict: refutation: value(decisive) >= value(tile(5-2)) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (25 cells): hand=4 & seat=S0 & decl=P1 & role=defending & horizon>=4 & horizon<=4 & ply=3 & beaters-total(0-0)=3 & beaters-total(1-1)=0 & beaters-total(2-1)=2 & beaters-total(2-2)=3 & beaters-total(4-0)=6 & beaters-total(4-3)=5 & beaters-total(4-4)=3 & beaters-total(5-1)=1 & beaters-total(5-4)=3
+trace:
+  drop hand=4 -> dropped
+  drop seat=S0 -> dropped
+  drop beaters-total(0-0)>=3 -> dropped
+  drop beaters-total(0-0)<=3 -> dropped
+  drop beaters-total(1-1)>=0 -> dropped
+  drop beaters-total(1-1)<=0 -> dropped
+  drop beaters-total(2-1)>=2 -> dropped
+  drop beaters-total(2-1)<=2 -> dropped
+  drop beaters-total(2-2)>=3 -> dropped
+  drop beaters-total(2-2)<=3 -> dropped
+  drop beaters-total(4-0)>=6 -> dropped
+  drop beaters-total(4-0)<=6 -> dropped
+  drop beaters-total(4-3)>=5 -> dropped
+  drop beaters-total(4-3)<=5 -> dropped
+  drop beaters-total(4-4)>=3 -> dropped
+  drop beaters-total(4-4)<=3 -> dropped
+  drop beaters-total(5-1)>=1 -> dropped
+  drop beaters-total(5-1)<=1 -> dropped
+  drop beaters-total(5-4)>=3 -> dropped
+  drop beaters-total(5-4)<=3 -> dropped
+  drop decl=P1 -> dropped
+  introduce beaters-total(0-0)<=3 (cut refinement) excluding witness h9 S3 t4 p1 world S0={1-1 2-0 2-1 2-2} S1={3-0 5-4 6-0 6-1} S2={6-2 6-5 6-6} S3={3-2 5-1 5-2 5-5} values 3-2=20 5-1=24 5-2=24 5-5=20
+  drop ply=3 -> dropped
+  introduce beaters-total(0-0)>=3 (cut refinement) excluding witness h1 S0 t4 p2 world S0={3-3 5-0 5-2 5-3} S1={0-0 1-0 1-1 2-1} S2={3-0 4-0 6-6} S3={3-1 4-3 5-4} values 3-3=7 5-0=9 5-2=9 5-3=7
+  drop role=defending -> dropped
+  drop horizon>=4 -> dropped
+  drop horizon<=4 -> dropped
+final implicant (2 cells): beaters-total(0-0)=3
+surviving: [none]
+re-pinned: [beaters-total(0-0)=3] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 2/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 14 decisions / 14305 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/14 worlds 1680/14305 triple (122,1558,0)
+basin dominance class: W (weak, strict somewhere)
+basin/frame-compatible rate: 1/14 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere), safe-substitution 1 decisions (weak dominance over the matched set; T-coverage counts)
+  h4 S0 t4 p3: worlds 1680/1680 triple (122,1558,0) class W (weak, strict somewhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h4 S3 t5 p2 fiber 210 grade worldwise-dominance (PI)
+  chosen 4-3 better [5-4] regret 1/105
+verdict: refutation: value(max-count) >= value(min-count) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (24 cells): hand=4 & seat=S3 & decl=P1 & role=declaring & horizon>=3 & horizon<=3 & ply=2 & bestkeep=true & beaters-total(0-0)=3 & beaters-total(1-1)=0 & beaters-total(2-0)=4 & beaters-total(2-1)=2 & beaters-total(4-2)=3 & beaters-total(5-1)=1 & beaters-total(5-5)=3 & opp-beaters=0
+trace:
+  drop horizon<=3 -> dropped
+  drop horizon>=3 -> dropped
+  drop role=declaring -> dropped
+  drop ply=2 -> dropped
+  drop decl=P1 -> dropped
+  drop opp-beaters<=0 -> dropped
+  drop opp-beaters>=0 -> dropped
+  drop beaters-total(5-5)<=3 -> dropped
+  drop beaters-total(5-5)>=3 -> dropped
+  drop beaters-total(5-1)<=1 -> dropped
+  drop beaters-total(5-1)>=1 -> dropped
+  drop beaters-total(4-2)<=3 -> dropped
+  drop beaters-total(4-2)>=3 -> dropped
+  drop beaters-total(2-1)<=2 -> dropped
+  drop beaters-total(2-1)>=2 -> dropped
+  drop beaters-total(2-0)<=4 -> dropped
+  drop beaters-total(2-0)>=4 -> dropped
+  drop beaters-total(1-1)<=0 -> dropped
+  drop beaters-total(1-1)>=0 -> dropped
+  drop beaters-total(0-0)<=3 -> dropped
+  drop beaters-total(0-0)>=3 -> dropped
+  drop bestkeep=true -> dropped
+  introduce beaters-total(2-0)<=4 (cut refinement) excluding witness h4 S0 t4 p3 world S0={2-0 4-2 5-2 5-5} S1={0-0 1-1 2-2} S2={2-1 4-3 5-1} S3={4-0 4-4 5-4} values 2-0=3 4-2=-17 5-2=-17 5-5=-17
+  introduce beaters-total(1-1)<=0 (cut refinement) excluding witness h4 S2 t6 p0 world S0={2-2 5-4} S1={2-1 5-1} S2={0-0 1-1} S3={2-0 5-5} values 0-0=10 1-1=-10
+  drop seat=S3 -> dropped
+  introduce beaters-total(5-5)<=3 (cut refinement) excluding witness h0 S1 t5 p0 world S0={4-1 5-2 6-2} S1={0-0 2-1 3-2} S2={1-1 2-0 2-2} S3={4-2 4-4 5-1} values 0-0=11 2-1=11 3-2=1
+  drop hand=4 -> dropped
+final implicant (3 cells): beaters-total(2-0)<=4 & beaters-total(1-1)<=0 & beaters-total(5-5)<=3
+surviving: [none]
+re-pinned: [none] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 3/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 130 decisions / 706174 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 3/130 worlds 1920/706174 triple (1,1919,0)
+basin dominance class: W (weak, strict somewhere)
+basin/frame-compatible rate: 3/130 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere), safe-substitution 3 decisions (weak dominance over the matched set; T-coverage counts)
+  h4 S1 t5 p0: worlds 1680/1680 triple (0,1680,0) class T (tied everywhere)
+  h4 S3 t5 p2: worlds 210/210 triple (1,209,0) class W (weak, strict somewhere)
+  h4 S3 t6 p1: worlds 30/30 triple (0,30,0) class T (tied everywhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h4 S3 t5 p2 fiber 210 grade worldwise-dominance (PI)
+  chosen 4-3 better [5-4] regret 1/105
+verdict: win: max-count suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (24 cells): hand=4 & seat=S3 & decl=P1 & role=declaring & horizon>=3 & horizon<=3 & ply=2 & bestkeep=true & beaters-total(0-0)=3 & beaters-total(1-1)=0 & beaters-total(2-0)=4 & beaters-total(2-1)=2 & beaters-total(4-2)=3 & beaters-total(5-1)=1 & beaters-total(5-5)=3 & opp-beaters=0
+trace:
+  drop horizon<=3 -> dropped
+  drop horizon>=3 -> dropped
+  drop role=declaring -> dropped
+  drop ply=2 -> dropped
+  drop decl=P1 -> dropped
+  drop opp-beaters<=0 -> dropped
+  drop opp-beaters>=0 -> dropped
+  drop beaters-total(5-5)<=3 -> dropped
+  drop beaters-total(5-5)>=3 -> dropped
+  drop beaters-total(5-1)<=1 -> dropped
+  drop beaters-total(5-1)>=1 -> dropped
+  drop beaters-total(4-2)<=3 -> dropped
+  drop beaters-total(4-2)>=3 -> dropped
+  drop beaters-total(2-1)<=2 -> dropped
+  drop beaters-total(2-1)>=2 -> dropped
+  drop beaters-total(2-0)<=4 -> dropped
+  drop beaters-total(2-0)>=4 -> dropped
+  drop beaters-total(1-1)<=0 -> dropped
+  drop beaters-total(1-1)>=0 -> dropped
+  drop beaters-total(0-0)<=3 -> dropped
+  drop beaters-total(0-0)>=3 -> dropped
+  drop bestkeep=true -> dropped
+  introduce beaters-total(2-0)<=5 (cut refinement) excluding witness h4 S0 t4 p3 world S0={2-0 4-2 5-2 5-5} S1={0-0 1-1 2-2} S2={2-1 4-3 5-1} S3={4-0 4-4 5-4} values 2-0=3 4-2=-17 5-2=-17 5-5=-17
+  introduce beaters-total(2-1)<=2 (cut refinement) excluding witness h4 S1 t4 p0 world S0={5-2 5-4 5-5 6-2} S1={2-1 4-0 5-1 6-5} S2={0-0 1-1 2-0 2-2} S3={4-2 4-3 4-4 5-0} values 2-1=-15 4-0=-3 5-1=-15 6-5=-15
+  introduce beaters-total(1-1)<=0 (cut refinement) excluding witness h4 S2 t6 p0 world S0={2-2 5-4} S1={2-1 5-1} S2={0-0 1-1} S3={2-0 5-5} values 0-0=10 1-1=-10
+  drop seat=S3 -> dropped
+  introduce beaters-total(5-1)>=1 (cut refinement) excluding witness h0 S2 t5 p1 world S0={2-1 2-2 4-4} S1={4-2 5-1} S2={4-1 5-2 6-2} S3={0-0 1-1 2-0} values 4-1=-9 5-2=-1 6-2=1
+  drop hand=4 -> dropped
+final implicant (4 cells): beaters-total(2-0)<=5 & beaters-total(2-1)<=2 & beaters-total(1-1)<=0 & beaters-total(5-1)>=1
+surviving: [none]
+re-pinned: [none] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 4/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 179 decisions / 924813 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 3/179 worlds 4440/924813 triple (0,4440,0)
+basin/frame-compatible rate: 3/179 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+  h4 S3 t4 p2: worlds 4200/4200 triple (0,4200,0)
+  h4 S3 t5 p2: worlds 210/210 triple (0,210,0)
+  h4 S3 t6 p1: worlds 30/30 triple (0,30,0)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h11 S1 t3 p3 fiber 23100 grade worldwise-dominance (PI)
+  chosen 0-0 better [2-0 3-1 5-1] regret 8/5775
+verdict: refutation: value(tile(2-0)) >= value(min-count) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (32 cells): hand=11 & seat=S1 & decl=P4 & role=defending & horizon>=5 & horizon<=5 & ply=3 & team(1-1)=false & beaters-total(1-1)=1 & beaters-total(2-2)=1 & beaters-total(3-0)=5 & beaters-total(3-2)=4 & beaters-total(3-3)=1 & beaters-total(5-2)=3 & beaters-total(5-3)=2 & beaters-total(5-5)=1 & beaters-total(6-0)=3 & beaters-total(6-3)=2 & beaters-total(6-4)=0 & beaters-total(6-6)=1
+trace:
+  drop hand=11 -> dropped
+  drop seat=S1 -> dropped
+  drop team(1-1)=false -> dropped
+  drop beaters-total(1-1)>=1 -> dropped
+  drop beaters-total(1-1)<=1 -> dropped
+  drop beaters-total(2-2)>=1 -> dropped
+  drop beaters-total(2-2)<=1 -> dropped
+  drop beaters-total(3-0)>=5 -> dropped
+  drop beaters-total(3-0)<=5 -> dropped
+  drop beaters-total(3-2)>=4 -> dropped
+  drop beaters-total(3-2)<=4 -> dropped
+  drop beaters-total(3-3)>=1 -> dropped
+  drop beaters-total(3-3)<=1 -> dropped
+  drop beaters-total(5-2)>=3 -> dropped
+  drop beaters-total(5-2)<=3 -> dropped
+  drop beaters-total(5-3)>=2 -> dropped
+  drop beaters-total(5-3)<=2 -> dropped
+  drop beaters-total(5-5)>=1 -> dropped
+  drop beaters-total(5-5)<=1 -> dropped
+  drop beaters-total(6-0)>=3 -> dropped
+  drop beaters-total(6-0)<=3 -> dropped
+  drop beaters-total(6-3)>=2 -> dropped
+  drop beaters-total(6-3)<=2 -> dropped
+  drop beaters-total(6-4)>=0 -> dropped
+  drop beaters-total(6-4)<=0 -> dropped
+  drop beaters-total(6-6)>=1 -> dropped
+  drop beaters-total(6-6)<=1 -> dropped
+  drop decl=P4 -> dropped
+  drop ply=3 -> dropped
+  introduce team(1-1)=false (cut refinement) excluding witness h9 S0 t3 p2 world S0={1-0 1-1 2-0 2-2 6-2} S1={2-1 3-0 4-1 4-2 6-6} S2={5-1 5-4 6-1 6-5} S3={3-2 5-2 5-5 6-0} values 1-0=-1 1-1=-1 2-0=-9 2-2=-1 6-2=-1
+  drop role=defending -> dropped
+  introduce beaters-total(3-0)<=5 (cut refinement) excluding witness h0 S0 t4 p3 world S0={1-0 2-0 4-2 5-1} S1={2-1 2-2 3-2} S2={0-0 4-1 6-2} S3={1-1 4-4 5-2} values 1-0=-12 2-0=-14 4-2=-14 5-1=-12
+  drop horizon>=5 -> dropped
+  drop horizon<=5 -> dropped
+final implicant (2 cells): team(1-1)=false & beaters-total(3-0)<=5
+surviving: [none]
+re-pinned: [none] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 2/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 4 decisions / 53620 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/4 worlds 23100/53620 triple (4,23096,0)
+basin dominance class: W (weak, strict somewhere)
+basin/frame-compatible rate: 1/4 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere), safe-substitution 1 decisions (weak dominance over the matched set; T-coverage counts)
+  h11 S1 t3 p3: worlds 23100/23100 triple (4,23096,0) class W (weak, strict somewhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h11 S1 t3 p3 fiber 23100 grade worldwise-dominance (PI)
+  chosen 0-0 better [2-0 3-1 5-1] regret 8/5775
+verdict: win: tile(2-0) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (32 cells): hand=11 & seat=S1 & decl=P4 & role=defending & horizon>=5 & horizon<=5 & ply=3 & team(1-1)=false & beaters-total(1-1)=1 & beaters-total(2-2)=1 & beaters-total(3-0)=5 & beaters-total(3-2)=4 & beaters-total(3-3)=1 & beaters-total(5-2)=3 & beaters-total(5-3)=2 & beaters-total(5-5)=1 & beaters-total(6-0)=3 & beaters-total(6-3)=2 & beaters-total(6-4)=0 & beaters-total(6-6)=1
+trace:
+  drop hand=11 -> dropped
+  drop seat=S1 -> dropped
+  drop team(1-1)=false -> dropped
+  drop beaters-total(1-1)>=1 -> dropped
+  drop beaters-total(1-1)<=1 -> dropped
+  drop beaters-total(2-2)>=1 -> dropped
+  drop beaters-total(2-2)<=1 -> dropped
+  drop beaters-total(3-0)>=5 -> dropped
+  drop beaters-total(3-0)<=5 -> dropped
+  drop beaters-total(3-2)>=4 -> dropped
+  drop beaters-total(3-2)<=4 -> dropped
+  drop beaters-total(3-3)>=1 -> dropped
+  drop beaters-total(3-3)<=1 -> dropped
+  drop beaters-total(5-2)>=3 -> dropped
+  drop beaters-total(5-2)<=3 -> dropped
+  drop beaters-total(5-3)>=2 -> dropped
+  drop beaters-total(5-3)<=2 -> dropped
+  drop beaters-total(5-5)>=1 -> dropped
+  drop beaters-total(5-5)<=1 -> dropped
+  drop beaters-total(6-0)>=3 -> dropped
+  drop beaters-total(6-0)<=3 -> dropped
+  drop beaters-total(6-3)>=2 -> dropped
+  drop beaters-total(6-3)<=2 -> dropped
+  drop beaters-total(6-4)>=0 -> dropped
+  drop beaters-total(6-4)<=0 -> dropped
+  drop beaters-total(6-6)>=1 -> dropped
+  drop beaters-total(6-6)<=1 -> dropped
+  drop decl=P4 -> dropped
+  drop ply=3 -> dropped
+  introduce beaters-total(5-2)<=3 (cut refinement) excluding witness h9 S0 t3 p2 world S0={1-0 1-1 2-0 2-2 6-2} S1={2-1 3-0 4-1 4-2 6-6} S2={5-1 5-4 6-1 6-5} S3={3-2 5-2 5-5 6-0} values 1-0=-1 1-1=-1 2-0=-9 2-2=-1 6-2=-1
+  drop role=defending -> dropped
+  relax horizon>=5 -> BOUND HELD at horizon>=5; witness h0 S0 t4 p3 world S0={1-0 2-0 4-2 5-1} S1={2-1 2-2 3-2} S2={0-0 1-1 6-2} S3={4-1 4-4 5-2} values 1-0=-12 2-0=-14 4-2=-14 5-1=-12
+  drop horizon<=5 -> dropped
+final implicant (2 cells): horizon>=5 & beaters-total(5-2)<=3
+surviving: [horizon>=5]
+re-pinned: [none] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 1/4 spent
+carrier: selector-resolvable decisions x their fiber worlds — eligible 20 decisions / 148744 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 3/20 worlds 74382/148744 triple (0,74382,0)
+basin/frame-compatible rate: 3/4 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+  h1 S3 t3 p1: worlds 16632/16632 triple (0,16632,0)
+  h5 S1 t3 p3: worlds 34650/34650 triple (0,34650,0)
+  h11 S1 t3 p3: worlds 23100/23100 triple (0,23100,0)
+----
+walt lesson (S5b) — exploratory tier
+origin: §12.6 lumpability failure h0 t6 descriptor chassis — kernel witness at carrier nodes 325,327: action 0-0 increment -1 mass 1 != 0 (carrier rebuilds from the kernel)
+verdict: not-lumpable: chassis fails §12.6 at every matching decision
+grade: checker (§12.6 exhaustive lumpability, uniform-legal field, q_points valuation)
+domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions, 924813 worlds, all fibers exhaustively enumerated (29 in-range decisions excluded by the fiber cap; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control)
+initial implicant (19 cells): hand=0 & seat=S1 & decl=P3 & role=declaring & horizon>=2 & horizon<=2 & ply=0 & beaters-total(2-0)=3 & beaters-total(2-2)=0 & beaters-total(4-1)=2 & beaters-total(4-2)=1 & beaters-total(4-4)=0 & beaters-total(5-2)=0
+trace:
+  drop hand=0 -> dropped
+  drop seat=S1 -> dropped
+  drop beaters-total(2-0)>=3 -> dropped
+  drop beaters-total(2-0)<=3 -> dropped
+  drop beaters-total(2-2)>=0 -> dropped
+  drop beaters-total(2-2)<=0 -> dropped
+  drop beaters-total(4-1)>=2 -> dropped
+  drop beaters-total(4-1)<=2 -> dropped
+  drop beaters-total(4-2)>=1 -> dropped
+  drop beaters-total(4-2)<=1 -> dropped
+  drop beaters-total(4-4)>=0 -> dropped
+  drop beaters-total(4-4)<=0 -> dropped
+  drop beaters-total(5-2)>=0 -> dropped
+  drop beaters-total(5-2)<=0 -> dropped
+  drop decl=P3 -> dropped
+  drop ply=0 -> dropped
+  drop role=declaring -> dropped
+  drop horizon>=2 -> dropped
+  drop horizon<=2 -> dropped
+final implicant (0 cells): (empty)
+surviving: [none]
+re-pinned: [none] (equality-in-disguise bound pairs; excluded from atom-selection counts)
+intro budget: 0/4 spent
+carrier: lead-kernel trees (ply 0, horizon <= 2) — eligible 13 decisions / 647 worlds (domain context: 179 decisions / 924813 worlds, not a rate base)
+basin [at grade: checker (§12.6 exhaustive lumpability, uniform-legal field, q_points valuation)]: decisions 13/13 worlds 647/647
+basin/frame-compatible rate: 13/13 (frame-compatible = eligible decisions passing the final implicant's decision-sort cells)
+  h0 S1 t6 p0: worlds 90/90
+  h1 S2 t6 p0: worlds 90/90
+  h2 S3 t6 p0: worlds 36/36
+  h3 S0 t6 p0: worlds 36/36
+  h4 S2 t6 p0: worlds 90/90
+  h5 S0 t6 p0: worlds 27/27
+  h6 S2 t6 p0: worlds 90/90
+  h7 S0 t6 p0: worlds 90/90
+  h8 S3 t6 p0: worlds 7/7
+  h9 S1 t6 p0: worlds 30/30
+  h10 S1 t6 p0: worlds 19/19
+  h11 S0 t6 p0: worlds 36/36
+  h12 S3 t6 p0: worlds 6/6
+----

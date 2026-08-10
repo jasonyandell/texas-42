@@ -13,7 +13,7 @@
 //! (order cells with relaxation ladders, cut refinement) and its
 //! milestone-1 rent is measured on the same domain.
 //!
-//! Writes `results/falsification_2026-08-10.txt`: the headline block, one
+//! Writes `results/falsification_2026-08-10_r2.txt`: the headline block, one
 //! pin+rent line pair per lesson, then every full receipt. Heavy compute:
 //! run only when the corpus walk binary is not holding the machine.
 
@@ -95,7 +95,7 @@ fn main() {
     let mut win_basins: Vec<usize> = Vec::new();
     let mut pins = String::new();
     for lesson in &lessons {
-        if !lesson.surviving_atom_cells().is_empty() {
+        if !lesson.selecting_atom_cells().is_empty() {
             with_atoms += 1;
         }
         if !lesson.introduced().is_empty() {
@@ -130,7 +130,7 @@ fn main() {
          domain: {} — {} decisions ({} in-range excluded by the fiber cap), {} worlds\n\
          seeds: walker corpus, exhaustive <= {} (recorded {}-draw samples above), tricks {}-7; \
          win form at origin-scan threshold 100000; h0 t6 chassis §12.6\n\
-         lessons: {} — {} with surviving atom cells, {} with introduced (cut-refinement) cells\n\
+         lessons: {} — {} with selecting atom cells (re-pinned pairs excluded), {} with introduced (cut-refinement) cells\n\
          refutation basins (matched decisions, sorted): {:?}\n\
          win basins (matched decisions, sorted): {:?}\n",
         domain.spec,
@@ -151,7 +151,7 @@ fn main() {
     let results = root.join("results");
     std::fs::create_dir_all(&results).expect("results dir");
     let out = format!("{headline}\n{pins}\n{full}");
-    std::fs::write(results.join("falsification_2026-08-10.txt"), &out).expect("write results");
+    std::fs::write(results.join("falsification_2026-08-10_r2.txt"), &out).expect("write results");
 
     print!("{headline}");
     println!("---");

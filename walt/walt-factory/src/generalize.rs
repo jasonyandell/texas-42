@@ -21,6 +21,15 @@
 //! order, everything rolled back if the widening still fails. Introduced
 //! cells are traced as `Introduce` steps, distinct from drops.
 //!
+//! **Witness exclusion is enforced by construction** (m2 adjudication;
+//! the lesson-level twin of §12.9 steps 5-6): `separating_cell` returns
+//! an equality candidate only when its value at the witness differs or is
+//! undefined, and a numeric bound only when the witness's value lies
+//! strictly outside it (or is undefined) — a bound spanning the verified
+//! set that still contains the witness's value falls through to no
+//! candidate, never to a budget-spending no-op. The invariant is also
+//! asserted per trace in CI (`cell_holds_at`).
+//!
 //! Two fixed orders are tried (forward = identity, atoms, frame; and its
 //! reverse — the restart policy, cheap and deterministic) and the lesson
 //! with the larger basin is kept (ties to forward). Vacuous verification
@@ -663,8 +672,17 @@ fn attempt_widening(
 }
 
 /// The per-pass cut-refinement budget (declared; 1UIP culture — a few
-/// good cells cheaply, never a saturation search).
-const INTRO_BUDGET: usize = 4;
+/// good cells cheaply, never a saturation search). Public so reports can
+/// state spent/budget (the economy's cost side).
+pub const INTRO_BUDGET: usize = 4;
+
+/// Does one cell hold at world `widx` of a decision? Decision-sort cells
+/// read the decision, atom-sort cells the world — the single-cell
+/// evaluator behind the witness-exclusion invariant test.
+pub fn cell_holds_at(d: &DomainDecision, cell: &Constraint, widx: usize) -> bool {
+    decision_cells_hold(d, core::slice::from_ref(cell))
+        && world_matches(d, core::slice::from_ref(cell), widx)
+}
 
 /// One greedy pass in one order: equality cells attempt a drop, bound
 /// cells walk their relaxation ladder; both may recruit cut refinement.
@@ -698,7 +716,7 @@ fn greedy_pass(
                 candidate_numerics,
             ) {
                 Ok(()) => StepOutcome::Dropped,
-                Err(w) => StepOutcome::LoadBearing(w),
+                Err(w) => StepOutcome::Survives(w),
             };
             state.trace.push(TraceStep::Drop { cell, outcome });
             continue;

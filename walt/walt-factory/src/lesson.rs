@@ -384,15 +384,47 @@ pub struct Implicant {
 }
 
 impl Implicant {
+    /// Deterministic rendering. An equality-in-disguise bound pair
+    /// (`>= k` and `<= k` on the same numeric) prints once as the derived
+    /// equality `atom=k`, never as an interval (m2 adjudication) — the
+    /// pair itself stays two cells in the data.
     pub fn render(&self) -> String {
         if self.cells.is_empty() {
             return "(empty)".to_string();
         }
-        self.cells
-            .iter()
-            .map(|c| c.to_string())
-            .collect::<Vec<_>>()
-            .join(" & ")
+        let mut parts: Vec<String> = Vec::new();
+        let mut skip = vec![false; self.cells.len()];
+        for (i, c) in self.cells.iter().enumerate() {
+            if skip[i] {
+                continue;
+            }
+            let partner = |target: &Constraint| {
+                self.cells
+                    .iter()
+                    .enumerate()
+                    .position(|(j, x)| j != i && !skip[j] && x == target)
+            };
+            match c {
+                Constraint::NumericGe(a, k) => {
+                    if let Some(j) = partner(&Constraint::NumericLe(*a, *k)) {
+                        skip[j] = true;
+                        parts.push(format!("{a}={k}"));
+                        continue;
+                    }
+                    parts.push(c.to_string());
+                }
+                Constraint::NumericLe(a, k) => {
+                    if let Some(j) = partner(&Constraint::NumericGe(*a, *k)) {
+                        skip[j] = true;
+                        parts.push(format!("{a}={k}"));
+                        continue;
+                    }
+                    parts.push(c.to_string());
+                }
+                _ => parts.push(c.to_string()),
+            }
+        }
+        parts.join(" & ")
     }
 }
 
@@ -588,9 +620,9 @@ pub enum StepOutcome {
     /// The cell is gone: the drop (or the relaxation to vacuity)
     /// re-verified over the whole domain.
     Dropped,
-    /// An equality cell whose drop was refuted; restored and named
-    /// load-bearing by the witness.
-    LoadBearing(WideningWitness),
+    /// An equality cell whose drop was refuted; restored — it SURVIVES,
+    /// named by the witness (m2 vocabulary).
+    Survives(WideningWitness),
     /// A bound cell relaxed as far as verification allowed: it stands at
     /// `held` (possibly its original value), and the witness refuted the
     /// next relaxation — the load-bearing bound, named with its value.
@@ -747,16 +779,18 @@ pub struct Lesson {
 }
 
 impl Lesson {
-    /// The load-bearing cells: restored equality cells and held bounds
-    /// (at their held values), in trace order. A derived view of the
-    /// trace, never stored twice.
-    pub fn load_bearing(&self) -> Vec<Constraint> {
+    /// The surviving cells: initial cells that survived their drop
+    /// attempt — restored equality cells and held bounds (at their held
+    /// values), in trace order. A derived view of the trace, never stored
+    /// twice. (m2 vocabulary: "surviving" beside "introduced"; together
+    /// they are the selecting cells.)
+    pub fn surviving(&self) -> Vec<Constraint> {
         self.trace
             .iter()
             .filter_map(|s| match s {
                 TraceStep::Drop {
                     cell,
-                    outcome: StepOutcome::LoadBearing(_),
+                    outcome: StepOutcome::Survives(_),
                 } => Some(*cell),
                 TraceStep::Drop {
                     outcome: StepOutcome::BoundHeld { held, .. },
@@ -779,18 +813,50 @@ impl Lesson {
             .collect()
     }
 
-    /// Atom-sort cells (equality or bound) surviving in the final
-    /// implicant — the falsification question's numerator shape: is the
-    /// latent vocabulary doing selection work at all?
-    pub fn surviving_atom_cells(&self) -> Vec<Constraint> {
+    /// The selecting cells of the final implicant: surviving union
+    /// introduced (the two ways a cell ends up doing work).
+    pub fn selecting_cells(&self) -> Vec<Constraint> {
+        let mut out = self.surviving();
+        out.extend(self.introduced());
+        out
+    }
+
+    /// Equality-in-disguise bound pairs in the final implicant: numerics
+    /// pinned by both `>= k` and `<= k` at the same value. Flagged
+    /// `re-pinned` and EXCLUDED from any "atoms select" count (m2
+    /// adjudication): a re-pinned pair re-describes its origin at
+    /// equality tightness and carries no relaxation content.
+    pub fn re_pinned(&self) -> Vec<(NumericAtom, u8)> {
+        let mut out = Vec::new();
+        for c in &self.implicant.cells {
+            if let Constraint::NumericGe(a, k) = c {
+                if self
+                    .implicant
+                    .cells
+                    .contains(&Constraint::NumericLe(*a, *k))
+                    && !out.contains(&(*a, *k))
+                {
+                    out.push((*a, *k));
+                }
+            }
+        }
+        out
+    }
+
+    /// Atom-sort cells of the final implicant that genuinely select —
+    /// members of re-pinned pairs excluded. The falsification question's
+    /// numerator shape: is the latent vocabulary doing selection work?
+    pub fn selecting_atom_cells(&self) -> Vec<Constraint> {
+        let re_pinned = self.re_pinned();
         self.implicant
             .cells
             .iter()
-            .filter(|c| {
-                matches!(
-                    c,
-                    Constraint::Atom(..) | Constraint::NumericGe(..) | Constraint::NumericLe(..)
-                )
+            .filter(|c| match c {
+                Constraint::Atom(..) => true,
+                Constraint::NumericGe(a, k) | Constraint::NumericLe(a, k) => {
+                    !re_pinned.contains(&(*a, *k))
+                }
+                _ => false,
             })
             .copied()
             .collect()

@@ -121,11 +121,16 @@ pub fn render_lesson(lesson: &Lesson) -> String {
     line(format!("verdict: {}", lesson.verdict));
     line(format!("grade: {}", lesson.grade));
     line(format!(
-        "domain: {} — {} decisions, {} worlds, all fibers exhaustively enumerated ({} in-range decisions excluded by the fiber cap)",
+        "domain: {} — {} decisions, {} worlds, all fibers exhaustively enumerated ({} in-range decisions excluded by the fiber cap{})",
         lesson.basin.domain,
         lesson.basin.domain_decisions,
         lesson.basin.domain_worlds,
-        lesson.basin.domain_excluded
+        lesson.basin.domain_excluded,
+        if lesson.basin.domain_excluded > 0 {
+            "; exclusion frontier is control-biased: fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control"
+        } else {
+            ""
+        }
     ));
     line(format!(
         "initial implicant ({} cells): {}",
@@ -137,10 +142,9 @@ pub fn render_lesson(lesson: &Lesson) -> String {
         match step {
             TraceStep::Drop { cell, outcome } => match outcome {
                 StepOutcome::Dropped => line(format!("  drop {cell} -> dropped")),
-                StepOutcome::LoadBearing(w) => line(format!(
-                    "  drop {cell} -> LOAD-BEARING; {}",
-                    render_witness(w)
-                )),
+                StepOutcome::Survives(w) => {
+                    line(format!("  drop {cell} -> SURVIVES; {}", render_witness(w)))
+                }
                 StepOutcome::BoundHeld { held, witness } => line(format!(
                     "  relax {cell} -> BOUND HELD at {held}; {}",
                     render_witness(witness)
@@ -157,18 +161,32 @@ pub fn render_lesson(lesson: &Lesson) -> String {
         lesson.implicant.cells.len(),
         lesson.implicant.render()
     ));
-    let load: Vec<String> = lesson
-        .load_bearing()
-        .iter()
-        .map(|c| c.to_string())
-        .collect();
+    let surviving: Vec<String> = lesson.surviving().iter().map(|c| c.to_string()).collect();
     line(format!(
-        "load-bearing: [{}]",
-        if load.is_empty() {
+        "surviving: [{}]",
+        if surviving.is_empty() {
             "none".to_string()
         } else {
-            load.join(", ")
+            surviving.join(", ")
         }
+    ));
+    let re_pinned: Vec<String> = lesson
+        .re_pinned()
+        .iter()
+        .map(|(a, k)| format!("{a}={k}"))
+        .collect();
+    line(format!(
+        "re-pinned: [{}] (equality-in-disguise bound pairs; excluded from atom-selection counts)",
+        if re_pinned.is_empty() {
+            "none".to_string()
+        } else {
+            re_pinned.join(", ")
+        }
+    ));
+    line(format!(
+        "intro budget: {}/{} spent",
+        lesson.introduced().len(),
+        crate::generalize::INTRO_BUDGET
     ));
     // §12.4: a basin is only meaningful at its label — the grade (with
     // its operator pair) is restated on the basin line itself. §11.1: the
@@ -243,11 +261,7 @@ pub fn lesson_pin_line(lesson: &Lesson) -> String {
             format!("lumpability h{hand} t{trick_no} {descriptor}")
         }
     };
-    let load: Vec<String> = lesson
-        .load_bearing()
-        .iter()
-        .map(|c| c.to_string())
-        .collect();
+    let surviving: Vec<String> = lesson.surviving().iter().map(|c| c.to_string()).collect();
     let dominance = match lesson.basin.dominance {
         Some(t) => match lesson.dominance_class() {
             Some(class) => format!(" triple {t} class {class}"),
@@ -263,21 +277,33 @@ pub fn lesson_pin_line(lesson: &Lesson) -> String {
     };
     let b = &lesson.basin;
     let introduced: Vec<String> = lesson.introduced().iter().map(|c| c.to_string()).collect();
+    let re_pinned: Vec<String> = lesson
+        .re_pinned()
+        .iter()
+        .map(|(a, k)| format!("{a}={k}"))
+        .collect();
     format!(
-        "{origin}: verdict [{}] grade [{}] final [{}] load-bearing [{}] introduced [{}] basin {}/{} eligible decisions {}/{} eligible worlds frame-rate {}/{} (carrier: {}; domain context {}/{}, {} excluded){}{}",
+        "{origin}: verdict [{}] grade [{}] final [{}] surviving [{}] introduced [{}] re-pinned [{}] intro-budget {}/{} basin {}/{} eligible decisions {}/{} eligible worlds frame-rate {}/{} (carrier: {}; domain context {}/{}, {} excluded){}{}",
         lesson.verdict,
         lesson.grade,
         lesson.implicant.render(),
-        if load.is_empty() {
+        if surviving.is_empty() {
             "none".to_string()
         } else {
-            load.join(", ")
+            surviving.join(", ")
         },
         if introduced.is_empty() {
             "none".to_string()
         } else {
             introduced.join(", ")
         },
+        if re_pinned.is_empty() {
+            "none".to_string()
+        } else {
+            re_pinned.join(", ")
+        },
+        lesson.introduced().len(),
+        crate::generalize::INTRO_BUDGET,
         b.decisions_matched,
         b.decisions_eligible,
         b.worlds_matched,

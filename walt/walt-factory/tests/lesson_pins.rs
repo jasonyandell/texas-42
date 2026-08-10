@@ -10,17 +10,17 @@
 //! declared config — exploratory tier, never an axiom. Regenerate via
 //! `cargo run --release --example lesson_run`; never hand-edit. The
 //! pinned basin sizes ARE the S5b falsification measurement at CI scope;
-//! the full seed table lives in `results/lesson_basins_2026-08-10.txt`.
+//! the full seed table lives in the latest `results/lesson_basins_*` revision.
 
 use std::sync::OnceLock;
 
 use walt_core::receipt::Receipt;
 use walt_core::Seat;
 use walt_factory::{
-    generalize_lumpability, generalize_regret, generalize_win, lesson_applies, lesson_pin_line,
-    load_receipt, measure_rent, render_lesson, walk_decision, BasinDomain, DescriptorFamily,
-    DomainDecision, DomainSpec, Grade, Lesson, LessonOrigin, RentReport, StepOutcome, TraceStep,
-    WalkerConfig, WideningWitness,
+    cell_holds_at, generalize_lumpability, generalize_regret, generalize_win, lesson_applies,
+    lesson_pin_line, load_receipt, measure_rent, remeasure_at_h, render_h_report, render_lesson,
+    walk_decision, BasinDomain, DescriptorFamily, DomainDecision, DomainSpec, Grade, Lesson,
+    LessonOrigin, RentReport, StepOutcome, TraceStep, WalkerConfig, WideningWitness,
 };
 use walt_kernel::ReceiptDecision;
 
@@ -60,6 +60,12 @@ fn lessons_at(hand: usize, seat: Seat, trick_no: usize) -> (Lesson, Option<Lesso
 /// domain, load-bearing cells are exactly the restored trace steps, and
 /// the final implicant is a subset of the initial one.
 fn check_invariants(lesson: &Lesson) {
+    check_invariants_on(lesson, domain())
+}
+
+/// Same invariants against an explicit domain (for lessons generalized on
+/// the m1 subset domain).
+fn check_invariants_on(lesson: &Lesson, dom: &BasinDomain) {
     let b = &lesson.basin;
     assert_eq!(b.decisions_matched, b.matched.len());
     assert_eq!(
@@ -126,13 +132,13 @@ fn check_invariants(lesson: &Lesson) {
             matches!(
                 s,
                 TraceStep::Drop {
-                    outcome: StepOutcome::LoadBearing(_) | StepOutcome::BoundHeld { .. },
+                    outcome: StepOutcome::Survives(_) | StepOutcome::BoundHeld { .. },
                     ..
                 }
             )
         })
         .count();
-    assert_eq!(restored, lesson.load_bearing().len());
+    assert_eq!(restored, lesson.surviving().len());
     let drops = lesson
         .trace
         .iter()
@@ -149,11 +155,31 @@ fn check_invariants(lesson: &Lesson) {
         .filter(|s| matches!(s, TraceStep::Introduce { .. }))
         .count();
     assert_eq!(introduced, lesson.introduced().len());
+    // Witness exclusion (m2 adjudication, the §12.9 steps-5/6 twin): every
+    // introduced cell must EXCLUDE the widening witness that provoked it —
+    // a budget-spending no-op cell is unconstructible.
+    for step in &lesson.trace {
+        if let TraceStep::Introduce {
+            cell,
+            witness:
+                WideningWitness::World {
+                    decision_index,
+                    world_index,
+                    ..
+                },
+        } = step
+        {
+            assert!(
+                !cell_holds_at(&dom.decisions[*decision_index], cell, *world_index),
+                "an introduced cell excludes its witness"
+            );
+        }
+    }
     // A terminating witness for a pair verdict carries a full value row.
     for step in &lesson.trace {
         let witness = match step {
             TraceStep::Drop {
-                outcome: StepOutcome::LoadBearing(w) | StepOutcome::BoundHeld { witness: w, .. },
+                outcome: StepOutcome::Survives(w) | StepOutcome::BoundHeld { witness: w, .. },
                 ..
             } => Some(w),
             TraceStep::Introduce { witness, .. } => Some(witness),
@@ -198,14 +224,14 @@ fn h0_s1_t5_refutation_and_win_lessons_match_the_pins() {
     check_origin_in_basin(&refutation);
     assert_eq!(
         lesson_pin_line(&refutation),
-        "regret h0 S1 t5 p0: verdict [refutation: value(decisive) >= value(max-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(2-0)>=4 & beaters-total(1-1)<=0] load-bearing [none] introduced [beaters-total(2-0)>=4, beaters-total(1-1)<=0] basin 1/32 eligible decisions 1680/14387 eligible worlds frame-rate 1/32 (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790, 0 excluded) triple (488,1192,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1"
+        "regret h0 S1 t5 p0: verdict [refutation: value(decisive) >= value(max-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(2-0)>=4 & beaters-total(1-1)<=0] surviving [none] introduced [beaters-total(2-0)>=4, beaters-total(1-1)<=0] re-pinned [none] intro-budget 2/4 basin 1/32 eligible decisions 1680/14387 eligible worlds frame-rate 1/32 (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790, 0 excluded) triple (488,1192,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1"
     );
     let win = win.expect("2-1 is worldwise-optimal at the origin");
     check_invariants(&win);
     check_origin_in_basin(&win);
     assert_eq!(
         lesson_pin_line(&win),
-        "regret h0 S1 t5 p0: verdict [win: decisive suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(2-0)<=4 & beaters-total(2-0)>=4 & beaters-total(1-1)<=0] load-bearing [none] introduced [beaters-total(2-0)<=4, beaters-total(2-0)>=4, beaters-total(1-1)<=0] basin 1/86 eligible decisions 1680/22101 eligible worlds frame-rate 1/86 (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790, 0 excluded) triple (0,1680,0)"
+        "regret h0 S1 t5 p0: verdict [win: decisive suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(2-0)=4 & beaters-total(1-1)<=0] surviving [none] introduced [beaters-total(2-0)<=4, beaters-total(2-0)>=4, beaters-total(1-1)<=0] re-pinned [beaters-total(2-0)=4] intro-budget 3/4 basin 1/86 eligible decisions 1680/22101 eligible worlds frame-rate 1/86 (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790, 0 excluded) triple (0,1680,0)"
     );
 
     // The designated byte-frozen receipt (regenerate via lesson_run).
@@ -223,13 +249,13 @@ fn h1_s0_t5_lessons_match_the_pins() {
     check_origin_in_basin(&refutation);
     assert_eq!(
         lesson_pin_line(&refutation),
-        "regret h1 S0 t5 p2: verdict [refutation: value(tile(5-2)) >= value(decisive) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(3-1)<=1] load-bearing [none] introduced [beaters-total(3-1)<=1] basin 2/9 eligible decisions 222/1715 eligible worlds frame-rate 2/9 (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790, 0 excluded) triple (73,149,0) class W (weak, strict somewhere) split refutation 2 safe-substitution 2"
+        "regret h1 S0 t5 p2: verdict [refutation: value(tile(5-2)) >= value(decisive) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(3-1)<=1] surviving [none] introduced [beaters-total(3-1)<=1] re-pinned [none] intro-budget 1/4 basin 2/9 eligible decisions 222/1715 eligible worlds frame-rate 2/9 (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790, 0 excluded) triple (73,149,0) class W (weak, strict somewhere) split refutation 2 safe-substitution 2"
     );
     let win = win.expect("5-2 is worldwise-optimal at the origin");
     check_invariants(&win);
     assert_eq!(
         lesson_pin_line(&win),
-        "regret h1 S0 t5 p2: verdict [win: tile(5-2) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [ply=2] load-bearing [ply=2] introduced [none] basin 5/11 eligible decisions 651/2135 eligible worlds frame-rate 5/5 (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790, 0 excluded) triple (0,651,0)"
+        "regret h1 S0 t5 p2: verdict [win: tile(5-2) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [ply=2] surviving [ply=2] introduced [none] re-pinned [none] intro-budget 0/4 basin 5/11 eligible decisions 651/2135 eligible worlds frame-rate 5/5 (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790, 0 excluded) triple (0,651,0)"
     );
 }
 
@@ -240,7 +266,7 @@ fn h4_s3_t5_refutation_lesson_matches_the_pin() {
     check_origin_in_basin(&refutation);
     assert_eq!(
         lesson_pin_line(&refutation),
-        "regret h4 S3 t5 p2: verdict [refutation: value(max-count) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(1-1)<=0 & beaters-total(5-5)<=3 & beaters-total(5-5)>=1] load-bearing [none] introduced [beaters-total(1-1)<=0, beaters-total(5-5)<=3, beaters-total(5-5)>=1] basin 4/77 eligible decisions 1926/21144 eligible worlds frame-rate 4/77 (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790, 0 excluded) triple (1,1925,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 4"
+        "regret h4 S3 t5 p2: verdict [refutation: value(max-count) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(1-1)<=0 & beaters-total(5-5)<=3 & beaters-total(5-5)>=1] surviving [none] introduced [beaters-total(1-1)<=0, beaters-total(5-5)<=3, beaters-total(5-5)>=1] re-pinned [none] intro-budget 3/4 basin 4/77 eligible decisions 1926/21144 eligible worlds frame-rate 4/77 (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790, 0 excluded) triple (1,1925,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 4"
     );
 }
 
@@ -263,7 +289,7 @@ fn chassis_lumpability_lesson_generalizes_to_all_13_lead_kernels() {
     // 647 worlds (the whole trick-6 kernel corpus).
     assert_eq!(
         lesson_pin_line(&lesson),
-        "lumpability h0 t6 chassis: verdict [not-lumpable: chassis fails §12.6 at every matching decision] grade [checker (§12.6 exhaustive lumpability, uniform-legal field, q_points valuation)] final [(empty)] load-bearing [none] introduced [none] basin 13/13 eligible decisions 647/647 eligible worlds frame-rate 13/13 (carrier: lead-kernel trees (ply 0, horizon <= 2); domain context 104/23790, 0 excluded)"
+        "lumpability h0 t6 chassis: verdict [not-lumpable: chassis fails §12.6 at every matching decision] grade [checker (§12.6 exhaustive lumpability, uniform-legal field, q_points valuation)] final [(empty)] surviving [none] introduced [none] re-pinned [none] intro-budget 0/4 basin 13/13 eligible decisions 647/647 eligible worlds frame-rate 13/13 (carrier: lead-kernel trees (ply 0, horizon <= 2); domain context 104/23790, 0 excluded)"
     );
 }
 
@@ -327,7 +353,7 @@ fn t4_seeds_on_the_m1_subset_domain_match_the_pins() {
         assert!(record.chosen_dominated, "the pinned seed is dominated");
         let lesson =
             generalize_regret(rh, seat, &record, m1_domain()).expect("a refutation lesson");
-        check_invariants(&lesson);
+        check_invariants_on(&lesson, m1_domain());
         let rent = check_refutation_rent(&lesson);
         lines.push(format!("{}\n  rent: {}", lesson_pin_line(&lesson), rent));
     }
@@ -339,7 +365,37 @@ fn t4_seeds_on_the_m1_subset_domain_match_the_pins() {
 }
 
 /// Pinned by running the same seeds at the same declared subset domain.
-const M1_PINS: &str = "regret h2 S2 t4 p3: verdict [refutation: value(tile(6-6)) >= value(tile(6-3)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [(empty)] load-bearing [none] introduced [none] basin 1/1 eligible decisions 1120/1120 eligible worlds frame-rate 1/1 (carrier: selector-resolvable decisions x their fiber worlds; domain context 133/58941, 75 excluded) triple (91,1029,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1\n  rent: refutation rent: applied 1 strict-applied 1 improvement 65/112\nregret h3 S3 t4 p1: verdict [refutation: value(decisive) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(3-0)<=2 & beaters-total(3-1)<=4 & beaters-total(3-1)>=4] load-bearing [none] introduced [beaters-total(3-0)<=2, beaters-total(3-1)<=4, beaters-total(3-1)>=4] basin 1/69 eligible decisions 2450/42299 eligible worlds frame-rate 1/69 (carrier: selector-resolvable decisions x their fiber worlds; domain context 133/58941, 75 excluded) triple (191,2259,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1\n  rent: refutation rent: applied 1 strict-applied 1 improvement 1243/1225";
+const M1_PINS: &str = "regret h2 S2 t4 p3: verdict [refutation: value(tile(6-6)) >= value(tile(6-3)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [(empty)] surviving [none] introduced [none] re-pinned [none] intro-budget 0/4 basin 1/1 eligible decisions 1120/1120 eligible worlds frame-rate 1/1 (carrier: selector-resolvable decisions x their fiber worlds; domain context 133/58941, 75 excluded) triple (91,1029,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1\n  rent: refutation rent: applied 1 strict-applied 1 improvement 65/112\nregret h3 S3 t4 p1: verdict [refutation: value(decisive) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [beaters-total(3-0)<=2 & beaters-total(3-1)=4] surviving [none] introduced [beaters-total(3-0)<=2, beaters-total(3-1)<=4, beaters-total(3-1)>=4] re-pinned [beaters-total(3-1)=4] intro-budget 3/4 basin 1/69 eligible decisions 2450/42299 eligible worlds frame-rate 1/69 (carrier: selector-resolvable decisions x their fiber worlds; domain context 133/58941, 75 excluded) triple (191,2259,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1\n  rent: refutation rent: applied 1 strict-applied 1 improvement 1243/1225";
+
+/// The (H, fixed-uniform-legal) re-measurement end-to-end at CI cost
+/// (S5c-m2): label transfer is §12.4-fragile by default, so what actually
+/// transferred is pinned with exact rationals. Two affordable lessons:
+/// the h0 S1 t5 refutation (one 1,680-world fiber at horizon 3) and the
+/// h1 S0 t5 win (five small decisions across four hands). Both measured
+/// on the S5b tricks-5-6 domain; the full-inventory table lives in
+/// `results/label_transfer_2026-08-10.txt`.
+#[test]
+fn h_remeasurement_of_affordable_lessons_matches_the_pins() {
+    let (refutation, win) = lessons_at(0, Seat::S1, 5);
+    let report = remeasure_at_h(&refutation, domain(), receipt(), 100_000_000)
+        .expect("a value lesson re-measures");
+    assert_eq!(report.survives(), Some(true));
+    assert_eq!(
+        render_h_report(&report),
+        "  h0 S1 t5 p0 fiber 1680: Q^H(2-1)=80/7 Q^H(3-2)=202/21 -> HOLDS\n  H summary: measured 1 held 1 failed 0 not-fiber-valid 0 capped 0 -> SURVIVES at (H, fixed-uniform-legal) on the measured subdomain\n"
+    );
+    drop(win);
+
+    let (_, win) = lessons_at(1, Seat::S0, 5);
+    let win = win.expect("5-2 is worldwise-optimal at the origin");
+    let report =
+        remeasure_at_h(&win, domain(), receipt(), 100_000_000).expect("a value lesson re-measures");
+    assert_eq!(report.survives(), Some(true));
+    assert_eq!(
+        render_h_report(&report),
+        "  h1 S0 t5 p2 fiber 210: Q^H(5-2)=562/315 best=562/315 -> HOLDS\n  h1 S0 t6 p2 fiber 12: Q^H(5-2)=13/12 best=13/12 -> HOLDS\n  h6 S1 t5 p2 fiber 210: Q^H(5-2)=-335/21 best=-335/21 -> HOLDS\n  h7 S2 t5 p2 fiber 210: Q^H(5-2)=1607/140 best=1607/140 -> HOLDS\n  h9 S3 t6 p2 fiber 9: Q^H(5-2)=-3 best=-3 -> HOLDS\n  H summary: measured 5 held 5 failed 0 not-fiber-valid 0 capped 0 -> SURVIVES at (H, fixed-uniform-legal) on the measured subdomain\n"
+    );
+}
 
 /// The application gate (S5b.1, TRUST-01 shape: a verdict's scope is its
 /// verified domain). The h2 S2 t4 p3 conflict generalizes to an EMPTY

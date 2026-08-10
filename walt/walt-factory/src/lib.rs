@@ -25,6 +25,7 @@ pub mod basin;
 pub mod conflict;
 pub mod corpus;
 pub mod generalize;
+pub mod label_transfer;
 pub mod lesson;
 pub mod lesson_report;
 pub mod report;
@@ -34,8 +35,10 @@ pub use basin::{valued_tile, vocabulary, BasinDomain, DomainDecision, DomainSpec
 pub use conflict::{Conflict, Grade, RegretConflict};
 pub use corpus::{load_receipt, walk_corpus};
 pub use generalize::{
-    generalize_lumpability, generalize_regret, generalize_win, lesson_applies, measure_rent,
+    cell_holds_at, generalize_lumpability, generalize_regret, generalize_win, lesson_applies,
+    measure_rent, INTRO_BUDGET,
 };
+pub use label_transfer::{remeasure_at_h, render_h_report, HDecision, HOutcome, HReport};
 pub use lesson::{
     ActionSelector, AtomValue, BasinReport, CarrierLabel, Constraint, DescriptorFamily,
     DominanceClass, DominanceTriple, FieldLabel, FocalInfoLabel, Implicant, Lesson, LessonAtom,
