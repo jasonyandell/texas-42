@@ -687,3 +687,39 @@ provenance, as the S5a count corrections were.
   math has proven the object exists, not its utility — if utility is bad,
   that's a conversation, and the tools stay valuable for other
   explorations either way.
+- **S5e (2026-08-10, late evening): the situation census — r1, r2, r3,
+  and the broken wall.** The first measurement against Jason's bar
+  (order-10^5 count-free canonical situations). Design `walt/CENSUS.md`
+  + walt-math rulings `walt/CENSUS-RULINGS.md` (F1–F7, then the r3
+  section) — every fork pre-adjudicated; builder fenced; full
+  `ci/check.sh` gate green at the end (fast-iteration commits carried
+  explicit deferred-gate caveats, closed by f9355bc). Carrier: all
+  situations reachable from the 13 pip-trump trick-six kernels under
+  primitive steps — 15,253 situations, 647 roots, uniform-legal field,
+  count-free contract, bank-as-emission. **r1 (finest structural
+  relabeling quotient): ECL PASS exhaustively** — the v0.5 OPEN item
+  (existence of a nontrivial equivariantly lumpable (d,Θ)) resolves YES
+  on this domain — 11,949 classes, 670 cross-kernel (same certified
+  situation under different hands and different trumps), but **zero
+  root merges** (647/647). **r2 (declared coarsenings c2 drop-double,
+  c3 drop-beaten-table-tiles, c2+c3): all ECL PASS**, full-carrier
+  classes down to 8,659, largest class 200 — and still 647/647 at
+  roots; dividend exactly 1.000 at plies 0–2. Structural matching
+  cannot compress decision-rich states on this corpus. **r3 (Jason's
+  direction: the retrograde coarsest quotient — backward induction from
+  hand-end over the graded carrier, content-addressed hereditary
+  signatures (grade, actor offset; per-move (k, classification,
+  successor class)), position-matching transports per walt-math's
+  coherence amendment): full carrier 15,253 → 1,459 classes; roots
+  647 → 306 with 132 merging classes; the trick-7 lead target alphabet
+  1,275 → 63; class DAG by grade 306/406/360/213/63/63/32/16/1.**
+  Receipts: r1-refines-r3 asserted in-run (HOLDS); independent ECL
+  re-check over the r3 partition PASS (1,013 classes, 13,794 pairs per
+  condition, 0 counterexamples). Scope caveats as mandated:
+  dynamics-equivalence classes named by future cones (carrier-relative;
+  no compact-description claim — v0.4 §12.7 open; not PI classes,
+  §12.4). Results: `walt-factory/results/census_2026-08-10{,_r2,_r3}.txt`.
+  Next rungs named: climb to trick 5 (the 1,680-world kernel) to
+  measure root-class growth with depth — that curve tests the 10^5
+  bar; and §12.7 compact descriptions for the 306 root classes (what
+  IS a class, in words a player could read).

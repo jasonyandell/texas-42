@@ -125,7 +125,18 @@ The compression program: find a nontrivial descriptor-with-transports
 and **count the classes** — the direct measurement of how much of the
 count-free game compresses at the seat. The declared bar (Jason,
 2026-08-10): show or disprove that the count of canonical situations is
-reasonably small, order 10^5 — either outcome is a result. Counterexample-guided synthesis
+reasonably small, order 10^5 — either outcome is a result. **First
+measurement (S5e, the trick-six census):** the finest structural
+relabeling quotient passes ECL exhaustively (existence: YES) but merges
+zero of 647 roots, as do all declared structural coarsenings; the
+**retrograde coarsest quotient** (backward induction from hand-end —
+dynamics equivalence, not structural matching) collapses 15,253
+situations to 1,459 classes, roots 647 → 306, and the trick-7 target
+alphabet to 63, with the refinement assertion and an independent ECL
+re-check as receipts. All counts carrier-relative, dynamics-equivalence,
+exploratory; the compact-description question (§12.7) and the climb to
+earlier tricks are the open rungs. Numbers and caveats:
+`walt/walt-factory/results/census_2026-08-10{,_r2,_r3}.txt`. Counterexample-guided synthesis
 per v0.4 §12.9, Scheme/Fix as the descriptor language per §12.7, carrier
 chosen per §11.2. Standing **no-rescue policy** (2026-08-10): a failure is
 a counterexample to carry back to the math, never a thing to engineer

@@ -226,28 +226,43 @@ evolved this project's own receipt/TRUST-01 discipline.
   track (`walt/math/equivariant_lumpability_v0.5.md`); direction reset
   to the lossless count-free equivariant quotient; m4/S6 deferred;
   `walt/math/implementers_guide.md` commissioned.
+- **S5e** (2026-08-10, late evening): the situation census. r1 finest
+  structural quotient: ECL PASS (the v0.5 existence OPEN resolves YES),
+  670 cross-kernel classes, zero root merges. r2 coarsenings: lawful,
+  still 647/647 roots. **r3 retrograde coarsest (Jason's pathfinding
+  direction): 15,253 → 1,459 classes; roots 647 → 306; t7-lead alphabet
+  63; class DAG 306/406/360/213/63/63/32/16/1; r1-refines-r3 HOLDS;
+  independent ECL re-check PASS.** Full gate green. Results in
+  `walt-factory/results/census_2026-08-10{,_r2,_r3}.txt`.
 
 ## Next
 
-- **The compression program (v0.5 — the goal, reset 2026-08-10):** find
-  a nontrivial descriptor-with-transports \((d,\Theta)\) satisfying
-  §12.6A (ECL) on the existing probe kernels — count-free outcome
-  contract, states identified up to declared interface transports,
-  outcomes compared under the quotient — and report the **class counts**
-  (the compression headline: does the seat's view collapse to hundreds?).
-  Method: counterexample-guided synthesis (§12.9); descriptor language =
-  Scheme/Fix under §12.7's triple (semantics + exact update law +
-  preservation proof); carrier chosen deliberately per §11.2 (decision
-  states / policy geometry — never worldwise-PI classes, §12.4).
-  Valuation re-enters afterward through transported roles and the §8
-  gauge (12.6A role re-entry), where the m3 H instrument prices the
-  seat-facing side. **The bar (Jason, 2026-08-10): show or disprove that
-  the number of count-free canonical situations is reasonably small —
-  order 10^5.** Both outcomes win: small → navigate it; not small → a
-  proved negative, and the exact tools already built analyze 42 anyway.
-  Repair loop when the math itself needs work: counterexample in hand →
-  exchange dispatch to 5.6 Pro (prose/LaTeX math ace; harness already
-  paid for) — with Jason's explicit go per the exchange rules, as always.
+- **The compression program (v0.5 — the goal, reset 2026-08-10; first
+  measurement DONE, S5e):** the trick-six census found the existence
+  answer (nontrivial (d,Θ) exists, ECL PASS) and the first compression
+  numbers — retrograde coarsest: 15,253 situations → 1,459 classes,
+  roots 647 → 306, trick-7 target alphabet 63. **The bar (Jason,
+  2026-08-10): order 10^5 count-free canonical situations for the full
+  game — still open**; the trick-6 numbers are the first rung, and the
+  root-class growth curve as the census climbs earlier tricks is the
+  bar's test. Next rungs, in order:
+  1. **Trick 5** — extend the carrier to the 1,680-world trick-five
+     kernel (grades 12→0; reuses the same machinery; the r3 backward
+     pass and the t6 class DAG below it are already built). Watch: root
+     classes at t5 lead vs 306 at t6 — the growth rate is the whole
+     ballgame.
+  2. **§12.7 compact descriptions** — the 306 root classes are
+     hash-named future cones; find Scheme/Fix descriptions (descriptor
+     semantics + update law + preservation proof) so a class is
+     sayable. This is where the classes become player- and
+     analyst-facing.
+  3. **Role re-entry** — declare a nonempty O_D on the census classes
+     and bring count/valuation back through the 12.6A gauge corollary;
+     the m3 H instrument prices the seat-facing side.
+  Method unchanged: §12.9 counterexample-guided; every construction
+  walt-math-adjudicated before build. Repair loop when the math itself
+  needs work: counterexample in hand → exchange dispatch to 5.6 Pro —
+  with Jason's explicit go per the exchange rules, as always.
 - **Deferred, frozen until the compression question moves** (Jason,
   2026-08-10): S6 corpus-at-scale / all-9-declarations factory work;
   economy lifecycle extensions; per-action parallelism for big-fiber
