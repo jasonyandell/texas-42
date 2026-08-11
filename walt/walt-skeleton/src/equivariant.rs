@@ -1337,7 +1337,11 @@ fn canonical_move_order(
 /// classified), signature by signature, content-addressed.
 pub fn build_r3(carrier: &Carrier) -> R3 {
     let terminal = terminal_hash();
-    let mut by_grade: Vec<Vec<usize>> = vec![Vec::new(); MAX_MATCHED_TILES + 1];
+    // Grade is the live-tile count, bounded by the double-six set itself —
+    // not by MAX_MATCHED_TILES, which is r1's canonicalization-domain guard
+    // and plays no role in the retrograde pass.
+    const MAX_GRADE: usize = 28;
+    let mut by_grade: Vec<Vec<usize>> = vec![Vec::new(); MAX_GRADE + 1];
     for (i, sit) in carrier.states.iter().enumerate() {
         by_grade[grade(sit)].push(i);
     }

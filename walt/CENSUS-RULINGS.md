@@ -505,3 +505,279 @@ Procedure discipline: v1 rows stay as committed (runs are never mutated); v2
 and the hereditary rung are new declared measurements in a new results file,
 headed by the instrument-tier caveat above and paired with the run's
 determinism freezes (content-addressing is already frozen per r3 Q5.3).
+
+## Fiber-probe rulings (P-Q1..P-Q6) — 2026-08-11
+
+**Adjudicator:** walt-math. **Tier:** exploratory throughout, with one declared
+INSTRUMENT (the fold weighting, P-Q3); nothing below changes the status of any
+class or value claim. **Basis:** v0.5 §12.6A and its BOUNDARY; v0.4 §2.1–2.6,
+§5.5, §7.4–7.7, §9.9, §10.3, §10.8, §11.7, §12.4, §12.6, §17.5. F1–F7, r3
+Q1–Q5, yard Y1–Y3 and shape v2 are inherited unchanged. Amendments are numbered
+P-A1.. and are builder obligations; a probe run that omits one is not the
+adjudicated probe.
+
+### Lemma V (value descends to r3 classes) — used by P-Q2 and P-Q3
+
+Let an operator assign to each state a value by a node rule that reads only
+(i) the actor offset and (ii) the canonically ordered family of per-move pairs
+(k, value of successor). Then the value is constant on r3 classes. *Proof.* By
+induction on grade (the carrier is strictly graded, r3 Q2). Grade 0: one class,
+value 0. Grade g: r3-equal states have equal preamble (grade, actor offset) and
+equal canonical-ordered per-move tuples (k, classification, successor class)
+(r3 Q3); by the induction hypothesis the successor classes determine successor
+values; the node rule applied to identical inputs returns identical values. ∎
+
+Lemma V covers the world-informed focal-max / hidden-uniform-expectation
+operator (F4's uniform-legal field; treatments C and F of v0.4 §10.3) and
+the PI minimax operator of §9.9 (max at offsets 0,2; min at 1,3). It does NOT
+cover treatment H, the actual hidden-information solve (§10.3): H's value at an
+information state is a function of the bag and its weighting, not of any single
+state's class. H is governed by Y3 instead — search the live sub-DAG with K̄ —
+and there a change of weighting is a RE-SOLVE over a fixed DAG, never a re-fold.
+This distinction is the spine of P-Q2 and P-Q3 and must not be blurred.
+
+### P-Q1 — coordinate and fiber. RULING: ACCEPT WITH FOUR AMENDMENTS.
+
+**Lawful as posed, on two independent grounds.** (a) *History-forgetting at the
+class layer is not a restriction at all.* The r3 carrier is hands + table +
+actor (F5) and a class identity is a function of the future cone alone (r3 Q4);
+no r3 object ever reads history. So a coordinate that carries the focal hand,
+the declaration, the leader and the live set determines every class in its
+fiber, exactly. (b) *The proposed fiber is a well-formed support object.* It is
+Φ(**C**₀) for the capacity-cell system **C**₀ = (U; P_s = U, k_s = n) of v0.4
+§2.1 — a feasible cell system, hence carrying a canonical exact support normal
+form (§2.2), and |Φ(**C**₀)| = (3n)!/(n!)³ = C(3n,n)·C(2n,n), the figures the
+design quotes.
+
+**But the dropped void inferences are a DECLARED SCOPE RESTRICTION, not a
+non-issue, and are a flaw if left undeclared.** §2.1 fixes the seat's real
+fiber as Φ(**C**) with P_s the tiles locally possible after all rule-derived
+exclusions — public sloughs induce exact void constraints — so Φ(**C**) ⊆
+Φ(**C**₀), generally strictly (the committed pruned census already shows this:
+trick-six kernels with fibers of 36 and 27 against the void-free 90;
+`results/census_pruned_2026-08-10.txt`). §2.2's BOUNDARY then bites: feasibility
+and exact normal-form decoding do not imply legal Straight reachability, and a
+support object used as a current game state must be inherited from legal
+construction or carry a reachability witness. The coordinate itself is
+inherited from the receipt; **C**₀ is not.
+
+- **P-A1 (vocabulary, mandatory).** Members of Φ(**C**₀) are FEASIBLE worlds,
+  never "reachable" and never "the seat's fiber" (feasible ≠ reachable is a
+  typed distinction). The results file names the object the *void-free capacity
+  fiber* and states verbatim: "This is Φ(**C**₀), the void-free capacity-cell
+  fiber, a declared superset of the seat's actual support Φ(**C**) (v0.4 §2.1);
+  the void constraints derivable from the actual play history are deliberately
+  dropped. It is a declared cost domain. No support fact about any seat may be
+  read from it, and Y3's exclusion conclusions do not apply to it."
+- **P-A2 (report the gap).** Per coordinate, print |Φ(**C**₀)| and, where the
+  kernel builder already supplies P_s, |Φ(**C**)| and the ratio; where it does
+  not at that rung, print that it was unavailable. Silence about the gap is not
+  permitted.
+- **P-A3 (monotonicity is one-sided — the ratio is not a bound).** Both arm
+  costs on Φ(**C**₀) are upper bounds for the same arm on Φ(**C**) (raw: fewer
+  worlds, same per-world cost; memoized: a subcarrier adds no classes and
+  splits none, r3 Q4). The CRUSH FACTOR is a ratio of two upper bounds and is
+  therefore a bound in neither direction; label it "measured on the void-free
+  capacity fiber" and never transport it to the seat's real fiber.
+- **P-A4 (declare the conventions the matching does not fix).** F2 A4 fixes
+  focal↔focal but not who focal is; declare "focal = the declaring seat" in the
+  header. Declare the leader as an offset from focal ∈ {0,1,2,3} (r3 Q3), not by
+  an orientation-flavoured word — §11.7 and F2 A4 forbid reflection-dependent
+  seat language.
+
+At a trick boundary there are no unresolved-trick tiles, so F2 A1's extension is
+inert here and each rung n is exactly a level-j = n boundary fiber in the
+railyard indexing (Y1). Nothing further is required for well-formedness.
+
+### P-Q2 — the raw baseline. RULING: ACCEPT-WITH-AMENDMENT; the baseline as posed is a strawman and is replaced by a three-arm ladder.
+
+**The object must be named with the project's own operator vocabulary, not
+invented.** "Solve every world independently" is treatment C/F (world revealed;
+v0.4 §10.3, `walt-strat/src/revealed.rs`) or the PI operator (§9.9,
+`walt-strat/src/pi.rs`) — it is NOT treatment H, the seat's actual hidden solve
+(`walt-strat/src/hidden.rs`). §7.6 (strategy fusion) and §7.7 (operator
+boundary) make the difference a difference of games, and §12.4/§17.5 record the
+nonclaim that worldwise perfect-information classes are the correct
+hidden-decision classes.
+
+- **P-A5 (declare the operator).** The header names the operator by §10.3
+  letter (or "PI, §9.9") and states: "the quantity computed per world is
+  world-informed; it is not a seat value. No V or Q of any seat is claimed."
+  Recommended choice: the F4 uniform-legal field with focal informed, because
+  the r3 classes were built and ECL-verified under exactly that kernel; the PI
+  operator is permitted but then §10.8's caution is reproduced.
+- **P-A6 (count-free contract).** Valuation is `q_trick` only (each trick ±1,
+  affine in v0.5 conclusion 4's t_T·e⋆). `q_points` is FORBIDDEN in this probe:
+  it is tile-count-bearing, leaves the count-free contract under which the
+  classes were verified, and would require declared role re-entry (v0.5 role
+  re-entry; Y3(c)). Assert the valuation in-run. Exact i128 integers and
+  rationals throughout (F4); no floats anywhere, including timings and ratios
+  (P-A19).
+
+**The honest baseline is not a cacheless tree walk.** `walt-strat/src/scalar.rs`
+already implements "one scalar PI solver with a boundary cache shared across
+every world and root it is asked about," keyed on the packed semantic state
+(hands, leader) — i.e. the identity-transport control that F6 already mandates
+("§12.6 is recovered exactly by identity transports; the identity-interface
+count on the same carrier is the canonical control"), and its own comment
+records that worlds of one fiber share suffix states heavily. Measuring the
+class DAG against a cacheless tree would credit the equivariance machinery with
+ordinary transposition memoisation that the project has already banked.
+
+- **P-A7 (three arms, mandatory).** A0 = per-world backward induction, no cache
+  (tree). A1 = identity-key content-addressed DAG, cache shared across the whole
+  fiber (F6's control; the `scalar.rs` key). B = r3-signature content-addressed
+  DAG. Report:
+  A1/A0 = memoisation dividend; **B/A1 = the equivariance dividend proper (the
+  headline)**; B/A0 = total dividend, labelled "includes ordinary memoisation".
+  Quoting B/A0 as "the crush" is forbidden.
+- **P-A8 (raw pays no class cost; memoized pays all of its own).** A0 and A1
+  must not canonicalise, hash a signature, or allocate a class object — class
+  membership is not needed for their output. B's canonicalisation, hashing and
+  cache probes are inside B's measured wall-clock. Move generation, fiber
+  enumeration (same order), the leaf rule and the final aggregation are shared
+  code across all three arms.
+- **P-A9 (same-object receipt).** For every world evaluated by more than one
+  arm, assert bit-exact equality of the per-world value across arms, and assert
+  value(world) = value(root class of that world) for arm B (this is Lemma V's
+  in-run check and the F6/Q5.2 "by construction is not a receipt" discipline).
+  Any mismatch: stop and report per NO-RESCUE; never patch. Without this
+  receipt the comparison is void, because unequal outputs make the ratio
+  meaningless.
+- **P-A10 (no pruning in any arm).** No alpha-beta, no bound-based cutoff, no
+  move ordering that changes the visited set. Node counts are then
+  order-independent and the arms are comparable. This also disposes of the
+  design's M1/M2/M3 framing: **M2 ("exact pruning — infeasible branches die at
+  classification") is REJECTED as a mechanism.** There are no infeasible
+  branches in a legal-move enumeration; what M2 gestures at is either the
+  root-world→root-class collapse (already measured WEAK, and reportable as its
+  own line, not as a mechanism) or a sampling-style cut, which Y3(d) forbids
+  outright. Delete M2 or restate it as the root-collapse line.
+- **P-A11 (node counts never stand alone).** A class-DAG node costs more than an
+  identity-cache probe, so a node-count ratio is not a cost ratio. Every arm
+  reports both integer node counts and integer wall-clock, and every quoted
+  crush factor is paired with its wall-clock counterpart.
+
+### P-Q3 — the re-weighting. RULING: REJECT the name; ACCEPT the object under the corrected name and two amendments.
+
+"Support-side re-weighting instrument" is backwards and blurs the ledger it
+claims to respect. §2.5's noncollapse ledger types Φ(K) as rule-compatible
+current remainders, explicitly *not* a probability measure; the instant unequal
+weights are attached to members you have a measure-shaped object, so it is not
+support. It is equally not a belief: nothing normalises it, no field likelihood
+or evidence produces it, and §2.4's β is the viewer's normalised belief on
+Ξ(K,e). It is an aggregation argument in the sense of §5.5.
+
+- **P-A12 (name, mandatory).** Call it the **declared fold weighting (timing
+  instrument)**: a deterministic, unnormalised, integer-valued weighting over
+  feasible fiber members, whose only function is to force a genuinely different
+  second aggregation so the re-fold can be timed. The results file states:
+  "The fold weighting is neither support nor belief (v0.4 §2.5); it is an
+  aggregation argument (§5.5) chosen to time a second fold. No number produced
+  under it is a value claim, a belief, or a support fact." Tier: INSTRUMENT,
+  below every tier, cited by nothing above it. Publishing its wall-clock ratio
+  makes no value claim — CONFIRMED, given this labelling.
+- **P-A13 (state the weighting orientation-freely and freeze it).** "Number of
+  trumps the world assigns to the focal seat's left opponent" is
+  orientation-flavoured language (§11.7, F2 A4). Declare it as offset from focal
+  ∈ {1,2,3} — e.g. weight(ω) = 1 + |trumps assigned to offset 1|, exact
+  integer — and freeze the definition (freeze 9, P-A18).
+
+**The amortisation claim (M3) must be narrowed, and this is the ruling that
+changes what the probe buys.** "Support-level values are weighting-independent,
+so a second evaluation is a re-fold over a fixed spine" is TRUE for the
+per-world operator (Lemma V: per-world values are class functions and the
+weighting enters only the final aggregation) and FALSE for treatment H, the
+seat's actual object: H's solve depends on the bag weighting, so a re-weighted
+H is a re-solve over the fixed class DAG, not a re-fold. The design's payoff
+sentence ("beliefs/policies iterate on re-folds") is therefore about C/F, not
+about the seat.
+
+- **P-A14 (the H row).** The results file states plainly: "The measured
+  amortisation is for the world-informed per-world operator. It does not
+  establish amortisation for treatment H, where a change of weighting is a
+  re-solve over the fixed class DAG (Y3), not a re-fold." Additionally, at the
+  smallest rung where it completes inside the declared budget, run H (the
+  existing `hidden_root_values` shape) cold and then over the pre-built class
+  DAG under two weightings, and report the re-solve/first-build ratio; if it
+  completes at no rung, print that fact with the rung attempted and the stop.
+  This is the number the "platform for belief/policy iteration" claim actually
+  rests on.
+
+### P-Q4 — declared stops. RULING: REJECT the prefix; ACCEPT a declared deterministic decimation.
+
+A prefix of a deterministic enumeration order is a biased estimator of per-world
+cost, and biased in a way that is structural rather than incidental: any lex- or
+colex-style enumeration of assignments of 3n tiles varies its later coordinates
+fastest, so the first W worlds share most of one seat's holding. Per-world tree
+size depends strongly on exactly that (trump concentration drives forced-follow
+versus free-choice arity, v0.4 §1.2, §1.5), so the prefix samples a
+non-representative slice of the cost distribution. "No silent cap" is satisfied
+by a prefix; unbiasedness is not, and the design asks for a per-world cost
+estimate.
+
+- **P-A15 (lawful stop rule).** Replace the prefix with a fixed multiplicative
+  decimation: with N = |Φ(**C**₀)| and a declared constant g with gcd(g, N) = 1,
+  evaluate the worlds at enumeration indices (i·g mod N) for i = 0..W−1, with g
+  and W declared in the freeze header. Deterministic, no seed, no Date, no RNG,
+  and it spreads the sample across the whole order. Report the per-world node
+  count as an exact rational mean (sum/W) together with min, max and the
+  quartile boundaries, so the estimator's dispersion is visible. All arms that
+  are compared at that rung evaluate the SAME index set.
+- **P-A16 (how the n=6 ratio is stated).** Arm B runs the full fiber where it
+  can. The n=6 crush is then (raw mean × N) / (B full-fiber total), with the
+  numerator flagged ESTIMATED and the estimator (g, W, dispersion) printed
+  beside it. If B also stops, print worlds processed and the index of the last
+  world evaluated, so the run is reproducible and resumable. Every stop printed,
+  no silent caps — CONFIRMED as the design already requires.
+
+### P-Q5 — cache persistence. RULING: ACCEPT WITH ONE AMENDMENT.
+
+Sound: class identity is intrinsic to the continuation (r3 Q4), so a class
+computed at level j is literally the same object when met again after a played
+trick; carrier growth adds classes and never splits them. A warm cache is
+therefore exact, not an approximation.
+
+- **P-A17 (report the informative number).** Y1's stacking makes interior
+  survival near-certain — the level-j DAG already contains the level-(j−1)
+  classes as its interior — so a warm/cold wall-clock ratio alone mostly
+  restates the stacking theorem. Report the ROOT-side figure: of the advanced
+  coordinate's distinct root classes, the fraction already present in the
+  level-j store. The advanced coordinate must use the same void-free scope
+  (P-A1) or the two rungs are not comparable, and a warm cache may never be
+  inherited across a change of freeze set.
+
+### P-Q6 — results discipline and freezes. RULING: ACCEPT, with the freeze list below mandatory.
+
+Freeze numbers 1–6 are taken (r3's two; the yard's tree encoding and shape
+canonical form; v2's suffix cut and open variant). The probe's freezes therefore
+begin at **7**, and the header restates r3's 1–2 and the yard's 3 unchanged.
+
+- **P-A18 (new freezes).** (7) the fiber enumeration order, stated precisely
+  enough to reproduce an index → world map; (8) the decimation rule (g, W) per
+  rung, per P-A15; (9) the fold weighting definition (P-A13); (10) the operator
+  and valuation (P-A5, P-A6); (11) the per-arm key functions — A1's packed
+  semantic-state key and B's r3 128-bit FNV-1a signature — since node counts and
+  hit counts are only reproducible against them.
+- **P-A19 (timing discipline).** All arms single-threaded (or one declared
+  thread count for all arms) and executed in one run on one machine; record CPU
+  model, core count and build profile. A wall-clock ratio assembled across
+  machines, builds or thread counts is void and must not be printed. Wall-clock
+  in integer nanoseconds; every ratio an exact rational rendered by integer
+  division. No f32/f64 anywhere in the probe.
+- **P-A20 (inherited boilerplate).** Reproduce, verbatim, r3 Q4's mandated
+  caveat block; the tier lines (exploratory; the fold weighting INSTRUMENT); the
+  SINGLE-IMPLEMENTATION provenance line; the regenerate line; and P-A1's
+  void-free scope paragraph. Pair every class count with its ECL verdict line
+  (F6) — the probe imports the r3/t5 verdicts, it does not re-earn them.
+- **P-A21 (extrapolation).** Three rungs are not a law. The per-rung ratios are
+  the headline; a fitted exponent may accompany them, computed in exact
+  rationals, labelled "extrapolation, exploratory tier", and phrased as "the
+  implied n=7 cost under the fitted law" — never as a statement about an unrun
+  computation, and never as a feasibility claim. The n=7 fiber is the deal
+  itself (399,072,960 void-free worlds), where the void-free scope restriction
+  of P-A1 is at its widest relative to any real seat.
+
+**Both outcomes remain results** (F7, NO-RESCUE): a weak B/A1 dividend is a
+proved negative about this route to n=7 and changes nothing about the classes'
+existence or their ECL receipts.

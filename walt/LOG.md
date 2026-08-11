@@ -788,3 +788,72 @@ provenance, as the S5a count corrections were.
   instrument tier; a t4 climb supplies the second step. All committed
   through aff5c8e; targeted suites green throughout (23 tests); full
   gate green on the t5 tree.
+
+## S5h — 2026-08-11: the fiber-crush probe (the three-arm ladder)
+
+Jason's morning frame: crush and guide fiber enumeration and the
+level-1 seat platform exists — raw fibers are quick at 4 tricks
+remaining, untenable at 6 (17.2M worlds), intractable at 7 (399M, the
+deal itself); belief/policy iteration means countless re-evaluations.
+Design (`walt/FIBER-PROBE.md`) sent to walt-math BEFORE build; the
+rulings (CENSUS-RULINGS.md "Fiber-probe rulings", P-A1..P-A21)
+reshaped it hard: the proposed raw-vs-class comparison was ruled a
+STRAWMAN — the honest control is the ordinary transposition cache the
+project already banked (`scalar.rs`), so the probe runs THREE arms
+(A0 plain tree / A1 identity-key boundary cache / B r3-class DAG) and
+the equivariance dividend proper is B:A1, never B:A0. Other
+amendments: the object is the VOID-FREE CAPACITY FIBER Φ(C₀), a
+declared cost domain, never "the seat's fiber" (feasible ≠ reachable;
+P-A1); M2 "pruning" REJECTED as a mechanism (root collapse is its own
+line); the re-weighting is the "declared fold weighting (timing
+instrument)" — neither support nor belief, an aggregation argument
+(§5.5); prefix sampling REJECTED for deterministic decimation
+(i·g mod N, gcd = 1, freeze 8); Lemma V (per-world operator values
+descend to r3 classes) stated and used as the P-A9 in-run receipt;
+the amortisation claim NARROWED — re-fold amortisation is about the
+per-world operator; the platform claim rests on treatment H (P-A14).
+
+Results (`results/fiber_probe_2026-08-11.txt`, exploratory tier,
+receipts P-A9 held bit-exact everywhere, 240/240 · 24/24 · 6/6):
+
+- **The memoisation dividend is the manyfold, and it grows with
+  depth**: A1:A0 wall medians 0.166 (n=4) → 0.024 (n=5) → 0.010
+  (n=6) — 6× to 100×. The shared interior is real and compounds.
+- **The equivariance dividend proper is NEGATIVE at build time**:
+  B:A1 ≈ 4.0–5.0 at every rung (median 4.7/4.3/4.9) — the class DAG
+  computes identical values at ~5× the cost of the plain cache.
+  Structural reason, not implementation accident: class identity is a
+  function of the future cone, so it is only computable AFTER full
+  expansion — retrograde identity cannot short-circuit descent the
+  way a state key can. **The class store is a storage/transport
+  object (reuse across coordinates, hands, weightings), never a
+  first-build accelerator.** Root collapse on evaluated sets: nil
+  (240→239-240), as the rulings predicted.
+- Interior collapse is real anyway: e.g. n=4 h0 carrier 1.50M
+  situations → 129k classes (11.7×) — the inventory compresses; the
+  build cost does not.
+- **The H row is the day's surprise (fiber_probe_h file)**: cold
+  treatment H — the seat's ACTUAL pooled hidden-information solve,
+  m3's dag-v1 memoized scalar solver, uniform weighting — COMPLETED
+  on the full 34,650-world void-free fiber at every eligible n=4
+  coordinate (8 of 13; the rest have a non-declarer leading, out of
+  the attempt's scope) in **7–17 s each**, inside the declared 200M
+  particle-step budget; dag-v1 did 13–125× less work than tree-v0.
+  The weighted-re-solve-over-the-fixed-DAG number (the one the
+  platform claim rests on) remains UNMEASURED — machinery absent
+  (uniform-only solver, Y3 K̄ integration unbuilt) — stated in the
+  results file per P-A14.
+- P-A2 gap lines: the seat's real support is sometimes a sliver of
+  the capacity fiber (h8 at n=4: 1,200 of 34,650 = 3.4%).
+- Extrapolation (P-A21, declared one-more-step law, hand 0): implied
+  n=7 per-world A0 ~ 2,970 s — raw is dead, as expected; A1 growth
+  ~10.5×/rung on near-cold small-W samples (full-fiber saturation
+  unmeasured this run — declared stop; P-A16's full-fiber B side not
+  run).
+
+Machinery note: `build_r3` sized its grade ladder by
+MAX_MATCHED_TILES (=12, r1's canonicalization-domain guard) — a
+borrowed constant that capped the retrograde pass at 3 tricks; fixed
+to the true bound (grade ≤ 28), capacity not semantics, no receipt
+changes. Full gate green. Fast-iteration declared stops throughout
+(per-rung hand subsets and W; every stop printed).

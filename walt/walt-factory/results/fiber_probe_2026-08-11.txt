@@ -1,0 +1,185 @@
+walt fiber-crush probe — three-arm cost ladder over the void-free capacity fiber — exploratory tier
+design: walt/FIBER-PROBE.md; binding rulings: walt/CENSUS-RULINGS.md "Fiber-probe rulings (P-Q1..P-Q6)", amendments P-A1..P-A21 all in force
+scope: pip-trump only (F1, asserted in-run); corpus rob/receipts/verify_player.txt hands 0-12; focal = the declaring seat (P-A4); the leader is declared per coordinate as an offset from focal
+
+P-A1 (verbatim): This is Phi(C0), the void-free capacity-cell fiber, a declared superset of the seat's actual support Phi(C) (v0.4 §2.1); the void constraints derivable from the actual play history are deliberately dropped. It is a declared cost domain. No support fact about any seat may be read from it, and Y3's exclusion conclusions do not apply to it.
+P-A3: both arm costs on Phi(C0) are upper bounds for the same arm on Phi(C); every crush factor below is a ratio of two upper bounds, measured on the void-free capacity fiber, and is a bound in neither direction for the seat's real fiber.
+
+operator (P-A5, freeze 10): the F4 world-informed focal-max / hidden-uniform-expectation node rule — the quantity computed per world is world-informed; it is not a seat value. No V or Q of any seat is claimed.
+valuation (P-A6, freeze 10): q_trick only — the focal partnership's trick count, affine in t_T*e_star; q_points is out of scope for this probe. Exact i128 integers and rationals throughout; no floats anywhere, including timings and ratios.
+fold weighting (P-A12, freeze 9): weight(world) = 1 + |trumps the world assigns to the seat at offset 1 from focal|. The fold weighting is neither support nor belief (v0.4 §2.5); it is an aggregation argument (§5.5) chosen to time a second fold. No number produced under it is a value claim, a belief, or a support fact. INSTRUMENT tier, below every tier, cited by nothing above it.
+
+CAVEAT (mandated, r3 ruling Q4): Classes are dynamics-equivalence classes under §12.6A on this carrier, uniform-legal field, count-free contract, per-step interface typing (r3 ruling Q3); they need not be closed under any tile relabeling and carry no structural description — the compact-description question (v0.4 §12.7) is separate and open. Coarsest is relative to that scope. Class identities are intrinsic to continuations; counts are carrier-relative; carrier growth adds classes, never splits existing ones. Exploratory tier. ECL holds by construction; see verification lines. These are not hidden-decision PI classes (v0.4 §12.4): the equivalence is dynamics, not response equality.
+ECL import (P-A20): the r3 machinery's ECL verdicts are imported, not re-earned — r3 independent re-check PASS (census_2026-08-10_r3.txt); t5 independent re-check PASS (census_t5_2026-08-10.txt). Class counts below are exploratory-tier inventory on this probe's evaluated sets.
+
+freezes: 1-2 (r3: content-addressed 128-bit FNV-1a class encoding; canonical move order by (increment, classification, successor class hash), concrete tile order as the tie rule) and 3 (the yard tree encoding) restated unchanged. New: (7) the fiber enumeration order — FiberIter over the void-free kernel with hidden slots in offset order 1,2,3 from focal, each slot's k-combinations of its ascending-domino candidate list in lexicographic order, slot 0 outermost; the index of a world is its position in this stream. (8) the decimation — evaluate indices (i*g mod N), i = 0..W, per-rung (g, W) printed in each rung header, gcd(g, N) = 1 asserted. (9) the fold weighting above. (10) the operator and valuation above. (11) the per-arm keys — A1: the packed semantic state (leader index, the four hand bitsets) at trick boundaries only, nothing canonicalized; B: the r3 128-bit FNV-1a signature.
+
+timing discipline (P-A19): one run, one machine, single-threaded; wall-clock in integer nanoseconds; every ratio an exact fixed-point rendering by integer division. CPU: Apple M5 Max; build profile: release; threads: 1.
+declared stops of this run: the per-rung hand subsets and (g, W) below are the fast-iteration budget; every hand or rung not run is listed by omission from a printed rung header, never silently. Full-fiber arm B (P-A16) was not run this iteration — a declared stop; the n=6 raw total is therefore reported as raw-mean x N, flagged ESTIMATED with its estimator, and the full-fiber B side is reported as not run.
+provenance: SINGLE-IMPLEMENTATION — one Rust implementation (this runner over walt-skeleton's equivariant module)
+regenerate: cargo run --release -p walt-factory --example fiber_probe
+
+================ rung n=4 (trick 4) — decimation g=7919, W=240; hands [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] ================
+  h0: leader at offset 0 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 34650, voided : void-free = 1.000 (P-A2)
+      A0: 22252939 edges, 2580101042 ns; per-world edges min/q1/med/q3/max = 33214/61976/74741/119561/232477, exact mean = 22252939/240
+      A1: 2700648 edges, 430650625 ns; boundary-cache entries 120311
+      B : carrier 1502362 situations, 128860 classes, 2700648 edges; ns carrier/r3/fold/lookup = 885885583/1141299541/36674333/98292; total 2063957749 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 240 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.166 (memoisation dividend); B:A1 = 4.792 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.799 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 42500 ns; refold : B-build = 0.000
+  h1: leader at offset 0 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 34650, voided : void-free = 1.000 (P-A2)
+      A0: 91622499 edges, 10668745375 ns; per-world edges min/q1/med/q3/max = 256156/270144/367707/450534/665476, exact mean = 91622499/240
+      A1: 5274371 edges, 861833375 ns; boundary-cache entries 176574
+      B : carrier 2616173 situations, 74348 classes, 5274371 edges; ns carrier/r3/fold/lookup = 1647336250/2001514625/21613541/104958; total 3670569374 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 240 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.080 (memoisation dividend); B:A1 = 4.259 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.344 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 31500 ns; refold : B-build = 0.000
+  h2: leader at offset 0 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 23100, voided : void-free = 0.666 (P-A2)
+      A0: 23015387 edges, 2702201125 ns; per-world edges min/q1/med/q3/max = 45573/70213/84886/104586/406724, exact mean = 23015387/240
+      A1: 2279520 edges, 371697792 ns; boundary-cache entries 97639
+      B : carrier 1239054 situations, 50138 classes, 2279520 edges; ns carrier/r3/fold/lookup = 705630625/882154500/13731250/63083; total 1601579458 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 239 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.137 (memoisation dividend); B:A1 = 4.308 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.592 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 39833 ns; refold : B-build = 0.000
+  h3: leader at offset 2 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 8820, voided : void-free = 0.254 (P-A2)
+      A0: 50237321 edges, 5819019541 ns; per-world edges min/q1/med/q3/max = 41578/130125/170096/257227/744868, exact mean = 50237321/240
+      A1: 3956157 edges, 622849708 ns; boundary-cache entries 130542
+      B : carrier 1942925 situations, 3053 classes, 3956157 edges; ns carrier/r3/fold/lookup = 1221469042/1291992375/643208/48250; total 2514152875 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 233 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.107 (memoisation dividend); B:A1 = 4.036 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.432 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 17584 ns; refold : B-build = 0.000
+  h4: leader at offset 0 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 34650, voided : void-free = 1.000 (P-A2)
+      A0: 14942360 edges, 1710377792 ns; per-world edges min/q1/med/q3/max = 25322/41954/56080/76227/324371, exact mean = 14942360/240
+      A1: 2268076 edges, 350107583 ns; boundary-cache entries 111883
+      B : carrier 1328323 situations, 81035 classes, 2268076 edges; ns carrier/r3/fold/lookup = 726637917/931480500/23575250/104917; total 1681798584 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 240 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.204 (memoisation dividend); B:A1 = 4.803 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.983 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 41000 ns; refold : B-build = 0.000
+  h5: leader at offset 0 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 14700, voided : void-free = 0.424 (P-A2)
+      A0: 38555422 edges, 4465128333 ns; per-world edges min/q1/med/q3/max = 53910/88323/103455/267725/600100, exact mean = 38555422/240
+      A1: 3921192 edges, 639397084 ns; boundary-cache entries 169227
+      B : carrier 2173676 situations, 173382 classes, 3921192 edges; ns carrier/r3/fold/lookup = 1270504334/1666797042/56475125/107875; total 2993884376 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 240 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.143 (memoisation dividend); B:A1 = 4.682 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.670 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 41125 ns; refold : B-build = 0.000
+  h6: leader at offset 0 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 34650, voided : void-free = 1.000 (P-A2)
+      A0: 10538131 edges, 1185115833 ns; per-world edges min/q1/med/q3/max = 3685/19850/32179/55974/360337, exact mean = 10538131/240
+      A1: 2056978 edges, 306840833 ns; boundary-cache entries 110456
+      B : carrier 1232334 situations, 86495 classes, 2056978 edges; ns carrier/r3/fold/lookup = 661862000/859730625/25276458/66209; total 1546935292 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 240 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.258 (memoisation dividend); B:A1 = 5.041 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 1.305 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 46333 ns; refold : B-build = 0.000
+  h7: leader at offset 3 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 14700, voided : void-free = 0.424 (P-A2)
+      A0: 29103262 edges, 3339799333 ns; per-world edges min/q1/med/q3/max = 19792/59619/91471/150082/769834, exact mean = 29103262/240
+      A1: 3888153 edges, 615650417 ns; boundary-cache entries 176965
+      B : carrier 2193496 situations, 93920 classes, 3888153 edges; ns carrier/r3/fold/lookup = 1306903750/1579817000/29920041/59167; total 2916699958 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 240 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.184 (memoisation dividend); B:A1 = 4.737 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.873 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 49375 ns; refold : B-build = 0.000
+  h8: leader at offset 0 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 1200, voided : void-free = 0.034 (P-A2)
+      A0: 18673330 edges, 2164357167 ns; per-world edges min/q1/med/q3/max = 13642/22608/64150/107525/367238, exact mean = 18673330/240
+      A1: 2659935 edges, 427840542 ns; boundary-cache entries 127509
+      B : carrier 1528676 situations, 126566 classes, 2659935 edges; ns carrier/r3/fold/lookup = 884285375/1147877625/41198083/90791; total 2073451874 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 240 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.197 (memoisation dividend); B:A1 = 4.846 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.957 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 37792 ns; refold : B-build = 0.000
+  h9: leader at offset 0 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 34650, voided : void-free = 1.000 (P-A2)
+      A0: 97062621 edges, 11246520292 ns; per-world edges min/q1/med/q3/max = 318613/337501/361689/452396/1262572, exact mean = 97062621/240
+      A1: 6405131 edges, 1068894500 ns; boundary-cache entries 236094
+      B : carrier 3315000 situations, 124422 classes, 6405131 edges; ns carrier/r3/fold/lookup = 2072348208/2560896833/48400916/140083; total 4681786040 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 240 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.095 (memoisation dividend); B:A1 = 4.380 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.416 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 52042 ns; refold : B-build = 0.000
+  h10: leader at offset 2 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 14700, voided : void-free = 0.424 (P-A2)
+      A0: 20993915 edges, 2397029542 ns; per-world edges min/q1/med/q3/max = 16274/40345/59111/120139/431734, exact mean = 20993915/240
+      A1: 3293147 edges, 506613792 ns; boundary-cache entries 160782
+      B : carrier 1917806 situations, 120754 classes, 3293147 edges; ns carrier/r3/fold/lookup = 1080196084/1398863209/38215000/104375; total 2517378668 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 239 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.211 (memoisation dividend); B:A1 = 4.969 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 1.050 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 56625 ns; refold : B-build = 0.000
+  h11: leader at offset 3 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 14700, voided : void-free = 0.424 (P-A2)
+      A0: 21613919 edges, 2467135459 ns; per-world edges min/q1/med/q3/max = 7637/26193/59733/120634/1292184, exact mean = 21613919/240
+      A1: 2553957 edges, 393734625 ns; boundary-cache entries 121063
+      B : carrier 1457667 situations, 138928 classes, 2553957 edges; ns carrier/r3/fold/lookup = 830861125/1084270375/37514833/74625; total 1952720958 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 240 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.159 (memoisation dividend); B:A1 = 4.959 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.791 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 45292 ns; refold : B-build = 0.000
+  h12: leader at offset 0 from focal; |Phi(C0)| = 34650, |Phi(C)| voided = 34650, voided : void-free = 1.000 (P-A2)
+      A0: 19999208 edges, 2248823791 ns; per-world edges min/q1/med/q3/max = 12037/30179/67900/89800/578533, exact mean = 19999208/240
+      A1: 2614949 edges, 390346041 ns; boundary-cache entries 118951
+      B : carrier 1461897 situations, 31282 classes, 2614949 edges; ns carrier/r3/fold/lookup = 828048958/951457500/8359959/77125; total 1787943542 ns
+      root collapse (its own line per P-A10's disposition of M2): 240 worlds -> 240 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 240/240 held; value(world) = value(root class) 240/240 held
+      wall ratios: A1:A0 = 0.173 (memoisation dividend); B:A1 = 4.580 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.795 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 40792 ns; refold : B-build = 0.000
+  rung medians (wall): A1:A0 = 0.166; B:A1 = 4.737; B:A0 = 0.795
+
+================ rung n=5 (trick 3) — decimation g=104729, W=24; hands [0, 1, 2, 3] ================
+  h0: leader at offset 1 from focal; |Phi(C0)| = 756756, |Phi(C)| voided = 756756, voided : void-free = 1.000 (P-A2)
+      A0: 271461800 edges, 31336367208 ns; per-world edges min/q1/med/q3/max = 1000824/3696867/5573511/18446039/41835582, exact mean = 271461800/24
+      A1: 8908441 edges, 1465052833 ns; boundary-cache entries 342455
+      B : carrier 4776595 situations, 303944 classes, 8908441 edges; ns carrier/r3/fold/lookup = 3043738584/3912902125/98168042/20084; total 7054828835 ns
+      root collapse (its own line per P-A10's disposition of M2): 24 worlds -> 24 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 24/24 held; value(world) = value(root class) 24/24 held
+      wall ratios: A1:A0 = 0.046 (memoisation dividend); B:A1 = 4.815 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.225 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 9208 ns; refold : B-build = 0.000
+  h1: leader at offset 0 from focal; |Phi(C0)| = 756756, |Phi(C)| voided = 756756, voided : void-free = 1.000 (P-A2)
+      A0: 861622696 edges, 100175258875 ns; per-world edges min/q1/med/q3/max = 18281372/24419223/31028511/43161409/101012883, exact mean = 861622696/24
+      A1: 7971858 edges, 1309656000 ns; boundary-cache entries 239979
+      B : carrier 3837306 situations, 194350 classes, 7971858 edges; ns carrier/r3/fold/lookup = 2451921042/3119654000/57143209/24541; total 5628742792 ns
+      root collapse (its own line per P-A10's disposition of M2): 24 worlds -> 24 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 24/24 held; value(world) = value(root class) 24/24 held
+      wall ratios: A1:A0 = 0.013 (memoisation dividend); B:A1 = 4.297 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.056 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 4958 ns; refold : B-build = 0.000
+  h2: leader at offset 3 from focal; |Phi(C0)| = 756756, |Phi(C)| voided = 504504, voided : void-free = 0.666 (P-A2)
+      A0: 605022083 edges, 69669857667 ns; per-world edges min/q1/med/q3/max = 1394557/4463322/15654833/22805113/237729764, exact mean = 605022083/24
+      A1: 8471394 edges, 1382323583 ns; boundary-cache entries 275572
+      B : carrier 4158587 situations, 137337 classes, 8471394 edges; ns carrier/r3/fold/lookup = 2637821208/3195435916/44553583/15917; total 5877826624 ns
+      root collapse (its own line per P-A10's disposition of M2): 24 worlds -> 24 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 24/24 held; value(world) = value(root class) 24/24 held
+      wall ratios: A1:A0 = 0.019 (memoisation dividend); B:A1 = 4.252 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.084 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 7458 ns; refold : B-build = 0.000
+  h3: leader at offset 2 from focal; |Phi(C0)| = 756756, |Phi(C)| voided = 756756, voided : void-free = 1.000 (P-A2)
+      A0: 468914407 edges, 54167368792 ns; per-world edges min/q1/med/q3/max = 3623330/8035384/13640026/24598622/95043323, exact mean = 468914407/24
+      A1: 8177071 edges, 1342425042 ns; boundary-cache entries 233047
+      B : carrier 3769580 situations, 43299 classes, 8177071 edges; ns carrier/r3/fold/lookup = 2479612458/2855179333/12204791/16042; total 5347012624 ns
+      root collapse (its own line per P-A10's disposition of M2): 24 worlds -> 24 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 24/24 held; value(world) = value(root class) 24/24 held
+      wall ratios: A1:A0 = 0.024 (memoisation dividend); B:A1 = 3.983 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.098 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 7000 ns; refold : B-build = 0.000
+  rung medians (wall): A1:A0 = 0.024; B:A1 = 4.297; B:A0 = 0.098
+
+================ rung n=6 (trick 2) — decimation g=1299709, W=6; hands [0] ================
+  h0: leader at offset 1 from focal; |Phi(C0)| = 17153136, |Phi(C)| voided = 17153136, voided : void-free = 1.000 (P-A2)
+      A0: 3203022110 edges, 373653629958 ns; per-world edges min/q1/med/q3/max = 79889622/276534362/693671115/840439972/1000303753, exact mean = 3203022110/6
+      A1: 22107226 edges, 3852236708 ns; boundary-cache entries 659021
+      B : carrier 11053030 situations, 711372 classes, 22107226 edges; ns carrier/r3/fold/lookup = 8019806042/10618705000/252219042/10375; total 18890740459 ns
+      root collapse (its own line per P-A10's disposition of M2): 6 worlds -> 6 distinct root classes
+      receipts (P-A9): cross-arm per-world equality 6/6 held; value(world) = value(root class) 6/6 held
+      wall ratios: A1:A0 = 0.010 (memoisation dividend); B:A1 = 4.903 (THE EQUIVARIANCE DIVIDEND PROPER); B:A0 = 0.050 (includes ordinary memoisation, never quoted alone)
+      refold (declared fold weighting, INSTRUMENT): 3542 ns; refold : B-build = 0.000
+  rung medians (wall): A1:A0 = 0.010; B:A1 = 4.903; B:A0 = 0.050
+
+================ extrapolation (P-A21) — exploratory tier ================
+ladder on hand 0 only (the one coordinate present at every rung); per-world mean wall-clock = arm ns / W by integer division.
+  n=4: per-world ns A0/A1/B = 10750421/1794377/8599823; |Phi(C0)| = 34650; ESTIMATED raw fiber total (A0 mean x N, P-A16) = 372502087650 ns
+  n=5: per-world ns A0/A1/B = 1305681967/61043868/293951201; |Phi(C0)| = 756756; ESTIMATED raw fiber total (A0 mean x N, P-A16) = 988082662619052 ns
+  n=6: per-world ns A0/A1/B = 62275604993/642039451/3148456743; |Phi(C0)| = 17153136; ESTIMATED raw fiber total (A0 mean x N, P-A16) = 1068221921927208048 ns
+  fitted law (declared: one more step of the last measured growth, n=5 -> n=6): per-world A0 growth = 47.695, per-world B growth = 10.710
+  implied n=7 cost under the fitted law — extrapolation, exploratory tier, never a statement about an unrun computation, never a feasibility claim: per-world ns A0 ~ 2970287616175, B ~ 33722535675; the n=7 void-free fiber is the deal itself, 399072960 worlds, where P-A1's scope restriction is at its widest relative to any real seat.
+
+H row (P-A14): the measured amortisation above is for the world-informed per-world operator. It does not establish amortisation for treatment H, where a change of weighting is a re-solve over the fixed class DAG (Y3), not a re-fold. The weighted re-solve over the pre-built class DAG is unavailable this run: the existing H solvers take a uniform fiber weighting only, and the Y3 K-bar search integration is not yet built. A cold uniform-H attempt is subcommand `h` of this runner (declared dag-v1 particle-step budget 200000000); it writes results/fiber_probe_h_2026-08-11.txt on completion, and prints its declared stop on budget exhaustion. The number the belief/policy-iteration platform claim actually rests on is therefore NOT yet measured; both facts are stated here per the amendment.
+
+run complete: yes

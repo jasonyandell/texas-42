@@ -234,6 +234,20 @@ evolved this project's own receipt/TRUST-01 discipline.
   63; class DAG 306/406/360/213/63/63/32/16/1; r1-refines-r3 HOLDS;
   independent ECL re-check PASS.** Full gate green. Results in
   `walt-factory/results/census_2026-08-10{,_r2,_r3}.txt`.
+- **S5f** (2026-08-10, night): the t5 climb — 2.65M situations; roots
+  16,112 → 12,924 (1.25:1); the bar clarified to its true object (the
+  SEAT-level census); saturation + carrier-relativity measured.
+- **S5g** (2026-08-11, small hours): the railyard — P1 discharged
+  byte-identically (one grade-free routine); pruning platform (median
+  live sub-DAG 179 @ t6 / 16,782 @ t5); parts catalog (31.6× vs
+  368.6×, ω = 1.000); complete level-one alphabet = 64 exactly.
+- **S5h** (2026-08-11, morning): the fiber-crush probe — three-arm
+  ladder n=4/5/6 under the fiber-probe rulings (P-A1..P-A21);
+  memoisation dividend 6×→100× and compounding; class DAG ~5× slower
+  than the identity-cache control at first build (structural: cone
+  identity cannot short-circuit descent) — class store = transport
+  object, not build accelerator; cold H COMPLETED on full n=4 fibers
+  in 7–17 s. Full gate green.
 
 ## Next
 
@@ -288,6 +302,26 @@ evolved this project's own receipt/TRUST-01 discipline.
   the seat-level census remains the bar's object; §12.7 descriptions
   now naturally target the PARTS catalog (small) rather than raw
   classes.
+  **S5h standing results (the fiber-crush probe, 2026-08-11 —
+  `walt/FIBER-PROBE.md` + the fiber-probe rulings P-A1..P-A21;
+  results `fiber_probe_2026-08-11{,_h}.txt`):** the manyfold for
+  fiber evaluation is ORDINARY MEMOISATION and it compounds with
+  depth (A1:A0 medians 0.166/0.024/0.010 at n=4/5/6 — up to 100×);
+  the class DAG is ~5× SLOWER than the identity-cache control at
+  first build at every rung (B:A1 ≈ 4.3–4.9) for a structural
+  reason — class identity is a function of the future cone, so it
+  cannot short-circuit descent; **the class store is a
+  storage/transport object (reuse across coordinates, hands,
+  weightings), never a first-build accelerator**. Root collapse nil,
+  interior collapse real (1.50M sits → 129k classes). **Cold
+  treatment H completed on full 34,650-world void-free fibers at
+  every eligible n=4 coordinate in 7–17 s** (m3 dag-v1 solver,
+  declared 200M budget) — the seat's actual object is already
+  tractable at 4 tricks remaining; the weighted re-solve over the
+  fixed class DAG (the platform number, P-A14) remains unmeasured —
+  machinery absent. Open next measurements: full-fiber A1/B
+  saturation (P-A16), warm-cache across a played trick (P-A17), the
+  weighted-H re-solve.
   **Architecture note (Jason, 2026-08-11, small hours) — the seat as a
   fold with adapters:** the chassis shape is
   f(x ∘ f(y ∘ f(z ∘ …))) — an indexed fold (catamorphism) over the
