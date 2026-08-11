@@ -22,6 +22,7 @@
 //! reverse.
 
 pub mod atoms;
+pub mod equivariant;
 pub mod lumpability;
 pub mod obs;
 pub mod skeleton;
@@ -31,6 +32,10 @@ pub mod synth;
 pub use atoms::{
     exp3a_registry, Atom, AtomDescriptor, AtomState, ChassisState, CompositeState, Exp3aAtom,
     Exp3aContext, Exp3aDescriptor, StaticValue,
+};
+pub use equivariant::{
+    build_carrier, canonicalize, check_ecl, identity_key, trick_six_kernels, Canonical, Carrier,
+    Census, EclFailure, EclVerdict, Law, PlayClass, Situation, Token,
 };
 pub use lumpability::{
     check_lumpability, KernelTree, LumpabilityFailure, LumpabilityReport, Node, Row,
