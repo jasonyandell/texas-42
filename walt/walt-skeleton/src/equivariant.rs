@@ -1506,6 +1506,275 @@ pub fn class_dag(r3: &R3) -> ClassDag {
     dag
 }
 
+// ---------------------------------------------------------------------------
+// The railyard factoring (CENSUS-RULINGS.md "The railyard factoring —
+// shaping", Y1-Y3). Level j = tricks remaining; at a trick boundary every seat
+// holds j tiles, so a boundary state sits at grade 4j and A_j is the set of
+// level-j boundary classes, A_0 the one terminal class.
+// ---------------------------------------------------------------------------
+
+/// The handoff symbol for hand end — the single terminal class, A_0.
+pub const YARD_TERMINAL: u64 = u64::MAX;
+
+/// The declared ceiling on the leaf-relabeling search inside a shape's
+/// canonical form. Past it the shape is not canonicalizable at this budget:
+/// stop and report rather than approximating a shape count.
+pub const SHAPE_PERM_CAP: usize = 5_040;
+
+/// One node of the yard machine's depth-four signature tree. Interior nodes
+/// are the primitive steps inside one trick; leaves are handoff classes drawn
+/// from the level below (Y1's correction: four primitive steps with
+/// handoff-class terminals, never a trick-level macro step).
+#[derive(Clone, PartialEq, Eq, Debug)]
+pub enum YardNode {
+    /// A level-(j-1) boundary class, or [`YARD_TERMINAL`] at hand end.
+    Handoff(u64),
+    Step {
+        /// The actor's offset from focal — the Q3 preamble, carried at every
+        /// primitive step.
+        offset: u8,
+        /// Canonically ordered `(increment, classification, subtree)`.
+        moves: Vec<(u8, PlayClass, YardNode)>,
+    },
+}
+
+impl YardNode {
+    /// The frozen encoding: `[0x4c, symbol big-endian]` for a handoff leaf,
+    /// `[0x59, offset, move count, then per move: increment, classification
+    /// code, child encoding]` for a step. Children are sorted by (increment,
+    /// classification, child encoding) — the same freeze as r3's canonical
+    /// move order, applied to the tree.
+    pub fn encode(&self) -> Vec<u8> {
+        let mut out = Vec::new();
+        self.encode_into(&mut out);
+        out
+    }
+
+    fn encode_into(&self, out: &mut Vec<u8>) {
+        match self {
+            YardNode::Handoff(symbol) => {
+                out.push(0x4c);
+                out.extend_from_slice(&symbol.to_be_bytes());
+            }
+            YardNode::Step { offset, moves } => {
+                out.push(0x59);
+                out.push(*offset);
+                out.push(moves.len() as u8);
+                for (increment, class, child) in moves {
+                    out.push(*increment);
+                    out.push(class_code(*class));
+                    child.encode_into(out);
+                }
+            }
+        }
+    }
+
+    /// Every handoff symbol in the tree, in canonical-traversal order with
+    /// repeats — the raw material of the equality pattern.
+    fn leaves(&self, out: &mut Vec<u64>) {
+        match self {
+            YardNode::Handoff(s) => out.push(*s),
+            YardNode::Step { moves, .. } => {
+                for (_, _, child) in moves {
+                    child.leaves(out);
+                }
+            }
+        }
+    }
+
+    /// The tree with every handoff symbol replaced through `map`.
+    fn relabel(&self, map: &BTreeMap<u64, u64>) -> YardNode {
+        match self {
+            YardNode::Handoff(s) => YardNode::Handoff(map[s]),
+            YardNode::Step { offset, moves } => {
+                let mut moves: Vec<(u8, PlayClass, YardNode)> = moves
+                    .iter()
+                    .map(|(i, c, child)| (*i, *c, child.relabel(map)))
+                    .collect();
+                moves.sort_by_cached_key(|m| (m.0, class_code(m.1), m.2.encode()));
+                YardNode::Step {
+                    offset: *offset,
+                    moves,
+                }
+            }
+        }
+    }
+}
+
+/// **The one shared grade-free routine.** Unfolds one trick from a boundary
+/// situation as four primitive steps, bottoming out in handoff classes. It
+/// takes no grade and no level argument — the within-trick position is read
+/// off the table depth, and the level enters only through the caller's handoff
+/// alphabet (Y2 P1 obligations (a) and (b)).
+pub fn yard_tree<F>(sit: &Situation, handoff: &F) -> YardNode
+where
+    F: Fn(&Situation) -> u64,
+{
+    let resolving = sit.table.len() == 3;
+    let mut moves: Vec<(u8, PlayClass, YardNode)> = Vec::new();
+    for tile in sit.legal().iter() {
+        let (increment, next) = sit.step(tile);
+        assert!(
+            resolving || increment == 0,
+            "a count-free increment is emittable only at the trick-completing play"
+        );
+        let child = match next {
+            None => YardNode::Handoff(YARD_TERMINAL),
+            Some(s) if resolving => YardNode::Handoff(handoff(&s)),
+            Some(s) => yard_tree(&s, handoff),
+        };
+        moves.push((increment, sit.play_class(tile), child));
+    }
+    moves.sort_by_cached_key(|m| (m.0, class_code(m.1), m.2.encode()));
+    YardNode::Step {
+        offset: actor_offset(sit),
+        moves,
+    }
+}
+
+/// The SHAPE of a yard tree: the tree with its leaves abstracted to their
+/// equality pattern (§3.4 — which leaves coincide, not what they are). Leaf
+/// symbols are renumbered by a canonical relabeling: colours are refined until
+/// stable, then the minimum encoding over the orderings still tied is taken.
+/// Returns `None` when the remaining search exceeds [`SHAPE_PERM_CAP`] — stop
+/// and report, never approximate.
+pub fn yard_shape(tree: &YardNode) -> Option<Vec<u8>> {
+    let mut occurrences = Vec::new();
+    tree.leaves(&mut occurrences);
+    let distinct: BTreeSet<u64> = occurrences.iter().copied().collect();
+    let symbols: Vec<u64> = distinct.into_iter().collect();
+
+    // Colour refinement: recolour each symbol by the multiset of positions it
+    // occupies in the tree drawn with the current colours, until stable.
+    let mut colour: BTreeMap<u64, u64> = symbols.iter().map(|s| (*s, 0u64)).collect();
+    for _ in 0..4 {
+        let drawn = tree.relabel(&colour);
+        let mut positions: BTreeMap<u64, Vec<Vec<u8>>> = BTreeMap::new();
+        collect_positions(&drawn, tree, &colour, &mut Vec::new(), &mut positions);
+        let mut refined: BTreeMap<u64, u64> = BTreeMap::new();
+        let mut keys: Vec<(u64, Vec<Vec<u8>>, u64)> = symbols
+            .iter()
+            .map(|s| {
+                let mut p = positions.get(s).cloned().unwrap_or_default();
+                p.sort();
+                (colour[s], p, *s)
+            })
+            .collect();
+        keys.sort();
+        let mut next = 0u64;
+        let mut previous: Option<(u64, Vec<Vec<u8>>)> = None;
+        for (c, p, s) in keys {
+            match &previous {
+                Some((pc, pp)) if *pc == c && *pp == p => {}
+                _ => {
+                    next += 1;
+                    previous = Some((c, p.clone()));
+                }
+            }
+            refined.insert(s, next);
+        }
+        if refined == colour {
+            break;
+        }
+        colour = refined;
+    }
+
+    // Whatever colour refinement left tied is searched exhaustively.
+    let mut groups: BTreeMap<u64, Vec<u64>> = BTreeMap::new();
+    for s in &symbols {
+        groups.entry(colour[s]).or_default().push(*s);
+    }
+    let ordered: Vec<Vec<u64>> = groups.into_values().collect();
+    let total: usize = ordered.iter().map(|g| factorial(g.len())).product();
+    if total > SHAPE_PERM_CAP {
+        return None;
+    }
+    let group_perms: Vec<Vec<Vec<u64>>> = ordered.iter().map(|g| symbol_perms(g)).collect();
+    let mut odometer = vec![0usize; group_perms.len()];
+    let mut best: Option<Vec<u8>> = None;
+    loop {
+        let mut map: BTreeMap<u64, u64> = BTreeMap::new();
+        let mut n = 0u64;
+        for (g, pick) in group_perms.iter().zip(&odometer) {
+            for s in &g[*pick] {
+                map.insert(*s, n);
+                n += 1;
+            }
+        }
+        let key = tree.relabel(&map).encode();
+        if best.as_ref().is_none_or(|b| key < *b) {
+            best = Some(key);
+        }
+        let mut i = 0;
+        loop {
+            if i == odometer.len() {
+                return best;
+            }
+            odometer[i] += 1;
+            if odometer[i] < group_perms[i].len() {
+                break;
+            }
+            odometer[i] = 0;
+            i += 1;
+        }
+    }
+}
+
+/// Where each original symbol sits in the tree drawn with current colours: the
+/// child-index path from the root, which is well defined once the drawing is
+/// canonically ordered.
+fn collect_positions(
+    drawn: &YardNode,
+    original: &YardNode,
+    colour: &BTreeMap<u64, u64>,
+    path: &mut Vec<u8>,
+    out: &mut BTreeMap<u64, Vec<Vec<u8>>>,
+) {
+    match (drawn, original) {
+        (YardNode::Handoff(_), YardNode::Handoff(s)) => {
+            out.entry(*s).or_default().push(path.clone());
+        }
+        (
+            YardNode::Step { moves: drawn_m, .. },
+            YardNode::Step {
+                moves: original_m, ..
+            },
+        ) => {
+            // Re-sort the original's children the same way the drawing is
+            // sorted, so positions correspond.
+            let mut sorted: Vec<&(u8, PlayClass, YardNode)> = original_m.iter().collect();
+            sorted.sort_by_key(|m| m.2.relabel(colour).encode());
+            for (i, (m, _)) in sorted.iter().zip(drawn_m).enumerate() {
+                path.push(i as u8);
+                collect_positions(&m.2.relabel(colour), &m.2, colour, path, out);
+                path.pop();
+            }
+        }
+        _ => unreachable!("a drawing has the same skeleton as its tree"),
+    }
+}
+
+fn factorial(n: usize) -> usize {
+    (1..=n).product()
+}
+
+fn symbol_perms(items: &[u64]) -> Vec<Vec<u64>> {
+    if items.len() <= 1 {
+        return vec![items.to_vec()];
+    }
+    let mut out = Vec::new();
+    for (i, head) in items.iter().enumerate() {
+        let mut rest = items.to_vec();
+        rest.remove(i);
+        for mut tail in symbol_perms(&rest) {
+            let mut one = vec![*head];
+            one.append(&mut tail);
+            out.push(one);
+        }
+    }
+    out
+}
+
 /// A violation of the mandatory refinement assertion (Q5.1): two situations
 /// one r1 class holds that r3 separates. Its existence means an implementation
 /// bug or a math error in the ruling — stop and report, never patch.

@@ -35,9 +35,9 @@ pub use atoms::{
 };
 pub use equivariant::{
     actor_offset, build_carrier, build_r3, canonicalize, check_ecl, check_ecl_r3, class_dag,
-    closure_carrier, grade, identity_key, r1_refines_r3, trick_six_kernels, CandidateSpec,
-    Canonical, Carrier, Census, ClassDag, EclFailure, EclVerdict, Law, MoveTuple, PlayClass,
-    RefinementViolation, Situation, Token, R3,
+    closure_carrier, grade, identity_key, r1_refines_r3, trick_six_kernels, yard_shape, yard_tree,
+    CandidateSpec, Canonical, Carrier, Census, ClassDag, EclFailure, EclVerdict, Law, MoveTuple,
+    PlayClass, RefinementViolation, Situation, Token, YardNode, R3, SHAPE_PERM_CAP, YARD_TERMINAL,
 };
 pub use lumpability::{
     check_lumpability, KernelTree, LumpabilityFailure, LumpabilityReport, Node, Row,

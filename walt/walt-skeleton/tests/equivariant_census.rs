@@ -10,7 +10,7 @@ use walt_core::{Decl, Domino, DominoSet, Pip, Seat};
 use walt_kernel::Kernel;
 use walt_skeleton::equivariant::{
     build_carrier, build_r3, canonicalize, check_ecl, check_ecl_r3, class_dag, closure_carrier,
-    identity_key, r1_refines_r3, CandidateSpec, Census, Law, Situation,
+    identity_key, r1_refines_r3, yard_shape, yard_tree, CandidateSpec, Census, Law, Situation,
 };
 
 /// r1's descriptor: every test below that does not name a candidate is a
@@ -462,6 +462,51 @@ fn the_live_sub_dag_of_the_smallest_kernel_is_pinned() {
         live.len() < r3.class_members.len(),
         "pruning to one kernel must not reach the whole rung"
     );
+}
+
+#[test]
+fn the_yard_routine_reproduces_r3s_partition_at_every_level() {
+    // Y2 test 1 (P1, the refactoring): ONE shared grade-free routine -- it
+    // takes no grade and no level argument -- recomputes level-j classes from
+    // level-(j-1) classes, and its partition must be r3's exactly. A mismatch
+    // is a bug or a hidden grade dependence, never a result.
+    let r = receipt();
+    let carrier = build_carrier(&[(12, kernel_at(&r, 12))]);
+    let r3 = build_r3(&carrier);
+    let handoff = |sit: &Situation| -> u64 {
+        r3.class_of[carrier.lookup(sit).expect("closed under steps")] as u64
+    };
+    for level in 1..=2 {
+        let states: Vec<usize> = (0..carrier.len())
+            .filter(|i| walt_skeleton::equivariant::grade(&carrier.states[*i]) == 4 * level)
+            .collect();
+        assert!(!states.is_empty(), "level {level} is present");
+        let mut yard: std::collections::BTreeMap<Vec<u8>, Vec<usize>> =
+            std::collections::BTreeMap::new();
+        for i in &states {
+            yard.entry(yard_tree(&carrier.states[*i], &handoff).encode())
+                .or_default()
+                .push(*i);
+        }
+        let mut classes: std::collections::BTreeMap<usize, Vec<usize>> =
+            std::collections::BTreeMap::new();
+        for i in &states {
+            classes.entry(r3.class_of[*i]).or_default().push(*i);
+        }
+        let mut a: Vec<Vec<usize>> = yard.into_values().collect();
+        let mut b: Vec<Vec<usize>> = classes.into_values().collect();
+        a.sort();
+        b.sort();
+        assert_eq!(a, b, "the yard partition is r3's at level {level}");
+    }
+    // The shape of a level-1 tree: every seat holds one tile, so the tree is a
+    // single forced path with the terminal as its only leaf.
+    let level_one = (0..carrier.len())
+        .find(|i| walt_skeleton::equivariant::grade(&carrier.states[*i]) == 4)
+        .expect("a level-1 boundary situation");
+    let shape = yard_shape(&yard_tree(&carrier.states[level_one], &handoff))
+        .expect("within the declared canonicalization ceiling");
+    assert!(!shape.is_empty());
 }
 
 fn kernel_t5(r: &Receipt, hand: usize) -> Kernel {

@@ -20,7 +20,7 @@ use std::path::Path;
 use walt_core::receipt::{locate_verify_player, parse_file, Receipt};
 use walt_skeleton::equivariant::{
     build_carrier, build_r3, check_ecl, check_ecl_r3, class_dag, grade, r1_refines_r3,
-    trick_six_kernels, CandidateSpec, Census, EclVerdict,
+    trick_six_kernels, yard_shape, yard_tree, CandidateSpec, Census, EclVerdict, Situation,
 };
 
 /// The pinned trick-six fiber sizes of the receipt corpus, asserted so the
@@ -66,6 +66,10 @@ fn main() {
         }
         Some("prune") => {
             run_prune(&r);
+            return;
+        }
+        Some("yard") => {
+            run_yard(&r);
             return;
         }
         _ => {}
@@ -838,6 +842,401 @@ fn run_t5(r: &Receipt) {
          this is a bug or a math error, not something to patch",
         violations.len()
     );
+}
+
+/// Round 6: the shape-recurrence experiment. Level j = tricks remaining; a
+/// level-j boundary state sits at grade 4j.
+fn run_yard(r: &Receipt) {
+    let mut out = String::new();
+    out.push_str(
+        "walt situation census — the railyard factoring: refactoring verification and the shape-recurrence experiment — exploratory tier\n",
+    );
+    let _ = write!(
+        out,
+        "scope: pip-trump only (v0.4 §14.7, asserted in-run); corpus rob/receipts/verify_player.txt, \
+         hands 0-12; existing trick-six and trick-five carriers, no new carrier\n\
+         indexing: level j = tricks remaining; at a trick boundary every seat holds j tiles, so a \
+         level-j boundary state sits at grade 4j; A_j = the level-j boundary r3 classes and A_0 is \
+         the one terminal class; level-j dynamics instantiate at A_{{j-1}}\n\
+         rulings summarized (walt/CENSUS-RULINGS.md, the railyard shaping section): Y1 — the \
+         one-trick contract is the FOUR-primitive-step machine with Q3 per-step interface typing \
+         and handoff-class terminals, never a trick-level macro step (a macro step erases the \
+         mid-trick observations and focal choices the contract must preserve); the yard is a \
+         REFACTORING of r3's equivalence, not a new equivalence, provided the handoff alphabet is \
+         exactly A_{{j-1}}, and it inherits r3's ECL receipts ON THE MEASURED CARRIER only. Y2 — \
+         P1 (grade-free uniformity) is a proof obligation, discharged in code here by ONE shared \
+         routine that takes no grade or level argument (within-trick position is read off the \
+         table depth; the level enters only through the caller's handoff alphabet) and verified by \
+         the partition byte-compare below; P2 (self-similarity of the realized image) is the \
+         measurable payoff claim and is the experiment. Y3 — the pruning operator is confirmed \
+         with the vocabulary discipline below.\n\
+         VOCABULARY DISCIPLINE (mandatory, Y3): the live sub-DAG is a SUPPORT object, never a \
+         belief — classes in it can carry zero pushforward mass, and support is not belief. \
+         Values over it are exact for the count-free objective over the TRANSPORTED \
+         ABSTRACT-POLICY CLASS (lifted-policy-class values); the unrestricted concrete optimum is \
+         NOT claimed — v0.5's BOUNDARY leaves open whether it is attained there. No count or \
+         valuation conclusion is read from this count-free DAG: O_Sigma is empty here and \
+         valuation re-enters only through declared roles.\n\
+         determinism freezes: r3's two freezes unchanged (content-addressed 128-bit FNV-1a \
+         signature encoding; canonical move order by (k, classification, successor class hash) \
+         with concrete tile order as the tie rule), plus two for this pass — (3) the yard tree \
+         encoding [0x59, offset, move count, per move: increment, classification code, child] for \
+         a step and [0x4c, symbol big-endian] for a handoff leaf, children sorted by (increment, \
+         classification, child encoding); (4) the shape canonical form — leaf colours refined to a \
+         fixpoint (at most four rounds), then the minimum encoding over the orderings still tied, \
+         with a declared ceiling of {} orderings past which the run STOPS rather than \
+         approximating a shape count\n\
+         provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant \
+         module), exploratory tier, below every project evidentiary tier\n\
+         regenerate: cargo run --release -p walt-factory --example census_run yard\n\n",
+        walt_skeleton::equivariant::SHAPE_PERM_CAP
+    );
+    out.push_str(
+        "REFUTATION CRITERION (stated before the numbers, answered after them): the railyard \
+         payoff is REFUTED iff shape-inventory growth per level tracks class-inventory growth \
+         (the ~370x/trick then lives in the shapes and the yard buys little); it is SUPPORTED iff \
+         shapes recur across levels and the shape inventory grows far slower than that. P1 makes \
+         soundness immune either way — hand-shape variety is fully recorded in the tree, so a \
+         refutation would threaten the payoff, never the mathematics.\n\n",
+    );
+
+    let mut verdicts: Vec<String> = Vec::new();
+    yard_rung(&mut out, &mut verdicts, r, 6, "trick-six");
+    yard_rung(&mut out, &mut verdicts, r, 5, "trick-five");
+
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("results/census_yard_2026-08-10.txt");
+    std::fs::create_dir_all(path.parent().expect("results dir")).expect("results dir");
+    std::fs::write(&path, out).expect("write results");
+    eprintln!("wrote results/census_yard_2026-08-10.txt");
+}
+
+/// One rung of the yard pass: the refactoring byte-compare per level, then the
+/// shape census.
+fn yard_rung(out: &mut String, verdicts: &mut Vec<String>, r: &Receipt, trick: usize, name: &str) {
+    let kernels: Vec<(usize, walt_kernel::Kernel)> = (0..r.hands.len())
+        .map(|h| {
+            (
+                h,
+                walt_kernel::Kernel::from_receipt_trick(&r.hands[h], trick)
+                    .expect("a valid kernel"),
+            )
+        })
+        .collect();
+    let carrier = build_carrier(&kernels);
+    let r3 = build_r3(&carrier);
+    let levels = if trick == 5 { 3 } else { 2 };
+    let _ = writeln!(
+        out,
+        "================ {name} rung ================\n\
+         carrier {} situations, {} r3 classes; levels present: 1..={levels} (plus A_0, the \
+         terminal class)",
+        carrier.len(),
+        r3.class_members.len()
+    );
+
+    // Step 1: the refactoring verification, level by level.
+    let handoff = |sit: &Situation| -> u64 {
+        match carrier.lookup(sit) {
+            Some(j) => r3.class_of[j] as u64,
+            None => panic!("a boundary successor is in the carrier"),
+        }
+    };
+    let mut shapes_by_level: Vec<(usize, usize, usize, Vec<Vec<u8>>)> = Vec::new();
+    for j in 1..=levels {
+        let states: Vec<usize> = (0..carrier.len())
+            .filter(|i| grade(&carrier.states[*i]) == 4 * j)
+            .collect();
+        let keys: Vec<Vec<u8>> = states
+            .iter()
+            .map(|i| yard_tree(&carrier.states[*i], &handoff).encode())
+            .collect();
+        let yard_partition = partition_bytes(&states, |k| keys[k].clone());
+        let r3_partition =
+            partition_bytes(&states, |k| r3.class_of[states[k]].to_be_bytes().to_vec());
+        let agrees = yard_partition == r3_partition;
+        let _ = writeln!(
+            out,
+            "\nlevel {j} (grade {}): {} boundary situations\n  \
+             refactoring byte-compare — the shared grade-free routine's partition against r3's: \
+             {}",
+            4 * j,
+            states.len(),
+            if agrees {
+                "IDENTICAL"
+            } else {
+                "MISMATCH — STOP, this is a bug or a hidden grade dependence"
+            }
+        );
+        assert!(
+            agrees,
+            "the yard refactoring must reproduce r3's partition at level {j} of the {name} rung \
+             (P1); a mismatch is a bug, never a result"
+        );
+        verdicts.push(format!("{name} level {j}: partitions IDENTICAL"));
+
+        // Step 2: the shape census, one representative per class.
+        let mut representative: BTreeMapLike = BTreeMapLike::new();
+        for i in &states {
+            representative.insert(r3.class_of[*i], *i);
+        }
+        let mut shapes: Vec<Vec<u8>> = Vec::new();
+        let mut uncanonical = 0usize;
+        let mut arities: std::collections::BTreeSet<usize> = std::collections::BTreeSet::new();
+        for (_, i) in representative.iter() {
+            let tree = yard_tree(&carrier.states[*i], &handoff);
+            if let walt_skeleton::equivariant::YardNode::Step { moves, .. } = &tree {
+                arities.insert(moves.len());
+            }
+            match yard_shape(&tree) {
+                Some(shape) => shapes.push(shape),
+                None => uncanonical += 1,
+            }
+        }
+        let _ = writeln!(
+            out,
+            "  root arity of every level-{j} tree (the leader's legal count, which the tree \
+             records): {arities:?}"
+        );
+        assert_eq!(
+            uncanonical, 0,
+            "a shape exceeded the declared canonicalization ceiling at level {j} of the {name} \
+             rung — STOP and report rather than approximating a shape count"
+        );
+        shapes.sort();
+        shapes.dedup();
+        let classes = representative.len();
+        let _ = writeln!(
+            out,
+            "  classes A_{j}: {classes};  distinct shapes: {} (leaves abstracted to their equality \
+             pattern);  classes per shape: {}",
+            shapes.len(),
+            ratio(classes, shapes.len())
+        );
+        shapes_by_level.push((j, classes, shapes.len(), shapes));
+    }
+
+    // Cross-level shape overlap.
+    out.push_str(
+        "\ncross-level shape overlap (a shape realized at two or more levels)\n  \
+         READ THE ARITY LINES ABOVE FIRST: at a lead every tile in hand is legal, so a level-j \
+         boundary tree has root arity exactly j, and the tree encoding records it. Two shapes from \
+         different levels therefore CANNOT be equal — the zero rows below are a definitional \
+         consequence of the shape definition as written, not an empirical finding about the game. \
+         Reported as measured, flagged as vacuous, and carried back to walt-math rather than \
+         reinterpreted here.\n",
+    );
+    for a in 0..shapes_by_level.len() {
+        for b in (a + 1)..shapes_by_level.len() {
+            let (ja, _, _, sa) = &shapes_by_level[a];
+            let (jb, _, _, sb) = &shapes_by_level[b];
+            let shared = sa.iter().filter(|s| sb.binary_search(s).is_ok()).count();
+            let _ = writeln!(
+                out,
+                "  levels {ja} and {jb}: {shared} shared shapes (of {} and {})",
+                sa.len(),
+                sb.len()
+            );
+        }
+    }
+    let mut union: Vec<Vec<u8>> = shapes_by_level
+        .iter()
+        .flat_map(|(_, _, _, s)| s.iter().cloned())
+        .collect();
+    union.sort();
+    union.dedup();
+    let total_shapes: usize = shapes_by_level.iter().map(|(_, _, n, _)| n).sum();
+    let _ = writeln!(
+        out,
+        "  union over all levels: {} distinct shapes against {} counted level by level (so {} \
+         shape appearances are recurrences)",
+        union.len(),
+        total_shapes,
+        total_shapes - union.len()
+    );
+
+    // The headline growth comparison.
+    out.push_str("\ngrowth per level — the experiment's headline\n  level   classes   shapes   class growth   shape growth\n");
+    for (n, (j, classes, shapes, _)) in shapes_by_level.iter().enumerate() {
+        let (cg, sg) = if n == 0 {
+            ("—".to_string(), "—".to_string())
+        } else {
+            let (_, pc, ps, _) = &shapes_by_level[n - 1];
+            (ratio(*classes, *pc), ratio(*shapes, *ps))
+        };
+        let _ = writeln!(out, "  {j:>5} {classes:>9} {shapes:>8} {cg:>14} {sg:>14}");
+    }
+    out.push('\n');
+
+    // Step 3: the isomorphism cross-check (never the experiment).
+    yard_isomorphism_check(out, &carrier, &r3, levels);
+}
+
+/// A tiny insertion-ordered map keyed by class, first representative wins.
+struct BTreeMapLike(std::collections::BTreeMap<usize, usize>);
+
+impl BTreeMapLike {
+    fn new() -> BTreeMapLike {
+        BTreeMapLike(std::collections::BTreeMap::new())
+    }
+    fn insert(&mut self, class: usize, state: usize) {
+        self.0.entry(class).or_insert(state);
+    }
+    fn iter(&self) -> impl Iterator<Item = (&usize, &usize)> {
+        self.0.iter()
+    }
+    fn len(&self) -> usize {
+        self.0.len()
+    }
+}
+
+/// The canonical bytes of a partition: members grouped by key, each group
+/// sorted, the groups sorted. Two partitions are the same relation exactly
+/// when these bytes agree.
+fn partition_bytes<F: Fn(usize) -> Vec<u8>>(members: &[usize], key: F) -> Vec<u8> {
+    let mut groups: std::collections::BTreeMap<Vec<u8>, Vec<usize>> =
+        std::collections::BTreeMap::new();
+    for (k, m) in members.iter().enumerate() {
+        groups.entry(key(k)).or_default().push(*m);
+    }
+    let mut blocks: Vec<Vec<usize>> = groups.into_values().collect();
+    for b in blocks.iter_mut() {
+        b.sort_unstable();
+    }
+    blocks.sort();
+    let mut out = Vec::new();
+    for b in blocks {
+        out.push(0xff);
+        for m in b {
+            out.extend_from_slice(&(m as u32).to_be_bytes());
+        }
+    }
+    out
+}
+
+/// Y2 test 3, a CROSS-CHECK of the implementation and never the experiment:
+/// where two boundary classes at different levels share a shape, the alphabet
+/// bijection is matched, so by P1 their within-trick sub-DAGs must be
+/// isomorphic. A failure here is a bug or a P1 proof error, never a result.
+/// One within-trick node's isomorphism-invariant profile: the actor's offset
+/// from focal, its out-degree, and its sorted decoration multiset.
+type NodeProfile = (u8, usize, Vec<(u8, u8)>);
+
+fn yard_isomorphism_check(
+    out: &mut String,
+    carrier: &walt_skeleton::equivariant::Carrier,
+    r3: &walt_skeleton::equivariant::R3,
+    levels: usize,
+) {
+    if levels < 2 {
+        return;
+    }
+    let handoff = |sit: &Situation| -> u64 {
+        r3.class_of[carrier
+            .lookup(sit)
+            .expect("a boundary successor is in the carrier")] as u64
+    };
+    let profile_of = |i: usize| -> Vec<Vec<NodeProfile>> {
+        // Per within-trick depth, the distinct r3 classes with their offset,
+        // out-degree and decoration multiset -- read from r3, not from the
+        // yard encoding, so the check is independent of it.
+        let mut depths: Vec<Vec<NodeProfile>> = Vec::new();
+        let mut frontier = vec![carrier.states[i].clone()];
+        for _ in 0..3 {
+            let mut next = Vec::new();
+            let mut row: Vec<NodeProfile> = Vec::new();
+            for sit in &frontier {
+                for tile in sit.legal().iter() {
+                    let (_, successor) = sit.step(tile);
+                    if let Some(s) = successor {
+                        if s.table.is_empty() {
+                            continue;
+                        }
+                        let j = carrier.lookup(&s).expect("closed under steps");
+                        let mut decorations: Vec<(u8, u8)> = r3.tuples[j]
+                            .iter()
+                            .map(|t| (t.increment, class_code_of(t.class)))
+                            .collect();
+                        decorations.sort();
+                        row.push((
+                            walt_skeleton::equivariant::actor_offset(&s),
+                            r3.tuples[j].len(),
+                            decorations,
+                        ));
+                        next.push(s);
+                    }
+                }
+            }
+            row.sort();
+            row.dedup();
+            depths.push(row);
+            frontier = next;
+        }
+        depths
+    };
+
+    let mut by_shape: std::collections::BTreeMap<Vec<u8>, Vec<(usize, usize)>> =
+        std::collections::BTreeMap::new();
+    for j in 1..=levels {
+        let mut seen: std::collections::BTreeSet<usize> = std::collections::BTreeSet::new();
+        for i in 0..carrier.len() {
+            if grade(&carrier.states[i]) != 4 * j || !seen.insert(r3.class_of[i]) {
+                continue;
+            }
+            if let Some(shape) = yard_shape(&yard_tree(&carrier.states[i], &handoff)) {
+                by_shape.entry(shape).or_default().push((j, i));
+            }
+        }
+    }
+    let mut checked = 0usize;
+    let mut failures = 0usize;
+    for members in by_shape.values() {
+        let mut across: Vec<&(usize, usize)> = Vec::new();
+        for m in members {
+            if !across.iter().any(|a| a.0 == m.0) {
+                across.push(m);
+            }
+        }
+        if across.len() < 2 || checked >= 20 {
+            continue;
+        }
+        checked += 1;
+        let a = profile_of(across[0].1);
+        let b = profile_of(across[1].1);
+        if a != b {
+            failures += 1;
+        }
+    }
+    let _ = writeln!(
+        out,
+        "isomorphism cross-check (Y2 test 3 — a consequence of P1, run as an implementation \
+         check, never as the experiment): {checked} cross-level shape-matched pairs compared on \
+         their within-trick sub-DAG profiles read from r3, {failures} mismatches{}",
+        if failures == 0 {
+            ""
+        } else {
+            " — STOP, this is a bug or a P1 proof error"
+        }
+    );
+    if checked == 0 {
+        out.push_str(
+            "  VACUOUS: no cross-level shape-matched pair exists to check, for the same \
+             root-arity reason recorded above. This check is not evidence of anything until the \
+             shape definition admits cross-level matches.\n",
+        );
+    }
+    out.push('\n');
+    assert_eq!(
+        failures, 0,
+        "a shape-matched cross-level pair must induce isomorphic within-trick sub-DAGs (P1)"
+    );
+}
+
+fn class_code_of(c: walt_skeleton::equivariant::PlayClass) -> u8 {
+    match c {
+        walt_skeleton::equivariant::PlayClass::Lead => 0,
+        walt_skeleton::equivariant::PlayClass::Follow => 1,
+        walt_skeleton::equivariant::PlayClass::Slough => 2,
+    }
 }
 
 /// Round 5: the pruning probe. A reporting pass over the already-verified r3

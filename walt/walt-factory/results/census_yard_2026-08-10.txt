@@ -1,0 +1,71 @@
+walt situation census — the railyard factoring: refactoring verification and the shape-recurrence experiment — exploratory tier
+scope: pip-trump only (v0.4 §14.7, asserted in-run); corpus rob/receipts/verify_player.txt, hands 0-12; existing trick-six and trick-five carriers, no new carrier
+indexing: level j = tricks remaining; at a trick boundary every seat holds j tiles, so a level-j boundary state sits at grade 4j; A_j = the level-j boundary r3 classes and A_0 is the one terminal class; level-j dynamics instantiate at A_{j-1}
+rulings summarized (walt/CENSUS-RULINGS.md, the railyard shaping section): Y1 — the one-trick contract is the FOUR-primitive-step machine with Q3 per-step interface typing and handoff-class terminals, never a trick-level macro step (a macro step erases the mid-trick observations and focal choices the contract must preserve); the yard is a REFACTORING of r3's equivalence, not a new equivalence, provided the handoff alphabet is exactly A_{j-1}, and it inherits r3's ECL receipts ON THE MEASURED CARRIER only. Y2 — P1 (grade-free uniformity) is a proof obligation, discharged in code here by ONE shared routine that takes no grade or level argument (within-trick position is read off the table depth; the level enters only through the caller's handoff alphabet) and verified by the partition byte-compare below; P2 (self-similarity of the realized image) is the measurable payoff claim and is the experiment. Y3 — the pruning operator is confirmed with the vocabulary discipline below.
+VOCABULARY DISCIPLINE (mandatory, Y3): the live sub-DAG is a SUPPORT object, never a belief — classes in it can carry zero pushforward mass, and support is not belief. Values over it are exact for the count-free objective over the TRANSPORTED ABSTRACT-POLICY CLASS (lifted-policy-class values); the unrestricted concrete optimum is NOT claimed — v0.5's BOUNDARY leaves open whether it is attained there. No count or valuation conclusion is read from this count-free DAG: O_Sigma is empty here and valuation re-enters only through declared roles.
+determinism freezes: r3's two freezes unchanged (content-addressed 128-bit FNV-1a signature encoding; canonical move order by (k, classification, successor class hash) with concrete tile order as the tie rule), plus two for this pass — (3) the yard tree encoding [0x59, offset, move count, per move: increment, classification code, child] for a step and [0x4c, symbol big-endian] for a handoff leaf, children sorted by (increment, classification, child encoding); (4) the shape canonical form — leaf colours refined to a fixpoint (at most four rounds), then the minimum encoding over the orderings still tied, with a declared ceiling of 5040 orderings past which the run STOPS rather than approximating a shape count
+provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant module), exploratory tier, below every project evidentiary tier
+regenerate: cargo run --release -p walt-factory --example census_run yard
+
+REFUTATION CRITERION (stated before the numbers, answered after them): the railyard payoff is REFUTED iff shape-inventory growth per level tracks class-inventory growth (the ~370x/trick then lives in the shapes and the yard buys little); it is SUPPORTED iff shapes recur across levels and the shape inventory grows far slower than that. P1 makes soundness immune either way — hand-shape variety is fully recorded in the tree, so a refutation would threaten the payoff, never the mathematics.
+
+================ trick-six rung ================
+carrier 15253 situations, 1459 r3 classes; levels present: 1..=2 (plus A_0, the terminal class)
+
+level 1 (grade 4): 2010 boundary situations
+  refactoring byte-compare — the shared grade-free routine's partition against r3's: IDENTICAL
+  root arity of every level-1 tree (the leader's legal count, which the tree records): {1}
+  classes A_1: 63;  distinct shapes: 63 (leaves abstracted to their equality pattern);  classes per shape: 1.000
+
+level 2 (grade 8): 647 boundary situations
+  refactoring byte-compare — the shared grade-free routine's partition against r3's: IDENTICAL
+  root arity of every level-2 tree (the leader's legal count, which the tree records): {2}
+  classes A_2: 306;  distinct shapes: 226 (leaves abstracted to their equality pattern);  classes per shape: 1.353
+
+cross-level shape overlap (a shape realized at two or more levels)
+  READ THE ARITY LINES ABOVE FIRST: at a lead every tile in hand is legal, so a level-j boundary tree has root arity exactly j, and the tree encoding records it. Two shapes from different levels therefore CANNOT be equal — the zero rows below are a definitional consequence of the shape definition as written, not an empirical finding about the game. Reported as measured, flagged as vacuous, and carried back to walt-math rather than reinterpreted here.
+  levels 1 and 2: 0 shared shapes (of 63 and 226)
+  union over all levels: 289 distinct shapes against 289 counted level by level (so 0 shape appearances are recurrences)
+
+growth per level — the experiment's headline
+  level   classes   shapes   class growth   shape growth
+      1        63       63              —              —
+      2       306      226          4.857          3.587
+
+isomorphism cross-check (Y2 test 3 — a consequence of P1, run as an implementation check, never as the experiment): 0 cross-level shape-matched pairs compared on their within-trick sub-DAG profiles read from r3, 0 mismatches
+  VACUOUS: no cross-level shape-matched pair exists to check, for the same root-arity reason recorded above. This check is not evidence of anything until the shape definition admits cross-level matches.
+
+================ trick-five rung ================
+carrier 2651280 situations, 161696 r3 classes; levels present: 1..=3 (plus A_0, the terminal class)
+
+level 1 (grade 4): 40992 boundary situations
+  refactoring byte-compare — the shared grade-free routine's partition against r3's: IDENTICAL
+  root arity of every level-1 tree (the leader's legal count, which the tree records): {1}
+  classes A_1: 64;  distinct shapes: 64 (leaves abstracted to their equality pattern);  classes per shape: 1.000
+
+level 2 (grade 8): 179936 boundary situations
+  refactoring byte-compare — the shared grade-free routine's partition against r3's: IDENTICAL
+  root arity of every level-2 tree (the leader's legal count, which the tree records): {2}
+  classes A_2: 23592;  distinct shapes: 10978 (leaves abstracted to their equality pattern);  classes per shape: 2.149
+
+level 3 (grade 12): 16112 boundary situations
+  refactoring byte-compare — the shared grade-free routine's partition against r3's: IDENTICAL
+  root arity of every level-3 tree (the leader's legal count, which the tree records): {3}
+  classes A_3: 12924;  distinct shapes: 8483 (leaves abstracted to their equality pattern);  classes per shape: 1.523
+
+cross-level shape overlap (a shape realized at two or more levels)
+  READ THE ARITY LINES ABOVE FIRST: at a lead every tile in hand is legal, so a level-j boundary tree has root arity exactly j, and the tree encoding records it. Two shapes from different levels therefore CANNOT be equal — the zero rows below are a definitional consequence of the shape definition as written, not an empirical finding about the game. Reported as measured, flagged as vacuous, and carried back to walt-math rather than reinterpreted here.
+  levels 1 and 2: 0 shared shapes (of 64 and 10978)
+  levels 1 and 3: 0 shared shapes (of 64 and 8483)
+  levels 2 and 3: 0 shared shapes (of 10978 and 8483)
+  union over all levels: 19525 distinct shapes against 19525 counted level by level (so 0 shape appearances are recurrences)
+
+growth per level — the experiment's headline
+  level   classes   shapes   class growth   shape growth
+      1        64       64              —              —
+      2     23592    10978        368.625        171.531
+      3     12924     8483          0.547          0.772
+
+isomorphism cross-check (Y2 test 3 — a consequence of P1, run as an implementation check, never as the experiment): 0 cross-level shape-matched pairs compared on their within-trick sub-DAG profiles read from r3, 0 mismatches
+  VACUOUS: no cross-level shape-matched pair exists to check, for the same root-arity reason recorded above. This check is not evidence of anything until the shape definition admits cross-level matches.
+
