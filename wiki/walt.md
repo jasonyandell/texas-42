@@ -123,7 +123,9 @@ rules, enforced in types where Rust can carry them:
 The compression program: find a nontrivial descriptor-with-transports
 (d, Θ) satisfying §12.6A's (ECL) condition on the existing probe kernels
 and **count the classes** — the direct measurement of how much of the
-count-free game compresses at the seat. Counterexample-guided synthesis
+count-free game compresses at the seat. The declared bar (Jason,
+2026-08-10): show or disprove that the count of canonical situations is
+reasonably small, order 10^5 — either outcome is a result. Counterexample-guided synthesis
 per v0.4 §12.9, Scheme/Fix as the descriptor language per §12.7, carrier
 chosen per §11.2. Standing **no-rescue policy** (2026-08-10): a failure is
 a counterexample to carry back to the math, never a thing to engineer

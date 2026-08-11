@@ -241,7 +241,13 @@ evolved this project's own receipt/TRUST-01 discipline.
   states / policy geometry — never worldwise-PI classes, §12.4).
   Valuation re-enters afterward through transported roles and the §8
   gauge (12.6A role re-entry), where the m3 H instrument prices the
-  seat-facing side.
+  seat-facing side. **The bar (Jason, 2026-08-10): show or disprove that
+  the number of count-free canonical situations is reasonably small —
+  order 10^5.** Both outcomes win: small → navigate it; not small → a
+  proved negative, and the exact tools already built analyze 42 anyway.
+  Repair loop when the math itself needs work: counterexample in hand →
+  exchange dispatch to 5.6 Pro (prose/LaTeX math ace; harness already
+  paid for) — with Jason's explicit go per the exchange rules, as always.
 - **Deferred, frozen until the compression question moves** (Jason,
   2026-08-10): S6 corpus-at-scale / all-9-declarations factory work;
   economy lifecycle extensions; per-action parallelism for big-fiber
