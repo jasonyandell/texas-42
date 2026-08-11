@@ -34,8 +34,8 @@ pub use atoms::{
     Exp3aContext, Exp3aDescriptor, StaticValue,
 };
 pub use equivariant::{
-    build_carrier, canonicalize, check_ecl, identity_key, trick_six_kernels, Canonical, Carrier,
-    Census, EclFailure, EclVerdict, Law, PlayClass, Situation, Token,
+    build_carrier, canonicalize, check_ecl, identity_key, trick_six_kernels, CandidateSpec,
+    Canonical, Carrier, Census, EclFailure, EclVerdict, Law, PlayClass, Situation, Token,
 };
 pub use lumpability::{
     check_lumpability, KernelTree, LumpabilityFailure, LumpabilityReport, Node, Row,

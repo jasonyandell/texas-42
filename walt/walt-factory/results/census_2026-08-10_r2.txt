@@ -1,0 +1,98 @@
+walt situation census r2 — declared candidate coarsenings under §12.6A — exploratory tier
+scope: pip-trump only — all 13 receipt trick-six kernels are pip-trump (v0.4 §14.7); doubles-trump and no-trump are excluded, since pooling them would implicitly claim cross-declaration-type transfer, which v0.4 §17.5 does not claim (F1 amendment)
+corpus: rob/receipts/verify_player.txt, hands 0-12, trick 6, viewer = that trick's leader = the focal seat; fibers 90 90 36 36 90 27 90 90 7 30 19 36 6 (asserted in-run)
+model: §12.6A per walt/CENSUS.md with the walt-math rulings of walt/CENSUS-RULINGS.md — carrier = world-level latent situations closed under primitive steps (F1, F5), bank is emission not state (F5 amendment), transports by canonicalization (F3), fixed uniform-legal field with exact rational mass 1/|L| per hidden play and Dirac focal actions (F4)
+determinism: no sampling, no caps, no seeds; the carrier is candidate-independent and every class with two or more members is checked under every candidate
+provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant module), exploratory tier, below every project evidentiary tier
+regenerate: cargo run --release -p walt-factory --example census_run r2
+
+candidates declared (each measured end to end; a coarsening is a new declared candidate under v0.4 §12.9, never a mutation of r1's descriptor and never an in-run repair of a failure — F7 NO-RESCUE). c1 reproduces r1's finest candidate as the reference row; its counts are asserted in-run against r1's published numbers:
+  c1 finest (r1 reference) — double flag: carried; beaten unresolved-trick tile identities: carried
+  c2 drop the double flag — double flag: dropped; beaten unresolved-trick tile identities: carried
+  c3 drop beaten table-tile identities — double flag: carried; beaten unresolved-trick tile identities: dropped (play count, led context and the winning tile's comparisons kept)
+  c2+c3 both coarsenings — double flag: dropped; beaten unresolved-trick tile identities: dropped (play count, led context and the winning tile's comparisons kept)
+
+candidate c1 finest (r1 reference) — double flag: carried; beaten unresolved-trick tile identities: carried
+  pooled full carrier: 11949 classes over 15253 situations   [ECL PASS]
+  pooled roots only:   647 classes over 647 roots   [ECL PASS]
+  singleton classes (ECL vacuous there): 9868 of 11949; largest class 12 situations
+  cross-kernel merges: 670 classes (0 of them containing a root situation)
+  root merges (classes holding two or more situations, at least one a root): 0
+  identity control: 15253 classes, dividend 1.276
+  ECL PASS: 2081 classes checked, 3304 pairs under condition 1 and 3304 under condition 2, 0 counterexamples
+class counts stratified by ply (design addendum; ply is bookkeeping outside the state and outside the descriptor, F5's bank-out-of-state ruling applied the same way — the canonical form never reads it). The canonical form encodes structure size and table depth, so the strata partition the classes exactly and these rows sum to the pooled totals.
+  ply 0 (trick-6 lead (kernel roots)): 647 situations, 647 classes (0 non-singleton), 647 identity classes, dividend 1.000   [ECL PASS]
+  ply 1 (trick-6 mid-trick): 1294 situations, 1294 classes (0 non-singleton), 1294 identity classes, dividend 1.000   [ECL PASS]
+  ply 2 (trick-6 mid-trick): 2056 situations, 2056 classes (0 non-singleton), 2056 identity classes, dividend 1.000   [ECL PASS]
+  ply 3 (trick-6 mid-trick): 3216 situations, 3208 classes (8 non-singleton), 3216 identity classes, dividend 1.002   [ECL PASS]
+  ply 4 (trick-7 boundary (every seat holds one tile; play is forced)): 2010 situations, 1275 classes (502 non-singleton), 2010 identity classes, dividend 1.576   [ECL PASS]
+  ply 5 (trick-7 mid-trick): 2010 situations, 1275 classes (502 non-singleton), 2010 identity classes, dividend 1.576   [ECL PASS]
+  ply 6 (trick-7 mid-trick): 2010 situations, 1185 classes (526 non-singleton), 2010 identity classes, dividend 1.696   [ECL PASS]
+  ply 7 (trick-7 mid-trick): 2010 situations, 1009 classes (543 non-singleton), 2010 identity classes, dividend 1.992   [ECL PASS]
+  strata total: 15253 situations, 11949 classes (pooled totals: 15253 and 11949)
+
+candidate c2 drop the double flag — double flag: dropped; beaten unresolved-trick tile identities: carried
+  pooled full carrier: 11380 classes over 15253 situations   [ECL PASS]
+  pooled roots only:   647 classes over 647 roots   [ECL PASS]
+  singleton classes (ECL vacuous there): 9384 of 11380; largest class 14 situations
+  cross-kernel merges: 828 classes (0 of them containing a root situation)
+  root merges (classes holding two or more situations, at least one a root): 0
+  identity control: 15253 classes, dividend 1.340
+  ECL PASS: 1996 classes checked, 3873 pairs under condition 1 and 3873 under condition 2, 0 counterexamples
+class counts stratified by ply (design addendum; ply is bookkeeping outside the state and outside the descriptor, F5's bank-out-of-state ruling applied the same way — the canonical form never reads it). The canonical form encodes structure size and table depth, so the strata partition the classes exactly and these rows sum to the pooled totals.
+  ply 0 (trick-6 lead (kernel roots)): 647 situations, 647 classes (0 non-singleton), 647 identity classes, dividend 1.000   [ECL PASS]
+  ply 1 (trick-6 mid-trick): 1294 situations, 1294 classes (0 non-singleton), 1294 identity classes, dividend 1.000   [ECL PASS]
+  ply 2 (trick-6 mid-trick): 2056 situations, 2056 classes (0 non-singleton), 2056 identity classes, dividend 1.000   [ECL PASS]
+  ply 3 (trick-6 mid-trick): 3216 situations, 3208 classes (8 non-singleton), 3216 identity classes, dividend 1.002   [ECL PASS]
+  ply 4 (trick-7 boundary (every seat holds one tile; play is forced)): 2010 situations, 1154 classes (501 non-singleton), 2010 identity classes, dividend 1.741   [ECL PASS]
+  ply 5 (trick-7 mid-trick): 2010 situations, 1154 classes (501 non-singleton), 2010 identity classes, dividend 1.741   [ECL PASS]
+  ply 6 (trick-7 mid-trick): 2010 situations, 1043 classes (505 non-singleton), 2010 identity classes, dividend 1.927   [ECL PASS]
+  ply 7 (trick-7 mid-trick): 2010 situations, 824 classes (481 non-singleton), 2010 identity classes, dividend 2.439   [ECL PASS]
+  strata total: 15253 situations, 11380 classes (pooled totals: 15253 and 11380)
+
+candidate c3 drop beaten table-tile identities — double flag: carried; beaten unresolved-trick tile identities: dropped (play count, led context and the winning tile's comparisons kept)
+  pooled full carrier: 9125 classes over 15253 situations   [ECL PASS]
+  pooled roots only:   647 classes over 647 roots   [ECL PASS]
+  singleton classes (ECL vacuous there): 6549 of 9125; largest class 68 situations
+  cross-kernel merges: 571 classes (0 of them containing a root situation)
+  root merges (classes holding two or more situations, at least one a root): 0
+  identity control: 12137 classes, dividend 1.330
+  ECL PASS: 2576 classes checked, 6128 pairs under condition 1 and 6128 under condition 2, 0 counterexamples
+class counts stratified by ply (design addendum; ply is bookkeeping outside the state and outside the descriptor, F5's bank-out-of-state ruling applied the same way — the canonical form never reads it). The canonical form encodes structure size and table depth, so the strata partition the classes exactly and these rows sum to the pooled totals.
+  ply 0 (trick-6 lead (kernel roots)): 647 situations, 647 classes (0 non-singleton), 647 identity classes, dividend 1.000   [ECL PASS]
+  ply 1 (trick-6 mid-trick): 1294 situations, 1294 classes (0 non-singleton), 1294 identity classes, dividend 1.000   [ECL PASS]
+  ply 2 (trick-6 mid-trick): 2056 situations, 1870 classes (126 non-singleton), 2056 identity classes, dividend 1.099   [ECL PASS]
+  ply 3 (trick-6 mid-trick): 3216 situations, 2015 classes (867 non-singleton), 2338 identity classes, dividend 1.160   [ECL PASS]
+  ply 4 (trick-7 boundary (every seat holds one tile; play is forced)): 2010 situations, 1275 classes (502 non-singleton), 2010 identity classes, dividend 1.576   [ECL PASS]
+  ply 5 (trick-7 mid-trick): 2010 situations, 1275 classes (502 non-singleton), 2010 identity classes, dividend 1.576   [ECL PASS]
+  ply 6 (trick-7 mid-trick): 2010 situations, 553 classes (397 non-singleton), 1183 identity classes, dividend 2.139   [ECL PASS]
+  ply 7 (trick-7 mid-trick): 2010 situations, 196 classes (182 non-singleton), 599 identity classes, dividend 3.056   [ECL PASS]
+  strata total: 15253 situations, 9125 classes (pooled totals: 15253 and 9125)
+
+candidate c2+c3 both coarsenings — double flag: dropped; beaten unresolved-trick tile identities: dropped (play count, led context and the winning tile's comparisons kept)
+  pooled full carrier: 8659 classes over 15253 situations   [ECL PASS]
+  pooled roots only:   647 classes over 647 roots   [ECL PASS]
+  singleton classes (ECL vacuous there): 6248 of 8659; largest class 200 situations
+  cross-kernel merges: 606 classes (0 of them containing a root situation)
+  root merges (classes holding two or more situations, at least one a root): 0
+  identity control: 12137 classes, dividend 1.401
+  ECL PASS: 2411 classes checked, 6594 pairs under condition 1 and 6594 under condition 2, 0 counterexamples
+class counts stratified by ply (design addendum; ply is bookkeeping outside the state and outside the descriptor, F5's bank-out-of-state ruling applied the same way — the canonical form never reads it). The canonical form encodes structure size and table depth, so the strata partition the classes exactly and these rows sum to the pooled totals.
+  ply 0 (trick-6 lead (kernel roots)): 647 situations, 647 classes (0 non-singleton), 647 identity classes, dividend 1.000   [ECL PASS]
+  ply 1 (trick-6 mid-trick): 1294 situations, 1294 classes (0 non-singleton), 1294 identity classes, dividend 1.000   [ECL PASS]
+  ply 2 (trick-6 mid-trick): 2056 situations, 1870 classes (126 non-singleton), 2056 identity classes, dividend 1.099   [ECL PASS]
+  ply 3 (trick-6 mid-trick): 3216 situations, 2013 classes (865 non-singleton), 2338 identity classes, dividend 1.161   [ECL PASS]
+  ply 4 (trick-7 boundary (every seat holds one tile; play is forced)): 2010 situations, 1154 classes (501 non-singleton), 2010 identity classes, dividend 1.741   [ECL PASS]
+  ply 5 (trick-7 mid-trick): 2010 situations, 1154 classes (501 non-singleton), 2010 identity classes, dividend 1.741   [ECL PASS]
+  ply 6 (trick-7 mid-trick): 2010 situations, 409 classes (306 non-singleton), 1183 identity classes, dividend 2.892   [ECL PASS]
+  ply 7 (trick-7 mid-trick): 2010 situations, 118 classes (112 non-singleton), 599 identity classes, dividend 5.076   [ECL PASS]
+  strata total: 15253 situations, 8659 classes (pooled totals: 15253 and 8659)
+
+summary (every count exploratory tier and quotable only with its ECL verdict, F6)
+candidate                              full   roots  singleton  cross-kernel  root-merges  t7-lead  ECL
+  c1 finest (r1 reference)              11949    647       9868           670            0     1275  PASS
+  c2 drop the double flag               11380    647       9384           828            0     1154  PASS
+  c3 drop beaten table-tile identities   9125    647       6549           571            0     1275  PASS
+  c2+c3 both coarsenings                 8659    647       6248           606            0     1154  PASS
+
+  full = classes over the whole 15253-situation carrier; roots = classes over the 647 kernel roots; t7-lead = classes at ply 4, the trick-7 lead stratum (every seat holds one tile, play forced) — the target alphabet for a backward walk.

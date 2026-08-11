@@ -46,6 +46,17 @@ equivariant classes (the descriptor d of F2; every count below is paired with th
     8 tiles: 7213 situations, 7205 classes, 8 of them non-singleton
     4 tiles: 8040 situations, 4744 classes, 2073 of them non-singleton
 
+class counts stratified by ply (design addendum; ply is bookkeeping outside the state and outside the descriptor, F5's bank-out-of-state ruling applied the same way — the canonical form never reads it). The canonical form encodes structure size and table depth, so the strata partition the classes exactly and these rows sum to the pooled totals.
+  ply 0 (trick-6 lead (kernel roots)): 647 situations, 647 classes (0 non-singleton), 647 identity classes, dividend 1.000   [ECL PASS]
+  ply 1 (trick-6 mid-trick): 1294 situations, 1294 classes (0 non-singleton), 1294 identity classes, dividend 1.000   [ECL PASS]
+  ply 2 (trick-6 mid-trick): 2056 situations, 2056 classes (0 non-singleton), 2056 identity classes, dividend 1.000   [ECL PASS]
+  ply 3 (trick-6 mid-trick): 3216 situations, 3208 classes (8 non-singleton), 3216 identity classes, dividend 1.002   [ECL PASS]
+  ply 4 (trick-7 boundary (every seat holds one tile; play is forced)): 2010 situations, 1275 classes (502 non-singleton), 2010 identity classes, dividend 1.576   [ECL PASS]
+  ply 5 (trick-7 mid-trick): 2010 situations, 1275 classes (502 non-singleton), 2010 identity classes, dividend 1.576   [ECL PASS]
+  ply 6 (trick-7 mid-trick): 2010 situations, 1185 classes (526 non-singleton), 2010 identity classes, dividend 1.696   [ECL PASS]
+  ply 7 (trick-7 mid-trick): 2010 situations, 1009 classes (543 non-singleton), 2010 identity classes, dividend 1.992   [ECL PASS]
+  strata total: 15253 situations, 11949 classes (pooled totals: 15253 and 11949)
+
 cross-kernel merges (classes drawing situations from two or more receipt hands — the beyond-the-particular-game signal)
   670 classes of 11949 merge across hands (0 of them contain a root situation)
   spread — 2 hands: 636, 3 hands: 34

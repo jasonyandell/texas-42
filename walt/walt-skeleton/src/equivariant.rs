@@ -88,6 +88,82 @@ pub const MAX_MATCHED_TILES: usize = 8;
 /// census declares — stop and report, never sample.
 pub const CANON_PERM_CAP: usize = 40_320;
 
+/// A **declared** descriptor candidate. Each toggle names one invariant the
+/// canonical form may carry or drop; a coarsening is always a new declared
+/// candidate run end to end, never a mutation of an earlier candidate's
+/// verdict (v0.4 §12.9's counterexample-guided method, F7's NO-RESCUE
+/// discipline). The finest candidate of `walt/CENSUS.md` is [`CandidateSpec::FINEST`],
+/// and every coarser candidate is measured against it as the reference row.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub struct CandidateSpec {
+    pub name: &'static str,
+    /// Carry the double flag. F2 confirms it is not forced by pip-trump
+    /// dynamics — doubles act only through rank relations, already captured by
+    /// the trick-key comparisons — and names it the first coarsening
+    /// candidate.
+    pub double_flag: bool,
+    /// Carry the identities of the beaten (non-winning) tiles of the
+    /// unresolved trick. F2 names these the other first coarsening candidate:
+    /// a beaten table tile never enters a future trick key and constrains no
+    /// legality. Dropping them keeps the play count, the led context and the
+    /// current winning tile with all its comparisons.
+    pub beaten_table_tiles: bool,
+}
+
+impl CandidateSpec {
+    /// The finest lawful candidate: the r1 descriptor, every invariant of F2
+    /// as amended.
+    pub const FINEST: CandidateSpec = CandidateSpec {
+        name: "c1 finest (r1 reference)",
+        double_flag: true,
+        beaten_table_tiles: true,
+    };
+
+    pub const NO_DOUBLE_FLAG: CandidateSpec = CandidateSpec {
+        name: "c2 drop the double flag",
+        double_flag: false,
+        beaten_table_tiles: true,
+    };
+
+    pub const NO_BEATEN_TILES: CandidateSpec = CandidateSpec {
+        name: "c3 drop beaten table-tile identities",
+        double_flag: true,
+        beaten_table_tiles: false,
+    };
+
+    pub const NEITHER: CandidateSpec = CandidateSpec {
+        name: "c2+c3 both coarsenings",
+        double_flag: false,
+        beaten_table_tiles: false,
+    };
+
+    pub const ALL: [CandidateSpec; 4] = [
+        CandidateSpec::FINEST,
+        CandidateSpec::NO_DOUBLE_FLAG,
+        CandidateSpec::NO_BEATEN_TILES,
+        CandidateSpec::NEITHER,
+    ];
+
+    /// The declaration line that travels with every count this candidate
+    /// produces.
+    pub fn render(&self) -> String {
+        format!(
+            "{} — double flag: {}; beaten unresolved-trick tile identities: {}",
+            self.name,
+            if self.double_flag {
+                "carried"
+            } else {
+                "dropped"
+            },
+            if self.beaten_table_tiles {
+                "carried"
+            } else {
+                "dropped (play count, led context and the winning tile's comparisons kept)"
+            }
+        )
+    }
+}
+
 /// How a play stands to the led context — the observation token's typed class
 /// (v0.4 §6.1). A leader's play is `Lead`; a follower's is `Follow` when it
 /// lies in the effective incidence of the led context and `Slough` otherwise.
@@ -148,6 +224,12 @@ impl Situation {
     /// The seat currently winning the unresolved trick — the running maximum
     /// trick key, a derived view, never stored.
     pub fn current_winner(&self) -> Option<Seat> {
+        Some(self.leader.plus(self.winning_position()?))
+    }
+
+    /// Which table position currently holds the trick — the running maximum
+    /// trick key, a derived view.
+    pub fn winning_position(&self) -> Option<usize> {
         let led = self.led()?;
         let mut best = self.decl.trick_key(self.table[0], led);
         let mut at = 0;
@@ -158,7 +240,12 @@ impl Situation {
                 at = i;
             }
         }
-        Some(self.leader.plus(at))
+        Some(at)
+    }
+
+    /// The tile currently winning the unresolved trick.
+    pub fn winning_tile(&self) -> Option<Domino> {
+        self.winning_position().map(|at| self.table[at])
     }
 
     /// All tiles still in a hand.
@@ -168,9 +255,15 @@ impl Situation {
 
     /// The matched object of the descriptor: live tiles together with the
     /// unresolved trick's tiles (A1). Dead tiles of resolved tricks are gone.
-    pub fn matched(&self) -> Vec<Domino> {
+    /// Under a candidate that drops beaten table-tile identities, only the
+    /// currently winning table tile joins the live tiles.
+    pub fn matched(&self, spec: CandidateSpec) -> Vec<Domino> {
         let mut out: Vec<Domino> = self.live().iter().collect();
-        out.extend(self.table.iter().copied());
+        if spec.beaten_table_tiles {
+            out.extend(self.table.iter().copied());
+        } else if let Some(w) = self.winning_tile() {
+            out.push(w);
+        }
         out.sort_unstable();
         out
     }
@@ -307,7 +400,7 @@ fn cmp_code(a: walt_core::TrickKey, b: walt_core::TrickKey) -> u8 {
 /// invariant of F2 (as amended): actor and focal offsets, table depth, holder
 /// or table position, double flags, the led-context map, follow membership,
 /// and every pairwise trick-key comparison in every context in force.
-fn encode(sit: &Situation, f: &Frame) -> Vec<u8> {
+fn encode(sit: &Situation, f: &Frame, spec: CandidateSpec) -> Vec<u8> {
     let decl = sit.decl;
     let led = sit.led();
     let n = f.tiles.len();
@@ -332,7 +425,9 @@ fn encode(sit: &Situation, f: &Frame) -> Vec<u8> {
     for d in &f.tiles {
         out.push(f.tile_id[d.index()]);
         out.push(location(sit, *d, f));
-        out.push(u8::from(d.is_double()));
+        if spec.double_flag {
+            out.push(u8::from(d.is_double()));
+        }
         out.push(f.ctx_id[decl.led_context(*d).index()]);
         let mut mask = 0u8;
         for c in &f.ctxs {
@@ -397,10 +492,19 @@ fn frame_for(sit: &Situation, order: &[Domino]) -> Frame {
             ctxs.push(l);
         }
     }
+    // Under a candidate that drops the beaten table tiles, the led context can
+    // survive its leading tile: it stays in force (A1) but is led by nothing
+    // matched, so it takes the last identifier. It is distinguished by its own
+    // flag, so the position is forced and no search freedom is added.
+    if let Some(q) = sit.led() {
+        if !ctxs.contains(&q) {
+            ctxs.push(q);
+        }
+    }
     debug_assert_eq!(
         ctxs.len(),
         in_force.len(),
-        "every context in force is led by a matched tile"
+        "every context in force is labeled"
     );
     let mut ctx_id = [OUTSIDE; Context::COUNT];
     for (i, c) in ctxs.iter().enumerate() {
@@ -425,7 +529,13 @@ struct TileInvariant {
     profile: Vec<(bool, bool, bool, bool, u8, u8, u8)>,
 }
 
-fn tile_invariant(sit: &Situation, d: Domino, tiles: &[Domino], ctxs: &[Context]) -> TileInvariant {
+fn tile_invariant(
+    sit: &Situation,
+    d: Domino,
+    tiles: &[Domino],
+    ctxs: &[Context],
+    spec: CandidateSpec,
+) -> TileInvariant {
     let decl = sit.decl;
     let led = sit.led();
     let seat_id = actor_seat_ids(sit.actor());
@@ -469,7 +579,7 @@ fn tile_invariant(sit: &Situation, d: Domino, tiles: &[Domino], ctxs: &[Context]
     profile.sort();
     TileInvariant {
         location,
-        is_double: d.is_double(),
+        is_double: spec.double_flag && d.is_double(),
         profile,
     }
 }
@@ -516,8 +626,8 @@ impl Canonical {
 /// consistent with the tile invariants. The seat rotation is forced and the
 /// context labeling is induced, so the only freedom is the ordering of
 /// invariant-equivalent tiles.
-pub fn canonicalize(sit: &Situation) -> Canonical {
-    let tiles = sit.matched();
+pub fn canonicalize(sit: &Situation, spec: CandidateSpec) -> Canonical {
+    let tiles = sit.matched(spec);
     assert!(
         tiles.len() <= MAX_MATCHED_TILES,
         "the census domain carries at most {MAX_MATCHED_TILES} matched tiles; \
@@ -526,7 +636,7 @@ pub fn canonicalize(sit: &Situation) -> Canonical {
     let ctxs = sit.contexts();
     let mut keyed: Vec<(TileInvariant, Domino)> = tiles
         .iter()
-        .map(|d| (tile_invariant(sit, *d, &tiles, &ctxs), *d))
+        .map(|d| (tile_invariant(sit, *d, &tiles, &ctxs, spec), *d))
         .collect();
     keyed.sort();
     let mut groups: Vec<Vec<Domino>> = Vec::new();
@@ -555,7 +665,7 @@ pub fn canonicalize(sit: &Situation) -> Canonical {
             order.extend_from_slice(&g[*pick]);
         }
         let frame = frame_for(sit, &order);
-        let key = encode(sit, &frame);
+        let key = encode(sit, &frame, spec);
         let improves = match &best {
             Some((b, _)) => key < *b,
             None => true,
@@ -589,8 +699,8 @@ pub fn canonicalize(sit: &Situation) -> Canonical {
 /// it does under the equivariant reading, so two situations under different
 /// declarations merge here exactly when the declaration makes no difference to
 /// any encoded relation.
-pub fn identity_key(sit: &Situation) -> Vec<u8> {
-    let tiles = sit.matched();
+pub fn identity_key(sit: &Situation, spec: CandidateSpec) -> Vec<u8> {
+    let tiles = sit.matched(spec);
     let mut tile_id = [OUTSIDE; Domino::COUNT];
     for d in &tiles {
         tile_id[d.index()] = d.index() as u8;
@@ -614,6 +724,7 @@ pub fn identity_key(sit: &Situation) -> Vec<u8> {
             ctx_id,
             seat_id,
         },
+        spec,
     )
 }
 
@@ -736,6 +847,8 @@ pub enum Law {
 /// The whole census: carrier, canonical forms, equivariant classes, and the
 /// identity-interface control on the same carrier.
 pub struct Census {
+    /// The declared candidate every count in this census belongs to.
+    pub spec: CandidateSpec,
     pub carrier: Carrier,
     pub canon: Vec<Canonical>,
     /// Equivariant class of each carrier situation.
@@ -749,18 +862,23 @@ pub struct Census {
 }
 
 impl Census {
-    pub fn build(carrier: Carrier) -> Census {
-        let canon: Vec<Canonical> = carrier.states.iter().map(canonicalize).collect();
+    pub fn build(carrier: Carrier, spec: CandidateSpec) -> Census {
+        let canon: Vec<Canonical> = carrier
+            .states
+            .iter()
+            .map(|s| canonicalize(s, spec))
+            .collect();
         let (class_of, class_members, class_keys) =
             group(canon.iter().map(|c| c.key.clone()).collect());
         let (identity_of, identity_members, _) = group(
             carrier
                 .states
                 .iter()
-                .map(identity_key)
+                .map(|s| identity_key(s, spec))
                 .collect::<Vec<Vec<u8>>>(),
         );
         let mut census = Census {
+            spec,
             carrier,
             canon,
             class_of,

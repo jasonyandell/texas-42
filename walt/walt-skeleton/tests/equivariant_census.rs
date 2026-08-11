@@ -9,8 +9,12 @@ use walt_core::receipt::{locate_verify_player, parse_file, Receipt};
 use walt_core::{Decl, Domino, DominoSet, Pip, Seat};
 use walt_kernel::Kernel;
 use walt_skeleton::equivariant::{
-    build_carrier, canonicalize, check_ecl, identity_key, Census, Law, Situation,
+    build_carrier, canonicalize, check_ecl, identity_key, CandidateSpec, Census, Law, Situation,
 };
+
+/// r1's descriptor: every test below that does not name a candidate is a
+/// statement about the finest one.
+const FINEST: CandidateSpec = CandidateSpec::FINEST;
 
 fn tiles(names: &[&str]) -> DominoSet {
     names
@@ -52,8 +56,8 @@ fn kernel_at(r: &Receipt, hand: usize) -> Kernel {
 fn the_canonical_form_is_invariant_under_a_seat_rotation() {
     let a = lead_situation(pip(3), Seat::S0, [&["3-0"], &["3-1"], &["3-2"], &["6-5"]]);
     let b = lead_situation(pip(3), Seat::S1, [&["6-5"], &["3-0"], &["3-1"], &["3-2"]]);
-    assert_eq!(canonicalize(&a).key, canonicalize(&b).key);
-    assert_ne!(identity_key(&a), identity_key(&b));
+    assert_eq!(canonicalize(&a, FINEST).key, canonicalize(&b, FINEST).key);
+    assert_ne!(identity_key(&a, FINEST), identity_key(&b, FINEST));
 }
 
 #[test]
@@ -64,10 +68,10 @@ fn the_canonical_form_is_invariant_under_a_trump_and_tile_relabeling() {
     // every trick-key comparison are preserved.
     let a = lead_situation(pip(3), Seat::S0, [&["3-0"], &["3-1"], &["3-2"], &["6-5"]]);
     let b = lead_situation(pip(4), Seat::S0, [&["4-0"], &["4-1"], &["4-2"], &["6-5"]]);
-    assert_eq!(canonicalize(&a).key, canonicalize(&b).key);
+    assert_eq!(canonicalize(&a, FINEST).key, canonicalize(&b, FINEST).key);
     assert_ne!(
-        identity_key(&a),
-        identity_key(&b),
+        identity_key(&a, FINEST),
+        identity_key(&b, FINEST),
         "the identity interface never sees the relabeling"
     );
 }
@@ -78,11 +82,11 @@ fn a_situation_with_different_dynamics_lands_in_a_different_class() {
     // 6-6 is a double, tops its natural context, and changes both the double
     // flag and the trick-key comparisons: a different structure.
     let b = lead_situation(pip(3), Seat::S0, [&["3-0"], &["3-1"], &["3-2"], &["6-6"]]);
-    assert_ne!(canonicalize(&a).key, canonicalize(&b).key);
+    assert_ne!(canonicalize(&a, FINEST).key, canonicalize(&b, FINEST).key);
     // Different holders are different structure too: the rotation is forced by
     // actor alignment, so it cannot absorb a permutation of the hands.
     let c = lead_situation(pip(3), Seat::S0, [&["3-2"], &["3-1"], &["3-0"], &["6-5"]]);
-    assert_ne!(canonicalize(&a).key, canonicalize(&c).key);
+    assert_ne!(canonicalize(&a, FINEST).key, canonicalize(&c, FINEST).key);
 }
 
 #[test]
@@ -108,14 +112,14 @@ fn the_table_play_order_is_part_of_the_structure() {
     let b = base(&["6-4", "6-5"]);
     assert_eq!(a.current_winner(), Some(Seat::S0));
     assert_eq!(b.current_winner(), Some(Seat::S1));
-    assert_ne!(canonicalize(&a).key, canonicalize(&b).key);
+    assert_ne!(canonicalize(&a, FINEST).key, canonicalize(&b, FINEST).key);
 }
 
 #[test]
 fn canonicalization_is_deterministic_on_a_repeated_call() {
     let a = lead_situation(pip(3), Seat::S0, [&["3-0"], &["3-1"], &["3-2"], &["6-5"]]);
-    let first = canonicalize(&a);
-    let second = canonicalize(&a);
+    let first = canonicalize(&a, FINEST);
+    let second = canonicalize(&a, FINEST);
     assert_eq!(first.key, second.key);
     assert_eq!(first.tile_id, second.tile_id);
 }
@@ -166,12 +170,17 @@ fn every_real_situation_keeps_its_class_under_a_seat_rotation() {
     // size, not just hand-built ones: if the canonical form leaked an absolute
     // seat anywhere, a turned situation would land in a different class.
     let r = receipt();
-    let census = Census::build(build_carrier(&[(12, kernel_at(&r, 12))]));
+    let census = Census::build(build_carrier(&[(12, kernel_at(&r, 12))]), FINEST);
     assert_eq!(census.carrier.len(), 254);
     for sit in &census.carrier.states {
-        let key = canonicalize(sit).key;
+        let key = canonicalize(sit, FINEST).key;
         for by in 1..Seat::COUNT {
-            assert_eq!(key, canonicalize(&rotate(sit, by)).key, "{}", sit.render());
+            assert_eq!(
+                key,
+                canonicalize(&rotate(sit, by), FINEST).key,
+                "{}",
+                sit.render()
+            );
         }
     }
 }
@@ -181,7 +190,7 @@ fn the_h12_kernel_runs_the_whole_pipeline_and_its_ecl_verdict_is_pinned() {
     let r = receipt();
     let kernel = kernel_at(&r, 12);
     assert_eq!(kernel.count(), 6, "the pinned h12 fiber size");
-    let census = Census::build(build_carrier(&[(12, kernel)]));
+    let census = Census::build(build_carrier(&[(12, kernel)]), FINEST);
     // Pinned computed values -- exploratory tier, never axioms (TRUST-01).
     assert_eq!(census.carrier.roots(), 6, "one root per fiber world");
     assert_eq!(census.carrier.len(), 254);
@@ -196,9 +205,50 @@ fn the_h12_kernel_runs_the_whole_pipeline_and_its_ecl_verdict_is_pinned() {
 }
 
 #[test]
+fn every_declared_candidate_coarsens_the_finest_one_and_still_passes_ecl() {
+    // The r2 toggles: each coarser candidate must be a genuine coarsening —
+    // situations the finest descriptor identifies stay identified — and each
+    // is checked on its own, so a dropped distinction that turns out to be
+    // load-bearing shows up as its own (ECL) failure, never as a repair.
+    let r = receipt();
+    let finest = Census::build(build_carrier(&[(12, kernel_at(&r, 12))]), FINEST);
+    for spec in CandidateSpec::ALL {
+        let census = Census::build(build_carrier(&[(12, kernel_at(&r, 12))]), spec);
+        assert_eq!(census.carrier.len(), finest.carrier.len(), "{}", spec.name);
+        assert!(
+            census.class_members.len() <= finest.class_members.len(),
+            "{} must not split what the finest candidate merged",
+            spec.name
+        );
+        for members in &finest.class_members {
+            let first = census.class_of[members[0]];
+            for m in &members[1..] {
+                assert_eq!(
+                    first, census.class_of[*m],
+                    "{} split a finest-candidate class",
+                    spec.name
+                );
+            }
+        }
+        assert!(check_ecl(&census).passed(), "{} ECL", spec.name);
+    }
+}
+
+#[test]
+fn dropping_the_beaten_table_tiles_changes_nothing_at_a_lead() {
+    // c3 touches the unresolved trick only, so at a lead (no tile down) it is
+    // the finest candidate exactly -- which is why no candidate merges roots.
+    let a = lead_situation(pip(3), Seat::S0, [&["3-0"], &["3-1"], &["3-2"], &["6-5"]]);
+    assert_eq!(
+        canonicalize(&a, FINEST).key,
+        canonicalize(&a, CandidateSpec::NO_BEATEN_TILES).key
+    );
+}
+
+#[test]
 fn the_identity_control_is_injective_inside_one_kernel() {
     let r = receipt();
-    let census = Census::build(build_carrier(&[(12, kernel_at(&r, 12))]));
+    let census = Census::build(build_carrier(&[(12, kernel_at(&r, 12))]), FINEST);
     assert_eq!(
         census.identity_members.len(),
         census.carrier.len(),
@@ -209,10 +259,10 @@ fn the_identity_control_is_injective_inside_one_kernel() {
 #[test]
 fn the_identity_control_does_not_merge_two_pooled_kernels() {
     let r = receipt();
-    let census = Census::build(build_carrier(&[
-        (0, kernel_at(&r, 0)),
-        (11, kernel_at(&r, 11)),
-    ]));
+    let census = Census::build(
+        build_carrier(&[(0, kernel_at(&r, 0)), (11, kernel_at(&r, 11))]),
+        FINEST,
+    );
     assert!(
         census.cross_kernel_identity_classes().is_empty(),
         "the §12.6 control merges nothing across receipt hands"
@@ -229,7 +279,7 @@ fn every_class_agrees_on_the_actor_type_and_the_legal_count() {
     // determines whether the focal seat is to act and how many legal moves
     // there are, so no class may mix the two node types.
     let r = receipt();
-    let census = Census::build(build_carrier(&[(12, kernel_at(&r, 12))]));
+    let census = Census::build(build_carrier(&[(12, kernel_at(&r, 12))]), FINEST);
     for members in &census.class_members {
         let shape = |i: &usize| match &census.laws[*i] {
             Law::Focal(m) => (true, m.len()),
@@ -248,7 +298,7 @@ fn the_ecl_checker_fails_on_a_deliberately_widened_class() {
     // Two classes with different step laws are merged by hand -- no descriptor
     // is being proposed, the widened labeling is only a probe of the checker.
     let r = receipt();
-    let mut census = Census::build(build_carrier(&[(12, kernel_at(&r, 12))]));
+    let mut census = Census::build(build_carrier(&[(12, kernel_at(&r, 12))]), FINEST);
     assert!(check_ecl(&census).passed(), "the census itself passes");
     let victim = (0..census.class_members.len())
         .find(|c| {
