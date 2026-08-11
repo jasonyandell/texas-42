@@ -23,149 +23,129 @@ below expands it with meaning from its home section.
 
 ## 1.1 Pips, dominoes, seats, teams — §1.1, §15.1
 
-Pips are `Fin 7`. The domino universe $\mathcal D=\operatorname{Sym}^2(\mathbb P)$ is
-the 28 unordered two-end multisets; the written form $h\!:\!l$ with $h\ge l$ is a
-**naming convention, not a physical orientation** (§1.1). Equivalently $\mathcal D$ is
-the edge set of $K_7$ with a loop at each vertex: mixed tiles are edges, doubles are
-loops.
+Pips are `Fin 7`; the domino universe $\mathcal D=\operatorname{Sym}^2(\mathbb P)$ is the
+28 unordered two-end multisets, equivalently the edge set of $K_7$ with a loop at each
+vertex (mixed tiles are edges, doubles are loops). The written form $h\!:\!l$ with $h\ge l$
+is a **naming convention, not a physical orientation**. Seats are $\mathbb Z/4\mathbb Z$
+with successor $s^+=s+1$; teams are $T_0=\{0,2\}$, $T_1=\{1,3\}$, $\theta(s)=s\bmod 2$. Each
+pip's natural incidence set $\sigma_p$ has seven tiles — a double is in one, a mixed tile in
+two (§1.1).
 
-Seats are $\mathbb Z/4\mathbb Z$ with successor $s^+=s+1$; teams are
-$T_0=\{0,2\}$, $T_1=\{1,3\}$, $\theta(s)=s\bmod 2$ (§1.1). The natural incidence set
-$\sigma_p$ of each pip has seven tiles; a double is in one, a mixed tile in two.
-
-*Shape note:* a domino identity is stable forever. It is **not** a stable strategic
-type — declaration, live context, holder relations, follow obligation, and
-continuation position determine its current role (§0, conclusion 1).
+*Shape note:* a domino identity is stable forever, but it is **not** a stable strategic
+type — declaration, live context, holder relations, follow obligation, and continuation
+position determine its current role (§0, conclusion 1).
 
 ## 1.2 Declarations and effective contexts — §1.2
 
-Nine declarations: $\Delta_{\mathrm{Str}}=\mathbb P\cup\{\mathrm{DT},\mathrm{NT}\}$.
-The called set $\kappa_\delta$ is $\sigma_p$ for a pip trump, the doubles for DT,
-empty for NT. In Straight 42 every nonempty called set is powered, so
-$\pi_\delta=\kappa_\delta$ (§1.2).
-
-Contexts are `Fin 8`: pips 0–6 plus context **7 = the called suit**. The effective
-incidence family removes called tiles from natural suits and puts them in context 7:
+Nine declarations, $\Delta_{\mathrm{Str}}=\mathbb P\cup\{\mathrm{DT},\mathrm{NT}\}$, with
+called set $\kappa_\delta$ = $\sigma_p$ for a pip trump, the doubles for DT, empty for NT;
+every nonempty called set is powered, so $\pi_\delta=\kappa_\delta$. Contexts are `Fin 8`:
+pips 0–6 plus context **7 = the called suit**. The effective incidence family moves called
+tiles out of natural suits into context 7 —
 $\widehat\sigma_p^\delta=\sigma_p\setminus\kappa_\delta$,
-$\widehat\sigma_7^\delta=\kappa_\delta$ (§1.2).
+$\widehat\sigma_7^\delta=\kappa_\delta$ — and follow is
+$F_\delta(d,q)=\mathbf 1[d\in\widehat\sigma_q^\delta]$, with led context $\ell_\delta(d)$
+equal to 7 for a called tile and $\operatorname{high}(d)$ otherwise (§1.2).
 
-*Shape note, load-bearing:* the effective family is a **covering, not a partition** —
-an uncalled mixed tile is generally in two effective contexts (§1.2). Follow is
-$F_\delta(d,q)=\mathbf 1[d\in\widehat\sigma_q^\delta]$; the led context $\ell_\delta(d)$
-is 7 for a called tile and $\operatorname{high}(d)$ otherwise. Do not model the
-declaration as an `Option Pip` surrogate — the nine-declaration algebra is the
-foundation object (§3.1).
+*Shape note, load-bearing:* the effective family is a **covering, not a partition** — an
+uncalled mixed tile is generally in two effective contexts (§1.2). Do not model the
+declaration as an `Option Pip` surrogate; the nine-declaration algebra is the foundation
+object (§3.1).
 
 ## 1.3 Trick order: tier, rank, key — §1.3
 
-Each tile gets a tier relative to the led context $q$: 2 if trump, 1 if it follows,
-0 otherwise. $r_\delta$ is the declaration-relative rank (DT: doubles by pip value;
-otherwise a natural double is top of its effective natural suit; a mixed tile ranks by
-pip sum inside a nonzero tier). The trick key is the lexicographic pair
-$\tau_\delta(d,q)=(\operatorname{tier}_\delta(d,q),r_\delta(d))$ (§1.3).
-
-**Inherited:** for any distinct four-tile trick with a specified lead the maximum key
-is unique, so every legal trick has exactly one winner (§1.3).
-
-Derived sets an implementation will want: $\operatorname{BEATS}_\delta(q,d)$ and the
-when-led threat set $\operatorname{THREAT}_\delta(d)=\operatorname{BEATS}_\delta(\ell_\delta(d),d)$
-(§1.3).
+Relative to led context $q$ a tile has tier 2 if trump, 1 if it follows, 0 otherwise;
+$r_\delta$ is the declaration-relative rank (under DT doubles rank by pip value; otherwise
+a natural double is top of its effective natural suit, and a mixed tile ranks by pip sum
+inside a nonzero tier). The trick key is the lexicographic pair
+$\tau_\delta(d,q)=(\operatorname{tier}_\delta(d,q),r_\delta(d))$, and **[INHERITED]** for
+any distinct four-tile trick with a specified lead the maximum key is unique, so every
+legal trick has exactly one winner. Two derived sets an implementation will want:
+$\operatorname{BEATS}_\delta(q,d)$ and the when-led threat set
+$\operatorname{THREAT}_\delta(d)=\operatorname{BEATS}_\delta(\ell_\delta(d),d)$ (§1.3).
 
 ## 1.4 Count as decoration — §1.4
 
 $c(d)$ is 5 on $\{5\!:\!0,4\!:\!1,3\!:\!2\}$, 10 on $\{6\!:\!4,5\!:\!5\}$, 0 elsewhere;
 $\sum_d c(d)=35$, and with one trick point per trick a hand is 42 points (§1.4).
 
-*Shape note:* count is a **decoration on a tile, one sparse specialization** of a
-general tile valuation $w$ (§1.4, §8.2). Changing $w$ does not alter legal play unless
-the change is declared a common-knowledge rule change (§1.4, §8.7). Build the valuation
-as a parameter from the start; do not hardcode 5/10.
+*Shape note:* count is a **decoration on a tile, one sparse specialization** of a general
+tile valuation $w$, and changing $w$ does not alter legal play unless the change is declared
+a common-knowledge rule change (§1.4, §8.2, §8.7). Build the valuation as a parameter from
+the start; do not hardcode 5/10.
 
 ## 1.5 Deals and the graded DAG — §1.5
 
-A complete deal is an ordered partition of $\mathcal D$ into four seven-tile hands.
-Leader plays anything; a follower must play a member of the led effective context when
-able and may slough otherwise; the winner leads next (§1.5).
+A complete deal is an ordered partition of $\mathcal D$ into four seven-tile hands. The
+leader plays anything; a follower must play a member of the led effective context when able
+and may slough otherwise; the winner leads next (§1.5).
 
 *Shape note:* every legal play removes exactly one tile from one hand, so the
-post-declaration game is a **finite graded DAG** — grade by live-tile count. Backward
-induction is exact once utility and the optimization operator are fixed (§1.5).
-
-**Boundary:** the full pre-contract match process can contain unbounded repeated
-all-pass attempts; finite-hand backward induction proves nothing about that (§1.5).
+post-declaration game is a **finite graded DAG** — grade by live-tile count — and backward
+induction is exact once utility and the optimization operator are fixed. **Boundary:** the
+full pre-contract match process can contain unbounded repeated all-pass attempts, about
+which finite-hand backward induction proves nothing (§1.5).
 
 ## 1.6 Fibers and capacity cells — §2.1
 
-Fix a viewer $m$, a legal public history, and the viewer's private record. $H_m$ is the
-viewer's known hand, $U$ the hidden live pool, $k_s$ the remaining capacity of hidden
-seat $s$, and $P_s\subseteq U$ the tiles still locally possible at $s$ after all
-rule-derived exclusions (public sloughs induce exact voids) (§2.1).
+Fix a viewer $m$, a legal public history, and the viewer's private record: $H_m$ is the
+viewer's known hand, $U$ the hidden live pool, $k_s$ the remaining capacity of hidden seat
+$s$, and $P_s\subseteq U$ the tiles still locally possible at $s$ after all rule-derived
+exclusions (public sloughs induce exact voids). The current-remainder fiber
+$\Phi(\mathbf C)$ is the set of assignments $(H_s)_{s\ne m}$ with $H_s\subseteq P_s$,
+$|H_s|=k_s$, pairwise disjoint, partitioning $U$, where
+$\mathbf C=(U;(P_s,k_s)_{s\ne m})$ is the dependent capacity-cell system (§2.1).
 
-The current-remainder fiber $\Phi(\mathbf C)$ is the set of assignments
-$(H_s)_{s\ne m}$ with $H_s\subseteq P_s$, $|H_s|=k_s$, pairwise disjoint, partitioning
-$U$; $\mathbf C=(U;(P_s,k_s)_{s\ne m})$ is the dependent capacity-cell system (§2.1).
-
-**Inherited:** in the Straight cell-theorem scope $\Phi(\mathbf C)$ is *exactly* the set
-of hidden current remainders compatible with the viewer's hand and the actor-attributed
-legal public prefix — not merely a local Hall relaxation (§2.1). One member plus the
-viewer's hand plus the public residue reconstructs one current objective world.
+**Inherited:** in the Straight cell-theorem scope $\Phi(\mathbf C)$ is *exactly* the set of
+hidden current remainders compatible with the viewer's hand and the actor-attributed legal
+public prefix — not merely a local Hall relaxation. One member plus the viewer's hand plus
+the public residue reconstructs one current objective world (§2.1).
 
 ## 1.7 Support normal form — §2.2
 
 Different cell presentations can decode the same fiber, so support is quotiented by
 extensional equality. **Inherited:** every feasible capacity-cell system has a canonical
 exact support normal form $N=\mathcal N(\mathbf C)$ decoding exactly $\Phi(\mathbf C)$,
-whose native representation separates (§2.2):
+whose native representation separates tiles certainly held by each hidden seat, a residual
+ambiguous pool, residual capacities, and the matching-supported binary or ternary ambiguity
+core. Two feasible systems share a normal form exactly when they decode the same support
+set, so $N$ is the coarsest exact deterministic semantic representation of the support
+(§2.2).
 
-- tiles certainly held by each hidden seat;
-- a residual ambiguous pool;
-- residual capacities;
-- the matching-supported binary or ternary ambiguity core.
-
-Two feasible systems share a normal form exactly when they decode the same support set,
-so $N$ is the coarsest exact deterministic semantic representation of the support (§2.2).
-
-**Boundary (two of them, both load-bearing):** feasibility and exact decoding do **not**
-imply legal Straight reachability — a support object used as a current state must be
-inherited from legal construction or carry an accepted reachability witness, and
-reachability is **not** a Boolean field inside the normal form (§2.2). And the
-minimality claim is semantic/state-count minimality for exact support only — not about
-bits, runtime, cache locality, or strategic sufficiency (§2.2).
+**Boundary (two, both load-bearing):** feasibility and exact decoding do **not** imply legal
+Straight reachability — a support object used as a current state must be inherited from
+legal construction or carry an accepted reachability witness, and reachability is **not** a
+Boolean field inside the normal form. And the minimality claim is semantic/state-count
+minimality for exact support only — not bits, runtime, cache locality, or strategic
+sufficiency (§2.2).
 
 ## 1.8 The kernel $K$ — §2.3
 
-$$K=(\delta,H_m,N,\tau,\alpha_{\mathcal A})$$
+$K=(\delta,H_m,N,\tau,\alpha_{\mathcal A})$, where $\tau$ is the trick-boundary leader or
+the exact folded unresolved-trick residue and $\alpha_{\mathcal A}$ is an accumulator
+sufficient for a declared purpose family (possibly trivial). Its exact rule worlds are
+$\Phi(K):=[\![N]\!]$; a concrete situation is $x=K\oplus\omega$ for $\omega\in\Phi(K)$; the
+live carrier is $L(K)=H_m\sqcup U(N)$, on which $\operatorname{Holds}_x(s,d)$ is exactly
+total. Played or captured tiles keep their identity but have no current holder (§2.3).
 
-where $\tau$ is the trick-boundary leader or the exact folded unresolved-trick residue,
-and $\alpha_{\mathcal A}$ is an accumulator sufficient for a declared purpose family
-(possibly trivial) (§2.3). Its exact rule worlds are $\Phi(K):=[\![N]\!]$; a concrete
-situation is $x=K\oplus\omega$ for $\omega\in\Phi(K)$. The live carrier is
-$L(K)=H_m\sqcup U(N)$, and $\operatorname{Holds}_x(s,d)$ is total exactly on $L(K)$.
-Played or captured tiles keep their identity but have no current holder (§2.3).
-
-*Shape note, load-bearing:* the chart — live set, hidden pool, current led context,
-current winner, derived standings — is a **deterministic view of the kernel, not an
-independent authority** (§2.3). This is the project's derived-views rule stated inside
-the basis.
+*Shape note, load-bearing:* the chart — live set, hidden pool, current led context, current
+winner, derived standings — is a **deterministic view of the kernel, not an independent
+authority** (§2.3). This is the project's derived-views rule, stated inside the basis.
 
 ## 1.9 Evidence, latent state, belief, and $B=(K,e,\beta)$ — §2.4
 
-$e$ is the retained viewer-known evidence beyond $K$ that a continuation field, learner,
-or utility can still use; it may be empty, a proved sufficient summary, or a slice of the
-full perfect-recall record (§2.4). $\mathcal Z$ is the latent continuation-state space the
-selected field needs (opponent policy type, persistent random tape, correlated hidden
-state). The admissible augmented latent domain is
-$\Xi(K,e)\subseteq\Phi(K)\times\mathcal Z$, containing pairs satisfying every hard
-reconstruction and field-compatibility constraint (§2.4).
+$e$ is the retained viewer-known evidence beyond $K$ that a continuation field, learner, or
+utility can still use — possibly empty, a proved sufficient summary, or a slice of the full
+perfect-recall record. $\mathcal Z$ is the latent continuation-state space the selected
+field needs (opponent policy type, persistent random tape, correlated hidden state), and the
+admissible augmented latent domain $\Xi(K,e)\subseteq\Phi(K)\times\mathcal Z$ contains the
+pairs satisfying every hard reconstruction and field-compatibility constraint. The belief
+$\beta\in\Delta(\Xi(K,e))$ gives weights and may have *smaller* positive-mass support than
+the rule support, because of chance-law zeros, policy-likelihood zeros, or earlier
+conditioning (§2.4).
 
-$\beta\in\Delta(\Xi(K,e))$ is the viewer's normalized belief. Support gives the ambient
-allowed domain; $\beta$ gives weights and may have *smaller* positive-mass support
-because of chance-law zeros, policy-likelihood zeros, or earlier conditioning (§2.4).
-
-The exact current decision state, relative to fixed rules, field class, utility family,
-and allowed focal strategy class, is
-
-$$B=(K,e,\beta).$$
+The exact current decision state — relative to fixed rules, field class, utility family, and
+allowed focal strategy class — is $B=(K,e,\beta)$ (§2.4).
 
 ## 1.10 Objects that must never be conflated — §2.5
 
@@ -198,54 +178,47 @@ its own value- or policy-preservation theorem (§2.6).
 
 ## 1.11 Role schemas, output interfaces, Scheme cases, Fixes — §3
 
-A **role schema** is $\Sigma=(N_Q,N_C,N_D)$: names for effective-context roles, chair
-roles, domino roles. An interpretation $\iota=(\iota_Q,\iota_C,\iota_D)$ lands in
-$Q,S,\mathcal D$ (§3.2).
-
-An **output interface** is a designated subschema $O\subseteq\Sigma$. Names in $O$ are
-returned; names outside $O$ are internal existential witnesses (§3.2). This distinction
-is load-bearing: internal proof choices must not become extra referents, extra
-probability mass, tracked identities, valued objects, or public observations (§3.2). The
-corners are $O=\varnothing$ (Boolean event query), $O=\{e\}$ (one-output role query),
-$O=\Sigma$ (full witnessed realization).
+A **role schema** is $\Sigma=(N_Q,N_C,N_D)$ — names for effective-context, chair, and
+domino roles — interpreted by $\iota=(\iota_Q,\iota_C,\iota_D)$ into $Q,S,\mathcal D$
+(§3.2). An **output interface** is a designated subschema $O\subseteq\Sigma$: names in $O$
+are returned, names outside are internal existential witnesses. That distinction is
+load-bearing — internal proof choices must not become extra referents, probability mass,
+tracked identities, valued objects, or public observations (§3.2). The corners are
+$O=\varnothing$ (Boolean event query), $O=\{e\}$ (one-output role query), $O=\Sigma$ (full
+witnessed realization).
 
 The **structural signature** is a registry of typed atoms — `Live`, `Holds`, `In`,
-`Double`, `Beats`, `Boss`, `Void`, `Quota`, $\doteq$, `ChairIs`, `ContextIs`, `Team`,
-plus event predicates `Leader`, `NextActor`, `LedContext`, `CurrentWinner`, `Played` —
-all interpreted as **functions of the exact kernel and world** (§3.3). Derived
-predicates such as mastery are registered computations, not independent mutable facts.
-Extensions with bounded local-continuation relations (companion, forced-follower,
-beater-chain, mobility) are allowed **only with explicit horizon, information access,
-and semantics**; a predicate that calls the target solver or reads the response class is
-forbidden target leakage (§3.3).
+`Double`, `Beats`, `Boss`, `Void`, `Quota`, $\doteq$, `ChairIs`, `ContextIs`, `Team`, plus
+event predicates `Leader`, `NextActor`, `LedContext`, `CurrentWinner`, `Played` — every one
+interpreted as a **function of the exact kernel and world**, with derived predicates such
+as mastery being registered computations, not independent mutable facts (§3.3). Bounded
+local-continuation relations (companion, forced-follower, beater-chain, mobility) may be
+added **only with explicit horizon, information access, and semantics** (§3.3).
 
-**Equality patterns:** distinct role names may or may not denote distinct objects. For
-each sort take a partition $\pi$ of names, quotient, then interpret the quotient
-injectively (§3.4). A **Scheme case** is $S=(\pi,\varphi)$ with $\varphi$ a finite
-conjunction of atoms over the quotient schema; a **Fix** is a finite disjunction
-$F=S_1\vee\cdots\vee S_r$ over one common schema and output interface (§3.5). The empty
-Fix is false; contained branches may be removed; a cut adds a conjunct branchwise and
-drops unsatisfiable branches (§3.5).
+**Equality patterns:** for each sort take a partition $\pi$ of role names, quotient, then
+interpret the quotient injectively (§3.4). A **Scheme case** is $S=(\pi,\varphi)$ with
+$\varphi$ a finite conjunction of atoms over the quotient schema; a **Fix** is a finite
+disjunction $F=S_1\vee\cdots\vee S_r$ over one common schema and output interface. The
+empty Fix is false, contained branches may be removed, and a cut adds a conjunct
+branchwise and drops unsatisfiable branches (§3.5).
 
 *Shape note:* one positive conjunctive case is not a Boolean lattice — the semantic
-property space is a Boolean algebra and a Fix is a chosen finite disjunctive fragment
-(§3.5). Fixes are extensionally complete only at the expensive limit and only under an
-explicit hypothesis: the registry can anchor the ambient kernel (or the semantics is one
-fixed-kernel slice) and can name every live holder and output referent (§3.5). The
-research problem is compression, not expressibility.
+property space is a Boolean algebra and a Fix is a chosen finite disjunctive fragment.
+Fixes are extensionally complete only at the expensive limit and only under an explicit
+hypothesis: the registry can anchor the ambient kernel (or the semantics is one
+fixed-kernel slice) and can name every live holder and output referent (§3.5). The research
+problem is compression, not expressibility.
 
 ## 1.12 Answer relations and the certainty hierarchy — §4
 
 The answer relation $\operatorname{Ans}^O_{\mathfrak B}(F)$ collects triples
 $(K,\omega,\rho)$ where $\rho$ interprets the output names and *some* $\iota\supseteq\rho$
-satisfies a case of $F$ (§4.1). Per world, the output-answer fiber is
+satisfies a case of $F$; per world the output-answer fiber is
 $W_F^O(K,\omega)=\{\rho:(K,\omega,\rho)\in\operatorname{Ans}^O\}$, and the Boolean
 extension is the projection $\{(K,\omega):W_F^O\ne\varnothing\}$ (§4.1). **A role query
-denotes a finite bundle of answer sets over worlds** — that is its type.
-
-Two equivalences, not one: $\equiv_{\mathrm{bool}}$ (equal extensions) is strictly weaker
-than $\equiv_{\mathrm{ans}}$ (equal answer relations, up to declared output relabeling)
-(§4.2).
+denotes a finite bundle of answer sets over worlds** — that is its type. Two equivalences
+follow, not one: $\equiv_{\mathrm{bool}}$ (equal extensions) is strictly weaker than
+$\equiv_{\mathrm{ans}}$ (equal answer relations, up to declared output relabeling) (§4.2).
 
 **The certainty hierarchy** — six distinct levels for one fixed $K$, which must not share
 a single word such as "known" (§4.4):
@@ -326,31 +299,26 @@ are not one recursion in opposite textual order (§6.9).
 
 ## 1.15 Universal continuation before valuation — §7
 
-$\mathcal C$ is the finite set of terminal continuation outcomes reachable from the
-selected decision problem, defined as the image of legal terminal histories (so
-conservation and capture/trick consistency hold by construction). A universal outcome
-records at least the winner partnership of every remaining trick, the captor partnership
-of every relevant tile, banked universal features retained at the root, and every terminal
-residue the selected utility family needs (§7.1).
+$\mathcal C$ is the finite set of terminal continuation outcomes, defined as the image of
+legal terminal histories, so conservation and capture/trick consistency hold by
+construction. A universal outcome records at least the winner partnership of every
+remaining trick, the captor partnership of every relevant tile, banked universal features
+retained at the root, and every terminal residue the selected utility family needs (§7.1).
 
 An **information-consistent policy** is $\rho_s:\mathcal I_s\to\mathcal A$ choosing one
 legal action at every reachable perfect-recall information state. It may branch on
 observations received; it may **not** branch on the hidden world unless the world was
 revealed in the declared information structure (§7.2).
 
-The **universal outcome kernel** is valuation- and utility-free:
-
-$$\mathcal O_{K,e}:\Xi(K,e)\times\mathcal R(K,e)\to\Delta(\mathcal C),$$
-
-and the belief-integrated game form is
-$\Gamma_B(\rho)=\int\mathcal O_{K,e}(\xi,\rho)\,\beta(d\xi)$ — the central universal
-continuation object (§7.3).
-
-**Fixed-field specialization (this is walt):** fix the focal player $m$ and a continuation
-field $\sigma_{-m}$; then $\Gamma_B^\sigma(\rho_m)=\Gamma_B(\rho_m,\sigma_{-m})$ assigns
-one terminal law to every information-set-consistent focal policy. It is **count-blind and
-utility-blind** (§7.4). From it, $J$, $Q_B(a;w,U)$, and $V_B(w,U)$ are defined by
-integration and finite maximization (§7.5).
+The **universal outcome kernel**
+$\mathcal O_{K,e}:\Xi(K,e)\times\mathcal R(K,e)\to\Delta(\mathcal C)$ is valuation- and
+utility-free, and the belief-integrated game form
+$\Gamma_B(\rho)=\int\mathcal O_{K,e}(\xi,\rho)\,\beta(d\xi)$ is the central universal
+continuation object (§7.3). **Fixed-field specialization — this is walt:** fixing focal
+player $m$ and a continuation field $\sigma_{-m}$,
+$\Gamma_B^\sigma(\rho_m)=\Gamma_B(\rho_m,\sigma_{-m})$ assigns one terminal law to every
+information-set-consistent focal policy, **count-blind and utility-blind** (§7.4). $J$,
+$Q_B(a;w,U)$, and $V_B(w,U)$ follow by integration and finite maximization (§7.5).
 
 **Solution-operator boundary:** the same universal layer supports perfect-information
 max/min induction, fixed stochastic field evaluation, fixed-field information-set best
@@ -612,9 +580,9 @@ source-authoritative (§17.1).
 10. **[INHERITED]** No universal context-free domino value. *Forbids:* any static per-tile
     strength table used as strategic value (§8.9).
 
-**Results proved in v0.4** — the 21 enumerated in §17.2, plus §9.8's full
-independent terminal separation theorem (proved in the document, absent from the
-§17.2 enumeration).
+**Results proved in v0.4** — the 21 enumerated in §17.2, plus two theorems proved in the
+document but absent from that enumeration: §9.8's full independent terminal separation and
+§9.9's evaluation/backward-induction commutation with its piecewise-affine corollary.
 
 11. **[PROVED v0.4]** *Equality-pattern completeness* — every interpretation of a finite role
     schema factors uniquely as a kernel partition followed by an injective interpretation of
@@ -666,27 +634,35 @@ independent terminal separation theorem (proved in the document, absent from the
 25. **[PROVED v0.4]** *Full independent terminal separation* — equal additive value for every
     tile valuation, with the trick coefficient observable, implies equal trick-and-capture
     vectors. *Licenses:* using the feature vector as a complete terminal key (§9.8).
-26. **[PROVED v0.4]** *Information-refinement policy and polytope inclusion* —
+26. **[PROVED v0.4]** *Evaluation commutes with backward induction*, with its
+    piecewise-affine corollary — for a finite complete-information continuation whose internal
+    operators are finite max, finite min, or fixed valuation-independent expectations, and
+    whose leaves are affine in the valuation, evaluating the symbolic expression after the
+    structural recursion equals scalar backward induction under that valuation; every
+    resulting $V$ and $Q$ is continuous piecewise affine. *Licenses:* solving once symbolically
+    and evaluating at many valuations. *Forbids:* assuming convexity outside the fixed-field
+    best-response case, or extending it to mixed equilibria recomputed per valuation (§9.9).
+27. **[PROVED v0.4]** *Information-refinement policy and polytope inclusion* —
     $\mathcal R_{\mathcal I}(a)\subseteq\mathcal R_{\mathcal I'}(a)$ and
     $P_a^{\mathcal I}\subseteq P_a^{\mathcal I'}$, hence $Q_a^{\mathcal I'}\ge Q_a^{\mathcal I}$.
     *Licenses:* using a revealed solve as a valid upper bound on a hidden solve (§10.2).
-27. **[PROVED v0.4]** *Revealed-continuation Minkowski formula* —
+28. **[PROVED v0.4]** *Revealed-continuation Minkowski formula* —
     $P_a^C=\sum_\omega\mu(\omega)P_{\omega,a}$. *Licenses:* computing treatment C per world and
     combining, instead of solving a revealed game globally (§10.3).
-28. **[PROVED v0.4]** *Nested information polytopes* — $P_a^H\subseteq P_a^C$ and
+29. **[PROVED v0.4]** *Nested information polytopes* — $P_a^H\subseteq P_a^C$ and
     $P^H\subseteq P^C\subseteq P^F$. *Licenses:* asserting $V^F\ge V^C\ge V^H$ as an invariant
     a test can check (§10.4).
-29. **[PROVED v0.4]** *Exact information-price decomposition* —
+30. **[PROVED v0.4]** *Exact information-price decomposition* —
     $G^{\mathrm{total}}=G^{\mathrm{cont}}+G^{\mathrm{root}}$, every price nonnegative.
     *Licenses:* reporting the two prices separately with an exact additivity check (§10.5).
-30. **[PROVED v0.4]** *Zero-information exposed-face criterion* — for $P\subseteq Q$,
+31. **[PROVED v0.4]** *Zero-information exposed-face criterion* — for $P\subseteq Q$,
     $h_Q(v)=h_P(v)$ iff $F_Q(v)\cap P\ne\varnothing$. *Licenses:* certifying zero revelation
     value by exhibiting one hidden-implementable optimal feature, without comparing whole
     polytopes (§10.6).
-31. **[PROVED v0.4]** *Static descriptor factorization* — $D$ is purpose-sound iff
+32. **[PROVED v0.4]** *Static descriptor factorization* — $D$ is purpose-sound iff
     $R^*=\bar R\circ D$ for a unique $\bar R$. *Licenses:* implementing a sound descriptor as
     a lookup from descriptor cell to response (§12.1).
-32. **[PROVED v0.4]** *Strong controlled-lumpability value preservation* — a strongly
+33. **[PROVED v0.4]** *Strong controlled-lumpability value preservation* — a strongly
     controlled-lumpable $d$ gives exact abstract filtering, equal joint law of observations
     and accumulated features, equal utility values, and equal $V$/$Q$ over the same abstract
     policy class. *Licenses:* running the whole solve on descriptor states once the two
@@ -694,7 +670,7 @@ independent terminal separation theorem (proved in the document, absent from the
 
 **The v0.5 amendment (§12.6A).**
 
-33. **[PROVED v0.5]** *Equivariant controlled lumpability* — under (ECL) with declared
+34. **[PROVED v0.5]** *Equivariant controlled lumpability* — under (ECL) with declared
     coherent interface, action, and observation transports and a count-free increment
     alphabet, the pushed belief updates using $\bar K$ alone; lifted abstract policies are
     lawful and induce the same joint law of transported observations, accumulated $e_\star$,
@@ -702,13 +678,13 @@ independent terminal separation theorem (proved in the document, absent from the
     count-free terminal outcome law, every statistic readable from the preserved trace, every
     bounded utility of those quantities, and $V$ and $Q$ all agree. *Licenses:* merging states
     that differ by tile identity — the merge v0.4 §12.6 structurally forbade (§12.6A preamble).
-34. **[PROVED v0.5]** *Valuation gauge descends to the quotient* — under capture-completeness
+35. **[PROVED v0.5]** *Valuation gauge descends to the quotient* — under capture-completeness
     of the domino-role interface, $\sum_{e\in O_D}\bar x_{T,e}=4t_T$, so
     $(b,\lambda)\sim(b-4c,\lambda+c\mathbf 1)$ and valuation factors through
     $(\mathbb R\times\mathbb R^{O_D})/\langle(-4,\mathbf 1)\rangle$, with $Q$ and $V$ equal to
     the exact values per gauge class. *Licenses:* reusing the entire §8/§9 valuation and
     polytope machinery on role coordinates (§12.6A).
-35. **[PROVED v0.5]** *§12.6 as the identity-interface case* — taking every transport to be
+36. **[PROVED v0.5]** *§12.6 as the identity-interface case* — taking every transport to be
     the identity and omitting the role-indexed readout recovers v0.4 §12.6. *Licenses:* one
     code path for both, with identity transports as the default configuration (§12.6A).
 
