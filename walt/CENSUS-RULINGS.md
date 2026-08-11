@@ -199,3 +199,117 @@ require a later declared nonempty O_D; nothing in this census forecloses that.
 
 **Builder consequence.** No role bookkeeping anywhere in the census code; the
 only preserved outcome channel is the e⋆ accumulator.
+
+# r3 — retrograde coarsest quotient (adjudicated 2026-08-10, walt-math)
+
+Context: r1's finest structural quotient passed ECL exhaustively (15,253
+situations → 11,949 classes, 0 of 647 roots merged; results file). r3 replaces
+candidate-guessing with the target construction: backward induction over the
+graded carrier computing the coarsest equivariantly lumpable quotient.
+
+## Q1 — sound and coarsest. RULING: ADOPT WITH TWO AMENDMENTS (coherence; preamble).
+
+**(a) Transport domain — reading CONFIRMED.** v0.5: transports "need only be
+defined on the declared represented interface unless a larger transport is
+required by the action or observation language." With O_Σ = ∅ the represented
+interface is empty, and the primitive-step action/observation language names
+only the acting seat's playable tiles. So the per-pair Θ^D domain is exactly the
+actor's legal set. Later steps never force a larger domain: the theorem's
+induction compares successors by CLASS and uses the successor pairs' own
+transports; fresh objects are "re-evaluated at the successor" (v0.5), and the
+rigid square is vacuous (empty interface). Consequently r3 may lawfully merge
+states related by NO full-structure tile bijection — §12.6A never asks Θ to
+extend to a state isomorphism ("not asserted to be global symmetries"). This is
+the equivariance gain, and it is why r1 must refine r3 (see Q5 assertion).
+
+**(b) Amendment 1 — coherence forbids arbitrary tie-breaking.** The coherence
+laws (Θ_xx = id, Θ_yx = Θ_xy⁻¹, Θ_xz = Θ_yz ∘ Θ_xy) scope over Θ^A and Θ^obs
+(v0.5 App. A note 1, adopted in F3), and per-pair matchings with arbitrary ties
+can violate composition (a↦b, b↦c, but a↦c′), making the abstract action and
+observation classes [x,a], [x,o] ill-defined. Fix exactly as in F3: fix one
+canonical move ORDER per state — sort moves by the full signature tuple (Q3),
+ties broken by a deterministic per-state rule (e.g. the state's concrete tile
+order) — and declare Θ^A/Θ^obs as position matching through that order. All
+transports then factor through sorted positions; coherence is automatic. Ties
+(moves with identical tuples) emit identical statistics, so tie order never
+changes any law; abstract actions/observations ARE the sorted positions.
+
+**(c) Coarsest — CONFIRMED, with a relativity caveat.** By induction on grade:
+at grade 0 r3 is the one-class partition, trivially coarsest. At grade g, if
+(d,Θ) is any lawful equivariantly lumpable pair (under the same interface
+typing, Q3) and d(x) = d(y), then ECL's bijections match moves with equal k,
+preserved classification and actor offset, and equal d-successor-classes; by
+the induction hypothesis d-classes refine r3-classes at grade g−1, so the
+matched moves have equal r3-signature tuples, hence sig(x) = sig(y). So every
+lawful (d,Θ) refines r3: r3 is the coarsest. The claim is RELATIVE to: this
+carrier, the uniform-legal field, the count-free contract, the primitive-step
+model, and the token typing of Q3 — a differently-typed observation interface
+could admit coarser quotients; do not quote "coarsest" without this scope.
+
+## Q2 — successor-class equality. RULING: CONFIRMED.
+
+(ECL) sums K over x′ with d(x′) = z: only the successor's class enters, never a
+successor matching through a restricted transport. With deterministic per-move
+successors the sum is an indicator, so the multiset of per-move tuples IS the
+joint law of (k, ō, z) up to the declared bijections (uniform masses at hidden
+steps; action-indexed Dirac family at focal steps — the "multiset is the law"
+phrasing applies only to hidden steps, but the equality test is the same). One
+backward pass closes because every primitive play removes exactly one live
+tile, so every successor has grade g−1: the carrier is strictly graded (v0.4
+§1.5) and no fixpoint iteration is needed. Builder: assert grade(succ) = g−1.
+
+## Q3 — signature tuple. RULING: as proposed, plus actor OFFSET in the preamble.
+
+Θ^obs is not a free bijection on whole tokens: transports are "determined ...
+by role-name correspondence" over the three sorts (N_Q, N_C, N_D), extended
+only as the observation language requires — still sort-by-sort. The v0.4 §6.1
+token is typed (actor: Q-sort, tile: D-sort, classification: bare label), so
+Θ^obs acts componentwise as (Θ^Q, Θ^D, id): the classification has no transport
+sort and is preserved LITERALLY — it belongs in the tuple. The actor component
+is transported by Θ^Q, which "must carry the declared partnership and
+orientation convention" (v0.5); with no orientation variable adjoined (§11.7,
+F2 A4), the lawful chair correspondence preserves the seat's offset from focal
+— focal↔focal AND partner↔partner AND left↔left, not merely focal-vs-hidden.
+Ruling: **preamble = (grade, actor offset from focal ∈ {0,1,2,3})**; offset 0 =
+focal choice node, offsets 1–3 = hidden chance nodes. **Per-move tuple =
+(k ∈ {0, e⋆}, play classification ∈ {lead, follow, slough}, successor r3-class)**.
+Tile identity and led context are deliberately absent (transported per-move —
+the point of r3). Remark (purpose-level, not the legal basis): literal
+classification also keeps the abstract observation record from gluing
+focal-distinguishable histories, protecting the abstract-policy class that
+v0.5's BOUNDARY scopes the value claim to.
+
+## Q4 — interpretation and stability. RULING: intrinsic classes; carrier-relative counts.
+
+Encode signatures hereditarily and content-addressed (a state's encoding is a
+function of its future cone only, through the canonical move order). Then class
+identity is INTRINSIC to the continuation: adding states or kernels to the
+carrier can only add classes or add members to existing classes — it can never
+split or re-merge existing ones, and the partition restricted to the old
+carrier is unchanged. Counts remain carrier-relative (they count only sampled
+states). Mandated results-file caveat, verbatim or equivalent: "Classes are
+dynamics-equivalence classes under §12.6A on this carrier, uniform-legal field,
+count-free contract, per-step interface typing (r3 ruling Q3); they need not be
+closed under any tile relabeling and carry no structural description — the
+compact-description question (v0.4 §12.7) is separate and open. Coarsest is
+relative to that scope. Class identities are intrinsic to continuations; counts
+are carrier-relative; carrier growth adds classes, never splits existing ones.
+Exploratory tier. ECL holds by construction; see verification lines." These are
+not hidden-decision PI classes (v0.4 §12.4): the equivalence is dynamics, not
+response equality — the r1 caveat carries over.
+
+## Q5 — remaining defects. RULING: three mandatory items, none blocking.
+
+1. **Refinement assertion.** r1's structural transports are componentwise and
+   classification/offset-preserving, so r1 is a lawful (d,Θ) under Q3's typing
+   and MUST refine r3: assert in-run that each of the 11,949 r1 classes lands
+   inside exactly one r3 class (cheap, and the strongest implementation check
+   available). Failure = implementation bug or a math error in this ruling —
+   stop and report per NO-RESCUE; never patch.
+2. **Verification discipline.** "By construction" is not a receipt: run an
+   independent ECL re-check over the r3 partition with the declared
+   position-matching transports (same checker shape as r1) and pair every
+   quoted count with that verdict line (F6).
+3. **Determinism.** The per-state canonical move order and the content-
+   addressed encoding are determinism freezes — fix them in code and note them
+   in the results header; class counts must be reproducible bit-for-bit.
