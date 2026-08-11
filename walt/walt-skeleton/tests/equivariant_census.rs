@@ -566,6 +566,50 @@ fn the_suffix_library_is_deterministic_and_its_overlap_is_pinned() {
     }
 }
 
+#[test]
+fn the_complete_level_one_alphabet_is_sixty_four() {
+    // THE NUMBER, pinned. A level-one tree is a forced chain, so its class is
+    // exactly (actor offset from focal, the three followers' classifications,
+    // the count-free increment): 4 x 2 x 2 x 2 x 2 = 64 combinations, and the
+    // complete enumeration realizes every one of them. This test walks one
+    // pip declaration rather than all seven -- the full run is in the example
+    // -- because a single declaration already realizes the whole alphabet.
+    let handoff = |_: &Situation| -> u64 { walt_skeleton::equivariant::YARD_TERMINAL };
+    let tiles = Domino::ALL;
+    let decl = pip(0);
+    let mut classes: std::collections::BTreeSet<Vec<u8>> = std::collections::BTreeSet::new();
+    for a in 0..tiles.len() {
+        for b in 0..tiles.len() {
+            for c in 0..tiles.len() {
+                for d in 0..tiles.len() {
+                    if a == b || a == c || a == d || b == c || b == d || c == d {
+                        continue;
+                    }
+                    let hands = [
+                        DominoSet::single(tiles[a]),
+                        DominoSet::single(tiles[b]),
+                        DominoSet::single(tiles[c]),
+                        DominoSet::single(tiles[d]),
+                    ];
+                    for leader in Seat::ALL {
+                        for focal in Seat::ALL {
+                            let sit = Situation {
+                                decl,
+                                focal,
+                                leader,
+                                hands,
+                                table: Vec::new(),
+                            };
+                            classes.insert(yard_tree(&sit, &handoff).encode());
+                        }
+                    }
+                }
+            }
+        }
+    }
+    assert_eq!(classes.len(), 64, "the complete level-one alphabet");
+}
+
 fn kernel_t5(r: &Receipt, hand: usize) -> Kernel {
     Kernel::from_receipt_trick(&r.hands[hand], 5).expect("a valid trick-five kernel")
 }

@@ -76,6 +76,10 @@ fn main() {
             run_yard_v2(&r);
             return;
         }
+        Some("a1") => {
+            run_a1_complete();
+            return;
+        }
         _ => {}
     }
 
@@ -846,6 +850,249 @@ fn run_t5(r: &Receipt) {
          this is a bug or a math error, not something to patch",
         violations.len()
     );
+}
+
+/// The declared stop for the complete level-one enumeration. The domain is
+/// closed-form countable, so this is a guard against a mis-specified loop, not
+/// a cap on the measurement.
+const A1_STATE_STOP: u64 = 100_000_000;
+
+/// Round 8: the complete level-one alphabet. A new declared exhaustive carrier
+/// — every pip-trump last trick there is — under the same equivalence and the
+/// same machinery. Carrier growth is lawful (r3 ruling Q4): it can add classes,
+/// never split existing ones.
+fn run_a1_complete() {
+    let tiles = walt_core::Domino::ALL;
+    let ordered = (tiles.len() * (tiles.len() - 1) * (tiles.len() - 2) * (tiles.len() - 3)) as u64;
+    let expected = ordered * 4 * 4 * 7;
+    eprintln!("a1: enumerating {expected} level-one situations");
+    assert!(
+        expected <= A1_STATE_STOP,
+        "the complete level-one enumeration passed the declared stop — re-scope deliberately"
+    );
+
+    // Level one hands off straight to the terminal class, so the handoff
+    // alphabet is A_0 and needs no carrier.
+    let handoff = |_: &Situation| -> u64 { walt_skeleton::equivariant::YARD_TERMINAL };
+    let mut classes: std::collections::BTreeMap<Vec<u8>, walt_skeleton::equivariant::YardNode> =
+        std::collections::BTreeMap::new();
+    let mut seen: u64 = 0;
+    let t0 = std::time::Instant::now();
+    for pip in walt_core::Pip::ALL {
+        let decl = walt_core::Decl::PipTrump(pip);
+        for a in 0..tiles.len() {
+            for b in 0..tiles.len() {
+                if b == a {
+                    continue;
+                }
+                for c in 0..tiles.len() {
+                    if c == a || c == b {
+                        continue;
+                    }
+                    for d in 0..tiles.len() {
+                        if d == a || d == b || d == c {
+                            continue;
+                        }
+                        let hands = [
+                            walt_core::DominoSet::single(tiles[a]),
+                            walt_core::DominoSet::single(tiles[b]),
+                            walt_core::DominoSet::single(tiles[c]),
+                            walt_core::DominoSet::single(tiles[d]),
+                        ];
+                        for leader in walt_core::Seat::ALL {
+                            for focal in walt_core::Seat::ALL {
+                                let sit = Situation {
+                                    decl,
+                                    focal,
+                                    leader,
+                                    hands,
+                                    table: Vec::new(),
+                                };
+                                let tree = yard_tree(&sit, &handoff);
+                                let key = tree.encode();
+                                classes.entry(key).or_insert(tree);
+                                seen += 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        eprintln!(
+            "a1: {} pip declarations done, {seen} situations, {} classes so far ({:?})",
+            pip.value() + 1,
+            classes.len(),
+            t0.elapsed()
+        );
+    }
+    assert_eq!(seen, expected, "the enumeration covers the declared domain");
+    let number = classes.len();
+    eprintln!("a1: THE NUMBER is {number} ({:?})", t0.elapsed());
+
+    // The anatomy: every level-one tree is a forced chain, so its class is
+    // exactly (leader offset from focal, the three followers' classifications,
+    // the count-free increment).
+    let mut anatomy: Vec<(u8, Vec<u8>, u8)> = Vec::new();
+    for tree in classes.values() {
+        anatomy.push(chain_anatomy(tree));
+    }
+
+    let mut out = String::new();
+    out.push_str(
+        "walt situation census — THE COMPLETE LEVEL-ONE ALPHABET under pip-trump — exploratory tier\n",
+    );
+    let _ = write!(
+        out,
+        "carrier: a NEW DECLARED EXHAUSTIVE CARRIER — every ordered assignment of four distinct \
+         dominoes to the four seats ({} of them), every leader (4), every focal seat (4), every \
+         pip-trump declaration (7) = {expected} level-one situations, enumerated in full and \
+         streamed through a class set. Carrier growth is lawful under r3 ruling Q4: class \
+         identities are intrinsic to continuations, so a larger carrier can add classes and can \
+         never split or re-merge existing ones — the trick-six and trick-five runs' level-one \
+         classes are literally these classes.\n\
+         NOT CARRIER-LIMITED — say it plainly: every other class count this census has produced is \
+         relative to the 13 receipt fibers. This one is not. It is the COMPLETE pip-trump \
+         inventory at level 1, the first number in the whole census with no corpus caveat \
+         attached.\n\
+         scope: pip-trump only. Doubles-trump and no-trump are OUT OF DECLARED SCOPE (F1 \
+         amendment: they have structurally different context signatures — kappa_DT is the doubles, \
+         kappa_NT is empty so no-trump has no tier-2 context at all — and no receipt corpus; \
+         including them would implicitly claim cross-declaration-type transfer, which v0.4 §17.5 \
+         does not claim). This alphabet is the complete PIP-TRUMP one, not the complete Straight \
+         42 one.\n\
+         equivalence and machinery: unchanged. r3's signature computed by the one shared \
+         grade-free yard routine (no grade argument, no level argument; the within-trick position \
+         is read off the table depth and the handoff alphabet here is A_0, the single terminal \
+         class). Determinism freezes unchanged: r3's two, plus freeze 3 (the yard tree encoding). \
+         The class counts below are exploratory tier; the parts catalog below them is INSTRUMENT \
+         tier — neither v2 variant satisfies (ECL) and no value or class claim may be read from a \
+         library size.\n\
+         declared stop: {A1_STATE_STOP} situations, not reached; the domain is closed-form \
+         countable and the run asserts the enumerated total against it.\n\
+         regenerate: cargo run --release -p walt-factory --example census_run a1\n\n",
+        ordered
+    );
+    let _ = writeln!(
+        out,
+        "THE NUMBER\n  the complete level-one alphabet under pip-trump: {number} classes over \
+         {expected} enumerated situations\n"
+    );
+    let _ = writeln!(
+        out,
+        "what the receipt corpora realized of it\n  \
+         trick-six run, level 1: 63 of {number} ({} unrealized)\n  \
+         trick-five run, level 1: 64 of {number} ({} unrealized)\n  \
+         The trick-five corpus already realizes the complete alphabet; the trick-six corpus misses \
+         exactly one class. Thirteen receipt hands are enough to saturate the last trick.\n",
+        number - 63,
+        number - 64
+    );
+
+    // Anatomy tables.
+    out.push_str("anatomy — classes by the actor's offset from focal (0 = the focal seat leads the last trick)\n");
+    for offset in 0..4u8 {
+        let n = anatomy.iter().filter(|(o, _, _)| *o == offset).count();
+        let _ = writeln!(out, "  offset {offset}: {n} classes");
+    }
+    out.push_str(
+        "\nanatomy — classes by count-free outcome (the increment emitted at the resolving play)\n",
+    );
+    for increment in 0..2u8 {
+        let n = anatomy.iter().filter(|(_, _, e)| *e == increment).count();
+        let _ = writeln!(
+            out,
+            "  {}: {n} classes",
+            if increment == 0 {
+                "k = 0 (the trick goes to the other partnership)"
+            } else {
+                "k = e* (the trick goes to the focal partnership)"
+            }
+        );
+    }
+    out.push_str(
+        "\nanatomy — classes by the three followers' classification pattern (the leader's play is \
+         always a lead)\n",
+    );
+    let mut patterns: std::collections::BTreeMap<Vec<u8>, usize> =
+        std::collections::BTreeMap::new();
+    for (_, pattern, _) in &anatomy {
+        *patterns.entry(pattern.clone()).or_insert(0) += 1;
+    }
+    for (pattern, n) in &patterns {
+        let rendered: Vec<&str> = pattern
+            .iter()
+            .map(|c| match c {
+                0 => "lead",
+                1 => "follow",
+                _ => "slough",
+            })
+            .collect();
+        let _ = writeln!(out, "  {}: {n} classes", rendered.join(", "));
+    }
+    let _ = writeln!(
+        out,
+        "\n  Reading the anatomy: a level-one class is exactly (actor offset from focal, the three \
+         followers' classifications, the count-free increment) — the tree is a forced chain, so \
+         nothing else can enter it. The upper bound is therefore 4 x 2 x 2 x 2 x 2 = 64, and the \
+         enumeration realizes {number} of them. Note why the increment is not redundant given the \
+         classifications: a SLOUGH can be a trump played on a natural lead — it fails to follow, \
+         so it classifies as a slough, yet it takes the trick — so who wins is genuinely \
+         independent of the classification pattern.\n"
+    );
+
+    // The complete parts catalog.
+    let trees: Vec<walt_skeleton::equivariant::YardNode> = classes.values().cloned().collect();
+    let library = walt_skeleton::equivariant::suffix_library(&trees, V2_DEPTHS)
+        .expect("every suffix canonicalized within the declared ceiling");
+    out.push_str(
+        "complete level-one parts catalog (INSTRUMENT tier — sizes are not class counts, neither \
+         variant satisfies (ECL), and no value claim reads off them)\n  depth   v2-strict   v2-open\n",
+    );
+    for d in 1..=V2_DEPTHS {
+        let _ = writeln!(
+            out,
+            "  {d:>5} {:>11} {:>9}",
+            library.strict[d - 1].len(),
+            library.open[d - 1].len()
+        );
+    }
+    out.push_str(
+        "  This is the complete bottom of the parts store under pip-trump: every depth-1..3 suffix \
+         any last trick can present. Deeper levels' libraries are built over these parts.\n",
+    );
+
+    let path =
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("results/census_a1_complete_2026-08-11.txt");
+    std::fs::create_dir_all(path.parent().expect("results dir")).expect("results dir");
+    std::fs::write(&path, out).expect("write results");
+    eprintln!("wrote results/census_a1_complete_2026-08-11.txt");
+}
+
+/// A forced chain's anatomy: the root actor's offset from focal, the three
+/// followers' classification codes, and the increment at the resolving play.
+fn chain_anatomy(tree: &walt_skeleton::equivariant::YardNode) -> (u8, Vec<u8>, u8) {
+    use walt_skeleton::equivariant::YardNode;
+    let mut node = tree;
+    let mut offset = 0u8;
+    let mut pattern = Vec::new();
+    let mut increment = 0u8;
+    let mut first = true;
+    loop {
+        match node {
+            YardNode::Handoff(_) => return (offset, pattern, increment),
+            YardNode::Step { offset: o, moves } => {
+                assert_eq!(moves.len(), 1, "a level-one tree is a forced chain");
+                if first {
+                    offset = *o;
+                    first = false;
+                } else {
+                    pattern.push(class_code_of(moves[0].1));
+                }
+                increment = moves[0].0;
+                node = &moves[0].2;
+            }
+        }
+    }
 }
 
 /// Round 7: shape notion v2 — the suffix library in two declared variants —
