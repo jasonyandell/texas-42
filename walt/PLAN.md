@@ -242,10 +242,16 @@ evolved this project's own receipt/TRUST-01 discipline.
   answer (nontrivial (d,Θ) exists, ECL PASS) and the first compression
   numbers — retrograde coarsest: 15,253 situations → 1,459 classes,
   roots 647 → 306, trick-7 target alphabet 63. **The bar (Jason,
-  2026-08-10): order 10^5 count-free canonical situations for the full
-  game — still open**; the trick-6 numbers are the first rung, and the
-  root-class growth curve as the census climbs earlier tricks is the
-  bar's test. Next rungs, in order:
+  2026-08-10, clarified same night): order 10^5 situations facing the
+  LEADER OF THE FIRST HAND — the trick-1 lead root stratum — versus the
+  ~399M-world fiber behind that seat; working hypothesis: first plays
+  and last plays have proportional class counts. Still open**; the
+  trick-6 numbers are the first rung, and the root-class growth curve
+  as the census climbs earlier tricks is the bar's test. Companion
+  probe (Jason-endorsed): the SATURATION curve — grow the carrier hand
+  by hand in declared order and watch the new-class rate fall; a
+  converging inventory is the direct signature of "there are not that
+  many situations." Next rungs, in order:
   1. **Trick 5** — extend the carrier to the 1,680-world trick-five
      kernel (grades 12→0; reuses the same machinery; the r3 backward
      pass and the t6 class DAG below it are already built). Watch: root
