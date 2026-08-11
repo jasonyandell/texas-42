@@ -34,9 +34,10 @@ pub use atoms::{
     Exp3aContext, Exp3aDescriptor, StaticValue,
 };
 pub use equivariant::{
-    actor_offset, build_carrier, build_r3, canonicalize, check_ecl, check_ecl_r3, grade,
-    identity_key, r1_refines_r3, trick_six_kernels, CandidateSpec, Canonical, Carrier, Census,
-    EclFailure, EclVerdict, Law, MoveTuple, PlayClass, RefinementViolation, Situation, Token, R3,
+    actor_offset, build_carrier, build_r3, canonicalize, check_ecl, check_ecl_r3, closure_carrier,
+    grade, identity_key, r1_refines_r3, trick_six_kernels, CandidateSpec, Canonical, Carrier,
+    Census, EclFailure, EclVerdict, Law, MoveTuple, PlayClass, RefinementViolation, Situation,
+    Token, R3,
 };
 pub use lumpability::{
     check_lumpability, KernelTree, LumpabilityFailure, LumpabilityReport, Node, Row,

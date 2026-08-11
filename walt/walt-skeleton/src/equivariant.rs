@@ -1323,7 +1323,9 @@ pub fn actor_offset(sit: &Situation) -> u8 {
 /// identical statistics, so the tie order never changes a law; fixing it is
 /// what makes `Theta^A` / `Theta^obs` position matching coherent by
 /// construction rather than an arbitrary per-pair choice (Q1b).
-fn canonical_move_order(mut moves: Vec<(MoveTuple, u128, Domino)>) -> Vec<(MoveTuple, u128, Domino)> {
+fn canonical_move_order(
+    mut moves: Vec<(MoveTuple, u128, Domino)>,
+) -> Vec<(MoveTuple, u128, Domino)> {
     moves.sort_by(|a, b| {
         (a.0.increment, a.0.class, a.1, a.2).cmp(&(b.0.increment, b.0.class, b.1, b.2))
     });
@@ -1478,7 +1480,11 @@ fn r3_law(carrier: &Carrier, r3: &R3, i: usize) -> (u8, R3Law) {
     let offset = actor_offset(sit);
     let order = &r3.moves[i];
     let legal = sit.legal();
-    assert_eq!(order.len(), legal.len(), "the move order covers the legal set");
+    assert_eq!(
+        order.len(),
+        legal.len(),
+        "the move order covers the legal set"
+    );
     let mut tuples = Vec::with_capacity(order.len());
     for tile in order {
         assert!(legal.contains(*tile), "a move is a legal play");
@@ -1537,9 +1543,7 @@ pub fn check_ecl_r3(carrier: &Carrier, r3: &R3) -> EclVerdict {
             } else {
                 match (&rep_law, &law) {
                     (R3Law::Focal(a), R3Law::Focal(b)) => focal_r3_failure(a, b),
-                    (R3Law::Field(a, la), R3Law::Field(b, lb)) => {
-                        field_r3_failure(a, b, la, lb)
-                    }
+                    (R3Law::Field(a, la), R3Law::Field(b, lb)) => field_r3_failure(a, b, la, lb),
                     _ => Some((
                         "ECL actor type".to_string(),
                         "one member is focal-to-act and the other is not".to_string(),

@@ -282,7 +282,11 @@ fn run_r2(kernels: &[(usize, walt_kernel::Kernel)], roots_expected: u128) {
 /// mandatory verification items run in-line.
 fn run_r3(kernels: &[(usize, walt_kernel::Kernel)], roots_expected: u128) {
     let carrier = build_carrier(kernels);
-    assert_eq!(carrier.roots() as u128, roots_expected, "one root per world");
+    assert_eq!(
+        carrier.roots() as u128,
+        roots_expected,
+        "one root per world"
+    );
     let t0 = std::time::Instant::now();
     let r3 = build_r3(&carrier);
     eprintln!(
@@ -392,9 +396,8 @@ fn run_r3(kernels: &[(usize, walt_kernel::Kernel)], roots_expected: u128) {
         .collect();
     let singletons = r3.class_members.iter().filter(|m| m.len() == 1).count();
     let largest = r3.class_members.iter().map(Vec::len).max().unwrap_or(0);
-    let provenance = |members: &[usize]| -> u32 {
-        members.iter().fold(0, |a, i| a | carrier.provenance[*i])
-    };
+    let provenance =
+        |members: &[usize]| -> u32 { members.iter().fold(0, |a, i| a | carrier.provenance[*i]) };
     let cross: Vec<usize> = (0..r3.class_members.len())
         .filter(|c| provenance(&r3.class_members[*c]).count_ones() >= 2)
         .collect();

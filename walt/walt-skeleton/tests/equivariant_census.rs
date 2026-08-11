@@ -9,7 +9,8 @@ use walt_core::receipt::{locate_verify_player, parse_file, Receipt};
 use walt_core::{Decl, Domino, DominoSet, Pip, Seat};
 use walt_kernel::Kernel;
 use walt_skeleton::equivariant::{
-    build_carrier, canonicalize, check_ecl, identity_key, CandidateSpec, Census, Law, Situation,
+    build_carrier, build_r3, canonicalize, check_ecl, check_ecl_r3, closure_carrier, identity_key,
+    r1_refines_r3, CandidateSpec, Census, Law, Situation,
 };
 
 /// r1's descriptor: every test below that does not name a candidate is a
@@ -326,4 +327,97 @@ fn the_ecl_checker_fails_on_a_deliberately_widened_class() {
     );
     assert!(!verdict.failures[0].representative.is_empty());
     assert!(!verdict.failures[0].detail.is_empty());
+}
+
+// ---------------------------------------------------------------------------
+// r3 -- the retrograde coarsest quotient (CENSUS-RULINGS.md section r3).
+// ---------------------------------------------------------------------------
+
+#[test]
+fn the_r3_backward_pass_is_deterministic() {
+    // Both freezes at once (Q5.3): the content-addressed encoding and the
+    // canonical move order must reproduce bit for bit across runs.
+    let r = receipt();
+    let first = build_r3(&build_carrier(&[(12, kernel_at(&r, 12))]));
+    let second = build_r3(&build_carrier(&[(12, kernel_at(&r, 12))]));
+    assert_eq!(first.class_of, second.class_of);
+    assert_eq!(first.class_hash, second.class_hash);
+    assert_eq!(first.moves, second.moves);
+    assert_eq!(first.terminal, second.terminal);
+}
+
+#[test]
+fn r1_refines_r3_on_h12() {
+    // Mandatory Q5.1, as a test: r1 is a lawful (d, Theta) under Q3's typing,
+    // so every r1 class must land inside exactly one r3 class. A violation is
+    // a bug or a math error -- never something to patch.
+    let r = receipt();
+    let carrier = build_carrier(&[(12, kernel_at(&r, 12))]);
+    let census = Census::build(build_carrier(&[(12, kernel_at(&r, 12))]), FINEST);
+    let r3 = build_r3(&carrier);
+    let violations = r1_refines_r3(&census, &r3);
+    assert!(
+        violations.is_empty(),
+        "r1 must refine r3, but {} pairs disagree: {:?}",
+        violations.len(),
+        violations.first()
+    );
+}
+
+#[test]
+fn the_independent_ecl_recheck_of_r3_is_pinned_on_h12() {
+    // Mandatory Q5.2: "by construction" is not a receipt. The re-check rebuilds
+    // every law from the rules and matches moves by position through the
+    // canonical order.
+    let r = receipt();
+    let carrier = build_carrier(&[(12, kernel_at(&r, 12))]);
+    let r3 = build_r3(&carrier);
+    // Pinned computed values -- exploratory tier, never axioms (TRUST-01).
+    assert_eq!(r3.class_members.len(), 39);
+    let verdict = check_ecl_r3(&carrier, &r3);
+    assert_eq!(verdict.verdict(), "PASS");
+    assert_eq!(verdict.classes_checked, 33);
+    assert_eq!(verdict.cond1_checks, 215);
+    assert_eq!(verdict.cond2_checks, 215);
+    assert!(verdict.failures.is_empty());
+}
+
+#[test]
+fn r3_merges_two_structurally_different_forced_situations() {
+    // The equivariance gain, hand built: at a trick-7 lead every seat holds one
+    // tile and the whole hand is forced, so the future cone is just the
+    // sequence of (actor offset, classification, increment). These two states
+    // admit no full-structure tile bijection -- one leader's tile is a double
+    // and the other's is not, which r1 separates -- yet every primitive step
+    // emits the same statistics, so r3 merges them.
+    let a = lead_situation(pip(3), Seat::S0, [&["6-5"], &["6-4"], &["6-2"], &["6-1"]]);
+    let b = lead_situation(pip(5), Seat::S0, [&["4-4"], &["4-3"], &["4-2"], &["4-1"]]);
+    assert_ne!(
+        canonicalize(&a, FINEST).key,
+        canonicalize(&b, FINEST).key,
+        "r1 separates them: the double flag differs"
+    );
+    let carrier = closure_carrier(&[a.clone(), b.clone()]);
+    let r3 = build_r3(&carrier);
+    let ia = carrier.lookup(&a).expect("seed a is in the carrier");
+    let ib = carrier.lookup(&b).expect("seed b is in the carrier");
+    assert_eq!(
+        r3.class_of[ia], r3.class_of[ib],
+        "r3 merges them: same offsets, same classifications, same increment"
+    );
+    assert!(check_ecl_r3(&carrier, &r3).passed());
+}
+
+#[test]
+fn r3_separates_forced_situations_that_pay_the_other_partnership() {
+    // The control for the merge above: move the winning tile to the seat
+    // across the table and the count-free increment differs, so r3 must keep
+    // the two apart.
+    let a = lead_situation(pip(3), Seat::S0, [&["6-5"], &["6-4"], &["6-2"], &["6-1"]]);
+    let c = lead_situation(pip(3), Seat::S0, [&["6-1"], &["6-5"], &["6-4"], &["6-2"]]);
+    let carrier = closure_carrier(&[a.clone(), c.clone()]);
+    let r3 = build_r3(&carrier);
+    let ia = carrier.lookup(&a).expect("seed a");
+    let ic = carrier.lookup(&c).expect("seed c");
+    assert_ne!(r3.class_of[ia], r3.class_of[ic]);
 }
