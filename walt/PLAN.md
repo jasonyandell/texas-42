@@ -248,6 +248,14 @@ evolved this project's own receipt/TRUST-01 discipline.
   identity cannot short-circuit descent) — class store = transport
   object, not build accelerator; cold H COMPLETED on full n=4 fibers
   in 7–17 s. Full gate green.
+- **S5i** (2026-08-11): the fiber-refinement probe — declared
+  exclusion remnants under rulings X-A1..X-A19; **Lemma X** proved
+  (value-0 excision preserves objective + argmax, one-sided);
+  predicate passes 0.1–3.7 ms = 100–1000× cheaper than the best
+  storeless route (multi-pass economics measured real); the declared
+  X's bite classes (up to 16–36%) but ~zero WORLDS at n=4/5 on
+  declarer-focal coordinates — bite plausibly lives in count-bearing
+  X's, non-declarer seats, and real voided support. Full gate green.
 
 ## Next
 

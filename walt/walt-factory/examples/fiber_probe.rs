@@ -325,6 +325,16 @@ impl BArm {
 /// Lemma-V fold, per-world root lookup. Every cost inside B's wall-clock is
 /// B's own (P-A8).
 fn run_b(kernel: &Kernel, leader: Seat, worlds: &[[DominoSet; Seat::COUNT]]) -> BArm {
+    run_b_full(kernel, leader, worlds).0
+}
+
+/// `run_b` returning the carrier and r3 pass as well — the refinement probe
+/// needs the class DAG itself, not only the per-world values.
+fn run_b_full(
+    kernel: &Kernel,
+    leader: Seat,
+    worlds: &[[DominoSet; Seat::COUNT]],
+) -> (BArm, Carrier, R3) {
     let decl = kernel.decl();
     let focal = kernel.viewer();
     let t0 = Instant::now();
@@ -354,7 +364,7 @@ fn run_b(kernel: &Kernel, leader: Seat, worlds: &[[DominoSet; Seat::COUNT]]) -> 
     let per_world: Vec<Q> = world_class.iter().map(|&c| class_values[c]).collect();
     let ns_lookup = t3.elapsed().as_nanos();
     let edges = r3.tuples.iter().map(|t| t.len() as u64).sum();
-    BArm {
+    let arm = BArm {
         carrier_len: carrier.len(),
         classes: r3.class_members.len(),
         edges,
@@ -365,7 +375,8 @@ fn run_b(kernel: &Kernel, leader: Seat, worlds: &[[DominoSet; Seat::COUNT]]) -> 
         per_world,
         world_class,
         class_values,
-    }
+    };
+    (arm, carrier, r3)
 }
 
 fn trump_count(decl: Decl, hand: DominoSet) -> i128 {
@@ -791,9 +802,300 @@ fn run_h() {
     println!("wrote {H_RESULTS}");
 }
 
+// ---------------------------------------------------------------------------
+// The fiber-refinement probe (`refine`): declared exclusion remnants over the
+// class store. Design: walt/FIBER-REFINE.md; binding rulings:
+// CENSUS-RULINGS.md "Fiber-refinement rulings (X-Q1..X-Q7)", X-A1..X-A19.
+// ---------------------------------------------------------------------------
+
+const REFINE_RESULTS: &str = "results/fiber_refine_2026-08-11.txt";
+
+/// Freeze 12 receipts: the declared flag-receipt stride over class indices.
+const FLAG_RECEIPT_STRIDE: usize = 97;
+
+/// One coordinate's class store with its predicate flags. Flags are keyed in
+/// spirit by (predicate id, freeze-set id) per X-A6(i); this run computes
+/// them in-process under the printed freeze set and persists nothing.
+struct RefineStore {
+    values: Vec<Q>,
+    grades: Vec<usize>,
+    /// Per class: the representative's canonical tuples (class-invariant).
+    rep: Vec<usize>,
+    /// Grade-ascending fold order.
+    order: Vec<usize>,
+}
+
+fn refine_store(r3: &R3, values: Vec<Q>) -> RefineStore {
+    let nclasses = r3.class_members.len();
+    let mut order: Vec<usize> = (0..nclasses).collect();
+    order.sort_by_key(|&c| r3.class_grade[c]);
+    RefineStore {
+        values,
+        grades: r3.class_grade.clone(),
+        rep: (0..nclasses).map(|c| r3.class_members[c][0]).collect(),
+        order,
+    }
+}
+
+/// Freeze 12: F0, declared intensionally — the trick-boundary classes of the
+/// last trick (grade 4) whose Lemma-V value is zero: "losing last tricks".
+fn f0_flags(store: &RefineStore) -> Vec<bool> {
+    store
+        .values
+        .iter()
+        .zip(&store.grades)
+        .map(|(v, &g)| g == 4 && *v == qi(0))
+        .collect()
+}
+
+/// X_val0 — Lemma X's excisable predicate: the class's value is zero.
+fn val0_flags(store: &RefineStore) -> Vec<bool> {
+    store.values.iter().map(|v| *v == qi(0)).collect()
+}
+
+/// X_val_max — bite-only, NOT excisable (one-sided; Lemma X consequence 1):
+/// the class attains the maximum trick count its grade allows.
+fn valmax_flags(store: &RefineStore) -> Vec<bool> {
+    store
+        .values
+        .iter()
+        .zip(&store.grades)
+        .map(|(v, &g)| *v == qi(i128::try_from(g.div_ceil(4)).expect("fits")))
+        .collect()
+}
+
+/// X_reach-exists(F): some continuation passes through F. DP by ascending
+/// grade over the class DAG.
+fn reach_exists(store: &RefineStore, r3: &R3, f: &[bool]) -> Vec<bool> {
+    let mut out = vec![false; store.values.len()];
+    for &c in &store.order {
+        out[c] = f[c]
+            || r3.tuples[store.rep[c]]
+                .iter()
+                .any(|t| t.successor.is_some_and(|s| out[s]));
+    }
+    out
+}
+
+/// X_conf-forall(F): every continuation passes through F. A move straight to
+/// hand end (successor None) escapes F unless the class itself is in F.
+fn conf_forall(store: &RefineStore, r3: &R3, f: &[bool]) -> Vec<bool> {
+    let mut out = vec![false; store.values.len()];
+    for &c in &store.order {
+        let tuples = &r3.tuples[store.rep[c]];
+        out[c] = f[c]
+            || (!tuples.is_empty() && tuples.iter().all(|t| t.successor.is_some_and(|s| out[s])));
+    }
+    out
+}
+
+struct PredicateRow {
+    name: &'static str,
+    note: &'static str,
+    class_bite: usize,
+    world_bite: usize,
+    ns_pass: u128,
+}
+
+#[allow(clippy::too_many_lines)]
+fn run_refine() {
+    let r = receipt();
+    for hand in &r.hands {
+        assert!(
+            matches!(hand.decl, Decl::PipTrump(_)),
+            "F1 scope: pip-trump only"
+        );
+    }
+    let mut out = String::new();
+    let w = &mut out;
+    let _ = writeln!(w, "walt fiber-refinement probe — declared exclusion remnants over the class store — exploratory tier");
+    let _ = writeln!(w, "design: walt/FIBER-REFINE.md; binding rulings: CENSUS-RULINGS.md \"Fiber-refinement rulings (X-Q1..X-Q7)\", X-A1..X-A19, plus the fiber-probe rulings P-A1..P-A21 inherited unchanged");
+    let _ = writeln!(w);
+    let _ = writeln!(w, "X-A1 (verbatim): A remnant is a declared exclusion remnant of the void-free capacity fiber: analyst conditioning (v0.4 §6.8) on a declared, non-evidential predicate. Exclusion by X does not mean the world cannot occur (that is support, §2.1) and does not mean it is improbable (that is belief, §2.4). No support fact, no belief, no seat value, and no reachability claim may be read from a remnant. Excluding X never places X's falsity into any seat's information state; doing so would be player revelation and would recreate strategy fusion (§6.8, §7.6).");
+    let _ = writeln!(w, "X-A4 (verbatim, for every value predicate): Value equality in conclusion 7 is over the transported abstract-policy class, exactly as in v0.4 §12.6's conclusion 4. Whether the unrestricted concrete optimum is attained inside that class is a separate sufficiency question, deliberately not claimed here. With P-A5: the quantity read is world-informed and is not a seat value.");
+    let _ = writeln!(w, "X-A8 (verbatim): Bite is measured on the evaluated set of the void-free capacity fiber (P-A1, P-A3). A shrink factor is a statement about a declared cost domain, never about the seat's real support Phi(C), never about belief, and never about what can happen in the game.");
+    let _ = writeln!(w, "X-A14 (verbatim): B : A1 ~ 4.3-4.9 at every rung — the class store is not a build accelerator; cone identity cannot short-circuit descent. Every payoff sought here is a pass->=2 transport payoff, and the first build is a cost this probe does not recover.");
+    let _ = writeln!(w);
+    let _ = writeln!(w, "Lemma X (zero-contribution excision, adjudicated): with the non-negative q_trick valuation, deleting the worlds whose Lemma-V value is zero leaves the unnormalised objective and its argmax exactly unchanged for every information-consistent policy. ONE-SIDED: the value-max dual forces nothing and is never excised (X-A5). The §6.8 rule governs everything below: evaluate a fixed policy on a remnant, never re-optimise over a remnant and call the result a seat value.");
+    let _ = writeln!(w);
+    let _ = writeln!(w, "freezes: 1-3 and 7-11 in force and unchanged (see fiber_probe_2026-08-11.txt). New: (12) predicate definitions, intensional — F0 = the trick-boundary classes of the last trick (grade 4) with Lemma-V value 0 (\"losing last tricks\"; |F0| printed per coordinate); X_val0 = value 0; X_val_max = value equals the grade's maximum trick count, bite-only, labelled not excisable — one-sided, see Lemma X consequence 1; X_reach-exists(F0) and X_conf-forall(F0) with quantifiers in the name (X-A3); flag-receipt stride {FLAG_RECEIPT_STRIDE} over class indices. (13) flags keyed by (predicate id, freeze-set id) — this run computes all flags in-process under this header's freeze set and persists nothing. (14) the store record format: DEFERRED — persistence is not implemented this run (declared); X-A16..X-A19 govern it when it is built.");
+    let _ = writeln!(w, "coincidence note (X-A3): the ruling's X_conf-forall(zero-trick terminals) is not expressible as a class set in this encoding (trick outcomes live on edges; hand-end is one terminal), and its content is carried by X_val0 directly. X_conf-forall(F0) here is the distinct \"every continuation loses its LAST trick\" predicate.");
+    let _ = writeln!(w, "storeless alternatives (X-A13): X_val0 is decidable without the class store (arm A1 per-world values; timed below). X_reach-exists and X_conf-forall are NOT decidable on bare semantic-state keys — a state key carries no cone identity; that is S5h's finding. X_val_max is decidable storelessly the same way as X_val0.");
+    let _ = writeln!(w, "argmax clause of X-A6(iii): no action-valued policy solve is run in this probe, so the argmax-agreement clause has no object here (declared); the objective-agreement clause is asserted below.");
+    let _ = writeln!(w, "timing discipline (P-A19): one run, one machine, single-threaded; integer ns; exact fixed-point ratios. CPU: {}; build profile: release; threads: 1.", cpu_model());
+    let _ = writeln!(w, "provenance: SINGLE-IMPLEMENTATION; regenerate: cargo run --release -p walt-factory --example fiber_probe refine");
+    let _ = writeln!(w, "declared stops of this run: rungs n=4 (13 hands, g=7919, W=240) and n=5 (4 hands, g=104729, W=24); n=6 omitted this run (X-A10: a six-point sample supports no bite ratio). Bites on decimated sets are ESTIMATED (X-A10); integers always printed.");
+    let _ = writeln!(w);
+
+    for rung in &RUNGS[..2] {
+        let _ = writeln!(
+            w,
+            "================ rung n={} (trick {}) — g={}, W={}; hands {:?} ================",
+            rung.n, rung.trick_no, rung.g, rung.w, rung.hands
+        );
+        for &h in rung.hands {
+            let hand = &r.hands[h];
+            let (kernel, leader) = void_free_kernel(hand, rung.trick_no);
+            let (_, worlds) = select_worlds(&kernel, rung.g, rung.w);
+            let wcount = worlds.len();
+
+            // Pass 1: the store (arm B, unchanged machinery).
+            let (b, carrier, r3) = run_b_full(&kernel, leader, &worlds);
+            let store = refine_store(&r3, b.class_values.clone());
+
+            // Predicates (pass 2 objects).
+            let t = Instant::now();
+            let f0 = f0_flags(&store);
+            let ns_f0 = t.elapsed().as_nanos();
+            let f0_count = f0.iter().filter(|x| **x).count();
+
+            let mut rows: Vec<PredicateRow> = Vec::new();
+            let t = Instant::now();
+            let val0 = val0_flags(&store);
+            let ns_val0 = t.elapsed().as_nanos();
+            let t = Instant::now();
+            let valmax = valmax_flags(&store);
+            let ns_valmax = t.elapsed().as_nanos();
+            let t = Instant::now();
+            let reach = reach_exists(&store, &r3, &f0);
+            let ns_reach = t.elapsed().as_nanos();
+            let t = Instant::now();
+            let conf = conf_forall(&store, &r3, &f0);
+            let ns_conf = t.elapsed().as_nanos();
+
+            for (name, note, flags, ns_pass) in [
+                ("X_val0", "excisable (Lemma X)", &val0, ns_val0),
+                (
+                    "X_val_max",
+                    "not excisable — one-sided; see Lemma X consequence 1",
+                    &valmax,
+                    ns_valmax,
+                ),
+                (
+                    "X_reach-exists(F0)",
+                    "cost-domain predicate",
+                    &reach,
+                    ns_reach,
+                ),
+                ("X_conf-forall(F0)", "cost-domain predicate", &conf, ns_conf),
+            ] {
+                rows.push(PredicateRow {
+                    name,
+                    note,
+                    class_bite: flags.iter().filter(|x| **x).count(),
+                    world_bite: b.world_class.iter().filter(|&&c| flags[c]).count(),
+                    ns_pass,
+                });
+            }
+
+            // X-A13: the storeless alternative for the value predicates — one
+            // A1 pass over the same worlds, thresholding per-world values.
+            let decl = kernel.decl();
+            let focal = kernel.viewer();
+            let t = Instant::now();
+            let mut memo: BTreeMap<u128, Q> = BTreeMap::new();
+            let mut edges: u64 = 0;
+            let storeless_val0: usize = worlds
+                .iter()
+                .map(|hs| Situation {
+                    decl,
+                    focal,
+                    leader,
+                    hands: *hs,
+                    table: Vec::new(),
+                })
+                .filter(|sit| value_a1(sit, &mut memo, &mut edges) == qi(0))
+                .count();
+            let ns_storeless = t.elapsed().as_nanos();
+
+            // X-A6(ii): flag receipt — recompute sampled classes' values from
+            // the cone through the independent A1 path and assert flags.
+            let mut receipt_checked = 0usize;
+            for c in (0..store.values.len()).step_by(FLAG_RECEIPT_STRIDE) {
+                let sit = &carrier.states[store.rep[c]];
+                let v = value_a1(sit, &mut memo, &mut edges);
+                assert_eq!(v, store.values[c], "flag receipt: cone recompute (X-A6 ii)");
+                assert_eq!(v == qi(0), val0[c], "flag receipt: X_val0 (X-A6 ii)");
+                receipt_checked += 1;
+            }
+
+            // X-A6(iii): the exercised Lemma-X excision and its receipt.
+            let excluded: Vec<usize> = (0..wcount).filter(|&i| val0[b.world_class[i]]).collect();
+            for &i in &excluded {
+                assert_eq!(
+                    b.per_world[i],
+                    qi(0),
+                    "Lemma X receipt: excluded world has U = 0 (X-A6 iii)"
+                );
+            }
+            let sum_full = b.per_world.iter().fold(qi(0), |a, v| a + *v);
+            let t = Instant::now();
+            let sum_remnant = (0..wcount)
+                .filter(|&i| !val0[b.world_class[i]])
+                .fold(qi(0), |a, i| a + b.per_world[i]);
+            let ns_remnant_eval = t.elapsed().as_nanos();
+            assert_eq!(
+                sum_full, sum_remnant,
+                "Lemma X receipt: unnormalised objective agrees (X-A6 iii)"
+            );
+
+            let _ = writeln!(
+                w,
+                "  h{h}: store {} classes over {} situations (pass-1 build {} ns, S5h arm B unchanged); |F0| = {} of {} grade-4 boundary classes; evaluated set W = {wcount}",
+                b.classes,
+                b.carrier_len,
+                b.total_ns(),
+                f0_count,
+                store.grades.iter().filter(|&&g| g == 4).count()
+            );
+            let _ = writeln!(w, "      F0 marking pass: {ns_f0} ns");
+            for row in &rows {
+                let _ = writeln!(
+                    w,
+                    "      {}: class bite {} / {} (ESTIMATED ratio {}), world bite {} / {} (ESTIMATED ratio {}), predicate pass {} ns [{}]",
+                    row.name,
+                    row.class_bite,
+                    b.classes,
+                    fp(u128::try_from(row.class_bite).expect("fits"), u128::try_from(b.classes).expect("fits")),
+                    row.world_bite,
+                    wcount,
+                    fp(u128::try_from(row.world_bite).expect("fits"), u128::try_from(wcount).expect("fits")),
+                    row.ns_pass,
+                    row.note
+                );
+            }
+            let _ = writeln!(
+                w,
+                "      pass-2 economics (X-A13): value predicates storeless via one A1 pass = {ns_storeless} ns (found {storeless_val0} val0 worlds, agreeing with the store's {}); store-side value flag pass = {ns_val0} ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost {ns_reach} / {ns_conf} ns over the built store",
+                rows[0].world_bite
+            );
+            assert_eq!(storeless_val0, rows[0].world_bite, "X-A13 agreement");
+            let _ = writeln!(
+                w,
+                "      Lemma-X exercise (X-A6 iii): {} of {wcount} worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): {ns_remnant_eval} ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)",
+                excluded.len()
+            );
+            let _ = writeln!(
+                w,
+                "      flag receipt (X-A6 ii): {receipt_checked} classes at stride {FLAG_RECEIPT_STRIDE} recomputed from the cone through the independent A1 path; values and flags agree"
+            );
+            eprintln!(
+                "refine n={} h{h}: {} classes, val0 world bite {}/{wcount}, reach {}/{} classes",
+                rung.n, b.classes, rows[0].world_bite, rows[2].class_bite, b.classes
+            );
+        }
+        let _ = writeln!(w);
+    }
+    let _ = writeln!(w, "Both outcomes remain results (F7, NO-RESCUE): a nil bite, or a bite that saves nothing at evaluation time, is a proved negative about declared-exclusion refinement on this route and changes nothing about the classes, their ECL receipts, or Lemma X.");
+    let _ = writeln!(w, "run complete: yes");
+    std::fs::write(REFINE_RESULTS, out).expect("results file writes");
+    println!("wrote {REFINE_RESULTS}");
+}
+
 fn main() {
     match std::env::args().nth(1).as_deref() {
         Some("h") => run_h(),
+        Some("refine") => run_refine(),
         _ => run_ladder(),
     }
 }

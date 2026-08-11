@@ -781,3 +781,256 @@ begin at **7**, and the header restates r3's 1–2 and the yard's 3 unchanged.
 **Both outcomes remain results** (F7, NO-RESCUE): a weak B/A1 dividend is a
 proved negative about this route to n=7 and changes nothing about the classes'
 existence or their ECL receipts.
+
+## Fiber-refinement rulings (X-Q1..X-Q7) — 2026-08-11
+
+**Adjudicator:** walt-math. **Tier:** exploratory; every X predicate is a
+DECLARED object and nothing below changes the status of any class or value
+claim. **Basis:** v0.5 §12.6A and its BOUNDARY; v0.4 §2.1–2.6, §5.5, §6.7–6.8,
+§7.4–7.7, §10.3, §12.4, §17.5. F1–F7, r3 Q1–Q5, Y1–Y3, shape v2 and the
+fiber-probe amendments P-A1..P-A21 are inherited unchanged. Amendments are
+numbered X-A1.. and are builder obligations.
+
+### The typing that governs this whole section
+
+Three objects that the design's language risks fusing:
+
+- **support** — rule-derived (§2.1: Φ(**C**) from legality plus the actor-
+  attributed public prefix). Excluded ⇒ *cannot occur*.
+- **belief** — a normalised weighting on the support (§2.4). Down-weighted ⇒
+  *unlikely*.
+- **declared exclusion** — an analyst's predicate. Excluded ⇒ *neither*. It
+  carries no epistemic content whatsoever: the worlds are still feasible, still
+  possible, and still carry whatever belief mass they had.
+
+§6.8 names the operation exactly: forming a remnant is **analyst conditioning**
+on a declared event E, and analyst conditioning "keeps the player's policy class
+fixed" — J(ρ|E) = E_{β(·|E)}[U|ρ]. Treating it as player revelation "leaks
+hidden information and recreates strategy fusion" (§6.8, §7.6). So the default
+rule for every predicate below is: **evaluate a fixed policy on a remnant, never
+re-optimise over a remnant and call the result a seat value.** Lemma X is the
+one exception, and it is one-sided.
+
+### Lemma X (zero-contribution excision) — the mathematical content of "except X"
+
+Let the valuation be non-negative (q_trick: the focal partnership's trick count,
+P-A6). For a world ω write V*(ω) for its Lemma-V value under the frozen
+world-informed operator, and U(ω,ρ) for the field-expected focal trick count in
+ω under an information-consistent policy ρ. Let Z = {ω : V*(ω) = 0}.
+
+*Claim.* For every information-consistent ρ and every ω ∈ Z, U(ω,ρ) = 0.
+Consequently, for the unnormalised objective J(ρ) = Σ_ω β(ω) U(ω,ρ), deleting Z
+from the bag leaves J unchanged as a function of ρ; hence the argmax set and the
+unnormalised optimal value are preserved exactly.
+
+*Proof.* Every information-consistent ρ induces some world-dependent behaviour
+in ω, and V*(ω) is the maximum over all world-dependent behaviours, so
+U(ω,ρ) ≤ V*(ω) = 0 (this is the pointwise form of §7.6's fusion inequality).
+Non-negativity gives U(ω,ρ) = 0. The deleted terms are therefore identically
+zero in ρ, so J is literally the same function on the remnant. ∎
+
+Three consequences the builder must respect:
+
+1. **The lemma is one-sided.** V* is an *upper* bound, so V*(ω) = 0 forces the
+   contribution to zero, while V*(ω) = n forces nothing — an
+   information-consistent policy may score less than n there. **X_val_max is
+   therefore NOT the symmetry check the design calls it**; see X-Q2.
+2. **Normalisation breaks it.** Under β(·|Z^c) the optimal value is the
+   unnormalised optimum divided by (1 − β(Z)) — a different number, and not any
+   seat's value. Report unnormalised sums and the excluded mass β(Z) explicitly.
+3. **Policies are preserved only up to vacuity.** Deleting Z can empty an
+   information state; the policy there becomes arbitrary and has no effect on J.
+   Values are preserved; policy identity at emptied states is not.
+
+### X-Q1 — naming and tier of the refined object. RULING: ACCEPT the name, with the type line and prohibition list mandatory.
+
+**DECLARED EXCLUSION REMNANT** is confirmed, in full as *the declared exclusion
+remnant of the void-free capacity fiber* — a declared search/cost domain of the
+same kind as Φ(**C**₀) itself, one further step removed from the seat. Members
+remain FEASIBLE worlds (P-A1's vocabulary is unchanged; feasible ≠ reachable).
+
+- **X-A1 (mandatory type line, verbatim in the results file).** "A remnant is a
+  declared exclusion remnant of the void-free capacity fiber: analyst
+  conditioning (v0.4 §6.8) on a declared, non-evidential predicate. Exclusion by
+  X does not mean the world cannot occur (that is support, §2.1) and does not
+  mean it is improbable (that is belief, §2.4). No support fact, no belief, no
+  seat value, and no reachability claim may be read from a remnant. Excluding X
+  never places X's falsity into any seat's information state; doing so would be
+  player revelation and would recreate strategy fusion (§6.8, §7.6)."
+- **X-A2 (what a remnant may carry).** A remnant is quotable for exactly three
+  things: its size, the cost of computing it, and the cost of evaluating over
+  it. Any value computed on a remnant is J(ρ|E) for a FIXED ρ, or else falls
+  under Lemma X and carries X-A6's conditions.
+
+### X-Q2 — lawfulness of each predicate. RULING: ACCEPT X_reach and X_val0 with amendments; REJECT X_val_max's stated role.
+
+**X_reach(F) — lawful, but the quantifier must be in the name.** Reachability of
+F on the class DAG is a function of the future cone alone, hence well defined on
+r3 classes and stable under carrier growth (r3 Q4). But "the future *can* pass
+through a forbidden class" (∃ a path) and "*every* continuation ends in F" (∀
+paths — confinement) have opposite soundness properties: the ∀ version is a
+zero-contribution statement in Lemma X's sense when F is the zero-trick terminal
+set, the ∃ version is not remotely one (the focal seat may steer away, and at
+focal nodes all legal abstract actions are live, Y3).
+
+- **X-A3.** Predicate names carry their quantifier: **X_reach∃(F)** and
+  **X_conf∀(F)**. Both are lawful as declared cost-domain predicates. Only
+  X_conf∀ may ever appear in a Lemma-X argument, and then only with X-A6's
+  conditions. Note for the record that X_conf∀(zero-trick terminals) and X_val0
+  coincide under q_trick — the probe should say so rather than report them as
+  independent findings.
+
+**X_val0 — lawful, and it is the one predicate with mathematical content
+(Lemma X).** It reads Lemma-V values under the frozen operator, so it is
+policy-relative and inherits the v0.5 boundary.
+
+- **X-A4 (boundary sentence, verbatim, wherever a value predicate appears).**
+  "Value equality in conclusion 7 is over the transported abstract-policy class,
+  exactly as in v0.4 §12.6's conclusion 4. Whether the unrestricted concrete
+  optimum is attained inside that class is a separate sufficiency question,
+  deliberately not claimed here." Together with P-A5's sentence: the quantity
+  read is world-informed and is not a seat value.
+
+**X_val_max — the stated role is REJECTED; the object is retained, re-typed.**
+Calling it "the dual" and "a symmetry check on the machinery" asserts a symmetry
+that does not exist: Lemma X's argument runs on the upper-bound direction only.
+Excluding V* = n worlds from any solve is a genuine information injection and
+would change the problem.
+
+- **X-A5.** X_val_max is retained solely as a cost-domain / bite predicate and
+  is labelled "not excisable — one-sided; see Lemma X consequence 1". It is
+  never used to prune an evaluation whose value is quoted. If a machinery check
+  is wanted, the lawful one is the Lemma-X receipt of X-A6, not a claimed
+  symmetry.
+
+**Stamping flags onto the store — lawful cached derivation, with two
+conditions.** A predicate that is a function of the future cone is well defined
+per class and stable under carrier growth (r3 Q4), which is exactly what makes
+caching it legitimate rather than a stored authority. But the project rule is
+derived views, never stored state, so:
+
+- **X-A6 (flag discipline).** (i) A flag is keyed by (predicate id, freeze-set
+  id), never by class id alone — a store carrying flags computed under a
+  superseded freeze is corrupt, not stale. (ii) The run recomputes the flag from
+  the cone for a declared sample of flagged and unflagged classes and asserts
+  agreement, in the P-A9 style; "cached by construction" is not a receipt.
+  (iii) Any Lemma-X excision that is actually exercised carries its own receipt:
+  on a declared sample, assert U(ω,ρ) = 0 for the excluded worlds under the
+  evaluated policy, and assert that the unnormalised objective and argmax agree
+  between the full set and the remnant. Failure: stop and report per NO-RESCUE;
+  never patch.
+
+### X-Q3 — exclusion semantics. RULING: ACCEPT world-level only; branch-level is REJECTED for this probe on two independent grounds.
+
+World-level exclusion by a property of the root class is analyst conditioning on
+a set of worlds, which is the object X-A1 types. Branch-level (mid-cone) cutting
+is not a restriction of the same problem at all:
+
+- at a **focal** node, deleting abstract actions contradicts Y3's exclusion-
+  complete closure ("at focal choice nodes ALL legal abstract actions are
+  included") and v0.5 conclusions 1–2, which lift abstract policies over the
+  full abstract action set; what remains is a restricted-policy-class value, not
+  the value;
+- at a **hidden** node, deleting branches deletes mass from the uniform-legal
+  field, i.e. changes the field and therefore the operator (F4, §7.7 — theorems
+  for one operator do not transfer to another).
+
+- **X-A7.** Branch-level exclusion is out of scope. If it is ever built it is
+  declared as a NEW OPERATOR (a changed field and/or a restricted policy class),
+  given its own freeze and its own receipts, and its numbers are never compared
+  against this probe's rows.
+
+### X-Q4 — what "bite" may claim. RULING: ACCEPT the reporting sentence with three additions.
+
+- **X-A8 (the sentence).** "Bite is measured on the evaluated set of the
+  void-free capacity fiber (P-A1, P-A3). A shrink factor is a statement about a
+  declared cost domain, never about the seat's real support Φ(**C**), never
+  about belief, and never about what can happen in the game."
+- **X-A9 (two distinct bites, never conflated).** Report the **world bite**
+  (excluded worlds / evaluated worlds) and the **class bite** (flagged classes /
+  classes in the store) as separate rows. They answer different questions, and
+  the class bite is carrier-relative (r3 Q4) — it is an inventory statistic of
+  this store, not a property of the game.
+- **X-A10 (bites from decimated sets are estimates).** Always print numerator
+  and denominator as integers; a ratio may appear only beside them, as an exact
+  rational, and is labelled ESTIMATED whenever the evaluated set is a decimation
+  of Φ(**C**₀) (P-A15). At n=6 the evaluated set was W = 6; a bite ratio there is
+  a six-point sample and must be printed as a bare count with the ratio
+  suppressed or explicitly marked as such.
+
+### X-Q5 — coordinates and freezes. RULING: ACCEPT, freezes continue at 12.
+
+Freezes 1–3 and 7–11 are in force and restated; the refinement probe's new
+freezes begin at **12**.
+
+- **X-A11 (new freezes).** (12) each predicate's definition — F sets declared
+  **intensionally** (e.g. "all terminal classes with t_T = 0"), never as a list
+  of class hashes, since hashes are themselves freeze-dependent; print the
+  resulting |F| beside the definition. (13) the flag keying of X-A6(i). (14) the
+  store record format and its freeze-set digest (X-Q7).
+- **X-A12 (sample identity).** Where arms are re-run, reuse S5h's coordinates
+  and the same (g, W); where the store side uses the full evaluated set, say
+  which set each row was computed on. A bite row and a cost row computed on
+  different sets are not comparable and must not share a line.
+
+### X-Q6 — results discipline. RULING: ACCEPT, with the anti-strawman amendment on multi-pass economics.
+
+P-A20's boilerplate, the F7/NO-RESCUE both-outcomes framing, and one file
+`results/fiber_refine_2026-08-11.txt` are confirmed.
+
+- **X-A13 (pass-2 economics must not be measured against a rebuild).** "Pass 2
+  over a store that pass 1 built is cheap" is true by construction and measures
+  nothing. For each predicate, state whether it is decidable **without** the
+  class store (X_val0 is: arm A1 produces per-world values at roughly a quarter
+  of arm B's cost; X_reach∃/X_conf∀ are not, since bare semantic-state keys
+  carry no cone identity — that is precisely S5h's finding) and report the
+  pass-2 cost against the cheapest storeless alternative for that predicate, or
+  state that none exists. A pass2 : pass1 ratio may be printed only alongside
+  that comparison. This is P-A7's anti-strawman rule applied to the second pass.
+- **X-A14 (carry S5h's negative forward).** The header states: "B : A1 ≈ 4.3–4.9
+  at every rung — the class store is not a build accelerator; cone identity
+  cannot short-circuit descent. Every payoff sought here is a pass-≥2 transport
+  payoff, and the first build is a cost this probe does not recover."
+- **X-A15 (remnant-evaluation row).** The design's honest possible outcome —
+  that the store is already paid, so exclusion saves nothing at evaluation time
+  — is a result and is reported as such (F7). State explicitly whether the
+  remnant's evaluation reused the pass-1 store or rebuilt.
+
+### X-Q7 — persistence. RULING: ACCEPT the discipline, with four additions.
+
+Append-only content-addressing is the mathematically correct persistence mode
+here, and for a stated reason: class ids are content addresses of the future cone
+(r3 Q4, freeze 1), so records are immutable, and carrier growth adds classes and
+never splits them (r3 Q4) — monotone append is exactly the lawful growth mode.
+Wholesale invalidation on a freeze change is confirmed (P-A17: a warm cache may
+never be inherited across a change of freeze set); partial reuse across freezes
+is forbidden.
+
+- **X-A16 (collision discipline crosses runs).** r3's in-run assertion that no
+  two distinct signatures share a hash is weaker than what a store spanning many
+  runs and coordinates needs, because the store enlarges the collision surface
+  monotonically. Each record stores enough to verify identity (the signature
+  bytes, or their length plus an independent second hash), and the loader
+  asserts on every insert that an existing id's stored signature matches the
+  incoming one. Without this the store's identity discipline is weaker than the
+  in-run one and a silent collision corrupts every downstream number.
+- **X-A17 (the store is a cache, never an authority).** Derived views, never
+  stored state: a run must be able to rebuild any record from the carrier, and
+  must assert agreement between rebuilt and loaded records on a declared sample
+  before quoting anything from a warm store.
+- **X-A18 (cone-intrinsic records only).** Records hold cone-intrinsic data —
+  class id, successor ids, the Lemma-V value under the frozen operator,
+  predicate flags per X-A6(i). World membership, coordinate identity, fiber
+  indices, weightings and beliefs are coordinate-relative and must live outside
+  the store; storing them would destroy the intrinsicness that licenses reuse.
+- **X-A19 (warm reuse across coordinates is lawful, and re-types the counts).**
+  Because classes are intrinsic, a store may be shared across coordinates — that
+  is the actual payoff of persistence. But any count quoted from a warm store is
+  store-relative, not carrier-relative: declare which carriers contributed to
+  the store beside every such count.
+
+**Both outcomes remain results** (F7, NO-RESCUE). A nil bite, or a bite that
+saves nothing at evaluation time, is a proved negative about declared-exclusion
+refinement on this route and changes nothing about the classes, their ECL
+receipts, or Lemma X — which stands as a theorem about the objective regardless
+of whether any predicate turns out to bite.

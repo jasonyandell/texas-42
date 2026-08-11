@@ -1,0 +1,177 @@
+walt fiber-refinement probe — declared exclusion remnants over the class store — exploratory tier
+design: walt/FIBER-REFINE.md; binding rulings: CENSUS-RULINGS.md "Fiber-refinement rulings (X-Q1..X-Q7)", X-A1..X-A19, plus the fiber-probe rulings P-A1..P-A21 inherited unchanged
+
+X-A1 (verbatim): A remnant is a declared exclusion remnant of the void-free capacity fiber: analyst conditioning (v0.4 §6.8) on a declared, non-evidential predicate. Exclusion by X does not mean the world cannot occur (that is support, §2.1) and does not mean it is improbable (that is belief, §2.4). No support fact, no belief, no seat value, and no reachability claim may be read from a remnant. Excluding X never places X's falsity into any seat's information state; doing so would be player revelation and would recreate strategy fusion (§6.8, §7.6).
+X-A4 (verbatim, for every value predicate): Value equality in conclusion 7 is over the transported abstract-policy class, exactly as in v0.4 §12.6's conclusion 4. Whether the unrestricted concrete optimum is attained inside that class is a separate sufficiency question, deliberately not claimed here. With P-A5: the quantity read is world-informed and is not a seat value.
+X-A8 (verbatim): Bite is measured on the evaluated set of the void-free capacity fiber (P-A1, P-A3). A shrink factor is a statement about a declared cost domain, never about the seat's real support Phi(C), never about belief, and never about what can happen in the game.
+X-A14 (verbatim): B : A1 ~ 4.3-4.9 at every rung — the class store is not a build accelerator; cone identity cannot short-circuit descent. Every payoff sought here is a pass->=2 transport payoff, and the first build is a cost this probe does not recover.
+
+Lemma X (zero-contribution excision, adjudicated): with the non-negative q_trick valuation, deleting the worlds whose Lemma-V value is zero leaves the unnormalised objective and its argmax exactly unchanged for every information-consistent policy. ONE-SIDED: the value-max dual forces nothing and is never excised (X-A5). The §6.8 rule governs everything below: evaluate a fixed policy on a remnant, never re-optimise over a remnant and call the result a seat value.
+
+freezes: 1-3 and 7-11 in force and unchanged (see fiber_probe_2026-08-11.txt). New: (12) predicate definitions, intensional — F0 = the trick-boundary classes of the last trick (grade 4) with Lemma-V value 0 ("losing last tricks"; |F0| printed per coordinate); X_val0 = value 0; X_val_max = value equals the grade's maximum trick count, bite-only, labelled not excisable — one-sided, see Lemma X consequence 1; X_reach-exists(F0) and X_conf-forall(F0) with quantifiers in the name (X-A3); flag-receipt stride 97 over class indices. (13) flags keyed by (predicate id, freeze-set id) — this run computes all flags in-process under this header's freeze set and persists nothing. (14) the store record format: DEFERRED — persistence is not implemented this run (declared); X-A16..X-A19 govern it when it is built.
+coincidence note (X-A3): the ruling's X_conf-forall(zero-trick terminals) is not expressible as a class set in this encoding (trick outcomes live on edges; hand-end is one terminal), and its content is carried by X_val0 directly. X_conf-forall(F0) here is the distinct "every continuation loses its LAST trick" predicate.
+storeless alternatives (X-A13): X_val0 is decidable without the class store (arm A1 per-world values; timed below). X_reach-exists and X_conf-forall are NOT decidable on bare semantic-state keys — a state key carries no cone identity; that is S5h's finding. X_val_max is decidable storelessly the same way as X_val0.
+argmax clause of X-A6(iii): no action-valued policy solve is run in this probe, so the argmax-agreement clause has no object here (declared); the objective-agreement clause is asserted below.
+timing discipline (P-A19): one run, one machine, single-threaded; integer ns; exact fixed-point ratios. CPU: Apple M5 Max; build profile: release; threads: 1.
+provenance: SINGLE-IMPLEMENTATION; regenerate: cargo run --release -p walt-factory --example fiber_probe refine
+declared stops of this run: rungs n=4 (13 hands, g=7919, W=240) and n=5 (4 hands, g=104729, W=24); n=6 omitted this run (X-A10: a six-point sample supports no bite ratio). Bites on decimated sets are ESTIMATED (X-A10); integers always printed.
+
+================ rung n=4 (trick 4) — g=7919, W=240; hands [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] ================
+  h0: store 128860 classes over 1502362 situations (pass-1 build 1479462042 ns, S5h arm B unchanged); |F0| = 17 of 37 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 31625 ns
+      X_val0: class bite 446 / 128860 (ESTIMATED ratio 0.003), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 606041 ns [excisable (Lemma X)]
+      X_val_max: class bite 48355 / 128860 (ESTIMATED ratio 0.375), world bite 80 / 240 (ESTIMATED ratio 0.333), predicate pass 561458 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 79263 / 128860 (ESTIMATED ratio 0.615), world bite 240 / 240 (ESTIMATED ratio 1.000), predicate pass 1787083 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 3893 / 128860 (ESTIMATED ratio 0.030), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 1028625 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 285276166 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 606041 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 1787083 / 1028625 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 12458 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 1329 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h1: store 74348 classes over 2616173 situations (pass-1 build 2516203042 ns, S5h arm B unchanged); |F0| = 16 of 48 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 24125 ns
+      X_val0: class bite 135 / 74348 (ESTIMATED ratio 0.001), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 257334 ns [excisable (Lemma X)]
+      X_val_max: class bite 37421 / 74348 (ESTIMATED ratio 0.503), world bite 86 / 240 (ESTIMATED ratio 0.358), predicate pass 267500 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 27929 / 74348 (ESTIMATED ratio 0.375), world bite 234 / 240 (ESTIMATED ratio 0.975), predicate pass 1091291 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 497 / 74348 (ESTIMATED ratio 0.006), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 524500 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 550811792 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 257334 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 1091291 / 524500 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 9083 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 767 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h2: store 50138 classes over 1239054 situations (pass-1 build 1088162084 ns, S5h arm B unchanged); |F0| = 17 of 49 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 17041 ns
+      X_val0: class bite 175 / 50138 (ESTIMATED ratio 0.003), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 230333 ns [excisable (Lemma X)]
+      X_val_max: class bite 24047 / 50138 (ESTIMATED ratio 0.479), world bite 59 / 240 (ESTIMATED ratio 0.245), predicate pass 215709 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 20554 / 50138 (ESTIMATED ratio 0.409), world bite 232 / 240 (ESTIMATED ratio 0.966), predicate pass 760458 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 691 / 50138 (ESTIMATED ratio 0.013), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 321333 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 236921083 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 230333 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 760458 / 321333 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 11875 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 517 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h3: store 3053 classes over 1942925 situations (pass-1 build 1727978833 ns, S5h arm B unchanged); |F0| = 0 of 8 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 1417 ns
+      X_val0: class bite 0 / 3053 (ESTIMATED ratio 0.000), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 5083 ns [excisable (Lemma X)]
+      X_val_max: class bite 2657 / 3053 (ESTIMATED ratio 0.870), world bite 240 / 240 (ESTIMATED ratio 1.000), predicate pass 5416 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 0 / 3053 (ESTIMATED ratio 0.000), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 27208 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 0 / 3053 (ESTIMATED ratio 0.000), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 6083 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 403460209 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 5083 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 27208 / 6083 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 3875 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 32 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h4: store 81035 classes over 1328323 situations (pass-1 build 1165609791 ns, S5h arm B unchanged); |F0| = 28 of 59 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 18833 ns
+      X_val0: class bite 382 / 81035 (ESTIMATED ratio 0.004), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 478667 ns [excisable (Lemma X)]
+      X_val_max: class bite 18764 / 81035 (ESTIMATED ratio 0.231), world bite 21 / 240 (ESTIMATED ratio 0.087), predicate pass 413708 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 51796 / 81035 (ESTIMATED ratio 0.639), world bite 240 / 240 (ESTIMATED ratio 1.000), predicate pass 1107250 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 879 / 81035 (ESTIMATED ratio 0.010), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 520417 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 227900750 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 478667 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 1107250 / 520417 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 11291 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 836 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h5: store 173382 classes over 2173676 situations (pass-1 build 2092660583 ns, S5h arm B unchanged); |F0| = 32 of 64 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 44375 ns
+      X_val0: class bite 1566 / 173382 (ESTIMATED ratio 0.009), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 1147334 ns [excisable (Lemma X)]
+      X_val_max: class bite 41156 / 173382 (ESTIMATED ratio 0.237), world bite 34 / 240 (ESTIMATED ratio 0.141), predicate pass 950916 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 126159 / 173382 (ESTIMATED ratio 0.727), world bite 240 / 240 (ESTIMATED ratio 1.000), predicate pass 2416125 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 3671 / 173382 (ESTIMATED ratio 0.021), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 1534167 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 424931042 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 1147334 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 2416125 / 1534167 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 12334 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 1788 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h6: store 86495 classes over 1232334 situations (pass-1 build 1070821626 ns, S5h arm B unchanged); |F0| = 32 of 64 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 19791 ns
+      X_val0: class bite 3102 / 86495 (ESTIMATED ratio 0.035), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 572083 ns [excisable (Lemma X)]
+      X_val_max: class bite 9894 / 86495 (ESTIMATED ratio 0.114), world bite 9 / 240 (ESTIMATED ratio 0.037), predicate pass 517375 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 70580 / 86495 (ESTIMATED ratio 0.816), world bite 231 / 240 (ESTIMATED ratio 0.962), predicate pass 949708 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 13739 / 86495 (ESTIMATED ratio 0.158), world bite 3 / 240 (ESTIMATED ratio 0.012), predicate pass 696042 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 197267959 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 572083 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 949708 / 696042 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 17041 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 892 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h7: store 93920 classes over 2193496 situations (pass-1 build 1988915583 ns, S5h arm B unchanged); |F0| = 28 of 54 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 21250 ns
+      X_val0: class bite 451 / 93920 (ESTIMATED ratio 0.004), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 508250 ns [excisable (Lemma X)]
+      X_val_max: class bite 25949 / 93920 (ESTIMATED ratio 0.276), world bite 13 / 240 (ESTIMATED ratio 0.054), predicate pass 492750 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 70250 / 93920 (ESTIMATED ratio 0.747), world bite 240 / 240 (ESTIMATED ratio 1.000), predicate pass 1246458 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 2194 / 93920 (ESTIMATED ratio 0.023), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 677542 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 392526958 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 508250 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 1246458 / 677542 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 12125 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 969 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h8: store 126566 classes over 1528676 situations (pass-1 build 1427794458 ns, S5h arm B unchanged); |F0| = 28 of 56 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 28375 ns
+      X_val0: class bite 2278 / 126566 (ESTIMATED ratio 0.017), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 860792 ns [excisable (Lemma X)]
+      X_val_max: class bite 26245 / 126566 (ESTIMATED ratio 0.207), world bite 60 / 240 (ESTIMATED ratio 0.250), predicate pass 815459 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 102205 / 126566 (ESTIMATED ratio 0.807), world bite 240 / 240 (ESTIMATED ratio 1.000), predicate pass 1551416 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 9799 / 126566 (ESTIMATED ratio 0.077), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 995000 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 280409041 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 860792 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 1551416 / 995000 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 11250 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 1305 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h9: store 124422 classes over 3315000 situations (pass-1 build 3150747000 ns, S5h arm B unchanged); |F0| = 28 of 57 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 28417 ns
+      X_val0: class bite 611 / 124422 (ESTIMATED ratio 0.004), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 706792 ns [excisable (Lemma X)]
+      X_val_max: class bite 27687 / 124422 (ESTIMATED ratio 0.222), world bite 26 / 240 (ESTIMATED ratio 0.108), predicate pass 703625 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 93058 / 124422 (ESTIMATED ratio 0.747), world bite 240 / 240 (ESTIMATED ratio 1.000), predicate pass 1487000 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 1465 / 124422 (ESTIMATED ratio 0.011), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 795916 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 711440667 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 706792 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 1487000 / 795916 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 16583 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 1283 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h10: store 120754 classes over 1917806 situations (pass-1 build 1711501375 ns, S5h arm B unchanged); |F0| = 31 of 61 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 27542 ns
+      X_val0: class bite 2819 / 120754 (ESTIMATED ratio 0.023), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 764250 ns [excisable (Lemma X)]
+      X_val_max: class bite 22263 / 120754 (ESTIMATED ratio 0.184), world bite 5 / 240 (ESTIMATED ratio 0.020), predicate pass 700875 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 95012 / 120754 (ESTIMATED ratio 0.786), world bite 240 / 240 (ESTIMATED ratio 1.000), predicate pass 1545542 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 8976 / 120754 (ESTIMATED ratio 0.074), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 996916 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 331846208 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 764250 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 1545542 / 996916 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 13292 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 1245 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h11: store 138928 classes over 1457667 situations (pass-1 build 1335969957 ns, S5h arm B unchanged); |F0| = 17 of 49 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 31458 ns
+      X_val0: class bite 1667 / 138928 (ESTIMATED ratio 0.011), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 583375 ns [excisable (Lemma X)]
+      X_val_max: class bite 61440 / 138928 (ESTIMATED ratio 0.442), world bite 24 / 240 (ESTIMATED ratio 0.100), predicate pass 539459 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 72590 / 138928 (ESTIMATED ratio 0.522), world bite 240 / 240 (ESTIMATED ratio 1.000), predicate pass 1551542 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 7574 / 138928 (ESTIMATED ratio 0.054), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 949333 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 259760417 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 583375 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 1551542 / 949333 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 14042 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 1433 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h12: store 31282 classes over 1461897 situations (pass-1 build 1231831292 ns, S5h arm B unchanged); |F0| = 21 of 42 grade-4 boundary classes; evaluated set W = 240
+      F0 marking pass: 7875 ns
+      X_val0: class bite 213 / 31282 (ESTIMATED ratio 0.006), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 149334 ns [excisable (Lemma X)]
+      X_val_max: class bite 7789 / 31282 (ESTIMATED ratio 0.248), world bite 18 / 240 (ESTIMATED ratio 0.075), predicate pass 134834 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 16616 / 31282 (ESTIMATED ratio 0.531), world bite 225 / 240 (ESTIMATED ratio 0.937), predicate pass 383792 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 787 / 31282 (ESTIMATED ratio 0.025), world bite 0 / 240 (ESTIMATED ratio 0.000), predicate pass 117417 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 256509375 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 149334 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 383792 / 117417 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 240 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 14083 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 323 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+
+================ rung n=5 (trick 3) — g=104729, W=24; hands [0, 1, 2, 3] ================
+  h0: store 303944 classes over 4776595 situations (pass-1 build 4809800918 ns, S5h arm B unchanged); |F0| = 32 of 64 grade-4 boundary classes; evaluated set W = 24
+      F0 marking pass: 81042 ns
+      X_val0: class bite 2352 / 303944 (ESTIMATED ratio 0.007), world bite 0 / 24 (ESTIMATED ratio 0.000), predicate pass 1835458 ns [excisable (Lemma X)]
+      X_val_max: class bite 80112 / 303944 (ESTIMATED ratio 0.263), world bite 0 / 24 (ESTIMATED ratio 0.000), predicate pass 1694792 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 232511 / 303944 (ESTIMATED ratio 0.764), world bite 24 / 24 (ESTIMATED ratio 1.000), predicate pass 3654125 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 12540 / 303944 (ESTIMATED ratio 0.041), world bite 0 / 24 (ESTIMATED ratio 0.000), predicate pass 2470166 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 957824458 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 1835458 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 3654125 / 2470166 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 24 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 1750 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 3134 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h1: store 194350 classes over 3837306 situations (pass-1 build 3793326500 ns, S5h arm B unchanged); |F0| = 17 of 49 grade-4 boundary classes; evaluated set W = 24
+      F0 marking pass: 47084 ns
+      X_val0: class bite 1646 / 194350 (ESTIMATED ratio 0.008), world bite 0 / 24 (ESTIMATED ratio 0.000), predicate pass 782000 ns [excisable (Lemma X)]
+      X_val_max: class bite 90573 / 194350 (ESTIMATED ratio 0.466), world bite 6 / 24 (ESTIMATED ratio 0.250), predicate pass 810792 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 91104 / 194350 (ESTIMATED ratio 0.468), world bite 24 / 24 (ESTIMATED ratio 1.000), predicate pass 2750292 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 4268 / 194350 (ESTIMATED ratio 0.021), world bite 0 / 24 (ESTIMATED ratio 0.000), predicate pass 1477750 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 857269791 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 782000 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 2750292 / 1477750 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 24 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 1000 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 2004 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h2: store 137337 classes over 4158587 situations (pass-1 build 3935965916 ns, S5h arm B unchanged); |F0| = 17 of 49 grade-4 boundary classes; evaluated set W = 24
+      F0 marking pass: 32625 ns
+      X_val0: class bite 240 / 137337 (ESTIMATED ratio 0.001), world bite 0 / 24 (ESTIMATED ratio 0.000), predicate pass 621541 ns [excisable (Lemma X)]
+      X_val_max: class bite 61027 / 137337 (ESTIMATED ratio 0.444), world bite 1 / 24 (ESTIMATED ratio 0.041), predicate pass 621833 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 65638 / 137337 (ESTIMATED ratio 0.477), world bite 24 / 24 (ESTIMATED ratio 1.000), predicate pass 2121250 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 1320 / 137337 (ESTIMATED ratio 0.009), world bite 0 / 24 (ESTIMATED ratio 0.000), predicate pass 994666 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 902577042 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 621541 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 2121250 / 994666 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 24 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 1542 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 1416 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+  h3: store 43299 classes over 3769580 situations (pass-1 build 3540761749 ns, S5h arm B unchanged); |F0| = 17 of 49 grade-4 boundary classes; evaluated set W = 24
+      F0 marking pass: 10083 ns
+      X_val0: class bite 210 / 43299 (ESTIMATED ratio 0.004), world bite 0 / 24 (ESTIMATED ratio 0.000), predicate pass 166375 ns [excisable (Lemma X)]
+      X_val_max: class bite 22434 / 43299 (ESTIMATED ratio 0.518), world bite 1 / 24 (ESTIMATED ratio 0.041), predicate pass 165250 ns [not excisable — one-sided; see Lemma X consequence 1]
+      X_reach-exists(F0): class bite 19369 / 43299 (ESTIMATED ratio 0.447), world bite 21 / 24 (ESTIMATED ratio 0.875), predicate pass 615083 ns [cost-domain predicate]
+      X_conf-forall(F0): class bite 328 / 43299 (ESTIMATED ratio 0.007), world bite 0 / 24 (ESTIMATED ratio 0.000), predicate pass 341250 ns [cost-domain predicate]
+      pass-2 economics (X-A13): value predicates storeless via one A1 pass = 860597084 ns (found 0 val0 worlds, agreeing with the store's 0); store-side value flag pass = 166375 ns; reachability/confinement have NO storeless alternative (cone identity is not on a state key) and cost 615083 / 341250 ns over the built store
+      Lemma-X exercise (X-A6 iii): 0 of 24 worlds excised; per-world U = 0 asserted on ALL excised worlds; unnormalised objective full = remnant asserted; remnant summation over the pass-1 store (reused, X-A15): 1459 ns — exclusion saves nothing at evaluation time once the store is paid, and that is a result (F7)
+      flag receipt (X-A6 ii): 447 classes at stride 97 recomputed from the cone through the independent A1 path; values and flags agree
+
+Both outcomes remain results (F7, NO-RESCUE): a nil bite, or a bite that saves nothing at evaluation time, is a proved negative about declared-exclusion refinement on this route and changes nothing about the classes, their ECL receipts, or Lemma X.
+run complete: yes

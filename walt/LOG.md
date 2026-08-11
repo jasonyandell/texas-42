@@ -857,3 +857,57 @@ borrowed constant that capped the retrograde pass at 3 tricks; fixed
 to the true bound (grade ≤ 28), capacity not semantics, no receipt
 changes. Full gate green. Fast-iteration declared stops throughout
 (per-rung hand subsets and W; every stop printed).
+
+## S5i — 2026-08-11: the fiber-refinement probe (declared exclusion remnants)
+
+Jason's hope, verbatim spirit: "everything that could happen, except X"
+— refine fibers by declared exclusions; smaller fibers, not just fewer;
+fine if it goes nowhere. Design `walt/FIBER-REFINE.md`; walt-math's
+rulings (X-Q1..X-Q7, X-A1..X-A19) delivered a genuine theorem —
+**Lemma X (zero-contribution excision)**: under the non-negative
+q_trick valuation, deleting worlds whose Lemma-V value is zero leaves
+the unnormalised objective AND its argmax exactly unchanged for every
+information-consistent policy. ONE-SIDED: the value-max dual forces
+nothing (X_val_max re-typed bite-only). Remnants typed as ANALYST
+CONDITIONING (§6.8): a third thing besides support and belief —
+excluded means neither impossible nor improbable; never re-optimise
+over a remnant and call it a seat value; predicates carry their
+quantifier (X_reach∃ vs X_conf∀); branch-level exclusion REJECTED
+(changes the operator); pass-2 economics measured against the cheapest
+STORELESS alternative (X-A13, anti-strawman); persistence discipline
+accepted (X-A16..A19: append-only content-addressed, collision
+verification across runs, cache-never-authority, cone-intrinsic
+records only, warm-across-coordinates lawful but store-relative).
+
+Results (`results/fiber_refine_2026-08-11.txt`, rungs n=4 all 13
+hands / n=5 four hands, receipts ALL green — flag receipts at stride
+97 through the independent A1 path agree everywhere, 32–3,134 classes
+per coordinate; Lemma-X objective agreement asserted):
+
+- **The machinery is essentially free**: every predicate pass over a
+  built store costs 0.1–3.7 ms against multi-second builds — and for
+  the value predicates the cheapest storeless route costs 200–960 ms,
+  so **pass-2 over the store is ~100–1000× cheaper than the best
+  alternative**, while reachability/confinement have NO storeless
+  alternative at all (cone identity is not on a state key). Jason's
+  multi-pass economics is measured and real.
+- **The declared X's bite classes, not worlds, at these rungs**:
+  X_val0 flags 0.1–3.5% of classes (zero-value sub-cones exist) but
+  **0 of 3,120+96 evaluated WORLDS** across both rungs — no root hits
+  value 0, so the Lemma-X excision fired on nothing. Structural
+  reading: V* = 0 requires losing ALL n remaining tricks under
+  world-informed play, which gets harder as n grows, and the corpus
+  focal is the DECLARER (a strong hand by construction). X_reach∃(F0)
+  is nearly vacuous at roots (~100% — you can always play badly);
+  X_conf∀(F0) bites 0.6–16% of classes, ~0 worlds; X_val_max
+  ("lay-down from here") bites 2–36% of worlds — real inventory
+  signal, not excisable.
+- **X-A15 honest row**: exclusion saves nothing at evaluation time
+  once the store is paid (remnant summation ~µs either way) — a
+  result per F7.
+
+Where bite plausibly lives instead (open, not claimed): count-bearing
+X's after role re-entry ("loses the bid"), non-declarer focal seats
+(weak hands lose everything far more often), and the seat's real
+voided support. The predicate ENGINE is proven either way; Lemma X
+stands as a theorem regardless of bite. Full gate green.
