@@ -19,7 +19,8 @@ use std::path::Path;
 
 use walt_core::receipt::{locate_verify_player, parse_file, Receipt};
 use walt_skeleton::equivariant::{
-    build_carrier, check_ecl, trick_six_kernels, CandidateSpec, Census, EclVerdict,
+    build_carrier, build_r3, check_ecl, check_ecl_r3, grade, r1_refines_r3, trick_six_kernels,
+    CandidateSpec, Census, EclVerdict,
 };
 
 /// The pinned trick-six fiber sizes of the receipt corpus, asserted so the
@@ -50,9 +51,16 @@ fn main() {
         assert_eq!(kernel.count(), FIBERS[i], "the pinned h{i} fiber size");
     }
     let roots_expected: u128 = FIBERS.iter().sum();
-    if std::env::args().nth(1).as_deref() == Some("r2") {
-        run_r2(&kernels, roots_expected);
-        return;
+    match std::env::args().nth(1).as_deref() {
+        Some("r2") => {
+            run_r2(&kernels, roots_expected);
+            return;
+        }
+        Some("r3") => {
+            run_r3(&kernels, roots_expected);
+            return;
+        }
+        _ => {}
     }
 
     let t0 = std::time::Instant::now();
@@ -267,6 +275,265 @@ fn run_r2(kernels: &[(usize, walt_kernel::Kernel)], roots_expected: u128) {
     std::fs::create_dir_all(root.join("results")).expect("results dir");
     std::fs::write(root.join("results/census_2026-08-10_r2.txt"), out).expect("write results");
     eprintln!("wrote results/census_2026-08-10_r2.txt");
+}
+
+/// Round 3: the retrograde coarsest quotient. Backward induction over the
+/// graded carrier per `walt/CENSUS-RULINGS.md` section r3 (Q1-Q5), with both
+/// mandatory verification items run in-line.
+fn run_r3(kernels: &[(usize, walt_kernel::Kernel)], roots_expected: u128) {
+    let carrier = build_carrier(kernels);
+    assert_eq!(carrier.roots() as u128, roots_expected, "one root per world");
+    let t0 = std::time::Instant::now();
+    let r3 = build_r3(&carrier);
+    eprintln!(
+        "r3: {} classes over {} situations in {:?}",
+        r3.class_members.len(),
+        carrier.len(),
+        t0.elapsed()
+    );
+
+    // Q5.1, mandatory: r1 must refine r3. A violation is a bug or a math
+    // error -- stop and report, never repair (NO-RESCUE).
+    let finest = Census::build(build_carrier(kernels), CandidateSpec::FINEST);
+    let violations = r1_refines_r3(&finest, &r3);
+    // Q5.2, mandatory: an independent (ECL) re-check over the r3 partition.
+    let verdict = check_ecl_r3(&carrier, &r3);
+    eprintln!(
+        "r3 refinement violations: {}; ECL re-check {}",
+        violations.len(),
+        verdict.verdict()
+    );
+
+    let mut out = String::new();
+    out.push_str(
+        "walt situation census r3 — retrograde coarsest quotient under §12.6A — exploratory tier\n",
+    );
+    write_provenance(&mut out, "census_run r3");
+    out.push_str(
+        "construction: backward induction over the graded carrier by decreasing grade (grade = \
+         live tile count; every primitive play drops it by one, asserted at every step, so one \
+         pass closes — r3 ruling Q2). Terminal (hand end) is one class. SIGNATURE = preamble \
+         (grade, actor offset from focal 0-3) + the canonically ordered per-move tuples \
+         (count-free increment k, play classification in {lead, follow, slough}, successor \
+         r3-class); tile identity and led context are deliberately absent, transported per move \
+         (Q3). Transports are position matching through the canonical move order, never an \
+         arbitrary per-pair matching, so coherence is automatic (Q1b).\n\
+         determinism freezes (class counts are reproducible bit-for-bit only against these; \
+         Q5.3): (1) the content-addressed encoding — a class identity is the 128-bit FNV-1a hash \
+         (offset basis 0x6c62272e07bb014262b821756295c58d, prime 0x100000000000000000013b) of the \
+         signature bytes [tag 0x33, grade, actor offset, move count, then per move: k, \
+         classification code (lead 0, follow 1, slough 2), successor hash big-endian], so a class \
+         identity is a function of its future cone alone; the run asserts no two distinct \
+         signatures share a hash; (2) the canonical move order — sort by (k, classification, \
+         successor class hash), ties broken by the state's concrete tile order. Moves with \
+         identical tuples emit identical statistics, so the tie order never changes a law.\n\n",
+    );
+    out.push_str(
+        "CAVEAT (mandated, r3 ruling Q4): Classes are dynamics-equivalence classes under §12.6A \
+         on this carrier, uniform-legal field, count-free contract, per-step interface typing (r3 \
+         ruling Q3); they need not be closed under any tile relabeling and carry no structural \
+         description — the compact-description question (v0.4 §12.7) is separate and open. \
+         Coarsest is relative to that scope. Class identities are intrinsic to continuations; \
+         counts are carrier-relative; carrier growth adds classes, never splits existing ones. \
+         Exploratory tier. ECL holds by construction; see verification lines. These are not \
+         hidden-decision PI classes (v0.4 §12.4): the equivalence is dynamics, not response \
+         equality.\n\n",
+    );
+
+    let _ = writeln!(
+        out,
+        "carrier (candidate-independent): {} situations, {} roots\n",
+        carrier.len(),
+        carrier.roots()
+    );
+
+    out.push_str("verification (every count below is quotable only with these two lines)\n");
+    let _ = writeln!(
+        out,
+        "  Q5.1 refinement assertion — every one of r1's {} classes lands inside exactly one r3 \
+         class: {}",
+        finest.class_members.len(),
+        if violations.is_empty() {
+            "HOLDS".to_string()
+        } else {
+            format!("VIOLATED in {} pairs — STOP", violations.len())
+        }
+    );
+    for v in violations.iter().take(5) {
+        let _ = writeln!(
+            out,
+            "    r1 class#{} split across r3 class#{} and r3 class#{}\n      {}\n      {}",
+            v.r1_class, v.r3_a, v.r3_b, v.a, v.b
+        );
+    }
+    let _ = writeln!(
+        out,
+        "  Q5.2 independent ECL re-check over the r3 partition with position-matching transports: \
+         {} — {} classes checked, {} pairs under condition 1 and {} under condition 2, {} \
+         counterexamples",
+        verdict.verdict(),
+        verdict.classes_checked,
+        verdict.cond1_checks,
+        verdict.cond2_checks,
+        verdict.failures.len()
+    );
+    for f in &verdict.failures {
+        let _ = writeln!(out, "    class#{} hash {}", f.class, f.class_key);
+        let _ = writeln!(out, "      condition: {}", f.condition);
+        let _ = writeln!(out, "      divergence: {}", f.detail);
+        let _ = writeln!(out, "      representative: {}", f.representative);
+        let _ = writeln!(out, "      member:         {}", f.member);
+    }
+    out.push('\n');
+
+    let root_classes: std::collections::BTreeSet<usize> = (0..carrier.len())
+        .filter(|i| carrier.is_root[*i])
+        .map(|i| r3.class_of[i])
+        .collect();
+    let singletons = r3.class_members.iter().filter(|m| m.len() == 1).count();
+    let largest = r3.class_members.iter().map(Vec::len).max().unwrap_or(0);
+    let provenance = |members: &[usize]| -> u32 {
+        members.iter().fold(0, |a, i| a | carrier.provenance[*i])
+    };
+    let cross: Vec<usize> = (0..r3.class_members.len())
+        .filter(|c| provenance(&r3.class_members[*c]).count_ones() >= 2)
+        .collect();
+    let cross_roots = cross
+        .iter()
+        .filter(|c| r3.class_members[**c].iter().any(|i| carrier.is_root[*i]))
+        .count();
+    let root_merges = (0..r3.class_members.len())
+        .filter(|c| {
+            r3.class_members[*c].len() > 1
+                && r3.class_members[*c].iter().any(|i| carrier.is_root[*i])
+        })
+        .count();
+
+    out.push_str("r3 pooled counts   [ECL re-check PASS required to quote — see above]\n");
+    let _ = writeln!(
+        out,
+        "  full carrier: {} classes over {} situations",
+        r3.class_members.len(),
+        carrier.len()
+    );
+    let _ = writeln!(
+        out,
+        "  roots only:   {} classes over {} roots",
+        root_classes.len(),
+        carrier.roots()
+    );
+    let _ = writeln!(
+        out,
+        "  singleton classes (ECL vacuous there): {singletons} of {}; largest class {largest} situations",
+        r3.class_members.len()
+    );
+    let _ = writeln!(
+        out,
+        "  cross-kernel merges: {} classes ({} of them containing a root situation)",
+        cross.len(),
+        cross_roots
+    );
+    let _ = writeln!(out, "  root merges: {root_merges}\n");
+
+    out.push_str(
+        "class DAG by grade — the pathfinding graph: distinct signatures at each grade (grade = \
+         live tiles; ply = 8 - grade)\n",
+    );
+    for g in (1..=8).rev() {
+        let rows: Vec<usize> = (0..carrier.len())
+            .filter(|i| grade(&carrier.states[*i]) == g)
+            .collect();
+        if rows.is_empty() {
+            continue;
+        }
+        let classes: std::collections::BTreeSet<usize> =
+            rows.iter().map(|i| r3.class_of[*i]).collect();
+        let merged = classes
+            .iter()
+            .filter(|c| r3.class_members[**c].len() > 1)
+            .count();
+        let _ = writeln!(
+            out,
+            "  grade {g} (ply {}, {}): {} situations, {} classes ({merged} non-singleton)",
+            8 - g,
+            ply_label(8 - g),
+            rows.len(),
+            classes.len()
+        );
+    }
+    let _ = writeln!(
+        out,
+        "  grade 0 (hand end): 1 class by ruling (the terminal), hash {:032x}\n",
+        r3.terminal
+    );
+
+    out.push_str(
+        "summary against the r1/r2 declared candidates (same carrier, same field, same count-free \
+         contract; r3 is the coarsest lawful quotient relative to the scope in the caveat above)\n\
+         candidate                              full   roots  singleton  cross-kernel  root-merges  t7-lead  ECL\n",
+    );
+    for spec in CandidateSpec::ALL {
+        let census = Census::build(build_carrier(kernels), spec);
+        let v = check_ecl(&census);
+        let cross_n = census.cross_kernel_classes().len();
+        let root_m = (0..census.class_members.len())
+            .filter(|c| {
+                census.class_members[*c].len() > 1
+                    && census.class_members[*c]
+                        .iter()
+                        .any(|i| census.carrier.is_root[*i])
+            })
+            .count();
+        let t7 = ply_rows(&census)
+            .into_iter()
+            .find(|row| row.0 == 4)
+            .map_or(0, |row| row.2);
+        let _ = writeln!(
+            out,
+            "  {:<36} {:>6} {:>6} {:>10} {:>13} {:>12} {:>8}  {}",
+            spec.name,
+            census.class_members.len(),
+            census.root_classes(),
+            census.singleton_classes(),
+            cross_n,
+            root_m,
+            t7,
+            v.verdict()
+        );
+    }
+    let t7_r3: std::collections::BTreeSet<usize> = (0..carrier.len())
+        .filter(|i| grade(&carrier.states[*i]) == 4)
+        .map(|i| r3.class_of[i])
+        .collect();
+    let _ = writeln!(
+        out,
+        "  {:<36} {:>6} {:>6} {:>10} {:>13} {:>12} {:>8}  {}",
+        "r3 retrograde coarsest",
+        r3.class_members.len(),
+        root_classes.len(),
+        singletons,
+        cross.len(),
+        root_merges,
+        t7_r3.len(),
+        verdict.verdict()
+    );
+    let _ = writeln!(
+        out,
+        "\n  t7-lead = classes at ply 4 (grade 4), the trick-7 lead stratum where every seat holds \
+         one tile and play is forced — the target alphabet for a backward walk. r3's row is that \
+         alphabet at its coarsest.\n"
+    );
+
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("results/census_2026-08-10_r3.txt");
+    std::fs::create_dir_all(path.parent().expect("results dir")).expect("results dir");
+    std::fs::write(&path, out).expect("write results");
+    eprintln!("wrote results/census_2026-08-10_r3.txt");
+    assert!(
+        violations.is_empty(),
+        "Q5.1 refinement assertion VIOLATED in {} pairs — recorded in the results file; \
+         this is a bug or a math error in the ruling, not something to patch",
+        violations.len()
+    );
 }
 
 /// The shared provenance block; `regenerate` names the run that wrote the

@@ -782,6 +782,39 @@ impl Carrier {
     }
 }
 
+/// The reachable closure of arbitrary seed situations under primitive steps,
+/// pooled into one provenance slot. The declared census carrier is
+/// [`build_carrier`]; this exists so the machinery can be exercised on
+/// hand-built structures, and it takes the same closure path.
+pub fn closure_carrier(seeds: &[Situation]) -> Carrier {
+    let mut carrier = Carrier {
+        hands: vec![0],
+        states: Vec::new(),
+        provenance: Vec::new(),
+        is_root: Vec::new(),
+        index: BTreeMap::new(),
+    };
+    let mut stack: Vec<usize> = seeds
+        .iter()
+        .map(|s| carrier.intern(s.clone(), true))
+        .collect();
+    while let Some(i) = stack.pop() {
+        if (carrier.provenance[i] & 1) != 0 {
+            continue;
+        }
+        carrier.provenance[i] |= 1;
+        let sit = carrier.states[i].clone();
+        for tile in sit.legal().iter() {
+            let (_, next) = sit.step(tile);
+            if let Some(next) = next {
+                let j = carrier.intern(next, false);
+                stack.push(j);
+            }
+        }
+    }
+    carrier
+}
+
 /// Enumerates every fiber world of every declared kernel and closes the
 /// reachable set under primitive steps. The enumerated world count is asserted
 /// against the kernel's exact fiber count, so nothing is silently skipped.
@@ -1192,6 +1225,403 @@ fn field_failure(x: &Joint, y: &Joint) -> Option<(String, String)> {
                     render_outcome(&(key.0, key.1, key.2)),
                     a,
                     b
+                ),
+            ));
+        }
+    }
+    None
+}
+
+// ---------------------------------------------------------------------------
+// r3 — the retrograde coarsest quotient (CENSUS-RULINGS.md "r3", Q1-Q5).
+// ---------------------------------------------------------------------------
+
+/// **Determinism freeze 1 — the content-addressed encoding.** A class identity
+/// is the 128-bit FNV-1a hash of its signature bytes, and a signature names its
+/// successors by *their* hashes, so a class identity is a function of the
+/// future cone alone (Q4). Changing this function changes every class
+/// identifier, so it is frozen here and named in the results header.
+const FNV_OFFSET_128: u128 = 0x6c62_272e_07bb_0142_62b8_2175_6295_c58d;
+const FNV_PRIME_128: u128 = 0x0000_0000_0100_0000_0000_0000_0000_013b;
+
+fn fnv1a_128(bytes: &[u8]) -> u128 {
+    let mut h = FNV_OFFSET_128;
+    for b in bytes {
+        h ^= *b as u128;
+        h = h.wrapping_mul(FNV_PRIME_128);
+    }
+    h
+}
+
+/// The signature tag byte, part of the frozen encoding.
+const R3_TAG: u8 = 0x33;
+
+/// The literal classification code — the classification has no transport sort,
+/// so it is preserved verbatim (Q3).
+fn class_code(c: PlayClass) -> u8 {
+    match c {
+        PlayClass::Lead => 0,
+        PlayClass::Follow => 1,
+        PlayClass::Slough => 2,
+    }
+}
+
+/// The hand-end class: one class by ruling, with an empty future cone.
+fn terminal_hash() -> u128 {
+    fnv1a_128(b"r3-terminal-hand-end")
+}
+
+/// One move's signature tuple: the count-free increment, the play
+/// classification (preserved literally — it has no transport sort, Q3), and
+/// the successor's r3 class. Tile identity and led context are deliberately
+/// absent: they are transported per move, which is the whole point of r3.
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
+pub struct MoveTuple {
+    pub increment: u8,
+    pub class: PlayClass,
+    /// The successor's r3 class, or `None` at hand end.
+    pub successor: Option<usize>,
+}
+
+/// The retrograde coarsest quotient over a graded carrier.
+pub struct R3 {
+    pub class_of: Vec<usize>,
+    pub class_members: Vec<Vec<usize>>,
+    pub class_hash: Vec<u128>,
+    pub class_grade: Vec<usize>,
+    /// The canonical move order at each carrier situation — the order the
+    /// transports are position matching through (Q1b).
+    pub moves: Vec<Vec<Domino>>,
+    /// The per-move tuples at each carrier situation, in canonical order.
+    pub tuples: Vec<Vec<MoveTuple>>,
+    pub terminal: u128,
+}
+
+/// The grade of a situation: its live tile count. Every primitive play removes
+/// exactly one live tile, so successors sit at grade `g - 1` and one backward
+/// pass closes (Q2) — asserted at every step of the build.
+pub fn grade(sit: &Situation) -> usize {
+    sit.live().len()
+}
+
+/// The actor's offset from the focal seat: 0 is a focal choice node, 1..=3 are
+/// hidden chance nodes. The lawful chair correspondence preserves it exactly
+/// (Q3: focal↔focal, partner↔partner, left↔left), so it belongs in the
+/// signature preamble.
+pub fn actor_offset(sit: &Situation) -> u8 {
+    let mut i = 0u8;
+    while sit.focal.plus(i as usize) != sit.actor() {
+        i += 1;
+        assert!(i < 4, "the actor is one of the four seats");
+    }
+    i
+}
+
+/// **Determinism freeze 2 — the canonical move order.** Moves are sorted by
+/// the full signature tuple (increment, classification, successor class), ties
+/// broken by the state's concrete tile order. Moves with identical tuples emit
+/// identical statistics, so the tie order never changes a law; fixing it is
+/// what makes `Theta^A` / `Theta^obs` position matching coherent by
+/// construction rather than an arbitrary per-pair choice (Q1b).
+fn canonical_move_order(mut moves: Vec<(MoveTuple, u128, Domino)>) -> Vec<(MoveTuple, u128, Domino)> {
+    moves.sort_by(|a, b| {
+        (a.0.increment, a.0.class, a.1, a.2).cmp(&(b.0.increment, b.0.class, b.1, b.2))
+    });
+    moves
+}
+
+/// The backward pass: by increasing grade (so every successor is already
+/// classified), signature by signature, content-addressed.
+pub fn build_r3(carrier: &Carrier) -> R3 {
+    let terminal = terminal_hash();
+    let mut by_grade: Vec<Vec<usize>> = vec![Vec::new(); MAX_MATCHED_TILES + 1];
+    for (i, sit) in carrier.states.iter().enumerate() {
+        by_grade[grade(sit)].push(i);
+    }
+    assert!(
+        by_grade[0].is_empty(),
+        "a carrier situation always has a live tile; hand end is not a carrier state"
+    );
+
+    let mut r3 = R3 {
+        class_of: vec![usize::MAX; carrier.len()],
+        class_members: Vec::new(),
+        class_hash: Vec::new(),
+        class_grade: Vec::new(),
+        moves: vec![Vec::new(); carrier.len()],
+        tuples: vec![Vec::new(); carrier.len()],
+        terminal,
+    };
+    let mut ids: BTreeMap<Vec<u8>, usize> = BTreeMap::new();
+    let mut seen_hash: BTreeMap<u128, Vec<u8>> = BTreeMap::new();
+    let mut state_hash: Vec<u128> = vec![0; carrier.len()];
+
+    for (g, states) in by_grade.iter().enumerate().skip(1) {
+        for &i in states {
+            let sit = &carrier.states[i];
+            let mut moves: Vec<(MoveTuple, u128, Domino)> = Vec::new();
+            for tile in sit.legal().iter() {
+                let (increment, next) = sit.step(tile);
+                let (successor, hash) = match next {
+                    None => (None, terminal),
+                    Some(s) => {
+                        assert_eq!(grade(&s), g - 1, "a primitive play drops the grade by one");
+                        let j = carrier
+                            .lookup(&s)
+                            .expect("the carrier is closed under primitive steps");
+                        (Some(r3.class_of[j]), state_hash[j])
+                    }
+                };
+                assert!(
+                    successor != Some(usize::MAX),
+                    "successors are classified before their predecessors"
+                );
+                moves.push((
+                    MoveTuple {
+                        increment,
+                        class: sit.play_class(tile),
+                        successor,
+                    },
+                    hash,
+                    tile,
+                ));
+            }
+            let moves = canonical_move_order(moves);
+
+            let mut sig = Vec::with_capacity(4 + 18 * moves.len());
+            sig.push(R3_TAG);
+            sig.push(g as u8);
+            sig.push(actor_offset(sit));
+            sig.push(moves.len() as u8);
+            for (tuple, hash, _) in &moves {
+                sig.push(tuple.increment);
+                sig.push(class_code(tuple.class));
+                sig.extend_from_slice(&hash.to_be_bytes());
+            }
+            let hash = fnv1a_128(&sig);
+            match seen_hash.get(&hash) {
+                Some(other) => assert_eq!(
+                    other, &sig,
+                    "a 128-bit content-address collision — the determinism freeze is broken; \
+                     report it, never work around it"
+                ),
+                None => {
+                    seen_hash.insert(hash, sig.clone());
+                }
+            }
+            let next_id = ids.len();
+            let id = *ids.entry(sig).or_insert(next_id);
+            if id == r3.class_members.len() {
+                r3.class_members.push(Vec::new());
+                r3.class_hash.push(hash);
+                r3.class_grade.push(g);
+            }
+            r3.class_members[id].push(i);
+            r3.class_of[i] = id;
+            state_hash[i] = hash;
+            r3.moves[i] = moves.iter().map(|(_, _, d)| *d).collect();
+            r3.tuples[i] = moves.iter().map(|(t, _, _)| *t).collect();
+        }
+    }
+    assert!(
+        r3.class_of.iter().all(|c| *c != usize::MAX),
+        "every carrier situation is classified"
+    );
+    r3
+}
+
+/// A violation of the mandatory refinement assertion (Q5.1): two situations
+/// one r1 class holds that r3 separates. Its existence means an implementation
+/// bug or a math error in the ruling — stop and report, never patch.
+#[derive(Clone, Debug)]
+pub struct RefinementViolation {
+    pub r1_class: usize,
+    pub a: String,
+    pub b: String,
+    pub r3_a: usize,
+    pub r3_b: usize,
+}
+
+/// **Mandatory (Q5.1).** r1's structural transports are componentwise and
+/// classification/offset preserving, so r1 is a lawful `(d, Theta)` under Q3's
+/// typing and must refine r3: every r1 class must land inside exactly one r3
+/// class. Returns the violations, empty when the assertion holds.
+pub fn r1_refines_r3(census: &Census, r3: &R3) -> Vec<RefinementViolation> {
+    let mut out = Vec::new();
+    for (r1_class, members) in census.class_members.iter().enumerate() {
+        let first = r3.class_of[members[0]];
+        for m in &members[1..] {
+            if r3.class_of[*m] != first {
+                out.push(RefinementViolation {
+                    r1_class,
+                    a: census.carrier.states[members[0]].render(),
+                    b: census.carrier.states[*m].render(),
+                    r3_a: first,
+                    r3_b: r3.class_of[*m],
+                });
+            }
+        }
+    }
+    out
+}
+
+/// The r3 step law at one situation, rebuilt from the rules rather than read
+/// back from the signature: the ordered per-move tuples (position matching is
+/// the transport, Q1b) and, at a hidden node, the exact joint law.
+enum R3Law {
+    Focal(Vec<MoveTuple>),
+    Field(Vec<MoveTuple>, BTreeMap<MoveTuple, Q>),
+}
+
+fn r3_law(carrier: &Carrier, r3: &R3, i: usize) -> (u8, R3Law) {
+    let sit = &carrier.states[i];
+    let offset = actor_offset(sit);
+    let order = &r3.moves[i];
+    let legal = sit.legal();
+    assert_eq!(order.len(), legal.len(), "the move order covers the legal set");
+    let mut tuples = Vec::with_capacity(order.len());
+    for tile in order {
+        assert!(legal.contains(*tile), "a move is a legal play");
+        let (increment, next) = sit.step(*tile);
+        let successor = next.map(|s| {
+            let j = carrier
+                .lookup(&s)
+                .expect("the carrier is closed under primitive steps");
+            r3.class_of[j]
+        });
+        tuples.push(MoveTuple {
+            increment,
+            class: sit.play_class(*tile),
+            successor,
+        });
+    }
+    if offset == 0 {
+        return (offset, R3Law::Focal(tuples));
+    }
+    let share = q(1, legal.len() as i128);
+    let mut law: BTreeMap<MoveTuple, Q> = BTreeMap::new();
+    for t in &tuples {
+        *law.entry(*t).or_insert_with(|| qi(0)) += share;
+    }
+    let mass: Q = law.values().copied().sum();
+    assert_eq!(mass, qi(1), "a field row is a probability law");
+    (offset, R3Law::Field(tuples, law))
+}
+
+/// **Mandatory (Q5.2).** An independent (ECL) re-check over the r3 partition
+/// with the declared position-matching transports — the same checker shape as
+/// r1's, rebuilding every law from the rules with exact rationals. "By
+/// construction" is not a receipt.
+pub fn check_ecl_r3(carrier: &Carrier, r3: &R3) -> EclVerdict {
+    let mut verdict = EclVerdict {
+        classes: r3.class_members.len(),
+        singleton_classes: r3.class_members.iter().filter(|m| m.len() == 1).count(),
+        ..EclVerdict::default()
+    };
+    for (class, members) in r3.class_members.iter().enumerate() {
+        if members.len() < 2 {
+            continue;
+        }
+        verdict.classes_checked += 1;
+        let rep = members[0];
+        let (rep_offset, rep_law) = r3_law(carrier, r3, rep);
+        for &m in &members[1..] {
+            verdict.cond1_checks += 1;
+            verdict.cond2_checks += 1;
+            let (offset, law) = r3_law(carrier, r3, m);
+            let failure = if offset != rep_offset {
+                Some((
+                    "ECL preamble (chair correspondence)".to_string(),
+                    format!("actor offset from focal {rep_offset} against {offset}"),
+                ))
+            } else {
+                match (&rep_law, &law) {
+                    (R3Law::Focal(a), R3Law::Focal(b)) => focal_r3_failure(a, b),
+                    (R3Law::Field(a, la), R3Law::Field(b, lb)) => {
+                        field_r3_failure(a, b, la, lb)
+                    }
+                    _ => Some((
+                        "ECL actor type".to_string(),
+                        "one member is focal-to-act and the other is not".to_string(),
+                    )),
+                }
+            };
+            if let Some((condition, detail)) = failure {
+                verdict.failures.push(EclFailure {
+                    class,
+                    class_key: format!("{:032x}", r3.class_hash[class]),
+                    representative: carrier.states[rep].render(),
+                    member: carrier.states[m].render(),
+                    condition,
+                    detail,
+                });
+            }
+        }
+    }
+    verdict
+}
+
+fn render_tuple(t: &MoveTuple) -> String {
+    format!(
+        "(k={}e*, {:?}, succ {})",
+        t.increment,
+        t.class,
+        t.successor
+            .map_or("TERMINAL".to_string(), |c| format!("class#{c}"))
+    )
+}
+
+fn focal_r3_failure(a: &[MoveTuple], b: &[MoveTuple]) -> Option<(String, String)> {
+    if a.len() != b.len() {
+        return Some((
+            "ECL condition 1 (legality)".to_string(),
+            format!(
+                "|A(rep)| = {} but |A(member)| = {} — position matching is not a bijection",
+                a.len(),
+                b.len()
+            ),
+        ));
+    }
+    for (i, (x, y)) in a.iter().zip(b).enumerate() {
+        if x != y {
+            return Some((
+                "ECL condition 2 (commutation, Dirac)".to_string(),
+                format!(
+                    "abstract action {i}: rep {} against member {} (mass 1/1 each)",
+                    render_tuple(x),
+                    render_tuple(y)
+                ),
+            ));
+        }
+    }
+    None
+}
+
+fn field_r3_failure(
+    a: &[MoveTuple],
+    b: &[MoveTuple],
+    la: &BTreeMap<MoveTuple, Q>,
+    lb: &BTreeMap<MoveTuple, Q>,
+) -> Option<(String, String)> {
+    if a.len() != b.len() {
+        return Some((
+            "ECL condition 1 (hidden legality)".to_string(),
+            format!("|L(rep)| = {} but |L(member)| = {}", a.len(), b.len()),
+        ));
+    }
+    let mut keys: BTreeSet<&MoveTuple> = la.keys().collect();
+    keys.extend(lb.keys());
+    for key in keys {
+        let x = la.get(key).copied().unwrap_or_else(|| qi(0));
+        let y = lb.get(key).copied().unwrap_or_else(|| qi(0));
+        if x != y {
+            return Some((
+                "ECL condition 2 (joint law)".to_string(),
+                format!(
+                    "event {}: rep mass {} but member mass {} (exact rationals)",
+                    render_tuple(key),
+                    x,
+                    y
                 ),
             ));
         }

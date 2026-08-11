@@ -1,0 +1,47 @@
+walt situation census r3 — retrograde coarsest quotient under §12.6A — exploratory tier
+scope: pip-trump only — all 13 receipt trick-six kernels are pip-trump (v0.4 §14.7); doubles-trump and no-trump are excluded, since pooling them would implicitly claim cross-declaration-type transfer, which v0.4 §17.5 does not claim (F1 amendment)
+corpus: rob/receipts/verify_player.txt, hands 0-12, trick 6, viewer = that trick's leader = the focal seat; fibers 90 90 36 36 90 27 90 90 7 30 19 36 6 (asserted in-run)
+model: §12.6A per walt/CENSUS.md with the walt-math rulings of walt/CENSUS-RULINGS.md — carrier = world-level latent situations closed under primitive steps (F1, F5), bank is emission not state (F5 amendment), transports by canonicalization (F3), fixed uniform-legal field with exact rational mass 1/|L| per hidden play and Dirac focal actions (F4)
+determinism: no sampling, no caps, no seeds; the carrier is candidate-independent and every class with two or more members is checked under every candidate
+provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant module), exploratory tier, below every project evidentiary tier
+regenerate: cargo run --release -p walt-factory --example census_run r3
+
+construction: backward induction over the graded carrier by decreasing grade (grade = live tile count; every primitive play drops it by one, asserted at every step, so one pass closes — r3 ruling Q2). Terminal (hand end) is one class. SIGNATURE = preamble (grade, actor offset from focal 0-3) + the canonically ordered per-move tuples (count-free increment k, play classification in {lead, follow, slough}, successor r3-class); tile identity and led context are deliberately absent, transported per move (Q3). Transports are position matching through the canonical move order, never an arbitrary per-pair matching, so coherence is automatic (Q1b).
+determinism freezes (class counts are reproducible bit-for-bit only against these; Q5.3): (1) the content-addressed encoding — a class identity is the 128-bit FNV-1a hash (offset basis 0x6c62272e07bb014262b821756295c58d, prime 0x100000000000000000013b) of the signature bytes [tag 0x33, grade, actor offset, move count, then per move: k, classification code (lead 0, follow 1, slough 2), successor hash big-endian], so a class identity is a function of its future cone alone; the run asserts no two distinct signatures share a hash; (2) the canonical move order — sort by (k, classification, successor class hash), ties broken by the state's concrete tile order. Moves with identical tuples emit identical statistics, so the tie order never changes a law.
+
+CAVEAT (mandated, r3 ruling Q4): Classes are dynamics-equivalence classes under §12.6A on this carrier, uniform-legal field, count-free contract, per-step interface typing (r3 ruling Q3); they need not be closed under any tile relabeling and carry no structural description — the compact-description question (v0.4 §12.7) is separate and open. Coarsest is relative to that scope. Class identities are intrinsic to continuations; counts are carrier-relative; carrier growth adds classes, never splits existing ones. Exploratory tier. ECL holds by construction; see verification lines. These are not hidden-decision PI classes (v0.4 §12.4): the equivalence is dynamics, not response equality.
+
+carrier (candidate-independent): 15253 situations, 647 roots
+
+verification (every count below is quotable only with these two lines)
+  Q5.1 refinement assertion — every one of r1's 11949 classes lands inside exactly one r3 class: HOLDS
+  Q5.2 independent ECL re-check over the r3 partition with position-matching transports: PASS — 1013 classes checked, 13794 pairs under condition 1 and 13794 under condition 2, 0 counterexamples
+
+r3 pooled counts   [ECL re-check PASS required to quote — see above]
+  full carrier: 1459 classes over 15253 situations
+  roots only:   306 classes over 647 roots
+  singleton classes (ECL vacuous there): 446 of 1459; largest class 477 situations
+  cross-kernel merges: 285 classes (0 of them containing a root situation)
+  root merges: 132
+
+class DAG by grade — the pathfinding graph: distinct signatures at each grade (grade = live tiles; ply = 8 - grade)
+  grade 8 (ply 0, trick-6 lead (kernel roots)): 647 situations, 306 classes (132 non-singleton)
+  grade 7 (ply 1, trick-6 mid-trick): 1294 situations, 406 classes (245 non-singleton)
+  grade 6 (ply 2, trick-6 mid-trick): 2056 situations, 360 classes (284 non-singleton)
+  grade 5 (ply 3, trick-6 mid-trick): 3216 situations, 213 classes (182 non-singleton)
+  grade 4 (ply 4, trick-7 boundary (every seat holds one tile; play is forced)): 2010 situations, 63 classes (61 non-singleton)
+  grade 3 (ply 5, trick-7 mid-trick): 2010 situations, 63 classes (61 non-singleton)
+  grade 2 (ply 6, trick-7 mid-trick): 2010 situations, 32 classes (32 non-singleton)
+  grade 1 (ply 7, trick-7 mid-trick): 2010 situations, 16 classes (16 non-singleton)
+  grade 0 (hand end): 1 class by ruling (the terminal), hash 413adf2a69b988797bf8942a15a6f08d
+
+summary against the r1/r2 declared candidates (same carrier, same field, same count-free contract; r3 is the coarsest lawful quotient relative to the scope in the caveat above)
+candidate                              full   roots  singleton  cross-kernel  root-merges  t7-lead  ECL
+  c1 finest (r1 reference)              11949    647       9868           670            0     1275  PASS
+  c2 drop the double flag               11380    647       9384           828            0     1154  PASS
+  c3 drop beaten table-tile identities   9125    647       6549           571            0     1275  PASS
+  c2+c3 both coarsenings                 8659    647       6248           606            0     1154  PASS
+  r3 retrograde coarsest                 1459    306        446           285          132       63  PASS
+
+  t7-lead = classes at ply 4 (grade 4), the trick-7 lead stratum where every seat holds one tile and play is forced — the target alphabet for a backward walk. r3's row is that alphabet at its coarsest.
+
