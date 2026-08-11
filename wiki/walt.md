@@ -142,12 +142,30 @@ extrapolate far past any bar, which redirects the program to the bar's
 true object: the **seat-level census** (the seat's belief pushed forward
 onto world classes, v0.5 conclusion 1 — at trick-1 lead the raw seat
 space is the 1,184,040 possible hands, and order 10^5 up to equivalence
-is the plausible regime). All counts carrier-relative,
+is the plausible regime). **The railyard (S5g):** the retrograde pass is
+ONE grade-free routine — reproduced byte-identically at every level
+(P1); each real situation's live sub-DAG is exhaustively searchable
+(median 179 classes at trick 6, 16,782 at trick 5); classes are menus
+over a compact shared parts catalog (v2-open suffix library growth
+31.6× against class growth 368.6×, overlap ω = 1.000 on the clean
+step); the complete pip-trump level-one alphabet is exactly 64 classes
+over 21/57/129 parts. **The fiber-crush probe (S5h, three arms under
+binding rulings):** for evaluating a coordinate's fiber, ordinary
+transposition memoisation is the manyfold (6× at 4 tricks remaining
+growing to 100× at 6) while the class DAG runs ~5× slower than that
+control at first build at every rung — structurally: a class identity
+is a function of the future cone and cannot short-circuit descent, so
+the class store is a storage/transport object (reuse across
+coordinates, hands, weightings), never a first-build accelerator; and
+cold treatment H — the seat's actual pooled solve — completes on full
+34,650-world four-trick fibers in 7–17 s. All counts carrier-relative,
 dynamics-equivalence, exploratory; the compact-description question
 (§12.7), the seat-level construction, and role re-entry are the open
 rungs. Numbers and caveats:
-`walt/walt-factory/results/census_2026-08-10{,_r2,_r3}.txt` and
-`census_t5_2026-08-10.txt`. Counterexample-guided synthesis
+`walt/walt-factory/results/census_2026-08-10{,_r2,_r3}.txt`,
+`census_t5_2026-08-10.txt`, `census_yard_2026-08-10.txt`,
+`census_yard_v2_2026-08-10.txt`, `census_a1_complete_2026-08-11.txt`,
+and `fiber_probe_2026-08-11{,_h}.txt`. Counterexample-guided synthesis
 per v0.4 §12.9, Scheme/Fix as the descriptor language per §12.7, carrier
 chosen per §11.2. Standing **no-rescue policy** (2026-08-10): a failure is
 a counterexample to carry back to the math, never a thing to engineer
