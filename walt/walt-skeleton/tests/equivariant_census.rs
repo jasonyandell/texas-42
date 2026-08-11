@@ -9,8 +9,8 @@ use walt_core::receipt::{locate_verify_player, parse_file, Receipt};
 use walt_core::{Decl, Domino, DominoSet, Pip, Seat};
 use walt_kernel::Kernel;
 use walt_skeleton::equivariant::{
-    build_carrier, build_r3, canonicalize, check_ecl, check_ecl_r3, closure_carrier, identity_key,
-    r1_refines_r3, CandidateSpec, Census, Law, Situation,
+    build_carrier, build_r3, canonicalize, check_ecl, check_ecl_r3, class_dag, closure_carrier,
+    identity_key, r1_refines_r3, CandidateSpec, Census, Law, Situation,
 };
 
 /// r1's descriptor: every test below that does not name a candidate is a
@@ -428,6 +428,40 @@ fn the_t5_rung_runs_the_whole_pipeline_on_the_smallest_kernel() {
     // Q5.1 at this rung too: r1's finest candidate must still refine r3.
     let census = Census::build(build_carrier(&[(8, kernel_t5(&r, 8))]), FINEST);
     assert!(r1_refines_r3(&census, &r3).is_empty());
+}
+
+#[test]
+fn the_live_sub_dag_of_the_smallest_kernel_is_pinned() {
+    // The pruning probe: the seat facing one actual kernel searches only the
+    // classes reachable from its fiber's root classes. Support pruning only --
+    // no belief weight is applied, and belief can only concentrate this
+    // further, never widen it.
+    let r = receipt();
+    let kernels: Vec<(usize, Kernel)> = (0..13).map(|h| (h, kernel_at(&r, h))).collect();
+    let carrier = build_carrier(&kernels);
+    let r3 = build_r3(&carrier);
+    let dag = class_dag(&r3);
+    assert_eq!(r3.class_members.len(), 1459, "the pooled trick-six rung");
+    // h12, the smallest trick-six fiber.
+    let slot = 12;
+    let roots: Vec<usize> = (0..carrier.len())
+        .filter(|i| carrier.is_root[*i] && (carrier.provenance[*i] & (1u32 << slot)) != 0)
+        .collect();
+    assert_eq!(roots.len(), 6, "the pinned h12 fiber size");
+    let root_classes: Vec<usize> = {
+        let set: std::collections::BTreeSet<usize> =
+            roots.iter().map(|i| r3.class_of[*i]).collect();
+        set.into_iter().collect()
+    };
+    // Pinned computed values -- exploratory tier, never axioms (TRUST-01).
+    assert_eq!(root_classes.len(), 3, "six worlds, three root classes");
+    let live = dag.reachable(&root_classes);
+    assert_eq!(live.len(), 39);
+    assert_eq!(dag.edges(&live), (42, 3));
+    assert!(
+        live.len() < r3.class_members.len(),
+        "pruning to one kernel must not reach the whole rung"
+    );
 }
 
 fn kernel_t5(r: &Receipt, hand: usize) -> Kernel {

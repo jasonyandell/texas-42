@@ -1433,6 +1433,79 @@ pub fn build_r3(carrier: &Carrier) -> R3 {
     r3
 }
 
+/// The class-level transition graph of an r3 quotient: the object a seat could
+/// actually search. A class's successors are well defined — (ECL) makes every
+/// member of a class emit the same multiset of `(k, classification, successor
+/// class)` tuples — and [`class_dag`] asserts that agreement rather than
+/// assuming it.
+pub struct ClassDag {
+    /// Per class, its distinct successor classes, ascending.
+    pub successors: Vec<Vec<usize>>,
+    /// Per class, whether some move ends the hand.
+    pub terminal: Vec<bool>,
+}
+
+impl ClassDag {
+    /// Every class reachable from `seeds`, seeds included.
+    pub fn reachable(&self, seeds: &[usize]) -> BTreeSet<usize> {
+        let mut seen: BTreeSet<usize> = seeds.iter().copied().collect();
+        let mut stack: Vec<usize> = seeds.to_vec();
+        while let Some(c) = stack.pop() {
+            for s in &self.successors[c] {
+                if seen.insert(*s) {
+                    stack.push(*s);
+                }
+            }
+        }
+        seen
+    }
+
+    /// Class-level edges inside a set of classes, hand-end edges counted
+    /// separately.
+    pub fn edges(&self, live: &BTreeSet<usize>) -> (usize, usize) {
+        let mut edges = 0;
+        let mut ends = 0;
+        for c in live {
+            edges += self.successors[*c].len();
+            if self.terminal[*c] {
+                ends += 1;
+            }
+        }
+        (edges, ends)
+    }
+}
+
+/// Builds the class-level transition graph, asserting the successor structure
+/// is a function of the class and not of the representative.
+pub fn class_dag(r3: &R3) -> ClassDag {
+    let mut dag = ClassDag {
+        successors: vec![Vec::new(); r3.class_members.len()],
+        terminal: vec![false; r3.class_members.len()],
+    };
+    for (c, members) in r3.class_members.iter().enumerate() {
+        let of = |i: usize| -> Vec<Option<usize>> {
+            let mut out: Vec<Option<usize>> = r3.tuples[i].iter().map(|t| t.successor).collect();
+            out.sort();
+            out
+        };
+        let reference = of(members[0]);
+        for m in &members[1..] {
+            assert_eq!(
+                reference,
+                of(*m),
+                "a class's successor structure is a function of the class (ECL), not of the \
+                 representative"
+            );
+        }
+        let mut successors: Vec<usize> = reference.iter().filter_map(|s| *s).collect();
+        successors.sort_unstable();
+        successors.dedup();
+        dag.terminal[c] = reference.iter().any(Option::is_none);
+        dag.successors[c] = successors;
+    }
+    dag
+}
+
 /// A violation of the mandatory refinement assertion (Q5.1): two situations
 /// one r1 class holds that r3 separates. Its existence means an implementation
 /// bug or a math error in the ruling — stop and report, never patch.

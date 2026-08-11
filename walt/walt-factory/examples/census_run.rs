@@ -19,8 +19,8 @@ use std::path::Path;
 
 use walt_core::receipt::{locate_verify_player, parse_file, Receipt};
 use walt_skeleton::equivariant::{
-    build_carrier, build_r3, check_ecl, check_ecl_r3, grade, r1_refines_r3, trick_six_kernels,
-    CandidateSpec, Census, EclVerdict,
+    build_carrier, build_r3, check_ecl, check_ecl_r3, class_dag, grade, r1_refines_r3,
+    trick_six_kernels, CandidateSpec, Census, EclVerdict,
 };
 
 /// The pinned trick-six fiber sizes of the receipt corpus, asserted so the
@@ -62,6 +62,10 @@ fn main() {
         }
         Some("t5") => {
             run_t5(&r);
+            return;
+        }
+        Some("prune") => {
+            run_prune(&r);
             return;
         }
         _ => {}
@@ -834,6 +838,210 @@ fn run_t5(r: &Receipt) {
          this is a bug or a math error, not something to patch",
         violations.len()
     );
+}
+
+/// Round 5: the pruning probe. A reporting pass over the already-verified r3
+/// objects — the state-to-class map and the class-level transitions — with no
+/// new construction: for each kernel separately (the seat's one actual
+/// situation), project its fiber onto classes and walk the live sub-DAG.
+fn run_prune(r: &Receipt) {
+    let mut out = String::new();
+    out.push_str("walt situation census — the pruned live sub-DAG per kernel — exploratory tier\n");
+    let _ = write!(
+        out,
+        "scope: pip-trump only (v0.4 §14.7, asserted in-run); corpus rob/receipts/verify_player.txt, \
+         hands 0-12\n\
+         construction: NO new construction. This pass restricts and counts the already-verified r3 \
+         objects of walt/CENSUS-RULINGS.md section r3 — the state-to-class map from the backward \
+         pass and the class-level transitions. A class's successors are well defined because (ECL) \
+         makes every member emit the same multiset of (k, classification, successor class) tuples; \
+         the run ASSERTS that agreement class by class rather than assuming it, so the class DAG is \
+         checked, not trusted. The r3 partition itself carries its own Q5.1 refinement receipt and \
+         Q5.2 independent ECL re-check from the runs that built it (results/census_2026-08-10_r3.txt \
+         and results/census_t5_2026-08-10.txt) — a count here is quotable only with those verdicts.\n\
+         determinism: no sampling, no caps, no seeds; the same determinism freezes as the r3 run \
+         (content-addressed 128-bit FNV-1a signature encoding; canonical move order sorted by (k, \
+         classification, successor class hash) with concrete tile order as the tie rule)\n\
+         provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant \
+         module), exploratory tier, below every project evidentiary tier\n\
+         regenerate: cargo run --release -p walt-factory --example census_run prune\n\n"
+    );
+    out.push_str(
+        "CAVEAT (mandated, r3 ruling Q4): Classes are dynamics-equivalence classes under §12.6A on \
+         this carrier, uniform-legal field, count-free contract, per-step interface typing (r3 \
+         ruling Q3); they need not be closed under any tile relabeling and carry no structural \
+         description — the compact-description question (v0.4 §12.7) is separate and open. \
+         Coarsest is relative to that scope. Class identities are intrinsic to continuations; \
+         counts are carrier-relative; carrier growth adds classes, never splits existing ones. \
+         Exploratory tier. ECL holds by construction; see the verification lines in the r3 and t5 \
+         results files. These are not hidden-decision PI classes (v0.4 §12.4).\n\n\
+         PRUNING IS SUPPORT PRUNING ONLY: the fiber is the seat's set of POSSIBLE worlds under the \
+         kernel (v0.4 §2.1), so the live sub-DAG below is what the rule support alone leaves \
+         standing. No belief weight is applied anywhere in this pass. Belief comes later and can \
+         only concentrate the live set further, never widen it — support >= belief support always \
+         (support is not belief: the two are typed distinctions, never blurred).\n\n",
+    );
+
+    prune_rung(&mut out, r, 6, "trick-six");
+    prune_rung(&mut out, r, 5, "trick-five");
+
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("results/census_pruned_2026-08-10.txt");
+    std::fs::create_dir_all(path.parent().expect("results dir")).expect("results dir");
+    std::fs::write(&path, out).expect("write results");
+    eprintln!("wrote results/census_pruned_2026-08-10.txt");
+}
+
+/// One rung of the pruning probe: build the pooled carrier and its r3, then
+/// restrict to each kernel in turn.
+fn prune_rung(out: &mut String, r: &Receipt, trick: usize, name: &str) {
+    let kernels: Vec<(usize, walt_kernel::Kernel)> = (0..r.hands.len())
+        .map(|h| {
+            (
+                h,
+                walt_kernel::Kernel::from_receipt_trick(&r.hands[h], trick)
+                    .expect("a valid kernel"),
+            )
+        })
+        .collect();
+    let carrier = build_carrier(&kernels);
+    let r3 = build_r3(&carrier);
+    let dag = class_dag(&r3);
+    let root_grade = if trick == 5 { 12 } else { 8 };
+    eprintln!(
+        "{name}: {} situations, {} classes, class DAG well-definedness asserted",
+        carrier.len(),
+        r3.class_members.len()
+    );
+
+    let global_grade: Vec<usize> = (0..=root_grade)
+        .map(|g| {
+            (0..carrier.len())
+                .filter(|i| grade(&carrier.states[*i]) == g)
+                .map(|i| r3.class_of[i])
+                .collect::<std::collections::BTreeSet<usize>>()
+                .len()
+        })
+        .collect();
+
+    let _ = writeln!(
+        out,
+        "================ {name} rung ================\n\
+         global objects: {} situations, {} r3 classes, {} class-level edges, {} classes with a \
+         hand-end move",
+        carrier.len(),
+        r3.class_members.len(),
+        dag.edges(&(0..r3.class_members.len()).collect()).0,
+        dag.edges(&(0..r3.class_members.len()).collect()).1
+    );
+
+    let mut rows: Vec<[usize; 6]> = Vec::new();
+    let mut union_live: std::collections::BTreeSet<usize> = std::collections::BTreeSet::new();
+    for (slot, (h, kernel)) in kernels.iter().enumerate() {
+        let bit = 1u32 << slot;
+        let roots: Vec<usize> = (0..carrier.len())
+            .filter(|i| carrier.is_root[*i] && (carrier.provenance[*i] & bit) != 0)
+            .collect();
+        let raw_states = (0..carrier.len())
+            .filter(|i| (carrier.provenance[*i] & bit) != 0)
+            .count();
+        let root_classes: Vec<usize> = {
+            let set: std::collections::BTreeSet<usize> =
+                roots.iter().map(|i| r3.class_of[*i]).collect();
+            set.into_iter().collect()
+        };
+        let live = dag.reachable(&root_classes);
+        let (edges, ends) = dag.edges(&live);
+        union_live.extend(live.iter().copied());
+
+        let _ = writeln!(
+            out,
+            "\nkernel h{h} (fiber {} worlds, {} raw situations reachable)",
+            kernel.count(),
+            raw_states
+        );
+        let _ = writeln!(
+            out,
+            "  root ambiguity in class coordinates: {} distinct r3 classes over {} fiber worlds",
+            root_classes.len(),
+            roots.len()
+        );
+        let _ = writeln!(
+            out,
+            "  live sub-DAG: {} classes, {edges} class-level edges, {ends} classes with a hand-end \
+             move — against {} classes globally at this rung",
+            live.len(),
+            r3.class_members.len()
+        );
+        out.push_str("  live classes by grade (live / global at that grade):\n    ");
+        let mut parts: Vec<String> = Vec::new();
+        for g in (1..=root_grade).rev() {
+            let n = live.iter().filter(|c| r3.class_grade[**c] == g).count();
+            if n == 0 && global_grade[g] == 0 {
+                continue;
+            }
+            parts.push(format!("g{g}: {n}/{}", global_grade[g]));
+        }
+        let _ = writeln!(out, "{}", parts.join("  "));
+        rows.push([
+            *h,
+            kernel.count() as usize,
+            root_classes.len(),
+            live.len(),
+            edges,
+            raw_states,
+        ]);
+    }
+
+    let _ = writeln!(
+        out,
+        "\nsummary — {name} rung (one row per kernel: the seat's one actual situation)\n  \
+         hand   fiber  root-classes  live-nodes  live-edges  raw-situations  raw:live"
+    );
+    for row in &rows {
+        let _ = writeln!(
+            out,
+            "  h{:<5} {:>5} {:>13} {:>11} {:>11} {:>15}  {}",
+            row[0],
+            row[1],
+            row[2],
+            row[3],
+            row[4],
+            row[5],
+            ratio(row[5], row[3])
+        );
+    }
+    let total_raw: usize = rows.iter().map(|r| r[5]).sum();
+    let total_live: usize = rows.iter().map(|r| r[3]).sum();
+    let _ = writeln!(
+        out,
+        "  {:<6} {:>5} {:>13} {:>11} {:>11} {:>15}  {}",
+        "median",
+        median(&rows.iter().map(|r| r[1]).collect::<Vec<_>>()),
+        median(&rows.iter().map(|r| r[2]).collect::<Vec<_>>()),
+        median(&rows.iter().map(|r| r[3]).collect::<Vec<_>>()),
+        median(&rows.iter().map(|r| r[4]).collect::<Vec<_>>()),
+        median(&rows.iter().map(|r| r[5]).collect::<Vec<_>>()),
+        ratio(
+            median(&rows.iter().map(|r| r[5]).collect::<Vec<_>>()),
+            median(&rows.iter().map(|r| r[3]).collect::<Vec<_>>())
+        )
+    );
+    let _ = writeln!(
+        out,
+        "\n  raw:live is raw situations reachable from the kernel against live sub-DAG classes — \
+         the compression a seat facing THIS kernel actually sees. Summed over the 13 kernels: \
+         {total_raw} raw situations against {total_live} live classes (kernels overlap in class \
+         space, so the sum double-counts shared classes; the union of all 13 live sub-DAGs is {} \
+         of the rung's {} classes).\n",
+        union_live.len(),
+        r3.class_members.len()
+    );
+}
+
+fn median(values: &[usize]) -> usize {
+    let mut v = values.to_vec();
+    v.sort_unstable();
+    v[v.len() / 2]
 }
 
 /// The saturation curve of a run's root stratum: cumulative distinct classes
