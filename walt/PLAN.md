@@ -288,6 +288,20 @@ evolved this project's own receipt/TRUST-01 discipline.
   the seat-level census remains the bar's object; §12.7 descriptions
   now naturally target the PARTS catalog (small) rather than raw
   classes.
+  **Architecture note (Jason, 2026-08-11, small hours) — the seat as a
+  fold with adapters:** the chassis shape is
+  f(x ∘ f(y ∘ f(z ∘ …))) — an indexed fold (catamorphism) over the
+  yard functor with a per-level adapter list, continuation-passing
+  style (each level holds and may wrap the rest of the descent);
+  "modify f as you go" = prepromorphism. The adapters are the
+  seat-facing concerns, injected per level without touching the proven
+  machine: prune (support restriction — the forward arrow, injected
+  during the descent), believe (pushed-belief weighting, v0.5
+  conclusion 1), value (role re-entry at the chosen level, 12.6A
+  gauge), refine (declared subclassing where a counterexample demands).
+  One frozen lawful f; everything else is declared, per-level,
+  inspectable adapters. Native vocabulary in Lean (indexed functors,
+  dependent folds); monomorphized shadow in Rust.
   Method unchanged: §12.9 counterexample-guided; every construction
   walt-math-adjudicated before build. Repair loop when the math itself
   needs work: counterexample in hand → exchange dispatch to 5.6 Pro —
