@@ -1260,3 +1260,448 @@ F7/NO-RESCUE both-outcomes framing are confirmed.
 probe produces: it is a theorem about count-free values under structural
 relabeling, and it is the first thing in this file that licenses a lookup
 without any descent at all.
+
+## Seat-census rulings (S-Q1..S-Q6) — 2026-08-11
+
+**Adjudicator:** walt-math. **Tier:** exploratory throughout; this section is a
+CENSUS adjudication — counts only, no values, no composition. **Basis:** v0.5
+§12.6A and its BOUNDARY; v0.4 §1.2–1.5, §2.1–2.6, §5.5, §6.1, §6.8, §10.9,
+§11.7, §12.4, §14.7, §17.5. F1–F7, r3 Q1–Q5, Y1–Y3, shape v2, P-A1..P-A21,
+X-A1..X-A19, E-A1..E-A21 and Lemmas V, X, E are inherited unchanged. Amendments
+are numbered S-A1.. and are builder obligations; a run that omits one is not the
+adjudicated census.
+
+**Headline of this section, stated first because everything else follows from
+it.** A seat-side analogue of Lemma E exists and is proved below (Lemma S). It
+is sound, it says exactly what the design hoped, and it is *empty as a
+compression mechanism at the first play*: the pip-trump relational structure on
+the full 28-tile live set admits no nontrivial self-transport (Corollary
+S-rigid), and the seat rotation group is trivial because focal is fixed. The
+only symmetry available seat-side at trick 1 is an exact 7:1 fold of the seven
+pip declarations (Lemma S-fold). Hence
+
+  COUNT 1 = C(28,7) = 1,184,040,
+
+which is not a measurement but a theorem, and it misses the 10^5 bar by
+29601/2500 ≈ 11.84×. COUNT 2's interface alphabet is likewise the raw trick-1
+record space. This is the finding, and it is a proved negative in F7's sense —
+not a defect of the construction and not a reason to re-cut the invariant list.
+
+### The typing that governs this section
+
+Three cardinalities the design's language risks fusing, all of them live here
+(E-A8's lesson, stated in the seat's terms):
+
+- **the raw seat space** — hands: C(28,7) per declaration;
+- **the form count** — hands up to seat-side structural transport (Lemma S).
+  This is what COUNT 1 measures;
+- **any coarser censal class count** — e.g. an r3-style dynamics quotient of the
+  seat's abstract problem, or a value partition. Nothing below computes one, and
+  no number below may be presented as one.
+
+At the last trick these three numbers were 55,036,800 / 32,532 / 64 (a1 file,
+`endgame_floor_2026-08-11.txt`, E-A8). At the first play the first two coincide
+and the third is not computed. A results file that lets a reader carry the
+last-trick intuition ("a census produces a small alphabet") into the first-play
+row is misreporting, and S-A19 fixes the sentence that prevents it.
+
+### Lemma S (seat-side structural transport) — the seat analogue of Lemma E
+
+*Setup.* Fix pip-trump declarations δ, δ′. A **first-play seat situation** is
+x = (δ, H) with |H| = 7, focal = the declaring seat = the leader (P-A4), pool
+U = 𝒟 ∖ H, and the capacity-cell system **C**_x = (U; P_s = U, k_s = 7) for the
+three hidden offsets (§2.1). A **seat transport** φ : 𝒟 → 𝒟 from x = (δ,H) to
+y = (δ′,H′) is a bijection with φ(H) = H′ carrying the δ-structure to the
+δ′-structure, i.e. inducing a context bijection π (with π(7) = 7) such that φ
+preserves: trump membership (φ(κ_δ) = κ_{δ′}); follow membership
+(d ∈ σ̂_q^δ ⟺ φ(d) ∈ σ̂_{π(q)}^{δ′}); the led-context map on **every** live
+tile (π(ℓ_δ(d)) = ℓ_{δ′}(φ(d))); the double flag; and the winner-determining
+order in every context (S-A2). The seat rotation is the identity (focal↔focal
+with focal fixed; rotations by 1,2,3 move focal, and reflection is forbidden by
+§11.7 and F2 A4).
+
+*Statement.* If a seat transport φ from x to y exists, then:
+
+1. φ(U) = U′, and ω ↦ φ∘ω is a bijection Φ(**C**_x) → Φ(**C**_y) of the seats'
+   fibers carrying the capacity-cell system to the capacity-cell system (§2.1)
+   and the exact support normal form to the exact support normal form (§2.2);
+2. for every ω ∈ Φ(**C**_x), the concrete situations x ⊕ ω and y ⊕ φ(ω) satisfy
+   Lemma E's hypothesis; hence the remaining extensive games are isomorphic,
+   carrying legal actions to legal actions, count-free increments to
+   increments, focal to focal, and v0.4 §6.1 observation tokens to tokens
+   componentwise (actor offset by identity, tile by φ, classification
+   literally);
+3. therefore every **count-free censal question** about the seat-facing
+   situation has the same answer at x and at y: the number of legal leads; the
+   set of realizable trick-1 play records and its size; the induced map records
+   → landings and hence the set of realized landing forms with multiplicities;
+   the void structure induced at every landing; and, for any
+   isomorphism-invariant operator (E-A3), the per-world count-free values and
+   any aggregate of them under a φ-transported weighting;
+4. **not preserved, and never to be claimed:** any count-bearing quantity — φ
+   does not preserve the count decoration c of §1.4, so **E-A2 applies verbatim
+   to every seat-side form**; and any belief-relative quantity whose belief is
+   not itself transported by φ (§2.4, §2.5: support ≠ belief). The uniform-legal
+   field of F4 is transported; an arbitrary β is not.
+
+*Proof.* (1) φ is a bijection of 𝒟 with φ(H) = H′, so φ(𝒟∖H) = 𝒟∖H′; at the
+first play P_s = U and k_s = 7 at both, so φ carries **C**_x to **C**_y, and the
+normal form is a function of the decoded fiber (§2.2), hence transports. (2)
+Every datum in Lemma E's preserved list is in φ's preservation list: holders by
+relative seat (identity rotation; focal↦focal; pool↦pool by (1) and the fiber
+map), the trump/non-trump context split, follow membership, ℓ, the comparison
+order, and the double flags; at a trick boundary there are no unresolved-trick
+tiles, so F2 A1's extension is inert (P-Q1). Legality reads follow membership
+and ℓ (§1.2, §1.5); the trick winner is the maximum trick key under the led
+context (§1.3), which is always attained at tier ≥ 1 because the lead itself has
+tier ≥ 1, so the winner-determining order suffices (S-A2); the next leader is
+the winner; the count-free increment is e⋆ iff the winner sits in the focal
+partnership, preserved by focal↦focal under the identity rotation; the hand ends
+when live tiles are exhausted (§1.5). Lemma E then applies pointwise. (3)
+Immediate from (2) and (1). (4) c is not among the preserved data; β is an
+independent datum by §2.4. ∎
+
+### Corollary S-rigid (the first-play transport group is trivial)
+
+*Statement.* For every pip-trump δ, the group of seat transports from (δ,H) to
+itself, and more generally the group of self-transports of the δ-structure on
+the full 28-tile live set, is trivial. Consequently the seat-side hand form at
+the first play **is the hand**, and the seat-side structural quotient at the
+first play is the identity quotient.
+
+*Proof.* Let φ be a self-transport with induced context bijection π; π(7) = 7
+since φ(κ_δ) = κ_δ. (i) For non-trump d = q:r, ℓ_δ(d) = max(q,r), so
+π(max(q,r)) = max(π(q),π(r)) for all q,r ∈ ℙ∖{δ}. A bijection of a finite chain
+commuting with max is order-preserving (a ≤ b ⟹ π(b) = max(π(a),π(b)) ≥ π(a)),
+and an order-preserving bijection of a finite chain is the identity; so
+π|_{ℙ∖{δ}} = id. (ii) φ is then the identity on non-trumps: a non-trump mixed
+tile q:r is the unique member of σ̂_q ∩ σ̂_r and a non-trump double q:q the
+unique double in σ̂_q, and both memberships and the double flag are preserved,
+so φ(q:r) = π(q):π(r) = q:r. (iii) φ permutes κ_δ preserving the order in
+context 7, which on κ_δ is a strict total order (δ:δ top, then δ:r by r
+descending, all distinct), so φ|_{κ_δ} = id. Hence φ = id. ∎
+
+Note (i) and (iii) are independent routes: the led-context map alone pins the
+non-trumps, and the trump ranking alone pins the trumps. Dropping either from
+the invariant list does not rescue compression; it only makes the form unsound.
+
+**Why the last trick compresses and the first play does not.** Structural
+compression in this project has always been bought with *deadness*: at level 1,
+twenty-four tiles are dead, most contexts are inert and erased (F2 A3), and the
+surviving relations are so sparse that 55,036,800 situations carry only 32,532
+forms and 64 classes. At the first play nothing is dead, no context is inert,
+and the full structure is rigid. Corollary S-rigid is the precise statement of
+that contrast, and it is what the design's premise did not anticipate.
+
+### Lemma S-fold (the seven pip declarations fold exactly 7:1)
+
+*Statement.* For pip trumps p, p′ let π_{p→p′} : ℙ → ℙ be π(p) = p′ together
+with the unique order isomorphism ℙ∖{p} → ℙ∖{p′}, and let
+φ_{p→p′}(a:b) = π(a):π(b). Then φ_{p→p′} is a seat transport from the δ=p
+structure to the δ=p′ structure; it is the unique one; and
+φ_{p′→p″} ∘ φ_{p→p′} = φ_{p→p″}. Hence the declaration orbits have exactly
+seven members each and
+
+  COUNT 1 = C(28,7) = 1,184,040 folded, = 8,288,280 / 7 unfolded.
+
+*Proof.* Preservation: σ_p ↦ σ_{p′}; σ̂_q^p = {q:r : r ≠ p} ↦ {π(q):s : s ≠ p′}
+= σ̂_{π(q)}^{p′}; ℓ is preserved because π|_{ℙ∖{p}} is order-preserving and
+trumps lead context 7 at both; doubles ↦ doubles; and the winner-determining
+order is preserved because within context 7 trumps are ordered by the other pip
+with p:p top, within a natural context q the members are q:q (top) then q:r
+ordered by r, tiers are functions of trump and follow membership, and the tier-0
+bottom class maps to the tier-0 bottom class. Uniqueness follows from Corollary
+S-rigid applied to φ_{p→p′}^{-1} ∘ ψ for any other transport ψ. Composition:
+both sides are the unique order isomorphism ℙ∖{p} → ℙ∖{p″} extended by
+p ↦ p″. ∎
+
+*The fold depends on S-A2 and the dependence is exact.* Under the **literal**
+reading of §1.3, in which tier-0 tiles are ordered among themselves by
+r_δ = pip sum, the fold collapses to the single pair δ=0 ↔ δ=6 (there
+π shifts every pip by one, so every non-trump pip sum shifts by exactly two and
+the order survives) and nothing else: under δ=0 the tiles 4:1 and 3:2 have equal
+trick keys in context 6, while their images 4:0 and 2:1 under φ_{0→3} have keys
+4 and 3. Under the literal reading the declaration orbits are {0,6} and five
+singletons, giving COUNT 1 = 6 × 1,184,040 = 7,104,240. **The bar's answer is
+insensitive to this choice** (both 1,184,040 and 7,104,240 are far above 10^5),
+and S-A2 requires the run to print which reading it froze and what the other
+would have given.
+
+*Adjudication-time verification.* Corollary S-rigid and Lemma S-fold were
+checked exhaustively over all 5,040 pip permutations for all 49 ordered
+declaration pairs under both readings; the counts came out 1 self-transport per
+declaration under both readings, 49 cross-declaration transports (exactly one
+per ordered pair) under the operative reading, and 9 under the literal reading.
+That check is a check of the proofs, not their authority, and it is exploratory
+tier; the proofs above stand on their own and S-A7 makes the builder reproduce
+the group computation in-run.
+
+### S-Q1 — the seat-side hand form. RULING: ACCEPT-WITH-AMENDMENT. The object and Lemma S stand; the proposed invariant list is INCOMPLETE and would produce a spuriously small COUNT 1; the compression premise is disproved by Corollary S-rigid.
+
+The design's list — "trump membership, within-hand and hand-vs-pool beats
+relations per context, the led-context map on my tiles, double flags" — has five
+gaps, and the first two are unsound rather than merely incomplete:
+
+- **(g1) pool-vs-pool comparisons are missing.** After the seat leads, the three
+  hidden replies are pool tiles compared *against each other* to determine the
+  winner (§1.3). Lemma E's list is over all live tiles, not over the seat's
+  tiles. A form omitting pool-vs-pool merges hands facing non-isomorphic games,
+  and Lemma S's conclusion is then simply false for the merged pairs.
+- **(g2) the led-context map is restricted to "my tiles."** F2 A2 requires
+  Θ^C(ℓ(d)) = ℓ(Θ^D(d)) for **every** live tile; a context bijection consistent
+  with the recorded relations can otherwise swap a pool mixed tile's led context
+  and the dynamics diverge.
+- **(g3) follow membership for pool tiles is unstated** (it governs their
+  legality and their tier, §1.2–1.3).
+- **(g4) the capacity-cell system is unstated.** Inert at the first play
+  (P_s = U, k_s = 7) but mandatory at the landing.
+- **(g5) the comparison reading is unstated** — and per Lemma S-fold it decides
+  the fold factor.
+
+These gaps have teeth for the headline: a run implementing the list as written
+would report a COUNT 1 far below 1,184,040 and could appear to clear the 10^5
+bar. It would be clearing it by merging hands that face different games.
+
+- **S-A1 (the form, exactly).** The seat-side hand form of (δ, H) is the
+  canonical form of the **whole δ-relational structure on the live tile set with
+  H distinguished**, under the holder sort {focal, pool}: trump membership; the
+  effective context family and follow membership for **every** live tile; the
+  led-context map ℓ on **every** live tile; the double flag; the comparison
+  order of S-A2 in every live context; and the capacity-cell system of S-A3.
+  Equivalently and preferably as the implementation's specification: the form is
+  the orbit of H under the group of seat transports of Lemma S. No relation in
+  Lemma E's amended F2 list may be dropped on the ground that the seat cannot
+  observe it — the seat's *structural situation* includes relations among tiles
+  it does not hold.
+- **S-A2 (the comparison invariant, declared).** The form records the
+  **winner-determining order**: per live context q, the strict order on
+  tier-2 ∪ tier-1 tiles, with all tier-0 tiles collapsed into a single bottom
+  class. This is sound for Lemma S because the maximum trick key is always
+  attained at tier ≥ 1 (the lead has tier ≥ 1), so no rule ever reads the mutual
+  order of tier-0 tiles. It is a DECLARED CHOICE (freeze 18), it is what
+  licenses Lemma S-fold, and the results file prints both it and the literal
+  reading's COUNT 1 (7,104,240) beside the frozen one.
+- **S-A3 (the support side of the form).** The form carries the capacity-cell
+  system **C** and, where it is nontrivial, the exact support normal form
+  N = 𝒩(**C**) (§2.1–2.2) — not merely the pool as a set. At the first play this
+  is (P_s = U, k_s = 7) for all three hidden offsets and carries no information;
+  at the landing it is the whole observation content (S-A12) and is mandatory.
+- **S-A4 (the first play really is observation-free, and that is a statement
+  needing a sentence, not silence).** At the first play Φ(**C**) = Φ(**C**₀)
+  exactly — there are no plays, hence no rule-derived exclusions, so P-A1's
+  void-free scope restriction is **inert here by computation, not waived**, and
+  the fiber is 21!/(7!)³ = 399,072,960. The results file states: "The bidding
+  prefix lies outside the modelled finite-hand game (§1.5 BOUNDARY) and is
+  treated as support-inert: a pass is legal for every hand, so no hand is
+  excluded from any hidden seat. Any bid-derived restriction is belief (§2.4),
+  never support, and none is used here." Without this sentence "nothing has been
+  observed" is an unstated assumption.
+
+**S-Q1b (folding the seven pip declarations): ACCEPT, as Lemma S-fold, exactly
+7:1 and conditional on S-A2.** This is the cross-pip pooling F1 already declared
+lawful, now with its transport exhibited and proved unique. Doubles-trump and
+no-trump remain OUT OF DECLARED SCOPE (F1; v0.4 §14.7, §17.5) and the fold says
+nothing about them — π_{p→p′} is defined only between pip declarations.
+
+- **S-A5 (print both).** The results file prints the unfolded per-declaration
+  count, the folded count, and the fold factor, and asserts in-run that
+  φ_{p→p′} carries the δ=p form set bijectively onto the δ=p′ form set for all
+  49 ordered pairs. Reporting only the folded number hides which symmetry was
+  used.
+
+**S-Q1c (machinery reuse): ACCEPT reuse, under one code path, with the holder
+sort made a parameter — not a new implementation and not a second normal form.**
+A seat situation is *not* a degenerate world: its holder function is two-valued
+({focal, pool}) where the world's is four-valued, so the seat form is the
+world form's **holder-coarsening**, obtained by merging the three hidden holders
+before canonicalisation, never by post-processing a world form.
+
+- **S-A6 (one code path, seat side).** E-A5 restated: the world canonicaliser
+  and the seat canonicaliser are ONE function parameterised by a declared holder
+  sort. Two implementations of a normal form is the classic way to make a store
+  silently wrong and no receipt short of full re-expansion catches it.
+- **S-A7 (the receipts that replace the absent measurement).** Because COUNT 1
+  is a theorem, its enumeration is a **receipt**, and the run asserts: (i) the
+  seat transport group at the first play is trivial, recomputed in-run by the
+  same exhaustive check described above; (ii) distinct forms per declaration =
+  1,184,040 = C(28,7); (iii) folded forms = 1,184,040 with all 49 pairwise fold
+  bijections verified; (iv) world-form equality implies seat-form equality on a
+  declared deterministic sample (merging holders is a coarsening, so this is a
+  theorem and a genuine cross-check between the two instantiations of S-A6).
+  Any failure is stop-and-report per NO-RESCUE — it is an implementation defect
+  or an error in Corollary S-rigid, never a new class count.
+- **S-A8 (the r1 reading diagnostic, cheap and necessary-not-sufficient).**
+  Re-run the E-A7 floor build split by declaration and print the seven
+  per-declaration distinct-r1-form counts. Under S-A2's reading Lemma S-fold
+  forces all seven form sets to be equal, hence each equal to the union, 32,532.
+  If they differ, r1's implemented comparison is declaration-rigid and the seat
+  census must not inherit it implicitly. Level 1 erases most relations, so
+  agreement is evidence and not proof; the seat census declares its own reading
+  in freeze 18 either way.
+
+### S-Q2 — the first-trick interface alphabet. RULING: ACCEPT-WITH-AMENDMENT. Determination HOLDS and is a theorem; the bounded alphabet it requires is the raw trick-1 record space. That is the finding.
+
+**Lemma S-det.** The landing state is a function of (δ, H, r) where
+r = (d₁,d₂,d₃,d₄) is the ordered trick-1 play record: the landing hand is
+H ∖ {d₁}; the live pool is U ∖ {d₂,d₃,d₄}; for each hidden offset i the observed
+void is "void in ℓ_δ(d₁)" exactly when d_{i+1} ∉ σ̂^δ_{ℓ_δ(d₁)} (a slough proves
+a void in the led context and proves nothing else, §2.1); and the next leader is
+the offset attaining the maximum trick key (§1.3). By Lemma S the assignment is
+equivariant: φ(landing(δ,H,r)) = landing(δ′, φ(H), φ(r)). Hence (hand form,
+interface element) determines the landing form. ∎
+
+The interface element must therefore carry the four played tiles named up to the
+stabiliser of the hand form — and by Corollary S-rigid that stabiliser is
+trivial, so "named by role in the form" and "named by tile" are the same thing.
+The design's proposed content (lead's role, replies' classifications and mutual
+relations, outcome, dead tiles as roles) is exactly a re-encoding of the record;
+it is lawful, and it is not a quotient of anything.
+
+- **S-A9 (state the finding, do not bury it).** The results file states:
+  "Determination holds with a bounded alphabet, and the bound is the raw space.
+  The first-trick interface alphabet is the set of ordered 4-tuples of distinct
+  tiles, at most 28·27·26·25 = 491,400 overall and at most 7·21·20·19 = 55,860
+  above a fixed hand form; because the hand form's stabiliser is trivial
+  (Corollary S-rigid), no coarser interface element determines the landing. The
+  interface buys no compression at the top of the game. Both outcomes are
+  results (F7); this is the negative one, and it is proved rather than
+  measured."
+- **S-A10 (the one honest measurement in COUNT 2 — realizability, typed as
+  legality not compression).** Not every 4-tuple is realizable: a reply must be
+  legal for **some** ω in the fiber. The realized count is a genuine number and
+  the run may report it, labelled "a legality census of the record space, not a
+  compression measurement." It is not a class count and may never be paired with
+  the bar.
+- **S-A11 (two cardinalities at the interface, never on one line).** Report
+  |realized records| and |distinct landing forms they induce| as separate rows
+  with the collapse ratio printed as an exact rational beside its numerator and
+  denominator (P-A11, X-A10). These answer different questions. Prediction on
+  the record: with only four tiles dead, residual self-transports of the live
+  structure are expected to be essentially absent and the ratio close to 1; a
+  ratio far from 1 is a bug or a defect in Corollary S-rigid before it is a
+  finding, and must be investigated as such (NO-RESCUE, never patched).
+- **S-A12 (the interface element is not a macro step).** Y1's correction stands:
+  the four-tile record is a *counting* coordinate for a declared output contract,
+  never a trick-level macro kernel. No value, no increment composition, and no
+  kernel may be read off the interface alphabet (F5, Y1).
+
+### S-Q3 — the landing alphabet. RULING: ACCEPT-WITH-AMENDMENT. Mandatory observation content fixed below; both domains may be counted; the REACHABLE one is the claim and the closed-form superset is a declared cost domain.
+
+- **S-A13 (mandatory content, and one forbidden field).** The landing form
+  carries: the live structure over the 24 live tiles with the S-A1 invariants,
+  under the holder sort {focal, pool}; the exact support normal form N of the
+  landing capacity-cell system, which is precisely the void content — per hidden
+  offset, exclusion of the trick-1 led context's live members when that offset
+  sloughed (§2.1–2.2), capacities (6,6,6); and the next leader as an **offset
+  from focal ∈ {0,1,2,3}** (r3 Q3; never an orientation-flavoured word, §11.7).
+  **FORBIDDEN: the trick-1 count-free increment.** F5's amendment is in force —
+  the bank is emission, not state; storing it duplicates a derived quantity and
+  splits landing forms by trick-1 outcome, destroying real merges. The leader
+  offset already carries what the dynamics need. Dead tiles are **erased**, not
+  recorded: they enter only as absences from the live structure and through the
+  voids they induced (F2 A1, Lemma E).
+- **S-A14 (the landing form is a kernel, not an information state — mandatory
+  sentence).** "COUNT 3 counts support kernels K = (δ, H_m, N, τ) in the sense of
+  §2.3, with retained evidence declared empty (e = ∅). That declaration is a
+  scope restriction, not a theorem: a mechanical kernel can be an exact
+  sufficient state for objective play while failing to be the perfect-recall
+  information state (§2.6). Two histories with the same landing form differ in
+  evidence and therefore in belief (§2.4, §2.5). No information-state count, and
+  no claim about the seat's knowledge, may be read from COUNT 3."
+- **S-A15 (the two domains, typed).** §2.2's BOUNDARY is decisive: feasibility
+  and exact normal-form decoding do not imply legal Straight reachability, and a
+  support object used as a current game state must be inherited from legal
+  construction or carry an accepted reachability witness. Therefore: the
+  **reachable landing alphabet** (landings enumerated through COUNT 2 from legal
+  trick-1 play) is inherited from legal construction and is THE CLAIM; the
+  **closed-form landing domain** (all (6|18) live structures with declared
+  observation structure and leader offset) is a DECLARED SUPERSET and a cost
+  domain of exactly the kind P-A1 types, whose members are FEASIBLE and never
+  "reachable." Both may be counted, both must be printed with their types, the
+  gap must be printed, and the superset count is an upper bound and nothing
+  else.
+- **S-A16 (E-A2 re-stated where it now bites hardest).** The landing form erases
+  dead tiles, so it erases which count-bearing tiles fell in trick 1. Every
+  landing-form-keyed number is therefore sound **only** under the count-free
+  contract (q_trick; P-A6). If count re-enters (v0.5 role re-entry), every such
+  number and every form-keyed record is void wholesale, never extended. Print
+  this in the results file; it is the one failure mode that would silently
+  produce wrong numbers rather than a crash.
+
+### S-Q4 — the scope fence. RULING: ACCEPT-WITH-AMENDMENT; the fence as posed is right and three clauses are missing.
+
+- **S-A17 (the fence sentence, verbatim).** "This census produces counts. It
+  makes no value claim, no policy claim, no belief claim, and no support claim
+  about any seat beyond the declared cell systems above. The flat stack is a
+  presentation for COUNTING; it composes no interfaces into evaluations, and it
+  never replaces the nested object for values — the contradiction is localised
+  there and is deliberately out of scope. Three further fences: (i) COUNT 3
+  counts kernels, not information states (S-A14); (ii) the closed-form landing
+  domain is a declared superset whose members are feasible, never reachable
+  (S-A15, §2.2 BOUNDARY); (iii) a count of situations is not a measure of
+  difficulty or of information value (§10.9, §17.5) — the bar is a question about
+  inventory size and is answered only as such."
+
+### S-Q5 — enumeration and freezes. RULING: ACCEPT-WITH-AMENDMENT. COUNT 1 and COUNT 2 become receipts; COUNT 3 is the only genuine measurement and needs a declared stop.
+
+- **S-A18 (what the build actually is now).** COUNT 1: a receipt run over
+  C(28,7) hands per declaration with the S-A7 assertions; expected output known
+  in advance; a discrepancy is stop-and-report. COUNT 2: a receipt plus the
+  S-A10 legality census. COUNT 3: the only measurement, and it is not
+  exhaustively enumerable — the reachable landing space above all hand forms is
+  of order 1,184,040 × 55,860 ≈ 6.6 × 10^10. It is therefore measured on a
+  **declared multiplicative decimation** in P-A15's exact form (index set
+  {i·g mod N}, gcd(g,N) = 1, g and W frozen; never a prefix, no RNG, no Date),
+  reported with exact-rational mean plus min, max and quartile boundaries, and
+  every stop printed (P-A16, E-A16: a wall is a stop, never a finding). The
+  closed-form superset count of S-A15 is computed in closed form and asserted
+  against its formula in the E-A7 style.
+- **S-A19 (new freezes, continuing at 18).** (18) the seat-side form: the holder
+  sort {focal, pool}, the S-A1 invariant list, the S-A2 comparison reading, and
+  the byte encoding; (19) the declaration-fold maps φ_{p→p′} and whether the run
+  reports folded, unfolded, or both (both are mandatory); (20) the
+  interface-element encoding — the ordered play record — and the record and hand
+  enumeration orders; (21) the landing form's observation content: the
+  support-normal-form void encoding, the leader-offset encoding, and the
+  declaration e = ∅. Freezes 1–17 are in force and restated unchanged.
+
+### S-Q6 — results discipline. RULING: ACCEPT-WITH-AMENDMENT; two mandatory paragraphs decide whether this file is read correctly.
+
+P-A20's inherited boilerplate lineage, integers first, per-declaration splits,
+a1-style anatomy sections, one file `results/seat_census_2026-08-11.txt`, and
+the F7 both-outcomes framing are confirmed. Every count is paired with its type
+(raw / form / class) and, where it is a theorem rather than a measurement,
+labelled THEOREM (RECEIPT RUN).
+
+- **S-A20 (the bar, typed — verbatim).** "THE BAR, TYPED. 'Is the number of
+  situations facing the trick-1 leader of order 10^5' is a question about a
+  censal equivalence, and the answer depends on which one. COUNT 1 answers it
+  for the FINEST seat-side equivalence — structural form, i.e. relabelling by
+  seat transports (Lemma S) — and the answer is NO. At the first play the
+  pip-trump structure on all 28 live tiles admits no nontrivial self-transport
+  (Corollary S-rigid) and the seat rotation group is trivial because focal is
+  fixed, so the only symmetry available is the exact 7:1 declaration fold (Lemma
+  S-fold). The seat-side structural quotient at the first play is therefore the
+  identity quotient and COUNT 1 = C(28,7) = 1,184,040, exceeding 10^5 by
+  29601/2500 ≈ 11.84×. This is a FORM count. It is not a count of any coarser
+  censal equivalence — in particular not of an r3-style dynamics quotient of the
+  seat's abstract problem, which is not computable at the first play without
+  descent (S5h), and not of any value partition, which is out of scope. Whether
+  some coarser lawful equivalence reaches 10^5 is OPEN and this census does not
+  address it."
+- **S-A21 (why the top does not compress — verbatim).** "The last-trick census
+  quotients 55,036,800 situations onto 32,532 forms and 64 classes; the
+  first-play census quotients 1,184,040 hands onto 1,184,040 forms. Same
+  machinery, same structure; the entire difference is deadness. At level 1
+  twenty-four tiles are dead, most contexts are inert and erased, and the
+  surviving relations admit enormous symmetry. At the first play nothing is dead
+  and nothing is inert. Structural compression in this project has always been
+  bought with dead tiles and dead contexts, and the seat has neither at the
+  first play."
+
+**Both outcomes remain results** (F7, NO-RESCUE). This section's outcome is the
+negative one and it is a proved negative, not a measured disappointment: it
+changes nothing about Lemmas E, V or X, nothing about the r3 classes or their
+ECL receipts, and nothing about the a1 alphabet. What it does change is where a
+seat-side quotient could possibly come from — not from relabelling symmetry at
+the top of the game, because there is none.
