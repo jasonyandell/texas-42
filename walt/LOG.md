@@ -639,3 +639,42 @@ provenance, as the S5a count corrections were.
   mathematics. Honest boundary: survival is measured on each lesson's
   OWN basin (small sets), and nothing here promotes any (C)-graded
   claim — every H row carries its own label and quantifier.
+- **S5d (2026-08-10, evening): the re-tethering — back to the basis, the
+  equivariance amendment.** Direction session with Jason; no build. (1)
+  Fresh full read of v0.4 (all 3,820 lines) after Jason's diagnosis that
+  the build had come untethered from the mathematics. Findings: §12.4 +
+  §17.5 had already ruled worldwise-PI classes the wrong hidden-decision
+  carrier — m3's label-fragility result re-confirmed a boundary the
+  basis had drawn in ink; §14.8 conclusion 10 and §18 already name the
+  dynamic predictive quotient as the target; §12.8's exposed-policy
+  geometry (7,848 information states, zero revelation value, 15 exposed
+  policies) is the standing down payment that the game is small on the
+  right carrier. The S4 lumpability instantiation compared observation
+  and feature labels RAW, so only world-reconstructors could pass —
+  Jason's critique ("changing the domino changes the output; what must
+  match is the output under the quotient") locates the gap precisely:
+  v0.4 quotients the state side but never the interface alphabets. (2)
+  Jason authored **§12.6A — equivariant controlled lumpability over
+  declared role interfaces** (definition, theorem with proof,
+  gauge-descent corollary, valuation stabilizer boundary, recovery of
+  §12.6 at identity transports), delivered in-session; proofs checked
+  (two reader notes recorded in its Appendix A: coherence scope over
+  the action/observation transports, and the abstract-policy-class
+  optimization boundary) and filed as
+  `walt/math/equivariant_lumpability_v0.5.md` — the v0.5 track opens;
+  v0.4 stays frozen. The theorem is count-free by design: the primitive
+  outcome alphabet is the trick coordinate alone; tile anisotropy
+  re-enters through transported roles; the §8 additive gauge acts on
+  the quotient. (3) Direction reset (Jason's call): the goal is the
+  LOSSLESS count-free equivariant quotient — situations identical up to
+  declared transports, outcomes compared under the quotient, "hundreds,
+  not 399M" — player- or analyst-facing. Infrastructure frozen: m4 (the
+  Python H checker), S6 corpus-at-scale, and further economy lifecycle
+  work all DEFERRED (the economy stays mechanically blocked, which is
+  safe by design); no rescuing implementations. Next work: find a
+  nontrivial (d, Θ) satisfying (ECL) on the existing probe kernels and
+  count classes — counterexample-guided per §12.9, carrier chosen per
+  §11.2, Scheme/Fix as descriptor language per §12.7. (4)
+  `walt/math/implementers_guide.md` commissioned (subagent): the model
+  + proved outcomes + implementation contracts + nonclaims, no proof
+  chains — per Jason's spec.

@@ -44,6 +44,8 @@ page cites `walt/`'s own documents only.
 | Piece | What it is |
 |---|---|
 | [`walt/math/unified_information_geometry_v0.4.md`](../walt/math/unified_information_geometry_v0.4.md) | The frozen basis (~3,800 lines): fixed-field/revealed/hidden operator hierarchy, information prices, descriptor soundness and controlled lumpability, the synthesis loop, the §16.11 certificate schema, the §17 claim ledger. Never edited. |
+| [`walt/math/equivariant_lumpability_v0.5.md`](../walt/math/equivariant_lumpability_v0.5.md) | The v0.5 track opens (2026-08-10, authored by Jason): **§12.6A equivariant controlled lumpability** — states identified up to declared role/action/observation transports, outcomes compared under the count-free quotient (trick coordinate only); tile anisotropy re-enters through transported roles and the §8 gauge descends. Recovers v0.4 §12.6 at identity transports. v0.4 stays frozen. |
+| [`walt/math/implementers_guide.md`](../walt/math/implementers_guide.md) | Derived companion (non-authoritative): the model and the proved outcomes for implementers, no proof chains; the basis wins on any conflict. |
 | [`walt/PLAN.md`](../walt/PLAN.md) | The build plan: disciplines, crate map, the CDCL spine, one-line session summaries, next milestones. |
 | [`walt/LOG.md`](../walt/LOG.md) | Full per-session build records (moved from PLAN 2026-08-10). |
 | [`walt/DISCREPANCIES.md`](../walt/DISCREPANCIES.md) | Spec-vs-reference reconciliations, same protocol as the corpus: never pick a plausible reading silently. |
@@ -77,6 +79,21 @@ in seat-facing H rent (dual ledger, never summed; unmeasured never zero) and
 its first deletion candidates are precisely those failed lessons — each
 deletion mechanically blocked until an independent H checker registers.
 
+**Direction reset (2026-08-10, evening — Jason's call after a fresh full
+read of the basis):** the build had drifted from the mathematics. v0.4
+§12.4/§17.5 had already ruled worldwise-PI classes the wrong carrier for
+the hidden decision (the label-fragility result re-confirmed a boundary
+the basis had drawn), and the S4 lumpability instantiation compared
+observation/feature labels raw — which is why only world-reconstructing
+skeletons could pass. The goal is restated as the **lossless count-free
+equivariant quotient**: two situations are the same when, given what the
+seat knows and does not, one policy applied through declared transports
+to any matching world produces the same outcome under the quotient.
+Jason authored the missing theorem — §12.6A, equivariant controlled
+lumpability (the v0.5 row above) — and the factory/economy
+infrastructure is frozen (m4 and S6 deferred; the economy's blocked
+deletions stay safely blocked) until the compression question moves.
+
 All of it exploratory; details and exact numbers in [`walt/LOG.md`](../walt/LOG.md).
 
 ## The spine
@@ -102,9 +119,12 @@ rules, enforced in types where Rust can carry them:
 
 ## Next
 
-m4: the independent Python H checker (stdlib-only, written from the
-certificate schema, never from the Rust) — the hard precondition for
-executing any H-rent deletion, and the third implementation over the three
-failed lessons. Then S6+: corpus at scale across all nine declarations, the
-dynamic skeleton search proper, seat chassis wiring. The forward plan lives
-in [`walt/PLAN.md`](../walt/PLAN.md).
+The compression program: find a nontrivial descriptor-with-transports
+(d, Θ) satisfying §12.6A's (ECL) condition on the existing probe kernels
+and **count the classes** — the direct measurement of how much of the
+count-free game compresses at the seat. Counterexample-guided synthesis
+per v0.4 §12.9, Scheme/Fix as the descriptor language per §12.7, carrier
+chosen per §11.2. Deferred until that moves: m4 (the Python H checker,
+still the hard precondition for any H-rent deletion), S6 corpus-at-scale,
+economy lifecycle work. The forward plan lives in
+[`walt/PLAN.md`](../walt/PLAN.md).

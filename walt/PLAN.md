@@ -206,21 +206,37 @@ evolved this project's own receipt/TRUST-01 discipline.
   h1 S2 t4 H-fails), each mechanically BLOCKED — no independent H
   checker registered. Eight walt-math forks + two post-hoc reviews
   adjudicated in-session.
+- **S5d** (2026-08-10, evening): the re-tethering — fresh full read of
+  v0.4; drift diagnosis (raw-interface lumpability; the PI carrier was
+  already ruled out by §12.4/§17.5); Jason's theorem **§12.6A
+  equivariant controlled lumpability** checked and filed as the v0.5
+  track (`walt/math/equivariant_lumpability_v0.5.md`); direction reset
+  to the lossless count-free equivariant quotient; m4/S6 deferred;
+  `walt/math/implementers_guide.md` commissioned.
 
 ## Next
 
-- **m4: the independent Python H checker** — stdlib-only, written from
-  `walt-factory/docs/certificate-schema.md` and v0.4 §7.4 semantics
-  (never from the Rust), registering against `HCheckerRegistry`;
-  per-row clearance appends; the hard precondition for executing any
-  H-rent deletion. Then the first live deletion pass, and re-verification
-  of the three H-fails by a third implementation.
-- **S6+**: walt-factory corpus at scale (all 9 declarations, deals +
-  play — finally exercising DT and NT), the dynamic skeleton search
-  proper with richer update-law vocabularies (search coarsenings of the
-  semantic state that keep kernel agreement), seat chassis wiring (four
-  seats, full hands), lessons flowing between all of it. Noted: per-action
-  parallelism for big-fiber tree receipts if they become routine.
+- **The compression program (v0.5 — the goal, reset 2026-08-10):** find
+  a nontrivial descriptor-with-transports \((d,\Theta)\) satisfying
+  §12.6A (ECL) on the existing probe kernels — count-free outcome
+  contract, states identified up to declared interface transports,
+  outcomes compared under the quotient — and report the **class counts**
+  (the compression headline: does the seat's view collapse to hundreds?).
+  Method: counterexample-guided synthesis (§12.9); descriptor language =
+  Scheme/Fix under §12.7's triple (semantics + exact update law +
+  preservation proof); carrier chosen deliberately per §11.2 (decision
+  states / policy geometry — never worldwise-PI classes, §12.4).
+  Valuation re-enters afterward through transported roles and the §8
+  gauge (12.6A role re-entry), where the m3 H instrument prices the
+  seat-facing side.
+- **Deferred, frozen until the compression question moves** (Jason,
+  2026-08-10): m4, the independent Python H checker (still the hard
+  precondition for executing any H-rent deletion — the economy stays
+  mechanically blocked, which is safe by design); S6 corpus-at-scale /
+  all-9-declarations factory work; economy lifecycle extensions;
+  per-action parallelism for big-fiber tree receipts. Nothing is
+  discarded: the memoized H solver + tree cross-validation are retained
+  as the seat-label ground-truth instrument.
 
 ## Open decisions deliberately deferred
 
