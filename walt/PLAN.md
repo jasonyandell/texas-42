@@ -24,6 +24,19 @@ greenfield, **dynamic control skeleton from the jump**, Rust.
   results are a free conformance suite (below).
 - **Tier discipline**: everything exploratory until walt grows its own
   byte-diffed receipts; external PASS never imported as axiom (TRUST-01).
+- **NO-RESCUE (Jason, 2026-08-10).** When something doesn't work, that is
+  not a thing to fix, spin, or assist with engineering — it is a reason to
+  go back to the math, better informed. The mechanism is the
+  counterexample: it's math, so a failure is a concrete refutation to
+  carry back to the basis, and that is a *good* outcome ("if the whole
+  thing falls on its face that's FINE"). Corollary on verification: verify
+  against the reference we have — thousands of lines of proofs — but do
+  not verify in triplicate; when independent mechanical verification is
+  genuinely needed, the path is **Lean, not Python** (the `lean/` path is
+  paved: 42 priority-0 rows kernel-proved). Standing epistemic frame: the
+  mathematics has proven the object **exists**; it has **not** proven its
+  utility. If the utility turns out bad, that is a conversation with
+  Jason, not a rescue.
 
 ## Crate map (v0.4 §16.2 module graph, strict import direction)
 
@@ -230,13 +243,15 @@ evolved this project's own receipt/TRUST-01 discipline.
   gauge (12.6A role re-entry), where the m3 H instrument prices the
   seat-facing side.
 - **Deferred, frozen until the compression question moves** (Jason,
-  2026-08-10): m4, the independent Python H checker (still the hard
-  precondition for executing any H-rent deletion — the economy stays
-  mechanically blocked, which is safe by design); S6 corpus-at-scale /
-  all-9-declarations factory work; economy lifecycle extensions;
-  per-action parallelism for big-fiber tree receipts. Nothing is
-  discarded: the memoized H solver + tree cross-validation are retained
-  as the seat-label ground-truth instrument.
+  2026-08-10): S6 corpus-at-scale / all-9-declarations factory work;
+  economy lifecycle extensions; per-action parallelism for big-fiber
+  tree receipts. **m4 as a Python H checker is retired by the no-rescue
+  policy** — if an independent H verification is ever genuinely needed,
+  it is a Lean checker, not a Python one; until then the economy's
+  triggered deletions stay mechanically blocked, which is safe by
+  design. Nothing is discarded: the memoized H solver + tree
+  cross-validation are retained as the seat-label ground-truth
+  instrument.
 
 ## Open decisions deliberately deferred
 

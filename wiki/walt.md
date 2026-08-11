@@ -16,9 +16,10 @@ above the Ideas tier ever cites it). Related: [ideas](ideas.md),
 > exploratory in its own header). walt's cross-implementation pins are
 > **regression pins against probe records, never axioms** (TRUST-01 applies
 > unchanged). Nothing here may be quoted in a brief, a dispatch, FINDINGS, or
-> any claim-tier page. Promotion path: independent re-verification — the
-> preserved Python probes are the designated second implementation; a Lean
-> checker is the long-term crown.
+> any claim-tier page. Promotion path: independent re-verification — per the
+> no-rescue policy (2026-08-10), new mechanical verification goes through
+> **Lean** (the path is paved); the preserved Python probe *records* remain
+> frozen cross-implementation pins.
 
 ## What walt is
 
@@ -124,7 +125,11 @@ The compression program: find a nontrivial descriptor-with-transports
 and **count the classes** — the direct measurement of how much of the
 count-free game compresses at the seat. Counterexample-guided synthesis
 per v0.4 §12.9, Scheme/Fix as the descriptor language per §12.7, carrier
-chosen per §11.2. Deferred until that moves: m4 (the Python H checker,
-still the hard precondition for any H-rent deletion), S6 corpus-at-scale,
-economy lifecycle work. The forward plan lives in
-[`walt/PLAN.md`](../walt/PLAN.md).
+chosen per §11.2. Standing **no-rescue policy** (2026-08-10): a failure is
+a counterexample to carry back to the math, never a thing to engineer
+around; independent verification, when genuinely needed, goes through Lean
+(the Python m4 checker is retired; the economy's blocked deletions stay
+blocked). Deferred until the compression question moves: S6
+corpus-at-scale, economy lifecycle work. The mathematics has proven the
+object exists; its utility is the open measurement. The forward plan lives
+in [`walt/PLAN.md`](../walt/PLAN.md).

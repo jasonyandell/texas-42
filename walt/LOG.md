@@ -677,4 +677,13 @@ provenance, as the S5a count corrections were.
   §11.2, Scheme/Fix as descriptor language per §12.7. (4)
   `walt/math/implementers_guide.md` commissioned (subagent): the model
   + proved outcomes + implementation contracts + nonclaims, no proof
-  chains — per Jason's spec.
+  chains — per Jason's spec. (5) Addendum, the **NO-RESCUE policy**
+  (Jason): failures are counterexamples to carry back to the math, never
+  things to fix/spin/assist with engineering — "if the whole thing falls
+  on its face that's FINE"; don't verify in triplicate (the reference is
+  thousands of lines of proofs); when independent mechanical verification
+  is genuinely needed, use Lean, not Python (m4-as-Python retired; the
+  lean/ path is paved at 42/42 P0 kernel-proved). Standing frame: the
+  math has proven the object exists, not its utility — if utility is bad,
+  that's a conversation, and the tools stay valuable for other
+  explorations either way.
