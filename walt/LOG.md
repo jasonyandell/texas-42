@@ -911,3 +911,66 @@ X's after role re-entry ("loses the bid"), non-declarer focal seats
 (weak hands lose everything far more often), and the seat's real
 voided support. The predicate ENGINE is proven either way; Lemma X
 stands as a theorem regardless of bite. Full gate green.
+
+## S5j — 2026-08-11: the endgame store (the symmetry-reduced tablebase probe)
+
+Jason's direction: build from the end back and memorize it; pathfind
+forward to known solutions — same fiber, different enumeration order
+leveraging precomputed outcomes; precompute only the cheap end, fill
+the rest lazily; "lots and lots of convergence late game"; walls
+welcome. Design `walt/ENDGAME-STORE.md`; walt-math's rulings
+(E-Q1..E-Q7, E-A1..E-A21) delivered the third theorem of the day —
+**Lemma E (structural isomorphism ⇒ count-free value equality)**:
+equal r1 canonical forms give a tile-bijection + seat rotation
+carrying one remaining game to the other, so every count-free fold is
+equal — REPLACING the proposed r1→ECL→r3 chain (rejected: ECL is
+checked, not proved, and carrier-scoped). Attribution mandatory
+(E-A1): this measures the STRUCTURAL transport dividend (a
+symmetry-reduced tablebase), not the r3 machinery; S5h's negative
+stands unrescued. Hard scope: COUNT-FREE ONLY (E-A2 — the store is
+invalidated wholesale if count re-enters). The floor's honest
+competitor is CLOSED-FORM last-trick resolution (E-A9). First
+implementation of the persistence discipline (freezes 14–17;
+gitignored cache; cold regenerate path for every headline; E-A4 hit
+receipts re-expanded to TERMINALS).
+
+Results (`results/endgame_store_2026-08-11.txt`,
+`endgame_floor_2026-08-11.txt`; every receipt green — 4-arm bit-exact
+equality at all 17 coordinates, 1,685 hit receipts re-expanded to
+terminals all bit-exact):
+
+- **The tablebase arms LOSE at evaluation: T2/T3 = 1.57–2.69× SLOWER
+  than the plain A1 cache at every coordinate.** E-A10 attribution is
+  unambiguous: canonicalization dominates (~4.6 µs per form vs ~0.1 µs
+  per state-key probe); under an A1 memo the subtree a hit saves is
+  already collapsed, so the per-hit saving is smaller than the per-
+  state canonicalization cost.
+- **The convergence Jason smelled is REAL**: 830,399 form-hits across
+  the traversal (~38% of grade-8 boundary probes; up to 73% at h3) —
+  relabeling-symmetric repeats a state key cannot see. The negative is
+  about WHERE to spend it (evaluation speed), not whether it exists.
+- Warm cross-coordinate increment: small but nonzero and growing
+  (n=5 h1: 8,580 warm hits vs 2,966 cold). Store: 1,358,231 level-2
+  records after 17 coordinates, growth near-linear — saturation NOT
+  reached (store- and order-relative, E-A20).
+- **T1' (closed-form last-trick bottom): a real if modest win** —
+  0.88–0.99 of T0, the one arm that beat the control.
+- **The floor (complete, 55,036,800 states enumerated in 72 s):
+  E-A8's new number is 32,532 distinct r1 canonical forms at level 1**
+  — the form space is 508× finer than the 64-class alphabet (~2–3 MB
+  as a table). E-A9 verdict: floor-table lookup 1,430 ns vs closed-
+  form control 35 ns — the floor TABLE is a 41× negative, reported as
+  one; the closed-form control is what the arms actually use.
+- Lemma E's implementation is VALIDATED (the receipts): the one
+  canonical-form code path never disagreed with re-expansion to
+  terminals across 1,685 samples spanning both layers.
+
+Structural lesson (completing S5h's): cone identity cannot
+short-circuit descent (S5h); structural identity CAN — but harvesting
+it costs a canonicalization per distinct state, and under a plain memo
+that price exceeds the harvest at level 2. Symmetry pays where the
+per-hit saving is large (deeper boundaries), where the form is cheap,
+or where the object of interest IS the form inventory — and the
+32,532/64 split plus the 1.36M-record level-2 curve are the first
+direct data for the seat-level census's size question. Both negatives
+are attributed, not spun; next moves are Jason's. Full gate green.

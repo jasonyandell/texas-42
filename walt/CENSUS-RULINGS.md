@@ -1034,3 +1034,229 @@ saves nothing at evaluation time, is a proved negative about declared-exclusion
 refinement on this route and changes nothing about the classes, their ECL
 receipts, or Lemma X — which stands as a theorem about the objective regardless
 of whether any predicate turns out to bite.
+
+## Endgame-store rulings (E-Q1..E-Q7) — 2026-08-11
+
+**Adjudicator:** walt-math. **Tier:** exploratory throughout. **Basis:** v0.5
+§12.6A and its BOUNDARY; v0.4 §1.2–1.5, §2.1–2.6, §7.7, §11.1, §11.7, §12.4,
+§14.7, §17.5. F1–F7, r3 Q1–Q5, Y1–Y3, shape v2, P-A1..P-A21 and X-A1..X-A19 are
+inherited unchanged. Amendments are numbered E-A1.. and are builder obligations.
+
+### Lemma E (structural isomorphism ⇒ count-free value equality) — replaces the proposed chain
+
+The design justifies its lookup as: form-equal ⇒ r1-equal ⇒ (Q5.1) r3-equal ⇒
+same value. **That route is unnecessary and its middle link is the weakest thing
+in the design.** "r1 is a lawful (d,Θ)" is CHECKED, not proved — F3 said so
+explicitly ("that it IS a bijection A(x) ≃ A(y) is exactly ECL condition 1,
+which the census checks rather than assumes"), and Q5.1's refinement assertion
+was an in-run check on a specific carrier. Routing an off-carrier lookup through
+it inherits an unproved, carrier-scoped hypothesis for no gain. The direct
+argument is stronger and needs neither ECL nor r3:
+
+*Statement.* Let x, y have equal r1 canonical forms **as amended by F2 A1–A4**.
+Then there is a bijection of live ∪ unresolved-trick tiles together with a
+rotation of seats carrying x to y and preserving: holders by relative seat,
+the trump/non-trump context split, follow membership, the led-context map ℓ,
+pairwise trick keys, double flags, table order, current winner, and focal↔focal.
+Every rule of the remaining game reads only those data: legality is "follow the
+led context if able, else anything" (§1.2, §1.5); the trick winner is the
+maximum trick key under the led context (§1.3); the next leader is the winner;
+the count-free increment is e⋆ iff the winner sits in the focal partnership
+(v0.5 count-free kernel, F5); the hand ends when live tiles are exhausted
+(§1.5). Hence the map is an isomorphism of the remaining extensive games
+carrying increments to increments and focal to focal, and every count-free value
+that is a fold over that tree — in particular the frozen world-informed operator
+of P-A5 and the PI operator of §9.9 — is equal at x and y. ∎
+
+*Why the canonical form is available without descent.* The form reads tiles and
+relations only, never the future cone. That is a genuine escape from S5h's
+negative, and it is the ordinary mechanism of a symmetry-reduced tablebase.
+
+- **E-A1 (attribution, mandatory).** The escape belongs to r1 — the FINEST
+  STRUCTURAL quotient, i.e. relabeling symmetry — not to r3 and not to
+  equivariant lumpability. Under F6 this probe measures the structural transport
+  dividend, and S5h's negative about the r3 class store stands unrescued. The
+  results file states: "The lookup key is the r1 structural canonical form. This
+  probe measures a symmetry-reduced tablebase, not the equivariant class
+  machinery; S5h's finding that cone identity cannot short-circuit descent is
+  unchanged and is not rescued here."
+- **E-A2 (the hard scope limit — count-free only).** Lemma E's bijection
+  preserves BEATS relations, NOT pip counts. A canonical-form-keyed store is
+  therefore sound only for count-free valuations (q_trick, P-A6). **If count
+  ever re-enters (v0.5 role re-entry), every record in the store becomes
+  unsound and the store is invalidated wholesale, never extended.** Print this
+  in the store header and the results file; it is the one failure mode that
+  would silently produce wrong numbers rather than a crash.
+- **E-A3 (operator hypothesis).** Any operator used with the store is declared
+  isomorphism-invariant. The F4 world-informed operator qualifies (legal sets
+  correspond bijectively and the uniform mass depends only on |L|). An operator
+  that reads tile identity does not.
+
+### E-Q1 — the transport-lookup chain and its receipt. RULING: REJECT the proposed chain; ACCEPT the receipt, re-aimed.
+
+Lemma E replaces the chain, so no off-carrier ECL hypothesis is in force and the
+worry as posed ("an r1 transport unlawful off-carrier") dissolves: nothing here
+asserts r1 satisfies (ECL) anywhere. What Lemma E *does* rest on is the
+hypothesis that the implemented canonical form carries every relation in F2's
+amended list. A dropped relation — the led-context map (A2), the unresolved-trick
+tiles (A1), a reflected seat matching (A4, §11.7) — breaks the lemma. So the
+sampled re-expansion is exactly the right receipt, aimed at the implementation
+rather than at the mathematics.
+
+- **E-A4 (the receipt).** For a declared deterministic stride over the hit
+  sequence (every s-th hit, s declared per arm, plus the first and last hit of
+  every coordinate — no RNG, no Date, per P-A15), expand the cone anyway and
+  assert bit-exact value agreement. Expansion runs **to terminals, not to the
+  floor**, so the receipt validates the composition of layers rather than one
+  layer against itself. A mismatch is stop-and-report per NO-RESCUE and is a
+  canonical-form implementation defect (or a defect in F2's list), not an ECL
+  event; the results file must describe it that way if it ever fires.
+- **E-A5 (one code path).** The floor build, the lazy insert and the forward
+  evaluator call the SAME canonical-form function. Two implementations of a
+  normal form is the classic way to make a store silently wrong, and no receipt
+  short of full re-expansion would catch it.
+
+### E-Q2 — the floor's completeness. RULING: ACCEPT completeness; the floor's VALUE as a mechanism is challenged and must be measured against a closed-form control.
+
+**Completeness is sound.** Grade is a multiple of 4 exactly at trick boundaries
+(every play removes one live tile, r3 Q2), so grade 4 ⟺ last-trick boundary with
+exactly one tile per seat. The a1 domain — every ordered assignment of four
+distinct dominoes to four seats (491,400), every leader (4), every focal seat
+(4), every pip-trump declaration (7) = 55,036,800 — is closed-form countable and
+is a superset of every reachable grade-4 pip-trump state. "Miss = bug" is
+therefore sound, with one split:
+
+- **E-A6 (miss taxonomy).** A miss is reported as either OUT OF DECLARED SCOPE
+  (a doubles-trump or no-trump declaration — F1's scope, v0.4 §14.7/§17.5; stop
+  and report a scope violation) or IN SCOPE BUT ABSENT (a genuine bug; stop and
+  report). Never a fill, never a silent recompute.
+- **E-A7 (floor build assertions).** Assert in-run: the enumerated total against
+  the closed-form 491,400 × 4 × 4 × 7 = 55,036,800; the class total 64; and the
+  anatomy rows the floor restates (16 per actor offset; 32/32 by increment;
+  8 per classification pattern) against `census_a1_complete_2026-08-11.txt`. The
+  a1 file is the standing record and the floor build byte-agrees with it on
+  every number it restates.
+- **E-A8 (two cardinalities, never conflated).** "55,036,800 situations, 64
+  classes" describes the r3 alphabet. The STORE is keyed by canonical form, and
+  r1 refines r3, so the store's record count is the number of distinct r1
+  canonical forms at level 1 — a different and larger number that nobody has
+  measured. Report it explicitly; it is what the floor's memory cost is, and
+  the design's phrasing currently reads as though the floor has 64 records.
+
+**The mechanism claim is challenged.** At a grade-4 state every seat holds one
+tile, so the subtree below is a forced chain of four plays with a single leaf,
+and the level-1 class is exactly (actor offset, three classifications,
+increment) — i.e. the floor value is one trick resolution, computable in closed
+form from the four tiles, the leader and the declaration, with no table and no
+recursion. A floor lookup therefore replaces "resolve one trick" with "compute a
+canonical form, then probe a hash" — the same trade S5h measured at 4.3–4.9×
+against. The design's premise that "the bulk of every tree's nodes live below
+the boundary" is true by node count and false by cost.
+
+- **E-A9 (the floor's honest competitor).** T1 is measured against a CLOSED-FORM
+  last-trick control — direct winner resolution at grade 4, no table, no
+  expansion — not only against full expansion. Per P-A7 and X-A13, comparing the
+  floor table to a four-ply forced walk is a strawman. If the closed-form control
+  wins, the floor table is a negative result and is reported as one; that costs
+  the probe nothing, since level 2 is where the design's real claim lives.
+- **E-A10 (cost accounting per arm).** Report ns split as
+  canonicalisation / lookup / recursion for every arm, in the style of arm B's
+  existing carrier/r3/fold/lookup row. Without the split, a win or a loss cannot
+  be attributed and the next iteration has nothing to act on.
+
+### E-Q3 — record contents. RULING: ACCEPT the shape, with mandatory and forbidden fields fixed.
+
+- **E-A11 (record).** MANDATORY: the canonical-form key; the count-free value
+  under the frozen operator and valuation; the identifiers of the freezes that
+  make the record meaningful (canonical-form encoding, operator/valuation) —
+  keyed exactly as X-A6(i) keys predicate flags, since a record computed under a
+  superseded freeze is corrupt, not stale. OPTIONAL: the r3 class id, and only
+  when actually computed (E-A13). FORBIDDEN: anything coordinate-relative —
+  world ids, fiber indices, hand ids, weights, beliefs, hit counters (X-A18);
+  and any count-bearing value (E-A2).
+- **E-A12 (X-A18 reading, clarified).** X-A18 said "cone-intrinsic"; the
+  operative requirement is "not coordinate-relative". A structural key is
+  state-intrinsic and finer than cone-intrinsic, and by Lemma E it is invariant
+  under exactly the relabelings that preserve the continuation, so it satisfies
+  X-A18. **Collision discipline (X-A16):** preferred at both layers is to store
+  the canonical-form BYTES as the key, which makes verification automatic and
+  X-A16 vacuous — endgame forms are small. If a hash is used for indexing, the
+  record must still carry the bytes and the loader must compare them on every
+  hit and every insert-collision.
+
+### E-Q4 — what the lazy insert pays. RULING: ACCEPT the proposal; the retrograde signature must NOT be run.
+
+Under Lemma E the value is licensed by the canonical form alone, so computing an
+r3 signature at insert buys class identity the store does not use and pays the
+descent cost the store exists to avoid. Computing the level-2 value by the A1
+recursion with floor lookups beneath it is one-trick-deep and correct.
+
+- **E-A13.** Lazy records carry no r3 class id. An absent id is recorded as
+  absent, never defaulted and never inferred from the form. If a later probe
+  wants class ids it computes them and says so.
+- **E-A14.** Because a level-2 value is computed against the layer below it, the
+  E-A4 sample expands level-2 records to terminals, independently validating the
+  composition rather than trusting the floor.
+
+### E-Q5 — the pathfinding framing. RULING: ACCEPT, with one boundary.
+
+"Same fiber, different enumeration order" is exact: the value is a function of
+the state, so evaluation order cannot change it, and bit-identical cross-arm
+equality (P-A9) is the right receipt. Two guards:
+
+- **E-A15 (order, not set).** Changing the ORDER of evaluation is lawful and is
+  what this probe measures. Changing the SET — visiting only worlds that reach
+  known solutions, "pathfinding to" rather than "through" — is a declared
+  exclusion and falls under X-A1's typing wholesale. If any arm evaluates fewer
+  worlds than T0, it is a remnant, not an ordering.
+- **E-A16 (walls are stops, not findings).** A budget wall is a declared stop
+  printed with what was reached (P-A16), never a statement about the game.
+
+### E-Q6 — persistence mechanics. RULING: ACCEPT gitignored-cache, with a reproducibility amendment.
+
+Not committing the store is correct and follows from X-A17: a cache is never an
+authority, and a committed binary blob that nobody can review would become one —
+receipts in this project are text, regenerable and byte-diffed, and a store is
+not a receipt. Append-only content addressing remains lawful for the reason
+already given (class and form identities are content addresses; carrier growth
+adds and never splits, r3 Q4).
+
+- **E-A17 (reproducibility through the cold arm).** Because the store is not
+  committed, no number quoted from a warm store is reproducible from the
+  repository alone. The results file therefore prints the COLD regenerate path
+  that reproduces every headline number from an empty store, and any
+  warm-only number is labelled as such. A warm run re-derives a declared sample
+  and asserts agreement before quoting anything (X-A17).
+- **E-A18 (store provenance in the results file).** Print: the freeze-set digest;
+  the record count per layer; whether the run was cold or warm; the declared
+  coordinate order; which coordinates contributed records (X-A19, counts are
+  store-relative); and the wholesale-invalidation rule (freeze mismatch ⇒ the
+  file is discarded entire, never partially reused, P-A17).
+- **E-A19 (new freezes, continuing at 15).** (15) the canonical-form key
+  definition and its byte encoding — previously internal to r1, now a persistent
+  key and therefore a freeze; (16) the floor domain and its closed-form count;
+  (17) the declared coordinate order for the warm arm and the E-A4 receipt
+  stride. Freeze 14 (store record format and freeze-set digest, X-A11) is first
+  implemented here and is restated, not renumbered.
+
+### E-Q7 — results discipline. RULING: ACCEPT, with two additions.
+
+P-A20's boilerplate, the per-arm per-coordinate rows, declared stops and the
+F7/NO-RESCUE both-outcomes framing are confirmed.
+
+- **E-A20 (saturation curves are order-relative).** Hit rate and store size
+  against coordinates processed depend on the declared order; a different order
+  gives different curves. Print the order and label the curves store-relative
+  and order-relative — they measure this traversal, not the game. "Lots of
+  convergence late game" is a claim about the corpus and the order, and is
+  quotable only in those terms.
+- **E-A21 (name the headline honestly).** T3 vs T0 measures cross-coordinate
+  novelty against A1's within-coordinate cache, which is the right comparison
+  and should be stated in those words. A weak T3 dividend is the convergence
+  hypothesis measured small on this corpus — a result (F7), not a reason to
+  re-run with altered arms.
+
+**Both outcomes remain results.** Lemma E stands regardless of every number this
+probe produces: it is a theorem about count-free values under structural
+relabeling, and it is the first thing in this file that licenses a lookup
+without any descent at all.

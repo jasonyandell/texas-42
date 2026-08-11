@@ -27,7 +27,10 @@ use walt_core::replay::{state_before_trick, voids_before_trick};
 use walt_core::{ContextSet, Decl, DominoSet, Seat};
 use walt_geom::{q, qi, Q};
 use walt_kernel::{Hidden, Kernel, HIDDEN_SEATS};
-use walt_skeleton::equivariant::{actor_offset, build_r3, closure_carrier, Carrier, Situation, R3};
+use walt_skeleton::equivariant::{
+    actor_offset, build_r3, canonicalize, closure_carrier, grade, CandidateSpec, Carrier,
+    Situation, R3,
+};
 use walt_strat::{ScalarHidden, ScalarValuation};
 
 const RESULTS: &str = "results/fiber_probe_2026-08-11.txt";
@@ -1092,10 +1095,608 @@ fn run_refine() {
     println!("wrote {REFINE_RESULTS}");
 }
 
+// ---------------------------------------------------------------------------
+// The endgame store (`endgame`, `floor`): symmetry-reduced tablebase probe.
+// Design: walt/ENDGAME-STORE.md; binding rulings: CENSUS-RULINGS.md
+// "Endgame-store rulings (E-Q1..E-Q7)", E-A1..E-A21, Lemma E. The lookup key
+// is the r1 structural canonical form (Lemma E licenses count-free value
+// equality with no descent); this measures the STRUCTURAL transport dividend,
+// not the r3 class machinery (E-A1). COUNT-FREE ONLY (E-A2).
+// ---------------------------------------------------------------------------
+
+const ENDGAME_RESULTS: &str = "results/endgame_store_2026-08-11.txt";
+const FLOOR_RESULTS: &str = "results/endgame_floor_2026-08-11.txt";
+const L2_STORE_PATH: &str = "store/endgame_l2.store";
+
+/// Freeze 14 as implemented: the store's freeze-set description, digested
+/// into the file header; a mismatch discards the file wholesale (P-A17,
+/// E-A18), never partially.
+const STORE_FREEZES: &str = "canonical-form=r1-FINEST-brute-min-v1;\
+operator=F4-world-informed-focal-max-hidden-uniform;valuation=q_trick;\
+level=2;records=hex-canonical-key space num slash den";
+
+/// Freeze 17: the E-A4 receipt stride over the global hit sequence, plus the
+/// first and last hit of every coordinate.
+const HIT_RECEIPT_STRIDE: u64 = 1000;
+
+fn fnv64(bytes: &[u8]) -> u64 {
+    let mut h: u64 = 0xcbf2_9ce4_8422_2325;
+    for b in bytes {
+        h ^= u64::from(*b);
+        h = h.wrapping_mul(0x0000_0100_0000_01b3);
+    }
+    h
+}
+
+fn hex_of(bytes: &[u8]) -> String {
+    let mut s = String::with_capacity(bytes.len() * 2);
+    for b in bytes {
+        let _ = write!(&mut s, "{b:02x}");
+    }
+    s
+}
+
+fn unhex(s: &str) -> Option<Vec<u8>> {
+    if !s.len().is_multiple_of(2) {
+        return None;
+    }
+    (0..s.len() / 2)
+        .map(|i| u8::from_str_radix(&s[2 * i..2 * i + 2], 16).ok())
+        .collect()
+}
+
+/// E-A9's closed-form control: a grade-4 boundary state is one forced trick —
+/// each seat holds exactly one tile — so its count-free value is one winner
+/// computation, no table, no recursion, no canonical form.
+fn resolve_last_trick(sit: &Situation) -> Q {
+    debug_assert!(sit.table.is_empty() && grade(sit) == 4);
+    let mut tiles = [walt_core::Domino::ALL[0]; 4];
+    for (k, tile) in tiles.iter_mut().enumerate() {
+        let hand = sit.hands[sit.leader.plus(k).index()];
+        let mut it = hand.iter();
+        *tile = it.next().expect("one tile per seat at the last trick");
+        assert!(it.next().is_none(), "one tile per seat at the last trick");
+    }
+    let trick = walt_core::Trick::new(sit.leader, tiles).expect("distinct tiles");
+    let winner = trick.winner(sit.decl);
+    qi(i128::from(u8::from(winner.team() == sit.focal.team())))
+}
+
+/// Arm T1': the A1 recursion bottoming into the closed-form control at the
+/// last-trick boundary.
+fn value_t1(sit: &Situation, memo: &mut BTreeMap<u128, Q>, edges: &mut u64) -> Q {
+    if sit.table.is_empty() && grade(sit) == 4 {
+        return resolve_last_trick(sit);
+    }
+    let key = if sit.table.is_empty() {
+        let k = pack_boundary(sit);
+        if let Some(v) = memo.get(&k) {
+            return *v;
+        }
+        Some(k)
+    } else {
+        None
+    };
+    let mut vals = Vec::new();
+    for tile in sit.legal().iter() {
+        *edges += 1;
+        let (k, next) = sit.step(tile);
+        let mut v = qi(i128::from(k));
+        if let Some(s) = next {
+            v += value_t1(&s, memo, edges);
+        }
+        vals.push(v);
+    }
+    let v = aggregate(actor_offset(sit), vals);
+    if let Some(k) = key {
+        memo.insert(k, v);
+    }
+    v
+}
+
+/// The level-2 store context threaded through arms T2/T3.
+struct L2Ctx {
+    store: BTreeMap<Vec<u8>, Q>,
+    edges: u64,
+    canon_ns: u128,
+    probe_ns: u128,
+    hits: u64,
+    inserts: u64,
+    hit_seq: u64,
+    /// Sampled hits awaiting the E-A4 receipt (re-expansion to terminals).
+    receipts: Vec<(Situation, Q)>,
+    last_hit: Option<(Situation, Q)>,
+    coordinate_first_hit_taken: bool,
+}
+
+impl L2Ctx {
+    fn new(store: BTreeMap<Vec<u8>, Q>) -> L2Ctx {
+        L2Ctx {
+            store,
+            edges: 0,
+            canon_ns: 0,
+            probe_ns: 0,
+            hits: 0,
+            inserts: 0,
+            hit_seq: 0,
+            receipts: Vec::new(),
+            last_hit: None,
+            coordinate_first_hit_taken: false,
+        }
+    }
+}
+
+/// Arms T2/T3: the T1' recursion with a canonical-form store consulted at the
+/// level-2 boundary (grade 8, table empty). A1's exact-repeat memo is probed
+/// first, so the store's contribution is exactly the relabeling-symmetric and
+/// cross-coordinate repeats a state key cannot see (E-A21).
+fn value_t2(sit: &Situation, memo: &mut BTreeMap<u128, Q>, ctx: &mut L2Ctx) -> Q {
+    if sit.table.is_empty() && grade(sit) == 4 {
+        return resolve_last_trick(sit);
+    }
+    let boundary = sit.table.is_empty();
+    let key = if boundary {
+        let k = pack_boundary(sit);
+        if let Some(v) = memo.get(&k) {
+            return *v;
+        }
+        Some(k)
+    } else {
+        None
+    };
+    if boundary && grade(sit) == 8 {
+        let t = Instant::now();
+        let form = canonicalize(sit, CandidateSpec::FINEST).key;
+        ctx.canon_ns += t.elapsed().as_nanos();
+        let t = Instant::now();
+        let found = ctx.store.get(&form).copied();
+        ctx.probe_ns += t.elapsed().as_nanos();
+        if let Some(v) = found {
+            ctx.hits += 1;
+            ctx.hit_seq += 1;
+            if ctx.hit_seq % HIT_RECEIPT_STRIDE == 1 || !ctx.coordinate_first_hit_taken {
+                ctx.receipts.push((sit.clone(), v));
+                ctx.coordinate_first_hit_taken = true;
+            }
+            ctx.last_hit = Some((sit.clone(), v));
+            memo.insert(key.expect("boundary"), v);
+            return v;
+        }
+        let mut vals = Vec::new();
+        for tile in sit.legal().iter() {
+            ctx.edges += 1;
+            let (k, next) = sit.step(tile);
+            let mut v = qi(i128::from(k));
+            if let Some(s) = next {
+                v += value_t2(&s, memo, ctx);
+            }
+            vals.push(v);
+        }
+        let v = aggregate(actor_offset(sit), vals);
+        ctx.store.insert(form, v);
+        ctx.inserts += 1;
+        memo.insert(key.expect("boundary"), v);
+        return v;
+    }
+    let mut vals = Vec::new();
+    for tile in sit.legal().iter() {
+        ctx.edges += 1;
+        let (k, next) = sit.step(tile);
+        let mut v = qi(i128::from(k));
+        if let Some(s) = next {
+            v += value_t2(&s, memo, ctx);
+        }
+        vals.push(v);
+    }
+    let v = aggregate(actor_offset(sit), vals);
+    if let Some(k) = key {
+        memo.insert(k, v);
+    }
+    v
+}
+
+/// E-A4: discharge the pending hit receipts — re-expand each sampled hit to
+/// TERMINALS (plain A0, no cache, no floor) and assert bit-exact agreement.
+/// A mismatch is a canonical-form implementation defect: stop and report.
+fn discharge_hit_receipts(ctx: &mut L2Ctx) -> usize {
+    let mut pending = std::mem::take(&mut ctx.receipts);
+    if let Some(last) = ctx.last_hit.take() {
+        pending.push(last);
+    }
+    let n = pending.len();
+    for (sit, v) in pending {
+        let mut edges = 0u64;
+        let full = value_a0(&sit, &mut edges);
+        assert_eq!(
+            full, v,
+            "E-A4 receipt: a store hit disagrees with re-expansion to terminals — \
+             canonical-form implementation defect (or a defect in F2's list), not an ECL event"
+        );
+    }
+    ctx.coordinate_first_hit_taken = false;
+    n
+}
+
+fn store_digest() -> u64 {
+    fnv64(STORE_FREEZES.as_bytes())
+}
+
+fn load_l2_store() -> (BTreeMap<Vec<u8>, Q>, &'static str) {
+    let Ok(text) = std::fs::read_to_string(L2_STORE_PATH) else {
+        return (BTreeMap::new(), "cold (no store file)");
+    };
+    let mut lines = text.lines();
+    let Some(header) = lines.next() else {
+        return (BTreeMap::new(), "cold (empty store file, ignored)");
+    };
+    let expect = format!(
+        "walt-endgame-store v1 digest={:016x} level=2",
+        store_digest()
+    );
+    if header != expect {
+        return (
+            BTreeMap::new(),
+            "cold (freeze-set digest mismatch: file discarded wholesale, never partially reused)",
+        );
+    }
+    let mut store = BTreeMap::new();
+    for line in lines {
+        let mut parts = line.split(' ');
+        let (Some(k), Some(v)) = (parts.next(), parts.next()) else {
+            panic!("corrupt store record: {line}")
+        };
+        let key = unhex(k).expect("corrupt store key");
+        let (num, den) = v.split_once('/').expect("corrupt store value");
+        let value = q(
+            num.parse::<i128>().expect("store numerator"),
+            den.parse::<i128>().expect("store denominator"),
+        );
+        let prior = store.insert(key, value);
+        assert!(prior.is_none_or(|p| p == value), "store collision (X-A16)");
+    }
+    (store, "warm (store file loaded, digest verified)")
+}
+
+fn save_l2_store(store: &BTreeMap<Vec<u8>, Q>) {
+    let _ = std::fs::create_dir_all("store");
+    let mut out = format!(
+        "walt-endgame-store v1 digest={:016x} level=2\n",
+        store_digest()
+    );
+    for (k, v) in store {
+        let _ = writeln!(&mut out, "{} {}/{}", hex_of(k), v.numer(), v.denom());
+    }
+    std::fs::write(L2_STORE_PATH, out).expect("store file writes");
+}
+
+struct ArmRow {
+    ns: u128,
+    edges: u64,
+}
+
+#[allow(clippy::too_many_lines)]
+fn run_endgame() {
+    let r = receipt();
+    for hand in &r.hands {
+        assert!(
+            matches!(hand.decl, Decl::PipTrump(_)),
+            "F1 scope: pip-trump only"
+        );
+    }
+    let mut out = String::new();
+    let w = &mut out;
+    let _ = writeln!(w, "walt endgame-store probe — symmetry-reduced tablebase over the r1 canonical form — exploratory tier");
+    let _ = writeln!(w, "design: walt/ENDGAME-STORE.md; binding rulings: CENSUS-RULINGS.md \"Endgame-store rulings (E-Q1..E-Q7)\", E-A1..E-A21 and Lemma E, plus P-A1..P-A21 and X-A1..X-A19 inherited unchanged");
+    let _ = writeln!(w);
+    let _ = writeln!(w, "E-A1 (verbatim): The lookup key is the r1 structural canonical form. This probe measures a symmetry-reduced tablebase, not the equivariant class machinery; S5h's finding that cone identity cannot short-circuit descent is unchanged and is not rescued here.");
+    let _ = writeln!(w, "E-A2 (COUNT-FREE ONLY, the one silent-wrongness failure mode): Lemma E's bijection preserves beats relations, not pip counts. Every record is sound only for the count-free q_trick valuation; if count ever re-enters (v0.5 role re-entry), every record becomes unsound and the store is invalidated wholesale, never extended.");
+    let _ = writeln!(w, "Lemma E (adjudicated): equal r1 canonical forms (F2 A1-A4 amended) give a tile-bijection and seat rotation carrying one remaining game to the other, preserving everything the remaining rules read; every count-free fold — the frozen F4 operator included (E-A3: declared isomorphism-invariant) — is therefore equal. The form reads tiles and relations, never the future: a lookup with no descent at all.");
+    let _ = writeln!(w);
+    let _ = writeln!(w, "arms: T0 = A1 alone (S5h control). T1' = A1 + the closed-form last-trick control (E-A9: one winner computation at grade 4 — the floor TABLE's honest competitor; the floor-table comparison and the E-A8 level-1 form count live in the `floor` subcommand's file). T2 = T1' + lazy level-2 canonical-form store, per-coordinate COLD. T3 = the same with ONE store carried across all coordinates in the declared order (warm). Headline per E-A21: T3 vs T0 measures cross-coordinate novelty against A1's within-coordinate cache.");
+    let _ = writeln!(w, "receipts: bit-exact per-world value equality across all four arms (P-A9/E-Q5 — same fiber, different enumeration order, same values); E-A4 hit receipts — every {HIT_RECEIPT_STRIDE}th store hit globally plus the first and last hit of every coordinate re-expanded to TERMINALS (plain A0, validating the composition of layers) with bit-exact agreement asserted; E-A5 — floor build, lazy insert and evaluator share the ONE canonical-form code path (walt_skeleton::equivariant::canonicalize, FINEST).");
+    let _ = writeln!(w, "freezes: 7-11 unchanged; (14, first implemented) store record format \"{STORE_FREEZES}\" digested {:016x}, wholesale invalidation on mismatch; (15) the canonical-form key = canonicalize(sit, FINEST).key bytes; (16) the floor domain (see floor file); (17) the declared coordinate order = rung n=4 hands 0-12 then rung n=5 hands 0-3, and the receipt stride above.", store_digest());
+    let _ = writeln!(w, "E-A17 (cold regenerate path for every headline number): rm -f walt-factory/store/endgame_l2.store && cargo run --release -p walt-factory --example fiber_probe endgame");
+    let _ = writeln!(w, "timing discipline (P-A19): one run, one machine, single-threaded; integer ns; exact fixed-point ratios. CPU: {}; build profile: release; threads: 1.", cpu_model());
+    let _ = writeln!(w, "saturation curves below are STORE-RELATIVE and ORDER-RELATIVE (E-A20): they measure this traversal of this corpus in the declared order, not the game.");
+    let _ = writeln!(w);
+
+    let (warm_store, provenance) = load_l2_store();
+    let _ = writeln!(
+        w,
+        "store provenance (E-A18): start = {provenance}; records at start = {}; contributing coordinates listed per row below; warm-only numbers are labelled.",
+        warm_store.len()
+    );
+    let _ = writeln!(w);
+    let mut t3 = L2Ctx::new(warm_store);
+    let mut receipt_total = 0usize;
+
+    for rung in &RUNGS[..2] {
+        let _ = writeln!(
+            w,
+            "================ rung n={} (trick {}) — g={}, W={}; hands {:?} ================",
+            rung.n, rung.trick_no, rung.g, rung.w, rung.hands
+        );
+        for &h in rung.hands {
+            let hand = &r.hands[h];
+            let (kernel, leader) = void_free_kernel(hand, rung.trick_no);
+            let (_, worlds) = select_worlds(&kernel, rung.g, rung.w);
+            let decl = kernel.decl();
+            let focal = kernel.viewer();
+            let roots: Vec<Situation> = worlds
+                .iter()
+                .map(|hs| Situation {
+                    decl,
+                    focal,
+                    leader,
+                    hands: *hs,
+                    table: Vec::new(),
+                })
+                .collect();
+
+            // T0: A1 alone.
+            let t = Instant::now();
+            let mut memo: BTreeMap<u128, Q> = BTreeMap::new();
+            let mut e0 = 0u64;
+            let v0: Vec<Q> = roots
+                .iter()
+                .map(|s| value_a1(s, &mut memo, &mut e0))
+                .collect();
+            let t0_row = ArmRow {
+                ns: t.elapsed().as_nanos(),
+                edges: e0,
+            };
+
+            // T1': closed-form last-trick bottom.
+            let t = Instant::now();
+            let mut memo: BTreeMap<u128, Q> = BTreeMap::new();
+            let mut e1 = 0u64;
+            let v1: Vec<Q> = roots
+                .iter()
+                .map(|s| value_t1(s, &mut memo, &mut e1))
+                .collect();
+            let t1_row = ArmRow {
+                ns: t.elapsed().as_nanos(),
+                edges: e1,
+            };
+
+            // T2: per-coordinate cold store.
+            let t = Instant::now();
+            let mut memo: BTreeMap<u128, Q> = BTreeMap::new();
+            let mut cold = L2Ctx::new(BTreeMap::new());
+            let v2: Vec<Q> = roots
+                .iter()
+                .map(|s| value_t2(s, &mut memo, &mut cold))
+                .collect();
+            let t2_ns = t.elapsed().as_nanos();
+            receipt_total += discharge_hit_receipts(&mut cold);
+
+            // T3: the shared warm store (A1 memo stays coordinate-local).
+            let hits_before = t3.hits;
+            let size_before = t3.store.len();
+            let t = Instant::now();
+            let mut memo: BTreeMap<u128, Q> = BTreeMap::new();
+            let v3: Vec<Q> = roots
+                .iter()
+                .map(|s| value_t2(s, &mut memo, &mut t3))
+                .collect();
+            let t3_ns = t.elapsed().as_nanos();
+            receipt_total += discharge_hit_receipts(&mut t3);
+
+            for i in 0..roots.len() {
+                assert_eq!(v0[i], v1[i], "arm equality T0=T1' at world {i} (E-Q5)");
+                assert_eq!(v0[i], v2[i], "arm equality T0=T2 at world {i} (E-Q5)");
+                assert_eq!(v0[i], v3[i], "arm equality T0=T3 at world {i} (E-Q5)");
+            }
+
+            let _ = writeln!(
+                w,
+                "  h{h}: T0 {} ns / {} edges; T1' {} ns / {} edges; T2 cold {} ns (canon {} ns, probe {} ns, hits {}, inserts {}); T3 warm {} ns (canon {} ns, probe {} ns, hits this coordinate {}, store {} -> {} records)",
+                t0_row.ns,
+                t0_row.edges,
+                t1_row.ns,
+                t1_row.edges,
+                t2_ns,
+                cold.canon_ns,
+                cold.probe_ns,
+                cold.hits,
+                cold.inserts,
+                t3_ns,
+                t3.canon_ns,
+                t3.probe_ns,
+                t3.hits - hits_before,
+                size_before,
+                t3.store.len()
+            );
+            let _ = writeln!(
+                w,
+                "      wall ratios: T1':T0 = {}; T2:T0 = {}; T3:T0 = {} (HEADLINE, E-A21: cross-coordinate novelty vs the within-coordinate cache); receipts: arm equality {}/{} held",
+                fp(t1_row.ns, t0_row.ns),
+                fp(t2_ns, t0_row.ns),
+                fp(t3_ns, t0_row.ns),
+                roots.len(),
+                roots.len()
+            );
+            eprintln!(
+                "endgame n={} h{h}: T0 {}ms T1' {}ms T2 {}ms T3 {}ms (T3 hits {} store {})",
+                rung.n,
+                t0_row.ns / 1_000_000,
+                t1_row.ns / 1_000_000,
+                t2_ns / 1_000_000,
+                t3_ns / 1_000_000,
+                t3.hits - hits_before,
+                t3.store.len()
+            );
+        }
+        let _ = writeln!(w);
+    }
+
+    let _ = writeln!(
+        w,
+        "E-A4 receipts discharged: {receipt_total} sampled hits re-expanded to terminals, all bit-exact. T3 cumulative: {} hits, {} inserts, {} records; total canonicalisation {} ns, total probe {} ns (E-A10 split).",
+        t3.hits,
+        t3.inserts,
+        t3.store.len(),
+        t3.canon_ns,
+        t3.probe_ns
+    );
+    save_l2_store(&t3.store);
+    let _ = writeln!(
+        w,
+        "store saved: {L2_STORE_PATH} ({} records) — a CACHE, gitignored, never an authority (X-A17/E-Q6); wholesale invalidation on freeze mismatch.",
+        t3.store.len()
+    );
+    let _ = writeln!(w);
+    let _ = writeln!(w, "Both outcomes remain results (F7): a weak T3 dividend is the convergence hypothesis measured small on this corpus in this order — a result, not a reason to re-run with altered arms (E-A21). Walls are stops, not findings (E-A16).");
+    let _ = writeln!(w, "run complete: yes");
+    std::fs::write(ENDGAME_RESULTS, out).expect("results file writes");
+    println!("wrote {ENDGAME_RESULTS}");
+}
+
+/// The floor: the complete level-1 domain enumerated once — every ordered
+/// assignment of four distinct dominoes to the four seats, every leader,
+/// every focal seat, every pip-trump declaration (freeze 16; E-A7 asserts
+/// the closed form 491,400 x 4 x 4 x 7 = 55,036,800 and the a1 numbers).
+/// Reports the E-A8 number (distinct r1 canonical forms — the store's true
+/// record count) and the E-A9 comparison (floor table vs closed-form
+/// control).
+#[allow(clippy::too_many_lines)]
+fn run_floor() {
+    let mut out = String::new();
+    let w = &mut out;
+    let _ = writeln!(
+        w,
+        "walt endgame-store probe — the level-1 floor — exploratory tier"
+    );
+    let _ = writeln!(w, "rulings: E-A6..E-A10 (miss taxonomy, build assertions, the two cardinalities, the closed-form control, the cost split); E-A1/E-A2 sentences as in endgame_store_2026-08-11.txt");
+    let _ = writeln!(
+        w,
+        "regenerate: cargo run --release -p walt-factory --example fiber_probe floor"
+    );
+    let _ = writeln!(w);
+    let mut forms: BTreeMap<Vec<u8>, Q> = BTreeMap::new();
+    let mut classes: BTreeSet<(u8, [u8; 3], u8)> = BTreeSet::new();
+    let mut by_offset = [0u64; 4];
+    let mut by_increment = [0u64; 2];
+    let mut by_pattern: BTreeMap<[u8; 3], u64> = BTreeMap::new();
+    let mut total = 0u64;
+    let mut canon_ns_sample = 0u128;
+    let mut control_ns_sample = 0u128;
+    let mut sampled = 0u64;
+    let t_build = Instant::now();
+    for decl in Decl::ALL {
+        let Decl::PipTrump(_) = decl else { continue };
+        for focal in walt_core::Seat::ALL {
+            for leader in walt_core::Seat::ALL {
+                for a in walt_core::Domino::ALL {
+                    for b in walt_core::Domino::ALL {
+                        if b == a {
+                            continue;
+                        }
+                        for c in walt_core::Domino::ALL {
+                            if c == a || c == b {
+                                continue;
+                            }
+                            for d in walt_core::Domino::ALL {
+                                if d == a || d == b || d == c {
+                                    continue;
+                                }
+                                total += 1;
+                                let mut hands = [DominoSet::EMPTY; 4];
+                                for (k, tile) in [a, b, c, d].into_iter().enumerate() {
+                                    let mut set = DominoSet::EMPTY;
+                                    set.insert(tile);
+                                    hands[leader.plus(k).index()] = set;
+                                }
+                                let sit = Situation {
+                                    decl,
+                                    focal,
+                                    leader,
+                                    hands,
+                                    table: Vec::new(),
+                                };
+                                let value = resolve_last_trick(&sit);
+                                // The class tuple, proven in the a1 receipt:
+                                // (actor offset, three classifications, k).
+                                let led = decl.led_context(a);
+                                let pattern = [
+                                    u8::from(!decl.follows(b, led)),
+                                    u8::from(!decl.follows(c, led)),
+                                    u8::from(!decl.follows(d, led)),
+                                ];
+                                let inc = u8::from(value == qi(1));
+                                classes.insert((actor_offset(&sit), pattern, inc));
+                                by_offset[usize::from(actor_offset(&sit))] += 1;
+                                by_increment[usize::from(inc)] += 1;
+                                *by_pattern.entry(pattern).or_insert(0) += 1;
+                                // E-A9/E-A10 sample: every 9973rd state, time
+                                // the control against canonicalize+probe.
+                                if total.is_multiple_of(9973) {
+                                    sampled += 1;
+                                    let t = Instant::now();
+                                    let k = canonicalize(&sit, CandidateSpec::FINEST).key;
+                                    let hit = forms.get(&k).copied();
+                                    canon_ns_sample += t.elapsed().as_nanos();
+                                    if let Some(hv) = hit {
+                                        assert_eq!(hv, value, "floor consistency");
+                                    }
+                                    let t = Instant::now();
+                                    let cv = resolve_last_trick(&sit);
+                                    control_ns_sample += t.elapsed().as_nanos();
+                                    assert_eq!(cv, value);
+                                }
+                                let form = canonicalize(&sit, CandidateSpec::FINEST).key;
+                                let prior = forms.insert(form, value);
+                                assert!(
+                                    prior.is_none_or(|p| p == value),
+                                    "two states with one canonical form disagree on value — Lemma E violated by the implementation"
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    let build_ns = t_build.elapsed().as_nanos();
+    assert_eq!(total, 55_036_800, "the closed-form floor domain (E-A7)");
+    assert_eq!(
+        classes.len(),
+        64,
+        "the complete level-one alphabet (E-A7, a1)"
+    );
+    for o in by_offset {
+        assert_eq!(o, total / 4, "anatomy by offset (E-A7, a1)");
+    }
+    assert_eq!(
+        by_pattern.len(),
+        8,
+        "eight classification patterns (E-A7, a1)"
+    );
+    let _ = writeln!(w, "floor domain enumerated: {total} situations (asserted against 491,400 x 4 x 4 x 7); complete level-one alphabet re-derived: {} classes (asserted 64, byte-agreeing with census_a1_complete_2026-08-11.txt); increments split {} / {}", classes.len(), by_increment[0], by_increment[1]);
+    let _ = writeln!(w, "THE E-A8 NUMBER — distinct r1 canonical forms at level 1 (the floor's true record count): {}", forms.len());
+    let _ = writeln!(
+        w,
+        "build: {build_ns} ns total; store memory is {} records x (key + value)",
+        forms.len()
+    );
+    let _ = writeln!(
+        w,
+        "E-A9 comparison on the declared sample (every 9973rd state, {sampled} samples): canonicalize+probe {canon_ns_sample} ns total vs closed-form control {control_ns_sample} ns total — per-op {} vs {} ns. If the control wins, the floor TABLE is a negative result and is reported as one; the closed-form control is what arms T1'..T3 actually use at grade 4.",
+        canon_ns_sample / u128::from(sampled.max(1)),
+        control_ns_sample / u128::from(sampled.max(1))
+    );
+    let _ = writeln!(w, "miss taxonomy (E-A6): this build is the complete pip-trump floor; a doubles-trump or no-trump lookup would be OUT OF DECLARED SCOPE (F1), and an in-scope absent form would be a bug — both stop-and-report, never a fill.");
+    let _ = writeln!(w, "run complete: yes");
+    std::fs::write(FLOOR_RESULTS, out).expect("results file writes");
+    println!("wrote {FLOOR_RESULTS}");
+}
+
 fn main() {
     match std::env::args().nth(1).as_deref() {
         Some("h") => run_h(),
         Some("refine") => run_refine(),
+        Some("endgame") => run_endgame(),
+        Some("floor") => run_floor(),
         _ => run_ladder(),
     }
 }

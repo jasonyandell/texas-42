@@ -256,6 +256,18 @@ evolved this project's own receipt/TRUST-01 discipline.
   X's bite classes (up to 16–36%) but ~zero WORLDS at n=4/5 on
   declarer-focal coordinates — bite plausibly lives in count-bearing
   X's, non-declarer seats, and real voided support. Full gate green.
+- **S5j** (2026-08-11): the endgame store — symmetry-reduced tablebase
+  under rulings E-A1..E-A21; **Lemma E** proved (structural
+  isomorphism ⇒ count-free value equality — lookup with no descent);
+  persistence discipline first implemented (gitignored cache,
+  freezes 14–17). Negatives, attributed: tablebase arms 1.6–2.7×
+  slower than the plain cache (canonicalization ~4.6 µs dominates;
+  A1's memo already collapsed what a hit saves); floor table 41×
+  slower than closed-form trick resolution. Positives: convergence
+  real (38–73% form-hit rates — relabeling repeats a state key can't
+  see); closed-form bottom wins 2–5%; **level-1 form count = 32,532**
+  (vs 64 classes) and level-2 store at 1.36M records un-saturated —
+  first direct size data for the seat-level census. Full gate green.
 
 ## Next
 
