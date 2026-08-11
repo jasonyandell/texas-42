@@ -419,3 +419,89 @@ sampling — the operator is exclusion-complete closure or it is not exact.
 (Y1 correction); the A_{k+1} alphabet indexing (direction fixed above); and
 treating the slough-availability observation as a periodicity refuter (it is a
 payoff refuter; P1 makes soundness immune to it).
+
+# Shape notion v2 (walt-math, 2026-08-10; repaired instrument — a new declared measurement, never a mutation of the committed run)
+
+Diagnosis first, because it dictates the repair: the arity leak is NOT
+root-local. At every node where the actor is unconstrained the menu is the
+whole hand — a leader "may play any remaining tile" and a follower unable to
+follow "may slough" any tile (v0.4 §1.5) — so lead AND slough nodes have arity
+exactly j at level j, by rule. Candidate (a) (abstract the root arity into a
+multiset of option-shapes) therefore only relocates the blindness to slough
+nodes and is REJECTED as the primary repair; candidate (b) (root sections)
+contains the same slough leak one level down; candidate (c) (mid-trick
+anchoring) helps only at forced-follow nodes. The correct object, from the
+structure of Tree₄ itself, is candidate (d):
+
+## Definition — the suffix library, in two declared variants
+
+Cut every level-j signature tree at every node. A depth-d SUFFIX (d = 1..4) is
+the decorated subtree below a node: node decorations (actor offset, constraint
+type ∈ {lead, forced-follow, slough}), per-move (ε, classification), leaves =
+holes with the equality pattern RECOMPUTED LOCALLY within the suffix (leaf
+coincidences crossing the cut are dropped — without this the library is
+ill-defined). All suffixes are content-addressed (hash-consed).
+
+- **v2-strict:** option multisets kept everywhere (arity is honest data).
+  Lib_d^s(j) = the set of distinct depth-d suffixes realized at level j.
+- **v2-open:** at UNCONSTRAINED nodes only (lead, slough) the option multiset
+  is replaced by the SET of distinct option-shapes; forced-follow nodes keep
+  their multisets (their arities are suit-split facts that can coincide across
+  levels). Lib_d^o(j) analogous.
+
+Justification for the open abstraction: at an unconstrained node the menu SIZE
+is the level, definitionally; the menu CONTENT (distinct option types) is the
+machinery. v2-open quotients out exactly the rule-forced coordinate and
+nothing else; the strict/open gap isolates the forced-arity contribution
+instead of hiding it. Both variants are INSTRUMENTS, not carriers: neither
+satisfies (ECL) (v2-open even alters chance arities), no value or class claim
+may ever be read from a shape count, and shapes sit below every tier.
+
+## Q2 — refutation criterion and what recurrence buys
+
+Metrics per variant and depth: library growth g_d = |Lib_d(j+1)|/|Lib_d(j)|
+against class growth |A_{j+1}|/|A_j|; cross-level overlap ω_d(j,j′) =
+|Lib_d(j) ∩ Lib_d(j′)| / |Lib_d(min)| — normalize by the smaller level, since
+a suffix containing any arity > j′ cannot occur at level j′ (the overlap is
+structurally asymmetric; report it as such).
+
+- **Payoff CONFIRMED** if, for d ≤ 3, v2-open library growth is far below
+  class growth and ω_d is high: the parts recur; only menus over shared parts
+  grow. This certifies the SHARED-MACHINERY payoff: A_j representable over a
+  cross-level hash-cons store, per-level cost ≈ new library entries + menu
+  multiplicity tables over shared option types.
+- **Payoff REFUTED** if v2-open depth-≤3 growth is the same order as class
+  growth — the diversity then lives in genuinely new sub-parts per level and
+  the yard's state-inventory reuse is small.
+- v2-strict overlap additionally certifies LITERAL state sharing; expect
+  lead/slough-containing strict suffixes to be level-pinned by construction —
+  quantify that fraction rather than lamenting it.
+
+What no recurrence result buys: shared MENUS (provably level-pinned — lead
+arity = j is a rule, not a finding) and any lawful equivalence (instrument
+tier). What stays true regardless of outcome: P1 — the yard as ONE grade-free
+transition program is a theorem; v1/v2 measure only whether the state
+inventory also compresses. Both outcomes are results.
+
+## Q3 — sanity ruling: YES, bracket the recurrence
+
+The committed within-level numbers (23,592 → 10,978 shapes, 2.1:1; shape
+growth 171× vs class growth 368×, same order) already show the pure
+equality-pattern abstraction discards all leaf identity yet buys barely 2× —
+the diversity is STRUCTURAL, not leaf-labeling, so no leaf-side abstraction
+alone can carry the payoff, and v1's whole-tree recurrence rows would likely
+have disappointed even without the arity artifact. Say this plainly in the
+results. Therefore measure v2 alongside ONE declared refinement rung to locate
+where recurrence lives between shapes and classes: the HEREDITARY-SHAPE rung —
+replace each leaf not by a hole but by the shape (same variant) of that leaf
+class's own tree one level down, recursing to the terminal class. This rung is
+the natural self-similarity instrument for a claimed-periodic machine (if the
+game is one machine iterated, hereditary shapes are what should stabilize) and
+sits strictly between shapes and classes. Report the compression ladder per
+level: classes → hereditary shapes → shapes; the rung where the big ratio jump
+occurs is where the recurrence actually lives.
+
+Procedure discipline: v1 rows stay as committed (runs are never mutated); v2
+and the hereditary rung are new declared measurements in a new results file,
+headed by the instrument-tier caveat above and paired with the run's
+determinism freezes (content-addressing is already frozen per r3 Q5.3).
