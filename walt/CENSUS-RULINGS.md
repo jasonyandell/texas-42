@@ -313,3 +313,109 @@ response equality — the r1 caveat carries over.
 3. **Determinism.** The per-state canonical move order and the content-
    addressed encoding are determinism freezes — fix them in code and note them
    in the results header; class counts must be reproducible bit-for-bit.
+
+# The railyard factoring — shaping (walt-math, 2026-08-10; design shaping, not a build order)
+
+Indexing convention (fix this to kill an off-by-one): level j = tricks
+remaining; at a trick boundary every seat holds exactly j tiles; A_j = the set
+of level-j boundary r3 classes; A_0 = the one terminal class. Level-j dynamics
+instantiate at A_{j−1} (one fewer trick remaining), not A_{j+1}.
+
+## Y1 — one-trick contract and stacking. RULING: ADOPT WITH ONE CORRECTION; stacking = r3 CONFIRMED.
+
+**Correction (unsound as posed).** "Outcome = (increment, handoff class)" read
+as a trick-level MACRO step is unlawful — F5 already ruled macro steps the
+wrong granularity for §12.6A, and a black-box trick erases the mid-trick
+observations and focal choices the contract must preserve. The lawful contract:
+the one-trick machine is the FOUR-primitive-step machine with the Q3 per-step
+interface typing (offset preamble; per-move (ε, classification, succ) with
+ε ∈ {0, e⋆} emittable only at the fourth step), whose terminal symbols are the
+handoff classes. This is a declared output contract in §11.3's sense (selected
+outputs: typed step emissions + class-valued handoff), so the truncated-horizon
+quotient is lawful.
+
+**Stacking.** r3's recursion IS this stacking. The carrier is strictly graded
+with exactly 4 plays per trick, so grouping grades in blocks of four factors
+the recursion at trick boundaries: a level-j boundary state's hereditary
+signature unfolds to exactly a depth-4 nested multiset tree whose decorations
+are (ε, classification, offset) and whose leaves are level-(j−1) boundary
+classes. Hence A_j is, definitionally, the realized subset of Tree₄(A_{j−1})
+(the depth-4 signature-tree algebra over the alphabet); mid-trick classes are
+the interior subtrees. The yard is therefore a REFACTORING of r3's equivalence
+— not a new equivalence — provided the handoff alphabet is exactly A_{j−1}
+(the r3 classes; any coarser handoff summary forfeits the identity), and it
+inherits r3's ECL receipts ON THE MEASURED CARRIER only. Extending the yard to
+the full game is new territory; receipts never promote (project tier rule).
+
+## Y2 — periodicity. RULING: split the claim; half is a theorem obligation, half is a payoff measurement.
+
+**(P1 — grade-free uniformity; PROVE, do not measure.)** The signature-tree
+functor Tree₄ and the map tree ↦ abstract one-trick kernel are grade-free:
+(i) the primitive-step rules (legality, tier, winner, ε — v0.4 §1.2–1.3) take
+no trick index — legality and trick keys are functions of state content only;
+(ii) by r3's construction the class IS the signature and the signature's root
+multiset IS the transition law, so a yard state's abstract dynamics are
+determined by its tree, with no residual level dependence. Consequence: the
+yard transducer is AUTOMATICALLY lawful and grade-free; "every trick is the
+same object" is exactly P1 and is provable, essentially from §1.3's silence
+about trick index plus the r3 construction. Obligation list: (a) step/emission
+functions have no grade argument; (b) within-trick preamble/offset evolution
+is level-free (leader rotation, fixed clockwise successor); (c) tree
+determines kernel (immediate from Q1–Q3 of the r3 ruling).
+
+**(P2 — self-similarity of the realized image; MEASURE, cannot be proved.)**
+What varies per level is which trees are realized: hands of size j support
+richer leader-choice multisets than hands of size j−1. Define a tree's SHAPE
+as the tree with leaves abstracted to their equality pattern (which leaves
+coincide — cf. v0.4 §3.4, v0.5's equality-pattern quotient; leaf identity
+matters exactly through coincidence). The compression payoff claim is:
+realized shapes substantially recur across levels, so the yard's shape
+inventory grows far slower than the ~370×/trick class growth. This is the
+refutable claim. Note the reclassification: the proposed refuter (slough
+availability varying with remaining-hand shape) CANNOT break soundness — under
+P1 hand-shape variety is fully recorded in the tree — it can only appear as
+shape growth, i.e., it threatens the payoff, not the mathematics.
+
+**Finite tests on existing data.**
+1. (Verifies P1 / the refactoring.) Recompute A_j from A_{j−1} for every level
+   present in the t5/t6/t7 class DAGs using ONE shared grade-free routine;
+   byte-compare against r3's directly computed classes. Any mismatch refutes
+   the factoring implementation or exposes a hidden grade dependence.
+2. (Measures P2.) Count distinct realized shapes per level and the cross-level
+   shape overlap (same equality-pattern tree up to alphabet bijection). Payoff
+   confirmed if shape counts are small/overlapping across levels; refuted if
+   shape growth tracks class growth (the ~370× then lives in shapes and the
+   yard buys little).
+3. (The lead's isomorphism test, scoped correctly.) Where an alphabet
+   bijection matches sub-alphabets of two levels, the induced within-trick
+   sub-DAGs MUST be isomorphic — by P1 this is a consequence, so run it as a
+   cross-check of the implementation, not as the periodicity experiment; a
+   failure here is a bug or a P1 proof error, never a new result.
+
+## Y3 — pruning operator. RULING: CONFIRMED, with the vocabulary discipline mandatory.
+
+For a seat (kernel K, fiber Φ(K), belief β): map each root world to its root
+class, take the class image plus abstract-kernel reachability closure — under
+the uniform-legal field every legal transition has positive mass, so closure =
+DAG reachability, and at focal choice nodes ALL legal abstract actions are
+included. Searching this live sub-DAG with K̄ is exact by v0.5 conclusions 1–2
+(β̄ = d_#β filters exactly by K̄ alone; abstract policies lift to lawful
+concrete policies with the same joint law) and conclusion 7 (V/Q equality).
+
+The seat MAY conclude: exact abstract filtering over classes; exact count-free
+value and per-action Q, over the transported abstract-policy class; support
+facts (a class outside the sub-DAG is inconsistent with the seat's
+information). The seat may NOT: (a) present the sub-DAG as belief — it is a
+SUPPORT object; classes in it can carry zero pushforward mass (support ≠
+belief); (b) claim the unrestricted concrete optimum — v0.5's BOUNDARY leaves
+open whether it is attained in the transported abstract-policy class; quote
+values as "exact over the lifted policy class" until a sufficiency theorem
+closes that gap; (c) read any count/valuation conclusion from the count-free
+DAG — valuation re-enters only through declared roles (v0.5 role re-entry and
+the fixed-valuation stabilizer boundary), and O_Σ = ∅ here; (d) prune by
+sampling — the operator is exclusion-complete closure or it is not exact.
+
+**Unsound-as-posed summary:** the macro-step reading of the one-trick contract
+(Y1 correction); the A_{k+1} alphabet indexing (direction fixed above); and
+treating the slough-availability observation as a periodicity refuter (it is a
+payoff refuter; P1 makes soundness immune to it).
