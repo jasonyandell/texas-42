@@ -409,6 +409,32 @@ fn r3_merges_two_structurally_different_forced_situations() {
 }
 
 #[test]
+fn the_t5_rung_runs_the_whole_pipeline_on_the_smallest_kernel() {
+    // The trick-five climb, on h8 (the smallest trick-five fiber): grades 12
+    // down to 0, both mandatory receipts, pinned. Same construction as the
+    // trick-six rung -- the r3 ruling binds unchanged at this rung.
+    let r = receipt();
+    let kernel = Kernel::from_receipt_trick(&r.hands[8], 5).expect("the h8 trick-five kernel");
+    assert_eq!(kernel.count(), 92, "the pinned h8 trick-five fiber size");
+    let carrier = build_carrier(&[(8, kernel.clone())]);
+    // Pinned computed values -- exploratory tier, never axioms (TRUST-01).
+    assert_eq!(carrier.roots(), 92);
+    assert_eq!(carrier.len(), 25796);
+    let r3 = build_r3(&carrier);
+    assert_eq!(r3.class_members.len(), 1939);
+    let verdict = check_ecl_r3(&carrier, &r3);
+    assert_eq!(verdict.verdict(), "PASS");
+    assert!(verdict.failures.is_empty());
+    // Q5.1 at this rung too: r1's finest candidate must still refine r3.
+    let census = Census::build(build_carrier(&[(8, kernel_t5(&r, 8))]), FINEST);
+    assert!(r1_refines_r3(&census, &r3).is_empty());
+}
+
+fn kernel_t5(r: &Receipt, hand: usize) -> Kernel {
+    Kernel::from_receipt_trick(&r.hands[hand], 5).expect("a valid trick-five kernel")
+}
+
+#[test]
 fn r3_separates_forced_situations_that_pay_the_other_partnership() {
     // The control for the merge above: move the winning tile to the seat
     // across the table and the count-free increment differs, so r3 must keep

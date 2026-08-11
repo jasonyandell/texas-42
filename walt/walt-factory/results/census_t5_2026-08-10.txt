@@ -1,0 +1,90 @@
+walt situation census — the trick-five climb under the r3 retrograde coarsest quotient — exploratory tier
+scope: pip-trump only — the receipt corpus supplies no doubles-trump or no-trump hand (v0.4 §14.7); asserted in-run (F1 amendment)
+corpus: rob/receipts/verify_player.txt, hands 0-12, trick 5, viewer = that trick's leader = the focal seat; every fiber world enumerated and asserted against the exact fiber count
+construction: the already-adjudicated r3 retrograde coarsest quotient (walt/CENSUS-RULINGS.md section r3, Q1-Q5), unchanged — backward induction over the graded carrier, grades 12 down to 0, grade = live tile count with grade(successor) = grade - 1 asserted at every step; terminal (hand end) is one class; SIGNATURE = preamble (grade, actor offset from focal 0-3) + canonically ordered per-move tuples (count-free increment k, play classification in {lead, follow, slough}, successor r3-class); transports are position matching through the canonical move order (Q1b)
+determinism freezes (unchanged from the r3 run, Q5.3): (1) the content-addressed encoding — class identity is the 128-bit FNV-1a hash of the signature bytes [tag 0x33, grade, actor offset, move count, then per move: k, classification code, successor hash big-endian], asserted collision-free in-run; (2) the canonical move order — sort by (k, classification, successor class hash), ties broken by the state's concrete tile order
+field and contract: fixed uniform-legal field with exact rational mass 1/|L| per hidden play, Dirac focal actions, count-free increments only (F4, F5)
+determinism: no sampling, no caps, no seeds; the domain is exhaustively enumerated and every class with two or more members is checked. A declared stop of 20000000 situations guards the rung — passing it stops the run for deliberate re-scoping rather than capping silently (exclusion, never sampling)
+provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant module), exploratory tier, below every project evidentiary tier
+regenerate: cargo run --release -p walt-factory --example census_run t5
+
+CAVEAT (mandated, r3 ruling Q4): Classes are dynamics-equivalence classes under §12.6A on this carrier, uniform-legal field, count-free contract, per-step interface typing (r3 ruling Q3); they need not be closed under any tile relabeling and carry no structural description — the compact-description question (v0.4 §12.7) is separate and open. Coarsest is relative to that scope. Class identities are intrinsic to continuations; counts are carrier-relative; carrier growth adds classes, never splits existing ones. Exploratory tier. ECL holds by construction; see verification lines. These are not hidden-decision PI classes (v0.4 §12.4): the equivalence is dynamics, not response equality.
+
+FOCAL ALIGNMENT: this run's focal seat is each hand's trick-FIVE leader; the trick-six census's focal is that hand's trick-SIX leader. The two runs therefore describe different focal alignments wherever those leaders differ. Class-identity comparisons across the runs (the same content hash appearing in both) are meaningful only where the focal seats coincide and are NOT quoted here. Count comparisons across runs (306 root classes there against this run's root count) are comparisons of counts and are fine.
+
+carrier: 2651280 situations, 16112 roots (one per fiber world, asserted); declared stop 20000000 situations, not reached
+  per receipt hand (fiber worlds / situations reachable from that kernel):
+    h0: 1680 worlds, 1680 roots, 268356 situations
+    h1: 1680 worlds, 1680 roots, 241762 situations
+    h2: 1680 worlds, 1680 roots, 245532 situations
+    h3: 200 worlds, 200 roots, 64626 situations
+    h4: 1680 worlds, 1680 roots, 300642 situations
+    h5: 560 worlds, 560 roots, 130540 situations
+    h6: 1680 worlds, 1680 roots, 312998 situations
+    h7: 1680 worlds, 1680 roots, 265038 situations
+    h8: 92 worlds, 92 roots, 25796 situations
+    h9: 1680 worlds, 1680 roots, 308672 situations
+    h10: 700 worlds, 700 roots, 154878 situations
+    h11: 1120 worlds, 1120 roots, 138558 situations
+    h12: 1680 worlds, 1680 roots, 193882 situations
+
+verification (every count below is quotable only with these two lines)
+  Q5.1 refinement assertion — every one of r1's 2001355 finest-candidate classes on this carrier lands inside exactly one r3 class: HOLDS
+  Q5.2 independent ECL re-check over the r3 partition with position-matching transports: PASS — 90003 classes checked, 2489584 pairs under condition 1 and 2489584 under condition 2, 0 counterexamples
+
+r3 pooled counts on the trick-five carrier   [ECL re-check verdict above]
+  full carrier: 161696 classes over 2651280 situations
+  roots only (grade 12, the trick-five lead stratum): 12924 classes over 16112 roots
+  singleton classes (ECL vacuous there): 71693 of 161696; largest class 23496 situations
+  cross-kernel merges: 13900 classes; root merges: 1156
+
+class DAG by grade — the pathfinding graph (grade = live tiles; grade 12 is the trick-five lead, grade 8 the trick-six lead, grade 4 the trick-seven lead)
+  grade 12 (trick-five lead — this run's root stratum): 16112 situations, 12924 classes (1156 non-singleton)
+  grade 11: 48336 situations, 27178 classes (7736 non-singleton)
+  grade 10: 99804 situations, 40938 classes (17634 non-singleton)
+  grade  9: 210658 situations, 37848 classes (28582 non-singleton)
+  grade  8 (trick-six lead — the t6 census's root stratum): 179936 situations, 23592 classes (17199 non-singleton)
+  grade  7: 359872 situations, 11943 classes (10648 non-singleton)
+  grade  6: 593558 situations, 5393 classes (5181 non-singleton)
+  grade  5: 979036 situations, 1704 classes (1691 non-singleton)
+  grade  4 (trick-seven lead): 40992 situations, 64 classes (64 non-singleton)
+  grade  3: 40992 situations, 64 classes (64 non-singleton)
+  grade  2: 40992 situations, 32 classes (32 non-singleton)
+  grade  1: 40992 situations, 16 classes (16 non-singleton)
+  grade  0 (hand end): 1 class by ruling (the terminal), hash 413adf2a69b988797bf8942a15a6f08d
+
+growth across rungs (counts only — see the focal-alignment note above)
+  trick-six run, root stratum (grade 8 there): 306 classes over 647 roots
+  trick-five run, root stratum (grade 12 here): 12924 classes over 16112 roots
+  trick-six lead stratum measured inside THIS run (grade 8 here): 23592 classes over 179936 situations — reached from trick-five roots, so it is a different situation set from the trick-six census's 647 roots and is not the same measurement
+
+saturation curve — trick-five run, ROOT stratum (grade 12), hands accumulated in the declared order [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] (deterministic; the curve is order dependent by nature — a different order gives different per-hand increments and the same final total)
+  after h0: 1568 cumulative classes over 1680 roots (+1568 new)
+  after h1: 2897 cumulative classes over 3360 roots (+1329 new)
+  after h2: 4238 cumulative classes over 5040 roots (+1341 new)
+  after h3: 4248 cumulative classes over 5240 roots (+10 new)
+  after h4: 5652 cumulative classes over 6920 roots (+1404 new)
+  after h5: 6190 cumulative classes over 7480 roots (+538 new)
+  after h6: 7694 cumulative classes over 9160 roots (+1504 new)
+  after h7: 9188 cumulative classes over 10840 roots (+1494 new)
+  after h8: 9278 cumulative classes over 10932 roots (+90 new)
+  after h9: 10878 cumulative classes over 12612 roots (+1600 new)
+  after h10: 11474 cumulative classes over 13312 roots (+596 new)
+  after h11: 12591 cumulative classes over 14432 roots (+1117 new)
+  after h12: 12924 cumulative classes over 16112 roots (+333 new)
+
+saturation curve — trick-six run, ROOT stratum (grade 8), hands accumulated in the declared order [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] (deterministic; the curve is order dependent by nature — a different order gives different per-hand increments and the same final total)
+  after h0: 74 cumulative classes over 90 roots (+74 new)
+  after h1: 133 cumulative classes over 180 roots (+59 new)
+  after h2: 147 cumulative classes over 216 roots (+14 new)
+  after h3: 152 cumulative classes over 252 roots (+5 new)
+  after h4: 188 cumulative classes over 342 roots (+36 new)
+  after h5: 208 cumulative classes over 369 roots (+20 new)
+  after h6: 215 cumulative classes over 459 roots (+7 new)
+  after h7: 236 cumulative classes over 549 roots (+21 new)
+  after h8: 239 cumulative classes over 556 roots (+3 new)
+  after h9: 264 cumulative classes over 586 roots (+25 new)
+  after h10: 277 cumulative classes over 605 roots (+13 new)
+  after h11: 303 cumulative classes over 641 roots (+26 new)
+  after h12: 306 cumulative classes over 647 roots (+3 new)
+

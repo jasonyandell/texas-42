@@ -79,9 +79,10 @@ use walt_core::{legal_plays, Context, Decl, Domino, DominoSet, Seat, Trick};
 use walt_geom::{q, qi, Q};
 use walt_kernel::Kernel;
 
-/// The most matched tiles a trick-six situation can carry: four seats holding
-/// two tiles each, of which the played ones move to the unresolved trick.
-pub const MAX_MATCHED_TILES: usize = 8;
+/// The most matched tiles a situation can carry at the deepest declared rung:
+/// four seats holding three tiles each at a trick-five lead, of which the
+/// played ones move to the unresolved trick. The trick-six rung uses eight.
+pub const MAX_MATCHED_TILES: usize = 12;
 
 /// The hard ceiling on the labeling search: `8!`, the worst case at
 /// [`MAX_MATCHED_TILES`]. Exceeding it means the domain is not the one this
