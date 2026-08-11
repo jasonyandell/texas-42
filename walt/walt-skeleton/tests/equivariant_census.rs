@@ -10,7 +10,8 @@ use walt_core::{Decl, Domino, DominoSet, Pip, Seat};
 use walt_kernel::Kernel;
 use walt_skeleton::equivariant::{
     build_carrier, build_r3, canonicalize, check_ecl, check_ecl_r3, class_dag, closure_carrier,
-    identity_key, r1_refines_r3, yard_shape, yard_tree, CandidateSpec, Census, Law, Situation,
+    identity_key, r1_refines_r3, suffix_library, yard_shape, yard_tree, CandidateSpec, Census, Law,
+    Situation,
 };
 
 /// r1's descriptor: every test below that does not name a candidate is a
@@ -507,6 +508,62 @@ fn the_yard_routine_reproduces_r3s_partition_at_every_level() {
     let shape = yard_shape(&yard_tree(&carrier.states[level_one], &handoff))
         .expect("within the declared canonicalization ceiling");
     assert!(!shape.is_empty());
+}
+
+/// The class trees of one level of a single-kernel carrier.
+fn level_trees(
+    carrier: &walt_skeleton::equivariant::Carrier,
+    r3: &walt_skeleton::equivariant::R3,
+    level: usize,
+) -> Vec<walt_skeleton::equivariant::YardNode> {
+    let handoff = |sit: &Situation| -> u64 {
+        r3.class_of[carrier.lookup(sit).expect("closed under steps")] as u64
+    };
+    let mut representative: std::collections::BTreeMap<usize, usize> =
+        std::collections::BTreeMap::new();
+    for i in 0..carrier.len() {
+        if walt_skeleton::equivariant::grade(&carrier.states[i]) == 4 * level {
+            representative.entry(r3.class_of[i]).or_insert(i);
+        }
+    }
+    representative
+        .values()
+        .map(|i| yard_tree(&carrier.states[*i], &handoff))
+        .collect()
+}
+
+#[test]
+fn the_suffix_library_is_deterministic_and_its_overlap_is_pinned() {
+    // Shape notion v2, on the smallest kernel. Instrument tier: these are
+    // library sizes, never class counts, and neither variant satisfies (ECL).
+    let r = receipt();
+    let carrier = build_carrier(&[(12, kernel_at(&r, 12))]);
+    let r3 = build_r3(&carrier);
+    let one = level_trees(&carrier, &r3, 1);
+    let two = level_trees(&carrier, &r3, 2);
+
+    let first = suffix_library(&one, 3).expect("within the declared ceiling");
+    let second = suffix_library(&one, 3).expect("within the declared ceiling");
+    for d in 0..3 {
+        assert_eq!(first.strict[d], second.strict[d], "strict depth {}", d + 1);
+        assert_eq!(first.open[d], second.open[d], "open depth {}", d + 1);
+    }
+
+    let upper = suffix_library(&two, 3).expect("within the declared ceiling");
+    // Pinned computed values -- exploratory/instrument tier, never axioms.
+    assert_eq!(first.strict[0].len(), 11);
+    assert_eq!(first.open[0].len(), 11);
+    assert_eq!(upper.strict[0].len(), 12);
+    assert_eq!(upper.open[0].len(), 12);
+    let shared = first.open[0].intersection(&upper.open[0]).count();
+    assert_eq!(shared, 6, "the pinned depth-1 v2-open cross-level overlap");
+    // The open variant can only merge what strict keeps apart, never the
+    // reverse: it deduplicates options at unconstrained nodes and changes
+    // nothing else.
+    for d in 0..3 {
+        assert!(first.open[d].len() <= first.strict[d].len());
+        assert!(upper.open[d].len() <= upper.strict[d].len());
+    }
 }
 
 fn kernel_t5(r: &Receipt, hand: usize) -> Kernel {

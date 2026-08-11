@@ -1775,6 +1775,174 @@ fn symbol_perms(items: &[u64]) -> Vec<Vec<u64>> {
     out
 }
 
+/// The constraint type of a yard node, derived — never stored — from the
+/// classification its moves carry. A leader may play any remaining tile and a
+/// follower unable to follow may slough any tile (v0.4 §1.5), so lead and
+/// slough nodes are the UNCONSTRAINED ones whose arity is the level by rule; a
+/// forced-follow node's arity is a suit-split fact that can coincide across
+/// levels.
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
+pub enum Constraint {
+    Lead,
+    ForcedFollow,
+    Slough,
+}
+
+impl Constraint {
+    pub fn unconstrained(self) -> bool {
+        matches!(self, Constraint::Lead | Constraint::Slough)
+    }
+}
+
+/// A node's constraint type. Legality makes the classification uniform across
+/// a node's moves — a follower who can follow has only following tiles legal,
+/// one who cannot has the whole hand — which this asserts rather than assumes.
+pub fn node_constraint(moves: &[(u8, PlayClass, YardNode)]) -> Constraint {
+    let first = moves.first().expect("a node has at least one move").1;
+    for (_, class, _) in moves {
+        assert_eq!(
+            *class, first,
+            "legality makes a node's classification uniform"
+        );
+    }
+    match first {
+        PlayClass::Lead => Constraint::Lead,
+        PlayClass::Follow => Constraint::ForcedFollow,
+        PlayClass::Slough => Constraint::Slough,
+    }
+}
+
+/// The suffix library of one level, in both declared variants and at each
+/// declared depth. **Instrument tier**: neither variant satisfies (ECL) — the
+/// open variant even alters chance arities — so no value or class claim may
+/// ever be read from a library size.
+#[derive(Default)]
+pub struct SuffixLibrary {
+    /// Indexed by depth minus one: distinct depth-`d` suffixes, multisets kept
+    /// everywhere.
+    pub strict: Vec<BTreeSet<Vec<u8>>>,
+    /// Indexed by depth minus one: distinct depth-`d` suffixes with the option
+    /// multiset replaced by the set of distinct option-shapes at unconstrained
+    /// nodes only.
+    pub open: Vec<BTreeSet<Vec<u8>>>,
+}
+
+/// An interning table giving each distinct subtree an exact identity, so hole
+/// coincidence inside a suffix is decided by equality of whole subtrees and
+/// never by a hash comparison.
+#[derive(Default)]
+pub struct Identities {
+    ids: BTreeMap<Vec<u8>, u64>,
+}
+
+impl Identities {
+    pub fn of(&mut self, node: &YardNode) -> u64 {
+        let key = node.encode();
+        let next = self.ids.len() as u64;
+        *self.ids.entry(key).or_insert(next)
+    }
+}
+
+/// The depth-`d` suffix below a node: the decorated subtree cut at depth `d`,
+/// with everything below the cut replaced by a hole carrying the cut
+/// subtree's identity. Handoff leaves above the cut are holes too. The
+/// equality pattern over those holes is recomputed locally by
+/// [`yard_shape`] — coincidences crossing the cut are dropped, without which
+/// the library is ill defined.
+pub fn cut_suffix(node: &YardNode, depth: usize, ids: &mut Identities) -> YardNode {
+    if depth == 0 {
+        return YardNode::Handoff(ids.of(node));
+    }
+    match node {
+        YardNode::Handoff(_) => YardNode::Handoff(ids.of(node)),
+        YardNode::Step { offset, moves } => YardNode::Step {
+            offset: *offset,
+            moves: moves
+                .iter()
+                .map(|(increment, class, child)| {
+                    (*increment, *class, cut_suffix(child, depth - 1, ids))
+                })
+                .collect(),
+        },
+    }
+}
+
+/// The open variant: at unconstrained nodes only, the option multiset becomes
+/// the set of distinct option-shapes. Forced-follow nodes keep their
+/// multisets. Applied bottom up, so an option's shape is already in its own
+/// open form when duplicates are collapsed.
+pub fn open_variant(node: &YardNode) -> YardNode {
+    match node {
+        YardNode::Handoff(s) => YardNode::Handoff(*s),
+        YardNode::Step { offset, moves } => {
+            let mut opened: Vec<(u8, PlayClass, YardNode)> = moves
+                .iter()
+                .map(|(i, c, child)| (*i, *c, open_variant(child)))
+                .collect();
+            opened.sort_by_cached_key(|m| (m.0, class_code(m.1), m.2.encode()));
+            if node_constraint(moves).unconstrained() {
+                opened.dedup_by(|a, b| a.0 == b.0 && a.1 == b.1 && a.2 == b.2);
+            }
+            YardNode::Step {
+                offset: *offset,
+                moves: opened,
+            }
+        }
+    }
+}
+
+/// Every node of a tree, root included.
+fn walk_nodes<'a>(node: &'a YardNode, out: &mut Vec<&'a YardNode>) {
+    out.push(node);
+    if let YardNode::Step { moves, .. } = node {
+        for (_, _, child) in moves {
+            walk_nodes(child, out);
+        }
+    }
+}
+
+/// Cuts every tree at every node and content-addresses the resulting depth-`d`
+/// suffixes, in both variants. Returns `None` if any suffix exceeds the
+/// declared canonicalization ceiling — stop and report, never approximate.
+pub fn suffix_library(trees: &[YardNode], depths: usize) -> Option<SuffixLibrary> {
+    let mut library = SuffixLibrary {
+        strict: vec![BTreeSet::new(); depths],
+        open: vec![BTreeSet::new(); depths],
+    };
+    let mut ids = Identities::default();
+    let mut memo: BTreeMap<(Vec<u8>, bool), Vec<u8>> = BTreeMap::new();
+    for tree in trees {
+        let mut nodes = Vec::new();
+        walk_nodes(tree, &mut nodes);
+        for node in nodes {
+            for d in 1..=depths {
+                let suffix = cut_suffix(node, d, &mut ids);
+                for (open, target) in [
+                    (false, &mut library.strict[d - 1]),
+                    (true, &mut library.open[d - 1]),
+                ] {
+                    let shaped = if open {
+                        open_variant(&suffix)
+                    } else {
+                        suffix.clone()
+                    };
+                    let key = (shaped.encode(), open);
+                    let entry = match memo.get(&key) {
+                        Some(hit) => hit.clone(),
+                        None => {
+                            let computed = yard_shape(&shaped)?;
+                            memo.insert(key, computed.clone());
+                            computed
+                        }
+                    };
+                    target.insert(entry);
+                }
+            }
+        }
+    }
+    Some(library)
+}
+
 /// A violation of the mandatory refinement assertion (Q5.1): two situations
 /// one r1 class holds that r3 separates. Its existence means an implementation
 /// bug or a math error in the ruling — stop and report, never patch.

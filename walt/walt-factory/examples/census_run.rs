@@ -72,6 +72,10 @@ fn main() {
             run_yard(&r);
             return;
         }
+        Some("yard2") => {
+            run_yard_v2(&r);
+            return;
+        }
         _ => {}
     }
 
@@ -842,6 +846,326 @@ fn run_t5(r: &Receipt) {
          this is a bug or a math error, not something to patch",
         violations.len()
     );
+}
+
+/// Round 7: shape notion v2 — the suffix library in two declared variants —
+/// and the hereditary rung. Instruments, not carriers.
+fn run_yard_v2(r: &Receipt) {
+    let mut out = String::new();
+    out.push_str(
+        "walt situation census — shape notion v2: the suffix library and the hereditary rung — INSTRUMENT tier\n",
+    );
+    let _ = write!(
+        out,
+        "scope: pip-trump only (v0.4 §14.7, asserted in-run); corpus rob/receipts/verify_player.txt, \
+         hands 0-12; existing trick-six and trick-five carriers, no new carrier\n\
+         indexing: level j = tricks remaining; a level-j boundary state sits at grade 4j; A_j = the \
+         level-j boundary r3 classes; A_0 = the terminal class\n\
+         INSTRUMENT-TIER CAVEAT (mandatory): v2-strict and v2-open are INSTRUMENTS, not carriers. \
+         NEITHER satisfies (ECL) — v2-open even alters chance arities — so no value claim and no \
+         class claim may ever be read from a library size, and shapes sit below every tier, below \
+         even the exploratory r3 counts they are measured against. The lawful objects remain r3's \
+         classes with their Q5.1 refinement receipt and Q5.2 ECL re-check.\n\
+         VOCABULARY DISCIPLINE (Y3, unchanged): a live sub-DAG is a SUPPORT object, never a \
+         belief; values over it are exact only for the count-free objective over the TRANSPORTED \
+         ABSTRACT-POLICY CLASS, never the unrestricted concrete optimum (v0.5's BOUNDARY); no \
+         count or valuation conclusion is read from a count-free DAG.\n\
+         what no recurrence result buys (stated up front): shared MENUS are provably level-pinned \
+         — lead arity = j is a rule, not a finding — and no shape notion is a lawful equivalence. \
+         What stays true either way: P1, the yard as ONE grade-free transition program, is a \
+         theorem, verified by the v1 run's partition byte-compare at every level; v1 and v2 \
+         measure only whether the state INVENTORY also compresses. Both outcomes are results.\n\
+         v1 rows are NOT touched: results/census_yard_2026-08-10.txt stays exactly as committed. \
+         This is a new declared measurement in a new file.\n\
+         determinism freezes: r3's two (content-addressed 128-bit FNV-1a class encoding; canonical \
+         move order by (k, classification, successor class hash) with concrete tile order as the \
+         tie rule), the v1 pass's two (freeze 3, the yard tree encoding; freeze 4, the shape \
+         canonical form — colour refinement to a fixpoint then the minimum encoding over remaining \
+         ties, ceiling {}), plus TWO NEW FREEZES declared here: (5) the suffix cut — a depth-d \
+         suffix replaces everything at depth d by a hole carrying that subtree's exact interned \
+         identity (interning, not hashing, so hole coincidence is decided by whole-subtree \
+         equality), handoff leaves above the cut are holes too, and the equality pattern over \
+         holes is recomputed locally inside each suffix; (6) the open variant — at unconstrained \
+         nodes only, options are deduplicated by (increment, classification, child suffix) after \
+         the children are already in open form, bottom up. The constraint type is DERIVED from the \
+         moves' classification, never stored, and the run asserts a node's classification is \
+         uniform.\n\
+         provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant \
+         module), instrument tier\n\
+         regenerate: cargo run --release -p walt-factory --example census_run yard2\n\n",
+        walt_skeleton::equivariant::SHAPE_PERM_CAP
+    );
+    out.push_str(
+        "SANITY, stated plainly (Q3): the committed v1 within-level numbers already showed the \
+         pure equality-pattern abstraction discarding ALL leaf identity yet buying barely 2x \
+         (23,592 classes to 10,978 shapes at trick-five level 2; shape growth 171x against class \
+         growth 368x, the same order). The diversity is STRUCTURAL, not leaf-labeling. So no \
+         leaf-side abstraction alone can carry the payoff, and v1's whole-tree recurrence rows \
+         would likely have disappointed even without the root-arity artifact that made them \
+         vacuous. The arity artifact hid a disappointment; it did not create one.\n\n\
+         REFUTATION CRITERION (restated verbatim, answered at the foot of each rung): payoff \
+         CONFIRMED if, for d <= 3, v2-open library growth is far below class growth and the \
+         cross-level overlap is high — the parts recur and only menus over shared parts grow. \
+         Payoff REFUTED if v2-open depth-<=3 growth is the same order as class growth — the \
+         diversity then lives in genuinely new sub-parts per level and the yard's state-inventory \
+         reuse is small. Overlap is normalized by the SMALLER level and is structurally \
+         ASYMMETRIC: a suffix containing any arity greater than j' cannot occur at level j'.\n\n",
+    );
+
+    yard_v2_rung(&mut out, r, 6, "trick-six");
+    yard_v2_rung(&mut out, r, 5, "trick-five");
+
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("results/census_yard_v2_2026-08-10.txt");
+    std::fs::create_dir_all(path.parent().expect("results dir")).expect("results dir");
+    std::fs::write(&path, out).expect("write results");
+    eprintln!("wrote results/census_yard_v2_2026-08-10.txt");
+}
+
+const V2_DEPTHS: usize = 3;
+
+fn yard_v2_rung(out: &mut String, r: &Receipt, trick: usize, name: &str) {
+    let kernels: Vec<(usize, walt_kernel::Kernel)> = (0..r.hands.len())
+        .map(|h| {
+            (
+                h,
+                walt_kernel::Kernel::from_receipt_trick(&r.hands[h], trick)
+                    .expect("a valid kernel"),
+            )
+        })
+        .collect();
+    let carrier = build_carrier(&kernels);
+    let r3 = build_r3(&carrier);
+    let levels = if trick == 5 { 3 } else { 2 };
+    let handoff = |sit: &Situation| -> u64 {
+        r3.class_of[carrier.lookup(sit).expect("closed under steps")] as u64
+    };
+    let _ = writeln!(
+        out,
+        "================ {name} rung ================\n\
+         carrier {} situations, {} r3 classes; levels 1..={levels}",
+        carrier.len(),
+        r3.class_members.len()
+    );
+
+    // Class representatives and their yard trees, level by level.
+    let mut trees_by_level: Vec<Vec<(usize, walt_skeleton::equivariant::YardNode)>> = Vec::new();
+    for j in 1..=levels {
+        let mut representative: std::collections::BTreeMap<usize, usize> =
+            std::collections::BTreeMap::new();
+        for i in 0..carrier.len() {
+            if grade(&carrier.states[i]) == 4 * j {
+                representative.entry(r3.class_of[i]).or_insert(i);
+            }
+        }
+        let trees: Vec<(usize, walt_skeleton::equivariant::YardNode)> = representative
+            .iter()
+            .map(|(c, i)| (*c, yard_tree(&carrier.states[*i], &handoff)))
+            .collect();
+        eprintln!("{name} level {j}: {} class trees", trees.len());
+        trees_by_level.push(trees);
+    }
+
+    // The hereditary rung, bottom up: a leaf is replaced by the shape of its
+    // own class's tree one level down, recursing to the terminal class.
+    let mut hereditary_of: Vec<std::collections::BTreeMap<usize, u64>> = Vec::new();
+    let mut hereditary_ids: std::collections::BTreeMap<Vec<u8>, u64> =
+        std::collections::BTreeMap::new();
+    for (n, trees) in trees_by_level.iter().enumerate() {
+        let mut level_map: std::collections::BTreeMap<usize, u64> =
+            std::collections::BTreeMap::new();
+        for (class, tree) in trees {
+            let substituted = substitute_leaves(tree, &|symbol| {
+                if n == 0 {
+                    // Level 1's leaves are all the terminal class.
+                    0
+                } else {
+                    hereditary_of[n - 1][&(symbol as usize)]
+                }
+            });
+            let key = substituted.encode();
+            let next = hereditary_ids.len() as u64;
+            let id = *hereditary_ids.entry(key).or_insert(next);
+            level_map.insert(*class, id);
+        }
+        hereditary_of.push(level_map);
+    }
+
+    // The compression ladder.
+    out.push_str(
+        "\ncompression ladder per level (classes -> hereditary shapes -> v1 whole-tree shapes); \
+         the rung with the big ratio jump is where recurrence lives\n  \
+         level   classes   hereditary   v1 shapes   classes:hereditary   hereditary:v1\n",
+    );
+    // Read the ladder with this in hand: a hereditary shape labels each leaf
+    // with the leaf class's own hereditary shape, so the rung can only
+    // compress if some lower level's shape map is non-injective. At level 1
+    // every tree is a single forced path whose only leaf is the terminal, so
+    // there is no leaf coincidence to abstract and shape = class exactly. The
+    // injectivity then propagates upward by construction.
+    for (n, trees) in trees_by_level.iter().enumerate() {
+        let classes = trees.len();
+        let hereditary: std::collections::BTreeSet<u64> =
+            hereditary_of[n].values().copied().collect();
+        let mut v1: Vec<Vec<u8>> = Vec::new();
+        for (_, tree) in trees {
+            v1.push(yard_shape(tree).expect("within the declared ceiling"));
+        }
+        v1.sort();
+        v1.dedup();
+        let _ = writeln!(
+            out,
+            "  {:>5} {classes:>9} {:>12} {:>11} {:>20} {:>15}",
+            n + 1,
+            hereditary.len(),
+            v1.len(),
+            ratio(classes, hereditary.len()),
+            ratio(hereditary.len(), v1.len())
+        );
+    }
+    out.push_str(
+        "  reading: the hereditary rung labels each leaf with that leaf class's own hereditary \
+         shape, so it can compress only where a lower level's shape map is non-injective. At \
+         level 1 every tree is one forced path whose single leaf is the terminal class — no leaf \
+         coincidence exists to abstract, so shape = class exactly (the 1:1 row above) — and the \
+         injectivity propagates upward by construction. The rung is therefore DEGENERATE on this \
+         data for a structural reason, not a measurement accident: hereditary shapes ARE the r3 \
+         classes here. It locates no recurrence because there is none to locate between shapes and \
+         classes at these levels.\n",
+    );
+
+    // The suffix libraries.
+    let mut libraries: Vec<walt_skeleton::equivariant::SuffixLibrary> = Vec::new();
+    for (n, trees) in trees_by_level.iter().enumerate() {
+        let only: Vec<walt_skeleton::equivariant::YardNode> =
+            trees.iter().map(|(_, t)| t.clone()).collect();
+        let t = std::time::Instant::now();
+        let library = walt_skeleton::equivariant::suffix_library(&only, V2_DEPTHS).expect(
+            "every suffix canonicalized within the declared ceiling — a miss means STOP and \
+             report, never approximate",
+        );
+        eprintln!("{name} level {} suffix library in {:?}", n + 1, t.elapsed());
+        libraries.push(library);
+    }
+
+    out.push_str("\nsuffix libraries (instrument tier; sizes are NOT class counts)\n");
+    for variant in [false, true] {
+        let label = if variant { "v2-open" } else { "v2-strict" };
+        let _ = writeln!(out, "  {label}:");
+        for d in 1..=V2_DEPTHS {
+            let sizes: Vec<usize> = libraries
+                .iter()
+                .map(|l| {
+                    if variant {
+                        l.open[d - 1].len()
+                    } else {
+                        l.strict[d - 1].len()
+                    }
+                })
+                .collect();
+            let mut row = format!("    depth {d}: sizes by level {sizes:?}");
+            for n in 1..sizes.len() {
+                let classes_now = trees_by_level[n].len();
+                let classes_before = trees_by_level[n - 1].len();
+                row.push_str(&format!(
+                    "; level {}->{}: library growth {} against class growth {}",
+                    n,
+                    n + 1,
+                    ratio(sizes[n], sizes[n - 1]),
+                    ratio(classes_now, classes_before)
+                ));
+            }
+            let _ = writeln!(out, "{row}");
+        }
+    }
+
+    out.push_str(
+        "\ncross-level overlap (normalized by the SMALLER level; structurally asymmetric — a \
+         suffix containing any arity above j' cannot occur at level j')\n",
+    );
+    for variant in [false, true] {
+        let label = if variant { "v2-open" } else { "v2-strict" };
+        for d in 1..=V2_DEPTHS {
+            for a in 0..libraries.len() {
+                for b in (a + 1)..libraries.len() {
+                    let la = if variant {
+                        &libraries[a].open[d - 1]
+                    } else {
+                        &libraries[a].strict[d - 1]
+                    };
+                    let lb = if variant {
+                        &libraries[b].open[d - 1]
+                    } else {
+                        &libraries[b].strict[d - 1]
+                    };
+                    let shared = la.intersection(lb).count();
+                    let smaller = la.len().min(lb.len());
+                    let _ = writeln!(
+                        out,
+                        "  {label} depth {d}, levels {} and {}: {shared} shared of {} and {} \
+                         (omega = shared / smaller = {})",
+                        a + 1,
+                        b + 1,
+                        la.len(),
+                        lb.len(),
+                        ratio(shared, smaller)
+                    );
+                }
+            }
+        }
+    }
+
+    // The criterion answer for this rung, every level step, with the
+    // carrier-limited steps named as such.
+    out.push_str("\nCRITERION ANSWER — every available level step of this rung\n");
+    for n in 1..libraries.len() {
+        let open = &libraries[n].open[V2_DEPTHS - 1];
+        let previous = &libraries[n - 1].open[V2_DEPTHS - 1];
+        let carrier_limited = n + 1 == levels;
+        let _ = writeln!(
+            out,
+            "  level {} -> {}: v2-open depth-{V2_DEPTHS} library growth {} against class growth \
+             {}; omega {}{}",
+            n,
+            n + 1,
+            ratio(open.len(), previous.len()),
+            ratio(trees_by_level[n].len(), trees_by_level[n - 1].len()),
+            ratio(
+                previous.intersection(open).count(),
+                previous.len().min(open.len())
+            ),
+            if carrier_limited {
+                "  [CARRIER-LIMITED: level's top stratum is this run's ROOT stratum, populated \
+                 only by the 13 receipt fibers, so its class count is a corpus artifact and the \
+                 class-growth figure it produces is not a growth measurement]"
+            } else {
+                "  [not carrier-limited: this level is reached from the run's roots, so its class \
+                 count is the reachable inventory]"
+            }
+        );
+    }
+    out.push('\n');
+}
+
+/// A tree with every handoff symbol rewritten — the hereditary substitution.
+fn substitute_leaves<F: Fn(u64) -> u64>(
+    node: &walt_skeleton::equivariant::YardNode,
+    map: &F,
+) -> walt_skeleton::equivariant::YardNode {
+    use walt_skeleton::equivariant::YardNode;
+    match node {
+        YardNode::Handoff(s) => YardNode::Handoff(map(*s)),
+        YardNode::Step { offset, moves } => {
+            let mut moves: Vec<(u8, walt_skeleton::equivariant::PlayClass, YardNode)> = moves
+                .iter()
+                .map(|(i, c, child)| (*i, *c, substitute_leaves(child, map)))
+                .collect();
+            moves.sort_by_cached_key(|m| (m.0, class_code_of(m.1), m.2.encode()));
+            YardNode::Step {
+                offset: *offset,
+                moves,
+            }
+        }
+    }
 }
 
 /// Round 6: the shape-recurrence experiment. Level j = tricks remaining; a
