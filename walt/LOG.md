@@ -752,3 +752,39 @@ provenance, as the S5a count corrections were.
   plausible regime. The seat-level census is the next construction,
   to walt-math before build.** Results:
   `walt-factory/results/census_t5_2026-08-10.txt`.
+- **S5g (2026-08-11, small hours): the railyard — pruning platform,
+  P1 rock, and the parts catalog.** Jason's direction: every trick is
+  the same machine ("the railway yard stacked on itself"); derive the
+  yard once, prune it with the actual situation, search the remnant
+  exhaustively — the platform for policies and beliefs. Three rounds,
+  each walt-math-adjudicated (CENSUS-RULINGS.md sections: "railyard
+  factoring — shaping"; "shape notion v2"):
+  **(1) The pruning probe** (support-only restriction of the verified
+  r3 class DAG by each real kernel's fiber; class-successor agreement
+  re-asserted in-run): trick 6 median live sub-DAG **179 classes** per
+  actual situation (range 28–453); trick 5 median **16,782 classes /
+  30,812 edges** vs 241,762 raw situations (extremes 312:1 and 8:1).
+  The exhaustive-search platform exists at t5 — milliseconds where raw
+  walks were quarter-million situations. Support object only; belief
+  concentrates, never widens. **(2) The yard, P1:** walt-math split
+  Jason's periodicity claim into P1 (grade-freeness — PROVABLE) and P2
+  (realized self-similarity — measurable); P1 discharged in code: ONE
+  shared routine with no level argument reproduces r3's partition
+  **byte-for-byte at every level of both rungs**. The yard is a
+  refactoring of r3, inheriting its receipts; the first shape notion
+  proved arity-blind cross-level (flagged in-run as vacuous, carried
+  back, never reinterpreted — the leak is systemic: every
+  unconstrained node has full-hand arity by rule). **(3) The suffix
+  library (shape v2)** + hereditary rung: hereditary DEGENERATE for a
+  structural reason (level-1 trees are forced single-leaf paths;
+  hereditary shapes ARE the classes — no recurrence between shapes
+  and classes). The recurrence lives in the PARTS: on the one
+  non-carrier-limited step (t5 level 1→2), v2-open depth-3 library
+  growth **31.6× vs class growth 368.6×, ω = 1.000 at all depths** —
+  every one of level 1's 129 parts recurs inside level 2; 4,071
+  open-depth-3 parts under 23,592 classes. Criterion answer on the
+  clean step: **shared-machinery payoff SUPPORTED** — classes are
+  menus over a compact shared parts catalog. Scope: one clean step;
+  instrument tier; a t4 climb supplies the second step. All committed
+  through aff5c8e; targeted suites green throughout (23 tests); full
+  gate green on the t5 tree.

@@ -277,6 +277,17 @@ evolved this project's own receipt/TRUST-01 discipline.
   computes cones for states not already classified (the emerging
   pathfinding infrastructure); carrier stops are declared, never
   silent.
+  **S5g standing results (the railyard):** P1 is a rock — one
+  grade-free routine reproduces r3 byte-identically at every level
+  (Jason's "every trick is the same machine", discharged in code); the
+  pruning platform exists (median live sub-DAG per actual t5 situation:
+  16,782 classes — exhaustively searchable in milliseconds); the parts
+  recur (v2-open suffix library: growth 31.6× vs class growth 368.6×,
+  ω = 1.000 on the clean step — classes are menus over a compact
+  shared catalog). Open: a second clean level step needs the t4 climb;
+  the seat-level census remains the bar's object; §12.7 descriptions
+  now naturally target the PARTS catalog (small) rather than raw
+  classes.
   Method unchanged: §12.9 counterexample-guided; every construction
   walt-math-adjudicated before build. Repair loop when the math itself
   needs work: counterexample in hand → exchange dispatch to 5.6 Pro —
