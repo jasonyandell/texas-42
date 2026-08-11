@@ -723,3 +723,32 @@ provenance, as the S5a count corrections were.
   measure root-class growth with depth — that curve tests the 10^5
   bar; and §12.7 compact descriptions for the 306 root classes (what
   IS a class, in words a player could read).
+- **S5f (2026-08-10/11, night): the trick-five climb + the bar's true
+  object.** Bar clarified by Jason: 10^5 = situations facing the
+  trick-1 LEADER (seat-level), vs the ~399M-world fiber; saturation
+  curve adopted as companion probe. The t5 run (same adjudicated r3
+  construction, grades 12→0, full gate PASS): carrier 2,651,280
+  situations / 16,112 roots (20M declared stop, not reached). **Roots
+  16,112 → 12,924 classes (1.25:1 vs t6's 2.1:1 — root compression
+  weakens going earlier); DAG 12,924/27,178/40,938/37,848/23,592/
+  11,943/5,393/1,704/64/64/32/16/1 (peak inward at grade 10, collapse
+  to the stable 63–64-class trick-7 alphabet); the t6-lead stratum
+  inside this run: 179,936 situations → 23,592 classes** — the t6
+  census's 306 was a 647-root keyhole on a ~24k inventory,
+  carrier-relativity demonstrated exactly as the Q4 caveat warned.
+  Saturation: t6 root curve near-flat (+3 final); t5 curve far from
+  flat (fresh 1,680-world fibers still ~90% new classes) — the t5
+  inventory is much larger than 12,924 and unconverged at 13 hands.
+  Receipts: r1-refines-r3 HOLDS (2,001,355 finest classes nest);
+  independent ECL re-check PASS (90,003 classes, 2,489,584 pairs per
+  condition, 0 counterexamples). Focal-alignment caveat recorded
+  (t5 focal = trick-5 leader; cross-run identity comparisons not
+  quoted). **Interpretation on the record: world-level trick-1 roots
+  extrapolate astronomically (~370× per trick at the lead stratum);
+  the bar's object is the SEAT-level census — pushed beliefs over
+  world classes (v0.5 conclusion 1 is the bridge); at trick-1 lead
+  the seat's raw situation space is C(28,7) = 1,184,040 hands ×
+  declaration, and order 10^5 up to lawful equivalence is exactly the
+  plausible regime. The seat-level census is the next construction,
+  to walt-math before build.** Results:
+  `walt-factory/results/census_t5_2026-08-10.txt`.

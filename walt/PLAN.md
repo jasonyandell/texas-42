@@ -252,19 +252,31 @@ evolved this project's own receipt/TRUST-01 discipline.
   by hand in declared order and watch the new-class rate fall; a
   converging inventory is the direct signature of "there are not that
   many situations." Next rungs, in order:
-  1. **Trick 5** — extend the carrier to the 1,680-world trick-five
-     kernel (grades 12→0; reuses the same machinery; the r3 backward
-     pass and the t6 class DAG below it are already built). Watch: root
-     classes at t5 lead vs 306 at t6 — the growth rate is the whole
-     ballgame.
-  2. **§12.7 compact descriptions** — the 306 root classes are
-     hash-named future cones; find Scheme/Fix descriptions (descriptor
-     semantics + update law + preservation proof) so a class is
-     sayable. This is where the classes become player- and
-     analyst-facing.
-  3. **Role re-entry** — declare a nonempty O_D on the census classes
+  1. ~~Trick 5~~ **DONE (S5f)**: roots 16,112 → 12,924 (1.25:1 —
+     weakening with depth as predicted); t7 alphabet stable at 63–64;
+     t6-lead inventory ~24k when properly sampled; t5 saturation far
+     from converged. World-level trick-1 roots extrapolate
+     astronomically — which redirects the bar to its true object:
+  2. **The seat-level census** (the bar's actual object, next — design
+     to walt-math before build): seat situations = (own hand, history)
+     with the belief pushed forward onto world classes (v0.5
+     conclusion 1); two seat situations equivalent when their pushed
+     class-beliefs correspond under lawful transport. At trick-1 lead
+     the raw seat space is C(28,7) = 1,184,040 hands × declaration —
+     order 10^5 up to equivalence is the plausible regime, and THIS is
+     where the 10^5 bar is tested. The world-level class DAG is the
+     substrate/coordinates.
+  3. **§12.7 compact descriptions** — make classes sayable (descriptor
+     semantics + update law + preservation proof); needed for both the
+     seat-level construction and analysis.
+  4. **Role re-entry** — declare a nonempty O_D on the census classes
      and bring count/valuation back through the 12.6A gauge corollary;
      the m3 H instrument prices the seat-facing side.
+  Infrastructure note: content-addressed class identities make the
+  signature cache incremental across runs — a t4-or-earlier climb only
+  computes cones for states not already classified (the emerging
+  pathfinding infrastructure); carrier stops are declared, never
+  silent.
   Method unchanged: §12.9 counterexample-guided; every construction
   walt-math-adjudicated before build. Repair loop when the math itself
   needs work: counterexample in hand → exchange dispatch to 5.6 Pro —

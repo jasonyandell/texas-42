@@ -133,10 +133,21 @@ zero of 647 roots, as do all declared structural coarsenings; the
 dynamics equivalence, not structural matching) collapses 15,253
 situations to 1,459 classes, roots 647 → 306, and the trick-7 target
 alphabet to 63, with the refinement assertion and an independent ECL
-re-check as receipts. All counts carrier-relative, dynamics-equivalence,
-exploratory; the compact-description question (§12.7) and the climb to
-earlier tricks are the open rungs. Numbers and caveats:
-`walt/walt-factory/results/census_2026-08-10{,_r2,_r3}.txt`. Counterexample-guided synthesis
+re-check as receipts. **The trick-five climb (S5f)** scaled the same
+machinery to 2.65M situations (full gate green, both receipts): root
+compression weakens going earlier (1.25:1 at t5 vs 2.1:1 at t6), the
+trick-7 target alphabet stays stable (63–64 classes), and the properly
+sampled trick-6-lead inventory is ~24k — so world-level trick-1 roots
+extrapolate far past any bar, which redirects the program to the bar's
+true object: the **seat-level census** (the seat's belief pushed forward
+onto world classes, v0.5 conclusion 1 — at trick-1 lead the raw seat
+space is the 1,184,040 possible hands, and order 10^5 up to equivalence
+is the plausible regime). All counts carrier-relative,
+dynamics-equivalence, exploratory; the compact-description question
+(§12.7), the seat-level construction, and role re-entry are the open
+rungs. Numbers and caveats:
+`walt/walt-factory/results/census_2026-08-10{,_r2,_r3}.txt` and
+`census_t5_2026-08-10.txt`. Counterexample-guided synthesis
 per v0.4 §12.9, Scheme/Fix as the descriptor language per §12.7, carrier
 chosen per §11.2. Standing **no-rescue policy** (2026-08-10): a failure is
 a counterexample to carry back to the math, never a thing to engineer
