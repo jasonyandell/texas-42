@@ -1705,3 +1705,573 @@ changes nothing about Lemmas E, V or X, nothing about the r3 classes or their
 ECL receipts, and nothing about the a1 alphabet. What it does change is where a
 seat-side quotient could possibly come from — not from relabelling symmetry at
 the top of the game, because there is none.
+
+## Predictive-rank probe rulings (2026-08-12)
+
+**Adjudicator:** walt-math. **Tier:** exploratory throughout. v0.6
+(`walt/math/predictive_algebra_v0.6.md`) is consumed as design guidance only;
+nothing below promotes any of its theorems, and no v0.6 statement is cited above
+exploratory tier anywhere in the build. **Basis:** v0.6 §§3, 5–10, 12, 15–18;
+v0.5 §12.6A and its BOUNDARY; v0.4 §1.2–1.5, §2.1–2.6, §5.5, §6.1, §6.8,
+§7.4–7.7, §9.9, §10.3, §10.9, §11.7, §12.4, §14.7, §17.5. F1–F7, r3 Q1–Q5,
+Y1–Y3, shape v2, P-A1..P-A21, X-A1..X-A19, E-A1..E-A21, S-A1..S-A21 and Lemmas
+V, X, E, S, S-fold, S-det, Corollary S-rigid are inherited unchanged. Amendments
+are numbered R-A1.. and are builder obligations; a run that omits one is not the
+adjudicated probe.
+
+**Headline of this section, stated first because it decides what part one may
+measure.** The proposed Experiment-1 measurement is degenerate, and provably so.
+In Straight 42 every tile is eventually played and every play is publicly
+attributed, so a complete continuation record determines the latent world.
+Consequently **any continuation closure whose terminal seed contains a nonzero
+constant function has predictive dimension exactly |X_i| at every interface**
+(Lemma R(c)). That covers v0.6 §6.2's closure verbatim, and it covers the
+design's contracts (ii) (the focal trick-count *distribution*) and (iii)
+((ii) plus a predicate): those rows are theorems reading r = |X|, not
+measurements, and a run reporting them as Gate-B evidence would be reporting an
+artefact of the observation structure as a fact about the game. Exactly one
+object in the design's ladder escapes, and it escapes for a precise reason: the
+count-free **expected** focal-trick contract has terminal readout 0, so its
+value closure V^val is seeded by the zero space and never admits residuals of the
+constant. Part one measures dim V^val or it measures nothing. Both outcomes
+remain results (F7): a large dim V^val is a proved negative about linear
+predictive compression on this route; the degenerate rows are proved negatives
+already, before any code runs.
+
+### The v0.6 proof audit (checked at adjudication time)
+
+Verdicts on the theorems the design proposes to consume. "SOUND" means the proof
+as written establishes the statement under the hypotheses named; hypotheses that
+v0.6 leaves implicit are listed because they become builder obligations.
+
+- **§5.3 finite predictive-rank minimality — SOUND.** H = FC forces rank H ≤ r,
+  and any rank factorization realizes rank H. Note what it does *not* give: the
+  F obtained from an arbitrary rank factorization need not be closed under
+  residuals, hence need not support filtering or (POL). §6 supplies the closed
+  object, and §6.4's identification r = dim V is correct because rank H is the
+  dimension of the column space, i.e. of the span of the test functions.
+- **§6.3 residual span = continuation-test span — SOUND under two hypotheses
+  that must be declared.** (H1) the successor interface j is a function of
+  (i, u, o) alone; if the successor typing depended on hidden data the residuals
+  would not be well typed. (H2) tests may condition on analyst-visible event
+  labels (§5.1), which is what makes single-event residuals test functions. (H2)
+  is what makes the §6.2 span the *analyst-refined* one — larger, in general,
+  than anything a policy can use (§8.2, §18.6). The proof itself is correct: the
+  forward direction must sum over branches o with a per-o successor test, which
+  the proof's "finite sum of residuals" covers.
+- **§6.4 r = dim V — SOUND given §6.3.**
+- **§7.4 exact predictive filtering — SOUND**, requiring positive-probability
+  histories and the constant 1 in every basis. That last requirement is not
+  free: by Lemma R(c) it is precisely what forces dimension |X| here, so exact
+  *normalised* predictive filtering and predictive compression are incompatible
+  under this game's observation structure. The unnormalised value recursion does
+  not need it.
+- **§8.4 exact optimality without strategy fusion — SOUND under (H3).** (H3) the
+  coefficient recursion is indexed by observation history; memoising one c per
+  interface silently forces histories that share an interface to share a
+  continuation, which restricts the policy class and returns a restricted-class
+  value under v0.5's BOUNDARY rather than the perfect-recall value. v0.6 does not
+  state (H3); the proof needs it, because "one policy per observable successor
+  information state" is a statement about information states, not interfaces.
+- **§9.2 outcome-algebra lift — SOUND**, given that the increment is a function
+  of the event (count-free r ∈ {0, e⋆} satisfies this). One corollary that is
+  *not* established and must not be assumed: that a richer outcome law costs no
+  extra dimension. Decoration is free; the cost lands in the terminal seed, and
+  for the trick-count distribution that seed is the constant 1 (Lemma R(c)).
+- **§10.6 finite monitor preservation — SOUND** (deterministic monitor product);
+  out of part-one scope.
+- **§12.3 equivariant representative independence — SOUND** given its coherence
+  hypotheses, which are F3's conditions in linear dress; out of part-one scope
+  except through Corollary R-fold below.
+- **GAP G1 (contract-insensitivity).** §6.2's generator set depends on the
+  outcome contract only through terminal and immediate readouts, while §15
+  Experiment 1 asks for a rank "for increasingly rich contracts". Contracts that
+  add no terminal readout cannot move the number. This is a genuine gap between
+  §6.2 and §15, and it is a finding, not a crisis: Lemma R supplies the
+  contract-generated closures that make a ladder meaningful.
+- **GAP G2 (implicit hypotheses).** (H1), (H2) and (H3) above are load-bearing
+  and unstated. Each becomes a builder obligation below.
+- **GAP G3 (the one with teeth).** §5.4's hierarchy is honest — v0.6 explicitly
+  declines to claim the rank is small — but the design reads "is the rank small?"
+  as an open measurable question for every contract. For every contract whose
+  terminal readout family contains a nonzero constant it is not open and not
+  measurable: the answer is |X|, by Lemma R(c).
+
+### Lemma R (three continuation closures, and the separating-observation degeneracy)
+
+*Setup.* Fix an information interface i of the void-free rung at grade n, the F4
+uniform-legal field at the three hidden offsets, the count-free valuation
+(q_trick, P-A6), and an observation contract obs(·). Write Pre_{i,u,e} for v0.6
+§6.1's unnormalised preexpectation, Pre_{i,u,o} = Σ_{e: obs(e)=o} Pre_{i,u,e},
+and g_{i,u}(ξ) = Σ_e g(e)·K_{i,u}(ξ; e) for the expected immediate count-free
+increment. Define three graded spaces of rational functions on X_i:
+
+1. **event closure** V^ev (v0.6 §6.2 verbatim): terminal = span{1, terminal
+   readouts}; nonterminal = span{1} + span{immediate readouts} +
+   Σ_{u,e} Pre_{i,u,e}(V^ev_{j(o)});
+2. **observation closure** V^obs: as (1) with Pre_{i,u,o} in place of
+   Pre_{i,u,e};
+3. **value closure** V^val: terminal = span{terminal readouts} — for the
+   count-free expected-trick contract this is the zero space; nonterminal =
+   span{g_{i,u} : u} + Σ_{u,o} Pre_{i,u,o}(V^val_{j(o)}). **The constant 1 is not
+   a generator.**
+
+*Claims.*
+
+(a) V^val ⊆ V^obs ⊆ V^ev. Each is closed under the residuals used to generate
+it, so each admits closure matrices satisfying (PCM) at its own refinement:
+per-event M_{i,u,e} for V^ev, observation-aggregated M_{i,u,o} for V^obs and
+V^val. (POL) and the root pairing use only M_{i,u,o}.
+
+(b) Every lawful continuation policy — one local controller per interface, one
+continuation per player observation (v0.6 §8.2; §6.8's no-revelation rule) — has
+its value function in V^val, and (POL) runs over a basis of V^val **with no
+normaliser**: J_ρ(β) = ψ(β)c_ρ, Q_B(a) = max over the action's coefficient set,
+V_B = max_a Q_B(a), all in dim V^val coordinates.
+
+(c) **(degeneracy)** Suppose the observation contract is such that a complete
+continuation record determines the latent point — as it does here, for every
+contract at least as fine as "the four played tiles with their seats," since
+every tile is played before the hand ends and every play is publicly attributed.
+Then for every interface i, V^ev_i = V^obs_i = Q^{X_i}, i.e. r^ev_i = r^obs_i =
+|X_i| exactly. More generally this holds for any closure whose terminal seed
+contains a nonzero constant function.
+
+(d) **(the ladder)** Under (c), the design's contracts (ii) (full focal
+trick-count distribution) and (iii) ((ii) plus the next-leader-offset predicate)
+have predictive dimension exactly |X_i|, because the point-mass terminal readout
+of a distribution contract *is* the constant function 1. The expected-trick
+contract (i) is not covered by (c): its terminal seed is 0.
+
+*Proofs.*
+
+(a) Containment is immediate from Pre_{i,u,o} = Σ_{e: obs(e)=o} Pre_{i,u,e} and
+g_{i,u} = Σ_e g(e)Pre_{i,u,e}(1) once 1 is present; for V^val ⊆ V^obs use
+induction on grade with the same identities. Closure is by construction: each
+space contains the residuals of its successor's basis, so each Pre of a
+successor basis vector has an expansion in the current basis, which is exactly
+(PCM) at that refinement. ∎
+
+(b) Induction on grade. At a terminal, V_ρ is a terminal readout. At grade
+g > 0, ρ picks u and, for each player observation o, one continuation ρ_o common
+to every hidden event with obs(e) = o. Then
+
+  V_ρ(ξ) = Σ_o Σ_{e: obs(e)=o} [ g(e)·K_{i,u}(ξ; e) + Pre_{i,u,e}(V_{ρ_o})(ξ) ]
+         = g_{i,u}(ξ) + Σ_o Pre_{i,u,o}(V_{ρ_o})(ξ),
+
+where the second equality uses precisely that ρ_o does not depend on e. By the
+induction hypothesis V_{ρ_o} ∈ V^val_{j(o)}, so both terms are generators of
+V^val_i. Uniqueness of c_ρ is basis independence. No normaliser appears because
+the recursion is unnormalised throughout; a normaliser is needed only to convert
+ψ̃ into a conditional moment (§7.3), which the pairing does not require. ∎
+
+(c) By downward induction the closure contains every composition
+Pre_{u_1,o_1} ∘ … ∘ Pre_{u_k,o_k}(1) along a single observation path with any
+legal controllers, i.e. the function ξ ↦ Pr_ξ(o_1 … o_k | controllers). Take
+k = n, a complete record p. Given ξ, the field's masses are products of unit
+fractions, so Pr_ξ(p) = w_p·1[ξ consistent with p] with w_p > 0; and a complete
+record names every hidden tile together with the seat that played it, so at most
+one ξ ∈ X_i is consistent with p. Hence Pr_·(p) is a nonzero multiple of the
+indicator of a single world, and every ξ ∈ X_i is consistent with some complete
+record (every world can be played out under the uniform-legal field). So V
+contains every singleton indicator and equals Q^{X_i}. The same argument runs
+from any nonzero constant in the terminal seed. ∎
+
+(d) A distribution contract's terminal readout is the point mass at the empty
+continuation, whose coefficient function is the constant 1; apply (c). For (iii),
+the predicate is added on top of (ii). For (i), the terminal readout is 0 and no
+constant is ever seeded, so (c) does not apply — and nothing here proves
+dim V^val is small. That is the measurement. ∎
+
+*Two consequences the builder must respect.* First, the repair is on the
+test-family side, never on the observation side: coarsening o to escape (c) would
+change the information model and therefore the operator (v0.4 §7.7 — theorems for
+one operator do not transfer to another) and would change which policies are
+lawful. Second, (c) is not a defect of v0.6; §5.4 declines to claim small rank.
+It is a fact about this game's observation structure, and it is the predictive
+analogue of Corollary S-rigid: the compression the design hoped to buy is absent
+for a structural reason, and the reason is exactly identifiable.
+
+### Corollary R-fold (the predictive dimension is declaration-fold invariant)
+
+*Statement.* Let φ = φ_{p→p′} be the declaration transport of Lemma S-fold,
+restricted to the live tile set L of a rung coordinate x = (δ = p, L, H). Then
+x′ = (δ = p′, φL, φH) is a coordinate, φ induces a bijection X_i → X_{i′}
+carrying legal sets to legal sets, uniform field masses to uniform field masses,
+observations to observations, count-free increments to increments and focal to
+focal; hence H_{i′} is H_i with rows and columns permuted and
+
+  dim V_i = dim V_{i′} for each of the three closures, with corresponding
+  behavioural-row counts and corresponding policy values.
+
+*Proof.* φ is a bijection of 𝒟 preserving trump membership, follow membership,
+the led-context map, double flags and the winner-determining order (Lemma
+S-fold), so its restriction to L preserves every datum in Lemma E's list on the
+live set; F2 A1's unresolved-trick extension is inert at a boundary. The seat
+rotation is the identity and focal ↦ focal, so increments correspond. Legality
+and |L_actor| correspond, so the uniform-legal field's masses correspond
+(F4). Controllers, observations and tests therefore correspond bijectively, and
+h_{t}(ξ) = h_{φt}(φξ) for every test. Row and column permutation preserves rank.
+∎
+
+*What this licenses and what it does not.* The dimension, the behavioural-row
+count and every policy value correspond. The **basis and the closure matrices do
+not**: they are chosen by a deterministic pivot rule over a declared enumeration
+order, which is not φ-equivariant. So the in-run assertion is equality of
+dimensions and of values, never byte-equality of matrices, and every
+sparsity figure is freeze-relative (R-A21).
+
+### R-Q1 — filing, tier, vocabulary. RULING: ACCEPT (a); ACCEPT (b) as proposed; AMEND (c).
+
+- **R-A1 (filing).** ACCEPT. v0.6 sits alongside v0.4 (frozen basis) and v0.5
+  (§12.6A track) as a third track at exploratory tier, consumed as design
+  guidance. The audit above is the extent of its adjudication: its theorems are
+  usable as *definitions and design guidance* with the hypotheses (H1)–(H3)
+  discharged by the builder, and G1–G3 recorded. No v0.6 theorem may be cited in
+  support of any claim at any tier, and "by construction" remains not a receipt
+  (r3 Q5.2): every (PCM) identity quoted is recomputed independently over the
+  finite domain, both sides, in exact arithmetic (v0.6 §16.3's checker shape).
+- **R-A2 ("certificate").** ACCEPT the proposal. walt files say **receipt**
+  wherever v0.6 says "certificate"; the word "certificate" appears only inside an
+  explicit verbatim quotation of v0.6, bracketed as such. The fence, restated so
+  the two senses can never blur and mandatory in the results header: "No object
+  produced by this probe is an identity-bearing witness of anything.
+  Reachability is a proof-irrelevant proposition (project rule; D3's 'necessary
+  outer profile'); a (PCM) receipt asserts a linear identity over a declared
+  finite domain and asserts nothing about whether any state of that domain
+  arises in play — the domain is the void-free capacity fiber, whose members are
+  FEASIBLE and never reachable (P-A1)." Note also that a walt probe receipt is
+  exploratory tier and is **not** a rob CI receipt; it never promotes anything
+  (TRUST-01).
+- **R-A3 (the rest of the vocabulary).** AMEND. "Continuation test", "local
+  controller" and "closure matrix" enter as-is; note for the record that a local
+  controller is a policy fragment and not a "control" in v0.4 §12.5's skeleton
+  sense. Two renames are mandatory. (i) **"interface" is always written
+  "information interface"** — the bare word already denotes the declared
+  role/output interface in this project, and O_Σ = ∅ is in force here (the Extra
+  item ruling); a file that says "interface" unqualified is ambiguous about which
+  object carries the empty declaration. (ii) **the bare word "rank" is
+  forbidden.** It collides with the settled standings vocabulary (constellations,
+  never "rank") and with r_δ, the trick-key order of v0.4 §1.3. Write
+  **"predictive dimension"**, or the fully qualified "predictive rank (rank_Q of
+  the continuation matrix)" on first use in a file and "predictive dimension"
+  thereafter. (iii) ψ carries a type line wherever it appears: "ψ is a declared
+  aggregation statistic of a declared belief (v0.4 §5.5); it is not support, not
+  a belief, and its coordinates are not probabilities of anything — a
+  minimum-dimension basis may be signed (v0.6 §5.4, §18.5). P-A12's typing
+  governs it."
+
+### R-Q2 — information interfaces and the measured domain. RULING: ACCEPT-WITH-AMENDMENT (a); AMEND (b); AMEND (c) — the fence as posed is not closed under the recursion.
+
+**(a) The proposed tuple is not a lawful instance of §3.1: it drops the data that
+determines the fiber.** §3.1 requires the "exact support/evidence interface
+needed to reconstruct the latent fiber," and (declaration; focal; focal hand;
+leader; voids = ∅; grade) does not: without the live pool the fiber is not
+determined, and S-A3 already fixed the seat-side form's support side as the
+capacity-cell system, not the pool-as-a-set.
+
+- **R-A4 (the information interface, exactly).** The interface is
+  (δ; focal = the declaring seat, P-A4; the live tile set L; the focal hand
+  H ⊆ L; the capacity-cell system **C** = (P_s, k_s) for each hidden offset and,
+  where nontrivial, the exact support normal form N = 𝒩(**C**) (v0.4 §2.1–2.2,
+  S-A3); the leader as an **offset from focal ∈ {0,1,2,3}** (r3 Q3; never an
+  orientation-flavoured word, §11.7, F2 A4); grade = tricks remaining, in Y1's
+  indexing). Declared empty and stated as declared: the output-role interface
+  (O_Σ = ∅) and the outcome-monitor state (none in part one). **FORBIDDEN in the
+  interface: any accumulated outcome.** F5's amendment is in force — the bank is
+  emission, not state; carrying it duplicates a derived quantity and splits
+  interfaces by past outcome, destroying real merges (S-A13). §3.1's
+  "selected outcome-monitor state" is the door through which it would enter, and
+  that door is declared shut for part one.
+- **R-A5 (the void-free typing, and the successor typing).** The fiber over an
+  interface is Φ(**C**₀), the void-free capacity fiber, and P-A1's paragraph is
+  reproduced verbatim in the results file. Two additions. (i) At a rung root the
+  void-free typing is a **declared restriction, not an inert one**: unlike the
+  first play (S-A4, where Φ(**C**) = Φ(**C**₀) by computation) a grade-3 boundary
+  in any real hand follows four tricks of play and generally carries voids. The
+  results file states: "These are fabricated void-free boundaries. Their members
+  are feasible; no boundary measured here is asserted to arise in play (v0.4 §2.2
+  BOUNDARY, S-A15)." (ii) Successor interfaces **carry the induced voids**
+  (Lemma S-det fixes them exactly: a slough proves a void in the led context and
+  proves nothing else). Typing successors void-free is also lawful as a declared
+  cost domain, but then |X_j| is inflated and every dimension measured at a
+  successor is an upper bound; whichever is chosen is declared per interface and
+  labelled, and the two are never mixed on one row (S-A15's discipline).
+- **R-A6 (coordinates, decimation, and what per-coordinate variation
+  licenses).** The design cites P-A9 for decimation; the governing amendment is
+  **P-A15** (P-A9 is the same-object receipt). Requirements: the coordinate
+  population size N per grade is printed whether or not it is enumerated;
+  enumeration is exhaustive where the population fits the declared budget and
+  otherwise is the P-A15 multiplicative decimation ({i·g mod N}, gcd(g,N) = 1,
+  g and W frozen — never a prefix, no RNG, no Date); where S5g/S5h coordinates
+  exist at a rung they are reused with the same (g, W) so the dimension rows can
+  sit beside the existing cost rows (X-A12). **A predictive dimension is not an
+  averageable statistic:** the run prints the full integer multiset (or its
+  histogram) of per-coordinate dimensions with min, median and max, and **no mean
+  dimension may be printed or quoted**. What per-coordinate variation licenses:
+  nothing about the game and nothing about unsampled coordinates. The census
+  claim is "over the W declared coordinates at grade n, dim V^val ranged
+  [min, max]", never "the dimension at grade n". Counts and dimensions are
+  coordinate-relative exactly as class counts are carrier-relative (r3 Q4,
+  X-A19).
+- **R-A7 (the fold receipt).** The coordinate sample is closed under the
+  declaration fold, or the run explicitly constructs and evaluates the images
+  φ_{p→p′}(x) even when they fall outside the sample. It then asserts Corollary
+  R-fold in-run: equal dimensions, equal behavioural-row counts and equal policy
+  values along all 49 ordered declaration pairs. Basis vectors and closure
+  matrices are **not** compared (they are freeze-relative). A failure is
+  stop-and-report per NO-RESCUE: it is an implementation defect or an error in
+  Corollary R-fold, never a finding about the game. This is the cheapest strong
+  receipt available here and it replaces, at the coordinate level, what S-A7 did
+  for the seat census.
+
+**(c) The focal-lead fence is not closed under the recursion, and as posed it
+would silently truncate the closure.** The next leader is the trick winner, so
+most successors of a focal-lead boundary are nonfocal-lead. A run that visits
+only focal-lead interfaces does not compute V — it computes a proper subspace and
+under-reports the dimension. Separately, the controller alphabet U(i) at an
+interior nonfocal-lead interface is a map from observed prefixes to plays and is
+doubly exponential (at grade 3, hundreds of distinct prefixes over a nine-tile
+pool); enumerating it is infeasible and unnecessary.
+
+- **R-A8 (root-only fence; primitive-step closure).** The fence is restated:
+  "**Only the root information interface of each coordinate is focal-lead.**
+  Interior interfaces are whatever the dynamics produce, of every leadership, and
+  are all visited; nonfocal-lead *roots* are deferred to part two. The deferral
+  is a scope restriction on root selection, not a theorem, and no dimension
+  measured here is quoted for boundaries at large." And the closure is computed
+  at **primitive-step granularity** (F5, Y1's correction), not by enumerating
+  U(i): a one-trick local controller is exactly a choice function over the focal
+  seat's within-trick information states, and the macro residual Pre_{i,u,e}
+  factors as the composition of the four primitive residuals with the focal steps
+  restricted by u. Hence the primitive closure contains every macro residual, and
+  every primitive composition through a complete trick is realised by some u, so
+  the two spans agree at trick-boundary interfaces while the primitive
+  construction never materialises U(i). The macro one-trick kernel survives only
+  as the compiled presentation certified at focal-lead roots (R-A13), where
+  |U(i)| = |H|.
+
+### R-Q3 — the declared continuation operator. RULING: ACCEPT (a); REJECT the identification in (b) and re-aim it; AMEND (c).
+
+**(b) is the trap in this design, and it is P-Q2's trap in a new dress.** The
+design names two different operators in one sentence. The m3 dag-v1 solver
+(`walt-strat/src/hidden_scalar.rs`, the scalar sibling of
+`walt-strat/src/hidden.rs`) is **treatment H**: "every viewer choice below the
+root is made once per pooled information state against the whole particle set,"
+under the §7.4 fixed uniform-legal field and the uniform fiber weighting. P-A6's
+aggregate (`walt/walt-factory/examples/fiber_probe.rs:215`, `aggregate`) is the
+**world-informed** focal-max / hidden-uniform node rule — treatment C/F, the
+object Lemma V covers and P-A5 requires to be labelled "not a seat value." The
+two differ exactly by strategy fusion (v0.4 §7.6, §7.7), so equating them makes
+the proposed correctness gate compare an information-consistent optimum against
+its own fusion upper bound.
+
+- **R-A9 (field and belief are two objects, both uniform, never one sentence).**
+  The **field** is the §7.4 fixed uniform-legal profile at the three hidden
+  offsets (F4). The **belief** is the uniform weighting over Φ(**C**₀), the
+  declared convention of v0.4 §14.2/§14.6 and the H solver's declared root
+  weighting. Naming them together as "the declared uniform field" fuses §7.4 with
+  §2.4. Both are declared in the header, separately, and the belief additionally
+  carries P-A12's typing: on a fabricated void-free kernel it is a declared
+  aggregation argument, not any seat's actual belief.
+- **R-A10 (the concrete authority is H; the P-A6 aggregate is a one-sided
+  diagnostic).** ACCEPT (a): the field of §3 for part one is the uniform-legal
+  field with the focal seat controlled. The concrete ground truth for V/Q is
+  **treatment H at the same field and belief**, not the P-A6 aggregate. The
+  results file states verbatim: "The concrete authority for V and Q is treatment
+  H (v0.4 §10.3), the information-consistent solve under the §7.4 uniform-legal
+  field and the uniform fiber weighting. The P-A6 world-informed aggregate is a
+  different operator: it maximises per world and is the strategy-fusion upper
+  bound (§7.6, §7.7). It is recorded only as the one-sided diagnostic
+  V^pred ≤ E_β[V*], and a gap between them is expected behaviour of two correct
+  programs, never a defect." That inequality is Lemma X's pointwise fusion
+  inequality averaged under β and may be asserted in-run in that direction only.
+- **R-A11 (the observation models must be the same model).** The probe's
+  observation contract must be the one `walt-strat/src/info.rs` implements for
+  the H walk. If the two differ, the two programs optimise over different policy
+  classes and the end-to-end gate is void — the same defect P-A9 guards against
+  for values. The run asserts the correspondence explicitly and declares it in
+  freeze 26; it does not assume it.
+- **R-A12 (c).** ACCEPT: no belief adapters in part one, with the R-A9 split in
+  force.
+
+### R-Q4 — Experiment 0, macro-kernel certification. RULING: ACCEPT the receipt; AMEND (a); the "does γ determine the operator" question is REJECTED as posed — it is answered NO a priori.
+
+- **R-A13 (γ, defined).** AMEND (a). "The 64-class level-1 alphabet" is
+  ambiguous in exactly E-A8's way, and the ambiguity matters: 64 is the count of
+  **level-1 r3 classes** (last-trick boundary *states*), and by E-Q2 a level-1
+  class is the tuple (actor offset, three classifications, increment) =
+  4 × 8 × 2 = 64, matching E-A7's anatomy rows. Read as that tuple it is a
+  count-free label of a **completed trick** and is well typed at every grade;
+  read as "the r3 class of the pre-trick state" it is a level-1 object and using
+  it at grades 2–3 is a category error (at level j the unconstrained nodes have
+  arity j — shape v2 — so a level-j boundary state is not a member of A_1).
+  Ruling: **γ := the count-free completed-trick token (leader offset from focal;
+  the three followers' classifications ∈ {follow, slough}; the count-free
+  increment ∈ {0, e⋆})**, declared as that tuple in the freeze, with the
+  identification with A_1 stated as holding at level 1 only and for the stated
+  reason. The finer diagnostic column is permitted but must be defined here —
+  the canonical form of the completed trick record under the declared transport —
+  and never borrowed from E-A8's 32,532, which counts level-1 *state* forms.
+- **R-A14 (Experiment 0 is a receipt; its headline question is answered before
+  the run).** Under the proposed contract o = the full public trick, γ and the
+  increment are functions of (i, o) and the successor state is determined by
+  (ξ, o). Therefore: (i) the event triple (γ, r, o) is redundant — **declare
+  e := o and record γ as a derived label**, so the event alphabet does not
+  pretend to be finer than the observation; (ii) γ names no tile, so it cannot
+  determine the successor information interface, and "does γ alone determine the
+  normalized operator" is answered NO by construction, not by measurement — the
+  same phenomenon Corollary S-rigid recorded at the seat level, where "named by
+  role" and "named by tile" coincide because the stabiliser is trivial (S-A9);
+  (iii) the analyst/player firewall of §3.3/§18.6 is **vacuous here** (nothing is
+  analyst-only) and is stated as a standing rule that becomes live the moment a
+  coarser observation contract is declared, not as a property this probe
+  exercises. What survives as genuine content, and is ACCEPTED: the mass check
+  Σ K = 1 per (i, u, ξ) and exact equality of primitive and folded path laws per
+  successor bucket — implementation receipts in S-A18's sense, run at focal-lead
+  roots only, where |U(i)| = |H|. The replacement measurable, which the run
+  reports in place of the rejected question: the **operator-multiplicity census**
+  — the number of distinct closure matrices encountered, grouped by γ, and after
+  the declaration-fold quotient (R-A7). It is labelled freeze-relative (matrices
+  depend on the basis, R-A21) and it is the honest fragment of §12.2/Experiment 4
+  that part one can afford.
+- **R-A15 (increment alphabet).** ACCEPT count-free, focal-team trick ∈ {0, 1},
+  asserted in-run (P-A6). **E-A2 is restated where it now bites:** every number
+  in this probe is sound only under the count-free contract; if count re-enters
+  (v0.5 role re-entry) every basis, closure matrix and dimension here is void
+  wholesale, never extended. v0.6 §10.2 agrees from its own side (the count
+  schedule is not pip-symmetric; a score decoration breaks the fold of Corollary
+  R-fold). Print this in the results file: it is the failure mode that would
+  silently produce wrong numbers rather than a crash.
+
+### R-Q5 — Experiment 1, the dimension census. RULING: AMEND (a) — the ladder as posed is two theorems and one measurement; AMEND (b); ACCEPT (c) as re-aimed by R-A10; ACCEPT (d).
+
+- **R-A16 (what is measured).** The measured object is **dim V^val for the
+  count-free expected-focal-trick contract** (Lemma R(3)), computed by the
+  primitive-step closure of R-A8, seeded at terminals by the **zero** space, with
+  observation-aggregated residuals and the immediate generators g_{i,u}. The
+  distribution contract (ii) and the predicate-on-top contract (iii) are
+  **reported as THEOREM rows reading r = |X_i|** with Lemma R(c)–(d) cited, and
+  are not run. The lawful enrichment that is not degenerate, and which the run
+  MAY measure at the same cost, is contract **(i′): (i) plus expected
+  next-leader-offset readouts as immediate generators** — it seeds no constant
+  and is the control alphabet part two will need. If the builder nevertheless
+  runs §6.2's closure verbatim, it asserts the identity r = |X_i| as a receipt
+  and reports it as such; a §6.2 run returning anything else is a stop-and-report
+  bug (NO-RESCUE), because Lemma R(c) says what it must return.
+- **R-A17 (report schema, and two cardinalities that are one).** Per information
+  interface and grade, integers first (P-A11): |X_i|; dim V^val; the number of
+  distinct behavioural rows; |U(i)|; the observation count; basis and
+  closure-matrix sparsity. Four corrections. (i) **Behavioural rows are defined
+  and computed as the distinct rows of the |X_i| × dim V^val basis-evaluation
+  matrix** — exact by construction, never sampled, and no test enumeration is
+  needed, since two states agree on every test iff they agree on a basis. (ii)
+  **"Partition-lump size" is not a second number:** under v0.6 §5.3's own
+  definition a one-hot positive realization is a partition on whose blocks every
+  test is constant, so the minimal one is exactly the row-equality partition.
+  Report it once, as the behavioural-row count, and state the identity;
+  presenting it as an independent row would imply a measurement that was never
+  made (E-A8's lesson). (iii) **The row-equality partition is a response-equality
+  object, not a dynamics quotient.** v0.4 §12.4's caution therefore applies to it
+  in the direction opposite to r3's caveat: it must never be used as a state
+  partition for a solver, and it is not an r3-style class count and may never be
+  compared with one. (iv) Sparsity figures are freeze-relative (R-A21); the
+  dimension itself is not. Root interfaces and interior interfaces are reported
+  separately (F6's root-only/full-carrier discipline).
+- **R-A18 (the correctness gate).** ACCEPT (c) with R-A10's substitution: for
+  every measured coordinate, the predictive V and per-action Q computed from
+  V^val must equal **treatment H's** V and Q exactly, in exact arithmetic, at the
+  declared count-free valuation (v0.6 §16.7's equality block, receipt-style,
+  P-A9's discipline). A mismatch is stop-and-report per NO-RESCUE; never patched,
+  never reconciled by adjustment. If H does not complete at a rung within its
+  declared budget, that is a declared stop printed with what was reached (P-A16,
+  E-A16), and every dimension row at that rung is printed with "correctness gate
+  unmet" beside it — never silently. The fusion diagnostic of R-A10 is reported
+  alongside but is never the gate.
+- **R-A19 (clean slate, with one inheritance).** ACCEPT (d): the r3 class store
+  does not participate, the 64 labels enter only as the transition alphabet of
+  R-A13, and S5h's negative (cone identity cannot short-circuit descent; B : A1 ≈
+  4.3–4.9) stands untouched and is restated in the header (X-A14). The
+  inheritance the phrase "clean slate" must not erase: the void-free capacity
+  kernel construction and freeze 7's fiber enumeration order are **reused, not
+  reinvented**, or the coordinates are not comparable with the S5g/S5h rows.
+- **R-A20 (declare the Gate-B criterion before the run).** Y2's Q2 discipline:
+  the refutation criterion is fixed in the design text in advance, in the form
+  "payoff CONFIRMED if dim V^val grows materially slower than |X| across the
+  measured grades — the reported comparison being the growth ratios
+  dim V^val(n+1)/dim V^val(n) against |X_{n+1}|/|X_n| = 15 and 56/3 — REFUTED if
+  the growth ratios are of the same order," with the thresholds written down
+  before any number exists. P-A21 governs everything beyond: three rungs are not
+  a law, an implied grade-7 dimension is an extrapolation at exploratory tier and
+  is never a statement about an unrun computation, and no dimension at any grade
+  is quoted for the opening.
+
+### R-Q6 — arithmetic and freezes. RULING: ACCEPT the arithmetic; REJECT the renumbering.
+
+- **R-A21 (arithmetic).** ACCEPT arbitrary-precision rationals for the closure
+  module: exact, no floats, the clippy `float_arithmetic` deny and the f32/f64
+  grep untouched. `walt_geom::Q` is `Ratio<i128>`
+  (`walt/walt-geom/src/rat.rs:6`), so every conversion at the boundary is checked
+  and an overflow is a **stop-and-report**, never a truncation, never a
+  saturation, and never a number that reaches a results line. Two properties to
+  state in the header because they are easy to confuse: **the predictive
+  dimension is freeze-independent** (it is a mathematical invariant of the space,
+  not of the pivot rule), while **the basis, the closure matrices and every
+  sparsity figure are freeze-dependent**; a results file that labels the second
+  group as reproducible facts without naming the freeze is misreporting.
+- **R-A22 (freeze numbering: continue at 22).** REJECT the reassignment of
+  18–21. Those numbers are **spent**: S-A19 assigned them, and S-A2 cites
+  "freeze 18" inside the text of Lemma S-fold's licensing argument, so reusing
+  them would corrupt an adjudicated ruling that is binding precedent regardless
+  of whether the parked build ever runs. Freeze numbers are a global monotone
+  registry; a parked build does not return its numbers. New freezes: **(22)** the
+  information-interface encoding of R-A4 — live set, capacity-cell system,
+  leader offset, grade, the declarations O_Σ = ∅ and monitor = none, the absence
+  of any accumulated outcome — together with the coordinate enumeration order
+  (restating freeze 7 wherever it is reused); **(23)** the closure discipline —
+  primitive-step granularity, the per-contract terminal seed sets, the
+  deterministic pivot rule (first nonzero in declared order), basis storage
+  order, and f_0's index convention where a constant is present at all;
+  **(24)** the observation-label encoding, with e := o and γ as the derived
+  R-A13 tuple; **(25)** the decimation constants (g, W) per grade in P-A15's
+  exact form; **(26)** the concrete-authority identification — the H solver and
+  its version, its budget, its valuation, its fiber weighting, and its
+  observation model (R-A11). Freezes 1–21 are in force and restated unchanged.
+
+### R-Q7 — results discipline and the claim fence. RULING: ACCEPT-WITH-AMENDMENT.
+
+- **R-A23 (the fence, verbatim).** P-A20's boilerplate lineage, integers first,
+  per-coordinate tables then per-grade summaries, one file
+  `walt/walt-factory/results/predictive_rank_2026-08-12.txt`, and the F7
+  both-outcomes framing are confirmed. The fence sentence, verbatim: "THE FENCE.
+  A predictive dimension is a statement about the linear span of a declared
+  family of continuation tests over a declared coordinate's void-free capacity
+  fiber, under the declared field, belief, count-free contract, observation
+  contract and grade. It licenses NO runtime or tractability claim of any kind:
+  moment compilation (v0.6 Gate D) is a separate, unmeasured experiment, and a
+  small dimension whose moments require enumerating the fiber solves nothing
+  (v0.6 §18.3). It is not a count of states, not a class count, not an r3-style
+  dynamics quotient, and not a value partition. It promotes no v0.6 theorem. The
+  numbers are coordinate-relative and are never quoted for the opening or for any
+  grade not measured. The concrete authority is treatment H; a disagreement with
+  it is a stop-and-report bug, never reconciled by adjustment; a divergence from
+  the world-informed P-A6 aggregate is not a disagreement at all but the expected
+  strategy-fusion gap (R-A10)."
+- **R-A24 (how a degenerate row is reported).** A row reading dim V = |X| for
+  contracts (ii)/(iii), or for a §6.2 run, is printed as **THEOREM (Lemma R(c),
+  RECEIPT RUN)** in S-A18's style, never as a measurement and never as Gate-B
+  evidence. The accompanying sentence, verbatim: "This row is forced by the
+  observation structure of the game, not by the game's strategic complexity:
+  every tile is eventually played and every play is publicly attributed, so a
+  complete record determines the world, and any closure seeded with a nonzero
+  constant contains every singleton indicator. It is not evidence that the
+  decision problem is high-dimensional, and it must not be repaired by coarsening
+  the observation contract, which would change the information model and
+  therefore the operator (§7.7)."
+
+**Both outcomes remain results** (F7, NO-RESCUE). Lemma R stands regardless of
+every number this probe produces: it identifies the exact object part one may
+measure, proves that the other two rungs of the proposed ladder are predetermined,
+and supplies the value closure that makes the pairing J_ρ(β) = ψ(β)c_ρ lawful
+without a normaliser. What it does not do is promise that dim V^val is small —
+that is the measurement, and this section is careful to leave it genuinely open.
