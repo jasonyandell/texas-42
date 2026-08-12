@@ -158,14 +158,47 @@ is a function of the future cone and cannot short-circuit descent, so
 the class store is a storage/transport object (reuse across
 coordinates, hands, weightings), never a first-build accelerator; and
 cold treatment H — the seat's actual pooled solve — completes on full
-34,650-world four-trick fibers in 7–17 s. All counts carrier-relative,
-dynamics-equivalence, exploratory; the compact-description question
-(§12.7), the seat-level construction, and role re-entry are the open
-rungs. Numbers and caveats:
+34,650-world four-trick fibers in 7–17 s. **The fiber-refinement probe
+(S5i, Lemma X):** excising value-zero worlds preserves objective and
+argmax exactly (one-sided; remnants are analyst conditioning, §6.8, a
+third type besides support and belief); predicate passes cost 0.1–3.7 ms
+— 100–1000× under any storeless route — but the excisable bit is zero
+worlds on declarer-focal void-free kernels; the engine is proven, the
+bite lives elsewhere. **The endgame store (S5j, Lemma E):** equal r1
+canonical forms ARE game isomorphisms (count-free value lookup with no
+descent), and convergence is real (38–73% form-hit rates; level-1 form
+count 32,532 vs the 64-class alphabet) — but the tablebase arms run
+1.6–2.7× SLOWER than the plain memo (canonicalization dominates) and
+the floor table loses 41× to closed-form trick resolution: a
+storage/transport object again, never an accelerator. **The seat-level
+census (S5k), answered by proof:** Corollary S-rigid — the pip-trump
+structure on 28 live tiles has no nontrivial self-transport, so the
+seat-side structural quotient at the first play is the IDENTITY;
+**COUNT 1 = C(28,7) = 1,184,040 is a theorem**, ~11.84× over the 10^5
+bar; the only symmetry is the exact 7:1 declaration fold (Lemma S-fold,
+order-isomorphism transport). Structural compression is bought with
+deadness, and nothing is dead at the first play. **The predictive
+algebra (S6a, v0.6 track):** Jason's new mathematics — exact predictive
+rank over ℚ, forward moments × backward policy vectors — adjudicated
+(Lemma R: any constant-seeded closure is degenerate at dimension |X|
+because complete records determine worlds; only the expected-trick value
+closure is measurable) and measured: dim V^val = 1 / 42–59 / 1461–1680
+at grades 1/2/3 against |X| = 6/90/1680, one grade-3 coordinate at FULL
+rank. **Gate B refuted at the pre-declared thresholds** — the value
+closure saturates by grade 3; linear predictive compression dies of the
+same public-attribution structure that killed the partition quotient.
+Root-argmax partitions, the dual policy geometry (Gate E), and fixed
+shallow queries (the lead-recovery DP) stand untouched. All counts
+carrier-relative, dynamics-equivalence, exploratory; the
+compact-description question (§12.7), the discovery principles over
+argmax partitions, and role re-entry are the open rungs. Numbers and
+caveats:
 `walt/walt-factory/results/census_2026-08-10{,_r2,_r3}.txt`,
 `census_t5_2026-08-10.txt`, `census_yard_2026-08-10.txt`,
 `census_yard_v2_2026-08-10.txt`, `census_a1_complete_2026-08-11.txt`,
-and `fiber_probe_2026-08-11{,_h}.txt`. Counterexample-guided synthesis
+`fiber_probe_2026-08-11{,_h}.txt`, `fiber_refine_2026-08-11.txt`,
+`endgame_store_2026-08-11.txt`, `endgame_floor_2026-08-11.txt`, and
+`predictive_rank_2026-08-12.txt`. Counterexample-guided synthesis
 per v0.4 §12.9, Scheme/Fix as the descriptor language per §12.7, carrier
 chosen per §11.2. Standing **no-rescue policy** (2026-08-10): a failure is
 a counterexample to carry back to the math, never a thing to engineer

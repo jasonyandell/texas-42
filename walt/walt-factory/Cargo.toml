@@ -11,3 +11,6 @@ walt-kernel.workspace = true
 walt-geom.workspace = true
 walt-strat.workspace = true
 walt-skeleton.workspace = true
+num-bigint.workspace = true
+num-rational.workspace = true
+num-traits.workspace = true

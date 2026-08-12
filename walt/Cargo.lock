@@ -55,6 +55,9 @@ version = "0.1.0"
 name = "walt-factory"
 version = "0.1.0"
 dependencies = [
+ "num-bigint",
+ "num-rational",
+ "num-traits",
  "walt-core",
  "walt-geom",
  "walt-kernel",

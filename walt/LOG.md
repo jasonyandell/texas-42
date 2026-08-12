@@ -974,3 +974,110 @@ or where the object of interest IS the form inventory — and the
 32,532/64 split plus the 1.36M-record level-2 curve are the first
 direct data for the seat-level census's size question. Both negatives
 are attributed, not spun; next moves are Jason's. Full gate green.
+
+## S5k — 2026-08-11 (evening): the seat-level census, answered by proof
+
+Design `walt/SEAT-CENSUS.md` (Jason's flat-stack framing: three alphabets —
+hand forms, first-trick interface, landing — composed never). Adjudicated by
+a fresh walt-math (predecessor retired; the rulings file is the inherited
+memory): S-A1..S-A21 plus three theorems, no build needed for the headline.
+
+- **Lemma S** (seat-side transport): a transport of the declared seat-side
+  structure carries every count-free censal question across; equal forms ⇒
+  equal answers.
+- **Corollary S-rigid**: the pip-trump structure on all 28 live tiles has NO
+  nontrivial self-transport, and focal-fixed kills rotation — so the
+  seat-side structural quotient at the first play is the IDENTITY.
+  **COUNT 1 = C(28,7) = 1,184,040 is a THEOREM**, missing the 10^5 bar
+  ~11.84×. My proposed invariant list had five gaps (g1–g5) that would have
+  produced a spuriously small count; all five caught at adjudication.
+- **Lemma S-fold**: the seven pip declarations fold exactly 7:1 under
+  π_{p→p'} = (p ↦ p') + the unique order isomorphism on the remaining six
+  pips (comparison-reading-dependent: under the literal §1.3 tier-0 reading
+  only 0↔6 folds; the bar's answer is insensitive to the choice).
+- **Lemma S-det**: interface determination holds; the bounded first-trick
+  alphabet IS the raw record space — no compression at the top.
+
+THE INSIGHT (the one that reframed everything): structural compression is
+bought with DEADNESS — dead tiles, inert contexts — which is why level 1
+gives 55M → 32,532 forms → 64 classes, and nothing is dead at the first
+play. The identity quotient is not a failure of technique; it is the
+statement that the abstraction level was too fine for the question. Named
+OPEN: whether a coarser lawful equivalence (dynamics-style, needing descent
+per S5h; or value-partition-style) reaches 10^5. The S-A18 receipt build is
+PARKED (theorems stand without it). Jason: "I'm actually thrilled by this
+negative... proof that what we have doesn't represent what I'm thinking.
+That's an opportunity."
+
+## S6a — 2026-08-12: predictive algebra (v0.6) and the dimension census
+
+Jason brought a new math track: `walt/math/predictive_algebra_v0.6.md` —
+predictive state coordinates over ℚ: continuation tests, exact predictive
+rank (rank_Q of the continuation matrix; "predictive dimension" hereafter,
+R-A3), residual closure, forward moments ψ(B) × backward policy vectors
+c_ρ, J_ρ(B) = ψ(B)c_ρ. The escape S-rigid left open: linear rank ≤
+partition-lump size; every behavioral row can be distinct while the rank
+stays small. Filed as the v0.6 track (exploratory); design
+`walt/PREDICTIVE-RANK.md` = v0.6 Experiments 0+1 only, adjudicated by a
+fresh walt-math BEFORE build (R-A1..R-A24).
+
+**Adjudication headline — Lemma R(c), a theorem with teeth:** in Straight
+42 every tile is eventually played and publicly attributed, so a complete
+continuation record determines the latent world; hence ANY closure whose
+terminal seed contains a nonzero constant has predictive dimension exactly
+|X| — v0.6 §6.2 verbatim and the distribution contracts are THEOREM rows,
+not measurements. The sole measurable object: dim V^val for the count-free
+expected-trick contract (zero terminal seed). Also delivered: the v0.6
+proof audit (all SOUND; implicit hypotheses H1–H3 now builder obligations;
+gaps G1–G3); Corollary R-fold (dimension is declaration-fold invariant;
+bases/matrices are freeze-relative and never fold-compared); the concrete
+authority re-aimed at treatment H (my design had equated the m3 solver
+with the P-A6 world-informed aggregate — strategy fusion, P-Q2's trap in
+new dress, caught at adjudication); root-only focal-lead fence with
+primitive-step closure (interior interfaces of every leadership visited,
+U(i) never materialized); freezes 22–26 (the 18–21 collision REJECTED —
+spent numbers are never reassigned).
+
+**The build** (`walt-factory/examples/predictive_rank.rs`, ~1,300 lines):
+exact sparse row reduction over arbitrary-precision rationals (BigRational
+— first use in walt; i128 ratios only at declared boundaries); the value
+closure via per-record generator families {g_u0} ∪ {B_{s,a} − B_{s,u0(s)}}
+∪ {w_o·ι_o(f)}; the R-A18 gate (per-lead Q vs ScalarHidden dag-v1 through
+the affine bridge Q_diff = 2·Q_count − grade, exact); Lemma R(b)
+membership+pairing receipts (extracted H policy value ∈ V^val, ψ·c equals
+the concrete expectation); E0 mass and two-path bucket receipts; Lemma
+S-det bijection receipts; the fold receipt at all 7 declarations per
+coordinate. Two of my errors were caught BY the receipts mid-build: the
+fold transport is the ORDER ISOMORPHISM of Lemma S-fold, not a pip
+transposition (run 1 crash); and the distinct-matrix census is
+freeze-relative, NOT fold-comparable — basis-dependent collisions moved
+counts by 1–2 across declinations exactly as R-A7 warned (run 3 crash;
+the lawful fold receipt is per-γ record counts, γ being pip-free).
+
+**THE RESULT (results/predictive_rank_2026-08-12.txt, 52 s total, all
+receipts green, gates MET, fold 7/7 everywhere):**
+
+- grade 1: dim V^val = 1 at all 12 coordinates (|X| = 6).
+- grade 2: dim V^val ∈ {42, 42, 52, 54, 56, 59} (|X| = 90); behavioral
+  rows 43–72 — a real but modest linear-over-partition win.
+- grade 3: dim V^val ∈ {1461, 1492, 1680} (|X| = 1680) — one coordinate
+  at FULL rank |X| exactly; the others at 87–89% of |X|; behavioral rows
+  ≈ dims (the partition/rank gap closes).
+- **Gate B verdict, per the pre-declared criterion: payoff REFUTED** —
+  D(2)/D(1) = 59 vs fiber ratio 15; D(3)/D(2) ≈ 28.5 vs 56/3 ≈ 18.7. The
+  dimension grows AT LEAST as fast as the fiber.
+
+**Reading (exploratory, coordinate-relative, the fence applies):** the
+value closure saturates by grade 3 — the span of lawful policy values is
+essentially all of ℚ^X. The mechanism rhymes with Lemma R(c): even with
+the constant excluded, the field-share weights w_o(ξ) (products of
+1/|legal|) are world-discriminating, and hundreds of record-wise pullbacks
+inject nearly independent directions. Linear predictive compression under
+this contract/field/observation model is dead at the depths that matter,
+for the same structural reason the partition quotient was: the game's
+public-attribution observation structure. NOT killed: root-action ARGMAX
+partitions (the dropped-30 evidence — value spans can be full while the
+decision function is simple), v0.6's dual policy geometry (Gate E,
+unmeasured), and moment compilation for FIXED shallow queries (the
+lead-recovery DP never needed a spanning basis). Carried back to the math,
+better informed — exactly the deal.

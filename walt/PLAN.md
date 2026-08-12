@@ -269,6 +269,32 @@ evolved this project's own receipt/TRUST-01 discipline.
   (vs 64 classes) and level-2 store at 1.36M records un-saturated —
   first direct size data for the seat-level census. Full gate green.
 
+- **S5k** (2026-08-11, evening): the seat-level census, answered BY
+  PROOF at the finest seat-side equivalence — rulings S-A1..S-A21 from
+  a fresh walt-math; **Lemma S** (seat-side transport), **Corollary
+  S-rigid** (no nontrivial self-transport at the first play ⇒ the
+  structural quotient is the IDENTITY: COUNT 1 = C(28,7) = 1,184,040,
+  a THEOREM, ~11.84× over the 10^5 bar), **Lemma S-fold** (exact 7:1
+  declaration fold via the order isomorphism π; comparison-reading
+  caveat recorded), **Lemma S-det** (no compression at the first-trick
+  interface). The insight: structural compression is bought with
+  DEADNESS, and nothing is dead at the first play. Receipt build
+  parked; coarser lawful equivalences named OPEN.
+
+- **S6a** (2026-08-12): the v0.6 predictive-algebra track filed
+  (Jason's upload; PSR-style exact rank over ℚ) and its first probe
+  run under rulings R-A1..R-A24. **Lemma R** (constant-seeded closures
+  are degenerate at dimension |X| — the distribution contracts were
+  theorems before any code ran; only the expected-trick value closure
+  V^val is measurable), **Corollary R-fold**. Measured, 52 s, all
+  receipts green: dim V^val = 1 / 42–59 / 1461–**1680 = |X| (full
+  rank)** at grades 1/2/3 vs |X| = 6/90/1680. **Gate B: payoff REFUTED
+  at the pre-declared thresholds** — the value closure saturates by
+  grade 3; linear predictive compression dies of the same
+  public-attribution structure that killed the partition quotient.
+  Standing: root-argmax partitions, dual policy geometry (Gate E),
+  fixed shallow queries (the lead-recovery DP) — all untouched.
+
 ## Next
 
 - **The compression program (v0.5 — the goal, reset 2026-08-10; first

@@ -151,3 +151,26 @@ New example `walt/walt-factory/examples/predictive_rank.rs` (its own runner —
 this probe shares no arms with fiber_probe). Build begins only after
 R-A rulings land. Gate: `walt/ci/check.sh` green before the probe is called
 done, receipts style per R-Q7.
+
+## Addendum (2026-08-12, post-adjudication): the declared Gate-B criterion
+
+Per R-A20 (Y2's Q2 discipline), fixed here before any number exists. The
+measured object is dim V^val (Lemma R(3)) at root information interfaces,
+per coordinate, at grades n = 1, 2, 3. Statistics per grade: the full
+integer multiset with min / median / max; no mean (R-A6). Let D(n) denote
+the per-grade MAX of dim V^val over the declared coordinates, and let
+X(n) = |X| at grade n (6 / 90 / 1,680), so the fiber growth ratios are
+X(2)/X(1) = 15 and X(3)/X(2) = 56/3 ≈ 18.67.
+
+- **Payoff CONFIRMED** if, at BOTH steps n=1→2 and n=2→3,
+  D(n+1)/D(n) ≤ (1/3) · X(n+1)/X(n) — i.e. the dimension growth ratio is at
+  most one third of the fiber growth ratio (equivalently ≤ 5 and ≤ 56/9).
+- **Payoff REFUTED** if, at EITHER step, D(n+1)/D(n) ≥ (2/3) · X(n+1)/X(n)
+  — dimension growth of the same order as fiber growth.
+- Anything between is **UNRESOLVED** and is reported as exactly that.
+
+Ratios are exact rationals over the integer maxima; a grade whose
+correctness gate (R-A18) is unmet contributes no ratio and forces
+UNRESOLVED at its steps. P-A21 governs everything beyond: three rungs are
+not a law, no implied grade-7 dimension exists, and no number here is
+quoted for the opening.
