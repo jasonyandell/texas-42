@@ -295,6 +295,23 @@ evolved this project's own receipt/TRUST-01 discipline.
   Standing: root-argmax partitions, dual policy geometry (Gate E),
   fixed shallow queries (the lead-recovery DP) — all untouched.
 
+- **S6b** (2026-08-12): the policy-geometry probe (Gate E) under rulings
+  PG-A1..PG-A18. **Proposition G-flat** (grades 1–2 have no policy
+  geometry; grade 3 = the one measurement, N_pol = 2^k(a)) and **Lemma
+  G** (backward Pareto pruning exact; Exp = unique maximiser; N_vec
+  destroyed by pruning) delivered at adjudication. Measured: **7 of 9
+  grade-3 (coordinate, lead) pairs have a SINGLETON Pareto frontier**
+  (one policy dominates every alternative in all 1,680 worlds;
+  N_par = N_exp = 1 vs plans up to 2^19930; dominance spot receipt and
+  treatment-H authority receipt held); 2 of 9 — the non-boss trump
+  leads of one coordinate — STOPPED at the frontier cap (16,384) in a
+  trick-1 partial sum. Formal verdict STOPPED per the pre-declared
+  discipline; the finding is the BIMODALITY: value span full (S6a) yet
+  decision side collapsing to one dominant policy almost everywhere —
+  the first exact evidence for Jason's outcome-similarity direction at
+  the strategy level; the explosions sit exactly where 42 is genuinely
+  tense.
+
 ## Next
 
 - **The compression program (v0.5 — the goal, reset 2026-08-10; first

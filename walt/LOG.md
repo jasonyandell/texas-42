@@ -1081,3 +1081,52 @@ decision function is simple), v0.6's dual policy geometry (Gate E,
 unmeasured), and moment compilation for FIXED shallow queries (the
 lead-recovery DP never needed a spanning basis). Carried back to the math,
 better informed — exactly the deal.
+
+## S6b — 2026-08-12: the policy-geometry probe (v0.6 Gate E)
+
+Jason's direction after the Gate B refutation: his hope is SIMILARITY OF
+OUTCOMES ("likely to get 32 one way or the other"; the melted-candlewax
+oracle PDFs — spiky, clustered, long dead flats), not exact low dimension;
+Gate E is the exact, adjudicable fragment. Design
+`walt/POLICY-GEOMETRY.md` (four cardinalities N_pol/N_vec/N_par/N_exp,
+never conflated); walt-math rulings PG-A1..PG-A18 delivered
+**Proposition G-flat** (grades 1–2 carry NO policy geometry — forced
+continuations; grade 3's only free layer is trick 2, N_pol(a) = 2^k(a);
+the probe has exactly ONE measurement and my growth-ratio criterion was
+structurally unavailable — replaced by absolute bands) and **Lemma G**
+(backward Pareto pruning is exact through the positive composition, the
+incremental fold is mandatory, Exp must be defined as the UNIQUE
+maximiser — my "some belief" definition was not pruning-safe, the silent
+shrink caught at adjudication; N_vec is destroyed by any pruning; convex
+pruning is lawful for N_exp only). Exposure method frozen: Lark's LP,
+exact-rational primal simplex with Bland's rule, witnesses both ways.
+
+**THE RESULT (results/policy_geometry_2026-08-12.txt, 74 s, gate green):**
+of the 9 measured grade-3 (coordinate, lead) pairs:
+
+- **7 of 9: the Pareto frontier is a SINGLETON** — one policy weakly
+  dominates every lawful alternative in every one of the 1,680 worlds;
+  N_par = N_exp = 1 against plan counts up to 2^19930. Receipts: the
+  dominance spot receipt (1,024 explicit policy variants all pointwise
+  under the singleton), the authority receipt (frontier max = treatment H
+  exactly, every row), G-flat receipts at grades 1–2 (30 rows, all 1).
+- **2 of 9 (one coordinate, leads 1-0 and 1-1 under 0-trump — the
+  non-boss trump leads): STOPPED** — the running frontier exceeded the
+  declared cap (4,096, then 16,384 on a declared raise) at the SAME
+  trick-1 partial sum both times. No N_par is reported for them (a
+  partial frontier bounds nothing, PG-A13).
+- **Formal verdict, per the pre-declared discipline: STOPPED, NO
+  VERDICT** (a capped coordinate forbids the global claim). The texture
+  is the finding: BIMODAL — total strategy-side collapse almost
+  everywhere; genuine frontier explosion exactly where the 42 is
+  genuinely tense (leading a low trump rather than the boss).
+
+Read with S6a: the value SPAN is full (Gate B refuted) while the decision
+side collapses to one dominant policy at most measured roots — value
+richness and decision simplicity coexisting, which is the dropped-30
+lesson made exact, and the first exact evidence FOR the
+outcome-similarity direction at the strategy level. Where the frontier
+explodes, the incomparability structure ("better except when X") is
+exactly what the spike-anatomy frame wants to name. No similarity or
+tolerance claim is made (PG-A17); δ-similarity remains future
+mathematics.
