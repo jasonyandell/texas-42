@@ -2275,3 +2275,378 @@ measure, proves that the other two rungs of the proposed ladder are predetermine
 and supplies the value closure that makes the pairing J_ρ(β) = ψ(β)c_ρ lawful
 without a normaliser. What it does not do is promise that dim V^val is small —
 that is the measurement, and this section is careful to leave it genuinely open.
+
+## Policy-geometry probe rulings (2026-08-12)
+
+**Adjudicator:** walt-math. **Tier:** exploratory throughout; v0.6 §8.5 /
+Experiment 2 is design guidance and nothing below promotes it. **Basis:** v0.6
+§§5, 8, 11; v0.4 §2.1–2.6, §5.5, §6.8, §7.2, §7.4–7.7, §10.1, §10.3, §12.4;
+v0.5 §12.6A and its BOUNDARY. F1–F7, r3 Q1–Q5, Y1–Y3, shape v2, P-A1..P-A21,
+X-A1..X-A19, E-A1..E-A21, S-A1..S-A21, R-A1..R-A24 and Lemmas V, X, E, S,
+S-fold, S-det, R, Corollaries S-rigid, R-fold are inherited unchanged.
+Amendments are numbered PG-A1.. and are builder obligations; a run that omits
+one is not the adjudicated probe. The S6a run
+(`results/predictive_rank_2026-08-12.txt`) is the standing record this probe
+extends; its freezes 22–26 are in force and restated, not renumbered.
+
+**Headline, stated first, because it decides what this probe can and cannot
+read.** In the measured domain the decision side does not exist below grade 3.
+At a focal-lead root of grade n the focal seat plays exactly one tile per trick
+and the final trick is forced, so grade 1 has one policy and grade 2 has exactly
+one policy per root action (Proposition G-flat). **Grade 3 is the only grade with
+a policy set at all**, and there the free choice layer is exactly trick 2, so
+N_pol(a) = 2^{k(a)} with k(a) the number of trick-1 records leaving two legal
+tiles. Two consequences bind the design. First, **PG-Q6's proposed
+growth-ratio criterion cannot be evaluated** — a ratio across grades has one
+usable data point and two forced 1s; the reading must be an absolute-magnitude
+criterion at grade 3, fixed below (PG-A15). Second, a results file that reported
+"N_par = 1, 1, 40 across grades 1–3, a collapse of many orders" would be
+reporting Proposition G-flat as a finding; the strawman guard is mandatory
+(PG-A16). Two further traps are ruled on below: **N_vec is destroyed by the very
+pruning that makes N_par feasible** (the four cardinalities cannot all come from
+one run at one grade, PG-A7), and **N_exp as defined in the design is not
+preserved by Pareto pruning** — the design's own justification of N_par says
+"full support" while its definition of N_exp says "some belief", and the gap
+between those two is exactly a set of vectors that pruning silently deletes
+(PG-A4). Fixed by adopting unique optimality as the definition, which is both
+what the LP computes and what pruning provably preserves.
+
+### Proposition G-flat (grades 1 and 2 carry no policy geometry)
+
+*Statement.* At a focal-lead root information interface of grade n in the S6a
+domain: the focal seat has exactly n plays, one per trick, and at the final trick
+exactly one tile remains, so that decision point is forced. Hence
+
+- **n = 1:** the root action set is a singleton and
+  N_pol = N_vec = N_par = N_exp = 1;
+- **n = 2:** for each root action a the whole continuation is forced and
+  N_pol(a) = N_vec(a) = N_par(a) = N_exp(a) = 1;
+- **n = 3:** the only free choice layer is trick 2, whose focal information
+  states are indexed by the trick-1 public record o (the focal's hand after a is
+  determined by a, so the record is the whole information state), and each such
+  state leaves one or two legal tiles. Therefore
+
+    N_pol(a) = Π_o |legal(o)| = 2^{k(a)},   k(a) = #{o : |legal(o)| = 2}.
+
+*Proof.* The focal plays one tile per trick (v0.4 §1.2), so after the root action
+its hand has n−1 tiles and at the last trick exactly one, which is legal by
+§1.5 (follow if able, else anything) and is the only tile it holds. At n = 2 the
+only non-root decision point is that forced one. At n = 3 the trick-2 decision
+faces a two-tile hand, whose legal subset is the follow-set of the led context if
+nonempty and otherwise both tiles (§1.2, §1.5), so |legal| ∈ {1, 2}; the trick-3
+decision is forced. Policies are functions of the observation record (R-A11), and
+under a fixed root action the record determines the information state, so the
+choices at distinct records are independent. ∎
+
+*Three consequences the builder must carry.* (i) The grade-1 and grade-2 rows are
+**receipts, not measurements** (S-A18's typing): their expected values are known
+in advance and a discrepancy is stop-and-report. (ii) The plan/reduced-strategy
+distinction (PG-A3) is **inert at n ≤ 3** — every trick-2 information state is
+realizable given a, and the trick-3 factor is 1 — so N_pol as a flat product is
+correct here and would stop being correct at n ≥ 4. (iii) The whole of PG-Q2's
+"astronomically large policy set" is the single Minkowski fold over the k(a)
+free records at grade 3; that is where backward pruning earns its place, and it
+is the only place.
+
+### Lemma G (backward pruning: what it preserves and what it destroys)
+
+*Setup.* Fix a root information interface i under root action a, with fiber X_i
+and value vectors in Q^{X_i}. By Lemma R(b) the composition is
+
+  V_ρ = g_{i,u} + Σ_o Pre_{i,u,o}(V_{ρ_o}),
+
+with each Pre_{i,u,o} a **positive** linear operator (its kernel entries are
+products of the field's unit fractions, all ≥ 0) and the continuation chosen
+independently per observation o. Write S_j for a set of continuation vectors at
+interface j, ≤ for the pointwise order, max(S) for the Pareto-maximal elements,
+and for a finite S ⊂ Q^{X}
+
+  Exp(S) = { v ∈ S : v is the **unique** maximiser of E_β[·] over S for some
+             β ∈ Δ(X) }.
+
+*Claims.*
+
+1. **(monotone composition)** If v ≤ w pointwise then Pre_{i,u,o}(v) ≤
+   Pre_{i,u,o}(w) pointwise, and the immediate term g_{i,u} does not depend on
+   the continuation. Hence the composition is monotone in every argument.
+2. **(frontier preservation, ties included)** Let R be the set of root vectors
+   built from the full successor sets and R′ the set built from max(S_j) at every
+   successor. Then max(R) ⊆ R′ and max(R′) = max(R). So backward Pareto pruning
+   preserves the root Pareto frontier **exactly**, as a set, not merely in
+   cardinality.
+3. **(incremental pruning is exact, and is mandatory)** Pruning after each
+   partial sum is exact: max((max(A ⊕ B)) ⊕ C) = max(A ⊕ B ⊕ C), where ⊕ is the
+   elementwise sum of two vector sets. Without it the fold materialises Π_o|S_o|
+   combinations — 2^{k(a)} at grade 3 — before any pruning can occur, so
+   per-interface pruning alone does **not** make the computation feasible.
+4. **(exposure)** Exp(S) is the unique minimal subset of S whose upper envelope
+   equals that of S; Exp(S) ⊆ max(S); and Exp(max(S)) = Exp(S). Hence Pareto
+   pruning preserves the exposed set exactly, over the **whole** simplex,
+   boundary beliefs included. The **weak** variant — "attains the maximum for
+   some β, ties allowed" — is a strictly larger count in general and is **not**
+   preserved by pruning.
+5. **(convex dominance)** v ∉ Exp(S) iff there are convex weights λ on S∖{v}
+   with Σλ_w w ≥ v pointwise. Pruning by this rule preserves Exp exactly, and it
+   is strictly stronger than Pareto pruning — therefore it **destroys N_par**.
+6. **(the negative)** No pruning rule preserves N_vec. A run that prunes cannot
+   report N_vec.
+
+*Proofs.* (1) K ≥ 0 entrywise, so v ≤ w gives Σ_{ξ′}K(ξ; o, ξ′)v(ξ′) ≤
+Σ_{ξ′}K(ξ; o, ξ′)w(ξ′) for every ξ. (2) Let C(v_1,…,v_m) denote the composition.
+Take C(v) ∈ max(R); for each o pick w_o ∈ max(S_o) with v_o ≤ w_o (finite poset,
+so a maximal element above every element exists). By (1) C(v) ≤ C(w) ∈ R;
+maximality of C(v) forces C(v) = C(w) ∈ R′, so max(R) ⊆ R′. Elements of max(R)
+are then maximal in R′ ⊆ R a fortiori. Conversely if x ∈ max(R′) were not
+maximal in R, some y ∈ R with y > x exists; take y′ ∈ max(R) with y ≤ y′; then
+y′ ∈ R′ and y′ > x, contradicting maximality in R′. Hence max(R′) = max(R). (3)
+Identical argument with C = ⊕. (4) *Minimality and sufficiency:* for distinct
+v, w the set {β : E_β[v] = E_β[w]} is the zero set of a nonzero linear functional
+and so has empty interior in the affine hull of Δ; the union over the finitely
+many pairs is therefore closed with empty interior, so on a dense open subset of
+Δ the maximiser is unique and lies in Exp(S). The envelope f(β) = max_{v∈S}E_β[v]
+is continuous, so f agrees with the envelope of Exp(S) on a dense set and hence
+everywhere. Each v ∈ Exp(S) is the unique maximiser on a nonempty open set, so any
+S″ ⊆ S with the same envelope must contain v; Exp(S) is therefore the unique
+minimal representation. *Exp ⊆ max:* let v be uniquely maximal at β and suppose
+v ≤ w, v ≠ w, w ∈ S. If the strict coordinates carry β-mass then E_β[w] > E_β[v],
+contradicting optimality; if they do not, then E_β[w] = E_β[v], contradicting
+uniqueness. *Stability:* max(S) has the same envelope as S (every element is ≤ a
+maximal one), so by minimality Exp(max(S)) = Exp(S). (5) The equivalence is the
+minimax/LP-duality form of δ* ≤ 0 in the exposure programme of PG-A9; removing
+such a v leaves the envelope unchanged (both bounds are immediate), so by the
+uniqueness in (4) it leaves Exp unchanged; and Σλ_w w ≥ v with |supp λ| > 1 does
+not imply v ≤ w for any single w, so v can lie in max(S). (6) Immediate: pruning
+discards vectors, and the discarded ones are counted by N_vec. ∎
+
+*The one thing Lemma G does not license.* Exp is preserved for the **value
+function**, not for the identity of every optimal policy: at a belief on a face,
+a Pareto-dominated vector can tie for the maximum and is then optimal without
+being exposed. A seat whose belief has support strictly inside Φ(**C**₀) — which
+is the real seat's situation, Φ(**C**) ⊊ Φ(**C**₀), P-A1 — is exactly that case.
+N_exp is therefore a statement about the declared cost domain's value function and
+never a count of the strategies any seat needs (PG-A4).
+
+### PG-Q1 — the lawful policy set. RULING: ACCEPT the definition with two amendments; the exclusion of mixed policies is PROVED here, not asserted.
+
+- **PG-A1 (definition and vocabulary).** ACCEPT: a policy is a deterministic
+  information-consistent policy (v0.4 §7.2, §10.1) — one choice per focal
+  observation record, the record being the one `walt-strat/src/info.rs`
+  implements (R-A11, freeze 26) — extending the root action a. Two vocabulary
+  corrections, both load-bearing. (i) The design's "reachable focal information
+  states" must read **"records realizable in the declared fiber"**: feasible ≠
+  reachable is a typed distinction and the domain is the void-free capacity fiber
+  (P-A1); nothing here is asserted to arise in play. (ii) The design calls the
+  uniform belief "the point belief"; it is a single **point of Δ(X)**, not a point
+  mass, and the results file says so.
+- **PG-A2 (mixed policies excluded — with the proof, since the design asked).**
+  For a single optimising seat against a fixed field, the value in each world is
+  linear in the mixture over pure policies: V_μ = Σ_ρ μ(ρ)V_ρ. So the achievable
+  vector set is conv{V_ρ}, and a linear functional E_β[·] attains its maximum
+  over a polytope at a vertex, hence at some deterministic V_ρ. Mixed policies
+  therefore never enlarge the exposed set and never change any envelope value;
+  they can only tie. (The focal seat has perfect recall — its own plays are
+  public and in the record — so behavioural and mixed randomisation coincide and
+  the same conclusion covers behavioural policies.) Excluding them is lawful; the
+  results file states the reason in one sentence rather than asserting the fact.
+- **PG-A3 (N_pol counts plans; declare it, and compute the reduced count where
+  they differ).** A flat product over information states counts **plans of
+  action**, including choices at states the plan's own earlier choices make
+  unrealizable; the behaviourally distinct count is the **reduced** one, given by
+  the recursion "number of reduced continuations at a state = Σ over legal
+  actions of Π over the information states realizable **given that action**".
+  By Proposition G-flat(ii) the two coincide at n ≤ 3, so the design's product is
+  correct here — but the definition of record must be the one that keeps it
+  correct, and the results file states which count is reported and why they
+  coincide. N_pol is an exact big integer (2^{k(a)} at grade 3); it is printed
+  exactly, never as a float and never as an order of magnitude alone, and k(a)
+  is printed beside it since k(a) is the quantity the thresholds use (PG-A15).
+
+### PG-Q2 — dominance pruning. RULING: the lemma is DELIVERED (Lemma G); (a) AMEND the definition of N_exp; (b) ACCEPT backward pruning, with the composition granularity and the incremental fold made mandatory.
+
+- **PG-A4 (the definition of exposure, amended).** The design is internally
+  inconsistent: N_par's justification says a dominated vector "can never be
+  exposed for any belief **with full support**", while N_exp is defined as
+  attaining the maximum "for **SOME** belief β on the fiber". On a face of the
+  simplex a Pareto-dominated vector can tie for the maximum, so under the
+  design's own N_exp definition pruning deletes exposed vectors — the silent
+  shrink. **N_exp is redefined as |Exp|, the number of vectors that are the
+  UNIQUE maximiser of E_β[·] for some β ∈ Δ(X).** This is what the exposure
+  programme of PG-A9 decides, it is what Lemma G(4) proves pruning preserves,
+  and Lemma G(4) also proves it is the unique minimal representation of the value
+  function over the entire simplex. The weak variant (ties admitted) is a
+  different, larger cardinality: it may be reported only as its own labelled row
+  and never as N_exp (E-A8's rule). Mandatory type line, verbatim: "N_exp counts
+  the vectors needed to represent the value function of the declared cost domain
+  over its whole belief simplex. It is not a count of strategies any seat needs:
+  at a belief whose support is smaller than Φ(**C**₀) — the real seat's case,
+  P-A1 — dominated vectors tie for the optimum and are optimal without being
+  exposed. Beliefs here are declared aggregation arguments (P-A12), not any
+  seat's belief."
+- **PG-A5 (backward pruning: ACCEPT, per Lemma G(1)–(3), with two mandatory
+  implementation clauses).** (i) **Granularity.** The recursion runs at
+  primitive-step granularity per R-A8, never over an enumerated one-trick
+  controller alphabet: at a focal primitive step the set is the **union** over
+  legal tiles of the successor sets (no maximisation — this enumerates policies,
+  it does not optimise); at a hidden primitive step it is the positive-weighted
+  Minkowski sum over the branches; increments enter at trick completion.
+  (ii) **Incremental fold.** The sum over branches is folded one branch at a time
+  with a Pareto prune after each partial sum (Lemma G(3)). Without it the run
+  materialises 2^{k(a)} combinations and the "linchpin" does not hold; with it
+  the claim in PG-Q2(b) is exactly Lemma G(2) and is proved.
+- **PG-A6 (convex-dominance pruning: lawful for N_exp, forbidden when N_par is
+  reported).** By Lemma G(5) pruning a vector dominated by a convex combination
+  of the others preserves Exp exactly and is strictly stronger than Pareto
+  pruning. It therefore **destroys N_par**. A run may use it only in a pass whose
+  reported outputs are N_exp alone, declared as such; N_par may never be read
+  from a convex-pruned set. Mixing the two rules in one pass and reporting both
+  counts is the unlawful pruning step this probe is most likely to commit.
+- **PG-A7 (the four cardinalities cannot come from one run; say which grades give
+  which).** N_vec is destroyed by every pruning rule (Lemma G(6)). So: N_vec is
+  reported only where the **unpruned** vector set is enumerated to completion
+  within the declared budget, and its absence elsewhere is a declared stop, not a
+  finding. N_par comes from the Pareto-pruned run. N_exp comes from PG-A9's
+  programme applied to that frontier. N_pol is closed-form. Each row states which
+  pass produced it; a table that presents all four for a grade where the unpruned
+  set was never enumerated is misreporting.
+- **PG-A8 (the receipts, since "by construction" is not a receipt).** Mandatory,
+  in the P-A9/R-A18 style. (i) **Lemma-G receipt:** at grade 1, grade 2 and at
+  one declared grade-3 coordinate with the smallest k(a), compute the frontier
+  both ways — prune-then-compose and compose-then-prune over the full unpruned
+  set — and assert set equality, not merely equal cardinality. If the unpruned
+  set is out of budget at every grade-3 coordinate, say so and run the receipt at
+  grades 1–2 only, printing that limitation. (ii) **Authority receipt:** for
+  every coordinate and root action, assert max over the frontier of E_{β₀}[V]
+  equals treatment H's Q(a) exactly, and the max over actions equals H's V
+  (freeze 26, R-A18). This ties the new machinery to the concrete authority and
+  is the strongest available check that the composition is the same object S6a
+  measured. (iii) Any failure is stop-and-report per NO-RESCUE; never patched.
+
+### PG-Q3 — the exposure computation. RULING: ACCEPT arms 1 and 2 with the method NAMED and frozen; AMEND arm 3 — grade-3 N_exp is a budget stop, not a method impossibility.
+
+- **PG-A9 (the method, named).** The exposure test is the standard
+  useful-vector linear programme (Lark's programme, as used for α-vector pruning
+  in exact POMDP incremental pruning): for v ∈ S,
+
+    maximise δ  subject to  Σ_ξ β(ξ)(v(ξ) − w(ξ)) ≥ δ for every w ∈ S∖{v},
+                            Σ_ξ β(ξ) = 1,  β ≥ 0,
+
+  and v ∈ Exp(S) iff δ* > 0. Solver: **exact-rational primal simplex with
+  Bland's rule** — Bland's rule for guaranteed termination without cycling, exact
+  rationals throughout (no floats anywhere, P-A19), arbitrary precision per
+  R-A21 with overflow a stop-and-report. Both the programme and the pivot rule
+  are frozen (freeze 29). Note the two constraints this discharges: the LP is
+  run against the **Pareto frontier**, which by Lemma G(4) gives the same answer
+  as against the full set, and by the redundancy fact — v ≤ w implies
+  β·(u−v) ≥ β·(u−w) for β ≥ 0, so a dominated vector's constraint is implied by
+  its dominator's — pruning does not even relax the feasible region.
+- **PG-A10 (witnesses both ways; never the word "certificate", R-A2).** Every
+  vector reported exposed carries an exact rational witness belief β with
+  E_β[v] > E_β[w] for all w ≠ v, re-checked by an independent evaluation. Every
+  vector reported not exposed carries the dual witness — convex weights λ with
+  Σλ_w w ≥ v pointwise (Lemma G(5)) — also re-checked. Witness checking is
+  independent of the LP code path; an LP that reports a status it cannot witness
+  is a stop-and-report.
+- **PG-A11 (arm 3 is a declared budget stop, and a stopped run still yields an
+  exact bound).** REJECT the phrasing "not measured, method infeasible at this
+  dimension": that is a claim about the method, and the binding quantity is the
+  frontier size, which is unknown before the run. Grade-3 N_exp **is attempted**
+  under a declared budget; if the budget is exhausted the run prints the stop with
+  the number of vectors tested and the number verified exposed (P-A16, E-A16: a
+  wall is a stop, never a finding). Because every exposed verdict carries a
+  witness, a stopped run reports an exact **lower bound** on N_exp, labelled as a
+  bound — never an approximation, never a sample.
+
+### PG-Q4 — the uniform-belief argmax diagnostic. RULING: ACCEPT-WITH-AMENDMENT.
+
+- **PG-A12.** Lawful to report alongside, re-typed: (i) the number of distinct
+  root actions attaining V_B, as an exact tie count in Q; (ii) the number of
+  distinct **vectors** on the frontier attaining max E_{β₀} (well defined and
+  pruning-safe: a β₀-optimal vector is Pareto-undominated, since β₀ has full
+  support). (iii) The design's "count of policies attaining the optimum" is
+  REJECTED as posed — it is a plan count over a set the pruned run does not
+  hold; it may be reported only at a grade where the unpruned enumeration
+  completed, and is then labelled a plan count (PG-A3). Mandatory fence,
+  restating R-A17(iii): "The argmax sets here are response-equality objects.
+  v0.4 §12.4 applies: they are not a dynamics quotient, they are not an r3-style
+  class count, and they may never be used as a solver's state partition. No
+  partition claim is made or implied."
+
+### PG-Q5 — feasibility declarations and freezes. RULING: ACCEPT with three additions.
+
+- **PG-A13 (caps, stops, and what a capped coordinate may report).** ACCEPT the
+  cap discipline. Additions: the cap applies to the running frontier size **at
+  each incremental partial sum**, not only per interface, and the stop prints the
+  coordinate, the root action, the branch index reached and the frontier size at
+  the stop. **A capped coordinate reports no N_par at all** — not a partial count
+  and not a bound: the Pareto-maximal elements of a partially processed set need
+  not be maximal in the whole, so an interrupted frontier bounds nothing in
+  either direction. (This is the opposite of PG-A11's N_exp case, where each
+  verdict is independently witnessed and a stop does bound. The asymmetry is
+  exact and must not be smoothed over.) The grade order 1 → 2 → 3 and the
+  declared-in-advance grade-3 conditionality are confirmed, printed either way.
+- **PG-A14 (new freezes, continuing at 27).** Freezes 1–26 are in force and
+  restated. **(27)** the vector encoding — world order = the S6a kernel world
+  order of freeze 23, exact rationals — and the dedup order; **(28)** the
+  dominance-check order and the incremental-fold order over observation branches,
+  which is a determinism freeze because the stop point depends on it;
+  **(29)** the exposure programme of PG-A9 and its pivot rule; **(30)** the caps
+  (per-interface frontier cap, per-partial-sum cap, per-coordinate budget) and
+  the grade-3 conditionality rule; **(31)** the policy-counting convention —
+  plans versus reduced, per PG-A3.
+
+### PG-Q6 — results discipline and the reading. RULING: AMEND — the proposed growth criterion is unavailable; absolute thresholds are fixed here, before any number exists.
+
+- **PG-A15 (the pre-declared reading, concrete).** By Proposition G-flat the
+  growth-ratio criterion has one usable data point and is REJECTED. The reading
+  is fixed now, over grade 3 only, from quantities the run prints: let
+  k(a) = #{records with two legal tiles} under root action a, K = max over
+  measured (coordinate, action) of k(a), P = max over measured (coordinate,
+  action) of N_par(a), and E the same for N_exp where measured. Then:
+  - **STRONG COLLAPSE** iff P ≤ K + 1 — the frontier is at most linear in the
+    number of decision points, against N_pol = 2^K;
+  - **COLLAPSE** iff K + 1 < P ≤ |X_3| = 1680 — the frontier stays at or below
+    the world count, the same anchor Gate B was read against;
+  - **REFUTED** iff P > 1680;
+  - **STOPPED, NO VERDICT** if any measured coordinate hits a cap (PG-A13).
+  The identical bands are applied to E and reported as a **separate** verdict
+  line; the N_exp verdict never inherits the N_par verdict and vice versa, and
+  where N_exp is only bounded below (PG-A11) its line reads "lower bound L;
+  verdict withheld" unless L alone already forces REFUTED.
+- **PG-A16 (the two anti-strawman lines, mandatory).** (i) "N_par/N_pol is
+  printed as bookkeeping and is not a criterion: N_pol = 2^{k(a)} counts plans
+  and is astronomically large by construction, so any frontier at all is 'orders
+  below' it. The criterion is PG-A15's absolute bands." (ii) "The grade-1 and
+  grade-2 rows are 1 by Proposition G-flat — the focal seat has no choice there —
+  and are receipts, not evidence of collapse. No cross-grade ratio in this probe
+  is a measurement."
+- **PG-A17 (the fence, verbatim, extending R-A23).** "THE FENCE. This probe
+  counts exact objects over a declared coordinate's void-free capacity fiber
+  under the declared field and belief (R-A9), the count-free expected-focal-trick
+  valuation, the R-A11 observation contract and the S6a freezes. Four
+  cardinalities are reported and never conflated: N_pol (plans), N_vec (distinct
+  vectors, only where the unpruned set was enumerated), N_par (Pareto frontier),
+  N_exp (uniquely-optimal-for-some-belief, PG-A4). **No similarity claim and no
+  tolerance claim of any kind is made or supported.** 'Playing this domino means
+  I am likely to get 32 one way or the other' is a statement about score
+  distributions under a tolerance, and this probe measures neither: score is out
+  of scope (E-A2, and by Lemma R(c)–(d) the distribution contract has predictive
+  dimension |X|), and δ-similarity is future mathematics requiring its own typed
+  rulings. A vector here is an expected-trick profile over the declared fiber, not
+  an outcome law and not 'an outcome'. No partition claim (PG-A12), no runtime or
+  tractability claim (v0.6 §18.3), no promotion of any v0.6 theorem, no number
+  quoted for the opening or for any grade not measured. The concrete authority
+  remains treatment H; a disagreement with it is a stop-and-report bug."
+- **PG-A18 (both outcomes, and what each one means).** Confirmed (F7,
+  NO-RESCUE). A collapse verdict says the decision side of the declared cost
+  domain has a small exact representation at grade 3 — it does not rescue Gate B,
+  does not transfer to the opening, and does not establish anything about
+  similarity. A refutation adds one named entry to the bottleneck list and is
+  equally a result. A STOPPED verdict is neither and is never presented as a
+  weak version of either.
+
+**Both outcomes remain results.** Lemma G stands regardless of every number this
+probe produces: it proves the pruning the design needs is exact, identifies the
+one definition of exposure under which that is true, and names the two counts
+(N_vec, and N_par under convex pruning) that the same pruning silently destroys.
+Proposition G-flat stands likewise, and it is the reason this probe has exactly
+one measurement in it.
