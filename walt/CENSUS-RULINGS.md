@@ -2650,3 +2650,391 @@ one definition of exposure under which that is true, and names the two counts
 (N_vec, and N_par under convex pruning) that the same pruning silently destroys.
 Proposition G-flat stands likewise, and it is the reason this probe has exactly
 one measurement in it.
+
+## Decision-deadness probe rulings (2026-08-12)
+
+**Adjudicator:** walt-math. **Tier:** exploratory throughout. **Basis:** v0.4
+§1.2–1.5, §2.1–2.6, §6.8, §7.4–7.7, §10.3, §12.4; v0.5 count-free kernel and
+BOUNDARY. F1–F7, r3 Q1–Q5, Y1–Y3, shape v2, P-A1..P-A21, X-A1..X-A19,
+E-A1..E-A21, S-A1..S-A21, R-A1..R-A24, PG-A1..PG-A18 and Lemmas V, X, E, S,
+S-fold, S-det, R, G, Corollaries S-rigid, R-fold, Proposition G-flat are
+inherited unchanged. Amendments are numbered J-A1.. and are builder obligations.
+
+**Headline, stated first.** Four rulings decide this design.
+
+1. **The exhaustion margin is unnecessary.** D0 needs no counting argument and no
+   margin against adversarial orderings, because the guaranteed beater is already
+   in every trick: the leader always plays a tile of the led context. If focal's
+   tiles are below every potential leader's tile in every context they can be
+   played to, focal cannot win, full stop (Proposition J-0). D0 becomes three
+   bitset tests, exactly sound, with no constant to freeze.
+2. **The design's reason for demoting D0 is a category error.** "The tie-roots
+   are not no-possible-winner hands" is a statement about the ROOT HAND; D0 is a
+   NODE-LOCAL condition evaluated at the decision node, after the root action is
+   spent and against the record actually observed. Whether focal is shut out at
+   the trick-2 decision nodes of hand [2-1, 2-2, 6-3] is unmeasured, and the
+   design has pre-emptively ranked D0 below D1 on an invalid inference. D0's
+   recall must be measured node-locally before any such ordering is asserted.
+3. **The count guard is proved, twice, and refuted once.** Jason's conjecture
+   holds for D0 (Lemma J(c)) and, by a second and independent route, for the
+   transposition form of D1 — where the guard is exactly what lifts E-A2's
+   count-free restriction on a structural transport, because the transport moves
+   only two zero-point tiles and fixes every other tile (Proposition J-1). It
+   **fails** for the win-both form: when focal wins tricks, the tiles the other
+   seats contribute to each trick change with focal's choices even though focal's
+   own tiles are pointless, so count is not invariant (Proposition J-win).
+4. **"Order-exchangeability" is not a detector.** It is the conclusion —
+   value-invariance under the swap — restated. Accepting it as a detector would
+   let the implementation substitute an unproved test for a proof. It is REJECTED
+   under that name; two exactly stated members replace it, and **no cheap
+   sufficient structural condition is known at adjudication time for the six
+   specimens' ties**. That is a finding, not a gap to be filled by guessing.
+
+### The typing that governs this section (three node properties, never fused)
+
+- **forced** — |legal| = 1: no decision exists. Free to detect, and worth
+  nothing; counting forced nodes as harvested deadness inflates every coverage
+  figure for free (J-A15).
+- **decision-dead** — every information-consistent policy from the node has the
+  identical value function on the node's fiber: N_vec = 1 in PG's sense. This is
+  the design's object and the only one that licenses collapsing the subtree.
+- **dominant** — one Pareto-undominated vector: N_par = N_exp = 1. **S6b's seven
+  singleton roots are this, not deadness**, which is exactly why policy_inspect
+  found only six of them indifferent and the seventh resolving 108 decisions to
+  "play 1-1 over 1-0." Dominance licenses fixing a choice only if the dominant
+  choice can be identified cheaply, which is the work itself; harvesting it is a
+  separate direction and is out of scope here.
+
+(N_par = 1 ⟺ N_exp = 1: if one vector is optimal at every belief, taking point
+masses gives pointwise dominance. So the ladder is forced ⊂ dead ⊂ dominant, with
+both inclusions strict on the S6b evidence.)
+
+### Lemma J (non-interference ⇒ decision-deadness, and when count survives)
+
+*Hypothesis (NI) at node i.* For every world ω ∈ X_i, every information-consistent
+focal policy and every legal continuation: (i) focal is not the leader of the
+current trick and never becomes the leader of a later one; (ii) no tile focal
+plays is ever the maximal trick key of its trick.
+
+*Conclusion.* (a) The joint law of (each non-focal seat's play sequence, each
+trick's winner) is identical under every focal policy — for the declared
+uniform-legal field and for any field whose per-seat play distribution depends
+only on that seat's own hand, the led context and its position in the trick.
+(b) Hence the count-free value V_ρ is identical for every ρ: the node is
+decision-dead. (c) If moreover H ∩ COUNT = ∅ for focal's remaining hand H, the
+value is identical for every valuation that reads the play only through the trick
+winners and the point values of the tiles falling in each trick — in particular
+the trick-plus-count valuation.
+
+*Proof.* (a) By (i) every trick from i on is led by a non-focal seat, so the led
+context of every trick is chosen without reference to focal's policy. A seat's
+legal set is "follow the led context if able, else anything" (v0.4 §1.2, §1.5) —
+a function of that seat's own hand and the led context only; there is no
+must-beat rule, so it does not depend on the tiles already on the table, and in
+particular not on focal's tile. Hands other than focal's are unaffected by
+focal's plays. By induction along the fixed table order, the joint law of the
+non-focal plays is one fixed distribution, independent of focal's policy. (b) By
+(ii) focal's tile is never the maximum, so the winner is the argmax over the
+other three tiles — the maximum is unique because the lead has tier ≥ 1 and
+distinct tiles have distinct keys in the led context (S-A2) — hence a function of
+the non-focal plays alone. The count-free increment is e⋆ iff the winner sits in
+the focal partnership (F5, Lemma E), so the increment sequence is identical. (c)
+The points captured in a trick are the sum of the point values of its four tiles;
+three are non-focal and identically distributed by (a), and the fourth is one of
+focal's tiles, of value 0 by the guard. So each trick's point total and each
+trick's winner are policy-independent, and so is the partnership's total. ∎
+
+*Answer to the sub-question J-Q1(b)(iii), which is where this design was most at
+risk.* Focal's remaining hand does change which contexts focal can follow — but
+that is focal-internal. It touches the other seats through exactly one channel,
+the led context, and only the leader sets that. So (iii) **holds under (NI)(i)
+and fails without it**: at a node where focal is on lead, its choice of lead
+changes the other seats' legal sets (the follow obligation), hence the field's
+masses, hence which tiles they still hold in every later trick. **Any detector
+that omits the not-on-lead conjunct is unsound**, and no "focal never wins"
+hypothesis repairs it.
+
+*Scope of the verdict (mandatory in the results file).* Deadness here is relative
+to a field that does not condition on focal's tile identity. Against an opponent
+who draws inferences from what focal discards, the choice carries information and
+the verdict does not transfer; this is the same typed boundary as v0.4 §7.7 —
+theorems for one operator do not transfer to another. Two things the verdict is
+**not** relative to, and this is unusual enough in this file to state plainly:
+the conditions below are functions of the focal information state (hand plus the
+public played record) and quantify over the whole live set, so a verdict is
+**independent of the world, of any belief, and of any support**. It therefore
+survives the Φ(**C**) ⊊ Φ(**C**₀) gap of P-A1 rather than being fenced by it, and
+it is lawful at a pooled node without ever touching a particle.
+
+### Proposition J-0 (D0, exact — and no margin is needed)
+
+*Statement.* At node i let H be focal's remaining hand, T the unresolved-trick
+tiles (F2 A1), L the tiles still in hands, κ_δ the trumps. Suppose:
+
+- **(a)** focal is not the leader of the current trick (nor of the next, if a
+  trick has just resolved);
+- **(b)** H ∩ κ_δ = ∅;
+- **(c)** for every t ∈ H, every context q with t ∈ σ̂_q, and every tile
+  d ∈ ((L ∖ H) ∪ T) with ℓ(d) = q: d beats t in q. (For a trick already in
+  progress, d is the tile actually led.)
+
+Then (NI) holds at i; so by Lemma J the node is decision-dead under the count-free
+contract, and with H ∩ COUNT = ∅ also under trick-plus-count.
+
+*Proof.* Take any trick from i on and suppose inductively it is led by a non-focal
+seat (true for the current trick by (a)). Let its led tile be d, so q := ℓ(d) is
+the led context, d ∈ σ̂_q, and d ∈ (L ∖ H) ∪ T as evaluated at i — every tile
+played from i onward was in hands at i, and the current trick's played tiles are
+in T. If q is the trump context, focal holds no trump by (b), so focal is void in
+q and its play is a tier-0 slough, beaten by d (tier 2). If q is a natural
+context and H ∩ σ̂_q ≠ ∅, focal must follow with some t ∈ H ∩ σ̂_q, and d beats t
+by (c). If H ∩ σ̂_q = ∅, focal's play follows neither q nor is trump by (b), so it
+is tier 0 and d beats it. In every case focal's tile is not the maximum, so focal
+does not win the trick and the next leader is again non-focal. The induction
+closes, giving (NI)(i) and (ii). ∎
+
+*Why no exhaustion margin exists to get wrong.* The design proposed to certify
+that a live beater "cannot be exhausted before t's last possible play," which
+would need a counting argument sound against adversarial play orderings. It is
+unnecessary: the beater is not some tile that must survive in someone's hand, it
+is **the led tile of the very trick focal is playing to**, which by definition is
+in the led context and is present by construction. Nothing can exhaust it. The
+only quantification left is over *potential* leaders — tiles d with ℓ(d) = q —
+and if no such tile exists outside H then q can never be led and the clause is
+vacuously true, correctly.
+
+*Cost.* (b) is one bitset AND. (c) is, per context, one comparison of the maximum
+of H ∩ σ̂_q against the minimum over potential leaders of q, on precomputed
+per-context masks: seven contexts, no allocation, no world, no solve.
+
+### Proposition J-1 (D1-sym — the transposition form, and where the guard earns its keep)
+
+*Statement.* Let H be focal's remaining hand containing t₁ ≠ t₂, and let
+τ = (t₁ t₂) act on the live-plus-table structure, fixing every other tile. Call a
+context q **still leadable** if some tile outside H with ℓ = q remains in
+(L ∖ H) ∪ T, or q is the current led context (F2 A3's live-context discipline —
+membership in a context that can never be led again is inert and erasable).
+Suppose τ preserves: trump membership; follow membership in every still-leadable
+context; the winner-determining order (S-A2) in every still-leadable context;
+the double flag as it enters that order; and, unless Proposition J-0 already
+shows focal never leads, the led-context map ℓ on t₁ and t₂. Then playing t₁ now
+and playing t₂ now have equal value in every world, for every isomorphism-invariant
+valuation (E-A3), so the choice between them is dead. If moreover
+H ∩ COUNT = ∅, the verdict holds under trick-plus-count as well.
+
+*Proof.* τ fixes every non-focal seat's holdings and preserves every relation in
+Lemma E's amended F2 list on the relations any rule can still read, so it is an
+isomorphism of the remaining extensive game carrying legal actions to legal
+actions, increments to increments and focal to focal (Lemma E). It maps the
+policy "play t₁ now, then σ" to "play t₂ now, then τσ", which is again
+information-consistent, with equal value. For count: E-A2 bars count-bearing
+readouts under structural transports because a general transport does not
+preserve the count decoration c (v0.4 §1.4). Here τ moves only t₁ and t₂ and
+fixes every other tile, so c ∘ τ = c holds iff c(t₁) = c(t₂) — and the guard
+gives c(t₁) = c(t₂) = 0. The decoration is preserved and the verdict lifts. ∎
+
+*Remark (what it costs and what it will not reach).* All clauses are bitset and
+per-context-order comparisons on public data. But the conditions are demanding:
+two distinct tiles have different pip pairs, so they can agree on follow
+membership only when their differing contexts are already inert, and they must be
+adjacent in the surviving order. The specimen pair {2-2, 6-3} fails on the double
+flag alone. Expect low recall and report it as measured (J-A8).
+
+### Proposition J-win (D1-win — count-free only, and this is where the guard fails)
+
+*Statement.* If, at node i, focal is certain to win every remaining trick under
+every legal continuation and every order of its own tiles — a cheap sufficient
+form being: every trump outside H is dead; for every still-leadable context q,
+every t ∈ H lies in σ̂_q and beats every tile of ((L ∖ H) ∪ T) ∩ σ̂_q; and each
+t ∈ H beats every tile of ((L∖H) ∪ T) ∩ σ̂_{ℓ(t)} — then the count-free value from
+i is |H| under every policy, so the node is decision-dead under the count-free
+contract.
+
+*The guard does not rescue it under count, and the reason is exact.* Focal now
+wins tricks, so (NI) fails and Lemma J does not apply. Different orders lead
+different contexts, the other seats' follow obligations differ, and therefore
+*which* of their tiles — including their count tiles — fall into the tricks focal
+wins differs by focal's choice. The guard bounds only focal's own contribution.
+Hence: **a D1-win verdict is void the instant count re-enters (E-A2, wholesale,
+never extended)**, and a solve that pruned on it may not be quoted for any
+count-bearing valuation. Jason's conjecture is therefore true for D0 and D1-sym
+and false in general; the honest statement is that the guard rescues exactly the
+verdicts whose soundness runs through non-interference or through a
+count-preserving transport.
+
+### J-Q1 — definition and lemma. RULING: ACCEPT the definition with the three-way typing mandatory; Lemma J DELIVERED; (b) proved for two members and refuted for the third.
+
+- **J-A1 (definition, and the distinction the motivation blurs).** ACCEPT:
+  decision-dead(node) per declared contract and field means every
+  information-consistent policy from that node has the identical value function
+  on the node's fiber. The results file carries the forced/dead/dominant typing
+  above verbatim and states that **S6b's singleton frontiers are dominance, not
+  deadness** — the seventh specimen is the proof that the two differ. No sentence
+  may present a singleton-frontier count as a deadness count.
+- **J-A2 (Lemma J and the not-on-lead conjunct).** Lemma J is delivered above and
+  answers J-Q1(a) for every detector that establishes (NI). Sub-question (iii) is
+  answered: focal's choices touch the other seats through the led context and
+  through nothing else, so the claim holds under (NI)(i) and **fails at any node
+  where focal is on lead**. Every accepted detector carries the not-on-lead
+  conjunct or derives it (J-A4, J-A6).
+- **J-A3 (the count guard, ruled).** The guard is CONFIRMED as binding and is
+  proved sufficient for D0 (Lemma J(c)) and for D1-sym (Proposition J-1),
+  including the pleasing fact that it is precisely what lifts E-A2 for the
+  transposition transport. It is REFUTED as a general principle: Proposition
+  J-win exhibits the mechanism by which a count-free tie fails under count while
+  the guard holds. Consequently every verdict is tagged with the valuations it
+  survives — **D0: count-free and trick-plus-count; D1-sym: count-free and
+  trick-plus-count; D1-win: count-free only** — and a harvest run states which
+  tags its pruning relied on. Untagged verdicts are not adjudicated verdicts.
+
+### J-Q2 — the detector family. RULING: D0 ACCEPT-WITH-AMENDMENT (exact form, no margin); D1 as posed REJECTED, two exact members accepted in its place; D2 ACCEPT.
+
+- **J-A4 (D0, in Proposition J-0's exact form).** ACCEPT with the statement
+  above replacing the design's. No exhaustion margin, no counting condition, no
+  constant to freeze. The clause quantifying over *potential leaders* (ℓ(d) = q)
+  rather than over all q-members is the sharper and still exactly sound form, and
+  the builder implements that one; the current trick uses the tile actually led.
+- **J-A5 (D0's recall must be measured node-locally; the design's dismissal is
+  struck).** The design's sentence "D0 is sound but misses the measured volume"
+  is REJECTED as unsupported: it reasons from the root hand's winning chances to
+  a node-local condition. The probe measures D0's recall at the decision nodes,
+  against the record, before any ranking of D0 against D1 is stated anywhere.
+  If D0 turns out to carry the volume, that is the probe's best possible outcome
+  and the design's premise was simply wrong.
+- **J-A6 (D1 as posed: REJECTED; D1-sym accepted).** "Order-exchangeability" is
+  the conclusion restated, not a checkable condition; naming it a detector would
+  license an unproved test. REJECTED under that name. **D1-sym** is accepted in
+  Proposition J-1's exact form, with the not-on-lead conjunct or the ℓ-preservation
+  clause as stated. The design's proposed decomposition — "the two tiles never
+  contest the same winnable trick, plus symmetric loss" — is NOT accepted: the
+  first half is not sound on its own (two tiles that never contest the same trick
+  can still differ in which trick each wins, changing nothing count-free only by
+  accident), and the second half is D0.
+- **J-A7 (D1-win accepted, narrow and count-free).** ACCEPT in Proposition
+  J-win's form, tagged count-free only, ranked third: it fires only in
+  boss-endgame configurations and its clauses are the most restrictive of the
+  three.
+- **J-A8 (what remains, ranked honestly).** No cheap sufficient structural
+  condition is known at adjudication time for the six specimens' ties, and none
+  is invented here. Ranked, for the record: (1) D0 — exact, cheapest, count-safe,
+  recall unmeasured and possibly large; (2) D1-sym — exact, cheap, count-safe,
+  expected recall low; (3) D1-win — exact, cheap, count-free only, expected
+  recall very low; (4) the specimens' mechanism — UNIDENTIFIED. A full
+  one-deviation evaluation is a solve and is therefore not a detector (S5j's
+  lesson, which this design correctly names and must not then violate). If the
+  three accepted members leave the specimens uncovered, the run records the
+  residual as a named open question with its witnesses, and does not ship a
+  fourth detector without a proof of the shape given here.
+- **J-A9 (D2, nodewise re-application).** ACCEPT: soundness is node-local, and a
+  hit at a node licenses collapsing that node **and its entire subtree**, since
+  Propositions J-0/J-1 quantify over all continuations from the node. Two notes
+  the builder needs: re-checking below a hit is wasted work, and the syntactic
+  conditions may cease to hold at a descendant without invalidating the hit (the
+  semantic property was proved for the whole subtree). Forced nodes are excluded
+  from the detector's call sites entirely (J-A13).
+
+### J-Q3 — ground truth and recall. RULING: ACCEPT-WITH-AMENDMENT; the denominator is a conflation risk and must be typed.
+
+- **J-A10 (two denominators, never one).** Decision-deadness is "all policies
+  tie". A one-deviation classifier certifies something weaker unless it quantifies
+  over every policy: single deviations from one reference policy give
+  **argmax-indifference**, and the set of argmax-indifferent states is a
+  **superset** of the decision-dead states. (The two coincide only if every
+  one-deviation from *every* policy ties, since any two policies are connected by
+  a finite chain of single deviations.) So: recall is reported against both
+  denominators where both are computable — the exact dead set (PG's N_vec = 1 at
+  the node, available wherever the unpruned enumeration completes, PG-A7) and the
+  one-deviation tie set — each labelled, never summed, never averaged. A recall
+  quoted against the larger denominator understates the detector and must say so.
+- **J-A11 (the soundness receipt, strengthened).** ACCEPT (b) and strengthen: on
+  every fired node, assert the exact dead-set membership (N_vec = 1) where
+  computable, and the one-deviation tie otherwise. A single disagreement is
+  stop-and-report per NO-RESCUE — Propositions J-0/J-1 are theorems, so a
+  disagreement is an implementation defect or an error in them, never a new
+  finding, and never patched by weakening the detector.
+- **J-A12 (cost).** ACCEPT (c) with the E-A9 discipline named: the detector's
+  per-call cost is measured against the cheapest thing it replaces, and the
+  forced-node check (|legal| = 1) is present in **both** arms so the detector is
+  never credited for it. Integer nanoseconds, exact rationals for ratios, no
+  floats (P-A19).
+
+### J-Q4 — the harvest. RULING: ACCEPT the arms with the call-site rule, the charging rule and one mandatory receipt.
+
+- **J-A13 (where the detector may run and how it is charged).** Lawful call
+  sites: **focal decision nodes with ≥ 2 legal plays, and nowhere else** —
+  never at hidden nodes, never at forced nodes, never as a pre-pass over states
+  the walk would not visit. The detector's wall-clock and its verdict-cache
+  probes are charged **inside** the harvest arm (P-A8: an arm pays for its own
+  machinery); verdict caching is lawful as a derived view keyed by (predicate id,
+  freeze-set id) (X-A6(i)) and is recomputed on a declared sample before anything
+  is quoted. This is the S5j guard: a detector whose cost is charged outside the
+  arm has not been measured.
+- **J-A14 (the arms, the control, and the receipt that makes pruning safe).**
+  ACCEPT H-plain versus H-with-detector on the S5h n = 4/5 rungs and the S6b
+  coordinates, same solver, same budget unit, same coordinates, one machine, one
+  build, one declared thread count (P-A7, P-A19); the S5h cold-H baseline is the
+  right control because it is the same operator, field and valuation (freeze 26).
+  Mandatory: **every harvest run asserts bit-exact equality of V and every root Q
+  against the plain arm on every coordinate** (P-A9). Mandatory: **the detector
+  prunes focal branching only** — deleting or reweighting any hidden branch
+  changes the field and therefore the operator (X-A7, Y3(d), F4) and is
+  forbidden outright. A budget wall is a declared stop printed with what was
+  reached (P-A16, E-A16), never a finding.
+
+### J-Q5 — coverage census. RULING: ACCEPT-WITH-AMENDMENT.
+
+- **J-A15.** ACCEPT the two decimated counts under P-A15 (declared multiplicative
+  decimation, S6a freezes, no prefix, no RNG), with three additions. (i) **Forced
+  nodes are a separate column, never inside the dead fraction** — they are free
+  to detect and worth nothing, and folding them in inflates the harvest for free.
+  (ii) A node fraction is **traversal-relative and memoization-relative**: which
+  nodes exist to be counted depends on the declared walk and its caching (E-A20's
+  order-relativity, restated), so the census is an inventory statistic of this
+  traversal and not a property of the game. (iii) A node fraction is **not a cost
+  fraction** (P-A11): the harvest ratio of J-A14 is the cost statement, the census
+  is the inventory statement, and they never share a line. The hypothesis that
+  deadness grows mid-playout as winners leave hands is exactly what (ii) measures;
+  it is reported as measured on this traversal, both directions being results.
+
+### J-Q6 — scope, freezes, results discipline. RULING: ACCEPT-WITH-AMENDMENT.
+
+- **J-A16 (freezes, continuing at 32).** Freezes 1–31 are in force and restated.
+  **(32)** the detector predicates — D0 in Proposition J-0's form including the
+  potential-leader quantifier and the still-leadable-context definition, D1-sym in
+  Proposition J-1's form, D1-win in Proposition J-win's form — and their bitset
+  encodings; note explicitly that **no exhaustion-margin constant exists to
+  freeze** (J-A4). **(33)** the detector call sites and the charging rule
+  (J-A13). **(34)** the ground-truth classifier: which denominator, computed how,
+  per J-A10. **(35)** the harvest arms, rungs, coordinates, budget unit and the
+  control's solver identification.
+- **J-A17 (the fence, verbatim, extending R-A23/PG-A17).** "THE FENCE. A deadness
+  verdict says: from this node, under the declared field, every
+  information-consistent focal policy has the identical value. It is not a
+  similarity claim and not a tolerance claim — nothing here supports 'about the
+  same' for any tolerance, and δ-similarity remains future mathematics with its
+  own rulings pending. It is not a partition: the dead/live split is a
+  response-equality object and v0.4 §12.4 bars using it as a solver's state
+  partition. UNKNOWN is never evidence of liveness — the detectors are one-sided
+  by construction and their misses are lawful. Each verdict carries the valuations
+  it survives (J-A3); a D1-win verdict is void wholesale the instant count
+  re-enters (E-A2). Deadness is relative to a field that does not condition on
+  focal's tile identity: against an opponent who reads discards, the choice
+  signals and the verdict does not transfer (§7.7). It is **not** relative to any
+  world, belief or support — the conditions are functions of the focal information
+  state and quantify over the whole live set — so it is one of the few objects in
+  this file that crosses the Φ(**C**) ⊊ Φ(**C**₀) gap intact. No runtime claim
+  follows from a coverage fraction; the harvest ratio is the only cost statement
+  and it is coordinate- and traversal-relative."
+- **J-A18 (both outcomes).** Confirmed (F7, NO-RESCUE). A large D0 recall is the
+  best outcome and would retire the design's premise; a small recall for all three
+  members, with the specimens uncovered, is a proved statement about what cheap
+  structural detection can reach and is reported as such — not as a reason to ship
+  an unproved fourth detector. A harvest dividend that the detector's own cost
+  eats is S5j measured again, and is equally a result.
+
+**Both outcomes remain results.** Propositions J-0, J-1 and J-win stand
+regardless of every number this probe produces: they replace an unstated
+exhaustion margin with an exact three-test condition, they identify the one
+transport form under which the count guard lifts E-A2, and they exhibit the
+mechanism by which the guard fails when focal wins tricks — which is the boundary
+Jason's binding constraint was reaching for and now has a proof on both sides of.
