@@ -331,6 +331,25 @@ evolved this project's own receipt/TRUST-01 discipline.
   errata §8 — DS-A9's cone clause corrected by Lemma E8/J(c′));
   Experiment A of the decision-sparse program is complete.
 
+- **S6d** (2026-08-13): the separation probe — Experiment E, the first
+  exact root-action certifications. Design SEPARATION-PROBE.md;
+  rulings SEP-A1..SEP-A19; freezes 36 (candidate library v1) and 37
+  (action-conditioned upper witness = the existing
+  `revealed_summary().q_c`, DS-A7(iii)'s premise corrected at SEP-A7);
+  Corollary E4.1 delivered at adjudication (primal ceiling: with
+  H-argmax seeds L = Q^H necessarily, verdicts decided entirely by the
+  U side; a failing pair would prove NO candidate set separates it
+  under relaxation C). **All three grade-3 coordinates SEPARATED**, all
+  five receipt families held: idx=0 root 00 certified against both
+  exploded-frontier leads (margins 449/1120, 59/2240) — S6b's
+  uncomputable frontier proved unnecessary for the root decision;
+  idx=1299709 root 22 at the full 1/63 headroom; idx=2599418 both tied
+  optima, Opt^H exhausted. **Price localization:** 7 of 9 per-action
+  prices exactly 0; the two nonzero prices sit exactly at the two
+  frontier-explosion leads. NOT the economy claim (SEP-A15(ii));
+  the economy successor (non-exact seeds + Lemma E7 transport) is
+  named at SEP-A17 and needs its own adjudication.
+
 ## Next
 
 - **The compression program (v0.5 — the goal, reset 2026-08-10; first

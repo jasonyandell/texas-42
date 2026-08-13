@@ -225,7 +225,22 @@ D0 ~100% on one wholly-dead grade-3 family, D1-win never fired; the
 trumpless-junk tie mechanism stays a named open question, J-A8).
 Runner parallel + resumable per DS-A29..A36 (freezes 41–43); all
 mechanism receipts green (resume-validation PASS, deterministic block
-byte-identical across invocations). All counts
+byte-identical across invocations). **The separation probe (S6d, its
+Experiment E):** under SEP-A1..SEP-A19 and freezes 36–37 (the
+candidate-policy library v1; the action-conditioned upper witness
+identified as the long-existing `revealed_summary().q_c`, correcting
+DS-A7(iii)'s "must be built" premise), with Corollary E4.1 (primal
+ceiling / exact negative) delivered at adjudication — **the branch's
+first exact root-action certifications: all three grade-3 coordinates
+SEPARATED** (L_{a⋆} ≥ U_a against every competitor, five receipt
+families held). At idx=0 the root is certified against the two leads
+whose Pareto frontiers S6b could not complete — the frontier proved
+unnecessary for the root decision (fenced: NOT the parent economy
+claim, SEP-A15(ii)); at idx=1299709 the margin is the full 1/63
+headroom; at idx=2599418 both tied optima certify and Opt^H is
+exhausted. Seven of nine per-action information prices are exactly
+zero; the two nonzero prices coincide exactly with the two
+frontier-explosion leads. All counts
 carrier-relative, dynamics-equivalence, exploratory; the
 compact-description question (§12.7), the discovery principles over
 argmax partitions, and role re-entry are the open rungs. Numbers and
@@ -235,8 +250,9 @@ caveats:
 `census_yard_v2_2026-08-10.txt`, `census_a1_complete_2026-08-11.txt`,
 `fiber_probe_2026-08-11{,_h}.txt`, `fiber_refine_2026-08-11.txt`,
 `endgame_store_2026-08-11.txt`, `endgame_floor_2026-08-11.txt`, and
-`predictive_rank_2026-08-12.txt`, `policy_geometry_2026-08-12.txt`, and
-`deadness_2026-08-12.txt`. Counterexample-guided synthesis
+`predictive_rank_2026-08-12.txt`, `policy_geometry_2026-08-12.txt`,
+`deadness_2026-08-12.txt`, and `separation_2026-08-13.txt`.
+Counterexample-guided synthesis
 per v0.4 §12.9, Scheme/Fix as the descriptor language per §12.7, carrier
 chosen per §11.2. Standing **no-rescue policy** (2026-08-10): a failure is
 a counterexample to carry back to the math, never a thing to engineer

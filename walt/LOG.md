@@ -1191,3 +1191,63 @@ exactly where H solves lose their max nodes, and Experiment A of
 decision_sparse_v0.1 is hereby complete — the detector family feeds the
 candidate-library architecture as the deadness/dominance reduction
 source named in its §3.1.
+
+## S6d — 2026-08-13: the separation probe (Experiment E — first root-action certification)
+
+**The question:** can the root action be certified exactly — a primal
+witness L (fixed lawful policy, no max below the root) against an
+action-conditioned upper witness U (treatment C, root held, world
+revealed after) with L_{a⋆} ≥ U_a for every competitor — without the
+objects that could not be computed (S6b's exploded frontiers)?
+
+**The instruments (design SEPARATION-PROBE.md; rulings SEP-A1..SEP-A19;
+freezes 36–37):** freeze 37 identified the existing
+`revealed_summary().q_c` as the action-conditioned U (the DS-A7(iii)
+"must be built" premise corrected at SEP-A7 — what remained to build
+was the harness and receipts, not the evaluator); freeze 36 fixed the
+candidate-library v1 format (observation-record keys, no values, no
+verdicts, identity transport only, cache never authority). walt-math
+delivered **Corollary E4.1** at adjudication: with H-argmax seeds L is
+at its ceiling (L = Q^H necessarily), so every verdict is decided
+entirely by the U side, and a NOT-SEPARATED pair would be an exact
+proof that NO candidate set separates it under relaxation C. Two of my
+proposed receipts were rejected as vacuous or false (the two-solver
+bridge assert — both H solvers are already differential-convention;
+the `is_affine` assert — one piece always at zero slope) and replaced
+by exact no-bridge equality and the counted singleton receipt
+(SEP-A19: reached-set count, tie-break-relative, never the ladder).
+
+**THE RESULT (results/separation_2026-08-13.txt, ~4 s, gate green,
+all five receipt families HELD at every coordinate):**
+
+- **All three coordinates SEPARATED — the first exact root-action
+  certifications in the branch.** idx=0: root 00 certified against the
+  two leads whose Pareto frontiers S6b could NOT complete (caps at
+  16384), margins 449/1120 and 59/2240 tricks. The frontier is proved
+  unnecessary for the root decision — the decision-sparse thesis in one
+  measured instance (scope fenced per SEP-A15(ii): this is NOT the
+  parent's economy claim; the run computes full H because DS-A10's
+  receipts require it). idx=1299709: root 22 certified at the razor
+  margin — the full 1/63 headroom, because U is exactly tight at the
+  runner-up. idx=2599418: BOTH tied H-optima certified; Opt^H = {11,22}
+  exhausted (reported as H's fact).
+- **The price localization is the finding:** 7 of 9 per-action prices
+  U_a − Q^H(a) are exactly 0 — the C-relaxation is TIGHT at every
+  action of both indifference-collapsed coordinates and at idx=0's
+  boss lead. The only nonzero prices, 11/1120 (lead 10) and 29/420
+  (lead 11), sit precisely at the two leads where S6b's frontier
+  exploded. Action-conditioned information price and strategy-side
+  frontier tension coincide exactly on this (three-coordinate,
+  exploratory) sample.
+- Candidate library v1 written (4 entries: the 108-decision idx=0
+  playbook plus lawful-but-vacuous tied-optimum entries); harvest
+  scoped as certification, not library (six of seven S6b roots are
+  indifference-collapsed).
+
+Both outcomes were results in advance; the positive one landed. Next
+per SEP-A17: the economy-claim successor — seed L from a NON-exact
+source (transported entry, hand playbook, heuristic) and ask whether
+the sandwich still closes; needs freeze 36's transport clause opened
+via Lemma E7, its own adjudication. Experiment B (tense-root anatomy)
+and D (adaptive gluing) remain queued; D's inputs (failing pairs) were
+empty this run.
