@@ -362,7 +362,17 @@ V^{\ast}_a(\xi)
 
 the value in world \(\xi\) when the focal seat plays \(a\) at the root and
 thereafter chooses with full knowledge of \(\xi\), against the same fixed field.
-This is treatment \(C\) with the root action held fixed. Set
+This is treatment \(C\) with the root action held fixed.
+
+*[Naming clause added 2026-08-13 under DS-A20.]* When the latent is augmented,
+\(\xi=(\omega,z)\), **treatment \(C\) reveals the physical world \(\omega\)
+only**. Revealing the whole augmented latent — including a persistent field
+state, policy type or random tape \(z\) — is a strictly larger relaxation; it is
+still a valid upper witness, by the same proof, but it is written \(C^{+}\) and
+never called treatment \(C\) unqualified. On the measured carrier
+\(\xi=\omega\) and the two coincide.
+
+Set
 
 \[
 \boxed{
@@ -504,10 +514,25 @@ must choose one continuation at the single information state, so
 \(Q^H(a^\star)=\tfrac12<Q^H(a)\) is possible. The certified action can be
 strictly worse than the rejected one.
 
-**Obligation.** Every primal witness is produced by an evaluator asserted
-*structurally* — not by inspection — to contain no max node below the root, and
-every run asserts \(L\le Q^H\) at every coordinate where treatment \(H\)
-completes.
+**Obligation.** *[Restated semantically 2026-08-13 under DS-A27.]* The binding
+invariant is semantic:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{every later focal action is supplied by the candidate policy, and}\\
+\text{no optimiser selects a focal action using hidden-state information.}
+\end{array}
+}
+\]
+
+Nonfocal expectation, chance summation, deterministic singleton choices and
+implementation maxima over singleton sets do not violate it. "No max node below
+the root" remains an accepted **sufficient** implementation form — cheap to
+assert structurally and impossible to game — but it is a receipt for the
+invariant, not the invariant. Either way the assertion is structural, not by
+inspection, and every run asserts \(L\le Q^H\) at every coordinate where
+treatment \(H\) completes.
 
 ---
 
@@ -517,16 +542,23 @@ completes.
 
 ## 5.1 Proposition E5
 
+*[Statement amended 2026-08-13 under DS-A20: hypothesis (S) added explicitly.
+The conclusion and the proof are unchanged on every carrier the branch has
+measured; see Lemma E5.0.]*
+
 Consider the parent's §10.3 hypotheses imposed at **every reachable interface**
 of the finite-horizon fixed-field process: (1) \(1\in\mathrm{SF}(\mathfrak A_t)\);
 (2) terminal readouts lie in the terminal algebra; (3) for every successor atom
 \(A'\), \(\operatorname{Pre}_{a,o}(\mathbf 1_{A'})\in\mathrm{SF}(\mathfrak A_t)\);
-(4) immediate outcome functions lie in \(\mathrm{SF}(\mathfrak A_t)\). Assume the
-declared observation contract, in which every play is publicly attributed to its
-seat and every tile is played before the hand ends, and a field of full support
-on legal plays. Then at every interface \(\mathfrak i\) the algebra
-\(\mathfrak A_{\mathfrak i}\) separates the points of \(X_{\mathfrak i}\): its
-atoms are singletons and
+(4) immediate outcome functions lie in \(\mathrm{SF}(\mathfrak A_t)\). Assume a
+field of full support on legal plays, and
+
+- **(S) latent separation by complete records.** For all
+  \(\xi\ne\xi'\in X_{\mathfrak i}\) there is a complete record \(r\) with
+  \(\Pr_\xi(r)\ne\Pr_{\xi'}(r)\).
+
+Then at every interface \(\mathfrak i\) the algebra \(\mathfrak A_{\mathfrak i}\)
+separates the points of \(X_{\mathfrak i}\): its atoms are singletons and
 
 \[
 \boxed{
@@ -544,15 +576,37 @@ legal controllers, the composite
 
 lies in \(\mathrm{SF}(\mathfrak A_{\mathfrak i})\); as a function of \(\xi\) it
 equals \(\Pr_\xi(o_1\cdots o_k\mid\text{controllers})\). Take \(k\) to the
-horizon, so the record is complete. Given \(\xi\), the field's masses are
-products of unit fractions, so this probability equals
-\(w\cdot\mathbf 1[\xi\text{ consistent with the record}]\) with \(w>0\); and a
-complete record names every hidden tile together with the seat that played it,
-so at most one \(\xi\) is consistent with it. Every \(\xi\) is consistent with
-some complete record, since every world can be played out under a field of full
-support. Hence \(\mathrm{SF}(\mathfrak A_{\mathfrak i})\) contains every
-singleton indicator. Since \(\mathrm{SF}\) of a finite Boolean algebra has
-dimension equal to its number of atoms, the atoms are singletons. ∎
+horizon, so the record is complete. Hence \(\mathrm{SF}(\mathfrak A_{\mathfrak i})\)
+contains the function \(\xi\mapsto\Pr_\xi(r)\) for every complete record \(r\),
+and therefore separates any two latents that (S) separates — that is, all of
+them. A finite Boolean algebra whose span separates points has singleton atoms,
+and \(\mathrm{SF}\) has dimension equal to the number of atoms. ∎
+
+## 5.1a Lemma E5.0 — (S) holds on the measured carrier
+
+*Added 2026-08-13 under DS-A20.*
+
+Suppose the latent state is exactly the hidden current remainder — a world is an
+assignment of the unplayed tiles to the three hidden seats, with no persistent
+field state, policy type or random tape — and the field is the memoryless
+uniform-legal profile. Then (S) holds, and moreover
+\(\Pr_\cdot(r)=w_r\cdot\mathbf 1[\,\cdot=\xi_r]\) with \(w_r>0\) for each
+complete record \(r\).
+
+*Proof.* Given \(\xi\) consistent with \(r\), the field's masses along \(r\) are
+products of unit fractions, so \(\Pr_\xi(r)>0\); given \(\xi\) inconsistent with
+\(r\), some play in \(r\) is unavailable and \(\Pr_\xi(r)=0\). A complete record
+names every hidden tile together with the seat that played it, so at most one
+world is consistent with it, and every world is consistent with some complete
+record because any world can be played out under a field of full support. ∎
+
+**This is the carrier of every measurement the branch has taken** — the
+void-free capacity fiber under the §7.4 uniform-legal field. Proposition E5's
+conclusion therefore stands unconditionally for S6a, S6b and S6c. Hypothesis (S)
+is required only if the latent is later augmented, \(\xi=(\omega,z)\), with a
+component \(z\) that no complete record resolves; in that case the argument
+yields indicators of complete-record equivalence classes rather than singletons,
+which is a weaker and possibly compressive conclusion.
 
 ## 5.2 Corollaries
 
@@ -561,26 +615,45 @@ dimension equal to its number of atoms, the atoms are singletons. ∎
 not imposed at every reachable interface — the algebra is then purpose-relative
 and must be declared as such, with the purpose named.
 
-**E5.2 (what survives, and what forces the degeneracy).** The fixed-policy
-evaluation claim survives in the purpose-relative form: seed the closure with the
-declared contract's readouts — the zero space for the count-free
-expected-trick contract — and close under **observation-aggregated** residuals of
-those readouts only. That is the value closure \(\mathcal V^{\mathrm{val}}\) of
-Lemma R, which never admits the constant and therefore escapes the argument
-above. What forces the degeneracy is exactly the constant: exact **normalised**
-filtering needs \(\operatorname{Pre}(1)\) at every step, so exact filtering and
-predictive compression are incompatible under this observation contract, while
-the unnormalised value recursion is not.
+**E5.2 (what survives, and what forces the degeneracy).** *[Language narrowed
+2026-08-13 under DS-A21.]* The fixed-policy evaluation claim survives in the
+purpose-relative form: seed the closure with the declared contract's readouts —
+the zero space for the count-free expected-trick contract — and close under
+**observation-aggregated** residuals of those readouts only. That is the value
+closure \(\mathcal V^{\mathrm{val}}\) of Lemma R, which never admits the constant
+and therefore escapes the argument above. What forces the degeneracy is exactly
+the constant: exact **normalised** filtering needs \(\operatorname{Pre}(1)\) at
+every step. The binding statement of the negative is therefore
+
+\[
+\boxed{
+\text{atom-mass \emph{linear} filtering is noncompressive on this carrier,}
+}
+\]
+
+and **not** "filtering and compression are incompatible" unqualified. Proposition
+E5 rules out a small universal atom algebra closed under complete-record
+residuals. It does not rule out a compact arithmetic or Boolean circuit, a
+factorised representation, a BDD/ZDD-style exact form, fixed-prior symbolic
+propagation, purpose-specific moment compilation, or fixed-policy weighted model
+counting — any of which may represent the same posterior implicitly without
+materialising \(|X|\) atom masses. The unnormalised value recursion is likewise
+untouched.
 
 ## 5.3 The reframe this forces
+
+*[Sharpened 2026-08-13 under DS-A21.]*
 
 Matrix rank remains a lower bound on linear factorisations, and Proposition E5
 says the relevant algebra saturates. What changes is not the bound but the
 **target**. A solver that certifies an action never needs to represent every
 value function on the fiber; it needs to evaluate finitely many inner products
 \(\langle\beta,\alpha\rangle\) for finitely many lawful \(\alpha\), together with
-valid bounds. Circuit or proof-DAG size measures that different task, and no
-rank result lower-bounds it.
+valid bounds. The precise statement of what the measured rank does and does not
+bound: **predictive rank lower-bounds the corresponding linear factorisation
+target; it does not by itself lower-bound the size of an unrestricted nonlinear
+arithmetic or Boolean DAG.** Nothing here asserts that no lower-bound technique
+applies to circuits — only that no result in this branch supplies one.
 
 This is a legitimate change of target and, in this adjudicator's view, the
 parent document's best idea — but it must be stated as a change of target and
@@ -612,6 +685,13 @@ is well typed only in the deal-level view. Any computation of
 holds to it. Note also that on a proper subfamily the minimising envelope need
 not be unique, so \(W_{\mathrm{reach}}\) is a well-defined number but "the
 reachable envelope" is not a well-defined set, and nothing may be keyed to it.
+
+*[Superseded in part 2026-08-13 under DS-A23: the deal-level identification makes
+the root-level quantity well typed but does not make it the operationally
+meaningful one. The primary object is the interface-local
+\(W^{\mathrm{loc}}_{\mathrm{reach}}(I,a)\) of Definition E9 (§8.4); the
+root-level \(W_{\mathrm{reach}}(B,a)\) remains well defined and is a different
+quantity answering a different question.]*
 
 Finally, at the full simplex the minimal envelope **is** unique and equals the
 set of vectors that are uniquely optimal for some belief (Lemma G(4)); hence
@@ -647,8 +727,13 @@ same argument. Without it the fold materialises \(\prod_i|S_i|\) combinations
 before any pruning can occur, so per-interface pruning alone does not make the
 computation feasible.
 
-**(c) What pruning destroys.** No pruning rule preserves the count of distinct
-policy vectors. A run that prunes cannot report that count.
+**(c) What pruning destroys.** *[Narrowed 2026-08-13 under DS-A26.]* Pareto
+pruning and convex-dominance pruning do not preserve the count of distinct policy
+vectors in general — each discards vectors that the count counts. Binding rule: a
+pruned run may not report that count unless it maintains a separate complete
+unpruned accounting of it, which the pruning was adopted to avoid. (The
+degenerate rules that discard only duplicates preserve it trivially; the claim is
+about the two rules actually in use.)
 
 ## Theorem E6.3 — value sandwich (parent §8.3; audit T7)
 
@@ -737,3 +822,306 @@ above.
 the errata item that governs it. Where the two differ, this document governs.
 If a revision of the parent is ever filed, this document is re-audited against
 it and is not silently inherited.
+
+---
+
+# 8. Amendments from the second audit (2026-08-13)
+
+**Source.** `walt/math/decision_sparse_second_audit_v0.1.md` (filed 2026-08-13,
+commit 314ea65) validated the repairs of §§1–6 and proposed nine further
+amendments. They were adjudicated as DS-A19..DS-A28; the mathematics accepted
+there is filed here.
+
+**Maintenance policy for this document.** The received parent and the received
+second audit are provenance artifacts and stay verbatim. *This* document is
+mine and is **maintained**: where an amendment corrects or adds a hypothesis to
+something already filed here, it is made in place with a dated provenance marker
+naming the ruling, so that no reader can encounter the superseded form without
+the correction. Genuinely new mathematics is added as a new section rather than
+grafted into an old one. The adjudication record lives in
+`walt/CENSUS-RULINGS.md` and is append-only.
+
+**In-place amendments made under this section** (each marked at its site):
+
+| Item | Change | Ruling |
+|---|---|---|
+| §3.1 | treatment \(C\) reveals \(\omega\); revealing \((\omega,z)\) is \(C^{+}\) | DS-A20 |
+| §4.2 | evaluator invariant restated semantically; syntactic form kept as a sufficient receipt | DS-A27 |
+| §5.1 | hypothesis (S) added; Lemma E5.0 added (it holds on the measured carrier) | DS-A20 |
+| §5.2, §5.3 | filtering and rank language narrowed to their exact scope | DS-A21 |
+| §6.1 | root-level \(W_{\mathrm{reach}}\) superseded in part by Definition E9 | DS-A23 |
+| §6.2(c) | pruning/\(N_{\mathrm{vec}}\) claim narrowed to the two rules in use | DS-A26 |
+
+New mathematics follows.
+
+## 8.1 Theorem E1′ — order exchange under a fully transported involution
+
+*Generalises Theorem E1 (§1.3); authorised by DS-A19.*
+
+Let the two-block kernels be as in §1.2. Suppose there are bijections
+
+- \(\Theta_T\) on traces, carrying \(T_{ab}\) onto \(T_{ba}\);
+- \(\Theta_M\) on the outcome monoid \(\mathcal M\), a monoid automorphism,
+  often the identity;
+- \(\Theta_X\) on successor latent states, carrying information interfaces to
+  information interfaces;
+
+such that:
+
+- **(H1′)** \(\Theta=(\Theta_T,\Theta_M,\Theta_X)\) is declared, with its
+  inverse, before any check;
+- **(H2′) intertwining.** \(\mathsf K_{ba}=\Theta_*\mathsf K_{ab}\), i.e. for
+  every \(\xi,\tau,m,\xi'\),
+  \(\mathsf K_{ba}(\xi;\Theta_T\tau,\Theta_M m,\Theta_X\xi')
+  =\mathsf K_{ab}(\xi;\tau,m,\xi')\);
+- **(H3′) policy-class closure.** For every lawful continuation \(\pi\) from the
+  \(ab\)-successors there is a lawful \(\pi^\Theta\) from the
+  \(ba\)-successors with \(\pi^\Theta(\Theta_T\tau)\) the \(\Theta\)-image of
+  \(\pi(\tau)\), and conversely;
+- **(H4′) continuation equivariance.**
+  \(\Lambda_{\pi^\Theta(\Theta_T\tau)}(\Theta_X\xi')
+  =(\Theta_M)_*\Lambda_{\pi(\tau)}(\xi')\) for every lawful \(\pi\), trace
+  \(\tau\) and successor \(\xi'\);
+- **(H5′) utility invariance.** The selected utility satisfies
+  \(U\circ\Theta_M=U\).
+
+Then for every \(\xi\) the sets of achievable terminal laws under the two orders
+agree up to \(\Theta_M\), and under (H5′) the two orders have the same optimal
+continuation value for every belief.
+
+*Proof.* Fix \(\xi\) and a lawful \(\pi\). As in §1.3,
+
+\[
+\mathcal L(ab,\pi)(\xi)
+=\sum_{\tau,m,\xi'}\mathsf K_{ab}(\xi;\tau,m,\xi')\;
+m\cdot\Lambda_{\pi(\tau)}(\xi').
+\]
+
+Reindex the \((ba)\) sum by \((\Theta_T\tau,\Theta_M m,\Theta_X\xi')\) and apply
+(H2′) and then (H4′):
+
+\[
+\mathcal L(ba,\pi^\Theta)(\xi)
+=\sum_{\tau,m,\xi'}\mathsf K_{ab}(\xi;\tau,m,\xi')\;
+\Theta_M(m)\cdot(\Theta_M)_*\Lambda_{\pi(\tau)}(\xi')
+=(\Theta_M)_*\mathcal L(ab,\pi)(\xi),
+\]
+
+using that \(\Theta_M\) is a monoid automorphism to pull it out of the
+translation. By (H3′) the correspondence \(\pi\mapsto\pi^\Theta\) is a bijection
+of the lawful classes, so the achievable sets correspond under
+\((\Theta_M)_*\). Under (H5′) the utility of a law equals the utility of its
+\(\Theta_M\)-image, so the achievable *values* coincide as sets and hence have
+equal maxima, for every belief. ∎
+
+**Specialisation.** Theorem E1 is the case \(\Theta_M=\mathrm{id}\),
+\(\Theta_X=\mathrm{id}\), where (H4′) is automatic because \(\Lambda\) is
+literally the same function on both sides and (H5′) is vacuous.
+
+**Remark (the two new hypotheses are not decoration).** (H4′) is what fails if
+one transports successor states without transporting the process that runs from
+them; the automorphism instance of Corollary E1.1 supplies it for free, and any
+other instance must prove it. (H5′) is the same condition as the valuation
+restriction of Lemma E8 below, seen from the kernel side: for the count-free
+contract \(\Theta_M=\mathrm{id}\) and it is vacuous; for the count-decorated
+monoid it demands that the exchanged tiles carry equal point values, which is
+exactly what the no-count guard supplies.
+
+## 8.2 Corollary E3.2 — the zero-global-gap corollary
+
+*Extends Lemma E3 (§3.2); authorised by DS-A22.*
+
+Suppose \(U^{\mathrm{agg}}=V^H_B\). Then for **every** \(H\)-optimal root action
+\(a^\star\),
+
+\[
+\boxed{
+U_{a^\star}=Q^H_B(a^\star)=V^H_B ,
+}
+\]
+
+and moreover \(U_a\le V^H_B\) for every root action \(a\).
+
+*Proof.* \(V^H=Q^H(a^\star)\le U_{a^\star}\le U^{\mathrm{agg}}=V^H\) by Lemma E3
+and Remark E3.1, so all four are equal. For arbitrary \(a\),
+\(U_a\le U^{\mathrm{agg}}=V^H\). ∎
+
+**Consequence (the useful one).** If in addition a primal witness attains the
+optimum, \(L_{a^\star}=V^H\), then \(L_{a^\star}\ge U_a\) for every \(a\), so
+Theorem E6.4 certifies \(a^\star\in\operatorname{Opt}^H(B)\) with no gluing
+iteration at all. At a coordinate with zero measured global fusion gap, the
+entire remaining difficulty is on the **primal** side.
+
+**Three non-implications, and they matter.** The corollary does **not** imply
+(i) that \(U_a\) is tight for a suboptimal \(a\) — it bounds \(U_a\) by \(V^H\)
+and says nothing about \(Q^H(a)\); (ii) that the separation is strict — every
+inequality it supplies is non-strict, so it certifies membership in the optimal
+set and never uniqueness (Theorem E6.4's member-not-set caveat); (iii) that a
+primal witness attaining \(V^H\) has been found — the corollary supplies no
+witness, and finding one is the whole primal problem.
+
+## 8.3 Lemma E7 — when dominance travels
+
+*Authorised by DS-A25; narrows the "dominance never travels" rule.*
+
+Let \(T:X\to X'\) be a bijection of latent domains and \(\rho\mapsto T\rho\) a
+bijection of the lawful policy classes \(\mathcal R_H(I,a)\to\mathcal R_H(I',a')\)
+such that
+
+\[
+\boxed{\alpha_{T\rho}(T\xi)=\alpha_\rho(\xi)
+\qquad\forall\rho,\ \forall\xi.}
+\]
+
+Then:
+
+1. \(\alpha_\rho\preceq\alpha_\sigma\iff\alpha_{T\rho}\preceq\alpha_{T\sigma}\);
+   hence Pareto frontiers correspond, the frontier count transports, universal
+   dominance transports, and decision-deadness transports;
+2. for every belief \(\beta\) on \(X\) and its pushforward
+   \(\beta'=T_*\beta\), \(\langle\beta',\alpha_{T\rho}\rangle
+   =\langle\beta,\alpha_\rho\rangle\); hence optimality at a belief, exposure,
+   and decision width transport **provided the belief is transported too**.
+
+*Proof.* (1) The two families of scalar inequalities are the same set
+re-indexed by \(T\). (2)
+\(\sum_{\xi'}\beta'(\xi')\alpha_{T\rho}(\xi')
+=\sum_{\xi}\beta(\xi)\alpha_{T\rho}(T\xi)=\sum_\xi\beta(\xi)\alpha_\rho(\xi)\).
+∎
+
+**Binding form of the library rule.** *Dominance does not travel with a policy
+alone.* A policy transport establishes only that the transported object is a
+lawful policy at the new coordinate — which is what makes it a valid primal
+witness, and is all that is needed for that. Transporting a *verdict* —
+dominance, optimality, deadness, a width — additionally requires an exhibited
+value-order isomorphism satisfying the displayed identity, together with
+transport of the belief for the belief-relative verdicts. Corollary R-fold is an
+instance of exactly this and may be cited as one; nothing else in the branch
+currently is.
+
+## 8.4 Definition E9 — interface-local reachable decision width
+
+*Retypes the reachable width of §6.1 (Theorem E6.1); authorised by DS-A23.*
+
+For an information interface \(I\), let \(X_I\) be its latent domain,
+\(\mathcal A_{I,a}\) the set of value vectors of lawful continuation policies
+**beginning at \(I\)** with first action \(a\), and
+\(\mathcal B_{\mathrm{reach}}(I)\subseteq\Delta(X_I)\) the set of posteriors with
+which \(I\) is actually reached, under the declared initial belief, the fixed
+field, legal focal policies and positive-probability observation histories. Then
+
+\[
+\boxed{
+W^{\mathrm{loc}}_{\mathrm{reach}}(I,a)
+=\min\Bigl\{|E|:E\subseteq\mathcal A_{I,a},\
+\max_{\alpha\in E}\langle\beta,\alpha\rangle=Q_I(a;\beta)
+\ \ \forall\beta\in\mathcal B_{\mathrm{reach}}(I)\Bigr\}.
+}
+\]
+
+This is the quantity that answers "how many policies must the seat retain here",
+because a posterior generated by a prefix evaluates continuations that begin
+where that prefix ends. Theorem E6.1's monotonicity holds interface-wise:
+\(W^{\mathrm{loc}}_{\mathrm{reach}}(I,a)\le W_{\mathrm{all}}(I,a)\), and
+\(W_{\mathrm{all}}(I,a)=N_{\exp}(I,a)\) as before.
+
+**Three quantities, three names, never one row.** (i) the interface-local width
+above; (ii) a global summary such as \(\max_I W^{\mathrm{loc}}_{\mathrm{reach}}(I,a)\);
+(iii) the size of a single transported policy library covering all reachable
+interfaces — which is smaller than a sum and larger than a max in general, and
+is a library statistic, not a width. The root-level \(W_{\mathrm{reach}}(B,a)\)
+of §6.1 remains well defined in the deal-level view and is a fourth quantity: it
+asks how many *root* policy vectors preserve the root envelope over a family of
+later posteriors, which is a question no seat asks.
+
+## 8.5 Lemma E8 — the exact valuation scope of J-0 and J-1
+
+*Corrects the cone clause of ruling DS-A9; authorised by DS-A24. The mathematics
+of Lemma J and Propositions J-0, J-1 is unchanged.*
+
+Work in the parent's feature coordinates: \(\phi_T=(t_T,(x_{T,d})_{d\in\mathcal D})\)
+with \(x_{T,d}=1\) iff the focal partnership captures tile \(d\), and
+\(\mu_\rho(\xi)=\mathbb E[\phi_T\mid\xi,\rho,\sigma_{-m}]\). A valuation is a
+pair \(v=(b,w)\) with \(w:\mathcal D\to\mathbb Q\), and
+\(\alpha^v_\rho=\langle v,\mu_\rho\rangle\).
+
+**(a) The invariant part.** Assume the hypothesis (NI) of Lemma J at node \(I\)
+(in particular, as established by Proposition J-0). Let \(H\) be the focal
+seat's remaining hand and let \(\rho,\rho'\) be any two lawful policies. Then for
+every \(\xi\):
+
+1. the trick coordinate agrees: \(t_T\) has the same expectation;
+2. \(x_{T,d}\) has the same expectation for every \(d\notin H\);
+3. \(\sum_{d\in H}x_{T,d}\) has the same expectation.
+
+*Proof.* (1) and (2) are Lemma J(a): the non-focal plays and the trick winners
+have one joint law independent of the focal policy, and every tile outside \(H\)
+is either already played or played by a non-focal seat, so which trick it falls
+in and who wins that trick are policy-independent. (3) The focal partnership
+captures exactly four tiles per trick it wins, so
+\(\sum_{d\in\mathcal D}x_{T,d}=4t_T\); subtract the policy-independent quantity
+\(\sum_{d\notin H}x_{T,d}\) from the policy-independent \(4t_T\). ∎
+
+**(b) The exact condition on the valuation.** Consequently
+
+\[
+\alpha^v_\rho(\xi)-\alpha^v_{\rho'}(\xi)
+=\sum_{d\in H}w(d)\,\Delta_d,
+\qquad
+\sum_{d\in H}\Delta_d=0,
+\]
+
+which vanishes for all \(\rho,\rho',\xi\) whenever
+
+\[
+\boxed{w\ \text{is constant on }H.}
+\]
+
+This is sufficient always. It is also necessary whenever some pair of lawful
+policies moves one tile of \(H\) into a partnership-won trick and another out of
+one with positive probability, which is the generic case.
+
+**(c) What this corrects.** Ruling DS-A9 stated that under J-0 or J-1 with the
+guard the feature difference vanishes identically and the conclusion therefore
+"holds for every cone at once". That is **false in fixed physical coordinates**:
+two zero-count focal tiles exchanged between tricks are indistinguishable to the
+ordinary count schedule but not to an arbitrary per-tile valuation with
+\(w(t_1)\ne w(t_2)\). The correct scope is (b): the equality extends to the
+valuation directions that are constant on the exchanged tiles — for
+Proposition J-1's transposition, exactly those with \(w(t_1)=w(t_2)\), i.e.
+\(w\circ\Theta=w\) — or to role-indexed valuations transported with the roles.
+Everything the branch has actually claimed survives: count-free trick value
+(\(w\equiv0\)), and ordinary Straight count under the guard
+(\(w|_H\equiv0\)).
+
+**(d) Gauge stability.** The condition is stable under the parent's §11.1 gauge
+\((b,w)\sim(b-4c,\ w+c\mathbf 1)\), since adding a global constant to \(w\)
+preserves constancy on \(H\). It is therefore a condition on the valuation
+class, not on a chosen representative.
+
+**(e) Lemma J(c′) — the corrected and strengthened valuation clause.** Under
+(NI), the value is identical for every lawful policy for every valuation that
+reads the play through the trick winners and a tile-value schedule \(w\) that is
+**constant on \(H\)**; the ordinary count schedule under the guard
+\(H\cap\mathrm{COUNT}=\varnothing\) is the case \(w|_H\equiv0\).
+
+*Proof.* The focal seat plays exactly one tile to each remaining trick, so if
+\(w|_H\equiv k\) then each remaining trick receives the same tile-value
+contribution \(k\) from the focal seat whichever tile it plays; the other three
+tiles of each trick and the winner of each trick are policy-independent by
+Lemma J(a). ∎
+
+This is strictly stronger than the clause it replaces (constancy, not vanishing)
+and its proof is the same argument; the filed Lemma J(c) is the special case
+\(k=0\) and is sound as filed. Only DS-A9's gloss overreached.
+
+## 8.6 Index addendum
+
+| Item | Object | Status | Ruling |
+|---|---|---|---|
+| §8.1 | Theorem E1′ (fully transported order exchange) | new; E1 is its \(\Theta_X=\Theta_M=\mathrm{id}\) case | DS-A19 |
+| §8.2 | Corollary E3.2 (zero global gap) | new | DS-A22 |
+| §8.3 | Lemma E7 (transport of dominance) | new | DS-A25 |
+| §8.4 | Definition E9 (interface-local reachable width) | new; supersedes §6.1's root-level use | DS-A23 |
+| §8.5 | Lemma E8 and Lemma J(c′) (valuation scope) | new; corrects ruling DS-A9 | DS-A24 |
+| §5.1a | Lemma E5.0 ((S) on the measured carrier) | new | DS-A20 |

@@ -2726,6 +2726,13 @@ value is identical for every valuation that reads the play only through the tric
 winners and the point values of the tiles falling in each trick — in particular
 the trick-plus-count valuation.
 
+*[GENERALISED 2026-08-13 under DS-A24. (c) is sound as filed: "the point values"
+means the count schedule, which the guard sends to 0 on H. The sharp form is
+**Lemma J(c′)** (errata §8.5(e)) — the value is identical for every tile-value
+schedule CONSTANT on H, of which the guarded count schedule is the constant-0
+case. An arbitrary per-tile physical valuation is not covered; see Lemma E8 and
+the correction of DS-A9's cone clause.]*
+
 *Proof.* (a) By (i) every trick from i on is led by a non-focal seat, so the led
 context of every trick is chosen without reference to focal's policy. A seat's
 legal set is "follow the led context if able, else anything" (v0.4 §1.2, §1.5) —
@@ -3293,7 +3300,13 @@ implicit that becomes a builder obligation.
   condition for the feature *difference to vanish identically* — under
   Proposition J-0 or J-1 with H ∩ COUNT = ∅ we have μ_{ρ}(ξ) = μ_{ρ′}(ξ) for all
   ξ and all lawful ρ, ρ′ — which is the degenerate case of §11.3 and holds for
-  **every** cone at once, with no feature law computed. So: the guard stays a
+  **every** cone at once, with no feature law computed. *[CORRECTED 2026-08-13 by
+  DS-A24: the clause from "we have μ_ρ(ξ) = μ_{ρ′}(ξ)" through "every cone at
+  once" is WRONG. The per-tile capture coordinates do not agree — focal's own
+  tiles land in different tricks under different policies — so the equality holds
+  only for valuation directions constant on the exchanged tiles. Lemma E8 (errata
+  §8.5) is the corrected statement; everything else in this ruling, and all of
+  Lemma J and Propositions J-0/J-1/J-win, stands.]* So: the guard stays a
   separate conjunct, it is the only form of §11.3 available without paying the
   feature cost, and Proposition J-win marks its exact limit (when focal wins
   tricks the difference does not vanish and no cone conclusion is available
@@ -3433,3 +3446,154 @@ results (F7, NO-RESCUE).
   ever filed, the errata is **re-audited against it and never silently
   inherited** — a repair that a revision has absorbed must be checked to have
   been absorbed, and a repair the revision contradicts is a new finding.
+
+## Second-audit adjudication (2026-08-13)
+
+**Adjudicator:** walt-math. **Object:**
+`walt/math/decision_sparse_second_audit_v0.1.md` (filed 2026-08-13, commit
+314ea65), §2's nine proposed amendments. Its §1 validates the repairs of the
+errata and its §§3–8 are its own synthesis; neither is adjudicated here beyond
+the checks noted. **Tier:** exploratory throughout. Amendments continue at
+DS-A19; accepted mathematics is filed in
+`walt/math/decision_sparse_exact_solving_v0.1_errata.md` §8 under DS-A17's
+citation rule.
+
+**Headline.** All nine are substantively correct and all nine are ACCEPTED, four
+of them in a binding form sharper than proposed. Two bear on rulings of mine:
+**§2.6 is a correct challenge and DS-A9's cone clause is wrong** — the
+correction is filed as Lemma E8 with a sharper condition than the second audit
+proposed, and Lemma J is unaffected (its clause (c) is sound as filed and is
+generalised, not repaired, by Lemma J(c′)); and **§2.5 revises my DS-A10**,
+though the demotion it asks for is broader than the defect warrants (DS-A23).
+
+- **DS-A19 (§2.1, transported successor states). ACCEPT, with two hypotheses
+  added.** The generalisation is lawful and is filed as **Theorem E1′** (errata
+  §8.1), with Theorem E1 as its Θ_X = Θ_M = id specialisation. Two hypotheses
+  the proposal does not name are load-bearing and are in the filed statement:
+  **(H4′) continuation equivariance** — transporting successor states without
+  transporting the process that runs from them is not enough, and the composed
+  law then fails to correspond; and **(H5′) utility invariance under Θ_M**. The
+  second is worth noticing: (H5′) is the *same condition* as the valuation
+  restriction of DS-A24, seen from the kernel side, so the generalised theorem
+  and the cone correction are one fact in two coordinates. **On the
+  characterisation of my (D1): AMEND.** The second audit reads it as "an
+  underspecification warning, not the decisive defect". Both defects stand as
+  filed. (D1) is not a stylistic complaint: under the literal reading the two
+  kernels have disjoint support in the trace coordinate, so the hypothesis holds
+  for no pair of distinct blocks and the statement is *vacuous* — a proved
+  property of the text, and the project's ambiguity protocol is to record the
+  conflict rather than adopt the plausible reading. That said, the second audit
+  is right that (D2) alone forces the repair, and the repair is agreed; the
+  disagreement is about labelling a defect, not about any mathematics.
+- **DS-A20 (§2.2, latent separation). ACCEPT.** Hypothesis **(S)** is added to
+  Proposition E5's statement, and **Lemma E5.0** is filed showing (S) holds on
+  the measured carrier — latent = the hidden current remainder, memoryless
+  uniform-legal field — by the naming argument. So E5's conclusion stands
+  unconditionally for S6a/S6b/S6c; (S) is future-proofing against an augmented
+  latent ξ = (ω,z), where the argument would yield indicators of
+  complete-record classes rather than singletons, which is a weaker and possibly
+  compressive conclusion and would then be worth measuring. The naming point is
+  ACCEPTED with it: **treatment C reveals ω; revealing (ω,z) is C⁺**, still a
+  valid upper witness by the same proof, never called C unqualified.
+- **DS-A21 (§2.3, narrow the filtering conclusion). ACCEPT.** My wording
+  over-reached in two places and both are narrowed in place: the binding negative
+  is "**atom-mass linear filtering is noncompressive on this carrier**", not
+  "filtering and compression are incompatible"; and predictive rank lower-bounds
+  the corresponding **linear factorisation target**, not unrestricted nonlinear
+  circuit size. Nothing here asserts that no lower-bound technique applies to
+  circuits — only that no result in this branch supplies one.
+- **DS-A22 (§2.4, zero-global-gap corollary). ACCEPT, and it is stronger than
+  stated.** Filed as **Corollary E3.2** with its proof, the three non-implications
+  the second audit lists, and one consequence it does not draw: since
+  U_a ≤ U^agg = V^H for *every* action, a primal witness attaining V^H separates
+  non-strictly from every competitor with **no gluing iteration at all**. At a
+  zero-fusion-gap coordinate the whole remaining difficulty is primal. The
+  separation is non-strict, so it certifies membership in the optimal set and
+  never uniqueness (E6.4's caveat).
+- **DS-A23 (§2.5, retype reachable width). ACCEPT the retyping; AMEND the
+  consequence for Experiment F.** **Definition E9** files the interface-local
+  W^loc_reach(I,a) as the primary object, with the three-way naming discipline
+  (interface-local width; a global summary such as the max over interfaces; the
+  size of a transported library — three quantities, three names) and the
+  root-level W_reach(B,a) retained as a fourth, well typed in the deal-level view
+  and answering a question no seat asks. **The demotion is narrower than
+  proposed:** Experiment F's other rows — N_pol, N_par, W_all = N_exp, d_adv —
+  were designable under DS-A10 and remain so; only the W_reach row moves to
+  pending-until-retyped, and it is now retyped, so what actually remains before
+  it can run is an enumeration of B_reach(I) on a carrier small enough to
+  enumerate exactly. DS-A10 is revised to that extent and otherwise stands.
+- **DS-A24 (§2.6, the cone claim). ACCEPT the challenge: DS-A9 is WRONG in the
+  named clause, and the correction is filed.** DS-A9 said the feature difference
+  vanishes identically under J-0/J-1 with the guard and therefore holds "for
+  every cone at once". It does not: focal's own tiles land in different tricks
+  under different policies, so the per-tile capture coordinates differ even when
+  every count-bearing quantity agrees. The correction is filed as **Lemma E8**
+  (errata §8.5) and is sharper than the proposal in two ways. (i) The exact
+  condition is **w constant on the exchanged tiles**, not w = 0 and not only
+  w ∘ Θ = w: the feature difference lies in the sum-zero subspace supported on
+  the focal hand (four tiles per won trick is a conservation law), so a constant
+  contributes nothing. w ∘ Θ = w is the correct condition for J-1's transposition
+  and is the special case; J-0's deadness is not proved through any single
+  transport, so the transport-invariance formulation does not reach it, and the
+  constancy formulation does. (ii) The condition is **gauge-stable** under the
+  parent's §11.1 gauge, so it is a condition on the valuation class. Everything
+  the branch has claimed survives: count-free trick value, and ordinary Straight
+  count under the guard. Lemma J is unaffected — its clause (c) quantifies over
+  valuations reading *the point values*, which the guard sends to 0 on H, so it
+  is sound as filed; **Lemma J(c′)** generalises it from vanishing to constant,
+  with the same proof, and is filed alongside. Propositions J-0, J-1, J-win and
+  every J-A ruling stand unchanged. The superseded clause of DS-A9 carries a
+  pointer marker at its site; its text is not rewritten.
+- **DS-A25 (§2.7, dominance transport). ACCEPT as a narrowing of DS-A15,** filed
+  as **Lemma E7** with proof, in a form more precise than the proposed prose:
+  pointwise dominance, universal dominance and decision-deadness transport under
+  an exhibited value-order isomorphism α_{Tρ}(Tξ) = α_ρ(ξ) with T a bijection of
+  both worlds and lawful policy classes — no belief needed, since these are
+  pointwise notions; **belief-relative** verdicts (optimality at β, exposure,
+  any width) transport only if the belief is transported too, β′ = T_*β. DS-A15's
+  rule stands in the binding form: a policy transport establishes lawfulness,
+  which is all a primal witness needs; transporting a *verdict* needs the
+  isomorphism above. Corollary R-fold is an instance and may be cited as one;
+  nothing else in the branch currently is.
+- **DS-A26 (§2.8, pruning wording). ACCEPT.** E6.2(c) is narrowed in place:
+  Pareto and convex pruning do not preserve N_vec in general, and a pruned run
+  may not report N_vec unless it maintains a separate complete unpruned
+  accounting — which is the thing the pruning was adopted to avoid, so the escape
+  is logical rather than practical. My "no pruning rule preserves it" was too
+  strong: rules that discard only duplicates preserve it trivially.
+- **DS-A27 (§2.9, evaluator invariant). ACCEPT the semantic form as binding, and
+  keep the syntactic form as a sufficient receipt.** The invariant is: every
+  later focal action is supplied by the candidate policy, and no optimiser selects
+  a focal action using hidden-state information. Nonfocal expectation, chance
+  summation, deterministic singleton choices and implementation maxima over
+  singleton sets are harmless. "No max node below the root" remains an accepted
+  **sufficient** implementation form — cheap to assert structurally and
+  impossible to game — but it is a receipt for the invariant, not the invariant,
+  and an implementation that satisfies the semantics by other means is lawful if
+  it asserts that structurally. Amended in place at errata §4.2.
+- **DS-A28 (how a superseded ruling is handled).** This file is the adjudication
+  record and is **append-only**: no adjudicated ruling's text is ever rewritten,
+  because the record of what was ruled — and later corrected — is itself
+  evidence. Three obligations follow, and DS-A24 is their first exercise. (i) A
+  superseded or corrected clause receives a **bracketed pointer marker at its
+  site** naming the correcting ruling and the durable statement that replaces it;
+  a pointer is navigation, not a rewrite, and its absence is drift. (ii) The
+  corrected mathematics is filed in the errata with a full statement and proof,
+  never as prose in the correcting ruling alone. (iii) The errata, unlike the
+  received parent and the received second audit, is a **maintained** document:
+  hypotheses may be added and language narrowed in place, each with a dated
+  provenance marker naming its ruling, so that no reader meets a superseded form
+  without its correction. Received documents stay verbatim; my own documents stay
+  correct.
+
+**On §§6–7 of the second audit, for the record and not as rulings.** Its
+experimental sequence agrees with DS-A10..DS-A12 in substance; the two
+divergences are both improvements and are adopted — the action-conditioned C
+evaluator is the most immediate missing component (it is what makes every
+per-action upper witness non-vacuous, DS-A7), and the reachable-width experiment
+waits on DS-A23. Its §6.4 independently restates PG-A13 (do not infer the first
+frontier split from where a capped run stopped), which is correct. Its §7
+"closed routes" list is its judgement, not a ruling; I checked it against the
+standing results and found nothing false in it, and note only that "closed"
+there means "unlikely to repay further work", never that a proved negative has
+become a theorem about the game.
