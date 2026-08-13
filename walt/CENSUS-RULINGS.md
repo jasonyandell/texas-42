@@ -3276,7 +3276,15 @@ implicit that becomes a builder obligation.
   focal decisions; the implementation's world-informed evaluator maximises at
   every focal node including the root, so the action-conditioned variant is a
   small change to an existing path (`walt-strat/src/revealed.rs`,
-  `fiber_probe.rs:215`) and must be built, not assumed. (iv) PI minimax is a
+  `fiber_probe.rs:215`) and must be built, not assumed. *[CORRECTED 2026-08-13 by
+  SEP-A7: the sentence naming `walt-strat/src/revealed.rs` as needing the change
+  is WRONG. `revealed::revealed_summary().q_c[a]` has been the
+  action-conditioned U_a = E_β[V*_a] since S3; the root-maximising objects are
+  `revealed_summary().v_f` (= U^agg = V^F, same file), `fiber_probe.rs::aggregate`
+  and `predictive_rank.rs::fused` (which produced the S6a `fusion_gap` column).
+  What remained to build was the harness and the receipts, not the evaluator. The
+  rest of clause (iii), and the whole of DS-A7, stands; the durable statement is
+  SEP-A7 with freeze 37 at SEP-A6.]* (iv) PI minimax is a
   different operator and is not a valid upper bound for the fixed stochastic
   field — the document says this and it is correct (§8.2, §15.4). One positive
   worth recording: at several S6a coordinates the measured fusion gap is exactly
@@ -3333,7 +3341,12 @@ implicit that becomes a builder obligation.
   action-conditioning, T7's no-decimation clause, and one receipt: wherever H
   completes at the same coordinate, assert L ≤ Q^H ≤ U exactly and assert the
   certified action lies in H's argmax (R-A18's discipline extended to the
-  witness). **F (reachable envelope)** — with DS-A2's ladder and DS-A4; W_reach
+  witness). *[SUPPLEMENTED 2026-08-13 by SEP-A12: the clause stands, but as
+  written the L ≤ Q^H half is satisfied as equality by construction whenever the
+  candidate is H-argmax-seeded (Corollary E4.1(2)) and the U ≥ Q^H half is already
+  asserted inside `price.rs::information_prices`, so neither is a receipt in
+  PG-A8's sense. The five receipts that carry content for Experiment E are fixed
+  at SEP-A12 (R1)–(R5).]* **F (reachable envelope)** — with DS-A2's ladder and DS-A4; W_reach
   requires exact enumeration of the reachable posteriors, feasible only at the
   small grades, and a stop is a stop (PG-A13).
 - **DS-A11 (designable after the object is fixed).** **C (Scheme-weighted
@@ -3726,3 +3739,551 @@ and is accepted with its selection rule tightened.
 **Nothing above changes what is measured.** J-A1..J-A18 stand entire; this
 section governs only when work happens, where it is stored, and which clock
 readings may be quoted.
+
+## Experiment E adjudication: the separation probe (2026-08-13)
+
+**Adjudicator:** walt-math. **Object:** `walt/SEPARATION-PROBE.md` — the
+root-action separation probe by primal and upper witnesses — together with the
+reserved content of **freezes 36 and 37** (DS-A13). **Tier:** exploratory
+throughout. Nothing below is promoted; no number this probe produces becomes
+quotable except by brief amendment adding it to a verifier receipt. **Basis:**
+DS-A1..DS-A36 and every ruling they inherit (F1–F7, r3 Q1–Q5, Y1–Y3, P-A, X-A,
+E-A, S-A, R-A, PG-A, J-A and Lemmas V, X, E, S, S-fold, S-det, R, G, J,
+Propositions G-flat, J-0, J-1, J-win, Corollaries S-rigid, R-fold); the errata
+`walt/math/decision_sparse_exact_solving_v0.1_errata.md` under DS-A17's citation
+rule — Lemma E3 and the four conditions of §3.4, Remark E3.1, Lemma E4 and
+Non-theorem E4′ with DS-A27's semantic obligation, Corollary E3.2, Lemma E7,
+Theorems E6.3–E6.5; R-A18, PG-A8, PG-A12, PG-A13, P-A19, X-A17, E-A17, E-A18,
+DS-A29..DS-A36; the S6a receipts
+(`walt-factory/results/predictive_rank_2026-08-12.txt`) and the S6b receipts
+(`policy_geometry_2026-08-12.txt`); and first-hand reading of
+`walt-strat/src/{info,hidden,hidden_scalar,revealed,price,direction,scalar}.rs`,
+`walt-geom/src/envelope.rs`, `walt-core/src/rules.rs` and
+`walt-factory/examples/{predictive_rank,policy_geometry,policy_inspect,fiber_probe}.rs`.
+Amendments are numbered **SEP-A1..SEP-A18** and bind the build.
+
+**Question labels.** The design numbers its questions E-Q1..E-Q8. That prefix is
+already spent: the endgame-store section of 2026-08-11 owns E-Q1..E-Q7, and a
+later reader searching "E-Q4" would be sent to two different questions in one
+file. The design's questions are renumbered **SEP-Q1..SEP-Q8**, one-to-one and
+in order with its E-Q1..E-Q8, and the design text is updated to match before the
+run. The ruling prefixes `E-A` and `DS-A` are likewise spent; this section uses
+**SEP-A**.
+
+**Headline — five findings, stated before the rulings.**
+
+1. **The upper-witness side needs nothing built.** The design's identification is
+   correct and understates itself: `revealed.rs::revealed_summary().q_c` is
+   exactly U_a = E_β[V*_a] per root action (Lemma E3, errata §3.1–3.2), and
+   `price.rs::information_prices()` already forms **and asserts** the per-action
+   price U_a − Q^H(a) ≥ 0 in `g_cont_by_root`. DS-A7(iii)'s premise — that the
+   action-conditioned evaluator "must be built" — is **wrong on the `revealed.rs`
+   path** and is corrected at SEP-A7, with a pointer marker at the DS-A7 site
+   (DS-A28(i)).
+2. **The design's two-solver bridge assert is WRONG and would assert a false
+   identity.** The envelope path (`hidden::hidden_root_values` at
+   `Direction::trick_diff`) and the scalar authority (`ScalarHidden` at
+   `ScalarValuation::trick_only`) are **both** focal-minus-opponent trick
+   differentials — the same units. Asserting `Q_envelope = 2·Q_scalar − grade`
+   between them asserts a false identity at every value that is not that map's
+   fixed point. The freeze-26 bridge is the count↔differential bridge; it belongs
+   at the S6a cross-check and at the extraction solve, and nowhere else (SEP-A5,
+   SEP-A14).
+3. **The max-freedom receipt the design names is vacuous at the declared
+   direction.** `Envelope::is_affine()` is `pieces.len() == 1`;
+   `Direction::trick_diff()` has `delta = 0`, so every `Line` on the ray has zero
+   slope and every envelope built from them has exactly one piece — no matter what
+   the expand callback returns, the full-legal-set H solve included. The assertion
+   cannot fail and therefore is not a receipt (PG-A8: "by construction" is not a
+   receipt). The structural obligation of DS-A14/DS-A27 must be discharged by a
+   singleton assertion at the callback with a counted receipt (SEP-A13).
+4. **The primal side of this experiment carries no information, and the design
+   must pre-declare that.** With the H-argmax seed, L_{a⋆} = Q^H(a⋆) exactly and
+   necessarily — it is the ceiling of Lemma E4, not a measurement (Corollary E4.1,
+   SEP-A2). Two consequences: every separation verdict here is decided **entirely
+   by the U side**, and a NOT-SEPARATED pair is not a failure of this run's
+   candidates but an exact proof that **no candidate set whatsoever** separates
+   that pair under relaxation C at that coordinate. The second is a stronger
+   result than the design claims for its own negative outcome.
+5. **No economy claim, of any kind, from this run.** The receipts of DS-A10
+   require treatment H at every action at every coordinate, so the run completes
+   the exact solve it would have to avoid for the parent §8.4 economy claim ["the
+   solver does **not** need an exact solution for every action"] to be exercised.
+   What the run does test is that the Pareto-frontier enumeration S6b could not
+   complete at the tense leads is unnecessary for the root decision. That is a
+   real result and it is not the economy claim; the two are separated in the
+   results file (SEP-A15).
+
+### Corollary E4.1 (the primal ceiling, and the exact negative) — delivered here
+
+*Extends Lemma E4 (errata §4.1; DS-A14). To be filed in the errata as §4.3 at the
+next errata amendment, per DS-A28(ii); until then this statement and proof are
+the durable form.*
+
+Fix a coordinate B, a belief β, a field, a valuation, and the canonical
+perfect-recall information partition of the future focal decision nodes after
+root action a. Let 𝒞_a ⊆ ℛ_H(B,a) be a finite candidate set and
+L_a = max_{ρ∈𝒞_a} ⟨β, α_ρ⟩ as in Lemma E4.
+
+1. **(Ceiling.)** L_a ≤ Q^H_B(a) for every 𝒞_a, with equality iff some candidate
+   attains the maximum over ℛ_H(B,a).
+2. **(Attainment.)** Let the H operator be exact backward induction on the
+   information tree — value at a state = max over its legal labels of the child
+   value — and let π_a assign to every state **any** action attaining that max.
+   Then π_a ∈ ℛ_H(B,a) and ⟨β, α_{π_a}⟩ = Q^H_B(a). Hence L_a = Q^H_B(a) whenever
+   π_a ∈ 𝒞_a, **for every tie-breaking rule**.
+3. **(The exact negative.)** If Q^H_B(a⋆) < U_a for some competitor a, then no
+   finite candidate set whatsoever separates a⋆ from a under that relaxation at
+   that coordinate: L_{a⋆} ≤ Q^H_B(a⋆) < U_a for every 𝒞_{a⋆}. The remaining
+   lever is a tighter relaxation — a gluing cut (Theorem E6.5, errata §6; DS-A3's
+   cut typing) — and never a better candidate.
+
+*Proof.* (1) is Lemma E4. (2): each observation record is visited at most once per
+walk, so the reachable focal information states after a form a finite tree of
+bounded depth ordered by record extension. Induct on remaining depth. At a
+terminal the fixed-policy value and the H value coincide. At a field node both are
+the same nonnegative linear aggregation of child values, so the induction passes
+through. At a focal state s the H value is the max over legal labels of the child
+H value, and by hypothesis π_a(s) attains it; by the induction hypothesis the
+fixed-policy value of the subtree under π_a(s) equals its H value; hence the
+fixed-policy value at s equals the H value at s. Taking s to be the root state
+after a and pairing with β gives ⟨β, α_{π_a}⟩ = Q^H_B(a). π_a is a total function
+of the information state, hence information-consistent. Tie-breaking is irrelevant
+because every maximiser satisfies the hypothesis. (3): compose (1) with the
+assumed strict inequality. ∎
+
+**What (2) buys and what it costs.** It buys the sharpest primal witness
+available, so a separation failure is maximally informative (clause 3). It costs
+the experiment its primal content: L is no longer a measurement of the library but
+a receipt tying two evaluators together (SEP-A11, SEP-A12).
+
+### SEP-A1..SEP-A2 — typing and vocabulary for this section
+
+- **SEP-A1 (vocabulary, restating DS-A1 where it bites here).** **Primal witness**
+  = L_a, the exact value of a fixed lawful information-consistent policy
+  integrated under the declared belief; **upper witness** = U_a, the
+  action-conditioned treatment-C value; **root-action separation** = the relation
+  L_{a⋆} ≥ U_a for every a ≠ a⋆; **receipt** = a machine-checked verification
+  artifact regenerated by a run. The word "certificate" does not appear in this
+  probe's design, code, results file or wiki text; where the parent v0.1 document
+  is quoted it is bracketed as a quotation (D3, DS-A1). The design already
+  observes this fence and is CONFIRMED on it. The R-A2 reachability fence is
+  restated verbatim wherever a witness is reported: the fiber is the void-free
+  capacity fiber, its members are FEASIBLE and never reachable (P-A1), and no
+  object here is identity-bearing.
+- **SEP-A2 (Corollary E4.1 is binding on the design's typing).** The three clauses
+  above bind every reported verdict. In particular the design's phrase "maximised
+  over a finite declared candidate set" is formally correct and practically empty
+  at v1: the candidate set at each H-optimal action is the singleton {π_a}, and L
+  is at its ceiling. The results file states this in its header, before any number,
+  in the form: *"the primal witness at each H-optimal action is an H-optimal policy
+  re-priced by the fixed-policy evaluator, so L = Q^H by Corollary E4.1(2); the
+  separation verdict at this coordinate is determined entirely by the upper
+  witness."*
+
+### SEP-A3..SEP-A4 — SEP-Q1: freeze 36
+
+- **SEP-A3 (freeze 36 as specified: ACCEPT-WITH-AMENDMENT, six amendments).** The
+  entry format, the identity-only transport and the DS-A16 header note are right.
+  Six things are wrong or missing and each is binding.
+  (i) **`InfoStateId` may never appear in a stored entry.** It is an index assigned
+  in `InfoPartition::build` traversal order — an in-process handle, not a canonical
+  key — and storing it makes the entry a second authority over an ordering the
+  partition already derives (the project's derived-views rule, and DS-A15's
+  canonical-key requirement). The stored form is keyed on the **observation
+  record**: the sequence of plays since the kernel decision point, root action
+  first, exactly `walk`'s `obs`. The design's own serialisation sentence already
+  says this; the ruling makes it exclusive.
+  (ii) **The coordinate key's `pip` is derived, not independent.**
+  `coordinate(grade, index)` computes `pip = index / (live_c · hand_c)`, so
+  (grade, base index, declaration) determines pip. Pip is a printed field for human
+  reading and never a key component; a stored pip that disagrees with the unranking
+  is corruption, asserted at load.
+  (iii) **The extraction tie-break is not freeze 36's to declare.** Freeze 26
+  already fixes it — "tie rule for the extracted policy: least domino index among
+  the argmax" — and re-declaring it inside freeze 36 creates two authorities for
+  one constant, which is the DS-A4 defect in freeze clothing. Freeze 36 **cites**
+  freeze 26.
+  (iv) **An entry stores no value and no verdict — and no rank and no dominance
+  status.** The design says "never verdicts"; add "never numbers". A stored L would
+  be a number a later run could quote without re-running the evaluator that makes
+  it a witness. A library file is a cache and never an authority (X-A17); a loaded
+  entry is re-priced by `policy_value` before anything is reported.
+  (v) **Every entry carries the freeze-set digest** and the frame it was built
+  against — observation contract, field, belief, fiber enumeration order and |X|.
+  A digest mismatch makes the file **corrupt, not stale**, and it is discarded
+  entire, never partially reused (DS-A30(i)–(ii), X-A6(i), P-A17, E-A18). The
+  information partition is a function of the observation contract, so an entry
+  built under a different contract is not merely stale — it is not well-defined at
+  the coordinate at all.
+  (vi) **Transport cites Lemma E7, not only DS-A15.** Identity transport is lawful
+  and trivially satisfies both halves of the rule; the ruling to record is the
+  general one (errata §8.3, DS-A25): a policy transport establishes lawfulness,
+  which is all a primal witness needs, and transporting a *verdict* additionally
+  requires an exhibited value-order isomorphism α_{Tρ}(Tξ) = α_ρ(ξ) with the belief
+  transported for belief-relative verdicts. Dominance does not travel with a policy
+  alone.
+- **SEP-A4 (FREEZE 36 — the candidate-policy library, v1, frozen content).**
+  **(a) Key:** (grade, base index, declaration ∈ {0..6}, root action) under the S6a
+  unranking `coordinate(grade, index)` (freezes 22–25); pip derived per
+  SEP-A3(ii). **(b) Body:** a total map from observation record to chosen tile over
+  `InfoPartition::build(kernel, root)`, serialised as the list of (observation
+  record, chosen tile) pairs sorted lexicographically by record under the canonical
+  ascending domino-index order, the record being the plays since the kernel
+  decision point with the root action first; `InfoStateId` never appears.
+  **(c) Frame, mandatory on every entry:** observation contract (the full public
+  record, R-A11, freeze 26), field (v0.4 §7.4 uniform-legal, F4), belief (uniform
+  over the enumerated void-free capacity fiber in the freeze-7/23 enumeration
+  order), |X|, and the freeze-set digest. **(d) Stored content is a policy and its
+  provenance only** — no value, rank, verdict or dominance status; the file is a
+  cache, never an authority; a loaded entry is re-priced before use; a digest
+  mismatch is corruption and the file is discarded entire. **(e) Transport:**
+  identity only in v1, per SEP-A3(vi); cross-coordinate transport re-enters with
+  its own adjudication. **(f) Seed rule:** the seed is the argmax-recording pooled
+  H solve over the same information partition, **unmemoized** (SEP-A11(ii)), with
+  the tie rule of freeze 26 cited, not restated; the seed contributes no number to
+  any reported L (DS-A14, DS-A15). **(g) Header note (DS-A16):** entries remain
+  valid primal-witness sources under count re-entry, evaluated under the richer
+  valuation; their count-free quality verdicts do not survive (E-A2, Proposition
+  J-win).
+
+### SEP-A5..SEP-A7 — SEP-Q2: freeze 37 and the DS-A7(iii) correction
+
+- **SEP-A5 (the U-side identification: ACCEPT; the bridge assert: REJECT).** The
+  identification of `revealed.rs::revealed_world_root_values` /
+  `revealed_summary().q_c` as U_a is verified and CORRECT. The function removes the
+  root action from the viewer's hand, solves on a one-particle bag with the world
+  revealed and the full legal set expanded at every later focal node, and leaves
+  the other three seats on the fixed uniform-legal field; `revealed_summary` sums
+  per-world envelopes and scales by 1/|X| over the full enumerated fiber. At a
+  fixed direction the support of a weighted Minkowski sum is the weighted sum of
+  supports, so `q_c` read on the ray is exactly E_β[V*_a] = U_a of errata §3.1, and
+  treatment C's field is untouched, so (C4) holds by construction.
+  The **bridge assert is REJECTED and must be removed**: `hidden_root_values` at
+  `Direction::trick_diff` (base = unit trick, delta = 0) and
+  `ScalarHidden::action_values_dag` at `ScalarValuation::trick_only` (trick = 1,
+  tiles = 0, negated when the winner is not focal) are both focal-minus-opponent
+  trick differentials. **They are asserted equal exactly, with no bridge.** The
+  freeze-26 bridge Q_diff = 2·Q_count − grade converts between the count convention
+  (S6a's filed Q, `policy_inspect`'s extraction solve, `predictive_rank`'s `fused`)
+  and the differential convention (both H solvers, `revealed`, `price`,
+  `policy_value`); it applies wherever those two conventions meet and nowhere else.
+  It is exact and its slope is 2 > 0, so every inequality, argmax and separation
+  verdict is invariant under it — the run may report in either convention provided
+  it declares which and asserts the bridge at the boundary. **Reporting
+  convention: the count convention**, so the rows are directly comparable with the
+  S6a receipts.
+  Two further clauses. (i) The probe **asserts the root is trick-leading** (empty
+  prefix): `hidden_root_values` and `revealed_world_root_values` iterate
+  `kernel.viewer_hand()` while `ScalarHidden` iterates
+  `legal_plays(decl, hand, led)`, and these coincide only when `led` is `None`.
+  Without that assertion the two solvers can be compared over different action
+  lists. (ii) The per-action price is
+  `price.rs::information_prices().g_cont_by_root`, which already exists and already
+  asserts U_a − Q^H(a) ≥ 0 envelope-wise; the probe reads it rather than
+  recomputing it, and prints it, because **that column is the measurement**.
+- **SEP-A6 (FREEZE 37 — the action-conditioned upper witness and its solver
+  identification, frozen content).** **(a) Evaluator:** U_a :=
+  `walt_strat::revealed::revealed_summary(kernel, focal, dir).q_c[a]` read at the
+  declared direction, identified as E_β[V*_a] of errata §3.1 (Lemma E3, §3.2;
+  DS-A7). **(b) Relaxation name:** treatment **C**, not C⁺ — on this carrier the
+  latent is ξ = ω and the two coincide, and the results file says so (DS-A20).
+  **(c) Direction and convention:** `Direction::trick_diff()` (base = unit trick,
+  delta = 0), the count-free focal trick differential; the reporting convention is
+  S6a's count convention and the freeze-26 bridge Q_diff = 2·Q_count − grade is
+  asserted exactly at the reporting boundary; the bridge is affine with positive
+  slope, so verdicts are convention-invariant. **(d) Belief and world set:**
+  uniform over `kernel.worlds()`, the full enumerated void-free capacity fiber,
+  identical on both sides of the sandwich; no decimated world set from any probe —
+  `fiber_probe`'s W = 240 sets included — appears inside any L or U ((C2) of errata
+  §3.4; T7). **(e) Conditions:** (C1)–(C4) of errata §3.4 asserted in-run — same
+  field, same belief and world set, same utility and count contract on both sides,
+  PI minimax never substituted. **(f) Per-action price:** U_a − Q^H(a) is
+  `price.rs::information_prices().g_cont_by_root[a]`, asserted nonnegative; the
+  aggregate siblings in the same struct are named once and never confused with it —
+  V^C = max_a U_a, V^F = U^agg = E_β[max_a V*_a], g_total = V^F − V^H = the S6a
+  `fusion_gap` column. **(g) Solver identification:** the envelope path
+  `hidden::hidden_root_values` at `trick_diff` and the scalar authority
+  `ScalarHidden::action_values_dag` at `trick_only` with `AUTHORITY_BUDGET`
+  (freeze 26) are two independently built solvers in the **same** units and are
+  asserted **equal exactly, per action, with no bridge**; the probe asserts the
+  root is trick-leading so their action lists coincide. **(h) Budget honesty:** the
+  scalar authority is budgeted and its exhaustion is a declared stop printed
+  R-A18-style with "correctness gate unmet" beside every row it voids;
+  `hidden.rs`, `revealed.rs`, `price.rs` and `policy_value` carry **no budget and
+  no stop**, and the results file states that in place rather than implying a
+  uniform stop discipline across evaluators.
+- **SEP-A7 (the DS-A7(iii) premise is corrected; recorded as a ruling, with a
+  pointer marker at the site).** DS-A7(iii) reads: "the implementation's
+  world-informed evaluator maximises at every focal node including the root, so the
+  action-conditioned variant is a small change to an existing path
+  (`walt-strat/src/revealed.rs`, `fiber_probe.rs:215`) and must be built, not
+  assumed." Verified against the code, that premise is **wrong on the `revealed.rs`
+  path**: `revealed.rs` has contained the action-conditioned evaluator since S3.
+  The design is right to raise this and its own statement is incomplete; the
+  durable form is:
+  **(1)** `revealed::revealed_summary().q_c[a]` is the **action-conditioned**
+  object U_a = E_β[V*_a] — root action held, world revealed for later focal
+  decisions only.
+  **(2)** `revealed::revealed_summary().v_f` is the **root-maximising** object
+  U^agg = V^F = E_β[max_a V*_a] — in the same file, one field away, which is why
+  the confusion was easy to make.
+  **(3)** `fiber_probe.rs::aggregate` (max at actor offset 0, mean at offsets 1–3)
+  is the P-A6 root-maximising operator, and
+  **(4)** `predictive_rank.rs::fused` is the root-maximising evaluator that
+  actually produced the S6a `fusion_gap` column the design quotes.
+  DS-A7(iii)'s substance is untouched — the ruling that U must be
+  action-conditioned, that E_β[max_a V*_a] is action-constant and makes the
+  separation vacuous, and that the `fusion_gap` column is not a per-action price,
+  all stand and are restated in Remark E3.1 (errata §3.3). What changes is one
+  engineering premise: **what remained to build was the harness and the receipts,
+  not the evaluator.** A bracketed dated pointer marker is placed at the DS-A7(iii)
+  site per DS-A28(i); its text is not rewritten.
+
+### SEP-A8..SEP-A9 — SEP-Q3 and SEP-Q4
+
+- **SEP-A8 (SEP-Q3, the argmax tie-break: ACCEPT the rule, REJECT re-freezing it,
+  and it is weaker than the design thinks).** The rule — least domino index among
+  the argmax — is right and is **already freeze 26**; freeze 36 cites it
+  (SEP-A3(iii)). The design says the tie-break "affects which witness is exhibited,
+  never validity". True, and understated: by Corollary E4.1(2) it does not affect
+  **the value of L either**, because every argmax selection at every information
+  state yields a policy attaining Q^H(a). The tie-break is a determinism freeze for
+  the exhibited policy — which matters for a library entry and for byte-diffable
+  output — and is not a soundness clause.
+  One further fact must be stated wherever the two conventions meet, because the
+  extraction solve (`policy_inspect.rs::Ctx::solve`) runs in the **count**
+  convention while the pricing runs in the **differential** convention: at any node
+  the number of tricks remaining is the same for every legal action, so
+  V_diff = 2·V_count − (tricks remaining) with an action-independent offset; hence
+  the argmax sets, and therefore the least-tile selection, are **identical** under
+  the two conventions. Without that observation the two-convention split in the
+  extraction is unjustified; with it, it is exact.
+- **SEP-A9 (SEP-Q4, the tied optimum at idx = 2599418: LAWFUL as stated, with one
+  completion and one simplification).** The protocol — attempt each tied action
+  symmetrically, report which if either separates, and report the exhaustion
+  statement as treatment H's fact and never the witnesses' — is lawful and is
+  exactly Theorem E6.4's member-not-set caveat honoured (errata §6; DS-A22's
+  restatement). Two corrections to the design's reading 3.
+  (i) **Incomplete as written.** Certifying a⋆ = 11 requires L_{11} ≥ U_a for
+  **both** competitors: the tied 22 **and** 42. The design's table has the 42
+  headroom (1/21) but its prose names only the tie. The binding form: with
+  V^H = 15/14, action 11 separates iff U_{22} ≤ 15/14 **and** U_{42} ≤ 15/14;
+  action 22 separates iff U_{11} ≤ 15/14 and U_{42} ≤ 15/14 (count convention).
+  (ii) **One conjunct is automatic.** The design writes that separation "closes iff
+  the tied competitor's action-conditioned gap is exactly 0 AND the primal witness
+  attains V^H". By Corollary E4.1(2) the second conjunct holds by construction, so
+  the condition is exactly: the tied competitor's per-action price U − Q^H is
+  **exactly zero**, and the 42 price is at most 1/21. Since U_a ≥ Q^H(a) always,
+  "at most zero" means "exactly zero", and by Theorem E6.3 that forces
+  L = Q^H = U at the tied competitor — the sandwich collapses there. This
+  coordinate is therefore a test of whether the C-relaxation is **exactly tight**
+  at a tied H-optimal action, which is the sharpest question the three coordinates
+  pose.
+
+### SEP-A10..SEP-A11 — SEP-Q5 and SEP-Q6
+
+- **SEP-A10 (SEP-Q5, the n = 4 rung: REJECTED for v1).** Not in scope, on three
+  independent grounds, any one of which suffices.
+  (i) **The cost model is unstated, not merely large.** The design asks whether
+  "34650 one-world solves per action" is acceptable and supplies no estimate of
+  what a one-world grade-4 solve costs. A rung admitted on an unestimated cost is a
+  stop written into v1 by construction — the design's own rule is that a unit
+  exceeding ten minutes returns here for a runner adjudication.
+  (ii) **The U-side evaluator cannot declare a stop.** `revealed_summary` takes no
+  budget and returns no `Option`; there is no stop to declare and no partial result
+  to print. At grade 3 that is harmless because the run completes; at grade 4 it is
+  the difference between a declared stop (R-A18, P-A16, E-A16) and a run that must
+  be killed, which is precisely the failure mode DS-A30 exists to handle and which
+  this design explicitly does not engage.
+  (iii) **The primary receipt is likely unavailable.** DS-A10's receipt for
+  Experiment E is conditioned on H completing at the same coordinate. Whether
+  `ScalarHidden::action_values_dag` completes at grade 4 within `AUTHORITY_BUDGET`
+  is unmeasured. Where it does not, every row prints "correctness gate unmet" and
+  the coordinate contributes a separation verdict with no authority cross-check —
+  mathematically still valid under Theorem E6.4, but not what DS-A10 authorised.
+  **The repair, if the rung is wanted:** it is its own design with its own
+  adjudication, minimally carrying (a) a measured single-world grade-4 timing rung
+  before any full pass, (b) a declared per-(coordinate, action) budget in
+  **deterministic units** — particle-steps, never wall-clock (DS-A29(a)) — on every
+  evaluator including the revealed path, which means adding a budget to
+  `revealed_summary`, and (c) a declaration of what a coordinate reports when H
+  does not complete. Nothing about the n = 4 rung is unlawful; it is unspecified.
+- **SEP-A11 (SEP-Q6, L < Q^H for an H-argmax seed: the typing is CORRECT, and the
+  reason is stronger than the design gives).** Stop-and-report is right, and it is
+  right because Corollary E4.1(2) makes L = Q^H a **theorem** about the pipeline,
+  not an expectation about the seed: a strict inequality proves a defect in the
+  probe, not a fact about the game. NO-RESCUE applies in full — never patched,
+  never reconciled by adjustment (F7, R-A18). Two clauses attach.
+  (i) **The three defects it can indicate are named in the stop message**, so the
+  stop is diagnostic rather than a bare failure: the extraction did not produce an
+  argmax at every state; the extraction's information partition disagrees with
+  `InfoPartition::build`; or the two H authorities disagree (which the SEP-A6(g)
+  identification would have caught first).
+  (ii) **One anticipated non-bug cause is excluded by construction, not by
+  inspection.** `ScalarHidden::action_values_dag` cannot supply the seed: it returns
+  root action values only, its `node_dag` records no argmax, and its trick-boundary
+  memo returns whole subtrees from the cache without expanding them — so a policy
+  harvested from it would be **partial**, missing an action at every information
+  state below a cache hit, and `Policy::build` would either panic or receive a
+  fabricated choice. The seed therefore comes from an **unmemoized**
+  argmax-recording pooled H solve over the same partition;
+  `policy_inspect.rs::Ctx::solve` is exactly that object and already implements the
+  freeze-26 tie rule. If a memoized extraction is ever wanted, the conditions are
+  stated in advance: the memo stores the argmax with the value, and the run asserts
+  the assembled map is **total** on `InfoPartition::build`'s state set before
+  pricing.
+
+### SEP-A12..SEP-A14 — SEP-Q7 and SEP-Q8: the receipts
+
+- **SEP-A12 (SEP-Q7, are step 7's receipts sufficient? AMEND — as written two of
+  the three are near-vacuous, and the informative receipts are elsewhere).** DS-A10
+  asks for "R-A18's discipline extended to the witness". R-A18's discipline is not
+  two assertions: it is (a) exact equality against the concrete authority, (b)
+  stop-and-report on mismatch with no adjustment, and (c) a declared stop printed
+  with what was reached, with "correctness gate unmet" beside every row it voids,
+  never silently. Measured against that, the design's step 7 is incomplete. The
+  chain assertion `L ≤ Q^H` holds as **equality by construction** (Corollary
+  E4.1(2)), and `U ≥ Q^H` is already asserted inside
+  `price.rs::information_prices`; neither can fail in a way that indicates anything
+  about the game, and PG-A8 forbids presenting "by construction" as a receipt.
+  **The five receipts that carry content, all mandatory:**
+  **(R1) solver identification** — envelope H equals scalar-authority H exactly,
+  per action, no bridge, root asserted trick-leading (SEP-A6(g));
+  **(R2) the primal receipt** — L = Q^H **exactly**, per H-optimal action, tying
+  `policy_value` to the two agreeing H authorities through a third, structurally
+  max-free code path; this is the receipt the design mislabels a measurement;
+  **(R3) the measurement** — the per-action price U_a − Q^H(a) printed as an exact
+  rational for **every** action, from `g_cont_by_root`, with the sign assertion it
+  already carries;
+  **(R4) the S6a cross-check** — SEP-A14;
+  **(R5) the max-freedom receipt** — SEP-A13.
+  Plus, unchanged from the design and correct: the certified action asserted to lie
+  in H's argmax, and Theorem E6.4's member-not-set caveat printed **verbatim beside
+  every SEPARATED verdict**, never in a footnote.
+  One typing clause that must be printed and is easy to lose: **the separation's
+  validity does not cite H, but this run's witnesses were produced with H's help.**
+  L's seed is an H solve and (R1)–(R4) are all H cross-checks. The logic of Theorem
+  E6.4 is H-free; the provenance of these particular witnesses is not. A results
+  file that blurs those two will be read as a claim this run does not support.
+- **SEP-A13 (the max-freedom receipt: the named assertion is VACUOUS; the repair is
+  mandatory).** DS-A14 requires the no-maximisation property to be asserted
+  **structurally, not by inspection**, and DS-A27 fixes the semantic invariant with
+  "no max node below the root" as an accepted sufficient implementation form. The
+  design offers three things. Two are sound: the focal callback in `policy_value`
+  returns `DominoSet::single(policy.action(id))`, and `Policy` is a total function
+  on the information partition — which is the **right** reason world-peeking is
+  unconstructible, and a stronger reason than the design's "opaque `InfoStateId`":
+  a policy assigns one action per information state, so it cannot depend on the
+  hidden world whatever its constructor knew. The third is **vacuous**:
+  `env.is_affine()` is `pieces.len() == 1`, and at `Direction::trick_diff()` the
+  delta is zero, so every line has zero slope, no two lines cross, and every
+  envelope on the ray has exactly one piece — including the full-legal-set H
+  envelope. The assertion cannot fail and is not a receipt.
+  **Repair, binding:** the L path asserts, at every focal callback invocation, that
+  the returned set is a **singleton** (`chosen.len() == 1`), and the run prints a
+  counted receipt — the number of focal decision states evaluated and the number of
+  singleton expansions — asserted equal to each other and to the count of states
+  the walk reaches in `InfoPartition`. `is_affine()` may remain in the code as a
+  cheap invariant; it may not be **reported** as the max-freedom receipt, and the
+  results file does not name it as one.
+- **SEP-A14 (SEP-Q8, the S6a values: ASSERTED, not printed side-by-side).** Exact
+  equality, asserted, stop-and-report on mismatch. Printing side by side would let
+  a drift in the frozen unranking, the kernel construction or the enumeration order
+  pass silently, and R-A18 already binds: treatment H is the concrete authority and
+  two runs of that authority at one frozen coordinate that disagree are a bug,
+  never a finding. Three clauses. (i) The comparison is made in the **count
+  convention** after the freeze-26 bridge, since the S6a filed values (53/21,
+  355/168, 16319/6720; 1, 43/42, 127/126; 15/14, 15/14, 43/42) are count values and
+  the probe's evaluators are differential. (ii) The S6a values enter the probe as a
+  **frozen table in the probe source** carrying the provenance line "quoted from
+  `predictive_rank_2026-08-12.txt`, S6a, exploratory tier" — not re-parsed from the
+  results text, which is not a machine-readable interface. (iii) The **coordinate
+  identity** is asserted first: same grade, same base index, same declaration, same
+  |X| = 1680, same fiber enumeration order; an equality of Q values at coordinates
+  that were not shown to be the same coordinate is not a cross-check.
+  I have re-derived the design's prior-data table from the S6a receipts and it is
+  **arithmetically correct in every entry**: at idx = 0, 53/21 − 355/168 = 23/56
+  and 53/21 − 16319/6720 = 641/6720; at idx = 1299709, 43/42 − 1 = 1/42 and
+  43/42 − 127/126 = 1/63; at idx = 2599418, 15/14 − 43/42 = 1/21 with the tied
+  competitor at 0; and the three `fusion_gap` values 9301/120960, 2663/181440 and
+  23/420 are quoted exactly, in the same count convention as the Q rows. The argmax
+  attributions are correct. No discrepancy.
+
+### SEP-A15..SEP-A18 — the reading, the results discipline, and the freezes
+
+- **SEP-A15 (the pre-declared reading: AMEND in three places).**
+  (i) **The aggregate-gap column is a one-sided screen and licenses nothing else.**
+  Placing "headroom per competitor" and "aggregate fusion gap" in adjacent columns
+  invites the inference *gap < headroom, therefore separation is likely*. That
+  inference is invalid. The only implication available is Corollary E3.2's: if
+  U^agg − V^H = 0 then U_a ≤ V^H for every a and, with L at its ceiling, every
+  H-optimal action separates with no gluing iteration at all. When the gap is
+  nonzero, U_a ≤ V^H + gap is all that follows, which never establishes U_a ≤ V^H.
+  The numeric coincidence that the gap is smaller than the tightest headroom at two
+  of the three coordinates (9301/120960 against 11538/120960 at idx = 0;
+  2663/181440 against 2880/181440 at idx = 1299709) and larger at the third
+  (23/420 against 20/420 at idx = 2599418) is **not evidence in either direction**,
+  and the results file says so where the column appears.
+  (ii) **The thesis scope is narrower than reading 1 claims.** What the run can
+  demonstrate at idx = 0 is that the object S6b could not complete — the Pareto
+  frontier at leads 10 and 11, capped at 16384 (PG-A13) — is **not needed** for the
+  root decision. That is a genuine result. What it cannot demonstrate is the parent
+  §8.4 economy claim, quoted bracketed: ["the solver does **not** need an exact
+  solution for every action"]. This run computes an exact H solve at every action
+  at every coordinate, because DS-A10's receipts require it. Both sentences are
+  printed; neither is allowed to stand for the other.
+  (iii) **No cost, timing, runtime or tractability claim of any kind.** Since the
+  run performs the full exact solve it would have to avoid, any timing comparison
+  is void by construction, and P-A19/DS-A32's discipline applies a fortiori. The
+  probe prints wall-clock only as provenance, never as a dividend.
+  Otherwise the pre-declared reading is ACCEPTED as written, including the three
+  named coordinate roles, F7/NO-RESCUE on both outcomes, and the R-A2 fence.
+- **SEP-A16 (what a NOT-SEPARATED verdict says, and it is more than the design
+  claims).** By Corollary E4.1(3), a failing pair (a⋆, a) at these coordinates is
+  the exact statement **Q^H(a⋆) < U_a**, and therefore a proof that no candidate
+  policy set whatsoever separates a⋆ from a under relaxation C at that coordinate.
+  The results file prints it in that form — the failing gap U_a − Q^H(a⋆) as an
+  exact rational, with the sentence that no primal witness can close it — and not
+  as "this run's candidates were not strong enough". This is the input Experiment D
+  needs: the failing pairs are exactly where a gluing cut would have to bite
+  (Theorem E6.5; DS-A3's cut typing — a cut constrains the relaxation, never the
+  lawful policy class and never the fiber). It remains exploratory tier and remains
+  coordinate-relative: nothing here is a statement about any coordinate not run,
+  about the opening, or about reachability.
+- **SEP-A17 (the successor experiment, named now so this one is not read as it).**
+  The experiment that would test the parent's economy claim is: seed L from a
+  source that is **not** an exact solve at a⋆ — a transported library entry, a
+  hand-authored playbook, a cheap heuristic — and ask whether the sandwich still
+  closes. It is out of scope here for a reason the design states correctly: six of
+  the seven completed S6b singleton roots collapse by indifference, so this run's
+  harvest is one informative entry (idx = 0, lead 00, the 108-decision playbook)
+  plus lawful-but-vacuous entries, and there is nothing yet to transport. That
+  successor needs freeze 36's transport clause opened, which needs Lemma E7's
+  isomorphism exhibited, which is its own adjudication (SEP-A3(vi), DS-A25).
+  Recording it here prevents the standing question "did walt ever test the economy
+  claim?" from being answered by pointing at this run.
+- **SEP-A18 (freezes).** Freezes 1–35 are in force and restated unchanged.
+  **(36)** is fixed at SEP-A4 — the candidate-policy library v1: key, body, frame,
+  no-values rule, identity-only transport, seed rule and the DS-A16 header note.
+  **(37)** is fixed at SEP-A6 — the action-conditioned upper witness: the
+  `revealed_summary().q_c` evaluator, the treatment-C naming clause, the declared
+  direction and reporting convention with the freeze-26 bridge at the boundary
+  only, the belief and world set with the no-decimation clause, conditions
+  (C1)–(C4), the per-action price object, the two-solver identification with **no
+  bridge**, and the budget-honesty clause. **(38)–(40) remain reserved and
+  untouched** — the gluing-cut language and cut ordering, the circuit
+  representation and evaluation order, and the reachable-belief family for W_reach
+  (DS-A13, as revised by DS-A23). **(41)–(43)** stand as ruled at DS-A36. No number
+  is reused.
+
+**What must change in the design before it is built.** Six items, in order of
+severity: the bridge assert between the two H solvers is removed and replaced by
+an exact equality (SEP-A5); the `is_affine` receipt is replaced by the singleton
+assertion and its counted receipt (SEP-A13); the seed is taken from an unmemoized
+argmax-recording solve and never from `action_values_dag` (SEP-A11(ii)); the
+n = 4 rung is removed from v1 (SEP-A10); the tie-break and the scalar authority
+are cited to freeze 26 rather than re-declared (SEP-A3(iii), SEP-A6); and the
+pre-declared reading gains the primal-ceiling paragraph, the one-sided-screen
+paragraph and the two thesis sentences (SEP-A2, SEP-A15). Everything else in the
+design is sound and is bound as written.
