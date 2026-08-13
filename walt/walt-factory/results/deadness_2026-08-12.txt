@@ -1,0 +1,116 @@
+walt decision-deadness probe (S6c) — exploratory tier
+rulings: J-A1..J-A18, Lemma J, Propositions J-0/J-1/J-win (walt/CENSUS-RULINGS.md 2026-08-12); design walt/DEADNESS-PROBE.md; runner rulings DS-A29..DS-A36 (2026-08-13); freezes 1-40 in force, runner freezes 41-43 (checkpoint format digest; canonical unit order; sequential timing rung)
+regenerate (cold, from an empty cache — DS-A31(iii)): rm -rf store/deadness_ckpt && cargo run --release -p walt-factory --example deadness_probe
+preconditions (DS-A29, asserted by construction): every stop criterion is a deterministic count (support bound, receipt budget) and never wall-clock; no clock, RNG or environment value enters any decision; workers share no mutable state on which any reported number depends (per-unit solver state only); exact rational arithmetic throughout. All counts, receipts, recall fractions and V/Q values below are therefore execution-schedule-invariant.
+
+TYPING (J-A1, mandatory): forced (|legal|=1, no decision, own column, never in any dead fraction) / decision-dead (all policies value-identical — THE object) / dominant (one Pareto-optimal vector). S6b's singleton frontiers are DOMINANCE, not deadness; the seventh specimen (108 resolved decisions) is the proof the two differ. No sentence here presents a singleton-frontier count as a deadness count.
+TAGS (J-A3): D0 and D1-sym verdicts survive count-free AND trick-plus-count (Lemma J(c), Proposition J-1 — the count guard lifts E-A2 for the transposition transport). D1-win verdicts are COUNT-FREE ONLY and are void wholesale the instant count re-enters (Proposition J-win, E-A2). The count guard (Jason, binding) is a firing conjunct of every detector.
+DENOMINATORS (J-A10): the one-deviation tie set is argmax-indifference, a SUPERSET of exact deadness; recall against it UNDERSTATES the detector. Ground truth runs at call sites with support <= 400 (declared); fired nodes beyond the bound receive the soundness receipt under a per-root budget of 50 (stops declared).
+
+roots: 3 grade-3 fabricated void-free coordinates (S6a freeze 25 decimation, base declination) x their leads; 9 eligible n=4 receipt-rung coordinates (S5h corpus, void-free typing, bidder leads trick 4) x their leads. n=5: DECLARED STOP, not measured.
+
+== DETERMINISTIC BLOCK (DS-A36: byte-identical across fresh/resumed runs and any worker count; canonical unit order) ==
+g3 idx=0 pip=0 lead=00: call sites 384 forced 50328 fired[d0=0 sym=0 win=0 any=0]; gt(classified 384 tied 276; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+g3 idx=0 pip=0 lead=10: call sites 3762 forced 44592 fired[d0=0 sym=0 win=0 any=0]; gt(classified 3762 tied 1239; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+g3 idx=0 pip=0 lead=11: call sites 4704 forced 41364 fired[d0=0 sym=0 win=0 any=0]; gt(classified 4704 tied 1773; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+g3 idx=1299709 pip=0 lead=21: call sites 7416 forced 69840 fired[d0=7416 sym=0 win=0 any=7416]; gt(classified 7416 tied 7416; hits d0=7416 sym=0 win=0 any=7416; receipts-beyond-bound skipped 0)
+g3 idx=1299709 pip=0 lead=22: call sites 6018 forced 74532 fired[d0=6012 sym=1332 win=0 any=6012]; gt(classified 6018 tied 6018; hits d0=6012 sym=1332 win=0 any=6012; receipts-beyond-bound skipped 0)
+g3 idx=1299709 pip=0 lead=63: call sites 19930 forced 213512 fired[d0=19924 sym=0 win=0 any=19924]; gt(classified 19930 tied 19930; hits d0=19924 sym=0 win=0 any=19924; receipts-beyond-bound skipped 0)
+g3 idx=2599418 pip=0 lead=11: call sites 8748 forced 86640 fired[d0=1332 sym=0 win=0 any=1332]; gt(classified 8748 tied 8748; hits d0=1332 sym=0 win=0 any=1332; receipts-beyond-bound skipped 0)
+g3 idx=2599418 pip=0 lead=22: call sites 7146 forced 87402 fired[d0=1020 sym=0 win=0 any=1020]; gt(classified 7146 tied 7146; hits d0=1020 sym=0 win=0 any=1020; receipts-beyond-bound skipped 0)
+g3 idx=2599418 pip=0 lead=42: call sites 6018 forced 110532 fired[d0=1332 sym=1332 win=0 any=1332]; gt(classified 6018 tied 6018; hits d0=1332 sym=1332 win=0 any=1332; receipts-beyond-bound skipped 0)
+n4 hand=0 lead=00: call sites 3540143 forced 38560868 fired[d0=0 sym=0 win=0 any=0]; gt(classified 358269 tied 250780; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=0 lead=21: call sites 4403921 forced 51304324 fired[d0=0 sym=0 win=0 any=0]; gt(classified 874520 tied 339164; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=0 lead=32: call sites 7004250 forced 88523328 fired[d0=0 sym=0 win=0 any=0]; gt(classified 2476706 tied 791602; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=0 lead=53: call sites 2670594 forced 87953688 fired[d0=0 sym=0 win=0 any=0]; gt(classified 109872 tied 4752; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=1 lead=11: call sites 1588728 forced 67588128 fired[d0=0 sym=0 win=0 any=0]; gt(classified 168432 tied 66120; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=1 lead=43: call sites 3062856 forced 68081178 fired[d0=0 sym=0 win=0 any=0]; gt(classified 598826 tied 568734; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=1 lead=60: call sites 6998856 forced 304453440 fired[d0=0 sym=0 win=0 any=0]; gt(classified 415296 tied 183456; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=1 lead=66: call sites 6998856 forced 304453440 fired[d0=0 sym=0 win=0 any=0]; gt(classified 415296 tied 183456; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=2 lead=21: call sites 3399899 forced 31800898 fired[d0=0 sym=3021271 win=0 any=3021271]; gt(classified 506013 tied 406035; hits d0=0 sym=302401 win=0 any=302401; receipts-beyond-bound skipped 0)
+n4 hand=2 lead=33: call sites 1796986 forced 24809224 fired[d0=0 sym=1676702 win=0 any=1676702]; gt(classified 260194 tied 211068; hits d0=0 sym=200254 win=0 any=200254; receipts-beyond-bound skipped 0)
+n4 hand=2 lead=53: call sites 2010390 forced 80783892 fired[d0=0 sym=0 win=0 any=0]; gt(classified 104184 tied 18864; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=2 lead=54: call sites 2010390 forced 80783892 fired[d0=0 sym=0 win=0 any=0]; gt(classified 104184 tied 18864; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=4 lead=21: call sites 2039952 forced 38461158 fired[d0=0 sym=0 win=0 any=0]; gt(classified 1365608 tied 287384; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=4 lead=40: call sites 3384562 forced 36506869 fired[d0=0 sym=2433167 win=0 any=2433167]; gt(classified 1426077 tied 1093512; hits d0=0 sym=986112 win=0 any=986112; receipts-beyond-bound skipped 0)
+n4 hand=4 lead=51: call sites 2039952 forced 38461158 fired[d0=0 sym=0 win=0 any=0]; gt(classified 1365608 tied 287384; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=4 lead=65: call sites 5306604 forced 53335044 fired[d0=0 sym=2779602 win=0 any=2779602]; gt(classified 1699878 tied 540798; hits d0=0 sym=439086 win=0 any=439086; receipts-beyond-bound skipped 0)
+n4 hand=5 lead=31: call sites 3722633 forced 51807584 fired[d0=0 sym=0 win=0 any=0]; gt(classified 1240150 tied 489213; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=5 lead=51: call sites 3662330 forced 62724834 fired[d0=0 sym=0 win=0 any=0]; gt(classified 1042106 tied 450060; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=5 lead=55: call sites 3798652 forced 95886036 fired[d0=80784 sym=6288 win=0 any=80784]; gt(classified 667584 tied 71016; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=5 lead=63: call sites 16345164 forced 220777020 fired[d0=0 sym=0 win=0 any=0]; gt(classified 4283084 tied 2711150; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=6 lead=11: call sites 4187786 forced 53355616 fired[d0=0 sym=1134038 win=0 any=1134038]; gt(classified 1768259 tied 1049409; hits d0=0 sym=523439 win=0 any=523439; receipts-beyond-bound skipped 0)
+n4 hand=6 lead=40: call sites 2275992 forced 35398936 fired[d0=7344 sym=0 win=0 any=7344]; gt(classified 1667516 tied 983237; hits d0=7344 sym=0 win=0 any=7344; receipts-beyond-bound skipped 0)
+n4 hand=6 lead=43: call sites 2551148 forced 38237836 fired[d0=9792 sym=0 win=0 any=9792]; gt(classified 1747018 tied 1059456; hits d0=7344 sym=0 win=0 any=7344; receipts-beyond-bound skipped 0)
+n4 hand=6 lead=53: call sites 6268467 forced 71560354 fired[d0=0 sym=1037541 win=0 any=1037541]; gt(classified 2311451 tied 1130758; hits d0=0 sym=314357 win=0 any=314357; receipts-beyond-bound skipped 0)
+n4 hand=8 lead=21: call sites 4684519 forced 70149472 fired[d0=0 sym=0 win=0 any=0]; gt(classified 999579 tied 250619; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=8 lead=31: call sites 4104343 forced 58320217 fired[d0=0 sym=0 win=0 any=0]; gt(classified 1182839 tied 248250; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=8 lead=33: call sites 4145693 forced 63704035 fired[d0=0 sym=0 win=0 any=0]; gt(classified 594938 tied 128884; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=8 lead=55: call sites 4233828 forced 65106204 fired[d0=1273512 sym=86484 win=0 any=1273512]; gt(classified 482244 tied 299640; hits d0=86484 sym=64308 win=0 any=86484; receipts-beyond-bound skipped 0)
+n4 hand=9 lead=30: call sites 4083066 forced 42001890 fired[d0=0 sym=0 win=0 any=0]; gt(classified 2409856 tied 2332750; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=9 lead=41: call sites 13685934 forced 503876388 fired[d0=0 sym=0 win=0 any=0]; gt(classified 3907356 tied 567882; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=9 lead=54: call sites 13685934 forced 503876388 fired[d0=0 sym=0 win=0 any=0]; gt(classified 3907356 tied 567882; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=9 lead=61: call sites 3841467 forced 49261060 fired[d0=0 sym=0 win=0 any=0]; gt(classified 1161892 tied 1038032; hits d0=0 sym=0 win=0 any=0; receipts-beyond-bound skipped 0)
+n4 hand=12 lead=20: call sites 4504752 forced 56454852 fired[d0=0 sym=2470852 win=0 any=2470852]; gt(classified 1805788 tied 1382515; hits d0=0 sym=1024068 win=0 any=1024068; receipts-beyond-bound skipped 0)
+n4 hand=12 lead=30: call sites 4504752 forced 56454852 fired[d0=0 sym=2470852 win=0 any=2470852]; gt(classified 1805788 tied 1382515; hits d0=0 sym=1024068 win=0 any=1024068; receipts-beyond-bound skipped 0)
+n4 hand=12 lead=40: call sites 4504752 forced 56454852 fired[d0=0 sym=2470852 win=0 any=2470852]; gt(classified 1805788 tied 1382515; hits d0=0 sym=1024068 win=0 any=1024068; receipts-beyond-bound skipped 0)
+n4 hand=12 lead=65: call sites 7137978 forced 53989536 fired[d0=0 sym=7076988 win=0 any=7076988]; gt(classified 2418996 tied 2418996; hits d0=0 sym=2358996 win=0 any=2358996; receipts-beyond-bound skipped 0)
+
+TOTALS: call sites 174250255 (forced nodes, separate column: 3606037233); fired d0=1408468 sym=26667301 win=0 any=27980333; detector calls 174250255
+RECALL vs the one-deviation tie denominator (classified 49522677 sites, 25255316 tied): d0 138208/25255316 | sym 8263821/25255316 | win 0/25255316 | any 8335057/25255316 — exact fractions, labels per J-A10; a recall against this denominator UNDERSTATES the detector. Receipts beyond the support bound skipped (declared stop): 0
+coverage is TRAVERSAL- and MEMOIZATION-RELATIVE (J-A15): these fractions are inventory statistics of this walk, not properties of the game, and a node fraction is never a cost fraction — the sequential timing rung (freeze 43) is the only quotable cost instrument.
+
+THE FENCE (J-A17, verbatim): A deadness verdict says: from this node, under the declared field, every information-consistent focal policy has the identical value. It is not a similarity claim and not a tolerance claim — nothing here supports 'about the same' for any tolerance, and delta-similarity remains future mathematics with its own rulings pending. It is not a partition: the dead/live split is a response-equality object and v0.4 §12.4 bars using it as a solver's state partition. UNKNOWN is never evidence of liveness — the detectors are one-sided by construction and their misses are lawful. Each verdict carries the valuations it survives (J-A3); a D1-win verdict is void wholesale the instant count re-enters (E-A2). Deadness is relative to a field that does not condition on focal's tile identity: against an opponent who reads discards, the choice signals and the verdict does not transfer (§7.7). It is not relative to any world, belief or support — the conditions are functions of the focal information state and quantify over the whole live set — so it is one of the few objects in this file that crosses the Φ(C) ⊊ Φ(C₀) gap intact. No runtime claim follows from a coverage fraction; the harvest ratio is the only cost statement and it is coordinate- and traversal-relative.
+
+== TIMING BLOCK (DS-A31/DS-A32: recordable, never quotable; the sequential timing rung is the only quotable timing instrument) ==
+provenance: RESUMED; checkpoint digest S6c-ckpt-v1|freezes-32-35|gt400|rb50|fields=17|unit=label+lead; 45 units loaded from checkpoint, 0 computed by this process; W=1 worker threads, 18 cores, release build. A resumed run inherits counts and receipts freely and inherits NO quotable timing at all (DS-A31).
+resume-validation: PASS (unit g3_idx_0_pip_0_lead00 recomputed; all non-timing fields bit-equal to its loaded checkpoint)
+all wall-clock figures below are CONTENDED(W=1): these timings are biased in favour of the detector arm and are not the dividend (DS-A32 — contention discounts the detector's cache-resident work relative to the memory-heavy solve). Never compared with any sequential figure.
+g3 idx=0 pip=0 lead=00: plain 40 ms, detector-arm 50 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+g3 idx=0 pip=0 lead=10: plain 64 ms, detector-arm 58 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+g3 idx=0 pip=0 lead=11: plain 48 ms, detector-arm 51 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+g3 idx=1299709 pip=0 lead=21: plain 108 ms, detector-arm 60 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+g3 idx=1299709 pip=0 lead=22: plain 103 ms, detector-arm 60 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+g3 idx=1299709 pip=0 lead=63: plain 308 ms, detector-arm 169 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+g3 idx=2599418 pip=0 lead=11: plain 84 ms, detector-arm 69 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+g3 idx=2599418 pip=0 lead=22: plain 78 ms, detector-arm 72 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+g3 idx=2599418 pip=0 lead=42: plain 111 ms, detector-arm 77 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=0 lead=00: plain 65725 ms, detector-arm 57233 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=0 lead=21: plain 69702 ms, detector-arm 90770 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=0 lead=32: plain 131561 ms, detector-arm 114537 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=0 lead=53: plain 130957 ms, detector-arm 155837 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=1 lead=11: plain 167502 ms, detector-arm 166141 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=1 lead=43: plain 179408 ms, detector-arm 160907 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=1 lead=60: plain 417431 ms, detector-arm 420241 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=1 lead=66: plain 417999 ms, detector-arm 360937 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=2 lead=21: plain 70290 ms, detector-arm 76474 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=2 lead=33: plain 55285 ms, detector-arm 44184 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=2 lead=53: plain 112285 ms, detector-arm 131513 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=2 lead=54: plain 111990 ms, detector-arm 136965 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=4 lead=21: plain 44993 ms, detector-arm 51587 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=4 lead=40: plain 57081 ms, detector-arm 49526 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=4 lead=51: plain 45046 ms, detector-arm 47319 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=4 lead=65: plain 74783 ms, detector-arm 60517 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=5 lead=31: plain 73751 ms, detector-arm 75006 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=5 lead=51: plain 103486 ms, detector-arm 88984 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=5 lead=55: plain 158819 ms, detector-arm 134256 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=5 lead=63: plain 345360 ms, detector-arm 321849 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=6 lead=11: plain 67433 ms, detector-arm 50967 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=6 lead=40: plain 33247 ms, detector-arm 33386 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=6 lead=43: plain 34441 ms, detector-arm 41320 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=6 lead=53: plain 70866 ms, detector-arm 75693 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=8 lead=21: plain 90563 ms, detector-arm 99545 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=8 lead=31: plain 87203 ms, detector-arm 88027 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=8 lead=33: plain 79172 ms, detector-arm 86942 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=8 lead=55: plain 80198 ms, detector-arm 77842 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=9 lead=30: plain 97629 ms, detector-arm 102115 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=9 lead=41: plain 411721 ms, detector-arm 471862 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=9 lead=54: plain 410678 ms, detector-arm 412281 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=9 lead=61: plain 94321 ms, detector-arm 102066 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=12 lead=20: plain 94002 ms, detector-arm 70753 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=12 lead=30: plain 83907 ms, detector-arm 77819 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=12 lead=40: plain 83479 ms, detector-arm 71451 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+n4 hand=12 lead=65: plain 136627 ms, detector-arm 72600 ms [inherited from a prior process — not one measurement with the rows above (DS-A31(iv))]
+detector cost, this process's units only: 0 ns over 0 calls (0 ns/call) [CONTENDED(W=1), same bar (J-A12/DS-A32)]
+total: 133 ms this invocation (wall; excludes checkpointed prior invocations)
+run complete: yes

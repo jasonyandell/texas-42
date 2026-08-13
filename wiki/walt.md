@@ -204,7 +204,28 @@ together with S6a: the value span is full while the decision side
 collapses almost everywhere — value richness and decision simplicity
 coexisting, the dropped-30 lesson made exact, and the first exact
 evidence for the outcome-similarity direction at the strategy level;
-the explosions sit exactly where the 42 is genuinely tense. All counts
+the explosions sit exactly where the 42 is genuinely tense. **The
+decision-sparse track (2026-08-13):** Jason's
+`decision_sparse_exact_solving_v0.1` filed verbatim and twice audited
+(DS-A1..A18 intake; DS-A19..A28 second-audit adjudication, all nine of
+5.6 Pro's amendments accepted); the repaired mathematics lives durably
+in `walt/math/decision_sparse_exact_solving_v0.1_errata.md` (Theorems
+E1/E1′, Lemma E3 action-conditioned upper witness, Lemma E4 +
+Non-theorem E4′ primal-witness inversion, Proposition E5 degeneracy,
+Lemma E7 dominance transport, Lemma E8 + Lemma J(c′) correcting
+DS-A9's cone clause, E6.1–E6.5) — the target moves from compressing
+truth to PROVING the root action via L_{a⋆} ≥ U_a separation. **The
+decision-deadness probe (S6c, its Experiment A):** under J-A1..J-A18
+(Lemma J, Propositions J-0/J-1/J-win, Jason's binding count-guard
+conjunct), three proved one-sided detectors ran at census scale — 45
+units, 174.25M detector calls, **zero false positives**; 51% of 49.5M
+classified call sites are one-deviation ties; the detectors certify
+~33% of all ties at ~25 ns/call (D1-sym the workhorse at 8.26M hits,
+D0 ~100% on one wholly-dead grade-3 family, D1-win never fired; the
+trumpless-junk tie mechanism stays a named open question, J-A8).
+Runner parallel + resumable per DS-A29..A36 (freezes 41–43); all
+mechanism receipts green (resume-validation PASS, deterministic block
+byte-identical across invocations). All counts
 carrier-relative, dynamics-equivalence, exploratory; the
 compact-description question (§12.7), the discovery principles over
 argmax partitions, and role re-entry are the open rungs. Numbers and
@@ -214,7 +235,8 @@ caveats:
 `census_yard_v2_2026-08-10.txt`, `census_a1_complete_2026-08-11.txt`,
 `fiber_probe_2026-08-11{,_h}.txt`, `fiber_refine_2026-08-11.txt`,
 `endgame_store_2026-08-11.txt`, `endgame_floor_2026-08-11.txt`, and
-`predictive_rank_2026-08-12.txt`, and `policy_geometry_2026-08-12.txt`. Counterexample-guided synthesis
+`predictive_rank_2026-08-12.txt`, `policy_geometry_2026-08-12.txt`, and
+`deadness_2026-08-12.txt`. Counterexample-guided synthesis
 per v0.4 §12.9, Scheme/Fix as the descriptor language per §12.7, carrier
 chosen per §11.2. Standing **no-rescue policy** (2026-08-10): a failure is
 a counterexample to carry back to the math, never a thing to engineer

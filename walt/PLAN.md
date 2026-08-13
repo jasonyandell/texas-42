@@ -312,6 +312,25 @@ evolved this project's own receipt/TRUST-01 discipline.
   the strategy level; the explosions sit exactly where 42 is genuinely
   tense.
 
+- **S6c** (2026-08-13): the decision-deadness probe under rulings
+  J-A1..J-A18 (Lemma J; Propositions J-0/J-1/J-win; Jason's binding
+  count guard as a firing conjunct of every detector); runner made
+  parallel + resumable under DS-A29..DS-A36 (freezes 41–43) after two
+  killed runs. Measured at census scale (45 units, 174.25M detector
+  calls): **soundness perfect — zero false positives**; 51% of 49.5M
+  ground-truth-classified call sites are one-deviation ties ("junk
+  everywhere" quantified); **detectors certify ~33% of all ties at
+  ~25 ns/call** — D1-sym is the workhorse (8.26M hits, up to 97.5% of
+  a unit's ties), D0 rare but ~100% on one wholly-dead grade-3 family,
+  D1-win never fired. The trumpless-junk family's tie mechanism remains
+  UNIDENTIFIED (J-A8: no fourth detector without proof). Mechanism
+  receipts green: resume-validation PASS, deterministic block
+  byte-identical across invocations, cache survived a mid-run kill at
+  41/45. Also this session: decision-sparse v0.1 filed + audited
+  (DS-A1..A18, errata E1–E6.5), second audit adjudicated (DS-A19..A28,
+  errata §8 — DS-A9's cone clause corrected by Lemma E8/J(c′));
+  Experiment A of the decision-sparse program is complete.
+
 ## Next
 
 - **The compression program (v0.5 — the goal, reset 2026-08-10; first

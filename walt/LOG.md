@@ -1130,3 +1130,64 @@ explodes, the incomparability structure ("better except when X") is
 exactly what the spike-anatomy frame wants to name. No similarity or
 tolerance claim is made (PG-A17); δ-similarity remains future
 mathematics.
+
+## S6c — 2026-08-13: the decision-deadness probe (detectors at census scale)
+
+**The question (Jason's framing):** "junk everywhere" — can a seat detect
+VERY cheaply that no choice it makes changes any outcome, so fiber
+exploration can prune the focal branching to 1? Binding constraint,
+Jason verbatim intent: count vetoes elimination — every detector carries
+`hand ∩ COUNT = ∅` as a firing conjunct, not an option.
+
+**The instruments (rulings J-A1..J-A18; design DEADNESS-PROBE.md;
+freezes 32–35):** three one-sided bitset detectors, each proved before it
+ran — D0 (Proposition J-0: not on lead, no trumps, every focal tile
+beaten by every potential leader in every followable context; NO
+exhaustion margin needed — the beater is the led tile itself), D1-sym
+(Proposition J-1: two-tile transposition isomorphism), D1-win
+(Proposition J-win: focal sweeps; COUNT-FREE ONLY — the guard provably
+does NOT rescue it). Ground truth: the one-deviation tie classifier
+(argmax-indifference, a SUPERSET of exact deadness — recall against it
+UNDERSTATES the detector, J-A10). Runner: parallel + resumable under
+DS-A29..DS-A36 (freezes 41–43) after the sequential run was killed twice
+— per-unit checkpoints with a freeze digest, canonical-order assembly,
+byte-diffable deterministic block, contended timings barred from the
+dividend with the bias direction named (DS-A32).
+
+**THE RESULT (results/deadness_2026-08-12.txt, 45 units = 3 grade-3
+coordinates + 9 eligible n=4 receipt-rung coordinates × their leads):**
+
+- **Soundness: PERFECT.** 174,250,255 detector calls, 27,980,333 fires,
+  and every fired site that ground truth could classify was genuinely
+  indifferent — zero false positives. Every J-A14 bit-exact V/Q assert
+  across arms held. The propositions held at census scale.
+- **The indifference is enormous:** of 49,522,677 ground-truth-classified
+  call sites, 25,255,316 — 51% — are one-deviation ties. Jason's "junk
+  everywhere" is now a measured half of all mid-game free decisions at
+  these coordinates.
+- **Recall vs the tie denominator: any = 8,335,057/25,255,316 (~33%).**
+  The workhorse is D1-sym (8,263,821 — order-exchangeability at scale,
+  up to 97.5% of a unit's ties, e.g. n4 hand=12 lead=65: 2,358,996 of
+  2,418,996). D0 is rare but sometimes TOTAL: one grade-3 root family is
+  wholly decision-dead and D0 certifies ~100% of it (7416/7416,
+  19924/19930). D1-win NEVER fired (0/45 units) — the sweep condition
+  does not occur at these coordinates.
+- **Cost: ~25 ns/call** (contended, not quotable — freeze 43's
+  sequential rung is the quotable instrument, unrun) against solve arms
+  of 10^4–10^5 ms: detection is effectively free, S5j's failure mode
+  did not recur.
+- **The open mechanism stays open (J-A8):** the trumpless-junk grade-3
+  family (idx=0) has 276–1773 ties per lead and ZERO detector hits — its
+  tie mechanism remains unidentified; no fourth detector without proof.
+
+Mechanism receipts, all green: DS-A30(iii) resume-validation PASS;
+DS-A36 byte-diff of the deterministic block across two invocations
+IDENTICAL; the checkpoint cache survived a mid-run kill at 41/45 and the
+resumed run reproduced the block byte-exactly. Tags travel per J-A3:
+D0/D1-sym verdicts survive count re-entry under the guard (Lemma J(c),
+strengthened to J(c′) by DS-A24); D1-win verdicts are void the instant
+count re-enters. Read with the decision-sparse program: fired nodes are
+exactly where H solves lose their max nodes, and Experiment A of
+decision_sparse_v0.1 is hereby complete — the detector family feeds the
+candidate-library architecture as the deadness/dominance reduction
+source named in its §3.1.
