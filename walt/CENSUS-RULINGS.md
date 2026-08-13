@@ -3401,3 +3401,35 @@ rest; §7.1 is unsound as written and repairable exactly as Proposition J-1;
 document's weight onto §10.4's circuits — where, in my judgement, it belongs.
 Nothing here is promoted, and both outcomes of every experiment above remain
 results (F7, NO-RESCUE).
+
+### DS-A17..DS-A18 — the errata filing (2026-08-13)
+
+- **DS-A17 (the durable home, and the citation rule).** The repairs of
+  DS-A1..DS-A16 are filed as first-class mathematics in
+  **`walt/math/decision_sparse_exact_solving_v0.1_errata.md`**, with full
+  statements and proofs: **Theorem E1** with Corollaries E1.1–E1.2 (the §7.1
+  repair — declared involution Θ, intertwining
+  𝖪_b ⋆ 𝖪_a = Θ_*(𝖪_a ⋆ 𝖪_b), Θ-closed policy class, conclusion on the
+  achievable law-set and the optimum, with the unsoundness argument for the
+  original and the commutativity condition located correctly as a *necessary*
+  condition for the hypothesis rather than an extra hypothesis of the proof);
+  **Definition E2** and **Proposition E2.1** (the affine repair of d_adv, with
+  the exact off-by-one); **Lemma E3** and **Remark E3.1** (the
+  action-conditioned upper witness and the action-constant aggregate);
+  **Lemma E4** and **Non-theorem E4′** (the primal witness and the inversion,
+  with a two-world witness showing the certified action can be strictly worse
+  than the rejected one); **Proposition E5** with Corollaries E5.1–E5.2 (the
+  §10.3 degeneracy and the reframe); and **Theorems E6.1–E6.5** (the parent's
+  §§4.3, 6.3, 8.3, 8.4, 9.2 restated with their load-bearing hypotheses inside
+  the statements). Citation rule, binding on every design and results file: cite
+  the **errata theorem number** for the mathematics and the **DS-A ruling** for
+  its provenance; where parent and errata differ, the errata governs. This
+  rulings file remains the adjudication record; it is no longer the home of the
+  repaired mathematics.
+- **DS-A18 (the parent stays verbatim).** No correction is ever written into
+  `decision_sparse_exact_solving_v0.1.md`; the handoff is a received document and
+  is preserved as filed, exactly as ingest packages are (the reason is the same:
+  a corrected source destroys the record of what was corrected). If a v0.2 is
+  ever filed, the errata is **re-audited against it and never silently
+  inherited** — a repair that a revision has absorbed must be checked to have
+  been absorbed, and a repair the revision contradicts is a new finding.
