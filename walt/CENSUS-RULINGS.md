@@ -3597,3 +3597,132 @@ frontier split from where a capped run stopped), which is correct. Its §7
 standing results and found nothing false in it, and note only that "closed"
 there means "unlikely to repay further work", never that a proved negative has
 become a theorem about the game.
+
+## S6c runner: resumption and parallelism (2026-08-13)
+
+**Adjudicator:** walt-math. **Scope:** execution scheduling and persistence for
+the adjudicated deadness probe. **No mathematics changes:** the detectors, arms,
+ground-truth classification, receipts and report content are exactly as ruled in
+J-A1..J-A18, and nothing below alters what is measured. **Basis:** P-A15, P-A16,
+P-A17, P-A19, X-A6, X-A16, X-A17, E-A16, E-A17, E-A18, E-A20, J-A11..J-A15.
+Amendments continue at DS-A29; freezes continue at 41.
+
+**Headline.** Both changes are lawful, and two things in the proposal are not.
+(i) The load-invariance claim on which the whole plan rests is **conditional**,
+and the conditions must be asserted rather than assumed (DS-A29) — one
+wall-clock-dependent stop or one shared mutable cache would make the *counts*
+load-dependent and void the run. (ii) The contended per-unit plain:detector ratio
+is not merely "indicative": it is **biased in the flattering direction**, for a
+structural reason, so it may be recorded but never quoted as the harvest
+dividend (DS-A32). The sequential rung of proposal 2(c) is the right instrument
+and is accepted with its selection rule tightened.
+
+- **DS-A29 (the precondition, asserted in-run, not assumed).** Everything the
+  proposal claims to be load-invariant — counts, receipts, recall, census
+  fractions, exact V/Q — is load-invariant **iff** all four of these hold, and
+  the runner asserts each: (a) **every stop criterion is in deterministic budget
+  units** (the H solver's particle-step budget), never wall-clock: a time-based
+  cap would make a unit's *content* depend on machine load and would destroy
+  load-invariance outright; (b) no `Date`, clock, RNG or environment value enters
+  any decision (P-A15 already forbids this for sampling; here it is a
+  correctness precondition); (c) **workers share no mutable state on which any
+  reported number depends** — per-worker caches only, or a shared cache whose
+  hit/miss statistics are not reported, since scheduling would otherwise make
+  those counts nondeterministic (E-A20's order-relativity, arriving through a new
+  door); (d) exact-rational arithmetic throughout, which is what makes any
+  reduction order safe (P-A19's no-float rule paying off directly). If any of (a)
+  – (d) fails, the parallel plan is void and the failure is stop-and-report, not
+  a caveat.
+- **DS-A30 (checkpoints: yes to a freeze, with the store discipline that comes
+  with it).** A checkpoint is a persisted artifact that a later run **loads and
+  trusts**, which is exactly the case the store rulings govern. Binding:
+  (i) **freeze 41** is the checkpoint record format, and every record carries the
+  **freeze-set digest**; (ii) a record whose digest differs from the running
+  freeze set is **corrupt, not stale** — the cache is discarded **entire**, never
+  partially reused (X-A6(i), P-A17, E-A18); (iii) the cache is a cache and never
+  an authority (X-A17): a resumed run **re-runs a declared sample of loaded units
+  and asserts byte-identical non-timing output** before quoting anything, and one
+  unit is enough for the sample to be meaningful; (iv) records are written
+  **atomically** (temp file, then rename) and carry their own digest — the
+  failure mode that motivated this change is being killed at an arbitrary
+  instant, and a torn record that the loader trusts is worse than no record;
+  (v) unit granularity only — no partial-unit checkpoints, so every record is a
+  completed adjudicated unit; (vi) a unit's declared stop (cap or budget
+  exhaustion) is itself a checkpointed outcome, and a resumed run reproduces it
+  rather than re-running into a different one, which (a) of DS-A29 guarantees.
+- **DS-A31 (provenance: yes to a RESUMED line, and three more).** The results
+  file prints: (i) **FRESH or RESUMED**, in E-A18's cold/warm style; (ii) the
+  freeze-set digest and the number of units loaded versus computed; (iii) the
+  **cold regenerate path** that reproduces every headline number from an empty
+  cache directory, since the cache is gitignored and nothing quoted from a
+  resumed run is otherwise reproducible from the repository alone (E-A17);
+  (iv) for **every timing quantity**, the identity of the process that produced
+  it. That last one is not bookkeeping: timings assembled from checkpoints
+  written by different processes, on a differently loaded machine, are not one
+  measurement, and P-A19 voids a wall-clock ratio assembled across runs. A
+  resumed run therefore inherits counts and receipts freely and inherits
+  **no quotable timing at all**.
+- **DS-A32 (parallel timings: recordable, not quotable, and biased in a named
+  direction).** Running units W-way parallel with both arms of a unit sequential
+  in one worker is lawful, and the per-unit ratio is *closer* to common-mode than
+  a cross-worker comparison would be. It is still not a measurement, and the
+  error is not symmetric. The two arms have different memory profiles: the plain
+  arm is a memory-heavy H solve, the detector arm is the same solve minus pruned
+  subtrees **plus cache-resident bitset work**. Under contention the solve
+  inflates by some factor c_solve and the detector work by c_det ≤ c_solve, so
+  the measured ratio
+  (c_solve·S_A)/(c_solve·S_B + c_det·D) ≥ S_A/(S_B + D),
+  the uncontended ratio — contention **discounts the detector's own cost and
+  flatters the dividend**, which is precisely the S5j failure mode J-A12 exists
+  to prevent. Binding: contended timings are labelled `CONTENDED(W=n)`, are
+  never compared with any sequential figure, and carry the sentence "these
+  timings are biased in favour of the detector arm and are not the dividend."
+  The detector's ns/call (J-A12) is under the same bar.
+- **DS-A33 (the sequential rung is the only quotable timing, with its control
+  re-measured).** ACCEPT proposal 2(c), tightened. The rung is (i) selected **by
+  a rule declared in freeze 43 before the parallel pass runs** — a P-A15-style
+  deterministic choice over the canonical unit order, never by result, and never
+  "the two most interesting units"; (ii) run at **W = 1 in a single
+  uninterrupted process**, both arms, from checkpointed inputs only if those
+  inputs are non-timing; (iii) the control is the **plain arm re-run in that same
+  pass** — not S5h's recorded numbers. S5h's 7–17 s figures are *context*, not a
+  control: P-A19 voids a ratio assembled across machines or builds, so those
+  numbers may be quoted beside the rung only if the machine, core count and build
+  profile are asserted identical, and otherwise are cited as background only.
+  Since the rung re-runs both arms anyway, nothing is lost by treating them that
+  way.
+- **DS-A34 (W is recorded, not frozen — confirmed).** Freezes exist to make
+  quoted numbers reproducible. All non-timing output is W-invariant by canonical
+  assembly (DS-A29), and all timing output is explicitly load-relative
+  (DS-A32), so W determines nothing that is quotable and is an execution
+  parameter like the nice level. It is **recorded** alongside the CPU model, core
+  count and build profile that P-A19 already requires. The one exception is the
+  rung's W = 1, which is part of its declaration and is frozen with it (freeze
+  43).
+- **DS-A35 (single process only — confirmed).** Multi-process copies sharing one
+  checkpoint directory are ruled OUT for this probe, on three independent
+  grounds: two processes can write the same record (a torn or interleaved write
+  is exactly the silent corruption X-A16 guards against); cross-process timings
+  can never be one measurement (P-A19, DS-A31(iv)); and on one machine it buys
+  nothing over W threads, since the cores are the same cores. If it is ever
+  wanted, the conditions are stated in advance: exclusive-create claim files per
+  unit, atomic rename for every record, and per-process timing provenance with no
+  cross-process ratio ever printed.
+- **DS-A36 (results-file structure, and the receipt it makes free).** The file is
+  written in two clearly separated blocks: a **deterministic block** — every
+  count, receipt outcome, recall figure, census fraction and exact V/Q, in
+  canonical unit order — and a **timing block**. The deterministic block must be
+  **byte-identical** across fresh, resumed and any W, which makes it
+  byte-diffable in the style of rob's receipts one tier down, and which yields
+  the cheapest possible validation of this entire mechanism: run one small
+  configuration fresh, run it again resumed from checkpoints, and byte-compare
+  the deterministic block. A difference is stop-and-report — it is a defect in
+  the checkpointing or in DS-A29's preconditions, never a finding about the game.
+  New freezes: **(41)** the checkpoint record format and its freeze-set digest;
+  **(42)** the unit identity and the canonical assembly order; **(43)** the
+  sequential timing rung's selection rule and its W = 1 requirement. Freezes
+  1–40 are in force and restated unchanged.
+
+**Nothing above changes what is measured.** J-A1..J-A18 stand entire; this
+section governs only when work happens, where it is stored, and which clock
+readings may be quoted.
