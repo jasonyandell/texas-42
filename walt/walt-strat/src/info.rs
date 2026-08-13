@@ -311,18 +311,38 @@ impl Policy {
     }
 }
 
+/// The SEP-A13 max-freedom receipt of one `policy_value_receipt` walk: the
+/// no-maximization property counted, not inspected. Focal callback
+/// invocations, singleton expansions, and distinct partition states reached
+/// are tallied separately; a caller asserts all three equal. A fixed policy
+/// prunes counterfactual focal branches, so the reached set is the
+/// policy-consistent subtree of the partition, not the whole partition.
+#[derive(Clone, Copy, Debug)]
+pub struct MaxFreeReceipt {
+    /// Focal information states the walk evaluated (callback invocations).
+    pub focal_states: u64,
+    /// Expansions returned as singletons (asserted at every invocation).
+    pub singleton_expansions: u64,
+    /// Distinct partition states among the visited records: equality with
+    /// `focal_states` receipts that no state was visited twice and every
+    /// visited record is a partition state.
+    pub distinct_states: u64,
+}
+
 /// The exact expected value of one deterministic information-consistent
 /// policy under the uniform fiber belief and the uniform-random legal field:
-/// a single affine line (§9.4 -- one policy contributes one line). This is
-/// the no-maximization code path; the H operator must dominate it pointwise
-/// and touch it wherever the policy is optimal.
-pub fn policy_value(
+/// a single affine line (§9.4 -- one policy contributes one line), plus the
+/// SEP-A13 counted receipt. This is the no-maximization code path; the H
+/// operator must dominate it pointwise and touch it wherever the policy is
+/// optimal. At every focal state the expansion is asserted a singleton at
+/// the callback itself -- the structural form of DS-A14/DS-A27's obligation.
+pub fn policy_value_receipt(
     kernel: &Kernel,
     focal: Team,
     dir: &Direction,
     partition: &InfoPartition,
     policy: &Policy,
-) -> Line {
+) -> (Line, MaxFreeReceipt) {
     assert_eq!(
         partition.root(),
         policy.root(),
@@ -331,6 +351,9 @@ pub fn policy_value(
     let ctx = WalkCtx::new(kernel, focal, dir);
     let bag = root_bag(kernel, policy.root());
     let mut obs = vec![policy.root()];
+    let mut focal_states: u64 = 0;
+    let mut singleton_expansions: u64 = 0;
+    let mut seen: std::collections::BTreeSet<InfoStateId> = std::collections::BTreeSet::new();
     let env = walk(
         &ctx,
         &bag,
@@ -339,14 +362,40 @@ pub fn policy_value(
         1,
         &mut obs,
         &mut |record, _legal, _| {
+            focal_states += 1;
             let id = partition
                 .id(record)
                 .expect("the partition covers every reachable state");
-            DominoSet::single(policy.action(id))
+            seen.insert(id);
+            let chosen = DominoSet::single(policy.action(id));
+            assert_eq!(chosen.len(), 1, "the L path expands singletons only");
+            singleton_expansions += 1;
+            chosen
         },
     );
     let n = i128::try_from(kernel.count()).expect("fiber sizes fit i128");
     let env = env.scale(q(1, n));
+    // Cheap invariant only: vacuous as a receipt at a zero-slope direction
+    // (SEP-A13); the counted receipt above is the reported object.
     assert!(env.is_affine(), "one deterministic policy induces one line");
-    env.pieces()[0].line
+    (
+        env.pieces()[0].line,
+        MaxFreeReceipt {
+            focal_states,
+            singleton_expansions,
+            distinct_states: u64::try_from(seen.len()).expect("state count"),
+        },
+    )
+}
+
+/// `policy_value_receipt` without the receipt, for callers that only need
+/// the line.
+pub fn policy_value(
+    kernel: &Kernel,
+    focal: Team,
+    dir: &Direction,
+    partition: &InfoPartition,
+    policy: &Policy,
+) -> Line {
+    policy_value_receipt(kernel, focal, dir, partition, policy).0
 }

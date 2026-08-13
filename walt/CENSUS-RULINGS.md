@@ -4184,7 +4184,10 @@ a receipt tying two evaluators together (SEP-A11, SEP-A12).
   the returned set is a **singleton** (`chosen.len() == 1`), and the run prints a
   counted receipt — the number of focal decision states evaluated and the number of
   singleton expansions — asserted equal to each other and to the count of states
-  the walk reaches in `InfoPartition`. `is_affine()` may remain in the code as a
+  the walk reaches in `InfoPartition`. *[DISAMBIGUATED 2026-08-13 by SEP-A19: the
+  third quantity is the number of DISTINCT partition states the L walk actually
+  reaches, never `InfoPartition::len()`, which a fixed policy cannot reach and
+  which no correct run can satisfy.]* `is_affine()` may remain in the code as a
   cheap invariant; it may not be **reported** as the max-freedom receipt, and the
   results file does not name it as one.
 - **SEP-A14 (SEP-Q8, the S6a values: ASSERTED, not printed side-by-side).** Exact
@@ -4287,3 +4290,50 @@ are cited to freeze 26 rather than re-declared (SEP-A3(iii), SEP-A6); and the
 pre-declared reading gains the primal-ceiling paragraph, the one-sided-screen
 paragraph and the two thesis sentences (SEP-A2, SEP-A15). Everything else in the
 design is sound and is bound as written.
+
+### SEP-A19 — the SEP-A13 counted receipt, disambiguated at build time (2026-08-13)
+
+**Raised by:** the build, from a first implementation that read SEP-A13's third
+quantity as `InfoPartition::len()` and tripped at idx = 0 lead 00 — 22,920 states
+reached against 50,712 in the partition, with the extraction totality receipt
+`choices.len() == partition.len() == 50,712` HELD and (R1), (R2), (R4) HELD. The
+trip was correct behaviour by a wrong receipt, which is the good failure mode.
+A pointer marker is placed at the SEP-A13 site per DS-A28(i).
+
+- **SEP-A19 (the third quantity is the reached set, and equality with
+  `InfoPartition::len()` is unsatisfiable).** The build's proposed reading is
+  CONFIRMED. The receipt is
+  **focal callback invocations == singleton expansions == distinct partition
+  states reached**, the third counted as a set of `InfoStateId`s accumulated at
+  the callback. It is a genuine receipt and not a tautology: the first equality is
+  the DS-A14/DS-A27 structural obligation asserted per call; the second additionally
+  witnesses that no observation record is visited twice in one walk — the property
+  `info.rs` claims in prose and on which Corollary E4.1(2)'s tree induction
+  depends — and that every visited record is a partition state.
+  **Equality with `InfoPartition::len()` is not merely unmet here; it is
+  unsatisfiable for any policy that ever prunes.** The partition enumerates the
+  states reachable after the root action under *some* lawful continuation; a fixed
+  deterministic policy selects one action at each state it reaches, so the L walk
+  descends only the policy-consistent subtree. A run in which the two counts agreed
+  would be a run whose "policy" expanded counterfactual focal branches, which is
+  exactly the max node DS-A14 forbids. The two receipts are therefore complementary
+  and both are mandatory: **totality** on the extraction side
+  (`choices.len() == InfoPartition::len()` — the seed must supply an action at
+  every state, since the walk's reached set is not known before the walk) and
+  **reachedness** on the pricing side.
+- **SEP-A19(b) (how the pair of numbers is reported, and one fence).** The results
+  file prints `reached X of partition Y` with both numbers, as the build proposes.
+  Typing, mandatory beside it: X is an exact computational observable of the
+  **exhibited witness**, in the same class as `InfoPartition::len()` = E_B(a)
+  (§10.9) — not an information value, not a decision width, not a policy count, and
+  never a term in the DS-A2 ladder. It is additionally **tie-break-relative**: at a
+  state where the H-argmax set is not a singleton, freeze 26's least-tile rule picks
+  one action and a different rule would descend a different subtree and reach a
+  different count. Y is the tie-break-free quantity; X is not. A results file that
+  quotes X without that sentence has published a determinism-freeze artifact as a
+  fact about the coordinate. The ratio X/Y is not a measurement of anything and is
+  not printed.
+
+**Nothing in SEP-A1..SEP-A18 changes.** SEP-A13's repair stands as ruled; only the
+identity of its third counted quantity is disambiguated, and the design text and
+probe may proceed on the build's reading.

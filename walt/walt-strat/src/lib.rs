@@ -43,7 +43,9 @@ pub use census::{pi_census, PiCensus};
 pub use direction::Direction;
 pub use hidden::hidden_root_values;
 pub use hidden_scalar::{MemoStats, ScalarHidden};
-pub use info::{policy_value, InfoPartition, InfoStateId, Policy};
+pub use info::{
+    policy_value, policy_value_receipt, InfoPartition, InfoStateId, MaxFreeReceipt, Policy,
+};
 pub use label::{OperatorLabel, WeightingLabel};
 pub use pi::pi_root_values;
 pub use price::{information_prices, upper_value, zero_information, InfoPrices};
