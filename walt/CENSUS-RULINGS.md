@@ -3038,3 +3038,366 @@ exhaustion margin with an exact three-test condition, they identify the one
 transport form under which the count guard lifts E-A2, and they exhibit the
 mechanism by which the guard fails when focal wins tricks — which is the boundary
 Jason's binding constraint was reaching for and now has a proof on both sides of.
+
+## Decision-sparse intake audit (2026-08-13)
+
+**Adjudicator:** walt-math. **Object:** `walt/math/decision_sparse_exact_solving_v0.1.md`
+(filed 2026-08-13, commit 8ee1c9e). **Tier:** exploratory; this is an intake
+audit in the style of the v0.6 audit (R-A1's shape). Nothing in the document is
+promoted by being audited, and no theorem below may be cited above exploratory
+tier. **Basis:** the document itself; v0.4, v0.5, v0.6; F1–F7, r3 Q1–Q5, Y1–Y3,
+P-A1..P-A21, X-A1..X-A19, E-A1..E-A21, S-A1..S-A21, R-A1..R-A24, PG-A1..PG-A18,
+J-A1..J-A18 and Lemmas V, X, E, S, S-fold, S-det, R, G, J, Propositions G-flat,
+J-0, J-1, J-win, Corollaries S-rigid, R-fold. Amendments are numbered DS-A1..
+and bind any design that consumes this document.
+
+**Headline, stated first — four findings decide how this document may be used.**
+
+1. **§7.1 (commuting-kernel exchangeability) is UNSOUND as written.** Under a
+   literal reading its hypothesis is unsatisfiable in this game — the public
+   trace records which tile focal played first, so the two orders never produce
+   equal traces — and under the intended transport reading its proof step
+   "compose both sides with the same lawful successor policy" is invalid, because
+   under perfect recall the continuation policy is a function of the trace and
+   the two traces are related by the transport, not equal. It is repairable
+   exactly, and the repair is Proposition J-1's shape (DS-A6). This matters
+   because the document proposes promoting D1 to a general layer on the strength
+   of this theorem.
+2. **§10.3 (finite Scheme-mass closure) is SOUND but degenerate in this game.**
+   Its hypotheses require, at every reachable interface, that the preexpectation
+   of every successor atom indicator be measurable on the current atoms, seeded
+   by 1 at terminals. That is Lemma R(c)'s closure in Boolean-algebra clothing:
+   iterating those residuals produces the complete-record path probabilities,
+   which separate worlds, so the coarsest family satisfying the hypotheses is the
+   discrete one and dim SF = |X| at every interface. The atom formulation
+   therefore buys nothing here, and §10.4's shared-circuit route is the only live
+   one (DS-A5). The document's filtering claim is precisely the degenerate part;
+   its fixed-policy evaluation claim is the salvageable part.
+3. **The treatment-C relaxation is a lawful upper witness — my R-A10 never barred
+   that — but it must be ACTION-CONDITIONED, and the quantity the branch has
+   already measured is not.** The P-A6 aggregate (and the `fusion_gap` column of
+   the S6a receipts) maximises over root actions inside the world, giving
+   E_β[max_a V*_a]; the certificate of §8.4 needs max over policies of the
+   action-fixed world-informed value, E_β[V*_a], per action. Reusing the existing
+   aggregate is not unsound — it is still an upper bound — but it is the same
+   number for every action and makes the certificate vacuous (DS-A7).
+4. **The candidate-policy library that Jason wants to extend has exactly one
+   fatal naive failure mode, and it is a soundness failure, not an efficiency
+   one.** A lower witness must be the exact value of a *fixed* lawful policy
+   integrated under the declared belief. If a library candidate is priced with
+   any evaluator that maximises inside the world — the P-A6 aggregate, `revealed`,
+   a per-world best response — the result is an UPPER bound presented as L, the
+   sandwich inverts, and §8.4 will certify the wrong action with a proof that
+   looks valid. Everything else about the extension is lawful and one part of it
+   is unusually robust (DS-A14..DS-A16).
+
+### Proof audit of the eleven theorems of §16.2
+
+Verdicts are per theorem; "obligation" marks a hypothesis the document leaves
+implicit that becomes a builder obligation.
+
+- **T1 §4.2 envelope sufficiency — SOUND, and definitional.** The proof is the
+  definition restated, which is honest but means the theorem carries no content
+  beyond fixing the object. Two things it does fix and one bridge it should
+  state: the identification Q^H_β(a) = max_ρ ⟨β,α_ρ⟩ is Lemma R(b) plus PG-A2's
+  linearity and is already adjudicated; and **at the full simplex the minimal
+  envelope is exactly my Exp set, so W_all(B,a) = N_exp(a) of PG-A4** — the same
+  number under two names, which E-A8's rule forbids reporting as two
+  measurements (DS-A4). *Obligation:* on a proper belief subfamily the minimising
+  envelope need not be unique (Lemma G(4)'s uniqueness argument uses the full
+  simplex), so W_reach is a well-defined number but "the" reachable envelope is
+  not a well-defined set; nothing may be keyed to it.
+- **T2 §4.3 width monotonicity — SOUND**, trivially. *Obligation (typing, and it
+  is not cosmetic):* the reachable-belief family is defined as posteriors, which
+  live on successor interfaces with smaller fibers, while the α-vectors live on
+  X_B. The comparison is well-typed only in the deal-level view where a world is
+  a full deal that never changes and observation refines its belief. Our
+  interface machinery (R-A4) uses shrinking fibers, so any run computing W_reach
+  must declare the identification between the two views and hold to it.
+- **T3 §5 advantage invariance — SOUND.** The common-translation argument is
+  correct and the document's own root-comparison caution is the right one.
+  *Gap (definitional, must be repaired):* d_adv(E) = dim span{α − α_0 : α ∈ E}
+  depends on whether α_0 ∈ E — with an external reference the number can be one
+  larger, and the claim "a singleton envelope has d_adv = 0" holds only when α_0
+  is that singleton. **AMEND: define d_adv(E) as the affine dimension,
+  dim span{α − α′ : α, α′ ∈ E}**, which is reference-free and makes the singleton
+  statement unconditional (DS-A4).
+- **T4 §6.2 pointwise dominance — SOUND**, and its tie caveat ("may still tie at
+  beliefs assigning zero mass to every strict coordinate") independently agrees
+  with PG-A4. Nothing to add.
+- **T5 §6.3 dominance under positive composition — SOUND, but incomplete for the
+  use it is put to.** It proves monotonicity, which is Lemma G(1). Backward
+  pruning additionally needs that the pruned composition reproduces the frontier
+  *exactly, as a set, ties included* (Lemma G(2)) and that the fold may be done
+  incrementally (Lemma G(3)). The document asserts the consequence — "this is the
+  mathematical basis for exact backward Pareto pruning" — without those two
+  steps. They are already binding and supply what is missing; a design consuming
+  §6.3 cites Lemma G, not §6.3 alone.
+- **T6 §7.1 commuting-kernel exchangeability — UNSOUND as written; repairable.**
+  See DS-A6 for the repair and the conditions.
+- **T7 §8.3 value sandwich — SOUND.** *Obligations:* (i) every candidate must be
+  information-consistent at the node, not merely "a policy"; (ii) the relaxation
+  must contain the exact class **with the same α-map** — same field, same
+  mechanics, same utility, same belief — so that the three maxima are of one
+  objective; (iii) L and U must be computed at the same β. Add one that the
+  document does not state and that our own probe discipline makes live:
+  **neither L nor U may be computed on a decimated world set.** Decimation
+  (P-A15) is lawful for choosing which coordinates to certify and is not lawful
+  anywhere inside an L or a U — a sampled mean is neither a lower nor an upper
+  bound, and a certificate built on one is void.
+- **T8 §8.4 root-action certificate — SOUND.** *Obligation:* it certifies a
+  member of the optimal set, not the set; where ties matter the certificate must
+  be run per action or the argmax reported as "contains a⋆".
+- **T9 §9.2 finite adaptive gluing — SOUND, with the termination bound honestly
+  worthless and two implicit obligations.** Items 1–4 are correct set-inclusion
+  arguments. Item 5's finiteness is real but the bound is |R_0|, doubly
+  exponential; it must never be read as a complexity claim. *Obligations:*
+  (i) each iteration's relaxed solve must be exact, or at minimum must return a
+  proved upper bound on max over R_k — anything weaker breaks U's validity, and
+  this must be proved per solver, not assumed; (ii) the stopping criterion of
+  §9.3 (Opt(R_k,β) ∩ R_H ≠ ∅) is a search, not a lookup: a negative answer
+  requires a proof over the whole optimal face, whereas "the returned optimiser
+  is unlawful" licenses only adding a cut. A run that treats one unlawful
+  optimiser as a proof that the face contains no lawful policy has skipped the
+  theorem's actual hypothesis.
+- **T10 §10.3 finite Scheme-mass closure — SOUND as an implication, DEGENERATE
+  under its own hypotheses in this game.** See DS-A5.
+- **T11 §12.1 combined factorization — SOUND**, being §§8–9 assembled, and the
+  document correctly disclaims any smallness. *Obligation:* its condition 3 ("the
+  Scheme circuit evaluator returns exact expectations under β") is the entire
+  unproved engineering core; every reported L and U carries the receipt that its
+  evaluator agreed exactly with an enumerated authority on the declared small
+  carrier, or it is not a witness.
+
+### DS-A1..DS-A3 — vocabulary
+
+- **DS-A1 ("certificate": no third term is needed; "witness" is binding).** The
+  document's objects are optimality witnesses, not verification artifacts, and
+  the distinction is real — but walt already has the word. PG-A10 fixed
+  **"witness"** for a mathematical object exhibited to prove a claim (there: the
+  belief β exhibiting exposure, the convex weights λ exhibiting non-exposure).
+  Binding: **"receipt"** = a machine-checked verification artifact regenerated by
+  a run; **"witness"** = a mathematical object exhibited to prove a claim; the
+  word "certificate" does not appear in walt artifacts at all (D3), and quotations
+  of this document that use it are bracketed as quotations. The §8.1 candidate is
+  a **primal witness**, the §8.2 relaxation is an **upper witness**, and the §8.4
+  object is the **root-action separation** (L_{a⋆} ≥ U_a for all a ≠ a⋆). The
+  reachability fence of R-A2 is restated wherever a witness is reported: no object
+  here is identity-bearing and none asserts that any state arises in play.
+- **DS-A2 ("decision width" W).** ACCEPT the term, with the bridge mandatory:
+  **W_all = N_exp** (PG-A4) — identical objects, so a results file reports one
+  number under one name with the other named as a synonym, never two rows. W_reach
+  is a genuinely new and smaller quantity; it is reported only with its declared
+  belief family, its deal-level typing (T2), and the note that its minimising set
+  is not unique. The ladder that must appear whenever more than one is quoted:
+  forced ⊂ dead (N_vec = 1) ⊂ dominant (N_par = 1), and N_pol ≥ N_vec ≥ N_par ≥
+  W_all ≥ W_reach ≥ 1 (PG-A7, J-A1).
+- **DS-A3 ("advantage dimension", "gluing cut").** d_adv: ACCEPT under the affine
+  repair of T3. "Gluing cut": ACCEPT the term with one typing clause that must
+  never be relaxed — **a cut constrains the RELAXATION, never the lawful policy
+  class and never the fiber.** A "cut" applied to worlds is a declared exclusion
+  remnant and falls under X-A1's typing wholesale, with none of §9's guarantees.
+  Validity ("satisfied by every H-policy") is proved per cut, per §9.5's three
+  conditions; asserted validity is not validity.
+
+### DS-A4..DS-A9 — interaction with standing rulings
+
+- **DS-A4 (cardinalities; answers the E-A8 exposure).** The document introduces
+  W_all, W_reach and d_adv alongside the existing N_pol/N_vec/N_par/N_exp. Ruling:
+  W_all is N_exp renamed (DS-A2); d_adv is repaired to the affine dimension (T3);
+  and any design quoting more than one of the seven states the ladder and the
+  pass that produced each (PG-A7). A run that reports W_all and N_exp as separate
+  measurements has measured one thing twice.
+- **DS-A5 (§10.3 is Lemma R(c) again; the circuit route is the live one).** The
+  hypotheses of §10.3, required at every reachable interface, force the discrete
+  algebra: seeded by 1 at terminals and closed under preexpectations of successor
+  atom indicators, the family contains ξ ↦ Pr_ξ(complete record), and a complete
+  record names every hidden tile with its seat, so those functions are nonzero
+  multiples of singleton indicators (Lemma R(c)). Since the span of atom
+  indicators has dimension equal to the number of atoms, the atoms are singletons.
+  Consequences, all binding: (i) **no compression claim may be read from §10.3**,
+  and a design that reports "the Scheme algebra closed at N atoms" with N < |X|
+  has either violated hypothesis 3 or is measuring a purpose-relative object that
+  must be declared as such; (ii) the salvageable formulation is the one already
+  ruled in R-A16 — seed with the contract's readouts, not with the constant, and
+  close under observation-aggregated residuals; (iii) exact *normalised* filtering
+  is what forces the constant back in, so filtering and compression remain
+  incompatible under this observation contract, exactly as Lemma R's consequences
+  state; (iv) §10.4's shared arithmetic/Boolean DAG and §10.5's weighted model
+  counting are untouched by this and are the real proposals. State the reframe
+  precisely when it is used: the escape is not that circuits beat rank — rank
+  remains a lower bound on linear factorisations — it is that the target changed
+  from representing every value function to evaluating finitely many inner
+  products. That is a legitimate change of target and it is the document's best
+  idea.
+- **DS-A6 (§7.1 repaired; what promoting D1 requires — answers 3(c)).** The
+  theorem must be restated as: *let Θ be a declared involution of the remaining
+  game exchanging the two focal action blocks and fixing every non-focal
+  holding; suppose the kernels intertwine, 𝖪_b ⋆ 𝖪_a = Θ_*(𝖪_a ⋆ 𝖪_b), on
+  (public trace, accumulated outcome, successor interface); suppose the lawful
+  policy class is Θ-closed. Then the two orders achieve the same SET of terminal
+  laws, hence the same optimal continuation value.* Three clauses are
+  load-bearing and none may be dropped. (i) The conclusion is about the achievable
+  set and the optimum, **not** about a fixed continuation policy: under perfect
+  recall a policy is a function of the trace, the traces differ by Θ, and "the
+  same policy" is ill-typed across the two orders. (Equality for each fixed
+  continuation is recoverable only by restricting to interface-measurable
+  policies, which is a different and smaller class and must be declared if used.)
+  (ii) The outcome monoid must be commutative for the accumulated outcome to be
+  order-insensitive; ℕ·e⋆ is, and the document's own count boundary is the right
+  fence for richer ones. (iii) The intertwining is checked against the
+  *still-leadable* structure only (F2 A3, Proposition J-1) — checking it against
+  inert contexts costs recall, not soundness. With those, §7.1 is exactly
+  Proposition J-1 stated kernel-wise, and the promotion of D1 to a
+  trace-equivalence layer is lawful; without them it is not a theorem. Note also
+  that Proposition J-1 already supplies what §7.1's count boundary asks for: the
+  transposition preserves the count decoration precisely when both swapped tiles
+  are pointless, which is Jason's guard.
+- **DS-A7 (treatment C as an upper witness — answers 3(a)).** C ≥ H is SOUND and
+  its promotion to a load-bearing upper bound is lawful: the inequality is the
+  pointwise fusion inequality of Lemma X's proof (α_ρ(ξ) ≤ V*_a(ξ) for every
+  information-consistent ρ with root action a), averaged under β. R-A10 barred
+  the P-A6 aggregate from being an *equality gate* against H; it never barred the
+  inequality, which is exactly the one-sided use. Four conditions attach.
+  (i) **Action-conditioned.** U_a := E_β[V*_a], the world-informed value with the
+  root action held at a. The existing aggregate computes E_β[max_a V*_a], which
+  is ≥ U_a for every a: still a valid upper bound, hence not unsound, but
+  identical across actions and therefore useless for §8.4. The S6a `fusion_gap`
+  column is that root-level object and is **not** a per-action price.
+  (ii) Same field, same belief, same valuation, same world set as L (T7).
+  (iii) The document's C fixes the root action and reveals the world for later
+  focal decisions; the implementation's world-informed evaluator maximises at
+  every focal node including the root, so the action-conditioned variant is a
+  small change to an existing path (`walt-strat/src/revealed.rs`,
+  `fiber_probe.rs:215`) and must be built, not assumed. (iv) PI minimax is a
+  different operator and is not a valid upper bound for the fixed stochastic
+  field — the document says this and it is correct (§8.2, §15.4). One positive
+  worth recording: at several S6a coordinates the measured fusion gap is exactly
+  0, so at those coordinates the C-relaxation is already tight and the sandwich
+  would close on the first iteration; that is real prior evidence for Experiment
+  E and it costs nothing to reuse.
+- **DS-A8 (deadness vs dominance — answers 3(b)).** §6.4's two definitions are
+  correct and match J-A1's typing exactly; the document's "the completed S6b
+  cases certify dominance, the S6c inspection suggests deadness" is the right
+  word in both places, and is consistent with J-A10: the one-deviation classifier
+  decides argmax-indifference, a superset of deadness, so it *suggests* and does
+  not certify. Binding on Experiment A's report: each of its bullet counts is
+  tagged with the denominator that produced it (J-A10), the "universally dominant
+  but non-dead" line requires both classifications on the same node set, and the
+  forced column stays separate (J-A15).
+- **DS-A9 (cone dominance vs the count guard — answers 3(d); and the firewall —
+  3(e)).** §11.3 does **not** subsume Jason's guard, and the relation is worth
+  stating because it strengthens the guard rather than replacing it. Cone
+  dominance is a criterion on already-computed feature laws μ_ρ: it is exact and
+  general and it pays for the feature law. The guard is a cheap sufficient
+  condition for the feature *difference to vanish identically* — under
+  Proposition J-0 or J-1 with H ∩ COUNT = ∅ we have μ_{ρ}(ξ) = μ_{ρ′}(ξ) for all
+  ξ and all lawful ρ, ρ′ — which is the degenerate case of §11.3 and holds for
+  **every** cone at once, with no feature law computed. So: the guard stays a
+  separate conjunct, it is the only form of §11.3 available without paying the
+  feature cost, and Proposition J-win marks its exact limit (when focal wins
+  tricks the difference does not vanish and no cone conclusion is available
+  cheaply). On 3(e): §10.6's firewall is the same principle as v0.6 §3.3/§18.6,
+  R-A14 and v0.4 §6.8/§15.2, with one permission stated more sharply than we had
+  it — **a hidden-world formula may EVALUATE a lawful policy, it may only not
+  SELECT one** — which is correct and useful. Two obligations: the observability
+  judgment ⊢ F : observable is proved against the information partition
+  `walt-strat/src/info.rs` implements (R-A11), never against an informal one; and
+  a guard reading the *support* of the current fiber is observable and therefore
+  lawful, since the support is a function of the public record — worth stating
+  because it is the useful case and an over-cautious reading would forbid it.
+
+### DS-A10..DS-A13 — which of Experiments B–H are lawfully designable now
+
+- **DS-A10 (designable now, under existing rulings plus this section).**
+  **B (tense-root anatomy)** — with two clauses: PG-A13 stands, so a frontier may
+  be quoted only at a node where the frontier computation *completed*, and the
+  "first split" must be identified by a complete computation at that node, not
+  inferred from where the capped run stopped; and the synthesised Scheme
+  separators are INSTRUMENTS in shape-v2's sense, below every tier, cited by
+  nothing, with failed separators recorded as counterexample pairs (the document
+  already asks for this). **E (root-action certification)** — with DS-A7's
+  action-conditioning, T7's no-decimation clause, and one receipt: wherever H
+  completes at the same coordinate, assert L ≤ Q^H ≤ U exactly and assert the
+  certified action lies in H's argmax (R-A18's discipline extended to the
+  witness). **F (reachable envelope)** — with DS-A2's ladder and DS-A4; W_reach
+  requires exact enumeration of the reachable posteriors, feasible only at the
+  small grades, and a stop is a stop (PG-A13).
+- **DS-A11 (designable after the object is fixed).** **C (Scheme-weighted
+  filtering)** must not be designed against §10.3's atom formulation (DS-A5). Its
+  lawful form measures **circuit size against world count** for a *declared
+  purpose* — one likelihood, one posterior moment family, one fixed lawful
+  policy's value — with bit-exact agreement against enumeration, and states in
+  its header that no algebra-compression claim is made and that exact normalised
+  filtering re-enters Lemma R(c). Stated that way it is the branch's first real
+  attempt at Gate D (moment compilation), which R-A23 named as separate and
+  unmeasured; it should say so. **D (adaptive gluing)** is designable given T9's
+  two obligations, DS-A3's cut typing and DS-A7's action-conditioning.
+- **DS-A12 (needs its own adjudication first).** **G (count and score lift)** is
+  where E-A2 bites hardest and it touches Jason's binding constraint, the
+  valuation gauge (§11.1), capture completeness (§11.2 step 5) and the stabilizer
+  question. It is NOT lawfully designable from this document alone: it needs a
+  design and its own rulings, minimally covering the declared cone, the feature
+  law's construction, which count-free verdicts are re-derived versus inherited
+  (Propositions J-0/J-1 survive; J-win does not), and what happens to every
+  form-keyed record (E-A2: void wholesale, never extended). **H (grade climb)** is
+  premature by its own terms and, when it comes, is governed by P-A21: three
+  rungs are not a law and no growth rate measured at grades ≤ 4 is quoted for the
+  opening.
+- **DS-A13 (freezes the next design will need, continuing at 36).** Freezes 1–35
+  are in force and restated. **(36)** the candidate-policy library: entry format,
+  the canonical form each entry is keyed by, and the declared transport used to
+  move an entry between coordinates. **(37)** the relaxation family: the
+  action-conditioned C evaluator and its solver identification (DS-A7).
+  **(38)** the gluing-cut language, the validity-proof obligation, and the cut
+  ordering (the sequence of relaxations is a determinism freeze because the stop
+  point depends on it). **(39)** the circuit representation and its evaluation
+  order, since exact rational arithmetic is order-insensitive in value but the
+  reported node and operation counts are not. **(40)** the reachable-belief family
+  defining W_reach, with its deal-level typing (T2).
+
+### DS-A14..DS-A16 — the candidate-policy library (Jason's extension), and how it goes wrong
+
+- **DS-A14 (the fatal naive failure, stated first because it is a soundness
+  failure).** A primal witness is the exact value of a **fixed** lawful policy,
+  integrated under the declared belief and field: no maximisation anywhere inside
+  the world. If a candidate is priced by any world-informed evaluator — the P-A6
+  aggregate, the revealed/C path, a per-world best response — the number returned
+  is an **upper** bound on that policy's value, and installing it as L inverts the
+  sandwich. §8.4 will then certify an action with a proof that is formally
+  well-formed and wrong. The document flags the shape of this in §15.3; this
+  ruling makes it a hard obligation: **every L is produced by a fixed-policy
+  evaluator that contains no max node below the root, and the run asserts that
+  property structurally (not by inspection), plus L ≤ Q^H against H wherever H
+  completes.**
+- **DS-A15 (what may and may not be carried across coordinates).** A library
+  entry is a policy, and a policy is a function of information states, so moving
+  one between coordinates requires a declared transport (Lemma E, Lemma S,
+  Corollary R-fold) and a canonical key; without it the entry is not even
+  well-defined at the new coordinate. **Dominance never travels.** "This policy
+  was dominant at coordinate X" has no status at coordinate Y — the library
+  carries policies, not verdicts, and an entry's contribution is exactly its
+  lawfulness (which makes L valid) and its measured quality at the coordinate
+  where it was measured. A run that reported an action as certified because a
+  seeded policy had been dominant elsewhere would have asserted a transported
+  optimality claim that no theorem in this file supports. Seeds are heuristics
+  for *finding* witnesses; witnesses are validated by exact evaluation, always.
+- **DS-A16 (one genuinely robust property, worth banking).** Lower-bound validity
+  depends only on a policy's lawfulness, not on the valuation under which it was
+  discovered. So the library survives count re-entry **as a witness source**:
+  every entry remains a valid primal witness under trick-plus-count, evaluated
+  under that valuation, even though its count-free dominance or deadness status
+  does not survive (E-A2, Proposition J-win). This is the one place in the branch
+  where count re-entry does not destroy prior work, and it is a reason to build
+  the library in the count-free layer now rather than waiting. It is also the
+  precise sense in which Jason's intuition that the playbook "extends if we do it
+  carefully" is correct: the policies extend, the verdicts do not.
+
+**Summary of the audit.** Nine of the eleven theorems are sound as stated, with
+the implicit hypotheses above becoming builder obligations; §6.3 is sound but
+incomplete for the pruning it is invoked to justify, and Lemma G supplies the
+rest; §7.1 is unsound as written and repairable exactly as Proposition J-1;
+§10.3 is sound but degenerate in this game by Lemma R(c), which moves the
+document's weight onto §10.4's circuits — where, in my judgement, it belongs.
+Nothing here is promoted, and both outcomes of every experiment above remain
+results (F7, NO-RESCUE).
