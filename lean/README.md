@@ -4,6 +4,22 @@ Kernel-checked formalization of the Texas 42 foundations, as a
 [Lake](https://github.com/leanprover/lean4/tree/master/src/lake) project
 depending on [mathlib4](https://github.com/leanprover-community/mathlib4).
 
+This file is the **layout index**: what each module contains, declaration by
+declaration. Three companions carry the rest, and this file does not duplicate
+them:
+
+- [`PROOFS.md`](PROOFS.md) — the working discipline: the hard rules, what
+  `decide` may do, and the idioms that work here. Read it before a new slice.
+- [`../wiki/lean.md`](../wiki/lean.md) — the artifact in context: why the
+  `decide`/`native_decide` line falls where it does, the build and extension
+  workflow, and where the kernel sits in the evidence hierarchy.
+- [`../wiki/lean-row-index.md`](../wiki/lean-row-index.md) — the mechanization
+  ledger's rows mapped to the declarations that discharge them.
+
+The plan above all of it — the trust boundary, the K0–K15 spine, mechanization
+priorities and the scoreboard — is
+[`../wiki/proof-assistant-plan.md`](../wiki/proof-assistant-plan.md).
+
 ## Authority order
 
 Lean formalizes **ingest as reconciled by the wiki**: the source of truth is
