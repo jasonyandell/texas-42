@@ -259,7 +259,13 @@ fn rule_choice(
     }
 }
 
-const ARM_NAMES: [&str; 5] = ["", "P1 least-tile", "P2 greatest-tile", "P3 beat-if-able", "P4 trump-hoard"];
+const ARM_NAMES: [&str; 5] = [
+    "",
+    "P1 least-tile",
+    "P2 greatest-tile",
+    "P3 beat-if-able",
+    "P4 trump-hoard",
+];
 
 // -- (RW-R2): the blocking shared-ground cross-check ------------------------
 // Grade-3 S6a idx=0, root 00 (declared): each arm priced at the callback and
