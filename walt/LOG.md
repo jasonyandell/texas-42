@@ -270,3 +270,17 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   corpus check pending before external citation). **Max = 3, witness
   constructed**: blanks {00 10 11 20 30 40 50}, twos {21 22 32 33 42 44 62},
   fives {51 52 53 54 55 65 66}, leftover {31 41 43 60 61 63 64}. 235 ms.
+- **S6j (2026-08-14)**: the rule-economy probe at the n4 carrier — the map-free
+  rule walk under RW-A1..A8/freeze 49, after walt-math proved h9's verdict from
+  the filed numbers alone (NOT SEPARATED by Corollary E4.1(3), the worst margin
+  of the nine — a result the pass had left on the table). RW-R2 (blocking):
+  the rule walk reproduces the materialised map exactly on shared ground.
+  **THE RESULT: every coordinate where separation is possible at all is
+  certified by a four-word rule.** P2 greatest-tile separates at all four
+  positive-margin coordinates — at h1 with gap ZERO — and at h4 all four rules
+  separate. The exact-solve seed was never needed anywhere certifiable, at
+  trick 4, on real deals. At h9, Jason's dumb-heuristic bar is set: best rule
+  within 1202339/8870400 (~0.136 tricks) of the exact optimum, measured where
+  the exact route cannot price at all (rule walks reach 37M–105M states in
+  O(1) memory vs the 517M-state map that broke the cap). Negative-margin rows
+  typed as E4.1(3) receipts; gaps as measurements; nothing conflated.
