@@ -9883,3 +9883,379 @@ committed/companion split. **On nobody, now: anything else.**
   item never owed. **Nothing changes in any verdict, receipt, freeze, number or
   results file**, no re-emission and no re-run is implied, and SR-A32(v)'s four
   small emitter items for the next SR run stand exactly as written.
+
+---
+
+## The feature-fee audition: Jason's control feature, specified (2026-08-14)
+
+**Adjudicator:** walt-math-11. **Object:** a request, relayed 2026-08-14, for a
+minimal rung-one *feature-fee audition* — a 2–5 minute test of whether
+control-flavoured structural features bite against the grade-4 receipts, using a
+candidate feature Jason derived at the table while reasoning through h0. This is
+the experiment inbox 017's §14.3 and SR-A19 both anticipated: **measure which
+structural features approximate the perfect penalties, on a carrier where the
+perfect answer is already filed, before any counting problem is faced.**
+**Tier:** exploratory throughout, below every tier, like everything in walt.
+**Basis:** the FT and SR chapters entire, with Proposition FT-flat, Lemma
+FT-arrive, Lemma FT-post, Corollary FT-conv, Corollary FT-grade4, Proposition
+SR-degen, Proposition SR-taut; FT-A13(i)/(iii) and SR-A12(i)/SR-A14(v) on
+centering; freeze 26, 37(d), 38 v1.1, 44 v2, 45, 50 v1.1; the filed rows of
+`fusion_tax_2026-08-14.txt`. Rulings **FF-A1..FF-A9**; two propositions and one
+lemma delivered with proofs; **freeze 52** fixed at FF-A6. The prefix `FF-` and
+every name below were grep-checked unused at adjudication time.
+
+**The audition is GRANTED and re-shaped. It is not premature — it is the right
+experiment at the right moment, and it is the cheapest one the branch has left at
+grade 4.** But two of its four requested elements do not survive contact with the
+mathematics, and both failures are informative rather than fatal:
+
+1. **One of the two requested features captures exactly zero, by theorem, at
+   every state and for every fee.** F2 as requested — *"boss outstanding-trump
+   ownership (opponent vs partner)"* — is a function of the world alone. An
+   action-blind fee cancels identically against the clairvoyant term and leaves
+   the tax untouched (**Proposition FF-blind**, the penalty-side twin of
+   Proposition FT-flat). **Auditioning it as a live candidate would burn the run
+   to rediscover a theorem.** It is retained — because it is exactly what an
+   audition needs and has no other way to get: a **null control** with an exact
+   pre-declared prediction of zero, which is the only contentful check the harness
+   can have. Repurposed, not discarded.
+2. **The requested centering is unsound as written.** The spec gives the fee as
+   `λ = θ(φ − E_{ν_I}[φ])` with a single centre per state. F1 depends on `b`, and
+   Theorem 12.1's hypothesis is `Σ_ω μ_I(ω) λ_I(ω,b) = 0` **for every `b`
+   separately**. A per-state centre does not satisfy it, and a fee that is not
+   centred per action **is not a valid upper witness at all** — the resulting
+   number would be neither an upper nor a lower bound on anything. This is
+   FT-A13(i)'s *"the centering law is indexed by `b`"* one rung down, and it is the
+   single most likely way this build could have produced a plausible wrong number.
+   Corrected at FF-A2 and frozen at freeze 52(c).
+
+And one finding that governs how the result may be read, whichever way it comes
+out:
+
+3. **The audition's two outcomes are not logically symmetric, and the
+   pre-declaration must say so.** Optimising `θ` per state spends one free
+   parameter per information state — 1,332 of them at h0, 216 at h2 — so the
+   measured capture is an **oracle** quantity that upper-bounds what any shared,
+   small parameterisation could achieve (**Proposition FF-oracle**). Therefore a
+   **low** capture **refutes the feature conclusively**, and a **high** capture
+   **establishes nothing about a usable fee family** and merely licenses the next
+   experiment. F7 says both outcomes are results; it does not say they are results
+   of equal strength, and here they are not.
+
+---
+
+### Proposition FF-blind (an action-blind fee captures exactly zero) — delivered here
+
+Fix a frontier information state `I` with `p_I > 0`. Let `ψ_I(ω)` be any
+world-feature not depending on the action, let
+`c_I = Σ_ω μ_I(ω) ψ_I(ω) / p_I` be its `ν_I`-mean, and let
+`λ_I(ω,b) = θ(ψ_I(ω) − c_I)` for any `θ`. Then `λ_I` is centred for every `b`,
+and the penalised local value is unchanged:
+
+  `Σ_ω μ_I(ω) max_b [q_I(ω,b) − λ_I(ω,b)] = Σ_ω μ_I(ω) m_I(ω)`,
+
+so the residual tax `δ_I^λ` equals `δ_I` exactly, for every `θ`. **The captured
+fraction is identically zero.**
+
+*Proof.* Centring: `Σ_ω μ_I λ_I(·,b) = θ(Σ_ω μ_I ψ_I − p_I c_I) = 0` for each `b`
+by the definition of `c_I`. Because `λ_I(ω,b)` does not depend on `b` it passes
+through the inner maximum: `max_b [q_I(ω,b) − λ_I(ω)] = m_I(ω) − λ_I(ω)`.
+Summing against `μ_I` and using centring once more kills the `λ` term. Subtracting
+the `b`-free glued value `max_b Σ_ω μ_I q_I(·,b)` gives `δ_I^λ = δ_I`. ∎
+
+**What it says, and why it is the twin of FT-flat.** Proposition FT-flat proved
+that an action-blind *upper feature* returns a bound no better than `U_a^C`.
+Proposition FF-blind proves the dual half: an action-blind *fee* removes no fusion
+value at all. Together with Proposition T1-blind on the primal side, the branch now
+has the same lesson proved three times in three formalisms — **a witness, a bound
+or a fee must be conditioned on the decision it is trying to price.** The scope is
+equally precise: this constrains `φ` as a function of `b` only. It says nothing
+against a `b`-dependent but crude feature, and nothing against a feature whose
+`b`-dependence is weak.
+
+### Lemma FF-min (the fee objective is convex piecewise-linear, bounded below, and exactly minimisable) — delivered here
+
+For a feature `φ_I(ω,b)`, write `Φ_I(ω,b) = φ_I(ω,b) − c_I(b)` with
+`c_I(b) = Σ_ω μ_I(ω) φ_I(ω,b) / p_I`, and
+
+  `G_I(θ) = Σ_ω μ_I(ω) max_{b ∈ A(I)} [ q_I(ω,b) − θ Φ_I(ω,b) ]`.
+
+Then: **(a)** `G_I` is convex and piecewise linear in `θ`, with breakpoints among
+the finitely many rationals `θ_{ω,b,b'} = (q_I(ω,b) − q_I(ω,b')) /
+(Φ_I(ω,b) − Φ_I(ω,b'))` taken over positive-mass `ω` and pairs `b ≠ b'` with
+`Φ_I(ω,b) ≠ Φ_I(ω,b')`; **(b)** `G_I(θ) ≥ max_b Σ_ω μ_I(ω) q_I(ω,b)` for every
+`θ`, so `G_I` is bounded below and the residual `δ_I^θ := G_I(θ) − max_b Σ_ω μ_I q_I(·,b)`
+is nonnegative; **(c)** the infimum of `G_I` is attained, at a breakpoint if any
+exists and everywhere otherwise; and **(d)** `min_θ δ_I^θ ≤ δ_I`, since `θ = 0`
+is feasible and `δ_I^0 = δ_I`.
+
+*Proof.* (a) For each `ω` the inner expression is a maximum of `|A(I)|` affine
+functions of `θ`, hence convex piecewise linear with breakpoints exactly at the
+displayed crossings; a nonnegative-weighted sum of convex piecewise-linear
+functions is convex piecewise linear and its breakpoints are contained in the
+union. (b) For any fixed `b₀`, `max_b [q − θΦ] ≥ q(ω,b₀) − θΦ(ω,b₀)` pointwise;
+summing against `μ_I` and using `Σ_ω μ_I Φ_I(·,b₀) = 0` gives
+`G_I(θ) ≥ Σ_ω μ_I q_I(·,b₀)`; take the maximum over `b₀`. (c) A convex
+piecewise-linear function with finitely many pieces that is bounded below attains
+its infimum; if it has at least one breakpoint the minimum is attained at one, and
+if it has none it is affine and bounded below, hence constant. (d) At `θ = 0`,
+`G_I(0) = Σ_ω μ_I m_I` and the residual is `δ_I`. ∎
+
+**Why it is stated.** It is what licenses **exact** minimisation with no grid and
+no float (P-A19): enumerate the breakpoints, evaluate, take the least. It also
+supplies two of the audition's receipts — (b) gives `δ_I^{θ*} ≥ 0` and (d) gives
+`δ_I^{θ*} ≤ δ_I`, and **both are contentful**, because the swept minimum and the
+filed `δ_I` come from different computations (unlike Proposition SR-taut's five,
+which compare a checker against itself).
+
+### Proposition FF-oracle (per-state fees bound shared fees; the audition refutes conclusively and confirms only weakly) — delivered here
+
+For a feature `φ` let `R_free = Σ_I min_θ δ_I^θ` be the residual under a fee
+optimised **independently at every state**, and let
+`R_shared = min_θ Σ_I δ_I^θ` be the residual under one **shared** `θ`. Then
+
+  `R_free ≤ R_shared`,  hence  `capture_free ≥ capture_shared`,
+
+where `capture = (Δ^(1) − R)/Δ^(1)`. The same holds against any fee family whose
+parameter is constrained to depend on less than the full identity of `I`.
+
+*Proof.* For every `θ`, `R_free = Σ_I min_{θ'} δ_I^{θ'} ≤ Σ_I δ_I^θ`; minimise the
+right side over `θ`. Any constrained family is a subset of the per-state-free
+family, so its optimum is no better. ∎
+
+**The reading this forces, pre-declared.** `capture_free` is an **oracle-θ**
+number: it spends one free rational per information state — 1,332 at h0's
+positive support and 216 at h2's — which is a lookup table, not a feature basis.
+Inbox 017's §14.3 asks for *"a small action-conditioned feature family"*, and this
+audition measures no such thing. Consequently:
+
+- **`capture_free` small ⟹ the feature is refuted, and strongly**, because no
+  shared or coarser parameterisation can beat it. This is the outcome the audition
+  is *for*, and it is the cheap half of the question.
+- **`capture_free` large ⟹ nothing follows about a usable fee family.** It licenses
+  exactly one thing: the next experiment, which is the shared-`θ` fit and then a
+  multi-feature fit.
+
+**Binding: the column is named `oracle-θ capture` in every artifact and every
+sentence, never "capture" unqualified, and never "the feature's capture."**
+
+---
+
+- **FF-A1 (typing, tier, and what this section is).** The audition is **GRANTED
+  as the FF family**, re-shaped at FF-A2..FF-A5 and frozen at FF-A6. Everything is
+  exploratory, cited by nothing above this tier, quotable as a result only by brief
+  amendment adding it to a verifier receipt. DS-A1 binds: **witness**, **receipt**,
+  **necessary outer profile**, never the forbidden word. Both outcomes of every
+  gate are results (F7), with FF-oracle's asymmetry attached. A receipt failure is
+  stop-and-report, never a patch (NO-RESCUE). **The feature is Jason's and its
+  provenance is table reasoning about a real hand; that is a perfectly good source
+  of a hypothesis and no kind of evidence for it** — the audition exists precisely
+  to price it, and a null result costs the hypothesis nothing but its candidacy.
+- **FF-A2 (the requested centering is UNSOUND as written and is corrected; this is
+  the defect most likely to have produced a plausible wrong number).** The request
+  specifies `λ = θ(φ − E_{ν_I}[φ])`, one centre per state. **Theorem 12.1's
+  hypothesis (FT-A13(i), CONFIRMED) is `Σ_ω μ_I(ω) λ_I(ω,b) = 0` for every `b`
+  separately.** With `φ` depending on `b` — which F1 does, and must, by Proposition
+  FF-blind — a single per-state centre leaves `Σ_ω μ_I λ_I(·,b) ≠ 0` at every `b`
+  whose feature-mean differs from the pooled mean, the penalty theorem's hypothesis
+  fails, and **the resulting `G_I(θ)` bounds nothing in either direction.** The
+  correct object is the per-action centre
+  `c_I(b) = Σ_ω μ_I(ω) φ_I(ω,b) / p_I` and the fee
+  `λ_I(ω,b) = θ(φ_I(ω,b) − c_I(b))`, which is centred for every `b` and every `θ`
+  by construction. **Frozen at 52(c) and receipted at (FF-R2)** — by construction is
+  not a receipt (PG-A8), and this is exactly the hypothesis whose silent failure
+  the FT chapter was built to catch.
+- **FF-A3 (the requested F2 is provably vacuous and is REPURPOSED as the null
+  control — the audition's only contentful theorem-backed check).** *"Boss
+  outstanding-trump ownership (opponent vs partner)"* is a predicate on `ω` and the
+  record; the record is fixed at `I`; so it is action-blind and Proposition
+  FF-blind gives capture **exactly zero** at every state, for every `θ`. Three
+  clauses. (i) **As a live candidate it is dead before the run** and auditioning it
+  as one would spend the run rediscovering a theorem. (ii) **As a null control it
+  is worth more than a live candidate**, because it is the one quantity in the
+  build whose exact value is known **by proof** rather than by a filed number —
+  the (SR-R9) role, which SR-A31(iii) identified as the only check in that build
+  that could not be self-consistently wrong. A nonzero measured capture for F0
+  falsifies the centring, the sweep, the accumulation or the arithmetic, and is
+  stop-and-report. (iii) **It also pins the harness's sign and scale**: F0's
+  measured `θ*` is unconstrained (every `θ` is optimal), so freeze 52(e)'s tie rule
+  must return `θ* = 0` there, which is itself a check on the tie rule.
+- **FF-A4 (the feature list, FROZEN EXACTLY — three members, one of them the null
+  control; a feature is a function and an ambiguous one is unusable).** All are
+  evaluated at a frontier state `I` in world `ω` for a legal action `b`, from data
+  the walk already carries. "Outstanding trump" means: the highest-ranking trump
+  under the declaration among tiles **not yet played in the record and not in the
+  focal seat's hand at `I`** — i.e. held by a field seat in `ω`. Write `h(ω)` for
+  the seat holding it. If no trump is outstanding at `I`, **every feature below is
+  0 for every `b`** at that state, which by Proposition FF-blind makes its capture
+  zero there; the count of such states is emitted.
+  **(F0) NULL CONTROL — `boss_owner`.** `φ(ω,b) = 1` if `h(ω)` is an opponent of
+  the focal seat, `0` if a partner. Action-blind. **Pre-declared exact prediction:
+  oracle-θ capture `= 0` at every state and every unit.**
+  **(F1) JASON'S FEATURE — `boss_can_follow_b`.** `φ(ω,b) = 1` if `h(ω)` holds at
+  least one tile of `b`'s suit under the declaration, else `0`. `b`'s suit is the
+  declaration-relative suit of the tile `b`; where the focal seat is **leading** at
+  `I` this is the context `b` establishes, and where it is **following** it is the
+  suit `b` belongs to, which still varies across legal `b` when the focal can trump
+  or throw off. **The leading/following split is emitted per unit and the capture
+  is reported separately on each part**, because the feature's motivating reading —
+  *the boss-trump holder can follow the context I am about to establish* — is the
+  leading one, and h2's 330 states are all leading while h0's are mixed.
+  **(F2) CONTROL SIBLING — `b_is_beatable`.** `φ(ω,b) = 1` if in world `ω` some
+  opponent holds a tile that would beat `b` in the trick as it stands at `I` after
+  `b` is played, else `0`. Computed from the existing rule algebra
+  (`legal_plays`, `Trick::winner`) and never by a re-implementation of it.
+  Action-conditioned, hidden, and the most directly control-flavoured of the three.
+  **Declared extension, NOT commissioned now:** the graded form of F1 (the *number*
+  of `b`-suit tiles `h(ω)` holds) and any joint two-feature fee. The joint problem
+  is convex in `θ⃗` but is no longer a one-dimensional sweep, and it re-enters with
+  its own ruling if and only if F1 or F2 survives (FF-A8(c)).
+- **FF-A5 (the carrier: one factual correction, and the arms).** **h0 has ONE
+  freeze-50 unit, not two** — verified at adjudication time: `fusion_tax_2026-08-14.txt`
+  carries exactly one h0 unit, competitor `a = 00`, against `a⋆ = 53`, because h0
+  is the untied coordinate with a single binding pair. The request's "both
+  freeze-50 units" for h0 is corrected here. h2 has two (`a = 53`, `a = 54`). **h6,
+  h9 and h12 are OUT OF SCOPE** — h9 for cost as requested, h6 and h12 because 53,570
+  and 69,512 frontier states buy nothing an audition needs that 330 and 16,136 do
+  not, and because SR-A25(iii)'s selection fence binds equally hard at three
+  coordinates as at five.
+- **FF-A6 (FREEZE 52 — the feature-fee audition carrier).**
+  **(a) The carrier, enumerated with no generating rule** (FT-A23: a freeze is a
+  constant, not a rule): **arm 1** — h0, pip 3, hand `[00 21 32 53]`, unit
+  `a = 00`. **Arm 2, attempted after arm 1 completes, with a declared stop** — h2,
+  pip 5, hand `[21 33 53 54]`, units `a = 53` then `a = 54`. Arm 1 is both the
+  cheapest unit in the carrier and the hand the feature came from. Coordinate
+  identity is asserted in freeze 45's form at every unit, kernel rebuilt in-run and
+  asserted equal.
+  **(b) The measured object.** Per frontier state `I` **with `δ_I > 0`** and per
+  feature: `c_I(b)` for every `b`, the breakpoint count, `θ*`, `δ_I^{θ*}`, and the
+  captured amount `δ_I − δ_I^{θ*}`. States with `δ_I = 0` are counted and skipped —
+  there is nothing to capture there and Lemma FF-min(d) gives `δ_I^{θ*} = 0`.
+  **(c) The fee, per FF-A2:** `λ_I(ω,b) = θ(φ_I(ω,b) − c_I(b))` with
+  `c_I(b) = Σ_ω μ_I(ω) φ_I(ω,b) / p_I`. **Per-action centring is mandatory and
+  receipted.**
+  **(d) Exact minimisation only** (Lemma FF-min): enumerate the breakpoints,
+  evaluate `G_I` at each, take the least. **No grid, no search, no float anywhere**
+  (P-A19; clippy `-D float_arithmetic` and the no-float grep bind). Every
+  denominator that must divide is **asserted** to divide, and the arithmetic is
+  **checked** — an overflow in the breakpoint or evaluation arithmetic is
+  stop-and-report, not a wrap.
+  **(e) The tie rule, declared before the run and never chosen by result:** `θ*` is
+  the **smallest** breakpoint attaining the minimum, in ascending rational order;
+  if a state has no breakpoints, `θ* = 0`.
+  **(f) Reporting.** Per unit and per feature, in the **count convention**
+  (Corollary SR-conv; taxes are differences and are exactly half their differential
+  value): `Σ_I δ_I^{θ*}`, the **oracle-θ capture** `(Δ^(1) − Σ_I δ_I^{θ*})/Δ^(1)` as
+  an exact rational, and the three-way census `{all, some, none}` of states by
+  whether `δ_I^{θ*}` is `0`, in `(0, δ_I)`, or `= δ_I`. Split additionally by
+  leading/following at `I`, and report the count of states with no outstanding
+  trump.
+  **(g) Belief and field are NOT re-declared** — freeze 26 and 37(d), uniform over
+  the full enumerated fiber, no decimation inside anything ((C2)). **No library
+  entry at any coordinate** (freeze 45). The freeze-set digest travels on every
+  record.
+  **(h) Budgets:** freeze 44(b) v2 unchanged; no new constant. On exhaustion, no
+  partial fold — no partial capture, no partial residual.
+- **FF-A7 (the receipts, at audition scale — six, with the non-receipts named).**
+  (i) **(FF-R1) the null-control receipt — BLOCKING, before any F1 or F2 number
+  exists.** Assert F0's `δ_I^{θ*} = δ_I` **exactly at every state** and its
+  per-unit oracle-θ capture `= 0` exactly, and `θ* = 0` by freeze 52(e). **The only
+  check here whose answer is known by proof** (Proposition FF-blind) rather than by
+  a filed rational — the (SR-R9) role. It tests the per-action centring, the
+  breakpoint enumeration, the sweep, the exact accumulation and the tie rule at
+  once. Failure is stop-and-report.
+  (ii) **(FF-R2) the centring receipt.** At every state and **every** `b` — not
+  only the argmax `b` — assert `Σ_ω μ_I(ω) λ_I(ω,b) = 0` exactly at the reported
+  `θ*`. **Contentful**: it is Theorem 12.1's hypothesis, and it is precisely what
+  fails under the per-state centring of FF-A2. By construction is not a receipt.
+  (iii) **(FF-R3) the bound receipt.** Assert `0 ≤ δ_I^{θ*} ≤ δ_I` at every state,
+  with `δ_I` taken from the frontier pass. **Contentful** by Lemma FF-min(b),(d) —
+  the swept minimum and `δ_I` are different computations, so a sweep bug shows up
+  here; this is *not* a Proposition SR-taut identity.
+  (iv) **(FF-R4) the direct-evaluation receipt.** At the reported `θ*`, recompute
+  `G_I(θ*)` by direct summation over worlds — `Σ_ω μ_I(ω) max_b[q − θ*Φ]`, with no
+  incremental state — and assert equality with the swept value. **Contentful**: two
+  independently written paths sharing only the inputs. The (SR-R6) role at audition
+  scale.
+  (v) **(FF-R5) the rung-one invariance receipt.** Assert `|I_1|`, the arrival
+  count, the zero/positive census, `Δ^(1)`, `U^(1)` and `U^(0)` against a frozen
+  table transcribed from `fusion_tax_2026-08-14.txt` with its provenance line,
+  never re-parsed (SEP-A14(ii), FT-A28(i)). **This build regenerates a rung-one
+  frontier, so FT-A28(iv)'s (FT-R7c) applies**: emit the per-unit frontier digest;
+  **assert** it against the transcribed value at h2, where `SR_FIRST` already carries
+  one; **emit and file** it at h0, where none exists yet, with (FT-R7a)'s corrected
+  scope line.
+  (vi) **(FF-R6) determinism.** An in-run second pass with fresh maps, accumulators
+  and budgets; every printed row and summary asserted identical.
+  (vii) **NAMED AS NON-RECEIPTS, per Proposition SR-taut and printed as arithmetic
+  remarks:** `δ_I^{θ*} ≥ 0` *as re-derived from the probe's own `G` and glued
+  value*; `capture ≤ 1`; `Σ_I(δ_I − δ_I^{θ*}) = Δ^(1) − Σ_I δ_I^{θ*}`; and
+  convexity of `G_I`. They cannot fail. **(FF-R3) is a receipt only because it
+  compares against the frontier pass's `δ_I`**, and that distinction must be printed
+  beside it.
+- **FF-A8 (all outcomes pre-declared, before any number exists; F7 binds, with
+  Proposition FF-oracle's asymmetry attached to every one).**
+  (a) **F0's capture is anything other than exactly 0** → stop-and-report. The
+  harness is wrong; no F1 or F2 number is reported, emitted or discussed. This gate
+  is blocking and comes first.
+  (b) **F1's oracle-θ capture is small at both arms** → **the feature is refuted,
+  and conclusively**, because by Proposition FF-oracle no shared or coarser
+  parameterisation can do better than the per-state oracle. **This is a RESULT and
+  the most likely one**; it costs Jason's hypothesis its candidacy and nothing else,
+  and it is filed as a result under F7, not as a null. The same for F2.
+  (c) **F1's or F2's oracle-θ capture is large** → **nothing is established about a
+  usable fee family** (Proposition FF-oracle), and no claim is made beyond the
+  measurement. It licenses exactly one thing: a follow-on ruling commissioning the
+  shared-`θ` fit and then the joint two-feature fit, which are different experiments
+  with different objects. **No artifact of this build may say a feature "works."**
+  (d) **The leading/following split differs sharply** → reported as a scope fact
+  about F1's definition (FF-A4), not as a fact about 42, and read against h2 being
+  wholly leading and h0 mixed.
+  (e) **A budget stop, or arm 2 not reached** → declared stop, no partial fold, no
+  partial capture, printed as a stop and never as a finding (R-A18, freeze 44(b)).
+  (f) **SETTLED A PRIORI, reportable only as such.** By Proposition SR-degen no
+  closure verdict exists at grade 4 for either coordinate, and **a shave measured
+  here changes no verdict** — h0's binding pair is untied and already closes at rung
+  two, h2's is tied and terminates at equality. **The entire value of this build is
+  as a screening measurement for trick 1**, where FT-A21's three obligations are the
+  binding constraint. Any sentence in the artifact implying a grade-4 verdict moved
+  is void on its face.
+- **FF-A9 (fences, runtime, and what none of this can ever claim).**
+  (i) **Every standing fence travels verbatim**: the R-A2/P-A1 fence; the N4-A8
+  real-deal fence (the hands come from rob's corpus, **the belief does not**);
+  SR-A25(iii)'s selection fence, which binds *harder* here than at rung two —
+  **three units at two coordinates chosen by negative binding margin are a carrier,
+  not a sample**, and a capture fraction is exactly the kind of number that reads
+  like a rate; P-A21 — **no quantity measured at grade 4 is quoted for trick 1 or
+  for the opening**, which for a screening experiment aimed at trick 1 is the fence
+  most at risk and must be printed in the header; and SR-A25(vii)'s
+  implementation-versus-corpus risk, undiminished.
+  (ii) **Not claimed, printed in place**: nothing about points or marks; nothing
+  about bidding; nothing about how real opponents play; no cost or tractability
+  claim off any traversal observable (SEP-A19(b)); and **nothing whatever about
+  whether Jason's reading of h0 at the table is correct** — the feature is being
+  priced as a fee, and a fee's capture is not a statement about the reasoning that
+  suggested it.
+  (iii) **Runtime.** The dominant cost is the rung-one frontier pass, which
+  `fusion_tax.rs` already performs: PATH A charged **539,583,224** walk-steps at h0
+  and **1,297,073,736** at h2 per unit, so the audition's three units total
+  ≈ 3.13 × 10⁹ walk-steps against the SR run's four much heavier units at ≈ 10.5
+  minutes. Per state the sweep is `O(|X_I|·|A(I)|²)` breakpoints — at most two per
+  world since `|A(I)| ≤ 3` — sorted and swept, which is negligible beside the
+  traversal. **The 2–5 minute target is plausible and is a target, never a receipt**
+  (SEP-A19(b)): no outcome of this build turns on it, and if arm 2 does not fit,
+  FF-A8(e) is the declared answer rather than a re-scope mid-run.
+  (iv) **If this reuses the SR emitter, SR-A32(v)'s four items apply**; if it is a
+  fresh example, only the `yes`/`no` case rule and the frontier digest of (FF-R5)
+  carry, and the companion machinery is **not** wanted — this build's emission is
+  small enough to commit entire, and it should be.
+
+**What the build owes this section.** The FF probe of FF-A6 over freeze 52's
+arm 1 (h0, one unit) with arm 2 (h2, two units) attempted under a declared stop;
+the three frozen features of FF-A4 with F0 auditioned **first and blocking**; the
+per-action centring of FF-A2; exact breakpoint minimisation per Lemma FF-min with
+no float and checked arithmetic; the six receipts of FF-A7 with the non-receipts
+printed as arithmetic remarks; the **oracle-θ capture** column named as such
+everywhere; and all six outcomes of FF-A8 pre-printed with Proposition FF-oracle's
+asymmetry beside them, before any number exists. Everything else here is proof and
+needs no code.
