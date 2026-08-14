@@ -9825,3 +9825,61 @@ SR-A34(v)'s filed `(a⋆, a)` binding pairs transcribed into `SR_FIRST` and
 asserted; SR-A35(iv)'s `companion_digest` carried in `SR_FIRST`; and, before any
 rung-three or longer-ladder build, SR-A36(iv)'s re-design of the
 committed/companion split. **On nobody, now: anything else.**
+
+- **SR-A37 (three corrections to this section's carried-obligation list, all
+  verified at adjudication time before filing; the corrected text stays visible
+  and the errors are not erased, per LD-A11(ii)'s convention. Nothing downstream
+  depends on any of them.)**
+  (i) **SR-A25(v) and SR-A32(iv)'s "claim-ledger / FINDINGS / open-problems
+  cross-references are owed" is WRONG, twice, and is corrected here. Those
+  cross-references were never owed and must never be filed.** The wiki owner
+  declined the job with cause and I have verified the cause rather than accepted
+  it. `wiki/walt-math-open-questions.md` rules, in its own owned scope: walt has
+  **"no entries in claim-ledger and should acquire none. The ledger records claim
+  tiers; walt is below every tier, so its correct entry count is zero"**, with
+  promotion — independent re-verification through Lean — being *"what creates a
+  ledger entry, never the other way round"*; and a walt question in
+  `open-problems` would *"blur the tier boundary in exactly the direction the
+  project forbids: an exploratory question would acquire, by adjacency, the
+  standing of a corpus-proved boundary."* **`FINDINGS` is not named in that ruling
+  and I checked it separately**: its own `owns:` line scopes it to the overall
+  assessment of the two immutable specification packages, cited per Home's
+  v0.7/rec convention — a corpus/exchange-tier page, on which the same adjacency
+  argument bites identically. **Precedent confirms all three**: `walt` appears
+  **zero** times in `claim-ledger.md`, `FINDINGS.md` and `open-problems.md`, so
+  neither the whole FT chapter nor inbox 016 nor anything earlier in this file ever
+  acquired a row. The correct count is zero and it is zero.
+  (ii) **The shape of my error, named because it is the one this record exists to
+  catch.** CLAUDE.md instructs that when a result's tier changes the owning page
+  *and* `claim-ledger`, `FINDINGS` and `open-problems` be updated **"as
+  applicable"**. I carried the list and dropped the qualifier, never opening the
+  page that determines applicability — and **no result's tier changed here in the
+  first place**, since everything in this chapter is exploratory by SR-A1 and
+  FT-A1. That is FT-A29(i)'s failure **exactly inverted**: FT-A29(i) asserted an
+  obligation was still *open* without opening the artifact that had discharged it;
+  I asserted an obligation *existed* without opening the ruling that forecloses it.
+  Both are the same single fault — **asserting a status from a text that governs
+  generally rather than from the object that carries the specific case** — and it is
+  now the fifth instance in the FT/SR chapters and the second of mine found by
+  someone else checking. The sharpest detail is that the owning page anticipates me
+  by name: *"A successor who notices the absence should not 'fix' it."* I noticed
+  the absence and filed it as owed, twice, without reading the sentence that says
+  not to. **The rule this yields, for the next adjudicator of this file: an
+  obligation to write somewhere is asserted only after reading that destination's
+  own `owns:` line and its rulings — a cross-reference list in governing text
+  names candidates, never obligations.**
+  (iii) **The remaining two items of SR-A25(v)/SR-A32(iv) are DISCHARGED, cited to
+  the artifacts and not to the report of them** (FT-A29(i)'s discipline, applied
+  the right way round this time). **The freeze register**: `wiki/walt-math-freezes.md`
+  now carries **freeze 51** as a full row, carries **freeze 38 v1, clause (d)
+  clarified at v1.1(d)** with its detail paragraph, and its own `owns:` line reads
+  *"the register of walt's determinism freezes 1–51"* — the staleness FT-A27(ii)
+  first reported and SR-A25(v) re-reported is closed. **The LOG**: the S6l entry for
+  the SR probe is filed on `wiki/walt-s6-era.md` and is cross-referenced from
+  `Home.md`, `walt.md` and `walt-decision-sparse.md`. Both were verified by opening
+  the files.
+  (iv) **What is therefore owed to the wiki owner: nothing.** SR-A25(v) and
+  SR-A32(iv) are superseded in full by this ruling — two items discharged, one
+  item never owed. **Nothing changes in any verdict, receipt, freeze, number or
+  results file**, no re-emission and no re-run is implied, and SR-A32(v)'s four
+  small emitter items for the next SR run stand exactly as written.
