@@ -154,7 +154,7 @@ Full account: [`wiki/walt-census-era.md`](../wiki/walt-census-era.md).
   invariant list were caught at adjudication. **The insight**: structural
   compression is bought with deadness, and nothing is dead at the first play.
 
-## The S6 era — S6a to S6d
+## The S6 era — S6a to S6k
 
 Full account: [`wiki/walt-s6-era.md`](../wiki/walt-s6-era.md); the architecture
 and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md).
@@ -284,3 +284,25 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   the exact route cannot price at all (rule walks reach 37M–105M states in
   O(1) memory vs the 517M-state map that broke the cap). Negative-margin rows
   typed as E4.1(3) receipts; gaps as measurements; nothing conflated.
+- **S6k (2026-08-14)**: the fusion-tax probe — inbox 016 (Pro's
+  nonanticipativity-taxes note) adjudicated by walt-math-10 (FT-A1..A27, six
+  new lemmas/propositions incl. Lemma FT-arrive, Lemma FT-trunc, Prop FT-flat,
+  Lemma FT-post, Lemma FT-mix), freeze 38 v1 FILLED (the gluing cut, the slot
+  E4.1(3) reserved), freeze 50 the five-coordinate carrier (h9 in scope via
+  the depth-1 frontier — never the 517M-state map). Experiment 15.1 built and
+  run: exact first-layer tax Δ¹ at twelve binding pairs; Corollary FT-grade4
+  makes the ladder exactly two rungs, so (Δ¹, Δ²) is the COMPLETE fusion-gap
+  decomposition. **THE RESULT: the first gluing-cut closure** — h6 pip 4
+  [11 40 43 53], competitor 11 EXCLUDED, strict, surplus 4930081/479001600;
+  composed with S6h's frozen rows under Lemma FT-mix and receipt FT-R8:
+  **Opt^H(h6) = {40}, uniqueness** — the two-sided architecture (one lawful
+  plan + one information tax per competitor) closing end-to-end for the first
+  time, via the only lever E4.1(3) allowed (FT-A25(vi): a machinery result,
+  not a game discovery — the filed Q^H column already knew). All ten TIED
+  pairs NOT CLOSED with shortfall = Δ² exactly: those gaps are genuinely
+  second-order. The tax is SPARSE (12,639 of 281,542 frontier states, 4.49%)
+  and every fusion core is BINARY. FT-R1 reconstruction held at h9 — the
+  first independent confirmation its filed U has ever received. Receipts
+  FT-R1..R8 all held; emission split on the content seam (freeze 50 v1.1(c):
+  positive support committed, zero rows regenerable under a pinned SHA-256).
+  Next target has a name: Δ².
