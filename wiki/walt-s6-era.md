@@ -410,8 +410,11 @@ Drift between `walt/LOG.md` and the results files is a bug; these are recorded r
 - **S6c, run provenance.** "Survived a mid-run kill at 41/45" and "byte-diff across two invocations IDENTICAL" are
   LOG records; the results file shows `45 units loaded from checkpoint, 0 computed by this process` and
   `resume-validation: PASS` for one recomputed unit.
-- **S6d, the "108-decision playbook".** The separation results file reports the idx = 0 root-00 candidate as "50712
-  states, 384 with genuine choice", 22,920 reached. The 108 comes from S6c's ground truth — 384 call sites minus 276
-  one-deviation ties — so the numbers are consistent but no single file states the derivation.
+- **S6d, the "108-decision playbook" — since RESOLVED (EC-A12, 2026-08-13).** The separation results file reports the
+  idx = 0 root-00 candidate as "50712 states, 384 with genuine choice", 22,920 reached; the 108 is 384 call sites minus
+  S6c's 276 one-deviation ties. The adjudication confirmed the arithmetic and ruled how to name it: **use 384**, the
+  receipt-backed free-decision count; 108 is a derived difference of two measured counts, inherits both scope fences,
+  is present in no receipt, and is quotable only by brief amendment. Typing in full:
+  [walt-math-deadness](walt-math-deadness.md#384-versus-108--how-to-name-that-playbook-ec-a12).
 - **S6d, ruling range.** The LOG cites SEP-A1..SEP-A19; the results-file header cites SEP-A1..SEP-A18 while its body
   cites SEP-A19(b). SEP-A19 was ruled at build time, after the header text was fixed.

@@ -213,6 +213,39 @@ images under φ_{0→3} have keys 4 and 3). The bar's answer is insensitive to t
 choice, and S-A2 requires the run to print which reading it froze and what the
 other would have given.
 
+**But the dependence is form-level only (Corollary S-fold-val, EC-A4).** The
+reading-dependence above is a statement about transports of the recorded
+relational **form**; it has **no value-level content**.
+
+> **Corollary S-fold-val (value transport along the declaration fold is
+> reading-independent).** Let φ = φ_{p→p′} be the transport above, restricted to
+> the live set of a rung coordinate as in Corollary R-fold. Then for *every*
+> ordered pair of pip declarations the induced bijection of fibers satisfies
+> α_{Tρ}(Tξ) = α_ρ(ξ) for every lawful ρ and every ξ; hence Q^H per corresponding
+> action, every fixed-policy value L, and every treatment-C value U_a correspond
+> exactly along φ — **independently of which S-A2 reading is adopted**.
+
+*Proof sketch.* Dynamics read only legality (follow membership and the
+led-context map), the double flag, trump membership, and the winner-determining
+comparison. By S-A2's soundness clause the maximum trick key is always attained
+at tier ≥ 1, so the mutual order of tier-0 tiles is read by no rule. Lemma
+S-fold's preservation argument shows φ preserves every datum in that list for
+every ordered pair — and the literal reading's counterexample above (4:1 versus
+3:2 in context 6 under δ=0) concerns two tier-0 tiles, exactly the relation
+dynamics never read. Corollary R-fold's proof then supplies the bijections of
+legal sets, uniform field masses, observations and count-free outcomes. **Full
+statement and proof:** `CENSUS-RULINGS.md` § "Corollary S-fold-val".
+
+Two consequences worth carrying. First, the count of form transports verified at
+adjudication time (49 under the operative reading, 9 under the literal) counts
+**forms**, not value correspondences; reading it as the latter is the error EC-A4
+was written to stop. Second, because no value observable distinguishes the
+readings, a probe proposing to *measure* the difference measures nothing — which
+is why the economy successor's transport arm is typed as **receipts** rather than
+as a diagnostic, with a mismatch at any image being stop-and-report (a defect in
+the rules, the fold implementation, or the key correspondence) and never a
+finding about the game.
+
 **Out of scope.** Doubles-trump and no-trump declarations are outside the
 declared scope, and the fold says nothing about them.
 

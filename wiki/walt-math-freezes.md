@@ -74,7 +74,7 @@ All 43 numbers are accounted for. "Fixed at" names the declaring ruling.
 | 33 | The detector call sites and the charging rule | J-A16 (rule at J-A13) |
 | 34 | The ground-truth classifier: which denominator, computed how | J-A16 (per J-A10) |
 | 35 | The harvest arms, rungs, coordinates, budget unit, and the control's solver identification | J-A16 |
-| 36 | **The candidate-policy library v1** — see below | **SEP-A4** (reserved at DS-A13) |
+| 36 | **The candidate-policy library v1** — see below. **Now v2**: clause (e)'s transport is opened from identity-only to identity plus the declaration fold | **SEP-A4** (reserved at DS-A13); **(e) amended at EC-A8 — freeze 36 v2** |
 | 37 | **The action-conditioned upper witness and its solver identification** — see below | **SEP-A6** (reserved at DS-A13) |
 | 38 | The gluing-cut language, the validity-proof obligation, and the cut ordering (a determinism freeze because the stop point depends on it) — **RESERVED, untouched** | DS-A13, confirmed reserved at SEP-A18 |
 | 39 | The circuit representation and its evaluation order — exact rational arithmetic is order-insensitive in value, but reported node and operation counts are not — **RESERVED** | DS-A13 |
@@ -82,6 +82,9 @@ All 43 numbers are accounted for. "Fixed at" names the declaring ruling.
 | 41 | The checkpoint record format and its freeze-set digest; a record whose digest differs is **corrupt, not stale**, and the cache is discarded entire | DS-A36 (detail at DS-A30(i)) |
 | 42 | The unit identity and the canonical assembly order | DS-A36 |
 | 43 | The sequential timing rung's selection rule and its W = 1 requirement — declared before the parallel pass, by rule over the canonical unit order, **never by result** | DS-A36 (discipline at DS-A33/A34) |
+| 44 | **The walk-step unit and the budgeted-walk contract**: one walk-step per (particle, node) visit, charged `bag.len()` at each `walk` entry before any child call; `walk` takes `budget: &mut u64` and returns `Option`, charge-then-descend, and on exhaustion **no partial fold of any kind is retained**; the stop point is a function of (kernel, budget) alone. Extends the `Option` contract to all six §3.2 evaluators. Constants: **B = 10,000,000,000** walk-steps per (coordinate, action) for the per-action traversals, **4B** whole-call for `revealed_summary`, **P_max = 32,000,000** partition states per (coordinate, action), and the §5 rung's decimation constant **g = 15,485,863** — a fresh prime, deliberately not a freeze-25 constant (the no-cross-wiring clause applies) | N4-A1 |
+| 45 | **The n = 4 coordinate identity**: grade 4, declaration pip, the viewer's hand and pool as canonical ascending-domino-index tile lists, leader offset from focal asserted **0**, \|X\| = 34,650 asserted against `kernel.count()`, and the freeze-7/23 fiber enumeration order. Corpus hand id and trick number are **provenance only**, never identity components; the kernel is rebuilt in-run from the printed identity and asserted equal. **No library entry is written at any n = 4 coordinate** | N4-A3 |
+| 46 | **The economy-successor arm list, CLOSED**: X (exact control, the H-argmax seed recomputed in-pass — receipts, not measurements, g = 0 by Corollary E4.1(2)); T (transport, the four library entries by φ to p′ = 6 plus idx = 0 to p′ ∈ {1..5} — receipts under Corollary S-fold-val); P1 least-tile, P2 greatest-tile, P3 beat-if-able, P4 trump-hoard; and R, the heuristic re-key, labelled **HEURISTIC RE-KEY (NOT A TRANSPORT)** on every row. Plus the transport and image-key construction, the canonical run order, and the results-file column set. An open arm list is not a freeze: a later arm is a **freeze-46 v2** fixed by a later adjudication | EC-A1 |
 
 ## Freezes 36 and 37 in full
 
@@ -103,12 +106,27 @@ entry:** observation contract, field, belief, |X|, and the freeze-set digest.
 **(d)** Stored content is a policy and its provenance only — no value, rank,
 verdict or dominance status; the file is a cache, never an authority; a loaded
 entry is re-priced before use; a digest mismatch is corruption and the file is
-discarded entire. **(e) Transport:** identity only in v1. **(f) Seed rule:** the
+discarded entire. **(e) Transport:** identity only in v1 — **amended to v2 at
+EC-A8**, see below. **(f) Seed rule:** the
 argmax-recording pooled H solve over the same partition, **unmemoized**, with
 freeze 26's tie rule **cited, not restated**; the seed contributes no number to
 any reported L. **(g)** The DS-A16 header note: entries remain valid
 primal-witness sources under count re-entry; their count-free quality verdicts
 do not survive.
+
+**Freeze 36 v2 (EC-A8) — clause (e) only.** Transport becomes: *identity, and
+the declaration fold φ_{p→p′} of Lemma S-fold — image key computed by the
+freeze-46(b) construction, R9 receipts asserted in-run, values licensed by
+Corollary S-fold-val and verdict transport by Lemma E7 with β′ = T_*β. Any
+further transport re-enters with its own adjudication.* Note what was
+**rejected**: the class formulation, which would have admitted "transports with
+an exhibited isomorphism" as a class — a freeze is a constant, not a rule, and a
+class clause would delegate future adjudications to the freeze. Conditions:
+transported candidates are in-process objects; **no image entry is written to
+the library file** in the successor run, which stays at its four entries; a
+transported policy is re-priced before anything is reported. Numbers are never
+reused — versioning content by ruling, as here, is the pattern (freeze 46(e)
+cites this precedent for its own future v2).
 
 ### Freeze 37 — the action-conditioned upper witness (SEP-A6)
 

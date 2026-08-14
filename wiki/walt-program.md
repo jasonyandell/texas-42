@@ -203,7 +203,14 @@ valuable for other explorations either way.
 
 The summary of results lives on [the hub](walt.md#where-it-stands) and the
 refutations at [negative results](walt-negative-results.md); the live question is
-the **economy claim** — whether a root-action certification still closes when the
-witness it starts from is not itself an exact solve. That has been named and not
-tested. [The decision-sparse page](walt-decision-sparse.md) carries its state and
-what gates it; the forward plan lives in [`walt/PLAN.md`](../walt/PLAN.md).
+the **economy claim**, and since EC-A13 it is two questions rather than one. The
+**primal half** — whether a root-action certification still closes when the
+witness it starts from is not itself an exact solve — is what the economy
+successor is designed to test, seeding the witness from transported entries,
+fixed tile rules and a heuristic re-key rather than from a solve. The **full**
+claim, a solver that avoids exact solves, additionally requires the upper side
+cheapened, which is Experiment D's territory and untouched. Never write the two
+as one: a sentence claiming "the economy claim was tested" without *primal* has
+over-claimed. [The decision-sparse page](walt-decision-sparse.md) carries the
+state and what gates it; the forward plan lives in
+[`walt/PLAN.md`](../walt/PLAN.md).

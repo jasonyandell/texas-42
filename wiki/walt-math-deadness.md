@@ -25,7 +25,7 @@ what does not.
 |---|---|---|
 | **forced** | \|legal\| = 1: **no decision exists** | Free to detect and **worth nothing**. Counting forced nodes as harvested deadness inflates every coverage figure for free (J-A15). |
 | **decision-dead** | every information-consistent policy from the node has the **identical value function on the node's fiber** (N_vec = 1) | The design's object, and **the only one that licenses collapsing the subtree**. |
-| **dominant** | one Pareto-undominated vector (N_par = N_exp = 1) | **The S6b singleton roots are this, not deadness** — which is exactly why six of the seven were indifferent and the seventh resolved 108 decisions to "play 1-1 over 1-0". Dominance licenses fixing a choice only if the dominant choice can be identified cheaply, **which is the work itself**. |
+| **dominant** | one Pareto-undominated vector (N_par = N_exp = 1) | **The S6b singleton roots are this, not deadness** — which is exactly why six of the seven were indifferent and the seventh resolved a playbook of **384** free decisions to "play 1-1 over 1-0" (see the note below on 384 versus 108). Dominance licenses fixing a choice only if the dominant choice can be identified cheaply, **which is the work itself**. |
 
 **The ladder: forced ⊂ dead ⊂ dominant**, with both inclusions strict on the
 S6b evidence. (N_par = 1 ⟺ N_exp = 1: if one vector is optimal at every belief,
@@ -35,6 +35,29 @@ taking point masses gives pointwise dominance.)
 states that S6b's singleton frontiers are dominance, not deadness — the seventh
 specimen is the proof that the two differ. **No sentence may present a
 singleton-frontier count as a deadness count.**
+
+### 384 versus 108 — how to name that playbook (EC-A12)
+
+The idx = 0 lead-00 entry has been called both "the 384-decision playbook" and
+"the 108-decision playbook". Both numbers are real and they are different
+objects. The arithmetic, verified against the files at adjudication time: the
+extraction has **50,712** states, of which **384** carry a genuine two-tile
+choice (`separation_2026-08-13.txt`; S6b's k = 384 agrees), and 50,328 forced
++ 384 = 50,712. The S6c ground-truth classifier reports 384 classified and
+**276** tied under one deviation (`deadness_2026-08-12.txt`), so 384 − 276 =
+**108** states where the choice strictly matters.
+
+**Binding, in any walt artifact:** name the entry by **384**, its receipt-backed
+free-decision count. Where 108 is mentioned it is typed as *the
+strictly-mattering subset under the S6c one-deviation classifier — a derived
+difference of two measured counts (384 carrying the S6b/extraction free-state
+typing, 276 carrying J-A10's classifier-denominator typing), inheriting both
+scope fences, not an independent measurement, and present in no receipt*. Its
+provenance is a `policy_inspect` diagnostic that is self-labelled exploratory
+with no results file, which is exactly why 108 appears in no receipt. Like every
+other number here, 108 becomes quotable as a result only by brief amendment
+adding it to a verifier receipt. SEP-A17's phrase "the 108-decision playbook" is
+**DISAMBIGUATED, not corrected**.
 
 ---
 

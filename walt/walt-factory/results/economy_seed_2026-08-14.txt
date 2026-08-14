@@ -1,0 +1,150 @@
+walt economy-seed probe — the economy successor (SEP-A17) — exploratory tier
+rulings: EC-A1..EC-A14; freeze 46; freeze 36 v2 (walt/CENSUS-RULINGS.md 2026-08-13); design walt/ECONOMY-SUCCESSOR.md as amended; standing rulings inherited by whole family (F, r3 Q, Y, P-A, X-A, E-A, S-A, R-A, PG-A, J-A, DS-A, SEP-A, N4-A); mathematics: errata Lemma E3, Lemma E4, Non-theorem E4′, Corollary E4.1 (pending errata §4.3), Theorem E6.4, Lemma E7; Lemma S-fold, Corollary R-fold, Corollary S-fold-val
+regenerate: cargo run --release -p walt-factory --example economy_seed
+
+PRIMAL RETYPING (§1.1 replacement, arm-scoped per EC-A2): the primal witness at each seeded action is a NON-EXACT lawful policy re-priced by the fixed-policy evaluator. Corollary E4.1(2) does not apply and L < Q^H is expected: the quantity Q^H(a⋆) − L is this run's measurement, the economy gap. Unlike the adjudicated grade-3 run, the separation verdict here is decided by BOTH sides of the sandwich, and a failure to separate is a failure of THIS candidate, not the exact negative of Corollary E4.1(3). This applies to arms P1–P4 and R; arm X's rows are at the ceiling by Corollary E4.1(2) and carry SEP-A2's sentence as row typing; arm T's rows are exact relabellings and carry the arm-T honesty headline.
+ARM-T HONESTY HEADLINE (§2.1): because the transport is a value-order isomorphism (Corollary R-fold; Corollary S-fold-val), the transported entry is an exact relabelling of an exact solve. Its economy gap is zero BY THEOREM, not by measurement. Arm T is a STRUCTURE-PROVING arm and is not an economy arm. The economy content of this run is arms P and R.
+OUTCOME 3 UNAVAILABLE (§3): all three base coordinates already SEPARATED with the exact seed, so NOT-CERTIFIABLE-BY-ANY-SEED (Corollary E4.1(3)'s exact negative) cannot arise at this carrier; its absence is not evidence about seeds.
+PROVENANCE TYPING (SEP-A12, sharpened): the separation's validity does not cite H, but this run's witnesses and its slack column were produced with H's help — s(a⋆) is computed from H and U, R1/R3/R4 are H cross-checks, and R2′ is asserted against H. The logic of Theorem E6.4 is H-free; the provenance of these particular numbers is not.
+SCOPE (EC-A13): this run tests the PRIMAL half of the parent's economy claim [bracketed quotation: "the solver does not need an exact solution for every action"] — whether the WITNESS at a⋆ must be an exact solve. The run itself still computes U exactly at every competitor and H at every action for its receipts, so the RUN is not cheap; the full claim additionally requires the U side cheapened (Theorem E6.5's gluing ladder, Experiment D, freeze 38 reserved) and remains untested. No timing, cost, runtime or tractability claim of any kind (SEP-A15(iii), P-A19); no arm is compared against any other arm by cost.
+ECONOMY-GAP COLUMN FENCE (§5.2): g is a distance between two exact values at one declared coordinate under one declared belief. It is not a quality score for the rule, not transferable to any other coordinate, not a policy ranking, and not a term in the DS-A2 ladder. A rule with a small gap at one coordinate has demonstrated nothing whatever about another.
+FENCES: R-A2 (fiber members are FEASIBLE, never reachable; nothing here is identity-bearing); treatment-C naming (ξ = ω on this carrier, so C and C⁺ coincide); DS-A16 (entries remain valid primal-witness sources under count re-entry, evaluated under the richer valuation; their count-free quality verdicts do not survive); no image library entries are written in this run (EC-A8); information-consistency arguments for P3: the tiles so far in the current trick, their count, and the declaration are functions of the public record alone (R-A11) — no hidden hand is consulted.
+
+== base coord idx=0 pip=0 (derived) trump=0 hand=[00 10 11] |X|=1680 enumeration=freeze-7/23 ==
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R4 S6a cross-check: Q^H per action and aggregate gap equal the filed values exactly — HELD
+  aggregate gap V^F - V^H = 9301/120960 (count). ONE-SIDED SCREEN (SEP-A15(i)): licenses only Corollary E3.2's zero case; nonzero gap-versus-headroom comparisons are not evidence in either direction.
+  R3 root 00: Q^H = 53/21  U = 53/21  price U - Q^H = 0  (count)
+  R3 root 10: Q^H = 355/168  U = 1019/480  price U - Q^H = 11/1120  (count)
+  R3 root 11: Q^H = 16319/6720  U = 16783/6720  price U - Q^H = 29/420  (count)
+  -- a⋆ = 00: Q^H(a⋆) = 53/21  slack s(a⋆) = 59/2240 (count)
+    arm X (exact control): L = 53/21  g = 0  | vs 10: L >= U; vs 11: L >= U;  -> SEPARATED
+      R2′ L = Q^H (arm-X ceiling receipt, Corollary E4.1(2)); R5 counted receipt 22920 = 22920 = 22920 (reached, of partition 50712); R6 total+legal HELD
+    arm T: transported-image receipt rows follow in this coordinate's image blocks (g = 0 by theorem; structure-proving)
+    arm P1 least-tile: L = 44/21  g = 3/7  | vs 10: L < U; vs 11: L < U;  -> NOT SEPARATED
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 33504 = 33504 = 33504 (reached, of partition 50712); R6 total+legal HELD
+    arm P2 greatest-tile: L = 53/21  g = 0  | vs 10: L >= U; vs 11: L >= U;  -> SEPARATED
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 17592 = 17592 = 17592 (reached, of partition 50712); R6 total+legal HELD
+    arm P3 beat-if-able: L = 44/21  g = 3/7  | vs 10: L < U; vs 11: L < U;  -> NOT SEPARATED
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 33504 = 33504 = 33504 (reached, of partition 50712); R6 total+legal HELD
+    arm P4 trump-hoard: L = 53/21  g = 0  | vs 10: L >= U; vs 11: L >= U;  -> SEPARATED
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 17592 = 17592 = 17592 (reached, of partition 50712); R6 total+legal HELD
+  OUTCOME (a⋆ = 00): CERTIFIED-CHEAP by P2 greatest-tile, P4 trump-hoard — at this coordinate an exact solve at a⋆ was not necessary to obtain the primal witness; the parent's economy claim ["the solver does not need an exact solution for every action"] is exercised on the PRIMAL side at a⋆. FENCE (mandatory and adjacent): this run still computes U exactly at every competitor and still computes H at every action for its receipts, so the RUN is not cheap. What is tested is whether the WITNESS must be exact, which is SEP-A17's scope and is narrower than "the solver is cheap". No timing, cost, runtime or tractability claim of any kind follows; no arm is compared against any other arm by cost.
+
+== image coord idx′=6692786100 p′=1 (φ of base idx=0) trump=1 hand=[00 10 11] |X|=1680 — arm-T receipt rows and R9 only ==
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R9: key round-trips HELD; coordinate(3, idx′) reproduces (p′, φL, φH) — HELD; |X′| = 1680 — HELD; Q^H and U equal at source/image per corresponding action — HELD (values only, never per-world byte-equality)
+    arm T entry (idx=0, root 00) -> image root 11: L = 53/21 = source Q^H(a⋆) — receipt HELD (g = 0 by theorem); R5 22920 = 22920 = 22920 (of 50712)
+
+== image coord idx′=13385572440 p′=2 (φ of base idx=0) trump=2 hand=[00 20 22] |X|=1680 — arm-T receipt rows and R9 only ==
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R9: key round-trips HELD; coordinate(3, idx′) reproduces (p′, φL, φH) — HELD; |X′| = 1680 — HELD; Q^H and U equal at source/image per corresponding action — HELD (values only, never per-world byte-equality)
+    arm T entry (idx=0, root 00) -> image root 22: L = 53/21 = source Q^H(a⋆) — receipt HELD (g = 0 by theorem); R5 22920 = 22920 = 22920 (of 50712)
+
+== image coord idx′=20078358782 p′=3 (φ of base idx=0) trump=3 hand=[00 30 33] |X|=1680 — arm-T receipt rows and R9 only ==
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R9: key round-trips HELD; coordinate(3, idx′) reproduces (p′, φL, φH) — HELD; |X′| = 1680 — HELD; Q^H and U equal at source/image per corresponding action — HELD (values only, never per-world byte-equality)
+    arm T entry (idx=0, root 00) -> image root 33: L = 53/21 = source Q^H(a⋆) — receipt HELD (g = 0 by theorem); R5 22920 = 22920 = 22920 (of 50712)
+
+== image coord idx′=26773736268 p′=4 (φ of base idx=0) trump=4 hand=[00 40 44] |X|=1680 — arm-T receipt rows and R9 only ==
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R9: key round-trips HELD; coordinate(3, idx′) reproduces (p′, φL, φH) — HELD; |X′| = 1680 — HELD; Q^H and U equal at source/image per corresponding action — HELD (values only, never per-world byte-equality)
+    arm T entry (idx=0, root 00) -> image root 44: L = 53/21 = source Q^H(a⋆) — receipt HELD (g = 0 by theorem); R5 22920 = 22920 = 22920 (of 50712)
+
+== image coord idx′=33468124408 p′=5 (φ of base idx=0) trump=5 hand=[00 50 55] |X|=1680 — arm-T receipt rows and R9 only ==
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R9: key round-trips HELD; coordinate(3, idx′) reproduces (p′, φL, φH) — HELD; |X′| = 1680 — HELD; Q^H and U equal at source/image per corresponding action — HELD (values only, never per-world byte-equality)
+    arm T entry (idx=0, root 00) -> image root 55: L = 53/21 = source Q^H(a⋆) — receipt HELD (g = 0 by theorem); R5 22920 = 22920 = 22920 (of 50712)
+
+== image coord idx′=40161189248 p′=6 (φ of base idx=0) trump=6 hand=[00 60 66] |X|=1680 — arm-T receipt rows and R9 only ==
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R9: key round-trips HELD; coordinate(3, idx′) reproduces (p′, φL, φH) — HELD; |X′| = 1680 — HELD; Q^H and U equal at source/image per corresponding action — HELD (values only, never per-world byte-equality)
+    arm T entry (idx=0, root 00) -> image root 66: L = 53/21 = source Q^H(a⋆) — receipt HELD (g = 0 by theorem); R5 22920 = 22920 = 22920 (of 50712)
+
+== base coord idx=1299709 pip=0 (derived) trump=0 hand=[21 22 63] |X|=1680 enumeration=freeze-7/23 ==
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R4 S6a cross-check: Q^H per action and aggregate gap equal the filed values exactly — HELD
+  aggregate gap V^F - V^H = 2663/181440 (count). ONE-SIDED SCREEN (SEP-A15(i)): licenses only Corollary E3.2's zero case; nonzero gap-versus-headroom comparisons are not evidence in either direction.
+  R3 root 21: Q^H = 1  U = 1  price U - Q^H = 0  (count)
+  R3 root 22: Q^H = 43/42  U = 43/42  price U - Q^H = 0  (count)
+  R3 root 63: Q^H = 127/126  U = 127/126  price U - Q^H = 0  (count)
+  -- a⋆ = 22: Q^H(a⋆) = 43/42  slack s(a⋆) = 1/63 (count)
+    arm X (exact control): L = 43/42  g = 0  | vs 21: L >= U; vs 63: L >= U;  -> SEPARATED
+      R2′ L = Q^H (arm-X ceiling receipt, Corollary E4.1(2)); R5 counted receipt 76950 = 76950 = 76950 (reached, of partition 134190); R6 total+legal HELD
+    arm T: transported-image receipt rows follow in this coordinate's image blocks (g = 0 by theorem; structure-proving)
+    arm P1 least-tile: L = 43/42  g = 0  | vs 21: L >= U; vs 63: L >= U;  -> SEPARATED
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 76950 = 76950 = 76950 (reached, of partition 134190); R6 total+legal HELD
+    arm P2 greatest-tile: L = 43/42  g = 0  | vs 21: L >= U; vs 63: L >= U;  -> SEPARATED
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 76950 = 76950 = 76950 (reached, of partition 134190); R6 total+legal HELD
+    arm P3 beat-if-able: L = 43/42  g = 0  | vs 21: L >= U; vs 63: L >= U;  -> SEPARATED
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 76950 = 76950 = 76950 (reached, of partition 134190); R6 total+legal HELD
+    arm P4 trump-hoard: L = 43/42  g = 0  | vs 21: L >= U; vs 63: L >= U;  -> SEPARATED
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 76950 = 76950 = 76950 (reached, of partition 134190); R6 total+legal HELD
+    arm R — HEURISTIC RE-KEY (NOT A TRANSPORT): source idx=0 root 00; fallback-to-P1 states: 134190 of 134190
+    arm R re-key [HEURISTIC RE-KEY (NOT A TRANSPORT)]: L = 43/42  g = 0  | vs 21: L >= U; vs 63: L >= U;  -> SEPARATED
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 76950 = 76950 = 76950 (reached, of partition 134190); R6 total+legal HELD
+  OUTCOME (a⋆ = 22): CERTIFIED-CHEAP by P1 least-tile, P2 greatest-tile, P3 beat-if-able, P4 trump-hoard, R re-key — at this coordinate an exact solve at a⋆ was not necessary to obtain the primal witness; the parent's economy claim ["the solver does not need an exact solution for every action"] is exercised on the PRIMAL side at a⋆. FENCE (mandatory and adjacent): this run still computes U exactly at every competitor and still computes H at every action for its receipts, so the RUN is not cheap. What is tested is whether the WITNESS must be exact, which is SEP-A17's scope and is narrower than "the solver is cheap". No timing, cost, runtime or tractability claim of any kind follows; no arm is compared against any other arm by cost.
+
+== image coord idx′=40409733597 p′=6 (φ of base idx=1299709) trump=6 hand=[10 11 52] |X|=1680 — arm-T receipt rows and R9 only ==
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R9: key round-trips HELD; coordinate(3, idx′) reproduces (p′, φL, φH) — HELD; |X′| = 1680 — HELD; Q^H and U equal at source/image per corresponding action — HELD (values only, never per-world byte-equality)
+    arm T entry (idx=1299709, root 22) -> image root 11: L = 43/42 = source Q^H(a⋆) — receipt HELD (g = 0 by theorem); R5 76950 = 76950 = 76950 (of 134190)
+
+== base coord idx=2599418 pip=0 (derived) trump=0 hand=[11 22 42] |X|=1680 enumeration=freeze-7/23 ==
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R4 S6a cross-check: Q^H per action and aggregate gap equal the filed values exactly — HELD
+  aggregate gap V^F - V^H = 23/420 (count). ONE-SIDED SCREEN (SEP-A15(i)): licenses only Corollary E3.2's zero case; nonzero gap-versus-headroom comparisons are not evidence in either direction.
+  R3 root 11: Q^H = 15/14  U = 15/14  price U - Q^H = 0  (count)
+  R3 root 22: Q^H = 15/14  U = 15/14  price U - Q^H = 0  (count)
+  R3 root 42: Q^H = 43/42  U = 43/42  price U - Q^H = 0  (count)
+  -- a⋆ = 11: Q^H(a⋆) = 15/14  slack s(a⋆) = 0 (count)  [ZERO-SLACK CONTROL: a seed separates here iff g = 0 — a theorem (R8), pre-declared]
+    arm X (exact control): L = 15/14  g = 0  | vs 22: L >= U; vs 42: L >= U;  -> SEPARATED
+      R2′ L = Q^H (arm-X ceiling receipt, Corollary E4.1(2)); R5 counted receipt 59268 = 59268 = 59268 (reached, of partition 109788); R6 total+legal HELD
+    arm T: transported-image receipt rows follow in this coordinate's image blocks (g = 0 by theorem; structure-proving)
+    arm P1 least-tile: L = 15/14  g = 0  | vs 22: L >= U; vs 42: L >= U;  -> ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY)
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 59268 = 59268 = 59268 (reached, of partition 109788); R6 total+legal HELD
+      the seed exactly attains the optimal value at this action; this is not economy (EC-A10)
+    arm P2 greatest-tile: L = 15/14  g = 0  | vs 22: L >= U; vs 42: L >= U;  -> ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY)
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 59268 = 59268 = 59268 (reached, of partition 109788); R6 total+legal HELD
+      the seed exactly attains the optimal value at this action; this is not economy (EC-A10)
+    arm P3 beat-if-able: L = 15/14  g = 0  | vs 22: L >= U; vs 42: L >= U;  -> ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY)
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 59268 = 59268 = 59268 (reached, of partition 109788); R6 total+legal HELD
+      the seed exactly attains the optimal value at this action; this is not economy (EC-A10)
+    arm P4 trump-hoard: L = 15/14  g = 0  | vs 22: L >= U; vs 42: L >= U;  -> ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY)
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 59268 = 59268 = 59268 (reached, of partition 109788); R6 total+legal HELD
+      the seed exactly attains the optimal value at this action; this is not economy (EC-A10)
+    arm R — HEURISTIC RE-KEY (NOT A TRANSPORT): source idx=0 root 00; fallback-to-P1 states: 109788 of 109788
+    arm R re-key [HEURISTIC RE-KEY (NOT A TRANSPORT)]: L = 15/14  g = 0  | vs 22: L >= U; vs 42: L >= U;  -> ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY)
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 59268 = 59268 = 59268 (reached, of partition 109788); R6 total+legal HELD
+      the seed exactly attains the optimal value at this action; this is not economy (EC-A10)
+  OUTCOME (a⋆ = 11): ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY) — s = 0, so by the R8 identity a seed separates here iff it exactly attains the optimal value at this action; separating cheap arms (P1 least-tile, P2 greatest-tile, P3 beat-if-able, P4 trump-hoard, R re-key) demonstrate attainment, not economy (EC-A10). This coordinate is the control, pre-declared as a theorem.
+  -- a⋆ = 22: Q^H(a⋆) = 15/14  slack s(a⋆) = 0 (count)  [ZERO-SLACK CONTROL: a seed separates here iff g = 0 — a theorem (R8), pre-declared]
+    arm X (exact control): L = 15/14  g = 0  | vs 11: L >= U; vs 42: L >= U;  -> SEPARATED
+      R2′ L = Q^H (arm-X ceiling receipt, Corollary E4.1(2)); R5 counted receipt 59268 = 59268 = 59268 (reached, of partition 98628); R6 total+legal HELD
+    arm T: transported-image receipt rows follow in this coordinate's image blocks (g = 0 by theorem; structure-proving)
+    arm P1 least-tile: L = 15/14  g = 0  | vs 11: L >= U; vs 42: L >= U;  -> ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY)
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 59268 = 59268 = 59268 (reached, of partition 98628); R6 total+legal HELD
+      the seed exactly attains the optimal value at this action; this is not economy (EC-A10)
+    arm P2 greatest-tile: L = 15/14  g = 0  | vs 11: L >= U; vs 42: L >= U;  -> ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY)
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 59268 = 59268 = 59268 (reached, of partition 98628); R6 total+legal HELD
+      the seed exactly attains the optimal value at this action; this is not economy (EC-A10)
+    arm P3 beat-if-able: L = 15/14  g = 0  | vs 11: L >= U; vs 42: L >= U;  -> ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY)
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 59268 = 59268 = 59268 (reached, of partition 98628); R6 total+legal HELD
+      the seed exactly attains the optimal value at this action; this is not economy (EC-A10)
+    arm P4 trump-hoard: L = 15/14  g = 0  | vs 11: L >= U; vs 42: L >= U;  -> ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY)
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 59268 = 59268 = 59268 (reached, of partition 98628); R6 total+legal HELD
+      the seed exactly attains the optimal value at this action; this is not economy (EC-A10)
+    arm R — HEURISTIC RE-KEY (NOT A TRANSPORT): source idx=0 root 00; fallback-to-P1 states: 98620 of 98628
+    arm R re-key [HEURISTIC RE-KEY (NOT A TRANSPORT)]: L = 15/14  g = 0  | vs 11: L >= U; vs 42: L >= U;  -> ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY)
+      R2′ L <= Q^H HELD (genuine receipt vs Non-theorem E4′); R5 counted receipt 59268 = 59268 = 59268 (reached, of partition 98628); R6 total+legal HELD
+      the seed exactly attains the optimal value at this action; this is not economy (EC-A10)
+  OUTCOME (a⋆ = 22): ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY) — s = 0, so by the R8 identity a seed separates here iff it exactly attains the optimal value at this action; separating cheap arms (P1 least-tile, P2 greatest-tile, P3 beat-if-able, P4 trump-hoard, R re-key) demonstrate attainment, not economy (EC-A10). This coordinate is the control, pre-declared as a theorem.
+
+== image coord idx′=40513719191 p′=6 (φ of base idx=2599418) trump=6 hand=[00 11 31] |X|=1680 — arm-T receipt rows and R9 only ==
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R9: key round-trips HELD; coordinate(3, idx′) reproduces (p′, φL, φH) — HELD; |X′| = 1680 — HELD; Q^H and U equal at source/image per corresponding action — HELD (values only, never per-world byte-equality)
+    arm T entry (idx=2599418, root 11) -> image root 00: L = 15/14 = source Q^H(a⋆) — receipt HELD (g = 0 by theorem); R5 59268 = 59268 = 59268 (of 109788)
+    arm T entry (idx=2599418, root 22) -> image root 11: L = 15/14 = source Q^H(a⋆) — receipt HELD (g = 0 by theorem); R5 59268 = 59268 = 59268 (of 98628)
+
+total wall-clock (provenance only, never a dividend): 16183 ms
+run complete: yes

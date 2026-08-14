@@ -106,24 +106,37 @@ moment family, one fixed lawful policy's value — with bit-exact agreement
 against enumeration, and state in the header that no algebra-compression claim
 is made and that exact normalised filtering re-enters the degeneracy.
 
-### 5. The economy claim has never been tested
+### 5. The economy claim: the primal half is tested by design; the full claim is not
 
-**Status: open; the successor experiment is specified but not designed.**
-SEP-A17 records this explicitly so that the Experiment E run is not later
-mistaken for it. The parent document's economy claim is that a solver ["does
-**not** need an exact solution for every action"]. The separation probe does not
+**Status: split, as of EC-A13 (2026-08-13).** The claim has two halves and they
+now have different statuses, so the question is no longer simply open.
+
+The parent document's economy claim is that a solver ["does **not** need an exact
+solution for every action"]. SEP-A17 recorded that the separation probe does not
 exercise it: by
 [Corollary E4.1](walt-math-decision-sparse.md#corollary-e41--the-primal-ceiling-and-the-exact-negative)
 its primal witness is an H-optimal policy re-priced, and the DS-A10 receipts
 require treatment H at every action anyway.
 
-**The experiment that would test it:** seed L from a source that is **not** an
-exact solve at a⋆ — a transported library entry, a hand-authored playbook, a
-cheap heuristic — and ask whether the sandwich still closes. It is out of scope
-today because six of the seven completed singleton roots collapse by
-indifference, so there is nothing yet to transport. It needs freeze 36's
-transport clause opened, which needs a Lemma E7 isomorphism exhibited, which is
-its own adjudication.
+**The primal half — tested by design.** Whether the *witness at a⋆* must be an
+exact solve is exercised by the economy-successor design, at coordinates where
+every claim is checkable: L is seeded from sources that are not exact solves at
+a⋆ (transported library entries, four fixed tile rules, and a heuristic re-key),
+and the question is whether the sandwich still closes. The transport clause it
+needed is now open — freeze 36 v2 (EC-A8) admits the declaration fold, with
+values licensed by
+[Corollary S-fold-val](walt-math-structure-transport.md#lemma-s-fold--the-seven-pip-declarations-fold-exactly-71)
+and verdict transport by Lemma E7. Note this is a statement about the *design*;
+results are a separate matter.
+
+**The full claim — untested, and a different object.** A solver that avoids
+exact solves additionally requires the **U side cheapened**: a relaxation coarser
+than treatment C, run down Theorem E6.5's ladder. That is Experiment D's
+territory, with freeze 38 still reserved, and nothing has touched it.
+
+**Binding on how this is written up (EC-A13):** a results file or wiki sentence
+saying "the economy claim was tested" **without the word "primal" has
+over-claimed**. The two halves are never collapsed into one sentence.
 
 ### 6. The reserved freezes 38–40
 

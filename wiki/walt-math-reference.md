@@ -68,7 +68,8 @@ proof live; the owning page carries the compact form and the caveats.
 | **Lemma E** | Equal r1 canonical forms (as amended by F2 A1–A4) ⇒ isomorphic remaining games ⇒ equal count-free value. **Count-free only (E-A2).** | same file, § "Endgame-store rulings", Lemma E |
 | **Lemma S** | The seat-side analogue of Lemma E: a seat transport carries every count-free censal question across. | same file, § "Seat-census rulings", Lemma S |
 | **Corollary S-rigid** | The first-play seat transport group is **trivial**: the hand form *is* the hand. A proved negative. | same file, § "Seat-census rulings" |
-| **Lemma S-fold** | The seven pip declarations fold exactly 7:1 under the unique order isomorphism. Conditional on S-A2's comparison reading (freeze 18). | same file, § "Seat-census rulings" |
+| **Lemma S-fold** | The seven pip declarations fold exactly 7:1 under the unique order isomorphism. The S-A2 conditionality (freeze 18) is **form-level only**: transports of the recorded relational form are reading-dependent, but **values are not** — see Corollary S-fold-val. | same file, § "Seat-census rulings" |
+| **Corollary S-fold-val** | Value transport along the declaration fold is **reading-independent** — Q^H, every fixed-policy L and every treatment-C U_a correspond exactly along φ whichever S-A2 reading is adopted. Extends Lemma S-fold and Corollary R-fold. | same file, § "Corollary S-fold-val" (delivered at EC-A4) |
 | **Lemma S-det** | The landing state is a function of (δ, H, trick-1 record); a slough proves a void in the led context and nothing else. Determination holds; the alphabet is the raw record space. | same file, § "Seat-census rulings", inside S-Q2 |
 | **Corollary R-fold** | Predictive dimension, behavioural-row counts and policy values are declaration-fold invariant. Bases and closure matrices are **not**. | same file, § "Predictive-rank probe rulings" |
 
@@ -130,11 +131,17 @@ drift with every append.
 | `J-A` | J-A1..**J-A18** | Decision-deadness probe rulings | 2026-08-12 | Deadness detectors. Carries **Lemma J**, **J-0**, **J-1**, **J-win**. |
 | `DS-A` | DS-A1..**DS-A36** | Three sections: Decision-sparse intake audit; Second-audit adjudication; S6c runner | 2026-08-13 | One continuously numbered family. Intake audit of the received v0.1 document (A1–A18); adjudication of the second audit (A19–A28, including **DS-A28**, the append-only protocol); execution scheduling and persistence (A29–A36). |
 | `SEP-A` | SEP-A1..**SEP-A19** | Experiment E adjudication: the separation probe | 2026-08-13 | Root-action separation by primal and upper witnesses. Carries **Corollary E4.1**, freezes 36 and 37. |
+| `N4-A` | N4-A1..**N4-A12** | The n = 4 separation rung adjudication | 2026-08-13 | The SEP-A10 successor rung. Carries **freeze 44** (the walk-step unit and budgeted-walk contract) and **freeze 45** (the n = 4 coordinate identity). |
+| `EC-A` | EC-A1..**EC-A14** | The economy-successor adjudication | 2026-08-13 | The primal half of the economy claim. Carries **Corollary S-fold-val**, **freeze 46** (the closed arm list), **freeze 36 v2** (EC-A8, transport opened to the declaration fold), the 384-versus-108 typing (EC-A12), and the primal/full split (EC-A13). |
 
-Two numbering traps. **`E-A` and `E-Q` are spent** by the endgame-store section
+Three numbering traps. **`E-A` and `E-Q` are spent** by the endgame-store section
 of 2026-08-11 — SEP-A had to renumber the separation design's own `E-Q1..E-Q8`
-to `SEP-Q1..SEP-Q8` to avoid a collision inside one file. And `F2`'s internal
-amendments are bare `A1`–`A4`, local to F2, not a prefixed family.
+to `SEP-Q1..SEP-Q8` to avoid a collision inside one file. `F2`'s internal
+amendments are bare `A1`–`A4`, local to F2, not a prefixed family. And **standing
+rulings inherit as whole families, by name, never as ranges**: two design headers
+recite `X-A1..X-A17`, `E-A1..E-A20`, `S-A1..S-A18`, but the families actually run
+to X-A19, E-A21 and S-A21. The full corpus binds regardless of a header's recited
+range; those recited ranges are typos, not scope declarations.
 
 ## The supersession chain
 

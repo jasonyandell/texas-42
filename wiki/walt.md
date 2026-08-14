@@ -104,8 +104,15 @@ to be unnecessary. ("Certification" here is walt's own object, an exact
 separation of one action from every competitor; it is not the D3 sense fenced on
 [reachability](reachability.md), and nothing in it is identity-bearing.)
 
-The live question is the economy claim: whether the certification still closes
-when its witness is not itself an exact solve. Every count above is
-carrier-relative, coordinate-relative, and exploratory. Full numbers, scope
-caveats and dissents live on the era pages; the refutations are collected at
-[negative results](walt-negative-results.md).
+The live question is the economy claim, which since EC-A13 splits in two and is
+never written as one thing. Its **primal half** — whether the certification still
+closes when the witness it starts from is not itself an exact solve — is what the
+economy successor is designed to test, the transport it needed having been opened
+at freeze 36 v2. The **full** claim, a solver that avoids exact solves
+altogether, additionally needs the upper side cheapened, and that is untouched.
+Any sentence saying "the economy claim was tested" without the word *primal* has
+over-claimed.
+
+Every count above is carrier-relative, coordinate-relative, and exploratory. Full
+numbers, scope caveats and dissents live on the era pages; the refutations are
+collected at [negative results](walt-negative-results.md).

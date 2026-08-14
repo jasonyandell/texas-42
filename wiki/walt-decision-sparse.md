@@ -81,7 +81,7 @@ re-entry even though their count-free quality verdicts do not (DS-A16).
 **Where deadness fits.** Decision-deadness (every information-consistent policy from a node has the identical value
 function on the node's fiber) and universal dominance are **different objects** and are never presented as one
 (J-A1, DS-A8). Deadness collapses max nodes; dominance prunes. Both are reduction sources feeding the candidate
-library, and the detector family of [walt-s6-era](walt-s6-era.md#s6c) is the branch's measured instance.
+library, and the detector family of [walt-s6-era](walt-s6-era.md#s6c--2026-08-13-the-decision-deadness-probe) is the branch's measured instance.
 
 ## Theorem inventory
 
@@ -169,11 +169,20 @@ does not need an exact solution for every action" — and is never cited as if i
 it is: **seed L from a source that is not an exact solve at a⋆** — a transported library entry, a hand-authored
 playbook, a cheap heuristic — and ask whether the sandwich still closes.
 
-Three things gate it. It needs **freeze 36's transport clause opened**, which needs **Lemma E7's value-order
-isomorphism exhibited**, which is **its own adjudication** (SEP-A3(vi), DS-A25). And it needs something to
-transport: six of the seven completed S6b singleton roots collapse by indifference, so the S6d harvest is one
-informative entry plus lawful-but-vacuous ones. Corollary R-fold is currently the only instance of an exhibited
-value-order isomorphism anywhere in the branch, and it may be cited as one.
+**Status, since EC-A1..EC-A14 (2026-08-13): designed and adjudicated; the gates are open.** The three things that
+gated it have been answered. Freeze 36's transport clause is **opened at freeze 36 v2** (EC-A8) to identity plus the
+declaration fold φ, with values licensed by **Corollary S-fold-val** and verdict transport by Lemma E7 with
+β′ = T_*β; any further transport re-enters with its own adjudication. The arm list is fixed and **CLOSED** at
+**freeze 46**: an exact control X, the transport arm T, four fixed tile rules P1–P4 (least-tile, greatest-tile,
+beat-if-able, trump-hoard), and a heuristic re-key R that carries the label **HEURISTIC RE-KEY (NOT A TRANSPORT)** on
+every row. The thinness of the harvest — six of seven completed S6b singleton roots collapse by indifference — is
+answered by those non-exact arms rather than by waiting for something to transport.
+
+**What it does and does not settle (EC-A13, binding).** It tests the **primal half**: whether the *witness* at a⋆
+must be an exact solve. The **full** parent sentence — a solver that avoids exact solves — additionally requires the
+U side cheapened, a relaxation coarser than C run down Theorem E6.5's ladder, which is Experiment D's territory with
+freeze 38 still reserved, and it remains untested. **A results file or wiki sentence saying "the economy claim was
+tested" without the word *primal* has over-claimed.**
 
 ## Standing fences
 
