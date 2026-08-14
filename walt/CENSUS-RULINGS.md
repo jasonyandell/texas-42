@@ -7934,3 +7934,49 @@ the numbers stand, and no re-derivation is owed.
   audit note, the verdict and the taxes are exploratory, cited by nothing above
   this tier, and quotable as results only by brief amendment adding them to a
   verifier receipt.
+
+- **FT-A29 (two corrections to this section, both verified at adjudication time
+  before filing; the corrected text stays visible and the errors are not erased,
+  per LD-A11(ii)'s convention). Nothing downstream depends on either.**
+  (i) **FT-A16(ii)'s "(LD-R4) remains owed" is WRONG and is corrected here.**
+  `walt-factory/results/laydown_2026-08-14.txt` line 16 reads: *"(LD-R4): all
+  seven per-declaration counts equal — Corollary LD-fold — HELD. Receipted: 301
+  lay downs per declaration, 2,107 (hand, declaration) pairs."* The receipt ran
+  before this section was written. **What changes:** FT-A16(ii)'s closing sentence
+  — *"Until then '2,107' is licensed by Corollary LD-fold as a proof plus one
+  receipted count, not by seven receipted counts"* — is **superseded**. The
+  catalogue total is receipted by all seven per-declaration counts, exactly as
+  LD-A12 specified, and may be quoted as a receipted count rather than as a proof
+  plus a single count. **What does not change**, and must not be read as changing:
+  (LD-R4) HELD remains *the cheapest available probe* of the LD-A10(ii)
+  implementation-versus-corpus risk and is **not a discharge** of it — that
+  sentence of FT-A16(ii) stands, LD-A13's open item is untouched, and the
+  rules-package check is still owed before any of it leaves walt.
+  **The error was mine and its shape is worth naming.** I read LD-A12's binding
+  clause — *"Binding: add (LD-R4)"* — as an obligation **outstanding**, when it is
+  an obligation **created**, and I never opened the artifact that would have told
+  me it had since been discharged. **The discipline: a ruling that creates an
+  obligation is not evidence that the obligation is still open; only the artifact
+  is.** That is "by construction is not a receipt" (PG-A8) transposed from claims
+  to obligations, and it is the third defect of mine this session found by someone
+  else checking — after freeze 50(a)'s two authorities (FT-A23) and (FT-R7)'s
+  unnamed carrier (FT-A28). All three are the same failure: **asserting a status
+  from a text that governs it rather than from the object that carries it.**
+  (ii) **FT-A25(vi)'s "it did at ten of twelve pairs" is WRONG; the count is
+  ELEVEN.** Verified by census of the results file: `FT-A20(a) CLOSED` appears
+  once and `FT-A20(b) NOT CLOSED` eleven times, over 12 binding pairs. The
+  commentary counted the ten tied pairs and dropped h0, which is **untied and also
+  failed** — indeed h0 is the more interesting of the two untied pairs, since it
+  needed `12627174/16709317` of its competitor's gap and got less, whereas h6
+  needed `8524657/18853881` and got `13454738/18853881`. **The corrected sentence
+  reads: "The closure could have failed — it did at eleven of twelve pairs."**
+  The error is localised to that one clause: this section's closing note states it
+  correctly (*"Ten tied pairs NOT CLOSED, one untied pair (h0) NOT CLOSED"*), and
+  FT-A26(ii) correctly scopes its claim to *"any of the ten tied pairs"*. The
+  wiki restates eleven correctly and needs nothing.
+  (iii) **Neither correction touches a verdict, a receipt, a freeze or a number in
+  any results file**, and neither requires a re-emission or a re-run. FT-A25's
+  mandatory sentence is unaffected in both letter and force — if anything (ii)
+  strengthens it, since the closure failed more often than the commentary said,
+  which is the direction that makes the run a sharper test of the machinery and a
+  weaker claim about the game.
