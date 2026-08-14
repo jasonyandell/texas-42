@@ -66,7 +66,7 @@ fn set_of(mask: u32) -> DominoSet {
 
 fn trump_rank_order(decl: Decl) -> Vec<Domino> {
     let mut v: Vec<Domino> = decl.called_set().iter().collect();
-    v.sort_by(|a, b| decl.rank(*b).cmp(&decl.rank(*a)));
+    v.sort_by_key(|d| std::cmp::Reverse(decl.rank(*d)));
     v
 }
 
@@ -547,7 +547,9 @@ fn main() {
         "== phase 2: the four-laydown search (exhaustive over the catalogue, complete by Theorem LD; from the seven full-suit hands per LD-A6(D5)) =="
     );
     let full28: u32 = (1 << 28) - 1;
-    let mut witness: Option<(u8, u32, u8, u32, u8, u32, u8, u32)> = None;
+    // (declaration pip, hand mask) per hand of a witness deal.
+    type Witness = ((u8, u32), (u8, u32), (u8, u32), (u8, u32));
+    let mut witness: Option<Witness> = None;
     'search: for p0 in 0..=6u8 {
         let suit_mask = mask_of(Decl::PipTrump(Pip::new(p0).expect("pip")).called_set());
         let rem0 = full28 & !suit_mask;
@@ -571,7 +573,8 @@ fn main() {
                             }
                             let dt = DeclTest::new(*pc);
                             if dt.test(rem2).0 {
-                                witness = Some((p0, suit_mask, *pa, *ha, *pb, *hb, *pc, rem2));
+                                witness =
+                                    Some(((p0, suit_mask), (*pa, *ha), (*pb, *hb), (*pc, rem2)));
                                 break 'search;
                             }
                         }
@@ -581,7 +584,7 @@ fn main() {
         }
     }
     match &witness {
-        Some((p0, m0, pa, ma, pb, mb, pc, mc)) => {
+        Some(((p0, m0), (pa, ma), (pb, mb), (pc, mc))) => {
             let _ = writeln!(
                 out,
                 "WITNESS DEAL FOUND — a COUNTEREXAMPLE to the family's <= 3 conjecture:"

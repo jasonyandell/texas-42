@@ -2887,5 +2887,5 @@ flagship closed form (Corollary T1-ruff, computed at adjudication): q(5:5) = (2/
   T1-draw hypothesis check: (Z1) false (Z2) true (Z3) false -> not a drawing hand (expected; filed as a result)
   corner instruments: k = 0 (fiber-constant, Lemma T1-run); E_β[f] = 13/15 (exhaustive count, Lemma T1-force); CORNER GAP 7 − k − E_β[f] = 92/15 — the exact specification of what a tighter relaxation (Theorem E6.5's gluing, freeze 38, reserved) must beat. Typed: a cost-model and specification quantity; licenses no claim about the game; P-A21: not quoted for any other grade or the opening in general.
 
-total wall-clock (provenance only, never a dividend; computed W-parallel over pure integer functions with canonical-order assembly): 188115 ms
+total wall-clock (provenance only, never a dividend; computed W-parallel over pure integer functions with canonical-order assembly): 159678 ms
 run complete: yes

@@ -56,7 +56,7 @@ fn set_str(s: DominoSet) -> String {
 fn trump_rank_order(decl: Decl) -> Vec<Domino> {
     let called = decl.called_set();
     let mut v: Vec<Domino> = called.iter().collect();
-    v.sort_by(|a, b| decl.rank(*b).cmp(&decl.rank(*a)));
+    v.sort_by_key(|d| std::cmp::Reverse(decl.rank(*d)));
     v
 }
 
@@ -433,7 +433,7 @@ fn run_arm_a(c: &ArmACoord, out: &mut String) {
 
     let n_i128 = i128::try_from(T1_FIBER).expect("fits");
     for dc in &dcs {
-        let qj = q(i128::try_from(dc.total).expect("fits"), n_i128 * 343);
+        let qj = q(i128::from(dc.total), n_i128 * 343);
         // (T1-R4) exhibited witness: top outstanding trump with S1, S1 void
         // in context-J.
         let top_out = r_tiles[0];
@@ -595,10 +595,7 @@ fn run_arm_b(hand_idx: usize, receipt: &Receipt, out: &mut String) {
     let mut no_doubles: Vec<DoubleCount> = Vec::new();
     let (worlds, f_sum) = fiber_pass(h, decl, &mut no_doubles, Some(&force_order));
     assert_eq!(worlds, T1_FIBER, "exhaustive");
-    let ef = q(
-        i128::try_from(f_sum).expect("fits"),
-        i128::try_from(T1_FIBER).expect("fits"),
-    );
+    let ef = q(i128::from(f_sum), i128::try_from(T1_FIBER).expect("fits"));
     let gap = qi(7) - qi(i128::try_from(k_run).expect("fits")) - ef;
     let _ = writeln!(*out);
     let _ = writeln!(
