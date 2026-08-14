@@ -9641,3 +9641,187 @@ three, and Proposition SR-degen says grade 4 can no longer test closure at all.
 **The next question is a coordinate where the ladder is longer than the corpus of
 filed answers**, and that is where the received note's §14 program and FT-A21's
 three obligations become the binding constraint rather than the escape census.
+
+---
+
+- **SR-A33 (the builder's first self-found defect — the streaming SHA-256 — and
+  why its known-answer check is load-bearing for SR-A30).** Four clauses.
+  (i) **What happened.** The probe's own SHA-256 `update` clobbered the buffered
+  length across calls. The FIPS 180-4 known-answer self-check caught it **before
+  any carrier number existed** — it hung on the first vector rather than filing a
+  wrong digest — and the repair replaced a padding search loop with a computed pad
+  length plus an assertion, and added the one-million-`a` many-block vector and
+  irregular-chunk streaming checks. Read at adjudication time,
+  `second_rung.rs:554` now carries four published vectors (`"abc"`, the empty
+  string, the two-block message, and the one-million-`a` message) plus
+  streaming-versus-one-shot agreement fed byte-at-a-time and in irregular chunks,
+  and `sha256_self_check()` is **the first statement of `main`** (`:2993`), ahead
+  of the (SR-R9) blocking block and everything else.
+  (ii) **It is load-bearing for SR-A30 and I am recording that dependency
+  explicitly.** SR-A30 discharged FT-A28(iv) on the strength of four digests, and
+  ratified (FT-R7c)'s scope claim that one scalar per unit *reaches every
+  individual `δ_I` across executions*. **That scope claim is a statement about the
+  digest function, not about the probe.** A hash that mis-buffers is still
+  deterministic, so run A and run B would still have agreed — the receipt would
+  have been **green and worthless**, because a broken compression function may be
+  wildly non-injective and the reach would silently degrade from "every individual
+  `δ_I`" to "some lossy functional of them". **A digest receipt is only as strong
+  as the primitive's anchoring to a published vector**, and this file's comment
+  says exactly that: *"A digest primitive that has never been checked against a
+  published vector is not a receipt of anything."* Correct, and now cited: SR-A30's
+  discharge stands **because** SR-A33's self-check ran first.
+  (iii) **The standing discipline, stated so it generalises.** *Any receipt whose
+  assertion is an equality of digests carries a second, silent obligation: that the
+  digest function is anchored to published known-answer vectors covering the code
+  path actually used — including the streaming path if the receipt streams.* The
+  streaming path is the one that broke here, and a one-shot-only vector set would
+  have passed. This joins Proposition SR-taut and FT-A28(i) as the third member of
+  one family: **a check is only a check against something it does not itself
+  produce.**
+  (iv) **The behaviour is commended in place.** The defect was in the builder's own
+  code, was found by a check the builder wrote against itself, was found before any
+  number existed, and was reported in full rather than quietly fixed. That is the
+  third time in the FT/SR chapters that the build's own honesty is the reason a
+  ruling can be trusted, and the first time the defect was the build's rather than
+  the adjudicator's.
+- **SR-A34 (the builder's second self-found defect — the `a⋆` selection: the
+  "no receipt affected" claim is VERIFIED and RATIFIED; the guard's typing is
+  CORRECTED; one residual named).** Five clauses.
+  (i) **The claim, and it is true.** The pair-typing line initially selected `a⋆`
+  as the first filed H-argmax, which at a tied coordinate is the unit's own action
+  — so at h2 `a = 53` and h9 `a = 41` the line would have compared an action with
+  itself. **Verified against the committed artifact at adjudication time**, not
+  accepted: the four printed pairs are `a⋆ = 54 / a = 53` (line 1438),
+  `a⋆ = 53 / a = 54` (2831), `a⋆ = 54 / a = 41` (8646), `a⋆ = 41 / a = 54`
+  (14461), and **all four match S6k's filed `PAIR` rows exactly** — freeze 50(b)'s
+  binding pairs, unchanged. And **no receipt line references `a⋆` or `L_{a⋆}` at
+  any unit** (grep over every `(SR-R…)` line: zero hits). The claim is RATIFIED.
+  (ii) **Why no receipt could have been affected, stated structurally rather than
+  by grep.** (SR-R1) and (SR-R2) are internal to a branch; (SR-R4), (SR-R5) and
+  (SR-R7) compare against `Q^H(a)`, `Δ^(2)` and the `FT_FIRST` row **of the unit's
+  own action**; (SR-R3), (SR-R6), (SR-R8), (SR-R9) and (SR-R10) name no root
+  action but `a`. `a⋆` enters this build in exactly one place — the pair-typing
+  line — and by SR-A24(g) **no closure verdict is reported at all**, so the
+  quantity `L_{a⋆}` does no work here beyond being printed. The exposure was
+  bounded to a misprinted typing line, and the misprint would have been *vacuous*
+  (`L_a ≥ U_a^(2)` is true and empty) rather than false.
+  (iii) **But it was more than cosmetic, and I decline the softer reading.** The
+  `(a⋆, a)` pair is **carrier data** — freeze 50(b) enumerates the binding pairs
+  and freeze 51(a) inherits them — so printing `a⋆ = a` would have misidentified
+  the freeze-50 binding pair in an artifact whose header claims to run over those
+  pairs. It is a **carrier-identity defect in a printed line**, not a typo, and it
+  is right that the builder treated it as one.
+  (iv) **The guard's typing is corrected, and this is the part that matters.**
+  The builder's report reads *"corrected to first H-argmax distinct from `a`, with
+  the binding-margin sign `L_{a⋆} − U_a < 0` asserted"*, which invites the reading
+  that the sign assertion backstops the correction. **It does not, and cannot.**
+  Computed exactly at adjudication time: had `a⋆ = a` been selected, the asserted
+  quantity would have been `Q^H(a) − U_a`, which is `−9557/554400` at h2 and
+  `−2116837/8870400` at h9 — **negative at both, so the assertion passes and the
+  defect goes undetected.** (Those are, recognisably, Proposition FT-tie's filed
+  "required shave" figures, which is what `Q^H(a) − U_a` is.) The sign assertion is
+  a real guard for a **different** property — that the unit is a binding competitor
+  at all — and it should be described as that. The actual fix is the `*i != ia`
+  predicate in the selector at `second_rung.rs:2413` together with its
+  `.expect("a binding pair has an H-argmax competitor distinct from a")`, which
+  fires if the H-argmax set is the singleton `{a}`. **Distinctness is therefore
+  enforced by construction, and "by construction is not a receipt" (PG-A8).**
+  (v) **The residual, named rather than papered over, and its cheap closure.**
+  If the `*i != ia` predicate were ever dropped, nothing in-run would notice: the
+  sign assertion passes either way and no receipt reads `a⋆`. The property
+  `a⋆ ≠ a` is true in the committed artifact — I checked all four rows by hand
+  against S6k above — but it is **not receipted**. **No re-emission is owed**: the
+  exposure is one printed line, the property is verified here, and requiring a
+  re-run to convert a known-true fact into a receipt spends real cost on process
+  hygiene alone (FT-A28(iv)'s proportionality, applied). **Binding on the next SR
+  emission**, and it should be the strong form rather than the cheap one: transcribe
+  the filed `(a⋆, a)` binding pairs from S6k into `SR_FIRST` alongside the per-unit
+  data already there, and assert the printed pair against them. That converts a
+  construction into a comparison **against a named carrier**, which is FT-A28(i)'s
+  discipline, and it costs one tuple field.
+- **SR-A35 (the companion's cross-process digest identity: an AUDIT NOTE of real
+  weight, not a receipt; convertible at zero cost).** Four clauses.
+  (i) **What was observed.** (FT-R7c) was discharged across two deliberate
+  processes — run A emitted the four frontier digests, the builder transcribed them
+  into `SR_FIRST`, run B asserted against that prior process. Unplanned, the
+  8.8 GB companion's SHA-256 also came out **byte-identical across the two
+  processes**, over 41,291,617 rows.
+  (ii) **Its evidentiary surface is far broader than the receipt's, and that is
+  worth saying plainly.** The four (FT-R7c) digests cover the 3,300 rung-one
+  `(record, δ_I)` pairs. The companion digest covers every `(I,b,J)` row — 2,535,480
+  per h2 unit and 18,110,322 per h9 unit — i.e. every `C_{I,b,J}`, every
+  `A_{I,b,J,c}`, every `δ_{I,b,J}` and every second-frontier record, across two
+  processes. As *evidence* about the depth-two layer's cross-process determinism it
+  is the strongest thing in the file.
+  (iii) **It is nevertheless an AUDIT NOTE and may never be called a receipt.**
+  FT-A28(v)'s three independently sufficient reasons apply verbatim: it is not
+  asserted in-run against a transcribed constant (the companion digest is computed
+  and printed but is **not** carried in `SR_FIRST` — verified at adjudication time
+  against the frozen tuple, which holds one digest, the frontier one); it is not
+  reproduced by any verify path; and it does not survive into a future run, which is
+  what a receipt is *for*. **What it may be:** adjudication-time evidence, recorded
+  here as such. **What it may never be:** cited as a receipt status, printed as
+  HELD, or counted among "all ten receipts HELD" — and the artifact does not do any
+  of those, correctly.
+  (iv) **Convertible at zero cost, and it should be converted.** Adding
+  `companion_digest` to `SR_FIRST` beside the frontier digest makes the next run
+  assert **one further scalar per unit** and thereby reach every depth-two row
+  across executions — the same move FT-A28(iv) made for the frontier. **Binding on
+  the next SR emission, forcing nothing now**, and it joins SR-A34(v)'s tuple field
+  and SR-A27(iv)'s case fix as one small batch of emitter work.
+- **SR-A36 (the remaining disclosures: no spec conflicts, provenance, and the
+  scaling flag reconciled).** Five clauses.
+  (i) **The ambiguity protocol was never invoked, and that is a fact about the
+  ruling, not only about the build.** All four SR-A22(ii) engine changes were
+  implementable as written and each is asserted in-run — `den_2` a multiple of
+  `den_1`; the pre-frontier and between-frontier increments exactly one trick each;
+  the depth counter reaching `grade − 1` at every terminal, which is simultaneously
+  the `T_0 = 0` and `Θ_{I,b} = 0` assertion; and `DEN2 = 12^12 = SCALE = DEN_MU²`.
+  The FT chapter recorded two specification defects of mine and one of walt-math-10's
+  (FT-A23, FT-A28(i), FT-A29(i)); this section records none, which is the first
+  clean pass in the chapter and is worth noting **only** because the previous three
+  were found by the build rather than by the adjudicator, and a builder that reports
+  conflicts when they exist is the reason the absence of a report is informative.
+  (ii) **Provenance, recorded and typed.** Six clippy lints fixed before any run;
+  CI green before every launch and on the final tree; `ROW_CAP = 20,000` declared
+  and never fired, so **every branch row and every state row of every unit is
+  printed** and the emission carries no truncation — which is what made the
+  adjudication-time re-derivation of all four units possible at all. Peak RSS
+  ≈ 21 GB and the ≈ 10.5 minute runtime are **provenance only**: no cost, timing,
+  memory or tractability claim is read off them (SEP-A19(b), N4-A16), and this
+  clause is not an exception to that rule but an instance of it.
+  (iii) **The walk-step equality is a confirmed prediction and is typed as a
+  traversal-shape observable.** PATH A2's charge equals the filed FT PATH A
+  subtotal exactly at every `(coordinate, action)`, both evaluators. That is
+  SR-A22(ii)'s claim — *the depth-two probe adds recording, not search, because the
+  rung-one walk already descends into every action at the first frontier* —
+  confirmed against a filed integer. **It constrains no value and is not a
+  receipt**; the value checks are (SR-R1), (SR-R4), (SR-R5) and (SR-R6). It is
+  recorded because a design prediction that could have been wrong was not.
+  (iv) **The scaling flag: SR-A27(v) stands, and the builder's framing is adopted
+  with one sharpening.** The companion is 8.8 GB because h9 carries 18.1 M
+  second-frontier states and SR-A22(iii)(d) mandates one row per `(I,b,J)`. **No
+  rule is broken and nothing is owed now.** The sharpening is that the growth is
+  not incidental: `|I_2(I,b)|` grows with the number of field plies between
+  frontiers, so a third rung or a longer ladder multiplies it again, and the
+  committed/companion split must be **re-designed rather than re-applied** before
+  any such build. The design question to answer then is which *functionals* of the
+  depth-`k` table a later run must be able to re-check — SR-A35(iv)'s digest is
+  most of the answer, and a per-`(I,b)` committed summary with a per-unit digest
+  over the full table may make the companion unnecessary rather than merely large.
+  **Ruled when the family is extended, per the builder's own suggestion, and not
+  before.**
+  (v) **Nothing is routed back to the builder and nothing is promoted.** The
+  artifact stands as committed at `8e415aa`. Both self-found defects were caught by
+  the build's own checks before any carrier number existed, both were disclosed in
+  full, and neither touches a receipt, a number or a verdict — the first verified
+  structurally and by grep at SR-A34(i)–(ii), the second by the known-answer check
+  having fired at SR-A33(i). Everything in this section is exploratory, cited by
+  nothing above this tier.
+
+**What the next SR emission owes, consolidated (nothing is owed now).** Four
+items, all small and all in the emitter: SR-A27(iv)'s `yes`/`no` case fix;
+SR-A34(v)'s filed `(a⋆, a)` binding pairs transcribed into `SR_FIRST` and
+asserted; SR-A35(iv)'s `companion_digest` carried in `SR_FIRST`; and, before any
+rung-three or longer-ladder build, SR-A36(iv)'s re-design of the
+committed/companion split. **On nobody, now: anything else.**
