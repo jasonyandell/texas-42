@@ -11091,3 +11091,76 @@ question. Any third coordinate is a new commission and needs a new freeze.
   FF-A28(iv) travels with the headline number wherever it goes** — one coordinate,
   one part of it, a carrier and not a sample, grade 4 so no verdict moved, `Δ^(1)`
   only, and nothing quoted for trick 1.
+
+- **FF-A33 (FF-A31 compliance: the line-count fix is already made, the v1.2
+  citation omission is NOT material, the missing audit note is immaterial and a
+  stronger check is performed here instead — and the enquiry surfaced a real
+  imprecision in freeze 52 v1.2 that is sharpened to v1.4).** Five clauses.
+  (i) **Clause (iv)'s correction was made at FF-A32(iii) and is sitting
+  uncommitted; the convention is worth restating because it caused the
+  duplication.** In this file, *"corrected in place"* means what FT-A29(i) and
+  LD-A11(ii) established: **a later ruling states the correction and the erroneous
+  text stays visible above it** — the earlier ruling is never edited. FF-A32(iii)
+  therefore *is* the fix: FF-A25's object line reads 3,723 lines, not 3,722, by
+  operation of that clause. Nothing further is owed and no append is pending on
+  this account.
+  (ii) **Clause (vi), the v1.2 omission: NOT MATERIAL. No regeneration.** Four
+  reasons, each independently sufficient. **(1)** Freeze 52 v1.3 is *defined* as
+  clarifying v1.2 (FF-A23(iv)), so a citation of v1.3 reaches v1.2 by construction.
+  **(2)** The body's freeze block names v1.2 explicitly one line below. **(3)**
+  Nothing in the run's conduct turns on the distinction: v1.2's screen was applied
+  correctly — h2's F2 domain is **not** empty under the v1.1 amendment, so h2 was
+  rightly swept rather than declared an EMPTY TEST, and 3,126 breakpoints is the
+  proof that it had content. **(4)** Proportionality (FT-A28(iv)): a 49-second
+  regeneration to add three characters to a citation line, when the omitted item is
+  named on the next line and nothing depends on the difference, spends real cost on
+  process hygiene alone. **Binding on the next FF emission; forcing nothing now.**
+  (iii) **The enquiry surfaced a genuine imprecision in freeze 52 v1.2, and this
+  is why the question was worth asking.** v1.2 (FF-A20(iii)) reads *"a **unit**
+  whose domain is empty at every swept state is declared an EMPTY TEST, is not
+  swept…"*. **Domain-emptiness is a property of a (unit, feature) pair, not of a
+  unit**, and read literally v1.2 would have barred the **F0 null control from
+  running at h2**, where F0's domain *is* empty — contradicting FF-A15(ii)'s
+  mandate that F0 run first and blocking at every unit *"even though its verdict is
+  known, because the control is what makes the new numbers trustworthy."* The build
+  resolved this correctly and silently by running F0 everywhere. **FREEZE 52 v1.4,
+  sharpening v1.2:** the screen applies **per (unit, feature) cell**, not per unit;
+  and **the null control is exempt from the screen in all cases**, because its job
+  is to test the harness rather than the feature, and a harness check that skips
+  the states where the feature is empty is precisely a harness check that has not
+  been run where it is cheapest to run. **Binding on the next FF run; nothing is
+  owed now**, the v1.1 run having done the right thing already.
+  (iv) **Clause (v)'s audit-note half: IMMATERIAL, and the coordinator was right to
+  refuse to represent the builder's self-diff as an orchestrator diff.** Three
+  clauses of reasoning and one substitute check.
+  **Why its absence subtracts nothing from the evidentiary tier.** FT-A28(v) already
+  ruled that an orchestrator byte-diff **is never a receipt** — not asserted in-run,
+  not reproduced by any verify path, not surviving into a future run. A thing that
+  was never going to be a receipt cannot, by being absent, lower a receipt count. It
+  was specified as adjudication-time evidence and adjudication-time evidence is what
+  it would have been.
+  **What the digest receipt does and does not reach, stated honestly.** The three
+  (FT-R7c) digests reach every rung-one `(record, δ_I)` pair across processes. They
+  do **not** reach the FF-specific outputs — the per-state `θ*`, the residuals, the
+  capture figures, the shared fit. So the digest alone does not discharge the
+  confinement claim over the content that matters most here.
+  **The substitute, performed at adjudication time and stronger for that content.**
+  Every headline figure of FF-A25..FF-A30 was derived by me from the aggregates
+  reported **before** the regeneration existed, and each is confirmed present in the
+  committed file: `16474225753499603/21924124275433380` (h0 whole-unit),
+  `61431886/80449475` (shared), `2841944614/3716765745` (oracle over the 574),
+  `7095382833/7104861535` (the ratio), `0/1` over the 216 swept states at **both**
+  h2 units, and `3126` at each. **That is a comparison against values recorded prior
+  to the regeneration by an independent party, which is exactly what the byte-diff
+  was for over the content anyone will cite.** It is adjudication-time evidence and
+  is typed as such — **not a receipt**, not printed as HELD, not counted among the
+  33.
+  (v) **The standing lesson, cheap and general.** A byte-diff between two emissions
+  **must be produced while both objects exist, or not at all** — it cannot be
+  reconstructed after a sanctioned regeneration has overwritten its comparand, as
+  this one could not. **Any future regeneration protocol that wants that audit note
+  must snapshot the prior emission before regenerating.** This is not a defect in
+  anyone's conduct here: FF-A31(v) specified the note without specifying when it had
+  to be taken, which is my omission, and it is the same family as FT-A28(i) —
+  **naming a check without naming the moment at which its comparand exists.** Filed
+  so the next such ruling names both.
