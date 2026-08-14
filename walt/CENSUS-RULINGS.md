@@ -10259,3 +10259,250 @@ printed as arithmetic remarks; the **oracle-θ capture** column named as such
 everywhere; and all six outcomes of FF-A8 pre-printed with Proposition FF-oracle's
 asymmetry beside them, before any number exists. Everything else here is proof and
 needs no code.
+
+---
+
+### Closing note: the FF audition returned (2026-08-14, after the run)
+
+**Object:** `walt-factory/examples/feature_fee.rs` and
+`walt-factory/results/feature_fee_2026-08-14.txt`, committed; 47.5 s wall-clock,
+all three units, no declared stop. **(FF-R1) HELD blocking at every unit** before
+any F1 or F2 number existed, and (FF-R2)–(FF-R6) HELD at every unit. **The
+headline is that one feature bit hard and one did not — and that a clause I wrote
+in FF-A4 silently voided six of the twelve measurements, including the single
+most informative one.** Three questions are ruled at FF-A11..FF-A14 and the
+extensions at FF-A15.
+
+**Re-derived at adjudication time, independently of the run**, from the artifact's
+own emitted rows and censuses:
+
+- h0: `Σδ_I` over the 574 leading states `3217979/29937600` plus over the 758
+  following states `22237/7185024` equals `Δ^(1) = 19863799/179625600` **exactly**.
+- F2 at h0: `(Δ^(1) − 1963673387/69155856000)/Δ^(1) = 5683889228/7647562615`
+  **exactly as reported**, and its ppm floor is 743,228 as printed.
+- F2's leading-part capture `2841944614/3716765745` **exactly as reported**, and
+  the captured amount computed two ways — whole-unit and leading-part — agrees at
+  `1420972307/17288964000`.
+- F1 at h0: `88457474377/24775917854710`, i.e. **3,570.3 ppm**, with implied
+  residual `8229153460111/74681738208000`.
+- Censuses close: `32 + 486 + 814 = 1332`, `574 + 758 = 1332`.
+- **The decisive structural fact, established by grep over every emitted row:** at
+  h0, **all 2,274 `lead = no` rows carry `boss = none` and no `lead = yes` row
+  does** — the no-outstanding-trump set and the following set coincide *exactly* —
+  and **every h2 row at every feature carries `boss = none` with `breakpoints = 0`**.
+
+### Proposition FF-degen (zero breakpoints is exactly vacuity, and it is emitted) — delivered here
+
+At a frontier state `I` with `|A(I)| ≥ 2`, the breakpoint set of Lemma FF-min is
+empty **if and only if** `Φ_I(ω,b)` does not depend on `b` at any positive-mass
+`ω`; and in that case the fee is action-blind on `I`, so by Proposition FF-blind
+
+  `δ_I^{θ} = δ_I` for every `θ`,  and the state's captured amount is exactly 0.
+
+*Proof.* A breakpoint exists iff some positive-mass `ω` and some `b ≠ b'` have
+`Φ_I(ω,b) ≠ Φ_I(ω,b')`; its absence is exactly the stated constancy in `b`. Then
+`λ_I(ω,b) = θΦ_I(ω,b) = θρ_I(ω)` for a `b`-free `ρ_I`, which is centred because
+`Σ_ω μ_I ρ_I = Σ_ω μ_I Φ_I(·,b) = 0` for any `b`. Proposition FF-blind applies. ∎
+
+**Why it matters operationally, and it is the reason this run is auditable at
+all.** Freeze 52(b) requires the breakpoint count per state, so **the artifact
+separates "the feature was priced and failed" from "the feature had no content
+here" mechanically, without re-running anything.** A capture of zero at a state
+with thousands of breakpoints is a measurement; a capture of zero at a state with
+none is a tautology. Every zero in this run can therefore be typed, and below they
+are.
+
+---
+
+- **FF-A10 (the artifact against FF-A1..A9 and freeze 52: NO DEVIATION FOUND).**
+  Every contract item is present: freeze 52's enumerated carrier and arms; the
+  per-action centring of FF-A2 receipted at **every** `b`; exact breakpoint
+  minimisation with no float; freeze 52(e)'s tie rule (visible in F0's `θ* = 0`
+  everywhere); the count convention; the leading/following split; the
+  no-outstanding-trump census; the **`oracle-θ capture`** column named as such
+  throughout; the ppm figures marked PRESENTATION ONLY and entering no proof; the
+  SR-taut set printed as arithmetic remarks and excluded from every HELD count;
+  and all six FF-A8 outcomes pre-printed. **(FF-R1) ran first and blocking**, and
+  its result is doubly satisfying: F0's zero capture **and** its zero breakpoint
+  count are Proposition FF-degen and Proposition FF-blind agreeing on the same
+  state, which is the harness confirming two independent predictions at once. The
+  builder also emitted h0's (FT-R7c) frontier digest for the first time and filed
+  it, as (FF-R5) required — that obligation is discharged at h0.
+- **FF-A11 (MY DEFECT: FF-A4's blanket clause voided six of the twelve
+  measurements, and one of them was the one that mattered. The corrected text
+  stays visible and the error is not erased, per LD-A11(ii).)** Five clauses.
+  (i) **What I wrote.** FF-A4 defines the outstanding trump and then says: *"If no
+  trump is outstanding at `I`, **every feature below is 0 for every `b`** at that
+  state."* I attached that fallback to **all three** features. Only F0 and F1
+  reference the boss-trump holder `h(ω)`. **F2 (`b_is_beatable`) never mentions
+  `h(ω)` and is perfectly well defined with no trump outstanding** — indeed that is
+  when it is *most* interesting, because control then turns entirely on suit rank.
+  (ii) **What it cost, exactly.** At h2, **all 330 frontier states have no
+  outstanding trump** — the focal seat leads a top trump at the root, the lone
+  outstanding trump `52` is forced out in trick 1 in every world, and nothing
+  trump-bearing survives to the frontier. So my clause set `φ ≡ 0` for **F2 as well
+  as F0 and F1** at every h2 state, giving `Φ ≡ 0`, zero breakpoints and, by
+  Proposition FF-degen, capture zero **as a tautology**. At h0 the same clause fired
+  at the 758 following states, which coincide exactly with the no-outstanding-trump
+  set. **Six of the twelve (feature, unit) cells are therefore vacuous by
+  construction: F1 and F2 at both h2 units, and F2's following part at h0.**
+  (iii) **The one that mattered.** F2 at h2 is the measurement this build should
+  have produced and did not. h2's frontier is **wholly leading**, so F2's
+  definition there is unambiguous and its sweep would have been clean — and h2 is
+  the coordinate where the focal seat holds the top trumps and control questions
+  are purely about suit rank, which is precisely the regime F2 was written for.
+  **That measurement is UNMEASURED, not zero**, and no sentence anywhere may report
+  h2's F2 as evidence about the feature.
+  (iv) **The shape of the error, named.** I wrote a scoping clause for a *family*
+  after defining a term that only *part* of the family uses, and never checked the
+  clause against each member's own definition. It is the same fault the chapter has
+  now caught five times in different clothes — **a statement whose scope was
+  asserted rather than checked against the object it governs** — and this is the
+  fourth instance that is mine. It is also the exact fault Proposition FF-degen
+  exists to expose, which is the only reason it was catchable from the committed
+  artifact rather than requiring a re-run to discover.
+  (v) **What survives.** The clause is *sound* for F0 and F1, which genuinely have
+  no value when `h(ω)` does not exist; it is *unsound as applied to F2*. **Freeze
+  52 is amended to v1.1 at FF-A15(i)**: the fallback binds only features that
+  reference `h(ω)`, and every feature carries its own domain clause.
+- **FF-A12 (a SECOND defect of mine, smaller, and it partly excuses the first).**
+  F2's frozen definition — *"some opponent holds a tile that would beat `b` in the
+  trick as it stands at `I` after `b` is played"* — is **ambiguous at following
+  states**, where a tile already on the table may already beat `b`. It does not say
+  whether the current winner counts. At h0's 758 following states F2 was therefore
+  **doubly unusable**: suppressed by FF-A11's clause and undefined by its own text.
+  The clause accidentally prevented an ill-defined number from being printed, which
+  is luck and not design. **The amendment at FF-A15(i) fixes the definition
+  explicitly**: `φ = 1` iff some opponent **who has not yet played at `I`** holds a
+  tile that, if played, would win the trick over `b` and over every tile already on
+  the table. At leading states this is identical to the frozen reading, so **h0's
+  leading measurement is unaffected and stands.**
+- **FF-A13 (F1, Jason's feature: REFUTED at its only in-scope carrier part — and
+  the refutation is conclusive there and empty everywhere else).** Four clauses.
+  (i) **The measurement.** At h0's 574 leading states — the only place in this
+  carrier where a boss trump exists at the frontier — F1 was genuinely swept, 23,016
+  breakpoints across the support, and its oracle-θ capture is
+  `88457474377/24775917854710`, **3,570 parts per million: about one third of one
+  percent** of the first-layer tax.
+  (ii) **The verdict, and why it is strong.** By Proposition FF-oracle this is an
+  **upper bound** on what any shared or coarser parameterisation of F1 could
+  achieve, because it spends one free rational per information state. **A family
+  that cannot break 0.36% with 574 free parameters cannot break it with one.**
+  FF-A8(b) fires: **F1 is refuted as a fee at this carrier part, conclusively**,
+  and it is filed as a RESULT under F7, not as a null.
+  (iii) **Elsewhere F1 is not refuted — it is inapplicable, which is a different
+  and more interesting finding.** At h0's following states and at all of h2 there
+  **is no outstanding trump at the frontier**, so `h(ω)` does not exist and F1 has
+  no content whatever. The h2 zeros are Proposition FF-degen tautologies. **The
+  scope discovery is worth more than the refutation**: a feature keyed to the boss
+  outstanding trump is empty exactly where the focal seat has already drawn the
+  trumps, and at grade-4 endgames reached by leading a top trump that is *every*
+  state. A boss-trump feature has a shrinking domain precisely as the hand
+  simplifies, which is the opposite of where a cheap witness is wanted.
+  (iv) **FF-A9(ii) is restated here because this is where it bites.** **None of
+  this is a verdict on Jason's reading of h0 at the table.** The feature was priced
+  *as a centred fee against the first-layer tax*, which is one specific job; a
+  refutation in that job says the quantity does not linearise the Jensen gap, and
+  says nothing about whether the boss-trump-can-follow relation is the right thing
+  to be thinking about at that hand. The hypothesis loses its candidacy as a fee
+  and nothing else. It is also worth saying plainly that the hypothesis was sharp
+  enough to be killed in 47.5 seconds, which is the property one actually wants
+  from a table intuition.
+- **FF-A14 (F2, the control sibling: it BIT, and the honest number is the
+  leading-part one; FF-A8(c) fires with its asymmetry attached).** Five clauses.
+  (i) **The measurement, correctly scoped.** F2 was genuinely swept only at h0's
+  574 leading states, 26,954 breakpoints. **Oracle-θ capture on that part:
+  `2841944614/3716765745` ≈ 76.46%.** That is the number, and it is the first
+  non-trivial capture the branch has ever measured.
+  (ii) **The whole-unit figure `5683889228/7647562615` ≈ 74.32% is NOT void, but it
+  is NOT F2's capture either — it is a lower bound.** It averages the genuine
+  leading measurement against 758 states forced to zero by FF-A11's clause. Because
+  removing the clause can only lower each state's residual (`θ = 0` remains
+  feasible), a properly scoped F2 would capture **at least** 74.32% over the whole
+  unit. **Binding: the 74.32% figure may be quoted only as a lower bound and never
+  as "F2's capture"; the quotable measured number is the leading-part 76.46%.**
+  (iii) **The three-way census must be re-read, and re-reading it strengthens the
+  result.** The printed `32 ALL / 486 SOME / 814 NONE` counts the 758 vacuous
+  states among the NONEs. Over the 574 genuinely swept states the census is
+  **32 ALL / 486 SOME / 56 NONE** — computed here as `814 − 758 = 56`, with
+  `32 + 486 + 56 = 574` — so **a single centred fee on `b_is_beatable` removes some
+  of the local tax at 518 of 574 swept states, about 90%, and all of it at 32.**
+  (iv) **What FF-A8(c) permits, and it is exactly one thing.** By Proposition
+  FF-oracle a large oracle-θ capture **establishes nothing about a usable fee
+  family** — 574 free rationals is a lookup table. It licenses the follow-on, which
+  is commissioned at FF-A15(ii). **No artifact of this build may say F2 "works", and
+  none does.** The claim that is now supported is narrow and real: *at h0's leading
+  frontier states, the first-layer Jensen gap is substantially aligned with a single
+  binary control predicate — enough that per-state optimal pricing of it removes
+  about three quarters of the tax.* Whether one shared `θ` recovers any of that is
+  unknown and is the next question.
+  (v) **Every standing fence travels and one binds hardest.** Two coordinates
+  selected by negative binding margin are a carrier, not a sample (SR-A25(iii)), and
+  a capture fraction reads exactly like a rate. **P-A21: no quantity here is quoted
+  for trick 1 or for the opening**, which is the fence most at risk given that
+  screening for trick 1 is the entire motive. And by Proposition SR-degen **no
+  grade-4 verdict moved and none could have** — h0's binding pair is untied and
+  already closes at rung two.
+- **FF-A15 (the amendments and what is now commissioned).** Four clauses.
+  (i) **FREEZE 52 v1.1 — the domain clause, corrected.** Freeze 52(a)–(h) stand
+  except that FF-A4's no-outstanding-trump fallback is **scoped to features that
+  reference `h(ω)` — F0 and F1 only** — and **every feature carries its own domain
+  clause**. F2's definition is amended per FF-A12: `φ(ω,b) = 1` iff some opponent
+  **yet to play at `I`** holds a tile that would win the trick over `b` and over
+  every tile already on the table. **At leading states this is identical to the
+  frozen reading**, so nothing measured at h0's leading part changes and no
+  re-derivation is owed there.
+  (ii) **COMMISSIONED — the corrected re-run, and it is small.** Re-run freeze 52
+  v1.1 over the same three units, reporting **F2 only** (F0 and F1 are settled:
+  F0 by theorem, F1 by FF-A13). What it must produce: F2 at **all 330 h2 states per
+  unit**, and at h0's 758 following states under the amended definition. Receipts as
+  before, with **(FF-R1) still blocking** — F0 must be re-run purely as the null
+  control even though its verdict is known, because the control is what makes the
+  new numbers trustworthy. Pre-declared, per FF-A8: a large h2 capture is a second
+  in-scope datum and still licenses nothing about a shared family; **a small or zero
+  h2 capture with a large breakpoint count refutes F2 at h2 conclusively** and is
+  the more interesting outcome, since h2 is the pure-suit-rank regime; **zero
+  breakpoints again at h2 would mean F2 is constant across the fiber there**, which
+  is a third possibility and must be reported as such rather than as either.
+  (iii) **COMMISSIONED — the shared-`θ` fit for F2, on the h0 leading part.** This
+  is what FF-A8(c) licenses and no more. The object is
+  `min_θ Σ_I δ_I^θ` over the 574 leading states with **one** `θ`, exactly minimised:
+  the sum of convex piecewise-linear functions is convex piecewise-linear, so
+  Lemma FF-min applies verbatim to the pooled objective with the union of the
+  per-state breakpoints. Report the shared capture, the ratio to the oracle-θ
+  capture — **that ratio is the number the whole programme actually wants** — and
+  the per-state distribution of `θ*` from this run, which is already emitted and
+  costs nothing to summarise. **It may run in the same build as (ii).**
+  (iv) **NOT commissioned, and each for its own reason.** The **joint two-feature
+  fit** — one live feature is not a joint problem, and pairing a live feature with a
+  refuted one buys at most F1's 0.36%. The **graded form of F1** — F1's refutation
+  is of the binary predicate and does not formally transfer to the graded one, so
+  this remains *eligible* rather than refuted, but a 0.36% binary is a weak prior and
+  it earns a run only on request. **Any trick-1 object** — FT-A21 stands BLOCKED in
+  full and nothing here touches its three obligations.
+- **FF-A16 (carried obligations, and what none of this claims).** Four clauses.
+  (i) **Nothing is promoted.** Everything above is exploratory, below every tier,
+  cited by nothing above this one, quotable only by brief amendment adding it to a
+  verifier receipt. Per SR-A37 this chapter acquires **no** claim-ledger, FINDINGS
+  or open-problems row, and none is owed.
+  (ii) **Not claimed:** that F2 is a usable fee (FF-oracle forbids it on this
+  evidence); that F1 is refuted anywhere but h0's leading part; that h2 says
+  anything about either feature; that any grade-4 verdict moved; anything about
+  points, marks, bidding or real opponents; and **anything about Jason's reading of
+  h0**, per FF-A9(ii) and FF-A13(iv).
+  (iii) **Owed to the wiki owner:** freeze 52 and its v1.1 amendment are new and are
+  not in the register, and the FF chapter needs its era-page and LOG entries. Per
+  SR-A37(i) that is the **whole** list — no tier-page cross-references exist or are
+  owed.
+  (iv) **Owed on the next FF run:** freeze 52 v1.1's domain clauses; the corrected
+  F2 definition; and, since it regenerates rung-one frontiers, the (FT-R7c) digests
+  — **asserted** at h0 now that this run filed one, and asserted at h2 against
+  `SR_FIRST`. **Owed to nobody, now: anything else.** The artifact discharges its
+  contract; the two defects in it are mine, not the builder's, and both were
+  detectable from the committed file only because freeze 52(b) required the
+  breakpoint counts that Proposition FF-degen reads.
+
+**What the build owes this section.** The freeze 52 v1.1 re-run of FF-A15(ii)
+with the shared-`θ` fit of FF-A15(iii) in the same pass, F0 blocking, F2 only,
+and the three pre-declared h2 readings printed before any number exists.
+Nothing else.
