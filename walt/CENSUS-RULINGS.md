@@ -6252,3 +6252,97 @@ three receipts, freeze 48's orders, and the counts printed per declaration.
 Everything else here is proof and needs no code. If phase 2 returns a witness, it
 is checked tile-by-tile before anything is said; if it returns none, that is the
 family's conjecture proved, with the LD-A10(ii) caveat attached to it verbatim.
+
+### Closing note: the probe returned (2026-08-14, after the run)
+
+**Object:** `walt-factory/examples/laydown_probe.rs` and
+`results/laydown_2026-08-14.txt`, `results/laydown_catalogue_2026-08-14.txt`
+(commits 702c866, 104f2b4). All three declared receipts **HELD**: (LD-R1) the
+`PipTrump(6)` count is exactly **301**, discharging LD-A9(ii)'s pre-declared
+closed form; (LD-R2) all 294 freeze-47 members are present under their own
+declarations and the containment is **strict at every declaration**, 42 of 301;
+(LD-R3) the LD plan swept every trick against every field behaviour at the
+declared grade-3 analogues for each t ∈ {4, 5, 6, 7}, zero tricks lost over
+120,960–362,880 adversarial leaves per sample. Phase 2 returned **no
+four-laydown deal**, exhaustively from every full-suit anchor per (D5), every
+declaration triple, every disjoint catalogue pair, and the forced fourth hand
+under every remaining declaration. Wall-clock 235 ms, provenance only.
+
+- **LD-A11 (the four-laydown question is SETTLED in the negative; the family's
+  conjecture is PROVED, and here is the exact form of the statement).** The proof
+  chain is: the rule algebra as implemented → Theorem LD → the catalogue is
+  **complete**, not merely large → the phase-2 search is exhaustive over a
+  complete catalogue → no partition of the 28 tiles makes all four hands lay
+  downs. Every link is proved; the one soft link is LD-A10(ii), the
+  implementation-versus-corpus check, which remains pending and travels with the
+  statement. **The sentence that may be written, and no stronger one:** *no deal
+  of the 28 tiles admits four lay downs, one per hand under each hand's own
+  declaration — proved at the exploratory tier, relative to walt's implementation
+  of the rules, by exhaustive search over a catalogue that Theorem LD proves
+  complete.* Filed as a result under F7 exactly as a witness would have been.
+  Two clauses. (i) **The maximum is three, and it is exhibited**: the first
+  witness in freeze-48 order is `PipTrump(0)` {0:0, 1:0, 1:1, 2:0, 3:0, 4:0,
+  5:0}, `PipTrump(2)` {2:1, 2:2, 3:2, 3:3, 4:2, 4:4, 6:2}, `PipTrump(5)` {5:1,
+  5:2, 5:3, 5:4, 5:5, 6:5, 6:6}, with the leftover fourth hand {3:1, 4:1, 4:3,
+  6:0, 6:1, 6:3, 6:4}. Re-verified at adjudication time: the four hands partition
+  all 28 tiles with no repetition, and each of the three carries t ∈ {5, 6} with
+  every non-trump a natural double, so (L1) and (L2) discharge by inspection —
+  (L1) reads 1 ≥ 1, 2 ≥ 2 and 6 ≥ 1 respectively. **This is precisely the shape
+  the family remembered**: three lay downs and a strong fourth hand. That the
+  remembered bound and the remembered near-miss both land exactly is worth
+  saying, and is not evidence of anything beyond itself. (ii) LD-A7's hand
+  searches are **retired**: they were dead ends in a search and the search has now
+  been done properly. They stay on the record as filed, because a corrected
+  record needs the correction visible, not the error erased.
+- **LD-A12 (the seven-fold constancy: RECEIPT IT — it is a corollary, not a
+  regularity, and Corollary LD-fold is delivered here).** The build's observation
+  that every declaration counts 301 is not a coincidence to be noted and left;
+  it is a theorem, and leaving a theorem as an observed regularity is the
+  failure mode this record exists to prevent.
+
+  **Corollary LD-fold (the lay-down predicate is declaration-fold invariant).**
+  For pips p, p′ let σ = σ_{p→p′} be the bijection of {0..6} sending p ↦ p′ and
+  the k-th smallest pip of {0..6} ∖ {p} to the k-th smallest of {0..6} ∖ {p′},
+  extended to tiles by a:b ↦ σ(a):σ(b). Then H is a lay down under
+  `PipTrump(p)` iff σ(H) is a lay down under `PipTrump(p′)`; consequently the
+  catalogue counts are equal across all seven declarations.
+  *Proof.* σ is an isomorphism of the declaration-relative rule algebra. Called-
+  ness: a tile contains p iff its image contains p′. Contexts: σ restricted to
+  the non-declared pips is order-preserving by construction, so `hi` commutes
+  with σ on non-trump tiles and `led_context` transports. Effective incidence: e
+  follows context c iff e bears c and not p, iff σ(e) bears σ(c) and not p′.
+  Within-tier order: inside the called tier the order is the double first, then
+  by the other pip descending; inside the follows tier for context c the ranks
+  are the pip sums c + y, which compare by y alone, and the natural double's
+  `DOUBLE_TOP` = 12 exceeds every mixed sum (max 11) — so **both orders are
+  functions of the order of the non-declared pips only**, which σ preserves.
+  Legality and the compelled follow are defined from effective incidence, so
+  they transport. Hence O, r, `threat` and every quantity in (L1) and (L2)
+  transport, and the predicate is invariant. ∎
+  **Note what is and is not being cited.** This is a direct exhibition, in the
+  style Lemma E7 requires of a transport, and it is what licenses the equality.
+  Lemma S-fold and Corollary S-fold-val are the **precedent** that the
+  declaration fold is the right object and that value transport along it is
+  reading-independent; they are named as precedent and are not the licensing
+  authority for this predicate, which is count-free, form-level, and proved
+  directly above.
+  **Binding: add (LD-R4)** — all seven per-declaration counts asserted equal, and
+  the `PipTrump(6)` count asserted equal to 301 as (LD-R1) already does.
+  Contentful under PG-A8: it fails if σ is not an isomorphism, if the
+  enumeration is asymmetric, or if the rank algebra is not what Corollary LD-fold
+  reads it to be — which makes it, additionally, the **cheapest available probe
+  of the LD-A10(ii) risk**, since an implementation whose ranks were not pip-order
+  functions would break the equality. The catalogue totals **301 per declaration,
+  2,107 (hand, declaration) pairs** may then be printed as a receipted count
+  rather than an observation.
+- **LD-A13 (what is now closed, and what is not).** Closed: the definition, the
+  characterization, the t ≥ 4 bound, the (Z1) demotion with its quantification
+  (42 of 301), the catalogue, the four-laydown question, and the maximum. Open
+  and unchanged: LD-A10(ii)'s corpus check, which (LD-R4) now probes but does not
+  discharge — a reader must still verify tier order, `DOUBLE_TOP`, the
+  effective-incidence subtraction, the compelled follow and `threat` against the
+  rules package before any of this leaves walt. **No further build is owed on this
+  section beyond (LD-R4).** Nothing here is promoted: the catalogue, the counts,
+  the witness deal and the negative are all exploratory, cited by nothing above
+  this tier, and quotable as results only by brief amendment adding them to a
+  verifier receipt.

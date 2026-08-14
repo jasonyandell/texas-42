@@ -343,7 +343,11 @@ fn reduced_analogue(dt: &DeclTest, hand_mask: u32) -> (DominoSet, DominoSet) {
         } else {
             h.insert(order[2]);
         }
-        let outstanding = if h.contains(order[2]) { order[3] } else { order[2] };
+        let outstanding = if h.contains(order[2]) {
+            order[3]
+        } else {
+            order[2]
+        };
         pool.insert(outstanding);
     } else {
         h.insert(order[0]);
@@ -460,6 +464,28 @@ fn main() {
     let _ = writeln!(
         out,
         "(LD-R1): PipTrump(6) count == 301, LD-A9(ii)'s closed form — HELD (independently derived, so this could fail)"
+    );
+
+    // (LD-R4): all seven per-declaration counts equal — Corollary LD-fold
+    // (LD-A12), a direct exhibition of the declaration transport for this
+    // count-free form-level predicate (Lemma S-fold is the PRECEDENT that
+    // the fold is the right object, not the licensing authority; citing
+    // S-fold-val here would borrow a value-transport result for a
+    // form-level claim). Contentful (PG-A8): it fails if the fold is not
+    // an isomorphism, if the enumeration is asymmetric, or if the rank
+    // algebra is not a function of the non-declared pip order — which also
+    // makes it the cheapest available probe of the LD-A10(ii)
+    // implementation-versus-corpus risk.
+    for pip in 0..=6u8 {
+        assert_eq!(
+            catalogue[pip as usize].len(),
+            catalogue[6].len(),
+            "(LD-R4) stop-and-report: per-declaration counts differ — Corollary LD-fold violated"
+        );
+    }
+    let _ = writeln!(
+        out,
+        "(LD-R4): all seven per-declaration counts equal — Corollary LD-fold — HELD. Receipted: 301 lay downs per declaration, 2,107 (hand, declaration) pairs."
     );
 
     // (LD-R2): the freeze-47 family is contained, strictly, per declaration.
@@ -604,7 +630,10 @@ fn main() {
     }
     match (&witness, &best3) {
         (Some(_), _) => {
-            let _ = writeln!(out, "maximum pairwise-disjoint lay downs completable to a deal: 4 (the witness above).");
+            let _ = writeln!(
+                out,
+                "maximum pairwise-disjoint lay downs completable to a deal: 4 (the witness above)."
+            );
         }
         (None, Some((pa, ma, pb, mb, pc, mc))) => {
             let _ = writeln!(

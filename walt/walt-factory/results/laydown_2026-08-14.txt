@@ -13,6 +13,7 @@ catalogue PipTrump(4): 301 lay downs (of 1184040 hands tested)
 catalogue PipTrump(5): 301 lay downs (of 1184040 hands tested)
 catalogue PipTrump(6): 301 lay downs (of 1184040 hands tested)
 (LD-R1): PipTrump(6) count == 301, LD-A9(ii)'s closed form — HELD (independently derived, so this could fail)
+(LD-R4): all seven per-declaration counts equal — Corollary LD-fold — HELD. Receipted: 301 lay downs per declaration, 2,107 (hand, declaration) pairs.
 (LD-R2): all 294 freeze-47 T1-draw members present under their own declarations; containment STRICT at every declaration — HELD
 (LD-R3) t=4: sample decl=0 hand=[00 10 11 22 33 50 60]; declared grade-3 analogue hand=[00 11 60] pool=[21 22 31 32 33 41 42 43 50] — LD plan swept ALL tricks in every world against EVERY field behaviour (120960 leaves) — HELD
 (LD-R3) t=5: sample decl=0 hand=[00 10 11 20 22 30 60]; declared grade-3 analogue hand=[00 11 60] pool=[21 22 31 32 33 41 42 43 50] — LD plan swept ALL tricks in every world against EVERY field behaviour (120960 leaves) — HELD
@@ -27,5 +28,5 @@ maximum pairwise-disjoint lay downs completable to a deal: 3 (4 impossible above
   lay down under PipTrump(5): [51 52 53 54 55 65 66]
   the fourth hand: [31 41 43 60 61 63 64]
 
-total wall-clock (provenance only): 235 ms
+total wall-clock (provenance only): 234 ms
 run complete: yes

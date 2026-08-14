@@ -361,10 +361,16 @@ fn run_arm_a(c: &ArmACoord, out: &mut String) {
 
     // (T1-R1) the rule-algebra discharge.
     let top_t: DominoSet = order.iter().take(t).copied().collect();
-    assert_eq!(h_trumps, top_t, "(Z1): H ∩ T is the top t of T under trick_key");
+    assert_eq!(
+        h_trumps, top_t,
+        "(Z1): H ∩ T is the top t of T under trick_key"
+    );
     assert!(2 * t >= 7, "(Z2): 2t >= |T| = 7");
     for j in &c.doubles {
-        assert!(j.is_double() && !decl.is_called(*j), "(Z3): a natural double");
+        assert!(
+            j.is_double() && !decl.is_called(*j),
+            "(Z3): a natural double"
+        );
         assert!(
             decl.threat(*j).is_subset_of(called),
             "(Z3): threat(J) ⊆ called_set"
@@ -398,7 +404,11 @@ fn run_arm_a(c: &ArmACoord, out: &mut String) {
         .into_iter()
         .filter(|d| !c.hand.contains(*d))
         .collect();
-    let r_tiles: Vec<Domino> = order.iter().filter(|d| !c.hand.contains(**d)).copied().collect();
+    let r_tiles: Vec<Domino> = order
+        .iter()
+        .filter(|d| !c.hand.contains(**d))
+        .copied()
+        .collect();
     let mut dcs: Vec<DoubleCount> = c
         .doubles
         .iter()
@@ -439,7 +449,11 @@ fn run_arm_a(c: &ArmACoord, out: &mut String) {
             }
         }
         assert_eq!(s1.len(), 7, "witness hand fills");
-        let mut rest: Vec<Domino> = unseen.iter().filter(|u| !s1.contains(**u)).copied().collect();
+        let mut rest: Vec<Domino> = unseen
+            .iter()
+            .filter(|u| !s1.contains(**u))
+            .copied()
+            .collect();
         let s2: DominoSet = rest.drain(..7).collect();
         let s3: DominoSet = rest.into_iter().collect();
         // Field realisation: S1 plays the trump; S2, S3 play their least
