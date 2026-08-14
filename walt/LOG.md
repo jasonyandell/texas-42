@@ -253,3 +253,20 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   green: resume-validation PASS (h0 recomputed whole-call), DS-A36
   deterministic block BYTE-IDENTICAL fresh vs resumed, 36/36 units
   checkpointed and reloaded. Details: [walt-s6-era](../wiki/walt-s6-era.md).
+- **S6i (2026-08-14)**: the lay-down catalogue and the four-laydown theorem —
+  Jason's family lore, adjudicated and settled. **Theorem LD** (walt-math):
+  a hand is a lay down iff (L1) its top trump run is at least as long as the
+  outstanding trump set and (L2) every non-trump's threat lies inside
+  trumps ∪ hand — two bitset tests, an exact characterization; every lay down
+  holds ≥ 4 trumps; T1-draw is a strict inner class (Jason's missing-6:5 hand
+  IS a lay down — banking needs a second trump to hide behind, which is
+  precisely what (L1) measures). The catalogue: **exactly 301 lay downs per
+  declaration** (LD-R1 held against the independent closed form; 42 of 301 are
+  T1-draw). The LD plan verified by exhaustive adversarial play at reduced
+  analogues (up to 362,880 field-behaviour leaves, zero lost tricks).
+  **Phase 2: NO FOUR-LAYDOWN DEAL EXISTS** — exhaustive over the complete
+  catalogue from every full-suit anchor; the family's ≤ 3 conjecture is
+  PROVED (relative to Theorem LD and the rules-as-implemented caveat;
+  corpus check pending before external citation). **Max = 3, witness
+  constructed**: blanks {00 10 11 20 30 40 50}, twos {21 22 32 33 42 44 62},
+  fives {51 52 53 54 55 65 66}, leftover {31 41 43 60 61 63 64}. 235 ms.
