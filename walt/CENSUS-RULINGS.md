@@ -10969,3 +10969,56 @@ correlate with the clairvoyant action or it is worthless too.**
 **What the build owes this section.** Nothing. The v1.1 re-run discharges both
 commissions, holds all six receipts at three units, and answers the chapter's
 question. Any third coordinate is a new commission and needs a new freeze.
+
+- **FF-A31 (the v1.1 header defects: REGENERATE — option (a) — and FF-A24's
+  no-overwrite doctrine does NOT extend to this file. One binding condition and
+  one thing the corrected header must not do.)** Six clauses.
+  (i) **RULING: the header-corrected emission is the file FF-A25..FF-A30 refer
+  to.** The coordinator's instinct is right and the doctrine is mine to apply, so
+  here it is applied.
+  (ii) **Why FF-A24 does not transfer, stated as a distinction rather than an
+  exception.** FF-A24 forbids overwriting `feature_fee_2026-08-14.txt` because
+  **that file's content is the subject of a ruling** — FF-A11 types six of its
+  cells as vacuous, and the file is the evidence for a defect of mine that the
+  record exists to keep visible. Overwriting it would erase the evidence for the
+  error. **No ruling of mine is about a defect in the v1.1 file's content**; that
+  file is *evidence for results*, not the subject of a finding, and it is
+  **uncommitted**, so it is not yet an artifact of record. Regenerating it erases
+  nothing. **The doctrine protects adjudicated defects, not adjudicated files.**
+  (iii) **The regenerate-line defect must not be committed, and it is the more
+  serious of the two.** A results file whose own regenerate line names a
+  *different* probe asserts a false provenance: it claims to be a deterministic
+  function of a command that produces another object. That is the FT-A28(i) family
+  — naming a relation without naming its relata — and it is **sharper here, because
+  it names the wrong relatum rather than none**, so a reader who follows the
+  instruction gets a plausible wrong file rather than an error. CLAUDE.md's rule
+  that results are regenerated and never hand-edited makes regeneration the
+  sanctioned repair, not a workaround.
+  (iv) **My citations survive, and I checked rather than assumed.** Grep over
+  FF-A25..FF-A30 shows the v1.1 file is cited **by name and by total line count
+  only** — no line-number citation reaches into its body — and the single content
+  quotation is of the shared/oracle sentence, which sits below the header. Every
+  number I relied on was **re-derived independently from the reported aggregates**
+  before adjudication, so the ruling is not hostage to the file's byte layout at
+  all. **The one figure at risk is the object line's "3,722 lines," which is
+  provenance**: if the regenerated file's count differs, that figure alone is
+  corrected in place and nothing else moves.
+  (v) **BINDING CONDITION on the ratification: the confinement claim is checked,
+  not asserted.** *"Numbers and all content below the header are unchanged"* is
+  exactly the kind of by-construction claim this chapter does not accept on its
+  word (PG-A8, Proposition SR-taut). Two things discharge it, and they are typed
+  differently. **A receipt:** the three per-unit (FT-R7c) digests re-assert in-run
+  against their transcribed values, which reaches every frontier row across the two
+  processes. **An audit note, never a receipt:** an orchestrator byte-diff of
+  everything below the header block. FT-A28(v)'s typing applies verbatim — it is
+  not asserted in-run, not reproduced by any verify path, and does not survive into
+  a future run, so it is adjudication-time evidence and **may never be printed as
+  HELD or counted among "all six receipts."**
+  (vi) **What the corrected citation line must NOT do, because the obvious
+  over-correction is circular.** It should name **the rulings the build was
+  executed under — FF-A1..FF-A24 with freeze 52 v1.1, v1.2 and v1.3** — and must
+  **not** be extended to FF-A25..FF-A30, which are rulings *about* this file
+  written after it ran. **A results file citing the rulings that adjudicate it
+  asserts a provenance that runs backwards in time**, and it would also make the
+  file's own header a moving target every time the chapter is extended. The
+  governing set is fixed at the moment of the run; the adjudicating set lives here.
