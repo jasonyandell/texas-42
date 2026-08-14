@@ -10506,3 +10506,150 @@ are.
 with the shared-`θ` fit of FF-A15(iii) in the same pass, F0 blocking, F2 only,
 and the three pre-declared h2 readings printed before any number exists.
 Nothing else.
+
+- **FF-A17 (arm 2's typing: the builder's EMPTY TEST reading is RATIFIED, its
+  mechanism is verified here independently, and FF-A8(b)'s literal gate did NOT
+  fire).** Four clauses.
+  (i) **The mechanism, checked at adjudication time rather than accepted.** h2's
+  pool is `[10 11 20 22 30 31 32 41 43 52 63 66]` and the declaration is pip 5;
+  **exactly one pool tile bears a 5 — the `52`** — while `53` and `54` sit in the
+  focal hand. Both h2 units lead a trump at the root, the field must follow trump
+  when able, so the sole field trump burns on trick 1 in every world and nothing is
+  outstanding at the frontier. The census the artifact emits — **216 of 216 swept
+  states, 330 of 330 states** — is the arithmetic consequence. Verified.
+  (ii) **The typing is RATIFIED: arm 2 is an EMPTY TEST and contributes no
+  evidence in either direction.** It is not a second refutation of F1, not
+  coordinate-dependence of feature quality, and not a measurement of F2. This is
+  FF-A11(ii)–(iii) confirmed by a mechanism rather than by a breakpoint count, and
+  the two agree.
+  (iii) **FF-A8(b)'s pre-declared gate was NOT met, and my FF-A13 verdict is
+  narrower than the one I pre-declared.** FF-A8(b) reads *"F1's oracle-θ capture is
+  small at **both arms** → the feature is refuted, and conclusively."* With arm 2
+  empty, that condition is unsatisfied and **outcome (b) did not fire as written.**
+  What FF-A13 rules instead is a *scoped* refutation — conclusive on the 574 states
+  where F1 has a domain, empty elsewhere — which I introduced at adjudication after
+  seeing the numbers. **That is legitimate only because it claims strictly less than
+  the pre-declared outcome and rests on Proposition FF-oracle rather than on the
+  gate**, and it must never be cited as though the pre-declared gate had fired.
+  Pre-declaration exists so a reading cannot be shopped for after the fact; the
+  honest record is that the declared gate was unsatisfiable at this carrier and a
+  weaker verdict was substituted in the open.
+  (iv) **The lesson for the next pre-declaration.** A gate quantified over "both
+  arms" silently assumes both arms are non-empty. **A pre-declared outcome must
+  either quantify over *non-empty* arms or carry an explicit empty-arm branch.**
+  FF-A8 had no such branch; freeze 52 v1.2 at FF-A20 supplies the screen that makes
+  the case visible before a unit is spent.
+- **FF-A18 (MY THIRD DEFECT in this chapter: FF-A13(i) attaches a whole-unit
+  rational to a leading-state sentence. Corrected in place; the verdict is
+  unchanged.)** Three clauses.
+  (i) **The error.** FF-A13(i) reads *"At h0's 574 leading states … its oracle-θ
+  capture is `88457474377/24775917854710`, 3,570 parts per million."* That rational
+  is the **whole-unit** capture, over all 1,332 swept states. The **leading-part**
+  capture — the correctly scoped figure, and the one the verdict actually rests on
+  — is `88457474377/24082518161460`, **3,673 ppm (0.3673%)**, which is what the
+  builder reports and which I confirm by exact computation. Both rationals share
+  the numerator because all of F1's capture lies on the leading part; only the
+  denominator differs, `Δ^(1)` versus `Σ_I δ_I` over the leading states.
+  (ii) **The verdict is unchanged and is if anything unchanged for the better.**
+  0.3673% against 0.3570% is the same refutation; FF-A13(ii)'s argument from
+  Proposition FF-oracle is untouched. **FF-A13(i)'s sentence is corrected to read
+  3,673 ppm on the leading part, with 3,570 ppm named as the whole-unit figure.**
+  (iii) **The shape, and I record it because it is embarrassing in a useful way.**
+  I ruled at FF-A14(ii) that the artifact must not quote a whole-unit figure as if
+  it were the leading-part measurement — and then did exactly that to F1 one clause
+  earlier. **Scope mislabelling is not a mistake other people make; it is the
+  standing hazard of a file that reports the same quantity over nested state sets**,
+  and the only defence is the one that caught it here: every rational is printed
+  with the state set it is a ratio over. **Binding on this file: no capture figure
+  appears anywhere without its denominator's state set named in the same
+  sentence.**
+- **FF-A19 (the h0 leading/following split: the correspondence is RATIFIED as
+  verified; the rules-level mechanism is the builder's reading and is typed as
+  hostage to T1-A12).** Three clauses.
+  (i) **What is verified and is mine.** Across all 2,274 `lead = no` rows of the h0
+  block, **every one carries `boss = none`, and no `lead = yes` row does** —
+  checked by grep at adjudication time. So at h0 the following set and the
+  no-outstanding-trump set coincide **exactly**, 758 and 758, and the leading set
+  and the boss-survives set coincide, 574 and 574. **The split is feature
+  AVAILABILITY, not feature quality**, and the builder's framing is adopted.
+  (ii) **Half the mechanism is immediate and I confirm it.** h0's pool is
+  `[10 11 20 22 40 41 42 43 44 51 52 62]` under pip 3, and **exactly one pool tile
+  bears a 3 — the `43`**. A played `43` is a trump and beats the non-trump root
+  `00`, so **`43` played ⟹ focal loses trick 1 ⟹ following, and boss gone.** That
+  direction is rules-light and holds.
+  (iii) **The converse is the builder's reading and I do not ratify it as a rules
+  fact.** That `43` unplayed ⟹ focal's `00` wins depends on the engine's suit
+  convention — specifically on which dominoes can follow a led `00`. The observed
+  equivalence is consistent with a convention in which suit 0 has `00` as its only
+  member at this coordinate, and inconsistent with one in which every domino
+  bearing a blank can follow. **I decline to adjudicate which, because the artifact
+  cannot tell me and because that is precisely the T1-A12 / LD-A10(ii)
+  implementation-versus-corpus risk that is still owed.** It is worth saying that
+  this is the first place in three chapters where a *reported mechanism* — not a
+  value — turns on the unchecked convention, which is a small argument for paying
+  that debt sooner. **Nothing in FF-A13 or FF-A14 depends on the converse**: both
+  verdicts rest on the emitted `boss` field, not on why it is set.
+- **FF-A20 (the builder's arm-screening rule: ADOPTED, sharpened into a
+  pre-traversal test, and frozen as 52 v1.2).** Three clauses.
+  (i) **The rule, adopted.** *Screen a candidate unit for whether the feature has a
+  non-empty domain at the frontier before spending the unit on it.* Of the original
+  five freeze-50 coordinates, only h0 exercises a boss-trump feature at all, and
+  discovering that by running was a waste that the emitted census made visible only
+  afterwards.
+  (ii) **Sharpened: for a boss-keyed feature the screen is computable from the
+  coordinate and the root action alone, with no traversal.** Both carrier
+  coordinates have **exactly one trump outside the focal hand**. The difference is
+  the root action: at h2 it *is* a trump, so the field must follow and the lone
+  boss burns on trick 1 in every world — **empty domain, provably, before any
+  walk**; at h0 it is not, so the boss survives on some paths. The general
+  sufficient condition: **if the number of trumps outside the focal hand is 1 and
+  the root action is a trump, every boss-keyed feature has empty domain at every
+  frontier state.** More trumps outstanding weakens it to a partial screen, which is
+  what the emitted census then measures.
+  (iii) **FREEZE 52 v1.2 — the domain screen.** Freeze 52 v1.1 (FF-A15(i)) stands,
+  plus: **every FF unit emits its feature-domain census *before* the sweep, and a
+  unit whose domain is empty at every swept state is declared an EMPTY TEST, is not
+  swept, and contributes to no capture figure and no outcome gate.** An empty test
+  is reported as a unit that did not run, never as a zero. This is FF-A8's missing
+  empty-arm branch (FF-A17(iv)) made operational, and it costs one pass over the
+  frontier records.
+- **FF-A21 (the (FT-R7c) digest assertion at h2 is a CROSS-PROGRAM check and is
+  stronger than what I specified).** (FF-R5) required the h2 digests asserted
+  against `SR_FIRST`'s transcribed values and h0's emitted-and-filed. Both were
+  done. **What I did not specify and the build delivered:** the h2 assertion
+  compares a digest produced by `feature_fee.rs` against one produced by
+  `second_rung.rs` and transcribed from a run of `fusion_tax.rs`'s frontier —
+  **byte-identical canonical serialisation of the `(record, δ_I)` vector across
+  three independently written programs.** FT-A28(iv) conceived (FT-R7c) as a
+  cross-*process* determinism receipt; at h2 it is now a cross-*program* one, which
+  reaches the record keying, the arrival weights and the tax vector simultaneously
+  and would fail on any divergence in the frontier construction between the three
+  probes. **It is a receipt, not an audit note** — asserted in-run against a
+  transcribed constant with its carrier named — and it is the strongest evidence
+  the rung-one frontier has yet received. h0's digest, having no filed value, was
+  emitted and filed under the same division; **it becomes assertable on the next FF
+  run** (FF-A16(iv)).
+- **FF-A22 (the audition's cleanest statement, and the one sentence worth
+  carrying out of this chapter).** On **one and the same set of 574 states**, with
+  one and the same sweep, arithmetic, centring and tie rule, the two
+  action-conditioned candidates return oracle-θ captures of **0.3673%** and
+  **76.46%** — a ratio of **about 208×**. Because the comparison is within a
+  single unit and a single pass, it is free of every between-coordinate confound
+  the selection fence guards against, and it is the only comparison in this chapter
+  that is. **What it supports, stated at its exact strength:** *at h0's leading
+  frontier states, the first-layer Jensen gap is substantially aligned with whether
+  the focal seat's action can be beaten, and essentially not at all with whether
+  the boss-trump holder can follow it.* **What it does not support**, and the
+  fences are unchanged: nothing about a usable fee family (Proposition FF-oracle —
+  574 free rationals), nothing about any other coordinate (SR-A25(iii): a carrier,
+  not a sample), nothing about trick 1 or the opening (P-A21), and no grade-4
+  verdict (Proposition SR-degen). And FF-A9(ii) travels with it: the feature that
+  lost was priced as a fee against one specific object, and losing that job is not
+  a verdict on the reasoning that proposed it.
+
+**What the build owes this section, restated after the supplement.** Unchanged
+from FF-A16's closing note, plus freeze 52 v1.2's domain screen emitted before the
+sweep at every unit, and the empty-arm branch made explicit in the next
+pre-declaration. Arm 2 needs no re-run *as an F1 test* — it never was one — but
+the corrected-F2 re-run of FF-A15(ii) still wants h2, where F2's domain is **not**
+empty and only my FF-A4 clause made it look so.
