@@ -10742,3 +10742,230 @@ empty and only my FF-A4 clause made it look so.
   mandatory; the three pre-declared h2 readings printed before any number; and the
   (FT-R7c) digests asserted at all three units, which **discharges FF-A16(iv)'s h0
   item** now that this build has filed one.
+
+---
+
+### Closing note: the freeze 52 v1.1 re-run returned (2026-08-14, after the run)
+
+**Object:** `walt-factory/examples/feature_fee_v11.rs` and
+`walt-factory/results/feature_fee_v11_2026-08-14.txt`, 3,722 lines, uncommitted at
+adjudication time; CI green. Three units, six receipts HELD at each, (FF-R1)
+blocking and first. **The chapter's question is answered: a single
+action-conditioned feature with ONE shared parameter captures 99.87% of what 574
+free parameters capture.** Four questions are ruled at FF-A26..FF-A29.
+
+**Re-derived at adjudication time from the reported aggregates**, all exact:
+
+- F2 at h0, whole unit, amended: `16474225753499603/21924124275433380` =
+  **75.1420%**, ppm floor 751,420 as printed, and **≥ the clause-suppressed
+  74.3229%** — confirming FF-A14(ii)'s lower-bound reasoning on the numbers.
+- Shared-θ capture `61431886/80449475` = **76.3608%** against oracle-θ
+  `2841944614/3716765745` = **76.4628%**, both over h0's 574 leading states;
+  **ratio `7095382833/7104861535` = 99.86659%**, ppm floor 998,665 as printed. The
+  shared fee gives up `18957404/18583828725` — **0.102% of the leading-part tax** —
+  relative to per-state tuning.
+- **A figure the build did not report, available by arithmetic from ones it did:**
+  since the leading-part capture is asserted unchanged, the amended F2's capture on
+  h0's **758 following states** is `25654843999781/87655285360500` = **29.2679%**.
+  This is new and it matters (FF-A27(ii)).
+
+### Proposition FF-corr (what a fee bites on, exactly) — delivered here
+
+At a frontier state `I`, write `Φ_I(ω,b) = φ_I(ω,b) − c_I(b)` and let
+`argmax_b q_I(ω,b)` be the clairvoyant optimal set at `ω`. Then the oracle-θ
+capture at `I` is **zero** if and only if `θ = 0` minimises `G_I`, which holds if
+and only if
+
+  `Σ_ω μ_I(ω) min_{b ∈ argmax} (−Φ_I(ω,b)) ≤ 0 ≤ Σ_ω μ_I(ω) max_{b ∈ argmax} (−Φ_I(ω,b))`.
+
+In particular, when the clairvoyant argmax is unique at every positive-mass `ω`,
+capture is zero **iff**
+
+  `Σ_ω μ_I(ω) Φ_I(ω, b*(ω)) = 0`,
+
+that is, iff **the centred feature, evaluated along the clairvoyant policy, has
+zero mean under `μ_I`**.
+
+*Proof.* `G_I` is convex (Lemma FF-min), so `θ = 0` is a minimiser iff
+`G_I'(0^-) ≤ 0 ≤ G_I'(0^+)`. For a maximum of affine functions the one-sided
+derivatives at a point are the extreme slopes over the active set, and at `θ = 0`
+the active set at `ω` is `argmax_b q_I(ω,b)` with the `b`-th slope `−Φ_I(ω,b)`;
+summing against `μ_I` gives the displayed condition. Under uniqueness both bounds
+collapse to `−Σ_ω μ_I Φ_I(ω,b*(ω))`. ∎
+
+**Why this is the sentence the whole feature-fee idea reduces to.** By
+construction `Φ_I(·,b)` has zero `μ_I`-mean for each **fixed** `b`. So a fee can
+only bite through the correlation that **selecting `b` by the world** induces. A
+feature therefore prices a Jensen gap exactly to the extent that its centred value
+*along the clairvoyant choice* is off-centre — and a feature can be rich,
+action-conditioned, and full of breakpoints while being exactly orthogonal to the
+choice, which is what h2 turns out to be. It also completes the trio: Proposition
+FF-blind says an action-blind fee is worthless, Proposition FF-degen says a
+fibre-constant fee is worthless, and **Proposition FF-corr says what is left must
+correlate with the clairvoyant action or it is worthless too.**
+
+---
+
+- **FF-A25 (the artifact against FF-A23/FF-A24: NO DEVIATION, and FF-A23(iii)'s
+  prediction is confirmed empirically).** The sweep is 216 per h2 unit per freeze
+  52(b); the domain census is emitted over every frontier state alongside the swept
+  census, both labelled, per freeze 52 v1.3; FF-A18's rule is applied to every
+  figure, with the shared/oracle line even carrying *"it is a ratio of two captures
+  over the SAME 574 states and is meaningless against any other state set"*, which
+  is the rule stated better than I stated it; and FF-A24(ii)'s supersession header
+  is present with both lists. **FF-A23(iii) predicted that nothing numeric turns on
+  the sweep ruling; the re-run reports the oracle-θ capture, the shared-θ capture
+  and their ratio byte-identical to the pre-ruling run.** A prediction that could
+  have been wrong was not. The h0 leading-part figure was **asserted** rather than
+  printed and held, so the amendment's collapse at leading states is now checked on
+  the numbers by a second program and not only argued (FF-A24(iii)).
+- **FF-A26 (F2 at h2: REFUTED CONCLUSIVELY — pre-declared reading (h2-2) fired,
+  and the reason the exact zero is trustworthy is not the null control).** Five
+  clauses.
+  (i) **The result.** Oracle-θ capture **exactly `0/1`** over the 216 swept states
+  at **both** h2 units, with **3,126 breakpoints**. FF-A15(ii) pre-declared three
+  readings; this is the second — *"a small or zero h2 capture with a large
+  breakpoint count refutes F2 at h2 conclusively"* — and I called it *"the more
+  interesting outcome"* before any number existed. It fired. **F2 is refuted at
+  h2**, and by Proposition FF-oracle the refutation extends to every shared or
+  coarser parameterisation there.
+  (ii) **Priced and failed, not vacuous — and the distinction is entirely earned by
+  the breakpoint count.** This is Proposition FF-degen doing the exact job it was
+  written for: 3,126 breakpoints means the fee genuinely varied and the minimum was
+  found at `θ = 0` anyway. Contrast the first run's h2, where the same zero came
+  with **zero** breakpoints and was a tautology. **The same number means opposite
+  things in the two files**, and only the diagnostic separates them.
+  (iii) **What the exact zero means, by Proposition FF-corr.** At every one of 216
+  states, twice, `Σ_ω μ_I Φ_I(ω,b*(ω))` sits at zero (or the subgradient straddles
+  it). **An exact rational identity holding at 432 independent states is not a
+  coincidence and there is a structural cause I cannot identify from this
+  artifact.** Two candidates: the feature is genuinely orthogonal to the
+  clairvoyant choice at h2's frontier, or the clairvoyant argmax sets are widely
+  non-unique there and the subgradient straddles zero for a tie-driven reason.
+  **OPTIONAL and cheap, not mandated:** emitting `Σ_ω μ_I Φ_I(ω,b*(ω))` and the
+  per-world argmax cardinality per state would separate the two in one pass. It is
+  not owed — the refutation stands either way, and proportionality is part of the
+  discipline.
+  (iv) **THE RECEIPT-DESIGN POINT, and it is the one worth carrying forward.**
+  (FF-R1), the null control, expects `θ* = 0` — **and so does the failure mode "the
+  sweep is broken and always returns `θ* = 0`".** A null control whose expected
+  answer coincides with a plausible bug's answer **cannot** validate an exact zero
+  elsewhere. What licenses reading h2's zero as a measurement is that **F2 at h0
+  returns `θ* ≠ 0` at all 574 leading states, across 27 distinct values, none zero,
+  and a nonzero shared `θ* = −56/45`** — the sweep demonstrably moves. **The
+  general rule, filed alongside Proposition SR-taut and Proposition FF-degen: a
+  null control is complete only when paired with a case whose correct answer is
+  known to be non-null.** Here the pairing exists by luck of the carrier rather
+  than by design, and the next FF pre-declaration should require it.
+  (v) **FF-A22's 208× comparison is unaffected**, being within h0's 574 states.
+- **FF-A27 (F2 at h0 under the amendment: FF-A14(ii)'s lower bound CONFIRMED, and
+  FF-A19's "availability not quality" is SUPERSEDED for the amended feature).**
+  Three clauses.
+  (i) **The whole-unit figure is 75.1420% over h0's 1,332 swept states**, against
+  the clause-suppressed 74.3229%. FF-A14(ii) ruled that the earlier number was *"not
+  void but a lower bound"*, on the reasoning that removing the clause can only lower
+  each state's residual. **75.1420% ≥ 74.3229%, so the reasoning is confirmed on the
+  numbers**, and the earlier figure may continue to be cited as what it was ruled to
+  be. The census moves from `32/486/814` to **`70 ALL / 1182 SOME / 80 NONE`**: with
+  the domain repaired, **1,252 of 1,332 swept states now capture something.**
+  (ii) **The new finding, derived here: the following-part capture is 29.2679% over
+  h0's 758 following states.** The build reports the whole-unit and the leading-part
+  figures and asserts the latter unchanged, so the following part follows by exact
+  arithmetic. **This supersedes FF-A19's summary sentence for the amended feature.**
+  FF-A19 ruled *"the split is feature AVAILABILITY, not feature quality"* — true of
+  **F2 as frozen**, whose domain was empty at following states, and it remains true
+  of **F1**, which is boss-keyed and genuinely has no domain there. It is **no longer
+  true of amended F2**: with availability repaired, a large quality difference
+  remains — **76.4628% leading against 29.2679% following, the same feature, the same
+  unit, the same sweep.** FF-A19 is corrected in place accordingly; the erroneous
+  generalisation stays visible per LD-A11(ii).
+  (iii) **Typed at its exact strength, with the fences.** *At h0, the amended
+  control predicate prices roughly three quarters of the leading-part first-layer
+  tax and under a third of the following-part tax.* Whether that gap is about
+  leading versus following as such, or about what else differs between those two
+  state sets at this one coordinate, is **not determined** — and the same P-A21 and
+  selection fences bind (SR-A25(iii)); nothing here is quoted for trick 1.
+- **FF-A28 (the shared-θ fit: FF-A8(c)'s licensed follow-on has RETURNED, and it
+  is the strongest result in the FF chapter).** Five clauses.
+  (i) **The result.** Over h0's 574 leading states, one pooled `θ* = −56/45` gives
+  shared capture **76.3608%** against the per-state oracle's **76.4628%** —
+  **99.8666% of the oracle survives collapsing 574 free rationals to one.** The
+  shortfall is `18957404/18583828725`, **0.102% of the leading-part tax.**
+  (ii) **Why this is the number the chapter existed to produce.** Proposition
+  FF-oracle established that a large oracle-θ capture establishes *nothing* about a
+  usable family, because per-state tuning is a lookup table; FF-A8(c) therefore
+  licensed exactly one thing, the shared fit. **That fit has now returned and it says
+  the feature does not need per-state tuning at all.** Inbox 017's §14.3 asked for
+  *"a small action-conditioned feature family whose conditionally centered penalties
+  remove enough of each competitor's fusion value"*. **At this carrier part, one
+  feature and one rational do it.** That is the first time in the branch that a
+  *small* fee family has been shown to carry a first-layer tax, and it is what makes
+  the penalty route more than a theorem.
+  (iii) **The corroborating structure, and it is consistent.** The per-state `θ*`
+  over those 574 states takes only **27 distinct values**, none zero, over
+  `[−21/4, −32/33]`, with 12 states matching the shared value exactly. A feature
+  whose optimal price is nearly constant across states is precisely one whose shared
+  fit should lose almost nothing, and it does.
+  (iv) **What it still does NOT establish, and the fences are undiminished.** One
+  coordinate; one part of it (574 of that unit's 1,332 swept states, and h0 is one of
+  nine n = 4 coordinates); selected by negative binding margin, so **a carrier and
+  not a sample** (SR-A25(iii)); **grade 4, so no verdict moved and none could**
+  (Proposition SR-degen); and **P-A21 — nothing here is quoted for trick 1 or for the
+  opening**, which is where the whole programme is aimed and where FT-A21's three
+  obligations remain untouched. **A 99.87% shared/oracle ratio at one coordinate part
+  is a licence to test the fee at a second coordinate, not a licence to believe in
+  it.**
+  (v) **And it is a rung-one result.** By Corollary FT-grade4 the h0 fusion gap is
+  `Δ^(1) + Δ^(2)`, and every number in this chapter prices `Δ^(1)` only. A fee that
+  captured 100% of `Δ^(1)` would still leave `Δ^(2) = 387281/5132160` untouched.
+- **FF-A29 (the builder's discriminating-variable hypothesis: ACCEPTED AS A DESIGN
+  INPUT, refused as a finding, and correctly self-fenced).** Three clauses.
+  (i) **The observation.** F2 captures ~76% at h0's leading frontier and exactly 0%
+  at h2's, **both with real breakpoint content**, and the two leading frontiers
+  differ in that h0's still has an outstanding trump behind it while h2's does not.
+  The builder raised it flagged as hypothesis, not finding, with P-A21 attached.
+  **That self-typing is correct and is adopted.**
+  (ii) **Why it cannot be a finding here.** `n = 2`, both chosen by negative binding
+  margin, and the two coordinates differ in **many** ways besides trump survival —
+  declaration, hand, whether the root action is itself a trump, the leading/following
+  mix, the frontier size (16,136 against 330), and the fibre structure. **A single
+  contrast cannot isolate one variable from a dozen co-varying ones**, and the
+  selection fence bites hardest exactly where a mechanism is being proposed.
+  (iii) **What it IS good for, and it is genuinely useful.** It supplies a
+  **discriminating variable for arm selection** if the family is extended: a third
+  coordinate should be chosen to **vary trump survival at the frontier while holding
+  as much else fixed as possible** — ideally the same declaration and a root action of
+  the same trump/non-trump type — so that the contrast is informative rather than
+  merely another observation. That is the correct use of an untested hypothesis:
+  **it designs the next experiment; it does not conclude the last one.** Combined
+  with freeze 52 v1.2's domain screen, arm selection now has two inputs and no
+  longer needs to discover either by running.
+- **FF-A30 (status, what is commissioned, and what is owed).** Five clauses.
+  (i) **Settled and closed at this carrier:** F0 by theorem (Proposition FF-blind,
+  twice confirmed); **F1 refuted** on h0's leading part and inapplicable elsewhere
+  (FF-A13, FF-A18's scope correction); **F2 refuted at h2** (FF-A26); **F2 live at
+  h0** with 75.14% whole-unit, 76.46% leading, 29.27% following, and a shared-θ fit
+  retaining 99.87% (FF-A27, FF-A28). **FF-A16(iv)'s h0 digest item is DISCHARGED**
+  by the three asserted (FT-R7c) digests.
+  (ii) **NOTHING further is commissioned now.** FF-A15(ii)–(iii)'s two commissions
+  are both discharged by this run. The obvious next experiment — F2 at a third
+  coordinate chosen per FF-A29(iii) — is **not commissioned here**, because it is a
+  new carrier and wants its own freeze, its own pre-declared readings including the
+  empty-arm branch of FF-A17(iv), and the non-null pairing of FF-A26(iv). It should
+  be asked for deliberately, not inherited.
+  (iii) **Optional and unmandated:** FF-A26(iii)'s two-column diagnostic, if anyone
+  wants h2's exact zero explained rather than merely established.
+  (iv) **Owed to the wiki owner:** freeze 52 with its v1.1, v1.2 and v1.3
+  amendments, and the FF era-page and LOG entries. Per SR-A37(i) that is the whole
+  list; no tier-page rows exist or are owed.
+  (v) **Not claimed**, all of FF-A16(ii) unchanged, and one added: **no sentence
+  anywhere may report the shared-θ result as showing that a feature fee "works" at
+  trick 1, at the opening, or at any coordinate other than h0's leading part.**
+  FF-A9(ii) also still travels: the feature that was refuted was priced as a fee
+  against one specific object, and that is not a verdict on the reasoning that
+  proposed it. Jason's hypothesis suggested one feature that died and a sibling that
+  did not, and the sibling is now the best-supported object in the FF chapter.
+
+**What the build owes this section.** Nothing. The v1.1 re-run discharges both
+commissions, holds all six receipts at three units, and answers the chapter's
+question. Any third coordinate is a new commission and needs a new freeze.
