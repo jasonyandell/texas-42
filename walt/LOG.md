@@ -217,3 +217,22 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   est at h9 vs the 10-minute gate). The declared fallback {h6, h4, h8} fails its
   own gate arithmetic at h8 (~648s vs 600s), so per N4-A12(c) this returns to the
   rulings file. Details: [walt-s6-era](../wiki/walt-s6-era.md).
+- **S6g (2026-08-14, overnight)**: the trick-1 draw probe — the direct run at
+  the first-trick dream, math first. The bounded-sandwich proposal was REFUTED
+  BY PROOF before any compute (Propositions T1-blind and T1-corner: a hand-only
+  lower bound excludes nothing, and the corner sandwich closes only on the
+  all-trump hand); Theorem T1-draw and Corollary T1-ruff replaced it, needing
+  no relaxation. **287 first-trick plays PROVED**: at every non-trivial
+  coordinate of the closed 294-member drawing family, Opt^H is determined
+  EXACTLY — every trump lead at +7, belief-free and field-free (a statement
+  about the rules, the one place R-A2 does not bind a verdict), every double
+  lead strictly excluded with its exact q from an exhaustive integer count over
+  all 399,072,960 worlds. Member-not-set DISCHARGED, not waived. The flagship
+  {66 65 64 63 62 61 55}: Q^H(5:5) = 7 − 143/5814; Opt^H = the six trump
+  leads. The reduced-grade authority ladder held to the rational at grades
+  2/3/4. No corpus hand draws; the 13 exact corner gaps (4 .. 92/15) are the
+  filed specification for freeze 38's gluing — the next dispatch. Fence: a
+  drawing hand is a hand that plays itself; nothing is said about hands that
+  require judgement. Risk carried (T1-A12): proved relative to walt's
+  implementation of the rules; the corpus check is mandatory before external
+  citation. Details: [walt-s6-era](../wiki/walt-s6-era.md).
