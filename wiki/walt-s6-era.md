@@ -1,15 +1,16 @@
-# walt — the S6 era (S6a–S6k): predictive algebra, policy geometry, deadness, separation, and the first gluing cut
+# walt — the S6 era (S6a–S6l): predictive algebra, policy geometry, deadness, separation, and the two gluing rungs
 
 [Home](Home.md) · owns: the S6 probes as sessions — the predictive-rank dimension census and the Gate B
 refutation (S6a), the policy-geometry probe at Gate E (S6b), the decision-deadness probe (S6c), the separation probe
 (S6d), the economy-seed probe (S6e), the freeze-44 refactor and n = 4 gate result (S6f), the trick-1 draw probe
 (S6g), the n = 4 separation pass (S6h), the lay-down catalogue (S6i), the rule-economy probe (S6j), and the
-fusion-tax probe (S6k) · Sources: `walt/LOG.md` (S6a–S6k); `walt/PREDICTIVE-RANK.md`, `walt/POLICY-GEOMETRY.md`,
+fusion-tax probe (S6k) and the second-rung probe (S6l) · Sources: `walt/LOG.md` (S6a–S6l);
+`walt/PREDICTIVE-RANK.md`, `walt/POLICY-GEOMETRY.md`,
 `walt/DEADNESS-PROBE.md`, `walt/SEPARATION-PROBE.md`, `walt/SEPARATION-RUNG-N4.md`, `walt/ECONOMY-SUCCESSOR.md`;
 `walt/math/predictive_algebra_v0.6.md`,
 `walt/math/decision_sparse_exact_solving_v0.1.md` and its errata; `walt/CENSUS-RULINGS.md` (R-A1..R-A24,
 PG-A1..PG-A18, J-A1..J-A18, DS-A1..DS-A36, SEP-A1..SEP-A19, N4-A1..N4-A20, EC-A1..EC-A14, T1-A1..T1-A12,
-LD-A1..LD-A13, RW-A1..RW-A8, FT-A1..FT-A28); the results files under
+LD-A1..LD-A13, RW-A1..RW-A8, FT-A1..FT-A29, SR-A1..SR-A36); the results files under
 `walt/walt-factory/results/`. Related: [walt](walt.md) (hub), [walt-census-era](walt-census-era.md) (what S6
 answers), [walt-decision-sparse](walt-decision-sparse.md) (the architecture these probes serve),
 [walt-math-reference](walt-math-reference.md) (formal statements), [walt-instruments](walt-instruments.md),
@@ -624,7 +625,7 @@ run's exact side is **quoted, not recomputed**, so EC-A13's fence stands unchang
 **The question.** S6h had produced four exact negatives — coordinates where Corollary E4.1(3) proves no candidate
 can ever close the pair, leaving a gluing cut as the only remaining lever. Freeze 38 had been reserved for that
 lever since the intake audit. An external note arrived on the same day proposing exactly the missing machinery, was
-adjudicated as **FT-A1..FT-A28** — eight named results delivered with it, four lemmas, two propositions and two
+adjudicated as **FT-A1..FT-A29** — eight named results delivered with it, four lemmas, two propositions and two
 corollaries — **filled freeze 38 v1**, and was built and run the same night.
 
 **THE RESULT: the first gluing-cut closure in the branch.** At h6 — pip 4, hand `[11 40 43 53]` — the first-layer
@@ -646,6 +647,79 @@ selection fence, the binary fusion cores, and (FT-R1)'s independent confirmation
 architecture's story and are owned by
 [walt-decision-sparse](walt-decision-sparse.md#the-fusion-tax-chapter-s6k-2026-08-14). **The next open target has a
 name: Δ².**
+
+---
+
+## S6l — 2026-08-14: the second-rung probe, and the escape actions
+
+**The question.** S6k had named Δ² as the next target and proved it was exactly the part of the fusion gap the first
+rung cannot reach. Asking Pro for it produced the second external note of the same day; it was adjudicated as
+**SR-A1..SR-A36**, delivering **eight** named results, fixing **freeze 51** and clarifying freeze 38's clause (d) as
+**v1.1(d)** — a clarification with no new content, since the reveal-delay ladder already had k = 2 as a member and
+its validity was discharged for the whole family at once. Freeze 38 stands at **v1**; **v2 was not opened**.
+
+**Before the build, a fence that reshaped it.** **Proposition SR-degen**: at grade 4 the second rung closes every
+binding pair *unconditionally* — L ≥ U^(2) follows from two already-filed columns — so **no grade-4 experiment can
+test whether rung two closes anything.** The probe was therefore re-specified as an instantiation receipt and a
+measurement of structure, with **no closure verdict reported at all**. A second a-priori fence went with it: at grade
+4 the seat holds two tiles at the second frontier, so every positive-tax minimal core has size exactly 2 **by
+arithmetic** — the received note's open question about core sizes is unmeasurable here, and the run may not be
+reported as answering it. Both are the S6k lesson caught *before* a run instead of after one.
+
+**The result** (`second_rung_2026-08-14.txt`). Four units — two at h2, two at h9 — **all ten receipts HELD at every
+unit**, with the reduced-grade cross-check running **blocking** before any carrier number existed. **Arm 2 completed;
+no declared stop occurred.** walt-math re-derived every quantity independently from the committed rows and found
+**zero deviations at all 3,300 states**. The ladder identity reproduces the filed Q^H at both coordinates exactly and
+the slack–tax interchange law
+reproduces the filed Δ², and both recover the rung-one columns as by-products of a depth-two traversal.
+
+**THE FINDING, which nobody asked for: escape actions are present.** The one genuinely open question the probe could
+decide was whether the minimising first action ever leaves the rung-one optimal face. It does — **36 of 330 states at
+h2, 498 of 1,320 at h9** — making this the first measured instance of *policy adjustment* in the branch. The
+pre-declared consequence now binds: **every future rung-two lower witness must cover every first action**, not the
+tie-broken optimiser and not even the complete optimal face. **Proposition SR-loc** prices the alternative exactly: a
+witness taxing only the optimal face would have overstated the true tax by **4.0459%** at h2 and **11.7881%** at h9,
+and since that quantity is an upper bound, such a witness *claims to have shaved more than it did*.
+
+**The census is not a rate, and the caveat travels verbatim.** At h2 all 36 escapes carry **one signature**; at h9 the
+escape action is the single tile 61 at every one of the 498. These are **one structural phenomenon reached by many
+field continuations, not many phenomena** — the honest statement is *"escape occurs, at these coordinates, with this
+structure"*. The selection fence binds in its sharpest form yet: **five coordinates chosen by negative binding margin
+are a carrier, not a sample, and the selection criterion is correlated with the quantity being described**; two of
+the five are in scope, and neither the escape rate nor the tax density may be read as a distribution over coordinates
+or hands. Nothing causal is claimed and nothing measured at grade 4 is quoted for trick 1 or the opening.
+
+**h9 gets a second independent reconstruction — and NOT PRICED is untouched.** The depth-two decomposition reproduces
+h9's filed Q^H exactly, by a different traversal and a different theorem; with S6k's reconstruction of h9's U, both
+of its filed columns have now each been independently reconstructed once, by two different routes. The clause that
+must travel: **h9's NOT PRICED label stands verbatim and is not weakened by any of it.** NOT PRICED is about the
+*primal* pipeline, and reconstructing a value twice on the *dual* side says nothing about it — **a cross-check is not
+a witness.**
+
+**Two closures.** **FT-A28 is fully discharged**: the deferred frontier digest is carried by all four units, closing
+the named across-process residual *by receipt rather than evidentially*. And the blocking reduced-grade check did
+work no filed number could do — at grade 3 every second-frontier state is forced, and the ladder collapse held
+against **the engine's own H operator**, the only check in the build whose answer was known by proof rather than by a
+filed rational. Its point, in walt-math's words: *a build whose strongest checks are all against filed numbers can be
+self-consistently wrong; this is the check that is not.*
+
+**Two defects the build found in itself, both before any carrier number existed.** The probe's own streaming SHA-256
+clobbered its buffered length across calls; a published known-answer self-check caught it and the run hung rather
+than filing a wrong digest. That check turns out to be **load-bearing for the FT-A28 discharge**: a mis-buffering
+hash is still deterministic, so two runs would still have agreed and the digest receipt would have been *green and
+worthless*. The second was an `a⋆` selection that, at a tied coordinate, would have compared an action with itself in
+the printed pair-typing line — verified at adjudication time to have touched **no receipt and no number**, but typed
+as a carrier-identity defect rather than a typo, and notable because the obvious guard (a sign assertion) provably
+would **not** have caught it. Both were found by checks the builder wrote against itself and were reported in full
+rather than quietly fixed. The chapter also records its **first pass with no specification conflict** — informative
+only because the previous three defects were found by the build rather than the adjudicator, so a builder that
+reports conflicts when they exist makes the absence of a report mean something.
+
+**Where it leaves the track.** There is **no rung three at grade 4**, both rungs are now exact, and SR-degen bars
+grade 4 from testing closure — so the carrier that produced the whole FT/SR sequence is exhausted as a test-bed. The
+next real question needs a **longer ladder**, which is where the trick-1 program's three standing obligations stop
+being a distant destination and become the binding constraint. Full architecture account:
+[walt-decision-sparse](walt-decision-sparse.md#the-second-rung-chapter-s6l-2026-08-14).
 
 ---
 

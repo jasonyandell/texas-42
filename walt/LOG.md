@@ -154,7 +154,7 @@ Full account: [`wiki/walt-census-era.md`](../wiki/walt-census-era.md).
   invariant list were caught at adjudication. **The insight**: structural
   compression is bought with deadness, and nothing is dead at the first play.
 
-## The S6 era — S6a to S6k
+## The S6 era — S6a to S6l
 
 Full account: [`wiki/walt-s6-era.md`](../wiki/walt-s6-era.md); the architecture
 and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md).
@@ -285,7 +285,7 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   O(1) memory vs the 517M-state map that broke the cap). Negative-margin rows
   typed as E4.1(3) receipts; gaps as measurements; nothing conflated.
 - **S6k (2026-08-14)**: the fusion-tax probe — inbox 016 (Pro's
-  nonanticipativity-taxes note) adjudicated by walt-math-10 (FT-A1..A27, six
+  nonanticipativity-taxes note) adjudicated by walt-math-10 (FT-A1..A29, six
   new lemmas/propositions incl. Lemma FT-arrive, Lemma FT-trunc, Prop FT-flat,
   Lemma FT-post, Lemma FT-mix), freeze 38 v1 FILLED (the gluing cut, the slot
   E4.1(3) reserved), freeze 50 the five-coordinate carrier (h9 in scope via
@@ -306,6 +306,39 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   FT-R1..R8 all held; emission split on the content seam (freeze 50 v1.1(c):
   positive support committed, zero rows regenerable under a pinned SHA-256).
   Next target has a name: Δ².
+- **S6l (2026-08-14)**: the second-rung probe — inbox 017 (Pro's second-rung
+  gluing note) adjudicated by walt-math-11 (SR-A1..SR-A36; eight new results:
+  Lemma SR-coord, Lemma SR-forced, Prop SR-sep, Prop SR-post, Cor SR-conv,
+  Prop SR-degen, Prop SR-taut, Prop SR-loc), **freeze 51** the depth-two
+  carrier (h2 both units, then h9 both units; h0/h6/h12 out of scope), and
+  **freeze 38 clarified to v1.1(d)** — the induced rung-two cut order
+  exhibited, no new content, v1 not amended and v2 NOT opened. The centrepiece
+  is the **slack–tax interchange law** Δ² = Σ_I min_b [s + d], the first object
+  in the branch that prices *policy adjustment* rather than only conflict — and
+  the whole slack column was already inside S6k's frontier pass, unprinted.
+  **Prop SR-degen, filed before the run, reshaped the build**: at grade 4 rung
+  two closes every binding pair unconditionally, so NO grade-4 experiment can
+  test closure, and **no closure verdict is reported**. Ten receipts HELD at
+  all four units, (SR-R9) blocking and HELD at grade 3 against the engine's own
+  H operator; **arm 2 completed, no stop**; and the adjudicator re-derived every
+  quantity from the committed rows with **zero deviations at 3,300 states**.
+  **THE FINDING: ESCAPE ACTIONS ARE PRESENT** — 36/330 at h2, 498/1320 at h9 —
+  the first measured instance of policy adjustment, so **every future rung-two
+  lower witness must cover EVERY first action**, not the complete optimal face.
+  Prop SR-loc prices the naive alternative exactly: overstatement 4.0459% at h2
+  and 11.7881% at h9. The census is **one structural signature reached by many
+  field continuations, NOT a rate** — the FT-A26(iii) selection fence and P-A21
+  travel with every escape number. h9's Q^H independently reconstructed a second
+  time; **NOT PRICED stands verbatim, a cross-check is not a witness**. FT-A28
+  **fully discharged** (four frontier digests) — a discharge resting on SR-A33:
+  the build's own streaming SHA-256 had a buffered-length defect, caught by a
+  published known-answer self-check before any carrier number, and a
+  mis-buffering hash is still deterministic, so the digest receipt would
+  otherwise have been green and worthless. Two builder self-found defects
+  disclosed in full, neither touching a receipt or a number; first pass in the
+  chapter with no specification conflict. Four small items owed on the next SR
+  emission, nothing owed now. No rung three at grade 4; the next question needs
+  a longer ladder, and FT-A21 becomes the binding constraint.
 - **Corrections recorded in place (2026-08-14, librarian verification pass
   against the results files, which govern):** three numbers above are wrong.
   S6g's corner-gap range: the widest of the thirteen corpus corner gaps is

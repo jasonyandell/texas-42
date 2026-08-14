@@ -53,7 +53,7 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | [walt-foundation-era](walt-foundation-era.md) | S1–S4.5: the rules-to-operators stack, the control skeleton, and its two exhaustive checkers |
 | [walt-factory-era](walt-factory-era.md) | S5a–S5d: the conflict-driven lesson factory, the label-fragility discovery, the lesson economy, and the re-tethering |
 | [walt-census-era](walt-census-era.md) | S5e–S5k: the situation censuses, the retrograde quotient and railyard, the fiber and endgame probes, and the seat census resolved by proof |
-| [walt-s6-era](walt-s6-era.md) | S6a–S6k: the predictive-rank dimension census, the policy-geometry probe, the deadness detectors, the first root-action certifications, the cheap-seed and map-free rule probes, the trick-1 and lay-down theorems, and the first gluing-cut closure |
+| [walt-s6-era](walt-s6-era.md) | S6a–S6l: the predictive-rank dimension census, the policy-geometry probe, the deadness detectors, the first root-action certifications, the cheap-seed and map-free rule probes, the trick-1 and lay-down theorems, and the two gluing rungs |
 
 **Reference**
 
@@ -120,6 +120,15 @@ been excluded by an information tax rather than by an exact solve — but it is 
 settled either, since the run that did it still prices the upper witness exactly
 everywhere else. Any sentence saying "the economy claim was tested" without the
 word *primal* has over-claimed.
+
+Both rungs of that information tax have now been computed exactly at the depth
+where walt's exact answers already exist, and that has retired the question
+rather than answered it: at that depth the ladder is only two rungs long and both
+its endpoints were already filed, so it can instantiate the mathematics but can no
+longer decide anything about how far the architecture reaches. Progress needs a
+**longer ladder** — a coordinate where a rung's value is not already known before
+it is computed — which puts the first trick, and the three obligations blocking
+it, back in front of everything else.
 
 Every count above is carrier-relative, coordinate-relative, and exploratory. Full
 numbers, scope caveats and dissents live on the era pages; the refutations are

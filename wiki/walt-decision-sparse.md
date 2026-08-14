@@ -5,11 +5,13 @@ inventory, its audit history, and the standing state of its experiment program �
 `walt/math/decision_sparse_exact_solving_v0.1.md` (the received parent, verbatim) and
 `walt/math/decision_sparse_exact_solving_v0.1_errata.md` (the durable repaired mathematics, DS-A17);
 `walt/CENSUS-RULINGS.md` (DS-A1..DS-A36, SEP-A1..SEP-A19, J-A1..J-A18, PG-A1..PG-A18, R-A1..R-A24,
-N4-A1..N4-A20, EC-A1..EC-A14, RW-A1..RW-A8, **FT-A1..FT-A28**);
+N4-A1..N4-A20, EC-A1..EC-A14, RW-A1..RW-A8, **FT-A1..FT-A29**, **SR-A1..SR-A36**);
 `walt/SEPARATION-PROBE.md`, `walt/DEADNESS-PROBE.md`; `walt/walt-factory/results/deadness_2026-08-12.txt`,
 `separation_2026-08-13.txt`, `separation_n4_2026-08-14.txt`, `rule_economy_n4_2026-08-14.txt`,
-`fusion_tax_2026-08-14.txt`; and the received `exchange/inbox/016-decision-sparse-nonanticipativity-taxes.md`
-(adjudicated, never imported as an axiom). Related: [walt](walt.md) (hub), [walt-s6-era](walt-s6-era.md) (the sessions that produced
+`fusion_tax_2026-08-14.txt`, `second_rung_2026-08-14.txt`; and the received
+`exchange/inbox/016-decision-sparse-nonanticipativity-taxes.md` and `017-second-rung-gluing.md`
+(both adjudicated, neither imported as an axiom). Related: [walt](walt.md) (hub), [walt-s6-era](walt-s6-era.md) (the
+sessions that produced
 the evidence), [walt-math-reference](walt-math-reference.md) and
 [walt-math-decision-sparse](walt-math-decision-sparse.md) (formal statements and proof provenance),
 [walt-census-era](walt-census-era.md), [walt-instruments](walt-instruments.md), [walt-scheme-fix](walt-scheme-fix.md),
@@ -76,7 +78,8 @@ a different operator.
 **The candidate library.** A cache of primal-witness sources keyed by (grade, base index, declaration, root action),
 whose body is a total map from observation record to chosen tile over the information partition. Frozen at freeze 36
 (SEP-A4) with four disciplines that matter: **no values, no verdicts, no ranks** — the file is a cache and never an
-authority, and a loaded entry is re-priced before anything is reported; **identity transport only in v1**, opened at v2 to the declaration fold and nothing further (EC-A8);
+authority, and a loaded entry is re-priced before anything is reported; **identity transport only in v1**, opened at v2
+to the declaration fold and nothing further (EC-A8);
 every entry carries its frame (observation contract, field, belief, |X|, freeze digest) and a digest mismatch means
 **corrupt, not stale**, discarding the entry entire; and entries remain valid primal-witness sources under count
 re-entry even though their count-free quality verdicts do not (DS-A16).
@@ -158,7 +161,7 @@ receipt free (DS-A36).
 | **A** | Complete the deadness run — forced / dead / dominant-not-dead nodes, D0 and D1 hits, false positives (which must be zero), detector cost, solve-cost dividend. | **COMPLETE** via S6c: 174,250,255 detector calls, 27,980,333 fires, zero false positives, ~33% recall against a tie denominator that understates it. |
 | **B** | Tense-root anatomy on the two stopped non-boss trump roots: first frontier split, complete frontier at the smallest split, pairwise advantage sign sets, d_adv, reachable posteriors, W_reach, minimal Scheme separators. | **QUEUED**, designable now under DS-A10's two clauses: a frontier may be quoted only where the computation *completed*, and the synthesised separators are instruments below every tier, with every failed separator recorded as a counterexample pair. |
 | **C** | Scheme-weighted filtering on an enumerable fiber: belief, one likelihood, one posterior, one fixed-policy value function, bit-exact against enumeration. | **NOT YET DESIGNED.** DS-A11 bars designing it against §10.3's atom formulation (Proposition E5 makes that degenerate); its lawful form measures **circuit size against world count** for a *declared purpose*, states that no algebra-compression claim is made, and notes that exact normalised filtering re-enters Lemma R(c). So stated it is the branch's first real attempt at Gate D — and should say so. |
-| **D** | Adaptive gluing on one tense grade-3 root: relaxed solve, exposed-face test, emit and generalise cuts, re-solve, stop at exactness. | **OPEN AND FED.** Its two blockers are gone: **freeze 38 is filled** (v1, scoped, FT-A17), and its inputs are no longer empty — S6h's four exact negatives are exactly the failing pairs D consumes. S6k ran the first rung of the ladder over five of them; the residual second-layer gap Δ² is what a further cut must reach. |
+| **D** | Adaptive gluing on one tense grade-3 root: relaxed solve, exposed-face test, emit and generalise cuts, re-solve, stop at exactness. | **BOTH RUNGS RUN AT GRADE 4; THE CARRIER IS NOW EXHAUSTED.** Its two blockers are gone: **freeze 38 is filled** (v1, scoped, FT-A17), and S6h's four exact negatives supplied the failing pairs it consumes. S6k computed rung one over the five-coordinate carrier those pairs sit in and closed one pair; S6l computed rung two exactly at two of those coordinates. At grade 4 there is no rung three, and Proposition SR-degen bars grade 4 from testing closure at all — so **progress now requires a longer ladder**, not a further cut here. |
 | **E** | Lower/upper root-action certification on a tractable multi-action root. | **COMPLETE** via S6d: all three grade-3 coordinates SEPARATED; seven of nine per-action prices exactly 0; the two nonzero prices at the two leads where S6b's frontier exploded. Extended one grade by S6h at all nine n = 4 coordinates: 4 SEPARATED, **4 exact negatives**, one NOT PRICED ([walt-s6-era](walt-s6-era.md#s6h--2026-08-14-overnight-the-n--4-separation-pass)). |
 | **F** | Reachable envelope: compare N_pol, N_par, W_all, W_reach, d_adv without conflating them. | Designable now under DS-A10 with the DS-A2 ladder; W_reach needs exact enumeration of reachable posteriors, feasible only at the small grades, and a stop is a stop. |
 | **G** | Count and score lift — the valuation cone, the gauge, which count-free verdicts are re-derived versus inherited. | **NEEDS ITS OWN ADJUDICATION** (DS-A12): this is where E-A2 bites hardest and it touches Jason's binding count constraint. Propositions J-0 and J-1 survive count re-entry; J-win does not; every form-keyed record is void wholesale, never extended. |
@@ -201,7 +204,7 @@ chapter is where it moved, and it moved because of an external note plus one nig
 *Nonanticipativity Taxes and a Compositional Plan Calculus for Straight Texas 42* — arrived hand-ferried and
 UNADJUDICATED, answering walt's own outbox request for a cheaper upper witness. The note self-classifies its claims;
 **those labels are the sender's and carried no status here until adjudicated**, and an external note is never
-imported as an axiom. Adjudication (FT-A1..FT-A28) accepted it **in large part**: the central identity and the
+imported as an axiom. Adjudication (FT-A1..FT-A29) accepted it **in large part**: the central identity and the
 first-layer mathematics are correct, three "exact results" needed a hypothesis named that the note never states, one
 prose claim was rejected and replaced by a stronger theorem, and two schema families carry obligations no probe may
 skip. **No number from the note entered as evidence** — the four decimals its experiment section quotes are rounded
@@ -320,10 +323,159 @@ there at all.
 Proposition FT-flat, Proposition FT-tie, Lemma FT-post, Corollary FT-conv and Lemma FT-mix are proved in
 `walt/CENSUS-RULINGS.md`, which is **their only authority** until the next errata amendment files them as a new §9.
 That filing is queued behind DS-A28(ii)'s older outstanding item and is tracked on
-[the reference map](walt-math-reference.md#addendum-2026-08-14--what-walt-math-11-inherits).
+[the reference map](walt-math-reference.md#addendum-2026-08-14--what-a-walt-math-successor-inherits).
 
 **The next open target has a name: Δ²** — the second-layer tax, which is exactly the part of the fusion gap the
-first layer provably cannot reach at the ten tied pairs.
+first layer provably cannot reach at the ten tied pairs. That target was taken up immediately, and the chapter below
+is what came back.
+
+## The second-rung chapter (S6l, 2026-08-14)
+
+Δ² was the named target, and asking Pro for it produced the second external note of the same day. The pattern of the FT
+chapter repeated exactly: the mathematics came back correct, the repairs were about hypotheses nobody named, and the
+run's real finding was not the identity it was built to check but a structural fact nobody had asked about.
+
+**What was asked and what came back.** The handoff asked four things — the exact second layer with policy-dependent
+arrival, the multi-stage martingale penalty dual formalised, the depth-two regret-event calculus, and a grading of
+the theory against walt's five exact Δ² rationals. **All four were delivered**, and the adjudicator found **no false
+theorem and no wrong inequality direction anywhere in the note**. What it did find were four places where a
+hypothesis is used and not named, one where a stated justification names the wrong hypothesis, one silent weakening
+of a repair the note claims to have adopted, one receipt program whose two structural assertions **cannot fail**, and
+one reading of the grading table that is tautological at grade 4 and not typed as such.
+
+**The centrepiece: the slack–tax interchange law.** Δ² decomposes state by state as
+Δ² = Σ_I min_b [s_{I,b} + d_{I,b}], where **s** is the *slack* — how much rung-one value the first action gives up
+against the best first action — and **d** is the *downstream tax* it incurs below. It is CONFIRMED step by step, and
+it is the first object in this branch that prices **policy adjustment** rather than only conflict: paying a little
+slack up front to avoid a larger tax below is a trade the rung-one picture could not express. The engineering
+consequence was the single most consequential fact in the adjudication — **the entire slack column was already inside
+S6k's frontier pass and had only to be printed**, since the first-frontier branch values were computed and then
+discarded down to an argmax set.
+
+**Three repairs worth carrying.** *Theorem 4.1 uses a hypothesis nobody names* — the outer per-state maximum is
+licensed only if a lawful first-stage policy may choose **independently** at distinct first-frontier states, i.e.
+only if those states are genuinely distinct *information states* rather than histories. True here because of freeze
+26's full-record contract; delivered as **Lemma SR-coord**, which also proves that a second-frontier state has a
+unique parent. *The policy-level minimum does separate*, but not for the reason the note gives — it separates because
+a lawful first-stage policy ranges over a free product of the per-state action sets; mutual exclusivity and fixed
+arrival are what make the two rungs decompose against **the same weights**, which is a different job
+(**Proposition SR-sep**). And *the note's own repair of Lemma FT-post is silently weaker than Lemma FT-post*: it
+admits a residual witness "evaluated under the actual posterior", which is true and **not receiptable** — it is
+precisely the sentence an artifact would write while pricing a fresh uniform coordinate and calling it the posterior.
+FT-post's operational form and its print-in-place clause **stand unamended**.
+
+**Why the backward recursion is legal even though occupancy is not.** Occupancy is policy-dependent from rung two on,
+so the global object may not be flattened — and yet the backward recursion is valid anyway, **because occupancy never
+enters it**. Everything below the first frontier enters through the lawful *posterior*, which is policy-independent
+by Bayes cancellation; occupancy enters exactly once, at the first frontier, where Lemma FT-arrive fixes it
+(**Proposition SR-post**). That is what makes the deeper penalty route coherent at all.
+
+**Proposition SR-degen — the grade-4 boundary, and it is the fence that shapes the whole build.** At grade 4,
+U^(2) = Q^H by Corollary FT-grade4 and L = Q^H at a ceiling-attaining witness by Corollary E4.1(2). So
+L ≥ U_a^(2) holds **unconditionally at every binding pair**, strictly exactly at the untied ones, with surplus
+exactly Q^H(a⋆) − Q^H(a). **No grade-4 experiment can test whether the second rung closes a pair** — the answer is
+fixed by two already-filed columns. The received note's three graded §13 items are therefore already-filed exact H gaps
+recovered by addition, or
+the earlier chapter's arithmetic identity; all three were re-derived and land to the rational. The arithmetic is still
+worth having, as a
+cross-check between two independently produced filed columns, but reading it as evidence about the second rung's
+*power* is barred. This is FT-tie's job one rung up, and the build was re-specified around it: **no closure verdict
+is reported at all**, and what the probe reports instead is the identity, the decomposition and the escape census.
+
+### The run: ten receipts, and the finding nobody asked for
+
+Four units — two at h2, two at h9 — **all ten receipts HELD at every unit**, with the reduced-grade cross-check
+running **blocking** before any carrier number existed. **Arm 2 completed; no declared stop occurred.** The
+adjudicator re-derived every quantity independently by parsing the committed rows and recomputing from the branch
+rows alone: **zero deviations at all 3,300 states.**
+
+**The identity instantiates exactly.** The depth-two reconstruction reproduces the filed Q^H at both coordinates and
+the filed Δ² at both, along with the rung-one U^(0), U^(1) and Δ^(1) as by-products of a depth-two traversal. This is
+the result the build was for, and it is **a result about the proof machinery, not a discovery about 42** — the exact
+value column already knew both answers. What is new is that the note's rung-two law now has an exact instantiation in
+this engine, and that the (s, d) decomposition of a fusion gap exists as an artifact for the first time.
+
+**ESCAPE ACTIONS ARE PRESENT — the first measured instance of policy adjustment in the branch.** The pre-declared
+open question was whether the minimising first action ever leaves the rung-one optimal face. It does:
+**36 of 330 first-frontier states at h2, 498 of 1,320 at h9.** The safety rule this triggers was pre-declared and now
+binds: **every future rung-two lower witness must cover every first action** — not the tie-broken optimiser, and not
+even the complete optimal face. Two rules now bind at rung two and they are different rules: the earlier one bars a
+tie-broken optimiser in favour of the complete face; this one says the complete face is *also* not enough.
+
+**What it would have cost, exactly.** **Proposition SR-loc** converts the escape flag from a diagnostic into an exact
+accounting identity: the local tax equals the naive optimal-face-only tax **if and only if** the state is not an
+escape state, so the total error of a naive witness is the sum over the escape set **and over nothing else**. Measured:
+a witness taxing only the rung-one optimal face would have reported `1543/138600` at h2 against the true
+`1483/138600`, and `12667/66528` at h9 against the true `4532503/26611200` — overstatements of **4.0459%** and
+**11.7881%**. Since the naive quantity is an *upper* bound on the true tax, such a witness **claims to have shaved
+more than it did**; at h9, nearly an eighth more. That is what makes this a safety rule rather than a technicality.
+At h2 the arithmetic closes to the unit: each of the 36 escape states overstates by exactly `1/83160`, and
+36 × 1/83160 is the whole of the discrepancy.
+
+**The counts are NOT independent observations and must never be read as a rate.** At h2 all 36 escapes carry **one
+signature** — the same local tax, the same naive value, a singleton face `{33}` and a singleton argmin `{54}` (and
+`{53}` in the mirror unit). At h9 the escape action is the single tile **61 at every one of the 498**, against a
+singleton face, with multiplicities arriving in blocks of 6 and 12. These are **one structural phenomenon reached by
+many field continuations, not many phenomena.** The honest statement is *"escape occurs, at these coordinates, with
+this structure"*; the dishonest one is *"escape occurs at 37.73% of states"* read as a rate. The selection fence binds
+in its sharpest form yet: **five coordinates chosen by negative binding margin are a carrier, not a sample, and the
+selection criterion is correlated with the quantity being described** — two of the five are in scope here, and neither
+the escape rate nor the rung-two tax density may be read as a distribution over coordinates or over hands. No
+distribution measured at grade 4 is quoted for trick 1 or for the opening, and nothing causal is claimed.
+
+Two structural observations, claimed as nothing more: **no escape state has zero local tax** — escaping *reduces* the
+local tax everywhere it happens and *eliminates* it nowhere, so the escape route is never a free rescue here; and at
+h9 the escape states carry 47.09% of the whole Δ² while being 37.73% of the states.
+
+**h9's second independent reconstruction, and what it does not buy.** The depth-two decomposition reproduces h9's
+filed Q^H exactly — a different traversal, different intermediate quantities, a different theorem. Together with the
+FT chapter's reconstruction of h9's U, **both of h9's filed columns have now each been independently reconstructed
+once, by two different routes.** And the clause that must travel with it: **h9's NOT PRICED label stands verbatim and
+is not weakened by any of it.** NOT PRICED is a statement about the *primal* pipeline — its extraction map exceeded
+the cap, so no primal witness is exhibited there and L = Q^H is a ceiling, not a receipted witness. Reconstructing a
+value twice on the **dual** side says nothing about the primal side. **A cross-check is not a witness**; agreement
+between two computations of the same quantity does not manufacture the object the pipeline could not build.
+
+**Two things closed, one carried.** **FT-A28 is fully discharged**: the deferred per-unit frontier digest is now
+carried by all four units, which closes the named across-process residual **by receipt rather than evidentially** —
+one scalar per unit reaches every individual rung-one fusion gap across executions. (It reaches those and
+not the depth-two rows — the digest is over the rung-one records.) That discharge rests on something the build
+found in itself: its streaming SHA-256 had a buffered-length defect, caught by a published known-answer self-check
+**before any carrier number existed**. The dependency is recorded rather than assumed, because a mis-buffering hash
+is still *deterministic* — two runs would have agreed and the receipt would have been **green and worthless**, since
+a broken compression function may be wildly non-injective and the digest's whole scope claim is a statement about the
+hash function, not about the probe. The discipline it yields: *a receipt asserting an equality of digests carries a
+second, silent obligation — that the digest primitive is anchored to published vectors covering the code path
+actually used, streaming path included.* And the reduced-grade cross-check did work
+no filed number could have done: at the grade-3 coordinate every second-frontier state is forced, and the ladder
+collapse held against **the engine's own H operator**, an independent evaluator the grade-4 carrier cannot consult.
+It is the only check in the build whose answer was known **by proof** rather than by a filed rational — *a build whose
+strongest checks are all against filed numbers can be self-consistently wrong; this is the check that is not.*
+
+### Where this leaves the track
+
+**There is no rung three at grade 4.** The ladder has exactly two rungs there, both are now computed exactly, and
+Proposition SR-degen says grade 4 can no longer test closure at all. The carrier that produced every result in the FT
+and SR chapters is therefore exhausted as a test-bed for the ladder: it can still instantiate identities, but it can
+no longer *decide* anything about the architecture's reach.
+
+**The next real question needs a longer ladder** — a coordinate where the ladder outruns the corpus of filed answers,
+so that a rung's value is not already known before it is computed. That is a grade-5-or-deeper object, and it is
+where the received note's trick-1 program and its three standing obligations stop being a distant destination and
+become **the binding constraint**. Those obligations are unchanged and remain BLOCKED: the exact table at trick 1
+ranges over 399,072,960 worlds and nothing reduces it; the only routes that avoid it need proved pointwise upper
+bounds or proved regret events, **neither of which has a single proved instance in this game yet**; and any event mass
+must be counted exhaustively, with no decimation inside a witness.
+
+Four small obligations are owed on the next second-rung emission, and **nothing is owed now**: a cosmetic case fix in
+the escape column; the filed binding pairs transcribed into the probe's frozen table and **asserted**, which converts
+a by-construction guarantee into a comparison against a named carrier; the companion digest carried in that same
+table, which at zero cost converts into a receipt what is currently the file's strongest evidence about the
+depth-two layer's cross-process determinism; and a
+**re-design** — not a re-application — of the committed/companion emission split before any deeper build. The
+companion here is 8.8 GB against the previous chapter's 36 MB, "regenerable" is a weaker practical guarantee at that
+size when auditing the digest costs a full re-run, and the growth is not incidental: the depth-two state count scales
+with the field plies between frontiers, so a longer ladder multiplies it again.
 
 ## Standing fences
 

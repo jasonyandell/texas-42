@@ -1,6 +1,6 @@
 # walt mathematics — the freeze register
 
-[Home](Home.md) · owns: the register of walt's determinism freezes 1–50 —
+[Home](Home.md) · owns: the register of walt's determinism freezes 1–51 —
 number, content, version, and the ruling that fixed each · Sources:
 `walt/CENSUS-RULINGS.md` (every freeze is declared in a ruling there);
 cross-checked against the `Freeze NN:` doc comments in
@@ -43,7 +43,7 @@ Four standing rules, and they are the reason the register exists at all:
 
 ## The register
 
-All 50 issued numbers are accounted for: 48 spent, and **39 and 40 still
+All 51 issued numbers are accounted for: 49 spent, and **39 and 40 still
 RESERVED**. "Fixed at" names the declaring ruling; where a number has been
 amended, the version and its amending ruling are named in the same cell.
 
@@ -93,7 +93,7 @@ disagree.
 | 35 | The harvest arms, rungs, coordinates, budget unit, and the control's solver identification | J-A16 |
 | 36 | **The candidate-policy library v1** — see below. **Now v2**: clause (e)'s transport is opened from identity-only to identity plus the declaration fold | **SEP-A4** (reserved at DS-A13); **(e) amended at EC-A8 — freeze 36 v2** |
 | 37 | **The action-conditioned upper witness and its solver identification** — see below | **SEP-A6** (reserved at DS-A13) |
-| 38 | **The gluing cut, v1 — RESERVATION DISCHARGED.** The three things DS-A13 reserved the number for: a cut language (a *cut* is a declared partition of the latent world set of **one named focal information state**, forcing one common action per block — "an identification of action variables. It removes no world, alters no world's mass, and asserts nothing about reachability"), the validity obligation and its blanket discharge for the canonical family, and the cut ordering. **Scoped**: the reveal-delay ladder and first-frontier partitions only. See below | Reserved at DS-A13; **FILLED at FT-A17** (§ "The fusion tax: inbox 016 adjudicated", ≈ 7297) |
+| 38 v1, clause (d) clarified at v1.1(d) | **The gluing cut, v1 — RESERVATION DISCHARGED.** The three things DS-A13 reserved the number for: a cut language (a *cut* is a declared partition of the latent world set of **one named focal information state**, forcing one common action per block — "an identification of action variables. It removes no world, alters no world's mass, and asserts nothing about reachability"), the validity obligation and its blanket discharge for the canonical family, and the cut ordering. **Scoped**: the reveal-delay ladder and first-frontier partitions only. **Clause (d)'s induced order was exhibited at v1.1(d)** — a clarification with no new content; v1 is not amended and **v2 is not opened**. See below | Reserved at DS-A13; **FILLED at FT-A17** (§ "The fusion tax: inbox 016 adjudicated", ≈ 7297); **(d) exhibited at SR-A21(ii)** (§ "The second rung: inbox 017 adjudicated", ≈ 9024) |
 | 39 | The circuit representation and its evaluation order — exact rational arithmetic is order-insensitive in value, but reported node and operation counts are not — **RESERVED** | DS-A13 |
 | 40 | The reachable-belief family defining W_reach, with its deal-level typing — **RESERVED** | DS-A13, as revised by DS-A23 |
 | 41 | The checkpoint record format and its freeze-set digest; a record whose digest differs is **corrupt, not stale**, and the cache is discarded entire | DS-A36 (detail at DS-A30(i)) |
@@ -106,6 +106,7 @@ disagree.
 | 48 | **The lay-down catalogue**: "the hand enumeration order (ascending canonical domino index, lexicographic), the declaration order (pip ascending), the catalogue record format with the freeze-set digest, and the phase-2 search order (full-suit hand by pip ascending, then extensions in catalogue order)" | LD-A9(iii) (§ "Lay downs: the characterization, and the four-laydown question", ≈ 6230) |
 | 49 | **The n4 economy carrier**: the coordinate list (the nine n4 coordinates in freeze-44(f) order), the action set (all four per coordinate, ascending), the arm subset (**P1..P4**, with X printed structurally unavailable where the cap bars it and T/R out of scope), the **rule argument list `(record, legal)`** of RW-A1(i)–(ii), the canonical run order, and the results-file column set (arm, action, L_rule, Q^H, gap, margin, separation cell with its typing, reached count, walk-steps, residual). **No freeze is amended by it** — freeze 44(b)'s contract already binds every `walk`-based evaluator | RW-A8 (§ "The map-free rule walk, and what h9 already decided", ≈ 6544) |
 | 50 v1.1 | **The fusion-tax probe carrier.** **(a)** The carrier is **five negative-margin n = 4 coordinates** in exactly this enumerated order — pip 3 `[00 21 32 53]` (h0); pip 4 `[11 40 43 53]` (h6); pip 5 `[21 33 53 54]` (h2); pip 4 `[30 41 54 61]` (h9); pip 0 `[20 30 40 65]` (h12) — **with no generating rule** (v1.1(a), see the amendment note below). **(b)** Per coordinate the run is over the **binding pairs only**: every (a⋆, a) whose filed margin is negative. **(c)** The frontier emission format — one row per (coordinate, a, I) carrying the record, `p_I`, \|X_I\|, \|A(I)\|, `δ_I` as an exact rational **in the count convention**, the complete argmax set, and one minimal fusion core where `δ_I > 0`; **v1.1(c)** cuts the emission **by content**, see below. **(d)** The per-coordinate summary: `T_a` (asserted 0), `Δ_a^(1)`, `U_a^(1)`, `Δ_a^(2)`, the decision cell and FT-tie's fraction-required column. **(e)** Belief and field are **not** re-declared — freeze 26 and 37(d), no decimation anywhere inside any L, U or tax. **(f)** No library entry at any coordinate. **(g)** The freeze-set digest travels on every record | v1 at **FT-A18(vi)**; **(a) amended at FT-A23(iv)**, **(c) amended at FT-A24(viii)** (same section, ≈ 7389 / 7616 / 7677) |
+| 51 | **The depth-two probe carrier.** **(a)** The carrier, **enumerated with no generating rule** (the FT-A23 rule applied at the point of declaration this time, not after a defect): **arm 1, mandatory** — coordinate h2, pip 5, hand `[21 33 53 54]`, both freeze-50 units, competitor `a = 53` then `a = 54`, in that order; **arm 2, attempted after arm 1 completes, with a declared stop** — coordinate h9, pip 4, hand `[30 41 54 61]`, units `a = 41` then `a = 54`. h0, h6 and h12 are **out of scope**. Coordinate identity asserted first in freeze 45's form, kernel rebuilt in-run and asserted equal. **(b)** Why that order: h2 is the carrier's smallest first frontier and the coordinate the received note itself nominates; h9 is the second smallest, carries the branch's largest exact negative, and is the coordinate the exact primal route **cannot price**. **(c)** The frontier-2 convention, fixed by Lemma SR-forced: the second frontier is the focal seat's **next decision after b, forced or not**; a forced second state is **counted, not skipped**, matching rung one — the alternative is not wrong, it is a different object, and two objects with one name is how a chapter goes bad. The early-terminal mass and Θ are **asserted zero** at grade 4 and the assertion is contentful. **(d)** Emission cut by content per the freeze-50 v1.1(c) pattern: committed branch and state rows, a regenerable uncommitted companion under its SHA-256 and byte/line counts, and **seven accounting integers per unit** making the omission auditable. **(e)** Every column in the **count** convention, with the two bridges kept separate. **(f)** Belief and field **not** re-declared — freeze 26 and 37(d), no decimation inside any L, U, s, d or δ. **(g)** No library entry at any coordinate. **(h)** The freeze-set digest travels on every record | SR-A22(iii) (§ "The second rung: inbox 017 adjudicated", ≈ 9076) |
 
 ## Freeze 50's amendment: v1 → v1.1
 
@@ -249,11 +250,29 @@ domino index; block merges, where used, in **descending exact merge cost** with
 ties broken by the smallest record in the block. **Declared before the run and
 never chosen by result.**
 
+**(d) at v1.1(d) — the induced order exhibited, not re-specified.** Clause (d)
+already generates an order at every rung, but FT-A23's lesson is that a rule
+which does not visibly generate its list is a defect, so the rung-two order it
+induces was written out: **first states in ascending record order; within a first
+state, first actions in ascending domino index; within a (first state, first
+action) pair, second states in ascending record order; within a second state,
+second actions in ascending domino index.** Second-frontier records are
+information states of layer 2, ordered by the same lexicographic rule, and a
+second state's record strictly extends its parent's — so this is a well-defined
+total order, declared before the run. **This is a clarification with no new
+content**: v1 is not amended, v2 is not opened, and the depth-two cut needed no
+new cut authority because the reveal-delay ladder of (b)(1) already has k = 2 as
+a member and (c) discharges its validity along with the rest of the family.
+
 **(e) The stop rule.** Theorem E6.5(G2)'s exposed-face criterion, instantiated as
 the zero-tax test computed from **complete** argmax sets. A single tie-broken
 optimiser is not evidence of a conflict, and **freeze 26's least-index tie rule
 is not used here** — it exists to make the *authority* deterministic and is not a
-statement about the optimal face.
+statement about the optimal face. **At rung two a second, strictly stronger rule
+sits on top of this one**: the complete optimal face is *also* not sufficient,
+because the minimum may be attained by an action outside it. Both bind and they
+are different rules — see [the decision-sparse
+track](walt-decision-sparse.md#the-second-rung-chapter-s6l-2026-08-14).
 
 **(f) Arithmetic and reporting.** Exact rationals throughout over a common
 integer denominator; no float. Taxes are reported in the **count convention**,

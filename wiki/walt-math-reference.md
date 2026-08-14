@@ -109,6 +109,33 @@ proof live; the owning page carries the compact form and the caveats.
 | **Theorems E6.1–E6.5** | The parent's §§4.3, 6.3, 8.3, 8.4, 9.2 restated with their load-bearing hypotheses **inside the statements**: width monotonicity, backward pruning, the value sandwich, root-action separation (member-not-set), finite adaptive gluing. | errata §6 |
 | **Lemma E7** | When dominance travels: an exhibited value-order isomorphism α_{Tρ}(Tξ) = α_ρ(ξ), plus a transported belief for belief-relative verdicts. | errata §8.3 |
 
+### The nonanticipativity ladder — FT and SR — [page](walt-decision-sparse.md)
+
+Sixteen objects delivered in one day, adjudicating two received external notes.
+**All sixteen live only in `CENSUS-RULINGS.md`**: none has an errata number, so
+the DS-A17 citation rule cannot yet be followed for any of them. **Fifteen of the
+sixteen are queued for the errata §9 amendment** — Corollary FT-grade4 is named
+in none of the queueing rulings. Their compact statements and the caveats that
+travel with them are on the track page's two chapters.
+
+| Object | One line | Full statement |
+|---|---|---|
+| **Lemma FT-arrive** | The arrival law at the *first* frontier is policy-independent, with an explicit inverse-legal-set product form. **Fails at depth two and below** — which is why the ladder is not a decomposition of the value. | `CENSUS-RULINGS.md` § "The fusion tax: inbox 016 adjudicated" |
+| **Lemma FT-trunc** + **Corollary FT-grade4** | A suffix of forced decisions truncates the reveal-delay ladder; since the last focal decision is always forced, the last tax is identically zero. At grade 4 the ladder has **exactly two rungs**, so (Δ¹, Δ²) is the complete decomposition. | same section |
+| **Proposition FT-flat** | An upper feature independent of the **frontier** action returns a bound at least U^C, so it can never improve the filed witness. The upper twin of Proposition T1-blind. | same section |
+| **Proposition FT-tie** | A tied competitor closes **only** if the relaxation is exact — an all-or-nothing threshold. A fence on the reading, filed before the run. | same section |
+| **Lemma FT-post** | The frontier posterior is legal-set weighted, **not uniform**. A residual witness priced as a fresh uniform coordinate prices the wrong measure and the composition is **void, not loose**. Two forms compose; nothing else does. | same section |
+| **Corollary FT-conv** | Taxes scale with the valuation convention and verdicts do not; a differential tax is exactly twice its count value, and cross-convention comparison is void. | same section |
+| **Lemma FT-mix** | Heterogeneous upper witnesses compose: the competitors' witnesses need not share a relaxation, an evaluator, a traversal or a run. Licenses a **mixed** verdict without stretching Theorem E6.4. | same section |
+| **Lemma SR-coord** | Theorem 4.1's unnamed hypothesis, discharged for this engine: first-frontier states are distinct **information states** (not histories), so a lawful first-stage policy ranges over a free product; and a second-frontier state has a **unique parent**. | `CENSUS-RULINGS.md` § "The second rung: inbox 017 adjudicated" |
+| **Lemma SR-forced** | Gluing a forced decision is free, and the two ladder indexings — by decisions, and by *nontrivial* decisions — agree. Fixes the counted-not-skipped convention. | same section |
+| **Proposition SR-sep** | The policy-level minimum separates into the local formula because the first-stage policy ranges over a free product — **not** because of mutual exclusivity and fixed arrival, which do a different job. | same section |
+| **Proposition SR-post** | The backward rung recursion is **occupancy-free**: everything below the first frontier enters through the policy-independent lawful posterior, and occupancy enters exactly once, at the first frontier. | same section |
+| **Corollary SR-conv** | FT-conv at rung two, with the two bridges kept separate: a *difference* is exactly twice its count value, a *p-weighted value* maps affinely. Collapsing them is the failure mode most likely to look like a discovery. | same section |
+| **Proposition SR-degen** | At grade 4 the second rung closes every binding pair **unconditionally**, strictly exactly at the untied ones. **No grade-4 experiment can test closure.** | same section |
+| **Proposition SR-taut** | Which depth-two identities cannot fail. The two structural assertions of the received verifier are identities in its own recomputed quantities and hold for any input whatsoever — arithmetic remarks, never receipts. | same section |
+| **Proposition SR-loc** | Escape is exactly where the safety inequality is strict, so the escape set is precisely the support of a naive witness's error and the error is the sum over that support **and nothing else**. | same section, closing note |
+
 ## The ruling families
 
 Nineteen families, one adjudicator (walt-math), all exploratory. Ranges below are
@@ -137,7 +164,8 @@ three, `N4-A` across two — and the family, never the heading, is what inherits
 | `T1-A` | T1-A1..**T1-A12** | The trick-1 witness: the bounded sandwich, refuted and replaced | 2026-08-14 | The first-trick target. Carries **Lemma T1-run**, **Lemma T1-force**, **Proposition T1-blind** and **Proposition T1-corner** (the refutation, itself a filed result), **Theorem T1-draw**, **Corollary T1-ruff**, and **freeze 47** (the trick-1 carrier). **T1-A12 is the implementation-versus-corpus risk** and is inherited by everything below it. |
 | `LD-A` | LD-A1..**LD-A13** | Lay downs: the characterization, and the four-laydown question | 2026-08-14 | The family term made exact. Carries **Theorem LD** ((L1) ∧ (L2)), **Corollary LD-fold**, **freeze 48** (the lay-down catalogue), the settled four-laydown question (LD-A11), and LD-A10(ii), which carries T1-A12's risk forward sharpened. |
 | `RW-A` | RW-A1..**RW-A8** | The map-free rule walk, and what h9 already decided | 2026-08-14 | The rule-economy probe at the n = 4 carrier. Carries **freeze 49** (the n4 economy carrier), the closed rule argument list `(record, legal)`, RW-A3's label pair (NOT PRICED / RULE-EVALUATED, never merged), and h9's coordinate verdict filed from the S6h numbers alone. |
-| `FT-A` | FT-A1..**FT-A28** | The fusion tax: inbox 016 adjudicated | 2026-08-14 | The upper side. Carries **Lemma FT-arrive**, **Lemma FT-trunc** + **Corollary FT-grade4**, **Proposition FT-flat**, **Proposition FT-tie**, **Lemma FT-post**, **Corollary FT-conv** and **Lemma FT-mix**; **freeze 38 v1** (FT-A17, the reservation discharged) and **freeze 50 v1.1** (FT-A18, amended at FT-A23 and FT-A24). The closing notes (A23–A28) adjudicate the returned run. |
+| `FT-A` | FT-A1..**FT-A29** | The fusion tax: inbox 016 adjudicated | 2026-08-14 | The upper side. Carries **Lemma FT-arrive**, **Lemma FT-trunc** + **Corollary FT-grade4**, **Proposition FT-flat**, **Proposition FT-tie**, **Lemma FT-post**, **Corollary FT-conv** and **Lemma FT-mix**; **freeze 38 v1** (FT-A17, the reservation discharged) and **freeze 50 v1.1** (FT-A18, amended at FT-A23 and FT-A24). The closing notes (A23–A28) adjudicate the returned run; **FT-A29** files two self-corrections to the section. |
+| `SR-A` | SR-A1..**SR-A36** | The second rung: inbox 017 adjudicated | 2026-08-14 | The upper side, one rung deeper. Carries **Lemma SR-coord**, **Lemma SR-forced**, **Proposition SR-sep**, **Proposition SR-post**, **Corollary SR-conv**, **Proposition SR-degen**, **Proposition SR-taut** and **Proposition SR-loc**; **freeze 51** (SR-A22, the depth-two carrier) and **freeze 38 v1.1(d)** (SR-A21, a clarification — v1 not amended, v2 not opened). The closing note (A27–A32) adjudicates the returned run and discharges FT-A28 entire; **A33** and **A34** adjudicate two defects the build found in itself, **A35** types the companion's cross-process digest as an audit note, and **A36** records the chapter's first pass with no specification conflict. |
 
 Three numbering traps. **`E-A` and `E-Q` are spent** by the endgame-store section
 of 2026-08-11 — SEP-A had to renumber the separation design's own `E-Q1..E-Q8`
@@ -256,19 +284,90 @@ The design documents that each ruling family adjudicates (`walt/SEAT-CENSUS.md`,
 `walt/SEPARATION-PROBE.md` and others) live at the top of `walt/`. A ruling that
 says "the design" means the one named in its section's opening paragraph.
 
-## Addendum, 2026-08-14 — what walt-math-11 inherits
+## Addendum, 2026-08-14 — what a walt-math successor inherits
 
 Pointers only. Nothing below is restated from its source; open the ruling.
+Written for walt-math-11 at the close of the FT chapter and extended the same day
+when walt-math-11 filed the SR chapter; **the SR items are the newest and the
+most likely to be needed.**
 
-- **The `FT-A` family exists and is large.** `FT-A1..FT-A28` plus its closing
+### The SR chapter (newest)
+
+- **The `SR-A` family** — `SR-A1..SR-A36` plus its closing note, in
+  `CENSUS-RULINGS.md` § "The second rung: inbox 017 adjudicated" (≈ lines
+  7986–9827 as of this date; the heading governs). It adjudicates a second
+  received external note claim by claim and delivers **eight** named objects,
+  indexed in the family table above.
+- **SR-A30's discharge of FT-A28 depends on SR-A33, and the dependency is
+  recorded rather than assumed.** The probe's own streaming SHA-256 had a
+  buffered-length defect, caught by a FIPS known-answer self-check **before any
+  carrier number existed**. That matters because a mis-buffering hash is still
+  *deterministic*, so two runs would still have agreed and the digest receipt
+  would have been **green and worthless** — a broken compression function may be
+  wildly non-injective, and (FT-R7c)'s scope claim ("one scalar reaches every
+  individual value across executions") is a statement about **the digest
+  function**, not about the probe. The standing discipline: *a receipt whose
+  assertion is an equality of digests carries a second, silent obligation — that
+  the digest function is anchored to published known-answer vectors covering the
+  code path actually used, including the streaming path if the receipt streams.*
+  A one-shot-only vector set would have passed here. This is the same family as
+  Proposition SR-taut and FT-A28(i): **a check is only a check against something
+  it does not itself produce.**
+- **The 8.8 GB companion's cross-process digest identity is an AUDIT NOTE of real
+  weight, never a receipt.** Its evidentiary surface is far broader than the four
+  frontier digests — every depth-two row across two processes — but it is not
+  asserted in-run against a transcribed constant, not reproduced by any verify
+  path, and does not survive into a future run. It is convertible at zero cost by
+  carrying it in the frozen table, which is one of the four items owed below.
+- **Freeze 51** (SR-A22(iii)) is the depth-two probe carrier. **Freeze 38 stands
+  at v1 with clause (d) exhibited as v1.1(d)** (SR-A21(ii)) — *a clarification
+  with no new content*: v1 is not amended and **v2 is not opened**. Both are now
+  in [the freeze register](walt-math-freezes.md); 39 and 40 remain reserved.
+- **FT-A28 is now FULLY DISCHARGED** by SR-A30 — the deferred frontier digest is
+  carried by all four SR units, closing FT-A28(iii)'s named residual **by receipt
+  rather than evidentially**. Nothing remains owed on that line.
+- **The errata §9 queue has grown again.** DS-A28(ii) is still carried, and the
+  queue now holds the seven FT objects *plus* **Lemma SR-coord, Lemma SR-forced,
+  Proposition SR-sep, Proposition SR-post, Corollary SR-conv, Proposition
+  SR-degen, Proposition SR-taut** and **Proposition SR-loc**, together with the
+  confirmed second-rung mathematics of the received note.
+- **Four obligations are owed on the next second-rung emission, and nothing is
+  owed now** (consolidated at the end of the section; an earlier clause says
+  "two" and was written before A33–A36): the escape column's `yes`/`no` case fix;
+  the filed binding pairs transcribed into the frozen table and **asserted**,
+  which converts a construction into a comparison against a named carrier; the
+  companion digest carried in the same table; and — before any rung-three or
+  longer-ladder build — a **re-design**, not a re-application, of the
+  committed/companion emission split. The companion is 8.8 GB here against the
+  previous chapter's 36 MB, and the growth is **not incidental**: the depth-two
+  state count grows with the field plies between frontiers, so a longer ladder
+  multiplies it again.
+- **Grade 4 is exhausted as a test-bed.** Proposition SR-degen bars it from
+  testing closure, and there is no rung three there. The next question needs a
+  longer ladder, which makes FT-A21's three trick-1 obligations the binding
+  constraint rather than a distant destination.
+
+### The FT chapter
+
+- **The `FT-A` family exists and is large.** `FT-A1..FT-A29` plus its closing
   notes, in `CENSUS-RULINGS.md` § "The fusion tax: inbox 016 adjudicated"
-  (≈ lines 6567–7936 as of this date; the heading governs, not the line numbers).
+  (≈ lines 6567–7984 as of this date; the heading governs, not the line numbers).
   It adjudicates a received external note claim by claim, delivers eight named
   objects (indexed in the family table above), and is the home of the upper-side
-  mathematics. **FT-A28 is the last ruling filed as of 2026-08-14** — but the
-  file is append-only and a section grows after its own closing note, as this one
-  did twice in a day, so **read to the end before assuming any ruling is the
-  last one**.
+  mathematics. **The section now runs to FT-A29** — the file is append-only and a
+  section grows after its own closing note, as this one did three times in a day,
+  so **read to the end before assuming any ruling is the last one**.
+- **FT-A29 files two self-corrections to the section.** The first was found by an
+  outside check, the second by a census of the results file: FT-A16(ii)'s "(LD-R4) remains owed" was wrong (the
+  receipt had already run and held), and FT-A25(vi)'s commentary "ten of twelve
+  pairs" undercounted — **the closure failed at eleven of twelve**. Neither
+  touches a verdict, a receipt, a freeze or any results-file number. The
+  discipline it yields is worth more than the corrections: **a ruling that creates
+  an obligation is not evidence the obligation is still open — only the artifact
+  is.** That is "by construction is not a receipt" transposed from claims to
+  obligations, and it joins FT-A23(v) and FT-A28(i) as the third instance of one
+  failure shape: *asserting a status from a text that governs it rather than from
+  the object that carries it.*
 - **Two freezes moved, and the versions are not interchangeable.** **Freeze 38
   stands at v1**, scoped — the gluing cut, its reservation discharged at FT-A17;
   feature penalties, multi-stage penalties, adaptive search beyond the first
@@ -277,43 +376,45 @@ Pointers only. Nothing below is restated from its source; open the ruling.
   at FT-A23 (the enumeration governs, the sort clause struck) and clause (c) at
   FT-A24 (emission cut by content). **39 and 40 remain reserved.** Full text on
   [the freeze register](walt-math-freezes.md).
-- **DS-A28(ii) is STILL OWED, and the queue got longer.** Corollary E4.1's filing
-  as errata §4.3 has been carried since SEP-A2 and is still due at the next
-  errata amendment. FT-A27(i) adds to the same queue: **Lemma FT-mix**, together
-  with the FT mathematics listed at FT-A22(iii) — Lemma FT-arrive, Lemma
-  FT-trunc, Proposition FT-flat, Proposition FT-tie, Lemma FT-post and Corollary
-  FT-conv — and the confirmed first-layer mathematics, all as a new **errata §9**.
-  Until that amendment lands, `CENSUS-RULINGS.md` is **their only authority**, and
-  the DS-A17 citation rule cannot yet be followed for them.
-- **FT-A28 is filed** (≈ lines 7825–7936) and ratifies the (FT-R7) two-half
-  discharge. It versions the halves rather than renumbering them — **(FT-R7a)**
-  the cross-run invariant receipt against a frozen table, whose scope is
-  corrected *upward* to reach both `Σ_I δ_I` and `|supp δ_I|` per unit, and
-  **(FT-R7b)** the in-run reproduction receipt, which reaches every individual
-  value within one process. It names the residual the conjunction does not cover
-  and defers the closure — **(FT-R7c)**, a per-unit frontier digest, **not owed
-  for S6k** but **binding on the next FT run that regenerates a frontier**. It
-  also rules that the orchestrator's byte-diff is an **audit note and never a
-  receipt**, which is what let (FT-R7c) be deferred rather than demanded. **No
-  re-emission is required** and nothing is routed back to the builder.
-- **Two specification defects of one shape, both found by the build.** FT-A23(v)
-  and FT-A28(i) are the same error twice: **naming a relation without naming its
-  relata**. A freeze clause states a constant *or* a generating rule, never both;
-  and a receipt comparing against a prior run must name the **carrier** of the
-  reference value — a frozen table with its provenance line, or an in-run
-  recomputation — never "the previous emission" unqualified. A prior run is not
-  an object and its results text is not an interface.
-- **T1-A12's implementation-versus-corpus risk is now inherited by four
-  families.** Every statement in T1-A, LD-A, RW-A and FT-A is proved relative to
-  walt's *implementation* of the rules, read from `rules.rs` at adjudication
-  time, and **no receipt inside those sections can detect a disagreement with the
-  rules corpus** because every receipt is computed by that same implementation.
-  The corpus check is owed before any of it is cited outside walt, and (LD-R4)
-  is a probe of the risk, never a discharge of it.
+- **DS-A28(ii) is STILL OWED.** Corollary E4.1's filing as errata §4.3 has been
+  carried since SEP-A2 and is still due at the next errata amendment. FT-A27(i)
+  added the seven FT objects and the confirmed first-layer mathematics to the same
+  queue as a new **errata §9**; the SR chapter has since added eight more, so read
+  the SR section above for the current queue. Until that amendment lands,
+  `CENSUS-RULINGS.md` is **their only authority**.
+- **FT-A28** (≈ lines 7825–7936) ratifies the (FT-R7) two-half discharge,
+  versioning the halves rather than renumbering them — **(FT-R7a)** the cross-run
+  invariant receipt against a frozen table, whose scope is corrected *upward* to
+  reach both `Σ_I δ_I` and `|supp δ_I|` per unit, and **(FT-R7b)** the in-run
+  reproduction receipt, which reaches every individual value within one process.
+  It names the residual the conjunction does not cover, defers the closure to
+  **(FT-R7c)**, and rules that the orchestrator's byte-diff is an **audit note and
+  never a receipt**. **All of this is now discharged** — see the SR section above;
+  the bullet is kept because the *reasoning* is the precedent, not the status.
+- **Three specification defects of one shape, all found by someone else.**
+  FT-A23(v), FT-A28(i) and FT-A29(i) are one error three times: **asserting a
+  status from a text that governs it rather than from the object that carries
+  it**, or equivalently **naming a relation without naming its relata**. A freeze
+  clause states a constant *or* a generating rule, never both; a receipt comparing
+  against a prior run must name the **carrier** of the reference value — a frozen
+  table with its provenance line, or an in-run recomputation — never "the previous
+  emission" unqualified; and an obligation-creating clause is not evidence the
+  obligation is still open. A prior run is not an object and its results text is
+  not an interface.
+- **T1-A12's implementation-versus-corpus risk is now inherited by five
+  families.** Every statement in T1-A, LD-A, RW-A, FT-A and SR-A is proved
+  relative to walt's *implementation* of the rules, read from the code at
+  adjudication time, and **no receipt inside those sections can detect a
+  disagreement with the rules corpus** because every receipt is computed by that
+  same implementation. It is sharper at SR: Lemma SR-coord, the hypothesis that
+  makes the whole rung-two law true, was itself discharged by reading the
+  implementation — and two agreeing traversals inside one implementation cannot
+  detect a divergence from the corpus. The corpus check is owed before any of it
+  is cited outside walt, and (LD-R4) is a probe of the risk, never a discharge.
 
 ## Where the rest lives
 
-- [The freeze register](walt-math-freezes.md) — all 50 issued freezes with
+- [The freeze register](walt-math-freezes.md) — all 51 issued freezes with
   content, version and declaring ruling (39 and 40 still reserved).
 - [Open questions](walt-math-open-questions.md) — what is genuinely unresolved,
   and why none of it belongs in [open-problems](open-problems.md).
