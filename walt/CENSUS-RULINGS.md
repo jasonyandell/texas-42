@@ -5492,3 +5492,471 @@ text in the results file; and the NOT PRICED line form replaces any cap-stop
 verdict row. Any of this that touches code the grade-3 path executes re-triggers
 (R0) as a blocking precondition (N4-A10); changes confined to the n = 4 path do
 not. Everything else in the design as adjudicated stands as written.
+
+## The trick-1 witness: the bounded sandwich, refuted and replaced (2026-08-14)
+
+**Adjudicator:** walt-math. **Object:** the build's bounded-sandwich proposal for
+a certified first-trick play, relayed 2026-08-14 — per-world sound bounds
+(adversarial-field lower, cooperative-field upper) summed exactly over the
+trick-1 fiber |X| = C(21,7)·C(14,7) = 399,072,960 — together with the run
+owner's directive that a proved first-trick play is the target and that rigour
+is not negotiable. **Tier:** exploratory throughout, without exception; nothing
+below is promoted, and no statement here is quotable in a brief, a dispatch,
+[FINDINGS](FINDINGS.md) or any claim-tier page except by brief amendment adding
+it to a verifier receipt. **Basis:** the errata under DS-A17 (Lemma E3, Lemma E4
+and Non-theorem E4′, Corollary E4.1, Theorem E6.4 with its member-not-set
+caveat, (C1)–(C4) of §3.4); SEP-A1..SEP-A19; N4-A1..N4-A20; DS-A1, DS-A15,
+DS-A16, DS-A27; E-A2, R-A2, P-A1, P-A21, PG-A8, PG-A13, F7; and first-hand
+reading, at adjudication time, of `walt-core/src/rules.rs` (`Tier`, `Rank`,
+`DOUBLE_TOP`, `called_set`, `effective_incidence`, `led_context`, `trick_key`,
+`beats`, `threat`, `Trick::winner`, `legal_plays`),
+`walt-strat/src/direction.rs` (`trick_diff`, `trick_line`),
+`walt-strat/src/info.rs` (`walk`'s uniform field share
+`p.weight *= q(1, legal.len())`), and `rob/receipts/verify_player.txt` (13
+hands; the bidder leads trick 1 in each). Rulings **T1-A1..T1-A12**; two lemmas,
+two propositions, one theorem and one corollary delivered below; **freeze 47**
+fixed at T1-A11. The prefixes `T1-A`/`T1-Q` and every name below were
+grep-checked unused at adjudication time. **`Lemma X` is spent** (zero-contribution
+excision, X-A section) — nothing here is named with a bare letter for that reason.
+
+**The rule facts everything below rests on**, read from the code and stated once
+so no proof re-derives them. Trick keys are lexicographic `(tier, rank)` with
+`Tier::Slough(0) < Tier::Follows(1) < Tier::Called(2)`, and `Trick::winner`
+returns the unique maximum. For `Decl::PipTrump(p)` the called set is `NATURAL[p]`
+— the seven tiles bearing pip p. `rank` is `DOUBLE_TOP = 12` for a natural
+double and the pip sum otherwise, whose maximum over mixed tiles is 6 + 5 = 11;
+so **a natural double is the strict top of its effective natural context**.
+`led_context` of a non-called tile is `Natural(hi)`, and `effective_incidence`
+subtracts the called set, so context s comprises the tiles bearing s and not p.
+`legal_plays` compels following the led effective context when able and permits
+anything otherwise. The valuation is `Direction::trick_diff`: **the focal team's
+trick differential**, +1 per trick the focal team takes and −1 per trick it
+concedes, so at grade g the value lies in [−g, +g] and **+g is attained exactly
+when the focal team takes every remaining trick**. The declared field is uniform
+over each seat's legal set, per world, independently.
+
+**Headline — five findings, stated before the rulings.**
+
+1. **Both corner bounds are sound, and the build's reading of (C4) is correct.**
+   A field-adversarial value of a fixed lawful policy is a pointwise lower bound
+   on that policy's fixed-field value (a minimum is at most a mean), and a
+   cooperative-field maximum is a pointwise upper bound on the world-informed
+   value (a mean is at most a maximum). Perfect-information **minimax** is
+   neither: the adversarial field pushes below the fixed-field value while the
+   information relaxation pushes above it, and the composite bounds nothing in
+   either direction. T1-A2.
+2. **The proposal cannot do what it was built for, and this is proved, not
+   predicted.** Proposition **T1-blind**: a lower witness that is valid at every
+   root action — which every hand-only counting guarantee is — can never
+   strictly exclude any competitor, because U_a ≥ Q^H(a) ≥ L for that same a.
+   Proposition **T1-corner**: the corner sandwich closes at trick 1 only when
+   the focal holds the entire trump suit. A night spent scanning 399,072,960
+   worlds would have measured exactly this. T1-A4.
+3. **What replaces it needs no relaxation at all.** Theorem **T1-draw**: on a
+   closed, fully enumerated family of **294 declared trick-1 coordinates**, the
+   focal seat takes all seven tricks against **every** field behaviour in
+   **every** world, so `Q^H(a) = +7`, the maximum of the valuation, for every
+   trump lead. The upper witness needed for membership is the trivial `U_a ≤ 7`.
+   T1-A5.
+4. **On 287 of the 294 a competitor is strictly excluded, so the optimal
+   opening-lead set is determined exactly, not sandwiched.** Corollary
+   **T1-ruff** prices the double lead by the ruff it invites. At the flagship
+   coordinate — declaration `PipTrump(6)`, focal hand {6:6, 6:5, 6:4, 6:3, 6:2,
+   6:1, 5:5} — `Q^H(trump) = 7` and `Q^H(5:5) = 7 − 143/5814`, exact rationals,
+   so `Opt^H` is exactly the six trump leads. T1-A5, T1-A6.
+5. **The corpus arm survives as the measurement, and it is the one that
+   specifies the frontier.** The 13 real trick-1 coordinates are expected to
+   satisfy none of T1-draw's hypotheses; what they yield is the exact corner gap
+   `7 − k − E_β[f]` per coordinate, computed by exhaustive fiber sums with no
+   decimation — the exact specification of what a tighter relaxation (Theorem
+   E6.5's gluing, freeze 38, still reserved) must beat. T1-A7, T1-A10.
+
+### Lemma T1-run (the trump-run guarantee) — delivered here
+
+Let δ = `PipTrump(p)`, let T be the trump tiles still in play at a kernel, and
+suppose the focal seat's hand H contains the **top k tiles of T** under δ's rank
+order. Then in every world of the fiber, under every information-consistent
+focal policy, every field behaviour and every belief, the focal **seat** takes at
+least k tricks.
+
+*Proof.* Every tile in play is played exactly once, and a seat plays exactly one
+tile per trick, so the k tiles occupy k distinct tricks. Fix one, of rank r
+within T. Every other tile played on that trick is either not a trump — trick key
+tier `Slough` or `Follows`, both below `Called` — or is a trump of rank below r,
+since every trump of rank above r lies in H and H's other tiles are on other
+tricks. The focal tile therefore carries the unique maximum trick key and
+`Trick::winner` names the focal seat. ∎
+
+The strength and the weakness are the same fact: **it is a property of the hand
+alone**. No policy, no belief, no field model and no root action enters, which is
+exactly why Proposition T1-blind applies to it.
+
+### Lemma T1-force (the prefix-forcing upper bound) — delivered here
+
+Let S be a **prefix** of the rank order on T (the m highest trumps in play) and
+suppose every tile of S is held by seats of one side. Let c be the largest number
+of S-tiles held by a single seat of that side. Then that side takes at least c
+tricks in every complete play, and the other side takes at most (tricks
+remaining) − c.
+
+*Proof.* The c tiles of that seat occupy c distinct tricks. On each, the highest
+trump played lies in S — any trump ranking above an S-tile is itself in S — and
+S is held entirely by that side, so the winner is on that side. ∎
+
+Two corollaries used below: with the two seats of a side splitting a prefix of
+size m, that side is forced at least ⌈m/2⌉ tricks; and forced focal tricks and
+forced opponent tricks are **disjoint**, so at grade g their counts sum to at
+most g.
+
+### Proposition T1-blind (an action-blind lower witness can never exclude) — delivered here
+
+Let L be a lower witness valid at every root action, i.e. L ≤ Q^H(a) for all a.
+Then for every a and every valid upper witness U_a ≥ Q^H(a) we have U_a ≥ L.
+Hence **no competitor is ever strictly excluded**, and the strongest verdict such
+a pair can produce is membership certified simultaneously for every action —
+which distinguishes a⋆ from nothing.
+
+*Proof.* U_a ≥ Q^H(a) ≥ L. ∎
+
+*Corollary.* Lemma T1-run's guarantee, and every other hand-only counting
+guarantee, is action-blind by construction and cannot found a non-trivial
+trick-1 verdict. **A non-trivial witness requires a lower witness whose validity
+is action-conditioned — one that is false for the competitors.** This is the
+primal-side twin of Remark E3.1's action-constant upper aggregate, and it is why
+this section abandons the corners rather than sharpening them.
+
+### Proposition T1-corner (the corner sandwich closes only degenerately at trick 1) — delivered here
+
+At a trick-1 coordinate let k be the length of the focal seat's own top run in T
+and let f(ξ) be the opponents' forced tricks under Lemma T1-force. Take
+L = 2k − 7 (Lemma T1-run, converted to the differential by D = 2·tricks − 7) and
+U = 7 − 2·E_β[f] (Lemma T1-force, same conversion). Then L ≥ U iff
+k + E_β[f] ≥ 7, and this holds **iff k = 7**.
+
+*Proof.* The conversion D = 2·tricks − 7 is affine with positive slope, so it
+carries bounds and preserves verdicts — the freeze-37(c) argument, applied to a
+different pair of conventions. Forced focal and forced opponent tricks are
+disjoint, so k + f(ξ) ≤ 7 pointwise and the inequality requires f(ξ) = 7 − k for
+β-almost every ξ. At trick 1 nothing has been played, so no seat is known void
+and the void-free capacity fiber is the **complete** set of splits of the 21
+unseen tiles; the partner therefore holds the trump of rank k + 1 with positive
+probability, and in every such world the opponents hold no prefix of T ∖ H at
+all, giving f(ξ) = 0 < 7 − k whenever k < 7. Hence E_β[f] < 7 − k strictly for
+k < 7, and L < U. For k = 7 the focal holds the whole trump suit, f ≡ 0, and
+L = U = 7. ∎
+
+The degenerate case is the hand in which the focal takes every trick under every
+play — where the sandwich closes because there is nothing to decide.
+
+### Theorem T1-draw (the drawing-hand collapse) — delivered here
+
+Let a kernel have declaration δ = `PipTrump(p)`, the focal seat **on lead**
+(leader offset from focal 0), focal hand H with |H| = g, and remaining trump set
+T; write t = |H ∩ T|. Suppose:
+
+- **(Z1)** H ∩ T is the top t of T under δ's rank order;
+- **(Z2)** 2t ≥ |T| — equivalently t ≥ |T| − t, the outstanding trump count;
+- **(Z3)** every tile of H ∖ T is a **natural double**.
+
+Let ρ_draw be the policy: *while any trump remains outside H, lead the lowest
+trump in hand; thereafter lead the remaining tiles in the declared canonical
+order.* Then ρ_draw takes **all g tricks** for the focal seat, in every world of
+the fiber and against every field behaviour. Consequently `Q^H(a) = +g` for every
+a ∈ H ∩ T, `V^H = +g`, and `Opt^H ⊇ H ∩ T`.
+
+*Proof.* (i) *The draw terminates inside the hand.* When the focal leads a trump,
+`legal_plays` compels every seat holding a trump to play one, so after j trump
+leads a seat holding c outstanding trumps has surrendered min(j, c). Each seat
+holds at most |T| − t of them, which by (Z2) is at most t, and the focal has t
+trumps to lead. (ii) *Every trump the focal leads wins.* By (Z1) every
+outstanding trump ranks below every tile of H ∩ T, and `Tier::Called` dominates
+both other tiers, so the focal's led trump carries the unique maximum trick key;
+the focal therefore retains the lead throughout. (iii) *After the draw, everything
+in hand wins when led.* No trump remains outside H, and the focal plays one tile
+per trick, so a trick the focal leads with a trump contains no other trump and is
+won by tier. A natural double J ∈ H ∖ T led at that point has led context
+`Natural(hi(J))` and rank `DOUBLE_TOP` = 12; every other tile in play carries
+either `(Follows, ≤ 11)` or `(Slough, ·)`, so J carries the unique maximum key
+and wins — this is precisely the assertion `threat(J) ⊆ called_set`, and (Z3)
+plus "no trump outside H" discharges it. (iv) The focal takes every trick, so the
+differential is +g, which is the maximum of `trick_diff` at grade g; hence
+`Q^H(a) = +g` for every root action that begins ρ_draw, i.e. every a ∈ H ∩ T,
+and no action can exceed it. ∎
+
+**Note what the membership half does not use:** no belief, no field model, no
+relaxation, no seed, no transport, no library entry, and no upper witness beyond
+the trivial `U_a ≤ g`. The sandwich frame still describes it — L = U = g at a⋆ —
+but the content is a pointwise structural fact about the rule algebra.
+
+### Corollary T1-ruff (the double lead, strictly priced) — delivered here
+
+In Theorem T1-draw's setting with |T| > t, let J ∈ H ∖ T and let q(J) be the
+probability, under the declared uniform belief on the fiber and the declared
+uniform-random legal field, that an **opponent** seat takes the trick 1 that J is
+led to. Then
+
+  `Q^H(J) ≤ g − 2·q(J)`, with equality when |H ∖ T| = 1,
+
+so **q(J) > 0 strictly excludes J from Opt^H**.
+
+*Proof.* The differential is g − 2·(tricks the opponents take). If the opponents
+take the J trick they take at least one, so the realised differential is at most
+g − 2; otherwise it is at most g. Taking expectations gives the inequality. For
+equality when |H ∖ T| = 1: after the J trick the focal's hand is exactly its
+t = g − 1 top trumps, so by Lemma T1-run the focal takes every one of the
+remaining g − 1 tricks and the opponents take at most the J trick; the realised
+differential is exactly g or exactly g − 2. ∎
+
+**The flagship member, computed exactly.** δ = `PipTrump(6)`;
+H = {6:6, 6:5, 6:4, 6:3, 6:2, 6:1, 5:5}; g = 7; T = the seven 6-tiles; t = 6, the
+outstanding trump being 6:0, the lowest; H ∖ T = {5:5}, a natural double. (Z1),
+(Z2) (12 ≥ 7) and (Z3) hold. Context 5 is `NATURAL[5] ∖ NATURAL[6]` =
+{5:5, 5:4, 5:3, 5:2, 5:1, 5:0}, of which the focal holds 5:5 and five are unseen.
+The 5:5 trick is lost exactly when 6:0 lies in an opponent's hand — probability
+2/3, the three unseen seats being symmetric — **and** that opponent holds none of
+the five remaining context-5 tiles, its other six tiles being drawn from the
+twenty others of which five are context-5, probability C(15,6)/C(20,6) =
+5005/38760 = 1001/7752 — **and** the field's uniform choice over its seven legal
+tiles selects 6:0, probability 1/7. The two opponents' events are disjoint
+because a single seat holds 6:0. Hence
+
+  `q(5:5) = (2/3)·(1001/7752)·(1/7) = 143/11628`, and
+  `Q^H(5:5) = 7 − 286/11628 = 7 − 143/5814 ≈ 6.97541`,
+
+against `Q^H(a) = 7` for each of the six trump leads. **`Opt^H` is exactly the six
+trump leads.** Theorem E6.4's member-not-set caveat is **discharged at this
+coordinate** — not waived — because both sides are exact values rather than
+bounds, and the argmax set is therefore determined rather than intersected.
+
+- **T1-A1 (typing, tier, vocabulary, and what this section is).** The build's
+  proposal is **ACCEPTED IN PART**: its soundness reasoning is correct and is
+  ratified at T1-A2; its purpose is unattainable by the route proposed and that
+  is proved, not asserted, at T1-A4; and a different route to the same goal is
+  delivered at T1-A5. Everything is exploratory. DS-A1 binds: *witness* and
+  *receipt*, never the forbidden word; a proved statement here is proved
+  relative to walt's own declared basis and to the rule algebra as implemented,
+  and remains exploratory. Both outcomes of every gate below are results (F7),
+  and a receipt failure is stop-and-report, never a patch (NO-RESCUE).
+- **T1-A2 (the corner directions: the build's (C4) reading CONFIRMED, with the
+  proofs, and one correction of vocabulary).**
+  (i) **Lower side, sound.** For a fixed information-consistent policy ρ and a
+  world ξ, `min over field behaviours of v(ξ, ρ, ·) ≤ E_field[v(ξ, ρ, ·)] =
+  α_ρ(ξ)`, a minimum being at most a mean; taking E_β preserves it, and
+  E_β[α_ρ] = L_ρ ≤ Q^H(a) by Lemma E4 with DS-A27's semantic obligation. Sound.
+  (ii) **Upper side, sound.** `V*_a(ξ) = max over focal policies of
+  E_field[v] ≤ max over focal policies and field behaviours of v`, the
+  cooperative-field maximum; taking E_β gives U_a ≤ E_β[b(·,a)], and
+  U_a ≥ Q^H(a) by Lemma E3. Sound.
+  (iii) **(C4) CONFIRMED, and the reason is sharper than the one offered.**
+  Perfect-information minimax is barred as an upper bound, and not merely
+  because the adversarial field can push below the fixed-field value: it is
+  barred because it moves **both** dials at once, relaxing the focal's
+  information upward and the field's behaviour downward, so it is neither an
+  upper nor a lower bound on Q^H(a) and belongs on neither side. The corners
+  are the only two directions in which a single dial moves.
+  (iv) **Vocabulary, corrected.** "Minimin" names nothing here: with ρ fixed
+  there is exactly one minimisation, over field behaviours. The object is *the
+  field-adversarial value of a fixed policy*, and the results file uses that
+  name. Note in place that the **partner is part of the field**: the lower
+  corner assumes an adversarial partner and the upper corner a cooperative one.
+  Both are sound; the first is why the lower corner is weak.
+- **T1-A3 (the two cheap bound families, DELIVERED, with their costs typed).**
+  Lemma T1-run and Lemma T1-force are the tree-free counting bounds the proposal
+  asked for, and they **dominate the corners in cost while remaining sound**:
+  T1-run ≤ the field-adversarial value of any policy, and 7 − (T1-force) ≥ the
+  cooperative maximum, so each is a valid replacement on its side. Their cost
+  typing is the useful part. **The lower bound is fiber-constant**: at trick 1
+  the focal's hand is known and identical in every world, so k is a single
+  integer and E_β[·] over 399,072,960 worlds is not computed at all. **The upper
+  bound depends on ξ only through the split of the trumps among the three unseen
+  seats**, so its fiber expectation is an exact rational obtained either in
+  closed form or by an exhaustive integer count; either way no decimation
+  appears anywhere inside a witness and (C2) is satisfied without argument.
+  The budget the proposal reserved — 399M worlds × 7 actions × microseconds — is
+  **not needed for the bounds at all**.
+- **T1-A4 (the proposal's purpose is REFUTED, and the refutation is the first
+  result of this section).** Propositions T1-blind and T1-corner are delivered
+  above. Together they establish that the proposed sandwich, with any hand-only
+  counting bound on the lower side, certifies membership for every action
+  simultaneously or nothing at all, and closes only on the hand that holds the
+  entire trump suit. This is filed as a **result** under F7, exactly as a gate
+  failure is: it is what the proposed measurement would have measured, obtained
+  by proof instead of by a night of compute. Nothing about the bounds is
+  unsound; the defect is that they discriminate nothing. **The binding lesson,
+  stated for the successor:** at trick 1 the lower witness is the scarce object,
+  and it must be action-conditioned — the upper side had a trivial valid witness
+  (`U_a ≤ 7`) all along.
+- **T1-A5 (the replacement route is GRANTED: Theorem T1-draw and Corollary
+  T1-ruff).** The route is admitted because it violates no standing ruling and
+  needs no relaxation: the membership half is a pointwise structural fact
+  discharged by the rule algebra, and the exclusion half is an exact expectation
+  over the declared model, computed by exhaustive integer counting. Three
+  clauses.
+  (i) **The policy ρ_draw is exhibited, not seeded.** DS-A15's seeds-versus-
+  witnesses distinction is not engaged: nothing here is harvested from an
+  observed play or a heuristic, and no grade-3 verdict travels. Freeze 36's
+  library is untouched and **no library entry is written at any trick-1
+  coordinate** — freeze 45's Route-C discipline, transposed.
+  (ii) **The exclusion half is model-dependent and says so.** q(J) > 0 requires
+  a field model under which an opponent void in J's context and holding a trump
+  plays it with positive probability. The declared uniform-random legal field
+  supplies this; the statement is printed with that hypothesis attached, never
+  as a claim about how anybody plays.
+  (iii) **Grades other than 7 are in scope for the same theorem.** T1-draw is
+  stated for an arbitrary kernel, which is what makes the authority cross-check
+  of T1-A9(ii) an instance of the same statement rather than an analogy.
+- **T1-A6 (the carrier, arm A: the constructed family is LAWFUL, and it is
+  closed and exhaustively enumerated, so nothing is selected at all).** The
+  family is **defined by T1-draw's hypotheses**, not chosen among candidates:
+  for each pip p, each t ∈ {4, 5, 6, 7} — the range 2t ≥ |T| = 7 admits — and
+  each choice of 7 − t of the six non-trump doubles. That is
+  1 + 6 + 15 + 20 = 42 hands per declaration and **294 coordinates**, every one
+  of which is run. A closed family run in full cannot be selected by result, and
+  this is a stronger guarantee than the declared-in-advance rule the brief asked
+  for. The seven t = 7 members are the degenerate all-trump hands: they are run,
+  and their rows are labelled **TRIVIAL — every action takes every trick**, so
+  that a membership verdict there can never be paraded as a decision. The
+  remaining **287** carry at least one double competitor.
+- **T1-A7 (the carrier, arm B: the 13 corpus trick-1 coordinates, and what the
+  real-deal fence becomes at trick 1).** The corpus arm is `verify_player.txt`'s
+  13 hands at trick 1, all in scope because the bidder leads the first trick in
+  every one — the N4-A8 scope restriction is automatically satisfied rather than
+  imposed. Two clauses.
+  (i) **N4-A8's real-deal fence transposes with its arithmetic vacuous and its
+  substance intact.** At trick 1 nothing has been played, so no void is known
+  and the void-free capacity fiber is the complete set of splits: the
+  void-filtered ratio is 1 **by construction at every coordinate**, and the
+  inline marker N4-A8 mandates at h2/h5/h8 has nothing to mark. What does not
+  weaken is the belief fence: uniform over that fiber is **nobody's belief**,
+  and no seat at the table holds it. The results file prints both halves
+  together so the vacuity of the first is never read as a strengthening of the
+  second.
+  (ii) **What arm B measures**: per coordinate, k (fiber-constant), E_β[f] by
+  exhaustive integer count over all 399,072,960 worlds, the corner gap
+  7 − k − E_β[f], and the T1-draw hypothesis check. The expected outcome is that
+  no corpus hand is a drawing hand and every gap is strictly positive; that
+  outcome is a result and is filed as one.
+- **T1-A8 (the fences, verbatim on every certified row).** A certified verdict at
+  a trick-1 coordinate says exactly this and no more.
+  (i) **The membership half is belief-free and field-free**, holding pointwise in
+  every world of the fiber and against every field behaviour. Because the trick-1
+  fiber is the complete set of deals consistent with the focal's hand, that half
+  is a statement about the rules, not about the declared model. **This is the one
+  place in walt where R-A2's feasible-versus-reachable fence does not bind a
+  verdict** — and the reason is not that the fence was relaxed but that the
+  quantified statement ranges over every world, so reachability is irrelevant to
+  it. The fence binds everything else in the row.
+  (ii) **The exclusion half is model-relative**: q(J) and `Q^H(J)` are
+  expectations under the declared uniform belief and the declared uniform-random
+  legal field, and both are named in place. No row may let (i)'s strength leak
+  onto (ii).
+  (iii) **Not claimed, printed in place:** nothing about points or marks (the
+  valuation is `trick_diff`, count-free — E-A2's boundary, and a count re-entry
+  voids every form-keyed record wholesale); nothing about bidding or about
+  whether this hand should be bid; nothing about how real opponents play;
+  nothing about any coordinate outside the declared carrier; no growth law and
+  no opening claim from any grade (P-A21); and, for arm A, nothing about deals —
+  a constructed coordinate is a coordinate, and the family is a construction, not
+  a corpus.
+  (iv) **The honest characterisation of arm A, mandatory in the results file and
+  in any wiki text derived from it:** *a drawing hand is a hand that plays
+  itself. The theorem certifies a first-trick play at a coordinate where no
+  search is needed to find it, and it says nothing whatever about hands that
+  require judgement.* Dissents and caveats travel with results verbatim.
+- **T1-A9 (the receipt set for the H-free regime: what replaces (R1), (R2) and
+  (R3)).** At trick 1 the concrete authority does not merely exhaust its budget —
+  it is **structurally absent**, which is a different situation from N4-A6's
+  Tier 2 and must not borrow its language. The separation design's (R1) (envelope
+  H equals the scalar authority), (R2) (L equals Q^H at the seed) and (R3) (the
+  per-action price) have no referent at grade 7 and are **not printed as unmet;
+  they are printed as inapplicable, with the reason**. Five receipts replace
+  them, each with its PG-A8 typing.
+  (i) **(T1-R1) the rule-algebra discharge.** Per coordinate, machine-verify
+  (Z1) by comparing H ∩ T against the top t of `called_set` under `trick_key`;
+  (Z2) by integer arithmetic; and (Z3) as the exact assertion
+  `threat(J) ⊆ called_set` for every J ∈ H ∖ T, using the existing `threat`
+  function. **Contentful**: each can fail on a mis-specified coordinate.
+  (ii) **(T1-R2) the grade-reduced authority cross-check — the receipt that
+  earns the trick-1 claim.** Construct the drawing family at a grade where
+  `ScalarHidden::action_values_dag` completes within `AUTHORITY_BUDGET`, run it,
+  and assert the solver's exact action values equal the theorem's prediction:
+  +g at every trump lead and strictly less at every double lead, matching the
+  closed form for q. Grades 2, 3 and 4 are declared in scope — grade 4's fiber is
+  34,650 worlds, the very size the n = 4 work solves in seconds — and grade 5 is
+  attempted with its budget stop declared and printed either way (R-A18's
+  discipline). **A disagreement is a bug in the theorem or in the construction
+  and is stop-and-report**; it is the single most informative outcome available
+  tonight and it is pre-declared as such.
+  (iii) **(T1-R3) the exhaustive fiber count.** q(J) and E_β[f] are computed by
+  enumerating **all 399,072,960 worlds** with a per-world integer predicate — no
+  decimation anywhere, (C2) satisfied outright — and asserted equal to the closed
+  form where one is derived. All arithmetic is integer until a single final
+  rational; no float appears (P-A19). **Contentful**: the closed form and the
+  count are independently written.
+  (iv) **(T1-R4) an exhibited world witness.** For each excluded J, print one
+  explicit world and one field realisation in which the J lead concedes trick 1 —
+  a witness in DS-A1's sense, machine-checkable, exact. This is what establishes
+  q(J) > 0 per coordinate; positivity is never asserted from the general
+  argument.
+  (v) **(T1-R5) the exclusion arithmetic**, printed as exact rationals with the
+  margin `Q^H(a⋆) − Q^H(J)`, and the `Opt^H` set stated with T1-ruff's
+  discharge-not-waiver sentence beside it.
+  (vi) **What is NOT a receipt.** The membership half's `U_a ≤ g` is true by the
+  range of the valuation and is not evidence of anything; it is printed as an
+  arithmetic remark. PG-A8 governs: an assertion that cannot fail is not a
+  receipt.
+- **T1-A10 (both outcomes pre-declared, before any number exists).**
+  (a) **Arm A discharges** — the hypotheses check, (T1-R2) agrees at every
+  reduced grade, the counts match the closed form: then 287 coordinates carry a
+  proved exact optimal opening-lead set and 7 carry a labelled trivial one. That
+  is a first-trick play proved, with T1-A8(iv)'s characterisation attached.
+  (b) **Arm A fails a receipt** — most sharply, (T1-R2) disagreeing with the
+  concrete authority at grade ≤ 4: then the theorem or the construction is
+  wrong, **nothing is claimed**, and the failure is reported with the
+  disagreeing values. No patch, no adjustment, no re-derivation to fit
+  (F7, R-A18).
+  (c) **Arm B certifies nothing**, as expected: then the filed object is the
+  per-coordinate corner gap `7 − k − E_β[f]`, exact, over all 13 coordinates —
+  **the exact specification of what a tighter relaxation must beat**, which is
+  the intended content of the next dispatch. Typed as a cost-model and
+  specification quantity: it licenses no claim about the game, and by P-A21 no
+  gap measured here is quoted for any other grade or for the opening in general.
+  (d) A corpus hand unexpectedly satisfying T1-draw's hypotheses is reported as
+  what it is — a real deal that plays itself — and is not promoted by being
+  real.
+- **T1-A11 (freezes).** Freezes 1–46 are in force and restated unchanged; 44
+  stands at v2 (N4-A16), 36 at v2 (EC-A8); 38–40 remain reserved and untouched —
+  in particular **nothing here instantiates freeze 38's gluing-cut language**,
+  and Theorem E6.5 is named at T1-A10(c) only as the destination of a future
+  dispatch. **FREEZE 47 — the trick-1 carrier, frozen content. (a)** Arm A: the
+  drawing family as defined at T1-A6, all 294 coordinates, in the canonical order
+  *declaration pip ascending; then t descending; then the non-trump doubles'
+  pips ascending lexicographically*, with the coordinate identity printed in
+  freeze-45's form (declaration, focal hand as canonical ascending domino-index
+  tiles, leader offset from focal asserted 0, |X| asserted against
+  `kernel.count()`, the freeze-7/23 enumeration order) and the kernel rebuilt
+  in-run from the printed identity and asserted equal. **(b)** Arm B: the 13
+  `verify_player.txt` hands at trick 1, by corpus index ascending, with the
+  bidder asserted to be the trick-1 leader at each. **(c)** The reduced-grade
+  cross-check ladder of (T1-R2): grades 2, 3, 4 mandatory, grade 5 attempted with
+  a declared stop. **(d)** No library entry is written at any coordinate of
+  either arm. The belief and field models are **not** re-declared here: they are
+  freeze 26 and freeze 37(d), cited and unchanged. No number is reused.
+- **T1-A12 (results discipline, and the one thing that would make this section
+  wrong).** The results file carries: the tier line; T1-A8's four fence clauses
+  verbatim; the inapplicability notice of T1-A9 for (R1)–(R3) with its reason;
+  the TRIVIAL labels of T1-A6; T1-A8(iv)'s characterisation sentence; the exact
+  rationals of every q and every value; and, per arm, the declared regenerate
+  path. **The load-bearing risk, named so it is watched:** every statement in
+  Theorem T1-draw is a claim about the rule algebra **as implemented**, read at
+  adjudication time from `rules.rs`. If the implementation and the rules corpus
+  disagree — a tier order, `DOUBLE_TOP`, the effective-incidence subtraction, or
+  the compelled follow — then this section is wrong in a way no receipt inside it
+  can detect, because every receipt is computed by the same implementation.
+  (T1-R2) is the partial guard: it checks the theorem against an independently
+  written solver, though not against the corpus. **The corpus check is therefore
+  mandatory before any of this is cited outside walt**: the three rule facts of
+  this section's preamble are to be verified against the rules package by a
+  reader, and until that is done every statement here is exploratory in the
+  strong sense — proved relative to walt's implementation of the rules, and not
+  yet relative to the rules.
