@@ -1,0 +1,4 @@
+S6c sequential timing rung (freeze 43; DS-A33) — the only quotable timing instrument. Selection rule (declared, never by result): the first grade-3 unit and the first n=4 unit in canonical order. W=1, single uninterrupted process, 18 cores, release build; control = the plain arm re-run in this same pass (S5h figures are background context only, P-A19).
+g3 idx=0 pip=0 lead=00: plain 26 ms, detector-arm 24 ms; detector 6745 ns over 384 calls (17 ns/call); call sites 384 fired any=0
+n4 hand=0 lead=00: plain 28125 ms, detector-arm 28357 ms; detector 151339539 ns over 3540143 calls (42 ns/call); call sites 3540143 fired any=0
+run complete: yes

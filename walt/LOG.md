@@ -179,7 +179,9 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   detectors under Jason's binding count guard, run at census scale: 174,250,255
   detector calls, **zero false positives**; 51% of 49.5M classified call sites are
   one-deviation ties; the detectors certify ~33% of them at ~25 ns/call (contended,
-  not quotable). One detector never fired; the trumpless-junk tie mechanism stays
+  not quotable; the freeze-43 sequential rung, run 2026-08-14, is the quotable
+  instrument: 17 ns/call at the g3 unit, 42 ns/call over 3,540,143 calls at the
+  n4 unit, detector-arm overhead under 1% of the solve — deadness_rung results). One detector never fired; the trumpless-junk tie mechanism stays
   a named open question. Experiment A of the decision-sparse program complete.
   Also this session: decision-sparse v0.1 filed, audited twice, its repaired
   mathematics maintained in an errata.
