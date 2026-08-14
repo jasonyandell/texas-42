@@ -9349,3 +9349,295 @@ results header beside the outcomes; and all of SR-A24's outcomes pre-printed
 before any number exists. Everything else above is proof and needs no code. If
 (SR-R1), (SR-R4), (SR-R5) or (SR-R6) fails, nothing is claimed and the disagreeing
 exact rationals are reported.
+
+---
+
+### Closing note: the SR probe returned (2026-08-14, after the run)
+
+**Object:** `walt-factory/examples/second_rung.rs` and
+`walt-factory/results/second_rung_2026-08-14.txt`, committed at `8e415aa`;
+`ci/check.sh` PASS; the companion `second_rung_frontier_2026-08-14.txt`
+regenerable and not committed, with its SHA-256, byte count and line count in the
+committed header. Four units — h2 `a = 53`, h2 `a = 54`, h9 `a = 41`, h9 `a = 54`
+— **all ten receipts HELD at every unit**, with (SR-R9) HELD as a blocking
+pre-check at the declared grade-3 coordinate before any carrier number existed.
+**Arm 2 completed; no declared stop occurred.** Three questions the build raises
+are ruled at SR-A27..SR-A30 and three findings are typed at SR-A31.
+
+**Re-derived at adjudication time, independently of the run**, by parsing the
+committed file's 3,300 printed state rows and 9,900 printed branch rows and
+recomputing every quantity from the branch rows alone — the run's own summary
+values were used only as the thing being checked:
+
+- `M_I = max_b F^(1)_{I,b}`, `s_{I,b} = M_I − F^(1)_{I,b}`, the complete `B*_I`,
+  `Δ_I^(2) = min_b(s_{I,b} + d_{I,b})`, the complete argmin, and the ESCAPE flag
+  **reproduce at every one of the 3,300 states — zero deviations.**
+- `Σ_I p_I = 1` exactly at all four units.
+- `Σ_I M_I` = `102437/27720` at h2 and `1122491/332640` at h9 = the filed
+  `U^(1)` exactly.
+- `Σ_I Δ_I^(2)` = `1483/138600` at h2 and `4532503/26611200` at h9 = the filed
+  `Δ^(2)` exactly.
+- `Σ_I (M_I − Δ_I^(2)) = Σ_I max_b F^(2)_{I,b}` = `85117/23100` at h2 and
+  `28422259/8870400` at h9 = the filed `Q^H(a)` exactly.
+- The escape census reproduces: **36 of 330 at each h2 unit, 498 of 1,320 at each
+  h9 unit.**
+- `s ≥ 0` and `d ≥ 0` everywhere; `d_{I,b} > 0` iff `#{J : δ_{I,b,J} > 0} > 0` at
+  every one of the 9,900 branches; and **§6.3's inequality
+  `min_b(s+d) ≤ min_{b∈B*_I} d` holds at every one of the 3,300 states**, strictly
+  at exactly the escape states.
+
+### Proposition SR-loc (escape is exactly where §6.3 is strict, and the naive error is exactly localised) — delivered here
+
+At a first-frontier state `I`, write `N_I = min_{b ∈ B*_I} d_{I,b}` for the naive
+local tax that taxes only the rung-one optimal face. Then
+
+  **(a)** `Δ_I^(2) = N_I` **if and only if** `argmin_b(s_{I,b} + d_{I,b})` meets
+  `B*_I`; equivalently, `Δ_I^(2) < N_I` **if and only if** `I` is an ESCAPE state;
+
+  **(b)** consequently `Σ_I N_I − Δ^(2) = Σ_{I ∈ ESCAPE} (N_I − Δ_I^(2))`, every
+  non-escape state contributing exactly zero.
+
+*Proof.* On `B*_I` the slack vanishes, so `min_{b∈B*_I}(s+d) = N_I`, and
+minimising over the larger set `A(I)` gives `Δ_I^(2) ≤ N_I` — which is §6.3.
+If some `b_0 ∈ argmin ∩ B*_I`, then `Δ_I^(2) = s_{I,b_0} + d_{I,b_0} = d_{I,b_0}
+≥ N_I`, so equality. Conversely if `Δ_I^(2) = N_I` then the `b ∈ B*_I` attaining
+`N_I` attains the global minimum, so the argmin meets `B*_I`. That is (a), and
+(b) is (a) summed. ∎
+
+**Why it is worth stating.** It converts the escape flag from a *diagnostic* into
+an *exact accounting identity*: the escape set is precisely the support of the
+error a §6.3-violating witness would make, and the error is the sum over that
+support and over nothing else. It also makes the census auditable from the branch
+rows alone, which is how it was audited above.
+
+**Measured at adjudication time from the committed rows.** The naive quantity
+`Σ_I N_I` is `1543/138600` at h2 against the true `1483/138600` — an
+overstatement of exactly `1/2310`, which is `60/1483` = **4.0459%** of the true
+tax; and `12667/66528` at h9 against `4532503/26611200` — an overstatement of
+exactly `178099/8870400`, or **11.7881%**. At h2 the arithmetic closes to the
+unit: each of the 36 escape states overstates by exactly `1/83160`, and
+`36 × 1/83160 = 1/2310` is the whole of it.
+
+---
+
+- **SR-A27 (the artifact against the SR-A22/SR-A23 contract: NO DEVIATION FOUND;
+  four places where the build exceeded what I specified, and one presentational
+  nit).** Five clauses.
+  (i) **Every contract item is present and correct.** Freeze 51(a)'s carrier in
+  the enumerated order with no generating rule; freeze 51(c)'s counted-forced-`J`
+  convention with `Θ_{I,b}` and `p^term_{I,b}` asserted zero; freeze 38 v1.1(d)'s
+  induced total order exhibited in the header; freeze 38(f)/Corollary SR-conv's
+  count convention **with the two bridges kept separate and correctly stated** —
+  differences halved, `p`-weighted values bridged as `(x_diff + grade·p)/2`, which
+  is the exact distinction SR-conv was written to prevent collapsing; the four
+  engine changes of SR-A22(ii) each asserted in-run rather than assumed; SR-A22(vi)'s
+  slot typing and Lemma FT-post form (i); the accounting integers of SR-A22(iii)(d);
+  and all seven of SR-A24's outcomes pre-printed before any number.
+  (ii) **Exceeded, four times, each in the safe direction.** (1) **(SR-R8)** was
+  specified over a declared ten-triple sample and was run over **every**
+  `(I,b,J)` triple — 2,535,480 per h2 unit, 18,110,322 per h9 unit — with the
+  sample printed. (2) **(SR-R3)** likewise runs at every second-frontier state
+  rather than as a spot check, and does so by an **independent replay that shares
+  no bookkeeping with the walk**, which is a stronger instantiation of Lemma
+  SR-coord(b) than I asked for. (3) `|A(I)|` and `|A(J)|` are asserted against
+  `legal_plays` **at the independently reconstructed position**, not against the
+  walk's own cached legal set — amendment (B) of SR-A17(ii) implemented in its
+  strong form. (4) **(SR-R10)** covers the companion digest and the frontier digest
+  as well as the printed rows. **An implementation that claims more coverage than
+  the ruling demanded is checked, not waved through** — I re-derived the
+  aggregates from the printed rows precisely because the receipts are self-reported;
+  they agree.
+  (iii) **The one non-receipt correctly refused.** SR-A24(f) is printed and its
+  closing sentence reads *"The 57240 positive-delta triples of this unit all carry
+  a size-2 core and that is a restatement of the arithmetic, not a measurement."*
+  That is the sentence FT-A26(ii) had to be written *after* a run; here it was
+  written before one and honoured in the artifact. Likewise Proposition SR-taut's
+  five are printed as ARITHMETIC REMARKS and are excluded from "all ten receipts
+  HELD". The count of ten is therefore accurate and I have verified it names ten
+  distinct contentful checks.
+  (iv) **The presentational nit, recorded because it cost me a re-run.** The
+  ESCAPE column prints `YES` at escaping states and `no` elsewhere — a case
+  inconsistency that made my first adjudication-time parse mis-flag all 36+498
+  escapes before I read the raw row. **It is cosmetic and nothing downstream may
+  key off it** (SEP-A14(ii): results text is not an interface), so no re-emission
+  is owed; but a column that is read by eye should not change case with its value,
+  and the next emitter should print `yes`/`no`. **Binding on the next SR emission,
+  forcing nothing now.**
+  (v) **A trend flagged before rung three, not a defect now.** The companion is
+  8,811,585,684 bytes over 41,291,617 lines, against S6k's 36 MB. FT-A24's design
+  — accounting integers plus a digest — is exactly what makes that omission
+  auditable and it works here. But "regenerable" is a weaker practical guarantee at
+  8.8 GB than at 36 MB, because auditing the digest now costs a full re-run.
+  **At rung three the committed/companion split must be re-designed rather than
+  re-applied**, and that is a design obligation on the next adjudication, not a
+  finding against this one.
+- **SR-A28 (the escape census: SR-A24(c) FIRES — the first measured instance of
+  policy adjustment in the branch; RESULT, with its scope cut three ways).** Five
+  clauses.
+  (i) **The finding.** At both carrier coordinates and at all four units,
+  `argmin_b(s_{I,b} + d_{I,b})` is disjoint from the rung-one optimal face `B*_I`
+  at a positive fraction of first-frontier states: **36 of 330 (10.91%) at h2, 498
+  of 1,320 (37.73%) at h9**, re-derived here from the branch rows. §6.3's warning
+  is therefore **not hypothetical at our scale**, and the pre-declared consequence
+  binds: **every future rung-two lower witness must cover every first action, not
+  the rung-one optimal face and not merely the complete optimal face.** FT-A8 bars
+  a tie-broken optimiser in favour of the complete face; §6.3 as now measured says
+  the complete face is *also* insufficient. Both rules bind and they are different
+  rules.
+  (ii) **What it would have cost, exactly** (Proposition SR-loc, computed at
+  adjudication time): a witness taxing only the rung-one optimal face would have
+  reported `1543/138600` at h2 against the true `1483/138600`, and `12667/66528`
+  at h9 against the true `4532503/26611200` — overstatements of `1/2310`
+  (**4.0459%**) and `178099/8870400` (**11.7881%**). Since the naive quantity is an
+  **upper** bound on the true tax, a witness built on it claims to have shaved more
+  than it did; at h9 it would have claimed nearly an eighth more. **That is the
+  number that makes §6.3 a safety rule rather than a technicality.**
+  (iii) **The counts are NOT independent observations, and must never be reported
+  as though they were.** At h2 all 36 escapes carry **one signature**:
+  `Δ_I^(2) = 1/49896`, `N_I = 1/31185` (a ratio of exactly `5/8`), `B*_I = {33}`,
+  `argmin = {54}` — and `{53}` in the mirror unit. At h9 the escape action is the
+  single tile **61 at every one of the 498**, against a singleton face `{54}`
+  (resp. `{41}`), with the multiplicities arriving in blocks of 6 and 12. These are
+  one structural phenomenon reached by many field continuations, not many
+  phenomena. **The honest statement is "escape occurs, at these coordinates, with
+  this structure"; the dishonest one is "escape occurs at 37.73% of states" read as
+  a rate.** This is FT-A26(iii)'s selection fence in its sharpest form yet, and the
+  results file's own *"scoped to this coordinate and nothing wider"* is correct.
+  (iv) **Two structural facts, typed as observations and claimed as nothing
+  more.** No escape state has `Δ_I^(2) = 0` — escaping *reduces* the local tax
+  everywhere it happens and *eliminates* it nowhere, so the escape route is never a
+  free rescue at this carrier. And at h9 the escape states carry
+  `2134575/4532503` = **47.09%** of the whole `Δ^(2)` while being 37.73% of the
+  states (at h2, `100/1483` = 6.74% of `Δ^(2)` from 10.91% of the states). **No
+  causal claim, no growth law, and nothing quoted for trick 1 or the opening**
+  (P-A21); the coordinates were selected by negative binding margin and the
+  selection criterion is correlated with the quantity described.
+  (v) **What SR-A24(d) would have meant, recorded because it did not happen.**
+  Had escapes been absent, the reading was pre-declared as a result and not a
+  licence. It is worth noting in place that the outcome went the *other* way, which
+  is the direction that makes the received note's §6.3 load-bearing rather than
+  cautionary — and that this is the second time in the FT/SR chapters that a
+  pre-declared "both answers are results" gate came back on the side that costs
+  more work.
+- **SR-A29 (arm 2 completed: SR-A24(e)'s stop did NOT occur, and the h9 ladder
+  agreement is typed precisely).** Four clauses.
+  (i) **The stop did not occur and that is an ordinary outcome, not a bonus.**
+  `Σ_{I,b} |I_2(I,b)| = 18,110,322 ≤ P_max v2 = 192,000,000`, asserted before the
+  aggregate pass; PATH A2 and PATH B2 each charged 7,253,759,970 of their separate
+  `10^10` freeze-44(b) budgets. SR-A24(e) pre-declared arm 2 stopping as ordinary;
+  arm 2 completing is equally ordinary and **no cost, timing or tractability claim
+  is read off any of those integers** (SEP-A19(b), N4-A16) — the walk-step columns
+  are provenance.
+  (ii) **What (SR-R4) at h9 IS.** `Σ_I max_b F^(2)_{I,b} = 28422259/8870400`
+  exactly equals the filed `Q^H(41)` (resp. `Q^H(54)`). h9's `Q^H` had been
+  produced once, by the revealed/H traversal. This reconstructs it from a
+  **depth-two decomposition** — a different traversal, different intermediate
+  quantities, a different theorem — and agrees to the rational. **It is a second
+  independent confirmation of h9's exact lawful value, and it is a different
+  decomposition from (FT-R1)'s**, which reconstructed h9's `U` (the *revealed*
+  value) from the depth-one frontier. So h9's two filed columns have now each been
+  independently reconstructed once, by two different routes. That is the quietest
+  good news in this file, as (FT-R1) at h9 was in the last one.
+  (iii) **What it is NOT, and this is the clause that must travel.** **h9's NOT
+  PRICED label stands verbatim and is not weakened by any of it** (FT-A18(iv),
+  RW-A3(iii): the labels never merge). NOT PRICED is a statement about the
+  **primal pipeline** — h9's extraction map measured 517,562,322 states against
+  `P_max v2 = 192,000,000`, so no primal witness is exhibited at that coordinate,
+  and `L_{a⋆} = Q^H(a⋆)` there is Corollary E4.1(2)'s **ceiling**, not a receipted
+  primal witness. Reconstructing a value twice on the **dual** side says nothing
+  about the primal side. A cross-check is not a witness; agreement between two
+  computations of the same quantity does not manufacture the object the pipeline
+  could not build. The results file says this in place at every h9 row and is
+  correct to.
+  (iv) **And it is still hostage to SR-A25(vii).** Both reconstructions are
+  computed by the same implementation whose reading of the rules discharged Lemma
+  SR-coord. Two agreeing traversals inside one implementation cannot detect an
+  implementation-versus-corpus divergence. (SR-R9) is the partial guard; T1-A12
+  and LD-A10(ii)'s corpus check is still owed before any of this leaves walt.
+- **SR-A30 (FT-A28(iv)'s deferred (FT-R7c) is DISCHARGED — cited to the artifact,
+  per FT-A29's discipline).** Four clauses.
+  (i) **The obligation and why it was live.** FT-A28(iv) specified (FT-R7c), the
+  per-unit frontier digest, and made it *"binding on the next FT run that
+  regenerates a frontier"*. SR-A23(vii) carried it into this build after checking —
+  per FT-A29(i), *a ruling that creates an obligation is not evidence it is still
+  open; only the artifact is* — that no results file carried a frontier digest.
+  (ii) **It is discharged, and here are the carrying rows.** Each of the four
+  units prints, on its (SR-R7) line, a SHA-256 over the canonical serialisation of
+  its `(record, δ_I)` pairs in freeze-38(d) order — one line per state,
+  `<record>|<δ_I as num/den, count>` — asserted equal to a frozen transcribed
+  value: `bcd7e915…1106` (h2 `a = 53`, results line 1422), `de460262…244fa`
+  (h2 `a = 54`, line 2815), `0d059121…514e` (h9 `a = 41`, line 8630),
+  `b196c789…242c` (h9 `a = 54`, line 14445). Each is *"a comparison against a PRIOR
+  PROCESS"*, which is exactly what FT-A28(iii)'s named residual required: a
+  per-row discrepancy that arises across processes while preserving `Σ_I δ_I` and
+  `|supp δ_I|` per unit and reproducing within each process is now caught, because
+  one scalar per unit reaches **every individual `δ_I` across executions**.
+  **FT-A28(iii)'s residual is CLOSED — by receipt, not evidentially**, and
+  FT-A28(v)'s orchestrator byte-diff remains what it was ruled: an audit note,
+  never a receipt.
+  (iii) **(FT-R7a)'s corrected scope line is adopted verbatim** at every unit
+  (*"reaches `Σ_I δ_I` and `|supp δ_I|` per unit across executions; does not reach
+  individual `δ_I`"*), with the file adding, correctly, that the digest is what
+  extends the reach and *"does so only once a later run carries it transcribed"* —
+  which is the right reading of a digest's evidentiary direction and is a sharper
+  statement than my own SR-A23(vii).
+  (iv) **What remains owed on this line: nothing.** FT-A28(vii) listed exactly two
+  items for the next FT run; both are discharged here. **FT-A28 is fully
+  discharged.** The digest becomes part of the emitter, as FT-A28(iv) recommended,
+  and any future frontier-regenerating run carries one without further ruling.
+- **SR-A31 (three findings of the run that are results in their own right, each
+  with its fence).**
+  (i) **Theorem 6.2 and Theorem 4.1 are instantiated exactly, at two coordinates,
+  against three independently filed columns.** (SR-R4) reproduces the filed `Q^H`,
+  (SR-R5) reproduces the filed `Δ^(2)`, and (SR-R7) reproduces the filed `U^(0)`,
+  `U^(1)` and `Δ^(1)` as by-products of a depth-two traversal — all exact, all four
+  units, and all re-derived here from the printed rows. **This is SR-A24(a) and it
+  is a result about the proof machinery, not a discovery about 42**: the exact
+  value column already knew both answers, Proposition SR-degen fixed the closure
+  verdict a priori, and no pair verdict is reported. What is new is that the
+  received note's rung-two law now has an exact instantiation in this engine, and
+  that the `(s, d)` decomposition of a fusion gap exists as an artifact for the
+  first time.
+  (ii) **The escape census, SR-A28, with its three fences.**
+  (iii) **(SR-R9) did work that no filed number could have done.** At the grade-3
+  coordinate all second-frontier states are forced — 50,328, 40,596 and 41,364 of
+  them at the three roots, every one with `|A(J)| = 1` and `δ = 0` — and
+  `U^(2) = U^(1) = Q^H` held against **the engine's own `H` operator**, an
+  independent evaluator the grade-4 carrier cannot consult. It is the only check in
+  the build whose answer was known **by proof** (Lemma FT-trunc and Lemma
+  SR-forced) rather than by a filed rational, and it ran blocking, before any
+  carrier number existed. It also exercises freeze 51(c)'s counted-not-skipped
+  convention against the one case where the two ladder indexings visibly differ.
+  **A build whose strongest checks are all against filed numbers can be
+  self-consistently wrong; this is the check that is not.**
+- **SR-A32 (carried obligations, and what none of this claims).**
+  (i) **Nothing is promoted.** Every receipt, verdict, tax, census and escape row
+  above is exploratory, cited by nothing above this tier, and quotable as a result
+  only by brief amendment adding it to a verifier receipt. TRUST-01 unchanged: the
+  received note is not imported as an axiom, and every number in the artifact is an
+  exact rational of this engine.
+  (ii) **Not claimed**, everything at SR-A25(ii) unchanged, plus three specific to
+  this run: **the escape census is not a rate** (SR-A28(iii)); **the h9 double
+  reconstruction is not a primal witness and does not touch NOT PRICED**
+  (SR-A29(iii)); and **the rung-two core sizes are not a measurement**
+  (SR-A24(f), which the artifact itself states).
+  (iii) **The errata §9 queue** of FT-A22(iii)/FT-A27(i)/SR-A25(iv) now also
+  carries **Proposition SR-loc**. DS-A28(ii) remains carried.
+  (iv) **Owed to the wiki owner, not dischargeable here**, and now three items:
+  freeze 51 and freeze 38 v1.1(d) are absent from the register; the claim-ledger,
+  FINDINGS and open-problems cross-references for both the SR adjudication and this
+  closing note; and the LOG entry for the SR probe.
+  (v) **Two obligations created here, both small and both on the next SR run:**
+  the `yes`/`no` case fix of SR-A27(iv), and the committed/companion split
+  re-design of SR-A27(v) before any rung-three build. **On nobody, now: anything
+  else. Nothing is routed back to the builder** — the artifact discharges its
+  contract in full and exceeds it in four places.
+
+**What the build owes this section.** Nothing. The SR probe stands as committed at
+`8e415aa`: ten receipts HELD at four units, (SR-R9) blocking and HELD, arm 2
+completed, SR-A24(c) fired and filed with its fences, and FT-A28 discharged
+entire. The next question is not a rung-three build — at grade 4 there is no rung
+three, and Proposition SR-degen says grade 4 can no longer test closure at all.
+**The next question is a coordinate where the ladder is longer than the corpus of
+filed answers**, and that is where the received note's §14 program and FT-A21's
+three obligations become the binding constraint rather than the escape census.
