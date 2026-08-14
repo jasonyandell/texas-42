@@ -7822,3 +7822,115 @@ competitor row set asserted against `legal_plays`; the h6 pair row restated in i
 strict form with the exact surplus `4930081/479001600`; and FT-A25(vi)'s mandatory
 sentence beside the coordinate verdict. Nothing else — the carrier order stands,
 the numbers stand, and no re-derivation is owed.
+
+- **FT-A28 (FT-R7's two-half discharge: RATIFIED, with three amendments, one
+  named residual and one deferred closure. NO RE-EMISSION IS REQUIRED.)**
+  **Object:** the S6k re-emission (commit `fdeeae8`), in which (FT-R7) was
+  discharged in two scoped halves with the scopes printed, because the receipt as
+  I wrote it could not be executed as written. The builder found this itself,
+  after its run was green, and reported it rather than satisfying the letter of my
+  ruling with a weaker check and saying nothing. That is the behaviour this record
+  exists to reward, and it is the second time in this session — the freeze-50(a)
+  conflict was the first. Both times the defect was in my text and the build found
+  it.
+  (i) **The defect in (FT-R7) was mine, and it is the same shape as freeze
+  50(a)'s.** I wrote that the re-emission's values be *"compared against the first
+  emission and asserted identical"*. The first emission's individual `δ_I` values
+  exist in exactly one durable place — its results text — and a program treating
+  results text as an interface is barred by SEP-A14(ii)'s principle, which I had
+  myself invoked four clauses earlier in FT-A24(vii) to forbid producing the split
+  by post-processing. **I specified a comparison without specifying the carrier of
+  the reference value, and the only carrier available was one I had just
+  prohibited.** The receipt was therefore not executable as written, and no
+  faithful build could have discharged it literally.
+  **The standing discipline this yields, stated so it cannot recur:** *a receipt
+  that compares against a prior run must name the **carrier** of the reference
+  value — a frozen table in the probe source with its provenance line, or an
+  in-run recomputation — and never "the previous emission" unqualified.* A prior
+  run is not an object; its results text is not an interface; only a transcribed
+  constant or a recomputation is. This joins FT-A23(v)'s rule as the second
+  specification defect of the same family: **naming a relation without naming its
+  relata.**
+  (ii) **The two halves are RATIFIED and renamed, and half 1's scope is corrected
+  UPWARD.** (FT-R7) unqualified now names their conjunction; the halves are
+  versioned, not renumbered.
+  **(FT-R7a) the cross-run invariant receipt.** The frozen `FT_FIRST` table,
+  transcribed into the probe source from FT-A24(ii) and the closing note above
+  with its provenance line, asserted against the re-emission. This is exactly
+  SEP-A14(ii)'s pattern — that ruling's own frozen table was itself transcribed
+  out of a results file by hand, so the bar has always been on *machine
+  re-parsing* and never on the values' origin. **The provenance here is if
+  anything better than the precedent's**, because the summary values in the
+  closing note were independently re-derived at adjudication time from the filed
+  S6h `R3` rows before the re-emission existed.
+  **The scope correction.** The build's printed scope says half 1 *"does not reach
+  individual `δ_I`"*, which is true but understates it: `FT_FIRST` carries the
+  FT-A24(ii) census, and the per-unit count `#{I : δ_I > 0}` **is a functional of
+  the individual `δ_I` vector**, not of the summary. So (FT-R7a) pins **two
+  independent functionals of that vector across two executions** — its sum, via
+  `Δ^(1)`, and its support size, via the census. The accurate scope line is
+  *"reaches `Σ_I δ_I` and `|supp δ_I|` per unit across executions; does not reach
+  individual `δ_I`."* **An understated scope is never an error** — it claims less
+  than is true, which is always safe — so this correction binds the **next**
+  emission's wording and forces nothing now.
+  **(FT-R7b) the in-run reproduction receipt.** A full second pass with fresh
+  maps, accumulators and budgets, every printed `δ_I` and every row asserted
+  identical. Scope: reaches every individual value; within one process. This is
+  the half that carries the failure modes I named — iteration-order dependence,
+  stale or reused accumulators, memoisation error, thread-order leakage — and it
+  carries them at full strength, because per-unit content is a function of
+  (kernel, budgets) alone and each unit runs single-threaded, so the only route by
+  which the surrounding `W = 9` assembly could touch a unit's rows is shared
+  mutable state, which is precisely what fresh state tests.
+  (iii) **The residual, named rather than papered over.** The conjunction of
+  (FT-R7a) and (FT-R7b) is **not equivalent** to what I originally specified, and
+  the honest statement of the difference is short: a per-row discrepancy that
+  arises **across processes**, **preserves both `Σ_I δ_I` and `|supp δ_I|` in every
+  unit**, and **reproduces within each process**, would be caught by neither half.
+  That is a contrived failure mode and I know of no mechanism that would produce
+  it — but "contrived" is not "impossible", and a residual that is named costs
+  nothing while a residual that is quietly absorbed into a HELD is exactly the
+  drift this record exists to prevent. It is named here and it travels with any
+  future citation of (FT-R7).
+  (iv) **The closure, specified and DEFERRED: (FT-R7c) the frontier digest.** The
+  residual closes completely and cheaply. Per unit, the probe emits into its
+  summary line a SHA-256 over the canonical serialisation of the printed
+  `(record, δ_I)` pairs in freeze-50(c) order. A digest is a fixed-width constant
+  and is transcribable into `FT_FIRST` like any other frozen table value, so a
+  later run asserts **one scalar per unit** and thereby reaches **every individual
+  `δ_I` across executions**, with no results-text parsing anywhere. **Not owed for
+  S6k**, which is committed and green and whose residual is already closed
+  evidentially by (v) below; **binding on the next FT run that regenerates a
+  frontier**, and cheap enough that it should simply become part of the emitter.
+  Requiring a re-emission now to convert a known-true fact into a receipt would
+  spend real cost on process hygiene alone, and proportionality is part of the
+  discipline, not an exception to it.
+  (v) **The orchestrator's byte-diff: its typing is RATIFIED, and the typing is
+  the whole of its value.** The comparison of the second emission's 12,639 printed
+  rows against the first emission's positive support, byte-identical, is an
+  **audit note and not a receipt**. Three reasons, and each is independently
+  sufficient: it is not asserted in-run; it is not reproduced by the verify path;
+  and it does not survive into any future run, which is what a receipt is *for* —
+  a receipt earns its keep by running every time, not by having been true once.
+  **What it may be:** adjudication-time evidence, recorded as such, and it is
+  recorded here — it closes (iii)'s residual **evidentially for this run**, which
+  is why (FT-R7c) is deferred rather than demanded. **What it may never be:**
+  cited as a receipt status, printed in a results file as HELD, or counted among
+  "all N receipts HELD". **On SEP-A14(ii):** that ruling bars a *program* from
+  treating results text as an interface. A one-off human or orchestrator diff is
+  not that, and the operative distinction is that **nothing downstream keys off
+  the audit** — the moment something did, it would be an interface and the bar
+  would bite.
+  (vi) **NO RE-EMISSION IS REQUIRED, stated explicitly as asked.** Every amendment
+  above is either a correction to the record (i, iii), a wording change that
+  claims *less* than the truth and is therefore safe as emitted (ii), a deferred
+  addition (iv), or a ratification (v). S6k stands as committed at `fdeeae8`:
+  the two halves discharge (FT-R7) as ruled-and-repaired, (FT-R8) HELD,
+  `Opt^H(h6) = {40}` filed with FT-A25(vi)'s mandatory sentence and the strict h6
+  row. Nothing is routed back to the builder.
+  (vii) **What is owed, and it is small.** On the next FT run that regenerates a
+  frontier: (FT-R7c)'s per-unit digest, and (FT-R7a)'s corrected scope line. On
+  nobody, now: anything else. **Nothing here is promoted** — the receipts, the
+  audit note, the verdict and the taxes are exploratory, cited by nothing above
+  this tier, and quotable as results only by brief amendment adding them to a
+  verifier receipt.
