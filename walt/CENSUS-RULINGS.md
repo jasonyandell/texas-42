@@ -3939,7 +3939,11 @@ a receipt tying two evaluators together (SEP-A11, SEP-A12).
   cache, never an authority; a loaded entry is re-priced before use; a digest
   mismatch is corruption and the file is discarded entire. **(e) Transport:**
   identity only in v1, per SEP-A3(vi); cross-coordinate transport re-enters with
-  its own adjudication. **(f) Seed rule:** the seed is the argmax-recording pooled
+  its own adjudication. *[AMENDED 2026-08-13 by EC-A8: freeze 36(e) v2
+  additionally admits the declaration fold φ_{p→p′} of Lemma S-fold — image key
+  per freeze 46(b), R9 receipts asserted in-run, values licensed by Corollary
+  S-fold-val; any further transport still re-enters with its own adjudication.]*
+  **(f) Seed rule:** the seed is the argmax-recording pooled
   H solve over the same information partition, **unmemoized** (SEP-A11(ii)), with
   the tie rule of freeze 26 cited, not restated; the seed contributes no number to
   any reported L (DS-A14, DS-A15). **(g) Header note (DS-A16):** entries remain
@@ -4261,6 +4265,11 @@ a receipt tying two evaluators together (SEP-A11, SEP-A12).
   closes. It is out of scope here for a reason the design states correctly: six of
   the seven completed S6b singleton roots collapse by indifference, so this run's
   harvest is one informative entry (idx = 0, lead 00, the 108-decision playbook)
+  *[DISAMBIGUATED 2026-08-13 by EC-A12: "108" counts the strictly-mattering
+  subset — 384 free two-tile decision states minus 276 one-deviation ties (S6c,
+  `deadness_2026-08-12.txt`) — a derived difference of two measured counts,
+  present in no receipt; the entry's receipt-backed decision count is 384
+  (`separation_2026-08-13.txt`, S6b k = 384). See EC-A12.]*
   plus lawful-but-vacuous entries, and there is nothing yet to transport. That
   successor needs freeze 36's transport clause opened, which needs Lemma E7's
   isomorphism exhibited, which is its own adjudication (SEP-A3(vi), DS-A25).
@@ -4337,3 +4346,656 @@ A pointer marker is placed at the SEP-A13 site per DS-A28(i).
 **Nothing in SEP-A1..SEP-A18 changes.** SEP-A13's repair stands as ruled; only the
 identity of its third counted quantity is disambiguated, and the design text and
 probe may proceed on the build's reading.
+
+## The n = 4 separation rung adjudication (2026-08-13)
+
+**Adjudicator:** walt-math. **Object:** `walt/SEPARATION-RUNG-N4.md` (commit
+42d83d9) — the n = 4 separation rung, the successor SEP-A10 prescribed,
+answering its three-part repair spec — together with the reserved content of
+**freezes 44 and 45**. **Tier:** exploratory throughout. Nothing below is
+promoted; no number the rung produces becomes quotable except by brief amendment
+adding it to a verifier receipt. **Basis:** SEP-A1..SEP-A19 and everything they
+inherit; the errata under DS-A17's citation rule (Lemma E3 and (C1)–(C4) of
+§3.4, Lemma E4 and Non-theorem E4′ with DS-A27's semantic obligation, Corollary
+E4.1 — pending its errata filing as §4.3 — Corollary E3.2, Theorems E6.3–E6.5);
+DS-A29..DS-A36; R-A18, PG-A8, PG-A13, P-A19, P-A21, X-A17, F7; and first-hand
+re-verification, at adjudication time, of every receipt number and code claim
+the design quotes: `walt-factory/results/fiber_probe_h_2026-08-11.txt` (the
+nine in-scope hands h0, h1, h2, h4, h5, h6, h8, h9, h12 and the out-of-scope
+four; the `tree-v0` range 1,855,419,966 (h6) to 16,211,488,002 (h9); the
+`dag-v1` range 78,359,234 (h2) to 191,841,542 (h5)),
+`fiber_probe_2026-08-11.txt` (the P-A2 void-filtered sizes: ratio 1 at
+h0/h1/h4/h6/h9/h12; 23,100 at h2; 14,700 at h5; 1,200 at h8),
+`separation_2026-08-13.txt` (partition sizes 50,712/134,190/109,788/98,628;
+wall-clock 3,942 ms), `store/candidate_library.txt` (393,333 lines, four
+entries), and `walt-strat/src/{info,hidden,hidden_scalar,revealed}.rs`,
+`walt-factory/examples/{fiber_probe,separation_probe}.rs` (the unbudgeted
+`walk`; `hidden_scalar`'s `cost = parts.len()` charge at both `node` and
+`node_dag` entry; `hidden_root_values` making **one `walk` per root action**, so
+the design's B/4B split is consistent; `void_free_kernel`'s
+`voids: ContextSet::EMPTY` beside the maintained `voids_before_trick`). Every
+checked number and claim agreed with its source. Rulings are numbered
+**N4-A1..N4-A12**, one per design question in order.
+
+**Question and ruling prefixes.** The design numbers its questions
+N4-Q1..N4-Q12; the prefix is unused in this file (checked by grep at
+adjudication time, as at authoring time) and is retained. Rulings use **N4-A**,
+likewise unused and grep-checked; the ruling prefix mirrors the question prefix
+so a reader searching a question lands beside its ruling — the SEP-A precedent.
+E-A, E-Q, DS-A and SEP-A remain spent.
+
+**One correction to both designs' inheritance headers, binding here and on the
+economy successor.** Both headers recite "X-A1..X-A17, E-A1..E-A20,
+S-A1..S-A18"; the families actually run X-A1..**X-A19**, E-A1..**E-A21**,
+S-A1..**S-A21**. Standing rulings inherit **as whole families, by name, never
+as ranges**; the full corpus binds regardless of a header's recited range, and
+the recited ranges are typos in the designs, not scope declarations.
+
+**Headline — four findings, stated before the rulings.**
+
+1. **The design is ACCEPTED with amendments; the SEP-A10 repair spec is
+   answered in full.** Ground (i) by §5's measured rung, ground (ii) by §3's
+   budgeted-walk contract on every evaluator including the revealed path,
+   ground (iii) by §6's three-tier regime. Nothing was found that rejects the
+   rung.
+2. **(R0) as designed contradicts itself.** It demands byte-identical
+   reproduction of `separation_2026-08-13.txt` "except the wall-clock line",
+   but that file's header carries freeze 37(h)'s sentence
+   "hidden/revealed/price/policy_value carry no budget and no stop", which the
+   freeze-44 refactor makes false of the code that regenerates it. A
+   regenerated receipt must tell the truth at regeneration time. Repaired at
+   N4-A10: exactly two enumerated permitted differences.
+3. **The §5 timing rung's decimation constant g is "declared" nowhere.** The
+   design fixes the pattern (i·g mod 34,650, gcd asserted in-run) and omits the
+   value. Fixed at freeze 44(e): **g = 15,485,863**, a fresh prime —
+   deliberately not 7,919, 104,729 or 1,299,709, which are freeze-25 constants
+   of another track (the freeze-25 no-cross-wiring clause applies).
+4. **One internal inconsistency, non-binding:** §4.3 derives the partition
+   growth factor 185 (truncating division, 191,841,542 / 1,033,720) and §4.4
+   calls it "the factor 186". Both are cost-model inputs licensing nothing; the
+   results file prints the arithmetic it actually uses; the design document is
+   the authors' record of what was proposed and stands as filed.
+
+- **N4-A1 (N4-Q1: freeze 44 — ACCEPT-WITH-AMENDMENT; FREEZE 44 fixed below).**
+  The §3 content is right and complete, with three clarifications.
+  (i) **One unit, several traversals, named counts.** The walk-step and
+  `hidden_scalar`'s particle-step are the **same unit** — one unit per
+  (particle, node) visit, charged as the bag size at node entry before any
+  child — and the identification is sound. What it licenses is bounded: counts
+  of **different declared traversals** (the envelope walk, the revealed
+  per-world walks, the scalar tree walk, the scalar dag walk) are different
+  observables **in the same unit**; arithmetic across traversals — §4.1's
+  derivation of B from the quoted `tree-v0` column included — is a
+  **cost-model input** under DS-A32/DS-A33's typing and never an identity, a
+  receipt, or a prediction. Every printed count names its traversal. The only
+  cross-run *assertion* on step counts is (R6), which compares a traversal's
+  count with the same traversal's count (N4-A7).
+  (ii) The no-partial-fold propagation rule is CONFIRMED as a correctness rule,
+  for the design's stated reason — an interrupted fold bounds nothing in either
+  direction, PG-A13's asymmetry being the precedent — and (C2) of errata §3.4
+  is the reason no partial fiber sum survives `revealed_summary`'s `None`;
+  §3.3 is bound verbatim.
+  (iii) `revealed_summary`'s whole-call budget scope is CONFIRMED with the
+  design's own argument (a per-world budget would let a call exhaust the budget
+  |X| times over); the per-action walk-step subtotals are typed in SEP-A19(b)'s
+  class and are never an information value, a width, a cost claim, or a DS-A2
+  term.
+  **FREEZE 44 — the walk-step unit and the budgeted-walk contract, frozen
+  content.** **(a) Unit and charge rule:** one walk-step per (particle, node)
+  visit; at each entry to `walk` the charge is `bag.len()`, taken before any
+  child call — the same rule as `hidden_scalar`'s `cost = parts.len()`; one
+  unit, per-traversal counts named by traversal. **(b) Contract:** `walk` takes
+  `budget: &mut u64` and returns `Option<Envelope>`; charge-then-descend; on
+  exhaustion, `None`; a `None` from any child propagates immediately and **no
+  partial fold of any kind is retained**. The stop point is a function of
+  (kernel, budget) alone. **(c)** The `Option` contract on all six evaluators
+  of the design's §3.2 — `hidden_root_values`; `revealed_world_root_values` and
+  `revealed_summary`; `InfoPartition::build`; `policy_value_receipt`; the
+  probe's unmemoized argmax-recording extraction solve; and
+  `action_values_dag`, already budgeted under freeze 26 and unchanged —
+  `information_prices` composing the first two and returning `Option`, its
+  assertions firing only on complete results. **(d)** `revealed_summary`: one
+  budget for the whole call (all worlds × all root actions), decremented
+  monotonically across both loops, never per-world and never per-action; on
+  `None` all partial state is discarded, and the stop prints the coordinate
+  identity, the action and world index reached, the steps charged and the
+  declared budget — counts of the run, never statements about the coordinate;
+  per-action walk-step subtotals printed as exact integers with SEP-A19(b)'s
+  typing sentence. **(e) Constants:** B = 10,000,000,000 walk-steps per
+  (coordinate, action) for each evaluator whose traversal is per action
+  (`hidden_root_values`' per-action walks, `InfoPartition::build`, the
+  extraction solve, `policy_value_receipt`); 4B whole-call for
+  `revealed_summary`; P_max = 32,000,000 partition states per (coordinate,
+  action), checked at each insertion, PG-A13 governing exceedance; the §5
+  rung's world sample: fiber indices (i·g mod 34,650) for i = 0..15 with
+  **g = 15,485,863**, gcd(g, 34,650) = 1 asserted in-run, W = 1, selection as
+  §5 declares (first coordinate h0, first root action ascending, never by
+  result). **(f) Canonical unit order:** coordinates h0, h1, h2, h4, h5, h6,
+  h8, h9, h12; within a coordinate, root actions ascending by domino index;
+  36 units. **(g)** The reduced-rung fallback set and rule of N4-A12.
+- **N4-A2 (N4-Q2: B is fixed now; the rung-derived alternative is REJECTED).**
+  DS-A33(i)'s pattern governs selection rules for timing rungs, not budget
+  ceilings, and a ceiling fixed by the rung it gates would let a measurement
+  move its own gate — tuning in miniature, the thing F7 exists to forbid.
+  B = 10,000,000,000 is declared now, from a quoted exploratory receipt with
+  the margin stated; §4.1's two honesty clauses (ceiling-not-prediction; source
+  named) are mandatory and printed. The §5 gate, not B's provenance, is what
+  guards the pass.
+- **N4-A3 (N4-Q3: Route C CONFIRMED; Route A stays closed; FREEZE 45 fixed
+  below).** The decline of the seat-rotation transport is the DS-A15-correct
+  move, and all three Route-C reasons stand independently; the decline of the
+  freeze-36 key extension is SEP-A3(i)'s own ground correctly applied. Route A
+  is not opened here: exhibiting the cyclic-rotation transport — a
+  Lemma-E7-style value-order isomorphism plus a canonical ranking — is its own
+  adjudication, and nothing in this rung needs it; a rung should not buy a key
+  with a new theorem when provenance lines suffice. A later design that wants
+  receipt-corpus coordinates inside the S6a index space brings the exhibit.
+  **FREEZE 45 — the n = 4 coordinate identity, frozen content.** The printed
+  and asserted identity is: grade = 4; declaration pip; the viewer's hand and
+  the pool as canonical ascending-domino-index tile lists; the leader offset
+  from focal, asserted **0**; |X| = 34,650 asserted against `kernel.count()`;
+  the fiber enumeration order (freeze 7/23). The corpus hand id and trick
+  number are printed as provenance only, on their own line, never as identity
+  components. The kernel is rebuilt in-run from the printed identity and
+  asserted equal to `void_free_kernel`'s. **No library entry is written at any
+  n = 4 coordinate** (Route C); freeze 36's key is untouched.
+- **N4-A4 (N4-Q4: M_max is a gate input, not a freeze; P_max is not derived
+  from it).** M_max is a property of the machine, exactly as the design says,
+  and walt-math fixes the **rule**, not the constant: M_max is declared by the
+  run owner before the §5 rung, printed in the header beside P-A19's CPU
+  model, core count and build profile, as provenance; a rung run without a
+  declared M_max is not run. The gate uses it exactly as §5 declares — checked
+  before the full pass and **never during it**; a mid-pass memory stop would be
+  a load-relative stop, DS-A29(a)'s violation arriving through another door.
+  P_max is NOT derived from M_max: P_max is a deterministic stop, a function of
+  (kernel, cap) alone, and deriving it from a machine property would make the
+  stop machine-relative. P_max stays as the freeze-44 declared constant; its
+  provenance (an explicitly-labelled estimate) is printed and licenses nothing.
+- **N4-A5 (N4-Q5: the trade is NOT taken in v1; the fallback and its
+  compensating receipt are pre-declared here).** The design is right not to
+  weaken a receipt for memory by default. If — and only if — the §5 rung shows
+  the two-map form fails the gate, the accepted fallback is: pricing runs
+  against the extraction map alone, and the SEP-A19 totality receipt's domain
+  comparison is replaced by the **streaming set-digest receipt**: both passes —
+  the count-only partition pass and the extraction — fold, per record key, the
+  128-bit FNV-1a hash of the key's canonical byte encoding into a commutative
+  exact accumulator (wrapping addition mod 2^128), and the run asserts both
+  digests **and** both counts equal. Typing, mandatory wherever the receipt is
+  cited: this is a **hash-level domain receipt** — strictly stronger than the
+  cardinality comparison (two different equal-sized state sets fail it except
+  under hash collision), strictly weaker than the held-map domain comparison,
+  and in the same identity-by-hash class as freeze 1. The results file names
+  the weakening in place. Taking the fallback with this receipt needs no
+  further adjudication; anything weaker returns here.
+- **N4-A6 (N4-Q6: the three-tier regime — ACCEPT, three clauses).**
+  (i) Tier 2 is right: (R2) is correctly characterised as the receipt that
+  survives the authority gate — it ties a third, structurally max-free code
+  path to the envelope H through the independently written extraction — and
+  the "VERDICT UNCROSSCHECKED" language is ACCEPTED verbatim, with one
+  addition to the row: the L = Q^H equality at Tier 2 is asserted against the
+  **envelope H only**, the sole authority at that coordinate, and the row says
+  so.
+  (ii) Tier 3's asymmetry is CONFIRMED — it is PG-A11-versus-PG-A13's
+  asymmetry correctly transposed, and "a stop can complete a negative and can
+  never complete a positive" is bound as the printed sentence. Made explicit:
+  a NOT-SEPARATED **pair** verdict requires the whole primal pipeline at a⋆
+  (partition, extraction, L walk) **and** that competitor's U to have
+  completed. The Corollary E4.1(3) exact-negative sentence may be printed at
+  Tiers 2 and 3, but its provenance there is an uncrosschecked H, so the tier
+  language attaches to the exact-negative sentence too, not only to SEPARATED
+  verdicts.
+  (iii) Tier-2 rows are **carried with their label, never excluded and never
+  silently included** — in the results file and in any wiki text derived from
+  it. Dissents and caveats travel with results verbatim; excluding a computed
+  outcome would be NO-RESCUE's violation in the other direction. What DS-A10
+  authorised is a receipt set, not a speech ban: the row is outside that
+  receipt set and says so, exactly as §6.2's language has it.
+- **N4-A7 (N4-Q7: (R6) is lawful as typed, with a declared-cause clause).** A
+  step-determinism check on an unchanged code path is a check on the runner
+  and on DS-A29(a)–(b), and a mismatch with no declared cause is a
+  load-invariance failure: stop-and-report, never a finding — CONFIRMED. Scope
+  clause: (R6) compares only counts of a code path **unchanged since the
+  quoted receipt** — the scalar authority is untouched by the freeze-44
+  refactor, and (R0) is what proves the envelope-side refactor changed nothing
+  it should not have. If a later adjudicated change to the scalar path
+  intervenes before the rung runs, the (R6) comparison at the affected counts
+  is void-with-cause and the file says so in place; it is the *undeclared*
+  mismatch that stops the run. (R6) never checks a value.
+- **N4-A8 (N4-Q8: keep all nine; the fence is sufficient, with one
+  strengthening).** Exclusion of h2, h5 and h8 is REJECTED: all nine are
+  equally lawful coordinates of the declared carrier, the divergence column is
+  provenance, and h8 — the widest divergence — is precisely the instructive
+  case for teaching the support-is-not-belief fence with a number attached. A
+  separately-typed heading is REJECTED as redundant. The strengthening,
+  mandatory: at h2, h5 and h8 the **verdict line itself** carries an inline
+  marker — "real-deal fence applies: void-filtered fiber N of 34,650" — so
+  that no quotation of a verdict row can detach it from the fence. §2.2's two
+  grounds, the per-coordinate printed fence, and the licenses-nothing sentence
+  on the void-filtered column are bound verbatim.
+- **N4-A9 (N4-Q9: checkpointing — ACCEPT, two clauses).** The (coordinate,
+  action) granularity, 36 units, and the prohibition of any sub-world
+  checkpoint inside `revealed_summary` are CONFIRMED — the design's (C2)
+  argument is exactly right, and DS-A30(v)'s no-partial-unit rule plus §3.2's
+  determinism give DS-A30(vi) for free. Two clauses.
+  (i) The per-coordinate authority-gate outcome carried denormalised on every
+  unit record: ACCEPT, with a load-time consistency assertion — all loaded
+  unit records of one coordinate must carry the same gate outcome; a
+  disagreement is corruption, and the cache is discarded entire (freeze 41's
+  discipline).
+  (ii) **The shared-call clause.** `revealed_summary` (and the coordinate's
+  scalar authority solve) spans a coordinate's four units in one call. A
+  resumed run holding some but not all units of a coordinate re-runs the whole
+  call under the same declared budget and asserts the loaded units' values
+  equal the recomputed ones — an X-A17 re-run assertion, mandatory at every
+  partially-resumed coordinate, in addition to the declared
+  first-loaded-unit sample.
+- **N4-A10 (N4-Q10: (R0) is a BLOCKING precondition, with its byte-identity
+  contract repaired).** (R0) blocks: no n = 4 unit runs until it has passed;
+  it is also printed with the n = 4 results. The repair of headline finding 2:
+  the regenerated grade-3 file is permitted **exactly two** differences from
+  `separation_2026-08-13.txt`, enumerated in advance — the wall-clock
+  provenance line, and the freeze-37(h) budget-honesty header sentence, which
+  is replaced by the freeze-44 form ("the `walk`-based evaluators carry
+  declared budgets under freeze 44; in this run every declared budget was
+  asserted non-binding and every residual asserted strictly positive"). Any
+  other byte difference is stop-and-report — a defect in the refactor, never a
+  finding (DS-A36's discipline). Freeze 37 itself is **not amended**: its (h)
+  clause remains true of the grade-3 receipt as filed, and freeze 44 carries
+  the budget contract from here on; the design's §9 header sentence says
+  exactly this and is ACCEPTED. Additionally: (R0) asserts the candidate
+  library file byte-identical after the re-run — its four entries are
+  deterministic content under freezes 22–26/36–37, and a re-run that mutates
+  the file (duplicate append included) is a defect to fix before (R0) can
+  pass.
+- **N4-A11 (N4-Q11: both halves).** The bridge is implemented once, as a
+  function of the coordinate's declared grade — no grade literal appears
+  anywhere in bridge code — **and** the probe asserts the substituted grade
+  equals the coordinate identity's grade, exactly as §7 requires, because a
+  correct function fed a wrong argument reproduces the defect the assertion
+  exists to catch. The design's observation that a silently reused grade-3
+  constant produces well-typed wrong numbers is correct and is why both halves
+  are mandatory.
+- **N4-A12 (N4-Q12: the fallback is GRANTED, conditioned; ruled together with
+  N4-Q8 as the design asks).** Pre-declaring the reduced rung now is the only
+  rule-shaped route; the design is right that a fallback selected after a gate
+  failure would be selected by result. Binding: (a) a gate failure is filed
+  first, as a result, whether or not the fallback runs — it is the measured
+  cost model SEP-A10(i) said was missing (F7); (b) the fallback set is fixed
+  now by the declared rule "the three cheapest in-scope coordinates by quoted
+  S5h `tree-v0` steps, ascending": **{h6, h4, h8}** (1,855,419,966;
+  2,442,873,158; 3,016,730,096 — re-verified against the receipt at
+  adjudication time); (c) the fallback runs only if the §5 gate arithmetic
+  passes for those three coordinates' units; a second gate failure is a return
+  to this file, with no second fallback; (d) the results file's header labels
+  the pass REDUCED RUNG, GATE FAILURE FILED; (e) the N4-Q8 interaction
+  resolves by N4-A8: all nine stay in scope, so the fallback set needs no
+  re-derivation, and h8 carries its inline fence marker in the fallback
+  exactly as in the full pass; (f) the twelve fallback units run in the
+  freeze-44 unit order restricted to the three coordinates.
+
+**Freezes.** Freezes 1–43 are in force and restated unchanged; 38–40 remain
+reserved and untouched — nothing in this design instantiates the gluing-cut
+language, the circuit representation, or the reachable-belief family, so the
+design's proposed numbering stands: **44** and **45** are fixed above as new
+numbers. No number is reused.
+
+**What must change in the design before it is built.** In order of severity:
+the (R0) byte-identity contract gains its two enumerated permitted differences
+and the library byte-check (N4-A10); the §5 rung's decimation constant is
+g = 15,485,863 (freeze 44(e)); the Tier-2/Tier-3 clauses of N4-A6(i)–(ii) —
+envelope-only provenance on the Tier-2 equality, tier language on the
+exact-negative sentence, the pair-completion requirement made explicit; the
+verdict-line fence markers at h2/h5/h8 (N4-A8); the partially-resumed-coordinate
+re-run assertion and the gate-outcome consistency assertion (N4-A9); M_max
+declared by the run owner before the rung, as provenance (N4-A4); the
+reduced-rung fallback block (N4-A12); per-traversal naming of every printed
+walk-step count (N4-A1(i)); and the inheritance-header ranges corrected to
+whole families. Everything else is sound and is bound as written.
+
+## The economy-successor adjudication (2026-08-13)
+
+**Adjudicator:** walt-math. **Object:** `walt/ECONOMY-SUCCESSOR.md` (commit
+42d83d9) — the successor SEP-A17 names: seed L from a source that is **not** an
+exact solve, at coordinates where treatment H completes — together with the
+reserved content of **freeze 46** and the requested re-entry of **freeze
+36(e)**. **Tier:** exploratory throughout; nothing below is promoted, and no
+number this run produces becomes quotable except by brief amendment adding it
+to a verifier receipt. **Basis:** SEP-A1..SEP-A19 and everything they inherit;
+the errata under DS-A17's citation rule (Lemma E3 and (C1)–(C4) of §3.4, Lemma
+E4 and Non-theorem E4′ with DS-A27's semantic obligation, Corollary E4.1 —
+pending its errata filing as §4.3 — Corollary E3.2, Lemma E7 at §8.3, Theorems
+E6.3–E6.5); Lemma S-fold and Corollary R-fold with S-A2's declared reading; and
+first-hand re-verification at adjudication time: the §1.2 slack table
+re-derived to the last rational from `separation_2026-08-13.txt` (margins
+449/1120 and 59/2240 at idx = 0; 1/42 and 1/63 at idx = 1299709; 0 and 1/21 at
+idx = 2599418 for both tied a⋆; slacks therefore 59/2240, 1/63, 0 — every
+entry agrees), `store/candidate_library.txt` (four entries, all `PipTrump(0)`,
+the digest line as quoted), `policy_geometry_2026-08-12.txt` (k = 384 at
+idx = 0 lead 00), `deadness_2026-08-12.txt` (384 classified, 276 tied, 50,328
+forced at that coordinate and lead), commit ca2c178 (the `policy_inspect`
+diagnostic, self-labelled exploratory, no results file), and
+`predictive_rank.rs::coordinate` (the unranking arithmetic §2.1 recites,
+verified; no ranking inverse exists yet — building one is part of this
+design's build). Rulings are numbered **EC-A1..EC-A14**; EC-A1..EC-A13 answer
+EC-Q1..EC-Q13 in order, and EC-A14 fixes the receipt set.
+
+**Prefix.** EC-A, unused in this file, checked by grep at adjudication time;
+it mirrors the design's EC-Q numbering per the SEP-A precedent. The
+inheritance-header range correction recorded at the head of the n = 4 section
+binds this design identically.
+
+**Headline — five findings, stated before the rulings.**
+
+1. **The central instrument is CONFIRMED and is the right one.** The
+   economy-gap / certification-slack decomposition and the R8 identity are
+   exact (EC-A3), the retyping of the primal side is correct (EC-A2), and the
+   zero-slack control is correctly pre-declared as a theorem (EC-A10,
+   renamed). The design is ACCEPTED with amendments.
+2. **The T-diagnostic is REJECTED as typed, and the rejection is good news.**
+   The S-A2 conditionality it proposes to measure is **form-level, not
+   value-level**: no rule of the game ever reads the mutual order of tier-0
+   tiles (S-A2's own soundness clause), so the declaration fold transports
+   values for **all 49 ordered pairs** under either reading, and a value
+   mismatch at any image is a defect, never a measurement. Delivered below as
+   **Corollary S-fold-val**; the arm is retyped as receipts (EC-A4), and the
+   claim to discharge S-A2's print-both obligation is withdrawn — that
+   obligation belongs to the (parked) seat-census build and is untouched here.
+3. **The freeze-46 arm list omits an arm its own reading requires.** §5.2's
+   CERTIFIED-EXACT-ONLY compares the cheap arms against "the exact seed
+   (recomputed in this run)", but the §5.1 run order contains no exact-seed
+   arm. **Arm X** is added (EC-A1).
+4. **P1's citation is corrected.** Freeze 26's tie rule selects among the
+   **argmax**; P1 selects among **all legal tiles**. The shared object is the
+   canonical ascending domino-index order, not the tie rule; "freeze 26 read
+   as a global policy" would conflate a tie-break with a policy (EC-A1(a)).
+5. **The 108/384 discrepancy is RESOLVED: 108 counts something real, at a
+   tier below any receipt** — the strictly-mattering subset, 384 − 276
+   (EC-A12). A DISAMBIGUATED pointer marker is placed at the SEP-A17 site per
+   DS-A28(i).
+
+### Corollary S-fold-val (value transport along the declaration fold is reading-independent) — delivered here
+
+*Extends Lemma S-fold and Corollary R-fold; S-series mathematics, filed in
+this record where the S-series lives.*
+
+**Statement.** Let φ = φ_{p→p′} be the declaration transport of Lemma S-fold,
+restricted to the live set of a rung coordinate as in Corollary R-fold. Then
+for **every** ordered pair (p, p′) of pip declarations: the induced bijection
+of fibers satisfies α_{Tρ}(Tξ) = α_ρ(ξ) for every lawful ρ and every ξ; hence
+Q^H per corresponding action, every fixed-policy value L, and every
+treatment-C value U_a correspond exactly along φ — **independently of which
+S-A2 comparison reading is adopted**. The reading-dependence recorded at Lemma
+S-fold ("orbits {0,6} and five singletons under the literal reading") is a
+statement about transports of the recorded relational **form**; it has no
+value-level content.
+
+**Proof.** Dynamics read only legality (follow membership and the led-context
+map), the double flag, trump membership, and the winner-determining
+comparison; by S-A2's soundness clause the maximum trick key is always
+attained at tier ≥ 1, so the mutual order of tier-0 tiles is read by no rule.
+Lemma S-fold's preservation argument shows φ preserves every datum in that
+list, for every ordered pair — the literal reading's counterexample (4:1
+versus 3:2 in context 6 under δ = 0) concerns two tier-0 tiles, exactly the
+relation dynamics never read. Corollary R-fold's proof then gives the
+bijections of legal sets, uniform field masses, observations and count-free
+increments with focal fixed, hence h_t(ξ) = h_{φt}(φξ) for every test and
+α_{Tρ}(Tξ) = α_ρ(ξ). Values are exact maxima and expectations of
+corresponding quantities under corresponding masses; treatment C's per-world
+values correspond world-wise under the fiber bijection, and the uniform belief
+pushes forward to the uniform belief. ∎
+
+**What it licenses and what it does not.** It licenses R9's value equalities
+as **receipts at every image** p′ ∈ {1..6}, and it is what makes arm T's
+verdict transport lawful under Lemma E7 (the exhibited isomorphism, with
+β′ = T_*β). It does **not** decide which reading the seat-census form
+comparator realises — both readings predict identical values, so no value
+observable can distinguish them — and it does not touch the form-level fold
+factor (7:1 versus {0,6} plus singletons), which remains S-A2-conditional
+exactly as Lemma S-fold records.
+
+- **EC-A1 (EC-Q1: FREEZE 46 fixed, with arm X added and the list CLOSED).**
+  **(a) Arms and exact definitions.** **X (exact control):** the H-argmax seed
+  by freeze 36(f)'s rule, recomputed in-pass; its rows are receipts, not
+  measurements — g = 0 by Corollary E4.1(2) — and they are what
+  CERTIFIED-EXACT-ONLY compares against. **T (transport):** the four library
+  entries transported by φ to p′ = 6, and the idx = 0 entry additionally to
+  p′ ∈ {1..5}; every image row is a receipt under Corollary S-fold-val; g = 0
+  by theorem; the §2.1 honesty headline mandatory. **P1 (least-tile):** the
+  least legal tile by the canonical ascending domino-index order — cited to
+  that order as a standing convention, NOT to freeze 26, whose tie rule
+  selects among the argmax and is a different object. **P2 (greatest-tile):**
+  the greatest legal tile by the same order. **P3 (beat-if-able):** if the
+  viewer is not the trick leader and some legal tile strictly beats the best
+  tile so far in the current trick under the declaration's winner-determining
+  order, the least such tile; otherwise the least legal tile; the §2.2
+  information-consistency argument printed with it. **P4 (trump-hoard):** the
+  least legal non-trump if one exists, otherwise the least legal trump.
+  **R (heuristic re-key):** the idx = 0 root-00 entry moved to each other base
+  coordinate at each of that coordinate's H-optimal a⋆ by the
+  **rank-within-live-set positional correspondence** — the root position of a
+  target record maps to the target a⋆ by declaration, and each subsequent
+  play maps to the tile of equal rank in the source coordinate's canonical
+  ascending live-set order; if the mapped record is absent from the source
+  entry, or the mapped choice is illegal at the target state, the fallback is
+  P1 at that state; the number of fallback states is counted and printed as an
+  exact integer beside L^R; the label HEURISTIC RE-KEY (NOT A TRANSPORT) on
+  every row. **(b)** The transport φ and the image-key construction as §2.1
+  (unrank; apply φ tilewise; re-rank by a ranking inverse of `unrank_comb`;
+  assemble index′), with the round-trip receipts of R9. **(c) Canonical run
+  order:** coordinates ascending by S6a index, each base coordinate before its
+  images and images ascending by image index; within a coordinate, a⋆
+  ascending by domino index; arms in the order **X, T(p′ = 6),
+  T(p′ ∈ {1..5}, idx = 0 only), P1, P2, P3, P4, R**. Image coordinates carry
+  arm-T rows and the R9 block only. **(d)** The results-file column set: per
+  (coordinate, a⋆, arm) — L^seed, R7's economy gap g, the pairwise comparison
+  against every competitor's U, the verdict, and the R2′/R5/R6 outcomes; R9 on
+  transport rows; the §5.1 header items plus this section's amendments.
+  **(e) CLOSED.** The rule family is frozen as written. An open arm list is
+  not a freeze; a later arm is a freeze-46 v2 fixed by a later adjudication
+  (numbers are never reused; content is versioned by ruling, as freeze 36 v2
+  at EC-A8 demonstrates).
+- **EC-A2 (EC-Q2: the retyping — ACCEPT; the header is arm-scoped; R2′ is a
+  genuine receipt).** The REPLACEMENT — not amendment, not coexistence — of
+  SEP-A2's header sentence is correct: a file printing both would assert L at
+  and below its ceiling at once. One amendment: the replacement sentence is
+  **arm-scoped** — as written it says "the primal witness at each seeded
+  action is a NON-EXACT lawful policy", which is false of arms X and T.
+  Binding form: the header sentence carries the clause "this applies to arms
+  P1–P4 and R; arm X's rows are at the ceiling by Corollary E4.1(2) and carry
+  SEP-A2's sentence as row typing; arm T's rows are exact relabellings and
+  carry the §2.1 honesty headline." R2′'s promotion from by-construction
+  equality to genuine receipt is CONFIRMED: with a non-exact seed, L ≤ Q^H
+  can fail only through Non-theorem E4′'s inversion or a lawfulness defect,
+  so the assertion now carries information and PG-A8 is satisfied; the
+  three-defect stop message is ACCEPTED; NO-RESCUE binds. The complement: on
+  arm-X rows the same assertion reverts to by-construction equality and is
+  reported there as a receipt of the pipeline (R2's grade-3 sense), never as
+  this run's measurement.
+- **EC-A3 (EC-Q3: R8 CONFIRMED; the table verified; one no-clamp clause).**
+  The identity — SEPARATED iff g(a⋆, seed) ≤ s(a⋆) — is correct as stated and
+  proved; the one-line equivalence is exact, with non-strict inequalities
+  matching Theorem E6.4's non-strict form. Reading s off the adjudicated
+  run's margin column is correct because L = Q^H there makes every margin
+  equal Q^H(a⋆) − U_a; the §1.2 table has been re-derived from
+  `separation_2026-08-13.txt` and every entry is exact (slacks 59/2240, 1/63,
+  0, as quoted in the basis line). Asserting the identity against the
+  independently computed pairwise verdicts is the right receipt form — two
+  computations, one stop on divergence. One clause: s(a⋆) ≥ 0 is a fact of
+  these coordinates, not an invariant — the in-run recomputation must neither
+  clamp s at zero nor assert s ≥ 0; at a coordinate with a failing pair,
+  s < 0 is exactly Corollary E4.1(3)'s signature. g ≥ 0 per arm IS an
+  invariant, and it is R2′.
+- **EC-A4 (EC-Q4: REJECT the T-diagnostic typing; the arm is retyped as
+  receipts; the S-A2 discharge claim is withdrawn).** By Corollary S-fold-val
+  the R9 value equalities hold at every image p′ ∈ {1..6} regardless of which
+  comparison reading `walt-core` realises. The design's premise — "under the
+  literal reading these fail" — misreads the adjudication-time verification
+  of Lemma S-fold, which counted transports of the recorded **form** (49
+  under the operative reading, 9 under the literal), not value
+  correspondences. No value observable distinguishes the readings, so the
+  proposed measurement measures nothing. Retype, binding: all six images are
+  receipt rows; a mismatch at any image is stop-and-report — a defect in
+  `walt-core`'s rules, in the fold implementation, or in the key
+  correspondence, never a finding about the game. The p′ ∈ {1..5} images of
+  the idx = 0 entry are RETAINED as additional receipt coverage — they
+  exercise non-adjacent order isomorphisms and are cheap at grade 3 —
+  explicitly not a diagnostic. The claim that this run discharges S-A2's
+  print-both obligation is WITHDRAWN: that obligation attaches to a run that
+  computes the seat-side **form** (freeze 18's content), which nothing here
+  does; it stays with the parked seat-census build. The design's instinct
+  that its one non-stop-and-report assertion was "uncomfortable enough to
+  want an explicit ruling" was exactly right; the discomfort marked a
+  mistyping, and with the retype it disappears.
+- **EC-A5 (EC-Q5: arm R RUNS, unconditionally, fenced, with the repair
+  count).** Dropping is REJECTED — the arm is lawful, its g is a fact about
+  the coordinate, and it is the branch's cheapest direct test of precisely
+  the over-reading DS-A15 forbids: better measured under a fence than left to
+  intuition. Running it **conditionally on P1–P4 failing** is also REJECTED,
+  on discipline: a result-dependent arm list is selection by result, and the
+  arm list is declared in advance or not at all. It runs always, with: the
+  HEURISTIC RE-KEY (NOT A TRANSPORT) label on every row; the exact
+  correspondence rule of freeze 46(a) — the design's "matching records
+  positionally" is too loose to freeze; and the fallback-state count printed
+  beside L^R, so every row is honest about how much of the re-keyed policy is
+  actually P1.
+- **EC-A6 (EC-Q6: the decline of arm B is CONFIRMED, with its until-clause
+  recorded).** No lawful count-free surrogate exists: a bid's content is a
+  points-and-marks claim; stating any tricks-implication of it requires the
+  count feature law, which is Experiment G's declared cone and not lawfully
+  designable yet (DS-A12); inventing a conversion here would be adopting a
+  plausible reading under the ambiguity protocol. The decline is **until-G,
+  not forever**: under DS-A16, once a count-bearing carrier exists with its
+  own adjudication, a bid-derived seed becomes a designable arm there — a
+  lawful policy is a valid primal witness under any valuation — and this
+  paragraph is where "did walt ever try the contagion seed?" resolves:
+  declined with reasons, 2026-08-13, pending Experiment G.
+- **EC-A7 (EC-Q7: arm T is kept, as retyped).** The structure-proving
+  disposition is CONFIRMED: the arm opens freeze 36(e) with the branch's only
+  exhibited non-identity value-order isomorphism, proves the key
+  correspondence and transport machinery in running code, and its g ≡ 0 by
+  theorem is printed as the honesty headline requires. Deferral until "a
+  non-isomorphic lawful correspondence exists" is REJECTED as incoherent for
+  verdict transport — Lemma E7's hypotheses are what lawful verdict transport
+  means, and the non-isomorphic case is arm R's, already covered under its
+  fence. One dividend is struck from the design as filed: the S-A2 discharge
+  (EC-A4).
+- **EC-A8 (EC-Q8: freeze 36(e) re-entry GRANTED, scoped and NAMED; FREEZE 36
+  v2).** Freeze 36(e) is amended by this ruling to: **"Transport: identity,
+  and the declaration fold φ_{p→p′} of Lemma S-fold — image key computed by
+  the freeze-46(b) construction, R9 receipts asserted in-run, values licensed
+  by Corollary S-fold-val and verdict transport by Lemma E7 with β′ = T_*β.
+  Any further transport re-enters with its own adjudication."** The class
+  formulation — admitting "transports with an exhibited isomorphism" as a
+  class — is REJECTED: a freeze is a constant, not a rule, and a class clause
+  would delegate future adjudications to the freeze. Conditions: transported
+  candidates are in-process objects; **no image entry is written to the
+  library file in this run** — the file stays at its four entries, and
+  writing image entries is a separate decision with its own identity and
+  dedup questions; a transported policy is re-priced before anything is
+  reported (36(d), X-A17, unchanged). A pointer marker is placed at the
+  SEP-A4(e) site per DS-A28(i).
+- **EC-A9 (EC-Q9: the carrier — ACCEPT).** The three base coordinates plus
+  the transport images are right, for the design's four reasons; SEP-A17's
+  checkability scope is honoured; the structural unavailability of outcome 3
+  is printed in the header before any row, so its absence is never read as
+  evidence about seeds. No coordinate exists in the branch where the exact
+  seed failed to separate, so the alternative is unbuildable today; if the
+  n = 4 rung produces failing pairs, those coordinates are the natural second
+  carrier, ported by re-declaration exactly as §3 says.
+- **EC-A10 (EC-Q10: the control typing — ACCEPT; the verdict name — REJECT
+  and replace).** idx = 2599418 is correctly typed: s = 0 at both tied a⋆ is
+  a quoted-and-recomputed fact, and "a seed separates there iff g = 0" is the
+  R8 identity's specialisation, pre-declared as a theorem. The name
+  "ZERO-SLACK COINCIDENCE" is REJECTED: "coincidence" is a probability word,
+  and possible ≠ probable is a typed distinction this file does not blur —
+  whether a least-tile rule attaining the optimum is *likely* is exactly the
+  kind of claim no run here supports. Binding name: **ZERO-SLACK: SEED
+  EXACTLY OPTIMAL (NOT ECONOMY)**, printed with the design's explanatory
+  sentence amended to "the seed exactly attains the optimal value at this
+  action; this is not economy" — attainment in value, which is what g = 0
+  says; it does not say the seed is the H-argmax policy.
+- **EC-A11 (EC-Q11: the wording is strong enough; the class-level object is a
+  separate experiment).** The primal/upper asymmetry sentence is bound
+  verbatim where §5.2 places it. CERTIFIED-EXACT-ONLY records the per-arm
+  gaps and nothing else: a lower bound on achievable L over a declared
+  candidate class is a class-capacity statement — a different object with its
+  own definitional questions — and gesturing at it inside this verdict would
+  blur candidate-failure with class-failure, the exact distinction the
+  outcome exists to keep.
+- **EC-A12 (EC-Q12: RESOLVED — "108" counts the strictly-mattering subset;
+  retyped, with a DISAMBIGUATED marker at SEP-A17).** The arithmetic,
+  verified against the files at adjudication time: the idx = 0 lead-00
+  extraction has 50,712 states, of which 384 carry genuine two-tile choice
+  (`separation_2026-08-13.txt`; S6b's k = 384 agrees); the S6c ground-truth
+  classifier reports 384 classified and 276 tied under one deviation
+  (`deadness_2026-08-12.txt`); 384 − 276 = **108** states where the choice
+  strictly matters, and 50,328 forced + 384 = 50,712. The figure's provenance
+  is commit ca2c178's `policy_inspect` diagnostic — self-labelled
+  exploratory, below every tier, with no results file — which is why 108
+  appears in no receipt. Ruling: (i) SEP-A17's phrase "the 108-decision
+  playbook" is **DISAMBIGUATED, not corrected** — the pointer marker is
+  placed at its site; (ii) binding description henceforth in any walt
+  artifact: the entry is named by **384**, its receipt-backed free-decision
+  count; where 108 is mentioned it is typed as *the strictly-mattering subset
+  under the S6c one-deviation classifier — a derived difference of two
+  measured counts (384 carrying the S6b/extraction free-state typing; 276
+  carrying J-A10's classifier-denominator typing), inheriting both scope
+  fences, not an independent measurement, present in no receipt*; (iii) 108
+  becomes quotable as a result only by brief amendment adding it to a
+  verifier receipt, like every other number here. The design's preference to
+  have the discrepancy ruled rather than quietly using one number is the
+  right instinct, and the answer is: use 384; 108 is real, lower-tier, and
+  derived.
+- **EC-A13 (EC-Q13: the scope sentence is right; the standing question is
+  answered "the primal half").** Outcome 1's statement and fence are bound
+  verbatim. From this design forward, "did walt ever test the economy claim?"
+  is answered: **the primal half** — whether the *witness* at a⋆ must be an
+  exact solve — is tested here, at coordinates where every claim is
+  checkable; the **full** parent sentence, a solver that avoids exact solves,
+  additionally requires the U side cheapened — a relaxation coarser than C,
+  run down Theorem E6.5's ladder, Experiment D's territory with freeze 38
+  still reserved — and remains untested. A results file or wiki sentence that
+  says "the economy claim was tested" without the word "primal" has
+  over-claimed.
+- **EC-A14 (the receipt set, as amended).** R1, R3, R4 and R5 inherited
+  unchanged: ACCEPT. R2′ per EC-A2. R6 (seed lawfulness and totality):
+  ACCEPT — for arms P and R it is the contentful receipt exactly as argued,
+  and PG-A8 is respected by the design's own note that arm-P totality *by
+  construction* is not the receipt; the receipt is the assertion against
+  `InfoPartition::build`'s state set. R7: ACCEPT as THE measurement, with
+  §5.2's per-source column fences verbatim. R8 per EC-A3. R9: ACCEPT with one
+  strengthening — the exhibited-isomorphism equalities assert **Q^H, L, and
+  U_a per corresponding action** at source and image; U transports by
+  Corollary S-fold-val's world-wise correspondence, and asserting it closes
+  the loop on the upper witness at the images for free; value equalities
+  only, never per-world byte-equality, exactly as §2.1's caveat states; every
+  image row stops-and-reports on mismatch (EC-A4). The SEP-A12
+  provenance-typing sentence as sharpened in §4's closing paragraph is
+  ACCEPTED verbatim.
+
+**Freezes.** Freezes 1–45 are in force (44 and 45 fixed in the preceding
+section); 38–40 remain reserved and untouched — nothing here instantiates
+their reserved content. **46** is fixed at EC-A1 as a new number; **36** is
+amended to v2 at EC-A8, its number unchanged and its v1 text preserved at
+SEP-A4 with a pointer marker. No number is reused.
+
+**Standing obligation, carried forward explicitly.** Corollary E4.1's filing
+as errata §4.3 (DS-A28(ii)) remains due at the next errata amendment. This
+adjudication amends no errata content and does not discharge it; both designs'
+citations "pending its errata filing" remain accurate, and the durable form
+remains the statement and proof at the head of the Experiment E section.
+Corollary S-fold-val, delivered above, is S-series mathematics and lives in
+this record with its series — it corrects nothing in the decision-sparse
+corpus and creates no errata obligation.
+
+**What must change in the design before it is built.** In order of severity:
+the T-diagnostic sub-arm is retyped as receipts and the S-A2-discharge claim
+removed (EC-A4); arm X is added to the arm list and run order (EC-A1); the
+replaced header sentence is arm-scoped (EC-A2); the zero-slack verdict is
+renamed (EC-A10); P1's definition cites the canonical order, not freeze 26
+(EC-A1(a)); arm R's correspondence rule is the freeze-46(a) rank-within-live-set
+rule with the fallback count printed (EC-A1(a), EC-A5); R9 gains the U-column
+equalities (EC-A14); no image library entries are written (EC-A8); the in-run
+slack recomputation carries no s ≥ 0 assumption (EC-A3); and the
+inheritance-header ranges are corrected to whole families (the n = 4 section's
+correction binds here). Everything else is sound and is bound as written.
