@@ -2,7 +2,7 @@
 number: 16
 slug: cheap-upper-witness-handoff
 channel: new-chat
-status: staged (awaiting Jason's go — informal exploratory pass, loose-but-directed mode, the x:014 register)
+status: cleared (Jason 2026-08-14 — "ship it please"; informal exploratory pass, loose-but-directed mode, the x:014 register)
 attachments:
   - ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/10_RULES.md
   - ingest/texas-42-foundations-source-of-truth-v0.7-reconstructed/docs/20_MATHEMATICAL_FOUNDATION.md
