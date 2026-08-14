@@ -306,3 +306,12 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   FT-R1..R8 all held; emission split on the content seam (freeze 50 v1.1(c):
   positive support committed, zero rows regenerable under a pinned SHA-256).
   Next target has a name: Δ².
+- **Corrections recorded in place (2026-08-14, librarian verification pass
+  against the results files, which govern):** three numbers above are wrong.
+  S6g's corner-gap range: the widest of the thirteen corpus corner gaps is
+  **19/3** (corpus hand 11), not 92/15. S6h's tightest exact negative is
+  **9557/554400 at h2** (= 8257248/479001600), not h6's 8524657/479001600.
+  S6j's h9 bar **1202339/8870400 holds at the two H-optimal actions only**;
+  stated unqualified it is false — the smallest rule gap anywhere at h9 is
+  177253/3326400, at the non-binding action 61. Full divergence records in
+  `wiki/walt-s6-era.md`'s discrepancy section.

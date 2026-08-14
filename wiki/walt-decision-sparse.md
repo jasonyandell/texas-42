@@ -4,9 +4,12 @@
 inventory, its audit history, and the standing state of its experiment program · Sources:
 `walt/math/decision_sparse_exact_solving_v0.1.md` (the received parent, verbatim) and
 `walt/math/decision_sparse_exact_solving_v0.1_errata.md` (the durable repaired mathematics, DS-A17);
-`walt/CENSUS-RULINGS.md` (DS-A1..DS-A36, SEP-A1..SEP-A19, J-A1..J-A18, PG-A1..PG-A18, R-A1..R-A24);
+`walt/CENSUS-RULINGS.md` (DS-A1..DS-A36, SEP-A1..SEP-A19, J-A1..J-A18, PG-A1..PG-A18, R-A1..R-A24,
+N4-A1..N4-A20, EC-A1..EC-A14, RW-A1..RW-A8, **FT-A1..FT-A28**);
 `walt/SEPARATION-PROBE.md`, `walt/DEADNESS-PROBE.md`; `walt/walt-factory/results/deadness_2026-08-12.txt`,
-`separation_2026-08-13.txt`. Related: [walt](walt.md) (hub), [walt-s6-era](walt-s6-era.md) (the sessions that produced
+`separation_2026-08-13.txt`, `separation_n4_2026-08-14.txt`, `rule_economy_n4_2026-08-14.txt`,
+`fusion_tax_2026-08-14.txt`; and the received `exchange/inbox/016-decision-sparse-nonanticipativity-taxes.md`
+(adjudicated, never imported as an axiom). Related: [walt](walt.md) (hub), [walt-s6-era](walt-s6-era.md) (the sessions that produced
 the evidence), [walt-math-reference](walt-math-reference.md) and
 [walt-math-decision-sparse](walt-math-decision-sparse.md) (formal statements and proof provenance),
 [walt-census-era](walt-census-era.md), [walt-instruments](walt-instruments.md), [walt-scheme-fix](walt-scheme-fix.md),
@@ -73,7 +76,7 @@ a different operator.
 **The candidate library.** A cache of primal-witness sources keyed by (grade, base index, declaration, root action),
 whose body is a total map from observation record to chosen tile over the information partition. Frozen at freeze 36
 (SEP-A4) with four disciplines that matter: **no values, no verdicts, no ranks** — the file is a cache and never an
-authority, and a loaded entry is re-priced before anything is reported; **identity transport only in v1**;
+authority, and a loaded entry is re-priced before anything is reported; **identity transport only in v1**, opened at v2 to the declaration fold and nothing further (EC-A8);
 every entry carries its frame (observation contract, field, belief, |X|, freeze digest) and a digest mismatch means
 **corrupt, not stale**, discarding the entry entire; and entries remain valid primal-witness sources under count
 re-entry even though their count-free quality verdicts do not (DS-A16).
@@ -155,8 +158,8 @@ receipt free (DS-A36).
 | **A** | Complete the deadness run — forced / dead / dominant-not-dead nodes, D0 and D1 hits, false positives (which must be zero), detector cost, solve-cost dividend. | **COMPLETE** via S6c: 174,250,255 detector calls, 27,980,333 fires, zero false positives, ~33% recall against a tie denominator that understates it. |
 | **B** | Tense-root anatomy on the two stopped non-boss trump roots: first frontier split, complete frontier at the smallest split, pairwise advantage sign sets, d_adv, reachable posteriors, W_reach, minimal Scheme separators. | **QUEUED**, designable now under DS-A10's two clauses: a frontier may be quoted only where the computation *completed*, and the synthesised separators are instruments below every tier, with every failed separator recorded as a counterexample pair. |
 | **C** | Scheme-weighted filtering on an enumerable fiber: belief, one likelihood, one posterior, one fixed-policy value function, bit-exact against enumeration. | **NOT YET DESIGNED.** DS-A11 bars designing it against §10.3's atom formulation (Proposition E5 makes that degenerate); its lawful form measures **circuit size against world count** for a *declared purpose*, states that no algebra-compression claim is made, and notes that exact normalised filtering re-enters Lemma R(c). So stated it is the branch's first real attempt at Gate D — and should say so. |
-| **D** | Adaptive gluing on one tense grade-3 root: relaxed solve, exposed-face test, emit and generalise cuts, re-solve, stop at exactness. | **QUEUED**, designable given E6.5's two obligations, DS-A3's cut typing and DS-A7's action-conditioning. **Its inputs were empty this run**: D consumes failing (NOT-SEPARATED) pairs, and S6d produced none. |
-| **E** | Lower/upper root-action certification on a tractable multi-action root. | **COMPLETE** via S6d: all three grade-3 coordinates SEPARATED; seven of nine per-action prices exactly 0; the two nonzero prices at the two leads where S6b's frontier exploded. |
+| **D** | Adaptive gluing on one tense grade-3 root: relaxed solve, exposed-face test, emit and generalise cuts, re-solve, stop at exactness. | **OPEN AND FED.** Its two blockers are gone: **freeze 38 is filled** (v1, scoped, FT-A17), and its inputs are no longer empty — S6h's four exact negatives are exactly the failing pairs D consumes. S6k ran the first rung of the ladder over five of them; the residual second-layer gap Δ² is what a further cut must reach. |
+| **E** | Lower/upper root-action certification on a tractable multi-action root. | **COMPLETE** via S6d: all three grade-3 coordinates SEPARATED; seven of nine per-action prices exactly 0; the two nonzero prices at the two leads where S6b's frontier exploded. Extended one grade by S6h at all nine n = 4 coordinates: 4 SEPARATED, **4 exact negatives**, one NOT PRICED ([walt-s6-era](walt-s6-era.md#s6h--2026-08-14-overnight-the-n--4-separation-pass)). |
 | **F** | Reachable envelope: compare N_pol, N_par, W_all, W_reach, d_adv without conflating them. | Designable now under DS-A10 with the DS-A2 ladder; W_reach needs exact enumeration of reachable posteriors, feasible only at the small grades, and a stop is a stop. |
 | **G** | Count and score lift — the valuation cone, the gauge, which count-free verdicts are re-derived versus inherited. | **NEEDS ITS OWN ADJUDICATION** (DS-A12): this is where E-A2 bites hardest and it touches Jason's binding count constraint. Propositions J-0 and J-1 survive count re-entry; J-win does not; every form-keyed record is void wholesale, never extended. |
 | **H** | Grade climb, measuring truth size, circuit size, active policy size and constraint size independently. | **PREMATURE** by its own terms (DS-A12), and governed by P-A21 when it comes: three rungs are not a law, and no growth rate measured at grades ≤ 4 is quoted for the opening. |
@@ -180,9 +183,147 @@ answered by those non-exact arms rather than by waiting for something to transpo
 
 **What it does and does not settle (EC-A13, binding).** It tests the **primal half**: whether the *witness* at a⋆
 must be an exact solve. The **full** parent sentence — a solver that avoids exact solves — additionally requires the
-U side cheapened, a relaxation coarser than C run down Theorem E6.5's ladder, which is Experiment D's territory with
-freeze 38 still reserved, and it remains untested. **A results file or wiki sentence saying "the economy claim was
-tested" without the word *primal* has over-claimed.**
+U side cheapened, a relaxation coarser than C run down Theorem E6.5's ladder. That is Experiment D's territory, and
+since S6k it is no longer closed off: freeze 38 is filled and the ladder's first rung has been computed exactly at
+five coordinates. **The full claim is still untested**, because the S6k run itself prices U exactly and imports
+exact Q^H values for its receipts. **A results file or wiki sentence saying "the economy claim was tested" without
+the word *primal* has over-claimed.**
+
+## The fusion-tax chapter (S6k, 2026-08-14)
+
+Every separation up to this point had been won on the primal side: the upper witness was always treatment C,
+computed exactly, and the only question was whether some candidate could reach it. Corollary E4.1(3) then proved
+that at four coordinates **none ever can** — which leaves cheapening the upper side as the only remaining move, and
+that half of the architecture had gone untouched since the intake audit reserved a freeze number for it. This
+chapter is where it moved, and it moved because of an external note plus one night's build.
+
+**Where it came from, and what that does and does not confer.** `exchange/inbox/016` — a received note titled
+*Nonanticipativity Taxes and a Compositional Plan Calculus for Straight Texas 42* — arrived hand-ferried and
+UNADJUDICATED, answering walt's own outbox request for a cheaper upper witness. The note self-classifies its claims;
+**those labels are the sender's and carried no status here until adjudicated**, and an external note is never
+imported as an axiom. Adjudication (FT-A1..FT-A28) accepted it **in large part**: the central identity and the
+first-layer mathematics are correct, three "exact results" needed a hypothesis named that the note never states, one
+prose claim was rejected and replaced by a stronger theorem, and two schema families carry obligations no probe may
+skip. **No number from the note entered as evidence** — the four decimals its experiment section quotes are rounded
+forms of walt's own exact rationals, re-derived here from the filed rows.
+
+**The fusion-gap identity is the note's genuine contribution.** The gap U_a^C − Q^H(a) equals the **minimum, over
+lawful policies, of the expected clairvoyance regret** — the expected amount by which the world-informed value of
+holding root action a exceeds what that fixed lawful policy actually achieves. Its value is what it does to the
+work: it converts "tighten the relaxation", an open-ended instruction, into "prove a lower bound on one
+expectation", a finite obligation with a named object. Subtract a **proved** lower bound Γ_a from U_a^C and the
+result is still a valid upper witness, so the separation test becomes Γ_a ≥ U_a^C − L_{a⋆}. A Γ that is *measured*
+rather than proved — a tax computed by a run whose budget stopped — is not a Γ: freeze 44's contract already says a
+stopped walk retains no partial fold, and **there is no partially-computed tax.**
+
+**The reveal-delay ladder, and how much shorter it is than the note thought.** Between treatment C (the world
+revealed before every focal decision) and treatment H (never revealed) sits a ladder of relaxations C^(k) that
+withhold the world through the first k focal decisions and reveal it below. Each rung is a valid upper witness, and
+the rungs are nested. **Lemma FT-trunc** sharpens where the ladder ends: a suffix of *forced* decisions truncates
+it, and since the focal seat's last decision is over a one-tile hand it is always forced, so U^(N−1) = Q^H already
+and the last tax is identically zero. **Corollary FT-grade4** is the operational payoff: at an n = 4 coordinate the
+seat holds four tiles and leads, so the ladder has **exactly two rungs**, and
+U_a^C − Q^H(a) = Δ_a^(1) + Δ_a^(2) with both endpoints already filed. **One computation of U^(1) therefore
+determines the entire layer decomposition** — (Δ¹, Δ²) is complete at this carrier, not a prefix of something
+longer, and the note's proposed follow-up experiment is vacuous here and was not commissioned.
+
+**Three results a builder needs before using any of it — two fences and one licence.**
+
+- **Proposition FT-flat — the upper twin of T1-blind.** If an upper feature does not depend on the *frontier*
+  action, the bound it returns is **at least U_a^C**: the max drops out, and what is left dominates the witness
+  already filed. So it can never improve on it — not "is unlikely to be selective enough", which is what the
+  received note said, but **never**. Read with S6g's Proposition T1-blind, the two close the sandwich from both
+  sides with one lesson: **a witness must be conditioned on the decision it is trying to price.** Note the scope
+  exactly — FT-flat constrains dependence on the *frontier* action, not the root action, and U_a stays
+  action-conditioned through the frontier masses regardless.
+- **Lemma FT-post — the composition trap, and the sharpest one in the received note.** The belief at a frontier
+  information state is **not uniform over its latent worlds**: arrival weights are products of the field's per-world
+  legal-set sizes, and those sizes vary across the fiber because they are computed from the moving seat's own hand.
+  So a residual witness priced as a **fresh coordinate under the branch's standard uniform belief** — which is
+  exactly how every walt coordinate is built — prices the wrong measure, and the composition is **void, not merely
+  loose**: neither an upper nor a lower bound on the residual value. Two forms compose and nothing else does:
+  evaluate the continuation **inside the same walk** under the carried weights, or prove the residual bound
+  **pointwise in every world** of the leaf, where the measure is irrelevant. Any artifact that pastes a residual
+  witness prints which of the two it used, on the row.
+- **Lemma FT-mix — heterogeneous upper witnesses compose.** If each competitor has *some* valid upper witness — and
+  they need not come from one relaxation, one evaluator, one traversal or one run — and L_{a⋆} beats every one of
+  them, then a⋆ is optimal, with uniqueness when every inequality is strict. Theorem E6.4's proof never required one
+  relaxation; the lemma is stated so that a **mixed** proof is licensed by a stated result and never read as
+  stretching E6.4 past what E6.4 proves. Its content is not the one-line proof but the four evidentiary conditions
+  attached to it (below), which is where a composed verdict can actually go wrong.
+
+**Freeze 38 is filled** (v1, scoped) — the gluing-cut language, the validity obligation and the cut ordering that
+DS-A13 reserved the number for in the intake audit. What made it fillable is a **typing**: a block merge identifies
+action variables inside one information state, removing no world and changing no world's mass, which is what
+separates a cut in Theorem E6.5's sense from a declared exclusion remnant. Full clauses on
+[the freeze register](walt-math-freezes.md#freeze-38--the-gluing-cut-v1-scoped-ft-a17).
+
+### The run: twelve binding pairs, one closure
+
+Twelve binding (a⋆, competitor) pairs over the five negative-margin n = 4 coordinates, nine units, all receipts
+HELD at every unit, with the reduced-grade cross-check run as a **blocking** pre-check before any carrier number
+existed.
+
+**ONE PAIR CLOSED.** At h6 — pip 4, hand `[11 40 43 53]` — the first-layer tax shaves competitor 11 below L_{40},
+**strictly**, with surplus `L − U^(1) = 4930081/479001600`. Composed with S6h's frozen treatment-C rows for the
+other two competitors under Lemma FT-mix and receipt **(FT-R8)**, this gives **Opt^H(h6) = {40}** — uniqueness, not
+merely membership, since no comparison is non-strict. It is the branch's first gluing-cut separation and the first
+time the two-sided architecture has closed end-to-end.
+
+> **Mandatory sentence (FT-A25(vi)), which travels with that verdict verbatim:** *this coordinate's optimal set was
+> already determined by the filed `Q^H` column; what this verdict demonstrates is that the two-sided proof
+> architecture now closes here, and that the lever was a gluing cut and never a better candidate — which is exactly
+> what Corollary E4.1(3) proved was the only lever available.*
+
+Without that sentence the row reads as a finding about 42, and it is not one. The closure **could** have failed — it
+did at the other eleven pairs — so the run is a genuine test; the **conclusion** could not have come out otherwise,
+so it is not evidence about the game. The composition is licensed only under four printed conditions: same coordinate
+(the freeze-45 identity rebuilt in-run), same L (one number, one provenance, its primal receipt named), same
+(C1)–(C4), and a **freeze-subset assertion** — the two runs' freeze digests differ by construction, so what is
+asserted instead is that every freeze the imported numbers depend on is identical and that the freezes this run adds
+touch no object those numbers depend on. (FT-R8)'s sharpest clause asserts the **competitor row set equals the legal
+action set at the rebuilt kernel minus a⋆**, never a row count in a filed file: a composed verdict is a universally
+quantified claim over competitors, and a competitor silently absent from an imported table would make a false
+verdict look complete.
+
+**Ten tied pairs NOT CLOSED, and the shortfall must be typed honestly.** At a coordinate where the binding
+competitor is *tied* with a⋆ in Q^H, the pair closes **only if the relaxation is exact** — an all-or-nothing
+threshold. It was not met at any of the ten, and the shortfall came back equal to Δ² exactly. **That equality is an
+arithmetic identity, not independent evidence** (FT-A26(ii)): given the tie, U^(1) − L = U^(1) − Q^H(a) = Δ² by
+definition and cannot fail. It confirms the bookkeeping, not the proposition. Nothing could have tested the
+proposition, because a tied pair closing with Δ² > 0 is impossible; it earns its keep as a **fence on the reading**,
+and this run is the first occasion on which that fence did work. The filed object at each of these pairs is the
+exact pair (Δ¹, Δ²), which by Corollary FT-grade4 is the **complete** layer decomposition — a result under F7, not a
+null, and the exact specification of what a second-layer or feature-penalty cut must beat.
+
+**The tax is sparse, and the sparsity comes with a selection fence.** Of **281,542** frontier states across the run,
+**12,639 (4.49%)** pay a positive tax. The per-coordinate spread is wildly non-uniform — from almost every state
+paying to about one in fifty — and the inversion is worth seeing: the coordinate with the largest frontier has the
+sparsest tax, and the one with the smallest frontier has the densest tax and the largest gap. **Three fences, all
+binding.** No distribution measured at grade 4 is quoted for trick 1 or for the opening. Nothing causal is claimed.
+And the sharp one: **five coordinates chosen by negative margin are a carrier, not a sample, and the selection
+criterion is correlated with the quantity being described** — so the spread must never be read as a distribution
+over coordinates.
+
+**Every minimal fusion core came back binary.** The ceiling at the grade-4 frontier is three worlds, because the
+focal seat holds three tiles there; the observed size is **2 everywhere**. That answers the received note's open
+question at this carrier by measurement rather than conjecture, under the same fences.
+
+**(FT-R1) held at h9, and it is the quietest good news in the file.** h9's filed U had been computed exactly once,
+by the revealed traversal, at the coordinate the exact primal route could not price at all. (FT-R1) reconstructs
+that same U from the frontier decomposition — a **different traversal, with different intermediate quantities** —
+and agrees exactly. It is **the only independent check that number has ever received**. It does not weaken h9's NOT
+PRICED label, which is about the primal pipeline: h9 has no primal receipt, so no composed verdict may be filed
+there at all.
+
+**Where the FT mathematics lives, and for how long.** Lemma FT-arrive, Lemma FT-trunc, Corollary FT-grade4,
+Proposition FT-flat, Proposition FT-tie, Lemma FT-post, Corollary FT-conv and Lemma FT-mix are proved in
+`walt/CENSUS-RULINGS.md`, which is **their only authority** until the next errata amendment files them as a new §9.
+That filing is queued behind DS-A28(ii)'s older outstanding item and is tracked on
+[the reference map](walt-math-reference.md#addendum-2026-08-14--what-walt-math-11-inherits).
+
+**The next open target has a name: Δ²** — the second-layer tax, which is exactly the part of the fusion gap the
+first layer provably cannot reach at the ten tied pairs.
 
 ## Standing fences
 

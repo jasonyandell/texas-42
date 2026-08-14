@@ -53,7 +53,7 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | [walt-foundation-era](walt-foundation-era.md) | S1–S4.5: the rules-to-operators stack, the control skeleton, and its two exhaustive checkers |
 | [walt-factory-era](walt-factory-era.md) | S5a–S5d: the conflict-driven lesson factory, the label-fragility discovery, the lesson economy, and the re-tethering |
 | [walt-census-era](walt-census-era.md) | S5e–S5k: the situation censuses, the retrograde quotient and railyard, the fiber and endgame probes, and the seat census resolved by proof |
-| [walt-s6-era](walt-s6-era.md) | S6a–S6d: the predictive-rank dimension census, the policy-geometry probe, the deadness detectors, and the first root-action certifications |
+| [walt-s6-era](walt-s6-era.md) | S6a–S6k: the predictive-rank dimension census, the policy-geometry probe, the deadness detectors, the first root-action certifications, the cheap-seed and map-free rule probes, the trick-1 and lay-down theorems, and the first gluing-cut closure |
 
 **Reference**
 
@@ -98,20 +98,28 @@ cap, a partial frontier bounds nothing, and **the probe's formal verdict is
 STOPPED with no verdict** — never a seven-of-nine success.
 
 That pairing redirected the program from compressing truth to **proving the root
-action**, and three coordinates have now had their root action certified exactly
-— including one where the objects the previous probe could not compute turned out
-to be unnecessary. ("Certification" here is walt's own object, an exact
-separation of one action from every competitor; it is not the D3 sense fenced on
-[reachability](reachability.md), and nothing in it is identity-bearing.)
+action**, and seven coordinates have now had their root action certified exactly
+— three at grade 3, four more one grade deeper on real-deal hands, including one
+where the objects the previous probe could not compute turned out to be
+unnecessary. ("Certification" here is walt's own object, an exact separation of
+one action from every competitor; it is not the D3 sense fenced on
+[reachability](reachability.md), and nothing in it is identity-bearing.) The
+negatives came with them and are the more useful half: at four further
+coordinates it is now *proved* that **no candidate set whatsoever** separates the
+pair under the standing relaxation, which is what tells the program where the
+remaining work has to happen.
 
 The live question is the economy claim, which since EC-A13 splits in two and is
 never written as one thing. Its **primal half** — whether the certification still
-closes when the witness it starts from is not itself an exact solve — is what the
-economy successor is designed to test, the transport it needed having been opened
-at freeze 36 v2. The **full** claim, a solver that avoids exact solves
-altogether, additionally needs the upper side cheapened, and that is untouched.
-Any sentence saying "the economy claim was tested" without the word *primal* has
-over-claimed.
+closes when the witness it starts from is not itself an exact solve — is
+answered as far as it has been asked: at every coordinate where separation is
+possible at all, at trick 4, on real deals, a four-word rule certifies it. The
+**full** claim, a solver that avoids exact solves altogether, additionally needs
+the upper side cheapened. That side is no longer untouched — one competitor has
+been excluded by an information tax rather than by an exact solve — but it is not
+settled either, since the run that did it still prices the upper witness exactly
+everywhere else. Any sentence saying "the economy claim was tested" without the
+word *primal* has over-claimed.
 
 Every count above is carrier-relative, coordinate-relative, and exploratory. Full
 numbers, scope caveats and dissents live on the era pages; the refutations are

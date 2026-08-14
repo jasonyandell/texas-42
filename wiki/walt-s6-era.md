@@ -1,11 +1,15 @@
-# walt — the S6 era (S6a–S6d): predictive algebra, policy geometry, deadness, separation
+# walt — the S6 era (S6a–S6k): predictive algebra, policy geometry, deadness, separation, and the first gluing cut
 
-[Home](Home.md) · owns: the four S6 probes as sessions — the predictive-rank dimension census and the Gate B
+[Home](Home.md) · owns: the S6 probes as sessions — the predictive-rank dimension census and the Gate B
 refutation (S6a), the policy-geometry probe at Gate E (S6b), the decision-deadness probe (S6c), the separation probe
-(S6d) · Sources: `walt/LOG.md` (S6a–S6d); `walt/PREDICTIVE-RANK.md`, `walt/POLICY-GEOMETRY.md`,
-`walt/DEADNESS-PROBE.md`, `walt/SEPARATION-PROBE.md`; `walt/math/predictive_algebra_v0.6.md`,
+(S6d), the economy-seed probe (S6e), the freeze-44 refactor and n = 4 gate result (S6f), the trick-1 draw probe
+(S6g), the n = 4 separation pass (S6h), the lay-down catalogue (S6i), the rule-economy probe (S6j), and the
+fusion-tax probe (S6k) · Sources: `walt/LOG.md` (S6a–S6k); `walt/PREDICTIVE-RANK.md`, `walt/POLICY-GEOMETRY.md`,
+`walt/DEADNESS-PROBE.md`, `walt/SEPARATION-PROBE.md`, `walt/SEPARATION-RUNG-N4.md`, `walt/ECONOMY-SUCCESSOR.md`;
+`walt/math/predictive_algebra_v0.6.md`,
 `walt/math/decision_sparse_exact_solving_v0.1.md` and its errata; `walt/CENSUS-RULINGS.md` (R-A1..R-A24,
-PG-A1..PG-A18, J-A1..J-A18, DS-A1..DS-A36, SEP-A1..SEP-A19); the four results files under
+PG-A1..PG-A18, J-A1..J-A18, DS-A1..DS-A36, SEP-A1..SEP-A19, N4-A1..N4-A20, EC-A1..EC-A14, T1-A1..T1-A12,
+LD-A1..LD-A13, RW-A1..RW-A8, FT-A1..FT-A28); the results files under
 `walt/walt-factory/results/`. Related: [walt](walt.md) (hub), [walt-census-era](walt-census-era.md) (what S6
 answers), [walt-decision-sparse](walt-decision-sparse.md) (the architecture these probes serve),
 [walt-math-reference](walt-math-reference.md) (formal statements), [walt-instruments](walt-instruments.md),
@@ -26,16 +30,25 @@ answers), [walt-decision-sparse](walt-decision-sparse.md) (the architecture thes
 
 S5's compression program ended at Corollary S-rigid: the seat-side structural quotient at the first play is the
 identity, because structural compression is bought with deadness and nothing is dead at the first play
-([walt-census-era](walt-census-era.md)). S6 is the four sessions that took that negative seriously and asked four
-smaller, sharper questions — getting, in order, a refutation, a stop, a measurement, and the branch's first positive
-certification.
+([walt-census-era](walt-census-era.md)). S6 opens with four sessions that took that negative seriously and asked
+four smaller, sharper questions — getting, in order, a refutation, a stop, a measurement, and the branch's first
+positive certification.
 
-The arc in one sentence: the **value** side of the opening does not compress (S6a), the **decision** side collapses
-almost everywhere and explodes exactly where the hand is tense (S6b), half of all mid-game free decisions are
-provably choice-irrelevant and cheap detectors catch a third of them (S6c), and the root action can be proved exactly
-without ever building the objects that exploded (S6d). Each session was adjudicated by walt-math **before** its build,
-under the F7/NO-RESCUE policy: both outcomes are results, and a failure is carried back to the mathematics rather
-than engineered around.
+The arc of those four in one sentence: the **value** side of the opening does not compress (S6a), the **decision**
+side collapses almost everywhere and explodes exactly where the hand is tense (S6b), half of all mid-game free
+decisions are provably choice-irrelevant and cheap detectors catch a third of them (S6c), and the root action can be
+proved exactly without ever building the objects that exploded (S6d).
+
+The seven that follow push on the two halves of the sandwich in turn. S6e and S6j cheapen the **primal** side —
+first at grade 3, then map-free at grade 4, where a four-word rule certifies every coordinate that is certifiable at
+all. S6f, S6h and S6k work the **upper** side: a budget contract and a gate failure filed as a result, then the
+branch's first exact negatives, then the first gluing cut that closes a pair those negatives had proved no candidate
+could ever close. S6g and S6i step outside the sandwich entirely, proving first-trick plays and a family conjecture
+by characterization rather than by search.
+
+Every session was adjudicated by walt-math **before** its build, under the F7/NO-RESCUE policy: both outcomes are
+results, and a failure is carried back to the mathematics rather than engineered around. Three of these sessions had
+their proposal refuted or their gate failed, and each of those is filed here as a result rather than smoothed over.
 
 ---
 
@@ -434,6 +447,208 @@ its exact pricing walks the tree).
 
 ---
 
+## S6g — 2026-08-14 (overnight): the trick-1 draw probe
+
+**The question.** Jason's oldest target, taken directly: prove a first-trick play. The build proposed a *bounded
+sandwich* — a per-world adversarial-field lower bound and a cooperative-field upper bound, summed exactly over the
+trick-1 fiber of |X| = 399,072,960 worlds — and asked for a night of compute.
+
+**It was refuted by proof before any compute ran**, and the refutation is itself the session's first filed result.
+Both corner bounds are sound (T1-A2), but **Proposition T1-blind** shows a lower witness valid at *every* root
+action — which every hand-only counting guarantee is — can never strictly exclude any competitor, because
+U_a ≥ Q^H(a) ≥ L for that same a; and **Proposition T1-corner** shows the corner sandwich closes at trick 1 only
+when the focal holds the entire trump suit. A 399-million-world scan would have measured exactly that. This is the
+lower-side half of a pair of negatives; its upper-side twin arrives at S6k.
+
+**What replaced it needs no relaxation at all.** **Theorem T1-draw**: on a closed, fully enumerated family of **294
+declared trick-1 coordinates**, the focal seat takes all seven tricks against **every** field behaviour in **every**
+world, so Q^H(a) = +7 — the maximum of the valuation — for every trump lead, and the upper witness membership needs
+is the trivial U_a ≤ 7. **Corollary T1-ruff** prices the double lead by the ruff it invites, which supplies the
+strict exclusion.
+
+**The result** (`trick1_draw_2026-08-14.txt`, 159,678 ms). Of the 294 coordinates, seven are all-trump hands and
+are labelled TRIVIAL — every action takes every trick, no competitor exists, no decision is certified. On the
+remaining **287, Opt^H is determined EXACTLY**: every trump lead at +7, and every double lead strictly excluded with
+its exact q from an exhaustive integer count over all 399,072,960 worlds, no decimation, one final rational. At the
+flagship coordinate — declaration `PipTrump(6)`, focal hand {6:6, 6:5, 6:4, 6:3, 6:2, 6:1, 5:5} —
+**Q^H(5:5) = 7 − 143/5814** exactly against Q^H(trump) = 7, so Opt^H is exactly the six trump leads. Theorem E6.4's
+member-not-set caveat is **DISCHARGED, not waived**: both sides are exact values, not bounds. The reduced-grade
+authority ladder (T1-R2) held to the rational at grades 2, 3 and 4; grade 5 was a **declared stop**, the authority
+budget of 200,000,000 exhausted at 199,999,988 steps, reported either way.
+
+**The corpus arm is the measurement, and it specifies the frontier.** None of the 13 real trick-1 hands satisfies
+T1-draw's hypotheses — expected, and filed as a result. What each yields is its exact **corner gap** 7 − k − E_β[f],
+computed by exhaustive fiber sums with no decimation, ranging from **4** at the tightest to **19/3** at the widest.
+Those thirteen rationals are the filed specification of what a tighter relaxation must beat, and they are what the
+next dispatch was aimed at.
+
+**Two fences travel with all of it.** The membership half is **belief-free and field-free** — it holds pointwise in
+every world against every field behaviour, and because the trick-1 fiber is the complete set of deals consistent
+with the focal hand it is a statement about **the rules** rather than the model; this is the one place in walt where
+R-A2's feasible-versus-reachable fence does not bind a verdict, not because it was relaxed but because the statement
+ranges over everything. The exclusion half **is** model-relative, under the declared uniform belief and
+uniform-random legal field, and no row lets the first half's strength leak onto the second. And, verbatim: *a
+drawing hand is a hand that plays itself; the theorem certifies a first-trick play where no search is needed to find
+it, and says nothing whatever about hands that require judgement.*
+
+**The risk, carried (T1-A12).** Every statement is proved relative to **walt's implementation of the rule algebra**,
+read from `rules.rs` at adjudication time. If the implementation and the rules corpus disagree, this section is
+wrong in a way **no receipt inside it can detect**, because every receipt is computed by the same implementation.
+(T1-R2) is a partial guard — an independently written solver, not the corpus. **The corpus check is mandatory
+before any of this is cited outside walt.**
+
+---
+
+## S6h — 2026-08-14 (overnight): the n = 4 separation pass
+
+**The question.** S6f's gate said NO-GO. The 2026-08-14 return (N4-A13..N4-A20) authorised the pass at W = 8,
+checkpointed, with admission by **measured** count rather than estimate: Experiment E at all nine real-deal n = 4
+coordinates, four tricks out.
+
+**The result** (`separation_n4_2026-08-14.txt`). **Every coordinate reached Tier 1** — the authority gate MET, R6
+step-determinism HELD, R1 solver identification HELD, and **R7 held at all nine**, which is **Lemma N confirmed to
+the step**: the whole-fiber revealed charge equals the quoted tree-v0 count exactly, a same-traversal comparison.
+The verdict set is genuinely mixed, and that is what makes it maximally informative:
+
+| outcome | coordinates | what it is |
+|---|---|---|
+| **SEPARATED** | h1 root 11, h4 root 65, h5 root 55, h8 root 55 | root action certified against every competitor; **member-not-set** verbatim on each |
+| **EXACT NEGATIVE** | h0, h2, h6, h12 | **the branch's first**: Corollary E4.1(3) fired for real |
+| **NOT PRICED** | h9 | a stop that is a result, with its exact count printed |
+
+**The exact negatives are the news.** A NOT-SEPARATED pair here is not "this run's candidates were too weak" — it is
+the exact statement Q^H(a⋆) < U_a, and by Corollary E4.1(3) that proves **no candidate set whatsoever** separates
+the pair under relaxation C at that coordinate. The remaining lever is a gluing cut. The failing gaps are small:
+the tightest is **9557/554400** at h2 (the tied pair 53 against 54, and symmetrically 54 against 53), with h6's
+**8524657/479001600** next — the one a gluing cut would later close. Experiment D of the decision-sparse program
+consumes exactly these, and its inputs had been empty since it was designed; they are not empty now.
+
+**h9 is the informative stop.** Its extraction map was measured at **517,562,322 partition states** — 2.7× the
+raised cap P_max v2 = 192,000,000 — by a **COMPLETED count-only pass**, so the primal pipeline never ran and no
+verdict is reported. The count is typed as an exact computational observable of the declared traversal: never an
+information value, never a decision width, never a cost claim.
+
+**The real-deal fence travels where it bites.** Three coordinates — h2, h5, h8 — carry the marker inline on every
+pair row and every verdict line, SEPARATED and NOT SEPARATED alike, because at those the void-filtered fiber is a
+proper subset of the full 34,650 (23,100; 14,700; and 1,200 respectively). The other six carry the full fiber. The
+column licenses nothing either way: it is not a belief, not a weight, not an error bar, and no verdict in the file
+is conditioned on it.
+
+**Mechanisms, all green.** Resume-validation PASS (h0 recomputed whole-call, all non-timing fields equal the loaded
+records); the DS-A36 deterministic block **byte-identical** fresh versus resumed; **36 of 36 units** checkpointed and
+reloaded. The timing block is provenance only and every line under W ≥ 2 is contended, so nothing in it forms a
+ratio and nothing is quoted.
+
+---
+
+## S6i — 2026-08-14: the lay-down catalogue and the four-laydown theorem
+
+**The question is family lore.** Jason's family reached, by hand enumeration, the belief that a single deal holds
+**at most three** lay downs — a *lay down* being a hand you can put on the table because it takes every trick. The
+directive was to formalise the term and settle the conjecture.
+
+**Theorem LD** (walt-math) is an **exact characterization**, and it is two bitset tests: a hand is a lay down **iff**
+**(L1)** its top trump run is at least as long as the outstanding trump set, and **(L2)** every non-trump's threat
+lies inside trumps ∪ hand. Two corollaries matter for orientation: **every lay down holds at least 4 trumps**, and
+**T1-draw is a strict inner class** of it. That second one settles a question Jason had raised directly — his
+missing-6:5 hand **is** a lay down, because banking a non-trump needs a second trump to hide behind, which is
+precisely what (L1) measures.
+
+**The catalogue** (`laydown_2026-08-14.txt`, `laydown_catalogue_2026-08-14.txt`, 234 ms). **Exactly 301 lay downs per
+declaration**, 2,107 (hand, declaration) pairs. (LD-R1) held: the `PipTrump(6)` count came back at exactly 301
+against LD-A9(ii)'s independently derived closed form — a receipt that could have failed. (LD-R2) held: all 294
+freeze-47 T1-draw members are present under their own declarations and the containment is **strict at every
+declaration**, 42 of 301. (LD-R3) held: the LD plan swept every trick in every world against **every** field
+behaviour at the declared reduced analogues, up to 362,880 adversarial leaves, zero tricks lost. (LD-R4) held: all
+seven per-declaration counts equal, which is **Corollary LD-fold** receipted rather than an observed regularity —
+the lay-down predicate is declaration-fold invariant, so the seven-fold constancy is a theorem, and it is
+additionally the cheapest available probe of the implementation risk below, since an implementation whose ranks
+were not functions of the pip order would break the equality.
+
+**Phase 2: NO FOUR-LAYDOWN DEAL EXISTS** — exhaustive over the complete catalogue, from every full-suit anchor,
+every declaration triple, every disjoint pair, with the forced fourth hand tested under every remaining declaration.
+**The family's ≤ 3 conjecture is PROVED**, and the maximum of 3 is **exhibited**: blanks `[00 10 11 20 30 40 50]`
+under `PipTrump(0)`, twos `[21 22 32 33 42 44 62]` under `PipTrump(2)`, fives `[51 52 53 54 55 65 66]` under
+`PipTrump(5)`, with the leftover fourth hand `[31 41 43 60 61 63 64]` unconstrained.
+
+**Two caveats travel verbatim.** The question is **combinatorial, not a situation**: in a dealt hand only the bid
+winner declares and only one seat leads trick 1, so four lay downs can never be *realised* together — the question
+is whether the 28 tiles can be partitioned so that each hand **would** sweep if it were the one to declare and
+lead. And **T1-A12's risk carries in full, sharper here**: Theorem LD is a claim about `rules.rs`'s rank, tier,
+follow and compelled-follow semantics, and the probe computes its own evidence from that same implementation. The
+tier order, `DOUBLE_TOP`, the effective-incidence subtraction, the compelled follow and `threat` must be checked
+against the rules package by a reader before any of this is cited outside walt. Until then everything here is
+proved **relative to walt's implementation of the rules and not relative to the rules**.
+
+---
+
+## S6j — 2026-08-14: the rule-economy probe at the n = 4 carrier
+
+**The question.** S6e exercised the primal half of the economy claim at grade 3, where the candidate could still be
+priced through a materialised information-partition map. At n = 4 that map is exactly what broke — so: can a
+four-word rule be priced **map-free**, by a walk that reads only `(record, legal)` and holds no state, and does it
+still certify? Adjudicated as RW-A1..RW-A8, freeze 49.
+
+**Before any code ran, walt-math filed a verdict the previous pass had left on the table.** From S6h's own numbers
+alone, h9 is **NOT SEPARATED at either H-optimal action**, binding margin −2116837/8870400, so by Corollary
+E4.1(3) no candidate set whatsoever separates that coordinate — the **worst margin of the nine**, an exact negative
+derived from Q^H and U with no new computation.
+
+**(RW-R2), blocking, HELD**: at the declared shared ground the rule walk and the materialised map price
+**identically** at the callback and through the 50,712-state map. Only after that was any h9 number quoted.
+
+**THE RESULT** (`rule_economy_n4_2026-08-14.txt`): **every coordinate where separation is possible at all is
+certified by a four-word rule.** P2 greatest-tile separates at all four positive-margin coordinates — at **h1 with
+economy gap exactly ZERO** — and at h4 all four rules separate. The exact-solve seed was never needed anywhere
+certifiable, at trick 4, on real deals.
+
+**At h9, Jason's dumb-heuristic bar is set.** The exact route cannot price there at all, so the question becomes how
+close a rule gets to an optimum it cannot certify against. **At the two H-optimal actions** — 41 and 54, which are
+the ones the separation question turns on — the best rule (P2 greatest-tile) lands within **1202339/8870400** of the
+exact optimum, about 0.136 of a trick. That is the bar, and it is stated at the binding actions on purpose: rule
+gaps elsewhere at h9 go lower (down to 177253/3326400 at action 61) and lower gaps at non-binding actions buy
+nothing. The rule walks at the binding actions reach 37M–105M states in **O(1) memory**,
+against the 517M-state map that broke the cap — which is what "map-free" buys, stated as a reached-count and never
+as a cost claim.
+
+**The typing is the discipline here, and nothing is conflated.** At the five negative-margin coordinates the
+separation column is a **receipt of Corollary E4.1(3)** — a theorem about what no candidate can do, read from the
+filed Q^H and U — while the **gap column is a genuine measurement everywhere**. A rule failure is
+**candidate-failure, never class-failure**; the exact negative is never obtainable from a rule failure. And the
+run's exact side is **quoted, not recomputed**, so EC-A13's fence stands unchanged: this tests the **primal** half.
+
+---
+
+## S6k — 2026-08-14: the fusion-tax probe, and the first gluing-cut closure
+
+**The question.** S6h had produced four exact negatives — coordinates where Corollary E4.1(3) proves no candidate
+can ever close the pair, leaving a gluing cut as the only remaining lever. Freeze 38 had been reserved for that
+lever since the intake audit. An external note arrived on the same day proposing exactly the missing machinery, was
+adjudicated as **FT-A1..FT-A28** — eight named results delivered with it, four lemmas, two propositions and two
+corollaries — **filled freeze 38 v1**, and was built and run the same night.
+
+**THE RESULT: the first gluing-cut closure in the branch.** At h6 — pip 4, hand `[11 40 43 53]` — the first-layer
+tax excludes competitor 11 **strictly**, with surplus `4930081/479001600`. Composed with S6h's frozen treatment-C
+rows for the other two competitors under Lemma FT-mix and receipt (FT-R8), that gives **Opt^H(h6) = {40}**,
+uniqueness — the two-sided architecture (one lawful plan, one information tax per competitor) closing end-to-end
+for the first time.
+
+**The mandatory sentence travels with that verdict, verbatim** (FT-A25(vi)): *this coordinate's optimal set was
+already determined by the filed `Q^H` column; what this verdict demonstrates is that the two-sided proof
+architecture now closes here, and that the lever was a gluing cut and never a better candidate — which is exactly
+what Corollary E4.1(3) proved was the only lever available.* The closure **could** have failed — it did at the
+other eleven pairs — so the run is a genuine test; the **conclusion** could not have come out otherwise, so it is
+not evidence about the game.
+
+**The other eleven pairs, and the run's other findings** — the reveal-delay ladder, the exactly-two-rung
+decomposition at grade 4, all ten tied pairs NOT CLOSED with shortfall exactly Δ², the 4.49% tax sparsity with its
+selection fence, the binary fusion cores, and (FT-R1)'s independent confirmation of h9's filed U — are the
+architecture's story and are owned by
+[walt-decision-sparse](walt-decision-sparse.md#the-fusion-tax-chapter-s6k-2026-08-14). **The next open target has a
+name: Δ².**
+
+---
+
 ## Read together
 
 Put S6a beside S6b and the pair says something neither says alone. The **value span is full** — dim V^val saturates
@@ -477,3 +692,23 @@ Drift between `walt/LOG.md` and the results files is a bug; these are recorded r
   [walt-math-deadness](walt-math-deadness.md#384-versus-108--how-to-name-that-playbook-ec-a12).
 - **S6d, ruling range.** The LOG cites SEP-A1..SEP-A19; the results-file header cites SEP-A1..SEP-A18 while its body
   cites SEP-A19(b). SEP-A19 was ruled at build time, after the header text was fixed.
+- **S6g, the corner-gap range.** The LOG records "the 13 exact corner gaps (4 .. 92/15)". The results file's
+  thirteen t1-B rows are 4, 5, 89/15, 6 (×4), 92/15 (×5) and **19/3**, so the widest gap is 19/3 ≈ 6.333, not
+  92/15 ≈ 6.133. **The results file governs**; the page uses 4 to 19/3.
+- **S6h, the tightest failing gap.** The LOG records "failing gaps as tight as 8524657/479001600". That is h6's
+  gap; the results file's tightest exact negative is **9557/554400 at h2** — over the common denominator
+  479001600 that is 8257248, strictly below h6's 8524657. **The results file governs**; the page uses h2's.
+- **S6j, the h9 heuristic bar.** The LOG records "best rule within 1202339/8870400 (~0.136 tricks) of the exact
+  optimum" without naming where. It holds **at the two H-optimal actions**, which is what the bar is about; the
+  smallest rule gap anywhere at h9 is 177253/3326400, at the non-binding action 61. The page states the
+  qualifier, because an unqualified reading of the number is false.
+- **S6k, "ten of twelve".** FT-A25(vi)'s surrounding commentary says the closure "did [fail] at ten of twelve
+  pairs". Its own closing note counts one CLOSED, **ten tied NOT CLOSED and one untied (h0) NOT CLOSED** — eleven
+  failures of twelve, the tied ten plus h0. The commentary appears to count only the tied pairs. The **mandatory
+  sentence itself is unaffected** and is quoted verbatim above; the surrounding count is restated here as eleven.
+- **S6i, (LD-R4)'s status.** FT-A16(ii), ruled later the same day, says "**(LD-R4) remains owed**" and that "2,107"
+  is therefore licensed "as a proof plus one receipted count, not by seven receipted counts". The laydown results
+  file prints **(LD-R4) — HELD**, with all seven per-declaration counts equal and 2,107 explicitly receipted. The
+  receipt was added at LD-A12 and evidently ran before the FT section was written; the FT sentence is stale rather
+  than contradicted. What is **not** affected either way is LD-A13's open item: (LD-R4) probes the
+  implementation-versus-corpus risk and does not discharge it.

@@ -111,10 +111,11 @@ proof live; the owning page carries the compact form and the caveats.
 
 ## The ruling families
 
-Fifteen section headings, one adjudicator (walt-math), all exploratory. Ranges
-below are **ruling-ID ranges**, which are append-only and do not move; the
-sections are located by heading, never by line number, because line numbers
-drift with every append.
+Nineteen families, one adjudicator (walt-math), all exploratory. Ranges below are
+**ruling-ID ranges**, which are append-only and do not move; the sections are
+located by heading, never by line number, because line numbers drift with every
+append. Two families span more than one section heading — `DS-A` runs across
+three, `N4-A` across two — and the family, never the heading, is what inherits.
 
 | Family | Range | Section | Date | Scope |
 |---|---|---|---|---|
@@ -131,8 +132,12 @@ drift with every append.
 | `J-A` | J-A1..**J-A18** | Decision-deadness probe rulings | 2026-08-12 | Deadness detectors. Carries **Lemma J**, **J-0**, **J-1**, **J-win**. |
 | `DS-A` | DS-A1..**DS-A36** | Three sections: Decision-sparse intake audit; Second-audit adjudication; S6c runner | 2026-08-13 | One continuously numbered family. Intake audit of the received v0.1 document (A1–A18); adjudication of the second audit (A19–A28, including **DS-A28**, the append-only protocol); execution scheduling and persistence (A29–A36). |
 | `SEP-A` | SEP-A1..**SEP-A19** | Experiment E adjudication: the separation probe | 2026-08-13 | Root-action separation by primal and upper witnesses. Carries **Corollary E4.1**, freezes 36 and 37. |
-| `N4-A` | N4-A1..**N4-A12** | The n = 4 separation rung adjudication | 2026-08-13 | The SEP-A10 successor rung. Carries **freeze 44** (the walk-step unit and budgeted-walk contract) and **freeze 45** (the n = 4 coordinate identity). |
+| `N4-A` | N4-A1..**N4-A20** | Two sections: The n = 4 separation rung adjudication; The n = 4 rung return: the overnight pass | 2026-08-13 / 2026-08-14 | One continuously numbered family. The SEP-A10 successor rung (A1–A12), carrying **freeze 44** (the walk-step unit and budgeted-walk contract, now at **v2**) and **freeze 45** (the n = 4 coordinate identity); then the authorised overnight pass (A13–A20), carrying **Lemma N** and Corollaries N-1..N-3 and the raised `P_max v2`. |
 | `EC-A` | EC-A1..**EC-A14** | The economy-successor adjudication | 2026-08-13 | The primal half of the economy claim. Carries **Corollary S-fold-val**, **freeze 46** (the closed arm list), **freeze 36 v2** (EC-A8, transport opened to the declaration fold), the 384-versus-108 typing (EC-A12), and the primal/full split (EC-A13). |
+| `T1-A` | T1-A1..**T1-A12** | The trick-1 witness: the bounded sandwich, refuted and replaced | 2026-08-14 | The first-trick target. Carries **Lemma T1-run**, **Lemma T1-force**, **Proposition T1-blind** and **Proposition T1-corner** (the refutation, itself a filed result), **Theorem T1-draw**, **Corollary T1-ruff**, and **freeze 47** (the trick-1 carrier). **T1-A12 is the implementation-versus-corpus risk** and is inherited by everything below it. |
+| `LD-A` | LD-A1..**LD-A13** | Lay downs: the characterization, and the four-laydown question | 2026-08-14 | The family term made exact. Carries **Theorem LD** ((L1) ∧ (L2)), **Corollary LD-fold**, **freeze 48** (the lay-down catalogue), the settled four-laydown question (LD-A11), and LD-A10(ii), which carries T1-A12's risk forward sharpened. |
+| `RW-A` | RW-A1..**RW-A8** | The map-free rule walk, and what h9 already decided | 2026-08-14 | The rule-economy probe at the n = 4 carrier. Carries **freeze 49** (the n4 economy carrier), the closed rule argument list `(record, legal)`, RW-A3's label pair (NOT PRICED / RULE-EVALUATED, never merged), and h9's coordinate verdict filed from the S6h numbers alone. |
+| `FT-A` | FT-A1..**FT-A28** | The fusion tax: inbox 016 adjudicated | 2026-08-14 | The upper side. Carries **Lemma FT-arrive**, **Lemma FT-trunc** + **Corollary FT-grade4**, **Proposition FT-flat**, **Proposition FT-tie**, **Lemma FT-post**, **Corollary FT-conv** and **Lemma FT-mix**; **freeze 38 v1** (FT-A17, the reservation discharged) and **freeze 50 v1.1** (FT-A18, amended at FT-A23 and FT-A24). The closing notes (A23–A28) adjudicate the returned run. |
 
 Three numbering traps. **`E-A` and `E-Q` are spent** by the endgame-store section
 of 2026-08-11 — SEP-A had to renumber the separation design's own `E-Q1..E-Q8`
@@ -251,10 +256,65 @@ The design documents that each ruling family adjudicates (`walt/SEAT-CENSUS.md`,
 `walt/SEPARATION-PROBE.md` and others) live at the top of `walt/`. A ruling that
 says "the design" means the one named in its section's opening paragraph.
 
+## Addendum, 2026-08-14 — what walt-math-11 inherits
+
+Pointers only. Nothing below is restated from its source; open the ruling.
+
+- **The `FT-A` family exists and is large.** `FT-A1..FT-A28` plus its closing
+  notes, in `CENSUS-RULINGS.md` § "The fusion tax: inbox 016 adjudicated"
+  (≈ lines 6567–7936 as of this date; the heading governs, not the line numbers).
+  It adjudicates a received external note claim by claim, delivers eight named
+  objects (indexed in the family table above), and is the home of the upper-side
+  mathematics. **FT-A28 is the last ruling filed as of 2026-08-14** — but the
+  file is append-only and a section grows after its own closing note, as this one
+  did twice in a day, so **read to the end before assuming any ruling is the
+  last one**.
+- **Two freezes moved, and the versions are not interchangeable.** **Freeze 38
+  stands at v1**, scoped — the gluing cut, its reservation discharged at FT-A17;
+  feature penalties, multi-stage penalties, adaptive search beyond the first
+  frontier and any cost model are explicitly *not* in it and re-enter as v2.
+  **Freeze 50 stands at v1.1**, amended twice on the day it was fixed: clause (a)
+  at FT-A23 (the enumeration governs, the sort clause struck) and clause (c) at
+  FT-A24 (emission cut by content). **39 and 40 remain reserved.** Full text on
+  [the freeze register](walt-math-freezes.md).
+- **DS-A28(ii) is STILL OWED, and the queue got longer.** Corollary E4.1's filing
+  as errata §4.3 has been carried since SEP-A2 and is still due at the next
+  errata amendment. FT-A27(i) adds to the same queue: **Lemma FT-mix**, together
+  with the FT mathematics listed at FT-A22(iii) — Lemma FT-arrive, Lemma
+  FT-trunc, Proposition FT-flat, Proposition FT-tie, Lemma FT-post and Corollary
+  FT-conv — and the confirmed first-layer mathematics, all as a new **errata §9**.
+  Until that amendment lands, `CENSUS-RULINGS.md` is **their only authority**, and
+  the DS-A17 citation rule cannot yet be followed for them.
+- **FT-A28 is filed** (≈ lines 7825–7936) and ratifies the (FT-R7) two-half
+  discharge. It versions the halves rather than renumbering them — **(FT-R7a)**
+  the cross-run invariant receipt against a frozen table, whose scope is
+  corrected *upward* to reach both `Σ_I δ_I` and `|supp δ_I|` per unit, and
+  **(FT-R7b)** the in-run reproduction receipt, which reaches every individual
+  value within one process. It names the residual the conjunction does not cover
+  and defers the closure — **(FT-R7c)**, a per-unit frontier digest, **not owed
+  for S6k** but **binding on the next FT run that regenerates a frontier**. It
+  also rules that the orchestrator's byte-diff is an **audit note and never a
+  receipt**, which is what let (FT-R7c) be deferred rather than demanded. **No
+  re-emission is required** and nothing is routed back to the builder.
+- **Two specification defects of one shape, both found by the build.** FT-A23(v)
+  and FT-A28(i) are the same error twice: **naming a relation without naming its
+  relata**. A freeze clause states a constant *or* a generating rule, never both;
+  and a receipt comparing against a prior run must name the **carrier** of the
+  reference value — a frozen table with its provenance line, or an in-run
+  recomputation — never "the previous emission" unqualified. A prior run is not
+  an object and its results text is not an interface.
+- **T1-A12's implementation-versus-corpus risk is now inherited by four
+  families.** Every statement in T1-A, LD-A, RW-A and FT-A is proved relative to
+  walt's *implementation* of the rules, read from `rules.rs` at adjudication
+  time, and **no receipt inside those sections can detect a disagreement with the
+  rules corpus** because every receipt is computed by that same implementation.
+  The corpus check is owed before any of it is cited outside walt, and (LD-R4)
+  is a probe of the risk, never a discharge of it.
+
 ## Where the rest lives
 
-- [The freeze register](walt-math-freezes.md) — all 43 freezes with content and
-  declaring ruling.
+- [The freeze register](walt-math-freezes.md) — all 50 issued freezes with
+  content, version and declaring ruling (39 and 40 still reserved).
 - [Open questions](walt-math-open-questions.md) — what is genuinely unresolved,
   and why none of it belongs in [open-problems](open-problems.md).
 - [The walt hub](walt.md) — the build map, sessions, and the exploratory fence.

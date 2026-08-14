@@ -113,7 +113,7 @@ Everything below sits beneath every tier above; the fence is stated on the hub.
 - [walt-program](walt-program.md) — the goal, every direction reset and why, and the working method.
 - [walt-negative-results](walt-negative-results.md) — the refutations as first-class findings.
 - [walt-instruments](walt-instruments.md) — what exists and can be reused, and how to run it.
-- Eras: [foundation](walt-foundation-era.md) (S1–S4.5) · [factory](walt-factory-era.md) (S5a–S5d) · [compression](walt-census-era.md) (S5e–S5k) · [S6](walt-s6-era.md) (S6a–S6d).
+- Eras: [foundation](walt-foundation-era.md) (S1–S4.5) · [factory](walt-factory-era.md) (S5a–S5d) · [compression](walt-census-era.md) (S5e–S5k) · [S6](walt-s6-era.md) (S6a–S6k).
 - [walt-scheme-fix](walt-scheme-fix.md) — the descriptor language: a user guide, with worked examples and an honest account of what is built.
 - [walt-decision-sparse](walt-decision-sparse.md) — the live track: architecture, audit history, experiment program.
 - [walt-math-reference](walt-math-reference.md) — the map of walt's mathematics, with [structure and transport](walt-math-structure-transport.md), [information geometry](walt-math-information-geometry.md), [decision-deadness](walt-math-deadness.md), [decision-sparse witnesses](walt-math-decision-sparse.md), [the freeze register](walt-math-freezes.md), and [open questions](walt-math-open-questions.md).
