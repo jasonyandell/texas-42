@@ -21,6 +21,7 @@
 //! (§7.2: a policy may branch on observations received, never on the hidden
 //! world).
 
+use std::cell::Cell;
 use std::collections::BTreeMap;
 
 use walt_core::{legal_plays, Decl, Domino, DominoSet, Seat, Team, Trick};
@@ -98,6 +99,15 @@ pub(crate) fn root_tiles(root: Domino) -> [Domino; 4] {
 /// record is visited at most once per walk, so the traversal *is* the
 /// canonical information-state tree and pooled maximization decomposes state
 /// by state (perfect recall; §7.5's finite policy maximum is attained).
+///
+/// Budgeted (freeze 44): one walk-step per (particle, node) visit -- the
+/// charge is `bag.len()`, taken at entry before any child call, the same
+/// rule as `hidden_scalar`'s particle-step. On exhaustion the walk returns
+/// `None` immediately and NO PARTIAL FOLD of any kind is retained: a
+/// partially folded envelope is neither an upper nor a lower bound on the
+/// true one ((C2) of the errata; PG-A13's asymmetry is the precedent). The
+/// stop point is a function of (kernel, budget) alone.
+#[allow(clippy::too_many_arguments)]
 pub(crate) fn walk(
     ctx: &WalkCtx,
     bag: &[Particle],
@@ -106,16 +116,34 @@ pub(crate) fn walk(
     k: usize,
     obs: &mut Vec<Domino>,
     expand: &mut impl FnMut(&[Domino], DominoSet, usize) -> DominoSet,
-) -> Envelope {
+    budget: &Cell<u64>,
+) -> Option<Envelope> {
+    let cost = u64::try_from(bag.len()).expect("bag fits u64");
+    if budget.get() < cost {
+        return None;
+    }
+    budget.set(budget.get() - cost);
     if k == 4 {
         let trick = Trick::new(leader, tiles).expect("distinct tiles by construction");
         let winner = trick.winner(ctx.decl);
         let mass: Q = bag.iter().map(|p| p.weight).sum();
         let inc = ctx.dir.trick_line(ctx.focal, winner, tiles).scale(mass);
         if bag[0].hands.iter().all(|h| h.is_empty()) {
-            return Envelope::line(inc);
+            return Some(Envelope::line(inc));
         }
-        return walk(ctx, bag, winner, [Domino::ALL[0]; 4], 0, obs, expand).add_line(&inc);
+        return Some(
+            walk(
+                ctx,
+                bag,
+                winner,
+                [Domino::ALL[0]; 4],
+                0,
+                obs,
+                expand,
+                budget,
+            )?
+            .add_line(&inc),
+        );
     }
     let seat = leader.plus(k);
     let led = (k > 0).then(|| ctx.decl.led_context(tiles[0]));
@@ -131,7 +159,8 @@ pub(crate) fn walk(
             !chosen.is_empty() && chosen.is_subset_of(legal),
             "an information-consistent choice is a nonempty legal subset"
         );
-        return Envelope::max_of(chosen.iter().map(|d| {
+        let mut children = Vec::new();
+        for d in chosen.iter() {
             let bag: Vec<Particle> = bag
                 .iter()
                 .map(|p| {
@@ -143,10 +172,11 @@ pub(crate) fn walk(
             let mut tiles = tiles;
             tiles[k] = d;
             obs.push(d);
-            let out = walk(ctx, &bag, leader, tiles, k + 1, obs, expand);
+            let out = walk(ctx, &bag, leader, tiles, k + 1, obs, expand, budget);
             obs.pop();
-            out
-        }));
+            children.push(out?);
+        }
+        return Some(Envelope::max_of(children));
     }
     // A field seat: chance over its world-relative legal set.
     let legals: Vec<DominoSet> = bag
@@ -173,10 +203,11 @@ pub(crate) fn walk(
         let mut tiles = tiles;
         tiles[k] = d;
         obs.push(d);
-        sum = sum.add(&walk(ctx, &child, leader, tiles, k + 1, obs, expand));
+        let out = walk(ctx, &child, leader, tiles, k + 1, obs, expand, budget);
         obs.pop();
+        sum = sum.add(&out?);
     }
-    sum
+    Some(sum)
 }
 
 /// An opaque name for one future focal information state of one
@@ -200,8 +231,19 @@ pub struct InfoPartition {
 impl InfoPartition {
     /// Enumerates the reachable future focal information states after `root`
     /// by one full traversal. The direction is irrelevant to the tree shape,
-    /// so the bare trick differential is used internally.
-    pub fn build(kernel: &Kernel, root: Domino) -> InfoPartition {
+    /// so the bare trick differential is used internally. Budgeted (freeze
+    /// 44): `None` on exhaustion, nothing partial retained. The state cap
+    /// (freeze 44(e), P_max) is checked at each insertion; on exceedance the
+    /// walk is stopped promptly by poisoning the budget, `cap_hit` is set,
+    /// and `None` is returned -- PG-A13 governs: no partial partition, no
+    /// bound.
+    pub fn build(
+        kernel: &Kernel,
+        root: Domino,
+        budget: &mut u64,
+        state_cap: usize,
+        cap_hit: &mut bool,
+    ) -> Option<InfoPartition> {
         let dir = Direction::trick_diff();
         let ctx = WalkCtx::new(kernel, kernel.viewer().team(), &dir);
         let bag = root_bag(kernel, root);
@@ -209,7 +251,9 @@ impl InfoPartition {
         let mut legal_by_id: Vec<DominoSet> = Vec::new();
         let mut nodes_by_id: Vec<usize> = Vec::new();
         let mut obs = vec![root];
-        walk(
+        let cell = Cell::new(*budget);
+        let mut hit = false;
+        let out = walk(
             &ctx,
             &bag,
             ctx.viewer,
@@ -217,6 +261,11 @@ impl InfoPartition {
             1,
             &mut obs,
             &mut |record, legal, nodes| {
+                if legal_by_id.len() >= state_cap {
+                    hit = true;
+                    cell.set(0);
+                    return legal;
+                }
                 let id = InfoStateId(u32::try_from(legal_by_id.len()).expect("state count"));
                 let prev = index.insert(record.to_vec(), id);
                 assert!(prev.is_none(), "each observation record is reached once");
@@ -224,13 +273,20 @@ impl InfoPartition {
                 nodes_by_id.push(nodes);
                 legal
             },
+            &cell,
         );
-        InfoPartition {
+        *budget = cell.get();
+        *cap_hit = hit;
+        if hit {
+            return None;
+        }
+        out?;
+        Some(InfoPartition {
             root,
             index,
             legal: legal_by_id,
             nodes: nodes_by_id,
-        }
+        })
     }
 
     pub const fn root(&self) -> Domino {
@@ -342,7 +398,8 @@ pub fn policy_value_receipt(
     dir: &Direction,
     partition: &InfoPartition,
     policy: &Policy,
-) -> (Line, MaxFreeReceipt) {
+    budget: &mut u64,
+) -> Option<(Line, MaxFreeReceipt)> {
     assert_eq!(
         partition.root(),
         policy.root(),
@@ -354,6 +411,7 @@ pub fn policy_value_receipt(
     let mut focal_states: u64 = 0;
     let mut singleton_expansions: u64 = 0;
     let mut seen: std::collections::BTreeSet<InfoStateId> = std::collections::BTreeSet::new();
+    let cell = Cell::new(*budget);
     let env = walk(
         &ctx,
         &bag,
@@ -372,20 +430,23 @@ pub fn policy_value_receipt(
             singleton_expansions += 1;
             chosen
         },
+        &cell,
     );
+    *budget = cell.get();
+    let env = env?;
     let n = i128::try_from(kernel.count()).expect("fiber sizes fit i128");
     let env = env.scale(q(1, n));
     // Cheap invariant only: vacuous as a receipt at a zero-slope direction
     // (SEP-A13); the counted receipt above is the reported object.
     assert!(env.is_affine(), "one deterministic policy induces one line");
-    (
+    Some((
         env.pieces()[0].line,
         MaxFreeReceipt {
             focal_states,
             singleton_expansions,
             distinct_states: u64::try_from(seen.len()).expect("state count"),
         },
-    )
+    ))
 }
 
 /// `policy_value_receipt` without the receipt, for callers that only need
@@ -396,6 +457,7 @@ pub fn policy_value(
     dir: &Direction,
     partition: &InfoPartition,
     policy: &Policy,
-) -> Line {
-    policy_value_receipt(kernel, focal, dir, partition, policy).0
+    budget: &mut u64,
+) -> Option<Line> {
+    policy_value_receipt(kernel, focal, dir, partition, policy, budget).map(|(l, _)| l)
 }

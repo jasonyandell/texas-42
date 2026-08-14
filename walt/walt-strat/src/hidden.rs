@@ -21,31 +21,43 @@ use walt_kernel::Kernel;
 use crate::direction::Direction;
 use crate::info::{root_bag, root_tiles, walk, WalkCtx};
 
+/// `Q^H(a)` per root action beside its walk's residual budget.
+pub type HiddenRootValues = (Vec<(Domino, Envelope)>, Vec<u64>);
+
 /// `Q^H(a; lambda)` for every root action of the viewer, in ascending domino
 /// order: the exact hidden-treatment action values.
+///
+/// Budgeted (freeze 44): each root action's walk gets a FRESH budget of
+/// `per_action_budget` walk-steps (the freeze-44(e) constant B is per
+/// (coordinate, action)); on any action's exhaustion the whole call returns
+/// `None` with nothing partial. On completion the per-action residuals are
+/// returned beside the values for R-A18-style non-binding assertions.
 pub fn hidden_root_values(
     kernel: &Kernel,
     focal: Team,
     dir: &Direction,
-) -> Vec<(Domino, Envelope)> {
+    per_action_budget: u64,
+) -> Option<HiddenRootValues> {
     let ctx = WalkCtx::new(kernel, focal, dir);
     let n = i128::try_from(kernel.count()).expect("fiber sizes fit i128");
-    kernel
-        .viewer_hand()
-        .iter()
-        .map(|a| {
-            let bag = root_bag(kernel, a);
-            let mut obs = vec![a];
-            let env = walk(
-                &ctx,
-                &bag,
-                ctx.viewer,
-                root_tiles(a),
-                1,
-                &mut obs,
-                &mut |_, legal, _| legal,
-            );
-            (a, env.scale(q(1, n)))
-        })
-        .collect()
+    let mut values = Vec::new();
+    let mut residuals = Vec::new();
+    for a in kernel.viewer_hand().iter() {
+        let bag = root_bag(kernel, a);
+        let mut obs = vec![a];
+        let budget = std::cell::Cell::new(per_action_budget);
+        let env = walk(
+            &ctx,
+            &bag,
+            ctx.viewer,
+            root_tiles(a),
+            1,
+            &mut obs,
+            &mut |_, legal, _| legal,
+            &budget,
+        )?;
+        values.push((a, env.scale(q(1, n))));
+        residuals.push(budget.get());
+    }
+    Some((values, residuals))
 }

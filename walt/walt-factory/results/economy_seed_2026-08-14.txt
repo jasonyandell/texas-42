@@ -146,5 +146,5 @@ FENCES: R-A2 (fiber members are FEASIBLE, never reachable; nothing here is ident
     arm T entry (idx=2599418, root 11) -> image root 00: L = 15/14 = source Q^H(a⋆) — receipt HELD (g = 0 by theorem); R5 59268 = 59268 = 59268 (of 109788)
     arm T entry (idx=2599418, root 22) -> image root 11: L = 15/14 = source Q^H(a⋆) — receipt HELD (g = 0 by theorem); R5 59268 = 59268 = 59268 (of 98628)
 
-total wall-clock (provenance only, never a dividend): 16183 ms
+total wall-clock (provenance only, never a dividend): 16630 ms
 run complete: yes

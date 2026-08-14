@@ -49,5 +49,5 @@ pub use info::{
 pub use label::{OperatorLabel, WeightingLabel};
 pub use pi::pi_root_values;
 pub use price::{information_prices, upper_value, zero_information, InfoPrices};
-pub use revealed::{revealed_summary, revealed_world_root_values, RevealedSummary};
+pub use revealed::{revealed_summary, revealed_world_root_values, RevealedStop, RevealedSummary};
 pub use scalar::{scalar_census, scalar_fiber_census, ScalarCensus, ScalarPi, ScalarValuation};

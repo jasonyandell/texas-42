@@ -52,6 +52,13 @@ use walt_strat::{
 /// Freeze 26: the concrete authority and its budget.
 const AUTHORITY_BUDGET: u64 = 200_000_000;
 
+/// Freeze 44(e): B walk-steps per (coordinate, action); 4B whole-call for
+/// `revealed_summary`. Non-binding ceilings at grade 3, asserted in-run.
+const B_WALK: u64 = 10_000_000_000;
+const B_WALK_4: u64 = 40_000_000_000;
+/// Freeze 44(e): the partition-state cap, checked at each insertion.
+const P_MAX: usize = 32_000_000;
+
 const GRADE: usize = 3;
 const SRC_PIP: u8 = 0;
 
@@ -468,7 +475,14 @@ fn coord_exact(out: &mut String, itf: Interface) -> CoordExact {
         panic!("DECLARED STOP: authority budget {AUTHORITY_BUDGET} exceeded; correctness gate unmet (R-A18) — this run's coordinates were chosen for checkability and a stop here is stop-and-report")
     });
     let dir = Direction::trick_diff();
-    let prices = information_prices(&kernel, Seat::S0.team(), &dir);
+    let mut rb = B_WALK_4;
+    let mut rstop = None;
+    let prices = information_prices(&kernel, Seat::S0.team(), &dir, B_WALK, &mut rb, &mut rstop)
+        .expect("freeze-44 budgets non-binding at grade 3");
+    for r in &prices.h_residuals {
+        assert!(*r > 0, "H residual strictly positive");
+    }
+    assert!(rb > 0, "revealed residual strictly positive");
     let actions: Vec<Domino> = kernel.viewer_hand().iter().collect();
     assert_eq!(
         av.len(),
@@ -541,7 +555,11 @@ fn extract(
         &mut choices,
         &mut states,
     );
-    let partition = InfoPartition::build(&ce.kernel, root);
+    let mut pb = B_WALK;
+    let mut cap_hit = false;
+    let partition = InfoPartition::build(&ce.kernel, root, &mut pb, P_MAX, &mut cap_hit)
+        .expect("freeze-44 budget non-binding");
+    assert!(!cap_hit && pb > 0, "partition residual strictly positive");
     assert_eq!(
         choices.len(),
         partition.len(),
@@ -577,8 +595,17 @@ fn price(
     policy: &Policy,
 ) -> (Q, walt_strat::MaxFreeReceipt) {
     let dir = Direction::trick_diff();
-    let (line, receipt) =
-        policy_value_receipt(&ce.kernel, Seat::S0.team(), &dir, partition, policy);
+    let mut lb = B_WALK;
+    let (line, receipt) = policy_value_receipt(
+        &ce.kernel,
+        Seat::S0.team(),
+        &dir,
+        partition,
+        policy,
+        &mut lb,
+    )
+    .expect("freeze-44 budget non-binding");
+    assert!(lb > 0, "L-walk residual strictly positive");
     assert_eq!(
         receipt.focal_states, receipt.singleton_expansions,
         "R5: every focal expansion was a singleton"
@@ -757,9 +784,19 @@ fn main() {
             );
         }
         let dirn = Direction::trick_diff();
-        let gap_diff = information_prices(&ce.kernel, Seat::S0.team(), &dirn)
-            .g_total
-            .eval(qi(0));
+        let mut rb2 = B_WALK_4;
+        let mut rstop2 = None;
+        let gap_diff = information_prices(
+            &ce.kernel,
+            Seat::S0.team(),
+            &dirn,
+            B_WALK,
+            &mut rb2,
+            &mut rstop2,
+        )
+        .expect("freeze-44 budgets non-binding at grade 3")
+        .g_total
+        .eval(qi(0));
         assert_eq!(
             gap_diff * q(1, 2),
             q(filed_gap.0, filed_gap.1),
@@ -1061,7 +1098,14 @@ fn main() {
                         rec.iter().map(|d| phi_tile(SRC_PIP, p_dst, *d)).collect();
                     mapped.insert(mrec, phi_tile(SRC_PIP, p_dst, *ch));
                 }
-                let ipart = InfoPartition::build(&ice.kernel, fa);
+                let mut ipb = B_WALK;
+                let mut icap = false;
+                let ipart = InfoPartition::build(&ice.kernel, fa, &mut ipb, P_MAX, &mut icap)
+                    .expect("freeze-44 budget non-binding");
+                assert!(
+                    !icap && ipb > 0,
+                    "image partition residual strictly positive"
+                );
                 let ipol = policy_from_map(&ipart, &mapped);
                 let (l_t, r_t) = price(&ice, &ipart, &ipol);
                 assert_eq!(

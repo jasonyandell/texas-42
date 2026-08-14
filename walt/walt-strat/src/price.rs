@@ -12,7 +12,7 @@ use walt_kernel::Kernel;
 
 use crate::direction::Direction;
 use crate::hidden::hidden_root_values;
-use crate::revealed::{revealed_summary, RevealedSummary};
+use crate::revealed::{revealed_summary, RevealedStop, RevealedSummary};
 
 /// `V` from the root values: the upper envelope over actions.
 pub fn upper_value(roots: &[(Domino, Envelope)]) -> Envelope {
@@ -44,12 +44,32 @@ pub struct InfoPrices {
     pub g_root: Envelope,
     /// `G^total = V^F - V^H`.
     pub g_total: Envelope,
+    /// Per-action residual budgets of the H walks (freeze 44; for
+    /// non-binding assertions).
+    pub h_residuals: Vec<u64>,
+    /// Per-action walk-step subtotals of the revealed pass (SEP-A19(b)'s
+    /// typing class).
+    pub revealed_action_steps: Vec<(Domino, u64)>,
 }
 
-/// Runs H, C, and F and forms every §10.5 price.
-pub fn information_prices(kernel: &Kernel, focal: Team, dir: &Direction) -> InfoPrices {
-    let q_h = hidden_root_values(kernel, focal, dir);
-    let RevealedSummary { q_c, v_f } = revealed_summary(kernel, focal, dir);
+/// Runs H, C, and F and forms every §10.5 price. Budgeted (freeze 44):
+/// `per_action_budget` for each H walk, `revealed_budget` whole-call for the
+/// revealed pass; `None` on any exhaustion, the assertions firing only on a
+/// complete result.
+pub fn information_prices(
+    kernel: &Kernel,
+    focal: Team,
+    dir: &Direction,
+    per_action_budget: u64,
+    revealed_budget: &mut u64,
+    revealed_stop: &mut Option<RevealedStop>,
+) -> Option<InfoPrices> {
+    let (q_h, h_residuals) = hidden_root_values(kernel, focal, dir, per_action_budget)?;
+    let RevealedSummary {
+        q_c,
+        v_f,
+        action_steps: revealed_action_steps,
+    } = revealed_summary(kernel, focal, dir, revealed_budget, revealed_stop)?;
     let g_cont_by_root: Vec<(Domino, Envelope)> = q_h
         .iter()
         .zip(&q_c)
@@ -72,7 +92,7 @@ pub fn information_prices(kernel: &Kernel, focal: Team, dir: &Direction) -> Info
         g_cont.add(&g_root),
         "the §10.5 exact decomposition"
     );
-    InfoPrices {
+    Some(InfoPrices {
         q_h,
         q_c,
         v_h,
@@ -82,5 +102,7 @@ pub fn information_prices(kernel: &Kernel, focal: Team, dir: &Direction) -> Info
         g_cont,
         g_root,
         g_total,
-    }
+        h_residuals,
+        revealed_action_steps,
+    })
 }

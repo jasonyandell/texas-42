@@ -26,6 +26,9 @@ fn d(s: &str) -> Domino {
 }
 
 /// The §14.5 kernel: receipt hand 0, start of trick 5, S1 on lead.
+/// A non-binding freeze-44 budget for these test kernels.
+const BUDGET: u64 = 10_000_000_000;
+
 fn trick5_kernel() -> Kernel {
     let r = receipt();
     Kernel::from_receipt_trick(&r.hands[0], 5).expect("a valid kernel")
@@ -95,7 +98,8 @@ fn the_domain_is_the_reported_one() {
 fn hidden_treatment_reproduces_the_exp3b_record() {
     let k = trick5_kernel();
     for tile in FREE {
-        let solved = hidden_root_values(&k, Team::T1, &dir_for(tile));
+        let (solved, _residuals) =
+            hidden_root_values(&k, Team::T1, &dir_for(tile), BUDGET).expect("non-binding");
         let actions: Vec<Domino> = solved.iter().map(|(a, _)| *a).collect();
         assert_eq!(actions, vec![d("0-0"), d("2-1"), d("3-2")]);
 
@@ -135,7 +139,9 @@ fn hidden_treatment_reproduces_the_exp3b_record() {
 fn hidden_control_directions_are_affine() {
     let k = trick5_kernel();
     for tile in CONTROL {
-        for (a, e) in hidden_root_values(&k, Team::T1, &dir_for(tile)) {
+        let (solved, _residuals) =
+            hidden_root_values(&k, Team::T1, &dir_for(tile), BUDGET).expect("non-binding");
+        for (a, e) in solved {
             assert!(e.is_affine(), "Q^H({a:?}) under control direction {tile}");
         }
     }
@@ -152,7 +158,10 @@ fn hidden_control_directions_are_affine() {
 fn continuation_revelation_reproduces_the_exp4a_record() {
     let k = trick5_kernel();
     for tile in FREE {
-        let p = information_prices(&k, Team::T1, &dir_for(tile));
+        let mut rb = BUDGET;
+        let mut stop = None;
+        let p = information_prices(&k, Team::T1, &dir_for(tile), BUDGET, &mut rb, &mut stop)
+            .expect("non-binding");
         exp4a_free_direction_checks(&p, tile);
     }
 }
@@ -216,7 +225,10 @@ fn control_directions_under_revelation_match_the_record() {
     let k = trick5_kernel();
     let mut multisegment = 0;
     for tile in CONTROL {
-        let p = information_prices(&k, Team::T1, &dir_for(tile));
+        let mut rb = BUDGET;
+        let mut stop = None;
+        let p = information_prices(&k, Team::T1, &dir_for(tile), BUDGET, &mut rb, &mut stop)
+            .expect("non-binding");
 
         // Direction-independent at lambda = 0 (the tile term vanishes).
         assert_eq!(p.g_cont.eval(qi(0)), q(19, 105));
@@ -255,7 +267,10 @@ fn information_state_counts_match_the_record() {
         ("3-2", 504, 164088),
     ];
     for (root, choices, total) in reported {
-        let p = InfoPartition::build(&k, d(root));
+        let mut pb = BUDGET;
+        let mut cap_hit = false;
+        let p = InfoPartition::build(&k, d(root), &mut pb, usize::MAX, &mut cap_hit)
+            .expect("non-binding");
         assert_eq!(p.choice_states(), choices, "§14.5 count after {root}");
         assert_eq!(p.len(), total, "walt-tier total after {root}");
         // The partition is a derived view of the fiber: every state pools at
@@ -278,7 +293,10 @@ fn information_state_counts_match_the_record() {
 fn a_trump_first_policy_attains_the_hidden_optimum_after_2_1() {
     let k = trick5_kernel();
     let dir = dir_for("4-1");
-    let partition = InfoPartition::build(&k, d("2-1"));
+    let mut pb = BUDGET;
+    let mut cap_hit = false;
+    let partition =
+        InfoPartition::build(&k, d("2-1"), &mut pb, usize::MAX, &mut cap_hit).expect("non-binding");
     let trump = d("3-2");
 
     let trump_first = Policy::build(&partition, |_, legal| {
@@ -288,7 +306,9 @@ fn a_trump_first_policy_attains_the_hidden_optimum_after_2_1() {
             legal.iter().next().expect("nonempty")
         }
     });
-    let line = policy_value(&k, Team::T1, &dir, &partition, &trump_first);
+    let mut lb = BUDGET;
+    let line =
+        policy_value(&k, Team::T1, &dir, &partition, &trump_first, &mut lb).expect("non-binding");
     assert_eq!((line.a, line.b), (q(5, 3), q(20, 21)), "equals Q^H(2:1)");
 
     // Any other information-consistent policy is dominated pointwise; the
@@ -297,10 +317,13 @@ fn a_trump_first_policy_attains_the_hidden_optimum_after_2_1() {
     let blank_first = Policy::build(&partition, |_, legal| {
         legal.iter().next().expect("nonempty")
     });
-    let worse = policy_value(&k, Team::T1, &dir, &partition, &blank_first);
+    let mut wb = BUDGET;
+    let worse =
+        policy_value(&k, Team::T1, &dir, &partition, &blank_first, &mut wb).expect("non-binding");
     assert_eq!((worse.a, worse.b), (q(1, 3), q(67, 360)));
 
-    let q_h_2_1 = &hidden_root_values(&k, Team::T1, &dir)[1].1;
+    let (hrv, _residuals) = hidden_root_values(&k, Team::T1, &dir, BUDGET).expect("non-binding");
+    let q_h_2_1 = &hrv[1].1;
     for x in [qi(0), q(7, 19), qi(1), qi(5)] {
         assert_eq!(line.eval(x), q_h_2_1.eval(x));
         assert!(worse.eval(x) < q_h_2_1.eval(x));

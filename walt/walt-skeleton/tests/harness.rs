@@ -77,7 +77,10 @@ fn the_tree_refines_the_s3_information_partition_worldwise() {
     let tree = KernelTree::build(&k, ScalarValuation::trick_plus_count());
     let mut future = 0usize;
     for a in k.viewer_hand().iter() {
-        let partition = InfoPartition::build(&k, a);
+        let mut budget: u64 = 1_000_000_000;
+        let mut cap_hit = false;
+        let partition = InfoPartition::build(&k, a, &mut budget, usize::MAX, &mut cap_hit)
+            .expect("non-binding");
         let mut by_record: std::collections::BTreeMap<&[Domino], usize> =
             std::collections::BTreeMap::new();
         for node in &tree.nodes {

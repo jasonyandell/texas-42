@@ -12,6 +12,9 @@ use walt_geom::{q, Line};
 use walt_kernel::Kernel;
 use walt_strat::{hidden_root_values, pi_census, revealed_summary, Direction, InfoPartition};
 
+/// A non-binding freeze-44 budget for these small test kernels.
+const BUDGET: u64 = 1_000_000_000;
+
 fn receipt() -> Receipt {
     let path = locate_verify_player().expect("rob/receipts/verify_player.txt above the workspace");
     parse_file(&path).expect("the receipt parses")
@@ -57,7 +60,8 @@ fn the_domain_is_the_reported_one() {
 #[test]
 fn hidden_treatment_matches_the_report() {
     let k = trick6_kernel();
-    let solved = hidden_root_values(&k, Team::T1, &direction());
+    let (solved, _residuals) =
+        hidden_root_values(&k, Team::T1, &direction(), BUDGET).expect("budget non-binding");
     let lines: Vec<(Domino, Line)> = solved
         .iter()
         .map(|(a, e)| {
@@ -82,8 +86,12 @@ fn hidden_treatment_matches_the_report() {
 #[test]
 fn revelation_is_worthless_without_post_root_choice() {
     let k = trick6_kernel();
-    let hidden = hidden_root_values(&k, Team::T1, &direction());
-    let revealed = revealed_summary(&k, Team::T1, &direction());
+    let (hidden, _residuals) =
+        hidden_root_values(&k, Team::T1, &direction(), BUDGET).expect("budget non-binding");
+    let mut rb = BUDGET;
+    let mut stop = None;
+    let revealed =
+        revealed_summary(&k, Team::T1, &direction(), &mut rb, &mut stop).expect("non-binding");
     assert_eq!(hidden, revealed.q_c);
     // Root revelation is different: choosing the root per world is exactly
     // the strategy-fusion relaxation (§7.6), which no absence of post-root
@@ -94,7 +102,10 @@ fn revelation_is_worthless_without_post_root_choice() {
         .is_nonnegative());
 
     for a in k.viewer_hand().iter() {
-        let partition = InfoPartition::build(&k, a);
+        let mut pb = BUDGET;
+        let mut cap_hit = false;
+        let partition =
+            InfoPartition::build(&k, a, &mut pb, usize::MAX, &mut cap_hit).expect("non-binding");
         assert_eq!(partition.choice_states(), 0, "the last tile is forced");
         assert!(
             !partition.is_empty(),

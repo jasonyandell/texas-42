@@ -4,7 +4,7 @@ regenerate: cargo run --release -p walt-factory --example separation_probe
 
 PRIMAL CEILING (SEP-A2, verbatim): the primal witness at each H-optimal action is an H-optimal policy re-priced by the fixed-policy evaluator, so L = Q^H by Corollary E4.1(2); the separation verdict at this coordinate is determined entirely by the upper witness.
 PROVENANCE TYPING (SEP-A12): the separation's validity does not cite H, but this run's witnesses were produced with H's help — L's seed is an H solve and receipts R1-R4 are H cross-checks; the logic of Theorem E6.4 is H-free, the provenance of these witnesses is not.
-BUDGET HONESTY (freeze 37(h)): the scalar authority is budgeted (freeze 26, 200000000 particle-steps) and its exhaustion is a declared stop; hidden/revealed/price/policy_value carry no budget and no stop.
+BUDGET HONESTY (freeze 44): the scalar authority is budgeted (freeze 26, 200000000 particle-steps) and its exhaustion is a declared stop; the walk-based evaluators carry declared budgets under freeze 44; in this run every declared budget was asserted non-binding and every residual asserted strictly positive.
 SCOPE: this run is a certification probe, not a library harvest (six of the seven S6b singleton roots collapse by indifference); the n=4 rung is out of v1 scope (SEP-A10). No cost, timing, runtime or tractability claim of any kind (SEP-A15(iii)); wall-clock below is provenance only.
 FENCE (R-A2, SEP-A1): the fiber is the void-free capacity fiber; its members are FEASIBLE and never reachable; no object here is identity-bearing and none asserts that any state arises in play. Relaxation naming (SEP-A6(b)): on this carrier the latent is xi = omega, so treatment C and the document's C+ coincide.
 
@@ -59,5 +59,5 @@ FENCE (R-A2, SEP-A1): the fiber is the void-free capacity fiber; its members are
   pair (a*=22, a=42): L = 15/14  U = 43/42  margin L - U = 1/21  -> SEPARATED
   VERDICT: root action 22 SEPARATED against every competitor — 22 is in Opt^H at this coordinate. Receipt: the action lies in H's argmax (asserted). MEMBER-NOT-SET (Theorem E6.4, verbatim): non-strict separation certifies membership in the optimal set and never uniqueness.
 
-total wall-clock (provenance only, never a dividend): 3942 ms
+total wall-clock (provenance only, never a dividend): 4000 ms
 run complete: yes
