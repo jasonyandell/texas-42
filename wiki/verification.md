@@ -1,8 +1,8 @@
 # Verification Scripts and Fresh-Run Results
 
 [Home](Home.md) · owns: every verifier and receipt — ingest Python, rob Rust
-(slices 01+02, all eleven receipts), exchange program runs. Fresh ingest runs
-2026-07-26, Python 3.12, this machine.
+(slices 01+02, all twelve receipts), exchange program runs. Fresh ingest runs
+2026-07-26, Python 3.12, this machine. Related: [rob](rob.md).
 
 ## Status: everything passes
 
@@ -266,6 +266,32 @@ seed 42: 13 hands, T0 7–6 T1. Like `FROZEN_WITH_VOIDS` above, this is a
 HTML inspector (`rob/inspector/`) renders the same trace per-seat with exact fiber
 counts, marginals, decision values, trump display, and shareable URL-hash state; the
 JS recomputes no game logic — everything is emitted from Rust.
+
+### The twelfth receipt: the player track (`verify_rob`)
+
+**Count correction, 2026-08-13.** This page and three others said "eleven
+receipts". `rob/receipts/` holds **twelve** files, and `rob/ci/check.sh` byte-diffs
+all of them (`for expected in receipts/verify_*.txt`), so the twelfth is gated
+exactly like the rest. The uncounted one is `rob/receipts/verify_rob.txt`.
+
+It is a single file carrying all five player-track stages, each with its own PASS
+line: P1 self-play and determinism (108 hands, 3,024 plays, 42×108 conserved; 108
+traces byte-equal); P2 the position corpus and its fiber bounds (756 positions;
+the 399,072,960 / 17,153,136 / 756,756 / 34,650 / 1,680 / 90 / 6 ladder;
+44,722,908,161 census); P3 the solver agreements (known-world, brute-force,
+undominated, conservation over 58,609,267 nodes, double-solve byte-equality,
+cross-engine); P4 the match rig — including `r_mat_paired`, **200 hands, net
++718**, the number several pages already quote without naming its receipt — and
+the window ablation; P5 plan-book round-trip and trace embedding.
+
+Tier, unchanged: this is a **rob conformance receipt**, evidence and never a status
+change, and its self-play and match figures are determinism freezes of rob's own
+construction rather than ingest-corpus numbers — the same standing as
+`FROZEN_WITH_VOIDS` and the `verify_player` transcript above. One tier inversion is
+worth recording: before this correction, `verify_rob.txt`'s only mention anywhere in
+the wiki was in [idea-hierarchical-fibers](idea-hierarchical-fibers.md), an
+**ideas**-tier page — a tier-4 receipt documented only below every tier. It is
+inventoried here now, which is where it belongs.
 
 ## Exchange-adjudicated program runs (external evidentiary tier)
 

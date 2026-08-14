@@ -184,7 +184,7 @@ not yet mechanized — the risk is a scope gap, not a known bug):
 
 See [first-implementation-slice](first-implementation-slice.md) for the original
 assignment. *Status: steps 1–5 below are executed and green (rob slices 01+02,
-eleven byte-diffed receipts — [verification](verification.md)); step 6's
+twelve byte-diffed receipts — [verification](verification.md)); step 6's
 belief/filtering layer with the 90-world posterior regression remains for a later
 slice (S3 already reproduces the witness's support side).* Order of construction,
 with the reason:
