@@ -350,6 +350,28 @@ evolved this project's own receipt/TRUST-01 discipline.
   the economy successor (non-exact seeds + Lemma E7 transport) is
   named at SEP-A17 and needs its own adjudication.
 
+- **S6e** (2026-08-14): the economy-seed probe — SEP-A17's successor,
+  adjudicated EC-A1..EC-A14 (freeze 46 closed arm list; freeze 36 v2
+  transport for the declaration fold; Corollary S-fold-val delivered).
+  **CERTIFIED-CHEAP at both positive-slack coordinates**: at idx=0,
+  greatest-tile and trump-hoard certify the lead at economy gap ZERO
+  (both independently reproduce the dominant playbook), while
+  least-tile/beat-if-able miss by 3/7 — sixteen times the slack; the
+  zero-slack control fired as the pre-declared theorem. The PRIMAL half
+  of the economy claim is exercised; the full claim needs the U side
+  cheapened (EC-A13 — Experiment D, freeze 38 reserved).
+
+- **S6f** (2026-08-14): freeze-44 budgeted evaluators ((R0) blocking
+  regression PASSED — grade-3 receipt reproduced with exactly the two
+  permitted differences) and the n4 §5 measured rung: **NO-GO, gate
+  failure filed as a result** (the measured cost model SEP-A10(i)
+  demanded). U side affordable (~4.3B of 40B walk-steps); blocking:
+  partition at (h0,00) exceeds P_max = 32M states, and est largest-unit
+  wall ~58 min vs the 10-min gate; the declared fallback {h6,h4,h8}
+  fails its own arithmetic at h8. Per N4-A12(c): RETURN to the rulings
+  file. The n4 machinery (tiers, checkpointing, DS-A36 blocks) is built
+  and committed, gated behind that return.
+
 ## Next
 
 - **The compression program (v0.5 — the goal, reset 2026-08-10; first

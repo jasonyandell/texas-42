@@ -191,3 +191,27 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   the parent's economy claim). Seven of nine per-action information prices are
   exactly zero, and the two nonzero prices sit precisely at the two
   frontier-explosion leads. Next per SEP-A17: the economy-claim successor.
+- **S6e (2026-08-14)**: the economy-seed probe — SEP-A17's successor, adjudicated
+  EC-A1..EC-A14 (freeze 46; freeze 36 v2 opens transport for the declaration fold
+  under the new Corollary S-fold-val). **CERTIFIED-CHEAP at both positive-slack
+  coordinates**: at idx=0, greatest-tile and trump-hoard — two four-word rules —
+  independently reproduce the dominant playbook's cash-the-boss, hoard-the-trump
+  line and certify the lead at economy gap zero, while least-tile and beat-if-able
+  fail by 3/7, sixteen times the slack; at the tight rung every cheap arm
+  certifies (the indifference-collapsed coordinate); the zero-slack control fired
+  as the pre-declared theorem (SEED EXACTLY OPTIMAL, NOT ECONOMY). Nine fold-image
+  coordinates all receipt-clean. **The PRIMAL half of the economy claim is
+  exercised; the full claim still needs the U side cheapened** (EC-A13, Experiment
+  D territory). Details: [walt-s6-era](../wiki/walt-s6-era.md).
+- **S6f (2026-08-14)**: the freeze-44 budget refactor and the n4 §5 measured rung
+  — N4-A1..N4-A12. Every walk-based evaluator now carries a deterministic
+  walk-step budget with declared stops; **(R0), blocking, PASSED**: the filed
+  grade-3 receipt reproduced with exactly the two enumerated permitted
+  differences. The rung (W=1, M_max = 40 GiB run-owner declared): **NO-GO — the
+  gate failure is filed as a result**, the measured cost model SEP-A10(i)
+  demanded. The U side is affordable (est 4.33B walk-steps of the 40B budget);
+  the blocking objects are the partition at (h0, 00), which EXCEEDS P_max =
+  32,000,000 states (the 24.8M estimate was under), and per-unit wall (~58 min
+  est at h9 vs the 10-minute gate). The declared fallback {h6, h4, h8} fails its
+  own gate arithmetic at h8 (~648s vs 600s), so per N4-A12(c) this returns to the
+  rulings file. Details: [walt-s6-era](../wiki/walt-s6-era.md).

@@ -375,6 +375,65 @@ L from a **non-exact** source and ask whether the sandwich still closes — see
 
 ---
 
+## S6e — 2026-08-14: the economy-seed probe (SEP-A17's successor)
+
+**The question.** Does the sandwich close on a primal witness that is *not* an exact solve? Adjudicated as
+EC-A1..EC-A14 (freeze 46, the closed arm list; freeze 36 v2, opening transport for the declaration fold under the
+newly delivered **Corollary S-fold-val** — value transport along the fold is reading-independent, so every fold image
+is a receipt, and the design's proposed S-A2 diagnostic was rejected as measuring nothing). The central instrument is
+the slack identity (R8): a seed separates **iff** its economy gap g = Q^H(a⋆) − L ≤ the certification slack
+s(a⋆) = Q^H(a⋆) − max U — and s was already exact from S6d's margin column, so the whole reading was pre-declared
+to the last rational before any seed existed: idx = 0 loose at 59/2240, idx = 1299709 tight at 1/63, idx = 2599418 a
+zero-slack control where only an exactly-optimal seed can separate, by theorem.
+
+**The result** (`economy_seed_2026-08-14.txt`, all receipts held, nine fold-image coordinates receipt-clean):
+**CERTIFIED-CHEAP at both positive-slack coordinates.** At idx = 0 — the coordinate with 384 genuinely free decision
+states — **P2 greatest-tile and P4 trump-hoard certify the lead at economy gap zero**: two four-word rules
+independently reproduce the dominant playbook's cash-the-boss, hoard-the-trump line everywhere it matters, while P1
+least-tile and P3 beat-if-able fail by 3/7 of a trick, sixteen times the slack — exactly matching the S6c/S6b
+diagnostic that the playbook disagrees with both. At the tight rung every cheap arm certifies (the
+indifference-collapsed coordinate: any lawful continuation attains Q^H, and the root choice is carried by the fixed
+a⋆). The zero-slack control fired as pre-declared: **ZERO-SLACK: SEED EXACTLY OPTIMAL (NOT ECONOMY)**. The re-key arm
+ran fenced (HEURISTIC RE-KEY, NOT A TRANSPORT) with its fallback counts printed — essentially all-P1 at the other
+coordinates, which is itself honest data about how little a record correspondence carries between unrelated hands.
+
+**Scope, exact (EC-A13):** the **primal half** of the parent's economy claim is exercised — the *witness* at a⋆ need
+not be an exact solve. The run itself still computes U exactly at every competitor and H at every action for its
+receipts. The **full** claim — a solver that avoids exact solves — additionally needs the U side cheapened: Theorem
+E6.5's gluing ladder, Experiment D, freeze 38 still reserved, untested. Any sentence saying "the economy claim was
+tested" without the word *primal* has over-claimed.
+
+## S6f — 2026-08-14: the freeze-44 refactor and the n = 4 gate result
+
+**The build.** N4-A1..N4-A12 fixed freezes 44 and 45, and the refactor landed: every walk-based evaluator now carries
+a deterministic walk-step budget (one unit per (particle, node) visit, the same rule as the scalar authority's
+particle-step) with declared stops and no partial folds; `revealed_summary` takes one whole-call budget and discards
+everything on exhaustion ((C2): a partial fiber sum bounds nothing); the partition build checks P_max at each
+insertion; the freeze-26 bridge is a function of the declared grade. **(R0), the blocking regression, PASSED**: the
+filed grade-3 receipt reproduced under the budgeted evaluators with exactly the two enumerated permitted differences,
+and the candidate library byte-identical.
+
+**The §5 measured rung** (W = 1; M_max = 40 GiB declared by the run owner per N4-A4; decimation prime g = 15,485,863,
+freeze 44(e)): **NO-GO — and the gate failure is filed as a result**, the measured cost model SEP-A10(i) said was
+missing. What it measured: the **U side is affordable** at n = 4 (estimated whole-fiber revealed cost ≈ 4.33 × 10⁹
+walk-steps against the 4 × 10¹⁰ budget); the blocking objects are the **partition** — at (h0, action 0-0) the state
+count exceeds P_max = 32,000,000, where the design's explicitly-labelled estimate said 24.8M — and **per-unit
+wall-clock** (the largest unit extrapolates to ~58 minutes against the ten-minute gate). The declared fallback
+{h6, h4, h8} fails its own gate arithmetic at h8 (~648 s against 600 s by the quoted tree-v0 scaling), and per
+N4-A12(c) a second gate failure is a **return to the rulings file** — no second fallback, no nudging (F7). The n4
+machinery (three-tier H regime, checkpointing with the shared-call clause, DS-A36 blocks, real-deal fences) is built
+and committed, gated behind the return.
+
+**What the failure teaches**, for the return: the sandwich's upper witness scales; the primal pipeline's *state
+enumeration* is what does not — the two-map partition/extraction form and the E4.1 exact-seed route hit their
+declared ceilings one grade above where they were designed. The pre-adjudicated N4-A5 digest fallback halves memory
+but cannot lower a state *count* below P_max; the levers that remain are adjudicator's constants (the ten-minute
+gate, P_max), W-parallelism across units, checkpointed long passes, or a primal route that does not enumerate the
+partition — which is precisely the direction S6e's cheap seeds point (a rule needs no partition to be *stated*; only
+its exact pricing walks the tree).
+
+---
+
 ## Read together
 
 Put S6a beside S6b and the pair says something neither says alone. The **value span is full** — dim V^val saturates
