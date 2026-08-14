@@ -135,6 +135,11 @@ travel with them are on the track page's two chapters.
 | **Proposition SR-degen** | At grade 4 the second rung closes every binding pair **unconditionally**, strictly exactly at the untied ones. **No grade-4 experiment can test closure.** | same section |
 | **Proposition SR-taut** | Which depth-two identities cannot fail. The two structural assertions of the received verifier are identities in its own recomputed quantities and hold for any input whatsoever — arithmetic remarks, never receipts. | same section |
 | **Proposition SR-loc** | Escape is exactly where the safety inequality is strict, so the escape set is precisely the support of a naive witness's error and the error is the sum over that support **and nothing else**. | same section, closing note |
+| **Proposition FF-blind** | An **action-blind fee** removes exactly zero fusion value, at every state and for every coefficient. The penalty-side twin of FT-flat and T1-blind. | `CENSUS-RULINGS.md` § "The feature-fee audition: Jason's control feature, specified" |
+| **Lemma FF-min** | The fee objective is convex piecewise-linear, bounded below, and **exactly minimisable** by enumerating breakpoints — no grid, no search, no float. Supplies two genuine receipts, since the swept minimum and the filed tax are different computations. | same section |
+| **Proposition FF-oracle** | Per-state fees bound shared fees, so **a low capture refutes conclusively and a high capture establishes nothing** about a usable family. Forces the name **oracle-θ capture** on every such column. | same section |
+| **Proposition FF-degen** | **Zero breakpoints is exactly vacuity.** A zero capture with many breakpoints is a measurement; the same zero with none is a tautology. The diagnostic that made a defect catchable from a committed artifact. | same section, first closing note |
+| **Proposition FF-corr** | Exactly what a fee bites on: capture is zero iff zero minimises the objective, which for unique clairvoyant argmax means the centred feature has zero mean along the clairvoyant policy. | same section, second closing note |
 
 ## The ruling families
 
@@ -165,7 +170,8 @@ three, `N4-A` across two — and the family, never the heading, is what inherits
 | `LD-A` | LD-A1..**LD-A13** | Lay downs: the characterization, and the four-laydown question | 2026-08-14 | The family term made exact. Carries **Theorem LD** ((L1) ∧ (L2)), **Corollary LD-fold**, **freeze 48** (the lay-down catalogue), the settled four-laydown question (LD-A11), and LD-A10(ii), which carries T1-A12's risk forward sharpened. |
 | `RW-A` | RW-A1..**RW-A8** | The map-free rule walk, and what h9 already decided | 2026-08-14 | The rule-economy probe at the n = 4 carrier. Carries **freeze 49** (the n4 economy carrier), the closed rule argument list `(record, legal)`, RW-A3's label pair (NOT PRICED / RULE-EVALUATED, never merged), and h9's coordinate verdict filed from the S6h numbers alone. |
 | `FT-A` | FT-A1..**FT-A29** | The fusion tax: inbox 016 adjudicated | 2026-08-14 | The upper side. Carries **Lemma FT-arrive**, **Lemma FT-trunc** + **Corollary FT-grade4**, **Proposition FT-flat**, **Proposition FT-tie**, **Lemma FT-post**, **Corollary FT-conv** and **Lemma FT-mix**; **freeze 38 v1** (FT-A17, the reservation discharged) and **freeze 50 v1.1** (FT-A18, amended at FT-A23 and FT-A24). The closing notes (A23–A28) adjudicate the returned run; **FT-A29** files two self-corrections to the section. |
-| `SR-A` | SR-A1..**SR-A36** | The second rung: inbox 017 adjudicated | 2026-08-14 | The upper side, one rung deeper. Carries **Lemma SR-coord**, **Lemma SR-forced**, **Proposition SR-sep**, **Proposition SR-post**, **Corollary SR-conv**, **Proposition SR-degen**, **Proposition SR-taut** and **Proposition SR-loc**; **freeze 51** (SR-A22, the depth-two carrier) and **freeze 38 v1.1(d)** (SR-A21, a clarification — v1 not amended, v2 not opened). The closing note (A27–A32) adjudicates the returned run and discharges FT-A28 entire; **A33** and **A34** adjudicate two defects the build found in itself, **A35** types the companion's cross-process digest as an audit note, and **A36** records the chapter's first pass with no specification conflict. |
+| `SR-A` | SR-A1..**SR-A37** | The second rung: inbox 017 adjudicated | 2026-08-14 | The upper side, one rung deeper. Carries **Lemma SR-coord**, **Lemma SR-forced**, **Proposition SR-sep**, **Proposition SR-post**, **Corollary SR-conv**, **Proposition SR-degen**, **Proposition SR-taut** and **Proposition SR-loc**; **freeze 51** (SR-A22, the depth-two carrier) and **freeze 38 v1.1(d)** (SR-A21, a clarification — v1 not amended, v2 not opened). The closing note (A27–A32) adjudicates the returned run and discharges FT-A28 entire; **A33** and **A34** adjudicate two defects the build found in itself, **A35** types the companion's cross-process digest as an audit note, **A36** records the chapter's first pass with no specification conflict, and **A37** withdraws a carried obligation that was never owed. |
+| `FF-A` | FF-A1..**FF-A33** | The feature-fee audition: Jason's control feature, specified | 2026-08-14 | Which cheap structural features price the first-layer tax, on a carrier where the perfect answer is filed. Carries **Proposition FF-blind**, **Lemma FF-min**, **Proposition FF-oracle**, **Proposition FF-degen** and **Proposition FF-corr**; **freeze 52** with amendments **v1.1** (FF-A15), **v1.2** (FF-A20), **v1.3** (FF-A23) and **v1.4** (FF-A33). Two closing notes: A10–A24 adjudicate the first run and the defect it exposed, A25–A33 the corrected re-run, the shared-θ fit, and the chapter's close. |
 
 Three numbering traps. **`E-A` and `E-Q` are spent** by the endgame-store section
 of 2026-08-11 — SEP-A had to renumber the separation design's own `E-Q1..E-Q8`
@@ -288,12 +294,60 @@ says "the design" means the one named in its section's opening paragraph.
 
 Pointers only. Nothing below is restated from its source; open the ruling.
 Written for walt-math-11 at the close of the FT chapter and extended the same day
-when walt-math-11 filed the SR chapter; **the SR items are the newest and the
-most likely to be needed.**
+as walt-math-11 filed the SR and FF chapters. **Sections run newest first; the
+FF items are the most likely to be needed.**
 
-### The SR chapter (newest)
+### The FF chapter (newest)
 
-- **The `SR-A` family** — `SR-A1..SR-A36` plus its closing note, in
+- **The `FF-A` family** — `FF-A1..FF-A33` with two closing notes, in
+  `CENSUS-RULINGS.md` § "The feature-fee audition: Jason's control feature,
+  specified" (≈ lines 9889–11167 as of this date). It delivers **five** named
+  objects, indexed above, and **freeze 52** with four amendments. **FF-A32
+  declares the chapter CLOSED**; nothing further is commissioned.
+- **SR-A37 withdraws an obligation that was never owed**, and the withdrawal is
+  the durable part. SR-A25(v) and SR-A32(iv) had twice filed "claim-ledger,
+  FINDINGS and open-problems cross-references are owed"; the wiki owner declined
+  with cause, walt-math verified the cause rather than accepting it, and the
+  correct count is **zero** — `walt` appears zero times in all three pages, and
+  no walt chapter has ever acquired a row. **The rule it yields: an obligation to
+  write somewhere is asserted only after reading that destination's own `owns:`
+  line and its rulings — a cross-reference list in governing text names
+  candidates, never obligations.**
+- **Three more disciplines this chapter filed, all general.** *(a)* **A results
+  file may restate a reading-rule that a ruling has fixed; it may not originate
+  one.** Numbers and provenance are the artifact's to assert; how a number may be
+  read belongs to the rulings. *(b)* **A byte-diff between two emissions must be
+  produced while both objects exist, or not at all** — it cannot be reconstructed
+  after a sanctioned regeneration has overwritten its comparand. Name the check
+  *and* the moment its comparand exists. *(c)* Where a superseded figure retains
+  a legitimate use, that use is named exactly and every other use is closed: here
+  the pre-amendment capture survives **only** as the historical measurement of
+  the feature-as-frozen and hence as one term of the comparison that confirmed
+  its own supersession.
+- **Two disciplines from this chapter are general and should outlive it.**
+  *(1)* **No capture figure, and no count, appears anywhere without the state set
+  it ranges over named in the same sentence.** This file reports the same
+  quantity over nested state sets, and scope mislabelling is its standing hazard —
+  it caught the adjudicator twice in one chapter. *(2)* **A null control is
+  complete only when paired with a case whose correct answer is known to be
+  non-null**, because a control expecting zero cannot distinguish a working
+  instrument from one that always returns zero.
+- **Freeze 52's amendment sequence is worth reading before writing another
+  freeze**: a scoping clause was written for a *family* after defining a term
+  only *part* of the family uses, and was never checked against each member's own
+  definition. It voided six of twelve measurement cells by construction. The
+  repair is that **every feature carries its own domain clause**, and that a unit
+  whose domain is empty is declared an **EMPTY TEST** — reported as a unit that
+  did not run, **never as a zero**.
+- **A pre-declared gate quantified over "both arms" silently assumes both arms
+  are non-empty.** One did not fire as written here, and a narrower verdict was
+  substituted in the open rather than the gate being read as satisfied. **A
+  pre-declared outcome must either quantify over non-empty arms or carry an
+  explicit empty-arm branch.**
+
+### The SR chapter
+
+- **The `SR-A` family** — `SR-A1..SR-A37` plus its closing note, in
   `CENSUS-RULINGS.md` § "The second rung: inbox 017 adjudicated" (≈ lines
   7986–9827 as of this date; the heading governs). It adjudicates a second
   received external note claim by claim and delivers **eight** named objects,
@@ -401,8 +455,8 @@ most likely to be needed.**
   emission" unqualified; and an obligation-creating clause is not evidence the
   obligation is still open. A prior run is not an object and its results text is
   not an interface.
-- **T1-A12's implementation-versus-corpus risk is now inherited by five
-  families.** Every statement in T1-A, LD-A, RW-A, FT-A and SR-A is proved
+- **T1-A12's implementation-versus-corpus risk is now inherited by six
+  families.** Every statement in T1-A, LD-A, RW-A, FT-A, SR-A and FF-A is proved
   relative to walt's *implementation* of the rules, read from the code at
   adjudication time, and **no receipt inside those sections can detect a
   disagreement with the rules corpus** because every receipt is computed by that
@@ -414,7 +468,7 @@ most likely to be needed.**
 
 ## Where the rest lives
 
-- [The freeze register](walt-math-freezes.md) — all 51 issued freezes with
+- [The freeze register](walt-math-freezes.md) — all 52 issued freezes with
   content, version and declaring ruling (39 and 40 still reserved).
 - [Open questions](walt-math-open-questions.md) — what is genuinely unresolved,
   and why none of it belongs in [open-problems](open-problems.md).

@@ -154,7 +154,7 @@ Full account: [`wiki/walt-census-era.md`](../wiki/walt-census-era.md).
   invariant list were caught at adjudication. **The insight**: structural
   compression is bought with deadness, and nothing is dead at the first play.
 
-## The S6 era — S6a to S6l
+## The S6 era — S6a to S6m
 
 Full account: [`wiki/walt-s6-era.md`](../wiki/walt-s6-era.md); the architecture
 and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md).
@@ -339,6 +339,34 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   chapter with no specification conflict. Four small items owed on the next SR
   emission, nothing owed now. No rung three at grade 4; the next question needs
   a longer ladder, and FT-A21 becomes the binding constraint.
+- **S6m (2026-08-14)**: the feature-fee audition — Jason's table-derived control
+  feature, priced. Adjudicated FF-A1..FF-A33 (walt-math-11) with **freeze 52**
+  and its v1.1/v1.2/v1.3/v1.4 amendments; Prop FF-blind, Lemma FF-min, Prop
+  FF-oracle, Prop FF-degen, Prop FF-corr. Two of the four requested elements
+  died on contact: one candidate is action-blind and captures **exactly zero by
+  theorem** (repurposed as the null control), and the requested per-state
+  centring is unsound — the fee must be centred **per action** or it bounds
+  nothing. **Prop FF-oracle fixed the reading before any number**: per-state θ
+  is a lookup table, so a LOW capture refutes conclusively and a HIGH capture
+  establishes nothing and licenses only the shared fit. **My defect (FF-A11)**:
+  the no-outstanding-trump fallback was attached to all three features though
+  only two use it, voiding six of twelve cells — typed UNMEASURED, NOT ZERO;
+  catchable only because Prop FF-degen makes zero breakpoints diagnostic of
+  vacuity. **F1 (Jason's) REFUTED** at h0's 574 leading states, oracle-θ
+  capture 3,673 ppm over that set, 23,016 breakpoints — and inapplicable
+  elsewhere, the scope discovery being worth more: a boss-keyed feature's
+  domain shrinks precisely as the hand simplifies. **F2 (the sibling) BIT**:
+  76.4628% over h0's 574 leading, 29.2679% over its 758 following, and
+  **exactly 0 over h2's 216 swept states per unit, with 3,126 breakpoints at
+  each — a genuine refutation, not the first run's zero-breakpoint tautology**. **THE RESULT: over those same 574 leading
+  states one shared θ* = −56/45 gives 76.3608% against the per-state oracle's
+  76.4628% — ~99.87% survives collapsing 574 free rationals to one**, the first small fee family shown to
+  carry a first-layer tax. On the same 574 states the two candidates differ by
+  ~208×. Fences bind hard: one coordinate part, a carrier not a sample, no
+  grade-4 verdict moved, rung-one only, **nothing quoted for trick 1**. Nothing
+  further commissioned. Filed alongside: **SR-A37** withdrew the
+  claim-ledger/FINDINGS/open-problems obligation carried by the SR chapter as
+  never owed — the correct count is zero.
 - **Corrections recorded in place (2026-08-14, librarian verification pass
   against the results files, which govern):** three numbers above are wrong.
   S6g's corner-gap range: the widest of the thirteen corpus corner gaps is

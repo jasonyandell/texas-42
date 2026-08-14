@@ -1,16 +1,17 @@
-# walt — the S6 era (S6a–S6l): predictive algebra, policy geometry, deadness, separation, and the two gluing rungs
+# walt — the S6 era (S6a–S6m): predictive algebra, policy geometry, deadness, separation, the two gluing rungs, and the first feature audition
 
 [Home](Home.md) · owns: the S6 probes as sessions — the predictive-rank dimension census and the Gate B
 refutation (S6a), the policy-geometry probe at Gate E (S6b), the decision-deadness probe (S6c), the separation probe
 (S6d), the economy-seed probe (S6e), the freeze-44 refactor and n = 4 gate result (S6f), the trick-1 draw probe
-(S6g), the n = 4 separation pass (S6h), the lay-down catalogue (S6i), the rule-economy probe (S6j), and the
-fusion-tax probe (S6k) and the second-rung probe (S6l) · Sources: `walt/LOG.md` (S6a–S6l);
+(S6g), the n = 4 separation pass (S6h), the lay-down catalogue (S6i), the rule-economy probe (S6j), the
+fusion-tax probe (S6k), the second-rung probe (S6l), and the feature-fee audition (S6m) · Sources:
+`walt/LOG.md` (S6a–S6m);
 `walt/PREDICTIVE-RANK.md`, `walt/POLICY-GEOMETRY.md`,
 `walt/DEADNESS-PROBE.md`, `walt/SEPARATION-PROBE.md`, `walt/SEPARATION-RUNG-N4.md`, `walt/ECONOMY-SUCCESSOR.md`;
 `walt/math/predictive_algebra_v0.6.md`,
 `walt/math/decision_sparse_exact_solving_v0.1.md` and its errata; `walt/CENSUS-RULINGS.md` (R-A1..R-A24,
 PG-A1..PG-A18, J-A1..J-A18, DS-A1..DS-A36, SEP-A1..SEP-A19, N4-A1..N4-A20, EC-A1..EC-A14, T1-A1..T1-A12,
-LD-A1..LD-A13, RW-A1..RW-A8, FT-A1..FT-A29, SR-A1..SR-A36); the results files under
+LD-A1..LD-A13, RW-A1..RW-A8, FT-A1..FT-A29, SR-A1..SR-A37, FF-A1..FF-A33); the results files under
 `walt/walt-factory/results/`. Related: [walt](walt.md) (hub), [walt-census-era](walt-census-era.md) (what S6
 answers), [walt-decision-sparse](walt-decision-sparse.md) (the architecture these probes serve),
 [walt-math-reference](walt-math-reference.md) (formal statements), [walt-instruments](walt-instruments.md),
@@ -720,6 +721,78 @@ grade 4 from testing closure — so the carrier that produced the whole FT/SR se
 next real question needs a **longer ladder**, which is where the trick-1 program's three standing obligations stop
 being a distant destination and become the binding constraint. Full architecture account:
 [walt-decision-sparse](walt-decision-sparse.md#the-second-rung-chapter-s6l-2026-08-14).
+
+---
+
+## S6m — 2026-08-14: the feature-fee audition
+
+**The question, and where it came from.** Jason derived a control-flavoured feature at the table, reasoning through
+one real hand, and asked for a short test of whether it bites. The adjudication granted it as the right experiment at
+the right moment — the cheapest one grade 4 has left — and re-shaped it: **measure which structural features
+approximate the perfect penalties, on a carrier where the perfect answer is already filed**, before any counting
+problem is faced. The typing on the provenance is stated up front and is not a formality: **table reasoning is a
+perfectly good source of a hypothesis and no kind of evidence for it.**
+
+**Two of the four requested elements did not survive contact with the mathematics, and both failures were useful.**
+One of the two candidate features is a function of the world alone, and **Proposition FF-blind** proves an
+action-blind fee removes exactly zero — so auditioning it live would have burned the run rediscovering a theorem. It
+was repurposed as a **null control** with a pre-declared exact prediction of zero. And the requested centring was
+unsound as written: the fee must be centred **per action**, not per state, or the penalty theorem's hypothesis fails
+and the number bounds nothing in either direction. That was the single most likely way the build could have produced
+a plausible wrong number.
+
+**The reading was fixed before any number existed.** **Proposition FF-oracle**: optimising the coefficient per state
+spends one free rational per information state, which is a lookup table rather than a feature basis — so a **low**
+capture refutes conclusively while a **high** capture establishes nothing about a usable family and licenses exactly
+one follow-on. Both outcomes are results; they are not results of equal strength.
+
+**The first run exposed a defect in the frozen feature list.** Its no-outstanding-trump fallback was attached to all
+three features, but only two reference the boss-trump holder; the third is well defined without one, and that is
+when it is most interesting. **Six of the twelve (feature, unit) cells were vacuous by construction**, typed as
+**unmeasured, not zero**. Freeze 52 went to v1.1, v1.2 and v1.3 in response. What made this catchable from the
+committed file rather than by re-running is **Proposition FF-degen**: zero breakpoints is exactly vacuity, so a zero
+capture with many breakpoints is a measurement and the same zero with none is a tautology.
+
+**Jason's feature is REFUTED where it has a domain.** At h0's **574 leading states** — the only part of this carrier
+where a boss trump survives to the frontier — it was genuinely swept across 23,016 breakpoints, and its oracle-θ
+capture over those 574 states is **3,673 ppm**, about a third of one percent. A family that cannot break 0.37% with
+574 free parameters cannot break it with one. **The scope discovery is worth more than the refutation**: a
+boss-keyed feature has a *shrinking domain precisely as the hand simplifies*, which is the opposite of where a cheap
+witness is wanted. And the fence travels — the feature was priced as a fee against one specific object, and losing
+that job is not a verdict on the reasoning that proposed it.
+
+**The sibling feature — *can my action be beaten?* — did bite, and the corrected re-run separates it into three
+regimes.** Every figure carries the state set it ranges over, which is a binding rule of this chapter:
+
+| where | oracle-θ capture | reading |
+|---|---|---|
+| h0, **574 leading** states | **76.4628%** | the measurement the chapter rests on |
+| h0, **758 following** states | **29.2679%** | same feature, same unit, same sweep |
+| h2, **216 swept** states, at each of the two units | **exactly 0**, with **3,126 breakpoints at each** | **refuted conclusively** |
+
+**h2's zero is a refutation, not an empty test, and the breakpoint count is the whole of the difference.** In the
+first run the same zero came with *zero* breakpoints and was a tautology. **The same number means opposite things in
+the two files.**
+
+**THE RESULT: one shared coefficient does almost all of the work.** Over h0's 574 leading states, a single pooled
+θ* = −56/45 gives **76.3608%** against the per-state oracle's **76.4628%** — **about 99.87% of the oracle survives
+collapsing 574 free rationals to one.** The per-state optimum takes only 27 distinct values, none zero, over a narrow
+range. This is the first time in the branch that a **small** fee family has been shown to carry a first-layer tax.
+
+**The sentence worth carrying out of the chapter**, and the only comparison here free of between-coordinate
+confounds because it is within one unit and one pass: on **the same 574 states**, the two action-conditioned
+candidates return **0.3673%** and **76.46%** — a ratio of about **208×**. *At h0's leading frontier states, the
+first-layer Jensen gap is substantially aligned with whether the focal seat's action can be beaten, and essentially
+not at all with whether the boss-trump holder can follow it.*
+
+**What none of it establishes**, and the fences bind hard here because a capture fraction reads exactly like a rate:
+one coordinate and one part of it; two coordinates selected by negative binding margin, so **a carrier and not a
+sample**; **nothing quoted for trick 1 or the opening**, which is the fence most at risk given that trick 1 is the
+entire motive; **no grade-4 verdict moved and none could**; and it prices the **first layer only**. A 99.87%
+shared/oracle ratio at one coordinate part is a licence to test at a second coordinate, not a licence to believe.
+**Nothing further is commissioned** — a third coordinate is a new carrier and wants its own freeze and its own
+pre-declared readings. Full architecture account:
+[walt-decision-sparse](walt-decision-sparse.md#the-feature-fee-chapter-s6m-2026-08-14).
 
 ---
 

@@ -5,10 +5,11 @@ inventory, its audit history, and the standing state of its experiment program �
 `walt/math/decision_sparse_exact_solving_v0.1.md` (the received parent, verbatim) and
 `walt/math/decision_sparse_exact_solving_v0.1_errata.md` (the durable repaired mathematics, DS-A17);
 `walt/CENSUS-RULINGS.md` (DS-A1..DS-A36, SEP-A1..SEP-A19, J-A1..J-A18, PG-A1..PG-A18, R-A1..R-A24,
-N4-A1..N4-A20, EC-A1..EC-A14, RW-A1..RW-A8, **FT-A1..FT-A29**, **SR-A1..SR-A36**);
+N4-A1..N4-A20, EC-A1..EC-A14, RW-A1..RW-A8, **FT-A1..FT-A29**, **SR-A1..SR-A37**, **FF-A1..FF-A33**);
 `walt/SEPARATION-PROBE.md`, `walt/DEADNESS-PROBE.md`; `walt/walt-factory/results/deadness_2026-08-12.txt`,
 `separation_2026-08-13.txt`, `separation_n4_2026-08-14.txt`, `rule_economy_n4_2026-08-14.txt`,
-`fusion_tax_2026-08-14.txt`, `second_rung_2026-08-14.txt`; and the received
+`fusion_tax_2026-08-14.txt`, `second_rung_2026-08-14.txt`, `feature_fee_2026-08-14.txt` and its corrected
+re-run `feature_fee_v11_2026-08-14.txt`; and the received
 `exchange/inbox/016-decision-sparse-nonanticipativity-taxes.md` and `017-second-rung-gluing.md`
 (both adjudicated, neither imported as an axiom). Related: [walt](walt.md) (hub), [walt-s6-era](walt-s6-era.md) (the
 sessions that produced
@@ -476,6 +477,146 @@ depth-two layer's cross-process determinism; and a
 companion here is 8.8 GB against the previous chapter's 36 MB, "regenerable" is a weaker practical guarantee at that
 size when auditing the digest costs a full re-run, and the growth is not incidental: the depth-two state count scales
 with the field plies between frontiers, so a longer ladder multiplies it again.
+
+## The feature-fee chapter (S6m, 2026-08-14)
+
+The SR chapter ended by saying the next question needs a longer ladder. This one asks a different question that the
+same carrier *can* answer: not how deep the ladder goes, but **which cheap structural quantities actually price the
+tax the ladder measures.** It is the experiment both the received note and the SR adjudication anticipated — measure
+which structural features approximate the perfect penalties, on a carrier where the perfect answer is already filed,
+**before** any counting problem is faced. It is also the cheapest experiment the branch has left at grade 4, and it
+ran in under a minute.
+
+**Where the candidate came from.** Jason derived a control-flavoured feature at the table, reasoning through one real
+hand. That provenance is worth stating precisely because the chapter turns on it: **table reasoning is a perfectly
+good source of a hypothesis and no kind of evidence for it.** The audition exists to price it, and a null result
+costs the hypothesis its candidacy and nothing else.
+
+**The instrument.** For a feature φ of (world, action) at a frontier state, the fee is θ·(φ − centre) and the
+question is how much of the state's local tax an optimal θ removes. Three results make that computable and readable:
+
+- **Proposition FF-blind** — an **action-blind** fee removes exactly zero, at every state and for every θ. It is the
+  penalty-side twin of the two blindness results already on the books, and with them the branch now has one lesson
+  proved three times in three formalisms: **a witness, a bound or a fee must be conditioned on the decision it is
+  trying to price.** One of the two requested features was action-blind, so auditioning it live would have burned the
+  run rediscovering a theorem — it was **repurposed as a null control** with a pre-declared exact prediction of zero,
+  which is the only contentful check the harness could have.
+- **Lemma FF-min** — the fee objective is convex piecewise-linear and exactly minimisable: enumerate the
+  breakpoints, evaluate, take the least. **No grid, no search, no float.** It also supplies two genuine receipts,
+  because the swept minimum and the filed tax come from different computations.
+- **Proposition FF-oracle** — and this one governs how every number here may be read. Optimising θ **per state**
+  spends one free rational per information state, which is a **lookup table, not a feature basis**. So the two
+  outcomes are not logically symmetric: a **low** capture **refutes conclusively**, because no shared or coarser
+  parameterisation can beat the per-state oracle; a **high** capture **establishes nothing** about a usable fee
+  family and licenses exactly one thing, the shared fit. Both outcomes are results; they are not results of equal
+  strength. The column is named **oracle-θ capture** everywhere, never "capture" unqualified.
+
+A fourth, **Proposition FF-degen**, is what makes the artifact readable after the fact: **zero breakpoints is exactly
+vacuity.** A capture of zero at a state with thousands of breakpoints is a *measurement*; the same zero with no
+breakpoints is a *tautology*. That diagnostic is emitted per state, and it is the only reason the chapter's central
+defect was catchable from the committed file instead of by re-running.
+
+### What the first run produced, including a defect it exposed
+
+The frozen feature list attached its no-outstanding-trump fallback to all three features, but only two of them
+reference the boss-trump holder. The third is well defined with no trump outstanding — and that is when it is most
+interesting. **Six of the twelve (feature, unit) cells were therefore vacuous by construction**, and one of them was
+the measurement the run most needed. The adjudication types those six as **unmeasured, not zero**, and no sentence
+anywhere may report them as evidence. Freeze 52 went to v1.1, v1.2 and v1.3 in response; the sequence is on
+[the freeze register](walt-math-freezes.md#freeze-52s-amendment-chain-v1--v14).
+
+Two findings survive that run intact.
+
+**Jason's feature is REFUTED, on the only part of the carrier where it has a domain.** At h0's **574 leading
+states** — the only place in this carrier where a boss trump exists at the frontier — it was genuinely swept, 23,016
+breakpoints, and its oracle-θ capture over those 574 states is **3,673 ppm, about a third of one percent**. By
+FF-oracle that is an *upper bound* on what any shared or coarser parameterisation could reach: **a family that
+cannot break 0.37% with 574 free parameters cannot break it with one.** Filed as a result, not a null.
+
+**The scope discovery is worth more than the refutation.** Elsewhere the feature is not refuted but **inapplicable** —
+there is no outstanding trump at the frontier, so the quantity it keys on does not exist. A boss-trump feature has a
+**shrinking domain precisely as the hand simplifies**, which is the opposite of where a cheap witness is wanted. And
+the fence that matters most: none of this is a verdict on Jason's reading of that hand. The feature was priced as a
+centred fee against one specific object; losing that job says the quantity does not linearise the Jensen gap and says
+nothing about whether the relation is the right thing to be thinking about. It was also sharp enough to be killed in
+47.5 seconds, which is the property one actually wants from a table intuition.
+
+### The corrected re-run, and the number the programme wanted
+
+The sibling feature — *can my action be beaten?* — is action-conditioned, hidden, and the most directly
+control-flavoured of the three. Re-run under the repaired domain clause, it separates into **three regimes**, and
+each figure is stated with the state set it ranges over because that is a binding rule of this chapter:
+
+| where | oracle-θ capture | breakpoints | reading |
+|---|---|---|---|
+| h0, **574 leading** states | **76.4628%** | 33,986 over the unit's 1,332 swept states | the measurement the chapter rests on |
+| h0, **758 following** states | **29.2679%** | — | same feature, same unit, same sweep |
+| h2, **216 swept** states, at each of the two units | **exactly 0** | **3,126 at each unit** | **refuted conclusively** |
+| h0, all **1,332 swept** states | **75.1420%** | — | the whole-unit figure, for completeness |
+
+**h2's zero is a refutation and not an empty test, and the breakpoint count is the whole of the difference.** In the
+first run the same zero came with **zero** breakpoints and was a tautology; here the fee genuinely varied across
+3,126 breakpoints and the minimum sat at θ = 0 anyway. **The same number means opposite things in the two files**,
+and only the diagnostic separates them.
+
+The whole-unit figure supersedes a pre-amendment number that had been typed as a *lower bound* precisely because it
+averaged the genuine leading measurement against states the defective domain clause had forced to zero. The bound
+held: the measured 75.1420% exceeds it. That earlier figure now retains exactly one legitimate use — as the
+historical measurement of the feature **as originally frozen**, and hence as one term of the comparison that
+confirmed its own supersession — and is closed for every other purpose.
+
+**The leading/following gap changes what an earlier ruling said.** With the domain repaired, the split is no longer
+about feature *availability* — it is a large difference in feature *quality*: **76.4628% over the 574 leading
+states against 29.2679% over the 758 following states**, the same feature, the same unit, the same sweep. Whether that is about leading versus following **as such**, or about what
+else differs between those two state sets at this one coordinate, is **not determined**.
+
+**THE RESULT THE CHAPTER EXISTED TO PRODUCE: the shared fit.** FF-oracle had licensed exactly one follow-on, and it
+returned. Over h0's 574 leading states, **one pooled θ* = −56/45** gives a shared capture of **76.3608%** against the
+per-state oracle's **76.4628%** — **about 99.87% of the oracle survives collapsing 574 free rationals to one**, with
+a shortfall of 0.102% of the leading-part tax. The corroborating structure is consistent: the per-state optimum takes
+only **27 distinct values**, none of them zero, over a narrow range, with 12 states already matching the pooled
+value. A feature whose optimal price is nearly constant across states is precisely one whose shared fit should lose
+almost nothing, and it does. **This is the first time in the branch that a *small* fee family has been shown to carry
+a first-layer tax**, and it is what makes the penalty route more than a theorem.
+
+**The single sentence worth carrying out of the chapter**, because it is the one comparison free of every
+between-coordinate confound: on **one and the same set of 574 states**, with one sweep, one arithmetic, one centring
+and one tie rule, the two action-conditioned candidates return **0.3673%** and **76.46%** — a ratio of about
+**208×**. What that supports, at exact strength: *at h0's leading frontier states, the first-layer Jensen gap is
+substantially aligned with whether the focal seat's action can be beaten, and essentially not at all with whether the
+boss-trump holder can follow it.*
+
+### What none of it establishes
+
+The fences here are unusually load-bearing, because a capture fraction reads exactly like a rate and the entire
+motive for the chapter is screening for trick 1.
+
+- **One coordinate, one part of it.** 574 of that unit's 1,332 swept states, and h0 is one of nine n = 4
+  coordinates. The two coordinates in scope were selected by negative binding margin, so they are **a carrier, not a
+  sample**, and the selection criterion correlates with the quantity being described.
+- **Nothing is quoted for trick 1 or for the opening** — the fence most at risk, given that trick 1 is the target.
+  The three obligations blocking the trick-1 route are untouched.
+- **No grade-4 verdict moved and none could**, by the second-rung degeneracy result. h0's binding pair is untied and
+  already closes at rung two.
+- **It is a rung-one result.** Every number here prices the first layer only. A fee capturing 100% of it would still
+  leave the second-layer tax untouched.
+- **A 99.87% shared/oracle ratio at one coordinate part is a licence to test the fee at a second coordinate, not a
+  licence to believe in it.** No artifact of this build says the feature "works", and none does.
+
+**One receipt-design lesson, filed alongside the chapter's other two.** The null control expects an optimal
+coefficient of zero — **and so does the failure mode "the sweep is broken and always returns zero".** A null control
+whose expected answer coincides with a plausible bug's answer **cannot** validate an exact zero measured elsewhere.
+What licenses reading h2's zero as real is that the same feature at h0 returns a *non-zero* optimum at all 574
+leading states, across 27 distinct values: the sweep demonstrably moves. **A null control is complete only when
+paired with a case whose correct answer is known to be non-null** — here that pairing existed by luck of the carrier
+rather than by design, and the next pre-declaration should require it.
+
+**Nothing further is commissioned.** The obvious next experiment — the surviving feature at a third coordinate,
+chosen to vary trump survival at the frontier while holding as much else fixed as possible — is deliberately *not*
+inherited: it is a new carrier and wants its own freeze, its own pre-declared readings including an explicit
+empty-arm branch, and the non-null pairing above. It should be asked for, not assumed.
+
+---
 
 ## Standing fences
 

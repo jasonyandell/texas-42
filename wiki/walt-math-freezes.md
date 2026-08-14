@@ -1,6 +1,6 @@
 # walt mathematics — the freeze register
 
-[Home](Home.md) · owns: the register of walt's determinism freezes 1–51 —
+[Home](Home.md) · owns: the register of walt's determinism freezes 1–52 —
 number, content, version, and the ruling that fixed each · Sources:
 `walt/CENSUS-RULINGS.md` (every freeze is declared in a ruling there);
 cross-checked against the `Freeze NN:` doc comments in
@@ -43,7 +43,7 @@ Four standing rules, and they are the reason the register exists at all:
 
 ## The register
 
-All 51 issued numbers are accounted for: 49 spent, and **39 and 40 still
+All 52 issued numbers are accounted for: 50 spent, and **39 and 40 still
 RESERVED**. "Fixed at" names the declaring ruling; where a number has been
 amended, the version and its amending ruling are named in the same cell.
 
@@ -107,6 +107,60 @@ disagree.
 | 49 | **The n4 economy carrier**: the coordinate list (the nine n4 coordinates in freeze-44(f) order), the action set (all four per coordinate, ascending), the arm subset (**P1..P4**, with X printed structurally unavailable where the cap bars it and T/R out of scope), the **rule argument list `(record, legal)`** of RW-A1(i)–(ii), the canonical run order, and the results-file column set (arm, action, L_rule, Q^H, gap, margin, separation cell with its typing, reached count, walk-steps, residual). **No freeze is amended by it** — freeze 44(b)'s contract already binds every `walk`-based evaluator | RW-A8 (§ "The map-free rule walk, and what h9 already decided", ≈ 6544) |
 | 50 v1.1 | **The fusion-tax probe carrier.** **(a)** The carrier is **five negative-margin n = 4 coordinates** in exactly this enumerated order — pip 3 `[00 21 32 53]` (h0); pip 4 `[11 40 43 53]` (h6); pip 5 `[21 33 53 54]` (h2); pip 4 `[30 41 54 61]` (h9); pip 0 `[20 30 40 65]` (h12) — **with no generating rule** (v1.1(a), see the amendment note below). **(b)** Per coordinate the run is over the **binding pairs only**: every (a⋆, a) whose filed margin is negative. **(c)** The frontier emission format — one row per (coordinate, a, I) carrying the record, `p_I`, \|X_I\|, \|A(I)\|, `δ_I` as an exact rational **in the count convention**, the complete argmax set, and one minimal fusion core where `δ_I > 0`; **v1.1(c)** cuts the emission **by content**, see below. **(d)** The per-coordinate summary: `T_a` (asserted 0), `Δ_a^(1)`, `U_a^(1)`, `Δ_a^(2)`, the decision cell and FT-tie's fraction-required column. **(e)** Belief and field are **not** re-declared — freeze 26 and 37(d), no decimation anywhere inside any L, U or tax. **(f)** No library entry at any coordinate. **(g)** The freeze-set digest travels on every record | v1 at **FT-A18(vi)**; **(a) amended at FT-A23(iv)**, **(c) amended at FT-A24(viii)** (same section, ≈ 7389 / 7616 / 7677) |
 | 51 | **The depth-two probe carrier.** **(a)** The carrier, **enumerated with no generating rule** (the FT-A23 rule applied at the point of declaration this time, not after a defect): **arm 1, mandatory** — coordinate h2, pip 5, hand `[21 33 53 54]`, both freeze-50 units, competitor `a = 53` then `a = 54`, in that order; **arm 2, attempted after arm 1 completes, with a declared stop** — coordinate h9, pip 4, hand `[30 41 54 61]`, units `a = 41` then `a = 54`. h0, h6 and h12 are **out of scope**. Coordinate identity asserted first in freeze 45's form, kernel rebuilt in-run and asserted equal. **(b)** Why that order: h2 is the carrier's smallest first frontier and the coordinate the received note itself nominates; h9 is the second smallest, carries the branch's largest exact negative, and is the coordinate the exact primal route **cannot price**. **(c)** The frontier-2 convention, fixed by Lemma SR-forced: the second frontier is the focal seat's **next decision after b, forced or not**; a forced second state is **counted, not skipped**, matching rung one — the alternative is not wrong, it is a different object, and two objects with one name is how a chapter goes bad. The early-terminal mass and Θ are **asserted zero** at grade 4 and the assertion is contentful. **(d)** Emission cut by content per the freeze-50 v1.1(c) pattern: committed branch and state rows, a regenerable uncommitted companion under its SHA-256 and byte/line counts, and **seven accounting integers per unit** making the omission auditable. **(e)** Every column in the **count** convention, with the two bridges kept separate. **(f)** Belief and field **not** re-declared — freeze 26 and 37(d), no decimation inside any L, U, s, d or δ. **(g)** No library entry at any coordinate. **(h)** The freeze-set digest travels on every record | SR-A22(iii) (§ "The second rung: inbox 017 adjudicated", ≈ 9076) |
+| 52 v1.4 | **The feature-fee audition carrier.** **(a)** The carrier, enumerated with no generating rule: **arm 1** — h0, pip 3, hand `[00 21 32 53]`, unit `a = 00` (the cheapest unit in the carrier *and* the hand the candidate feature came from); **arm 2, attempted after arm 1, with a declared stop** — h2, pip 5, hand `[21 33 53 54]`, units `a = 53` then `a = 54`. **(b)** The measured object, per frontier state with a **positive** local tax and per feature: the per-action centre for every action, the breakpoint count, the optimal fee coefficient, the residual and the captured amount. Zero-tax states are **counted and skipped** — there is nothing to capture there. **(c)** The fee is centred **per action**, and that is mandatory and receipted: a single per-state centre fails the penalty theorem's hypothesis and the resulting number would bound nothing in either direction. **(d) Exact minimisation only** — enumerate the breakpoints, evaluate, take the least. **No grid, no search, no float**; every denominator that must divide is asserted to divide and an arithmetic overflow is stop-and-report, never a wrap. **(e)** The tie rule, declared before the run: the **smallest** breakpoint attaining the minimum, ascending; no breakpoints means a coefficient of zero. **(f)** Reporting in the **count** convention: the per-unit residual, the capture as an exact rational, a three-way census of states by how much was captured, the leading/following split, and the count of states with no outstanding trump. (The capture is named **oracle-θ capture** and never "capture" unqualified — that naming rule is Proposition FF-oracle's, carried here because it binds every such column.) **(g)** Belief and field not re-declared; no library entry; the freeze-set digest travels. **(h)** Budgets unchanged; on exhaustion no partial capture and no partial residual. **Four amendments, all below** | v1 at **FF-A6**; **v1.1 at FF-A15(i)**, **v1.2 at FF-A20(iii)**, **v1.3 at FF-A23(iv)**, **v1.4 at FF-A33(iii)** (§ "The feature-fee audition: Jason's control feature, specified", ≈ 10122 / 10447 / 10609 / 10689 / 11117) |
+
+## Freeze 52's amendment chain: v1 → v1.4
+
+Four amendments in one day. The first three came out of the first run and all
+trace to faults in the freeze's own text rather than to anything the build did;
+the fourth came out of a compliance question and caught a defect that had never
+fired. They are recorded together because the sequence is the instructive part.
+
+**v1.1, at FF-A15(i) — the domain clause, scoped to the features that use it.**
+The frozen feature list defined "outstanding trump" and then said that *if no
+trump is outstanding, every feature below is 0 for every action*. That fallback
+was attached to all three features, but only two of them reference the
+boss-trump holder at all; the third is perfectly well defined with no trump
+outstanding, and that is precisely when it is most interesting, because control
+then turns entirely on suit rank. **The clause voided six of the twelve
+(feature, unit) cells by construction**, including the one measurement the run
+most needed. v1.1 scopes the fallback to features that reference the boss-trump
+holder, requires **every feature to carry its own domain clause**, and repairs a
+second, smaller ambiguity in the third feature's definition at following states.
+
+**v1.2, at FF-A20(iii) — the domain screen, before the sweep.** Every unit now
+emits its feature-domain census **before** sweeping, and a unit whose domain is
+empty at every swept state is declared an **EMPTY TEST**: it is not swept, and
+it contributes to no capture figure and no outcome gate. An empty test is
+reported as a unit that did not run, **never as a zero**. For a boss-keyed
+feature the screen is computable from the coordinate and root action alone with
+no traversal — if exactly one trump sits outside the focal hand and the root
+action is a trump, the field must follow, the lone boss burns on trick 1 in
+every world, and the domain is provably empty at every frontier state.
+
+**v1.3, at FF-A23(iv) — the sweep and the census count different sets, and both
+say which.** The sweep runs over states with a positive tax, because a state
+with no tax has nothing to price; the domain census runs over **every** frontier
+state, because its job is to characterise whether the feature has content at the
+coordinate at all, and a screen restricted to swept states would answer a
+different question. Both are printed and **both are labelled with the set they
+count**. Nothing numeric turns on the distinction — the capture figures are
+identical under either reading, since the skipped states contribute zero to both
+numerator and denominator — which is exactly why choosing silently would have
+been a reportable deviation rather than a private one.
+
+**v1.4, at FF-A33(iii) — the screen applies per (unit, feature) cell, and the
+null control is exempt.** v1.2 said *a **unit** whose domain is empty is declared
+an EMPTY TEST*, but **domain-emptiness is a property of a (unit, feature) pair,
+not of a unit**. Read literally, v1.2 would have barred the null control from
+running at the coordinate where its own domain is empty — contradicting the
+mandate that the control run first and blocking at *every* unit precisely because
+it is what makes the other numbers trustworthy. The build had resolved this
+correctly and silently by running the control everywhere, so nothing was owed;
+v1.4 makes the resolution the rule. **The null control is exempt from the screen
+in all cases**, because its job is to test the harness rather than the feature,
+and a harness check that skips the states where the feature is empty is exactly a
+harness check that has not been run where it is cheapest to run.
 
 ## Freeze 50's amendment: v1 → v1.1
 
