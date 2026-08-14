@@ -10653,3 +10653,92 @@ sweep at every unit, and the empty-arm branch made explicit in the next
 pre-declaration. Arm 2 needs no re-run *as an F1 test* — it never was one — but
 the corrected-F2 re-run of FF-A15(ii) still wants h2, where F2's domain is **not**
 empty and only my FF-A4 clause made it look so.
+
+- **FF-A23 (FF-A15(ii)'s "all 330 h2 states": the conflict is MINE, freeze 52(b)
+  GOVERNS the sweep, and the two counts are separated by purpose. The builder
+  reported it rather than picking, which is the ambiguity protocol executed
+  correctly and is commended in place.)** Six clauses.
+  (i) **The defect is mine and the builder's diagnosis of it is exactly right.**
+  FF-A15(i) says *"Freeze 52(a)–(h) stand except that FF-A4's
+  no-outstanding-trump fallback is scoped…"*, so freeze 52(b)'s skip rule stands
+  by my own text; and FF-A15(ii) then says *"F2 at all 330 h2 states per unit, and
+  at h0's 758 following states"*. **The sentence is not internally parallel**: 758
+  is a count of *swept* states and 330 is a count of *all* frontier states. The
+  "330" was inherited verbatim from FF-A11(ii)'s *"at h2, all 330 frontier states
+  have no outstanding trump"*, where it describes **the extent of what my clause
+  voided** — a scope-of-correction phrase, not a sweeping instruction. I carried a
+  number across from one job to another without re-checking which set it counted.
+  (ii) **RULING: freeze 52(b) governs. Sweep the 216 positive-`δ_I` states per h2
+  unit.** FF-A15(ii)'s "all 330" is **corrected in place** to read *"F2 at every
+  swept h2 state — 216 per unit — and at h0's 758 following states"*, per
+  LD-A11(ii); the erroneous phrasing stays visible above.
+  (iii) **Nothing numeric turns on this, and it is worth saying why so the ruling
+  is not mistaken for a close call.** `Δ^(1) = Σ_I δ_I` over *all* states equals
+  the sum over swept states, because the rest are zero; and
+  `Σ_I δ_I^{θ*} = Σ_swept δ_I^{θ*}` for the same reason, since Lemma FF-min(b)+(d)
+  force `0 ≤ δ_I^{θ*} ≤ δ_I = 0` at every skipped state. **The oracle-θ capture,
+  the shared-θ capture and their ratio are identical under either reading.** What
+  differs is only which rows are emitted and whether a census reads 216 or 330 —
+  which is precisely why a wrong choice would have been a reportable deviation and
+  not a private one, exactly as the builder said.
+  (iv) **But the two counts each have a job, and separating them is better than
+  either option offered.** The **sweep** is over swept states, because a state with
+  no tax has nothing to price. The **domain census** of freeze 52 v1.2 is a
+  *screen* — its purpose is to characterise whether the feature has content at the
+  coordinate at all — and a screen that looked only at swept states would be
+  answering a different question. **FREEZE 52 v1.3, clarifying v1.2:** the
+  feature-domain census is emitted **over every frontier state**, and the swept
+  census over the swept support, with **both printed and both labelled with the set
+  they count**. The prior artifact already did this — *"States with NO OUTSTANDING
+  TRUMP: 216 of the swept support, 330 of all 330 states"* — so this ratifies
+  existing practice rather than imposing new work.
+  (v) **FF-A18's binding rule applies to every figure this re-run emits**, and it
+  is the rule this very conflict illustrates: **no count and no capture figure
+  appears without the state set it ranges over named in the same sentence.** In
+  particular the shared-θ result of FF-A15(iii) is a ratio over **h0's 574 leading
+  states** and must say so wherever it appears, as must its ratio to the oracle-θ
+  capture over the same 574.
+  (vi) **This is the second specification defect of mine the FF chapter has
+  produced and the fifth across FT/SR/FF** (FT-A23 and FT-A28(i) were
+  walt-math-10's, FF-A11 and this are mine, with FF-A12 and FF-A18 alongside). All
+  are one fault in different clothes — **a term, a clause or a count applied
+  outside the scope in which it was defined** — and every one has been caught by
+  someone else reading the text against the object. The protocol is doing the work
+  it exists to do.
+- **FF-A24 (the re-run emits to a NEW results file: RATIFIED, and it is required
+  rather than merely preferred).** Three clauses.
+  (i) **The builder's proposal is correct and is adopted.** `feature_fee_2026-08-14.txt`
+  is the adjudicated artifact; FF-A10..FF-A22 cite it by content and by line, and
+  FF-A11's typing of the six voided cells is a ruling *about that file as it
+  stands*. **Overwriting it would silently invalidate every citation in this
+  chapter and erase the evidence for the defect it records.** LD-A11(ii)'s
+  convention — the corrected text stays visible and the error is not erased —
+  applies to artifacts as much as to rulings, and CLAUDE.md's rule that results are
+  regenerated and never hand-edited means the old file cannot be annotated in
+  place either. **The new file is required.**
+  (ii) **One thing the new file owes, because two results files for one experiment
+  is a reader trap.** Its header names `feature_fee_2026-08-14.txt` and states
+  exactly what supersedes and what stands: **superseded** — F2 at both h2 units and
+  F2's h0 following part, the six cells FF-A11 typed as vacuous; **standing,
+  unaltered and not re-derived** — F0 everywhere (settled by Proposition FF-blind),
+  F1 everywhere (settled at FF-A13, refuted on h0's leading part and inapplicable
+  elsewhere), and **F2's h0 leading measurement**, which FF-A15(i) proves is
+  untouched by the amended definition.
+  (iii) **The builder's verification of that last point is confirmed here.** At a
+  leading state nothing is yet on the table and all three field seats are still to
+  play, so *"some opponent yet to play at `I` holding a tile that would win over
+  `b` and over every tile already on the table"* reduces to *"some opponent holds a
+  tile that would beat `b`"* — the frozen reading exactly. **h0's leading F2 number
+  `2841944614/3716765745` over 574 states therefore stands without re-derivation**,
+  and the re-run should reproduce it, which makes it a free cross-check the new
+  file should assert rather than merely print.
+  (iv) **The rest of the builder's plan is confirmed as ruled** and needs no answer
+  from me: F0 re-run first and blocking; F1 not reported; the pooled shared-θ
+  objective with the union of per-state breakpoints and freeze 52(e)'s tie rule —
+  **Lemma FF-min applies verbatim to the pooled function**, being a finite sum of
+  convex piecewise-linear functions bounded below by the sum of the glued values,
+  and minimising `Σ_I G_I(θ)` is equivalent to minimising `Σ_I δ_I^θ` because the
+  subtracted term is `θ`-free; Proposition FF-degen's per-state breakpoint counts
+  mandatory; the three pre-declared h2 readings printed before any number; and the
+  (FT-R7c) digests asserted at all three units, which **discharges FF-A16(iv)'s h0
+  item** now that this build has filed one.
