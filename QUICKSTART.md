@@ -151,6 +151,13 @@ strictly finer than the true quotient via the dead-cut lemma
 - Frozen generator values (`FROZEN_WITH_VOIDS` 970, the `verify_player` and
   `verify_rob` transcripts) are rob-internal determinism freezes, **not** ingest
   numbers.
+- **`rob/ci/check.sh` is an hours-long job, not a quick check.** It regenerates and
+  byte-diffs every receipt, and `verify_rob` alone re-derives a 44,722,908,161-state
+  census, checks 58,609,267 solver nodes, and round-trips 6,001,465,196 canonical
+  plan-book bytes. A run observed on 2026-08-13 passed four hours of CPU and was
+  still going. It is not hung — that is what the gate costs. Budget for it, and
+  don't start one casually late in a session. (`walt/ci/check.sh` is a different and
+  much cheaper gate; don't confuse the two.)
 - **In `walt/`, the results files outrank the prose.** Several headline numbers in
   the session log disagree with the artifacts they cite — a coordinate count, a
   detector timing that appears in no results file because that run was resumed, a
