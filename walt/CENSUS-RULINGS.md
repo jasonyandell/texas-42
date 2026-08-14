@@ -4466,7 +4466,11 @@ the recited ranges are typos in the designs, not scope declarations.
   probe's unmemoized argmax-recording extraction solve; and
   `action_values_dag`, already budgeted under freeze 26 and unchanged —
   `information_prices` composing the first two and returning `Option`, its
-  assertions firing only on complete results. **(d)** `revealed_summary`: one
+  assertions firing only on complete results. *[CLARIFIED 2026-08-14 by RW-A8:
+  clause (b)'s contract binds **every** `walk`-based evaluator, including ones
+  built after this freeze — `policy_value_by_rule` is the first. This clause
+  enumerates that design's six evaluators; it is an inventory, not a closed list
+  of what may exist, and a new budgeted evaluator needs no freeze amendment.]* **(d)** `revealed_summary`: one
   budget for the whole call (all worlds × all root actions), decremented
   monotonically across both loops, never per-world and never per-action; on
   `None` all partial state is discarded, and the stop prints the coordinate
@@ -6346,3 +6350,216 @@ under every remaining declaration. Wall-clock 235 ms, provenance only.
   the witness deal and the negative are all exploratory, cited by nothing above
   this tier, and quotable as results only by brief amendment adding them to a
   verifier receipt.
+
+## The map-free rule walk, and what h9 already decided (2026-08-14)
+
+**Adjudicator:** walt-math. **Object:** the proposal to price the N4-A16(iv)
+NOT PRICED coordinate h9 by evaluating EC-A1's hand-authored rule arms **at the
+callback**, with no extraction map — `policy_value_by_rule` — together with the
+port of the economy arms to the n4 carrier. **Tier:** exploratory throughout.
+**Basis:** EC-A1..EC-A14 (freeze 46, EC-A2's retyping, EC-A9's second carrier,
+EC-A11's candidate-versus-class fence, EC-A13's primal-half split);
+N4-A1..N4-A20 (freezes 44 v2, 45; N4-A6's tier regime; N4-A16(iv)); SEP-A11,
+SEP-A13, SEP-A19; Lemma E4 and Non-theorem E4′ with DS-A27's semantic
+obligation; **Corollary E4.1**; Lemma N of the n4 return; DS-A14, DS-A16, PG-A1,
+PG-A8, R-A18, F7. Read first-hand at adjudication time: the filed
+`results/separation_n4_2026-08-14.txt` — h9's Tier-1 block in full, its four R3
+rows, its two `a⋆` NOT PRICED lines, and the `PRIMAL CEILING` header — and
+`walt-strat/src/info.rs`'s callback signature. Rulings **RW-A1..RW-A8**;
+**freeze 49** at RW-A8. The prefix `RW-A` was grep-checked unused.
+
+**Headline — the target is unattainable, and h9 has already answered a different
+question that nobody has filed.**
+
+The filed block gives, at h9 (pip 4, hand [30 41 54 61], Tier 1, gate MET):
+`Q^H(41) = Q^H(54) = 28422259/8870400` as the argmax, and
+`U(54) = 545341/158400 = 30539096/8870400`. The binding margin at either
+H-optimal action is therefore
+
+  **Q^H(a⋆) − max_{a ≠ a⋆} U_a = −2116837/8870400 ≈ −0.23864**,
+
+which is negative, and is exactly the price already printed on h9's own R3 row
+for root 54. By **Corollary E4.1(3)**, `Q^H(a⋆) < U_a` means **no candidate set
+whatsoever separates that pair** — not the exact seed, not a rule, not anything.
+Three consequences, all available now and none needing a build.
+
+1. **A rule cannot separate at h9.** Outcome (a) of the brief — "CERTIFIED
+   CHEAP at the coordinate that broke enumeration" — is unreachable, and h9 is
+   the *worst* of the nine coordinates on this measure, not a borderline one.
+2. **h9's coordinate verdict is already determined and is NOT SEPARATED**, by an
+   exact negative, from Tier-1 crosschecked numbers. The primal pipeline is not
+   needed for it. The pass filed `NOT PRICED — no verdict` and stopped; that line
+   is true of the *pipeline* and understates what the coordinate's own numbers
+   already prove.
+3. **The separation question the rule route can actually answer lives
+   elsewhere.** Computed at adjudication time from the filed R3 rows, the binding
+   margin is **positive at exactly four coordinates** — pip 6 [11 43 60 66]
+   (+23/2970), pip 1 [21 40 51 65] (+4318547/19958400), pip 5 [31 51 55 63]
+   (+8023709/43545600), pip 5 [21 31 33 55] (+5003513/43545600) — and negative at
+   the other five, h9 included. Each computed margin reproduces the filed
+   `margin` column and the filed verdict exactly where the coordinate was priced,
+   which is the check that this arithmetic is reading the file correctly.
+
+**None of this makes the rule walk not worth building.** It retypes it. The
+economy gap `g = Q^H(a) − L_rule(a)` is a real measurement at every coordinate
+including h9, and at h9 it is the *only* primal quantity obtainable at all — a
+dumb instant heuristic setting a bar where enumeration cannot run is exactly the
+stated interest, and it is a bar on the gap, never a separation.
+
+- **RW-A1 (the map-free rule walk is a LAWFUL L evaluator; the rule's argument
+  list is declared and closed).** Lemma E4 needs the policy to be deterministic,
+  information-consistent, and to play the root action at the root. A rule
+  evaluated at the callback satisfies all three, and the third for free because
+  the L walk fixes the root action before the rule is ever consulted. Binding.
+  (i) **The argument list is exactly `(record, legal)`.** The record is the
+  focal's observation record and the legal set is a function of the focal's hand
+  and the led context; both are functions of the information state, so
+  information-consistency is structural. The public trick context — who led,
+  what is on the table, who took the previous tricks — is a **derived view of
+  (kernel identity, record)**, not additional information, and a rule may compute
+  it; that is the project's derived-views-never-stored-state discipline applied
+  to a policy.
+  (ii) **The pooled-node count is NOT passed to the rule.** `walk`'s callback
+  also carries `bag.len()`. It is a function of the information state, so reading
+  it would not be *unlawful* — but it is a function of the **declared fiber**,
+  and a rule that reads it is belief-dependent and is no longer the hand-authored
+  object freeze 46 named. A rule reading it is a different arm requiring its own
+  adjudication. The evaluator does not pass it.
+  (iii) **Each arm carries a one-line information-consistency argument, printed
+  beside its row**, in the style the brief calls "P3-style" — naming which
+  components of (record, legal) it reads. This is a stated obligation on the
+  build, not something I can discharge from a design.
+  (iv) DS-A16 continues to apply: rule arms remain valid primal-witness sources
+  if count re-enters; their count-free verdicts do not survive.
+- **RW-A2 (the receipt set: what is by construction, what replaces totality, and
+  the one blocking check).** The brief's reading is **correct and incomplete**.
+  (i) **Totality is by construction and is not a receipt** — right, and PG-A8 is
+  the reason: with no map there is nothing to be missing. It is printed as
+  by-construction or not printed.
+  (ii) **Three more collapse the same way, and each must be printed as
+  by-construction rather than as evidence.** The singleton expansion, since the
+  rule returns one tile by type — DS-A27's semantic invariant is discharged
+  structurally, which DS-A27 itself anticipates. The equality of R5's two counted
+  halves, since both counters increment in the same callback. The distinctness of
+  reached states, by the tree-walk property already used at N4-A15(iii) — a
+  node's label is its play prefix, so no record is reached twice — **which is
+  also why the `seen` set is dropped and the walk stays O(1) in memory**.
+  Legality likewise, **provided each arm is defined as a selection from `legal`**;
+  the arm declarations state that they are, and any arm not so defined must
+  assert legality at every callback, where the assertion is contentful.
+  (iii) **What replaces totality is stronger than totality was: (RW-R1)
+  `L_rule(a) ≤ Q^H(a)`, asserted exactly against the filed Q^H.** At h9 this is
+  available precisely because the coordinate is Tier 1. It is Lemma E4's
+  conclusion turned into a check, it can fail, and a violation is
+  stop-and-report naming three defects in SEP-A11(i)'s style: the rule is not
+  information-consistent (it is reading the world), the walk is wrong, or the
+  authorities disagree. This is the genuine receipt of the whole route.
+  (iv) **(RW-R2), BLOCKING: the two evaluators agree.** Before any h9 number is
+  quoted, the *same rule* is priced twice at a coordinate where both routes fit —
+  once by `policy_value_by_rule` computing the choice at the callback, once by
+  materialising that rule into a map and pricing with `policy_value_by_record` —
+  and the two L values are asserted **exactly equal**. This is the (R0)/(T1-R2)
+  pattern: a new evaluator is not trusted until it reproduces the old one on
+  shared ground. A difference is a defect in the new evaluator, never a finding.
+  (v) **(RW-R3)** the L walk's reached-state count is an exact integer in
+  SEP-A19(b)'s class, named by traversal, and is never an information value, a
+  decision width, a cost claim or a DS-A2 term. **(vi)** freeze 44(b)'s budget
+  contract applies unchanged — B walk-steps, `Option`, no partial fold retained.
+  Cost-model input, labelled and licensing nothing: by Lemma N the L walk's
+  charge is the pooled charge with focal branching pruned, so at h9 it is of
+  order `tree-v0 / 4` divided by the focal branching product — roughly 10⁸–10⁹
+  walk-steps against B = 10¹⁰, in O(1) memory.
+- **RW-A3 (h9's verdict is already determined; FILE IT, and do not blur the two
+  labels).** Binding, and it costs no compute.
+  (i) The h9 block gains a **coordinate verdict line**: *NOT SEPARATED at either
+  H-optimal action; binding margin −2116837/8870400 < 0; by Corollary E4.1(3) no
+  candidate set whatsoever separates this coordinate — exact negative, from
+  Q^H and U alone, at Tier 1 with the authority gate MET.*
+  (ii) **This is not a NOT-SEPARATED pair verdict in N4-A6(ii)'s sense** and must
+  never be printed as one. N4-A6(ii) requires the whole primal pipeline for a
+  *pair* verdict; Corollary E4.1(3)'s exact negative is a different statement —
+  about what no candidate can achieve — and needs only the two witnesses. The
+  distinction is exactly what N4-A6(ii) exists to keep, and the line says which
+  object it is.
+  (iii) **The NOT PRICED line stands verbatim.** The unit remains **NOT PRICED on
+  the exact route** and becomes, additionally, **RULE-EVALUATED** when the rule
+  arms run. The two labels never merge, and a rule-seeded L is **never** called a
+  price: "priced" means the exact primal pipeline ran at that unit.
+- **RW-A4 (the port to the n4 carrier: which arms run, and how the missing one
+  prints).** EC-A9's "ported by re-declaration" **covers h9**: h9 is a coordinate
+  of the n4 carrier, and being not-priced is the reason to port, not a bar.
+  **P1 least-tile, P2 greatest-tile, P3 beat-if-able, P4 trump-hoard run**, their
+  definitions re-declared verbatim against the n4 carrier's canonical order
+  (EC-A1(a): the canonical order, not freeze 26). **Arm X is STRUCTURALLY
+  UNAVAILABLE at h9** and prints as such — *extraction map exceeds P_max v2 =
+  192,000,000 at a measured 517,562,322 states (N4-A16(iv))* — never as a failure
+  and never as a gap. What its absence costs is **a receipt, not the
+  measurement**: arm X was the control witnessing that the pipeline reproduces
+  Q^H (g = 0 by Corollary E4.1(2)), and the anchor for every gap is the **filed
+  Q^H itself**, which exists at h9. **Arms T and R are out of scope** on this
+  carrier: both key off stored library entries, and freeze 45 writes no library
+  entry at any n = 4 coordinate.
+- **RW-A5 (the aim, redirected; and the identity that does the work).** The
+  separation condition for a rule is `g(a⋆) ≤ margin(a⋆)` where
+  `margin(a⋆) = Q^H(a⋆) − max_{a≠a⋆} U_a` — R8's identity, computable **now**
+  from the filed rows at every coordinate, priced or not. Consequently:
+  (i) **the separation question is live only at the four positive-margin
+  coordinates**, where it asks the economy thesis's real question — can a cheap
+  rule match what the exact seed achieves? — and the answer is a number, not an
+  opinion;
+  (ii) **at the five negative-margin coordinates, h9 included, no rule can
+  separate and no rule failure is informative about separation**; what those rows
+  measure is the gap;
+  (iii) **h9 remains the most interesting coordinate for the economy
+  measurement** precisely because it is the one the exact route cannot price, so
+  the gap there is the only primal number obtainable at all.
+- **RW-A6 (the reading, pre-declared before any rule number exists).**
+  (a) **A rule separates at a positive-margin coordinate** → the coordinate is
+  certified by a candidate that cost no map and no extraction, with EC-A13's
+  primal-half fence verbatim and Theorem E6.4's member-not-set caveat beside the
+  verdict. It certifies membership under the declared belief, field, valuation
+  and observation contract, and nothing else.
+  (b) **No rule separates** → the per-arm gaps are filed, typed per EC-A11 as
+  **candidate-failure, never class-failure**. A rule's L is one lower bound among
+  many; its failure says nothing about what another candidate could do, and the
+  exact negative is **not** obtainable from a rule failure. Where the exact
+  negative does hold it comes from the filed Q^H and U, as at h9, and the row
+  says which source it came from.
+  (c) **At h9 specifically** → the deliverable is the gap `g` per arm, printed as
+  an exact rational beside `Q^H`, with the RW-A3(iii) labels and the sentence
+  that the coordinate's separation verdict was settled by Corollary E4.1(3)
+  before any rule ran.
+- **RW-A7 (scope: all four actions, all nine coordinates, with the negative-margin
+  rows typed).** Run the rule arms at **all four root actions** — the gap
+  `g(a) = Q^H(a) − L_rule(a)` is a measurement at every action, while the
+  **separation verdict is computed only at H-optimal actions**, since the design
+  asserts the certified action lies in `argmax_H`. Run them at **all nine
+  coordinates**: the marginal cost is one budgeted walk each and the comparison
+  across coordinates is the economy measurement's point. At the five
+  negative-margin coordinates the **separation column is a receipt of Corollary
+  E4.1(3), not a measurement** — it reports a theorem about what no candidate can
+  do — while the **gap column remains a genuine measurement**; both typings print
+  on the same row and are never conflated. This is the brief's own reading of the
+  already-filed exact negatives, confirmed and extended to h9.
+- **RW-A8 (freezes and results discipline).** **FREEZE 49 — the n4 economy
+  carrier**: the coordinate list (the nine n4 coordinates in freeze-44(f) order),
+  the action set (all four per coordinate, ascending), the arm subset (P1..P4,
+  with X printed structurally unavailable where the cap bars it and T/R out of
+  scope), the **rule argument list `(record, legal)` of RW-A1(i)–(ii)**, the
+  canonical run order and the results-file column set (arm, action, L_rule, Q^H,
+  gap, margin, separation cell with its typing, reached count, walk-steps,
+  residual). Freezes 1–48 stand, 44 at v2, 36 at v2, 38–40 reserved and
+  untouched; **no freeze is amended**, because freeze 44(b)'s contract already
+  binds every `walk`-based evaluator and (c) enumerates that design's six rather
+  than closing the set — a pointer marker records this at (c)'s site. Results
+  discipline: every row carries its arm's information-consistency argument
+  (RW-A1(iii)), the by-construction notices of RW-A2(ii), the RW-A3(iii) label
+  pair, and the EC-A11 fence; and nothing here is promoted — the gaps, the
+  verdicts and the h9 exact negative are exploratory and quotable as results only
+  by brief amendment adding them to a verifier receipt.
+
+**What the build owes this section.** `policy_value_by_rule` with the closed
+argument list; (RW-R2) run and green **before** any h9 number is quoted; the four
+arms ported with their consistency arguments; freeze 49's columns; and — first,
+because it needs no code — h9's coordinate verdict line of RW-A3(i), which is a
+result the pass left on the table.

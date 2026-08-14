@@ -585,3 +585,60 @@ pub fn policy_value_by_record(
         },
     ))
 }
+
+/// The map-free rule walk (RW-A1): the same fixed-policy evaluation as
+/// `policy_value_by_record`, with the choice computed AT the callback by a
+/// declared rule of the closed argument list `(record, legal)` — no map, no
+/// partition, no `seen` set: O(1) memory beyond the walk (distinctness of
+/// reached records holds by the tree-walk property of N4-A15(iii)). The
+/// rule must select from `legal` (asserted per call, RW-A2); the singleton
+/// expansion discharges DS-A27's invariant structurally. RW-A2's
+/// by-construction notices apply to this walk's receipt: the counted halves
+/// increment in the same callback and are printed as by-construction, never
+/// as evidence.
+pub fn policy_value_by_rule(
+    kernel: &Kernel,
+    focal: Team,
+    dir: &Direction,
+    root: Domino,
+    rule: &mut dyn FnMut(&[Domino], DominoSet) -> Domino,
+    budget: &mut u64,
+) -> Option<(Line, RecordWalkReceipt)> {
+    let ctx = WalkCtx::new(kernel, focal, dir);
+    let bag = root_bag(kernel, root);
+    let mut obs = vec![root];
+    let mut focal_states: u64 = 0;
+    let mut singleton_expansions: u64 = 0;
+    let cell = Cell::new(*budget);
+    let env = walk(
+        &ctx,
+        &bag,
+        ctx.viewer,
+        root_tiles(root),
+        1,
+        &mut obs,
+        &mut |record, legal, _| {
+            focal_states += 1;
+            let choice = rule(record, legal);
+            assert!(
+                legal.contains(choice),
+                "RW-A2 stop-and-report: the rule did not select from the legal set"
+            );
+            singleton_expansions += 1;
+            DominoSet::single(choice)
+        },
+        &cell,
+    );
+    *budget = cell.get();
+    let env = env?;
+    let n = i128::try_from(kernel.count()).expect("fiber sizes fit i128");
+    let env = env.scale(q(1, n));
+    assert!(env.is_affine(), "one deterministic policy induces one line");
+    Some((
+        env.pieces()[0].line,
+        RecordWalkReceipt {
+            focal_states,
+            singleton_expansions,
+        },
+    ))
+}

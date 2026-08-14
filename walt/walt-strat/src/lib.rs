@@ -44,8 +44,8 @@ pub use direction::Direction;
 pub use hidden::hidden_root_values;
 pub use hidden_scalar::{MemoStats, ScalarHidden};
 pub use info::{
-    fnv128_record, policy_value, policy_value_by_record, policy_value_receipt, InfoPartition,
-    InfoStateId, MaxFreeReceipt, Policy, RecordWalkReceipt,
+    fnv128_record, policy_value, policy_value_by_record, policy_value_by_rule,
+    policy_value_receipt, InfoPartition, InfoStateId, MaxFreeReceipt, Policy, RecordWalkReceipt,
 };
 pub use label::{OperatorLabel, WeightingLabel};
 pub use pi::pi_root_values;
