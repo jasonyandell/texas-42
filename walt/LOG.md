@@ -236,3 +236,20 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   require judgement. Risk carried (T1-A12): proved relative to walt's
   implementation of the rules; the corpus check is mandatory before external
   citation. Details: [walt-s6-era](../wiki/walt-s6-era.md).
+- **S6h (2026-08-14, overnight)**: the n4 overnight pass — Experiment E at all
+  nine real-deal coordinates, four tricks out, under N4-A13..A20 (W=8,
+  checkpointed, admission by measured count). **Every coordinate Tier 1** (gate
+  MET; R6 held; R1 held; R7 held at all nine — Lemma N confirmed to the step:
+  the whole-fiber revealed charge equals the quoted tree-v0 exactly). The
+  verdict set is genuinely mixed and therefore maximally informative:
+  **4 SEPARATED** (h1 root 11, h4 root 65, h5 root 55, h8 root 55 — the last
+  two carrying their real-deal fence markers inline); **4 EXACT NEGATIVES** —
+  the branch's first (h0, h2, h6, h12): Corollary E4.1(3) fired for real, so at
+  those coordinates NO candidate set whatsoever separates under relaxation C,
+  with failing gaps as tight as 8524657/479001600 — Experiment D's inputs,
+  finally non-empty; **h9 NOT PRICED with its exact count printed:
+  517,562,322 partition states** (2.7× P_max v2), measured by a COMPLETED
+  count-only pass per N4-A16(iv), a stop that is a result. Mechanisms all
+  green: resume-validation PASS (h0 recomputed whole-call), DS-A36
+  deterministic block BYTE-IDENTICAL fresh vs resumed, 36/36 units
+  checkpointed and reloaded. Details: [walt-s6-era](../wiki/walt-s6-era.md).

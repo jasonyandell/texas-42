@@ -1,0 +1,208 @@
+walt separation probe — the n = 4 overnight pass (Experiment E, four tricks out, receipt-corpus coordinates) — exploratory tier
+rulings: N4-A1..N4-A20 (the 2026-08-14 return authorises this pass; Lemma N, Corollaries N-1..N-3; freeze 44 v2); design walt/SEPARATION-RUNG-N4.md as amended; mathematics: errata Lemma E3 + (C1)-(C4), Lemma E4, Corollary E4.1 (pending errata §4.3), Theorem E6.4, Theorem E6.5
+regenerate: M_MAX_GIB=.. T_PASS_H=.. M_BUDGET_GIB=.. N4_W=.. cargo run --release -p walt-factory --example separation_probe -- n4
+
+R0 (BLOCKING, N4-A10): PASSED before any n = 4 unit ran — the grade-3 receipt reproduced with exactly the two enumerated permitted differences; candidate library byte-identical.
+PRIMAL CEILING (SEP-A2, verbatim): the primal witness at each H-optimal action is an H-optimal policy re-priced by the fixed-policy evaluator, so L = Q^H by Corollary E4.1(2); the separation verdict at this coordinate is determined entirely by the upper witness.
+PROVENANCE TYPING (SEP-A12): the separation's validity does not cite H, but this run's witnesses were produced with H's help; the logic of Theorem E6.4 is H-free, the provenance of these witnesses is not.
+BUDGET HONESTY (freeze 44 v2): the scalar authority is budgeted (freeze 26, 200000000 particle-steps); the walk-based evaluators carry declared walk-step budgets (B = 10000000000 per (coordinate, action); 4B whole-call revealed); P_max v2 = 192000000 states is an ADMISSION threshold on the count-only pass's completed count, applied before any map is allocated, with the insertion check retained as a defensive stop only (N4-A16(v)); every stop is a declared stop.
+N4-A5 TYPING (verbatim, the digest receipt): this is a hash-level domain receipt — strictly stronger than the cardinality comparison (two different equal-sized state sets fail it except under hash collision), strictly weaker than the held-map domain comparison, and in the same identity-by-hash class as freeze 1. The results file names the weakening in place.
+ROSTER SENTENCE (N4-A14(iv)): which units a given night completed is load-relative provenance and licenses nothing — the absence of a unit is never read as a property of that coordinate; each completed unit's content is a function of (kernel, freeze-44 budgets, P_max) alone and is byte-identical across fresh, resumed and any W.
+THE THREE SENTENCES THAT MUST NOT BE BLURRED (§10): (1) this pass tests whether root-action separation closes four tricks out at real-deal coordinates. (2) It does NOT test the parent's economy claim ["the solver does not need an exact solution for every action"]; that experiment is walt/ECONOMY-SUCCESSOR.md and its EC-A13 scope. (3) It licenses no cost, timing, runtime or tractability claim of any kind; wall-clock is provenance; step counts are exact observables of declared traversals; P-A21: three rungs are not a law and no growth rate measured at grades <= 4 is quoted for the opening.
+out of scope (leader is not the declaring seat): h3, h7, h10, h11 — printed as in the S5h receipt.
+
+GATE ARITHMETIC (cost-model inputs, licensing nothing; N4-A14/A16/A17)
+run-owner gate inputs (provenance, never freezes): M_max = 40 GiB;
+    M_budget = 24 GiB; T_pass = 6 h; W = 8 (recorded, not frozen)
+[A] step budgets, EXACT from a quoted receipt (Lemma N, Corollary N-1):
+    whole-fiber revealed charge at h9 = tree-v0 = 16,211,488,002 vs 4B = 40,000,000,000
+    per-action coordinate average = tree-v0/4 = 4,052,872,001 vs B = 10,000,000,000
+    caveat printed in place: only the coordinate average is known in advance;
+    B binds a single action, and the per-unit residual is measured
+    (per-coordinate exact values asserted as (R7) in each coordinate block)
+[B] memory admission, constants only, checked BEFORE the pass and never
+    during it (N4-A4): P_max v2 = 192000000 states; declared 128 bytes/state;
+    192,000,000 x 128 B = 22.89 GiB <= M_budget = 24 GiB;
+    W x 1 GiB + M_budget <= M_max - 4 GiB  =>  W <= 12
+[C] per-unit admission, deterministic, a function of (kernel, P_max v2)
+    alone: count-only states N(unit) <= P_max v2; and
+    sum of N x 128 B over concurrently pricing units <= M_budget (wait, never skip)
+[D] whole-pass wall estimate, provenance, GATES NOTHING: T_est ~= 3 h at W = 1
+    (revealed side ~= sum tree-v0 = 5.66e10 charges at ~5.83e6 steps/s, an estimate
+    licensing nothing) vs T_pass = 6 h. "Wall-clock gates no content (N4-A14).
+    Exceeding T_pass is not a bar: the pass is checkpointed at (coordinate, action)
+    granularity and resumes in canonical unit order. Which units a night completed is
+    load-relative provenance and licenses nothing."
+
+== n4 coord grade=4 pip=3 hand=[00 21 32 53] pool=[10 11 20 22 40 41 42 43 44 51 52 62] leader-offset=0 |X|=34650 enumeration=freeze-7/23 ==
+  provenance only: corpus hand id 0, trick 4 (never identity components, freeze 45)
+  void-filtered fiber 34650 of 34650 — this column licenses nothing: it is not a belief, not a weight, not an error bar, and no verdict in this file is conditioned on it.
+  REAL-DEAL FENCE (§2.2): the hand and pool of this coordinate are taken from a real deal in rob's receipt corpus; its belief is not. The voids the play record had already revealed are deliberately discarded (P-A2's void-free carrier), and support is not belief in any case. No row in this file is a statement about correct play in that deal, about reachability, or about any belief other than the declared one. Fiber members are FEASIBLE and never reachable (R-A2, P-A1).
+  authority: gate MET (dag-v1 steps 140226166, boundary hits 14809754); R6 step-determinism vs the quoted S5h counts — HELD; R1 solver identification — HELD; R7 whole-fiber revealed charge 3727724856 == quoted tree-v0 — HELD (Lemma N; a same-traversal comparison) (TIER 1)
+  R3 root 00: Q^H = 301653329/89812800  U = 7580063/2138400  price U - Q^H = 16709317/89812800  (count convention; grade 4 bridge asserted)  [revealed walk-steps 539583224 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 21: Q^H = 164419/49896  U = 164419/49896  price U - Q^H = 0  (count convention; grade 4 bridge asserted)  [revealed walk-steps 772577200 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 32: Q^H = 83974837/29937600  U = 16266721/5702400  price U - Q^H = 5701793/119750400  (count convention; grade 4 bridge asserted)  [revealed walk-steps 1118641032 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 53: Q^H = 33701/9900  U = 1592399/453600  price U - Q^H = 106217/997920  (count convention; grade 4 bridge asserted)  [revealed walk-steps 1296923400 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  a⋆ = 53: count-only states 90624282 (uniqueness per N4-A15(iii): the tree-walk property, stated beside every count); admitted at 128 bytes/state; extraction map len == count (R8, code-level); N4-A5 hash-level domain receipt — digests equal — HELD (2670594 records with genuine choice); R2 primal receipt L = Q^H = 33701/9900 — HELD; R5 counted receipt 7550970 focal = 7550970 singleton (fallback form: no distinct-state set is held; the digest receipt replaces the domain comparison and is strictly weaker than it — N4-A5's typing, named in place)
+  pair (a*=53, a=00): L = 33701/9900  U = 7580063/2138400  margin = -300647/2138400  -> NOT SEPARATED
+    EXACT NEGATIVE (Corollary E4.1(3)): Q^H(53) < U_00 by 300647/2138400 (count); no candidate policy set whatsoever separates this pair under relaxation C at this coordinate — the remaining lever is a gluing cut (Theorem E6.5). An input Experiment D needs.
+  pair (a*=53, a=21): L = 33701/9900  U = 164419/49896  margin = 135851/1247400  -> SEPARATED
+  pair (a*=53, a=32): L = 33701/9900  U = 16266721/5702400  margin = 629011/1140480  -> SEPARATED
+  VERDICT: a⋆ = 53 NOT SEPARATED (some competitor's upper witness exceeds L).
+
+== n4 coord grade=4 pip=6 hand=[11 43 60 66] pool=[00 10 21 30 31 33 40 50 51 52 53 54] leader-offset=0 |X|=34650 enumeration=freeze-7/23 ==
+  provenance only: corpus hand id 1, trick 4 (never identity components, freeze 45)
+  void-filtered fiber 34650 of 34650 — this column licenses nothing: it is not a belief, not a weight, not an error bar, and no verdict in this file is conditioned on it.
+  REAL-DEAL FENCE (§2.2): the hand and pool of this coordinate are taken from a real deal in rob's receipt corpus; its belief is not. The voids the play record had already revealed are deliberately discarded (P-A2's void-free carrier), and support is not belief in any case. No row in this file is a statement about correct play in that deal, about reachability, or about any belief other than the declared one. Fiber members are FEASIBLE and never reachable (R-A2, P-A1).
+  authority: gate MET (dag-v1 steps 123882398, boundary hits 6756331); R6 step-determinism vs the quoted S5h counts — HELD; R1 solver identification — HELD; R7 whole-fiber revealed charge 15486288612 == quoted tree-v0 — HELD (Lemma N; a same-traversal comparison) (TIER 1)
+  R3 root 11: Q^H = 2251/594  U = 2251/594  price U - Q^H = 0  (count convention; grade 4 bridge asserted)  [revealed walk-steps 1395355314 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 43: Q^H = 113/33  U = 113/33  price U - Q^H = 0  (count convention; grade 4 bridge asserted)  [revealed walk-steps 1524948078 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 60: Q^H = 208/55  U = 208/55  price U - Q^H = 0  (count convention; grade 4 bridge asserted)  [revealed walk-steps 6282992610 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 66: Q^H = 208/55  U = 208/55  price U - Q^H = 0  (count convention; grade 4 bridge asserted)  [revealed walk-steps 6282992610 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  a⋆ = 11: count-only states 69176856 (uniqueness per N4-A15(iii): the tree-walk property, stated beside every count); admitted at 128 bytes/state; extraction map len == count (R8, code-level); N4-A5 hash-level domain receipt — digests equal — HELD (1588728 records with genuine choice); R2 primal receipt L = Q^H = 2251/594 — HELD; R5 counted receipt 11003304 focal = 11003304 singleton (fallback form: no distinct-state set is held; the digest receipt replaces the domain comparison and is strictly weaker than it — N4-A5's typing, named in place)
+  pair (a*=11, a=43): L = 2251/594  U = 113/33  margin = 217/594  -> SEPARATED
+  pair (a*=11, a=60): L = 2251/594  U = 208/55  margin = 23/2970  -> SEPARATED
+  pair (a*=11, a=66): L = 2251/594  U = 208/55  margin = 23/2970  -> SEPARATED
+  VERDICT: root action 11 SEPARATED against every competitor — in Opt^H at this coordinate (asserted ∈ argmax_H). MEMBER-NOT-SET (Theorem E6.4, verbatim): non-strict separation certifies membership in the optimal set and never uniqueness.
+
+== n4 coord grade=4 pip=5 hand=[21 33 53 54] pool=[10 11 20 22 30 31 32 41 43 52 63 66] leader-offset=0 |X|=34650 enumeration=freeze-7/23 ==
+  provenance only: corpus hand id 2, trick 4 (never identity components, freeze 45)
+  void-filtered fiber 23100 of 34650 — this column licenses nothing: it is not a belief, not a weight, not an error bar, and no verdict in this file is conditioned on it.
+  REAL-DEAL FENCE (§2.2): the hand and pool of this coordinate are taken from a real deal in rob's receipt corpus; its belief is not. The voids the play record had already revealed are deliberately discarded (P-A2's void-free carrier), and support is not belief in any case. No row in this file is a statement about correct play in that deal, about reachability, or about any belief other than the declared one. Fiber members are FEASIBLE and never reachable (R-A2, P-A1).
+  authority: gate MET (dag-v1 steps 78359234, boundary hits 7668849); R6 step-determinism vs the quoted S5h counts — HELD; R1 solver identification — HELD; R7 whole-fiber revealed charge 3918922312 == quoted tree-v0 — HELD (Lemma N; a same-traversal comparison) (TIER 1)
+  R3 root 21: Q^H = 9448/2835  U = 9448/2835  price U - Q^H = 0  (count convention; grade 4 bridge asserted)  [revealed walk-steps 781356124 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 33: Q^H = 911507/249480  U = 6106181/1663200  price U - Q^H = 12629/712800  (count convention; grade 4 bridge asserted)  [revealed walk-steps 543418716 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 53: Q^H = 85117/23100  U = 58639/15840  price U - Q^H = 9557/554400  (count convention; grade 4 bridge asserted)  [revealed walk-steps 1297073736 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 54: Q^H = 85117/23100  U = 58639/15840  price U - Q^H = 9557/554400  (count convention; grade 4 bridge asserted)  [revealed walk-steps 1297073736 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  a⋆ = 53: count-only states 82794282 (uniqueness per N4-A15(iii): the tree-walk property, stated beside every count); admitted at 128 bytes/state; extraction map len == count (R8, code-level); N4-A5 hash-level domain receipt — digests equal — HELD (2010390 records with genuine choice); R2 primal receipt L = Q^H = 85117/23100 — HELD; R5 counted receipt 7823778 focal = 7823778 singleton (fallback form: no distinct-state set is held; the digest receipt replaces the domain comparison and is strictly weaker than it — N4-A5's typing, named in place)
+  pair (a*=53, a=21): L = 85117/23100  U = 9448/2835  margin = 219599/623700  -> SEPARATED [real-deal fence applies: void-filtered fiber 23100 of 34650]
+  pair (a*=53, a=33): L = 85117/23100  U = 6106181/1663200  margin = 22243/1663200  -> SEPARATED [real-deal fence applies: void-filtered fiber 23100 of 34650]
+  pair (a*=53, a=54): L = 85117/23100  U = 58639/15840  margin = -9557/554400  -> NOT SEPARATED [real-deal fence applies: void-filtered fiber 23100 of 34650]
+    EXACT NEGATIVE (Corollary E4.1(3)): Q^H(53) < U_54 by 9557/554400 (count); no candidate policy set whatsoever separates this pair under relaxation C at this coordinate — the remaining lever is a gluing cut (Theorem E6.5). An input Experiment D needs.
+  VERDICT: a⋆ = 53 NOT SEPARATED (some competitor's upper witness exceeds L).
+  a⋆ = 54: count-only states 82794282 (uniqueness per N4-A15(iii): the tree-walk property, stated beside every count); admitted at 128 bytes/state; extraction map len == count (R8, code-level); N4-A5 hash-level domain receipt — digests equal — HELD (2010390 records with genuine choice); R2 primal receipt L = Q^H = 85117/23100 — HELD; R5 counted receipt 7823778 focal = 7823778 singleton (fallback form: no distinct-state set is held; the digest receipt replaces the domain comparison and is strictly weaker than it — N4-A5's typing, named in place)
+  pair (a*=54, a=21): L = 85117/23100  U = 9448/2835  margin = 219599/623700  -> SEPARATED [real-deal fence applies: void-filtered fiber 23100 of 34650]
+  pair (a*=54, a=33): L = 85117/23100  U = 6106181/1663200  margin = 22243/1663200  -> SEPARATED [real-deal fence applies: void-filtered fiber 23100 of 34650]
+  pair (a*=54, a=53): L = 85117/23100  U = 58639/15840  margin = -9557/554400  -> NOT SEPARATED [real-deal fence applies: void-filtered fiber 23100 of 34650]
+    EXACT NEGATIVE (Corollary E4.1(3)): Q^H(54) < U_53 by 9557/554400 (count); no candidate policy set whatsoever separates this pair under relaxation C at this coordinate — the remaining lever is a gluing cut (Theorem E6.5). An input Experiment D needs.
+  VERDICT: a⋆ = 54 NOT SEPARATED (some competitor's upper witness exceeds L).
+
+== n4 coord grade=4 pip=1 hand=[21 40 51 65] pool=[00 11 20 22 42 43 44 50 52 54 55 62] leader-offset=0 |X|=34650 enumeration=freeze-7/23 ==
+  provenance only: corpus hand id 4, trick 4 (never identity components, freeze 45)
+  void-filtered fiber 34650 of 34650 — this column licenses nothing: it is not a belief, not a weight, not an error bar, and no verdict in this file is conditioned on it.
+  REAL-DEAL FENCE (§2.2): the hand and pool of this coordinate are taken from a real deal in rob's receipt corpus; its belief is not. The voids the play record had already revealed are deliberately discarded (P-A2's void-free carrier), and support is not belief in any case. No row in this file is a statement about correct play in that deal, about reachability, or about any belief other than the declared one. Fiber members are FEASIBLE and never reachable (R-A2, P-A1).
+  authority: gate MET (dag-v1 steps 123162862, boundary hits 11613188); R6 step-determinism vs the quoted S5h counts — HELD; R1 solver identification — HELD; R7 whole-fiber revealed charge 2442873158 == quoted tree-v0 — HELD (Lemma N; a same-traversal comparison) (TIER 1)
+  R3 root 21: Q^H = 30554389/11975040  U = 17198011/6652800  price U - Q^H = 1005077/29937600  (count convention; grade 4 bridge asserted)  [revealed walk-steps 541974048 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 40: Q^H = 2805661/1108800  U = 30308263/11975040  price U - Q^H = 35621/59875200  (count convention; grade 4 bridge asserted)  [revealed walk-steps 550200974 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 51: Q^H = 30554389/11975040  U = 17198011/6652800  price U - Q^H = 1005077/29937600  (count convention; grade 4 bridge asserted)  [revealed walk-steps 541974048 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 65: Q^H = 2795629/997920  U = 8276617/2851200  price U - Q^H = 2023739/19958400  (count convention; grade 4 bridge asserted)  [revealed walk-steps 808724088 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  a⋆ = 65: count-only states 67594236 (uniqueness per N4-A15(iii): the tree-walk property, stated beside every count); admitted at 128 bytes/state; extraction map len == count (R8, code-level); N4-A5 hash-level domain receipt — digests equal — HELD (5306604 records with genuine choice); R2 primal receipt L = Q^H = 2795629/997920 — HELD; R5 counted receipt 16781084 focal = 16781084 singleton (fallback form: no distinct-state set is held; the digest receipt replaces the domain comparison and is strictly weaker than it — N4-A5's typing, named in place)
+  pair (a*=65, a=21): L = 2795629/997920  U = 17198011/6652800  margin = 4318547/19958400  -> SEPARATED
+  pair (a*=65, a=40): L = 2795629/997920  U = 30308263/11975040  margin = 92551/342144  -> SEPARATED
+  pair (a*=65, a=51): L = 2795629/997920  U = 17198011/6652800  margin = 4318547/19958400  -> SEPARATED
+  VERDICT: root action 65 SEPARATED against every competitor — in Opt^H at this coordinate (asserted ∈ argmax_H). MEMBER-NOT-SET (Theorem E6.4, verbatim): non-strict separation certifies membership in the optimal set and never uniqueness.
+
+== n4 coord grade=4 pip=5 hand=[31 51 55 63] pool=[10 11 21 22 32 33 41 42 43 44 50 52] leader-offset=0 |X|=34650 enumeration=freeze-7/23 ==
+  provenance only: corpus hand id 5, trick 4 (never identity components, freeze 45)
+  void-filtered fiber 14700 of 34650 — this column licenses nothing: it is not a belief, not a weight, not an error bar, and no verdict in this file is conditioned on it.
+  REAL-DEAL FENCE (§2.2): the hand and pool of this coordinate are taken from a real deal in rob's receipt corpus; its belief is not. The voids the play record had already revealed are deliberately discarded (P-A2's void-free carrier), and support is not belief in any case. No row in this file is a statement about correct play in that deal, about reachability, or about any belief other than the declared one. Fiber members are FEASIBLE and never reachable (R-A2, P-A1).
+  authority: gate MET (dag-v1 steps 191841542, boundary hits 19118225); R6 step-determinism vs the quoted S5h counts — HELD; R1 solver identification — HELD; R7 whole-fiber revealed charge 6305108794 == quoted tree-v0 — HELD (Lemma N; a same-traversal comparison) (TIER 1)
+  R3 root 31: Q^H = 573763969/179625600  U = 192456773/59875200  price U - Q^H = 6557/326592  (count convention; grade 4 bridge asserted)  [revealed walk-steps 681154252 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 51: Q^H = 173402093/59875200  U = 704173027/239500800  price U - Q^H = 2112931/47900160  (count convention; grade 4 bridge asserted)  [revealed walk-steps 844497798 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 55: Q^H = 546913/158400  U = 211325419/59875200  price U - Q^H = 918461/11975040  (count convention; grade 4 bridge asserted)  [revealed walk-steps 1297272750 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 63: Q^H = 380069969/119750400  U = 1565604113/479001600  price U - Q^H = 2158297/22809600  (count convention; grade 4 bridge asserted)  [revealed walk-steps 3482183994 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  a⋆ = 55: count-only states 100303024 (uniqueness per N4-A15(iii): the tree-walk property, stated beside every count); admitted at 128 bytes/state; extraction map len == count (R8, code-level); N4-A5 hash-level domain receipt — digests equal — HELD (3798652 records with genuine choice); R2 primal receipt L = Q^H = 546913/158400 — HELD; R5 counted receipt 24644760 focal = 24644760 singleton (fallback form: no distinct-state set is held; the digest receipt replaces the domain comparison and is strictly weaker than it — N4-A5's typing, named in place)
+  pair (a*=55, a=31): L = 546913/158400  U = 192456773/59875200  margin = 14276341/59875200  -> SEPARATED [real-deal fence applies: void-filtered fiber 14700 of 34650]
+  pair (a*=55, a=51): L = 546913/158400  U = 704173027/239500800  margin = 122759429/239500800  -> SEPARATED [real-deal fence applies: void-filtered fiber 14700 of 34650]
+  pair (a*=55, a=63): L = 546913/158400  U = 1565604113/479001600  margin = 8023709/43545600  -> SEPARATED [real-deal fence applies: void-filtered fiber 14700 of 34650]
+  VERDICT: root action 55 SEPARATED against every competitor — in Opt^H at this coordinate (asserted ∈ argmax_H). MEMBER-NOT-SET (Theorem E6.4, verbatim): non-strict separation certifies membership in the optimal set and never uniqueness. [real-deal fence applies: void-filtered fiber 14700 of 34650]
+
+== n4 coord grade=4 pip=4 hand=[11 40 43 53] pool=[00 20 22 30 31 42 44 51 52 54 55 64] leader-offset=0 |X|=34650 enumeration=freeze-7/23 ==
+  provenance only: corpus hand id 6, trick 4 (never identity components, freeze 45)
+  void-filtered fiber 34650 of 34650 — this column licenses nothing: it is not a belief, not a weight, not an error bar, and no verdict in this file is conditioned on it.
+  REAL-DEAL FENCE (§2.2): the hand and pool of this coordinate are taken from a real deal in rob's receipt corpus; its belief is not. The voids the play record had already revealed are deliberately discarded (P-A2's void-free carrier), and support is not belief in any case. No row in this file is a statement about correct play in that deal, about reachability, or about any belief other than the declared one. Fiber members are FEASIBLE and never reachable (R-A2, P-A1).
+  authority: gate MET (dag-v1 steps 145749144, boundary hits 19087948); R6 step-determinism vs the quoted S5h counts — HELD; R1 solver identification — HELD; R7 whole-fiber revealed charge 1855419966 == quoted tree-v0 — HELD (Lemma N; a same-traversal comparison) (TIER 1)
+  R3 root 11: Q^H = 535997311/239500800  U = 1090848503/479001600  price U - Q^H = 6284627/159667200  (count convention; grade 4 bridge asserted)  [revealed walk-steps 521846350 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 40: Q^H = 541161923/239500800  U = 544949941/239500800  price U - Q^H = 1894009/119750400  (count convention; grade 4 bridge asserted)  [revealed walk-steps 327214878 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 43: Q^H = 256988827/119750400  U = 5881639/2721600  price U - Q^H = 1803289/119750400  (count convention; grade 4 bridge asserted)  [revealed walk-steps 339888954 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 53: Q^H = 220757/110880  U = 122035561/59875200  price U - Q^H = 2826781/59875200  (count convention; grade 4 bridge asserted)  [revealed walk-steps 666469784 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  a⋆ = 40: count-only states 37700848 (uniqueness per N4-A15(iii): the tree-walk property, stated beside every count); admitted at 128 bytes/state; extraction map len == count (R8, code-level); N4-A5 hash-level domain receipt — digests equal — HELD (2275992 records with genuine choice); R2 primal receipt L = Q^H = 541161923/239500800 — HELD; R5 counted receipt 16629137 focal = 16629137 singleton (fallback form: no distinct-state set is held; the digest receipt replaces the domain comparison and is strictly weaker than it — N4-A5's typing, named in place)
+  pair (a*=40, a=11): L = 541161923/239500800  U = 1090848503/479001600  margin = -8524657/479001600  -> NOT SEPARATED
+    EXACT NEGATIVE (Corollary E4.1(3)): Q^H(40) < U_11 by 8524657/479001600 (count); no candidate policy set whatsoever separates this pair under relaxation C at this coordinate — the remaining lever is a gluing cut (Theorem E6.5). An input Experiment D needs.
+  pair (a*=40, a=43): L = 541161923/239500800  U = 5881639/2721600  margin = 23577691/239500800  -> SEPARATED
+  pair (a*=40, a=53): L = 541161923/239500800  U = 122035561/59875200  margin = 53019679/239500800  -> SEPARATED
+  VERDICT: a⋆ = 40 NOT SEPARATED (some competitor's upper witness exceeds L).
+
+== n4 coord grade=4 pip=5 hand=[21 31 33 55] pool=[00 20 30 40 41 43 50 53 60 62 64 66] leader-offset=0 |X|=34650 enumeration=freeze-7/23 ==
+  provenance only: corpus hand id 8, trick 4 (never identity components, freeze 45)
+  void-filtered fiber 1200 of 34650 — this column licenses nothing: it is not a belief, not a weight, not an error bar, and no verdict in this file is conditioned on it.
+  REAL-DEAL FENCE (§2.2): the hand and pool of this coordinate are taken from a real deal in rob's receipt corpus; its belief is not. The voids the play record had already revealed are deliberately discarded (P-A2's void-free carrier), and support is not belief in any case. No row in this file is a statement about correct play in that deal, about reachability, or about any belief other than the declared one. Fiber members are FEASIBLE and never reachable (R-A2, P-A1).
+  authority: gate MET (dag-v1 steps 136677010, boundary hits 15725964); R6 step-determinism vs the quoted S5h counts — HELD; R1 solver identification — HELD; R7 whole-fiber revealed charge 3016730096 == quoted tree-v0 — HELD (Lemma N; a same-traversal comparison) (TIER 1)
+  R3 root 21: Q^H = 94375703/34214400  U = 1343147573/479001600  price U - Q^H = 21887731/479001600  (count convention; grade 4 bridge asserted)  [revealed walk-steps 826970982 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 31: Q^H = 9109429/3421440  U = 649864861/239500800  price U - Q^H = 4068277/79833600  (count convention; grade 4 bridge asserted)  [revealed walk-steps 710461726 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 33: Q^H = 24053479/7257600  U = 229607567/68428800  price U - Q^H = 3944671/95800320  (count convention; grade 4 bridge asserted)  [revealed walk-steps 785798086 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 55: Q^H = 15391589/4435200  U = 208928077/59875200  price U - Q^H = 2283251/119750400  (count convention; grade 4 bridge asserted)  [revealed walk-steps 693499302 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  a⋆ = 55: count-only states 75332952 (uniqueness per N4-A15(iii): the tree-walk property, stated beside every count); admitted at 128 bytes/state; extraction map len == count (R8, code-level); N4-A5 hash-level domain receipt — digests equal — HELD (4233828 records with genuine choice); R2 primal receipt L = Q^H = 15391589/4435200 — HELD; R5 counted receipt 12078564 focal = 12078564 singleton (fallback form: no distinct-state set is held; the digest receipt replaces the domain comparison and is strictly weaker than it — N4-A5's typing, named in place)
+  pair (a*=55, a=21): L = 15391589/4435200  U = 1343147573/479001600  margin = 319144039/479001600  -> SEPARATED [real-deal fence applies: void-filtered fiber 1200 of 34650]
+  pair (a*=55, a=31): L = 15391589/4435200  U = 649864861/239500800  margin = 36256189/47900160  -> SEPARATED [real-deal fence applies: void-filtered fiber 1200 of 34650]
+  pair (a*=55, a=33): L = 15391589/4435200  U = 229607567/68428800  margin = 5003513/43545600  -> SEPARATED [real-deal fence applies: void-filtered fiber 1200 of 34650]
+  VERDICT: root action 55 SEPARATED against every competitor — in Opt^H at this coordinate (asserted ∈ argmax_H). MEMBER-NOT-SET (Theorem E6.4, verbatim): non-strict separation certifies membership in the optimal set and never uniqueness. [real-deal fence applies: void-filtered fiber 1200 of 34650]
+
+== n4 coord grade=4 pip=4 hand=[30 41 54 61] pool=[11 20 21 22 32 51 52 55 60 62 65 66] leader-offset=0 |X|=34650 enumeration=freeze-7/23 ==
+  provenance only: corpus hand id 9, trick 4 (never identity components, freeze 45)
+  void-filtered fiber 34650 of 34650 — this column licenses nothing: it is not a belief, not a weight, not an error bar, and no verdict in this file is conditioned on it.
+  REAL-DEAL FENCE (§2.2): the hand and pool of this coordinate are taken from a real deal in rob's receipt corpus; its belief is not. The voids the play record had already revealed are deliberately discarded (P-A2's void-free carrier), and support is not belief in any case. No row in this file is a statement about correct play in that deal, about reachability, or about any belief other than the declared one. Fiber members are FEASIBLE and never reachable (R-A2, P-A1).
+  authority: gate MET (dag-v1 steps 177671552, boundary hits 13256467); R6 step-determinism vs the quoted S5h counts — HELD; R1 solver identification — HELD; R7 whole-fiber revealed charge 16211488002 == quoted tree-v0 — HELD (Lemma N; a same-traversal comparison) (TIER 1)
+  R3 root 30: Q^H = 56497319/19958400  U = 16378763/5702400  price U - Q^H = 1656703/39916800  (count convention; grade 4 bridge asserted)  [revealed walk-steps 833630064 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 41: Q^H = 28422259/8870400  U = 545341/158400  price U - Q^H = 2116837/8870400  (count convention; grade 4 bridge asserted)  [revealed walk-steps 7253759970 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 54: Q^H = 28422259/8870400  U = 545341/158400  price U - Q^H = 2116837/8870400  (count convention; grade 4 bridge asserted)  [revealed walk-steps 7253759970 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 61: Q^H = 31039087/9979200  U = 31207009/9979200  price U - Q^H = 9329/554400  (count convention; grade 4 bridge asserted)  [revealed walk-steps 870337998 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  a⋆ = 41: partition states 517562322 (count-only pass, COMPLETED); NOT PRICED — N > P_max v2 = 192000000; no verdict, PG-A13. Typing: the count is an exact computational observable of the declared traversal in SEP-A19(b)'s class — never an information value, a decision width, a cost claim, or a DS-A2 term. Uniqueness (N4-A15(iii)): the count-only pass loses the per-record dedup check; uniqueness rests on the tree-walk property that a node's label is its play prefix, so the focal callback fires exactly once per record.
+  a⋆ = 54: partition states 517562322 (count-only pass, COMPLETED); NOT PRICED — N > P_max v2 = 192000000; no verdict, PG-A13. Typing: the count is an exact computational observable of the declared traversal in SEP-A19(b)'s class — never an information value, a decision width, a cost claim, or a DS-A2 term. Uniqueness (N4-A15(iii)): the count-only pass loses the per-record dedup check; uniqueness rests on the tree-walk property that a node's label is its play prefix, so the focal callback fires exactly once per record.
+
+== n4 coord grade=4 pip=0 hand=[20 30 40 65] pool=[00 10 11 31 32 33 41 43 44 51 60 66] leader-offset=0 |X|=34650 enumeration=freeze-7/23 ==
+  provenance only: corpus hand id 12, trick 4 (never identity components, freeze 45)
+  void-filtered fiber 34650 of 34650 — this column licenses nothing: it is not a belief, not a weight, not an error bar, and no verdict in this file is conditioned on it.
+  REAL-DEAL FENCE (§2.2): the hand and pool of this coordinate are taken from a real deal in rob's receipt corpus; its belief is not. The voids the play record had already revealed are deliberately discarded (P-A2's void-free carrier), and support is not belief in any case. No row in this file is a statement about correct play in that deal, about reachability, or about any belief other than the declared one. Fiber members are FEASIBLE and never reachable (R-A2, P-A1).
+  authority: gate MET (dag-v1 steps 176464986, boundary hits 17140506); R6 step-determinism vs the quoted S5h counts — HELD; R1 solver identification — HELD; R7 whole-fiber revealed charge 3666808044 == quoted tree-v0 — HELD (Lemma N; a same-traversal comparison) (TIER 1)
+  R3 root 20: Q^H = 2360209/855360  U = 41850301/14968800  price U - Q^H = 364429/9979200  (count convention; grade 4 bridge asserted)  [revealed walk-steps 786443140 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 30: Q^H = 2360209/855360  U = 41850301/14968800  price U - Q^H = 364429/9979200  (count convention; grade 4 bridge asserted)  [revealed walk-steps 786443140 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 40: Q^H = 2360209/855360  U = 41850301/14968800  price U - Q^H = 364429/9979200  (count convention; grade 4 bridge asserted)  [revealed walk-steps 786443140 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  R3 root 65: Q^H = 128344/51975  U = 128344/51975  price U - Q^H = 0  (count convention; grade 4 bridge asserted)  [revealed walk-steps 1307478624 — SEP-A19(b) class, per-traversal named: revealed one-world walks]
+  a⋆ = 20: count-only states 70430340 (uniqueness per N4-A15(iii): the tree-walk property, stated beside every count); admitted at 128 bytes/state; extraction map len == count (R8, code-level); N4-A5 hash-level domain receipt — digests equal — HELD (4504752 records with genuine choice); R2 primal receipt L = Q^H = 2360209/855360 — HELD; R5 counted receipt 17166338 focal = 17166338 singleton (fallback form: no distinct-state set is held; the digest receipt replaces the domain comparison and is strictly weaker than it — N4-A5's typing, named in place)
+  pair (a*=20, a=30): L = 2360209/855360  U = 41850301/14968800  margin = -364429/9979200  -> NOT SEPARATED
+    EXACT NEGATIVE (Corollary E4.1(3)): Q^H(20) < U_30 by 364429/9979200 (count); no candidate policy set whatsoever separates this pair under relaxation C at this coordinate — the remaining lever is a gluing cut (Theorem E6.5). An input Experiment D needs.
+  pair (a*=20, a=40): L = 2360209/855360  U = 41850301/14968800  margin = -364429/9979200  -> NOT SEPARATED
+    EXACT NEGATIVE (Corollary E4.1(3)): Q^H(20) < U_40 by 364429/9979200 (count); no candidate policy set whatsoever separates this pair under relaxation C at this coordinate — the remaining lever is a gluing cut (Theorem E6.5). An input Experiment D needs.
+  pair (a*=20, a=65): L = 2360209/855360  U = 128344/51975  margin = 8681171/29937600  -> SEPARATED
+  VERDICT: a⋆ = 20 NOT SEPARATED (some competitor's upper witness exceeds L).
+  a⋆ = 30: count-only states 70430340 (uniqueness per N4-A15(iii): the tree-walk property, stated beside every count); admitted at 128 bytes/state; extraction map len == count (R8, code-level); N4-A5 hash-level domain receipt — digests equal — HELD (4504752 records with genuine choice); R2 primal receipt L = Q^H = 2360209/855360 — HELD; R5 counted receipt 17166338 focal = 17166338 singleton (fallback form: no distinct-state set is held; the digest receipt replaces the domain comparison and is strictly weaker than it — N4-A5's typing, named in place)
+  pair (a*=30, a=20): L = 2360209/855360  U = 41850301/14968800  margin = -364429/9979200  -> NOT SEPARATED
+    EXACT NEGATIVE (Corollary E4.1(3)): Q^H(30) < U_20 by 364429/9979200 (count); no candidate policy set whatsoever separates this pair under relaxation C at this coordinate — the remaining lever is a gluing cut (Theorem E6.5). An input Experiment D needs.
+  pair (a*=30, a=40): L = 2360209/855360  U = 41850301/14968800  margin = -364429/9979200  -> NOT SEPARATED
+    EXACT NEGATIVE (Corollary E4.1(3)): Q^H(30) < U_40 by 364429/9979200 (count); no candidate policy set whatsoever separates this pair under relaxation C at this coordinate — the remaining lever is a gluing cut (Theorem E6.5). An input Experiment D needs.
+  pair (a*=30, a=65): L = 2360209/855360  U = 128344/51975  margin = 8681171/29937600  -> SEPARATED
+  VERDICT: a⋆ = 30 NOT SEPARATED (some competitor's upper witness exceeds L).
+  a⋆ = 40: count-only states 70430340 (uniqueness per N4-A15(iii): the tree-walk property, stated beside every count); admitted at 128 bytes/state; extraction map len == count (R8, code-level); N4-A5 hash-level domain receipt — digests equal — HELD (4504752 records with genuine choice); R2 primal receipt L = Q^H = 2360209/855360 — HELD; R5 counted receipt 17166338 focal = 17166338 singleton (fallback form: no distinct-state set is held; the digest receipt replaces the domain comparison and is strictly weaker than it — N4-A5's typing, named in place)
+  pair (a*=40, a=20): L = 2360209/855360  U = 41850301/14968800  margin = -364429/9979200  -> NOT SEPARATED
+    EXACT NEGATIVE (Corollary E4.1(3)): Q^H(40) < U_20 by 364429/9979200 (count); no candidate policy set whatsoever separates this pair under relaxation C at this coordinate — the remaining lever is a gluing cut (Theorem E6.5). An input Experiment D needs.
+  pair (a*=40, a=30): L = 2360209/855360  U = 41850301/14968800  margin = -364429/9979200  -> NOT SEPARATED
+    EXACT NEGATIVE (Corollary E4.1(3)): Q^H(40) < U_30 by 364429/9979200 (count); no candidate policy set whatsoever separates this pair under relaxation C at this coordinate — the remaining lever is a gluing cut (Theorem E6.5). An input Experiment D needs.
+  pair (a*=40, a=65): L = 2360209/855360  U = 128344/51975  margin = 8681171/29937600  -> SEPARATED
+  VERDICT: a⋆ = 40 NOT SEPARATED (some competitor's upper witness exceeds L).
+
+== TIMING BLOCK (provenance only, never a dividend; DS-A31/DS-A36; every line under W >= 2 is CONTENDED(W=8) and DS-A32's sentence applies: contended figures are biased and are not a dividend — here nothing forms a ratio and nothing is quoted) ==
+provenance: RESUMED (digest N4-ckpt-v2|freezes-26-36f-37-44v2-45|unit=hand+action|fields=unit-v2|N4-A13..A20; 36 units loaded, 0 computed; W = 8 recorded not frozen (DS-A34); one process, W threads (DS-A35/N4-A17(e)); cold regenerate: delete store/separation_n4_ckpt and re-run)
+resume-validation: PASS (coordinate h0 recomputed whole-call; all non-timing fields equal the loaded records)
+run-owner gate inputs: M_max = 40 GiB; M_budget = 24 GiB; T_pass = 6 h; W = 8; a resumed run inherits no quotable timing (DS-A31)
+h0: 0 ms [this process, CONTENDED(W=8)]
+h4: 0 ms [this process, CONTENDED(W=8)]
+h2: 0 ms [this process, CONTENDED(W=8)]
+h9: 0 ms [this process, CONTENDED(W=8)]
+h1: 0 ms [this process, CONTENDED(W=8)]
+h6: 0 ms [this process, CONTENDED(W=8)]
+h12: 0 ms [this process, CONTENDED(W=8)]
+h5: 0 ms [this process, CONTENDED(W=8)]
+h8: 0 ms [this process, CONTENDED(W=8)]
+total wall-clock: 1358575 ms
+run complete: yes
