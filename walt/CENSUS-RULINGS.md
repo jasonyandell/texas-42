@@ -11022,3 +11022,72 @@ question. Any third coordinate is a new commission and needs a new freeze.
   asserts a provenance that runs backwards in time**, and it would also make the
   file's own header a moving target every time the chapter is extended. The
   governing set is fixed at the moment of the run; the adjudicating set lives here.
+
+- **FF-A32 (RATIFICATION of the committed v1.1 emission, with two corrections in
+  place and one boundary discipline. The FF chapter closes here.)** Six clauses.
+  (i) **RATIFIED. FF-A25..FF-A30 refer to the emission committed at `fe10b50`**,
+  and to no other object. The coordinator's resolution is correct on the facts: the
+  pre-fix emission was never committed, so the header-corrected file is the only
+  repository object those rulings can attach to. **Nothing in FF-A25..FF-A30 is
+  disturbed** — every figure in them was re-derived at adjudication time from the
+  reported aggregates, independently of the file's bytes (FF-A31(iv)).
+  (ii) **The header conformance is verified here, not accepted on report.** The
+  rulings line reads `FF-A1..FF-A24` with freeze 52 v1.1 and v1.3 named — **and it
+  is correctly NOT extended to FF-A25..FF-A30**, which is FF-A31(vi) honoured
+  exactly, so the file makes no provenance claim that runs backwards in time. The
+  regenerate line names `--example feature_fee_v11` and carries an explicit warning
+  that the unsuffixed name regenerates the *other* file — better than the repair I
+  asked for, since it fixes the defect and inoculates against the confusion that
+  produced it. The freeze-set digest propagates `52v1.3` to the three per-unit
+  provenance lines per 52(g). The three (FT-R7c) frontier digests are asserted
+  in-run, and the HELD count is 33.
+  (iii) **FF-A31(iv)'s pre-declared correction fires, and is made.** The committed
+  file is **3,723 lines**, not 3,722; the added supersession line accounts for the
+  difference. **FF-A25's object line is corrected in place from "3,722 lines" to
+  "3,723 lines"** and nothing else moves — exactly the single-figure, no-other-
+  consequence repair FF-A31(iv) reserved. A pre-declaration that fired and cost one
+  word is the cheap end of this discipline working.
+  (iv) **The added ALSO SUPERSEDED line: ACCEPTED IN EFFECT, its reason CORRECTED,
+  and one surviving use named.** The line strikes the earlier whole-unit figure
+  `5683889228/7647562615` and forbids quoting it *even as a bound*, *"because a
+  measurement of the same quantity over the same state set now exists."* **The state
+  set is the same; the quantity is not.** 74.3229% is the exact capture of
+  **F2-as-frozen**, whose domain clause zeroed 758 states; 75.1420% is the capture
+  of **amended F2**. Those are different features and therefore different
+  quantities — which is precisely *why* the first bounds the second rather than
+  approximating it. The instruction the line yields is nonetheless **right in
+  effect**: with the amended feature's capture measured directly, the bound has no
+  remaining forward use. **No re-emission is owed** — the imprecision is in a reason,
+  not in a number, and following the instruction loses nothing (FT-A28(iv)'s
+  proportionality).
+  **The one surviving use, and FF-A27(i) is corrected in place to name it.**
+  FF-A27(i) wrote that the earlier figure *"may continue to be cited as what it was
+  ruled to be"*, which is now too permissive. It retains exactly one legitimate
+  use: **as the historical measurement of F2-as-frozen, and hence as the second
+  term in FF-A14(ii)'s confirmation** — the comparison `75.1420% ≥ 74.3229%` needs
+  both numbers, and striking one would make FF-A27(i)'s own confirmation
+  unciteable. **For every other purpose the figure is superseded.**
+  (v) **The boundary discipline this raises, filed because the FF chapter is the
+  first place it has come up.** That line does not merely record a number: it
+  **restricts how a number may be quoted**, which is a ruling-shaped statement. The
+  results files in this chapter are full of such statements — fences,
+  pre-declarations, NOT-CLAIMED blocks, the SR-taut arithmetic remarks — but every
+  one of those was **mandated by a ruling and restated by the build**. This one was
+  **originated by the build**. The rule, stated once so the line stays clean:
+  **a results file may restate a reading-rule that a ruling has fixed; it may not
+  originate one.** Numbers and provenance are the artifact's to assert; how a number
+  may be read is this file's. The builder's instinct was sound and it routed the
+  addition through the coordinator rather than burying it, which is why this is a
+  discipline being written down and not a defect being reported.
+  (vi) **The FF chapter is CLOSED.** Settled: F0 by theorem; F1 refuted on h0's
+  leading part and inapplicable elsewhere; F2 refuted at h2, live at h0 with
+  75.1420% whole-unit, 76.4628% leading, 29.2679% following, and a shared-θ fit
+  retaining **99.8666%** of the per-state oracle. All commissions discharged;
+  **nothing further is commissioned**, and a third coordinate is a new carrier
+  wanting its own freeze, its own pre-declared readings with FF-A17(iv)'s empty-arm
+  branch, and FF-A26(iv)'s non-null pairing. **Owed to the wiki owner and to nobody
+  else:** freeze 52 with its v1.1/v1.2/v1.3 amendments in the register, and the FF
+  era-page and LOG entries. Per SR-A37(i) that is the whole list. **Every fence of
+  FF-A28(iv) travels with the headline number wherever it goes** — one coordinate,
+  one part of it, a carrier and not a sample, grade 4 so no verdict moved, `Δ^(1)`
+  only, and nothing quoted for trick 1.
