@@ -6563,3 +6563,970 @@ argument list; (RW-R2) run and green **before** any h9 number is quoted; the fou
 arms ported with their consistency arguments; freeze 49's columns; and — first,
 because it needs no code — h9's coordinate verdict line of RW-A3(i), which is a
 result the pass left on the table.
+
+## The fusion tax: inbox 016 adjudicated (2026-08-14)
+
+**Adjudicator:** walt-math. **Object:**
+`exchange/inbox/016-decision-sparse-nonanticipativity-taxes.md` — *"Decision-Sparse
+Exact Solving: Nonanticipativity Taxes and a Compositional Plan Calculus for
+Straight Texas 42", v0.1*, received 2026-08-14 in answer to
+`exchange/outbox/016-cheap-upper-witness-handoff.md`, hand-ferried and
+UNADJUDICATED on arrival. The note self-classifies its claims as *exact result*,
+*[certificate] schema* or *research proposal*; those labels are the sender's and
+carry no status here until confirmed below. **Tier:** exploratory throughout,
+without exception. Nothing in this section is promoted, nothing is quotable in a
+brief, a dispatch, [FINDINGS](FINDINGS.md) or any claim-tier page except by brief
+amendment adding it to a verifier receipt, and an external note is never imported
+as an axiom (TRUST-01). **Basis:** the errata under DS-A17 (Lemma E3 with its
+§3.1 object and §3.4 conditions (C1)–(C4), Lemma E4 and Non-theorem E4′ with
+DS-A27's semantic restatement, Corollary E4.1, Corollary E3.2, Theorems
+E6.3/E6.4/E6.5, Lemma E7); DS-A1, DS-A13, DS-A14, DS-A15, DS-A16, DS-A20, DS-A28,
+DS-A30; SEP-A3..SEP-A19 (freezes 36 v2 and 37); N4-A1..N4-A20 (freezes 44 v2 and
+45); EC-A1..EC-A14 (freeze 46); T1-A1..T1-A12 (freeze 47, Theorem T1-draw,
+Proposition T1-blind); LD-A1..LD-A13 (freeze 48, Theorem LD, Corollary LD-fold);
+RW-A1..RW-A8 (freeze 49); P-A1, P-A19, P-A21, PG-A8, PG-A13, R-A2, R-A18, F7 and
+NO-RESCUE; and first-hand reading, at adjudication time, of
+`walt-strat/src/info.rs` (`walk`, `Particle::weight`, the field share
+`p.weight *= q(1, legal.len())`, `InfoPartition`'s `BTreeMap<Vec<Domino>,
+InfoStateId>` record index), `walt-core/src/rules.rs` (`legal_plays`,
+`Trick::winner`), and the filed rows of
+`walt-factory/results/separation_n4_2026-08-14.txt` and
+`walt-factory/results/rule_economy_n4_2026-08-14.txt`. Rulings
+**FT-A1..FT-A22**; four lemmas, two propositions and two corollaries delivered
+below with full proofs; **reserved freeze 38 is FILLED** at FT-A17 (v1, scoped)
+and **freeze 50** is fixed at FT-A18. The prefixes `FT-A`/`FT-Q` and every name
+below were grep-checked unused at adjudication time.
+
+**The engine facts everything below rests on**, stated once so no proof
+re-derives them.
+
+- **Every seat plays exactly one tile per trick**, so at a coordinate of grade g
+  the focal seat has exactly g decisions, of which the last is over a
+  single-tile hand and therefore **forced**. "At most" is not needed: the count
+  is exact.
+- **The focal information state is the complete public record.** Freeze 26's
+  observation contract is the full public record, and `InfoPartition` keys states
+  by `Vec<Domino>` — the plays since the kernel decision point with the root
+  action first (freeze 36(b)). Two records of different length are therefore two
+  different information states, and the frontier states of §6 are mutually
+  exclusive **because of this contract**, not by general principle.
+- **The legal-action set is a function of (focal hand, led context) alone**, both
+  known to the focal seat: `legal_plays(decl, hand, led)`. Hence `A(I)` is
+  constant across the latent worlds of `I`, as the note assumes.
+- **The field is uniform over each seat's own legal set, per world**:
+  `p.weight *= q(1, legal.len())` where `legal` is computed from *that
+  particle's* hand. The arrival weight of a record is therefore world-dependent,
+  and is **not** proportional to a count of worlds. Lemma FT-post below is the
+  consequence, and it is the sharpest trap in the note's §13.
+- **At every n = 4 coordinate the leader offset from focal is asserted 0**
+  (freeze 45): the focal seat leads the root trick, holds 4 tiles, and
+  |X| = 34,650 = 12!/(4!)³.
+- **The declared direction is the count-free trick differential; the reporting
+  convention is the count convention**, bridged by freeze 26's
+  `Q_diff = 2·Q_count − grade` at the reporting boundary only (freeze 37(c)).
+
+**Headline — seven findings, stated before the rulings.**
+
+1. **There is no field-convention mismatch, and this was the thing most likely to
+   be one.** The note's §2.1 defines `V_a^C(ω)` without naming the field, but §2
+   fixes `σ_{-m}` as standing data and §2.2 evaluates lawful policies against it;
+   read that way `V_a^C` **is** the errata's `V*_a` of §3.1 exactly — root action
+   held, world revealed, same fixed field. Our `U` is not a revealed max over
+   field behaviour, and neither is the note's. (C1) and (C4) survive intact.
+   FT-A2.
+2. **Every claim labelled "Exact result" is sound mathematics; three are
+   incomplete as stated.** Theorem 6.1, its corollaries, and Theorem 10.1 all use
+   a hypothesis the note never names — that the arrival law at the next-decision
+   frontier does not depend on the focal continuation policy. It is true here,
+   for a reason specific to the frontier being the *next* decision, and it is
+   delivered as **Lemma FT-arrive**. FT-A7, FT-A11.
+3. **The ladder is one rung shorter than the note says, at every coordinate.**
+   The last focal decision is forced, so revealing the world before it buys
+   nothing: **Lemma FT-trunc** gives `U_a^(N−1) = Q^H(a)`. After an opening lead
+   the ladder has five taxes, not six. At grade 4 it has **exactly two**
+   (**Corollary FT-grade4**), so computing `U^(1)` together with the already-filed
+   `Q^H` determines the entire layer decomposition and the note's Experiment 15.4
+   and open question §18.4 are **answered outright at these coordinates**. FT-A6.
+4. **The note's §10.2 heuristic is rejected and replaced by a theorem that says
+   something stronger.** "A hand-only or action-independent upper feature is
+   unlikely to be selective enough" is a guess; **Proposition FT-flat** proves
+   that a `b`-independent upper feature can never beat `U_a^C` **at all**. This is
+   the exact upper-side twin of Proposition T1-blind, and it closes the pair of
+   negatives that bracket the sandwich: action-blind below excludes nothing,
+   action-blind above shaves nothing. FT-A11.
+5. **The carrier is five coordinates, not four, and the fifth is the interesting
+   one.** RW-A5 already established that the binding margin is negative at five
+   of the nine n = 4 coordinates; h9 — pip 4, hand `[30 41 54 61]` — is the fifth
+   and by far the largest, `−2116837/8870400`. h9 is **NOT PRICED on the exact
+   route** (its extraction map measured 517,562,322 states against
+   `P_max v2 = 192,000,000`), but the first-layer tax needs only the **depth-one**
+   frontier partition and the revealed continuations below it, never the full
+   extraction map. **h9 is therefore in scope for this probe although it is out of
+   scope for the primal pipeline**, which makes it the single most informative
+   unit in the carrier. FT-A18.
+6. **At three of the five, the binding competitor is tied with `a⋆` in `Q^H`, so
+   the first layer must carry the entire fusion gap or nothing.** Computed at
+   adjudication time from the filed Tier-1 `R3` rows, the fraction of the
+   competitor's own fusion gap that must be shaved to close the pair is
+   **1 exactly** at pip 5 `[21 33 53 54]`, pip 0 `[20 30 40 65]` and h9 — because
+   `Q^H(a) = Q^H(a⋆)` there — against `12627174/16709317` at pip 3
+   `[00 21 32 53]` and `8524657/18853881` at pip 4 `[11 40 43 53]`.
+   **Proposition FT-tie** states the general fact. This is a fence on the
+   experiment's reading, not a prediction of its outcome. FT-A20.
+7. **Freeze 38 is filled.** The note supplies exactly the three things DS-A13
+   reserved the number for — a cut language, a validity obligation and a cut
+   ordering — and its cuts are **correctly typed**: a block merge identifies
+   action variables inside one information state and touches neither the fiber
+   nor any world's mass, which is what separates a cut from a declared exclusion
+   remnant. Freeze 38 v1 is scoped to the reveal-delay ladder and first-frontier
+   partitions; feature penalties, multi-stage penalties and adaptive block search
+   are explicitly **not** in it and re-enter as v2. FT-A17.
+
+---
+
+### The received claims, adjudicated one by one
+
+Sender's label on the left, this section's verdict on the right. Every verdict is
+justified in the ruling named, and no verdict promotes anything above the
+exploratory tier.
+
+| Received claim | Sender's label | Verdict | Reason (one line) |
+|---|---|---|---|
+| Thm 3.2 fusion-gap identity | Exact result | **CONFIRMED** | max→min exchange over a nonempty finite lawful class; `E[V^C]` is `ρ`-free. FT-A3 |
+| Cor 3.3 fusion-tax upper witness | Exact result | **CONFIRMED** | Immediate; E6.4's member-not-set caveat travels with any verdict built on it. FT-A4 |
+| §4.1–4.2 local partition geometry | Exact representation | **CONFIRMED-WITH-REPAIR** | Sound; two typings amended — `Ω_a` is action-independent here, and `X_I`/`μ_I` are policy-independent only at depth one. FT-A5 |
+| §4.3 decision-relative distance `κ_a(T)` | (implicit) | **BLOCKED** | A definition with an undeclared `cost(·)`; unusable in a probe until the cost model is frozen. FT-A5(iii) |
+| Prop 5.2 ladder monotonicity | Exact result | **CONFIRMED** | Nested admissible policy classes. FT-A6(i) |
+| Prop 5.3 finite termination | Exact result | **CONFIRMED-WITH-REPAIR** | True; sharpened to `U^(N−1) = Q^H` by Lemma FT-trunc, and `N` is exact here, not an upper bound. FT-A6(ii) |
+| "at most six layers after an opening lead" | Exact combinatorial bound | **CONFIRMED-WITH-REPAIR** | Five, not six: the seventh-trick decision is forced. FT-A6(iii) |
+| Thm 6.1 first-layer values | Exact result | **CONFIRMED-WITH-REPAIR** | Correct once Lemma FT-arrive, the common-`A(I)` fact and the full-record contract are named as hypotheses. FT-A7 |
+| Def 6.2 / `Δ^(1) = Σ_I δ_I` | Exact result | **CONFIRMED** | Frontier states are mutually exclusive under freeze 26's contract. FT-A7(iv) |
+| Prop 6.3 regret form | Exact result | **CONFIRMED** | The avg-of-max term is `b`-free. FT-A7(v) |
+| Cor 6.4 zero-tax criterion + tie-set warning | Exact result | **CONFIRMED** | Both directions correct; the warning is E6.5(G2)'s exposed-face criterion in local form. FT-A8 |
+| Prop 7.1 binary tax | Exact result | **CONFIRMED** | Verified in both displayed forms. FT-A9(i) |
+| Prop 8.2 fusion core ≤ \|A(I)\| ≤ 7 | Exact result | **CONFIRMED** | Correct; sharpened here to ≤ tiles in hand at that decision — ≤ 3 at the grade-4 frontier. FT-A9(ii) |
+| Def 8.3 regret matrix | Exact result | **CONFIRMED** | Restatement of Prop 6.3. FT-A9(iii) |
+| Prop 9.1 exact block-merge cost | Exact result | **CONFIRMED** | `max+max ≥ max` on disjoint mass; and the cut is correctly typed. FT-A10 |
+| Thm 10.1 glued simple-function upper | [Certificate] schema | **CONFIRMED-WITH-REPAIR** | Theorem sound under Lemma FT-arrive; its *use* is a schema with a per-`B` proof obligation. FT-A11(i) |
+| §10.2 "action-independent features unlikely to be selective" | (prose) | **REJECTED AS STATED — REPLACED** | Not a theorem; Proposition FT-flat proves the stronger exact fact. FT-A11(ii) |
+| Thm 11.1 regret minorant | [Certificate] schema | **CONFIRMED** | Pointwise domination under a min. FT-A12(i) |
+| Cor 11.2 event-form action cover | [Certificate] schema | **CONFIRMED** | Instance of Thm 11.1 with `g = η_b·1_{E_b}`. FT-A12(ii) |
+| §11.3 local sandwich for a regret event | [Certificate] schema | **CONFIRMED-WITH-REPAIR** | Sound; `L_c(ω)` is a pointwise lower bound on a world-informed continuation and must never be called a primal witness. FT-A12(iii) |
+| §11.4 no free summation | (prose) | **CONFIRMED** | Matches our overlap discipline exactly. FT-A12(iv) |
+| Thm 12.1 zero-mean penalty | Exact result | **CONFIRMED** | Centering then pointwise max; valid for every centered `λ`. FT-A13(i) |
+| Prop 12.2 exact recovery | Exact result | **CONFIRMED** | Correct — and it buys no compute, since it needs the full `q̄` table. FT-A13(ii) |
+| §12.3 feature-based penalties | Research proposal | **CONFIRMED as a valid family; BLOCKED as a probe** | Validity holds for every `θ`; the centering is an *exact* equality, so no float and no sampled expectation may appear. FT-A13(iii) |
+| §12.4 multi-stage martingale penalty | Research proposal | **BLOCKED** | Correctly self-labelled; the conditional induction is unwritten. FT-A13(iv) |
+| Thm schema 13.1 fixed-field plan value | [Certificate] schema | **CONFIRMED-WITH-REPAIR** | It is Lemma E4 plus public-leaf pasting; the repair is Lemma FT-post, and "public" must be read as focal-information-measurable. FT-A14 |
+| §13.2 composition operations | [Certificate] schema | **CONFIRMED** | "Candidate maximum outside the evaluator" is DS-A14/DS-A27 verbatim; the adversarial fold is valid because `σ_{-m}` is supported on legal plays. FT-A14(iii) |
+| §13.3–13.5 partial laydowns, straight-count lift, "34 on two trumps" | Schema / proposal | **BLOCKED, with the count fence restated** | E-A2: a count re-entry voids every form-keyed record wholesale; the note's own §13.4 caution is correct and is adopted. FT-A14(v) |
+| §14 combined decision proof | (synthesis) | **CONFIRMED** | Exactly Theorem E6.4, with its member-not-set caveat mandatory in the statement. FT-A15 |
+| §15 Experiment 15.1 | Open experiment | **BUILDABLE — GRANTED as the FT family** | Freeze 50, receipts FT-R1..FT-R6, budgets under freeze 44(b)–(e) v2. FT-A18 |
+| §15.2/15.3 explain and compile the tax | Open experiment | **GRANTED (15.2) / BLOCKED (15.3)** | 15.2 is reporting over data 15.1 already produces; 15.3 needs proved event minorants that do not exist yet. FT-A19(vii), FT-A21 |
+| §16 trick-1 program | Research proposal | **BLOCKED** | Three obligations named at FT-A21; nothing here makes the 399,072,960-world `q` table reachable. |
+| §17 laydown-catalogue report | Implementation-relative report | **CONFIRMED FAITHFUL, two amendments** | Numbers match LD-A11/LD-A12; (LD-R4) is still owed, and our caveat is stronger than the note's. FT-A16 |
+| §18.9 mechanize the theorem layer | Research proposal | **NOTED, with a tier fence** | A kernel proof of the abstract finite model is a kernel-tier fact about *that model* and promotes nothing about the engine. FT-A22(iv) |
+
+---
+
+### Lemma FT-arrive (the frontier arrival law is policy-independent) — delivered here
+
+Fix a coordinate, a root action `a`, the declared belief `β` and the declared
+field `σ_{-m}`. Let `T` be the focal seat's **next** decision after the root play,
+and let `I_T` be the focal information state at `T` (undefined if play terminates
+first). Then the joint law of `(ω, I_T)` under `β` and `σ_{-m}` **does not depend
+on the focal continuation policy**, and for every world `ω` and record `I`,
+
+  `μ_I(ω) = β(ω) · Π_j (1 / |legal_j(ω)|)`,
+
+the product taken over the field plays of the record in order, each `legal_j(ω)`
+being that seat's legal set in `ω` at that point.
+
+*Proof.* Between the root play and `T` the focal seat takes no action, by the
+definition of `T` as its next decision. Every intervening move is a field move,
+and `σ_{-m}` selects it from the moving seat's own legal set with probability
+`1/|legal|`, a quantity determined by `ω` and the play so far and in no way by
+the focal seat's future behaviour. The record reached is therefore a function of
+`(ω, field choices)` alone, and its probability is the displayed product; `β` is
+fixed. The information state at `T` is the record (freeze 26's observation
+contract), so the joint law of `(ω, I_T)` is as claimed. ∎
+
+**Why it is load-bearing and not bookkeeping.** Theorem 6.1's two displayed
+formulas, Definition 6.2's additivity and Theorem 10.1 all weight frontier
+quantities by one and the same `μ_I(ω)` while comparing controllers with
+*different* powers — treatment `C`, treatment `C^(1)`, and an arbitrary lawful
+policy. That comparison is only legitimate because all three induce the same
+arrival law. **The lemma fails at the second frontier and beyond**: the mass
+arriving at a depth-two state depends on what was chosen at depth one. This is
+exactly why the note's §9 warns that merge costs interact, and it is why the
+product-of-lattices picture of §4.2 is a description of the *constraint space*
+and never a decomposition of the value.
+
+### Lemma FT-trunc (the ladder truncates one rung early) — delivered here
+
+Let `N` be the number of focal decisions remaining after the root play. Suppose
+that at every focal decision of depth `k+1, …, N` the legal set is a singleton in
+every positive-mass world. Then
+
+  `U_a^(k) = Q^H(a)`.
+
+In particular, because the focal seat's last decision is over a one-tile hand and
+is therefore always forced,
+
+  **`U_a^(N−1) = Q^H(a)`,  hence  `Δ_a^(N) = 0` identically.**
+
+*Proof.* A `C^(k)`-admissible controller is required to be information-state
+measurable at depths `1, …, k` and is free to condition on `ω` at depths
+`k+1, …, N`. If every decision at those depths has exactly one legal action in
+every positive-mass world, that freedom selects nothing: the controller's action
+is determined by legality alone, so its behaviour coincides with that of the
+lawful policy agreeing with it on depths `1, …, k`. The field cannot exploit the
+revelation either, since `σ_{-m}` is fixed and reads only its own seat's
+information. Hence the `C^(k)` class and the lawful class induce the same set of
+achievable value vectors, and their maxima agree. For the second statement, the
+focal seat holds one tile at its last decision, so `|A(I)| = 1` there in every
+world. ∎
+
+**Corollary FT-grade4 (at grade 4 the ladder has exactly two rungs).** At an
+n = 4 coordinate the focal seat holds four tiles and leads the root trick
+(freeze 45), so `N = 3` and
+
+  `C^(0) ⊇ C^(1) ⊇ C^(2) = H`,  with  `U_a^C − Q^H(a) = Δ_a^(1) + Δ_a^(2)`.
+
+Consequently **one computation of `U_a^(1)` determines the whole decomposition**,
+because `Δ_a^(1) = U_a^C − U_a^(1)` and `Δ_a^(2) = U_a^(1) − Q^H(a)` with both
+`U_a^C` and `Q^H(a)` already filed per root action in
+`separation_n4_2026-08-14.txt`. The note's Experiment 15.4 — "compute `U^(2)` if
+`U^(1)` is not enough" — is **vacuous at this carrier**: `U^(2)` is `Q^H`, which
+we have. Its open question §18.4, how much is gained by `C^(2)` and `C^(3)`, is
+answered exactly and for free once Experiment 15.1 runs. ∎
+
+*(After an opening lead the same lemma gives `U_a^(5) = Q^H(a)`: five taxes, not
+six. The note's boxed "at most six focal-decision layers" is true but never
+tight.)*
+
+### Proposition FT-flat (an action-blind upper feature can never shave) — delivered here
+
+In Theorem 10.1's setting, suppose the upper feature does not depend on the
+frontier action: `B_I(ω,b) = B_I(ω)` for every legal `b`, and `B_I(ω) ≥ q_I(ω,b)`
+for every legal `b` and every positive-mass `ω`. Then the bound the theorem
+returns is **at least `U_a^C`**:
+
+  `T_a + Σ_I max_b Σ_ω μ_I(ω) B_I(ω,b) = T_a + Σ_I Σ_ω μ_I(ω) B_I(ω) ≥ U_a^C.`
+
+*Proof.* With `B_I` independent of `b` the inner maximum is attained at every
+action and the `max` drops out. The hypothesis `B_I(ω) ≥ q_I(ω,b)` for **every**
+legal `b` gives `B_I(ω) ≥ max_b q_I(ω,b) = m_I(ω)` pointwise. Summing against the
+nonnegative weights `μ_I(ω)` and adding `T_a` gives at least
+`T_a + Σ_I Σ_ω μ_I(ω) m_I(ω)`, which is `U_a^(0) = U_a^C` by Theorem 6.1. ∎
+
+**What it says, and why it is the twin of T1-blind.** Proposition T1-blind proved
+that a lower witness valid at every root action excludes nothing, because
+`U_a ≥ Q^H(a) ≥ L`. Proposition FT-flat proves the mirror image one level down: an
+upper feature that does not discriminate the *frontier* action recovers none of
+the first-layer tax and returns a number no better than the witness we already
+have. Together they fence both sides of the sandwich with the same lesson —
+**a witness must be conditioned on the decision it is trying to price.** The note's
+§10.2 asserts the weaker, vaguer form of this ("unlikely to be selective
+enough"); the proved form is unconditional and is what belongs in a design.
+
+*Note the scope precisely.* The proposition constrains `B` as a function of the
+**frontier** action `b`. It says nothing against an upper feature that is
+`b`-dependent but crude, and nothing against the root-action conditioning that
+`U_a` already carries through `μ_I` and the frontier set — that conditioning is
+what makes the whole construction action-conditioned in Lemma E3's sense.
+
+### Proposition FT-tie (a tied competitor demands an exact relaxation) — delivered here
+
+Let `a⋆` be an H-optimal root action priced by a primal witness attaining the
+lawful maximum, `L_{a⋆} = Q^H(a⋆)` (Corollary E4.1(2)), and let `a ≠ a⋆` be a
+competitor with `Q^H(a) = Q^H(a⋆)` — a tie inside `Opt^H`. Let `U_a^(k)` be any
+relaxation value with `Q^H(a) ≤ U_a^(k)`. Then
+
+  `L_{a⋆} ≥ U_a^(k)  ⟺  U_a^(k) = Q^H(a)`,
+
+that is, the pair closes **only** if the relaxation is exact at `a`; and along the
+reveal-delay ladder this is `Σ_{j>k} Δ_a^(j) = 0`.
+
+*Proof.* `L_{a⋆} = Q^H(a⋆) = Q^H(a) ≤ U_a^(k)`, so `L_{a⋆} ≥ U_a^(k)` forces
+equality throughout. Conversely equality gives the test. The ladder form follows
+from `U_a^(k) − Q^H(a) = Σ_{j>k} Δ_a^(j)` (Definition 5.4 with Lemma FT-trunc's
+truncation). ∎
+
+**Where it bites, computed at adjudication time from the filed `R3` rows.** Of
+the five negative-margin n = 4 coordinates, the binding competitor is tied with
+`a⋆` at three:
+
+| Coordinate | `a⋆` / binding `a` | required shave `U_a − L_{a⋆}` | competitor's own gap `U_a − Q^H(a)` | fraction required |
+|---|---|---|---|---|
+| pip 3 `[00 21 32 53]` (h0) | 53 / 00 | `300647/2138400` | `16709317/89812800` | `12627174/16709317` |
+| pip 5 `[21 33 53 54]` | 53 / 54 (and 54 / 53) | `9557/554400` | `9557/554400` | **1 (tied)** |
+| pip 4 `[11 40 43 53]` (h6) | 40 / 11 | `8524657/479001600` | `6284627/159667200` | `8524657/18853881` |
+| pip 0 `[20 30 40 65]` (h12) | 20, 30, 40 mutually | `364429/9979200` | `364429/9979200` | **1 (tied)** |
+| pip 4 `[30 41 54 61]` (h9) | 41 / 54 (and 54 / 41) | `2116837/8870400` | `2116837/8870400` | **1 (tied)** |
+
+Every entry was recomputed here from the filed per-root `Q^H` and `U` columns and
+reproduces the filed `margin` column exactly. **The reading this forces**: at the
+three tied coordinates the experiment's question is not "does the first layer
+shave enough" but "is the fusion gap entirely first-order", a strictly binary
+question whose negative answer is as informative as its positive one (F7). At the
+two untied coordinates a partial shave can still close the pair, and the fractions
+above are what it must exceed. Both readings are pre-declared here, before any
+`δ_I` exists.
+
+### Lemma FT-post (the frontier posterior is not uniform) — delivered here
+
+At a frontier information state `I` with positive mass, the conditional belief
+over its latent worlds is
+
+  `ν_I(ω) = μ_I(ω) / p_I`,  `p_I = Σ_ω μ_I(ω)`,
+
+with `μ_I` as in Lemma FT-arrive. This is uniform on `X_I` **only if** the field's
+legal-set sizes `|legal_j(ω)|` are constant over `ω ∈ X_I` along the record.
+They are not constant in general, because `legal_plays` is computed from the
+moving seat's own hand, which varies across the fiber.
+
+*Proof.* Immediate from Lemma FT-arrive's product form; the counterexample is
+structural — a record in which one seat follows context `c` has `|legal|` equal
+to that seat's holding in `c`, which differs between worlds of `X_I`. ∎
+
+**The trap this closes, and it is the sharpest one in the received note.** The
+note's Theorem schema 13.1 hands a residual position at a public leaf `h` to
+"another [certificate] `L_h`". If `L_h` is obtained by treating the residual
+position as a **fresh coordinate with the branch's standard uniform belief over
+its fiber** — which is exactly how every walt coordinate is built (freeze 45,
+freeze 47) — then `L_h` prices the wrong measure and the composition is **void**:
+it is neither an upper nor a lower bound on the residual value under the
+posterior. The composition is valid when `L_h` is (i) the value of an exhibited
+lawful continuation policy evaluated **inside the same walk**, under the carried
+weights, or (ii) a bound that holds **pointwise in every world of the leaf**, in
+which case the measure is irrelevant. Nothing else composes. **Binding: any FT- or
+plan-calculus artifact that pastes a residual witness prints which of (i) or (ii)
+it used, in place, on the row.**
+
+### Corollary FT-conv (taxes scale with the convention; verdicts do not) — delivered here
+
+Let `v ↦ αv + c` with `α > 0` be a reconvention of the valuation — freeze 26's
+bridge `Q_diff = 2·Q_count − grade` is the case `α = 2`, `c = −grade`. Then every
+`q_I(ω,b)`, `m_I(ω)`, `Q^H`, `U` and `L` transforms the same way, every local tax
+`δ_I` and every layer tax `Δ^(k)` transforms as `δ ↦ αδ`, and every separation
+verdict is unchanged.
+
+*Proof.* `Σ_ω μ_I(ω)(αm + c) = α Σ μ m + c·p_I` and
+`max_b Σ_ω μ_I(ω)(αq + c) = α max_b Σ μ q + c·p_I`; subtracting cancels `c·p_I`
+and leaves `αδ_I`. Verdict invariance is freeze 37(c)'s argument, an affine map
+with positive slope preserving `≥`. ∎
+
+**Binding consequence.** The internal evaluators are differential; the filed
+margins are count. A `δ` computed internally is a **differential** tax and must be
+halved — exactly, as a rational — before it is compared with a count-convention
+margin. **A tax quoted in one convention against a margin in another is void**,
+and the results file states the convention of every tax column in its header.
+
+---
+
+- **FT-A1 (typing, tier, vocabulary, and what this section is).** The received
+  note is **ACCEPTED IN LARGE PART**: its central identity and its first-layer
+  mathematics are correct, three of its exact results need a hypothesis named,
+  one prose claim is replaced by a stronger theorem, and its two schema families
+  carry obligations that no probe may skip. Everything is exploratory. DS-A1
+  binds: this section says **witness**, **receipt** and **necessary outer
+  profile**, never the forbidden word; the received note uses that word freely and
+  it appears here only inside bracketed attribution to it. *Support ≠ belief*,
+  *feasible ≠ reachable*, *possible ≠ probable* are typed distinctions and are
+  kept. Both outcomes of every gate below are results (F7); a receipt failure is
+  stop-and-report, never a patch (NO-RESCUE). No number in the received note
+  enters walt as evidence: the four decimals its §15 quotes are rounded forms of
+  our own exact rationals, they were re-derived here from the filed rows, and
+  **the exact rationals are the objects** (P-A19: no float anywhere).
+- **FT-A2 (the setups are the same setup; the field convention CONFIRMED, and
+  one typing amended).** Three clauses.
+  (i) **No `σ_{-m}` mismatch.** The note's §2 fixes a field policy `σ_{-m}` as
+  standing data, and §2.2 defines `α_ρ(ω) = E[U | ω, ρ, σ_{-m}]` exactly as errata
+  §4.1 does. Its §2.1 omits `σ_{-m}` from the display of `V_a^C`, but the only
+  reading consistent with §2 and with the pointwise inequality it asserts is the
+  one in which the field is that same fixed policy — which is errata §3.1's
+  `V*_a` verbatim. **Read that way, `U_a^C` and our `U_a` are the same object**,
+  and freeze 37(a)'s identification of `U_a` with the per-root-action column of
+  the revealed summary is untouched. The omission is filed as an editorial defect
+  in the received note, not a mathematical one, and a builder quoting §2.1 must
+  restore the field.
+  (ii) **What would have been a mismatch, and is not.** Had `V_a^C` been a maximum
+  over field behaviours as well, the object would be the cooperative-field corner
+  of T1-A2(ii) — still a valid upper bound but a strictly weaker one — and had it
+  been perfect-information minimax it would be barred outright by (C4) and by
+  T1-A2(iii), which moves both dials at once and bounds nothing in either
+  direction. Neither is what the note wrote.
+  (iii) **`Ω_a` is amended.** The note writes `Ω_a` for "the physical worlds
+  compatible with `s` and root action `a`". In this engine the focal seat's own
+  play removes no world: the fiber is the set of splits of the unseen tiles and is
+  **identical for every root action**. Condition (C2) requires the *same world set*
+  on both sides of a separation, and freeze 37(d) fixes the belief as uniform over
+  the full enumerated fiber. Read `Ω_a = X_B` for every `a`; the action-conditioning
+  lives in the continuation and in the frontier masses, never in the carrier.
+- **FT-A3 (Theorem 3.2, the fusion-gap identity: CONFIRMED).** The proof is
+  correct and every step is licensed here: `E_β[V_a^C]` does not depend on `ρ`, so
+  it passes through the `max` and inverts it to a `min`; expectation is linear;
+  `r_a(ω,ρ) = V_a^C(ω) − α_ρ(ω) ≥ 0` pointwise is exactly Lemma E3's pointwise
+  strategy-fusion inequality, already ours. **Two hypotheses are named because
+  they are used**: `R_H(a)` is nonempty (a legal action always exists), and the
+  maximum defining `Q^H(a)` is attained — true because the lawful pure-policy
+  class at a coordinate is finite, which is also what errata §4.1 assumes when it
+  writes `max` rather than `sup`. **What the identity buys us**, and it is the
+  note's genuine contribution: it converts "tighten the relaxation" — an
+  open-ended instruction — into "prove a lower bound on one expectation", a
+  finite obligation with a named object. The minimising `ρ` is any H-optimal
+  policy, so the identity is also a statement about the H solve we already run.
+- **FT-A4 (Corollary 3.3, the fusion-tax upper witness: CONFIRMED, with E6.4
+  attached).** If `0 ≤ Γ_a ≤ U_a^C − Q^H(a)` is **proved**, then
+  `Q^H(a) ≤ U_a^C − Γ_a` and the separation test becomes `Γ_a ≥ U_a^C − L_{a⋆}`.
+  Three clauses. (i) `U_a^C − Γ_a` is a valid upper witness in Lemma E3's sense
+  and inherits (C1)–(C4) unchanged; a `Γ` computed against a different field,
+  belief, world set or valuation voids it. (ii) **Theorem E6.4's member-not-set
+  caveat travels verbatim** with every verdict built this way: the non-strict test
+  certifies a *member* of `Opt^H`, never the set. (iii) A `Γ` that is *measured*
+  rather than proved — for instance a `Δ^(1)` computed by a run whose budget
+  stopped — is not a `Γ`. Freeze 44's contract already says a stopped walk retains
+  no partial fold, and the same rule binds here: **there is no partially-computed
+  tax.**
+- **FT-A5 (§4, the geometry between C and H: CONFIRMED as a representation, two
+  amendments, and `κ_a(T)` BLOCKED).**
+  (i) **The nonanticipativity reading is right and is the note's best idea.**
+  Treatment `C`'s illegitimate power is *local*: it may give different actions to
+  latent copies `a_{I,ω}` of one information state. Requiring `a_{I,ω} = a_{I,ω′}`
+  at every `I` recovers exactly the lawful class, and imposing it at some `I` and
+  not others interpolates. Every intermediate value is an upper bound on `Q^H(a)`
+  because every lawful policy is admissible in every such relaxation. This is
+  sound and it is a better starting point than partitioning the world space,
+  which is the reframe the outbox asked for.
+  (ii) **Amendment: the product `𝔓 = Π_I Part(X_I)` is the constraint space, not
+  a value decomposition.** At depth one, `X_I` and `μ_I` are policy-independent
+  (Lemma FT-arrive) and the local taxes add exactly (Definition 6.2). At depth two
+  and below, which worlds reach `I` and with what mass depends on what was chosen
+  above, so the lattice coordinates are not independent and **no additivity may be
+  read off the product**. The note half-states this in §9 for merges within one
+  `I`; it is stated here for depth, which is where a builder would be misled.
+  (iii) **`κ_a(T)` is BLOCKED as a probe object.** Definition 4.3 minimises
+  `cost(Π)` over relaxations meeting a target, with `cost` described as
+  "representation, counting, or solve cost" and never defined. A quantity whose
+  minimand is undeclared cannot be computed, compared or receipted, and a
+  cost-model claim is precisely what N4-A16 and SEP-A19(b) forbid reading off a
+  traversal observable. The definition may be quoted as a definition; **no number
+  may be reported as a `κ`** until a cost model is frozen by its own adjudication.
+- **FT-A6 (§5, the ladder: 5.2 CONFIRMED; 5.3 CONFIRMED-WITH-REPAIR; the layer
+  counts corrected against this engine).**
+  (i) **Proposition 5.2 is CONFIRMED.** Every `C^(k+1)`-admissible policy is
+  `C^(k)`-admissible, since the latter withholds the world no longer and so
+  imposes no constraint the former does not already meet; every lawful policy is
+  admissible in every `C^(k)`. Nested classes, nested maxima, and the chain
+  `U^(0) ≥ U^(1) ≥ … ≥ Q^H` follows.
+  (ii) **Proposition 5.3 is CONFIRMED, and REPAIRED to a shorter ladder.** The
+  note's argument — once revelation is withheld through every remaining focal
+  decision there is no action left for it to act on — is correct, and it needs
+  the additional fact that the field cannot exploit the revelation either, which
+  holds because `σ_{-m}` is fixed and reads only its own seat's information. The
+  repair is **Lemma FT-trunc**: the last focal decision is over a one-tile hand
+  and is forced, so `U^(N−1) = Q^H` already and `Δ^(N) = 0` identically. The
+  general form — any suffix of forced decisions truncates the ladder — is proved
+  with it and will matter more at deeper grades, where follow-suit forces many
+  late decisions.
+  (iii) **The two quoted layer counts are corrected.** "At most six later focal
+  decisions after an opening lead, hence `U^(6) = Q^H`" becomes **`U^(5) = Q^H`**;
+  "at most three with four tiles remaining, hence `U^(3) = Q^H`" becomes
+  **`U^(2) = Q^H`**. In this engine the counts are moreover **exact**, not upper
+  bounds, because every seat plays exactly one tile per trick and the hand always
+  runs to completion. The note's claim-ledger row "Reveal-delay monotonicity and
+  finite termination — remains: engine mapping from game histories to
+  focal-decision count" is hereby discharged by that sentence.
+  (iv) **Corollary FT-grade4 is the operational payoff** and is delivered above:
+  at grade 4 the ladder is `C^(0) ⊇ C^(1) ⊇ C^(2) = H`, so the gap is
+  `Δ^(1) + Δ^(2)` with `Δ^(2) = U^(1) − Q^H(a)` free once `U^(1)` exists.
+  **Experiment 15.4 is vacuous at this carrier and is not commissioned.**
+- **FT-A7 (§6, the first fusion layer: CONFIRMED-WITH-REPAIR — three hypotheses
+  named, none of them decoration).**
+  (i) **The missing hypothesis is Lemma FT-arrive.** Theorem 6.1 weights the
+  `C^(0)` value and the `C^(1)` value by the same `μ_I(ω)`. That is legitimate
+  only because the arrival law at the frontier is common to both — and to every
+  lawful policy, which Theorem 10.1 also needs. The note never says so. The lemma
+  is delivered above with its proof and with the statement of where it fails
+  (depth ≥ 2).
+  (ii) **The second hypothesis is that `A(I)` is common across `X_I`.** The note
+  asserts it from "the same focal hand and public record"; in this engine it is
+  the code fact that `legal_plays` reads only `(decl, hand, led)`. Confirmed, and
+  recorded as an engine fact rather than a general one — an engine that abstracted
+  the record could violate it.
+  (iii) **The third is mutual exclusivity of the frontier states**, which
+  Definition 6.2's additivity needs. It holds because the focal seat is at exactly
+  one record at time `T` and the information state **is** the record (freeze 26).
+  Under an abstracted observation contract two arrivals of different depth could
+  share a label and the taxes would not add. Named so a successor does not inherit
+  the additivity without the contract.
+  (iv) **With those three named, Theorem 6.1, Definition 6.2 and
+  `Δ^(1) = Σ_I δ_I` are CONFIRMED.** The `C^(0)` formula is Bellman at the
+  frontier of the world-informed problem; the `C^(1)` formula is the same sum with
+  the max moved outside the world sum; the difference of the maxima is the
+  avg-of-max minus max-of-avg Jensen gap the note names.
+  (v) **Proposition 6.3 is CONFIRMED**: the avg-of-max term is `b`-free, so
+  subtracting the best action value is minimising expected regret.
+  (vi) **A simplification specific to this carrier, and it is not small.** `T_a`,
+  the terminal-frontier mass, is **zero at every n = 4 coordinate**: the focal
+  seat holds four tiles, plays one at the root, and therefore always acts again.
+  The probe asserts `T_a = 0` rather than computing it, and the assertion is
+  contentful — it fails if the root is ever the focal seat's last tile.
+- **FT-A8 (Corollary 6.4 and its tie-set warning: CONFIRMED, and it is our own
+  exposed-face criterion in local form).** Both directions check: the regret
+  summands are nonnegative, so a zero weighted sum forces zero regret in every
+  positive-mass world for the minimising action, which is then a common optimum;
+  conversely a common optimum has zero regret everywhere. **The warning attached
+  to it — that the criterion must use the complete optimal action sets, since one
+  arbitrarily tie-broken treatment-`C` optimiser can manufacture a conflict that
+  another optimiser on the same optimal face avoids — is not a caution, it is
+  Theorem E6.5's clause (G2) in local form**: the stopping test is a search over
+  the whole optimal face, an unlawful returned optimiser licenses only adding a
+  cut, and a negative answer requires proof. The concordance is exact and is worth
+  recording as such: an independent derivation reached our own hardest-won
+  procedural rule. **Binding for any FT probe**: the `δ_I = 0` test is computed
+  from complete argmax sets, never from freeze 26's least-domino-index tie rule,
+  which exists to make the *authority* deterministic and is not a statement about
+  the optimal face.
+- **FT-A9 (§7 and §8: CONFIRMED, with two sharpenings for this carrier).**
+  (i) **Proposition 7.1 (binary tax) is CONFIRMED**, both forms verified:
+  `δ̂_I = E[d₊] − max(0, E[d]) = min{E[d₊], E[(−d)₊]} = ½(E|d| − |E d|)` using
+  `d = d₊ − (−d)₊` and `|d| = d₊ + (−d)₊`. The reading — treatment `C` harvests
+  both advantage masses, a lawful common action must surrender the smaller — is
+  correct and needs no pairing of worlds.
+  (ii) **Proposition 8.2 (fusion cores are small) is CONFIRMED and sharpened.**
+  The proof is right: an empty full intersection yields, for each action `b`, a
+  positive-mass world in which `b` is not optimal, and a minimal subset of those
+  at most `|A(I)|` worlds is a core. The sharpening is that `|A(I)|` is bounded by
+  the **tiles in hand at that decision**, not by 7: at the grade-4 frontier the
+  focal seat holds three tiles, so **every decisive fusion core has at most three
+  worlds**, and follow-suit often makes it two. At trick 1 the bound is 7. The
+  note's open question §18.2 — are most cores binary or ternary — is therefore not
+  open at grade 4: ternary is the ceiling.
+  (iii) **Definition 8.3 (regret matrix) is CONFIRMED** as the correct
+  quantitative object, and the note's remark that a graph of pairwise world
+  conflicts discards genuine multi-action structure is right — its three-world
+  example with `A₁ = {a,b}`, `A₂ = {b,c}`, `A₃ = {a,c}` is a valid witness that
+  pairwise agreement does not imply a common optimum.
+- **FT-A10 (§9, block gluing: Proposition 9.1 CONFIRMED, and the cut is CORRECTLY
+  TYPED — which is the clause that lets freeze 38 be filled at all).**
+  (i) **The merge cost is exact.** `Q_{B₁∪B₂}(b) = Q_{B₁}(b) + Q_{B₂}(b)` by
+  disjointness, and `max Q_{B₁} + max Q_{B₂} ≥ max(Q_{B₁} + Q_{B₂})`, so
+  `c_I(B₁,B₂) ≥ 0` and equals the upper-value reduction caused by requiring one
+  common action across the union. The non-additivity caveat is correct: merge
+  costs interact and the value must be recomputed after each merge, whereas taxes
+  at mutually exclusive frontier states add exactly.
+  (ii) **The typing, and it is the load-bearing ruling of this section.** A block
+  merge **identifies action variables** inside one information state. It removes
+  no world, changes no world's mass, and asserts nothing about reachability. It is
+  therefore a *cut* in Theorem E6.5's sense — a constraint on the relaxation,
+  satisfied by every lawful policy — and **not** a declared exclusion remnant,
+  which is what a "cut" applied to worlds would be and which carries none of
+  E6.5's guarantees. The received note never confuses the two, and its §4.1
+  formulation in terms of action variables is exactly why. **Binding: every FT
+  artifact prints, per cut, the sentence "this cut identifies action variables at
+  one information state; the fiber and every world's mass are untouched."**
+  (iii) **Validity is discharged for this whole family at once.** Every lawful
+  policy chooses one action per information state, hence satisfies every block
+  identification inside that state, hence satisfies every cut in the family. E6.5's
+  per-cut validity obligation is met by a single argument for the ladder and the
+  block partitions; **a cut family outside this one re-enters with its own proof.**
+- **FT-A11 (§10, the glued simple-function upper theorem: CONFIRMED-WITH-REPAIR;
+  and §10.2's prose REJECTED and REPLACED).**
+  (i) **Theorem 10.1 is CONFIRMED** once Lemma FT-arrive is named: a lawful policy
+  chooses one `b(I)` at `I`; its per-world continuation value is at most
+  `q_I(ω,b(I))` by the pointwise strategy-fusion inequality (Lemma E3 applied at
+  the frontier node) and hence at most `B_I(ω,b(I))`; summing against `μ_I` and
+  bounding by the max over `b` gives the result. The note's own emphasis — the
+  decisive order is `max_b Σ_ω`, not `Σ_ω max_b` — is exactly right and is the
+  whole content of first-layer gluing. **Its use is a schema**: each `B_I` needs a
+  proof of pointwise domination, exact and per action, before any number it
+  produces is a witness.
+  (ii) **§10.2's closing prose is REJECTED as stated.** "A hand-only or
+  action-independent upper feature is unlikely to be selective enough" is a
+  heuristic and would be quoted as a result the first time a design needed it.
+  **Proposition FT-flat replaces it with a theorem**: a `b`-independent `B` returns
+  a bound `≥ U_a^C` and therefore never improves on the witness already filed. Note
+  what the theorem does *not* say — it constrains dependence on the **frontier**
+  action, not on the root action, and `U_a` is action-conditioned through `μ_I`
+  regardless.
+  (iii) **The candidate feature list of §10.2 — boss loss, ruff availability, lead
+  retention, trump expenditure, entry creation and destruction, control
+  incompatibility, count exposure, follower supply — is a research proposal and is
+  filed as one.** Each entry becomes usable only as a proved pointwise bound with
+  exact expectations; the note's suggestion that such expectations may come from
+  exact weighted model counting rather than world enumeration is the right shape
+  and is **exactly the target DS-A21/Corollary E5.2 left open** — E5 rules out a
+  small universal atom algebra, not a compact weighted-counting circuit for a
+  declared purpose. Any build here is designed against a declared purpose with
+  bit-exact agreement against enumeration at a reduced grade, never against the
+  atom formulation (DS-A5).
+- **FT-A12 (§11, regret minorants: CONFIRMED, with one vocabulary repair that is a
+  soundness fence).**
+  (i) **Theorem 11.1 is CONFIRMED**: `0 ≤ g_I ≤ R_I` pointwise gives
+  `Σ μ g ≤ Σ μ R` for each `b`, and the minima are ordered. Composing with
+  `Δ^(1) = Σ_I δ_I ≤ U_a^C − Q^H(a)` makes `Γ_a = Σ_I min_b Σ_ω μ_I(ω) g_I(ω,b)`
+  a valid proved tax in Corollary 3.3's sense.
+  (ii) **Corollary 11.2 is CONFIRMED** as the instance `g = η_b·1_{E_b}`, and the
+  economy it advertises is real: at most `|A(I)|` obligations per information
+  state — at most three at the grade-4 frontier — instead of one per world.
+  (iii) **§11.3's local sandwich is CONFIRMED, with the vocabulary repaired, and
+  the repair is not cosmetic.** The note asks for "a lawful or otherwise valid
+  local lower witness `L_c(ω)`". In our types that object is a **pointwise lower
+  bound on a world-informed continuation value** `q_I(ω,c)` — for instance the
+  per-world value of a fixed lawful continuation, which is `≤ q_I(ω,c)` by Lemma
+  E3 — and it is **not a primal witness**, which is a `β`-integrated fixed-policy
+  value at the root. The danger is the adjacency: **the very same world-informed
+  number that is legitimate here as an upper bound `B_b(ω)` is a soundness bug if
+  it is installed as `L` at the root** (Non-theorem E4′, whose minimal witness
+  shows the separated action can be strictly worse than the rejected one). One
+  object, two slots, opposite verdicts. **Binding: every FT row naming a
+  per-world bound prints its slot — `upper on q(·,b)` or `lower on q(·,c)` — and
+  no per-world world-informed quantity is ever carried out of a frontier and used
+  as a root `L`.**
+  (iv) **§11.4's overlap discipline is CONFIRMED** and coincides with ours: two
+  minorants of the same `R_I(ω,b)` may not be added unless their supports are
+  disjoint, or a single combined `g` is proved pointwise below `R_I`, or they
+  arise at mutually exclusive information states or at successive exact ladder
+  layers. The third case is licensed here by Definition 5.4 with Lemma FT-trunc.
+- **FT-A13 (§12, zero-mean penalties: CONFIRMED, with an exactness obligation, and
+  §12.4 BLOCKED).**
+  (i) **Theorem 12.1 is CONFIRMED.** For any `λ` with `Σ_ω μ_I(ω) λ_I(ω,b) = 0`
+  for every legal `b`, centering rewrites the chosen action's value and the
+  pointwise max dominates it; taking the max over common actions and summing gives
+  the bound, which then bounds `Q^H(a)` because `Q^H(a) ≤ U^(1)`.
+  (ii) **Proposition 12.2 is CONFIRMED**: `λ_I(ω,b) = q_I(ω,b) − q̄_I(b)` is
+  centered by construction and collapses the penalised max to `p_I max_b q̄_I(b)`,
+  recovering `U^(1)` exactly. **What it buys is understanding, not compute** — the
+  exact `λ` requires the full `q̄` table, i.e. the thing `U^(1)` needed anyway. Its
+  value is that it exhibits hard gluing and the dual penalty as one object, which
+  is what makes cheaper penalty families meaningful.
+  (iii) **§12.3's feature penalties are a VALID FAMILY and a BLOCKED PROBE.** Every
+  `θ` gives a valid one-stage penalty, so validity is free and the coefficients may
+  be optimised without risking soundness. The obligation is arithmetic and
+  absolute: **the centering condition is an exact equality**, so `E_{ν_I}[φ]` must
+  be an exact rational computed over the full positive-mass set. A sampled or
+  decimated expectation breaks centering and voids the bound — this is (C2) in a
+  new costume, and it is the failure mode a "shadow price" framing invites. No
+  float, ever (P-A19).
+  (iv) **§12.4 is BLOCKED**, correctly self-labelled. Global zero-mean centering is
+  insufficient at multiple decisions; the increment must be a martingale
+  difference relative to the focal information filtration. The note's interim
+  contract — stagewise conditional centering — is accepted as the safe form, and
+  **nothing multi-stage is designable until the induction theorem is written and
+  adjudicated.**
+- **FT-A14 (§13, the plan calculus: CONFIRMED-WITH-REPAIR; three concordances and
+  one trap).**
+  (i) **Theorem schema 13.1 is CONFIRMED as a repackaging of Lemma E4, and it is a
+  useful one.** The composite of a lawful partial policy `π` with residual lawful
+  policies pasted along **publicly distinguishable** leaves is a single lawful
+  policy, because distinct public records are distinct information states under
+  freeze 26; its `β`-integrated value is at least `E[g(H_τ) + L_{H_τ}]`; Lemma E4
+  then gives `L(P) ≤ Q^H(a)`. The four hypotheses the note lists are exactly the
+  ones the proof uses.
+  (ii) **The trap is Lemma FT-post, delivered above.** A residual witness priced at
+  a *fresh coordinate under uniform belief* is not a valid `L_h`, because the
+  posterior at a public leaf carries the field's legal-set-size weights. Since
+  every walt coordinate is built with uniform belief over its fiber, this is the
+  natural mistake and it is void, not merely loose. The two admissible forms —
+  evaluate inside the same walk under carried weights, or prove the residual bound
+  pointwise in every world of the leaf — are binding.
+  (iii) **Three concordances worth recording, because independent arrival at our
+  own rules is evidence about the rules and not about the sender.** §13.2's
+  *candidate maximum* clause — "compare completed lawful plan values **outside**
+  the fixed-policy evaluator; do not select a plan separately in each hidden world,
+  that would reintroduce strategy fusion" — is DS-A14 and DS-A27's semantic
+  invariant word for word. §13.2's *public case split* — branching on observations
+  the focal player actually receives, never on hidden ownership — is
+  information-consistency. §13.1's guard `G` "expressed only in the focal hand,
+  declaration, and public record" is our information state exactly.
+  (iv) **The adversarial fold is valid here, and the reason is worth stating.**
+  Replacing the field expectation by a minimum over legal field responses yields a
+  number that lower-bounds the fixed-field value **because `σ_{-m}` is supported on
+  legal plays** — a minimum over a set containing the support is at most the mean
+  (T1-A2(i)). This is what makes Theorem T1-draw's and Theorem LD's field-free
+  guarantees usable as primal witnesses under the declared field, and it is the
+  one direction that survives; the cooperative corner does not (T1-A2(ii)–(iii)).
+  Read "public" throughout §13 as **focal-information-measurable**: at a fixed
+  coordinate the focal hand is constant across the fiber so the two coincide, and
+  the distinction becomes real only for a plan quantified over hands.
+  (v) **§13.3–13.5 are BLOCKED as mathematics and welcome as language.** The
+  identification of a drawing hand as the terminal case with `g = 7` is faithful to
+  Theorem T1-draw and Theorem LD. The partial-laydown hierarchy — guarantee `k`,
+  force a small family of public residual contracts, price each — is a genuine
+  target and is exactly the shape LD-A13 left open. **§13.4's own caution is
+  adopted verbatim**: a count-free plan theorem does not prove its count-decorated
+  analogue. E-A2 is sharper still — a count re-entry voids every form-keyed record
+  **wholesale, never extended** — and DS-A16 records the single exception, that a
+  library policy remains a valid witness source under re-evaluation while its
+  count-free verdicts do not survive. The "34 on two trumps" programme of §13.5 is
+  a research proposal about family knowledge and is filed as one, with the standing
+  fence that nothing here is a claim about bidding or about how anybody plays.
+- **FT-A15 (§14, the combined decision proof: CONFIRMED, and it is Theorem E6.4).**
+  `L_{a⋆} ≥ U_a^C − Γ_a` for every competitor certifies `a⋆ ∈ Opt^H`; strict
+  inequalities give uniqueness. This is our own separation theorem with a proved
+  tax subtracted from the upper side, and it inherits every attached condition:
+  (C1)–(C4), the member-not-set caveat printed **in the statement and not the
+  commentary**, and DS-A14's structural assertion that `L` came from a
+  fixed-policy evaluator satisfying DS-A27's invariant.
+- **FT-A16 (§17, the laydown restatement: FAITHFUL, with two amendments).** The
+  note reports 301 laydowns per pip declaration, 2,107 hand/declaration pairs, no
+  deal in which all four hands are laydowns, and an exhibited three-laydown deal.
+  **Every one matches our record**: LD-A11's closing note ((LD-R1) held at exactly
+  301; phase 2 returned no four-laydown deal; the maximum is three and is
+  exhibited) and LD-A12's Corollary LD-fold (the predicate is declaration-fold
+  invariant, hence 301 per declaration and 2,107 pairs). Two amendments.
+  (i) **The outbox's "294" and the note's "301" are different objects and must
+  never be reconciled by arithmetic.** 294 = 42 × 7 is Theorem T1-draw's inner
+  class, freeze 47's closed carrier; 2,107 = 301 × 7 is the full lay-down
+  catalogue of Theorem LD. LD-A3 demoted (Z1) to sufficient-not-necessary and
+  quantified the containment as 42 of 301, strict at every declaration. A reader
+  who sees both numbers must be told which object each names.
+  (ii) **The note's caveat is right and ours is stronger.** It asks that the
+  catalogue definition, the producing script, the commit hash, the witness deal
+  and the exhaustive no-four search be preserved before promotion — that is
+  reproducibility, and it is necessary. **T1-A12 and LD-A10(ii) demand more**:
+  every statement is proved relative to walt's *implementation* of the rules, and
+  the tier order, `DOUBLE_TOP`, the effective-incidence subtraction, the compelled
+  follow and `threat` must be checked against the rules package by a reader before
+  any of it leaves walt — a check no receipt computed by that same implementation
+  can perform. **(LD-R4) remains owed** and is the cheapest available probe of that
+  risk, not a discharge of it. Until then "2,107" is licensed by Corollary LD-fold
+  as a proof plus one receipted count, not by seven receipted counts.
+- **FT-A17 (FREEZE 38 — FILLED, v1, scoped; the reservation is discharged).**
+  DS-A13 reserved 38 for "the gluing-cut language, the validity-proof obligation,
+  and the cut ordering", and SEP-A18, T1-A11, LD-A9 and RW-A8 each confirmed it
+  reserved and untouched. The received note supplies all three, correctly typed
+  (FT-A10(ii)), so the number is now spent. **FREEZE 38 — the gluing cut, v1.**
+  **(a) The cut language.** A *cut* is a declared partition `Π_I` of the latent
+  world set `X_I` of one named focal information state `I`, constraining the
+  relaxed controller to one common action per block. It is an identification of
+  action variables. It removes no world, alters no world's mass, and asserts
+  nothing about reachability; a construct that excludes worlds is a **declared
+  exclusion remnant** and is not a cut (Theorem E6.5's typing).
+  **(b) The canonical family, v1.** (1) The reveal-delay ladder: `C^(k)` is the
+  one-block partition at every focal frontier of depth `≤ k` and the singleton
+  partition below, with `C^(0) = C` and `C^(N−1) = C^(N) = H` by Lemma FT-trunc.
+  (2) Within the **first** frontier only, arbitrary partitions `Π_I`, priced by the
+  exact merge cost `c_I(B₁,B₂) = v_I(B₁) + v_I(B₂) − v_I(B₁∪B₂)`.
+  **(c) The validity obligation, and its discharge for (b).** Every cut must be an
+  information equality satisfied by every lawful policy. For family (b) it is
+  discharged once and for all: a lawful policy chooses one action per information
+  state and therefore satisfies every block identification within that state. Any
+  cut outside (b) — feature-induced, adaptive across layers, or defined on
+  anything other than a partition of one `X_I` — re-enters with its own proof and
+  its own freeze version.
+  **(d) The cut ordering, which is why this is a determinism freeze.** Layers
+  ascending, `k = 1, 2, …`; within a layer, frontier information states in
+  **ascending observation-record order** (freeze 36(b)'s lexicographic order over
+  the canonical ascending domino index); within a state, actions in ascending
+  domino index; block merges, where used, in **descending exact merge cost** with
+  ties broken by the smallest record in the block. The order is declared before the
+  run and never chosen by result (DS-A33/DS-A34's discipline).
+  **(e) The stop rule.** Theorem E6.5(G2)'s exposed-face criterion, instantiated as
+  Corollary 6.4's zero-tax test computed from **complete** argmax sets. A single
+  tie-broken optimiser is not evidence of a conflict and freeze 26's least-index
+  tie rule is not used here (FT-A8).
+  **(f) Arithmetic and reporting.** Exact rationals throughout, accumulated over a
+  common integer denominator; no float (P-A19). Taxes are reported in the **count
+  convention**, obtained from the differential evaluators by the exact inverse of
+  freeze 26's bridge; by Corollary FT-conv a differential tax is **twice** its
+  count-convention value, and a tax compared against a margin in the other
+  convention is void.
+  **(g) Scope of v1, stated so a successor knows what is not frozen.** Feature
+  penalties (§12.3), multi-stage/martingale penalties (§12.4), adaptive block
+  search beyond the first frontier, and any cost model for `κ_a(T)` are **NOT** in
+  freeze 38 v1. They re-enter as **freeze 38 v2** fixed by a later adjudication —
+  versioning content by ruling, as freeze 36 v2 and freeze 44 v2 already do. No
+  number is reused: freezes 1–49 stand, 36 at v2, 44 at v2, **39 and 40 remain
+  reserved and untouched**.
+- **FT-A18 (Experiment 15.1: BUILDABLE AGAINST THIS ENGINE AS-IS — GRANTED as the
+  FT family; FREEZE 50 fixes its carrier).** The experiment is admitted because it
+  needs no new authority, no new relaxation type, and no object the engine cannot
+  already produce. Six clauses.
+  (i) **What it computes.** For each carrier coordinate and each *binding*
+  competitor action `a`: the frontier data `μ_I(ω)` and `q_I(ω,b)`, the local taxes
+  `δ_I`, the layer tax `Δ_a^(1) = Σ_I δ_I`, and `U_a^(1) = U_a^C − Δ_a^(1)`; then
+  the decision question `L_{a⋆} ≥ U_a^(1)`, and — free, by Corollary FT-grade4 —
+  the residual `Δ_a^(2) = U_a^(1) − Q^H(a)`.
+  (ii) **Why the machinery already exists.** `walk` carries exactly the required
+  objects: a bag of particles with weights, the field share
+  `p.weight *= q(1, legal.len())` (which *is* `μ_I(ω)`, Lemma FT-arrive), and an
+  `obs` record that is the frontier information state's key, indexed by
+  `InfoPartition`'s `BTreeMap<Vec<Domino>, InfoStateId>`. The two evaluators
+  needed are (1) the existing revealed per-world solve, read at the child of a
+  frontier node to give `q_I(ω,b)`, and (2) a *glue-one-then-reveal* walker that
+  is lawful at the first focal node after the root and world-informed below it.
+  Both are derived views of the semantic state; the continuation memo, if used, is
+  keyed by the **projected** state and is a cache, never an authority (freeze
+  36(d)'s pattern).
+  (iii) **Budgets: no new constant is fixed.** Freeze 44(b)'s contract already
+  binds every `walk`-based evaluator: `B = 10,000,000,000` walk-steps per
+  (coordinate, action), charge-then-descend at `bag.len()` on entry, `Option`
+  return, and **on exhaustion no partial fold of any kind is retained** — which
+  here means there is no partial tax and no partial `U^(1)`. The frontier partition
+  is asserted against `P_max v2 = 192,000,000`; it is a depth-one object and is
+  expected far below that, and the assertion is contentful.
+  (iv) **h9 is IN SCOPE although it is NOT PRICED.** N4-A16(iv) and RW-A4 record
+  h9's extraction map at 517,562,322 states, above `P_max v2`, so no primal
+  pipeline runs there. The FT probe needs no extraction map: it needs the
+  depth-one frontier and the revealed continuations below it, and `U` and `Q^H` are
+  already filed at h9 for every root action with the authority gate MET. **h9's
+  NOT PRICED label stands verbatim and is not weakened by this** (RW-A3(iii): the
+  labels never merge); what changes is that the coordinate carrying the branch's
+  largest exact negative becomes measurable on the dual side.
+  (v) **Filed values enter as a frozen table, per SEP-A14(ii).** `U_a` and `Q^H(a)`
+  for every carrier coordinate and root action are transcribed into the probe
+  source as a frozen table carrying the provenance line *"quoted from
+  `separation_n4_2026-08-14.txt`, exploratory tier"*, **never re-parsed from the
+  results text**, which is not a machine-readable interface. The coordinate
+  identity is asserted first in freeze 45's form — grade, declaration, hand and
+  pool as canonical ascending domino-index tile lists, leader offset 0,
+  `|X| = 34,650` against `kernel.count()`, freeze-7/23 enumeration order, kernel
+  rebuilt in-run and asserted equal — because an equality of values at coordinates
+  not shown to be the same coordinate is not a cross-check.
+  (vi) **FREEZE 50 — the fusion-tax probe carrier.** **(a)** The carrier is the
+  **five negative-margin n = 4 coordinates**, in this canonical order: pip 3
+  `[00 21 32 53]`; pip 4 `[11 40 43 53]`; pip 5 `[21 33 53 54]`; pip 4
+  `[30 41 54 61]` (h9); pip 0 `[20 30 40 65]` — declaration pip ascending, then
+  hand ascending lexicographically by canonical domino index. **(b)** Per
+  coordinate the run is over the **binding pairs only**: every `(a⋆, a)` whose
+  filed margin is negative, `a⋆` ranging over the filed H-argmax set and `a` over
+  the competitors, in ascending domino index on each side. **(c)** The frontier
+  emission format: one row per `(coordinate, a, I)` carrying the record as an
+  ascending-domino-index play list, `p_I`, `|X_I|`, `|A(I)|`, `δ_I` as an exact
+  rational in the count convention, the complete argmax set of
+  `Σ_ω μ_I(ω) q_I(ω,b)`, and — where `δ_I > 0` — one minimal fusion core with its
+  worlds printed by fiber index under freeze 7/23. **(d)** The per-coordinate
+  summary: `T_a` (asserted 0), `Δ_a^(1)`, `U_a^(1)`, `Δ_a^(2)`, the decision cell
+  `L_{a⋆} ≥ U_a^(1)`, and the fraction-required column of Proposition FT-tie.
+  **(e)** Belief and field are **not** re-declared: they are freeze 26 and freeze
+  37(d), cited unchanged, uniform over the full enumerated fiber with no decimation
+  anywhere inside any `L`, `U` or tax ((C2)). **(f)** **No library entry is written
+  at any coordinate** (freeze 45). **(g)** The freeze-set digest travels on every
+  record; a digest mismatch is corruption and the cache is discarded entire
+  (freeze 41, DS-A30).
+- **FT-A19 (the receipts, since "by construction" is not a receipt).** Mandatory,
+  in the PG-A8 style, with the non-receipts named as such.
+  (i) **(FT-R1) the reconstruction receipt — the one that earns the section.**
+  Assert `T_a + Σ_I Σ_ω μ_I(ω) m_I(ω) = U_a` exactly, against the frozen filed
+  `U_a` of FT-A18(v). **Contentful and strong**: it ties the frontier decomposition
+  to the already-receipted revealed summary, and it fails on any error in the
+  arrival weights, the record keying, the frontier detection or the continuation
+  values. A mismatch is stop-and-report; it is a bug in the probe or in Theorem
+  6.1's hypotheses, never a finding about the game (R-A18, NO-RESCUE).
+  (ii) **(FT-R2) the mass receipt.** Assert `Σ_I Σ_ω μ_I(ω) = 1` exactly and
+  `T_a = 0`, the latter by asserting the focal seat has a further decision in every
+  positive-mass world. **Contentful**: it fails if any field branch is dropped or
+  double-counted.
+  (iii) **(FT-R3) the sandwich receipt.** Assert `U_a^(1) ≥ Q^H(a)` against the
+  frozen filed `Q^H(a)`. **Contentful**: it is the only check that the glue was
+  applied at the right node and in the right direction. Note in place that
+  `δ_I ≥ 0` and `Δ^(1) ≥ 0` are **arithmetic remarks, not receipts** — they cannot
+  fail given the formulas — unless computed by the two independent paths of
+  (FT-R4).
+  (iv) **(FT-R4) the two-path receipt.** Compute `U_a^(1)` twice: once as
+  `U_a^C − Σ_I δ_I` from the frontier table, and once directly by the
+  glue-one-then-reveal walker, and assert exact equality. **Contentful**, because
+  the two computations are independently written and share only the rule algebra.
+  (v) **(FT-R5) the optimal-face receipt.** For a declared deterministic sample —
+  the first ten frontier states in freeze-50(c) order at each coordinate — assert
+  Corollary 6.4 both ways: where `δ_I = 0`, the complete argmax sets intersect;
+  where `δ_I > 0`, print a minimal fusion core of size `≤ |A(I)| ≤ 3` and assert
+  its argmax intersection is empty while every proper subset's is not.
+  **Contentful**, and it is the direct test of FT-A8's discipline.
+  (vi) **(FT-R6) the reduced-grade cross-check.** At a declared grade-2 and
+  grade-3 coordinate where treatment `H` completes cheaply, compute `U^(1)` by the
+  probe and assert `U^(0) ≥ U^(1) ≥ Q^H` with all three exact, and assert
+  `U^(1) = Q^H` wherever Lemma FT-trunc predicts the ladder has already collapsed
+  (grade 2: `N = 1`, so `U^(0) = Q^H` and the first tax is identically zero).
+  **Contentful and it tests the lemma, not just the code** — a nonzero `Δ^(1)` at
+  grade 2 falsifies Lemma FT-trunc or the implementation, and either is
+  stop-and-report.
+  (vii) **Experiment 15.2 is GRANTED as reporting**, not as a separate build: the
+  per-`I` rows of freeze 50(c) already carry `Pr(I)`, `δ_I`, the argmax set and the
+  cores, and the concentration question (§18.1) is answered by sorting them. No
+  claim is attached to the ranking beyond the exploratory tier, and P-A21 binds —
+  **no distribution measured at grade 4 is quoted for trick 1 or for the opening.**
+- **FT-A20 (both outcomes pre-declared, before any `δ_I` exists).**
+  (a) **`U_a^(1) ≤ L_{a⋆}` at any binding pair** → the first exact gluing cut in
+  the branch closes a pair that Corollary E4.1(3) proved no candidate could ever
+  close. The verdict is filed with Theorem E6.4's member-not-set caveat verbatim,
+  with the freeze-38 cut sentence of FT-A10(ii), and — at the three tied
+  coordinates — with Proposition FT-tie's note that closure there means the fusion
+  gap was **entirely first-order**, an exact statement about this coordinate and
+  nothing wider.
+  (b) **`U_a^(1) > L_{a⋆}` everywhere** → the filed object is the exact pair
+  `(Δ_a^(1), Δ_a^(2))` per binding pair, which by Corollary FT-grade4 is the
+  **complete** layer decomposition of the fusion gap at grade 4. That answers the
+  note's §18.4 at this carrier and specifies exactly what a second-layer or
+  feature-penalty cut must beat. This is a result under F7, filed as one, not a
+  null.
+  (c) **A budget stop** → declared stop, no partial fold retained (freeze 44), no
+  partial tax reported, printed as a stop and never as a finding (R-A18).
+  (d) **(FT-R1) or (FT-R4) disagreeing** → the most informative outcome available,
+  and pre-declared as such: Theorem 6.1's hypotheses or the implementation are
+  wrong, nothing is claimed, and the disagreeing exact rationals are printed
+  (F7, NO-RESCUE).
+- **FT-A21 (§16, the trick-1 program: BLOCKED, with its three obligations named).**
+  The pipeline is coherent and is the right destination; it is not designable now.
+  (i) The exact `q_I(ω,b)` table at trick 1 ranges over 399,072,960 worlds and up
+  to seven actions per frontier state, and nothing in the note reduces it — the
+  note says so itself. (ii) The only routes that avoid it are Theorem 10.1 with
+  proved pointwise `B`, and Corollary 11.2 with proved regret events; **neither
+  has a single proved instance in this game yet**, and Proposition FT-flat now
+  proves that the cheapest instinct — a `b`-independent feature — cannot help at
+  all. (iii) Exact counting of any event mass must be exhaustive: no decimation
+  inside a witness, (C2), the discipline (T1-R3) already applies at trick 1.
+  **What is designable at trick 1 today remains what T1-A5 granted** — Theorem
+  T1-draw's membership half and Corollary T1-ruff's exclusion half, which need no
+  relaxation at all — plus arm B's corner gaps, which are the specification of what
+  a tighter relaxation must beat. Experiment 15.3 is BLOCKED with §16.
+- **FT-A22 (fences, carried obligations, and what this section is not).**
+  (i) **The R-A2 fence, mandatory in the results header**, unchanged: no object
+  produced by this probe is an identity-bearing witness of anything; reachability
+  is a proof-irrelevant proposition; the carrier is the void-free capacity fiber
+  whose members are **FEASIBLE and never reachable** (P-A1). The N4-A8 real-deal
+  fence travels with every carrier coordinate verbatim — the hands and pools come
+  from rob's receipt corpus, **the belief does not**, the voids the play record had
+  already revealed are deliberately discarded, and the void-filtered column
+  licenses nothing.
+  (ii) **Not claimed, printed in place:** nothing about points or marks (the
+  valuation is count-free `trick_diff`; E-A2's boundary, and a count re-entry voids
+  every form-keyed record wholesale); nothing about bidding; nothing about how real
+  opponents play; no growth law and no quantity measured at grade 4 quoted for
+  trick 1 or for the opening (P-A21); and no cost claim read off any traversal
+  observable (SEP-A19(b), N4-A16).
+  (iii) **DS-A28(ii) remains CARRIED.** Corollary E4.1's filing as errata §4.3 is
+  still owed at the next errata amendment; this section does not amend the errata
+  and does not discharge it. **A second obligation is added to the same queue**:
+  Lemma FT-arrive, Lemma FT-trunc, Proposition FT-flat, Proposition FT-tie, Lemma
+  FT-post and Corollary FT-conv, together with the confirmed first-layer
+  mathematics, belong in the errata as a new §9 at that amendment. Until then they
+  live here, and `walt/CENSUS-RULINGS.md` is their only authority.
+  (iv) **On mechanization (§18.9), a tier fence.** The fusion-gap identity, the
+  first-layer formulas, the block costs, the regret minorants and the one-stage
+  penalty theorem are small finite-model statements and are legitimate Lean
+  targets. **A kernel proof of the abstract model is a kernel-tier fact about that
+  model and promotes nothing about walt's engine**, whose claims remain
+  exploratory and remain hostage to T1-A12's implementation-versus-corpus risk.
+  Tiers are never blurred by a proof of a neighbouring statement.
+  (v) **The load-bearing risk, named so it is watched.** Every hypothesis this
+  section discharged from the engine — one focal decision per trick, the record as
+  information state, `A(I)` from `(hand, led)`, the field's per-world uniform
+  share, leader offset 0 — was read from the implementation at adjudication time.
+  If the implementation and the rules corpus disagree, the mathematics above is
+  still correct and its application here is wrong, and **no receipt inside this
+  section can detect it** because every receipt is computed by the same
+  implementation. (FT-R6) is the partial guard. The corpus check of T1-A12 and
+  LD-A10(ii) is owed before any of this leaves walt.
+
+**What the build owes this section.** The FT probe of FT-A18 over freeze 50's
+five coordinates and their binding pairs, with the six receipts of FT-A19, the
+freeze-38(d) cut ordering, the freeze-38(f) convention rule, and both outcomes of
+FT-A20 pre-printed in the results header. Everything else here is proof and needs
+no code. If (FT-R1) or (FT-R4) fails, nothing is claimed and the disagreeing
+rationals are reported; if the taxes come back and close a pair, it is the first
+gluing-cut separation in the branch and it is checked twice before anything is
+said.
