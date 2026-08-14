@@ -5960,3 +5960,295 @@ bounds, and the argmax set is therefore determined rather than intersected.
   reader, and until that is done every statement here is exploratory in the
   strong sense — proved relative to walt's implementation of the rules, and not
   yet relative to the rules.
+
+## Lay downs: the characterization, and the four-laydown question (2026-08-14)
+
+**Adjudicator:** walt-math. **Object:** the run owner's conversational directive
+of 2026-08-14 — formalise the family term *lay down*, and settle whether a single
+deal can contain four of them, a conjecture his family reached by hand
+enumeration and remembered as **at most three**. **Tier:** exploratory
+throughout. **Basis:** the trick-1 section immediately above (T1-A1..T1-A12,
+Theorem T1-draw, Corollary T1-ruff, and **T1-A12's implementation-versus-corpus
+risk, which carries here in full**); F1's pip-trump scope; DS-A1's vocabulary;
+PG-A8; F7; and the same first-hand reading of `walt-core/src/rules.rs`. Rulings
+**LD-A1..LD-A10**; **Theorem LD** and five corollaries delivered below;
+**freeze 48** fixed at LD-A9. The prefix `LD-A` and every name below were
+grep-checked unused. The rule facts of the trick-1 section's preamble are used
+here without restatement.
+
+**Headline — four findings.**
+
+1. **"Lay down" has an exact characterization, and it is two cheap bitset
+   tests.** Theorem LD: a hand is a lay down iff (L1) it holds at least |O|
+   trumps outranking every trump it lacks, and (L2) every non-trump it holds has
+   `threat(d) ⊆ T ∪ H`. Both are decidable per hand in microseconds, so the
+   complete catalogue of lay downs is enumerable by brute force over all
+   C(28,7) = 1,184,040 hands × 7 declarations.
+2. **Every lay down holds at least four trumps** — Corollary LD-four, the bound
+   the brief hoped for, proved rather than assumed. It falls out of the same
+   worst-case world that drives everything else: one seat may hold every
+   outstanding trump, so drawing them costs one lead each.
+3. **Theorem T1-draw's 42-hand family is a strict inner class, and (Z1) is not
+   necessary** — the brief's witness is settled: {6:6, 6:4, 6:3, 6:2, 6:1, 6:0}
+   plus a natural double **is** a lay down, because the single outstanding trump
+   6:5 sits alone in its holder's hand and the compelled follow extracts it on
+   the first lead. The banking worry is real in general and is exactly what (L1)
+   measures; it cannot arise when |O| = 1.
+4. **The four-laydown question is reduced to a finite exact search over the
+   catalogue, and I do not pre-judge it.** Five structural corollaries cut it
+   hard — the four declarations must be distinct pips, at most one hand may hold
+   a whole suit, exactly one must, and the other three each carry exactly one
+   double of a non-declared pip with all their non-trumps in that single context.
+   My own hand-worked constructions all failed, and one failed for a reason worth
+   recording (LD-A7), but **a failed search by hand is not a theorem** and the
+   family's conjecture stays a hypothesis until the probe runs.
+
+### Theorem LD (the lay-down characterization) — delivered here
+
+**Definition (lay down).** A 7-tile hand H is a **lay down** under δ =
+`PipTrump(p)` if, with its holder on lead at trick 1, some plan takes all seven
+tricks in **every** world of the complete trick-1 fiber against **every** field
+behaviour. This is the field-adversarial guarantee — T1-A2's lower corner
+demanded at its maximum — so it is belief-free and field-free exactly as
+T1-draw's membership half is, and it is **not** the fixed-field Q^H.
+
+Write T for the seven trump tiles, t = |H ∩ T|, O = T ∖ H, and — ranking T by
+`trick_key` — let **r** be the rank position of the highest trump not in H
+(r = 8 when O = ∅), so H contains exactly ranks 1..r−1 of T.
+
+**Theorem LD.** H is a lay down under δ iff
+
+- **(L1)** **r − 1 ≥ |O|**, and
+- **(L2)** for every non-trump d ∈ H, **`threat(d) ⊆ T ∪ H`** — every tile that
+  beats d when d is led is either a trump or held by the holder.
+
+*Proof of sufficiency.* The plan: lead the top |O| trumps, then everything else
+in any order. Each of those leads beats every outstanding trump by (L1) and by
+`Tier::Called` dominating both other tiers, so each wins and the holder keeps the
+lead. Each lead compels every seat holding a trump to play one, and no seat holds
+more than |O| of them, so after |O| leads no trump remains outside H. Thereafter a
+trump the holder leads is the only trump on its trick and wins by tier; and a
+non-trump d wins because, by (L2), every tile beating it in its led context is a
+trump — none of which remain outside H — or is in H and therefore in no other
+seat's hand. Seven tricks. ∎
+
+*Proof of necessity.* The holder must win every trick, hence leads every trick,
+hence leads all seven of its tiles.
+
+*(L1).* Suppose r − 1 < |O|, so H holds fewer than |O| trumps above max(O). Take
+the world in which one seat A holds all of O; A plays its **lowest** trump on
+each trump lead, so max(O) survives A's first |O| − 1 trump plays. Any trump the
+holder leads while max(O) is outstanding must outrank it, and it has only r − 1
+such trumps; so within the first |O| leads the holder must either lead a trump
+ranked below max(O) — which A beats — or lead a non-trump, which A ruffs if A is
+void in that context. A can be made void in every context the holder can lead:
+the holder's non-trump tiles occupy a set P of led pips with |P| ≤ 7 − t, so A's
+other 7 − |O| = t tiles need only avoid P, and the non-trump tiles on the
+remaining 6 − |P| ≥ t − 1 pips number (6−|P|)(7−|P|)/2 ≥ t for every t ≥ 3.
+Either way A takes a trick.
+
+*(L2).* Suppose some non-trump d ∈ H has a non-trump e ∉ H beating d in
+c = `led_context(d)`. Let h_c be the number of holder tiles led into context c;
+h_c ≤ 7 − t ≤ 3 by Corollary LD-four below. Give e to a seat together with
+h_c − 1 further context-c tiles, which is possible because the context holds six
+tiles of which the holder leads h_c ≤ 3, leaving 6 − h_c ≥ 3 outstanding. That
+seat follows every earlier context-c lead with a spare and plays e when d is led,
+taking the trick. e cannot be extracted otherwise: extraction into context c
+happens only on the holder's context-c leads, since a seat void in c discards its
+own choice and adversarially never a context-c tile. ∎
+
+**Corollary LD-four (every lay down holds at least four trumps).** t ≥ 4.
+*Proof.* If O = ∅ then t = 7. Otherwise ranks 1..r−1 lie in H, so t ≥ r − 1, and
+(L1) gives r − 1 ≥ |O| = 7 − t; hence t ≥ 7 − t. ∎
+
+**Corollary LD-top (every lay down holds its declaration's double).** Rank 1 of T
+is `p:p`. If it were absent, r = 1 and (L1) would demand 0 ≥ |O| = 7 − t, forcing
+t = 7 and hence H ⊇ T ∋ p:p, a contradiction. ∎
+
+**Corollary LD-closed (the non-trump part is a union of context prefixes, and
+each context's double is held).** (L2) applied to d says every context-c tile
+above d is in H; the top of every context is its natural double (rank
+`DOUBLE_TOP` = 12), so `c:c ∈ H` for every context c the holder leads into,
+unless d is itself that double. Since t ≥ 4, at most three non-trumps exist, so at
+most three contexts are led into and each carries its double. ∎
+
+**Corollary LD-nobank (the banking worry cannot arise at |O| = 1).** A seat
+holding the single outstanding trump holds no other trump, so the compelled
+follow makes it play that trump on the holder's first trump lead. Hence
+{p:p} ∪ (any five further trumps) with (L2)-closed non-trumps is a lay down
+whatever the rank of the one missing trump, **provided r − 1 ≥ 1** — which
+Corollary LD-top already gives. This settles the brief's witness affirmatively
+and shows (Z1) of Theorem T1-draw is **sufficient, never necessary**. ∎
+
+**Corollary LD-extract (extraction never buys anything).** The necessity proof's
+alternative — the holder leading its high context-c tiles to drag out a superior
+before leading a lower one — requires h_c > r_c − 1 and r_c − 1 ≥ 6 − h_c, whence
+h_c > 3. But h_c ≤ 7 − t ≤ 3 by Corollary LD-four. **So the extraction branch is
+empty and (L2) is the whole of the non-trump condition.** ∎
+
+- **LD-A1 (the definition is ACCEPTED as stated, with its typing fixed).** The
+  brief's formalisation is exactly right and is bound: a lay down is the
+  **field-adversarial guarantee at its maximum** — some plan takes all seven
+  tricks in every world against every field behaviour. Four typing clauses, all
+  printed wherever the term is used. (i) It is **not** Q^H: it quantifies over
+  field behaviours instead of averaging over the declared uniform-random legal
+  field, so it is belief-free and field-free in T1-A8(i)'s sense and, the trick-1
+  fiber being the complete deal set, it is a statement about the rules rather
+  than about walt's declared model. (ii) The holder is the **trick-1 leader**,
+  which in a dealt hand means the bidder. (iii) The declaration is the holder's
+  **own**, so "H is a lay down" is always elliptical for "under δ", and a hand may
+  be a lay down under one pip and not another. (iv) Scope is **pip-trump only**
+  (F1): `DoublesTrump` and `NoTrump` are out of scope here and their rank
+  algebra differs (`rank` branches on `Decl::DoublesTrump`), so nothing below is
+  quoted for them.
+- **LD-A2 (Theorem LD is DELIVERED, and with it a decision procedure that is two
+  bitset tests).** (L1) is a scan of the seven trumps in `trick_key` order; (L2)
+  is `threat(d).difference(called_set.union(H)).is_empty()` for each non-trump
+  d ∈ H, using the `threat` function that already exists. Cost per (hand,
+  declaration) is a handful of bitset operations, so **the complete catalogue is
+  enumerable by brute force**: C(28,7) = 1,184,040 hands × 7 declarations =
+  8,288,280 tests. No search, no tree, no fiber. This is the answer to the
+  brief's "characterization **or** cheap decision procedure": it is both, and
+  they are the same object.
+- **LD-A3 (the brief's witness is SETTLED, affirmatively, and (Z1) is demoted).**
+  {6:6, 6:4, 6:3, 6:2, 6:1, 6:0} plus a natural double **is** a lay down under
+  `PipTrump(6)`: |O| = 1 with O = {6:5}, r = 2, and (L1) reads 1 ≥ 1. The
+  compelled follow does the work — a seat holding the one outstanding trump holds
+  no other, so it cannot bank it behind a lower one, which is Corollary
+  LD-nobank. **The banking worry the brief raised is real in general**: it is
+  precisely what (L1) measures, and it is why (L1) counts the holder's trumps
+  *above max(O)* rather than its trumps in total. Consequently Theorem T1-draw's
+  hypothesis (Z1) is **sufficient and not necessary**, and T1-draw's 42-hand
+  family per declaration is a **strict inner class** of the lay downs. Nothing in
+  the trick-1 section is weakened: T1-draw remains true as stated, and its family
+  remains the closed carrier freeze 47 fixes.
+- **LD-A4 (Corollary LD-four is the structural result the brief asked for).**
+  Every lay down holds **at least four trumps**, and the proof is one line from
+  (L1). What it cuts: the non-trump part of any lay down has at most three tiles,
+  which is what makes Corollary LD-extract vacuous, which is what makes (L2) —
+  rather than some recursive extraction condition — the exact non-trump test. The
+  bound is therefore not merely a search pruner; **it is what makes the
+  characterization finite in the first place**, and it is worth having
+  independently exactly as the brief anticipated.
+- **LD-A5 (Corollary LD-sweep, and the one place count enters).** A lay down's
+  holder wins every trick, so every tile falls to the holder's team and the
+  opposing team captures nothing: the hand takes **all seven tricks and all
+  forty-two points**. This is the family's own sense of "can't lose", and it is
+  reached by arithmetic — every trick is won, so every tile is captured — not by
+  a transport. **E-A2 is not engaged and must not be cited as if it were**: no
+  form-keyed record is created here, no count-free verdict is extended, and
+  nothing count-valued is stored. The sentence is a consequence of the sweep and
+  travels only with it; a hand that takes six tricks is outside it entirely.
+- **LD-A6 (the four-laydown question: six structural facts, proved).** Let a deal
+  be four 7-tile hands, hand i a lay down under δ_i = `PipTrump(p_i)`. Then:
+  **(D1)** the four pips are **distinct** — by Corollary LD-top each hand holds
+  `p_i:p_i`, and one tile sits in one hand. (D1 is the brief's presumption,
+  now proved rather than presumed.)
+  **(D2)** the four trump suits meet pairwise in exactly one tile, so their union
+  is 4·7 − C(4,2) = **22** tiles, and each contributes at most one to Σt_i;
+  hence Σ t_i ≤ 22 and Σ n_i ≥ 6, where n_i = 7 − t_i.
+  **(D3)** every non-trump tile d in hand i has its **led pip among the three
+  non-declared pips**: `hi(d) = p_j` would force `p_j:p_j ∈ H_i` by Corollary
+  LD-closed against `p_j:p_j ∈ H_j` by LD-top, and `hi(d) = p_i` would make d a
+  trump.
+  **(D4)** only three doubles of non-declared pips exist and each hand with a
+  non-trump needs at least one, so **at least one hand has n_i = 0**, i.e. holds
+  its whole trump suit.
+  **(D5)** **at most one** hand can hold a whole suit, since two whole suits
+  would both contain their shared cross tile. With (D4): **exactly one hand holds
+  a full suit, and the other three each hold exactly one non-declared double and
+  have all their non-trumps in that single context.**
+  **(D6)** writing m_i for the number of hand i's own-suit cross tiles it does
+  not hold, each cross tile is held by at most one of its two suits' hands, so
+  Σ m_i ≥ 6; and (L1) gives a_i = r_i − 1 ≥ n_i ≥ m_i, so each hand's held top
+  prefix is at least as long as its cross-tile deficit.
+  These reduce the question to a small finite search, and LD-A8 specifies it.
+- **LD-A7 (my own hand search FAILED to find a four-laydown deal, and that is
+  NOT a result).** Recorded as motivation and nothing more, per the standing rule
+  that exploratory reasoning is cited by nothing above it. Two configurations
+  were worked by hand and both died. With declarations {6, 5, …} the two hands
+  contend for `6:5`, which is rank 2 of suit 5 and rank 2 of suit 6; whoever
+  loses it has a_i = 1 and therefore needs t_i = 6, which its remaining
+  availability cannot supply. With declarations {0, 1, 2, 3} and the full suit at
+  0, the six tiles left over are exactly the six on the non-declared pips
+  {4, 5, 6}, whose context-closed 2-subsets are {4:4, 6:4}, {5:5, 6:5} and
+  {6:6, 6:5} — the last two collide on `6:5`, so only two of the three hands can
+  be supplied. **Both are dead ends in a search, not obstructions in a proof**:
+  neither argument closes over the choice of declared pips, the assignment of the
+  six cross tiles, or the possibility that a hand's non-trumps come from another
+  hand's suit. The family's ≤ 3 conjecture remains a **hypothesis**. I decline to
+  present a partial case analysis as an impossibility theorem, and the brief's
+  own instruction — both outcomes are results — is what the probe is for.
+- **LD-A8 (the probe, in two phases, with its receipts and both outcomes
+  pre-declared).** This needs a build, not more proof.
+  **Phase 1 — the catalogue.** For each of the 7 pip declarations and all
+  C(28,7) hands, evaluate (L1) ∧ (L2) and emit the catalogue plus the per-
+  declaration count. Receipts: **(LD-R1)** the count for `PipTrump(6)` asserted
+  against the closed form of LD-A9(ii) — contentful, since the closed form and
+  the enumeration are independently derived; **(LD-R2)** every member of freeze
+  47's T1-draw family asserted to be in the catalogue under its own declaration,
+  and the containment asserted **strict** — contentful, and it is the check that
+  LD-A3's demotion of (Z1) is real rather than a misreading; **(LD-R3)** for a
+  declared deterministic sample of catalogue members — the first in canonical
+  order at each value of t — the sweep asserted directly by exhaustive play of
+  the LD plan against **all** field behaviours in a **declared reduced-grade**
+  analogue where that enumeration is finite, in the style of (T1-R2). Not a
+  receipt, and printed as such (PG-A8): the fact that (L1) and (L2) hold on a
+  hand the catalogue selected *because* they hold.
+  **Phase 2 — the four-laydown search.** Over the catalogue, search for four
+  pairwise-disjoint hands with distinct declarations whose union is all 28 tiles.
+  Pruned by LD-A6: begin from the seven full-suit hands, one per pip, since (D5)
+  makes exactly one of them present; extend by (D1) distinctness and disjointness.
+  The search is **exhaustive and exact** — it terminates with a witness or with a
+  proof of non-existence over the catalogue, and the catalogue is complete by
+  Theorem LD. Report additionally the **maximum number of pairwise-disjoint lay
+  downs completable to a deal**, which is the quantity the family's memory is
+  actually about ("three plus a strong fourth, yes").
+  **Both outcomes.** A witness deal is printed tile-by-tile with a per-hand
+  discharge of (L1) and (L2) and is a **counterexample to the family's
+  conjecture**. Non-existence over the catalogue is a **proof of the conjecture**
+  relative to Theorem LD and to the implementation caveat of LD-A10 — and it is
+  filed as the result it is (F7), not as a null.
+- **LD-A9 (the taxonomy, banked; FREEZE 48).** (i) **What the catalogue is for**:
+  it is the outer boundary the S6g results were missing — T1-draw's family is the
+  inner class walt can certify by a single theorem, and the catalogue is
+  everything the property actually admits. Both are exploratory and neither is
+  quoted for the other. (ii) **A prediction, declared before the run and typed as
+  a prediction, not a result**: for `PipTrump(6)` I count **301** lay downs, from
+  1 + 36 + 160 + 104 over non-trump-part sizes 0, 1, 2, 3 — the non-trump parts
+  being 1, 6, 16 and 26 context-closed sets and the trump parts 1, 6, 10 and 4
+  admissible (L1)-configurations at t = 7, 6, 5, 4. Against T1-draw's 42 per
+  declaration, the inner class would be about one seventh of the whole. A
+  mismatch is a defect in this arithmetic, not in the enumeration, and (LD-R1)
+  exists to catch it. Counts for the other six pips are not predicted here: the
+  context-closure count depends on which pip is trump, and hand-deriving seven of
+  them would multiply the chance of exactly the error (LD-R1) is meant to find.
+  (iii) **FREEZE 48 — the lay-down catalogue.** The hand enumeration order
+  (ascending canonical domino index, lexicographic), the declaration order (pip
+  ascending), the catalogue record format with the freeze-set digest, and the
+  phase-2 search order (full-suit hand by pip ascending, then extensions in
+  catalogue order). No number is reused; freezes 1–47 stand, 44 at v2, 36 at v2,
+  38–40 reserved and untouched.
+- **LD-A10 (fences and results discipline).** (i) **The four-laydown question is
+  combinatorial, not a situation.** In a dealt hand only the bid winner declares
+  and only one seat leads trick 1, so four lay downs can never be *realised*
+  together; the question asks whether the 28 tiles can be partitioned so that
+  each hand **would** sweep if it were the one to declare and lead. Every row
+  says so. (ii) **T1-A12's risk carries in full and is if anything sharper here**,
+  because Theorem LD is a claim about `rules.rs`'s rank, tier, follow and
+  compelled-follow semantics and the probe computes its own evidence from that
+  same implementation. The three rule facts of the trick-1 preamble, plus
+  `threat`'s definition, must be checked against the rules package before any of
+  this is cited outside walt; until then everything here is proved relative to
+  walt's implementation of the rules and not relative to the rules. (iii) No
+  promotion: not for bidding, not for real opponents, not for `DoublesTrump` or
+  `NoTrump`, and no count-keyed record anywhere despite LD-A5. (iv) The term
+  **lay down** is the family's, is used here as a defined technical term with
+  LD-A1's typing attached, and is never used loosely — a hand that "looks like a
+  lay down" is a hand that has not been tested.
+
+**What the build owes this section.** The two-phase probe of LD-A8, with the
+three receipts, freeze 48's orders, and the counts printed per declaration.
+Everything else here is proof and needs no code. If phase 2 returns a witness, it
+is checked tile-by-tile before anything is said; if it returns none, that is the
+family's conjecture proved, with the LD-A10(ii) caveat attached to it verbatim.
