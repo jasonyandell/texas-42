@@ -253,6 +253,9 @@ impl InfoPartition {
         let mut obs = vec![root];
         let cell = Cell::new(*budget);
         let mut hit = false;
+        // N4-A13(i): the residual at the moment the cap fires is recorded
+        // BEFORE the poison, so the caller's charge arithmetic stays true.
+        let mut cap_residual: Option<u64> = None;
         let out = walk(
             &ctx,
             &bag,
@@ -262,8 +265,11 @@ impl InfoPartition {
             &mut obs,
             &mut |record, legal, nodes| {
                 if legal_by_id.len() >= state_cap {
-                    hit = true;
-                    cell.set(0);
+                    if !hit {
+                        hit = true;
+                        cap_residual = Some(cell.get());
+                        cell.set(0);
+                    }
                     return legal;
                 }
                 let id = InfoStateId(u32::try_from(legal_by_id.len()).expect("state count"));
@@ -275,7 +281,7 @@ impl InfoPartition {
             },
             &cell,
         );
-        *budget = cell.get();
+        *budget = cap_residual.unwrap_or_else(|| cell.get());
         *cap_hit = hit;
         if hit {
             return None;
@@ -287,6 +293,44 @@ impl InfoPartition {
             legal: legal_by_id,
             nodes: nodes_by_id,
         })
+    }
+
+    /// The N4-A15(iii) count-only pass: the same traversal as `build`
+    /// (Lemma N(a)) with a callback that only counts and folds the streaming
+    /// set digest — the EXACT partition state count at O(1) memory, so the
+    /// cap becomes an admission threshold on a measured count instead of a
+    /// truncation. Honesty clause, printed by callers: this pass loses the
+    /// `prev.is_none()` dedup check; uniqueness rests on the by-construction
+    /// argument that a tree walk's node label is its play prefix, so the
+    /// focal callback fires exactly once per observation record. The digest
+    /// is the N4-A5 streaming set digest: per record, the 128-bit FNV-1a of
+    /// the record's canonical byte encoding (domino indices in play order),
+    /// folded by wrapping addition mod 2^128 (commutative, exact).
+    pub fn count_digest(kernel: &Kernel, root: Domino, budget: &mut u64) -> Option<(u64, u128)> {
+        let dir = Direction::trick_diff();
+        let ctx = WalkCtx::new(kernel, kernel.viewer().team(), &dir);
+        let bag = root_bag(kernel, root);
+        let mut count: u64 = 0;
+        let mut digest: u128 = 0;
+        let mut obs = vec![root];
+        let cell = Cell::new(*budget);
+        let out = walk(
+            &ctx,
+            &bag,
+            ctx.viewer,
+            root_tiles(root),
+            1,
+            &mut obs,
+            &mut |record, legal, _| {
+                count += 1;
+                digest = digest.wrapping_add(fnv128_record(record));
+                legal
+            },
+            &cell,
+        );
+        *budget = cell.get();
+        out?;
+        Some((count, digest))
     }
 
     pub const fn root(&self) -> Domino {
@@ -460,4 +504,84 @@ pub fn policy_value(
     budget: &mut u64,
 ) -> Option<Line> {
     policy_value_receipt(kernel, focal, dir, partition, policy, budget).map(|(l, _)| l)
+}
+
+/// 128-bit FNV-1a of a record's canonical byte encoding: domino indices in
+/// play order, one byte each (N4-A5's streaming set-digest primitive).
+/// Exact integer arithmetic; wrapping multiplication mod 2^128.
+pub fn fnv128_record(record: &[Domino]) -> u128 {
+    const OFFSET: u128 = 0x6c62_272e_07bb_0142_62b8_2175_6295_c58d;
+    const PRIME: u128 = 0x0000_0000_0100_0000_0000_0000_0000_013B;
+    let mut h = OFFSET;
+    for d in record {
+        h ^= d.index() as u128;
+        h = h.wrapping_mul(PRIME);
+    }
+    h
+}
+
+/// The receipt of one record-keyed fixed-policy walk (the N4-A15 fallback
+/// form): the counted max-freedom halves of SEP-A13/SEP-A19. The
+/// distinct-states set is NOT held (that is the point of the fallback);
+/// uniqueness of visited records rests on the by-construction tree-walk
+/// argument of N4-A15(iii), which callers print.
+#[derive(Clone, Copy, Debug)]
+pub struct RecordWalkReceipt {
+    pub focal_states: u64,
+    pub singleton_expansions: u64,
+}
+
+/// The exact expected value of one deterministic information-consistent
+/// policy given as a TOTAL record-keyed choice map -- the N4-A5/N4-A15
+/// fallback pricing path: no `InfoPartition` and no id map are resident.
+/// The structural max-freedom obligation is discharged identically to
+/// `policy_value_receipt`: the focal expansion is a singleton at every
+/// callback, asserted per call. A record absent from the map is
+/// stop-and-report (the seed was not total on the reached set).
+pub fn policy_value_by_record(
+    kernel: &Kernel,
+    focal: Team,
+    dir: &Direction,
+    root: Domino,
+    choices: &BTreeMap<Vec<Domino>, Domino>,
+    budget: &mut u64,
+) -> Option<(Line, RecordWalkReceipt)> {
+    let ctx = WalkCtx::new(kernel, focal, dir);
+    let bag = root_bag(kernel, root);
+    let mut obs = vec![root];
+    let mut focal_states: u64 = 0;
+    let mut singleton_expansions: u64 = 0;
+    let cell = Cell::new(*budget);
+    let env = walk(
+        &ctx,
+        &bag,
+        ctx.viewer,
+        root_tiles(root),
+        1,
+        &mut obs,
+        &mut |record, _legal, _| {
+            focal_states += 1;
+            let chosen = DominoSet::single(
+                *choices
+                    .get(record)
+                    .expect("stop-and-report: the seed map does not cover a reached record"),
+            );
+            assert_eq!(chosen.len(), 1, "the L path expands singletons only");
+            singleton_expansions += 1;
+            chosen
+        },
+        &cell,
+    );
+    *budget = cell.get();
+    let env = env?;
+    let n = i128::try_from(kernel.count()).expect("fiber sizes fit i128");
+    let env = env.scale(q(1, n));
+    assert!(env.is_affine(), "one deterministic policy induces one line");
+    Some((
+        env.pieces()[0].line,
+        RecordWalkReceipt {
+            focal_states,
+            singleton_expansions,
+        },
+    ))
 }

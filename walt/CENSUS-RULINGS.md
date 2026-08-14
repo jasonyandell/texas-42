@@ -4093,7 +4093,14 @@ a receipt tying two evaluators together (SEP-A11, SEP-A12).
   "34650 one-world solves per action" is acceptable and supplies no estimate of
   what a one-world grade-4 solve costs. A rung admitted on an unestimated cost is a
   stop written into v1 by construction — the design's own rule is that a unit
-  exceeding ten minutes returns here for a runner adjudication.
+  exceeding ten minutes returns here for a runner adjudication. *[RETIRED AS A
+  GATE 2026-08-14 by N4-A14: the ten-minute threshold was never frozen and was
+  mistyped — a wall-clock quantity that decides whether a unit is computed
+  makes the set of computed units load-relative. It is replaced by a
+  run-owner-declared whole-pass budget T_pass of M_max's type, compared before
+  the pass and gating no content. The demand for a measured cost model, which
+  is the substance of this clause, is discharged by the §5 rung and by
+  Corollary N-1.]*
   (ii) **The U-side evaluator cannot declare a stop.** `revealed_summary` takes no
   budget and returns no `Option`; there is no stop to declare and no partial result
   to print. At grade 3 that is harmless because the run completes; at grade 4 it is
@@ -4427,7 +4434,12 @@ the recited ranges are typos in the designs, not scope declarations.
   observables **in the same unit**; arithmetic across traversals — §4.1's
   derivation of B from the quoted `tree-v0` column included — is a
   **cost-model input** under DS-A32/DS-A33's typing and never an identity, a
-  receipt, or a prediction. Every printed count names its traversal. The only
+  receipt, or a prediction. *[NARROWED 2026-08-14 by Lemma N: where two
+  traversals are **exhibited** to visit the same nodes under the same charge
+  rule — as the partition build and the envelope H walk are, being one call
+  with one expansion — their counts are equal as a theorem, and a comparison of
+  them is a traversal against itself. The fence stands entire for every pair
+  without such an exhibit, §4.1's derivation of B included.]* Every printed count names its traversal. The only
   cross-run *assertion* on step counts is (R6), which compares a traversal's
   count with the same traversal's count (N4-A7).
   (ii) The no-partial-fold propagation rule is CONFIRMED as a correctness rule,
@@ -4466,7 +4478,12 @@ the recited ranges are typos in the designs, not scope declarations.
   (`hidden_root_values`' per-action walks, `InfoPartition::build`, the
   extraction solve, `policy_value_receipt`); 4B whole-call for
   `revealed_summary`; P_max = 32,000,000 partition states per (coordinate,
-  action), checked at each insertion, PG-A13 governing exceedance; the §5
+  action), checked at each insertion, PG-A13 governing exceedance *[AMENDED
+  2026-08-14 by N4-A16(vi) — FREEZE 44 v2, clause (e) only: P_max becomes
+  **192,000,000** and is applied to the count-only pass's completed count
+  before any map is allocated; the insertion check survives as a defensive
+  stop and is never reported as a receipt. The rest of clause (e) is
+  unchanged.]*; the §5
   rung's world sample: fiber indices (i·g mod 34,650) for i = 0..15 with
   **g = 15,485,863**, gcd(g, 34,650) = 1 asserted in-run, W = 1, selection as
   §5 declares (first coordinate h0, first root action ascending, never by
@@ -4511,10 +4528,18 @@ the recited ranges are typos in the designs, not scope declarations.
   (kernel, cap) alone, and deriving it from a machine property would make the
   stop machine-relative. P_max stays as the freeze-44 declared constant; its
   provenance (an explicitly-labelled estimate) is printed and licenses nothing.
+  *[SUPERSEDED IN PART 2026-08-14 by N4-A16: the estimate behind P_max v1 —
+  24,825,150 states — is measured wrong, the §5 rung having exceeded 32,000,000
+  states at (h0, first action). The **rule** stated here is untouched and binds
+  the successor: P_max v2 is declared in an adjudication, never derived at run
+  time from M_max, and the pass contains no memory-derived stop.]*
 - **N4-A5 (N4-Q5: the trade is NOT taken in v1; the fallback and its
   compensating receipt are pre-declared here).** The design is right not to
   weaken a receipt for memory by default. If — and only if — the §5 rung shows
-  the two-map form fails the gate, the accepted fallback is: pricing runs
+  the two-map form fails the gate *[CONDITION MET 2026-08-14, measured — the
+  rung's first map alone exceeded the cap; the fallback is ACTIVATED at
+  N4-A15, and its count-only partition pass, named below, is what measures the
+  state count at O(1) memory]*, the accepted fallback is: pricing runs
   against the extraction map alone, and the SEP-A19 totality receipt's domain
   comparison is replaced by the **streaming set-digest receipt**: both passes —
   the count-only partition pass and the extraction — fold, per record key, the
@@ -4621,7 +4646,12 @@ the recited ranges are typos in the designs, not scope declarations.
   failure would be selected by result. Binding: (a) a gate failure is filed
   first, as a result, whether or not the fallback runs — it is the measured
   cost model SEP-A10(i) said was missing (F7); (b) the fallback set is fixed
-  now by the declared rule "the three cheapest in-scope coordinates by quoted
+  now *[SUPERSEDED 2026-08-14 by N4-A19: this fallback's own gate was the
+  per-unit wall threshold, retired at N4-A14, and it failed that arithmetic at
+  h8. The route is the full pass over all nine coordinates under per-unit
+  admission — a rule declared in advance, result-independent, and strictly
+  containing {h6, h4, h8}, so this clause's protection is preserved a fortiori.
+  Clause (a) is discharged: the rung is filed and stands.]* by the declared rule "the three cheapest in-scope coordinates by quoted
   S5h `tree-v0` steps, ascending": **{h6, h4, h8}** (1,855,419,966;
   2,442,873,158; 3,016,730,096 — re-verified against the receipt at
   adjudication time); (c) the fallback runs only if the §5 gate arithmetic
@@ -4999,3 +5029,466 @@ equalities (EC-A14); no image library entries are written (EC-A8); the in-run
 slack recomputation carries no s ≥ 0 assumption (EC-A3); and the
 inheritance-header ranges are corrected to whole families (the n = 4 section's
 correction binds here). Everything else is sound and is bound as written.
+
+## The n = 4 rung return: the overnight pass (2026-08-14)
+
+**Adjudicator:** walt-math. **Object:** the N4-A12(c) return —
+`walt/walt-factory/results/separation_n4_rung_2026-08-14.txt` (the §5 measured
+rung, filed NO-GO, run after the (R0) blocking regression passed at commit
+c4ae306) together with the run owner's changed declarations of 2026-08-14: the
+machine given over for the night, M_max = 40 GiB standing, and W-parallelism
+across coordinates offered. **Tier:** exploratory throughout. Nothing below is
+promoted; no number this section or the pass it authorises produces becomes
+quotable except by brief amendment adding it to a verifier receipt. **Basis:**
+N4-A1..N4-A12 and everything they inherit; DS-A29..DS-A36; SEP-A10..SEP-A19;
+EC-A1..EC-A14; F7, R-A18, PG-A8, PG-A13, P-A19, P-A21, X-A17; and first-hand
+reading, at adjudication time, of `walt-strat/src/info.rs` (`walk`,
+`root_bag`, `InfoPartition::build`, `policy_value_receipt`), `hidden.rs`
+(`hidden_root_values`), `revealed.rs` (`revealed_world_root_values`,
+`revealed_summary`), `hidden_scalar.rs` (`action_values`, `node`, `node_dag`)
+and `walt-factory/examples/separation_probe.rs` (`n4_rung_main`,
+`n4_compute_coordinate`), plus re-verification of the `tree-v0` column of
+`walt-factory/results/fiber_probe_h_2026-08-11.txt`. Rulings are numbered
+**N4-A13..N4-A20**, continuing the family. **Lemma N** is delivered below.
+**Freeze 44 is amended to v2**, clause (e) only, at N4-A16.
+
+**Headline — five findings, stated before the rulings.**
+
+1. **The filed rung's partition line is misread, and the number in it is an
+   artifact.** The stop was the cap, as the return says — but
+   `InfoPartition::build` implements the cap by *poisoning the budget cell*
+   (`cell.set(0)`), so the printed "walk-steps 10000000000" is the poison, not
+   a measurement. The steps the partition traversal actually charged before the
+   cap are destroyed by the stop and are unknown. N4-A13.
+2. **The rung's unit-wall estimate estimates nothing.** `est h0 unit wall
+   800884 ms` is the revealed extrapolation plus the wall of a *truncated*
+   partition build, plus zero for an extraction and an L walk that never ran.
+   It is neither an estimate nor a bound of a completed unit, and the h9 figure
+   scaled from it inherits the defect. N4-A13.
+3. **Lemma N: the pooled traversals and the revealed traversal are one cost,
+   and that cost is already measured exactly for all nine coordinates.** The
+   partition build and the envelope H walk are the same traversal; a pooled
+   walk's charge equals the sum over the fiber of the one-world revealed
+   charges. The 16-world extrapolation is therefore a sample of a quantity the
+   S5h `tree-v0` column measures exactly: 1,855,419,966 (h6) to 16,211,488,002
+   (h9), sum 56,631,363,840. **Every step budget in freeze 44(e) is met, at
+   every in-scope coordinate, from a quoted receipt rather than a sample.**
+4. **The ten-minute wall threshold was the corpus's only load-relative gate on
+   content, and the run owner's declaration retires it with nothing
+   mathematical lost.** N4-A4 had already ruled that a mid-pass memory stop
+   would be "DS-A29(a)'s violation arriving through another door"; a wall
+   threshold that decides whether a unit is computed at all is the same door.
+   Wall-clock is provenance, it is compared against the run owner's declared
+   budget, and it gates no content. N4-A14.
+5. **The binding resource is the partition state count, and the instrument that
+   measures it is already adjudicated.** N4-A5's fallback — whose activating
+   condition ("the §5 rung shows the two-map form fails the gate") the rung has
+   now met — contains a **count-only partition pass**. Because `walk` is a tree
+   walk whose focal callback fires once per observation record, that pass
+   yields the exact state count at O(1) memory, before any map is allocated.
+   The cap becomes an admission threshold on a measured count rather than a
+   truncation, and PG-A13's "no bound from a stop" worry disappears with it.
+   N4-A15, N4-A16.
+
+### Lemma N (the pooled-cost decomposition) — delivered here
+
+Fix a kernel `K` with fiber `X`, `|X| = N`, and a root action `a`; charges are
+freeze 44(a)'s walk-steps (`bag.len()` at each `walk` entry, before any child).
+Write `T_a` for the traversal `info::walk` performs from `root_bag(K, a)` at
+`k = 1` under the identity expansion `|_, legal, _| legal`, and `T_a^ω` for the
+same traversal from the one-particle bag of world `ω`. Write `c(·)` for total
+charge.
+
+**(a) The partition build and the envelope H walk are the same traversal.**
+`InfoPartition::build(K, a, ·)` and `hidden_root_values`' walk at `(K, a)` call
+`info::walk` with the same `WalkCtx`, the same `root_bag(K, a)`, the same
+`root_tiles(a)`, the same `k = 1`, and an expansion that returns `legal`
+unchanged at every focal state; the partition build's callback differs only in
+side effects — recording, and the cap poison — which do not enter the set it
+returns. Hence, absent a cap stop, `c(partition build) = c(envelope H walk)`
+**exactly**, at every `(coordinate, action)`. This is an identity between two
+counts of one traversal, not arithmetic across traversals, and it is assertable
+in-run by comparing residuals.
+
+**(b) `c(T_a) = Σ_{ω ∈ X} c(T_a^ω)`.** Both sides count the pairs `(n, ω)` with
+`n` a node of `T_a` and `ω ∈ bag(n)`: the left because the charge at `n` is
+`|bag(n)|`, the right because every node of `T_a^ω` carries one particle and so
+charges 1. It suffices to exhibit, for each `ω`, a bijection between
+`{n ∈ T_a : ω ∈ bag(n)}` and the nodes of `T_a^ω`. Nodes of either traversal are
+labelled by their play prefix and the label determines the node, so it is enough
+that the label sets coincide; induct on depth. Both start at the label `(a)`. At
+a focal seat the expansion is `legal_plays(decl, hand, led)` with `hand` the
+viewer's remaining hand, which is constant on any bag by construction of the
+fiber (`walk` asserts it) and equals `ω`'s, so both branch over the same set and
+`ω` survives into every child. At a field seat `T_a` branches over the union of
+the bag's legal sets and retains in child `d` exactly the particles whose legal
+set contains `d`, while `T_a^ω` branches over `ω`'s legal set alone; so `ω`
+survives into child `d` of a node containing `ω` iff `d ∈ legal(ω)`, which is
+exactly `T_a^ω`'s branch set at that label. At a completed trick (`k = 4`) both
+recurse on the whole bag with the same winner, a function of the tiles and the
+declaration. No node has an empty bag, since every `d` in a union is legal for
+some particle. ∎
+
+**(c)** Summing (b) over the viewer's root actions: `Σ_a c(T_a)` is the
+whole-fiber revealed charge — the quantity `revealed_summary` consumes over its
+whole call, and the quantity the §5 rung extrapolated from 16 worlds.
+
+**Remark N(d) — the scalar correspondence, exhibited but asserted, never
+assumed.** `ScalarHidden::node` and `info::walk` were read side by side at
+adjudication time: both charge `parts.len()`/`bag.len()` at entry before any
+child; both branch a focal seat over the full `legal_plays` set and a field seat
+over the union of the bag's legal sets with the same particle filter; both
+recurse on the whole bag at `k = 4` under the same winner rule; and
+`ScalarHidden::action_values` builds the same post-action bag of `|X|` particles
+and enters at `k = 1`, exactly as `root_bag` does. On that exhibit the `tree-v0`
+column of `fiber_probe_h_2026-08-11.txt` — itself a derived count, the tree cost
+the dag solver propagates through its boundary hits — is `Σ_a c(T_a)` at that
+coordinate. **The exhibit licenses a comparison, not an assumption:** the pass
+prints its exact whole-fiber revealed total per coordinate and asserts it equal
+to the quoted `tree-v0` (receipt (R7), N4-A18). This is not vacuous in PG-A8's
+sense — it checks two independently written solvers against each other *and*
+checks the dag solver's tree-cost propagation against a real unmemoized walk —
+and a mismatch is a declared-cause stop in (R6)'s class (N4-A7), never a finding
+about the game.
+
+**Corollary N-1 (every freeze-44(e) step budget is met, exactly, from a quoted
+receipt).** The nine in-scope `tree-v0` values are h6 1,855,419,966; h4
+2,442,873,158; h8 3,016,730,096; h12 3,666,808,044; h0 3,727,724,856; h2
+3,918,922,312; h5 6,305,108,794; h1 15,486,288,612; h9 16,211,488,002 —
+**sum 56,631,363,840**. Each is the whole-call revealed charge at its
+coordinate, so each is compared with `4B = 40,000,000,000`: the largest, h9,
+passes with a factor of **2.467**. Each coordinate's per-action average,
+`tree-v0 / 4`, is compared with `B = 10,000,000,000`: the largest, h9's
+4,052,872,001, passes with the same factor 2.467. **What is not licensed:** `B`
+binds a *single action*, and only the coordinate average is known, so `B` still
+binds at h9 or h1 if one action there takes more than 2.467× its coordinate's
+average. That stays a measured question — the per-unit residual is printed and
+a stop is declared under freeze 44(b)–(d) — and is not assumed away here.
+
+**Corollary N-2 (the rung's U-side number is superseded as evidence, and its
+error is diagnosed).** The rung's 4,327,256,587 is a 16-draw extrapolation of
+h0's exact 3,727,724,856, an overshoot of 16.1 %; the sample mean 124,884.75
+against the exact mean ≈ 107,582 is well inside sampling error for 16 draws from
+a population whose observed spread is 41,727..321,206. It is neither evidence
+against Remark N(d) nor needed any longer: the exact column replaces it for all
+nine coordinates. The rung's own typing sentence already said its numbers are
+cost-model inputs; this corollary retires one of them in favour of a better
+measurement of the same quantity, and promotes nothing.
+
+**Corollary N-3 (what is left binding).** With every step budget met by
+Corollary N-1 and wall-clock retired as a gate by N4-A14, the only resource that
+can still bar a unit is the **partition state count** — and the count-only pass
+of N4-A15 measures it exactly at O(1) memory. The n = 4 rung's cost question is
+therefore closed except for one number per unit, and that number is measured
+inside the unit rather than estimated in advance.
+
+- **N4-A13 (the filed rung, as read: two corrections and one instrument defect;
+  the NO-GO itself STANDS).** The gate failure is a result and stays filed (F7);
+  nothing here rescues it and no number in it is promoted. Three corrections to
+  how it is read, all binding on any citation of that file.
+  (i) **The partition line's step count is a poison artifact, not a
+  measurement.** `InfoPartition::build` stops the walk on cap exceedance by
+  setting the budget cell to 0, so the caller's `B_WALK - pb` reads
+  10,000,000,000 whatever the traversal had actually charged. The printed figure
+  is not an exact deterministic observable and must never be quoted as one; the
+  true charge at that stop is **unknown and unrecoverable from the run**. The
+  return's diagnosis is otherwise CONFIRMED: `cap_hit` is set only in the
+  callback's `legal_by_id.len() >= state_cap` branch, so the stop was the cap
+  and not the budget.
+  (ii) **The instrument is repaired, not reinterpreted.** The build records the
+  residual *before* poisoning and prints, at a cap stop, both the charge
+  actually consumed and the sentence "cap stop: budget residual poisoned; the
+  printed charge is the charge to the cap." A stop must print counts of the run
+  (freeze 44(d)); a stop that prints a constant instead is a defect in the
+  instrument, in DS-A36's stop-and-report class, and is fixed before the pass.
+  (iii) **`est h0 unit wall` estimates nothing.** It sums the revealed
+  extrapolation, the wall of a *truncated* partition build, and zero for an
+  extraction and an L walk that never ran. It is not an estimate of a completed
+  unit and not a bound in either direction, and the h9 figure scaled from it
+  inherits the defect entire. Both figures are struck as cost-model inputs;
+  N4-A14 replaces what they were for.
+  (iv) The rung's remaining content stands: the 16 per-world revealed charges
+  and their spread are exact observables of a completed traversal; the resident
+  size is load-relative provenance; the typing paragraph is correct as printed.
+- **N4-A14 (R1: the per-unit wall threshold is RE-DECLARED as a run-owner gate
+  input, and wall-clock is retired as a gate on content).** GRANTED, and on a
+  ground stronger than the run owner's convenience.
+  (i) **The constant was never frozen.** Freeze 44 contains B, 4B, P_max, g and
+  the rung's sample; the ten minutes appear only in SEP-A10(i)'s citation of the
+  design's own rule and in §5's gate text. Nothing is being unfrozen.
+  (ii) **Its type was wrong.** A threshold in wall-clock that decides whether a
+  unit is computed makes the *set of computed units* a function of machine load
+  — the same defect N4-A4 named when it forbade M_max from being checked during
+  a pass ("a mid-pass memory stop would be a load-relative stop, DS-A29(a)'s
+  violation arriving through another door"). DS-A32 and DS-A31(iii)–(iv) already
+  hold that no wall-clock figure in this corpus is quotable as a measurement. A
+  quantity quotable as nothing may not gate anything. **Binding: wall-clock
+  gates no content anywhere in the n = 4 pass.**
+  (iii) **What replaces it.** A whole-pass wall budget **T_pass**, declared by
+  the run owner before the pass, typed exactly as M_max is by N4-A4: printed in
+  the header beside M_max, W, and P-A19's CPU model, core count and build
+  profile; **provenance, never a freeze**; and *a pass run without a declared
+  T_pass is not run* (the M_MAX_GIB precedent — the build invents no default).
+  T_pass is compared against a printed estimate **before** the pass and never
+  during it. **Exceeding T_pass is not a bar.** The pass is checkpointed at
+  (coordinate, action) granularity under DS-A30 and freeze 41/42; a run that
+  does not finish in one night resumes in canonical unit order, and the run
+  owner may kill it at any instant. A killed run is not a declared stop, states
+  nothing about the game, and loses at most one unit's work.
+  (iv) **The roster is provenance, the content is not.** Which units a given
+  night completed is load-relative and licenses nothing — in particular the
+  absence of a unit is never read as a property of that coordinate. Each
+  completed unit's content is a function of (kernel, freeze-44 budgets, P_max)
+  alone and is byte-identical across fresh, resumed and any W (DS-A36).
+  (v) **Per-unit wall is printed as provenance**, per DS-A31(iv) with the
+  identity of the producing process, and no per-unit wall figure gates, stops or
+  is compared against any other arm.
+  (vi) **The exact gate form the pass must print** is fixed at N4-A18.
+- **N4-A15 (R2, first half: N4-A5's fallback is ACTIVATED, and its count-only
+  pass is the instrument the cap question needed).**
+  (i) **The activating condition is met, measured.** N4-A5 pre-adjudicated the
+  fallback "if — and only if — the §5 rung shows the two-map form fails the
+  gate". The rung shows the *first* of the two maps alone exceeding the cap. The
+  condition is met a fortiori, the fallback is taken, and N4-A5's own sentence
+  governs: "Taking the fallback with this receipt needs no further
+  adjudication." Its typing paragraph is mandatory wherever the receipt is
+  cited, verbatim, including that the digest receipt is **strictly weaker** than
+  the held-map domain comparison it replaces, and the results file names the
+  weakening in place.
+  (ii) **The build's reading is CONFIRMED and sharpened.** The digest fallback
+  cannot lower a unit's state COUNT below any cap and therefore does not by
+  itself rescue a `> P_max` unit — correct. What it does buy is stated exactly,
+  because it is what makes the pass affordable: it removes the
+  `BTreeMap<Vec<Domino>, InfoStateId>` index and the per-state `legal` and
+  `nodes` vectors from residence, leaving one map over the record key space, so
+  it roughly **halves the resident bytes per state** and thereby raises the
+  count a given M_max admits. It is a memory instrument, not a cap instrument.
+  (iii) **The count-only pass yields the exact count at O(1) memory, and this is
+  the finding that changes the shape of the problem.** `info::walk` is a tree
+  walk whose node label *is* its play prefix; the focal callback therefore fires
+  exactly once per observation record (`InfoPartition::build`'s
+  `assert!(prev.is_none(), ...)` is that property, checked). A pass that only
+  increments a counter in the callback therefore returns the **exact** partition
+  state count while holding nothing. Two honesty clauses: the count-only pass
+  **loses the `prev.is_none()` dedup check** — uniqueness there rests on the
+  by-construction argument just given, which is stated in one printed sentence
+  beside the count — and the count-only pass and the map build are the same
+  traversal by Lemma N(a), so where both run the run asserts their counts equal
+  and types that as **a code-level equality check, not a receipt in PG-A8's
+  sense**.
+  (iv) The count-only pass carries its own budget `B` under freeze 44(b)–(c) and
+  its own declared stop; if it exhausts `B` the unit reports a budget stop with
+  no count and no bound, and Corollary N-1 says that outcome would itself be
+  news.
+- **N4-A16 (R2, second half: P_max v2 = 192,000,000, with the arithmetic; FREEZE
+  44 v2, clause (e) only).** P_max is raised, and its role is changed from a
+  truncation to an admission threshold on a measured count.
+  (i) **The memory arithmetic, printed with the constant.** The only measured
+  point is the rung's post-discard resident size, 2,797,840 KiB against
+  32,000,000 states: **≈ 89.5 bytes per state, gross of the process base**, for
+  the index map plus the `legal` and `nodes` vectors. It is load-relative
+  provenance and licenses nothing on its own; it is used here exactly as N4-A4
+  permits P_max's provenance to be used — as an explicitly-labelled estimate
+  behind a declared constant. Structurally it agrees with the object: a
+  `Vec<Domino>` key is 24 bytes in-node over a ≤ 32-byte heap record, a
+  `BTreeMap` pair carries its node's fill factor, and the two side vectors add
+  12. Under the N4-A15 fallback the resident form is one map with a 2-byte
+  value and no side vectors, ≈ 77 bytes per state by the same arithmetic.
+  **Declared figure: 128 bytes per state**, a 1.66× margin over the arithmetic.
+  (ii) **The constant.** **P_max v2 = 192,000,000 partition states per
+  (coordinate, action).** Arithmetic, printed: 192,000,000 × 128 B = 24,576,000,000
+  bytes = 22.89 GiB ≤ **M_budget = 24 GiB**, the declared aggregate residence for
+  pricing structures; and at 192 bytes per state — two and a half times the
+  arithmetic figure — a single such unit would still occupy 34.3 GiB, inside
+  M_max = 40 GiB. The margin is deliberate and is not an estimate of anything.
+  M_budget, like M_max and T_pass, is a run-owner gate input: provenance, never
+  a freeze.
+  (iii) **N4-A4's rule is untouched.** P_max v2 is **declared here, in this
+  adjudication**, as a constant; it is not computed at run time from M_max, and
+  the pass contains no memory-derived stop. The stop remains a function of
+  (kernel, cap) alone. A build that reads M_max and derives a cap from it is in
+  breach of N4-A4 and stops.
+  (iv) **What a unit whose count exceeds the cap reports, and why it is more
+  than PG-A13 could give before.** The unit is **NOT PRICED**: no L, no
+  separation row, no verdict, no partial partition — PG-A13 entire. But its
+  **exact state count is printed**, because that count comes from a *completed*
+  count-only traversal and not from a truncation; PG-A13 forbids a count read
+  off a stop, and there is no longer one. The line reads "partition states N
+  (count-only pass, COMPLETED); NOT PRICED — N > P_max v2 = 192,000,000; no
+  verdict, PG-A13" and is a **result** under F7, in the deterministic block, in
+  canonical order. Typing, printed beside it: the count is an exact
+  computational observable of the declared traversal in SEP-A19(b)'s class —
+  never an information value, a decision width, a cost claim, or a DS-A2 term.
+  (v) **The insertion check survives as a defensive stop, never a receipt.**
+  With admission made on the measured count, an insertion-time cap can no longer
+  fire on a correct run; it is retained against coding error, is **not reported
+  as a receipt** (PG-A8), and if it ever fires the run stops and reports a
+  defect.
+  (vi) **FREEZE 44 v2 — clause (e) only.** `P_max` becomes **192,000,000**
+  partition states per (coordinate, action), applied to the count-only pass's
+  completed count **before any map is allocated**, with the insertion check
+  retained as (v)'s defensive stop. Every other constant of clause (e) is
+  unchanged and restated: B = 10,000,000,000; 4B whole-call for
+  `revealed_summary`; g = 15,485,863 with `gcd(g, 34650) = 1` asserted; the §5
+  rung's sample and its W = 1. Clauses (a)–(d), (f) and (g) of freeze 44 are
+  unchanged. The number 44 is not reused and v1's text stands at N4-A1 with a
+  pointer marker — the freeze-36 → v2 pattern (EC-A8), cited as the precedent.
+- **N4-A17 (R3: W-parallelism ACROSS COORDINATES is lawful, with a coordinate
+  claim, an admission rule, and four assertions the run must add).** LAWFUL
+  under DS-A29(a)–(d), DS-A34, DS-A35 and N4-A9 as built. The N4-A9(ii)
+  shared-call clause binds *within* a coordinate — `revealed_summary` and the
+  scalar authority solve span that coordinate's four units in one call — and
+  coordinates share no state: different kernels, per-call caches, no clock, no
+  RNG, exact rationals throughout. Binding:
+  (a) **One coordinate, one worker, for its whole life.** A coordinate is
+  claimed by exactly one worker until all its units are written. Splitting a
+  coordinate across workers would either duplicate the shared call or let two
+  workers write one unit record — DS-A35's torn-write ground arriving through a
+  new door. Asserted, not assumed.
+  (b) **Admission by measured count, throttled by waiting and never by
+  skipping.** Before allocating any map, a worker holds its unit's count-only
+  result and requests admission for `count × 128 B` against M_budget = 24 GiB;
+  it **waits** until the budget admits it. A unit is never skipped, deferred out
+  of the run, or reordered out of the deterministic block for memory reasons —
+  waiting changes execution order only, and order is not content (DS-A36,
+  freeze 42). A unit whose count exceeds P_max v2 is not "denied admission": it
+  is N4-A16(iv)'s measured stop, decided by the count alone.
+  (c) **The concurrency arithmetic, printed before the pass:** `W × 1 GiB`
+  (declared per-worker U-side working-set allowance — the revealed pass's
+  per-world envelope accumulation dominates it) `+ M_budget (24 GiB) ≤ M_max −
+  4 GiB`, giving **W ≤ 12** at M_max = 40 GiB. W is run-owner declared within
+  that bound, **recorded, not frozen** (DS-A34), printed with CPU model, core
+  count and build profile (P-A19).
+  (d) **Four assertions the run must add**, beyond N4-A9's two: (1) no unit
+  record contains a worker id, a thread id, or any timing field — a record that
+  did would make the deterministic block W-dependent; (2) every timing quantity
+  carries the identity of the process that produced it (DS-A31(iv)) and every
+  timing line under `W ≥ 2` is labelled `CONTENDED(W=n)` with DS-A32's sentence,
+  which here bites nothing because the pass forms no ratio and quotes no
+  dividend; (3) the deterministic block is assembled at the end, in canonical
+  unit order, from records — never in completion order; (4) DS-A36's cheap
+  validation is run once for this pass: one coordinate fresh, the same
+  coordinate resumed from checkpoints, deterministic blocks byte-compared, a
+  difference being stop-and-report.
+  (e) DS-A35 stands: W threads in **one process**, never multi-process copies
+  over one checkpoint directory.
+- **N4-A18 (R4: no third rung is required; the gate arithmetic re-runs inside
+  the pass, and here is its exact printed form).** The pass may proceed on the
+  filed rung as corrected by N4-A13, plus these amendments. The reasoning is
+  that every quantity the old gate estimated is now either exact from a quoted
+  receipt (the step budgets, Corollary N-1), retired as a gate (wall-clock,
+  N4-A14), or measured inside the unit that needs it (the state count, N4-A15).
+  A rung whose only remaining job is to estimate what the pass measures is not
+  worth a night. Binding:
+  (i) **Per coordinate, in canonical order (freeze 44(f)):** the scalar
+  authority and the tier fix (§6); the envelope H and the revealed pass, which
+  together determine the H-optimal actions; then, **at H-optimal actions only**
+  — the primal pipeline runs nowhere else, so the memory-heavy work is a handful
+  of units, not 36 — the count-only pass, the admission decision, and, if
+  admitted, the extraction and the L walk under the N4-A15 fallback.
+  (ii) **This is not N4-A2's forbidden pattern.** N4-A2 forbids a measurement
+  fixing the budget that gates it. P_max v2 is declared in this file, in
+  advance, by an adjudicator; the count-only pass measures a coordinate property
+  and compares it against that constant. A declared gate applied to a
+  measurement is what a gate is.
+  (iii) **The gate arithmetic, in the exact form the pass prints**, under a
+  heading naming it a cost-model input licensing nothing:
+
+  ```
+  GATE ARITHMETIC (cost-model inputs, licensing nothing; N4-A14/A16/A17)
+  run-owner gate inputs (provenance, never freezes): M_max = <G> GiB;
+      M_budget = 24 GiB; T_pass = <H> h; W = <n> (recorded, not frozen)
+  [A] step budgets, EXACT from a quoted receipt (Lemma N, Corollary N-1):
+      whole-fiber revealed charge at <coord> = tree-v0 = <exact> vs 4B = 40,000,000,000
+      per-action coordinate average = tree-v0/4 = <exact> vs B = 10,000,000,000
+      caveat printed in place: only the coordinate average is known in advance;
+      B binds a single action, and the per-unit residual is measured
+  [B] memory admission, constants only, checked BEFORE the pass and never
+      during it (N4-A4): P_max v2 = 192,000,000 states; declared 128 bytes/state;
+      192,000,000 x 128 B = 22.89 GiB <= M_budget = 24 GiB;
+      W x 1 GiB + M_budget <= M_max - 4 GiB  =>  W <= 12
+  [C] per-unit admission, deterministic, a function of (kernel, P_max v2)
+      alone: count-only states N(unit) <= P_max v2; and
+      sum of N x 128 B over concurrently pricing units <= M_budget (wait, never skip)
+  [D] whole-pass wall estimate, provenance, GATES NOTHING: T_est = <..> h vs
+      T_pass = <..> h. "Wall-clock gates no content (N4-A14). Exceeding T_pass
+      is not a bar: the pass is checkpointed at (coordinate, action) granularity
+      and resumes in canonical unit order. Which units a night completed is
+      load-relative provenance and licenses nothing."
+  ```
+
+  (iv) **Receipt (R7), new, mandatory per coordinate:** the exact whole-fiber
+  revealed charge asserted equal to the quoted `tree-v0` value for that
+  coordinate. Licensed as a same-traversal comparison by Lemma N(b)–(c) and
+  Remark N(d); non-vacuous under PG-A8 for the two reasons Remark N(d) gives; a
+  mismatch is declared-cause stop-and-report in (R6)'s class (N4-A7), never a
+  finding about the game. **Receipt (R8), new, per priced unit:** the count-only
+  count asserted equal to the built map's `len()` — typed, in place, as a
+  code-level equality check and **not** a receipt in PG-A8's sense (N4-A15(iii)).
+  (v) **Cost-model inputs the pass may print for the run owner**, each labelled
+  an estimate and licensing nothing, all derived from the rung's own provenance
+  and the quoted column: one-particle charge rate ≈ 5.83 × 10⁶ steps/s
+  (1,998,156 steps in 343 ms); revealed side over all nine coordinates ≈ Σ
+  tree-v0 = 5.66 × 10¹⁰ charges ≈ 2.7 h at W = 1; map insertion ≤ 1.82 µs/state
+  (32,000,000 insertions in 58,075 ms). P-A21 is printed beside them: three
+  rungs are not a law and no growth rate measured at grades ≤ 4 is quoted for
+  the opening.
+- **N4-A19 (N4-A12's reduced-rung fallback is SUPERSEDED by a strictly more
+  inclusive rule; no second fallback, and no selection by result).** The
+  fallback set {h6, h4, h8} was pre-declared to keep a post-failure choice from
+  being made by result, and it failed its own arithmetic at h8 (≈ 648 s against
+  600 s) — against a threshold N4-A14 has now retired. Ruling: **the route is
+  the full pass over all nine in-scope coordinates under per-unit admission.**
+  N4-A12's protection is preserved a fortiori: the new rule is declared here,
+  before any further number exists; it is a rule, not a selection; it is
+  result-independent; and it strictly contains {h6, h4, h8}. N4-A12(a) (a gate
+  failure is filed first, as a result) is discharged — the rung is filed and
+  stands. N4-A12(d)'s "REDUCED RUNG" header is not used; N4-A8's inline
+  real-deal fence markers at h2, h5 and h8 apply in the full pass exactly as
+  they would have in the fallback, and all nine coordinates keep their scope.
+  **No third return is needed for the foreseeable branch:** if some units are
+  not admitted, the pass prices the admitted ones in canonical order and prints
+  the rest as N4-A16(iv) measured stops, and that mixed outcome **is** the
+  result (F7, NO-RESCUE — both outcomes of every gate are results). A return to
+  this file is owed only for something new: a count-only pass exhausting B, an
+  (R6) or (R7) mismatch, an L ≠ Q^H strict inequality (SEP-A11), a measured
+  bytes-per-state figure above the declared 128 by more than the M_max margin
+  absorbs, or any stop-and-report class above.
+- **N4-A20 (freezes, markers, and what the results file must carry).** Freezes
+  1–46 are in force and restated unchanged except **44**, amended to **v2** at
+  N4-A16(vi), clause (e) only, its number unchanged and its v1 text preserved at
+  N4-A1 with a pointer marker; 38–40 remain reserved and untouched — nothing
+  here instantiates the gluing-cut language, the circuit representation or the
+  reachable-belief family. **No new freeze number is created**, because nothing
+  new here is a determinism constant: T_pass, M_budget, the 128-bytes-per-state
+  figure, the 1 GiB per-worker allowance and W are all run-owner or provenance
+  quantities of M_max's type (N4-A4), printed and licensing nothing. No number
+  is reused. **Six DS-A28 pointer markers** are placed at their sites in this
+  file: freeze 44(e)'s P_max text at N4-A1; N4-A4's P_max-provenance sentence;
+  N4-A5's activating condition; N4-A12(b)'s fallback set; N4-A1(i)'s
+  cross-traversal fence (narrowed by Lemma N, and only where an exhibit exists);
+  and SEP-A10(i)'s ten-minute citation. **The results file additionally
+  carries**, beyond §9's header list: N4-A13(i)'s cap-stop sentence at any cap
+  stop; N4-A15(i)'s N4-A5 typing paragraph verbatim, naming the digest receipt's
+  weakening in place; N4-A15(iii)'s uniqueness sentence beside every count-only
+  count; N4-A16(iv)'s NOT PRICED line form with its SEP-A19(b) typing;
+  N4-A17(c)'s concurrency arithmetic; N4-A17(d)'s labels; N4-A18(iii)'s gate
+  block; and N4-A14(iv)'s roster sentence. Every one of them is exploratory, and
+  nothing in this section or the pass it authorises is quotable as a result
+  about the game except by brief amendment adding it to a verifier receipt.
+
+**What must change in the build before the pass runs.** In order of severity:
+the cap-stop residual is recorded before the poison and printed with N4-A13(ii)'s
+sentence; the N4-A5 fallback is implemented with its streaming set-digest
+receipt and its typing paragraph (N4-A15(i)); the count-only pass is added and
+admission is made on its completed count, before any map is allocated
+(N4-A15(iii), N4-A16); `P_MAX` becomes 192,000,000 under freeze 44 v2; T_pass,
+M_budget and W join M_max as run-owner declarations with no invented defaults
+(N4-A14(iii), N4-A17(c)); the coordinate claim and the wait-never-skip admission
+are implemented and asserted (N4-A17(a)–(b)); the four N4-A17(d) assertions and
+the DS-A36 fresh-versus-resumed byte comparison are added; receipts (R7) and (R8)
+are added with their typings; the gate block of N4-A18(iii) replaces §5's gate
+text in the results file; and the NOT PRICED line form replaces any cap-stop
+verdict row. Any of this that touches code the grade-3 path executes re-triggers
+(R0) as a blocking precondition (N4-A10); changes confined to the n = 4 path do
+not. Everything else in the design as adjudicated stands as written.

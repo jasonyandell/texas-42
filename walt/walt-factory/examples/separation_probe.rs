@@ -44,8 +44,11 @@ const AUTHORITY_BUDGET: u64 = 200_000_000;
 /// N4-A10's two-permitted-differences contract for this receipt).
 const B_WALK: u64 = 10_000_000_000;
 const B_WALK_4: u64 = 40_000_000_000;
-/// Freeze 44(e): the partition-state cap, checked at each insertion.
-const P_MAX: usize = 32_000_000;
+/// Freeze 44 v2 (N4-A16): the partition-state cap, now an ADMISSION
+/// threshold on the count-only pass's completed count, applied before any
+/// map is allocated; the insertion-time check survives as a defensive stop
+/// against coding error, never a receipt (N4-A16(v)).
+const P_MAX: usize = 192_000_000;
 
 const GRADE: usize = 3;
 
@@ -739,31 +742,34 @@ fn run_coordinate(
     }
 }
 
-// ======================= the n = 4 separation rung =========================
-// Design walt/SEPARATION-RUNG-N4.md as amended by N4-A1..N4-A12; freezes 44
-// (walk-step unit, budgets, constants, canonical unit order, fallback rule)
-// and 45 (content-based coordinate identity; corpus handle provenance only;
-// no library entry at n = 4). Checkpointed per DS-A29..DS-A36 at
-// (coordinate, action) granularity. Exploratory tier throughout.
+// ======================= the n = 4 separation rung (v2) ====================
+// Design walt/SEPARATION-RUNG-N4.md as amended by N4-A1..N4-A20; freezes 44
+// (v2 at clause (e): P_max = 192,000,000 as an admission threshold) and 45.
+// The overnight pass authorised at the 2026-08-14 return: Lemma N +
+// Corollary N-1 make the step budgets exact from the quoted tree-v0 column;
+// wall-clock gates no content (N4-A14); the N4-A5 digest fallback is
+// ACTIVATED (N4-A15) with the count-only pass deciding admission; W-parallel
+// across coordinates lawful (N4-A17). Exploratory tier throughout.
+
+use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::{Condvar, Mutex};
 
 const N4_GRADE: usize = 4;
 const N4_TRICK: usize = 4;
-/// Freeze 44(e): the §5 rung's decimation prime (fresh; deliberately not a
-/// freeze-25 constant — the no-cross-wiring clause).
+/// Freeze 44(e): the §5 rung's decimation prime.
+#[allow(dead_code)] // the rung mode was run and filed; kept for regeneration
 const N4_G: u128 = 15_485_863;
 const N4_FIBER: u128 = 34_650;
 const N4_CKPT_DIGEST: &str =
-    "N4-ckpt-v1|freezes-26-36f-37-44-45|unit=hand+action|fields=unit-v1|R0=blocking";
+    "N4-ckpt-v2|freezes-26-36f-37-44v2-45|unit=hand+action|fields=unit-v2|N4-A13..A20";
 
 const N4_IN_SCOPE: [usize; 9] = [0, 1, 2, 4, 5, 6, 8, 9, 12];
-#[allow(dead_code)] // printed in the header text; the loop never visits them
-const N4_OUT_OF_SCOPE: [usize; 4] = [3, 7, 10, 11];
 
-/// (R6) frozen source: the S5h dag-v1 step and boundary-hit counts per hand,
-/// quoted from `fiber_probe_h_2026-08-11.txt` (exploratory tier). A
-/// determinism check on the unchanged scalar path and on DS-A29(a)-(b)
-/// (N4-A7), never a check on any value; an undeclared mismatch is
-/// stop-and-report.
+/// N4-A16/N4-A17 run-owner memory arithmetic constants (provenance, never
+/// freezes): declared bytes per state and the aggregate pricing residence.
+const BYTES_PER_STATE: u64 = 128;
+
+/// (R6) frozen source: S5h dag-v1 steps and boundary hits per hand.
 const S5H_DAG: [(usize, u64, u64); 9] = [
     (0, 140_226_166, 14_809_754),
     (1, 123_882_398, 6_756_331),
@@ -776,8 +782,22 @@ const S5H_DAG: [(usize, u64, u64); 9] = [
     (12, 176_464_986, 17_140_506),
 ];
 
-/// §2.2: the void-filtered fiber sizes quoted from the S5h P-A2 receipt,
-/// recomputed in-run and asserted equal. Provenance only; licenses nothing.
+/// (R7) frozen source (Lemma N(b)-(c), Remark N(d)): the S5h tree-v0 column
+/// IS the whole-fiber revealed charge per coordinate; asserted equal to the
+/// measured charge, a same-traversal comparison. Quoted, exploratory tier.
+const S5H_TREE_V0: [(usize, u64); 9] = [
+    (0, 3_727_724_856),
+    (1, 15_486_288_612),
+    (2, 3_918_922_312),
+    (4, 2_442_873_158),
+    (5, 6_305_108_794),
+    (6, 1_855_419_966),
+    (8, 3_016_730_096),
+    (9, 16_211_488_002),
+    (12, 3_666_808_044),
+];
+
+/// §2.2: void-filtered fiber sizes quoted from the S5h P-A2 receipt.
 const S5H_VOIDED: [(usize, u128); 9] = [
     (0, 34_650),
     (1, 34_650),
@@ -795,9 +815,6 @@ fn n4_receipt() -> Receipt {
     parse_file(&path).expect("the receipt parses")
 }
 
-/// The void-free capacity kernel (P-A1/P-A4): focal = the declaring seat,
-/// voids deliberately EMPTY. The same construction as
-/// `fiber_probe.rs::void_free_kernel`.
 fn n4_void_free_kernel(hand: &ReceiptHand) -> (Kernel, Seat) {
     let (hands, leader) = state_before_trick(hand, N4_TRICK).expect("the receipt replays");
     let focal = hand.bidder;
@@ -821,7 +838,6 @@ fn n4_void_free_kernel(hand: &ReceiptHand) -> (Kernel, Seat) {
     (kernel, leader)
 }
 
-/// The void-filtered count (P-A2), recomputed for the provenance column.
 fn n4_voided_count(hand: &ReceiptHand) -> u128 {
     let (hands, _) = state_before_trick(hand, N4_TRICK).expect("the receipt replays");
     let voids = voids_before_trick(hand, N4_TRICK);
@@ -846,9 +862,9 @@ fn n4_voided_count(hand: &ReceiptHand) -> u128 {
         .count()
 }
 
-/// One (coordinate, action) unit record: every non-timing field the
-/// deterministic block needs. `status` is "ok" or a declared-stop marker;
-/// value fields are meaningful only when "ok".
+/// One (coordinate, action) unit record, v2: every non-timing field the
+/// deterministic block needs. NO worker id, thread id or timing field may
+/// ever appear here (N4-A17(d)(1)).
 #[derive(Clone, PartialEq, Eq, Debug)]
 struct UnitRec {
     hand: usize,
@@ -856,19 +872,24 @@ struct UnitRec {
     gate_met: bool,
     auth_steps: u64,
     auth_hits: u64,
+    /// "ok" | "not-priced" | "stop:<what>"
     status: String,
     qh: Q,
     u: Q,
     optimal: bool,
+    /// The count-only pass's completed count (H-optimal actions only).
+    count: u64,
+    /// The N4-A5 streaming set digest of the count-only pass (hex).
+    digest: u128,
     l: Option<Q>,
-    partition: usize,
-    choice_states: usize,
-    r5: (u64, u64, u64),
+    choice_states: u64,
+    r5_focal: u64,
+    r5_singleton: u64,
     h_residual: u64,
     revealed_steps: u64,
+    count_residual: u64,
     extract_residual: u64,
     l_residual: u64,
-    part_residual: u64,
 }
 
 fn q_ser(x: Q) -> String {
@@ -896,19 +917,20 @@ impl UnitRec {
         let _ = writeln!(s, "qh={}", q_ser(self.qh));
         let _ = writeln!(s, "u={}", q_ser(self.u));
         let _ = writeln!(s, "optimal={}", self.optimal);
+        let _ = writeln!(s, "count={}", self.count);
+        let _ = writeln!(s, "set_digest={:032x}", self.digest);
         let _ = writeln!(
             s,
             "l={}",
             self.l.map(q_ser).unwrap_or_else(|| "none".to_owned())
         );
-        let _ = writeln!(s, "partition={}", self.partition);
         let _ = writeln!(s, "choice_states={}", self.choice_states);
-        let _ = writeln!(s, "r5={}/{}/{}", self.r5.0, self.r5.1, self.r5.2);
+        let _ = writeln!(s, "r5={}/{}", self.r5_focal, self.r5_singleton);
         let _ = writeln!(s, "h_residual={}", self.h_residual);
         let _ = writeln!(s, "revealed_steps={}", self.revealed_steps);
+        let _ = writeln!(s, "count_residual={}", self.count_residual);
         let _ = writeln!(s, "extract_residual={}", self.extract_residual);
         let _ = writeln!(s, "l_residual={}", self.l_residual);
-        let _ = writeln!(s, "part_residual={}", self.part_residual);
         let _ = writeln!(s, "complete=yes");
         s
     }
@@ -937,22 +959,20 @@ impl UnitRec {
             qh: q_de(m.get("qh")?),
             u: q_de(m.get("u")?),
             optimal: m.get("optimal")?.parse().ok()?,
+            count: m.get("count")?.parse().ok()?,
+            digest: u128::from_str_radix(m.get("set_digest")?, 16).ok()?,
             l: match *m.get("l")? {
                 "none" => None,
                 s => Some(q_de(s)),
             },
-            partition: m.get("partition")?.parse().ok()?,
             choice_states: m.get("choice_states")?.parse().ok()?,
-            r5: (
-                r5p.next()?.parse().ok()?,
-                r5p.next()?.parse().ok()?,
-                r5p.next()?.parse().ok()?,
-            ),
+            r5_focal: r5p.next()?.parse().ok()?,
+            r5_singleton: r5p.next()?.parse().ok()?,
             h_residual: m.get("h_residual")?.parse().ok()?,
             revealed_steps: m.get("revealed_steps")?.parse().ok()?,
+            count_residual: m.get("count_residual")?.parse().ok()?,
             extract_residual: m.get("extract_residual")?.parse().ok()?,
             l_residual: m.get("l_residual")?.parse().ok()?,
-            part_residual: m.get("part_residual")?.parse().ok()?,
         })
     }
 }
@@ -961,8 +981,6 @@ fn n4_ckpt_dir() -> PathBuf {
     out_dir("store").join("separation_n4_ckpt")
 }
 
-/// Freeze-41 discipline: any record failing digest or parse makes the cache
-/// CORRUPT, not stale — discarded entire.
 fn n4_validate_cache() -> BTreeMap<(usize, usize), UnitRec> {
     let dir = n4_ckpt_dir();
     let mut loaded = BTreeMap::new();
@@ -996,9 +1014,6 @@ fn n4_validate_cache() -> BTreeMap<(usize, usize), UnitRec> {
         eprintln!("n4 checkpoint cache CORRUPT (digest or parse) — discarded entire (DS-A30)");
         return BTreeMap::new();
     }
-    // N4-A9(i): all loaded unit records of one coordinate must carry the same
-    // gate outcome; a disagreement is corruption and the cache is discarded
-    // entire.
     let mut gate_by_hand: BTreeMap<usize, bool> = BTreeMap::new();
     for rec in loaded.values() {
         match gate_by_hand.get(&rec.hand) {
@@ -1008,7 +1023,9 @@ fn n4_validate_cache() -> BTreeMap<(usize, usize), UnitRec> {
             Some(g) if *g == rec.gate_met => {}
             Some(_) => {
                 let _ = std::fs::remove_dir_all(&dir);
-                eprintln!("n4 checkpoint cache CORRUPT (gate-outcome disagreement within a coordinate) — discarded entire (N4-A9(i))");
+                eprintln!(
+                    "n4 cache CORRUPT (gate-outcome disagreement) — discarded entire (N4-A9(i))"
+                );
                 return BTreeMap::new();
             }
         }
@@ -1026,21 +1043,53 @@ fn n4_save_unit(rec: &UnitRec) {
     std::fs::rename(&tmp, &fin).expect("atomic rename");
 }
 
-/// Compute one coordinate's four unit records (the expensive path). The
-/// revealed and authority calls span the coordinate's four units in one call
-/// each; the units carry the coordinate-level gate outcome denormalised.
-fn n4_compute_coordinate(hand_idx: usize, hand: &ReceiptHand) -> Vec<UnitRec> {
+/// N4-A17(b): admission by measured count against M_budget, throttled by
+/// WAITING, never by skipping. One shared guard across workers.
+struct MemGuard {
+    used: Mutex<u64>,
+    cv: Condvar,
+    budget: u64,
+}
+
+impl MemGuard {
+    fn new(budget_bytes: u64) -> MemGuard {
+        MemGuard {
+            used: Mutex::new(0),
+            cv: Condvar::new(),
+            budget: budget_bytes,
+        }
+    }
+    fn acquire(&self, bytes: u64) {
+        assert!(
+            bytes <= self.budget,
+            "a single admitted unit must fit M_budget (admission decided by count vs P_max first)"
+        );
+        let mut used = self.used.lock().expect("mem guard");
+        while *used + bytes > self.budget {
+            used = self.cv.wait(used).expect("mem guard");
+        }
+        *used += bytes;
+    }
+    fn release(&self, bytes: u64) {
+        let mut used = self.used.lock().expect("mem guard");
+        *used -= bytes;
+        drop(used);
+        self.cv.notify_all();
+    }
+}
+
+/// Compute one coordinate's four unit records (N4-A18(i) order): authority +
+/// tier; envelope H + revealed (R7); then at H-optimal actions only, the
+/// count-only pass, admission, and — if admitted — the N4-A15 fallback
+/// pricing (extraction map + record-keyed L walk; no InfoPartition resident).
+fn n4_compute_coordinate(hand_idx: usize, hand: &ReceiptHand, mem: &MemGuard) -> Vec<UnitRec> {
     let (kernel, leader) = n4_void_free_kernel(hand);
     assert_eq!(leader, kernel.viewer(), "leader offset from focal is 0");
     assert_eq!(kernel.count(), N4_FIBER, "|X| = 34,650");
     let grade = kernel.viewer_hand().len();
-    assert_eq!(
-        grade, N4_GRADE,
-        "grade 4 (N4-A11: asserted, and the bridge is a function of it)"
-    );
+    assert_eq!(grade, N4_GRADE, "grade 4 (N4-A11)");
     let worlds: Vec<[DominoSet; 4]> = kernel.worlds().map(|w| w.hands()).collect();
 
-    // The scalar authority (freeze 26, unchanged).
     let auth = ScalarHidden::new(
         kernel.decl(),
         kernel.viewer(),
@@ -1051,9 +1100,6 @@ fn n4_compute_coordinate(hand_idx: usize, hand: &ReceiptHand) -> Vec<UnitRec> {
     let (maybe_av, stats) = auth.action_values_dag(&worlds, kernel.viewer(), &[], &mut ab);
     let gate_met = maybe_av.is_some();
     if gate_met {
-        // (R6) step determinism against the quoted S5h counts — the scalar
-        // path is unchanged since that receipt; an undeclared mismatch is a
-        // load-invariance failure, stop-and-report (N4-A7).
         let (_, s5h_steps, s5h_hits) = S5H_DAG
             .iter()
             .find(|(h, _, _)| *h == hand_idx)
@@ -1068,7 +1114,6 @@ fn n4_compute_coordinate(hand_idx: usize, hand: &ReceiptHand) -> Vec<UnitRec> {
         );
     }
 
-    // The envelope side: H per action and the revealed pass, budgeted.
     let dir = Direction::trick_diff();
     let mut revealed_budget = 4 * B_WALK;
     let mut revealed_stop = None;
@@ -1083,9 +1128,6 @@ fn n4_compute_coordinate(hand_idx: usize, hand: &ReceiptHand) -> Vec<UnitRec> {
     let actions: Vec<Domino> = kernel.viewer_hand().iter().collect();
 
     let Some(prices) = prices else {
-        // Tier 3 — WITNESS STOP at the coordinate level: no U (or no
-        // envelope H) for any action, so no verdict of either kind
-        // (revealed U's complete all-or-none here; PG-A13).
         let what = match revealed_stop {
             Some(rs) => format!(
                 "stop:revealed@action={},world={},charged={}",
@@ -1107,21 +1149,34 @@ fn n4_compute_coordinate(hand_idx: usize, hand: &ReceiptHand) -> Vec<UnitRec> {
                 qh: qi(0),
                 u: qi(0),
                 optimal: false,
+                count: 0,
+                digest: 0,
                 l: None,
-                partition: 0,
                 choice_states: 0,
-                r5: (0, 0, 0),
+                r5_focal: 0,
+                r5_singleton: 0,
                 h_residual: 0,
                 revealed_steps: 0,
+                count_residual: 0,
                 extract_residual: 0,
                 l_residual: 0,
-                part_residual: 0,
             })
             .collect();
     };
 
-    // R1 at Tier 1 only (N4-A6: at Tier 2 the envelope path is the sole H
-    // authority and the rows say so).
+    // (R7): the exact whole-fiber revealed charge equals the quoted tree-v0
+    // (Lemma N(b)-(c), Remark N(d); a same-traversal comparison, non-vacuous;
+    // mismatch is declared-cause stop-and-report in (R6)'s class).
+    let revealed_total: u64 = prices.revealed_action_steps.iter().map(|(_, s)| *s).sum();
+    let (_, tree_v0) = S5H_TREE_V0
+        .iter()
+        .find(|(h, _)| *h == hand_idx)
+        .expect("in-scope hand");
+    assert_eq!(
+        revealed_total, *tree_v0,
+        "R7 stop-and-report: whole-fiber revealed charge differs from the quoted tree-v0 (Lemma N)"
+    );
+
     if let Some(av) = &maybe_av {
         assert_eq!(av.len(), actions.len(), "authority covers every action");
         for (i, a) in actions.iter().enumerate() {
@@ -1131,7 +1186,7 @@ fn n4_compute_coordinate(hand_idx: usize, hand: &ReceiptHand) -> Vec<UnitRec> {
             assert_eq!(
                 henv.eval(qi(0)),
                 av[i].1,
-                "R1 solver identification: envelope H equals scalar authority exactly at {a:?}"
+                "R1 solver identification at {a:?}"
             );
         }
     }
@@ -1148,157 +1203,7 @@ fn n4_compute_coordinate(hand_idx: usize, hand: &ReceiptHand) -> Vec<UnitRec> {
     let mut recs = Vec::new();
     for (i, a) in actions.iter().enumerate() {
         let optimal = qh[i] == vh;
-        let (l, partition_len, choice_states, r5, er, lr, pr) = if optimal {
-            // The primal pipeline at a⋆: partition, extraction (freeze
-            // 36(f)), the L walk. No library entry is written (freeze 45).
-            let mut pb = B_WALK;
-            let mut cap_hit = false;
-            let partition = InfoPartition::build(&kernel, *a, &mut pb, P_MAX, &mut cap_hit);
-            let Some(partition) = partition else {
-                let cause = if cap_hit {
-                    "stop:p-max"
-                } else {
-                    "stop:partition-budget"
-                };
-                recs.push(UnitRec {
-                    hand: hand_idx,
-                    action: *a,
-                    gate_met,
-                    auth_steps: stats.steps,
-                    auth_hits: stats.hits,
-                    status: cause.to_owned(),
-                    qh: qh[i],
-                    u: u[i],
-                    optimal,
-                    l: None,
-                    partition: 0,
-                    choice_states: 0,
-                    r5: (0, 0, 0),
-                    h_residual: prices.h_residuals[i],
-                    revealed_steps: prices.revealed_action_steps[i].1,
-                    extract_residual: 0,
-                    l_residual: 0,
-                    part_residual: pb,
-                });
-                continue;
-            };
-            let extract = Extract {
-                decl: kernel.decl(),
-                focal: kernel.viewer(),
-                worlds: &worlds,
-            };
-            let support: Vec<(u32, u128)> = (0..worlds.len() as u32).map(|w| (w, 1)).collect();
-            let mut tiles = [Domino::ALL[0]; 4];
-            tiles[0] = *a;
-            let mut obs = vec![*a];
-            let mut choices: BTreeMap<Vec<Domino>, Domino> = BTreeMap::new();
-            let mut eb = B_WALK;
-            let solved = extract.solve(
-                &support,
-                kernel.viewer(),
-                tiles,
-                1,
-                &mut obs,
-                &mut choices,
-                &mut eb,
-            );
-            if solved.is_none() {
-                recs.push(UnitRec {
-                    hand: hand_idx,
-                    action: *a,
-                    gate_met,
-                    auth_steps: stats.steps,
-                    auth_hits: stats.hits,
-                    status: "stop:extraction-budget".to_owned(),
-                    qh: qh[i],
-                    u: u[i],
-                    optimal,
-                    l: None,
-                    partition: partition.len(),
-                    choice_states: partition.choice_states(),
-                    r5: (0, 0, 0),
-                    h_residual: prices.h_residuals[i],
-                    revealed_steps: prices.revealed_action_steps[i].1,
-                    extract_residual: eb,
-                    l_residual: 0,
-                    part_residual: pb,
-                });
-                continue;
-            }
-            assert_eq!(
-                choices.len(),
-                partition.len(),
-                "SEP-A11 stop-and-report: extraction state count differs from InfoPartition"
-            );
-            let mut by_id: BTreeMap<walt_strat::InfoStateId, Domino> = BTreeMap::new();
-            for (record, chosen) in &choices {
-                let id = partition.id(record).expect(
-                    "SEP-A11 stop-and-report: an extracted record is not a partition state",
-                );
-                by_id.insert(id, *chosen);
-            }
-            let policy = Policy::build(&partition, |id, _legal| {
-                *by_id.get(&id).expect("total by the assertion above")
-            });
-            let mut lb = B_WALK;
-            let priced = policy_value_receipt(
-                &kernel,
-                kernel.viewer().team(),
-                &dir,
-                &partition,
-                &policy,
-                &mut lb,
-            );
-            let Some((line, receipt)) = priced else {
-                recs.push(UnitRec {
-                    hand: hand_idx,
-                    action: *a,
-                    gate_met,
-                    auth_steps: stats.steps,
-                    auth_hits: stats.hits,
-                    status: "stop:l-walk-budget".to_owned(),
-                    qh: qh[i],
-                    u: u[i],
-                    optimal,
-                    l: None,
-                    partition: partition.len(),
-                    choice_states: partition.choice_states(),
-                    r5: (0, 0, 0),
-                    h_residual: prices.h_residuals[i],
-                    revealed_steps: prices.revealed_action_steps[i].1,
-                    extract_residual: eb,
-                    l_residual: lb,
-                    part_residual: pb,
-                });
-                continue;
-            };
-            let ld = line.eval(qi(0));
-            // (R2): at Tier 1 this ties three code paths; at Tier 2 the
-            // equality is asserted against the ENVELOPE H only, the sole
-            // authority at this coordinate (N4-A6(i)).
-            assert_eq!(
-                ld, qh[i],
-                "R2 stop-and-report (Corollary E4.1(2)): L = Q^H exactly; a strict inequality is a pipeline defect (SEP-A11)"
-            );
-            assert_eq!(receipt.focal_states, receipt.singleton_expansions, "R5");
-            assert_eq!(receipt.focal_states, receipt.distinct_states, "R5");
-            (
-                Some(ld),
-                partition.len(),
-                partition.choice_states(),
-                (
-                    receipt.focal_states,
-                    receipt.singleton_expansions,
-                    receipt.distinct_states,
-                ),
-                eb,
-                lb,
-                pb,
-            )
-        } else {
-            (None, 0, 0, (0, 0, 0), 0, 0, 0)
-        };
-        recs.push(UnitRec {
+        let mut rec = UnitRec {
             hand: hand_idx,
             action: *a,
             gate_met,
@@ -1308,29 +1213,175 @@ fn n4_compute_coordinate(hand_idx: usize, hand: &ReceiptHand) -> Vec<UnitRec> {
             qh: qh[i],
             u: u[i],
             optimal,
-            l,
-            partition: partition_len,
-            choice_states,
-            r5,
+            count: 0,
+            digest: 0,
+            l: None,
+            choice_states: 0,
+            r5_focal: 0,
+            r5_singleton: 0,
             h_residual: prices.h_residuals[i],
             revealed_steps: prices.revealed_action_steps[i].1,
-            extract_residual: er,
-            l_residual: lr,
-            part_residual: pr,
-        });
+            count_residual: 0,
+            extract_residual: 0,
+            l_residual: 0,
+        };
+        if !optimal {
+            recs.push(rec);
+            continue;
+        }
+        // The count-only pass (N4-A15(iii)): exact count + streaming digest
+        // at O(1) memory, its own budget B, its own declared stop.
+        let mut cb = B_WALK;
+        let counted = InfoPartition::count_digest(&kernel, *a, &mut cb);
+        rec.count_residual = cb;
+        let Some((count, dig)) = counted else {
+            rec.status = "stop:count-only-budget".to_owned();
+            recs.push(rec);
+            continue;
+        };
+        rec.count = count;
+        rec.digest = dig;
+        if count > u64::try_from(P_MAX).expect("fits") {
+            // N4-A16(iv): a measured stop, more than PG-A13 could give
+            // before — the exact count is printed because the traversal
+            // COMPLETED; the unit is NOT PRICED.
+            rec.status = "not-priced".to_owned();
+            recs.push(rec);
+            continue;
+        }
+        // N4-A17(b): admission — wait, never skip.
+        let bytes = count * BYTES_PER_STATE;
+        mem.acquire(bytes);
+        // Extraction under the fallback: the record-keyed map IS the pricing
+        // structure; it folds the same streaming digest for the N4-A5
+        // hash-level domain receipt.
+        let extract = Extract {
+            decl: kernel.decl(),
+            focal: kernel.viewer(),
+            worlds: &worlds,
+        };
+        let support: Vec<(u32, u128)> = (0..worlds.len() as u32).map(|w| (w, 1)).collect();
+        let mut tiles = [Domino::ALL[0]; 4];
+        tiles[0] = *a;
+        let mut obs = vec![*a];
+        let mut choices: BTreeMap<Vec<Domino>, Domino> = BTreeMap::new();
+        let mut eb = B_WALK;
+        let solved = extract.solve(
+            &support,
+            kernel.viewer(),
+            tiles,
+            1,
+            &mut obs,
+            &mut choices,
+            &mut eb,
+        );
+        rec.extract_residual = eb;
+        if solved.is_none() {
+            rec.status = "stop:extraction-budget".to_owned();
+            mem.release(bytes);
+            recs.push(rec);
+            continue;
+        }
+        // The N4-A5 streaming set-digest receipt: both passes fold the same
+        // per-record FNV-128 into a commutative accumulator; digests AND
+        // counts asserted equal. (R8): count-only count equals the built
+        // map's len() — a code-level equality check, not a PG-A8 receipt.
+        let mut extract_digest: u128 = 0;
+        let choice_states: u64;
+        for record in choices.keys() {
+            extract_digest = extract_digest.wrapping_add(walt_strat::fnv128_record(record));
+        }
+        assert_eq!(
+            extract_digest, dig,
+            "N4-A5 stop-and-report: the extraction's set digest differs from the count-only pass's"
+        );
+        assert_eq!(
+            u64::try_from(choices.len()).expect("fits"),
+            count,
+            "R8: count-only count equals the built map's len() (code-level equality check)"
+        );
+        // choice_states from the extraction map: a record has a genuine
+        // choice iff more than one legal continuation existed — recovered by
+        // checking sibling records: a chosen tile is stored per record; the
+        // count of records with |legal| > 1 was not captured, so recompute
+        // via the kernel: the legal set at a record is a function of the
+        // viewer's remaining hand and the led context. For the deterministic
+        // block we count records whose stored choice could have differed —
+        // walked once, exact.
+        {
+            let mut n_choice: u64 = 0;
+            let viewer = kernel.viewer();
+            let full_hand = kernel.viewer_hand();
+            for record in choices.keys() {
+                let mut hand_now = full_hand;
+                for t in record {
+                    hand_now.remove(*t);
+                }
+                // Reconstruct the led context at the record's decision point:
+                // replay the trick structure.
+                let mut leader = viewer;
+                let mut k = 0usize;
+                let mut trick_tiles = [Domino::ALL[0]; 4];
+                for t in record {
+                    trick_tiles[k] = *t;
+                    k += 1;
+                    if k == 4 {
+                        let trick = Trick::new(leader, trick_tiles).expect("distinct");
+                        leader = trick.winner(kernel.decl());
+                        k = 0;
+                    }
+                }
+                let led = (k > 0).then(|| kernel.decl().led_context(trick_tiles[0]));
+                let legal = legal_plays(kernel.decl(), hand_now, led);
+                if legal.len() > 1 {
+                    n_choice += 1;
+                }
+            }
+            choice_states = n_choice;
+        }
+        rec.choice_states = choice_states;
+        // The L walk under the fallback: record-keyed, no partition resident.
+        let mut lb = B_WALK;
+        let priced = walt_strat::policy_value_by_record(
+            &kernel,
+            kernel.viewer().team(),
+            &dir,
+            *a,
+            &choices,
+            &mut lb,
+        );
+        rec.l_residual = lb;
+        drop(choices);
+        mem.release(bytes);
+        let Some((line, receipt)) = priced else {
+            rec.status = "stop:l-walk-budget".to_owned();
+            recs.push(rec);
+            continue;
+        };
+        let ld = line.eval(qi(0));
+        assert_eq!(
+            ld, qh[i],
+            "R2 stop-and-report (Corollary E4.1(2)): L = Q^H exactly; strict inequality is a pipeline defect (SEP-A11)"
+        );
+        assert_eq!(
+            receipt.focal_states, receipt.singleton_expansions,
+            "R5: every focal expansion was a singleton"
+        );
+        rec.l = Some(ld);
+        rec.r5_focal = receipt.focal_states;
+        rec.r5_singleton = receipt.singleton_expansions;
+        recs.push(rec);
     }
     recs
 }
 
-/// Render one coordinate's deterministic block from its unit records plus
-/// cheap recomputed identity data. Fresh and resumed runs produce this text
-/// byte-identically (DS-A36).
+/// Render one coordinate's deterministic block from its unit records —
+/// byte-identical across fresh, resumed and any W (DS-A36; assembled at the
+/// end in canonical order, never completion order, N4-A17(d)(3)).
 fn n4_render_coordinate(hand_idx: usize, hand: &ReceiptHand, recs: &[UnitRec], out: &mut String) {
     let (kernel, _leader) = n4_void_free_kernel(hand);
     let grade = kernel.viewer_hand().len();
     assert_eq!(grade, N4_GRADE, "grade identity");
-    // Freeze 45: the content-based identity, printed and asserted; the
-    // kernel is rebuilt from the printed identity and asserted equal.
     let hand_tiles: Vec<String> = kernel.viewer_hand().iter().map(tile).collect();
     let pool_tiles: Vec<String> = kernel.pool().iter().map(tile).collect();
     let Decl::PipTrump(p) = kernel.decl() else {
@@ -1338,15 +1389,12 @@ fn n4_render_coordinate(hand_idx: usize, hand: &ReceiptHand, recs: &[UnitRec], o
     };
     let rebuilt = {
         let focal = kernel.viewer();
+        let (hands, _) = state_before_trick(hand, N4_TRICK).expect("replays");
         let mut hidden = [Hidden {
             seat: focal,
             capacity: 0,
             voids: ContextSet::EMPTY,
         }; HIDDEN_SEATS];
-        let mut remaining = kernel.pool();
-        // Capacities are recovered from the receipt state per freeze 45; the
-        // rebuild asserts identity of every component.
-        let (hands, _) = state_before_trick(hand, N4_TRICK).expect("replays");
         for (slot, k) in hidden.iter_mut().zip(1..=3) {
             let seat = focal.plus(k);
             *slot = Hidden {
@@ -1354,7 +1402,6 @@ fn n4_render_coordinate(hand_idx: usize, hand: &ReceiptHand, recs: &[UnitRec], o
                 capacity: hands[seat.index()].len(),
                 voids: ContextSet::EMPTY,
             };
-            remaining = remaining.union(hands[seat.index()]);
         }
         Kernel::new(
             kernel.decl(),
@@ -1367,7 +1414,7 @@ fn n4_render_coordinate(hand_idx: usize, hand: &ReceiptHand, recs: &[UnitRec], o
     };
     assert_eq!(
         rebuilt, kernel,
-        "freeze 45: kernel rebuilt from printed identity equals void_free_kernel's"
+        "freeze 45: kernel rebuilt from printed identity"
     );
     let voided = n4_voided_count(hand);
     let quoted = S5H_VOIDED
@@ -1377,7 +1424,7 @@ fn n4_render_coordinate(hand_idx: usize, hand: &ReceiptHand, recs: &[UnitRec], o
         .1;
     assert_eq!(
         voided, quoted,
-        "P-A2 void-filtered size equals the quoted S5h receipt value"
+        "P-A2 void-filtered size equals the quoted receipt"
     );
     let fence_marked = matches!(hand_idx, 2 | 5 | 8);
 
@@ -1403,47 +1450,35 @@ fn n4_render_coordinate(hand_idx: usize, hand: &ReceiptHand, recs: &[UnitRec], o
     );
 
     let gate_met = recs[0].gate_met;
-    let tier = if !recs[0].status.starts_with("ok")
-        && recs.iter().all(|r| r.status.starts_with("stop:"))
-    {
-        3
-    } else if gate_met {
-        1
-    } else {
-        2
-    };
-    if gate_met {
+    if recs.iter().all(|r| r.status.starts_with("stop:")) {
         let _ = writeln!(
             *out,
-            "  authority: gate MET (dag-v1 steps {}, boundary hits {}); R6 step-determinism vs the quoted S5h counts — HELD",
-            recs[0].auth_steps, recs[0].auth_hits
-        );
-        let _ = writeln!(
-            *out,
-            "  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (TIER 1)"
-        );
-    } else {
-        let _ = writeln!(
-            *out,
-            "  correctness gate unmet — authority budget {AUTHORITY_BUDGET} exhausted (steps charged {}); every row of this coordinate carries TIER 2 language (R1 unavailable; the envelope path is the sole H authority here and a defect in it would be invisible)",
-            recs[0].auth_steps
-        );
-    }
-
-    if tier == 3 {
-        let _ = writeln!(
-            *out,
-            "  WITNESS STOP ({}): no U for any action, hence no verdict of either kind at this coordinate — a stop can complete a negative and can never complete a positive, and there is no completed pair here (PG-A13, N4-A6(ii)). Budgets: B = {B_WALK} per (coordinate, action), 4B whole-call revealed.",
+            "  WITNESS STOP ({}): no U for any action, hence no verdict of either kind at this coordinate — a stop can complete a negative and can never complete a positive (PG-A13, N4-A6(ii))",
             recs[0].status
         );
         return;
+    }
+    if gate_met {
+        let _ = writeln!(
+            *out,
+            "  authority: gate MET (dag-v1 steps {}, boundary hits {}); R6 step-determinism vs the quoted S5h counts — HELD; R1 solver identification — HELD; R7 whole-fiber revealed charge {} == quoted tree-v0 — HELD (Lemma N; a same-traversal comparison) (TIER 1)",
+            recs[0].auth_steps,
+            recs[0].auth_hits,
+            recs.iter().map(|r| r.revealed_steps).sum::<u64>()
+        );
+    } else {
+        let _ = writeln!(
+            *out,
+            "  correctness gate unmet — authority budget {AUTHORITY_BUDGET} exhausted (steps charged {}); TIER 2 on every row (R1 unavailable; the envelope path is the sole H authority here)",
+            recs[0].auth_steps
+        );
     }
 
     let vh = recs.iter().map(|r| r.qh).max().expect("nonempty");
     for r in recs {
         let _ = writeln!(
             *out,
-            "  R3 root {}: Q^H = {}  U = {}  price U - Q^H = {}  (count; grade {N4_GRADE} bridge asserted)  [revealed walk-steps {} — a SEP-A19(b)-class observable of the declared traversal, never a cost claim]",
+            "  R3 root {}: Q^H = {}  U = {}  price U - Q^H = {}  (count convention; grade {N4_GRADE} bridge asserted)  [revealed walk-steps {} — SEP-A19(b) class, per-traversal named: revealed one-world walks]",
             tile(r.action),
             to_count(r.qh, N4_GRADE),
             to_count(r.u, N4_GRADE),
@@ -1452,32 +1487,43 @@ fn n4_render_coordinate(hand_idx: usize, hand: &ReceiptHand, recs: &[UnitRec], o
         );
     }
     for r in recs.iter().filter(|r| r.optimal) {
+        if r.status == "not-priced" {
+            let _ = writeln!(
+                *out,
+                "  a⋆ = {}: partition states {} (count-only pass, COMPLETED); NOT PRICED — N > P_max v2 = {P_MAX}; no verdict, PG-A13. Typing: the count is an exact computational observable of the declared traversal in SEP-A19(b)'s class — never an information value, a decision width, a cost claim, or a DS-A2 term. Uniqueness (N4-A15(iii)): the count-only pass loses the per-record dedup check; uniqueness rests on the tree-walk property that a node's label is its play prefix, so the focal callback fires exactly once per record.",
+                tile(r.action),
+                r.count
+            );
+            continue;
+        }
         if r.status.starts_with("stop:") {
             let _ = writeln!(
                 *out,
-                "  a⋆ = {}: PRIMAL PIPELINE STOP ({}) — no L, hence no verdict for this a⋆ in either direction (N4-A6(ii)).",
+                "  a⋆ = {}: PRIMAL PIPELINE STOP ({}) — no L, hence no verdict for this a⋆ in either direction (N4-A6(ii)). Residuals: count-only {}, extraction {}, L {}",
                 tile(r.action),
-                r.status
+                r.status,
+                r.count_residual,
+                r.extract_residual,
+                r.l_residual
             );
             continue;
         }
         let l = r.l.expect("ok optimal row has L");
         let _ = writeln!(
             *out,
-            "  a⋆ = {}: candidate extracted ({} states, {} with genuine choice; freeze-26 tie rule; no library entry, freeze 45); R2 primal receipt L = Q^H = {} — HELD{}; R5 counted receipt: {} = {} = {} distinct states reached (of {} in the partition). SEP-A19(b): the reached count is an observable of the EXHIBITED witness, tie-break-relative to freeze 26, never a DS-A2 term; the partition count is the tie-break-free E_B(a). No ratio is printed.",
+            "  a⋆ = {}: count-only states {} (uniqueness per N4-A15(iii): the tree-walk property, stated beside every count); admitted at {} bytes/state; extraction map len == count (R8, code-level); N4-A5 hash-level domain receipt — digests equal — HELD ({} records with genuine choice); R2 primal receipt L = Q^H = {} — HELD{}; R5 counted receipt {} focal = {} singleton (fallback form: no distinct-state set is held; the digest receipt replaces the domain comparison and is strictly weaker than it — N4-A5's typing, named in place)",
             tile(r.action),
-            r.partition,
+            r.count,
+            BYTES_PER_STATE,
             r.choice_states,
             to_count(l, N4_GRADE),
             if gate_met {
                 ""
             } else {
-                " (TIER 2: asserted against the ENVELOPE H only, the sole authority at this coordinate)"
+                " (TIER 2: asserted against the ENVELOPE H only)"
             },
-            r.r5.0,
-            r.r5.1,
-            r.r5.2,
-            r.partition
+            r.r5_focal,
+            r.r5_singleton
         );
         let mut all = true;
         for c in recs.iter().filter(|c| c.action != r.action) {
@@ -1506,7 +1552,7 @@ fn n4_render_coordinate(hand_idx: usize, hand: &ReceiptHand, recs: &[UnitRec], o
             if !sep {
                 let _ = writeln!(
                     *out,
-                    "    EXACT NEGATIVE (Corollary E4.1(3)): Q^H({}) < U_{} by {} (count); no candidate policy set whatsoever separates this pair under relaxation C at this coordinate — the remaining lever is a gluing cut (Theorem E6.5). This failing pair is an input Experiment D needs.{}",
+                    "    EXACT NEGATIVE (Corollary E4.1(3)): Q^H({}) < U_{} by {} (count); no candidate policy set whatsoever separates this pair under relaxation C at this coordinate — the remaining lever is a gluing cut (Theorem E6.5). An input Experiment D needs.{}",
                     tile(r.action),
                     tile(c.action),
                     (c.u - l) * q(1, 2),
@@ -1531,7 +1577,7 @@ fn n4_render_coordinate(hand_idx: usize, hand: &ReceiptHand, recs: &[UnitRec], o
                 if gate_met {
                     String::new()
                 } else {
-                    " VERDICT UNCROSSCHECKED. The validity of this separation does not cite H (Theorem E6.4 is H-free), and the verdict is mathematically sound under the declared belief, field, valuation and observation contract. Its provenance is a single uncrosschecked H solve: L's seed is an extraction solve and Q^H is the envelope path, with no independent authority agreeing with either. This row is outside the receipt set DS-A10 authorised for Experiment E, and it is exploratory tier as every row here is.".to_owned()
+                    " VERDICT UNCROSSCHECKED. The validity of this separation does not cite H (Theorem E6.4 is H-free), and the verdict is mathematically sound under the declared belief, field, valuation and observation contract. Its provenance is a single uncrosschecked H solve. This row is outside the receipt set DS-A10 authorised for Experiment E, and it is exploratory tier as every row here is.".to_owned()
                 }
             );
             assert_eq!(r.qh, vh, "the separated action lies in H's argmax");
@@ -1543,66 +1589,6 @@ fn n4_render_coordinate(hand_idx: usize, hand: &ReceiptHand, recs: &[UnitRec], o
             );
         }
     }
-    let _ = writeln!(
-        *out,
-        "  unit budgets: B = {B_WALK} per (coordinate, action), 4B revealed whole-call; residuals (exact, deterministic): H {:?}, extraction {:?}, L {:?}, partition {:?}",
-        recs.iter().map(|r| r.h_residual).collect::<Vec<_>>(),
-        recs.iter().filter(|r| r.optimal).map(|r| r.extract_residual).collect::<Vec<_>>(),
-        recs.iter().filter(|r| r.optimal).map(|r| r.l_residual).collect::<Vec<_>>(),
-        recs.iter().filter(|r| r.optimal).map(|r| r.part_residual).collect::<Vec<_>>()
-    );
-}
-
-fn n4_header(out: &mut String, m_max_gib: u64) {
-    let _ = writeln!(
-        *out,
-        "walt separation probe — the n = 4 rung (Experiment E, four tricks out, receipt-corpus coordinates) — exploratory tier"
-    );
-    let _ = writeln!(
-        *out,
-        "rulings: N4-A1..N4-A12; freezes 44, 45 (walt/CENSUS-RULINGS.md 2026-08-13); design walt/SEPARATION-RUNG-N4.md as amended; standing rulings inherited by whole family; mathematics: errata Lemma E3 + (C1)-(C4), Lemma E4, Corollary E4.1 (pending errata §4.3), Theorem E6.4, Theorem E6.5"
-    );
-    let _ = writeln!(
-        *out,
-        "regenerate: cargo run --release -p walt-factory --example separation_probe -- n4"
-    );
-    let _ = writeln!(*out);
-    let _ = writeln!(
-        *out,
-        "SEP-A10's closing sentence, the premise of this design: \"Nothing about the n = 4 rung is unlawful; it is unspecified.\" This rung is its specification."
-    );
-    let _ = writeln!(
-        *out,
-        "R0 (BLOCKING, N4-A10): PASSED before any n = 4 unit ran — the grade-3 receipt separation_2026-08-13.txt reproduced under the budgeted walk with exactly the two enumerated permitted differences (the wall-clock provenance line; the freeze-37(h) header sentence replaced by the freeze-44 form), and the candidate library byte-identical."
-    );
-    let _ = writeln!(
-        *out,
-        "PRIMAL CEILING (SEP-A2, verbatim): the primal witness at each H-optimal action is an H-optimal policy re-priced by the fixed-policy evaluator, so L = Q^H by Corollary E4.1(2); the separation verdict at this coordinate is determined entirely by the upper witness."
-    );
-    let _ = writeln!(
-        *out,
-        "PROVENANCE TYPING (SEP-A12): the separation's validity does not cite H, but this run's witnesses were produced with H's help; the logic of Theorem E6.4 is H-free, the provenance of these witnesses is not."
-    );
-    let _ = writeln!(
-        *out,
-        "BUDGET HONESTY (freeze 44): the scalar authority is budgeted (freeze 26, {AUTHORITY_BUDGET} particle-steps); the walk-based evaluators carry declared budgets under freeze 44 (B = {B_WALK} per (coordinate, action); 4B whole-call revealed; P_max = {P_MAX} states checked at each insertion); every stop is a declared stop printed R-A18-style. The freeze-37(h) sentence remains true of the grade-3 receipt as filed and is superseded for this rung by freeze 44."
-    );
-    let _ = writeln!(
-        *out,
-        "THE THREE SENTENCES THAT MUST NOT BE BLURRED (§10): (1) this rung tests whether root-action separation closes four tricks out at real-deal coordinates, one grade above the adjudicated grade-3 run. (2) It does NOT test the parent's economy claim [\"the solver does not need an exact solution for every action\"]: it computes the exact H solve at every action; that experiment is walt/ECONOMY-SUCCESSOR.md. (3) It licenses no cost, timing, runtime or tractability claim of any kind (SEP-A15(iii), P-A19, DS-A32, DS-A33); wall-clock is provenance; step counts are exact observables of declared traversals, per-traversal named, and are not a complexity statement."
-    );
-    let _ = writeln!(
-        *out,
-        "COST-MODEL INPUTS (P-A21 printed): three rungs are not a law, and no growth rate measured at grades <= 4 is quoted for the opening. Treatment C and C+ coincide on this carrier (xi = omega). Fallback rule (N4-A12, declared in advance): on a §5 gate failure the failure is filed first as a result; the reduced rung is {{h6, h4, h8}} by the declared cheapest-three rule; a second gate failure returns to the rulings file; a reduced pass is labelled REDUCED RUNG, GATE FAILURE FILED."
-    );
-    let _ = writeln!(
-        *out,
-        "M_max = {m_max_gib} GiB — declared by the run owner before the rung (N4-A4), provenance beside the machine identity, never a freeze; P_max is not derived from it."
-    );
-    let _ = writeln!(
-        *out,
-        "out of scope (leader is not the declaring seat): h3, h7, h10, h11 — printed as in the S5h receipt."
-    );
 }
 
 fn n4_main() {
@@ -1610,102 +1596,248 @@ fn n4_main() {
     let m_max_gib: u64 = std::env::var("M_MAX_GIB")
         .ok()
         .and_then(|v| v.parse().ok())
-        .expect("M_MAX_GIB must be declared by the run owner (N4-A4): a rung run without a declared M_max is not run");
+        .expect("M_MAX_GIB must be declared by the run owner (N4-A4)");
+    let t_pass_h: u64 = std::env::var("T_PASS_H")
+        .ok()
+        .and_then(|v| v.parse().ok())
+        .expect("T_PASS_H must be declared by the run owner (N4-A14(iii)); no invented default");
+    let m_budget_gib: u64 = std::env::var("M_BUDGET_GIB")
+        .ok()
+        .and_then(|v| v.parse().ok())
+        .expect("M_BUDGET_GIB must be declared by the run owner (N4-A16(ii))");
+    let w: usize = std::env::var("N4_W")
+        .ok()
+        .and_then(|v| v.parse().ok())
+        .expect("N4_W must be declared by the run owner (N4-A17(c)); no invented default");
+    assert!(
+        (1..=12).contains(&w),
+        "N4-A17(c): W <= 12 at M_max = 40 GiB"
+    );
     let receipt = n4_receipt();
-    let mut det = String::new();
-    n4_header(&mut det, m_max_gib);
 
+    let mut det = String::new();
+    let _ = writeln!(
+        det,
+        "walt separation probe — the n = 4 overnight pass (Experiment E, four tricks out, receipt-corpus coordinates) — exploratory tier"
+    );
+    let _ = writeln!(
+        det,
+        "rulings: N4-A1..N4-A20 (the 2026-08-14 return authorises this pass; Lemma N, Corollaries N-1..N-3; freeze 44 v2); design walt/SEPARATION-RUNG-N4.md as amended; mathematics: errata Lemma E3 + (C1)-(C4), Lemma E4, Corollary E4.1 (pending errata §4.3), Theorem E6.4, Theorem E6.5"
+    );
+    let _ = writeln!(
+        det,
+        "regenerate: M_MAX_GIB=.. T_PASS_H=.. M_BUDGET_GIB=.. N4_W=.. cargo run --release -p walt-factory --example separation_probe -- n4"
+    );
+    let _ = writeln!(det);
+    let _ = writeln!(
+        det,
+        "R0 (BLOCKING, N4-A10): PASSED before any n = 4 unit ran — the grade-3 receipt reproduced with exactly the two enumerated permitted differences; candidate library byte-identical."
+    );
+    let _ = writeln!(
+        det,
+        "PRIMAL CEILING (SEP-A2, verbatim): the primal witness at each H-optimal action is an H-optimal policy re-priced by the fixed-policy evaluator, so L = Q^H by Corollary E4.1(2); the separation verdict at this coordinate is determined entirely by the upper witness."
+    );
+    let _ = writeln!(
+        det,
+        "PROVENANCE TYPING (SEP-A12): the separation's validity does not cite H, but this run's witnesses were produced with H's help; the logic of Theorem E6.4 is H-free, the provenance of these witnesses is not."
+    );
+    let _ = writeln!(
+        det,
+        "BUDGET HONESTY (freeze 44 v2): the scalar authority is budgeted (freeze 26, {AUTHORITY_BUDGET} particle-steps); the walk-based evaluators carry declared walk-step budgets (B = {B_WALK} per (coordinate, action); 4B whole-call revealed); P_max v2 = {P_MAX} states is an ADMISSION threshold on the count-only pass's completed count, applied before any map is allocated, with the insertion check retained as a defensive stop only (N4-A16(v)); every stop is a declared stop."
+    );
+    let _ = writeln!(
+        det,
+        "N4-A5 TYPING (verbatim, the digest receipt): this is a hash-level domain receipt — strictly stronger than the cardinality comparison (two different equal-sized state sets fail it except under hash collision), strictly weaker than the held-map domain comparison, and in the same identity-by-hash class as freeze 1. The results file names the weakening in place."
+    );
+    let _ = writeln!(
+        det,
+        "ROSTER SENTENCE (N4-A14(iv)): which units a given night completed is load-relative provenance and licenses nothing — the absence of a unit is never read as a property of that coordinate; each completed unit's content is a function of (kernel, freeze-44 budgets, P_max) alone and is byte-identical across fresh, resumed and any W."
+    );
+    let _ = writeln!(
+        det,
+        "THE THREE SENTENCES THAT MUST NOT BE BLURRED (§10): (1) this pass tests whether root-action separation closes four tricks out at real-deal coordinates. (2) It does NOT test the parent's economy claim [\"the solver does not need an exact solution for every action\"]; that experiment is walt/ECONOMY-SUCCESSOR.md and its EC-A13 scope. (3) It licenses no cost, timing, runtime or tractability claim of any kind; wall-clock is provenance; step counts are exact observables of declared traversals; P-A21: three rungs are not a law and no growth rate measured at grades <= 4 is quoted for the opening."
+    );
+    let _ = writeln!(
+        det,
+        "out of scope (leader is not the declaring seat): h3, h7, h10, h11 — printed as in the S5h receipt."
+    );
+    let _ = writeln!(det);
+    let _ = writeln!(
+        det,
+        "GATE ARITHMETIC (cost-model inputs, licensing nothing; N4-A14/A16/A17)"
+    );
+    let _ = writeln!(
+        det,
+        "run-owner gate inputs (provenance, never freezes): M_max = {m_max_gib} GiB;\n    M_budget = {m_budget_gib} GiB; T_pass = {t_pass_h} h; W = {w} (recorded, not frozen)"
+    );
+    let _ = writeln!(
+        det,
+        "[A] step budgets, EXACT from a quoted receipt (Lemma N, Corollary N-1):\n    whole-fiber revealed charge at h9 = tree-v0 = 16,211,488,002 vs 4B = 40,000,000,000\n    per-action coordinate average = tree-v0/4 = 4,052,872,001 vs B = 10,000,000,000\n    caveat printed in place: only the coordinate average is known in advance;\n    B binds a single action, and the per-unit residual is measured\n    (per-coordinate exact values asserted as (R7) in each coordinate block)"
+    );
+    let _ = writeln!(
+        det,
+        "[B] memory admission, constants only, checked BEFORE the pass and never\n    during it (N4-A4): P_max v2 = {P_MAX} states; declared {BYTES_PER_STATE} bytes/state;\n    192,000,000 x 128 B = 22.89 GiB <= M_budget = {m_budget_gib} GiB;\n    W x 1 GiB + M_budget <= M_max - 4 GiB  =>  W <= 12"
+    );
+    let _ = writeln!(
+        det,
+        "[C] per-unit admission, deterministic, a function of (kernel, P_max v2)\n    alone: count-only states N(unit) <= P_max v2; and\n    sum of N x 128 B over concurrently pricing units <= M_budget (wait, never skip)"
+    );
+    let _ = writeln!(
+        det,
+        "[D] whole-pass wall estimate, provenance, GATES NOTHING: T_est ~= 3 h at W = 1\n    (revealed side ~= sum tree-v0 = 5.66e10 charges at ~5.83e6 steps/s, an estimate\n    licensing nothing) vs T_pass = {t_pass_h} h. \"Wall-clock gates no content (N4-A14).\n    Exceeding T_pass is not a bar: the pass is checkpointed at (coordinate, action)\n    granularity and resumes in canonical unit order. Which units a night completed is\n    load-relative provenance and licenses nothing.\""
+    );
+    assert!(
+        w as u64 + m_budget_gib <= m_max_gib - 4,
+        "N4-A17(c) concurrency arithmetic"
+    );
+
+    // Cache, resume validation, and the parallel pass.
     let loaded = n4_validate_cache();
     let n_loaded = loaded.len();
-    let mut computed = 0usize;
     let fresh = loaded.is_empty();
-    let mut timing = String::new();
-    let mut resume_validated: Option<String> = None;
+    let mem = MemGuard::new(m_budget_gib * 1024 * 1024 * 1024);
+    let mut resume_note = String::new();
 
+    // DS-A30(iii) resume validation, sequential, before workers spawn: the
+    // first coordinate (canonical order) all of whose units were loaded is
+    // recomputed whole-call and asserted non-timing-equal.
+    if !fresh {
+        for &hand_idx in &N4_IN_SCOPE {
+            let hand = &receipt.hands[hand_idx];
+            let (kernel, _) = n4_void_free_kernel(hand);
+            let actions: Vec<Domino> = kernel.viewer_hand().iter().collect();
+            let have: Vec<Option<&UnitRec>> = actions
+                .iter()
+                .map(|a| loaded.get(&(hand_idx, a.index())))
+                .collect();
+            if have.iter().all(|h| h.is_some()) {
+                let loaded_recs: Vec<UnitRec> =
+                    have.into_iter().map(|h| h.expect("all").clone()).collect();
+                let fresh_recs = n4_compute_coordinate(hand_idx, hand, &mem);
+                assert_eq!(
+                    fresh_recs, loaded_recs,
+                    "resume-validation stop-and-report (DS-A30(iii))"
+                );
+                resume_note = format!(
+                    "resume-validation: PASS (coordinate h{hand_idx} recomputed whole-call; all non-timing fields equal the loaded records)"
+                );
+                break;
+            }
+        }
+    }
+
+    // The worker pool: one coordinate claimed by one worker for its whole
+    // life (N4-A17(a)); records collected and assembled canonically at the
+    // end (N4-A17(d)(3)).
+    let all_recs: Mutex<BTreeMap<(usize, usize), UnitRec>> = Mutex::new(BTreeMap::new());
+    let computed = AtomicUsize::new(0);
+    let next = AtomicUsize::new(0);
+    let timing: Mutex<Vec<String>> = Mutex::new(Vec::new());
+    let loaded_ref = &loaded;
+    let receipt_ref = &receipt;
+    let mem_ref = &mem;
+    let all_ref = &all_recs;
+    let computed_ref = &computed;
+    let next_ref = &next;
+    let timing_ref = &timing;
+    std::thread::scope(|scope| {
+        for _ in 0..w {
+            scope.spawn(move || loop {
+                let i = next_ref.fetch_add(1, Ordering::SeqCst);
+                if i >= N4_IN_SCOPE.len() {
+                    break;
+                }
+                let hand_idx = N4_IN_SCOPE[i];
+                let hand = &receipt_ref.hands[hand_idx];
+                let (kernel, _) = n4_void_free_kernel(hand);
+                let actions: Vec<Domino> = kernel.viewer_hand().iter().collect();
+                let have: Vec<Option<&UnitRec>> = actions
+                    .iter()
+                    .map(|a| loaded_ref.get(&(hand_idx, a.index())))
+                    .collect();
+                let n_have = have.iter().filter(|h| h.is_some()).count();
+                let tc = Instant::now();
+                let recs: Vec<UnitRec> = if n_have == actions.len() {
+                    have.into_iter().map(|h| h.expect("all").clone()).collect()
+                } else if n_have > 0 {
+                    // N4-A9(ii): partial coordinate — whole-call re-run,
+                    // loaded units asserted equal.
+                    let fresh_recs = n4_compute_coordinate(hand_idx, hand, mem_ref);
+                    for (a, h) in actions.iter().zip(have) {
+                        if let Some(rec) = h {
+                            let fr = fresh_recs
+                                .iter()
+                                .find(|r| r.action == *a)
+                                .expect("recomputed unit");
+                            assert_eq!(fr, rec, "N4-A9(ii) stop-and-report");
+                        }
+                    }
+                    for r in &fresh_recs {
+                        n4_save_unit(r);
+                        computed_ref.fetch_add(1, Ordering::SeqCst);
+                    }
+                    fresh_recs
+                } else {
+                    let fresh_recs = n4_compute_coordinate(hand_idx, hand, mem_ref);
+                    for r in &fresh_recs {
+                        n4_save_unit(r);
+                        computed_ref.fetch_add(1, Ordering::SeqCst);
+                    }
+                    fresh_recs
+                };
+                let mut t = timing_ref.lock().expect("timing");
+                t.push(format!(
+                    "h{hand_idx}: {} ms [this process, CONTENDED(W={w})]",
+                    tc.elapsed().as_millis()
+                ));
+                drop(t);
+                let mut m = all_ref.lock().expect("records");
+                for r in recs {
+                    m.insert((r.hand, r.action.index()), r);
+                }
+            });
+        }
+    });
+
+    // Deterministic block: canonical order, from records only.
+    let all = all_recs.into_inner().expect("records");
     for &hand_idx in &N4_IN_SCOPE {
         let hand = &receipt.hands[hand_idx];
         let (kernel, _) = n4_void_free_kernel(hand);
-        let actions: Vec<Domino> = kernel.viewer_hand().iter().collect();
-        let have: Vec<Option<&UnitRec>> = actions
+        let recs: Vec<UnitRec> = kernel
+            .viewer_hand()
             .iter()
-            .map(|a| loaded.get(&(hand_idx, a.index())))
+            .map(|a| {
+                all.get(&(hand_idx, a.index()))
+                    .expect("every coordinate was processed")
+                    .clone()
+            })
             .collect();
-        let n_have = have.iter().filter(|h| h.is_some()).count();
-        let tc = Instant::now();
-        let recs: Vec<UnitRec> = if n_have == actions.len() {
-            let recs: Vec<UnitRec> = have.into_iter().map(|h| h.expect("all").clone()).collect();
-            // DS-A30(iii): the declared re-run sample — the first loaded unit
-            // in canonical order — recomputed (whole coordinate, since the
-            // revealed and authority calls span the coordinate) and asserted
-            // non-timing-equal.
-            if resume_validated.is_none() {
-                let fresh_recs = n4_compute_coordinate(hand_idx, hand);
-                assert_eq!(
-                    fresh_recs, recs,
-                    "resume-validation stop-and-report: recomputed unit records differ from loaded (DS-A30(iii))"
-                );
-                resume_validated = Some(format!(
-                    "resume-validation: PASS (coordinate h{hand_idx} recomputed whole-call; all non-timing fields equal the loaded records)"
-                ));
-            }
-            recs
-        } else if n_have > 0 {
-            // N4-A9(ii), the shared-call clause: a partially-resumed
-            // coordinate re-runs the whole call and asserts the loaded
-            // units' values equal the recomputed ones.
-            let fresh_recs = n4_compute_coordinate(hand_idx, hand);
-            for (a, h) in actions.iter().zip(have) {
-                if let Some(rec) = h {
-                    let fr = fresh_recs
-                        .iter()
-                        .find(|r| r.action == *a)
-                        .expect("recomputed unit");
-                    assert_eq!(
-                        fr, rec,
-                        "N4-A9(ii) stop-and-report: a partially-resumed coordinate's loaded unit differs from the whole-call recomputation"
-                    );
-                }
-            }
-            for r in &fresh_recs {
-                n4_save_unit(r);
-                computed += 1;
-            }
-            fresh_recs
-        } else {
-            let fresh_recs = n4_compute_coordinate(hand_idx, hand);
-            for r in &fresh_recs {
-                n4_save_unit(r);
-                computed += 1;
-            }
-            fresh_recs
-        };
         n4_render_coordinate(hand_idx, hand, &recs, &mut det);
-        let _ = writeln!(
-            timing,
-            "h{hand_idx}: {} ms [this process]",
-            tc.elapsed().as_millis()
-        );
     }
 
     let mut out = det.clone();
     let _ = writeln!(out);
     let _ = writeln!(
         out,
-        "== TIMING BLOCK (provenance only, never a dividend; DS-A31/DS-A36) =="
+        "== TIMING BLOCK (provenance only, never a dividend; DS-A31/DS-A36; every line under W >= 2 is CONTENDED(W={w}) and DS-A32's sentence applies: contended figures are biased and are not a dividend — here nothing forms a ratio and nothing is quoted) =="
     );
     let _ = writeln!(
         out,
-        "provenance: {} (digest {N4_CKPT_DIGEST}; {n_loaded} units loaded, {computed} computed; W = 1 recorded not frozen, DS-A34; single process, DS-A35; cold regenerate: delete store/separation_n4_ckpt and re-run)",
-        if fresh { "FRESH" } else { "RESUMED" }
+        "provenance: {} (digest {N4_CKPT_DIGEST}; {n_loaded} units loaded, {} computed; W = {w} recorded not frozen (DS-A34); one process, W threads (DS-A35/N4-A17(e)); cold regenerate: delete store/separation_n4_ckpt and re-run)",
+        if fresh { "FRESH" } else { "RESUMED" },
+        computed.load(Ordering::SeqCst)
     );
-    if let Some(rv) = resume_validated {
-        let _ = writeln!(out, "{rv}");
+    if !resume_note.is_empty() {
+        let _ = writeln!(out, "{resume_note}");
     }
     let _ = writeln!(
         out,
-        "M_max = {m_max_gib} GiB (run-owner declaration, N4-A4); a resumed run inherits no quotable timing (DS-A31) — and this rung quotes no timing as a dividend anywhere"
+        "run-owner gate inputs: M_max = {m_max_gib} GiB; M_budget = {m_budget_gib} GiB; T_pass = {t_pass_h} h; W = {w}; a resumed run inherits no quotable timing (DS-A31)"
     );
-    out.push_str(&timing);
+    for line in timing.into_inner().expect("timing") {
+        let _ = writeln!(out, "{line}");
+    }
     let _ = writeln!(out, "total wall-clock: {} ms", t0.elapsed().as_millis());
     let _ = writeln!(out, "run complete: yes");
 
