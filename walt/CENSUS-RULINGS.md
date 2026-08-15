@@ -11692,3 +11692,45 @@ Everything else here is proof and needs no code.
   builder's verification that those cores' `(unit, record)` key set equals
   `fc_kappa.rs`'s at F0 and again at F2 is the check that matters. **FC-A11(iii) is
   corrected in place; the erroneous figure stays visible per LD-A11(ii).**
+
+- **FC-A14 (two notes on the steward's independent verification: the core-count
+  diagnosis is corrected a second time, and the builder's unprompted scope-equality
+  check yields a discipline neither FC-A10 nor FC-A11 names).** Three clauses.
+  (i) **The 12,693 → 12,639 correction stands as ruled at FC-A13(v), but the
+  steward's diagnosis of it — "a digit transposition" — is WRONG, and the
+  difference is not pedantry.** Counted a third time here: the FT file carries
+  **12,639** lines matching `"minimal fusion core (fiber indices"` and **54**
+  matching `"minimal fusion core of size"`, and `12,639 + 54 = 12,693` exactly. **A
+  transposition of 12,639 would give 12,369 or 12,693 by coincidence of digits; what
+  actually happened is that a grep matched two different objects and I reported the
+  union as one of them.** The two diagnoses carry different lessons. *Transposition*
+  says be careful typing. *The truth* says **a count was quoted without its defining
+  predicate pinned** — which is the fault this chapter has now met four times, and
+  which is exactly what the generalised FF-A18 exists to catch. The steward enforces
+  FF-A18; a steward who believes my error was a typo will under-apply the rule at
+  precisely the moment it is needed. **The mechanism of a defect is what the record
+  is for; the digit is not.**
+  (ii) **The builder's scope-equality check closes a real gap that neither FC-A10
+  nor FC-A11 requires, and it is recorded here as a discipline.** Transcribing
+  (FC-R7)'s material it verified that the filed-face table's `(unit, record)` key
+  set is **equal** to the frozen `κ_I` table's key set at F0 and again at F2. Why
+  that matters: **(FC-R7) ranges over the states carrying a filed core, and (FC-R4)
+  over the states carrying a frozen `κ_I`, and those two sets come from different
+  carriers** — `fc_cores.rs` transcribed from the FT file, `fc_kappa.rs` from the
+  v1.1 file. Nothing in my rulings asserts they coincide. Had they differed, **both
+  receipts could hold while silently covering different states**, and the artifact
+  would report two green checks over sets it never claimed were the same one.
+  **The discipline, which generalises FF-A18 one step further: naming a scope is not
+  enough when two scopes must coincide — that they coincide is itself a thing to
+  check.** FF-A18 said state your scope as a set; this adds: **when two receipts
+  range over sets derived from different carriers and the reading depends on their
+  being the same set, assert the equality.** Filed as binding on any future probe
+  carrying more than one transcribed table.
+  (iii) **It correctly stays a one-time audit and is not receipted, which is
+  FC-A12's boundary landing where it was aimed.** Both key sets are compiled
+  constants that cannot drift between runs; a run-time assertion would compare
+  constants against constants (Proposition SR-taut). The steward placed it correctly
+  without being asked, and the builder — having been given FC-A12's boundary in
+  operational form — built a second frozen table and **did not propose receipting
+  it either**. Whether the boundary arrived in time or was reached independently,
+  the outcome is the same and it is the outcome the boundary was written for.
