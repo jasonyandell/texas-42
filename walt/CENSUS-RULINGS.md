@@ -12529,3 +12529,63 @@ SS-A2 and it is the only change of substance I have made to Jason's design.
   fixes a reporting convention over quantities freeze 54(b) already commissions,
   and every figure it requires is computable from the committed summary without
   re-running anything.
+
+- **SS-A14 (the confound-table design: RATIFIED with three amendments, one of
+  which prevents a defect that would corrupt the carrier. Ruled before any total
+  exists.)** Six clauses.
+  (i) **The design is right and its restraint is the best part.** Verdict-cell rows
+  carrying both conventions side by side; `|I₁|` quartile strata from the survey's
+  own order statistics; the exact 2×2; and **a separability sentence driven by a
+  rule stated in the file and applied mechanically, with no invented inferential
+  test.** Stratifying on `|I₁|` and comparing verdict cells *within* strata is the
+  correct instrument for SS-A10(v) — it holds the rival explanator approximately
+  fixed instead of modelling it — and declining to manufacture a significance
+  statistic is exactly right for a survey whose every figure is an exact count over
+  a complete set. **RATIFIED**, with three amendments, all minimal and all in the
+  same spirit of tables plus a stated rule.
+  (ii) **AMENDMENT 1 — the separability rule as stated can pass on a single
+  unit.** *"If no `|I₁|` stratum contains units from two or more verdict cells →
+  CANNOT ATTRIBUTE"* is satisfied by a stratum holding 99 dominated units and one
+  unique-optimal unit, which would let an attribution claim rest on an `n` of one.
+  **Binding: every within-stratum contrast prints its per-stratum per-cell `n`, and
+  the separability sentence names the smallest cell count any part of it rests
+  on.** No threshold and no test — a threshold would be the invented inference the
+  design rightly refuses. **Just print the `n` and name the weakest link**, so a
+  reader sees immediately whether a contrast is carried by a hundred units or by
+  one.
+  (iii) **AMENDMENT 2 — print all four cells of the 2×2, not only the concordance
+  count.** The direction of the association is the informative part and a single
+  concordance integer hides it. Seed 5 hints at *anti*-correlation — small frontier
+  with high tie fraction — and if that is the survey's pattern the concordance
+  count alone reads as weak association when the truth is a strong association of
+  the opposite sign. **Four integers, each labelled with its half-plane.**
+  (iv) **AMENDMENT 3, and this one prevents a defect rather than sharpening a
+  reading. "SS-A13(i) seed-5 exclusion" is ambiguous and one reading of it would
+  corrupt the carrier.** SS-A13(i) barred the pre-run seed-5 **observation** from
+  appearing as evidence. It did **not** license removing seed 5's units from the
+  survey. **Seed 5's four units are in the carrier, in every total, in every
+  stratum and in every verdict cell, exactly like the units of every other seed** —
+  the carrier is defined by the freeze-54 generating rule and removing a seed
+  *because we looked at it early* would be precisely the selection-by-result that
+  SS-A1 says this survey exists to avoid. **What is excluded is one sentence, not
+  four units.** Binding, and the artifact says so in place so no successor
+  re-litigates it.
+  (v) **The BigRational decision is RATIFIED and was flagged the right way.** Four
+  hundred exact fractions over denominators near `10^6` have a least common
+  denominator no `i128` can hold; `BigRational` is the existing dependency with the
+  `fc_correlation` precedent; **the primary figure stays exact and the ppm bracket
+  is presentation-only, entering no proof and no comparison.** Raising it before a
+  stack trace rather than after is the same instinct as the SHA-256 self-check two
+  chapters ago, and it is worth noting that the builder has now twice reported an
+  arithmetic hazard while the choice was still cheap.
+  (vi) **One free companion, offered and not required.** The **median of the 400
+  per-unit fractions** needs only comparisons — no common denominator, no
+  `BigRational` arithmetic — and it is robust to a handful of extreme units driving
+  a mean. It is **computable after the fact from the committed summary**, since
+  every numerator and denominator is there, so **it need not be in tonight's run at
+  all.** If the mean and the median disagree materially in the reading, that
+  disagreement is worth a sentence, on the same principle as SS-A10(iv): a summary
+  that changes with the summarising choice is telling you about the distribution
+  rather than about the variable.
+  **RANGE RE-FROZEN: SS-A1..SS-A14**, freeze 54 unchanged, no measured object
+  added, nothing re-runnable-dependent. Verbatim re-brief owed per FC-A23(v).
