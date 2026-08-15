@@ -834,8 +834,10 @@ its 1,332 swept states (22.46%)**; h2's straddle holds at
 never about that feature.** No fee keyed on the clairvoyant choice can be expected to bite where the face is widely
 non-singleton, because FC-width widens the subgradient for *any* such feature. So the branch now holds a **pre-fee
 screening statistic** — the argmax cardinality profile, a property of the coordinate's world structure, measurable
-**before any fee is built**. The fee route is **structurally blocked** at such coordinates, and that is not a fixable
-defect of any candidate. The programme's first question at a new coordinate is no longer *which feature* but **"is
+**before any fee is built**. The fee route **is not to be expected to bite, robustly so**, at such
+coordinates, and that is not a fixable defect of any candidate. The modality is exact and the ruling corrected its
+own closing text for it: the width result makes zero capture **robust**, not positive capture **impossible** — a
+feature whose mean slope exceeded the half-width would still bite despite widespread ties. The programme's first question at a new coordinate is no longer *which feature* but **"is
 the clairvoyant choice pinned down enough for any fee to bite"** — a question cheaper than building a fee, and one
 that now has an exact statistic. It is the first thing this branch has that says where **not** to spend the attempt.
 
@@ -855,10 +857,14 @@ figures and are stated here because the wording matters:
   carries **a second, independent conservatism** beyond the descent running past it. Both make it smaller, never
   larger. This belongs with any citation of the 14.873%.
 
-The summary to carry, in the form the chapter's own later clause restates it: **a triage instrument and a poor
-estimator** — different jobs. The adjective "usable" does not survive the third bullet above, and the earlier
-wording that carried it is superseded by the clause that follows it. As a lower bound the screen can prove a fee
-bites and can never prove one does not.
+The bound is **one-sided**, and that is the whole of what may be said about it: **a positive bound PROVES a fee
+bites at that state; a zero or small bound proves NOTHING.** No false positives, unbounded false negatives. The
+substantive point underneath is unchanged — **screening and estimating are different jobs** — but the ruling
+replaced every graded phrasing of it after two attempts, because *"exact"* and *"usable"* are each true under one
+reading, invite a stronger one, and are silent about which. **The house form: do not grade an instrument — state
+what follows from a positive reading and what follows from a negative one.** A sentence built that way cannot be
+excerpted into something stronger than itself, which is the only durable protection, since escorts do not travel
+and sentences do.
 
 **The other results, each with its full scope named.** The **null control** held with both slopes exactly zero at
 **all 1,764 swept states across the three units**, blocking and first, its answer fixed by theorem. The **non-null

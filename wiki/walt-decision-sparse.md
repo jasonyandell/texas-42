@@ -694,9 +694,16 @@ linear piece. Three qualifications travel with those numbers, and the wording is
   carries **a second and independent conservatism** on top of the descent running past it. Both shrink it, never
   enlarge it. This belongs with any citation of the 14.873%.
 
-The ruling's own summary, in the form its own later clause restates it: **a triage instrument and a poor
-estimator** — different jobs, and the adjective "usable" does not survive the paragraph above. As a lower bound it
-can prove a fee bites and can never prove one does not, so its false-negative rate is the figure that matters.
+The bound is **one-sided**, and that is what may be said about it: **a positive bound PROVES a fee bites at that
+state; a zero or small bound proves NOTHING.** No false positives, unbounded false negatives. That is shorter and
+stronger than any adjective grading the instrument, and it is what the ruling settled on after two attempts —
+"exact" and "usable" both being true under one reading, inviting a stronger one, and silent about which. The
+substantive point underneath is unchanged: **screening and estimating are different jobs.**
+
+The house form this sets, and it binds past this chapter: **do not grade an instrument — state what follows from a
+positive reading and what follows from a negative one.** A sentence built that way cannot be excerpted into
+something stronger than itself, which is the only durable protection, because escorts do not travel and sentences
+do.
 
 ### The rest of the run, each figure with its full scope
 
@@ -717,8 +724,11 @@ straddle-false at 374 of those same 574 states — more states than the graded f
 was declined; what would reopen it is a shared-parameter capture at a *second* coordinate materially different from
 h0's, which would show the fee route is coordinate-robust. Nothing less.
 
-**Where this leaves the line.** The fee route works at h0's leading frontier and is **structurally blocked** wherever
-the clairvoyant face is widely non-singleton — not a fixable defect of any candidate. Every standing fence is
+**Where this leaves the line.** The fee route works at h0's leading frontier and **is not to be expected to bite,
+robustly so**, wherever the clairvoyant face is widely non-singleton — not a fixable defect of any candidate. The
+modality matters and the ruling corrected its own text for it: the width result makes zero capture **robust**, not
+positive capture **impossible**. A feature whose mean slope exceeded the half-width would still bite despite
+widespread ties; nothing forbids it. Every standing fence is
 undiminished: three units at two coordinates chosen by negative binding margin are **a carrier and not a sample**;
 **grade 4, so no verdict moved and none could**; the **first layer only**; and **nothing quoted for trick 1 or for
 the opening**, binding hardest here because multiplicity is now the variable most tempting to extrapolate.

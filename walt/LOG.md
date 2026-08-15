@@ -391,8 +391,9 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   feature.** No fee keyed on the clairvoyant choice can be *expected* to bite where
   the face is widely non-singleton, so the branch now holds a **pre-fee screening statistic**
   — the argmax cardinality profile, measurable before any fee is built — and the
-  fee route is **structurally blocked** at such coordinates, not defectively
-  served by a candidate. The programme's first question at a new coordinate is
+  fee route **is not to be expected to bite, robustly so**, at such coordinates,
+  not defectively served by a candidate — the width result makes zero capture
+  robust, never positive capture impossible. The programme's first question at a new coordinate is
   no longer "which feature" but **"is the clairvoyant choice pinned down enough
   for any fee to bite"**. Screen quality, in the bound wording: over the 1,252
   straddle-false states of h0's one unit at F2 the bound is **ATTAINED** (never
@@ -401,8 +402,11 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   κ_I** — so in use it is exactly as weak as 14.873%. The reach is measured to
   the nearest *candidate* breakpoint, which may fall short of a true kink, so
   the bound carries a second independent conservatism: both make it smaller,
-  never larger, and this belongs with any citation of the 14.873%. A **triage instrument and
-  a poor estimator**. Also: null control both slopes zero at all 1,764 swept
+  never larger, and this belongs with any citation of the 14.873%. The bound is
+  **one-sided** and that is what may be said of it: **a positive bound PROVES a
+  fee bites at that state; a zero or small bound proves NOTHING** — no false
+  positives, unbounded false negatives. Screening and estimating stay different
+  jobs; no adjective grades the instrument. Also: null control both slopes zero at all 1,764 swept
   states of the three units; (FC-R2) non-null pairing held at 518 of h0's 574
   leading states at F2; F1g **proved positive** at 322 of those 574 **but** the
   refuted binary form is straddle-false at 374 of the same 574 and cashed out at
