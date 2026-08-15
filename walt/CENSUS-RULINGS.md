@@ -11734,3 +11734,45 @@ Everything else here is proof and needs no code.
   operational form — built a second frozen table and **did not propose receipting
   it either**. Whether the boundary arrived in time or was reached independently,
   the outcome is the same and it is the outcome the boundary was written for.
+
+- **FC-A15 (what independent verification actually requires, discovered by the
+  steward about its own check and ratified here as doctrine; it is the SR-taut
+  principle raised one level, from the checked object to the checking process).**
+  Four clauses.
+  (i) **The steward's self-observation, stated as it stated it and ratified.** It
+  had reported the builder's 12,639 as independently confirmed, and it was — *in
+  the weak sense*: it ran **the same grep phrase the builder ran** and got the same
+  number. Its own conclusion is the right one: **"my check confirmed the count and
+  not the predicate"**, and had the error been in the predicate rather than the
+  arithmetic it would have confirmed a wrong number with full confidence and
+  reported it upward as verified. It volunteered this rather than let a
+  successful-looking check stand, which is the behaviour this record exists to
+  reward.
+  (ii) **The mechanism of the actual catch, named because it is the instructive
+  part: three parties, two predicates — and the independence that mattered was the
+  predicate's, not the party's.** My original count used the phrase
+  `"minimal fusion core"` and returned 12,693. The steward re-ran that same phrase
+  and confirmed 12,693's successor figure by the same route. **What broke the tie
+  was that the builder was counting a different object** — it transcribed the cores
+  themselves while wiring `fc_cores.rs`, so it counted *cores* where we counted
+  *lines matching a string* — and the diagnosis then came from decomposing the
+  predicate into `"…(fiber indices"` (12,639) and `"…of size"` (54). **Two agents
+  running one grep are one check, however many agents there are.**
+  (iii) **The doctrine.** *Independent verification means an independent
+  **predicate**, not an independent **party**.* A second reader re-running the first
+  reader's query has confirmed reproducibility and nothing else — and
+  reproducibility is exactly what a wrong predicate has in abundance. **Practical
+  form, adopted for this record: when confirming a count or a figure drawn from an
+  artifact, state the predicate alongside the number**, so that the next party can
+  see what was matched and deliberately choose a different route. A figure quoted
+  without its predicate cannot be independently checked; it can only be re-run.
+  (iv) **Why this is Proposition SR-taut one level up, and why it belongs in this
+  file.** SR-taut ruled that an assertion between two quantities the checker itself
+  derived is an arithmetic remark, and that a receipt must compare against something
+  it did not produce. **The same principle governs verification: a re-check that
+  reuses the original's method has not produced independent evidence, it has
+  produced the original's output a second time.** FT-A28(i) required a receipt to
+  name the carrier of its reference value; FC-A14(ii) required two scopes that must
+  coincide to be asserted equal; this requires a confirmation to name the route by
+  which it confirmed. **Four instances of one idea: evidence is only as independent
+  as the thing it did not share with what it checks.**
