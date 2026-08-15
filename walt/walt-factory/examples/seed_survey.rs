@@ -42,6 +42,9 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Mutex;
 use std::time::Instant;
 
+use num_bigint::BigInt;
+use num_rational::BigRational;
+use num_traits::Signed;
 use walt_core::{
     legal_plays, Context, ContextSet, Decl, Domino, DominoSet, Pip, Seat, Team, Trick,
 };
@@ -185,6 +188,61 @@ fn to_count(diff: Q, grade: usize) -> Q {
 /// quantities at a common state, so it is exactly TWICE its count value.
 fn tax_to_count(diff_tax: Q) -> Q {
     diff_tax * q(1, 2)
+}
+
+/// An exact rational in arbitrary precision. SS-A10(ii)'s PRIMARY statistic is
+/// an unweighted mean of up to 400 exact fractions whose denominators are
+/// arrival counts of order 10^6; their common denominator is unbounded and
+/// overflows `Q = Ratio<i128>` long before 400 terms. The mean is therefore
+/// accumulated here, exactly, with no float anywhere (P-A19).
+fn br(n: u128, d: u128) -> BigRational {
+    assert!(
+        d > 0,
+        "stop-and-report: an exact fraction with zero denominator"
+    );
+    BigRational::new(BigInt::from(n), BigInt::from(d))
+}
+
+fn brs(x: &BigRational) -> String {
+    format!("{}/{}", x.numer(), x.denom())
+}
+
+/// An exact parts-per-million bracket on a nonnegative rational, by integer
+/// arithmetic only (P-A19: no float anywhere). PRESENTATION ONLY — it enters no
+/// proof, no receipt and no comparison.
+fn ppm(x: &BigRational) -> String {
+    let scaled = x * BigRational::from_integer(BigInt::from(1_000_000));
+    let (lo, hi) = (scaled.floor().to_integer(), scaled.ceil().to_integer());
+    if lo == hi {
+        format!("{lo} ppm exactly")
+    } else {
+        format!("between {lo} and {hi} ppm")
+    }
+}
+
+/// The unweighted mean of exact fractions — SS-A10(ii)'s primary convention.
+/// `None` when the unit set is empty, so an empty cell never prints a mean.
+fn mean_of(xs: &[BigRational]) -> Option<BigRational> {
+    if xs.is_empty() {
+        return None;
+    }
+    let mut acc = BigRational::from_integer(BigInt::from(0));
+    for x in xs {
+        acc += x;
+    }
+    Some(acc / BigRational::from_integer(BigInt::from(xs.len())))
+}
+
+/// An order statistic of a sorted integer slice, by the declared rule: the
+/// lower median at even length, so every quantile is an EXACT observed value
+/// and no averaging of two observations is ever performed.
+fn order_stat(sorted: &[u64], num: usize, den: usize) -> u64 {
+    assert!(
+        !sorted.is_empty(),
+        "an order statistic needs a nonempty set"
+    );
+    let idx = (sorted.len() * num) / den;
+    sorted[idx.min(sorted.len() - 1)]
 }
 
 fn binom(n: u128, k: u128) -> u128 {
@@ -2304,7 +2362,7 @@ fn thin_row(so: &SeedOut, u: &UnitOut) -> String {
         );
     }
     format!(
-        "unit seed={:03} a=[{}] verdict={} Q^H={} margin={} Opt^H={{{}}} U^C={} gap={} D1={} D2={} U^(1)={} |I_1|={} arrivals={} |A(I)|[1,2,3]={},{},{} forced={} tie-nonsingleton={}/{} tax-support={} zero[forced,common]={},{} rows={} P1={} P2={} P3={} P4={} rulegaps={},{},{},{} partition={} fnv128={:032x} {} path-B={} steps[A,B]={},{} residual[A,B]={},{} count-residual={} H-residual={} revealed-steps={}",
+        "unit seed={:03} a=[{}] verdict={} Q^H={} margin={} Opt^H={{{}}} U^C={} gap={} D1={} D2={} U^(1)={} |I_1|={} arrivals={} |A(I)|[1,2,3]={},{},{} forced={} tie-nonsingleton={}/{} tax-support={} zero[forced,common]={},{} rows={} P1={} P2={} P3={} P4={} rulegaps={},{},{},{} partition={} fnv128={:032x} path-B={} {} steps[A,B]={},{} residual[A,B]={},{} count-residual={} H-residual={} revealed-steps={}",
         so.seed,
         tile(u.action),
         u.verdict,
@@ -2471,7 +2529,7 @@ fn header(out: &mut String, lo: usize, hi: usize, partial: bool, workers: usize)
     let _ = writeln!(out);
     let _ = writeln!(
         out,
-        "NAMED AS NON-RECEIPTS and printed as arithmetic remarks (SS-A6(x), Proposition SR-taut — they cannot fail): delta_I >= 0; Delta^(1) >= 0; the fusion gap >= 0; and the tie fraction lying in [0,1]."
+        "NAMED AS NON-RECEIPTS and printed as arithmetic remarks (SS-A6(x), Proposition SR-taut — they cannot fail): delta_I >= 0; Delta^(1) >= 0; the fusion gap >= 0; the tie fraction lying in [0,1]; and, ADDED BY SS-A11(iii), the ladder identity U^C - Q^H = Delta^(1) + Delta^(2) itself, which with Delta^(2) := gap - Delta^(1) is an identity in this probe's own recomputed quantities. It is still computed and still printed on every unit row; it is simply never counted among the receipts HELD. The adjudicator's original justification for (SS-R5) is left visible rather than rewritten (LD-A11(ii)), and the receipt's real content is the U^(0) = U^C comparison named above."
     );
     let _ = writeln!(out);
     if partial {
@@ -2487,6 +2545,308 @@ fn header(out: &mut String, lo: usize, hi: usize, partial: bool, workers: usize)
         hi - lo + 1,
         4 * (hi - lo + 1)
     );
+}
+
+// == SS-A10: the aggregation of the tie statistic ==========================
+
+/// One COMPLETED unit's aggregation inputs. Every field is exact; there is no
+/// sampling error anywhere in this survey (SS-A10(iii)), so a weighting choice
+/// selects a population rather than a reliability.
+struct UnitStat {
+    verdict: String,
+    /// Non-singleton complete-argmax arrivals over total arrivals, exact over
+    /// this unit's COMPLETE arrival set.
+    tie: BigRational,
+    nonsingleton: u64,
+    arrivals: u64,
+    states: u64,
+}
+
+impl UnitStat {
+    /// SS-A10(v)'s grouping: the separation-structure side of the comparison —
+    /// units in `Opt^H` against DOMINATED units.
+    fn in_opt(&self) -> bool {
+        self.verdict != "DOMINATED"
+    }
+}
+
+fn cell_lines(out: &mut String, label: &str, us: &[&UnitStat], lo: usize, hi: usize) {
+    if us.is_empty() {
+        let _ = writeln!(
+            out,
+            "  {label}: 0 units of seeds {lo}..={hi}; no figure printed."
+        );
+        return;
+    }
+    let fracs: Vec<BigRational> = us.iter().map(|u| u.tie.clone()).collect();
+    let mean = mean_of(&fracs).expect("nonempty");
+    let ns: u128 = us.iter().map(|u| u128::from(u.nonsingleton)).sum();
+    let ar: u128 = us.iter().map(|u| u128::from(u.arrivals)).sum();
+    let pooled = br(ns, ar);
+    let mut st: Vec<u64> = us.iter().map(|u| u.states).collect();
+    st.sort_unstable();
+    let st_sum: u128 = st.iter().map(|x| u128::from(*x)).sum();
+    let st_mean = br(st_sum, us.len() as u128);
+    let _ = writeln!(
+        out,
+        "  {label}: {} completed unit(s) of seeds {lo}..={hi}. TIE MULTIPLICITY — per-unit mean (PRIMARY, SS-A10(ii)) {} = {}; arrival-pooled {} = {} (over {ns} of {ar} arrivals). FRONTIER SIZE, reported SIDE BY SIDE per SS-A10(v) over the SAME unit set — per-unit mean |I_1| {} (integer part {}); min {} / median {} / max {}.",
+        us.len(),
+        brs(&mean),
+        ppm(&mean),
+        brs(&pooled),
+        ppm(&pooled),
+        brs(&st_mean),
+        st_mean.to_integer(),
+        st[0],
+        order_stat(&st, 1, 2),
+        st[st.len() - 1]
+    );
+}
+
+/// The contrast SS-A7(b) is about: the per-unit-mean tie fraction of units in
+/// `Opt^H` less that of DOMINATED units. `None` when either group is absent.
+fn contrast(us: &[&UnitStat]) -> Option<BigRational> {
+    let a: Vec<BigRational> = us
+        .iter()
+        .filter(|u| u.in_opt())
+        .map(|u| u.tie.clone())
+        .collect();
+    let b: Vec<BigRational> = us
+        .iter()
+        .filter(|u| !u.in_opt())
+        .map(|u| u.tie.clone())
+        .collect();
+    Some(mean_of(&a)? - mean_of(&b)?)
+}
+
+fn sign_word(x: &BigRational) -> &'static str {
+    match x.numer().sign() {
+        num_bigint::Sign::Plus => "positive",
+        num_bigint::Sign::Minus => "negative",
+        num_bigint::Sign::NoSign => "zero",
+    }
+}
+
+#[allow(clippy::too_many_lines)]
+fn emit_aggregation(out: &mut String, us: &[UnitStat], unit_set: &str, lo: usize, hi: usize) {
+    let all: Vec<&UnitStat> = us.iter().collect();
+    let fracs: Vec<BigRational> = us.iter().map(|u| u.tie.clone()).collect();
+    let tot_ns: u128 = us.iter().map(|u| u128::from(u.nonsingleton)).sum();
+    let tot_arr: u128 = us.iter().map(|u| u128::from(u.arrivals)).sum();
+    let tot_states: u128 = us.iter().map(|u| u128::from(u.states)).sum();
+
+    let _ = writeln!(
+        out,
+        "AGGREGATION CONVENTION (SS-A10, ruled BEFORE any survey total existed). BOTH conventions are emitted and THE PER-UNIT MEAN IS PRIMARY. The reason is what the statistic is FOR, not which way any coordinate points: SS-A7(b) asks whether multiplicity tracks SEPARATION STRUCTURE, separation structure is carried by the UNIT — the verdict cell is per-unit, and a fee, if one is ever built, is built at a unit — so the unit is the observational unit and units weigh equally. Arrival-pooling answers a different question, the chance that a randomly drawn arrival of the pooled survey is non-singleton, and it weights units by frontier size, which is not what SS-A7(b) is about. The usual reason to weight by n does not apply here: THERE IS NO SAMPLING ERROR ANYWHERE IN THIS SURVEY — every per-unit fraction is an exact rational over that unit's COMPLETE arrival set — so a weighting choice selects a population, never a reliability (SS-A10(iii))."
+    );
+    let _ = writeln!(
+        out,
+        "BINDING (SS-A10(iv)): an SS-A7(b) association is reportable ONLY IF IT HOLDS UNDER BOTH CONVENTIONS. Where they disagree, THE DISAGREEMENT IS THE FINDING and is reported as such, never resolved by preferring one — an association that appears under unit weighting and vanishes under arrival weighting is telling you that FRONTIER SIZE, not tie multiplicity, is the thing associated, and that is a real and different result."
+    );
+    let _ = writeln!(out);
+
+    if us.is_empty() {
+        let _ = writeln!(
+            out,
+            "TIE MULTIPLICITY: no completed unit in this run; no figure printed."
+        );
+        return;
+    }
+    let mean = mean_of(&fracs).expect("nonempty");
+    let pooled = br(tot_ns, tot_arr);
+    let _ = writeln!(
+        out,
+        "TIE MULTIPLICITY, over {unit_set}, the {tot_arr} (state, world) arrivals they produced at the {tot_states} depth-one frontier states, and seeds {lo}..={hi}:"
+    );
+    let _ = writeln!(
+        out,
+        "  PRIMARY — per-unit mean of the exact per-unit fractions: {} = {} (unweighted, over {} units).",
+        brs(&mean),
+        ppm(&mean),
+        us.len()
+    );
+    let _ = writeln!(
+        out,
+        "  SECONDARY — arrival-pooled: {} = {} ({tot_ns} of {tot_arr} arrivals). (Arithmetic remark, SS-A6(x): both fractions lie in [0,1] and cannot fail.)",
+        brs(&pooled),
+        ppm(&pooled)
+    );
+    let _ = writeln!(out);
+
+    let _ = writeln!(
+        out,
+        "BY VERDICT CELL — the SS-A7(b)/(c)/(d) comparison, reported as measured with NO MECHANISM CLAIMED, each cell carrying BOTH conventions and the frontier-size association SIDE BY SIDE over the same unit set (SS-A10(v)). {SEPARATION_SENSE}"
+    );
+    let mut cells: BTreeMap<&str, Vec<&UnitStat>> = BTreeMap::new();
+    for u in us {
+        cells.entry(u.verdict.as_str()).or_default().push(u);
+    }
+    for (label, v) in &cells {
+        cell_lines(out, label, v, lo, hi);
+    }
+    let _ = writeln!(out);
+
+    // ---- the |I_1| stratification: the actual separability test -----------
+    let mut st: Vec<u64> = us.iter().map(|u| u.states).collect();
+    st.sort_unstable();
+    let cuts = [
+        order_stat(&st, 1, 4),
+        order_stat(&st, 2, 4),
+        order_stat(&st, 3, 4),
+    ];
+    let _ = writeln!(
+        out,
+        "THE CONFOUND CHECK (SS-A10(v)), the clause that decides whether this survey may attribute anything to tie multiplicity at all. Units are stratified by the SURVEY'S OWN |I_1| quartiles — order statistics of the observed |I_1| values, so every cut point is an EXACT OBSERVED VALUE and no two observations are ever averaged. Cut points over {unit_set}: {} / {} / {} (min {}, max {}). A verdict-cell contrast that survives INSIDE a stratum is separated from frontier size; one that exists only ACROSS strata is not.",
+        cuts[0],
+        cuts[1],
+        cuts[2],
+        st[0],
+        st[st.len() - 1]
+    );
+    let strat = |u: &UnitStat| -> usize {
+        if u.states <= cuts[0] {
+            0
+        } else if u.states <= cuts[1] {
+            1
+        } else if u.states <= cuts[2] {
+            2
+        } else {
+            3
+        }
+    };
+    let names = ["Q1 (smallest |I_1|)", "Q2", "Q3", "Q4 (largest |I_1|)"];
+    let overall = contrast(&all);
+    let mut mixed = 0usize;
+    let mut agree = 0usize;
+    // SS-A14(ii): the weakest link. A within-stratum contrast can rest on a
+    // single unit, so the smallest per-cell n that any part of the separability
+    // sentence rests on is tracked and named. No threshold and no test — a
+    // threshold would be the invented inference this design refuses.
+    let mut weakest: Option<usize> = None;
+    for (k, name) in names.iter().enumerate() {
+        let bucket: Vec<&UnitStat> = us.iter().filter(|u| strat(u) == k).collect();
+        if bucket.is_empty() {
+            let _ = writeln!(
+                out,
+                "  {name}: empty — |I_1| ties collapse this stratum, which is itself a fact about the carrier."
+            );
+            continue;
+        }
+        let n_opt = bucket.iter().filter(|u| u.in_opt()).count();
+        let n_dom = bucket.len() - n_opt;
+        let c = contrast(&bucket);
+        let verdict_txt = match (&c, &overall) {
+            (Some(c), Some(o)) => {
+                mixed += 1;
+                if sign_word(c) == sign_word(o) && sign_word(c) != "zero" {
+                    agree += 1;
+                }
+                let link = n_opt.min(n_dom);
+                weakest = Some(weakest.map_or(link, |w: usize| w.min(link)));
+                format!(
+                    "within-stratum contrast (per-unit-mean tie of Opt^H units LESS that of DOMINATED units) = {} = {} in magnitude, {} — the overall contrast is {}; THIS CONTRAST RESTS ON n = {n_opt} Opt^H unit(s) against n = {n_dom} DOMINATED unit(s), smaller cell {link} (SS-A14(ii))",
+                    brs(c),
+                    ppm(&c.abs()),
+                    sign_word(c),
+                    sign_word(o)
+                )
+            }
+            _ => "no within-stratum contrast exists — this stratum holds units of only one group, so it can separate nothing".to_owned(),
+        };
+        let bucket_mean = mean_of(&bucket.iter().map(|u| u.tie.clone()).collect::<Vec<_>>())
+            .map_or_else(|| "n/a".to_owned(), |m| brs(&m));
+        let _ = writeln!(
+            out,
+            "  {name}: {} unit(s) ({n_opt} in Opt^H, {n_dom} DOMINATED); per-unit-mean tie fraction {bucket_mean}; {verdict_txt}.",
+            bucket.len()
+        );
+    }
+
+    // ---- the exact 2x2 collinearity count ---------------------------------
+    let mut sorted_tie = fracs.clone();
+    sorted_tie.sort();
+    let med_tie = sorted_tie[sorted_tie.len() / 2].clone();
+    let med_st = order_stat(&st, 1, 2);
+    let (mut hh, mut hl, mut lh, mut ll) = (0u64, 0u64, 0u64, 0u64);
+    for u in us {
+        match (u.tie > med_tie, u.states > med_st) {
+            (true, true) => hh += 1,
+            (true, false) => hl += 1,
+            (false, true) => lh += 1,
+            (false, false) => ll += 1,
+        }
+    }
+    // SS-A14(iii): all four cells, each labelled with its half-plane. The
+    // DIRECTION is the informative part — seed 5 hinted at ANTI-correlation
+    // (small frontier, high tie fraction) — and a bare concordance integer
+    // would read a strong opposite-sign association as a weak one.
+    // The marginals, printed so a DEGENERATE split is visible on sight: with
+    // heavy ties in |I_1| a median can coincide with the maximum, throwing
+    // every unit into one half-plane and making the four cells uninformative.
+    // Printing the margins is the same discipline as printing the n.
+    let (m_tie_hi, m_st_hi) = (hh + hl, hh + lh);
+    let degenerate =
+        m_tie_hi == 0 || m_st_hi == 0 || m_tie_hi == us.len() as u64 || m_st_hi == us.len() as u64;
+    let lean = if degenerate {
+        "is DEGENERATE — one median coincides with an extreme of its own distribution, so every unit falls in a single half-plane and the four cells carry no direction at all"
+    } else if hh + ll > hl + lh {
+        "leans CONCORDANT (large frontiers go with high tie fractions)"
+    } else if hl + lh > hh + ll {
+        "leans ANTI-CORRELATED (SMALL frontiers go with HIGH tie fractions), which is the direction seed 5 hinted at"
+    } else {
+        "is exactly balanced between the two directions"
+    };
+    let _ = writeln!(
+        out,
+        "  COLLINEARITY, exact counts over {unit_set}, all four cells with their half-planes (SS-A14(iii)). Units are split at the survey's own medians — tie fraction {}, |I_1| {}. [high tie, high |I_1|] = {hh}; [high tie, LOW |I_1|] = {hl}; [low tie, high |I_1|] = {lh}; [low tie, low |I_1|] = {ll}. Concordant (both high or both low) {} of {}; discordant {} of {}. MARGINALS, printed so a degenerate split is visible on sight: {m_tie_hi} of {} units lie strictly above the tie median and {m_st_hi} of {} strictly above the |I_1| median. The table {lean}. Integers only; this counts co-movement, IS NOT AN INFERENTIAL TEST, and claims no mechanism.",
+        brs(&med_tie),
+        med_st,
+        hh + ll,
+        us.len(),
+        hl + lh,
+        us.len(),
+        us.len(),
+        us.len()
+    );
+    // SS-A14(vi), the free companion: the MEDIAN of the per-unit fractions
+    // needs only comparisons — no common denominator and no BigRational
+    // arithmetic — and is robust to a handful of extreme units driving a mean.
+    let _ = writeln!(
+        out,
+        "  MEDIAN of the per-unit fractions (SS-A14(vi), comparisons only, no common denominator): {} = {}, against the primary per-unit MEAN {} = {}. If these disagree materially the disagreement is worth a sentence in the reading, on SS-A10(iv)'s principle: a summary that changes with the summarising choice is telling you about the distribution rather than about the variable.",
+        brs(&med_tie),
+        ppm(&med_tie),
+        brs(&mean),
+        ppm(&mean)
+    );
+
+    // ---- the separability sentence, by the rule stated here ---------------
+    let answer = if overall.is_none() {
+        "NOT APPLICABLE — this unit set does not contain both groups, so no contrast exists at all."
+    } else if mixed == 0 {
+        "CANNOT ATTRIBUTE — no |I_1| stratum holds both groups, so tie multiplicity and frontier size are PERFECTLY CONFOUNDED at this carrier. The survey must credit neither variable, and per SS-A10(v) it says so rather than crediting the one we came in believing."
+    } else if agree == mixed {
+        "SEPARATES — every stratum holding both groups shows a contrast of the same nonzero sign as the overall contrast, so the association survives conditioning on frontier size."
+    } else {
+        "DOES NOT SEPARATE CLEANLY — the within-stratum contrasts do not all carry the overall sign, so this survey cannot attribute the association to tie multiplicity rather than to frontier size."
+    };
+    let _ = writeln!(
+        out,
+        "  DECLARED RULE, applied mechanically and stated before its answer is read: if NO |I_1| stratum contains units from both groups (Opt^H and DOMINATED), the two explanators are PERFECTLY CONFOUNDED at this carrier and the survey CANNOT ATTRIBUTE. Otherwise the within-stratum contrasts printed above stand, and the survey SEPARATES them only if every stratum holding both groups shows a contrast of the SAME NONZERO SIGN as the overall contrast; anything else is DOES NOT SEPARATE CLEANLY."
+    );
+    let weak_txt = weakest.map_or_else(
+        || "no within-stratum contrast exists, so this sentence rests on no cell at all".to_owned(),
+        |w| format!("THE WEAKEST LINK: the smallest per-cell n that any part of this sentence rests on is {w} unit(s) (SS-A14(ii)). A contrast carried by one unit and a contrast carried by a hundred read identically without this number, which is why it is printed"),
+    );
+    let _ = writeln!(
+        out,
+        "  DOES THIS SURVEY SEPARATE TIE MULTIPLICITY FROM FRONTIER SIZE? {answer} ({mixed} stratum/strata held both groups; {agree} of those agreed in sign with the overall contrast.) {weak_txt}."
+    );
+    let _ = writeln!(
+        out,
+        "  CARRIER MEMBERSHIP, said in place so no successor re-litigates it (SS-A14(iv)): SEED 5's FOUR UNITS ARE IN THIS CARRIER, in every total, every stratum and every verdict cell above, exactly like the units of every other seed. SS-A13(i) excluded the pre-run seed-5 OBSERVATION from appearing as evidence — ONE SENTENCE, NOT FOUR UNITS. The carrier is defined by the freeze-54 generating rule, and removing a seed because it was looked at early would be precisely the selection-by-result that SS-A1 says this survey exists to avoid."
+    );
+    let _ = writeln!(out);
 }
 
 // == main ==================================================================
@@ -2723,6 +3083,10 @@ fn main() {
     let mut tot_support: u128 = 0;
     let mut tot_forced: u128 = 0;
     let mut not_priced: Vec<String> = Vec::new();
+    // SS-A10: the per-unit inputs to BOTH aggregation conventions. Every
+    // COMPLETED unit contributes exactly one entry — including seed 5's four,
+    // per SS-A14(iv) — and a DECLARED STOP contributes none.
+    let mut ustats: Vec<UnitStat> = Vec::new();
     let mut by_verdict: BTreeMap<String, (u64, u128, u128, u128, u128)> = BTreeMap::new();
     let mut coord_keys: BTreeMap<String, Vec<usize>> = BTreeMap::new();
     let mut r6_positive = 0u64;
@@ -2777,6 +3141,13 @@ fn main() {
                     u.part_count
                 ));
             }
+            ustats.push(UnitStat {
+                verdict: u.verdict.clone(),
+                tie: br(u128::from(u.nonsingleton), u128::from(u.n_arrivals)),
+                nonsingleton: u.nonsingleton,
+                arrivals: u.n_arrivals,
+                states: u.n_states,
+            });
             let e = by_verdict
                 .entry(u.verdict.clone())
                 .or_insert((0, 0, 0, 0, 0));
@@ -2809,7 +3180,7 @@ fn main() {
     );
     let _ = writeln!(
         out,
-        "(SS-R5) THE LADDER RECEIPT — HELD over {unit_set}: per unit, U^C(b) - Q^H(b) = Delta^(1)(b) + Delta^(2)(b), with Delta^(1) SUMMED FROM THE FRONTIER TABLE (PATH A), U^C and Q^H FROM THEIR OWN SOLVES (the walt-strat revealed and H passes), and Delta^(2) by Corollary FT-grade4. WHERE ITS CONTENT LIVES, stated plainly because the identity as written is otherwise definitional: at EVERY unit the frontier table's OWN reconstruction U^(0) — folded from the depth-one arrival weights and the per-world revealed continuations of PATH A — is asserted EXACTLY EQUAL to the revealed solve's U^C. That is three quantities from three different passes tied by Corollary FT-grade4, and it fails on any error in the frontier decomposition. STRENGTHENED FURTHER ON THE DECLARED SAMPLE (the first unit of every block, {} unit(s) here): the independently written glue-one-then-reveal walker (PATH B) computes U^(1), hence Delta^(2), FROM A PASS OF ITS OWN, and both U^(1) = U^C - Delta^(1) and PATH B's Delta^(2) = Corollary FT-grade4's are asserted. PATH B is sampled rather than universal because it costs a second whole-fiber traversal per unit; the sample is a function of the seed and action index alone and is declared here, never chosen by a result.",
+        "(SS-R5) THE LADDER RECEIPT, IN ITS AMENDED FORM (SS-A11, which ratified this placement and corrected SS-A6(v)'s original justification) — HELD over {unit_set}. WHAT IS ASSERTED AND WHERE THE CONTENT LIVES: at EVERY unit the frontier table's OWN reconstruction U^(0) — folded from the depth-one arrival weights and the per-world revealed continuations of PATH A — is asserted EXACTLY EQUAL to the revealed solve's U^C. That is a comparison against something the checker did not produce, which is Proposition SR-taut's test, and it fails on any error in the frontier decomposition. STRENGTHENED ON THE DECLARED SAMPLE (the first unit of every block, {} unit(s) here): the independently written glue-one-then-reveal walker (PATH B) computes U^(1), hence Delta^(2), FROM A PASS OF ITS OWN, and both U^(1) = U^C - Delta^(1) and PATH B's Delta^(2) = Corollary FT-grade4's are asserted. PATH B is sampled rather than universal because it costs a second whole-fiber traversal per unit; the sample is a function of the seed and the action index alone, declared before any result and never chosen by one. NOT COUNTED AMONG THE RECEIPTS HELD, per SS-A11(iii): the identity U^C - Q^H = Delta^(1) + Delta^(2) itself, which with Delta^(2) := gap - Delta^(1) is an identity in the probe's own recomputed quantities and CANNOT FAIL — it is retained and printed below among SS-A6(x)'s arithmetic remarks, where it belongs.",
         path_b_units
     );
     let _ = writeln!(
@@ -2838,10 +3209,7 @@ fn main() {
 
     // ---- the measurements -------------------------------------------------
     let _ = writeln!(out, "== AGGREGATES (SS-A7(b)-(g); every one scoped) ==");
-    let _ = writeln!(
-        out,
-        "TIE MULTIPLICITY, over {unit_set} and the {tot_arrivals} (state, world) arrivals they produced at the {tot_states} depth-one frontier states of seeds {lo}..={hi}: {tot_nonsingleton}/{tot_arrivals} arrivals have a NON-SINGLETON COMPLETE clairvoyant argmax. (Arithmetic remark, SS-A6(x): the fraction lies in [0,1] and cannot fail.)"
-    );
+    emit_aggregation(&mut out, &ustats, &unit_set, lo, hi);
     let _ = writeln!(
         out,
         "TAX SPARSITY OFF-CARRIER (SS-A7(e)), over the same unit, state and seed sets: {tot_support}/{tot_states} depth-one frontier states have delta_I > 0. This is the first out-of-carrier reading of the number whose margin-selected value was 4.49% at five units; it is filed either way and IS NEVER QUOTED FOR TRICK 1 OR FOR THE OPENING (P-A21)."
@@ -2853,12 +3221,12 @@ fn main() {
     let _ = writeln!(out);
     let _ = writeln!(
         out,
-        "BY VERDICT CELL — the SS-A7(b)/(c)/(d) comparison, reported as measured with NO MECHANISM CLAIMED. {SEPARATION_SENSE}"
+        "TAX SUPPORT BY VERDICT CELL — the same cells as the tie tables above, carrying the delta_I > 0 counts. {SEPARATION_SENSE}"
     );
     for (v, (n, ns, ar, sup, st)) in &by_verdict {
         let _ = writeln!(
             out,
-            "  {v}: {n} completed unit(s) of seeds {lo}..={hi}; non-singleton clairvoyant argmax arrivals {ns}/{ar}; frontier states with delta_I > 0 {sup}/{st}."
+            "  {v}: {n} completed unit(s) of seeds {lo}..={hi}; frontier states with delta_I > 0 {sup}/{st}; non-singleton clairvoyant argmax arrivals {ns}/{ar} (arrival-pooled; the PRIMARY per-unit-mean form of this cell is in the tie tables above, SS-A10(ii))."
         );
     }
     let _ = writeln!(out);
@@ -2912,6 +3280,12 @@ fn main() {
         "== PROVENANCE (never a receipt, never a dividend; N4-A13, DS-A31/DS-A36) =="
     );
     let _ = writeln!(out, "{resume_line}");
+    let _ = writeln!(
+        out,
+        "BINARY PROVENANCE (run-owner requirement, 2026-08-15): the coordinates in this file were SOLVED by the binary built from commit {}, and this file was ASSEMBLED by the binary built from commit {}. Where those differ, every unit value above was LOADED FROM A CHECKPOINT BLOCK written by the solving binary, with each loaded seed's generator output re-derived from the seed alone and asserted byte-identical (DS-A36); the assembling binary changed PRESENTATION ONLY — no coordinate was re-solved and no measured value was recomputed by it, save the (SS-R8) declared sample, which is re-run in full by design. Both hashes are declared at run time (SS_SOLVE_COMMIT / SS_ASSEMBLY_COMMIT) and are provenance, never a receipt.",
+        std::env::var("SS_SOLVE_COMMIT").unwrap_or_else(|_| "unset (not declared)".to_owned()),
+        std::env::var("SS_ASSEMBLY_COMMIT").unwrap_or_else(|_| "unset (not declared)".to_owned())
+    );
     let rss_kb = rss_kb();
     let _ = writeln!(
         out,
