@@ -12589,3 +12589,68 @@ SS-A2 and it is the only change of substance I have made to Jason's design.
   rather than about the variable.
   **RANGE RE-FROZEN: SS-A1..SS-A14**, freeze 54 unchanged, no measured object
   added, nothing re-runnable-dependent. Verbatim re-brief owed per FC-A23(v).
+
+- **SS-A15 (the survey's reading: SS-A10(iv) fired, the association is NOT
+  reportable, and the disagreement diagnoses to a structural fact nobody
+  pre-declared).** Seven clauses, in the relaxed register — this is filed because
+  it will be quoted, not because the run needed ceremony.
+  (i) **SS-A10(iv) fired on its first live test and the builder applied it
+  correctly.** The two conventions agree on the survey total (per-unit 450,298 ppm,
+  pooled 463,222 ppm) and **reverse the verdict-cell ordering**: per-unit puts
+  TIED-OPTIMAL first (484,114 > 448,365 > 447,315), pooled puts it last
+  (469,362 > 465,742 > 422,608). **The SS-A7(b) association is therefore not
+  reportable**, and the disagreement is the finding.
+  (ii) **What the finding is, which is more than "they disagreed."** The two
+  conventions differ in exactly one thing — how much they weight frontier size —
+  so a reversal means the verdict-cell contrast is carried by frontier size rather
+  than by tie multiplicity. **The stratum composition shows it directly: `Opt^H`
+  units are 52 of 101 in the smallest-`|I₁|` quartile — 51.5% — against 23.0%,
+  19.8% and 20.4% in Q2, Q3, Q4.** That is a **step at Q1, not a gradient**: 115
+  optimal units against a uniform expectation near 29 per quartile, a 2.6× skew
+  between the extremes. **Any statistic that varies with frontier size will appear
+  to sort verdict cells at this carrier**, and the marginal 2×2 (108/91/91/110,
+  concordant 218 against 200 expected) does not see it because the entanglement is
+  *between cells and strata*, not marginal between the two variables.
+  (iii) **The builder's SS-A7(d) reading is ADOPTED WITH A SHARPENING.**
+  "Present but non-monotone" is defensible and under-diagnoses. The relation is not
+  merely non-monotone — **it is confounded by a structural regularity of the game,
+  and the survey's own declared rule already reaches CANNOT ATTRIBUTE without
+  needing this diagnosis.** Filed as (d), with (ii) as the mechanism and no claim
+  that the mechanism is established.
+  (iv) **THE FINDING NOBODY PRE-DECLARED, and it is the survey's most interesting
+  output: optimal root actions systematically produce SMALLER depth-one
+  frontiers.** Half the smallest-frontier quartile is `Opt^H` against a fifth of
+  every other quartile. **It is an observation and not a test** — it was not
+  pre-declared, so it gets no F7 protection and no mechanism is claimed. **But it
+  is on an unselected carrier, which is the one thing this survey was built to make
+  possible**, and it is the first structural regularity this branch has measured on
+  coordinates chosen by arithmetic rather than by outcome. A plain candidate
+  reading, offered as speculation: an action that constrains the opponents' legal
+  sets produces fewer distinct continuations *and* tends to be strong — leading
+  trump forces follows. Untested.
+  (v) **A free design note for whoever cuts this next.** Global `|I₁|` quartiles
+  mix **within-coordinate** variation (the four actions at one coordinate differ in
+  frontier size — seed 5's 480 against 37,584 was exactly that) with
+  **between-coordinate** variation (whole coordinates differ). The within-coordinate
+  rank of `|I₁|` is the sharper cut and would separate the two, and **it is
+  computable from the committed summary at no cost and with no re-run.** Not owed;
+  worth an hour.
+  (vi) **Two ratifications and three filings, one line each.** The degenerate-split
+  guard: **RATIFIED**, moot at 400 as expected, correct to keep in the format. The
+  parallel (SS-R8) schedule change: **RATIFIED**, DS-A36 exercised and held.
+  Sparsity off-carrier `1302799/20833948` = **6.25%**, against 4.49% at the five
+  margin-selected units — **the selected carrier was sparser than typical**, which
+  is the direction that makes the earlier number a mild under-read rather than an
+  over-read. Forced frontier states `7559571/20833948` = **36.3%** — over a third
+  of frontier states carry no decision at all, the first such measurement on an
+  unselected carrier, and typed per J-A1 as its own column and never as a deadness
+  count. Median of the per-unit fractions 425,217 ppm against the mean 450,298 —
+  **right-skewed, a tail of high-tie units pulling the mean**, which is exactly the
+  disagreement SS-A14(vi) suggested watching for and it is material.
+  (vii) **What this does and does not say about Proposition FC-width.** FC-width is
+  a theorem about the subgradient and is untouched. What loses support is the
+  **screening chain**: multiplicity → separation difficulty → fee viability. **This
+  survey breaks the first arrow at unselected coordinates.** The second arrow was
+  never tested here (SS-A1 said so before the run) and still rests on two
+  coordinates. **The h2/h0 fee contrast is not refuted by this** — it is simply not
+  corroborated, and the cheap screen it promised is not available on this evidence.
