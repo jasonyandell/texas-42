@@ -20,9 +20,22 @@
 //! COVERAGE, stated because it is load-bearing for (FC-R3) and (FC-R4): the
 //! v1.1 run swept **F0 and F2 only**. F1 was settled at FF-A13 and not
 //! computed there; F1g appears for the first time in this chapter. **This
-//! table therefore carries no `kappa_I` for F1 or F1g**, and which features
-//! (FC-R3)/(FC-R4) range over is under the ambiguity protocol with
-//! walt-math-11 at the time of writing.
+//! table therefore carries no `kappa_I` for F1 or F1g.**
+//!
+//! RESOLVED AT FC-A10, reading (A): **(FC-R3) and (FC-R4) range over F0 and F2
+//! only** — 1,764 swept states per feature — and FC-A6(iii)/(iv) are corrected
+//! in place to read "every feature carrying a frozen `kappa_I` — F0 and F2",
+//! naming the set rather than deriving it from an adjective. The erroneous
+//! phrasing "every swept feature" STAYS VISIBLE above it per LD-A11(ii), so a
+//! successor will meet both and needs to know this one governs.
+//!
+//! F1 and F1g therefore carry **no `kappa_I` column and no comparison**. They
+//! still emit the FC-drop bound, which FC-A10 rules is a different object from
+//! a capture number: by Proposition FC-drop(c) a positive `|s| * t_0` PROVES
+//! capture is at least that much, needing no minimisation and no `kappa_I`.
+//! It is labelled "proved lower bound on capture (Proposition FC-drop(c))",
+//! never "capture", and every F1/F1g row states in place why there is no
+//! comparison.
 //!
 //! Units are indexed in freeze 53(a) order: 0 = h0 a=00, 1 = h2 a=53,
 //! 2 = h2 a=54. Features: 0 = F0 boss_owner, 1 = F2 b_is_beatable (amended).
