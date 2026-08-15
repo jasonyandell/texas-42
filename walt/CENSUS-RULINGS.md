@@ -11582,3 +11582,47 @@ Everything else here is proof and needs no code.
   future run. This is the general shape: **when a defect class is invisible to the
   receipts, the answer is a new receipt, and the human check shrinks to confirming
   the one line the receipt cannot see.**
+
+- **FC-A12 (`7646ca6` checked; the transcription guard already exists and is
+  stronger than the one I would have added; and the boundary of FC-A11's lesson,
+  fixed so it is not over-applied).** Three clauses.
+  (i) **FC-A10(ii)'s cited fingerprint still identifies the committed object.**
+  `7646ca6` touches `walt-factory/src/fc_kappa.rs` — the transcribed table in the
+  probe **source** — and not `feature_fee_v11_2026-08-14.txt`. The results file's
+  SHA-256 re-reads `8ad7ec1f…d4670` at adjudication time, unchanged, so the
+  fingerprint I quoted in a ruling still resolves. Checked rather than assumed,
+  because a ruling that cites a fingerprint has taken on the obligation to notice
+  when it goes stale.
+  (ii) **The guard I was going to require is already in place, and it is a
+  bijection rather than an aggregate — nothing is added.** I had intended to
+  require a cross-check of the 3,528 transcribed `κ_I` against an independently
+  transcribed aggregate, on the reasoning that a transcription slip would present
+  as a **theorem failure** — (FC-R4) reporting `κ_I < |s|·t_0` — and so would
+  trigger stop-and-report against Proposition FC-drop when the proposition is fine.
+  That reasoning stands; the requirement does not, because `fc_kappa.rs`'s header
+  already records three checks made at transcription time: the six per-block counts;
+  **every `captured =` row in the source claimed by exactly one block, 3,528 of
+  3,528, none unclaimed and none double-claimed**; and all 3,528 `(unit, feature,
+  record)` keys distinct. **A bijection between source rows and table entries is
+  strictly stronger than any sum over them**, and it forecloses the failure mode
+  that motivated my addition. **Proportionality (FT-A28(iv)): nothing is added, and
+  the reason it is not added is recorded so the omission is a decision rather than
+  an oversight.**
+  (iii) **The boundary of FC-A11's lesson, fixed now because a successor will
+  otherwise cross it.** FC-A11 ruled that when a defect class is invisible to the
+  receipts, the answer is a **new receipt** rather than a human reading. Read
+  without a boundary that licenses converting *every* one-time check into a
+  run-time assertion — and a successor arriving at `fc_kappa.rs`'s
+  transcription-time audit would naturally ask why it is not receipted. **It must
+  not be, and the distinction is the object's mutability.** (FC-R7) guards a
+  quantity the probe **recomputes on every run**, where a wrong construction
+  reproduces silently forever; the transcription audit guards a **compiled
+  constant** that cannot drift between runs and can only change under a commit,
+  where version control is the guard. **A run-time assertion over a compiled
+  constant compares the constant against itself and is an arithmetic remark
+  (Proposition SR-taut), not a receipt.** So: **convert a human check into a receipt
+  when the guarded object is recomputed each run; leave it a documented one-time
+  audit when the object is fixed source.** That also delimits FF-A33(v) correctly —
+  its "the comparand must exist at the moment the diff is taken" governs
+  **emissions**, which differ run to run, and has nothing to say about constants,
+  which do not.
