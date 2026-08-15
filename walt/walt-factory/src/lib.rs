@@ -26,6 +26,8 @@ pub mod certificate;
 pub mod conflict;
 pub mod corpus;
 pub mod db;
+pub mod fc_cores;
+pub mod fc_kappa;
 pub mod generalize;
 pub mod index;
 pub mod label_transfer;
@@ -42,6 +44,8 @@ pub use corpus::{load_receipt, walk_corpus};
 pub use db::{
     fnv64, label_projection, verdict_kind, ArchiveEntry, ContentKey, InsertOutcome, LessonDb,
 };
+pub use fc_cores::{CoreRow, FT_CORES};
+pub use fc_kappa::{KappaRow, V11_KAPPA};
 pub use generalize::{
     cell_holds_at, generalize_lumpability, generalize_regret, generalize_win, lesson_applies,
     measure_rent, INTRO_BUDGET,
