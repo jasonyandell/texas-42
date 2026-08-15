@@ -11626,3 +11626,69 @@ Everything else here is proof and needs no code.
   its "the comparand must exist at the moment the diff is taken" governs
   **emissions**, which differ run to run, and has nothing to say about constants,
   which do not.
+
+- **FC-A13 (the v1.4 screen against FC-A7(f)/(g) at h2: reading (A) GOVERNS, with
+  one sharpening the builder did not propose; and FC-A11(iii)'s core count is
+  corrected with the right diagnosis of my own error).** Five clauses.
+  (i) **RULING: (A). The four cells — `(h2 a=53, F1)`, `(h2 a=53, F1g)`,
+  `(h2 a=54, F1)`, `(h2 a=54, F1g)` — are EMPTY TESTs**, emit no `s^±` rows, no
+  bound and no census beyond the domain census, and say in place that `φ ≡ 0` there
+  so **Corollary FC-null fixes `s^± = 0` by theorem rather than by measurement.**
+  Three independent reasons.
+  **(1) The screen's operative clause is written for exactly this.** Freeze 52
+  v1.2's *"contributes to no capture figure and no outcome gate"* exists because
+  FF-A11's empty-domain zeros entered six cells as measurements. FC-A7(f)/(g) is an
+  outcome gate. The screen reaches it.
+  **(2) The decisive reason, which is that F0's exemption already does this job.**
+  F0 is exempt from the screen and therefore runs at h2, where **its domain is also
+  empty**, and (FC-R1) asserts `s^± = 0` there blocking. F1 and F1g at h2 would be
+  zero for the *same reason by the same theorem* — `φ ≡ 0` makes a feature
+  action-blind, and Corollary FC-null then fixes `s^±`. **So the empty-domain
+  theorem-zero is already exercised at h2 by the null control; F1 and F1g there
+  would be two further copies of it, not additional evidence.** This is the argument
+  that settles it, and it is why (A) loses nothing.
+  **(3) The builder's own reason stands.** Under (B), *"F1g's correlation is zero at
+  every state"* would range over 1,764 states of which 432 are zero tautologically —
+  a zero-by-construction averaged into a refutation count, which is FF-A11 in new
+  dress and the fault this chapter has now met in three dimensions.
+  (ii) **The sharpening, and it applies the same principle one level down where the
+  builder stopped at a note.** At h0 the boss-keyed domain is nonempty at **574** of
+  the 1,332 swept states. Under (A)'s own logic the remaining 758 are theorem-fixed
+  exactly as h2's 330 are, so **FC-A7(f)'s refutation reading for F1 and F1g ranges
+  over the 574 domain-nonempty states of `h0 a=00`, and over no others.** A reading
+  scoped to 1,332 would be 57% tautological — the identical fault, merely smaller.
+  A note recording the 574 is not sufficient; **the scope sentence must name it as
+  the set.**
+  (iii) **The cell/state distinction this yields, stated so it generalises.**
+  **A wholly empty cell is screened and emits no rows** (h2's four). **A partly
+  empty cell runs, emits every swept row carrying a domain flag, and has each
+  reading over it scoped to the domain-nonempty subset** (h0's two). Emit over the
+  full set, read over the meaningful subset, **name both** — which is FC-A10's
+  sweep-versus-census separation arriving in a third place, and by now it should be
+  treated as the house pattern rather than rediscovered each time.
+  (iv) **The builder's counter-worry is answerable, and the answer is that (A)
+  preserves FC-A10(v)'s purpose entirely.** FC-A10(v) emitted F1g's bound because
+  withholding it would *"test the instrument only where the answer is already
+  filed"* — where "the answer" means **a filed `κ_I`**, which exists for F0 and F2
+  and not for F1g. Under (A) the bound **is** emitted for F1g at h0's 574
+  domain-nonempty states, which is precisely a place with no filed `κ_I`, so the
+  instrument is exercised exactly where FC-A10(v) wanted it. What (A) withholds is
+  h2, where the bound is **0 by Corollary FC-null** — and **a bound fixed by theorem
+  tests the instrument not at all.** No purpose is lost.
+  (v) **FC-A11(iii)'s "12,693" is WRONG, the count is 12,639, and the diagnosis
+  matters more than the digit.** Verified at adjudication time: the FT file carries
+  **12,639** occurrences of `"minimal fusion core (fiber indices"` — the filed
+  row-level cores — plus **54** of `"minimal fusion core of size"`, the (FT-R5)
+  complete-face sample lines, totalling the 12,693 I quoted. **It was not a
+  transposition.** I counted with a pattern that matched two different objects and
+  reported the union as one of them — **a set quoted without its defining predicate
+  pinned**, which is the same fault as "swept feature" and as the sweep/census
+  conflation, and it is the fourth instance and mine. That I committed it in the
+  very ruling that generalised FF-A18 to *"a scope derived from an adjective is not
+  a scope"* is the useful part of the record. The correct figure **12,639 also
+  matches FT-A29's independently filed census** of states with `δ_I > 0`, which is
+  the cross-check that confirms it. **Nothing in (FC-R7) turns on the total**: it
+  ranges over freeze 53's three units, `1,332 + 216 + 216 = 1,764` cores, and the
+  builder's verification that those cores' `(unit, record)` key set equals
+  `fc_kappa.rs`'s at F0 and again at F2 is the check that matters. **FC-A11(iii) is
+  corrected in place; the erroneous figure stays visible per LD-A11(ii).**
