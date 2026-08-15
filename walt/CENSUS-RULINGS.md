@@ -11462,3 +11462,71 @@ capture figure computed for it, the six receipts of FC-A6 with the non-receipts
 printed as arithmetic remarks, the frozen v1.1 `κ_I` table as the comparison
 carrier, and all nine outcomes of FC-A7 pre-printed before any number exists.
 Everything else here is proof and needs no code.
+
+- **FC-A10 ((FC-R3)'s "every swept feature": reading (A) governs — F0 and F2 — and
+  the phrase is struck as ambiguous. The builder reported it rather than picking the
+  reading that would have made my text consistent, which is the ambiguity protocol
+  executed at its best.)** Six clauses.
+  (i) **RULING: (A). (FC-R3) and (FC-R4) range over F0 and F2, at every swept
+  state — 1,332 at h0 and 216 at each h2 unit, 1,764 per feature.** The frozen
+  table is then exactly complete for the receipts that consume it.
+  (ii) **Verified at adjudication time, not accepted.** `feature_fee_v11_2026-08-14.txt`
+  carries **3,528** rows with a `captured =` column and its SHA-256 is
+  `8ad7ec1f…d4670`, matching the fingerprint the steward supplied. The arithmetic
+  closes on reading (A) and on no other: `1332 + 1332` at h0 plus `216 + 216` at
+  each h2 unit is `3,528` for **two** features. F1 was not swept in the v1.1 run,
+  being settled at FF-A13; F1g had never been computed before this chapter. The
+  builder's count is exact.
+  (iii) **The phrase is my defect and is struck rather than repaired.**
+  *"Swept feature"* means one thing in the v1.1 frame (F0 and F2, the features that
+  run swept) and another in the FC frame (all four, the features this probe
+  sweeps) — **the same words denoting different sets in two adjacent chapters**,
+  which is the FF-A18/FF-A23 family exactly and is the third appearance of it.
+  **FC-A6(iii) and FC-A6(iv) are corrected in place to read "every feature carrying
+  a frozen `κ_I` — F0 and F2"**, naming the set rather than deriving it from a
+  word. The erroneous phrasing stays visible per LD-A11(ii).
+  (iv) **FF-A18 is GENERALISED, and this catch is why.** The rule read *"no count
+  and no capture figure appears without its state set named in the same
+  sentence."* A receipt's scope here has **two** dimensions, states and features,
+  and naming only one is what made the mislabel possible. **The rule now reads: a
+  receipt's or a figure's scope names EVERY dimension it ranges over — state set,
+  feature set, unit set — in the same sentence, and a scope derived from an
+  adjective rather than stated as a set is not a scope.** The builder's proposed
+  artifact wording already satisfies this and is adopted as the pattern.
+  (v) **What F1 and F1g emit, settling the adjacent point: the FC-drop bound IS
+  emitted for F1g, and it is not a capture number.** FC-A4 bars *"a capture number
+  computed or reported"* for F1g, and the builder is right that the bound is a
+  different object. Three reasons it is emitted. **(1)** It is a **proved lower
+  bound**: by Proposition FC-drop(c) a positive `|s|·t_0` *establishes* that F1g
+  captures at least that much, with no minimisation and no `κ_I` to compare
+  against — it is self-standing evidence rather than a measurement awaiting a
+  check. **(2)** It is exactly the screening quantity this chapter exists to
+  characterise, and withholding it at the one feature where no capture is known
+  would test the instrument only where the answer is already filed. **(3)** It
+  needs no sweep, which is what FC-A4's exemption was protecting.
+  **Binding on how it is printed:** the column is labelled **"proved lower bound on
+  capture (Proposition FC-drop(c))"**, **never** "capture", it carries **no `κ_I`
+  column and no comparison** because none exists, and every F1 and F1g row says in
+  place why there is no comparison. F1 emits the same set as F1g.
+  (vi) **Two confirmations on the not-blocked list, one of them load-bearing.**
+  F1g as the count whose positivity F1 tests, from the same incidence
+  intersection, is correct and the by-construction agreement is worth asserting in
+  place. And the builder's own note that `s^±` must be taken over the **complete**
+  clairvoyant argmax set is **exactly right and is the sharpest hazard in this
+  build**: a tie-broken argmax collapses `s^-` and `s^+` to one number, which turns
+  FC-drop(a)'s **straddle** test into a **point** test — and the straddle is
+  precisely what distinguishes FC-A7's outcome (c), genuine orthogonality, from
+  outcome (d), a tie-driven zero. **A tie-break there would not perturb the
+  chapter's headline; it would silently answer its central question with the wrong
+  one of two pre-declared readings.** Freeze 38(e)'s complete-face rule binds, and
+  it binds here harder than anywhere it has bound before.
+  (vii) **FC-A7(g) is sharpened by (v).** With the bound emitted, a positive
+  `|s|·t_0` for F1g does not merely *warrant* a sweep — it **proves F1g's capture is
+  positive** at that state, by theorem. The pre-declared reading becomes: *bound
+  positive somewhere* → F1g bites, magnitude unknown, and a sweep is commissioned
+  in its own later ruling to measure how much; *`s^± = 0` everywhere* → F1g refuted
+  by FC-drop(a) and FF-A15(iv)'s open item discharged; *`s^± ≠ 0` but the bound
+  zero or negligible everywhere* → correlation without reach, which is a third
+  reading and the most interesting of the three for the instrument's own
+  characterisation, since it is the case where the screening functional would
+  mislead if used alone.
