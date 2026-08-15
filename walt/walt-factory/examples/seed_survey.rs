@@ -2977,6 +2977,10 @@ fn main() {
         .copied()
         .filter(|s| !loaded.contains_key(s))
         .collect();
+    // The declared worker count, kept before the solve phase narrows it: a
+    // fully-resumed run has nothing pending and would otherwise drop to one
+    // thread, which must not decide how (SS-R8)'s sample is scheduled.
+    let w_declared = workers;
     let workers = workers.min(pending.len().max(1));
     let done: Mutex<BTreeMap<usize, SeedOut>> = Mutex::new(BTreeMap::new());
     let t_run = Instant::now();
@@ -3039,27 +3043,57 @@ fn main() {
         .filter_map(|b| seeds.iter().copied().find(|s| s / BLOCK == *b))
         .collect();
     sample_seeds.dedup();
-    let mut r8_units = 0usize;
-    for s in &sample_seeds {
-        let first = &all[s].units[0];
-        if first.status != "ok" {
-            continue;
-        }
-        let second = run_seed_inner(*s, true);
-        assert_eq!(
-            thin_row(&all[s], first),
-            thin_row(&second, &second.units[0]),
-            "(SS-R8) stop-and-report: the second pass differs at seed {s}, first unit"
-        );
-        assert_eq!(
-            first.rows,
-            second.units[0].rows,
-            "(SS-R8) stop-and-report: the second pass's companion rows differ at seed {s}, first unit"
-        );
-        r8_units += 1;
+    // The sample's units are INDEPENDENT — each re-solves its own coordinate
+    // from the seed alone and asserts equality against its own checkpointed
+    // row — so the loop is scheduled across workers. This is a SCHEDULE change
+    // and not a measured-object change: which seeds are in the sample and how
+    // many were re-run are deterministic functions of the seed set, and DS-A36
+    // REQUIRES every emitted value to be independent of worker count, so
+    // running the sample in parallel exercises that requirement rather than
+    // straining it. Sequentially the tail is the SUM of the sample's solves;
+    // in parallel it is their MAX. A panic in any worker is a stop-and-report
+    // and propagates out of the scope, exactly as in the sequential form.
+    let r8_counter = AtomicUsize::new(0);
+    {
+        let next = AtomicUsize::new(0);
+        let next_ref = &next;
+        let sample_ref = &sample_seeds;
+        let all_ref = &all;
+        let r8_ref = &r8_counter;
+        let w = w_declared.min(sample_seeds.len().max(1));
+        std::thread::scope(|scope| {
+            for _ in 0..w {
+                scope.spawn(move || loop {
+                    let i = next_ref.fetch_add(1, Ordering::Relaxed);
+                    if i >= sample_ref.len() {
+                        break;
+                    }
+                    let s = sample_ref[i];
+                    let first = &all_ref[&s].units[0];
+                    if first.status != "ok" {
+                        continue;
+                    }
+                    eprintln!("[SS-R8] declared-sample second pass at seed {s}");
+                    let second = run_seed_inner(s, true);
+                    assert_eq!(
+                        thin_row(&all_ref[&s], first),
+                        thin_row(&second, &second.units[0]),
+                        "(SS-R8) stop-and-report: the second pass differs at seed {s}, first unit"
+                    );
+                    assert_eq!(
+                        first.rows,
+                        second.units[0].rows,
+                        "(SS-R8) stop-and-report: the second pass's companion rows differ at seed {s}, first unit"
+                    );
+                    r8_ref.fetch_add(1, Ordering::Relaxed);
+                });
+            }
+        });
     }
+    let r8_units = r8_counter.into_inner();
     let r8_line = format!(
-        "(SS-R8) DETERMINISM SAMPLE — HELD on the declared sample (the FIRST UNIT OF EVERY BLOCK present in this run: seeds {sample_seeds:?}, {r8_units} unit(s) re-run; stopped units are skipped and named): a full in-run SECOND PASS with fresh maps, accumulators and budgets, every printed figure and every companion row asserted IDENTICAL. Declared rather than universal because at 400 units a universal second pass doubles the night; (SS-R3) covers the generator at EVERY seed regardless."
+        "(SS-R8) DETERMINISM SAMPLE — HELD on the declared sample (the FIRST UNIT OF EVERY BLOCK present in this run: seeds {sample_seeds:?}, {r8_units} unit(s) re-run; stopped units are skipped and named): a full in-run SECOND PASS with fresh maps, accumulators and budgets, every printed figure and every companion row asserted IDENTICAL. Declared rather than universal because at 400 units a universal second pass doubles the night; (SS-R3) covers the generator at EVERY seed regardless. SCOPE, stated rather than implied (SS-A12(ii)): the sample's object is ONE UNIT — that coordinate's solve plus that unit's own passes, re-run from the seed alone — and it reaches accumulator reuse and iteration-order dependence within a unit's own path; per-unit content is a function of (kernel, budgets) alone and (SS-R3) covers the generator at every seed regardless. The sample was scheduled across {} worker thread(s); its units are independent and DS-A36 requires every emitted value to be independent of worker count, so the schedule is not a term in anything asserted here.",
+        w_declared.min(sample_seeds.len().max(1))
     );
 
     // ---- assembly, in canonical unit order --------------------------------
