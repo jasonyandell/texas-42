@@ -11530,3 +11530,55 @@ Everything else here is proof and needs no code.
   reading and the most interesting of the three for the instrument's own
   characterisation, since it is the case where the screening functional would
   mislead if used alone.
+
+- **FC-A11 (the collapsed-argmax hazard gets a RECEIPT rather than a code
+  reading: (FC-R7), added to freeze 53's receipt set. Prompted by the steward's
+  gate note and by reading where the per-world argmax actually lives.)** Five
+  clauses.
+  (i) **Why a code reading is the wrong instrument, stated so the gate is not
+  mis-aimed.** The steward proposed to check the argmax face by reading the code
+  path rather than the receipts, *"since a receipt computed from a collapsed face
+  would hold."* That reasoning is correct about the receipts as they stood, and it
+  is exactly why a receipt is owed instead: **a hazard that survives every existing
+  check is a hazard the check set is missing, not one to be handled by reading.**
+  Code reading catches it once, in one session, by one reader; a receipt catches it
+  on every run forever.
+  (ii) **Where the hazard actually lives, read at adjudication time.** The FF probe
+  does **not** carry a per-world argmax mask: `feature_fee.rs` stores
+  `WorldRow { w, q: qrow, phi }` — the full per-world `q` vector — and any argmax is
+  derived downstream from `qrow`. So the collapse cannot happen in the walk; it
+  happens in whatever derives `b^*(ω)`, and **the natural Rust idiom is exactly the
+  defect**: `qrow.iter().enumerate().max_by_key(…)` returns **one** index. The
+  correct object is the **set** `{ j : qrow[j] == max(qrow) }`, obtained by an
+  equality test across all `j` — which is the pattern `fusion_tax.rs` already uses
+  in its walk (`if child[j] == best { mask.insert(d) }`) and which (FT-R5) and
+  (SR-R8) assert at millions of states. **Mirror that pattern; do not re-derive an
+  argmax by index.**
+  (iii) **(FC-R7) THE FILED-FACE RECEIPT — added to FC-A6, and it catches the
+  collapse outright.** `fusion_tax_2026-08-14.txt` prints, for every state with
+  `δ_I > 0`, a minimal fusion core as **per-world complete argmax sets** by fiber
+  index — e.g. `[5685:{32} 5689:{21 53}]`, where `{21 53}` is a two-element face.
+  Those masks are complete by freeze 38(e) and are already receipted by (FT-R5).
+  **For every swept state of freeze 53's three units, assert that the FC probe's own
+  per-world complete argmax set at each fiber index named in that state's filed core
+  equals the filed mask exactly.** A collapsed face returns `{21}` or `{53}` where
+  the file says `{21 53}` and the receipt fails on the spot.
+  **Contentful, and in the strongest way available:** it compares against masks
+  produced by a **different program**, committed on a different day, at every swept
+  state of the carrier — h0's 1,332 and h2's 216 per unit, the FT file carrying
+  12,693 such cores in total. It costs two world lookups per state.
+  (iv) **What it does and does not reach.** It reaches every state that has a filed
+  core, which is exactly the swept set, and it proves the face construction is
+  complete **at the two worlds of each core**. It does **not** prove completeness at
+  every world of every state — a collapse that happened to preserve the core worlds
+  and no others would survive. That residual is named rather than hidden; I know of
+  no mechanism that would produce it, since the derivation is uniform across worlds,
+  and (FC-R7) plus (ii)'s pattern requirement together make it remote. **A named
+  residual costs nothing; an unnamed one is how a chapter goes wrong.**
+  (v) **The steward's gate stands alongside it, re-aimed.** With (FC-R7) in place
+  the gate is no longer "read the code path for correctness" but the far cheaper
+  **"confirm the derivation accumulates a set by equality across all `j`, and does
+  not track an index"** — one glance, and the receipt covers the rest on every
+  future run. This is the general shape: **when a defect class is invisible to the
+  receipts, the answer is a new receipt, and the human check shrinks to confirming
+  the one line the receipt cannot see.**
