@@ -11776,3 +11776,239 @@ Everything else here is proof and needs no code.
   coincide to be asserted equal; this requires a confirmation to name the route by
   which it confirmed. **Four instances of one idea: evidence is only as independent
   as the thing it did not share with what it checks.**
+
+---
+
+### Closing note: the FC probe returned (2026-08-14, after the run)
+
+**Object:** `walt-factory/results/fc_correlation_2026-08-14.txt`, committed at
+`08f1b61` after the FC-A13(ii) regeneration at `4486aa0`/`404983c`. Three units,
+four features, seven receipts HELD at every non-screened cell, (FC-R1) blocking
+and first. **The chapter's central question is answered, unanimously, and it is
+the answer I called mundane before the run: outcome (d).** Rulings FC-A16..FC-A21;
+two propositions delivered.
+
+**Re-derived at adjudication time from the artifact's own rows**, all exact:
+
+- **h2, both units, F2: the straddle holds at all 216 swept states and `s^±` are
+  NOT both exactly 0 at all 216.** So `s^- < 0 < s^+` strictly, everywhere.
+  **Outcome (c) is refuted at every state of the carrier**, not merely
+  unsupported.
+- Argmax multiplicity: **236,784 of 362,880 arrivals (65.25%)** at each h2 unit
+  carry a non-singleton clairvoyant argmax, against **59,776 of 266,132 (22.46%)**
+  at h0. The h2 arrival count checks: `216 × 1680 = 362,880`.
+- h0 F2 tightness: the bound is exact at **258 of the 1,252** straddle-false states
+  (**20.61%**), and the summed bound `9774908973343/790918236108000` is
+  **14.873%** of the summed captured amount `16474225753499603/198256837851072000`
+  — the builder's "about 14.9%", confirmed, and that captured amount reproduces
+  75.1420% of `Δ^(1)` exactly as the v1.1 run filed it.
+- Straddle-false counts over h0's **574 domain-nonempty** states: **F1 at 374
+  (65.16%)**, **F1g at 322 (56.10%)**. Both reconstruct from the 1,332-state
+  censuses by subtracting the 758 empty-domain states, which are straddle-true by
+  Corollary FC-null.
+
+### Proposition FC-width (the subgradient's width is a tie functional, and it is why h2's zero is robust rather than coincidental) — delivered here
+
+At a swept state `I`, with `A^*(ω) = argmax_b q_I(ω,b)` the complete clairvoyant
+face,
+
+  `s^+ - s^- = Σ_ω μ_I(ω) · [ max_{b ∈ A^*(ω)} Φ_I(ω,b) − min_{b ∈ A^*(ω)} Φ_I(ω,b) ] ≥ 0`,
+
+so the width of the subgradient at `θ = 0` is **the `μ_I`-weighted sum of the
+feature's spread across the clairvoyant tie**. In particular the width is `0`
+whenever every positive-mass world has a singleton face, and a world contributes
+positively **only if** its face is non-singleton *and* `Φ_I(ω,·)` is non-constant
+on it.
+
+*Proof.* Subtract the two displayed forms of `s^±` from Proposition FC-drop(a);
+the `μ_I`-weights are common and the bracket is the spread. Nonnegativity is
+`max ≥ min`. A singleton face makes the bracket `0` termwise. ∎
+
+**What it explains, and it is the whole of the h2 result.** By FC-drop(a) capture
+vanishes iff `0 ∈ [s^-, s^+]`. **Without ties that interval is a point**, so a zero
+capture demands the exact rational identity `s^± = 0` — a coincidence, and one
+that could not plausibly hold at 216 states twice over. **With ties it is an
+interval of positive width**, and a zero capture requires only that `0` fall
+inside it — which is robust, not coincidental. h2 carries a non-singleton face at
+**65.25%** of arrivals and h0 at **22.46%**; h2's straddle holds at 216 of 216
+states and h0's fails at 1,252 of 1,332. **The mechanism and the measurement
+agree.**
+
+### Proposition FC-tight (the drop bound is exact exactly when the descent is one piece) — delivered here
+
+At a state where the straddle is false, `κ_I = |s| · t_0` **if and only if** the
+minimum of `G_I` is attained at the first breakpoint on the descending side —
+equivalently, iff `G_I`'s slope becomes non-negative immediately after `t_0`.
+Otherwise `κ_I > |s| · t_0` strictly.
+
+*Proof.* `G_I` is affine with slope `s` on the segment from `0` to `t_0`
+(Lemma FF-min(a)), so `G_I(t_0) = G_I(0) − |s| t_0` exactly; the bound equals the
+drop iff `min_θ G_I = G_I(t_0)`, which for a convex piecewise-linear function is
+iff its slope does not remain negative past `t_0`. ∎
+
+**Measured:** that holds at **258 of 1,252** biting states at h0 F2 — the descent
+is a single linear piece about one time in five — while the summed bound recovers
+**14.873%** of the summed capture. **The instrument is loose in aggregate and
+exact at a fifth of the states where it bites**, which is a different object from a
+uniformly weak screen and is what FC-A18 rules on.
+
+---
+
+- **FC-A16 (the artifact against freeze 53 and FC-A13: NO DEVIATION, and the
+  regeneration is verified).** The four h2 `(F1, F1g)` cells are EMPTY TESTs as
+  FC-A13(i) ruled; every non-screened cell carries an explicit READING SCOPE line;
+  the two partly empty cells read over h0's **574** domain-nonempty states as
+  FC-A13(ii) requires; the null control is read over every swept state of every
+  unit with that exception **stated as deliberate rather than left to inference**,
+  which is the right handling of the one place the pattern is knowingly broken.
+  The regeneration diff is 13 lines added and 1 removed, the removal being
+  wall-clock, so **no computed figure moved** — consistent with FC-A13(iii)'s
+  claim that this was a labelling change and not a computation change.
+  **The builder's own demonstration of why the sharpening mattered is the best
+  argument in its report and is adopted verbatim:** over the 1,332 the F1g straddle
+  census reads 1,010/322, and over the 574 it reads 252/322 — *"the first pair
+  invites 'zero at most states' and the second says what is true."* **A note is not
+  a scope**, and here the difference between the two is the difference between a
+  56% minority and a 76% majority describing the same fact.
+- **FC-A17 (OUTCOME (d), UNANIMOUS: h2's exact zero is TIE-DRIVEN, outcome (c) is
+  REFUTED at every state of the carrier, and the finding is worth more than the
+  "mundane" label I gave it before the run).** Five clauses.
+  (i) **The ruling.** At both h2 units, at all 216 swept states, the straddle holds
+  while `s^±` are not both zero — strict straddle everywhere. FC-A7's outcome (d)
+  fires and outcome (c) is **refuted rather than unsupported**, which is the
+  stronger of the two ways a pre-declared alternative can fail.
+  (ii) **The mechanism, and it is Proposition FC-width.** Zero capture at h2 does
+  not mean F2 is orthogonal to the clairvoyant choice; it means **the clairvoyant
+  choice is not pinned down** — 65.25% of arrivals carry a non-singleton face, the
+  subgradient is an interval of positive width, and `0` lies inside it robustly.
+  **The h2 refutation of F2 is therefore not a statement about F2 at all.**
+  (iii) **What it buys, and this is why "mundane" undersold it.** *(1)* It
+  **decouples the refutation from the feature**: no fee keyed on the clairvoyant
+  choice can be expected to bite where the face is widely non-singleton, because
+  FC-width makes the subgradient wide for *any* such feature. That is a statement
+  about the **fee route**, not about a candidate. *(2)* It identifies a
+  **pre-fee screening statistic** — the argmax cardinality profile — which is a
+  property of the coordinate's world structure, is measurable before any fee is
+  built, and gates whether building one is worth attempting. *(3)* It is therefore a
+  **negative result about the fee route's reach that is structural rather than a
+  failure of cleverness**, which is the most useful kind this branch produces.
+  (iv) **What it does NOT establish, and the fences are undiminished.** Two
+  coordinates chosen by negative binding margin are a **carrier, not a sample**
+  (SR-A25(iii)); **P-A21 binds hardest here** — the multiplicity figures are
+  grade-4 measurements and **nothing about trick-1 or opening multiplicity is
+  quoted or implied**, which matters precisely because multiplicity is now the
+  variable everyone will want to extrapolate; no grade-4 verdict moved
+  (Proposition SR-degen); and the whole chapter prices `Δ^(1)` only.
+  (v) **One honest note on my own pre-declaration.** I wrote outcome (d) as *"a
+  mundane explanation"* and outcome (c) as *"the outcome that would most change
+  what we do next."* **That ordering was wrong.** (c) would have been a puzzle —
+  an unexplained exact identity demanding further work. (d) is an **answer**, and
+  it hands the programme a screening variable it did not have. Pre-declaring both
+  was right; ranking them was a guess, and the guess did not survive.
+- **FC-A18 (FC-A7(h): the bound is LOOSE IN AGGREGATE AND EXACT AT A FIFTH, which
+  is a third reading and better than either pre-declared one).** Three clauses.
+  (i) **The measurement.** At h0 F2 over the 1,252 straddle-false states of that one
+  unit and feature: the bound equals the frozen `κ_I` at **258** of them (20.61%),
+  the largest ratio being `1/1` attained at `I=[00 10 11 43 42]`, while the summed
+  bound is **14.873%** of the summed capture. Re-derived here from the artifact's
+  own two totals.
+  (ii) **Proposition FC-tight says what the 258 are:** exactly the states where the
+  descent is a **single linear piece**. So the instrument is not uniformly weak —
+  it is *exact* where the fee's optimum sits at the first breakpoint and
+  progressively conservative as the descent runs through more pieces. **A screen
+  that is exact one time in five and recovers a seventh of the total is a usable
+  triage instrument and a poor estimator**, and those are different jobs.
+  (iii) **Typed for what it licenses.** As a **lower** bound it can prove a fee
+  bites and can never prove one does not; as a screen its false-negative rate is
+  what matters and is now bounded below by these numbers at this carrier. **No
+  extrapolation to trick 1** (P-A21). FC-A7(h)'s pre-declared reading — a weak bound
+  is a result and not a null — stands, with the refinement that "weak" was the wrong
+  single word.
+- **FC-A19 (FC-A7(g): F1g's capture is PROVED POSITIVE at 322 states — and the
+  calibration that stops this being read as promising. The sweep is NOT
+  commissioned.)** Four clauses.
+  (i) **The finding.** F1g's straddle fails at **322 of h0's 574** domain-nonempty
+  swept states, so by Proposition FC-drop(c) **graded F1's capture is proved
+  positive there, by theorem, with no sweep** — exactly what FC-A4 designed the
+  diagnostic-only cell to be able to do. FF-A15(iv)'s open item is **answered, and
+  answered away from refutation.**
+  (ii) **The calibration, which the report does not draw and which governs how this
+  reads.** **F1 — the binary form, already refuted — has straddle-false at 374 of
+  the same 574 states, which is MORE than F1g's 322.** And F1's measured oracle-θ
+  capture at those very states was **0.367%**. So this carrier supplies a direct
+  price for the phrase "proved positive at N states": at F1 it was worth about a
+  third of one percent. **F1g clears the bar at fewer states than the feature that
+  cashed out at 0.367%.** Proved-positive and negligible are entirely compatible,
+  and here the compatible reading is the likely one.
+  (iii) **The sweep is NOT commissioned.** FC-A7(g) pre-declared that this reading
+  *"warrants"* a sweep in its own later ruling; that ruling is this one and it
+  declines. Two reasons: the calibration in (ii) makes the expected yield small,
+  and **Proposition FF-oracle means even a large per-state-oracle result would
+  establish nothing about a usable family** — it would license a shared-θ fit and
+  no more, which is a third run to answer a question whose prior is already weak.
+  **A run is better spent on FC-A20's variable.**
+  (iv) **What would reopen it:** a measured shared-θ capture for F2 at a second
+  coordinate that is materially different from h0's, which would show the fee route
+  is coordinate-robust and make a second live feature worth having. Nothing less.
+- **FC-A20 (FC-A2(iii)'s second criterion is now ANSWERABLE, and it supersedes the
+  first: a third coordinate is selected on argmax multiplicity, not on trump
+  survival).** Three clauses.
+  (i) **The criterion fires as written.** FC-A2(iii) fixed two selection inputs and
+  ruled that *"vary whatever arm 1 shows to drive `s^±`"* takes precedence if the
+  two conflict. **Arm 1 shows the driver is clairvoyant-argmax multiplicity**, by
+  Proposition FC-width and by 65.25% against 22.46%. The builder's reading is
+  confirmed: multiplicity is a property of the coordinate's world structure,
+  measurable **before any fee is built**, so whether trump survival is the mechanism
+  or a correlate is now **answerable by measurement rather than settled by
+  selection**.
+  (ii) **Consequently FF-A29(iii)'s trump-survival input is DEMOTED to a
+  hypothesis about a correlate**, and a third coordinate is chosen to **vary
+  multiplicity while holding as much else fixed as possible**. If a candidate varies
+  both, the multiplicity contrast governs the reading and the trump contrast is
+  reported as a co-varying fact, not as an explanation.
+  (iii) **Still not commissioned here, and still needing its own freeze**
+  (FT-A23: a freeze is a constant, not a rule). What has changed is that the
+  selection is now made on a **measured** variable rather than a guessed one, which
+  is precisely what FC-A2 deferred the coordinate in order to achieve. **That
+  deferral is now discharged as having been the right call** — had a third
+  coordinate been run first, it would have been selected on trump survival and the
+  multiplicity mechanism would still be unknown.
+- **FC-A21 ((FC-R7) vindicated on the numbers; FC-A15(iii) adopted by the builder;
+  and what is owed).** Four clauses.
+  (i) **(FC-R7) HELD over 3,528 filed masks, 1,374 of them two-tile, all equal —
+  and the builder's analysis of what it was worth is exactly right and is
+  adopted.** At h2 a collapsed face would **most likely** have failed (FC-R3)
+  loudly, because collapsing a strict straddle generically yields a nonzero point
+  value while the frozen `κ_I` is `0`. **But only most likely**: a collapsed value
+  landing exactly on `0` would have reported **outcome (c) with every receipt
+  green** — the chapter's central question answered with the wrong one of two
+  pre-declared readings, silently. **That is the residue the reasoning could not
+  close and the receipt did**, which is FC-A11(i)'s argument confirmed by numbers
+  rather than assent. The 1,374 two-tile masks are the ones that would have caught
+  it, and they are 39% of the comparison.
+  (ii) **FC-A15(iii) is adopted by the builder and its predicate is exemplary.**
+  Its 1,764 count came from **parsing cores** — matching the row shape and then
+  requiring every split body part to match `index:{tiles}`, so a line carrying the
+  phrase but not the shape would have **failed loudly rather than been counted**.
+  That is why its route could not absorb the 54 `"of size"` lines and why the
+  disagreement was informative. **A predicate that fails loudly on a near-miss is
+  strictly better than one that silently matches it**, and that is the practical
+  form of FC-A15 for anyone quoting a figure from an artifact.
+  (iii) **Nothing is routed back to the builder.** The artifact discharges its
+  contract, the regeneration is verified, and the three points it offered were all
+  correct and are all ruled on above.
+  (iv) **Owed to the wiki owner:** freeze 53, the FC era-page and LOG entries, and
+  the chapter-close digest. Per SR-A37(i) that is the whole list — **no
+  claim-ledger, FINDINGS or open-problems row exists or is owed.** Everything in
+  this chapter is exploratory, below every tier, cited by nothing above it.
+
+**Where this leaves the line, said plainly.** The fee route works at h0's leading
+frontier — 76.46% oracle, 99.87% of it retained by a single shared parameter — and
+is **structurally blocked** wherever the clairvoyant face is widely non-singleton,
+which is not a fixable defect of any candidate feature. The programme therefore
+has a new first question at any coordinate it contemplates: **not "which feature",
+but "is the clairvoyant choice pinned down enough for any fee to bite".** That
+question is cheaper than building a fee and it now has an exact statistic. It does
+not advance FT-A21's three trick-1 obligations, and nothing here is quoted for
+trick 1 — but it is the first thing this branch has that says where **not** to
+spend the attempt.
