@@ -12654,3 +12654,59 @@ SS-A2 and it is the only change of substance I have made to Jason's design.
   never tested here (SS-A1 said so before the run) and still rests on two
   coordinates. **The h2/h0 fee contrast is not refuted by this** — it is simply not
   corroborated, and the cheap screen it promised is not available on this evidence.
+
+- **SS-A16 (the two scratch cuts: (A) promotable and it has a use nobody has
+  named yet; (B) not yet, one arbitrary choice is a live confound — and it
+  corrects an error in my own count-pruning note).** Six clauses, relaxed
+  register; filed because (A)'s synthesis will be quoted.
+  (i) **(A) survives the sharper cut and strengthens.** Within-coordinate rank of
+  `|I₁|` for the unique-optimal unit, 85 clean seeds: **45 / 22 / 11 / 7** from
+  smallest frontier to largest, against a uniform 21.25. **Monotone, and rank 1 is
+  2.12× expected while rank 4 is 0.33×.** SS-A15(iv) recorded this as a
+  possibly-composite between-coordinate effect; **it is not — it holds at a fixed
+  coordinate, among the four actions of one hand.**
+  (ii) **The honest causal reading is weaker than the effect and should travel with
+  it.** `|I₁|` almost certainly does not *cause* quality. Both are plausibly
+  effects of a third thing — an action that constrains the field's legal sets
+  produces fewer distinct continuations **and** tends to be strong, leading trump
+  being the obvious case. **`|I₁|` is a correlate of a play type, not a measure of
+  merit.** That is not a demotion: a correlate computable **without solving** is
+  exactly what an instrument is.
+  (iii) **And here is the use, which I think is the real find and which nobody has
+  stated: this is a move-ordering statistic for the count-pruning search.**
+  Branch-and-bound prunes in proportion to how early it establishes a strong
+  incumbent bound, so **ordering quality is the dominant lever on pruning yield** —
+  search the best action first and everything after it dies cheaply. **A solve-free
+  statistic that ranks the optimal action first 53% of the time against a 25%
+  baseline is precisely the input Jason's pruning scheme needs**, and it was
+  measured on a carrier chosen by arithmetic rather than by outcome. The count
+  bounds say *what* can be excised; this says *what order to try things in* so that
+  more of it can be. They are complements, and neither was designed with the other
+  in mind.
+  (iv) **(B) is real but not filed, because one arbitrary choice could be
+  producing it.** Nearer-to-decided coordinates carry **fewer** count-free ties
+  (337,128 ppm against 521,495, a 1.55× spread, with the near quartile below both
+  the survey mean and median) and **more** unique optima (23/25 against 19/25).
+  **The bid-team assignment to the focal seat is arbitrary and `dd` is not
+  symmetric in it**, so the association may be an artifact of that choice. **The
+  check is cheap and comes first: recompute with the assignment flipped.** If it
+  survives, file it; if it does not, it was never a finding.
+  (v) **(B) corrects a mistake of mine, and the correction is more interesting than
+  the number.** My count-pruning note guessed that count-free ties might be "a
+  blurry shadow of threshold-decidedness," with decidedness producing indifference.
+  **That conflated two opposite regimes.** *Already decided* (`dd = 0`, outcome
+  fixed) makes everything indifferent — maximum ties. *Near but not decided*
+  (`dd` small and positive) makes a single point flip the contract — maximum
+  sensitivity, **minimum** ties. **The survey sees `dd` from 1 to 13 with median
+  12, so it measures the second regime only**, and its direction is the sensible
+  one for that regime. My guess was not wrong about the mechanism; it was wrong
+  about which arm we were standing on.
+  (vi) **Which yields a prediction worth testing rather than a correction to
+  absorb: ties should be non-monotone in `dd`** — high at `dd = 0`, minimum at
+  small positive `dd`, rising again as slack grows. **The survey's 100 seeds
+  contain no `dd = 0` coordinate**, so the left arm is unmeasured and the U is
+  currently one-armed. If someone wants (B) to be worth filing, the flip check of
+  (iv) plus a handful of already-settled coordinates would decide the shape — and a
+  confirmed U would be a considerably better object than a monotone association,
+  because it would identify *knife-edge* states rather than merely decided ones,
+  and knife-edge is where a decision actually matters.
