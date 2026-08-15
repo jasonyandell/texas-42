@@ -1,17 +1,17 @@
-# walt — the S6 era (S6a–S6m): predictive algebra, policy geometry, deadness, separation, the two gluing rungs, and the first feature audition
+# walt — the S6 era (S6a–S6n): predictive algebra, policy geometry, deadness, separation, the two gluing rungs, and the fee line
 
 [Home](Home.md) · owns: the S6 probes as sessions — the predictive-rank dimension census and the Gate B
 refutation (S6a), the policy-geometry probe at Gate E (S6b), the decision-deadness probe (S6c), the separation probe
 (S6d), the economy-seed probe (S6e), the freeze-44 refactor and n = 4 gate result (S6f), the trick-1 draw probe
 (S6g), the n = 4 separation pass (S6h), the lay-down catalogue (S6i), the rule-economy probe (S6j), the
-fusion-tax probe (S6k), the second-rung probe (S6l), and the feature-fee audition (S6m) · Sources:
-`walt/LOG.md` (S6a–S6m);
+fusion-tax probe (S6k), the second-rung probe (S6l), the feature-fee audition (S6m), and the fee-correlation chapter (S6n) · Sources:
+`walt/LOG.md` (S6a–S6n);
 `walt/PREDICTIVE-RANK.md`, `walt/POLICY-GEOMETRY.md`,
 `walt/DEADNESS-PROBE.md`, `walt/SEPARATION-PROBE.md`, `walt/SEPARATION-RUNG-N4.md`, `walt/ECONOMY-SUCCESSOR.md`;
 `walt/math/predictive_algebra_v0.6.md`,
 `walt/math/decision_sparse_exact_solving_v0.1.md` and its errata; `walt/CENSUS-RULINGS.md` (R-A1..R-A24,
 PG-A1..PG-A18, J-A1..J-A18, DS-A1..DS-A36, SEP-A1..SEP-A19, N4-A1..N4-A20, EC-A1..EC-A14, T1-A1..T1-A12,
-LD-A1..LD-A13, RW-A1..RW-A8, FT-A1..FT-A29, SR-A1..SR-A37, FF-A1..FF-A33); the results files under
+LD-A1..LD-A13, RW-A1..RW-A8, FT-A1..FT-A29, SR-A1..SR-A37, FF-A1..FF-A33, FC-A1..FC-A22); the results files under
 `walt/walt-factory/results/`. Related: [walt](walt.md) (hub), [walt-census-era](walt-census-era.md) (what S6
 answers), [walt-decision-sparse](walt-decision-sparse.md) (the architecture these probes serve),
 [walt-math-reference](walt-math-reference.md) (formal statements), [walt-instruments](walt-instruments.md),
@@ -793,6 +793,99 @@ shared/oracle ratio at one coordinate part is a licence to test at a second coor
 **Nothing further is commissioned** — a third coordinate is a new carrier and wants its own freeze and its own
 pre-declared readings. Full architecture account:
 [walt-decision-sparse](walt-decision-sparse.md#the-feature-fee-chapter-s6m-2026-08-14).
+
+---
+
+## S6n — 2026-08-14: the fee-correlation chapter, and why a fee bites
+
+**The question.** S6m left an unexplained exact zero: the surviving feature captured about three quarters of the
+first-layer tax at h0's leading frontier and **exactly zero** at h2, twice over, with thousands of breakpoints
+proving the fee genuinely varied. S6m had made the diagnostic that would explain it optional; **this chapter reverses
+that call**, on the ground that an exact rational identity holding at 432 independent states is the most informative
+unexplained fact in the branch and the instrument that would explain it costs seconds.
+
+**It also declined the obvious next step, and the reason is the interesting part.** A third coordinate — the
+experiment S6m named — was **deferred, not refused**: a third observation taken before the mechanism is measured
+*enlarges* the confound that the previous chapter identified rather than resolving it. What was commissioned instead
+is the correlation diagnostic on the carrier already in hand.
+
+**The instrument. Proposition FC-drop** turns the earlier zero-test into a **quantitative lower bound on capture**
+computable with no minimisation at all: capture is at least **correlation times reach** — one directional slope,
+measuring how far the feature leans on the clairvoyant choice, times one breakpoint distance, measuring how far the
+fee can be pushed before that choice starts changing. It is the first quantity in the branch that predicts where a
+fee can bite **without computing whether it does**. **Corollary FC-null** gives it a null control whose value is
+fixed by theorem rather than by a filed number.
+
+**THE ANSWER: the zero is TIE-DRIVEN, and it is unanimous.** At both h2 units, over each unit's **216 swept states**,
+the two slopes **strictly straddle zero at every state, with neither slope zero anywhere**. The pre-declared
+alternative — genuine orthogonality between the feature and the clairvoyant choice — is **refuted at every state of
+the carrier**, not merely unsupported, which is the stronger of the two ways a pre-declared reading can fail.
+
+**THE MECHANISM, which is what makes it a result rather than an observation. Proposition FC-width**: the width of the
+subgradient is exactly the mass-weighted spread of the feature across the clairvoyant tie. **Without ties that
+interval is a point**, so a zero capture would demand an exact rational identity — not plausible at 216 states twice
+over. **With ties it has positive width**, and zero capture requires only that zero fall *inside* it, which is robust
+rather than coincidental. h2 carries a non-singleton clairvoyant argmax at **236,784 of the 362,880 (state, world)
+arrivals at each of its two units' 216 swept states (65.25%)**, against **59,776 of 266,132 at h0's one unit over
+its 1,332 swept states (22.46%)**; h2's straddle holds at
+216 of 216 states per unit where h0's fails at 1,252 of its 1,332, all four counts at the beatability feature. **Mechanism and measurement agree.**
+
+**THE CONSEQUENCE FOR THE PROGRAMME, and it is the most quotable thing in the chapter.** The h2 refutation **was
+never about that feature.** No fee keyed on the clairvoyant choice can be expected to bite where the face is widely
+non-singleton, because FC-width widens the subgradient for *any* such feature. So the branch now holds a **pre-fee
+screening statistic** — the argmax cardinality profile, a property of the coordinate's world structure, measurable
+**before any fee is built**. The fee route is **structurally blocked** at such coordinates, and that is not a fixable
+defect of any candidate. The programme's first question at a new coordinate is no longer *which feature* but **"is
+the clairvoyant choice pinned down enough for any fee to bite"** — a question cheaper than building a fee, and one
+that now has an exact statistic. It is the first thing this branch has that says where **not** to spend the attempt.
+
+**How tight the screen is, in the exact words the ruling binds.** Over the **1,252 straddle-false states of h0's one
+unit at the beatability feature**, the bound is **attained** — it equals the frozen captured amount — at **258 of
+them (20.61%)**, and the summed bound recovers **14.873%** of the summed capture. **Proposition FC-tight** says what
+those 258 are: exactly the states where the descent is a single linear piece. Three things must travel with those
+figures and are stated here because the wording matters:
+
+- **The bound is a lower bound at every state, the 258 included.** It is never *exact* as a property of the
+  functional anywhere. "Exact at 258 states" invites the reading that the screen predicts capture a fifth of the
+  time, which is precisely what this chapter exists to prevent.
+- **Which states attain it is not knowable without the captured amount** — the very quantity the bound exists to
+  avoid computing. So the 258 is a fact about the distribution of the gap and **never a usable property of the
+  instrument**: in use the screen is exactly as weak as its aggregate 14.873% and no weaker.
+- The reach is measured to the nearest *candidate* breakpoint, which may fall short of a true kink, so the bound
+  carries **a second, independent conservatism** beyond the descent running past it. Both make it smaller, never
+  larger. This belongs with any citation of the 14.873%.
+
+The summary to carry, in the form the chapter's own later clause restates it: **a triage instrument and a poor
+estimator** — different jobs. The adjective "usable" does not survive the third bullet above, and the earlier
+wording that carried it is superseded by the clause that follows it. As a lower bound the screen can prove a fee
+bites and can never prove one does not.
+
+**The other results, each with its full scope named.** The **null control** held with both slopes exactly zero at
+**all 1,764 swept states across the three units**, blocking and first, its answer fixed by theorem. The **non-null
+pairing receipt** — which exists because at h2 the pairing had held only by luck, and is now required by design —
+held over **h0's 574 leading states at the beatability feature**, with slopes not both zero at **518** of them. The
+**graded boss-keyed feature is not refuted**: over **h0's 574 domain-nonempty swept states** its bound is positive at
+**322**, so its capture is **proved positive by theorem, with no sweep**. But the calibration the adjudicator
+attached governs how that reads: **the already-refuted binary form is straddle-false at 374 of the same 574 states —
+more states than the graded form — and that binary cashed out at 0.367%.** **Proved-positive and negligible are
+entirely compatible, and here that is the likely reading.** The pre-declared sweep was **declined**.
+
+**The fences, undiminished.** Three units at two coordinates chosen by negative binding margin are **a carrier and
+not a sample**; **grade 4, so no verdict moved and none could**; the whole chapter prices the **first layer only**;
+and **nothing is quoted for trick 1 or for the opening** — which binds hardest here, because a screening functional
+is *for* trick 1 and multiplicity is now the variable everyone will want to extrapolate. And nothing whatever is
+claimed about whether Jason's reading of that hand at the table was correct. Full architecture account:
+[walt-decision-sparse](walt-decision-sparse.md#the-fee-correlation-chapter-s6n-2026-08-14).
+
+**Four disciplines this chapter minted**, all from defects caught rather than principles proposed, and all now
+binding on later chapters: a receipt's scope names **every** dimension it ranges over, not just the state set;
+receipt what the probe recomputes each run and leave a documented one-time audit where the object is fixed source;
+emit over the full set, read over the meaningful subset, and **name both**; and **independent verification means an
+independent predicate, not an independent party** — two agents running one grep are one check, however many agents
+there are. That last one was minted the hard way: a check written with a regex anchor where a literal was meant
+matched nothing and returned a clean, confident zero violations. **A wrong predicate returned exactly the answer
+being hoped for**, and it was caught by implausibility across several simultaneous queries rather than by suspicion
+of the predicate.
 
 ---
 

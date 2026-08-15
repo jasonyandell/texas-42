@@ -140,6 +140,10 @@ travel with them are on the track page's two chapters.
 | **Proposition FF-oracle** | Per-state fees bound shared fees, so **a low capture refutes conclusively and a high capture establishes nothing** about a usable family. Forces the name **oracle-θ capture** on every such column. | same section |
 | **Proposition FF-degen** | **Zero breakpoints is exactly vacuity.** A zero capture with many breakpoints is a measurement; the same zero with none is a tautology. The diagnostic that made a defect catchable from a committed artifact. | same section, first closing note |
 | **Proposition FF-corr** | Exactly what a fee bites on: capture is zero iff zero minimises the objective, which for unique clairvoyant argmax means the centred feature has zero mean along the clairvoyant policy. | same section, second closing note |
+| **Proposition FC-drop** | The quantitative form of FF-corr: **capture is at least correlation times reach** — one directional slope times one breakpoint distance, computable with **no minimisation**. A **lower** bound at every state, so a large value proves a fee bites and a small value proves nothing. | `CENSUS-RULINGS.md` § "The fee-correlation chapter: what a fee bites on, measured" |
+| **Corollary FC-null** | An action-blind feature has exactly zero correlation, recovering FF-blind and giving the diagnostic a null control whose value is fixed **by theorem** rather than by a filed number. | same section |
+| **Proposition FC-width** | The subgradient's width is exactly the mass-weighted spread of the feature **across the clairvoyant tie**. Without ties it is a point, so zero capture needs an exact identity; with ties it has positive width and zero capture is **robust rather than coincidental**. | same section, closing note |
+| **Proposition FC-tight** | The drop bound is **attained** exactly when the descent is a single linear piece. It is never *exact* as a property of the functional anywhere, and **which states attain it is not knowable without the captured amount** — so attainment is a fact about the gap's distribution, never a usable property of the instrument. | same section, closing note |
 
 ## The ruling families
 
@@ -172,6 +176,7 @@ three, `N4-A` across two — and the family, never the heading, is what inherits
 | `FT-A` | FT-A1..**FT-A29** | The fusion tax: inbox 016 adjudicated | 2026-08-14 | The upper side. Carries **Lemma FT-arrive**, **Lemma FT-trunc** + **Corollary FT-grade4**, **Proposition FT-flat**, **Proposition FT-tie**, **Lemma FT-post**, **Corollary FT-conv** and **Lemma FT-mix**; **freeze 38 v1** (FT-A17, the reservation discharged) and **freeze 50 v1.1** (FT-A18, amended at FT-A23 and FT-A24). The closing notes (A23–A28) adjudicate the returned run; **FT-A29** files two self-corrections to the section. |
 | `SR-A` | SR-A1..**SR-A37** | The second rung: inbox 017 adjudicated | 2026-08-14 | The upper side, one rung deeper. Carries **Lemma SR-coord**, **Lemma SR-forced**, **Proposition SR-sep**, **Proposition SR-post**, **Corollary SR-conv**, **Proposition SR-degen**, **Proposition SR-taut** and **Proposition SR-loc**; **freeze 51** (SR-A22, the depth-two carrier) and **freeze 38 v1.1(d)** (SR-A21, a clarification — v1 not amended, v2 not opened). The closing note (A27–A32) adjudicates the returned run and discharges FT-A28 entire; **A33** and **A34** adjudicate two defects the build found in itself, **A35** types the companion's cross-process digest as an audit note, **A36** records the chapter's first pass with no specification conflict, and **A37** withdraws a carried obligation that was never owed. |
 | `FF-A` | FF-A1..**FF-A33** | The feature-fee audition: Jason's control feature, specified | 2026-08-14 | Which cheap structural features price the first-layer tax, on a carrier where the perfect answer is filed. Carries **Proposition FF-blind**, **Lemma FF-min**, **Proposition FF-oracle**, **Proposition FF-degen** and **Proposition FF-corr**; **freeze 52** with amendments **v1.1** (FF-A15), **v1.2** (FF-A20), **v1.3** (FF-A23) and **v1.4** (FF-A33). Two closing notes: A10–A24 adjudicate the first run and the defect it exposed, A25–A33 the corrected re-run, the shared-θ fit, and the chapter's close. |
+| `FC-A` | FC-A1..**FC-A22** | The fee-correlation chapter: what a fee bites on, measured | 2026-08-14 | Why a fee bites, measured where the exact answer is filed. Carries **Proposition FC-drop**, **Corollary FC-null**, **Proposition FC-width**, **Proposition FC-tight** and **freeze 53**. Delivers the branch's first **pre-fee screening statistic** and its first structural limit on the fee route. A22 supplements the close and binds the "attained, never exact" phrasing on this page and every citation. |
 
 Three numbering traps. **`E-A` and `E-Q` are spent** by the endgame-store section
 of 2026-08-11 — SEP-A had to renumber the separation design's own `E-Q1..E-Q8`
@@ -294,10 +299,49 @@ says "the design" means the one named in its section's opening paragraph.
 
 Pointers only. Nothing below is restated from its source; open the ruling.
 Written for walt-math-11 at the close of the FT chapter and extended the same day
-as walt-math-11 filed the SR and FF chapters. **Sections run newest first; the
-FF items are the most likely to be needed.**
+as walt-math-11 filed the SR, FF and FC chapters. **Sections run newest first;
+the FC items are the most likely to be needed.**
 
-### The FF chapter (newest)
+### The FC chapter (newest)
+
+- **The `FC-A` family** — `FC-A1..FC-A22`, in `CENSUS-RULINGS.md` § "The
+  fee-correlation chapter: what a fee bites on, measured" (≈ lines 11170–12099 as
+  of this date). Four named objects, indexed above, and **freeze 53**.
+- **A PHRASING RULE BINDS ANYONE WRITING FROM THESE RULINGS, and it corrected the
+  adjudicator's own text before it could reach a wiki page.** The drop bound is a
+  **lower bound at every state**. Where it equals the frozen captured amount it is
+  **ATTAINED**, never *exact* — "exact at 258 states" invites the reading that the
+  screen predicts capture a fifth of the time, which is what the chapter exists to
+  prevent. **And attainment is not identifiable in advance**: nothing in the
+  emitted data says *which* states attain it without computing the very quantity
+  the bound exists to avoid computing. So say *attained at 258 of 1,252*, say *a
+  lower bound everywhere*, and say *which states attain it is not knowable without
+  the captured amount*.
+- **The generalised scope rule**: a figure's scope names **every** dimension it
+  ranges over — state set, feature set and unit set — in the same sentence, and **a
+  scope derived from an adjective rather than stated as a set is not a scope.** The
+  chapter's own demonstration is the sharpest argument for it: one census reads
+  1,010/322 over one state set and 252/322 over another, and the first invites
+  "zero at most states" while the second says what is true.
+- **Independent verification means an independent *predicate*, not an independent
+  *party*.** Two agents running one grep are one check, however many agents there
+  are. This was minted the hard way: a check written with a regex anchor where a
+  literal was meant matched nothing and returned a clean, confident zero
+  violations — **a wrong predicate returning exactly the answer being hoped for**,
+  caught by implausibility across several simultaneous queries rather than by
+  suspicion of the predicate. The operational tell: *a check that returns exactly
+  the hoped-for answer with no exceptions deserves one more query by a different
+  route before it is believed.* Its companion: **a predicate that fails loudly on a
+  near-miss is strictly better than one that silently matches it.**
+- **Two more disciplines**: receipt what the probe recomputes each run, and leave a
+  documented one-time audit where the object is fixed source; and emit over the
+  full set, read over the meaningful subset, **naming both**.
+- **What the chapter leaves open**: the third coordinate is still uncommissioned
+  and still needs its own freeze, but its selection criterion has changed — it is
+  now chosen on **measured argmax multiplicity**, with the earlier trump-survival
+  input demoted to a hypothesis about a correlate.
+
+### The FF chapter
 
 - **The `FF-A` family** — `FF-A1..FF-A33` with two closing notes, in
   `CENSUS-RULINGS.md` § "The feature-fee audition: Jason's control feature,
@@ -455,8 +499,8 @@ FF items are the most likely to be needed.**
   emission" unqualified; and an obligation-creating clause is not evidence the
   obligation is still open. A prior run is not an object and its results text is
   not an interface.
-- **T1-A12's implementation-versus-corpus risk is now inherited by six
-  families.** Every statement in T1-A, LD-A, RW-A, FT-A, SR-A and FF-A is proved
+- **T1-A12's implementation-versus-corpus risk is now inherited by seven
+  families.** Every statement in T1-A, LD-A, RW-A, FT-A, SR-A, FF-A and FC-A is proved
   relative to walt's *implementation* of the rules, read from the code at
   adjudication time, and **no receipt inside those sections can detect a
   disagreement with the rules corpus** because every receipt is computed by that
@@ -468,7 +512,7 @@ FF items are the most likely to be needed.**
 
 ## Where the rest lives
 
-- [The freeze register](walt-math-freezes.md) — all 52 issued freezes with
+- [The freeze register](walt-math-freezes.md) — all 53 issued freezes with
   content, version and declaring ruling (39 and 40 still reserved).
 - [Open questions](walt-math-open-questions.md) — what is genuinely unresolved,
   and why none of it belongs in [open-problems](open-problems.md).

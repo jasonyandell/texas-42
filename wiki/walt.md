@@ -53,7 +53,7 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | [walt-foundation-era](walt-foundation-era.md) | S1–S4.5: the rules-to-operators stack, the control skeleton, and its two exhaustive checkers |
 | [walt-factory-era](walt-factory-era.md) | S5a–S5d: the conflict-driven lesson factory, the label-fragility discovery, the lesson economy, and the re-tethering |
 | [walt-census-era](walt-census-era.md) | S5e–S5k: the situation censuses, the retrograde quotient and railyard, the fiber and endgame probes, and the seat census resolved by proof |
-| [walt-s6-era](walt-s6-era.md) | S6a–S6m: the predictive-rank dimension census, the policy-geometry probe, the deadness detectors, the first root-action certifications, the cheap-seed and map-free rule probes, the trick-1 and lay-down theorems, the two gluing rungs, and the first feature audition |
+| [walt-s6-era](walt-s6-era.md) | S6a–S6n: the predictive-rank dimension census, the policy-geometry probe, the deadness detectors, the first root-action certifications, the cheap-seed and map-free rule probes, the trick-1 and lay-down theorems, the two gluing rungs, and the fee line |
 
 **Reference**
 

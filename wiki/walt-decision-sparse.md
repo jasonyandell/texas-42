@@ -5,11 +5,11 @@ inventory, its audit history, and the standing state of its experiment program �
 `walt/math/decision_sparse_exact_solving_v0.1.md` (the received parent, verbatim) and
 `walt/math/decision_sparse_exact_solving_v0.1_errata.md` (the durable repaired mathematics, DS-A17);
 `walt/CENSUS-RULINGS.md` (DS-A1..DS-A36, SEP-A1..SEP-A19, J-A1..J-A18, PG-A1..PG-A18, R-A1..R-A24,
-N4-A1..N4-A20, EC-A1..EC-A14, RW-A1..RW-A8, **FT-A1..FT-A29**, **SR-A1..SR-A37**, **FF-A1..FF-A33**);
+N4-A1..N4-A20, EC-A1..EC-A14, RW-A1..RW-A8, **FT-A1..FT-A29**, **SR-A1..SR-A37**, **FF-A1..FF-A33**, **FC-A1..FC-A22**);
 `walt/SEPARATION-PROBE.md`, `walt/DEADNESS-PROBE.md`; `walt/walt-factory/results/deadness_2026-08-12.txt`,
 `separation_2026-08-13.txt`, `separation_n4_2026-08-14.txt`, `rule_economy_n4_2026-08-14.txt`,
-`fusion_tax_2026-08-14.txt`, `second_rung_2026-08-14.txt`, `feature_fee_2026-08-14.txt` and its corrected
-re-run `feature_fee_v11_2026-08-14.txt`; and the received
+`fusion_tax_2026-08-14.txt`, `second_rung_2026-08-14.txt`, `feature_fee_2026-08-14.txt`, its corrected
+re-run `feature_fee_v11_2026-08-14.txt`, and `fc_correlation_2026-08-14.txt`; and the received
 `exchange/inbox/016-decision-sparse-nonanticipativity-taxes.md` and `017-second-rung-gluing.md`
 (both adjudicated, neither imported as an axiom). Related: [walt](walt.md) (hub), [walt-s6-era](walt-s6-era.md) (the
 sessions that produced
@@ -615,6 +615,113 @@ rather than by design, and the next pre-declaration should require it.
 chosen to vary trump survival at the frontier while holding as much else fixed as possible — is deliberately *not*
 inherited: it is a new carrier and wants its own freeze, its own pre-declared readings including an explicit
 empty-arm branch, and the non-null pairing above. It should be asked for, not assumed.
+
+**It was asked for, and the answer redirected it.** The next chapter declined the third coordinate in favour of
+explaining h2's zero first, and that explanation retired the trump-survival criterion before a coordinate was chosen
+on it — see below.
+
+## The fee-correlation chapter (S6n, 2026-08-14)
+
+The feature audition ended holding an exact zero it could not explain: the surviving feature captured about three
+quarters of the first-layer tax at h0's leading frontier and **exactly zero** at h2, twice over, across thousands of
+breakpoints that proved the fee genuinely varied. The audition had made the diagnostic optional. **This chapter
+reverses that**, and the reasoning is worth keeping: an exact rational identity holding at 432 independent states is
+the most informative unexplained fact in the branch, and the instrument that would explain it costs seconds.
+
+**The third coordinate was deferred, not refused, and the deferral turned out to be load-bearing.** A third
+observation taken before the mechanism is measured *enlarges* the previous chapter's confound rather than resolving
+it — a single contrast cannot isolate one variable from a dozen co-varying ones, and adding a third under the same
+conditions does not escape that. Had a third coordinate been run first it would have been selected on trump
+survival, and the actual mechanism would still be unknown.
+
+**The instrument. Proposition FC-drop** converts the earlier zero-test into a **quantitative lower bound on
+capture**, computable with no minimisation: **capture is at least correlation times reach.** One directional slope
+measures how far the feature leans on the clairvoyant choice; one breakpoint distance measures how far the fee can be
+pushed before that choice starts changing; the fee collects their product at minimum. **Corollary FC-null** supplies
+a null control whose exact value is fixed by theorem rather than by a filed number — which is what a control needs to
+be, since a control checked against a filed rational tests the filing rather than the harness.
+
+### The answer, and the mechanism
+
+**The zero is TIE-DRIVEN, unanimously.** At both h2 units, over each unit's **216 swept states**, the two one-sided
+slopes **strictly straddle zero at every state, with neither slope zero anywhere.** The alternative — genuine
+orthogonality between feature and clairvoyant choice — is **refuted at every state of the carrier**, which is the
+stronger of the two ways a pre-declared reading can fail.
+
+**Proposition FC-width is why that is a result and not an observation.** The width of the subgradient equals the
+mass-weighted spread of the feature across the clairvoyant tie. **Without ties the interval is a point**, so zero
+capture would demand an exact rational identity — implausible at 216 states twice over. **With ties it has positive
+width**, and zero capture needs only that zero fall inside it: robust, not coincidental. Measured: a non-singleton
+clairvoyant argmax at **236,784 of the 362,880 (state, world) arrivals at each h2 unit's 216 swept states (65.25%)**
+against **59,776 of 266,132 at h0's one unit over its 1,332 swept states (22.46%)**, with h2's straddle holding at 216 of 216 per unit where h0's fails at 1,252 of its 1,332 — all four counts at the
+beatability feature.
+Mechanism and measurement agree.
+
+### What it does to the programme
+
+**The h2 refutation was never about that feature.** No fee keyed on the clairvoyant choice can be expected to bite
+where the face is widely non-singleton, because FC-width widens the subgradient for **any** such feature. Three
+consequences, and they are the reason this chapter outranks a third data point:
+
+- **The refutation decouples from the candidate.** It is a statement about the **fee route**, not about a feature.
+- **There is now a pre-fee screening statistic** — the argmax cardinality profile. It is a property of the
+  coordinate's world structure, measurable **before any fee is built**, and it gates whether building one is worth
+  attempting.
+- **The negative is structural rather than a failure of cleverness**, which is the most useful kind this branch
+  produces.
+
+So the programme's first question at a new coordinate is no longer *which feature* but **"is the clairvoyant choice
+pinned down enough for any fee to bite"** — cheaper than building a fee, and now backed by an exact statistic. It
+does not advance the trick-1 obligations and nothing here is quoted for trick 1, but **it is the first thing the
+branch has that says where *not* to spend the attempt.** The third coordinate, still uncommissioned and still needing
+its own freeze, is now selected on **measured multiplicity** rather than on guessed trump survival; the earlier
+trump-survival criterion is demoted to a hypothesis about a correlate.
+
+### How good the screen is, stated in the words the ruling binds
+
+Over the **1,252 straddle-false states of h0's one unit at the beatability feature**, the bound is **attained** —
+equal to the frozen captured amount — at **258 of them (20.61%)**, while the summed bound recovers **14.873%** of the
+summed capture. **Proposition FC-tight** says what those 258 are: the states where the descent is a single
+linear piece. Three qualifications travel with those numbers, and the wording is not decoration:
+
+- **It is a lower bound at every state, the 258 included** — never *exact* as a property of the functional anywhere.
+  Saying "exact at 258 states" invites the reading that the screen predicts capture a fifth of the time, which is
+  the reading this chapter exists to prevent.
+- **Which states attain it is not knowable without the captured amount**, the very quantity the bound exists to
+  avoid computing. The 258 is therefore a fact about the distribution of the gap and **never a usable property of the
+  instrument**: in use the screen is exactly as weak as its aggregate 14.873% and no weaker.
+- The reach is measured to the nearest *candidate* breakpoint, which can fall short of a true kink, so the bound
+  carries **a second and independent conservatism** on top of the descent running past it. Both shrink it, never
+  enlarge it. This belongs with any citation of the 14.873%.
+
+The ruling's own summary, in the form its own later clause restates it: **a triage instrument and a poor
+estimator** — different jobs, and the adjective "usable" does not survive the paragraph above. As a lower bound it
+can prove a fee bites and can never prove one does not, so its false-negative rate is the figure that matters.
+
+### The rest of the run, each figure with its full scope
+
+The **null control** held with both slopes exactly zero at **all 1,764 swept states across the three units**,
+blocking and first. The **non-null pairing receipt** — required by design because the previous chapter had got that
+pairing only by luck — held over **h0's 574 leading states at the beatability feature**, slopes not both zero at
+**518**. A **filed-face receipt** compared **3,528 masks over every swept state of all three units — 1,332 at h0 and 216 at
+each h2 unit — 1,374 of them two-tile**, all matching a different program's committed output; those two-tile masks are 39% of the comparison and are exactly the
+faces a tie-broken argmax would have collapsed. That receipt earned its keep on a narrow margin worth recording: a
+collapsed face would *most likely* have failed loudly, but a collapsed value landing exactly on zero would have
+reported the wrong one of two pre-declared readings **with every receipt green**.
+
+**The graded boss-keyed feature is not refuted**: over **h0's 574 domain-nonempty swept states** its bound is
+positive at **322**, so its capture is **proved positive by theorem, with no sweep at all**. The calibration attached
+to that finding governs how it reads, and without it the sentence flatters: **the already-refuted binary form is
+straddle-false at 374 of those same 574 states — more states than the graded form — and that binary cashed out at
+0.367%.** **Proved-positive and negligible are entirely compatible, and here that is the likely reading.** The sweep
+was declined; what would reopen it is a shared-parameter capture at a *second* coordinate materially different from
+h0's, which would show the fee route is coordinate-robust. Nothing less.
+
+**Where this leaves the line.** The fee route works at h0's leading frontier and is **structurally blocked** wherever
+the clairvoyant face is widely non-singleton — not a fixable defect of any candidate. Every standing fence is
+undiminished: three units at two coordinates chosen by negative binding margin are **a carrier and not a sample**;
+**grade 4, so no verdict moved and none could**; the **first layer only**; and **nothing quoted for trick 1 or for
+the opening**, binding hardest here because multiplicity is now the variable most tempting to extrapolate.
 
 ---
 

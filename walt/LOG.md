@@ -154,7 +154,7 @@ Full account: [`wiki/walt-census-era.md`](../wiki/walt-census-era.md).
   invariant list were caught at adjudication. **The insight**: structural
   compression is bought with deadness, and nothing is dead at the first play.
 
-## The S6 era — S6a to S6m
+## The S6 era — S6a to S6n
 
 Full account: [`wiki/walt-s6-era.md`](../wiki/walt-s6-era.md); the architecture
 and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md).
@@ -367,6 +367,50 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   further commissioned. Filed alongside: **SR-A37** withdrew the
   claim-ledger/FINDINGS/open-problems obligation carried by the SR chapter as
   never owed — the correct count is zero.
+- **S6n (2026-08-14)**: the fee-correlation chapter — why a fee bites, measured.
+  Adjudicated FC-A1..FC-A22 (walt-math-11) with **freeze 53**; Prop FC-drop, Cor
+  FC-null, Prop FC-width, Prop FC-tight. Artifact
+  `fc_correlation_2026-08-14.txt` at `08f1b61`. The chapter **declined** the
+  third coordinate S6m had named — a third observation taken before the
+  mechanism is measured enlarges the confound rather than resolving it — and
+  commissioned the diagnostic on the carrier already held. **Prop FC-drop**:
+  capture is at least **correlation times reach**, a lower bound needing no
+  minimisation, the first quantity in the branch that predicts where a fee can
+  bite without computing whether it does. **THE ANSWER, unanimous: h2's exact
+  zero is TIE-DRIVEN.** At both h2 units, over each unit's 216 swept states, at the
+  beatability feature, the slopes strictly straddle zero at every state with
+  neither slope zero anywhere;
+  genuine orthogonality is **refuted at every state of the carrier**, not merely
+  unsupported. **Prop FC-width is the mechanism**: subgradient width = the
+  mass-weighted spread of the feature across the clairvoyant tie, so without
+  ties zero capture needs an exact identity and with ties it needs only that
+  zero fall inside a positive-width interval. Non-singleton argmax at 236,784 of the
+  362,880 (state, world) arrivals at each h2 unit's 216 swept states (65.25%),
+  against 59,776 of 266,132 at h0's one unit over its 1,332 swept states
+  (22.46%). The profile is a property of the coordinate, not of a feature. **THE CONSEQUENCE: the h2 refutation was never about that
+  feature.** No fee keyed on the clairvoyant choice can be *expected* to bite where
+  the face is widely non-singleton, so the branch now holds a **pre-fee screening statistic**
+  — the argmax cardinality profile, measurable before any fee is built — and the
+  fee route is **structurally blocked** at such coordinates, not defectively
+  served by a candidate. The programme's first question at a new coordinate is
+  no longer "which feature" but **"is the clairvoyant choice pinned down enough
+  for any fee to bite"**. Screen quality, in the bound wording: over the 1,252
+  straddle-false states of h0's one unit at F2 the bound is **ATTAINED** (never
+  "exact") at 258 (20.61%) and the summed bound recovers 14.873%; **it is a
+  lower bound everywhere, and which states attain it is not knowable without
+  κ_I** — so in use it is exactly as weak as 14.873%. The reach is measured to
+  the nearest *candidate* breakpoint, which may fall short of a true kink, so
+  the bound carries a second independent conservatism: both make it smaller,
+  never larger, and this belongs with any citation of the 14.873%. A **triage instrument and
+  a poor estimator**. Also: null control both slopes zero at all 1,764 swept
+  states of the three units; (FC-R2) non-null pairing held at 518 of h0's 574
+  leading states at F2; F1g **proved positive** at 322 of those 574 **but** the
+  refuted binary form is straddle-false at 374 of the same 574 and cashed out at
+  0.367% — proved-positive and negligible are compatible; sweep **declined**.
+  Third coordinate still uncommissioned, now selected on **measured
+  multiplicity** rather than guessed trump survival. Fences: a carrier not a
+  sample, grade 4 so no verdict moved, Δ^(1) only, **nothing quoted for trick
+  1**.
 - **Corrections recorded in place (2026-08-14, librarian verification pass
   against the results files, which govern):** three numbers above are wrong.
   S6g's corner-gap range: the widest of the thirteen corpus corner gaps is
