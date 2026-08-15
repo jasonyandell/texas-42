@@ -12163,3 +12163,263 @@ spend the attempt.
   the words. **The severity is rising even though the cost has not**, since the
   rulings arriving late are increasingly the ones that bind phrasing rather than
   computation. **RANGE FROZEN: FC-A1..FC-A23, and the chapter is closed at it.**
+
+---
+
+## The seed survey: a hundred fresh coordinates, designed (2026-08-15)
+
+**Adjudicator:** walt-math-11. **Object:** the design of a 100-seed, 400-unit
+survey of grade-4 coordinates reached by construction, commissioned by Jason
+tonight — *"so we need some more full solves. we have a night to do it in."*
+**Tier:** exploratory throughout, below every tier. **Basis:** freeze 7/23
+(fiber enumeration), 26 (observation contract and the least-domino-index dumb
+policy), 37(d) (belief), 38 v1.1 (the gluing cut and its ordering), 44 v2 (walk
+budgets), 45 (the n = 4 coordinate identity), 46/49 (the rule arms), 50 v1.1,
+52 through v1.4, 53; Corollary E4.1, Theorem E6.4, Corollary FT-grade4,
+Corollary 5.2, Proposition FT-tie, Proposition SR-degen, Propositions FF-blind
+/ FF-degen / FF-oracle, Propositions FC-drop / FC-width / FC-tight, and the
+scope, receipt-versus-audit and predicate disciplines of FF-A18 as generalised,
+FC-A12, FC-A14 and FC-A15. Rulings **SS-A1..SS-A9**; **freeze 54** fixed at
+SS-A4. The prefix `SS-` and every name below were grep-checked unused.
+
+**One defect in the design as handed to me, found before any code was written,
+and it would have voided the survey.** The generator was specified as *"seed `n`
+→ deal `n` via the canonical enumeration."* Taken literally that is fatal. The
+deal space has
+
+  `D = C(28,7) · C(21,7) · C(14,7) = 472,518,347,558,400`
+
+members under the standard mixed-radix unranking, and the **first seat's hand
+does not change until index `C(21,7) · C(14,7) = 399,072,960`.** Seeds `0..99`
+would therefore have produced **one hundred deals sharing an identical first
+hand** — a survey of one deal, sampled a hundred times. (That the blocking
+constant is exactly the trick-1 world count we have been quoting all chapter is
+a coincidence of the same combinatorics, and a pleasing one.) The repair is at
+SS-A2 and it is the only change of substance I have made to Jason's design.
+
+---
+
+- **SS-A1 (typing, tier, and what this survey is and is not).** **GRANTED as the
+  SS family.** Everything is exploratory, cited by nothing above this tier,
+  quotable as a result only by brief amendment adding it to a verifier receipt.
+  DS-A1 binds: **witness**, **receipt**, **necessary outer profile**, never the
+  forbidden word. Both outcomes of every gate are results (F7); a receipt failure
+  is stop-and-report, never a patch (NO-RESCUE).
+  **What it is.** The first carrier in this branch that is **not selected by
+  outcome.** Every previous n = 4 carrier was chosen by negative binding margin,
+  and SR-A25(iii)'s selection fence has had to travel with every number because
+  of it. **These hundred coordinates are selected by a declared arithmetic map
+  from the natural numbers and by nothing else**, and every root action is a unit,
+  so neither the coordinate nor the action is chosen by result. **That is the
+  survey's whole methodological point** and it is worth more than any single
+  number it will produce.
+  **What it is not.** It is **not a fee measurement.** Tonight measures whether
+  tie multiplicity tracks separation structure across fresh coordinates; whether
+  it tracks *fee capture* needs fees, which is a later run. **No sentence in the
+  artifact may say the survey tested fee viability.** It is also not a
+  distribution over 42: a hundred deals under one declared map is a **carrier**,
+  and P-A21 binds — **nothing measured at grade 4 is quoted for trick 1 or for the
+  opening.**
+- **SS-A2 (the generator: the unranking is REPAIRED with a declared spreading
+  map; the map is a constant and a stated rule, both asserted).** Five clauses.
+  (i) **The repair.** The seed does not index the deal directly. It indexes it
+  through a fixed multiplier:
+  **`index(n) = (n · A) mod D`**, with **`A = 292,032,399,099,041`** and
+  **`D = 472,518,347,558,400`**.
+  (ii) **Why that `A`, declared before any result and never chosen by one.** `A`
+  is the least prime at or above `D/φ`, the golden-ratio multiplier, which is the
+  standard low-discrepancy choice and spreads consecutive seeds maximally rather
+  than adjacently. **`D`'s prime factorisation contains only primes ≤ 23**, being
+  a product of integers ≤ 28, so **every prime greater than 28 is automatically
+  coprime to `D`** and `A` is a bijection on the index space. Verified at
+  adjudication time: over seeds `0..99` the map yields **100 distinct deal
+  indices** and **100 distinct first-hand ranks spanning 0 to 1,174,413 of
+  1,184,040** — essentially the whole range, against the one value the unrepaired
+  design would have given.
+  (iii) **Any fixed spreading map is arbitrary and that is not a defect; choosing
+  one after seeing results would be.** `A` is frozen here, before the build, and
+  a successor changing it is running a different survey and files it as one.
+  (iv) **The unranking itself is the standard mixed radix** — `index` split by
+  division into `(r₀, r₁, r₂)` over the radices `C(21,7)·C(14,7)`, `C(14,7)`, `1`,
+  then three combinadic unrankings giving seats 0, 1, 2 their hands and seat 3 the
+  remainder. **It reuses the existing `unrank_comb` rather than a fresh
+  implementation**, which is the FC-A11(ii) rule: mirror the receipted path, do not
+  re-derive it.
+  (v) **The rest of the generator, fixed as constants.** Declaration
+  `PipTrump(n mod 7)`. Seat 0 leads trick 1. The frozen dumb policy of freeze 26 —
+  least legal domino index — plays **three complete tricks**, twelve tiles, leaving
+  four in every hand. **The focal seat is the winner of trick 3**, which is the
+  seat on lead at the coordinate and makes leader offset 0 automatically, matching
+  freeze 45 rather than restating it.
+- **SS-A3 (units, and the collision question).** **Every legal root action of the
+  focal seat is a unit.** The focal seat leads at the coordinate, so its legal set
+  is its whole hand and **`|A| = 4` exactly at every coordinate — asserted in-run,
+  not assumed**, which is contentful and fails if the coordinate is malformed. So
+  **400 units, 4 per seed, no pair selection anywhere.**
+  **Collisions are filed as-is, not deduplicated**, and the coordinator's instinct
+  is right: collision frequency is data about the generator, and deduplication
+  would silently make the unit count depend on the results. **Each seed emits a
+  canonical coordinate key** — declaration, focal hand, pool, as ascending
+  domino-index tile lists in freeze-45 form — so collisions are computable after
+  the fact by anyone, from the committed summary alone.
+- **SS-A4 (FREEZE 54 — the seed-survey carrier and its measured objects).**
+  **(a) The carrier, as a generating rule with every constant asserted** (FT-A23's
+  discipline: a freeze states a constant **or** a rule, never both unasserted —
+  here the rule is the content and its constants are named): seeds `0..99`
+  inclusive; `index(n) = (n·A) mod D` with `A` and `D` as at SS-A2(i);
+  mixed-radix combinadic unranking; `PipTrump(n mod 7)`; seat 0 leads; freeze-26
+  dumb policy, three tricks; focal seat = trick-3 winner; every legal root action a
+  unit. **The 100 resulting coordinate identities are a function of that rule and
+  are not separately enumerated** — the rule generates them and the artifact prints
+  each in freeze-45 form.
+  **(b) Measured per unit, all exact rationals in the count convention, no float
+  anywhere** (P-A19): **(M1)** `Q^H(b)`, the full lawful solve. **(M2)** the
+  complete `H`-argmax set at the coordinate and the exact margin of `b` against
+  the best competitor, with the verdict cell UNIQUE-OPTIMAL / TIED-OPTIMAL /
+  DOMINATED — **walt's separation sense, an exact separation of one action from
+  every competitor, and never D3's sense**, printed with that sentence attached.
+  **(M3)** `U^C(b)`, the revealed value, and the fusion gap `U^C(b) − Q^H(b)`.
+  **(M4)** the depth-one frontier census — `|I₁|`, arrivals, the `|A(I)|`
+  distribution including the forced count, and the **tie-multiplicity statistic**:
+  the number of `(state, world)` arrivals whose **complete** clairvoyant argmax is
+  non-singleton, over the total. **(M5)** `Δ^(1) = Σ_I δ_I`, hence
+  `Δ^(2) = fusion gap − Δ^(1)` by Corollary FT-grade4, and `#{I : δ_I > 0}`, the
+  tax support size. **(M6)** `policy_value_by_rule` for the four frozen rules of
+  freezes 46/49 and each one's gap to `Q^H(b)`. **(M7)** the count-only partition
+  pass — exact extraction-map state count and FNV-128 digest, `O(1)` memory —
+  against `P_max v2 = 192,000,000`.
+  **(c) What `P_max` gates, stated precisely because it is the h9 typing
+  generalised.** An over-threshold count bars **the primal-witness pipeline only**
+  and is recorded as **NOT PRICED** on that route, never attempted. **It does not
+  bar (M1) through (M6)**, which need the depth-one frontier and the revealed
+  continuations below it and no extraction map at all. A NOT PRICED unit still
+  carries its solve, its tie census and its taxes, and every such row says so in
+  place.
+  **(d) Emission, cut by content** (FT-A24, freeze 50 v1.1(c)): a **thin committed
+  summary, one row per unit — 400 rows, committed entire**; fat companions
+  gitignored under pinned SHA-256 with byte and line counts in the committed
+  header, carrying the per-seed deal, the twelve played tiles, and the per-frontier
+  rows. **Accounting integers per unit make the omission auditable.**
+  **(e) Checkpointed in blocks** (DS-A36): results assembled in canonical unit
+  order and never completion order; a block is durable when complete; **the morning
+  has whatever completed and nothing partial.**
+  **(f) Belief and field are NOT re-declared** — freeze 26 and 37(d), no decimation
+  ((C2)). **No library entry at any coordinate** (freeze 45). The freeze-set digest
+  travels on every record.
+- **SS-A5 (budgets and stops: what may gate a schedule, and what may never gate a
+  value).** Three clauses.
+  (i) **Freeze 44(b) v2 binds unchanged** — `B = 10^10` walk-steps per
+  (coordinate, action) per evaluator, charge-then-descend, `Option` return, **and
+  on exhaustion no partial fold of any kind**: no partial tax, no partial census,
+  no partial solve. No new constant is fixed here.
+  (ii) **Wall-clock is the run owner's to declare and is provenance, never a
+  receipt** (N4-A13, SEP-A19(b)). The run owner may declare a per-unit `T_pass` and
+  a per-block `M_budget` tonight. **A wall-clock stop terminates a unit and files
+  it as a DECLARED STOP; it never truncates a value.** A stopped unit contributes
+  no number to any census, ratio or aggregate, and every aggregate names the unit
+  set it ranges over (FF-A18 as generalised) so a stop cannot silently shrink a
+  denominator.
+  (iii) **Heavy tails become verdicts.** A unit that stops is a filed outcome under
+  F7, printed as a stop and never as a finding (R-A18) — and the count of stops,
+  with their seeds, is itself a recorded measurement.
+- **SS-A6 (the receipts — nine, with the non-receipts named).**
+  (i) **(SS-R1) GENERATOR SOUNDNESS — BLOCKING, before any unit runs.** Per seed:
+  the four hands partition all 28 dominoes — disjoint, seven each, union complete;
+  every tile of the playout was **legal at the moment it was played** against
+  `legal_plays`; exactly twelve tiles played; exactly four remain in every hand;
+  and the trick-3 winner is the focal seat. **Contentful and it is the check that
+  catches an unranking error**, which is otherwise invisible because a wrong deal
+  is still a well-formed deal.
+  (ii) **(SS-R2) THE SPREADING RECEIPT — BLOCKING.** Assert `gcd(A, D) = 1` and
+  that the 100 indices are **pairwise distinct**. **Contentful**: it fails on a
+  mistyped `A`, and a mistyped `A` is exactly the defect SS-A2 exists to prevent
+  recurring silently.
+  (iii) **(SS-R3) GENERATOR DETERMINISM.** Recompute each seed's coordinate a
+  second time from the seed alone with fresh state and assert the freeze-45
+  identity tuple byte-identical. **Contentful across the whole survey**, and cheap.
+  (iv) **(SS-R4) COORDINATE IDENTITY.** Freeze 45's form asserted at every
+  coordinate, `|X| = 34,650` against `kernel.count()`, kernel rebuilt in-run and
+  asserted equal, `|A| = 4` asserted at the root.
+  (v) **(SS-R5) THE LADDER RECEIPT.** Per unit assert
+  `U^C(b) − Q^H(b) = Δ^(1)(b) + Δ^(2)(b)` with `Δ^(1)` summed from the frontier
+  table and `U^C`, `Q^H` from their own solves. **Contentful**: three quantities
+  from different passes, tied by Corollary FT-grade4, and it fails on any error in
+  the frontier decomposition.
+  (vi) **(SS-R6) THE COMPLETE-FACE RECEIPT — the one that guards the headline
+  statistic.** Assert Corollary 5.2 **both ways at every frontier state**: where
+  `δ_I = 0` the complete per-world argmax sets intersect, where `δ_I > 0` they do
+  not. **A collapsed face is caught here loudly**, because collapsing to
+  singletons makes the `δ_I = 0` states report empty intersections almost
+  everywhere. The construction must accumulate a **set by equality across all
+  candidates and track no index** — `max_by_key` returning one index **is** the
+  defect (FC-A11(ii)). **Plus the run-level non-null pairing** (FC-A26(iv)'s
+  discipline, required by design rather than by luck): assert that the
+  non-singleton arrival count is **positive somewhere in the survey**, since a
+  stuck-at-singleton implementation would otherwise report a tie multiplicity of
+  zero everywhere and satisfy every other check.
+  (vii) **(SS-R7) THE RULE BAR.** Assert `policy_value_by_rule ≤ Q^H(b)` for every
+  rule and unit. **Contentful**: a lawful rule policy cannot beat the lawful
+  optimum, so a failure means the rule was evaluated against the wrong field,
+  belief or convention.
+  (viii) **(SS-R8) DETERMINISM SAMPLE.** A full in-run second pass with fresh maps,
+  accumulators and budgets on a **declared sample — the first unit of every block —**
+  every printed figure asserted identical. Declared rather than universal because
+  at 400 units a universal second pass doubles the night; **(SS-R3) covers the
+  generator at every seed regardless.**
+  (ix) **(SS-R9) SCOPE.** Every emitted figure names **every dimension it ranges
+  over** — unit set, state set, seed set — in the same sentence, and a scope
+  derived from an adjective is not a scope (FF-A18 as generalised at FC-A10(iv),
+  FC-A14(ii)).
+  (x) **NAMED AS NON-RECEIPTS and printed as arithmetic remarks** (Proposition
+  SR-taut): `δ_I ≥ 0`; `Δ^(1) ≥ 0`; the fusion gap `≥ 0`; and the tie fraction
+  lying in `[0,1]`. They cannot fail.
+- **SS-A7 (all outcomes pre-declared, before any number exists; F7 binds).**
+  (a) **(SS-R1) or (SS-R2) fails** → stop-and-report before any unit runs; the
+  generator is wrong and no coordinate is trustworthy. (b) **Tie multiplicity
+  tracks separation structure** — units with high multiplicity systematically show
+  smaller margins, more ties in `Opt^H`, or larger `Δ^(2)` share → the screening
+  statistic generalises off its home carrier, and it becomes the selection variable
+  for fee work rather than a two-coordinate observation. (c) **It does not track
+  them** → **Proposition FC-width's statistic is carrier-local**, which is a result
+  and a sharp one: it would mean the h2/h0 contrast was driven by something
+  co-varying with multiplicity rather than by multiplicity, and the fee programme
+  loses its cheap screen. **This is the more informative outcome and it is not the
+  one we expect**, which is exactly why it is written down now. (d) **The relation
+  is present but weak or non-monotone** → reported as measured with no mechanism
+  claimed. (e) **Tax sparsity off-carrier** — the fraction of frontier states with
+  `δ_I > 0` at 400 unselected units against the 4.49% measured at five
+  margin-selected ones → the first out-of-carrier reading of that number, filed
+  either way, **and never quoted for trick 1** (P-A21). (f) **Stops** → declared,
+  counted with their seeds, no partial anything. (g) **Collisions** → counted and
+  filed; a high collision rate is a fact about the dumb policy's funnelling and is
+  reported as one, not as a defect.
+- **SS-A8 (what I would have regretted not measuring, since my own letter asked
+  that question of someone else).** Four, all cheap, all in freeze 54(b) above.
+  **The fusion gap and its two-rung split** — every tax this branch prices is a
+  fraction of it, and without it tonight's numbers are incomparable to every number
+  we already have. **The tax support size** — it makes the 4.49% sparsity figure
+  testable off-carrier for the first time, at four hundred units instead of nine.
+  **The `|A(I)|` distribution including forced states** — decision-deadness at the
+  frontier is free from the same pass and nothing else will ever be cheaper.
+  **The canonical coordinate key per seed** — without it collisions are
+  uncomputable afterwards and the generator's funnelling is invisible forever.
+  **And one deliberate omission:** no per-`(state, world)` rows are retained. At
+  four hundred units that is hundreds of millions of rows for a fee pass we have
+  not designed. The aggregates above are chosen so a **later** fee pass can *select
+  its coordinates* without re-solving — which is the honest scope: **the survey is
+  a selection instrument for fee work, not a fee measurement.**
+- **SS-A9 (fences, and what is owed).** Every standing fence travels verbatim:
+  the R-A2/P-A1 fence; **the N4-A8 real-deal fence in its amended form — these
+  hands do not come from rob's receipt corpus at all but from a declared arithmetic
+  map, so they are FEASIBLE constructions and not deals anyone played**, and no row
+  is a statement about correct play in any hand; **P-A21**, no grade-4 quantity
+  quoted for trick 1 or the opening; **Proposition SR-degen**, no verdict at grade
+  4 turns on any relaxation here; and SR-A25(vii)'s implementation-versus-corpus
+  risk undiminished, with T1-A12's check still owed. **Not claimed:** nothing about
+  points or marks; nothing about bidding; nothing about how real opponents play; no
+  cost or tractability claim read off any traversal observable. **Owed to the wiki
+  owner at chapter close:** freeze 54 and the SS era-page and LOG entries; per
+  SR-A37(i) that is the whole list.
+  **RANGE FROZEN: SS-A1..SS-A9, and freeze 54.** Per FC-A23(v) the range is frozen
+  **before** the build brief is issued; any later ruling requires an explicit
+  re-brief rather than relying on the builder to notice.
