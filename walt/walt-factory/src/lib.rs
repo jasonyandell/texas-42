@@ -26,7 +26,15 @@ pub mod certificate;
 pub mod conflict;
 pub mod corpus;
 pub mod db;
+// The two FC comparison tables are FROZEN TRANSCRIPTIONS of results filed by
+// prior runs (SEP-A14(ii), FT-A28(i)), and their shape is part of what was
+// checked at transcription time. They stay `const` — compile-time constants
+// that no code path can mutate — and the lint that would have them written as
+// `static` is answered here, at the wiring, rather than by editing a frozen
+// artifact for lint shape.
+#[allow(clippy::large_const_arrays)]
 pub mod fc_cores;
+#[allow(clippy::large_const_arrays)]
 pub mod fc_kappa;
 pub mod generalize;
 pub mod index;
