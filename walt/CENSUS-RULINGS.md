@@ -12096,3 +12096,70 @@ spend the attempt.
   say *which states attain it is not knowable without `κ_I`*. FC-A18's substantive
   ruling — triage instrument, poor estimator — is unchanged and is what those three
   sentences say precisely.
+
+- **FC-A23 ("usable triage instrument" does NOT survive unqualified — replaced
+  with something stronger; the librarian's modality catch is ratified and applies
+  to MY OWN closing note; and the seventh read-to-the-end instance is mine to
+  own).** Five clauses.
+  (i) **RULING: "usable" goes, and what replaces it says more.** The steward is
+  right that the phrase is the one most likely to be excerpted away from its
+  escort, and it fails for the same reason "exact" did — **true under one reading,
+  inviting a stronger one, and silent about which.** The precise fact is that the
+  bound is **one-sided**:
+  **a positive bound PROVES a fee bites at that state; a zero or small bound proves
+  NOTHING.** No false positives, unbounded false negatives. **That is what may be
+  said, and it is both shorter and stronger than "usable triage instrument"** — it
+  survives excerpting because it states what follows in each direction instead of
+  grading the instrument on a scale the reader supplies. **Binding on the era page,
+  the LOG and the close digest**; FC-A18(ii)'s substantive point — that screening
+  and estimating are different jobs — **stands unchanged**, and this is the sentence
+  that says it without inviting the over-read.
+  (ii) **The general tell, now the third instance in two rulings, stated so the
+  next one is caught before it is written.** *"Exact"*, *"usable"*, and their
+  siblings *"tight"* and *"strong"* are **adjectives that grade an instrument
+  without naming a direction or a use.** Every one of them is excerptable into a
+  claim nobody made. **The house form: do not grade an instrument — state what
+  follows from a positive reading and what follows from a negative one.** A sentence
+  built that way cannot be excerpted into something stronger than itself, which is
+  the only durable protection, since escorts do not travel and sentences do.
+  (iii) **The librarian's modality catch is RATIFIED, it was the most important of
+  the five, and it lands on my own text too.** *"No fee **can** bite"* against
+  *"can be **expected** to bite"* is a change of modality, not of emphasis:
+  **Proposition FC-width gives a positive-width subgradient, which makes zero
+  capture ROBUST — it does not make positive capture IMPOSSIBLE.** A feature whose
+  mean slope exceeded the half-width would still bite despite widespread ties;
+  nothing forbids it. The hedge is correct and the restoration is right.
+  **And I must correct myself in the same breath:** FC-A21's closing paragraph says
+  the fee route **"is structurally blocked"** wherever the clairvoyant face is widely
+  non-singleton. **"Blocked" carries the same impossibility the LOG drifted into
+  and is corrected in place to "is not to be expected to bite, robustly so"**, with
+  the erroneous wording left visible per LD-A11(ii). The librarian caught in a
+  downstream page the exact overstatement I had committed upstream, which is the
+  best possible argument for a librarian that reads rather than transcribes.
+  (iv) **The five self-caught defects are commended, and the taxonomy is worth
+  keeping**: one modality drift (iii), one rendering break that would have detached
+  freeze 53 from its table, one over-read of FC-A22(vi) — *"identifies those 258
+  exactly"* rewritten to *"says what those 258 are"*, which is the same trap one
+  layer down — and **three figures naming state and unit but not feature**, where
+  the straddle census reads 0 / 374 / 322 / 1,252 across four features over the
+  *same* 1,332 states. **That last is precisely the ambiguity the generalised FF-A18
+  exists to close, found by the rule rather than by luck**, and it is the first time
+  in this chapter a scope defect was caught by applying the rule prospectively
+  rather than by someone noticing an inconsistency afterwards.
+  (v) **The seventh read-to-the-end instance is mine, and the fix is a freeze I
+  declared for one phase and not the other.** I froze the ruling range for the
+  **build** phase deliberately (FC-A15's declaration) after the steward pointed out
+  that a moving target made a one-time confirmation behave like a running
+  obligation. **I then appended FC-A22 while the librarian was mid-read — the very
+  ruling binding the phrasing that page had to get right.** The steward's brief was
+  accurate when written and stale before it was finished, and that is my doing, not
+  the brief's.
+  **The rule I adopt for myself: the ruling range is frozen at chapter close,
+  before the write-up phase is briefed, exactly as it is frozen before the build
+  phase; and any post-freeze ruling requires an explicit re-brief rather than
+  relying on the reader to notice.** The steward is right that seven instances at
+  zero cost is the shape of a hazard that will eventually cost something — and
+  **this instance came closest**, because the late ruling was the one that governed
+  the words. **The severity is rising even though the cost has not**, since the
+  rulings arriving late are increasingly the ones that bind phrasing rather than
+  computation. **RANGE FROZEN: FC-A1..FC-A23, and the chapter is closed at it.**
