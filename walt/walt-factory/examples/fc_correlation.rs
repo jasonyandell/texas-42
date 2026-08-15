@@ -1401,6 +1401,19 @@ struct FeatOut {
     n_tight: u64,
     ratio_max: Option<(BigRational, String)>,
     rows: Vec<String>,
+    /// FC-A13(ii),(iii): the same aggregates again over the DOMAIN-NONEMPTY
+    /// subset of the swept states, which is the set every READING over a partly
+    /// empty cell is taken over. A cell emits over the full swept set and is
+    /// read over this subset, and both are named.
+    dom_zero: u64,
+    dom_pos: u64,
+    dom_s_nonzero: u64,
+    dom_break_total: u64,
+    dom_multi_worlds: u64,
+    dom_worlds_seen: u64,
+    dom_bound_sum: BigRational,
+    dom_bound_max: BigRational,
+    dom_bound_max_rec: String,
 }
 
 struct FcUnit {
@@ -1620,6 +1633,15 @@ fn run_unit(kernel: &Kernel, root: Domino, unit: u8) -> Option<FcUnit> {
             n_tight: 0,
             ratio_max: None,
             rows: Vec::new(),
+            dom_zero: 0,
+            dom_pos: 0,
+            dom_s_nonzero: 0,
+            dom_break_total: 0,
+            dom_multi_worlds: 0,
+            dom_worlds_seen: 0,
+            dom_bound_sum: BigRational::zero(),
+            dom_bound_max: BigRational::zero(),
+            dom_bound_max_rec: String::from("n/a"),
         };
         if screened {
             feats.push(out);
@@ -1663,6 +1685,31 @@ fn run_unit(kernel: &Kernel, root: Domino, unit: u8) -> Option<FcUnit> {
             if d.bound > out.bound_max {
                 out.bound_max = d.bound.clone();
                 out.bound_max_rec = rec.text();
+            }
+
+            // FC-A13(ii),(iii): the same aggregates again over the
+            // DOMAIN-NONEMPTY subset. A partly empty cell EMITS over the full
+            // swept set and is READ over this subset — at h0 the boss-keyed
+            // domain is nonempty at 574 of the 1,332 swept states, and a
+            // reading scoped to the 1,332 would be 57% tautological, which is
+            // the FF-A11 fault one level down.
+            if !FEAT_BOSS_KEYED[f] || st.boss.is_some() {
+                out.dom_worlds_seen += st.n_worlds;
+                out.dom_multi_worlds += d.n_multi;
+                out.dom_break_total += u64::try_from(d.n_break).expect("fits");
+                if d.straddle {
+                    out.dom_zero += 1;
+                } else {
+                    out.dom_pos += 1;
+                }
+                if s_nonzero {
+                    out.dom_s_nonzero += 1;
+                }
+                out.dom_bound_sum += d.bound.clone();
+                if d.bound > out.dom_bound_max {
+                    out.dom_bound_max = d.bound.clone();
+                    out.dom_bound_max_rec = rec.text();
+                }
             }
 
             // The frozen comparison, where one exists (FC-A10(i)): F0 and F2.
@@ -1980,15 +2027,39 @@ fn render_unit(receipt: &Receipt, key: UnitKey) -> UnitText {
         );
         assert_eq!(
             (
+                r.feats[f].dom_zero,
+                r.feats[f].dom_pos,
+                r.feats[f].dom_s_nonzero,
+                r.feats[f].dom_break_total,
+                r.feats[f].dom_multi_worlds,
+                r.feats[f].dom_worlds_seen
+            ),
+            (
+                r2.feats[f].dom_zero,
+                r2.feats[f].dom_pos,
+                r2.feats[f].dom_s_nonzero,
+                r2.feats[f].dom_break_total,
+                r2.feats[f].dom_multi_worlds,
+                r2.feats[f].dom_worlds_seen
+            ),
+            "(FC-R6) stop-and-report: two passes disagree on a domain-scoped reading integer of feature {}",
+            FEAT_NAME[f]
+        );
+        assert_eq!(
+            (
                 &r.feats[f].bound_sum,
                 &r.feats[f].bound_max,
                 &r.feats[f].ratio_max,
+                &r.feats[f].dom_bound_sum,
+                &r.feats[f].dom_bound_max,
                 &r.feats[f].rows
             ),
             (
                 &r2.feats[f].bound_sum,
                 &r2.feats[f].bound_max,
                 &r2.feats[f].ratio_max,
+                &r2.feats[f].dom_bound_sum,
+                &r2.feats[f].dom_bound_max,
                 &r2.feats[f].rows
             ),
             "(FC-R6) stop-and-report: two passes disagree on a rational or a printed row of feature {}",
@@ -2107,6 +2178,54 @@ fn render_unit(receipt: &Receipt, key: UnitKey) -> UnitText {
                 FEAT_NAME[f], r.pos
             );
             continue;
+        }
+        // FC-A13(ii),(iii): EMIT over the full swept set, READ over the
+        // domain-nonempty subset, and NAME BOTH. Where the two coincide the
+        // file says so and why, rather than leaving a reader to infer it.
+        let full_domain = fo.n_domain_swept == r.pos;
+        let _ = writeln!(
+            out,
+            "    READING SCOPE (FC-A13(ii),(iii)), fixed before any figure below is read: this cell EMITS a row for every one of the {} SWEPT states of this ONE unit, each carrying its domain flag, and every READING below is taken over the {} DOMAIN-NONEMPTY swept states of this ONE unit at the ONE feature {} — {}. {}",
+            r.pos,
+            fo.n_domain_swept,
+            FEAT_NAME[f],
+            if full_domain {
+                "and here the two sets COINCIDE, because this feature's domain is the whole fiber and no swept state of this unit is outside it"
+            } else {
+                "and here the two sets DIFFER, because this feature references h(omega) and is identically 0 outside its domain"
+            },
+            if f == 0 {
+                "THE NULL CONTROL IS THE ONE DELIBERATE EXCEPTION: (FC-R1) is asserted at EVERY swept state of this unit and not only inside the domain, because it is a check on the harness rather than a reading of a feature, and Corollary FC-null fixes its answer identically on both sides of the domain boundary."
+            } else if full_domain {
+                "The domain-scoped figures are therefore identical to the swept-set figures at this cell, and are stated rather than omitted so that the scope is a set on the page and not an inference."
+            } else {
+                "A reading scoped to the full swept set would count theorem-fixed zeros as measurements, which is the FF-A11 fault one level down, so the domain-scoped figures are repeated below in full."
+            }
+        );
+        if !full_domain && f != 0 {
+            let dom_max_txt = if fo.dom_bound_max.is_zero() {
+                String::from("no state of that set has a positive bound")
+            } else {
+                format!(
+                    "the largest single-state bound over it is {} (count) at I=[{}]",
+                    bqs(&fo.dom_bound_max),
+                    fo.dom_bound_max_rec
+                )
+            };
+            let _ = writeln!(
+                out,
+                "    THE READING, over the {} DOMAIN-NONEMPTY swept states of this ONE unit at the ONE feature {} AND OVER NO OTHER SET: the straddle s^- <= 0 <= s^+ holds at {} of them and fails at {}; s^± are NOT BOTH EXACTLY 0 at {} of them; {} breakpoints are enumerated across them; {} of the {} (state, world) arrivals at them have a NON-SINGLETON clairvoyant argmax; and the summed proved lower bound on capture (Proposition FC-drop(c)) over them is {} (count), {}. FC-A7(f)'s refutation reading and FC-A7(g)'s three readings are taken over THIS set and over no other.",
+                fo.n_domain_swept,
+                FEAT_NAME[f],
+                fo.dom_zero,
+                fo.dom_pos,
+                fo.dom_s_nonzero,
+                fo.dom_break_total,
+                fo.dom_multi_worlds,
+                fo.dom_worlds_seen,
+                bqs(&fo.dom_bound_sum),
+                dom_max_txt
+            );
         }
         let _ = writeln!(
             out,
@@ -2442,6 +2561,14 @@ fn header(out: &mut String) {
     let _ = writeln!(
         out,
         "  FREEZE 52 v1.4 (FF-A33(iii)): the screen applies PER (unit, feature) CELL and not per unit, and the null control is EXEMPT IN ALL CASES. A cell whose domain is empty at every swept state is declared an EMPTY TEST and is not measured — its s^± would be 0 by Corollary FC-null, a theorem-fixed zero that is not a measurement of the feature and must not be averaged into one."
+    );
+    let _ = writeln!(
+        out,
+        "  THE CELL/STATE DISTINCTION THAT FOLLOWS FROM IT (FC-A13(iii)), which governs every feature block below: A WHOLLY EMPTY CELL IS SCREENED AND EMITS NO ROWS — the four boss-keyed cells at the two h2 units. A PARTLY EMPTY CELL RUNS, EMITS EVERY SWEPT ROW CARRYING A DOMAIN FLAG, AND HAS EACH READING OVER IT SCOPED TO THE DOMAIN-NONEMPTY SUBSET — F1 and F1g at h0, whose domain is nonempty at 574 of that unit's 1,332 swept states, so that FC-A7(f)'s refutation reading and FC-A7(g)'s three readings range over those 574 AND OVER NO OTHERS. EMIT OVER THE FULL SET, READ OVER THE MEANINGFUL SUBSET, NAME BOTH. A reading scoped to the 1,332 would be 57% tautological, which is the FF-A11 fault one level down."
+    );
+    let _ = writeln!(
+        out,
+        "  THE ONE DELIBERATE EXCEPTION, stated so it is not read as an oversight: THE NULL CONTROL IS READ OVER EVERY SWEPT STATE OF EVERY UNIT, inside its domain and outside it. (FC-R1) is a check on the harness and not a reading of a feature, and Corollary FC-null fixes its answer identically on both sides of the domain boundary, which is exactly why freeze 52 v1.4 exempts it from the screen."
     );
     let _ = writeln!(
         out,
