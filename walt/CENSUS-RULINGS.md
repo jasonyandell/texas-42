@@ -12012,3 +12012,87 @@ question is cheaper than building a fee and it now has an exact statistic. It do
 not advance FT-A21's three trick-1 obligations, and nothing here is quoted for
 trick 1 — but it is the first thing this branch has that says where **not** to
 spend the attempt.
+
+- **FC-A22 (supplement to the FC adjudication: four items the steward held, and a
+  phrasing constraint that lands on MY OWN text before it could land on the era
+  page).** Six clauses.
+  (i) **The byte-diff exists, was taken by a third party while both objects
+  existed, and upgrades FC-A16's basis.** `git diff --numstat 4486aa0 08f1b61`
+  gives 13 added and 1 removed, the removal being wall-clock. FC-A16 accepted the
+  confinement claim on the builder's report; it is now **measured, by someone who
+  did not produce either emission, at the only moment it could be taken.** FF-A33(v)
+  named that trap after it had already cost us one; here the builder committed the
+  first emission before regenerating and the check was therefore possible.
+  **Typed as adjudication-time evidence and not a receipt** (FT-A28(v)), and it is
+  the first time in three chapters that this particular check has been available
+  when wanted.
+  (ii) **The `t_0` caveat is real, and I have checked that it breaks neither
+  proposition.** If two worlds' kinks cancel at one `σ`, that `σ` is a **candidate**
+  breakpoint enumerated by Lemma FF-min but not a kink of `G_I`, so `t_0` may be
+  **smaller** than the first true kink. **FC-drop(c) is unaffected:** its proof needs
+  only that `G_I` be affine on `[0, t_0]`, which holds a fortiori when `t_0` falls
+  short of a kink, so the bound stays proved and merely weaker — **never larger.**
+  **FC-tight is unaffected as stated**, and deliberately so: its criterion is *"the
+  slope becomes non-negative immediately after `t_0`"*, and a non-kink leaves the
+  slope **unchanged and therefore still negative**, so the criterion is false and
+  the bound is strict there. Both formulations of the `iff` survive. **What the
+  caveat does add is a second, independent conservatism in the bound** — one from
+  the descent running past `t_0`, one from `t_0` possibly falling short of the
+  kink — and a reader who assumed `t_0` was the first true kink would over-read the
+  instrument. The artifact prints it; it belongs in any citation of the 14.873%.
+  (iii) **The convention typing is RATIFIED and it is load-bearing, not
+  bookkeeping.** `s^±` are **convention-free**: no value enters them, `q` being read
+  only to decide which `b` lie in the argmax, and **argmax membership is invariant
+  under `v ↦ αv + c` with `α > 0`** (freeze 37(c)). `t_0`, the bound and the frozen
+  `κ_I` are **tax columns in the count convention**, each scaling by `α`. **Had
+  `s^±` been treated as a tax column and halved, the bound would have been wrong by
+  a factor of two and (FC-R4) would have compared a differential quantity against a
+  count one** — Corollary SR-conv's void case, arriving in a new place. That the
+  artifact states this per cell rather than once in the header is what makes
+  (FC-R4) a comparison rather than a category error.
+  (iv) **The declined cross-check was typed against the builder's own interest and
+  that is the notable part.** The probe enumerates 3,126 breakpoints at each h2 unit
+  over the 216 swept states at F2, **equal to the v1.1 filed value** — an agreement
+  it would have been flattering to call verification. It declined twice: it did not
+  wire it as a receipt (FF-A32(v), a build does not originate one), and it typed it
+  under FC-A15(iii) as **same predicate, different program — reproducibility across
+  implementations, not an independent predicate.** **FC-A15 was filed hours earlier
+  and its first application was by the party it cost something.**
+  (v) **The steward's own predicate failure is the sharpest instance of FC-A15 yet
+  and is recorded because of how it failed.** Checking the h2 sign pattern with
+  `grep -c "s^+ = -"` — where `^` is a regex anchor — matched nothing and returned
+  a clean, confident **zero violations**. **A wrong predicate returned exactly the
+  answer being hoped for.** That is the mechanism that makes FC-A15 more than
+  hygiene: a shared-method re-check is dangerous in proportion to how much the
+  checker wants the result, and a null-matching predicate is indistinguishable from
+  a clean result **unless something independent makes the clean result implausible.**
+  It was caught by implausibility across four simultaneous queries, not by suspicion
+  of the predicate. **Adopted as the operational tell: a check that returns exactly
+  the hoped-for answer with no exceptions deserves one more query by a different
+  route before it is believed.**
+  (vi) **THE PHRASING CONSTRAINT — "ATTAINED", NEVER "EXACT" — and it corrects my
+  own text first.** The builder surfaced that *"the bound is exact at 258 states"*
+  is wrong in a way that matters, declined to fix it in the artifact (FF-A32(v): a
+  reading-rule originates in a ruling), and the steward routed it here because the
+  librarian writes the era page from these rulings. **It is right, and it lands on
+  me: FC-A18(ii) says the instrument "is *exact* where the fee's optimum sits at the
+  first breakpoint", and Proposition FC-tight's own title says "the drop bound is
+  exact exactly when…". Both are corrected in place, and the erroneous wording stays
+  visible per LD-A11(ii).**
+  **The rule.** Proposition FC-drop(c) is a **lower bound at every state**, the 258
+  included. At those 258 the bound is **ATTAINED** — it equals the frozen `κ_I`
+  there. **It is never *exact* as a property of the functional anywhere**, and
+  "exact at 258 states" invites the reading that the screen predicts capture a fifth
+  of the time, which is precisely what FC-A9(ii)'s *"`s^±` does not predict
+  capture"* exists to prevent.
+  **And the decisive clause, which neither the builder nor the steward stated:
+  attainment is not identifiable in advance.** Nothing in the emitted data tells you
+  *which* 258 without computing `κ_I` — **the very quantity the bound exists to
+  avoid computing.** So the 258 is a fact about the distribution of the gap and
+  **never a usable property of the instrument**: a screen that is tight at a fifth
+  of states you cannot pick out is, in use, exactly as weak as its aggregate 14.873%
+  and no weaker. **Binding on the era page, on the close digest, and on every future
+  citation:** say *attained at 258 of 1,252*, say *a lower bound everywhere*, and
+  say *which states attain it is not knowable without `κ_I`*. FC-A18's substantive
+  ruling — triage instrument, poor estimator — is unchanged and is what those three
+  sentences say precisely.
