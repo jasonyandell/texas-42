@@ -12710,3 +12710,53 @@ SS-A2 and it is the only change of substance I have made to Jason's design.
   confirmed U would be a considerably better object than a monotone association,
   because it would identify *knife-edge* states rather than merely decided ones,
   and knife-edge is where a decision actually matters.
+
+- **SS-A17 (SS-A16 amended: the histogram I quoted was tie-broken, the finding
+  survives with a range instead of a number, and my `U` prediction is REFUTED by
+  the flip check — with the reasoning error that produced it named, because I had
+  already ruled against it myself).** Five clauses.
+  (i) **The number in SS-A16(i) came from a silent tie-break and is corrected.**
+  33 of the 85 seeds carry within-seed `|I₁|` ties, and the unique-optimal unit is
+  itself party to a tie at 20 of them; a stable sort broke them by row order.
+  **That is the `max_by_key` family exactly** — the hazard this chapter has ruled
+  on three times — and there is no way to say this except plainly: **I filed a
+  ruling forbidding tie-broken faces and then quoted a figure produced by a silent
+  tie-break.** The coordinator caught it in its own scratch work and filed both
+  lawful conventions rather than picking one, which is the right handling and the
+  reason the correction costs nothing.
+  (ii) **The finding survives both conventions and the promotion stands.**
+  Ties→best `[50, 19, 11, 5]`, ties→worst `[37, 28, 11, 9]`; **both sum to 85, both
+  strictly monotone decreasing, rank 1 at 2.35× and 1.74× uniform.** **The quotable
+  form is a convention-stated range — the optimal action is the smallest-frontier
+  action of its own four in 43.5% to 58.8% of seeds against a 25% baseline — and
+  never a single percentage**, since no single number is a fact about the data.
+  My "53%" was inside the range and was not a measurement.
+  (iii) **One practical consequence for the move-ordering use, which the tie
+  structure makes concrete.** Ties at 33 of 85 seeds mean **`|I₁|` supplies a
+  partial order, not a total one**, so an implementation needs a declared secondary
+  key — and **the two conventions bracket what the ordering can be worth**, 1.74×
+  to 2.35× on rank-1 accuracy, depending on how that key happens to correlate.
+  That is a more useful thing to hand a builder than a point estimate would have
+  been. SS-A16(iii)'s synthesis is otherwise unchanged: this remains a solve-free
+  ordering statistic and ordering is the dominant lever on branch-and-bound yield.
+  (iv) **My `U` prediction at SS-A16(vi) is REFUTED, and the error is one I had
+  already ruled against.** The flip check reaches 23 seeds with `dd ≤ 0`, and they
+  carry **fewer** ties than the knife bucket — roughly 431k against 479k ppm —
+  where I predicted `dd = 0` would carry the **most**. **The reasoning error:
+  I assumed the tie statistic would see contract-decidedness. It cannot.** The tie
+  statistic is the multiplicity of the **count-free** clairvoyant argmax, and `dd`
+  is a **count** quantity; a settled contract has no reason whatever to produce
+  indifference in the trick-differential objective. **That is precisely the
+  transport error I named as a sharp negative in the count-pruning note — the count
+  objective is not an affine image of the trick differential, so nothing keyed to
+  one transports to the other — and I committed it two messages later.**
+  (v) **What the data supports instead, offered deflationary because that is where
+  the evidence sits.** The coarse gradient survives the flip — less slack, fewer
+  count-free ties, monotone, no `U` — and a plainer reading fits it: **`dd` may be
+  measuring how lopsided the hand already is rather than how decided the contract
+  is.** A hand where one side banked heavily early is likely structurally one-sided,
+  with clearer plays and fewer genuine ties; a hand with points still spread is
+  more balanced and has more close decisions. If that is what `dd` is, the
+  association is a hand-strength proxy and considerably less interesting than a
+  decision-structure statistic would have been. **Cut B stays a hangout number, as
+  ruled, and this is now the reading it would have to beat.**
