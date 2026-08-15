@@ -12423,3 +12423,109 @@ SS-A2 and it is the only change of substance I have made to Jason's design.
   **RANGE FROZEN: SS-A1..SS-A9, and freeze 54.** Per FC-A23(v) the range is frozen
   **before** the build brief is issued; any later ruling requires an explicit
   re-brief rather than relying on the builder to notice.
+
+- **SS-A10 (the tie statistic's aggregation convention: BOTH are reported, the
+  per-unit mean is primary on a stated principle, and an association must survive
+  BOTH or the disagreement is itself the finding. Ruled before any survey total
+  exists.)** Six clauses.
+  (i) **The gap is mine.** SS-A4(b)(M4) fixed the per-unit statistic and left the
+  cross-unit convention unstated, and the two readings can point opposite ways.
+  Verified at adjudication time on the seed-5 smoke figures: arrival-pooled
+  `918336/3099816 = 38264/129159`, against an unweighted per-unit mean near two
+  fifths. **The divergence is structural, not noise:** `|I₁|` spans **480 to
+  37,584 across the four actions of one coordinate** — a factor of **78** — and
+  arrivals span 268,800 to 976,416.
+  (ii) **RULING: emit both; the per-unit mean is PRIMARY.** The reason is what the
+  statistic is *for*, not which way seed 5 points. **SS-A7(b) asks whether
+  multiplicity tracks separation structure, and separation structure is carried by
+  the unit** — the verdict cell is per-unit, and a fee, if one is ever built, is
+  built at a unit. **The unit is therefore the observational unit and units are
+  weighted equally.** Arrival-pooling answers a different question — the chance
+  that a randomly drawn arrival from the pooled survey is non-singleton — which
+  weights units by frontier size, and frontier size is not what SS-A7(b) is about.
+  (iii) **The usual argument for pooling does not apply here, and it is worth
+  saying why.** One normally weights by `n` because a larger sample is a more
+  reliable estimate. **There is no sampling error in this survey.** Every per-unit
+  fraction is an exact rational over that unit's complete arrival set. Reliability
+  is not in question at any unit, so the only thing a weighting choice does is
+  choose the population being averaged over. That makes the choice purely a
+  question of what is being asked, which is what (ii) answers.
+  (iv) **THE BINDING CLAUSE, and it is why both are emitted.** **An SS-A7(b)
+  association is reportable only if it holds under BOTH conventions.** If the two
+  disagree, **the disagreement is the finding and is reported as such**, never
+  resolved by preferring one. The reasoning: a mechanism-driven association should
+  survive reweighting; **one that appears under a unit weighting and vanishes under
+  an arrival weighting is telling you that frontier size, not tie multiplicity, is
+  the thing associated.** That is a real and different result, and a valuable one.
+  (v) **The confound seed 5 already exhibits must be reported alongside, and this
+  is the clause I would least want added after results.** At seed 5 the
+  unique-optimal unit has **both the smallest frontier and the highest tie
+  fraction** — `4749/5600` against roughly a third at the three dominated units.
+  Those two explanators are **collinear at that unit**, and at `n = 1` nothing
+  separates them. **Binding: every SS-A7(b)/(c) reading reports the multiplicity
+  association and the frontier-size association side by side, over the same unit
+  set, and states explicitly whether the survey separates them.** If `|I₁|` and the
+  tie fraction are broadly collinear across 400 units, **the survey cannot
+  attribute and must say so** rather than crediting the variable we came in
+  believing.
+  (vi) **Why this could only be ruled now.** Seed 5's smoke numbers are visible and
+  they show the direction — the per-unit reading favours the association we expect
+  and pooling suppresses it. **Choosing per-unit on its merits while that is known
+  is exactly the move pre-declaration exists to prevent**, so the merits are stated
+  in (ii)–(iii) independently of seed 5, and (iv) removes the incentive entirely by
+  requiring both. Nothing here is re-runnable-dependent: the committed file carries
+  every numerator and denominator, so both conventions and the confound check are
+  computable from it without touching the run.
+- **SS-A11 ((SS-R5) is amended: my stated content was tautological and the
+  builder's placement is RATIFIED).** Three clauses.
+  (i) **The defect is mine and it is Proposition SR-taut again.** SS-A6(v) called
+  the ladder receipt contentful because "three quantities from different passes".
+  **With `Δ² := gap − Δ¹` the identity `U^C − Q^H = Δ¹ + Δ²` is an identity in the
+  probe's own recomputed quantities and cannot fail.** I wrote a receipt whose
+  stated content was an arithmetic remark, in a ruling that names the non-receipts
+  two clauses later. That is the fifth instance of this family and the second of
+  mine in as many chapters.
+  (ii) **The builder's placement is correct and is where the content actually
+  lives:** assert at every unit that the **frontier table's own `U^(0)` equals the
+  revealed solve's `U^C`** — two passes, different intermediate quantities — and on
+  the declared sample strengthen it by having PATH B compute `U^(1)` independently.
+  **That is a comparison against something the checker did not produce**, which is
+  the SR-taut test, and it fails on any error in the frontier decomposition.
+  (iii) **SS-A6(v) is amended in place to say exactly that**, the erroneous
+  justification staying visible per LD-A11(ii). **The tautological form is retained
+  and printed, but as an arithmetic remark under SS-A6(x), never counted among
+  receipts HELD.**
+- **SS-A12 (the two smaller readings: both RATIFIED as read).** Two clauses.
+  (i) **`T_pass` interrupts unit-own passes only; the shared coordinate solve is
+  timed, recorded and never stopped. RATIFIED, and the builder's reason is better
+  than my clause.** A timer on a shared solve could only fire *after* the solve
+  completed, and would then discard a correct value — which is not a stop, it is
+  destroying evidence already paid for. **And the safety it might seem to give up
+  is already provided: freeze 44(b) v2's walk budget bounds the solve hard**, with
+  the no-partial-fold path on exhaustion, so a pathological seed terminates as a
+  declared stop regardless of any wall clock. `T_pass` is therefore a
+  **schedule-level** instrument sitting above a hard bound, exactly as SS-A5(ii)
+  intended when it said wall-clock never truncates a value.
+  (ii) **(SS-R8)'s object is ONE UNIT — the coordinate solve plus that unit alone
+  re-run — not the whole seed. CONFIRMED.** That is what "first unit of every
+  block" meant and it is the cheaper reading, which is correct for a declared
+  sample. Its scope: it reaches accumulator reuse and iteration-order dependence
+  within a unit's own path; **(SS-R3) covers the generator at every seed
+  regardless**, and per-unit content is a function of (kernel, budgets) alone.
+  **Scope stated rather than implied**, so nobody reads the sample as covering more
+  than it does.
+- **SS-A13 (the seed-5 observation, typed; and the range re-frozen).** Two clauses.
+  (i) **The builder's typing is correct and is adopted: observation, not finding,
+  `n = 1`, no mechanism claimed.** It is SS-A7(b)-shaped and it is exactly one
+  coordinate. What makes it worth recording is not the direction but that it
+  **exposed the aggregation gap before any total existed** — an artifact of the
+  smoke run doing its job. **It must not appear in any results header as evidence**,
+  and if the survey's 400 units contradict it that is unremarkable rather than
+  surprising.
+  (ii) **RANGE RE-FROZEN: SS-A1..SS-A13, freeze 54 unchanged.** Per FC-A23(v) this
+  is an explicit extension of a frozen range and requires a verbatim re-brief to
+  the builder rather than reliance on it noticing; the coordinator has undertaken
+  that relay. **No freeze is amended and no measured object is added** — SS-A10
+  fixes a reporting convention over quantities freeze 54(b) already commissions,
+  and every figure it requires is computable from the committed summary without
+  re-running anything.
