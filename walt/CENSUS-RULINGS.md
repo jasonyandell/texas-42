@@ -11164,3 +11164,301 @@ question. Any third coordinate is a new commission and needs a new freeze.
   to be taken, which is my omission, and it is the same family as FT-A28(i) —
   **naming a check without naming the moment at which its comparand exists.** Filed
   so the next such ruling names both.
+
+---
+
+## The fee-correlation chapter: what a fee bites on, measured (2026-08-14)
+
+**Adjudicator:** walt-math-11. **Object:** the specification of the next chapter
+of the feature-fee line, requested deliberately by Jason — *"of course we have to
+start the next seed immediately"* — and relayed with a three-item agenda by
+walt-steward. FF-A30(ii) and FF-A32(vi) closed the FF chapter with the next
+experiment named but **not** commissioned, on the ground that it *"should be asked
+for deliberately, not inherited."* It has been. **Tier:** exploratory throughout,
+below every tier. **Basis:** the FF chapter entire, with Proposition FF-blind,
+Proposition FF-degen, Proposition FF-corr, Proposition FF-oracle, Lemma FF-min;
+freeze 52 through v1.4; and beneath them the FT and SR chapters. Rulings
+**FC-A1..FC-A9**; one proposition and one corollary delivered with proofs;
+**freeze 53** fixed at FC-A5. The prefix `FC-` and every name below were
+grep-checked unused at adjudication time.
+
+**The scope ruling, stated first because it departs from the proposed agenda.**
+The steward's item (1) — a third coordinate, chosen to vary trump survival — is
+**DEFERRED, not refused**, and the chapter commissioned instead is **the
+correlation diagnostic on the carrier we already have.** The reason is not cost;
+it is that we are one cheap measurement away from knowing *why* a fee bites, and
+a third coordinate taken before that measurement would add an observation to a set
+we cannot yet interpret. **That is precisely the trap FF-A29(ii) named** — a
+single contrast cannot isolate one variable from a dozen co-varying ones — and
+taking a third observation under the same conditions does not escape it; it
+enlarges it.
+
+**What makes the diagnostic ripe, and it is a fact about our own mathematics.**
+Proposition FF-corr already says exactly what determines capture: the centred
+feature, evaluated **along the clairvoyant choice**, must have nonzero mean. That
+quantity is one rational per state and is computable from data the v1.1 probe
+already assembles, **with no sweep at all**. And the branch is holding an
+unexplained exact zero — F2 at h2, capture `0/1` at 216 states twice over, with
+3,126 breakpoints proving the fee genuinely varied. FF-A26(iii) named two
+candidate causes and made the diagnostic optional. **That was the wrong call and
+this chapter reverses it:** an exact rational identity holding at 432 independent
+states is the most informative unexplained fact in the branch, and the instrument
+that would explain it costs seconds.
+
+**And the diagnostic is worth more than an explanation, which is why it outranks
+the third coordinate.** Proposition FC-drop below turns FF-corr's zero-test into a
+**quantitative lower bound on capture** computable without minimising anything.
+FT-A21 is blocked at trick 1 precisely because nothing predicts where a witness
+can bite short of enumerating the frontier. **A screening functional that
+lower-bounds capture is the first object in this branch that could, in principle,
+do that** — and its behaviour must be understood where the exact answer is already
+filed before it is trusted anywhere it is not.
+
+---
+
+### Proposition FC-drop (the quantitative form of FF-corr: correlation times reach, as an exact lower bound on capture) — delivered here
+
+Fix a frontier state `I` with `δ_I > 0`. With Lemma FF-min's `G_I` and
+`Φ_I(ω,b) = φ_I(ω,b) − c_I(b)`, write
+
+  `s^+ = G_I'(0^+) = Σ_ω μ_I(ω) max_{b ∈ argmax_b q_I(ω,b)} (−Φ_I(ω,b))`,
+  `s^- = G_I'(0^-) = Σ_ω μ_I(ω) min_{b ∈ argmax_b q_I(ω,b)} (−Φ_I(ω,b))`,
+
+so `s^- ≤ s^+` by convexity, and let the state's **captured amount** be
+`κ_I = δ_I − min_θ δ_I^θ = G_I(0) − min_θ G_I(θ)`. Then:
+
+**(a) Zero test.** `κ_I = 0` **iff** `s^- ≤ 0 ≤ s^+`. When the clairvoyant argmax
+is unique at every positive-mass `ω`, both collapse to `−C_I` with
+`C_I = Σ_ω μ_I(ω) Φ_I(ω, b^*(ω))`, and `κ_I = 0` iff `C_I = 0`.
+
+**(b) Descending side is populated.** If `s^+ < 0` there is a breakpoint strictly
+to the right of `0`; if `s^- > 0` there is one strictly to the left.
+
+**(c) The drop bound.** Let `t_0` be the distance from `0` to the nearest
+breakpoint on the descending side — to the right when `s^+ < 0`, to the left when
+`s^- > 0`. Then
+
+  `κ_I ≥ |s| · t_0`,  where `s = s^+` in the first case and `s = s^-` in the
+  second,
+
+and this is exact arithmetic in rationals requiring **no minimisation** — one
+directional slope and one breakpoint distance.
+
+*Proof.* (a) is Proposition FF-corr restated with the one-sided derivatives named;
+for a maximum of affine functions the one-sided slopes at a point are the extreme
+slopes over the active set, and at `θ = 0` the active set at `ω` is
+`argmax_b q_I(ω,b)` with the `b`-th slope `−Φ_I(ω,b)`. (b): if `s^+ < 0` and no
+breakpoint lay to the right, `G_I` would be affine with negative slope on `[0,∞)`
+and hence unbounded below, contradicting Lemma FF-min(b), which bounds `G_I` below
+by the glued value; symmetrically on the left. (c): on `[0,t_0]` the function is
+affine with slope `s^+`, so `G_I(t_0) = G_I(0) − |s^+| t_0`, and
+`min_θ G_I ≤ G_I(t_0)`; subtract from `G_I(0)`. The left case is symmetric. ∎
+
+**What it is and what it is not.** It is a **lower** bound, so a large value
+proves a fee bites and a small value proves nothing — the true drop may continue
+past `t_0` across many further pieces. Its content is that **capture is at least
+correlation times reach**: `|s|` measures how far the feature leans on the
+clairvoyant choice, `t_0` measures how far the fee can be pushed before the
+choice starts changing, and the fee collects their product at minimum. It is the
+first quantity in this branch that predicts capture without computing it.
+
+### Corollary FC-null (an action-blind feature has exactly zero correlation) — delivered here
+
+If `φ_I(ω,b) = ψ_I(ω)` does not depend on the action, then `s^+ = s^- = 0` at
+every state, hence `κ_I = 0` — recovering Proposition FF-blind, and giving the
+diagnostic a null control whose exact value is fixed by theorem.
+
+*Proof.* `Φ_I(ω,b) = ψ_I(ω) − c_I` is `b`-free, so the inner max and min over the
+active set both return `−Φ_I(ω)`, and `s^± = −Σ_ω μ_I(ω)(ψ_I(ω) − c_I) = 0` by the
+definition of `c_I`. Then (a) gives `κ_I = 0`. ∎
+
+---
+
+- **FC-A1 (typing, tier, and what this chapter is).** The chapter is **GRANTED as
+  the FC family**, scoped at FC-A2..FC-A4 and frozen at FC-A5. Everything is
+  exploratory, below every tier, cited by nothing above it, quotable as a result
+  only by brief amendment adding it to a verifier receipt. DS-A1 binds: **witness**,
+  **receipt**, **necessary outer profile**, never the forbidden word. Both outcomes
+  of every gate are results (F7). NO-RESCUE binds: a receipt failure is
+  stop-and-report. **The chapter measures an instrument, not the game** — every
+  number it produces is about how a fee behaves at coordinates whose exact answers
+  are already filed, and by Proposition SR-degen no grade-4 verdict can move.
+- **FC-A2 (the third coordinate: DEFERRED with its selection criteria fixed, not
+  refused; and the freeze is deliberately withheld).** Four clauses.
+  (i) **Deferred, and the reason is mathematical rather than budgetary.** See the
+  scope ruling above. A third observation taken before the mechanism is measured
+  enlarges FF-A29(ii)'s confound rather than resolving it.
+  (ii) **No carrier is frozen here, on purpose.** FT-A23 fixed that **a freeze is a
+  constant, not a rule**, so I may not freeze a coordinate "to be chosen by a rule
+  after arm 1". The third coordinate therefore gets its **own freeze in a later
+  ruling**, fixed as an enumerated constant once arm 1 has reported.
+  (iii) **Its selection criteria are recorded now so they are not lost, and they
+  are now two rather than one.** *(1)* FF-A29(iii)'s design input: vary trump
+  survival at the frontier while holding declaration and root-action trump/non-trump
+  type as fixed as possible. *(2)* **New, and it takes precedence if the two
+  conflict:** vary whatever arm 1 shows to drive `s^±`. Whether trump survival is
+  the mechanism or a correlate of it is exactly what arm 1 measures, and selecting
+  on a correlate when the driver is known would repeat the error a third time.
+  (iv) **The steward's reading of FF-A17(ii) is CONFIRMED and is a selection
+  instrument, not merely an observation.** *If the number of trumps outside the
+  focal hand is 1 and the root action is a trump, every boss-keyed feature has empty
+  domain at every frontier state* — computable from the coordinate and root action
+  with **no traversal**. Combined with freeze 52 v1.4's per-cell screen, arm
+  selection has a pre-run test and no longer needs to discover emptiness by running.
+- **FC-A3 (the joint two-feature fit: NOT commissioned, and the steward's own
+  argument against its own agenda item is adopted verbatim).** FF-A15(iv) declined
+  it because *"one live feature is not a joint problem, and pairing a live feature
+  with a refuted one buys at most F1's 0.36%."* The steward flagged, against its own
+  proposal, that this reason may still stand entirely. **It does, and unchanged.**
+  Nothing since has produced a second live feature: F1 is refuted where it has a
+  domain, F0 is refuted by theorem, and F2 is refuted at h2 and live only at h0.
+  **Re-entry requires a second live feature, not a further declaration**, and
+  FF-A15's naming of the LP form licenses nothing on its own. Raising it to be ruled
+  on rather than leaving it to lapse silently is the right instinct and is
+  commended; the ruling is that it stays declared and uncommissioned.
+- **FC-A4 (graded F1: settled inside arm 1, cheaply, with no sweep).** FF-A15(iv)
+  left the graded form of F1 **eligible rather than refuted**, on the ground that
+  F1's refutation is of the binary predicate and does not formally transfer. The
+  diagnostic settles it almost free: `s^±` is computable for graded F1 from the same
+  pass, and **Proposition FC-drop(a) makes a zero correlation at every state a
+  conclusive refutation of the graded form too** — no minimisation, no breakpoint
+  enumeration, no capture figure. **Commissioned as a diagnostic-only member of arm
+  1**: `s^±` is emitted for graded F1 and **no capture number is computed or
+  reported for it**. If its correlation is broadly nonzero, that is a reason to
+  commission a sweep, in its own later ruling; if it is zero, graded F1 joins the
+  refuted list and FF-A15(iv)'s open item is discharged.
+- **FC-A5 (FREEZE 53 — the fee-correlation diagnostic).**
+  **(a) The carrier, enumerated with no generating rule** (FT-A23): the **same
+  three units as freeze 52 v1.1** — h0 pip 3 `[00 21 32 53]` unit `a = 00`; h2
+  pip 5 `[21 33 53 54]` units `a = 53` then `a = 54`. **No new coordinate is
+  introduced**, and the coordinate identity is asserted in freeze 45's form at every
+  unit with the kernel rebuilt in-run and asserted equal.
+  **(b) The features, four, with their roles fixed.** **F0** `boss_owner`, the
+  **null control**, exempt from freeze 52 v1.4's screen and run first and blocking.
+  **F1** `boss_can_follow_b` and **F1g**, its graded form (the number of `b`-suit
+  tiles the boss holder holds), the latter **diagnostic-only per FC-A4**. **F2**
+  `b_is_beatable`, in the **amended** definition of FF-A15(i) — the opponent yet to
+  play at `I` beating `b` and every tile already on the table.
+  **(c) The measured object, per swept state `I` and per feature:** `s^+`, `s^-`,
+  the **clairvoyant-argmax cardinality profile** (how many `ω` have a non-singleton
+  argmax, which is what separates FC-drop(a)'s two collapse cases), `t_0` and the
+  side it lies on, and the **FC-drop bound** `|s|·t_0`. Freeze 52(b)'s skip rule
+  governs as ruled at FF-A23: **swept states only** — 1,332 at h0, 216 per h2 unit —
+  with the domain census emitted over **every** frontier state per freeze 52 v1.3.
+  **(d) The frozen comparison table.** The v1.1 run's per-state captured amounts
+  `κ_I` are transcribed into the probe source with the provenance line *"quoted from
+  `feature_fee_v11_2026-08-14.txt`, exploratory tier"* and **never re-parsed from
+  results text** (SEP-A14(ii), FT-A28(i)). They are the reference against which
+  (FC-R3) and (FC-R4) compare.
+  **(e) Exact rationals only, no float anywhere** (P-A19), checked arithmetic, every
+  divisibility asserted rather than assumed. **Count convention on every tax column**
+  (Corollary SR-conv), with the two bridges kept separate as the v1.1 header does.
+  **(f) Emission.** One row per `(unit, feature, state)` carrying the state record,
+  `s^+`, `s^-`, the argmax profile, `t_0`, the bound, the frozen `κ_I`, and a verdict
+  cell (`zero`/`positive`). Committed entire — the emission is small and there is no
+  companion. **FF-A18 binds every figure: no count and no capture figure without its
+  state set named in the same sentence.**
+  **(g) Belief and field are NOT re-declared** — freeze 26 and 37(d) unchanged, no
+  decimation ((C2)). **No library entry at any coordinate** (freeze 45). The
+  freeze-set digest travels on every record. **(h) Budgets:** freeze 44(b) v2
+  unchanged, no new constant; on exhaustion no partial fold.
+- **FC-A6 (the receipts, six, with the non-receipts named).**
+  (i) **(FC-R1) the null-control receipt — BLOCKING, first, before any other
+  number.** Assert F0's `s^+ = s^- = 0` **exactly** at every swept state and every
+  unit. Its answer is fixed by **Corollary FC-null**, i.e. by theorem and not by a
+  filed number — the (SR-R9)/(FF-R1) role.
+  (ii) **(FC-R2) the non-null pairing receipt — BLOCKING, and it exists because
+  FF-A26(iv) said the next pre-declaration must require by design what h2 got by
+  luck.** Assert that **F2 at h0's leading part has `s^± ≠ 0` at at least one
+  state**, and emit the count of such states. **Contentful**: a diagnostic stuck at
+  zero would satisfy (FC-R1) and fail here, which is exactly the failure mode a null
+  control alone cannot see.
+  (iii) **(FC-R3) the zero-characterisation receipt.** At every swept state and
+  every swept feature, assert `κ_I = 0 ⟺ s^- ≤ 0 ≤ s^+`, with `κ_I` taken from the
+  **frozen v1.1 table**. **Contentful**: it tests Proposition FC-drop(a) against a
+  value produced by a different program in a different run, at over three thousand
+  states.
+  (iv) **(FC-R4) the drop receipt.** At every swept state with `s^- ≤ 0 ≤ s^+`
+  false, assert `κ_I ≥ |s|·t_0` against the frozen `κ_I`. **Contentful**: it tests
+  Proposition FC-drop(c) on real data and fails on any error in the slope, the
+  breakpoint side, or the reach.
+  (v) **(FC-R5) rung-one invariance and the digests.** Assert `|I_1|`, arrivals, the
+  zero/positive census, `Δ^(1)` and `U^(1)` against the frozen table, and **assert
+  the (FT-R7c) frontier digest at all three units** — h0 against the value the first
+  FF run filed, h2's two against `SR_FIRST`. This build regenerates rung-one
+  frontiers, so FT-A28(iv) binds.
+  (vi) **(FC-R6) determinism.** An in-run second pass with fresh maps, accumulators
+  and budgets; every printed row and summary asserted identical.
+  (vii) **NAMED AS NON-RECEIPTS and printed as arithmetic remarks** (Proposition
+  SR-taut): `s^- ≤ s^+`; `t_0 > 0`; `|s|·t_0 ≥ 0`; and `κ_I ≥ 0` as re-derived from
+  the probe's own quantities. They cannot fail. **(FC-R3) and (FC-R4) are receipts
+  only because they compare against the frozen v1.1 `κ_I`**, and that sentence is
+  printed beside them.
+- **FC-A7 (all outcomes pre-declared, before any number exists).**
+  (a) **F0's `s^±` is anything but exactly 0** → stop-and-report; the harness is
+  wrong and no other number is reported. **(b) (FC-R2) fails** → same, and it is the
+  failure a null control could not have caught. **(c) At h2, `s^+ = s^- = 0`
+  exactly at every state** → **F2 is exactly orthogonal to the clairvoyant choice
+  there**; the h2 refutation acquires its mechanism, and an exact rational identity
+  at 432 states becomes a structural fact about this coordinate demanding an
+  explanation the branch does not yet have. **This is the outcome that would most
+  change what we do next.** (d) **At h2, `s^- < 0 < s^+` with `s^± ≠ 0`** → the zero
+  is **tie-driven**: the clairvoyant argmax is widely non-unique and the subgradient
+  straddles zero. A mundane explanation, and the h2 refutation becomes a statement
+  about argmax multiplicity rather than about the feature. (e) **Mixed across
+  states** → report the split; no single mechanism. (f) **F1g's correlation is zero
+  at every state** → **graded F1 is refuted** by FC-drop(a) with no sweep, and
+  FF-A15(iv)'s open item is discharged. (g) **F1g's correlation is broadly nonzero**
+  → a sweep is warranted and is commissioned in its own later ruling, **never
+  inherited from this one**. (h) **(FC-R4)'s bound is tight nowhere** → the drop
+  bound is valid but weak, and is reported as an instrument that screens rather than
+  predicts; **that is a result under F7 and not a null**, because a weak screening
+  bound is exactly what the trick-1 programme must know before relying on one.
+  (i) **A budget stop** → declared stop, no partial fold, printed as a stop.
+- **FC-A8 (the steward's item (3): the binding emitter items, CONFIRMED and
+  complete).** All four carry, and the steward's list is correct: **freeze 52
+  v1.4**'s per-cell screen with the null-control exemption (FF-A33(iii)); **the v1.2
+  citation item** — the rulings line names the freezes the run executed under, which
+  for this build is **freeze 53 with freeze 52 v1.4** and **must not** cite FC-A
+  rulings written after it (FF-A31(vi)'s backwards-provenance trap); **FF-A32(v)**,
+  a results file may restate a reading-rule a ruling has fixed and may never
+  originate one; and **FF-A33(v)**, a byte-diff comparand must exist at the moment
+  the diff is taken. One addition: **FF-A18's state-set rule binds the diagnostic's
+  own columns too** — `s^±` and the bound are per-state quantities and any aggregate
+  over them names its set.
+- **FC-A9 (fences, what needs Jason, and what is owed).** Five clauses.
+  (i) **Every standing fence travels verbatim**: R-A2/P-A1; the N4-A8 real-deal
+  fence (the hands come from rob's corpus, **the belief does not**); SR-A25(iii)'s
+  selection fence — **three units at two coordinates chosen by negative binding
+  margin are a carrier, not a sample**; **P-A21 — no quantity measured at grade 4 is
+  quoted for trick 1 or for the opening**, which binds hardest here because a
+  screening functional is *for* trick 1 and will be tempting to quote there; and
+  SR-A25(vii)'s implementation-versus-corpus risk, undiminished, with T1-A12's
+  corpus check still owed.
+  (ii) **Not claimed:** that `s^±` predicts capture (FC-drop is a **lower** bound
+  and a small value proves nothing); that any mechanism found at h2 generalises;
+  that any grade-4 verdict moved (Proposition SR-degen forbids it); anything about
+  points, marks, bidding or real opponents; and **nothing about Jason's reading of
+  h0** — FF-A9(ii) travels unchanged.
+  (iii) **Nothing here needs Jason.** The chapter is inside the feature-fee/convex-fit
+  commission he authorised, it introduces no new coordinate and no new budget
+  constant, it touches no other repo, and **it touches `exchange/` not at all** —
+  no dispatch, no outbox, no count. The steward's fence on exchange is noted and is
+  not approached.
+  (iv) **Owed to the wiki owner:** freeze 53, and the FC era-page and LOG entries,
+  at chapter close. Per SR-A37(i) that is the whole list — **no claim-ledger,
+  FINDINGS or open-problems row exists or is owed**, and a successor noticing their
+  absence should not fix it.
+  (v) **What this chapter cannot do, said plainly so the next ask is well aimed.**
+  It will not decide a root action, will not touch `Δ^(2)`, and will not advance
+  FT-A21's three trick-1 obligations by itself. What it can do is tell us whether
+  the branch now holds an instrument that says *where* a fee can bite before one is
+  built — and that is the only thing standing between the feature-fee line and the
+  399-million-world wall.
+
+**What the build owes this section.** The FC probe of FC-A5 over freeze 53's three
+units and four features, with F0 first and blocking, F1g diagnostic-only and no
+capture figure computed for it, the six receipts of FC-A6 with the non-receipts
+printed as arithmetic remarks, the frozen v1.1 `κ_I` table as the comparison
+carrier, and all nine outcomes of FC-A7 pre-printed before any number exists.
+Everything else here is proof and needs no code.
