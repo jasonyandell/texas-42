@@ -4,6 +4,12 @@
 
 **EXPLORATORY / IDEA TIER.** Nothing on this page is adjudicated, kernel-proved, or receipt-backed. It records a framing developed in conversation. The central question (§2) is **deliberately unresolved at Jason's request** — do not treat either reading as settled.
 
+*Build note (2026-08-10):* the seat is under construction at [walt](walt.md)
+(exploratory tier, its own frozen basis). walt's dynamic control-skeleton
+search — typed relational state with a closed update over observations — is
+the operational form of this page's maintained-context frame. The build
+neither settles nor promotes §2.
+
 ## 1. The reframe: neither pip-shaped nor decl-shaped
 
 This frame's wager: the theory of 42 *as played* is organized around neither pips nor declarations. Pips are nails — a true and indispensable *representation* (the realization/witness layer computes with them), demoted from *the point* but not from truth. Trump is a special suit: declared early, it shapes the hand, but it is absorbed into standings at declaration and is not a parameter of the ongoing dynamics. Consistent whispers from adjudicated territory (cited as motivation only, no promotion implied): the k=1 census separates all values with a key that pools all nine declarations (zero collisions), and C1 factors suffix minimax through the constellation. What this frame takes as primary: the relationships among dominoes — their standings now, and how those standings morph through past and future.

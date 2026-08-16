@@ -1,0 +1,122 @@
+receipt replay validated (winners, points, follow-legality)
+
+========================================================================
+Part 0: independent verification of v0.31-derived tables
+========================================================================
+  class census (sizes, both lines, holder splits S0/S2/S3): MATCHES doc Sec. 16.5 table exactly
+    26 worlds  Q((0, 0))=0+-1L Q((2, 1))=-2+-1L  holders (10, 10, 6)
+    22 worlds  Q((0, 0))=0+1L Q((2, 1))=-2+-1L  holders (2, 2, 18)
+    16 worlds  Q((0, 0))=2+1L Q((2, 1))=2+1L  holders (8, 8, 0)
+    12 worlds  Q((0, 0))=2+1L Q((2, 1))=0+-1L  holders (3, 3, 6)
+     8 worlds  Q((0, 0))=0+-1L Q((2, 1))=0+1L  holders (4, 4, 0)
+     2 worlds  Q((0, 0))=2+1L Q((2, 1))=0+1L  holders (1, 1, 0)
+     2 worlds  Q((0, 0))=0+1L Q((2, 1))=0+1L  holders (1, 1, 0)
+     2 worlds  Q((0, 0))=0+-1L Q((2, 1))=0+-1L  holders (1, 1, 0)
+  baseline root-Q vectors: {(0,-2),(2,2),(2,0),(0,0)} -- 4 classes OK
+  action correspondence: 62 strict 0-0 / 20 tie always / 8 tie-at-0 then 2-1  (2 classes at L=0 -> 3 parametric) OK
+  holder ladder: (3 cells, worst 8) -> (9, 4) -> (24, 3) -> (24, 3)  MATCHES doc Sec. 16.7
+  smallest purpose-sound holder set: size 5 (e.g. [(2, 0), (2, 2), (4, 1), (4, 2), (4, 4)]) OK
+  class-size entropy: 90*H in [226, 227] bits exactly -> H in [226/90, 227/90] ~ [2.51, 2.53]; doc's 2.52 OK (exact integer bracket, no floats)
+  feature-to-line conversions (Sec. 16.4): all four identities OK
+  per-master capture-differential vectors: g(0-0)=(Fraction(1, 1), Fraction(1, 5), Fraction(1, 5), Fraction(1, 5)), g(2-1)=(Fraction(-1, 3), Fraction(-1, 3), Fraction(-1, 3), Fraction(-1, 3))  MATCH doc Sec. 16.12
+  control != location: class-0 has 6 worlds where partner holds 4-1 yet opponents capture it; class-1 has 4 worlds where an opponent holds it yet T1 captures it  OK
+
+========================================================================
+Part 1: Experiment 3A -- mine the existing compression (Sec. 16.14)
+========================================================================
+  registered atom vocabulary (22):
+    41_with_22, comp41, comp41_in_suit2, comp41_is_2-0, comp41_rank2, h(2-0), h(2-2), h(4-1), h(4-2), h(4-4), h(5-2), nbeat_opp, oppmax2, s3_top2, s3max2, t7w_bestkeep, team(2-0), team(2-2), team(4-1), team(4-2), team(4-4), team(5-2)
+  targets: R8 = 8-class parametric root-Q signature; R3 = 3-class action correspondence
+  note: with single-line Q's the first-order jet target equals R8
+
+  -- exhaustive minimum-size search, target R8 --
+    smallest sound descriptor size: 4 atom(s); 8 minimal solution(s)
+      ['comp41', 'h(2-0)', 'h(4-2)', 's3max2']  (69 cells)
+      ['comp41', 'h(2-0)', 's3max2', 'team(4-2)']  (53 cells)
+      ['comp41', 'h(4-2)', 's3max2', 'team(2-0)']  (53 cells)
+      ['comp41', 's3max2', 'team(2-0)', 'team(4-2)']  (33 cells)
+      ['comp41_rank2', 'h(2-0)', 'h(4-2)', 's3max2']  (69 cells)
+      ['comp41_rank2', 'h(2-0)', 's3max2', 'team(4-2)']  (53 cells)
+      ['comp41_rank2', 'h(4-2)', 's3max2', 'team(2-0)']  (53 cells)
+      ['comp41_rank2', 's3max2', 'team(2-0)', 'team(4-2)']  (33 cells)
+
+  -- exhaustive minimum-size search, target R3 --
+    smallest sound descriptor size: 4 atom(s); 8 minimal solution(s)
+      ['comp41', 'h(2-0)', 'h(4-2)', 's3max2']  (69 cells)
+      ['comp41', 'h(2-0)', 's3max2', 'team(4-2)']  (53 cells)
+      ['comp41', 'h(4-2)', 's3max2', 'team(2-0)']  (53 cells)
+      ['comp41', 's3max2', 'team(2-0)', 'team(4-2)']  (33 cells)
+      ['comp41_rank2', 'h(2-0)', 'h(4-2)', 's3max2']  (69 cells)
+      ['comp41_rank2', 'h(2-0)', 's3max2', 'team(4-2)']  (53 cells)
+      ['comp41_rank2', 'h(4-2)', 's3max2', 'team(2-0)']  (53 cells)
+      ['comp41_rank2', 's3max2', 'team(2-0)', 'team(4-2)']  (33 cells)
+
+  -- counterexample-guided refinement loop (target R8) --
+    step 1: worlds 0/12 share descriptor, classes 0 vs 3; separating atoms ['41_with_22', 'comp41', 'comp41_rank2', 'h(2-2)', 'h(4-2)', 'oppmax2']...; add 'oppmax2'
+    step 2: worlds 0/36 share descriptor, classes 0 vs 1; separating atoms ['comp41', 'comp41_is_2-0', 'comp41_rank2', 'h(2-0)', 'h(4-2)', 'nbeat_opp']...; add 'comp41_is_2-0'
+    step 3: worlds 1/4 share descriptor, classes 0 vs 2; separating atoms ['h(4-1)', 'h(4-2)', 'h(4-4)', 'h(5-2)', 'nbeat_opp', 's3max2']...; add 'team(4-4)'
+    step 4: worlds 1/17 share descriptor, classes 0 vs 6; separating atoms ['41_with_22', 'comp41', 'comp41_in_suit2', 'comp41_rank2', 'h(2-2)', 'h(4-1)']...; add 'team(5-2)'
+    step 5: worlds 1/29 share descriptor, classes 0 vs 5; separating atoms ['41_with_22', 'comp41', 'comp41_in_suit2', 'comp41_rank2', 'h(2-2)', 'h(4-1)']...; add '41_with_22'
+    step 6: worlds 1/37 share descriptor, classes 0 vs 5; separating atoms ['comp41', 'comp41_in_suit2', 'comp41_rank2', 'h(2-0)', 'h(4-1)', 'h(4-2)']...; add 'team(2-0)'
+    step 7: worlds 3/25 share descriptor, classes 1 vs 7; separating atoms ['comp41', 'comp41_in_suit2', 'comp41_rank2', 'h(2-2)', 'h(4-4)', 'h(5-2)']...; add 'comp41'
+    SOUND after 7 refinements: ['team(4-1)', 'oppmax2', 'comp41_is_2-0', 'team(4-4)', 'team(5-2)', '41_with_22', 'team(2-0)', 'comp41'] (35 cells for 8 classes)
+
+========================================================================
+Part 2: Experiment 3B -- horizon 3 interior-breakpoint hunt (Sec. 16.15)
+========================================================================
+  trick-5 start: S1 leads holding [(0, 0), (2, 1), (3, 2)]; unseen: [(1, 1), (2, 0), (2, 2), (4, 1), (4, 2), (4, 4), (5, 1), (5, 2), (6, 2)]
+  observed voids after tricks 1-4: [(0, 3), (3, 3)] -- all trump, vacuous for the 9 unseen tiles (none contains a 3)
+  absolute masters at trick-5 start: [(3, 2)]  (the last live trump)
+  |Phi(K)| = 1680 (voids vacuous; true world present)
+
+  -- per-world parametric minimax census (1680 worlds x 3 roots x 12 valued-tile directions) --
+    d = (0, 0): worlds with multi-segment root Q: 0/1680; worlds with interior argmax switch: 0/1680
+    d = (1, 1): worlds with multi-segment root Q: 0/1680; worlds with interior argmax switch: 0/1680
+    d = (2, 0): worlds with multi-segment root Q: 0/1680; worlds with interior argmax switch: 0/1680
+    d = (2, 1): worlds with multi-segment root Q: 0/1680; worlds with interior argmax switch: 0/1680
+    d = (2, 2): worlds with multi-segment root Q: 0/1680; worlds with interior argmax switch: 0/1680
+    d = (3, 2): worlds with multi-segment root Q: 0/1680; worlds with interior argmax switch: 0/1680
+    d = (4, 1): worlds with multi-segment root Q: 0/1680; worlds with interior argmax switch: 0/1680
+    d = (4, 2): worlds with multi-segment root Q: 0/1680; worlds with interior argmax switch: 0/1680
+    d = (4, 4): worlds with multi-segment root Q: 0/1680; worlds with interior argmax switch: 0/1680
+    d = (5, 1): worlds with multi-segment root Q: 0/1680; worlds with interior argmax switch: 0/1680
+    d = (5, 2): worlds with multi-segment root Q: 0/1680; worlds with interior argmax switch: 0/1680
+    d = (6, 2): worlds with multi-segment root Q: 0/1680; worlds with interior argmax switch: 0/1680
+
+  directions with any multi-segment Q: 0/12; with any interior argmax switch: 0/12
+
+  -- fixed-field information-set solve (uniform belief, uniform-random field) --
+  (S1's remaining decision after the root is exactly its trick-6 play, so Q(root; L) = sum over info-sets of the max over options -- a convex PWL whose interior breakpoints are exposed-vertex changes of the action polytope)
+  info-set counts per root: (0, 0): 168, (2, 1): 7848, (3, 2): 504
+    d = (1, 1):
+      Q((0, 0)) = [0,1/5): 37/21+22/35L  [1/5,4): 26/15+27/35L  [4,inf): 176/105+11/14L   [3 exposed segment(s); breakpoints at [Fraction(1, 5), Fraction(4, 1)]]
+      Q((2, 1)) = [0,inf): 5/3+20/21L   [1 exposed segment(s)]
+      Q((3, 2)) = [0,inf): 37/21+4/7L   [1 exposed segment(s)]
+      ROOT SWITCH at L* = 7/19: [(0, 0)] -> [(2, 1)]
+    d = (4, 1):
+      Q((0, 0)) = [0,1/5): 37/21+22/35L  [1/5,4): 26/15+27/35L  [4,inf): 176/105+11/14L   [3 exposed segment(s); breakpoints at [Fraction(1, 5), Fraction(4, 1)]]
+      Q((2, 1)) = [0,inf): 5/3+20/21L   [1 exposed segment(s)]
+      Q((3, 2)) = [0,inf): 37/21+4/7L   [1 exposed segment(s)]
+      ROOT SWITCH at L* = 7/19: [(0, 0)] -> [(2, 1)]
+    d = (4, 4):
+      Q((0, 0)) = [0,1/5): 37/21+22/35L  [1/5,4): 26/15+27/35L  [4,inf): 176/105+11/14L   [3 exposed segment(s); breakpoints at [Fraction(1, 5), Fraction(4, 1)]]
+      Q((2, 1)) = [0,inf): 5/3+20/21L   [1 exposed segment(s)]
+      Q((3, 2)) = [0,inf): 37/21+4/7L   [1 exposed segment(s)]
+      ROOT SWITCH at L* = 7/19: [(0, 0)] -> [(2, 1)]
+    d = (5, 1):
+      Q((0, 0)) = [0,1/5): 37/21+22/35L  [1/5,4): 26/15+27/35L  [4,inf): 176/105+11/14L   [3 exposed segment(s); breakpoints at [Fraction(1, 5), Fraction(4, 1)]]
+      Q((2, 1)) = [0,inf): 5/3+20/21L   [1 exposed segment(s)]
+      Q((3, 2)) = [0,inf): 37/21+4/7L   [1 exposed segment(s)]
+      ROOT SWITCH at L* = 7/19: [(0, 0)] -> [(2, 1)]
+
+  -- trick-versus-capture trade at exposed-vertex changes --
+    d = (1, 1), root (0, 0), L* = 1/5: policy trades trick value 37/21 -> 26/15 for capture slope 22/35 -> 27/35  (genuine trick-vs-capture trade)
+    d = (1, 1), root (0, 0), L* = 4: policy trades trick value 26/15 -> 176/105 for capture slope 27/35 -> 11/14  (genuine trick-vs-capture trade)
+    d = (4, 1), root (0, 0), L* = 1/5: policy trades trick value 37/21 -> 26/15 for capture slope 22/35 -> 27/35  (genuine trick-vs-capture trade)
+    d = (4, 1), root (0, 0), L* = 4: policy trades trick value 26/15 -> 176/105 for capture slope 27/35 -> 11/14  (genuine trick-vs-capture trade)
+    d = (4, 4), root (0, 0), L* = 1/5: policy trades trick value 37/21 -> 26/15 for capture slope 22/35 -> 27/35  (genuine trick-vs-capture trade)
+    d = (4, 4), root (0, 0), L* = 4: policy trades trick value 26/15 -> 176/105 for capture slope 27/35 -> 11/14  (genuine trick-vs-capture trade)
+    d = (5, 1), root (0, 0), L* = 1/5: policy trades trick value 37/21 -> 26/15 for capture slope 22/35 -> 27/35  (genuine trick-vs-capture trade)
+    d = (5, 1), root (0, 0), L* = 4: policy trades trick value 26/15 -> 176/105 for capture slope 27/35 -> 11/14  (genuine trick-vs-capture trade)
+
+  minimax subgame cache size: 171124

@@ -1,0 +1,18 @@
+walt fiber-crush probe — P-A14 cold-H attempt — exploratory tier
+operator: treatment H (S5c-m3 memoized dag-v1 scalar solver), uniform fiber weighting, ScalarValuation::trick_only; declared particle-step budget 200000000; a None return is the declared stop, printed, never a silent cap.
+coordinates: rung n=4 (trick 4) hands whose leader IS the declaring seat — H's root must be the viewer's decision; hands where another seat leads are out of this attempt's scope, printed below.
+regenerate: cargo run --release -p walt-factory --example fiber_probe h
+
+  h0: COMPLETED — 4 root actions, 34650 worlds, 12940052500 ns; dag-v1 steps 140226166, tree-v0 steps 3727724856, boundary hits 14809754
+  h1: COMPLETED — 4 root actions, 34650 worlds, 9549943208 ns; dag-v1 steps 123882398, tree-v0 steps 15486288612, boundary hits 6756331
+  h2: COMPLETED — 4 root actions, 34650 worlds, 6861942459 ns; dag-v1 steps 78359234, tree-v0 steps 3918922312, boundary hits 7668849
+  h3: out of scope (leader is not the declaring seat)
+  h4: COMPLETED — 4 root actions, 34650 worlds, 10589142417 ns; dag-v1 steps 123162862, tree-v0 steps 2442873158, boundary hits 11613188
+  h5: COMPLETED — 4 root actions, 34650 worlds, 16625320541 ns; dag-v1 steps 191841542, tree-v0 steps 6305108794, boundary hits 19118225
+  h6: COMPLETED — 4 root actions, 34650 worlds, 14074846250 ns; dag-v1 steps 145749144, tree-v0 steps 1855419966, boundary hits 19087948
+  h7: out of scope (leader is not the declaring seat)
+  h8: COMPLETED — 4 root actions, 34650 worlds, 12344529042 ns; dag-v1 steps 136677010, tree-v0 steps 3016730096, boundary hits 15725964
+  h9: COMPLETED — 4 root actions, 34650 worlds, 14444124833 ns; dag-v1 steps 177671552, tree-v0 steps 16211488002, boundary hits 13256467
+  h10: out of scope (leader is not the declaring seat)
+  h11: out of scope (leader is not the declaring seat)
+  h12: COMPLETED — 4 root actions, 34650 worlds, 14762681959 ns; dag-v1 steps 176464986, tree-v0 steps 3666808044, boundary hits 17140506

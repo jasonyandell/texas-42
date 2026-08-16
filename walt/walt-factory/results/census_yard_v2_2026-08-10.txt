@@ -1,0 +1,89 @@
+walt situation census — shape notion v2: the suffix library and the hereditary rung — INSTRUMENT tier
+scope: pip-trump only (v0.4 §14.7, asserted in-run); corpus rob/receipts/verify_player.txt, hands 0-12; existing trick-six and trick-five carriers, no new carrier
+indexing: level j = tricks remaining; a level-j boundary state sits at grade 4j; A_j = the level-j boundary r3 classes; A_0 = the terminal class
+INSTRUMENT-TIER CAVEAT (mandatory): v2-strict and v2-open are INSTRUMENTS, not carriers. NEITHER satisfies (ECL) — v2-open even alters chance arities — so no value claim and no class claim may ever be read from a library size, and shapes sit below every tier, below even the exploratory r3 counts they are measured against. The lawful objects remain r3's classes with their Q5.1 refinement receipt and Q5.2 ECL re-check.
+VOCABULARY DISCIPLINE (Y3, unchanged): a live sub-DAG is a SUPPORT object, never a belief; values over it are exact only for the count-free objective over the TRANSPORTED ABSTRACT-POLICY CLASS, never the unrestricted concrete optimum (v0.5's BOUNDARY); no count or valuation conclusion is read from a count-free DAG.
+what no recurrence result buys (stated up front): shared MENUS are provably level-pinned — lead arity = j is a rule, not a finding — and no shape notion is a lawful equivalence. What stays true either way: P1, the yard as ONE grade-free transition program, is a theorem, verified by the v1 run's partition byte-compare at every level; v1 and v2 measure only whether the state INVENTORY also compresses. Both outcomes are results.
+v1 rows are NOT touched: results/census_yard_2026-08-10.txt stays exactly as committed. This is a new declared measurement in a new file.
+determinism freezes: r3's two (content-addressed 128-bit FNV-1a class encoding; canonical move order by (k, classification, successor class hash) with concrete tile order as the tie rule), the v1 pass's two (freeze 3, the yard tree encoding; freeze 4, the shape canonical form — colour refinement to a fixpoint then the minimum encoding over remaining ties, ceiling 5040), plus TWO NEW FREEZES declared here: (5) the suffix cut — a depth-d suffix replaces everything at depth d by a hole carrying that subtree's exact interned identity (interning, not hashing, so hole coincidence is decided by whole-subtree equality), handoff leaves above the cut are holes too, and the equality pattern over holes is recomputed locally inside each suffix; (6) the open variant — at unconstrained nodes only, options are deduplicated by (increment, classification, child suffix) after the children are already in open form, bottom up. The constraint type is DERIVED from the moves' classification, never stored, and the run asserts a node's classification is uniform.
+provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant module), instrument tier
+regenerate: cargo run --release -p walt-factory --example census_run yard2
+
+SANITY, stated plainly (Q3): the committed v1 within-level numbers already showed the pure equality-pattern abstraction discarding ALL leaf identity yet buying barely 2x (23,592 classes to 10,978 shapes at trick-five level 2; shape growth 171x against class growth 368x, the same order). The diversity is STRUCTURAL, not leaf-labeling. So no leaf-side abstraction alone can carry the payoff, and v1's whole-tree recurrence rows would likely have disappointed even without the root-arity artifact that made them vacuous. The arity artifact hid a disappointment; it did not create one.
+
+REFUTATION CRITERION (restated verbatim, answered at the foot of each rung): payoff CONFIRMED if, for d <= 3, v2-open library growth is far below class growth and the cross-level overlap is high — the parts recur and only menus over shared parts grow. Payoff REFUTED if v2-open depth-<=3 growth is the same order as class growth — the diversity then lives in genuinely new sub-parts per level and the yard's state-inventory reuse is small. Overlap is normalized by the SMALLER level and is structurally ASYMMETRIC: a suffix containing any arity greater than j' cannot occur at level j'.
+
+================ trick-six rung ================
+carrier 15253 situations, 1459 r3 classes; levels 1..=2
+
+compression ladder per level (classes -> hereditary shapes -> v1 whole-tree shapes); the rung with the big ratio jump is where recurrence lives
+  level   classes   hereditary   v1 shapes   classes:hereditary   hereditary:v1
+      1        63           63          63                1.000           1.000
+      2       306          306         226                1.000           1.353
+  reading: the hereditary rung labels each leaf with that leaf class's own hereditary shape, so it can compress only where a lower level's shape map is non-injective. At level 1 every tree is one forced path whose single leaf is the terminal class — no leaf coincidence exists to abstract, so shape = class exactly (the 1:1 row above) — and the injectivity propagates upward by construction. The rung is therefore DEGENERATE on this data for a structural reason, not a measurement accident: hereditary shapes ARE the r3 classes here. It locates no recurrence because there is none to locate between shapes and classes at these levels.
+
+suffix libraries (instrument tier; sizes are NOT class counts)
+  v2-strict:
+    depth 1: sizes by level [21, 25]; level 1->2: library growth 1.190 against class growth 4.857
+    depth 2: sizes by level [57, 131]; level 1->2: library growth 2.298 against class growth 4.857
+    depth 3: sizes by level [128, 343]; level 1->2: library growth 2.679 against class growth 4.857
+  v2-open:
+    depth 1: sizes by level [21, 25]; level 1->2: library growth 1.190 against class growth 4.857
+    depth 2: sizes by level [57, 128]; level 1->2: library growth 2.245 against class growth 4.857
+    depth 3: sizes by level [128, 337]; level 1->2: library growth 2.632 against class growth 4.857
+
+cross-level overlap (normalized by the SMALLER level; structurally asymmetric — a suffix containing any arity above j' cannot occur at level j')
+  v2-strict depth 1, levels 1 and 2: 5 shared of 21 and 25 (omega = shared / smaller = 0.238)
+  v2-strict depth 2, levels 1 and 2: 6 shared of 57 and 131 (omega = shared / smaller = 0.105)
+  v2-strict depth 3, levels 1 and 2: 7 shared of 128 and 343 (omega = shared / smaller = 0.054)
+  v2-open depth 1, levels 1 and 2: 10 shared of 21 and 25 (omega = shared / smaller = 0.476)
+  v2-open depth 2, levels 1 and 2: 19 shared of 57 and 128 (omega = shared / smaller = 0.333)
+  v2-open depth 3, levels 1 and 2: 31 shared of 128 and 337 (omega = shared / smaller = 0.242)
+
+CRITERION ANSWER — every available level step of this rung
+  level 1 -> 2: v2-open depth-3 library growth 2.632 against class growth 4.857; omega 0.242  [CARRIER-LIMITED: level's top stratum is this run's ROOT stratum, populated only by the 13 receipt fibers, so its class count is a corpus artifact and the class-growth figure it produces is not a growth measurement]
+
+================ trick-five rung ================
+carrier 2651280 situations, 161696 r3 classes; levels 1..=3
+
+compression ladder per level (classes -> hereditary shapes -> v1 whole-tree shapes); the rung with the big ratio jump is where recurrence lives
+  level   classes   hereditary   v1 shapes   classes:hereditary   hereditary:v1
+      1        64           64          64                1.000           1.000
+      2     23592        23592       10978                1.000           2.149
+      3     12924        12924        8483                1.000           1.523
+  reading: the hereditary rung labels each leaf with that leaf class's own hereditary shape, so it can compress only where a lower level's shape map is non-injective. At level 1 every tree is one forced path whose single leaf is the terminal class — no leaf coincidence exists to abstract, so shape = class exactly (the 1:1 row above) — and the injectivity propagates upward by construction. The rung is therefore DEGENERATE on this data for a structural reason, not a measurement accident: hereditary shapes ARE the r3 classes here. It locates no recurrence because there is none to locate between shapes and classes at these levels.
+
+suffix libraries (instrument tier; sizes are NOT class counts)
+  v2-strict:
+    depth 1: sizes by level [21, 57, 57]; level 1->2: library growth 2.714 against class growth 368.625; level 2->3: library growth 1.000 against class growth 0.547
+    depth 2: sizes by level [57, 613, 2235]; level 1->2: library growth 10.754 against class growth 368.625; level 2->3: library growth 3.646 against class growth 0.547
+    depth 3: sizes by level [129, 4206, 12985]; level 1->2: library growth 32.604 against class growth 368.625; level 2->3: library growth 3.087 against class growth 0.547
+  v2-open:
+    depth 1: sizes by level [21, 57, 51]; level 1->2: library growth 2.714 against class growth 368.625; level 2->3: library growth 0.894 against class growth 0.547
+    depth 2: sizes by level [57, 587, 1430]; level 1->2: library growth 10.298 against class growth 368.625; level 2->3: library growth 2.436 against class growth 0.547
+    depth 3: sizes by level [129, 4071, 9776]; level 1->2: library growth 31.558 against class growth 368.625; level 2->3: library growth 2.401 against class growth 0.547
+
+cross-level overlap (normalized by the SMALLER level; structurally asymmetric — a suffix containing any arity above j' cannot occur at level j')
+  v2-strict depth 1, levels 1 and 2: 9 shared of 21 and 57 (omega = shared / smaller = 0.428)
+  v2-strict depth 1, levels 1 and 3: 5 shared of 21 and 57 (omega = shared / smaller = 0.238)
+  v2-strict depth 1, levels 2 and 3: 14 shared of 57 and 57 (omega = shared / smaller = 0.245)
+  v2-strict depth 2, levels 1 and 2: 17 shared of 57 and 613 (omega = shared / smaller = 0.298)
+  v2-strict depth 2, levels 1 and 3: 6 shared of 57 and 2235 (omega = shared / smaller = 0.105)
+  v2-strict depth 2, levels 2 and 3: 53 shared of 613 and 2235 (omega = shared / smaller = 0.086)
+  v2-strict depth 3, levels 1 and 2: 25 shared of 129 and 4206 (omega = shared / smaller = 0.193)
+  v2-strict depth 3, levels 1 and 3: 7 shared of 129 and 12985 (omega = shared / smaller = 0.054)
+  v2-strict depth 3, levels 2 and 3: 87 shared of 4206 and 12985 (omega = shared / smaller = 0.020)
+  v2-open depth 1, levels 1 and 2: 21 shared of 21 and 57 (omega = shared / smaller = 1.000)
+  v2-open depth 1, levels 1 and 3: 9 shared of 21 and 51 (omega = shared / smaller = 0.428)
+  v2-open depth 1, levels 2 and 3: 24 shared of 57 and 51 (omega = shared / smaller = 0.470)
+  v2-open depth 2, levels 1 and 2: 57 shared of 57 and 587 (omega = shared / smaller = 1.000)
+  v2-open depth 2, levels 1 and 3: 17 shared of 57 and 1430 (omega = shared / smaller = 0.298)
+  v2-open depth 2, levels 2 and 3: 173 shared of 587 and 1430 (omega = shared / smaller = 0.294)
+  v2-open depth 3, levels 1 and 2: 129 shared of 129 and 4071 (omega = shared / smaller = 1.000)
+  v2-open depth 3, levels 1 and 3: 26 shared of 129 and 9776 (omega = shared / smaller = 0.201)
+  v2-open depth 3, levels 2 and 3: 466 shared of 4071 and 9776 (omega = shared / smaller = 0.114)
+
+CRITERION ANSWER — every available level step of this rung
+  level 1 -> 2: v2-open depth-3 library growth 31.558 against class growth 368.625; omega 1.000  [not carrier-limited: this level is reached from the run's roots, so its class count is the reachable inventory]
+  level 2 -> 3: v2-open depth-3 library growth 2.401 against class growth 0.547; omega 0.114  [CARRIER-LIMITED: level's top stratum is this run's ROOT stratum, populated only by the 13 receipt fibers, so its class count is a corpus artifact and the class-growth figure it produces is not a growth measurement]
+

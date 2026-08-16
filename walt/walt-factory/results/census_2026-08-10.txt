@@ -1,0 +1,81 @@
+walt situation census — the first (d, Theta) candidate under §12.6A — exploratory tier
+scope: pip-trump only — all 13 receipt trick-six kernels are pip-trump (v0.4 §14.7); doubles-trump and no-trump are excluded, since pooling them would implicitly claim cross-declaration-type transfer, which v0.4 §17.5 does not claim (F1 amendment). Cross-kernel merges below are within-pip-trump by corpus construction.
+corpus: rob/receipts/verify_player.txt, hands 0-12, trick 6, viewer = that trick's leader = the focal seat; fibers 90 90 36 36 90 27 90 90 7 30 19 36 6 (asserted in-run)
+model: §12.6A instantiated per walt/CENSUS.md with the walt-math rulings of walt/CENSUS-RULINGS.md — carrier = world-level latent situations closed under primitive steps (F1, F5), bank is emission not state (F5 amendment), descriptor = the finest structural relabeling quotient (F2 A1-A4), transports by canonicalization (F3), fixed uniform-legal field with exact rational mass 1/|L| per hidden play and Dirac focal actions (F4)
+determinism: no sampling, no caps, no seeds — the domain is exhaustively checkable and every class with two or more members is checked; canonicalization is a brute-force minimum over the lawful labelings
+provenance: SINGLE-IMPLEMENTATION — every number below is computed by one Rust implementation (walt-skeleton's equivariant module) and is exploratory tier, below every project evidentiary tier; a class count is quotable only alongside its ECL verdict (F6)
+regenerate: cargo run --release -p walt-factory --example census_run
+
+carrier (F1/F5: every situation reachable from a kernel root under primitive steps, pooled and deduplicated)
+  pooled: 15253 situations = 647 roots + 2010 trick-boundary (non-root) + 12596 mid-trick
+  per receipt hand (situations reachable from that kernel; a situation reachable from two hands counts in both):
+    h0: 2088 situations, 90 roots
+    h1: 1878 situations, 90 roots
+    h2: 1181 situations, 36 roots
+    h3: 983 situations, 36 roots
+    h4: 1944 situations, 90 roots
+    h5: 843 situations, 27 roots
+    h6: 1362 situations, 90 roots
+    h7: 2190 situations, 90 roots
+    h8: 251 situations, 7 roots
+    h9: 908 situations, 30 roots
+    h10: 510 situations, 19 roots
+    h11: 861 situations, 36 roots
+    h12: 254 situations, 6 roots
+
+equivariant classes (the descriptor d of F2; every count below is paired with the ECL verdict at the foot of this file)
+  pooled full carrier: 11949 classes over 15253 situations   [ECL PASS]
+  pooled roots only:   647 classes over 647 roots   [ECL PASS]
+  singleton classes (ECL vacuous there): 9868 of 11949 — 2081 classes carry two or more situations and are the checked coverage
+  largest class: 12 situations
+  per receipt hand (classes among that kernel's situations):
+    h0: 1969 classes full-carrier, 90 classes root-only
+    h1: 1706 classes full-carrier, 90 classes root-only
+    h2: 1007 classes full-carrier, 36 classes root-only
+    h3: 803 classes full-carrier, 36 classes root-only
+    h4: 1506 classes full-carrier, 90 classes root-only
+    h5: 667 classes full-carrier, 27 classes root-only
+    h6: 1036 classes full-carrier, 90 classes root-only
+    h7: 1852 classes full-carrier, 90 classes root-only
+    h8: 150 classes full-carrier, 7 classes root-only
+    h9: 771 classes full-carrier, 30 classes root-only
+    h10: 335 classes full-carrier, 19 classes root-only
+    h11: 707 classes full-carrier, 36 classes root-only
+    h12: 144 classes full-carrier, 6 classes root-only
+  by structure size (matched tiles = live tiles ∪ unresolved-trick tiles, A1): situations / classes / non-singleton classes
+    8 tiles: 7213 situations, 7205 classes, 8 of them non-singleton
+    4 tiles: 8040 situations, 4744 classes, 2073 of them non-singleton
+
+class counts stratified by ply (design addendum; ply is bookkeeping outside the state and outside the descriptor, F5's bank-out-of-state ruling applied the same way — the canonical form never reads it). The canonical form encodes structure size and table depth, so the strata partition the classes exactly and these rows sum to the pooled totals.
+  ply 0 (trick-6 lead (kernel roots)): 647 situations, 647 classes (0 non-singleton), 647 identity classes, dividend 1.000   [ECL PASS]
+  ply 1 (trick-6 mid-trick): 1294 situations, 1294 classes (0 non-singleton), 1294 identity classes, dividend 1.000   [ECL PASS]
+  ply 2 (trick-6 mid-trick): 2056 situations, 2056 classes (0 non-singleton), 2056 identity classes, dividend 1.000   [ECL PASS]
+  ply 3 (trick-6 mid-trick): 3216 situations, 3208 classes (8 non-singleton), 3216 identity classes, dividend 1.002   [ECL PASS]
+  ply 4 (trick-7 boundary (every seat holds one tile; play is forced)): 2010 situations, 1275 classes (502 non-singleton), 2010 identity classes, dividend 1.576   [ECL PASS]
+  ply 5 (trick-7 mid-trick): 2010 situations, 1275 classes (502 non-singleton), 2010 identity classes, dividend 1.576   [ECL PASS]
+  ply 6 (trick-7 mid-trick): 2010 situations, 1185 classes (526 non-singleton), 2010 identity classes, dividend 1.696   [ECL PASS]
+  ply 7 (trick-7 mid-trick): 2010 situations, 1009 classes (543 non-singleton), 2010 identity classes, dividend 1.992   [ECL PASS]
+  strata total: 15253 situations, 11949 classes (pooled totals: 15253 and 11949)
+
+cross-kernel merges (classes drawing situations from two or more receipt hands — the beyond-the-particular-game signal)
+  670 classes of 11949 merge across hands (0 of them contain a root situation)
+  spread — 2 hands: 636, 3 hands: 34
+  example class#94 (key ec0000030403000001000200):
+    [h0] P3 focal=S1 actor=S2 leader=S2 | S0:{2-2} | S1:{0-0} | S2:{4-4} | S3:{4-1} | table:[]
+    [h11] P4 focal=S0 actor=S1 leader=S1 | S0:{1-1} | S1:{6-6} | S2:{6-2} | S3:{5-5} | table:[]
+  example class#99 (key ec0100020403000201000200):
+    [h0] P3 focal=S1 actor=S3 leader=S2 | S0:{2-2} | S1:{0-0} | S2:{} | S3:{4-1} | table:[4-4] led:q4 winning:S2
+    [h11] P4 focal=S0 actor=S2 leader=S1 | S0:{1-1} | S1:{} | S2:{6-2} | S3:{5-5} | table:[6-6] led:q6 winning:S1
+  example class#100 (key ec0200010403000001000202):
+    [h0] P3 focal=S1 actor=S0 leader=S2 | S0:{2-2} | S1:{0-0} | S2:{} | S3:{} | table:[4-4,4-1] led:q4 winning:S2
+    [h11] P4 focal=S0 actor=S3 leader=S1 | S0:{1-1} | S1:{} | S2:{} | S3:{5-5} | table:[6-6,6-2] led:q6 winning:S1
+
+identity-interface baseline (F6: the same invariant list read with absolute tiles, absolute seats and absolute contexts — v0.5's closing corollary recovers §12.6 exactly)
+  pooled full carrier: 15253 identity classes over 15253 situations
+  pooled roots only:   647 identity classes over 647 roots
+  cross-kernel identity merges: 0 (the control is expected to merge next to nothing across hands)
+  equivariance dividend (identity classes / equivariant classes): 1.276 full-carrier, 1.000 roots-only
+
+ECL verdict (F5: exhaustive primitive-step check — condition 1 legality under Theta^A, condition 2 the joint law of (count-free increment, transported observation, successor class); exact rationals, no tolerance)
+  PASS: 11949 classes total, 9868 singleton (vacuous), 2081 classes checked, 3304 representative-member pairs checked under condition 1 and 3304 under condition 2
+  no counterexample: on this domain the finest structural relabeling quotient is equivariantly strongly controlled-lumpable.

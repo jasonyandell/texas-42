@@ -1,0 +1,211 @@
+walt situation census — the pruned live sub-DAG per kernel — exploratory tier
+scope: pip-trump only (v0.4 §14.7, asserted in-run); corpus rob/receipts/verify_player.txt, hands 0-12
+construction: NO new construction. This pass restricts and counts the already-verified r3 objects of walt/CENSUS-RULINGS.md section r3 — the state-to-class map from the backward pass and the class-level transitions. A class's successors are well defined because (ECL) makes every member emit the same multiset of (k, classification, successor class) tuples; the run ASSERTS that agreement class by class rather than assuming it, so the class DAG is checked, not trusted. The r3 partition itself carries its own Q5.1 refinement receipt and Q5.2 independent ECL re-check from the runs that built it (results/census_2026-08-10_r3.txt and results/census_t5_2026-08-10.txt) — a count here is quotable only with those verdicts.
+determinism: no sampling, no caps, no seeds; the same determinism freezes as the r3 run (content-addressed 128-bit FNV-1a signature encoding; canonical move order sorted by (k, classification, successor class hash) with concrete tile order as the tie rule)
+provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant module), exploratory tier, below every project evidentiary tier
+regenerate: cargo run --release -p walt-factory --example census_run prune
+
+CAVEAT (mandated, r3 ruling Q4): Classes are dynamics-equivalence classes under §12.6A on this carrier, uniform-legal field, count-free contract, per-step interface typing (r3 ruling Q3); they need not be closed under any tile relabeling and carry no structural description — the compact-description question (v0.4 §12.7) is separate and open. Coarsest is relative to that scope. Class identities are intrinsic to continuations; counts are carrier-relative; carrier growth adds classes, never splits existing ones. Exploratory tier. ECL holds by construction; see the verification lines in the r3 and t5 results files. These are not hidden-decision PI classes (v0.4 §12.4).
+
+PRUNING IS SUPPORT PRUNING ONLY: the fiber is the seat's set of POSSIBLE worlds under the kernel (v0.4 §2.1), so the live sub-DAG below is what the rule support alone leaves standing. No belief weight is applied anywhere in this pass. Belief comes later and can only concentrate the live set further, never widen it — support >= belief support always (support is not belief: the two are typed distinctions, never blurred).
+
+================ trick-six rung ================
+global objects: 15253 situations, 1459 r3 classes, 2102 class-level edges, 16 classes with a hand-end move
+
+kernel h0 (fiber 90 worlds, 2088 raw situations reachable)
+  root ambiguity in class coordinates: 74 distinct r3 classes over 90 fiber worlds
+  live sub-DAG: 453 classes, 628 class-level edges, 13 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 74/306  g7: 99/406  g6: 106/360  g5: 83/213  g4: 29/63  g3: 29/63  g2: 20/32  g1: 13/16
+
+kernel h1 (fiber 90 worlds, 1878 raw situations reachable)
+  root ambiguity in class coordinates: 59 distinct r3 classes over 90 fiber worlds
+  live sub-DAG: 395 classes, 498 class-level edges, 15 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 59/306  g7: 73/406  g6: 86/360  g5: 69/213  g4: 34/63  g3: 34/63  g2: 25/32  g1: 15/16
+
+kernel h2 (fiber 36 worlds, 1181 raw situations reachable)
+  root ambiguity in class coordinates: 14 distinct r3 classes over 36 fiber worlds
+  live sub-DAG: 117 classes, 138 class-level edges, 8 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 14/306  g7: 17/406  g6: 17/360  g5: 17/213  g4: 16/63  g3: 16/63  g2: 12/32  g1: 8/16
+
+kernel h3 (fiber 36 worlds, 983 raw situations reachable)
+  root ambiguity in class coordinates: 5 distinct r3 classes over 36 fiber worlds
+  live sub-DAG: 55 classes, 66 class-level edges, 2 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 5/306  g7: 10/406  g6: 12/360  g5: 8/213  g4: 7/63  g3: 7/63  g2: 4/32  g1: 2/16
+
+kernel h4 (fiber 90 worlds, 1944 raw situations reachable)
+  root ambiguity in class coordinates: 36 distinct r3 classes over 90 fiber worlds
+  live sub-DAG: 260 classes, 341 class-level edges, 10 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 36/306  g7: 51/406  g6: 56/360  g5: 45/213  g4: 23/63  g3: 23/63  g2: 16/32  g1: 10/16
+
+kernel h5 (fiber 27 worlds, 843 raw situations reachable)
+  root ambiguity in class coordinates: 20 distinct r3 classes over 27 fiber worlds
+  live sub-DAG: 203 classes, 238 class-level edges, 13 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 20/306  g7: 36/406  g6: 33/360  g5: 30/213  g4: 26/63  g3: 26/63  g2: 19/32  g1: 13/16
+
+kernel h6 (fiber 90 worlds, 1362 raw situations reachable)
+  root ambiguity in class coordinates: 7 distinct r3 classes over 90 fiber worlds
+  live sub-DAG: 40 classes, 38 class-level edges, 2 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 7/306  g7: 7/406  g6: 7/360  g5: 6/213  g4: 4/63  g3: 4/63  g2: 3/32  g1: 2/16
+
+kernel h7 (fiber 90 worlds, 2190 raw situations reachable)
+  root ambiguity in class coordinates: 21 distinct r3 classes over 90 fiber worlds
+  live sub-DAG: 185 classes, 232 class-level edges, 9 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 21/306  g7: 29/406  g6: 36/360  g5: 33/213  g4: 21/63  g3: 21/63  g2: 15/32  g1: 9/16
+
+kernel h8 (fiber 7 worlds, 251 raw situations reachable)
+  root ambiguity in class coordinates: 3 distinct r3 classes over 7 fiber worlds
+  live sub-DAG: 28 classes, 27 class-level edges, 3 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 3/306  g7: 3/406  g6: 4/360  g5: 4/213  g4: 4/63  g3: 4/63  g2: 3/32  g1: 3/16
+
+kernel h9 (fiber 30 worlds, 908 raw situations reachable)
+  root ambiguity in class coordinates: 25 distinct r3 classes over 30 fiber worlds
+  live sub-DAG: 179 classes, 245 class-level edges, 8 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 25/306  g7: 35/406  g6: 36/360  g5: 31/213  g4: 16/63  g3: 16/63  g2: 12/32  g1: 8/16
+
+kernel h10 (fiber 19 worlds, 510 raw situations reachable)
+  root ambiguity in class coordinates: 13 distinct r3 classes over 19 fiber worlds
+  live sub-DAG: 103 classes, 124 class-level edges, 6 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 13/306  g7: 19/406  g6: 17/360  g5: 15/213  g4: 12/63  g3: 12/63  g2: 9/32  g1: 6/16
+
+kernel h11 (fiber 36 worlds, 861 raw situations reachable)
+  root ambiguity in class coordinates: 26 distinct r3 classes over 36 fiber worlds
+  live sub-DAG: 193 classes, 235 class-level edges, 12 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 26/306  g7: 32/406  g6: 37/360  g5: 22/213  g4: 23/63  g3: 23/63  g2: 18/32  g1: 12/16
+
+kernel h12 (fiber 6 worlds, 254 raw situations reachable)
+  root ambiguity in class coordinates: 3 distinct r3 classes over 6 fiber worlds
+  live sub-DAG: 39 classes, 42 class-level edges, 3 classes with a hand-end move — against 1459 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g8: 3/306  g7: 6/406  g6: 7/360  g5: 7/213  g4: 5/63  g3: 5/63  g2: 3/32  g1: 3/16
+
+summary — trick-six rung (one row per kernel: the seat's one actual situation)
+  hand   fiber  root-classes  live-nodes  live-edges  raw-situations  raw:live
+  h0        90            74         453         628            2088  4.609
+  h1        90            59         395         498            1878  4.754
+  h2        36            14         117         138            1181  10.094
+  h3        36             5          55          66             983  17.872
+  h4        90            36         260         341            1944  7.476
+  h5        27            20         203         238             843  4.152
+  h6        90             7          40          38            1362  34.050
+  h7        90            21         185         232            2190  11.837
+  h8         7             3          28          27             251  8.964
+  h9        30            25         179         245             908  5.072
+  h10       19            13         103         124             510  4.951
+  h11       36            26         193         235             861  4.461
+  h12        6             3          39          42             254  6.512
+  median    36            20         179         232             983  5.491
+
+  raw:live is raw situations reachable from the kernel against live sub-DAG classes — the compression a seat facing THIS kernel actually sees. Summed over the 13 kernels: 15253 raw situations against 2250 live classes (kernels overlap in class space, so the sum double-counts shared classes; the union of all 13 live sub-DAGs is 1459 of the rung's 1459 classes).
+
+================ trick-five rung ================
+global objects: 2651280 situations, 161696 r3 classes, 332199 class-level edges, 16 classes with a hand-end move
+
+kernel h0 (fiber 1680 worlds, 268356 raw situations reachable)
+  root ambiguity in class coordinates: 1568 distinct r3 classes over 1680 fiber worlds
+  live sub-DAG: 23415 classes, 50844 class-level edges, 14 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 1568/12924  g11: 4164/27178  g10: 6671/40938  g9: 5416/37848  g8: 2689/23592  g7: 1718/11943  g6: 798/5393  g5: 281/1704  g4: 36/64  g3: 36/64  g2: 24/32  g1: 14/16
+
+kernel h1 (fiber 1680 worlds, 241762 raw situations reachable)
+  root ambiguity in class coordinates: 1329 distinct r3 classes over 1680 fiber worlds
+  live sub-DAG: 17528 classes, 35499 class-level edges, 15 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 1329/12924  g11: 2631/27178  g10: 4125/40938  g9: 3847/37848  g8: 2590/23592  g7: 1654/11943  g6: 871/5393  g5: 342/1704  g4: 48/64  g3: 48/64  g2: 28/32  g1: 15/16
+
+kernel h2 (fiber 1680 worlds, 245532 raw situations reachable)
+  root ambiguity in class coordinates: 1341 distinct r3 classes over 1680 fiber worlds
+  live sub-DAG: 16875 classes, 36429 class-level edges, 15 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 1341/12924  g11: 2588/27178  g10: 4326/40938  g9: 3761/37848  g8: 2216/23592  g7: 1381/11943  g6: 786/5393  g5: 337/1704  g4: 48/64  g3: 48/64  g2: 28/32  g1: 15/16
+
+kernel h3 (fiber 200 worlds, 64626 raw situations reachable)
+  root ambiguity in class coordinates: 10 distinct r3 classes over 200 fiber worlds
+  live sub-DAG: 207 classes, 284 class-level edges, 2 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 10/12924  g11: 20/27178  g10: 26/40938  g9: 22/37848  g8: 23/23592  g7: 45/11943  g6: 25/5393  g5: 14/1704  g4: 8/64  g3: 8/64  g2: 4/32  g1: 2/16
+
+kernel h4 (fiber 1680 worlds, 300642 raw situations reachable)
+  root ambiguity in class coordinates: 1404 distinct r3 classes over 1680 fiber worlds
+  live sub-DAG: 16263 classes, 30812 class-level edges, 9 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 1404/12924  g11: 2298/27178  g10: 3339/40938  g9: 3558/37848  g8: 2859/23592  g7: 1610/11943  g6: 818/5393  g5: 307/1704  g4: 23/64  g3: 23/64  g2: 15/32  g1: 9/16
+
+kernel h5 (fiber 560 worlds, 130540 raw situations reachable)
+  root ambiguity in class coordinates: 538 distinct r3 classes over 560 fiber worlds
+  live sub-DAG: 9836 classes, 18290 class-level edges, 14 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 538/12924  g11: 1357/27178  g10: 1929/40938  g9: 2134/37848  g8: 1147/23592  g7: 1158/11943  g6: 913/5393  g5: 520/1704  g4: 50/64  g3: 50/64  g2: 26/32  g1: 14/16
+
+kernel h6 (fiber 1680 worlds, 312998 raw situations reachable)
+  root ambiguity in class coordinates: 1504 distinct r3 classes over 1680 fiber worlds
+  live sub-DAG: 17404 classes, 30284 class-level edges, 16 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 1504/12924  g11: 2889/27178  g10: 3369/40938  g9: 3407/37848  g8: 1998/23592  g7: 1909/11943  g6: 1441/5393  g5: 723/1704  g4: 58/64  g3: 58/64  g2: 32/32  g1: 16/16
+
+kernel h7 (fiber 1680 worlds, 265038 raw situations reachable)
+  root ambiguity in class coordinates: 1494 distinct r3 classes over 1680 fiber worlds
+  live sub-DAG: 17644 classes, 33635 class-level edges, 16 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 1494/12924  g11: 2544/27178  g10: 3581/40938  g9: 3770/37848  g8: 2872/23592  g7: 1737/11943  g6: 1039/5393  g5: 458/1704  g4: 52/64  g3: 52/64  g2: 29/32  g1: 16/16
+
+kernel h8 (fiber 92 worlds, 25796 raw situations reachable)
+  root ambiguity in class coordinates: 90 distinct r3 classes over 92 fiber worlds
+  live sub-DAG: 1939 classes, 3464 class-level edges, 7 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 90/12924  g11: 123/27178  g10: 230/40938  g9: 282/37848  g8: 421/23592  g7: 364/11943  g6: 260/5393  g5: 112/1704  g4: 19/64  g3: 19/64  g2: 12/32  g1: 7/16
+
+kernel h9 (fiber 1680 worlds, 308672 raw situations reachable)
+  root ambiguity in class coordinates: 1600 distinct r3 classes over 1680 fiber worlds
+  live sub-DAG: 29079 classes, 64028 class-level edges, 16 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 1600/12924  g11: 3920/27178  g10: 7265/40938  g9: 7245/37848  g8: 5260/23592  g7: 2263/11943  g6: 1000/5393  g5: 373/1704  g4: 53/64  g3: 53/64  g2: 31/32  g1: 16/16
+
+kernel h10 (fiber 700 worlds, 154878 raw situations reachable)
+  root ambiguity in class coordinates: 596 distinct r3 classes over 700 fiber worlds
+  live sub-DAG: 15203 classes, 28210 class-level edges, 16 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 596/12924  g11: 1579/27178  g10: 2392/40938  g9: 3184/37848  g8: 2926/23592  g7: 2330/11943  g6: 1408/5393  g5: 630/1704  g4: 55/64  g3: 55/64  g2: 32/32  g1: 16/16
+
+kernel h11 (fiber 1120 worlds, 138558 raw situations reachable)
+  root ambiguity in class coordinates: 1117 distinct r3 classes over 1120 fiber worlds
+  live sub-DAG: 16782 classes, 31849 class-level edges, 15 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 1117/12924  g11: 2693/27178  g10: 4028/40938  g9: 3464/37848  g8: 3025/23592  g7: 1212/11943  g6: 735/5393  g5: 380/1704  g4: 43/64  g3: 43/64  g2: 27/32  g1: 15/16
+
+kernel h12 (fiber 1680 worlds, 193882 raw situations reachable)
+  root ambiguity in class coordinates: 333 distinct r3 classes over 1680 fiber worlds
+  live sub-DAG: 2793 classes, 4734 class-level edges, 10 classes with a hand-end move — against 161696 classes globally at this rung
+  live classes by grade (live / global at that grade):
+    g12: 333/12924  g11: 438/27178  g10: 529/40938  g9: 505/37848  g8: 304/23592  g7: 288/11943  g6: 200/5393  g5: 112/1704  g4: 28/64  g3: 28/64  g2: 18/32  g1: 10/16
+
+summary — trick-five rung (one row per kernel: the seat's one actual situation)
+  hand   fiber  root-classes  live-nodes  live-edges  raw-situations  raw:live
+  h0      1680          1568       23415       50844          268356  11.460
+  h1      1680          1329       17528       35499          241762  13.792
+  h2      1680          1341       16875       36429          245532  14.550
+  h3       200            10         207         284           64626  312.202
+  h4      1680          1404       16263       30812          300642  18.486
+  h5       560           538        9836       18290          130540  13.271
+  h6      1680          1504       17404       30284          312998  17.984
+  h7      1680          1494       17644       33635          265038  15.021
+  h8        92            90        1939        3464           25796  13.303
+  h9      1680          1600       29079       64028          308672  10.614
+  h10      700           596       15203       28210          154878  10.187
+  h11     1120          1117       16782       31849          138558  8.256
+  h12     1680           333        2793        4734          193882  69.417
+  median  1680          1329       16782       30812          241762  14.406
+
+  raw:live is raw situations reachable from the kernel against live sub-DAG classes — the compression a seat facing THIS kernel actually sees. Summed over the 13 kernels: 2651280 raw situations against 184968 live classes (kernels overlap in class space, so the sum double-counts shared classes; the union of all 13 live sub-DAGs is 161696 of the rung's 161696 classes).
+

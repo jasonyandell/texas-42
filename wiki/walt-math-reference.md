@@ -1,0 +1,520 @@
+# walt mathematics — the reference map
+
+[Home](Home.md) · owns: the map of walt's mathematical corpus — every named
+object, where its full statement lives, what it binds, and what corrected it ·
+Sources: `walt/CENSUS-RULINGS.md` (the adjudication record),
+`walt/math/decision_sparse_exact_solving_v0.1_errata.md` (the maintained
+mathematics), and the received documents under `walt/math/`. Related:
+[walt hub](walt.md), [structure and transport](walt-math-structure-transport.md),
+[information geometry](walt-math-information-geometry.md),
+[decision-deadness](walt-math-deadness.md),
+[decision-sparse witnesses](walt-math-decision-sparse.md),
+[the freeze register](walt-math-freezes.md),
+[open questions](walt-math-open-questions.md).
+
+> **Epistemic tier: EXPLORATORY — below every tier on
+> [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).** Every
+> statement indexed on these pages is exploratory, without exception. A proved
+> lemma at the exploratory tier is still exploratory: it is proved *relative to*
+> walt's own declared basis (v0.4/v0.5/v0.6, themselves exploratory), and it may
+> not be quoted in a brief, a dispatch, [FINDINGS](FINDINGS.md), or any
+> claim-tier page. These pages are a map, not a promotion.
+
+## Who this is for
+
+This is the orientation page for the next walt-math adjudicator. It answers four
+questions: what documents exist and which one governs; what has been proved and
+where the proof lives; what was corrected and by what; and what is open. It
+restates nothing — every entry is a pointer with just enough statement to let
+you decide whether to open the source.
+
+## The three documents, and which governs
+
+walt's mathematics lives in three places with three different disciplines. The
+distinction is load-bearing and is the first thing to internalise.
+
+| Document | Discipline | Role |
+|---|---|---|
+| `walt/math/decision_sparse_exact_solving_v0.1.md` and `walt/math/decision_sparse_second_audit_v0.1.md` | **Received, verbatim, never edited** (DS-A18) | Handed-in documents. Preserved exactly as filed, for the same reason `ingest/` is: a corrected source destroys the record of what was corrected. |
+| `walt/math/decision_sparse_exact_solving_v0.1_errata.md` | **Maintained** (DS-A28(iii)) | The repaired mathematics, with full statements and proofs. Hypotheses may be added and language narrowed *in place*, each change carrying a dated provenance marker naming its ruling. |
+| `walt/CENSUS-RULINGS.md` | **Append-only** (DS-A28(i)) | The adjudication record. No ruling's text is ever rewritten; a corrected clause receives a bracketed dated pointer marker at its site. Also the home of the named lemmas from before the errata existed. |
+
+**Citation rule (DS-A17), binding on every design and results file:** cite the
+**errata theorem number** for the mathematics and the **DS-A ruling** for its
+provenance. Where parent and errata differ, **the errata governs**. The rulings
+file remains the adjudication record; it is no longer the home of the repaired
+mathematics.
+
+A trap worth naming up front: the lemmas proved inside `CENSUS-RULINGS.md`
+before the errata existed — Lemmas V, X, **E**, S, S-fold, S-det, R, G, J and
+the S-rigid/R-fold corollaries — are a *different naming series* from the
+errata's Lemma **E3**, **E4**, **E5.0**, **E7**, **E8** and Theorems **E1**,
+**E6.1**–**E6.5**. `Lemma E` (structural isomorphism ⇒ count-free value
+equality) has nothing to do with `Lemma E3` (the action-conditioned upper
+witness). A naive grep for "Lemma E" conflates them.
+
+## The complete object index
+
+Every named object in the corpus, with the page that owns it. **All exploratory
+tier.** "Full statement" names the file and section where the statement and
+proof live; the owning page carries the compact form and the caveats.
+
+### Structure, transport, and the quotient — [page](walt-math-structure-transport.md)
+
+| Object | One line | Full statement |
+|---|---|---|
+| **Lemma V** | A value defined by a node rule reading only actor offset and canonically ordered (increment, successor value) pairs is constant on r3 classes. **Does not cover treatment H.** | `CENSUS-RULINGS.md` § "Fiber-probe rulings", Lemma V |
+| **Lemma X** | Zero-contribution excision: worlds with world-informed value 0 contribute 0 to the unnormalised objective under every lawful policy, so deleting them preserves the argmax exactly. **One-sided.** | same file, § "Fiber-refinement rulings", Lemma X |
+| **Lemma E** | Equal r1 canonical forms (as amended by F2 A1–A4) ⇒ isomorphic remaining games ⇒ equal count-free value. **Count-free only (E-A2).** | same file, § "Endgame-store rulings", Lemma E |
+| **Lemma S** | The seat-side analogue of Lemma E: a seat transport carries every count-free censal question across. | same file, § "Seat-census rulings", Lemma S |
+| **Corollary S-rigid** | The first-play seat transport group is **trivial**: the hand form *is* the hand. A proved negative. | same file, § "Seat-census rulings" |
+| **Lemma S-fold** | The seven pip declarations fold exactly 7:1 under the unique order isomorphism. The S-A2 conditionality (freeze 18) is **form-level only**: transports of the recorded relational form are reading-dependent, but **values are not** — see Corollary S-fold-val. | same file, § "Seat-census rulings" |
+| **Corollary S-fold-val** | Value transport along the declaration fold is **reading-independent** — Q^H, every fixed-policy L and every treatment-C U_a correspond exactly along φ whichever S-A2 reading is adopted. Extends Lemma S-fold and Corollary R-fold. | same file, § "Corollary S-fold-val" (delivered at EC-A4) |
+| **Lemma S-det** | The landing state is a function of (δ, H, trick-1 record); a slough proves a void in the led context and nothing else. Determination holds; the alphabet is the raw record space. | same file, § "Seat-census rulings", inside S-Q2 |
+| **Corollary R-fold** | Predictive dimension, behavioural-row counts and policy values are declaration-fold invariant. Bases and closure matrices are **not**. | same file, § "Predictive-rank probe rulings" |
+
+### Information geometry and the width ladder — [page](walt-math-information-geometry.md)
+
+| Object | One line | Full statement |
+|---|---|---|
+| **Lemma R** | Three continuation closures (event ⊇ observation ⊇ value); lawful policy values lie in V^val; and the separating-observation **degeneracy**: *where a complete continuation record determines the latent point* — as it does here — any closure seeded with a nonzero constant has dimension exactly \|X\|. | `CENSUS-RULINGS.md` § "Predictive-rank probe rulings", Lemma R |
+| **Lemma G** | Backward Pareto pruning is exact (frontier preserved as a set, ties included), incremental folding is exact and mandatory, exposure is preserved — and N_vec is destroyed by both pruning rules actually in use (narrowed from "every rule" by DS-A26; duplicate-discarding rules preserve it trivially). | same file, § "Policy-geometry probe rulings", Lemma G; clause (6) as narrowed at errata §6, Theorem E6.2(c) |
+| **Proposition G-flat** | Grades 1 and 2 carry no policy geometry at all; at grade 3 the only free layer is trick 2, giving N_pol = 2^k(a). | same file, § "Policy-geometry probe rulings" |
+| **Definition E9** | The interface-local reachable decision width W^loc_reach(I,a) — the quantity that answers "how many policies must the seat retain *here*". | errata §8.4 |
+
+### Decision-deadness and valuation scope — [page](walt-math-deadness.md)
+
+| Object | One line | Full statement |
+|---|---|---|
+| **The three-property typing** | forced ⊂ decision-dead ⊂ dominant, both inclusions strict on the S6b evidence. Never fused. | `CENSUS-RULINGS.md` § "Decision-deadness probe rulings" |
+| **Lemma J** | Non-interference (NI) ⇒ the node is decision-dead count-free; with the guard H ∩ COUNT = ∅, also under trick-plus-count. | same file, § "Decision-deadness probe rulings", Lemma J |
+| **Lemma J(c′)** | The sharp valuation clause: the value is identical for every tile-value schedule **constant on H**, of which the guarded count schedule is the constant-0 case. | errata §8.5(e) |
+| **Proposition J-0** | D0 — three bitset tests, exactly sound, **no exhaustion margin exists to get wrong**, because the beater is the led tile of the very trick focal plays to. | `CENSUS-RULINGS.md` § "Decision-deadness probe rulings" |
+| **Proposition J-1** | D1-sym — a transposition preserving the still-leadable structure makes the two tiles' values equal; the guard lifts it to trick-plus-count because the transport moves only two zero-point tiles. | same file |
+| **Proposition J-win** | D1-win — count-free only, and **this is where the guard fails**: focal winning tricks changes which of the *other* seats' count tiles fall where. | same file |
+| **Lemma E8** | The exact valuation scope of J-0/J-1: w constant on the exchanged tiles makes the feature difference vanish, always — and is also necessary in the generic case. Gauge-stable, hence a condition on the valuation class. | errata §8.5 |
+
+### Decision-sparse witnesses — [page](walt-math-decision-sparse.md)
+
+| Object | One line | Full statement |
+|---|---|---|
+| **Theorem E1** + **Corollaries E1.1–E1.2** | Order exchange under a declared involution Θ. Repairs parent §7.1, which is **unsound as written**. E1.1 is the J-1 instance; E1.2 is count survival under the guard. | errata §1.3, §1.6 |
+| **Theorem E1′** | E1 generalised to a fully transported involution (Θ_T, Θ_M, Θ_X), adding continuation equivariance (H4′) and utility invariance (H5′). | errata §8.1 |
+| **Definition E2** + **Proposition E2.1** | d_adv as the **affine** dimension; the reference-based form is off by exactly one when the reference lies outside the affine hull. | errata §2 |
+| **Lemma E3** + **Remark E3.1** | The action-conditioned upper witness U_a = E_β[V*_a] ≥ Q^H(a). The unconditioned aggregate is valid but **action-constant**, hence vacuous for separation. | errata §3.2–3.3 |
+| **Corollary E3.2** | Zero global fusion gap ⇒ U_a = Q^H(a) = V^H for every H-optimal a, and U_a ≤ V^H for all a. At such a coordinate the whole remaining difficulty is primal. | errata §8.2 |
+| **Lemma E4** + **Non-theorem E4′** | The primal witness L_a ≤ Q^H(a), and the inversion failure mode with a two-world witness showing the separated action can be **strictly worse** than the rejected one. | errata §4 |
+| **Corollary E4.1** | The primal ceiling: an H-argmax-seeded candidate gives L_a = Q^H(a) exactly, for every tie-break; and if Q^H(a⋆) < U_a then **no candidate set whatsoever** separates that pair. | `CENSUS-RULINGS.md` § "Experiment E adjudication"; to be filed as errata §4.3 |
+| **Proposition E5** + **Lemma E5.0** + **Corollaries E5.1–E5.2** | The Scheme-mass closure is degenerate in this game (atoms are singletons); (S) holds on the measured carrier; the binding negative is "**atom-mass linear filtering is noncompressive on this carrier**". | errata §5 |
+| **Theorems E6.1–E6.5** | The parent's §§4.3, 6.3, 8.3, 8.4, 9.2 restated with their load-bearing hypotheses **inside the statements**: width monotonicity, backward pruning, the value sandwich, root-action separation (member-not-set), finite adaptive gluing. | errata §6 |
+| **Lemma E7** | When dominance travels: an exhibited value-order isomorphism α_{Tρ}(Tξ) = α_ρ(ξ), plus a transported belief for belief-relative verdicts. | errata §8.3 |
+
+### The nonanticipativity ladder — FT and SR — [page](walt-decision-sparse.md)
+
+Sixteen objects delivered in one day, adjudicating two received external notes.
+**All sixteen live only in `CENSUS-RULINGS.md`**: none has an errata number, so
+the DS-A17 citation rule cannot yet be followed for any of them. **Fifteen of the
+sixteen are queued for the errata §9 amendment** — Corollary FT-grade4 is named
+in none of the queueing rulings. Their compact statements and the caveats that
+travel with them are on the track page's two chapters.
+
+| Object | One line | Full statement |
+|---|---|---|
+| **Lemma FT-arrive** | The arrival law at the *first* frontier is policy-independent, with an explicit inverse-legal-set product form. **Fails at depth two and below** — which is why the ladder is not a decomposition of the value. | `CENSUS-RULINGS.md` § "The fusion tax: inbox 016 adjudicated" |
+| **Lemma FT-trunc** + **Corollary FT-grade4** | A suffix of forced decisions truncates the reveal-delay ladder; since the last focal decision is always forced, the last tax is identically zero. At grade 4 the ladder has **exactly two rungs**, so (Δ¹, Δ²) is the complete decomposition. | same section |
+| **Proposition FT-flat** | An upper feature independent of the **frontier** action returns a bound at least U^C, so it can never improve the filed witness. The upper twin of Proposition T1-blind. | same section |
+| **Proposition FT-tie** | A tied competitor closes **only** if the relaxation is exact — an all-or-nothing threshold. A fence on the reading, filed before the run. | same section |
+| **Lemma FT-post** | The frontier posterior is legal-set weighted, **not uniform**. A residual witness priced as a fresh uniform coordinate prices the wrong measure and the composition is **void, not loose**. Two forms compose; nothing else does. | same section |
+| **Corollary FT-conv** | Taxes scale with the valuation convention and verdicts do not; a differential tax is exactly twice its count value, and cross-convention comparison is void. | same section |
+| **Lemma FT-mix** | Heterogeneous upper witnesses compose: the competitors' witnesses need not share a relaxation, an evaluator, a traversal or a run. Licenses a **mixed** verdict without stretching Theorem E6.4. | same section |
+| **Lemma SR-coord** | Theorem 4.1's unnamed hypothesis, discharged for this engine: first-frontier states are distinct **information states** (not histories), so a lawful first-stage policy ranges over a free product; and a second-frontier state has a **unique parent**. | `CENSUS-RULINGS.md` § "The second rung: inbox 017 adjudicated" |
+| **Lemma SR-forced** | Gluing a forced decision is free, and the two ladder indexings — by decisions, and by *nontrivial* decisions — agree. Fixes the counted-not-skipped convention. | same section |
+| **Proposition SR-sep** | The policy-level minimum separates into the local formula because the first-stage policy ranges over a free product — **not** because of mutual exclusivity and fixed arrival, which do a different job. | same section |
+| **Proposition SR-post** | The backward rung recursion is **occupancy-free**: everything below the first frontier enters through the policy-independent lawful posterior, and occupancy enters exactly once, at the first frontier. | same section |
+| **Corollary SR-conv** | FT-conv at rung two, with the two bridges kept separate: a *difference* is exactly twice its count value, a *p-weighted value* maps affinely. Collapsing them is the failure mode most likely to look like a discovery. | same section |
+| **Proposition SR-degen** | At grade 4 the second rung closes every binding pair **unconditionally**, strictly exactly at the untied ones. **No grade-4 experiment can test closure.** | same section |
+| **Proposition SR-taut** | Which depth-two identities cannot fail. The two structural assertions of the received verifier are identities in its own recomputed quantities and hold for any input whatsoever — arithmetic remarks, never receipts. | same section |
+| **Proposition SR-loc** | Escape is exactly where the safety inequality is strict, so the escape set is precisely the support of a naive witness's error and the error is the sum over that support **and nothing else**. | same section, closing note |
+| **Proposition FF-blind** | An **action-blind fee** removes exactly zero fusion value, at every state and for every coefficient. The penalty-side twin of FT-flat and T1-blind. | `CENSUS-RULINGS.md` § "The feature-fee audition: Jason's control feature, specified" |
+| **Lemma FF-min** | The fee objective is convex piecewise-linear, bounded below, and **exactly minimisable** by enumerating breakpoints — no grid, no search, no float. Supplies two genuine receipts, since the swept minimum and the filed tax are different computations. | same section |
+| **Proposition FF-oracle** | Per-state fees bound shared fees, so **a low capture refutes conclusively and a high capture establishes nothing** about a usable family. Forces the name **oracle-θ capture** on every such column. | same section |
+| **Proposition FF-degen** | **Zero breakpoints is exactly vacuity.** A zero capture with many breakpoints is a measurement; the same zero with none is a tautology. The diagnostic that made a defect catchable from a committed artifact. | same section, first closing note |
+| **Proposition FF-corr** | Exactly what a fee bites on: capture is zero iff zero minimises the objective, which for unique clairvoyant argmax means the centred feature has zero mean along the clairvoyant policy. | same section, second closing note |
+| **Proposition FC-drop** | The quantitative form of FF-corr: **capture is at least correlation times reach** — one directional slope times one breakpoint distance, computable with **no minimisation**. A **lower** bound at every state, so a large value proves a fee bites and a small value proves nothing. | `CENSUS-RULINGS.md` § "The fee-correlation chapter: what a fee bites on, measured" |
+| **Corollary FC-null** | An action-blind feature has exactly zero correlation, recovering FF-blind and giving the diagnostic a null control whose value is fixed **by theorem** rather than by a filed number. | same section |
+| **Proposition FC-width** | The subgradient's width is exactly the mass-weighted spread of the feature **across the clairvoyant tie**. Without ties it is a point, so zero capture needs an exact identity; with ties it has positive width and zero capture is **robust rather than coincidental**. | same section, closing note |
+| **Proposition FC-tight** | The drop bound is **attained** exactly when the descent is a single linear piece. It is never *exact* as a property of the functional anywhere, and **which states attain it is not knowable without the captured amount** — so attainment is a fact about the gap's distribution, never a usable property of the instrument. | same section, closing note |
+
+## The ruling families
+
+Nineteen families, one adjudicator (walt-math), all exploratory. Ranges below are
+**ruling-ID ranges**, which are append-only and do not move; the sections are
+located by heading, never by line number, because line numbers drift with every
+append. Two families span more than one section heading — `DS-A` runs across
+three, `N4-A` across two — and the family, never the heading, is what inherits.
+
+| Family | Range | Section | Date | Scope |
+|---|---|---|---|---|
+| `F1`–`F7` + "Extra item" | F1..F7 | Census fork rulings | 2026-08-10 | The census fork: carrier, invariant list, transports by canonicalization, probability model, primitive-step granularity, quotable statistics, the **NO-RESCUE failure protocol (F7)**, and the empty output interface. |
+| r3 `Q1`–`Q5` | Q1..Q5 | r3 — retrograde coarsest quotient | 2026-08-10 | The coarsest equivariantly-lumpable quotient: soundness and coarsestness, successor-class equality, the signature tuple, intrinsic vs carrier-relative reading. |
+| `Y1`–`Y3` | Y1..Y3 | The railyard factoring | 2026-08-10 | Level = tricks remaining: one-trick contract and stacking, periodicity split into obligation vs measurement, the pruning operator. |
+| `Definition`/`Q2`/`Q3` | — | Shape notion v2 | 2026-08-10 | The repaired instrument: the depth-*d* suffix library in two variants, the refutation criterion, the hereditary-shape rung. |
+| `P-A` | P-A1..**P-A21** | Fiber-probe rulings | 2026-08-11 | The fiber probe. Carries **Lemma V**. |
+| `X-A` | X-A1..**X-A19** | Fiber-refinement rulings | 2026-08-11 | Declared exclusion remnants. Carries **Lemma X** and the support/belief/exclusion typing. |
+| `E-A` | E-A1..**E-A21** | Endgame-store rulings | 2026-08-11 | The symmetry-reduced tablebase. Carries **Lemma E** and **E-A2**, the count-free scope limit. |
+| `S-A` | S-A1..**S-A21** | Seat-census rulings | 2026-08-11 | The seat-level census, counts only. Carries **Lemma S**, **S-rigid**, **S-fold**, **S-det**. |
+| `R-A` | R-A1..**R-A24** | Predictive-rank probe rulings | 2026-08-12 | Predictive dimension. Carries the v0.6 proof audit, **Lemma R**, **R-fold**, and **R-A18**, the correctness gate. |
+| `PG-A` | PG-A1..**PG-A18** | Policy-geometry probe rulings | 2026-08-12 | Policy counts. Carries **Proposition G-flat**, **Lemma G**, and **PG-A13**, the stop discipline. |
+| `J-A` | J-A1..**J-A18** | Decision-deadness probe rulings | 2026-08-12 | Deadness detectors. Carries **Lemma J**, **J-0**, **J-1**, **J-win**. |
+| `DS-A` | DS-A1..**DS-A36** | Three sections: Decision-sparse intake audit; Second-audit adjudication; S6c runner | 2026-08-13 | One continuously numbered family. Intake audit of the received v0.1 document (A1–A18); adjudication of the second audit (A19–A28, including **DS-A28**, the append-only protocol); execution scheduling and persistence (A29–A36). |
+| `SEP-A` | SEP-A1..**SEP-A19** | Experiment E adjudication: the separation probe | 2026-08-13 | Root-action separation by primal and upper witnesses. Carries **Corollary E4.1**, freezes 36 and 37. |
+| `N4-A` | N4-A1..**N4-A20** | Two sections: The n = 4 separation rung adjudication; The n = 4 rung return: the overnight pass | 2026-08-13 / 2026-08-14 | One continuously numbered family. The SEP-A10 successor rung (A1–A12), carrying **freeze 44** (the walk-step unit and budgeted-walk contract, now at **v2**) and **freeze 45** (the n = 4 coordinate identity); then the authorised overnight pass (A13–A20), carrying **Lemma N** and Corollaries N-1..N-3 and the raised `P_max v2`. |
+| `EC-A` | EC-A1..**EC-A14** | The economy-successor adjudication | 2026-08-13 | The primal half of the economy claim. Carries **Corollary S-fold-val**, **freeze 46** (the closed arm list), **freeze 36 v2** (EC-A8, transport opened to the declaration fold), the 384-versus-108 typing (EC-A12), and the primal/full split (EC-A13). |
+| `T1-A` | T1-A1..**T1-A12** | The trick-1 witness: the bounded sandwich, refuted and replaced | 2026-08-14 | The first-trick target. Carries **Lemma T1-run**, **Lemma T1-force**, **Proposition T1-blind** and **Proposition T1-corner** (the refutation, itself a filed result), **Theorem T1-draw**, **Corollary T1-ruff**, and **freeze 47** (the trick-1 carrier). **T1-A12 is the implementation-versus-corpus risk** and is inherited by everything below it. |
+| `LD-A` | LD-A1..**LD-A13** | Lay downs: the characterization, and the four-laydown question | 2026-08-14 | The family term made exact. Carries **Theorem LD** ((L1) ∧ (L2)), **Corollary LD-fold**, **freeze 48** (the lay-down catalogue), the settled four-laydown question (LD-A11), and LD-A10(ii), which carries T1-A12's risk forward sharpened. |
+| `RW-A` | RW-A1..**RW-A8** | The map-free rule walk, and what h9 already decided | 2026-08-14 | The rule-economy probe at the n = 4 carrier. Carries **freeze 49** (the n4 economy carrier), the closed rule argument list `(record, legal)`, RW-A3's label pair (NOT PRICED / RULE-EVALUATED, never merged), and h9's coordinate verdict filed from the S6h numbers alone. |
+| `FT-A` | FT-A1..**FT-A29** | The fusion tax: inbox 016 adjudicated | 2026-08-14 | The upper side. Carries **Lemma FT-arrive**, **Lemma FT-trunc** + **Corollary FT-grade4**, **Proposition FT-flat**, **Proposition FT-tie**, **Lemma FT-post**, **Corollary FT-conv** and **Lemma FT-mix**; **freeze 38 v1** (FT-A17, the reservation discharged) and **freeze 50 v1.1** (FT-A18, amended at FT-A23 and FT-A24). The closing notes (A23–A28) adjudicate the returned run; **FT-A29** files two self-corrections to the section. |
+| `SR-A` | SR-A1..**SR-A37** | The second rung: inbox 017 adjudicated | 2026-08-14 | The upper side, one rung deeper. Carries **Lemma SR-coord**, **Lemma SR-forced**, **Proposition SR-sep**, **Proposition SR-post**, **Corollary SR-conv**, **Proposition SR-degen**, **Proposition SR-taut** and **Proposition SR-loc**; **freeze 51** (SR-A22, the depth-two carrier) and **freeze 38 v1.1(d)** (SR-A21, a clarification — v1 not amended, v2 not opened). The closing note (A27–A32) adjudicates the returned run and discharges FT-A28 entire; **A33** and **A34** adjudicate two defects the build found in itself, **A35** types the companion's cross-process digest as an audit note, **A36** records the chapter's first pass with no specification conflict, and **A37** withdraws a carried obligation that was never owed. |
+| `FF-A` | FF-A1..**FF-A33** | The feature-fee audition: Jason's control feature, specified | 2026-08-14 | Which cheap structural features price the first-layer tax, on a carrier where the perfect answer is filed. Carries **Proposition FF-blind**, **Lemma FF-min**, **Proposition FF-oracle**, **Proposition FF-degen** and **Proposition FF-corr**; **freeze 52** with amendments **v1.1** (FF-A15), **v1.2** (FF-A20), **v1.3** (FF-A23) and **v1.4** (FF-A33). Two closing notes: A10–A24 adjudicate the first run and the defect it exposed, A25–A33 the corrected re-run, the shared-θ fit, and the chapter's close. |
+| `FC-A` | FC-A1..**FC-A22** | The fee-correlation chapter: what a fee bites on, measured | 2026-08-14 | Why a fee bites, measured where the exact answer is filed. Carries **Proposition FC-drop**, **Corollary FC-null**, **Proposition FC-width**, **Proposition FC-tight** and **freeze 53**. Delivers the branch's first **pre-fee screening statistic** and its first structural limit on the fee route. A22 supplements the close and binds the "attained, never exact" phrasing on this page and every citation. |
+
+Three numbering traps. **`E-A` and `E-Q` are spent** by the endgame-store section
+of 2026-08-11 — SEP-A had to renumber the separation design's own `E-Q1..E-Q8`
+to `SEP-Q1..SEP-Q8` to avoid a collision inside one file. `F2`'s internal
+amendments are bare `A1`–`A4`, local to F2, not a prefixed family. And **standing
+rulings inherit as whole families, by name, never as ranges**: two design headers
+recite `X-A1..X-A17`, `E-A1..E-A20`, `S-A1..S-A18`, but the families actually run
+to X-A19, E-A21 and S-A21. The full corpus binds regardless of a header's recited
+range; those recited ranges are typos, not scope declarations.
+
+## The supersession chain
+
+Twelve pointer markers, governed by **DS-A28**. Every one is navigation, not a
+rewrite: the original text stands and the marker names its replacement. Their
+absence would be drift.
+
+### In `CENSUS-RULINGS.md` — five markers
+
+| Marked site | Marker | Corrected by | Durable replacement |
+|---|---|---|---|
+| **Lemma J**, clause (c) | GENERALISED | DS-A24 | **Lemma J(c′)**, errata §8.5(e). (c) is *sound as filed* — generalised, not repaired. |
+| **DS-A7(iii)**, the sentence naming `revealed.rs` as needing an evaluator built | CORRECTED | SEP-A7 | **SEP-A7** with freeze 37 at SEP-A6. `revealed_summary().q_c[a]` has been the action-conditioned U_a since S3; what remained to build was the harness. |
+| **DS-A9**, the cone clause "for every cone at once" | CORRECTED | DS-A24 | **Lemma E8**, errata §8.5. Equality is guaranteed only for valuation directions constant on the exchanged tiles. |
+| **DS-A10**, the Experiment E receipt clause | SUPPLEMENTED | SEP-A12 | **SEP-A12 (R1)–(R5)**. The clause stands, but its two assertions hold by construction and are not receipts in PG-A8's sense. |
+| **SEP-A13**, the third counted quantity | DISAMBIGUATED | SEP-A19 | **SEP-A19**. The third quantity is the distinct partition states the walk *reaches*; equality with `InfoPartition::len()` is unsatisfiable for any pruning policy. |
+
+### In the errata — seven in-place markers
+
+| Marked site | Marker | Under | Effect |
+|---|---|---|---|
+| §3.1, the object | Naming clause added | DS-A20 | Treatment **C** reveals ω only; revealing (ω,z) is **C⁺** and never called C unqualified. |
+| §4.2, the Obligation | Restated semantically | DS-A27 | The invariant is semantic; "no max node below the root" is demoted to a sufficient *implementation form* — a receipt for the invariant, not the invariant. |
+| §5.1, Proposition E5 | Statement amended | DS-A20 | Hypothesis **(S)** added explicitly; **Lemma E5.0** (§5.1a) shows it holds on the measured carrier. |
+| §5.2, Corollary E5.2 | Language narrowed | DS-A21 | The negative is "atom-mass **linear** filtering is noncompressive on this carrier", not "filtering and compression are incompatible". |
+| §5.3, the reframe | Sharpened | DS-A21 | Predictive rank lower-bounds the **linear factorisation** target only, not unrestricted circuit size. |
+| §6, Theorem E6.1's typing clause | Superseded in part | DS-A23 | The primary object is **Definition E9**'s interface-local width; the root-level W_reach is a different, fourth quantity. |
+| §6, Theorem E6.2(c) | Narrowed | DS-A26 | Restricted to the two pruning rules actually in use; duplicate-discarding rules preserve the count trivially. |
+
+**The shape of the chain.** DS-A24 is the only mathematical correction of a
+prior ruling by a later one, and it fires twice, both landing on errata §8.5.
+DS-A20/A21/A23/A26/A27 are errata maintenance. SEP-A7/A12/A19 are the build-side
+corrections — two from first-hand code reading, and one where a section corrects
+itself after a build trip.
+
+## Standing disciplines a successor must not relearn the hard way
+
+Each of these is a ruling, not a convention, and each was bought with a mistake.
+
+- **F7, NO-RESCUE.** Both outcomes of every experiment are results. A mismatch
+  against the concrete authority is stop-and-report; never patched, never
+  reconciled by adjustment.
+- **DS-A1, vocabulary.** *witness* = a mathematical object exhibited to prove a
+  claim; *receipt* = a machine-checked verification artifact regenerated by a
+  run. **The word "certificate" is not used in walt artifacts written under this
+  ruling** (D3); quotations of documents that use it are bracketed. DS-A1 was
+  ruled on 2026-08-13 and **binds forward, not retroactively**, so a grep of
+  `walt/` returns many hits and none of them means the rule is dead: received
+  documents preserved verbatim (DS-A18), pre-reset code and artifacts, prose
+  written before the ruling landed, and sentences that state the fence itself
+  all contain the word legitimately. **No inventory of those hits is maintained
+  here** — the tree moves, and any list would rot into a false completeness
+  claim. The operative test is prospective: in anything you write, use *witness*,
+  *receipt*, or *root-action separation*, and bracket the word when quoting a
+  source that uses it.
+- **PG-A8, "by construction is not a receipt."** An assertion that cannot fail
+  is not evidence. SEP-A13 is the sharpest instance: an `is_affine()` check that
+  is vacuous at the declared direction.
+- **E-A2, the count boundary.** Structural transports preserve BEATS relations,
+  not pip counts. If count re-enters, every form-keyed record is void
+  **wholesale, never extended**. The one thing that survives is a *policy* as a
+  primal-witness source (DS-A16) — the policies extend, the verdicts do not.
+- **R-A2 and P-A1, the reachability fence.** The measured domain is the
+  void-free capacity fiber, a declared cost domain. Its members are FEASIBLE and
+  never reachable; no object here is identity-bearing. Restate it verbatim
+  wherever a witness is reported.
+- **PG-A13, a stop is a stop.** A capped coordinate reports no count at all —
+  not a partial one and not a bound. Do not infer where the first split happens
+  from where a capped run stopped.
+- **R-A18, the correctness gate.** Treatment H is the concrete authority; a
+  disagreement is a bug. If H does not complete within budget, that is a
+  declared stop printed with what was reached, and every dependent row prints
+  "correctness gate unmet" beside it — never silently.
+- **DS-A15/Lemma E7, seeds versus witnesses.** Seeds are heuristics for
+  *finding* witnesses; witnesses are validated by exact evaluation, always.
+  Dominance does not travel with a policy alone.
+
+## Run names, and where a quoted measurement comes from
+
+Rulings and results files refer to runs by session label. The labels are not
+self-explanatory and no page above decodes them, so here is the minimum a reader
+of these pages needs. **The session ledger itself lives in `walt/PLAN.md` and is
+owned there, not here.**
+
+| Run | What it was | The artifact that carries its numbers |
+|---|---|---|
+| **S5g** | the railyard | `walt/walt-factory/results/census_yard*_2026-08-10.txt` |
+| **S5h** | the fiber-crush probe (three-arm baseline ladder) | `results/fiber_probe_2026-08-11.txt`, `fiber_probe_h_2026-08-11.txt` |
+| **S5i** | the fiber-refinement probe (declared exclusion remnants) | `results/fiber_refine_2026-08-11.txt` |
+| **S5j** | the endgame store (symmetry-reduced tablebase) | `results/endgame_store_2026-08-11.txt`, `endgame_floor_2026-08-11.txt` |
+| **S5k** | the seat-level census | answered by proof; see Corollary S-rigid |
+| **S6a** | the predictive-rank probe | `results/predictive_rank_2026-08-12.txt` |
+| **S6b** | the policy-geometry probe | `results/policy_geometry_2026-08-12.txt` |
+| **S6c** | the decision-deadness probe | `results/deadness_2026-08-12.txt` |
+| **S6d** | the separation probe (Experiment E) | `results/separation_2026-08-13.txt` |
+
+Every measured number quoted anywhere on these pages comes from one of those
+files. **They sit one tier below even these pages** (probe output is exploratory
+material cited by nothing above it), and a number becomes quotable as a *result*
+only by brief amendment adding it to a verifier receipt. Where a page names a
+measurement — the grade-3 predictive dimensions, the detector recall figures,
+the singleton frontiers — treat it as a pointer into the artifact above, never
+as a standing claim.
+
+The design documents that each ruling family adjudicates (`walt/SEAT-CENSUS.md`,
+`walt/PREDICTIVE-RANK.md`, `walt/POLICY-GEOMETRY.md`, `walt/DEADNESS-PROBE.md`,
+`walt/SEPARATION-PROBE.md` and others) live at the top of `walt/`. A ruling that
+says "the design" means the one named in its section's opening paragraph.
+
+## Addendum, 2026-08-14 — what a walt-math successor inherits
+
+Pointers only. Nothing below is restated from its source; open the ruling.
+Written for walt-math-11 at the close of the FT chapter and extended the same day
+as walt-math-11 filed the SR, FF and FC chapters. **Sections run newest first;
+the FC items are the most likely to be needed.**
+
+### The FC chapter (newest)
+
+- **The `FC-A` family** — `FC-A1..FC-A22`, in `CENSUS-RULINGS.md` § "The
+  fee-correlation chapter: what a fee bites on, measured" (≈ lines 11170–12099 as
+  of this date). Four named objects, indexed above, and **freeze 53**.
+- **A PHRASING RULE BINDS ANYONE WRITING FROM THESE RULINGS, and it corrected the
+  adjudicator's own text before it could reach a wiki page.** The drop bound is a
+  **lower bound at every state**. Where it equals the frozen captured amount it is
+  **ATTAINED**, never *exact* — "exact at 258 states" invites the reading that the
+  screen predicts capture a fifth of the time, which is what the chapter exists to
+  prevent. **And attainment is not identifiable in advance**: nothing in the
+  emitted data says *which* states attain it without computing the very quantity
+  the bound exists to avoid computing. So say *attained at 258 of 1,252*, say *a
+  lower bound everywhere*, and say *which states attain it is not knowable without
+  the captured amount*.
+- **The generalised scope rule**: a figure's scope names **every** dimension it
+  ranges over — state set, feature set and unit set — in the same sentence, and **a
+  scope derived from an adjective rather than stated as a set is not a scope.** The
+  chapter's own demonstration is the sharpest argument for it: one census reads
+  1,010/322 over one state set and 252/322 over another, and the first invites
+  "zero at most states" while the second says what is true.
+- **Independent verification means an independent *predicate*, not an independent
+  *party*.** Two agents running one grep are one check, however many agents there
+  are. This was minted the hard way: a check written with a regex anchor where a
+  literal was meant matched nothing and returned a clean, confident zero
+  violations — **a wrong predicate returning exactly the answer being hoped for**,
+  caught by implausibility across several simultaneous queries rather than by
+  suspicion of the predicate. The operational tell: *a check that returns exactly
+  the hoped-for answer with no exceptions deserves one more query by a different
+  route before it is believed.* Its companion: **a predicate that fails loudly on a
+  near-miss is strictly better than one that silently matches it.**
+- **Two more disciplines**: receipt what the probe recomputes each run, and leave a
+  documented one-time audit where the object is fixed source; and emit over the
+  full set, read over the meaningful subset, **naming both**.
+- **What the chapter leaves open**: the third coordinate is still uncommissioned
+  and still needs its own freeze, but its selection criterion has changed — it is
+  now chosen on **measured argmax multiplicity**, with the earlier trump-survival
+  input demoted to a hypothesis about a correlate.
+
+### The FF chapter
+
+- **The `FF-A` family** — `FF-A1..FF-A33` with two closing notes, in
+  `CENSUS-RULINGS.md` § "The feature-fee audition: Jason's control feature,
+  specified" (≈ lines 9889–11167 as of this date). It delivers **five** named
+  objects, indexed above, and **freeze 52** with four amendments. **FF-A32
+  declares the chapter CLOSED**; nothing further is commissioned.
+- **SR-A37 withdraws an obligation that was never owed**, and the withdrawal is
+  the durable part. SR-A25(v) and SR-A32(iv) had twice filed "claim-ledger,
+  FINDINGS and open-problems cross-references are owed"; the wiki owner declined
+  with cause, walt-math verified the cause rather than accepting it, and the
+  correct count is **zero** — `walt` appears zero times in all three pages, and
+  no walt chapter has ever acquired a row. **The rule it yields: an obligation to
+  write somewhere is asserted only after reading that destination's own `owns:`
+  line and its rulings — a cross-reference list in governing text names
+  candidates, never obligations.**
+- **Three more disciplines this chapter filed, all general.** *(a)* **A results
+  file may restate a reading-rule that a ruling has fixed; it may not originate
+  one.** Numbers and provenance are the artifact's to assert; how a number may be
+  read belongs to the rulings. *(b)* **A byte-diff between two emissions must be
+  produced while both objects exist, or not at all** — it cannot be reconstructed
+  after a sanctioned regeneration has overwritten its comparand. Name the check
+  *and* the moment its comparand exists. *(c)* Where a superseded figure retains
+  a legitimate use, that use is named exactly and every other use is closed: here
+  the pre-amendment capture survives **only** as the historical measurement of
+  the feature-as-frozen and hence as one term of the comparison that confirmed
+  its own supersession.
+- **Two disciplines from this chapter are general and should outlive it.**
+  *(1)* **No capture figure, and no count, appears anywhere without the state set
+  it ranges over named in the same sentence.** This file reports the same
+  quantity over nested state sets, and scope mislabelling is its standing hazard —
+  it caught the adjudicator twice in one chapter. *(2)* **A null control is
+  complete only when paired with a case whose correct answer is known to be
+  non-null**, because a control expecting zero cannot distinguish a working
+  instrument from one that always returns zero.
+- **Freeze 52's amendment sequence is worth reading before writing another
+  freeze**: a scoping clause was written for a *family* after defining a term
+  only *part* of the family uses, and was never checked against each member's own
+  definition. It voided six of twelve measurement cells by construction. The
+  repair is that **every feature carries its own domain clause**, and that a unit
+  whose domain is empty is declared an **EMPTY TEST** — reported as a unit that
+  did not run, **never as a zero**.
+- **A pre-declared gate quantified over "both arms" silently assumes both arms
+  are non-empty.** One did not fire as written here, and a narrower verdict was
+  substituted in the open rather than the gate being read as satisfied. **A
+  pre-declared outcome must either quantify over non-empty arms or carry an
+  explicit empty-arm branch.**
+
+### The SR chapter
+
+- **The `SR-A` family** — `SR-A1..SR-A37` plus its closing note, in
+  `CENSUS-RULINGS.md` § "The second rung: inbox 017 adjudicated" (≈ lines
+  7986–9827 as of this date; the heading governs). It adjudicates a second
+  received external note claim by claim and delivers **eight** named objects,
+  indexed in the family table above.
+- **SR-A30's discharge of FT-A28 depends on SR-A33, and the dependency is
+  recorded rather than assumed.** The probe's own streaming SHA-256 had a
+  buffered-length defect, caught by a FIPS known-answer self-check **before any
+  carrier number existed**. That matters because a mis-buffering hash is still
+  *deterministic*, so two runs would still have agreed and the digest receipt
+  would have been **green and worthless** — a broken compression function may be
+  wildly non-injective, and (FT-R7c)'s scope claim ("one scalar reaches every
+  individual value across executions") is a statement about **the digest
+  function**, not about the probe. The standing discipline: *a receipt whose
+  assertion is an equality of digests carries a second, silent obligation — that
+  the digest function is anchored to published known-answer vectors covering the
+  code path actually used, including the streaming path if the receipt streams.*
+  A one-shot-only vector set would have passed here. This is the same family as
+  Proposition SR-taut and FT-A28(i): **a check is only a check against something
+  it does not itself produce.**
+- **The 8.8 GB companion's cross-process digest identity is an AUDIT NOTE of real
+  weight, never a receipt.** Its evidentiary surface is far broader than the four
+  frontier digests — every depth-two row across two processes — but it is not
+  asserted in-run against a transcribed constant, not reproduced by any verify
+  path, and does not survive into a future run. It is convertible at zero cost by
+  carrying it in the frozen table, which is one of the four items owed below.
+- **Freeze 51** (SR-A22(iii)) is the depth-two probe carrier. **Freeze 38 stands
+  at v1 with clause (d) exhibited as v1.1(d)** (SR-A21(ii)) — *a clarification
+  with no new content*: v1 is not amended and **v2 is not opened**. Both are now
+  in [the freeze register](walt-math-freezes.md); 39 and 40 remain reserved.
+- **FT-A28 is now FULLY DISCHARGED** by SR-A30 — the deferred frontier digest is
+  carried by all four SR units, closing FT-A28(iii)'s named residual **by receipt
+  rather than evidentially**. Nothing remains owed on that line.
+- **The errata §9 queue has grown again.** DS-A28(ii) is still carried, and the
+  queue now holds the seven FT objects *plus* **Lemma SR-coord, Lemma SR-forced,
+  Proposition SR-sep, Proposition SR-post, Corollary SR-conv, Proposition
+  SR-degen, Proposition SR-taut** and **Proposition SR-loc**, together with the
+  confirmed second-rung mathematics of the received note.
+- **Four obligations are owed on the next second-rung emission, and nothing is
+  owed now** (consolidated at the end of the section; an earlier clause says
+  "two" and was written before A33–A36): the escape column's `yes`/`no` case fix;
+  the filed binding pairs transcribed into the frozen table and **asserted**,
+  which converts a construction into a comparison against a named carrier; the
+  companion digest carried in the same table; and — before any rung-three or
+  longer-ladder build — a **re-design**, not a re-application, of the
+  committed/companion emission split. The companion is 8.8 GB here against the
+  previous chapter's 36 MB, and the growth is **not incidental**: the depth-two
+  state count grows with the field plies between frontiers, so a longer ladder
+  multiplies it again.
+- **Grade 4 is exhausted as a test-bed.** Proposition SR-degen bars it from
+  testing closure, and there is no rung three there. The next question needs a
+  longer ladder, which makes FT-A21's three trick-1 obligations the binding
+  constraint rather than a distant destination.
+
+### The FT chapter
+
+- **The `FT-A` family exists and is large.** `FT-A1..FT-A29` plus its closing
+  notes, in `CENSUS-RULINGS.md` § "The fusion tax: inbox 016 adjudicated"
+  (≈ lines 6567–7984 as of this date; the heading governs, not the line numbers).
+  It adjudicates a received external note claim by claim, delivers eight named
+  objects (indexed in the family table above), and is the home of the upper-side
+  mathematics. **The section now runs to FT-A29** — the file is append-only and a
+  section grows after its own closing note, as this one did three times in a day,
+  so **read to the end before assuming any ruling is the last one**.
+- **FT-A29 files two self-corrections to the section.** The first was found by an
+  outside check, the second by a census of the results file: FT-A16(ii)'s "(LD-R4) remains owed" was wrong (the
+  receipt had already run and held), and FT-A25(vi)'s commentary "ten of twelve
+  pairs" undercounted — **the closure failed at eleven of twelve**. Neither
+  touches a verdict, a receipt, a freeze or any results-file number. The
+  discipline it yields is worth more than the corrections: **a ruling that creates
+  an obligation is not evidence the obligation is still open — only the artifact
+  is.** That is "by construction is not a receipt" transposed from claims to
+  obligations, and it joins FT-A23(v) and FT-A28(i) as the third instance of one
+  failure shape: *asserting a status from a text that governs it rather than from
+  the object that carries it.*
+- **Two freezes moved, and the versions are not interchangeable.** **Freeze 38
+  stands at v1**, scoped — the gluing cut, its reservation discharged at FT-A17;
+  feature penalties, multi-stage penalties, adaptive search beyond the first
+  frontier and any cost model are explicitly *not* in it and re-enter as v2.
+  **Freeze 50 stands at v1.1**, amended twice on the day it was fixed: clause (a)
+  at FT-A23 (the enumeration governs, the sort clause struck) and clause (c) at
+  FT-A24 (emission cut by content). **39 and 40 remain reserved.** Full text on
+  [the freeze register](walt-math-freezes.md).
+- **DS-A28(ii) is STILL OWED.** Corollary E4.1's filing as errata §4.3 has been
+  carried since SEP-A2 and is still due at the next errata amendment. FT-A27(i)
+  added the seven FT objects and the confirmed first-layer mathematics to the same
+  queue as a new **errata §9**; the SR chapter has since added eight more, so read
+  the SR section above for the current queue. Until that amendment lands,
+  `CENSUS-RULINGS.md` is **their only authority**.
+- **FT-A28** (≈ lines 7825–7936) ratifies the (FT-R7) two-half discharge,
+  versioning the halves rather than renumbering them — **(FT-R7a)** the cross-run
+  invariant receipt against a frozen table, whose scope is corrected *upward* to
+  reach both `Σ_I δ_I` and `|supp δ_I|` per unit, and **(FT-R7b)** the in-run
+  reproduction receipt, which reaches every individual value within one process.
+  It names the residual the conjunction does not cover, defers the closure to
+  **(FT-R7c)**, and rules that the orchestrator's byte-diff is an **audit note and
+  never a receipt**. **All of this is now discharged** — see the SR section above;
+  the bullet is kept because the *reasoning* is the precedent, not the status.
+- **Three specification defects of one shape, all found by someone else.**
+  FT-A23(v), FT-A28(i) and FT-A29(i) are one error three times: **asserting a
+  status from a text that governs it rather than from the object that carries
+  it**, or equivalently **naming a relation without naming its relata**. A freeze
+  clause states a constant *or* a generating rule, never both; a receipt comparing
+  against a prior run must name the **carrier** of the reference value — a frozen
+  table with its provenance line, or an in-run recomputation — never "the previous
+  emission" unqualified; and an obligation-creating clause is not evidence the
+  obligation is still open. A prior run is not an object and its results text is
+  not an interface.
+- **T1-A12's implementation-versus-corpus risk is now inherited by seven
+  families.** Every statement in T1-A, LD-A, RW-A, FT-A, SR-A, FF-A and FC-A is proved
+  relative to walt's *implementation* of the rules, read from the code at
+  adjudication time, and **no receipt inside those sections can detect a
+  disagreement with the rules corpus** because every receipt is computed by that
+  same implementation. It is sharper at SR: Lemma SR-coord, the hypothesis that
+  makes the whole rung-two law true, was itself discharged by reading the
+  implementation — and two agreeing traversals inside one implementation cannot
+  detect a divergence from the corpus. The corpus check is owed before any of it
+  is cited outside walt, and (LD-R4) is a probe of the risk, never a discharge.
+
+## Where the rest lives
+
+- [The freeze register](walt-math-freezes.md) — all 53 issued freezes with
+  content, version and declaring ruling (39 and 40 still reserved).
+- [Open questions](walt-math-open-questions.md) — what is genuinely unresolved,
+  and why none of it belongs in [open-problems](open-problems.md).
+- [The walt hub](walt.md) — the build map, sessions, and the exploratory fence.
+  Owned by another page; this reference does not restate it.

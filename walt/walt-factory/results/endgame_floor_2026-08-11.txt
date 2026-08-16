@@ -1,0 +1,10 @@
+walt endgame-store probe — the level-1 floor — exploratory tier
+rulings: E-A6..E-A10 (miss taxonomy, build assertions, the two cardinalities, the closed-form control, the cost split); E-A1/E-A2 sentences as in endgame_store_2026-08-11.txt
+regenerate: cargo run --release -p walt-factory --example fiber_probe floor
+
+floor domain enumerated: 55036800 situations (asserted against 491,400 x 4 x 4 x 7); complete level-one alphabet re-derived: 64 classes (asserted 64, byte-agreeing with census_a1_complete_2026-08-11.txt); increments split 27518400 / 27518400
+THE E-A8 NUMBER — distinct r1 canonical forms at level 1 (the floor's true record count): 32532
+build: 72153532958 ns total; store memory is 32532 records x (key + value)
+E-A9 comparison on the declared sample (every 9973rd state, 5518 samples): canonicalize+probe 7892326 ns total vs closed-form control 197749 ns total — per-op 1430 vs 35 ns. If the control wins, the floor TABLE is a negative result and is reported as one; the closed-form control is what arms T1'..T3 actually use at grade 4.
+miss taxonomy (E-A6): this build is the complete pip-trump floor; a doubles-trump or no-trump lookup would be OUT OF DECLARED SCOPE (F1), and an in-scope absent form would be a bug — both stop-and-report, never a fill.
+run complete: yes

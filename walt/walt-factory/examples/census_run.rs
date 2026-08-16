@@ -1,0 +1,2436 @@
+//! The situation census run: the first (d, Theta) candidate under §12.6A
+//! equivariant controlled lumpability, measured on the 13 trick-six receipt
+//! kernels pooled into one ambient frame.
+//!
+//! Design: `walt/CENSUS.md`, as amended by the binding fork rulings in
+//! `walt/CENSUS-RULINGS.md` (F1 scope, F2 A1-A4 invariants, F3 transports by
+//! canonicalization, F4 probability model, F5 primitive steps with the bank as
+//! emission, F6 baseline and reporting, F7 failure protocol). The physics
+//! lives in `walt_skeleton::equivariant`; this runner enumerates, counts, and
+//! writes the results file.
+//!
+//! Scope: pip-trump only. Exploratory tier. Deterministic: nothing sampled,
+//! nothing capped, every class with two or more members checked.
+//!
+//! Writes `results/census_2026-08-10.txt`.
+
+use std::fmt::Write as _;
+use std::path::Path;
+
+use walt_core::receipt::{locate_verify_player, parse_file, Receipt};
+use walt_skeleton::equivariant::{
+    build_carrier, build_r3, check_ecl, check_ecl_r3, class_dag, grade, r1_refines_r3,
+    trick_six_kernels, yard_shape, yard_tree, CandidateSpec, Census, EclVerdict, Situation,
+};
+
+/// The pinned trick-six fiber sizes of the receipt corpus, asserted so the
+/// census cannot silently drift off its declared domain.
+const FIBERS: [u128; 13] = [90, 90, 36, 36, 90, 27, 90, 90, 7, 30, 19, 36, 6];
+
+fn receipt() -> Receipt {
+    let path = locate_verify_player().expect("rob/receipts/verify_player.txt above the workspace");
+    parse_file(&path).expect("the receipt parses")
+}
+
+/// An exact fixed-point rendering of `a / b` in thousandths; no division of
+/// anything but integers happens anywhere in this run.
+fn ratio(a: usize, b: usize) -> String {
+    if b == 0 {
+        return "n/a".to_string();
+    }
+    let scaled = (a * 1000) / b;
+    format!("{}.{:03}", scaled / 1000, scaled % 1000)
+}
+
+fn main() {
+    let r = receipt();
+    let kernels = trick_six_kernels(&r);
+    assert_eq!(kernels.len(), 13, "the trick-six receipt corpus");
+    for (i, (hand, kernel)) in kernels.iter().enumerate() {
+        assert_eq!(*hand, i);
+        assert_eq!(kernel.count(), FIBERS[i], "the pinned h{i} fiber size");
+    }
+    let roots_expected: u128 = FIBERS.iter().sum();
+    match std::env::args().nth(1).as_deref() {
+        Some("r2") => {
+            run_r2(&kernels, roots_expected);
+            return;
+        }
+        Some("r3") => {
+            run_r3(&kernels, roots_expected);
+            return;
+        }
+        Some("t5") => {
+            run_t5(&r);
+            return;
+        }
+        Some("prune") => {
+            run_prune(&r);
+            return;
+        }
+        Some("yard") => {
+            run_yard(&r);
+            return;
+        }
+        Some("yard2") => {
+            run_yard_v2(&r);
+            return;
+        }
+        Some("a1") => {
+            run_a1_complete();
+            return;
+        }
+        _ => {}
+    }
+
+    let t0 = std::time::Instant::now();
+    let carrier = build_carrier(&kernels);
+    eprintln!(
+        "carrier: {} situations ({} roots) in {:?}",
+        carrier.len(),
+        carrier.roots(),
+        t0.elapsed()
+    );
+    assert_eq!(
+        carrier.roots() as u128,
+        roots_expected,
+        "one root per world"
+    );
+
+    let t1 = std::time::Instant::now();
+    let census = Census::build(carrier, CandidateSpec::FINEST);
+    eprintln!(
+        "classes: {} equivariant / {} identity in {:?}",
+        census.class_members.len(),
+        census.identity_members.len(),
+        t1.elapsed()
+    );
+
+    let t2 = std::time::Instant::now();
+    let verdict = check_ecl(&census);
+    eprintln!("ecl: {} in {:?}", verdict.verdict(), t2.elapsed());
+
+    let mut out = String::new();
+    write_header(&mut out);
+    write_carrier(&mut out, &census);
+    write_classes(&mut out, &census, &verdict);
+    write_strata(&mut out, &census, &verdict);
+    write_merges(&mut out, &census);
+    write_baseline(&mut out, &census);
+    write_verdict(&mut out, &verdict);
+
+    let root = Path::new(env!("CARGO_MANIFEST_DIR"));
+    std::fs::create_dir_all(root.join("results")).expect("results dir");
+    std::fs::write(root.join("results/census_2026-08-10.txt"), out).expect("write results");
+    eprintln!("wrote results/census_2026-08-10.txt");
+}
+
+/// Round 2: the declared candidate coarsenings, each measured end to end on
+/// the same carrier, with the finest candidate reproduced as the reference
+/// row. A coarsening is a NEW DECLARED CANDIDATE (v0.4 §12.9), never a
+/// mutation of r1's descriptor and never an in-run fix to a failure (F7).
+fn run_r2(kernels: &[(usize, walt_kernel::Kernel)], roots_expected: u128) {
+    let mut out = String::new();
+    out.push_str(
+        "walt situation census r2 — declared candidate coarsenings under §12.6A — exploratory tier\n",
+    );
+    write_provenance(&mut out, "census_run r2");
+    out.push_str(
+        "candidates declared (each measured end to end; a coarsening is a new declared candidate \
+         under v0.4 §12.9, never a mutation of r1's descriptor and never an in-run repair of a \
+         failure — F7 NO-RESCUE). c1 reproduces r1's finest candidate as the reference row; its \
+         counts are asserted in-run against r1's published numbers:\n",
+    );
+    for spec in CandidateSpec::ALL {
+        let _ = writeln!(out, "  {}", spec.render());
+    }
+    out.push('\n');
+
+    let mut summary: Vec<(CandidateSpec, EclVerdict, [usize; 6])> = Vec::new();
+    for spec in CandidateSpec::ALL {
+        let carrier = build_carrier(kernels);
+        assert_eq!(
+            carrier.roots() as u128,
+            roots_expected,
+            "one root per world"
+        );
+        let census = Census::build(carrier, spec);
+        let verdict = check_ecl(&census);
+        eprintln!(
+            "{}: {} classes, {} root classes, ECL {}",
+            spec.name,
+            census.class_members.len(),
+            census.root_classes(),
+            verdict.verdict()
+        );
+        if spec == CandidateSpec::FINEST {
+            assert_eq!(census.carrier.len(), 15253, "r1's carrier, reproduced");
+            assert_eq!(census.class_members.len(), 11949, "r1's class count");
+            assert_eq!(census.root_classes(), 647, "r1's root class count");
+            assert!(verdict.passed(), "r1's ECL verdict");
+        }
+        let cross = census.cross_kernel_classes();
+        let root_merges = (0..census.class_members.len())
+            .filter(|c| {
+                census.class_members[*c].len() > 1
+                    && census.class_members[*c]
+                        .iter()
+                        .any(|i| census.carrier.is_root[*i])
+            })
+            .count();
+        let cross_roots = cross
+            .iter()
+            .filter(|c| {
+                census.class_members[**c]
+                    .iter()
+                    .any(|i| census.carrier.is_root[*i])
+            })
+            .count();
+        let t7_lead = ply_rows(&census)
+            .into_iter()
+            .find(|row| row.0 == 4)
+            .map_or(0, |row| row.2);
+
+        let _ = writeln!(out, "candidate {}", spec.render());
+        let _ = writeln!(
+            out,
+            "  pooled full carrier: {} classes over {} situations   [ECL {}]",
+            census.class_members.len(),
+            census.carrier.len(),
+            verdict.verdict()
+        );
+        let _ = writeln!(
+            out,
+            "  pooled roots only:   {} classes over {} roots   [ECL {}]",
+            census.root_classes(),
+            census.carrier.roots(),
+            verdict.verdict()
+        );
+        let _ = writeln!(
+            out,
+            "  singleton classes (ECL vacuous there): {} of {}; largest class {} situations",
+            census.singleton_classes(),
+            census.class_members.len(),
+            census.class_members.iter().map(Vec::len).max().unwrap_or(0)
+        );
+        let _ = writeln!(
+            out,
+            "  cross-kernel merges: {} classes ({} of them containing a root situation)",
+            cross.len(),
+            cross_roots
+        );
+        let _ = writeln!(
+            out,
+            "  root merges (classes holding two or more situations, at least one a root): {root_merges}"
+        );
+        let _ = writeln!(
+            out,
+            "  identity control: {} classes, dividend {}",
+            census.identity_members.len(),
+            ratio(census.identity_members.len(), census.class_members.len())
+        );
+        let _ = writeln!(
+            out,
+            "  ECL {}: {} classes checked, {} pairs under condition 1 and {} under condition 2, {} counterexamples",
+            verdict.verdict(),
+            verdict.classes_checked,
+            verdict.cond1_checks,
+            verdict.cond2_checks,
+            verdict.failures.len()
+        );
+        write_strata(&mut out, &census, &verdict);
+        if !verdict.passed() {
+            out.push_str(
+                "  counterexamples (recorded verbatim; the dropped distinction was load-bearing \
+                 after all — a finding, not a bug list):\n",
+            );
+            for f in &verdict.failures {
+                let _ = writeln!(out, "    class#{} key {}", f.class, f.class_key);
+                let _ = writeln!(out, "      condition: {}", f.condition);
+                let _ = writeln!(out, "      divergence: {}", f.detail);
+                let _ = writeln!(out, "      representative: {}", f.representative);
+                let _ = writeln!(out, "      member:         {}", f.member);
+            }
+            out.push('\n');
+        }
+        summary.push((
+            spec,
+            verdict,
+            [
+                census.class_members.len(),
+                census.root_classes(),
+                census.singleton_classes(),
+                cross.len(),
+                root_merges,
+                t7_lead,
+            ],
+        ));
+    }
+
+    out.push_str(
+        "summary (every count exploratory tier and quotable only with its ECL verdict, F6)\n\
+         candidate                              full   roots  singleton  cross-kernel  root-merges  t7-lead  ECL\n",
+    );
+    for (spec, verdict, n) in &summary {
+        let _ = writeln!(
+            out,
+            "  {:<36} {:>6} {:>6} {:>10} {:>13} {:>12} {:>8}  {}",
+            spec.name,
+            n[0],
+            n[1],
+            n[2],
+            n[3],
+            n[4],
+            n[5],
+            verdict.verdict()
+        );
+    }
+    out.push_str(
+        "\n  full = classes over the whole 15253-situation carrier; roots = classes over the 647 \
+         kernel roots; t7-lead = classes at ply 4, the trick-7 lead stratum (every seat holds one \
+         tile, play forced) — the target alphabet for a backward walk.\n",
+    );
+
+    let root = Path::new(env!("CARGO_MANIFEST_DIR"));
+    std::fs::create_dir_all(root.join("results")).expect("results dir");
+    std::fs::write(root.join("results/census_2026-08-10_r2.txt"), out).expect("write results");
+    eprintln!("wrote results/census_2026-08-10_r2.txt");
+}
+
+/// The declared stop for the trick-five climb: past this the domain is not
+/// exhaustively checkable on this machine and the rung must be re-scoped
+/// deliberately. Exclusion, never sampling — the run stops and reports rather
+/// than capping silently.
+const T5_CARRIER_STOP: usize = 20_000_000;
+
+/// The declared cumulative order for the saturation curves. Order dependence
+/// is a property of the curve, not a defect; the order is fixed here and named
+/// in the results file.
+const SATURATION_ORDER: [usize; 13] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+/// Round 4, phase 1: the feasibility measurement. Builds each trick-five
+/// kernel's carrier alone, reports the sizes, and stops before the pooled
+/// build if the domain is past the declared stop.
+fn t5_feasibility(r: &Receipt) -> Vec<(usize, walt_kernel::Kernel)> {
+    let kernels: Vec<(usize, walt_kernel::Kernel)> = (0..r.hands.len())
+        .map(|h| {
+            (
+                h,
+                walt_kernel::Kernel::from_receipt_trick(&r.hands[h], 5)
+                    .expect("a valid trick-five kernel"),
+            )
+        })
+        .collect();
+    let mut total_worlds: u128 = 0;
+    let mut total_states = 0usize;
+    for (h, kernel) in &kernels {
+        let t = std::time::Instant::now();
+        let carrier = build_carrier(std::slice::from_ref(&(*h, kernel.clone())));
+        total_worlds += kernel.count();
+        total_states += carrier.len();
+        eprintln!(
+            "t5 h{h}: fiber {} worlds, {} situations ({:?}) — running total {} situations",
+            kernel.count(),
+            carrier.len(),
+            t.elapsed(),
+            total_states
+        );
+        assert!(
+            total_states <= T5_CARRIER_STOP,
+            "the trick-five carrier passed the declared stop of {T5_CARRIER_STOP} situations \
+             at h{h} — STOP and re-scope the rung deliberately; never cap or sample"
+        );
+    }
+    eprintln!("t5 feasibility: {total_worlds} pooled worlds, {total_states} per-kernel situations");
+    kernels
+}
+
+/// Round 3: the retrograde coarsest quotient. Backward induction over the
+/// graded carrier per `walt/CENSUS-RULINGS.md` section r3 (Q1-Q5), with both
+/// mandatory verification items run in-line.
+fn run_r3(kernels: &[(usize, walt_kernel::Kernel)], roots_expected: u128) {
+    let carrier = build_carrier(kernels);
+    assert_eq!(
+        carrier.roots() as u128,
+        roots_expected,
+        "one root per world"
+    );
+    let t0 = std::time::Instant::now();
+    let r3 = build_r3(&carrier);
+    eprintln!(
+        "r3: {} classes over {} situations in {:?}",
+        r3.class_members.len(),
+        carrier.len(),
+        t0.elapsed()
+    );
+
+    // Q5.1, mandatory: r1 must refine r3. A violation is a bug or a math
+    // error -- stop and report, never repair (NO-RESCUE).
+    let finest = Census::build(build_carrier(kernels), CandidateSpec::FINEST);
+    let violations = r1_refines_r3(&finest, &r3);
+    // Q5.2, mandatory: an independent (ECL) re-check over the r3 partition.
+    let verdict = check_ecl_r3(&carrier, &r3);
+    eprintln!(
+        "r3 refinement violations: {}; ECL re-check {}",
+        violations.len(),
+        verdict.verdict()
+    );
+
+    let mut out = String::new();
+    out.push_str(
+        "walt situation census r3 — retrograde coarsest quotient under §12.6A — exploratory tier\n",
+    );
+    write_provenance(&mut out, "census_run r3");
+    out.push_str(
+        "construction: backward induction over the graded carrier by decreasing grade (grade = \
+         live tile count; every primitive play drops it by one, asserted at every step, so one \
+         pass closes — r3 ruling Q2). Terminal (hand end) is one class. SIGNATURE = preamble \
+         (grade, actor offset from focal 0-3) + the canonically ordered per-move tuples \
+         (count-free increment k, play classification in {lead, follow, slough}, successor \
+         r3-class); tile identity and led context are deliberately absent, transported per move \
+         (Q3). Transports are position matching through the canonical move order, never an \
+         arbitrary per-pair matching, so coherence is automatic (Q1b).\n\
+         determinism freezes (class counts are reproducible bit-for-bit only against these; \
+         Q5.3): (1) the content-addressed encoding — a class identity is the 128-bit FNV-1a hash \
+         (offset basis 0x6c62272e07bb014262b821756295c58d, prime 0x100000000000000000013b) of the \
+         signature bytes [tag 0x33, grade, actor offset, move count, then per move: k, \
+         classification code (lead 0, follow 1, slough 2), successor hash big-endian], so a class \
+         identity is a function of its future cone alone; the run asserts no two distinct \
+         signatures share a hash; (2) the canonical move order — sort by (k, classification, \
+         successor class hash), ties broken by the state's concrete tile order. Moves with \
+         identical tuples emit identical statistics, so the tie order never changes a law.\n\n",
+    );
+    out.push_str(
+        "CAVEAT (mandated, r3 ruling Q4): Classes are dynamics-equivalence classes under §12.6A \
+         on this carrier, uniform-legal field, count-free contract, per-step interface typing (r3 \
+         ruling Q3); they need not be closed under any tile relabeling and carry no structural \
+         description — the compact-description question (v0.4 §12.7) is separate and open. \
+         Coarsest is relative to that scope. Class identities are intrinsic to continuations; \
+         counts are carrier-relative; carrier growth adds classes, never splits existing ones. \
+         Exploratory tier. ECL holds by construction; see verification lines. These are not \
+         hidden-decision PI classes (v0.4 §12.4): the equivalence is dynamics, not response \
+         equality.\n\n",
+    );
+
+    let _ = writeln!(
+        out,
+        "carrier (candidate-independent): {} situations, {} roots\n",
+        carrier.len(),
+        carrier.roots()
+    );
+
+    out.push_str("verification (every count below is quotable only with these two lines)\n");
+    let _ = writeln!(
+        out,
+        "  Q5.1 refinement assertion — every one of r1's {} classes lands inside exactly one r3 \
+         class: {}",
+        finest.class_members.len(),
+        if violations.is_empty() {
+            "HOLDS".to_string()
+        } else {
+            format!("VIOLATED in {} pairs — STOP", violations.len())
+        }
+    );
+    for v in violations.iter().take(5) {
+        let _ = writeln!(
+            out,
+            "    r1 class#{} split across r3 class#{} and r3 class#{}\n      {}\n      {}",
+            v.r1_class, v.r3_a, v.r3_b, v.a, v.b
+        );
+    }
+    let _ = writeln!(
+        out,
+        "  Q5.2 independent ECL re-check over the r3 partition with position-matching transports: \
+         {} — {} classes checked, {} pairs under condition 1 and {} under condition 2, {} \
+         counterexamples",
+        verdict.verdict(),
+        verdict.classes_checked,
+        verdict.cond1_checks,
+        verdict.cond2_checks,
+        verdict.failures.len()
+    );
+    for f in &verdict.failures {
+        let _ = writeln!(out, "    class#{} hash {}", f.class, f.class_key);
+        let _ = writeln!(out, "      condition: {}", f.condition);
+        let _ = writeln!(out, "      divergence: {}", f.detail);
+        let _ = writeln!(out, "      representative: {}", f.representative);
+        let _ = writeln!(out, "      member:         {}", f.member);
+    }
+    out.push('\n');
+
+    let root_classes: std::collections::BTreeSet<usize> = (0..carrier.len())
+        .filter(|i| carrier.is_root[*i])
+        .map(|i| r3.class_of[i])
+        .collect();
+    let singletons = r3.class_members.iter().filter(|m| m.len() == 1).count();
+    let largest = r3.class_members.iter().map(Vec::len).max().unwrap_or(0);
+    let provenance =
+        |members: &[usize]| -> u32 { members.iter().fold(0, |a, i| a | carrier.provenance[*i]) };
+    let cross: Vec<usize> = (0..r3.class_members.len())
+        .filter(|c| provenance(&r3.class_members[*c]).count_ones() >= 2)
+        .collect();
+    let cross_roots = cross
+        .iter()
+        .filter(|c| r3.class_members[**c].iter().any(|i| carrier.is_root[*i]))
+        .count();
+    let root_merges = (0..r3.class_members.len())
+        .filter(|c| {
+            r3.class_members[*c].len() > 1
+                && r3.class_members[*c].iter().any(|i| carrier.is_root[*i])
+        })
+        .count();
+
+    out.push_str("r3 pooled counts   [ECL re-check PASS required to quote — see above]\n");
+    let _ = writeln!(
+        out,
+        "  full carrier: {} classes over {} situations",
+        r3.class_members.len(),
+        carrier.len()
+    );
+    let _ = writeln!(
+        out,
+        "  roots only:   {} classes over {} roots",
+        root_classes.len(),
+        carrier.roots()
+    );
+    let _ = writeln!(
+        out,
+        "  singleton classes (ECL vacuous there): {singletons} of {}; largest class {largest} situations",
+        r3.class_members.len()
+    );
+    let _ = writeln!(
+        out,
+        "  cross-kernel merges: {} classes ({} of them containing a root situation)",
+        cross.len(),
+        cross_roots
+    );
+    let _ = writeln!(out, "  root merges: {root_merges}\n");
+
+    out.push_str(
+        "class DAG by grade — the pathfinding graph: distinct signatures at each grade (grade = \
+         live tiles; ply = 8 - grade)\n",
+    );
+    for g in (1..=8).rev() {
+        let rows: Vec<usize> = (0..carrier.len())
+            .filter(|i| grade(&carrier.states[*i]) == g)
+            .collect();
+        if rows.is_empty() {
+            continue;
+        }
+        let classes: std::collections::BTreeSet<usize> =
+            rows.iter().map(|i| r3.class_of[*i]).collect();
+        let merged = classes
+            .iter()
+            .filter(|c| r3.class_members[**c].len() > 1)
+            .count();
+        let _ = writeln!(
+            out,
+            "  grade {g} (ply {}, {}): {} situations, {} classes ({merged} non-singleton)",
+            8 - g,
+            ply_label(8 - g),
+            rows.len(),
+            classes.len()
+        );
+    }
+    let _ = writeln!(
+        out,
+        "  grade 0 (hand end): 1 class by ruling (the terminal), hash {:032x}\n",
+        r3.terminal
+    );
+
+    out.push_str(
+        "summary against the r1/r2 declared candidates (same carrier, same field, same count-free \
+         contract; r3 is the coarsest lawful quotient relative to the scope in the caveat above)\n\
+         candidate                              full   roots  singleton  cross-kernel  root-merges  t7-lead  ECL\n",
+    );
+    for spec in CandidateSpec::ALL {
+        let census = Census::build(build_carrier(kernels), spec);
+        let v = check_ecl(&census);
+        let cross_n = census.cross_kernel_classes().len();
+        let root_m = (0..census.class_members.len())
+            .filter(|c| {
+                census.class_members[*c].len() > 1
+                    && census.class_members[*c]
+                        .iter()
+                        .any(|i| census.carrier.is_root[*i])
+            })
+            .count();
+        let t7 = ply_rows(&census)
+            .into_iter()
+            .find(|row| row.0 == 4)
+            .map_or(0, |row| row.2);
+        let _ = writeln!(
+            out,
+            "  {:<36} {:>6} {:>6} {:>10} {:>13} {:>12} {:>8}  {}",
+            spec.name,
+            census.class_members.len(),
+            census.root_classes(),
+            census.singleton_classes(),
+            cross_n,
+            root_m,
+            t7,
+            v.verdict()
+        );
+    }
+    let t7_r3: std::collections::BTreeSet<usize> = (0..carrier.len())
+        .filter(|i| grade(&carrier.states[*i]) == 4)
+        .map(|i| r3.class_of[i])
+        .collect();
+    let _ = writeln!(
+        out,
+        "  {:<36} {:>6} {:>6} {:>10} {:>13} {:>12} {:>8}  {}",
+        "r3 retrograde coarsest",
+        r3.class_members.len(),
+        root_classes.len(),
+        singletons,
+        cross.len(),
+        root_merges,
+        t7_r3.len(),
+        verdict.verdict()
+    );
+    let _ = writeln!(
+        out,
+        "\n  t7-lead = classes at ply 4 (grade 4), the trick-7 lead stratum where every seat holds \
+         one tile and play is forced — the target alphabet for a backward walk. r3's row is that \
+         alphabet at its coarsest.\n"
+    );
+
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("results/census_2026-08-10_r3.txt");
+    std::fs::create_dir_all(path.parent().expect("results dir")).expect("results dir");
+    std::fs::write(&path, out).expect("write results");
+    eprintln!("wrote results/census_2026-08-10_r3.txt");
+    assert!(
+        violations.is_empty(),
+        "Q5.1 refinement assertion VIOLATED in {} pairs — recorded in the results file; \
+         this is a bug or a math error in the ruling, not something to patch",
+        violations.len()
+    );
+}
+
+/// Round 4: the trick-five climb. The construction is the already-adjudicated
+/// r3 (CENSUS-RULINGS.md section r3, unchanged — same signature, same freezes,
+/// grades 12 down to 0), measured on the trick-five carrier, with both
+/// mandatory receipts and the saturation curves.
+fn run_t5(r: &Receipt) {
+    let kernels = t5_feasibility(r);
+    let t0 = std::time::Instant::now();
+    let carrier = build_carrier(&kernels);
+    eprintln!(
+        "t5 pooled carrier: {} situations, {} roots in {:?}",
+        carrier.len(),
+        carrier.roots(),
+        t0.elapsed()
+    );
+    assert!(
+        carrier.len() <= T5_CARRIER_STOP,
+        "the pooled trick-five carrier passed the declared stop — STOP and re-scope"
+    );
+
+    let t1 = std::time::Instant::now();
+    let r3 = build_r3(&carrier);
+    eprintln!(
+        "t5 r3: {} classes in {:?}",
+        r3.class_members.len(),
+        t1.elapsed()
+    );
+
+    let t2 = std::time::Instant::now();
+    let verdict = check_ecl_r3(&carrier, &r3);
+    eprintln!(
+        "t5 ECL re-check: {} in {:?}",
+        verdict.verdict(),
+        t2.elapsed()
+    );
+
+    // Q5.1, mandatory: r1's finest candidate must refine r3 here too.
+    let t3 = std::time::Instant::now();
+    let finest = Census::build(build_carrier(&kernels), CandidateSpec::FINEST);
+    let violations = r1_refines_r3(&finest, &r3);
+    eprintln!(
+        "t5 Q5.1: {} r1 classes, {} violations ({:?})",
+        finest.class_members.len(),
+        violations.len(),
+        t3.elapsed()
+    );
+
+    let mut out = String::new();
+    out.push_str(
+        "walt situation census — the trick-five climb under the r3 retrograde coarsest quotient — exploratory tier\n",
+    );
+    write_provenance_t5(&mut out);
+    out.push_str(
+        "CAVEAT (mandated, r3 ruling Q4): Classes are dynamics-equivalence classes under §12.6A \
+         on this carrier, uniform-legal field, count-free contract, per-step interface typing (r3 \
+         ruling Q3); they need not be closed under any tile relabeling and carry no structural \
+         description — the compact-description question (v0.4 §12.7) is separate and open. \
+         Coarsest is relative to that scope. Class identities are intrinsic to continuations; \
+         counts are carrier-relative; carrier growth adds classes, never splits existing ones. \
+         Exploratory tier. ECL holds by construction; see verification lines. These are not \
+         hidden-decision PI classes (v0.4 §12.4): the equivalence is dynamics, not response \
+         equality.\n\n\
+         FOCAL ALIGNMENT: this run's focal seat is each hand's trick-FIVE leader; the trick-six \
+         census's focal is that hand's trick-SIX leader. The two runs therefore describe \
+         different focal alignments wherever those leaders differ. Class-identity comparisons \
+         across the runs (the same content hash appearing in both) are meaningful only where the \
+         focal seats coincide and are NOT quoted here. Count comparisons across runs (306 root \
+         classes there against this run's root count) are comparisons of counts and are fine.\n\n",
+    );
+
+    let _ = writeln!(
+        out,
+        "carrier: {} situations, {} roots (one per fiber world, asserted); declared stop {} \
+         situations, not reached",
+        carrier.len(),
+        carrier.roots(),
+        T5_CARRIER_STOP
+    );
+    out.push_str("  per receipt hand (fiber worlds / situations reachable from that kernel):\n");
+    for (slot, (h, kernel)) in kernels.iter().enumerate() {
+        let roots = (0..carrier.len())
+            .filter(|i| carrier.is_root[*i] && (carrier.provenance[*i] & (1u32 << slot)) != 0)
+            .count();
+        let states = (0..carrier.len())
+            .filter(|i| (carrier.provenance[*i] & (1u32 << slot)) != 0)
+            .count();
+        let _ = writeln!(
+            out,
+            "    h{h}: {} worlds, {roots} roots, {states} situations",
+            kernel.count()
+        );
+    }
+    out.push('\n');
+
+    out.push_str("verification (every count below is quotable only with these two lines)\n");
+    let _ = writeln!(
+        out,
+        "  Q5.1 refinement assertion — every one of r1's {} finest-candidate classes on this \
+         carrier lands inside exactly one r3 class: {}",
+        finest.class_members.len(),
+        if violations.is_empty() {
+            "HOLDS".to_string()
+        } else {
+            format!("VIOLATED in {} pairs — STOP", violations.len())
+        }
+    );
+    for v in violations.iter().take(5) {
+        let _ = writeln!(
+            out,
+            "    r1 class#{} split across r3 class#{} and r3 class#{}\n      {}\n      {}",
+            v.r1_class, v.r3_a, v.r3_b, v.a, v.b
+        );
+    }
+    let _ = writeln!(
+        out,
+        "  Q5.2 independent ECL re-check over the r3 partition with position-matching transports: \
+         {} — {} classes checked, {} pairs under condition 1 and {} under condition 2, {} \
+         counterexamples",
+        verdict.verdict(),
+        verdict.classes_checked,
+        verdict.cond1_checks,
+        verdict.cond2_checks,
+        verdict.failures.len()
+    );
+    for f in verdict.failures.iter().take(20) {
+        let _ = writeln!(out, "    class#{} hash {}", f.class, f.class_key);
+        let _ = writeln!(out, "      condition: {}", f.condition);
+        let _ = writeln!(out, "      divergence: {}", f.detail);
+        let _ = writeln!(out, "      representative: {}", f.representative);
+        let _ = writeln!(out, "      member:         {}", f.member);
+    }
+    out.push('\n');
+
+    let grade_classes = |g: usize| -> std::collections::BTreeSet<usize> {
+        (0..carrier.len())
+            .filter(|i| grade(&carrier.states[*i]) == g)
+            .map(|i| r3.class_of[i])
+            .collect()
+    };
+    let root_classes = grade_classes(12);
+    let singletons = r3.class_members.iter().filter(|m| m.len() == 1).count();
+    let largest = r3.class_members.iter().map(Vec::len).max().unwrap_or(0);
+    let provenance =
+        |members: &[usize]| -> u32 { members.iter().fold(0, |a, i| a | carrier.provenance[*i]) };
+    let cross: Vec<usize> = (0..r3.class_members.len())
+        .filter(|c| provenance(&r3.class_members[*c]).count_ones() >= 2)
+        .collect();
+    let root_merges = (0..r3.class_members.len())
+        .filter(|c| {
+            r3.class_members[*c].len() > 1
+                && r3.class_members[*c].iter().any(|i| carrier.is_root[*i])
+        })
+        .count();
+
+    out.push_str("r3 pooled counts on the trick-five carrier   [ECL re-check verdict above]\n");
+    let _ = writeln!(
+        out,
+        "  full carrier: {} classes over {} situations",
+        r3.class_members.len(),
+        carrier.len()
+    );
+    let _ = writeln!(
+        out,
+        "  roots only (grade 12, the trick-five lead stratum): {} classes over {} roots",
+        root_classes.len(),
+        carrier.roots()
+    );
+    let _ = writeln!(
+        out,
+        "  singleton classes (ECL vacuous there): {singletons} of {}; largest class {largest} situations",
+        r3.class_members.len()
+    );
+    let _ = writeln!(
+        out,
+        "  cross-kernel merges: {} classes; root merges: {root_merges}\n",
+        cross.len()
+    );
+
+    out.push_str(
+        "class DAG by grade — the pathfinding graph (grade = live tiles; grade 12 is the \
+         trick-five lead, grade 8 the trick-six lead, grade 4 the trick-seven lead)\n",
+    );
+    for g in (1..=12).rev() {
+        let rows = (0..carrier.len())
+            .filter(|i| grade(&carrier.states[*i]) == g)
+            .count();
+        if rows == 0 {
+            continue;
+        }
+        let classes = grade_classes(g);
+        let merged = classes
+            .iter()
+            .filter(|c| r3.class_members[**c].len() > 1)
+            .count();
+        let label = match g {
+            12 => " (trick-five lead — this run's root stratum)",
+            8 => " (trick-six lead — the t6 census's root stratum)",
+            4 => " (trick-seven lead)",
+            _ => "",
+        };
+        let _ = writeln!(
+            out,
+            "  grade {g:>2}{label}: {rows} situations, {} classes ({merged} non-singleton)",
+            classes.len()
+        );
+    }
+    let _ = writeln!(
+        out,
+        "  grade  0 (hand end): 1 class by ruling (the terminal), hash {:032x}\n",
+        r3.terminal
+    );
+
+    let _ = writeln!(
+        out,
+        "growth across rungs (counts only — see the focal-alignment note above)\n  \
+         trick-six run, root stratum (grade 8 there): 306 classes over 647 roots\n  \
+         trick-five run, root stratum (grade 12 here): {} classes over {} roots\n  \
+         trick-six lead stratum measured inside THIS run (grade 8 here): {} classes over {} \
+         situations — reached from trick-five roots, so it is a different situation set from the \
+         trick-six census's 647 roots and is not the same measurement\n",
+        root_classes.len(),
+        carrier.roots(),
+        grade_classes(8).len(),
+        (0..carrier.len())
+            .filter(|i| grade(&carrier.states[*i]) == 8)
+            .count()
+    );
+
+    write_saturation(&mut out, &carrier, &r3, 12, "trick-five");
+    let t6_kernels = trick_six_kernels(r);
+    let t6_carrier = build_carrier(&t6_kernels);
+    let t6_r3 = build_r3(&t6_carrier);
+    write_saturation(&mut out, &t6_carrier, &t6_r3, 8, "trick-six");
+
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("results/census_t5_2026-08-10.txt");
+    std::fs::create_dir_all(path.parent().expect("results dir")).expect("results dir");
+    std::fs::write(&path, out).expect("write results");
+    eprintln!("wrote results/census_t5_2026-08-10.txt");
+    assert!(
+        violations.is_empty(),
+        "Q5.1 refinement assertion VIOLATED in {} pairs — recorded in the results file; \
+         this is a bug or a math error, not something to patch",
+        violations.len()
+    );
+}
+
+/// The declared stop for the complete level-one enumeration. The domain is
+/// closed-form countable, so this is a guard against a mis-specified loop, not
+/// a cap on the measurement.
+const A1_STATE_STOP: u64 = 100_000_000;
+
+/// Round 8: the complete level-one alphabet. A new declared exhaustive carrier
+/// — every pip-trump last trick there is — under the same equivalence and the
+/// same machinery. Carrier growth is lawful (r3 ruling Q4): it can add classes,
+/// never split existing ones.
+fn run_a1_complete() {
+    let tiles = walt_core::Domino::ALL;
+    let ordered = (tiles.len() * (tiles.len() - 1) * (tiles.len() - 2) * (tiles.len() - 3)) as u64;
+    let expected = ordered * 4 * 4 * 7;
+    eprintln!("a1: enumerating {expected} level-one situations");
+    assert!(
+        expected <= A1_STATE_STOP,
+        "the complete level-one enumeration passed the declared stop — re-scope deliberately"
+    );
+
+    // Level one hands off straight to the terminal class, so the handoff
+    // alphabet is A_0 and needs no carrier.
+    let handoff = |_: &Situation| -> u64 { walt_skeleton::equivariant::YARD_TERMINAL };
+    let mut classes: std::collections::BTreeMap<Vec<u8>, walt_skeleton::equivariant::YardNode> =
+        std::collections::BTreeMap::new();
+    let mut seen: u64 = 0;
+    let t0 = std::time::Instant::now();
+    for pip in walt_core::Pip::ALL {
+        let decl = walt_core::Decl::PipTrump(pip);
+        for a in 0..tiles.len() {
+            for b in 0..tiles.len() {
+                if b == a {
+                    continue;
+                }
+                for c in 0..tiles.len() {
+                    if c == a || c == b {
+                        continue;
+                    }
+                    for d in 0..tiles.len() {
+                        if d == a || d == b || d == c {
+                            continue;
+                        }
+                        let hands = [
+                            walt_core::DominoSet::single(tiles[a]),
+                            walt_core::DominoSet::single(tiles[b]),
+                            walt_core::DominoSet::single(tiles[c]),
+                            walt_core::DominoSet::single(tiles[d]),
+                        ];
+                        for leader in walt_core::Seat::ALL {
+                            for focal in walt_core::Seat::ALL {
+                                let sit = Situation {
+                                    decl,
+                                    focal,
+                                    leader,
+                                    hands,
+                                    table: Vec::new(),
+                                };
+                                let tree = yard_tree(&sit, &handoff);
+                                let key = tree.encode();
+                                classes.entry(key).or_insert(tree);
+                                seen += 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        eprintln!(
+            "a1: {} pip declarations done, {seen} situations, {} classes so far ({:?})",
+            pip.value() + 1,
+            classes.len(),
+            t0.elapsed()
+        );
+    }
+    assert_eq!(seen, expected, "the enumeration covers the declared domain");
+    let number = classes.len();
+    eprintln!("a1: THE NUMBER is {number} ({:?})", t0.elapsed());
+
+    // The anatomy: every level-one tree is a forced chain, so its class is
+    // exactly (leader offset from focal, the three followers' classifications,
+    // the count-free increment).
+    let mut anatomy: Vec<(u8, Vec<u8>, u8)> = Vec::new();
+    for tree in classes.values() {
+        anatomy.push(chain_anatomy(tree));
+    }
+
+    let mut out = String::new();
+    out.push_str(
+        "walt situation census — THE COMPLETE LEVEL-ONE ALPHABET under pip-trump — exploratory tier\n",
+    );
+    let _ = write!(
+        out,
+        "carrier: a NEW DECLARED EXHAUSTIVE CARRIER — every ordered assignment of four distinct \
+         dominoes to the four seats ({} of them), every leader (4), every focal seat (4), every \
+         pip-trump declaration (7) = {expected} level-one situations, enumerated in full and \
+         streamed through a class set. Carrier growth is lawful under r3 ruling Q4: class \
+         identities are intrinsic to continuations, so a larger carrier can add classes and can \
+         never split or re-merge existing ones — the trick-six and trick-five runs' level-one \
+         classes are literally these classes.\n\
+         NOT CARRIER-LIMITED — say it plainly: every other class count this census has produced is \
+         relative to the 13 receipt fibers. This one is not. It is the COMPLETE pip-trump \
+         inventory at level 1, the first number in the whole census with no corpus caveat \
+         attached.\n\
+         scope: pip-trump only. Doubles-trump and no-trump are OUT OF DECLARED SCOPE (F1 \
+         amendment: they have structurally different context signatures — kappa_DT is the doubles, \
+         kappa_NT is empty so no-trump has no tier-2 context at all — and no receipt corpus; \
+         including them would implicitly claim cross-declaration-type transfer, which v0.4 §17.5 \
+         does not claim). This alphabet is the complete PIP-TRUMP one, not the complete Straight \
+         42 one.\n\
+         equivalence and machinery: unchanged. r3's signature computed by the one shared \
+         grade-free yard routine (no grade argument, no level argument; the within-trick position \
+         is read off the table depth and the handoff alphabet here is A_0, the single terminal \
+         class). Determinism freezes unchanged: r3's two, plus freeze 3 (the yard tree encoding). \
+         The class counts below are exploratory tier; the parts catalog below them is INSTRUMENT \
+         tier — neither v2 variant satisfies (ECL) and no value or class claim may be read from a \
+         library size.\n\
+         declared stop: {A1_STATE_STOP} situations, not reached; the domain is closed-form \
+         countable and the run asserts the enumerated total against it.\n\
+         regenerate: cargo run --release -p walt-factory --example census_run a1\n\n",
+        ordered
+    );
+    let _ = writeln!(
+        out,
+        "THE NUMBER\n  the complete level-one alphabet under pip-trump: {number} classes over \
+         {expected} enumerated situations\n"
+    );
+    let _ = writeln!(
+        out,
+        "what the receipt corpora realized of it\n  \
+         trick-six run, level 1: 63 of {number} ({} unrealized)\n  \
+         trick-five run, level 1: 64 of {number} ({} unrealized)\n  \
+         The trick-five corpus already realizes the complete alphabet; the trick-six corpus misses \
+         exactly one class. Thirteen receipt hands are enough to saturate the last trick.\n",
+        number - 63,
+        number - 64
+    );
+
+    // Anatomy tables.
+    out.push_str("anatomy — classes by the actor's offset from focal (0 = the focal seat leads the last trick)\n");
+    for offset in 0..4u8 {
+        let n = anatomy.iter().filter(|(o, _, _)| *o == offset).count();
+        let _ = writeln!(out, "  offset {offset}: {n} classes");
+    }
+    out.push_str(
+        "\nanatomy — classes by count-free outcome (the increment emitted at the resolving play)\n",
+    );
+    for increment in 0..2u8 {
+        let n = anatomy.iter().filter(|(_, _, e)| *e == increment).count();
+        let _ = writeln!(
+            out,
+            "  {}: {n} classes",
+            if increment == 0 {
+                "k = 0 (the trick goes to the other partnership)"
+            } else {
+                "k = e* (the trick goes to the focal partnership)"
+            }
+        );
+    }
+    out.push_str(
+        "\nanatomy — classes by the three followers' classification pattern (the leader's play is \
+         always a lead)\n",
+    );
+    let mut patterns: std::collections::BTreeMap<Vec<u8>, usize> =
+        std::collections::BTreeMap::new();
+    for (_, pattern, _) in &anatomy {
+        *patterns.entry(pattern.clone()).or_insert(0) += 1;
+    }
+    for (pattern, n) in &patterns {
+        let rendered: Vec<&str> = pattern
+            .iter()
+            .map(|c| match c {
+                0 => "lead",
+                1 => "follow",
+                _ => "slough",
+            })
+            .collect();
+        let _ = writeln!(out, "  {}: {n} classes", rendered.join(", "));
+    }
+    let _ = writeln!(
+        out,
+        "\n  Reading the anatomy: a level-one class is exactly (actor offset from focal, the three \
+         followers' classifications, the count-free increment) — the tree is a forced chain, so \
+         nothing else can enter it. The upper bound is therefore 4 x 2 x 2 x 2 x 2 = 64, and the \
+         enumeration realizes {number} of them. Note why the increment is not redundant given the \
+         classifications: a SLOUGH can be a trump played on a natural lead — it fails to follow, \
+         so it classifies as a slough, yet it takes the trick — so who wins is genuinely \
+         independent of the classification pattern.\n"
+    );
+
+    // The complete parts catalog.
+    let trees: Vec<walt_skeleton::equivariant::YardNode> = classes.values().cloned().collect();
+    let library = walt_skeleton::equivariant::suffix_library(&trees, V2_DEPTHS)
+        .expect("every suffix canonicalized within the declared ceiling");
+    out.push_str(
+        "complete level-one parts catalog (INSTRUMENT tier — sizes are not class counts, neither \
+         variant satisfies (ECL), and no value claim reads off them)\n  depth   v2-strict   v2-open\n",
+    );
+    for d in 1..=V2_DEPTHS {
+        let _ = writeln!(
+            out,
+            "  {d:>5} {:>11} {:>9}",
+            library.strict[d - 1].len(),
+            library.open[d - 1].len()
+        );
+    }
+    out.push_str(
+        "  This is the complete bottom of the parts store under pip-trump: every depth-1..3 suffix \
+         any last trick can present. Deeper levels' libraries are built over these parts.\n",
+    );
+
+    let path =
+        Path::new(env!("CARGO_MANIFEST_DIR")).join("results/census_a1_complete_2026-08-11.txt");
+    std::fs::create_dir_all(path.parent().expect("results dir")).expect("results dir");
+    std::fs::write(&path, out).expect("write results");
+    eprintln!("wrote results/census_a1_complete_2026-08-11.txt");
+}
+
+/// A forced chain's anatomy: the root actor's offset from focal, the three
+/// followers' classification codes, and the increment at the resolving play.
+fn chain_anatomy(tree: &walt_skeleton::equivariant::YardNode) -> (u8, Vec<u8>, u8) {
+    use walt_skeleton::equivariant::YardNode;
+    let mut node = tree;
+    let mut offset = 0u8;
+    let mut pattern = Vec::new();
+    let mut increment = 0u8;
+    let mut first = true;
+    loop {
+        match node {
+            YardNode::Handoff(_) => return (offset, pattern, increment),
+            YardNode::Step { offset: o, moves } => {
+                assert_eq!(moves.len(), 1, "a level-one tree is a forced chain");
+                if first {
+                    offset = *o;
+                    first = false;
+                } else {
+                    pattern.push(class_code_of(moves[0].1));
+                }
+                increment = moves[0].0;
+                node = &moves[0].2;
+            }
+        }
+    }
+}
+
+/// Round 7: shape notion v2 — the suffix library in two declared variants —
+/// and the hereditary rung. Instruments, not carriers.
+fn run_yard_v2(r: &Receipt) {
+    let mut out = String::new();
+    out.push_str(
+        "walt situation census — shape notion v2: the suffix library and the hereditary rung — INSTRUMENT tier\n",
+    );
+    let _ = write!(
+        out,
+        "scope: pip-trump only (v0.4 §14.7, asserted in-run); corpus rob/receipts/verify_player.txt, \
+         hands 0-12; existing trick-six and trick-five carriers, no new carrier\n\
+         indexing: level j = tricks remaining; a level-j boundary state sits at grade 4j; A_j = the \
+         level-j boundary r3 classes; A_0 = the terminal class\n\
+         INSTRUMENT-TIER CAVEAT (mandatory): v2-strict and v2-open are INSTRUMENTS, not carriers. \
+         NEITHER satisfies (ECL) — v2-open even alters chance arities — so no value claim and no \
+         class claim may ever be read from a library size, and shapes sit below every tier, below \
+         even the exploratory r3 counts they are measured against. The lawful objects remain r3's \
+         classes with their Q5.1 refinement receipt and Q5.2 ECL re-check.\n\
+         VOCABULARY DISCIPLINE (Y3, unchanged): a live sub-DAG is a SUPPORT object, never a \
+         belief; values over it are exact only for the count-free objective over the TRANSPORTED \
+         ABSTRACT-POLICY CLASS, never the unrestricted concrete optimum (v0.5's BOUNDARY); no \
+         count or valuation conclusion is read from a count-free DAG.\n\
+         what no recurrence result buys (stated up front): shared MENUS are provably level-pinned \
+         — lead arity = j is a rule, not a finding — and no shape notion is a lawful equivalence. \
+         What stays true either way: P1, the yard as ONE grade-free transition program, is a \
+         theorem, verified by the v1 run's partition byte-compare at every level; v1 and v2 \
+         measure only whether the state INVENTORY also compresses. Both outcomes are results.\n\
+         v1 rows are NOT touched: results/census_yard_2026-08-10.txt stays exactly as committed. \
+         This is a new declared measurement in a new file.\n\
+         determinism freezes: r3's two (content-addressed 128-bit FNV-1a class encoding; canonical \
+         move order by (k, classification, successor class hash) with concrete tile order as the \
+         tie rule), the v1 pass's two (freeze 3, the yard tree encoding; freeze 4, the shape \
+         canonical form — colour refinement to a fixpoint then the minimum encoding over remaining \
+         ties, ceiling {}), plus TWO NEW FREEZES declared here: (5) the suffix cut — a depth-d \
+         suffix replaces everything at depth d by a hole carrying that subtree's exact interned \
+         identity (interning, not hashing, so hole coincidence is decided by whole-subtree \
+         equality), handoff leaves above the cut are holes too, and the equality pattern over \
+         holes is recomputed locally inside each suffix; (6) the open variant — at unconstrained \
+         nodes only, options are deduplicated by (increment, classification, child suffix) after \
+         the children are already in open form, bottom up. The constraint type is DERIVED from the \
+         moves' classification, never stored, and the run asserts a node's classification is \
+         uniform.\n\
+         provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant \
+         module), instrument tier\n\
+         regenerate: cargo run --release -p walt-factory --example census_run yard2\n\n",
+        walt_skeleton::equivariant::SHAPE_PERM_CAP
+    );
+    out.push_str(
+        "SANITY, stated plainly (Q3): the committed v1 within-level numbers already showed the \
+         pure equality-pattern abstraction discarding ALL leaf identity yet buying barely 2x \
+         (23,592 classes to 10,978 shapes at trick-five level 2; shape growth 171x against class \
+         growth 368x, the same order). The diversity is STRUCTURAL, not leaf-labeling. So no \
+         leaf-side abstraction alone can carry the payoff, and v1's whole-tree recurrence rows \
+         would likely have disappointed even without the root-arity artifact that made them \
+         vacuous. The arity artifact hid a disappointment; it did not create one.\n\n\
+         REFUTATION CRITERION (restated verbatim, answered at the foot of each rung): payoff \
+         CONFIRMED if, for d <= 3, v2-open library growth is far below class growth and the \
+         cross-level overlap is high — the parts recur and only menus over shared parts grow. \
+         Payoff REFUTED if v2-open depth-<=3 growth is the same order as class growth — the \
+         diversity then lives in genuinely new sub-parts per level and the yard's state-inventory \
+         reuse is small. Overlap is normalized by the SMALLER level and is structurally \
+         ASYMMETRIC: a suffix containing any arity greater than j' cannot occur at level j'.\n\n",
+    );
+
+    yard_v2_rung(&mut out, r, 6, "trick-six");
+    yard_v2_rung(&mut out, r, 5, "trick-five");
+
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("results/census_yard_v2_2026-08-10.txt");
+    std::fs::create_dir_all(path.parent().expect("results dir")).expect("results dir");
+    std::fs::write(&path, out).expect("write results");
+    eprintln!("wrote results/census_yard_v2_2026-08-10.txt");
+}
+
+const V2_DEPTHS: usize = 3;
+
+fn yard_v2_rung(out: &mut String, r: &Receipt, trick: usize, name: &str) {
+    let kernels: Vec<(usize, walt_kernel::Kernel)> = (0..r.hands.len())
+        .map(|h| {
+            (
+                h,
+                walt_kernel::Kernel::from_receipt_trick(&r.hands[h], trick)
+                    .expect("a valid kernel"),
+            )
+        })
+        .collect();
+    let carrier = build_carrier(&kernels);
+    let r3 = build_r3(&carrier);
+    let levels = if trick == 5 { 3 } else { 2 };
+    let handoff = |sit: &Situation| -> u64 {
+        r3.class_of[carrier.lookup(sit).expect("closed under steps")] as u64
+    };
+    let _ = writeln!(
+        out,
+        "================ {name} rung ================\n\
+         carrier {} situations, {} r3 classes; levels 1..={levels}",
+        carrier.len(),
+        r3.class_members.len()
+    );
+
+    // Class representatives and their yard trees, level by level.
+    let mut trees_by_level: Vec<Vec<(usize, walt_skeleton::equivariant::YardNode)>> = Vec::new();
+    for j in 1..=levels {
+        let mut representative: std::collections::BTreeMap<usize, usize> =
+            std::collections::BTreeMap::new();
+        for i in 0..carrier.len() {
+            if grade(&carrier.states[i]) == 4 * j {
+                representative.entry(r3.class_of[i]).or_insert(i);
+            }
+        }
+        let trees: Vec<(usize, walt_skeleton::equivariant::YardNode)> = representative
+            .iter()
+            .map(|(c, i)| (*c, yard_tree(&carrier.states[*i], &handoff)))
+            .collect();
+        eprintln!("{name} level {j}: {} class trees", trees.len());
+        trees_by_level.push(trees);
+    }
+
+    // The hereditary rung, bottom up: a leaf is replaced by the shape of its
+    // own class's tree one level down, recursing to the terminal class.
+    let mut hereditary_of: Vec<std::collections::BTreeMap<usize, u64>> = Vec::new();
+    let mut hereditary_ids: std::collections::BTreeMap<Vec<u8>, u64> =
+        std::collections::BTreeMap::new();
+    for (n, trees) in trees_by_level.iter().enumerate() {
+        let mut level_map: std::collections::BTreeMap<usize, u64> =
+            std::collections::BTreeMap::new();
+        for (class, tree) in trees {
+            let substituted = substitute_leaves(tree, &|symbol| {
+                if n == 0 {
+                    // Level 1's leaves are all the terminal class.
+                    0
+                } else {
+                    hereditary_of[n - 1][&(symbol as usize)]
+                }
+            });
+            let key = substituted.encode();
+            let next = hereditary_ids.len() as u64;
+            let id = *hereditary_ids.entry(key).or_insert(next);
+            level_map.insert(*class, id);
+        }
+        hereditary_of.push(level_map);
+    }
+
+    // The compression ladder.
+    out.push_str(
+        "\ncompression ladder per level (classes -> hereditary shapes -> v1 whole-tree shapes); \
+         the rung with the big ratio jump is where recurrence lives\n  \
+         level   classes   hereditary   v1 shapes   classes:hereditary   hereditary:v1\n",
+    );
+    // Read the ladder with this in hand: a hereditary shape labels each leaf
+    // with the leaf class's own hereditary shape, so the rung can only
+    // compress if some lower level's shape map is non-injective. At level 1
+    // every tree is a single forced path whose only leaf is the terminal, so
+    // there is no leaf coincidence to abstract and shape = class exactly. The
+    // injectivity then propagates upward by construction.
+    for (n, trees) in trees_by_level.iter().enumerate() {
+        let classes = trees.len();
+        let hereditary: std::collections::BTreeSet<u64> =
+            hereditary_of[n].values().copied().collect();
+        let mut v1: Vec<Vec<u8>> = Vec::new();
+        for (_, tree) in trees {
+            v1.push(yard_shape(tree).expect("within the declared ceiling"));
+        }
+        v1.sort();
+        v1.dedup();
+        let _ = writeln!(
+            out,
+            "  {:>5} {classes:>9} {:>12} {:>11} {:>20} {:>15}",
+            n + 1,
+            hereditary.len(),
+            v1.len(),
+            ratio(classes, hereditary.len()),
+            ratio(hereditary.len(), v1.len())
+        );
+    }
+    out.push_str(
+        "  reading: the hereditary rung labels each leaf with that leaf class's own hereditary \
+         shape, so it can compress only where a lower level's shape map is non-injective. At \
+         level 1 every tree is one forced path whose single leaf is the terminal class — no leaf \
+         coincidence exists to abstract, so shape = class exactly (the 1:1 row above) — and the \
+         injectivity propagates upward by construction. The rung is therefore DEGENERATE on this \
+         data for a structural reason, not a measurement accident: hereditary shapes ARE the r3 \
+         classes here. It locates no recurrence because there is none to locate between shapes and \
+         classes at these levels.\n",
+    );
+
+    // The suffix libraries.
+    let mut libraries: Vec<walt_skeleton::equivariant::SuffixLibrary> = Vec::new();
+    for (n, trees) in trees_by_level.iter().enumerate() {
+        let only: Vec<walt_skeleton::equivariant::YardNode> =
+            trees.iter().map(|(_, t)| t.clone()).collect();
+        let t = std::time::Instant::now();
+        let library = walt_skeleton::equivariant::suffix_library(&only, V2_DEPTHS).expect(
+            "every suffix canonicalized within the declared ceiling — a miss means STOP and \
+             report, never approximate",
+        );
+        eprintln!("{name} level {} suffix library in {:?}", n + 1, t.elapsed());
+        libraries.push(library);
+    }
+
+    out.push_str("\nsuffix libraries (instrument tier; sizes are NOT class counts)\n");
+    for variant in [false, true] {
+        let label = if variant { "v2-open" } else { "v2-strict" };
+        let _ = writeln!(out, "  {label}:");
+        for d in 1..=V2_DEPTHS {
+            let sizes: Vec<usize> = libraries
+                .iter()
+                .map(|l| {
+                    if variant {
+                        l.open[d - 1].len()
+                    } else {
+                        l.strict[d - 1].len()
+                    }
+                })
+                .collect();
+            let mut row = format!("    depth {d}: sizes by level {sizes:?}");
+            for n in 1..sizes.len() {
+                let classes_now = trees_by_level[n].len();
+                let classes_before = trees_by_level[n - 1].len();
+                row.push_str(&format!(
+                    "; level {}->{}: library growth {} against class growth {}",
+                    n,
+                    n + 1,
+                    ratio(sizes[n], sizes[n - 1]),
+                    ratio(classes_now, classes_before)
+                ));
+            }
+            let _ = writeln!(out, "{row}");
+        }
+    }
+
+    out.push_str(
+        "\ncross-level overlap (normalized by the SMALLER level; structurally asymmetric — a \
+         suffix containing any arity above j' cannot occur at level j')\n",
+    );
+    for variant in [false, true] {
+        let label = if variant { "v2-open" } else { "v2-strict" };
+        for d in 1..=V2_DEPTHS {
+            for a in 0..libraries.len() {
+                for b in (a + 1)..libraries.len() {
+                    let la = if variant {
+                        &libraries[a].open[d - 1]
+                    } else {
+                        &libraries[a].strict[d - 1]
+                    };
+                    let lb = if variant {
+                        &libraries[b].open[d - 1]
+                    } else {
+                        &libraries[b].strict[d - 1]
+                    };
+                    let shared = la.intersection(lb).count();
+                    let smaller = la.len().min(lb.len());
+                    let _ = writeln!(
+                        out,
+                        "  {label} depth {d}, levels {} and {}: {shared} shared of {} and {} \
+                         (omega = shared / smaller = {})",
+                        a + 1,
+                        b + 1,
+                        la.len(),
+                        lb.len(),
+                        ratio(shared, smaller)
+                    );
+                }
+            }
+        }
+    }
+
+    // The criterion answer for this rung, every level step, with the
+    // carrier-limited steps named as such.
+    out.push_str("\nCRITERION ANSWER — every available level step of this rung\n");
+    for n in 1..libraries.len() {
+        let open = &libraries[n].open[V2_DEPTHS - 1];
+        let previous = &libraries[n - 1].open[V2_DEPTHS - 1];
+        let carrier_limited = n + 1 == levels;
+        let _ = writeln!(
+            out,
+            "  level {} -> {}: v2-open depth-{V2_DEPTHS} library growth {} against class growth \
+             {}; omega {}{}",
+            n,
+            n + 1,
+            ratio(open.len(), previous.len()),
+            ratio(trees_by_level[n].len(), trees_by_level[n - 1].len()),
+            ratio(
+                previous.intersection(open).count(),
+                previous.len().min(open.len())
+            ),
+            if carrier_limited {
+                "  [CARRIER-LIMITED: level's top stratum is this run's ROOT stratum, populated \
+                 only by the 13 receipt fibers, so its class count is a corpus artifact and the \
+                 class-growth figure it produces is not a growth measurement]"
+            } else {
+                "  [not carrier-limited: this level is reached from the run's roots, so its class \
+                 count is the reachable inventory]"
+            }
+        );
+    }
+    out.push('\n');
+}
+
+/// A tree with every handoff symbol rewritten — the hereditary substitution.
+fn substitute_leaves<F: Fn(u64) -> u64>(
+    node: &walt_skeleton::equivariant::YardNode,
+    map: &F,
+) -> walt_skeleton::equivariant::YardNode {
+    use walt_skeleton::equivariant::YardNode;
+    match node {
+        YardNode::Handoff(s) => YardNode::Handoff(map(*s)),
+        YardNode::Step { offset, moves } => {
+            let mut moves: Vec<(u8, walt_skeleton::equivariant::PlayClass, YardNode)> = moves
+                .iter()
+                .map(|(i, c, child)| (*i, *c, substitute_leaves(child, map)))
+                .collect();
+            moves.sort_by_cached_key(|m| (m.0, class_code_of(m.1), m.2.encode()));
+            YardNode::Step {
+                offset: *offset,
+                moves,
+            }
+        }
+    }
+}
+
+/// Round 6: the shape-recurrence experiment. Level j = tricks remaining; a
+/// level-j boundary state sits at grade 4j.
+fn run_yard(r: &Receipt) {
+    let mut out = String::new();
+    out.push_str(
+        "walt situation census — the railyard factoring: refactoring verification and the shape-recurrence experiment — exploratory tier\n",
+    );
+    let _ = write!(
+        out,
+        "scope: pip-trump only (v0.4 §14.7, asserted in-run); corpus rob/receipts/verify_player.txt, \
+         hands 0-12; existing trick-six and trick-five carriers, no new carrier\n\
+         indexing: level j = tricks remaining; at a trick boundary every seat holds j tiles, so a \
+         level-j boundary state sits at grade 4j; A_j = the level-j boundary r3 classes and A_0 is \
+         the one terminal class; level-j dynamics instantiate at A_{{j-1}}\n\
+         rulings summarized (walt/CENSUS-RULINGS.md, the railyard shaping section): Y1 — the \
+         one-trick contract is the FOUR-primitive-step machine with Q3 per-step interface typing \
+         and handoff-class terminals, never a trick-level macro step (a macro step erases the \
+         mid-trick observations and focal choices the contract must preserve); the yard is a \
+         REFACTORING of r3's equivalence, not a new equivalence, provided the handoff alphabet is \
+         exactly A_{{j-1}}, and it inherits r3's ECL receipts ON THE MEASURED CARRIER only. Y2 — \
+         P1 (grade-free uniformity) is a proof obligation, discharged in code here by ONE shared \
+         routine that takes no grade or level argument (within-trick position is read off the \
+         table depth; the level enters only through the caller's handoff alphabet) and verified by \
+         the partition byte-compare below; P2 (self-similarity of the realized image) is the \
+         measurable payoff claim and is the experiment. Y3 — the pruning operator is confirmed \
+         with the vocabulary discipline below.\n\
+         VOCABULARY DISCIPLINE (mandatory, Y3): the live sub-DAG is a SUPPORT object, never a \
+         belief — classes in it can carry zero pushforward mass, and support is not belief. \
+         Values over it are exact for the count-free objective over the TRANSPORTED \
+         ABSTRACT-POLICY CLASS (lifted-policy-class values); the unrestricted concrete optimum is \
+         NOT claimed — v0.5's BOUNDARY leaves open whether it is attained there. No count or \
+         valuation conclusion is read from this count-free DAG: O_Sigma is empty here and \
+         valuation re-enters only through declared roles.\n\
+         determinism freezes: r3's two freezes unchanged (content-addressed 128-bit FNV-1a \
+         signature encoding; canonical move order by (k, classification, successor class hash) \
+         with concrete tile order as the tie rule), plus two for this pass — (3) the yard tree \
+         encoding [0x59, offset, move count, per move: increment, classification code, child] for \
+         a step and [0x4c, symbol big-endian] for a handoff leaf, children sorted by (increment, \
+         classification, child encoding); (4) the shape canonical form — leaf colours refined to a \
+         fixpoint (at most four rounds), then the minimum encoding over the orderings still tied, \
+         with a declared ceiling of {} orderings past which the run STOPS rather than \
+         approximating a shape count\n\
+         provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant \
+         module), exploratory tier, below every project evidentiary tier\n\
+         regenerate: cargo run --release -p walt-factory --example census_run yard\n\n",
+        walt_skeleton::equivariant::SHAPE_PERM_CAP
+    );
+    out.push_str(
+        "REFUTATION CRITERION (stated before the numbers, answered after them): the railyard \
+         payoff is REFUTED iff shape-inventory growth per level tracks class-inventory growth \
+         (the ~370x/trick then lives in the shapes and the yard buys little); it is SUPPORTED iff \
+         shapes recur across levels and the shape inventory grows far slower than that. P1 makes \
+         soundness immune either way — hand-shape variety is fully recorded in the tree, so a \
+         refutation would threaten the payoff, never the mathematics.\n\n",
+    );
+
+    let mut verdicts: Vec<String> = Vec::new();
+    yard_rung(&mut out, &mut verdicts, r, 6, "trick-six");
+    yard_rung(&mut out, &mut verdicts, r, 5, "trick-five");
+
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("results/census_yard_2026-08-10.txt");
+    std::fs::create_dir_all(path.parent().expect("results dir")).expect("results dir");
+    std::fs::write(&path, out).expect("write results");
+    eprintln!("wrote results/census_yard_2026-08-10.txt");
+}
+
+/// One rung of the yard pass: the refactoring byte-compare per level, then the
+/// shape census.
+fn yard_rung(out: &mut String, verdicts: &mut Vec<String>, r: &Receipt, trick: usize, name: &str) {
+    let kernels: Vec<(usize, walt_kernel::Kernel)> = (0..r.hands.len())
+        .map(|h| {
+            (
+                h,
+                walt_kernel::Kernel::from_receipt_trick(&r.hands[h], trick)
+                    .expect("a valid kernel"),
+            )
+        })
+        .collect();
+    let carrier = build_carrier(&kernels);
+    let r3 = build_r3(&carrier);
+    let levels = if trick == 5 { 3 } else { 2 };
+    let _ = writeln!(
+        out,
+        "================ {name} rung ================\n\
+         carrier {} situations, {} r3 classes; levels present: 1..={levels} (plus A_0, the \
+         terminal class)",
+        carrier.len(),
+        r3.class_members.len()
+    );
+
+    // Step 1: the refactoring verification, level by level.
+    let handoff = |sit: &Situation| -> u64 {
+        match carrier.lookup(sit) {
+            Some(j) => r3.class_of[j] as u64,
+            None => panic!("a boundary successor is in the carrier"),
+        }
+    };
+    let mut shapes_by_level: Vec<(usize, usize, usize, Vec<Vec<u8>>)> = Vec::new();
+    for j in 1..=levels {
+        let states: Vec<usize> = (0..carrier.len())
+            .filter(|i| grade(&carrier.states[*i]) == 4 * j)
+            .collect();
+        let keys: Vec<Vec<u8>> = states
+            .iter()
+            .map(|i| yard_tree(&carrier.states[*i], &handoff).encode())
+            .collect();
+        let yard_partition = partition_bytes(&states, |k| keys[k].clone());
+        let r3_partition =
+            partition_bytes(&states, |k| r3.class_of[states[k]].to_be_bytes().to_vec());
+        let agrees = yard_partition == r3_partition;
+        let _ = writeln!(
+            out,
+            "\nlevel {j} (grade {}): {} boundary situations\n  \
+             refactoring byte-compare — the shared grade-free routine's partition against r3's: \
+             {}",
+            4 * j,
+            states.len(),
+            if agrees {
+                "IDENTICAL"
+            } else {
+                "MISMATCH — STOP, this is a bug or a hidden grade dependence"
+            }
+        );
+        assert!(
+            agrees,
+            "the yard refactoring must reproduce r3's partition at level {j} of the {name} rung \
+             (P1); a mismatch is a bug, never a result"
+        );
+        verdicts.push(format!("{name} level {j}: partitions IDENTICAL"));
+
+        // Step 2: the shape census, one representative per class.
+        let mut representative: BTreeMapLike = BTreeMapLike::new();
+        for i in &states {
+            representative.insert(r3.class_of[*i], *i);
+        }
+        let mut shapes: Vec<Vec<u8>> = Vec::new();
+        let mut uncanonical = 0usize;
+        let mut arities: std::collections::BTreeSet<usize> = std::collections::BTreeSet::new();
+        for (_, i) in representative.iter() {
+            let tree = yard_tree(&carrier.states[*i], &handoff);
+            if let walt_skeleton::equivariant::YardNode::Step { moves, .. } = &tree {
+                arities.insert(moves.len());
+            }
+            match yard_shape(&tree) {
+                Some(shape) => shapes.push(shape),
+                None => uncanonical += 1,
+            }
+        }
+        let _ = writeln!(
+            out,
+            "  root arity of every level-{j} tree (the leader's legal count, which the tree \
+             records): {arities:?}"
+        );
+        assert_eq!(
+            uncanonical, 0,
+            "a shape exceeded the declared canonicalization ceiling at level {j} of the {name} \
+             rung — STOP and report rather than approximating a shape count"
+        );
+        shapes.sort();
+        shapes.dedup();
+        let classes = representative.len();
+        let _ = writeln!(
+            out,
+            "  classes A_{j}: {classes};  distinct shapes: {} (leaves abstracted to their equality \
+             pattern);  classes per shape: {}",
+            shapes.len(),
+            ratio(classes, shapes.len())
+        );
+        shapes_by_level.push((j, classes, shapes.len(), shapes));
+    }
+
+    // Cross-level shape overlap.
+    out.push_str(
+        "\ncross-level shape overlap (a shape realized at two or more levels)\n  \
+         READ THE ARITY LINES ABOVE FIRST: at a lead every tile in hand is legal, so a level-j \
+         boundary tree has root arity exactly j, and the tree encoding records it. Two shapes from \
+         different levels therefore CANNOT be equal — the zero rows below are a definitional \
+         consequence of the shape definition as written, not an empirical finding about the game. \
+         Reported as measured, flagged as vacuous, and carried back to walt-math rather than \
+         reinterpreted here.\n",
+    );
+    for a in 0..shapes_by_level.len() {
+        for b in (a + 1)..shapes_by_level.len() {
+            let (ja, _, _, sa) = &shapes_by_level[a];
+            let (jb, _, _, sb) = &shapes_by_level[b];
+            let shared = sa.iter().filter(|s| sb.binary_search(s).is_ok()).count();
+            let _ = writeln!(
+                out,
+                "  levels {ja} and {jb}: {shared} shared shapes (of {} and {})",
+                sa.len(),
+                sb.len()
+            );
+        }
+    }
+    let mut union: Vec<Vec<u8>> = shapes_by_level
+        .iter()
+        .flat_map(|(_, _, _, s)| s.iter().cloned())
+        .collect();
+    union.sort();
+    union.dedup();
+    let total_shapes: usize = shapes_by_level.iter().map(|(_, _, n, _)| n).sum();
+    let _ = writeln!(
+        out,
+        "  union over all levels: {} distinct shapes against {} counted level by level (so {} \
+         shape appearances are recurrences)",
+        union.len(),
+        total_shapes,
+        total_shapes - union.len()
+    );
+
+    // The headline growth comparison.
+    out.push_str("\ngrowth per level — the experiment's headline\n  level   classes   shapes   class growth   shape growth\n");
+    for (n, (j, classes, shapes, _)) in shapes_by_level.iter().enumerate() {
+        let (cg, sg) = if n == 0 {
+            ("—".to_string(), "—".to_string())
+        } else {
+            let (_, pc, ps, _) = &shapes_by_level[n - 1];
+            (ratio(*classes, *pc), ratio(*shapes, *ps))
+        };
+        let _ = writeln!(out, "  {j:>5} {classes:>9} {shapes:>8} {cg:>14} {sg:>14}");
+    }
+    out.push('\n');
+
+    // Step 3: the isomorphism cross-check (never the experiment).
+    yard_isomorphism_check(out, &carrier, &r3, levels);
+}
+
+/// A tiny insertion-ordered map keyed by class, first representative wins.
+struct BTreeMapLike(std::collections::BTreeMap<usize, usize>);
+
+impl BTreeMapLike {
+    fn new() -> BTreeMapLike {
+        BTreeMapLike(std::collections::BTreeMap::new())
+    }
+    fn insert(&mut self, class: usize, state: usize) {
+        self.0.entry(class).or_insert(state);
+    }
+    fn iter(&self) -> impl Iterator<Item = (&usize, &usize)> {
+        self.0.iter()
+    }
+    fn len(&self) -> usize {
+        self.0.len()
+    }
+}
+
+/// The canonical bytes of a partition: members grouped by key, each group
+/// sorted, the groups sorted. Two partitions are the same relation exactly
+/// when these bytes agree.
+fn partition_bytes<F: Fn(usize) -> Vec<u8>>(members: &[usize], key: F) -> Vec<u8> {
+    let mut groups: std::collections::BTreeMap<Vec<u8>, Vec<usize>> =
+        std::collections::BTreeMap::new();
+    for (k, m) in members.iter().enumerate() {
+        groups.entry(key(k)).or_default().push(*m);
+    }
+    let mut blocks: Vec<Vec<usize>> = groups.into_values().collect();
+    for b in blocks.iter_mut() {
+        b.sort_unstable();
+    }
+    blocks.sort();
+    let mut out = Vec::new();
+    for b in blocks {
+        out.push(0xff);
+        for m in b {
+            out.extend_from_slice(&(m as u32).to_be_bytes());
+        }
+    }
+    out
+}
+
+/// Y2 test 3, a CROSS-CHECK of the implementation and never the experiment:
+/// where two boundary classes at different levels share a shape, the alphabet
+/// bijection is matched, so by P1 their within-trick sub-DAGs must be
+/// isomorphic. A failure here is a bug or a P1 proof error, never a result.
+/// One within-trick node's isomorphism-invariant profile: the actor's offset
+/// from focal, its out-degree, and its sorted decoration multiset.
+type NodeProfile = (u8, usize, Vec<(u8, u8)>);
+
+fn yard_isomorphism_check(
+    out: &mut String,
+    carrier: &walt_skeleton::equivariant::Carrier,
+    r3: &walt_skeleton::equivariant::R3,
+    levels: usize,
+) {
+    if levels < 2 {
+        return;
+    }
+    let handoff = |sit: &Situation| -> u64 {
+        r3.class_of[carrier
+            .lookup(sit)
+            .expect("a boundary successor is in the carrier")] as u64
+    };
+    let profile_of = |i: usize| -> Vec<Vec<NodeProfile>> {
+        // Per within-trick depth, the distinct r3 classes with their offset,
+        // out-degree and decoration multiset -- read from r3, not from the
+        // yard encoding, so the check is independent of it.
+        let mut depths: Vec<Vec<NodeProfile>> = Vec::new();
+        let mut frontier = vec![carrier.states[i].clone()];
+        for _ in 0..3 {
+            let mut next = Vec::new();
+            let mut row: Vec<NodeProfile> = Vec::new();
+            for sit in &frontier {
+                for tile in sit.legal().iter() {
+                    let (_, successor) = sit.step(tile);
+                    if let Some(s) = successor {
+                        if s.table.is_empty() {
+                            continue;
+                        }
+                        let j = carrier.lookup(&s).expect("closed under steps");
+                        let mut decorations: Vec<(u8, u8)> = r3.tuples[j]
+                            .iter()
+                            .map(|t| (t.increment, class_code_of(t.class)))
+                            .collect();
+                        decorations.sort();
+                        row.push((
+                            walt_skeleton::equivariant::actor_offset(&s),
+                            r3.tuples[j].len(),
+                            decorations,
+                        ));
+                        next.push(s);
+                    }
+                }
+            }
+            row.sort();
+            row.dedup();
+            depths.push(row);
+            frontier = next;
+        }
+        depths
+    };
+
+    let mut by_shape: std::collections::BTreeMap<Vec<u8>, Vec<(usize, usize)>> =
+        std::collections::BTreeMap::new();
+    for j in 1..=levels {
+        let mut seen: std::collections::BTreeSet<usize> = std::collections::BTreeSet::new();
+        for i in 0..carrier.len() {
+            if grade(&carrier.states[i]) != 4 * j || !seen.insert(r3.class_of[i]) {
+                continue;
+            }
+            if let Some(shape) = yard_shape(&yard_tree(&carrier.states[i], &handoff)) {
+                by_shape.entry(shape).or_default().push((j, i));
+            }
+        }
+    }
+    let mut checked = 0usize;
+    let mut failures = 0usize;
+    for members in by_shape.values() {
+        let mut across: Vec<&(usize, usize)> = Vec::new();
+        for m in members {
+            if !across.iter().any(|a| a.0 == m.0) {
+                across.push(m);
+            }
+        }
+        if across.len() < 2 || checked >= 20 {
+            continue;
+        }
+        checked += 1;
+        let a = profile_of(across[0].1);
+        let b = profile_of(across[1].1);
+        if a != b {
+            failures += 1;
+        }
+    }
+    let _ = writeln!(
+        out,
+        "isomorphism cross-check (Y2 test 3 — a consequence of P1, run as an implementation \
+         check, never as the experiment): {checked} cross-level shape-matched pairs compared on \
+         their within-trick sub-DAG profiles read from r3, {failures} mismatches{}",
+        if failures == 0 {
+            ""
+        } else {
+            " — STOP, this is a bug or a P1 proof error"
+        }
+    );
+    if checked == 0 {
+        out.push_str(
+            "  VACUOUS: no cross-level shape-matched pair exists to check, for the same \
+             root-arity reason recorded above. This check is not evidence of anything until the \
+             shape definition admits cross-level matches.\n",
+        );
+    }
+    out.push('\n');
+    assert_eq!(
+        failures, 0,
+        "a shape-matched cross-level pair must induce isomorphic within-trick sub-DAGs (P1)"
+    );
+}
+
+fn class_code_of(c: walt_skeleton::equivariant::PlayClass) -> u8 {
+    match c {
+        walt_skeleton::equivariant::PlayClass::Lead => 0,
+        walt_skeleton::equivariant::PlayClass::Follow => 1,
+        walt_skeleton::equivariant::PlayClass::Slough => 2,
+    }
+}
+
+/// Round 5: the pruning probe. A reporting pass over the already-verified r3
+/// objects — the state-to-class map and the class-level transitions — with no
+/// new construction: for each kernel separately (the seat's one actual
+/// situation), project its fiber onto classes and walk the live sub-DAG.
+fn run_prune(r: &Receipt) {
+    let mut out = String::new();
+    out.push_str("walt situation census — the pruned live sub-DAG per kernel — exploratory tier\n");
+    let _ = write!(
+        out,
+        "scope: pip-trump only (v0.4 §14.7, asserted in-run); corpus rob/receipts/verify_player.txt, \
+         hands 0-12\n\
+         construction: NO new construction. This pass restricts and counts the already-verified r3 \
+         objects of walt/CENSUS-RULINGS.md section r3 — the state-to-class map from the backward \
+         pass and the class-level transitions. A class's successors are well defined because (ECL) \
+         makes every member emit the same multiset of (k, classification, successor class) tuples; \
+         the run ASSERTS that agreement class by class rather than assuming it, so the class DAG is \
+         checked, not trusted. The r3 partition itself carries its own Q5.1 refinement receipt and \
+         Q5.2 independent ECL re-check from the runs that built it (results/census_2026-08-10_r3.txt \
+         and results/census_t5_2026-08-10.txt) — a count here is quotable only with those verdicts.\n\
+         determinism: no sampling, no caps, no seeds; the same determinism freezes as the r3 run \
+         (content-addressed 128-bit FNV-1a signature encoding; canonical move order sorted by (k, \
+         classification, successor class hash) with concrete tile order as the tie rule)\n\
+         provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant \
+         module), exploratory tier, below every project evidentiary tier\n\
+         regenerate: cargo run --release -p walt-factory --example census_run prune\n\n"
+    );
+    out.push_str(
+        "CAVEAT (mandated, r3 ruling Q4): Classes are dynamics-equivalence classes under §12.6A on \
+         this carrier, uniform-legal field, count-free contract, per-step interface typing (r3 \
+         ruling Q3); they need not be closed under any tile relabeling and carry no structural \
+         description — the compact-description question (v0.4 §12.7) is separate and open. \
+         Coarsest is relative to that scope. Class identities are intrinsic to continuations; \
+         counts are carrier-relative; carrier growth adds classes, never splits existing ones. \
+         Exploratory tier. ECL holds by construction; see the verification lines in the r3 and t5 \
+         results files. These are not hidden-decision PI classes (v0.4 §12.4).\n\n\
+         PRUNING IS SUPPORT PRUNING ONLY: the fiber is the seat's set of POSSIBLE worlds under the \
+         kernel (v0.4 §2.1), so the live sub-DAG below is what the rule support alone leaves \
+         standing. No belief weight is applied anywhere in this pass. Belief comes later and can \
+         only concentrate the live set further, never widen it — support >= belief support always \
+         (support is not belief: the two are typed distinctions, never blurred).\n\n",
+    );
+
+    prune_rung(&mut out, r, 6, "trick-six");
+    prune_rung(&mut out, r, 5, "trick-five");
+
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("results/census_pruned_2026-08-10.txt");
+    std::fs::create_dir_all(path.parent().expect("results dir")).expect("results dir");
+    std::fs::write(&path, out).expect("write results");
+    eprintln!("wrote results/census_pruned_2026-08-10.txt");
+}
+
+/// One rung of the pruning probe: build the pooled carrier and its r3, then
+/// restrict to each kernel in turn.
+fn prune_rung(out: &mut String, r: &Receipt, trick: usize, name: &str) {
+    let kernels: Vec<(usize, walt_kernel::Kernel)> = (0..r.hands.len())
+        .map(|h| {
+            (
+                h,
+                walt_kernel::Kernel::from_receipt_trick(&r.hands[h], trick)
+                    .expect("a valid kernel"),
+            )
+        })
+        .collect();
+    let carrier = build_carrier(&kernels);
+    let r3 = build_r3(&carrier);
+    let dag = class_dag(&r3);
+    let root_grade = if trick == 5 { 12 } else { 8 };
+    eprintln!(
+        "{name}: {} situations, {} classes, class DAG well-definedness asserted",
+        carrier.len(),
+        r3.class_members.len()
+    );
+
+    let global_grade: Vec<usize> = (0..=root_grade)
+        .map(|g| {
+            (0..carrier.len())
+                .filter(|i| grade(&carrier.states[*i]) == g)
+                .map(|i| r3.class_of[i])
+                .collect::<std::collections::BTreeSet<usize>>()
+                .len()
+        })
+        .collect();
+
+    let _ = writeln!(
+        out,
+        "================ {name} rung ================\n\
+         global objects: {} situations, {} r3 classes, {} class-level edges, {} classes with a \
+         hand-end move",
+        carrier.len(),
+        r3.class_members.len(),
+        dag.edges(&(0..r3.class_members.len()).collect()).0,
+        dag.edges(&(0..r3.class_members.len()).collect()).1
+    );
+
+    let mut rows: Vec<[usize; 6]> = Vec::new();
+    let mut union_live: std::collections::BTreeSet<usize> = std::collections::BTreeSet::new();
+    for (slot, (h, kernel)) in kernels.iter().enumerate() {
+        let bit = 1u32 << slot;
+        let roots: Vec<usize> = (0..carrier.len())
+            .filter(|i| carrier.is_root[*i] && (carrier.provenance[*i] & bit) != 0)
+            .collect();
+        let raw_states = (0..carrier.len())
+            .filter(|i| (carrier.provenance[*i] & bit) != 0)
+            .count();
+        let root_classes: Vec<usize> = {
+            let set: std::collections::BTreeSet<usize> =
+                roots.iter().map(|i| r3.class_of[*i]).collect();
+            set.into_iter().collect()
+        };
+        let live = dag.reachable(&root_classes);
+        let (edges, ends) = dag.edges(&live);
+        union_live.extend(live.iter().copied());
+
+        let _ = writeln!(
+            out,
+            "\nkernel h{h} (fiber {} worlds, {} raw situations reachable)",
+            kernel.count(),
+            raw_states
+        );
+        let _ = writeln!(
+            out,
+            "  root ambiguity in class coordinates: {} distinct r3 classes over {} fiber worlds",
+            root_classes.len(),
+            roots.len()
+        );
+        let _ = writeln!(
+            out,
+            "  live sub-DAG: {} classes, {edges} class-level edges, {ends} classes with a hand-end \
+             move — against {} classes globally at this rung",
+            live.len(),
+            r3.class_members.len()
+        );
+        out.push_str("  live classes by grade (live / global at that grade):\n    ");
+        let mut parts: Vec<String> = Vec::new();
+        for g in (1..=root_grade).rev() {
+            let n = live.iter().filter(|c| r3.class_grade[**c] == g).count();
+            if n == 0 && global_grade[g] == 0 {
+                continue;
+            }
+            parts.push(format!("g{g}: {n}/{}", global_grade[g]));
+        }
+        let _ = writeln!(out, "{}", parts.join("  "));
+        rows.push([
+            *h,
+            kernel.count() as usize,
+            root_classes.len(),
+            live.len(),
+            edges,
+            raw_states,
+        ]);
+    }
+
+    let _ = writeln!(
+        out,
+        "\nsummary — {name} rung (one row per kernel: the seat's one actual situation)\n  \
+         hand   fiber  root-classes  live-nodes  live-edges  raw-situations  raw:live"
+    );
+    for row in &rows {
+        let _ = writeln!(
+            out,
+            "  h{:<5} {:>5} {:>13} {:>11} {:>11} {:>15}  {}",
+            row[0],
+            row[1],
+            row[2],
+            row[3],
+            row[4],
+            row[5],
+            ratio(row[5], row[3])
+        );
+    }
+    let total_raw: usize = rows.iter().map(|r| r[5]).sum();
+    let total_live: usize = rows.iter().map(|r| r[3]).sum();
+    let _ = writeln!(
+        out,
+        "  {:<6} {:>5} {:>13} {:>11} {:>11} {:>15}  {}",
+        "median",
+        median(&rows.iter().map(|r| r[1]).collect::<Vec<_>>()),
+        median(&rows.iter().map(|r| r[2]).collect::<Vec<_>>()),
+        median(&rows.iter().map(|r| r[3]).collect::<Vec<_>>()),
+        median(&rows.iter().map(|r| r[4]).collect::<Vec<_>>()),
+        median(&rows.iter().map(|r| r[5]).collect::<Vec<_>>()),
+        ratio(
+            median(&rows.iter().map(|r| r[5]).collect::<Vec<_>>()),
+            median(&rows.iter().map(|r| r[3]).collect::<Vec<_>>())
+        )
+    );
+    let _ = writeln!(
+        out,
+        "\n  raw:live is raw situations reachable from the kernel against live sub-DAG classes — \
+         the compression a seat facing THIS kernel actually sees. Summed over the 13 kernels: \
+         {total_raw} raw situations against {total_live} live classes (kernels overlap in class \
+         space, so the sum double-counts shared classes; the union of all 13 live sub-DAGs is {} \
+         of the rung's {} classes).\n",
+        union_live.len(),
+        r3.class_members.len()
+    );
+}
+
+fn median(values: &[usize]) -> usize {
+    let mut v = values.to_vec();
+    v.sort_unstable();
+    v[v.len() / 2]
+}
+
+/// The saturation curve of a run's root stratum: cumulative distinct classes
+/// after each receipt hand in the declared order, and the new classes each
+/// hand contributed. Order dependence is a property of the curve.
+fn write_saturation(
+    out: &mut String,
+    carrier: &walt_skeleton::equivariant::Carrier,
+    r3: &walt_skeleton::equivariant::R3,
+    root_grade: usize,
+    run: &str,
+) {
+    let _ = writeln!(
+        out,
+        "saturation curve — {run} run, ROOT stratum (grade {root_grade}), hands accumulated in the \
+         declared order {SATURATION_ORDER:?} (deterministic; the curve is order dependent by \
+         nature — a different order gives different per-hand increments and the same final total)",
+    );
+    let mut seen: std::collections::BTreeSet<usize> = std::collections::BTreeSet::new();
+    let mut roots_seen = 0usize;
+    for hand in SATURATION_ORDER {
+        let slot = carrier.hands.iter().position(|h| *h == hand);
+        let Some(slot) = slot else { continue };
+        let bit = 1u32 << slot;
+        let before = seen.len();
+        for i in 0..carrier.len() {
+            if carrier.is_root[i]
+                && (carrier.provenance[i] & bit) != 0
+                && grade(&carrier.states[i]) == root_grade
+            {
+                seen.insert(r3.class_of[i]);
+                roots_seen += 1;
+            }
+        }
+        let _ = writeln!(
+            out,
+            "  after h{hand}: {} cumulative classes over {roots_seen} roots (+{} new)",
+            seen.len(),
+            seen.len() - before
+        );
+    }
+    out.push('\n');
+}
+
+fn write_provenance_t5(out: &mut String) {
+    let _ = write!(
+        out,
+        "scope: pip-trump only — the receipt corpus supplies no doubles-trump or no-trump hand \
+         (v0.4 §14.7); asserted in-run (F1 amendment)\n\
+         corpus: rob/receipts/verify_player.txt, hands 0-12, trick 5, viewer = that trick's \
+         leader = the focal seat; every fiber world enumerated and asserted against the exact \
+         fiber count\n\
+         construction: the already-adjudicated r3 retrograde coarsest quotient \
+         (walt/CENSUS-RULINGS.md section r3, Q1-Q5), unchanged — backward induction over the \
+         graded carrier, grades 12 down to 0, grade = live tile count with grade(successor) = \
+         grade - 1 asserted at every step; terminal (hand end) is one class; SIGNATURE = preamble \
+         (grade, actor offset from focal 0-3) + canonically ordered per-move tuples (count-free \
+         increment k, play classification in {{lead, follow, slough}}, successor r3-class); \
+         transports are position matching through the canonical move order (Q1b)\n\
+         determinism freezes (unchanged from the r3 run, Q5.3): (1) the content-addressed \
+         encoding — class identity is the 128-bit FNV-1a hash of the signature bytes [tag 0x33, \
+         grade, actor offset, move count, then per move: k, classification code, successor hash \
+         big-endian], asserted collision-free in-run; (2) the canonical move order — sort by (k, \
+         classification, successor class hash), ties broken by the state's concrete tile order\n\
+         field and contract: fixed uniform-legal field with exact rational mass 1/|L| per hidden \
+         play, Dirac focal actions, count-free increments only (F4, F5)\n\
+         determinism: no sampling, no caps, no seeds; the domain is exhaustively enumerated and \
+         every class with two or more members is checked. A declared stop of {T5_CARRIER_STOP} \
+         situations guards the rung — passing it stops the run for deliberate re-scoping rather \
+         than capping silently (exclusion, never sampling)\n\
+         provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant \
+         module), exploratory tier, below every project evidentiary tier\n\
+         regenerate: cargo run --release -p walt-factory --example census_run t5\n\n"
+    );
+}
+
+/// The shared provenance block; `regenerate` names the run that wrote the
+/// file.
+fn write_provenance(out: &mut String, regenerate: &str) {
+    let _ = write!(
+        out,
+        "scope: pip-trump only — all 13 receipt trick-six kernels are pip-trump (v0.4 §14.7); \
+         doubles-trump and no-trump are excluded, since pooling them would implicitly claim \
+         cross-declaration-type transfer, which v0.4 §17.5 does not claim (F1 amendment)\n\
+         corpus: rob/receipts/verify_player.txt, hands 0-12, trick 6, viewer = that trick's \
+         leader = the focal seat; fibers 90 90 36 36 90 27 90 90 7 30 19 36 6 (asserted in-run)\n\
+         model: §12.6A per walt/CENSUS.md with the walt-math rulings of walt/CENSUS-RULINGS.md — \
+         carrier = world-level latent situations closed under primitive steps (F1, F5), bank is \
+         emission not state (F5 amendment), transports by canonicalization (F3), fixed \
+         uniform-legal field with exact rational mass 1/|L| per hidden play and Dirac focal \
+         actions (F4)\n\
+         determinism: no sampling, no caps, no seeds; the carrier is candidate-independent and \
+         every class with two or more members is checked under every candidate\n\
+         provenance: SINGLE-IMPLEMENTATION — one Rust implementation (walt-skeleton's equivariant \
+         module), exploratory tier, below every project evidentiary tier\n\
+         regenerate: cargo run --release -p walt-factory --example {regenerate}\n\n"
+    );
+}
+
+fn write_header(out: &mut String) {
+    out.push_str(
+        "walt situation census — the first (d, Theta) candidate under §12.6A — exploratory tier\n\
+         scope: pip-trump only — all 13 receipt trick-six kernels are pip-trump (v0.4 §14.7); \
+         doubles-trump and no-trump are excluded, since pooling them would implicitly claim \
+         cross-declaration-type transfer, which v0.4 §17.5 does not claim (F1 amendment). \
+         Cross-kernel merges below are within-pip-trump by corpus construction.\n\
+         corpus: rob/receipts/verify_player.txt, hands 0-12, trick 6, viewer = that trick's \
+         leader = the focal seat; fibers 90 90 36 36 90 27 90 90 7 30 19 36 6 (asserted in-run)\n\
+         model: §12.6A instantiated per walt/CENSUS.md with the walt-math rulings of \
+         walt/CENSUS-RULINGS.md — carrier = world-level latent situations closed under primitive \
+         steps (F1, F5), bank is emission not state (F5 amendment), descriptor = the finest \
+         structural relabeling quotient (F2 A1-A4), transports by canonicalization (F3), fixed \
+         uniform-legal field with exact rational mass 1/|L| per hidden play and Dirac focal \
+         actions (F4)\n\
+         determinism: no sampling, no caps, no seeds — the domain is exhaustively checkable and \
+         every class with two or more members is checked; canonicalization is a brute-force \
+         minimum over the lawful labelings\n\
+         provenance: SINGLE-IMPLEMENTATION — every number below is computed by one Rust \
+         implementation (walt-skeleton's equivariant module) and is exploratory tier, below every \
+         project evidentiary tier; a class count is quotable only alongside its ECL verdict (F6)\n\
+         regenerate: cargo run --release -p walt-factory --example census_run\n\n",
+    );
+}
+
+fn write_carrier(out: &mut String, census: &Census) {
+    let c = &census.carrier;
+    out.push_str("carrier (F1/F5: every situation reachable from a kernel root under primitive steps, pooled and deduplicated)\n");
+    let _ = writeln!(
+        out,
+        "  pooled: {} situations = {} roots + {} trick-boundary (non-root) + {} mid-trick",
+        c.len(),
+        c.roots(),
+        c.boundaries() - c.roots(),
+        c.mid_trick()
+    );
+    out.push_str("  per receipt hand (situations reachable from that kernel; a situation reachable from two hands counts in both):\n");
+    for (slot, hand) in c.hands.iter().enumerate() {
+        let roots = (0..c.len())
+            .filter(|i| c.is_root[*i] && (c.provenance[*i] & (1u32 << slot)) != 0)
+            .count();
+        let _ = writeln!(
+            out,
+            "    h{hand}: {} situations, {roots} roots",
+            census.states_of_slot(slot)
+        );
+    }
+    out.push('\n');
+}
+
+fn write_classes(out: &mut String, census: &Census, verdict: &EclVerdict) {
+    out.push_str("equivariant classes (the descriptor d of F2; every count below is paired with the ECL verdict at the foot of this file)\n");
+    let _ = writeln!(
+        out,
+        "  pooled full carrier: {} classes over {} situations   [ECL {}]",
+        census.class_members.len(),
+        census.carrier.len(),
+        verdict.verdict()
+    );
+    let _ = writeln!(
+        out,
+        "  pooled roots only:   {} classes over {} roots   [ECL {}]",
+        census.root_classes(),
+        census.carrier.roots(),
+        verdict.verdict()
+    );
+    let _ = writeln!(
+        out,
+        "  singleton classes (ECL vacuous there): {} of {} — {} classes carry two or more \
+         situations and are the checked coverage",
+        census.singleton_classes(),
+        census.class_members.len(),
+        census.class_members.len() - census.singleton_classes()
+    );
+    let largest = census.class_members.iter().map(Vec::len).max().unwrap_or(0);
+    let _ = writeln!(out, "  largest class: {largest} situations");
+    out.push_str("  per receipt hand (classes among that kernel's situations):\n");
+    for (slot, hand) in census.carrier.hands.iter().enumerate() {
+        let _ = writeln!(
+            out,
+            "    h{hand}: {} classes full-carrier, {} classes root-only",
+            census.classes_of_slot(slot, false),
+            census.classes_of_slot(slot, true)
+        );
+    }
+    out.push_str(
+        "  by structure size (matched tiles = live tiles ∪ unresolved-trick tiles, A1): \
+         situations / classes / non-singleton classes\n",
+    );
+    for n in (1..=8).rev() {
+        let rows: Vec<usize> = (0..census.carrier.len())
+            .filter(|i| census.carrier.states[*i].matched(census.spec).len() == n)
+            .collect();
+        if rows.is_empty() {
+            continue;
+        }
+        let classes: std::collections::BTreeSet<usize> =
+            rows.iter().map(|i| census.class_of[*i]).collect();
+        let merged = classes
+            .iter()
+            .filter(|c| census.class_members[**c].len() > 1)
+            .count();
+        let _ = writeln!(
+            out,
+            "    {n} tiles: {} situations, {} classes, {merged} of them non-singleton",
+            rows.len(),
+            classes.len()
+        );
+    }
+    out.push('\n');
+}
+
+/// The ply of a situation: how many primitive steps separate it from a kernel
+/// root, derived as `8 - |live|` (two tricks of four plays). Ply is reporting
+/// metadata only — it is bookkeeping outside the situation and outside the
+/// descriptor, exactly as the banked increment is (F5 amendment). Nothing in
+/// the carrier, the canonical form or the (ECL) check reads it.
+fn ply(sit: &walt_skeleton::equivariant::Situation) -> usize {
+    8 - sit.live().len()
+}
+
+fn ply_label(ply: usize) -> &'static str {
+    match ply {
+        0 => "trick-6 lead (kernel roots)",
+        1..=3 => "trick-6 mid-trick",
+        4 => "trick-7 boundary (every seat holds one tile; play is forced)",
+        _ => "trick-7 mid-trick",
+    }
+}
+
+/// One row per occupied ply: `(ply, situations, classes, non-singleton
+/// classes, identity classes)`.
+fn ply_rows(census: &Census) -> Vec<(usize, usize, usize, usize, usize)> {
+    let mut out = Vec::new();
+    for p in 0..8 {
+        let rows: Vec<usize> = (0..census.carrier.len())
+            .filter(|i| ply(&census.carrier.states[*i]) == p)
+            .collect();
+        if rows.is_empty() {
+            continue;
+        }
+        let classes: std::collections::BTreeSet<usize> =
+            rows.iter().map(|i| census.class_of[*i]).collect();
+        let merged = classes
+            .iter()
+            .filter(|c| census.class_members[**c].len() > 1)
+            .count();
+        let identity: std::collections::BTreeSet<usize> =
+            rows.iter().map(|i| census.identity_of[*i]).collect();
+        out.push((p, rows.len(), classes.len(), merged, identity.len()));
+    }
+    out
+}
+
+fn write_strata(out: &mut String, census: &Census, verdict: &EclVerdict) {
+    out.push_str(
+        "class counts stratified by ply (design addendum; ply is bookkeeping outside the state and \
+         outside the descriptor, F5's bank-out-of-state ruling applied the same way — the canonical \
+         form never reads it). The canonical form encodes structure size and table depth, so the \
+         strata partition the classes exactly and these rows sum to the pooled totals.\n",
+    );
+    let mut situations = 0usize;
+    let mut classes_total = 0usize;
+    for (p, n, classes, merged, identity) in ply_rows(census) {
+        situations += n;
+        classes_total += classes;
+        let _ = writeln!(
+            out,
+            "  ply {p} ({}): {n} situations, {classes} classes ({merged} non-singleton), {identity} identity classes, dividend {}   [ECL {}]",
+            ply_label(p),
+            ratio(identity, classes),
+            verdict.verdict()
+        );
+    }
+    let _ = writeln!(
+        out,
+        "  strata total: {situations} situations, {classes_total} classes (pooled totals: {} and {})",
+        census.carrier.len(),
+        census.class_members.len()
+    );
+    assert_eq!(
+        situations,
+        census.carrier.len(),
+        "the strata cover the carrier"
+    );
+    assert_eq!(
+        classes_total,
+        census.class_members.len(),
+        "the strata partition the classes"
+    );
+    out.push('\n');
+}
+
+fn write_merges(out: &mut String, census: &Census) {
+    let cross = census.cross_kernel_classes();
+    out.push_str("cross-kernel merges (classes drawing situations from two or more receipt hands — the beyond-the-particular-game signal)\n");
+    let root_cross = cross
+        .iter()
+        .filter(|c| {
+            census.class_members[**c]
+                .iter()
+                .any(|i| census.carrier.is_root[*i])
+        })
+        .count();
+    let _ = writeln!(
+        out,
+        "  {} classes of {} merge across hands ({} of them contain a root situation)",
+        cross.len(),
+        census.class_members.len(),
+        root_cross
+    );
+    let mut spread = [0usize; 14];
+    for c in &cross {
+        spread[census.class_provenance(*c).count_ones() as usize] += 1;
+    }
+    let widths: Vec<String> = (2..=13)
+        .filter(|n| spread[*n] > 0)
+        .map(|n| format!("{n} hands: {}", spread[n]))
+        .collect();
+    if !widths.is_empty() {
+        let _ = writeln!(out, "  spread — {}", widths.join(", "));
+    }
+    for c in cross.iter().take(3) {
+        let _ = writeln!(
+            out,
+            "  example class#{c} (key {}):",
+            &census.class_keys[*c]
+                .iter()
+                .map(|b| format!("{b:02x}"))
+                .collect::<String>()[..24.min(2 * census.class_keys[*c].len())]
+        );
+        let mut shown: u32 = 0;
+        for i in &census.class_members[*c] {
+            let p = census.carrier.provenance[*i];
+            if (p & !shown) == 0 {
+                continue;
+            }
+            shown |= p;
+            let hands: Vec<String> = census
+                .carrier
+                .hands
+                .iter()
+                .enumerate()
+                .filter(|(slot, _)| (p & (1u32 << slot)) != 0)
+                .map(|(_, h)| format!("h{h}"))
+                .collect();
+            let _ = writeln!(
+                out,
+                "    [{}] {}",
+                hands.join(","),
+                census.carrier.states[*i].render()
+            );
+        }
+    }
+    out.push('\n');
+}
+
+fn write_baseline(out: &mut String, census: &Census) {
+    out.push_str("identity-interface baseline (F6: the same invariant list read with absolute tiles, absolute seats and absolute contexts — v0.5's closing corollary recovers §12.6 exactly)\n");
+    let _ = writeln!(
+        out,
+        "  pooled full carrier: {} identity classes over {} situations",
+        census.identity_members.len(),
+        census.carrier.len()
+    );
+    let _ = writeln!(
+        out,
+        "  pooled roots only:   {} identity classes over {} roots",
+        census.root_identity_classes(),
+        census.carrier.roots()
+    );
+    let _ = writeln!(
+        out,
+        "  cross-kernel identity merges: {} (the control is expected to merge next to nothing across hands)",
+        census.cross_kernel_identity_classes().len()
+    );
+    let _ = writeln!(
+        out,
+        "  equivariance dividend (identity classes / equivariant classes): {} full-carrier, {} roots-only",
+        ratio(census.identity_members.len(), census.class_members.len()),
+        ratio(census.root_identity_classes(), census.root_classes())
+    );
+    out.push('\n');
+}
+
+fn write_verdict(out: &mut String, verdict: &EclVerdict) {
+    out.push_str("ECL verdict (F5: exhaustive primitive-step check — condition 1 legality under Theta^A, condition 2 the joint law of (count-free increment, transported observation, successor class); exact rationals, no tolerance)\n");
+    let _ = writeln!(
+        out,
+        "  {}: {} classes total, {} singleton (vacuous), {} classes checked, {} representative-member pairs checked under condition 1 and {} under condition 2",
+        verdict.verdict(),
+        verdict.classes,
+        verdict.singleton_classes,
+        verdict.classes_checked,
+        verdict.cond1_checks,
+        verdict.cond2_checks
+    );
+    if verdict.passed() {
+        out.push_str("  no counterexample: on this domain the finest structural relabeling quotient is equivariantly strongly controlled-lumpable.\n");
+        return;
+    }
+    let _ = writeln!(
+        out,
+        "  {} counterexample pairs recorded (F7 NO-RESCUE: recorded, never patched in-run; the descriptor was not adjusted). Every pair below is a class whose members disagree.",
+        verdict.failures.len()
+    );
+    let mut by_condition: std::collections::BTreeMap<&str, usize> =
+        std::collections::BTreeMap::new();
+    for f in &verdict.failures {
+        *by_condition.entry(f.condition.as_str()).or_insert(0) += 1;
+    }
+    for (cond, n) in &by_condition {
+        let _ = writeln!(out, "    {cond}: {n} pairs");
+    }
+    out.push_str("\n  counterexamples (class key, divergent statistic with exact values, both concrete witnesses):\n");
+    for f in &verdict.failures {
+        let _ = writeln!(out, "    class#{} key {}", f.class, f.class_key);
+        let _ = writeln!(out, "      condition: {}", f.condition);
+        let _ = writeln!(out, "      divergence: {}", f.detail);
+        let _ = writeln!(out, "      representative: {}", f.representative);
+        let _ = writeln!(out, "      member:         {}", f.member);
+    }
+}

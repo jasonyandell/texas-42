@@ -1,0 +1,12 @@
+[package]
+name = "walt-skeleton"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+walt-core.workspace = true
+walt-kernel.workspace = true
+walt-geom.workspace = true
+walt-strat.workspace = true

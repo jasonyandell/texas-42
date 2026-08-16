@@ -1,0 +1,446 @@
+walt S5b lesson run — exploratory tier
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds
+seeds: walker corpus at the CI config (threshold 40000, draws 64, seed 0x000000005ea7425a, tricks 3-7), all dominated-chosen decisions, win form where an action is worldwise-optimal at the origin (fiber <= 40000), plus the h0 t6 chassis §12.6 failure
+
+regret h0 S1 t5 p0: verdict [refutation: value(decisive) >= value(max-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [decl=P3 & ply=0] load-bearing [decl=P3, ply=0] basin 1/32 eligible decisions 1680/14387 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (488,1192,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+regret h0 S1 t5 p0: verdict [win: decisive suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [decl=P3 & horizon=3 & ply=0] load-bearing [decl=P3, ply=0, horizon=3] basin 1/86 eligible decisions 1680/22101 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (0,1680,0)
+regret h1 S0 t5 p2: verdict [refutation: value(tile(5-2)) >= value(decisive) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [ply=2] load-bearing [ply=2] basin 3/9 eligible decisions 231/1715 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (76,155,0) class W (weak, strict somewhere) split refutation 3 safe-substitution 3
+regret h1 S0 t5 p2: verdict [win: tile(5-2) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [ply=2] load-bearing [ply=2] basin 5/11 eligible decisions 651/2135 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (0,651,0)
+regret h1 S2 t3 p0: verdict [refutation: value(min-count) >= value(decisive) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [hand=1 & seat=S2] load-bearing [seat=S2, hand=1] basin 1/53 eligible decisions 90/17974 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (48,42,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 1
+regret h1 S2 t4 p0: verdict [refutation: value(tile(4-3)) >= value(tile(6-0)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [(empty)] load-bearing [none] basin 0/0 eligible decisions 0/0 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (0,0,0) split refutation 0 safe-substitution 0
+regret h1 S2 t4 p0: verdict [win: tile(4-3) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [horizon=4] load-bearing [horizon=4] basin 0/12 eligible decisions 0/4587 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (0,0,0)
+regret h2 S2 t3 p0: verdict [refutation: value(tile(6-6)) >= value(tile(6-2)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [(empty)] load-bearing [none] basin 0/0 eligible decisions 0/0 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (0,0,0) split refutation 0 safe-substitution 0
+regret h2 S2 t4 p3: verdict [refutation: value(tile(6-6)) >= value(tile(6-3)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [(empty)] load-bearing [none] basin 0/0 eligible decisions 0/0 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (0,0,0) split refutation 0 safe-substitution 0
+regret h3 S3 t4 p1: verdict [refutation: value(decisive) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [horizon=4] load-bearing [horizon=4] basin 0/53 eligible decisions 0/17974 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (0,0,0) split refutation 0 safe-substitution 0
+regret h4 S0 t4 p3: verdict [refutation: value(decisive) >= value(tile(5-2)) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [horizon=4] load-bearing [horizon=4] basin 0/9 eligible decisions 0/1715 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (0,0,0) split refutation 0 safe-substitution 0
+regret h4 S1 t3 p2: verdict [refutation: value(min-count) >= value(max-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [hand=4 & seat=S1] load-bearing [seat=S1, hand=4] basin 2/77 eligible decisions 1686/21144 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (0,1686,0) class T (tied everywhere) split refutation 0 safe-substitution 2
+regret h4 S3 t5 p2: verdict [refutation: value(max-count) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [decl=P1 & horizon=3] load-bearing [decl=P1, horizon=3] basin 2/77 eligible decisions 1890/21144 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (1,1889,0) class W (weak, strict somewhere) split refutation 1 safe-substitution 2
+regret h4 S3 t5 p2: verdict [win: max-count suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [hand=4 & seat=S3] load-bearing [seat=S3, hand=4] basin 2/104 eligible decisions 240/23790 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (0,240,0)
+regret h11 S1 t3 p3: verdict [refutation: value(tile(2-0)) >= value(min-count) at every matching (decision, world)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [(empty)] load-bearing [none] basin 0/0 eligible decisions 0/0 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (0,0,0) split refutation 0 safe-substitution 0
+regret h11 S1 t3 p3: verdict [win: tile(2-0) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)] grade [worldwise at (C, minimax-omniscient); weighting-free] final [hand=11] load-bearing [hand=11] basin 1/8 eligible decisions 270/1267 eligible worlds (carrier: selector-resolvable decisions x their fiber worlds; domain context 104/23790) triple (0,270,0)
+lumpability h0 t6 chassis: verdict [not-lumpable: chassis fails §12.6 at every matching decision] grade [checker (§12.6 exhaustive lumpability, uniform-legal field, q_points valuation)] final [(empty)] load-bearing [none] basin 13/13 eligible decisions 647/647 eligible worlds (carrier: lead-kernel trees (ply 0, horizon <= 2); domain context 104/23790)
+
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h0 S1 t5 p0 fiber 1680 grade worldwise-dominance (PI)
+  chosen 3-2 better [0-0 2-1] regret 61/21
+verdict: refutation: value(decisive) >= value(max-count) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (11 cells): hand=0 & seat=S1 & decl=P3 & role=declaring & horizon=3 & ply=0 & beaters(1-1)=[0,0,0] & beaters(2-2)=[0,0,0] & beaters(4-4)=[0,0,0] & beaters(5-2)=[0,0,0] & beaters(6-2)=[0,0,0]
+trace:
+  drop hand=0 -> dropped
+  drop seat=S1 -> dropped
+  drop beaters(1-1)=[0,0,0] -> dropped
+  drop beaters(2-2)=[0,0,0] -> dropped
+  drop beaters(4-4)=[0,0,0] -> dropped
+  drop beaters(5-2)=[0,0,0] -> dropped
+  drop beaters(6-2)=[0,0,0] -> dropped
+  drop decl=P3 -> LOAD-BEARING; witness h4 S1 t5 p0 world S0={4-3 4-4 5-4} S1={2-1 4-0 5-1} S2={0-0 1-1 2-0} S3={2-2 4-2 5-5} values 2-1=9 4-0=-11 5-1=9
+  drop ply=0 -> LOAD-BEARING; witness h0 S3 t5 p2 world S0={0-0 2-0 4-1} S1={2-1 5-1} S2={4-2 5-2} S3={1-1 2-2 4-4} values 1-1=13 2-2=1 4-4=13
+  drop role=declaring -> dropped
+  drop horizon=3 -> dropped
+final implicant (2 cells): decl=P3 & ply=0
+load-bearing: [decl=P3, ply=0]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 32 decisions / 14387 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/32 worlds 1680/14387 triple (488,1192,0)
+basin dominance class: W (weak, strict somewhere)
+basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere), safe-substitution 1 decisions (weak dominance over the matched set; T-coverage counts)
+  h0 S1 t5 p0: worlds 1680/1680 triple (488,1192,0) class W (weak, strict somewhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h0 S1 t5 p0 fiber 1680 grade worldwise-dominance (PI)
+  chosen 3-2 better [0-0 2-1] regret 61/21
+verdict: win: decisive suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (11 cells): hand=0 & seat=S1 & decl=P3 & role=declaring & horizon=3 & ply=0 & beaters(1-1)=[0,0,0] & beaters(2-2)=[0,0,0] & beaters(4-4)=[0,0,0] & beaters(5-2)=[0,0,0] & beaters(6-2)=[0,0,0]
+trace:
+  drop hand=0 -> dropped
+  drop seat=S1 -> dropped
+  drop beaters(1-1)=[0,0,0] -> dropped
+  drop beaters(2-2)=[0,0,0] -> dropped
+  drop beaters(4-4)=[0,0,0] -> dropped
+  drop beaters(5-2)=[0,0,0] -> dropped
+  drop beaters(6-2)=[0,0,0] -> dropped
+  drop decl=P3 -> LOAD-BEARING; witness h2 S3 t5 p0 world S0={1-0 2-2 4-1} S1={1-1 3-0 3-1} S2={3-2 4-3 6-6} S3={2-1 3-3 5-4} values 2-1=1 3-3=-9 5-4=-9
+  drop ply=0 -> LOAD-BEARING; witness h0 S3 t5 p2 world S0={0-0 2-0 4-1} S1={2-1 5-1} S2={4-2 5-2} S3={1-1 2-2 4-4} values 1-1=13 2-2=1 4-4=13
+  drop role=declaring -> dropped
+  drop horizon=3 -> LOAD-BEARING; witness h0 S1 t6 p0 world S0={4-4 5-2} S1={0-0 2-1} S2={2-0 2-2} S3={4-1 4-2} values 0-0=5 2-1=-7
+final implicant (3 cells): decl=P3 & horizon=3 & ply=0
+load-bearing: [decl=P3, ply=0, horizon=3]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 86 decisions / 22101 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/86 worlds 1680/22101 triple (0,1680,0)
+  h0 S1 t5 p0: worlds 1680/1680 triple (0,1680,0)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h1 S0 t5 p2 fiber 210 grade worldwise-dominance (PI)
+  chosen 3-3 better [5-2] regret 2/3
+verdict: refutation: value(tile(5-2)) >= value(decisive) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (10 cells): hand=1 & seat=S0 & decl=P6 & role=declaring & horizon=3 & ply=2 & beaters(1-1)=[0,0,0] & beaters(5-4)=[0,0,0] & opp-beaters=0 & bestkeep=true
+trace:
+  drop hand=1 -> dropped
+  drop seat=S0 -> dropped
+  drop beaters(1-1)=[0,0,0] -> dropped
+  drop beaters(5-4)=[0,0,0] -> dropped
+  drop opp-beaters=0 -> dropped
+  drop bestkeep=true -> dropped
+  drop decl=P6 -> dropped
+  drop ply=2 -> LOAD-BEARING; witness h5 S0 t5 p3 world S0={4-1 5-0 5-2} S1={1-1 4-2} S2={4-3 5-1} S3={4-4 5-5} values 4-1=-11 5-0=-11 5-2=-21
+  drop role=declaring -> dropped
+  drop horizon=3 -> dropped
+final implicant (1 cells): ply=2
+load-bearing: [ply=2]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 9 decisions / 1715 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 3/9 worlds 231/1715 triple (76,155,0)
+basin dominance class: W (weak, strict somewhere)
+basin split (purpose-relative, §9.6): refutation 3 decisions (strict somewhere), safe-substitution 3 decisions (weak dominance over the matched set; T-coverage counts)
+  h1 S0 t5 p2: worlds 210/210 triple (70,140,0) class W (weak, strict somewhere)
+  h1 S0 t6 p2: worlds 12/12 triple (3,9,0) class W (weak, strict somewhere)
+  h9 S3 t6 p2: worlds 9/9 triple (3,6,0) class W (weak, strict somewhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h1 S0 t5 p2 fiber 210 grade worldwise-dominance (PI)
+  chosen 3-3 better [5-2] regret 2/3
+verdict: win: tile(5-2) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (10 cells): hand=1 & seat=S0 & decl=P6 & role=declaring & horizon=3 & ply=2 & beaters(1-1)=[0,0,0] & beaters(5-4)=[0,0,0] & opp-beaters=0 & bestkeep=true
+trace:
+  drop hand=1 -> dropped
+  drop seat=S0 -> dropped
+  drop beaters(1-1)=[0,0,0] -> dropped
+  drop beaters(5-4)=[0,0,0] -> dropped
+  drop opp-beaters=0 -> dropped
+  drop bestkeep=true -> dropped
+  drop decl=P6 -> dropped
+  drop ply=2 -> LOAD-BEARING; witness h5 S0 t5 p3 world S0={4-1 5-0 5-2} S1={1-1 4-2} S2={4-3 4-4} S3={5-1 5-5} values 4-1=-21 5-0=-11 5-2=-21
+  drop role=declaring -> dropped
+  drop horizon=3 -> dropped
+final implicant (1 cells): ply=2
+load-bearing: [ply=2]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 11 decisions / 2135 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 5/11 worlds 651/2135 triple (0,651,0)
+  h1 S0 t5 p2: worlds 210/210 triple (0,210,0)
+  h1 S0 t6 p2: worlds 12/12 triple (0,12,0)
+  h6 S1 t5 p2: worlds 210/210 triple (0,210,0)
+  h7 S2 t5 p2: worlds 210/210 triple (0,210,0)
+  h9 S3 t6 p2: worlds 9/9 triple (0,9,0)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h1 S2 t3 p0 fiber 756756 grade sampled (PI, uniform-over-fiber, seed 0x7ae6fb30978a81d3, draws 64)
+  chosen 2-2 better [1-1 4-3] regret 5/8
+verdict: refutation: value(min-count) >= value(decisive) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (11 cells): hand=1 & seat=S2 & decl=P6 & role=declaring & horizon=5 & ply=0 & beaters(0-0)=[0,0,0] & beaters(3-3)=[0,0,0] & beaters(5-4)=[0,0,0] & opp-beaters=0 & bestkeep=true
+trace:
+  drop horizon=5 -> dropped
+  drop role=declaring -> dropped
+  drop ply=0 -> dropped
+  drop decl=P6 -> dropped
+  drop bestkeep=true -> dropped
+  drop opp-beaters=0 -> dropped
+  drop beaters(5-4)=[0,0,0] -> dropped
+  drop beaters(3-3)=[0,0,0] -> dropped
+  drop beaters(0-0)=[0,0,0] -> dropped
+  drop seat=S2 -> LOAD-BEARING; witness h1 S3 t5 p1 world S0={1-1 3-0 3-1} S1={3-3 4-3 5-3} S2={4-0 5-2} S3={1-0 2-1 5-4} values 1-0=-1 2-1=-1 5-4=1
+  drop hand=1 -> LOAD-BEARING; witness h0 S2 t5 p1 world S0={2-1 2-2 4-2} S1={4-4 5-1} S2={4-1 5-2 6-2} S3={0-0 1-1 2-0} values 4-1=-11 5-2=-13 6-2=-11
+final implicant (2 cells): hand=1 & seat=S2
+load-bearing: [seat=S2, hand=1]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 53 decisions / 17974 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/53 worlds 90/17974 triple (48,42,0)
+basin dominance class: W (weak, strict somewhere)
+basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere), safe-substitution 1 decisions (weak dominance over the matched set; T-coverage counts)
+  h1 S2 t6 p0: worlds 90/90 triple (48,42,0) class W (weak, strict somewhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h1 S2 t4 p0 fiber 34650 grade worldwise-dominance (PI)
+  chosen 6-0 better [1-1 4-3] regret 8/11
+verdict: refutation: value(tile(4-3)) >= value(tile(6-0)) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (11 cells): hand=1 & seat=S2 & decl=P6 & role=declaring & horizon=4 & ply=0 & beaters(0-0)=[0,0,0] & beaters(3-3)=[0,0,0] & beaters(5-4)=[0,0,0] & opp-beaters=0 & bestkeep=true
+trace:
+  drop hand=1 -> dropped
+  drop seat=S2 -> dropped
+  drop beaters(0-0)=[0,0,0] -> dropped
+  drop beaters(3-3)=[0,0,0] -> dropped
+  drop beaters(5-4)=[0,0,0] -> dropped
+  drop opp-beaters=0 -> dropped
+  drop bestkeep=true -> dropped
+  drop decl=P6 -> dropped
+  drop ply=0 -> dropped
+  drop role=declaring -> dropped
+  drop horizon=4 -> dropped
+final implicant (0 cells): (empty)
+load-bearing: [none]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 0 decisions / 0 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 0/0 worlds 0/0 triple (0,0,0)
+basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h1 S2 t4 p0 fiber 34650 grade worldwise-dominance (PI)
+  chosen 6-0 better [1-1 4-3] regret 8/11
+verdict: win: tile(4-3) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (11 cells): hand=1 & seat=S2 & decl=P6 & role=declaring & horizon=4 & ply=0 & beaters(0-0)=[0,0,0] & beaters(3-3)=[0,0,0] & beaters(5-4)=[0,0,0] & opp-beaters=0 & bestkeep=true
+trace:
+  drop hand=1 -> dropped
+  drop seat=S2 -> dropped
+  drop beaters(0-0)=[0,0,0] -> dropped
+  drop beaters(3-3)=[0,0,0] -> dropped
+  drop beaters(5-4)=[0,0,0] -> dropped
+  drop opp-beaters=0 -> dropped
+  drop bestkeep=true -> dropped
+  drop decl=P6 -> dropped
+  drop ply=0 -> dropped
+  drop role=declaring -> dropped
+  drop horizon=4 -> LOAD-BEARING; witness h1 S2 t6 p0 world S0={4-0 5-2} S1={5-3 5-4} S2={1-1 4-3} S3={1-0 3-1} values 1-1=0 4-3=-2
+final implicant (1 cells): horizon=4
+load-bearing: [horizon=4]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 12 decisions / 4587 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 0/12 worlds 0/4587 triple (0,0,0)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h2 S2 t3 p0 fiber 756756 grade sampled (PI, uniform-over-fiber, seed 0x39dba10f3d3cf947, draws 64)
+  chosen 6-2 better [1-1 6-6] regret 61/32
+verdict: refutation: value(tile(6-6)) >= value(tile(6-2)) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (9 cells): hand=2 & seat=S2 & decl=P5 & role=defending & horizon=5 & ply=0 & beaters(5-4)=[0,0,0] & opp-beaters=0 & bestkeep=true
+trace:
+  drop hand=2 -> dropped
+  drop seat=S2 -> dropped
+  drop beaters(5-4)=[0,0,0] -> dropped
+  drop opp-beaters=0 -> dropped
+  drop bestkeep=true -> dropped
+  drop decl=P5 -> dropped
+  drop ply=0 -> dropped
+  drop role=defending -> dropped
+  drop horizon=5 -> dropped
+final implicant (0 cells): (empty)
+load-bearing: [none]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 0 decisions / 0 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 0/0 worlds 0/0 triple (0,0,0)
+basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h2 S2 t4 p3 fiber 1120 grade worldwise-dominance (PI)
+  chosen 6-3 better [1-1 6-6] regret 65/112
+verdict: refutation: value(tile(6-6)) >= value(tile(6-3)) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (8 cells): hand=2 & seat=S2 & decl=P5 & role=defending & horizon=4 & ply=3 & team(5-4)=false & beaters(5-4)=[0,0,0]
+trace:
+  drop hand=2 -> dropped
+  drop seat=S2 -> dropped
+  drop team(5-4)=false -> dropped
+  drop beaters(5-4)=[0,0,0] -> dropped
+  drop decl=P5 -> dropped
+  drop ply=3 -> dropped
+  drop role=defending -> dropped
+  drop horizon=4 -> dropped
+final implicant (0 cells): (empty)
+load-bearing: [none]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 0 decisions / 0 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 0/0 worlds 0/0 triple (0,0,0)
+basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h3 S3 t4 p1 fiber 2450 grade worldwise-dominance (PI)
+  chosen 5-3 better [6-3] regret 1243/1225
+verdict: refutation: value(decisive) >= value(min-count) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (7 cells): hand=3 & seat=S3 & decl=P0 & role=defending & horizon=4 & ply=1 & beaters(5-0)=[0,0,0]
+trace:
+  drop hand=3 -> dropped
+  drop seat=S3 -> dropped
+  drop beaters(5-0)=[0,0,0] -> dropped
+  drop decl=P0 -> dropped
+  drop ply=1 -> dropped
+  drop role=defending -> dropped
+  drop horizon=4 -> LOAD-BEARING; witness h0 S2 t5 p1 world S0={2-1 2-2 4-4} S1={4-2 5-1} S2={4-1 5-2 6-2} S3={0-0 1-1 2-0} values 4-1=-9 5-2=-1 6-2=1
+final implicant (1 cells): horizon=4
+load-bearing: [horizon=4]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 53 decisions / 17974 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 0/53 worlds 0/17974 triple (0,0,0)
+basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h4 S0 t4 p3 fiber 1680 grade worldwise-dominance (PI)
+  chosen 5-2 better [2-0 4-2] regret 1163/840
+verdict: refutation: value(decisive) >= value(tile(5-2)) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (7 cells): hand=4 & seat=S0 & decl=P1 & role=defending & horizon=4 & ply=3 & beaters(1-1)=[0,0,0]
+trace:
+  drop hand=4 -> dropped
+  drop seat=S0 -> dropped
+  drop beaters(1-1)=[0,0,0] -> dropped
+  drop decl=P1 -> dropped
+  drop ply=3 -> dropped
+  drop role=defending -> dropped
+  drop horizon=4 -> LOAD-BEARING; witness h0 S2 t5 p1 world S0={2-1 2-2 4-4} S1={4-2 5-1} S2={4-1 5-2 6-2} S3={0-0 1-1 2-0} values 4-1=-9 5-2=-1 6-2=1
+final implicant (1 cells): horizon=4
+load-bearing: [horizon=4]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 9 decisions / 1715 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 0/9 worlds 0/1715 triple (0,0,0)
+basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h4 S1 t3 p2 fiber 90090 grade sampled (PI, uniform-over-fiber, seed 0xd18989a14e865a95, draws 64)
+  chosen 6-6 better [6-5] regret 111/32
+verdict: refutation: value(min-count) >= value(max-count) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (7 cells): hand=4 & seat=S1 & decl=P1 & role=declaring & horizon=5 & ply=2 & beaters(1-1)=[0,0,0]
+trace:
+  drop horizon=5 -> dropped
+  drop role=declaring -> dropped
+  drop ply=2 -> dropped
+  drop decl=P1 -> dropped
+  drop beaters(1-1)=[0,0,0] -> dropped
+  drop seat=S1 -> LOAD-BEARING; witness h4 S3 t5 p2 world S0={2-0 2-1 5-5} S1={0-0 5-1} S2={1-1 4-2} S3={2-2 4-3 5-4} values 4-3=-13 5-4=-11
+  drop hand=4 -> LOAD-BEARING; witness h0 S1 t6 p0 world S0={2-2 4-2} S1={0-0 2-1} S2={2-0 4-1} S3={4-4 5-2} values 0-0=-5 2-1=5
+final implicant (2 cells): hand=4 & seat=S1
+load-bearing: [seat=S1, hand=4]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 77 decisions / 21144 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 2/77 worlds 1686/21144 triple (0,1686,0)
+basin dominance class: T (tied everywhere)
+  note: tied everywhere at this label — an interchangeability statement, not a refutation (§9.6); label-level payoff ties do not make actions interchangeable for the seat (§10.9)
+basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 2 decisions (weak dominance over the matched set; T-coverage counts)
+  h4 S1 t5 p0: worlds 1680/1680 triple (0,1680,0) class T (tied everywhere)
+  h4 S1 t6 p3: worlds 6/6 triple (0,6,0) class T (tied everywhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h4 S3 t5 p2 fiber 210 grade worldwise-dominance (PI)
+  chosen 4-3 better [5-4] regret 1/105
+verdict: refutation: value(max-count) >= value(min-count) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (9 cells): hand=4 & seat=S3 & decl=P1 & role=declaring & horizon=3 & ply=2 & beaters(1-1)=[0,0,0] & opp-beaters=0 & bestkeep=true
+trace:
+  drop hand=4 -> dropped
+  drop seat=S3 -> dropped
+  drop beaters(1-1)=[0,0,0] -> dropped
+  drop opp-beaters=0 -> dropped
+  drop bestkeep=true -> dropped
+  drop decl=P1 -> LOAD-BEARING; witness h0 S3 t5 p2 world S0={0-0 2-0 2-1} S1={4-1 5-1} S2={4-2 5-2} S3={1-1 2-2 4-4} values 1-1=13 2-2=13 4-4=-1
+  drop ply=2 -> dropped
+  drop role=declaring -> dropped
+  drop horizon=3 -> LOAD-BEARING; witness h4 S2 t6 p0 world S0={2-2 5-4} S1={2-1 5-1} S2={0-0 1-1} S3={2-0 5-5} values 0-0=10 1-1=-10
+final implicant (2 cells): decl=P1 & horizon=3
+load-bearing: [decl=P1, horizon=3]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 77 decisions / 21144 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 2/77 worlds 1890/21144 triple (1,1889,0)
+basin dominance class: W (weak, strict somewhere)
+basin split (purpose-relative, §9.6): refutation 1 decisions (strict somewhere), safe-substitution 2 decisions (weak dominance over the matched set; T-coverage counts)
+  h4 S1 t5 p0: worlds 1680/1680 triple (0,1680,0) class T (tied everywhere)
+  h4 S3 t5 p2: worlds 210/210 triple (1,209,0) class W (weak, strict somewhere)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h4 S3 t5 p2 fiber 210 grade worldwise-dominance (PI)
+  chosen 4-3 better [5-4] regret 1/105
+verdict: win: max-count suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (9 cells): hand=4 & seat=S3 & decl=P1 & role=declaring & horizon=3 & ply=2 & beaters(1-1)=[0,0,0] & opp-beaters=0 & bestkeep=true
+trace:
+  drop horizon=3 -> dropped
+  drop role=declaring -> dropped
+  drop ply=2 -> dropped
+  drop decl=P1 -> dropped
+  drop bestkeep=true -> dropped
+  drop opp-beaters=0 -> dropped
+  drop beaters(1-1)=[0,0,0] -> dropped
+  drop seat=S3 -> LOAD-BEARING; witness h4 S1 t5 p0 world S0={4-3 5-4 5-5} S1={2-1 4-0 5-1} S2={0-0 1-1 2-0} S3={2-2 4-2 4-4} values 2-1=-11 4-0=-9 5-1=-11
+  drop hand=4 -> LOAD-BEARING; witness h0 S3 t5 p2 world S0={0-0 2-0 2-1} S1={4-1 5-1} S2={4-2 5-2} S3={1-1 2-2 4-4} values 1-1=13 2-2=13 4-4=-1
+final implicant (2 cells): hand=4 & seat=S3
+load-bearing: [seat=S3, hand=4]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 104 decisions / 23790 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 2/104 worlds 240/23790 triple (0,240,0)
+  h4 S3 t5 p2: worlds 210/210 triple (0,210,0)
+  h4 S3 t6 p1: worlds 30/30 triple (0,30,0)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h11 S1 t3 p3 fiber 23100 grade worldwise-dominance (PI)
+  chosen 0-0 better [2-0 3-1 5-1] regret 8/5775
+verdict: refutation: value(tile(2-0)) >= value(min-count) at every matching (decision, world)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (8 cells): hand=11 & seat=S1 & decl=P4 & role=defending & horizon=5 & ply=3 & team(1-1)=false & beaters(6-4)=[0,0,0]
+trace:
+  drop hand=11 -> dropped
+  drop seat=S1 -> dropped
+  drop team(1-1)=false -> dropped
+  drop beaters(6-4)=[0,0,0] -> dropped
+  drop decl=P4 -> dropped
+  drop ply=3 -> dropped
+  drop role=defending -> dropped
+  drop horizon=5 -> dropped
+final implicant (0 cells): (empty)
+load-bearing: [none]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 0 decisions / 0 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 0/0 worlds 0/0 triple (0,0,0)
+basin split (purpose-relative, §9.6): refutation 0 decisions (strict somewhere), safe-substitution 0 decisions (weak dominance over the matched set; T-coverage counts)
+----
+walt lesson (S5b) — exploratory tier
+origin: regret conflict h11 S1 t3 p3 fiber 23100 grade worldwise-dominance (PI)
+  chosen 0-0 better [2-0 3-1 5-1] regret 8/5775
+verdict: win: tile(2-0) suffices per-world (attains the world optimum) at every matching (decision, world); never a seat-facing guarantee (§7.6)
+grade: worldwise at (C, minimax-omniscient); weighting-free
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (8 cells): hand=11 & seat=S1 & decl=P4 & role=defending & horizon=5 & ply=3 & team(1-1)=false & beaters(6-4)=[0,0,0]
+trace:
+  drop horizon=5 -> dropped
+  drop role=defending -> dropped
+  drop ply=3 -> dropped
+  drop decl=P4 -> dropped
+  drop beaters(6-4)=[0,0,0] -> dropped
+  drop team(1-1)=false -> dropped
+  drop seat=S1 -> dropped
+  drop hand=11 -> LOAD-BEARING; witness h0 S0 t5 p3 world S0={2-0 4-2 5-1} S1={2-1 2-2} S2={0-0 4-4} S3={4-1 5-2} values 2-0=-13 4-2=-13 5-1=-1
+final implicant (1 cells): hand=11
+load-bearing: [hand=11]
+carrier: selector-resolvable decisions x their fiber worlds — eligible 8 decisions / 1267 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: worldwise at (C, minimax-omniscient); weighting-free]: decisions 1/8 worlds 270/1267 triple (0,270,0)
+  h11 S1 t5 p1: worlds 270/270 triple (0,270,0)
+----
+walt lesson (S5b) — exploratory tier
+origin: §12.6 lumpability failure h0 t6 descriptor chassis — kernel witness at carrier nodes 325,327: action 0-0 increment -1 mass 1 != 0 (carrier rebuilds from the kernel)
+verdict: not-lumpable: chassis fails §12.6 at every matching decision
+grade: checker (§12.6 exhaustive lumpability, uniform-legal field, q_points valuation)
+domain: receipt corpus, hands 0-12, all seats, tricks 5-6 — 104 decisions, 23790 worlds, all fibers exhaustively enumerated
+initial implicant (9 cells): hand=0 & seat=S1 & decl=P3 & role=declaring & horizon=2 & ply=0 & beaters(2-2)=[0,0,0] & beaters(4-4)=[0,0,0] & beaters(5-2)=[0,0,0]
+trace:
+  drop hand=0 -> dropped
+  drop seat=S1 -> dropped
+  drop beaters(2-2)=[0,0,0] -> dropped
+  drop beaters(4-4)=[0,0,0] -> dropped
+  drop beaters(5-2)=[0,0,0] -> dropped
+  drop decl=P3 -> dropped
+  drop ply=0 -> dropped
+  drop role=declaring -> dropped
+  drop horizon=2 -> dropped
+final implicant (0 cells): (empty)
+load-bearing: [none]
+carrier: lead-kernel trees (ply 0, horizon <= 2) — eligible 13 decisions / 647 worlds (domain context: 104 decisions / 23790 worlds, not a rate base)
+basin [at grade: checker (§12.6 exhaustive lumpability, uniform-legal field, q_points valuation)]: decisions 13/13 worlds 647/647
+  h0 S1 t6 p0: worlds 90/90
+  h1 S2 t6 p0: worlds 90/90
+  h2 S3 t6 p0: worlds 36/36
+  h3 S0 t6 p0: worlds 36/36
+  h4 S2 t6 p0: worlds 90/90
+  h5 S0 t6 p0: worlds 27/27
+  h6 S2 t6 p0: worlds 90/90
+  h7 S0 t6 p0: worlds 90/90
+  h8 S3 t6 p0: worlds 7/7
+  h9 S1 t6 p0: worlds 30/30
+  h10 S1 t6 p0: worlds 19/19
+  h11 S0 t6 p0: worlds 36/36
+  h12 S3 t6 p0: worlds 6/6
+----

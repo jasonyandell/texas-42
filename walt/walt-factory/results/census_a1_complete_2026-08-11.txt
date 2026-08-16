@@ -1,0 +1,44 @@
+walt situation census — THE COMPLETE LEVEL-ONE ALPHABET under pip-trump — exploratory tier
+carrier: a NEW DECLARED EXHAUSTIVE CARRIER — every ordered assignment of four distinct dominoes to the four seats (491400 of them), every leader (4), every focal seat (4), every pip-trump declaration (7) = 55036800 level-one situations, enumerated in full and streamed through a class set. Carrier growth is lawful under r3 ruling Q4: class identities are intrinsic to continuations, so a larger carrier can add classes and can never split or re-merge existing ones — the trick-six and trick-five runs' level-one classes are literally these classes.
+NOT CARRIER-LIMITED — say it plainly: every other class count this census has produced is relative to the 13 receipt fibers. This one is not. It is the COMPLETE pip-trump inventory at level 1, the first number in the whole census with no corpus caveat attached.
+scope: pip-trump only. Doubles-trump and no-trump are OUT OF DECLARED SCOPE (F1 amendment: they have structurally different context signatures — kappa_DT is the doubles, kappa_NT is empty so no-trump has no tier-2 context at all — and no receipt corpus; including them would implicitly claim cross-declaration-type transfer, which v0.4 §17.5 does not claim). This alphabet is the complete PIP-TRUMP one, not the complete Straight 42 one.
+equivalence and machinery: unchanged. r3's signature computed by the one shared grade-free yard routine (no grade argument, no level argument; the within-trick position is read off the table depth and the handoff alphabet here is A_0, the single terminal class). Determinism freezes unchanged: r3's two, plus freeze 3 (the yard tree encoding). The class counts below are exploratory tier; the parts catalog below them is INSTRUMENT tier — neither v2 variant satisfies (ECL) and no value or class claim may be read from a library size.
+declared stop: 100000000 situations, not reached; the domain is closed-form countable and the run asserts the enumerated total against it.
+regenerate: cargo run --release -p walt-factory --example census_run a1
+
+THE NUMBER
+  the complete level-one alphabet under pip-trump: 64 classes over 55036800 enumerated situations
+
+what the receipt corpora realized of it
+  trick-six run, level 1: 63 of 64 (1 unrealized)
+  trick-five run, level 1: 64 of 64 (0 unrealized)
+  The trick-five corpus already realizes the complete alphabet; the trick-six corpus misses exactly one class. Thirteen receipt hands are enough to saturate the last trick.
+
+anatomy — classes by the actor's offset from focal (0 = the focal seat leads the last trick)
+  offset 0: 16 classes
+  offset 1: 16 classes
+  offset 2: 16 classes
+  offset 3: 16 classes
+
+anatomy — classes by count-free outcome (the increment emitted at the resolving play)
+  k = 0 (the trick goes to the other partnership): 32 classes
+  k = e* (the trick goes to the focal partnership): 32 classes
+
+anatomy — classes by the three followers' classification pattern (the leader's play is always a lead)
+  follow, follow, follow: 8 classes
+  follow, follow, slough: 8 classes
+  follow, slough, follow: 8 classes
+  follow, slough, slough: 8 classes
+  slough, follow, follow: 8 classes
+  slough, follow, slough: 8 classes
+  slough, slough, follow: 8 classes
+  slough, slough, slough: 8 classes
+
+  Reading the anatomy: a level-one class is exactly (actor offset from focal, the three followers' classifications, the count-free increment) — the tree is a forced chain, so nothing else can enter it. The upper bound is therefore 4 x 2 x 2 x 2 x 2 = 64, and the enumeration realizes 64 of them. Note why the increment is not redundant given the classifications: a SLOUGH can be a trump played on a natural lead — it fails to follow, so it classifies as a slough, yet it takes the trick — so who wins is genuinely independent of the classification pattern.
+
+complete level-one parts catalog (INSTRUMENT tier — sizes are not class counts, neither variant satisfies (ECL), and no value claim reads off them)
+  depth   v2-strict   v2-open
+      1          21        21
+      2          57        57
+      3         129       129
+  This is the complete bottom of the parts store under pip-trump: every depth-1..3 suffix any last trick can present. Deeper levels' libraries are built over these parts.

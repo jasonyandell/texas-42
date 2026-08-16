@@ -9,7 +9,7 @@ superset — merge resolution [D11](discrepancies.md)) and `Exec §26`. See also
 > slice in Rust per [rob/BRIEF.md](../rob/BRIEF.md), which supersedes this page's
 > Python file plan and extends it through S4 (normal form + capacity DP). Slice 02
 > (S5–S9, [rob/BRIEF_SLICE_02.md](../rob/BRIEF_SLICE_02.md)) and the S10 stretch
-> (the x:001 floor family, `verify_floor`) are also green — eleven byte-diffed
+> (the x:001 floor family, `verify_floor`) are also green — twelve byte-diffed
 > receipts, every ingest number reproduced exactly ([verification](verification.md)).
 > This page remains as the record of the original assignment.
 

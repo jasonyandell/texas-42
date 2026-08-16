@@ -1,0 +1,87 @@
+walt lesson certificate — schema-v1 — exploratory tier (never an axiom; TRUST-01)
+content-key hash: 547bfdc04a0e7a85
+canonical content (the identity projection — origin/trace/epoch excluded):
+  | content-key-v1
+  | verdict: refutation: value(decisive) >= value(tile(5-2)) at every matching (decision, world)
+  | labels: (C, minimax-omniscient)
+  | domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000
+  | cells:
+  |   beaters-total(0-0)<=3
+  |   beaters-total(0-0)>=3
+
+[1/11] kernel-reconstruction — coverage: CHECKED (receipt replay + preserved fiber machinery, walt/probes/exp5)
+  receipt: rob/receipts/verify_player.txt (read-only ground truth; pip-trump-only caveat)
+  origin decision: h4 S0 t4 p3 (regret conflict)
+  basin kernels (reconstruct each by replaying the named hand to the start of the named trick; the viewer's prefix is that trick's plays before the viewer):
+    h4 S0 t4 p3 decl P1 viewer-hand 4 pool-size 9
+
+[2/11] world-enumeration-count — coverage: CHECKED (preserved exact fiber enumeration/counting, walt/probes/exp5)
+  domain: receipt corpus, hands 0-12, all seats, tricks 3-6, fiber <= 40000 — 179 decisions / 924813 worlds, 29 in-range decisions EXCLUDED by the fiber cap (exclusion, never sampling)
+  control-bias annotation (S5c-m2, travels with every capped domain): the exclusion frontier is control-biased — fiber size anti-correlates with focal control (exp5 covariate), so the excluded set skews low-control
+    h4 S0 t4 p3: fiber 1680 matched-worlds 1680
+
+[3/11] field-and-belief — coverage: CHECKED (declaration well-formedness only; labels are declared, not computed)
+  lesson grade: worldwise at (C, minimax-omniscient); weighting-free
+  H-checker registry at emission: 0 registered
+  (C) rows: operator (C, minimax-omniscient); root weighting uniform-over-fiber
+  (H) rows: operator (H, fixed-uniform-legal); root weighting uniform-over-fiber; budget 100000000 particle-steps per decision; budget semantics: particle-steps-v1 (S5c-m2): one budget unit per (particle, node) visit; an over-budget solve returns nothing — exclusion, never sampling; cache: none (S5c-m2 recursive solver, no memoization) — the measurability envelope is part of the claim
+
+[4/11] policy-witness — coverage: UNCHECKED-EXTERNALLY (selector resolution has no registered independent implementation)
+    h4 S0 t4 p3 decisive 4-2: worse tile(5-2) -> 5-2 | better decisive -> 4-2
+
+[5/11] terminal-feature-law-scalar — coverage: (C) distributions CHECKED (preserved exp5 scalar PI solver) with the caveat that WORLD-ALIGNMENT IS UNCHECKED (a bug assigning pairs to wrong worlds while agreeing on the aggregate passes multiset comparison — masks implementation disagreement, never a false claim; record 9's per-world truth vectors carry matched-set membership); H rows UNCHECKED-EXTERNALLY (single-implementation: no independent re-derivation of these figures)
+  comparison protocol (declared): checker aggregates its own per-world rows to a multiset; multiset equality; asserts no pair has v_better < v_worse (win form: asserts every pair has v_action = v_optimum)
+  valuation: q_points (each trick worth 1 + count points of its four tiles, focal minus opponents), future-increment mode (§8.5)
+  (C) content per matched decision: exact distribution of (v_better, v_worse) over matched worlds, `pair -> count` — the per-world pairing is inside each element, so the multiset determines the worldwise verdict
+    h4 S0 t4 p3 [1680 worlds]: (-19,-19)x834 (-17,-17)x102 (-15,-15)x2 (3,-17)x77 (3,-15)x12 (3,3)x346 (5,-15)x28 (5,3)x5 (5,5)x156 (7,7)x118
+  (H) rows per fiber-valid applied decision (Q^H per legal action, exact rationals; envelope in record 3) — UNCHECKED-EXTERNALLY:
+    h4 S0 t4 p3 fiber 1680: 2-0=-2033891/362880 4-2=-345115/72576 5-2=-2377331/362880 5-5=-1240271/72576
+
+[6/11] rational-affine-segments — NOT-APPLICABLE (scalar lesson: one fixed integer valuation, no λ-parametric envelope; no affine segments exist to record)
+
+[7/11] breakpoint-continuity-witnesses — NOT-APPLICABLE (scalar lesson: no envelope, hence no breakpoints or continuity witnesses)
+
+[8/11] response-class-labels — coverage: CHECKED (declaration well-formedness only)
+  verdict: refutation: value(decisive) >= value(tile(5-2)) at every matching (decision, world)
+  quantifier shape: per matching (decision, world) at (C); at H the shape changes BY NECESSITY to ONE inequality Q^H(better) >= Q^H(worse) per matching decision, atom cells read fiber-valid
+
+[9/11] descriptor-truth-vectors — coverage: per cell (below); PER-WORLD truth vectors ('0'/'1') in canonical world order per matched decision; the `matched` vector is the conjunction — its popcount equals the matched-world count
+  decision h4 S0 t4 p3 (fiber 1680, canonical world order):
+    cell beaters-total(0-0)<=3 [UNCHECKED-EXTERNALLY (walt-native beater totals)] satisfied 1680/1680: 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+    cell beaters-total(0-0)>=3 [UNCHECKED-EXTERNALLY (walt-native beater totals)] satisfied 1680/1680: 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+    matched (all cells) 1680/1680: 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+
+[10/11] cell-purity-counterexample-witnesses — coverage: (C) witness value rows CHECKED (exp5 scalar PI solver); witness worlds are complete deals (reconstruction data)
+  initial implicant (25 cells): hand=4 & seat=S0 & decl=P1 & role=defending & horizon>=4 & horizon<=4 & ply=3 & beaters-total(0-0)=3 & beaters-total(1-1)=0 & beaters-total(2-1)=2 & beaters-total(2-2)=3 & beaters-total(4-0)=6 & beaters-total(4-3)=5 & beaters-total(4-4)=3 & beaters-total(5-1)=1 & beaters-total(5-4)=3
+  drop hand=4 -> dropped
+  drop seat=S0 -> dropped
+  drop beaters-total(0-0)>=3 -> dropped
+  drop beaters-total(0-0)<=3 -> dropped
+  drop beaters-total(1-1)>=0 -> dropped
+  drop beaters-total(1-1)<=0 -> dropped
+  drop beaters-total(2-1)>=2 -> dropped
+  drop beaters-total(2-1)<=2 -> dropped
+  drop beaters-total(2-2)>=3 -> dropped
+  drop beaters-total(2-2)<=3 -> dropped
+  drop beaters-total(4-0)>=6 -> dropped
+  drop beaters-total(4-0)<=6 -> dropped
+  drop beaters-total(4-3)>=5 -> dropped
+  drop beaters-total(4-3)<=5 -> dropped
+  drop beaters-total(4-4)>=3 -> dropped
+  drop beaters-total(4-4)<=3 -> dropped
+  drop beaters-total(5-1)>=1 -> dropped
+  drop beaters-total(5-1)<=1 -> dropped
+  drop beaters-total(5-4)>=3 -> dropped
+  drop beaters-total(5-4)<=3 -> dropped
+  drop decl=P1 -> dropped
+  introduce beaters-total(0-0)<=3 (cut refinement, distinct from drops) excluding witness h9 S3 t4 p1 world S0={1-1 2-0 2-1 2-2} S1={3-0 5-4 6-0 6-1} S2={6-2 6-5 6-6} S3={3-2 5-1 5-2 5-5} values 3-2=20 5-1=24 5-2=24 5-5=20
+  drop ply=3 -> dropped
+  introduce beaters-total(0-0)>=3 (cut refinement, distinct from drops) excluding witness h1 S0 t4 p2 world S0={3-3 5-0 5-2 5-3} S1={0-0 1-0 1-1 2-1} S2={3-0 4-0 6-6} S3={3-1 4-3 5-4} values 3-3=7 5-0=9 5-2=9 5-3=7
+  drop role=defending -> dropped
+  drop horizon>=4 -> dropped
+  drop horizon<=4 -> dropped
+  intro budget: 2/4 spent
+
+[11/11] information-price-segments — NOT-APPLICABLE (scalar lesson: no support-function price decomposition is part of this claim)
+
+coverage summary — this certificate claims only its checked subset. CHECKED: [kernel-reconstruction; world-enumeration-count; field-and-belief (well-formedness); response-class-labels (well-formedness); terminal-feature-law-scalar, (C) distributions (world-alignment unchecked — multiset comparison); descriptor-truth-vectors (exp3a-covered cells); cell-purity-counterexample-witnesses ((C) value rows)]. UNCHECKED-EXTERNALLY: [policy-witness; terminal-feature-law-scalar, H rows; descriptor-truth-vectors (walt-native beater cells)]. NOT-APPLICABLE: [rational-affine-segments, breakpoint-continuity-witnesses, information-price-segments].

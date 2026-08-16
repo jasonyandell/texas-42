@@ -1,0 +1,52 @@
+h0 S0 defending: regret 0 zero 5/5 dominated 0 dominance_pairs 6 verdict none
+h0 S1 declaring: regret 61/21 zero 4/5 dominated 1 dominance_pairs 5 verdict lost from t3 p3 under (C, minimax-omniscient) semantics, worldwise
+h0 S2 defending: regret 25/32 zero 4/5 dominated 0 dominance_pairs 2 verdict none
+h0 S3 declaring: regret 0 zero 5/5 dominated 0 dominance_pairs 5 verdict lost from t4 p2 under (C, minimax-omniscient) semantics, worldwise
+h1 S0 declaring: regret 2/3 zero 4/5 dominated 1 dominance_pairs 7 verdict none
+h1 S1 defending: regret 0 zero 5/5 dominated 0 dominance_pairs 3 verdict lost from t3 p3 under (C, minimax-omniscient) semantics, worldwise
+h1 S2 declaring: regret 119/88 zero 3/5 dominated 2 dominance_pairs 10 verdict none
+h1 S3 defending: regret 13/21 zero 4/5 dominated 0 dominance_pairs 0 verdict lost from t3 p1 under (C, minimax-omniscient) semantics, worldwise
+h2 S0 defending: regret 0 zero 5/5 dominated 0 dominance_pairs 5 verdict lost from t7 p3 under (C, minimax-omniscient) semantics, worldwise
+h2 S1 declaring: regret 0 zero 5/5 dominated 0 dominance_pairs 2 verdict none
+h2 S2 defending: regret 557/224 zero 3/5 dominated 2 dominance_pairs 4 verdict lost from t6 p3 under (C, minimax-omniscient) semantics, worldwise
+h2 S3 declaring: regret 319857/61600 zero 3/5 dominated 0 dominance_pairs 1 verdict none
+h3 S0 declaring: regret 0 zero 5/5 dominated 0 dominance_pairs 4 verdict none
+h3 S1 defending: regret 0 zero 5/5 dominated 0 dominance_pairs 3 verdict lost from t7 p1 under (C, minimax-omniscient) semantics, worldwise
+h3 S2 declaring: regret 541/240 zero 3/5 dominated 0 dominance_pairs 1 verdict none
+h3 S3 defending: regret 48351/39200 zero 3/5 dominated 1 dominance_pairs 6 verdict lost from t6 p3 under (C, minimax-omniscient) semantics, worldwise
+h4 S0 defending: regret 1163/840 zero 4/5 dominated 1 dominance_pairs 5 verdict lost from t6 p2 under (C, minimax-omniscient) semantics, worldwise
+h4 S1 declaring: regret 5407/672 zero 3/5 dominated 1 dominance_pairs 1 verdict none
+h4 S2 defending: regret 188/45 zero 4/5 dominated 0 dominance_pairs 0 verdict lost from t7 p1 under (C, minimax-omniscient) semantics, worldwise
+h4 S3 declaring: regret 8957/3360 zero 3/5 dominated 1 dominance_pairs 1 verdict none
+h5 S0 declaring: regret 729/85 zero 4/5 dominated 0 dominance_pairs 3 verdict none
+h5 S1 defending: regret 0 zero 5/5 dominated 0 dominance_pairs 2 verdict lost from t7 p3 under (C, minimax-omniscient) semantics, worldwise
+h5 S2 declaring: regret 4856/1225 zero 3/5 dominated 0 dominance_pairs 0 verdict none
+h5 S3 defending: regret 0 zero 5/5 dominated 0 dominance_pairs 4 verdict lost from t3 p1 under (C, minimax-omniscient) semantics, worldwise
+h6 S0 defending: regret 233/32 zero 4/5 dominated 0 dominance_pairs 1 verdict none
+h6 S1 declaring: regret 0 zero 5/5 dominated 0 dominance_pairs 0 verdict lost from t5 p2 under (C, minimax-omniscient) semantics, worldwise
+h6 S2 defending: regret 213/32 zero 4/5 dominated 0 dominance_pairs 2 verdict none
+h6 S3 declaring: regret 46973/17325 zero 3/5 dominated 0 dominance_pairs 5 verdict lost from t6 p1 under (C, minimax-omniscient) semantics, worldwise
+h7 S0 declaring: regret 4831/3675 zero 4/5 dominated 0 dominance_pairs 0 verdict lost from t3 p3 under (C, minimax-omniscient) semantics, worldwise
+h7 S1 defending: regret 0 zero 5/5 dominated 0 dominance_pairs 0 verdict none
+h7 S2 declaring: regret 9/32 zero 4/5 dominated 0 dominance_pairs 4 verdict lost from t4 p3 under (C, minimax-omniscient) semantics, worldwise
+h7 S3 defending: regret 3037/1050 zero 4/5 dominated 0 dominance_pairs 12 verdict none
+h8 S0 defending: regret 0 zero 5/5 dominated 0 dominance_pairs 0 verdict lost from t3 p3 under (C, minimax-omniscient) semantics, worldwise
+h8 S1 declaring: regret 16859/2400 zero 3/5 dominated 0 dominance_pairs 3 verdict none
+h8 S2 defending: regret 723/385 zero 4/5 dominated 0 dominance_pairs 5 verdict lost from t5 p3 under (C, minimax-omniscient) semantics, worldwise
+h8 S3 declaring: regret 0 zero 5/5 dominated 0 dominance_pairs 3 verdict none
+h9 S0 declaring: regret 0 zero 5/5 dominated 0 dominance_pairs 4 verdict lost from t7 p2 under (C, minimax-omniscient) semantics, worldwise
+h9 S1 defending: regret 0 zero 5/5 dominated 0 dominance_pairs 4 verdict none
+h9 S2 declaring: regret 13/9 zero 4/5 dominated 0 dominance_pairs 6 verdict none
+h9 S3 defending: regret 1269/1225 zero 4/5 dominated 0 dominance_pairs 7 verdict none
+h10 S0 defending: regret 0 zero 5/5 dominated 0 dominance_pairs 3 verdict lost from t4 p3 under (C, minimax-omniscient) semantics, worldwise
+h10 S1 declaring: regret 475763/70560 zero 3/5 dominated 0 dominance_pairs 0 verdict none
+h10 S2 defending: regret 1/16 zero 4/5 dominated 0 dominance_pairs 3 verdict lost from t5 p3 under (C, minimax-omniscient) semantics, worldwise
+h10 S3 declaring: regret 1333/13230 zero 4/5 dominated 0 dominance_pairs 1 verdict none
+h11 S0 declaring: regret 0 zero 5/5 dominated 0 dominance_pairs 3 verdict none
+h11 S1 defending: regret 8/5775 zero 4/5 dominated 1 dominance_pairs 9 verdict lost from t6 p1 under (C, minimax-omniscient) semantics, worldwise
+h11 S2 declaring: regret 47/32 zero 4/5 dominated 0 dominance_pairs 0 verdict none
+h11 S3 defending: regret 7142/825 zero 4/5 dominated 0 dominance_pairs 0 verdict lost from t6 p3 under (C, minimax-omniscient) semantics, worldwise
+h12 S0 defending: regret 0 zero 5/5 dominated 0 dominance_pairs 4 verdict none
+h12 S1 declaring: regret 303271/61600 zero 3/5 dominated 0 dominance_pairs 0 verdict lost from t4 p0 under (C, minimax-omniscient) semantics, worldwise
+h12 S2 defending: regret 4282/5775 zero 4/5 dominated 0 dominance_pairs 1 verdict none
+h12 S3 declaring: regret 2441/735 zero 4/5 dominated 0 dominance_pairs 2 verdict lost from t3 p3 under (C, minimax-omniscient) semantics, worldwise

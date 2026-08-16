@@ -1,0 +1,63 @@
+walt separation probe — Experiment E (decision-sparse track) — exploratory tier
+rulings: SEP-A1..SEP-A18; freezes 36, 37 (walt/CENSUS-RULINGS.md 2026-08-13); design walt/SEPARATION-PROBE.md; mathematics: errata Lemma E3, Lemma E4, Corollary E4.1, Theorem E6.4 (DS-A17 citation rule)
+regenerate: cargo run --release -p walt-factory --example separation_probe
+
+PRIMAL CEILING (SEP-A2, verbatim): the primal witness at each H-optimal action is an H-optimal policy re-priced by the fixed-policy evaluator, so L = Q^H by Corollary E4.1(2); the separation verdict at this coordinate is determined entirely by the upper witness.
+PROVENANCE TYPING (SEP-A12): the separation's validity does not cite H, but this run's witnesses were produced with H's help — L's seed is an H solve and receipts R1-R4 are H cross-checks; the logic of Theorem E6.4 is H-free, the provenance of these witnesses is not.
+BUDGET HONESTY (freeze 44): the scalar authority is budgeted (freeze 26, 200000000 particle-steps) and its exhaustion is a declared stop; the walk-based evaluators carry declared budgets under freeze 44; in this run every declared budget was asserted non-binding and every residual asserted strictly positive.
+SCOPE: this run is a certification probe, not a library harvest (six of the seven S6b singleton roots collapse by indifference); the n=4 rung is out of v1 scope (SEP-A10). No cost, timing, runtime or tractability claim of any kind (SEP-A15(iii)); wall-clock below is provenance only.
+FENCE (R-A2, SEP-A1): the fiber is the void-free capacity fiber; its members are FEASIBLE and never reachable; no object here is identity-bearing and none asserts that any state arises in play. Relaxation naming (SEP-A6(b)): on this carrier the latent is xi = omega, so treatment C and the document's C+ coincide.
+
+== coord idx=0 pip=0 (derived, never a key component) trump=0 hand=[00 10 11] |X|=1680 enumeration=freeze-7/23 ==
+  authority: gate MET (dag-v1 steps 468528, boundary hits 43822)
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R4 S6a cross-check: Q^H per action and aggregate gap equal the filed S6a values exactly (frozen table, count convention, freeze-26 bridge) — HELD
+  aggregate gap V^F - V^H = 9301/120960 (count convention). ONE-SIDED SCREEN (SEP-A15(i)): this column licenses only Corollary E3.2's zero case; when nonzero, U_a <= V^H + gap never establishes U_a <= V^H, and gap-versus-headroom comparisons are not evidence in either direction.
+  V^H = 53/21 (count); H-optimal set {00}
+  R3 measurement root 00: Q^H = 53/21  U = 53/21  price U - Q^H = 0  (count convention)
+  R3 measurement root 10: Q^H = 355/168  U = 1019/480  price U - Q^H = 11/1120  (count convention)
+  R3 measurement root 11: Q^H = 16319/6720  U = 16783/6720  price U - Q^H = 29/420  (count convention)
+  root 00: candidate extracted (50712 states, 384 with genuine choice; freeze-26 tie rule); library entry written; R2 primal receipt L = Q^H = 53/21 — HELD; R5 max-freedom counted receipt: 22920 focal callback invocations = 22920 singleton expansions = 22920 distinct partition states reached (of 50712 in the partition; a fixed policy prunes counterfactual branches) — HELD
+    SEP-A19(b) typing: reached 22920 of partition 50712 — the reached count is an exact computational observable of the EXHIBITED witness, tie-break-relative to freeze 26, never a term in the DS-A2 ladder; the partition count is the tie-break-free quantity E_B(a) (§10.9). Their ratio is not a measurement and is not printed.
+  pair (a*=00, a=10): L = 53/21  U = 1019/480  margin L - U = 449/1120  -> SEPARATED
+  pair (a*=00, a=11): L = 53/21  U = 16783/6720  margin L - U = 59/2240  -> SEPARATED
+  VERDICT: root action 00 SEPARATED against every competitor — 00 is in Opt^H at this coordinate. Receipt: the action lies in H's argmax (asserted). MEMBER-NOT-SET (Theorem E6.4, verbatim): non-strict separation certifies membership in the optimal set and never uniqueness.
+  THESIS SCOPE (SEP-A15(ii)), two sentences, neither stands for the other: (1) a SEPARATED verdict here demonstrates the Pareto frontier at the competing leads — which S6b could not complete (PG-A13, cap 16384) — is not needed for the root decision. (2) This run does NOT test the parent's economy claim ["the solver does not need an exact solution for every action"]: it computes the exact H solve at every action because DS-A10's receipts require it; the economy experiment is SEP-A17's successor.
+
+== coord idx=1299709 pip=0 (derived, never a key component) trump=0 hand=[21 22 63] |X|=1680 enumeration=freeze-7/23 ==
+  authority: gate MET (dag-v1 steps 1033720, boundary hits 76567)
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R4 S6a cross-check: Q^H per action and aggregate gap equal the filed S6a values exactly (frozen table, count convention, freeze-26 bridge) — HELD
+  aggregate gap V^F - V^H = 2663/181440 (count convention). ONE-SIDED SCREEN (SEP-A15(i)): this column licenses only Corollary E3.2's zero case; when nonzero, U_a <= V^H + gap never establishes U_a <= V^H, and gap-versus-headroom comparisons are not evidence in either direction.
+  V^H = 43/42 (count); H-optimal set {22}
+  R3 measurement root 21: Q^H = 1  U = 1  price U - Q^H = 0  (count convention)
+  R3 measurement root 22: Q^H = 43/42  U = 43/42  price U - Q^H = 0  (count convention)
+  R3 measurement root 63: Q^H = 127/126  U = 127/126  price U - Q^H = 0  (count convention)
+  root 22: candidate extracted (134190 states, 6018 with genuine choice; freeze-26 tie rule); library entry written; R2 primal receipt L = Q^H = 43/42 — HELD; R5 max-freedom counted receipt: 76950 focal callback invocations = 76950 singleton expansions = 76950 distinct partition states reached (of 134190 in the partition; a fixed policy prunes counterfactual branches) — HELD
+    SEP-A19(b) typing: reached 76950 of partition 134190 — the reached count is an exact computational observable of the EXHIBITED witness, tie-break-relative to freeze 26, never a term in the DS-A2 ladder; the partition count is the tie-break-free quantity E_B(a) (§10.9). Their ratio is not a measurement and is not printed.
+  pair (a*=22, a=21): L = 43/42  U = 1  margin L - U = 1/42  -> SEPARATED
+  pair (a*=22, a=63): L = 43/42  U = 127/126  margin L - U = 1/63  -> SEPARATED
+  VERDICT: root action 22 SEPARATED against every competitor — 22 is in Opt^H at this coordinate. Receipt: the action lies in H's argmax (asserted). MEMBER-NOT-SET (Theorem E6.4, verbatim): non-strict separation certifies membership in the optimal set and never uniqueness.
+
+== coord idx=2599418 pip=0 (derived, never a key component) trump=0 hand=[11 22 42] |X|=1680 enumeration=freeze-7/23 ==
+  authority: gate MET (dag-v1 steps 675010, boundary hits 78000)
+  R1 solver identification: envelope H == scalar authority, per action, exactly, no bridge — HELD (3 actions)
+  R4 S6a cross-check: Q^H per action and aggregate gap equal the filed S6a values exactly (frozen table, count convention, freeze-26 bridge) — HELD
+  aggregate gap V^F - V^H = 23/420 (count convention). ONE-SIDED SCREEN (SEP-A15(i)): this column licenses only Corollary E3.2's zero case; when nonzero, U_a <= V^H + gap never establishes U_a <= V^H, and gap-versus-headroom comparisons are not evidence in either direction.
+  V^H = 15/14 (count); H-optimal set {11, 22}
+  R3 measurement root 11: Q^H = 15/14  U = 15/14  price U - Q^H = 0  (count convention)
+  R3 measurement root 22: Q^H = 15/14  U = 15/14  price U - Q^H = 0  (count convention)
+  R3 measurement root 42: Q^H = 43/42  U = 43/42  price U - Q^H = 0  (count convention)
+  root 11: candidate extracted (109788 states, 8748 with genuine choice; freeze-26 tie rule); library entry written; R2 primal receipt L = Q^H = 15/14 — HELD; R5 max-freedom counted receipt: 59268 focal callback invocations = 59268 singleton expansions = 59268 distinct partition states reached (of 109788 in the partition; a fixed policy prunes counterfactual branches) — HELD
+    SEP-A19(b) typing: reached 59268 of partition 109788 — the reached count is an exact computational observable of the EXHIBITED witness, tie-break-relative to freeze 26, never a term in the DS-A2 ladder; the partition count is the tie-break-free quantity E_B(a) (§10.9). Their ratio is not a measurement and is not printed.
+  root 22: candidate extracted (98628 states, 7146 with genuine choice; freeze-26 tie rule); library entry written; R2 primal receipt L = Q^H = 15/14 — HELD; R5 max-freedom counted receipt: 59268 focal callback invocations = 59268 singleton expansions = 59268 distinct partition states reached (of 98628 in the partition; a fixed policy prunes counterfactual branches) — HELD
+    SEP-A19(b) typing: reached 59268 of partition 98628 — the reached count is an exact computational observable of the EXHIBITED witness, tie-break-relative to freeze 26, never a term in the DS-A2 ladder; the partition count is the tie-break-free quantity E_B(a) (§10.9). Their ratio is not a measurement and is not printed.
+  pair (a*=11, a=22): L = 15/14  U = 15/14  margin L - U = 0  -> SEPARATED
+  pair (a*=11, a=42): L = 15/14  U = 43/42  margin L - U = 1/21  -> SEPARATED
+  VERDICT: root action 11 SEPARATED against every competitor — 11 is in Opt^H at this coordinate. Receipt: the action lies in H's argmax (asserted). MEMBER-NOT-SET (Theorem E6.4, verbatim): non-strict separation certifies membership in the optimal set and never uniqueness.
+  pair (a*=22, a=11): L = 15/14  U = 15/14  margin L - U = 0  -> SEPARATED
+  pair (a*=22, a=42): L = 15/14  U = 43/42  margin L - U = 1/21  -> SEPARATED
+  VERDICT: root action 22 SEPARATED against every competitor — 22 is in Opt^H at this coordinate. Receipt: the action lies in H's argmax (asserted). MEMBER-NOT-SET (Theorem E6.4, verbatim): non-strict separation certifies membership in the optimal set and never uniqueness.
+
+total wall-clock (provenance only, never a dividend): 4059 ms
+run complete: yes

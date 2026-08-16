@@ -3,6 +3,11 @@
 Orientation for a fresh session. The [wiki](wiki/Home.md) is the reference; this page
 is the on-ramp. Read this, then follow links only as your task needs them.
 
+**New to 42 itself, or want the plain-language version of what this project knows?**
+Read [the game of 42, mathematically](wiki/game-of-42.md) — the game, what has been
+proved and measured about it, and what can be done with it now, written for a
+technical reader who has never played. This page assumes that vocabulary.
+
 ## What this project is
 
 Solve straight points-and-marks Texas 42 as an imperfect-information game, on
@@ -12,15 +17,16 @@ them. Why this project exists at all: [lineage](wiki/lineage.md) — the prior p
 (mk5) hit "the wall" (E[Q] players that can't hold a plan), and this repo answers it
 with exact information-set machinery.
 
-## The five layers
+## The six layers
 
 | Layer | What it is | Touch it? |
 |---|---|---|
 | `ingest/` | Two immutable spec packages, **v0.7** and **rec** | **Never modify.** Each has a verifying `MANIFEST.sha256` |
 | `wiki/` | Reconciled map: what's proved, at what tier, what's open | Yes — it's the living synthesis |
-| `rob/` | The Rust engine: executable spec + byte-diffed receipts, the evening player v0, the HTML inspector | Yes, per its BRIEFs |
+| `rob/` | The Rust engine: executable spec + byte-diffed receipts, the evening player v0, the HTML inspector. Artifact guide: [rob](wiki/rob.md) | Yes, per its BRIEFs |
+| `walt/` | The imperfect-information **seat** — the player that acts from one chair, on its own frozen exploratory bases. Hub: [walt](wiki/walt.md) | Yes, per `walt/PLAN.md` — but **everything under it is exploratory tier**, below every tier below |
 | `exchange/` | Courier channel to ChatGPT 5.6 Pro for adversarial research; dispatches authorized in batches, quota agreed per batch (count in `exchange/submission_count.txt`; batch ceiling `HARD_CAP` in `automation/submit.mjs`) | Per [pro-exchange protocol](exchange/README.md) |
-| `lean/` | Lean 4 + mathlib kernel formalization — all 42 priority-0 rows kernel-proved (2026-08-02) | Yes, per [lean/PROOFS.md](lean/PROOFS.md) |
+| `lean/` | Lean 4 + mathlib kernel formalization — all 42 priority-0 rows kernel-proved (2026-08-02). Artifact guide: [lean](wiki/lean.md) | Yes, per [lean/PROOFS.md](lean/PROOFS.md) |
 
 ## Non-negotiables (every session, every task)
 
@@ -37,10 +43,12 @@ with exact information-set machinery.
   under v0.7's type discipline. Concretely: derived views, never stored cells;
   reachability proof-irrelevant (no identity-bearing certificates); say "necessary
   outer profile," never "certificate"; no floats near ranks or probabilities.
-- **Exploratory stays exploratory**: [ideas](wiki/ideas.md) and
-  [analysis](wiki/analysis.md) sit below every tier and are cited by nothing above
-  them. Probe numbers may not be quoted as results without promotion by brief
-  amendment.
+- **Exploratory stays exploratory**: [ideas](wiki/ideas.md),
+  [analysis](wiki/analysis.md), [field/](wiki/field/Home.md) and everything under
+  [walt/](wiki/walt.md) sit below every tier and are cited by nothing above them.
+  Probe numbers may not be quoted as results without promotion by brief amendment.
+  A walt number never appears in a brief, a dispatch, [FINDINGS](wiki/FINDINGS.md),
+  or any claim-tier page.
 
 ## The mathematical object, in one breath
 
@@ -63,11 +71,12 @@ shortcut. The minimal exact decision state is the reduced viewer kernel, proved
 strictly finer than the true quotient via the dead-cut lemma
 ([reduced-viewer-kernel](wiki/reduced-viewer-kernel.md), x:003).
 
-## Current state (2026-08-03)
+## Current state (2026-08-13)
 
-- **rob slices 01+02 green**: eleven byte-diffed receipts reproducing every ingest
+- **rob slices 01+02 green**: twelve byte-diffed receipts reproducing every ingest
   number, plus the x:001 floor family (S10). Full inventory:
-  [verification](wiki/verification.md). CI: `rob/ci/check.sh`.
+  [verification](wiki/verification.md); artifact guide: [rob](wiki/rob.md). CI:
+  `rob/ci/check.sh`.
 - **Player track P1–P5 green**: evening player v0 (fixed-field Monte Carlo best
   response on exact fiber sampling) beats baseline **net +718** over 200 mirrored
   hands (`r_mat_paired`). The inspector (`rob/inspector/`) shows every decision's
@@ -87,7 +96,21 @@ strictly finer than the true quotient via the dead-cut lemma
   90-world witness internalized whole; no `sorry`, no `native_decide`, standard
   axioms only) — plus the constellation thread's self-contained Stage 1/2 files
   (x:013/x:015, not yet reconciled with the main layers).
-  [proof-assistant-plan](wiki/proof-assistant-plan.md) has the scoreboard.
+  [proof-assistant-plan](wiki/proof-assistant-plan.md) has the scoreboard;
+  [lean](wiki/lean.md) is the artifact guide.
+- **walt: sessions S1–S6d complete, all exploratory** ([walt hub](wiki/walt.md);
+  the arc and its six direction resets are at [walt-program](wiki/walt-program.md)).
+  Established negatively — the seat's opening situation space does not compress,
+  neither structurally (the first-play quotient is the identity, so the count is
+  exactly C(28,7) = 1,184,040) nor linearly (the value closure saturates by grade
+  three), both from 42's public-attribution structure. Measured positively — the
+  *decision* side collapses where the value side does not: about half of mid-game
+  free decisions are one-deviation ties, proved one-sided detectors certify roughly
+  a third of them with zero false positives over 174M calls, and the root action
+  has now been certified exactly at three coordinates. The refutations are
+  first-class findings at [walt-negative-results](wiki/walt-negative-results.md);
+  before building anything under `walt/`, read
+  [walt-instruments](wiki/walt-instruments.md) so you don't rebuild what exists.
 
 ## The live frontier
 
@@ -103,6 +126,14 @@ strictly finer than the true quotient via the dead-cut lemma
   [hierarchical-fibers](wiki/idea-hierarchical-fibers.md) idea aimed at it
   (round 1 complete: rung 1 priced, rung 2 falsified as stated, rung 3 realized
   via decomposable bounds — see the idea page).
+- **walt's live track — the economy claim** (exploratory tier,
+  [walt-decision-sparse](wiki/walt-decision-sparse.md)): the target has moved from
+  compressing truth to *proving the root action* by sandwiching a lawful lower
+  witness against an action-conditioned upper witness. Experiments A and E are
+  complete; the open question is whether the sandwich still closes when the witness
+  it starts from is **not** itself an exact solve. Note that walt's design method is
+  adjudicate-before-build — every probe goes to a mathematics consultant as a design
+  document, with declared receipts and a declared failure criterion, before code.
 - **rob slice 03 targets**: reproduce x:007 (filtered census) and x:008 (no-void
   slice) in Rust; the belief/filtering layer with the 90-world regression is the
   unassigned slice 6 ([first-implementation-slice](wiki/first-implementation-slice.md)).
@@ -117,8 +148,24 @@ strictly finer than the true quotient via the dead-cut lemma
   discipline controls (D1/D2).
 - x:001's "exactly 559,316,142" is a grammar-subfamily count, not the no-void slice
   (D17). One exchange panel (REACH-20) was 2/3 SOUND, not 3/3 — carry the dissent.
-- Frozen generator values (`FROZEN_WITH_VOIDS` 970, the `verify_player` transcript)
-  are rob-internal determinism freezes, **not** ingest numbers.
+- Frozen generator values (`FROZEN_WITH_VOIDS` 970, the `verify_player` and
+  `verify_rob` transcripts) are rob-internal determinism freezes, **not** ingest
+  numbers.
+- **`rob/ci/check.sh` is an hours-long job, not a quick check.** It regenerates and
+  byte-diffs every receipt, and `verify_rob` alone re-derives a 44,722,908,161-state
+  census, checks 58,609,267 solver nodes, and round-trips 6,001,465,196 canonical
+  plan-book bytes. A run observed on 2026-08-13 passed four hours of CPU and was
+  still going. It is not hung — that is what the gate costs. Budget for it, and
+  don't start one casually late in a session. (`walt/ci/check.sh` is a different and
+  much cheaper gate; don't confuse the two.)
+- **In `walt/`, the results files outrank the prose.** Several headline numbers in
+  the session log disagree with the artifacts they cite — a coordinate count, a
+  detector timing that appears in no results file because that run was resumed, a
+  receipt-row count, a speedup ratio that does not recompute. The wiki pages use the
+  file values; the seven known cases are listed at the foot of
+  [walt-s6-era](wiki/walt-s6-era.md) and in the era pages. Check the artifact before
+  quoting a walt number.
 
 For the full assessment — strongest results ranked, suspicious spots, what to build
-next — read [FINDINGS](wiki/FINDINGS.md).
+next — read [FINDINGS](wiki/FINDINGS.md). For the human-facing account of the game
+and what can be done with it, read [game-of-42](wiki/game-of-42.md).

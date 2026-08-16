@@ -1,0 +1,54 @@
+walt SS SEED SURVEY — FILED CUT A (SS-A16(i)): within-coordinate |I_1| rank of the unique-optimal action
+promoted by SS-A16 from a scratch cut; derived ENTIRELY from the committed thin summary
+source artifact: walt/walt-factory/results/seed_survey_2026-08-15.txt (SHA-256 03da2b3d5e96cf283fcd50f7e46f480c0f20090ec1da5240aebdb688f7d0492b, 703 lines) — no checkpoint, companion, or re-run is consulted
+tier: exploratory (SS-A1), cited by nothing above it; P-A21 binds — nothing here is quoted for trick 1 or the opening
+
+NAMED PREDICATE. For each seed whose four units contain exactly one UNIQUE-OPTIMAL verdict
+(85 of the 100 seeds; the 15 seeds whose optimum is TIED are excluded because they have no
+single optimal unit to rank), rank that seed's four units by |I_1| ascending (depth-one
+frontier state count, the unit row's own field) and record the rank of the unique-optimal unit.
+
+SCOPE (FF-A18 as generalised): ranges over the 85 unique-optimal seeds of this survey's 100,
+four units each, within-coordinate only — the ranking never compares across seeds, so
+between-coordinate |I_1| variation cannot enter.
+
+TIES ARE REAL AND THE CONVENTION IS PART OF THE PREDICATE. 33 of the 85 seeds carry at least
+one within-seed |I_1| tie between units, and the unique-optimal unit is itself party to a tie
+at 20 seeds (equal |I_1| arises naturally: two leads from the same hand can face identical
+frontier counts). A rank statistic that does not name its tie convention is input-order-
+dependent — the scratch version of this cut printed [45, 22, 11, 7], which is such an
+artifact and is superseded by this file. Both lawful conventions are printed; a reading must
+survive both or state the disagreement (the SS-A10(iv) principle applied to this cut).
+
+THE HISTOGRAMS (exact integer counts, rank 1 = smallest frontier of the four; uniform
+baseline 85/4 = 21.25 per rank):
+  ties -> BEST rank  (competition rank):  rank 1: 50   rank 2: 19   rank 3: 11   rank 4: 5
+  ties -> WORST rank:                     rank 1: 37   rank 2: 28   rank 3: 11   rank 4: 9
+  Both are monotone decreasing. Rank 1 sits at 50/85 (2.35x uniform) under ties-best and
+  37/85 (1.74x uniform) under ties-worst; rank 4 at 5/85 (0.24x) and 9/85 (0.42x).
+
+READING (SS-A16(i), surviving both conventions): the unique-optimal root action is the
+smallest-frontier action of its own four far above chance — between 43.5% and 58.8% of seeds
+depending on tie convention, against a 25% uniform baseline — and the full rank histogram is
+monotone decreasing under either convention. This is the within-coordinate form of
+SS-A15(iv)'s observation and removes between-coordinate composition as an explanation.
+
+CAUSAL CAVEAT, attached per SS-A16(ii) and travelling with every quotation of this cut:
+|I_1| almost certainly does not CAUSE quality. Both are plausibly effects of a third thing —
+an action that constrains the field's legal sets yields fewer distinct continuations AND tends
+to be strong (leading trump forces follows is the obvious case). The statistic is a correlate
+of a play type, not a measure of merit. That is not a demotion: a correlate computable
+without solving is exactly what an instrument is.
+
+USE (SS-A16(i)): a move-ordering statistic for bound-based (branch-and-bound style) search.
+Ordering quality is the dominant lever on pruning yield; a solve-free statistic that ranks
+the optimal action first well above baseline is the input that scheme needs. It says WHAT
+ORDER TO TRY ACTIONS; count-interval bounds (the count-pruning thread) say WHAT MAY BE
+EXCISED; the two compose and neither was designed with the other in mind.
+
+REGENERATION (deterministic, from the committed thin summary alone): parse each
+"unit seed=NNN a=[..] verdict=... |I_1|=N" row of seed_survey_2026-08-15.txt; group by seed;
+keep seeds with exactly one UNIQUE-OPTIMAL unit; for that unit compute competition rank
+(count of strictly smaller |I_1| values, plus one) and worst rank (count of smaller-or-equal
+values); histogram both. The tie censuses above (33 seeds, 20 with the optimal unit tied)
+regenerate from the same rows.

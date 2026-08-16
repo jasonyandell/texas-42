@@ -1,0 +1,13 @@
+walt separation n4 §5 measured rung — COST MODEL INPUT — exploratory tier
+regenerate: cargo run --release -p walt-factory --example separation_probe -- n4-rung (M_MAX_GIB env, run-owner declared)
+TYPING (DS-A32, DS-A33, SEP-A15(iii), verbatim from the design): this rung is a cost model input. It produces no ratio, compares no arm against any other arm, and is not a dividend. Its walk-step counts are exact deterministic observables and are load-invariant; its wall-clock and resident-size figures are load-relative provenance and are quotable as nothing. No number in this rung is a result about the game. Because the rung contains a single arm and forms no ratio, DS-A32's contention bias has nothing to bias — stated so the absence of a CONTENDED label is not read as an exemption.
+selection (freeze 44(e), declared in advance, never by result): first coordinate h0; first root action ascending; world sample = fiber indices (i*g mod 34650) for i = 0..15 with g = 15485863; W = 1. M_max = 40 GiB (run-owner declaration, N4-A4).
+unit: h0, root action 00 (first ascending)
+revealed per-world walk-steps (traversal: revealed one-world, all four root actions per world; 16 sampled worlds): min 41727, max 321206, sum 1998156
+pre-declared extrapolation (ESTIMATE, not a measurement of the unit): whole-fiber revealed walk-steps ~= sum * 34650 / 16 = 69236105400 / 16 = 4327256587 (observed per-world spread 41727..321206 printed so the width is visible)
+partition (traversal: partition build): STOPPED — states 0, walk-steps 10000000000, cap_hit true
+provenance (load-relative, quotable as nothing): revealed sample wall 343 ms; partition wall 58075 ms; extraction+L wall 0 ms; process resident size 2797840 KiB
+gate arithmetic (cost-model inputs, licensing nothing): est whole-fiber revealed steps 4327256587 vs 4B = 40000000000; partition states 0 vs P_max = 32000000; est h0 unit wall 800884 ms; est largest-unit (h9, scaled by quoted tree-v0 ratio) wall 3482961 ms vs 600000 ms; resident 2797840 KiB vs M_max 40 GiB
+GO/NO-GO: NO-GO — gate failure is FILED AS A RESULT (F7); the declared fallback is the reduced rung {h6, h4, h8} (N4-A12), and a second gate failure returns to the rulings file
+total wall-clock: 58424 ms
+run complete: yes
