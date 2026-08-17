@@ -658,79 +658,117 @@ fn play_game(
             host.boundary_played = trick_start_played;
             host.boundary_hand_size = 7 - completed;
             let level1_here = seat == VIEWER || all_level1;
-            let (chosen, opts, walt): (u8, Vec<(u8, BigRational)>, bool) = if level1_here
-                && legal.count_ones() > 1
-            {
-                // Level-1 evaluation over a fresh belief sample from this
-                // seat's chair: own hand, record, observed voids. T1 seats
-                // maximize pmake, T0 seats minimize it.
-                let maximize = seat.team() == Team::T1;
-                let sizes = host.hand_sizes_at(&key);
-                let worlds = sample_belief(seat_i, hand, played, sizes, voids, n_outer, &mut rng);
-                let mut solver = Solver::new(
-                    dcl,
-                    seat,
-                    hand,
-                    maximize,
-                    worlds,
-                    Vec::new(),
-                    FieldModel::Policy,
-                    trick_start_played,
-                    7 - completed,
-                    n0,
-                    deadline,
-                );
-                let mut opts: Vec<(u8, BigRational)> = Vec::new();
-                let mut lm = legal;
-                while lm != 0 {
-                    let t = lm.trailing_zeros() as u8;
-                    lm &= lm - 1;
-                    let tile = Domino::from_index(usize::from(t)).expect("tile");
-                    let child = solver.child_after_play(&key, tile, 0);
-                    opts.push((t, solver.solve(&child)?));
-                }
-                let chosen = opts
-                    .iter()
-                    .cloned()
-                    .reduce(|best, cand| {
-                        let better = if maximize {
-                            cand.1 > best.1
-                        } else {
-                            cand.1 < best.1
-                        };
-                        if better {
-                            cand
-                        } else {
-                            best
+            let (chosen, opts, walt): (u8, Vec<(u8, BigRational)>, bool) =
+                if level1_here && legal.count_ones() > 1 {
+                    // Level-1 evaluation over a fresh belief sample from this
+                    // seat's chair: own hand, record, observed voids. T1 seats
+                    // maximize pmake, T0 seats minimize it.
+                    //
+                    // Saturation tie-break ("look closer"): a value of 1 on a
+                    // small sample only means UNBEATEN IN THE SAMPLE — it cannot
+                    // distinguish the master trump (can't lose in any world)
+                    // from a lead that merely got lucky (support != belief).
+                    // When options tie at the top, re-evaluate ONLY the tied
+                    // ones on a 4x fresh sample, repeat up to 16x; certainty
+                    // that is real survives scrutiny.
+                    let maximize = seat.team() == Team::T1;
+                    let sizes = host.hand_sizes_at(&key);
+                    let evaluate = |tiles: &[u8], n: usize, rng: &mut SplitMix64| {
+                        let worlds = sample_belief(seat_i, hand, played, sizes, voids, n, rng);
+                        let mut solver = Solver::new(
+                            dcl,
+                            seat,
+                            hand,
+                            maximize,
+                            worlds,
+                            Vec::new(),
+                            FieldModel::Policy,
+                            trick_start_played,
+                            7 - completed,
+                            n0,
+                            deadline,
+                        );
+                        let mut out: Vec<(u8, BigRational)> = Vec::new();
+                        for &t in tiles {
+                            let tile = Domino::from_index(usize::from(t)).expect("tile");
+                            let child = solver.child_after_play(&key, tile, 0);
+                            match solver.solve(&child) {
+                                Some(v) => out.push((t, v)),
+                                None => return None,
+                            }
                         }
-                    })
-                    .expect("legal play")
-                    .0;
-                (chosen, opts, seat == VIEWER)
-            } else if legal.count_ones() == 1 {
-                (legal.trailing_zeros() as u8, Vec::new(), false)
-            } else {
-                // Field: the level-0 policy on its true hand, options logged.
-                let opts = host.pi0_evaluate(&key, seat, hand, legal)?;
-                let chosen = opts
-                    .iter()
-                    .cloned()
-                    .reduce(|best, cand| {
-                        let better = if seat.team() == Team::T1 {
-                            cand.1 > best.1
+                        Some(out)
+                    };
+                    let all_tiles = mask_bits(legal);
+                    let mut opts = evaluate(&all_tiles, n_outer, &mut rng)?;
+                    let mut n_cur = n_outer;
+                    loop {
+                        let best = if maximize {
+                            opts.iter().map(|(_, v)| v.clone()).max()
                         } else {
-                            cand.1 < best.1
-                        };
-                        if better {
-                            cand
-                        } else {
-                            best
+                            opts.iter().map(|(_, v)| v.clone()).min()
                         }
-                    })
-                    .expect("legal play")
-                    .0;
-                (chosen, opts, false)
-            };
+                        .expect("legal play");
+                        let tied: Vec<u8> = opts
+                            .iter()
+                            .filter(|(_, v)| *v == best)
+                            .map(|(t, _)| *t)
+                            .collect();
+                        if tied.len() == 1 || n_cur >= n_outer * 16 {
+                            break;
+                        }
+                        n_cur *= 4;
+                        let refined = evaluate(&tied, n_cur, &mut rng)?;
+                        for (t, v) in refined {
+                            let slot = opts
+                                .iter_mut()
+                                .find(|(ot, _)| *ot == t)
+                                .expect("tied tile present");
+                            slot.1 = v;
+                        }
+                    }
+                    let chosen = opts
+                        .iter()
+                        .cloned()
+                        .reduce(|best, cand| {
+                            let better = if maximize {
+                                cand.1 > best.1
+                            } else {
+                                cand.1 < best.1
+                            };
+                            if better {
+                                cand
+                            } else {
+                                best
+                            }
+                        })
+                        .expect("legal play")
+                        .0;
+                    (chosen, opts, seat == VIEWER)
+                } else if legal.count_ones() == 1 {
+                    (legal.trailing_zeros() as u8, Vec::new(), false)
+                } else {
+                    // Field: the level-0 policy on its true hand, options logged.
+                    let opts = host.pi0_evaluate(&key, seat, hand, legal)?;
+                    let chosen = opts
+                        .iter()
+                        .cloned()
+                        .reduce(|best, cand| {
+                            let better = if seat.team() == Team::T1 {
+                                cand.1 > best.1
+                            } else {
+                                cand.1 < best.1
+                            };
+                            if better {
+                                cand
+                            } else {
+                                best
+                            }
+                        })
+                        .expect("legal play")
+                        .0;
+                    (chosen, opts, false)
+                };
             let tile = Domino::from_index(usize::from(chosen)).expect("tile");
             if pos == 0 {
                 led = Some(dcl.led_context(tile));
