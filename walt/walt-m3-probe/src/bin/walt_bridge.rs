@@ -754,6 +754,58 @@ struct Config {
     n_declare: usize,
 }
 
+/// Debug instrumentation: when WALT_BRIDGE_LOG is set, append one JSON line
+/// per non-forced decision (per-PID file suffix; the arena runs a pool).
+/// Basis points only — display-side division, no floats here.
+fn log_decision(
+    nums: &[usize],
+    st: &Replayed,
+    viewer_i: usize,
+    opts: &[(u8, BigRational)],
+    choice: u8,
+) {
+    let Ok(base) = std::env::var("WALT_BRIDGE_LOG") else {
+        return;
+    };
+    let path = format!("{base}.{}", std::process::id());
+    let bp = |v: &BigRational| -> u32 {
+        let s = (v * BigRational::from_integer(BigInt::from(10_000)))
+            .to_integer()
+            .to_string();
+        s.parse().unwrap_or(0)
+    };
+    let o: Vec<String> = opts
+        .iter()
+        .map(|(t, v)| format!("[{t},{}]", bp(v)))
+        .collect();
+    let hist: Vec<String> = nums[11..].iter().map(|x| x.to_string()).collect();
+    let line = format!(
+        "{{\"seat\":{},\"decl\":{},\"bidder\":{},\"viewer_internal\":{viewer_i},\"n_hist\":{},\"completed\":{},\"banked_t1\":{},\"banked_t0\":{},\"choice\":{choice},\"opts\":[{}],\"hand\":[{}],\"hist\":[{}]}}",
+        nums[0],
+        nums[1],
+        nums[2],
+        nums[10],
+        st.completed,
+        st.banked_t1,
+        st.banked_t0,
+        o.join(","),
+        nums[3..10]
+            .iter()
+            .map(|x| x.to_string())
+            .collect::<Vec<_>>()
+            .join(","),
+        hist.join(",")
+    );
+    use std::io::Write as _;
+    if let Ok(mut f) = std::fs::OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(&path)
+    {
+        let _ = writeln!(f, "{line}");
+    }
+}
+
 fn decide(nums: &[usize], cfg: &Config) -> (usize, usize, u8, u8) {
     assert!(nums.len() >= 11, "request needs seat decl bidder h0..h6 n");
     let dcl = decl_of(nums[1]);
@@ -814,7 +866,11 @@ fn decide(nums: &[usize], cfg: &Config) -> (usize, usize, u8, u8) {
             cfg.per_move_secs,
             &mut rng,
         ) {
-            Some(opts) => best_of(&opts, seat.team() == Team::T1),
+            Some(opts) => {
+                let choice = best_of(&opts, seat.team() == Team::T1);
+                log_decision(nums, &st, viewer_i, &opts, choice);
+                choice
+            }
             None => {
                 eprintln!("walt_bridge: eval deadline hit; playing lowest legal");
                 legal.trailing_zeros() as u8
@@ -940,20 +996,18 @@ fn declare(nums: &[usize], cfg: &Config, full: bool) -> usize {
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
+    // argv first, then WALT_* env (the arena adapter launches with no argv).
+    let pick = |i: usize, env: &str, default: usize| -> usize {
+        args.get(i)
+            .map(|s| s.parse().expect("integer argument"))
+            .or_else(|| std::env::var(env).ok().map(|s| s.parse().expect(env)))
+            .unwrap_or(default)
+    };
     let cfg = Config {
-        n_outer: args
-            .get(1)
-            .map(|s| s.parse().expect("n_outer"))
-            .unwrap_or(50),
-        n0: args.get(2).map(|s| s.parse().expect("n0")).unwrap_or(8),
-        per_move_secs: args
-            .get(3)
-            .map(|s| s.parse().expect("per_move_secs"))
-            .unwrap_or(120),
-        n_declare: args
-            .get(4)
-            .map(|s| s.parse().expect("n_declare"))
-            .unwrap_or(100),
+        n_outer: pick(1, "WALT_N_OUTER", 50),
+        n0: pick(2, "WALT_N0", 8),
+        per_move_secs: pick(3, "WALT_PER_MOVE", 120) as u64,
+        n_declare: pick(4, "WALT_N_DECLARE", 100),
     };
     let declare_full = std::env::var("WALT_DECLARE_FULL").is_ok_and(|v| v == "1");
 
