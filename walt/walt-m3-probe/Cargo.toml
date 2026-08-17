@@ -8,6 +8,9 @@ publish = false
 [dependencies]
 walt-core = { path = "../walt-core" }
 walt-m3-carrier = { path = "../walt-m3-carrier" }
+num-bigint = { workspace = true }
+num-rational = { workspace = true }
+num-traits = { workspace = true }
 
 [lints.rust]
 unsafe_code = "forbid"

@@ -234,6 +234,9 @@ dependencies = [
 name = "walt-m3-probe"
 version = "0.1.0"
 dependencies = [
+ "num-bigint",
+ "num-rational",
+ "num-traits",
  "walt-core",
  "walt-m3-carrier",
 ]
