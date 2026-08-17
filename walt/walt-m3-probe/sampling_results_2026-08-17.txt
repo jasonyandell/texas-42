@@ -28,10 +28,18 @@ optimistically biased at decision nodes (argmax over noisy estimates).
   dimension; the remaining wall is the 28-play public tree itself
   (268763136 nodes, 149880538 memo entries at death)
 
+== t=1 controls: n=60 (killed ~600s) and n=150 (killed at 27.5GB RSS on a 48GB machine)
+  n=60 at 320M nodes: memo 174M, 204 posteriors — memo growth nearly identical
+  to n=300; sample size does not shrink the public tree. n=150 tracked the same
+  trajectory and was killed before swap. three runs agree: the t=1 wall is
+  ~10^9+ public-tree nodes and >48GB of memo, independent of n.
+
 reading: sampling removes the world/materialization wall (6GB at t=1 -> nothing;
 posterior count 4.7M exact at t=3 -> hundreds at t=1 sampled) and moved the
 completion frontier from t=4 to t=3. the residual wall at t<=2 is public-tree
 depth — the wavefront/cell dimension walt-math identified — not belief size.
+the lawful trick-1 play therefore waits on the cell-mixture representation
+(walt-math-12 recommended step 3), not on more sampling or more RAM.
 
 nothing above exploratory tier; sampled numbers are never receipts; not a
 trick-1 statement (P-A21)
