@@ -34,7 +34,7 @@
 //! Nothing here is quotable above exploratory tier, and the t=1 attempt, if
 //! it completes, is still not a P-A21 statement — it is a probe output.
 
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::rc::Rc;
 use std::time::Instant;
 
@@ -53,6 +53,80 @@ const FULL_MASK: u32 = 0x0FFF_FFFF;
 
 /// Refuse to materialize a support larger than this (worlds, upper bound).
 const SUPPORT_CAP: u128 = 30_000_000;
+
+/// Frozen sampling seed (arbitrary constant, the SplitMix64 gamma). A sampled
+/// run is a deterministic function of (t, n, this seed) — same discipline as
+/// FROZEN_WITH_VOIDS: a probe-internal determinism freeze, not an ingest
+/// number. Sampled outputs are ESTIMATES and are labeled as such.
+const SAMPLE_SEED: u64 = 0x9E37_79B9_7F4A_7C15;
+
+/// SplitMix64: integer-only deterministic PRNG for support sampling.
+struct SplitMix64(u64);
+
+impl SplitMix64 {
+    fn next_u64(&mut self) -> u64 {
+        self.0 = self.0.wrapping_add(0x9E37_79B9_7F4A_7C15);
+        let mut z = self.0;
+        z = (z ^ (z >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
+        z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
+        z ^ (z >> 31)
+    }
+
+    /// Unbiased uniform draw in 0..n via rejection.
+    fn below(&mut self, n: u64) -> u64 {
+        let zone = u64::MAX - (u64::MAX % n);
+        loop {
+            let v = self.next_u64();
+            if v < zone {
+                return v % n;
+            }
+        }
+    }
+}
+
+/// Uniform sample of n distinct worlds from a materialized support
+/// (partial Fisher-Yates; deterministic under the frozen seed).
+fn sample_worlds(mut worlds: Vec<[u32; 4]>, n: usize, rng: &mut SplitMix64) -> Vec<[u32; 4]> {
+    if n >= worlds.len() {
+        return worlds;
+    }
+    for i in 0..n {
+        let j = i + rng.below((worlds.len() - i) as u64) as usize;
+        worlds.swap(i, j);
+    }
+    worlds.truncate(n);
+    worlds
+}
+
+/// Uniform sample of n distinct void-consistent worlds drawn directly (for
+/// boundaries whose support is too large to materialize): shuffle the hidden
+/// pool, deal hand_size/hand_size/hand_size to S2/S3/S0, reject void
+/// violations and duplicates. Uniform over the void-consistent support.
+fn generate_sample(b: &Boundary, n: usize, rng: &mut SplitMix64) -> Vec<[u32; 4]> {
+    let s1_now = b.s1_initial & !b.played;
+    let mut tiles = mask_bits(b.pool);
+    let hs = b.hand_size;
+    let mask_slice = |sl: &[u8]| sl.iter().fold(0u32, |a, &x| a | (1u32 << x));
+    let mut seen: HashSet<(u32, u32)> = HashSet::new();
+    let mut out: Vec<[u32; 4]> = Vec::with_capacity(n);
+    while out.len() < n {
+        for i in (1..tiles.len()).rev() {
+            let j = rng.below((i + 1) as u64) as usize;
+            tiles.swap(i, j);
+        }
+        let s2 = mask_slice(&tiles[0..hs]);
+        let s3 = mask_slice(&tiles[hs..2 * hs]);
+        let s0 = mask_slice(&tiles[2 * hs..3 * hs]);
+        if s2 & b.voids[2] != 0 || s3 & b.voids[3] != 0 || s0 & b.voids[0] != 0 {
+            continue;
+        }
+        if !seen.insert((s2, s3)) {
+            continue;
+        }
+        out.push([s0, s1_now, s2, s3]);
+    }
+    out
+}
 
 fn d(hi: u8, lo: u8) -> Domino {
     Domino::new(Pip::new(hi).expect("hi pip"), Pip::new(lo).expect("lo pip"))
@@ -514,26 +588,59 @@ fn frozen_t4_expectations() -> Vec<(Domino, BigRational)> {
     ]
 }
 
-fn run_boundary(dcl: Decl, t: usize, budget_secs: u64, carrier_worlds: &[[u32; 4]]) {
+fn run_boundary(
+    dcl: Decl,
+    t: usize,
+    budget_secs: u64,
+    sample: Option<usize>,
+    carrier_worlds: &[[u32; 4]],
+) {
     println!("== boundary t={t}: solve from the start of trick {t}");
     let b = build_boundary(dcl, t);
     let start = Instant::now();
+    let seed = SAMPLE_SEED ^ t as u64;
+    let mut rng = SplitMix64(seed);
+    let mut sampled = false;
     let worlds = match enumerate_support(&b) {
-        Ok(w) => w,
-        Err(raw) => {
-            println!("  support: {raw} raw assignments exceeds the {SUPPORT_CAP}-world cap");
-            println!("  DIED at t={t}: support materialization (before any solving)");
-            println!();
-            return;
+        Ok(w) => {
+            println!(
+                "  support: {} void-consistent worlds (pool {} tiles, {} per hidden seat)",
+                w.len(),
+                b.pool.count_ones(),
+                b.hand_size
+            );
+            match sample {
+                Some(n) if n < w.len() => {
+                    sampled = true;
+                    sample_worlds(w, n, &mut rng)
+                }
+                _ => w,
+            }
         }
+        Err(raw) => match sample {
+            Some(n) => {
+                println!(
+                    "  support: {raw} raw assignments (over the {SUPPORT_CAP}-world cap); drawing sample directly"
+                );
+                sampled = true;
+                generate_sample(&b, n, &mut rng)
+            }
+            None => {
+                println!("  support: {raw} raw assignments exceeds the {SUPPORT_CAP}-world cap");
+                println!("  DIED at t={t}: support materialization (before any solving)");
+                println!();
+                return;
+            }
+        },
     };
-    println!(
-        "  support: {} void-consistent worlds (pool {} tiles, {} per hidden seat)",
-        worlds.len(),
-        b.pool.count_ones(),
-        b.hand_size
-    );
-    if t == 4 {
+    if sampled {
+        println!(
+            "  SAMPLED SUPPORT: n={} worlds, seed=0x{:016X} — all values below are ESTIMATES, not exact",
+            worlds.len(),
+            seed
+        );
+    }
+    if t == 4 && !sampled {
         let mut mine = worlds.clone();
         let mut theirs = carrier_worlds.to_vec();
         mine.sort_unstable();
@@ -594,7 +701,7 @@ fn run_boundary(dcl: Decl, t: usize, budget_secs: u64, carrier_worlds: &[[u32; 4
             ties.join(" / "),
             if ties.len() > 1 { "  (exact tie)" } else { "" }
         );
-        if t == 4 {
+        if t == 4 && !sampled {
             for (tile, expected) in frozen_t4_expectations() {
                 let got = &values
                     .iter()
@@ -651,6 +758,7 @@ fn main() {
         .get(2)
         .map(|s| s.parse().expect("budget seconds"))
         .unwrap_or(600);
+    let sample: Option<usize> = args.get(3).map(|s| s.parse().expect("sample size"));
 
     assert_eq!(RAW_RECEIPT.len(), RAW_RECEIPT_BYTES);
     let carrier = M3Carrier::from_receipt_bytes(RAW_RECEIPT).expect("frozen carrier must admit");
@@ -673,10 +781,10 @@ fn main() {
     println!();
 
     match only_t {
-        Some(t) => run_boundary(dcl, t, budget_secs, &carrier_worlds),
+        Some(t) => run_boundary(dcl, t, budget_secs, sample, &carrier_worlds),
         None => {
             for t in (1..=4).rev() {
-                run_boundary(dcl, t, budget_secs, &carrier_worlds);
+                run_boundary(dcl, t, budget_secs, sample, &carrier_worlds);
             }
         }
     }
