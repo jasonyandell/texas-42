@@ -6,6 +6,7 @@ import Texas42.Deal
 import Texas42.Play
 import Texas42.Trick1Foundation
 import Texas42.Trick1MetalFoundation
+import Texas42.Trick1PerfectRecallNet
 import Texas42.Cells
 import Texas42.Reachability
 import Texas42.Information

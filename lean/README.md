@@ -114,6 +114,30 @@ prose-resolver agreement), which is a deliberate later reflection target.
   This is deliberately a foundation, not an implementation-refinement theorem:
   the `(response,e)` partition, projector code, and Rust/Metal correspondence
   remain named proof debt.
+- `Texas42/Trick1MetalFoundation.lean` — the freeze-56 M2 finite Metal-gate
+  obligations: fixed arena arithmetic, complete grade coverage, the exact
+  46-task census, the at-most-ten matching-vector theorem, stable compaction,
+  and all-or-nothing acceptance.
+- `Texas42/Trick1PerfectRecallNet.lean` and
+  `Texas42/Trick1PerfectRecallNet/*.lean` — the freeze-57 M3 abstract gate:
+  - disjoint typed H/C codecs, scoped injectivity, replay determination, hidden
+    identity exclusion, strict extension and unique parent/action lineage;
+  - complete multi-run parent/action/child netting, C-world separation and
+    block-partition invariance;
+  - complete legal faces, sum-before-max, equivalence with the free product of
+    lawful perfect-recall policies, full argmax retention, and no-max repricing;
+  - exact exponent-framed carried posterior, field-mass conservation, terminal
+    scale/U256 limbs, five-bucket differential and P30 make bridges;
+  - immutable reduction/compaction facts, explicit 216/432 continuation-code
+    injections, command/level bounds, ABI/live-memory and H/C spill ledgers;
+  - two-family use, scratch separation, four-epoch and sixteen-treatment
+    counters, disjoint writers, selected-terminal folds and all-or-nothing
+    evidence composition.
+
+  The facade audits every new theorem with `#print axioms`. Rust-to-Lean,
+  Metal-to-Rust, general independent-oracle correctness, and
+  grade-4-to-trick-1 transport remain explicit correspondence debts; executable
+  parity does not silently promote any of them.
 - `Texas42/Cells.lean` — Layer C, the public record, capacity cells, and
   **the losslessness theorem** (Math §§6.3–6.4, 7.1–7.5):
   - replay machinery (`replayFrom`/`LegalFrom`) and `legalSet_congr` —

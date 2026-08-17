@@ -128,6 +128,22 @@ correspondence remain named proof debt. The M2 receipt supplies fixed-carrier
 executable evidence bearing on the last relation, not a theorem or general
 correspondence proof.
 
+**M3 perfect-recall-net abstract gate added 2026-08-17.**
+`lean/Texas42/Trick1PerfectRecallNet.lean` integrates seven focused submodules
+covering the freeze-57 semantic spine: typed and disjoint H/C codecs; replay
+determination and hidden-world exclusion; strict lineage and complete-run
+parent-local netting; revealed-world/block invariance; complete legal faces;
+the sum-before-max recurrence and its exact free-product policy theorem; exact
+carried-posterior mass and both M3 objective bridges; immutable reductions,
+explicit continuation-code injections, command and memory bounds; and the
+two-family/counter/writer/all-or-nothing evidence layer. Every exported theorem
+is inspected by `#print axioms`; the audit admits only `propext`,
+`Classical.choice`, and `Quot.sound`, with no `sorry`, `native_decide`, or new
+axiom. This is the abstract proof gate, not an implementation-refinement claim:
+Rust-to-Lean codecs/replay, Metal-to-Rust kernels, general independent-oracle
+correctness, and grade-4-to-trick-1 transport remain explicit correspondence
+debt and must be supported by the separate executable parity conjunction.
+
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 
 ```
