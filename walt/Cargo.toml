@@ -11,6 +11,8 @@ members = [
     "walt-gpu-ref",
     "walt-metal",
     "walt-m2-runner",
+    "walt-m3-carrier",
+    "walt-m3-probe",
 ]
 
 [workspace.package]

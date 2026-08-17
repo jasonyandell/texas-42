@@ -1,0 +1,23 @@
+walt-m3-probe: EXPLORATORY lawful solve of the frozen M3 carrier
+carrier: hand 8 before trick 4; S1 leads holding [21,31,33,55]; trump fives
+support: 1,200 uniform worlds (dual-constructor, digest-pinned by walt-m3-carrier)
+banked entering trick 4: T1=7 T0=1; unbanked 34; T1 makes at 30
+treatments: H = lawful perfect recall; C = world-revealed control (per-world max, averaged)
+tie rule: all argmax members reported; no convention selects among them silently
+
+== M3A future-trick differential (T1 minus T0)
+  lead 21  H = 2647711/1036800  C = 21483353/8294400
+  lead 31  H = 490069/276480  C = 424483/230400
+  lead 33  H = 448279/138240  C = 6912821/2073600
+  lead 55  H = 6817057/2073600  C = 699919/207360   <-- H-optimal
+  lawful play under M3A future-trick differential (T1 minus T0): 55
+
+== M3B P30 make probability
+  lead 21  H = 5204203/5529600  C = 15722123/16588800
+  lead 31  H = 5033873/5529600  C = 5094649/5529600
+  lead 33  H = 16078667/16588800  C = 1355971/1382400   <-- H-optimal
+  lead 55  H = 7770169/8294400  C = 5849/6144
+  lawful play under M3B P30 make probability: 33
+
+mass receipts: every field node conserved 12x mass; root mass = 1200 * 12^12 exactly
+nothing above exploratory tier; not a trick-1 statement (P-A21); no receipt is emitted
