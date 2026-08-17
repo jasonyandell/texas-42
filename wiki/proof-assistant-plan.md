@@ -95,6 +95,21 @@ target of the mechanization ledger is closed.** Next tiers: priority-1 rows
 E08–E09, B11–B14, D11–D16), the PA-A12/B04 reflection targets, and the
 game-level `BeliefProc` instantiation.
 
+**GPU-native trick-1 foundation added 2026-08-16.**
+`lean/Texas42/Trick1Foundation.lean` kernel-proves the stable arithmetic and
+interval layer of the adjudicated GT1 design: the legal nonpass loss-budget
+bound including marks, the initialized and transition-preserved seven-tile hand
+cap, actual-live-legal-set `1..7` divisibility into 420, the concrete 212/217
+magnitude windows, and a `PlayState.Inv`-derived point invariant whose unbanked
+tile set provably contains the unresolved current-trick prefix and whose total
+is preserved after every legal step.  It also proves all seven opening-cell
+counts through `m = 6`, positive componentwise upper summation, one-shared-policy
+lower summation, action dominance, and the non-strict-member/strict-unique root
+distinction.  It does **not** yet prove that the Rust projector realizes the
+`(response,e)` partition or that the Metal ABI refines the Rust arithmetic;
+those remain explicit successor obligations rather than imported executable
+facts.
+
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 
 ```

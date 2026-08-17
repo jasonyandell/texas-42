@@ -12760,3 +12760,165 @@ SS-A2 and it is the only change of substance I have made to Jason's design.
   association is a hand-strength proxy and considerably less interesting than a
   decision-structure statistic would have been. **Cut B stays a hangout number, as
   ruled, and this is now the reading it would have to beat.**
+
+- **SS-A18 (two ledger repairs: one cross-reference, then the administrative
+  range close; freeze 54 unchanged).** Two clauses.
+  (i) SS-A6(vi)'s `FC-A26(iv)` is a mistyped cross-reference. The governing
+  non-null-pairing clause is `FF-A26(iv)`. This corrects provenance only; no
+  receipt, result, measured object, or reading changes.
+  (ii) FC-A23(v) requires the ruling range to be frozen at chapter close. SS-A13
+  and SS-A14 re-froze the range through SS-A14; SS-A15..SS-A17 were later
+  substantive adjudications, but no closing range marker followed them.
+  **RANGE RE-FROZEN: SS-A1..SS-A18, and the chapter is closed at it; freeze 54
+  unchanged.** No measured object, carrier, result, verdict, receipt, source, or
+  reading is added or amended; SS-A17 remains the latest substantive ruling and
+  governs its correction of SS-A16. Any later SS ruling requires an explicit
+  re-brief and another range re-freeze.
+
+---
+
+## GPU-native trick-1: the bounded portable foundation (2026-08-16)
+
+**Adjudicator:** walt-math. **Object:** the received
+`math/gpu_native_trick1_implementers_guide_v0.2.md`, the repaired first-build
+contract `GPU-NATIVE-TRICK1.md` v0.3, the portable `walt-gpu-spec` and
+`walt-gpu-ref` implementation, its bounded reduced carrier, the Lean foundation,
+and the current host's Metal Gate-0 record. **Tier:** exploratory throughout,
+below every project tier; no result here is an opening-play claim. **Basis:** F7,
+DS-A1, DS-A28, PG-A8, PG-A13, N4-A16(iv), T1-A12, freezes 7, 23, 26 and 47,
+and first-hand reading of the named source and implementation. Rulings are
+**GT1-A1..GT1-A9**. **Freeze 55** is fixed at GT1-A9. Numbers 39 and 40 remain
+reserved.
+
+The received architecture is accepted only in its repaired v0.3 form. The
+portable implementation is a correctness foundation for a later Metal path; it
+is not itself GPU evidence, a perfect-recall controller, or a first-lead verdict.
+
+- **GT1-A1 (authority, provenance, and tier).** The received v0.2 guide is
+  preserved byte-for-byte. Its source identity is: original source commit
+  `ca18bc6807b974b31d4640786d7a2d63ae0b79fe`, intake commit
+  `c230949c77ff7e8e22f912ed70f8206488ac9022`, SHA-256
+  `ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44`.
+  `GPU-NATIVE-TRICK1.md` v0.3 is the binding first-build contract wherever it
+  narrows, repairs or rejects that received source. `CENSUS-RULINGS.md` remains
+  the append-only adjudication authority. The Rust, Lean and receipt surfaces
+  are evidence at this exploratory tier only; one never silently stands in for
+  another.
+- **GT1-A2 (`OpeningRootV1`: ACCEPTED as the only first-slice model).** The root
+  is exactly one focal seat with `focal = bidder = leader = actor`, one legal
+  seven-tile focal hand, empty public play record and empty current trick, one
+  `walt-core` declaration, and contract normal form `PointBid(30..41)` or `Mark`.
+  The loss budget is derived only (`42 - bid` or `0`) and asserted at most 12.
+  The closed profiles are `IgnoreAuctionEvidenceV1`,
+  `UniformCompatibleOpeningDealsV1`, `UniformRandomLegalV1`,
+  `DeclaringTeamMakesV1`, and `OpeningStraightHand21FieldActionsV1`. The hidden
+  support is the complete ordered 7/7/7 allocation of the other 21 tiles,
+  `N0 = 399,072,960`. No generic public-state adapter, auction-conditioned prior,
+  arbitrary field, utility, or horizon is admitted by this ruling; any one is a
+  new profile and re-enters adjudication.
+- **GT1-A3 (exact arithmetic and generated semantics).** The field scale is
+  `L = 420`; the response exponent is 3 and the full opening horizon exponent is
+  21. Exact mass uses `U256MassV1`, eight little-endian `u32` limbs, with checked
+  addition, ordered subtraction and small multiplication; no floating-point type
+  enters the path. Support counts, likelihood coefficients, cell masses,
+  conditional values and weighted contributions remain distinct roles in checked
+  frames. `SemanticTablesCanonicalV2` is generated from `walt-core`, serialized
+  canonically and hashed by the implementation; it is not a hand-maintained
+  second rules table. SHA-256 is anchored by published known-answer vectors.
+  T1-A12 is addressed for this slice by a genuinely independent prose-rules
+  bridge to Rob: led context and compelled-follow behavior are compared over their
+  complete declared finite domains, and winner plus points over every declaration,
+  leader and distinct four-tile trick. A bridge failure is stop-and-report.
+- **GT1-A4 (the opening-response projector: ACCEPTED with its exact boundary).**
+  For a selected effective led context, `m` is the number of hidden matching
+  tiles and is checked in `0..6`. The scalar projector emits the unique feasible
+  `(response triple, remaining matching counts)` cells in the generating order:
+  response indices lexicographic by seats 1, 2, 3, then matching-count vectors in
+  that same seat order. Each cell separately computes the support count `A`, the
+  scaled response coefficient `C`, and `W = A*C`. The mandatory whole-projection
+  mass is `N0 * 420^3 = 29,566,517,460,480,000`. The exact cell counts for
+  `m = 0..6` are `7,980, 1,140, 2,166, 3,408, 5,172, 7,800, 11,730`; 11,730 is a
+  hard failure cap, never a truncation. Response payloads may be reused only for
+  identical contexts. Distinct physical root leads remain distinct semantic
+  actions and persisted envelope identities even where their reusable projector
+  payload is byte-identical.
+- **GT1-A5 (the independent reduced carrier and stop).**
+  `ReducedOpeningCarrierV1` is generated deterministically from each declared
+  root in grade, led-context and matching-count order; its pool is the
+  lexicographically least feasible pool and is checked against an independent
+  brute-force oracle. The direct work unit is one complete physical world in
+  freeze-7/23 order, and `M1_DIRECT_WORLD_CAP_V1 = 100,000`. Grades 2, 3 and 4
+  have respectively 90, 1,680 and 34,650 worlds and are mandatory closed-form
+  versus independent-direct parity rungs. The declared two-root carrier covers
+  all feasible `m = 0..6` coordinates at those grades, 48 root-bound parity
+  coordinates in total. Grade 5 has 756,756 worlds: its 16 root-bound coordinates
+  file a typed `DECLARED STOP` before enumeration, with emitted worlds, cells and
+  payload all zero. No partial grade-5 comparison is retained and no grade-4
+  result is evidence about the opening.
+- **GT1-A6 (persistence, build identity, and replay validation).** A raw projector
+  payload is explicitly non-persistable. The canonical persisted run envelope
+  binds the freeze-55 descriptor, complete root/profile key, physical root action,
+  canonical semantic-table bytes and digest, arithmetic/frame identity, a nonzero
+  32-byte build identity derived from the checked source manifest, and the complete
+  projector payload. The grade-5 stop record separately binds the same authority,
+  root, table and build identity to its exact reduced coordinate, 756,756-world
+  count, 100,000 cap and zero-output fields. Validators parse, reconstruct and
+  compare the canonical objects and reject unknown versions, build mismatch,
+  malformed sections, changed semantics, corruption, truncation or partial stop
+  output. The reproducibility gate regenerates these objects from fresh state and
+  requires byte identity with the committed comparands; a self-produced hash
+  equality without this binding is not a receipt under PG-A8.
+- **GT1-A7 (the semantic and verdict fences).** Freeze 26 is cited unchanged; it
+  is not redefined. The portable slice builds neither an information net nor a
+  candidate/program policy dimension, computes no `Q^H`, lower witness, upper
+  witness, root interval, optimal set or selected play, and creates no player.
+  The non-strict member, strict uniqueness and least-index canonical distinctions
+  remain obligations for the later controller. Freeze 44's CPU walk-step unit and
+  budget do not type complete direct worlds or projector cells and are deliberately
+  excluded from this carrier. Freezes 39 and 40 remain reserved. Freeze 47's
+  trick-1 carrier remains a separate prior object; nothing in this section mutates
+  it or transports a verdict from its reduced-grade checks.
+- **GT1-A8 (Lean boundary and Metal Gate 0).** The Lean foundation discharges:
+  the legal nonpass loss-budget bound; initial and transition-preserved seven-tile
+  hand capacity; actual `PlayState.legalSet` nonemptiness, at-most-seven and
+  divisibility by 420; the 212-bit denominator and 217-magnitude-bit utility
+  windows; the state-tied unbanked-point invariant including the unresolved
+  current trick and its preservation across legal play; all seven opening-cell
+  counts and the 11,730 maximum; positive component upper summation; one-shared-
+  policy lower summation; dominance; and member versus uniqueness. It does not
+  yet prove the semantic `(response,e)` partition, the `A/C/W` formulas or global
+  conservation, posterior stratification/factorization, the exact information-key
+  equivalence, canonical least-index verdict, sparse-DP or meet-in-the-middle
+  refinement, Rust/Lean correspondence, or Metal/Rust correspondence. Those are
+  explicit proof debt. On the current Apple M5 Max host, Metal support exists but
+  only Command Line Tools are selected: `xcodebuild`, `metal`, `metallib`,
+  `metal-ar` and `xctrace` are unavailable. Metal Gate 0 is therefore **NO-GO**;
+  M2 and every Metal-dependent gate remain unrun until a compatible full Xcode is
+  installed and selected. A portable green result is never reported as Metal
+  green.
+- **GT1-A9 (FREEZE 55 — the portable M0/M1 authority and deterministic
+  encodings; conditional gate close).** Freeze 55 fixes the byte string
+  `GT1_FREEZE_SET_DESCRIPTOR_V1` and the v1 canonical encoding rules it names:
+  v0.3 plus GT1-A1..GT1-A9 authority; freezes 7, 23, 26, 47 and 55 with 39/40
+  reserved; the exact `OpeningRootV1` profiles of GT1-A2; `U256MassV1` and scale
+  of GT1-A3; `SemanticTablesCanonicalV2`; the GT1-A4 cell generator/order and
+  11,730 cap; `ReducedOpeningCarrierV1` grades 2..5, the 100,000 direct-world cap
+  and 756,756-world grade-5 stop; tasks `M1OpeningResponseProjectorV1` and
+  `M1OpeningDirectParityDeclaredStopV1`; and the GT1-A6 run-envelope, declared-stop
+  and build-identity schemas. Exact hashes, lengths, counts generated by these
+  rules are derived checks asserted against the canonical objects, never parallel
+  authorities. Freeze 44 and M2+ are explicitly out of scope.
+
+  The portable M0/M1 implementation is source-complete for this bounded slice,
+  but the **whole gate is CLOSED only when** the checked source manifest, committed
+  canonical envelope and grade-5 stop, fresh byte-for-byte regeneration, guide
+  checksum, formatting, warning/float denials, release workspace tests and Lean
+  target all pass together. Until that integrated reproducibility artifact exists
+  and the gate is green, report **IMPLEMENTED, GATE PENDING**, not complete. A green
+  integrated gate may report **PORTABLE M0/M1 COMPLETE under freeze 55** without a
+  new ruling; any changed authority, profile, carrier or encoding is a new freeze.
+  It still reports no Metal result and no opening-root verdict.
+
+  **RANGE FROZEN: GT1-A1..GT1-A9; freeze 55 fixed; chapter closed.** All issued
+  freeze numbers 1..55 are accounted for: 53 spent and 39/40 reserved. Any later
+  GT1 ruling requires an explicit re-brief and range re-freeze.

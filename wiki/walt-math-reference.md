@@ -4,7 +4,8 @@
 object, where its full statement lives, what it binds, and what corrected it ·
 Sources: `walt/CENSUS-RULINGS.md` (the adjudication record),
 `walt/math/decision_sparse_exact_solving_v0.1_errata.md` (the maintained
-mathematics), and the received documents under `walt/math/`. Related:
+mathematics), the received documents under `walt/math/`, and the adjudicated
+GPU-native contract `walt/GPU-NATIVE-TRICK1.md`. Related:
 [walt hub](walt.md), [structure and transport](walt-math-structure-transport.md),
 [information geometry](walt-math-information-geometry.md),
 [decision-deadness](walt-math-deadness.md),
@@ -28,15 +29,19 @@ where the proof lives; what was corrected and by what; and what is open. It
 restates nothing — every entry is a pointer with just enough statement to let
 you decide whether to open the source.
 
-## The three documents, and which governs
+## The governing documents, and which governs
 
-walt's mathematics lives in three places with three different disciplines. The
-distinction is load-bearing and is the first thing to internalise.
+walt's decision-sparse mathematics lives in three places with three different
+disciplines. The GPU-native trick-1 branch adds one received source and one
+maintained adjudicated contract. The distinction is load-bearing and is the
+first thing to internalise.
 
 | Document | Discipline | Role |
 |---|---|---|
 | `walt/math/decision_sparse_exact_solving_v0.1.md` and `walt/math/decision_sparse_second_audit_v0.1.md` | **Received, verbatim, never edited** (DS-A18) | Handed-in documents. Preserved exactly as filed, for the same reason `ingest/` is: a corrected source destroys the record of what was corrected. |
+| `walt/math/gpu_native_trick1_implementers_guide_v0.2.md` | **Received, byte-frozen and checksum-gated** (GT1-A1) | GPU-native design input. Original source commit `ca18bc6807b974b31d4640786d7a2d63ae0b79fe`, intake commit `c230949c77ff7e8e22f912ed70f8206488ac9022`, SHA-256 `ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44`. It remains the record of what was received, not a silently repaired source. |
 | `walt/math/decision_sparse_exact_solving_v0.1_errata.md` | **Maintained** (DS-A28(iii)) | The repaired mathematics, with full statements and proofs. Hypotheses may be added and language narrowed *in place*, each change carrying a dated provenance marker naming its ruling. |
+| `walt/GPU-NATIVE-TRICK1.md` | **Maintained adjudicated contract v0.3** (GT1-A1) | Binding first-build authority for the GPU-native branch wherever it narrows, repairs or rejects the received v0.2 guide. It does not promote the branch, prove the Rust implementation, or report Metal. |
 | `walt/CENSUS-RULINGS.md` | **Append-only** (DS-A28(i)) | The adjudication record. No ruling's text is ever rewritten; a corrected clause receives a bracketed dated pointer marker at its site. Also the home of the named lemmas from before the errata existed. |
 
 **Citation rule (DS-A17), binding on every design and results file:** cite the
@@ -44,6 +49,11 @@ distinction is load-bearing and is the first thing to internalise.
 provenance. Where parent and errata differ, **the errata governs**. The rulings
 file remains the adjudication record; it is no longer the home of the repaired
 mathematics.
+
+For the GPU-native branch, cite v0.3 for the maintained design and `GT1-A` for
+its provenance and implementation boundary. The received v0.2 guide is cited by
+source identity when the fact at issue is what arrived, never as authority over a
+v0.3 repair.
 
 A trap worth naming up front: the lemmas proved inside `CENSUS-RULINGS.md`
 before the errata existed — Lemmas V, X, **E**, S, S-fold, S-det, R, G, J and
@@ -145,9 +155,20 @@ travel with them are on the track page's two chapters.
 | **Proposition FC-width** | The subgradient's width is exactly the mass-weighted spread of the feature **across the clairvoyant tie**. Without ties it is a point, so zero capture needs an exact identity; with ties it has positive width and zero capture is **robust rather than coincidental**. | same section, closing note |
 | **Proposition FC-tight** | The drop bound is **attained** exactly when the descent is a single linear piece. It is never *exact* as a property of the functional anywhere, and **which states attain it is not knowable without the captured amount** — so attainment is a fact about the gap's distribution, never a usable property of the instrument. | same section, closing note |
 
+### GPU-native trick-1 portable foundation — [page](walt-gpu-native-trick1.md)
+
+| Object | One line | Full statement |
+|---|---|---|
+| **`OpeningRootV1`** | The only accepted first slice: focal = bidder = leader = actor, seven known tiles, empty public prefix, complete ordered hidden 7/7/7 support, derived point/mark loss budget, and closed evidence/prior/field/utility/horizon profiles. It is not a generic public-state API. | `GPU-NATIVE-TRICK1.md` §§2–4; GT1-A2/A3 |
+| **Opening-response projector** | Exact `(response,e)` cells with separately typed `A`, `C` and `W=A*C`; exact `m=0..6` cell counts, hard maximum 11,730, and total scaled mass `399072960*420^3`. Same-context payload reuse never merges physical action identity. | same file §5; GT1-A4 |
+| **Reduced parity carrier** | Complete direct-world parity at grades 2–4 below the 100,000-world cap; grade 5 is a 756,756-world preflight declared stop with zero partial output. This is a correctness carrier, never opening evidence. | same file §9 M1; GT1-A5 |
+| **Portable receipt boundary** | Persist only a root/action/profile/table/freeze/build-bound envelope or a fully bound grade-5 stop. Raw projector payloads are non-persistable; validators canonicalize and fail closed. | GT1-A6 and freeze 55 |
+| **Lean GT1 foundation** | Kernel proofs for the legal loss bound, live legal-set/420 facts, numeric widths, current-trick-aware unbanked points, exact cell counts and the stable interval algebra. Projector refinement, posterior factorization, information-key equivalence and Rust/Metal correspondence remain explicit debt. | `lean/Texas42/Trick1Foundation.lean`; GT1-A8 |
+
 ## The ruling families
 
-Nineteen families, one adjudicator (walt-math), all exploratory. Ranges below are
+Twenty-four indexed families or ruling series, one adjudicator (walt-math), all
+exploratory. Ranges below are
 **ruling-ID ranges**, which are append-only and do not move; the sections are
 located by heading, never by line number, because line numbers drift with every
 append. Two families span more than one section heading — `DS-A` runs across
@@ -176,7 +197,9 @@ three, `N4-A` across two — and the family, never the heading, is what inherits
 | `FT-A` | FT-A1..**FT-A29** | The fusion tax: inbox 016 adjudicated | 2026-08-14 | The upper side. Carries **Lemma FT-arrive**, **Lemma FT-trunc** + **Corollary FT-grade4**, **Proposition FT-flat**, **Proposition FT-tie**, **Lemma FT-post**, **Corollary FT-conv** and **Lemma FT-mix**; **freeze 38 v1** (FT-A17, the reservation discharged) and **freeze 50 v1.1** (FT-A18, amended at FT-A23 and FT-A24). The closing notes (A23–A28) adjudicate the returned run; **FT-A29** files two self-corrections to the section. |
 | `SR-A` | SR-A1..**SR-A37** | The second rung: inbox 017 adjudicated | 2026-08-14 | The upper side, one rung deeper. Carries **Lemma SR-coord**, **Lemma SR-forced**, **Proposition SR-sep**, **Proposition SR-post**, **Corollary SR-conv**, **Proposition SR-degen**, **Proposition SR-taut** and **Proposition SR-loc**; **freeze 51** (SR-A22, the depth-two carrier) and **freeze 38 v1.1(d)** (SR-A21, a clarification — v1 not amended, v2 not opened). The closing note (A27–A32) adjudicates the returned run and discharges FT-A28 entire; **A33** and **A34** adjudicate two defects the build found in itself, **A35** types the companion's cross-process digest as an audit note, **A36** records the chapter's first pass with no specification conflict, and **A37** withdraws a carried obligation that was never owed. |
 | `FF-A` | FF-A1..**FF-A33** | The feature-fee audition: Jason's control feature, specified | 2026-08-14 | Which cheap structural features price the first-layer tax, on a carrier where the perfect answer is filed. Carries **Proposition FF-blind**, **Lemma FF-min**, **Proposition FF-oracle**, **Proposition FF-degen** and **Proposition FF-corr**; **freeze 52** with amendments **v1.1** (FF-A15), **v1.2** (FF-A20), **v1.3** (FF-A23) and **v1.4** (FF-A33). Two closing notes: A10–A24 adjudicate the first run and the defect it exposed, A25–A33 the corrected re-run, the shared-θ fit, and the chapter's close. |
-| `FC-A` | FC-A1..**FC-A22** | The fee-correlation chapter: what a fee bites on, measured | 2026-08-14 | Why a fee bites, measured where the exact answer is filed. Carries **Proposition FC-drop**, **Corollary FC-null**, **Proposition FC-width**, **Proposition FC-tight** and **freeze 53**. Delivers the branch's first **pre-fee screening statistic** and its first structural limit on the fee route. A22 supplements the close and binds the "attained, never exact" phrasing on this page and every citation. |
+| `FC-A` | FC-A1..**FC-A23** | The fee-correlation chapter: what a fee bites on, measured | 2026-08-14 | Why a fee bites, measured where the exact answer is filed. Carries **Proposition FC-drop**, **Corollary FC-null**, **Proposition FC-width**, **Proposition FC-tight** and **freeze 53**. Delivers the branch's first **pre-fee screening statistic** and its first structural limit on the fee route. A22 binds the "attained, never exact" phrasing; **A23 closes the range and replaces adjective-led claims with the exact one-sided reading**. |
+| `SS-A` | SS-A1..**SS-A18** | The seed survey: a hundred fresh coordinates, designed | 2026-08-15 / 2026-08-16 | The outcome-independent 100-seed, 400-unit grade-4 survey. Carries **freeze 54**, the repaired spreading generator, complete-face/tie-multiplicity receipts, the returned survey reading and its corrections. **SS-A18** repairs one cross-reference (`FF-A26(iv)`, not `FC-A26(iv)`) and closes the range without changing freeze 54. |
+| `GT1-A` | GT1-A1..**GT1-A9** | GPU-native trick-1: the bounded portable foundation | 2026-08-16 | The received-v0.2/adjudicated-v0.3 authority chain, exact narrow `OpeningRootV1`, generated semantics and U256 ABI, closed-form projector, bounded reduced direct-parity carrier, fully bound persistence/replay boundary, unchanged freeze-26 fence, Lean discharge/debt, and Metal Gate-0 NO-GO. Carries **freeze 55**. The integrated reproducibility gate passed, closing **PORTABLE M0/M1 COMPLETE under freeze 55**; M2+ and every root verdict remain outside the family. |
 
 Three numbering traps. **`E-A` and `E-Q` are spent** by the endgame-store section
 of 2026-08-11 — SEP-A had to renumber the separation design's own `E-Q1..E-Q8`
@@ -189,11 +212,11 @@ range; those recited ranges are typos, not scope declarations.
 
 ## The supersession chain
 
-Twelve pointer markers, governed by **DS-A28**. Every one is navigation, not a
+Nineteen pointer markers, governed by **DS-A28**. Every one is navigation, not a
 rewrite: the original text stands and the marker names its replacement. Their
 absence would be drift.
 
-### In `CENSUS-RULINGS.md` — five markers
+### In `CENSUS-RULINGS.md` — twelve markers
 
 | Marked site | Marker | Corrected by | Durable replacement |
 |---|---|---|---|
@@ -202,6 +225,13 @@ absence would be drift.
 | **DS-A9**, the cone clause "for every cone at once" | CORRECTED | DS-A24 | **Lemma E8**, errata §8.5. Equality is guaranteed only for valuation directions constant on the exchanged tiles. |
 | **DS-A10**, the Experiment E receipt clause | SUPPLEMENTED | SEP-A12 | **SEP-A12 (R1)–(R5)**. The clause stands, but its two assertions hold by construction and are not receipts in PG-A8's sense. |
 | **SEP-A13**, the third counted quantity | DISAMBIGUATED | SEP-A19 | **SEP-A19**. The third quantity is the distinct partition states the walk *reaches*; equality with `InfoPartition::len()` is unsatisfiable for any pruning policy. |
+| **SEP-A4(e)**, freeze-36 transport = identity only | AMENDED | EC-A8 | **Freeze 36 v2** additionally admits the declaration fold under its explicit image-key construction, receipts and Corollary S-fold-val; every further transport still re-enters. |
+| **SEP-A17**, “the 108-decision playbook” | DISAMBIGUATED | EC-A12 | **108 is the strictly-mattering subset**, a derived difference of two measurements; the receipt-backed free-decision count is 384. |
+| **N4-A1(i)**, the cross-traversal fence | NARROWED | Lemma N | Traversal counts remain incomparable unless the traversals are exhibited as the same; the partition build and envelope-H walk are one such exhibited identity. |
+| **N4-A1(c)**, the six evaluator inventory | CLARIFIED | RW-A8 | Freeze 44(b)'s `Option`/no-partial contract binds every `walk`-based evaluator; the six were an inventory, not a closed type list. |
+| **N4-A1(e)**, `P_max = 32,000,000` at insertion | AMENDED | N4-A16(vi) | **Freeze 44 v2:** `P_max = 192,000,000`, applied to the completed count-only result before allocation; insertion is a defensive stop only. |
+| **N4-A4**, provenance of `P_max v1` | SUPERSEDED IN PART | N4-A16 | The v1 estimate was measured wrong; N4-A4's rule survives — v2 is declared in adjudication and is never derived from machine memory at run time. |
+| **N4-A12(b)**, the three-coordinate fallback | SUPERSEDED | N4-A19 | Its wall gate was retired; the result-independent replacement is the full nine-coordinate pass with measured per-unit admission. |
 
 ### In the errata — seven in-place markers
 
@@ -215,11 +245,12 @@ absence would be drift.
 | §6, Theorem E6.1's typing clause | Superseded in part | DS-A23 | The primary object is **Definition E9**'s interface-local width; the root-level W_reach is a different, fourth quantity. |
 | §6, Theorem E6.2(c) | Narrowed | DS-A26 | Restricted to the two pruning rules actually in use; duplicate-discarding rules preserve the count trivially. |
 
-**The shape of the chain.** DS-A24 is the only mathematical correction of a
-prior ruling by a later one, and it fires twice, both landing on errata §8.5.
-DS-A20/A21/A23/A26/A27 are errata maintenance. SEP-A7/A12/A19 are the build-side
-corrections — two from first-hand code reading, and one where a section corrects
-itself after a build trip.
+**The shape of the chain.** DS-A24 is the mathematical correction inside the
+original decision-sparse theorem chain, and it fires twice, both landing on
+errata §8.5. DS-A20/A21/A23/A26/A27 are errata maintenance. The later markers
+are implementation-boundary, freeze-version, scope or provenance repairs; none
+is permission to rewrite the marked text or to transport a result across the
+new boundary silently.
 
 ## Standing disciplines a successor must not relearn the hard way
 
@@ -281,6 +312,18 @@ owned there, not here.**
 | **S6b** | the policy-geometry probe | `results/policy_geometry_2026-08-12.txt` |
 | **S6c** | the decision-deadness probe | `results/deadness_2026-08-12.txt` |
 | **S6d** | the separation probe (Experiment E) | `results/separation_2026-08-13.txt` |
+| **S6e** | the economy-seed probe | `results/economy_seed_2026-08-14.txt` |
+| **S6f** | the measured n = 4 admission rung | `results/separation_n4_rung_2026-08-14.txt` |
+| **S6g** | the trick-1 drawing-family probe | `results/trick1_draw_2026-08-14.txt` |
+| **S6h** | the full n = 4 overnight pass | `results/separation_n4_2026-08-14.txt`, `separation_n4_2026-08-14_deterministic_block.txt` |
+| **S6i** | the lay-down characterization/catalogue | `results/laydown_2026-08-14.txt`, `laydown_catalogue_2026-08-14.txt` |
+| **S6j** | the map-free rule-economy pass | `results/rule_economy_n4_2026-08-14.txt` |
+| **S6k** | the first-rung fusion-tax probe | `results/fusion_tax_2026-08-14.txt` |
+| **S6l** | the depth-two nonanticipativity rung | `results/second_rung_2026-08-14.txt` |
+| **S6m** | the feature-fee audition and repaired rerun | `results/feature_fee_2026-08-14.txt`, `feature_fee_v11_2026-08-14.txt` |
+| **S6n** | the fee-correlation diagnostic | `results/fc_correlation_2026-08-14.txt` |
+| **Seed survey** | the unnumbered 2026-08-15 hundred-seed survey and its declared scratch cuts | `results/seed_survey_2026-08-15.txt`, `seed_survey_2026-08-15_cutA.txt` |
+| **GT1 M0/M1** | the portable GPU-native trick-1 foundation | `walt/receipts/gpu_native_trick1_m0_m1_v1/`, plus `walt/receipts/gpu_native_trick1_gate0_2026-08-16.txt` for the separate Metal NO-GO |
 
 Every measured number quoted anywhere on these pages comes from one of those
 files. **They sit one tier below even these pages** (probe output is exploratory
@@ -295,6 +338,40 @@ The design documents that each ruling family adjudicates (`walt/SEAT-CENSUS.md`,
 `walt/SEPARATION-PROBE.md` and others) live at the top of `walt/`. A ruling that
 says "the design" means the one named in its section's opening paragraph.
 
+## Addendum, 2026-08-16 — the portable trick-1 boundary
+
+Pointers only; the rulings and contract govern.
+
+- **The `GT1-A` family is closed at GT1-A9 and carries freeze 55.** It binds the
+  received-v0.2/adjudicated-v0.3 authority chain, exact narrow `OpeningRootV1`,
+  generated `SemanticTablesCanonicalV2`, U256 mass/frame ABI, opening-cell
+  generator and caps, reduced grades-2–5 carrier, grade-5 zero-output stop, and
+  fully root/action/profile/table/freeze/build-bound persistence. Raw projector
+  payloads are non-persistable. Freeze 26 is cited unchanged; 39/40 remain
+  reserved; freeze 44 and M2+ are excluded.
+- **`PORTABLE M0/M1 COMPLETE under freeze 55`.** The final checked source
+  manifest, committed canonical envelope and stop, fresh byte comparison, Rust
+  gate and Lean target passed together. This bounded status establishes no Metal
+  result, perfect-recall net, controller, root value or opening action.
+- **The Lean foundation is substantial and deliberately incomplete.** It proves
+  the legal budget/420/width/current-trick-point/cell-count/interval layer. It
+  does not yet prove the semantic opening partition and formulas, posterior
+  refinement, information-key equivalence, canonical least-index verdict, or
+  Rust/Metal refinement. Those remain named proof debt at GT1-A8.
+- **Metal Gate 0 is NO-GO on the present host.** The device supports Metal, but
+  only Command Line Tools are selected and the compiler, library/archive tools,
+  capture and profiler are unavailable. M2+ has not run. Installing/selecting a
+  compatible full Xcode is a separate machine-owner action, not something a
+  portable pass waives.
+- **The `SS-A` family is now administratively closed at SS-A18 and carries
+  freeze 54.** SS-A18 corrects `FC-A26(iv)` to `FF-A26(iv)` in the non-null
+  pairing provenance and closes the range; it changes no survey receipt, number,
+  object or reading.
+- **Freeze 44 is v2.** `P_max = 192,000,000` is applied to the completed exact
+  count-only result before allocation; a larger unit is `NOT PRICED`, and the
+  insertion check is a defensive stop rather than a receipt. The older 32M row
+  is not the live freeze.
+
 ## Addendum, 2026-08-14 — what a walt-math successor inherits
 
 Pointers only. Nothing below is restated from its source; open the ruling.
@@ -302,9 +379,9 @@ Written for walt-math-11 at the close of the FT chapter and extended the same da
 as walt-math-11 filed the SR, FF and FC chapters. **Sections run newest first;
 the FC items are the most likely to be needed.**
 
-### The FC chapter (newest)
+### The FC chapter (newest in the 2026-08-14 addendum)
 
-- **The `FC-A` family** — `FC-A1..FC-A22`, in `CENSUS-RULINGS.md` § "The
+- **The `FC-A` family** — `FC-A1..FC-A23`, in `CENSUS-RULINGS.md` § "The
   fee-correlation chapter: what a fee bites on, measured" (≈ lines 11170–12099 as
   of this date). Four named objects, indexed above, and **freeze 53**.
 - **A PHRASING RULE BINDS ANYONE WRITING FROM THESE RULINGS, and it corrected the
@@ -510,9 +587,15 @@ the FC items are the most likely to be needed.**
   detect a divergence from the corpus. The corpus check is owed before any of it
   is cited outside walt, and (LD-R4) is a probe of the risk, never a discharge.
 
+  **2026-08-16 boundary:** GT1-A3 addresses T1-A12 for the portable M0/M1 slice
+  with a separate prose-rules resolver and complete declared-domain comparisons
+  for context/follow/winner/points. That is executable bridge evidence for this
+  slice, not a retroactive proof of the seven earlier families and not a Lean
+  rules-refinement theorem.
+
 ## Where the rest lives
 
-- [The freeze register](walt-math-freezes.md) — all 53 issued freezes with
+- [The freeze register](walt-math-freezes.md) — all 55 issued freezes with
   content, version and declaring ruling (39 and 40 still reserved).
 - [Open questions](walt-math-open-questions.md) — what is genuinely unresolved,
   and why none of it belongs in [open-problems](open-problems.md).

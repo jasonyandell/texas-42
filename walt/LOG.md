@@ -22,6 +22,7 @@ Owning pages: [foundation era](../wiki/walt-foundation-era.md) ·
 [instruments](../wiki/walt-instruments.md) ·
 [program and resets](../wiki/walt-program.md) ·
 [decision-sparse](../wiki/walt-decision-sparse.md) ·
+[GPU-native trick-1](../wiki/walt-gpu-native-trick1.md) ·
 [Scheme/Fix](../wiki/walt-scheme-fix.md) ·
 [math reference](../wiki/walt-math-reference.md).
 
@@ -424,3 +425,34 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   stated unqualified it is false — the smallest rule gap anywhere at h9 is
   177253/3326400, at the non-binding action 61. Full divergence records in
   `wiki/walt-s6-era.md`'s discrepancy section.
+
+- **Ledger closure and seed-survey backfill (2026-08-16).** The S6n line above
+  names `FC-A1..FC-A22`; the live append-only family closes at **FC-A23**, whose
+  exact one-sided phrasing and chapter-close rule govern. The 2026-08-15
+  outcome-independent hundred-seed survey is adjudicated at **SS-A1..SS-A18**
+  with **freeze 54**: 100 generated coordinates, every legal root action a unit,
+  complete-face/tie-multiplicity and count-only measurements. SS-A18 repairs the
+  SS-A6(vi) cross-reference — **FF-A26(iv)**, not `FC-A26(iv)` — and closes the
+  range without changing a receipt, result, measured object or reading.
+
+- **GPU-native trick-1 portable M0/M1 (2026-08-16).** The received v0.2 guide is
+  preserved and checksum-gated; `GPU-NATIVE-TRICK1.md` v0.3 is the maintained
+  repaired contract; **GT1-A1..GT1-A9** close the adjudication and **freeze 55**
+  fixes the exact portable boundary. `walt-gpu-spec` implements checked U256
+  mass/frame arithmetic and generated `SemanticTablesCanonicalV2` with an
+  independent prose-rules bridge. `walt-gpu-ref` implements the narrow
+  `OpeningRootV1` scalar projector, exact opening counts/mass, reduced grades-2–4
+  direct parity, grade-5 zero-output stop, same-context reuse without action
+  collapse, and root/action/profile/table/freeze/build-bound persisted envelopes.
+  The Lean foundation proves the stable budget/420/width/current-trick-point/
+  cell-count/interval layer and leaves the implementation-refinement obligations
+  explicit. The final checked source manifest, committed canonical envelope and
+  stop, fresh byte comparison, release workspace tests, strict clippy/float gates
+  and `lake build Texas42.Trick1Foundation` passed together. Status:
+  **PORTABLE M0/M1 COMPLETE under freeze 55**.
+
+  Metal Gate 0 is **NO-GO** on the present Apple M5 Max host: Metal is supported,
+  but only Command Line Tools are selected and `xcodebuild`, `metal`, `metallib`,
+  `metal-ar` and `xctrace` are unavailable. M2–M5, the explicit perfect-recall
+  net, controller, root value and opening action are unrun/unbuilt. No portable
+  result is reported as a GPU result.

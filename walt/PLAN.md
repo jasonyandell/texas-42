@@ -1,9 +1,14 @@
 # walt — the imperfect-information seat
 
-**Status: exploratory build. Nothing here is promoted; no wiki page cites this
-directory yet.** The mathematical basis is frozen at
+**Status: exploratory build. Nothing here is promoted.** The maintained wiki
+entry point is [`wiki/walt.md`](../wiki/walt.md); the GPU-native branch is owned
+by [`wiki/walt-gpu-native-trick1.md`](../wiki/walt-gpu-native-trick1.md). The
+original mathematical basis is frozen at
 `walt/math/unified_information_geometry_v0.4.md` (exploratory tier; its §17
 claim ledger governs what is "proved prose" vs "reported receipt" vs "open").
+For GPU-native trick 1, the received v0.2 guide is preserved byte-for-byte and
+`GPU-NATIVE-TRICK1.md` v0.3 plus `CENSUS-RULINGS.md` GT1-A1..GT1-A9 are the
+binding first-build authority; freeze 55 fixes the portable M0/M1 boundary.
 rob is the exact solver; **walt is the seat** — the full-hand
 imperfect-information player, named by the doc's own fixed-field
 specialization (v0.4 §7.4). Decision 2026-08-09 (Jason): freeze v0.4, build
@@ -70,6 +75,22 @@ walt-factory   corpus generation (deals + play across all 9 declarations —
 
 Scheme/Fix as a query language enters later inside walt-skeleton's
 descriptor vocabulary; it imports physics, never the reverse.
+
+The GPU-native path is a narrow side branch of that workspace, not a rewrite of
+the original import graph:
+
+```text
+walt-core      declaration/rules semantic source
+    ↓
+walt-gpu-spec  M0: U256 ABI, role/frame types, generated semantic tables,
+               canonical hashing
+    ↓
+walt-gpu-ref   M1: narrow OpeningRootV1, scalar projector, independent direct
+               parity carrier, bound envelope/stop receipts
+```
+
+There is no `walt-metal` crate while Gate 0 is closed, and no controller crate
+before portable M0/M1 passes its integrated reproducibility gate.
 
 ## Dynamic-from-the-jump (what it means operationally)
 
@@ -372,7 +393,66 @@ evolved this project's own receipt/TRUST-01 discipline.
   file. The n4 machinery (tiers, checkpointing, DS-A36 blocks) is built
   and committed, gated behind that return.
 
-## Next
+- **S6g–S6n and the seed survey** (2026-08-14/15, historical): the trick-1
+  drawing theorem/probe, n = 4 overnight pass, lay-down catalogue, map-free rule
+  walk, first and second nonanticipativity rungs, fee audition/correlation line,
+  and the 100-seed survey all returned. Their detailed chronological records and
+  corrections live in `LOG.md`; their mathematical ownership is the S6-era page,
+  `CENSUS-RULINGS.md`, freezes 47–54 and the reference map. They are retained
+  inputs and controls, not the active implementation ladder below.
+
+- **GT1 portable M0/M1** (2026-08-16): received v0.2 source frozen and checksum
+  gated; v0.3 adjudicated; GT1-A1..GT1-A9 and freeze 55 fixed; `walt-gpu-spec`
+  and `walt-gpu-ref` implemented; Lean foundation added. The final source-bound
+  canonical receipt regeneration and integrated Rust/Lean gate passed, closing
+  **PORTABLE M0/M1 COMPLETE under freeze 55**. Metal Gate 0 is **NO-GO** because
+  full Xcode is absent; M2+ has not run.
+
+## Next: GPU-native trick-1 ladder
+
+This is the active plan. The old compression-era agenda below is preserved as a
+historical direction ledger; it is not permission to bypass this ladder.
+
+1. **M0 — portable exact semantics: COMPLETE under freeze 55.** Keep
+   `walt-gpu-spec` generated from `walt-core`; require checked U256/frame
+   arithmetic, independent big-integer oracles, FIPS hash anchors, the complete
+   prose-rules bridge, source manifest and no-float/warning gates. The integrated
+   freeze-55 pass is green.
+2. **M1 — scalar opening projector: COMPLETE under freeze 55.** Require exact
+   `m=0..6` counts and mass conservation, every grades-2–4 reduced direct-parity
+   coordinate, the grade-5 preflight zero-output stop, same-context reuse without
+   physical-action collapse, fully bound canonical envelopes and fresh
+   byte-for-byte regeneration. Grade 4 remains a correctness instrument, never
+   opening evidence.
+3. **M2 — Metal parity: BLOCKED AT GATE 0, NOT RUN.** A compatible full Xcode
+   must be installed and selected by the machine owner first. Then inventory the
+   actual compiler/library/capture/profiling surface, run one integer-only
+   diagnostic, adjudicate and freeze GPU work units/order/arena/no-partial rules,
+   choose the minimum Rust Metal binding, and require cell-for-cell and byte-for-
+   byte CPU/GPU parity. No tolerance and no skipped-toolchain green.
+4. **M3 — explicit grade-4 perfect-recall net: UNBUILT.** The key must be
+   extensionally equal to the canonical focal observation state. Compare its
+   lawful value with the existing hidden-information authority and require the
+   deliberately world-split negative control to be rejected as treatment H.
+5. **M4 — representation-growth gate: UNBUILT.** Only after M0–M3, measure basis
+   rank, cells, query deduplication, materialization, arena high-water, sort
+   volume and CPU/GPU crossover on declared carriers. Slabs, exact early
+   reduction and fail-closed caps are mandatory; no low-grade result rescues or
+   kills the opening target without the gate's transport argument.
+6. **M5+ — stopped controller and opening attempt: UNBUILT.** Join one lawful
+   shared-plan lower witness, action-conditioned uppers, the count-aware
+   projector and perfect-recall net before gluing. Cover every root action. The
+   only playable outcomes are the exact/canonical outcomes that determine freeze
+   26's least-index action; unresolved at a declared cap is a result.
+
+Lean proceeds beside, not behind, this ladder. The stable foundation is proved;
+open obligations are the semantic `(response,e)` partition and `A/C/W`
+conservation, posterior stratification/factorization, exact information-key
+equivalence and deterministic-descriptor corollary, canonical least-index
+verdict, sparse-DP/MITM refinement, and Rust/Lean plus Metal/Rust correspondence.
+No executable parity result is renamed a theorem.
+
+## Earlier direction ledger (historical, retained)
 
 - **The compression program (v0.5 — the goal, reset 2026-08-10; first
   measurement DONE, S5e):** the trick-six census found the existence
@@ -485,4 +565,9 @@ evolved this project's own receipt/TRUST-01 discipline.
 - Wiki integration: decided 2026-08-10 (Jason) — `wiki/walt.md` is the
   hub, exploratory-tier labeled throughout; nothing walt is quotable
   above that tier until independently re-verified (Python probes are the
-  designated second implementation).
+  designated second implementation for the historical probe line). The
+  GPU-native branch instead follows its own v0.3/GT1 authority chain, generated
+  semantics bridge, canonical receipts and Lean obligations.
+- Metal binding/runtime choice is deferred until Gate 0 opens and the exact
+  diagnostic workload is measured. Installing or selecting full Xcode is a
+  machine-owner action, never an inferred implementation step.

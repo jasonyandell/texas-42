@@ -1,0 +1,36 @@
+GPU-native trick-1 Gate 0 environment receipt
+observed: 2026-08-16 America/Chicago
+status: NO-GO FOR METAL; PORTABLE M0/M1 REMAIN GO
+
+operating_system:
+  product: macOS
+  version: 26.5.1
+  build: 25F80
+
+hardware:
+  model: MacBook Pro
+  model_identifier: Mac17,6
+  chip: Apple M5 Max
+  cpu_cores: 18
+  memory_gb: 48
+  gpu_cores: 40
+  metal_supported: yes
+
+developer_toolchain:
+  xcode_select_path: /Library/Developer/CommandLineTools
+  xcodebuild: unavailable; active directory is Command Line Tools
+  metal: unavailable through xcrun
+  metallib: unavailable through xcrun
+  metal-ar: unavailable through xcrun
+  xctrace: unavailable through xcrun
+
+adjudication:
+  The device advertises Metal support, but Command Line Tools do not provide
+  the compiler, library builder, archive tool, capture tool, or profiler needed
+  by M2.  Under GPU-NATIVE-TRICK1 v0.3, M2 and every later Metal-dependent gate
+  remain closed until a compatible full Xcode is installed and selected.
+  A portable M0/M1 result must not be reported as a Metal result.
+
+privacy:
+  Serial number, hardware UUID, and provisioning identifiers were deliberately
+  omitted; they are irrelevant to the gate.

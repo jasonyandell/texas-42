@@ -94,6 +94,26 @@ prose-resolver agreement), which is a deliberate later reflection target.
   - conservation: `gamma_init`/`gamma_step` (28 plays), and
     `terminal_scores` — seven tricks and 42 total points at any terminal
     invariant state (PA-B10).
+- `Texas42/Trick1Foundation.lean` — the bounded foundation for the adjudicated
+  GPU-native opening design (GT1-A):
+  - the derived loss allowance is at most 12 for every legal nonpass bid,
+    including the zero allowance for marks;
+  - the seven-tile hand cap holds initially and is transition-preserved, so an
+    actual live `PlayState.legalSet` has cardinality `1..7` and divides 420;
+  - the concrete opening-deal count `399072960`, the 212-bit root denominator,
+    and the 217-magnitude-bit utility bound;
+  - a state-tied unbanked-point invariant derived from `PlayState.Inv`, with the
+    unresolved current-trick tiles proved to remain in the unbanked set and the
+    invariant preserved across every legal step;
+  - the seven exact nonempty opening-cell counts for `m = 0..6`, with sharp
+    maximum 11,730;
+  - positive componentwise upper summation, one-shared-policy lower summation,
+    action dominance, and the distinction between non-strict optimal membership
+    and strict uniqueness.
+
+  This is deliberately a foundation, not an implementation-refinement theorem:
+  the `(response,e)` partition, projector code, and Rust/Metal correspondence
+  remain named proof debt.
 - `Texas42/Cells.lean` — Layer C, the public record, capacity cells, and
   **the losslessness theorem** (Math §§6.3–6.4, 7.1–7.5):
   - replay machinery (`replayFrom`/`LegalFrom`) and `legalSet_congr` —

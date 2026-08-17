@@ -48,6 +48,37 @@ dependencies = [
 ]
 
 [[package]]
+name = "rob-core"
+version = "0.1.0"
+dependencies = [
+ "num-bigint",
+ "num-integer",
+ "num-rational",
+ "num-traits",
+]
+
+[[package]]
+name = "rob-player"
+version = "0.1.0"
+dependencies = [
+ "num-bigint",
+ "num-traits",
+ "rob-core",
+]
+
+[[package]]
+name = "rob-verify"
+version = "0.1.0"
+dependencies = [
+ "num-bigint",
+ "num-integer",
+ "num-rational",
+ "num-traits",
+ "rob-core",
+ "rob-player",
+]
+
+[[package]]
 name = "walt-core"
 version = "0.1.0"
 
@@ -70,6 +101,25 @@ name = "walt-geom"
 version = "0.1.0"
 dependencies = [
  "num-rational",
+ "walt-core",
+]
+
+[[package]]
+name = "walt-gpu-ref"
+version = "0.1.0"
+dependencies = [
+ "rob-core",
+ "rob-verify",
+ "walt-core",
+ "walt-gpu-spec",
+ "walt-kernel",
+]
+
+[[package]]
+name = "walt-gpu-spec"
+version = "0.1.0"
+dependencies = [
+ "num-bigint",
  "walt-core",
 ]
 
