@@ -76,21 +76,35 @@ const SHA256_K: [u32; 64] = [
 
 /// Returns the FIPS 180-4 SHA-256 digest of `data`.
 pub fn sha256(data: &[u8]) -> [u8; SHA256_BYTES] {
-    let mut state = Sha256::new();
+    let mut state = Sha256State::new();
     state.update(data);
     state.finish()
 }
 
-struct Sha256 {
+/// Incremental FIPS 180-4 SHA-256 state.
+///
+/// The internal compression state and partial block remain private.  Callers
+/// may append any number of byte slices and consume the state with [`finish`].
+/// This is the same implementation used by the one-shot [`sha256`] helper.
+///
+/// [`finish`]: Sha256State::finish
+pub struct Sha256State {
     h: [u32; 8],
     buffer: [u8; 64],
     buffer_len: usize,
     total_bytes: u64,
 }
 
-impl Sha256 {
-    fn new() -> Sha256 {
-        Sha256 {
+impl Default for Sha256State {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Sha256State {
+    /// Creates an empty SHA-256 stream.
+    pub const fn new() -> Sha256State {
+        Sha256State {
             h: [
                 0x6a09_e667,
                 0xbb67_ae85,
@@ -107,7 +121,8 @@ impl Sha256 {
         }
     }
 
-    fn update(&mut self, mut data: &[u8]) {
+    /// Appends exact bytes to the stream.
+    pub fn update(&mut self, mut data: &[u8]) {
         self.total_bytes = self
             .total_bytes
             .wrapping_add(u64::try_from(data.len()).expect("slice length fits in u64"));
@@ -136,7 +151,8 @@ impl Sha256 {
         }
     }
 
-    fn finish(mut self) -> [u8; SHA256_BYTES] {
+    /// Consumes the stream and returns its SHA-256 digest.
+    pub fn finish(mut self) -> [u8; SHA256_BYTES] {
         let bit_length = self.total_bytes.wrapping_mul(8);
         let padding_len = if self.buffer_len < 56 {
             56 - self.buffer_len
@@ -205,5 +221,35 @@ impl Sha256 {
         for (index, value) in working.iter().enumerate() {
             self.h[index] = self.h[index].wrapping_add(*value);
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn streaming_matches_one_shot_at_every_block_boundary() {
+        let bytes: Vec<u8> = (0..521usize)
+            .map(|index| ((index * 131 + 17) & 0xff) as u8)
+            .collect();
+        let expected = sha256(&bytes);
+
+        for chunk_width in [1usize, 2, 3, 7, 31, 55, 56, 63, 64, 65, 127, 128, 257, 521] {
+            let mut state = Sha256State::new();
+            for chunk in bytes.chunks(chunk_width) {
+                state.update(chunk);
+            }
+            assert_eq!(state.finish(), expected, "chunk width {chunk_width}");
+        }
+    }
+
+    #[test]
+    fn empty_updates_do_not_change_the_stream() {
+        let mut state = Sha256State::default();
+        state.update(&[]);
+        state.update(b"abc");
+        state.update(&[]);
+        assert_eq!(state.finish(), sha256(b"abc"));
     }
 }

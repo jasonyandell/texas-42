@@ -10,7 +10,7 @@ pub mod digest;
 pub mod mass;
 pub mod tables;
 
-pub use digest::{sha256, SHA256_BYTES};
+pub use digest::{sha256, Sha256State, SHA256_BYTES};
 pub use mass::{
     ExactMass, ExactMassError, FieldProfileId, MeasureRoleId, OpeningLikelihoodCoeff,
     OpeningResponseFrame, OpeningResponseFrameError, PriorProfileId, ScaleFrame, ScaledOpeningMass,

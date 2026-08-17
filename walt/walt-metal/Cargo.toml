@@ -1,0 +1,22 @@
+[package]
+name = "walt-metal"
+version = "0.1.0"
+edition = "2021"
+license = "UNLICENSED"
+publish = false
+
+[dependencies]
+objc2.workspace = true
+objc2-core-graphics.workspace = true
+objc2-foundation.workspace = true
+dispatch2.workspace = true
+objc2-metal.workspace = true
+walt-gpu-spec.workspace = true
+walt-gpu-ref.workspace = true
+
+[lints.rust]
+unsafe_code = "deny"
+unsafe_op_in_unsafe_fn = "deny"
+
+[lints.clippy]
+float_arithmetic = "deny"

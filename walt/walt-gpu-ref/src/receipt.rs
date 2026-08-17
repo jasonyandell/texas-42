@@ -1040,6 +1040,20 @@ fn validate_projection_binding(
     Ok(())
 }
 
+/// Returns the established canonical 37-byte `W42RTK01` key for a checked
+/// opening root.
+///
+/// This is a read-only encoder over [`OpeningRootV1`].  It deliberately exposes
+/// neither a decoder nor any alternate root constructor, and it delegates to
+/// the same private encoder used by the M1 receipt authority.
+pub fn canonical_opening_root_key_bytes_v1(
+    root: OpeningRootV1,
+) -> Result<[u8; OPENING_ROOT_KEY_BYTES], OpeningEnvelopeError> {
+    canonical_root_key_bytes(root)?
+        .try_into()
+        .map_err(|_| OpeningEnvelopeError::LengthOverflow("canonical root key array"))
+}
+
 fn canonical_root_key_bytes(root: OpeningRootV1) -> Result<Vec<u8>, OpeningEnvelopeError> {
     let mut bytes = Vec::with_capacity(OPENING_ROOT_KEY_BYTES);
     bytes.extend_from_slice(&OPENING_ROOT_KEY_MAGIC);
@@ -1522,6 +1536,16 @@ mod tests {
             OpeningContractV1::point_bid(30).expect("point contract"),
         )
         .expect("fixture root")
+    }
+
+    #[test]
+    fn public_root_key_encoder_is_the_existing_canonical_authority() {
+        let root = fixture_root();
+        let public = canonical_opening_root_key_bytes_v1(root).expect("public root key");
+        let private = canonical_root_key_bytes(root).expect("private root key");
+        assert_eq!(public.as_slice(), private);
+        assert_eq!(&public[..8], &OPENING_ROOT_KEY_MAGIC);
+        assert_eq!(public.len(), OPENING_ROOT_KEY_BYTES);
     }
 
     #[test]

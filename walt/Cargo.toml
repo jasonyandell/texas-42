@@ -9,6 +9,8 @@ members = [
     "walt-factory",
     "walt-gpu-spec",
     "walt-gpu-ref",
+    "walt-metal",
+    "walt-m2-runner",
 ]
 
 [workspace.package]
@@ -25,10 +27,39 @@ walt-strat = { path = "walt-strat" }
 walt-skeleton = { path = "walt-skeleton" }
 walt-gpu-spec = { path = "walt-gpu-spec" }
 walt-gpu-ref = { path = "walt-gpu-ref" }
+walt-metal = { path = "walt-metal" }
+walt-m2-runner = { path = "walt-m2-runner" }
 num-bigint = "0.4"
 num-integer = "0.1"
 num-rational = "0.4"
 num-traits = "0.2"
+objc2 = "=0.6.4"
+objc2-core-graphics = { version = "=0.3.2", default-features = false }
+objc2-foundation = { version = "=0.3.2", default-features = false, features = [
+    "NSError",
+    "NSObject",
+    "NSString",
+] }
+dispatch2 = { version = "=0.3.1", default-features = false, features = [
+    "alloc",
+    "block2",
+    "objc2",
+] }
+objc2-metal = { version = "=0.3.2", default-features = false, features = [
+    "std",
+    "dispatch2",
+    "MTLAllocation",
+    "MTLBuffer",
+    "MTLCommandBuffer",
+    "MTLCommandEncoder",
+    "MTLCommandQueue",
+    "MTLComputeCommandEncoder",
+    "MTLComputePipeline",
+    "MTLDevice",
+    "MTLLibrary",
+    "MTLResource",
+    "MTLTypes",
+] }
 
 # Exact arithmetic: a silent wrap is a wrong count, so check in every profile.
 [profile.dev]
