@@ -13035,3 +13035,102 @@ numbers 39 and 40 remain reserved.
   **RANGE RE-FROZEN: GT1-A1..GT1-A17; freeze 56 fixed; chapter closed.** All
   issued freeze numbers 1..56 are accounted for: 54 spent and 39/40 reserved.
   Any later GT1 ruling requires an explicit re-brief and another range re-freeze.
+
+---
+
+## GPU-native trick-1: the binding M3 perfect-recall-net parity gate (2026-08-17)
+
+**Adjudicator:** walt-math. **Object:** the exact 44,738-byte M3 rebrief and
+152,251-byte binding M3 contract, on the immutable freeze-56 carrier and
+toolchain ancestry. **Tier:** exploratory throughout, below every project tier;
+no result here is an opening-play claim. **Parent:** GT1-A1..GT1-A17 and freeze
+56 remain immutable. Rulings are **GT1-A18..GT1-A24**. **Freeze 57** is fixed at
+GT1-A24. Reserved freeze numbers 39 and 40 remain reserved.
+
+- **GT1-A18 (explicit M3 rebrief and parent continuity).** The mandatory bridge
+  is `math/gpu_native_trick1_m3_rebrief_v0.1.md`, exact SHA-256
+  `07b3c993260ca25524ac1df2c3e3bd864ce66401ba6666d5ac918f633be3bf31`.
+  Freeze-55/freeze-56 contracts, descriptors, manifests, receipts, metallib and
+  the CENSUS prefix remain immutable historical authorities. The binding M3
+  contract closes every enumerated pre-freeze decision and supersedes the
+  rebrief only where it is more specific; orientation-only fractions and counts
+  are not frozen results.
+- **GT1-A19 (scope, carrier and claim fence: ACCEPTED exactly).** M3 is one
+  grade-4 h8 carrier immediately before trick 4, uniform over the exact 1,200
+  compatible worlds, with `HistoricalVoidFeasibilityOnlyV1` and
+  `UniformRandomLegalV1`; S1 alone is focal. It evaluates roots 21, 31, 33 and
+  55 for objectives M3A future-trick differential and M3B P30 make, each under
+  separately typed H lawful-perfect-recall and C world-revealed treatments.
+  M3A requires pairwise CPU/Metal parity and strict `C > H`; M3B requires
+  pairwise parity without a predeclared gap; objective topology must agree root
+  by root. The sole green sentence is **M3 PERFECT-RECALL NET PARITY COMPLETE
+  under freeze 57**. It is not a trick-1 value, lead choice, compression,
+  growth, performance, controller, strategy-strength or player claim.
+- **GT1-A20 (perfect-recall net and independent authorities).**
+  `M3PerfectRecallKeyV1` is exactly the scoped S1 observation with complete own
+  action-observation memory and no hidden-world identity;
+  `M3WorldRevealedKeyV1` is a disjoint C type. Every focal key retains its
+  complete legal face, all actions and the forced singleton frontier. Unique
+  parent/action, complete all-run sealing and sum-before-max license the exact
+  unnormalized recurrence; focal branches copy mass and field choices alone
+  divide it. Independent H/C CPU authorities share only frozen carrier/rules,
+  and the host-only no-max repricer consumes raw sealed evidence rather than
+  production values. No strategy fusion, slab-local maximum, key
+  renormalization, objective pruning or cross-world C pooling is admitted.
+- **GT1-A21 (Metal ABI, two-family reductions and closed caps).** The exact
+  scalar-word ABIs, two MSL entry points, bindings, status/error precedence,
+  poison/tail/guards, serial completion schedule and compiler/device profile in
+  the contract are binding. Exactly two noncoexisting REDUCE families exist:
+  `MASS_BUCKET` partitions EDGE_A once; `BACKWARD_VALUE` uses one least-witness
+  child value or each terminal edge once. Conservation and selected-policy
+  terminal-bucket checks are disjoint host folds, never a third family.
+  Count-one retirement, immutable dense replacement, real epoch order (MASS
+  0..3; BACKWARD 3..0), the 21-level/range proof and every command/frame and
+  live-byte cap are fixed. The headline caps are H 2,048, C 16,384, task 32,768
+  and run 524,288 commands; task/run frames 131,072/2,097,152; Metal 512 MiB,
+  host 2 GiB and spill 16 GiB. Float and timing-derived proof-path arithmetic
+  remain forbidden.
+- **GT1-A22 (semantic evidence, controls, persistence and reproducibility).**
+  Visits, lawful successor emissions, EDGE_A, family-level-zero rows, keys,
+  faces, actions, singletons and terminals have the sole owners and exact
+  epoch/treatment/GLOBAL aggregation rules in the contract. CPU and post-Metal
+  semantic streams are independently rendered. The 36-control registry,
+  constant-hash duplicate, exact child protocol, 4,096-byte complete-task
+  checkpoint, 52,880-byte success receipt and 512-byte failure receipt are
+  closed grammars with no partial salvage. Historical blobs and the exact
+  929,957-byte freeze-56 CENSUS prefix are verified with replacements disabled;
+  current exact-HEAD bytes define `M3SourceManifestV1` and `M3BuildIdentityV1`.
+  Two fresh source-verified metallib builds and two fresh checkpoint-disabled
+  official runs must produce byte-identical library and receipt bytes.
+- **GT1-A23 (proof boundary and blocking conjunction).**
+  `Texas42.Trick1PerfectRecallNet` must build and pass the axiom audit for
+  codec/scoping, replay, unique parent, complete face, sum-before-max, mass,
+  objective bridges, the two-family census/range/compaction/cap proofs, epoch
+  counters and all-or-nothing composition. Portable tests, exhaustive finite
+  bridges, independent-oracle review, exact toolchain/metallib checks, elevated
+  native controls, both complete runs, receipt validation and final source
+  re-verification are one conjunction. Rust-to-Lean, Metal-to-Rust, general
+  independent-oracle correctness and grade-4-to-trick-1 transport remain named
+  correspondence debt; parity does not discharge them.
+- **GT1-A24 (FREEZE 57 — exact binding contract, descriptor and range close).**
+  The binding authority is `GPU-NATIVE-TRICK1-M3.md` v1, exact SHA-256
+  `79de73e9ee9b0e1fd3b0467ddf27a66dcc9e135419cba531cb73218d71eee147`.
+  It survived independent exact-hash mathematics and systems audits after the
+  reduction-pass and epoch-visit blockers were closed. Freeze 57 fixes the exact
+  962 ASCII bytes below, with no trailing NUL or newline; their SHA-256 is
+  `e5efe6ce5c293b29fc05902e7bf913fd13f04a031c2951f7a1bf5cf92137f852`:
+
+  ```text
+  GT1-M3-FREEZE-SET-V1|authority=GPU-NATIVE-TRICK1-M3-v1@79de73e9ee9b0e1fd3b0467ddf27a66dcc9e135419cba531cb73218d71eee147+GT1-A18..GT1-A24+freeze57|parent=freeze56@7bdc5e05513fd1d7e7b6c26870cf9bd4a16966c5daf48963729d999c4b6b28cf;commit=20a9feccb71660d10dcca3e334867e7b5400a837|rebrief=07b3c993260ca25524ac1df2c3e3bd864ce66401ba6666d5ac918f633be3bf31|profile=UniformCompatibleSupportV1,HistoricalVoidFeasibilityOnlyV1,UniformRandomLegalV1|objectives=M3A_FUTURE_TRICK_DIFFERENTIAL,M3B_P30_MAKE|treatments=H_LAWFUL_PERFECT_RECALL,C_WORLD_REVEALED|carrier=M3CarrierProfileV1,h8,roots21-31-33-55|keys=M3PerfectRecallKeyV1,M3WorldRevealedKeyV1|arithmetic=U256MassV1|kernels=m3_field_expand_v1,m3_u256_reduce_pass_v1|reductions=MASS_BUCKET,BACKWARD_VALUE|receipt=W42M3R01,M3FailureReceiptV1|manifest=M3SourceManifestV1|proof=Texas42.Trick1PerfectRecallNet|reserved=39,40|excluded=trick1-value,lead-choice,compression,growth,performance,controller,strategy-strength,player
+  ```
+
+  Exact hashes, byte lengths, carrier counts and observed values remain checked
+  consequences of the frozen generators and objects, never parallel
+  mathematical authorities. Freeze 57 authorizes only the gate; it records no
+  M3 result. Any implementation discrepancy fails M3 or requires a new
+  append-only adjudication after observation; code may not silently repair the
+  target.
+
+  **RANGE RE-FROZEN: GT1-A1..GT1-A24; freeze 57 fixed; chapter closed.** All
+  issued freeze numbers 1..57 are accounted for: 55 spent and 39/40 reserved.
+  Any later GT1 ruling requires an explicit rebrief and another range re-freeze.
