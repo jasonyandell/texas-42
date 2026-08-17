@@ -336,7 +336,7 @@ cef3ab574415435e75d82dd35d857c6c6336cbc20c0a8d80d9e27f7c2a70b1bc  walt/walt-kern
 a870505177ef69ec0ef4f6c0ae393d318746672da1ce45c6341f8d90f3581af2  walt/walt-m2-runner/src/lib.rs
 4a3bc8d5ba49e94d5d575f37014c01279124f0d3712fb7480ac8eb3fff468d09  walt/walt-m2-runner/src/main.rs
 aceabf74195325a3c22febbd0f28ea45de260abe89530fbb98b74a567a517919  walt/walt-m2-runner/src/observation.rs
-a10a780cf11d4fcaa8019254d568e250e5b46ae9aefa513af80cb5f9d9ce6b95  walt/walt-m2-runner/src/protocol.rs
+a3f879ed04dfff54f140a5e8552499a8144f767d30a6307bc05de81275d99bb9  walt/walt-m2-runner/src/protocol.rs
 3f4ac9b6530aeff8c7146d779fd88a71cbe1d534988225ed6d5298b5d3f7b821  walt/walt-metal/Cargo.toml
 6b595379fd19350bb9fb8b0b9b1f44eec424c248fc16ddb60e1c4eb83e934d66  walt/walt-metal/shaders/00_u256.metal
 bf1aa5300a11ad113a8dea4487912b8e89e46ef1fb877381024125258e5b729f  walt/walt-metal/shaders/01_opening_projector.metal

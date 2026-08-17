@@ -278,12 +278,25 @@ fn supervise_loop(
         }
 
         let now = Instant::now();
+        let observed_exit = exit_status.as_ref().and_then(ExitStatus::code);
         let (deadline, timeout_specification) = if let Some((command, started)) = committed {
-            (
-                started + deadlines.command,
-                FailureSpecification::command_timeout(profile, command),
-            )
-        } else if candidate.is_some() {
+            let specification = if exit_status.is_some() && observed_exit != Some(124) {
+                // Once the child has exited, only the contract's dedicated 124
+                // exit can still corroborate an active command timeout.  A
+                // signalled or differently exited child whose pipe is held by
+                // a descendant is a protocol failure, not a timeout that may
+                // borrow the active command's coordinates.
+                FailureSpecification::protocol()
+            } else {
+                FailureSpecification::command_timeout(profile, command)
+            };
+            (started + deadlines.command, specification)
+        } else if candidate.is_some() || exit_status.is_some() {
+            // EOF is part of the accepted stream.  If the child has already
+            // exited without an active committed command, a delayed EOF (for
+            // example, an inherited stdout holder) must never be retyped as a
+            // timeout in the machine's next phase.  Wait for the ordinary CPU
+            // deadline so queued frames can drain, then fail as protocol.
             (
                 last_cpu_progress + deadlines.cpu_liveness,
                 FailureSpecification::protocol(),
@@ -412,6 +425,7 @@ struct FailureSpecification {
     subordinal: u32,
     native_status: u32,
     observed_mismatch: u32,
+    admits_child_exit_124: bool,
 }
 
 impl FailureSpecification {
@@ -423,6 +437,7 @@ impl FailureSpecification {
             subordinal: UNAVAILABLE_ORDINAL,
             native_status: UNAVAILABLE_STATUS,
             observed_mismatch: 1,
+            admits_child_exit_124: false,
         }
     }
 
@@ -434,6 +449,7 @@ impl FailureSpecification {
             subordinal: UNAVAILABLE_ORDINAL,
             native_status: UNAVAILABLE_STATUS,
             observed_mismatch: 0,
+            admits_child_exit_124: false,
         }
     }
 
@@ -446,6 +462,7 @@ impl FailureSpecification {
             subordinal,
             native_status: UNAVAILABLE_STATUS,
             observed_mismatch: 0,
+            admits_child_exit_124: true,
         }
     }
 
@@ -469,6 +486,7 @@ impl FailureSpecification {
             | TerminalCode::Unknown => FailureCode::CommandStateFailure,
             TerminalCode::Completed => FailureCode::InternalFailure,
         };
+        value.admits_child_exit_124 = terminal == TerminalCode::Timeout;
         value
     }
 }
@@ -527,16 +545,18 @@ fn render_parent_failure(
     build_identity: Digest,
 ) -> Result<FailureReceipt, SupervisorError> {
     let observed_exit = exit_code(status);
-    let child_exit = if observed_exit == 124
-        && (specification.code != FailureCode::Timeout
-            || !matches!(
-                specification.phase,
-                FailurePhase::Gate0
-                    | FailurePhase::ArithmeticNegative
-                    | FailurePhase::ArithmeticCorpus
-                    | FailurePhase::OpeningNegative
-                    | FailurePhase::ProjectorTask
-            )) {
+    // Exit 124 corroborates only a timeout specification that originated at
+    // an actually committed command (or its exact TIMEOUT terminal).  Phase
+    // and code alone are insufficient: a CPU-liveness timeout in an
+    // active-looking next phase could otherwise borrow command coordinates if
+    // the child exits between the last status poll and reap.
+    let child_exit_124_rejected = observed_exit == 124 && !specification.admits_child_exit_124;
+    let specification = if child_exit_124_rejected {
+        FailureSpecification::protocol()
+    } else {
+        specification
+    };
+    let child_exit = if child_exit_124_rejected {
         UNAVAILABLE_EXIT
     } else {
         observed_exit
@@ -1294,6 +1314,51 @@ mod tests {
         bytes
     }
 
+    fn send_reader_frame(
+        sender: &std::sync::mpsc::Sender<ReaderEvent>,
+        bytes: Vec<u8>,
+        received_at: Instant,
+    ) {
+        sender
+            .send(ReaderEvent::Frame { bytes, received_at })
+            .expect("queue synthetic reader frame");
+    }
+
+    fn queue_smoke_through_commit(
+        sender: &std::sync::mpsc::Sender<ReaderEvent>,
+        received_at: Instant,
+    ) {
+        for phase in [2, 3, 5, 6] {
+            send_reader_frame(
+                sender,
+                encoded_frame(FrameKind::Preparing, phase, 0),
+                received_at,
+            );
+        }
+        send_reader_frame(
+            sender,
+            encoded_frame(FrameKind::Committed, 0, 0),
+            received_at,
+        );
+    }
+
+    fn queue_smoke_through_post_command(
+        sender: &std::sync::mpsc::Sender<ReaderEvent>,
+        received_at: Instant,
+    ) {
+        queue_smoke_through_commit(sender, received_at);
+        send_reader_frame(
+            sender,
+            encoded_frame(FrameKind::Terminal, 0, u32::from(TerminalCode::Completed)),
+            received_at,
+        );
+        send_reader_frame(
+            sender,
+            encoded_frame(FrameKind::Preparing, 9, 0),
+            received_at,
+        );
+    }
+
     fn child_failure_frame(
         phase: FailurePhase,
         code: FailureCode,
@@ -1414,25 +1479,13 @@ mod tests {
             .expect("spawn synthetic exiting child")
     }
 
-    fn spawn_staged_then_exit(
-        first: &TempBytes,
-        second: &TempBytes,
-        third: &TempBytes,
-        code: u8,
-    ) -> Child {
+    fn spawn_exit(code: u8) -> Child {
         Command::new("/bin/sh")
-            .args([
-                "-c",
-                "/bin/cat \"$1\"; /bin/sleep 0.10; /bin/cat \"$2\"; /bin/sleep 0.10; /bin/cat \"$3\"; exit \"$4\"",
-                "m2-test",
-            ])
-            .arg(first.path())
-            .arg(second.path())
-            .arg(third.path())
+            .args(["-c", "exit \"$1\"", "m2-test"])
             .arg(code.to_string())
             .stdout(Stdio::piped())
             .spawn()
-            .expect("spawn synthetic staged child")
+            .expect("spawn synthetic empty exiting child")
     }
 
     fn spawn_silent_sleep() -> Child {
@@ -1463,6 +1516,18 @@ mod tests {
             poll_interval: Duration::from_millis(1),
             command: Duration::from_millis(80),
             cpu_liveness: Duration::from_millis(300),
+        }
+    }
+
+    fn semantic_deadlines() -> SupervisorDeadlines {
+        // These tests adjudicate complete bytes and exit status rather than a
+        // watchdog boundary.  Give the live reader/process integration ample
+        // scheduling room so host contention cannot manufacture a different
+        // semantic result.  Timeout tests continue to use short_deadlines().
+        SupervisorDeadlines {
+            poll_interval: Duration::from_millis(1),
+            command: Duration::from_secs(5),
+            cpu_liveness: Duration::from_secs(5),
         }
     }
 
@@ -1576,7 +1641,7 @@ mod tests {
             spawn_cat(&file),
             RunProfile::Smoke,
             TEST_BUILD,
-            short_deadlines(),
+            semantic_deadlines(),
         )
         .unwrap();
         assert_eq!(
@@ -1596,7 +1661,7 @@ mod tests {
                     spawn_cat(&file),
                     RunProfile::Smoke,
                     TEST_BUILD,
-                    short_deadlines(),
+                    semantic_deadlines(),
                 )
                 .unwrap(),
             );
@@ -1665,7 +1730,7 @@ mod tests {
                     spawn_cat(&file),
                     RunProfile::Smoke,
                     TEST_BUILD,
-                    short_deadlines(),
+                    semantic_deadlines(),
                 )
                 .unwrap(),
             );
@@ -1803,6 +1868,11 @@ mod tests {
         let (sender, receiver) = std::sync::mpsc::sync_channel(OFFICIAL_STREAM_QUEUE_CAPACITY);
         let reader = thread::spawn(move || read_frames(stdout, sender));
 
+        // Prove that the closed-capacity queue can hold the entire stream by
+        // letting the reader finish before supervision begins.  A blind sleep
+        // here would test host scheduling instead of the queue invariant.
+        reader.join().unwrap();
+
         // Longer than the synthetic command deadline. A one-slot reader queue
         // would leave TERMINAL in the pipe and timestamp it too late.
         thread::sleep(Duration::from_millis(120));
@@ -1814,7 +1884,6 @@ mod tests {
             short_deadlines(),
         );
         drop(receiver);
-        reader.join().unwrap();
         match result {
             LoopResult::Complete {
                 status,
@@ -1887,19 +1956,17 @@ mod tests {
 
     #[test]
     fn inherited_stdout_holder_cannot_block_abort_reaping() {
+        let mut child = spawn_exited_child_with_stdout_holder();
+        assert_eq!(child.wait().expect("pre-reap direct child").code(), Some(1));
         let started = Instant::now();
         let failure = expect_failure(
-            supervise_child_with_deadlines(
-                spawn_exited_child_with_stdout_holder(),
-                RunProfile::Smoke,
-                TEST_BUILD,
-                short_deadlines(),
-            )
-            .unwrap(),
+            supervise_child_with_deadlines(child, RunProfile::Smoke, TEST_BUILD, short_deadlines())
+                .unwrap(),
         );
         assert!(started.elapsed() < Duration::from_secs(2));
-        assert_eq!(failure.phase, FailurePhase::MetalToolchain);
-        assert_eq!(failure.code, FailureCode::Timeout);
+        assert_eq!(failure.phase, FailurePhase::ChildProtocol);
+        assert_eq!(failure.code, FailureCode::ChildProtocolFailure);
+        assert_eq!(failure.child_exit, 1);
     }
 
     #[test]
@@ -1910,7 +1977,7 @@ mod tests {
                 spawn_cat_then_exit(&file, 124),
                 RunProfile::Smoke,
                 TEST_BUILD,
-                short_deadlines(),
+                semantic_deadlines(),
             )
             .unwrap(),
         );
@@ -1941,7 +2008,7 @@ mod tests {
                 spawn_cat_then_exit(&file, 1),
                 RunProfile::Smoke,
                 TEST_BUILD,
-                short_deadlines(),
+                semantic_deadlines(),
             )
             .unwrap(),
         );
@@ -1969,7 +2036,7 @@ mod tests {
                 spawn_cat_then_exit(&file, 124),
                 RunProfile::Smoke,
                 TEST_BUILD,
-                short_deadlines(),
+                semantic_deadlines(),
             )
             .unwrap(),
         );
@@ -1981,26 +2048,126 @@ mod tests {
 
     #[test]
     fn exit_124_after_a_completed_command_cannot_borrow_stale_command_state() {
-        let mut bytes = smoke_prefix_through_commit(0);
-        bytes.extend_from_slice(&encoded_frame(
-            FrameKind::Terminal,
-            0,
-            u32::from(TerminalCode::Completed),
-        ));
-        bytes.extend_from_slice(&encoded_frame(FrameKind::Preparing, 9, 0));
-        let file = TempBytes::new(&bytes);
-        let failure = expect_failure(
-            supervise_child_with_deadlines(
-                spawn_cat_then_exit(&file, 124),
+        let (sender, receiver) = std::sync::mpsc::channel();
+        let received_at = Instant::now();
+        queue_smoke_through_post_command(&sender, received_at);
+        sender
+            .send(ReaderEvent::Eof { received_at })
+            .expect("queue synthetic EOF");
+        drop(sender);
+
+        let mut child = spawn_exit(124);
+        child.wait().expect("pre-reap synthetic exit 124");
+        let result = supervise_loop(
+            &mut child,
+            &receiver,
+            RunProfile::Smoke,
+            TEST_BUILD,
+            semantic_deadlines(),
+        );
+        let failure = match result {
+            LoopResult::Abort(specification) => {
+                let status = child.wait().expect("recover cached exit-124 status");
+                render_parent_failure(specification, status, TEST_BUILD)
+                    .expect("render deterministic post-command exit")
+            }
+            other => panic!("post-command exit-124 was not rejected: {other:?}"),
+        };
+        assert_eq!(failure.phase, FailurePhase::ChildProtocol);
+        assert_eq!(failure.code, FailureCode::ChildProtocolFailure);
+        assert_eq!(failure.child_exit, UNAVAILABLE_EXIT);
+    }
+
+    #[test]
+    fn held_eof_cannot_change_known_exit_timeout_provenance() {
+        for (through_post_command, exit, phase, code, child_exit) in [
+            (
+                true,
+                124,
+                FailurePhase::ChildProtocol,
+                FailureCode::ChildProtocolFailure,
+                UNAVAILABLE_EXIT,
+            ),
+            (false, 124, FailurePhase::Gate0, FailureCode::Timeout, 124),
+            (
+                false,
+                1,
+                FailurePhase::ChildProtocol,
+                FailureCode::ChildProtocolFailure,
+                1,
+            ),
+        ] {
+            let (sender, receiver) = std::sync::mpsc::channel();
+            let received_at = Instant::now();
+            if through_post_command {
+                queue_smoke_through_post_command(&sender, received_at);
+            } else {
+                queue_smoke_through_commit(&sender, received_at);
+            }
+
+            // Keep the sender alive to model a descendant that inherited the
+            // direct child's stdout and therefore withholds EOF.
+            let mut child = spawn_exit(exit);
+            child.wait().expect("pre-reap synthetic held-EOF exit");
+            let result = supervise_loop(
+                &mut child,
+                &receiver,
                 RunProfile::Smoke,
                 TEST_BUILD,
                 short_deadlines(),
+            );
+            drop(sender);
+            let specification = match result {
+                LoopResult::Abort(specification) => specification,
+                other => panic!("held EOF unexpectedly completed: {other:?}"),
+            };
+            let status = child.wait().expect("recover cached synthetic status");
+            let failure = render_parent_failure(specification, status, TEST_BUILD)
+                .expect("render held-EOF failure");
+            assert_eq!(failure.phase, phase);
+            assert_eq!(failure.code, code);
+            assert_eq!(failure.child_exit, child_exit);
+        }
+    }
+
+    #[test]
+    fn late_exit_124_cannot_promote_a_cpu_timeout_to_command_timeout() {
+        let mut child = spawn_exit(124);
+        let status = child.wait().expect("reap synthetic late exit 124");
+        let failure = render_parent_failure(
+            FailureSpecification::cpu_timeout(FailurePhase::ProjectorTask),
+            status,
+            TEST_BUILD,
+        )
+        .expect("render CPU-timeout race result");
+        assert_eq!(failure.phase, FailurePhase::ChildProtocol);
+        assert_eq!(failure.code, FailureCode::ChildProtocolFailure);
+        assert_eq!(failure.child_exit, UNAVAILABLE_EXIT);
+        assert_eq!(failure.task_ordinal, UNAVAILABLE_ORDINAL);
+    }
+
+    #[test]
+    fn exit_124_cannot_promote_a_non_timeout_child_failure() {
+        let child_frame = child_failure_frame(
+            FailurePhase::ProjectorTask,
+            FailureCode::ProjectorMismatch,
+            613,
+            UNAVAILABLE_ORDINAL,
+        );
+        let mut child = spawn_exit(124);
+        let status = child.wait().expect("reap child-failure exit 124");
+        let failure = expect_failure(
+            finish_complete(
+                status,
+                Some(Candidate::ChildFailure(child_frame)),
+                TEST_BUILD,
             )
-            .unwrap(),
+            .expect("render rejected child-failure exit 124"),
         );
         assert_eq!(failure.phase, FailurePhase::ChildProtocol);
         assert_eq!(failure.code, FailureCode::ChildProtocolFailure);
         assert_eq!(failure.child_exit, UNAVAILABLE_EXIT);
+        assert_eq!(failure.child_failure_frame_digest, ZERO_DIGEST);
     }
 
     #[test]
@@ -2017,7 +2184,7 @@ mod tests {
                 spawn_cat_then_exit(&file, 1),
                 RunProfile::Official,
                 TEST_BUILD,
-                short_deadlines(),
+                semantic_deadlines(),
             )
             .unwrap(),
         );
@@ -2048,7 +2215,7 @@ mod tests {
                 spawn_cat_then_exit(&file, 1),
                 RunProfile::Official,
                 TEST_BUILD,
-                short_deadlines(),
+                semantic_deadlines(),
             )
             .unwrap(),
         );
@@ -2186,35 +2353,58 @@ mod tests {
 
     #[test]
     fn matching_completed_terminal_restarts_cpu_liveness() {
-        let first = TempBytes::new(&smoke_prefix_through_commit(0));
-        let second = TempBytes::new(&encoded_frame(
-            FrameKind::Terminal,
-            0,
-            u32::from(TerminalCode::Completed),
-        ));
-        let mut third_bytes = encoded_frame(FrameKind::Preparing, 9, 0);
         let final_failure = child_failure_frame(
             FailurePhase::ProjectorTask,
             FailureCode::InternalFailure,
             109,
             UNAVAILABLE_ORDINAL,
         );
-        third_bytes.extend_from_slice(&final_failure);
-        let third = TempBytes::new(&third_bytes);
+        let (sender, receiver) = std::sync::mpsc::channel();
+        let received_base = Instant::now() - Duration::from_millis(210);
+        queue_smoke_through_commit(&sender, received_base);
+        send_reader_frame(
+            &sender,
+            encoded_frame(FrameKind::Terminal, 0, u32::from(TerminalCode::Completed)),
+            received_base + Duration::from_millis(100),
+        );
+        send_reader_frame(
+            &sender,
+            encoded_frame(FrameKind::Preparing, 9, 0),
+            received_base + Duration::from_millis(200),
+        );
+        send_reader_frame(
+            &sender,
+            final_failure.clone(),
+            received_base + Duration::from_millis(200),
+        );
+        sender
+            .send(ReaderEvent::Eof {
+                received_at: received_base + Duration::from_millis(205),
+            })
+            .expect("queue synthetic EOF");
+        drop(sender);
+
         let deadlines = SupervisorDeadlines {
             poll_interval: Duration::from_millis(1),
             command: Duration::from_millis(500),
             cpu_liveness: Duration::from_millis(180),
         };
-        let failure = expect_failure(
-            supervise_child_with_deadlines(
-                spawn_staged_then_exit(&first, &second, &third, 1),
-                RunProfile::Smoke,
-                TEST_BUILD,
-                deadlines,
-            )
-            .unwrap(),
+        let mut child = spawn_exit(1);
+        child.wait().expect("pre-reap synthetic failure child");
+        let result = supervise_loop(
+            &mut child,
+            &receiver,
+            RunProfile::Smoke,
+            TEST_BUILD,
+            deadlines,
         );
+        let failure = match result {
+            LoopResult::Complete { status, candidate } => expect_failure(
+                finish_complete(status, candidate, TEST_BUILD)
+                    .expect("render deterministic liveness-reset result"),
+            ),
+            other => panic!("completed terminal did not reset liveness: {other:?}"),
+        };
         assert_eq!(failure.phase, FailurePhase::ProjectorTask);
         assert_eq!(failure.code, FailureCode::InternalFailure);
         assert_eq!(
@@ -2239,7 +2429,7 @@ mod tests {
                 spawn_cat_then_exit(&file, 1),
                 RunProfile::Smoke,
                 TEST_BUILD,
-                short_deadlines(),
+                semantic_deadlines(),
             )
             .unwrap(),
         );
