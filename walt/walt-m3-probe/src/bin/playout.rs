@@ -553,18 +553,21 @@ fn opts_json(opts: &[(u8, BigRational)]) -> String {
     format!("[{}]", parts.join(","))
 }
 
-/// Sample S1's belief: deals consistent with S1's remaining hand, the played
-/// mask, the record's hand sizes, and every void observed so far in play.
+/// Sample a seat's belief: deals consistent with the viewer's remaining
+/// hand, the played mask, the record's hand sizes, and every void observed
+/// so far in play (any seat can be the viewer).
 fn sample_belief(
-    s1_hand: u32,
+    viewer: usize,
+    viewer_hand: u32,
     played: u32,
     sizes: [usize; 4],
     voids: [u32; 4],
     n: usize,
     rng: &mut SplitMix64,
 ) -> Vec<[u32; 4]> {
-    let unseen = FULL_MASK & !played & !s1_hand;
+    let unseen = FULL_MASK & !played & !viewer_hand;
     let mut tiles = mask_bits(unseen);
+    let others: Vec<usize> = (0..4).filter(|&s| s != viewer).collect();
     let mask_slice = |sl: &[u8]| sl.iter().fold(0u32, |a, &x| a | (1u32 << x));
     let mut out: Vec<[u32; 4]> = Vec::with_capacity(n);
     while out.len() < n {
@@ -572,13 +575,21 @@ fn sample_belief(
             let j = rng.below((i + 1) as u64) as usize;
             tiles.swap(i, j);
         }
-        let s2 = mask_slice(&tiles[0..sizes[2]]);
-        let s3 = mask_slice(&tiles[sizes[2]..sizes[2] + sizes[3]]);
-        let s0 = mask_slice(&tiles[sizes[2] + sizes[3]..sizes[2] + sizes[3] + sizes[0]]);
-        if s2 & voids[2] != 0 || s3 & voids[3] != 0 || s0 & voids[0] != 0 {
-            continue;
+        let mut w = [0u32; 4];
+        w[viewer] = viewer_hand;
+        let mut off = 0;
+        let mut ok = true;
+        for &s in &others {
+            w[s] = mask_slice(&tiles[off..off + sizes[s]]);
+            off += sizes[s];
+            if w[s] & voids[s] != 0 {
+                ok = false;
+                break;
+            }
         }
-        out.push([s0, s1_hand, s2, s3]);
+        if ok {
+            out.push(w);
+        }
     }
     out
 }
@@ -594,12 +605,13 @@ fn play_game(
     game_idx: usize,
     n_outer: usize,
     n0: usize,
+    all_level1: bool,
     deadline: Instant,
 ) -> Option<String> {
     let s1_full = s1_initial_mask();
     let mut rng = SplitMix64(GAME_SEED ^ mix(game_idx as u64));
     // Deal the other three hands uniformly (no voids exist pre-play).
-    let deal = sample_belief(s1_full, 0, [7, 7, 7, 7], [0u32; 4], 1, &mut rng)
+    let deal = sample_belief(1, s1_full, 0, [7, 7, 7, 7], [0u32; 4], 1, &mut rng)
         .pop()
         .expect("one deal");
     let mut hands = deal; // [s0, s1, s2, s3] full 7-tile hands
@@ -645,15 +657,21 @@ fn play_game(
             };
             host.boundary_played = trick_start_played;
             host.boundary_hand_size = 7 - completed;
-            let (chosen, opts, walt): (u8, Vec<(u8, BigRational)>, bool) = if seat == VIEWER {
-                // walt: level-1 evaluation over a fresh belief sample.
+            let level1_here = seat == VIEWER || all_level1;
+            let (chosen, opts, walt): (u8, Vec<(u8, BigRational)>, bool) = if level1_here
+                && legal.count_ones() > 1
+            {
+                // Level-1 evaluation over a fresh belief sample from this
+                // seat's chair: own hand, record, observed voids. T1 seats
+                // maximize pmake, T0 seats minimize it.
+                let maximize = seat.team() == Team::T1;
                 let sizes = host.hand_sizes_at(&key);
-                let worlds = sample_belief(hand, played, sizes, voids, n_outer, &mut rng);
+                let worlds = sample_belief(seat_i, hand, played, sizes, voids, n_outer, &mut rng);
                 let mut solver = Solver::new(
                     dcl,
-                    VIEWER,
+                    seat,
                     hand,
-                    true,
+                    maximize,
                     worlds,
                     Vec::new(),
                     FieldModel::Policy,
@@ -673,10 +691,22 @@ fn play_game(
                 }
                 let chosen = opts
                     .iter()
-                    .max_by(|a, b| a.1.cmp(&b.1))
+                    .cloned()
+                    .reduce(|best, cand| {
+                        let better = if maximize {
+                            cand.1 > best.1
+                        } else {
+                            cand.1 < best.1
+                        };
+                        if better {
+                            cand
+                        } else {
+                            best
+                        }
+                    })
                     .expect("legal play")
                     .0;
-                (chosen, opts, true)
+                (chosen, opts, seat == VIEWER)
             } else if legal.count_ones() == 1 {
                 (legal.trailing_zeros() as u8, Vec::new(), false)
             } else {
@@ -773,11 +803,13 @@ fn main() {
         .map(|s| s.parse().expect("outer deals"))
         .unwrap_or(200);
     let n0: usize = args.get(4).map(|s| s.parse().expect("n0")).unwrap_or(8);
+    // "all1": every seat plays level 1 from its own chair (informed table).
+    let all_level1 = args.get(5).map(|s| s == "all1").unwrap_or(false);
     let deadline = Instant::now() + std::time::Duration::from_secs(budget_secs);
     let mut games: Vec<String> = Vec::new();
     for g in 0..n_games {
         eprintln!("playing game {g}...");
-        match play_game(dcl, g, n_outer, n0, deadline) {
+        match play_game(dcl, g, n_outer, n0, all_level1, deadline) {
             Some(j) => games.push(j),
             None => {
                 eprintln!("budget died mid-game {g}; emitting completed games only");
