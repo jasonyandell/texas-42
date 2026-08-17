@@ -4,8 +4,9 @@
 object, where its full statement lives, what it binds, and what corrected it ·
 Sources: `walt/CENSUS-RULINGS.md` (the adjudication record),
 `walt/math/decision_sparse_exact_solving_v0.1_errata.md` (the maintained
-mathematics), the received documents under `walt/math/`, and the adjudicated
-GPU-native contract `walt/GPU-NATIVE-TRICK1.md`. Related:
+mathematics), the received documents under `walt/math/`, the adjudicated
+GPU-native portable contract `walt/GPU-NATIVE-TRICK1.md`, the exact M2 rebrief,
+and the frozen M2 contract `walt/GPU-NATIVE-TRICK1-M2.md`. Related:
 [walt hub](walt.md), [structure and transport](walt-math-structure-transport.md),
 [information geometry](walt-math-information-geometry.md),
 [decision-deadness](walt-math-deadness.md),
@@ -32,9 +33,9 @@ you decide whether to open the source.
 ## The governing documents, and which governs
 
 walt's decision-sparse mathematics lives in three places with three different
-disciplines. The GPU-native trick-1 branch adds one received source and one
-maintained adjudicated contract. The distinction is load-bearing and is the
-first thing to internalise.
+disciplines. The GPU-native trick-1 branch adds a received source, a maintained
+portable contract, an exact accepted M2 rebrief and a frozen binding M2
+contract. The distinction is load-bearing and is the first thing to internalise.
 
 | Document | Discipline | Role |
 |---|---|---|
@@ -42,6 +43,8 @@ first thing to internalise.
 | `walt/math/gpu_native_trick1_implementers_guide_v0.2.md` | **Received, byte-frozen and checksum-gated** (GT1-A1) | GPU-native design input. Original source commit `ca18bc6807b974b31d4640786d7a2d63ae0b79fe`, intake commit `c230949c77ff7e8e22f912ed70f8206488ac9022`, SHA-256 `ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44`. It remains the record of what was received, not a silently repaired source. |
 | `walt/math/decision_sparse_exact_solving_v0.1_errata.md` | **Maintained** (DS-A28(iii)) | The repaired mathematics, with full statements and proofs. Hypotheses may be added and language narrowed *in place*, each change carrying a dated provenance marker naming its ruling. |
 | `walt/GPU-NATIVE-TRICK1.md` | **Maintained adjudicated contract v0.3** (GT1-A1) | Binding first-build authority for the GPU-native branch wherever it narrows, repairs or rejects the received v0.2 guide. It does not promote the branch, prove the Rust implementation, or report Metal. |
+| `walt/math/gpu_native_trick1_m2_rebrief_v0.1.md` | **Exact accepted M2 rebrief** (GT1-A10) | The mandatory bridge from freeze 55 to M2: 44,079 bytes, SHA-256 `9183132529a42289a104a73d8f7e196eb95058ac2edda60bb42c715f1f8a139a`. It supersedes the old host observation only as current environment status; it does not rewrite that receipt. |
+| `walt/GPU-NATIVE-TRICK1-M2.md` | **Frozen binding M2 contract v1** (GT1-A17) | The exact M2 arithmetic/projector parity authority, SHA-256 `aacb6df5e9106b3b6bf00ccfb496c71f762c0fb4644c13a17f76d2ac2f0326e3`. It neither widens the portable parent nor authorizes an action-value, controller, performance or player claim. |
 | `walt/CENSUS-RULINGS.md` | **Append-only** (DS-A28(i)) | The adjudication record. No ruling's text is ever rewritten; a corrected clause receives a bracketed dated pointer marker at its site. Also the home of the named lemmas from before the errata existed. |
 
 **Citation rule (DS-A17), binding on every design and results file:** cite the
@@ -50,10 +53,12 @@ provenance. Where parent and errata differ, **the errata governs**. The rulings
 file remains the adjudication record; it is no longer the home of the repaired
 mathematics.
 
-For the GPU-native branch, cite v0.3 for the maintained design and `GT1-A` for
-its provenance and implementation boundary. The received v0.2 guide is cited by
+For portable M0/M1, cite v0.3 and GT1-A1..GT1-A9. For M2, cite the frozen M2
+contract and GT1-A10..GT1-A17 with freeze 56; cite the exact rebrief when the
+bridge from freeze 55 is the fact at issue. The received v0.2 guide is cited by
 source identity when the fact at issue is what arrived, never as authority over a
-v0.3 repair.
+repair. The historical Gate-0 NO-GO receipt remains true about the environment it
+recorded and is never rewritten as though M2 had already existed.
 
 A trap worth naming up front: the lemmas proved inside `CENSUS-RULINGS.md`
 before the errata existed — Lemmas V, X, **E**, S, S-fold, S-det, R, G, J and
@@ -155,7 +160,7 @@ travel with them are on the track page's two chapters.
 | **Proposition FC-width** | The subgradient's width is exactly the mass-weighted spread of the feature **across the clairvoyant tie**. Without ties it is a point, so zero capture needs an exact identity; with ties it has positive width and zero capture is **robust rather than coincidental**. | same section, closing note |
 | **Proposition FC-tight** | The drop bound is **attained** exactly when the descent is a single linear piece. It is never *exact* as a property of the functional anywhere, and **which states attain it is not knowable without the captured amount** — so attainment is a fact about the gap's distribution, never a usable property of the instrument. | same section, closing note |
 
-### GPU-native trick-1 portable foundation — [page](walt-gpu-native-trick1.md)
+### GPU-native trick-1 portable foundation and M2 Metal parity — [page](walt-gpu-native-trick1.md)
 
 | Object | One line | Full statement |
 |---|---|---|
@@ -163,7 +168,12 @@ travel with them are on the track page's two chapters.
 | **Opening-response projector** | Exact `(response,e)` cells with separately typed `A`, `C` and `W=A*C`; exact `m=0..6` cell counts, hard maximum 11,730, and total scaled mass `399072960*420^3`. Same-context payload reuse never merges physical action identity. | same file §5; GT1-A4 |
 | **Reduced parity carrier** | Complete direct-world parity at grades 2–4 below the 100,000-world cap; grade 5 is a 756,756-world preflight declared stop with zero partial output. This is a correctness carrier, never opening evidence. | same file §9 M1; GT1-A5 |
 | **Portable receipt boundary** | Persist only a root/action/profile/table/freeze/build-bound envelope or a fully bound grade-5 stop. Raw projector payloads are non-persistable; validators canonicalize and fail closed. | GT1-A6 and freeze 55 |
-| **Lean GT1 foundation** | Kernel proofs for the legal loss bound, live legal-set/420 facts, numeric widths, current-trick-aware unbanked points, exact cell counts and the stable interval algebra. Projector refinement, posterior factorization, information-key equivalence and Rust/Metal correspondence remain explicit debt. | `lean/Texas42/Trick1Foundation.lean`; GT1-A8 |
+| **Lean GT1 foundation** | Kernel proofs for the legal loss bound, live legal-set/420 facts, numeric widths, current-trick-aware unbanked points, exact cell counts and the stable interval algebra. Projector refinement, posterior factorization, information-key equivalence, Rust/Lean correspondence and Metal/Rust correspondence remain explicit debt. | `lean/Texas42/Trick1Foundation.lean`; GT1-A8 |
+| **`U256MetalCorpusV1` and `OpeningChooseTableV1`** | A fixed 16,384-case edge/SplitMix arithmetic corpus with an independent BigUint oracle, plus a separately identified 22-by-22 extraction checked entrywise against unchanged `SemanticTablesCanonicalV2`. These are exact arithmetic/table evidence, not game values. | `GPU-NATIVE-TRICK1-M2.md` §§3–4; GT1-A12 |
+| **`M2OpeningParityCarrierV1`** | The complete ordered Reduced, GradeMatching and SameContextPair carrier. One official work unit is one validated opening context and command buffer; physical-action binding remains distinct from reusable context payload. The complete official run has 614 tasks. | same file §§5–7; GT1-A11/A13 |
+| **`M2SequentialRunnerV1`** | Completion-only reads, fixed arenas, stable host compaction, typed progress frames, separate CPU/command watchdogs and zero accepted evidence after any failure. It deliberately admits no atomics, concurrency, adaptive scheduling or performance conclusion. | same file §§6–10; GT1-A13..A16 |
+| **M2 receipt boundary** | Two fresh complete Metal runs must produce one another's bytes and the immutable committed comparand exactly. The receipt is executable evidence under freeze 56, never a Lean theorem or a reusable projector value. | `walt/receipts/gpu_native_trick1_m2_v1/`; GT1-A16/A17 |
+| **Lean M2 finite foundation** | Kernel proofs for the fixed arena bounds, GradeMatching coverage and count, at-most-ten matching-vector bound, stable-filter order, and all-or-nothing acceptance. The projector formulas and Rust/Lean and Metal/Rust correspondence remain proof debt. | `lean/Texas42/Trick1MetalFoundation.lean`; GT1-A17 |
 
 ## The ruling families
 
@@ -199,7 +209,7 @@ three, `N4-A` across two — and the family, never the heading, is what inherits
 | `FF-A` | FF-A1..**FF-A33** | The feature-fee audition: Jason's control feature, specified | 2026-08-14 | Which cheap structural features price the first-layer tax, on a carrier where the perfect answer is filed. Carries **Proposition FF-blind**, **Lemma FF-min**, **Proposition FF-oracle**, **Proposition FF-degen** and **Proposition FF-corr**; **freeze 52** with amendments **v1.1** (FF-A15), **v1.2** (FF-A20), **v1.3** (FF-A23) and **v1.4** (FF-A33). Two closing notes: A10–A24 adjudicate the first run and the defect it exposed, A25–A33 the corrected re-run, the shared-θ fit, and the chapter's close. |
 | `FC-A` | FC-A1..**FC-A23** | The fee-correlation chapter: what a fee bites on, measured | 2026-08-14 | Why a fee bites, measured where the exact answer is filed. Carries **Proposition FC-drop**, **Corollary FC-null**, **Proposition FC-width**, **Proposition FC-tight** and **freeze 53**. Delivers the branch's first **pre-fee screening statistic** and its first structural limit on the fee route. A22 binds the "attained, never exact" phrasing; **A23 closes the range and replaces adjective-led claims with the exact one-sided reading**. |
 | `SS-A` | SS-A1..**SS-A18** | The seed survey: a hundred fresh coordinates, designed | 2026-08-15 / 2026-08-16 | The outcome-independent 100-seed, 400-unit grade-4 survey. Carries **freeze 54**, the repaired spreading generator, complete-face/tie-multiplicity receipts, the returned survey reading and its corrections. **SS-A18** repairs one cross-reference (`FF-A26(iv)`, not `FC-A26(iv)`) and closes the range without changing freeze 54. |
-| `GT1-A` | GT1-A1..**GT1-A9** | GPU-native trick-1: the bounded portable foundation | 2026-08-16 | The received-v0.2/adjudicated-v0.3 authority chain, exact narrow `OpeningRootV1`, generated semantics and U256 ABI, closed-form projector, bounded reduced direct-parity carrier, fully bound persistence/replay boundary, unchanged freeze-26 fence, Lean discharge/debt, and Metal Gate-0 NO-GO. Carries **freeze 55**. The integrated reproducibility gate passed, closing **PORTABLE M0/M1 COMPLETE under freeze 55**; M2+ and every root verdict remain outside the family. |
+| `GT1-A` | GT1-A1..**GT1-A17** | GPU-native trick-1: the bounded portable foundation; the binding M2 Metal parity gate | 2026-08-16 | The received-v0.2/adjudicated-v0.3 parent through **freeze 55**, then the exact M2 rebrief, binding M2 contract, integer corpus, extracted choose table, typed ABI, complete parity carrier, sequential runner, persistence gate and finite Lean foundation through **freeze 56**. The historical Gate-0 NO-GO remains a true old-environment receipt. **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**; it computes no action value, selected lead, optimal set, information net, continuation, performance claim or player, and M3+ plus every root verdict remain outside the family. |
 
 Three numbering traps. **`E-A` and `E-Q` are spent** by the endgame-store section
 of 2026-08-11 — SEP-A had to renumber the separation design's own `E-Q1..E-Q8`
@@ -323,7 +333,9 @@ owned there, not here.**
 | **S6m** | the feature-fee audition and repaired rerun | `results/feature_fee_2026-08-14.txt`, `feature_fee_v11_2026-08-14.txt` |
 | **S6n** | the fee-correlation diagnostic | `results/fc_correlation_2026-08-14.txt` |
 | **Seed survey** | the unnumbered 2026-08-15 hundred-seed survey and its declared scratch cuts | `results/seed_survey_2026-08-15.txt`, `seed_survey_2026-08-15_cutA.txt` |
-| **GT1 M0/M1** | the portable GPU-native trick-1 foundation | `walt/receipts/gpu_native_trick1_m0_m1_v1/`, plus `walt/receipts/gpu_native_trick1_gate0_2026-08-16.txt` for the separate Metal NO-GO |
+| **GT1 M0/M1** | the portable GPU-native trick-1 foundation | `walt/receipts/gpu_native_trick1_m0_m1_v1/` |
+| **GT1 historical Gate 0** | the immutable NO-GO observation from the old Command-Line-Tools-only environment | `walt/receipts/gpu_native_trick1_gate0_2026-08-16.txt` |
+| **GT1 M2** | the committed receipt for the exact freeze-56 status sentence; executable fixed-carrier evidence, not a theorem | `walt/receipts/gpu_native_trick1_m2_v1/` |
 
 Every measured number quoted anywhere on these pages comes from one of those
 files. **They sit one tier below even these pages** (probe output is exploratory
@@ -338,31 +350,39 @@ The design documents that each ruling family adjudicates (`walt/SEAT-CENSUS.md`,
 `walt/SEPARATION-PROBE.md` and others) live at the top of `walt/`. A ruling that
 says "the design" means the one named in its section's opening paragraph.
 
-## Addendum, 2026-08-16 — the portable trick-1 boundary
+## Addendum, 2026-08-17 — M2 closure over the portable trick-1 boundary
 
-Pointers only; the rulings and contract govern.
+The portable boundary was recorded on 2026-08-16; the executable M2 conjunction
+closed on 2026-08-17. Pointers only; the rulings and contracts govern.
 
-- **The `GT1-A` family is closed at GT1-A9 and carries freeze 55.** It binds the
-  received-v0.2/adjudicated-v0.3 authority chain, exact narrow `OpeningRootV1`,
-  generated `SemanticTablesCanonicalV2`, U256 mass/frame ABI, opening-cell
-  generator and caps, reduced grades-2–5 carrier, grade-5 zero-output stop, and
-  fully root/action/profile/table/freeze/build-bound persistence. Raw projector
-  payloads are non-persistable. Freeze 26 is cited unchanged; 39/40 remain
-  reserved; freeze 44 and M2+ are excluded.
+- **The `GT1-A` family is closed at GT1-A17 and carries freezes 55 and 56.** The
+  portable parent remains exactly the received-v0.2/adjudicated-v0.3 chain,
+  narrow `OpeningRootV1`, generated semantics, U256 mass/frame ABI, opening-cell
+  generator, reduced carrier and persistence boundary. M2 adds only the exact
+  rebrief/contract, U256 corpus, extracted choose table, typed Metal ABI,
+  `M2OpeningParityCarrierV1`, sequential runner, closed receipt and finite Lean
+  obligations. Freeze 26 is cited unchanged; 39/40 remain reserved; freeze 44
+  and M3+ are excluded.
 - **`PORTABLE M0/M1 COMPLETE under freeze 55`.** The final checked source
   manifest, committed canonical envelope and stop, fresh byte comparison, Rust
   gate and Lean target passed together. This bounded status establishes no Metal
   result, perfect-recall net, controller, root value or opening action.
-- **The Lean foundation is substantial and deliberately incomplete.** It proves
-  the legal budget/420/width/current-trick-point/cell-count/interval layer. It
-  does not yet prove the semantic opening partition and formulas, posterior
-  refinement, information-key equivalence, canonical least-index verdict, or
-  Rust/Metal refinement. Those remain named proof debt at GT1-A8.
-- **Metal Gate 0 is NO-GO on the present host.** The device supports Metal, but
-  only Command Line Tools are selected and the compiler, library/archive tools,
-  capture and profiler are unavailable. M2+ has not run. Installing/selecting a
-  compatible full Xcode is a separate machine-owner action, not something a
-  portable pass waives.
+- **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**. This establishes only
+  exact Metal/Rust arithmetic and opening-projector parity on the frozen carrier;
+  it computes no action value, selected lead, optimal set, information net,
+  continuation, performance claim or player. M3+ and every opening-root
+  verdict remain untouched.
+- **The historical Metal Gate-0 NO-GO remains true.** It is an immutable receipt
+  of the old Command-Line-Tools-only environment, not the current host status and
+  not a receipt to rewrite after the toolchain became available.
+- **The Lean foundation is substantial and deliberately incomplete.** The parent
+  module proves the legal budget/420/width/current-trick-point/cell-count/interval
+  layer; `Trick1MetalFoundation` proves the finite arena/count/order/no-partial
+  obligations. Neither proves the semantic opening partition and formulas,
+  posterior refinement, information-key equivalence, canonical least-index
+  verdict, Rust/Lean correspondence or Metal/Rust correspondence. The M2 receipt
+  is executable fixed-carrier evidence bearing on the last relation, not a
+  theorem or general correspondence proof.
 - **The `SS-A` family is now administratively closed at SS-A18 and carries
   freeze 54.** SS-A18 corrects `FC-A26(iv)` to `FF-A26(iv)` in the non-null
   pairing provenance and closes the range; it changes no survey receipt, number,
@@ -595,7 +615,7 @@ the FC items are the most likely to be needed.**
 
 ## Where the rest lives
 
-- [The freeze register](walt-math-freezes.md) — all 55 issued freezes with
+- [The freeze register](walt-math-freezes.md) — all 56 issued freezes with
   content, version and declaring ruling (39 and 40 still reserved).
 - [Open questions](walt-math-open-questions.md) — what is genuinely unresolved,
   and why none of it belongs in [open-problems](open-problems.md).

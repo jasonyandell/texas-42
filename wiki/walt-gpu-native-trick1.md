@@ -5,16 +5,19 @@ narrow opening-root scope, present implementation boundary, blocking gates and
 unearned claims · Sources:
 [`gpu_native_trick1_implementers_guide_v0.2.md`](../walt/math/gpu_native_trick1_implementers_guide_v0.2.md),
 [`GPU-NATIVE-TRICK1.md`](../walt/GPU-NATIVE-TRICK1.md),
-[`Trick1Foundation.lean`](../lean/Texas42/Trick1Foundation.lean), and the
-portable crates under [`walt/`](../walt/). Related: [walt](walt.md),
+[`gpu_native_trick1_m2_rebrief_v0.1.md`](../walt/math/gpu_native_trick1_m2_rebrief_v0.1.md),
+[`GPU-NATIVE-TRICK1-M2.md`](../walt/GPU-NATIVE-TRICK1-M2.md),
+[`Trick1Foundation.lean`](../lean/Texas42/Trick1Foundation.lean),
+[`Trick1MetalFoundation.lean`](../lean/Texas42/Trick1MetalFoundation.lean), and
+the GPU-track crates under [`walt/`](../walt/). Related: [walt](walt.md),
 [decision-sparse](walt-decision-sparse.md), [proof-assistant plan](proof-assistant-plan.md),
 [math reference](walt-math-reference.md), [freeze register](walt-math-freezes.md).
 
 > **Epistemic tier: EXPLORATORY — below every tier on
 > [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).** The received
 > guide, adjudicated contract, Rust code, tests, receipts and every number on this
-> page remain inside walt's exploratory fence. Portable agreement is not a Metal
-> result, and a finite receipt is not a Lean theorem.
+> page remain inside walt's exploratory fence. Metal parity evidence is not a
+> root verdict, and a finite receipt is not a Lean theorem.
 
 ## The honest status
 
@@ -31,11 +34,17 @@ Portable M0/M1 is source-complete for this bounded slice, and the canonical
 run-envelope, grade-5 stop and regeneration path exist. The final checked source
 manifest, committed comparands, fresh byte-for-byte regeneration, Rust gate and
 Lean target passed together. The bounded status is therefore **PORTABLE M0/M1
-COMPLETE under freeze 55**. Metal Gate 0 remains
-**NO-GO on the current host** because a compatible full Xcode is not installed and
-selected. M2–M5, the explicit perfect-recall information net, the stopped
-controller and an opening-root verdict are untouched. This track has produced no
-root action.
+COMPLETE under freeze 55**.
+
+At immutable commit `a6df853`, the evidence behind the exact M2 status comprised
+the historical and current source gates, portable CI, reproducible checked-in
+metallib, native Gate 0, malformed-input controls, 16,384-case U256 corpus,
+discarded maximum smoke, two fresh complete 614-task projector runs,
+byte-identical committed-receipt adjudication, Lean build and axiom audit, and
+final source re-verification in one conjunction. The sole admitted result is
+**M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**. It establishes no
+action value, selected lead, optimal set, information net, continuation,
+performance claim, or player; M3–M5 and every root verdict remain untouched.
 
 ## Authority and provenance
 
@@ -45,12 +54,14 @@ The source roles are deliberately separate.
 |---|---|---|
 | Received v0.2 guide | Original source commit `ca18bc6807b974b31d4640786d7a2d63ae0b79fe`; intake commit `c230949c77ff7e8e22f912ed70f8206488ac9022`; SHA-256 `ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44` | Preserved design input, byte-for-byte. It records what was received; it is not silently repaired. |
 | Adjudicated v0.3 contract | [`walt/GPU-NATIVE-TRICK1.md`](../walt/GPU-NATIVE-TRICK1.md) | Binding first-build design inside the exploratory track. It governs wherever it narrows, repairs or rejects v0.2. |
-| Append-only rulings and freezes | [`walt/CENSUS-RULINGS.md`](../walt/CENSUS-RULINGS.md), GT1-A1..GT1-A9, and [freeze 55](walt-math-freezes.md) | The adjudication and deterministic-encoding record. Freeze 55 binds the exact portable authority/profile/carrier/envelope/stop surface; it proves no mathematics. |
-| Portable executable evidence | `walt-gpu-spec`, `walt-gpu-ref`, their tests and receipts | Evidence about the implemented carrier. It does not promote a statement or stand in for Metal parity. |
-| Lean foundation | [`Trick1Foundation.lean`](../lean/Texas42/Trick1Foundation.lean) | Kernel-facing foundation only; executable refinement obligations remain separate. |
+| Binding M2 bridge and contract | [`gpu_native_trick1_m2_rebrief_v0.1.md`](../walt/math/gpu_native_trick1_m2_rebrief_v0.1.md), SHA-256 `9183132529a42289a104a73d8f7e196eb95058ac2edda60bb42c715f1f8a139a`; [`GPU-NATIVE-TRICK1-M2.md`](../walt/GPU-NATIVE-TRICK1-M2.md), SHA-256 `aacb6df5e9106b3b6bf00ccfb496c71f762c0fb4644c13a17f76d2ac2f0326e3` | The mandatory bridge from freeze 55 and the exact M2 authority frozen by GT1-A17. They narrow M2 to arithmetic and opening-projector parity. |
+| Append-only rulings and freezes | [`walt/CENSUS-RULINGS.md`](../walt/CENSUS-RULINGS.md), GT1-A1..GT1-A17, [freeze 55 and freeze 56](walt-math-freezes.md) | The adjudication and deterministic-encoding record. The freezes bind exact measured objects and prove no mathematics. |
+| Executable evidence | `walt-gpu-spec`, `walt-gpu-ref`, `walt-metal`, `walt-m2-runner`, their tests, and the committed [`M2 receipt and checksum`](../walt/receipts/gpu_native_trick1_m2_v1/) | Evidence about the implemented carriers and exact Metal parity gate. It does not promote a statement or stand in for a theorem or root verdict. |
+| Lean foundations | [`Trick1Foundation.lean`](../lean/Texas42/Trick1Foundation.lean) and [`Trick1MetalFoundation.lean`](../lean/Texas42/Trick1MetalFoundation.lean) | Kernel-facing finite foundations only; executable refinement obligations remain separate. |
 
 The v0.2 file's source hash is the intake gate. The v0.3 file is maintained design
 authority and is not presented as a second frozen copy of the received artifact.
+The M2 contract is a separate exact authority only for the freeze-56 parity slice.
 
 ## What adjudication changed
 
@@ -80,8 +91,8 @@ competitor strictly and every higher-index competitor non-strictly.
 |---|---|---|
 | **M0 — portable arithmetic and semantics** | Source-complete: exact U256 mass arithmetic, closed role/frame typing, canonical `SemanticTablesCanonicalV2` generated from `walt-core`, FIPS hash anchors, independent big-integer oracles, and the complete declared prose-rules bridge. Whole-gate status follows the freeze-55 condition above. | No Metal ABI parity, speed result, root value or player. |
 | **M1 — scalar opening projector** | Source-complete: independent closed-form/direct paths; every feasible `m=0..6` reduced coordinate at grades 2–4; full-opening counts/mass; grade-5 zero-output stop; same-context reuse without action collapse; and canonical bound envelope/stop validators. Whole-gate status follows the freeze-55 condition above. | No 399,072,960-world direct enumeration, no grade-5 parity, no root action and no claim that grade 4 predicts opening behavior. |
-| **Lean foundation** | The module covers the stable arithmetic and interval layer: loss-budget bounds, scale divisibility, width bounds, current-prefix-aware unbanked points, opening-cell counts, additive bounds and member-versus-unique distinctions. | It does not yet prove Rust realizes the opening partition or coefficient formulas, that the ABI refines the arithmetic, or anything about Metal execution. |
-| **M2 — Metal parity** | **NO-GO at Gate 0.** The current machine has Command Line Tools but not the selected full-Xcode Metal compiler, library tools, capture and profiling stack. | A skipped toolchain is never a green Metal run. |
+| **Lean foundations** | The two modules cover the stable arithmetic/interval layer and M2's finite arena, carrier-order and all-or-nothing facts. | They do not prove the projector formulas, Rust/Lean correspondence or Metal/Rust semantic correspondence. |
+| **M2 — Metal parity** | **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**. The complete committed gate and receipt comparison covered exact U256 and opening-projector parity on the frozen carrier. | No action value, selected lead, optimal set, information net, continuation, performance claim, player or Lean correspondence theorem. |
 | **M3 — perfect-recall net** | Untouched. | No strategy-fusion repair has been demonstrated by this track. |
 | **M4 — representation-growth gate** | Untouched. | No compression, basis-rank, memory-growth or GPU-speed claim. |
 | **M5+ — stopped controller and opening attempt** | Untouched. | No opening player, root closure, optimal action or playable verdict. |
@@ -106,13 +117,18 @@ tricks for winner and points. Those figures describe the complete declared finit
 domains of the bridge; they are not sampling rates and do not turn executable
 agreement into a theorem.
 
+The historical Gate-0 NO-GO receipt remains a true immutable observation of its
+old Command Line Tools environment. GT1-A10 supersedes only that observation's
+claim about the current host precondition; it does not rewrite the old receipt.
+
 ## What may be said
 
 The present result is a serious exact foundation for the first build: a preserved
 source, an adjudicated narrow contract, **PORTABLE M0/M1 COMPLETE under freeze
-55** with a fully bound and integratedly checked reproducibility boundary, and a
-limited Lean foundation. It is designed so Metal must reproduce canonical exact
-objects rather than introduce its own semantics.
+55** with a fully bound reproducibility boundary, a bounded freeze-56
+arithmetic/projector Metal-parity receipt, and finite Lean foundations. Metal
+reproduces canonical exact objects on the frozen carrier rather than introducing
+its own semantics.
 
 It is not yet a GPU solver result. Nothing here supports a claim about GPU speed,
 opening strength, general opponent behavior, auction-aware belief, arbitrary
@@ -121,15 +137,15 @@ Grade-4 checks are correctness instruments and are never evidence about trick 1.
 
 ## Next gates
 
-The freeze-55 portable gate is closed: the final source manifest, committed
-envelope/stop comparands, fresh byte comparison, parent workspace CI and Lean
-target passed together.
+The freeze-55 portable gate is closed. Under freeze 56 the only admitted M2
+status is **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**; all scope
+exclusions above remain binding.
 
-1. Install and select a compatible full Xcode only with the machine owner's
-   authorization, then run the integer-only Metal diagnostic.
-2. Before retaining any M2 result, adjudicate and freeze its GPU work unit,
-   scheduling order, arena caps and no-partial-result behavior. The existing CPU
-   walk-step budget does not type GPU work.
-3. Require cell-for-cell and byte-for-byte Metal parity before measuring speed.
-4. Build and compare the explicit perfect-recall net before any controller or
-   opening-root attempt.
+1. Build and compare the explicit perfect-recall information net at M3 before
+   any controller or opening-root attempt.
+2. Run the M4 representation-growth gate without importing an unearned
+   compression, basis-rank, memory-growth or performance claim from M2.
+3. Admit a stopped M5 controller or opening attempt only after its own
+   adjudication, carrier, persistence and no-partial-result gates exist.
+4. Keep the projector formulas, Rust/Lean correspondence and Metal/Rust semantic
+   correspondence as named proof debt; the M2 receipt does not discharge them.

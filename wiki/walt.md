@@ -62,7 +62,7 @@ for, read [the game of 42, mathematically](game-of-42.md).
 |---|---|
 | [walt-scheme-fix](walt-scheme-fix.md) | The descriptor language: what a descriptor is, how to read and write one, worked examples, and how much of §12.7 is actually built |
 | [walt-decision-sparse](walt-decision-sparse.md) | The live track: the decision-sparse architecture, its objects, its audit history, and the state of its experiment program |
-| [walt-gpu-native-trick1](walt-gpu-native-trick1.md) | The adjudicated narrow opening-root contract, the bounded M0/M1 portable build, Metal Gate 0, and the still-unbuilt perfect-recall/controller ladder |
+| [walt-gpu-native-trick1](walt-gpu-native-trick1.md) | The adjudicated narrow opening-root contracts, the bounded M0/M1 portable build, M2 Metal parity, and the still-unbuilt perfect-recall/controller ladder |
 | [walt-math-reference](walt-math-reference.md) | The map of walt's mathematics — every named object, where its statement lives, what it binds. Siblings: [structure and transport](walt-math-structure-transport.md), [information geometry](walt-math-information-geometry.md), [decision-deadness](walt-math-deadness.md), [decision-sparse witnesses](walt-math-decision-sparse.md), [the freeze register](walt-math-freezes.md), [open questions](walt-math-open-questions.md) |
 
 ## The sources under `walt/`
@@ -72,14 +72,17 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | [`walt/math/`](../walt/math/) | The frozen mathematical bases, never edited: `unified_information_geometry_v0.4.md` (the ~3,800-line basis with its own §17 claim ledger), `equivariant_lumpability_v0.5.md` (§12.6A, authored by Jason), `predictive_algebra_v0.6.md`, `decision_sparse_exact_solving_v0.1.md` and its maintained errata, the second-audit record, and the derived `implementers_guide.md` (non-authoritative; the basis wins on any conflict) |
 | [`gpu_native_trick1_implementers_guide_v0.2.md`](../walt/math/gpu_native_trick1_implementers_guide_v0.2.md) | Received Pro design input, preserved byte-for-byte. Original source commit `ca18bc6807b974b31d4640786d7a2d63ae0b79fe`; intake commit on this branch `c230949c77ff7e8e22f912ed70f8206488ac9022`; SHA-256 `ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44`. The adjudicated v0.3 contract governs wherever it repairs or narrows this source. |
 | [`walt/GPU-NATIVE-TRICK1.md`](../walt/GPU-NATIVE-TRICK1.md) | The adjudicated v0.3 first-build contract: binding inside this exploratory track, and authoritative wherever it narrows, repairs or rejects v0.2. It is a design authority, not a Metal result or an opening-root verdict. |
+| [`gpu_native_trick1_m2_rebrief_v0.1.md`](../walt/math/gpu_native_trick1_m2_rebrief_v0.1.md) and [`walt/GPU-NATIVE-TRICK1-M2.md`](../walt/GPU-NATIVE-TRICK1-M2.md) | The checksum-gated bridge from freeze 55 and exact M2 contract frozen at GT1-A17. They govern only the arithmetic/opening-projector parity slice and authorize no root verdict. |
 | [`walt/PLAN.md`](../walt/PLAN.md) | The forward plan: disciplines, crate map, the CDCL spine, one-line session summaries, next milestones |
 | [`walt/LOG.md`](../walt/LOG.md) | The session index. Since this reorganization it carries a few summary lines per session and points at the owning page here; the full per-session records live in git history |
 | `walt/CENSUS-RULINGS.md` | The append-only adjudication record — every ruling, freeze and theorem that governs a probe. Mapped by [walt-math-reference](walt-math-reference.md) |
 | `walt/*.md` design docs | One per probe: `CENSUS`, `FIBER-PROBE`, `FIBER-REFINE`, `ENDGAME-STORE`, `SEAT-CENSUS`, `PREDICTIVE-RANK`, `POLICY-GEOMETRY`, `DEADNESS-PROBE`, `SEPARATION-PROBE`, plus the queued `SEPARATION-RUNG-N4` and `ECONOMY-SUCCESSOR` |
 | [`walt/DISCREPANCIES.md`](../walt/DISCREPANCIES.md) | Spec-versus-reference reconciliations, same protocol as the corpus: never pick a plausible reading silently |
 | `walt/probes/` | The rescued Python probe suites — frozen validators, never source |
-| `walt/walt-*` | The Rust workspace: the original strict spine core → kernel → geom → strat → skeleton → factory ([instruments](walt-instruments.md)), plus the bounded GPU-track side branch `walt-gpu-spec` (M0) and `walt-gpu-ref` (M1), now **PORTABLE M0/M1 COMPLETE under freeze 55** after the integrated reproducibility pass. No `walt-metal` crate or Metal result exists yet. |
+| `walt/walt-*` | The Rust workspace: the original strict spine core → kernel → geom → strat → skeleton → factory ([instruments](walt-instruments.md)), plus the bounded GPU-track side branch `walt-gpu-spec` (M0), `walt-gpu-ref` (M1 and portable M2 reference/receipt machinery), `walt-metal` and `walt-m2-runner`. It records **PORTABLE M0/M1 COMPLETE under freeze 55** and **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**; none of these crates is an opening player or supplies an action value, selected lead, optimal set, information net, continuation or performance claim. |
 | `walt/ci/check.sh` | The gate: fmt, clippy `-D warnings -D float_arithmetic`, no-float grep, release tests |
+| `walt/ci/check_m2_metal.sh` | The freeze-56 integrated gate: historical/current source checks, metallib reproducibility, native controls and smoke, two fresh complete official runs, committed receipt adjudication, Lean audit and final source verification |
+| [`walt/receipts/gpu_native_trick1_m2_v1/`](../walt/receipts/gpu_native_trick1_m2_v1/) | The committed M2 binary receipt and external checksum. This is executable fixed-carrier evidence, not a theorem, player artifact or reusable projector value. |
 
 ## Where it stands
 
@@ -136,15 +139,16 @@ it, back in front of everything else.
 
 The [GPU-native trick-1 track](walt-gpu-native-trick1.md) is the new engineering
 route toward that longer ladder. Its received v0.2 design has been frozen and
-source-hash gated, and the repaired v0.3 contract has been adjudicated at
-GT1-A1..GT1-A9 with freeze 55. Portable M0/M1 is source-complete for the bounded
-slice and a limited Lean foundation exists. The final source-bound envelope/stop
-regeneration and integrated Rust/Lean gate passed together, so the bounded status
-is **PORTABLE M0/M1 COMPLETE under freeze 55**. Metal Gate 0 remains
-**NO-GO on the current host** because a compatible full Xcode is absent; Command
-Line Tools alone do not supply the required Metal compiler and profiling stack.
-M2–M5, the explicit perfect-recall net, the stopped controller and an opening-root
-verdict are untouched. No root action has been produced by this track.
+source-hash gated. The v0.3 portable contract and exact M2 contract have been
+adjudicated through GT1-A17 with freezes 55 and 56. Portable M0/M1 remains
+**PORTABLE M0/M1 COMPLETE under freeze 55**. At immutable commit `a6df853`, the
+track earned exactly **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**. It establishes no action value,
+selected lead, optimal set, information net, continuation, performance claim, or
+player; M3–M5 and every root verdict remain untouched.
+
+The historical Gate-0 NO-GO receipt remains a true immutable observation of its
+old Command Line Tools environment. GT1-A10 supersedes only its statement about
+the current host precondition; the old receipt is not rewritten.
 
 Every count above is carrier-relative, coordinate-relative, and exploratory. Full
 numbers, scope caveats and dissents live on the era pages; the refutations are

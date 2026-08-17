@@ -110,6 +110,24 @@ distinction.  It does **not** yet prove that the Rust projector realizes the
 those remain explicit successor obligations rather than imported executable
 facts.
 
+**M2 finite Metal-gate foundation added 2026-08-17.**
+`lean/Texas42/Trick1MetalFoundation.lean` discharges the seven finite obligations
+named by freeze 56: the 79,800-slot rectangular cap; the exact 5,109,296-byte
+projector and 2,359,424-byte arithmetic arena equalities; grade 1–7 coverage and
+the 46-task GradeMatching count; the at-most-ten matching-vector bound over the
+complete finite domain; stable-filter preservation of the frozen slot order; and
+the zero-task, zero-payload acceptance shape after any failed conjunct. The
+integrated gate audits every exported theorem with `#print axioms` and admits only
+the expected core axioms: `propext`, `Classical.choice` and `Quot.sound`.
+**M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**.
+That exact engineering claim covers arithmetic/projector parity only: it computes
+no action value, selected lead, optimal set, information net, continuation,
+performance claim or player. The semantic response partition, `A/C/W`
+formulas and conservation, Rust/Lean correspondence, and Metal/Rust semantic
+correspondence remain named proof debt. The M2 receipt supplies fixed-carrier
+executable evidence bearing on the last relation, not a theorem or general
+correspondence proof.
+
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 
 ```
