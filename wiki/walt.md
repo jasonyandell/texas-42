@@ -61,7 +61,8 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | Page | Scope |
 |---|---|
 | [walt-scheme-fix](walt-scheme-fix.md) | The descriptor language: what a descriptor is, how to read and write one, worked examples, and how much of §12.7 is actually built |
-| [walt-decision-sparse](walt-decision-sparse.md) | The live track: the decision-sparse architecture, its objects, its audit history, and the state of its experiment program |
+| [walt-decision-sparse](walt-decision-sparse.md) | The decision-sparse architecture, its objects, its audit history, and the state of its experiment program |
+| [walt-seat-play](walt-seat-play.md) | **The live track since 2026-08-17**: the scenario-player (sampling-stack) seat — level-1's arena win over the E[Q] champion, level-2, divergence mining, and the spec [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md) with its obligations ledger |
 | [walt-gpu-native-trick1](walt-gpu-native-trick1.md) | The adjudicated narrow opening-root contracts, the bounded M0/M1 portable build, M2 Metal parity, and the still-unbuilt perfect-recall/controller ladder |
 | [walt-math-reference](walt-math-reference.md) | The map of walt's mathematics — every named object, where its statement lives, what it binds. Siblings: [structure and transport](walt-math-structure-transport.md), [information geometry](walt-math-information-geometry.md), [decision-deadness](walt-math-deadness.md), [decision-sparse witnesses](walt-math-decision-sparse.md), [the freeze register](walt-math-freezes.md), [open questions](walt-math-open-questions.md) |
 
@@ -149,6 +150,17 @@ player; M3–M5 and every root verdict remain untouched.
 The historical Gate-0 NO-GO receipt remains a true immutable observation of its
 old Command Line Tools environment. GT1-A10 supersedes only its statement about
 the current host precondition; the old receipt is not rewritten.
+
+Since 2026-08-17 the live track is the **scenario-player seat**
+([walt-seat-play](walt-seat-play.md)): a sampling-stack player (exact best
+response over sampled fiber worlds against modeled level-k minds, pmake
+objective) that plays full hands, and whose level-1 instance defeated the mk5
+E[Q] champion under the dropped-30 3×384 protocol (pooled McNemar z = +6.28 —
+an arena outcome about play, exploratory like everything else here, never a
+statement about exact values). The spec-after-build and its proof-obligations
+ledger live at [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md); the
+declared program is to pay that ledger down — the leap happened first, the
+bridge is being built behind it, deliberately and on the record.
 
 Every count above is carrier-relative, coordinate-relative, and exploratory. Full
 numbers, scope caveats and dissents live on the era pages; the refutations are

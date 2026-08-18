@@ -456,3 +456,27 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
   `metal-ar` and `xctrace` are unavailable. M2–M5, the explicit perfect-recall
   net, controller, root value and opening action are unrun/unbuilt. No portable
   result is reported as a GPU result.
+
+## The scenario-player era — the seat plays (2026-08-17 →)
+
+Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
+`SCENARIO-PLAYER.md`; results: `walt-m3-probe/arena_results_2026-08-17.txt`,
+`walt-m3-probe/level2_results_2026-08-17.txt`,
+`walt-m3-probe/divergence_results_2026-08-18.txt`.
+
+- 2026-08-17: first lawful hands (scenario → level-1 → playout/viewer); web
+  table with trump picking; `walt_bridge` into the mk5 arena over the
+  rob_bridge protocol (zero arena changes, ~15k decisions rules-clean).
+- 2026-08-17/18: dropped-30 3×384 × 3 seeds vs the E[Q] n=10 champion —
+  pooled walt 630/1152, McNemar z=+6.28, every seed CI-positive; loses
+  points, wins marks (pmake objective in data). Exploratory arena outcome.
+- 2026-08-17: level-2 (field model as parameter) laddered on the frozen
+  carrier — agrees with level-1 at every rung; 5-5 opening unique, perfect
+  at n=3200.
+- 2026-08-18: rayon-parallel level-2 (~5.6×, byte-identical across thread
+  counts) exposed and fixed the PiKey banked-aliasing defect; fix applied to
+  all play binaries post-pool (new baseline). Spec-after-build written
+  (`SCENARIO-PLAYER.md`) with the obligations ledger as the graduation path.
+- 2026-08-18 (overnight): divergence miner — 900 self-played hands, 4,156
+  level-2-shadowed decisions; large-gap divergence ~2× in partner-bid and
+  defense vs self-bid; top case: count fed to partner's winning trump pull.
