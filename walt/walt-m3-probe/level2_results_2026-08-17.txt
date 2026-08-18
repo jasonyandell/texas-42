@@ -1,8 +1,11 @@
-level-2 ladder results — 2026-08-17
-====================================
+level-2 ladder results — 2026-08-17 (corrected + parallel, same day)
+=====================================================================
 
 EXPLORATORY tier. Sampled values are ESTIMATES, never receipts; nothing here
-is a P-A21 statement. Probe binary: src/bin/level2.rs (commit 178722e).
+is a P-A21 statement. Probe binary: src/bin/level2.rs — serial ladder at
+commit 178722e, rayon-parallel + PiKey-corrected solver at f5fff91. The
+CORRECTED numbers below are the quotable ones; the serial run's numbers are
+kept at the bottom as correction history.
 
 The question (Jason, 2026-08-17): "at one level deeper, a player's concept of
 another player will be a level 1 walt. a level 1 walt has partnership that a
@@ -15,54 +18,83 @@ n_outer sampled worlds to a field of LEVEL-1 minds (each best-responding over
 its own n1=8 no-void belief to a level-0 field of n0=4-world minds over dice).
 No seat at any level conditions on hidden cards — no strategy fusion anywhere.
 pi_cache is cross-level; keys carry a level tag (0 for k=0, keeping k=0
-bit-identical with level1.rs).
+seeding bit-identical with level1.rs).
 
-The ladder (walking the boundary back toward trick 1)
------------------------------------------------------
+The ladder (walking the boundary back toward trick 1) — CORRECTED
+------------------------------------------------------------------
 
 t=4 (S1 leads, banked T1=7 T0=1): full 1200-deal support, EXACT over the
-support given the level-1 field policy. 13.9s, 42.9M nodes.
-  lead 21 ~92.75% | 31 ~85.83% | 33 ~96.75% <-opt | 55 ~93.00%
+support given the level-1 field policy. 3.1s on 18 threads.
+  lead 21 ~92.50% | 31 ~87.50% | 33 ~96.58% <-opt | 55 ~92.83%
   play: 3-3 — AGREES with level-1 and with the exact scenario truth.
 
-t=3 (S1 leads, banked T1=4 T0=1): n=500 sampled from 1.4M+ support. 74.8s,
-245M nodes.
-  lead 11 ~96.20% | 21 ~95.00% | 31 ~87.80% | 33 ~96.40% <-opt | 55 ~95.60%
-  play: 3-3 — AGREES with level-1 (1-1 close behind, same as level-1's view).
+t=3 (S1 leads, banked T1=4 T0=1): n=500. 14.5s.
+  lead 11 ~96.40% | 21 ~95.00% | 31 ~88.20% | 33 ~96.60% <-opt | 55 ~95.80%
+  play: 3-3 — AGREES with level-1 (1-1 close behind, same shape).
 
-t=2 (S0 leads — S1 not on play; value solve): n=200 from 7.4M support. 27.8s.
-  P(make) before trick 2 = ~100.00% on sample (saturated — the hand is
-  near-certain by then; no decision to compare).
+t=2 (S0 leads — S1 not on play; value solve): n=200. 5.6s.
+  P(make) before trick 2 = ~100.00% on sample (saturated; no decision).
 
 t=1 (S1 leads the hand — THE opening decision): support 399M raw assignments.
-  n=200 (290.7s, 1.04B nodes): three-way saturation tie, 11/31/55 all at
-    100%-on-sample (200/200). A lowest-index tie-break here would lead 1-1 —
-    the precise bug class the viewer session already caught. Recorded as a
-    sample-size artifact, rerun ordered.
-  n=800 (1211.3s, 4.25B nodes, 34.8M pi evaluations all cache-hits after
-    first computation): TIE BREAKS.
-    lead 11 ~99.75% (798/800) | 21 ~99.87% | 31 ~99.00% | 33 ~99.75%
-    | 52 ~98.62% | 54 ~99.50% | 55 100.00%-on-sample (800/800) <-opt
-    play: 5-5 — UNIQUE argmax.
+  n=200  (59.0s):  three-way saturation tie, 11/31/55 all 200/200. A
+    lowest-index tie-break would lead 1-1 — the precise bug class the viewer
+    session already caught. Sample-size artifact; refine, never index-break.
+  n=800  (214.9s): tie breaks. 55 unique argmax at 800/800; 11/21/33 at
+    ~99.75%, 31 at ~99.00%, 52 at ~98.62%.
+  n=3200 (960.2s, 18.4B nodes, 156M pi evaluations — first affordable at
+    this size, courtesy of the parallel solver): 55 STILL 3200/3200,
+    unique argmax. 33 second at ~99.90% (3197/3200), 21 ~99.81%,
+    11 ~99.40%, 54 ~99.62%, 52 ~99.03%, 31 ~98.90%.
+    play: 5-5 — sixteen-fold growth from the tie point and the master
+    lead has yet to lose a single sampled world.
 
 Verdict
 -------
-Level-2 agrees with level-1 at every rung of the ladder: 3-3 at t=4 and t=3,
-5-5 at the opening. A walt that models its partner as a coordinating level-1
-mind still pulls trumps with the master at trick 1. On this carrier the
-qualitative shift does not change the line — which is itself evidence: the
-level-1 line was already partner-compatible here. (One carrier, one hand;
-says nothing yet about hands where coordination is load-bearing, e.g. finesse
-or duck lines. Cross-carrier ladder is the natural next probe.)
+Level-2 agrees with level-1 at every rung: 3-3 at t=4 and t=3, 5-5 at the
+opening. A walt that models its partner as a coordinating level-1 mind still
+pulls trumps with the master at trick 1. On this carrier the qualitative
+shift does not change the line — which is itself evidence: the level-1 line
+was already partner-compatible here. (One carrier, one hand; says nothing
+yet about hands where coordination is load-bearing, e.g. finesse or duck
+lines. Cross-carrier ladder is the natural next probe, and the parallel
+solver prices it.)
 
-Saturation note: 55 at 800/800 is support-on-sample, not certainty
+Saturation note: 55 at 3200/3200 is support-on-sample, not certainty
 (support != belief). The n=200 tie and its break at n=800 is the cleanest
 demonstration yet that saturation ties are artifacts to be refined, never
 broken by index order. level2.rs deliberately has NO tie refinement (pure
 probe); any promoted use inherits the adaptive refinement from
 playout/bridge.
 
-Costs: level-2 t=1 n=800 is ~20 min single-threaded — vs level-1's ~1 min at
-n=2000. The piper (n1*n0 inner worlds per pi call) is real but the cross-level
-pi cache holds: 34.8M pi evaluations at t=1 n=800 collapsed to cache hits.
-Bridge integration is feasible if a cross-carrier ladder justifies it.
+Correction history (the parallel port caught a real bug)
+--------------------------------------------------------
+The serial probe's PiKey — documented as the modeled mind's "entire
+information state" — omitted the banked totals, which the mind's pmake
+objective conditions on and which are NOT derivable from the reduced record
+(played mask + current-trick plays + leader do not determine the banked
+split). Serial execution hid this as deterministic first-come cache
+aliasing; the parallel port made the alias racy and therefore visible
+(values drifted a few worlds between runs, which exact arithmetic forbids).
+Fix: PiKey carries banked_t1/banked_t0; every cache entry is a pure function
+of its key; parallel results verified byte-identical across 1 thread, 18
+threads, and reruns (t=4). Argmax unchanged at every rung; values moved by
+up to ~1.7 points (t=4 lead 31: 85.83% -> 87.50%).
+
+Serial (aliased) ladder for the record: t=4 33 at 96.75% (21 92.75, 31
+85.83, 55 93.00), 13.9s; t=3 33 at 96.40% (11 96.20, 21 95.00, 31 87.80,
+55 95.60), 74.8s; t=2 ~100%, 27.8s; t=1 n=200 tie 11/31/55, 290.7s; t=1
+n=800 55 unique at 800/800 (11 99.75, 21 99.87, 31 99.00, 33 99.75,
+52 98.62, 54 99.50), 1211.3s. Same argmax at every rung as the corrected
+ladder.
+
+The SAME latent aliasing exists in level1.rs, playtable.rs, webtable.rs and
+walt_bridge.rs (their pi0 caches). Those numbers stand as what those serial,
+deterministic solvers computed; the fix is DEFERRED there until the 3x384
+arena protocol completes, so seeds 1-3 play the identical bridge. Apply the
+one-struct change (banked fields in PiKey) everywhere afterwards.
+
+Costs (18 threads, 6P+12E, concurrent with a running arena match): t=1
+n=800 214.9s vs 1211.3s serial (~5.6x); t=4 3.1s vs 16.0s single-threaded
+on the corrected build. Modeled-mind solves are ~35us pure-function leaf
+tasks under a sharded concurrent cache — the same factoring as the GPU
+escape hatch, when that word comes.
