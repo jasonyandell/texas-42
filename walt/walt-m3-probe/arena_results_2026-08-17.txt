@@ -1,8 +1,8 @@
 walt vs E[Q] n=10 — first head-to-head (dropped-30 protocol)
 =============================================================
 2026-08-17. EXPLORATORY, below every evidentiary tier; sampled ESTIMATES,
-never receipts; not a P-A21 statement. Two seeds complete of three; the
-original dropped-30 verdict pooled three 384-game seeds — seed 3 pending.
+never receipts; not a P-A21 statement. ALL THREE SEEDS COMPLETE: the full
+3x384 protocol matching the original dropped-30 verdict is closed below.
 
 Harness: mk5 arena (mk5-main @ 594ee5e9), python -m arena.cli.
   team A = bid30 + walt_bridge   (this workspace, level-1 walt,
@@ -94,7 +94,30 @@ Pooled seeds 1+2 (768 games, 4043 paired contracts):
   pooled paired test is approaching the 6.5-sigma standard the champion
   set against rob over 3x384 (one seed remains).
 
-Pending: seed 3 (launched) for the pooled 3x384 resolution matching
-the original dropped-30 verdict. Phase 2 staged: walt naming its own
-trump via the bridge's `declare` (WaltDeclareBidder patch drafted for
-the arena; not applied).
+384-game run, base seed 3 (out-dir walt_384_s3, 4237 hands, 139.4 min,
+run 2026-08-18 concurrently with level-2 probe work — timings only are
+contended):
+  A (walt) wins 207/384 games = 53.9%   (halves: 59.9% / 47.9%)
+  mark margin +0.36/game, 95% CI [+0.03, +0.69]  — excludes zero
+  point margin -4.74/hand
+  offense make rate: walt 37.9%, lens 34.7%
+  paired same-deal contracts (1972): walt-made-lens-set 221,
+    lens-made-walt-set 170 -> McNemar z = +2.58
+  the first-half asymmetry recurs a third time (protocol property).
+
+POOLED 3x384 VERDICT (1152 games, 6015 paired contracts):
+  walt 630/1152 games = 54.7%  (game-level z = +3.18)
+  mean mark margin +0.39/game; every seed's CI excludes zero
+  discordant contracts: walt-made-lens-set 687 vs lens-made-walt-set 473
+    -> McNemar z = +6.28
+  This is the same protocol and significance bar under which the E[Q]
+  champion beat rob (6.5 sigma, 2026-07-30). walt clears it against
+  that champion. All seeds played the identical bridge binary (the
+  PiKey banked-aliasing fix was deliberately deferred until after this
+  pool closed; see level2_results correction history).
+
+Phase 2 staged: walt naming its own trump via the bridge's `declare`
+(WaltDeclareBidder patch drafted for the arena; not applied). The
+banked-correct PiKey can now be applied to the play binaries; any
+future arena run is a new baseline, not comparable hand-for-hand with
+this pool.
