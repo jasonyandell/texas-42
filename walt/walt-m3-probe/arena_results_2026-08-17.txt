@@ -54,7 +54,29 @@ Honesty notes:
 - walt_bridge decisions are deterministic per information state;
   rerunning the pilot reproduced it bit-for-bit.
 
-Pending: 384-game seed-1 run launched (same config) for the true
-dropped-30 resolution; seeds 2-3 after review. Phase 2 staged: walt
-naming its own trump via the bridge's `declare` (WaltDeclareBidder
-patch drafted for the arena; not applied).
+384-game run, base seed 1 (out-dir walt_384_s1, 4295 hands, 116.6 min):
+  A (walt) wins 211/384 games = 54.9%   (halves: 61.5% / 48.4%)
+  mark margin +0.38/game, 95% CI [+0.05, +0.70]  — excludes zero
+  point margin -4.55/hand
+  offense make rate: walt 36.9%, lens 33.6%
+  paired same-deal contracts (2007): both 513, neither 1107,
+    walt-made-lens-set 235, lens-made-walt-set 152 -> McNemar z = +4.22
+  rotation-parity audit: walt offense 36.5% (bidder even, bridge r=1)
+    vs 37.2% (bidder odd, r=0); defense 35.1% vs 32.2% — no parity
+    defect; the half asymmetry also appears in rob's 2026-07-30 run
+    (55.2%/39.6%) and is a protocol property, not a bridge one.
+
+Direct seed-1 comparison, same protocol/seed/champion:
+                        rob 2026-07-30       walt 2026-08-17
+  games won             182/384 (47.4%)      211/384 (54.9%)
+  mark margin/game      -0.27 [-0.59,+0.06]  +0.38 [+0.05,+0.70]
+  offense made          33.0%                36.9%
+  champion held to      35.4%                33.6%
+  point margin/hand     -0.54                -4.55
+rob lost points narrowly and lost the match; walt loses points 8x
+harder and wins it — the P(make) objective, in one row.
+
+Pending: seeds 2-3 (seed 2 launched) for the pooled 3x384 resolution
+matching the original dropped-30 verdict. Phase 2 staged: walt naming
+its own trump via the bridge's `declare` (WaltDeclareBidder patch
+drafted for the arena; not applied).
