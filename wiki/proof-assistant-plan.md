@@ -95,6 +95,55 @@ target of the mechanization ledger is closed.** Next tiers: priority-1 rows
 E08–E09, B11–B14, D11–D16), the PA-A12/B04 reflection targets, and the
 game-level `BeliefProc` instantiation.
 
+**GPU-native trick-1 foundation added 2026-08-16.**
+`lean/Texas42/Trick1Foundation.lean` kernel-proves the stable arithmetic and
+interval layer of the adjudicated GT1 design: the legal nonpass loss-budget
+bound including marks, the initialized and transition-preserved seven-tile hand
+cap, actual-live-legal-set `1..7` divisibility into 420, the concrete 212/217
+magnitude windows, and a `PlayState.Inv`-derived point invariant whose unbanked
+tile set provably contains the unresolved current-trick prefix and whose total
+is preserved after every legal step.  It also proves all seven opening-cell
+counts through `m = 6`, positive componentwise upper summation, one-shared-policy
+lower summation, action dominance, and the non-strict-member/strict-unique root
+distinction.  It does **not** yet prove that the Rust projector realizes the
+`(response,e)` partition or that the Metal ABI refines the Rust arithmetic;
+those remain explicit successor obligations rather than imported executable
+facts.
+
+**M2 finite Metal-gate foundation added 2026-08-17.**
+`lean/Texas42/Trick1MetalFoundation.lean` discharges the seven finite obligations
+named by freeze 56: the 79,800-slot rectangular cap; the exact 5,109,296-byte
+projector and 2,359,424-byte arithmetic arena equalities; grade 1–7 coverage and
+the 46-task GradeMatching count; the at-most-ten matching-vector bound over the
+complete finite domain; stable-filter preservation of the frozen slot order; and
+the zero-task, zero-payload acceptance shape after any failed conjunct. The
+integrated gate audits every exported theorem with `#print axioms` and admits only
+the expected core axioms: `propext`, `Classical.choice` and `Quot.sound`.
+**M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**.
+That exact engineering claim covers arithmetic/projector parity only: it computes
+no action value, selected lead, optimal set, information net, continuation,
+performance claim or player. The semantic response partition, `A/C/W`
+formulas and conservation, Rust/Lean correspondence, and Metal/Rust semantic
+correspondence remain named proof debt. The M2 receipt supplies fixed-carrier
+executable evidence bearing on the last relation, not a theorem or general
+correspondence proof.
+
+**M3 perfect-recall-net abstract gate added 2026-08-17.**
+`lean/Texas42/Trick1PerfectRecallNet.lean` integrates seven focused submodules
+covering the freeze-57 semantic spine: typed and disjoint H/C codecs; replay
+determination and hidden-world exclusion; strict lineage and complete-run
+parent-local netting; revealed-world/block invariance; complete legal faces;
+the sum-before-max recurrence and its exact free-product policy theorem; exact
+carried-posterior mass and both M3 objective bridges; immutable reductions,
+explicit continuation-code injections, command and memory bounds; and the
+two-family/counter/writer/all-or-nothing evidence layer. Every exported theorem
+is inspected by `#print axioms`; the audit admits only `propext`,
+`Classical.choice`, and `Quot.sound`, with no `sorry`, `native_decide`, or new
+axiom. This is the abstract proof gate, not an implementation-refinement claim:
+Rust-to-Lean codecs/replay, Metal-to-Rust kernels, general independent-oracle
+correctness, and grade-4-to-trick-1 transport remain explicit correspondence
+debt and must be supported by the separate executable parity conjunction.
+
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 
 ```

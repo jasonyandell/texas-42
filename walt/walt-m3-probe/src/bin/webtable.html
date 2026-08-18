@@ -1,0 +1,462 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>walt table</title>
+<style>
+:root{
+  --bg:#12121a; --panel:#1b1b28; --panel2:#22222f; --ink:#e8e6df; --dim:#8a8898;
+  --t1:#5aa9e6; --t0:#e6725a; --gold:#e6c15a; --green:#5ae67a; --trump:#3d5a80;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 "SF Mono",Menlo,Consolas,monospace}
+#wrap{max-width:1180px;margin:0 auto;padding:14px}
+h1{font-size:17px;margin:0 0 2px}
+.sub{color:var(--dim);font-size:11px;margin-bottom:10px}
+#bar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;background:var(--panel);
+     border-radius:10px;padding:8px 12px;margin-bottom:10px}
+#bar .item b{color:var(--gold)}
+button{background:var(--panel2);color:var(--ink);border:1px solid #3a3a4c;border-radius:7px;
+       padding:5px 12px;font:inherit;cursor:pointer}
+button:hover{border-color:var(--gold)}
+button:disabled{opacity:.4;cursor:default}
+select{background:var(--panel2);color:var(--ink);border:1px solid #3a3a4c;border-radius:7px;padding:4px;font:inherit}
+#status{color:var(--gold);min-height:20px;margin:4px 2px 8px;font-size:13px}
+#status .spin{display:inline-block;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#main{display:flex;gap:12px;align-items:flex-start}
+#left{flex:1 1 auto;min-width:0}
+#side{flex:0 0 300px}
+
+/* the table */
+#table{display:grid;grid-template-columns:150px 1fr 150px;grid-template-rows:auto auto auto;
+       gap:6px;background:radial-gradient(ellipse at center,#1d2b22 0%,#16211b 70%,#141d18 100%);
+       border-radius:14px;padding:12px;border:1px solid #2a3a30}
+.seatbox{background:rgba(0,0,0,.28);border-radius:10px;padding:7px 9px;min-height:64px}
+.seatbox.turn{outline:2px solid var(--gold)}
+.seatbox .nm{font-size:12px;margin-bottom:5px;white-space:nowrap}
+.seatbox .nm .team{font-size:10px;border-radius:4px;padding:1px 5px;margin-left:5px}
+.team.T1{background:#24455e;color:#bcdcf5}
+.team.T0{background:#5e3324;color:#f5cdbc}
+.bidchip{color:var(--gold);font-size:10px;margin-left:5px}
+#pos-top{grid-column:2;grid-row:1;justify-self:center;min-width:280px}
+#pos-left{grid-column:1;grid-row:2;align-self:center}
+#pos-right{grid-column:3;grid-row:2;align-self:center}
+#pos-bottom{grid-column:2;grid-row:3;justify-self:center;min-width:280px}
+#center{grid-column:2;grid-row:2;display:grid;grid-template-columns:1fr 1fr 1fr;
+        grid-template-rows:1fr 1fr 1fr;min-height:200px;align-items:center;justify-items:center}
+#c-top{grid-column:2;grid-row:1}#c-left{grid-column:1;grid-row:2}
+#c-right{grid-column:3;grid-row:2}#c-bottom{grid-column:2;grid-row:3}
+#c-mid{grid-column:2;grid-row:2;color:var(--dim);font-size:11px;text-align:center}
+.playslot{min-height:52px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.playslot .who{font-size:10px;color:var(--dim)}
+
+/* dominoes */
+.dom{display:inline-flex;background:#f5f1e3;border:2px solid #14141c;border-radius:7px;
+     margin:2px;vertical-align:middle;position:relative;cursor:default}
+.dom .half{width:30px;height:30px;display:grid;grid-template-columns:repeat(3,1fr);
+           grid-template-rows:repeat(3,1fr);padding:3px}
+.dom .divider{width:2px;background:#14141c;margin:3px 0}
+.dom .pip{width:6px;height:6px;border-radius:50%;background:#191925;align-self:center;justify-self:center}
+.dom.small .half{width:22px;height:22px;padding:2px}
+.dom.small .pip{width:5px;height:5px}
+.dom.trump{background:#cfe0f2;border-color:#2b4a6f}
+.dom.trump .pip{background:#1d3557}
+.dom.count{box-shadow:0 0 0 2px var(--gold)}
+.dom.winner{box-shadow:0 0 0 2px var(--green)}
+.dom.trump.count{box-shadow:0 0 0 2px var(--gold)}
+.dom.legalpick{cursor:pointer}
+.dom.legalpick:hover{transform:translateY(-4px);box-shadow:0 0 0 2px var(--gold)}
+.dom.dead{opacity:.35}
+.dom.back{background:repeating-linear-gradient(45deg,#2a2a3a,#2a2a3a 4px,#232331 4px,#232331 8px);
+          border-color:#3a3a4c;width:26px;height:36px;border-radius:6px}
+.dom.hintbest{box-shadow:0 0 0 2px var(--green)}
+
+/* trump panel */
+#trumps{background:var(--panel);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+#trumps h3{margin:0 0 8px;font-size:13px;color:var(--gold)}
+.trow{display:flex;align-items:center;gap:8px;padding:2px 0;border-radius:6px}
+.trow .tname{width:82px;color:var(--ink)}
+.trow .tbarwrap{flex:1;background:#2a2a3a;height:12px;border-radius:6px;overflow:hidden}
+.trow .tbar{height:100%;background:var(--t1)}
+.trow .tpct{width:64px;text-align:right}
+.trow .tlead{width:88px;color:var(--dim);font-size:11px}
+.trow.best .tbar{background:var(--gold)}
+.trow.best .tname{color:var(--gold)}
+.trow.pickable{cursor:pointer}
+.trow.pickable:hover{background:var(--panel2)}
+.trow.pending{color:var(--dim)}
+
+/* side panels */
+.panel{background:var(--panel);border-radius:10px;padding:9px 11px;margin-bottom:10px}
+.panel h3{margin:0 0 7px;font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+#history .trick{display:flex;align-items:center;gap:2px;margin-bottom:4px;flex-wrap:wrap}
+#history .tno{color:var(--dim);width:20px;font-size:11px}
+#history .pts{color:var(--gold);font-size:11px;margin-left:4px}
+#thought .orow{display:flex;align-items:center;gap:7px;padding:1px 0}
+#thought .oname{width:40px}
+#thought .obarwrap{flex:1;background:#2a2a3a;height:10px;border-radius:5px;overflow:hidden}
+#thought .obar{height:100%;background:var(--t1)}
+#thought .opct{width:60px;text-align:right;font-size:12px}
+#thought .picked .oname{color:var(--gold)}
+#thought .hdr{color:var(--ink);font-size:12px;margin-bottom:5px}
+#msgs{color:var(--dim);font-size:12px;max-height:130px;overflow-y:auto}
+#msgs div{padding:1px 0}
+.reveal{font-size:11px;color:var(--dim);margin-top:4px}
+.clickable-chip{cursor:pointer}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <h1>walt table <span style="color:var(--dim);font-weight:normal">— exploratory; estimates, never receipts</span></h1>
+  <div class="sub">real auction (30–42, all-pass redeals) · winner rotates to S1, names trump and leads · bidding team = T1 = S1+S3 · clockwise</div>
+  <div id="bar">
+    <span class="item">hand <b id="handno">–</b></span>
+    <span class="item">contract <b id="bidlvl">–</b> · trump: <b id="declname">–</b></span>
+    <span class="item">count <span style="color:var(--t1)">T1 <b id="b1">0</b></span> · <span style="color:var(--t0)">T0 <b id="b0">0</b></span></span>
+    <span class="item">bid made <b id="makes">0</b> · set <b id="sets">0</b></span>
+    <span style="flex:1"></span>
+    <button id="hintbtn">hint</button>
+    <button id="autobtn">auto</button>
+    <select id="seatsel">
+      <option value="0">sit seat 0</option>
+      <option value="1">sit seat 1</option>
+      <option value="2">sit seat 2</option>
+      <option value="3">sit seat 3</option>
+    </select>
+    <button id="newbtn">new hand</button>
+  </div>
+  <div id="status"></div>
+  <div id="auction" class="panel" style="display:none"></div>
+  <div id="trumps" style="display:none"></div>
+  <div id="main">
+    <div id="left">
+      <div id="table">
+        <div class="seatbox" id="pos-top"></div>
+        <div class="seatbox" id="pos-left"></div>
+        <div id="center">
+          <div class="playslot" id="c-top"></div>
+          <div class="playslot" id="c-left"></div>
+          <div id="c-mid"></div>
+          <div class="playslot" id="c-right"></div>
+          <div class="playslot" id="c-bottom"></div>
+        </div>
+        <div class="seatbox" id="pos-right"></div>
+        <div class="seatbox" id="pos-bottom"></div>
+      </div>
+    </div>
+    <div id="side">
+      <div class="panel" id="thoughtwrap"><h3>reasoning</h3><div id="thought"><span style="color:var(--dim)">click any played tile to see the P(make) it saw</span></div></div>
+      <div class="panel"><h3>tricks</h3><div id="history"></div></div>
+      <div class="panel"><h3>table talk</h3><div id="msgs"></div></div>
+    </div>
+  </div>
+</div>
+<script>
+'use strict';
+const DECLNAMES=['blanks','aces','deuces','tres','fours','fives','sixes','doubles','no-trump'];
+const PIPGRID=[[],[[2,2]],[[1,1],[3,3]],[[1,1],[2,2],[3,3]],[[1,1],[1,3],[3,1],[3,3]],
+  [[1,1],[1,3],[2,2],[3,1],[3,3]],[[1,1],[1,3],[2,1],[2,3],[3,1],[3,3]]];
+// Domino::index -> [hi,lo] via triangular order (hi*(hi+1)/2 + lo)
+const TILES=[];for(let hi=0;hi<=6;hi++)for(let lo=0;lo<=hi;lo++)TILES.push([hi,lo]);
+let S=null, busy=false, stepping=false;
+
+const $=id=>document.getElementById(id);
+function tname(t){const[h,l]=TILES[t];return h+'-'+l;}
+function isCount(t){const[h,l]=TILES[t];const s=h+l;return s===5||s===10;}
+function isTrump(t,d){if(d===null||d===undefined)return false;const[h,l]=TILES[t];
+  if(d<=6)return h===d||l===d; if(d===7)return h===l; return false;}
+function pct(bp){return (bp/100).toFixed(2)+'%';}
+function seatName(s){return 'S'+s+(S&&s===S.human?'':' walt');}
+function teamOf(s){return (s===1||s===3)?'T1':'T0';}
+
+function domEl(t,opts){opts=opts||{};
+  const d=document.createElement('div');
+  d.className='dom'+(opts.small?' small':'')+(isTrump(t,S&&S.decl)?' trump':'')
+    +(isCount(t)?' count':'')+(opts.winner?' winner':'')+(opts.legal?' legalpick':'')
+    +(opts.dead?' dead':'')+(opts.hintbest?' hintbest':'');
+  const[h,l]=TILES[t];
+  for(const v of [h,l]){
+    const half=document.createElement('div');half.className='half';
+    for(const[r,c]of PIPGRID[v]){const p=document.createElement('div');p.className='pip';
+      p.style.gridRow=r;p.style.gridColumn=c;half.appendChild(p);}
+    d.appendChild(half);
+    if(v===h){const dv=document.createElement('div');dv.className='divider';d.appendChild(dv);}
+  }
+  d.title=tname(t);
+  return d;
+}
+function backEl(){const d=document.createElement('div');d.className='dom back';return d;}
+
+async function api(path){
+  const r=await fetch(path);
+  S=await r.json();
+  render();
+}
+
+function setStatus(txt,spin){$('status').innerHTML=(spin?'<span class="spin">◐</span> ':'')+txt;}
+
+function posOf(seat){return ['bottom','left','top','right'][(seat-S.human+4)%4];}
+
+function render(){
+  if(!S)return;
+  $('handno').textContent=S.hand_no;
+  $('declname').textContent=S.decl===null?'(undeclared)':DECLNAMES[S.decl];
+  $('bidlvl').textContent=S.phase==='auction'?(S.auction&&S.auction.high?S.auction.high[1]+' (S'+S.auction.high[0]+')':'open'):S.bid;
+  renderAuction();
+  $('b1').textContent=S.banked[0];$('b0').textContent=S.banked[1];
+  $('makes').textContent=S.makes;$('sets').textContent=S.sets;
+  $('seatsel').value=String(S.human);
+  renderTrumps();
+  renderTable();
+  renderHistory();
+  renderMsgs();
+  const humanTurn=S.phase==='play'&&S.turn===S.human;
+  $('hintbtn').disabled=!humanTurn;
+  $('autobtn').disabled=!humanTurn;
+  if(S.hint&&humanTurn)showHint();
+}
+
+function renderTrumps(){
+  const el=$('trumps');
+  if(S.phase!=='trump'&&!(S.evals&&S.evals.length&&S.phase!=='play'&&S.phase!=='done')){
+    if(S.phase!=='trump'){el.style.display='none';return;}
+  }
+  if(S.phase!=='trump'){el.style.display='none';return;}
+  el.style.display='block';
+  const humanBids=S.bidder===S.human;
+  let best=-1;
+  for(const e of S.evals)if(best<0||e.bp>best)best=e.bp;
+  let html='<h3>'+(humanBids?'YOU hold the '+S.bid+' bid — name your trump (click a suit'+
+    (S.evals.length<9?'; walt will advise as it thinks':'')+')'
+    :'S1 walt holds the '+S.bid+' bid — weighing trumps...')+'</h3>';
+  el.innerHTML=html;
+  for(let d=0;d<9;d++){
+    const e=S.evals.find(x=>x.d===d);
+    const row=document.createElement('div');
+    row.className='trow'+(e&&e.bp===best?' best':'')+(humanBids?' pickable':'')+(e?'':' pending');
+    row.innerHTML='<span class="tname">'+DECLNAMES[d]+'</span>'+
+      '<span class="tbarwrap"><span class="tbar" style="width:'+(e?e.bp/100:0)+'%"></span></span>'+
+      '<span class="tpct">'+(e?pct(e.bp):'…')+'</span>'+
+      '<span class="tlead">'+(e?'lead '+tname(e.t):'')+'</span>';
+    if(humanBids)row.onclick=()=>{pickTrump(d);};
+    el.appendChild(row);
+  }
+}
+
+function renderSeatbox(seat){
+  const el=$('pos-'+posOf(seat));
+  el.innerHTML='';
+  el.classList.toggle('turn',(S.phase==='play'&&S.turn===seat)||(S.phase==='trump'&&S.bidder===seat)||(S.phase==='auction'&&S.auction&&S.auction.turn===seat));
+  const nm=document.createElement('div');nm.className='nm';
+  nm.innerHTML=seatName(seat)+(seat===S.human?' <b>(YOU)</b>':'')+
+    '<span class="team '+teamOf(seat)+'">'+teamOf(seat)+'</span>'+
+    (S.phase!=='auction'&&seat===S.bidder?'<span class="bidchip">★ bid '+S.bid+'</span>':'')+
+    (S.phase==='auction'&&S.auction&&S.auction.high&&S.auction.high[0]===seat?'<span class="bidchip">★ '+S.auction.high[1]+'</span>':'');
+  el.appendChild(nm);
+  const row=document.createElement('div');
+  if(seat===S.human){
+    const humanTurn=S.phase==='play'&&S.turn===S.human;
+    for(const t of S.hand){
+      const legal=humanTurn&&S.legal.includes(t);
+      const hintbest=!!(S.hint&&S.hint.length&&S.hint[0][0]===t&&humanTurn);
+      const d=domEl(t,{legal:legal,dead:humanTurn&&!legal,hintbest:hintbest});
+      if(legal)d.onclick=()=>playTile(t);
+      row.appendChild(d);
+    }
+  }else if(S.deal){
+    for(const t of S.deal[seat])row.appendChild(domEl(t,{small:true}));
+    const r=document.createElement('div');r.className='reveal';r.textContent='(revealed)';
+    el.appendChild(row);el.appendChild(r);return;
+  }else{
+    for(let i=0;i<S.sizes[seat];i++)row.appendChild(backEl());
+  }
+  el.appendChild(row);
+}
+
+function renderTable(){
+  for(let s=0;s<4;s++)renderSeatbox(s);
+  for(const p of ['top','left','right','bottom'])$('c-'+p).innerHTML='';
+  for(const pl of S.cur){
+    const slot=$('c-'+posOf(pl.s));
+    const who=document.createElement('div');who.className='who';
+    who.textContent=seatName(pl.s)+(pl.f?' (forced)':'');
+    const d=domEl(pl.t,{});
+    d.classList.add('clickable-chip');
+    d.onclick=()=>showThought(pl,null);
+    slot.appendChild(who);slot.appendChild(d);
+  }
+  const mid=$('c-mid');
+  if(S.phase==='done'){
+    mid.innerHTML=S.result?'<b style="color:var(--green)">T1 MAKES the '+S.bid+' bid</b><br>'+
+      S.banked[0]+' to '+S.banked[1]
+      :'<b style="color:var(--t0)">T1 is SET</b><br>only '+S.banked[0]+' of '+S.bid;
+  }else if(S.phase==='play'&&S.cur.length===0){
+    mid.textContent=seatName(S.turn)+' leads';
+  }else{mid.textContent='';}
+}
+
+function renderHistory(){
+  const el=$('history');el.innerHTML='';
+  S.tricks.forEach((tr,i)=>{
+    const row=document.createElement('div');row.className='trick';
+    row.innerHTML='<span class="tno">'+(i+1)+'</span>';
+    for(const pl of tr.plays){
+      const d=domEl(pl.t,{small:true,winner:pl.s===tr.w});
+      d.title=seatName(pl.s)+': '+tname(pl.t)+(pl.f?' (forced)':'');
+      d.classList.add('clickable-chip');
+      d.onclick=()=>showThought(pl,i);
+      row.appendChild(d);
+    }
+    const pts=document.createElement('span');pts.className='pts';
+    pts.textContent=seatName(tr.w)+' +'+tr.p;
+    row.appendChild(pts);
+    el.appendChild(row);
+  });
+}
+
+function showThought(pl,trickIdx){
+  const el=$('thought');
+  const where=trickIdx===null?'this trick':'trick '+(trickIdx+1);
+  let html='<div class="hdr">'+seatName(pl.s)+' played <b>'+tname(pl.t)+'</b> ('+where+')'+
+    (pl.f?' — forced, no choice':'')+'</div>';
+  el.innerHTML=html;
+  if(!pl.o||!pl.o.length){
+    if(!pl.f)el.innerHTML+='<span style="color:var(--dim)">no evaluation recorded (human play without hint)</span>';
+    return;
+  }
+  const maxing=teamOf(pl.s)==='T1';
+  const sorted=[...pl.o].sort((a,b)=>maxing?b[1]-a[1]:a[1]-b[1]);
+  el.innerHTML+='<div style="color:var(--dim);font-size:11px;margin-bottom:4px">'+
+    (maxing?'wants P(make) HIGH':'wants P(make) LOW')+'</div>';
+  for(const[t,bp]of sorted){
+    const row=document.createElement('div');
+    row.className='orow'+(t===pl.t?' picked':'');
+    row.innerHTML='<span class="oname">'+tname(t)+'</span>'+
+      '<span class="obarwrap"><span class="obar" style="width:'+(bp/100)+'%"></span></span>'+
+      '<span class="opct">'+pct(bp)+'</span>';
+    el.appendChild(row);
+  }
+}
+
+function showHint(){
+  const el=$('thought');
+  const maxing=teamOf(S.human)==='T1';
+  el.innerHTML='<div class="hdr">hint — from your chair only, no peeking ('+
+    (maxing?'you want P(make) HIGH':'you want P(make) LOW')+')</div>';
+  for(const[t,bp]of S.hint){
+    const row=document.createElement('div');row.className='orow';
+    row.innerHTML='<span class="oname">'+tname(t)+'</span>'+
+      '<span class="obarwrap"><span class="obar" style="width:'+(bp/100)+'%"></span></span>'+
+      '<span class="opct">'+pct(bp)+'</span>';
+    el.appendChild(row);
+  }
+}
+
+function renderMsgs(){
+  const el=$('msgs');el.innerHTML='';
+  for(const m of S.msg.slice(-30)){const d=document.createElement('div');d.textContent=m;el.appendChild(d);}
+  el.scrollTop=el.scrollHeight;
+}
+
+function renderAuction(){
+  const el=$('auction');
+  if(S.phase!=='auction'){el.style.display='none';return;}
+  el.style.display='block';
+  const a=S.auction;
+  const myTurn=a.turn===S.human;
+  let html='<h3>auction — '+(a.high?('S'+a.high[0]+' holds it at '+a.high[1]):'no bid yet')+
+    ' · '+(4-a.acted)+' to act</h3>';
+  if(myTurn){
+    html+='<div style="margin:6px 0">your call: <button id="passbtn">pass</button> ';
+    html+='<select id="bidsel">';
+    for(let b=a.min;b<=42;b++)html+='<option value="'+b+'">'+b+'</option>';
+    html+='</select> <button id="bidbtn">bid</button></div>';
+  }else{
+    html+='<div style="color:var(--dim)">'+seatName(a.turn)+' is considering ('+a.thinking+'/9 trumps priced)…</div>';
+  }
+  el.innerHTML=html;
+  if(myTurn){
+    $('passbtn').onclick=async()=>{if(busy)return;busy=true;setStatus('passing…');
+      try{await api('/bid?pass=1');}finally{busy=false;}loop();};
+    $('bidbtn').onclick=async()=>{if(busy)return;busy=true;const b=$('bidsel').value;
+      setStatus('bidding '+b+'…');try{await api('/bid?b='+b);}finally{busy=false;}loop();};
+  }
+}
+
+async function loop(){
+  if(busy||!S)return;
+  if(S.phase==='auction'){
+    const a=S.auction;
+    if(a.turn!==S.human){
+      busy=true;setStatus(seatName(a.turn)+' is weighing a bid ('+a.thinking+'/9 trumps priced)…',true);
+      try{await api('/step');}finally{busy=false;}
+      setTimeout(loop,60);return;
+    }
+    setStatus('your call — pass or bid (min '+a.min+')');
+    return;
+  }
+  if(S.phase==='trump'){
+    if(S.bidder!==S.human&&S.evals.length<=9&&S.decl===null){
+      busy=true;
+      const next=S.evals.length<9?DECLNAMES[S.evals.length]:'its final answer';
+      setStatus('walt is considering '+next+'…',true);
+      try{await api('/step');}finally{busy=false;}
+      setTimeout(loop,60);return;
+    }
+    if(S.bidder===S.human){
+      if(stepping&&S.evals.length<9){
+        busy=true;setStatus('walt is advising: considering '+DECLNAMES[S.evals.length]+'…',true);
+        try{await api('/step');}finally{busy=false;}
+        setTimeout(loop,60);return;
+      }
+      setStatus('name your trump — click a suit above'+(S.evals.length<9?' (advice still coming in)':''));
+      return;
+    }
+  }
+  if(S.phase==='play'){
+    if(S.turn!==null&&S.turn!==S.human){
+      busy=true;setStatus(seatName(S.turn)+' is thinking…',true);
+      try{await api('/step');}finally{busy=false;}
+      setTimeout(loop,250);return;
+    }
+    if(S.turn===S.human){setStatus('your turn — click a lifted tile, or use hint / auto');return;}
+  }
+  if(S.phase==='done'){
+    setStatus((S.result?'T1 makes the '+S.bid+'. ':'T1 is set. ')+'deal revealed — click new hand when ready');
+    return;
+  }
+  setStatus('');
+}
+
+async function playTile(t){
+  if(busy)return;busy=true;setStatus('…');
+  try{await api('/play?t='+t);}finally{busy=false;}
+  loop();
+}
+async function pickTrump(d){
+  if(busy)return;busy=true;setStatus('naming '+DECLNAMES[d]+'…');
+  stepping=false;
+  try{await api('/pick?d='+d);}finally{busy=false;}
+  loop();
+}
+$('hintbtn').onclick=async()=>{
+  if(busy)return;busy=true;setStatus('thinking from your chair only — no peeking…',true);
+  try{await api('/hint');}finally{busy=false;}
+  loop();
+};
+$('autobtn').onclick=async()=>{
+  if(busy)return;busy=true;setStatus('auto-playing from your chair…',true);
+  try{await api('/auto');}finally{busy=false;}
+  loop();
+};
+$('newbtn').onclick=async()=>{
+  if(busy)return;busy=true;setStatus('shuffling…');
+  stepping=true;
+  try{await api('/new?seat='+$('seatsel').value);}finally{busy=false;}
+  loop();
+};
+(async()=>{stepping=true;await api('/state');loop();})();
+</script>
+</body>
+</html>

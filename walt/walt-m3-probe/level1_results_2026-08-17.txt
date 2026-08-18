@@ -1,0 +1,60 @@
+walt-m3-probe LEVEL-1 solver, runs 2026-08-17 — ESTIMATES, below even probe tier
+the scenario player iterated once: field seats play the LEVEL-0 policy — each
+sees its own hand + public record, believes unseen tiles uniform at the
+record's hand sizes (NO void inference — stated level-0 simplification),
+models everyone else as dice, maximizes pmake on T1 / minimizes on T0, ties
+to lowest domino index (deterministic). S1 best-responds, lawful, keyed on
+public record + own hand only — no fusion. binary: src/bin/level1.rs,
+seeds OUTER 0x8CB92BA72F3D8DD7 ^ t, INNER 0x243F6A8885A308D3.
+
+structural notes:
+- the level-0 policy is deterministic, so the field has NO dice axis: an
+  outer scenario is a deal alone. where the support enumerates (t=4, 1200
+  deals) the solve runs ALL of it — level-1 values exact over the support
+  GIVEN the policy; the only approximation is inside level-0 heads (n0,
+  no-void belief).
+- belief-from-behavior is live: alive deals partition by what the policy
+  actually plays — conditioning on policy-consistent deals is Bayes on the
+  sample. a partner's play is now evidence. this is where basic partnership
+  arises.
+
+== t=4 (ALL 1200 deals; reference: exact-vs-dice values 21: 94.11, 31: 91.03,
+   33: 96.92 opt, 55: 93.67)
+  n0=32    21: 94.25  31: 87.00  33: 96.41 <-opt  55: 93.75   (3.0s, 22323 pi0)
+  n0=128   21: 92.50  31: 86.41  33: 96.66 <-opt  55: 93.25   (9.9s, 21520 pi0)
+  argmax 33 at both n0, same full ordering 33 > 55 > 21 > 31. the thinking
+  field moves values BOTH ways: 31 drops ~4pp (defenders punish it) while 21
+  and 55 hold or tick up vs dice (the partner now helps) — defense and
+  partnership visible in one table.
+
+== t=3, n_outer=400, n0=32 (6.3s, 24065 pi0)
+  11: 96.25  21: 92.75  31: 86.50  33: 97.25 <-opt  55: 93.25
+  the 11-vs-33 near-tie of the dice-field runs resolves toward 33 against a
+  thinking field.
+
+== t=2, n_outer=400, n0=32 (8.1s)
+  S0 leads; P(make) before trick 2 ~ 99.25%
+
+== t=1 — WALT'S OPENING LEAD AGAINST A THINKING FIELD
+  n_outer=200,  n0=16: 21/52/54/55 tie at 100% (200 deals too few — saturated)
+  n_outer=2000, n0=16 (80.8s, 299375 pi0, 314M nodes incl. inner):
+    11: 99.10  21: 99.80  31: 98.70  33: 99.75  52: 98.80  54: 99.35
+    55: 100.00 <-- opt (0 losses in 2000 deals; every other lead loses >= 4)
+  the level-0 (dice-field) opening lead 55 SURVIVES iteration: same argmax
+  against defenders actively minimizing pmake. paired comparison on shared
+  deals.
+
+caveats: level-0 seats use n0 inner scenarios (values shift ~1pp between
+n0=32 and n0=128; argmax stable) and a no-void inner belief; outer deals at
+t<4 sampled with replacement; argmax over noisy estimates optimistically
+biased at S1 nodes; P30 with this S1 hand is near-saturated vs this field —
+lead separation rests on tail losses.
+
+reading: this is the first walt that plays against PLAYERS. total cost of
+the whole level-1 ladder: under two minutes. the loop is cheap enough to
+iterate again (level 2 = best response to level-1 seats) or to swap richer
+inner beliefs (void inference, behavioral filtering) when directed.
+
+nothing above exploratory tier; level-1 numbers are never receipts; the t=1
+line is a probe output under the level-0-field treatment, not a P-A21
+statement about 42.

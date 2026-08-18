@@ -3,9 +3,11 @@
 [Home](Home.md) · owns: the walt instrument inventory — what the `walt/` program has
 BUILT that survives and can be reused, independent of whether the experiment that
 motivated it succeeded · Sources: [`walt/PLAN.md`](../walt/PLAN.md),
-[`walt/LOG.md`](../walt/LOG.md), [`walt/ci/check.sh`](../walt/ci/check.sh), the
-crate sources under `walt/walt-*/`, the results artifacts under
-`walt/walt-factory/results/`, and the rescued probe suites under `walt/probes/`.
+[`walt/LOG.md`](../walt/LOG.md), [`walt/ci/check.sh`](../walt/ci/check.sh),
+[`walt/ci/check_m2_metal.sh`](../walt/ci/check_m2_metal.sh), the crate sources
+under `walt/walt-*/`, the results artifacts under `walt/walt-factory/results/`,
+the canonical GPU-track comparands under `walt/receipts/`, and the rescued probe
+suites under `walt/probes/`.
 Related: [walt hub](walt.md), [walt-foundation-era](walt-foundation-era.md),
 [walt-factory-era](walt-factory-era.md), [walt-census-era](walt-census-era.md),
 [walt-s6-era](walt-s6-era.md), [walt-decision-sparse](walt-decision-sparse.md),
@@ -41,13 +43,18 @@ instrument." This page is the catalog — read it before building anything under
 
 ## The workspace
 
-Six crates, Rust 2021, in one Cargo workspace at `walt/Cargo.toml`. The import
-direction is strict and matches v0.4 §16.2: **core to kernel to geom to strat to
-skeleton to factory** — core imports nothing; kernel and geom import core only;
-strat imports core, kernel, geom; skeleton imports all four; factory imports all
-five. `overflow-checks = true` in dev, release and test profiles: a silent wrap
-would be a wrong count, so it is a loud panic in every profile instead. External
-dependencies are only `num-bigint`, `num-integer`, `num-rational`, `num-traits`.
+Ten crates, Rust 2021, in one Cargo workspace at `walt/Cargo.toml`. The original
+six-crate import direction remains strict and matches v0.4 §16.2: **core to
+kernel to geom to strat to skeleton to factory** — core imports nothing; kernel
+and geom import core only; strat imports core, kernel, geom; skeleton imports all
+four; factory imports all five. The four-crate GPU side branch is
+`walt-gpu-spec` to `walt-gpu-ref` to `walt-metal` to `walt-m2-runner`, with the
+exact additional parent edges listed below. `overflow-checks = true` in dev,
+release and test profiles: a silent wrap would be a wrong count, so it is a loud
+panic in every profile instead. The original six use only `num-bigint`,
+`num-integer`, `num-rational` and `num-traits`; the GPU side reuses that exact
+arithmetic and adds the lockfile-pinned `objc2`, `objc2-core-graphics`,
+`objc2-foundation`, `dispatch2` and `objc2-metal` closure.
 
 | Crate | What it provides | Notable types and entry points |
 | --- | --- | --- |
@@ -57,6 +64,15 @@ dependencies are only `num-bigint`, `num-integer`, `num-rational`, `num-traits`.
 | `walt-strat` | The operators registry, kept deliberately distinct per §10.8. Decision nodes over fiber worlds, the canonical perfect-recall information partition, information-consistent policies keyed by opaque info-state ids (world-peeking is unconstructible by type), and the named operators with the information prices between them. | `pi::pi_root_values` (symbolic parametric PI), `scalar::ScalarPi` (+ `ScalarValuation`, `scalar_census`), `hidden::hidden_root_values` (symbolic H), `hidden_scalar::ScalarHidden` (scalar H, `action_values` and `action_values_dag`), `revealed::revealed_summary` (C and F), `price::information_prices`, `census::pi_census`, `info::{InfoPartition, Policy, policy_value_receipt}`, `label::{OperatorLabel, WeightingLabel}` |
 | `walt-skeleton` | The declared deliverable layer: the `ControlSkeleton` trait (typed relational state with closed update `step(d, obs)`), the §12.1 static soundness checker, the exhaustive §12.6 controlled lumpability checker, descriptor vocabularies, the §12.9 synthesis search, and the §12.6A equivariant census machinery with its class DAG and railyard routines. | `skeleton::{ControlSkeleton, UpdateKind, StaticWrap, fold_record}`, `soundness::check_soundness` (+ `PurityCounterexample`), `lumpability::check_lumpability` (+ `LumpabilityFailure`), `atoms::{Atom, Exp3aAtom}`, `synth::{sound_search, exp3a_sound_search}`, `equivariant::{Situation, canonicalize, build_carrier, closure_carrier, check_ecl, build_r3, class_dag, check_ecl_r3, r1_refines_r3, yard_tree, yard_shape, suffix_library, trick_six_kernels}` |
 | `walt-factory` | The factory layer: the regret walker, the typed conflict vocabulary, the lesson type and its generalizer, the basin domain, the lesson database with its watched-feature index and rent ledger, §16.11 record emission, and every probe binary. | `walker::{walk_seat, WalkerConfig, DecisionRecord}`, `conflict::{Conflict, Grade}`, `lesson::Lesson`, `generalize::{generalize_regret, lesson_applies, measure_rent}`, `basin::{BasinDomain, DomainSpec}`, `db::LessonDb`, `index::WatchIndex`, `ledger::{Ledger, HCheckerRegistry, HCheckerToken}`, `certificate::emit_certificate`, `label_transfer::remeasure_at_h` |
+| `walt-gpu-spec` | The portable M0 exact-arithmetic and semantic-table layer. It imports `walt-core`, forbids unsafe code and denies float arithmetic. | `mass::U256Mass`, checked framed operations, SHA-256 anchors, `SemanticTablesCanonicalV2`, canonical table bytes and digests |
+| `walt-gpu-ref` | The portable M1 reference projector plus the complete M2 carrier, bindings and canonical receipt codecs. It imports `walt-core`, `walt-kernel` and `walt-gpu-spec`; Rob appears only as a development-time prose-rules bridge. | `projection`, `carrier`, `m2`, `m2_receipt::{receipt, records, transport, wire}`, M0/M1 receipt generation and strict M2 validation |
+| `walt-metal` | The only Metal/Objective-C boundary: fixed scalar-word ABI, checked MSL kernels, retained completion evidence and safe runtime tokens around the contract's private unsafe operations. It imports `walt-gpu-spec`, `walt-gpu-ref` and the exact pinned `objc2` feature closure. | `abi`, `bridge`, `runtime`, `error`; `shaders/00_u256.metal`, `01_opening_projector.metal`, the deterministic build script and checked-in metallib |
+| `walt-m2-runner` | The supervised freeze-56 executable. It assembles the complete carrier, runs smoke and official child profiles, validates typed progress/timeout/no-partial semantics, and constructs or adjudicates the closed receipt. It imports the other three GPU-side crates. | `assembly`, `observation`, `child`, `protocol`; `descriptor-verify`, `run-smoke`, `run-official`, `validate-receipt` and `adjudicate-receipts` modes |
+
+Together those four crates support exactly one new status sentence:
+**M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**. It covers arithmetic/projector
+parity only and computes no action value, selected lead, optimal set, information
+net, continuation, performance claim or player.
 
 Discipline carried by types, not by promises: the seat's observation type
 (`walt-skeleton::obs`) cannot express a hidden hand, so every `step` is seat-honest
@@ -178,24 +194,51 @@ S5c-m3 working set (ten `cert_refutation_*`, five `cert_win_*`, one
 self-contained `walt-factory/docs/certificate-schema.md` (schema-v1) so an
 independent implementation can check them.
 
-**What `walt/ci/check.sh` enforces**, verbatim from the script: `cargo fmt
---check`; `cargo clippy --workspace --all-targets -- -D warnings -D
-clippy::float_arithmetic`; a no-float grep (`f32`/`f64` may not even be *named* in
-any `.rs` or `.toml` outside `target/`, the script excluding itself); and `cargo
-test --workspace --release`.
+**GPU-track comparands.** Portable M0/M1 has the canonical envelope, declared
+stop and summary under `walt/receipts/gpu_native_trick1_m0_m1_v1/`. The separate
+`gpu_native_trick1_gate0_2026-08-16.txt` is retained unchanged: its NO-GO remains
+a true observation of the old Command-Line-Tools-only environment. Freeze 56 has
+one committed binary receipt and external checksum under
+`walt/receipts/gpu_native_trick1_m2_v1/`. That M2 receipt is executable evidence,
+not a Lean theorem and not a persisted value for a solver to consume.
 
-**Two accurate statements about walt's receipt discipline**, which differ from
+**What portable `walt/ci/check.sh` enforces.** It verifies immutable M0/M1 history
+at the producing commit, the received-guide checksum and the cumulative M2 source
+manifest; regenerates and byte-diffs the M0/M1 comparands; runs formatting,
+warning-denied clippy, source-level no-float gates and all release workspace
+tests; builds both trick-1 Lean targets and audits the M2 theorem axioms; then
+rechecks the source manifest. It never skips unavailable Metal work into green
+and by itself issues no M2 result.
+
+**What elevated `walt/ci/check_m2_metal.sh` adds.** Starting from an immutable
+HEAD snapshot, it runs the portable conjunction, checks the host/tool descriptor,
+rebuilds the metallib twice and compares both builds with the committed library,
+runs canonical Rust Gate 0, the full U256 corpus, malformed/timeout/no-partial
+controls and a discarded maximum smoke, then runs the complete 614-task carrier
+twice from fresh process state. Both receipts must equal each other and the
+immutable committed comparand byte-for-byte; the checksum, Lean build/axiom
+audit and final source identity are rechecked before success. That conjunction
+licenses **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56** and nothing about
+an action value, selected lead, optimal set, information net, continuation,
+performance claim or player.
+
+**Three accurate statements about walt's receipt discipline**, which differ from
 rob's:
 
-1. walt has **no byte-diffed CI receipt stage** like rob's. `ci/check.sh` contains
-   no receipt-comparison step and no vocabulary greps; its own comment says walt
-   "grows its own receipt diffs when it has receipts to diff." The byte-equality
-   that does exist lives inside three ordinary tests over `tests/data/` fixtures,
-   and the `results/*.txt` artifacts are **not** diffed by CI at all.
-2. Receipt-shaped walt artifacts are exploratory and say so in their own headers —
+1. The legacy `walt-factory/results/*.txt` probe artifacts are **not** diffed by
+   CI. Their byte-equality coverage remains the three ordinary tests over
+   `tests/data/` fixtures; none becomes a claim-tier result merely by existing.
+2. Portable M0/M1 now does have a byte-diffed receipt stage: `ci/check.sh`
+   regenerates the complete canonical directory in fresh state and compares it
+   recursively with the committed comparands.
+3. M2 has a stricter native stage: two fresh complete receipts must match each
+   other, their external checksum and the immutable HEAD comparand, with typed
+   failure output and zero partial acceptance. Receipt-shaped walt artifacts
+   remain exploratory and say so in their own headers —
    `report.rs` and `lesson_report.rs` exist to make rendering byte-stable, and
    every results file opens with an explicit "exploratory tier" line. A green walt
-   run is evidence at a declared configuration, never a status change.
+   run is evidence at a declared configuration; the M2 receipt is likewise
+   executable evidence rather than a theorem.
 
 **Gitignored caches** (`walt/.gitignore` covers `target/` and
 `walt-factory/store/`): `store/endgame_l2.store` (the level-2 endgame form store),
@@ -251,15 +294,19 @@ H rows honestly marked UNCHECKED-EXTERNALLY.
 ## How to run things
 
 ```
-walt/ci/check.sh                                          # the gate
+/bin/bash -p walt/ci/check.sh                             # portable gate
+/bin/bash -p walt/ci/check_m2_metal.sh                    # native Metal gate
 cargo run --release -p walt-factory --example NAME [sub]  # any probe
 cargo run --release -p walt-factory --bin walk_corpus [start_hand [seat [max]]]
 cargo test --release -p walt-factory --test h_dag_probe -- --ignored crosscheck_tree_uncapped
 ```
 
-Do not run `ci/check.sh` casually: it builds the workspace in release and runs the
-full test suite. Several probes are hours of compute; `h_dag_probe` is `#[ignore]`d
-precisely because it is a declared manual run.
+Run the two scripts above from the repository root. Do not run `ci/check.sh`
+casually: it builds the workspace in release, runs the full test suite and builds
+Lean. `check_m2_metal.sh` additionally requires the exact native Metal toolchain
+and a real device; it is intentionally not portable. Several probes are hours of
+compute; `h_dag_probe` is `#[ignore]`d precisely because it is a declared manual
+run.
 
 **Declared knobs a future session must state, not inherit silently.** These are
 constants or CLI arguments today, and every one of them is part of the declared
@@ -308,11 +355,13 @@ inputs a result is quoted under:
   `census_run.rs`. The r3 retrograde class machinery and the yard/suffix-library
   routines *are* library code (`walt-skeleton::equivariant`), but the runners around
   them are not. Reusing a detector means lifting it into a crate first.
-- **Scope is pip-trump.** The receipt corpus (`rob/receipts/verify_player.txt`) has
-  no doubles-trump and no no-trump hand, so every corpus statistic validates the
-  pip-trump path and nothing else. The one exception is the complete level-one
-  alphabet run, which enumerates its own carrier — and is still declared pip-trump
-  only.
+- **Legacy receipt-corpus statistics are pip-trump.** The corpus
+  (`rob/receipts/verify_player.txt`) has no doubles-trump and no no-trump hand, so
+  every statistic derived from that corpus validates the pip-trump path and
+  nothing else. The one exception is the complete level-one alphabet run, which
+  enumerates its own carrier — and is still declared pip-trump only. The
+  independently generated freeze-56 M2 carrier has its own frozen scope and is
+  not typed by this legacy corpus caveat.
 - **`deadness_rung_2026-08-13.txt` is referenced by the code and does not exist in
   `results/`.** The sequential timing rung (freeze 43) is the quotable cost
   instrument and it has not been run; the ~25 ns/call figure is contended and

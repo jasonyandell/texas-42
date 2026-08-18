@@ -1,0 +1,18 @@
+[package]
+name = "walt-m3-oracle-a"
+version = "0.1.0"
+edition = "2021"
+license = "UNLICENSED"
+publish = false
+
+[dependencies]
+walt-core = { path = "../walt-core" }
+walt-geom = { path = "../walt-geom" }
+walt-strat = { path = "../walt-strat" }
+walt-m3-carrier = { path = "../walt-m3-carrier" }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+float_arithmetic = "deny"

@@ -1,0 +1,45 @@
+walt-m3-probe ladder, SAMPLED runs 2026-08-17 — ESTIMATES, below even probe tier
+sampled support = deterministic frozen-seed uniform draw (SplitMix64, seed 0x9E3779B97F4A7C15 ^ t)
+the lawful H-recursion runs unchanged over the sample: the player never peeks (no
+strategy fusion); the only defect is that the belief is carried over n sampled
+worlds instead of the full support. every printed value is exact-on-the-sample
+and an ESTIMATE of the true value. sampled-solver reported values are
+optimistically biased at decision nodes (argmax over noisy estimates).
+
+== t=4 sampling ablation against exact ground truth (exact: 33 optimal at 96.92%)
+  n=75    21: 94.70  31: 91.38  33: 97.29 <-opt  55: 94.09
+  n=150   21: 94.95  31: 91.79  33: 97.63 <-opt  55: 93.30
+  n=300   21: 93.93  31: 91.39  33: 96.84 <-opt  55: 93.04
+  n=600   21: 93.69  31: 91.00  33: 96.74 <-opt  55: 92.86
+  n=1200  (exact) 21: 94.11  31: 91.03  33: 96.92 <-opt  55: 93.67
+  every sample size picks the exact-optimal lead 33; worst value error ~0.8pp
+
+== t=3, n=1200 of 59,976 worlds (COMPLETED — exact solve had died here)
+  lead 11  P(make) = 14404678981/14929920000 (~96.48%)   <-- optimal
+  lead 21  P(make) = 9141910913/9953280000 (~91.84%)
+  lead 31  P(make) = 8722275847/9953280000 (~87.63%)
+  lead 33  P(make) = 1598001431/1658880000 (~96.33%)
+  lead 55  P(make) = 9240894317/9953280000 (~92.84%)
+  sampled pmake play at trick 3: 11 (33 close second)
+  stats: 245199280 nodes, 137785856 memo entries, 487380 distinct posteriors, 513.7s
+
+== t=1, n=300 of 399,072,960 worlds (DIED at 540s budget)
+  only 461 distinct posteriors at death — sampling fully tamed the belief
+  dimension; the remaining wall is the 28-play public tree itself
+  (268763136 nodes, 149880538 memo entries at death)
+
+== t=1 controls: n=60 (killed ~600s) and n=150 (killed at 27.5GB RSS on a 48GB machine)
+  n=60 at 320M nodes: memo 174M, 204 posteriors — memo growth nearly identical
+  to n=300; sample size does not shrink the public tree. n=150 tracked the same
+  trajectory and was killed before swap. three runs agree: the t=1 wall is
+  ~10^9+ public-tree nodes and >48GB of memo, independent of n.
+
+reading: sampling removes the world/materialization wall (6GB at t=1 -> nothing;
+posterior count 4.7M exact at t=3 -> hundreds at t=1 sampled) and moved the
+completion frontier from t=4 to t=3. the residual wall at t<=2 is public-tree
+depth — the wavefront/cell dimension walt-math identified — not belief size.
+the lawful trick-1 play therefore waits on the cell-mixture representation
+(walt-math-12 recommended step 3), not on more sampling or more RAM.
+
+nothing above exploratory tier; sampled numbers are never receipts; not a
+trick-1 statement (P-A21)

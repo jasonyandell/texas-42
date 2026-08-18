@@ -1,0 +1,108 @@
+'Texas42.Trick1PerfectRecallNet.decodeH_encodeH' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.decodeC_encodeC' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.encodeH_injective' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.encodeC_injective' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.encodeH_ne_encodeC' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.scopedKey_eq_iff' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.hKey_eq_determines_replay' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.cKey_eq_determines_replay' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.projectH_world_independent' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.cKey_eq_iff' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.child_strict_extension' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.child_unique_parent_action' does not depend on any axioms
+'Texas42.Trick1PerfectRecallNet.root_sentinel_unique' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.zeroField_successor_unique' does not depend on any axioms
+'Texas42.Trick1PerfectRecallNet.terminalChild_unique' does not depend on any axioms
+'Texas42.Trick1PerfectRecallNet.emission_group_eq_iff' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.mem_mergeRuns_iff' depends on axioms: [propext, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.mergeRuns_monotone_left' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.mergeRuns_sum' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.revealed_group_world_eq' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.blockPartition_fold_invariant' depends on axioms: [propext, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.blockSize_one_sixteen_identical' depends on axioms: [propext, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.witness_selector_injective' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.distinct_groups_have_distinct_witnesses' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.singleton_face_retained' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.actionContribution_eq_sum_before_max' depends on axioms: [propext, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.legal_action_le_stateValue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.argmaxFace_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.lawful_policy_le_sumBeforeMax' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Texas42.Trick1PerfectRecallNet.maximizingPolicy_lawful' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.maximizingPolicy_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.sumBeforeMax_eq_freeProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.argmax_reprice_eq_stateValue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.legal_degree_dvd_massBase' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.cast_massBase_div_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.fieldStep_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.field_children_mass_conservation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Texas42.Trick1PerfectRecallNet.focal_counterfactual_copies_mass' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Texas42.Trick1PerfectRecallNet.propagate_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.carried_posterior_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.terminalScale_eq' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.terminalScale_limbs_eq' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.five_bucket_differential_bridge' depends on axioms: [propext, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.five_bucket_partition_root' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.p30_make_iff_future_defender_le_eleven' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Texas42.Trick1PerfectRecallNet.p30_make_iff_lossAllowance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.count_one_retires' does not depend on any axioms
+'Texas42.Trick1PerfectRecallNet.activeDestinationBound_eq' does not depend on any axioms
+'Texas42.Trick1PerfectRecallNet.compaction_oldOrdinal_unique' does not depend on any axioms
+'Texas42.Trick1PerfectRecallNet.reduction_pair_range_separation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Texas42.Trick1PerfectRecallNet.reductionVolume_eq' depends on axioms: [propext, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.reductionVolume_lt_three_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.hiddenOrderCode_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.allTwoOrderCode_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.continuation_card_le_216' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.all_two_order_continuation_card_le_432' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Texas42.Trick1PerfectRecallNet.continuation_numeric_identities' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.semantic_ranges_lt_two_pow_21' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Texas42.Trick1PerfectRecallNet.reduction_sequence_counts' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.aggregate_reduction_base_eq_769' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.aggregate_reduction_command_bounds' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.treatment_command_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.run_command_frame_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.carrier_frame_constants' does not depend on any axioms
+'Texas42.Trick1PerfectRecallNet.revealed_world_caps' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.abi_widths' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.metal_live_byte_ledger' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.h_host_phase_ledgers' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.c_host_phase_ledger' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.h_permanent_spill_base' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.h_spill_phase_highs' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.h_all_skeleton_base' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.active_destination_at_cap' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.h_reduction_lifecycle_highs' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.replacement_growth_bound' depends on axioms: [propext, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.h_spill_high_water' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.c_world_spill_charges' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.c_spill_high_water' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.family_content_caps' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.massBucket_child_terminal_disjoint' does not depend on any axioms
+'Texas42.Trick1PerfectRecallNet.backward_child_terminal_disjoint' does not depend on any axioms
+'Texas42.Trick1PerfectRecallNet.two_family_level_zero_bound' depends on axioms: [propext, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.sign_lanes_partition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.family_scratch_noncoexistence' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.epoch_partition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.focal_arrival_once_only' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.accepted_visits_common' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.global_visit_sum_sixteen' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.selected_terminal_cpu_metal_equal' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.evidence_fold_matches_sealed_root' depends on axioms: [propext]
+'Texas42.Trick1PerfectRecallNet.fieldSlotIndex_injective' depends on axioms: [propext, Quot.sound]
+'Texas42.Trick1PerfectRecallNet.failed_conjunction_accepts_nothing' does not depend on any axioms
+'Texas42.Trick1PerfectRecallNet.successful_conjunction_accepts_all' does not depend on any axioms
+'Texas42.Trick1PerfectRecallNet.immutable_replacement_unique' depends on axioms: [Quot.sound]

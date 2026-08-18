@@ -1,0 +1,36 @@
+walt-m3-probe ladder: EXPLORATORY exact pmake walk toward trick 1
+hand 8, trump fives, P30 by T1; boundary posterior uniform over support (M3 convention)
+treatment H only: S1 lawful perfect recall, field uniform-random-legal
+tie rule: all argmax members reported; no convention selects among them silently
+
+== boundary t=4: solve from the start of trick 4
+  support: 1200 void-consistent worlds (pool 12 tiles, 4 per hidden seat)
+  cross-check: support equals the frozen 1,200-world M3 carrier exactly
+  root: leader S1, banked T1=7 T0=1, budget 300s
+  lead 21  P(make) = 5204203/5529600 (~94.11%)
+  lead 31  P(make) = 5033873/5529600 (~91.03%)
+  lead 33  P(make) = 16078667/16588800 (~96.92%)   <-- optimal
+  lead 55  P(make) = 7770169/8294400 (~93.67%)
+  lawful pmake play at trick 4: 33
+  cross-check: all four t=4 values equal the frozen first-play fractions
+  stats: 8154532 nodes, 4788028 memo entries, 139113 distinct posteriors, 4.305s
+
+== boundary t=3 (separate run; harness killed it at ~600s, before its 900s budget)
+  support: 59976 void-consistent worlds (pool 15 tiles, 5 per hidden seat; void filter 756756 -> 59976)
+  root: leader S1, banked T1=6 T0=1; legal leads 11/21/31/33/55
+  DIED at t=3: killed at ~600s after 300000000 nodes, 162319107 memo entries, 4693012 distinct posteriors
+  (first lead subtree unfinished; memo growth linear in nodes, no convergence signal)
+
+== boundary t=2 (120s budget run)
+  support: 7399392 void-consistent worlds (pool 18 tiles, 6 per hidden seat)
+  root: leader S0, banked T1=0 T0=1
+  DIED at t=2: wall-clock budget exceeded after 158990336 nodes, 81373795 memo entries, 4032882 distinct posteriors, 120.012s
+
+== boundary t=1
+  support: 399072960 raw assignments exceeds the 30000000-world cap
+  DIED at t=1: support materialization (before any solving)
+
+ladder verdict: exact posterior-carrying enumeration solves t=4 in seconds and dies at t=3;
+the equivariant quotient (M1/M2 projector cells) is load-bearing for every earlier trick.
+
+nothing above exploratory tier; not a trick-1 statement (P-A21); no receipt is emitted

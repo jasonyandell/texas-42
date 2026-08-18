@@ -1,0 +1,123 @@
+walt vs E[Q] n=10 — first head-to-head (dropped-30 protocol)
+=============================================================
+2026-08-17. EXPLORATORY, below every evidentiary tier; sampled ESTIMATES,
+never receipts; not a P-A21 statement. ALL THREE SEEDS COMPLETE: the full
+3x384 protocol matching the original dropped-30 verdict is closed below.
+
+Harness: mk5 arena (mk5-main @ 594ee5e9), python -m arena.cli.
+  team A = bid30 + walt_bridge   (this workspace, level-1 walt,
+           n_outer=50 n0=8 per-move 120s, frozen BRIDGE_SEED — the
+           arena's rob adapter unchanged: spec rob:<path-to-walt_bridge>)
+  team B = bid30 + lens:ev n_samples=10, device mps
+           (the dropped-30 champion: learned double-dummy oracle
+           domino-qval-large-3.3M, E[Q] over 10 uniform worlds)
+  Both teams declare via the arena's best-pip-trump heuristic (identical
+  to the 2026-07-30 rob-vs-eq protocol; walt's own declare is wired in
+  walt_bridge but NOT used in this phase). Deals mirrored across halves;
+  1 mark per hand; games race to 7 marks.
+
+Rules conformance: every walt_bridge reply carries walt's independently
+derived trick leader and team points; the arena asserts them against the
+zeb engine on every decision. Zero divergences across the pilot + match
+(~15k decisions) — walt-core and zeb agree on trick resolution and
+scoring everywhere they met.
+
+48-game match, base seed 1 (out-dir walt_48, 527 hands, 20.8 min):
+  A (walt) wins 32/48 games = 66.7%   (halves: 70.8% / 62.5%)
+  mark margin +0.92/game, 95% CI [+0.06, +1.75]   (bootstrap, arena's)
+  point margin -4.28/hand (walt LOSES points while winning marks)
+  offense make rate: walt 37.0%, lens 28.5%
+  paired same-deal contracts (249): both made 52, neither 142,
+    walt-made-lens-set 36, lens-made-walt-set 19 -> McNemar z = +2.29
+  2026-07-30 baseline for calibration (dropped30_384 pooled): rob made
+  33.0% on offense; lens made 35.4% against rob's defense. walt's
+  defense held lens to 28.5%.
+
+The signature worth keeping: point margin negative, mark margin
+positive. walt optimizes P(make 30) — the exact Boolean the mark pays
+on — and spends meaningless points freely to buy it. rob played the
+Points lens (signed differential) and lost the 2026-07-30 match at pure
+play; the objective, not just the engine, is doing work here
+(walt-objective-pmake ruling, 2026-08-17).
+
+Honesty notes:
+- A 4-game pilot first came out 0/4 with lens making 59% vs walt's
+  defense; at 48 games that inverted decisively. 22-hand samples lie.
+- Hand-level forensic (pilot g0h0, deuces): at trick 3 walt-S0 provably
+  knew the bidder held every remaining trump and still led 5-5 (10
+  count) into it, rating that lead best (20.5%) and the junk 1-1 lead
+  worst (40%). The bidder trumped in. Whether that ordering is a
+  level-0-model artifact or exact-over-sample truth is UNRESOLVED; the
+  aggregate says walt's defense is strong anyway. Candidate next lever:
+  sharper inner model (n0), declaration-aware beliefs (the beliefs
+  chapter).
+- walt_bridge decisions are deterministic per information state;
+  rerunning the pilot reproduced it bit-for-bit.
+
+384-game run, base seed 1 (out-dir walt_384_s1, 4295 hands, 116.6 min):
+  A (walt) wins 211/384 games = 54.9%   (halves: 61.5% / 48.4%)
+  mark margin +0.38/game, 95% CI [+0.05, +0.70]  — excludes zero
+  point margin -4.55/hand
+  offense make rate: walt 36.9%, lens 33.6%
+  paired same-deal contracts (2007): both 513, neither 1107,
+    walt-made-lens-set 235, lens-made-walt-set 152 -> McNemar z = +4.22
+  rotation-parity audit: walt offense 36.5% (bidder even, bridge r=1)
+    vs 37.2% (bidder odd, r=0); defense 35.1% vs 32.2% — no parity
+    defect; the half asymmetry also appears in rob's 2026-07-30 run
+    (55.2%/39.6%) and is a protocol property, not a bridge one.
+
+Direct seed-1 comparison, same protocol/seed/champion:
+                        rob 2026-07-30       walt 2026-08-17
+  games won             182/384 (47.4%)      211/384 (54.9%)
+  mark margin/game      -0.27 [-0.59,+0.06]  +0.38 [+0.05,+0.70]
+  offense made          33.0%                36.9%
+  champion held to      35.4%                33.6%
+  point margin/hand     -0.54                -4.55
+rob lost points narrowly and lost the match; walt loses points 8x
+harder and wins it — the P(make) objective, in one row.
+
+384-game run, base seed 2 (out-dir walt_384_s2, 4319 hands, 120.1 min):
+  A (walt) wins 212/384 games = 55.2%   (halves: 60.4% / 50.0%)
+  mark margin +0.44/game, 95% CI [+0.15, +0.74]  — excludes zero
+  point margin -4.82/hand
+  offense make rate: walt 36.8%, lens 32.9%
+  paired same-deal contracts (2036): both 519, neither 1135,
+    walt-made-lens-set 231, lens-made-walt-set 151 -> McNemar z = +4.09
+  the same half asymmetry (stronger first half) recurs, consistent
+  with the protocol-property reading from seed 1.
+
+Pooled seeds 1+2 (768 games, 4043 paired contracts):
+  walt 423/768 games = 55.1%, mean mark margin +0.41/game
+  discordant contracts: walt-made-lens-set 466 vs lens-made-walt-set 303
+    -> McNemar z = +5.88
+  each seed independently excludes zero on the mark-margin CI; the
+  pooled paired test is approaching the 6.5-sigma standard the champion
+  set against rob over 3x384 (one seed remains).
+
+384-game run, base seed 3 (out-dir walt_384_s3, 4237 hands, 139.4 min,
+run 2026-08-18 concurrently with level-2 probe work — timings only are
+contended):
+  A (walt) wins 207/384 games = 53.9%   (halves: 59.9% / 47.9%)
+  mark margin +0.36/game, 95% CI [+0.03, +0.69]  — excludes zero
+  point margin -4.74/hand
+  offense make rate: walt 37.9%, lens 34.7%
+  paired same-deal contracts (1972): walt-made-lens-set 221,
+    lens-made-walt-set 170 -> McNemar z = +2.58
+  the first-half asymmetry recurs a third time (protocol property).
+
+POOLED 3x384 VERDICT (1152 games, 6015 paired contracts):
+  walt 630/1152 games = 54.7%  (game-level z = +3.18)
+  mean mark margin +0.39/game; every seed's CI excludes zero
+  discordant contracts: walt-made-lens-set 687 vs lens-made-walt-set 473
+    -> McNemar z = +6.28
+  This is the same protocol and significance bar under which the E[Q]
+  champion beat rob (6.5 sigma, 2026-07-30). walt clears it against
+  that champion. All seeds played the identical bridge binary (the
+  PiKey banked-aliasing fix was deliberately deferred until after this
+  pool closed; see level2_results correction history).
+
+Phase 2 staged: walt naming its own trump via the bridge's `declare`
+(WaltDeclareBidder patch drafted for the arena; not applied). The
+banked-correct PiKey can now be applied to the play binaries; any
+future arena run is a new baseline, not comparable hand-for-hand with
+this pool.

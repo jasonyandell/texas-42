@@ -1,0 +1,17 @@
+[package]
+name = "walt-m2-runner"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+walt-gpu-ref.workspace = true
+walt-gpu-spec.workspace = true
+walt-metal.workspace = true
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+float_arithmetic = "deny"

@@ -1,0 +1,22 @@
+[package]
+name = "walt-gpu-ref"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+num-bigint.workspace = true
+walt-core.workspace = true
+walt-gpu-spec.workspace = true
+walt-kernel.workspace = true
+
+[dev-dependencies]
+rob-core = { path = "../../rob/crates/core" }
+rob-verify = { path = "../../rob/crates/verify" }
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+float_arithmetic = "deny"

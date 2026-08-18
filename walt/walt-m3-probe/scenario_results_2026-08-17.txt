@@ -1,0 +1,62 @@
+walt-m3-probe scenario solver, runs 2026-08-17 — ESTIMATES, below even probe tier
+external sampling: each scenario = (deal drawn uniform from the void-consistent
+support, frozen per-scenario seed for the field's dice). field plays are then
+deterministic per scenario; the solve is exact ON THE SAMPLE. S1 nodes are keyed
+by the public record and S1's hand only — no strategy fusion, the player never
+peeks. all seven leads are evaluated on the SAME scenarios (common random
+numbers), so lead-vs-lead comparisons are paired.
+
+why this exists: the ladder's t=1 controls proved the wall was the exact
+expectation over field replies (~10^9+ public-tree nodes, independent of world
+sample size). sampling the field's dice along with the deal collapses the tree
+to ~n x S1's own choice paths. binary: src/bin/scenario.rs, seed 0xD1B54A32D192ED03 ^ t.
+
+== t=4 grading against exact ground truth (exact: 33 optimal at 96.92%)
+  n=1000   21: 96.70  31: 95.20  33: 98.90 <-opt  55: 97.30   (0.02s)
+  n=4000   21: 96.92  31: 93.82  33: 98.15 <-opt  55: 96.77   (0.08s)
+  n=16000  21: 95.81  31: 93.26  33: 98.03 <-opt  55: 95.13   (0.32s)
+  every n picks the exact-optimal lead 33; value optimism at the argmax ~ +1.1pp
+  (sampled dice let S1's downstream maxima adapt to the realized dice — the
+  documented optimistic bias; trust plays, grade values)
+
+== t=3, n=16000 (1.0s)
+  11: 98.27  21: 96.63  31: 93.69  33: 98.72 <-opt  55: 97.70
+  note: the world-sampled exact-field ladder run (n=1200) picked 11 (96.48)
+  with 33 close (96.33); the scenario run flips the top pair (33 over 11).
+  both devices are estimates and both agree 11/33 are the top pair separated
+  by well under the bias scale — the t=3 top choice is genuinely close.
+  value optimism vs the exact-field estimate ~ +2.4pp (grows with depth: more
+  sampled field nodes downstream).
+
+== t=2, n=16000 (0.7s) — first number this position has ever had
+  S0 leads; P(make) before trick 2 ~ 99.84% on-sample
+
+== t=1 — WALT'S OPENING LEAD (S1 to lead, hand 52 54 55 33 31 21 11, P30)
+  n=4000    11: 99.82  21: 99.37  31: 98.67  33: 99.90  52: 98.85  54: 99.60  55: 100.00 <-opt
+  n=16000   11: 99.75  21: 99.43  31: 98.71  33: 99.94  52: 98.91  54: 99.40  55: 100.00 <-opt  (1.8s)
+  n=64000   11: 99.78  21: 99.47  31: 98.56  33: 99.92  52: 99.09  54: 99.54  55: 99.99 <-opt   (10.0s)
+  n=256000  11: 99.76  21: 99.43  31: 98.56  33: 99.92  52: 99.06  54: 99.50  55: 99.97 <-opt   (64.0s)
+  argmax 55 at every n; full ordering 55 > 33 > 11 > 54 > 21 > 52 > 31 stable
+  across all four runs. paired at n=256000: leading 55 fails 70 of 256,000
+  scenarios vs 187 for 33. the opening lead pulls trumps with the master.
+  stats at n=256000: 124463989 nodes, 111592979 memo entries, 64.0s — linear
+  in n; the public-tree wall is gone.
+
+reading: the ladder + scenario pair now cleanly separates the two random axes.
+sampling deals alone (ladder) removed the world/materialization wall but left
+the exact field expectation — ~10^9 nodes at t=1, dead. sampling the field's
+dice as well (this binary) collapses the tree to the sample's reachable slice
+and the entire walk t=4 -> t=1 completes in seconds. this is the level-1
+lawful player: exact-on-the-sample, no fusion, optimistic value bias graded at
++1.1pp (t=4) against exact truth, argmax stable under 64x sample growth. the
+exactness gap remains closable by the cell-mixture representation
+(walt-math-12 step 3) on the exact-field side; against a NON-random (skilled)
+field, none of today's numbers apply — the H treatment is the frozen contract.
+
+caveats: field draw keyed on the reduced record (played, leader, in-trick
+plays) — orders colliding on the reduction share dice (common-random-numbers
+artifact, marginally uniform at every node); deals drawn with replacement;
+argmax over noisy estimates is optimistically biased at every S1 node.
+
+nothing above exploratory tier; sampled numbers are never receipts; the t=1
+line is a probe output under the H treatment, not a P-A21 statement about 42.

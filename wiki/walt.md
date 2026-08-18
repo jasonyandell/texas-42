@@ -5,7 +5,8 @@ walt is, the fence around it, and the map of its pages · Sources: none upward
 (this page cites; nothing above the Ideas tier ever cites it). Related:
 [ideas](ideas.md), [idea-seat-context](idea-seat-context.md),
 [idea-retrograde-rank](idea-retrograde-rank.md), [lineage](lineage.md),
-[analysis](analysis.md), [field/](field/Home.md), [rob](rob.md).
+[analysis](analysis.md), [field/](field/Home.md), [rob](rob.md),
+[GPU-native trick-1](walt-gpu-native-trick1.md).
 
 > **Epistemic tier: EXPLORATORY — below every tier on
 > [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).** Everything
@@ -60,7 +61,9 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | Page | Scope |
 |---|---|
 | [walt-scheme-fix](walt-scheme-fix.md) | The descriptor language: what a descriptor is, how to read and write one, worked examples, and how much of §12.7 is actually built |
-| [walt-decision-sparse](walt-decision-sparse.md) | The live track: the decision-sparse architecture, its objects, its audit history, and the state of its experiment program |
+| [walt-decision-sparse](walt-decision-sparse.md) | The decision-sparse architecture, its objects, its audit history, and the state of its experiment program |
+| [walt-seat-play](walt-seat-play.md) | **The live track since 2026-08-17**: the scenario-player (sampling-stack) seat — level-1's arena win over the E[Q] champion, level-2, divergence mining, and the spec [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md) with its obligations ledger |
+| [walt-gpu-native-trick1](walt-gpu-native-trick1.md) | The adjudicated narrow opening-root contracts, the bounded M0/M1 portable build, M2 Metal parity, and the still-unbuilt perfect-recall/controller ladder |
 | [walt-math-reference](walt-math-reference.md) | The map of walt's mathematics — every named object, where its statement lives, what it binds. Siblings: [structure and transport](walt-math-structure-transport.md), [information geometry](walt-math-information-geometry.md), [decision-deadness](walt-math-deadness.md), [decision-sparse witnesses](walt-math-decision-sparse.md), [the freeze register](walt-math-freezes.md), [open questions](walt-math-open-questions.md) |
 
 ## The sources under `walt/`
@@ -68,14 +71,19 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | Piece | What it is |
 |---|---|
 | [`walt/math/`](../walt/math/) | The frozen mathematical bases, never edited: `unified_information_geometry_v0.4.md` (the ~3,800-line basis with its own §17 claim ledger), `equivariant_lumpability_v0.5.md` (§12.6A, authored by Jason), `predictive_algebra_v0.6.md`, `decision_sparse_exact_solving_v0.1.md` and its maintained errata, the second-audit record, and the derived `implementers_guide.md` (non-authoritative; the basis wins on any conflict) |
+| [`gpu_native_trick1_implementers_guide_v0.2.md`](../walt/math/gpu_native_trick1_implementers_guide_v0.2.md) | Received Pro design input, preserved byte-for-byte. Original source commit `ca18bc6807b974b31d4640786d7a2d63ae0b79fe`; intake commit on this branch `c230949c77ff7e8e22f912ed70f8206488ac9022`; SHA-256 `ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44`. The adjudicated v0.3 contract governs wherever it repairs or narrows this source. |
+| [`walt/GPU-NATIVE-TRICK1.md`](../walt/GPU-NATIVE-TRICK1.md) | The adjudicated v0.3 first-build contract: binding inside this exploratory track, and authoritative wherever it narrows, repairs or rejects v0.2. It is a design authority, not a Metal result or an opening-root verdict. |
+| [`gpu_native_trick1_m2_rebrief_v0.1.md`](../walt/math/gpu_native_trick1_m2_rebrief_v0.1.md) and [`walt/GPU-NATIVE-TRICK1-M2.md`](../walt/GPU-NATIVE-TRICK1-M2.md) | The checksum-gated bridge from freeze 55 and exact M2 contract frozen at GT1-A17. They govern only the arithmetic/opening-projector parity slice and authorize no root verdict. |
 | [`walt/PLAN.md`](../walt/PLAN.md) | The forward plan: disciplines, crate map, the CDCL spine, one-line session summaries, next milestones |
 | [`walt/LOG.md`](../walt/LOG.md) | The session index. Since this reorganization it carries a few summary lines per session and points at the owning page here; the full per-session records live in git history |
 | `walt/CENSUS-RULINGS.md` | The append-only adjudication record — every ruling, freeze and theorem that governs a probe. Mapped by [walt-math-reference](walt-math-reference.md) |
 | `walt/*.md` design docs | One per probe: `CENSUS`, `FIBER-PROBE`, `FIBER-REFINE`, `ENDGAME-STORE`, `SEAT-CENSUS`, `PREDICTIVE-RANK`, `POLICY-GEOMETRY`, `DEADNESS-PROBE`, `SEPARATION-PROBE`, plus the queued `SEPARATION-RUNG-N4` and `ECONOMY-SUCCESSOR` |
 | [`walt/DISCREPANCIES.md`](../walt/DISCREPANCIES.md) | Spec-versus-reference reconciliations, same protocol as the corpus: never pick a plausible reading silently |
 | `walt/probes/` | The rescued Python probe suites — frozen validators, never source |
-| `walt/walt-*` | The Rust workspace, strict import direction: core → kernel → geom → strat → skeleton → factory ([instruments](walt-instruments.md)) |
+| `walt/walt-*` | The Rust workspace: the original strict spine core → kernel → geom → strat → skeleton → factory ([instruments](walt-instruments.md)), plus the bounded GPU-track side branch `walt-gpu-spec` (M0), `walt-gpu-ref` (M1 and portable M2 reference/receipt machinery), `walt-metal` and `walt-m2-runner`. It records **PORTABLE M0/M1 COMPLETE under freeze 55** and **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**; none of these crates is an opening player or supplies an action value, selected lead, optimal set, information net, continuation or performance claim. |
 | `walt/ci/check.sh` | The gate: fmt, clippy `-D warnings -D float_arithmetic`, no-float grep, release tests |
+| `walt/ci/check_m2_metal.sh` | The freeze-56 integrated gate: historical/current source checks, metallib reproducibility, native controls and smoke, two fresh complete official runs, committed receipt adjudication, Lean audit and final source verification |
+| [`walt/receipts/gpu_native_trick1_m2_v1/`](../walt/receipts/gpu_native_trick1_m2_v1/) | The committed M2 binary receipt and external checksum. This is executable fixed-carrier evidence, not a theorem, player artifact or reusable projector value. |
 
 ## Where it stands
 
@@ -129,6 +137,30 @@ longer decide anything about how far the architecture reaches. Progress needs a
 **longer ladder** — a coordinate where a rung's value is not already known before
 it is computed — which puts the first trick, and the three obligations blocking
 it, back in front of everything else.
+
+The [GPU-native trick-1 track](walt-gpu-native-trick1.md) is the new engineering
+route toward that longer ladder. Its received v0.2 design has been frozen and
+source-hash gated. The v0.3 portable contract and exact M2 contract have been
+adjudicated through GT1-A17 with freezes 55 and 56. Portable M0/M1 remains
+**PORTABLE M0/M1 COMPLETE under freeze 55**. At immutable commit `a6df853`, the
+track earned exactly **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**. It establishes no action value,
+selected lead, optimal set, information net, continuation, performance claim, or
+player; M3–M5 and every root verdict remain untouched.
+
+The historical Gate-0 NO-GO receipt remains a true immutable observation of its
+old Command Line Tools environment. GT1-A10 supersedes only its statement about
+the current host precondition; the old receipt is not rewritten.
+
+Since 2026-08-17 the live track is the **scenario-player seat**
+([walt-seat-play](walt-seat-play.md)): a sampling-stack player (exact best
+response over sampled fiber worlds against modeled level-k minds, pmake
+objective) that plays full hands, and whose level-1 instance defeated the mk5
+E[Q] champion under the dropped-30 3×384 protocol (pooled McNemar z = +6.28 —
+an arena outcome about play, exploratory like everything else here, never a
+statement about exact values). The spec-after-build and its proof-obligations
+ledger live at [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md); the
+declared program is to pay that ledger down — the leap happened first, the
+bridge is being built behind it, deliberately and on the record.
 
 Every count above is carrier-relative, coordinate-relative, and exploratory. Full
 numbers, scope caveats and dissents live on the era pages; the refutations are

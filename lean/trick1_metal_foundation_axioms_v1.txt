@@ -1,0 +1,10 @@
+'Texas42.Trick1MetalFoundation.candidateSlotCount_le_79800' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1MetalFoundation.projectorArenaBytes_eq' depends on axioms: [propext]
+'Texas42.Trick1MetalFoundation.arithmeticArenaBytes_eq' depends on axioms: [propext]
+'Texas42.Trick1MetalFoundation.gradeMatching_covers_every_grade' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Texas42.Trick1MetalFoundation.gradeMatchingTaskCount_eq_46' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1MetalFoundation.matchingVectorCount_le_ten' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Texas42.Trick1MetalFoundation.filter_preserves_occursBefore' depends on axioms: [propext]
+'Texas42.Trick1MetalFoundation.failed_conjunction_accepts_nothing' depends on axioms: [propext]

@@ -1,0 +1,80 @@
+level-2 divergence mining — overnight run, 2026-08-18
+======================================================
+
+EXPLORATORY tier. Sampled values are ESTIMATES; divergence is scored on
+level-2's OWN value table (self-graded — which mind is RIGHT needs the
+mirrored-replay referee, not yet run); nothing here is a P-A21 statement.
+Miner: src/bin/divergence.rs (commit 30f1409). Corpus: mined/ (gzipped
+JSONL, hands 0-899, seeds deterministic from MINER_SEED).
+
+Protocol: 900 random deals; four level-1 walts (bridge-strength: n_outer=40
+void-conditioned worlds, n0=8 inner minds, one 4x tie refinement) play the
+hand; one seat is shadowed by level-2 (n_outer=40 CRN with level-1's base
+worlds, n1=8/n0=4) at every real decision. Shadow never steers. Regimes by
+hand index: self-bid (shadow = bidder), partner-bid (shadow supports),
+defense. Bidder always internal S1, P30, heuristic pip trump.
+
+Headline numbers (4,156 shadowed decisions, zero timeouts)
+----------------------------------------------------------
+Divergence rate (level-1's choice strictly sub-optimal on level-2's table):
+  overall 1154/4156 = 27.8%
+  by regime: self-bid 27.6% | partner-bid 26.8% | defense 28.9%  (flat)
+  by trick: t1 38.4%, t2 42.2%, t3 39.4%, t4 29.5%, t5 16.1%, t6 3.2%
+  (the minds converge as the endgame becomes effectively exact; the
+  disagreement lives in tricks 1-4, where reading the partner has room)
+
+The base rate is noise-heavy (n=40 estimator jitter). The signal is in the
+tail — big-gap divergences concentrate in the coordination regimes:
+  gap >=  500bp: self-bid 12.98% | partner-bid 16.73% | defense 17.63%
+  gap >= 1000bp: self-bid  4.83% | partner-bid  6.38% | defense  6.47%
+  gap >= 1500bp: self-bid  1.40% | partner-bid  2.18% | defense  2.69%
+Pooling partner-bid+defense vs self-bid at >=1500bp: 2.44% vs 1.40%,
+two-proportion z ~ 2.3. Moderate, consistent, in the predicted direction
+(Jason's bedtime guess: "situations where you say 'my partner will X' and
+then make a decision on that"). At >=2000bp counts are single-digit and
+uninformative. Follow positions diverge slightly more than leads at
+>=1000bp (6.1% vs 5.3%).
+
+Gap distribution over the 1,154 divergences: 506 under 500bp, 406 in
+[500,1000), 228 in [1000,2000), 14 at 2000bp+. Argmax sets fully disjoint
+in 1,078 of 1,154.
+
+The top case, traced (hand 82 — my reading, to be refereed)
+-----------------------------------------------------------
+Blanks trump, partner-bid regime: internal S1 bid and is pulling trump
+(led 0-0, then 4-0); shadow = S3 holding {1-1,3-2,4-1,5-1,5-3,5-5} at
+trick 2 pos 2, void in trump (6-0 went trick 1). S0 holds no blank, so
+partner's 4-0 is winning the trick, and partner still holds 5-0 and 1-0
+(both remaining trumps) behind it.
+
+  level-1 plays 5-3 (its table: 65.0%, best) — a no-count tile; it HOARDS
+    the 4-1 five-count (rated 62.5%).
+  level-2 wants 4-1 at 85.0% vs 5-3 at 55.0% (gap 3000bp) — DROP THE
+    FIVE-COUNT ON PARTNER'S WINNING TRUMP TRICK; 3-2 (the other count)
+    rates second at 70%.
+
+This is "my partner will X" made concrete: X = "keep drawing trump and
+keep winning." A level-1 shadow's modeled partner is a solipsist whose
+continued success it won't bank on, so feeding count to the current trick
+looks risky; the level-2 shadow's partner-model coordinates, so the count
+goes onto the table while the trick is safely partner's. It is the
+partnership mirror of the defensive play Jason praised in level-1 the
+evening before (sacrificing a 5-count under an enemy trump lead to protect
+5-5/6-4): same move class — count placement under trust — now trusting
+the PARTNER's control rather than fearing the enemy's. The hand made (31:11).
+
+Caveats and next steps
+----------------------
+- Self-graded: every "divergent" verdict is level-2's own table. The
+  referee protocol: replay divergent hands mirrored (level-1 vs level-2 in
+  the shadow chair, all else identical), McNemar on the discordant pairs —
+  all signal, no agreement-noise. Not yet run; needs Jason's sense of
+  whether to spend the compute.
+- n=40 estimator noise inflates the base rate; treat sub-500bp divergences
+  as unresolved ties, not disagreements.
+- Trajectories are level-1 self-play: positions level-2 would have steered
+  into are unexplored (mining bias, acknowledged).
+- Level-tag caveat: the modeled partner reads the shadow as a LEVEL-0
+  mind (a simpler self) — signaling into a slightly wrong reader; the
+  divergences found are a lower bound on what matched-reader coordination
+  would surface.
