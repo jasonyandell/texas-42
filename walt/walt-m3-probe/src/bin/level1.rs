@@ -346,6 +346,12 @@ struct PiKey {
     played: u32,
     leader: u8,
     plays: Vec<u8>,
+    // Banked totals are part of the mind's information state (the pmake
+    // objective conditions on them; not derivable from the reduced record).
+    // Omitting them aliased policies first-come-wins — fixed 2026-08-18
+    // after the 3x384 pool closed; see level2.rs PiKey doc.
+    banked_t1: u8,
+    banked_t0: u8,
 }
 
 struct Solver {
@@ -641,6 +647,8 @@ impl Solver {
             played: key.played,
             leader: key.leader,
             plays: key.plays.clone(),
+            banked_t1: key.banked_t1,
+            banked_t0: key.banked_t0,
         };
         if let Some(&t) = self.pi_cache.get(&pk) {
             return Some(t);
