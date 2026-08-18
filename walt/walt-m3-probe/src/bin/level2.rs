@@ -26,17 +26,30 @@
 //! key reduction, interned alive sets, alive-set partition at field nodes
 //! (Bayes on policy-consistent deals — now against level-1 behavior).
 //!
+//! PARALLEL: the outer solve fans out on rayon — root candidate leads,
+//! field-node bucket recursion, and per-node batches of modeled-mind
+//! policy calls. Modeled minds are the leaf tasks and stay serial. Every
+//! policy value is a pure function of its full information-state key
+//! (PiKey now includes the banked totals — see its doc; the serial probes
+//! aliased these) and all sums are exact rationals, so RESULT lines are
+//! identical at any thread count; only the stats can drift (two threads
+//! may race the same transposed subtree before the memo fills,
+//! duplicating work).
+//!
 //! Arithmetic: integer counts and BigRational values. No floats.
 //! Nothing here is quotable above exploratory tier; not a P-A21 statement.
 
-use std::cell::{Cell, RefCell};
+use std::collections::hash_map::DefaultHasher;
 use std::collections::HashMap;
-use std::rc::Rc;
+use std::hash::{Hash, Hasher};
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
+use std::sync::{Arc, Mutex};
 use std::time::Instant;
 
 use num_bigint::BigInt;
 use num_rational::BigRational;
 use num_traits::{One, Zero};
+use rayon::prelude::*;
 
 use walt_core::rules::{legal_plays, Trick};
 use walt_core::{Context, Decl, Domino, DominoSet, Pip, Seat, Team};
@@ -286,7 +299,7 @@ fn draw_world(b: &Boundary, tiles: &mut [u8], rng: &mut SplitMix64) -> [u32; 4] 
     }
 }
 
-type Alive = Rc<Vec<u32>>;
+type Alive = Arc<Vec<u32>>;
 
 #[derive(Clone, PartialEq, Eq, Hash)]
 struct Key {
@@ -324,6 +337,11 @@ enum Field {
 }
 
 /// Cache key for a modeled mind's decision: its entire information state.
+/// The banked totals are part of that state (the pmake objective conditions
+/// on them) and are NOT derivable from the reduced record — omitting them
+/// (as the serial probes did) aliased policies across banked contexts,
+/// first-come-wins. Including them makes every cache entry a pure function
+/// of its key, which is also what makes the parallel solve deterministic.
 #[derive(Clone, PartialEq, Eq, Hash)]
 struct PiKey {
     seat: u8,
@@ -331,7 +349,14 @@ struct PiKey {
     played: u32,
     leader: u8,
     plays: Vec<u8>,
+    banked_t1: u8,
+    banked_t0: u8,
 }
+
+/// Shard count for the concurrent policy cache (power of two).
+const PI_SHARDS: usize = 64;
+
+type PiShard = Mutex<HashMap<(u8, PiKey), u8>>;
 
 /// State shared by every solver in the recursion: the global budget, the
 /// cross-level policy cache, and the per-level inner sample sizes.
@@ -342,29 +367,56 @@ struct Shared {
     boundary_played: u32,
     boundary_hand_size: usize,
     deadline: Instant,
-    pi_cache: RefCell<HashMap<(u8, PiKey), u8>>,
-    pi_calls: Cell<u64>,
-    nodes: Cell<u64>,
-    dead: Cell<bool>,
+    pi_cache: Vec<PiShard>,
+    pi_calls: AtomicU64,
+    nodes: AtomicU64,
+    dead: AtomicBool,
+}
+
+impl Shared {
+    fn pi_shard(&self, k: u8, pk: &PiKey) -> &PiShard {
+        let mut h = DefaultHasher::new();
+        (k, pk).hash(&mut h);
+        &self.pi_cache[(h.finish() as usize) & (PI_SHARDS - 1)]
+    }
+
+    fn pi_cache_len(&self) -> usize {
+        self.pi_cache
+            .iter()
+            .map(|s| s.lock().expect("pi shard poisoned").len())
+            .sum()
+    }
+}
+
+/// Interned alive sets: id 0 is always the full sample.
+struct Intern {
+    list: Vec<Alive>,
+    map: HashMap<Alive, u32>,
 }
 
 struct Solver {
-    sh: Rc<Shared>,
+    sh: Arc<Shared>,
     viewer: Seat,
     viewer_hand0: u32,
     maximize: bool,
+    /// Fan subtrees and policy batches out on rayon. Outer solver only;
+    /// modeled minds are the leaf tasks and stay serial.
+    parallel: bool,
     worlds: Vec<[u32; 4]>,
     /// Per-scenario dice seeds (Dice field only; empty otherwise).
     seeds: Vec<u64>,
     field: Field,
-    interned: Vec<Alive>,
-    intern_map: HashMap<Alive, u32>,
-    memo: HashMap<Key, BigRational>,
+    intern: Mutex<Intern>,
+    memo: Mutex<HashMap<Key, BigRational>>,
+    /// Nodes visited by this solver; flushed to the global count in 64k
+    /// chunks (and finally by `flush_nodes`) to keep 18 cores off one
+    /// cache line.
+    local_nodes: AtomicU64,
 }
 
 impl Solver {
     fn new(
-        sh: Rc<Shared>,
+        sh: Arc<Shared>,
         viewer: Seat,
         viewer_hand0: u32,
         maximize: bool,
@@ -372,32 +424,81 @@ impl Solver {
         seeds: Vec<u64>,
         field: Field,
     ) -> Self {
-        let all: Alive = Rc::new((0..worlds.len() as u32).collect());
-        let mut intern_map = HashMap::new();
-        intern_map.insert(Rc::clone(&all), 0u32);
+        let all: Alive = Arc::new((0..worlds.len() as u32).collect());
+        let mut map = HashMap::new();
+        map.insert(Arc::clone(&all), 0u32);
         Solver {
             sh,
             viewer,
             viewer_hand0,
             maximize,
+            parallel: false,
             worlds,
             seeds,
             field,
-            interned: vec![all],
-            intern_map,
-            memo: HashMap::new(),
+            intern: Mutex::new(Intern {
+                list: vec![all],
+                map,
+            }),
+            memo: Mutex::new(HashMap::new()),
+            local_nodes: AtomicU64::new(0),
         }
     }
 
-    fn intern(&mut self, v: Vec<u32>) -> u32 {
-        let rc: Alive = Rc::new(v);
-        if let Some(&id) = self.intern_map.get(&rc) {
+    fn parallel(mut self) -> Self {
+        self.parallel = true;
+        self
+    }
+
+    fn intern(&self, v: Vec<u32>) -> u32 {
+        let rc: Alive = Arc::new(v);
+        let mut st = self.intern.lock().expect("intern poisoned");
+        if let Some(&id) = st.map.get(&rc) {
             return id;
         }
-        let id = self.interned.len() as u32;
-        self.interned.push(Rc::clone(&rc));
-        self.intern_map.insert(rc, id);
+        let id = st.list.len() as u32;
+        st.list.push(Arc::clone(&rc));
+        st.map.insert(rc, id);
         id
+    }
+
+    fn alive_of(&self, id: u32) -> Alive {
+        Arc::clone(&self.intern.lock().expect("intern poisoned").list[id as usize])
+    }
+
+    /// Count one node; check budget on 64k-node boundaries of this solver's
+    /// local count. Returns false when the global budget is dead.
+    fn bump_node(&self) -> bool {
+        if self.sh.dead.load(Ordering::Relaxed) {
+            return false;
+        }
+        let n = self.local_nodes.fetch_add(1, Ordering::Relaxed) + 1;
+        if n & 0xFFFF == 0 {
+            if Instant::now() >= self.sh.deadline {
+                self.sh.dead.store(true, Ordering::Relaxed);
+                return false;
+            }
+            let before = self.sh.nodes.fetch_add(0x1_0000, Ordering::Relaxed);
+            let after = before + 0x1_0000;
+            if before / 50_000_000 != after / 50_000_000 {
+                eprintln!(
+                    "progress: nodes={} pi-calls={} pi-cache={}",
+                    after,
+                    self.sh.pi_calls.load(Ordering::Relaxed),
+                    self.sh.pi_cache_len()
+                );
+            }
+        }
+        true
+    }
+
+    /// Flush the sub-64k remainder of this solver's node count into the
+    /// global total. Call exactly once, after this solver's last solve.
+    fn flush_nodes(&self) {
+        self.sh.nodes.fetch_add(
+            self.local_nodes.load(Ordering::Relaxed) & 0xFFFF,
+            Ordering::Relaxed,
+        );
     }
 
     fn child_after_play(&self, key: &Key, tile: Domino, alive: u32) -> Key {
@@ -436,23 +537,9 @@ impl Solver {
         }
     }
 
-    fn solve(&mut self, key: &Key) -> Option<BigRational> {
-        if self.sh.dead.get() {
+    fn solve(&self, key: &Key) -> Option<BigRational> {
+        if !self.bump_node() {
             return None;
-        }
-        let nodes = self.sh.nodes.get() + 1;
-        self.sh.nodes.set(nodes);
-        if nodes & 0xFFFF == 0 && Instant::now() >= self.sh.deadline {
-            self.sh.dead.set(true);
-            return None;
-        }
-        if nodes.is_multiple_of(50_000_000) {
-            eprintln!(
-                "progress: nodes={} pi-calls={} pi-cache={}",
-                nodes,
-                self.sh.pi_calls.get(),
-                self.sh.pi_cache.borrow().len()
-            );
         }
         if key.banked_t1 >= 30 {
             return Some(BigRational::one());
@@ -460,7 +547,7 @@ impl Solver {
         if key.banked_t0 > 12 {
             return Some(BigRational::zero());
         }
-        if let Some(v) = self.memo.get(key) {
+        if let Some(v) = self.memo.lock().expect("memo poisoned").get(key) {
             return Some(v.clone());
         }
         assert_ne!(key.played, FULL_MASK, "terminal states are always decided");
@@ -479,11 +566,14 @@ impl Solver {
                 Field::Level(k) => self.solve_field_policy(key, seat, led, k)?,
             }
         };
-        self.memo.insert(key.clone(), val.clone());
+        self.memo
+            .lock()
+            .expect("memo poisoned")
+            .insert(key.clone(), val.clone());
         Some(val)
     }
 
-    fn solve_viewer(&mut self, key: &Key, led: Option<Context>) -> Option<BigRational> {
+    fn solve_viewer(&self, key: &Key, led: Option<Context>) -> Option<BigRational> {
         let hand = self.viewer_hand0 & !key.played;
         let legal = legal_plays(self.sh.dcl, set_of(hand), led);
         let mut best: Option<BigRational> = None;
@@ -508,13 +598,8 @@ impl Solver {
         Some(best.expect("viewer always has a legal play"))
     }
 
-    fn solve_field_dice(
-        &mut self,
-        key: &Key,
-        seat: Seat,
-        led: Option<Context>,
-    ) -> Option<BigRational> {
-        let alive = Rc::clone(&self.interned[key.alive as usize]);
+    fn solve_field_dice(&self, key: &Key, seat: Seat, led: Option<Context>) -> Option<BigRational> {
+        let alive = self.alive_of(key.alive);
         let rh = record_hash(key);
         let mut buckets: Vec<Vec<u32>> = vec![Vec::new(); 28];
         for &sid in alive.iter() {
@@ -529,18 +614,42 @@ impl Solver {
     }
 
     fn solve_field_policy(
-        &mut self,
+        &self,
         key: &Key,
         seat: Seat,
         led: Option<Context>,
         k: usize,
     ) -> Option<BigRational> {
-        let alive = Rc::clone(&self.interned[key.alive as usize]);
-        let mut buckets: Vec<Vec<u32>> = vec![Vec::new(); 28];
+        let alive = self.alive_of(key.alive);
+        // Per-world hands and legal masks; the distinct undecided hands are
+        // the modeled minds this node needs.
+        let mut per_sid: Vec<(u32, u32)> = Vec::with_capacity(alive.len());
+        let mut distinct: HashMap<u32, u32> = HashMap::new();
         for &sid in alive.iter() {
             let hand = self.worlds[sid as usize][seat.index()] & !key.played;
             let lm = mask_of(legal_plays(self.sh.dcl, set_of(hand), led));
             debug_assert!(lm != 0);
+            if lm.count_ones() > 1 {
+                distinct.entry(hand).or_insert(lm);
+            }
+            per_sid.push((hand, lm));
+        }
+        if self.parallel && distinct.len() > 1 {
+            // Warm the shared policy cache for this node's minds in
+            // parallel; values are key-deterministic, so fill order is
+            // irrelevant.
+            let reqs: Vec<(u32, u32)> = distinct.iter().map(|(&h, &lm)| (h, lm)).collect();
+            let alive_count = reqs
+                .par_iter()
+                .filter(|&&(hand, lm)| self.pi(k, key, seat, hand, lm).is_some())
+                .count();
+            if alive_count != reqs.len() {
+                return None;
+            }
+        }
+        let mut buckets: Vec<Vec<u32>> = vec![Vec::new(); 28];
+        for (i, &sid) in alive.iter().enumerate() {
+            let (hand, lm) = per_sid[i];
             let tile = if lm.count_ones() == 1 {
                 lm.trailing_zeros() as u8
             } else {
@@ -552,13 +661,13 @@ impl Solver {
     }
 
     fn combine_buckets(
-        &mut self,
+        &self,
         key: &Key,
         alive_len: usize,
         buckets: Vec<Vec<u32>>,
     ) -> Option<BigRational> {
         let denom = BigInt::from(alive_len);
-        let mut total = BigRational::zero();
+        let mut children: Vec<(BigInt, Key)> = Vec::new();
         let mut redistributed: usize = 0;
         for (tile, bucket) in buckets.into_iter().enumerate() {
             if bucket.is_empty() {
@@ -567,17 +676,34 @@ impl Solver {
             redistributed += bucket.len();
             let reach = BigInt::from(bucket.len());
             let child_alive = self.intern(bucket);
-            let child = self.child_after_play(
-                key,
-                Domino::from_index(tile).expect("tile < 28"),
-                child_alive,
-            );
-            let v = self.solve(&child)?;
-            if !v.is_zero() {
-                total += v * BigRational::new(reach, denom.clone());
-            }
+            children.push((
+                reach,
+                self.child_after_play(
+                    key,
+                    Domino::from_index(tile).expect("tile < 28"),
+                    child_alive,
+                ),
+            ));
         }
         assert_eq!(redistributed, alive_len, "field partition conservation");
+        let vals: Vec<Option<BigRational>> = if self.parallel && children.len() > 1 {
+            children
+                .par_iter()
+                .map(|(_, child)| self.solve(child))
+                .collect()
+        } else {
+            children
+                .iter()
+                .map(|(_, child)| self.solve(child))
+                .collect()
+        };
+        let mut total = BigRational::zero();
+        for ((reach, _), v) in children.iter().zip(vals) {
+            let v = v?;
+            if !v.is_zero() {
+                total += v * BigRational::new(reach.clone(), denom.clone());
+            }
+        }
         Some(total)
     }
 
@@ -598,18 +724,27 @@ impl Solver {
     /// mind samples n_inner[k] no-void size-consistent deals from its own
     /// chair and best-responds to a Level(k-1) field (Dice below level 0).
     /// Level-0 seeding is bit-identical with level1.rs.
-    fn pi(&mut self, k: usize, key: &Key, seat: Seat, hand: u32, legal_mask: u32) -> Option<u8> {
+    fn pi(&self, k: usize, key: &Key, seat: Seat, hand: u32, legal_mask: u32) -> Option<u8> {
         let pk = PiKey {
             seat: seat.index() as u8,
             hand,
             played: key.played,
             leader: key.leader,
             plays: key.plays.clone(),
+            banked_t1: key.banked_t1,
+            banked_t0: key.banked_t0,
         };
-        if let Some(&t) = self.sh.pi_cache.borrow().get(&(k as u8, pk.clone())) {
+        let kb = k as u8;
+        if let Some(&t) = self
+            .sh
+            .pi_shard(kb, &pk)
+            .lock()
+            .expect("pi shard poisoned")
+            .get(&(kb, pk.clone()))
+        {
             return Some(t);
         }
-        self.sh.pi_calls.set(self.sh.pi_calls.get() + 1);
+        self.sh.pi_calls.fetch_add(1, Ordering::Relaxed);
         let n_k = self.sh.n_inner[k];
         let sizes = self.hand_sizes_at(key);
         let unseen = FULL_MASK & !key.played & !hand;
@@ -648,8 +783,8 @@ impl Solver {
             (Field::Level(k - 1), Vec::new())
         };
         let maximize = seat.team() == Team::T1;
-        let mut inner = Solver::new(
-            Rc::clone(&self.sh),
+        let inner = Solver::new(
+            Arc::clone(&self.sh),
             seat,
             hand,
             maximize,
@@ -667,21 +802,37 @@ impl Solver {
         };
         let mut best: Option<(BigRational, u8)> = None;
         let mut lm = legal_mask;
+        let mut died = false;
         while lm != 0 {
             let tile_idx = lm.trailing_zeros() as u8;
             lm &= lm - 1;
             let tile = Domino::from_index(usize::from(tile_idx)).expect("tile < 28");
             let child = inner.child_after_play(&root, tile, 0);
-            let v = inner.solve(&child)?;
-            let better = best
-                .as_ref()
-                .is_none_or(|(b, _)| if maximize { v > *b } else { v < *b });
-            if better {
-                best = Some((v, tile_idx));
+            match inner.solve(&child) {
+                Some(v) => {
+                    let better = best
+                        .as_ref()
+                        .is_none_or(|(b, _)| if maximize { v > *b } else { v < *b });
+                    if better {
+                        best = Some((v, tile_idx));
+                    }
+                }
+                None => {
+                    died = true;
+                    break;
+                }
             }
         }
+        inner.flush_nodes();
+        if died {
+            return None;
+        }
         let (_, choice) = best.expect("legal play exists");
-        self.sh.pi_cache.borrow_mut().insert((k as u8, pk), choice);
+        self.sh
+            .pi_shard(kb, &pk)
+            .lock()
+            .expect("pi shard poisoned")
+            .insert((kb, pk), choice);
         Some(choice)
     }
 }
@@ -749,27 +900,28 @@ fn run_boundary(dcl: Decl, t: usize, budget_secs: u64, n_outer: usize, n1: usize
             OUTER_SEED ^ t as u64
         );
     }
-    let sh = Rc::new(Shared {
+    let sh = Arc::new(Shared {
         dcl,
         n_inner: vec![n0, n1],
         boundary_played: b.played,
         boundary_hand_size: b.hand_size,
         deadline: start + std::time::Duration::from_secs(budget_secs),
-        pi_cache: RefCell::new(HashMap::new()),
-        pi_calls: Cell::new(0),
-        nodes: Cell::new(0),
-        dead: Cell::new(false),
+        pi_cache: (0..PI_SHARDS).map(|_| Mutex::new(HashMap::new())).collect(),
+        pi_calls: AtomicU64::new(0),
+        nodes: AtomicU64::new(0),
+        dead: AtomicBool::new(false),
     });
     let n_deals = outer_worlds.len();
-    let mut solver = Solver::new(
-        Rc::clone(&sh),
+    let solver = Solver::new(
+        Arc::clone(&sh),
         VIEWER,
         b.s1_initial & !b.played,
         true,
         outer_worlds,
         Vec::new(),
         Field::Level(1),
-    );
+    )
+    .parallel();
     let root = Key {
         played: b.played,
         leader: b.leader,
@@ -779,16 +931,31 @@ fn run_boundary(dcl: Decl, t: usize, budget_secs: u64, n_outer: usize, n1: usize
         alive: 0,
     };
     println!(
-        "  root: leader S{}, banked T1={} T0={}, {} deals, budget {}s",
-        b.leader, b.banked_t1, b.banked_t0, n_deals, budget_secs
+        "  root: leader S{}, banked T1={} T0={}, {} deals, budget {}s, {} rayon threads",
+        b.leader,
+        b.banked_t1,
+        b.banked_t0,
+        n_deals,
+        budget_secs,
+        rayon::current_num_threads()
     );
     if usize::from(b.leader) == VIEWER.index() {
         let hand = b.s1_initial & !b.played;
         let legal = legal_plays(dcl, set_of(hand), None);
+        let tiles: Vec<Domino> = legal.iter().collect();
+        // Root candidate leads have disjoint futures (the lead is in
+        // `played`), so they parallelize without memo interference.
+        let results: Vec<Option<BigRational>> = tiles
+            .par_iter()
+            .map(|&tile| {
+                let child = solver.child_after_play(&root, tile, 0);
+                solver.solve(&child)
+            })
+            .collect();
+        solver.flush_nodes();
         let mut values: Vec<(Domino, BigRational)> = Vec::new();
-        for tile in legal.iter() {
-            let child = solver.child_after_play(&root, tile, 0);
-            match solver.solve(&child) {
+        for (tile, v) in tiles.into_iter().zip(results) {
+            match v {
                 Some(v) => values.push((tile, v)),
                 None => {
                     report_death(&sh, t, start);
@@ -821,7 +988,9 @@ fn run_boundary(dcl: Decl, t: usize, budget_secs: u64, n_outer: usize, n1: usize
             if ties.len() > 1 { "  (tie)" } else { "" }
         );
     } else {
-        match solver.solve(&root) {
+        let v = solver.solve(&root);
+        solver.flush_nodes();
+        match v {
             Some(v) => println!("  P(make) before trick {t} = {}", show(&v)),
             None => {
                 report_death(&sh, t, start);
@@ -832,11 +1001,11 @@ fn run_boundary(dcl: Decl, t: usize, budget_secs: u64, n_outer: usize, n1: usize
     let ms = start.elapsed().as_millis();
     println!(
         "  stats: {} nodes (all levels), {} outer memo entries, {} alive-sets, {} pi evaluations ({} cached), {}.{:03}s",
-        sh.nodes.get(),
-        solver.memo.len(),
-        solver.interned.len(),
-        sh.pi_calls.get(),
-        sh.pi_cache.borrow().len(),
+        sh.nodes.load(Ordering::Relaxed),
+        solver.memo.lock().expect("memo poisoned").len(),
+        solver.intern.lock().expect("intern poisoned").list.len(),
+        sh.pi_calls.load(Ordering::Relaxed),
+        sh.pi_cache_len(),
         ms / 1000,
         ms % 1000
     );
@@ -847,8 +1016,8 @@ fn report_death(sh: &Shared, t: usize, start: Instant) {
     let ms = start.elapsed().as_millis();
     println!(
         "  DIED at t={t}: wall-clock budget exceeded after {} nodes, {} pi evaluations, {}.{:03}s",
-        sh.nodes.get(),
-        sh.pi_calls.get(),
+        sh.nodes.load(Ordering::Relaxed),
+        sh.pi_calls.load(Ordering::Relaxed),
         ms / 1000,
         ms % 1000
     );

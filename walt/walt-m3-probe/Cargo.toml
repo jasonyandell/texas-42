@@ -11,6 +11,7 @@ walt-m3-carrier = { path = "../walt-m3-carrier" }
 num-bigint = { workspace = true }
 num-rational = { workspace = true }
 num-traits = { workspace = true }
+rayon = { workspace = true }
 
 [lints.rust]
 unsafe_code = "forbid"
