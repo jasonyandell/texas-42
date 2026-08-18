@@ -1,8 +1,8 @@
 walt vs E[Q] n=10 — first head-to-head (dropped-30 protocol)
 =============================================================
 2026-08-17. EXPLORATORY, below every evidentiary tier; sampled ESTIMATES,
-never receipts; not a P-A21 statement. Single seed so far; the original
-dropped-30 verdict pooled three 384-game seeds — this is not yet that.
+never receipts; not a P-A21 statement. Two seeds complete of three; the
+original dropped-30 verdict pooled three 384-game seeds — seed 3 pending.
 
 Harness: mk5 arena (mk5-main @ 594ee5e9), python -m arena.cli.
   team A = bid30 + walt_bridge   (this workspace, level-1 walt,
@@ -76,7 +76,25 @@ Direct seed-1 comparison, same protocol/seed/champion:
 rob lost points narrowly and lost the match; walt loses points 8x
 harder and wins it — the P(make) objective, in one row.
 
-Pending: seeds 2-3 (seed 2 launched) for the pooled 3x384 resolution
-matching the original dropped-30 verdict. Phase 2 staged: walt naming
-its own trump via the bridge's `declare` (WaltDeclareBidder patch
-drafted for the arena; not applied).
+384-game run, base seed 2 (out-dir walt_384_s2, 4319 hands, 120.1 min):
+  A (walt) wins 212/384 games = 55.2%   (halves: 60.4% / 50.0%)
+  mark margin +0.44/game, 95% CI [+0.15, +0.74]  — excludes zero
+  point margin -4.82/hand
+  offense make rate: walt 36.8%, lens 32.9%
+  paired same-deal contracts (2036): both 519, neither 1135,
+    walt-made-lens-set 231, lens-made-walt-set 151 -> McNemar z = +4.09
+  the same half asymmetry (stronger first half) recurs, consistent
+  with the protocol-property reading from seed 1.
+
+Pooled seeds 1+2 (768 games, 4043 paired contracts):
+  walt 423/768 games = 55.1%, mean mark margin +0.41/game
+  discordant contracts: walt-made-lens-set 466 vs lens-made-walt-set 303
+    -> McNemar z = +5.88
+  each seed independently excludes zero on the mark-margin CI; the
+  pooled paired test is approaching the 6.5-sigma standard the champion
+  set against rob over 3x384 (one seed remains).
+
+Pending: seed 3 (launched) for the pooled 3x384 resolution matching
+the original dropped-30 verdict. Phase 2 staged: walt naming its own
+trump via the bridge's `declare` (WaltDeclareBidder patch drafted for
+the arena; not applied).
