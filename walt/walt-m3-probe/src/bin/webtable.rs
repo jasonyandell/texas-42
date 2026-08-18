@@ -1,560 +1,42 @@
-//! EXPLORATORY WEB TABLE — sits below every evidentiary tier and is cited by
-//! nothing above it. The interactive table (playtable.rs) with a browser
-//! front end: seats drawn around a table, domino glyphs, play clockwise.
+//! EXPLORATORY WEB TABLE — walt at a browser table with a REAL AUCTION.
+//! Sits below every evidentiary tier; estimates, never receipts.
 //!
-//! New here: the bidder PICKS TRUMP. Still dropped-on-you at 30 (no
-//! auction), but the bid seat evaluates all nine declarations (P0..P6,
-//! doubles, no-trump) over a shared belief sample — common random numbers
-//! across declarations — and names the argmax-P(make) trump. Saturation
-//! ties across declarations are re-examined on 4x fresh samples up to 16x,
-//! the same "look closer" rule the play level uses.
+//! Single-process localhost HTTP server (no deps): deals a hand, runs the
+//! auction (each seat in turn bids or passes; walt seats price every
+//! declaration at the minimum viable bid over common random worlds, then
+//! walk the bid up while P(make b) >= 1/2 — the baseline rule over
+//! bidcurve.rs's curves), rotates the deal so the auction winner sits at
+//! internal S1 (the bridge's audited rotation; the bidding team is always
+//! internal T1), lets the winner name trump (nine declarations, saturation
+//! ties refined, never index-broken), then plays the hand with level-1
+//! walts at every AI seat. All-pass redeals.
 //!
-//! One human seat (switchable per hand), three level-1 seats. Nobody peeks:
-//! the AIs sample beliefs from their own chairs; `hint` runs the SAME honest
-//! evaluation from the human's chair. Single process, localhost only.
+//! Solver: the walt-m3-probe library (banked-correct PiKey, bid-
+//! parameterized cutoffs, rayon-parallel). The human plays from a chair
+//! with hints evaluated from that chair only — no peeking, ever.
 //!
-//! ESTIMATES, never receipts; not a P-A21 statement. No floats.
+//! Nothing here is quotable above exploratory tier; not a P-A21 statement.
 
-use std::collections::HashMap;
 use std::io::{BufRead, BufReader, Write};
 use std::net::{TcpListener, TcpStream};
-use std::rc::Rc;
+use std::sync::Arc;
 use std::time::Instant;
 
-use num_bigint::BigInt;
 use num_rational::BigRational;
-use num_traits::{One, Zero};
+use num_traits::Zero;
 
 use walt_core::rules::{legal_plays, Trick};
-use walt_core::{Context, Decl, Domino, DominoSet, Pip, Seat, Team};
+use walt_core::{Context, Decl, Domino, Pip, Seat, Team};
+use walt_m3_probe::{
+    bp, mask_bits, mask_of, mix, sample_belief, set_of, Field, Key, Shared, Solver, SplitMix64,
+};
 
-const FULL_MASK: u32 = 0x0FFF_FFFF;
+/// Internal bid seat after rotation (the bidding team is internal T1).
 const BIDDER: usize = 1;
 
-/// Frozen seed for level-0 inner sampling (MUST match level1.rs so the field
-/// seats here play exactly the policy the level-1 solver models).
-const INNER_SEED: u64 = 0x243F_6A88_85A3_08D3;
-
-struct SplitMix64(u64);
-
-impl SplitMix64 {
-    fn next_u64(&mut self) -> u64 {
-        self.0 = self.0.wrapping_add(0x9E37_79B9_7F4A_7C15);
-        let mut z = self.0;
-        z = (z ^ (z >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
-        z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
-        z ^ (z >> 31)
-    }
-
-    fn below(&mut self, n: u64) -> u64 {
-        let zone = u64::MAX - (u64::MAX % n);
-        loop {
-            let v = self.next_u64();
-            if v < zone {
-                return v % n;
-            }
-        }
-    }
-}
-
-fn mix(h: u64) -> u64 {
-    let mut z = h.wrapping_add(0x9E37_79B9_7F4A_7C15);
-    z = (z ^ (z >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
-    z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
-    z ^ (z >> 31)
-}
-
-fn bit(dm: Domino) -> u32 {
-    1u32 << dm.index()
-}
-
-fn mask_of(set: DominoSet) -> u32 {
-    let mut m = 0u32;
-    for dm in set.iter() {
-        m |= bit(dm);
-    }
-    m
-}
-
-fn set_of(mask: u32) -> DominoSet {
-    let mut s = DominoSet::default();
-    let mut m = mask;
-    while m != 0 {
-        let i = m.trailing_zeros() as usize;
-        s.insert(Domino::from_index(i).expect("index < 28"));
-        m &= m - 1;
-    }
-    s
-}
-
-fn mask_bits(mask: u32) -> Vec<u8> {
-    let mut v = Vec::with_capacity(mask.count_ones() as usize);
-    let mut m = mask;
-    while m != 0 {
-        v.push(m.trailing_zeros() as u8);
-        m &= m - 1;
-    }
-    v
-}
-
-type Alive = Rc<Vec<u32>>;
-
-#[derive(Clone, PartialEq, Eq, Hash)]
-struct Key {
-    played: u32,
-    leader: u8,
-    plays: Vec<u8>,
-    banked_t1: u8,
-    banked_t0: u8,
-    alive: u32,
-}
-
-fn record_hash(key: &Key) -> u64 {
-    let mut h = mix(u64::from(key.played));
-    h = mix(h ^ (u64::from(key.leader) << 32));
-    for &p in &key.plays {
-        h = mix(h ^ (0x100 | u64::from(p)));
-    }
-    h
-}
-
-fn nth_set_bit(mask: u32, n: u32) -> u32 {
-    let mut m = mask;
-    for _ in 0..n {
-        m &= m - 1;
-    }
-    m.trailing_zeros()
-}
-
-enum FieldModel {
-    Dice,
-    Policy,
-}
-
-#[derive(Clone, PartialEq, Eq, Hash)]
-struct PiKey {
-    seat: u8,
-    hand: u32,
-    played: u32,
-    leader: u8,
-    plays: Vec<u8>,
-    // Banked totals are part of the mind's information state (the pmake
-    // objective conditions on them; not derivable from the reduced record).
-    // Omitting them aliased policies first-come-wins — fixed 2026-08-18
-    // after the 3x384 pool closed; see level2.rs PiKey doc.
-    banked_t1: u8,
-    banked_t0: u8,
-}
-
-struct Solver {
-    dcl: Decl,
-    viewer: Seat,
-    viewer_hand0: u32,
-    maximize: bool,
-    worlds: Vec<[u32; 4]>,
-    seeds: Vec<u64>,
-    field_model: FieldModel,
-    /// Played mask at the start of the current trick (all seats equal-sized).
-    boundary_played: u32,
-    boundary_hand_size: usize,
-    n0: usize,
-    pi_cache: HashMap<PiKey, u8>,
-    interned: Vec<Alive>,
-    intern_map: HashMap<Alive, u32>,
-    memo: HashMap<Key, BigRational>,
-    nodes: u64,
-    deadline: Instant,
-    dead: bool,
-}
-
-impl Solver {
-    #[allow(clippy::too_many_arguments)]
-    fn new(
-        dcl: Decl,
-        viewer: Seat,
-        viewer_hand0: u32,
-        maximize: bool,
-        worlds: Vec<[u32; 4]>,
-        seeds: Vec<u64>,
-        field_model: FieldModel,
-        boundary_played: u32,
-        boundary_hand_size: usize,
-        n0: usize,
-        deadline: Instant,
-    ) -> Self {
-        let all: Alive = Rc::new((0..worlds.len() as u32).collect());
-        let mut intern_map = HashMap::new();
-        intern_map.insert(Rc::clone(&all), 0u32);
-        Solver {
-            dcl,
-            viewer,
-            viewer_hand0,
-            maximize,
-            worlds,
-            seeds,
-            field_model,
-            boundary_played,
-            boundary_hand_size,
-            n0,
-            pi_cache: HashMap::new(),
-            interned: vec![all],
-            intern_map,
-            memo: HashMap::new(),
-            nodes: 0,
-            deadline,
-            dead: false,
-        }
-    }
-
-    fn intern(&mut self, v: Vec<u32>) -> u32 {
-        let rc: Alive = Rc::new(v);
-        if let Some(&id) = self.intern_map.get(&rc) {
-            return id;
-        }
-        let id = self.interned.len() as u32;
-        self.interned.push(Rc::clone(&rc));
-        self.intern_map.insert(rc, id);
-        id
-    }
-
-    fn child_after_play(&self, key: &Key, tile: Domino, alive: u32) -> Key {
-        let mut plays = key.plays.clone();
-        plays.push(tile.index() as u8);
-        let played = key.played | bit(tile);
-        if plays.len() == 4 {
-            let doms = [
-                Domino::from_index(usize::from(plays[0])).expect("p0"),
-                Domino::from_index(usize::from(plays[1])).expect("p1"),
-                Domino::from_index(usize::from(plays[2])).expect("p2"),
-                Domino::from_index(usize::from(plays[3])).expect("p3"),
-            ];
-            let leader = Seat::from_index(usize::from(key.leader)).expect("leader");
-            let trick = Trick::new(leader, doms).expect("distinct tiles in trick");
-            let winner = trick.winner(self.dcl);
-            let value = trick.points() as u8;
-            let t1_won = winner.team() == Team::T1;
-            Key {
-                played,
-                leader: winner.index() as u8,
-                plays: Vec::new(),
-                banked_t1: key.banked_t1 + if t1_won { value } else { 0 },
-                banked_t0: key.banked_t0 + if t1_won { 0 } else { value },
-                alive,
-            }
-        } else {
-            Key {
-                played,
-                leader: key.leader,
-                plays,
-                banked_t1: key.banked_t1,
-                banked_t0: key.banked_t0,
-                alive,
-            }
-        }
-    }
-
-    fn solve(&mut self, key: &Key) -> Option<BigRational> {
-        if self.dead {
-            return None;
-        }
-        self.nodes += 1;
-        if self.nodes & 0xFFFF == 0 && Instant::now() >= self.deadline {
-            self.dead = true;
-            return None;
-        }
-        if key.banked_t1 >= 30 {
-            return Some(BigRational::one());
-        }
-        if key.banked_t0 > 12 {
-            return Some(BigRational::zero());
-        }
-        if let Some(v) = self.memo.get(key) {
-            return Some(v.clone());
-        }
-        assert_ne!(key.played, FULL_MASK, "terminal states are always decided");
-        let seat =
-            Seat::from_index((usize::from(key.leader) + key.plays.len()) % 4).expect("seat index");
-        let led: Option<Context> = key.plays.first().map(|&i| {
-            self.dcl
-                .led_context(Domino::from_index(usize::from(i)).expect("led index"))
-        });
-        let val = if seat == self.viewer {
-            self.solve_viewer(key, led)?
-        } else {
-            match self.field_model {
-                FieldModel::Dice => self.solve_field_dice(key, seat, led)?,
-                FieldModel::Policy => self.solve_field_policy(key, seat, led)?,
-            }
-        };
-        self.memo.insert(key.clone(), val.clone());
-        Some(val)
-    }
-
-    fn solve_viewer(&mut self, key: &Key, led: Option<Context>) -> Option<BigRational> {
-        let hand = self.viewer_hand0 & !key.played;
-        let legal = legal_plays(self.dcl, set_of(hand), led);
-        let mut best: Option<BigRational> = None;
-        for tile in legal.iter() {
-            let child = self.child_after_play(key, tile, key.alive);
-            let v = self.solve(&child)?;
-            let better = best
-                .as_ref()
-                .is_none_or(|b| if self.maximize { v > *b } else { v < *b });
-            if better {
-                let decided = if self.maximize {
-                    v.is_one()
-                } else {
-                    v.is_zero()
-                };
-                best = Some(v);
-                if decided {
-                    break;
-                }
-            }
-        }
-        Some(best.expect("viewer always has a legal play"))
-    }
-
-    fn solve_field_dice(
-        &mut self,
-        key: &Key,
-        seat: Seat,
-        led: Option<Context>,
-    ) -> Option<BigRational> {
-        let alive = Rc::clone(&self.interned[key.alive as usize]);
-        let rh = record_hash(key);
-        let mut buckets: Vec<Vec<u32>> = vec![Vec::new(); 28];
-        for &sid in alive.iter() {
-            let hand = self.worlds[sid as usize][seat.index()] & !key.played;
-            let lm = mask_of(legal_plays(self.dcl, set_of(hand), led));
-            debug_assert!(lm != 0);
-            let idx =
-                SplitMix64(self.seeds[sid as usize] ^ rh).below(u64::from(lm.count_ones())) as u32;
-            buckets[nth_set_bit(lm, idx) as usize].push(sid);
-        }
-        self.combine_buckets(key, alive.len(), buckets)
-    }
-
-    fn solve_field_policy(
-        &mut self,
-        key: &Key,
-        seat: Seat,
-        led: Option<Context>,
-    ) -> Option<BigRational> {
-        let alive = Rc::clone(&self.interned[key.alive as usize]);
-        let mut buckets: Vec<Vec<u32>> = vec![Vec::new(); 28];
-        for &sid in alive.iter() {
-            let hand = self.worlds[sid as usize][seat.index()] & !key.played;
-            let lm = mask_of(legal_plays(self.dcl, set_of(hand), led));
-            debug_assert!(lm != 0);
-            let tile = if lm.count_ones() == 1 {
-                lm.trailing_zeros() as u8
-            } else {
-                self.pi0(key, seat, hand, lm)?
-            };
-            buckets[usize::from(tile)].push(sid);
-        }
-        self.combine_buckets(key, alive.len(), buckets)
-    }
-
-    fn combine_buckets(
-        &mut self,
-        key: &Key,
-        alive_len: usize,
-        buckets: Vec<Vec<u32>>,
-    ) -> Option<BigRational> {
-        let denom = BigInt::from(alive_len);
-        let mut total = BigRational::zero();
-        let mut redistributed: usize = 0;
-        for (tile, bucket) in buckets.into_iter().enumerate() {
-            if bucket.is_empty() {
-                continue;
-            }
-            redistributed += bucket.len();
-            let reach = BigInt::from(bucket.len());
-            let child_alive = self.intern(bucket);
-            let child = self.child_after_play(
-                key,
-                Domino::from_index(tile).expect("tile < 28"),
-                child_alive,
-            );
-            let v = self.solve(&child)?;
-            if !v.is_zero() {
-                total += v * BigRational::new(reach, denom.clone());
-            }
-        }
-        assert_eq!(redistributed, alive_len, "field partition conservation");
-        Some(total)
-    }
-
-    fn hand_sizes_at(&self, key: &Key) -> [usize; 4] {
-        let played_since = (key.played.count_ones() - self.boundary_played.count_ones()) as usize
-            - key.plays.len();
-        assert_eq!(played_since % 4, 0, "completed tricks are whole");
-        let completed = played_since / 4;
-        let mut sizes = [self.boundary_hand_size - completed; 4];
-        for i in 0..key.plays.len() {
-            sizes[(usize::from(key.leader) + i) % 4] -= 1;
-        }
-        sizes
-    }
-
-    /// The level-0 policy (identical construction to level1.rs, same seeds).
-    fn pi0(&mut self, key: &Key, seat: Seat, hand: u32, legal_mask: u32) -> Option<u8> {
-        let pk = PiKey {
-            seat: seat.index() as u8,
-            hand,
-            played: key.played,
-            leader: key.leader,
-            plays: key.plays.clone(),
-            banked_t1: key.banked_t1,
-            banked_t0: key.banked_t0,
-        };
-        if let Some(&t) = self.pi_cache.get(&pk) {
-            return Some(t);
-        }
-        let choice = self
-            .pi0_evaluate(key, seat, hand, legal_mask)?
-            .into_iter()
-            .reduce(|best, cand| {
-                let better = if seat.team() == Team::T1 {
-                    cand.1 > best.1
-                } else {
-                    cand.1 < best.1
-                };
-                if better {
-                    cand
-                } else {
-                    best
-                }
-            })
-            .expect("legal play exists")
-            .0;
-        self.pi_cache.insert(pk, choice);
-        Some(choice)
-    }
-
-    /// Level-0 evaluation of every legal play at a seat's information state:
-    /// inner Dice solve, frozen seeds. Ascending tile order (so reduce keeps
-    /// the lowest index on ties).
-    fn pi0_evaluate(
-        &mut self,
-        key: &Key,
-        seat: Seat,
-        hand: u32,
-        legal_mask: u32,
-    ) -> Option<Vec<(u8, BigRational)>> {
-        let sizes = self.hand_sizes_at(key);
-        let unseen = FULL_MASK & !key.played & !hand;
-        let others: Vec<usize> = (0..4).filter(|&s| s != seat.index()).collect();
-        let need: usize = others.iter().map(|&s| sizes[s]).sum();
-        assert_eq!(unseen.count_ones() as usize, need, "unseen tiles fit sizes");
-        let mut rng = SplitMix64(
-            INNER_SEED ^ mix(seat.index() as u64) ^ mix(u64::from(hand)) ^ record_hash(key),
-        );
-        let mut tiles = mask_bits(unseen);
-        let mask_slice = |sl: &[u8]| sl.iter().fold(0u32, |a, &x| a | (1u32 << x));
-        let mut inner_worlds: Vec<[u32; 4]> = Vec::with_capacity(self.n0);
-        for _ in 0..self.n0 {
-            for i in (1..tiles.len()).rev() {
-                let j = rng.below((i + 1) as u64) as usize;
-                tiles.swap(i, j);
-            }
-            let mut w = [0u32; 4];
-            w[seat.index()] = hand;
-            let mut off = 0;
-            for &s in &others {
-                w[s] = mask_slice(&tiles[off..off + sizes[s]]);
-                off += sizes[s];
-            }
-            inner_worlds.push(w);
-        }
-        let inner_seeds: Vec<u64> = (0..self.n0).map(|_| rng.next_u64()).collect();
-        let maximize = seat.team() == Team::T1;
-        let mut inner = Solver::new(
-            self.dcl,
-            seat,
-            hand,
-            maximize,
-            inner_worlds,
-            inner_seeds,
-            FieldModel::Dice,
-            self.boundary_played,
-            self.boundary_hand_size,
-            0,
-            self.deadline,
-        );
-        let root = Key {
-            played: key.played,
-            leader: key.leader,
-            plays: key.plays.clone(),
-            banked_t1: key.banked_t1,
-            banked_t0: key.banked_t0,
-            alive: 0,
-        };
-        let mut out: Vec<(u8, BigRational)> = Vec::new();
-        let mut lm = legal_mask;
-        while lm != 0 {
-            let tile_idx = lm.trailing_zeros() as u8;
-            lm &= lm - 1;
-            let tile = Domino::from_index(usize::from(tile_idx)).expect("tile < 28");
-            let child = inner.child_after_play(&root, tile, 0);
-            let v = inner.solve(&child)?;
-            out.push((tile_idx, v));
-        }
-        self.nodes += inner.nodes;
-        Some(out)
-    }
-}
-
-/// Basis points (0..=10000) of a probability; display-side division only.
-fn bp(v: &BigRational) -> u32 {
-    let s = (v * BigRational::from_integer(BigInt::from(10_000)))
-        .to_integer()
-        .to_string();
-    s.parse().unwrap_or(0)
-}
-
-/// Sample a seat's belief: deals consistent with the viewer's remaining
-/// hand, the played mask, the record's hand sizes, and every void observed
-/// so far in play (any seat can be the viewer).
-fn sample_belief(
-    viewer: usize,
-    viewer_hand: u32,
-    played: u32,
-    sizes: [usize; 4],
-    voids: [u32; 4],
-    n: usize,
-    rng: &mut SplitMix64,
-) -> Vec<[u32; 4]> {
-    let unseen = FULL_MASK & !played & !viewer_hand;
-    let mut tiles = mask_bits(unseen);
-    let others: Vec<usize> = (0..4).filter(|&s| s != viewer).collect();
-    let mask_slice = |sl: &[u8]| sl.iter().fold(0u32, |a, &x| a | (1u32 << x));
-    let mut out: Vec<[u32; 4]> = Vec::with_capacity(n);
-    while out.len() < n {
-        for i in (1..tiles.len()).rev() {
-            let j = rng.below((i + 1) as u64) as usize;
-            tiles.swap(i, j);
-        }
-        let mut w = [0u32; 4];
-        w[viewer] = viewer_hand;
-        let mut off = 0;
-        let mut ok = true;
-        for &s in &others {
-            w[s] = mask_slice(&tiles[off..off + sizes[s]]);
-            off += sizes[s];
-            if w[s] & voids[s] != 0 {
-                ok = false;
-                break;
-            }
-        }
-        if ok {
-            out.push(w);
-        }
-    }
-    out
-}
+/// The auction's baseline threshold: bid while P(make b) >= 1/2.
+const THETA_NUM: i64 = 1;
+const THETA_DEN: i64 = 2;
 
 fn tile_str(idx: u8) -> String {
     let dm = Domino::from_index(usize::from(idx)).expect("tile < 28");
@@ -567,11 +49,16 @@ fn decl_name(i: usize) -> &'static str {
     ][i]
 }
 
-/// The level-1 evaluation with saturation-tie refinement (identical policy
-/// to playtable.rs). Returns every legal option's estimate.
+fn theta() -> BigRational {
+    BigRational::new(THETA_NUM.into(), THETA_DEN.into())
+}
+
+/// The level-1 evaluation with saturation-tie refinement. Returns every
+/// legal option's estimate under the contract's bid thresholds.
 #[allow(clippy::too_many_arguments)]
 fn level1_evaluate(
     dcl: Decl,
+    bid: u8,
     seat: Seat,
     hand: u32,
     legal: u32,
@@ -589,19 +76,24 @@ fn level1_evaluate(
     let maximize = seat.team() == Team::T1;
     let evaluate = |tiles: &[u8], n: usize, rng: &mut SplitMix64| {
         let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, n, rng);
-        let mut solver = Solver::new(
+        let sh = Arc::new(Shared::new(
             dcl,
+            bid,
+            vec![n0],
+            trick_start_played,
+            boundary_hand_size,
+            deadline,
+        ));
+        let solver = Solver::new(
+            sh,
             seat,
             hand,
             maximize,
             worlds,
             Vec::new(),
-            FieldModel::Policy,
-            trick_start_played,
-            boundary_hand_size,
-            n0,
-            deadline,
-        );
+            Field::Level(0),
+        )
+        .parallel();
         let mut out: Vec<(u8, BigRational)> = Vec::new();
         for &t in tiles {
             let tile = Domino::from_index(usize::from(t)).expect("tile");
@@ -671,7 +163,7 @@ struct PlayRec {
     seat: u8,
     tile: u8,
     forced: bool,
-    opts: Vec<(u8, u32)>,
+    opts: Vec<(u8, i64)>,
 }
 
 struct TrickRec {
@@ -682,20 +174,37 @@ struct TrickRec {
 
 #[derive(PartialEq)]
 enum Phase {
+    Auction,
     Trump,
     Play,
     Done,
 }
 
 struct Game {
+    /// Human's chair for the current hand (arena frame during the auction,
+    /// internal frame after the rotation).
     human: usize,
+    /// Human's chair as chosen in the UI (arena frame; survives rotation).
+    human_arena: usize,
     hand_no: u64,
     seed: u64,
     n_outer: usize,
+    n_auct: usize,
     n0: usize,
     per_move_secs: u64,
     rng: SplitMix64,
     hands: [u32; 4],
+    // -- auction --
+    auct_start: usize,
+    auct_turn: usize,
+    auct_acted: usize,
+    auct_high: Option<(usize, u8)>,
+    auct_worlds: Vec<[u32; 4]>,
+    auct_vals: Vec<(usize, BigRational)>,
+    auct_walk: Option<(usize, u8, BigRational)>,
+    /// Contract bid once the auction closes (thresholds for the whole hand).
+    bid: u8,
+    // -- trump + play --
     dcl: Option<Decl>,
     decl_idx: Option<usize>,
     trump_worlds: Vec<[u32; 4]>,
@@ -709,7 +218,7 @@ struct Game {
     voids: [u32; 4],
     trick_start_played: u32,
     tricks: Vec<TrickRec>,
-    hint: Option<Vec<(u8, u32)>>,
+    hint: Option<Vec<(u8, i64)>>,
     msgs: Vec<String>,
     makes: u32,
     sets: u32,
@@ -719,18 +228,28 @@ impl Game {
     fn new(human: usize, seed: u64, n_outer: usize, n0: usize, per_move_secs: u64) -> Game {
         let mut g = Game {
             human,
+            human_arena: human,
             hand_no: 0,
             seed,
             n_outer,
+            n_auct: (n_outer / 2).clamp(24, 60),
             n0,
             per_move_secs,
             rng: SplitMix64(seed),
             hands: [0; 4],
+            auct_start: 0,
+            auct_turn: 0,
+            auct_acted: 0,
+            auct_high: None,
+            auct_worlds: Vec::new(),
+            auct_vals: Vec::new(),
+            auct_walk: None,
+            bid: 30,
             dcl: None,
             decl_idx: None,
             trump_worlds: Vec::new(),
             trump_vals: Vec::new(),
-            phase: Phase::Trump,
+            phase: Phase::Auction,
             played: 0,
             leader: BIDDER as u8,
             cur: Vec::new(),
@@ -748,8 +267,9 @@ impl Game {
         g
     }
 
-    fn new_hand(&mut self, human: usize) {
-        self.human = human;
+    fn new_hand(&mut self, human_arena: usize) {
+        self.human_arena = human_arena;
+        self.human = human_arena;
         self.hand_no += 1;
         self.rng = SplitMix64(self.seed ^ mix(self.hand_no));
         let mut tiles: Vec<u8> = (0..28).collect();
@@ -764,19 +284,19 @@ impl Game {
             mask_slice(&tiles[14..21]),
             mask_slice(&tiles[21..28]),
         ];
+        self.auct_start = (self.hand_no as usize) % 4;
+        self.auct_turn = self.auct_start;
+        self.auct_acted = 0;
+        self.auct_high = None;
+        self.auct_worlds = Vec::new();
+        self.auct_vals = Vec::new();
+        self.auct_walk = None;
+        self.bid = 30;
         self.dcl = None;
         self.decl_idx = None;
         self.trump_vals = Vec::new();
-        self.trump_worlds = sample_belief(
-            BIDDER,
-            self.hands[BIDDER],
-            0,
-            [7; 4],
-            [0; 4],
-            self.n_outer,
-            &mut self.rng,
-        );
-        self.phase = Phase::Trump;
+        self.trump_worlds = Vec::new();
+        self.phase = Phase::Auction;
         self.played = 0;
         self.leader = BIDDER as u8;
         self.cur = Vec::new();
@@ -787,31 +307,224 @@ impl Game {
         self.tricks = Vec::new();
         self.hint = None;
         self.msgs.push(format!(
-            "hand {}: dealt. S{BIDDER} holds the 30 bid (dropped on).",
-            self.hand_no
+            "hand {}: dealt. auction opens at S{} (30 or pass).",
+            self.hand_no, self.auct_start
         ));
     }
 
+    /// Price one declaration for a prospective bidder at bid level `b`:
+    /// solve in a per-evaluation internal frame where the bidder sits at
+    /// S1 (sound at the auction point — the record is empty and the other
+    /// hands are anonymous samples).
+    fn eval_bid(
+        &mut self,
+        decl_idx: usize,
+        b: u8,
+        worlds: Vec<[u32; 4]>,
+        hand: u32,
+    ) -> BigRational {
+        let dcl = Decl::ALL[decl_idx];
+        let deadline = Instant::now() + std::time::Duration::from_secs(self.per_move_secs);
+        let sh = Arc::new(Shared::new(dcl, b, vec![self.n0], 0, 7, deadline));
+        let solver = Solver::new(
+            sh,
+            Seat::from_index(BIDDER).expect("bid seat"),
+            hand,
+            true,
+            worlds,
+            Vec::new(),
+            Field::Level(0),
+        )
+        .parallel();
+        let root = Key {
+            played: 0,
+            leader: BIDDER as u8,
+            plays: Vec::new(),
+            banked_t1: 0,
+            banked_t0: 0,
+            alive: 0,
+        };
+        let v = solver.solve(&root);
+        solver.flush_nodes();
+        v.unwrap_or_else(BigRational::zero)
+    }
+
+    fn auction_min(&self) -> u8 {
+        self.auct_high.map(|(_, b)| b + 1).unwrap_or(30)
+    }
+
+    /// One auction step for an AI seat: sample worlds + price the next
+    /// declaration at the minimum viable bid, or walk the best declaration
+    /// upward, or act.
+    fn step_auction(&mut self) {
+        if self.phase != Phase::Auction {
+            return;
+        }
+        let s = self.auct_turn;
+        if s == self.human_arena {
+            return; // human acts via /bid
+        }
+        let need = self.auction_min();
+        if need > 42 {
+            self.auction_act(s, None);
+            return;
+        }
+        if self.auct_vals.len() < Decl::COUNT {
+            if self.auct_worlds.is_empty() {
+                self.auct_worlds = sample_belief(
+                    BIDDER,
+                    self.hands[s],
+                    0,
+                    [7; 4],
+                    [0; 4],
+                    self.n_auct,
+                    &mut self.rng,
+                );
+            }
+            let i = self.auct_vals.len();
+            let worlds = self.auct_worlds.clone();
+            let hand = self.hands[s];
+            let v = self.eval_bid(i, need, worlds, hand);
+            self.auct_vals.push((i, v));
+            return;
+        }
+        let (d_best, p_best) = self
+            .auct_vals
+            .iter()
+            .cloned()
+            .reduce(|best, cand| if cand.1 > best.1 { cand } else { best })
+            .expect("nine evals");
+        if p_best < theta() {
+            self.auction_act(s, None);
+            return;
+        }
+        match self.auct_walk.take() {
+            None => {
+                self.auct_walk = Some((d_best, need, p_best));
+            }
+            Some((d, b, p)) => {
+                if b >= 42 {
+                    self.auction_act(s, Some((d, b, p)));
+                    return;
+                }
+                let worlds = self.auct_worlds.clone();
+                let hand = self.hands[s];
+                let v = self.eval_bid(d, b + 1, worlds, hand);
+                if v >= theta() {
+                    self.auct_walk = Some((d, b + 1, v));
+                } else {
+                    self.auction_act(s, Some((d, b, p)));
+                }
+            }
+        }
+    }
+
+    /// Record a seat's auction action (None = pass) and advance; close the
+    /// auction after all four have acted.
+    fn auction_act(&mut self, s: usize, bid: Option<(usize, u8, BigRational)>) {
+        match &bid {
+            Some((d, b, p)) => {
+                self.auct_high = Some((s, *b));
+                self.msgs.push(format!(
+                    "S{s} bids {b}  (leaning {}, P(make {b}) ~ {}.{:02}% on its sample)",
+                    decl_name(*d),
+                    bp(p) / 100,
+                    bp(p) % 100
+                ));
+            }
+            None => {
+                let why = if self.auction_min() > 42 {
+                    " (nothing left above 42)"
+                } else {
+                    ""
+                };
+                self.msgs.push(format!("S{s} passes{why}"));
+            }
+        }
+        self.auct_acted += 1;
+        self.auct_turn = (self.auct_turn + 1) % 4;
+        self.auct_worlds = Vec::new();
+        self.auct_vals = Vec::new();
+        self.auct_walk = None;
+        if self.auct_acted == 4 {
+            self.close_auction();
+        }
+    }
+
+    /// Human auction action from the UI.
+    fn human_bid(&mut self, bid: Option<u8>) {
+        if self.phase != Phase::Auction || self.auct_turn != self.human_arena {
+            return;
+        }
+        match bid {
+            Some(b) if b >= self.auction_min() && b <= 42 => {
+                let s = self.human_arena;
+                self.auct_high = Some((s, b));
+                self.msgs.push(format!("you bid {b}"));
+                self.auct_acted += 1;
+                self.auct_turn = (self.auct_turn + 1) % 4;
+                if self.auct_acted == 4 {
+                    self.close_auction();
+                }
+            }
+            Some(_) => {}
+            None => {
+                self.msgs.push("you pass".to_string());
+                self.auct_acted += 1;
+                self.auct_turn = (self.auct_turn + 1) % 4;
+                if self.auct_acted == 4 {
+                    self.close_auction();
+                }
+            }
+        }
+    }
+
+    fn close_auction(&mut self) {
+        match self.auct_high {
+            None => {
+                self.msgs
+                    .push("all four pass — throw them in, next shake".to_string());
+                let h = self.human_arena;
+                self.new_hand(h);
+            }
+            Some((w, b)) => {
+                // Rotate the deal so the winner sits at internal S1 (the
+                // bidding team is always internal T1).
+                let r = (5 - w) % 4;
+                let old = self.hands;
+                for (s, &h) in old.iter().enumerate() {
+                    self.hands[(s + r) % 4] = h;
+                }
+                self.human = (self.human_arena + r) % 4;
+                self.bid = b;
+                self.msgs.push(format!(
+                    "auction to S{w} at {b}. seats rotate so the contract sits at S1 — you are S{}.",
+                    self.human
+                ));
+                self.trump_worlds = sample_belief(
+                    BIDDER,
+                    self.hands[BIDDER],
+                    0,
+                    [7; 4],
+                    [0; 4],
+                    self.n_outer,
+                    &mut self.rng,
+                );
+                self.phase = Phase::Trump;
+            }
+        }
+    }
+
     /// Evaluate one declaration for the bid seat over the given worlds:
-    /// best opening lead and its P(make).
+    /// best opening lead and its P(make bid).
     fn eval_decl(&mut self, decl_idx: usize, worlds: Vec<[u32; 4]>) -> (u8, BigRational) {
         let dcl = Decl::ALL[decl_idx];
         let deadline = Instant::now() + std::time::Duration::from_secs(self.per_move_secs);
         let hand = self.hands[BIDDER];
         let seat = Seat::from_index(BIDDER).expect("bid seat");
-        let mut solver = Solver::new(
-            dcl,
-            seat,
-            hand,
-            true,
-            worlds,
-            Vec::new(),
-            FieldModel::Policy,
-            0,
-            7,
-            self.n0,
-            deadline,
-        );
+        let sh = Arc::new(Shared::new(dcl, self.bid, vec![self.n0], 0, 7, deadline));
+        let solver =
+            Solver::new(sh, seat, hand, true, worlds, Vec::new(), Field::Level(0)).parallel();
         let root = Key {
             played: 0,
             leader: BIDDER as u8,
@@ -833,6 +546,7 @@ impl Game {
                 None => break,
             }
         }
+        solver.flush_nodes();
         best.unwrap_or((mask_bits(hand)[0], BigRational::zero()))
     }
 
@@ -915,9 +629,10 @@ impl Game {
         };
         match lead {
             Some((t, v)) => self.msgs.push(format!(
-                "{who} name{} {} — planned lead {}, P(make) ~ {}.{:02}%",
+                "{who} name{} {} on the {} bid — planned lead {}, P(make) ~ {}.{:02}%",
                 if self.human == BIDDER { "" } else { "s" },
                 decl_name(decl_idx),
+                self.bid,
                 tile_str(t),
                 bp(v) / 100,
                 bp(v) % 100
@@ -970,9 +685,10 @@ impl Game {
         let voids = self.voids;
         let tsp = self.trick_start_played;
         let bhs = 7 - self.tricks.len();
-        let (n_outer, n0, pm) = (self.n_outer, self.n0, self.per_move_secs);
+        let (bid, n_outer, n0, pm) = (self.bid, self.n_outer, self.n0, self.per_move_secs);
         level1_evaluate(
             dcl,
+            bid,
             seat,
             hand,
             legal,
@@ -1004,7 +720,7 @@ impl Game {
             match self.evaluate_seat(seat_i) {
                 Some(o) => {
                     let c = best_of(&o, seat.team() == Team::T1);
-                    let obp: Vec<(u8, u32)> = o.iter().map(|(t, v)| (*t, bp(v))).collect();
+                    let obp: Vec<(u8, i64)> = o.iter().map(|(t, v)| (*t, bp(v))).collect();
                     (c, false, obp)
                 }
                 None => {
@@ -1017,7 +733,7 @@ impl Game {
         self.apply_play(seat_i, tile, forced, opts);
     }
 
-    fn apply_play(&mut self, seat_i: usize, tile_idx: u8, forced: bool, opts: Vec<(u8, u32)>) {
+    fn apply_play(&mut self, seat_i: usize, tile_idx: u8, forced: bool, opts: Vec<(u8, i64)>) {
         let dcl = self.dcl.expect("declared");
         let tile = Domino::from_index(usize::from(tile_idx)).expect("tile");
         if let Some(led) = self.led_now(dcl) {
@@ -1073,17 +789,17 @@ impl Game {
         if self.tricks.len() == 7 {
             assert_eq!(self.banked_t1 + self.banked_t0, 42, "all points banked");
             self.phase = Phase::Done;
-            if self.banked_t1 >= 30 {
+            if self.banked_t1 >= self.bid {
                 self.makes += 1;
                 self.msgs.push(format!(
-                    "=== T1 MAKES the 30 bid: {} to {} ===",
-                    self.banked_t1, self.banked_t0
+                    "=== T1 MAKES the {} bid: {} to {} ===",
+                    self.bid, self.banked_t1, self.banked_t0
                 ));
             } else {
                 self.sets += 1;
                 self.msgs.push(format!(
-                    "=== T1 is SET: only {} of 30 (T0 took {}) ===",
-                    self.banked_t1, self.banked_t0
+                    "=== T1 is SET: only {} of {} (T0 took {}) ===",
+                    self.banked_t1, self.bid, self.banked_t0
                 ));
             }
         }
@@ -1110,7 +826,7 @@ impl Game {
         let seat = Seat::from_index(self.human).expect("seat");
         let maximize = seat.team() == Team::T1;
         if let Some(o) = self.evaluate_seat(self.human) {
-            let mut sorted: Vec<(u8, u32)> = o.iter().map(|(t, v)| (*t, bp(v))).collect();
+            let mut sorted: Vec<(u8, i64)> = o.iter().map(|(t, v)| (*t, bp(v))).collect();
             sorted.sort_by(|a, b| {
                 if maximize {
                     b.1.cmp(&a.1)
@@ -1144,6 +860,7 @@ impl Game {
 
     fn step(&mut self) {
         match self.phase {
+            Phase::Auction => self.step_auction(),
             Phase::Trump => self.step_trump(),
             Phase::Play => self.step_play(),
             Phase::Done => {}
@@ -1158,6 +875,7 @@ impl Game {
         s.push_str(&format!(
             "\"phase\":\"{}\",",
             match self.phase {
+                Phase::Auction => "auction",
                 Phase::Trump => "trump",
                 Phase::Play => "play",
                 Phase::Done => "done",
@@ -1166,6 +884,22 @@ impl Game {
         s.push_str(&format!("\"hand_no\":{},", self.hand_no));
         s.push_str(&format!("\"human\":{},", self.human));
         s.push_str(&format!("\"bidder\":{BIDDER},"));
+        s.push_str(&format!("\"bid\":{},", self.bid));
+        if self.phase == Phase::Auction {
+            let high = match self.auct_high {
+                Some((seat, b)) => format!("[{seat},{b}]"),
+                None => "null".to_string(),
+            };
+            s.push_str(&format!(
+                "\"auction\":{{\"turn\":{},\"min\":{},\"high\":{high},\"acted\":{},\"thinking\":{}}},",
+                self.auct_turn,
+                self.auction_min(),
+                self.auct_acted,
+                self.auct_vals.len(),
+            ));
+        } else {
+            s.push_str("\"auction\":null,");
+        }
         match self.decl_idx {
             Some(i) => s.push_str(&format!("\"decl\":{i},")),
             None => s.push_str("\"decl\":null,"),
@@ -1223,7 +957,10 @@ impl Game {
         if self.phase == Phase::Done {
             let deal: Vec<String> = (0..4).map(|i| json_tiles(self.hands[i])).collect();
             s.push_str(&format!("\"deal\":[{}],", deal.join(",")));
-            s.push_str(&format!("\"result\":{},", i32::from(self.banked_t1 >= 30)));
+            s.push_str(&format!(
+                "\"result\":{},",
+                i32::from(self.banked_t1 >= self.bid)
+            ));
         } else {
             s.push_str("\"deal\":null,\"result\":null,");
         }
@@ -1344,6 +1081,16 @@ fn handle(game: &mut Game, stream: &mut TcpStream) {
             }
             respond(stream, "200 OK", "application/json", &game.json_state());
         }
+        "/bid" => {
+            if query_num(query, "pass").is_some() {
+                game.human_bid(None);
+            } else if let Some(b) = query_num(query, "b") {
+                if (30..=42).contains(&b) {
+                    game.human_bid(Some(b as u8));
+                }
+            }
+            respond(stream, "200 OK", "application/json", &game.json_state());
+        }
         "/hint" => {
             game.human_hint();
             respond(stream, "200 OK", "application/json", &game.json_state());
@@ -1355,7 +1102,7 @@ fn handle(game: &mut Game, stream: &mut TcpStream) {
         "/new" => {
             let seat = query_num(query, "seat")
                 .map(|s| (s as usize).min(3))
-                .unwrap_or(game.human);
+                .unwrap_or(game.human_arena);
             game.new_hand(seat);
             respond(stream, "200 OK", "application/json", &game.json_state());
         }
@@ -1393,7 +1140,7 @@ fn main() {
     let mut game = Game::new(human, seed, n_outer, n0, per_move_secs);
     let listener = TcpListener::bind(("127.0.0.1", port)).expect("bind localhost port");
     println!("walt web table — EXPLORATORY; estimates, never receipts");
-    println!("open http://127.0.0.1:{port}  (you are S{human}; switch seats per hand in the UI)");
+    println!("open http://127.0.0.1:{port}  (you are S{human}; real auction, all-pass redeals)");
     println!("n_outer={n_outer} n0={n0} seed={seed}");
     for stream in listener.incoming() {
         match stream {

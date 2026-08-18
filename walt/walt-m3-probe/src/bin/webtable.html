@@ -109,24 +109,25 @@ select{background:var(--panel2);color:var(--ink);border:1px solid #3a3a4c;border
 <body>
 <div id="wrap">
   <h1>walt table <span style="color:var(--dim);font-weight:normal">— exploratory; estimates, never receipts</span></h1>
-  <div class="sub">dropped on the bid at 30 · bidder names trump and leads · T1 = S1+S3 · play proceeds clockwise</div>
+  <div class="sub">real auction (30–42, all-pass redeals) · winner rotates to S1, names trump and leads · bidding team = T1 = S1+S3 · clockwise</div>
   <div id="bar">
     <span class="item">hand <b id="handno">–</b></span>
-    <span class="item">trump: <b id="declname">–</b></span>
+    <span class="item">contract <b id="bidlvl">–</b> · trump: <b id="declname">–</b></span>
     <span class="item">count <span style="color:var(--t1)">T1 <b id="b1">0</b></span> · <span style="color:var(--t0)">T0 <b id="b0">0</b></span></span>
     <span class="item">bid made <b id="makes">0</b> · set <b id="sets">0</b></span>
     <span style="flex:1"></span>
     <button id="hintbtn">hint</button>
     <button id="autobtn">auto</button>
     <select id="seatsel">
-      <option value="0">sit S0 (defend)</option>
-      <option value="1">sit S1 (bid seat)</option>
-      <option value="2">sit S2 (defend)</option>
-      <option value="3">sit S3 (partner)</option>
+      <option value="0">sit seat 0</option>
+      <option value="1">sit seat 1</option>
+      <option value="2">sit seat 2</option>
+      <option value="3">sit seat 3</option>
     </select>
     <button id="newbtn">new hand</button>
   </div>
   <div id="status"></div>
+  <div id="auction" class="panel" style="display:none"></div>
   <div id="trumps" style="display:none"></div>
   <div id="main">
     <div id="left">
@@ -166,7 +167,7 @@ function isCount(t){const[h,l]=TILES[t];const s=h+l;return s===5||s===10;}
 function isTrump(t,d){if(d===null||d===undefined)return false;const[h,l]=TILES[t];
   if(d<=6)return h===d||l===d; if(d===7)return h===l; return false;}
 function pct(bp){return (bp/100).toFixed(2)+'%';}
-function seatName(s){return s===1?'S1 walt':'S'+s;}
+function seatName(s){return 'S'+s+(S&&s===S.human?'':' walt');}
 function teamOf(s){return (s===1||s===3)?'T1':'T0';}
 
 function domEl(t,opts){opts=opts||{};
@@ -201,6 +202,8 @@ function render(){
   if(!S)return;
   $('handno').textContent=S.hand_no;
   $('declname').textContent=S.decl===null?'(undeclared)':DECLNAMES[S.decl];
+  $('bidlvl').textContent=S.phase==='auction'?(S.auction&&S.auction.high?S.auction.high[1]+' (S'+S.auction.high[0]+')':'open'):S.bid;
+  renderAuction();
   $('b1').textContent=S.banked[0];$('b0').textContent=S.banked[1];
   $('makes').textContent=S.makes;$('sets').textContent=S.sets;
   $('seatsel').value=String(S.human);
@@ -224,9 +227,9 @@ function renderTrumps(){
   const humanBids=S.bidder===S.human;
   let best=-1;
   for(const e of S.evals)if(best<0||e.bp>best)best=e.bp;
-  let html='<h3>'+(humanBids?'YOU were dropped on at 30 — name your trump (click a suit'+
+  let html='<h3>'+(humanBids?'YOU hold the '+S.bid+' bid — name your trump (click a suit'+
     (S.evals.length<9?'; walt will advise as it thinks':'')+')'
-    :'walt was dropped on at 30 — weighing trumps...')+'</h3>';
+    :'S1 walt holds the '+S.bid+' bid — weighing trumps...')+'</h3>';
   el.innerHTML=html;
   for(let d=0;d<9;d++){
     const e=S.evals.find(x=>x.d===d);
@@ -244,11 +247,12 @@ function renderTrumps(){
 function renderSeatbox(seat){
   const el=$('pos-'+posOf(seat));
   el.innerHTML='';
-  el.classList.toggle('turn',(S.phase==='play'&&S.turn===seat)||(S.phase==='trump'&&S.bidder===seat));
+  el.classList.toggle('turn',(S.phase==='play'&&S.turn===seat)||(S.phase==='trump'&&S.bidder===seat)||(S.phase==='auction'&&S.auction&&S.auction.turn===seat));
   const nm=document.createElement('div');nm.className='nm';
   nm.innerHTML=seatName(seat)+(seat===S.human?' <b>(YOU)</b>':'')+
     '<span class="team '+teamOf(seat)+'">'+teamOf(seat)+'</span>'+
-    (seat===S.bidder?'<span class="bidchip">★ bid 30</span>':'');
+    (S.phase!=='auction'&&seat===S.bidder?'<span class="bidchip">★ bid '+S.bid+'</span>':'')+
+    (S.phase==='auction'&&S.auction&&S.auction.high&&S.auction.high[0]===seat?'<span class="bidchip">★ '+S.auction.high[1]+'</span>':'');
   el.appendChild(nm);
   const row=document.createElement('div');
   if(seat===S.human){
@@ -284,9 +288,9 @@ function renderTable(){
   }
   const mid=$('c-mid');
   if(S.phase==='done'){
-    mid.innerHTML=S.result?'<b style="color:var(--green)">T1 MAKES the 30 bid</b><br>'+
+    mid.innerHTML=S.result?'<b style="color:var(--green)">T1 MAKES the '+S.bid+' bid</b><br>'+
       S.banked[0]+' to '+S.banked[1]
-      :'<b style="color:var(--t0)">T1 is SET</b><br>only '+S.banked[0]+' of 30';
+      :'<b style="color:var(--t0)">T1 is SET</b><br>only '+S.banked[0]+' of '+S.bid;
   }else if(S.phase==='play'&&S.cur.length===0){
     mid.textContent=seatName(S.turn)+' leads';
   }else{mid.textContent='';}
@@ -355,8 +359,43 @@ function renderMsgs(){
   el.scrollTop=el.scrollHeight;
 }
 
+function renderAuction(){
+  const el=$('auction');
+  if(S.phase!=='auction'){el.style.display='none';return;}
+  el.style.display='block';
+  const a=S.auction;
+  const myTurn=a.turn===S.human;
+  let html='<h3>auction — '+(a.high?('S'+a.high[0]+' holds it at '+a.high[1]):'no bid yet')+
+    ' · '+(4-a.acted)+' to act</h3>';
+  if(myTurn){
+    html+='<div style="margin:6px 0">your call: <button id="passbtn">pass</button> ';
+    html+='<select id="bidsel">';
+    for(let b=a.min;b<=42;b++)html+='<option value="'+b+'">'+b+'</option>';
+    html+='</select> <button id="bidbtn">bid</button></div>';
+  }else{
+    html+='<div style="color:var(--dim)">'+seatName(a.turn)+' is considering ('+a.thinking+'/9 trumps priced)…</div>';
+  }
+  el.innerHTML=html;
+  if(myTurn){
+    $('passbtn').onclick=async()=>{if(busy)return;busy=true;setStatus('passing…');
+      try{await api('/bid?pass=1');}finally{busy=false;}loop();};
+    $('bidbtn').onclick=async()=>{if(busy)return;busy=true;const b=$('bidsel').value;
+      setStatus('bidding '+b+'…');try{await api('/bid?b='+b);}finally{busy=false;}loop();};
+  }
+}
+
 async function loop(){
   if(busy||!S)return;
+  if(S.phase==='auction'){
+    const a=S.auction;
+    if(a.turn!==S.human){
+      busy=true;setStatus(seatName(a.turn)+' is weighing a bid ('+a.thinking+'/9 trumps priced)…',true);
+      try{await api('/step');}finally{busy=false;}
+      setTimeout(loop,60);return;
+    }
+    setStatus('your call — pass or bid (min '+a.min+')');
+    return;
+  }
   if(S.phase==='trump'){
     if(S.bidder!==S.human&&S.evals.length<=9&&S.decl===null){
       busy=true;
@@ -384,7 +423,7 @@ async function loop(){
     if(S.turn===S.human){setStatus('your turn — click a lifted tile, or use hint / auto');return;}
   }
   if(S.phase==='done'){
-    setStatus((S.result?'T1 makes it. ':'T1 is set. ')+'deal revealed — click new hand when ready');
+    setStatus((S.result?'T1 makes the '+S.bid+'. ':'T1 is set. ')+'deal revealed — click new hand when ready');
     return;
   }
   setStatus('');
