@@ -16,7 +16,8 @@ use std::time::Instant;
 use walt_core::rules::legal_plays;
 use walt_core::{Decl, Domino, Pip, Seat};
 use walt_m3_probe::{
-    bp, mask_bits, mix, sample_belief, set_of, Field, Key, Shared, Solver, SplitMix64, FULL_MASK,
+    bp, mask_bits, mix, sample_belief, set_of, Deadline, Field, Key, Shared, Solver, SplitMix64,
+    FULL_MASK,
 };
 
 /// Same stream as bidcurve.rs so the spike's hand 0 is bidcurve's hand 0.
@@ -43,7 +44,7 @@ fn decide(
         vec![8],
         boundary_played,
         boundary_hand_size,
-        Instant::now() + std::time::Duration::from_secs(600),
+        Deadline::after(std::time::Duration::from_secs(600)),
     ));
     let solver = Solver::new(
         Arc::clone(&sh),

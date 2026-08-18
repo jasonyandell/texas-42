@@ -480,3 +480,10 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
 - 2026-08-18 (overnight): divergence miner — 900 self-played hands, 4,156
   level-2-shadowed decisions; large-gap divergence ~2× in partner-bid and
   defense vs self-bid; top case: count fed to partner's winning trump pull.
+- 2026-08-18: `walt-wasm` — the browser decision oracle for the plunge
+  client. Player logic consolidated into the library (`level1_evaluate`,
+  `best_of`, the bridge's audited `replay`; `Deadline` abstraction inert on
+  wasm), string API (`play`/`bid`/`declare`) behind a no-unsafe ABI, ~250 KB
+  `pkg/walt.wasm` + typed `walt.ts` wrapper. Full-hand native test (all four
+  seats walt, walt-core refereeing, determinism byte-checked) and a Node
+  smoke proving the wasm binary reproduces the native trace 28/28 plays.

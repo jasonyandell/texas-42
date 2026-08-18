@@ -23,7 +23,48 @@ use std::collections::HashMap;
 use std::hash::{Hash, Hasher};
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
+use std::time::Duration;
+#[cfg(not(target_arch = "wasm32"))]
 use std::time::Instant;
+
+/// Wall-clock budget for one evaluation. On native targets this is a real
+/// monotonic deadline; on wasm32 there is no monotonic clock without a JS
+/// import, so it never expires — budget there is carried by the sample
+/// counts (n_outer, n0), not wall time.
+#[derive(Clone, Copy)]
+pub struct Deadline {
+    #[cfg(not(target_arch = "wasm32"))]
+    at: Instant,
+}
+
+impl Deadline {
+    #[must_use]
+    pub fn after(budget: Duration) -> Self {
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            Deadline {
+                at: Instant::now() + budget,
+            }
+        }
+        #[cfg(target_arch = "wasm32")]
+        {
+            let _ = budget;
+            Deadline {}
+        }
+    }
+
+    #[must_use]
+    pub fn passed(&self) -> bool {
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            Instant::now() >= self.at
+        }
+        #[cfg(target_arch = "wasm32")]
+        {
+            false
+        }
+    }
+}
 
 use num_bigint::BigInt;
 use num_rational::BigRational;
@@ -165,7 +206,7 @@ pub struct Shared {
     pub n_inner: Vec<usize>,
     pub boundary_played: u32,
     pub boundary_hand_size: usize,
-    pub deadline: Instant,
+    pub deadline: Deadline,
     pi_cache: Vec<PiShard>,
     pub pi_calls: AtomicU64,
     pub nodes: AtomicU64,
@@ -180,7 +221,7 @@ impl Shared {
         n_inner: Vec<usize>,
         boundary_played: u32,
         boundary_hand_size: usize,
-        deadline: Instant,
+        deadline: Deadline,
     ) -> Self {
         Shared {
             dcl,
@@ -300,7 +341,7 @@ impl Solver {
         }
         let n = self.local_nodes.fetch_add(1, Ordering::Relaxed) + 1;
         if n & 0xFFFF == 0 {
-            if Instant::now() >= self.sh.deadline {
+            if self.sh.deadline.passed() {
                 self.sh.dead.store(true, Ordering::Relaxed);
                 return false;
             }
@@ -698,4 +739,203 @@ pub fn sample_belief(
 pub fn bp(v: &BigRational) -> i64 {
     let scaled = (v * BigRational::from_integer(BigInt::from(10_000))).to_integer();
     scaled.to_string().parse().unwrap_or(0)
+}
+
+/// Arena declaration id → walt-core Decl (0..=6 pip trump, 7 doubles-trump,
+/// 9 no-trump — the mk5 arena's ids, shared by walt_bridge and the WASM
+/// surface).
+pub fn decl_of(arena_id: usize) -> Decl {
+    match arena_id {
+        p @ 0..=6 => Decl::ALL[p],
+        7 => Decl::DoublesTrump,
+        9 => Decl::NoTrump,
+        other => panic!("declaration id {other} is not a straight-42 declaration"),
+    }
+}
+
+pub fn arena_decl_id(d: Decl) -> usize {
+    match d {
+        Decl::PipTrump(p) => usize::from(p.value()),
+        Decl::DoublesTrump => 7,
+        Decl::NoTrump => 9,
+    }
+}
+
+/// The replayed public record, in INTERNAL seat labels (arena + r mod 4,
+/// with r chosen so the bidding team is internal T1 = seats 1,3). The
+/// audited rotation of walt_bridge.rs.
+pub struct Replayed {
+    pub r: usize,
+    pub played: u32,
+    pub leader: u8,
+    pub plays: Vec<u8>,
+    pub banked_t1: u8,
+    pub banked_t0: u8,
+    pub voids: [u32; 4],
+    pub trick_start_played: u32,
+    pub completed: usize,
+}
+
+/// Replay a chronological arena-frame record `(actor, tile)*` into internal
+/// labels: turn order asserted, voids derived from failures to follow,
+/// banked totals per completed trick. `bidder_arena` leads trick one.
+pub fn replay(dcl: Decl, bidder_arena: usize, pairs: &[(usize, usize)]) -> Replayed {
+    let r = if bidder_arena.is_multiple_of(2) { 1 } else { 0 };
+    let mut st = Replayed {
+        r,
+        played: 0,
+        leader: ((bidder_arena + r) % 4) as u8,
+        plays: Vec::new(),
+        banked_t1: 0,
+        banked_t0: 0,
+        voids: [0; 4],
+        trick_start_played: 0,
+        completed: 0,
+    };
+    for &(actor_arena, tile_id) in pairs {
+        let actor = (actor_arena + r) % 4;
+        let expect = (usize::from(st.leader) + st.plays.len()) % 4;
+        assert_eq!(actor, expect, "history follows turn order");
+        let tile = Domino::from_index(tile_id).expect("tile id 0..28");
+        assert_eq!(st.played & bit(tile), 0, "tile played once");
+        if let Some(&led_id) = st.plays.first() {
+            let led = dcl.led_context(Domino::from_index(usize::from(led_id)).expect("led tile"));
+            if !dcl.follows(tile, led) {
+                st.voids[actor] |= mask_of(dcl.effective_incidence(led));
+            }
+        }
+        st.played |= bit(tile);
+        st.plays.push(tile.index() as u8);
+        if st.plays.len() == 4 {
+            let doms = [
+                Domino::from_index(usize::from(st.plays[0])).expect("p0"),
+                Domino::from_index(usize::from(st.plays[1])).expect("p1"),
+                Domino::from_index(usize::from(st.plays[2])).expect("p2"),
+                Domino::from_index(usize::from(st.plays[3])).expect("p3"),
+            ];
+            let trick = Trick::new(
+                Seat::from_index(usize::from(st.leader)).expect("leader"),
+                doms,
+            )
+            .expect("distinct");
+            let winner = trick.winner(dcl);
+            let pts = trick.points() as u8;
+            if winner.team() == Team::T1 {
+                st.banked_t1 += pts;
+            } else {
+                st.banked_t0 += pts;
+            }
+            st.leader = winner.index() as u8;
+            st.plays.clear();
+            st.completed += 1;
+            st.trick_start_played = st.played;
+        }
+    }
+    st
+}
+
+/// The level-1 evaluation with saturation-tie refinement (the playtable.rs
+/// policy — one authority, shared by webtable and the WASM surface).
+/// Returns every legal option's estimate under the contract's bid
+/// thresholds; None iff the deadline died mid-evaluation.
+#[allow(clippy::too_many_arguments)]
+pub fn level1_evaluate(
+    dcl: Decl,
+    bid: u8,
+    seat: Seat,
+    hand: u32,
+    legal: u32,
+    key: &Key,
+    sizes: [usize; 4],
+    voids: [u32; 4],
+    trick_start_played: u32,
+    boundary_hand_size: usize,
+    n_outer: usize,
+    n0: usize,
+    per_move_secs: u64,
+    rng: &mut SplitMix64,
+) -> Option<Vec<(u8, BigRational)>> {
+    let deadline = Deadline::after(Duration::from_secs(per_move_secs));
+    let maximize = seat.team() == Team::T1;
+    let evaluate = |tiles: &[u8], n: usize, rng: &mut SplitMix64| {
+        let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, n, rng);
+        let sh = Arc::new(Shared::new(
+            dcl,
+            bid,
+            vec![n0],
+            trick_start_played,
+            boundary_hand_size,
+            deadline,
+        ));
+        let solver = Solver::new(
+            sh,
+            seat,
+            hand,
+            maximize,
+            worlds,
+            Vec::new(),
+            Field::Level(0),
+        )
+        .parallel();
+        let mut out: Vec<(u8, BigRational)> = Vec::new();
+        for &t in tiles {
+            let tile = Domino::from_index(usize::from(t)).expect("tile");
+            let child = solver.child_after_play(key, tile, 0);
+            match solver.solve(&child) {
+                Some(v) => out.push((t, v)),
+                None => return None,
+            }
+        }
+        Some(out)
+    };
+    let all_tiles = mask_bits(legal);
+    let mut opts = evaluate(&all_tiles, n_outer, rng)?;
+    let mut n_cur = n_outer;
+    loop {
+        let best = if maximize {
+            opts.iter().map(|(_, v)| v.clone()).max()
+        } else {
+            opts.iter().map(|(_, v)| v.clone()).min()
+        }
+        .expect("legal play");
+        let tied: Vec<u8> = opts
+            .iter()
+            .filter(|(_, v)| *v == best)
+            .map(|(t, _)| *t)
+            .collect();
+        if tied.len() == 1 || n_cur >= n_outer * 16 {
+            break;
+        }
+        n_cur *= 4;
+        let refined = evaluate(&tied, n_cur, rng)?;
+        for (t, v) in refined {
+            let slot = opts
+                .iter_mut()
+                .find(|(ot, _)| *ot == t)
+                .expect("tied tile present");
+            slot.1 = v;
+        }
+    }
+    Some(opts)
+}
+
+/// Argmax (or argmin for T0 seats) over evaluated options, first-listed on
+/// exact ties — the ascending-tile-order convention of the whole stack.
+pub fn best_of(opts: &[(u8, BigRational)], maximize: bool) -> u8 {
+    opts.iter()
+        .cloned()
+        .reduce(|best, cand| {
+            let better = if maximize {
+                cand.1 > best.1
+            } else {
+                cand.1 < best.1
+            };
+            if better {
+                cand
+            } else {
+                best
+            }
+        })
+        .expect("legal play")
+        .0
 }
