@@ -514,3 +514,9 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   re-solve until extraction exists so panels stay at the hundreds scale
   (SP-A9), corpus anchors named (SP-A10 — "n=800 panel" binds nothing).
   O10–O11 permanently retired (SP-A11). Gate E concordance filed (SP-A12).
+- 2026-08-18 (night): `TILT-AUDIT.md` — smoke design for E0 under the
+  SP-A rulings: phases A–D on mid/late-grade divergence anchors first,
+  implicit frozen policies (freeze tuple = the policy), hundreds-scale
+  panels, `tiltaudit.rs` driver shape. Phase E blocked on the SP-A6
+  world/tape seed split. θ-sweep analysis predeclared (O14) at 23:49,
+  before the n=200 reference pass completed.
