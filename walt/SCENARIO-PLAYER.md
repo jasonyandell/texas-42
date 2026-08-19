@@ -249,8 +249,9 @@ corpus under `mined/`.
 | O9 | Bid-level generalization correctness (6.2 cutoffs for all b) | proof + tests | trivial by conservation; assert in CI when built |
 
 Filed 2026-08-18 from `math/signed_pivotal_geometry_v0.1.md` §14 (intake:
-`math/signed_pivotal_geometry_v0.1_intake.md`; O10–O11 are reserved by that
-document's unfiled import — see the intake note — and are not assigned here):
+`math/signed_pivotal_geometry_v0.1_intake.md`; O10–O11 are permanently
+retired — a numbering artifact of the side-channel hops, ruled SP-A11 in
+`CENSUS-RULINGS.md`; retired numbers are never reused):
 
 | # | Obligation | Kind | Route |
 |---|---|---|---|

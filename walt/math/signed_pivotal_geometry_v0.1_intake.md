@@ -119,6 +119,15 @@ unfiled import is retrieved and filed or O10–O11 are permanently retired;
 (iii) confirm or correct the "n=800 panel" reference before E0 is
 scheduled.
 
+**Resolved 2026-08-18** by the signed-pivotal intake adjudication
+(`walt/CENSUS-RULINGS.md`, SP-A1..SP-A12): (i) adopted as SP-A1, plus
+"pivotal cover" for the §6 predicate (SP-A2) and "frozen policy" for the
+formal object (SP-A3); (ii) O10–O11 permanently retired, import stays
+unfiled and unciteable (SP-A11); (iii) "n=800 panel" binds nothing —
+anchors named in SP-A10. E0 adopted as **the tilt audit** with the
+replay-cost correction SP-A9; one mathematical repair filed (SP-A5:
+§2.1's "strictly sharper" holds iff Cov(u_a, u_b) > 0).
+
 ---
 
 ## Appendix — the intake spot-check script (verbatim, stdlib only)

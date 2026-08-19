@@ -503,3 +503,14 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   (pivotal win share vs auction threshold — resolution proposed, not
   ruled); O12–O19 filed into the SCENARIO-PLAYER ledger; E0 gap list
   (plan extraction, bitset replay, world/tape seed separation).
+- 2026-08-18 (night): signed-pivotal intake ADJUDICATED (`CENSUS-RULINGS.md`
+  SP-A1..SP-A12, walt-math). Sound throughout with one repair: §2.1's
+  "paired is strictly sharper" holds iff Cov(u_a,u_b) > 0 (SP-A5 —
+  anticorrelated Case C inverts it). Renames ruled: pivotal win share
+  (never bare θ — the auction keeps θ), **pivotal cover** (never
+  "envelope" — that word stays with value upper envelopes), **frozen
+  policy** (not "plan"). E0 adopted as **the tilt audit** with corrections:
+  freeze tuple = the policy (no DAG serialization needed, SP-A8), replay ≈
+  re-solve until extraction exists so panels stay at the hundreds scale
+  (SP-A9), corpus anchors named (SP-A10 — "n=800 panel" binds nothing).
+  O10–O11 permanently retired (SP-A11). Gate E concordance filed (SP-A12).
