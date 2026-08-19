@@ -145,10 +145,25 @@ caught in the act (§3's bias, live): hand 0's discovery majority picked
   into walt-wasm as opt-in `race 1` (default path byte-identical; race
   full-hand test lawful/deterministic/conformant).
 
+**Arena gate (`tiltaudit arena`, 24 mirrored deals at bid 30, n=40):**
+strength is a dead heat — paired makes as bidder: race-only 1, full-only
+2, both 11 (3 pivotal deals decide nothing at this sample; race mode
+does not degrade play). Speed in game conditions: race mean 177ms vs
+full 116ms per decision — the race's 2n cap plus refinement fallback
+LOSES on saturation-heavy bid-30 hands, where nearly every pair ties and
+elimination never bites. The bench's opening-lead win (745 vs 1230ms) is
+real but regime-dependent: the race pays off exactly where evaluation is
+expensive and candidates separate (openings, higher bids where P(make)
+spreads); fixed-bid-30 self-play is its worst case everywhere else.
+Opt-in wiring is therefore the right default posture: `race 1` for
+opening leads / high-bid contracts, full evaluator elsewhere, strength
+equal either way.
+
 **Road verdict (parent §0, so far):** sampling road confirmed for
 mid/late grades (Case B/D dominate; H small); search-instability road
 mostly quiet (small behavioral spread, but hand 0 shows it is not zero);
 counted-boundary road untested (Phase F not run); plan-library road
-untested. Next gates: arena validation of race mode (48-game bracket vs
-full mode), Phase F predicate mining over the stored panels, and the
-level-2 saturation-tie episode as an anchor.
+untested. Next gates: Phase F predicate mining over the stored panels,
+the level-2 saturation-tie episode as an anchor, and a high-bid arena
+(calibrated θ walks contracts to ~40, where ties thin and racing should
+bite — the regime the bid-30 gate cannot see).

@@ -1,0 +1,55 @@
+TILT ARENA — race-refined vs full, mirrored deals — EXPLORATORY
+hands=24 n=40 n0=8 (race cap 2n, refine n)
+
+hand 0 flip 0: bidding team (RACE) SET  — 24:18
+hand 0 flip 1: bidding team (full) SET  — 24:18
+hand 1 flip 0: bidding team (RACE) SET  — 20:22
+hand 1 flip 1: bidding team (full) MADE — 35:7
+hand 2 flip 0: bidding team (RACE) MADE — 40:2
+hand 2 flip 1: bidding team (full) MADE — 40:2
+hand 3 flip 0: bidding team (RACE) MADE — 41:1
+hand 3 flip 1: bidding team (full) MADE — 41:1
+hand 4 flip 0: bidding team (RACE) SET  — 25:17
+hand 4 flip 1: bidding team (full) SET  — 20:22
+hand 5 flip 0: bidding team (RACE) MADE — 36:6
+hand 5 flip 1: bidding team (full) MADE — 42:0
+hand 6 flip 0: bidding team (RACE) SET  — 29:13
+hand 6 flip 1: bidding team (full) SET  — 18:24
+hand 7 flip 0: bidding team (RACE) MADE — 30:12
+hand 7 flip 1: bidding team (full) MADE — 41:1
+hand 8 flip 0: bidding team (RACE) SET  — 25:17
+hand 8 flip 1: bidding team (full) SET  — 25:17
+hand 9 flip 0: bidding team (RACE) MADE — 42:0
+hand 9 flip 1: bidding team (full) MADE — 41:1
+hand 10 flip 0: bidding team (RACE) MADE — 36:6
+hand 10 flip 1: bidding team (full) MADE — 41:1
+hand 11 flip 0: bidding team (RACE) SET  — 20:22
+hand 11 flip 1: bidding team (full) MADE — 35:7
+hand 12 flip 0: bidding team (RACE) MADE — 36:6
+hand 12 flip 1: bidding team (full) MADE — 36:6
+hand 13 flip 0: bidding team (RACE) SET  — 19:23
+hand 13 flip 1: bidding team (full) SET  — 19:23
+hand 14 flip 0: bidding team (RACE) MADE — 30:12
+hand 14 flip 1: bidding team (full) SET  — 14:28
+hand 15 flip 0: bidding team (RACE) SET  — 8:34
+hand 15 flip 1: bidding team (full) SET  — 15:27
+hand 16 flip 0: bidding team (RACE) MADE — 42:0
+hand 16 flip 1: bidding team (full) MADE — 30:12
+hand 17 flip 0: bidding team (RACE) MADE — 42:0
+hand 17 flip 1: bidding team (full) MADE — 42:0
+hand 18 flip 0: bidding team (RACE) MADE — 41:1
+hand 18 flip 1: bidding team (full) MADE — 41:1
+hand 19 flip 0: bidding team (RACE) SET  — 25:17
+hand 19 flip 1: bidding team (full) SET  — 13:29
+hand 20 flip 0: bidding team (RACE) MADE — 30:12
+hand 20 flip 1: bidding team (full) MADE — 30:12
+hand 21 flip 0: bidding team (RACE) SET  — 14:28
+hand 21 flip 1: bidding team (full) SET  — 14:28
+hand 22 flip 0: bidding team (RACE) SET  — 14:28
+hand 22 flip 1: bidding team (full) SET  — 3:39
+hand 23 flip 0: bidding team (RACE) SET  — 25:17
+hand 23 flip 1: bidding team (full) SET  — 19:23
+
+paired makes as bidder over 24 deals: race-only 1, full-only 2, both 11
+decision cost: race 80475ms/453 decisions (mean 177ms) vs full 51658ms/443 (mean 116ms)
+nothing above exploratory tier; arena outcomes are never receipts

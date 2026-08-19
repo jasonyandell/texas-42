@@ -544,3 +544,8 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   is unfixable by θ (11 overbids at 11/16); trump first-max n40-vs-n200
   agreement 159/200 (declaration noisier than bidding). Solo-auction
   protocol caveat travels with all numbers. Estimates, never receipts.
+- 2026-08-19 01:50: arena gate (24 mirrored deals, bid 30): race-refined
+  vs full is a strength DEAD HEAT (paired makes 1 vs 2, both 11) at
+  slower mean decision cost in the tie-saturated bid-30 regime (177ms vs
+  116ms) — the racing edge is regime-dependent (openings, high bids);
+  opt-in posture confirmed correct. Filed in TILT-AUDIT.md.
