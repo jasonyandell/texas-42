@@ -248,6 +248,21 @@ corpus under `mined/`.
 | O8 | Tie-refinement bias (does conditional re-sampling bias the reported top value?) | analysis | small-sample analysis; label reported values accordingly |
 | O9 | Bid-level generalization correctness (6.2 cutoffs for all b) | proof + tests | trivial by conservation; assert in CI when built |
 
+Filed 2026-08-18 from `math/signed_pivotal_geometry_v0.1.md` §14 (intake:
+`math/signed_pivotal_geometry_v0.1_intake.md`; O10–O11 are reserved by that
+document's unfiled import — see the intake note — and are not assigned here):
+
+| # | Obligation | Kind | Route |
+|---|---|---|---|
+| O12 | Frozen-plan typing: every pivotal estimate names its exact frozen plan pair; root-action claims state whether active-plan stability was checked | discipline | enforce in E0 tooling and reports |
+| O13 | Discovery/evaluation separation: fixed-plan confidence claims use scenarios not used to construct or alter those plans | discipline | sample splitting in E0; any replacement argument must be explicit |
+| O14 | Sequential validity: resample-until-separated protocols use anytime-valid methods or predeclared checkpoint/alpha-spending schedules | discipline + math | applies to E0 racing and to bidcurve θ sweeps |
+| O15 | Scenario/world domain match: every exact structural count is over the same fiber and belief the conditional sampler targets; tape integration explicit | invariant audit | E0 Phase E; world/tape seed separation prerequisite |
+| O16 | Envelope containment: pivotal-only sampling requires proved containment; otherwise the complement keeps a sampling floor or rigorous bound | proof per envelope | E0 Phase F promotes no predicate without it |
+| O17 | Conditional generator correctness and cost: uniformity and wall-clock tested separately from exact weights | measurement | E0 Phase F audit columns |
+| O18 | Optimization-lock accounting: exact frozen-pair results are never labeled exact root-action results until competing continuation bounds are closed | discipline | tier labels in every E0 report |
+| O19 | Behavioral census: plan simplicity claims use behavioral and signed-boundary equivalence, never syntactic plan counts alone | discipline | shared with POLICY-GEOMETRY.md Gate E (E-A8) |
+
 Graduation path per project law: paper proofs → wiki with tier labels →
 independent re-verification (exchange batch on Jason's authorization) →
 Lean for what earns mechanization. Nothing in this document is promoted by

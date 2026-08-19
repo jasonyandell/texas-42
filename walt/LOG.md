@@ -487,3 +487,19 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   `pkg/walt.wasm` + typed `walt.ts` wrapper. Full-hand native test (all four
   seats walt, walt-core refereeing, determinism byte-checked) and a Node
   smoke proving the wasm binary reproduces the native trace 28/28 plays.
+- 2026-08-18: bidcurve calibration corpus launched — three nested-CRN
+  passes (n = 12/40/200) over the same 200 frozen hands
+  (`probes/bidcurve/run_calibration.sh`); first 40 worlds of the n=200
+  pass are exactly the n=40 worlds, so cross-pass deltas are pure
+  sample-size effect. Target: calibrate the auction threshold θ against
+  the known small-n saturation overbid. Estimates only.
+- 2026-08-18: intake — `math/signed_pivotal_geometry_v0.1.md` (verbatim,
+  sha256 filed; house-mathematician pass via the side channel). Central
+  objects: pivotal mass q, signed tilt τ, exact gap g = qτ, fixed-pair
+  difficulty H = 1/(qτ²)−1; the E0 frozen-plan signed-pivotal audit; the
+  three locks (measure/response/optimization). Intake companion
+  (`..._intake.md`): all boxed identities verified by hand + 2,000
+  exact-rational spot instances; clean on D3; θ symbol collision flagged
+  (pivotal win share vs auction threshold — resolution proposed, not
+  ruled); O12–O19 filed into the SCENARIO-PLAYER ledger; E0 gap list
+  (plan extraction, bitset replay, world/tape seed separation).
