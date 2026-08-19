@@ -21,7 +21,8 @@
 //! ```
 //!
 //! `bid` kind: `hand`, `need` (minimum viable bid), optional
-//! `theta <num> <den>` (default 1/2), `n`, `n0`, `seed`, `budget_ms`.
+//! `theta <num> <den>` (default 11/16, the bidcurve-calibrated
+//! zero-overbid rung at n=40), `n`, `n0`, `seed`, `budget_ms`.
 //! `declare` kind: `hand`, `bid`, `n`, `n0`, `seed`, `budget_ms`.
 //!
 //! Tile ids are the canonical triangular order (0,0)=0, (1,0)=1, ...,
@@ -327,10 +328,15 @@ fn handle_bid(r: &Req) -> Result<String, String> {
     if !(30..=42).contains(&need) {
         return Err("need must be 30..=42".to_string());
     }
+    // Default theta = 11/16: the first zero-overbid rung of the 200-hand
+    // bidcurve calibration corpus (2026-08-19 single-look analysis,
+    // probes/bidcurve/ANALYSIS-2026-08-19.txt — at n=40, theta=1/2
+    // overbid 37/200 against the n=200 reference; 11/16 overbid 0 with 0
+    // missed bids). Exploratory estimate, solo-auction protocol caveat.
     let (tn, td) = match r.fields.get("theta").map(Vec::as_slice) {
         Some([n, d]) if *d > 0 && *n <= *d => (*n, *d),
         Some(_) => return Err("theta wants 'num den' with num <= den, den > 0".to_string()),
-        None => (1, 2),
+        None => (11, 16),
     };
     let theta = BigRational::new(tn.into(), td.into());
     let n = r.scalar_or("n", 40)? as usize;

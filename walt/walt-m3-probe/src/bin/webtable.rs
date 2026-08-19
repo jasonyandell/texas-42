@@ -35,8 +35,12 @@ use walt_m3_probe::{
 const BIDDER: usize = 1;
 
 /// The auction's baseline threshold: bid while P(make b) >= 1/2.
-const THETA_NUM: i64 = 1;
-const THETA_DEN: i64 = 2;
+// 11/16: the first zero-overbid rung of the 200-hand bidcurve calibration
+// (2026-08-19, probes/bidcurve/ANALYSIS-2026-08-19.txt): at n=40 against
+// the n=200 reference, theta=1/2 overbid 37/200; 11/16 overbid 0 with 0
+// missed bids. Exploratory estimate.
+const THETA_NUM: i64 = 11;
+const THETA_DEN: i64 = 16;
 
 fn tile_str(idx: u8) -> String {
     let dm = Domino::from_index(usize::from(idx)).expect("tile < 28");
