@@ -20,7 +20,6 @@
 use std::io::{BufRead, BufReader, Write};
 use std::net::{TcpListener, TcpStream};
 use std::sync::Arc;
-use std::time::Instant;
 
 use num_rational::BigRational;
 use num_traits::Zero;
@@ -28,15 +27,20 @@ use num_traits::Zero;
 use walt_core::rules::{legal_plays, Trick};
 use walt_core::{Context, Decl, Domino, Pip, Seat, Team};
 use walt_m3_probe::{
-    bp, mask_bits, mask_of, mix, sample_belief, set_of, Field, Key, Shared, Solver, SplitMix64,
+    best_of, bp, level1_evaluate, mask_bits, mask_of, mix, sample_belief, set_of, Deadline, Field,
+    Key, Shared, Solver, SplitMix64,
 };
 
 /// Internal bid seat after rotation (the bidding team is internal T1).
 const BIDDER: usize = 1;
 
 /// The auction's baseline threshold: bid while P(make b) >= 1/2.
-const THETA_NUM: i64 = 1;
-const THETA_DEN: i64 = 2;
+// 11/16: the first zero-overbid rung of the 200-hand bidcurve calibration
+// (2026-08-19, probes/bidcurve/ANALYSIS-2026-08-19.txt): at n=40 against
+// the n=200 reference, theta=1/2 overbid 37/200; 11/16 overbid 0 with 0
+// missed bids. Exploratory estimate.
+const THETA_NUM: i64 = 11;
+const THETA_DEN: i64 = 16;
 
 fn tile_str(idx: u8) -> String {
     let dm = Domino::from_index(usize::from(idx)).expect("tile < 28");
@@ -51,108 +55,6 @@ fn decl_name(i: usize) -> &'static str {
 
 fn theta() -> BigRational {
     BigRational::new(THETA_NUM.into(), THETA_DEN.into())
-}
-
-/// The level-1 evaluation with saturation-tie refinement. Returns every
-/// legal option's estimate under the contract's bid thresholds.
-#[allow(clippy::too_many_arguments)]
-fn level1_evaluate(
-    dcl: Decl,
-    bid: u8,
-    seat: Seat,
-    hand: u32,
-    legal: u32,
-    key: &Key,
-    sizes: [usize; 4],
-    voids: [u32; 4],
-    trick_start_played: u32,
-    boundary_hand_size: usize,
-    n_outer: usize,
-    n0: usize,
-    per_move_secs: u64,
-    rng: &mut SplitMix64,
-) -> Option<Vec<(u8, BigRational)>> {
-    let deadline = Instant::now() + std::time::Duration::from_secs(per_move_secs);
-    let maximize = seat.team() == Team::T1;
-    let evaluate = |tiles: &[u8], n: usize, rng: &mut SplitMix64| {
-        let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, n, rng);
-        let sh = Arc::new(Shared::new(
-            dcl,
-            bid,
-            vec![n0],
-            trick_start_played,
-            boundary_hand_size,
-            deadline,
-        ));
-        let solver = Solver::new(
-            sh,
-            seat,
-            hand,
-            maximize,
-            worlds,
-            Vec::new(),
-            Field::Level(0),
-        )
-        .parallel();
-        let mut out: Vec<(u8, BigRational)> = Vec::new();
-        for &t in tiles {
-            let tile = Domino::from_index(usize::from(t)).expect("tile");
-            let child = solver.child_after_play(key, tile, 0);
-            match solver.solve(&child) {
-                Some(v) => out.push((t, v)),
-                None => return None,
-            }
-        }
-        Some(out)
-    };
-    let all_tiles = mask_bits(legal);
-    let mut opts = evaluate(&all_tiles, n_outer, rng)?;
-    let mut n_cur = n_outer;
-    loop {
-        let best = if maximize {
-            opts.iter().map(|(_, v)| v.clone()).max()
-        } else {
-            opts.iter().map(|(_, v)| v.clone()).min()
-        }
-        .expect("legal play");
-        let tied: Vec<u8> = opts
-            .iter()
-            .filter(|(_, v)| *v == best)
-            .map(|(t, _)| *t)
-            .collect();
-        if tied.len() == 1 || n_cur >= n_outer * 16 {
-            break;
-        }
-        n_cur *= 4;
-        let refined = evaluate(&tied, n_cur, rng)?;
-        for (t, v) in refined {
-            let slot = opts
-                .iter_mut()
-                .find(|(ot, _)| *ot == t)
-                .expect("tied tile present");
-            slot.1 = v;
-        }
-    }
-    Some(opts)
-}
-
-fn best_of(opts: &[(u8, BigRational)], maximize: bool) -> u8 {
-    opts.iter()
-        .cloned()
-        .reduce(|best, cand| {
-            let better = if maximize {
-                cand.1 > best.1
-            } else {
-                cand.1 < best.1
-            };
-            if better {
-                cand
-            } else {
-                best
-            }
-        })
-        .expect("legal play")
-        .0
 }
 
 // ---------------------------------------------------------------------------
@@ -324,7 +226,7 @@ impl Game {
         hand: u32,
     ) -> BigRational {
         let dcl = Decl::ALL[decl_idx];
-        let deadline = Instant::now() + std::time::Duration::from_secs(self.per_move_secs);
+        let deadline = Deadline::after(std::time::Duration::from_secs(self.per_move_secs));
         let sh = Arc::new(Shared::new(dcl, b, vec![self.n0], 0, 7, deadline));
         let solver = Solver::new(
             sh,
@@ -519,7 +421,7 @@ impl Game {
     /// best opening lead and its P(make bid).
     fn eval_decl(&mut self, decl_idx: usize, worlds: Vec<[u32; 4]>) -> (u8, BigRational) {
         let dcl = Decl::ALL[decl_idx];
-        let deadline = Instant::now() + std::time::Duration::from_secs(self.per_move_secs);
+        let deadline = Deadline::after(std::time::Duration::from_secs(self.per_move_secs));
         let hand = self.hands[BIDDER];
         let seat = Seat::from_index(BIDDER).expect("bid seat");
         let sh = Arc::new(Shared::new(dcl, self.bid, vec![self.n0], 0, 7, deadline));

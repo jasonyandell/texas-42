@@ -1,0 +1,57 @@
+bidcurve calibration analysis (predeclared single look) — 200 hands
+EXPLORATORY: estimates, never receipts; not a P-A21 statement
+
+1. coverage and noise:
+  n12   hands=200 cells=23400 DIED=  0 mono-violations=1357
+  n40   hands=200 cells=23400 DIED=  0 mono-violations=1822
+  n200  hands=200 cells=23400 DIED=  0 mono-violations=1536
+
+2./3. reliability:
+
+  reliability n40 -> n200 (bands on n40 bp; mean = exact mean of n200 bp):
+    [    0, 1000) n=  433  mean_ref=315150/433 (~728)
+    [ 1000, 2500) n= 2284  mean_ref=1017625/571 (~1782)
+    [ 2500, 5000) n= 7418  mean_ref=12671175/3709 (~3416)
+    [ 5000, 7500) n= 6366  mean_ref=5850675/1061 (~5514)
+    [ 7500, 9000) n= 3173  mean_ref=23675400/3173 (~7462)
+    [ 9000,10000) n= 2381  mean_ref=21179200/2381 (~8895)
+    SATURATED (=10000) n=1345  mean_ref=2639010/269 (~9810)  ref<5000: 0
+
+  reliability n12 -> n200 (bands on n12 bp; mean = exact mean of n200 bp):
+    [    0, 1000) n=  952  mean_ref=604525/476 (~1270)
+    [ 1000, 2500) n= 1195  mean_ref=497570/239 (~2082)
+    [ 2500, 5000) n= 5907  mean_ref=18525950/5907 (~3136)
+    [ 5000, 7500) n= 6444  mean_ref=15455575/3222 (~4797)
+    [ 7500, 9000) n= 3724  mean_ref=6185850/931 (~6644)
+    [ 9000,10000) n= 1901  mean_ref=14957750/1901 (~7868)
+    SATURATED (=10000) n=3277  mean_ref=30046550/3277 (~9169)  ref<5000: 1
+
+4. auction simulation on n=40 curves (scored by the n=200 reference at the chosen cell):
+  theta      bids  mean_ref_bp     overbids(ref<5000)  mean_final_bid  missed
+  1/2        200     24647/4 (~6162)     37                2053/50 (~41)  0
+  9/16       200     25943/4 (~6486)     17                8143/200 (~41)  0
+  5/8        200     27077/4 (~6769)      3                1008/25 (~40)  0
+  11/16      200      7270/1 (~7270)      0                7927/200 (~40)  0
+  3/4        199  1515400/199 (~7615)      0                7788/199 (~39)  1
+  13/16      194   788025/97 (~8124)      0                7417/194 (~38)  6
+  7/8        189  1619200/189 (~8567)      0                7015/189 (~37)  11
+  15/16      165   101130/11 (~9194)      0                5873/165 (~36)  35
+  1          124   299875/31 (~9673)      0                4211/124 (~34)  76
+
+5. auction simulation on n=12 curves (scored by the n=200 reference at the chosen cell):
+  theta      bids  mean_ref_bp     overbids(ref<5000)  mean_final_bid  missed
+  1/2        200     22315/4 (~5579)     76                1026/25 (~41)  0
+  9/16       200     11929/2 (~5964)     49                1016/25 (~41)  0
+  5/8        200     25617/4 (~6404)     25                401/10 (~40)  0
+  11/16      200     27471/4 (~6868)     11                7873/200 (~39)  0
+  3/4        200     27471/4 (~6868)     11                7873/200 (~39)  0
+  13/16      199  1455150/199 (~7312)      3                7666/199 (~39)  1
+  7/8        193  1552900/193 (~8046)      0                7100/193 (~37)  7
+  15/16      178   777475/89 (~8736)      0                3120/89 (~35)  22
+  1          178   777475/89 (~8736)      0                3120/89 (~35)  22
+
+6. first-max declaration agreement at b=30 (vs n200):
+  n12   agrees with n200 on 122/200 hands
+  n40   agrees with n200 on 159/200 hands
+
+nothing above exploratory tier; single-look analysis complete

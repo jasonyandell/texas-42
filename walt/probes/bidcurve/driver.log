@@ -1,0 +1,7 @@
+=== pass small-n12 (n_outer=12, hands 0..199) start Tue Aug 18 15:10:48 CDT 2026 ===
+=== pass small-n12 done Tue Aug 18 15:50:32 CDT 2026 ===
+=== pass live-n40 (n_outer=40, hands 0..199) start Tue Aug 18 15:50:32 CDT 2026 ===
+=== pass live-n40 done Tue Aug 18 17:35:25 CDT 2026 ===
+=== pass ref-n200 (n_outer=200, hands 0..199) start Tue Aug 18 17:35:25 CDT 2026 ===
+=== pass ref-n200 done Wed Aug 19 01:34:31 CDT 2026 ===
+=== all passes complete Wed Aug 19 01:34:31 CDT 2026 ===
