@@ -96,6 +96,17 @@ subprocess bridge).
 - `n` (outer worlds, default 40): strength vs latency. `n0` (modeled mind
   sample, default 8). Cost scales roughly linearly in each; early-trick
   decisions dominate (opening ≈ seconds, late tricks ≈ milliseconds).
+- `race: true` on `play`: the race-then-refine mode (signed-pivotal
+  geometry applied to the evaluator). Candidate tiles race on small
+  common-world blocks at a `2n` cap — dominated tiles are eliminated by an
+  exact sign test as soon as their deficit is settled — and only a
+  surviving saturation tie pays for the full evaluator's refinement. In
+  native benches this cuts opening-lead latency below the full evaluator
+  while consuming 2.5× the evidence; disagreements with the full mode
+  concentrate on saturation ties (choices the sample cannot distinguish
+  anyway). No per-option `opts` values are reported in this mode
+  (`raced: true` marks the response). Both modes are deterministic per
+  request.
 - `budgetMs` is inert in wasm (no monotonic clock): budget by `n`, and put
   a UI affordance on the wait instead ("walt is thinking").
 - Threads: this build is the serial solver; a rayon/wasm-threads build

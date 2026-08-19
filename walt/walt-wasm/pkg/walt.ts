@@ -52,6 +52,12 @@ export interface PlayRequest {
   seed?: bigint | number;
   /** Wall budget — only enforced in native builds; inert in wasm. */
   budgetMs?: number;
+  /**
+   * Race-then-refine mode: block-race eliminates dominated tiles early
+   * (faster, especially at opening leads), full refinement only on
+   * surviving saturation ties. No per-option values in the response.
+   */
+  race?: boolean;
 }
 
 export interface PlayResponse {
@@ -59,7 +65,9 @@ export interface PlayResponse {
   choice: number;
   /** True if there was only one legal play (no evaluation ran). */
   forced: boolean;
-  /** [tile, basisPoints] for every legal play (empty when forced). */
+  /** True if the race-then-refine path decided this play. */
+  raced?: boolean;
+  /** [tile, basisPoints] for every legal play (empty when forced or raced). */
   opts: [number, number][];
   /** walt's independently derived current trick leader (caller labels). */
   leader: number;
@@ -172,6 +180,7 @@ export class Walt {
       `hand ${req.hand.join(' ')}`,
       `plays ${req.plays.join(' ')}`,
     ];
+    if (req.race) lines.push('race 1');
     pushCommon(lines, req);
     return this.call(lines) as unknown as PlayResponse;
   }

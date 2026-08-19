@@ -34,8 +34,9 @@ use num_rational::BigRational;
 
 use walt_core::{legal_plays, Context, Decl, Domino, Pip, Seat, Team};
 use walt_m3_probe::{
-    best_of, bit, bp, level1_evaluate, mask_bits, mask_of, mix, record_hash, sample_belief, set_of,
-    Deadline, Field, Key, Shared, Solver, SplitMix64, FULL_MASK,
+    best_of, bit, bp, level1_evaluate, level1_race, level1_raced, mask_bits, mask_of, mix,
+    record_hash, sample_belief, set_of, Deadline, Field, Key, Shared, Solver, SplitMix64,
+    FULL_MASK,
 };
 
 /// Frozen tilt-audit stream seeds (fresh constants; deal/path, discovery,
@@ -356,8 +357,206 @@ impl PairStats {
 }
 
 #[allow(clippy::too_many_lines)]
+/// One field host per hand: the pi cache is pure in (k, PiKey), so the
+/// path and every replay share field decisions (SP-A8 economy).
+fn hand_host(h: u64, n_inner: Vec<usize>) -> Solver {
+    let mut rng = SplitMix64(TILT_SEED ^ mix(h));
+    let mut tiles: Vec<u8> = (0..28).collect();
+    for i in (1..tiles.len()).rev() {
+        let j = rng.below((i + 1) as u64) as usize;
+        tiles.swap(i, j);
+    }
+    let bidder_hand = tiles[7..14].iter().fold(0u32, |a, &t| a | (1u32 << t));
+    let sh = Arc::new(Shared::new(
+        declare_heuristic(bidder_hand),
+        BID,
+        n_inner,
+        0,
+        7,
+        Deadline::after(std::time::Duration::from_secs(86_400)),
+    ));
+    Solver::new(
+        sh,
+        Seat::from_index(1).expect("seat"),
+        0,
+        true,
+        Vec::new(),
+        Vec::new(),
+        Field::Level(0),
+    )
+}
+
+/// `tiltaudit bench` — the racing evaluator vs the full evaluator, head to
+/// head on the same roots: agreement, worlds consumed, wall clock.
+fn bench(args: &[String]) {
+    let arg = |i: usize, dflt: usize| args.get(i).map_or(dflt, |s| s.parse().expect("usize arg"));
+    let n_hands = arg(2, 12) as u64;
+    let t_target = arg(3, 3);
+    let n_full = arg(4, 40);
+    let n0 = arg(5, 8);
+    let n_max = arg(6, 100);
+    let n_self = arg(7, 20);
+    let secs = arg(8, 120) as u64;
+    let cfg = Cfg {
+        n_disc: n_full,
+        n0,
+        secs,
+    };
+    println!("TILT RACE BENCH — EXPLORATORY; estimates, never receipts");
+    println!(
+        "hands={n_hands} t_target={t_target} full: n={n_full} n0={n0} | race: n_max={n_max} n0={n0} n_self={n_self} ({} threads)\n",
+        rayon::current_num_threads()
+    );
+    let mut roots = 0usize;
+    let mut agree = 0usize;
+    let mut blk_agree = 0usize;
+    let mut full_ms_sum = 0u128;
+    let mut race_ms_sum = 0u128;
+    let mut blk_ms_sum = 0u128;
+    let mut worlds_sum = 0usize;
+    let mut blk_worlds_sum = 0usize;
+    for h in 0..n_hands {
+        let field_host = hand_host(h, vec![cfg.n0]);
+        let Some(root) = find_root(h, t_target, &cfg, &field_host) else {
+            println!("hand {h}: no eligible root — skipped");
+            continue;
+        };
+        let key = key_of(&root.st);
+        let seat = Seat::from_index(1).expect("seat");
+
+        let t_full = Instant::now();
+        let mut frng = policy_rng(h, 0, &key);
+        let Some(opts) = level1_evaluate(
+            root.dcl,
+            BID,
+            seat,
+            root.rem1,
+            root.legal,
+            &key,
+            sizes_at(&root.st),
+            root.st.voids,
+            root.st.trick_start_played,
+            7 - root.st.completed,
+            n_full,
+            cfg.n0,
+            secs,
+            &mut frng,
+        ) else {
+            println!("hand {h}: full evaluation died — skipped");
+            continue;
+        };
+        let full_choice = best_of(&opts, true);
+        let full_ms = t_full.elapsed().as_millis();
+
+        let t_race = Instant::now();
+        let mut rrng = SplitMix64(PANEL_SEED ^ mix(h) ^ record_hash(&key));
+        let Some(race) = level1_race(
+            root.dcl,
+            BID,
+            seat,
+            root.rem1,
+            root.legal,
+            &key,
+            sizes_at(&root.st),
+            root.st.voids,
+            root.st.trick_start_played,
+            7 - root.st.completed,
+            n_max,
+            cfg.n0,
+            n_self,
+            secs,
+            &mut rrng,
+        ) else {
+            println!("hand {h}: race died — skipped");
+            continue;
+        };
+        let race_ms = t_race.elapsed().as_millis();
+
+        let t_blk = Instant::now();
+        let mut brng = SplitMix64(PANEL_SEED ^ mix(h) ^ 0xB10C_0000_0000_0001 ^ record_hash(&key));
+        let Some(blk) = level1_raced(
+            root.dcl,
+            BID,
+            seat,
+            root.rem1,
+            root.legal,
+            &key,
+            sizes_at(&root.st),
+            root.st.voids,
+            root.st.trick_start_played,
+            7 - root.st.completed,
+            n_max,
+            cfg.n0,
+            8,
+            secs,
+            &mut brng,
+        ) else {
+            println!("hand {h}: block race died — skipped");
+            continue;
+        };
+        let blk_ms = t_blk.elapsed().as_millis();
+
+        roots += 1;
+        let same = race.choice == full_choice;
+        if same {
+            agree += 1;
+        }
+        let bsame = blk.choice == full_choice;
+        if bsame {
+            blk_agree += 1;
+        }
+        full_ms_sum += full_ms;
+        race_ms_sum += race_ms;
+        blk_ms_sum += blk_ms;
+        worlds_sum += race.worlds_used;
+        blk_worlds_sum += blk.worlds_used;
+        let tally: Vec<String> = race
+            .tally
+            .iter()
+            .map(|(t, s, n)| format!("{}:{s}/{n}", tile_name(*t)))
+            .collect();
+        let survivors: Vec<String> = blk
+            .values
+            .iter()
+            .map(|(t, v, w)| format!("{}:{}bp/{w}w", tile_name(*t), bp(v)))
+            .collect();
+        println!(
+            "hand {h} trick {} ({} legal): full {} {full_ms}ms | replay-race {} {}w {race_ms}ms | block-race {} {}w {blk_ms}ms",
+            root.st.completed + 1,
+            root.legal.count_ones(),
+            tile_name(full_choice),
+            tile_name(race.choice),
+            race.worlds_used,
+            tile_name(blk.choice),
+            blk.worlds_used,
+        );
+        println!(
+            "  replay tally [{}]  block survivors [{}]{}{}",
+            tally.join(" "),
+            survivors.join(" "),
+            if same { "" } else { "  << replay DISAGREES" },
+            if bsame { "" } else { "  << block DISAGREES" }
+        );
+    }
+    if roots > 0 {
+        println!(
+            "\nvs full: replay-race agrees {agree}/{roots} (mean {}ms, {} worlds), block-race agrees {blk_agree}/{roots} (mean {}ms, {} worlds); full mean {}ms",
+            race_ms_sum / roots as u128,
+            worlds_sum / roots,
+            blk_ms_sum / roots as u128,
+            blk_worlds_sum / roots,
+            full_ms_sum / roots as u128,
+        );
+    }
+    println!("nothing above exploratory tier; race choices are a play policy, never receipts");
+}
+
 fn main() {
     let args: Vec<String> = std::env::args().collect();
+    if args.get(1).map(String::as_str) == Some("bench") {
+        bench(&args);
+        return;
+    }
     let arg = |i: usize, dflt: usize| args.get(i).map_or(dflt, |s| s.parse().expect("usize arg"));
     let n_hands = arg(1, 4) as u64;
     let t_target = arg(2, 4);
@@ -377,33 +576,8 @@ fn main() {
 
     let mut audited = 0usize;
     for h in 0..n_hands {
-        // One Shared per hand: the pi cache is pure in (k, PiKey), so path
-        // and every replay share field decisions (SP-A8 economy).
-        let sh = Arc::new(Shared::new(
-            declare_heuristic({
-                let mut rng = SplitMix64(TILT_SEED ^ mix(h));
-                let mut tiles: Vec<u8> = (0..28).collect();
-                for i in (1..tiles.len()).rev() {
-                    let j = rng.below((i + 1) as u64) as usize;
-                    tiles.swap(i, j);
-                }
-                tiles[7..14].iter().fold(0u32, |a, &t| a | (1u32 << t))
-            }),
-            BID,
-            vec![cfg.n0],
-            0,
-            7,
-            Deadline::after(std::time::Duration::from_secs(86_400)),
-        ));
-        let field_host = Solver::new(
-            Arc::clone(&sh),
-            Seat::from_index(1).expect("seat"),
-            0,
-            true,
-            Vec::new(),
-            Vec::new(),
-            Field::Level(0),
-        );
+        let field_host = hand_host(h, vec![cfg.n0]);
+        let sh = Arc::clone(&field_host.sh);
 
         let t0 = Instant::now();
         let Some(root) = find_root(h, t_target, &cfg, &field_host) else {

@@ -182,3 +182,97 @@ fn full_hand_all_walt() {
     );
     println!("record: {}", flat.join(" "));
 }
+
+/// The race-then-refine play mode (`race 1`): a full hand with all four
+/// seats racing. Same walt-core refereeing and conformance asserts as the
+/// default-mode test; the record may lawfully differ from the full-mode
+/// trace (different play policy), but every choice must be legal, every
+/// response deterministic, and every open decision marked `"raced":true`.
+#[test]
+fn full_hand_all_walt_raced() {
+    let hands = deal(1);
+    // Reuse hand 1's known contract shape (auctioned in the default test):
+    // S0 wins at 42; declare through the API for the declaration.
+    let (hand_no, bidder, bid) = (1u64, 0usize, 42u8);
+    let dreq = format!(
+        "walt1 declare\n{}\nbid {bid}\nn {N}\nn0 {N0}\nseed {}\n",
+        hand_line(hands[bidder]),
+        SEED ^ mix(hand_no)
+    );
+    let dresp = handle(&dreq);
+    assert!(!dresp.contains("error"), "declare errored: {dresp}");
+    let decl_id = field_i64(&dresp, "decl") as usize;
+    let dcl = decl_of(decl_id);
+
+    let mut record: Vec<(usize, usize)> = Vec::new();
+    let mut leader = bidder;
+    let mut trick_tiles: Vec<u8> = Vec::new();
+    let mut points = [0u8; 2];
+    let mut played_mask = 0u32;
+    let mut determinism_checked = false;
+    for _trick in 0..7 {
+        for pos in 0..4 {
+            let actor = (leader + pos) % 4;
+            let plays_flat: Vec<String> = record
+                .iter()
+                .flat_map(|&(a, t)| [a.to_string(), t.to_string()])
+                .collect();
+            let req = format!(
+                "walt1 play\ndecl {decl_id}\nbid {bid}\nseat {actor}\nbidder {bidder}\n{}\nplays {}\nrace 1\nn {N}\nn0 {N0}\nseed {}\n",
+                hand_line(hands[actor]),
+                plays_flat.join(" "),
+                SEED ^ mix(hand_no)
+            );
+            let resp = handle(&req);
+            assert!(!resp.contains("error"), "play errored: {resp}");
+            if resp.contains("\"forced\":false") {
+                assert!(
+                    resp.contains("\"raced\":true"),
+                    "open decision raced: {resp}"
+                );
+                if !determinism_checked {
+                    assert_eq!(resp, handle(&req), "same request, same bytes");
+                    determinism_checked = true;
+                }
+            }
+            assert_eq!(field_i64(&resp, "leader") as usize, leader);
+            assert_eq!(field_arr0(&resp, "points") as u8, points[0]);
+            let tile = field_i64(&resp, "choice") as u8;
+            let hand_now = hands[actor] & !played_mask;
+            let led: Option<Context> = trick_tiles
+                .first()
+                .map(|&i| dcl.led_context(Domino::from_index(usize::from(i)).expect("led")));
+            let legal = legal_plays(dcl, set_of(hand_now), led);
+            let dm = Domino::from_index(usize::from(tile)).expect("tile");
+            assert!(legal.contains(dm), "illegal raced choice {tile}");
+            played_mask |= bit(dm);
+            trick_tiles.push(tile);
+            record.push((actor, usize::from(tile)));
+        }
+        let doms = [
+            Domino::from_index(usize::from(trick_tiles[0])).expect("p0"),
+            Domino::from_index(usize::from(trick_tiles[1])).expect("p1"),
+            Domino::from_index(usize::from(trick_tiles[2])).expect("p2"),
+            Domino::from_index(usize::from(trick_tiles[3])).expect("p3"),
+        ];
+        let trick = Trick::new(Seat::from_index(leader).expect("leader"), doms).expect("distinct");
+        let winner = trick.winner(dcl);
+        let pts = trick.points() as u8;
+        points[usize::from(winner.team() == Team::T1)] += pts;
+        leader = winner.index();
+        trick_tiles.clear();
+    }
+    assert_eq!(played_mask, walt_m3_probe::FULL_MASK, "all 28 tiles played");
+    assert!(determinism_checked, "at least one open decision occurred");
+    assert_eq!(u32::from(points[0]) + u32::from(points[1]), 42);
+    let flat: Vec<String> = record
+        .iter()
+        .flat_map(|&(a, t)| [a.to_string(), t.to_string()])
+        .collect();
+    println!(
+        "raced hand {hand_no}: decl {decl_id}; points {}-{}; record: {}",
+        points[0],
+        points[1],
+        flat.join(" ")
+    );
+}

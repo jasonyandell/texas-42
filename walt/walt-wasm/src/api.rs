@@ -37,8 +37,8 @@ use num_traits::Zero;
 use walt_core::rules::legal_plays;
 use walt_core::{Context, Decl, Domino, Seat, Team};
 use walt_m3_probe::{
-    best_of, bit, bp, decl_of, level1_evaluate, mask_of, mix, record_hash, replay, sample_belief,
-    set_of, Deadline, Field, Key, Shared, Solver, SplitMix64,
+    best_of, bit, bp, decl_of, level1_evaluate, level1_race_refined, mask_of, mix, record_hash,
+    replay, sample_belief, set_of, Deadline, Field, Key, Shared, Solver, SplitMix64,
 };
 
 /// Default decision-stream seed (the bridge's frozen e-digits constant).
@@ -176,6 +176,7 @@ fn handle_play(r: &Req) -> Result<String, String> {
     let n0 = r.scalar_or("n0", 8)? as usize;
     let seed = r.scalar_or("seed", DEFAULT_SEED)?;
     let budget_ms = r.scalar_or("budget_ms", 120_000)?;
+    let race_mode = r.scalar_or("race", 0)? != 0;
 
     let st = replay(dcl, bidder_arena, &pairs);
     let viewer_i = (seat_arena + st.r) % 4;
@@ -195,8 +196,8 @@ fn handle_play(r: &Req) -> Result<String, String> {
         return Err("viewer has no legal play (empty hand?)".to_string());
     }
 
-    let (chosen, forced, opts) = if legal.count_ones() == 1 {
-        (legal.trailing_zeros() as u8, true, Vec::new())
+    let (chosen, forced, opts, raced) = if legal.count_ones() == 1 {
+        (legal.trailing_zeros() as u8, true, Vec::new(), false)
     } else {
         let key = Key {
             played: st.played,
@@ -211,25 +212,51 @@ fn handle_play(r: &Req) -> Result<String, String> {
             sizes[(usize::from(st.leader) + i) % 4] -= 1;
         }
         let mut rng = SplitMix64(seed ^ mix(u64::from(hand0)) ^ record_hash(&key));
-        let opts = level1_evaluate(
-            dcl,
-            bid,
-            seat,
-            hand,
-            legal,
-            &key,
-            sizes,
-            st.voids,
-            st.trick_start_played,
-            7 - st.completed,
-            n_outer,
-            n0,
-            budget_ms.div_ceil(1000).max(1),
-            &mut rng,
-        )
-        .ok_or("evaluation deadline hit")?;
-        let choice = best_of(&opts, seat.team() == Team::T1);
-        (choice, false, opts)
+        if race_mode {
+            // Race-then-refine (EXPLORATORY; adjudicated SP-A rulings):
+            // block-race eliminates dominated tiles on CRN world blocks at
+            // a 2n cap, and only a surviving saturation tie pays for the
+            // full evaluator's refinement. No per-option values reported.
+            let choice = level1_race_refined(
+                dcl,
+                bid,
+                seat,
+                hand,
+                legal,
+                &key,
+                sizes,
+                st.voids,
+                st.trick_start_played,
+                7 - st.completed,
+                n_outer * 2,
+                n_outer,
+                n0,
+                budget_ms.div_ceil(1000).max(1),
+                &mut rng,
+            )
+            .ok_or("evaluation deadline hit")?;
+            (choice, false, Vec::new(), true)
+        } else {
+            let opts = level1_evaluate(
+                dcl,
+                bid,
+                seat,
+                hand,
+                legal,
+                &key,
+                sizes,
+                st.voids,
+                st.trick_start_played,
+                7 - st.completed,
+                n_outer,
+                n0,
+                budget_ms.div_ceil(1000).max(1),
+                &mut rng,
+            )
+            .ok_or("evaluation deadline hit")?;
+            let choice = best_of(&opts, seat.team() == Team::T1);
+            (choice, false, opts, false)
+        }
     };
 
     // Reply in arena labels (the bridge's conformance convention): arena
@@ -241,7 +268,7 @@ fn handle_play(r: &Req) -> Result<String, String> {
         (st.banked_t0, st.banked_t1)
     };
     Ok(format!(
-        "{{\"v\":1,\"kind\":\"play\",\"choice\":{chosen},\"forced\":{forced},\"opts\":{},\"leader\":{leader_arena},\"points\":[{points0},{points1}]}}",
+        "{{\"v\":1,\"kind\":\"play\",\"choice\":{chosen},\"forced\":{forced},\"raced\":{raced},\"opts\":{},\"leader\":{leader_arena},\"points\":[{points0},{points1}]}}",
         opts_json(&opts)
     ))
 }
