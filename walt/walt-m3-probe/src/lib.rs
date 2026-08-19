@@ -693,6 +693,22 @@ impl Solver {
             .insert((kb, pk), choice);
         Some(choice)
     }
+
+    /// Public exposure of the modeled level-k field policy at an information
+    /// state — exactly the `pi` the solver consults internally (pure in
+    /// (k, PiKey), cached on the `Shared`). For replay/audit tooling (the
+    /// tilt audit): one authority, never a copy. Note the level-0 field is
+    /// deterministic in (seat, hand, record) — there is no external tape.
+    pub fn modeled_choice(
+        &self,
+        k: usize,
+        key: &Key,
+        seat: Seat,
+        hand: u32,
+        legal_mask: u32,
+    ) -> Option<u8> {
+        self.pi(k, key, seat, hand, legal_mask)
+    }
 }
 
 /// Void-conditioned belief sampler: uniform on the lawful-completion fiber
