@@ -34,9 +34,9 @@ use num_rational::BigRational;
 
 use walt_core::{legal_plays, Context, Decl, Domino, Pip, Seat, Team};
 use walt_m3_probe::{
-    best_of, bit, bp, level1_evaluate, level1_race, level1_raced, mask_bits, mask_of, mix,
-    record_hash, sample_belief, set_of, Deadline, Field, Key, Shared, Solver, SplitMix64,
-    FULL_MASK,
+    best_of, bit, bp, level1_evaluate, level1_race, level1_race_refined, level1_raced, mask_bits,
+    mask_of, mix, record_hash, sample_belief, set_of, Deadline, Field, Key, Shared, Solver,
+    SplitMix64, FULL_MASK,
 };
 
 /// Frozen tilt-audit stream seeds (fresh constants; deal/path, discovery,
@@ -551,10 +551,170 @@ fn bench(args: &[String]) {
     println!("nothing above exploratory tier; race choices are a play policy, never receipts");
 }
 
+/// `tiltaudit arena` — mirrored self-play: on each deal, one team's open
+/// decisions use race-then-refine and the other team's use the full
+/// evaluator; then the sides swap on the same deal. Paired outcome: did
+/// the bidding team (always internal T1, bid 30) make, under each mode?
+/// Same exact-binomial summary as the races. No modeled field — all four
+/// seats are real deciders.
+fn arena(args: &[String]) {
+    let arg = |i: usize, dflt: usize| args.get(i).map_or(dflt, |s| s.parse().expect("usize arg"));
+    let n_hands = arg(2, 24) as u64;
+    let n = arg(3, 40);
+    let n0 = arg(4, 8);
+    let secs = arg(5, 120) as u64;
+    println!("TILT ARENA — race-refined vs full, mirrored deals — EXPLORATORY");
+    println!("hands={n_hands} n={n} n0={n0} (race cap 2n, refine n)\n");
+    const ARENA_SEED: u64 = 0xA2E4_A000_0000_0042;
+    let mut made = [[false; 2]; 64]; // [hand][flip: 0 = race bids]
+    let mut ms_race = 0u128;
+    let mut ms_full = 0u128;
+    let mut dec_race = 0u64;
+    let mut dec_full = 0u64;
+    for h in 0..n_hands {
+        for flip in 0..2u64 {
+            let mut rng = SplitMix64(TILT_SEED ^ mix(h));
+            let mut tiles: Vec<u8> = (0..28).collect();
+            for i in (1..tiles.len()).rev() {
+                let j = rng.below((i + 1) as u64) as usize;
+                tiles.swap(i, j);
+            }
+            let mut hands = [0u32; 4];
+            for (s, hand) in hands.iter_mut().enumerate() {
+                for &t in &tiles[7 * s..7 * (s + 1)] {
+                    *hand |= 1u32 << t;
+                }
+            }
+            let dcl = declare_heuristic(hands[1]);
+            let mut st = State {
+                played: 0,
+                leader: 1,
+                plays: Vec::new(),
+                banked_t1: 0,
+                banked_t0: 0,
+                voids: [0; 4],
+                trick_start_played: 0,
+                completed: 0,
+            };
+            let mut dead = false;
+            while st.played != FULL_MASK {
+                let seat_idx = (usize::from(st.leader) + st.plays.len()) % 4;
+                let hand = hands[seat_idx] & !st.played;
+                let legal = legal_at(&st, dcl, hand);
+                let choice: u8 = if legal.count_ones() == 1 {
+                    legal.trailing_zeros() as u8
+                } else {
+                    let seat = Seat::from_index(seat_idx).expect("seat");
+                    let on_t1 = seat.team() == Team::T1;
+                    let racing = on_t1 == (flip == 0);
+                    let key = key_of(&st);
+                    let mut drng = SplitMix64(ARENA_SEED ^ mix(h) ^ mix(flip) ^ record_hash(&key));
+                    let t0 = Instant::now();
+                    let pick = if racing {
+                        level1_race_refined(
+                            dcl,
+                            BID,
+                            seat,
+                            hand,
+                            legal,
+                            &key,
+                            sizes_at(&st),
+                            st.voids,
+                            st.trick_start_played,
+                            7 - st.completed,
+                            2 * n,
+                            n,
+                            n0,
+                            secs,
+                            &mut drng,
+                        )
+                    } else {
+                        level1_evaluate(
+                            dcl,
+                            BID,
+                            seat,
+                            hand,
+                            legal,
+                            &key,
+                            sizes_at(&st),
+                            st.voids,
+                            st.trick_start_played,
+                            7 - st.completed,
+                            n,
+                            n0,
+                            secs,
+                            &mut drng,
+                        )
+                        .map(|opts| best_of(&opts, on_t1))
+                    };
+                    let ms = t0.elapsed().as_millis();
+                    if racing {
+                        ms_race += ms;
+                        dec_race += 1;
+                    } else {
+                        ms_full += ms;
+                        dec_full += 1;
+                    }
+                    match pick {
+                        Some(t) => t,
+                        None => {
+                            dead = true;
+                            break;
+                        }
+                    }
+                };
+                advance(
+                    &mut st,
+                    dcl,
+                    Domino::from_index(usize::from(choice)).expect("tile"),
+                );
+            }
+            if dead {
+                println!("hand {h} flip {flip}: budget death — pair dropped");
+                continue;
+            }
+            made[h as usize][flip as usize] = st.banked_t1 >= BID;
+            println!(
+                "hand {h} flip {flip}: bidding team ({}) {} — {}:{}",
+                if flip == 0 { "RACE" } else { "full" },
+                if st.banked_t1 >= BID { "MADE" } else { "SET " },
+                st.banked_t1,
+                st.banked_t0
+            );
+        }
+    }
+    let n_plus = (0..n_hands as usize)
+        .filter(|&i| made[i][0] && !made[i][1])
+        .count();
+    let n_minus = (0..n_hands as usize)
+        .filter(|&i| !made[i][0] && made[i][1])
+        .count();
+    let both = (0..n_hands as usize)
+        .filter(|&i| made[i][0] && made[i][1])
+        .count();
+    println!(
+        "\npaired makes as bidder over {n_hands} deals: race-only {n_plus}, full-only {n_minus}, both {both}"
+    );
+    println!(
+        "decision cost: race {}ms/{} decisions (mean {}ms) vs full {}ms/{} (mean {}ms)",
+        ms_race,
+        dec_race,
+        ms_race / u128::from(dec_race.max(1)),
+        ms_full,
+        dec_full,
+        ms_full / u128::from(dec_full.max(1)),
+    );
+    println!("nothing above exploratory tier; arena outcomes are never receipts");
+}
+
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     if args.get(1).map(String::as_str) == Some("bench") {
         bench(&args);
+        return;
+    }
+    if args.get(1).map(String::as_str) == Some("arena") {
+        arena(&args);
         return;
     }
     let arg = |i: usize, dflt: usize| args.get(i).map_or(dflt, |s| s.parse().expect("usize arg"));
