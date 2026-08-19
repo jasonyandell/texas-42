@@ -1,6 +1,7 @@
-# The tilt audit (E0) — smoke design
+# The tilt audit (E0) — smoke design and first results
 
-Status: DESIGN, exploratory tier throughout. Owns: the E0 experiment of
+Status: SMOKE RUN 2026-08-19 (results at bottom), exploratory tier
+throughout. Owns: the E0 experiment of
 `math/signed_pivotal_geometry_v0.1.md` §9 as adopted and amended by the
 signed-pivotal intake adjudication (`CENSUS-RULINGS.md` SP-A1..SP-A12).
 Sources: the parent (verbatim, filed), the intake companion,
@@ -101,3 +102,53 @@ a time.
 - Honest near-ties: positions where |τ̂| stays near zero after large
   pivotal evidence are declared practically indifferent, not re-sampled
   into submission (O14).
+
+## Smoke results (2026-08-19, `tiltaudit.rs`, commits 81a1943/f60b2e3)
+
+All numbers exploratory estimates from the driver's own frozen seeds.
+
+**Structural finding first: the modeled field has no tape.** The level-0
+mind (`Solver::modeled_choice`) is a pure function of (seat, hand, public
+record) — its inner randomness is derived from state, not drawn. So under
+the current field model a scenario IS a world, every world is tape-stable
+by construction, and Phase E is vacuous until a stochastic field model
+exists. The response lock's tape component is closed for free; SP-A6's
+seed split becomes relevant only when a stochastic field is introduced.
+
+**Trick-6 roots (2 hands, panel 30, 2 seeds):** textbook Case B — q =
+2000–3000bp, τ = +1000 per-mille exactly (every pivotal world points at
+the discovered choice), H ≤ 4, policies behaviorally identical across
+seeds. Winner recovered at 25 worlds.
+
+**Trick-4 roots (8 hands, panel 100, 4 seeds):** strong-gap hands
+(pooled D = 25–32/400) recover the winner 4/4 at 25 worlds; near-ties
+(D = 4–9/400) are honestly near-tied and recovery hovers at chance until
+~100 worlds. Behavioral instability exists but is small (max pairwise
+disagreement 8/100 worlds; usually ≤ 4). One discovery-selection error
+caught in the act (§3's bias, live): hand 0's discovery majority picked
+65 while the 800-replay panel prefers 62.
+
+**Racing (the solver application), `tiltaudit bench`:**
+
+- *Replay-race* (frozen policies on a common panel, exact binomial
+  elimination): the audit-faithful object, but replay ≈ re-solve without
+  explicit extraction — SP-A9's cost correction, now measured (5.9s vs
+  full's 0.46s at trick 2). Notably its hand-0 choice sides with the
+  audit panel against the full evaluator.
+- *Block-race* (`level1_raced`): candidates bundle-solved on CRN blocks
+  of 8, paired per-block sign test, losers stop consuming worlds.
+  Opening leads: **745ms vs full's 1230ms while processing 100 worlds vs
+  40**. Every disagreement with the full mode is a saturation tie
+  (multiple candidates at or near 10000bp — bid-30 trick-1 saturation).
+- *Race-then-refine* (`level1_race_refined`): block-race eliminates,
+  surviving saturation ties go to the existing 16× refinement. Wired
+  into walt-wasm as opt-in `race 1` (default path byte-identical; race
+  full-hand test lawful/deterministic/conformant).
+
+**Road verdict (parent §0, so far):** sampling road confirmed for
+mid/late grades (Case B/D dominate; H small); search-instability road
+mostly quiet (small behavioral spread, but hand 0 shows it is not zero);
+counted-boundary road untested (Phase F not run); plan-library road
+untested. Next gates: arena validation of race mode (48-game bracket vs
+full mode), Phase F predicate mining over the stored panels, and the
+level-2 saturation-tie episode as an anchor.

@@ -520,3 +520,17 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   panels, `tiltaudit.rs` driver shape. Phase E blocked on the SP-A6
   world/tape seed split. θ-sweep analysis predeclared (O14) at 23:49,
   before the n=200 reference pass completed.
+- 2026-08-19 (small hours): the tilt audit RAN (`tiltaudit.rs`;
+  `Solver::modeled_choice` exposes the lib's pi — one authority). Field
+  found DETERMINISTIC (no tape; scenario = world; Phase E vacuous until a
+  stochastic field exists). Trick-6: pure Case B (q 20–30%, τ = +1000pm
+  exact, H ≤ 4). Trick-4: strong gaps recover at 25 worlds; near-ties are
+  honest; instability small (≤ 8/100) but hand 0 caught a live
+  discovery-selection error (panel prefers 62 over the majority's 65).
+- 2026-08-19: race-then-refine applied to the seat: `level1_raced` (CRN
+  block racing, exact binomial elimination — opening leads 745ms vs full
+  1230ms at 100 worlds vs 40; disagreements are saturation ties only) and
+  `level1_race_refined` (survivor ties → the 16× refinement), shipped as
+  walt-wasm opt-in `race 1` with a race-mode full-hand conformance test.
+  Default path byte-identical (Node smoke still 28/28 vs native trace).
+  Next gate: arena bracket race-vs-full. Exploratory play policy.
