@@ -534,3 +534,13 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   walt-wasm opt-in `race 1` with a race-mode full-hand conformance test.
   Default path byte-identical (Node smoke still 28/28 vs native trace).
   Next gate: arena bracket race-vs-full. Exploratory play policy.
+- 2026-08-19 01:34: bidcurve calibration corpus COMPLETE (3 passes × 200
+  hands, zero died cells; logs + predeclared single-look analysis filed in
+  `probes/bidcurve/`). θ CALIBRATED: at n=40 vs the n=200 reference,
+  θ=1/2 overbid 37/200 (mean walked bid ~41 — the known saturation
+  overbid, quantified); **11/16 = first rung with 0 overbids and 0 missed
+  bids** → new default in walt-wasm `bid` and webtable (θ stays a request
+  parameter). Saturated n=40 cells average 9810bp in the reference; n=12
+  is unfixable by θ (11 overbids at 11/16); trump first-max n40-vs-n200
+  agreement 159/200 (declaration noisier than bidding). Solo-auction
+  protocol caveat travels with all numbers. Estimates, never receipts.

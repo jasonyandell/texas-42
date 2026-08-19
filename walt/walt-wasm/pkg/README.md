@@ -78,10 +78,12 @@ play. Walt is the straight-42 specialist.
 At the seat's turn: `bid({hand, need})` where `need` is current high + 1
 (or 30). Response is `pass`, or `bid` with the walked-up level and the
 declaration it leans on (not binding — declare for real after winning
-with `declare({hand, bid})`). Calibration note: the default θ = 1/2 on
-small samples is known to overbid on saturated hands; θ and `n` are
-request parameters, and the tuned values will come out of the bidcurve
-calibration corpus.
+with `declare({hand, bid})`). Calibration note: the default θ is
+**11/16**, the first zero-overbid rung of the 200-hand bidcurve
+calibration corpus (2026-08-19: at n=40 against an n=200 nested-CRN
+reference, θ = 1/2 overbid 37/200 hands; 11/16 overbid 0 with 0 missed
+bids). θ stays a request parameter; don't lower n below ~40 — small
+samples overbid in a way no θ repairs.
 
 ### Conformance assertion (do this)
 
