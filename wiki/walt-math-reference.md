@@ -73,7 +73,9 @@ internalise. The full artifact-by-artifact provenance map is
 | `walt/math/signed_pivotal_geometry_v0.1_intake.md` | **Intake companion** | The exact-rational verification of every boxed identity in the parent, which the SP-A audit takes as read. |
 | `walt/SCENARIO-PLAYER.md` | **Maintained spec v0.1** | The sampling-stack seat's mathematical specification — definitions and **proof obligations, not established results**; its §10 obligations ledger (O1–O9, O12–O19) is the graduation queue. |
 | `walt/TILT-AUDIT.md` | **Maintained probe document** | The E0 experiment as adopted and amended by SP-A1..A12; smoke design, objects, and the 2026-08-19 smoke results. Estimates, never receipts. |
-| `walt/LEVEL2-PROBE.md` | **Spec only, deliberately not started** | The level-2 field-swap detector, gated on unification (done) and the adaptive-sampling mathematics (pending). |
+| `walt/LEVEL2-PROBE.md` | **Spec only, deliberately not started** | The level-2 field-swap detector, gated on unification (done) and the adaptive-sampling mathematics (landed 2026-08-24, adjudication pending). |
+| `walt/math/calculated_evidence_v0.1.md` | **Received, verbatim, checksum-pinned** | *Calculated Evidence for Unified Walt* (hand-ferried 2026-08-24), SHA-256 `9b32b14f…`. Anytime-valid adaptive settlement (CE-T1..T5), risk ledgers, the information rate `q·D_{1/2}(τ)`, exact-fiber escalation, result typing, proposed O20–O28. **Adjudication pending; consumed by nothing yet.** |
+| `walt/math/calculated_evidence_v0.1_intake.md` | **Intake companion** | The exact-rational verification of every boxed identity in the parent (18/18 PASS, three-way on the central closed form; `verify_calculated_evidence_v0.1.py`), vocabulary and O-numbering adjudication notes, verified code boundaries, and the Pro refinement agenda. |
 
 **Citation rule (DS-A17), binding on every design and results file:** cite the
 **errata theorem number** for the mathematics and the **DS-A ruling** for its

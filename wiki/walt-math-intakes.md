@@ -52,6 +52,7 @@ walt's exploratory fence, never the CONFIRMED pipeline.
 | GPU-native (Pro) | `gpu_native_trick1_implementers_guide_v0.2.md`, the M2 and M3 rebriefs | `walt/GPU-NATIVE-TRICK1.md` (v0.3), `-M2.md`, `-M3.md` (frozen contracts) | GT1-A1..A24 | Portable M0/M1 and M2 Metal parity complete; M3 gate frozen, no M3 result |
 | Signed-pivotal (side-channel) | `signed_pivotal_geometry_v0.1.md` | `signed_pivotal_geometry_v0.1_intake.md` (intake audit) | SP-A1..A12 | Sound but for one repaired claim; spawned the tilt audit and obligations O12–O19 |
 | In-house question/ruling | `WALT-MATH-QUESTION-2026-08-17-…` | `WALT-MATH-RULING-2026-08-17-…` (advisory) | none — advisory, no ruling family | P1–P4 sound; the §12.6A instance stated; the path-dependence counterexample |
+| Calculated evidence (side-channel) | `calculated_evidence_v0.1.md` (SHA-256 `9b32b14f…`) | `calculated_evidence_v0.1_intake.md` (intake audit) + `verify_calculated_evidence_v0.1.py` | pending — Pro refinement pass next, then adjudication; proposes CE-T1..T5 and obligations O20–O28 | Anytime-valid adaptive settlement: exact-rational evidence processes replace fixed sample counts; all 18 mechanical identity checks PASS at intake (2026-08-24) |
 
 ## 1. The frozen bases
 
@@ -228,13 +229,43 @@ Artifact map only; the adjudicated content lives on
   and the honest negative on hand 8. Indexed with the scenario era on
   [the reference map](walt-math-reference.md#the-scenario-player-era--signed-pivotal-geometry-the-tilt-audit-and-the-level-2-detector).
 
-## 6. The pinned manifests
+## 6. The calculated-evidence thread — side-channel, hand-ferried
+
+- **`walt/math/calculated_evidence_v0.1.md`** — *Calculated Evidence for
+  Unified Walt* (received verbatim 2026-08-24, hand-ferried by Jason;
+  checksum-pinned, SHA-256 `9b32b14f…`; not an automation dispatch —
+  the courier ledger is untouched). The adaptive-settlement mathematics
+  the board queued as [[adaptive-sampling-intake]]: exact-rational
+  anytime-valid evidence processes (CE-T1..T5 — Bernoulli-threshold,
+  signed-pivotal, and bounded-mean betting supermartingales), a
+  decision/run risk-ledger discipline, the information rate
+  `𝓘 = q·D_{1/2}(τ)` as the true sampling-cost coordinate, monotone
+  escalation from sampling to exact full-fiber enumeration, the six-way
+  result-type ladder, frozen-policy identity (`FreezeTuple`/`PolicyId`),
+  the level-2 wake-up decomposition (response/value/decision), and
+  proposed obligations **O20–O28** continuing the SCENARIO-PLAYER line.
+  Self-describes its reviewed snapshot as main `4231cb2…` — verified at
+  intake to be exactly the post-reorganization state.
+- **`walt/math/calculated_evidence_v0.1_intake.md`** — **the intake
+  companion** (maintained). All 18 mechanical identity checks PASS
+  exactly (`verify_calculated_evidence_v0.1.py`, stdlib rationals, no
+  floats; the central closed form verified three independent ways over
+  the V1 grid). Records the vocabulary adjudication proposal (θ = pivotal
+  win share / ϑ = auction threshold, resolving the collision the
+  signed-pivotal companion flagged), the O20–O28 numbering check, the
+  verified current-code boundaries (the legacy `sample_belief` seam has
+  three expressions, not one; the `16×` literal sits at two sites), and
+  the six-point adjudication agenda for the Pro refinement pass.
+  **Adjudication pending** — no CE ruling family exists yet; nothing from
+  this lineage may be consumed by a design until it does.
+
+## 7. The pinned manifests
 
 The `.sha256` files under `walt/math/` are **pinned freeze artifacts** — never
 edited, superseded only by append-only re-issue.
 
-Only the two received parents below carry companion `.sha256` files; the M2
-and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
+Only the three received parents below carry companion `.sha256` files; the
+M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
 
 | File | What it pins | Fixed at |
 |---|---|---|
@@ -243,12 +274,15 @@ and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
 | `gpu_native_trick1_m0_m1_sources_v1.sha256` | The portable M0/M1 source closure at the pre-fold layout — `BuildIdentityV1`, identity `eccf0a37…` | GT1-A9 / freeze 55 |
 | `gpu_native_trick1_m0_m2_sources_v1.sha256` | The cumulative M0–M2 source closure, **byte-immutable** — the `M2BuildIdentityV1` the standing M2 receipt names | GT1-A17 / freeze 56 |
 | `gpu_native_trick1_m0_m2_sources_v2.sha256` | The post-fold re-issue at the unified layout — a **new** build identity (`8a780895…`), attested by no hardware receipt yet | FZ-A1..A6; re-earning deferred to [[m2-receipt-reearn]] |
+| `calculated_evidence_v0.1.sha256` | The received calculated-evidence parent's byte identity (`9b32b14f…`) | the 2026-08-24 intake |
 
-## 7. Pending, and deliberately not indexed as landed
+## 8. Pending, and deliberately not indexed as landed
 
-- **The adaptive-sampling intake** — queued ([[adaptive-sampling-intake]]);
-  Jason's dig-until-settled mathematics has **not landed**, and
-  `walt/LEVEL2-PROBE.md` gates on it. Nothing to index yet.
+- **The calculated-evidence adjudication** — the parent landed 2026-08-24
+  (§6 above) but its refinement pass and rulings have not; O20–O28 and
+  CE-T1..T5 remain proposals. `walt/LEVEL2-PROBE.md`'s gate is satisfied
+  only when the adjudication closes and the outer loop applies it
+  ([[adaptive-sampling-intake]] tracks the full arc).
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03
