@@ -53,7 +53,7 @@ walt's exploratory fence, never the CONFIRMED pipeline.
 | Signed-pivotal (side-channel) | `signed_pivotal_geometry_v0.1.md` | `signed_pivotal_geometry_v0.1_intake.md` (intake audit) | SP-A1..A12 | Sound but for one repaired claim; spawned the tilt audit and obligations O12–O19 |
 | In-house question/ruling | `WALT-MATH-QUESTION-2026-08-17-…` | `WALT-MATH-RULING-2026-08-17-…` (advisory) | none — advisory, no ruling family | P1–P4 sound; the §12.6A instance stated; the path-dependence counterexample |
 | Calculated evidence (side-channel) | `calculated_evidence_v0.1.md` (SHA-256 `9b32b14f…`) | `calculated_evidence_v0.1_intake.md` (intake audit) + `verify_calculated_evidence_v0.1.py` | **CE-A1..A8** (2026-08-24, same-day; the parent already embodied Jason's Pro refinement pass) | Anytime-valid adaptive settlement: 18/18 exact checks PASS; identities SOUND (CE-A1); θ/ϑ split adopted (CE-A2); O20–O28 accepted (CE-A4); §22 is the build program (CE-A7) |
-| Targeted level-2 field stability (side-channel, same lineage) | `targeted_level2_field_stability_v0.1.md` (SHA-256 `597d33c3…`) | `targeted_level2_field_stability_v0.1_intake.md` (intake audit) + `verify_targeted_level2_field_stability_v0.1.py` | queued — agenda in the companion §6 | First-disagreement localization L2-T1..T5: 19/19 exact model-check PASS (~1.57M pair instances); exposure bounds turn level 2 into a calculated refinement; proposes O29–O38 |
+| Targeted level-2 field stability (side-channel, same lineage) | `targeted_level2_field_stability_v0.1.md` (SHA-256 `597d33c3…`) | `targeted_level2_field_stability_v0.1_intake.md` (intake audit) + `verify_targeted_level2_field_stability_v0.1.py` | **L2-A1..A7** (2026-08-24, same-day, under the standing same-lineage go) | First-disagreement localization L2-T1..T5 SOUND, 19/19 exact model-check (~1.57M pair instances); exposure bounds turn level 2 into a calculated refinement; O29–O38 accepted (L2-A2); build slots after CE shadow (L2-A6) |
 
 ## 1. The frozen bases
 
@@ -307,6 +307,17 @@ Artifact map only; the adjudicated content lives on
   the targeted controller), the Gran-anchor gap (game seeds not in-repo;
   reconstruction pending on the plunge side), and the seven-point
   adjudication agenda.
+  **Adjudicated same-day at L2-A1..A7** (`walt/CENSUS-RULINGS.md`,
+  2026-08-24, filed under the standing same-lineage go — the
+  authorization note travels with the rulings): L2-T1..T5 SOUND and
+  the targeting frame adopted (L2-A1); O29–O38 accepted (L2-A2); the
+  seven field-swap result kinds binding with Rust naming free (L2-A3);
+  exposure-tier typing binding, only `RootActionExposureUpper` feeds
+  the screen (L2-A4); LEVEL2-PROBE amended to the detection layer
+  (L2-A5); the field-swap build slots after the CE shadow step, Gran
+  anchors carded as [[gran-anchor-reconstruction]] (L2-A6); cycle
+  discipline and the level-3 tripwire adopted, no mitigation without a
+  separate intake (L2-A7).
 
 ## 7. The pinned manifests
 
@@ -328,13 +339,14 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
 
 ## 8. Pending, and deliberately not indexed as landed
 
-- **The level-2 field-stability adjudication** — the parent is filed,
-  verified (19/19), and companioned; the ruling family has not been
-  convened yet (agenda = companion §6). Nothing from the parent is
-  binding until then; O29–O38 remain proposals.
+- **The field-swap build** — the level-2 field-stability lineage is
+  adjudicated (L2-A1..A7) but not yet built: `solver::field` /
+  `exposure` / `field_swap` enter after the calculated-evidence shadow
+  step merges (L2-A6).
 - **The Gran anchor reconstruction** — G1–G4 require the two Plunge game
   seeds and full records, which live on the plunge side and are not in
-  this repository. The screenshots remain discovery artifacts.
+  this repository. The screenshots remain discovery artifacts. Carded
+  as [[gran-anchor-reconstruction]].
 - **The calculated-evidence build** — the lineage is adjudicated
   (CE-A1..A8) but not yet applied: `walt/LEVEL2-PROBE.md`'s gate is
   satisfied only when the outer adaptive controller lands with
