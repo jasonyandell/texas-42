@@ -15,10 +15,12 @@
 //! `solver::mod`, `bin/playout.rs`, and `bin/walt_bridge.rs` are untouched:
 //! they stay as-is outside this correctness path (parent §A.3, §11.1).
 //!
-//! Frozen policies in this slice are simple deterministic
-//! information-consistent policies whose identity is a declared constant;
-//! the full FreezeTuple/PolicyId machinery of parent §12 is a later step
-//! (§22 step 4).
+//! The [`SlicePolicy`] trait is the seam for frozen policies. This module
+//! keeps the simple declared-constant policies of the first slice
+//! ([`FixedPreference`]); the full FreezeTuple/PolicyId machinery of parent
+//! §12 (§22 step 4) lives in [`crate::solver::policy`], whose
+//! `FrozenPolicy` implements the same trait and plugs into
+//! [`evaluate_pair`] and [`exact_frozen_pair`] unchanged.
 
 use std::collections::HashMap;
 use std::fmt;
@@ -39,7 +41,10 @@ use crate::solver::{arena_decl_id, mix};
 pub const SAMPLER_ID: &str = "kernel-fiberdp-splitmix64-counter-v1";
 
 /// Domain-separation tag for the evidence world stream's seed derivation.
-const STREAM_DOMAIN: u64 = 0xCE00_51CE_0A6E_57A6;
+/// Public so the §12.4 disjointness gate can assert it differs from the
+/// discovery domain tag in [`crate::solver::policy`]: evidence and
+/// discovery streams must never share a seed derivation.
+pub const STREAM_DOMAIN: u64 = 0xCE00_51CE_0A6E_57A6;
 
 // ---------------------------------------------------------------------------
 // Result kinds (parent §1; CE-A3).
@@ -295,8 +300,9 @@ fn kernel_identity(kernel: &Kernel) -> u64 {
 
 /// The public frame of one root decision: declaration, contract, whose
 /// lead, banked totals so far, and the current partial trick. Derived by
-/// replay from a receipt — never stored authority.
-#[derive(Clone, Debug, PartialEq, Eq)]
+/// replay from a receipt — never stored authority. `Hash` so the frame can
+/// enter an information-consistent action key (`solver::policy`, §12.3).
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct RootPosition {
     pub decl: Decl,
     /// The contract in points: the declaring team makes at or above it.
@@ -364,18 +370,32 @@ pub fn root_identity(root: &CanonicalRoot, position: &RootPosition) -> u64 {
 
 /// What a policy is allowed to see beyond its own hand: the public record
 /// only (§12.3). The evaluation world's hidden hands never reach a policy.
+///
+/// `root` and `history` are the FULL public record since the root — the
+/// authority a `solver::policy` information-consistent key stores (§12.3:
+/// full record now, proved sufficient reductions later). `leader`,
+/// `trick_plays`, and `banked` are derived views of (root, history),
+/// carried for simple policies' convenience; they are never a second
+/// stored authority.
 pub struct PublicRecord<'a> {
     pub leader: Seat,
     pub trick_plays: &'a [Domino],
     pub banked: [u32; 2],
+    /// The public root frame this record extends.
+    pub root: &'a RootPosition,
+    /// Every tile played after the root, in play order (completed tricks
+    /// then the current partial trick). The current trick's plays are its
+    /// suffix.
+    pub history: &'a [Domino],
 }
 
-/// A deterministic information-consistent frozen policy for this slice.
-/// Identity is a declared constant (the full FreezeTuple/PolicyId
-/// machinery of parent §12 is a later step). `choose` sees the seat's own
-/// remaining hand, its legal set, and the public record — nothing hidden.
+/// A deterministic information-consistent frozen policy. `choose` sees the
+/// seat's own remaining hand, its legal set, and the public record —
+/// nothing hidden. Identity may be a declared constant (this module's
+/// [`FixedPreference`]) or a full content-addressed PolicyId
+/// (`solver::policy::FrozenPolicy`, parent §12).
 pub trait SlicePolicy {
-    fn id(&self) -> &'static str;
+    fn id(&self) -> &str;
     fn choose(
         &self,
         decl: Decl,
@@ -426,7 +446,7 @@ impl FixedPreference {
 }
 
 impl SlicePolicy for FixedPreference {
-    fn id(&self) -> &'static str {
+    fn id(&self) -> &str {
         self.id
     }
 
@@ -461,6 +481,7 @@ pub fn replay_viewer_success(
     let mut leader = position.leader;
     let mut plays = position.trick_plays.clone();
     let mut banked = position.banked;
+    let mut history: Vec<Domino> = Vec::new();
     while hands.iter().any(|h| !h.is_empty()) {
         let seat = leader.plus(plays.len());
         let led = plays.first().map(|d| position.decl.led_context(*d));
@@ -471,12 +492,15 @@ pub fn replay_viewer_success(
             leader,
             trick_plays: &plays,
             banked,
+            root: position,
+            history: &history,
         };
         let policy = if seat == viewer { focal } else { field };
         let tile = policy.choose(position.decl, hand, legal, &record);
         assert!(legal.contains(tile), "a policy chooses a legal tile");
         assert!(hands[seat.index()].remove(tile), "the chosen tile is held");
         plays.push(tile);
+        history.push(tile);
         if plays.len() == 4 {
             let doms: [Domino; 4] = core::array::from_fn(|i| plays[i]);
             let trick = Trick::new(leader, doms).expect("four distinct tiles");
