@@ -20,6 +20,7 @@
 
 pub mod adaptive;
 pub mod evidence;
+pub mod policy;
 
 use std::collections::hash_map::DefaultHasher;
 use std::collections::HashMap;
