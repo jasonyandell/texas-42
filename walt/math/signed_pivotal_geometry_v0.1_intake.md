@@ -58,6 +58,9 @@ defect found in any boxed statement.
   `theta` request field). **Proposed** (pending walt-math adoption): in walt
   artifacts the pivotal quantity is always written τ, and \((1+\tau)/2\),
   where needed, is spelled out as the **pivotal win share** — never bare θ.
+  *[2026-08-24: superseded by CE-A2 (`CENSUS-RULINGS.md`): the adopted
+  resolution is the θ/ϑ split from `calculated_evidence_v0.1.md` — θ is
+  always the pivotal win share, ϑ always an auction/policy threshold.]*
   The auction threshold keeps θ.
 - **"rank"** appears only in the linear-algebra sense (§10.2 decision
   dimension). Distinct from the retired standings sense (constellations own

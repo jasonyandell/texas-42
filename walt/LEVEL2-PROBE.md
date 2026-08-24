@@ -126,3 +126,31 @@ viewer work is next touched; it is not gated on the probe.
   probe's policy ID (SP-A8).
 - Output contract: per position — q̂/τ̂/ĝ/Ĥ under both fields, paired;
   the wake-up set; per-pair mechanism notes. Estimates, never receipts.
+
+## Amendment 2026-08-24 — the wake-up split and the true cost coordinate (CE-A6)
+
+`math/calculated_evidence_v0.1.md` §14 corrects this spec's detector;
+adopted at CE-A6 (`CENSUS-RULINGS.md`). Three distinct objects replace
+the single "pivotal mass wakes up" detector:
+
+- **Response wake-up:** `q₁ − q₀ > ε_q` — newly active response
+  structure. NOT by itself a value statement: the upgraded field may
+  create many disagreements whose signs balance exactly (q₁ > 0 with
+  τ₁ = 0, g₁ = 0).
+- **Value wake-up:** `g₁ − g₀ ≠ 0` (or by a declared amount), settled by
+  the paired field-correction evidence of §14.6 (Zᵢ = Yᵢ⁽¹⁾ − Yᵢ⁽⁰⁾ on
+  the same world, bounded-mean engine on Zᵢ/2).
+- **Decision wake-up:** the selected action changes, or an
+  unresolved/equivalent comparison becomes settled.
+
+Sampling cost under each field is compared by the information rate
+`𝓘_f = q_f · D_{1/2}(τ_f)` — never by q̂ alone and never by a noisy
+plug-in Ĥ ordering. Exact-zero claims (q₀ = 0) require enumeration or a
+structural proof; sampling supports only `q₀ ≤ ε_q` at declared risk —
+the output contract keeps that distinction.
+
+**Gate (updated):** unification (done, 2026-08-24) + the
+calculated-evidence outer adaptive controller landed and green
+(CE-A7 build program; [[adaptive-sampling-intake]]). The original
+q̂/τ̂/ĝ/Ĥ output contract gains the paired-Z evidence columns and the
+per-field 𝓘 estimates; "estimates, never receipts" stands.
