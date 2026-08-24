@@ -224,45 +224,49 @@ pub(crate) fn content_digest(message: &[u8]) -> [u8; 32] {
 
 /// A deterministic byte writer: every variable-length field is
 /// length-prefixed and every field carries a tag byte, so no two distinct
-/// tuples serialize to the same bytes by field aliasing.
-struct Canon {
-    bytes: Vec<u8>,
+/// tuples serialize to the same bytes by field aliasing. `pub(crate)` so
+/// sibling solver modules with their own content addresses (the field
+/// identity of `solver::field`) share one writer instead of re-vendoring
+/// it; every user MUST open with a fresh header string, so no two
+/// serialization families can alias each other.
+pub(crate) struct Canon {
+    pub(crate) bytes: Vec<u8>,
 }
 
 impl Canon {
-    fn new(header: &str) -> Canon {
+    pub(crate) fn new(header: &str) -> Canon {
         let mut canon = Canon { bytes: Vec::new() };
         canon.str_field(0x00, header);
         canon
     }
 
-    fn tag(&mut self, tag: u8) {
+    pub(crate) fn tag(&mut self, tag: u8) {
         self.bytes.push(tag);
     }
 
-    fn u8(&mut self, v: u8) {
+    pub(crate) fn u8(&mut self, v: u8) {
         self.bytes.push(v);
     }
 
-    fn u32(&mut self, v: u32) {
+    pub(crate) fn u32(&mut self, v: u32) {
         self.bytes.extend_from_slice(&v.to_be_bytes());
     }
 
-    fn u64(&mut self, v: u64) {
+    pub(crate) fn u64(&mut self, v: u64) {
         self.bytes.extend_from_slice(&v.to_be_bytes());
     }
 
-    fn len(&mut self, n: usize) {
+    pub(crate) fn len(&mut self, n: usize) {
         self.u64(n as u64);
     }
 
-    fn str_field(&mut self, tag: u8, s: &str) {
+    pub(crate) fn str_field(&mut self, tag: u8, s: &str) {
         self.tag(tag);
         self.len(s.len());
         self.bytes.extend_from_slice(s.as_bytes());
     }
 
-    fn u64s_field(&mut self, tag: u8, vs: &[u64]) {
+    pub(crate) fn u64s_field(&mut self, tag: u8, vs: &[u64]) {
         self.tag(tag);
         self.len(vs.len());
         for v in vs {
@@ -270,7 +274,7 @@ impl Canon {
         }
     }
 
-    fn dominoes_field(&mut self, tag: u8, ds: &[Domino]) {
+    pub(crate) fn dominoes_field(&mut self, tag: u8, ds: &[Domino]) {
         self.tag(tag);
         self.len(ds.len());
         for d in ds {
@@ -289,7 +293,7 @@ impl Canon {
         self.bytes.extend_from_slice(&magnitude);
     }
 
-    fn rational_field(&mut self, tag: u8, r: Option<&BigRational>) {
+    pub(crate) fn rational_field(&mut self, tag: u8, r: Option<&BigRational>) {
         self.tag(tag);
         match r {
             None => self.u8(0),
@@ -301,7 +305,7 @@ impl Canon {
         }
     }
 
-    fn finish(self) -> Vec<u8> {
+    pub(crate) fn finish(self) -> Vec<u8> {
         self.bytes
     }
 }
