@@ -26,3 +26,17 @@ from it with its tier; nothing verbatim touched.
 
 [[wiki-overhaul]], [[lean-catchup]], [[adaptive-sampling-intake]],
 walt/math/
+
+## Closed 2026-08-24
+
+Merged to main via PR #13 (re-issue of stacked #11; commits 9c0cf01,
+1ed1b9c, 2fea1eb, b6452df, 37e21cb, 90fe6c9). walt-math-reference owns
+the map (26 families, scenario-player era with per-object status,
+inline-math section); new walt-math-intakes page = first-class index
+of 17 received artifacts + 5 manifests (provenance disciplines ≠
+evidentiary tiers, stated on the page); open-questions +4. Nothing
+verbatim touched. Orphans surfaced, notably the pmake QUESTION/RULING
+pair (zero inbound pointers before this — needs a series home before
+any design consumes it). Five ambiguities filed per protocol on the
+pages. Kernel-candidate pointers delivered for [[lean-catchup]] (held
+in backlog per Jason's scope trim).
