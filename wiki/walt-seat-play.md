@@ -12,7 +12,9 @@ result files under [`walt/probes/m3/`](../walt/probes/m3/) and
 built in the `walt-m3-probe` crate, folded 2026-08-24 into
 `walt/walt/src/solver/` by the unification.) Related:
 [walt](walt.md) (hub and fence), [walt-program](walt-program.md),
-[walt-instruments](walt-instruments.md), [rob](rob.md).
+[walt-instruments](walt-instruments.md),
+[walt-calculated-evidence](walt-calculated-evidence.md) (the 2026-08-24
+adaptive-settlement era that instruments this track), [rob](rob.md).
 
 > **Epistemic tier: EXPLORATORY — the hub's fence applies unchanged.** Every
 > number on this page is a sampled ESTIMATE or an arena outcome; arena
@@ -105,18 +107,59 @@ compressing truth, **build the seat that plays**. In two days
   (q wakes up when the modeled field upgrades level-0 → level-1) as the
   detector. Deliberately not started — gated on Jason's incoming
   adaptive-sampling mathematics ([[adaptive-sampling-intake]]).
+  *(Era context, 2026-08-24: that mathematics landed and was adjudicated the
+  next day, the probe spec was amended to a detection layer, and both
+  specimens now have owning machinery — see the calculated-evidence note
+  below.)*
 - **Unification (2026-08-24).** The seat's crates (`walt-m3-carrier`,
   `walt-m3-probe`, and the research stack) were folded into the one `walt`
   crate — pure code motion, trace-identical, wasm smoke 28/28 byte-identical
   — with the seat solver now at `walt/walt/src/solver/`. Freeze-56 was
   re-issued append-only as v2 at the unified layout.
 
+## The calculated-evidence era arrives (2026-08-24)
+
+The adaptive-sampling mathematics landed — twice, same Pro-session lineage,
+both adjudicated same-day (CE-A1..A8, L2-A1..A7) — and its §22 build program
+executed through step 7 in one day. That work has its own owning page,
+[walt-calculated-evidence](walt-calculated-evidence.md); what belongs here is
+what it did to *this* track's episodes (all exploratory / instrument-grade,
+per that page's fences):
+
+- **The 40/160 near-tie flip and the saturation-tie episodes now have era
+  context.** The flip mode is exactly what fixed magic sample counts cost;
+  the shadow instrument reproduces the phenomenon class beside the live
+  player (4 exact-route disagreements at small fibers where the live 200/8
+  estimate picked a different tile; 40 honest exact ties reported as ties),
+  and the **V5 flip repair plus per-pair E0 calibration is step 8, in
+  flight** — in build, no results, not quotable yet. The saturation-tie
+  protocol (Def 6.3, "look closer") remains; the evidence path types such
+  outcomes honestly (`ExactFrozenSet` with a null winner is a finding, not a
+  defect).
+- **The live player was audited, not changed.** The step-7 session findings
+  (playout's standalone PiKey still omits banked totals; one-RNG threading
+  through deal + belief sampling in playout/playtable/webtable contra O27;
+  playout `all1` information-inconsistent; **walt_bridge clean**) are filed
+  on the era page. Per CE-A7/§20.16 the old player remains the default until
+  arena and conformance gates justify a change, on Jason's word.
+- **The Gran review specimens became carded anchors.** Three Plunge
+  screenshots are pinned with a manifest, and the reconstruction path needs
+  **no seeds** — the "How it went" grid is the complete deal, transcribed
+  and rules-engine-validated ([[gran-anchor-reconstruction]]). Discovery
+  artifacts until reconstructed; the G1–G4 experiments stay gated.
+- **`walt/LEVEL2-PROBE.md` is no longer "gated on the intake"** — it is the
+  detection layer inside the targeted level-2 controller (L2-A5), and the
+  first field-swap machinery plus its three-regime smoke has landed
+  (fixed-policy exposure only, never root-action screening — L2-A4).
+
 ## Where this sits in the program
 
 The seat is real and it wins — and every one of its numbers is a sampled
 estimate against a *modeled* field, not an exact value and not an
 equilibrium claim (`SCENARIO-PLAYER.md` §7). The program's next moves, per
-Jason 2026-08-18 and the kanban queue since 2026-08-24: pay down the spec
-debt (the obligations ledger), the adaptive-sampling intake, then the
-level-2 field-swap probe. [rob](rob.md) remains the exact-truth solver;
-walt remains the seat; neither impersonates the other.
+Jason 2026-08-18 and the state since 2026-08-24: pay down the spec debt (the
+obligations ledger, now O1–O9, O12–O38), finish calculated-evidence step 8,
+then the level-2 probe as the detection layer
+([walt-calculated-evidence](walt-calculated-evidence.md)). [rob](rob.md)
+remains the exact-truth solver; walt remains the seat; neither impersonates
+the other.
