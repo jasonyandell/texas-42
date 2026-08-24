@@ -192,3 +192,144 @@ acting.)
    land — sibling asset directory, not src/.
 5. **walt/math/** (18 files) is source-of-truth mathematics, untouched
    by any fold.
+6. **BLOCKER — the freeze-56 source closure pins the crate layout by
+   path.** The census §5 fold plan was written without accounting for
+   `ci/verify_m2_sources.sh`, which `ci/check.sh` runs as both its
+   second and its final phase. See "Execution (2026-08-24)" below; the
+   fold cannot proceed on a code-motion mandate alone.
+
+## Execution (2026-08-24)
+
+Status: **BLOCKED, no code motion performed.** Exploratory tier; this
+section records a survey and a blocked gate, and changes no result's
+status. Sources: direct execution of `ci/verify_m2_sources.sh` at
+`114bacd`; digest audit of both source manifests against the worktree.
+
+### Why the fold stopped before Stage 1
+
+`ci/check.sh:257` and `:340` both run `ci/verify_m2_sources.sh`, which
+enforces the freeze-56 cumulative source closure
+(`math/gpu_native_trick1_m0_m2_sources_v1.sha256`, 381 entries). Three
+of its enforcements collide with the mandate:
+
+1. **Every manifest path must still be a regular file at that exact
+   path** (`require_regular_relative`, invoked at :200 on each entry).
+   Deleting `walt-factory` removes 117 pinned entries and
+   `walt-skeleton` removes 12.
+2. **`package_roots` (:64-78) hardcodes** `walt/walt-core`,
+   `walt/walt-factory`, `walt/walt-geom`, `walt/walt-kernel`,
+   `walt/walt-skeleton`, `walt/walt-strat` among others, and
+   `require_directory_relative` fails if any is not a real directory.
+3. **The immutable 184-path check (:212-229) is the hard one.** Every
+   path in the M0/M1 manifest must remain represented in the cumulative
+   closure, translated `walt/`-relative → repository-relative. That
+   manifest's bytes are pinned by `ci/verify_m2_history.sh:63`
+   (`eccf0a37…`) and re-derived from blobs at a fixed parent commit, so
+   it cannot be edited. It names 14 files under `walt-core/`, 11 under
+   `walt-kernel/`, and 7 under `walt-gpu-spec/` — the three crates the
+   fold moves into `walt/walt/src/{rules,kernel,spec}/`. After the move
+   those paths do not exist, and the closure fails with "historical
+   source path omitted."
+
+Enforcement 3 is mechanical, not a judgment call: **no regeneration of
+the cumulative manifest can satisfy it**, because the requirement is
+path presence and the pinned side of the comparison is immutable.
+Satisfying the fold requires amending `verify_m2_sources.sh` itself
+with an explicit old-path → new-path translation table — an amendment
+to a freeze verifier, which is a freeze-level ruling and not within a
+code-motion mandate.
+
+### Second-order cost: regenerating the manifest is not bookkeeping
+
+The manifest's exact bytes *are* `M2BuildIdentityV1`
+(`verify_m2_sources.sh:3`; GPU-NATIVE-TRICK1-M2.md §11:898). That
+identity is hashed into the M2 receipt records
+(GPU-NATIVE-TRICK1-M2.md:393, :400, :830) and occupies bytes 64-95 of
+the receipt (:566). Re-pinning the closure therefore changes the build
+identity that the committed
+`receipts/gpu_native_trick1_m2_v1/m2_metal_parity_v1.bin` (421 KB)
+attests to. `ci/check.sh` does not byte-diff that receipt — the closure
+deliberately excludes it (:192) — so this does not by itself turn
+check.sh red, but it does mean the standing M2 Metal parity evidence no
+longer corresponds to the sources it names. Whether that is a
+re-issue-and-rerun event for `ci/check_m2_metal.sh` (614-task carrier,
+twice, on hardware) is a freeze-56 ruling for Jason, per
+GPU-NATIVE-TRICK1-M2.md:4 — "SHA-256 is named by the append-only
+freeze-56 ruling."
+
+### Pre-existing: the gate is already red at `114bacd`
+
+Independently of the unification, the closure is broken in 71 places
+before any change of ours:
+
+- **6 digest mismatches.** `lean/Texas42.lean`,
+  `walt-strat/src/lib.rs`, and `walt-strat/src/hidden_scalar.rs` were
+  all changed by **97ce321** ("WIP: M3 perfect-recall net scaffolding,
+  mid-flight, does not build"), which is an ancestor of this branch;
+  `lean/Texas42.lean` at `97ce321^` hashes to exactly the frozen
+  `25480c8b…`, confirming that commit as the origin. `CENSUS-RULINGS.md`,
+  `Cargo.toml`, and `Cargo.lock` drifted through ordinary later work.
+- **65 missing files**, all `walt-factory/results/*`, from the
+  2026-08-24 archive move to `~/data` (uncommitted working-tree
+  deletions at the time of survey). Every one is a pinned closure
+  entry.
+
+The code itself is healthy: `cargo test --workspace --release` at
+`114bacd` exits 0, no failures. What is red is the freeze machinery
+around it, not the crates being reorganized.
+
+Note the internal tension this exposes: `CENSUS-RULINGS.md` is
+append-only and pinned by *full* digest in the source closure, while
+`verify_m2_history.sh:150` checks only its frozen *prefix*. Any append
+to the rulings log breaks the source closure. That implies the closure
+was designed to be re-pinned as work proceeds — but §11's coupling of
+the manifest bytes to the receipt-bearing build identity gives
+re-pinning a cost that routine appends should not carry. Recording as a
+conflict, not resolving it.
+
+### Scope table for the eventual ruling
+
+Closure exposure per planned action, counted against both manifests:
+
+| action | freeze-56 entries | immutable-184 entries |
+| --- | --- | --- |
+| fold walt-core → `rules` | 14 | 14 |
+| fold walt-kernel | 11 | 11 |
+| fold walt-gpu-spec → `spec` | 7 | 7 |
+| fold walt-geom | 9 | 0 |
+| fold walt-strat | 18 | 0 |
+| fold walt-m3-carrier → `carrier` | 0 | 0 |
+| fold walt-m3-probe → `solver` | 0 | 0 |
+| delete walt-factory | 117 | 0 |
+| delete walt-skeleton | 12 | 0 |
+| delete walt-m3-{net,oracle-a,metal} | 0 | 0 |
+| delete walt-wasm-spike | 0 | 0 |
+
+`walt/ci/check.sh`, `walt/Cargo.toml`, and `walt/Cargo.lock` are
+themselves pinned entries, so even the Stage 1 manifest-and-CI edits
+touch the closure. `walt/PLAN.md` is **not** in the closure — its
+retirement is closure-clean.
+
+**The closure-clean subset** of the mandate is therefore: retire
+`PLAN.md`, and delete `walt-m3-net`, `walt-m3-oracle-a`,
+`walt-m3-metal`, and `walt-wasm-spike` (all four postdate freeze-56 and
+carry zero pinned entries). Everything else — the seven-module fold,
+the `walt-factory`/`walt-skeleton` deletions, and the flag-1 grep
+extension in `ci/check.sh` — waits on the ruling. This subset was left
+undone rather than committed piecemeal: with `check.sh` unable to reach
+green, small-green-commit staging has nothing to certify against, and
+splitting the deletions across two rulings costs more than it saves.
+
+### What a ruling needs to decide
+
+1. Is freeze-56 re-issued at the post-fold layout — new manifest, new
+   `M2BuildIdentityV1`, `package_roots` and `required_paths` rewritten?
+2. Does `verify_m2_sources.sh` gain an old-path → new-path translation
+   table so the immutable 184 stay represented after the fold, and does
+   that table count as amending the freeze or as reading it correctly?
+3. Does the standing M2 Metal parity receipt get re-earned on hardware,
+   or is it explicitly carried forward as evidence-for-the-old-layout?
+4. Independently of the fold: is the 97ce321 drift repaired (revert the
+   three files) or absorbed into the re-issue, and are the 65 archived
+   `results/` entries dropped from the closure as the archive ruling
+   implies?
