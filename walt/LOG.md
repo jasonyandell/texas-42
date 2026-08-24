@@ -578,3 +578,26 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   97ce321. Workspace is now walt + walt-wasm + GPU trio (gpu-ref,
   metal, m2-runner). Next: wiki overhaul, math reorg, adaptive-sampling
   intake, then the level-2 probe.
+- 2026-08-24 (evening): THE CALCULATED-EVIDENCE ERA, in one day. Two
+  hand-ferried parents (same Pro lineage) intaken, adjudicated, built:
+  `math/calculated_evidence_v0.1.md` (CE-A1..A8) — anytime-valid
+  adaptive settlement replaces magic sample counts; §22 steps 2–7
+  executed (PRs #19/#20/#21/#24: solver::evidence, frozen policies +
+  PolicyId, m-candidate controller with epoch identity, step-7 shadow
+  harness — 183 decisions: 67 exact / 116 honest Unresolved / 0
+  probabilistic at cap 128; live agreement 23/27 winner-bearing; §12.3
+  audit filed real live-player findings, playout PiKey defect + O27
+  stream hygiene, walt_bridge clean). Then
+  `math/targeted_level2_field_stability_v0.1.md` (L2-A1..A7, PRs
+  #22/#23) — first-disagreement localization makes level 2 a
+  calculated refinement; O29–O38; exposure-tier typing binding. First
+  field-swap slice landed same evening (PR #26: solver::field +
+  solver::exposure + smoke — receipt-h7-t5 fields never split, d=0
+  exact; h8-t4 reveal-response motif traces; trick-1 exposure≈1
+  degeneracy as predicted). Jason's cap ruling: world_cap 512 (128 was
+  phone-budget). Gran anchor screenshots pinned in the data home;
+  no-seed reconstruction path carded. Five consecutive central gates
+  green (5baad99, bf432be, 636d306, 0794ff8, ffdc002). Wiki era page:
+  `wiki/walt-calculated-evidence.md` (PR #27). In flight: step 8 (V5
+  flip repair + per-pair E0 calibration). Next: 512 default, exposure
+  rungs E0–E2 + split-reach + admissible set, Gran transcription.
