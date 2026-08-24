@@ -1,8 +1,8 @@
 ---
-number: TBD (unassigned — draft)
+number: 022
 slug: ce-execution-order
 channel: new-chat
-status: "DRAFT — NOT DISPATCHED. Authorization: none. Batch quota: TBD with Jason."
+status: "DISPATCHED 2026-08-24 (hand-ferried by Jason, batch of five, quota cleared by his delivery). Response received same day: exchange/inbox/019-023-response-panel-and-cancellation-v0.1.md."
 deliverable: a scheduling counterexample (two lawful schedules on one fixed world stream with different reported settlements), or a proof sketch of execution-order invariance PLUS a precise resolution of the conditional-null / predictable-sequence question
 ---
 STATUS: DRAFT — NOT DISPATCHED. Authorization: none. Batch quota: TBD with Jason.

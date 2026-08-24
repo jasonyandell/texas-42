@@ -1,8 +1,8 @@
 ---
-number: TBD (unassigned — draft)
+number: 021
 slug: ce-risk-ledger-escalation
 channel: new-chat
-status: "DRAFT — NOT DISPATCHED. Authorization: none. Batch quota: TBD with Jason."
+status: "DISPATCHED 2026-08-24 (hand-ferried by Jason, batch of five, quota cleared by his delivery). Response received same day: exchange/inbox/019-023-response-panel-and-cancellation-v0.1.md."
 deliverable: an explicit adaptive adversary (scheduler/candidate-set strategy) that overspends the risk ledger or double-counts a world across the sample-to-enumeration switch, with exact arithmetic — or a verdict that the accounting is airtight with the load-bearing steps named
 ---
 STATUS: DRAFT — NOT DISPATCHED. Authorization: none. Batch quota: TBD with Jason.
