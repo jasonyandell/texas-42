@@ -18,6 +18,7 @@
 //! invariant across thread counts and call orders (§8). Exact rationals
 //! only — no floats.
 
+pub mod adaptive;
 pub mod evidence;
 
 use std::collections::hash_map::DefaultHasher;
