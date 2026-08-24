@@ -10,7 +10,9 @@ themselves), `walt/CENSUS-RULINGS.md` (the adjudications), `exchange/README.md`
 [the freeze register](walt-math-freezes.md),
 [decision-sparse witnesses](walt-math-decision-sparse.md),
 [the GPU-native track](walt-gpu-native-trick1.md),
-[walt-seat-play](walt-seat-play.md).
+[walt-seat-play](walt-seat-play.md),
+[walt-calculated-evidence](walt-calculated-evidence.md) (the era the two
+2026-08-24 intakes opened).
 
 > **Epistemic tier: EXPLORATORY — below every tier on
 > [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).** Every
@@ -339,19 +341,30 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
 
 ## 8. Pending, and deliberately not indexed as landed
 
-- **The field-swap build** — the level-2 field-stability lineage is
-  adjudicated (L2-A1..A7) but not yet built: `solver::field` /
-  `exposure` / `field_swap` enter after the calculated-evidence shadow
-  step merges (L2-A6).
-- **The Gran anchor reconstruction** — G1–G4 require the two Plunge game
-  seeds and full records, which live on the plunge side and are not in
-  this repository. The screenshots remain discovery artifacts. Carded
-  as [[gran-anchor-reconstruction]].
-- **The calculated-evidence build** — the lineage is adjudicated
-  (CE-A1..A8) but not yet applied: `walt/LEVEL2-PROBE.md`'s gate is
-  satisfied only when the outer adaptive controller lands with
-  conformance gates green ([[adaptive-sampling-intake]] tracks the
-  full arc; the CE-A7 build program is the path).
+- **The calculated-evidence build — steps 2–7 executed, step 8 in
+  flight** *(updated 2026-08-24, later the same day)*: the §22 program
+  landed through the shadow instrument (`solver::evidence` / `adaptive`,
+  frozen policies, the decision controller, exact endpoints, the step-7
+  shadow run — mains `5baad99`/`bf432be`/`636d306`/`0794ff8`). Step 8
+  (the V5 flip repair and per-pair E0 calibration) is **in build, no
+  results**; the old player stays the default (CE-A7/§20.16). Build
+  narrative and instrument records:
+  [walt-calculated-evidence](walt-calculated-evidence.md).
+- **The field-swap build — first slice landed** *(updated 2026-08-24,
+  later the same day)*: `solver::field` and `solver::exposure` plus the
+  `fieldswap` bin merged (main `ffdc002`, its L2-A6 slot satisfied by
+  the step-7 merge) and ran the §21 step-5 fixed-policy smoke
+  (`walt/probes/fieldswap/README.md` — `FrozenPolicyExposure` tier only,
+  never root-action screening, L2-A4). The exposure rungs, admissible
+  set, and targeted field-1 work remain unbuilt.
+- **The Gran anchor reconstruction** — G1–G4 required the two Plunge
+  game records; the three screenshots are now archived with a manifest
+  (`~/data/texas-42/gran-anchors-2026-08-24/`, `MANIFEST.sha256`) and
+  the carded path needs **no seeds** — the "How it went" grid is the
+  complete deal, transcribed then rules-engine-validated. Until the
+  validated records are committed the screenshots remain discovery
+  artifacts (parent §1.4, L2-A6). Carded as
+  [[gran-anchor-reconstruction]].
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03

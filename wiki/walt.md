@@ -58,6 +58,7 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | [walt-factory-era](walt-factory-era.md) | S5a–S5d: the conflict-driven lesson factory, the label-fragility discovery, the lesson economy, and the re-tethering |
 | [walt-census-era](walt-census-era.md) | S5e–S5k: the situation censuses, the retrograde quotient and railyard, the fiber and endgame probes, and the seat census resolved by proof |
 | [walt-s6-era](walt-s6-era.md) | S6a–S6n: the predictive-rank dimension census, the policy-geometry probe, the deadness detectors, the first root-action certifications, the cheap-seed and map-free rule probes, the trick-1 and lay-down theorems, the two gluing rungs, and the fee line |
+| [walt-calculated-evidence](walt-calculated-evidence.md) | **2026-08-24 onward**: anytime-valid adaptive settlement as the new correctness path — the two same-day intakes (CE-A1..A8, L2-A1..A7), the §22 build through step 7, the shadow instrument, the live-player audit findings, the field-swap slice's three-regime smoke, and the world-cap ruling |
 
 **Reference**
 
@@ -81,12 +82,12 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | [`walt/LOG.md`](../walt/LOG.md) | The session index. Since the reorganization it carries a few summary lines per session and points at the owning page here; the full per-session records live in git history |
 | `walt/CENSUS-RULINGS.md` | The append-only adjudication record — every ruling, freeze and theorem that governs a probe. Mapped by [walt-math-reference](walt-math-reference.md) |
 | [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md) | The spec-after-build of the playing seat, with its proof-obligations ledger (§10) — the graduation path for everything on [walt-seat-play](walt-seat-play.md) |
-| [`walt/LEVEL2-PROBE.md`](../walt/LEVEL2-PROBE.md) | The level-2 field-swap probe — **spec only** (2026-08-23), deliberately not started; gated on the adaptive-sampling intake |
+| [`walt/LEVEL2-PROBE.md`](../walt/LEVEL2-PROBE.md) | The level-2 field-swap probe spec — filed 2026-08-23 as spec-only, amended 2026-08-24 (CE-A6, L2-A5) into the **detection layer** inside the targeted level-2 controller; the targeting layer is owned by the level-2 field-stability parent ([walt-calculated-evidence](walt-calculated-evidence.md)) |
 | `walt/*.md` design docs | The still-standing probe/design docs: `SEPARATION-PROBE` (adjudicated SEP-A1..A18), `SEPARATION-RUNG-N4`, `ECONOMY-SUCCESSOR`, `POLICY-GEOMETRY`, `TILT-AUDIT` (smoke run 2026-08-19), and the GPU contracts below. Seven completed-probe design docs (`CENSUS`, `FIBER-PROBE`, `FIBER-REFINE`, `ENDGAME-STORE`, `SEAT-CENSUS`, `PREDICTIVE-RANK`, `DEADNESS-PROBE`) were retired 2026-08-24 after their probes closed — each era page cites the preserved bytes by commit hash (`git show 2de8a05:walt/<NAME>.md`) |
 | [`walt/ARCHIVE.md`](../walt/ARCHIVE.md) | The archive ledger: where the untracked computation outputs live (`~/data`, HuggingFace), the recompute queue, and producer commit `648f93a` for the deleted probe binaries |
 | [`walt/UNIFICATION-CENSUS.md`](../walt/UNIFICATION-CENSUS.md) | The 2026-08-24 unification analysis and execution record: the 17-crate census, the fold plan, and what was deleted or folded |
 | [`walt/DISCREPANCIES.md`](../walt/DISCREPANCIES.md) | Spec-versus-reference reconciliations, same protocol as the corpus: never pick a plausible reading silently |
-| `walt/probes/` | The frozen probe records: the rescued Python suites (`exp3a/`, `exp5/` — frozen validators, never source), the relocated factory result summaries (`factory-results/`, provenance README inside), the seat-play result files (`m3/`), and the bidcurve corpus (`bidcurve/`) |
+| `walt/probes/` | The frozen probe records: the rescued Python suites (`exp3a/`, `exp5/` — frozen validators, never source), the relocated factory result summaries (`factory-results/`, provenance README inside), the seat-play result files (`m3/`), the bidcurve corpus (`bidcurve/`), and the calculated-evidence instrument records (`shadow/`, `fieldswap/` — exploratory instrument output, below every tier, each README carrying its own fence) |
 | The Rust workspace | **One unified crate** `walt/walt/` since 2026-08-24 (fold commit `d1499d4`, trace-identical): modules `rules`, `kernel`, `geom`, `strat`, `spec`, `carrier`, `solver`, twelve bins (the seat player, arena bridge, web table, probes), tests prefixed by module. Beside it: `walt-wasm` (the browser oracle for plunge) and the GPU trio `walt-gpu-ref` (M1 + portable M2 reference/receipt machinery), `walt-metal`, `walt-m2-runner`. The workspace records **PORTABLE M0/M1 COMPLETE under freeze 55** and **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56** (re-issued append-only as **freeze-56 v2** at the unified layout, FZ-A1..A6; the standing M2 receipt is explicitly old-layout evidence — [[m2-receipt-reearn]]); nothing in the GPU track is an opening player or supplies an action value, selected lead, optimal set, information net, continuation or performance claim. |
 | `walt/ci/check.sh` | The gate: fmt, clippy `-D warnings -D float_arithmetic`, no-float grep, release tests |
 | `walt/ci/check_m2_metal.sh` | The freeze-56 integrated gate: historical/current source checks, metallib reproducibility, native controls and smoke, two fresh complete official runs, committed receipt adjudication, Lean audit and final source verification |
@@ -178,10 +179,18 @@ behind it, deliberately and on the record.
 On 2026-08-24 the build itself was unified — seventeen organically grown crates
 folded into the one-crate workspace described above, pure code motion,
 trace-identical, with the deleted producers archived behind a recompute queue
-([`walt/ARCHIVE.md`](../walt/ARCHIVE.md)). The forward queue is in `kanban/`:
-the adaptive-sampling intake, then the level-2 field-swap probe
-([`walt/LEVEL2-PROBE.md`](../walt/LEVEL2-PROBE.md), spec only, deliberately not
-started until that mathematics lands).
+([`walt/ARCHIVE.md`](../walt/ARCHIVE.md)). The same day, the
+**calculated-evidence era** landed on top of the unified build
+([walt-calculated-evidence](walt-calculated-evidence.md)): Jason's
+adaptive-settlement mathematics arrived in two hand-ferried drops and was
+adjudicated same-day inside the exploratory fence (CE-A1..A8, L2-A1..A7);
+its §22 build program executed through step 7 (evidence arithmetic, frozen
+policies, the decision controller, exact endpoints, and a shadow instrument
+run beside the live player), and the first field-swap slice ran its
+fixed-policy smoke. The live player is deliberately untouched — the old
+defaults remain until arena and conformance gates justify a change, on
+Jason's word (CE-A7/§20.16). In flight: step 8 (the V5 flip repair and E0
+calibration), then the level-2 probe as the detection layer.
 
 Every count above is carrier-relative, coordinate-relative, and exploratory. Full
 numbers, scope caveats and dissents live on the era pages; the refutations are

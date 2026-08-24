@@ -3,7 +3,10 @@
 [Home](Home.md) · owns: the inventory of genuinely open mathematical questions
 in the walt branch, at the exploratory tier · Sources: `walt/CENSUS-RULINGS.md`
 (the ruling that left each one open), `walt/math/decision_sparse_exact_solving_v0.1_errata.md`,
-`walt/SCENARIO-PLAYER.md` §10, `walt/LEVEL2-PROBE.md`, `exchange/README.md` (x:018).
+`walt/SCENARIO-PLAYER.md` §10, `walt/LEVEL2-PROBE.md`,
+`walt/math/calculated_evidence_v0.1.md` and
+`walt/math/targeted_level2_field_stability_v0.1.md` (items 13–15),
+`exchange/README.md` (x:018).
 Related: [the reference map](walt-math-reference.md),
 [received artifacts and intakes](walt-math-intakes.md),
 [decision-deadness](walt-math-deadness.md),
@@ -11,9 +14,12 @@ Related: [the reference map](walt-math-reference.md),
 [decision-sparse witnesses](walt-math-decision-sparse.md),
 [the freeze register](walt-math-freezes.md).
 
-> **Coverage (2026-08-24, the [[math-reorg]] pass).** Questions 1–8 are the
-> census/decision-sparse era's inventory and remain open as stated; the
-> scenario-player era's additions are gathered below as items 9–12.
+> **Coverage (2026-08-24, the [[math-reorg]] pass; extended same day for the
+> calculated-evidence era).** Questions 1–8 are the census/decision-sparse
+> era's inventory and remain open as stated; the scenario-player era's
+> additions are items 9–12 (item 10 annotated: its gate landed); the
+> calculated-evidence era's additions are items 13–15. Era narrative and
+> instrument records: [walt-calculated-evidence](walt-calculated-evidence.md).
 
 > **Tier: EXPLORATORY throughout**, below every tier on
 > [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).
@@ -196,7 +202,8 @@ under any valuation. The policies extend; the verdicts do not.
 **Status: open by construction, and owned elsewhere.** The
 `walt/SCENARIO-PLAYER.md` spec is explicit that its statements are definitions
 and proof obligations, not established results; its **§10 ledger** (O1–O9
-spec-native, O12–O19 filed from the signed-pivotal §14; O10–O11 permanently
+spec-native, O12–O19 filed from the signed-pivotal §14, **O20–O28 accepted at
+CE-A4 and O29–O38 at L2-A2**, both 2026-08-24; O10–O11 permanently
 retired at SP-A11) is the authoritative queue and is **not restated here** —
 one page owns each topic. The mathematically load-bearing rows: **O2** (key
 sufficiency, Lemma 2.4 — unproved on paper, candidate for exchange review),
@@ -207,16 +214,24 @@ re-verification → Lean for what earns mechanization.
 
 ### 10. The level-2 field-swap question
 
-**Status: specified, deliberately not started.** Where does pivotal mass wake
-up under a field upgrade — q(level-0 field) ≈ 0 but q(level-1 field) > 0 — and
-does modeling the partner's response *shrink* fixed-pair hardness H (making
+**Status: still open as a question — but its gate landed and its instruments
+now exist (annotated 2026-08-24).** Where does pivotal mass wake up under a
+field upgrade — q(level-0 field) ≈ 0 but q(level-1 field) > 0 — and does
+modeling the partner's response *shrink* fixed-pair hardness H (making
 level 2 cheaper to sample at equal confidence, not just stronger)? The
-detector, the two motivating plunge specimens, and the hypothesis are
-`walt/LEVEL2-PROBE.md`'s; the probe is gated on the adaptive-sampling
-mathematics ([[adaptive-sampling-intake]]), which has not landed. Two
-tilt-audit roads are also untested: **counted-boundary** (Phase F predicate
-mining never run) and **policy-library** (`walt/TILT-AUDIT.md` § "Road
-verdict").
+adaptive-sampling mathematics this was gated on **has landed and been
+adjudicated** (CE-A1..A8; the wake-up notion split three ways at CE-A6 —
+response q, value g, decision — with sampling cost compared by
+`𝓘 = q·D_{1/2}(τ)`, never q̂ alone), and the targeting mathematics followed
+the same day (L2-A1..A7; `walt/LEVEL2-PROBE.md` amended to the *detection
+layer*, L2-A5). The first field-swap slice has run a fixed-policy smoke —
+including one exact-fiber root where the fields never split, the targeting
+phenomenon in the wild — but a `FrozenPolicyExposure` answers no wake-up
+question at the root-action level (L2-A4), so **the question itself remains
+open**, queued as §22 step 9 after step 8. Era page:
+[walt-calculated-evidence](walt-calculated-evidence.md). Two tilt-audit roads
+are also still untested: **counted-boundary** (Phase F predicate mining never
+run) and **policy-library** (`walt/TILT-AUDIT.md` § "Road verdict").
 
 ### 11. The x:018 conditional-moment gap
 
@@ -240,6 +255,44 @@ measures*, not a theorem); and the **§12.6A cross-carrier hope** (the
 equivariant quotient "earns its keep across carriers and in late endgames" —
 proved nearly trivial on the one carrier checked).
 
+### 13. Exposure tightening at early tricks
+
+**Status: open, and the smoke exhibits exactly why (2026-08-24).** At the
+driven trick-1 root the field-swap smoke's fixed-policy exposure is ≈ 1 —
+the richer field wakes up almost everywhere, so the bound degenerates to the
+naive survivor set (an honest, expected degeneracy per the level-2 parent's
+§8.1). The E0–E2 exposure rungs (exact equality → structural cover →
+clairvoyant reach) exist to tighten this, and none has been built or measured
+on a real root; whether any rung yields a **useful** `RootActionExposureUpper`
+at tricks 1–3, where the shadow instrument shows everything Unresolved, is
+the era's central open cost question. Instrument records:
+[walt-calculated-evidence](walt-calculated-evidence.md).
+
+### 14. The per-epoch σ0 declaration
+
+**Status: open as a discipline, not yet ruled.** Every evidence record is
+model-relative to a declared field model (the fieldswap smoke's σ0 =
+banked-correct level-0 at n0 = 8; a different schedule is a different
+`FieldId` and a different experiment), and candidate-set mutation starts a
+new epoch (CE §5.3) while policy mutation invalidates evidence (§12.5). What
+is **not** yet ruled is the composed discipline: how each epoch declares its
+σ0, and what happens to accumulated evidence and the risk ledger when the
+declared field model itself changes across epochs of one run. Until ruled,
+the safe reading is the strict one — a σ0 change is a new experiment,
+composing nothing.
+
+### 15. The cycle tripwire — adopted, armed by ruling, never run
+
+**Status: pending by construction.** L2-A7 adopted the cycle discipline
+(recurrence claims typed root / behavioral / local exact / global exact,
+never promoted across those lines) and made the §13.5 tripwire — compare σ₁
+vs σ₂ on the field-sensitive anchor corpus — a **standing precondition on
+any broad level-3 work**. No tripwire run exists (there is not yet a
+field-sensitive anchor corpus to run it on), and **no damping, mixtures, or
+robust-cycle policies may be introduced without a separate mathematical
+intake**. Recorded here so nobody builds level 3 first and looks for the
+tripwire later.
+
 ---
 
 ## Two things that are settled and might look open
@@ -250,6 +303,15 @@ Recording these prevents a successor from re-opening closed questions.
   the distribution contracts the answer is |X|, by Lemma R(c). Those rows are
   **theorem rows, not measurements**, and a run returning anything else is a
   stop-and-report bug because the lemma says what it must return.
+- **The magic-sample-count question is not open, it is answered by design
+  (2026-08-24).** "How many worlds is enough" was the [[adaptive-sampling-intake]]
+  card's question; the calculated-evidence intake answers it structurally —
+  the required work is *calculated* from declared risk, the contender count,
+  observed evidence, pivotal mass, and tilt (`𝓘 = q·D_{1/2}(τ)`), with
+  monotone escalation to exactness — and CE-A5 removed fixed counts from the
+  correctness path. What remains is **build and proof debt** (O20–O28, step 8
+  in flight), not an open mathematical question; a run returning to a magic n
+  on the correctness path is a regression, not a choice.
 - **The exchangeability question is not open, it is repaired.** Parent §7.1 is
   unsound as written, and the repair is exact:
   [Theorem E1](walt-math-decision-sparse.md#1-order-exchange), generalised by
