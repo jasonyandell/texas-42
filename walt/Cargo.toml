@@ -1,19 +1,10 @@
 [workspace]
 resolver = "2"
 members = [
-    "walt-core",
-    "walt-kernel",
-    "walt-geom",
-    "walt-strat",
-    "walt-skeleton",
-    "walt-factory",
-    "walt-gpu-spec",
+    "walt",
     "walt-gpu-ref",
     "walt-metal",
     "walt-m2-runner",
-    "walt-m3-carrier",
-    "walt-m3-probe",
-    "walt-wasm-spike",
     "walt-wasm",
 ]
 
@@ -24,12 +15,7 @@ license = "UNLICENSED"
 publish = false
 
 [workspace.dependencies]
-walt-core = { path = "walt-core" }
-walt-kernel = { path = "walt-kernel" }
-walt-geom = { path = "walt-geom" }
-walt-strat = { path = "walt-strat" }
-walt-skeleton = { path = "walt-skeleton" }
-walt-gpu-spec = { path = "walt-gpu-spec" }
+walt = { path = "walt" }
 walt-gpu-ref = { path = "walt-gpu-ref" }
 walt-metal = { path = "walt-metal" }
 walt-m2-runner = { path = "walt-m2-runner" }

@@ -1,4 +1,4 @@
-use walt_core::{Context, Decl, DominoSet};
+use walt::rules::{Context, Decl, DominoSet};
 
 use crate::{OpeningContext, OpeningError, OpeningRootV1, MAX_OPENING_MATCHING_COUNT_V1};
 

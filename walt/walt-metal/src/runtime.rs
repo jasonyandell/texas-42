@@ -12,13 +12,13 @@ use objc2_metal::{
     MTLComputePipelineState, MTLCreateSystemDefaultDevice, MTLDevice, MTLLibrary,
     MTLResourceOptions, MTLSize,
 };
+use walt::spec::Sha256State;
 use walt_gpu_ref::{
     ArithmeticNegativeControlsV1, M2ArithmeticCorpusV1, M2BoundOpeningTaskV1,
     M2GlobalParityAccumulatorV1, M2OpeningNegativeControlsV1, M2OpeningParityCarrierV1,
     OpeningChooseTableV1, OPENING_MAX_CELL_COEFFICIENT_V1, OPENING_MAX_CELL_MASS_V1,
     OPENING_MAX_CELL_SUPPORT_V1, OPENING_MAX_WHOLE_MASS_V1,
 };
-use walt_gpu_spec::Sha256State;
 
 use crate::abi::{
     ArithmeticInputWords, OpeningChooseTableWords, OpeningTaskWords, ARITHMETIC_CHECKED_UNDEFINED,

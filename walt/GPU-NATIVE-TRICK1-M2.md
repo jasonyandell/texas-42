@@ -928,3 +928,32 @@ This file may be edited only before its digest is appended in GT1-A17.  Once
 frozen, an implementation discrepancy is resolved by failing the gate or by a
 new append-only adjudication and new version; the implementation never silently
 changes this measured object after seeing a Metal result.
+
+---
+
+## 13. Append-only amendment: freeze-56 v2 (2026-08-24)
+
+Adjudicated as the FZ-A series in `CENSUS-RULINGS.md` (Jason's
+2026-08-24 unification ruling); this section is the new append-only
+adjudication §12 requires — nothing above this line changed.
+
+The one-crate unification moved walt-core, walt-kernel and
+walt-gpu-spec into the unified `walt` crate (modules `rules`, `kernel`,
+`spec`). Consequences for this gate's objects:
+
+- The v1 cumulative source manifest
+  (`math/gpu_native_trick1_m0_m2_sources_v1.sha256`) is byte-immutable
+  and preserved; its digest remains the M2BuildIdentityV1 that the
+  committed receipt `receipts/gpu_native_trick1_m2_v1/` attests to.
+  That receipt is henceforth explicitly **evidence for the old
+  layout**; it is never presented as attesting the post-fold sources.
+- A v2 manifest (`…_v2.sha256`) pins the post-fold closure; its digest
+  is a new build identity, attested by no hardware run yet. Re-earning
+  the M2 Metal parity receipt under v2 (§9's 614-task carrier, twice)
+  is deferred to the kanban story [[m2-receipt-reearn]].
+- `ci/verify_m2_sources.sh` carries the explicit 32-entry
+  fold-translation table (FZ-A2) and verifies v2; since v2 it runs at
+  freeze events rather than per commit (FZ-A5), because the unified
+  crate contains actively developed solver code. `ci/check.sh` keeps
+  the per-run immutable checks (§ history, guide identity, M0/M1
+  receipt replay, Lean axiom audit).

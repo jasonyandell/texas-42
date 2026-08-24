@@ -4,7 +4,7 @@
 //! with the same effective led context.  It does not permit the two root
 //! actions, or their later semantic successors, to become one identity.
 
-use walt_core::{Decl, Domino, DominoSet, Seat};
+use walt::rules::{Decl, Domino, DominoSet, Seat};
 use walt_gpu_ref::{
     project_closed_form, validate_opening_run_envelope_v1, BuildIdentityV1, OpeningContractV1,
     OpeningRootV1,

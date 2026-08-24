@@ -7,9 +7,7 @@ publish.workspace = true
 
 [dependencies]
 num-bigint.workspace = true
-walt-core.workspace = true
-walt-gpu-spec.workspace = true
-walt-kernel.workspace = true
+walt.workspace = true
 
 [dev-dependencies]
 rob-core = { path = "../../rob/crates/core" }

@@ -1,4 +1,5 @@
-use walt_core::{Context, Decl, Domino, DominoSet, Pip, Seat};
+use walt::rules::{Context, Decl, Domino, DominoSet, Pip, Seat};
+use walt::spec::{sha256, SemanticTables};
 use walt_gpu_ref::{
     canonical_m1_grade5_declared_stop_bytes_v1, project_closed_form,
     validate_m1_grade5_declared_stop_v1, validate_opening_run_envelope_v1, BuildIdentityV1,
@@ -9,7 +10,6 @@ use walt_gpu_ref::{
     OPENING_ENVELOPE_SEMANTIC_IDENTITY_SHA256_OFFSET, OPENING_RECEIPT_CELL_BYTES,
     OPENING_RECEIPT_HEADER_BYTES, OPENING_ROOT_KEY_BYTES,
 };
-use walt_gpu_spec::{sha256, SemanticTables};
 
 const BUILD_A_BYTES: [u8; 32] = [0xa5; 32];
 const BUILD_B_BYTES: [u8; 32] = [0x5a; 32];

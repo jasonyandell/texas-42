@@ -24,7 +24,7 @@ with exact information-set machinery.
 | `ingest/` | Two immutable spec packages, **v0.7** and **rec** | **Never modify.** Each has a verifying `MANIFEST.sha256` |
 | `wiki/` | Reconciled map: what's proved, at what tier, what's open | Yes — it's the living synthesis |
 | `rob/` | The Rust engine: executable spec + byte-diffed receipts, the evening player v0, the HTML inspector. Artifact guide: [rob](wiki/rob.md) | Yes, per its BRIEFs |
-| `walt/` | The imperfect-information **seat** — the player that acts from one chair, on its own frozen exploratory bases. Hub: [walt](wiki/walt.md) | Yes, per `walt/PLAN.md` — but **everything under it is exploratory tier**, below every tier below |
+| `walt/` | The imperfect-information **seat** — the player that acts from one chair, on its own frozen exploratory bases. Hub: [walt](wiki/walt.md) | Yes, per `kanban/` and `walt/UNIFICATION-CENSUS.md` — but **everything under it is exploratory tier**, below every tier below |
 | `exchange/` | Courier channel to ChatGPT 5.6 Pro for adversarial research; dispatches authorized in batches, quota agreed per batch (count in `exchange/submission_count.txt`; batch ceiling `HARD_CAP` in `automation/submit.mjs`) | Per [pro-exchange protocol](exchange/README.md) |
 | `lean/` | Lean 4 + mathlib kernel formalization — all 42 priority-0 rows kernel-proved (2026-08-02). Artifact guide: [lean](wiki/lean.md) | Yes, per [lean/PROOFS.md](lean/PROOFS.md) |
 

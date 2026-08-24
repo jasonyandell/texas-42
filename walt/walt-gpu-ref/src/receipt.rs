@@ -1,7 +1,7 @@
 use core::fmt;
 
-use walt_core::{Context, Decl, Domino, DominoSet, Pip, Seat};
-use walt_gpu_spec::{
+use walt::rules::{Context, Decl, Domino, DominoSet, Pip, Seat};
+use walt::spec::{
     sha256, FieldProfileId, PriorProfileId, SemanticTables, UtilityProfileId, FIELD_SCALE,
     TABLE_FORMAT_VERSION,
 };

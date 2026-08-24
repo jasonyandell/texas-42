@@ -13307,3 +13307,60 @@ the E0 experiment, adopted below as **the tilt audit**.
   N_vec) it is reported once. Neither document supersedes the other; the
   tilt audit measures the sampled analogues, Gate E's probe counts the
   exact ones.
+
+## The freeze-56 v2 amendment (2026-08-24) — the one-crate unification meets the source closure
+
+Ruling authority: Jason, 2026-08-24 ("go for it… we can't let it hold us
+back from one clean Walt"), adjudicating the four questions filed in
+`UNIFICATION-CENSUS.md` § Execution. Append-only; nothing in the v1
+freeze artifacts is edited. Exploratory tier as always; no result's
+status changes by this text.
+
+- **FZ-A1 (re-issue).** Freeze-56's cumulative source closure is
+  re-issued at the post-fold layout as
+  `math/gpu_native_trick1_m0_m2_sources_v2.sha256`. The v1 manifest is
+  byte-immutable and remains on disk beside it; its digest — the
+  M2BuildIdentityV1 the standing receipt names — is unchanged and
+  unchanged forever. v2's own digest is a NEW build identity for the
+  post-fold layout, attested by no hardware receipt yet ([[m2-receipt-reearn]]).
+- **FZ-A2 (translation is amendment).** `ci/verify_m2_sources.sh` gains
+  an explicit 32-entry fold-translation table carrying the immutable
+  M0/M1 paths (14 walt-core, 11 walt-kernel, 7 walt-gpu-spec) to their
+  post-fold locations (`walt/src/{rules,kernel,spec}`, the unified
+  `walt/Cargo.toml`, prefix-renamed tests). This table is an amendment
+  to the freeze verifier, never a "correct reading" of the v1 freeze:
+  v1 pinned paths, the paths moved, and the table is the auditable
+  record of where.
+- **FZ-A3 (the standing receipt is old-layout evidence).**
+  `receipts/gpu_native_trick1_m2_v1/m2_metal_parity_v1.bin` keeps its
+  bytes and keeps its meaning: hardware parity evidence for the v1
+  build identity — the OLD layout. It is never presented as attesting
+  the v2 identity. Re-earning it under v2 (614-task carrier, run
+  twice, on hardware) is deferred to [[m2-receipt-reearn]], expected at
+  the GPU program's unparking.
+- **FZ-A4 (drift disposition).** Of the 97ce321 drift: walt-strat's two
+  files are REVERTED to frozen digests (their additions served only the
+  deleted oracle-a orphan; verified byte-exact against v1 entries).
+  `lean/Texas42.lean` is ABSORBED into v2: its drift imports the
+  Trick1PerfectRecallNet module tree — kernel-audited freeze-57
+  mathematics, protected work, not scaffolding. CENSUS-RULINGS.md,
+  Cargo.toml and Cargo.lock ordinary drift is absorbed into v2 by
+  re-pinning.
+- **FZ-A5 (freeze-event demotion).** Since the unified crate contains
+  the actively developed solver, a per-commit full-digest closure would
+  be red on every ordinary commit — the closure check is therefore a
+  FREEZE-EVENT verification from v2 onward: run
+  `/bin/bash -p ci/verify_m2_sources.sh` when a freeze event re-issues
+  the manifest; `ci/check.sh` retains the per-run immutable checks
+  (M0/M1 history at its producing commit, guide identity, M0/M1
+  receipt replay, the Lean axiom audit). This resolves the recorded
+  design tension (append-only rulings log vs full-digest closure): the
+  closure is a snapshot certified at freeze events, so living
+  append-only documents may be pinned by full digest in it without
+  making routine appends a CI failure.
+- **FZ-A6 (closure scope).** v2 package roots: the unified `walt/walt`,
+  the GPU trio (`walt-gpu-ref`, `walt-metal`, `walt-m2-runner`), and
+  the rob oracle set. `walt-wasm` stays outside: a packaging shell, not
+  a build input to any M-gate receipt. The factory/skeleton package
+  roots are gone with their crates (artifacts archived per
+  `ARCHIVE.md`; producer code addressable at 648f93a).

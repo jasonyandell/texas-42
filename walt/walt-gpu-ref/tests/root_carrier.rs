@@ -1,4 +1,4 @@
-use walt_core::{Decl, Domino, DominoSet, Pip, Seat};
+use walt::rules::{Decl, Domino, DominoSet, Pip, Seat};
 use walt_gpu_ref::{
     direct_preflight, project_closed_form, project_direct, DeclaringTeamMakesV1, DirectPreflightV1,
     IgnoreAuctionEvidenceV1, OpeningContractV1, OpeningError, OpeningRootV1,
@@ -136,15 +136,15 @@ fn opening_root_v1_closes_roles_contract_public_state_and_profiles() {
     assert_eq!(
         roots[0].led_contexts(),
         vec![
-            walt_core::Context::Natural(Pip::new(5).expect("five is a pip")),
-            walt_core::Context::Natural(Pip::new(6).expect("six is a pip")),
+            walt::rules::Context::Natural(Pip::new(5).expect("five is a pip")),
+            walt::rules::Context::Natural(Pip::new(6).expect("six is a pip")),
         ]
     );
     assert_eq!(
         roots[1].led_contexts(),
         vec![
-            walt_core::Context::Natural(Pip::new(5).expect("five is a pip")),
-            walt_core::Context::Called,
+            walt::rules::Context::Natural(Pip::new(5).expect("five is a pip")),
+            walt::rules::Context::Called,
         ]
     );
 

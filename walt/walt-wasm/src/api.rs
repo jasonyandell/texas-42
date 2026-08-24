@@ -35,9 +35,9 @@ use std::sync::Arc;
 use num_rational::BigRational;
 use num_traits::Zero;
 
-use walt_core::rules::legal_plays;
-use walt_core::{Context, Decl, Domino, Seat, Team};
-use walt_m3_probe::{
+use walt::rules::rules::legal_plays;
+use walt::rules::{Context, Decl, Domino, Seat, Team};
+use walt::solver::{
     best_of, bit, bp, decl_of, level1_evaluate, level1_race_refined, mask_of, mix, record_hash,
     replay, sample_belief, set_of, Deadline, Field, Key, Shared, Solver, SplitMix64,
 };

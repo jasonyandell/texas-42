@@ -1,4 +1,4 @@
-use walt_core::{legal_plays, Context, Decl, DominoSet, Seat};
+use walt::rules::{legal_plays, Context, Decl, DominoSet, Seat};
 
 use crate::{OpeningContext, OpeningError};
 
