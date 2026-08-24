@@ -1102,7 +1102,7 @@ fn binom_tail_leq(k: usize, m: usize, delta_num: u64, delta_den: u64) -> bool {
 
 /// Step a Key forward by one play (banked-correct trick resolution; no void
 /// tracking — modeled minds do not condition on voids).
-fn key_step(key: &mut Key, dcl: Decl, tile: Domino) {
+pub(crate) fn key_step(key: &mut Key, dcl: Decl, tile: Domino) {
     key.plays.push(tile.index() as u8);
     key.played |= bit(tile);
     if key.plays.len() == 4 {

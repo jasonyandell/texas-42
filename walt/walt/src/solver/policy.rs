@@ -28,11 +28,15 @@
 //! - **Discovery/evidence disjointness (§12.4, O13).** Discovery streams
 //!   derive only from (freeze tuple, information state, counter) under
 //!   [`DISCOVERY_DOMAIN`], a domain tag distinct from the evidence
-//!   stream's `solver::adaptive::STREAM_DOMAIN`. This step's action rule
-//!   is a deterministic function of the information state (a fixed
-//!   preference order frozen in the tuple); a SAMPLED discovery solver
-//!   drawing worlds from [`FrozenPolicy::discovery_rng`] is §22 step 10
-//!   territory — the seam is here, the solver is not.
+//!   stream's `solver::adaptive::STREAM_DOMAIN`. Step 4's action rule is a
+//!   deterministic function of the information state (a fixed preference
+//!   order frozen in the tuple). Step 7 adds the SAMPLED discovery case
+//!   ([`ActionRule::PinnedThenLevel1`]): materialization runs the existing
+//!   level-1 machinery (`solver::level1_evaluate`, the live player's one
+//!   authority) with its evaluation worlds drawn from
+//!   [`FrozenPolicy::discovery_rng`] — a pure function of (PolicyId, the
+//!   tuple's seed schedule, the information state) — never from any
+//!   evaluation world or evidence stream.
 //!
 //! No floats anywhere; the declared inner sample schedule is an identity
 //! field (a declared approximation visible in the PolicyId, CE-A5), never
@@ -40,20 +44,30 @@
 
 use std::collections::HashMap;
 use std::fmt;
-use std::sync::Mutex;
+use std::sync::{Arc, Mutex};
+use std::time::Duration;
 
 use num_bigint::{BigInt, Sign};
 use num_rational::BigRational;
 
 use crate::kernel::SplitMix64 as KernelRng;
-use crate::rules::{Decl, Domino, DominoSet, Team};
+use crate::rules::{Decl, Domino, DominoSet, Seat, Team};
 use crate::solver::adaptive::{PublicRecord, RootPosition, SlicePolicy};
-use crate::solver::{arena_decl_id, mix};
+use crate::solver::{
+    arena_decl_id, best_of, bit, key_step, level1_evaluate, mask_of, mix, Deadline, Field, Key,
+    Shared, Solver, SplitMix64 as SolverRng,
+};
 
 /// Domain-separation tag for DISCOVERY seed derivation (§12.4). Distinct
 /// from the evidence stream's `solver::adaptive::STREAM_DOMAIN` — the two
 /// derivations must never collide, and a test asserts the tags differ.
 pub const DISCOVERY_DOMAIN: u64 = 0xD15C_0FEE_D5EE_D001;
+
+/// The per-move budget passed to the level-1 machinery during frozen
+/// materialization: about 95 years, i.e. no wall-clock cutoff. A frozen
+/// action must be a pure function of (freeze tuple, information state) —
+/// a deadline that could fire would make it a function of machine speed.
+pub const NO_DEADLINE_SECS: u64 = 3_000_000_000;
 
 // ---------------------------------------------------------------------------
 // A small vendored SHA-256 (integer-only, no dependencies).
@@ -350,15 +364,29 @@ pub enum InnerSchedule {
 /// The frozen action rule: how a materialization miss computes its action
 /// from the information state, parameterized entirely by the tuple.
 ///
-/// This step's rule is deterministic (§22 step 4): a fixed total
-/// preference order over all 28 tiles. A sampled discovery solver (§12.4's
-/// inner sampled case) is a later variant (§22 step 10); its worlds will
-/// come from [`FrozenPolicy::discovery_rng`], never from any evaluation
-/// stream.
+/// Step 4's rule is deterministic: a fixed total preference order over all
+/// 28 tiles. Step 7 adds §12.4's sampled-discovery case: a frozen level-1
+/// continuation whose evaluation worlds come from
+/// [`FrozenPolicy::discovery_rng`], never from any evaluation stream.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum ActionRule {
     /// Play the most-preferred legal tile of a total order over all 28.
     Preference(Vec<Domino>),
+    /// §22 step 7 — play `pinned` at the policy's root information state
+    /// (the state with empty post-root history), then continue as the
+    /// level-1 player under this freeze tuple: at every later focal state,
+    /// `solver::level1_evaluate` (the live player's one authority,
+    /// saturation-tie refinement included — 4× fresh discovery samples per
+    /// round, capped at 16× the declared outer count) runs on worlds drawn
+    /// from the policy's DISCOVERY stream, and exact value ties break by
+    /// the tuple's [`TieRule::LowestTileIndex`] (the stack's ascending
+    /// evaluation order). The tuple's `inner_schedule` MUST be
+    /// `InnerSchedule::Declared([n_outer, n0])` — declared identity
+    /// fields, never stopping rules (CE-A5).
+    PinnedThenLevel1 {
+        /// The pinned first action.
+        pinned: Domino,
+    },
 }
 
 /// §12.1 — the complete frozen identity of a policy. Every field that can
@@ -437,6 +465,10 @@ impl FreezeTuple {
         canon.u8(self.mode.code());
         match &self.action_rule {
             ActionRule::Preference(order) => canon.dominoes_field(0x0E, order),
+            ActionRule::PinnedThenLevel1 { pinned } => {
+                canon.tag(0x0F);
+                canon.u8(pinned.index() as u8);
+            }
         }
         canon.finish()
     }
@@ -547,6 +579,11 @@ impl InfoKey {
         canon.u32(self.root.banked[1]);
         canon.dominoes_field(0x04, &self.root.trick_plays);
         canon.dominoes_field(0x05, &self.history);
+        canon.tag(0x06);
+        canon.u32(self.root.prior_played.bits());
+        for voids in &self.root.voids {
+            canon.u8(voids.iter().fold(0u8, |acc, q| acc | (1 << q.index())));
+        }
         let digest = sha256::digest(&canon.finish());
         u64::from_be_bytes([
             digest[0], digest[1], digest[2], digest[3], digest[4], digest[5], digest[6], digest[7],
@@ -576,7 +613,9 @@ pub struct FrozenPolicy {
 
 impl FrozenPolicy {
     /// Freeze a tuple. Validates the action rule's parameters (a
-    /// preference order must be a permutation of all 28 tiles).
+    /// preference order must be a permutation of all 28 tiles; a level-1
+    /// continuation must declare its inner sample schedule and name the
+    /// tie rule its algorithm actually applies).
     pub fn new(tuple: FreezeTuple) -> FrozenPolicy {
         match &tuple.action_rule {
             ActionRule::Preference(order) => {
@@ -585,6 +624,26 @@ impl FrozenPolicy {
                     assert!(seen.insert(*d), "a preference order lists a tile twice");
                 }
                 assert_eq!(seen, DominoSet::FULL, "a preference order covers all 28");
+            }
+            ActionRule::PinnedThenLevel1 { .. } => {
+                let InnerSchedule::Declared(schedule) = &tuple.inner_schedule else {
+                    panic!("a sampled action rule declares its inner schedule (CE-A5)");
+                };
+                assert_eq!(
+                    schedule.len(),
+                    2,
+                    "the level-1 continuation schedule is [n_outer, n0]"
+                );
+                assert!(
+                    schedule.iter().all(|n| *n >= 1),
+                    "declared sample counts are positive"
+                );
+                assert_eq!(
+                    tuple.tie_rule,
+                    TieRule::LowestTileIndex,
+                    "level1_evaluate breaks exact ties toward the lowest tile index; \
+                     the declared tie rule must name what the algorithm does"
+                );
             }
         }
         let id = tuple.policy_id();
@@ -611,14 +670,23 @@ impl FrozenPolicy {
     /// unchanged. `legal` is the caller's derived legal set — a pure
     /// function of the key's public data plus the hand, asserted
     /// consistent with whatever the cache holds.
+    ///
+    /// The miss computation runs OUTSIDE the cache lock (a level-1
+    /// materialization can be long). If two threads race the same key,
+    /// both compute the same pure value; the immutability contract (O22)
+    /// is asserted as value equality on the second insert.
     pub fn action(&self, key: InfoKey, legal: DominoSet) -> Domino {
         assert!(!legal.is_empty(), "a seat to move holds a legal tile");
         assert!(
             legal.is_subset_of(key.hand),
             "the legal set is drawn from the focal hand"
         );
-        let mut cache = self.cache.lock().expect("the action cache is unpoisoned");
-        if let Some(&cached) = cache.get(&key) {
+        if let Some(&cached) = self
+            .cache
+            .lock()
+            .expect("the action cache is unpoisoned")
+            .get(&key)
+        {
             assert!(
                 legal.contains(cached),
                 "a cached action is legal: the legal set is a function of its key"
@@ -630,13 +698,73 @@ impl FrozenPolicy {
                 .iter()
                 .find(|d| legal.contains(**d))
                 .expect("a total preference order meets a nonempty legal set"),
+            ActionRule::PinnedThenLevel1 { pinned } => {
+                if key.history.is_empty() {
+                    assert!(
+                        legal.contains(*pinned),
+                        "the pinned first action is legal at the root information state"
+                    );
+                    *pinned
+                } else if legal.len() == 1 {
+                    // A forced play needs no discovery solve.
+                    legal.iter().next().expect("one legal tile")
+                } else {
+                    self.level1_continuation(&key, legal)
+                }
+            }
         };
-        let previous = cache.insert(key, chosen);
-        assert!(
-            previous.is_none(),
-            "a cache entry, once written, never changes (O22)"
-        );
+        let mut cache = self.cache.lock().expect("the action cache is unpoisoned");
+        match cache.insert(key, chosen) {
+            None => {}
+            Some(previous) => assert_eq!(
+                previous, chosen,
+                "a cache entry, once written, never changes (O22)"
+            ),
+        }
         chosen
+    }
+
+    /// §12.4's sampled-discovery materialization: the EXISTING level-1
+    /// machinery (`solver::level1_evaluate` — belief sampling, bundled
+    /// level-0 field solve, saturation-tie refinement) run at the key's
+    /// information state, with its evaluation worlds drawn from this
+    /// policy's DISCOVERY stream. The stream seed is a pure function of
+    /// (PolicyId, the tuple's discovery seed schedule, the information
+    /// state) — no evaluation world, no hidden hand, can reach it.
+    fn level1_continuation(&self, key: &InfoKey, legal: DominoSet) -> Domino {
+        let InnerSchedule::Declared(schedule) = &self.tuple.inner_schedule else {
+            unreachable!("validated at freeze time");
+        };
+        let (n_outer, n0) = (schedule[0] as usize, schedule[1] as usize);
+        let decl = key.root.decl;
+        let frame = continuation_frame(decl, &key.root, &key.history);
+        let seat = frame.seat;
+        let sizes = frame.sizes();
+        assert_eq!(
+            sizes[seat.index()],
+            key.hand.len(),
+            "the focal hand size matches the replayed record"
+        );
+        let mut rng = SolverRng(self.discovery_rng(key, 0).next_u64());
+        let opts = level1_evaluate(
+            decl,
+            t1_frame_bid(key.root.bid, key.root.declaring_team),
+            seat,
+            mask_of(key.hand),
+            mask_of(legal),
+            &frame.key,
+            sizes,
+            frame.voids,
+            frame.trick_start_played,
+            frame.boundary_hand_size,
+            n_outer,
+            n0,
+            NO_DEADLINE_SECS,
+            &mut rng,
+        )
+        .expect("frozen materialization runs without a wall-clock cutoff");
+        let choice = best_of(&opts, seat.team() == Team::T1);
+        Domino::from_index(usize::from(choice)).expect("tile < 28")
     }
 
     /// How many information states have been materialized so far. A
@@ -708,6 +836,184 @@ impl SlicePolicy for FrozenPolicy {
         );
         let key = InfoKey::from_public(self.id, hand, record);
         self.action(key, legal)
+    }
+}
+
+// ---------------------------------------------------------------------------
+// The continuation frame: the level-1 machinery's inputs as derived views
+// of the public record (root frame + post-root history).
+// ---------------------------------------------------------------------------
+
+/// The T1-frame contract parameter of the sampling stack. The `Solver`
+/// hardcodes "T1 declares": make ⇔ `banked_t1 ≥ bid`. When T0 declares at
+/// `b`, the equivalent parameter is `43 − b`: T0 makes ⇔
+/// `banked_t0 ≥ b` ⇔ `banked_t1 ≤ 42 − b` ⇔ NOT `banked_t1 ≥ 43 − b`, so
+/// T0 seats minimizing `P(banked_t1 ≥ 43 − b)` maximize their own pmake —
+/// the same solver, exactly.
+pub fn t1_frame_bid(bid: u32, declaring_team: Team) -> u8 {
+    assert!((1..=42).contains(&bid), "a contract lies in 1..=42");
+    match declaring_team {
+        Team::T1 => bid as u8,
+        Team::T0 => (43 - bid) as u8,
+    }
+}
+
+/// The sampling stack's frame at the end of a public record: the solver
+/// `Key`, the observed void masks, and the current-trick boundary. Every
+/// field is a derived view of (declaration, root frame, history) — nothing
+/// here is stored authority.
+pub struct ContinuationFrame {
+    pub key: Key,
+    /// The seat to move at the end of the record.
+    pub seat: Seat,
+    /// Union of effective-incidence masks of contexts each seat has failed
+    /// to follow (root voids plus failures observed in `history`).
+    pub voids: [u32; 4],
+    /// Played mask at the current trick's start.
+    pub trick_start_played: u32,
+    /// Every seat's hand size at the current trick's start.
+    pub boundary_hand_size: usize,
+}
+
+impl ContinuationFrame {
+    /// Per-seat remaining hand sizes: the boundary size, minus one for
+    /// each seat that has played in the current partial trick.
+    pub fn sizes(&self) -> [usize; 4] {
+        let mut sizes = [self.boundary_hand_size; 4];
+        for i in 0..self.key.plays.len() {
+            sizes[(usize::from(self.key.leader) + i) % 4] -= 1;
+        }
+        sizes
+    }
+}
+
+/// Fold a public record (root frame plus post-root history) into the
+/// sampling stack's frame. Root voids already include failures inside the
+/// root's partial trick; history plays add their own observed voids as
+/// they fold.
+pub fn continuation_frame(
+    decl: Decl,
+    root: &RootPosition,
+    history: &[Domino],
+) -> ContinuationFrame {
+    assert_eq!(decl, root.decl, "one declaration governs the record");
+    let mut voids = [0u32; 4];
+    for (seat, contexts) in root.voids.iter().enumerate() {
+        for q in contexts.iter() {
+            voids[seat] |= mask_of(decl.effective_incidence(q));
+        }
+    }
+    assert!(
+        root.prior_played.len().is_multiple_of(4),
+        "completed tricks are whole"
+    );
+    let mut completed = root.prior_played.len() / 4;
+    let mut trick_start_played = mask_of(root.prior_played);
+    let mut key = Key {
+        played: trick_start_played,
+        leader: root.leader.index() as u8,
+        plays: Vec::new(),
+        banked_t1: root.banked[Team::T1.index()] as u8,
+        banked_t0: root.banked[Team::T0.index()] as u8,
+        alive: 0,
+    };
+    for d in &root.trick_plays {
+        key.played |= bit(*d);
+        key.plays.push(d.index() as u8);
+    }
+    for &tile in history {
+        let seat = (usize::from(key.leader) + key.plays.len()) % 4;
+        if let Some(&led_index) = key.plays.first() {
+            let led = decl.led_context(Domino::from_index(usize::from(led_index)).expect("led"));
+            if !decl.follows(tile, led) {
+                voids[seat] |= mask_of(decl.effective_incidence(led));
+            }
+        }
+        key_step(&mut key, decl, tile);
+        if key.plays.is_empty() {
+            completed += 1;
+            trick_start_played = key.played;
+        }
+    }
+    let seat = Seat::from_index((usize::from(key.leader) + key.plays.len()) % 4).expect("seat");
+    ContinuationFrame {
+        key,
+        seat,
+        voids,
+        trick_start_played,
+        boundary_hand_size: 7 - completed,
+    }
+}
+
+// ---------------------------------------------------------------------------
+// The level-0 field model as a SlicePolicy (§22 step 7's declared field).
+// ---------------------------------------------------------------------------
+
+/// The sampling stack's level-0 modeled mind as a deterministic
+/// information-consistent [`SlicePolicy`]: at each seat's state it draws
+/// its declared `n0` no-void belief worlds from the frozen `INNER_SEED`
+/// derivation (a pure function of seat, hand, and record — no external
+/// tape; SCENARIO-PLAYER.md Def 3.2/3.6) and best-responds against the
+/// Dice field. This is exactly the field the live level-1 player models,
+/// exposed through `Solver::modeled_choice` — one authority, never a copy.
+pub struct Level0Field {
+    n0: usize,
+    label: String,
+}
+
+impl Level0Field {
+    pub fn new(n0: usize) -> Level0Field {
+        assert!(n0 >= 1, "a declared sample count is positive");
+        Level0Field {
+            n0,
+            label: format!("field:level0-n{n0}-v1"),
+        }
+    }
+}
+
+impl SlicePolicy for Level0Field {
+    fn id(&self) -> &str {
+        &self.label
+    }
+
+    fn choose(
+        &self,
+        decl: Decl,
+        hand: DominoSet,
+        legal: DominoSet,
+        record: &PublicRecord<'_>,
+    ) -> Domino {
+        if legal.len() == 1 {
+            return legal.iter().next().expect("one legal tile");
+        }
+        let frame = continuation_frame(decl, record.root, record.history);
+        let seat = frame.seat;
+        assert_eq!(
+            frame.sizes()[seat.index()],
+            hand.len(),
+            "the modeled hand size matches the replayed record"
+        );
+        let shared = Arc::new(Shared::new(
+            decl,
+            t1_frame_bid(record.root.bid, record.root.declaring_team),
+            vec![self.n0],
+            frame.trick_start_played,
+            frame.boundary_hand_size,
+            Deadline::after(Duration::from_secs(NO_DEADLINE_SECS)),
+        ));
+        let host = Solver::new(
+            shared,
+            seat,
+            mask_of(hand),
+            seat.team() == Team::T1,
+            Vec::new(),
+            Vec::new(),
+            Field::Level(0),
+        );
+        let choice = host
+            .modeled_choice(0, &frame.key, seat, mask_of(hand), mask_of(legal))
+            .expect("a modeled mind runs without a wall-clock cutoff");
+        Domino::from_index(usize::from(choice)).expect("tile < 28")
     }
 }
 
