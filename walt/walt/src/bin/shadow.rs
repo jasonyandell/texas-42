@@ -682,7 +682,7 @@ fn main() {
         n0_live: knob(8) as usize,
         n_outer_frozen: knob(8),
         n0_frozen: knob(2),
-        world_cap: knob(128),
+        world_cap: knob(512),
         exact_cap: u128::from(knob(2000)),
     };
     let specs = match mode {

@@ -24,7 +24,8 @@ domain-separated stream, declared inner schedule 8/2), under a run-scoped
 risk plan: δ_run = 1/100 per hand, δ_d = δ_run/(d(d+1)) for the d-th
 decision. Declared routing: fiber ≤ 2000 runs the exact frozen-set
 endpoint directly (`route:"preroute"`; exact results spend no risk);
-larger fibers run the adaptive controller (world cap 128 — a resource
+larger fibers run the adaptive controller (world cap 128 for this run —
+the bin default is now 512, see the epoch note below — a resource
 limit producing honest `Unresolved`, never a settlement rule) with the
 §11.3 escalation rule armed at 1:1 declared cost weights. Agreement
 between the live choice and the controller winner is recorded, never
@@ -63,9 +64,16 @@ cargo build --release -p walt --bin shadow
 python3 probes/shadow/summarize.py probes/shadow/receipt.jsonl probes/shadow/driven.jsonl
 ```
 
-Defaults baked into those commands (all positional knobs after the fixed
-args, in order): `n_outer_live=200 n0_live=8 n_outer_frozen=8 n0_frozen=2
-world_cap=128 exact_cap=2000`.
+This committed run's knobs (all positional knobs after the fixed args,
+in order): `n_outer_live=200 n0_live=8 n_outer_frozen=8 n0_frozen=2
+world_cap=128 exact_cap=2000`. **Epoch note (2026-08-24):** the bin's
+`world_cap` default was raised to 512 after this run (cap ruling: 128/40/160
+were phone-tier limits, not calibrated caps; the §8.5 refinement vectors
+of this run forecast 108/116 Unresolved decisions settle by 512). The
+outputs below are the world_cap=128 epoch — reproducing them byte-identically
+now requires passing `128` explicitly as the world_cap knob; a 512-epoch
+regeneration is a separate run and supersedes nothing here (different
+epoch by construction, records carry their config).
 
 ## Aggregate (plain counts; regenerate with summarize.py)
 
