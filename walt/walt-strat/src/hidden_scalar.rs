@@ -88,22 +88,6 @@ pub struct ScalarHidden {
     val: ScalarValuation,
 }
 
-/// Exact result of the freeze-57 fixed-root, unmemoized H authority.
-///
-/// The value is normalized by the complete input support exactly as
-/// [`ScalarHidden::action_values`] is.  Visit counters use the existing
-/// `tree-v0` unit: one `(particle, semantic node)` visit charged before
-/// descent.  Epoch zero begins immediately after the fixed physical root;
-/// a later focal action advances the epoch for its descendants.  The focal
-/// arrival itself is therefore charged to the preceding action epoch exactly
-/// once.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub struct FixedActionValueV1 {
-    pub value: Q,
-    pub visits: u64,
-    pub epoch_visits: [u64; 4],
-}
-
 impl ScalarHidden {
     pub fn new(decl: Decl, viewer: Seat, focal: Team, val: ScalarValuation) -> ScalarHidden {
         ScalarHidden {
@@ -160,86 +144,6 @@ impl ScalarHidden {
         Some(out)
     }
 
-    /// Exact value of one validated physical root under the original
-    /// unmemoized `tree-v0` recursion.
-    ///
-    /// This is the narrow M3A authority entry point.  It deliberately does
-    /// not call the four-action API, the boundary DAG, or any production-net
-    /// code.  Callers provide a fresh root-local budget and receive the exact
-    /// four-epoch visit partition used by the freeze-57 receipt.
-    pub fn fixed_action_value(
-        &self,
-        worlds: &[[DominoSet; Seat::COUNT]],
-        leader: Seat,
-        prefix: &[Domino],
-        action: Domino,
-        budget: &mut u64,
-    ) -> Option<FixedActionValueV1> {
-        assert!(!worlds.is_empty(), "a nonempty fiber");
-        let k = prefix.len();
-        assert!(k < 4, "a decision point sits inside a trick");
-        assert_eq!(leader.plus(k), self.viewer, "the root is the viewer's");
-        let hand = worlds[0][self.viewer.index()];
-        assert!(
-            worlds.iter().all(|w| w[self.viewer.index()] == hand),
-            "the viewer's hand is common across the fiber"
-        );
-        let led = (k > 0).then(|| self.decl.led_context(prefix[0]));
-        assert!(
-            legal_plays(self.decl, hand, led).contains(action),
-            "the fixed physical root is legal"
-        );
-
-        let parts: Vec<Particle> = worlds
-            .iter()
-            .map(|w| {
-                let mut w = *w;
-                w[self.viewer.index()].remove(action);
-                (w, 1u128)
-            })
-            .collect();
-        let mut tiles = [Domino::ALL[0]; 4];
-        tiles[..k].copy_from_slice(prefix);
-        tiles[k] = action;
-        // Keep the recursion general enough for the pre-M3 opening-hand
-        // callers (seven focal plays).  Freeze 57's fixed trick-1 roots
-        // have four focal plays total, so only epochs 0..3 may be occupied
-        // there and the public receipt remains exactly four words.
-        let mut all_epoch_visits = [0u64; 7];
-        let before = *budget;
-        let raw = self.node_epoch(
-            &parts,
-            leader,
-            tiles,
-            k + 1,
-            0,
-            &mut all_epoch_visits,
-            budget,
-        )?;
-        let visits = before
-            .checked_sub(*budget)
-            .expect("the tree-v0 budget is nonreplenishing");
-        assert_eq!(
-            all_epoch_visits[4..],
-            [0; 3],
-            "a freeze-57 fixed root has exactly four focal epochs"
-        );
-        let epoch_visits: [u64; 4] = all_epoch_visits[..4]
-            .try_into()
-            .expect("the receipt has exactly four epochs");
-        assert_eq!(
-            epoch_visits.iter().copied().sum::<u64>(),
-            visits,
-            "the four visit epochs partition tree-v0"
-        );
-        let support = i128::try_from(worlds.len()).expect("fiber sizes fit i128");
-        Some(FixedActionValueV1 {
-            value: raw * q(1, support),
-            visits,
-            epoch_visits,
-        })
-    }
-
     /// Unnormalized value of one observation node: the sum over particles
     /// of `weight x` (focal future increment given the world), under the
     /// common pooled-information viewer policy below.
@@ -251,30 +155,11 @@ impl ScalarHidden {
         k: usize,
         budget: &mut u64,
     ) -> Option<Q> {
-        let mut epoch_visits = [0u64; 7];
-        self.node_epoch(parts, leader, tiles, k, 0, &mut epoch_visits, budget)
-    }
-
-    #[allow(clippy::too_many_arguments)]
-    fn node_epoch(
-        &self,
-        parts: &[Particle],
-        leader: Seat,
-        tiles: [Domino; 4],
-        k: usize,
-        epoch: usize,
-        epoch_visits: &mut [u64; 7],
-        budget: &mut u64,
-    ) -> Option<Q> {
-        assert!(epoch < epoch_visits.len(), "focal epoch is in 0..7");
         let cost = parts.len() as u64;
         if *budget < cost {
             return None;
         }
         *budget -= cost;
-        epoch_visits[epoch] = epoch_visits[epoch]
-            .checked_add(cost)
-            .expect("tree-v0 epoch visits fit u64");
 
         if k == 4 {
             let trick = Trick::new(leader, tiles).expect("distinct tiles by construction");
@@ -291,15 +176,7 @@ impl ScalarHidden {
             if parts[0].0.iter().all(|h| h.is_empty()) {
                 return Some(banked);
             }
-            let rest = self.node_epoch(
-                parts,
-                winner,
-                [Domino::ALL[0]; 4],
-                0,
-                epoch,
-                epoch_visits,
-                budget,
-            )?;
+            let rest = self.node(parts, winner, [Domino::ALL[0]; 4], 0, budget)?;
             return Some(banked + rest);
         }
 
@@ -324,15 +201,7 @@ impl ScalarHidden {
                     .collect();
                 let mut tiles = tiles;
                 tiles[k] = a;
-                let v = self.node_epoch(
-                    &child,
-                    leader,
-                    tiles,
-                    k + 1,
-                    epoch + 1,
-                    epoch_visits,
-                    budget,
-                )?;
+                let v = self.node(&child, leader, tiles, k + 1, budget)?;
                 best = Some(match best {
                     None => v,
                     Some(b) if v > b => v,
@@ -364,48 +233,9 @@ impl ScalarHidden {
             }
             let mut tiles = tiles;
             tiles[k] = m;
-            acc += self.node_epoch(&child, leader, tiles, k + 1, epoch, epoch_visits, budget)?;
+            acc += self.node(&child, leader, tiles, k + 1, budget)?;
         }
         Some(acc)
-    }
-}
-
-#[cfg(test)]
-mod m3_fixed_action_tests {
-    use super::*;
-
-    #[test]
-    fn fixed_action_matches_the_existing_unmemoized_action_loop() {
-        let root = Domino::ALL[20]; // 5-5 under the stable triangular index.
-        let mut world = [DominoSet::EMPTY; Seat::COUNT];
-        world[Seat::S1.index()] = DominoSet::single(root);
-        world[Seat::S2.index()] = DominoSet::single(Domino::ALL[0]);
-        world[Seat::S3.index()] = DominoSet::single(Domino::ALL[1]);
-        world[Seat::S0.index()] = DominoSet::single(Domino::ALL[2]);
-        let worlds = [world];
-        let solver = ScalarHidden::new(
-            walt_core::Decl::PipTrump(walt_core::Pip::new(5).expect("pip")),
-            Seat::S1,
-            Team::T1,
-            ScalarValuation::trick_only(),
-        );
-
-        let mut vector_budget = 100;
-        let vector = solver
-            .action_values(&worlds, Seat::S1, &[], &mut vector_budget)
-            .expect("the one-world terminal fixture fits");
-        assert_eq!(vector.len(), 1);
-        assert_eq!(vector[0].0, root);
-
-        let mut fixed_budget = 100;
-        let fixed = solver
-            .fixed_action_value(&worlds, Seat::S1, &[], root, &mut fixed_budget)
-            .expect("the fixed action fits");
-        assert_eq!(fixed.value, vector[0].1);
-        assert_eq!(fixed.visits, 4);
-        assert_eq!(fixed.epoch_visits, [4, 0, 0, 0]);
-        assert_eq!(fixed.visits, 100 - fixed_budget);
-        assert_eq!(fixed_budget, vector_budget);
     }
 }
 
