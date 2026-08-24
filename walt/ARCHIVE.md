@@ -28,6 +28,18 @@ for recompute rather than holding old versions).
   regenerate (E-A17, printed by the producer itself):
   `rm -f walt-factory/store/endgame_l2.store && cargo run --release -p walt-factory --example fiber_probe endgame`
 
+## Retired design docs (2026-08-24)
+
+Seven completed-probe design documents were retired from `walt/` by
+[[wiki-overhaul]] after their probes closed: `CENSUS.md`,
+`FIBER-PROBE.md`, `FIBER-REFINE.md`, `ENDGAME-STORE.md`,
+`SEAT-CENSUS.md`, `PREDICTIVE-RANK.md`, `DEADNESS-PROBE.md`. Bytes
+preserved at `git show 2de8a05:walt/<NAME>.md`; owning wiki pages:
+`wiki/walt-census-era.md` and `wiki/walt-s6-era.md` (narrative),
+`wiki/walt-math-reference.md` (ruling map), `walt/CENSUS-RULINGS.md`
+(adjudications, append-only, historical citations left as written).
+None of the seven is listed in a freeze manifest.
+
 ## Relocation (2026-08-24)
 
 The TRACKED artifacts survived the factory deletion in-tree: the 65

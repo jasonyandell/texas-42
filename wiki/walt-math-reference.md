@@ -8,6 +8,7 @@ mathematics), the received documents under `walt/math/`, the adjudicated
 GPU-native portable contract `walt/GPU-NATIVE-TRICK1.md`, the exact M2 rebrief,
 and the frozen M2 contract `walt/GPU-NATIVE-TRICK1-M2.md`. Related:
 [walt hub](walt.md), [structure and transport](walt-math-structure-transport.md),
+[walt-seat-play](walt-seat-play.md),
 [information geometry](walt-math-information-geometry.md),
 [decision-deadness](walt-math-deadness.md),
 [decision-sparse witnesses](walt-math-decision-sparse.md),
@@ -21,6 +22,18 @@ and the frozen M2 contract `walt/GPU-NATIVE-TRICK1-M2.md`. Related:
 > walt's own declared basis (v0.4/v0.5/v0.6, themselves exploratory), and it may
 > not be quoted in a brief, a dispatch, [FINDINGS](FINDINGS.md), or any
 > claim-tier page. These pages are a map, not a promotion.
+
+> **Coverage note (2026-08-24) — reorganization pending, see [[math-reorg]].**
+> This map is synthesized through the S6n fee-correlation chapter (FC-A) and the
+> GT1-A17/freeze-56 boundary. Adjudicated since but **not yet mapped here**: the
+> signed-pivotal intake (SP-A, 2026-08-18) and the tilt audit it spawned, the
+> GT1-A18..A24 chapter (freeze 57, the M3 binding contract), the freeze-56 v2
+> re-issue (FZ-A1..A6), and the scenario-player era's mathematics
+> (`walt/SCENARIO-PLAYER.md` obligations, the pmake objective, the incoming
+> adaptive-sampling intake). All of it is indexed in `walt/CENSUS-RULINGS.md`
+> and on [the freeze register](walt-math-freezes.md)'s addendum; gathering it
+> into this map — and re-organizing the corpus into one owned index — is the
+> [[math-reorg]] card's charter, deliberately not half-done here.
 
 ## Who this is for
 
@@ -308,12 +321,14 @@ Each of these is a ruling, not a convention, and each was bought with a mistake.
 
 Rulings and results files refer to runs by session label. The labels are not
 self-explanatory and no page above decodes them, so here is the minimum a reader
-of these pages needs. **The session ledger itself lives in `walt/PLAN.md` and is
-owned there, not here.**
+of these pages needs. **The session ledger itself lives in `walt/LOG.md`** (the
+retired `walt/PLAN.md` carried it historically; `git show 56e2173:walt/PLAN.md`).
+Result artifacts cited by `results/...` basenames live at
+`walt/probes/factory-results/` since the 2026-08-24 relocation.
 
 | Run | What it was | The artifact that carries its numbers |
 |---|---|---|
-| **S5g** | the railyard | `walt/walt-factory/results/census_yard*_2026-08-10.txt` |
+| **S5g** | the railyard | `results/census_yard*_2026-08-10.txt` |
 | **S5h** | the fiber-crush probe (three-arm baseline ladder) | `results/fiber_probe_2026-08-11.txt`, `fiber_probe_h_2026-08-11.txt` |
 | **S5i** | the fiber-refinement probe (declared exclusion remnants) | `results/fiber_refine_2026-08-11.txt` |
 | **S5j** | the endgame store (symmetry-reduced tablebase) | `results/endgame_store_2026-08-11.txt`, `endgame_floor_2026-08-11.txt` |
@@ -345,10 +360,13 @@ measurement — the grade-3 predictive dimensions, the detector recall figures,
 the singleton frontiers — treat it as a pointer into the artifact above, never
 as a standing claim.
 
-The design documents that each ruling family adjudicates (`walt/SEAT-CENSUS.md`,
-`walt/PREDICTIVE-RANK.md`, `walt/POLICY-GEOMETRY.md`, `walt/DEADNESS-PROBE.md`,
-`walt/SEPARATION-PROBE.md` and others) live at the top of `walt/`. A ruling that
-says "the design" means the one named in its section's opening paragraph.
+The design documents that each ruling family adjudicates live at the top of
+`walt/` (`walt/POLICY-GEOMETRY.md`, `walt/SEPARATION-PROBE.md` and others) —
+except the seven retired 2026-08-24 after their probes closed (`CENSUS`,
+`FIBER-PROBE`, `FIBER-REFINE`, `ENDGAME-STORE`, `SEAT-CENSUS`,
+`PREDICTIVE-RANK`, `DEADNESS-PROBE`), whose bytes are preserved at
+`git show 2de8a05:walt/<NAME>.md`. A ruling that says "the design" means the
+one named in its section's opening paragraph.
 
 ## Addendum, 2026-08-17 — M2 closure over the portable trick-1 boundary
 

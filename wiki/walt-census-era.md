@@ -2,9 +2,12 @@
 
 [Home](Home.md) · owns: the compression program — situation censuses, the retrograde quotient and railyard, the fiber
 and endgame store probes, and the seat-level census resolved by proof · Sources: `walt/LOG.md` (S5e–S5k);
-`walt/CENSUS.md`, `walt/FIBER-PROBE.md`, `walt/FIBER-REFINE.md`, `walt/ENDGAME-STORE.md`, `walt/SEAT-CENSUS.md`;
+the probe design docs `CENSUS`, `FIBER-PROBE`, `FIBER-REFINE`, `ENDGAME-STORE`, `SEAT-CENSUS` (retired 2026-08-24 after their probes closed; bytes preserved at `git show 2de8a05:walt/<NAME>.md` — this page and [walt-math-reference](walt-math-reference.md) are the owners of their still-true content);
 `walt/CENSUS-RULINGS.md` (F1–F7, Q1–Q5, Y1–Y3, P-A1..P-A21, X-A1..X-A19, E-A1..E-A21, S-A1..S-A21);
-`walt/walt-factory/results/*.txt`; `walt/PLAN.md`. Related: [walt](walt.md) (hub),
+the result summaries now at `walt/probes/factory-results/*.txt`; the retired `walt/PLAN.md` (`git show 56e2173:walt/PLAN.md`).
+(Layout note: the producing crates were deleted by the 2026-08-24 unification — archive-only at producer commit `648f93a`,
+recompute queue in [`walt/ARCHIVE.md`](../walt/ARCHIVE.md); crate and path names below are historical truth.)
+Related: [walt](walt.md) (hub),
 [walt-foundation-era](walt-foundation-era.md), [walt-factory-era](walt-factory-era.md),
 [walt-math-reference](walt-math-reference.md), [walt-instruments](walt-instruments.md),
 [walt-decision-sparse](walt-decision-sparse.md), [walt-scheme-fix](walt-scheme-fix.md).

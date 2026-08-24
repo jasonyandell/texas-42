@@ -3,10 +3,14 @@
 [Home](Home.md) · owns: the conflict-driven lesson factory — the regret walker, the
 `Lesson` type, the falsification tests, the label-fragility discovery, the lesson-DB
 economy, and the 2026-08-10 re-tethering · Sources: [`walt/LOG.md`](../walt/LOG.md)
-S5a–S5d, [`walt/PLAN.md`](../walt/PLAN.md) (the CDCL spine, the disciplines, the session
-summaries), the run artifacts in
-[`walt/walt-factory/results/`](../walt/walt-factory/results/),
+S5a–S5d, the retired `walt/PLAN.md` (the CDCL spine, the disciplines, the session
+summaries; bytes at `git show 56e2173:walt/PLAN.md`), the run artifacts now at
+[`walt/probes/factory-results/`](../walt/probes/factory-results/),
 [`walt/math/equivariant_lumpability_v0.5.md`](../walt/math/equivariant_lumpability_v0.5.md).
+(Layout note: the `walt-factory` and `walt-skeleton` crates this era built were
+deleted by the 2026-08-24 unification — archive-only at producer commit
+`648f93a`, recompute queue in [`walt/ARCHIVE.md`](../walt/ARCHIVE.md); crate and
+path names below are historical truth.)
 Related: [walt](walt.md) (hub), [walt-foundation-era](walt-foundation-era.md),
 [walt-census-era](walt-census-era.md), [walt-instruments](walt-instruments.md),
 [walt-math-reference](walt-math-reference.md) (theorems and proofs live there),
@@ -33,7 +37,7 @@ its close, that is the intended shape of the work.
 Conflict-driven clause learning is how the SAT community made exhaustive search industrial:
 when a line is refuted you analyze *why*, generalize the reason into a clause forbidding a
 family of similar lines, and carry it forward. walt imports the **stance**, not the
-algorithm ([`PLAN.md`](../walt/PLAN.md), adopted 2026-08-10 by Jason and Claude).
+algorithm (the retired `walt/PLAN.md`, adopted 2026-08-10 by Jason and Claude).
 
 A **conflict** is a refuted line: a decision with strictly positive fiber-expected regret
 under *declared* continuation semantics and world weighting, or an S4 checker failure with
@@ -404,7 +408,7 @@ lifecycle work, all deferred, the economy left mechanically blocked because that
 safe. `walt/math/implementers_guide.md` was commissioned as a derived, non-authoritative
 companion.
 
-**The NO-RESCUE policy** (Jason; now standing at the top of [`PLAN.md`](../walt/PLAN.md)):
+**The NO-RESCUE policy** (Jason; stood at the top of the retired `walt/PLAN.md` and still binds):
 when something doesn't work, that is not a thing to fix, spin, or assist with engineering —
 it is a reason to go back to the math better informed. It is mathematics, so a failure is a
 concrete counterexample to carry back to the basis, and that is a *good* outcome: "if the

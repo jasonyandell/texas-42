@@ -510,6 +510,28 @@ two players, not either one's distance from optimal; and "exact" here means exac
 best response *given a model of the opponent*, so when it loses, the model lost,
 not the solve.
 
+### 5.6 The seat plays — and wins the marks
+
+The first-contact loss got an answer, and the answer changed the objective before
+it changed the algorithm. In August 2026 the walt program pivoted from compressing
+truth to **building the seat that plays** ([walt-seat-play](walt-seat-play.md)),
+with one ruling doing most of the work: the objective is **the probability of
+making the bid** — pmake — because 42 is scored in marks, and trick points are
+only a proxy for them. The resulting player is a sampling stack: an exact best
+response, in exact rationals, over sampled rule-consistent worlds, against a
+modeled field of simpler minds.
+
+Seated against the same champion that had beaten the exact solver, under the same
+dropped-30 mirrored protocol, **the seat won**: 630 of 1,152 games pooled across
+three seeds, McNemar z = +6.28 over 6,015 paired contracts, every seed's
+mark-margin confidence interval excluding zero. The signature is the objective
+made visible — walt *loses* about 4.7 trick points per hand and *wins* the marks,
+exactly what optimizing pmake rather than points should look like. Jason has since
+played it at length at a web table, live inside the plunge product. Every caveat
+of section 5.5 still travels: this is an **arena outcome about play at the
+exploratory tier** — sampled estimates against a modeled field — never a statement
+about exact values, and never quotable above this section.
+
 ---
 
 ## 6. What is still open

@@ -1,12 +1,18 @@
 # Scheme/Fix — the descriptor language, and how to use it
 
-[Home](Home.md) · owns: the Scheme/Fix descriptor language — what a descriptor is, what the language is for, how to read and write one, and how much of it is built · Sources: walt v0.4 §3 (Scheme and Fix as typed relational queries), §12.1 (static descriptor factorization), §12.5 (dynamic control skeleton), §12.6 (controlled lumpability), §12.7 (Scheme/Fix as a control-skeleton language), §12.9 (counterexample-guided synthesis), §16.11 (experimental record schema), §17.4 (open questions); `walt/math/equivariant_lumpability_v0.5.md` (§12.6A); `walt/math/implementers_guide.md` §1.20–1.21; `walt/PLAN.md`, `walt/LOG.md`; `walt/walt-skeleton/src/`, `walt/walt-factory/src/lesson.rs`; the results files named inline.
+[Home](Home.md) · owns: the Scheme/Fix descriptor language — what a descriptor is, what the language is for, how to read and write one, and how much of it is built · Sources: walt v0.4 §3 (Scheme and Fix as typed relational queries), §12.1 (static descriptor factorization), §12.5 (dynamic control skeleton), §12.6 (controlled lumpability), §12.7 (Scheme/Fix as a control-skeleton language), §12.9 (counterexample-guided synthesis), §16.11 (experimental record schema), §17.4 (open questions); `walt/math/equivariant_lumpability_v0.5.md` (§12.6A); `walt/math/implementers_guide.md` §1.20–1.21; `walt/LOG.md` (and the retired `walt/PLAN.md`, `git show 56e2173:walt/PLAN.md`); the `walt-skeleton` and `walt-factory` sources; the results files named inline.
 
 > **EXPLORATORY TIER — the whole page.** walt sits on its own frozen exploratory-tier basis
 > (`walt/math/`). Nothing here is a corpus status, a Lean kernel proof, an
 > exchange-adjudicated CONFIRMED, or a rob conformance receipt. Every number below is
 > computed evidence about one declared finite domain, from a single Rust implementation,
 > and is never an axiom (TRUST-01). The fence is on the [walt hub](walt.md).
+>
+> **Layout note (2026-08-24):** the `walt-skeleton`/`walt-factory` code this page
+> quotes is archive-only at producer commit `648f93a` (the crates were deleted by
+> the unification — [`walt/ARCHIVE.md`](../walt/ARCHIVE.md)); the `results/...`
+> files it names now live at `walt/probes/factory-results/`. Source paths and
+> crate names below are historical truth about where the language was built.
 
 Siblings: [walt hub](walt.md) · [foundation era](walt-foundation-era.md) · [factory era](walt-factory-era.md) · [census era](walt-census-era.md) · [decision-sparse track](walt-decision-sparse.md) · [instruments](walt-instruments.md) · [math reference](walt-math-reference.md).
 
@@ -474,7 +480,7 @@ role" instead of "tile 2-0". That last gap is why the §6.2 lesson generalized i
 but not in reach — with concrete tile names in the cells, a lesson can only travel to
 decisions whose pools still carry those exact tiles.
 
-**Where the open work sits.** `walt/PLAN.md` names §12.7 compact descriptions as rung 3 of
+**Where the open work sits.** The retired `walt/PLAN.md` named §12.7 compact descriptions as rung 3 of
 the census track: "make classes sayable (descriptor semantics + update law + preservation
 proof); needed for both the seat-level construction and analysis." The original target was
 the 306 root classes of the trick-six retrograde census — "what IS a class, in words a player

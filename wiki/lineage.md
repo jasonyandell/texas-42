@@ -36,3 +36,13 @@ Jason has built 42 players since long before this repo (the dream dates to age
 The wall's winning condition, restated for this repo: a texas-42 artifact
 clears it only by beating the E[Q]-family champion in paired marks *for a
 demonstrated strategic reason*. Everything else is instrument, not goal.
+
+*Status note (2026-08-24, exploratory tier).* On 2026-08-17 the walt
+scenario-player seat beat the E[Q] champion in paired marks under the dropped-30
+protocol, with a legible strategic signature — it loses trick points and wins
+marks, the shape its pmake objective predicts ([walt-seat-play](walt-seat-play.md)).
+That is an arena outcome about play, at the exploratory tier, against a modeled
+field; whether it constitutes the *demonstrated strategic reason* this condition
+demands — a plan held and cashed, not a scoreline — is deliberately not ruled
+here. The obligations ledger in `walt/SCENARIO-PLAYER.md` is the path from the
+scoreline to the demonstration.

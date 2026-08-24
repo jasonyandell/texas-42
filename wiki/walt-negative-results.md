@@ -2,8 +2,10 @@
 
 [Home](Home.md) · owns: walt's negative results as first-class findings — what
 each one refuted, at what scope, what it cost to learn, and what it redirected ·
-Sources: [`walt/LOG.md`](../walt/LOG.md), [`walt/PLAN.md`](../walt/PLAN.md), the
-results files under `walt/walt-factory/results/`, and the rulings in
+Sources: [`walt/LOG.md`](../walt/LOG.md), the retired `walt/PLAN.md`
+(`git show 56e2173:walt/PLAN.md`), the
+results files now at `walt/probes/factory-results/` (historically
+`walt-factory/results/`), and the rulings in
 `walt/CENSUS-RULINGS.md`. Related: [walt hub](walt.md),
 [the program and its resets](walt-program.md),
 [foundation era](walt-foundation-era.md), [factory era](walt-factory-era.md),

@@ -44,7 +44,20 @@ byte-identical committed-receipt adjudication, Lean build and axiom audit, and
 final source re-verification in one conjunction. The sole admitted result is
 **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**. It establishes no
 action value, selected lead, optimal set, information net, continuation,
-performance claim, or player; M3–M5 and every root verdict remain untouched.
+performance claim, or player; every root verdict remains untouched.
+
+Two updates since (2026-08-24 sync). **Freeze 57** is fixed (GT1-A18..A24): the
+M3 perfect-recall-net binding contract is
+[`walt/GPU-NATIVE-TRICK1-M3.md`](../walt/GPU-NATIVE-TRICK1-M3.md) v1 (exact
+SHA-256 in GT1-A24), the GT1 ruling range is re-frozen at A1..A24 and the
+chapter closed — freeze 57 authorizes only the gate and records **no M3
+result**; M4–M5 remain untouched. And the 2026-08-24 unification re-issued the
+freeze-56 source closure append-only as **v2**
+(`walt/math/gpu_native_trick1_m0_m2_sources_v2.sha256`, FZ-A1..A6): the v1
+manifest stays byte-immutable beside it, the fold-translation table is an
+amendment to the verifier, the full-closure check becomes a freeze-event
+verification, and the standing M2 receipt is explicitly **old-layout
+evidence** — re-earning it under v2 is deferred to [[m2-receipt-reearn]].
 
 ## Authority and provenance
 
@@ -55,8 +68,9 @@ The source roles are deliberately separate.
 | Received v0.2 guide | Original source commit `ca18bc6807b974b31d4640786d7a2d63ae0b79fe`; intake commit `c230949c77ff7e8e22f912ed70f8206488ac9022`; SHA-256 `ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44` | Preserved design input, byte-for-byte. It records what was received; it is not silently repaired. |
 | Adjudicated v0.3 contract | [`walt/GPU-NATIVE-TRICK1.md`](../walt/GPU-NATIVE-TRICK1.md) | Binding first-build design inside the exploratory track. It governs wherever it narrows, repairs or rejects v0.2. |
 | Binding M2 bridge and contract | [`gpu_native_trick1_m2_rebrief_v0.1.md`](../walt/math/gpu_native_trick1_m2_rebrief_v0.1.md), SHA-256 `9183132529a42289a104a73d8f7e196eb95058ac2edda60bb42c715f1f8a139a`; [`GPU-NATIVE-TRICK1-M2.md`](../walt/GPU-NATIVE-TRICK1-M2.md), SHA-256 `aacb6df5e9106b3b6bf00ccfb496c71f762c0fb4644c13a17f76d2ac2f0326e3` | The mandatory bridge from freeze 55 and the exact M2 authority frozen by GT1-A17. They narrow M2 to arithmetic and opening-projector parity. |
-| Append-only rulings and freezes | [`walt/CENSUS-RULINGS.md`](../walt/CENSUS-RULINGS.md), GT1-A1..GT1-A17, [freeze 55 and freeze 56](walt-math-freezes.md) | The adjudication and deterministic-encoding record. The freezes bind exact measured objects and prove no mathematics. |
-| Executable evidence | `walt-gpu-spec`, `walt-gpu-ref`, `walt-metal`, `walt-m2-runner`, their tests, and the committed [`M2 receipt and checksum`](../walt/receipts/gpu_native_trick1_m2_v1/) | Evidence about the implemented carriers and exact Metal parity gate. It does not promote a statement or stand in for a theorem or root verdict. |
+| Append-only rulings and freezes | [`walt/CENSUS-RULINGS.md`](../walt/CENSUS-RULINGS.md), GT1-A1..GT1-A24 (range re-frozen, chapter closed), [freezes 55–57](walt-math-freezes.md), FZ-A1..A6 (the freeze-56 v2 re-issue) | The adjudication and deterministic-encoding record. The freezes bind exact measured objects and prove no mathematics. |
+| Binding M3 contract | [`walt/GPU-NATIVE-TRICK1-M3.md`](../walt/GPU-NATIVE-TRICK1-M3.md) v1, frozen by GT1-A24 (freeze 57) | The M3 gate authority. It authorizes only the gate; no M3 result is recorded. |
+| Executable evidence | `walt::spec` (formerly the `walt-gpu-spec` crate), `walt-gpu-ref`, `walt-metal`, `walt-m2-runner`, their tests, and the committed [`M2 receipt and checksum`](../walt/receipts/gpu_native_trick1_m2_v1/) — old-layout evidence under freeze-56 v2 (FZ-A3) | Evidence about the implemented carriers and exact Metal parity gate. It does not promote a statement or stand in for a theorem or root verdict. |
 | Lean foundations | [`Trick1Foundation.lean`](../lean/Texas42/Trick1Foundation.lean) and [`Trick1MetalFoundation.lean`](../lean/Texas42/Trick1MetalFoundation.lean) | Kernel-facing finite foundations only; executable refinement obligations remain separate. |
 
 The v0.2 file's source hash is the intake gate. The v0.3 file is maintained design
@@ -89,11 +103,11 @@ competitor strictly and every higher-index competitor non-strictly.
 
 | Milestone | Present status | What it does not establish |
 |---|---|---|
-| **M0 — portable arithmetic and semantics** | Source-complete: exact U256 mass arithmetic, closed role/frame typing, canonical `SemanticTablesCanonicalV2` generated from `walt-core`, FIPS hash anchors, independent big-integer oracles, and the complete declared prose-rules bridge. Whole-gate status follows the freeze-55 condition above. | No Metal ABI parity, speed result, root value or player. |
+| **M0 — portable arithmetic and semantics** | Source-complete: exact U256 mass arithmetic, closed role/frame typing, canonical `SemanticTablesCanonicalV2` generated from the rules layer (`walt::rules`, formerly `walt-core`), FIPS hash anchors, independent big-integer oracles, and the complete declared prose-rules bridge. Whole-gate status follows the freeze-55 condition above. | No Metal ABI parity, speed result, root value or player. |
 | **M1 — scalar opening projector** | Source-complete: independent closed-form/direct paths; every feasible `m=0..6` reduced coordinate at grades 2–4; full-opening counts/mass; grade-5 zero-output stop; same-context reuse without action collapse; and canonical bound envelope/stop validators. Whole-gate status follows the freeze-55 condition above. | No 399,072,960-world direct enumeration, no grade-5 parity, no root action and no claim that grade 4 predicts opening behavior. |
 | **Lean foundations** | The two modules cover the stable arithmetic/interval layer and M2's finite arena, carrier-order and all-or-nothing facts. | They do not prove the projector formulas, Rust/Lean correspondence or Metal/Rust semantic correspondence. |
 | **M2 — Metal parity** | **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**. The complete committed gate and receipt comparison covered exact U256 and opening-projector parity on the frozen carrier. | No action value, selected lead, optimal set, information net, continuation, performance claim, player or Lean correspondence theorem. |
-| **M3 — perfect-recall net** | Untouched. | No strategy-fusion repair has been demonstrated by this track. |
+| **M3 — perfect-recall net** | Contract frozen (freeze 57, GT1-A24; `GPU-NATIVE-TRICK1-M3.md` v1 is the binding authority; the `walt::carrier` module holds the frozen hand-8 receipt carrier). **No M3 result recorded.** | No strategy-fusion repair has been demonstrated by this track; the gate is authorized, not passed. |
 | **M4 — representation-growth gate** | Untouched. | No compression, basis-rank, memory-growth or GPU-speed claim. |
 | **M5+ — stopped controller and opening attempt** | Untouched. | No opening player, root closure, optimal action or playable verdict. |
 
@@ -139,10 +153,13 @@ Grade-4 checks are correctness instruments and are never evidence about trick 1.
 
 The freeze-55 portable gate is closed. Under freeze 56 the only admitted M2
 status is **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**; all scope
-exclusions above remain binding.
+exclusions above remain binding. The GPU program is parked behind the kanban
+queue ([[gpu-level2]] is its card); re-earning the M2 receipt at the unified
+layout ([[m2-receipt-reearn]]) is expected at its unparking.
 
 1. Build and compare the explicit perfect-recall information net at M3 before
-   any controller or opening-root attempt.
+   any controller or opening-root attempt — the M3 gate is now authorized
+   (freeze 57) and unpassed.
 2. Run the M4 representation-growth gate without importing an unearned
    compression, basis-rank, memory-growth or performance claim from M2.
 3. Admit a stopped M5 controller or opening attempt only after its own

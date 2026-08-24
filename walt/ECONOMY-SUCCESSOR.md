@@ -2,7 +2,14 @@
 # that is not an exact solve?
 # (design)
 
-Status: **DESIGN, awaiting walt-math rulings.** This document is the
+Status: **DESIGN — since adjudicated and run.** *(2026-08-24 note:
+walt-math ruled the EC-A family in `walt/CENSUS-RULINGS.md` (EC-A13
+splits the economy claim into primal and full halves), and the seeded
+probe ran — result summary
+`walt/probes/factory-results/economy_seed_2026-08-14.txt`; the owning
+wiki pages are `wiki/walt-s6-era.md` and `wiki/walt-decision-sparse.md`.
+The design text below is unchanged.)*
+This document is the
 successor **SEP-A17** names, in SEP-A17's own scope words: *"seed L from
 a source that is **not** an exact solve at a⋆ — a transported library
 entry, a hand-authored playbook, a cheap heuristic — and ask whether the

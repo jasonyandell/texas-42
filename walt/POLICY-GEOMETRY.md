@@ -2,8 +2,12 @@
 # strategy side collapse?
 # (design for adjudication)
 
-Status: DESIGN, awaiting walt-math rulings (PG-Q1..PG-Q6) in
-`walt/CENSUS-RULINGS.md`. One-author rule unchanged. Standing rulings
+Status: DESIGN — since adjudicated and run. *(2026-08-24 note: walt-math
+ruled PG-A1..PG-A18 in `walt/CENSUS-RULINGS.md` and the probe ran S6b —
+result summary `walt/probes/factory-results/policy_geometry_2026-08-12.txt`;
+formal verdict STOPPED with no verdict, dissent travels; the owning wiki
+page is `wiki/walt-s6-era.md`. The design text below is unchanged.)*
+One-author rule unchanged. Standing rulings
 inherit everything through R-A1..R-A24, Lemmas V, X, E, S, S-fold, S-det, R,
 Corollaries S-rigid, R-fold. Tier: exploratory.
 

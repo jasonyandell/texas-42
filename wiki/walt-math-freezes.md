@@ -1,10 +1,12 @@
 # walt mathematics — the freeze register
 
-[Home](Home.md) · owns: the register of walt's determinism freezes 1–56 —
+[Home](Home.md) · owns: the register of walt's determinism freezes 1–57 —
 number, content, version, and the ruling that fixed each · Sources:
 `walt/CENSUS-RULINGS.md` (every freeze is declared in a ruling there);
-cross-checked against the `Freeze NN:` doc comments in
-`walt/walt-factory/examples/*.rs`, the results-file headers, for freeze 55 the
+cross-checked against the `Freeze NN:` doc comments in the factory's
+`examples/*.rs` (archive-only at commit `648f93a` since the 2026-08-24
+unification), the results-file headers (now under
+`walt/probes/factory-results/`), for freeze 55 the
 canonical descriptor in `walt-gpu-ref/src/receipt.rs`, and for freeze 56 the
 canonical descriptor in `walt-gpu-ref/src/m2_receipt/receipt.rs`. Related:
 [the reference map](walt-math-reference.md),
@@ -345,6 +347,16 @@ penalties, multi-stage/martingale penalties, adaptive block search beyond the
 first frontier, and any cost model for the decision-relative distance `κ_a(T)`
 are **NOT** in freeze 38 v1. They re-enter as **freeze 38 v2** fixed by a later
 adjudication. No number is reused; **39 and 40 remain reserved and untouched**.
+
+## Addendum 2026-08-24 — freeze 57, and freeze-56's v2 re-issue
+
+Two register events since the table above was written; pointers only, the
+rulings govern.
+
+| # | Content (one line) | Fixed by |
+|---|---|---|
+| 57 | **The binding M3 perfect-recall-net gate.** Fixes the exact 962 ASCII bytes of `GT1-M3-FREEZE-SET-V1` (SHA-256 `e5efe6ce…`), naming binding contract `GPU-NATIVE-TRICK1-M3-v1` at SHA-256 `79de73e9…`, parent freeze 56, the M3 objectives/treatments ABI, carrier profile `M3CarrierProfileV1` (h8, roots 21-31-33-55), and `Texas42.Trick1PerfectRecallNet` as the proof boundary. It authorizes only the gate and records **no M3 result**; the GT1 ruling range is re-frozen at A1..A24 and the chapter closed. | **GT1-A24** |
+| 56 v2 | **Append-only re-issue at the unified layout** (the fold, 2026-08-24). New cumulative source manifest `walt/math/gpu_native_trick1_m0_m2_sources_v2.sha256` (identity `8a780895…`) beside the byte-immutable v1; a 32-entry fold-translation table as verifier amendment; full-closure checking demoted to freeze-event verification; the standing M2 receipt explicitly **old-layout evidence**, its re-earning deferred to [[m2-receipt-reearn]]. | **FZ-A1..FZ-A6** (§ "freeze-56 v2") |
 
 ## Two discrepancies on the record
 

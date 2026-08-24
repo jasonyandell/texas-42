@@ -82,6 +82,24 @@ verified program under `exchange/adjudication/programs/`.
 
 | **Constellation realizability = reachability at k=1 (R1)** — every realizable last-trick class is legal-play reachable via a forward-replayed full-hand witness; the realizable-but-unreachable gap is zero, so reachability filtering of the k=1 retrograde seed table is a no-op at class granularity (inbox/010, programs/010.py) | [idea-retrograde-rank](idea-retrograde-rank.md) §§5,7 | exchange-adjudicated CONFIRMED (31,830 PASS / 0 FAIL ~19s; 3/3 SOUND-high; all 31,197 witnesses independently re-replayed through the corpus ingest verifier by a referee, 0 failures; census re-derived twice with uncompressed keys, identical partition). Caveats verbatim: **convention** — 31,197 is the dispatch-literal ordered-opponent count, rob's frozen number is the swap-pooled 15,680 (163 reflection-fixed; 31,197 = 2·15,680 − 163); convert before diffing against `constellation_k1_census.rs`. **Scope** — REACHABLE = legal-play reachable (follow obligations + winner-leads; no contract/bid consistency); different predicate from the reachable-support image — **no REACH-\* impact**. **Evidence routing** — outcome-constancy is quotable only from the adjudication re-run (all 4,422,600 oriented positions, 0 collisions, 14 outcomes) or rob's `fine_collisions == 0`, never from the response's tautological per-class receipt. **Declaration skew** — 0 NT and 0 δ=3 witnesses in the exhaustive loop (NT realizes 19,069 of 31,197 classes); R1 is class-granularity only; per-declaration reachability rests on the 600-case sample covering all 216 declaration×hold cells. Step-6 FALSE-branch scope error vacuous (soundness rests on forward replay). Seed-table corollary travels with x:009's REFUTED pooled-key backward commutation. Retires x:009's 19,329 (non-invariant); proves rob's strictly finer key (extra slough bit) induces the same k=1 partition. |
 
+## Walt-tier exchange intakes — adjudicated into the exploratory tier, never the CONFIRMED pipeline
+
+The decision-sparse correspondence thread with Pro (dispatches 016–018, all
+hand-ferried by Jason) was adjudicated same-day by walt-math **into walt's
+exploratory tier**: real adjudication (repairs filed, claims confirmed or
+rejected, rulings appended to `walt/CENSUS-RULINGS.md`), but no adversary
+panel and no machine-checkable-deliverable contract — so nothing from it is,
+or can become, exchange-adjudicated CONFIRMED. These rows exist so the tier
+routing is never mistaken; the content is owned by
+[walt-decision-sparse](walt-decision-sparse.md) and the walt hub's fence
+applies (cited by nothing above the Ideas tier).
+
+| Intake | Topic (one line) | Status |
+|---|---|---|
+| x:016 (`exchange/inbox/016-decision-sparse-nonanticipativity-taxes.md`) | first-rung nonanticipativity taxes: fusion-gap identity, binary tax formula, one-stage penalty dual | **WALT-TIER ADJUDICATED** (walt-math, same day): first-layer mathematics confirmed; four repairs filed (FT-arrive, FT-trunc, FT-flat, FT-post); its Experiment 15.1 became the S6k fusion-tax probe |
+| x:017 (`exchange/inbox/017-second-rung-gluing.md`) | second-rung gluing: slack–tax interchange law, multistage martingale dual | **WALT-TIER ADJUDICATED, ACCEPTED IN LARGE PART** (SR-A1..A36): interchange law and martingale dual confirmed; §12.1 verifier proved vacuous and REJECTED as a receipt; the SR depth-two probe ran same day |
+| x:018 (`exchange/outbox/018-fee-correlation-update.md`) | fee-correlation update: collegial correspondence after the FC chapter close (no machine-checkable deliverable) | **SENT 2026-08-14, awaiting Pro's reply** — colleague register; whatever returns will be adjudicated before anything touches the wiki |
+
 ## Informal captures — UNADJUDICATED, recorded here so they are never mistaken for results
 
 Threads with ChatGPT that carried no deliverable contract and were never

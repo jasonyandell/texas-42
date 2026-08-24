@@ -6,13 +6,15 @@ refutation (S6a), the policy-geometry probe at Gate E (S6b), the decision-deadne
 (S6g), the n = 4 separation pass (S6h), the lay-down catalogue (S6i), the rule-economy probe (S6j), the
 fusion-tax probe (S6k), the second-rung probe (S6l), the feature-fee audition (S6m), and the fee-correlation chapter (S6n) · Sources:
 `walt/LOG.md` (S6a–S6n);
-`walt/PREDICTIVE-RANK.md`, `walt/POLICY-GEOMETRY.md`,
-`walt/DEADNESS-PROBE.md`, `walt/SEPARATION-PROBE.md`, `walt/SEPARATION-RUNG-N4.md`, `walt/ECONOMY-SUCCESSOR.md`;
+`walt/POLICY-GEOMETRY.md`, `walt/SEPARATION-PROBE.md`, `walt/SEPARATION-RUNG-N4.md`, `walt/ECONOMY-SUCCESSOR.md`,
+and the retired design docs `PREDICTIVE-RANK`, `DEADNESS-PROBE` (retired 2026-08-24 after their probes closed; bytes preserved at `git show 2de8a05:walt/<NAME>.md`);
 `walt/math/predictive_algebra_v0.6.md`,
 `walt/math/decision_sparse_exact_solving_v0.1.md` and its errata; `walt/CENSUS-RULINGS.md` (R-A1..R-A24,
 PG-A1..PG-A18, J-A1..J-A18, DS-A1..DS-A36, SEP-A1..SEP-A19, N4-A1..N4-A20, EC-A1..EC-A14, T1-A1..T1-A12,
-LD-A1..LD-A13, RW-A1..RW-A8, FT-A1..FT-A29, SR-A1..SR-A37, FF-A1..FF-A33, FC-A1..FC-A22); the results files under
-`walt/walt-factory/results/`. Related: [walt](walt.md) (hub), [walt-census-era](walt-census-era.md) (what S6
+LD-A1..LD-A13, RW-A1..RW-A8, FT-A1..FT-A29, SR-A1..SR-A37, FF-A1..FF-A33, FC-A1..FC-A22); the results files now at
+`walt/probes/factory-results/` (produced under the old `walt-factory/results/` path — the producing crate is
+archive-only at commit `648f93a` since the 2026-08-24 unification; path and crate names below are historical truth).
+Related: [walt](walt.md) (hub), [walt-census-era](walt-census-era.md) (what S6
 answers), [walt-decision-sparse](walt-decision-sparse.md) (the architecture these probes serve),
 [walt-math-reference](walt-math-reference.md) (formal statements), [walt-instruments](walt-instruments.md),
 [walt-foundation-era](walt-foundation-era.md), [walt-factory-era](walt-factory-era.md),

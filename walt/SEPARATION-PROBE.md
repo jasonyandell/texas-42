@@ -2,7 +2,11 @@
 # witnesses (Experiment E)
 # (adjudicated design)
 
-Status: ADJUDICATED — walt-math rulings **SEP-A1..SEP-A18** in
+Status: ADJUDICATED — and since run. *(2026-08-24 note: the probe ran
+S6d — result summary
+`walt/probes/factory-results/separation_2026-08-13.txt`; the owning wiki
+pages are `wiki/walt-s6-era.md` and `wiki/walt-decision-sparse.md`.)*
+Walt-math rulings **SEP-A1..SEP-A18** in
 `walt/CENSUS-RULINGS.md` (2026-08-13) bind this build; freezes **36**
 (SEP-A4) and **37** (SEP-A6) are fixed there. The design's questions,
 originally numbered E-Q1..E-Q8, are renumbered **SEP-Q1..SEP-Q8**

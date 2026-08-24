@@ -14,6 +14,12 @@ server and not a product. Its job is to reproduce — independently, exactly, an
 reproducibly to the byte — every number the ingest packages certify, under
 invariants the packages state in prose but could not enforce in prose.
 
+rob is no longer the project's player: since the 2026-08-17 pivot the player is
+[walt](walt.md), the imperfect-information seat, built iteratively at the
+exploratory tier. rob remains the **exact-truth engine** — and its mathematical
+engineering (byte-diffed receipts, frozen determinism values, CI as the gate) is
+the aspirational example the walt build is expected to grow into.
+
 This page owns rob as an artifact: how it is built, what runs, what checks it.
 Two neighbours own the things it produces. [verification](verification.md) owns
 the receipt inventory and every exact integer in it; [analysis](analysis.md)

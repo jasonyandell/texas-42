@@ -2,7 +2,12 @@
 # coordinates (four tricks out)
 # (design)
 
-Status: **DESIGN, awaiting walt-math rulings.** This document is the
+Status: **DESIGN — since adjudicated and run.** *(2026-08-24 note:
+walt-math ruled N4-A1..N4-A12 with later amendments in
+`walt/CENSUS-RULINGS.md`, and the probe ran — result summary
+`walt/probes/factory-results/rule_economy_n4_2026-08-14.txt`; the owning
+wiki page is `wiki/walt-s6-era.md`. The design text below is unchanged.)*
+This document is the
 successor SEP-A10 prescribes: the n = 4 rung, rejected for the v1
 separation probe, returned as its own design with its own adjudication.
 Its questions are numbered **N4-Q1..N4-Q12** (the prefix is unused in
@@ -476,7 +481,7 @@ as an exemption.
 of:
 
 - the estimated wall-clock of the largest unit exceeds **ten minutes**
-  (SEP-A10(i)'s own threshold, cited; `FIBER-PROBE.md`'s 5-minutes-per-check
+  (SEP-A10(i)'s own threshold, cited; `FIBER-PROBE.md`'s (retired 2026-08-24; `git show 2de8a05:walt/FIBER-PROBE.md`) 5-minutes-per-check
   fast-iteration budget is background context and not the gate);
 - the estimated walk-steps of any evaluator on the unit exceed its
   declared budget from §4.1;
