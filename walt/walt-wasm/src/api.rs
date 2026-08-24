@@ -20,6 +20,23 @@
 //! budget_ms 120000  # native-only wall budget; inert on wasm
 //! ```
 //!
+//! `play` optionally takes a cross-fiber review pair (additive; absent =
+//! byte-identical legacy behavior):
+//!
+//! ```text
+//! viewer 2                    # arena seat whose FIBER prices the options
+//! viewer_hand 0 2 6 10 13 17 25   # viewer's 7 ORIGINALLY DEALT tile ids
+//! ```
+//!
+//! With `viewer` present the response gains `"viewer"` and
+//! `"viewer_opts": [[tile, bp|null, support], ...]` — every legal option
+//! of the seat to act, priced from the viewer's void-conditioned fiber
+//! (fiber = lawful-completion support, never a belief): worlds where the
+//! actor's play of that tile is lawful, solver rooted at the viewer.
+//! `null` bp at support 0 = the sampled fiber cannot realize that play.
+//! Same machinery, different root viewer (LEVEL2-PROBE.md, the cheap
+//! first-order UI detector).
+//!
 //! `bid` kind: `hand`, `need` (minimum viable bid), optional
 //! `theta <num> <den>` (default 11/16, the bidcurve-calibrated
 //! zero-overbid rung at n=40), `n`, `n0`, `seed`, `budget_ms`.
@@ -38,8 +55,9 @@ use num_traits::Zero;
 use walt::rules::rules::legal_plays;
 use walt::rules::{Context, Decl, Domino, Seat, Team};
 use walt::solver::{
-    best_of, bit, bp, decl_of, level1_evaluate, level1_race_refined, mask_of, mix, record_hash,
-    replay, sample_belief, set_of, Deadline, Field, Key, Shared, Solver, SplitMix64,
+    best_of, bit, bp, decl_of, level1_evaluate, level1_race_refined, mask_bits, mask_of, mix,
+    record_hash, replay, sample_belief, set_of, viewer_fiber_evaluate, Deadline, Field, Key,
+    Shared, Solver, SplitMix64,
 };
 
 /// Default decision-stream seed (the bridge's frozen e-digits constant).
@@ -178,6 +196,18 @@ fn handle_play(r: &Req) -> Result<String, String> {
     let seed = r.scalar_or("seed", DEFAULT_SEED)?;
     let budget_ms = r.scalar_or("budget_ms", 120_000)?;
     let race_mode = r.scalar_or("race", 0)? != 0;
+    // Optional cross-fiber review pair (additive; absent = legacy bytes).
+    let xf = match r.fields.get("viewer").map(Vec::as_slice) {
+        None => None,
+        Some([v]) => {
+            let va = *v as usize;
+            if va > 3 {
+                return Err("viewer must be 0..4".to_string());
+            }
+            Some((va, hand_mask(r.list("viewer_hand")?)?))
+        }
+        Some(_) => return Err("field 'viewer' wants exactly one value".to_string()),
+    };
 
     let st = replay(dcl, bidder_arena, &pairs);
     let viewer_i = (seat_arena + st.r) % 4;
@@ -260,6 +290,70 @@ fn handle_play(r: &Req) -> Result<String, String> {
         }
     };
 
+    // Cross-fiber review column: the actor's legal options priced from the
+    // requested viewer's fiber (same machinery, different root viewer).
+    let xf_json = match xf {
+        None => String::new(),
+        Some((va, vh0)) => {
+            let xv_i = (va + st.r) % 4;
+            if xv_i == viewer_i {
+                if vh0 != hand0 {
+                    return Err(
+                        "viewer_hand must equal hand when viewer is the seat to act".to_string()
+                    );
+                }
+            } else if vh0 & hand0 != 0 {
+                return Err("viewer_hand overlaps the actor's hand".to_string());
+            }
+            let key = Key {
+                played: st.played,
+                leader: st.leader,
+                plays: st.plays.clone(),
+                banked_t1: st.banked_t1,
+                banked_t0: st.banked_t0,
+                alive: 0,
+            };
+            let mut sizes = [7 - st.completed; 4];
+            for i in 0..st.plays.len() {
+                sizes[(usize::from(st.leader) + i) % 4] -= 1;
+            }
+            let vh = vh0 & !st.played;
+            if vh.count_ones() as usize != sizes[xv_i] {
+                return Err("viewer_hand is inconsistent with the replayed record".to_string());
+            }
+            let xv_seat = Seat::from_index(xv_i).expect("seat 0..4");
+            let mut xrng = SplitMix64(
+                seed ^ mix(u64::from(vh0)) ^ mix(0xF1BE ^ xv_i as u64) ^ record_hash(&key),
+            );
+            let priced = viewer_fiber_evaluate(
+                dcl,
+                bid,
+                seat,
+                xv_seat,
+                vh,
+                &mask_bits(legal),
+                &key,
+                sizes,
+                st.voids,
+                st.trick_start_played,
+                7 - st.completed,
+                n_outer,
+                n0,
+                budget_ms.div_ceil(1000).max(1),
+                &mut xrng,
+            )
+            .ok_or("evaluation deadline hit")?;
+            let items: Vec<String> = priced
+                .iter()
+                .map(|(t, v, w)| match v {
+                    Some(v) => format!("[{t},{},{w}]", bp(v)),
+                    None => format!("[{t},null,{w}]"),
+                })
+                .collect();
+            format!(",\"viewer\":{va},\"viewer_opts\":[{}]", items.join(","))
+        }
+    };
+
     // Reply in arena labels (the bridge's conformance convention): arena
     // team0 = arena seats {0,2}, internal T1 exactly when r == 1.
     let leader_arena = (usize::from(st.leader) + 4 - st.r) % 4;
@@ -269,7 +363,7 @@ fn handle_play(r: &Req) -> Result<String, String> {
         (st.banked_t0, st.banked_t1)
     };
     Ok(format!(
-        "{{\"v\":1,\"kind\":\"play\",\"choice\":{chosen},\"forced\":{forced},\"raced\":{raced},\"opts\":{},\"leader\":{leader_arena},\"points\":[{points0},{points1}]}}",
+        "{{\"v\":1,\"kind\":\"play\",\"choice\":{chosen},\"forced\":{forced},\"raced\":{raced},\"opts\":{},\"leader\":{leader_arena},\"points\":[{points0},{points1}]{xf_json}}}",
         opts_json(&opts)
     ))
 }

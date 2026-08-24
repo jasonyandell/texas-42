@@ -183,6 +183,82 @@ fn full_hand_all_walt() {
     println!("record: {}", flat.join(" "));
 }
 
+/// Cross-fiber review (`viewer` + `viewer_hand` on a play request): the
+/// response gains a second pricing column — the actor's legal options
+/// priced from the viewer's fiber. Additive and backward compatible: the
+/// legacy response bytes are a strict prefix of the extended response
+/// (minus the closing brace), and the whole call is deterministic.
+#[test]
+fn play_viewer_fiber_review() {
+    let hands = deal(1);
+    let (hand_no, bidder, bid) = (1u64, 0usize, 42u8);
+    let dreq = format!(
+        "walt1 declare\n{}\nbid {bid}\nn {N}\nn0 {N0}\nseed {}\n",
+        hand_line(hands[bidder]),
+        SEED ^ mix(hand_no)
+    );
+    let dresp = handle(&dreq);
+    assert!(!dresp.contains("error"), "declare errored: {dresp}");
+    let decl_id = field_i64(&dresp, "decl") as usize;
+
+    // Opening lead: S0 to act, S1 reviewing from its own fiber.
+    let base = format!(
+        "walt1 play\ndecl {decl_id}\nbid {bid}\nseat 0\nbidder 0\n{}\nplays \nn {N}\nn0 {N0}\nseed {}\n",
+        hand_line(hands[0]),
+        SEED ^ mix(hand_no)
+    );
+    let legacy = handle(&base);
+    assert!(!legacy.contains("error"), "legacy play errored: {legacy}");
+    assert!(!legacy.contains("viewer"), "legacy response has no viewer");
+
+    let viewer_line = {
+        let ids: Vec<String> = mask_bits(hands[1]).iter().map(u8::to_string).collect();
+        format!("viewer 1\nviewer_hand {}\n", ids.join(" "))
+    };
+    let vreq = format!("{base}{viewer_line}");
+    let vresp = handle(&vreq);
+    assert!(!vresp.contains("error"), "viewer play errored: {vresp}");
+    assert_eq!(vresp, handle(&vreq), "same request, same bytes");
+    assert!(
+        vresp.starts_with(&legacy[..legacy.len() - 1]),
+        "legacy fields are byte-identical: {legacy} vs {vresp}"
+    );
+    assert!(vresp.contains("\"viewer\":1"), "viewer echoed: {vresp}");
+
+    // Every legal option of the actor (all 7 at an opening lead) is
+    // priced: entries are [tile, bp|null, support] with support <= n.
+    let at = vresp
+        .find("\"viewer_opts\":[")
+        .expect("viewer_opts present");
+    let arr = &vresp[at + "\"viewer_opts\":[".len()..vresp.len() - 2];
+    let entries: Vec<&str> = arr
+        .split("],[")
+        .map(|e| e.trim_start_matches('[').trim_end_matches(']'))
+        .collect();
+    assert_eq!(entries.len(), 7, "seven opening options priced: {arr}");
+    for (i, &t) in mask_bits(hands[0]).iter().enumerate() {
+        let parts: Vec<&str> = entries[i].split(',').collect();
+        assert_eq!(parts.len(), 3, "tile,bp,support: {}", entries[i]);
+        assert_eq!(parts[0], t.to_string(), "options in ascending tile order");
+        let support: usize = parts[2].parse().expect("support count");
+        assert!(support <= N, "support within the sample");
+        if parts[1] == "null" {
+            assert_eq!(support, 0, "null price exactly at empty support");
+        } else {
+            let bp_v: i64 = parts[1].parse().expect("basis points");
+            assert!(support > 0 && (0..=10_000).contains(&bp_v));
+        }
+    }
+
+    // A viewer hand that overlaps the actor's is rejected, not guessed at.
+    let bad_ids: Vec<String> = mask_bits(hands[0]).iter().map(u8::to_string).collect();
+    let bad = format!("{base}viewer 1\nviewer_hand {}\n", bad_ids.join(" "));
+    assert!(
+        handle(&bad).contains("error"),
+        "overlapping viewer_hand must error"
+    );
+}
+
 /// The race-then-refine play mode (`race 1`): a full hand with all four
 /// seats racing. Same walt-core refereeing and conformance asserts as the
 /// default-mode test; the record may lawfully differ from the full-mode
