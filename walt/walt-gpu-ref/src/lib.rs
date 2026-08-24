@@ -73,4 +73,4 @@ pub use root::{
     UniformCompatibleOpeningDealsV1, UniformRandomLegalV1, MAX_POINT_BID_V1, MIN_POINT_BID_V1,
     OPENING_MODEL_PROFILE_V1,
 };
-pub use walt_gpu_spec::{OpeningLikelihoodCoeff, ScaledOpeningMass, SupportCount};
+pub use walt::spec::{OpeningLikelihoodCoeff, ScaledOpeningMass, SupportCount};

@@ -1,7 +1,7 @@
 use core::fmt;
 
-use walt_core::{legal_plays, Context, Decl, Domino, DominoSet};
-use walt_kernel::KernelError;
+use walt::kernel::KernelError;
+use walt::rules::{legal_plays, Context, Decl, Domino, DominoSet};
 
 pub const MAX_GRADE: u8 = 7;
 /// A lawful opening pool omits the led tile from its effective context, whose

@@ -208,15 +208,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "walt-core"
-version = "0.1.0"
-
-[[package]]
-name = "walt-geom"
+name = "walt"
 version = "0.1.0"
 dependencies = [
+ "num-bigint",
  "num-rational",
- "walt-core",
+ "num-traits",
+ "rayon",
 ]
 
 [[package]]
@@ -226,57 +224,16 @@ dependencies = [
  "num-bigint",
  "rob-core",
  "rob-verify",
- "walt-core",
- "walt-gpu-spec",
- "walt-kernel",
-]
-
-[[package]]
-name = "walt-gpu-spec"
-version = "0.1.0"
-dependencies = [
- "num-bigint",
- "walt-core",
-]
-
-[[package]]
-name = "walt-kernel"
-version = "0.1.0"
-dependencies = [
- "num-bigint",
- "num-rational",
- "num-traits",
- "walt-core",
+ "walt",
 ]
 
 [[package]]
 name = "walt-m2-runner"
 version = "0.1.0"
 dependencies = [
+ "walt",
  "walt-gpu-ref",
- "walt-gpu-spec",
  "walt-metal",
-]
-
-[[package]]
-name = "walt-m3-carrier"
-version = "0.1.0"
-dependencies = [
- "walt-core",
- "walt-gpu-spec",
- "walt-kernel",
-]
-
-[[package]]
-name = "walt-m3-probe"
-version = "0.1.0"
-dependencies = [
- "num-bigint",
- "num-rational",
- "num-traits",
- "rayon",
- "walt-core",
- "walt-m3-carrier",
 ]
 
 [[package]]
@@ -288,17 +245,8 @@ dependencies = [
  "objc2-core-graphics",
  "objc2-foundation",
  "objc2-metal",
+ "walt",
  "walt-gpu-ref",
- "walt-gpu-spec",
-]
-
-[[package]]
-name = "walt-strat"
-version = "0.1.0"
-dependencies = [
- "walt-core",
- "walt-geom",
- "walt-kernel",
 ]
 
 [[package]]
@@ -307,6 +255,5 @@ version = "0.1.0"
 dependencies = [
  "num-rational",
  "num-traits",
- "walt-core",
- "walt-m3-probe",
+ "walt",
 ]

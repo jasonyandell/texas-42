@@ -1,6 +1,6 @@
 use core::fmt;
 
-pub use walt_gpu_spec::sha256;
+pub use walt::spec::sha256;
 
 pub type Digest = [u8; 32];
 

@@ -1,12 +1,12 @@
 use std::collections::BTreeMap;
 
-use walt_core::{legal_plays, Context, Decl, Domino, DominoSet, Pip};
+use walt::rules::{legal_plays, Context, Decl, Domino, DominoSet, Pip};
+use walt::spec::FIELD_SCALE;
 use walt_gpu_ref::{
     direct_preflight, project_closed_form, project_direct, DirectPreflightV1, OpeningContext,
     OpeningError, ResponseRole, M1_DIRECT_WORLD_CAP_V1, MAX_OPENING_MATCHING_COUNT_V1,
     OPENING_DEAL_COUNT,
 };
-use walt_gpu_spec::FIELD_SCALE;
 
 fn led_context() -> Context {
     Context::Natural(Pip::new(6).expect("six is a pip"))

@@ -2,6 +2,7 @@
 
 use core::fmt;
 
+use walt::spec::{sha256, SemanticTables, TABLE_FORMAT_VERSION};
 use walt_gpu_ref::m2_receipt::{
     canonical_binding_sections, protected_chain_digest, stream_digest, ArithmeticRunKind,
     ArithmeticRunRecord, ArithmeticSection, Arm, AuthoritySection, CarrierSection, CodecError,
@@ -17,7 +18,6 @@ use walt_gpu_ref::{
     ReducedCarrierProfileV1, ReducedEvidenceBindingV1, M2_CONTEXT_TASK_COUNT_V1,
     M2_PHYSICAL_BINDING_COUNT_V1, M2_REDUCED_BINDING_COUNT_V1,
 };
-use walt_gpu_spec::{sha256, SemanticTables, TABLE_FORMAT_VERSION};
 use walt_metal::{
     AcceptedMetalArithmeticNegativeV1, AcceptedMetalArithmeticV1, AcceptedMetalOpeningNegativeV1,
     AcceptedMetalOpeningTaskV1, ArithmeticRunIntegrity,

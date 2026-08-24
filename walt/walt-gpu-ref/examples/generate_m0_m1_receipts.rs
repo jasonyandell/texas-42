@@ -6,7 +6,8 @@ use std::fs;
 use std::io;
 use std::path::{Path, PathBuf};
 
-use walt_core::{Context, Decl, Domino, DominoSet, Pip, Seat};
+use walt::rules::{Context, Decl, Domino, DominoSet, Pip, Seat};
+use walt::spec::{sha256, SemanticTables, TABLE_FORMAT_VERSION};
 use walt_gpu_ref::{
     canonical_m1_grade5_declared_stop_bytes_v1, project_closed_form,
     validate_m1_grade5_declared_stop_v1, validate_opening_run_envelope_v1, BuildIdentityV1,
@@ -14,7 +15,6 @@ use walt_gpu_ref::{
     GT1_FREEZE_SET_DESCRIPTOR_V1, GT1_FREEZE_SET_SHA256_V1, M1_DIRECT_WORLD_CAP_V1,
     M1_GRADE5_STOP_WORLD_COUNT_V1, MAX_OPENING_CELLS_V1,
 };
-use walt_gpu_spec::{sha256, SemanticTables, TABLE_FORMAT_VERSION};
 
 const SOURCE_MANIFEST_BYTES: &[u8] =
     include_bytes!("../../math/gpu_native_trick1_m0_m1_sources_v1.sha256");

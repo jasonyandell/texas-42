@@ -9,8 +9,7 @@ publish = false
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-walt-core = { path = "../walt-core" }
-walt-m3-probe = { path = "../walt-m3-probe", default-features = false }
+walt = { path = "../walt", default-features = false }
 num-rational = { workspace = true }
 num-traits = { workspace = true }
 

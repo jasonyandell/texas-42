@@ -2,9 +2,9 @@ use std::collections::BTreeMap;
 
 use core::cmp::Ordering;
 
-use walt_core::{legal_plays, ContextSet, Domino, DominoSet, Seat};
-use walt_gpu_spec::{OpeningLikelihoodCoeff, ScaledOpeningMass, SupportCount, FIELD_SCALE};
-use walt_kernel::{Hidden, Kernel};
+use walt::kernel::{Hidden, Kernel};
+use walt::rules::{legal_plays, ContextSet, Domino, DominoSet, Seat};
+use walt::spec::{OpeningLikelihoodCoeff, ScaledOpeningMass, SupportCount, FIELD_SCALE};
 
 use crate::context::{OpeningContext, OpeningError, M1_DIRECT_WORLD_CAP_V1};
 
@@ -709,12 +709,12 @@ pub(crate) fn checked_binomial(n: usize, k: usize) -> Result<u64, OpeningError> 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use walt_core::{Decl, Domino, DominoSet, Pip};
+    use walt::rules::{Decl, Domino, DominoSet, Pip};
 
     #[test]
     fn opening_projection_rejects_cells_above_the_frozen_cap() {
         let decl = Decl::NoTrump;
-        let led = walt_core::Context::Natural(Pip::new(6).expect("six is a pip"));
+        let led = walt::rules::Context::Natural(Pip::new(6).expect("six is a pip"));
         let pool: DominoSet = Domino::ALL.into_iter().take(3).collect();
         let context = OpeningContext::try_reduced(decl, led, pool, 1)
             .expect("three nonmatching tiles form a bounded synthetic context");

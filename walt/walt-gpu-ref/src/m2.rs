@@ -10,8 +10,8 @@ use core::fmt;
 use std::sync::OnceLock;
 
 use num_bigint::BigUint;
-use walt_core::{Context, Decl, Domino, DominoSet, Pip, Seat};
-use walt_gpu_spec::{sha256, SemanticTables, Sha256State, U256Mass, FIELD_SCALE};
+use walt::rules::{Context, Decl, Domino, DominoSet, Pip, Seat};
+use walt::spec::{sha256, SemanticTables, Sha256State, U256Mass, FIELD_SCALE};
 
 use crate::{
     direct_preflight, project_closed_form, DirectPreflightV1, OpeningContext, OpeningContractV1,

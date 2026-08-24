@@ -10,7 +10,7 @@ use rob_core::{
     Declaration as RobDeclaration, DominoId as RobDominoId, Pip as RobPip, Seat as RobSeat,
 };
 use rob_verify::prose_resolver::prose_resolve;
-use walt_core::{legal_plays, Context, Decl, Domino, DominoSet, Seat, Trick};
+use walt::rules::{legal_plays, Context, Decl, Domino, DominoSet, Seat, Trick};
 
 fn prose_is_trump(decl: Decl, domino: Domino) -> bool {
     match decl {

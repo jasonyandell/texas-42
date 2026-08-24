@@ -6,9 +6,9 @@
 //! Small samples (n=6, n0=2): this tests lawfulness, conformance, and
 //! determinism, not strength. Exploratory tier; not a P-A21 statement.
 
-use walt_core::rules::{legal_plays, Trick};
-use walt_core::{Context, Domino, Seat, Team};
-use walt_m3_probe::{bit, decl_of, mask_bits, mix, set_of, SplitMix64};
+use walt::rules::rules::{legal_plays, Trick};
+use walt::rules::{Context, Domino, Seat, Team};
+use walt::solver::{bit, decl_of, mask_bits, mix, set_of, SplitMix64};
 use walt_wasm::api::handle;
 
 const N: usize = 6;
@@ -165,7 +165,7 @@ fn full_hand_all_walt() {
         leader = winner.index();
         trick_tiles.clear();
     }
-    assert_eq!(played_mask, walt_m3_probe::FULL_MASK, "all 28 tiles played");
+    assert_eq!(played_mask, walt::solver::FULL_MASK, "all 28 tiles played");
     assert!(determinism_checked, "at least one open decision occurred");
     assert_eq!(
         u32::from(points[0]) + u32::from(points[1]),
@@ -262,7 +262,7 @@ fn full_hand_all_walt_raced() {
         leader = winner.index();
         trick_tiles.clear();
     }
-    assert_eq!(played_mask, walt_m3_probe::FULL_MASK, "all 28 tiles played");
+    assert_eq!(played_mask, walt::solver::FULL_MASK, "all 28 tiles played");
     assert!(determinism_checked, "at least one open decision occurred");
     assert_eq!(u32::from(points[0]) + u32::from(points[1]), 42);
     let flat: Vec<String> = record
