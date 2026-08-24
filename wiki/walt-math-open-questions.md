@@ -2,20 +2,18 @@
 
 [Home](Home.md) · owns: the inventory of genuinely open mathematical questions
 in the walt branch, at the exploratory tier · Sources: `walt/CENSUS-RULINGS.md`
-(the ruling that left each one open), `walt/math/decision_sparse_exact_solving_v0.1_errata.md`.
+(the ruling that left each one open), `walt/math/decision_sparse_exact_solving_v0.1_errata.md`,
+`walt/SCENARIO-PLAYER.md` §10, `walt/LEVEL2-PROBE.md`, `exchange/README.md` (x:018).
 Related: [the reference map](walt-math-reference.md),
+[received artifacts and intakes](walt-math-intakes.md),
 [decision-deadness](walt-math-deadness.md),
 [structure and transport](walt-math-structure-transport.md),
 [decision-sparse witnesses](walt-math-decision-sparse.md),
 [the freeze register](walt-math-freezes.md).
 
-> **Coverage note (2026-08-24) — reorganization pending, see [[math-reorg]].**
-> This inventory predates the scenario-player era. The open questions it lists
-> remain open as stated, but the era added new ones it does not carry — the
-> `walt/SCENARIO-PLAYER.md` §10 obligations ledger, the level-2 field-swap
-> question (`walt/LEVEL2-PROBE.md`), and the conditional-moment gap the x:018
-> correspondence names — and gathering those into one inventory is
-> [[math-reorg]]'s charter.
+> **Coverage (2026-08-24, the [[math-reorg]] pass).** Questions 1–8 are the
+> census/decision-sparse era's inventory and remain open as stated; the
+> scenario-player era's additions are gathered below as items 9–12.
 
 > **Tier: EXPLORATORY throughout**, below every tier on
 > [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).
@@ -192,6 +190,55 @@ count survival under the guard for the transposition instance. **Propositions
 J-0 and J-1 survive count re-entry; J-win does not.** And DS-A16 identifies the
 one asset that crosses intact: a lawful policy remains a valid primal witness
 under any valuation. The policies extend; the verdicts do not.
+
+### 9. The scenario-player obligations ledger — the era's whole proof debt
+
+**Status: open by construction, and owned elsewhere.** The
+`walt/SCENARIO-PLAYER.md` spec is explicit that its statements are definitions
+and proof obligations, not established results; its **§10 ledger** (O1–O9
+spec-native, O12–O19 filed from the signed-pivotal §14; O10–O11 permanently
+retired at SP-A11) is the authoritative queue and is **not restated here** —
+one page owns each topic. The mathematically load-bearing rows: **O2** (key
+sufficiency, Lemma 2.4 — unproved on paper, candidate for exchange review),
+**O4** (posterior semantics, Lemma 5.2 — "the load-bearing one"), **O7**
+(execution-order invariance from purity plus rational arithmetic). Graduation
+path per project law: paper proofs → wiki with tier labels → independent
+re-verification → Lean for what earns mechanization.
+
+### 10. The level-2 field-swap question
+
+**Status: specified, deliberately not started.** Where does pivotal mass wake
+up under a field upgrade — q(level-0 field) ≈ 0 but q(level-1 field) > 0 — and
+does modeling the partner's response *shrink* fixed-pair hardness H (making
+level 2 cheaper to sample at equal confidence, not just stronger)? The
+detector, the two motivating plunge specimens, and the hypothesis are
+`walt/LEVEL2-PROBE.md`'s; the probe is gated on the adaptive-sampling
+mathematics ([[adaptive-sampling-intake]]), which has not landed. Two
+tilt-audit roads are also untested: **counted-boundary** (Phase F predicate
+mining never run) and **policy-library** (`walt/TILT-AUDIT.md` § "Road
+verdict").
+
+### 11. The x:018 conditional-moment gap
+
+**Status: named in correspondence, awaiting Pro's reply.** The fee-correlation
+correspondence (x:018, 2026-08-14) asks what object carries the lower-witness
+burden when the fee route is structurally unavailable (wide ties) — a
+covering/fractional-covering dual over the core hypergraph with the fee as the
+rank-one case? — and names the **conditional-moment gap blocking trick 1**. No
+note has been received; nothing is adjudicated; the ask itself is indexed on
+[received artifacts and intakes](walt-math-intakes.md).
+
+### 12. Scenario-era conjectures awaiting their probes
+
+**Status: conjectural, so labeled at the source, never quotable as results.**
+Three from the pmake advisory ruling and the SP audit, each carried with its
+own fence: the **belief-state growth extrapolation** (10⁷–10⁹ belief states at
+mid boundaries — "conjecture only", from one measured 34× per-trick ratio; a
+P-A21-shaped caution applies); the **pairing-wins hypothesis** (SP-A5: that
+Cov(u_a, u_b) > 0 in practice is *a hypothesis the tilt audit itself
+measures*, not a theorem); and the **§12.6A cross-carrier hope** (the
+equivariant quotient "earns its keep across carriers and in late endgames" —
+proved nearly trivial on the one carrier checked).
 
 ---
 
