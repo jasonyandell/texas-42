@@ -67,7 +67,7 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | [walt-decision-sparse](walt-decision-sparse.md) | The decision-sparse architecture, its objects, its audit history, and the state of its experiment program |
 | [walt-seat-play](walt-seat-play.md) | **The live track since 2026-08-17**: the scenario-player (sampling-stack) seat — level-1's arena win over the E[Q] champion, level-2, divergence mining, and the spec [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md) with its obligations ledger |
 | [walt-gpu-native-trick1](walt-gpu-native-trick1.md) | The adjudicated narrow opening-root contracts, the bounded M0/M1 portable build, M2 Metal parity, and the still-unbuilt perfect-recall/controller ladder |
-| [walt-math-reference](walt-math-reference.md) | The map of walt's mathematics — every named object, where its statement lives, what it binds. Siblings: [structure and transport](walt-math-structure-transport.md), [information geometry](walt-math-information-geometry.md), [decision-deadness](walt-math-deadness.md), [decision-sparse witnesses](walt-math-decision-sparse.md), [the freeze register](walt-math-freezes.md), [open questions](walt-math-open-questions.md) |
+| [walt-math-reference](walt-math-reference.md) | The map of walt's mathematics — every named object, where its statement lives, what it binds. Siblings: [structure and transport](walt-math-structure-transport.md), [information geometry](walt-math-information-geometry.md), [decision-deadness](walt-math-deadness.md), [decision-sparse witnesses](walt-math-decision-sparse.md), [received artifacts and intakes](walt-math-intakes.md), [the freeze register](walt-math-freezes.md), [open questions](walt-math-open-questions.md) |
 
 ## The sources under `walt/`
 
