@@ -8,6 +8,7 @@ mathematics), the received documents under `walt/math/`, the adjudicated
 GPU-native portable contract `walt/GPU-NATIVE-TRICK1.md`, the exact M2 rebrief,
 and the frozen M2 contract `walt/GPU-NATIVE-TRICK1-M2.md`. Related:
 [walt hub](walt.md), [structure and transport](walt-math-structure-transport.md),
+[walt-seat-play](walt-seat-play.md),
 [information geometry](walt-math-information-geometry.md),
 [decision-deadness](walt-math-deadness.md),
 [decision-sparse witnesses](walt-math-decision-sparse.md),
@@ -21,6 +22,18 @@ and the frozen M2 contract `walt/GPU-NATIVE-TRICK1-M2.md`. Related:
 > walt's own declared basis (v0.4/v0.5/v0.6, themselves exploratory), and it may
 > not be quoted in a brief, a dispatch, [FINDINGS](FINDINGS.md), or any
 > claim-tier page. These pages are a map, not a promotion.
+
+> **Coverage note (2026-08-24) — reorganization pending, see [[math-reorg]].**
+> This map is synthesized through the S6n fee-correlation chapter (FC-A) and the
+> GT1-A17/freeze-56 boundary. Adjudicated since but **not yet mapped here**: the
+> signed-pivotal intake (SP-A, 2026-08-18) and the tilt audit it spawned, the
+> GT1-A18..A24 chapter (freeze 57, the M3 binding contract), the freeze-56 v2
+> re-issue (FZ-A1..A6), and the scenario-player era's mathematics
+> (`walt/SCENARIO-PLAYER.md` obligations, the pmake objective, the incoming
+> adaptive-sampling intake). All of it is indexed in `walt/CENSUS-RULINGS.md`
+> and on [the freeze register](walt-math-freezes.md)'s addendum; gathering it
+> into this map — and re-organizing the corpus into one owned index — is the
+> [[math-reorg]] card's charter, deliberately not half-done here.
 
 ## Who this is for
 

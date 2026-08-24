@@ -9,6 +9,14 @@ Related: [the reference map](walt-math-reference.md),
 [decision-sparse witnesses](walt-math-decision-sparse.md),
 [the freeze register](walt-math-freezes.md).
 
+> **Coverage note (2026-08-24) — reorganization pending, see [[math-reorg]].**
+> This inventory predates the scenario-player era. The open questions it lists
+> remain open as stated, but the era added new ones it does not carry — the
+> `walt/SCENARIO-PLAYER.md` §10 obligations ledger, the level-2 field-swap
+> question (`walt/LEVEL2-PROBE.md`), and the conditional-moment gap the x:018
+> correspondence names — and gathering those into one inventory is
+> [[math-reorg]]'s charter.
+
 > **Tier: EXPLORATORY throughout**, below every tier on
 > [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).
 
