@@ -6,8 +6,12 @@ Sources: `walt/CENSUS-RULINGS.md` (the adjudication record),
 `walt/math/decision_sparse_exact_solving_v0.1_errata.md` (the maintained
 mathematics), the received documents under `walt/math/`, the adjudicated
 GPU-native portable contract `walt/GPU-NATIVE-TRICK1.md`, the exact M2 rebrief,
-and the frozen M2 contract `walt/GPU-NATIVE-TRICK1-M2.md`. Related:
-[walt hub](walt.md), [structure and transport](walt-math-structure-transport.md),
+the frozen M2/M3 contracts `walt/GPU-NATIVE-TRICK1-M2.md` and
+`walt/GPU-NATIVE-TRICK1-M3.md`, the signed-pivotal parent and intake companion,
+and the scenario-era documents (`walt/SCENARIO-PLAYER.md`, `walt/TILT-AUDIT.md`,
+`walt/LEVEL2-PROBE.md`). Related:
+[walt hub](walt.md), [received artifacts and intakes](walt-math-intakes.md),
+[structure and transport](walt-math-structure-transport.md),
 [walt-seat-play](walt-seat-play.md),
 [information geometry](walt-math-information-geometry.md),
 [decision-deadness](walt-math-deadness.md),
@@ -23,17 +27,17 @@ and the frozen M2 contract `walt/GPU-NATIVE-TRICK1-M2.md`. Related:
 > not be quoted in a brief, a dispatch, [FINDINGS](FINDINGS.md), or any
 > claim-tier page. These pages are a map, not a promotion.
 
-> **Coverage note (2026-08-24) — reorganization pending, see [[math-reorg]].**
-> This map is synthesized through the S6n fee-correlation chapter (FC-A) and the
-> GT1-A17/freeze-56 boundary. Adjudicated since but **not yet mapped here**: the
-> signed-pivotal intake (SP-A, 2026-08-18) and the tilt audit it spawned, the
-> GT1-A18..A24 chapter (freeze 57, the M3 binding contract), the freeze-56 v2
-> re-issue (FZ-A1..A6), and the scenario-player era's mathematics
-> (`walt/SCENARIO-PLAYER.md` obligations, the pmake objective, the incoming
-> adaptive-sampling intake). All of it is indexed in `walt/CENSUS-RULINGS.md`
-> and on [the freeze register](walt-math-freezes.md)'s addendum; gathering it
-> into this map — and re-organizing the corpus into one owned index — is the
-> [[math-reorg]] card's charter, deliberately not half-done here.
+> **Coverage (2026-08-24, the [[math-reorg]] pass).** This map now runs through
+> the current end of `walt/CENSUS-RULINGS.md`: the S6n fee-correlation chapter
+> (FC-A), the full GT1-A1..A24 chapter (freezes 55–57, closed), the
+> signed-pivotal intake (SP-A1..A12) and the tilt audit it spawned, the
+> freeze-56 v2 re-issue (FZ-A1..A6), and the scenario-player era's mathematics
+> (the `walt/SCENARIO-PLAYER.md` spec and its obligations ledger, the pmake
+> advisory ruling, the level-2 detector spec). The received artifacts and
+> intakes behind all of it have their own first-class index:
+> [received artifacts and intakes](walt-math-intakes.md). Still pending, and
+> deliberately not pre-indexed: Jason's adaptive-sampling mathematics
+> ([[adaptive-sampling-intake]]) — nothing has landed.
 
 ## Who this is for
 
@@ -47,8 +51,12 @@ you decide whether to open the source.
 
 walt's decision-sparse mathematics lives in three places with three different
 disciplines. The GPU-native trick-1 branch adds a received source, a maintained
-portable contract, an exact accepted M2 rebrief and a frozen binding M2
-contract. The distinction is load-bearing and is the first thing to internalise.
+portable contract, exact accepted M2/M3 rebriefs and frozen binding M2/M3
+contracts; the signed-pivotal and scenario-player era adds a checksum-pinned
+received parent with an intake companion, a maintained seat spec, and two probe
+documents. The distinction is load-bearing and is the first thing to
+internalise. The full artifact-by-artifact provenance map is
+[received artifacts and intakes](walt-math-intakes.md).
 
 | Document | Discipline | Role |
 |---|---|---|
@@ -59,6 +67,13 @@ contract. The distinction is load-bearing and is the first thing to internalise.
 | `walt/math/gpu_native_trick1_m2_rebrief_v0.1.md` | **Exact accepted M2 rebrief** (GT1-A10) | The mandatory bridge from freeze 55 to M2: 44,079 bytes, SHA-256 `9183132529a42289a104a73d8f7e196eb95058ac2edda60bb42c715f1f8a139a`. It supersedes the old host observation only as current environment status; it does not rewrite that receipt. |
 | `walt/GPU-NATIVE-TRICK1-M2.md` | **Frozen binding M2 contract v1** (GT1-A17) | The exact M2 arithmetic/projector parity authority, SHA-256 `aacb6df5e9106b3b6bf00ccfb496c71f762c0fb4644c13a17f76d2ac2f0326e3`. It neither widens the portable parent nor authorizes an action-value, controller, performance or player claim. |
 | `walt/CENSUS-RULINGS.md` | **Append-only** (DS-A28(i)) | The adjudication record. No ruling's text is ever rewritten; a corrected clause receives a bracketed dated pointer marker at its site. Also the home of the named lemmas from before the errata existed. |
+| `walt/math/gpu_native_trick1_m3_rebrief_v0.1.md` | **Exact M3 rebrief** (GT1-A18) | The mandatory bridge from freeze 56 to M3, SHA-256 `07b3c993…`. The binding contract supersedes it only where more specific. |
+| `walt/GPU-NATIVE-TRICK1-M3.md` | **Frozen binding M3 contract v1** (GT1-A24) | The M3 perfect-recall-net gate authority, SHA-256 `79de73e9…`, under **freeze 57**. It authorizes only the gate and records **no M3 result**; the GT1 range is re-frozen closed at A1..A24. |
+| `walt/math/signed_pivotal_geometry_v0.1.md` | **Received, verbatim, checksum-pinned** | Pro's signed-pivotal-geometry note (2026-08-18), SHA-256 `b9d93715…`. Audited at SP-A1..A12; SP amendments bind every consumer. |
+| `walt/math/signed_pivotal_geometry_v0.1_intake.md` | **Intake companion** | The exact-rational verification of every boxed identity in the parent, which the SP-A audit takes as read. |
+| `walt/SCENARIO-PLAYER.md` | **Maintained spec v0.1** | The sampling-stack seat's mathematical specification — definitions and **proof obligations, not established results**; its §10 obligations ledger (O1–O9, O12–O19) is the graduation queue. |
+| `walt/TILT-AUDIT.md` | **Maintained probe document** | The E0 experiment as adopted and amended by SP-A1..A12; smoke design, objects, and the 2026-08-19 smoke results. Estimates, never receipts. |
+| `walt/LEVEL2-PROBE.md` | **Spec only, deliberately not started** | The level-2 field-swap detector, gated on unification (done) and the adaptive-sampling mathematics (pending). |
 
 **Citation rule (DS-A17), binding on every design and results file:** cite the
 **errata theorem number** for the mathematics and the **DS-A ruling** for its
@@ -173,7 +188,7 @@ travel with them are on the track page's two chapters.
 | **Proposition FC-width** | The subgradient's width is exactly the mass-weighted spread of the feature **across the clairvoyant tie**. Without ties it is a point, so zero capture needs an exact identity; with ties it has positive width and zero capture is **robust rather than coincidental**. | same section, closing note |
 | **Proposition FC-tight** | The drop bound is **attained** exactly when the descent is a single linear piece. It is never *exact* as a property of the functional anywhere, and **which states attain it is not knowable without the captured amount** — so attainment is a fact about the gap's distribution, never a usable property of the instrument. | same section, closing note |
 
-### GPU-native trick-1 portable foundation and M2 Metal parity — [page](walt-gpu-native-trick1.md)
+### GPU-native trick-1 portable foundation, M2 Metal parity, and the M3 gate — [page](walt-gpu-native-trick1.md)
 
 | Object | One line | Full statement |
 |---|---|---|
@@ -187,15 +202,79 @@ travel with them are on the track page's two chapters.
 | **`M2SequentialRunnerV1`** | Completion-only reads, fixed arenas, stable host compaction, typed progress frames, separate CPU/command watchdogs and zero accepted evidence after any failure. It deliberately admits no atomics, concurrency, adaptive scheduling or performance conclusion. | same file §§6–10; GT1-A13..A16 |
 | **M2 receipt boundary** | Two fresh complete Metal runs must produce one another's bytes and the immutable committed comparand exactly. The receipt is executable evidence under freeze 56, never a Lean theorem or a reusable projector value. | `walt/receipts/gpu_native_trick1_m2_v1/`; GT1-A16/A17 |
 | **Lean M2 finite foundation** | Kernel proofs for the fixed arena bounds, GradeMatching coverage and count, at-most-ten matching-vector bound, stable-filter order, and all-or-nothing acceptance. The projector formulas and Rust/Lean and Metal/Rust correspondence remain proof debt. | `lean/Texas42/Trick1MetalFoundation.lean`; GT1-A17 |
+| **M3 carrier and claim fence** | One grade-4 h8 carrier immediately before trick 4, uniform over the exact 1,200 compatible worlds, roots 21/31/33/55, objectives M3A (future-trick differential, strict `C > H` required) and M3B (P30 make), treatments H lawful-perfect-recall vs C world-revealed. The sole green sentence is the gate sentence; no trick-1 value, lead, performance, controller or player claim. | `GPU-NATIVE-TRICK1-M3.md`; GT1-A19 |
+| **`M3PerfectRecallKeyV1` / `M3WorldRevealedKeyV1`** | The scoped S1 observation with complete own action-observation memory and no hidden-world identity, vs the disjoint world-revealed C type. Unique parent/action, complete face retention, sum-before-max license the exact unnormalized recurrence; no strategy fusion, key renormalization or cross-world C pooling admitted. | same file; GT1-A20 |
+| **The two-family reduction algebra** | Exactly two noncoexisting REDUCE families (`MASS_BUCKET`, `BACKWARD_VALUE`); conservation and terminal-bucket checks are disjoint host folds, never a third family; count-one retirement, real epoch order, the 21-level/range proof and closed command/frame/byte caps. | same file; GT1-A21 |
+| **M3 evidence, controls and reproducibility** | Sole-owner semantic streams rendered independently on CPU and post-Metal; the 36-control registry; closed receipt grammars with no partial salvage; two fresh builds and two fresh runs must produce byte-identical library and receipt bytes. | same file; GT1-A22 |
+| **Lean M3 proof boundary** | `Texas42.Trick1PerfectRecallNet` must build and pass the axiom audit (codec/scoping, replay, unique parent, complete face, sum-before-max, mass, objective bridges, two-family census/range/compaction/cap proofs, all-or-nothing composition). Rust-to-Lean, Metal-to-Rust, general oracle correctness and grade-4-to-trick-1 transport remain named correspondence debt. | GT1-A23 |
+
+### The scenario-player era — signed pivotal geometry, the tilt audit, and the level-2 detector
+
+The era's mathematics lives in four documents rather than one probe chapter:
+the received signed-pivotal parent and its intake companion, the
+`walt/SCENARIO-PLAYER.md` spec, the pmake advisory ruling, and the two probe
+documents (`walt/TILT-AUDIT.md`, `walt/LEVEL2-PROBE.md`). Artifact provenance
+is on [received artifacts and intakes](walt-math-intakes.md); the track
+narrative is on [walt-seat-play](walt-seat-play.md). **A status column is
+mandatory here and nowhere else on this page**, because this era's named
+objects are *mostly unproved*: the spec is explicit that its statements are
+definitions and proof obligations, not established results, and each obligation
+carries a ledger row.
+
+| Object | One line | Status | Full statement |
+|---|---|---|---|
+| **The signed-pivotal boxed identities** | g = qτ; E[Y²] = q; Var(Y) = q − g²; H = 1/(qτ²) − 1; the world/tape projection; strata linearity g = Σ_j w_j μ_j; the cover identity w²·Var(Y\|P) = wq − g², hence H_P = w/(qτ²) − 1. | Verified by hand and on 2,000 random exact-rational instances at intake; SOUND at SP-A audit | `walt/math/signed_pivotal_geometry_v0.1.md` §§2, 4, 5, 6; intake companion; SP-A headline |
+| **The SP-A5 paired-variance repair** | Var(Y) = Var(u_a) + Var(u_b) − 2·Cov(u_a,u_b): pairing is sharper **iff Cov > 0**. The parent's §2.1 "strictly sharper" is the corpus's one general claim FALSE as written; its own Case C is the counterexample and stays in the parent. | Ruled; binds every consumer | `CENSUS-RULINGS.md` § "Signed-pivotal intake adjudication", SP-A5 |
+| **The adopted vocabulary** | **Pivotal mass** q, **tilt** τ, **gap** g, **fixed-pair hardness** H, **scenario** ξ = (ω, r), **panel**; **pivotal cover** (never "envelope"), **pivotal win share** (never bare θ), **frozen policy** (never "plan"). | Ruled | SP-A1..A4 |
+| **SP-A6 tape typing** | The tape r is a seed assigned world-independently; the scenario law is the product law. Walt's single-stream derivation does **not** satisfy the split, so d(ω)/s(ω) estimates are undefined artifacts until it exists. | Ruled; the split is unbuilt | SP-A6 |
+| **The no-tape structural finding** | The level-0 mind is a pure function of (seat, hand, record) — under the current field model a scenario IS a world, every world is tape-stable by construction, and Phase E is vacuous until a stochastic field model exists. | Smoke finding (2026-08-19), a measurement about the code, not a lemma | `walt/TILT-AUDIT.md` § "Smoke results" |
+| **The spec's object definitions** | Public record R (2.1), information state I_s (2.2), solver key κ(R) (2.3), PiKey (3.1), level-0/level-k minds (3.2/3.3), seed discipline (3.6), fiber (4.1), outer sampler with its inline sampler-correctness obligation (4.2), the declared no-void inner simplification (4.3), level-k walt (6.1), objective and decided cutoffs (6.2). Plus two load-bearing remarks: **2.5** — banked is NOT a function of (played, leader, plays), the mathematical content of the PiKey defect; **4.4** — beliefs are lawfulness-only today, behavior-Bayes happens only on modeled continuations. **Numbering caveat (2026-08-24):** the sampler-correctness lemma is *unnumbered* in the §4 body (it sits inside Def 4.2) but the §10 ledger's O3 row cites it as "Lemma 4.2" — both readings are indexed here; neither text is edited. | Definitions; the sampler-correctness lemma is Obligation O3, the no-void cost Obligation O5 | `walt/SCENARIO-PLAYER.md` §§2–6 |
+| **Lemma 2.4 (key sufficiency)** | Under the Boolean pmake objective with fixed dcl and b, the continuation value depends on R only through the reduced key κ(R) plus the alive set. | **OBLIGATION O2 — unproved on paper**, heavily exercised | `walt/SCENARIO-PLAYER.md` §2 |
+| **Def 3.4 (cache purity invariant)** | Every π value cached under (k, PiKey) must be a pure function of that key — which requires the key to carry everything the computation reads, banked totals included. Carries the PiKey defect record (the documented invariant the code violated for a day). | Invariant + receipt on `f5fff91`; never an axiom | same file §3 |
+| **Def 3.5 (Dice field / the tickertape)** | Field randomness keyed on the *record*, not the path: the same world at the same record plays the same tile in every branch, so worlds partition by drawn move instead of multiplying branches. | Definition | same file §3 |
+| **Lemma 5.1 (conservation)** | The move buckets partition the alive set exactly. | Asserted at every node in every run | same file §5 |
+| **Lemma 5.2 (posterior semantics)** | The bucket weight is the posterior probability of the bucket given the modeled move; the root value is the best-response expectation under "field seats play their modeled policies". | **OBLIGATION O4 — the load-bearing one**, unproved | same file §5 |
+| **Lemma 5.3 (support safety at the bottom)** | Under Dice every legal move of every world has positive probability, so the level-0 bottom excludes no lawful world; deterministic higher levels refine support intentionally per 5.2. | Argued in place | same file §5 |
+| **Def 6.3 (tie protocol)** | Saturation ties are never broken by tile index: tied candidates re-evaluate on fresh 4× samples until separated or bounded — support ≠ belief, and 1-on-sample is not certainty. | Definition; bias question is Obligation O8 | same file §6 |
+| **Claim 8.1 (execution-order invariance)** | Cache purity + exact rationals + fixed argmax order + partition semantics ⇒ results invariant under any thread count and interleaving; only work statistics vary. | **Theorem-shaped claim, OBLIGATION O7**; byte-identical 1-vs-18-thread receipt | same file §8 |
+| **The obligations ledger** | O1–O9 (spec-native: no-strategy-fusion, key sufficiency, sampler correctness, posterior semantics, no-void cost, sampling error, order invariance, tie bias, bid generalization) and O12–O19 (filed from the signed-pivotal §14; O10–O11 permanently retired, SP-A11). | The graduation queue; nothing graduates by existing | same file §10 |
+| **The pmake verdicts P1–P4** | Decided cutoffs SOUND (with the totality bonus: at any terminal T1 + T0 = 42 forces a cutoff, so the recursion is total with no explicit terminal case); viewer early exit SOUND; pmake key reduction SOUND (and unsound for trick-differential, as claimed); gcd-normalized projective posteriors SOUND-WITH-CAVEAT (fail-closed overflow), exact by the projective lemma V(R, c·w) = V(R, w) for integer c ≥ 1. | Advisory, recorded outside the rulings file; against `ladder.rs` at 171cd22; no ruling family | `walt/math/WALT-MATH-RULING-2026-08-17-pmake-and-the-walk-to-trick-1.md` |
+| **The path-dependence counterexample** | The exact posterior is a function of the full ordered record but NOT of the reduced boundary key: same reduced key, odds 1:1 on one trick order vs 3:4 on the other. The exact-posterior key is not redundant. | Advisory, concrete counterexample verified in the ruling | same file, "Bonus" |
+| **The §12.6A invariance-lemma instance** | The concrete ECL instance the ladder should quotient by: (π, θ) fixing played tiles and the focal hand, transporting contexts, preserving trick-key order and count, gives V and Q preserved tile-for-tile — the v0.5 theorem's tile-feature role re-entry form. Honest negative: on the hand-8 carrier the group is provably almost trivial. | Advisory; proof shape stated, group computation hand-checkable | same file, §Q2; parent `walt/math/equivariant_lumpability_v0.5.md` |
+| **The allowance-automaton coarsening** | Under pmake the banked pair collapses to the T0-allowance state a = 12 − banked_T0 ∈ {0..12} ∪ {busted}; one ≤14-valued coordinate where trick-differential needs the exact tally pair. | Advisory | same file, §Q2 close |
+| **The minimal-sufficient-statistic negative** | Under a uniform-random field, worlds act only through hidden legal sets and distinct posteriors at equal public reductions have genuinely distinct continuation laws — the posterior is the minimal sufficient statistic, and **no coarser belief relation should be hunted**. The belief-class count is the irreducible size. | Advisory; the standing negative that shapes the cell-representation recommendation | same file, §Q2 close |
+| **The racing instruments** | Three named modes from the tilt smoke: **replay-race** (frozen policies on a common panel — the audit-faithful object, replay ≈ re-solve without extraction), **block-race** (`level1_raced`, CRN blocks with paired sign-test elimination), **race-then-refine** (`level1_race_refined`, wired opt-in). Regime-dependent: pays off where evaluation is expensive and candidates separate; fixed-bid-30 self-play is its worst case. | Smoke measurements and engineering verdicts, never receipts | `walt/TILT-AUDIT.md` §§ "Racing", "Arena gate" |
+| **The level-2 detector** | A decision is level-2-relevant exactly where pivotal mass wakes up under a field upgrade: q(level-0 field) ≈ 0 but q(level-1 field) > 0. Companion hypothesis: modeling the partner's response should grow g and drop H — level 2 may be *cheaper to sample* at equal confidence. | SPEC only, deliberately not started; gated on [[adaptive-sampling-intake]] | `walt/LEVEL2-PROBE.md` |
+
+### Inline mathematics outside the probe chapters
+
+Named or boxed mathematics that lives in a basis document, a design document,
+or an era page rather than a ruling chapter. Rows marked **orphan** have no
+ruling-ID home anywhere — they are indexed here so they stop being findable
+only by accident, and indexing confers nothing.
+
+| Object | One line | Home | Full statement |
+|---|---|---|---|
+| **The §12.6A theorem and condition (ECL)** | Jason's equivariant-controlled-lumpability theorem over declared role interfaces: the lossless count-free equivariant quotient, with role re-entry of tile features (count, trick-key order) as the lawful route back for non-count-free payoffs. | The v0.5 basis; concretely instantiated at the pmake ruling's Q2 lemma | `walt/math/equivariant_lumpability_v0.5.md`; canonical prose form at [the factory era](walt-factory-era.md) § "S5d — the re-tethering". **Dated caveat (2026-08-24):** two pages paraphrase it imprecisely — [walt-program](walt-program.md) §3 drops count-freeness and the legal-set/kernel conditions, and [the census era](walt-census-era.md) § "What the era left" reverses the gauge ordering (the §8 additive gauge acts only *after* the role-indexed valuation interface is declared). The v0.5 source and the factory-era prose govern; neither page is edited by this index. |
+| **Walt's Appendix A reader notes** | Two walt-authored caveats on the v0.5 basis: coherence scope over the transports, and the abstract-policy-class optimization boundary. | **Orphan** — no ruling home | [the factory era](walt-factory-era.md) § "S5d — the re-tethering" |
+| **The v0.4 objects as a user guide** | Purpose-soundness D(x) = D(y) ⇒ R*(x) = R*(y) (R* = R̄ ∘ D); strong controlled lumpability's two conditions; the Scheme/Fix grammar (Σ = (N_Q, N_C, N_D), O ⊆ Σ, S = (π, φ), F = S₁ ∨ … ∨ S_r, empty Fix false); §12.7's six conditions and its boxed three-part deliverable. | The v0.4 basis (its own §17 claim ledger governs status) | `walt/math/unified_information_geometry_v0.4.md`; worked restatement at [walt-scheme-fix](walt-scheme-fix.md) §§2–3, 7 |
+| **The slack identity** | a⋆ separates iff g(a⋆, seed) ≤ s(a⋆), with the economy gap g := Q^H(a⋆) − L^seed(a⋆) and the separation slack s := Q^H(a⋆) − max_{a≠a⋆} U_a, proved in the design. | EC-A3 ("EC-Q3: R8 CONFIRMED"). Collision hazard: an unrelated receipt also named (R8) sits in the N4 section — the EC-A3 citation governs here | `walt/ECONOMY-SUCCESSOR.md` §1.2 |
+| **Definition (walk-step)** | One unit charged as `bag.len()` at each `walk` entry — one unit per (particle, node) visit, deliberately the same unit as the scalar authority's particle-step. | Freeze 44 ([register](walt-math-freezes.md)) | `walt/SEPARATION-RUNG-N4.md` §3.1 |
+| **The convention bridge Q_diff = 2·Q_count − grade** | The exact affine bridge between the differential and count conventions, asserted at reporting boundaries only; generalised in the rulings as the case α = 2, c = −grade. | Freeze 26 content, ratified at SEP-A3(iii)/SEP-A8 | [the register](walt-math-freezes.md), row 26; restated in `walt/SEPARATION-PROBE.md` and `walt/SEPARATION-RUNG-N4.md` |
+| **The cardinality ladder** | N_pol ≥ N_vec ≥ N_par ≥ W_all ≥ W_reach ≥ 1, with forced ⊂ decision-dead (N_vec = 1) ⊂ dominant (N_par = 1) and the W_all = N_exp identification. | Owned by the information-geometry page | [information geometry](walt-math-information-geometry.md) § "The cardinality ladder" |
+| **The rank reconciliation** | v0.4 §1.3's pip-sum order and the rules corpus's off-pip ranking are the same order: ranks compare only inside one tier, a tier fixes one context q, and pip_sum = q + off_pip is monotone in off_pip; with the doubles-sentinel argument. | **Orphan** — argued in place, no ruling ID | `walt/DISCREPANCIES.md` § "Rank of a mixed tile" |
+| **The `q_points` class definition** | An exact PI root value vector under the real scoring differential — each trick worth ±(1 + count points of its four tiles), focal minus opponents. | **Orphan** — definition in place, no ruling ID | `walt/DISCREPANCIES.md` § "exp5 census pins"; restated at [the foundation era](walt-foundation-era.md) § "S3.5" |
+| **The decisive-tile rule** | Decisive tile = the viewer tile whose led context touches the most hidden-pool tiles, ties to the higher tile. Explicitly typed **a choice, not a theorem**. | **Orphan** — declared in place, no ruling ID | `walt/DISCREPANCIES.md` § "exp3A descriptor pin"; [walt-scheme-fix](walt-scheme-fix.md) §5 rule 1 |
 
 ## The ruling families
 
-Twenty-four indexed families or ruling series, one adjudicator (walt-math), all
+Twenty-six indexed families or ruling series, one adjudicator (walt-math), all
 exploratory. Ranges below are
 **ruling-ID ranges**, which are append-only and do not move; the sections are
 located by heading, never by line number, because line numbers drift with every
-append. Two families span more than one section heading — `DS-A` runs across
-three, `N4-A` across two — and the family, never the heading, is what inherits.
+append. Three families span more than one section heading — `DS-A` runs across
+three, `N4-A` across two, `GT1-A` across three — and the family, never the
+heading, is what inherits.
 
 | Family | Range | Section | Date | Scope |
 |---|---|---|---|---|
@@ -221,8 +300,10 @@ three, `N4-A` across two — and the family, never the heading, is what inherits
 | `SR-A` | SR-A1..**SR-A37** | The second rung: inbox 017 adjudicated | 2026-08-14 | The upper side, one rung deeper. Carries **Lemma SR-coord**, **Lemma SR-forced**, **Proposition SR-sep**, **Proposition SR-post**, **Corollary SR-conv**, **Proposition SR-degen**, **Proposition SR-taut** and **Proposition SR-loc**; **freeze 51** (SR-A22, the depth-two carrier) and **freeze 38 v1.1(d)** (SR-A21, a clarification — v1 not amended, v2 not opened). The closing note (A27–A32) adjudicates the returned run and discharges FT-A28 entire; **A33** and **A34** adjudicate two defects the build found in itself, **A35** types the companion's cross-process digest as an audit note, **A36** records the chapter's first pass with no specification conflict, and **A37** withdraws a carried obligation that was never owed. |
 | `FF-A` | FF-A1..**FF-A33** | The feature-fee audition: Jason's control feature, specified | 2026-08-14 | Which cheap structural features price the first-layer tax, on a carrier where the perfect answer is filed. Carries **Proposition FF-blind**, **Lemma FF-min**, **Proposition FF-oracle**, **Proposition FF-degen** and **Proposition FF-corr**; **freeze 52** with amendments **v1.1** (FF-A15), **v1.2** (FF-A20), **v1.3** (FF-A23) and **v1.4** (FF-A33). Two closing notes: A10–A24 adjudicate the first run and the defect it exposed, A25–A33 the corrected re-run, the shared-θ fit, and the chapter's close. |
 | `FC-A` | FC-A1..**FC-A23** | The fee-correlation chapter: what a fee bites on, measured | 2026-08-14 | Why a fee bites, measured where the exact answer is filed. Carries **Proposition FC-drop**, **Corollary FC-null**, **Proposition FC-width**, **Proposition FC-tight** and **freeze 53**. Delivers the branch's first **pre-fee screening statistic** and its first structural limit on the fee route. A22 binds the "attained, never exact" phrasing; **A23 closes the range and replaces adjective-led claims with the exact one-sided reading**. |
-| `SS-A` | SS-A1..**SS-A18** | The seed survey: a hundred fresh coordinates, designed | 2026-08-15 / 2026-08-16 | The outcome-independent 100-seed, 400-unit grade-4 survey. Carries **freeze 54**, the repaired spreading generator, complete-face/tie-multiplicity receipts, the returned survey reading and its corrections. **SS-A18** repairs one cross-reference (`FF-A26(iv)`, not `FC-A26(iv)`) and closes the range without changing freeze 54. |
-| `GT1-A` | GT1-A1..**GT1-A17** | GPU-native trick-1: the bounded portable foundation; the binding M2 Metal parity gate | 2026-08-16 | The received-v0.2/adjudicated-v0.3 parent through **freeze 55**, then the exact M2 rebrief, binding M2 contract, integer corpus, extracted choose table, typed ABI, complete parity carrier, sequential runner, persistence gate and finite Lean foundation through **freeze 56**. The historical Gate-0 NO-GO remains a true old-environment receipt. **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**; it computes no action value, selected lead, optimal set, information net, continuation, performance claim or player, and M3+ plus every root verdict remain outside the family. |
+| `SS-A` | SS-A1..**SS-A18** | The seed survey: a hundred fresh coordinates, designed | 2026-08-15 / 2026-08-16 | The outcome-independent 100-seed, 400-unit grade-4 survey. Carries **freeze 54**, the repaired spreading generator, the **SS-R1..SS-R9 receipt series** (R1/R2 blocking pre-run; R5 amended at SS-A11, its stated content having been tautological), complete-face/tie-multiplicity receipts, the returned survey reading and its corrections. **SS-A18** repairs one cross-reference (`FF-A26(iv)`, not `FC-A26(iv)`) and closes the range without changing freeze 54. |
+| `GT1-A` | GT1-A1..**GT1-A24** | Three sections: GPU-native trick-1: the bounded portable foundation; the binding M2 Metal parity gate; the binding M3 perfect-recall-net parity gate | 2026-08-16 / 2026-08-17 | One continuously numbered family. The received-v0.2/adjudicated-v0.3 parent through **freeze 55**, then the exact M2 rebrief, binding M2 contract, integer corpus, extracted choose table, typed ABI, complete parity carrier, sequential runner, persistence gate and finite Lean foundation through **freeze 56**. The historical Gate-0 NO-GO remains a true old-environment receipt. **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**; it computes no action value, selected lead, optimal set, information net, continuation, performance claim or player. A18–A24 add the exact M3 rebrief, the binding M3 contract, the perfect-recall/world-revealed key types, the two-family reduction algebra, the `Texas42.Trick1PerfectRecallNet` proof boundary and **freeze 57** — the gate only, **no M3 result recorded**. **RANGE RE-FROZEN at A1..A24 and the chapter closed**; any later GT1 ruling requires an explicit rebrief and another range re-freeze. |
+| `SP-A` | SP-A1..**SP-A12** | Signed-pivotal intake adjudication | 2026-08-18 | The intake audit of the received `signed_pivotal_geometry_v0.1.md`, in the DS-A1..A16 shape. Central mathematics SOUND (boxed identities verified exactly at intake); exactly one general claim FALSE as written, repaired at **SP-A5**; renames **pivotal cover / pivotal win share / frozen policy** (SP-A1..A3); tape typing (SP-A6); the sandwich discipline inherited into the three locks (SP-A7); E0 **ADOPTED as the tilt audit** with corrections SP-A8..A10; O10–O11 permanently retired (SP-A11); Gate E concordance (SP-A12). |
+| `FZ-A` | FZ-A1..**FZ-A6** | The freeze-56 v2 amendment | 2026-08-24 | The one-crate unification meets the source closure: freeze-56's cumulative source closure re-issued append-only at the post-fold layout (`…m0_m2_sources_v2.sha256`, a **new** build identity attested by no hardware receipt yet); the 32-entry fold-translation table as verifier amendment; drift disposition; full-closure checking demoted to **freeze-event** verification; the standing M2 receipt explicitly **old-layout evidence**, its re-earning deferred to [[m2-receipt-reearn]]. **FZ-A6 is the file's final ruling as of 2026-08-24**; unlike SS-A and GT1-A, neither SP-A nor FZ-A carries a range-close marker, so both ranges end open. |
 
 Three numbering traps. **`E-A` and `E-Q` are spent** by the endgame-store section
 of 2026-08-11 — SEP-A had to renumber the separation design's own `E-Q1..E-Q8`
@@ -351,6 +432,9 @@ Result artifacts cited by `results/...` basenames live at
 | **GT1 M0/M1** | the portable GPU-native trick-1 foundation | `walt/receipts/gpu_native_trick1_m0_m1_v1/` |
 | **GT1 historical Gate 0** | the immutable NO-GO observation from the old Command-Line-Tools-only environment | `walt/receipts/gpu_native_trick1_gate0_2026-08-16.txt` |
 | **GT1 M2** | the committed receipt for the exact freeze-56 status sentence; executable fixed-carrier evidence, not a theorem | `walt/receipts/gpu_native_trick1_m2_v1/` |
+| **Scenario-player first day** | the level-1/level-2 ladders and the 3×384 arena vs the E[Q] champion (2026-08-17) — arena outcomes about play, never exact values | `walt/probes/m3/arena_results_2026-08-17.txt`, `level1_results_2026-08-17.txt`, `level2_results_2026-08-17.txt` |
+| **Divergence miner** | 900 self-played hands / 4,156 level-2-shadowed decisions (2026-08-18) — the tilt audit's first anchor corpus | `walt/probes/m3/divergence_results_2026-08-18.txt`, corpus under `walt/probes/m3/mined/` |
+| **Tilt-audit smoke** | the E0 smoke (2026-08-19): trick-6/trick-4 anchors, the no-tape finding, the racing bench and arena gate — estimates, never receipts | `walt/TILT-AUDIT.md` § "Smoke results", `walt/probes/tilt_arena_2026-08-19.log` |
 
 Every measured number quoted anywhere on these pages comes from one of those
 files. **They sit one tier below even these pages** (probe output is exploratory
@@ -633,7 +717,11 @@ the FC items are the most likely to be needed.**
 
 ## Where the rest lives
 
-- [The freeze register](walt-math-freezes.md) — all 56 issued freezes with
+- [Received artifacts and intakes](walt-math-intakes.md) — the first-class
+  index of the frozen bases, Pro-channel intakes and rebriefs, their
+  companions, and the pinned manifests: what each is, where the verbatim
+  parent lives, what came of it.
+- [The freeze register](walt-math-freezes.md) — all 57 issued freezes with
   content, version and declaring ruling (39 and 40 still reserved).
 - [Open questions](walt-math-open-questions.md) — what is genuinely unresolved,
   and why none of it belongs in [open-problems](open-problems.md).
