@@ -1,6 +1,13 @@
 # exchange/drafts/ — adversary-panel dispatch DRAFTS
 
-**STATUS: DRAFT — NOT DISPATCHED. Authorization: none. Batch quota: TBD with Jason.**
+**STATUS UPDATE 2026-08-24: the five panel briefs were hand-ferried by
+Jason as an authorized batch of five (quota cleared by his delivery) and
+now live in `../outbox/` as dispatches 019–023. The consolidated
+response is `../inbox/019-023-response-panel-and-cancellation-v0.1.md`,
+adjudicated same day. This directory is empty pending future drafts; the
+rules below govern anything drafted here.**
+
+**STATUS (for any future draft): DRAFT — NOT DISPATCHED until Jason's explicit go.**
 
 Nothing in this directory has been sent, scheduled, or queued. These files are
 **unsent and unauthorized until Jason's explicit go**, per the batch protocol in

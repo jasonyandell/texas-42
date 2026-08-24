@@ -1,8 +1,8 @@
 ---
-number: TBD (unassigned — draft)
+number: 020
 slug: ce-bounded-mean
 channel: new-chat
-status: "DRAFT — NOT DISPATCHED. Authorization: none. Batch quota: TBD with Jason."
+status: "DISPATCHED 2026-08-24 (hand-ferried by Jason, batch of five, quota cleared by his delivery). Response received same day: exchange/inbox/019-023-response-panel-and-cancellation-v0.1.md."
 deliverable: exact-rational program verifying CE-T4/T5 factor nonnegativity, λ-ranges, and one-step inequalities on a declared grid — or a rational counterexample; verdict on the sign-majority unsoundness claim with a characterization or refutation
 ---
 STATUS: DRAFT — NOT DISPATCHED. Authorization: none. Batch quota: TBD with Jason.

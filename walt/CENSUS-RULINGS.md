@@ -13511,3 +13511,79 @@ exploratory tier.
   intake** (§22 item 12). Level-model typing per O36: a level-2 result
   is a best response to a named σ₁ — never "equilibrium,"
   "convergence," or monotone improvement.
+
+## The panel-response adjudication (2026-08-24)
+
+*Authorization note: filed under the standing same-lineage go for
+Pro-channel mathematics (the CE/L2 adjudication precedent). Jason
+delivered the x:019–023 response with "the conclusion: good news" and
+handed it to intake; these rulings are append-superseded without
+ceremony if he wants any point refined first. Thread labels per his
+2026-08-24 framing ask: **CE = depth of looking, L2 = choice of model.***
+
+- **PANEL-A1 (verdicts ACCEPTED at instrument tier).** The five panel
+  verdicts stand as adjudicated: 019 CE-T1/T2/T3 certified; 020
+  CE-T4/T5 certified with task-D narrowed; 021 A–C/G–H certified,
+  Claim D counterexampled; 022 under-specified-repairable with W7–W11;
+  023 L2-T1..T5 certified with the τ coupling repair. "Certified" here
+  is the panel's word for its own step-check — it promotes nothing;
+  every underlying theorem keeps its existing tier. Verifier re-run
+  36/36 PASS (session evidence, scratch tier). [CE threads: 019–022;
+  L2 thread: 023.]
+- **PANEL-A2 (sign-safe wording BINDING).** The unrestricted class of
+  bounded signed rational differences is not sign-safe; it contains
+  sign-safe subclasses (constant nonzero magnitude the simplest). No
+  future prose may claim the universal exclusion. Sign-majority
+  evidence never orders means; the bounded-mean process is the
+  instrument for mean order. [CE]
+- **PANEL-A3 (Claim-D repair BINDING).** Edge risk may never be
+  assigned retrospectively to already-consumed evidence. Sound forms:
+  future-only opening (reset to 1 at a predictable time, future worlds
+  only) or preallocation before any evidence enters the process. The
+  169/512 > 1/4 adversary is the standing counterexample. The shipped
+  controller is believed compliant by construction (all-pairs
+  preallocation on one stream); that belief is carded for audit, not
+  assumed. [CE]
+- **PANEL-A4 ("refund" language RETIRED).** An exact full-set endpoint
+  closes a decision with zero final sampling error and consumes no
+  additional risk; it does not un-happen internal false edges, and
+  prior allocations are not refunded. Survivor-only enumeration is
+  exact among survivors, never exact for the original set — the
+  existing preroute semantics already conform; the word "refund" is
+  banned from future ledger prose. [CE]
+- **PANEL-A5 (W7–W11 ADOPTED).** Predictable activation, canonical
+  per-index liveness replay, speculative isolation, deterministic
+  same-index crossing with typed InconsistentEvidence, complete pause
+  state. The O26 batch-boundary ambiguity fixture is the standing
+  divergence witness. Shipped controller batch semantics carded for
+  audit against W8/W9. [CE]
+- **PANEL-A6 (τ coupling definition ADOPTED).** The first field split
+  is defined by the stopping time τ on the common prefix (equal public
+  histories, non-focal actor, σ0(J)≠σ1(J)); D_ρ = 1{τ<∞}. This
+  replaces the parent's "in either execution along the shared prefix"
+  phrasing. Slice-2's exposure walk is believed to implement exactly
+  this; carded for a one-line conformance check. L2-T3's separate
+  optimality hypothesis is recorded redundant; L2-T4's interval and
+  nonnegativity hypotheses are now explicit. [L2]
+- **PANEL-A7 (cancellation ladder + diagnostics ADOPTED for slice 3).**
+  |c| ≤ r ≤ d with three distinct zeros; fixed-policy reports retain
+  (d, r, c⁺, c⁻, c); pairwise reports retain (B, H, q, g); the six
+  labels NoFieldExposure / OutcomeStable / ValueNeutral /
+  EpsilonEquivalent / Dominated / Unresolved enter the field-swap kind
+  vocabulary (Rust naming free, distinctions binding). Dominance:
+  H(a|b)=0 ∧ B(a|b)>0 is strict dominance, one-sided unforced risk,
+  never "cancellation"; sampled zero hazards never prove H=0. The
+  interpretation rule is binding: cancellation justifies a value
+  statement under one declared objective/belief/model and never by
+  itself proves pathwise safety, structural irrelevance, dominance, or
+  reweighting stability. [L2 ladder; CE pairwise; dominance
+  objective-level]
+- **PANEL-A8 (directional bounds ADOPTED as the slice-3 rung).**
+  R⁺_a/R⁻_a with Q⁰−R⁻ ≤ Q¹ ≤ Q⁰+R⁺, directional winner stability
+  (Q⁰_a−Q⁰_b > R⁻_a+R⁺_b ⇒ winner holds), directional screening on the
+  L2-T4 bar construction, and the extended rung ladder R± ≤ R^outcome
+  ≤ R^exposure. Directional rungs run coupled branches to terminal —
+  costlier than split-reach, admitted only where the symmetric bound
+  prunes nothing (the h8-t4 regime). The Λ correction (31/1200, was
+  41/1200) is applied at both committed sites with correction notes;
+  component counts were always correct. [L2]

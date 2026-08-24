@@ -320,7 +320,10 @@ the first probe:
   (s2, an opponent of the S1 bidder — 898 of 1,138 exposed worlds, trick 4
   ply 1). The motif is reveal-response-shaped, but *which* seat's model wakes
   up is a measurement, **not the Gran partner hypothesis confirmed** (L2-A6);
-  and |Λ| = 41/1200 is a fixed-pair statement — no decision claim.
+  and |Λ| = 31/1200 is a fixed-pair statement — no decision claim
+  (corrected from 41/1200 per the x:019–023 response §32; the component
+  counts +30/−26 and +45/−72 were always correct, the difference was
+  mis-added; re-verified from the raw probe records).
 - **driven-h0-t1 — the honest trick-1 degeneracy.** On a 64-world stream
   prefix of the 399,072,960-world fiber, exposure ≈ 1: at trick 1 the richer
   field wakes up almost everywhere, so the fixed-policy bound degenerates to

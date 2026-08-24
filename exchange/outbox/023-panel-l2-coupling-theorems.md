@@ -1,8 +1,8 @@
 ---
-number: TBD (unassigned — draft)
+number: 023
 slug: l2-coupling-theorems
 channel: new-chat
-status: "DRAFT — NOT DISPATCHED. Authorization: none. Batch quota: TBD with Jason."
+status: "DISPATCHED 2026-08-24 (hand-ferried by Jason, batch of five, quota cleared by his delivery). Response received same day: exchange/inbox/019-023-response-panel-and-cancellation-v0.1.md."
 deliverable: a finite-game counterexample to any of L2-T1..T5 (explicit tables, exact rationals), or step-certification with a model-checking program over a declared family of small games
 ---
 STATUS: DRAFT — NOT DISPATCHED. Authorization: none. Batch quota: TBD with Jason.

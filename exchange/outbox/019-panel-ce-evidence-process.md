@@ -1,8 +1,8 @@
 ---
-number: TBD (unassigned — draft)
+number: 019
 slug: ce-evidence-process
 channel: new-chat
-status: "DRAFT — NOT DISPATCHED. Authorization: none. Batch quota: TBD with Jason."
+status: "DISPATCHED 2026-08-24 (hand-ferried by Jason, batch of five, quota cleared by his delivery). Response received same day: exchange/inbox/019-023-response-panel-and-cancellation-v0.1.md."
 deliverable: exact-rational program reproducing the CE-T1/T2/T3 identities on a declared grid or exhibiting a numeric counterexample as exact rationals; step-certification or refutation of the anytime-validity claims
 ---
 STATUS: DRAFT — NOT DISPATCHED. Authorization: none. Batch quota: TBD with Jason.

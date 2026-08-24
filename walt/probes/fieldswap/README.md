@@ -134,7 +134,10 @@ receipt-h8-t4 ≈ 14 s per policy; driven-h0-t1 ≈ 19 s per policy.
 - The exact-fiber rows ARE exact d_ρ/c_ρ for their named frozen
   policies: on receipt-h8-t4 the field upgrade helps the reveal
   continuation (+1/300) and hurts the retain continuation (−9/400) —
-  but at these magnitudes, |Λ| = |c_reveal − c_retain| = 41/1200 is a
+  but at these magnitudes, |Λ| = |c_reveal − c_retain| = 31/1200
+  (corrected 2026-08-24 from a 41/1200 arithmetic slip, caught by the
+  x:019–023 response §32 and re-verified from this file's raw world
+  records: (+30−26) − (+45−72) = 4+27 = 31 over 1200) is a
   fixed-PAIR statement (§3.3), and no decision claim is made: that is
   the admissible-set slice's job, on valid root-action bounds only.
 - Seat indices in split rows are absolute solver seats (S0..S3), not
