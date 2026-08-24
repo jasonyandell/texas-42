@@ -13,7 +13,6 @@ members = [
     "walt-m2-runner",
     "walt-m3-carrier",
     "walt-m3-probe",
-    "walt-wasm-spike",
     "walt-wasm",
 ]
 

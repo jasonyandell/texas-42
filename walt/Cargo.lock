@@ -334,12 +334,3 @@ dependencies = [
  "walt-core",
  "walt-m3-probe",
 ]
-
-[[package]]
-name = "walt-wasm-spike"
-version = "0.1.0"
-dependencies = [
- "num-rational",
- "walt-core",
- "walt-m3-probe",
-]
