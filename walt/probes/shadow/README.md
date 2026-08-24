@@ -75,6 +75,37 @@ now requires passing `128` explicitly as the world_cap knob; a 512-epoch
 regeneration is a separate run and supersedes nothing here (different
 epoch by construction, records carry their config).
 
+## The 512-epoch receipt rerun (`receipt_512.jsonl`, 2026-08-24 night)
+
+Same 13 receipt hands, same knobs except `world_cap=512`; same
+instrument tier as everything here (exploratory, cited by nothing
+above). Observed against the 128-epoch receipt run (70 decisions):
+
+- kinds: **ExactFrozenSet 28 (unchanged), Unresolved 40, DeltaSettled
+  2** (128-epoch: 42 Unresolved, 0 DeltaSettled).
+- The two settlements: hand 3 trick 4 settles at world 196 **agreeing**
+  with the live choice (5-2); hand 10 trick 1 settles at world 395
+  **against** it (winner 5-5 vs live 6-3) — the first sampled-route
+  settled disagreement in this instrument, at δ_run = 1/100.
+- `live_in_survivors`: **39/40** among the still-Unresolved (128-epoch:
+  42/42). The exception is hand 0 trick 1 ply 0 (the opening lead,
+  fiber 399,072,960, m=7): the live 0-0 lead is δ-safely eliminated;
+  survivors are 3 of 7 candidates. Both new anti-live findings sit in
+  tricks 1–2, where the dropped-30 arena localized the live player's
+  deficit — suggestive, instrument-grade only.
+- Among the 40 still-Unresolved, survivor sets shrank in 21 and were
+  unchanged in 19; agreement among winner-bearing decisions is 8/12.
+- Cost: summed shadow micros ≈ 4.15 h (128-epoch: ≈ 1.5 h).
+- **Forecast honesty:** a session-level mining of the 128-epoch §8.5
+  refinement vectors (never a receipt) had read the per-decision
+  n̂±-based winner-isolation proxy as "~108/116 Unresolved settle by
+  512"; observed here: 2 of 42 receipt-side. The proxy's semantics
+  were too optimistic (it priced edge crossings at frozen τ̂, and most
+  open edges regress toward the near-tie). The per-pair forecasts that
+  DID calibrate are step 8's E0 discipline (`walt/probes/step8/`);
+  cap-sizing claims should route through that, not through the mining.
+  A `driven` 512-epoch rerun is queued separately.
+
 ## Aggregate (plain counts; regenerate with summarize.py)
 
 Combined (33 hands: 13 receipt + 20 driven), 2026-08-24, defaults above:
