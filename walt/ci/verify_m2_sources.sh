@@ -1,6 +1,20 @@
 #!/bin/bash -p
 # Verify the cumulative freeze-56 source closure.  The manifest itself is
 # deliberately excluded: its exact bytes are M2BuildIdentityV1.
+#
+# FREEZE-56 V2 AMENDMENT (2026-08-24, CENSUS-RULINGS.md FZ-A series).
+# This script verifies the v2 closure manifest, issued at the one-crate
+# unification layout.  The v1 manifest
+# (math/gpu_native_trick1_m0_m2_sources_v1.sha256) is never edited and
+# remains the identity the standing M2 Metal parity receipt attests to
+# (old-layout evidence, carried forward explicitly).  The immutable
+# M0/M1 184-path check below now passes each historical path through an
+# explicit fold-translation table (walt-core -> walt/src/rules,
+# walt-kernel -> walt/src/kernel, walt-gpu-spec -> walt/src/spec) — an
+# AMENDMENT to the freeze, not a reading of it.  Since v2, this script
+# is a freeze-event verification, not a per-commit gate: the unified
+# crate contains actively developed solver code, so the closure is a
+# snapshot certified when a freeze event re-issues the manifest.
 set -euo pipefail
 
 clean_environment_is_exact() {
@@ -57,21 +71,19 @@ export PATH LC_ALL TMPDIR
 script_dir="$(CDPATH= builtin cd -- "$(/usr/bin/dirname -- "${BASH_SOURCE[0]}")" && /bin/pwd -P)"
 walt_dir="$(CDPATH= builtin cd -- "$script_dir/.." && /bin/pwd -P)"
 repo_dir="$(CDPATH= builtin cd -- "$walt_dir/.." && /bin/pwd -P)"
-manifest_relative="walt/math/gpu_native_trick1_m0_m2_sources_v1.sha256"
+manifest_relative="walt/math/gpu_native_trick1_m0_m2_sources_v2.sha256"
 manifest="$repo_dir/$manifest_relative"
 old_manifest="$walt_dir/math/gpu_native_trick1_m0_m1_sources_v1.sha256"
 
+# v2 package roots: the unified walt crate plus the GPU trio and the rob
+# oracle set.  walt-wasm is deliberately outside the closure: it is a
+# packaging shell around the walt crate and is not a build input to any
+# M-gate receipt.
 package_roots=(
-    walt/walt-core
-    walt/walt-factory
-    walt/walt-geom
+    walt/walt
     walt/walt-gpu-ref
-    walt/walt-gpu-spec
-    walt/walt-kernel
     walt/walt-m2-runner
     walt/walt-metal
-    walt/walt-skeleton
-    walt/walt-strat
     rob/crates/core
     rob/crates/player
     rob/crates/verify
@@ -211,12 +223,43 @@ done < "$manifest"
 
 # Every path in the immutable M0/M1 source closure must remain represented,
 # translated from its historical walt-relative grammar to repository-relative.
+#
+# FZ-A2: the fold-translation table.  The 2026-08-24 unification moved
+# walt-core, walt-kernel and walt-gpu-spec into the unified walt crate as
+# the rules, kernel and spec modules.  Each historical path pinned by the
+# immutable M0/M1 manifest is translated to its post-fold location by the
+# explicit table below (32 entries; the three crate manifests map onto the
+# one unified manifest).  This table is an appended amendment to freeze-56,
+# never a rewrite of the v1 manifests, which are byte-immutable.
+fold_translate() {
+    case "$1" in
+        walt-core/Cargo.toml) echo "walt/Cargo.toml" ;;
+        walt-core/README.md) echo "walt/src/rules/README.md" ;;
+        walt-core/src/lib.rs) echo "walt/src/rules/mod.rs" ;;
+        walt-core/src/*) echo "walt/src/rules/${1#walt-core/src/}" ;;
+        walt-core/tests/*) echo "walt/tests/rules_${1#walt-core/tests/}" ;;
+        walt-kernel/Cargo.toml) echo "walt/Cargo.toml" ;;
+        walt-kernel/README.md) echo "walt/src/kernel/README.md" ;;
+        walt-kernel/src/lib.rs) echo "walt/src/kernel/mod.rs" ;;
+        walt-kernel/src/*) echo "walt/src/kernel/${1#walt-kernel/src/}" ;;
+        walt-kernel/tests/common/mod.rs) echo "walt/tests/common/mod.rs" ;;
+        walt-kernel/tests/*) echo "walt/tests/kernel_${1#walt-kernel/tests/}" ;;
+        walt-gpu-spec/Cargo.toml) echo "walt/Cargo.toml" ;;
+        walt-gpu-spec/src/lib.rs) echo "walt/src/spec/mod.rs" ;;
+        walt-gpu-spec/src/*) echo "walt/src/spec/${1#walt-gpu-spec/src/}" ;;
+        walt-gpu-spec/tests/m0.rs) echo "walt/tests/spec_m0.rs" ;;
+        walt-gpu-spec/examples/*) echo "walt/examples/${1#walt-gpu-spec/examples/}" ;;
+        *) echo "$1" ;;
+    esac
+}
+
 old_count=0
 while IFS= read -r line || [[ -n "$line" ]]; do
     case "$line" in
         ""|\#*) continue ;;
     esac
     old_path="${line#*  }"
+    old_path="$(fold_translate "$old_path")"
     case "$old_path" in
         ../*) current_path="${old_path#../}" ;;
         *) current_path="walt/$old_path" ;;

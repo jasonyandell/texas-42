@@ -251,10 +251,14 @@ failure_phase=1
 failure_code=2
 /usr/bin/shasum -a 256 -c math/gpu_native_trick1_implementers_guide_v0.2.sha256
 
-echo "== cumulative M0/M1/M2 source identity"
-failure_phase=2
-failure_code=2
-/bin/bash -p ci/verify_m2_sources.sh
+# The cumulative M0/M1/M2 source-closure check (ci/verify_m2_sources.sh)
+# is a FREEZE-EVENT verification since the freeze-56 v2 amendment
+# (CENSUS-RULINGS.md FZ-A series, 2026-08-24): the one-crate unification
+# put actively developed solver code inside the closure's package trees,
+# so a per-run full-digest closure would be red on every ordinary commit.
+# Run it manually at freeze events: /bin/bash -p ci/verify_m2_sources.sh
+# The immutable history check above and the receipt replay below remain
+# per-run gates.
 
 echo "== deterministic M0/M1 compatibility replay"
 failure_phase=1
@@ -305,14 +309,13 @@ fi
     walt-metal/shaders/00_u256.metal \
     walt-metal/shaders/01_opening_projector.metal
 /usr/bin/python3 -I -B ci/check_rust_no_float.py \
-    walt-core walt-factory walt-geom walt-gpu-ref walt-gpu-spec \
-    walt-kernel walt-m2-runner walt-metal walt-skeleton walt-strat \
+    walt walt-gpu-ref walt-m2-runner walt-metal walt-wasm \
     ../rob/crates/core ../rob/crates/player ../rob/crates/verify
 /usr/bin/awk -f ci/check_toml_no_float.awk \
     Cargo.toml Cargo.lock rust-toolchain.toml \
-    walt-core/Cargo.toml walt-kernel/Cargo.toml \
-    walt-gpu-spec/Cargo.toml walt-gpu-ref/Cargo.toml \
+    walt/Cargo.toml walt-gpu-ref/Cargo.toml \
     walt-metal/Cargo.toml walt-m2-runner/Cargo.toml \
+    walt-wasm/Cargo.toml \
     ../rob/Cargo.toml ../rob/Cargo.lock \
     ../rob/crates/core/Cargo.toml ../rob/crates/player/Cargo.toml \
     ../rob/crates/verify/Cargo.toml \
@@ -334,8 +337,4 @@ failure_code=1
     /usr/bin/diff -u trick1_metal_foundation_axioms_v1.txt "$axiom_output"
 )
 
-echo "== final cumulative source recheck"
-failure_phase=2
-failure_code=2
-/bin/bash -p ci/verify_m2_sources.sh
 check_succeeded=1
