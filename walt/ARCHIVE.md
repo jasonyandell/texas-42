@@ -28,6 +28,15 @@ for recompute rather than holding old versions).
   regenerate (E-A17, printed by the producer itself):
   `rm -f walt-factory/store/endgame_l2.store && cargo run --release -p walt-factory --example fiber_probe endgame`
 
+## Relocation (2026-08-24)
+
+The TRACKED artifacts survived the factory deletion in-tree: the 65
+result summaries/certificates formerly at `walt-factory/results/` and
+`walt-factory/docs/certificate-schema.md` now live at
+`walt/probes/factory-results/` (provenance README there). Historical
+docs citing the old paths refer to that directory; [[wiki-overhaul]]
+re-synchronizes the prose.
+
 ## Recompute queue
 
 Producer code (walt-factory + its 24 examples, walt-skeleton) is

@@ -212,20 +212,6 @@ name = "walt-core"
 version = "0.1.0"
 
 [[package]]
-name = "walt-factory"
-version = "0.1.0"
-dependencies = [
- "num-bigint",
- "num-rational",
- "num-traits",
- "walt-core",
- "walt-geom",
- "walt-kernel",
- "walt-skeleton",
- "walt-strat",
-]
-
-[[package]]
 name = "walt-geom"
 version = "0.1.0"
 dependencies = [
@@ -304,16 +290,6 @@ dependencies = [
  "objc2-metal",
  "walt-gpu-ref",
  "walt-gpu-spec",
-]
-
-[[package]]
-name = "walt-skeleton"
-version = "0.1.0"
-dependencies = [
- "walt-core",
- "walt-geom",
- "walt-kernel",
- "walt-strat",
 ]
 
 [[package]]
