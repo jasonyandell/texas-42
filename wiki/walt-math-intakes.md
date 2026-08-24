@@ -341,22 +341,29 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
 
 ## 8. Pending, and deliberately not indexed as landed
 
-- **The calculated-evidence build — steps 2–7 executed, step 8 in
-  flight** *(updated 2026-08-24, later the same day)*: the §22 program
-  landed through the shadow instrument (`solver::evidence` / `adaptive`,
-  frozen policies, the decision controller, exact endpoints, the step-7
-  shadow run — mains `5baad99`/`bf432be`/`636d306`/`0794ff8`). Step 8
-  (the V5 flip repair and per-pair E0 calibration) is **in build, no
-  results**; the old player stays the default (CE-A7/§20.16). Build
-  narrative and instrument records:
+- **The calculated-evidence build — steps 2–8 executed, step 9 pending**
+  *(updated 2026-08-24, later the same day)*: the §22 program landed
+  through the shadow instrument and its calibration (`solver::evidence` /
+  `adaptive`, frozen policies, the decision controller, exact endpoints,
+  the step-7 shadow run, and `solver::calibrate` for step 8 — mains
+  `5baad99`/`bf432be`/`636d306`/`0794ff8`/`e5a5f52`). Step 8's gates —
+  the V5 cap-ladder law and per-fixed-pair E0 calibration — passed with
+  instrument records at `walt/probes/step8/`; the old player stays the
+  default regardless (CE-A7/§20.16), and the opt-in play mode those gates
+  were the precondition for is unbuilt. Step 9 (the level-2 probe as
+  detection layer) is next. Build narrative and instrument records:
   [walt-calculated-evidence](walt-calculated-evidence.md).
-- **The field-swap build — first slice landed** *(updated 2026-08-24,
-  later the same day)*: `solver::field` and `solver::exposure` plus the
-  `fieldswap` bin merged (main `ffdc002`, its L2-A6 slot satisfied by
-  the step-7 merge) and ran the §21 step-5 fixed-policy smoke
-  (`walt/probes/fieldswap/README.md` — `FrozenPolicyExposure` tier only,
-  never root-action screening, L2-A4). The exposure rungs, admissible
-  set, and targeted field-1 work remain unbuilt.
+- **The field-swap build — two slices landed** *(updated 2026-08-24,
+  later the same day)*: slice 1 merged `solver::field` and
+  `solver::exposure` plus the `fieldswap` bin (main `ffdc002`, its L2-A6
+  slot satisfied by the step-7 merge) and ran the §21 step-5 fixed-policy
+  smoke (`walt/probes/fieldswap/README.md` — `FrozenPolicyExposure` tier
+  only, never root-action screening, L2-A4). Slice 2 (§21 steps 6–8, main
+  `ca0483d`) added the exposure rungs E0–E2, the exact split-reach route
+  E4, and the L2-T4 admissible screen in `solver::field_swap`, with
+  records at `walt/probes/fieldswap_screen/`. Still unbuilt: the exact
+  root optimizer the `ExactRoot` tier needs (§15.3), and the targeted
+  field-1 controller the rungs are inputs to.
 - **The Gran anchor reconstruction** — G1–G4 required the two Plunge
   game records; the three screenshots are now archived with a manifest
   (`~/data/texas-42/gran-anchors-2026-08-24/`, `MANIFEST.sha256`) and

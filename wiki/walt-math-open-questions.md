@@ -224,14 +224,26 @@ adjudicated** (CE-A1..A8; the wake-up notion split three ways at CE-A6 —
 response q, value g, decision — with sampling cost compared by
 `𝓘 = q·D_{1/2}(τ)`, never q̂ alone), and the targeting mathematics followed
 the same day (L2-A1..A7; `walt/LEVEL2-PROBE.md` amended to the *detection
-layer*, L2-A5). The first field-swap slice has run a fixed-policy smoke —
+layer*, L2-A5). The first field-swap slice ran a fixed-policy smoke —
 including one exact-fiber root where the fields never split, the targeting
 phenomenon in the wild — but a `FrozenPolicyExposure` answers no wake-up
-question at the root-action level (L2-A4), so **the question itself remains
-open**, queued as §22 step 9 after step 8. Era page:
-[walt-calculated-evidence](walt-calculated-evidence.md). Two tilt-audit roads
-are also still untested: **counted-boundary** (Phase F predicate mining never
-run) and **policy-library** (`walt/TILT-AUDIT.md` § "Road verdict").
+question at the root-action level (L2-A4).
+
+**Movement (slice 2, 2026-08-24):** the second slice built the machinery that
+*can* answer at the root-action level — exposure rungs E0–E2 and the exact
+split-reach route E4, whose optimum **is** `R_a` — and on receipt-h7-t5 the
+rung **E0 fired**: no reachable non-focal state disagrees after any legal root
+action, so `R_a = 0` exactly over all information-consistent continuations.
+That converts the smoke's two-policy d = 0 into an exact zero and answers the
+wake-up question **at that one root, negatively**: the level-1 upgrade cannot
+move its frozen-set values. What remains open is the general question — where
+q wakes up across roots, and whether modeling the partner's response *shrinks*
+fixed-pair hardness H. Three roots at one epoch pair is orientation; the
+h8-t4 root's near-1 exposure shows the other end of the range. Queued as §22
+step 9. Era page: [walt-calculated-evidence](walt-calculated-evidence.md). Two
+tilt-audit roads are also still untested: **counted-boundary** (Phase F
+predicate mining never run) and **policy-library** (`walt/TILT-AUDIT.md`
+§ "Road verdict").
 
 ### 11. The x:018 conditional-moment gap
 
@@ -257,29 +269,52 @@ proved nearly trivial on the one carrier checked).
 
 ### 13. Exposure tightening at early tricks
 
-**Status: open, and the smoke exhibits exactly why (2026-08-24).** At the
-driven trick-1 root the field-swap smoke's fixed-policy exposure is ≈ 1 —
-the richer field wakes up almost everywhere, so the bound degenerates to the
-naive survivor set (an honest, expected degeneracy per the level-2 parent's
-§8.1). The E0–E2 exposure rungs (exact equality → structural cover →
-clairvoyant reach) exist to tighten this, and none has been built or measured
-on a real root; whether any rung yields a **useful** `RootActionExposureUpper`
-at tricks 1–3, where the shadow instrument shows everything Unresolved, is
-the era's central open cost question. Instrument records:
+**Status: still open — the rungs now exist and are measured, and the early-trick
+half is untouched (annotated 2026-08-24 after slice 2).** At the driven trick-1
+root the field-swap smoke's fixed-policy exposure is ≈ 1 — the richer field
+wakes up almost everywhere, so the bound degenerates to the naive survivor set
+(an honest, expected degeneracy per the level-2 parent's §8.1). The E0–E2
+exposure rungs (exact equality → structural cover → clairvoyant reach) exist to
+tighten this.
+
+**Movement:** slice 2 **built and measured** the rungs, plus the exact
+split-reach route E4, verifying the ladder E1 ≥ E2 ≥ E4 = R_a ≥ d_ρ with exact
+rationals. The result splits by regime rather than settling the question. At
+the **late** roots the rungs can be decisive: E0 fires on receipt-h7-t5 (`R_a`
+= 0 exactly, cheapest possible screen input) and h4-t6 yields the first
+pruning singleton. At the **split-heavy** root h8-t4 (trick 4) the exact E4
+bound is still between 14/15 and 197/200, the screen prunes nothing, and the
+rungs cost about half the naive σ1 pass — the screen does not yet earn its
+keep, which is the parent's §17.2 falsifier direction.
+
+So the sharpened open question is the original one, minus the "unbuilt"
+excuse: **no rung has been run at tricks 1–3 at all**, where the shadow
+instrument shows everything Unresolved and where a useful
+`RootActionExposureUpper` would matter most — and the one trick-4 data point
+suggests exposure grows toward 1 going backward. This remains the era's
+central open cost question. Instrument records:
 [walt-calculated-evidence](walt-calculated-evidence.md).
 
 ### 14. The per-epoch σ0 declaration
 
-**Status: open as a discipline, not yet ruled.** Every evidence record is
-model-relative to a declared field model (the fieldswap smoke's σ0 =
-banked-correct level-0 at n0 = 8; a different schedule is a different
-`FieldId` and a different experiment), and candidate-set mutation starts a
-new epoch (CE §5.3) while policy mutation invalidates evidence (§12.5). What
-is **not** yet ruled is the composed discipline: how each epoch declares its
-σ0, and what happens to accumulated evidence and the risk ledger when the
-declared field model itself changes across epochs of one run. Until ruled,
-the safe reading is the strict one — a σ0 change is a new experiment,
-composing nothing.
+**Status: half-answered by declaration; the composition half is still open
+(annotated 2026-08-24 after slice 2).** Every evidence record is model-relative
+to a declared field model (the fieldswap smoke's σ0 = banked-correct level-0 at
+n0 = 8; a different schedule is a different `FieldId` and a different
+experiment), and candidate-set mutation starts a new epoch (CE §5.3) while
+policy mutation invalidates evidence (§12.5).
+
+**Movement:** slice 2 resolved the *local* half **by declaration** — **one
+(σ0, σ1) pair per experiment epoch**, with both FieldIds riding every record,
+and the probe epoch's pair written down explicitly (σ0 = `Level0{n0 = 8}`,
+σ1 = `Level1{n_outer = 4, n0 = 2}`, frozen candidates `[8, 2]`; the tests
+declare their own cheaper pair, likewise carried by its FieldIds). That is a
+convention the instrument now enforces, not a ruling on composition.
+
+What is **still not ruled** is the composed discipline: what happens to
+accumulated evidence and the risk ledger when the declared field model itself
+changes across epochs of one run. Until ruled, the safe reading stays the
+strict one — a σ0 change is a new experiment, composing nothing.
 
 ### 15. The cycle tripwire — adopted, armed by ruling, never run
 
@@ -287,11 +322,17 @@ composing nothing.
 (recurrence claims typed root / behavioral / local exact / global exact,
 never promoted across those lines) and made the §13.5 tripwire — compare σ₁
 vs σ₂ on the field-sensitive anchor corpus — a **standing precondition on
-any broad level-3 work**. No tripwire run exists (there is not yet a
-field-sensitive anchor corpus to run it on), and **no damping, mixtures, or
-robust-cycle policies may be introduced without a separate mathematical
+any broad level-3 work**. No tripwire run exists, and **no damping, mixtures,
+or robust-cycle policies may be introduced without a separate mathematical
 intake**. Recorded here so nobody builds level 3 first and looks for the
 tripwire later.
+
+*Annotation (2026-08-24, after slice 2):* the anchor corpus the tripwire needs
+now has its first entries — the screen classifies roots, and h8-t4 came back
+`FieldSensitive` 4/4 while h4-t6 came back `FieldStableExactFrozenSet`. Three
+roots at one epoch pair is not a corpus, and h7-t5's `FieldSensitive` 3/3 is
+an exact three-way tie at V₀ = 0 rather than value sensitivity — so the
+precondition is nearer, not met, and the tripwire remains unrun.
 
 ---
 
@@ -309,9 +350,13 @@ Recording these prevents a successor from re-opening closed questions.
   the required work is *calculated* from declared risk, the contender count,
   observed evidence, pivotal mass, and tilt (`𝓘 = q·D_{1/2}(τ)`), with
   monotone escalation to exactness — and CE-A5 removed fixed counts from the
-  correctness path. What remains is **build and proof debt** (O20–O28, step 8
-  in flight), not an open mathematical question; a run returning to a magic n
-  on the correctness path is a regression, not a choice.
+  correctness path. What remains is **build and proof debt** (O20–O28), not an
+  open mathematical question; a run returning to a magic n on the correctness
+  path is a regression, not a choice. Step 8 (landed 2026-08-24) closed the
+  demonstration half: on one epoch and one common stream at caps 40/160/640,
+  the cap-ladder law holds mechanically and the historical 40-vs-160 flip
+  comes back as an honest `Unresolved` near-tie at every cap — the flip was
+  the magic count, not the game.
 - **The exchangeability question is not open, it is repaired.** Parent §7.1 is
   unsound as written, and the repair is exact:
   [Theorem E1](walt-math-decision-sparse.md#1-order-exchange), generalised by
