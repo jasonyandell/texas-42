@@ -13134,3 +13134,176 @@ GT1-A24. Reserved freeze numbers 39 and 40 remain reserved.
   **RANGE RE-FROZEN: GT1-A1..GT1-A24; freeze 57 fixed; chapter closed.** All
   issued freeze numbers 1..57 are accounted for: 55 spent and 39/40 reserved.
   Any later GT1 ruling requires an explicit rebrief and another range re-freeze.
+
+## Signed-pivotal intake adjudication (2026-08-18)
+
+**Adjudicator:** walt-math. **Object:** `walt/math/signed_pivotal_geometry_v0.1.md`
+(filed 2026-08-18, commit eaf9b23; intake companion
+`signed_pivotal_geometry_v0.1_intake.md`, whose exact-rational verification of
+every boxed identity this audit takes as read). **Tier:** exploratory; an
+intake audit in the DS-A1..DS-A16 shape. Nothing in the parent is promoted by
+being audited, and nothing below may be cited above exploratory tier.
+**Basis:** the parent; the intake companion; SCENARIO-PLAYER.md v0.1 and its
+obligations ledger; POLICY-GEOMETRY.md (Gate E); the decision-sparse audit
+DS-A1..DS-A16 and, through it, PG-A1..PG-A18, Lemma R, Lemma G. Amendments are
+numbered SP-A1.. and bind any design that consumes the parent — in particular
+the E0 experiment, adopted below as **the tilt audit**.
+
+**Headline, stated first — four findings decide how the parent may be used.**
+
+1. **The central mathematics is SOUND.** Every boxed identity — g = qτ,
+   E[Y²] = q, Var(Y) = q − g², H = 1/(qτ²) − 1, the world/tape projection,
+   strata linearity, the cover identity w²·Var(Y|P) = wq − g² — was verified
+   by hand and exactly on 2,000 random exact-rational instances at intake.
+   Exactly one general claim in the parent is FALSE as written: §2.1's
+   sentence that paired evaluation is "strictly sharper" than unpaired.
+   Var(Y) = Var(u_a) + Var(u_b) − 2·Cov(u_a, u_b), so pairing helps exactly
+   when the two policies' outcomes positively correlate; the parent's own
+   Case C at maximal anticorrelation (u_a = 1−u_b on every scenario, V_a =
+   V_b = 1/2) gives paired variance 1 against unpaired 1/2. The repair and
+   its consequence are SP-A5. Everything else in §§2, 4, 5, 6 stands.
+2. **Two vocabulary collisions with standing rulings are resolved by rename**
+   (SP-A1, SP-A2): the parent's θ = (1+τ)/2 collides with walt's auction
+   threshold θ, and the parent's "pivotal envelope" collides with the value
+   upper envelopes of the decision-sparse/PG chapters (DS T1: the minimal
+   envelope IS the Exp set). In walt artifacts: **pivotal win share** (never
+   bare θ) and **pivotal cover**. The formal object remains the *policy*
+   (deterministic, information-consistent — PG's word); "frozen plan" is read
+   as **frozen policy** (SP-A3).
+3. **E0 is ADOPTED as the next experiment — the tilt audit — with three
+   design corrections** (SP-A8..SP-A10): frozen policies need no DAG
+   serialization for the smoke (the freeze tuple is the policy, SP-A8); with
+   that implicit representation replay costs the same as re-solving, so
+   §9.4's cheap-replay premise and its 10,000-scenario panels are deferred
+   until explicit extraction exists (SP-A9); and the parent's "existing
+   n=800 panel" matches no filed artifact — the corpus anchors are named in
+   SP-A10.
+4. **The three locks (§8) are the standing sandwich discipline in new
+   clothing** — measure ↔ exact counts, response ↔ exact evaluation,
+   optimization ↔ Lemma G / DS T7–T8 — and inherit the decision-sparse
+   obligations verbatim (SP-A7): no sampled quantity inside an L or a U, and
+   a lower witness is the exact value of a *fixed* lawful policy under the
+   declared belief (DS-A14's fatal failure mode is the optimization lock's
+   failure mode). Separately: **O10–O11 are retired permanently** — the gap
+   is a numbering artifact of the side-channel hops (Jason, 2026-08-18), the
+   unfiled import is not being retrieved, and retired numbers are never
+   reused (SP-A11).
+
+### Section-by-section verdicts
+
+- **§1 setting — SOUND, well-typed.** B = (K, e, β) is the key + seat context
+  + fiber belief of SCENARIO-PLAYER §§2–4; u_ρ ∈ {0,1} is the pmake
+  objective; V_ρ linear in β is PG-A2's linearity; §1.1's frozen-plan /
+  optimized-root-action distinction (one hyperplane vs piecewise-linear
+  envelope) is exactly Lemma R(b)'s shape and is already adjudicated ground.
+- **§2 signed pivotal theorem — SOUND** (verified exactly). §2.1 sound except
+  the comparative claim (SP-A5). §2.2 multinomial decomposition — SOUND,
+  standard. §2.3 — SOUND as a cost *scale*; the parent's own sequential-
+  validity caveat is binding (O14). §2.4 four ties — SOUND; note Case A is
+  exact: q = 0 forces g = 0, so equal value is a theorem there, not an
+  estimate.
+- **§3 discovery/evaluation separation — SOUND**, standard selection-bias
+  discipline; filed as O13/O14. §3.3 local flip surfaces — SOUND; the
+  "multiple crossings" caution is real and matches the envelope picture.
+- **§4 world/tape projection — SOUND under SP-A6's typing** (r is the tape
+  seed, assigned world-independently; walt's current single-stream
+  derivation does not yet satisfy the split).
+- **§5 counted strata — SOUND** (verified exactly); Neyman and cost-aware
+  allocations standard; §5.1 interval composition exact by linearity and
+  w_j ≥ 0. The marginal-Δ_j spend rule is approximate and so labeled.
+- **§6 covers — SOUND** with the SP-A2 rename; §6.2's complement floor is
+  O16 and is the load-bearing safety clause; §6.3's count/generate
+  capability split is real and filed as O17.
+- **§7 refinement signature — ADOPTED** as the per-decision diagnostic
+  contract for the tilt audit; the spend-routing table is design guidance,
+  not mathematics, and binds nothing.
+- **§8 three locks — SOUND as discipline; inherits DS obligations (SP-A7).**
+  The escalation ladder's rungs 1–6 are lawful individually; rung 7 is
+  DS T8's certificate-shape with its "member of the optimal set" obligation.
+- **§9 E0 — ADOPTED with SP-A8..SP-A10** as the tilt audit. Phase E requires
+  the SP-A6 seed split before it can run. Falsifiers and decision gates
+  (§9.9–9.10) adopted as written.
+- **§10 censuses — SOUND; concordance with Gate E filed (SP-A12).** §10.2's
+  rank claim is elementary and correct: all pairwise comparisons factor
+  through the r coordinates ⟨β, b_i⟩. On samples it is an estimate; on atoms
+  it is exact after the quotient — the parent says so.
+- **§11 amortization — SOUND.** §11.1's panel reweighting is valid only on
+  declared support containment (the parent states the condition; the
+  atom-table form is the exact one). §11.3's paired-dynamics telescoping is
+  exact by linearity of expectation.
+- **§12–§13 — ADOPTED conditionally** on tilt-audit outcomes; §13 is the
+  driver's persistence contract. **§14 — filed** as O12–O19 (2026-08-18).
+  **§15 — honest**, and its last bullet keeps the unfiled import's
+  literature mappings unciteable.
+
+### SP-A1..SP-A12 — amendments (binding on consumers of the parent)
+
+- **SP-A1 (θ is the auction's).** In walt artifacts the pivotal quantity is
+  always written τ; (1+τ)/2, where needed, is the **pivotal win share**,
+  never bare θ. The auction threshold keeps θ unqualified.
+- **SP-A2 (cover, not envelope).** A structural predicate containing all
+  pivotal scenarios after projection to worlds is a **pivotal cover**.
+  "Envelope" remains reserved for value upper envelopes (DS T1, PG-A4's Exp
+  set). The parent's §6 is read with this substitution throughout.
+- **SP-A3 (frozen policy).** The formal object is the deterministic
+  information-consistent **policy**; "plan" in the parent is read as policy.
+  A **frozen policy** is a policy together with its freeze tuple —
+  (solver version, seed schedule, n, n0, field-model version, tie-refinement
+  config) — under which walt's seat is a deterministic function of the
+  observation record (O1 gives information-consistency by construction).
+- **SP-A4 (adopted names).** **Pivotal mass** q, **tilt** τ, **gap** g,
+  **fixed-pair hardness** H, **scenario** ξ = (ω, r), **panel** (common
+  scenario panel). The E0 experiment is named **the tilt audit**; "E0"
+  survives as its ID.
+- **SP-A5 (paired-variance repair).** Replace §2.1's comparative sentence
+  with: Var(Y) = Var(u_a) + Var(u_b) − 2·Cov(u_a, u_b); paired evaluation
+  is sharper than independent evaluation **iff Cov(u_a, u_b) > 0**. The
+  practical reading — near-identical policies agree on most scenarios, so
+  Cov is large and pairing wins — is a *hypothesis the tilt audit itself
+  measures*, not a theorem. Case C is the honest counterexample and stays
+  in the parent.
+- **SP-A6 (tape typing).** The tape r is a u64 seed drawn/assigned
+  independently of the world ω; the scenario law is the product law. Walt's
+  current code derives modeled-mind randomness from one stream keyed by
+  (seed, hand, record) — world and tape are not separable today. The tilt
+  audit's Phase E, and any use of the §4 projection, requires the split:
+  world ID and tape seed stored and varied independently. Until then,
+  d(ω)/s(ω) estimates are undefined artifacts.
+- **SP-A7 (locks inherit the sandwich discipline).** Any L or U appearing in
+  lock-closure arguments obeys DS T7's obligations: no decimation or sampled
+  mean inside a bound; candidates information-consistent at the node; L and
+  U at the same β with the same α-map. A lower witness is the exact value of
+  a fixed lawful policy (DS-A14). An exact frozen-pair gap is never labeled
+  an exact root-action result (O18 = DS T8's obligation restated).
+- **SP-A8 (implicit frozen policies suffice for the smoke).** Freezing needs
+  no policy-DAG serialization: the freeze tuple of SP-A3 *is* the policy,
+  its content hash is the policy ID, and behavioral identity is decided by
+  outcome bitsets on the panel (§10's behavioral census). Phase A is
+  therefore runnable with the existing solver plus a driver.
+- **SP-A9 (replay-cost correction).** Under SP-A8's representation,
+  replaying a frozen policy on a scenario re-runs the per-decision solves —
+  replay cost ≈ solve cost, and §9.4's premise ("replay much cheaper than
+  re-solving") FAILS until explicit extraction exists. Budgets follow:
+  smoke panels at the hundreds scale; mid/late-grade anchor positions get
+  the full Phase A–D treatment first (per-decision solves are cheap there);
+  early-grade anchors get reduced panels. The 10,000-scenario panels of
+  §9.4 and the bitset replay kernel of §12.2 are deferred, not refused.
+- **SP-A10 (corpus anchors).** The parent's "existing n=800 panel" matches
+  no filed artifact and is presumed side-channel residue; it binds nothing.
+  The tilt audit's anchors are: the level-2 trick-1 saturation/tie episode;
+  the dropped-30 arena divergence positions (2026-08-17/18); the divergence
+  miner's 900 self-played hands / 4,156 level-2-shadowed decisions
+  (2026-08-18). A stratified early-trick sample is drawn fresh under the
+  audit's own seeds.
+- **SP-A11 (O10–O11 retired).** The obligations ledger runs O1–O9, then
+  O12–O19. O10–O11 are permanently retired as a numbering artifact of the
+  side-channel hops; retired numbers are never reused. The unfiled import
+  `HANDOFF-plan-geometry-and-names.md` stays unfiled and unciteable.
+- **SP-A12 (Gate E concordance).** The §10 censuses refine Gate E's chain:
+  syntactic count ↔ N_pol-side diversity; behavioral count = a panel
+  estimate of N_vec; the signed boundary count and decision rank are new
+  objects between N_vec and N_exp. E-A8's rule applies unchanged: where two
+  names measure one number (e.g. behavioral census on the full fiber =
+  N_vec) it is reported once. Neither document supersedes the other; the
+  tilt audit measures the sampled analogues, Gate E's probe counts the
+  exact ones.

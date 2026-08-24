@@ -31,7 +31,7 @@ use std::time::Instant;
 use num_rational::BigRational;
 
 use walt_core::{Decl, Domino, Pip, Seat};
-use walt_m3_probe::{bp, mask_bits, mix, Field, Key, Shared, Solver, SplitMix64};
+use walt_m3_probe::{bp, mask_bits, mix, Deadline, Field, Key, Shared, Solver, SplitMix64};
 
 /// Frozen bid-curve stream seed (fresh constant).
 const BID_SEED: u64 = 0x4528_21E6_38D0_1377;
@@ -120,7 +120,7 @@ fn main() {
                     vec![8],
                     0,
                     7,
-                    Instant::now() + std::time::Duration::from_secs(budget),
+                    Deadline::after(std::time::Duration::from_secs(budget)),
                 ));
                 let solver = Solver::new(
                     Arc::clone(&sh),

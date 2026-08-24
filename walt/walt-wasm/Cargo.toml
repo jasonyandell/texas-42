@@ -1,0 +1,24 @@
+[package]
+name = "walt-wasm"
+version = "0.1.0"
+edition = "2021"
+license = "UNLICENSED"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+walt-core = { path = "../walt-core" }
+walt-m3-probe = { path = "../walt-m3-probe", default-features = false }
+num-rational = { workspace = true }
+num-traits = { workspace = true }
+
+# deny, not forbid: the wasm ABI module carries a scoped allow for its
+# `#[no_mangle]` export attributes (symbol naming, not unsafe execution —
+# there is no unsafe block anywhere in this crate).
+[lints.rust]
+unsafe_code = "deny"
+
+[lints.clippy]
+float_arithmetic = "deny"

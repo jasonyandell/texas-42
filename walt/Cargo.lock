@@ -326,6 +326,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "walt-wasm"
+version = "0.1.0"
+dependencies = [
+ "num-rational",
+ "num-traits",
+ "walt-core",
+ "walt-m3-probe",
+]
+
+[[package]]
 name = "walt-wasm-spike"
 version = "0.1.0"
 dependencies = [

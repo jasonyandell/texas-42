@@ -480,3 +480,80 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
 - 2026-08-18 (overnight): divergence miner — 900 self-played hands, 4,156
   level-2-shadowed decisions; large-gap divergence ~2× in partner-bid and
   defense vs self-bid; top case: count fed to partner's winning trump pull.
+- 2026-08-18: `walt-wasm` — the browser decision oracle for the plunge
+  client. Player logic consolidated into the library (`level1_evaluate`,
+  `best_of`, the bridge's audited `replay`; `Deadline` abstraction inert on
+  wasm), string API (`play`/`bid`/`declare`) behind a no-unsafe ABI, ~250 KB
+  `pkg/walt.wasm` + typed `walt.ts` wrapper. Full-hand native test (all four
+  seats walt, walt-core refereeing, determinism byte-checked) and a Node
+  smoke proving the wasm binary reproduces the native trace 28/28 plays.
+- 2026-08-18: bidcurve calibration corpus launched — three nested-CRN
+  passes (n = 12/40/200) over the same 200 frozen hands
+  (`probes/bidcurve/run_calibration.sh`); first 40 worlds of the n=200
+  pass are exactly the n=40 worlds, so cross-pass deltas are pure
+  sample-size effect. Target: calibrate the auction threshold θ against
+  the known small-n saturation overbid. Estimates only.
+- 2026-08-18: intake — `math/signed_pivotal_geometry_v0.1.md` (verbatim,
+  sha256 filed; house-mathematician pass via the side channel). Central
+  objects: pivotal mass q, signed tilt τ, exact gap g = qτ, fixed-pair
+  difficulty H = 1/(qτ²)−1; the E0 frozen-plan signed-pivotal audit; the
+  three locks (measure/response/optimization). Intake companion
+  (`..._intake.md`): all boxed identities verified by hand + 2,000
+  exact-rational spot instances; clean on D3; θ symbol collision flagged
+  (pivotal win share vs auction threshold — resolution proposed, not
+  ruled); O12–O19 filed into the SCENARIO-PLAYER ledger; E0 gap list
+  (plan extraction, bitset replay, world/tape seed separation).
+- 2026-08-18 (night): signed-pivotal intake ADJUDICATED (`CENSUS-RULINGS.md`
+  SP-A1..SP-A12, walt-math). Sound throughout with one repair: §2.1's
+  "paired is strictly sharper" holds iff Cov(u_a,u_b) > 0 (SP-A5 —
+  anticorrelated Case C inverts it). Renames ruled: pivotal win share
+  (never bare θ — the auction keeps θ), **pivotal cover** (never
+  "envelope" — that word stays with value upper envelopes), **frozen
+  policy** (not "plan"). E0 adopted as **the tilt audit** with corrections:
+  freeze tuple = the policy (no DAG serialization needed, SP-A8), replay ≈
+  re-solve until extraction exists so panels stay at the hundreds scale
+  (SP-A9), corpus anchors named (SP-A10 — "n=800 panel" binds nothing).
+  O10–O11 permanently retired (SP-A11). Gate E concordance filed (SP-A12).
+- 2026-08-18 (night): `TILT-AUDIT.md` — smoke design for E0 under the
+  SP-A rulings: phases A–D on mid/late-grade divergence anchors first,
+  implicit frozen policies (freeze tuple = the policy), hundreds-scale
+  panels, `tiltaudit.rs` driver shape. Phase E blocked on the SP-A6
+  world/tape seed split. θ-sweep analysis predeclared (O14) at 23:49,
+  before the n=200 reference pass completed.
+- 2026-08-19 (small hours): the tilt audit RAN (`tiltaudit.rs`;
+  `Solver::modeled_choice` exposes the lib's pi — one authority). Field
+  found DETERMINISTIC (no tape; scenario = world; Phase E vacuous until a
+  stochastic field exists). Trick-6: pure Case B (q 20–30%, τ = +1000pm
+  exact, H ≤ 4). Trick-4: strong gaps recover at 25 worlds; near-ties are
+  honest; instability small (≤ 8/100) but hand 0 caught a live
+  discovery-selection error (panel prefers 62 over the majority's 65).
+- 2026-08-19: race-then-refine applied to the seat: `level1_raced` (CRN
+  block racing, exact binomial elimination — opening leads 745ms vs full
+  1230ms at 100 worlds vs 40; disagreements are saturation ties only) and
+  `level1_race_refined` (survivor ties → the 16× refinement), shipped as
+  walt-wasm opt-in `race 1` with a race-mode full-hand conformance test.
+  Default path byte-identical (Node smoke still 28/28 vs native trace).
+  Next gate: arena bracket race-vs-full. Exploratory play policy.
+- 2026-08-19 01:34: bidcurve calibration corpus COMPLETE (3 passes × 200
+  hands, zero died cells; logs + predeclared single-look analysis filed in
+  `probes/bidcurve/`). θ CALIBRATED: at n=40 vs the n=200 reference,
+  θ=1/2 overbid 37/200 (mean walked bid ~41 — the known saturation
+  overbid, quantified); **11/16 = first rung with 0 overbids and 0 missed
+  bids** → new default in walt-wasm `bid` and webtable (θ stays a request
+  parameter). Saturated n=40 cells average 9810bp in the reference; n=12
+  is unfixable by θ (11 overbids at 11/16); trump first-max n40-vs-n200
+  agreement 159/200 (declaration noisier than bidding). Solo-auction
+  protocol caveat travels with all numbers. Estimates, never receipts.
+- 2026-08-19 01:50: arena gate (24 mirrored deals, bid 30): race-refined
+  vs full is a strength DEAD HEAT (paired makes 1 vs 2, both 11) at
+  slower mean decision cost in the tie-saturated bid-30 regime (177ms vs
+  116ms) — the racing edge is regime-dependent (openings, high bids);
+  opt-in posture confirmed correct. Filed in TILT-AUDIT.md.
+- 2026-08-23: walt live in plunge ("How'd I do? Ask walt" review). Two
+  review specimens (a 100%-saturation revelation tie; a 40-vs-160-world
+  near-tie flip on a count-timing choice) motivated the level-2
+  program: `LEVEL2-PROBE.md` filed as SPEC ONLY — field-swap pivotal
+  mass (q wakes up when field upgrades level-0 → level-1) as the
+  detector, gated on walt unification + adaptive-sampling math.
+  Deliberately not started. Next: merge PR #6, unify the walt crates,
+  wiki re-synthesis.
