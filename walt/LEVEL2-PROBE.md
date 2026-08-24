@@ -160,3 +160,18 @@ calculated-evidence outer adaptive controller landed and green
 (CE-A7 build program; [[adaptive-sampling-intake]]). The original
 q̂/τ̂/ĝ/Ĥ output contract gains the paired-Z evidence columns and the
 per-field 𝓘 estimates; "estimates, never receipts" stands.
+
+## Amendment 2026-08-24 (second) — this probe is the detection layer of the targeted program (L2-A5)
+
+`math/targeted_level2_field_stability_v0.1.md` (intaken and adjudicated
+same day, L2-A1..A7 in `CENSUS-RULINGS.md`) owns the *targeting* layer
+above this spec: the field-disagreement frontier `𝓕_{0,1}`, exposure
+upper bounds by rung (E0–E4), the stability screen
+`|Q_a^(1) − Q_a^(0)| ≤ R_a` with survivor-only field-1 optimization
+(L2-T2..T4), first-split traces as explanations, and the cycle
+discipline. This probe's paired q̂/τ̂/ĝ/𝓘 output contract is the
+detection evidence consumed by that controller's Stages 1–2. One
+field-swap program: detection here, targeting there — neither restates
+the other. The gate line from the first amendment stands, with one
+addition from L2-A6: the field-swap *build* enters after the
+calculated-evidence shadow step (CE §22 step 7) merges.

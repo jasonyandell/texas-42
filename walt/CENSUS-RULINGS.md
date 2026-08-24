@@ -13441,3 +13441,73 @@ day. Everything below is exploratory tier; nothing is promoted.
   NON-BLOCKING. (6) θ/ϑ — ruled at CE-A2. No adversary panel is
   convened now; one may be convened later on Jason's word under the
   batch protocol, with CE-T1..T5 and O21/O24/O26 as the natural briefs.
+
+## The targeted level-2 field-stability adjudication (2026-08-24)
+
+Convened same-day on the second hand-ferried drop,
+`math/targeted_level2_field_stability_v0.1.md` (SHA-256 `597d33c3…`,
+intake companion beside it, verifier 19/19 exact). **Authorization
+note, stated plainly:** these rulings are filed under the standing
+same-lineage go from the calculated-evidence drop (Jason, 2026-08-24:
+"a go unless you see something that needs refining"); the intake found
+nothing needing refinement (companion §5). If Jason wants a Pro
+refinement pass or an adversary panel first, later rulings append and
+supersede — nothing here is edited in place. Everything below stays at
+exploratory tier.
+
+- **L2-A1 (L2-T1..T5 SOUND at intake).** First-disagreement
+  localization, the root-action field Lipschitz bound
+  `|Q_a^(1) − Q_a^(0)| ≤ R_a`, winner stability under
+  `margin > R_a + R_b`, admissible-set screening, and eventual
+  periodicity of deterministic finite best-response towers are sound:
+  proofs step-checked, and every theorem model-checked exactly over
+  1,584 enumerated finite games with full policy/world enumeration
+  (19/19; the screen stayed sound under deliberately loosened bounds).
+  The central targeting consequence is adopted as the level-2 frame:
+  **only worlds and branches that can reach a field-disagreement state
+  can carry any level-2 correction** — level 2 is a calculated
+  refinement, never a universal re-solve.
+- **L2-A2 (O29–O38 ACCEPTED).** The parent's proposed obligations
+  enter the SCENARIO-PLAYER obligations ledger as O29–O38 with their
+  stated routes, continuing the O20–O28 block. Obligations, not
+  results.
+- **L2-A3 (field-swap result kinds BINDING).** The seven §8 Stage-5
+  semantic distinctions (`FieldStableExactRoot` /
+  `FieldStableExactFrozenSet` / `FieldStableDeltaFrozenSet` /
+  `FieldSensitive` / `FieldDecisionChanged` / `FieldUnresolved` /
+  `HeuristicFallback`) are binding semantics for any field-swap code;
+  Rust naming is free. Extends the CE-A3 ladder discipline: no UI or
+  bridge flattens them into one unlabeled percentage (§19 item 24).
+- **L2-A4 (exposure-tier typing BINDING).** `FrozenPolicyExposure`,
+  `LibraryExposure`, and `RootActionExposureUpper` are mechanically
+  distinct types; **only** `RootActionExposureUpper` may feed the
+  L2-T2..T4 screen; every such bound names its derivation rung
+  (E0–E4); a sampled lower witness to `R_a` is never an upper bound.
+  This is the optimization lock of the exposure program (§7.4) and has
+  the same standing CE-A5 gave the fixed-count rule.
+- **L2-A5 (LEVEL2-PROBE reconciled).** The probe spec is amended
+  (dated append) to become the *detection layer* inside the parent's
+  targeted controller: its paired q̂/τ̂/ĝ/𝓘 output feeds Stage-1/2
+  evidence; the targeting layer (exposure bounds, the stability
+  screen, first-split traces, survivor-only field-1 optimization) is
+  owned by the parent. One field-swap program, not two.
+- **L2-A6 (build-order slot + anchors).** The parent's §21 steps 1–2
+  are complete (this intake; the calculated-evidence correctness path
+  is merged — mains `5baad99`/`bf432be`/`636d306`). The field-swap
+  build (§21 steps 3+: `FieldId`, coupled first-split replay, exposure
+  rungs, admissible set, targeted field-1 work) enters **after CE §22
+  step 7 (shadow) merges**, and may proceed in parallel with CE step 8
+  (V5 flip repair / E0 calibration), since it consumes the evidence
+  authority, not the live player. The Gran anchor experiments G1–G4
+  are gated on reconstructing the two Plunge game seeds/records
+  (plunge-side; carded as [[gran-anchor-reconstruction]]); until then
+  the screenshots remain discovery artifacts per parent §1.4.
+- **L2-A7 (cycle discipline ADOPTED).** §13's typing is binding:
+  recurrence claims are classified root / behavioral / local exact /
+  global exact and never promoted across those lines; the §13.5
+  tripwire (compare σ₁ vs σ₂ on the field-sensitive anchor corpus) is
+  a standing precondition on any broad level-3 work; **no damping,
+  mixtures, or robust-cycle policies without a separate mathematical
+  intake** (§22 item 12). Level-model typing per O36: a level-2 result
+  is a best response to a named σ₁ — never "equilibrium,"
+  "convergence," or monotone improvement.

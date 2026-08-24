@@ -18,6 +18,15 @@ Per LEVEL2-PROBE.md's output contract: paired q̂/τ̂/ĝ/Ĥ under both
 fields on predeclared tie sets; the wake-up set filed with mechanism
 notes.
 
+## Update 2026-08-24 (L2-A5)
+
+`walt/math/targeted_level2_field_stability_v0.1.md` (adjudicated
+L2-A1..A7) makes this probe the *detection layer* inside the targeted
+level-2 controller — the targeting layer (exposure bounds, stability
+screen, first-split traces, survivor-only field-1 work) is owned by
+that parent. The field-swap build enters after the calculated-evidence
+shadow step merges (L2-A6). Anchors: [[gran-anchor-reconstruction]].
+
 ## Links
 
 [[walt-unification]], [[adaptive-sampling-intake]], [[gpu-level2]],
