@@ -96,6 +96,14 @@ above). Observed against the 128-epoch receipt run (70 decisions):
 - Among the 40 still-Unresolved, survivor sets shrank in 21 and were
   unchanged in 19; agreement among winner-bearing decisions is 8/12.
 - Cost: summed shadow micros ≈ 4.15 h (128-epoch: ≈ 1.5 h).
+- **The driven 512-epoch rerun** (`driven_512.jsonl`, same night, same
+  20 hands): ExactFrozenSet 39 (unchanged), Unresolved 73, DeltaSettled
+  1 — **hand 5 trick 2 ply 0 settles at world 333 against the live
+  choice** (winner 5-4 vs live 3-3). Survivor sets shrank in 43 of the
+  73 still-Unresolved; no additional live-line eliminations. Cost:
+  summed shadow micros ≈ 16.3 h (128-epoch: ≈ 4.15 h). Across both
+  modes the 512 epoch produced three settlements, and both settled
+  disagreements with the live player sit in tricks 1–2.
 - **Forecast honesty:** a session-level mining of the 128-epoch §8.5
   refinement vectors (never a receipt) had read the per-decision
   n̂±-based winner-isolation proxy as "~108/116 Unresolved settle by
@@ -104,7 +112,7 @@ above). Observed against the 128-epoch receipt run (70 decisions):
   open edges regress toward the near-tie). The per-pair forecasts that
   DID calibrate are step 8's E0 discipline (`walt/probes/step8/`);
   cap-sizing claims should route through that, not through the mining.
-  A `driven` 512-epoch rerun is queued separately.
+  The `driven` 512-epoch rerun is committed above.
 
 ## Aggregate (plain counts; regenerate with summarize.py)
 
