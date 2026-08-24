@@ -58,6 +58,16 @@ export interface PlayRequest {
    * surviving saturation ties. No per-option values in the response.
    */
   race?: boolean;
+  /**
+   * Cross-fiber review ("from her seat / from yours"): additionally price
+   * the actor's options from THIS seat's fiber — same machinery,
+   * different root viewer. The response gains `viewer` and `viewer_opts`.
+   * Requires `viewerHand`. Omit for decision calls (legacy behavior,
+   * byte-identical).
+   */
+  viewer?: number;
+  /** The viewer seat's 7 ORIGINALLY DEALT tile ids (with `viewer` only). */
+  viewerHand?: number[];
 }
 
 export interface PlayResponse {
@@ -74,6 +84,16 @@ export interface PlayResponse {
   /** Banked points [team of seats 0&2, team of seats 1&3] — assert these
    * against your own engine every call: it proves rules conformance. */
   points: [number, number];
+  /** Echo of the requested cross-fiber viewer seat (viewer requests only). */
+  viewer?: number;
+  /**
+   * [tile, basisPoints | null, supportingWorlds] for every legal option
+   * of the seat to act, priced from the viewer's fiber (viewer requests
+   * only). `null` at support 0: the viewer's sampled fiber contains no
+   * world where that play is lawful. Rows whose price here disagrees with
+   * `opts` are the human-visible flag of information asymmetry.
+   */
+  viewer_opts?: [number, number | null, number][];
 }
 
 export interface BidRequest {
@@ -181,6 +201,10 @@ export class Walt {
       `plays ${req.plays.join(' ')}`,
     ];
     if (req.race) lines.push('race 1');
+    if (req.viewer !== undefined) {
+      lines.push(`viewer ${req.viewer}`);
+      lines.push(`viewer_hand ${(req.viewerHand ?? []).join(' ')}`);
+    }
     pushCommon(lines, req);
     return this.call(lines) as unknown as PlayResponse;
   }

@@ -98,6 +98,11 @@ select{background:var(--panel2);color:var(--ink);border:1px solid #3a3a4c;border
 #thought .obarwrap{flex:1;background:#2a2a3a;height:10px;border-radius:5px;overflow:hidden}
 #thought .obar{height:100%;background:var(--t1)}
 #thought .opct{width:60px;text-align:right;font-size:12px}
+#thought .vpct{width:78px;text-align:right;font-size:11px;color:var(--gold)}
+#thought .orow.fdiff{background:rgba(230,193,90,.14);border-left:2px solid var(--gold);
+  border-radius:4px;padding-left:3px}
+#thought .colA{color:var(--t1)}
+#thought .colB{color:var(--gold)}
 #thought .picked .oname{color:var(--gold)}
 #thought .hdr{color:var(--ink);font-size:12px;margin-bottom:5px}
 #msgs{color:var(--dim);font-size:12px;max-height:130px;overflow-y:auto}
@@ -146,7 +151,7 @@ select{background:var(--panel2);color:var(--ink);border:1px solid #3a3a4c;border
       </div>
     </div>
     <div id="side">
-      <div class="panel" id="thoughtwrap"><h3>reasoning</h3><div id="thought"><span style="color:var(--dim)">click any played tile to see the P(make) it saw</span></div></div>
+      <div class="panel" id="thoughtwrap"><h3>reasoning</h3><div id="thought"><span style="color:var(--dim)">click any played tile to see the P(make) it saw — and, for other seats, the same options priced from your fiber (disagreeing rows flagged)</span></div></div>
       <div class="panel"><h3>tricks</h3><div id="history"></div></div>
       <div class="panel"><h3>table talk</h3><div id="msgs"></div></div>
     </div>
@@ -277,15 +282,15 @@ function renderSeatbox(seat){
 function renderTable(){
   for(let s=0;s<4;s++)renderSeatbox(s);
   for(const p of ['top','left','right','bottom'])$('c-'+p).innerHTML='';
-  for(const pl of S.cur){
+  S.cur.forEach((pl,j)=>{
     const slot=$('c-'+posOf(pl.s));
     const who=document.createElement('div');who.className='who';
     who.textContent=seatName(pl.s)+(pl.f?' (forced)':'');
     const d=domEl(pl.t,{});
     d.classList.add('clickable-chip');
-    d.onclick=()=>showThought(pl,null);
+    d.onclick=()=>showThought(pl,null,S.tricks.length*4+j);
     slot.appendChild(who);slot.appendChild(d);
-  }
+  });
   const mid=$('c-mid');
   if(S.phase==='done'){
     mid.innerHTML=S.result?'<b style="color:var(--green)">T1 MAKES the '+S.bid+' bid</b><br>'+
@@ -301,13 +306,13 @@ function renderHistory(){
   S.tricks.forEach((tr,i)=>{
     const row=document.createElement('div');row.className='trick';
     row.innerHTML='<span class="tno">'+(i+1)+'</span>';
-    for(const pl of tr.plays){
+    tr.plays.forEach((pl,j)=>{
       const d=domEl(pl.t,{small:true,winner:pl.s===tr.w});
       d.title=seatName(pl.s)+': '+tname(pl.t)+(pl.f?' (forced)':'');
       d.classList.add('clickable-chip');
-      d.onclick=()=>showThought(pl,i);
+      d.onclick=()=>showThought(pl,i,i*4+j);
       row.appendChild(d);
-    }
+    });
     const pts=document.createElement('span');pts.className='pts';
     pts.textContent=seatName(tr.w)+' +'+tr.p;
     row.appendChild(pts);
@@ -315,28 +320,77 @@ function renderHistory(){
   });
 }
 
-function showThought(pl,trickIdx){
+// Cross-fiber review (LEVEL2-PROBE.md's cheap first-order UI detector):
+// the actor's recorded column comes from ITS fiber at decision time; the
+// second column re-prices the same options from YOUR fiber (same
+// machinery, different root viewer — fiber pricing, not a belief). Rows
+// where the columns disagree by >= 5 points are flagged: the
+// human-visible signal of information asymmetry. The 5-point threshold is
+// presentation only; exact deltas live in each cell's tooltip.
+let reviewSeq=0;
+function showThought(pl,trickIdx,idx){
   const el=$('thought');
   const where=trickIdx===null?'this trick':'trick '+(trickIdx+1);
   let html='<div class="hdr">'+seatName(pl.s)+' played <b>'+tname(pl.t)+'</b> ('+where+')'+
     (pl.f?' — forced, no choice':'')+'</div>';
   el.innerHTML=html;
+  reviewSeq++;
   if(!pl.o||!pl.o.length){
     if(!pl.f)el.innerHTML+='<span style="color:var(--dim)">no evaluation recorded (human play without hint)</span>';
     return;
   }
   const maxing=teamOf(pl.s)==='T1';
   const sorted=[...pl.o].sort((a,b)=>maxing?b[1]-a[1]:a[1]-b[1]);
+  const cross=pl.s!==S.human&&idx!==undefined;
   el.innerHTML+='<div style="color:var(--dim);font-size:11px;margin-bottom:4px">'+
-    (maxing?'wants P(make) HIGH':'wants P(make) LOW')+'</div>';
+    (maxing?'wants P(make) HIGH':'wants P(make) LOW')+
+    (cross?' · <span class="colA">from its seat</span> / <span class="colB">from yours</span>':'')+'</div>';
+  const rows={};
   for(const[t,bp]of sorted){
     const row=document.createElement('div');
     row.className='orow'+(t===pl.t?' picked':'');
     row.innerHTML='<span class="oname">'+tname(t)+'</span>'+
       '<span class="obarwrap"><span class="obar" style="width:'+(bp/100)+'%"></span></span>'+
-      '<span class="opct">'+pct(bp)+'</span>';
+      '<span class="opct">'+pct(bp)+'</span>'+
+      (cross?'<span class="vpct">…</span>':'');
+    row.dataset.abp=bp;
+    rows[t]=row;
     el.appendChild(row);
   }
+  if(!cross){
+    if(pl.s===S.human)el.innerHTML+=
+      '<div style="color:var(--dim);font-size:11px;margin-top:4px">you were the actor — its fiber is yours, one column</div>';
+    return;
+  }
+  const seq=reviewSeq;
+  const note=document.createElement('div');
+  note.style.cssText='color:var(--dim);font-size:11px;margin-top:4px';
+  note.textContent='pricing the same options from your fiber…';
+  el.appendChild(note);
+  fetch('/review?p='+idx).then(r=>r.json()).then(rv=>{
+    if(seq!==reviewSeq)return; // stale — another tile was tapped
+    if(rv.error){note.textContent='cross-fiber column unavailable: '+rv.error;return;}
+    let flagged=0;
+    for(const[t,vbp,w]of rv.viewer_opts){
+      const row=rows[t];if(!row)continue;
+      const cell=row.querySelector('.vpct');
+      if(vbp===null){
+        cell.textContent='no support';
+        cell.title='0 of '+rv.n+' worlds sampled from your fiber allow this play';
+        continue;
+      }
+      cell.textContent=pct(vbp);
+      cell.title=w+' of '+rv.n+' worlds sampled from your fiber allow this play';
+      const d=Math.abs(Number(row.dataset.abp)-vbp);
+      if(d>=500){
+        row.classList.add('fdiff');flagged++;
+        cell.title+=' — differs from the actor-fiber price by '+(d/100).toFixed(2)+' points';
+      }
+    }
+    note.textContent=flagged
+      ?flagged+' row'+(flagged>1?'s':'')+' disagree across the two fibers — the information-asymmetry flag'
+      :'both fibers price every option within 5 points — no asymmetry visible at this play';
+  }).catch(()=>{if(seq===reviewSeq)note.textContent='cross-fiber column unavailable';});
 }
 
 function showHint(){

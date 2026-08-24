@@ -85,6 +85,27 @@ reference, θ = 1/2 overbid 37/200 hands; 11/16 overbid 0 with 0 missed
 bids). θ stays a request parameter; don't lower n below ~40 — small
 samples overbid in a way no θ repairs.
 
+### Cross-fiber review ("from her seat / from yours")
+
+For the "How'd I do? Ask walt" review: a `play` call may carry
+`viewer` + `viewerHand` (any seat and its 7 dealt tiles — typically the
+human reviewer). The response then also prices the acting seat's options
+from the **viewer's fiber**: worlds sampled from the viewer's own
+lawful-completion fiber (void-conditioned support — a fiber, not a
+belief), each option priced over the worlds where the actor's play of it
+is lawful, solver rooted at the viewer. Same machinery, different root
+viewer; no new mathematics.
+
+`viewer_opts` entries are `[tile, bp | null, supportingWorlds]`; `null`
+means the sampled fiber contains no world where that play is lawful.
+Render the two columns side by side and flag rows where they disagree —
+that disagreement is the human-visible signal of information asymmetry
+(the 5-5 specimen: 100% from the holder's seat, sub-100% from the
+bidder's until the tile shows). Requests without `viewer` are unchanged,
+byte for byte. The review call evaluates the position fresh (a review
+pricing, not the recorded decision), so run it in the worker like any
+`play` call — early-trick positions take seconds.
+
 ### Conformance assertion (do this)
 
 Every `play` response carries walt's independently derived `leader` and

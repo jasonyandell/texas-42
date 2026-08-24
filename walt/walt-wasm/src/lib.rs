@@ -9,7 +9,10 @@
 //!     state (level-1, saturation-tie refinement, banked-correct PiKey)
 //!     and choose; replies also carry walt's independently derived trick
 //!     leader and team points so the client can assert rules conformance
-//!     on every decision, exactly like the arena bridge.
+//!     on every decision, exactly like the arena bridge. An optional
+//!     `viewer`/`viewer_hand` pair additionally prices the actor's
+//!     options from ANOTHER seat's fiber (cross-fiber review — same
+//!     machinery, different root viewer; LEVEL2-PROBE.md).
 //!   - `bid`     — the baseline auction rule over bid curves: price all
 //!     nine declarations at the minimum viable bid over common random
 //!     worlds; pass if the best is below theta (default 1/2), else walk

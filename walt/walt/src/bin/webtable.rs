@@ -27,8 +27,8 @@ use num_traits::Zero;
 use walt::rules::rules::{legal_plays, Trick};
 use walt::rules::{Context, Decl, Domino, Pip, Seat, Team};
 use walt::solver::{
-    best_of, bp, level1_evaluate, mask_bits, mask_of, mix, sample_belief, set_of, Deadline, Field,
-    Key, Shared, Solver, SplitMix64,
+    best_of, bp, level1_evaluate, mask_bits, mask_of, mix, record_hash, replay, sample_belief,
+    set_of, viewer_fiber_evaluate, Deadline, Field, Key, Shared, Solver, SplitMix64,
 };
 
 /// Internal bid seat after rotation (the bidding team is internal T1).
@@ -121,6 +121,10 @@ struct Game {
     trick_start_played: u32,
     tricks: Vec<TrickRec>,
     hint: Option<Vec<(u8, i64)>>,
+    /// Cross-fiber review responses, cached per play index (derived view
+    /// of the record — recomputable, cleared every hand; deterministic
+    /// per position, never touching the game's rng).
+    review_cache: std::collections::HashMap<usize, String>,
     msgs: Vec<String>,
     makes: u32,
     sets: u32,
@@ -161,6 +165,7 @@ impl Game {
             trick_start_played: 0,
             tricks: Vec::new(),
             hint: None,
+            review_cache: std::collections::HashMap::new(),
             msgs: Vec::new(),
             makes: 0,
             sets: 0,
@@ -208,6 +213,7 @@ impl Game {
         self.trick_start_played = 0;
         self.tricks = Vec::new();
         self.hint = None;
+        self.review_cache.clear();
         self.msgs.push(format!(
             "hand {}: dealt. auction opens at S{} (30 or pass).",
             self.hand_no, self.auct_start
@@ -769,6 +775,99 @@ impl Game {
         }
     }
 
+    /// Cross-fiber review (LEVEL2-PROBE.md's cheap first-order UI
+    /// detector): price the k-th play's options from the HUMAN viewer's
+    /// fiber — same machinery, different root viewer, no new mathematics.
+    /// The record prefix is replayed (derived view, never stored state);
+    /// worlds come from the human's void-conditioned lawful-completion
+    /// fiber; each option is priced over the worlds where the actor's
+    /// play of it is lawful. Deterministic per (seed, hand, position) —
+    /// the game's rng is never touched.
+    fn review_json(&mut self, k: usize) -> String {
+        let Some(dcl) = self.dcl else {
+            return "{\"error\":\"no declared hand to review\"}".to_string();
+        };
+        if let Some(cached) = self.review_cache.get(&k) {
+            return cached.clone();
+        }
+        let pairs: Vec<(usize, usize)> = self
+            .tricks
+            .iter()
+            .flat_map(|tr| tr.plays.iter())
+            .chain(self.cur.iter())
+            .map(|p| (usize::from(p.seat), usize::from(p.tile)))
+            .collect();
+        if k >= pairs.len() {
+            return "{\"error\":\"no such play\"}".to_string();
+        }
+        let (actor_i, _) = pairs[k];
+        if actor_i == self.human {
+            return "{\"error\":\"the actor's fiber is yours\"}".to_string();
+        }
+        // Replay the prefix in internal labels (BIDDER is odd, so the
+        // rotation inside `replay` is the identity).
+        let st = replay(dcl, BIDDER, &pairs[..k]);
+        assert_eq!(st.r, 0, "internal frame replays identically");
+        let key = Key {
+            played: st.played,
+            leader: st.leader,
+            plays: st.plays.clone(),
+            banked_t1: st.banked_t1,
+            banked_t0: st.banked_t0,
+            alive: 0,
+        };
+        let mut sizes = [7 - st.completed; 4];
+        for i in 0..st.plays.len() {
+            sizes[(usize::from(st.leader) + i) % 4] -= 1;
+        }
+        let hand_a = self.hands[actor_i] & !st.played;
+        let led: Option<Context> = st
+            .plays
+            .first()
+            .map(|&i| dcl.led_context(Domino::from_index(usize::from(i)).expect("led")));
+        let options = mask_bits(mask_of(legal_plays(dcl, set_of(hand_a), led)));
+        let viewer = Seat::from_index(self.human).expect("seat");
+        let vh = self.hands[self.human] & !st.played;
+        let mut rng =
+            SplitMix64(self.seed ^ mix(self.hand_no) ^ mix(0xF1BE ^ k as u64) ^ record_hash(&key));
+        let actor = Seat::from_index(actor_i).expect("seat");
+        let priced = viewer_fiber_evaluate(
+            dcl,
+            self.bid,
+            actor,
+            viewer,
+            vh,
+            &options,
+            &key,
+            sizes,
+            st.voids,
+            st.trick_start_played,
+            7 - st.completed,
+            self.n_outer,
+            self.n0,
+            self.per_move_secs,
+            &mut rng,
+        );
+        let Some(priced) = priced else {
+            return "{\"error\":\"review evaluation timed out\"}".to_string();
+        };
+        let items: Vec<String> = priced
+            .iter()
+            .map(|(t, v, w)| match v {
+                Some(v) => format!("[{t},{},{w}]", bp(v)),
+                None => format!("[{t},null,{w}]"),
+            })
+            .collect();
+        let json = format!(
+            "{{\"p\":{k},\"actor\":{actor_i},\"viewer\":{},\"n\":{},\"viewer_opts\":[{}]}}",
+            self.human,
+            self.n_outer,
+            items.join(",")
+        );
+        self.review_cache.insert(k, json.clone());
+        json
+    }
+
     // -- JSON ---------------------------------------------------------------
 
     fn json_state(&self) -> String {
@@ -996,6 +1095,13 @@ fn handle(game: &mut Game, stream: &mut TcpStream) {
         "/hint" => {
             game.human_hint();
             respond(stream, "200 OK", "application/json", &game.json_state());
+        }
+        "/review" => {
+            let body = match query_num(query, "p") {
+                Some(p) => game.review_json(p as usize),
+                None => "{\"error\":\"review wants ?p=<play index>\"}".to_string(),
+            };
+            respond(stream, "200 OK", "application/json", &body);
         }
         "/auto" => {
             game.human_auto();
