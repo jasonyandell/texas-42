@@ -126,16 +126,29 @@ executed through step 7 in one day. That work has its own owning page,
 what it did to *this* track's episodes (all exploratory / instrument-grade,
 per that page's fences):
 
-- **The 40/160 near-tie flip and the saturation-tie episodes now have era
-  context.** The flip mode is exactly what fixed magic sample counts cost;
-  the shadow instrument reproduces the phenomenon class beside the live
-  player (4 exact-route disagreements at small fibers where the live 200/8
-  estimate picked a different tile; 40 honest exact ties reported as ties),
-  and the **V5 flip repair plus per-pair E0 calibration is step 8, in
-  flight** — in build, no results, not quotable yet. The saturation-tie
-  protocol (Def 6.3, "look closer") remains; the evidence path types such
-  outcomes honestly (`ExactFrozenSet` with a null winner is a finding, not a
-  defect).
+- **The 40/160 near-tie flip is resolved — as a near-tie, not as a winner.**
+  The flip mode is exactly what fixed magic sample counts cost; the shadow
+  instrument reproduced the phenomenon class beside the live player (4
+  exact-route disagreements at small fibers where the live 200/8 estimate
+  picked a different tile; 40 honest exact ties reported as ties), and **step
+  8 landed the V5 flip repair and per-pair E0 calibration** (PR #31 /
+  `e5a5f52`; instrument records at `walt/probes/step8/`, exploratory
+  instrument output below every tier, cited by nothing above it). Re-running
+  the count-timing shape family on one epoch and one common stream at an
+  ascending cap ladder 40/160/640, the V5 law is asserted mechanically and
+  **no cap-dependent flip occurs anywhere**: all six family members are
+  honestly `Unresolved` at every cap, at q̂ ≈ 0.3 and |τ̂| ≈ 0.01–0.25. So the
+  recorded episode was **a near-tie forced through a phone-tier cap**, not
+  sampler inconsistency — the old player was never entitled to either answer.
+  Three of the four shadow disagreements escalate to the exact winner (h4 d3 →
+  2-1, h7 d5 → 6-2, driven h14 d4 → 2-1); h11 d4 (fiber 1750, τ = 11/175) is
+  honestly Unresolved at all caps. The **literal** plunge position's seeds
+  live plunge-side, so its reconstruction is a filed blocked test waiting on
+  [[gran-anchor-reconstruction]]. Numbers and fences:
+  [walt-calculated-evidence](walt-calculated-evidence.md).
+- **The saturation-tie episode** keeps its protocol (Def 6.3, "look closer");
+  the evidence path types such outcomes honestly (`ExactFrozenSet` with a null
+  winner is a finding, not a defect).
 - **The live player was audited, not changed.** The step-7 session findings
   (playout's standalone PiKey still omits banked totals; one-RNG threading
   through deal + belief sampling in playout/playtable/webtable contra O27;
@@ -148,9 +161,15 @@ per that page's fences):
   and rules-engine-validated ([[gran-anchor-reconstruction]]). Discovery
   artifacts until reconstructed; the G1–G4 experiments stay gated.
 - **`walt/LEVEL2-PROBE.md` is no longer "gated on the intake"** — it is the
-  detection layer inside the targeted level-2 controller (L2-A5), and the
-  first field-swap machinery plus its three-regime smoke has landed
-  (fixed-policy exposure only, never root-action screening — L2-A4).
+  detection layer inside the targeted level-2 controller (L2-A5), and two
+  field-swap slices have landed: the fixed-policy smoke (never root-action
+  screening — L2-A4) and, at PR #30 / `ca0483d`, the exposure rungs E0–E2
+  with the exact split-reach route E4 and the L2-T4 admissible screen. On the
+  h7-t5 root the smoke's "the fields never split" observation became an
+  **exact zero over all information-consistent continuations**, and one root
+  produced the first pruning singleton in the wild. Instrument records at
+  `walt/probes/fieldswap_screen/`, read out on
+  [walt-calculated-evidence](walt-calculated-evidence.md).
 
 ## Where this sits in the program
 

@@ -77,7 +77,7 @@ arithmetic and adds the lockfile-pinned `objc2`, `objc2-core-graphics`,
 | `walt::strat` (`walt-strat`) | The operators registry, kept deliberately distinct per §10.8. Decision nodes over fiber worlds, the canonical perfect-recall information partition, information-consistent policies keyed by opaque info-state ids (world-peeking is unconstructible by type), and the named operators with the information prices between them. | `pi::pi_root_values` (symbolic parametric PI), `scalar::ScalarPi` (+ `ScalarValuation`, `scalar_census`), `hidden::hidden_root_values` (symbolic H), `hidden_scalar::ScalarHidden` (scalar H, `action_values` and `action_values_dag`), `revealed::revealed_summary` (C and F), `price::information_prices`, `census::pi_census`, `info::{InfoPartition, Policy, policy_value_receipt}`, `label::{OperatorLabel, WeightingLabel}` |
 | `walt::spec` (`walt-gpu-spec`) | The portable M0 exact-arithmetic and semantic-table layer: forbids unsafe code, denies float arithmetic. | `mass::U256Mass`, checked framed operations, SHA-256 anchors, `SemanticTablesCanonicalV2`, canonical table bytes and digests |
 | `walt::carrier` (`walt-m3-carrier`) | The frozen hand-8 receipt carrier (freeze-57 M3 gate profile): two constructors that must agree byte-for-byte, KAT pins, support/profile machinery. The seat player's data source. | `constants`, `profile`, `replay`, `support`, `kat` |
-| `walt::solver` (`walt-m3-probe`) | **The seat solver** — the sampling-stack machinery of `walt/SCENARIO-PLAYER.md`: scenario worlds, modeled level-k minds, exact best response under the pmake objective, and — since the 2026-08-24 calculated-evidence build ([walt-calculated-evidence](walt-calculated-evidence.md)) — the evidence-path modules (`evidence` exact CE-T1..T5 arithmetic, `adaptive` kernel adapter + fixed-pair evaluator + exact endpoint, `controller` m-candidate decision controller, `policy` FreezeTuple/PolicyId frozen policies, `field` FieldId field models, `exposure` coupled first-split replay) and fourteen bins (scenario, level1, level2, playout, playtable, webtable, walt_bridge, divergence, ladder, bidcurve, tiltaudit, m3probe, shadow, fieldswap). | `walt/walt/src/solver/`, bins under `walt/walt/src/bin/` |
+| `walt::solver` (`walt-m3-probe`) | **The seat solver** — the sampling-stack machinery of `walt/SCENARIO-PLAYER.md`: scenario worlds, modeled level-k minds, exact best response under the pmake objective, and — since the 2026-08-24 calculated-evidence build ([walt-calculated-evidence](walt-calculated-evidence.md)) — the evidence-path modules (`evidence` exact CE-T1..T5 arithmetic, `adaptive` kernel adapter + fixed-pair evaluator + exact endpoint, `controller` m-candidate decision controller, `policy` FreezeTuple/PolicyId frozen policies, `field` FieldId field models, `exposure` coupled first-split replay plus the E0–E2 rungs and the exact split-reach route E4, `field_swap` the L2-T4 admissible screen, `calibrate` the §19 V5 cap-ladder law and §19 V6 per-fixed-pair E0 calibration) and seventeen bins (scenario, level1, level2, playout, playtable, webtable, walt_bridge, divergence, ladder, bidcurve, tiltaudit, m3probe, shadow, fieldswap, fieldswap_screen, v5flip, e0cal). | `walt/walt/src/solver/`, bins under `walt/walt/src/bin/` |
 | `walt-wasm` (crate) | The browser decision oracle plunge ships: level-1 compiled to wasm with the calibrated bid default θ=11/16 and the opt-in race mode; Node smoke 28/28 byte-identical to the frozen native trace. | `pkg/walt.wasm`, `walt.ts` |
 | `walt-gpu-ref` (crate) | The portable M1 reference projector plus the complete M2 carrier, bindings and canonical receipt codecs; rob appears only as a development-time prose-rules bridge (dev-dependency). | `projection`, `carrier`, `m2`, `m2_receipt::{receipt, records, transport, wire}`, M0/M1 receipt generation and strict M2 validation |
 | `walt-metal` (crate) | The only Metal/Objective-C boundary: fixed scalar-word ABI, checked MSL kernels, retained completion evidence and safe runtime tokens around the contract's private unsafe operations. | `abi`, `bridge`, `runtime`, `error`; `shaders/00_u256.metal`, `01_opening_projector.metal`, `02_m3_wavefront.metal`, the deterministic build scripts and checked-in metallib |
@@ -188,6 +188,45 @@ the `examples/*.rs` producers are archive-only at commit `648f93a`.)
   declared grade-3 unit and 42 ns/call over 3,540,143 calls at the declared n=4
   unit, single uninterrupted process, declared selection rule, run complete. Those
   are the quotable figures; the 25 ns stays retired.
+
+## The calculated-evidence instruments (live, added 2026-08-24)
+
+Four bins built during the §22 / §21 build, each with a records directory
+under `walt/probes/` carrying **its own fence** — exploratory instrument
+output, below every evidentiary tier, cited by nothing above it. The results
+are read out on [walt-calculated-evidence](walt-calculated-evidence.md), which
+owns them; this table is the inventory of what exists and how to run it. All
+four write JSONL beside a stdlib-only `summarize.py` that recomputes the
+published tables from the records, so no aggregate is hand-maintained.
+
+| Bin | What it produces | Records |
+| --- | --- | --- |
+| `shadow` | The step-7 controller run beside the live player: frozen level-1 continuations (`ActionRule::PinnedThenLevel1`) at every multi-option focal decision, agreement recorded and never acted on | `probes/shadow/` |
+| `fieldswap` | The slice-1 fixed-policy smoke: `FrozenPolicyExposure` under declared field models σ0/σ1 for two frozen focal pins per root — never a root-action bound, never screening input (L2-A4, O31) | `probes/fieldswap/` |
+| `fieldswap_screen` | The slice-2 rung/screen instrument: exposure rungs E0–E2, the exact split-reach route E4 (`R_a` exactly), and the L2-T4 admissible screen with the full ordered-pair slack table, at one declared (σ0, σ1) epoch pair | `probes/fieldswap_screen/` |
+| `v5flip` / `e0cal` | Step 8: the §19 V5 cap-ladder replay with `assert_cap_ladder` (settled stays settled identically; never two caps settled differently), and the §19 V6 per-fixed-pair E0 calibration comparing exact fiber coordinates, exact-rational forecasts, and observed replicate settlements | `probes/step8/` |
+
+Two declared-knob facts a future session must not inherit silently:
+
+- **The shadow bin's `world_cap` default is 512** since PR #32 / `6e00528`
+  (Jason's 2026-08-24 cap ruling: the 128/40/160 caps were phone-tier budget
+  limits, not calibrated choices). The committed shadow records are the
+  **world_cap = 128 epoch**; reproducing them byte-identically now requires
+  passing `128` explicitly. A 512-epoch regeneration is a separate run and
+  supersedes nothing — different epoch by construction, and every record
+  carries its own config.
+- **A cap is a resource limit, never a settlement rule** (CE-A3), and a
+  declared field or policy schedule is part of the result's identity: a
+  different `FieldId`/`PolicyId` is a different experiment, not the same
+  statistic improving. The `fieldswap_screen` epoch pair is
+  σ0 = `Level0{n0=8}`, σ1 = `Level1{n_outer=4, n0=2}`, frozen candidates
+  `[8, 2]`.
+
+The load-bearing gates for this machinery are ordinary tests, not the probe
+directories: `walt/walt/tests/solver_calibrate.rs` (step 8) and
+`walt/walt/tests/solver_fieldswap_screen.rs` (the O32/O38 parity gates). Per
+the receipt-discipline statements below, none of these JSONL records is
+byte-diffed by CI and none becomes a claim-tier result by existing.
 
 ## The probe binaries (historical — all archive-only since 2026-08-24)
 
@@ -305,8 +344,10 @@ producer commit, per the recompute queue.
 `walt/probes/` now holds all the frozen probe records: the two Python suites
 below (preserved verbatim from the 2026-08-09 scratchpad before `/tmp` cleanup
 could destroy the only copies), the relocated factory result summaries
-(`factory-results/`), the seat-play result files (`m3/`), and the bidcurve
-corpus (`bidcurve/`). The Python suites' framing is the load-bearing part: they
+(`factory-results/`), the seat-play result files (`m3/`), the bidcurve
+corpus (`bidcurve/`), and the calculated-evidence instrument records
+(`shadow/`, `fieldswap/`, `fieldswap_screen/`, `step8/` — the section above).
+The Python suites' framing is the load-bearing part: they
 are **frozen validators, never source**. walt reimplements from the definitions
 in the frozen mathematical basis and pins its own results against the probe
 records; a disagreement is a discrepancy to be recorded, never a reason to copy
@@ -355,7 +396,9 @@ certificates preserved in-tree under `walt/probes/factory-results/`.
 cargo run --release -p walt --bin level1       # the seat (or scenario, level2,
                                                # playout, webtable, walt_bridge,
                                                # divergence, ladder, bidcurve,
-                                               # tiltaudit, m3probe, playtable)
+                                               # tiltaudit, m3probe, playtable,
+                                               # shadow, fieldswap,
+                                               # fieldswap_screen, v5flip, e0cal)
 /bin/bash -p walt/ci/verify_m2_sources.sh      # freeze-event manifest closure only
 ```
 
