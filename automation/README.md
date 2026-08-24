@@ -3,7 +3,8 @@
 Small composable scripts that drive a real, logged-in Chrome via CDP to submit
 `exchange/outbox/` dispatches to ChatGPT 5.6 Pro and harvest responses into
 `exchange/inbox/`. See `exchange/README.md` for the dispatch protocol and the
-hard 10-submission budget.
+quota rules — dispatches are authorized by Jason in batches, each batch's quota
+agreed up front; there is no lifetime cap.
 
 ## How it connects
 
@@ -25,7 +26,7 @@ Re-run with `--fresh` to re-copy cookies if the session ever goes stale.
 | `launch-chrome.sh` | start (or reuse) the CDP Chrome on the copied profile |
 | `check-login.mjs` | open chatgpt.com, screenshot, report login state |
 | `rehearse.mjs` | dry-run capability proof — never sends |
-| `submit.mjs <outbox/NNN-slug.md>` | full submission: parse frontmatter, clear draft, verify **Pro** model, attach files, clipboard-paste body, verify fidelity, send, confirm, increment budget, write `NNN-slug.submitted.json` |
+| `submit.mjs <outbox/NNN-slug.md>` | full submission: parse frontmatter, clear draft, verify **Pro** model, attach files, clipboard-paste body, verify fidelity, send, confirm, increment `exchange/submission_count.txt`, write `NNN-slug.submitted.json` |
 | `poll.mjs <NNN-slug.submitted.json>` | exit 0 if response complete, 2 if pending |
 | `harvest.mjs <NNN-slug.submitted.json>` | save final assistant message to `exchange/inbox/NNN-slug.md` (copy-button markdown preferred, innerText fallback) + screenshot |
 | `lib.mjs` | shared CDP/page helpers |

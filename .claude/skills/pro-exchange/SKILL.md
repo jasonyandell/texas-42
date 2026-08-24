@@ -9,11 +9,28 @@ ChatGPT 5.6 Pro has no API (app/web only; codex CLI lacks the Pro tier). The
 exchange runs through browser automation against Jason's logged-in account.
 Everything lives in `exchange/` (protocol + ledger) and `automation/` (harness).
 
-## Budget — read first
+## Quota — read first
 
-**Hard cap: 10 submissions total, ever, across all sessions.**
-`exchange/submission_count.txt` holds the live count — **read that file, never
-trust a number quoted here**; any count in this doc is a stale snapshot.
+**There is no lifetime cap.** Dispatches are authorized by Jason **in batches,
+each batch's quota agreed up front** — monthly pacing, cleared per batch.
+**Never submit without Jason's explicit go for the batch you are sending in.**
+
+Two numbers, different jobs:
+
+- `exchange/submission_count.txt` — the running count of dispatches ever sent
+  (one line, one integer). A tally, not a ceiling.
+- `HARD_CAP` in `automation/submit.mjs` — the **current batch's ceiling for the
+  automated path only**; `submit.mjs` refuses once the count reaches it. Raise
+  it only for a batch Jason has authorized, and only with his go.
+
+The count can legitimately exceed `HARD_CAP` — dispatches Jason hand-ferries
+himself are counted but never pass through the automation (016–018 are the
+precedent: count 18, automated ceiling 17). A count at or above the ceiling
+means *the automated path is closed pending a new batch*, never that the
+channel is spent.
+
+**Read both files, never trust a number quoted here**; any count or ceiling in
+this doc is a stale snapshot.
 A send counts once it is visually confirmed submitted. Increment the count and
 add the ledger row in `exchange/README.md` in the same commit, immediately
 after confirmation. If a send attempt errors ambiguously, **open the
@@ -28,7 +45,7 @@ attachments/body). Abort if the count moved or that turn already exists. A
 coordinator's stand-down order is **not** a substitute for this check — orders
 and sends cross in flight. Dispatch 006 was double-sent exactly this way (a
 second `submit.mjs` posted a duplicate into the 001 conversation; count jumped
-5→7, wasting one lifetime submission).
+5→7, spending a dispatch from the batch for nothing).
 
 `submit.mjs` now self-guards in code (as of the 006 incident): it refuses if
 `NNN-slug.submitted.json` already exists, and it creates that marker with an
@@ -107,8 +124,8 @@ doing anything that could end the turn.
   Cookies decrypt because the Keychain "Chrome Safe Storage" key is per-user.
 - `submit.mjs` parses frontmatter, clears any persisted draft, verifies the
   model, uploads attachments, clipboard-pastes the body, verifies fidelity,
-  sends, waits for the server-assigned conversation UUID, increments the
-  budget, writes `NNN-slug.submitted.json`, then reloads the conversation and
+  sends, waits for the server-assigned conversation UUID, increments
+  `submission_count.txt`, writes `NNN-slug.submitted.json`, then reloads the conversation and
   verifies the sent turn contains the body and every attachment.
 - Logs append to `automation/logs/harness.log`; screenshots (`NNN-*-pre-send`,
   `-sent`, `-verified`, `NNN-final`) land in `automation/logs/`.
@@ -186,8 +203,8 @@ identical to "still generating"):
 ## Recovery and blockers
 
 - Ambiguous send: check the conversation UI (or sidebar recents) for the sent
-  turn before any retry. The budget increments on confirmed send even if
-  post-send verification then fails.
+  turn before any retry. `submission_count.txt` increments on confirmed send
+  even if post-send verification then fails.
 - Login wall or captcha: **stop and surface to Jason** — do not attempt to
   clear it. If the session goes stale, `launch-chrome.sh --fresh` re-copies
   cookies from the real profile (Jason's Chrome must have a live session).

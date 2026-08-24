@@ -1,6 +1,8 @@
 // Submit one dispatch to ChatGPT 5.6 Pro.
 // Usage: node submit.mjs /abs/path/exchange/outbox/NNN-slug.md
-// Refuses if budget exhausted. On success writes NNN-slug.submitted.json
+// Refuses once the running count reaches this batch's ceiling (HARD_CAP
+// below — a per-batch gate on the automated path, never a lifetime cap).
+// On success writes NNN-slug.submitted.json
 // next to the dispatch, increments exchange/submission_count.txt, and
 // appends a ledger row placeholder is left to the operator.
 //
@@ -20,10 +22,23 @@ import path from 'node:path';
 
 const STANDING = 'https://chatgpt.com/c/6a64ccec-2328-83ea-b0d1-917f487297a2';
 const COUNT_FILE = path.join(ROOT, 'exchange', 'submission_count.txt');
-// Jason 2026-08-01: the fixed lifetime cap was wrong framing (quota is
-// monthly pacing, cleared with him per batch). Explicit go for up to 8
-// submissions on Aug 1 on top of the 9 already spent -> ceiling 17 for
-// this batch. Clear a new ceiling with Jason before raising again.
+// PROTOCOL (see exchange/README.md § Dispatch quota). There is NO lifetime
+// cap. Dispatches are authorized by Jason in batches, each batch's quota
+// agreed up front; monthly pacing, cleared per batch.
+//
+//   submission_count.txt = running count of dispatches EVER sent (a tally).
+//   HARD_CAP             = the CURRENT batch's ceiling for THIS automated
+//                          path only. Raise it only for a batch Jason has
+//                          explicitly authorized.
+//
+// The count may legitimately exceed HARD_CAP: dispatches Jason hand-ferries
+// himself are counted but never pass through here (016-018 did exactly that,
+// which is why count 18 > cap 17). count >= HARD_CAP means the automated path
+// is closed pending a new batch — never that the channel is spent.
+//
+// History: Jason 2026-08-01 retired the fixed lifetime cap as wrong framing
+// and cleared up to 8 submissions on Aug 1 atop the 9 already sent -> the
+// then-current batch ceiling of 17, unchanged since.
 const HARD_CAP = 17;
 
 const dispatchFile = process.argv[2];

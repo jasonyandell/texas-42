@@ -22,6 +22,13 @@ never as corpus theorem or kernel proof.
 
 Budget: 5/10 submissions spent; referees recommended zero follow-ups.
 
+> Note added 2026-08-24: the "5/10" above is the protocol **as it stood that
+> night** and is preserved as written. That fixed lifetime cap was retired by
+> Jason on 2026-08-01. The protocol now: dispatches are authorized in batches,
+> each batch's quota agreed up front, monthly pacing, cleared per batch, never
+> a lifetime cap — see [exchange/README.md](../exchange/README.md) § Dispatch
+> quota.
+
 ## Engineering (rob — Rust, all independently re-verified by main session)
 
 - **Slice 01 complete**: S1 algebra → S2 objective machine → S3 cells +

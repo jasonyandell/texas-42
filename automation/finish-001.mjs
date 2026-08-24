@@ -12,6 +12,10 @@ const tag = '001-reachable-support-cardinality';
 const attachments = fm.attachments;
 const COUNT_FILE = path.join(ROOT, 'exchange', 'submission_count.txt');
 const count = parseInt(fs.readFileSync(COUNT_FILE, 'utf8').trim() || '0', 10);
+// Retired one-off, kept as-is for the record: the literal 10 below is the
+// fixed lifetime cap Jason retired 2026-08-01 as wrong framing. It is NOT the
+// protocol — see exchange/README.md § Dispatch quota and HARD_CAP in
+// submit.mjs (the current batch's ceiling). Do not copy this guard.
 if (count >= 10) { log('BUDGET EXHAUSTED'); process.exit(3); }
 
 const { browser, context } = await connect();
