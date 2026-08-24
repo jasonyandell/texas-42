@@ -197,6 +197,13 @@ mod sha256 {
     }
 }
 
+/// Crate-internal content-digest access for sibling solver modules that
+/// need a canonical content address (the controller's §5.3 epoch identity)
+/// without re-vendoring SHA-256.
+pub(crate) fn content_digest(message: &[u8]) -> [u8; 32] {
+    sha256::digest(message)
+}
+
 // ---------------------------------------------------------------------------
 // Canonical serialization.
 // ---------------------------------------------------------------------------
