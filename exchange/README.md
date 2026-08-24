@@ -33,8 +33,10 @@ without Jason's explicit go.**
 The running count is `submission_count.txt` (one line, the integer count; buddy
 increments it before each send). The batch ceiling is `HARD_CAP` in
 `../automation/submit.mjs`, which refuses to submit once the count reaches it;
-raise the ceiling only for a batch Jason has authorized. As of 2026-08-03:
-**count 16, batch ceiling 17.**
+raise the ceiling only for a batch Jason has authorized. As of 2026-08-24:
+**count 18, automated batch ceiling 17** — dispatches 016–018 were hand-ferried
+by Jason himself (cleared by him each time, outside the automation, counted in
+`submission_count.txt`); the automation ceiling still gates any automated send.
 
 A send only counts once visually confirmed submitted; a harness failure before
 the message leaves the composer does not count, but buddy must verify in the UI

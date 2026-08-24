@@ -4,8 +4,13 @@
 results, risks, next questions. Written 2026-07-26 (exhaustive read of both packages,
 all verifiers executed, doc-by-doc comparison); updated 2026-07-27 with the exchange
 adjudications and rob receipts; addenda 2026-08-01/-02 (the constellation exchange
-batch, §4; the PA-E10 kernel tier, §4 item 3). Citations per [Home](Home.md)
-(v0.7 / rec).
+batch, §4; the PA-E10 kernel tier, §4 item 3); scope note 2026-08-24 (§7). Citations
+per [Home](Home.md) (v0.7 / rec).
+
+*Scope note (2026-08-24).* This page assesses the claim-tier mathematics only.
+The project's player build — walt, primary since 2026-08-17 — lives entirely at
+the exploratory tier behind [the walt hub](walt.md)'s fence, and per that fence
+nothing from it is cited here; this sentence is a map pointer, not a citation.
 
 ---
 
