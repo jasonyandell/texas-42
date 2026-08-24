@@ -43,7 +43,8 @@ Producer code (walt-factory + its 24 examples, walt-skeleton) is
 DELETED from the tree by [[walt-unification]] — regeneration means
 checking out the producer commit first. **Producer commit: `648f93a`
 (walt-unify; last commit with all producers present).** Deletion
-commit: recorded by the unification when it lands.
+commits: `ad355e9` (orphans, wasm-spike, PLAN.md), `fa3fe74`
+(walt-factory, walt-skeleton).
 
 Recompute protocol per artifact:
 

@@ -567,3 +567,14 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   orphans), walt-wasm-spike (superseded by walt-wasm), and PLAN.md
   (retired; historical content: `git show 56e2173:walt/PLAN.md`).
   Next: the seven-module fold + freeze-56 v2 amendment.
+- 2026-08-24 (later): ONE CLEAN WALT. The fold executed (d1499d4):
+  seven crates → modules rules/kernel/geom/strat/spec/carrier/solver of
+  the unified `walt` crate; 42 suites green, wasm smoke 28/28
+  byte-identical to the frozen native trace. Freeze-56 v2 issued
+  append-only (c92175a, FZ-A1..A6): 282-entry manifest, identity
+  8a780895…, fold-translation table, freeze-event semantics; the
+  standing M2 receipt explicitly old-layout evidence
+  ([[m2-receipt-reearn]]). Full ci/check.sh PASS — first green since
+  97ce321. Workspace is now walt + walt-wasm + GPU trio (gpu-ref,
+  metal, m2-runner). Next: wiki overhaul, math reorg, adaptive-sampling
+  intake, then the level-2 probe.

@@ -19,23 +19,16 @@ ci/check.sh green on the unified shape; wasm smoke 28/28 vs native
 trace; receipts byte-identical; ARCHIVE.md updated with the deletion
 commit; pushed on walt-unify.
 
-## Blocked (2026-08-24)
+## Closed (2026-08-24)
 
-Stays in doing/. Not started: no Done-when item is reachable yet.
-`ci/check.sh` runs `ci/verify_m2_sources.sh`, whose freeze-56 source
-closure pins the crate layout by path — and whose immutable 184-path
-representation check (fed by a manifest whose bytes are hash-pinned
-from a fixed parent commit) names 32 files under walt-core, walt-kernel
-and walt-gpu-spec, the crates the fold moves. No manifest regeneration
-can satisfy it; only an amendment to the freeze verifier can, which is
-a freeze-level ruling, not code motion.
-
-Also pre-existing: the gate is already red at 114bacd — 6 digest
-mismatches (3 from ancestor commit 97ce321, the "does not build" WIP)
-and 65 missing `walt-factory/results/*` entries from the archive move.
-
-Full analysis, scope table, and the four questions a ruling must answer:
-`walt/UNIFICATION-CENSUS.md` § "Execution (2026-08-24)".
+Blocked once on freeze-56 (the source closure pinned the crate layout
+by path); Jason ruled same day, adjudicated as FZ-A1..A6 in
+CENSUS-RULINGS.md. Executed through commit c92175a: fold d1499d4
+(42 suites green, wasm smoke 28/28 byte-identical), freeze-56 v2
+issued append-only, full ci/check.sh PASS — first green on that gate
+since 97ce321. Full record: `walt/UNIFICATION-CENSUS.md` § Execution.
+Follow-ups spun out: [[m2-receipt-reearn]], [[m2-runner-trace]],
+[[wiki-overhaul]].
 
 ## Links
 

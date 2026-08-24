@@ -333,3 +333,42 @@ splitting the deletions across two rulings costs more than it saves.
    three files) or absorbed into the re-issue, and are the 65 archived
    `results/` entries dropped from the closure as the archive ruling
    implies?
+
+### Executed (2026-08-24, after the ruling)
+
+Jason ruled on all four questions ("go for it… we can't let it hold us
+back from one clean Walt"); the FZ-A series in `CENSUS-RULINGS.md` is
+the adjudicated form. Commit sequence on walt-unify:
+
+- `56e2173` stage 0 — walt-strat reverted to frozen digests
+  (byte-verified against v1); `lean/Texas42.lean` ABSORBED into v2
+  instead of reverted — its drift imports the kernel-audited
+  Trick1PerfectRecallNet tree (revert-first's fallback, taken because
+  the drift is mathematics, not damage).
+- `ad355e9` stage 1 — closure-clean deletions: m3-net, m3-oracle-a,
+  m3-metal, wasm-spike, PLAN.md (historical content:
+  `git show 56e2173:walt/PLAN.md`).
+- `fa3fe74` stage 2a — factory + skeleton archived; the 65 tracked
+  summaries and certificate-schema.md relocated to
+  `probes/factory-results/` (renames, history preserved).
+- `d1499d4` THE FOLD — seven crates → seven modules of `walt/walt`;
+  twelve bins keep their names (old default bin = `m3probe`); probe
+  outputs from the m3-probe crate dir → `probes/m3/`; crate READMEs →
+  module dirs; two scoped `module_inception` allows are the only
+  non-move lines. 42 test suites green; wasm smoke 28/28 vs the frozen
+  native trace, byte-identical.
+- `c92175a` freeze-56 v2 — 282-entry manifest at the new layout
+  (identity `8a780895…`), 32-entry fold-translation table, freeze-event
+  semantics (FZ-A5), closure scope per FZ-A6 (wasm outside), no-float
+  grep lists extended to the whole surviving workspace (flag 1
+  closed). Verifier PASS; full `ci/check.sh` PASS including the Lean
+  axiom audit — first green on this gate since 97ce321.
+
+Deviations from the blocked-era plan, all within the ruling: the
+closure check demoted to freeze events rather than prefix-pinned
+in-CI (one-crate walt puts live solver code inside the closure's
+package trees — a per-commit full-digest closure would be permanently
+red); walt-wasm excluded from closure scope; the lean facade absorbed
+rather than reverted. Flags 2 (PLAN.md) and 1 (grep lists) are closed;
+flag 3 (m2-runner status) remains open as [[m2-runner-trace]];
+[[m2-receipt-reearn]] tracks the v2 hardware re-earn.
