@@ -27,11 +27,13 @@ use std::fmt;
 
 use num_rational::BigRational;
 
-use crate::kernel::{FiberDp, FiberIter, Kernel, SplitMix64 as KernelRng, World};
+use crate::kernel::{
+    FiberDp, FiberIter, Hidden, Kernel, KernelError, SplitMix64 as KernelRng, World,
+};
 use crate::rules::receipt::ReceiptHand;
-use crate::rules::replay::{state_before_trick, ReplayError};
+use crate::rules::replay::{state_before_trick, voids_before_trick, ReplayError};
 use crate::rules::rules::{legal_plays, Trick};
-use crate::rules::{Decl, Domino, DominoSet, Seat, Team};
+use crate::rules::{ContextSet, Decl, Domino, DominoSet, Seat, Team};
 use crate::solver::evidence::{self, ScopedDelta};
 use crate::solver::{arena_decl_id, mix};
 
@@ -299,9 +301,11 @@ fn kernel_identity(kernel: &Kernel) -> u64 {
 // ---------------------------------------------------------------------------
 
 /// The public frame of one root decision: declaration, contract, whose
-/// lead, banked totals so far, and the current partial trick. Derived by
-/// replay from a receipt — never stored authority. `Hash` so the frame can
-/// enter an information-consistent action key (`solver::policy`, §12.3).
+/// lead, banked totals so far, the current partial trick, and the pre-root
+/// public residue a continuation policy needs (`prior_played`, observed
+/// voids). Derived by replay from a receipt or a driven game — never
+/// stored authority. `Hash` so the frame can enter an
+/// information-consistent action key (`solver::policy`, §12.3).
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct RootPosition {
     pub decl: Decl,
@@ -314,13 +318,25 @@ pub struct RootPosition {
     /// The current partial trick's tiles in play order (empty at a trick
     /// start). Worlds of the matching kernel already exclude these tiles.
     pub trick_plays: Vec<Domino>,
+    /// Every tile played in tricks COMPLETED before the root — the played
+    /// mask at the current trick's start. With `trick_plays` this is the
+    /// complete played set at the root, a derived view of the public
+    /// record (the kernel's live set is its complement; the bridge asserts
+    /// their agreement).
+    pub prior_played: DominoSet,
+    /// Observed void contexts per seat (union of failures to follow up to
+    /// and including the current partial trick), seat-indexed. Public
+    /// data: derived from the record, mirrored by the kernel's hidden-slot
+    /// voids for the non-viewer seats.
+    pub voids: [ContextSet; 4],
 }
 
 impl RootPosition {
     /// The public position at the start of `trick_no` (1-based) of a
     /// receipt hand — the companion of `Kernel::from_receipt_trick`.
-    /// Banked totals are derived by replaying the completed tricks through
-    /// the rules machinery, not read from stored fields.
+    /// Banked totals, the prior played mask, and the observed voids are
+    /// derived by replaying the completed tricks through the rules
+    /// machinery, not read from stored fields.
     pub fn from_receipt_trick(
         hand: &ReceiptHand,
         trick_no: usize,
@@ -328,6 +344,7 @@ impl RootPosition {
         assert!(trick_no >= 1, "tricks are numbered from one");
         let (_, leader) = state_before_trick(hand, trick_no)?;
         let mut banked = [0u32; 2];
+        let mut prior_played = DominoSet::EMPTY;
         for trick in hand.tricks.iter().take(trick_no - 1) {
             let doms: [Domino; 4] = core::array::from_fn(|i| trick.plays[i].1);
             let t = Trick::new(trick.plays[0].0, doms).map_err(|e| ReplayError {
@@ -336,6 +353,9 @@ impl RootPosition {
                 message: format!("repeated domino {:?}", e.0),
             })?;
             banked[t.winner(hand.decl).team().index()] += t.points();
+            for d in doms {
+                prior_played.insert(d);
+            }
         }
         Ok(RootPosition {
             decl: hand.decl,
@@ -344,6 +364,8 @@ impl RootPosition {
             leader,
             banked,
             trick_plays: Vec::new(),
+            prior_played,
+            voids: voids_before_trick(hand, trick_no),
         })
     }
 
@@ -358,8 +380,106 @@ impl RootPosition {
         for d in &self.trick_plays {
             h = mix(h ^ (0x100 | d.index() as u64));
         }
+        h = mix(h ^ u64::from(self.prior_played.bits()));
+        for voids in &self.voids {
+            let folded = voids.iter().fold(0u64, |acc, q| acc | (1u64 << q.index()));
+            h = mix(h ^ (0x200 | folded));
+        }
         h
     }
+}
+
+/// The complete public state of one driven-game decision point, in the
+/// solver's internal seat labels — the input to the live-root bridge. All
+/// fields are public data (a seat's own view plus the shared record); the
+/// seat to move is the derived view `leader.plus(trick_plays.len())`.
+pub struct DrivenState<'a> {
+    pub decl: Decl,
+    pub bid: u32,
+    pub declaring_team: Team,
+    /// The seat to move's own remaining hand.
+    pub viewer_hand: DominoSet,
+    pub leader: Seat,
+    /// The current partial trick in play order (may be empty).
+    pub trick_plays: &'a [Domino],
+    /// Banked points so far, indexed by `Team::index()`.
+    pub banked: [u32; 2],
+    /// Tiles of tricks completed before the current trick.
+    pub prior_played: DominoSet,
+    /// Observed voids per seat, INCLUDING failures inside the current
+    /// partial trick.
+    pub voids: [ContextSet; 4],
+}
+
+/// §22 step 7 — the live-root bridge: construct the canonical objects
+/// (`CanonicalRoot` + `RootPosition`) for a mid-hand decision of a DRIVEN
+/// game, the generalization of the receipt-driven
+/// `Kernel::from_receipt_trick` / `RootPosition::from_receipt_trick` pair
+/// (and of `ReceiptDecision::at` for mid-trick points). Everything is a
+/// derived view of the driven public state; capacities, the pool, and the
+/// hidden voids are recomputed here, never stored twice.
+pub fn driven_root(state: &DrivenState<'_>) -> Result<(CanonicalRoot, RootPosition), KernelError> {
+    assert!(
+        state.prior_played.len().is_multiple_of(4),
+        "completed tricks are whole"
+    );
+    assert!(
+        state.trick_plays.len() < 4,
+        "a partial trick has at most 3 plays"
+    );
+    let completed = state.prior_played.len() / 4;
+    let trick_size = 7 - completed;
+    assert_eq!(
+        state.viewer_hand.len(),
+        trick_size,
+        "the seat to move has not yet played in the current trick"
+    );
+    let viewer = state.leader.plus(state.trick_plays.len());
+    let mut in_trick = DominoSet::EMPTY;
+    for d in state.trick_plays {
+        assert!(in_trick.insert(*d), "a trick plays a tile once");
+    }
+    assert!(
+        in_trick.is_disjoint(state.prior_played),
+        "current-trick tiles are not previously played"
+    );
+    assert!(
+        state
+            .viewer_hand
+            .is_disjoint(state.prior_played.union(in_trick)),
+        "a remaining hand is disjoint from the played record"
+    );
+    let pool = DominoSet::FULL
+        .difference(state.prior_played)
+        .difference(in_trick)
+        .difference(state.viewer_hand);
+    let mut hidden = [Hidden {
+        seat: viewer,
+        capacity: 0,
+        voids: ContextSet::EMPTY,
+    }; crate::kernel::HIDDEN_SEATS];
+    for (slot, seat) in hidden.iter_mut().zip((1..=3).map(|k| viewer.plus(k))) {
+        // Seats between the leader and the viewer have already played in
+        // the current trick; the others have not.
+        let played_this_trick = (0..state.trick_plays.len()).any(|k| state.leader.plus(k) == seat);
+        *slot = Hidden {
+            seat,
+            capacity: trick_size - usize::from(played_this_trick),
+            voids: state.voids[seat.index()],
+        };
+    }
+    let kernel = Kernel::new(state.decl, viewer, state.viewer_hand, pool, hidden)?;
+    let position = RootPosition {
+        decl: state.decl,
+        bid: state.bid,
+        declaring_team: state.declaring_team,
+        leader: state.leader,
+        banked: state.banked,
+        trick_plays: state.trick_plays.to_vec(),
+        prior_played: state.prior_played,
+        voids: state.voids,
+    };
+    Ok((CanonicalRoot::new(kernel), position))
 }
 
 /// The evidence stream's root identity (§17.1): kernel fiber plus public
