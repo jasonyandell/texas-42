@@ -128,8 +128,7 @@ pub fn pair_coordinates(u_i: &[bool], u_j: &[bool]) -> PairCoordinates {
     let g = BigRational::new(signed.clone(), big(n));
     let tau = (a + b > 0).then(|| BigRational::new(signed, big(a + b)));
     let hardness = tau.as_ref().and_then(|t| {
-        (!t.is_zero() && !q.is_zero())
-            .then(|| (&q * t * t).recip() - BigRational::one())
+        (!t.is_zero() && !q.is_zero()).then(|| (&q * t * t).recip() - BigRational::one())
     });
     PairCoordinates {
         n,
@@ -370,7 +369,10 @@ pub fn dp_settlement_forecast(
     let p = law.p_plus.numer() * law.p_minus.denom();
     let m = law.p_minus.numer() * law.p_plus.denom();
     let z = &den - &p - &m;
-    assert!(!z.is_negative(), "a predictive law's parts sum to at most one");
+    assert!(
+        !z.is_negative(),
+        "a predictive law's parts sum to at most one"
+    );
     let mut mass: HashMap<(u64, u64), BigInt> = HashMap::new();
     mass.insert(start, BigInt::one());
     let mut absorbed = BigInt::zero();
@@ -442,7 +444,10 @@ pub enum CapLadderVerdict {
         first_settled_cap: u64,
     },
     /// Every settled cap returned ε-equivalence with identical survivors.
-    EquivalentStable { survivors: Vec<usize>, settled_at: u64 },
+    EquivalentStable {
+        survivors: Vec<usize>,
+        settled_at: u64,
+    },
     /// Every cap returned honest `Unresolved` — the near-tie stays a
     /// near-tie, visibly, at every budget.
     HonestOpen { survivors_at_largest: Vec<usize> },
@@ -461,9 +466,18 @@ pub fn assert_cap_ladder(results: &[(u64, &SetResult)]) -> CapLadderVerdict {
     }
     #[derive(PartialEq, Eq, Clone)]
     enum Settled {
-        Delta { winner: usize, settled_at: u64 },
-        Exact { winner: Option<usize>, wins: Vec<u128> },
-        Equivalent { survivors: Vec<usize>, settled_at: u64 },
+        Delta {
+            winner: usize,
+            settled_at: u64,
+        },
+        Exact {
+            winner: Option<usize>,
+            wins: Vec<u128>,
+        },
+        Equivalent {
+            survivors: Vec<usize>,
+            settled_at: u64,
+        },
     }
     let mut first: Option<(u64, Settled)> = None;
     let mut last_open: Option<Vec<usize>> = None;
@@ -498,9 +512,9 @@ pub fn assert_cap_ladder(results: &[(u64, &SetResult)]) -> CapLadderVerdict {
                 *prior == settled,
                 "V5: two caps of one stream settled differently — the 40/160 flip"
             ),
-            (Some(_), None) => panic!(
-                "V5: a settled stream un-settled under extension (cap {cap})"
-            ),
+            (Some(_), None) => {
+                panic!("V5: a settled stream un-settled under extension (cap {cap})")
+            }
             (None, None) => {}
         }
     }
@@ -511,10 +525,13 @@ pub fn assert_cap_ladder(results: &[(u64, &SetResult)]) -> CapLadderVerdict {
             first_settled_cap: cap,
         },
         Some((_, Settled::Exact { winner, .. })) => CapLadderVerdict::ExactStable { winner },
-        Some((_, Settled::Equivalent {
-            survivors,
-            settled_at,
-        })) => CapLadderVerdict::EquivalentStable {
+        Some((
+            _,
+            Settled::Equivalent {
+                survivors,
+                settled_at,
+            },
+        )) => CapLadderVerdict::EquivalentStable {
             survivors,
             settled_at,
         },

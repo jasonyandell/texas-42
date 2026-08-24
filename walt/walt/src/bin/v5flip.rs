@@ -54,25 +54,47 @@ fn tile_json(d: Domino) -> String {
     format!("[{},{}]", d.hi().value(), d.lo().value())
 }
 
+/// One cap step's projection of a `SetResult` for the JSON record.
+#[derive(Default)]
+struct CapView {
+    winner: Option<usize>,
+    survivors: Option<Vec<usize>>,
+    settled_at: Option<u64>,
+    wins: Option<Vec<u128>>,
+}
+
 fn cap_json(cap: u64, evaluation: &SetEvaluation, legal: &[Domino]) -> String {
-    let (winner, survivors, settled_at, wins): (
-        Option<usize>,
-        Option<Vec<usize>>,
-        Option<u64>,
-        Option<Vec<u128>>,
-    ) = match &evaluation.result {
-        SetResult::ExactFrozenSet { winner, wins, .. } => {
-            (*winner, None, None, Some(wins.clone()))
-        }
+    let CapView {
+        winner,
+        survivors,
+        settled_at,
+        wins,
+    } = match &evaluation.result {
+        SetResult::ExactFrozenSet { winner, wins, .. } => CapView {
+            winner: *winner,
+            wins: Some(wins.clone()),
+            ..CapView::default()
+        },
         SetResult::DeltaSettled {
             winner, settled_at, ..
-        } => (Some(*winner), None, Some(*settled_at), None),
+        } => CapView {
+            winner: Some(*winner),
+            settled_at: Some(*settled_at),
+            ..CapView::default()
+        },
         SetResult::EpsilonEquivalent {
             survivors,
             settled_at,
             ..
-        } => (None, Some(survivors.clone()), Some(*settled_at), None),
-        SetResult::Unresolved { survivors, .. } => (None, Some(survivors.clone()), None, None),
+        } => CapView {
+            survivors: Some(survivors.clone()),
+            settled_at: Some(*settled_at),
+            ..CapView::default()
+        },
+        SetResult::Unresolved { survivors, .. } => CapView {
+            survivors: Some(survivors.clone()),
+            ..CapView::default()
+        },
     };
     let pairs: Vec<String> = evaluation
         .pair_counts
@@ -93,10 +115,7 @@ fn cap_json(cap: u64, evaluation: &SetEvaluation, legal: &[Domino]) -> String {
         winner.map_or("null".to_string(), |k| tile_json(legal[k])),
         survivors.map_or("null".to_string(), |s| format!(
             "[{}]",
-            s.iter()
-                .map(usize::to_string)
-                .collect::<Vec<_>>()
-                .join(",")
+            s.iter().map(usize::to_string).collect::<Vec<_>>().join(",")
         )),
         settled_at.map_or("null".to_string(), |x| x.to_string()),
         wins.map_or("null".to_string(), |w| format!(
@@ -251,8 +270,7 @@ fn count_timing_record(g: u64) -> String {
         .collect();
     let run_scope = format!("run:v5-count-timing-g{g}");
     let dec_scope = format!("decision:v5-count-timing-g{g}-d1");
-    let (evaluations, verdict, epoch) =
-        ladder(&flip, &candidates_owned, &run_scope, &dec_scope, 1);
+    let (evaluations, verdict, epoch) = ladder(&flip, &candidates_owned, &run_scope, &dec_scope, 1);
     let ladder_json: Vec<String> = evaluations
         .iter()
         .map(|(cap, e)| cap_json(*cap, e, &flip.legal_tiles))
@@ -263,10 +281,7 @@ fn count_timing_record(g: u64) -> String {
         .map(|hand| {
             format!(
                 "[{}]",
-                hand.iter()
-                    .map(tile_json)
-                    .collect::<Vec<_>>()
-                    .join(",")
+                hand.iter().map(tile_json).collect::<Vec<_>>().join(",")
             )
         })
         .collect();

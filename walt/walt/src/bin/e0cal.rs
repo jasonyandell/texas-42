@@ -40,8 +40,8 @@ use walt::solver::calibrate::{
     PairCoordinates, PredictiveLaw, FLIP_FIXTURES,
 };
 use walt::solver::evidence::{edge_threshold, h_plus_min, ScopedDelta};
-use walt::solver::policy::{FrozenPolicy, Level0Field};
 use walt::solver::mix;
+use walt::solver::policy::{FrozenPolicy, Level0Field};
 
 /// Frozen instrument seed for replicate stream epochs (a declared
 /// constant, distinct from every other bin's).
@@ -164,10 +164,7 @@ fn pair_record(
     for rep in 0..reps {
         let epoch =
             mix(E0_SEED ^ mix(fixture as u64) ^ mix(((i as u64) << 8) | j as u64) ^ mix(rep));
-        let scope = format!(
-            "pair:e0-{}-h{}-d{}-i{i}j{j}-rep{rep}",
-            f.mode, f.hand, f.d
-        );
+        let scope = format!("pair:e0-{}-h{}-d{}-i{i}j{j}-rep{rep}", f.mode, f.hand, f.d);
         let spec = PairSpec {
             root: &flip.root,
             position: &flip.position,
@@ -203,16 +200,11 @@ fn pair_record(
                      \"settled_at\":{settled_at},\"winner\":{winner_index},\"a\":{a},\"b\":{b}}}"
                 )
             }
-            ResultKind::Unresolved {
-                consumed, a, b, ..
-            } => {
+            ResultKind::Unresolved { consumed, a, b, .. } => {
                 let pivots = a + b;
                 let q_hat = BigRational::new(BigInt::from(pivots), BigInt::from(*consumed));
                 let tau_hat = (pivots > 0).then(|| {
-                    BigRational::new(
-                        BigInt::from(*a) - BigInt::from(*b),
-                        BigInt::from(pivots),
-                    )
+                    BigRational::new(BigInt::from(*a) - BigInt::from(*b), BigInt::from(pivots))
                 });
                 let rate_hat = tau_hat
                     .as_ref()
@@ -301,11 +293,7 @@ fn main() {
     );
     let run = |fixture: &usize| -> Vec<String> {
         let records = fixture_records(*fixture, reps, world_cap, dp_h_max);
-        eprintln!(
-            "e0cal: fixture {} done ({} pairs)",
-            fixture,
-            records.len()
-        );
+        eprintln!("e0cal: fixture {} done ({} pairs)", fixture, records.len());
         records
     };
     #[cfg(feature = "parallel")]

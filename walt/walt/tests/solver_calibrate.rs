@@ -15,8 +15,8 @@ use walt::solver::adaptive::{exact_frozen_pair, root_identity, SlicePolicy};
 use walt::solver::calibrate::{
     assert_cap_ladder, d_half_bounds, dp_settlement_forecast, exact_set_outcomes,
     information_rate_bounds, leading_order_forecast_bounds, ln_bounds, pair_coordinates,
-    receipt_root, reconstruct_flip, shadow_scopes, shadow_tuple, CapLadderVerdict,
-    CountTimingSpec, PredictiveLaw, FLIP_FIXTURES,
+    receipt_root, reconstruct_flip, shadow_scopes, shadow_tuple, CapLadderVerdict, CountTimingSpec,
+    PredictiveLaw, FLIP_FIXTURES,
 };
 use walt::solver::controller::{
     epoch_identity, evaluate_set, CandidateSet, RiskPlan, SetResult, SetSpec,
@@ -361,8 +361,7 @@ fn cap_ladder_settles_and_stays_settled() {
                     other => panic!("unexpected ladder result {}", other.tag()),
                 }
             }
-            let refs: Vec<(u64, &SetResult)> =
-                ladder.iter().map(|(c, res)| (*c, res)).collect();
+            let refs: Vec<(u64, &SetResult)> = ladder.iter().map(|(c, res)| (*c, res)).collect();
             match assert_cap_ladder(&refs) {
                 CapLadderVerdict::SettledStable {
                     winner: w,
@@ -374,10 +373,7 @@ fn cap_ladder_settles_and_stays_settled() {
             // Settlement obeys the exact pivot minimum from the initial
             // state: crossing T needs at least h+_min(0,0;T) pivots.
             let threshold = edge_threshold(2, &q(1, 2));
-            let final_counts = probe
-                .pair_counts
-                .first()
-                .expect("one pair");
+            let final_counts = probe.pair_counts.first().expect("one pair");
             assert!(
                 final_counts.a + final_counts.b >= h_plus_min(0, 0, &threshold),
                 "settlement carries at least the exact minimum pivotal work"
