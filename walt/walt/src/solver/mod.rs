@@ -23,6 +23,7 @@ pub mod controller;
 pub mod evidence;
 pub mod exposure;
 pub mod field;
+pub mod field_swap;
 pub mod policy;
 
 use std::collections::hash_map::DefaultHasher;
