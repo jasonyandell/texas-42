@@ -19,6 +19,7 @@
 //! only — no floats.
 
 pub mod adaptive;
+pub mod calibrate;
 pub mod controller;
 pub mod evidence;
 pub mod policy;
