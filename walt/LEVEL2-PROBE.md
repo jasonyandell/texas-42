@@ -115,6 +115,12 @@ asymmetry this probe mines (specimen 1 would have shown sub-100% from
 the bidder's seat until the 5-5 shows). Worth shipping whenever the
 viewer work is next touched; it is not gated on the probe.
 
+Shipped on the walt side 2026-08-24 ([[viewer-cross-fiber-review]]):
+`viewer_fiber_evaluate` in the solver (one authority), the optional
+`viewer`/`viewer_hand` pair on walt-wasm `play`, and the webtable's
+two-column reasoning panel with disagreement rows flagged. Plunge-side
+wiring belongs to [[plunge-walt-sync]].
+
 ## Gates
 
 - Probe runs only after unification + adaptive sampling land (above).

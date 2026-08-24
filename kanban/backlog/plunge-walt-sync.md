@@ -14,6 +14,13 @@ plunge repo; this card is the walt-side pointer.
 plunge's bundled wasm matches walt-wasm/pkg by digest; race wiring
 decision made on the plunge side.
 
+2026-08-24: walt-wasm now exposes viewer-fiber evaluation — optional
+`viewer`/`viewerHand` on `play` returns `viewer_opts` (the actor's
+options priced from the viewer's fiber; `[tile, bp|null, support]`).
+Additive and byte-identical for existing requests; pkg rebuilt (wasm +
+walt.ts + README, branch viewer-cross-fiber). Wire the plunge "Ask walt"
+review's second column against it when syncing the pkg.
+
 ## Links
 
 [[viewer-cross-fiber-review]], walt/walt-wasm/pkg/README.md
