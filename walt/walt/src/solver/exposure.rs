@@ -1,12 +1,18 @@
-//! `solver::exposure` — the coupled pre-split replay and fixed-policy
-//! exposure (§21 step 4).
+//! `solver::exposure` — the coupled pre-split replay, fixed-policy
+//! exposure (§21 step 4), and the exposure rung producers (§21 steps 6–7,
+//! exact route).
 //!
 //! EXPLORATORY tier. Implements parent
 //! `walt/math/targeted_level2_field_stability_v0.1.md` §3.1 (coupled
 //! execution), L2-T1 (first-disagreement localization, O30), §3.2 (the
-//! fixed-policy correction bound), §6.1/§6.3 (exposure result tiers), and
-//! the first-split trace fields of §10 this slice needs, under rulings
-//! L2-A1..A7 (`walt/CENSUS-RULINGS.md`).
+//! fixed-policy correction bound), §6.1/§6.3 (exposure result tiers), the
+//! first-split trace fields of §10 the first slice needs, and the §7
+//! exposure rungs E0 ([`ClairvoyantReach::e0_upper`]), E1
+//! ([`StructuralSplitCover`], [`rung_e1`]), E2
+//! ([`ClairvoyantReach::e2_upper`]), and the EXACT split-reach route
+//! ([`exact_split_reach`], rung-labeled E4 per §7.5) — under rulings
+//! L2-A1..A7 (`walt/CENSUS-RULINGS.md`) and obligations O31/O34 of
+//! `walt/SCENARIO-PLAYER.md` §10.
 //!
 //! Exposure-tier typing is BINDING (L2-A4, O31): [`FrozenPolicyExposure`]
 //! is a fixed-policy observation and supports only fixed-policy statements
@@ -15,16 +21,25 @@
 //! L2-T2..T4 screen; a sampled fixed-policy exposure is NEVER an upper
 //! bound on omitted continuations (acceptance item 8), and this module
 //! offers no conversion between the tiers. Every root-action bound names
-//! its derivation rung ([`ExposureRung`]); the rung producers (E0–E4) are
-//! later slices — this slice fixes the typing so nothing narrower can be
-//! built against.
+//! its derivation rung ([`ExposureRung`]).
+//!
+//! The one load-bearing lock of the rung producers (§7.4, O34): a sampled
+//! LOWER witness to `R_a` is never an upper bound. Every producer in this
+//! module is exhaustive over its declared domain — the reach walks
+//! enumerate the complete fiber and every focal branching, the covers
+//! count the complete fiber — so each bound is a proved over-approximation
+//! of `sup_ρ Pr(D_ρ = 1)`, never an observation of some policies'
+//! exposure. The sampled/adaptive E3 producer is deliberately NOT built in
+//! this slice; the exact route ([`exact_split_reach`]) is the only
+//! split-reach solve, and its rung label (E4) keeps it mechanically
+//! distinguishable from any future sampled variant.
 
 use std::fmt;
 
 use num_bigint::BigInt;
 use num_rational::BigRational;
 
-use crate::kernel::World;
+use crate::kernel::{Kernel, World};
 use crate::rules::rules::{legal_plays, Trick};
 use crate::rules::{Domino, DominoSet, Seat};
 use crate::solver::adaptive::{
@@ -39,8 +54,11 @@ use crate::solver::policy::{FrozenPolicy, PolicyId};
 
 /// The derivation rung of a root-action exposure upper bound (parent §7).
 /// No rung may be silently promoted to a stronger one; every
-/// [`RootActionExposureUpper`] names its rung. Producers land in later
-/// slices (§21 steps 6–7).
+/// [`RootActionExposureUpper`] names its rung. This slice's producers:
+/// E0/E2 from the shared pre-split reach walk ([`clairvoyant_reach`]), E1
+/// from counted structural covers ([`rung_e1`]), E4 from the exact
+/// split-reach solve ([`exact_split_reach`]). The sampled/adaptive E3
+/// producer is a later slice.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ExposureRung {
     /// §7.1 — exact field equality on the dependency-closed reachable
@@ -575,4 +593,496 @@ pub fn frozen_policy_exposure(
         "the fixed-policy correction bound |c| <= E[|C|] <= d holds exactly"
     );
     result
+}
+
+// ---------------------------------------------------------------------------
+// The shared pre-split reach walk — the rung E0/E2/E4 skeleton (parent
+// §7.1, §7.3, §7.5).
+// ---------------------------------------------------------------------------
+
+/// The public half of one execution: leader, current trick, banked points,
+/// and the post-root history — shared by every fiber world that has
+/// produced the same public record. Per-world remaining hands are derived
+/// views of (world, played history), never stored, so one node of the reach
+/// walk serves a whole set of worlds at once.
+#[derive(Clone)]
+struct PublicExec {
+    leader: Seat,
+    plays: Vec<Domino>,
+    banked: [u32; 2],
+    history: Vec<Domino>,
+}
+
+impl PublicExec {
+    fn start(position: &RootPosition) -> PublicExec {
+        PublicExec {
+            leader: position.leader,
+            plays: position.trick_plays.clone(),
+            banked: position.banked,
+            history: Vec::new(),
+        }
+    }
+
+    fn seat(&self) -> Seat {
+        self.leader.plus(self.plays.len())
+    }
+
+    fn record<'a>(&'a self, position: &'a RootPosition) -> PublicRecord<'a> {
+        PublicRecord {
+            leader: self.leader,
+            trick_plays: &self.plays,
+            banked: self.banked,
+            root: position,
+            history: &self.history,
+        }
+    }
+
+    /// Every tile played since the root — a seat's remaining hand is its
+    /// root hand minus this set.
+    fn played_since(&self) -> DominoSet {
+        self.history.iter().copied().collect()
+    }
+
+    /// Apply one legal play (the same trick arithmetic as the coupled
+    /// replay's `Exec::play`, minus the per-world hands).
+    fn play(&mut self, position: &RootPosition, tile: Domino) {
+        self.plays.push(tile);
+        self.history.push(tile);
+        if self.plays.len() == 4 {
+            let doms: [Domino; 4] = core::array::from_fn(|i| self.plays[i]);
+            let trick = Trick::new(self.leader, doms).expect("four distinct tiles");
+            let winner = trick.winner(position.decl);
+            self.banked[winner.team().index()] += trick.points();
+            self.leader = winner;
+            self.plays.clear();
+        }
+    }
+}
+
+/// The immutable context of one pre-split reach walk after a fixed root
+/// action: the walk branches FREELY at focal states (a superset of every
+/// information-consistent continuation — the safe direction, §7.3) and
+/// follows the COMMON field action at agreeing non-focal states; a world
+/// leaves the walk at its first field disagreement.
+struct ReachWalk<'a> {
+    position: &'a RootPosition,
+    viewer: Seat,
+    viewer_hand: DominoSet,
+    worlds: &'a [World],
+    field0: &'a FieldModel,
+    field1: &'a FieldModel,
+    /// Post-root plays to terminal: the viewer's hand size plus the hidden
+    /// capacities.
+    total: usize,
+}
+
+impl ReachWalk<'_> {
+    fn setup<'a>(
+        root: &'a CanonicalRoot,
+        position: &'a RootPosition,
+        worlds: &'a [World],
+        field0: &'a FieldModel,
+        field1: &'a FieldModel,
+    ) -> ReachWalk<'a> {
+        let kernel = root.kernel();
+        let total =
+            kernel.viewer_hand().len() + kernel.hidden().iter().map(|h| h.capacity).sum::<usize>();
+        assert!(
+            u128::try_from(worlds.len()).expect("fits") == root.count(),
+            "the reach walk enumerates the complete fiber"
+        );
+        assert!(
+            u32::try_from(worlds.len()).is_ok(),
+            "an enumerable reach-walk fiber fits u32 indices"
+        );
+        ReachWalk {
+            position,
+            viewer: kernel.viewer(),
+            viewer_hand: kernel.viewer_hand(),
+            worlds,
+            field0,
+            field1,
+            total,
+        }
+    }
+
+    /// The exec after the fixed root action: the seat to move at the root
+    /// must be the viewer, and the action must be legal there.
+    fn root_exec(&self, action: Domino) -> PublicExec {
+        let mut exec = PublicExec::start(self.position);
+        assert_eq!(
+            exec.seat(),
+            self.viewer,
+            "the root decision is the viewer's"
+        );
+        let led = exec
+            .plays
+            .first()
+            .map(|d| self.position.decl.led_context(*d));
+        let legal = legal_plays(self.position.decl, self.viewer_hand, led);
+        assert!(legal.contains(action), "a root action is legal at the root");
+        exec.play(self.position, action);
+        exec
+    }
+
+    /// Group the still-live worlds at one non-focal node: each world's
+    /// acting hand is queried against BOTH fields; a disagreeing world is
+    /// reported through `split`, an agreeing world joins the group of its
+    /// common action.
+    fn partition(
+        &self,
+        exec: &PublicExec,
+        idxs: &[u32],
+        mut split: impl FnMut(u32),
+    ) -> Vec<(Domino, Vec<u32>)> {
+        let seat = exec.seat();
+        let led = exec
+            .plays
+            .first()
+            .map(|d| self.position.decl.led_context(*d));
+        let played = exec.played_since();
+        let record = exec.record(self.position);
+        let mut groups: Vec<(Domino, Vec<u32>)> = Vec::new();
+        for &i in idxs {
+            let hand = self.worlds[usize::try_from(i).expect("fits")]
+                .hand(seat)
+                .difference(played);
+            let legal = legal_plays(self.position.decl, hand, led);
+            assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+            let (t0, t1) = (
+                self.field0.choose(self.position.decl, hand, legal, &record),
+                self.field1.choose(self.position.decl, hand, legal, &record),
+            );
+            if t0 == t1 {
+                match groups.iter_mut().find(|(tile, _)| *tile == t0) {
+                    Some((_, group)) => group.push(i),
+                    None => groups.push((t0, vec![i])),
+                }
+            } else {
+                // A state of the disagreement frontier F_{0,1}: the world
+                // leaves the pre-split walk here.
+                split(i);
+            }
+        }
+        groups
+    }
+
+    /// Union mode (rungs E0/E2): mark every world for which SOME legal
+    /// focal continuation reaches the frontier. Free focal branching is a
+    /// superset of every information-consistent ρ ∈ Π_a, so an unmarked
+    /// world satisfies D_ρ(ω) = 0 for every ρ — and zero marks anywhere
+    /// proves σ0 = σ1 on the whole dependency-closed reachable domain.
+    fn mark(&self, exec: &PublicExec, idxs: &[u32], reached: &mut [bool]) {
+        let live: Vec<u32> = idxs
+            .iter()
+            .copied()
+            .filter(|&i| !reached[usize::try_from(i).expect("fits")])
+            .collect();
+        if live.is_empty() || exec.history.len() == self.total {
+            return;
+        }
+        if exec.seat() == self.viewer {
+            let led = exec
+                .plays
+                .first()
+                .map(|d| self.position.decl.led_context(*d));
+            let hand = self.viewer_hand.difference(exec.played_since());
+            let legal = legal_plays(self.position.decl, hand, led);
+            assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+            for tile in legal.iter() {
+                let mut child = exec.clone();
+                child.play(self.position, tile);
+                self.mark(&child, &live, reached);
+            }
+        } else {
+            let groups = self.partition(exec, &live, |i| {
+                reached[usize::try_from(i).expect("fits")] = true;
+            });
+            for (tile, group) in groups {
+                let mut child = exec.clone();
+                child.play(self.position, tile);
+                self.mark(&child, &group, reached);
+            }
+        }
+    }
+
+    /// Max mode (rung E4): the §7.4 split-reach objective solved exactly.
+    /// Every node of this tree is one distinct public history; worlds
+    /// compatible with the same public history present the SAME focal
+    /// information state, so choosing one action per node — and taking the
+    /// per-node maximum — ranges over exactly the deterministic
+    /// information-consistent continuations in Π_a, with no strategy
+    /// fusion (O34): one action serves every compatible world at once.
+    fn max_count(&self, exec: &PublicExec, idxs: &[u32]) -> u64 {
+        if idxs.is_empty() || exec.history.len() == self.total {
+            return 0;
+        }
+        if exec.seat() == self.viewer {
+            let led = exec
+                .plays
+                .first()
+                .map(|d| self.position.decl.led_context(*d));
+            let hand = self.viewer_hand.difference(exec.played_since());
+            let legal = legal_plays(self.position.decl, hand, led);
+            assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+            legal
+                .iter()
+                .map(|tile| {
+                    let mut child = exec.clone();
+                    child.play(self.position, tile);
+                    self.max_count(&child, idxs)
+                })
+                .max()
+                .expect("a nonempty legal set")
+        } else {
+            let mut split = 0u64;
+            let groups = self.partition(exec, idxs, |_| split += 1);
+            split
+                + groups
+                    .into_iter()
+                    .map(|(tile, group)| {
+                        let mut child = exec.clone();
+                        child.play(self.position, tile);
+                        self.max_count(&child, &group)
+                    })
+                    .sum::<u64>()
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Rungs E0 and E2 — exact field equality and the clairvoyant split-reach
+// cover (parent §7.1, §7.3).
+// ---------------------------------------------------------------------------
+
+/// The clairvoyant split-reach cover of one root action over the complete
+/// enumerated fiber (§7.3): per world, whether ANY legal focal continuation
+/// (full knowledge of that world — deliberate safe-direction strategy
+/// fusion) can reach the disagreement frontier under the shared pre-split
+/// field. An upper bound on exposure, never a playable policy or a lower
+/// witness.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ClairvoyantReach {
+    /// The fixed root action `a`.
+    pub action: Domino,
+    /// `FieldId(σ0)`.
+    pub field0: FieldId,
+    /// `FieldId(σ1)`.
+    pub field1: FieldId,
+    /// The evidence-stream root identity of the position.
+    pub root_id: u64,
+    /// Exact `|Φ(I)|`.
+    pub fiber: u128,
+    /// Worlds where some focal continuation reaches the frontier.
+    pub reach_worlds: u64,
+}
+
+impl ClairvoyantReach {
+    /// The exact cover mass `Pr(P_a^PI = 1)` under the uniform fiber
+    /// measure.
+    pub fn mass(&self) -> BigRational {
+        BigRational::new(BigInt::from(self.reach_worlds), BigInt::from(self.fiber))
+    }
+
+    /// §7.3 — the rung-E2 bound: `R_a ≤ Pr(P_a^PI = 1)`.
+    pub fn e2_upper(&self) -> RootActionExposureUpper {
+        RootActionExposureUpper::from_rung(ExposureRung::E2, self.mass())
+    }
+
+    /// §7.1 — rung E0 fires exactly when the walk found NO reachable
+    /// disagreement: the two fields chose the same action at every
+    /// non-focal information state of the dependency-closed reachable
+    /// domain (free focal branching over-approximates every ρ ∈ Π_a), so
+    /// `R_a = 0` exactly. `None` when a disagreement is reachable — E0
+    /// makes no claim then.
+    pub fn e0_upper(&self) -> Option<RootActionExposureUpper> {
+        (self.reach_worlds == 0).then(|| {
+            RootActionExposureUpper::from_rung(
+                ExposureRung::E0,
+                BigRational::from_integer(BigInt::from(0)),
+            )
+        })
+    }
+}
+
+/// Run the pre-split reach walk for one root action over the complete
+/// fiber (rungs E0/E2). Exhaustive by construction: every fiber world,
+/// every focal branching, every agreeing common continuation.
+pub fn clairvoyant_reach(
+    root: &CanonicalRoot,
+    position: &RootPosition,
+    action: Domino,
+    field0: &FieldModel,
+    field1: &FieldModel,
+) -> ClairvoyantReach {
+    let worlds: Vec<World> = root.worlds().collect();
+    let walk = ReachWalk::setup(root, position, &worlds, field0, field1);
+    let exec = walk.root_exec(action);
+    let idxs: Vec<u32> = (0..u32::try_from(worlds.len()).expect("fits")).collect();
+    let mut reached = vec![false; worlds.len()];
+    walk.mark(&exec, &idxs, &mut reached);
+    ClairvoyantReach {
+        action,
+        field0: field0.field_id(),
+        field1: field1.field_id(),
+        root_id: root_identity(root, position),
+        fiber: root.count(),
+        reach_worlds: u64::try_from(reached.iter().filter(|r| **r).count()).expect("fits"),
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Rung E1 — structural split covers (parent §7.2).
+// ---------------------------------------------------------------------------
+
+/// §7.2 — a structural world predicate `P_a(ω)` carrying the containment
+/// obligation `D_ρ(ω) = 1 ⇒ P_a(ω) = 1` for EVERY information-consistent
+/// ρ ∈ Π_a. Implementations state their soundness argument in their docs;
+/// looseness costs pruning power, never correctness.
+pub trait StructuralSplitCover {
+    fn id(&self) -> &'static str;
+    fn covers(&self, kernel: &Kernel, world: &World) -> bool;
+}
+
+/// `P ≡ 1`: always sound, never prunes — the §8.1 degenerate bound the
+/// screen lawfully starts from.
+pub struct TrivialSplitCover;
+
+impl StructuralSplitCover for TrivialSplitCover {
+    fn id(&self) -> &'static str {
+        "trivial-cover-v1"
+    }
+
+    fn covers(&self, _kernel: &Kernel, _world: &World) -> bool {
+        true
+    }
+}
+
+/// `P ≡ 0` exactly when every hidden seat's remaining capacity is at most
+/// one tile. Soundness: a non-focal seat holding at most one tile is
+/// forced at every future decision, a deterministic field must choose the
+/// forced tile, so both fields agree at every reachable non-focal state
+/// and no continuation of any ρ ∈ Π_a can reach `F_{0,1}` — `D_ρ(ω) = 0`
+/// for every ρ and every ω. A kernel-shape predicate, constant across
+/// worlds.
+pub struct ForcedNonFocalCover;
+
+impl StructuralSplitCover for ForcedNonFocalCover {
+    fn id(&self) -> &'static str {
+        "forced-non-focal-cover-v1"
+    }
+
+    fn covers(&self, kernel: &Kernel, _world: &World) -> bool {
+        !kernel.hidden().iter().all(|h| h.capacity <= 1)
+    }
+}
+
+/// §7.2 — the counted-boundary route: the exact fiber mass of a
+/// structural split cover, as a rung-E1 bound. Valid for every root
+/// action whose cover the predicate is (the two covers above are
+/// action-independent, so their mass bounds every legal `a`).
+pub fn rung_e1(root: &CanonicalRoot, cover: &dyn StructuralSplitCover) -> RootActionExposureUpper {
+    let kernel = root.kernel();
+    let mut covered = 0u64;
+    let mut visited = 0u128;
+    for world in root.worlds() {
+        if cover.covers(kernel, &world) {
+            covered += 1;
+        }
+        visited += 1;
+    }
+    assert_eq!(
+        visited,
+        root.count(),
+        "a counted boundary enumerates the whole fiber exactly once"
+    );
+    RootActionExposureUpper::from_rung(
+        ExposureRung::E1,
+        BigRational::new(BigInt::from(covered), BigInt::from(visited)),
+    )
+}
+
+// ---------------------------------------------------------------------------
+// The exact split-reach solve (parent §7.4 objective, §7.5 exact route —
+// rung E4).
+// ---------------------------------------------------------------------------
+
+/// The §7.4 split-reach control objective solved EXACTLY over the complete
+/// fiber (§7.5): the optimal value of the Boolean hit-frontier payoff over
+/// the pre-split single-field game, ranging over all deterministic
+/// information-consistent continuations in Π_a. The exact optimal value IS
+/// `R_a`. Mechanically distinct from any sampled E3 variant (none exists
+/// in this slice) by its rung label.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct SplitReachExact {
+    /// The fixed root action `a`.
+    pub action: Domino,
+    /// `FieldId(σ0)`.
+    pub field0: FieldId,
+    /// `FieldId(σ1)`.
+    pub field1: FieldId,
+    /// The evidence-stream root identity of the position.
+    pub root_id: u64,
+    /// Exact `|Φ(I)|`.
+    pub fiber: u128,
+    /// `max_ρ #{ω : D_ρ(ω) = 1}` — the exact optimum of the split-reach
+    /// objective.
+    pub frontier_worlds: u64,
+}
+
+impl SplitReachExact {
+    /// The exact `R_a = sup_ρ Pr(D_ρ = 1)` under the uniform fiber
+    /// measure.
+    pub fn r(&self) -> BigRational {
+        BigRational::new(BigInt::from(self.frontier_worlds), BigInt::from(self.fiber))
+    }
+
+    /// §7.5 — the exact value as a rung-E4 screening bound (an exact value
+    /// is in particular a valid upper bound).
+    pub fn e4_upper(&self) -> RootActionExposureUpper {
+        RootActionExposureUpper::from_rung(ExposureRung::E4, self.r())
+    }
+}
+
+/// Solve the split-reach objective exactly for one root action (rung E4).
+///
+/// The walk tree branches exactly on public histories; every fiber world
+/// compatible with a node's public history presents the same focal
+/// information state there, so the per-node action choice (maximized
+/// per node) ranges over exactly the deterministic information-consistent
+/// continuations — no strategy fusion (O34). Worlds proved incapable of
+/// reaching the frontier by the clairvoyant walk are dropped first: their
+/// `D_ρ(ω)` is 0 under every ρ, so the optimum is unchanged and the tree
+/// shrinks.
+pub fn exact_split_reach(
+    root: &CanonicalRoot,
+    position: &RootPosition,
+    action: Domino,
+    field0: &FieldModel,
+    field1: &FieldModel,
+) -> SplitReachExact {
+    let worlds: Vec<World> = root.worlds().collect();
+    let walk = ReachWalk::setup(root, position, &worlds, field0, field1);
+    let exec = walk.root_exec(action);
+    let idxs: Vec<u32> = (0..u32::try_from(worlds.len()).expect("fits")).collect();
+    let mut reached = vec![false; worlds.len()];
+    walk.mark(&exec, &idxs, &mut reached);
+    let capable: Vec<u32> = idxs
+        .iter()
+        .copied()
+        .filter(|&i| reached[usize::try_from(i).expect("fits")])
+        .collect();
+    let frontier_worlds = walk.max_count(&exec, &capable);
+    assert!(
+        frontier_worlds <= u64::try_from(capable.len()).expect("fits"),
+        "the exact optimum is at most the clairvoyant cover count"
+    );
+    SplitReachExact {
+        action,
+        field0: field0.field_id(),
+        field1: field1.field_id(),
+        root_id: root_identity(root, position),
+        fiber: root.count(),
+        frontier_worlds,
+    }
 }
