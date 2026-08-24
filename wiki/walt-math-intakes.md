@@ -50,23 +50,29 @@ walt's exploratory fence, never the CONFIRMED pipeline.
 | The frozen bases (Jason) | `unified_information_geometry_v0.4.md`, `equivariant_lumpability_v0.5.md`, `predictive_algebra_v0.6.md` | `implementers_guide.md` (derived, non-authoritative) | F-series census fork onward; R-A1..R-A24 for v0.6 | The substrate: everything census-era and after is proved relative to these |
 | Decision-sparse (Pro) | `decision_sparse_exact_solving_v0.1.md`, `decision_sparse_second_audit_v0.1.md`, `exchange/inbox/016…`, `exchange/inbox/017…` | `decision_sparse_exact_solving_v0.1_errata.md` | DS-A1..A36, SEP-A, FT-A, SR-A | The witness/sandwich mathematics; repaired where unsound, extended two rungs |
 | GPU-native (Pro) | `gpu_native_trick1_implementers_guide_v0.2.md`, the M2 and M3 rebriefs | `walt/GPU-NATIVE-TRICK1.md` (v0.3), `-M2.md`, `-M3.md` (frozen contracts) | GT1-A1..A24 | Portable M0/M1 and M2 Metal parity complete; M3 gate frozen, no M3 result |
-| Signed-pivotal (Pro) | `signed_pivotal_geometry_v0.1.md` | `signed_pivotal_geometry_v0.1_intake.md` (intake audit) | SP-A1..A12 | Sound but for one repaired claim; spawned the tilt audit and obligations O12–O19 |
+| Signed-pivotal (side-channel) | `signed_pivotal_geometry_v0.1.md` | `signed_pivotal_geometry_v0.1_intake.md` (intake audit) | SP-A1..A12 | Sound but for one repaired claim; spawned the tilt audit and obligations O12–O19 |
 | In-house question/ruling | `WALT-MATH-QUESTION-2026-08-17-…` | `WALT-MATH-RULING-2026-08-17-…` (advisory) | none — advisory, no ruling family | P1–P4 sound; the §12.6A instance stated; the path-dependence counterexample |
 
-## 1. The frozen bases — Jason's mathematics
+## 1. The frozen bases
 
-These are not Pro artifacts: they are the project-internal mathematical basis,
+These are not exchange dispatches: they are the project's mathematical basis,
 frozen and never edited, on which every walt probe and adjudication since the
-census reset is stated.
+census reset is stated. **Provenance below is what each artifact itself
+carries** — only v0.5 has an author line; attributions beyond that are marked
+as inferred.
 
 - **`walt/math/unified_information_geometry_v0.4.md`** — the v0.4 basis
-  (2026-08-09, ~3,820 lines, with its own §17 claim ledger). A clean
+  (2026-08-09, ~3,820 lines, with its own §17 claim ledger; **no author line —
+  the artifact attributes itself to no one**). A clean
   reconstruction after the first four experiment families; supersedes v0.3 plus
   Amendment A for conceptual use (the earlier files remain provenance
   artifacts). Frozen. Everything the [census era](walt-census-era.md) and after
   proves is proved *relative to* this document's objects.
 - **`walt/math/equivariant_lumpability_v0.5.md`** — the **§12.6A** amendment
-  (Jason, 2026-08-10): equivariant controlled lumpability over declared role
+  (2026-08-10; the one basis file with an explicit author line — **Jason
+  Yandell**, "statement, definitions, theorem, corollaries, and proofs
+  delivered in-session and recorded verbatim"): equivariant controlled
+  lumpability over declared role
   interfaces — the ECL condition and the lossless equivariant quotient theorem.
   Reads as §12.6A between v0.4 §12.6 and §12.7; v0.4 stays authoritative for
   everything it states. **What came of it:** the concrete instance was finally
@@ -74,19 +80,30 @@ census reset is stated.
   invariance lemma (2026-08-17), together with an honest negative — on the
   hand-8 carrier its transport group is provably almost trivial, so it "earns
   its keep across carriers and in late endgames," not on that walk.
-- **`walt/math/predictive_algebra_v0.6.md`** — Jason's predictive-coordinates
-  track (filed 2026-08-12): continuation tests, exact predictive dimension over
-  ℚ, residual closure, forward moments. **What came of it:** the R-A1..R-A24
+- **`walt/math/predictive_algebra_v0.6.md`** — the predictive-coordinates
+  track (**filed** by Jason 2026-08-12 per [the S6 era](walt-s6-era.md); the
+  file carries no author line): continuation tests, exact predictive dimension
+  over ℚ, residual closure, forward moments. Two internal inconsistencies a
+  reader will hit, recorded here rather than repaired: the header reads
+  "Status: … **v0.1**" against the filename's v0.6 (the v0.6 names the *basis
+  track* position), and its dependency line cites
+  `straight_42_unified_information_geometry_v0.4.md`, a filename that does not
+  exist — the filed artifact is `unified_information_geometry_v0.4.md`.
+  **What came of it:** the R-A1..R-A24
   adjudication delivered the **v0.6 proof audit** (all SOUND; hypotheses H1–H3
-  became builder obligations; gaps G1–G3 named), Lemma R made both distribution
-  contracts theorem rows at dimension |X|, and the S6a census measured dim
-  V^val and **REFUTED** Gate B — see
+  became builder obligations; gaps G1–G3 named — a subsection of
+  § "Predictive-rank probe rulings", not its own section), Lemma R made both
+  distribution contracts theorem rows at dimension |X|, and the S6a census
+  measured dim V^val and **REFUTED** Gate B — see
   [information geometry](walt-math-information-geometry.md) and the
   [S6 era](walt-s6-era.md#s6a--2026-08-12-predictive-algebra-v06-and-the-dimension-census).
 - **`walt/math/implementers_guide.md`** — **derived companion, NOT
   authoritative**: states what an implementer must represent, with a §-citation
   on every line; on any conflict the v0.4 basis and the v0.5 amendment win. It
-  reproduces no proofs.
+  reproduces no proofs. It has **no adjudication anywhere** — its only status
+  record is narrative
+  ([the factory era](walt-factory-era.md): commissioned as a derived,
+  non-authoritative companion).
 
 ## 2. The decision-sparse thread — Pro channel
 
@@ -95,11 +112,13 @@ The thread that produced the witness/sandwich mathematics. Full object index on
 [the track page](walt-decision-sparse.md); this section is the artifact map.
 
 - **`walt/math/decision_sparse_exact_solving_v0.1.md`** — received verbatim
-  (DS-A18), audited claim-by-claim at **DS-A1..A18**. Its §7.1 is **unsound as
+  (DS-A18; filed as **Jason's handoff, verbatim** — commit `8ee1c9e`), audited
+  claim-by-claim at **DS-A1..A18**. Its §7.1 is **unsound as
   written** (repaired by Theorem E1); its economy claim was later split primal
   vs full at EC-A13.
 - **`walt/math/decision_sparse_second_audit_v0.1.md`** — the received second
-  audit, adjudicated at **DS-A19..A28** — including DS-A28, the append-only /
+  audit (**Pro's review of the errata, verbatim** — commit `314ea65`),
+  adjudicated at **DS-A19..A28** — including DS-A28, the append-only /
   maintained-errata protocol that governs every correction since.
 - **`walt/math/decision_sparse_exact_solving_v0.1_errata.md`** — **the
   maintained companion** (DS-A28(iii)): the repaired mathematics with full
@@ -107,19 +126,31 @@ The thread that produced the witness/sandwich mathematics. Full object index on
   **Citation rule (DS-A17):** cite the errata theorem number for mathematics,
   the DS-A ruling for provenance; where parent and errata differ, the errata
   governs. The errata §9 amendment queue (the FT and SR objects) is still owed
-  — see [the reference map](walt-math-reference.md#the-ft-chapter).
+  — see [the reference map](walt-math-reference.md#the-ft-chapter). Authored by
+  walt-math (commit `f2971ac`) — the one maintained document in this thread.
 - **`exchange/inbox/016-decision-sparse-nonanticipativity-taxes.md`** — Pro's
-  first-rung nonanticipativity-taxes note (x:016, hand-ferried 2026-08-14),
+  first-rung nonanticipativity-taxes note (x:016, hand-ferried 2026-08-14, so
+  no conversation URL exists — structurally, for all of 016–018),
   adjudicated same day at **FT-A1..A29** into walt's exploratory tier (no
   panel, never the CONFIRMED pipeline); its Experiment 15.1 became the S6k
   fusion-tax probe.
 - **`exchange/inbox/017-second-rung-gluing.md`** — Pro's second-rung
   interchange-law note (x:017, hand-ferried 2026-08-14), adjudicated same day
-  at **SR-A1..A37**; the SR depth-two probe ran the same day.
-- **x:018, the fee-correlation correspondence** — outbox-staged colleague
-  correspondence (2026-08-14, no machine-checkable deliverable), reporting the
+  at **SR-A1..A37**; the SR depth-two probe ran the same day. A resolver trap:
+  its frontmatter `extends:` names the 016 note's own *internal* title
+  (`decision_sparse_nonanticipativity_taxes_and_plan_calculus_v0.1.md`), which
+  is not a `walt/math/` path — do not resolve it against `walt/math/`.
+
+  Both inbox files open with a `<!-- HARVEST METADATA -->` block recording
+  `status: UNADJUDICATED` at harvest and the caveat that Pro's
+  self-classification labels are **Pro's, not ours, until confirmed** — the
+  standing intake-header convention.
+- **x:018, the fee-correlation correspondence** — colleague correspondence
+  (2026-08-14, no machine-checkable deliverable), reporting the
   FT/SR/FF/FC arc back to Pro and asking the covering-dual question; **awaiting
-  Pro's reply**. It names the **conditional-moment gap** blocking trick 1 — an
+  Pro's reply — there is no inbox file**, and the only artifact is
+  `exchange/outbox/018-fee-correlation-update.md`. It names the
+  **conditional-moment gap** blocking trick 1 — an
   open item carried on [open questions](walt-math-open-questions.md).
 
 ## 3. The GPU-native thread — Pro channel
@@ -144,13 +175,16 @@ Artifact map only; the adjudicated content lives on
   gate** — it records no M3 result, and the GT1 range is re-frozen closed at
   A1..A24.
 
-## 4. The signed-pivotal thread — Pro channel, side-channel ferry
+## 4. The signed-pivotal thread — side-channel, not an exchange dispatch
 
-- **`walt/math/signed_pivotal_geometry_v0.1.md`** — Pro's signed pivotal
-  geometry note (filed 2026-08-18, commit `eaf9b23`), **received verbatim and
-  checksum-pinned** (SHA-256 `b9d93715…` in the `.sha256` beside it). It
-  arrived by side-channel hops outside the automated exchange — it is **not an
-  exchange-ledger dispatch**, and the numbering gap its transit left (O10–O11)
+- **`walt/math/signed_pivotal_geometry_v0.1.md`** — the signed-pivotal
+  geometry handoff (filed 2026-08-18, commit `eaf9b23`), **received verbatim
+  and checksum-pinned** (SHA-256 `b9d93715…` in the `.sha256` beside it). Its
+  own provenance line is a **"house-mathematician pass"** over the unfiled
+  import `HANDOFF-plan-geometry-and-names.md` — a Claude side-channel session
+  plus ChatGPT 5.6 Pro, per the filing — **not a pure Pro note and not an
+  exchange-ledger dispatch** (the ledger stops at 018; no dispatch ever
+  corresponded to it). The numbering gap its transit left (O10–O11)
   is permanently retired by SP-A11.
 - **`walt/math/signed_pivotal_geometry_v0.1_intake.md`** — **the intake
   companion**: the exact-rational verification of every boxed identity in the
@@ -171,16 +205,22 @@ Artifact map only; the adjudicated content lives on
   only). Object index for both on
   [the reference map](walt-math-reference.md#the-scenario-player-era--signed-pivotal-geometry-the-tilt-audit-and-the-level-2-detector).
 - **The unfiled import.** `HANDOFF-plan-geometry-and-names.md` — named by the
-  parent, never filed — **stays unfiled and unciteable** (SP-A11), and its
-  literature mappings are unciteable with it (§15 verdict).
+  parent, never filed — **stays unfiled, is not being retrieved** (Jason,
+  2026-08-18), and is unciteable (SP-A11); its literature mappings are
+  unciteable with it (§15 verdict). Retired numbers are never reused, which is
+  why the parent's filed obligations start at O12.
 
 ## 5. The in-house question/ruling pair
 
 - **`walt/math/WALT-MATH-QUESTION-2026-08-17-pmake-and-the-walk-to-trick-1.md`**
   and **`…-RULING-…`** — the question and its same-day answer (walt-math-12,
-  recorded verbatim below the rule). **Advisory mathematics**: no CENSUS-RULINGS
-  family, no probe number promoted; rulings are against
-  `ladder.rs` as of commit `171cd22`. Delivers the P1–P4 soundness verdicts
+  recorded verbatim below the rule). **Advisory mathematics recorded outside
+  the rulings file**: no CENSUS-RULINGS family, no `.sha256`, no probe number
+  promoted, and — before this index — no reference to the pair anywhere outside
+  `walt/math/` (not the wiki, not `walt/LOG.md`, not kanban). This page and
+  [the reference map](walt-math-reference.md) are now its only inbound
+  pointers; if its content is ever consumed by a design, it needs a series home
+  first. Rulings are against `ladder.rs` as of commit `171cd22`. Delivers the P1–P4 soundness verdicts
   (decided cutoffs, viewer early exit, pmake key reduction, gcd-normalized
   posteriors), the **path-dependence counterexample** (the exact posterior is
   not a function of the reduced boundary key), the concrete **§12.6A invariance
@@ -193,12 +233,15 @@ Artifact map only; the adjudicated content lives on
 The `.sha256` files under `walt/math/` are **pinned freeze artifacts** — never
 edited, superseded only by append-only re-issue.
 
+Only the two received parents below carry companion `.sha256` files; the M2
+and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
+
 | File | What it pins | Fixed at |
 |---|---|---|
 | `gpu_native_trick1_implementers_guide_v0.2.sha256` | The received v0.2 guide's byte identity (`ee2e78da…`) | GT1-A1 |
 | `signed_pivotal_geometry_v0.1.sha256` | The received signed-pivotal parent's byte identity (`b9d93715…`) | the 2026-08-18 intake |
-| `gpu_native_trick1_m0_m1_sources_v1.sha256` | The portable M0/M1 source closure at the pre-fold layout (freeze 55's build-identity schema) | GT1-A9 / freeze 55 |
-| `gpu_native_trick1_m0_m2_sources_v1.sha256` | The cumulative M0–M2 source closure, **byte-immutable** — the build identity the standing M2 receipt names | GT1-A17 / freeze 56 |
+| `gpu_native_trick1_m0_m1_sources_v1.sha256` | The portable M0/M1 source closure at the pre-fold layout — `BuildIdentityV1`, identity `eccf0a37…` | GT1-A9 / freeze 55 |
+| `gpu_native_trick1_m0_m2_sources_v1.sha256` | The cumulative M0–M2 source closure, **byte-immutable** — the `M2BuildIdentityV1` the standing M2 receipt names | GT1-A17 / freeze 56 |
 | `gpu_native_trick1_m0_m2_sources_v2.sha256` | The post-fold re-issue at the unified layout — a **new** build identity (`8a780895…`), attested by no hardware receipt yet | FZ-A1..A6; re-earning deferred to [[m2-receipt-reearn]] |
 
 ## 7. Pending, and deliberately not indexed as landed
@@ -208,6 +251,11 @@ edited, superseded only by append-only re-issue.
   `walt/LEVEL2-PROBE.md` gates on it. Nothing to index yet.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
-- **Exchange 001–015 and the informal 014 capture** — out of scope here by the
-  fence above; owned by [claim-ledger](claim-ledger.md) and
-  `exchange/README.md`.
+- **Exchange 001–015, the informal 014 capture, and the 2026-08-03
+  constellation-theory capture**
+  (`exchange/informal/2026-08-03-domino-constellations-theory.md` with its
+  `.REVIEW.md`, both UNADJUDICATED; the review memo inherits the capture's
+  tier) — out of scope here by the fence above; owned by
+  [claim-ledger](claim-ledger.md)'s informal-captures section and
+  `exchange/README.md`. A retained failed harvest
+  (`inbox/010-…FAILED.md`) likewise stays with the ledger's record.
