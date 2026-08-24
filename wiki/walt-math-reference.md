@@ -308,12 +308,14 @@ Each of these is a ruling, not a convention, and each was bought with a mistake.
 
 Rulings and results files refer to runs by session label. The labels are not
 self-explanatory and no page above decodes them, so here is the minimum a reader
-of these pages needs. **The session ledger itself lives in `walt/PLAN.md` and is
-owned there, not here.**
+of these pages needs. **The session ledger itself lives in `walt/LOG.md`** (the
+retired `walt/PLAN.md` carried it historically; `git show 56e2173:walt/PLAN.md`).
+Result artifacts cited by `results/...` basenames live at
+`walt/probes/factory-results/` since the 2026-08-24 relocation.
 
 | Run | What it was | The artifact that carries its numbers |
 |---|---|---|
-| **S5g** | the railyard | `walt/walt-factory/results/census_yard*_2026-08-10.txt` |
+| **S5g** | the railyard | `results/census_yard*_2026-08-10.txt` |
 | **S5h** | the fiber-crush probe (three-arm baseline ladder) | `results/fiber_probe_2026-08-11.txt`, `fiber_probe_h_2026-08-11.txt` |
 | **S5i** | the fiber-refinement probe (declared exclusion remnants) | `results/fiber_refine_2026-08-11.txt` |
 | **S5j** | the endgame store (symmetry-reduced tablebase) | `results/endgame_store_2026-08-11.txt`, `endgame_floor_2026-08-11.txt` |

@@ -3,9 +3,14 @@
 [Home](Home.md) · owns: the walt foundation era — building the rules-to-operators
 stack and the control-skeleton checkers, S1 through S4.5 · Sources:
 [`walt/LOG.md`](../walt/LOG.md) (authoritative per-session records),
-[`walt/PLAN.md`](../walt/PLAN.md), [`walt/DISCREPANCIES.md`](../walt/DISCREPANCIES.md),
+the retired `walt/PLAN.md` (`git show 56e2173:walt/PLAN.md`),
+[`walt/DISCREPANCIES.md`](../walt/DISCREPANCIES.md),
 the frozen basis [`walt/math/unified_information_geometry_v0.4.md`](../walt/math/unified_information_geometry_v0.4.md),
-the Rust workspace under `walt/walt-*`. Related: [walt](walt.md) (hub),
+the Rust sources (this era's crates were folded 2026-08-24 into the unified
+`walt` crate's modules — `rules` ← walt-core, `kernel` ← walt-kernel,
+`geom` ← walt-geom, `strat` ← walt-strat — while `walt-skeleton` was deleted,
+archive-only at commit `648f93a`; crate names below are historical truth).
+Related: [walt](walt.md) (hub),
 [walt-math-reference](walt-math-reference.md) (theorem statements — cited, never
 restated here), [walt-factory-era](walt-factory-era.md),
 [walt-census-era](walt-census-era.md), [walt-instruments](walt-instruments.md),
@@ -227,13 +232,13 @@ The era's conformance suite is the set of records walt pinned itself against. Ea
 is a **regression pin**: it detects drift in walt, it confers status on nothing. The
 probe records are exploratory-tier themselves; TRUST-01 applies unchanged.
 
-| Bridge | What it pins | Where |
+| Bridge | What it pins | Where (unified-layout home) |
 |---|---|---|
-| rob receipt replay | all 13 hands of `rob/receipts/verify_player.txt` — actor order, follow legality, winners, points, made/set | S1, `walt-core/tests/receipt_replay.rs` |
-| §14.2 trick-6 vectors | fiber 90; the two Q^H lines; 8/4/3 class census with sizes (26,22,16,12,8,2,2,2) | S2, `walt-strat/tests/trick6_census.rs` |
-| §14.5–14.6 record | fiber 1680; 7/19; 177/131; 19/105; 4051/45360; G^cont(2-1) ≡ 0; V^F 51/51/42/53 | S3, `walt-strat/tests/exp4_information.rs` |
-| exp5 censuses | h1t3 = 10, h3t3 = 5,345 q_points classes (sampled lower bounds), plus the horizon-2/3 tables | S3.5, `walt-strat/tests/exp5_census.rs` |
-| exp3A record | 90 → 33 → 8; eight minimal size-4 solutions at 69/53/53/33 cells | S4.5, `walt-skeleton/tests/harness.rs` |
+| rob receipt replay | all 13 hands of `rob/receipts/verify_player.txt` — actor order, follow legality, winners, points, made/set | S1; now `walt/walt/tests/rules_receipt_replay.rs` |
+| §14.2 trick-6 vectors | fiber 90; the two Q^H lines; 8/4/3 class census with sizes (26,22,16,12,8,2,2,2) | S2; now `walt/walt/tests/strat_trick6_census.rs` |
+| §14.5–14.6 record | fiber 1680; 7/19; 177/131; 19/105; 4051/45360; G^cont(2-1) ≡ 0; V^F 51/51/42/53 | S3; now `walt/walt/tests/strat_exp4_information.rs` |
+| exp5 censuses | h1t3 = 10, h3t3 = 5,345 q_points classes (sampled lower bounds), plus the horizon-2/3 tables | S3.5; now `walt/walt/tests/strat_exp5_census.rs` |
+| exp3A record | 90 → 33 → 8; eight minimal size-4 solutions at 69/53/53/33 cells | S4.5, `walt-skeleton/tests/harness.rs` — archive-only at `648f93a` since the skeleton's deletion |
 
 The rob bridge is the only one reaching another *tier's* artifact, and the direction
 is one-way: walt conforms to rob's receipt; rob is unaffected by anything walt does.
@@ -241,9 +246,11 @@ is one-way: walt conforms to rob's receipt; rob is unaffected by anything walt d
 ## What the era left behind
 
 **Instruments** ([walt-instruments](walt-instruments.md); strict import direction
-per the §16.2 module graph):
+per the §16.2 module graph — since the 2026-08-24 unification the first four are
+the `rules`/`kernel`/`geom`/`strat` modules of the unified `walt` crate, and
+`walt-skeleton` is archive-only at `648f93a`):
 
-| Crate | What it provides |
+| Crate (historical) | What it provides |
 |---|---|
 | `walt-core` | the rules layer: pips, 28 dominoes, seats/teams, nine declarations, contexts, the rule algebra (incidence, follow, tier, rank, trick key, BEATS/THREAT), count, trick winner, legality, replay. Imports nothing. |
 | `walt-kernel` | the §2.1 viewer kernel, observable voids, the capacity-cell fiber: enumeration, exact counting DP, exact uniform sampling (`FiberDp`, `SplitMix64`). |

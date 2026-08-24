@@ -3,8 +3,10 @@
 [Home](Home.md) · owns: the register of walt's determinism freezes 1–56 —
 number, content, version, and the ruling that fixed each · Sources:
 `walt/CENSUS-RULINGS.md` (every freeze is declared in a ruling there);
-cross-checked against the `Freeze NN:` doc comments in
-`walt/walt-factory/examples/*.rs`, the results-file headers, for freeze 55 the
+cross-checked against the `Freeze NN:` doc comments in the factory's
+`examples/*.rs` (archive-only at commit `648f93a` since the 2026-08-24
+unification), the results-file headers (now under
+`walt/probes/factory-results/`), for freeze 55 the
 canonical descriptor in `walt-gpu-ref/src/receipt.rs`, and for freeze 56 the
 canonical descriptor in `walt-gpu-ref/src/m2_receipt/receipt.rs`. Related:
 [the reference map](walt-math-reference.md),

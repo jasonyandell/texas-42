@@ -2,16 +2,30 @@
 
 [Home](Home.md) · owns: the walt instrument inventory — what the `walt/` program has
 BUILT that survives and can be reused, independent of whether the experiment that
-motivated it succeeded · Sources: [`walt/PLAN.md`](../walt/PLAN.md),
-[`walt/LOG.md`](../walt/LOG.md), [`walt/ci/check.sh`](../walt/ci/check.sh),
-[`walt/ci/check_m2_metal.sh`](../walt/ci/check_m2_metal.sh), the crate sources
-under `walt/walt-*/`, the results artifacts under `walt/walt-factory/results/`,
-the canonical GPU-track comparands under `walt/receipts/`, and the rescued probe
-suites under `walt/probes/`.
+motivated it succeeded · Sources: [`walt/LOG.md`](../walt/LOG.md),
+[`walt/UNIFICATION-CENSUS.md`](../walt/UNIFICATION-CENSUS.md),
+[`walt/ARCHIVE.md`](../walt/ARCHIVE.md),
+[`walt/ci/check.sh`](../walt/ci/check.sh),
+[`walt/ci/check_m2_metal.sh`](../walt/ci/check_m2_metal.sh), the unified crate
+sources under `walt/walt/`, the relocated result summaries under
+`walt/probes/factory-results/`, the canonical GPU-track comparands under
+`walt/receipts/`, and the rescued probe suites under `walt/probes/`.
 Related: [walt hub](walt.md), [walt-foundation-era](walt-foundation-era.md),
 [walt-factory-era](walt-factory-era.md), [walt-census-era](walt-census-era.md),
 [walt-s6-era](walt-s6-era.md), [walt-decision-sparse](walt-decision-sparse.md),
+[walt-seat-play](walt-seat-play.md),
 [walt-scheme-fix](walt-scheme-fix.md), [walt-math-reference](walt-math-reference.md).
+
+> **Layout note (2026-08-24).** The workspace was unified: seven crates became
+> the seven modules of one `walt` crate (`rules` ← walt-core, `kernel` ←
+> walt-kernel, `geom` ← walt-geom, `strat` ← walt-strat, `spec` ← walt-gpu-spec,
+> `carrier` ← walt-m3-carrier, `solver` ← walt-m3-probe), and the
+> `walt-factory` / `walt-skeleton` crates — every probe binary in this page's
+> historical tables — were **deleted**. Their code is archive-only at producer
+> commit `648f93a`; their tracked result summaries were relocated to
+> `walt/probes/factory-results/`; regeneration follows the recompute queue in
+> [`walt/ARCHIVE.md`](../walt/ARCHIVE.md). Crate names below are kept where they
+> are historical truth, with the new home noted.
 
 > **Epistemic tier: EXPLORATORY — below every tier on
 > [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).** Every number
@@ -41,44 +55,58 @@ solver + tree cross-validation are retained as the seat-label ground-truth
 instrument." This page is the catalog — read it before building anything under
 `walt/`.
 
-## The workspace
+## The workspace (unified 2026-08-24)
 
-Ten crates, Rust 2021, in one Cargo workspace at `walt/Cargo.toml`. The original
-six-crate import direction remains strict and matches v0.4 §16.2: **core to
-kernel to geom to strat to skeleton to factory** — core imports nothing; kernel
-and geom import core only; strat imports core, kernel, geom; skeleton imports all
-four; factory imports all five. The four-crate GPU side branch is
-`walt-gpu-spec` to `walt-gpu-ref` to `walt-metal` to `walt-m2-runner`, with the
-exact additional parent edges listed below. `overflow-checks = true` in dev,
+Five crates, Rust 2021, in one Cargo workspace at `walt/Cargo.toml`: the unified
+**`walt`** crate, **`walt-wasm`** (the browser oracle for plunge), and the GPU
+trio **`walt-gpu-ref`** / **`walt-metal`** / **`walt-m2-runner`**. Inside the
+unified crate the old strict import direction survives as the module order,
+bottom-up: `rules` → `kernel` → `geom` → `strat` and `spec` → `carrier` →
+`solver` (`walt/walt/src/lib.rs` states it). `overflow-checks = true` in dev,
 release and test profiles: a silent wrap would be a wrong count, so it is a loud
-panic in every profile instead. The original six use only `num-bigint`,
+panic in every profile instead. The core modules use only `num-bigint`,
 `num-integer`, `num-rational` and `num-traits`; the GPU side reuses that exact
 arithmetic and adds the lockfile-pinned `objc2`, `objc2-core-graphics`,
 `objc2-foundation`, `dispatch2` and `objc2-metal` closure.
 
-| Crate | What it provides | Notable types and entry points |
+| Module / crate (former crate) | What it provides | Notable types and entry points |
 | --- | --- | --- |
-| `walt-core` | The Straight 42 rules layer (v0.4 §1): pips, the 28 dominoes, seats and teams, the nine declarations, effective contexts, the rule algebra (incidence, follow, tier, rank, trick key, BEATS/THREAT), count and trick scoring, legality, receipt parsing and history replay. Imports nothing. Every derived view is a function of semantic state. | `pip`, `domino`, `seat`, `decl`, `context`, `set` (bitsets over 28 tiles / 8 contexts), `rules`, `receipt` (parser for rob's `verify_player.txt`), `replay` (re-derives a hand from rules alone) |
-| `walt-kernel` | The viewer kernel and its current-remainder fiber Φ(C) (§2.1): known hand, hidden live pool, per-hidden-seat capacities, observable voids; exact enumeration, exact integer counting DP, exact uniform sampling. The PRNG only ever selects; it never computes a value. | `kernel::Kernel`, `fiber` (counting DP grouped by admissible-slot signature), `sample` (uniform draw weighted by exact completion counts, plus a rational fingerprint), `decision::ReceiptDecision` (kernel at an *arbitrary* transcript decision, mid-trick included) |
-| `walt-geom` | Exact one-parameter policy geometry (§8–§9, finite-first per §16.1): i128-backed rationals, affine lines in the valuation parameter, continuous piecewise-linear envelopes on the ray with endpoint ownership as a type invariant, argmax correspondences, 29-dimensional capture features, finite feature sets with support functions. Polytopes are carried as generating point sets; hulls are never materialized. | `rat::Q`, `line`, `envelope::Envelope` (+ `assert_invariants`), `correspond` (argmax at and after each event point), `feature::FeatureVec` |
-| `walt-strat` | The operators registry, kept deliberately distinct per §10.8. Decision nodes over fiber worlds, the canonical perfect-recall information partition, information-consistent policies keyed by opaque info-state ids (world-peeking is unconstructible by type), and the named operators with the information prices between them. | `pi::pi_root_values` (symbolic parametric PI), `scalar::ScalarPi` (+ `ScalarValuation`, `scalar_census`), `hidden::hidden_root_values` (symbolic H), `hidden_scalar::ScalarHidden` (scalar H, `action_values` and `action_values_dag`), `revealed::revealed_summary` (C and F), `price::information_prices`, `census::pi_census`, `info::{InfoPartition, Policy, policy_value_receipt}`, `label::{OperatorLabel, WeightingLabel}` |
-| `walt-skeleton` | The declared deliverable layer: the `ControlSkeleton` trait (typed relational state with closed update `step(d, obs)`), the §12.1 static soundness checker, the exhaustive §12.6 controlled lumpability checker, descriptor vocabularies, the §12.9 synthesis search, and the §12.6A equivariant census machinery with its class DAG and railyard routines. | `skeleton::{ControlSkeleton, UpdateKind, StaticWrap, fold_record}`, `soundness::check_soundness` (+ `PurityCounterexample`), `lumpability::check_lumpability` (+ `LumpabilityFailure`), `atoms::{Atom, Exp3aAtom}`, `synth::{sound_search, exp3a_sound_search}`, `equivariant::{Situation, canonicalize, build_carrier, closure_carrier, check_ecl, build_r3, class_dag, check_ecl_r3, r1_refines_r3, yard_tree, yard_shape, suffix_library, trick_six_kernels}` |
-| `walt-factory` | The factory layer: the regret walker, the typed conflict vocabulary, the lesson type and its generalizer, the basin domain, the lesson database with its watched-feature index and rent ledger, §16.11 record emission, and every probe binary. | `walker::{walk_seat, WalkerConfig, DecisionRecord}`, `conflict::{Conflict, Grade}`, `lesson::Lesson`, `generalize::{generalize_regret, lesson_applies, measure_rent}`, `basin::{BasinDomain, DomainSpec}`, `db::LessonDb`, `index::WatchIndex`, `ledger::{Ledger, HCheckerRegistry, HCheckerToken}`, `certificate::emit_certificate`, `label_transfer::remeasure_at_h` |
-| `walt-gpu-spec` | The portable M0 exact-arithmetic and semantic-table layer. It imports `walt-core`, forbids unsafe code and denies float arithmetic. | `mass::U256Mass`, checked framed operations, SHA-256 anchors, `SemanticTablesCanonicalV2`, canonical table bytes and digests |
-| `walt-gpu-ref` | The portable M1 reference projector plus the complete M2 carrier, bindings and canonical receipt codecs. It imports `walt-core`, `walt-kernel` and `walt-gpu-spec`; Rob appears only as a development-time prose-rules bridge. | `projection`, `carrier`, `m2`, `m2_receipt::{receipt, records, transport, wire}`, M0/M1 receipt generation and strict M2 validation |
-| `walt-metal` | The only Metal/Objective-C boundary: fixed scalar-word ABI, checked MSL kernels, retained completion evidence and safe runtime tokens around the contract's private unsafe operations. It imports `walt-gpu-spec`, `walt-gpu-ref` and the exact pinned `objc2` feature closure. | `abi`, `bridge`, `runtime`, `error`; `shaders/00_u256.metal`, `01_opening_projector.metal`, the deterministic build script and checked-in metallib |
-| `walt-m2-runner` | The supervised freeze-56 executable. It assembles the complete carrier, runs smoke and official child profiles, validates typed progress/timeout/no-partial semantics, and constructs or adjudicates the closed receipt. It imports the other three GPU-side crates. | `assembly`, `observation`, `child`, `protocol`; `descriptor-verify`, `run-smoke`, `run-official`, `validate-receipt` and `adjudicate-receipts` modes |
+| `walt::rules` (`walt-core`) | The Straight 42 rules layer (v0.4 §1): pips, the 28 dominoes, seats and teams, the nine declarations, effective contexts, the rule algebra (incidence, follow, tier, rank, trick key, BEATS/THREAT), count and trick scoring, legality, receipt parsing and history replay. Imports nothing. Every derived view is a function of semantic state. | `pip`, `domino`, `seat`, `decl`, `context`, `set` (bitsets over 28 tiles / 8 contexts), `rules`, `receipt` (parser for rob's `verify_player.txt`), `replay` (re-derives a hand from rules alone) |
+| `walt::kernel` (`walt-kernel`) | The viewer kernel and its current-remainder fiber Φ(C) (§2.1): known hand, hidden live pool, per-hidden-seat capacities, observable voids; exact enumeration, exact integer counting DP, exact uniform sampling. The PRNG only ever selects; it never computes a value. | `kernel::Kernel`, `fiber` (counting DP grouped by admissible-slot signature), `sample` (uniform draw weighted by exact completion counts, plus a rational fingerprint), `decision::ReceiptDecision` (kernel at an *arbitrary* transcript decision, mid-trick included) |
+| `walt::geom` (`walt-geom`) | Exact one-parameter policy geometry (§8–§9, finite-first per §16.1): i128-backed rationals, affine lines in the valuation parameter, continuous piecewise-linear envelopes on the ray with endpoint ownership as a type invariant, argmax correspondences, 29-dimensional capture features, finite feature sets with support functions. Polytopes are carried as generating point sets; hulls are never materialized. | `rat::Q`, `line`, `envelope::Envelope` (+ `assert_invariants`), `correspond` (argmax at and after each event point), `feature::FeatureVec` |
+| `walt::strat` (`walt-strat`) | The operators registry, kept deliberately distinct per §10.8. Decision nodes over fiber worlds, the canonical perfect-recall information partition, information-consistent policies keyed by opaque info-state ids (world-peeking is unconstructible by type), and the named operators with the information prices between them. | `pi::pi_root_values` (symbolic parametric PI), `scalar::ScalarPi` (+ `ScalarValuation`, `scalar_census`), `hidden::hidden_root_values` (symbolic H), `hidden_scalar::ScalarHidden` (scalar H, `action_values` and `action_values_dag`), `revealed::revealed_summary` (C and F), `price::information_prices`, `census::pi_census`, `info::{InfoPartition, Policy, policy_value_receipt}`, `label::{OperatorLabel, WeightingLabel}` |
+| `walt::spec` (`walt-gpu-spec`) | The portable M0 exact-arithmetic and semantic-table layer: forbids unsafe code, denies float arithmetic. | `mass::U256Mass`, checked framed operations, SHA-256 anchors, `SemanticTablesCanonicalV2`, canonical table bytes and digests |
+| `walt::carrier` (`walt-m3-carrier`) | The frozen hand-8 receipt carrier (freeze-57 M3 gate profile): two constructors that must agree byte-for-byte, KAT pins, support/profile machinery. The seat player's data source. | `constants`, `profile`, `replay`, `support`, `kat` |
+| `walt::solver` (`walt-m3-probe`) | **The seat solver** — the sampling-stack machinery of `walt/SCENARIO-PLAYER.md`: scenario worlds, modeled level-k minds, exact best response under the pmake objective, and the twelve bins (scenario, level1, level2, playout, playtable, webtable, walt_bridge, divergence, ladder, bidcurve, tiltaudit, m3probe). | `walt/walt/src/solver/`, bins under `walt/walt/src/bin/` |
+| `walt-wasm` (crate) | The browser decision oracle plunge ships: level-1 compiled to wasm with the calibrated bid default θ=11/16 and the opt-in race mode; Node smoke 28/28 byte-identical to the frozen native trace. | `pkg/walt.wasm`, `walt.ts` |
+| `walt-gpu-ref` (crate) | The portable M1 reference projector plus the complete M2 carrier, bindings and canonical receipt codecs; rob appears only as a development-time prose-rules bridge (dev-dependency). | `projection`, `carrier`, `m2`, `m2_receipt::{receipt, records, transport, wire}`, M0/M1 receipt generation and strict M2 validation |
+| `walt-metal` (crate) | The only Metal/Objective-C boundary: fixed scalar-word ABI, checked MSL kernels, retained completion evidence and safe runtime tokens around the contract's private unsafe operations. | `abi`, `bridge`, `runtime`, `error`; `shaders/00_u256.metal`, `01_opening_projector.metal`, `02_m3_wavefront.metal`, the deterministic build scripts and checked-in metallib |
+| `walt-m2-runner` (crate) | The supervised freeze-56 executable. It assembles the complete carrier, runs smoke and official child profiles, validates typed progress/timeout/no-partial semantics, and constructs or adjudicates the closed receipt. | `assembly`, `observation`, `child`, `protocol`; `descriptor-verify`, `run-smoke`, `run-official`, `validate-receipt` and `adjudicate-receipts` modes |
 
-Together those four crates support exactly one new status sentence:
-**M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**. It covers arithmetic/projector
-parity only and computes no action value, selected lead, optimal set, information
-net, continuation, performance claim or player.
+**Deleted, archive-only** (producer commit `648f93a`; deletion commits
+`ad355e9`/`fa3fe74`; recompute queue in [`walt/ARCHIVE.md`](../walt/ARCHIVE.md)):
+`walt-skeleton` — the `ControlSkeleton` trait, the §12.1 soundness and §12.6
+lumpability checkers, both atom vocabularies, the §12.9 synthesis search, and
+the §12.6A equivariant census machinery (class DAG, railyard, suffix library);
+and `walt-factory` — the regret walker, conflict/lesson/basin vocabulary, the
+lesson database with its watched-feature index and rent ledger, §16.11 record
+emission, and all 24 probe examples plus `walk_corpus`. Their eras closed
+([factory](walt-factory-era.md), [census](walt-census-era.md),
+[S6](walt-s6-era.md)); reaching for one now means checking out the producer
+commit first.
 
-Discipline carried by types, not by promises: the seat's observation type
-(`walt-skeleton::obs`) cannot express a hidden hand, so every `step` is seat-honest
-by construction; policies map info-state ids, so a world-peeking policy will not
-compile; the ledger's deletion path needs a token whose only constructor is a
-registry with a checker in it.
+The GPU side supports exactly one status sentence:
+**M2 METAL PROJECTOR PARITY COMPLETE under freeze 56** — re-issued append-only
+at the unified layout as freeze-56 v2 (FZ-A1..A6), with the standing M2 receipt
+explicitly old-layout evidence ([[m2-receipt-reearn]]). It covers
+arithmetic/projector parity only and computes no action value, selected lead,
+optimal set, information net, continuation, performance claim or player.
+
+Discipline carried by types, not by promises: policies map info-state ids, so a
+world-peeking policy will not compile; caps exclude rather than sample; and in
+the archived factory the ledger's deletion path needed a token whose only
+constructor was a registry with a checker in it (the seat-honest observation
+type lived in the deleted `walt-skeleton` and is archive-only with it).
 
 ## The solvers, and their honest performance characteristics
 
@@ -89,13 +117,22 @@ the strategy-fusion gap and it is action-specific.
 
 | Solver | File | What it computes |
 | --- | --- | --- |
-| Symbolic parametric PI | `walt-strat/src/pi.rs` | Worldwise perfect-information backward induction over the whole valuation ray; every root action value is a continuous PWL envelope |
-| Scalar PI | `walt-strat/src/scalar.rs` | The same PI operator at one integer valuation, with a trick-boundary cache keyed on semantic state; the workhorse for whole-fiber and census work |
-| Symbolic H | `walt-strat/src/hidden.rs` | The actual hidden-information fixed-field treatment at the root, exact on the whole ray (pooled maximization decomposes because the canonical partition is a tree) |
-| Scalar H (`dag-v1`) | `walt-strat/src/hidden_scalar.rs` | Exact Q^H per legal action at arbitrary (including mid-trick) decision points, unit-fraction particle weights, budgeted, with pooled-state boundary memoization |
-| Revealed C and F | `walt-strat/src/revealed.rs` | Continuation- and root-revelation with the field held fixed, aggregated at the support level so no polytope is materialized |
+| Symbolic parametric PI | `walt/walt/src/strat/pi.rs` | Worldwise perfect-information backward induction over the whole valuation ray; every root action value is a continuous PWL envelope |
+| Scalar PI | `walt/walt/src/strat/scalar.rs` | The same PI operator at one integer valuation, with a trick-boundary cache keyed on semantic state; the workhorse for whole-fiber and census work |
+| Symbolic H | `walt/walt/src/strat/hidden.rs` | The actual hidden-information fixed-field treatment at the root, exact on the whole ray (pooled maximization decomposes because the canonical partition is a tree) |
+| Scalar H (`dag-v1`) | `walt/walt/src/strat/hidden_scalar.rs` | Exact Q^H per legal action at arbitrary (including mid-trick) decision points, unit-fraction particle weights, budgeted, with pooled-state boundary memoization |
+| Revealed C and F | `walt/walt/src/strat/revealed.rs` | Continuation- and root-revelation with the field held fixed, aggregated at the support level so no polytope is materialized |
 
-Measured facts, each exploratory tier and each attached to its source:
+A sixth solver family exists since 2026-08-17 and is the live one: the
+**scenario-player stack** in `walt::solver` — exact best response over sampled
+fiber worlds against modeled level-k minds under the pmake objective, with
+race-then-refine as an opt-in. It is owned by
+[walt-seat-play](walt-seat-play.md) and specified in `walt/SCENARIO-PLAYER.md`;
+this page does not restate it.
+
+Measured facts, each exploratory tier and each attached to its source. (The
+`results/...` files cited below now live under `walt/probes/factory-results/`;
+the `examples/*.rs` producers are archive-only at commit `648f93a`.)
 
 - **Ordinary transposition memoisation is the manyfold, and it compounds with
   depth.** Arm A1 (identity-key boundary cache) against A0 (plain tree) has wall
@@ -123,9 +160,10 @@ Measured facts, each exploratory tier and each attached to its source:
 - **The memoized H solver is value-transparent and much cheaper.** `dag-v1` did
   13–125× less work than the unmemoized `tree-v0` walk on the fiber-probe
   coordinates, and 28–122× fewer steps on the four big-fiber cross-validation
-  decisions (tree side 4.2e9 to 6.5e10 steps). Byte-identical Q^H is a CI-pinned
-  invariant (`walt-factory/tests/h_value_transparency.rs`, sixteen decisions,
-  including the `Q^H(2-1) = 80/7` vs `Q^H(3-2) = 202/21` pins). The offline
+  decisions (tree side 4.2e9 to 6.5e10 steps). Byte-identical Q^H was a CI-pinned
+  invariant while the factory existed (`walt-factory/tests/h_value_transparency.rs`,
+  sixteen decisions, including the `Q^H(2-1) = 80/7` vs `Q^H(3-2) = 202/21` pins);
+  that test is archive-only at `648f93a` with the rest of the factory. The offline
   cross-validation receipt is `results/h_tree_crossval_2026-08-10.txt`, produced by
   the `#[ignore]`d `tests/h_dag_probe.rs::crosscheck_tree_uncapped`.
 - **Cold treatment H completed at four tricks remaining.** The seat's actual
@@ -141,20 +179,25 @@ Measured facts, each exploratory tier and each attached to its source:
   cheaper than the cheapest storeless route (200–960 ms); reachability and
   confinement predicates have no storeless alternative at all. Source:
   `results/fiber_refine_2026-08-11.txt`.
-- **Deadness detection is cheap, and its cost has no quotable figure.** The often
+- **Deadness detection is cheap, and now has a quotable instrument.** The often
   repeated "about 25 ns per detector call" is **contended and not quotable**, and
   it is not even in the results file: `results/deadness_2026-08-12.txt` records a
-  RESUMED run and prints `0 ns over 0 calls`, so the 25 ns comes from a prior
-  invocation that left no artifact. Freeze 43's sequential timing rung is the
-  quotable instrument and it is unrun. What the file does support is the ratio's
-  direction — detector calls are orders of magnitude below the solve arms they
-  displace — and nothing more precise.
+  RESUMED run and prints `0 ns over 0 calls`. Freeze 43's sequential timing rung
+  (DS-A33) — the only quotable timing instrument — was subsequently run:
+  `results/deadness_rung_2026-08-13.txt` records 17 ns/call over 384 calls at the
+  declared grade-3 unit and 42 ns/call over 3,540,143 calls at the declared n=4
+  unit, single uninterrupted process, declared selection rule, run complete. Those
+  are the quotable figures; the 25 ns stays retired.
 
-## The probe binaries
+## The probe binaries (historical — all archive-only since 2026-08-24)
 
-All under `walt/walt-factory/`. Examples are run with
-`cargo run --release -p walt-factory --example NAME [subcommand]`; `walk_corpus` is
-a `src/bin/` binary.
+All lived under `walt/walt-factory/`, deleted by the unification. Regenerating
+any output means checking out producer commit `648f93a` first, then
+`cargo run --release -p walt-factory --example NAME [subcommand]`
+(`walk_corpus` was a `src/bin/` binary); verify against the archive manifest
+digest afterwards ([`walt/ARCHIVE.md`](../walt/ARCHIVE.md) — frozen seeds make
+byte-identity the expected outcome, and a mismatch is a finding). The results
+files listed live at `walt/probes/factory-results/`.
 
 | Binary | What it measures | Results file | Session |
 | --- | --- | --- | --- |
@@ -176,23 +219,27 @@ a `src/bin/` binary.
 
 ## Frozen artifacts, receipts, and what CI actually checks
 
-**Byte-frozen fixtures**, three of them, all under `walt-factory/tests/data/` and
-all asserted for exact string equality inside ordinary tests: `walk_h0_S1.txt` (the
-designated full-transcript walk, hand 0 seat S1 the bidder, under
-`WalkerConfig::fixture()`, frozen by `tests/walker_fixture.rs`),
-`ci_corpus_pins.txt` (one summary line per hand and seat at `WalkerConfig::ci()`,
-frozen by `tests/walker_corpus.rs`), and `lesson_h0_S1_t5.txt` (the designated
-lesson record, frozen by `tests/lesson_pins.rs`). Regenerate through `gen_fixtures`
-or `lesson_run`; never hand-edit.
+**Byte-frozen fixtures.** The factory's three (`walk_h0_S1.txt`,
+`ci_corpus_pins.txt`, `lesson_h0_S1_t5.txt`, asserted for exact string equality
+by its walker/lesson tests) are archive-only at `648f93a` with the crate that
+checked them. The unified crate's surviving frozen fixtures are the exp5 census
+samples under `walt/walt/tests/data/`, asserted by the `strat_exp5_census` and
+`kernel_known_fibers` tests, plus the frozen native trace the wasm smoke
+byte-compares.
 
-**Results artifacts.** Thirty-two `.txt` files under `walt-factory/results/`, each
-opening with its own tier line, its binding rulings, its declared scope and (for
-the later ones) its exact regenerate command. Plus
-`results/certificates_2026-08-10/` — sixteen §16.11 records, one per lesson in the
-S5c-m3 working set (ten `cert_refutation_*`, five `cert_win_*`, one
-`cert_checker_*`, filenames deterministic from content keys), written against the
-self-contained `walt-factory/docs/certificate-schema.md` (schema-v1) so an
-independent implementation can check them.
+**Results artifacts.** The tracked result summaries — every dated `.txt` this
+page and the era pages cite, each opening with its own tier line, its binding
+rulings, its declared scope and (for the later ones) its exact regenerate
+command — were relocated intact to
+[`walt/probes/factory-results/`](../walt/probes/factory-results/) (provenance
+README there). That includes `certificates_2026-08-10/` — sixteen §16.11
+records, one per lesson in the S5c-m3 working set (ten `cert_refutation_*`,
+five `cert_win_*`, one `cert_checker_*`, filenames deterministic from content
+keys), written against the self-contained `certificate-schema.md` beside them
+(schema-v1, the historical filename that keeps walt's own "certificate" name)
+so an independent implementation can check them. The untracked bulk (8.3G of
+raw outputs, 514M of stores) lives at `~/data` and HuggingFace per
+[`walt/ARCHIVE.md`](../walt/ARCHIVE.md), never in the repo.
 
 **GPU-track comparands.** Portable M0/M1 has the canonical envelope, declared
 stop and summary under `walt/receipts/gpu_native_trick1_m0_m1_v1/`. The separate
@@ -203,12 +250,15 @@ one committed binary receipt and external checksum under
 not a Lean theorem and not a persisted value for a solver to consume.
 
 **What portable `walt/ci/check.sh` enforces.** It verifies immutable M0/M1 history
-at the producing commit, the received-guide checksum and the cumulative M2 source
-manifest; regenerates and byte-diffs the M0/M1 comparands; runs formatting,
-warning-denied clippy, source-level no-float gates and all release workspace
-tests; builds both trick-1 Lean targets and audits the M2 theorem axioms; then
-rechecks the source manifest. It never skips unavailable Metal work into green
-and by itself issues no M2 result.
+at the producing commit and the received-guide checksum; regenerates and
+byte-diffs the M0/M1 comparands; runs formatting, warning-denied clippy,
+source-level no-float gates and all release workspace tests; and builds the
+trick-1 Lean targets and audits the M2 theorem axioms. Since freeze-56 v2
+(FZ-A5) the *full* cumulative source-manifest closure is a **freeze-event**
+verification — run `ci/verify_m2_sources.sh` when a freeze event re-issues the
+manifest — because the unified crate contains the actively developed solver and
+a per-commit full-digest closure would be red on every ordinary commit. CI never
+skips unavailable Metal work into green and by itself issues no M2 result.
 
 **What elevated `walt/ci/check_m2_metal.sh` adds.** Starting from an immutable
 HEAD snapshot, it runs the portable conjunction, checks the host/tool descriptor,
@@ -225,9 +275,10 @@ performance claim or player.
 **Three accurate statements about walt's receipt discipline**, which differ from
 rob's:
 
-1. The legacy `walt-factory/results/*.txt` probe artifacts are **not** diffed by
-   CI. Their byte-equality coverage remains the three ordinary tests over
-   `tests/data/` fixtures; none becomes a claim-tier result merely by existing.
+1. The legacy probe artifacts (now `walt/probes/factory-results/*.txt`) are
+   **not** diffed by CI, and since the factory's deletion their byte-equality
+   coverage by ordinary tests is archive-only too; none becomes a claim-tier
+   result merely by existing.
 2. Portable M0/M1 now does have a byte-diffed receipt stage: `ci/check.sh`
    regenerates the complete canonical directory in fresh state and compares it
    recursively with the committed comparands.
@@ -240,31 +291,36 @@ rob's:
    run is evidence at a declared configuration; the M2 receipt is likewise
    executable evidence rather than a theorem.
 
-**Gitignored caches** (`walt/.gitignore` covers `target/` and
-`walt-factory/store/`): `store/endgame_l2.store` (the level-2 endgame form store),
-`store/deadness_ckpt` (per-unit run checkpoints with a freeze digest), and
-`store/candidate_library.txt` (candidate library v1, freeze 36 — observation-record
-keys, no values, no verdicts, identity transport only, cache never authority).
-Every headline number has a cold-regenerate path that starts by deleting its store.
+**Stores.** The factory's gitignored caches (`store/endgame_l2.store` — the
+level-2 endgame form store, `store/deadness_ckpt` — per-unit run checkpoints
+with a freeze digest, `store/candidate_library.txt` — candidate library v1,
+freeze 36: observation-record keys, no values, no verdicts, identity transport
+only, cache never authority) went to the local archive with the crate
+(`~/data/texas-42/walt-factory-archive-2026-08-24/store/`). Every headline
+number keeps a cold-regenerate path that starts by deleting its store — at the
+producer commit, per the recompute queue.
 
 ## The rescued Python probe suites
 
-`walt/probes/` holds two suites preserved verbatim from the 2026-08-09 scratchpad,
-before `/tmp` cleanup could destroy the only copies. Their framing is the load-
-bearing part: they are **frozen validators, never source**. walt reimplements from
-the definitions in the frozen mathematical basis and pins its own results against
-the probe records; a disagreement is a discrepancy to be recorded, never a reason
-to copy probe code into the implementation.
+`walt/probes/` now holds all the frozen probe records: the two Python suites
+below (preserved verbatim from the 2026-08-09 scratchpad before `/tmp` cleanup
+could destroy the only copies), the relocated factory result summaries
+(`factory-results/`), the seat-play result files (`m3/`), and the bidcurve
+corpus (`bidcurve/`). The Python suites' framing is the load-bearing part: they
+are **frozen validators, never source**. walt reimplements from the definitions
+in the frozen mathematical basis and pins its own results against the probe
+records; a disagreement is a discrepancy to be recorded, never a reason to copy
+probe code into the implementation.
 
 | Suite | Contents | Role |
 | --- | --- | --- |
-| `probes/exp3a/` | `lambda_probe{,_v2,_v3}.py`, `v3_diag.py`, four `*_output_postfix.txt` runs, `lambda-probe-report.md`. `lambda_probe_v3.py` Part 1 is Experiment 3A: the 22-observable atom registry whose semantics live only in that file | Supplied the vocabulary S4 had recorded as lost; ported into `walt-skeleton::atoms::Exp3aAtom`, and the 90 → 33 → 8 reproduction is now a live test (`walt-skeleton/tests/harness.rs`) |
-| `probes/exp5/` | `exp5_core.py` (bitmask PI minimax, exact counting/sampling DP), `exp5_rules.py`, `exp5_census.py`, `exp5_validate.py`, `exp5_report.py`, `exp5_pwl.py`, `exp5_exact.py`, `exp5_records.jsonl` (566 records), `exp5_results.md` | The designated second implementation for cross-checking; its census vectors (h1t3 = 10, h3t3 = 5,345) and 52 kernel fiber sizes are regression pins in `walt-strat/tests/exp5_census.rs` and `walt-kernel/tests/known_fibers.rs` |
+| `probes/exp3a/` | `lambda_probe{,_v2,_v3}.py`, `v3_diag.py`, four `*_output_postfix.txt` runs, `lambda-probe-report.md`. `lambda_probe_v3.py` Part 1 is Experiment 3A: the 22-observable atom registry whose semantics live only in that file | Supplied the vocabulary S4 had recorded as lost; was ported into `walt-skeleton::atoms::Exp3aAtom` with the 90 → 33 → 8 reproduction as a live test — both archive-only at `648f93a` since the skeleton's deletion; the frozen Python records remain in place |
+| `probes/exp5/` | `exp5_core.py` (bitmask PI minimax, exact counting/sampling DP), `exp5_rules.py`, `exp5_census.py`, `exp5_validate.py`, `exp5_report.py`, `exp5_pwl.py`, `exp5_exact.py`, `exp5_records.jsonl` (566 records), `exp5_results.md` | The designated second implementation for cross-checking; its census vectors (h1t3 = 10, h3t3 = 5,345) and 52 kernel fiber sizes are regression pins in `walt/walt/tests/strat_exp5_census.rs` and `walt/walt/tests/kernel_known_fibers.rs` |
 
 Both are stdlib-only Python 3.12 with exact `Fraction`/integer arithmetic. Running
 them creates `__pycache__` — clean it up (D15).
 
-## What is mechanically blocked, and why that is safe
+## What was mechanically blocked, and why that was safe (historical — the machinery is archive-only)
 
 The lesson economy's deletion rule fired on three lessons in the re-priced run
 (the empty-basin refutation and both h1 S2 t4 lessons, all measured-zero at the
@@ -282,35 +338,40 @@ ever genuinely needed, the path is Lean, not Python. Until then the triggered
 deletions stay blocked — which is safe by design, since deletion is an economy
 action over working-set membership only. The archive is append-only: certificates,
 traces and origins never leave it, readmission is cheap, and no evidence is lost by
-the block. The machinery itself is intact and exercised in CI
-(`tests/economy_pins.rs`).
-
-Also standing, intact rather than removed: the lesson DB, the watched-feature index
-under its candidate-completeness contract (exhaustively cross-checked in CI,
-179 × 16 = 2,864 pairs), the dual H-primary rent ledger with "unmeasured is never
-zero", and §16.11 record emission with per-record checker-coverage annotations and
-H rows honestly marked UNCHECKED-EXTERNALLY.
+the block. While the factory existed the machinery was intact and exercised in
+CI (`tests/economy_pins.rs`); since 2026-08-24 the whole apparatus — the lesson
+DB, the watched-feature index under its candidate-completeness contract
+(exhaustively cross-checked, 179 × 16 = 2,864 pairs), the dual H-primary rent
+ledger with "unmeasured is never zero", and §16.11 record emission with
+per-record checker-coverage annotations and H rows honestly marked
+UNCHECKED-EXTERNALLY — is archive-only at `648f93a`, with the emitted
+certificates preserved in-tree under `walt/probes/factory-results/`.
 
 ## How to run things
 
 ```
-/bin/bash -p walt/ci/check.sh                             # portable gate
-/bin/bash -p walt/ci/check_m2_metal.sh                    # native Metal gate
-cargo run --release -p walt-factory --example NAME [sub]  # any probe
-cargo run --release -p walt-factory --bin walk_corpus [start_hand [seat [max]]]
-cargo test --release -p walt-factory --test h_dag_probe -- --ignored crosscheck_tree_uncapped
+/bin/bash -p walt/ci/check.sh                  # portable gate (from repo root)
+/bin/bash -p walt/ci/check_m2_metal.sh         # native Metal gate
+cargo run --release -p walt --bin level1       # the seat (or scenario, level2,
+                                               # playout, webtable, walt_bridge,
+                                               # divergence, ladder, bidcurve,
+                                               # tiltaudit, m3probe, playtable)
+/bin/bash -p walt/ci/verify_m2_sources.sh      # freeze-event manifest closure only
 ```
 
-Run the two scripts above from the repository root. Do not run `ci/check.sh`
-casually: it builds the workspace in release, runs the full test suite and builds
-Lean. `check_m2_metal.sh` additionally requires the exact native Metal toolchain
-and a real device; it is intentionally not portable. Several probes are hours of
-compute; `h_dag_probe` is `#[ignore]`d precisely because it is a declared manual
-run.
+The historical factory probes are archive-only — `git switch --detach 648f93a`,
+then `cargo run --release -p walt-factory --example NAME [sub]` per the
+recompute queue in [`walt/ARCHIVE.md`](../walt/ARCHIVE.md). Do not run
+`ci/check.sh` casually: it builds the workspace in release, runs the full test
+suite and builds Lean. `check_m2_metal.sh` additionally requires the exact
+native Metal toolchain and a real device; it is intentionally not portable.
+Several probes are hours of compute; the factory's `h_dag_probe` was `#[ignore]`d
+precisely because it is a declared manual run.
 
-**Declared knobs a future session must state, not inherit silently.** These are
-constants or CLI arguments today, and every one of them is part of the declared
-inputs a result is quoted under:
+**Declared knobs a future session must state, not inherit silently.** These
+were constants or CLI arguments in the factory sources (archive-only at
+`648f93a`), and every one of them is part of the declared inputs its result is
+quoted under:
 
 | Knob | Where | Current declared value |
 | --- | --- | --- |
@@ -348,13 +409,15 @@ inputs a result is quoted under:
 
 ## Caveats a future session should know before reaching for something
 
-- **Several retained instruments live only inside example binaries, not in library
-  crates.** The three deadness detectors (`d0`, `d1_sym`, `d1_win`), the exclusion-
-  predicate engine, the endgame form store and floor table, and the railyard level-
-  step drivers are functions inside `deadness_probe.rs`, `fiber_probe.rs` and
-  `census_run.rs`. The r3 retrograde class machinery and the yard/suffix-library
-  routines *are* library code (`walt-skeleton::equivariant`), but the runners around
-  them are not. Reusing a detector means lifting it into a crate first.
+- **Several historical instruments lived only inside example binaries, and all of
+  those are archive-only now.** The three deadness detectors (`d0`, `d1_sym`,
+  `d1_win`), the exclusion-predicate engine, the endgame form store and floor
+  table, and the railyard level-step drivers were functions inside
+  `deadness_probe.rs`, `fiber_probe.rs` and `census_run.rs`; the r3 retrograde
+  class machinery and yard/suffix-library routines were library code in
+  `walt-skeleton::equivariant`. All of it is at producer commit `648f93a` only.
+  Reusing a detector now means retrieving it from the archive and lifting it into
+  the unified crate first.
 - **Legacy receipt-corpus statistics are pip-trump.** The corpus
   (`rob/receipts/verify_player.txt`) has no doubles-trump and no no-trump hand, so
   every statistic derived from that corpus validates the pip-trump path and
@@ -362,10 +425,12 @@ inputs a result is quoted under:
   enumerates its own carrier — and is still declared pip-trump only. The
   independently generated freeze-56 M2 carrier has its own frozen scope and is
   not typed by this legacy corpus caveat.
-- **`deadness_rung_2026-08-13.txt` is referenced by the code and does not exist in
-  `results/`.** The sequential timing rung (freeze 43) is the quotable cost
-  instrument and it has not been run; the ~25 ns/call figure is contended and
-  explicitly not quotable.
+- **The sequential timing rung has since been run.** An earlier revision of this
+  page recorded `deadness_rung_2026-08-13.txt` as referenced-but-nonexistent; the
+  freeze-43 rung (DS-A33) was subsequently executed and the file exists at
+  `walt/probes/factory-results/` — 17 ns/call (grade-3 unit) and 42 ns/call (n=4
+  unit) are the quotable figures. The ~25 ns/call figure remains contended and
+  not quotable.
 - **The weighted H re-solve over a pre-built class DAG — the number the
   belief/policy-iteration platform claim rests on — is still unmeasured.** The
   existing H solvers take a uniform fiber weighting only and the K-bar integration
