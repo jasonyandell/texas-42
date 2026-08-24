@@ -2,9 +2,11 @@
 
 [Home](Home.md) · owns: what the walt program is trying to do, every direction
 reset it has taken and why, and the working method that governs how it builds ·
-Sources: [`walt/PLAN.md`](../walt/PLAN.md), [`walt/LOG.md`](../walt/LOG.md), the
-frozen bases under `walt/math/`, and the adjudication record in
+Sources: [`walt/LOG.md`](../walt/LOG.md) (and the retired `walt/PLAN.md`,
+preserved at `git show 56e2173:walt/PLAN.md`), the frozen bases under
+`walt/math/`, and the adjudication record in
 `walt/CENSUS-RULINGS.md`. Related: [walt hub](walt.md),
+[walt-seat-play](walt-seat-play.md),
 [negative results](walt-negative-results.md),
 [foundation era](walt-foundation-era.md), [factory era](walt-factory-era.md),
 [census era](walt-census-era.md), [S6 era](walt-s6-era.md),
@@ -41,9 +43,10 @@ every declared stop printed in the artifact that reports the run.
 
 ## The resets
 
-Six directions in five days. Each was a deliberate call by Jason after a result
-came in, and each is recorded here with what forced it, because the sequence is
-the actual shape of the program.
+Six directions in five days, then a seventh that changed what kind of thing the
+program was building. Each was a deliberate call by Jason after a result came
+in, and each is recorded here with what forced it, because the sequence is the
+actual shape of the program.
 
 ### 1. Freeze the basis and build the skeleton (2026-08-09)
 
@@ -142,14 +145,31 @@ nothing, and **the probe's formal verdict is STOPPED with no verdict** — the
 bimodality is the finding, never a seven-of-nine success. Read beside the
 dimension census, **value richness and decision simplicity coexist**.
 
-That pairing is the thesis of the current track. Jason's
+That pairing is the thesis of the decision-sparse track. Jason's
 `decision_sparse_exact_solving_v0.1` moves the target from compressing truth to
 **proving the root action**: sandwich a lawful lower witness against an
 action-conditioned upper witness and certify the opening play without solving
 every action exactly. It has been filed verbatim, twice audited, and its repaired
 mathematics maintained in an errata beside it. Its Experiment A (deadness
 detection at census scale) and Experiment E (root-action separation) are
-complete; the rest is [the live track](walt-decision-sparse.md).
+complete; the rest is [the decision-sparse track](walt-decision-sparse.md).
+
+### 7. Build the seat that plays (2026-08-17)
+
+The pivot that made walt the project's player. After the 2026-08-10 freeze of
+the m4/S6 compression search, Jason's standing direction was executed literally:
+stop compressing truth, **build the seat that plays** — a sampling-stack player,
+iteratively improved, with the mathematics catching up behind it on the record.
+Two rulings shaped it the same day. The objective is **P(make the bid)** —
+pmake — because 42 is scored in marks and trick differential is only a proxy;
+and the roadmap is explicitly *not* a months-long best-response chase — the goal
+is a player that "doesn't play gross 42", then beliefs, then partnership. In one
+day the seat went from scenario harness to playing full hands; within a week it
+had beaten the mk5 E[Q] champion and was running live in plunge. The whole arc,
+with its arena caveats, is [walt-seat-play](walt-seat-play.md); the
+spec-after-build and its obligations ledger are `walt/SCENARIO-PLAYER.md`. The
+earlier tracks were not abandoned — the decision-sparse program continues as the
+mathematical spine, and the pivot's debt to it is explicit in the ledger.
 
 ## The working method
 
@@ -202,15 +222,15 @@ bad, that is a conversation rather than a rescue, and the instruments stay
 valuable for other explorations either way.
 
 The summary of results lives on [the hub](walt.md#where-it-stands) and the
-refutations at [negative results](walt-negative-results.md); the live question is
-the **economy claim**, and since EC-A13 it is two questions rather than one. The
-**primal half** — whether a root-action certification still closes when the
-witness it starts from is not itself an exact solve — is what the economy
+refutations at [negative results](walt-negative-results.md). The live build
+track is [the playing seat](walt-seat-play.md); the live mathematical question
+remains the **economy claim**, and since EC-A13 it is two questions rather than
+one. The **primal half** — whether a root-action certification still closes when
+the witness it starts from is not itself an exact solve — is what the economy
 successor is designed to test, seeding the witness from transported entries,
 fixed tile rules and a heuristic re-key rather than from a solve. The **full**
 claim, a solver that avoids exact solves, additionally requires the upper side
 cheapened, which is Experiment D's territory and untouched. Never write the two
 as one: a sentence claiming "the economy claim was tested" without *primal* has
 over-claimed. [The decision-sparse page](walt-decision-sparse.md) carries the
-state and what gates it; the forward plan lives in
-[`walt/PLAN.md`](../walt/PLAN.md).
+state and what gates it; the forward queue lives in `kanban/`.

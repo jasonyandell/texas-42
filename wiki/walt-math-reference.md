@@ -345,10 +345,13 @@ measurement — the grade-3 predictive dimensions, the detector recall figures,
 the singleton frontiers — treat it as a pointer into the artifact above, never
 as a standing claim.
 
-The design documents that each ruling family adjudicates (`walt/SEAT-CENSUS.md`,
-`walt/PREDICTIVE-RANK.md`, `walt/POLICY-GEOMETRY.md`, `walt/DEADNESS-PROBE.md`,
-`walt/SEPARATION-PROBE.md` and others) live at the top of `walt/`. A ruling that
-says "the design" means the one named in its section's opening paragraph.
+The design documents that each ruling family adjudicates live at the top of
+`walt/` (`walt/POLICY-GEOMETRY.md`, `walt/SEPARATION-PROBE.md` and others) —
+except the seven retired 2026-08-24 after their probes closed (`CENSUS`,
+`FIBER-PROBE`, `FIBER-REFINE`, `ENDGAME-STORE`, `SEAT-CENSUS`,
+`PREDICTIVE-RANK`, `DEADNESS-PROBE`), whose bytes are preserved at
+`git show 2de8a05:walt/<NAME>.md`. A ruling that says "the design" means the
+one named in its section's opening paragraph.
 
 ## Addendum, 2026-08-17 — M2 closure over the portable trick-1 boundary
 

@@ -6,7 +6,7 @@ inventory, its audit history, and the standing state of its experiment program Â
 `walt/math/decision_sparse_exact_solving_v0.1_errata.md` (the durable repaired mathematics, DS-A17);
 `walt/CENSUS-RULINGS.md` (DS-A1..DS-A36, SEP-A1..SEP-A19, J-A1..J-A18, PG-A1..PG-A18, R-A1..R-A24,
 N4-A1..N4-A20, EC-A1..EC-A14, RW-A1..RW-A8, **FT-A1..FT-A29**, **SR-A1..SR-A37**, **FF-A1..FF-A33**, **FC-A1..FC-A22**);
-`walt/SEPARATION-PROBE.md`, `walt/DEADNESS-PROBE.md`; `walt/walt-factory/results/deadness_2026-08-12.txt`,
+`walt/SEPARATION-PROBE.md`, the retired `DEADNESS-PROBE` design (bytes at `git show 2de8a05:walt/DEADNESS-PROBE.md`); `walt/probes/factory-results/deadness_2026-08-12.txt`,
 `separation_2026-08-13.txt`, `separation_n4_2026-08-14.txt`, `rule_economy_n4_2026-08-14.txt`,
 `fusion_tax_2026-08-14.txt`, `second_rung_2026-08-14.txt`, `feature_fee_2026-08-14.txt`, its corrected
 re-run `feature_fee_v11_2026-08-14.txt`, and `fc_correlation_2026-08-14.txt`; and the received
