@@ -58,9 +58,12 @@ Binding work assignments live in `rob/BRIEF*.md`.
 ## Exchange channel (`exchange/`)
 
 Dispatches are authorized by Jason **in batches, each batch's quota agreed up
-front** — monthly pacing, cleared per batch, not a lifetime cap. The running count
-and the batch ceiling live in `exchange/submission_count.txt` and `HARD_CAP` in the
-automation submit script; raise the ceiling only for a batch Jason has authorized.
+front** — monthly pacing, cleared per batch. There is **no lifetime cap and no
+fixed total**; any doc saying otherwise is stale. `exchange/submission_count.txt`
+is the running count of dispatches ever sent (a tally); `HARD_CAP` in
+`automation/submit.mjs` is the current batch's ceiling for the automated path
+only, raised only for a batch Jason has authorized. The count may exceed the
+ceiling — hand-ferried dispatches count but skip the automation.
 Never submit without Jason's explicit go. Dispatch
 prompts are self-contained (5.6 Pro sees only the pasted text) and adversarial with
 machine-checkable deliverables. Every inbox response is adjudicated — witnesses

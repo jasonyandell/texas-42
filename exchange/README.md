@@ -24,19 +24,30 @@ buddy pastes the body only, verbatim. `channel: continuation` means post into
 the standing conversation
 https://chatgpt.com/c/6a64ccec-2328-83ea-b0d1-917f487297a2 instead of a new chat.
 
-## Dispatch budget
+## Dispatch quota
 
-Dispatches are authorized by Jason **in batches, each batch's quota agreed up
-front** — monthly pacing, cleared per batch, not a lifetime cap. **Never submit
-without Jason's explicit go.**
+**There is no lifetime cap, and no fixed total.** Dispatches are authorized by
+Jason **in batches, each batch's quota agreed up front** — monthly pacing,
+cleared per batch. **Never submit without Jason's explicit go for the batch you
+are sending in.** (The fixed-number framing was retired 2026-08-01 as wrong;
+any doc still stating a lifetime total is stale.)
 
-The running count is `submission_count.txt` (one line, the integer count; buddy
-increments it before each send). The batch ceiling is `HARD_CAP` in
-`../automation/submit.mjs`, which refuses to submit once the count reaches it;
-raise the ceiling only for a batch Jason has authorized. As of 2026-08-24:
-**count 18, automated batch ceiling 17** — dispatches 016–018 were hand-ferried
-by Jason himself (cleared by him each time, outside the automation, counted in
-`submission_count.txt`); the automation ceiling still gates any automated send.
+Two numbers, and they are not the same kind of thing:
+
+- **`submission_count.txt`** — the running count of dispatches **ever sent**.
+  One line, one integer; buddy increments it on each confirmed send. It is a
+  tally, never a ceiling, and it is never reset when a batch closes.
+- **`HARD_CAP`** in [`../automation/submit.mjs`](../automation/submit.mjs) —
+  the **current batch's ceiling for the automated path only**. `submit.mjs`
+  refuses to send once the count reaches it. Raise it only for a batch Jason
+  has explicitly authorized, and only with his go.
+
+The count can legitimately exceed `HARD_CAP`, because dispatches Jason
+hand-ferries himself are counted but never pass through the automation. As of
+2026-08-24: **count 18, automated batch ceiling 17** — dispatches 016–018 were
+hand-ferried by Jason (cleared by him each time, outside the automation,
+counted here). `count >= HARD_CAP` therefore means *the automated path is
+closed pending a new authorized batch* — it never means the channel is spent.
 
 A send only counts once visually confirmed submitted; a harness failure before
 the message leaves the composer does not count, but buddy must verify in the UI
