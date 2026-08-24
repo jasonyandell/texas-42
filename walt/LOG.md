@@ -549,3 +549,11 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   slower mean decision cost in the tie-saturated bid-30 regime (177ms vs
   116ms) — the racing edge is regime-dependent (openings, high bids);
   opt-in posture confirmed correct. Filed in TILT-AUDIT.md.
+- 2026-08-23: walt live in plunge ("How'd I do? Ask walt" review). Two
+  review specimens (a 100%-saturation revelation tie; a 40-vs-160-world
+  near-tie flip on a count-timing choice) motivated the level-2
+  program: `LEVEL2-PROBE.md` filed as SPEC ONLY — field-swap pivotal
+  mass (q wakes up when field upgrades level-0 → level-1) as the
+  detector, gated on walt unification + adaptive-sampling math.
+  Deliberately not started. Next: merge PR #6, unify the walt crates,
+  wiki re-synthesis.

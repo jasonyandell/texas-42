@@ -167,3 +167,8 @@ untested. Next gates: Phase F predicate mining over the stored panels,
 the level-2 saturation-tie episode as an anchor, and a high-bid arena
 (calibrated θ walks contracts to ~40, where ties thin and racing should
 bite — the regime the bid-30 gate cannot see).
+
+**Level-2 successor:** the field-swap probe — where pivotal mass wakes
+up when the field is upgraded from level-0 to level-1 minds — is
+specified in `LEVEL2-PROBE.md` (SPEC only, deliberately not started;
+gated on walt unification and the adaptive-sampling mathematics).
