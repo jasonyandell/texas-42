@@ -935,6 +935,105 @@ pub fn level1_evaluate(
     Some(opts)
 }
 
+/// Cross-fiber pricing (the cheap first-order UI detector of
+/// LEVEL2-PROBE.md): price a to-act seat's options from ANOTHER seat's
+/// fiber — same machinery, different root viewer, no new mathematics.
+/// Worlds are drawn from the viewer's void-conditioned lawful-completion
+/// fiber (fiber = support of the information state, never a belief); each
+/// option `t` is priced as the solver value of the child after the actor
+/// plays `t`, over the alive subset of worlds in which that play is
+/// lawful (the actor's world hand holds `t` and `t` is legal there — the
+/// lawfulness conditioning of SCENARIO-PLAYER.md §4, not policy-Bayes).
+/// The root viewer's own future decisions best-respond for its team; the
+/// actor and every other seat are modeled level-0 minds, exactly as in
+/// `level1_evaluate` — so a row where this column and the actor's own
+/// column disagree is the human-visible flag of information asymmetry.
+///
+/// Returns `(tile, price, supporting-world count)` per option; a tile the
+/// sampled fiber cannot realize prices `None` at support 0. Single common
+/// sample across options, no saturation-tie refinement — this is a
+/// pricing panel, not a decision procedure. Outer `None` iff the deadline
+/// died mid-evaluation. Exploratory tier; estimates, never receipts.
+#[allow(clippy::too_many_arguments)]
+pub fn viewer_fiber_evaluate(
+    dcl: Decl,
+    bid: u8,
+    actor: Seat,
+    viewer: Seat,
+    viewer_hand: u32,
+    options: &[u8],
+    key: &Key,
+    sizes: [usize; 4],
+    voids: [u32; 4],
+    trick_start_played: u32,
+    boundary_hand_size: usize,
+    n_outer: usize,
+    n0: usize,
+    per_move_secs: u64,
+    rng: &mut SplitMix64,
+) -> Option<Vec<(u8, Option<BigRational>, usize)>> {
+    let deadline = Deadline::after(Duration::from_secs(per_move_secs));
+    let maximize = viewer.team() == Team::T1;
+    let worlds = sample_belief(
+        viewer.index(),
+        viewer_hand,
+        key.played,
+        sizes,
+        voids,
+        n_outer,
+        rng,
+    );
+    let led: Option<Context> = key
+        .plays
+        .first()
+        .map(|&i| dcl.led_context(Domino::from_index(usize::from(i)).expect("led tile")));
+    let sh = Arc::new(Shared::new(
+        dcl,
+        bid,
+        vec![n0],
+        trick_start_played,
+        boundary_hand_size,
+        deadline,
+    ));
+    let solver = Solver::new(
+        sh,
+        viewer,
+        viewer_hand,
+        maximize,
+        worlds,
+        Vec::new(),
+        Field::Level(0),
+    )
+    .parallel();
+    let mut out: Vec<(u8, Option<BigRational>, usize)> = Vec::with_capacity(options.len());
+    for &t in options {
+        let tm = 1u32 << t;
+        let support: Vec<u32> = (0..solver.worlds.len() as u32)
+            .filter(|&sid| {
+                let hand_w = solver.worlds[sid as usize][actor.index()] & !key.played;
+                hand_w & tm != 0 && mask_of(legal_plays(dcl, set_of(hand_w), led)) & tm != 0
+            })
+            .collect();
+        if support.is_empty() {
+            out.push((t, None, 0));
+            continue;
+        }
+        let n_sup = support.len();
+        let alive = solver.intern(support);
+        let tile = Domino::from_index(usize::from(t)).expect("tile < 28");
+        let child = solver.child_after_play(key, tile, alive);
+        match solver.solve(&child) {
+            Some(v) => out.push((t, Some(v), n_sup)),
+            None => {
+                solver.flush_nodes();
+                return None;
+            }
+        }
+    }
+    solver.flush_nodes();
+    Some(out)
+}
+
 /// Argmax (or argmin for T0 seats) over evaluated options, first-listed on
 /// exact ties — the ascending-tile-order convention of the whole stack.
 pub fn best_of(opts: &[(u8, BigRational)], maximize: bool) -> u8 {
