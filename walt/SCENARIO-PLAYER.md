@@ -264,6 +264,22 @@ retired — a numbering artifact of the side-channel hops, ruled SP-A11 in
 | O18 | Optimization-lock accounting: exact frozen-pair results are never labeled exact root-action results until competing continuation bounds are closed | discipline | tier labels in every E0 report |
 | O19 | Behavioral census: plan simplicity claims use behavioral and signed-boundary equivalence, never syntactic plan counts alone | discipline | shared with POLICY-GEOMETRY.md Gate E (E-A8) |
 
+Filed 2026-08-24 from `math/calculated_evidence_v0.1.md` §21 (intake:
+`math/calculated_evidence_v0.1_intake.md`; accepted at CE-A4 in
+`CENSUS-RULINGS.md`):
+
+| # | Obligation | Kind | Route |
+|---|---|---|---|
+| O20 | Exact evidence theorem: CE-T1..T5 implementations match the stated exact formulas and anytime-valid hypotheses | math + tests | paper proof in the parent; exact-rational intake verification (done 2026-08-24); implementation tests |
+| O21 | Risk-ledger completeness: every probabilistic settlement reconstructs its full allocation (run → decision → epoch → pair direction → equivalence tests); total allocated risk bounded by the declared scope budget | invariant audit | exact-rational ledger tests |
+| O22 | Frozen-policy identity: every evidence observation names immutable PolicyIds; evaluation cannot mutate, re-discover, or world-condition focal actions while retaining old evidence | discipline + tests | data-flow audit, cache immutability tests, adversarial hidden-world tests |
+| O23 | Canonical fiber and sampler domain: evidence stream, exact count, and exhaustive endpoint target the same information-state fiber and belief; the unified kernel is the authority | proof + tests | construction proof; count/sample/enumeration parity tests; domain assertions |
+| O24 | Exact-escalation correctness: switching to enumeration at any stream index equals cold full enumeration; sampled multiplicities never double-counted | proof + tests | V9 plus a short bookkeeping proof |
+| O25 | Result typing and fallback separation: the six result kinds are mechanically distinct; no UI or bridge erases the type before persistence | discipline + tests | API and serialization tests |
+| O26 | Execution-order invariance of evidence: for a fixed world stream and frozen candidate set, batching, scheduling, and pause/resume change nothing | proof + tests | indexed world stream plus V8 |
+| O27 | Sampling randomness semantics: the probability space behind every δ claim is explicit — sampler uniformity, replacement, seed provenance, PRNG assumption declared | design note | plus O3 integration |
+| O28 | Recursive inner-risk accounting: adaptive inner-mind decisions draw risk from a complete nested ledger; outer δ claims never silently ignore inner stochastic error | design + audit | Phase-2 design and cache audit |
+
 Graduation path per project law: paper proofs → wiki with tier labels →
 independent re-verification (exchange batch on Jason's authorization) →
 Lean for what earns mechanization. Nothing in this document is promoted by

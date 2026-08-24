@@ -52,7 +52,7 @@ walt's exploratory fence, never the CONFIRMED pipeline.
 | GPU-native (Pro) | `gpu_native_trick1_implementers_guide_v0.2.md`, the M2 and M3 rebriefs | `walt/GPU-NATIVE-TRICK1.md` (v0.3), `-M2.md`, `-M3.md` (frozen contracts) | GT1-A1..A24 | Portable M0/M1 and M2 Metal parity complete; M3 gate frozen, no M3 result |
 | Signed-pivotal (side-channel) | `signed_pivotal_geometry_v0.1.md` | `signed_pivotal_geometry_v0.1_intake.md` (intake audit) | SP-A1..A12 | Sound but for one repaired claim; spawned the tilt audit and obligations O12–O19 |
 | In-house question/ruling | `WALT-MATH-QUESTION-2026-08-17-…` | `WALT-MATH-RULING-2026-08-17-…` (advisory) | none — advisory, no ruling family | P1–P4 sound; the §12.6A instance stated; the path-dependence counterexample |
-| Calculated evidence (side-channel) | `calculated_evidence_v0.1.md` (SHA-256 `9b32b14f…`) | `calculated_evidence_v0.1_intake.md` (intake audit) + `verify_calculated_evidence_v0.1.py` | pending — Pro refinement pass next, then adjudication; proposes CE-T1..T5 and obligations O20–O28 | Anytime-valid adaptive settlement: exact-rational evidence processes replace fixed sample counts; all 18 mechanical identity checks PASS at intake (2026-08-24) |
+| Calculated evidence (side-channel) | `calculated_evidence_v0.1.md` (SHA-256 `9b32b14f…`) | `calculated_evidence_v0.1_intake.md` (intake audit) + `verify_calculated_evidence_v0.1.py` | **CE-A1..A8** (2026-08-24, same-day; the parent already embodied Jason's Pro refinement pass) | Anytime-valid adaptive settlement: 18/18 exact checks PASS; identities SOUND (CE-A1); θ/ϑ split adopted (CE-A2); O20–O28 accepted (CE-A4); §22 is the build program (CE-A7) |
 
 ## 1. The frozen bases
 
@@ -255,9 +255,20 @@ Artifact map only; the adjudicated content lives on
   signed-pivotal companion flagged), the O20–O28 numbering check, the
   verified current-code boundaries (the legacy `sample_belief` seam has
   three expressions, not one; the `16×` literal sits at two sites), and
-  the six-point adjudication agenda for the Pro refinement pass.
-  **Adjudication pending** — no CE ruling family exists yet; nothing from
-  this lineage may be consumed by a design until it does.
+  the six-point adjudication agenda.
+  **Adjudicated same-day at CE-A1..A8** (`walt/CENSUS-RULINGS.md`,
+  2026-08-24): the parent came out of Jason's Pro session iterating on
+  the post-reorganization state, so the iteration-policy refinement pass
+  was already embodied; Jason ruled go. Identities SOUND (CE-A1); θ/ϑ
+  vocabulary split adopted walt-wide (CE-A2); the result-type ladder
+  binding on the new correctness path (CE-A3); O20–O28 accepted into the
+  SCENARIO-PLAYER ledger (CE-A4); fixed counts leave the correctness
+  path and the block racer is narrowed to heuristic status (CE-A5); the
+  level-2 probe amended with the wake-up split and the `𝓘` cost
+  coordinate (CE-A6); the §22 sequence adopted as the build program,
+  A.6 vertical slice first, old player stays default until gates justify
+  a change on Jason's word (CE-A7); the refinement-agenda items
+  dispositioned, no panel convened now (CE-A8).
 
 ## 7. The pinned manifests
 
@@ -278,11 +289,11 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
 
 ## 8. Pending, and deliberately not indexed as landed
 
-- **The calculated-evidence adjudication** — the parent landed 2026-08-24
-  (§6 above) but its refinement pass and rulings have not; O20–O28 and
-  CE-T1..T5 remain proposals. `walt/LEVEL2-PROBE.md`'s gate is satisfied
-  only when the adjudication closes and the outer loop applies it
-  ([[adaptive-sampling-intake]] tracks the full arc).
+- **The calculated-evidence build** — the lineage is adjudicated
+  (CE-A1..A8) but not yet applied: `walt/LEVEL2-PROBE.md`'s gate is
+  satisfied only when the outer adaptive controller lands with
+  conformance gates green ([[adaptive-sampling-intake]] tracks the
+  full arc; the CE-A7 build program is the path).
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03

@@ -13364,3 +13364,80 @@ status changes by this text.
   a build input to any M-gate receipt. The factory/skeleton package
   roots are gone with their crates (artifacts archived per
   `ARCHIVE.md`; producer code addressable at 648f93a).
+
+## The calculated-evidence adjudication (2026-08-24)
+
+Adjudicates the received `math/calculated_evidence_v0.1.md` (verbatim,
+SHA-256 `9b32b14f…`; intake companion
+`math/calculated_evidence_v0.1_intake.md`, 18/18 exact-rational
+verification PASS). Provenance: produced in Jason's ChatGPT 5.6 Pro
+session iterating on the post-reorganization repository state
+(`4231cb2`), hand-ferried 2026-08-24 — the in-conversation refinement
+pass of the exchange iteration policy is therefore already embodied in
+the parent; Jason ruled "go unless something needs refining" the same
+day. Everything below is exploratory tier; nothing is promoted.
+
+- **CE-A1 (identities SOUND at intake).** CE-T1 through CE-T5 and every
+  boxed identity with a mechanical route verified exactly (the pivotal
+  closed form three independent ways over the V1 grid; anchors;
+  supermartingale one-step algebra; ledger telescoping; the §10.1
+  sign-vs-mean counterexample; the §7.1 expansion). Hand-checked
+  arguments (Ville, mixture closure, union-bound accounting,
+  safe elimination) found no defect. The companion's receipt is the
+  record; the verifier stays beside the parent.
+- **CE-A2 (θ/ϑ split ADOPTED).** Walt-wide vocabulary: **θ is the
+  pivotal win share** `(1+τ)/2`; **ϑ is an auction/policy threshold**
+  (the empirical 11/16 is a ϑ). This supersedes the signed-pivotal
+  companion's earlier never-bare-θ proposal (a dated pointer is filed
+  there). Existing code fields named `theta` that mean ϑ keep their
+  serialized names; docs and new code use the split.
+- **CE-A3 (result-type ladder BINDING for the new path).**
+  `ExactFiberRoot` / `ExactFrozenSet` / `DeltaSettled` /
+  `EpsilonEquivalent` / `Unresolved` / `HeuristicFallback` are
+  mechanically distinct in every new API, log, and report. A sample cap
+  is a resource limit, never a proof rule. `Unresolved` is a successful
+  output. Nothing existing is deleted by this ruling; existing fixed-n
+  play paths are HeuristicFallback-status until retyped.
+- **CE-A4 (O20–O28 ACCEPTED).** The parent's proposed obligations enter
+  the SCENARIO-PLAYER obligations ledger as O20–O28 with their stated
+  routes. They are obligations (proof/audit debts), not results.
+- **CE-A5 (correctness-path rule).** Per parent §0: fixed sample counts
+  leave the correctness path — they may persist only as replay
+  fixtures, heuristic-fallback defaults, historical coordinates, or
+  throughput batch sizes. Per §13: the faithful Boolean replay race is
+  the signed-pivotal object; the block sign racer is NOT (wrong target,
+  sign-only, no anytime guarantee) and stays a heuristic/experiment;
+  `race-refined` stays opt-in outside the proof path. The §10.1
+  counterexample becomes a mandatory gate fixture (V7).
+- **CE-A6 (level-2 probe correction ADOPTED).** LEVEL2-PROBE.md is
+  amended (dated append) to split the detector into response wake-up
+  (q), value wake-up (g), and decision wake-up, with sampling cost
+  compared by the information rate `𝓘_f = q_f·D_{1/2}(τ_f)` — never by
+  q̂ alone; exact-zero vs practical-zero (`q ≤ ε_q` at declared risk)
+  preserved in the output contract. The probe's gate now reads:
+  unification (done) + calculated-evidence outer controller (in build).
+- **CE-A7 (implementation sequence ADOPTED).** Parent §22 is the build
+  program: kernel adapter → `solver::evidence` → lazy frozen policies →
+  fixed-candidate adaptive evaluator → exact endpoints → shadow → V5
+  flip repair → level-2 probe → inner recursion last. Phase 1 is outer
+  only (§18); inner sample schedules remain declared approximations,
+  visible in every result identity. The A.6 minimum vertical slice
+  lands first and proves the architecture before any live default
+  changes (§20.16: the old player remains the default until arena and
+  conformance gates justify a change, on Jason's word).
+- **CE-A8 (refinement-agenda disposition).** The intake companion's six
+  adjudication targets, reviewed: (1) the predictable-sequence
+  hypothesis — the common-stream design evaluates every live candidate
+  on world i before evidence updates, and elimination depends only on
+  past evidence, so the conditional null is inherited; stated as an
+  invariant to assert, O26's route. (2) §5 adaptive-order accounting —
+  the union bound is over the fixed finite set of directed edges
+  allocated up front; examination order and elimination spend nothing
+  further. NON-BLOCKING. (3) ε-equivalence composition — two one-sided
+  tests at summed risk is a plain union bound, same-stream validity per
+  edge process. NON-BLOCKING. (4) O24 escalation bookkeeping — an
+  implementation proof debt, gated by V9. (5) §14.6 paired evidence —
+  needs world-level iid only; the pair (Y⁽⁰⁾,Y⁽¹⁾) is one observation.
+  NON-BLOCKING. (6) θ/ϑ — ruled at CE-A2. No adversary panel is
+  convened now; one may be convened later on Jason's word under the
+  batch protocol, with CE-T1..T5 and O21/O24/O26 as the natural briefs.
