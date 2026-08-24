@@ -53,6 +53,7 @@ walt's exploratory fence, never the CONFIRMED pipeline.
 | Signed-pivotal (side-channel) | `signed_pivotal_geometry_v0.1.md` | `signed_pivotal_geometry_v0.1_intake.md` (intake audit) | SP-A1..A12 | Sound but for one repaired claim; spawned the tilt audit and obligations O12–O19 |
 | In-house question/ruling | `WALT-MATH-QUESTION-2026-08-17-…` | `WALT-MATH-RULING-2026-08-17-…` (advisory) | none — advisory, no ruling family | P1–P4 sound; the §12.6A instance stated; the path-dependence counterexample |
 | Calculated evidence (side-channel) | `calculated_evidence_v0.1.md` (SHA-256 `9b32b14f…`) | `calculated_evidence_v0.1_intake.md` (intake audit) + `verify_calculated_evidence_v0.1.py` | **CE-A1..A8** (2026-08-24, same-day; the parent already embodied Jason's Pro refinement pass) | Anytime-valid adaptive settlement: 18/18 exact checks PASS; identities SOUND (CE-A1); θ/ϑ split adopted (CE-A2); O20–O28 accepted (CE-A4); §22 is the build program (CE-A7) |
+| Targeted level-2 field stability (side-channel, same lineage) | `targeted_level2_field_stability_v0.1.md` (SHA-256 `597d33c3…`) | `targeted_level2_field_stability_v0.1_intake.md` (intake audit) + `verify_targeted_level2_field_stability_v0.1.py` | queued — agenda in the companion §6 | First-disagreement localization L2-T1..T5: 19/19 exact model-check PASS (~1.57M pair instances); exposure bounds turn level 2 into a calculated refinement; proposes O29–O38 |
 
 ## 1. The frozen bases
 
@@ -270,12 +271,49 @@ Artifact map only; the adjudicated content lives on
   a change on Jason's word (CE-A7); the refinement-agenda items
   dispositioned, no panel convened now (CE-A8).
 
+- **`walt/math/targeted_level2_field_stability_v0.1.md`** — *Targeted
+  Level-2 Field-Swap Geometry for Unified Walt* (received verbatim
+  2026-08-24, hand-ferried by Jason later the same day; checksum-pinned,
+  SHA-256 `597d33c3…`; same Pro-session lineage — the parent names the
+  calculated-evidence handoff as its prerequisite and extends it). The
+  targeting mathematics for level 2: the field-disagreement frontier
+  `𝓕_{0,1}`, first-disagreement localization (**L2-T1**), the root-action
+  field Lipschitz bound `|Q_a^(1) − Q_a^(0)| ≤ R_a` (**L2-T2**), winner
+  stability under margin > exposure sum (**L2-T3**), safe admissible-set
+  screening (**L2-T4**), eventual periodicity of deterministic
+  best-response towers (**L2-T5**), three mechanically distinct exposure
+  tiers, exposure rungs E0–E4 (exact equality → structural cover →
+  clairvoyant reach → information-consistent split-reach solve → exact
+  closure), first-split traces as model-grounded explanations, the Gran
+  anchor experiments G1–G4, the L2-E0..E6 experiment program, and
+  proposed obligations **O29–O38**. Cycling is typed and instrumented,
+  never assumed away and never damped without a separate intake.
+- **`walt/math/targeted_level2_field_stability_v0.1_intake.md`** — **the
+  intake companion** (maintained). The theorems are structural, so the
+  mechanical route is exact finite-game model checking
+  (`verify_targeted_level2_field_stability_v0.1.py`, stdlib rationals, no
+  floats, no randomness): 1,584 enumerated games, every
+  information-consistent focal policy and world, **19/19 checks PASS** —
+  L2-T1 on 98,688 pointwise instances, the pair bound on 1,573,632
+  ordered pairs, L2-T2..T4 with exact suprema over the full policy sets,
+  screening soundness under deliberately loosened bounds, the E2
+  clairvoyant rung, and all eight L2-E0 fixture phenomena exhibited
+  (including a genuine period-4 best-response cycle). Records the
+  vocabulary audit (one mention-only "certificate" = the reservation
+  sentence itself; no bare-θ usage), the O29–O38 and L2-prefix freshness
+  checks, the code-boundary audit (consumes landed `solver::evidence` /
+  `controller`; `solver::field` / `exposure` / `field_swap` are green
+  field), the LEVEL2-PROBE reconciliation (probe = detection layer inside
+  the targeted controller), the Gran-anchor gap (game seeds not in-repo;
+  reconstruction pending on the plunge side), and the seven-point
+  adjudication agenda.
+
 ## 7. The pinned manifests
 
 The `.sha256` files under `walt/math/` are **pinned freeze artifacts** — never
 edited, superseded only by append-only re-issue.
 
-Only the three received parents below carry companion `.sha256` files; the
+Only the four received parents below carry companion `.sha256` files; the
 M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
 
 | File | What it pins | Fixed at |
@@ -286,9 +324,17 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
 | `gpu_native_trick1_m0_m2_sources_v1.sha256` | The cumulative M0–M2 source closure, **byte-immutable** — the `M2BuildIdentityV1` the standing M2 receipt names | GT1-A17 / freeze 56 |
 | `gpu_native_trick1_m0_m2_sources_v2.sha256` | The post-fold re-issue at the unified layout — a **new** build identity (`8a780895…`), attested by no hardware receipt yet | FZ-A1..A6; re-earning deferred to [[m2-receipt-reearn]] |
 | `calculated_evidence_v0.1.sha256` | The received calculated-evidence parent's byte identity (`9b32b14f…`) | the 2026-08-24 intake |
+| `targeted_level2_field_stability_v0.1.sha256` | The received level-2 field-stability parent's byte identity (`597d33c3…`) | the 2026-08-24 intake (second drop, same day) |
 
 ## 8. Pending, and deliberately not indexed as landed
 
+- **The level-2 field-stability adjudication** — the parent is filed,
+  verified (19/19), and companioned; the ruling family has not been
+  convened yet (agenda = companion §6). Nothing from the parent is
+  binding until then; O29–O38 remain proposals.
+- **The Gran anchor reconstruction** — G1–G4 require the two Plunge game
+  seeds and full records, which live on the plunge side and are not in
+  this repository. The screenshots remain discovery artifacts.
 - **The calculated-evidence build** — the lineage is adjudicated
   (CE-A1..A8) but not yet applied: `walt/LEVEL2-PROBE.md`'s gate is
   satisfied only when the outer adaptive controller lands with
