@@ -33,6 +33,41 @@ the PANEL-A7/A8 list carried by [[panel-response-audits]]. Closing card:
    today's aggregates ship seat/trick histograms and the conditional
    outcome difference only.
 
+## Adjudicated designs (x:024 response, intaken 2026-08-25)
+
+All three deferrals now have adjudicated designs (rulings TRIPLE-A1..A7,
+`walt/CENSUS-RULINGS.md`; intake
+`walt/math/response_deferred_producers_triple_v0.1_intake.md`). The card
+stays open: closure still requires gated producers, per Done-when.
+
+1. **E3 producer = max-preserving upper CS.** No new estimator needed:
+   the shipped `sampled_split_reach` count IS S\*_n (verified at
+   intake). Build: exact inversion of the one-mean lower-tail e-process
+   on G_N at S\*_t, prefix minimum, typed result with (δ, epoch,
+   prefix, policy-class id), risk wiring per §1.8 (risks still sum
+   across screen inputs). Directional variants = separate solves,
+   separate ledger entries, coupled branches to terminal.
+2. **Dominance bound = Hazard-Exclusion Invariant.** Build the general
+   invariant verifier FIRST (single authority; sound H1, semantically
+   complete H2), then the one-round trump-extraction witness as the
+   first deliberately incomplete producer (its refusal path is part of
+   its correctness; the three-trick specimen is the standing
+   non-coverage instance). No cross-field composition without a
+   field-action-family witness. Type lock unchanged: sampled masses
+   never reach `StructuralHazardZero`.
+3. **Motifs = six-motif first-split morphology + Other**, least
+   differing coordinate of the six-coordinate signature, orthogonal
+   flags mandatory, `Other(missing_root_frame)` never guessed.
+   BINDING: current traces partition correction mass, never exposure.
+   `RevealResponse` stays refused; the prerequisite is schema
+   enrichment (branch suffixes + root_semantics_hash — also closes the
+   item-11 gap), and even then only `PartnerResponseCandidate`.
+
+Advisory build order (response §5): E3 → directional E3 → invariant
+verifier → one-round producer → motif classifier; no `RevealResponse`
+until suffixes land. Three compact mechanization candidates recorded
+for Jason's unified Lean treatment (his side project with Pro).
+
 ## Done when
 
 Each item either has a producer with gates (and the probe README's

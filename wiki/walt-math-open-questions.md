@@ -261,6 +261,23 @@ structural motif vocabulary (e.g. "reveal-response") is absent, not
 approximated, and needs a design pass before any tagged aggregate means
 anything.
 
+**Movement (x:024, 2026-08-25) — all three answered at design level.** Pro's
+response to the deferred-producers dispatch was adjudicated same-day (rulings
+**TRIPLE-A1..A7**, `walt/CENSUS-RULINGS.md`; intake
+`walt/math/response_deferred_producers_triple_v0.1_intake.md`; verifier 13/13
+PASS as session evidence): (i) resolves as the **max-preserving upper CS** —
+covering one fixed true maximizer suffices, so the branchwise-max endpoint
+covers the supremum at the *same* δ with no Bonferroni split, and endpoint
+monotonicity collapses the family to the empirical-optimum count the shipped
+solver already produces (the sup *is* a one-mean problem, for a policy you
+never need to name); (ii) resolves as the **Hazard-Exclusion Invariant** —
+sound and semantically complete, one general verifier as the single authority,
+cheap pattern producers (one-round trump extraction first) emitting witnesses
+for it; (iii) resolves as a **six-motif first-split morphology + Other** with
+mandatory orthogonal flags, partitioning correction mass only —
+`RevealResponse` stays refused pending raw suffix enrichment. Design in hand ≠
+producers built: the card stays open until each has a gated producer.
+
 ### 11. The x:018 conditional-moment gap
 
 **Status: named in correspondence, awaiting Pro's reply.** The fee-correlation

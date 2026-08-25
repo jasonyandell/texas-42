@@ -2,10 +2,15 @@
 slug: deferred-producers-triple
 number: 024
 channel: new-chat
-status: "DISPATCHED 2026-08-24 (hand-ferried by Jason, single dispatch, quota cleared by his delivery). Response pending."
+status: "DISPATCHED 2026-08-24 (hand-ferried by Jason, single dispatch, quota cleared by his delivery). Response received 2026-08-25 and adjudicated same day: inbox 024-response-deferred-producers-triple-v0.1.md; intake walt/math/response_deferred_producers_triple_v0.1_intake.md; rulings TRIPLE-A1..A7."
 deliverable: three-part design response — (1) theorem + proof of an anytime-valid upper confidence bound on a supremum of means, with validity conditions under the stated coupling and an enumeration-verifiable exact-rational worked example; (2) the weakest machine-checkable structural sufficient condition for zero hazard mass, with a worked example and an explicit non-coverage statement; (3) a motif alphabet as decidable predicates over the declared trace fields, with coverage/exclusivity analysis and per-motif aggregate typing
 ---
-STATUS: DISPATCHED 2026-08-24, hand-ferried by Jason (x:024). The ferried
+STATUS: DISPATCHED 2026-08-24, hand-ferried by Jason (x:024). Response
+received 2026-08-25 (hand-delivered by Jason with its exact-rational
+companion verifier), adjudicated same day — all three parts answered
+(Part 1 CONSTRUCTION, Part 2 CONDITION, Part 3 ALPHABET); see
+`walt/math/response_deferred_producers_triple_v0.1_intake.md` and
+rulings TRIPLE-A1..A7 in `walt/CENSUS-RULINGS.md`. The ferried
 text is the Pro-facing prompt below the internal note.
 
 > **Internal note (not part of the ferried text).** Thread: **[L2]**; Part 1 straddles

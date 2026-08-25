@@ -13587,3 +13587,102 @@ ceremony if he wants any point refined first. Thread labels per his
   prunes nothing (the h8-t4 regime). The Λ correction (31/1200, was
   41/1200) is applied at both committed sites with correction notes;
   component counts were always correct. [L2]
+
+## The deferred-producers adjudication (2026-08-25)
+
+*Authorization note: Jason hand-ferried dispatch x:024 (2026-08-24) and
+hand-delivered the response (2026-08-25, "I think it's promising");
+filed under the standing same-lineage go for Pro-channel mathematics.
+These rulings are append-superseded without ceremony if he wants any
+point refined. Thread: **[L2]** throughout; Part 1 consumes the CE
+evidence engine through the sanctioned one-directional crossing.
+Intake: `walt/math/response_deferred_producers_triple_v0.1_intake.md`.*
+
+- **TRIPLE-A1 (intake ACCEPTED at instrument tier).** The three-part
+  response answers all three slice-3 deferrals in the demanded shapes:
+  Part 1 CONSTRUCTION, Part 2 CONDITION, Part 3 ALPHABET. Verifier
+  re-run 13/13 PASS, exit 0 (session evidence, scratch tier),
+  including the exhaustive 256-table × 65,536-stream Part-1 sweep
+  (worst finite-horizon undercoverage 11/128 < 1/4). Proof ledgers
+  P1–P6 step-checked sound. Nothing is promoted: every statement here
+  is exploratory instrument tier. [L2]
+- **TRIPLE-A2 (max-preserving upper CS ADOPTED for the E3 producer).**
+  Theorem M1: for finitely many branch means under arbitrary
+  dependence, the branchwise-max upper endpoint covers R = max_ρ μ_ρ
+  at the SAME δ — no Bonferroni split — because coverage of one fixed
+  true maximizer suffices. Corollary M2: endpoint monotonicity in the
+  success count collapses the family to the single empirical-optimum
+  integer S*_n, which the shipped `sampled_split_reach` already
+  computes (one shared information-consistent policy across the
+  sample; verified in code at intake — a per-world choice would be the
+  fused E2 count and is NOT what ships). The producer design is:
+  invert the existing one-mean lower-tail e-process on the grid G_N at
+  S*_t, take the prefix minimum. Pathwise E3 ≤ fused E2 (max-sum
+  inequality); the specimen R = 1/2 ≤ E3 = 3/4 < E2 = 1 stands.
+  Branch-mixture e-processes are RETIRED for upper bounds on maxima
+  (wrong orientation: mixtures test the intersection null and yield
+  lower confidence). Standing obligations: fixed policy class per
+  epoch; declared i.i.d. stream; known fiber size N for the grid;
+  §1.8 — risks across distinct screen inputs still sum against the
+  screen budget; sampled E3 results carry (action, direction, upper,
+  δ, epoch, prefix, policy-class id) and are never called tighter
+  than exact E4 on realized numbers. [L2 consuming CE machinery]
+- **TRIPLE-A3 (directional E3 ADOPTED).** The same construction on the
+  directional indicators gives valid uppers for R⁺ and R⁻ at their
+  declared risks, as separate solves with separate ledger entries;
+  the maximizing policies may differ. Directional counts require
+  coupled branches run to terminal — the PANEL-A8 cost note applies
+  unchanged. [L2]
+- **TRIPLE-A4 (Hazard-Exclusion Invariant ADOPTED as the single
+  dominance-bound authority).** There is no canonical weakest LOCAL
+  exchange predicate; the weakest exact condition is unreachability of
+  the hazard terminal (u_a = 0, u_b = 1) in the deterministic paired
+  product system. The Hazard-Exclusion Invariant (initial coverage,
+  forward closure, terminal safety) is sound (H1) and semantically
+  complete (H2: the reachable set is itself an invariant);
+  incompleteness lives only in the witness language. PANEL-A7's
+  "valid bound" route is inhabited ONLY by invariant witnesses checked
+  by one general verifier, built BEFORE any pattern library; pattern
+  producers emit witnesses and never own dominance semantics. The
+  type lock stands sharpened: `SampledPairwiseMasses` has no dominance
+  method, and the δ = 0 type (`StructuralHazardZero`) is unreachable
+  from any sampled object. Fiber coverage of the initial cells may be
+  proved by the exact fiber counter (complement empty), never by
+  sampling. [L2; dominance objective-level]
+- **TRIPLE-A5 (one-round trump-extraction witness ADOPTED as the first
+  incomplete producer).** It certifies the highest-trump-versus-
+  vulnerable-tile pattern under its eight hypotheses and DECLINES
+  outside them; the refusal path is part of its correctness. The
+  three-trick two-round extraction specimen (dominance real, witness
+  declines) is the standing non-coverage instance. No cross-field
+  composition: a witness under one field proves nothing under another;
+  a field-action-family witness is strictly stronger and never
+  automatic. [L2]
+- **TRIPLE-A6 (first-split motif alphabet ADOPTED for correction
+  traces).** Six mutually exclusive motifs (LeadContextFork,
+  ImmediateControlFork, CountCommitmentFork, TrumpCommitmentFork,
+  SuitShapeFork, StrengthCommitmentFork) + Other, assigned by the
+  least differing coordinate of the six-coordinate local signature;
+  all coordinate-difference flags are emitted alongside (the ordering
+  is taxonomy convention, not causal ranking — the verifier's own
+  fixture histogram shows priority capture in action). Root semantics
+  must resolve against an immutable root frame or the classifier
+  returns Other(missing_root_frame) — it never guesses. BINDING on
+  every aggregate: current traces exist only for u₀ ≠ u₁ worlds, so
+  motifs partition correction mass, never field exposure; the
+  response's refused-aggregates list (causal claims, pooled
+  good/bad-play labels, exposure-by-motif from correction-only traces,
+  dominance from sampled motif hazards, cross-fiber pooling) is
+  adopted verbatim; no numerical residual-rate forecast is invented.
+  Sampled-prefix motif histograms are descriptive, never screen
+  inputs. [L2]
+- **TRIPLE-A7 (RevealResponse remains REFUSED; the path to a
+  second-layer vocabulary is schema enrichment).** No causal or
+  response label is decidable from the current trace. The
+  prerequisite producer change is raw and replayable: persist
+  branch0/branch1 post-split suffixes and a root_semantics_hash —
+  which also closes the flagged item-11 gap (the distinguishing
+  public observation becomes explicit). Any later label is
+  PartnerResponseCandidate at most, never a causal attribution;
+  but-for attribution would require an intervention-replay producer,
+  a separate construction not currently wanted. [L2]
