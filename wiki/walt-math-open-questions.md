@@ -290,6 +290,27 @@ open here is the follow-on tightening (an exact one-policy directional E3
 solve; richer witness languages beyond the two-trick v1; the
 `PartnerResponseCandidate` second layer over the now-persisted suffixes).
 
+**Movement (step 9, 2026-08-25) — the detection layer ran; the wake-up
+question has its first corpus-level data.** PR #49, `solver::wakeup` +
+`walt/probes/step9/` (exploratory tier; the probe README owns the numbers).
+The headline shape, on the predeclared corpus at one declared epoch pair:
+the general wake-up is real but lives in the **value and decision channels,
+not the response channel** — exact value wake 18/18 and decision wake 8/18
+(five outright winner flips), while pivotal mass *drops* under σ1 on 13/18
+pairs. Receipt h4's three pairs all reach **q₁ = 0 exactly** (lawful
+enumeration-route exact-zeros): its level-0 disagreement structure was pure
+field artifact — h7-t5's slice-2 negative answer now has company in the
+opposite direction of the naive expectation. h7 (6-2 v 6-3) exhibits §14.4's
+separation in the wild (dq = 0 with value+decision wake). On the
+count-timing family the σ1 leg **newly-settles 2/6 decisions the σ0 leg
+leaves fogged**, and 𝓘 runs field1-higher 5/6 — the "level 2 makes
+decisions easier to sample" hypothesis's direction on exactly its motivating
+family, while the exact route shows the opposite 𝓘 sign on 12/18 receipt
+pairs. Family-specific, not a law. The question's remaining open form: does
+the count-timing 𝓘 direction generalize across the near-tie regime, and
+what does the partner-response channel look like at roots where the modeled
+*non-bidder* seats carry the split mass?
+
 ### 11. The x:018 conditional-moment gap
 
 **Status: named in correspondence, awaiting Pro's reply.** The fee-correlation
@@ -340,6 +361,16 @@ suggests exposure grows toward 1 going backward. This remains the era's
 central open cost question. Instrument records:
 [walt-calculated-evidence](walt-calculated-evidence.md).
 
+**Movement (step 9, 2026-08-25):** the sampled route's mechanism notes add
+trick-1–2 data in the same direction, at fixed-policy tier: on the
+count-timing family 255–256/256 worlds reach the field-disagreement
+frontier, with first splits concentrated at the modeled bidder in tricks
+1–2. That is frontier reachability under frozen pairs — *not* a rung run,
+and no `RootActionExposureUpper` has yet been computed at tricks 1–3 — so
+the open question stands unchanged, with one more point of evidence that
+early-trick screens will not prune and the targeted controller must lean on
+directional bounds and the sampled E3 route there.
+
 ### 14. The per-epoch σ0 declaration
 
 **Status: half-answered by declaration; the composition half is still open
@@ -361,6 +392,15 @@ accumulated evidence and the risk ledger when the declared field model itself
 changes across epochs of one run. Until ruled, the safe reading stays the
 strict one — a σ0 change is a new experiment, composing nothing.
 
+**Movement (step 9, 2026-08-25):** the local convention was exercised at a
+second declared epoch pair (σ0 = `Level0{n0=2}`, σ1 = `Level1{n_outer=4,
+n0=2}`, both FieldIds on every record) — and step 9 shows the sound way to
+*consume* across experiments without composing: its σ0 was chosen equal to
+step 8's evaluation field, and the bin **asserts** the σ0 leg reproduces
+step 8's recorded exact wins rather than importing them. Reproduction under
+an identical declared field is not cross-epoch composition; the composition
+half of this question remains unruled and the strict reading stands.
+
 ### 15. The cycle tripwire — adopted, armed by ruling, never run
 
 **Status: pending by construction.** L2-A7 adopted the cycle discipline
@@ -378,6 +418,17 @@ now has its first entries — the screen classifies roots, and h8-t4 came back
 roots at one epoch pair is not a corpus, and h7-t5's `FieldSensitive` 3/3 is
 an exact three-way tie at V₀ = 0 rather than value sensitivity — so the
 precondition is nearer, not met, and the tripwire remains unrun.
+
+*Annotation (2026-08-25, after step 9):* the corpus half moved materially —
+10 roots / 24 pairs at one declared epoch pair now carry **typed wake
+labels** (8/18 exact decision wakes including five outright winner flips;
+2/6 sampled newly-settled), which is a real field-sensitive anchor corpus
+in the making rather than three screen verdicts. Two gaps keep the
+precondition unmet: it is still **one epoch pair**, and — the now-binding
+one — the tripwire compares σ₁ against **σ₂**, and no level-2 field
+machinery exists to supply the σ₂ leg. The tripwire stays unrun and level-3
+work stays fenced; the precondition's remaining weight has shifted from
+"grow the corpus" to "a σ₂ exists to compare."
 
 ---
 

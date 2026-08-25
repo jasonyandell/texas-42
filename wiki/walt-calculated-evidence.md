@@ -628,12 +628,76 @@ byte-identically by passing `128` explicitly; a 512-epoch regeneration is a
 separate run that supersedes nothing, because it is a different epoch by
 construction and every record carries its own config.
 
+## Step 9: the detection layer runs [L2 thread]
+
+**PR #49 / `4301754`, 2026-08-25 — exploratory tier throughout; the probe
+directory's own README (`walt/probes/step9/README.md`) is the owning record
+and is not restated here.** `solver::wakeup` is the LEVEL2-PROBE detection
+layer as amended: the CE §14 wake-up split in the L2-A5 role, gated by
+`walt/walt/tests/solver_wakeup.rs` plus compile_fail locks that keep the
+three wake-up types (response / value / decision) and the §14.7
+exact-zero-vs-practical-zero boundary mechanically separate. Cost is
+compared only by 𝓘_f interval verdicts — the module exposes no hardness
+accessor at all. The declared epoch pair makes L2-A6's consumption clause
+mechanical rather than aspirational: σ0 = `Level0{n0=2}` is *literally*
+step 8's exact evaluation field, and the bin asserts the σ0 leg reproduces
+the recorded shadow exact wins on every flip fixture before any paired
+number is written.
+
+What the first run (predeclared corpus per O14: the 18 step-8 flip-fixture
+pairs exact, the count-timing six sampled) reads, at estimate tier:
+
+- **Exact route:** value wake-up 18/18, decision wake-up 8/18 with five
+  outright exact-winner flips — but response wake-up is the *rarest*
+  signal, and on 13/18 pairs pivotal mass **drops** under σ1. Receipt h4
+  is the standout: all three of its pairs reach **q₁ = 0 exactly** (lawful
+  exact-zero by enumeration) — its σ0 disagreement structure was entirely
+  a level-0-field artifact. And h7 (6-2 v 6-3) wakes value+decision with
+  **dq = 0 exactly** — §14.4's "q says nothing" separation observed in
+  real data.
+- **Sampled route (count-timing family):** response and value honestly
+  open 6/6 (the predicted near-tie fog; no practical-zero minted), but
+  **decision newly-settles on 2/6 under σ1 only** — the upgraded field
+  separates options the modeled field leaves fogged, both times picking
+  hold-the-count. 𝓘 verdicts run field1-higher on 5/6 — the "level 2
+  makes decisions easier to sample" hypothesis's direction on exactly its
+  motivating family — while the exact route shows the opposite sign on
+  12/18 receipt pairs. **Family-specific, not a law**, and the records say
+  so. Mechanism notes put 255–256/256 worlds at the disagreement frontier
+  with first splits concentrated at the modeled bidder in tricks 1–2.
+
+The card [[level2-field-swap-probe]] closed on its done-when (the output
+contract's Ĥ column having been superseded by the 𝓘 verdicts under CE-A6,
+which owns that correction).
+
+## The panel-conformance audits land [CE and L2 threads]
+
+**PR #48 / `0224471`, 2026-08-25.** The two audits PANEL-A3/A5/A6 carded
+(belief is not a receipt) are now committed conformance notes with code
+cites — `walt/audits/panel_response_conformance.md`, session-evidence tier
+about code at a named commit, promoting nothing — plus eight gates in
+`walt/walt/tests/solver_panel_conformance.rs`. All points CONFORMS: the
+controller preallocates all edge risk totally at construction (no opening
+path exists at all), batch semantics fold per-index liveness in order
+(W8/W9), pause state is the terminal `Unresolved` evaluation carrying every
+W11 field, and the slice-2 coupled replay implements exactly the PANEL-A6
+stopping time τ, conjunct by conjunct. Two things travel with the green:
+the **W10 verdict is vacuous conformance** — typed `InconsistentEvidence`
+does not exist in the codebase, and the CONFORMS rests on the trigger being
+structurally unreachable in the one-common-stream design (strict-majority
+crossings telescope to zero around any cycle), so any future
+non-common-stream variant **must** build the typed result — and the **O26
+batch-boundary divergence witness**, which had existed only in the
+scratch-tier verifier, is now a ported Rust CI gate. The card
+[[panel-response-audits]] closed all-CONFORMS.
+
 ## In flight, and deliberately not presented as results
 
-- **Step 9 — the level-2 probe** as the detection layer (L2-A5), consuming
-  slice 2's rung/screen machinery and step 8's per-pair E0 baselines as its
-  Stage-1 evidence layer (L2-A6); **step 10 — recurse inward** — last, per the
-  Phase-1 fence.
+- **The targeted field-1 controller** — the consumer the rungs, screen,
+  ladder, and producers were built to feed (level 2 as calculated
+  refinement: pay σ1 only where the screen says the field matters), now
+  design-informed by step 9's first detection readings; then **step 10 —
+  recurse inward** — last, per the Phase-1 fence.
 - **The controller as an opt-in play mode is now built** (PR #37, the section
   above) and is exactly that: opt-in. What has *not* happened is any
   comparison — no arena run, no conformance gate, no strength number of any
