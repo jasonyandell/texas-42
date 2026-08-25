@@ -29,10 +29,31 @@
 //! enumerate the complete fiber and every focal branching, the covers
 //! count the complete fiber — so each bound is a proved over-approximation
 //! of `sup_ρ Pr(D_ρ = 1)`, never an observation of some policies'
-//! exposure. The sampled/adaptive E3 producer is deliberately NOT built in
-//! this slice; the exact route ([`exact_split_reach`]) is the only
-//! split-reach solve, and its rung label (E4) keeps it mechanically
-//! distinguishable from any future sampled variant.
+//! exposure.
+//!
+//! SLICE 3 [L2 thread] — adopted from Part VI of the x:019–023 panel
+//! response (`exchange/inbox/019-023-response-panel-and-cancellation-v0.1.md`
+//! §35–§38) under rulings PANEL-A7/A8 (`walt/CENSUS-RULINGS.md`):
+//!
+//! - **Directional rungs** ([`directional_reach`]): valid upper bounds
+//!   `(R_a^+)^U, (R_a^-)^U` on the directional root-action correction
+//!   masses `R_a^± = sup_ρ Pr(u_1 = 1, u_0 = 0)` (resp. the mirror), plus
+//!   the outcome-change reach `R_a^outcome = sup_ρ Pr(u_1 ≠ u_0)`. The
+//!   coupled branches run to a DECIDED terminal outcome (response §38,
+//!   PANEL-A8) — costlier than split reach. The extended rung ladder
+//!   `R_a^± ≤ R_a^outcome ≤ R_a^exposure` is asserted inside the producer,
+//!   where every side is computed.
+//! - **The sampled E3 sibling** ([`sampled_split_reach`]): the §7.4
+//!   split-reach objective solved over a declared stream-prefix sample. It
+//!   is an ESTIMATE tier, mechanically distinct from exact E4: the type
+//!   has no `screenable_upper`, no rung accessor, and no conversion to
+//!   [`RootActionExposureUpper`] — a sampled value (in either direction)
+//!   never feeds the screen (§7.4's optimization lock, O34). The δ-valid
+//!   admissible-upper E3 route of §7.4 is NOT built in this slice
+//!   (deferred loudly in the slice-3 probe README).
+//! - **The Stage-1 `ExactRoot` baseline producer** ([`exact_root_value`]):
+//!   the exact optimized root-action value `Q_a` under ONE field, by the
+//!   same per-public-node argument as rung E4 (no strategy fusion, O34).
 
 use std::fmt;
 
@@ -684,16 +705,29 @@ impl ReachWalk<'_> {
         field0: &'a FieldModel,
         field1: &'a FieldModel,
     ) -> ReachWalk<'a> {
-        let kernel = root.kernel();
-        let total =
-            kernel.viewer_hand().len() + kernel.hidden().iter().map(|h| h.capacity).sum::<usize>();
         assert!(
             u128::try_from(worlds.len()).expect("fits") == root.count(),
             "the reach walk enumerates the complete fiber"
         );
+        ReachWalk::setup_declared(root, position, worlds, field0, field1)
+    }
+
+    /// The walk over a DECLARED world list (the sampled E3 route): the
+    /// caller's domain declaration replaces the complete-fiber assertion.
+    /// Every exact producer goes through [`ReachWalk::setup`] instead.
+    fn setup_declared<'a>(
+        root: &'a CanonicalRoot,
+        position: &'a RootPosition,
+        worlds: &'a [World],
+        field0: &'a FieldModel,
+        field1: &'a FieldModel,
+    ) -> ReachWalk<'a> {
+        let kernel = root.kernel();
+        let total =
+            kernel.viewer_hand().len() + kernel.hidden().iter().map(|h| h.capacity).sum::<usize>();
         assert!(
             u32::try_from(worlds.len()).is_ok(),
-            "an enumerable reach-walk fiber fits u32 indices"
+            "an enumerable reach-walk world list fits u32 indices"
         );
         ReachWalk {
             position,
@@ -727,13 +761,13 @@ impl ReachWalk<'_> {
 
     /// Group the still-live worlds at one non-focal node: each world's
     /// acting hand is queried against BOTH fields; a disagreeing world is
-    /// reported through `split`, an agreeing world joins the group of its
-    /// common action.
+    /// reported through `split` with the two chosen tiles, an agreeing
+    /// world joins the group of its common action.
     fn partition(
         &self,
         exec: &PublicExec,
         idxs: &[u32],
-        mut split: impl FnMut(u32),
+        mut split: impl FnMut(u32, Domino, Domino),
     ) -> Vec<(Domino, Vec<u32>)> {
         let seat = exec.seat();
         let led = exec
@@ -761,7 +795,7 @@ impl ReachWalk<'_> {
             } else {
                 // A state of the disagreement frontier F_{0,1}: the world
                 // leaves the pre-split walk here.
-                split(i);
+                split(i, t0, t1);
             }
         }
         groups
@@ -795,7 +829,7 @@ impl ReachWalk<'_> {
                 self.mark(&child, &live, reached);
             }
         } else {
-            let groups = self.partition(exec, &live, |i| {
+            let groups = self.partition(exec, &live, |i, _, _| {
                 reached[usize::try_from(i).expect("fits")] = true;
             });
             for (tile, group) in groups {
@@ -836,7 +870,7 @@ impl ReachWalk<'_> {
                 .expect("a nonempty legal set")
         } else {
             let mut split = 0u64;
-            let groups = self.partition(exec, idxs, |_| split += 1);
+            let groups = self.partition(exec, idxs, |_, _, _| split += 1);
             split
                 + groups
                     .into_iter()
@@ -848,6 +882,334 @@ impl ReachWalk<'_> {
                     .sum::<u64>()
         }
     }
+
+    /// Whether the viewer-objective terminal indicator is already decided
+    /// at one branch's public state — see [`decided_success`].
+    fn decided(&self, exec: &PublicExec) -> Option<bool> {
+        decided_success(
+            self.position,
+            self.viewer,
+            exec.banked,
+            exec.history.len() == self.total,
+        )
+    }
+
+    /// Group the live worlds at one non-focal node of a POST-SPLIT branch
+    /// by ONE field's choice (the branch runs under its own field alone,
+    /// exactly like the coupled replay's `run_to_terminal`).
+    fn partition_single(
+        &self,
+        exec: &PublicExec,
+        field: &FieldModel,
+        idxs: &[u32],
+    ) -> Vec<(Domino, Vec<u32>)> {
+        let seat = exec.seat();
+        let led = exec
+            .plays
+            .first()
+            .map(|d| self.position.decl.led_context(*d));
+        let played = exec.played_since();
+        let record = exec.record(self.position);
+        let mut groups: Vec<(Domino, Vec<u32>)> = Vec::new();
+        for &i in idxs {
+            let hand = self.worlds[usize::try_from(i).expect("fits")]
+                .hand(seat)
+                .difference(played);
+            let legal = legal_plays(self.position.decl, hand, led);
+            assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+            let tile = field.choose(self.position.decl, hand, legal, &record);
+            match groups.iter_mut().find(|(t, _)| *t == tile) {
+                Some((_, group)) => group.push(i),
+                None => groups.push((tile, vec![i])),
+            }
+        }
+        groups
+    }
+
+    /// The pre-split directional walk (response §38; PANEL-A8): identical
+    /// branching structure to [`Self::max_count`] — one action per
+    /// public-history node, maximized at focal nodes — but a split world
+    /// is NOT counted at the frontier; its coupled pair runs to a decided
+    /// terminal outcome and is counted only when the named directional
+    /// event holds.
+    ///
+    /// Fusion caveat, safe direction only: post-split, the focal choices
+    /// in the two branches (and across distinct split groups) are
+    /// maximized independently, which over-approximates every genuine
+    /// single ρ ∈ Π_a — so the optimum here is a valid UPPER bound on
+    /// `R_a^±`/`R_a^outcome`, never claimed exact and never a playable
+    /// policy (the §7.3 direction of the E2 caveat).
+    fn directional_count(
+        &self,
+        objective: DirectionalObjective,
+        exec: &PublicExec,
+        idxs: &[u32],
+    ) -> u64 {
+        if idxs.is_empty() {
+            return 0;
+        }
+        if self.decided(exec).is_some() {
+            // The shared public state has already decided the outcome, and
+            // decidedness is monotone in banked points: both coupled
+            // branches inherit the same terminal indicator on every
+            // continuation of every world here, so u1 = u0 and no
+            // directional event can occur.
+            return 0;
+        }
+        assert!(
+            exec.history.len() < self.total,
+            "the 42-point pool exhausts at terminal, so an undecided state has plays left"
+        );
+        if exec.seat() == self.viewer {
+            let led = exec
+                .plays
+                .first()
+                .map(|d| self.position.decl.led_context(*d));
+            let hand = self.viewer_hand.difference(exec.played_since());
+            let legal = legal_plays(self.position.decl, hand, led);
+            assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+            legal
+                .iter()
+                .map(|tile| {
+                    let mut child = exec.clone();
+                    child.play(self.position, tile);
+                    self.directional_count(objective, &child, idxs)
+                })
+                .max()
+                .expect("a nonempty legal set")
+        } else {
+            let mut split_groups: Vec<((Domino, Domino), Vec<u32>)> = Vec::new();
+            let groups = self.partition(exec, idxs, |i, t0, t1| {
+                match split_groups.iter_mut().find(|(pair, _)| *pair == (t0, t1)) {
+                    Some((_, group)) => group.push(i),
+                    None => split_groups.push(((t0, t1), vec![i])),
+                }
+            });
+            let mut count = 0u64;
+            for ((t0, t1), group) in split_groups {
+                let mut e0 = exec.clone();
+                e0.play(self.position, t0);
+                let mut e1 = exec.clone();
+                e1.play(self.position, t1);
+                count += self.directional_branch0(objective, &e0, &e1, &group);
+            }
+            for (tile, group) in groups {
+                let mut child = exec.clone();
+                child.play(self.position, tile);
+                count += self.directional_count(objective, &child, &group);
+            }
+            count
+        }
+    }
+
+    /// Post-split branch 0: run execution 0 (under σ0 alone) until its
+    /// viewer-objective outcome is decided, then hand the surviving worlds
+    /// to branch 1. Branch independence makes the sequential order valid:
+    /// nothing in execution 1 depends on execution 0's path beyond the
+    /// per-world terminal indicator it produces.
+    fn directional_branch0(
+        &self,
+        objective: DirectionalObjective,
+        exec0: &PublicExec,
+        exec1: &PublicExec,
+        idxs: &[u32],
+    ) -> u64 {
+        if idxs.is_empty() {
+            return 0;
+        }
+        if let Some(u0) = self.decided(exec0) {
+            // Branch 0's indicator is settled for every continuation:
+            // prune the impossible directions, then run branch 1.
+            match objective {
+                DirectionalObjective::Plus if u0 => return 0,
+                DirectionalObjective::Minus if !u0 => return 0,
+                _ => {}
+            }
+            return self.directional_branch1(objective, u0, exec1, idxs);
+        }
+        assert!(
+            exec0.history.len() < self.total,
+            "the 42-point pool exhausts at terminal, so an undecided branch has plays left"
+        );
+        if exec0.seat() == self.viewer {
+            let led = exec0
+                .plays
+                .first()
+                .map(|d| self.position.decl.led_context(*d));
+            let hand = self.viewer_hand.difference(exec0.played_since());
+            let legal = legal_plays(self.position.decl, hand, led);
+            assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+            legal
+                .iter()
+                .map(|tile| {
+                    let mut child = exec0.clone();
+                    child.play(self.position, tile);
+                    self.directional_branch0(objective, &child, exec1, idxs)
+                })
+                .max()
+                .expect("a nonempty legal set")
+        } else {
+            self.partition_single(exec0, self.field0, idxs)
+                .into_iter()
+                .map(|(tile, group)| {
+                    let mut child = exec0.clone();
+                    child.play(self.position, tile);
+                    self.directional_branch0(objective, &child, exec1, &group)
+                })
+                .sum()
+        }
+    }
+
+    /// Post-split branch 1: run execution 1 (under σ1 alone) until its
+    /// indicator is decided, then count the worlds whose (u1, u0) pair
+    /// realizes the named directional event.
+    fn directional_branch1(
+        &self,
+        objective: DirectionalObjective,
+        u0: bool,
+        exec1: &PublicExec,
+        idxs: &[u32],
+    ) -> u64 {
+        if idxs.is_empty() {
+            return 0;
+        }
+        if let Some(u1) = self.decided(exec1) {
+            let hit = match objective {
+                DirectionalObjective::Plus => u1 && !u0,
+                DirectionalObjective::Minus => !u1 && u0,
+                DirectionalObjective::Outcome => u1 != u0,
+            };
+            return if hit {
+                u64::try_from(idxs.len()).expect("fits")
+            } else {
+                0
+            };
+        }
+        assert!(
+            exec1.history.len() < self.total,
+            "the 42-point pool exhausts at terminal, so an undecided branch has plays left"
+        );
+        if exec1.seat() == self.viewer {
+            let led = exec1
+                .plays
+                .first()
+                .map(|d| self.position.decl.led_context(*d));
+            let hand = self.viewer_hand.difference(exec1.played_since());
+            let legal = legal_plays(self.position.decl, hand, led);
+            assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+            legal
+                .iter()
+                .map(|tile| {
+                    let mut child = exec1.clone();
+                    child.play(self.position, tile);
+                    self.directional_branch1(objective, u0, &child, idxs)
+                })
+                .max()
+                .expect("a nonempty legal set")
+        } else {
+            self.partition_single(exec1, self.field1, idxs)
+                .into_iter()
+                .map(|(tile, group)| {
+                    let mut child = exec1.clone();
+                    child.play(self.position, tile);
+                    self.directional_branch1(objective, u0, &child, &group)
+                })
+                .sum()
+        }
+    }
+
+    /// The single-field optimized value walk (the Stage-1 `ExactRoot`
+    /// producer's engine): max at focal nodes, ONE field's partition at
+    /// non-focal nodes, decided-outcome payoff. Callers pass the SAME
+    /// field as both σ0 and σ1 through [`ReachWalk::setup`]; only
+    /// `field0` is consulted here.
+    fn value_count(&self, exec: &PublicExec, idxs: &[u32]) -> u64 {
+        if idxs.is_empty() {
+            return 0;
+        }
+        if let Some(u) = self.decided(exec) {
+            return if u {
+                u64::try_from(idxs.len()).expect("fits")
+            } else {
+                0
+            };
+        }
+        assert!(
+            exec.history.len() < self.total,
+            "the 42-point pool exhausts at terminal, so an undecided state has plays left"
+        );
+        if exec.seat() == self.viewer {
+            let led = exec
+                .plays
+                .first()
+                .map(|d| self.position.decl.led_context(*d));
+            let hand = self.viewer_hand.difference(exec.played_since());
+            let legal = legal_plays(self.position.decl, hand, led);
+            assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+            legal
+                .iter()
+                .map(|tile| {
+                    let mut child = exec.clone();
+                    child.play(self.position, tile);
+                    self.value_count(&child, idxs)
+                })
+                .max()
+                .expect("a nonempty legal set")
+        } else {
+            self.partition_single(exec, self.field0, idxs)
+                .into_iter()
+                .map(|(tile, group)| {
+                    let mut child = exec.clone();
+                    child.play(self.position, tile);
+                    self.value_count(&child, &group)
+                })
+                .sum()
+        }
+    }
+}
+
+/// The total banked points of one complete hand: 7 trick points plus the
+/// 35 count points. Gated live: every walk asserts a terminal state is
+/// decided, which fails if any hand's banked total misses this value.
+const TOTAL_POINTS: u32 = 42;
+
+/// Whether the viewer-objective terminal make indicator is already decided
+/// at a public state, for EVERY continuation: the declaring side has
+/// banked its bid (monotone — points only accumulate), or the unbanked
+/// remainder of the 42-point pool cannot reach it. At a terminal state the
+/// pool is empty, so the answer is always `Some` there (`at_terminal`
+/// asserts it).
+fn decided_success(
+    position: &RootPosition,
+    viewer: Seat,
+    banked: [u32; 2],
+    at_terminal: bool,
+) -> Option<bool> {
+    let total = banked[0] + banked[1];
+    assert!(
+        total <= TOTAL_POINTS,
+        "banked points never exceed the 42-point pool"
+    );
+    let declared = banked[position.declaring_team.index()];
+    let pool = TOTAL_POINTS - total;
+    let made = if declared >= position.bid {
+        Some(true)
+    } else if declared + pool < position.bid {
+        Some(false)
+    } else {
+        None
+    };
+    assert!(
+        !(at_terminal && made.is_none()),
+        "the 42-point pool exhausts at terminal, so a terminal outcome is decided"
+    );
+    made.map(|m| {
+        if viewer.team() == position.declaring_team {
+            m
+        } else {
+            !m
+        }
+    })
 }
 
 // ---------------------------------------------------------------------------
@@ -1044,6 +1406,22 @@ impl SplitReachExact {
     }
 }
 
+impl fmt::Display for SplitReachExact {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "SplitReachExact{{rung=E4;r={};action={};field0={};field1={};root={:#018x};\
+             fiber={}}}",
+            self.r(),
+            self.action,
+            self.field0,
+            self.field1,
+            self.root_id,
+            self.fiber
+        )
+    }
+}
+
 /// Solve the split-reach objective exactly for one root action (rung E4).
 ///
 /// The walk tree branches exactly on public histories; every fiber world
@@ -1084,5 +1462,381 @@ pub fn exact_split_reach(
         root_id: root_identity(root, position),
         fiber: root.count(),
         frontier_worlds,
+    }
+}
+
+// ---------------------------------------------------------------------------
+// SLICE 3 — directional rungs (response §35–§38; PANEL-A8), the sampled E3
+// sibling, and the Stage-1 ExactRoot producer. [L2 thread]
+// ---------------------------------------------------------------------------
+
+/// The three directional Boolean objectives of the coupled post-split
+/// solve (response §38): terminate with (u1, u0) in the named event.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum DirectionalObjective {
+    /// `u1 = 1 ∧ u0 = 0` — the field upgrade turns fail into make.
+    Plus,
+    /// `u1 = 0 ∧ u0 = 1` — the field upgrade turns make into fail.
+    Minus,
+    /// `u1 ≠ u0` — the outcome-change reach (the disjoint union of the
+    /// two directions).
+    Outcome,
+}
+
+/// PANEL-A8 — a pair of valid upper bounds `(R_a^+)^U, (R_a^-)^U` on the
+/// directional root-action correction masses (response §35). The ONLY
+/// directional tier the §37 directional screen may consume; construction
+/// validates `[0, 1]`. This slice's one producer is the coupled fused
+/// solve ([`directional_reach`]); a sampled directional observation is
+/// never a lawful input here (the O34 lock, unchanged in direction).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct RootActionDirectionalUpper {
+    plus: BigRational,
+    minus: BigRational,
+}
+
+impl RootActionDirectionalUpper {
+    /// A pair of directional upper bounds in `[0, 1]`.
+    pub fn from_bounds(plus: BigRational, minus: BigRational) -> RootActionDirectionalUpper {
+        let zero = BigRational::from_integer(BigInt::from(0));
+        let one = BigRational::from_integer(BigInt::from(1));
+        assert!(
+            plus >= zero && plus <= one && minus >= zero && minus <= one,
+            "a directional probability bound lies in [0, 1]"
+        );
+        RootActionDirectionalUpper { plus, minus }
+    }
+
+    /// The §37 screen's upward entry: `(R_a^+)^U`, widening `U_a^(1)`.
+    pub fn screenable_plus(&self) -> &BigRational {
+        &self.plus
+    }
+
+    /// The §37 screen's downward entry: `(R_a^-)^U`, widening `L_a^(1)`.
+    pub fn screenable_minus(&self) -> &BigRational {
+        &self.minus
+    }
+}
+
+impl fmt::Display for RootActionDirectionalUpper {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "RootActionDirectionalUpper{{plus={};minus={}}}",
+            self.plus, self.minus
+        )
+    }
+}
+
+/// The coupled directional solve of one root action over the complete
+/// enumerated fiber (response §38): valid upper bounds on `R_a^+`,
+/// `R_a^-`, and `R_a^outcome`, plus the split-reach optimum of the same
+/// walk (identically rung E4's count — asserted equal to
+/// [`exact_split_reach`] wherever both run). The extended rung ladder
+/// `R_a^± ≤ R_a^outcome ≤ R_a^exposure` (PANEL-A8) is asserted at
+/// construction on the counts themselves.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct DirectionalReach {
+    /// The fixed root action `a`.
+    pub action: Domino,
+    /// `FieldId(σ0)`.
+    pub field0: FieldId,
+    /// `FieldId(σ1)`.
+    pub field1: FieldId,
+    /// The evidence-stream root identity of the position.
+    pub root_id: u64,
+    /// Exact `|Φ(I)|`.
+    pub fiber: u128,
+    /// The optimum of the Plus objective — a valid upper count for
+    /// `R_a^+ · |Φ|` (cross-branch fusion is safe-direction only).
+    pub plus_worlds: u64,
+    /// The optimum of the Minus objective.
+    pub minus_worlds: u64,
+    /// The optimum of the Outcome objective.
+    pub outcome_worlds: u64,
+    /// The split-reach optimum over the same tree (= rung E4's count).
+    pub exposure_worlds: u64,
+}
+
+impl DirectionalReach {
+    /// `(R_a^+)^U` under the uniform fiber measure.
+    pub fn plus_upper(&self) -> BigRational {
+        BigRational::new(BigInt::from(self.plus_worlds), BigInt::from(self.fiber))
+    }
+
+    /// `(R_a^-)^U` under the uniform fiber measure.
+    pub fn minus_upper(&self) -> BigRational {
+        BigRational::new(BigInt::from(self.minus_worlds), BigInt::from(self.fiber))
+    }
+
+    /// `(R_a^outcome)^U` — a diagnostic rung of the extended ladder. It is
+    /// NOT an upper bound on `R_a = sup_ρ Pr(D_ρ = 1)` (it sits BELOW
+    /// `R_a`), so it deliberately has no route into
+    /// [`RootActionExposureUpper`]: feeding it to the symmetric screen
+    /// would misstate its semantics even where the arithmetic stays sound.
+    /// The directional screen subsumes its tightening through the ± pair.
+    pub fn outcome_upper(&self) -> BigRational {
+        BigRational::new(BigInt::from(self.outcome_worlds), BigInt::from(self.fiber))
+    }
+
+    /// The same walk's split-reach optimum as a mass (= rung E4's value).
+    pub fn exposure_mass(&self) -> BigRational {
+        BigRational::new(BigInt::from(self.exposure_worlds), BigInt::from(self.fiber))
+    }
+
+    /// The typed pair the §37 directional screen consumes.
+    pub fn directional_upper(&self) -> RootActionDirectionalUpper {
+        RootActionDirectionalUpper::from_bounds(self.plus_upper(), self.minus_upper())
+    }
+}
+
+impl fmt::Display for DirectionalReach {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "DirectionalReach{{action={};field0={};field1={};root={:#018x};fiber={};\
+             plus={};minus={};outcome={};exposure={}}}",
+            self.action,
+            self.field0,
+            self.field1,
+            self.root_id,
+            self.fiber,
+            self.plus_worlds,
+            self.minus_worlds,
+            self.outcome_worlds,
+            self.exposure_worlds
+        )
+    }
+}
+
+/// Run the coupled directional solve for one root action over the
+/// complete fiber (response §38; PANEL-A8). Exhaustive by construction:
+/// worlds proved incapable of reaching the frontier by the clairvoyant
+/// walk contribute zero to every objective (no split ⇒ `u1 = u0`, L2-T1)
+/// and are dropped first, exactly as in [`exact_split_reach`].
+pub fn directional_reach(
+    root: &CanonicalRoot,
+    position: &RootPosition,
+    action: Domino,
+    field0: &FieldModel,
+    field1: &FieldModel,
+) -> DirectionalReach {
+    let worlds: Vec<World> = root.worlds().collect();
+    let walk = ReachWalk::setup(root, position, &worlds, field0, field1);
+    let exec = walk.root_exec(action);
+    let idxs: Vec<u32> = (0..u32::try_from(worlds.len()).expect("fits")).collect();
+    let mut reached = vec![false; worlds.len()];
+    walk.mark(&exec, &idxs, &mut reached);
+    let capable: Vec<u32> = idxs
+        .iter()
+        .copied()
+        .filter(|&i| reached[usize::try_from(i).expect("fits")])
+        .collect();
+    let plus_worlds = walk.directional_count(DirectionalObjective::Plus, &exec, &capable);
+    let minus_worlds = walk.directional_count(DirectionalObjective::Minus, &exec, &capable);
+    let outcome_worlds = walk.directional_count(DirectionalObjective::Outcome, &exec, &capable);
+    let exposure_worlds = walk.max_count(&exec, &capable);
+    // The extended rung ladder, asserted where every side is computed
+    // (PANEL-A8): per fixed strategy each directional count is at most the
+    // outcome count, the outcome event is the disjoint union of the two
+    // directions, and an outcome change requires a split (L2-T1).
+    assert!(
+        plus_worlds <= outcome_worlds && minus_worlds <= outcome_worlds,
+        "the extended rung ladder holds: R± ≤ R^outcome"
+    );
+    assert!(
+        outcome_worlds <= plus_worlds + minus_worlds,
+        "the outcome event is the disjoint union of the two directions"
+    );
+    assert!(
+        outcome_worlds <= exposure_worlds,
+        "the extended rung ladder holds: R^outcome ≤ R^exposure"
+    );
+    assert!(
+        exposure_worlds <= u64::try_from(capable.len()).expect("fits"),
+        "the split-reach optimum is at most the clairvoyant cover count"
+    );
+    DirectionalReach {
+        action,
+        field0: field0.field_id(),
+        field1: field1.field_id(),
+        root_id: root_identity(root, position),
+        fiber: root.count(),
+        plus_worlds,
+        minus_worlds,
+        outcome_worlds,
+        exposure_worlds,
+    }
+}
+
+/// The §7.4 split-reach objective solved over a DECLARED stream-prefix
+/// sample — rung E3's sampled sibling, an ESTIMATE tier mechanically
+/// distinct from exact E4 (PANEL-A7's sampled-zero discipline, O34): the
+/// per-node optimum over the sampled worlds estimates `R_a` and bounds
+/// NOTHING about the fiber in either direction. This type has no
+/// `screenable_upper`, carries no [`ExposureRung`], and offers no
+/// conversion to [`RootActionExposureUpper`]; the §7.4 δ-valid
+/// admissible-upper E3 route is a later slice.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct SplitReachSampled {
+    /// The fixed root action `a`.
+    pub action: Domino,
+    /// `FieldId(σ0)`.
+    pub field0: FieldId,
+    /// `FieldId(σ1)`.
+    pub field1: FieldId,
+    /// The evidence-stream root identity of the position.
+    pub root_id: u64,
+    /// The stream epoch of the declared prefix.
+    pub epoch: u64,
+    /// Worlds enumerated (`|prefix|`, with replacement — repeats count).
+    pub worlds: u64,
+    /// The split-reach optimum over the sampled multiset.
+    pub frontier_worlds: u64,
+}
+
+impl SplitReachSampled {
+    /// The declared domain, part of the result (parent §6.1 discipline).
+    pub fn domain(&self) -> WorldDomain {
+        WorldDomain::StreamPrefix {
+            epoch: self.epoch,
+            worlds: self.worlds,
+        }
+    }
+
+    /// The exact optimum fraction over the enumerated sample — an
+    /// ESTIMATE of `R_a`, never a bound on it in either direction.
+    pub fn estimate(&self) -> BigRational {
+        BigRational::new(
+            BigInt::from(self.frontier_worlds),
+            BigInt::from(self.worlds),
+        )
+    }
+}
+
+impl fmt::Display for SplitReachSampled {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "SplitReachSampled{{rung=E3-sampled;estimate={};action={};field0={};field1={};\
+             root={:#018x};domain={}}}",
+            self.estimate(),
+            self.action,
+            self.field0,
+            self.field1,
+            self.root_id,
+            self.domain()
+        )
+    }
+}
+
+/// Solve the split-reach objective over the indexed evidence-stream
+/// prefix `0..worlds` at `epoch` (rung E3, sampled). The walk is the E4
+/// walk verbatim on the declared multiset; only the domain — and with it
+/// the claim — differs, which is why the result type differs.
+pub fn sampled_split_reach(
+    root: &CanonicalRoot,
+    position: &RootPosition,
+    action: Domino,
+    field0: &FieldModel,
+    field1: &FieldModel,
+    epoch: u64,
+    worlds: u64,
+) -> SplitReachSampled {
+    assert!(worlds >= 1, "a declared prefix holds at least one world");
+    let root_id = root_identity(root, position);
+    let sample: Vec<World> = (0..worlds)
+        .map(|i| root.world_at(root_id, epoch, i))
+        .collect();
+    let walk = ReachWalk::setup_declared(root, position, &sample, field0, field1);
+    let exec = walk.root_exec(action);
+    let idxs: Vec<u32> = (0..u32::try_from(sample.len()).expect("fits")).collect();
+    let mut reached = vec![false; sample.len()];
+    walk.mark(&exec, &idxs, &mut reached);
+    let capable: Vec<u32> = idxs
+        .iter()
+        .copied()
+        .filter(|&i| reached[usize::try_from(i).expect("fits")])
+        .collect();
+    let frontier_worlds = walk.max_count(&exec, &capable);
+    assert!(
+        frontier_worlds <= worlds,
+        "the sampled optimum is at most the sample size"
+    );
+    SplitReachSampled {
+        action,
+        field0: field0.field_id(),
+        field1: field1.field_id(),
+        root_id,
+        epoch,
+        worlds,
+        frontier_worlds,
+    }
+}
+
+/// The Stage-1 `ExactRoot` baseline: the exact optimized root-action
+/// value `Q_a = max_ρ Pr(u(ρ, ω) = 1)` under ONE field, over the complete
+/// enumerated fiber and exactly the deterministic information-consistent
+/// continuations (per-public-node action choice, maximized — the O34
+/// no-fusion argument verbatim; a single field leaves nothing to fuse
+/// across). The screen consuming these point values at
+/// `BaselineTier::ExactRoot` makes exact-root stability claims (§15.3's
+/// missing tier, now produced).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ExactRootValue {
+    /// The fixed root action `a`.
+    pub action: Domino,
+    /// The one field the optimization runs under.
+    pub field: FieldId,
+    /// The evidence-stream root identity of the position.
+    pub root_id: u64,
+    /// Exact `|Φ(I)|`.
+    pub fiber: u128,
+    /// `max_ρ #{ω : u(ρ, ω) = 1}` — the exact optimum.
+    pub win_worlds: u64,
+}
+
+impl ExactRootValue {
+    /// The exact `Q_a` under the uniform fiber measure.
+    pub fn value(&self) -> BigRational {
+        BigRational::new(BigInt::from(self.win_worlds), BigInt::from(self.fiber))
+    }
+}
+
+impl fmt::Display for ExactRootValue {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "ExactRootValue{{action={};field={};root={:#018x};fiber={};wins={}}}",
+            self.action, self.field, self.root_id, self.fiber, self.win_worlds
+        )
+    }
+}
+
+/// Solve the optimized root-action value exactly under one field
+/// (Stage-1 `ExactRoot` tier). The reach-walk skeleton is reused with the
+/// SAME field on both slots, so no split can ever occur and only the
+/// single-field partition is consulted.
+pub fn exact_root_value(
+    root: &CanonicalRoot,
+    position: &RootPosition,
+    action: Domino,
+    field: &FieldModel,
+) -> ExactRootValue {
+    let worlds: Vec<World> = root.worlds().collect();
+    let walk = ReachWalk::setup(root, position, &worlds, field, field);
+    let exec = walk.root_exec(action);
+    let idxs: Vec<u32> = (0..u32::try_from(worlds.len()).expect("fits")).collect();
+    let win_worlds = walk.value_count(&exec, &idxs);
+    assert!(
+        win_worlds <= u64::try_from(worlds.len()).expect("fits"),
+        "the optimum counts at most the whole fiber"
+    );
+    ExactRootValue {
+        action,
+        field: field.field_id(),
+        root_id: root_identity(root, position),
+        fiber: root.count(),
+        win_worlds,
     }
 }
