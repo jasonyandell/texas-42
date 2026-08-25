@@ -39,3 +39,16 @@ is not a receipt.
 Both audits have committed conformance notes (or filed defects), and
 the slice-3 brief cites this card. Related: [[level2-field-swap-probe]],
 [[gran-anchor-reconstruction]].
+
+## Status — 2026-08-25
+
+Both audits complete, all points CONFORMS: conformance note at
+`walt/audits/panel_response_conformance.md` (session evidence, base
+`51eac3f`), eight mechanical gates in
+`walt/walt/tests/solver_panel_conformance.rs` (includes the O26
+ambiguity fixture ported to Rust). One judgment call recorded in the
+note's §1c: W10's typed `InconsistentEvidence` is not implemented; the
+verdict rests on its trigger being structurally unreachable in the
+shipped common-stream design, with the obligation carried forward to any
+design that breaks that structure. The slice-3 adoption list on this
+card is consumed by the slice-3 brief, which cites this card.
