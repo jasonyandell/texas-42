@@ -1,0 +1,6 @@
+fieldswap_cancel: 3 roots; declared epoch pair field0 n0=8, field1 4x2, frozen 8x2, stream 64
+fieldswap_cancel: receipt-h4-t6 done: legal=2 admissible(e4)=1 admissible(dir)=1 admissible(exact-root)=1 (baselines 74607us, ladders+rungs 1972us, pairwise 760us, exact-root 438us)
+fieldswap_cancel: receipt-h7-t5 done: legal=3 admissible(e4)=3 admissible(dir)=3 admissible(exact-root)=3 (baselines 100495us, ladders+rungs 97609us, pairwise 58377us, exact-root 706us)
+fieldswap_cancel: receipt-h8-t4 Λ(5-5, 3-3) = 31/1200 CHECK PASSED
+fieldswap_cancel: receipt-h8-t4 done: legal=4 admissible(e4)=4 admissible(dir)=4 admissible(exact-root)=4 (baselines 31012701us, ladders+rungs 24457483us, pairwise 135996us, exact-root 91719us)
+fieldswap_cancel: wrote probes/fieldswap_cancel/cancel.jsonl
