@@ -26,6 +26,7 @@ pub mod evidence;
 pub mod exposure;
 pub mod field;
 pub mod field_swap;
+pub mod hazard;
 pub mod motif;
 pub mod policy;
 pub mod upper_cs;

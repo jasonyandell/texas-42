@@ -59,6 +59,17 @@ stays open: closure still requires gated producers, per Done-when.
    non-coverage instance). No cross-field composition without a
    field-action-family witness. Type lock unchanged: sampled masses
    never reach `StructuralHazardZero`.
+   *Status 2026-08-25: SHIPPED with gates (slice 4b) —
+   `walt/walt/src/solver/hazard.rs` (the general verifier as single
+   authority, `StructuralHazardZero` δ = 0 type with private
+   construction, benefit exhibit + PANEL-A7 valid-bound wiring into
+   `Dominated`, one-round trump-extraction producer with typed
+   declines), tests `walt/walt/tests/solver_hazard_witness.rs` (the
+   §2.6 worked specimen accepts at exact B = 1/2, H = 0; the §2.7
+   three-trick specimen declines while exact enumeration proves
+   dominance), probe `walt/probes/hazard_witness/` (cancel corpus: 40
+   pairs, 0 accepts, 40 declines — honest narrowness, histogram in the
+   README).*
 3. **Motifs = six-motif first-split morphology + Other**, least
    differing coordinate of the six-coordinate signature, orthogonal
    flags mandatory, `Other(missing_root_frame)` never guessed.
