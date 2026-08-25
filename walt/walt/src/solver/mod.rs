@@ -225,6 +225,12 @@ pub struct Shared {
     pi_cache: Vec<PiShard>,
     pub pi_calls: AtomicU64,
     pub nodes: AtomicU64,
+    /// Break instrumentation on the `solve_viewer` loop, folded from each
+    /// solver's locals by `flush_nodes`: children actually solved vs legal
+    /// moves available. An instrument only — read by probes and tests,
+    /// never by a receipt bin.
+    pub viewer_children: AtomicU64,
+    pub viewer_legal: AtomicU64,
     pub dead: AtomicBool,
 }
 
@@ -248,8 +254,21 @@ impl Shared {
             pi_cache: (0..PI_SHARDS).map(|_| Mutex::new(HashMap::new())).collect(),
             pi_calls: AtomicU64::new(0),
             nodes: AtomicU64::new(0),
+            viewer_children: AtomicU64::new(0),
+            viewer_legal: AtomicU64::new(0),
             dead: AtomicBool::new(false),
         }
+    }
+
+    /// Folded `solve_viewer` break counters: (children actually solved,
+    /// legal moves available). Ratio 1/1 means the Boolean break never
+    /// fired; under rayon a memo miss can be recomputed concurrently, so
+    /// the totals are an instrument, not a determinism freeze.
+    pub fn viewer_break_totals(&self) -> (u64, u64) {
+        (
+            self.viewer_children.load(Ordering::Relaxed),
+            self.viewer_legal.load(Ordering::Relaxed),
+        )
     }
 
     fn pi_shard(&self, k: u8, pk: &PiKey) -> &PiShard {
@@ -285,6 +304,8 @@ pub struct Solver {
     intern: Mutex<Intern>,
     memo: Mutex<HashMap<Key, BigRational>>,
     local_nodes: AtomicU64,
+    local_viewer_children: AtomicU64,
+    local_viewer_legal: AtomicU64,
 }
 
 impl Solver {
@@ -315,6 +336,8 @@ impl Solver {
             }),
             memo: Mutex::new(HashMap::new()),
             local_nodes: AtomicU64::new(0),
+            local_viewer_children: AtomicU64::new(0),
+            local_viewer_legal: AtomicU64::new(0),
         }
     }
 
@@ -366,12 +389,30 @@ impl Solver {
     }
 
     /// Flush the sub-64k remainder of this solver's node count into the
-    /// global total. Call exactly once, after this solver's last solve.
+    /// global total, and this solver's `solve_viewer` break counters whole.
+    /// Call exactly once, after this solver's last solve.
     pub fn flush_nodes(&self) {
         self.sh.nodes.fetch_add(
             self.local_nodes.load(Ordering::Relaxed) & 0xFFFF,
             Ordering::Relaxed,
         );
+        self.sh.viewer_children.fetch_add(
+            self.local_viewer_children.load(Ordering::Relaxed),
+            Ordering::Relaxed,
+        );
+        self.sh.viewer_legal.fetch_add(
+            self.local_viewer_legal.load(Ordering::Relaxed),
+            Ordering::Relaxed,
+        );
+    }
+
+    /// This solver's own `solve_viewer` break counters: (children actually
+    /// solved, legal moves available). See `Shared::viewer_break_totals`.
+    pub fn viewer_break_counters(&self) -> (u64, u64) {
+        (
+            self.local_viewer_children.load(Ordering::Relaxed),
+            self.local_viewer_legal.load(Ordering::Relaxed),
+        )
     }
 
     pub fn child_after_play(&self, key: &Key, tile: Domino, alive: u32) -> Key {
@@ -449,8 +490,11 @@ impl Solver {
     fn solve_viewer(&self, key: &Key, led: Option<Context>) -> Option<BigRational> {
         let hand = self.viewer_hand0 & !key.played;
         let legal = legal_plays(self.sh.dcl, set_of(hand), led);
+        self.local_viewer_legal
+            .fetch_add(legal.len() as u64, Ordering::Relaxed);
         let mut best: Option<BigRational> = None;
         for tile in legal.iter() {
+            self.local_viewer_children.fetch_add(1, Ordering::Relaxed);
             let child = self.child_after_play(key, tile, key.alive);
             let v = self.solve(&child)?;
             let better = best
