@@ -47,6 +47,10 @@ stays open: closure still requires gated producers, per Done-when.
    prefix, policy-class id), risk wiring per §1.8 (risks still sum
    across screen inputs). Directional variants = separate solves,
    separate ledger entries, coupled branches to terminal.
+   **Status (2026-08-25): SHIPPED** — `walt/walt/src/solver/upper_cs.rs`
+   plus `solver::exposure::sampled_directional_count`; gates
+   `walt/walt/tests/solver_e3_upper.rs`; probe README Deferred item 1
+   now points at the producer.
 2. **Dominance bound = Hazard-Exclusion Invariant.** Build the general
    invariant verifier FIRST (single authority; sound H1, semantically
    complete H2), then the one-round trump-extraction witness as the

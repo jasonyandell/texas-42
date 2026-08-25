@@ -155,12 +155,17 @@ item), pairwise 0.14 s and exact-root 0.09 s (warm caches); h7-t5
 
 ## Deferred LOUDLY (build-list items not landed in this slice)
 
-1. **The δ-valid admissible-upper E3 producer.** §7.4 admits a sampled
-   route into the screen only through an exact value, an admissible
-   upper bound, or a valid structural over-approximation. The sampled
-   E3 built here is the ESTIMATE sibling only — typed so it cannot feed
-   screening. Constructing a δ-valid upper bound on a supremum needs
-   evidence-engine design input (a sup is not a mean) and is deferred.
+1. **The δ-valid admissible-upper E3 producer — SHIPPED (slice 4a).**
+   `walt/walt/src/solver/upper_cs.rs` builds it per the adjudicated
+   x:024 Part-1 design (rulings TRIPLE-A2/A3): exact grid inversion of
+   the CE one-mean lower-tail engine at the `sampled_split_reach` count
+   (verified at intake to BE S\*_n), prefix minimum, the typed
+   rung-E3 screen route, directional variants over the fused
+   directional count, and §1.8 risk wiring; gates in
+   `walt/walt/tests/solver_e3_upper.rs`. The ESTIMATE sibling built
+   here stays exactly what it is and still feeds no screen; a sampled
+   E3 upper is never described as tighter than exact E4 on realized
+   numbers.
 2. **The dominance valid-bound route.** PANEL-A7 admits `Dominated` via
    "exact enumeration or a valid bound"; only the exact-enumeration
    route has a producer. A structural hazard-bound type without a

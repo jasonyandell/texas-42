@@ -28,6 +28,7 @@ pub mod field;
 pub mod field_swap;
 pub mod motif;
 pub mod policy;
+pub mod upper_cs;
 
 use std::collections::hash_map::DefaultHasher;
 use std::collections::HashMap;
