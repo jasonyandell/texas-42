@@ -4,17 +4,26 @@
 anytime-valid adaptive settlement as walt's new correctness path, the §22 build
 (steps 2–8, with commits), the step-7 shadow instrument and its records, the
 step-8 V5 flip repair and E0 calibration, the live-player audit findings, the
-targeted level-2 extension with both field-swap slices (the fixed-policy smoke
-and the rung/screen slice), the sampling-cap analysis and Jason's 512 ruling as
-applied, and what is in flight · Sources:
+playable controller player as an era event (the register owns it), the
+targeted level-2 extension with all three field-swap slices (the fixed-policy
+smoke, the rung/screen slice, and the slice-3 cancellation ladder), the
+sampling-cap analysis and Jason's 512 ruling as applied, and what is in flight ·
+Sources:
 `walt/math/calculated_evidence_v0.1.md` (received parent,
 adjudicated **CE-A1..A8**) and `walt/math/targeted_level2_field_stability_v0.1.md`
 (received parent, adjudicated **L2-A1..A7**) with their intake companions,
-`walt/CENSUS-RULINGS.md` (the two adjudication chapters),
+`walt/CENSUS-RULINGS.md` (the three adjudication chapters, including the
+2026-08-24 panel-response adjudication PANEL-A1..A8 whose Part VI rulings
+PANEL-A7/A8 govern slice 3; math source
+`exchange/inbox/019-023-response-panel-and-cancellation-v0.1.md` Part VI),
+[`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md) (**the owning
+register for the playable controller player — linked, never restated here**),
 [`walt/probes/shadow/README.md`](../walt/probes/shadow/README.md),
 [`walt/probes/fieldswap/README.md`](../walt/probes/fieldswap/README.md),
-[`walt/probes/step8/README.md`](../walt/probes/step8/README.md) and
+[`walt/probes/step8/README.md`](../walt/probes/step8/README.md),
 [`walt/probes/fieldswap_screen/README.md`](../walt/probes/fieldswap_screen/README.md)
+and
+[`walt/probes/fieldswap_cancel/README.md`](../walt/probes/fieldswap_cancel/README.md)
 (instrument records), `walt/SCENARIO-PLAYER.md` §10 (the obligations ledger),
 `kanban/` cards. Related: [walt](walt.md) (hub and fence),
 [walt-seat-play](walt-seat-play.md) (the live track this era instruments),
@@ -27,9 +36,13 @@ lineage — not restated here), [the reference map](walt-math-reference.md)
 > of this page sits *below* even that.** The two adjudications (CE-A1..A8,
 > L2-A1..A7) are the project's **own exploratory-fence rulings** — one
 > adjudicator, no adversary panel, never CONFIRMED-tier, never promotable by
-> being cited. Every count quoted from `walt/probes/shadow/`,
-> `walt/probes/fieldswap/`, `walt/probes/step8/` or
-> `walt/probes/fieldswap_screen/` is an **instrument record** — probe output
+> being cited. The slice-3 mathematics arrived on the separate panel-response
+> path and was adjudicated into the same exploratory tier (PANEL-A1..A8,
+> [claim ledger](claim-ledger.md) row x:019–023) — adoption inside the fence,
+> never a tier change. Every count quoted from `walt/probes/shadow/`,
+> `walt/probes/fieldswap/`, `walt/probes/step8/`,
+> `walt/probes/fieldswap_screen/` or `walt/probes/fieldswap_cancel/` is an
+> **instrument record** — probe output
 > that sits below every evidentiary tier and is cited by nothing above it; the
 > READMEs' own fences and caveats travel with every number here. Nothing on
 > this page is a receipt, a strength claim, or a statement about exact values.
@@ -134,6 +147,8 @@ Step 1 (intake before code) is the two intake/adjudication pairs above
 | (L2 §21 steps 3–5) | The field-swap slice 1: `solver::field` (FieldId), `solver::exposure` (coupled first-split replay), `bin/fieldswap` + smoke records | #26 / `ffdc002` |
 | (L2 §21 steps 6–8) | The field-swap slice 2: exposure rungs E0–E2 and the exact split-reach route E4 in `solver::exposure`, the L2-T4 admissible screen in `solver::field_swap`, `bin/fieldswap_screen` + screen records | #30 / `ca0483d` |
 | (cap ruling applied) | Shadow bin `world_cap` default 128 → 512; the committed 128-epoch outputs stay reproducible by passing `128` explicitly | #32 / `6e00528` |
+| (CE) the playable controller | `solver::act` (the §16.4 controller as an acting player), `bin/controller_bridge`, `ctrl [cap=N]` seats in webtable/playtable, the O27 deal/belief stream separation, register `walt/CONTROLLER-PLAYER.md` | #37 / `23ba1c2` |
+| (L2 §21 slice 3) | The cancellation ladder, pairwise masses and directional rungs in `solver::exposure` / `solver::field_swap`, `bin/fieldswap_cancel` + probe records (PANEL-A7/A8) | #38 / `151ea4f` |
 
 ## The shadow instrument (step 7): the controller beside the live player
 
@@ -199,7 +214,16 @@ these:
   O27 sampling-randomness semantics (worlds by counter index from a declared
   seed, evidence/discovery streams domain-separated). Weak coupling, not a
   demonstrated bias — but the discipline exists so the question never arises.
-- **`playout.rs`'s `all1` mode is information-inconsistent**: every seat
+  **Repaired 2026-08-24 [CE thread]** (PR #37 / `23ba1c2`): all three bins now
+  domain-separate — the deal stream deals and nothing else, and every level-1
+  evaluation derives its per-decision stream from (domain constant, own dealt
+  hand, record hash), the walt_bridge pattern that audited clean. Session
+  output is therefore record-grade: no decision's sample depends on how many
+  decisions preceded it. Fixing the mechanism is not a claim about any
+  previously recorded run.
+- **`playout.rs`'s `all1` mode is information-inconsistent**<sup>(the shared
+  stream that made this visible is gone with the O27 repair above; the finding
+  itself stays filed until re-checked on its own terms)</sup>: every seat
   plays level-1 "from its own chair," but the per-seat evaluations are not
   pure functions of the acting seat's information state (the shared stream
   above is the visible mechanism), contra the information-consistency
@@ -295,6 +319,43 @@ cap 1024. Reading:
 
 Step 9 consumes these per-pair baselines as the field-swap build's Stage-1
 evidence layer (L2-A6).
+
+## The controller becomes a player [CE thread]
+
+**The owning artifact is the in-repo register
+[`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md)** — the route
+table, the knobs, the surfaces and the gates live there and are not restated
+here. PR #37 / `23ba1c2`, 2026-08-24. What belongs on the era page is the
+shape of the step and its fence.
+
+The shadow instrument (step 7) ran the §16.4 controller *beside* the live
+player and never acted. `solver::act` is the same controller made to **act**,
+behind one library entry point, with an action policy that keeps the
+correctness boundary visible in the type: an exact or δ-settled winner is
+played; an honest exact tie is broken by the live level-1 ranking **among the
+tied maxima**; an `Unresolved` decision at the cap is broken by the live
+level-1 ranking **among the δ-survivors**. The δ-safe eliminations sit inside
+the correctness boundary — a candidate is removed only by a settled directed
+edge at the declared risk — while the level-1 ordering among survivors is an
+ordering choice **outside** it (the W7/filtration license: predictable
+ordering affects cost, never truth). Every decision records the route that
+chose the tile and `settled` is **false** on every fallback, so a fallback is
+never presented as a settlement.
+
+The surfaces are thin consumers: `bin/controller_bridge` speaks the same line
+protocol as `walt_bridge`, so plunge/mk5 can seat it with zero external-side
+changes, and `webtable`/`playtable` grew `ctrl [cap=N]` seats
+([walt-seat-play](walt-seat-play.md) carries the play-surface note). The cap
+is a **think-time budget**, not a settlement rule (CE-A3/§1.5): a low cap buys
+more honest fallbacks, never a wrong settlement — the interactive default 128
+is a latency choice, exactly as the batch default 512 is a compute choice.
+
+**No strength claim is made or implied.** Nothing here says the controller
+player is better than the seat that plays today, and it is **not** a new
+default: per CE-A7/§20.16 the old player remains the default everywhere until
+arena and conformance gates justify a change, on Jason's word. The O27 deal/
+belief stream separation shipped in the same delivery (above); the §3.4
+playout PiKey defect stays filed, untouched.
 
 ## The field-swap slice 1: three regimes on the first smoke
 
@@ -399,6 +460,83 @@ statement is about the *named frozen candidate set*, never an exact
 field-stable root (§15.3), which needs the exact root optimizer and a later
 slice. Nothing here says σ1 is a better mind (O36).
 
+## The field-swap slice 3: the cancellation ladder, and three firsts in the wild [L2 thread]
+
+**Instrument records only** —
+[`walt/probes/fieldswap_cancel/README.md`](../walt/probes/fieldswap_cancel/README.md)
+owns the numbers and its fence is binding: exploratory instrument output below
+every evidentiary tier, cited by nothing above it, no strength claim made or
+implied. The load-bearing gates are the tests
+(`walt/walt/tests/solver_fieldswap_cancel.rs`); the probe is the instrument
+view at the same declared (σ0, σ1) epoch pair slice 2 used, with declared
+ε = 1/20. Mathematics: **Part VI** of the x:019–023 panel response
+(`exchange/inbox/019-023-response-panel-and-cancellation-v0.1.md` §§31–42),
+adopted by rulings **PANEL-A7/A8**. PR #38 / `151ea4f`.
+
+**The interpretation rule travels with every number** (response §42, binding):
+cancellation may justify a value statement under **one declared objective,
+belief and model** — never pathwise safety, structural irrelevance, dominance,
+or reweighting stability.
+
+**The ladder, and three zeros that are not the same zero.** Per pinned
+candidate the exact-fiber report retains `(d, r, c⁺, c⁻, c)` whole with
+**|c| ≤ r ≤ d** asserted, and the three zeros stay typed and uncollapsed:
+**d = 0** is behavioral irrelevance (the fields never act differently),
+**r = 0** is outcome irrelevance (they act differently and the Boolean outcome
+never moves), **c = 0** is value neutrality (the corrections cancel). The
+six-label vocabulary — `NoFieldExposure` / `OutcomeStable` / `ValueNeutral` /
+`EpsilonEquivalent` / `Dominated` / `Unresolved` — exists so those cases are
+never written as one thing. Pairwise reports likewise retain `(B, H, q, g)`
+whole, and **`Dominated` is reachable only through exact enumeration**
+(H = 0 ∧ B > 0): `SampledPairwiseMasses` has no dominance method at all, so
+the restriction is a type-level lock rather than a convention.
+
+**Directional rungs, as bounds and only as bounds.** Beside the exact E4 the
+probe produces the coupled directional uppers (R⁺)^U and (R⁻)^U, with the
+sandwich V⁰ − (R⁻)^U ≤ V¹ ≤ V⁰ + (R⁺)^U, the §36 winner-stability table and
+the extended ladder **R± ≤ R^outcome ≤ R^exposure** all asserted in the
+producer rather than printed. They are **valid UPPER bounds** obtained by
+cross-branch fusion in the safe direction — never claimed exact, never lower
+witnesses, never playable policies. In the same spirit the **sampled E3** is
+typed `estimate` and cannot enter a screen by type, distinct from the exact
+E4; the corrected **Λ = 31/1200** (h8-t4, pin-5-5 vs pin-3-3) is regenerated
+from scratch and asserted at default knobs, closing the 41/1200 mis-addition
+trail recorded in slice 1 above.
+
+Three firsts, at three roots on one declared pair — orientation for the §17
+success/falsifier watch, not a settlement:
+
+- **The first `FieldDecisionChanged` in the wild** (h8-t4, Stage 4, σ1 work
+  confined to the survivors): the σ0-settled **2-1** is not the σ1-best
+  survivor — **5-5** wins under σ1. A statement about the named frozen
+  candidate set at the declared pair, **not** a play-strength claim and not a
+  statement that σ1 is a better mind (O36).
+- **The first `FieldStableExactRoot`** (h4-t6, fiber 90): the directional
+  screen at the **ExactRoot** tier reports stability 1/2 — §15.3's missing
+  tier, now produced — with 1-1 labeled `OutcomeStable` (r = 0 at d = 2/45 > 0:
+  the fields act differently on four worlds and never change the outcome).
+- **The first `Dominated`** (h4-t6): pin-1-1 over pin-0-0 under **both**
+  fields, H = 0 ∧ B > 0 by exact enumeration. §34's distinction observed in
+  data — one-sided unforced risk, a different object from the h8-t4 rows'
+  near-cancellation, and the vocabulary keeps them apart.
+
+**On tightness, honestly.** In the h8-t4 regime the directional bounds run
+about **2.3× tighter** than exact E4 — (R±)^U ≈ 0.33–0.45 against
+R_a ≈ 0.93–0.99 — which is the PANEL-A8 motivation showing up in the
+instrument. It still **prunes nothing there**: the frozen values sit within
+~1/20 of each other, so the screen reports `FieldSensitive` 4/4. A bound mass
+falling by 2.3× without a pruning consequence is exactly the honest reading.
+
+**Deferred LOUDLY, and needing design input** (the probe README's Deferred
+section is the owner; carded as [[slice3-deferred-producers]] against the open
+audits [[panel-response-audits]]): the **δ-valid admissible-upper E3
+producer** (a sup is not a mean — a valid upper bound on a supremum needs
+evidence-engine design), the **dominance valid-bound route** (PANEL-A7 admits
+one; only the exact-enumeration producer exists, and a bound type without a
+producer would invite misuse), and the **§10 motif tags** (absent, not
+approximated). Everything else on the PANEL-A7/A8 adoption list landed with
+gates.
+
 ## The cap analysis, and Jason's 512 ruling
 
 Mining the persisted §8.5 refinement vectors of the 116 `Unresolved` shadow
@@ -429,10 +567,12 @@ construction and every record carries its own config.
   slice 2's rung/screen machinery and step 8's per-pair E0 baselines as its
   Stage-1 evidence layer (L2-A6); **step 10 — recurse inward** — last, per the
   Phase-1 fence.
-- **The controller as an opt-in play mode** is what step 8's gates were the
-  precondition for; it has not been built, and per CE-A7/§20.16 the old player
-  remains the default regardless until arena and conformance gates justify a
-  change, on Jason's word.
+- **The controller as an opt-in play mode is now built** (PR #37, the section
+  above) and is exactly that: opt-in. What has *not* happened is any
+  comparison — no arena run, no conformance gate, no strength number of any
+  kind — so per CE-A7/§20.16 the old player remains the default, and any
+  change is Jason's word after the gates, never a consequence of the code
+  existing.
 - **Gran anchors — carded, artifacts in hand, no results.** Three Plunge
   screenshots pinned at `~/data/texas-42/gran-anchors-2026-08-24/`
   (`MANIFEST.sha256`); the reconstruction path needs **no seeds** — the
@@ -449,8 +589,9 @@ construction and every record carries its own config.
 The era's one-sentence shape: the seat that already plays now has an
 **instrumented correctness path growing beside it** — exact where the fiber
 is small, honestly unresolved where it is not, every number typed, every
-winner schedule-relative — and the live player is untouched until the gates
-say otherwise, on Jason's word. Two of its oldest embarrassments came back
+winner schedule-relative — and, since PR #37, that path can be *seated* as a
+player without becoming the default: the live player is untouched until the
+gates say otherwise, on Jason's word. Two of its oldest embarrassments came back
 answered rather than explained away: the 40-vs-160 flip is now a priced
 near-tie the controller declines to decide, and the "the fields never split
 here" observation is now an exact zero over every information-consistent

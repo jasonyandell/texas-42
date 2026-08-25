@@ -58,7 +58,7 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | [walt-factory-era](walt-factory-era.md) | S5a–S5d: the conflict-driven lesson factory, the label-fragility discovery, the lesson economy, and the re-tethering |
 | [walt-census-era](walt-census-era.md) | S5e–S5k: the situation censuses, the retrograde quotient and railyard, the fiber and endgame probes, and the seat census resolved by proof |
 | [walt-s6-era](walt-s6-era.md) | S6a–S6n: the predictive-rank dimension census, the policy-geometry probe, the deadness detectors, the first root-action certifications, the cheap-seed and map-free rule probes, the trick-1 and lay-down theorems, the two gluing rungs, and the fee line |
-| [walt-calculated-evidence](walt-calculated-evidence.md) | **2026-08-24 onward**: anytime-valid adaptive settlement as the new correctness path — the two same-day intakes (CE-A1..A8, L2-A1..A7), the §22 build through step 8, the shadow instrument, the step-8 V5 flip repair and E0 calibration, the live-player audit findings, both field-swap slices (the three-regime smoke and the rung/screen slice), and the world-cap 512 ruling as applied |
+| [walt-calculated-evidence](walt-calculated-evidence.md) | **2026-08-24 onward**: anytime-valid adaptive settlement as the new correctness path — the two same-day intakes (CE-A1..A8, L2-A1..A7), the §22 build through step 8, the shadow instrument, the step-8 V5 flip repair and E0 calibration, the live-player audit findings, the playable controller player (register [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md)), all three field-swap slices (the three-regime smoke, the rung/screen slice, and the Part VI cancellation ladder under PANEL-A7/A8), and the world-cap 512 ruling as applied |
 
 **Reference**
 
@@ -87,8 +87,9 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | [`walt/ARCHIVE.md`](../walt/ARCHIVE.md) | The archive ledger: where the untracked computation outputs live (`~/data`, HuggingFace), the recompute queue, and producer commit `648f93a` for the deleted probe binaries |
 | [`walt/UNIFICATION-CENSUS.md`](../walt/UNIFICATION-CENSUS.md) | The 2026-08-24 unification analysis and execution record: the 17-crate census, the fold plan, and what was deleted or folded |
 | [`walt/DISCREPANCIES.md`](../walt/DISCREPANCIES.md) | Spec-versus-reference reconciliations, same protocol as the corpus: never pick a plausible reading silently |
-| `walt/probes/` | The frozen probe records: the rescued Python suites (`exp3a/`, `exp5/` — frozen validators, never source), the relocated factory result summaries (`factory-results/`, provenance README inside), the seat-play result files (`m3/`), the bidcurve corpus (`bidcurve/`), and the calculated-evidence instrument records (`shadow/`, `fieldswap/`, `fieldswap_screen/`, `step8/` — exploratory instrument output, below every tier, each README carrying its own fence) |
-| The Rust workspace | **One unified crate** `walt/walt/` since 2026-08-24 (fold commit `d1499d4`, trace-identical): modules `rules`, `kernel`, `geom`, `strat`, `spec`, `carrier`, `solver`, twelve bins (the seat player, arena bridge, web table, probes), tests prefixed by module. Beside it: `walt-wasm` (the browser oracle for plunge) and the GPU trio `walt-gpu-ref` (M1 + portable M2 reference/receipt machinery), `walt-metal`, `walt-m2-runner`. The workspace records **PORTABLE M0/M1 COMPLETE under freeze 55** and **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56** (re-issued append-only as **freeze-56 v2** at the unified layout, FZ-A1..A6; the standing M2 receipt is explicitly old-layout evidence — [[m2-receipt-reearn]]); nothing in the GPU track is an opening player or supplies an action value, selected lead, optimal set, information net, continuation or performance claim. |
+| [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md) | The register for the playable controller walt (2026-08-24, CE thread): `solver::act`'s action policy and its route labels, the `controller_bridge` / `ctrl`-seat surfaces, the knobs, and the gates. Exploratory tier, estimates never receipts, no strength claim — the old player remains the default (CE-A7/§20.16) |
+| `walt/probes/` | The frozen probe records: the rescued Python suites (`exp3a/`, `exp5/` — frozen validators, never source), the relocated factory result summaries (`factory-results/`, provenance README inside), the seat-play result files (`m3/`), the bidcurve corpus (`bidcurve/`), and the calculated-evidence instrument records (`shadow/`, `fieldswap/`, `fieldswap_screen/`, `fieldswap_cancel/`, `step8/` — exploratory instrument output, below every tier, each README carrying its own fence) |
+| The Rust workspace | **One unified crate** `walt/walt/` since 2026-08-24 (fold commit `d1499d4`, trace-identical): modules `rules`, `kernel`, `geom`, `strat`, `spec`, `carrier`, `solver`, nineteen bins (the seat player, the two arena bridges, web and terminal tables, probes — inventory on [walt-instruments](walt-instruments.md)), tests prefixed by module. Beside it: `walt-wasm` (the browser oracle for plunge) and the GPU trio `walt-gpu-ref` (M1 + portable M2 reference/receipt machinery), `walt-metal`, `walt-m2-runner`. The workspace records **PORTABLE M0/M1 COMPLETE under freeze 55** and **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56** (re-issued append-only as **freeze-56 v2** at the unified layout, FZ-A1..A6; the standing M2 receipt is explicitly old-layout evidence — [[m2-receipt-reearn]]); nothing in the GPU track is an opening player or supplies an action value, selected lead, optimal set, information net, continuation or performance claim. |
 | `walt/ci/check.sh` | The gate: fmt, clippy `-D warnings -D float_arithmetic`, no-float grep, release tests |
 | `walt/ci/check_m2_metal.sh` | The freeze-56 integrated gate: historical/current source checks, metallib reproducibility, native controls and smoke, two fresh complete official runs, committed receipt adjudication, Lean audit and final source verification |
 | [`walt/receipts/gpu_native_trick1_m2_v1/`](../walt/receipts/gpu_native_trick1_m2_v1/) | The committed M2 binary receipt and external checksum. This is executable fixed-carrier evidence, not a theorem, player artifact or reusable projector value. |
@@ -187,14 +188,19 @@ adjudicated same-day inside the exploratory fence (CE-A1..A8, L2-A1..A7);
 its §22 build program executed through step 8 (evidence arithmetic, frozen
 policies, the decision controller, exact endpoints, a shadow instrument run
 beside the live player, and the V5 flip repair with per-fixed-pair E0
-calibration), and the field-swap track ran two slices — the fixed-policy
-smoke, then the exposure rungs with the admissible screen. Two old episodes
-came back answered: the historical 40-vs-160 flip is an honest `Unresolved`
-near-tie at every ladder cap, and the "the fields never split here" root is an
-exact zero over all information-consistent continuations. The live player is
-deliberately untouched — the old defaults remain until arena and conformance
-gates justify a change, on Jason's word (CE-A7/§20.16). In flight: step 9, the
-level-2 probe as the detection layer.
+calibration), and the field-swap track ran three slices — the fixed-policy
+smoke, the exposure rungs with the admissible screen, then the Part VI
+cancellation ladder with its directional bounds (PANEL-A7/A8). Two old
+episodes came back answered: the historical 40-vs-160 flip is an honest
+`Unresolved` near-tie at every ladder cap, and the "the fields never split
+here" root is an exact zero over all information-consistent continuations.
+That same controller is now **seatable as a player** — `solver::act`, a
+bridge speaking the existing protocol, and `ctrl` seats at the tables
+([`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md)) — which is a
+capability, not a comparison: no arena run and no conformance gate has been
+run on it. The live player is deliberately untouched — the old defaults remain
+until arena and conformance gates justify a change, on Jason's word
+(CE-A7/§20.16). In flight: step 9, the level-2 probe as the detection layer.
 
 Every count above is carrier-relative, coordinate-relative, and exploratory. Full
 numbers, scope caveats and dissents live on the era pages; the refutations are

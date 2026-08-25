@@ -77,7 +77,7 @@ arithmetic and adds the lockfile-pinned `objc2`, `objc2-core-graphics`,
 | `walt::strat` (`walt-strat`) | The operators registry, kept deliberately distinct per §10.8. Decision nodes over fiber worlds, the canonical perfect-recall information partition, information-consistent policies keyed by opaque info-state ids (world-peeking is unconstructible by type), and the named operators with the information prices between them. | `pi::pi_root_values` (symbolic parametric PI), `scalar::ScalarPi` (+ `ScalarValuation`, `scalar_census`), `hidden::hidden_root_values` (symbolic H), `hidden_scalar::ScalarHidden` (scalar H, `action_values` and `action_values_dag`), `revealed::revealed_summary` (C and F), `price::information_prices`, `census::pi_census`, `info::{InfoPartition, Policy, policy_value_receipt}`, `label::{OperatorLabel, WeightingLabel}` |
 | `walt::spec` (`walt-gpu-spec`) | The portable M0 exact-arithmetic and semantic-table layer: forbids unsafe code, denies float arithmetic. | `mass::U256Mass`, checked framed operations, SHA-256 anchors, `SemanticTablesCanonicalV2`, canonical table bytes and digests |
 | `walt::carrier` (`walt-m3-carrier`) | The frozen hand-8 receipt carrier (freeze-57 M3 gate profile): two constructors that must agree byte-for-byte, KAT pins, support/profile machinery. The seat player's data source. | `constants`, `profile`, `replay`, `support`, `kat` |
-| `walt::solver` (`walt-m3-probe`) | **The seat solver** — the sampling-stack machinery of `walt/SCENARIO-PLAYER.md`: scenario worlds, modeled level-k minds, exact best response under the pmake objective, and — since the 2026-08-24 calculated-evidence build ([walt-calculated-evidence](walt-calculated-evidence.md)) — the evidence-path modules (`evidence` exact CE-T1..T5 arithmetic, `adaptive` kernel adapter + fixed-pair evaluator + exact endpoint, `controller` m-candidate decision controller, `policy` FreezeTuple/PolicyId frozen policies, `field` FieldId field models, `exposure` coupled first-split replay plus the E0–E2 rungs and the exact split-reach route E4, `field_swap` the L2-T4 admissible screen, `calibrate` the §19 V5 cap-ladder law and §19 V6 per-fixed-pair E0 calibration) and seventeen bins (scenario, level1, level2, playout, playtable, webtable, walt_bridge, divergence, ladder, bidcurve, tiltaudit, m3probe, shadow, fieldswap, fieldswap_screen, v5flip, e0cal). | `walt/walt/src/solver/`, bins under `walt/walt/src/bin/` |
+| `walt::solver` (`walt-m3-probe`) | **The seat solver** — the sampling-stack machinery of `walt/SCENARIO-PLAYER.md`: scenario worlds, modeled level-k minds, exact best response under the pmake objective, and — since the 2026-08-24 calculated-evidence build ([walt-calculated-evidence](walt-calculated-evidence.md)) — the evidence-path modules (`evidence` exact CE-T1..T5 arithmetic, `adaptive` kernel adapter + fixed-pair evaluator + exact endpoint, `controller` m-candidate decision controller, `policy` FreezeTuple/PolicyId frozen policies, `field` FieldId field models, `exposure` coupled first-split replay plus the E0–E2 rungs and the exact split-reach route E4, `field_swap` the L2-T4 admissible screen, `calibrate` the §19 V5 cap-ladder law and §19 V6 per-fixed-pair E0 calibration, and — since 2026-08-24 — `act` the §16.4 controller as an **acting** player under the route-labelled action policy of [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md) [CE thread]) and nineteen bins (scenario, level1, level2, playout, playtable, webtable, walt_bridge, controller_bridge, divergence, ladder, bidcurve, tiltaudit, m3probe, shadow, fieldswap, fieldswap_screen, fieldswap_cancel, v5flip, e0cal). | `walt/walt/src/solver/`, bins under `walt/walt/src/bin/` |
 | `walt-wasm` (crate) | The browser decision oracle plunge ships: level-1 compiled to wasm with the calibrated bid default θ=11/16 and the opt-in race mode; Node smoke 28/28 byte-identical to the frozen native trace. | `pkg/walt.wasm`, `walt.ts` |
 | `walt-gpu-ref` (crate) | The portable M1 reference projector plus the complete M2 carrier, bindings and canonical receipt codecs; rob appears only as a development-time prose-rules bridge (dev-dependency). | `projection`, `carrier`, `m2`, `m2_receipt::{receipt, records, transport, wire}`, M0/M1 receipt generation and strict M2 validation |
 | `walt-metal` (crate) | The only Metal/Objective-C boundary: fixed scalar-word ABI, checked MSL kernels, retained completion evidence and safe runtime tokens around the contract's private unsafe operations. | `abi`, `bridge`, `runtime`, `error`; `shaders/00_u256.metal`, `01_opening_projector.metal`, `02_m3_wavefront.metal`, the deterministic build scripts and checked-in metallib |
@@ -191,12 +191,12 @@ the `examples/*.rs` producers are archive-only at commit `648f93a`.)
 
 ## The calculated-evidence instruments (live, added 2026-08-24)
 
-Four bins built during the §22 / §21 build, each with a records directory
+Five bins built during the §22 / §21 build, each with a records directory
 under `walt/probes/` carrying **its own fence** — exploratory instrument
 output, below every evidentiary tier, cited by nothing above it. The results
 are read out on [walt-calculated-evidence](walt-calculated-evidence.md), which
 owns them; this table is the inventory of what exists and how to run it. All
-four write JSONL beside a stdlib-only `summarize.py` that recomputes the
+of them write JSONL beside a stdlib-only `summarize.py` that recomputes the
 published tables from the records, so no aggregate is hand-maintained.
 
 | Bin | What it produces | Records |
@@ -204,6 +204,7 @@ published tables from the records, so no aggregate is hand-maintained.
 | `shadow` | The step-7 controller run beside the live player: frozen level-1 continuations (`ActionRule::PinnedThenLevel1`) at every multi-option focal decision, agreement recorded and never acted on | `probes/shadow/` |
 | `fieldswap` | The slice-1 fixed-policy smoke: `FrozenPolicyExposure` under declared field models σ0/σ1 for two frozen focal pins per root — never a root-action bound, never screening input (L2-A4, O31) | `probes/fieldswap/` |
 | `fieldswap_screen` | The slice-2 rung/screen instrument: exposure rungs E0–E2, the exact split-reach route E4 (`R_a` exactly), and the L2-T4 admissible screen with the full ordered-pair slack table, at one declared (σ0, σ1) epoch pair | `probes/fieldswap_screen/` |
+| `fieldswap_cancel` | The slice-3 instrument [L2 thread]: the cancellation ladder `(d, r, c⁺, c⁻, c)` with \|c\| ≤ r ≤ d, pairwise `(B, H, q, g)` masses with the exact-enumeration-only dominance route, the six-label vocabulary, directional rungs (R±)^U with the sandwich and §36 winner stability, sampled E3 typed `estimate`, Stage-4 survivor-only σ1 work, and the asserted Λ = 31/1200. Adopted by PANEL-A7/A8 | `probes/fieldswap_cancel/` |
 | `v5flip` / `e0cal` | Step 8: the §19 V5 cap-ladder replay with `assert_cap_ladder` (settled stays settled identically; never two caps settled differently), and the §19 V6 per-fixed-pair E0 calibration comparing exact fiber coordinates, exact-rational forecasts, and observed replicate settlements | `probes/step8/` |
 
 Two declared-knob facts a future session must not inherit silently:
@@ -223,10 +224,40 @@ Two declared-knob facts a future session must not inherit silently:
   `[8, 2]`.
 
 The load-bearing gates for this machinery are ordinary tests, not the probe
-directories: `walt/walt/tests/solver_calibrate.rs` (step 8) and
-`walt/walt/tests/solver_fieldswap_screen.rs` (the O32/O38 parity gates). Per
-the receipt-discipline statements below, none of these JSONL records is
-byte-diffed by CI and none becomes a claim-tier result by existing.
+directories: `walt/walt/tests/solver_calibrate.rs` (step 8),
+`walt/walt/tests/solver_fieldswap_screen.rs` (the O32/O38 parity gates) and
+`walt/walt/tests/solver_fieldswap_cancel.rs` (slice 3 — the ladder
+inequalities, the sandwich, the extended ladder and the winner-stability
+table are *asserted*, not printed). Per the receipt-discipline statements
+below, none of these JSONL records is byte-diffed by CI and none becomes a
+claim-tier result by existing.
+
+## The playable controller surfaces (added 2026-08-24) [CE thread]
+
+**[`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md) is the owning
+register** — the action-policy route table, the knob list, the surface flags
+and the gate inventory live there and are not restated here; this page records
+only that the surfaces exist and what class of object they are. All
+exploratory tier, estimates and never receipts, and **no strength claim is
+made or implied**: the old player remains the default (CE-A7/§20.16).
+
+| Surface | What it is |
+| --- | --- |
+| `solver::act` | The library entry point — one decision in, one `ActDecision` out, carrying the `route` that chose the tile and a `settled` flag that is **false on every fallback**. δ-safe elimination is inside the correctness boundary; the level-1 ranking among survivors or exact ties is an ordering choice outside it (the W7/filtration license) |
+| `bin/controller_bridge` | The arena/plunge bridge — the **same** line protocol as `walt_bridge`, so an external consumer seats it with zero changes on its side. `WALT_CTRL_LOG=<base>` appends one JSONL record per decision (route, settled flag, among-set, fallback options) — record-grade output, not a receipt |
+| `webtable` / `playtable` `ctrl [cap=N]` | Controller seats at the AI chairs for the play phase (auction and trump pricing stay level-1); each play reports its route |
+
+A third declared-knob fact to add to the two above: **the `ctrl` cap is a
+think-time budget, not a settlement rule** (CE-A3/§1.5). The interactive
+default is **128** and the batch default **512**; a low cap yields *more
+honest fallbacks*, never a wrong settlement, and the cap is part of the
+result's identity like every other declared knob on this page.
+
+The same delivery domain-separated the deal and belief streams in `playout`,
+`playtable` and `webtable` (the O27 audit finding), so a seat's belief sample
+no longer depends on how many draws other consumers took. The separate §3.4
+`playout` PiKey/banked-totals defect is **not** fixed and stays filed —
+[walt-calculated-evidence](walt-calculated-evidence.md) carries both.
 
 ## The probe binaries (historical — all archive-only since 2026-08-24)
 
@@ -346,7 +377,8 @@ below (preserved verbatim from the 2026-08-09 scratchpad before `/tmp` cleanup
 could destroy the only copies), the relocated factory result summaries
 (`factory-results/`), the seat-play result files (`m3/`), the bidcurve
 corpus (`bidcurve/`), and the calculated-evidence instrument records
-(`shadow/`, `fieldswap/`, `fieldswap_screen/`, `step8/` — the section above).
+(`shadow/`, `fieldswap/`, `fieldswap_screen/`, `fieldswap_cancel/`, `step8/` —
+the section above).
 The Python suites' framing is the load-bearing part: they
 are **frozen validators, never source**. walt reimplements from the definitions
 in the frozen mathematical basis and pins its own results against the probe
@@ -395,10 +427,11 @@ certificates preserved in-tree under `walt/probes/factory-results/`.
 /bin/bash -p walt/ci/check_m2_metal.sh         # native Metal gate
 cargo run --release -p walt --bin level1       # the seat (or scenario, level2,
                                                # playout, webtable, walt_bridge,
-                                               # divergence, ladder, bidcurve,
-                                               # tiltaudit, m3probe, playtable,
-                                               # shadow, fieldswap,
-                                               # fieldswap_screen, v5flip, e0cal)
+                                               # controller_bridge, divergence,
+                                               # ladder, bidcurve, tiltaudit,
+                                               # m3probe, playtable, shadow,
+                                               # fieldswap, fieldswap_screen,
+                                               # fieldswap_cancel, v5flip, e0cal)
 /bin/bash -p walt/ci/verify_m2_sources.sh      # freeze-event manifest closure only
 ```
 

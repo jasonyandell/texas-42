@@ -45,3 +45,37 @@ Slice-3 code + gates green under `walt/ci/check.sh`, probe records
 committed with the EXPLORATORY INSTRUMENT header, and the PR merged by
 the parent session's central gate. Wiki resynthesis of slice-3 results
 is a separate step owned by the parent session.
+
+## Closed 2026-08-24
+
+Merged as **PR #38**, main **`151ea4f`** (L2 thread); **central gate
+green** (`walt/ci/check.sh`). Everything on the PANEL-A7/A8 adoption
+list landed with gates (`tests/solver_fieldswap_cancel.rs`), probe
+records at `walt/probes/fieldswap_cancel/` (`ALL 386 CHECKS PASS` on
+the committed records, exploratory instrument tier). Probe firsts,
+instrument-grade only: first `FieldDecisionChanged` in the wild (h8-t4
+Stage 4, σ0-settled 2-1 vs σ1-best 5-5), first `FieldStableExactRoot`
+(h4-t6), first `Dominated` (h4-t6, pin-1-1 over pin-0-0, H = 0 under
+both fields); directional bounds ≈2.3× tighter than E4 in the h8-t4
+regime without pruning there; Λ = 31/1200 regenerated and asserted.
+Wiki resynthesis done: `wiki/walt-calculated-evidence.md` (slice-3
+section), `wiki/walt-instruments.md` (the `fieldswap_cancel` bin),
+`wiki/walt-seat-play.md`, and the `wiki/walt.md` / `wiki/Home.md`
+status lines, plus the deferred items on
+`wiki/walt-math-open-questions.md` §10.
+
+**Three items deferred loudly** — all need design input, all stated in
+`walt/probes/fieldswap_cancel/README.md`'s Deferred section, carded as
+[[slice3-deferred-producers]] and pointed at [[panel-response-audits]],
+which **stays in backlog** because its two conformance audits are still
+open:
+
+1. **δ-valid admissible-upper E3 producer** — the sampled E3 built here
+   is the estimate sibling only, typed so it cannot feed screening; a
+   valid upper bound on a supremum needs evidence-engine design.
+2. **Dominance valid-bound route** — PANEL-A7 admits `Dominated` by
+   exact enumeration *or* a valid bound; only the exact-enumeration
+   producer exists, and no bound type was stubbed without one.
+3. **§10 motif tags** — the structural motif vocabulary is absent, not
+   approximated; aggregates ship seat/trick histograms and the
+   conditional outcome difference only.

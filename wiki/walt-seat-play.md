@@ -154,22 +154,43 @@ per that page's fences):
   through deal + belief sampling in playout/playtable/webtable contra O27;
   playout `all1` information-inconsistent; **walt_bridge clean**) are filed
   on the era page. Per CE-A7/§20.16 the old player remains the default until
-  arena and conformance gates justify a change, on Jason's word.
+  arena and conformance gates justify a change, on Jason's word. *(O27 was
+  repaired 2026-08-24 in PR #37 / `23ba1c2` — all three bins now
+  domain-separate the deal stream from the per-decision belief streams, so
+  session output is record-grade; the §3.4 PiKey copy stays filed, untouched.)*
+- **The tables can now seat the controller [CE thread].** `webtable` and
+  `playtable` grew `ctrl [cap=N]` seats, and `controller_bridge` speaks the
+  same line protocol as `walt_bridge` so plunge/mk5 consume it unchanged
+  (PR #37 / `23ba1c2`). The play surfaces are the only part of that delivery
+  that belongs on this page; the acting player itself is owned by the
+  in-repo register [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md)
+  and read out on
+  [walt-calculated-evidence](walt-calculated-evidence.md). Each play reports
+  the route that chose it, and the cap is a **think-time budget** — a low cap
+  buys more honest fallbacks, never a wrong settlement. **Nothing here says
+  the controller seat plays better than the seat this page describes**: no
+  arena run, no conformance gate, no strength number of any kind exists, and
+  the default is unchanged.
 - **The Gran review specimens became carded anchors.** Three Plunge
   screenshots are pinned with a manifest, and the reconstruction path needs
   **no seeds** — the "How it went" grid is the complete deal, transcribed
   and rules-engine-validated ([[gran-anchor-reconstruction]]). Discovery
   artifacts until reconstructed; the G1–G4 experiments stay gated.
 - **`walt/LEVEL2-PROBE.md` is no longer "gated on the intake"** — it is the
-  detection layer inside the targeted level-2 controller (L2-A5), and two
-  field-swap slices have landed: the fixed-policy smoke (never root-action
-  screening — L2-A4) and, at PR #30 / `ca0483d`, the exposure rungs E0–E2
-  with the exact split-reach route E4 and the L2-T4 admissible screen. On the
-  h7-t5 root the smoke's "the fields never split" observation became an
-  **exact zero over all information-consistent continuations**, and one root
-  produced the first pruning singleton in the wild. Instrument records at
-  `walt/probes/fieldswap_screen/`, read out on
-  [walt-calculated-evidence](walt-calculated-evidence.md).
+  detection layer inside the targeted level-2 controller (L2-A5), and three
+  field-swap slices have landed [L2 thread]: the fixed-policy smoke (never
+  root-action screening — L2-A4); at PR #30 / `ca0483d`, the exposure rungs
+  E0–E2 with the exact split-reach route E4 and the L2-T4 admissible screen;
+  and at PR #38 / `151ea4f`, the Part VI cancellation ladder with pairwise
+  masses and directional rungs (PANEL-A7/A8). On the h7-t5 root the smoke's
+  "the fields never split" observation became an **exact zero over all
+  information-consistent continuations**, one root produced the first pruning
+  singleton in the wild, and slice 3 added the first `FieldDecisionChanged`,
+  the first `FieldStableExactRoot` and the first `Dominated` — all
+  frozen-candidate-set statements at a declared field pair, never play-strength
+  claims and never "σ1 is a better mind" (O36). Instrument records at
+  `walt/probes/fieldswap_screen/` and `walt/probes/fieldswap_cancel/`, read
+  out on [walt-calculated-evidence](walt-calculated-evidence.md).
 
 ## Where this sits in the program
 
