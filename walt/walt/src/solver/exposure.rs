@@ -49,8 +49,9 @@
 //!   has no `screenable_upper`, no rung accessor, and no conversion to
 //!   [`RootActionExposureUpper`] — a sampled value (in either direction)
 //!   never feeds the screen (§7.4's optimization lock, O34). The δ-valid
-//!   admissible-upper E3 route of §7.4 is NOT built in this slice
-//!   (deferred loudly in the slice-3 probe README).
+//!   admissible-upper E3 route of §7.4 is `solver::upper_cs` (slice 4a;
+//!   x:024 Part 1, TRIPLE-A2/A3), which inverts the CE one-mean engine
+//!   over this module's counts; the ESTIMATE sibling stays what it is.
 //! - **The Stage-1 `ExactRoot` baseline producer** ([`exact_root_value`]):
 //!   the exact optimized root-action value `Q_a` under ONE field, by the
 //!   same per-public-node argument as rung E4 (no strategy fusion, O34).
@@ -78,8 +79,8 @@ use crate::solver::policy::{FrozenPolicy, PolicyId};
 /// [`RootActionExposureUpper`] names its rung. This slice's producers:
 /// E0/E2 from the shared pre-split reach walk ([`clairvoyant_reach`]), E1
 /// from counted structural covers ([`rung_e1`]), E4 from the exact
-/// split-reach solve ([`exact_split_reach`]). The sampled/adaptive E3
-/// producer is a later slice.
+/// split-reach solve ([`exact_split_reach`]). The δ-valid E3 producer is
+/// `solver::upper_cs` (x:024 Part 1, TRIPLE-A2).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ExposureRung {
     /// §7.1 — exact field equality on the dependency-closed reachable
@@ -1676,7 +1677,8 @@ pub fn directional_reach(
 /// NOTHING about the fiber in either direction. This type has no
 /// `screenable_upper`, carries no [`ExposureRung`], and offers no
 /// conversion to [`RootActionExposureUpper`]; the §7.4 δ-valid
-/// admissible-upper E3 route is a later slice.
+/// admissible-upper E3 route is `solver::upper_cs` (x:024 Part 1,
+/// TRIPLE-A2), whose typed result — not this one — may enter the screen.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct SplitReachSampled {
     /// The fixed root action `a`.
@@ -1772,6 +1774,57 @@ pub fn sampled_split_reach(
         worlds,
         frontier_worlds,
     }
+}
+
+/// The fused directional optimum of one root action over the DECLARED
+/// stream-prefix sample `0..worlds` at `epoch` — the directional sibling
+/// of [`sampled_split_reach`], built for the directional δ-valid E3 route
+/// of `solver::upper_cs` (x:024 §1.5; TRIPLE-A3). The walk is
+/// [`directional_reach`]'s verbatim (PANEL-A8 machinery: coupled branches
+/// run to DECIDED terminal outcomes — costlier than split reach), on the
+/// declared multiset.
+///
+/// Semantics, stated exactly: the cross-branch/cross-group focal fusion of
+/// the directional walk is the safe direction only, so the returned count
+/// pathwise DOMINATES `Σ_i X^±_{ρ,i}` for EVERY single
+/// information-consistent ρ ∈ Π_a on the sample (any fixed ρ induces a
+/// feasible per-node assignment of the walk). It is an over-approximation
+/// of the one-policy empirical optimum, never the optimum itself, and —
+/// like every sampled count — it bounds NOTHING about the fiber on its
+/// own; the δ-valid claim is made only by the upper-CS inversion that
+/// consumes it.
+#[allow(clippy::too_many_arguments)]
+pub fn sampled_directional_count(
+    root: &CanonicalRoot,
+    position: &RootPosition,
+    action: Domino,
+    objective: DirectionalObjective,
+    field0: &FieldModel,
+    field1: &FieldModel,
+    epoch: u64,
+    worlds: u64,
+) -> u64 {
+    assert!(worlds >= 1, "a declared prefix holds at least one world");
+    let root_id = root_identity(root, position);
+    let sample: Vec<World> = (0..worlds)
+        .map(|i| root.world_at(root_id, epoch, i))
+        .collect();
+    let walk = ReachWalk::setup_declared(root, position, &sample, field0, field1);
+    let exec = walk.root_exec(action);
+    let idxs: Vec<u32> = (0..u32::try_from(sample.len()).expect("fits")).collect();
+    let mut reached = vec![false; sample.len()];
+    walk.mark(&exec, &idxs, &mut reached);
+    let capable: Vec<u32> = idxs
+        .iter()
+        .copied()
+        .filter(|&i| reached[usize::try_from(i).expect("fits")])
+        .collect();
+    let count = walk.directional_count(objective, &exec, &capable);
+    assert!(
+        count <= worlds,
+        "the sampled directional optimum is at most the sample size"
+    );
+    count
 }
 
 /// The Stage-1 `ExactRoot` baseline: the exact optimized root-action
