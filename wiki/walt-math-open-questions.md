@@ -275,8 +275,20 @@ sound and semantically complete, one general verifier as the single authority,
 cheap pattern producers (one-round trump extraction first) emitting witnesses
 for it; (iii) resolves as a **six-motif first-split morphology + Other** with
 mandatory orthogonal flags, partitioning correction mass only —
-`RevealResponse` stays refused pending raw suffix enrichment. Design in hand ≠
-producers built: the card stays open until each has a gated producer.
+`RevealResponse` stays refused pending raw suffix enrichment.
+
+**Movement (slices 4a/4b/4c, 2026-08-25, same night) — all three producers
+BUILT with gates.** PRs #45/#46/#44, main `cbce1ae`, central gates green:
+`solver::upper_cs` (the E3 admissible-upper + fused-directional variants),
+`solver::hazard` (the invariant verifier as single authority + one-round
+trump-extraction producer; first `Dominated` via the valid-bound route;
+0/40 wild accepts — honest narrowness), `solver::motif` (classifier +
+suffix enrichment closing item 11; 453/453 classified, residual 0). The
+card [[slice3-deferred-producers]] closed on its done-when. Question 10's
+three open design questions are now **answered and built**; what remains
+open here is the follow-on tightening (an exact one-policy directional E3
+solve; richer witness languages beyond the two-trick v1; the
+`PartnerResponseCandidate` second layer over the now-persisted suffixes).
 
 ### 11. The x:018 conditional-moment gap
 

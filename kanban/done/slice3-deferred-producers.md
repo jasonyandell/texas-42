@@ -1,5 +1,10 @@
 id: [[slice3-deferred-producers]]
 opened: 2026-08-24
+closed: 2026-08-25 — done-when satisfied: all three items have producers
+with gates (slices 4a/4b/4c, PRs #45/#46/#44, main `cbce1ae`, central
+gates green at `668c5fb` and `cbce1ae`). Designs adjudicated same day as
+built (x:024, rulings TRIPLE-A1..A7). Follow-on tightenings live on
+wiki/walt-math-open-questions.md §10, not on this card.
 
 ## What
 

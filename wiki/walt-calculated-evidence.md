@@ -535,7 +535,74 @@ evidence-engine design), the **dominance valid-bound route** (PANEL-A7 admits
 one; only the exact-enumeration producer exists, and a bound type without a
 producer would invite misuse), and the **§10 motif tags** (absent, not
 approximated). Everything else on the PANEL-A7/A8 adoption list landed with
-gates.
+gates. *(All three deferrals were closed the following night — the slice-4
+section below.)*
+
+## The field-swap slice 4: the three deferred producers land [L2 thread]
+
+The three deferrals above went to Pro as dispatch **x:024** (the
+deferred-producers triple, hand-ferried 2026-08-24); the response was
+adjudicated 2026-08-25 at **TRIPLE-A1..A7** (`walt/CENSUS-RULINGS.md`;
+intake `walt/math/response_deferred_producers_triple_v0.1_intake.md`;
+ledger row on [claim-ledger](claim-ledger.md)) and all three producers
+were **built with gates the same night** — slices 4c/4a/4b, PRs
+#44/#45/#46, mains `43967f3`/`668c5fb`/`cbce1ae`, central gates green at
+`668c5fb` and `cbce1ae`. The card [[slice3-deferred-producers]] closed on
+its own done-when. Everything below is instrument-tier; probe numbers are
+exploratory, cited by nothing above them.
+
+- **Slice 4a — the E3 admissible-upper producer**
+  (`walt/walt/src/solver/upper_cs.rs`; gates
+  `walt/walt/tests/solver_e3_upper.rs`). The max-preserving upper CS
+  (TRIPLE-A2): covering one fixed true maximizer suffices, so the
+  branchwise-max endpoint covers R_a at the **same δ with no Bonferroni
+  split**, and endpoint monotonicity collapses the family to the
+  empirical-optimum count the shipped split-reach solve already
+  produces. `SplitReachUpper` stores the counts as authority with the
+  §1.4 prefix-minimum bound a derived view; `screen_upper()` yields a
+  rung-E3 `RootActionExposureUpper`, so the §7.4 screen admitted a
+  sampled route with **zero changes to `field_swap.rs`**. The ESTIMATE
+  sibling is unchanged and still cannot enter a screen. Directional
+  uppers (TRIPLE-A3) use the fused directional optimum — pathwise ≥ any
+  one-policy count, so coverage holds **a fortiori** (conservative; the
+  method label keeps the distinction). Gates include the exact worked
+  specimen (E⁻₂,₂(3/4) = 17/15; R = 1/2 ≤ E3 = 3/4 < fused E2 = 1) and
+  the full 256-table × 256-stream sweep reproducing the adjudicated
+  worst undercoverage 11/128 < 1/4.
+- **Slice 4b — the Hazard-Exclusion Invariant verifier and the first
+  witness producer** (`walt/walt/src/solver/hazard.rs`; gates
+  `walt/walt/tests/solver_hazard_witness.rs`; probe
+  `walt/probes/hazard_witness/`). `verify_hazard_witness` is the
+  **single dominance-bound authority** (TRIPLE-A4): initial cover proved
+  against the exact fiber, symbolic successor closure quantified over
+  all rule-legal completions (a sound over-approximation of any field),
+  terminal safety via a banked-points monotonicity lemma — no terminal
+  replay, no field consultation. `StructuralHazardZero` (δ = 0,
+  private construction) is reachable only through the verifier, and the
+  PANEL-A7 valid-bound route into `Dominated` produced its **first
+  specimen** (the §2.6 two-trick endgame: witness accepted, exact
+  B = 1/2, H = 0). The one-round trump-extraction producer (TRIPLE-A5)
+  ships with twelve typed declines; on the cancel corpus it reports
+  **40 pairs, 0 accepts, 40 declines** — including the standing h4-t6
+  exact-`Dominated` specimen declining at hypothesis 3, the §2.7
+  non-coverage shape observed in the wild. Honest narrowness, recorded,
+  not widened; cross-field composition refused by assertion and test.
+- **Slice 4c — first-split motif morphology + trace suffix enrichment**
+  (`walt/walt/src/solver/motif.rs`; gates
+  `walt/walt/tests/solver_fieldswap_motifs.rs`; probe
+  `walt/probes/fieldswap_motifs/`). Six motifs + `Other` by least
+  differing coordinate of the §3.3 six-coordinate signature, orthogonal
+  flags mandatory, root-frame resolution or `Other(missing_root_frame)`
+  — never guessed (TRIPLE-A6). The raw suffix enrichment
+  (branch suffixes + root semantics hash) closes the item-11 gap;
+  `RevealResponse` remains refused (TRIPLE-A7). Aggregates partition
+  **correction mass, never exposure** — the exact m_k± decomposition is
+  asserted against the committed cancel ladders, and sampled histograms
+  are typed descriptive, locked out of the screen. First census: 453/453
+  wild correction worlds classified, **residual 0**; priority capture
+  observed live (h8-t4's 2-1: the suit-shape flag fires 120/120 while
+  `SuitShapeFork` is primary on only 27 — the flags discipline earning
+  its keep on day one).
 
 ## The cap analysis, and Jason's 512 ruling
 
