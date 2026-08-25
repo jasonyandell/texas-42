@@ -585,11 +585,60 @@ impl SlicePolicy for FixedPreference {
     }
 }
 
-/// Replay one world to terminal from the root position: the viewer seat
-/// plays `focal`, every other seat plays `field` (the declared
-/// deterministic field model of this slice). Returns the viewer-objective
-/// terminal make indicator: whether the viewer's team achieved its pmake
-/// objective (make for the declaring side, set for the other).
+/// The total banked points of one complete hand: 7 trick points plus the
+/// 35 count points. Gated live: every walk asserts a terminal state is
+/// decided, which fails if any hand's banked total misses this value.
+const TOTAL_POINTS: u32 = 42;
+
+/// Whether the viewer-objective terminal make indicator is already decided
+/// at a public state, for EVERY continuation: the declaring side has
+/// banked its bid (monotone — points only accumulate), or the unbanked
+/// remainder of the 42-point pool cannot reach it. At a terminal state the
+/// pool is empty, so the answer is always `Some` there (`at_terminal`
+/// asserts it).
+pub fn decided_success(
+    position: &RootPosition,
+    viewer: Seat,
+    banked: [u32; 2],
+    at_terminal: bool,
+) -> Option<bool> {
+    let total = banked[0] + banked[1];
+    assert!(
+        total <= TOTAL_POINTS,
+        "banked points never exceed the 42-point pool"
+    );
+    let declared = banked[position.declaring_team.index()];
+    let pool = TOTAL_POINTS - total;
+    let made = if declared >= position.bid {
+        Some(true)
+    } else if declared + pool < position.bid {
+        Some(false)
+    } else {
+        None
+    };
+    assert!(
+        !(at_terminal && made.is_none()),
+        "the 42-point pool exhausts at terminal, so a terminal outcome is decided"
+    );
+    made.map(|m| {
+        if viewer.team() == position.declaring_team {
+            m
+        } else {
+            !m
+        }
+    })
+}
+
+/// Replay one world from the root position: the viewer seat plays
+/// `focal`, every other seat plays `field` (the declared deterministic
+/// field model of this slice). Returns the viewer-objective make
+/// indicator: whether the viewer's team achieved its pmake objective
+/// (make for the declaring side, set for the other). The replay stops at
+/// the first trick boundary where the indicator is decided for every
+/// continuation ([`decided_success`] — the indicator is monotone, points
+/// only accumulate), which is value-identical to playing out the
+/// remaining plies; a terminal state is always decided, so the truncation
+/// never changes the returned Boolean.
 pub fn replay_viewer_success(
     position: &RootPosition,
     viewer: Seat,
@@ -602,6 +651,9 @@ pub fn replay_viewer_success(
     let mut plays = position.trick_plays.clone();
     let mut banked = position.banked;
     let mut history: Vec<Domino> = Vec::new();
+    if let Some(decided) = decided_success(position, viewer, banked, false) {
+        return decided;
+    }
     while hands.iter().any(|h| !h.is_empty()) {
         let seat = leader.plus(plays.len());
         let led = plays.first().map(|d| position.decl.led_context(*d));
@@ -628,6 +680,9 @@ pub fn replay_viewer_success(
             banked[winner.team().index()] += trick.points();
             leader = winner;
             plays.clear();
+            if let Some(decided) = decided_success(position, viewer, banked, false) {
+                return decided;
+            }
         }
     }
     assert!(plays.is_empty(), "a hand ends on a trick boundary");
