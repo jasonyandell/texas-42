@@ -290,6 +290,17 @@ struct Intern {
     map: HashMap<Arc<Vec<u32>>, u32>,
 }
 
+/// The `solve_viewer` visit-order selector (reorder-not-cull;
+/// CENSUS-RULINGS.md E-A15: the ORDER of evaluation is lawful to change,
+/// the SET is not). `CaptureFirst` is the one default; `TileIndex` — the
+/// historical ascending order — is retained solely for the equivalence
+/// gate and A/B instrument runs, never as a public configuration surface.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum MoveOrdering {
+    CaptureFirst,
+    TileIndex,
+}
+
 pub struct Solver {
     pub sh: Arc<Shared>,
     viewer: Seat,
@@ -306,6 +317,7 @@ pub struct Solver {
     local_nodes: AtomicU64,
     local_viewer_children: AtomicU64,
     local_viewer_legal: AtomicU64,
+    ordering: MoveOrdering,
 }
 
 impl Solver {
@@ -338,6 +350,7 @@ impl Solver {
             local_nodes: AtomicU64::new(0),
             local_viewer_children: AtomicU64::new(0),
             local_viewer_legal: AtomicU64::new(0),
+            ordering: MoveOrdering::CaptureFirst,
         }
     }
 
@@ -346,6 +359,15 @@ impl Solver {
     #[must_use]
     pub fn parallel(mut self) -> Self {
         self.parallel = true;
+        self
+    }
+
+    /// Select the `solve_viewer` visit order (default `CaptureFirst`).
+    /// For the equivalence gate and instrument A/B arms only — value
+    /// results are identical under every selector by E-A15.
+    #[must_use]
+    pub fn with_ordering(mut self, ordering: MoveOrdering) -> Self {
+        self.ordering = ordering;
         self
     }
 
@@ -487,13 +509,95 @@ impl Solver {
         Some(val)
     }
 
+    /// First-order visit priority for the viewer's legal tiles — aimed
+    /// at the Boolean pmake break in `solve_viewer`. Higher visits
+    /// earlier. One priority serves maximizer and minimizer alike: the
+    /// viewer's team banks any trick the viewer wins, and banked count
+    /// is what saturates the payoff in BOTH directions (banked_t1 toward
+    /// make, banked_t0 toward set), so "win the trick as it stands,
+    /// richest capture first; otherwise give up the least count" chases
+    /// the earliest exact decision either way. Pure in (dcl, key, led,
+    /// tile), integer-only, no RNG, no shared tables — the visit order
+    /// is deterministic run-to-run under rayon.
+    fn viewer_visit_priority(&self, key: &Key, led: Option<Context>, tile: Domino) -> u32 {
+        let dcl = self.sh.dcl;
+        let Some(q) = led else {
+            // Leading: strongest lead first — called tier over natural,
+            // declaration rank within the tier.
+            let k = dcl.trick_key(tile, dcl.led_context(tile));
+            return 100 * k.tier as u32 + u32::from(k.rank.value());
+        };
+        let on_table = || {
+            key.plays
+                .iter()
+                .map(|&p| Domino::from_index(usize::from(p)).expect("played tile"))
+        };
+        // The trick's standing winner: first strict maximum in play
+        // order, the `Trick::winner` convention.
+        let mut best = None;
+        let mut winner_at = 0;
+        for (i, d) in on_table().enumerate() {
+            let k = dcl.trick_key(d, q);
+            if best.as_ref().is_none_or(|b| k > *b) {
+                best = Some(k);
+                winner_at = i;
+            }
+        }
+        let best = best.expect("a led context implies a play");
+        if dcl.trick_key(tile, q) > best {
+            // Wins the trick as it stands: richest capture first (count
+            // on the table plus the tile's own).
+            1_000 + on_table().map(Domino::count).sum::<u32>() + tile.count()
+        } else {
+            let winner = Seat::from_index((usize::from(key.leader) + winner_at) % 4)
+                .expect("winner seat index");
+            if winner.team() == self.viewer.team() {
+                // The trick currently falls to the viewer's own team:
+                // feed it count first.
+                20 + tile.count()
+            } else {
+                // It falls to the opponents: give up the least count
+                // first.
+                10 - tile.count()
+            }
+        }
+    }
+
+    /// The `solve_viewer` visit order (reorder-not-cull;
+    /// CENSUS-RULINGS.md E-A15: the ORDER of evaluation is lawful to
+    /// change, the SET is not): a canonical permutation of `legal` —
+    /// priority descending, ascending tile index on exact ties, so the
+    /// permutation itself is deterministic. Public so gates and probes
+    /// exercise the one authority `solve_viewer` consumes.
+    pub fn viewer_visit_order(
+        &self,
+        key: &Key,
+        led: Option<Context>,
+        legal: DominoSet,
+    ) -> Vec<Domino> {
+        let priority = |t: Domino| match self.ordering {
+            MoveOrdering::CaptureFirst => self.viewer_visit_priority(key, led, t),
+            // A constant priority leaves only the index tie-break: the
+            // historical ascending order, kept for the equivalence gate.
+            MoveOrdering::TileIndex => 0,
+        };
+        let mut order: Vec<(u32, Domino)> = legal.iter().map(|t| (priority(t), t)).collect();
+        order.sort_unstable_by_key(|&(p, t)| (std::cmp::Reverse(p), t.index()));
+        order.into_iter().map(|(_, t)| t).collect()
+    }
+
     fn solve_viewer(&self, key: &Key, led: Option<Context>) -> Option<BigRational> {
         let hand = self.viewer_hand0 & !key.played;
         let legal = legal_plays(self.sh.dcl, set_of(hand), led);
+        // Reorder, never cull (E-A15): the same legal set in heuristic
+        // order. This loop is value-only — max/min over children, no
+        // action returned — so no tie-break is exposed; the order only
+        // moves where the Boolean break lands.
+        let order = self.viewer_visit_order(key, led, legal);
         self.local_viewer_legal
-            .fetch_add(legal.len() as u64, Ordering::Relaxed);
+            .fetch_add(order.len() as u64, Ordering::Relaxed);
         let mut best: Option<BigRational> = None;
-        for tile in legal.iter() {
+        for &tile in &order {
             self.local_viewer_children.fetch_add(1, Ordering::Relaxed);
             let child = self.child_after_play(key, tile, key.alive);
             let v = self.solve(&child)?;
@@ -700,6 +804,8 @@ impl Solver {
             (Field::Level(k - 1), Vec::new())
         };
         let maximize = seat.team() == Team::T1;
+        // Inner minds inherit the host's visit-order selector so an A/B
+        // arm is whole-stack, not host-only (value-invariant either way).
         let inner = Solver::new(
             Arc::clone(&self.sh),
             seat,
@@ -708,7 +814,8 @@ impl Solver {
             inner_worlds,
             inner_seeds,
             inner_field,
-        );
+        )
+        .with_ordering(self.ordering);
         let root = Key {
             played: key.played,
             leader: key.leader,

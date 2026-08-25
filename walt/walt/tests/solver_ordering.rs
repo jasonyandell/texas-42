@@ -30,7 +30,7 @@ use walt::solver::policy::{
 };
 use walt::solver::targeted::legal_root_actions;
 use walt::solver::{
-    mask_bits, mix, sample_belief, Deadline, Field, Key, Shared, Solver, SplitMix64,
+    mask_bits, mix, sample_belief, Deadline, Field, Key, MoveOrdering, Shared, Solver, SplitMix64,
 };
 
 fn q(n: i64, d: i64) -> BigRational {
@@ -126,9 +126,12 @@ fn root_key() -> Key {
 /// Per-tile values, host (children, legal), shared (children, legal).
 type DirectSolve = (Vec<(String, BigRational)>, (u64, u64), (u64, u64));
 
-/// One serial solve of every root child on the deal(1) fixture; returns
-/// the per-tile values and the host solver's break counters.
-fn direct_solve(hand_no: u64) -> DirectSolve {
+/// One serial solve of every root child on a deal fixture under the
+/// given visit order; returns the per-tile values and the host solver's
+/// break counters. NOTE: memo_len/alive_sets are traversal-order-
+/// sensitive readings (intern ids are assigned in encounter order) and
+/// are deliberately never asserted anywhere in this file.
+fn direct_solve(hand_no: u64, ordering: MoveOrdering) -> DirectSolve {
     let hands = deal(hand_no);
     let dcl = Decl::NoTrump;
     let seat = Seat::from_index(1).expect("seat 1");
@@ -146,7 +149,8 @@ fn direct_solve(hand_no: u64) -> DirectSolve {
         worlds,
         Vec::new(),
         Field::Level(0),
-    );
+    )
+    .with_ordering(ordering);
     let mut values = Vec::new();
     for tile_idx in mask_bits(hand) {
         let tile = Domino::from_index(usize::from(tile_idx)).expect("tile < 28");
@@ -227,6 +231,82 @@ fn bench_root_exact_values_match_their_frozen_pins() {
     }
 }
 
+/// The visit order is a canonical permutation of the legal set — same
+/// multiset (a set: no duplicates), nothing culled, nothing invented —
+/// and deterministic across invocations, at a lead root and at a
+/// mid-trick follow with count on the table.
+#[test]
+fn viewer_visit_order_is_a_canonical_permutation_of_the_legal_set() {
+    use walt::rules::rules::legal_plays;
+    use walt::rules::DominoSet;
+    use walt::solver::set_of;
+
+    let hands = deal(1);
+    let dcl = Decl::PipTrump(walt::rules::Pip::new(6).expect("pip 6"));
+    let seat = Seat::from_index(1).expect("seat 1");
+    let hand = hands[1];
+    let mut rng = SplitMix64(SEED ^ mix(0x33));
+    let worlds = sample_belief(seat.index(), hand, 0, [7; 4], [0; 4], N, &mut rng);
+    let deadline = Deadline::after(Duration::from_secs(86_400));
+    let sh = Arc::new(Shared::new(dcl, BID, vec![N0], 0, 7, deadline));
+    let solver = Solver::new(
+        Arc::clone(&sh),
+        seat,
+        hand,
+        seat.team() == Team::T1,
+        worlds,
+        Vec::new(),
+        Field::Level(0),
+    );
+    // A lead root (led None) and a follow after seat 1's lowest tile led
+    // (led Some, one play on the table).
+    let lead_key = root_key();
+    let led_tile = mask_bits(hand)[0];
+    let follow_key = Key {
+        played: 1u32 << led_tile,
+        leader: 1,
+        plays: vec![led_tile],
+        banked_t1: 0,
+        banked_t0: 0,
+        alive: 0,
+    };
+    let follower_hand = hands[2];
+    let cases: &[(&Key, Option<walt::rules::Context>, u32)] = &[
+        (&lead_key, None, hand),
+        (
+            &follow_key,
+            Some(dcl.led_context(Domino::from_index(usize::from(led_tile)).expect("led tile"))),
+            follower_hand,
+        ),
+    ];
+    for &(key, led, raw_hand) in cases {
+        let legal = legal_plays(dcl, set_of(raw_hand & !key.played), led);
+        let order = solver.viewer_visit_order(key, led, legal);
+        assert_eq!(order.len(), legal.len(), "nothing culled, nothing added");
+        let as_set: DominoSet = order.iter().copied().collect();
+        assert_eq!(as_set, legal, "the same legal set, permuted");
+        let again = solver.viewer_visit_order(key, led, legal);
+        assert_eq!(order, again, "deterministic across invocations");
+    }
+    // The TileIndex arm is exactly the historical ascending order.
+    let ascending_solver = Solver::new(
+        Arc::clone(&sh),
+        seat,
+        hand,
+        seat.team() == Team::T1,
+        Vec::new(),
+        Vec::new(),
+        Field::Level(0),
+    )
+    .with_ordering(MoveOrdering::TileIndex);
+    for &(key, led, raw_hand) in cases {
+        let legal = legal_plays(dcl, set_of(raw_hand & !key.played), led);
+        let order = ascending_solver.viewer_visit_order(key, led, legal);
+        let ascending: Vec<Domino> = legal.iter().collect();
+        assert_eq!(order, ascending, "TileIndex is the ascending baseline");
+    }
+}
+
 /// The direct serial solve: values pinned to the ascending-order
 /// baseline, and the break counters advance, never exceed the legal
 /// total, and strictly undercut it (the Boolean break fires somewhere in
@@ -242,7 +322,7 @@ fn direct_solve_values_and_break_counters_are_sane() {
         ("6-0", 1, 2),
         ("6-1", 5, 8),
     ];
-    let (values, host, shared) = direct_solve(1);
+    let (values, host, shared) = direct_solve(1, MoveOrdering::CaptureFirst);
     assert_eq!(values.len(), pins.len());
     for ((tile, value), &(pin_tile, n, d)) in values.iter().zip(pins.iter()) {
         assert_eq!(tile, pin_tile);
@@ -260,8 +340,24 @@ fn direct_solve_values_and_break_counters_are_sane() {
     assert!(all_legal >= legal, "the fold includes the host");
     // Deterministic across invocations: this path is serial (no rayon),
     // so the counters are exact, not just the values.
-    let (values2, host2, shared2) = direct_solve(1);
+    let (values2, host2, shared2) = direct_solve(1, MoveOrdering::CaptureFirst);
     assert_eq!(values, values2);
     assert_eq!(host, host2);
     assert_eq!(shared, shared2);
+}
+
+/// The equivalence gate — reorder-not-cull as a checked property, not a
+/// claim: the same fixtures under both visit orders produce identical
+/// exact values on every root child. Counters may differ (that is the
+/// point of the knob); values may not.
+#[test]
+fn both_orderings_agree_on_every_exact_value() {
+    for hand_no in [1u64, 2] {
+        let (capture, _, _) = direct_solve(hand_no, MoveOrdering::CaptureFirst);
+        let (ascending, _, _) = direct_solve(hand_no, MoveOrdering::TileIndex);
+        assert_eq!(
+            capture, ascending,
+            "E-A15: visit order changed a value on deal({hand_no})"
+        );
+    }
 }

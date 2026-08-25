@@ -30,11 +30,15 @@ ascending-order baseline; counter sanity; permutation determinism).
    declared-seed roots (the `solver_viewer_fiber` deal construction,
    seed `0x9E37_79B9`, NoTrump, bid 30, seat 1 leading, n_outer=8,
    n0=2).
-3. **direct-deal{1,2}** — the same synthetic roots driven through a
-   bench-owned serial `Solver`, where the break counters are readable.
-   The high-level endpoints build their `Shared`s internally (one per
+3. **direct-deal{1,2}-{tileindex,capturefirst}** — the same synthetic
+   roots driven through a bench-owned serial `Solver`, once per
+   `MoveOrdering` arm (`TileIndex` = the historical ascending order,
+   retained solely for this A/B and the equivalence gate; `CaptureFirst`
+   = the one default; inner modeled minds inherit the host's selector so
+   each arm is whole-stack). The break counters are readable here; the
+   high-level endpoints build their `Shared`s internally (one per
    modeled-mind call in the field machinery), so their counters are not
-   reachable from the bench; the direct items carry the counter signal.
+   reachable from the bench — the direct items carry the counter signal.
 4. **exact-sigma0-h8-t4-hard** (`hard` argument) — the harder receipt
    root, fiber 1200, σ0 only.
 
@@ -76,4 +80,53 @@ item (the E-A15 invariance, also pinned in `tests/solver_ordering.rs`).
 
 ### After — heuristic order (the reorder commit)
 
-(recorded when the ordering lands)
+The shipped heuristic (`Solver::viewer_visit_priority`, one priority for
+maximizer and minimizer since the viewer's team banks any trick the
+viewer wins in both directions): following — win the trick as it stands,
+richest capture first; can't win — feed count to a trick the viewer's
+team already holds, give up the least count to one it doesn't; leading —
+strongest lead first (called tier over natural, declaration rank within).
+Ties broken by ascending tile index, so the permutation is canonical.
+Selector: `MoveOrdering::{CaptureFirst, TileIndex}` on `Solver`
+(`with_ordering`), `CaptureFirst` the one default, inner minds inherit.
+
+| item | micros | children/legal |
+|---|---|---|
+| exact-sigma0-h4-t6 (fiber 90) | 2,288 | — |
+| exact-sigma1-h4-t6 | 80,777 | — |
+| exact-sigma0-h8-t5 (fiber 92) | 65,046 | — |
+| exact-sigma1-h8-t5 | 719,471 | — |
+| exact-sigma0-h10-t6 (fiber 19) | 114 | — |
+| exact-sigma1-h10-t6 | 187 | — |
+| level1-deal1 | 30,888 | — |
+| direct-deal1-tileindex | 38,682 | host 1198/1308; shared 28957/44113 |
+| direct-deal1-capturefirst | 37,601 | host 1217/1322; shared 27014/42537 |
+| level1-deal2 | 52,886 | — |
+| direct-deal2-tileindex | 32,948 | host 1051/1380; shared 25552/33961 |
+| direct-deal2-capturefirst | 29,557 | host 1001/1345; shared 22803/30924 |
+| exact-sigma0-h8-t4-hard (fiber 1200) | 3,132,718 | — |
+
+### Reading (exploratory)
+
+- **Values byte-identical on every item and across both arms** — the
+  E-A15 invariance held end to end (also gated by the pins and the
+  explicit two-arm equivalence test in `tests/solver_ordering.rs`).
+- **Consistency check passed**: the in-binary `tileindex` arm reproduces
+  the pre-change baseline counters exactly (28957/44113 and
+  25552/33961), so the A/B is measuring the ordering and nothing else.
+- **The clean signal improved modestly**: shared children/legal fell
+  28957/44113 → 27014/42537 on deal1 (about 66/100 → 64/100) and
+  25552/33961 → 22803/30924 on deal2 (about 75/100 → 74/100, with the
+  explored tree itself about 9/100 smaller — earlier breaks at ancestors
+  prune whole subtrees from the memo-miss set, which is why BOTH
+  counters move: the set of `solve_viewer` invocations is itself
+  order-dependent).
+- **Wall-clock deltas are inside single-shot noise on this workload.**
+  The ordering pays a per-viewer-node materialize-and-sort; at these
+  sizes (late-trick receipt roots, n_outer 8 synthetic roots) that
+  overhead roughly cancels the break gains. The knob is proven lawful
+  and instrumented; whether it buys real wall time at deeper horizons /
+  larger bundles is a question for a bigger probe, not this one.
+- Break saturation needs certainty (`v` exactly 0 or 1 across the alive
+  set), which is rare in open positions — the structural reason the
+  ratio floors around 2/3 here rather than collapsing.

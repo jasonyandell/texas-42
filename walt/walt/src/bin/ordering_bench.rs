@@ -34,8 +34,8 @@ use walt::solver::policy::{
 };
 use walt::solver::targeted::legal_root_actions;
 use walt::solver::{
-    level1_evaluate, mask_bits, mix, sample_belief, Deadline, Field, Key, Shared, Solver,
-    SplitMix64,
+    level1_evaluate, mask_bits, mix, sample_belief, Deadline, Field, Key, MoveOrdering, Shared,
+    Solver, SplitMix64,
 };
 
 /// The `solver_viewer_fiber` declared deal seed.
@@ -177,7 +177,10 @@ fn level1_item(hand_no: u64) {
     );
 }
 
-fn direct_item(hand_no: u64) {
+/// Both visit-order arms on one fixture (a fresh `Shared` per arm so the
+/// folded totals stay per-arm): the in-binary A/B the `MoveOrdering`
+/// selector exists for.
+fn direct_item(hand_no: u64, ordering: MoveOrdering, tag: &str) {
     let hands = deal(hand_no);
     let dcl = Decl::NoTrump;
     let seat = Seat::from_index(1).expect("seat 1");
@@ -196,7 +199,8 @@ fn direct_item(hand_no: u64) {
         worlds,
         Vec::new(),
         Field::Level(0),
-    );
+    )
+    .with_ordering(ordering);
     let t = Instant::now();
     let mut values: Vec<String> = Vec::new();
     for tile_idx in mask_bits(hand) {
@@ -210,7 +214,7 @@ fn direct_item(hand_no: u64) {
     let (host_children, host_legal) = solver.viewer_break_counters();
     let (all_children, all_legal) = sh.viewer_break_totals();
     println!(
-        "item=direct-deal{hand_no} micros={micros} \
+        "item=direct-deal{hand_no}-{tag} micros={micros} \
          host_children/legal={host_children}/{host_legal} \
          shared_children/legal={all_children}/{all_legal} values=[{}]",
         values.join(", "),
@@ -241,7 +245,8 @@ fn main() {
     }
     for hand_no in [1u64, 2] {
         level1_item(hand_no);
-        direct_item(hand_no);
+        direct_item(hand_no, MoveOrdering::TileIndex, "tileindex");
+        direct_item(hand_no, MoveOrdering::CaptureFirst, "capturefirst");
     }
     if hard {
         exact_item(&r, 8, 4, &field0, "exact-sigma0-h8-t4-hard");
