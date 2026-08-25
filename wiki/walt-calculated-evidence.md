@@ -691,13 +691,55 @@ batch-boundary divergence witness**, which had existed only in the
 scratch-tier verifier, is now a ported Rust CI gate. The card
 [[panel-response-audits]] closed all-CONFORMS.
 
+## The targeted field-1 controller lands [L2 thread]
+
+**PR #51 / `68f9d04`, 2026-08-25 — exploratory tier; the owning record is
+`walt/probes/l2_controller/README.md`, not restated here.**
+`solver::targeted` assembles the parent's §8 Stages 1–5 into one per-root
+pipeline — exposure rungs, the L2-T4 screen, survivor-only σ1 work — out
+of the existing authorities (`exposure`, `field_swap`, `upper_cs`, the CE
+evidence engine), reimplementing nothing, gated by
+`walt/walt/tests/solver_targeted.rs` plus compile_fail locks (a steering
+lower witness cannot enter the screen; a typed refusal has no numeric
+accessor). This is the L2 thread's consumer artifact, parallel to what
+`solver::act` is for CE — and it touches no default: instrument + library
+layer beside the live player, per CE-A7/§20.16.
+
+The design center is that **rung spend is itself schedule-controlled**: the
+admissible set is monotone in each exposure bound, so when the set at the
+frozen candidates' exact lower witnesses equals the set at the current
+bounds, exact-E4 escalation *provably cannot prune* and is refused as
+`provably-useless` (the gate tests re-verify each refusal against real E4).
+On the first probe corpus (13 roots) that schedule answered the §17.2
+falsifier directly: **E4 was never paid** — h4-t6 pruned to its singleton
+at the E2 screen with zero σ1 spend, and the h8-t4 root where slice 2 paid
+10.9 seconds of rungs to prune nothing now costs a cheap proof that no
+prune is possible, then skips. What σ1 *bought* where it was paid: at
+h8-t4, an actual `FieldDecisionChanged` at the exact frozen-set tier
+(σ0-settled 2-1 → σ1 selection 5-5) with all survivor ladders
+ε-equivalent — PANEL-A7 cancellation in the wild. On the count-timing
+family the zero-hypothetical shows no exposure bound could prune, the E3
+walks are refused as provably useless, and the survivor δ-intervals stay
+honestly open 6/6 — nothing there is a value statement.
+
+One build-level addition is flagged for visibility: `delta_frozen_baseline`
+fills the parent's declared `DeltaFrozenSet` Stage-1 tier (δ-valid
+per-action intervals) by inverting the existing CE one-mean process at both
+endpoints, with the risk summed through the screen's declared budget.
+Producer plumbing over a single existing authority, not new mathematics —
+but if any future result leans on the two-sided interval as a theorem-tier
+object, it gets its own mathematical intake first. The second declared
+scope boundary: the directional screen (PANEL-A8 regime) is computed and
+reported as an instrument but does not yet *confine* Stage-4 spend — that
+sits on the open-questions follow-on list beside the exact directional E3.
+
 ## In flight, and deliberately not presented as results
 
-- **The targeted field-1 controller** — the consumer the rungs, screen,
-  ladder, and producers were built to feed (level 2 as calculated
-  refinement: pay σ1 only where the screen says the field matters), now
-  design-informed by step 9's first detection readings; then **step 10 —
-  recurse inward** — last, per the Phase-1 fence.
+- **Step 10 — recurse inward** — last, per the Phase-1 fence; the
+  L2 follow-on tightenings (exact one-policy directional E3, richer
+  witness languages, `PartnerResponseCandidate`, directional confinement
+  of Stage-4 spend) are inventoried on
+  [open questions](walt-math-open-questions.md) §10.
 - **The controller as an opt-in play mode is now built** (PR #37, the section
   above) and is exactly that: opt-in. What has *not* happened is any
   comparison — no arena run, no conformance gate, no strength number of any

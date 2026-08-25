@@ -311,6 +311,19 @@ the count-timing 𝓘 direction generalize across the near-tie regime, and
 what does the partner-response channel look like at roots where the modeled
 *non-bidder* seats carry the split mass?
 
+**Movement (the targeted controller, 2026-08-25, same day):** the consumer
+landed — `solver::targeted` (PR #51) assembles rungs, screen, and
+survivor-only σ1 work into the per-root pay-only-where-it-matters pipeline,
+with rung spend itself schedule-controlled (exact-E4 escalation refused
+`provably-useless` when the lower-witness admissible set proves it cannot
+prune). The follow-on list here grows by two: **directional confinement of
+Stage-4 spend** (the PANEL-A8 directional screen is computed and reported
+but does not yet confine which survivors get σ1 work), and the standing
+caveat that `delta_frozen_baseline` (the `DeltaFrozenSet` Stage-1 producer,
+the CE one-mean inversion at both endpoints) is build-level plumbing — any
+future *theorem-tier* use of its two-sided interval requires its own
+mathematical intake first.
+
 ### 11. The x:018 conditional-moment gap
 
 **Status: named in correspondence, awaiting Pro's reply.** The fee-correlation
@@ -370,6 +383,19 @@ and no `RootActionExposureUpper` has yet been computed at tricks 1–3 — so
 the open question stands unchanged, with one more point of evidence that
 early-trick screens will not prune and the targeted controller must lean on
 directional bounds and the sampled E3 route there.
+
+**Movement (the targeted controller, 2026-08-25):** the *cost* half of this
+question changed shape. The §17.2 falsifier direction — rungs costing half
+a σ1 pass while pruning nothing — is answered **by schedule** rather than
+by a tighter bound: on the first controller corpus exact E4 was never paid
+at all (h4-t6 pruned to its singleton at the E2 screen; the h8-t4 no-prune
+is now a cheap steering proof followed by a skip; the count-timing E3 walks
+are refused as provably useless because the zero-hypothetical shows no
+bound could prune). What remains open is unchanged and now isolated: a rung
+that actually *tightens* at tricks 1–3 — where exposure runs at 1, the
+screen cannot prune, and the controller's honest mode is δ-intervals and
+typed refusals — does not exist. The question is now purely about better
+mathematics there, not about wasted spend.
 
 ### 14. The per-epoch σ0 declaration
 
