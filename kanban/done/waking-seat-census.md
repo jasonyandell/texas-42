@@ -1,6 +1,8 @@
 # [[waking-seat-census]]
 
-Opened: 2026-08-25
+Opened: 2026-08-25 · Closed: 2026-08-25 (wiki sync landed — the profile
+reading is on [walt-calculated-evidence](../../wiki/walt-calculated-evidence.md);
+the speed campaign it targeted ran the same day, PRs #53/#55/#56)
 
 ## What
 
@@ -36,7 +38,7 @@ for the reorder-not-cull ordering build that starts next.
       per-phase spend attribution by decision and by trick, escalation
       `PhaseSpend` breakdown, wake rate by trick, agreement rate,
       caveats in the README.
-- [ ] The profile reading synced to the wiki (owning page +
+- [x] The profile reading synced to the wiki (owning page +
       claim-ledger cross-refs as applicable) — the sync closes this
       card.
 
