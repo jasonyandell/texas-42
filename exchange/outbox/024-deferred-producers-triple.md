@@ -1,12 +1,14 @@
 ---
 slug: deferred-producers-triple
+number: 024
 channel: new-chat
-status: "DRAFT — NOT DISPATCHED. No number assigned; awaiting Jason's explicit go under a future authorized batch."
+status: "DISPATCHED 2026-08-24 (hand-ferried by Jason, single dispatch, quota cleared by his delivery). Response pending."
 deliverable: three-part design response — (1) theorem + proof of an anytime-valid upper confidence bound on a supremum of means, with validity conditions under the stated coupling and an enumeration-verifiable exact-rational worked example; (2) the weakest machine-checkable structural sufficient condition for zero hazard mass, with a worked example and an explicit non-coverage statement; (3) a motif alphabet as decidable predicates over the declared trace fields, with coverage/exclusivity analysis and per-motif aggregate typing
 ---
-STATUS: DRAFT — NOT DISPATCHED. Authorization: none. Batch quota: TBD with Jason.
+STATUS: DISPATCHED 2026-08-24, hand-ferried by Jason (x:024). The ferried
+text is the Pro-facing prompt below the internal note.
 
-> **Internal note (removed at dispatch).** Thread: **[L2]**; Part 1 straddles
+> **Internal note (not part of the ferried text).** Thread: **[L2]**; Part 1 straddles
 > into CE machinery via the sanctioned one-directional crossing (L2 consumes
 > CE baselines; CE never consumes L2). Sources: `walt/probes/fieldswap_cancel/`
 > `README.md` ("Deferred LOUDLY"), `kanban/backlog/slice3-deferred-producers.md`,
