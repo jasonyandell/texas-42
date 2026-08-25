@@ -30,6 +30,7 @@ pub mod hazard;
 pub mod motif;
 pub mod policy;
 pub mod upper_cs;
+pub mod wakeup;
 
 use std::collections::hash_map::DefaultHasher;
 use std::collections::HashMap;
