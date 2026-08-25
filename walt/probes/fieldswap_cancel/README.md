@@ -165,14 +165,17 @@ item), pairwise 0.14 s and exact-root 0.09 s (warm caches); h7-t5
    "exact enumeration or a valid bound"; only the exact-enumeration
    route has a producer. A structural hazard-bound type without a
    producer would invite misuse, so none was stubbed.
-3. **Motif tags (§10 item 14).** `FieldSplitTrace` carries items 1–13
-   — with one precision: item 11 (the public observation that
-   distinguishes the relevant branches) has no dedicated field and is
-   only implicit in (tile0, tile1, history); a motif design pass may
-   want it made explicit. The structural motif vocabulary (e.g.
-   "reveal-response") needs that design pass and is absent, not
-   approximated. Aggregates ship seat/trick histograms and the
-   conditional outcome difference only.
+3. **Motif tags (§10 item 14) — SHIPPED in slice 4c** (x:024 Part 3,
+   rulings TRIPLE-A6/A7): the six-motif first-split morphology
+   classifier, orthogonal flags, root-frame resolution, and the raw
+   suffix enrichment (`branch0_suffix`/`branch1_suffix` +
+   `root_semantics_hash`, which closes the item-11 precision) live in
+   `walt/walt/src/solver/motif.rs`, gated by
+   `walt/walt/tests/solver_fieldswap_motifs.rs`, with instrument output
+   in `../fieldswap_motifs/`. The records in THIS directory predate the
+   enrichment and lack the suffix fields. `RevealResponse` remains
+   refused (TRIPLE-A7); motifs partition correction mass, never
+   exposure.
 
 Nothing else on the PANEL-A7/A8 adoption list was capped: directional
 rungs, extended ladder, sandwich, winner stability, directional

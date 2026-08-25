@@ -26,6 +26,7 @@ pub mod evidence;
 pub mod exposure;
 pub mod field;
 pub mod field_swap;
+pub mod motif;
 pub mod policy;
 
 use std::collections::hash_map::DefaultHasher;

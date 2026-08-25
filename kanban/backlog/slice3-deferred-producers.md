@@ -62,6 +62,13 @@ stays open: closure still requires gated producers, per Done-when.
    `RevealResponse` stays refused; the prerequisite is schema
    enrichment (branch suffixes + root_semantics_hash — also closes the
    item-11 gap), and even then only `PartnerResponseCandidate`.
+   *Status 2026-08-25: SHIPPED with gates (slice 4c) —
+   `walt/walt/src/solver/motif.rs` (classifier, flags, root-frame
+   resolution, suffix enrichment, exact m_k⁺/m_k⁻ decomposition,
+   descriptive-tier lock), tests
+   `walt/walt/tests/solver_fieldswap_motifs.rs`, probe
+   `walt/probes/fieldswap_motifs/` (453 correction worlds classified,
+   residual 0). `RevealResponse` still refused, per TRIPLE-A7.*
 
 Advisory build order (response §5): E3 → directional E3 → invariant
 verifier → one-round producer → motif classifier; no `RevealResponse`
