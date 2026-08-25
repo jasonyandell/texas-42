@@ -13,6 +13,14 @@
 //! Every decision is logged with the decider's evaluated options (exact
 //! rational on their sample, basis points for display). ESTIMATES, never
 //! receipts; not a P-A21 statement. No floats.
+//!
+//! RNG discipline (O27 fix, §12.3 audit): the deal stream and the belief
+//! streams are domain-separated — the game rng deals and does nothing
+//! else; each level-1 decision derives its own stream from (constant, own
+//! dealt hand, record hash), the walt_bridge information-consistent
+//! pattern audited CLEAN. NOTE: this bin's local `PiKey` copy still omits
+//! banked totals — the filed §3.4 finding — and is deliberately NOT fixed
+//! here; it stays filed, not silently patched.
 
 use std::collections::HashMap;
 use std::rc::Rc;
@@ -34,6 +42,10 @@ const GAME_SEED: u64 = 0x6A09_E667_F3BC_C908;
 /// Frozen seed for level-0 inner sampling (MUST match level1.rs so the field
 /// seats here play exactly the policy S1's solver models).
 const INNER_SEED: u64 = 0x243F_6A88_85A3_08D3;
+
+/// Frozen seed for the per-decision level-1 belief streams (O27:
+/// domain-separated from the deal stream and every other surface constant).
+const PLAYOUT_BELIEF_SEED: u64 = 0xD131_0BA6_98DF_B5AC;
 
 struct SplitMix64(u64);
 
@@ -609,9 +621,10 @@ fn play_game(
     deadline: Instant,
 ) -> Option<String> {
     let s1_full = s1_initial_mask();
-    let mut rng = SplitMix64(GAME_SEED ^ mix(game_idx as u64));
+    // The DEAL stream — O27: it deals and does nothing else.
+    let mut deal_rng = SplitMix64(GAME_SEED ^ mix(game_idx as u64));
     // Deal the other three hands uniformly (no voids exist pre-play).
-    let deal = sample_belief(1, s1_full, 0, [7, 7, 7, 7], [0u32; 4], 1, &mut rng)
+    let deal = sample_belief(1, s1_full, 0, [7, 7, 7, 7], [0u32; 4], 1, &mut deal_rng)
         .pop()
         .expect("one deal");
     let mut hands = deal; // [s0, s1, s2, s3] full 7-tile hands
@@ -699,8 +712,13 @@ fn play_game(
                         }
                         Some(out)
                     };
+                    // O27: a per-decision belief stream (own dealt hand +
+                    // record hash), never the deal stream.
+                    let mut drng = SplitMix64(
+                        PLAYOUT_BELIEF_SEED ^ mix(u64::from(hands[seat_i])) ^ record_hash(&key),
+                    );
                     let all_tiles = mask_bits(legal);
-                    let mut opts = evaluate(&all_tiles, n_outer, &mut rng)?;
+                    let mut opts = evaluate(&all_tiles, n_outer, &mut drng)?;
                     let mut n_cur = n_outer;
                     loop {
                         let best = if maximize {
@@ -718,7 +736,7 @@ fn play_game(
                             break;
                         }
                         n_cur *= 4;
-                        let refined = evaluate(&tied, n_cur, &mut rng)?;
+                        let refined = evaluate(&tied, n_cur, &mut drng)?;
                         for (t, v) in refined {
                             let slot = opts
                                 .iter_mut()

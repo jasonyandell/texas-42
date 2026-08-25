@@ -15,6 +15,25 @@
 //! parameterized cutoffs, rayon-parallel). The human plays from a chair
 //! with hints evaluated from that chair only — no peeking, ever.
 //!
+//! CONTROLLER SEATING (CE thread): launch with a `ctrl` argument to seat
+//! the §16.4 evidence/decision-controller player (`solver::act`) at every
+//! AI seat for the PLAY phase (auction and trump pricing stay level-1).
+//! `cap=N` sets the controller world cap (default 128 — an interactive
+//! think-time budget; a low cap only produces more honest Unresolved →
+//! level-1 fallback decisions, never wrong settlements; trick-1/2
+//! decisions at cap 512 cost minutes). Every controller play's message
+//! carries WHICH ROUTE chose the tile — a level-1 fallback among
+//! survivors/ties is an ordering choice outside the correctness boundary
+//! and is never presented as a settled winner.
+//!
+//! RNG discipline (O27 fix, §12.3 audit): the deal stream and the belief
+//! streams are domain-separated. `deal_rng` deals and does nothing else;
+//! every AI/hint evaluation draws from a per-decision stream derived as
+//! seed-constant ^ session ^ own dealt hand ^ record hash (the
+//! walt_bridge information-consistent pattern, audited CLEAN), so play
+//! sessions are record-grade: no decision's sample depends on how many
+//! decisions preceded it.
+//!
 //! Nothing here is quotable above exploratory tier; not a P-A21 statement.
 
 use std::io::{BufRead, BufReader, Write};
@@ -25,7 +44,9 @@ use num_rational::BigRational;
 use num_traits::Zero;
 
 use walt::rules::rules::{legal_plays, Trick};
-use walt::rules::{Context, Decl, Domino, Pip, Seat, Team};
+use walt::rules::{Context, ContextSet, Decl, Domino, Pip, Seat, Team};
+use walt::solver::act::{act, delta_run_default, ActConfig};
+use walt::solver::adaptive::DrivenState;
 use walt::solver::{
     best_of, bp, level1_evaluate, mask_bits, mask_of, mix, record_hash, replay, sample_belief,
     set_of, viewer_fiber_evaluate, Deadline, Field, Key, Shared, Solver, SplitMix64,
@@ -33,6 +54,14 @@ use walt::solver::{
 
 /// Internal bid seat after rotation (the bidding team is internal T1).
 const BIDDER: usize = 1;
+
+/// Domain-separated belief streams (O27): per-decision play/hint
+/// evaluation, auction pricing, and trump pricing each derive from their
+/// own constant — the deal stream (`deal_rng`) is never shared with any
+/// belief sample.
+const WEB_BELIEF_SEED: u64 = 0x3F84_D5B5_B547_0917;
+const WEB_AUCT_SEED: u64 = 0xBE54_66CF_34E9_0C6C;
+const WEB_TRUMP_SEED: u64 = 0xC0AC_29B7_C97C_50DD;
 
 /// The auction's baseline threshold: bid while P(make b) >= 1/2.
 // 11/16: the first zero-overbid rung of the 200-hand bidcurve calibration
@@ -94,7 +123,12 @@ struct Game {
     n_auct: usize,
     n0: usize,
     per_move_secs: u64,
-    rng: SplitMix64,
+    /// Controller seating for the AI seats' play decisions (CE thread).
+    ctrl: bool,
+    /// Controller world cap (a think-time budget, never a settlement rule).
+    world_cap: u64,
+    /// The DEAL stream only (O27: never shared with belief sampling).
+    deal_rng: SplitMix64,
     hands: [u32; 4],
     // -- auction --
     auct_start: usize,
@@ -117,7 +151,10 @@ struct Game {
     cur: Vec<PlayRec>,
     banked_t1: u8,
     banked_t0: u8,
-    voids: [u32; 4],
+    /// Observed void CONTEXTS per seat — the stored authority; the u32
+    /// incidence masks the level-1 path wants are a derived view
+    /// (`void_masks`), never second storage.
+    voids: [ContextSet; 4],
     trick_start_played: u32,
     tricks: Vec<TrickRec>,
     hint: Option<Vec<(u8, i64)>>,
@@ -131,7 +168,15 @@ struct Game {
 }
 
 impl Game {
-    fn new(human: usize, seed: u64, n_outer: usize, n0: usize, per_move_secs: u64) -> Game {
+    fn new(
+        human: usize,
+        seed: u64,
+        n_outer: usize,
+        n0: usize,
+        per_move_secs: u64,
+        ctrl: bool,
+        world_cap: u64,
+    ) -> Game {
         let mut g = Game {
             human,
             human_arena: human,
@@ -141,7 +186,9 @@ impl Game {
             n_auct: (n_outer / 2).clamp(24, 60),
             n0,
             per_move_secs,
-            rng: SplitMix64(seed),
+            ctrl,
+            world_cap,
+            deal_rng: SplitMix64(seed),
             hands: [0; 4],
             auct_start: 0,
             auct_turn: 0,
@@ -161,7 +208,7 @@ impl Game {
             cur: Vec::new(),
             banked_t1: 0,
             banked_t0: 0,
-            voids: [0; 4],
+            voids: [ContextSet::EMPTY; 4],
             trick_start_played: 0,
             tricks: Vec::new(),
             hint: None,
@@ -174,14 +221,25 @@ impl Game {
         g
     }
 
+    /// The u32 effective-incidence masks of the observed void contexts —
+    /// a derived view of the stored context sets.
+    fn void_masks(&self) -> [u32; 4] {
+        let dcl = self.dcl.expect("declared");
+        core::array::from_fn(|s| {
+            self.voids[s]
+                .iter()
+                .fold(0u32, |acc, q| acc | mask_of(dcl.effective_incidence(q)))
+        })
+    }
+
     fn new_hand(&mut self, human_arena: usize) {
         self.human_arena = human_arena;
         self.human = human_arena;
         self.hand_no += 1;
-        self.rng = SplitMix64(self.seed ^ mix(self.hand_no));
+        self.deal_rng = SplitMix64(self.seed ^ mix(self.hand_no));
         let mut tiles: Vec<u8> = (0..28).collect();
         for i in (1..tiles.len()).rev() {
-            let j = self.rng.below((i + 1) as u64) as usize;
+            let j = self.deal_rng.below((i + 1) as u64) as usize;
             tiles.swap(i, j);
         }
         let mask_slice = |sl: &[u8]| sl.iter().fold(0u32, |a, &x| a | (1u32 << x));
@@ -209,7 +267,7 @@ impl Game {
         self.cur = Vec::new();
         self.banked_t1 = 0;
         self.banked_t0 = 0;
-        self.voids = [0; 4];
+        self.voids = [ContextSet::EMPTY; 4];
         self.trick_start_played = 0;
         self.tricks = Vec::new();
         self.hint = None;
@@ -279,6 +337,13 @@ impl Game {
         }
         if self.auct_vals.len() < Decl::COUNT {
             if self.auct_worlds.is_empty() {
+                // O27: a per-seat auction stream — never the deal stream.
+                let mut rng = SplitMix64(
+                    WEB_AUCT_SEED
+                        ^ mix(self.seed)
+                        ^ mix(self.hand_no)
+                        ^ mix(u64::from(self.hands[s])),
+                );
                 self.auct_worlds = sample_belief(
                     BIDDER,
                     self.hands[s],
@@ -286,7 +351,7 @@ impl Game {
                     [7; 4],
                     [0; 4],
                     self.n_auct,
-                    &mut self.rng,
+                    &mut rng,
                 );
             }
             let i = self.auct_vals.len();
@@ -409,6 +474,13 @@ impl Game {
                     "auction to S{w} at {b}. seats rotate so the contract sits at S1 — you are S{}.",
                     self.human
                 ));
+                // O27: the trump-pricing stream — never the deal stream.
+                let mut rng = SplitMix64(
+                    WEB_TRUMP_SEED
+                        ^ mix(self.seed)
+                        ^ mix(self.hand_no)
+                        ^ mix(u64::from(self.hands[BIDDER])),
+                );
                 self.trump_worlds = sample_belief(
                     BIDDER,
                     self.hands[BIDDER],
@@ -416,7 +488,7 @@ impl Game {
                     [7; 4],
                     [0; 4],
                     self.n_outer,
-                    &mut self.rng,
+                    &mut rng,
                 );
                 self.phase = Phase::Trump;
             }
@@ -497,6 +569,13 @@ impl Game {
                     .collect::<Vec<_>>()
                     .join(", ")
             ));
+            let mut rng = SplitMix64(
+                WEB_TRUMP_SEED
+                    ^ mix(self.seed)
+                    ^ mix(self.hand_no)
+                    ^ mix(u64::from(self.hands[BIDDER]))
+                    ^ mix(n_cur as u64),
+            );
             let worlds = sample_belief(
                 BIDDER,
                 self.hands[BIDDER],
@@ -504,7 +583,7 @@ impl Game {
                 [7; 4],
                 [0; 4],
                 n_cur,
-                &mut self.rng,
+                &mut rng,
             );
             for &i in &tied {
                 let (t, v) = self.eval_decl(i, worlds.clone());
@@ -590,25 +669,20 @@ impl Game {
         let legal = mask_of(legal_plays(dcl, set_of(hand), self.led_now(dcl)));
         let key = self.key_now();
         let sizes = self.sizes_now();
-        let voids = self.voids;
+        let voids = self.void_masks();
         let tsp = self.trick_start_played;
         let bhs = 7 - self.tricks.len();
         let (bid, n_outer, n0, pm) = (self.bid, self.n_outer, self.n0, self.per_move_secs);
+        // O27: a per-decision belief stream — the walt_bridge
+        // information-consistent pattern (own dealt hand + record hash).
+        let mut rng = SplitMix64(
+            WEB_BELIEF_SEED
+                ^ mix(self.seed)
+                ^ mix(u64::from(self.hands[seat_i]))
+                ^ record_hash(&key),
+        );
         level1_evaluate(
-            dcl,
-            bid,
-            seat,
-            hand,
-            legal,
-            &key,
-            sizes,
-            voids,
-            tsp,
-            bhs,
-            n_outer,
-            n0,
-            pm,
-            &mut self.rng,
+            dcl, bid, seat, hand, legal, &key, sizes, voids, tsp, bhs, n_outer, n0, pm, &mut rng,
         )
     }
 
@@ -623,6 +697,8 @@ impl Game {
         let legal = mask_of(legal_plays(dcl, set_of(hand), self.led_now(dcl)));
         let (tile, forced, opts) = if legal.count_ones() == 1 {
             (legal.trailing_zeros() as u8, true, Vec::new())
+        } else if self.ctrl {
+            self.controller_choice(seat_i, dcl, hand)
         } else {
             let seat = Seat::from_index(seat_i).expect("seat");
             match self.evaluate_seat(seat_i) {
@@ -641,12 +717,106 @@ impl Game {
         self.apply_play(seat_i, tile, forced, opts);
     }
 
+    /// One controller-player decision at an AI seat (CE thread): the
+    /// §16.4 controller on one frozen level-1 continuation per legal
+    /// tile, then the action policy — settled winner played; honest tie
+    /// / δ-survivors ranked by the live level-1 ordering (a scheduling
+    /// choice OUTSIDE the correctness boundary, and said so in the
+    /// message: the record always carries which route chose the tile).
+    fn controller_choice(
+        &mut self,
+        seat_i: usize,
+        dcl: Decl,
+        hand: u32,
+    ) -> (u8, bool, Vec<(u8, i64)>) {
+        let trick_tiles: Vec<Domino> = self
+            .cur
+            .iter()
+            .map(|p| Domino::from_index(usize::from(p.tile)).expect("tile"))
+            .collect();
+        let mut banked = [0u32; 2];
+        banked[Team::T1.index()] = u32::from(self.banked_t1);
+        banked[Team::T0.index()] = u32::from(self.banked_t0);
+        let state = DrivenState {
+            decl: dcl,
+            bid: u32::from(self.bid),
+            declaring_team: Team::T1,
+            viewer_hand: set_of(hand),
+            leader: Seat::from_index(usize::from(self.leader)).expect("leader"),
+            trick_plays: &trick_tiles,
+            banked,
+            prior_played: set_of(self.trick_start_played),
+            voids: self.voids,
+        };
+        let d = u64::from(self.played.count_ones()) + 1;
+        let run_scope = format!("run:webtable-h{}", self.hand_no);
+        let cfg = ActConfig {
+            world_cap: self.world_cap,
+            fallback_n_outer: self.n_outer,
+            fallback_n0: self.n0,
+            ..ActConfig::interactive()
+        };
+        let decision = act(&state, &cfg, &run_scope, d, &delta_run_default());
+        let among: Vec<String> = decision
+            .among
+            .iter()
+            .map(|t| tile_str(t.index() as u8))
+            .collect();
+        let detail = decision.evaluation.as_ref().map_or_else(
+            || "forced".to_string(),
+            |e| {
+                if let walt::solver::controller::SetResult::ExactFrozenSet { fiber, .. } = &e.result
+                {
+                    format!(
+                        "{} {}, fiber {fiber}",
+                        decision.controller_route,
+                        e.result.tag()
+                    )
+                } else {
+                    format!(
+                        "{} {}, {} worlds",
+                        decision.controller_route,
+                        e.result.tag(),
+                        e.consumed
+                    )
+                }
+            },
+        );
+        self.msgs.push(format!(
+            "S{seat_i} controller: {} — {} among [{}] ({detail})",
+            tile_str(decision.tile.index() as u8),
+            decision.route.label(),
+            among.join(" "),
+        ));
+        // Display estimates: exact win-rates when the whole fiber was
+        // enumerated, the fallback's level-1 opts when it ranked, empty
+        // for a δ-settled winner (no per-candidate values of record).
+        let opts: Vec<(u8, i64)> = if let Some(o) = &decision.fallback_opts {
+            o.iter().map(|(t, v)| (*t, bp(v))).collect()
+        } else if let Some(walt::solver::controller::SetResult::ExactFrozenSet {
+            wins,
+            fiber,
+            ..
+        }) = decision.evaluation.as_ref().map(|e| &e.result)
+        {
+            decision
+                .legal
+                .iter()
+                .zip(wins)
+                .map(|(t, w)| (t.index() as u8, (w * 10_000 / fiber) as i64))
+                .collect()
+        } else {
+            Vec::new()
+        };
+        (decision.tile.index() as u8, false, opts)
+    }
+
     fn apply_play(&mut self, seat_i: usize, tile_idx: u8, forced: bool, opts: Vec<(u8, i64)>) {
         let dcl = self.dcl.expect("declared");
         let tile = Domino::from_index(usize::from(tile_idx)).expect("tile");
         if let Some(led) = self.led_now(dcl) {
             if !dcl.follows(tile, led) {
-                self.voids[seat_i] |= mask_of(dcl.effective_incidence(led));
+                self.voids[seat_i].insert(led);
             }
         }
         self.played |= 1u32 << tile_idx;
@@ -1127,7 +1297,19 @@ fn main() {
             "Decl::ALL pip order"
         );
     }
-    let args: Vec<String> = std::env::args().collect();
+    let raw: Vec<String> = std::env::args().collect();
+    // Flags may sit anywhere: `ctrl` seats the §16.4 controller player at
+    // the AI seats (CE thread); `cap=N` sets its world cap (default 128).
+    let ctrl = raw.iter().any(|a| a == "ctrl");
+    let world_cap: u64 = raw
+        .iter()
+        .find_map(|a| a.strip_prefix("cap="))
+        .map(|v| v.parse().expect("cap=<worlds>"))
+        .unwrap_or(128);
+    let args: Vec<&String> = raw
+        .iter()
+        .filter(|a| *a != "ctrl" && !a.starts_with("cap="))
+        .collect();
     let port: u16 = args
         .get(1)
         .map(|s| s.parse().expect("port"))
@@ -1145,11 +1327,18 @@ fn main() {
     assert!(human < 4, "seat must be 0..=3");
     let per_move_secs: u64 = 120;
 
-    let mut game = Game::new(human, seed, n_outer, n0, per_move_secs);
+    let mut game = Game::new(human, seed, n_outer, n0, per_move_secs, ctrl, world_cap);
     let listener = TcpListener::bind(("127.0.0.1", port)).expect("bind localhost port");
     println!("walt web table — EXPLORATORY; estimates, never receipts");
     println!("open http://127.0.0.1:{port}  (you are S{human}; real auction, all-pass redeals)");
     println!("n_outer={n_outer} n0={n0} seed={seed}");
+    if ctrl {
+        println!(
+            "controller seats ON (CE thread): world_cap={world_cap} — a think-time budget; \
+             a low cap only yields more honest Unresolved -> level-1 fallbacks, never wrong \
+             settlements. Routes are logged per play."
+        );
+    }
     for stream in listener.incoming() {
         match stream {
             Ok(mut s) => handle(&mut game, &mut s),

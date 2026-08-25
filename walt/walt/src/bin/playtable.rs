@@ -14,6 +14,21 @@
 //! fresh each hand; by default S1 keeps the receipt hand, `fresh` re-deals
 //! all four seats.
 //!
+//! CONTROLLER SEATING (CE thread): a `ctrl` argument seats the §16.4
+//! evidence/decision-controller player (`solver::act`) at every AI seat;
+//! `cap=N` sets its world cap (default 128 — an interactive think-time
+//! budget; a low cap only produces more honest Unresolved → level-1
+//! fallback decisions, never wrong settlements). Every controller play
+//! prints WHICH ROUTE chose the tile; a level-1 fallback among
+//! survivors/ties is an ordering choice outside the correctness boundary
+//! and is never presented as a settled winner.
+//!
+//! RNG discipline (O27 fix, §12.3 audit): the deal stream and the belief
+//! streams are domain-separated — the deal rng deals and does nothing
+//! else; every AI/hint evaluation derives a per-decision stream from
+//! (constant, session seed, own dealt hand, record hash) — the
+//! walt_bridge information-consistent pattern, audited CLEAN.
+//!
 //! ESTIMATES, never receipts; not a P-A21 statement. No floats.
 
 use std::collections::HashMap;
@@ -25,13 +40,19 @@ use num_rational::BigRational;
 use num_traits::{One, Zero};
 
 use walt::rules::rules::{legal_plays, Trick};
-use walt::rules::{Context, Decl, Domino, DominoSet, Pip, Seat, Team};
+use walt::rules::{Context, ContextSet, Decl, Domino, DominoSet, Pip, Seat, Team};
+use walt::solver::act::{act as controller_act, delta_run_default, ActConfig};
+use walt::solver::adaptive::DrivenState;
 
 const FULL_MASK: u32 = 0x0FFF_FFFF;
 
 /// Frozen seed for level-0 inner sampling (MUST match level1.rs so the field
 /// seats here play exactly the policy S1's solver models).
 const INNER_SEED: u64 = 0x243F_6A88_85A3_08D3;
+
+/// Frozen seed for the per-decision belief streams (O27: domain-separated
+/// from the deal stream and from every other surface constant).
+const TABLE_BELIEF_SEED: u64 = 0x9216_D5D9_8979_FB1B;
 
 struct SplitMix64(u64);
 
@@ -734,6 +755,16 @@ fn best_of(opts: &[(u8, BigRational)], maximize: bool) -> u8 {
         .0
 }
 
+/// The u32 effective-incidence masks of the observed void contexts — a
+/// derived view of the stored context sets (one authority, never two).
+fn void_masks(dcl: Decl, voids: &[ContextSet; 4]) -> [u32; 4] {
+    core::array::from_fn(|s| {
+        voids[s]
+            .iter()
+            .fold(0u32, |acc, q| acc | mask_of(dcl.effective_incidence(q)))
+    })
+}
+
 /// One interactive hand. Returns false if the human quit mid-hand.
 #[allow(clippy::too_many_lines)]
 #[allow(clippy::too_many_arguments)]
@@ -746,12 +777,15 @@ fn play_hand(
     n_outer: usize,
     n0: usize,
     per_move_secs: u64,
+    ctrl: bool,
+    world_cap: u64,
 ) -> bool {
-    let mut rng = SplitMix64(seed ^ mix(hand_no));
+    // The DEAL stream — O27: it deals and does nothing else.
+    let mut deal_rng = SplitMix64(seed ^ mix(hand_no));
     let hands: [u32; 4] = if fresh {
         let mut tiles: Vec<u8> = (0..28).collect();
         for i in (1..tiles.len()).rev() {
-            let j = rng.below((i + 1) as u64) as usize;
+            let j = deal_rng.below((i + 1) as u64) as usize;
             tiles.swap(i, j);
         }
         let mask_slice = |sl: &[u8]| sl.iter().fold(0u32, |a, &x| a | (1u32 << x));
@@ -763,7 +797,7 @@ fn play_hand(
         ]
     } else {
         let s1_full = s1_initial_mask();
-        let mut h = sample_belief(1, s1_full, 0, [7, 7, 7, 7], [0u32; 4], 1, &mut rng)
+        let mut h = sample_belief(1, s1_full, 0, [7, 7, 7, 7], [0u32; 4], 1, &mut deal_rng)
             .pop()
             .expect("one deal");
         h[1] = s1_full;
@@ -788,7 +822,9 @@ fn play_hand(
     let mut leader: u8 = 1;
     let mut banked_t1: u8 = 0;
     let mut banked_t0: u8 = 0;
-    let mut voids = [0u32; 4];
+    // Observed void CONTEXTS — the stored authority; incidence masks are
+    // the derived view `void_masks`.
+    let mut voids = [ContextSet::EMPTY; 4];
     let mut trick_start_played: u32 = 0;
     for completed in 0..7 {
         println!();
@@ -830,6 +866,15 @@ fn play_hand(
                         "hint" | "auto" => {
                             if hint.is_none() {
                                 println!("  (thinking from your chair only — no peeking...)");
+                                // O27: a per-decision belief stream (own
+                                // dealt hand + record hash), never the
+                                // deal stream.
+                                let mut drng = SplitMix64(
+                                    TABLE_BELIEF_SEED
+                                        ^ mix(seed)
+                                        ^ mix(u64::from(hands[seat_i]))
+                                        ^ record_hash(&key),
+                                );
                                 hint = level1_evaluate(
                                     dcl,
                                     seat,
@@ -837,13 +882,13 @@ fn play_hand(
                                     legal,
                                     &key,
                                     sizes,
-                                    voids,
+                                    void_masks(dcl, &voids),
                                     trick_start_played,
                                     7 - completed,
                                     n_outer,
                                     n0,
                                     per_move_secs,
-                                    &mut rng,
+                                    &mut drng,
                                 );
                             }
                             match &hint {
@@ -911,8 +956,90 @@ fn play_hand(
                     tile_str(c)
                 );
                 c
+            } else if ctrl {
+                // The §16.4 controller player (CE thread): settled winner
+                // played; honest tie / δ-survivors ranked by the live
+                // level-1 ordering — the printed route says which.
+                let t0 = Instant::now();
+                let trick_tiles: Vec<Domino> = plays
+                    .iter()
+                    .map(|&t| Domino::from_index(usize::from(t)).expect("tile"))
+                    .collect();
+                let mut banked = [0u32; 2];
+                banked[Team::T1.index()] = u32::from(banked_t1);
+                banked[Team::T0.index()] = u32::from(banked_t0);
+                let state = DrivenState {
+                    decl: dcl,
+                    bid: 30,
+                    declaring_team: Team::T1,
+                    viewer_hand: set_of(hand),
+                    leader: Seat::from_index(usize::from(leader)).expect("leader"),
+                    trick_plays: &trick_tiles,
+                    banked,
+                    prior_played: set_of(trick_start_played),
+                    voids,
+                };
+                let d = u64::from(played.count_ones()) + 1;
+                let cfg = ActConfig {
+                    world_cap,
+                    fallback_n_outer: n_outer,
+                    fallback_n0: n0,
+                    ..ActConfig::interactive()
+                };
+                let decision = controller_act(
+                    &state,
+                    &cfg,
+                    &format!("run:playtable-h{hand_no}"),
+                    d,
+                    &delta_run_default(),
+                );
+                let ms = t0.elapsed().as_millis();
+                let among: Vec<String> = decision
+                    .among
+                    .iter()
+                    .map(|t| tile_str(t.index() as u8))
+                    .collect();
+                let detail = decision.evaluation.as_ref().map_or_else(
+                    || "forced".to_string(),
+                    |e| {
+                        if let walt::solver::controller::SetResult::ExactFrozenSet {
+                            fiber, ..
+                        } = &e.result
+                        {
+                            format!(
+                                "{} {}, fiber {fiber}",
+                                decision.controller_route,
+                                e.result.tag()
+                            )
+                        } else {
+                            format!(
+                                "{} {}, {} worlds",
+                                decision.controller_route,
+                                e.result.tag(),
+                                e.consumed
+                            )
+                        }
+                    },
+                );
+                println!(
+                    "{} [controller] plays {}  ({}.{:01}s)  route {} among [{}] ({detail})",
+                    seat_name(seat_i, human),
+                    tile_str(decision.tile.index() as u8),
+                    ms / 1000,
+                    (ms % 1000) / 100,
+                    decision.route.label(),
+                    among.join(" "),
+                );
+                decision.tile.index() as u8
             } else {
                 let t0 = Instant::now();
+                // O27: a per-decision belief stream, never the deal stream.
+                let mut drng = SplitMix64(
+                    TABLE_BELIEF_SEED
+                        ^ mix(seed)
+                        ^ mix(u64::from(hands[seat_i]))
+                        ^ record_hash(&key),
+                );
                 let opts = level1_evaluate(
                     dcl,
                     seat,
@@ -920,13 +1047,13 @@ fn play_hand(
                     legal,
                     &key,
                     sizes,
-                    voids,
+                    void_masks(dcl, &voids),
                     trick_start_played,
                     7 - completed,
                     n_outer,
                     n0,
                     per_move_secs,
-                    &mut rng,
+                    &mut drng,
                 );
                 let c = match &opts {
                     Some(o) => best_of(o, seat.team() == Team::T1),
@@ -946,7 +1073,7 @@ fn play_hand(
             if pos == 0 {
                 led = Some(dcl.led_context(tile));
             } else if !dcl.follows(tile, led.expect("led set")) {
-                voids[seat_i] |= mask_of(dcl.effective_incidence(led.expect("led set")));
+                voids[seat_i].insert(led.expect("led set"));
             }
             played |= 1u32 << chosen;
             plays.push(chosen);
@@ -989,7 +1116,21 @@ fn play_hand(
 
 fn main() {
     let dcl = decl();
-    let args: Vec<String> = std::env::args().collect();
+    let raw: Vec<String> = std::env::args().collect();
+    // Flags may sit anywhere: `fresh` re-deals all four seats, `ctrl`
+    // seats the §16.4 controller player at the AI seats (CE thread),
+    // `cap=N` sets its world cap (default 128).
+    let fresh = raw.iter().any(|a| a == "fresh");
+    let ctrl = raw.iter().any(|a| a == "ctrl");
+    let world_cap: u64 = raw
+        .iter()
+        .find_map(|a| a.strip_prefix("cap="))
+        .map(|v| v.parse().expect("cap=<worlds>"))
+        .unwrap_or(128);
+    let args: Vec<&String> = raw
+        .iter()
+        .filter(|a| *a != "fresh" && *a != "ctrl" && !a.starts_with("cap="))
+        .collect();
     let human: usize = args
         .get(1)
         .map(|s| s.parse().expect("seat 0..=3"))
@@ -1001,15 +1142,32 @@ fn main() {
         .unwrap_or(100);
     let n0: usize = args.get(3).map(|s| s.parse().expect("n0")).unwrap_or(8);
     let seed: u64 = args.get(4).map(|s| s.parse().expect("seed")).unwrap_or(42);
-    let fresh = args.iter().any(|a| a == "fresh");
     let per_move_secs: u64 = 180;
 
     println!("walt table — EXPLORATORY interactive 42 (trump fives, P30 by T1, S1 leads)");
     println!("three level-1 seats + you; nobody peeks; `hint` = honest eval from your chair");
     println!("estimates only, never receipts; not a P-A21 statement");
+    if ctrl {
+        println!(
+            "controller seats ON (CE thread): world_cap={world_cap} — a think-time budget; \
+             low caps only yield more honest Unresolved -> level-1 fallbacks, never wrong \
+             settlements. Routes print per play."
+        );
+    }
     let mut hand_no: u64 = 0;
     loop {
-        if !play_hand(dcl, human, hand_no, seed, fresh, n_outer, n0, per_move_secs) {
+        if !play_hand(
+            dcl,
+            human,
+            hand_no,
+            seed,
+            fresh,
+            n_outer,
+            n0,
+            per_move_secs,
+            ctrl,
+            world_cap,
+        ) {
             println!("(left the table mid-hand)");
             break;
         }
