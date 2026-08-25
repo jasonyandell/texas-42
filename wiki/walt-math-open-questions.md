@@ -245,6 +245,22 @@ tilt-audit roads are also still untested: **counted-boundary** (Phase F
 predicate mining never run) and **policy-library** (`walt/TILT-AUDIT.md`
 § "Road verdict").
 
+**Movement (slice 3, 2026-08-24) — and three questions it opened.** The Part
+VI build (PANEL-A7/A8) added the cancellation ladder, pairwise masses and
+directional upper rungs, so the field question now has vocabulary that keeps
+behavioral, outcome and value irrelevance apart. It left three genuinely open
+design questions, deferred loudly rather than approximated (carded as
+[[slice3-deferred-producers]]; probe README owns the statements,
+`walt/probes/fieldswap_cancel/README.md`): (i) **a δ-valid admissible-upper
+E3** — the sampled route into a screen needs a valid upper bound on a
+*supremum*, and a sup is not a mean, so the evidence engine has no ready
+instrument for it; (ii) **a valid-bound route to `Dominated`** — PANEL-A7
+admits one, but only the exact-enumeration producer exists, and a bound type
+without a producer would invite misuse; (iii) **the §10 motif tags** — the
+structural motif vocabulary (e.g. "reveal-response") is absent, not
+approximated, and needs a design pass before any tagged aggregate means
+anything.
+
 ### 11. The x:018 conditional-moment gap
 
 **Status: named in correspondence, awaiting Pro's reply.** The fee-correlation
