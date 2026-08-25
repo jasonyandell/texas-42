@@ -54,9 +54,10 @@ use crate::solver::controller::{
     SetResult, SetSpec,
 };
 use crate::solver::evidence::{decision_delta, ScopedDelta};
+use crate::solver::field::{FieldKind, FieldModel, FieldSpec};
 use crate::solver::policy::{
     continuation_frame, t1_frame_bid, ActionRule, DecisionMode, FreezeTuple, FrozenPolicy,
-    InnerSchedule, Level0Field, TieRule, NO_DEADLINE_SECS,
+    InnerSchedule, TieRule, NO_DEADLINE_SECS,
 };
 use crate::solver::{best_of, level1_evaluate, mask_of, mix, record_hash, SplitMix64};
 
@@ -292,6 +293,31 @@ pub fn continuation_tuple(
     }
 }
 
+/// The declared σ0 evaluation field of one acted decision, as a complete
+/// [`FieldSpec`] (the §8 Stage-0 identity discipline; declared constants
+/// mirror every other Level0 consumer's σ0 spec). A `FieldKind::Level0`
+/// [`FieldModel`] DELEGATES every modeled choice to the one bare
+/// `Level0Field` authority (`solver::field`), so the chosen actions are
+/// exactly the bare field's; the wrapper adds only the insert-only action
+/// cache, which spans the within-decision repetition of one controller
+/// run (the same non-focal information state recurs across worlds and
+/// candidates).
+#[must_use]
+pub fn act_field_spec(n0: u64) -> FieldSpec {
+    FieldSpec {
+        kind: FieldKind::Level0 { n0 },
+        construction: "level0-modeled-mind-v1 (Solver::modeled_choice; \
+                       frozen INNER_SEED belief worlds)"
+            .to_string(),
+        practical_equivalence: None,
+        fallback: "none (no wall-clock cutoff)".to_string(),
+        seed_schedule: vec![],
+        tie_rule: TieRule::LowestTileIndex,
+        policy_library: "field-library-v1".to_string(),
+        mode: DecisionMode::Heuristic,
+    }
+}
+
 /// Act at one driven decision: run the §16.4 controller on one frozen
 /// level-1 continuation per legal root action under a run-scoped strict
 /// risk plan (`δ_d = δ_run/(d(d+1))` for decision event `d`), then apply
@@ -345,7 +371,7 @@ pub fn act(
             ScopedDelta::new(run_scope.to_string(), delta_run.clone()),
             d,
         );
-    let field = Level0Field::new(cfg.n0_frozen as usize);
+    let field = FieldModel::new(act_field_spec(cfg.n0_frozen));
     let spec = SetSpec {
         root: &root,
         position: &position,
