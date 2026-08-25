@@ -1,0 +1,56 @@
+census records (decisions): 56
+hand summaries: 2
+  bids made: 1/2 (1 of 2)
+PHASE ATTRIBUTION (integer micros; share in exact permille, floor):
+  baseline (sigma0 act):  206971014 (729 permille)
+  wake check:             76474588 (269 permille)
+  escalation:             454039 (1 permille)
+  grand total:            283899641
+  by trick (baseline / wake / escalation micros, dominant phase):
+    trick 1: 153339519 / 49195088 / 0  (trick total 202534607; dominant: baseline, 757 permille)
+    trick 2: 42870340 / 17502535 / 0  (trick total 60372875; dominant: baseline, 710 permille)
+    trick 3: 8233034 / 5558121 / 0  (trick total 13791155; dominant: baseline, 596 permille)
+    trick 4: 2398000 / 2594696 / 0  (trick total 4992696; dominant: wake-check, 519 permille)
+    trick 5: 128192 / 1576947 / 454039  (trick total 2159178; dominant: wake-check, 730 permille)
+    trick 6: 1929 / 47201 / 0  (trick total 49130; dominant: wake-check, 960 permille)
+    trick 7: 0 / 0 / 0  (trick total 0; dominant: baseline, 0 permille)
+  escalation PhaseSpend breakdown (controller pipeline phases):
+    rung-e2: 240300 micros (529 permille of escalation), items=3, records=1
+    steering: 149329 micros (328 permille of escalation), items=3, records=1
+    baseline-sigma0: 63223 micros (139 permille of escalation), items=3, records=1
+    stage4-sigma1: 1130 micros (2 permille of escalation), items=3, records=1
+    rung-e1: 12 micros (0 permille of escalation), items=1, records=1
+    stage4-ladders: 8 micros (0 permille of escalation), items=3, records=1
+paths:
+  forced: 11/28 (22 of 56)
+  no-wake-budget-exhausted: 3/8 (21 of 56)
+  no-wake-settled: 3/14 (12 of 56)
+  wake: 1/56 (1 of 56)
+forced fraction: 11/28 (22 of 56)
+wake-check rate (non-forced): 17/28 (34 of 56)
+wake rate over checked decisions: 1/34 (1 of 34)
+wake rate over all decisions: 1/56 (1 of 56)
+by trick (decisions / checked / wakes):
+  trick 1: 8 / 6 / 0  (wake rate 0/1 (0 of 6))
+  trick 2: 8 / 6 / 0  (wake rate 0/1 (0 of 6))
+  trick 3: 8 / 6 / 0  (wake rate 0/1 (0 of 6))
+  trick 4: 8 / 6 / 0  (wake rate 0/1 (0 of 6))
+  trick 5: 8 / 6 / 1  (wake rate 1/6 (1 of 6))
+  trick 6: 8 / 4 / 0  (wake rate 0/1 (0 of 4))
+  trick 7: 8 / 0 / 0  (wake rate 0/0)
+wake-check evidence kinds:
+  exact-sigma1-selects-baseline: 2
+  exact-sigma1-selects-rival: 1
+  exact-sigma1-tie: 10
+  sampled-open: 21
+escalation outcomes (StageFourOutcome / EscalationStop / route):
+  exact-survivors / provably-useless / exact-argmax: 1
+agreement with sigma0: 55/56 (55 of 56)
+  moved off sigma0: 1 decision(s), at tricks [5]
+spend (integer microseconds):
+  baseline_us (all): n=56 min=0 p50=1236 p90=14648451 p99=58463801 max=58463801 total=206971014
+  wake_us (checked): n=34 min=36 p50=758838 p90=7543875 p99=10366110 max=10366110 total=76474588
+  escalation_us (wakes): n=1 min=454039 p50=454039 p90=454039 p99=454039 max=454039 total=454039
+  decision total (all): n=56 min=0 p50=14337 p90=21665288 p99=68829911 max=68829911 total=283899641
+  wake_worlds (checked): n=34 min=4 p50=24 p90=200 p99=780 max=780 total=2238
+fibers: min=1 p50=780 p90=8588580 max=399072960
