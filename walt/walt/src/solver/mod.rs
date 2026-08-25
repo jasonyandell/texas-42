@@ -20,6 +20,7 @@
 
 pub mod act;
 pub mod adaptive;
+pub mod bundle;
 pub mod calibrate;
 pub mod controller;
 pub mod evidence;

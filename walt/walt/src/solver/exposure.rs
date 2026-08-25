@@ -627,17 +627,18 @@ pub fn frozen_policy_exposure(
 /// and the post-root history — shared by every fiber world that has
 /// produced the same public record. Per-world remaining hands are derived
 /// views of (world, played history), never stored, so one node of the reach
-/// walk serves a whole set of worlds at once.
+/// walk serves a whole set of worlds at once. Crate-visible so
+/// `solver::bundle` can reuse the same shared-node idiom.
 #[derive(Clone)]
-struct PublicExec {
-    leader: Seat,
-    plays: Vec<Domino>,
-    banked: [u32; 2],
-    history: Vec<Domino>,
+pub(crate) struct PublicExec {
+    pub(crate) leader: Seat,
+    pub(crate) plays: Vec<Domino>,
+    pub(crate) banked: [u32; 2],
+    pub(crate) history: Vec<Domino>,
 }
 
 impl PublicExec {
-    fn start(position: &RootPosition) -> PublicExec {
+    pub(crate) fn start(position: &RootPosition) -> PublicExec {
         PublicExec {
             leader: position.leader,
             plays: position.trick_plays.clone(),
@@ -646,11 +647,11 @@ impl PublicExec {
         }
     }
 
-    fn seat(&self) -> Seat {
+    pub(crate) fn seat(&self) -> Seat {
         self.leader.plus(self.plays.len())
     }
 
-    fn record<'a>(&'a self, position: &'a RootPosition) -> PublicRecord<'a> {
+    pub(crate) fn record<'a>(&'a self, position: &'a RootPosition) -> PublicRecord<'a> {
         PublicRecord {
             leader: self.leader,
             trick_plays: &self.plays,
@@ -662,13 +663,13 @@ impl PublicExec {
 
     /// Every tile played since the root — a seat's remaining hand is its
     /// root hand minus this set.
-    fn played_since(&self) -> DominoSet {
+    pub(crate) fn played_since(&self) -> DominoSet {
         self.history.iter().copied().collect()
     }
 
     /// Apply one legal play (the same trick arithmetic as the coupled
     /// replay's `Exec::play`, minus the per-world hands).
-    fn play(&mut self, position: &RootPosition, tile: Domino) {
+    pub(crate) fn play(&mut self, position: &RootPosition, tile: Domino) {
         self.plays.push(tile);
         self.history.push(tile);
         if self.plays.len() == 4 {
