@@ -257,9 +257,8 @@ fn run_root(r: &Receipt, hand_id: usize, trick_no: usize, cfg: Config) -> Vec<St
             WorldDomain::ExactFiber,
         );
         let ladder = CancellationLadder::from_exposure(&exposure);
-        let enriched = enrich_field_split_traces(
-            &root, &position, *action, &rho, &field0, &field1, &exposure,
-        );
+        let enriched =
+            enrich_field_split_traces(&root, &position, *action, &rho, &field0, &field1, &exposure);
         let classified: Vec<(EnrichedFieldSplitTrace, MotifClassification)> = enriched
             .into_iter()
             .map(|e| {

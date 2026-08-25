@@ -451,10 +451,7 @@ pub fn enrich_field_split_traces(
         let mut suffix1: Vec<(Seat, Domino)> = Vec::new();
         e0.run_recording(position, viewer, focal, field0, &mut suffix0);
         e1.run_recording(position, viewer, focal, field1, &mut suffix1);
-        let (u0, u1) = (
-            e0.success(position, viewer),
-            e1.success(position, viewer),
-        );
+        let (u0, u1) = (e0.success(position, viewer), e1.success(position, viewer));
         assert_eq!(
             (u0, u1),
             (row.u0, row.u1),
@@ -588,7 +585,12 @@ fn state_at_split(frame: &RootFrame, split: &FirstSplit) -> SplitState {
 
 /// §3.3 — compute Σ(t) for one candidate tile at the reproduced split
 /// state. Total and deterministic wherever the frame resolves.
-fn split_signature(frame: &RootFrame, state: &SplitState, split: &FirstSplit, tile: Domino) -> SplitSignature {
+fn split_signature(
+    frame: &RootFrame,
+    state: &SplitState,
+    split: &FirstSplit,
+    tile: Domino,
+) -> SplitSignature {
     let decl = frame.decl;
     let current_led = state.plays.first().map(|d| decl.led_context(*d));
     // 1. Next led context: established by the tile on lead, inherited
@@ -619,10 +621,8 @@ fn split_signature(frame: &RootFrame, state: &SplitState, split: &FirstSplit, ti
     assert!(residual.remove(tile), "the candidate tile is held");
     let mut shape = [0u8; 8];
     for (i, q) in Context::ALL.iter().enumerate() {
-        shape[i] = u8::try_from(
-            residual.intersection(decl.effective_incidence(*q)).len(),
-        )
-        .expect("a hand holds at most seven tiles");
+        shape[i] = u8::try_from(residual.intersection(decl.effective_incidence(*q)).len())
+            .expect("a hand holds at most seven tiles");
     }
     // 6. Declaration-relative played strength in the active context.
     let strength = decl.trick_key(tile, led);
@@ -1042,9 +1042,7 @@ impl ExactMotifDecomposition {
     pub fn tilt(&self, motif: SplitMotif) -> Option<BigRational> {
         let k = motif.index();
         let r_worlds = self.plus[k] + self.minus[k];
-        (r_worlds > 0).then(|| {
-            BigRational::new(self.c_worlds(motif), BigInt::from(r_worlds))
-        })
+        (r_worlds > 0).then(|| BigRational::new(self.c_worlds(motif), BigInt::from(r_worlds)))
     }
 
     /// Correction worlds carrying motif k (the numerator of `r_k`).

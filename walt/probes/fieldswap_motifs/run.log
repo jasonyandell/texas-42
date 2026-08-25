@@ -1,0 +1,11 @@
+fieldswap_motifs: 3 roots; declared epoch pair field0 n0=8, field1 4x2, frozen 8x2, specimen cap 8
+fieldswap_motifs: receipt-h4-t6 [0,0] corrections=6 other=0 (38878us)
+fieldswap_motifs: receipt-h7-t5 [1,0] corrections=0 other=0 (48225us)
+fieldswap_motifs: receipt-h7-t5 [5,3] corrections=0 other=0 (32708us)
+fieldswap_motifs: receipt-h4-t6 [1,1] corrections=0 other=0 (45656us)
+fieldswap_motifs: receipt-h7-t5 [5,5] corrections=0 other=0 (21965us)
+fieldswap_motifs: receipt-h8-t4 [2,1] corrections=120 other=0 (9222307us)
+fieldswap_motifs: receipt-h8-t4 [3,1] corrections=154 other=0 (7644597us)
+fieldswap_motifs: receipt-h8-t4 [3,3] corrections=117 other=0 (7568006us)
+fieldswap_motifs: receipt-h8-t4 [5,5] corrections=56 other=0 (7023557us)
+fieldswap_motifs: wrote probes/fieldswap_motifs/motifs.jsonl
