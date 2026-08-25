@@ -1,5 +1,12 @@
 id: [[level2-field-swap-probe]]
 opened: 2026-08-24
+closed: 2026-08-25 — done-when satisfied: paired per-pair output under both
+declared fields on the predeclared corpus, wake-up set filed with mechanism
+notes (`solver::wakeup` + `walt/probes/step9/`, PR #49, main `4301754`,
+central gate green). The contract's Ĥ column is superseded by the 𝓘
+interval verdicts per CE-A6, which owns that correction. Gates honored:
+ran after unification + the adaptive controller landed; the literal
+count-timing position stays blocked on [[gran-anchor-reconstruction]].
 
 ## What
 

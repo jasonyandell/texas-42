@@ -1,6 +1,8 @@
-# The level-2 probe — field-swap pivotal mass (SPEC, not started)
+# The level-2 probe — field-swap pivotal mass
 
-Status: SPEC 2026-08-23, exploratory tier throughout. Owns: the level-2
+Status: SPEC 2026-08-23; detection layer BUILT and RUN 2026-08-25
+(`solver::wakeup`, `walt/probes/step9/`, PR #49 — see the closing
+amendment). Exploratory tier throughout. Owns: the level-2
 detection program — where a level-1 field model provably loses value, and
 how to find those positions without building the full level-2 player
 first. Sources: `TILT-AUDIT.md` (the instrument), `CENSUS-RULINGS.md`
@@ -175,3 +177,21 @@ field-swap program: detection here, targeting there — neither restates
 the other. The gate line from the first amendment stands, with one
 addition from L2-A6: the field-swap *build* enters after the
 calculated-evidence shadow step (CE §22 step 7) merges.
+
+## Amendment 2026-08-25 — the detection layer is built and ran
+
+`solver::wakeup` (PR #49, main `4301754`) implements this spec as amended:
+the three wake-ups typed and never collapsed, 𝓘-only cost verdicts, the
+§14.7 exact-zero/practical-zero boundary enforced by compile_fail locks,
+the corpus predeclared per O14 (the 18 step-8 flip-fixture pairs exact;
+the count-timing six sampled), and σ0 chosen equal to step 8's evaluation
+field so the Stage-1 consumption (L2-A6) is a mechanical assertion. The
+owning record for the first run's numbers is
+`walt/probes/step9/README.md`; the era narrative is
+`wiki/walt-calculated-evidence.md`; movement notes live on
+`wiki/walt-math-open-questions.md` §10/§13/§14/§15. The card
+[[level2-field-swap-probe]] closed on its done-when. The literal
+count-timing position remains blocked on [[gran-anchor-reconstruction]]
+(`v5_literal_count_timing_position_reconstructs` stays `#[ignore]`d);
+this spec stays open only as the home of the detection contract — new
+running questions belong to the open-questions page, not here.
