@@ -29,6 +29,7 @@ pub mod field_swap;
 pub mod hazard;
 pub mod motif;
 pub mod policy;
+pub mod targeted;
 pub mod upper_cs;
 pub mod wakeup;
 
