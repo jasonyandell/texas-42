@@ -33,9 +33,11 @@
 //!    n0 = 2 }`, frozen candidates at declared schedule [8, 2]
 //!    (`ActionRule::PinnedThenLevel1`, the same `continuation_tuple`
 //!    act freezes). σ0 here is the SAME field act's evaluation actually
-//!    runs against (`Level0Field::new(2)` behind `ActConfig::n0_frozen =
-//!    2`), which makes the σ0 detection leg an asserted reproduction of
-//!    the baseline's own field — the step-9 pattern. Small fibers (at or
+//!    runs against (the cached `FieldModel` of `act_field_spec(2)`
+//!    behind `ActConfig::n0_frozen = 2`, delegating every choice to the
+//!    one `Level0Field` authority), which makes the σ0 detection leg an
+//!    asserted reproduction of the baseline's own field — the step-9
+//!    pattern. Small fibers (at or
 //!    under the declared exact cap) take the exact route
 //!    (`frozen_policy_exposure` over the complete fiber +
 //!    `exact_paired_detection`), which is cheaper than sampling there
@@ -260,7 +262,8 @@ impl WakingConfig {
 }
 
 /// The declared σ0 field spec: the SAME level-0 modeled mind act's
-/// evaluation field runs (`Level0Field::new(n0_frozen)`), materialized
+/// evaluation field runs (field-for-field `act_field_spec(n0_frozen)`,
+/// so the two constructors yield the equal `FieldId`), materialized
 /// through the one field-identity interface. The construction string is
 /// the field-library convention's, so equal kinds yield equal
 /// `FieldId`s across this module and the sibling probes.
