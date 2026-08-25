@@ -33,6 +33,7 @@ pub mod policy;
 pub mod targeted;
 pub mod upper_cs;
 pub mod wakeup;
+pub mod waking;
 
 use std::collections::hash_map::DefaultHasher;
 use std::collections::HashMap;
