@@ -24,9 +24,11 @@ the PANEL-A7/A8 list carried by [[panel-response-audits]]. Closing card:
    sampled masses deliberately have no dominance method at all
    (type-level lock), and that lock is only sound while no half-built
    bound route exists beside it.
-3. **§10 motif tags (item 14).** `FieldSplitTrace` carries items 1–13;
-   the structural motif vocabulary (e.g. "reveal-response") is **absent,
-   not approximated**. Deferred because naming a motif before the
+3. **§10 motif tags (item 14).** `FieldSplitTrace` carries items 1–13
+   (precision: item 11, the distinguishing public observation, has no
+   dedicated field — implicit in tile0/tile1/history; flagged as an
+   enrichment candidate in the drafted dispatch); the structural motif
+   vocabulary (e.g. "reveal-response") is **absent, not approximated**. Deferred because naming a motif before the
    vocabulary is designed would make aggregates readable and wrong;
    today's aggregates ship seat/trick histograms and the conditional
    outcome difference only.

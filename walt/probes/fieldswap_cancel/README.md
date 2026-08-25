@@ -165,10 +165,14 @@ item), pairwise 0.14 s and exact-root 0.09 s (warm caches); h7-t5
    "exact enumeration or a valid bound"; only the exact-enumeration
    route has a producer. A structural hazard-bound type without a
    producer would invite misuse, so none was stubbed.
-3. **Motif tags (§10 item 14).** `FieldSplitTrace` carries items 1–13;
-   the structural motif vocabulary (e.g. "reveal-response") needs a
-   design pass and is absent, not approximated. Aggregates ship
-   seat/trick histograms and the conditional outcome difference only.
+3. **Motif tags (§10 item 14).** `FieldSplitTrace` carries items 1–13
+   — with one precision: item 11 (the public observation that
+   distinguishes the relevant branches) has no dedicated field and is
+   only implicit in (tile0, tile1, history); a motif design pass may
+   want it made explicit. The structural motif vocabulary (e.g.
+   "reveal-response") needs that design pass and is absent, not
+   approximated. Aggregates ship seat/trick histograms and the
+   conditional outcome difference only.
 
 Nothing else on the PANEL-A7/A8 adoption list was capped: directional
 rungs, extended ladder, sandwich, winner stability, directional
