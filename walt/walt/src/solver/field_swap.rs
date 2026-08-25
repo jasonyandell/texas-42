@@ -1678,8 +1678,11 @@ pub fn exact_root_bounds(
 /// to a material field correction: identities, the first split (which
 /// carries the common public record `R*`, the acting seat, that seat's
 /// private hand, and both chosen tiles), and the terminal outcome under
-/// each field. Structural motif tags (§10 item 14) are NOT built in this
-/// slice — deferred loudly in the slice-3 probe README.
+/// each field. Structural motif tags (§10 item 14) are deliberately NOT
+/// fields of this record: the first-split morphology classifier and the
+/// raw suffix enrichment live in `solver::motif` (x:024 Part 3,
+/// TRIPLE-A6/A7), and motif labels are derived views there, never
+/// persisted trace state.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct FieldSplitTrace {
     /// The evidence-stream root identity of the position.
