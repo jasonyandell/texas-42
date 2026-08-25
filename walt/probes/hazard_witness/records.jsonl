@@ -1,0 +1,44 @@
+{"kind":"root","root":"receipt-h7-t5","decl":"P5","bid":30,"fiber":"1680","root_id":"0x4a1c0139432ee07a","viewer":0,"actions":3,"epoch_pair":{"field0":"level0 n0=8","field1":"level1 n_outer=4 n0=2"},"frozen_schedule":[8,2]}
+{"kind":"pair","root":"receipt-h7-t5","field":"field0","a":"pin-1-0","b":"pin-5-3","result":"decline","failed":"LeadNotHighestTrump","micros":1}
+{"kind":"pair","root":"receipt-h7-t5","field":"field0","a":"pin-1-0","b":"pin-5-5","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h7-t5","field":"field0","a":"pin-5-3","b":"pin-1-0","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h7-t5","field":"field0","a":"pin-5-3","b":"pin-5-5","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h7-t5","field":"field0","a":"pin-5-5","b":"pin-1-0","result":"decline","failed":"HostileTrumpsExceedOneRound","micros":1}
+{"kind":"pair","root":"receipt-h7-t5","field":"field0","a":"pin-5-5","b":"pin-5-3","result":"decline","failed":"LeadNotVulnerableNontrump","micros":0}
+{"kind":"pair","root":"receipt-h7-t5","field":"field1","a":"pin-1-0","b":"pin-5-3","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h7-t5","field":"field1","a":"pin-1-0","b":"pin-5-5","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h7-t5","field":"field1","a":"pin-5-3","b":"pin-1-0","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h7-t5","field":"field1","a":"pin-5-3","b":"pin-5-5","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h7-t5","field":"field1","a":"pin-5-5","b":"pin-1-0","result":"decline","failed":"HostileTrumpsExceedOneRound","micros":0}
+{"kind":"pair","root":"receipt-h7-t5","field":"field1","a":"pin-5-5","b":"pin-5-3","result":"decline","failed":"LeadNotVulnerableNontrump","micros":0}
+{"kind":"root","root":"receipt-h8-t4","decl":"P5","bid":30,"fiber":"1200","root_id":"0x6865a44593b5dba8","viewer":1,"actions":4,"epoch_pair":{"field0":"level0 n0=8","field1":"level1 n_outer=4 n0=2"},"frozen_schedule":[8,2]}
+{"kind":"pair","root":"receipt-h8-t4","field":"field0","a":"pin-2-1","b":"pin-3-1","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field0","a":"pin-2-1","b":"pin-3-3","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field0","a":"pin-2-1","b":"pin-5-5","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field0","a":"pin-3-1","b":"pin-2-1","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field0","a":"pin-3-1","b":"pin-3-3","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field0","a":"pin-3-1","b":"pin-5-5","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field0","a":"pin-3-3","b":"pin-2-1","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field0","a":"pin-3-3","b":"pin-3-1","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field0","a":"pin-3-3","b":"pin-5-5","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field0","a":"pin-5-5","b":"pin-2-1","result":"decline","failed":"HostileSuitBeater","micros":1}
+{"kind":"pair","root":"receipt-h8-t4","field":"field0","a":"pin-5-5","b":"pin-3-1","result":"decline","failed":"HostileSuitBeater","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field0","a":"pin-5-5","b":"pin-3-3","result":"decline","failed":"HostileTrumpsExceedOneRound","micros":3}
+{"kind":"pair","root":"receipt-h8-t4","field":"field1","a":"pin-2-1","b":"pin-3-1","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field1","a":"pin-2-1","b":"pin-3-3","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field1","a":"pin-2-1","b":"pin-5-5","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field1","a":"pin-3-1","b":"pin-2-1","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field1","a":"pin-3-1","b":"pin-3-3","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field1","a":"pin-3-1","b":"pin-5-5","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field1","a":"pin-3-3","b":"pin-2-1","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field1","a":"pin-3-3","b":"pin-3-1","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field1","a":"pin-3-3","b":"pin-5-5","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field1","a":"pin-5-5","b":"pin-2-1","result":"decline","failed":"HostileSuitBeater","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field1","a":"pin-5-5","b":"pin-3-1","result":"decline","failed":"HostileSuitBeater","micros":0}
+{"kind":"pair","root":"receipt-h8-t4","field":"field1","a":"pin-5-5","b":"pin-3-3","result":"decline","failed":"HostileTrumpsExceedOneRound","micros":3}
+{"kind":"root","root":"receipt-h4-t6","decl":"P1","bid":30,"fiber":"90","root_id":"0xf3ec29d5d335804a","viewer":2,"actions":2,"epoch_pair":{"field0":"level0 n0=8","field1":"level1 n_outer=4 n0=2"},"frozen_schedule":[8,2]}
+{"kind":"pair","root":"receipt-h4-t6","field":"field0","a":"pin-0-0","b":"pin-1-1","result":"decline","failed":"LeadNotHighestTrump","micros":1}
+{"kind":"pair","root":"receipt-h4-t6","field":"field0","a":"pin-1-1","b":"pin-0-0","result":"decline","failed":"HostileTrumpsExceedOneRound","micros":1}
+{"kind":"pair","root":"receipt-h4-t6","field":"field1","a":"pin-0-0","b":"pin-1-1","result":"decline","failed":"LeadNotHighestTrump","micros":0}
+{"kind":"pair","root":"receipt-h4-t6","field":"field1","a":"pin-1-1","b":"pin-0-0","result":"decline","failed":"HostileTrumpsExceedOneRound","micros":0}
+{"kind":"summary","pairs":40,"accepts":0,"declines":40,"decline_histogram":{"HostileSuitBeater":4,"HostileTrumpsExceedOneRound":6,"LeadNotHighestTrump":28,"LeadNotVulnerableNontrump":2},"micros":387}

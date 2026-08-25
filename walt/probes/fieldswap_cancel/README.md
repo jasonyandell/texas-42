@@ -166,10 +166,18 @@ item), pairwise 0.14 s and exact-root 0.09 s (warm caches); h7-t5
    here stays exactly what it is and still feeds no screen; a sampled
    E3 upper is never described as tighter than exact E4 on realized
    numbers.
-2. **The dominance valid-bound route.** PANEL-A7 admits `Dominated` via
-   "exact enumeration or a valid bound"; only the exact-enumeration
-   route has a producer. A structural hazard-bound type without a
-   producer would invite misuse, so none was stubbed.
+2. **The dominance valid-bound route — SHIPPED (slice 4b)** (x:024
+   Part 2, rulings TRIPLE-A4/A5): the Hazard-Exclusion Invariant
+   verifier is the single authority (`walt/walt/src/solver/hazard.rs` —
+   exact-fiber initial cover, rules-level closure, terminal safety), the
+   δ = 0 `StructuralHazardZero` type is inhabitable only through it, and
+   the One-Round Trump-Extraction producer emits two-cell witnesses with
+   a typed refusal path. Gates in
+   `walt/walt/tests/solver_hazard_witness.rs`; instrument output in
+   `../hazard_witness/` (this corpus: 40 pairs, 0 accepts — the h4-t6
+   exact `Dominated` specimen declines at hypothesis 3, honest §2.7-shape
+   non-coverage). No cross-field composition (§2.8); sampled masses still
+   have no dominance route.
 3. **Motif tags (§10 item 14) — SHIPPED in slice 4c** (x:024 Part 3,
    rulings TRIPLE-A6/A7): the six-motif first-split morphology
    classifier, orthogonal flags, root-frame resolution, and the raw
