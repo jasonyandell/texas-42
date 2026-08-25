@@ -397,6 +397,24 @@ screen cannot prune, and the controller's honest mode is δ-intervals and
 typed refusals — does not exist. The question is now purely about better
 mathematics there, not about wasted spend.
 
+**Movement (the waking seat + speed campaign, 2026-08-25):** the cost is
+now *quantified* at instrument tier, and the redundancy hypothesis is
+spent. The waking seat's phase conviction (2 hands / 56 decisions,
+[walt-calculated-evidence](walt-calculated-evidence.md)) puts 926‰ of all
+decision compute in tricks 1–2 and 729‰ in the σ0 baseline evaluation
+itself — the L2 machinery (wake check + escalation) is not where the
+microseconds go. Four E-A15-lawful sharing levers were then built and
+gated value-identical (visit reordering, field caching, the decided
+cutoff, the bundled shared-tree evaluator), and their honest combined
+effect on the convicted trick-1 regime is small constants (~4%, ~3%,
+~1.04× — the probe READMEs own the numbers). The mechanical reading:
+early-trick information states are (hand, full public record), so
+distinct modeled-mind deliberations almost never recur — there is no
+redundancy for a lawful lever to remove. What remains is exactly this
+section's question (mathematics that tightens at tricks 1–3) or batching
+the distinct solves (the GPU shape, on Jason's word); sharing is
+exhausted.
+
 ### 14. The per-epoch σ0 declaration
 
 **Status: half-answered by declaration; the composition half is still open

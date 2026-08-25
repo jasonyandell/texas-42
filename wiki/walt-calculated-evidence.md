@@ -7,7 +7,8 @@ step-8 V5 flip repair and E0 calibration, the live-player audit findings, the
 playable controller player as an era event (the register owns it), the
 targeted level-2 extension with all three field-swap slices (the fixed-policy
 smoke, the rung/screen slice, and the slice-3 cancellation ladder), the
-sampling-cap analysis and Jason's 512 ruling as applied, and what is in flight ·
+sampling-cap analysis and Jason's 512 ruling as applied, the waking seat and
+its phase conviction, the 2026-08-25 speed campaign, and what is in flight ·
 Sources:
 `walt/math/calculated_evidence_v0.1.md` (received parent,
 adjudicated **CE-A1..A8**) and `walt/math/targeted_level2_field_stability_v0.1.md`
@@ -23,7 +24,11 @@ register for the playable controller player — linked, never restated here**),
 [`walt/probes/step8/README.md`](../walt/probes/step8/README.md),
 [`walt/probes/fieldswap_screen/README.md`](../walt/probes/fieldswap_screen/README.md)
 and
-[`walt/probes/fieldswap_cancel/README.md`](../walt/probes/fieldswap_cancel/README.md)
+[`walt/probes/fieldswap_cancel/README.md`](../walt/probes/fieldswap_cancel/README.md),
+[`walt/probes/waking/README.md`](../walt/probes/waking/README.md),
+[`walt/probes/ordering/README.md`](../walt/probes/ordering/README.md),
+[`walt/probes/field_cache/README.md`](../walt/probes/field_cache/README.md)
+and [`walt/probes/bundle/README.md`](../walt/probes/bundle/README.md)
 (instrument records), `walt/SCENARIO-PLAYER.md` §10 (the obligations ledger),
 `kanban/` cards. Related: [walt](walt.md) (hub and fence),
 [walt-seat-play](walt-seat-play.md) (the live track this era instruments),
@@ -732,6 +737,77 @@ object, it gets its own mathematical intake first. The second declared
 scope boundary: the directional screen (PANEL-A8 regime) is computed and
 reported as an instrument but does not yet *confine* Stage-4 spend — that
 sits on the open-questions follow-on list beside the exact directional E3.
+
+## The waking seat: the first thinking-teammate player [CE and L2 threads]
+
+**PR #54 / `93d9956`, 2026-08-25 — exploratory tier; the owning record is
+[`walt/probes/waking/README.md`](../walt/probes/waking/README.md), not
+restated here.** `solver::waking` + `bin/waking_bridge` compose the three
+existing authorities — `act` (the σ0 acting controller), `wakeup` (the
+detection layer), `targeted` (the Stage 1–5 pipeline) — into the first
+player variant that carries a thinking-teammate model, reimplementing
+nothing and touching no default (CE-A7/§20.16). The design center: act's
+σ0 choice is **always** computed; a hard-budgeted inline wake check runs
+per non-forced decision; unsettled-within-budget means *play σ0* — σ1
+escalation fires only on POSITIVE decision-level evidence that the σ1 leg
+selects a rival, and every escalation routes on the typed
+`StageFourOutcome` with the fallback recorded, never blurred. Declared
+epoch pair: σ0 = `Level0{n0=2}` (asserted to reproduce act's actual
+evaluation field), σ1 = `Level1{n_outer=4, n0=2}`, candidates `[8,2]` —
+a DIFFERENT epoch from the l2_controller probe's (σ0 n0=8); numbers do
+not compose across the two surfaces. One declared retune travels with the
+record: the wake exact-fiber cap was raised 64 → 1024 after the smoke
+priced the routes (a 24-world sampled probe cannot cross its telescoping
+δ thresholds; the exact route is the wake gate's real coverage).
+
+**The phase conviction** (driven profile, 2 hands / 56 decisions, single
+machine, instrument records): σ0 baseline evaluation took **729‰** of all
+decision compute, the wake check **269‰**, escalation **1‰** (0.45 s
+total); tricks 1–2 alone were 926‰; wake rate 1/34 checked decisions, and
+the single wake (a trick-5 exact settlement) **changed the played tile**;
+agreement with act elsewhere 55/56. Per-decision walls ran p50 14.3 ms /
+p90 21.7 s / max 68.8 s (trick 1). Two readings, both fenced: the
+thinking-teammate upgrade rides nearly free on top of the σ0 seat — and
+the cost lives in the σ0 modeled minds at early tricks, not in the L2
+machinery. The originally chartered scaled census was deliberately
+skipped on Jason's ruling (the smoke already answered affordability:
+not affordable as-is at the live epoch); the profile's attribution IS the
+deliverable, and it became the targeting data for the speed campaign
+below.
+
+## The speed campaign: four value-identical levers, honestly benched
+
+One day (2026-08-25), four E-A15-lawful levers against the convicted
+regime, every one gated value-identical and every one reported at its
+honest size. Instrument records own the numbers
+([`walt/probes/ordering/README.md`](../walt/probes/ordering/README.md),
+[`walt/probes/field_cache/README.md`](../walt/probes/field_cache/README.md),
+[`walt/probes/bundle/README.md`](../walt/probes/bundle/README.md));
+exploratory tier throughout, cited by nothing above.
+
+| Lever | PR / main | Honest size |
+|---|---|---|
+| Reorder-not-cull: capture-first visit order at the `solve_viewer` pmake break (`MoveOrdering`, two-arm equivalence gate) | #53 / `aff5321` | tree ~9% smaller, children/legal down modestly; **wall-clock wash** (saturation needs certainty, rare in open positions) |
+| Cached field in `act` + decided cutoff in the per-world replay (monotone bid arithmetic; early return at the first all-decided trick boundary) | #55 / `a28ddce` | 2.2× on fiber-90, 1.2× on fiber-1120, **~4% on the convicted trick-1 regime** — full-record info states fan out immediately, so shallow modeled choices never recur |
+| Bundled world evaluator: one shared-tree walk per candidate carrying the whole fiber, per-world attribution exactly-once, focal purity asserted (`solver::bundle`) | #56 / `5bead5c` | node sharing 5–6×, ~2× fewer field queries — **wall ~1.04×** post-#55; what survives is the PRIMITIVE (the GPU kernel shape), not a speedup |
+
+**The campaign's conclusion, stated plainly:** the cost is the modeled
+minds themselves — thousands of *distinct* deliberations (distinct
+information states across worlds × candidates × plies) that no lawful
+sharing can dedupe, because there is almost no redundancy to remove.
+Sharing levers are exhausted at small constants; what would move the
+number is batching the distinct solves (the GPU shape, dormant on
+Jason's word) or better mathematics at early tricks
+([open questions](walt-math-open-questions.md) §13). **Jason's standing
+ruling travels with this section:** play quality is never traded for
+speed — lighter early budgets are OFF the table, only value-identical
+changes are lawful, and slow-but-exact is an acceptable resting state.
+
+**Both walts, deliberately.** The fast estimating seat
+(`walt_bridge` / `playout`, seconds per hand, sampled level-1) is
+untouched and remains the exploratory instrument and the default player;
+the exact seat (`waking_bridge`, minutes per hand at the live epoch) is
+the evidence-of-record surface. Division of labor, not a succession.
 
 ## In flight, and deliberately not presented as results
 
