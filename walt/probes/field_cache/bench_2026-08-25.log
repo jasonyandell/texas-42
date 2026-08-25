@@ -1,0 +1,16 @@
+field_cache_bench v1 (EXPLORATORY; integer micros; single-shot)
+item=exact-h4-t6 fiber=90 worlds=90 candidates=2 wins=[30,78]
+  arm=bare-full   micros=3820
+  arm=cached-full micros=1828
+  arm=cached-cut  micros=1729
+  ratio bare-full/cached-cut = 3820/1729
+item=exact-h11-t5 fiber=1120 worlds=1120 candidates=3 wins=[1104,1093,529]
+  arm=bare-full   micros=364791
+  arm=cached-full micros=306367
+  arm=cached-cut  micros=303289
+  ratio bare-full/cached-cut = 364791/303289
+item=sampled-h0-t1 fiber=399072960 worlds=128 candidates=7 wins=[100,96,81,88,98,94,109]
+  arm=bare-full   micros=42911487
+  arm=cached-full micros=42505711
+  arm=cached-cut  micros=41191341
+  ratio bare-full/cached-cut = 42911487/41191341

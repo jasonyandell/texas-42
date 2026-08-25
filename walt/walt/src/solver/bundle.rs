@@ -51,8 +51,8 @@ use std::collections::HashMap;
 use crate::kernel::World;
 use crate::rules::rules::legal_plays;
 use crate::rules::{Domino, DominoSet, Seat};
-use crate::solver::adaptive::{CanonicalRoot, RootPosition, SlicePolicy};
-use crate::solver::exposure::{decided_success, PublicExec};
+use crate::solver::adaptive::{decided_success, CanonicalRoot, RootPosition, SlicePolicy};
+use crate::solver::exposure::PublicExec;
 
 /// The fully attributed outcome table of one bundled evaluation, plus the
 /// walk's exact sharing and cutoff statistics.

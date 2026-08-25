@@ -65,7 +65,8 @@ use crate::kernel::{Kernel, World};
 use crate::rules::rules::{legal_plays, Trick};
 use crate::rules::{Domino, DominoSet, Seat};
 use crate::solver::adaptive::{
-    root_identity, world_id, CanonicalRoot, PublicRecord, RootPosition, SlicePolicy,
+    decided_success, root_identity, world_id, CanonicalRoot, PublicRecord, RootPosition,
+    SlicePolicy,
 };
 use crate::solver::field::{FieldId, FieldModel};
 use crate::solver::policy::{FrozenPolicy, PolicyId};
@@ -1168,50 +1169,6 @@ impl ReachWalk<'_> {
                 .sum()
         }
     }
-}
-
-/// The total banked points of one complete hand: 7 trick points plus the
-/// 35 count points. Gated live: every walk asserts a terminal state is
-/// decided, which fails if any hand's banked total misses this value.
-const TOTAL_POINTS: u32 = 42;
-
-/// Whether the viewer-objective terminal make indicator is already decided
-/// at a public state, for EVERY continuation: the declaring side has
-/// banked its bid (monotone — points only accumulate), or the unbanked
-/// remainder of the 42-point pool cannot reach it. At a terminal state the
-/// pool is empty, so the answer is always `Some` there (`at_terminal`
-/// asserts it).
-pub(crate) fn decided_success(
-    position: &RootPosition,
-    viewer: Seat,
-    banked: [u32; 2],
-    at_terminal: bool,
-) -> Option<bool> {
-    let total = banked[0] + banked[1];
-    assert!(
-        total <= TOTAL_POINTS,
-        "banked points never exceed the 42-point pool"
-    );
-    let declared = banked[position.declaring_team.index()];
-    let pool = TOTAL_POINTS - total;
-    let made = if declared >= position.bid {
-        Some(true)
-    } else if declared + pool < position.bid {
-        Some(false)
-    } else {
-        None
-    };
-    assert!(
-        !(at_terminal && made.is_none()),
-        "the 42-point pool exhausts at terminal, so a terminal outcome is decided"
-    );
-    made.map(|m| {
-        if viewer.team() == position.declaring_team {
-            m
-        } else {
-            !m
-        }
-    })
 }
 
 // ---------------------------------------------------------------------------

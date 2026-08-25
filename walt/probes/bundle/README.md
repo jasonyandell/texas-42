@@ -43,50 +43,58 @@ in both routes, so `field_queries` is an exact integer.
 
 ## Counter semantics
 
-`plays` = m·fiber·total (the per-world route runs every post-root play
-of every world to terminal — its member-ply count, exact).
-`nodes` = bundle-tree nodes expanded across all candidates (the bundled
-route's shared public histories). `early_settled`/`terminal_settled` =
+`plays` = m·fiber·total — an UPPER BOUND on the per-world route's
+member-ply count: since #55 (main a28ddce), `replay_viewer_success`
+carries its own decided cutoff, so a per-world replay stops early
+exactly where the bundled walk settles a cell early. `nodes` =
+bundle-tree nodes expanded across all candidates (the bundled route's
+shared public histories). `early_settled`/`terminal_settled` =
 (candidate, world) cells the decided cutoff attributed before terminal
 vs at terminal (their sum is always m·fiber). `field_queries` = calls
 reaching the field model, after the bundled walk's per-node
 distinct-hand memo.
 
-## Readings (2026-08-25, M-series, release, single-shot walls)
+## Readings (2026-08-25, M-series, release, single-shot walls; post-#55 tree)
 
 ```
 root h4-t6 fiber=90 m=3 total_plays=8
-  [cached-level0-n2] per-world: wall_us=1164 plays=2160 field_queries=1620
-  [cached-level0-n2] bundled:   wall_us=1004 nodes=657 early=120 terminal=150 field_queries=762
-  [lowest-first]     per-world: wall_us=131  plays=2160 field_queries=1620
-  [lowest-first]     bundled:   wall_us=160  nodes=687 early=112 terminal=158 field_queries=784
+  [cached-level0-n2] per-world: wall_us=1062 plays<=2160 field_queries=1260
+  [cached-level0-n2] bundled:   wall_us=955  nodes=657 early=120 terminal=150 field_queries=762
+  [lowest-first]     per-world: wall_us=91   plays<=2160 field_queries=1284
+  [lowest-first]     bundled:   wall_us=149  nodes=687 early=112 terminal=158 field_queries=784
 root h11-t5 fiber=1120 m=4 total_plays=12
-  [cached-level0-n2] per-world: wall_us=42970 plays=53760 field_queries=40320
-  [cached-level0-n2] bundled:   wall_us=36335 nodes=11629 early=2941 terminal=1539 field_queries=14932
-  [lowest-first]     per-world: wall_us=3375  plays=53760 field_queries=40320
-  [lowest-first]     bundled:   wall_us=3506  nodes=9681 early=2843 terminal=1637 field_queries=12997
+  [cached-level0-n2] per-world: wall_us=35260 plays<=53760 field_queries=29646
+  [cached-level0-n2] bundled:   wall_us=34682 nodes=11629 early=2941 terminal=1539 field_queries=14932
+  [lowest-first]     per-world: wall_us=1931  plays<=53760 field_queries=29739
+  [lowest-first]     bundled:   wall_us=2411  nodes=9681 early=2843 terminal=1637 field_queries=12997
 root h11-t4 fiber=23100 m=3 total_plays=16
-  [cached-level0-n2] per-world: wall_us=1040642 plays=1108800 field_queries=831600
-  [cached-level0-n2] bundled:   wall_us=859696  nodes=224983 early=45571 terminal=23729 field_queries=295433
-  [lowest-first]     per-world: wall_us=62287   plays=1108800 field_queries=831600
-  [lowest-first]     bundled:   wall_us=43623   nodes=173221 early=46200 terminal=23100 field_queries=252712
+  [cached-level0-n2] per-world: wall_us=874333 plays<=1108800 field_queries=626028
+  [cached-level0-n2] bundled:   wall_us=839684 nodes=224983 early=45571 terminal=23729 field_queries=295433
+  [lowest-first]     per-world: wall_us=36006  plays<=1108800 field_queries=623700
+  [lowest-first]     bundled:   wall_us=42368  nodes=173221 early=46200 terminal=23100 field_queries=252712
 ```
 
 Wins agreed between the routes on every row (asserted live). The two
 field configurations produce different wins vectors, as they must — a
-different field is a different evaluation.
+different field is a different evaluation. (Pre-#55 readings, when the
+per-world route ran every replay to full terminal, showed per-world
+831600 field queries and walls of 1164/42970/1040642 µs on the cached
+rows — the #55 cutoff claimed most of the gap this probe was chasing.)
 
 ## Honest finding: the claim is NOT confirmed at this slice
 
 The claim under test — "bundling collapses exact-route cost
-superlinearly with fiber size" — does not hold in these readings. The
-structural sharing is real and large: at fiber 23100 the bundled tree
-expands ~4.9–6.4x fewer nodes than the per-world route's member-plies,
-and field queries drop 2.8–3.3x. But wall time improves only ~1.2x
-(cached level-0) / ~1.4x (trivial field), roughly flat in fiber size,
-and at fiber 90 with a trivial field the bundled route is slightly
-SLOWER (overhead dominates a tiny root). Two costs keep both routes
-linear in member-plies:
+superlinearly with fiber size" — does not hold in these readings, and
+after #55 the wall-clock case for bundling has nearly closed. The
+structural sharing is real: at fiber 23100 the bundled tree expands
+~5–6x fewer nodes than the per-world bound and makes ~2.1x fewer field
+queries than the post-#55 per-world route. But wall time improves only
+~1.04x on the realistic cached level-0 field, and the bundled route is
+SLOWER than per-world on the trivial field (its per-node bookkeeping
+costs more than the plain replay it saves). Both routes now share the
+decided cutoff — #55 put it inside `replay_viewer_success` itself, so
+the cutoff is no longer a bundling advantage. Two costs keep both
+routes linear in member-plies:
 
 1. **Per-member partition work.** At every field node the bundled walk
    still touches every member (derive its remaining hand, group it), so
@@ -100,14 +108,17 @@ linear in member-plies:
    redundant cache HITS only.
 
 The decided cutoff is effective as accounting: roughly 2/3 of cells
-settle before terminal depth (e.g. 45571 of 69300 at h11-t4), but
-settlement is deep, so the ply savings are modest.
+settle before terminal depth (e.g. 45571 of 69300 at h11-t4) — but
+both routes now benefit from it equally.
 
-Follow-up levers this probe locates (not built here): sharing member
-work across bundle levels (incremental per-member hands; partitioning
-by acting-seat hand classes), and cheaper lawful field-cache hits. Both
-are order/representation changes, E-A15-lawful, and belong to later
-slices if the exact route's cost matters at scale.
+What survives of this slice on the evidence: the PRIMITIVE (per-world
+attribution through a shared tree, with its completeness and purity
+assertions), not a speedup. Follow-up levers if the exact route's cost
+ever matters at scale: sharing member work across bundle levels
+(incremental per-member hands; partitioning by acting-seat hand
+classes), and cheaper lawful field-cache hits. Both are
+order/representation changes, E-A15-lawful, and belong to later slices
+— on these readings, none is urgent.
 
 ## Honest confounders
 
