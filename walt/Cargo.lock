@@ -257,3 +257,13 @@ dependencies = [
  "num-traits",
  "walt",
 ]
+
+[[package]]
+name = "walt2-wasm"
+version = "0.1.0"
+dependencies = [
+ "num-rational",
+ "num-traits",
+ "walt",
+ "walt-wasm",
+]

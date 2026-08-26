@@ -309,13 +309,13 @@ fi
     walt-metal/shaders/00_u256.metal \
     walt-metal/shaders/01_opening_projector.metal
 /usr/bin/python3 -I -B ci/check_rust_no_float.py \
-    walt walt-gpu-ref walt-m2-runner walt-metal walt-wasm \
+    walt walt-gpu-ref walt-m2-runner walt-metal walt-wasm walt2-wasm \
     ../rob/crates/core ../rob/crates/player ../rob/crates/verify
 /usr/bin/awk -f ci/check_toml_no_float.awk \
     Cargo.toml Cargo.lock rust-toolchain.toml \
     walt/Cargo.toml walt-gpu-ref/Cargo.toml \
     walt-metal/Cargo.toml walt-m2-runner/Cargo.toml \
-    walt-wasm/Cargo.toml \
+    walt-wasm/Cargo.toml walt2-wasm/Cargo.toml \
     ../rob/Cargo.toml ../rob/Cargo.lock \
     ../rob/crates/core/Cargo.toml ../rob/crates/player/Cargo.toml \
     ../rob/crates/verify/Cargo.toml \
