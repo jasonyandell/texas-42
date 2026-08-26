@@ -1,0 +1,29 @@
+[package]
+name = "walt2-wasm"
+version = "0.1.0"
+edition = "2021"
+license = "UNLICENSED"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+walt = { path = "../walt", default-features = false }
+num-rational = { workspace = true }
+num-traits = { workspace = true }
+
+[dev-dependencies]
+# Native tests only (never linked into the wasm binary): the auction
+# handlers here are declared byte-identical to walt-wasm's, and the
+# equality test enforces it — duplication cannot drift silently.
+walt-wasm = { path = "../walt-wasm" }
+
+# deny, not forbid: the wasm ABI module carries a scoped allow for its
+# `#[no_mangle]` export attributes (symbol naming, not unsafe execution —
+# there is no unsafe block anywhere in this crate).
+[lints.rust]
+unsafe_code = "deny"
+
+[lints.clippy]
+float_arithmetic = "deny"
