@@ -1,0 +1,31 @@
+FACTOR-BELIEF OPENING-ROOT LEVEL-0 CLASSIFICATION (exploratory)
+===============================================================
+§46 stage C2 shape at the trick-1 root: every acting-seat hand
+classified once by the σ0 Level0 { n0 = 2 } modeled mind, weighted
+by exact completions. No complete world materialized.
+
+fiber 399072960  focal 0-0
+distinct information states materialized: 116280
+contraction + classification: 5622659us
+  branches:
+    1-0  mass 125370960 / 399072960
+    1-1  mass 25571832 / 399072960
+    2-0  mass 92612520 / 399072960
+    2-2  mass 16363776 / 399072960
+    3-0  mass 11236368 / 399072960
+    3-1  mass 6620328 / 399072960
+    4-0  mass 66762696 / 399072960
+    4-1  mass 3174600 / 399072960
+    4-2  mass 1808664 / 399072960
+    4-3  mass 1108536 / 399072960
+    4-4  mass 411840 / 399072960
+    5-0  mass 47581248 / 399072960
+    5-1  mass 223080 / 399072960
+    5-2  mass 92664 / 399072960
+    5-4  mass 41184 / 399072960
+    6-1  mass 37752 / 399072960
+    6-2  mass 17160 / 399072960
+    6-3  mass 27456 / 399072960
+    6-4  mass 6864 / 399072960
+    6-6  mass 3432 / 399072960
+conservation: 399072960 = 399072960 OK

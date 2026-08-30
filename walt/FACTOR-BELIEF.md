@@ -1,13 +1,27 @@
 # FACTOR-BELIEF — the Slice C design skeleton (specify, do not optimize)
 
-**Status:** design register for the counted-belief Slice C (§56's second
-required output: a skeleton, no implementation). EXPLORATORY tier.
-Source: `walt/math/counted_belief_sandwich_v0.1.md` Part V–VI (§18–26),
-rulings CBS-A6 (posterior closure adopted with boundary obligations;
-`FiberDp` recognized as the uniform-root backend) and CBS-A9 (this
-skeleton authorized; the recursive factorized solver is NOT part of the
-first build session). Retired to git history when the Slice C build
-lands its own module docs.
+**Status:** stage C0 LANDED (2026-08-30) —
+`walt/walt/src/solver/factor_belief.rs`, gated by
+`walt/walt/tests/solver_factor_belief.rs` (7 gates: three-way mass
+parity, branch-mass parity with complete-world enumeration under two
+trivial fields and the σ0 level-0 mind, the Theorem 20.1 conditioning
+route, conditioned marginals against enumeration, the declared domain
+refusals, and the §22 opening-root contraction). Probe:
+`walt/probes/factor_belief/` — opening-root branch masses in 8.7 ms
+over a 399,072,960-world fiber; the σ0 opening classification (C2
+shape) realized in 5.6 s. EXPLORATORY tier. Source:
+`walt/math/counted_belief_sandwich_v0.1.md` Part V–VI (§18–26),
+rulings CBS-A6 and CBS-A9.
+
+Build-time deviations from the sketch below, under L2-A3's naming
+latitude (module docs carry the same list): `branch_masses`/`condition`
+take no seat argument — the acting seat is the derived view
+`seat_to_move()`, and passing it would store one authority twice;
+masses are `u128` with checked arithmetic (the kernel's counting
+width), not `BigUint`; `count_cell` is deferred to the slice that gives
+Part IV cell predicates a concrete type (Slice F), with `marginal`
+covering the one-seat case. The remaining stages (C1 cache study, full
+C2 report, Slice D recursion) build on the landed trait.
 
 ## The objects (parent §18–21)
 
