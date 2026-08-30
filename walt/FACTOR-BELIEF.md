@@ -1,6 +1,6 @@
 # FACTOR-BELIEF — the Slice C design skeleton (specify, do not optimize)
 
-**Status:** stages C0 AND C1 LANDED (2026-08-30) —
+**Status:** SLICE C COMPLETE — stages C0, C1 AND C2 LANDED (2026-08-30) —
 `walt/walt/src/solver/factor_belief.rs`, gated by
 `walt/walt/tests/solver_factor_belief.rs` (11 gates: the seven C0 gates —
 three-way mass parity, branch-mass parity with complete-world enumeration
@@ -22,6 +22,24 @@ negative that routes classifier compression to Slice F). EXPLORATORY
 tier. Source: `walt/math/counted_belief_sandwich_v0.1.md` Part V–VI
 (§18–26), rulings CBS-A6 and CBS-A9.
 
+Stage C2 closes the slice and, like C1, added NO library code and no new
+gate — it is the report §46 asks for: all seven required coordinates
+from ONE opening-root run under the σ0 field (`factorbelief c2`, record
+`walt/probes/factor_belief/c2_run1.txt`). Hands 116,280 (asserted);
+contraction 5,933 µs for the completion weights alone, 21,818 µs warm
+(weights plus full §43-key identity, zero classifications); field
+classification 5,339,731 µs derived by subtraction from the 5,361,549 µs
+cold pass — 45 µs/hand, 99% of the bill; 20 distinct branch tiles; reuse
+×245 at 187 ns/query; memory as TWO figures kept apart — 23,563,392
+bytes of declared accounting for the action cache (88-byte entries,
+262,144 buckets, one control byte each, plus the key's one-tile history
+Vec) against a 63,340,544-byte MEASURED maximum resident size
+(`/usr/bin/time -l`, agreeing with the in-run `/bin/ps` reading at exit;
+peak footprint 62,390,680 bytes); conservation exact at 399,072,960.
+The memory coordinate deferred by C1 is therefore discharged, with the
+accounting never presented as a measurement. Remaining: the Slice D
+recursion (§47), IN FLIGHT in a concurrent session.
+
 Build-time deviations from the sketch below, under L2-A3's naming
 latitude (module docs carry the same list): `branch_masses`/`condition`
 take no seat argument — the acting seat is the derived view
@@ -29,11 +47,10 @@ take no seat argument — the acting seat is the derived view
 masses are `u128` with checked arithmetic (the kernel's counting
 width), not `BigUint`; `count_cell` is deferred to the slice that gives
 Part IV cell predicates a concrete type (Slice F), with `marginal`
-covering the one-seat case. The remaining stages (the full C2 report,
-Slice D recursion) build on the landed trait; the C1 cache study is
-done — its §26 coordinates live in the probe README, and its finding is
-that within-history reuse is total while cross-history reuse is zero by
-the identity law.
+covering the one-seat case. Slice D's recursion builds on the landed
+trait; the C1 cache study is done — its §26 coordinates live in the
+probe README, and its finding is that within-history reuse is total
+while cross-history reuse is zero by the identity law.
 
 ## The objects (parent §18–21)
 
@@ -102,7 +119,8 @@ latitude applies.)
   are the extensional oracles — CBS-O13). Small/medium fibers first;
   the trick-1 target (399,072,960 worlds, 116,280 acting-seat hands) is
   stage C2 and is a REPRESENTATION result even if the field classifier
-  stays slow (§46).
+  stays slow (§46) — as reported, the classifier IS the bill, 99% of the
+  cold pass against 5.9 ms of counting.
 - **Boundary obligation (CBS-A6, binding):** any field or belief with
   cross-seat coupling voids Theorem 20.1 until represented as explicit
   additional factors — never silently projected into seat-local form.
@@ -112,10 +130,12 @@ latitude applies.)
 ## Build order when authorized (§46–48, unchanged)
 
 C0 trivial field (`FixedPreference::lowest_first`) → C1 cached level-0
-field with per-hand classification → C2 opening root branch masses.
-Recursion (§47's factorized fixed-policy Bellman) only after one-ply
-parity and cost are understood. Measured coordinates per §26: contraction
-arithmetic, distinct hand materializations, field cost per hand, reuse,
-support shrinkage, cache identity cost, integer width, trick-1 memory,
+field with per-hand classification → C2 opening root branch masses. All
+three are walked. Recursion (§47's factorized fixed-policy Bellman) only
+after one-ply parity and cost are understood — they now are, and Slice D
+is in flight. Measured coordinates per §26: contraction arithmetic,
+distinct hand materializations, field cost per hand, reuse, support
+shrinkage, cache identity cost, integer width, trick-1 memory (C2's
+report — an accounting and a measurement, kept apart),
 SIMD/GPU/WASM suitability (a measurement coordinate under the ripcord
 discipline — CBS-A9, never an authorization).

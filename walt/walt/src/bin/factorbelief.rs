@@ -1,5 +1,5 @@
 //! EXPLORATORY FACTOR-BELIEF INSTRUMENT (counted-belief Slice C, stages
-//! C0–C1; `walt/math/counted_belief_sandwich_v0.1.md` §22/§26/§46,
+//! C0–C2; `walt/math/counted_belief_sandwich_v0.1.md` §22/§26/§46,
 //! rulings CBS-A6/CBS-A9) — sits below every evidentiary tier and is
 //! cited by nothing above it. Instrument output only: per-root branch
 //! masses by both routes (contraction over acting-seat hands versus
@@ -26,10 +26,16 @@
 //!                                             sharing, and the opening
 //!                                             root's identity cost
 //!                                             (§26 items 2/3/4/6)
+//!   `factorbelief c2 <out.txt>`             — the stage-C2 report: ALL
+//!                                             SEVEN §46 coordinates from
+//!                                             ONE opening-root run under
+//!                                             the σ0 level-0 field
 //!
-//! No floats anywhere; wall time is integer microseconds.
+//! No floats anywhere; wall time is integer microseconds, memory is
+//! integer bytes, ratios are integer division.
 
 use std::collections::HashMap;
+use std::process::Command;
 use std::time::Instant;
 
 use walt::kernel::Kernel;
@@ -40,7 +46,7 @@ use walt::solver::adaptive::{
     CanonicalRoot, FixedPreference, PublicRecord, RootPosition, SlicePolicy,
 };
 use walt::solver::factor_belief::{ExactCoverOracle, FactorBelief, FiberOracle};
-use walt::solver::field::{FieldKind, FieldModel, FieldSpec};
+use walt::solver::field::{FieldKind, FieldModel, FieldSpec, FieldStateKey};
 use walt::solver::policy::{DecisionMode, TieRule};
 
 fn field_spec() -> FieldSpec {
@@ -509,16 +515,270 @@ fn cache_study(out_path: &str) {
     println!("wrote {out_path}");
 }
 
+/// Resident set size of THIS process in integer bytes, measured by
+/// `/bin/ps -o rss=` (KiB as reported, scaled by 1024). A MEASUREMENT of
+/// the whole process — never an accounting of the cache alone, and never
+/// a peak: it is the resident size at the instant of the call. `None`
+/// where `ps` is unavailable or its output does not parse.
+fn rss_bytes() -> Option<u128> {
+    let pid = std::process::id().to_string();
+    let out = Command::new("/bin/ps")
+        .args(["-o", "rss=", "-p", &pid])
+        .output()
+        .ok()?;
+    let kib: u128 = String::from_utf8(out.stdout).ok()?.trim().parse().ok()?;
+    Some(kib * 1024)
+}
+
+fn rss_line(label: &str, rss: Option<u128>) -> String {
+    match rss {
+        Some(b) => format!("  {label}: {b} bytes\n"),
+        None => format!("  {label}: unavailable (/bin/ps did not report)\n"),
+    }
+}
+
+/// The std `HashMap` bucket count for `len` live entries, from the
+/// documented growth policy (7/8 load factor, power-of-two tables):
+/// `buckets = next_power_of_two(ceil(len * 8 / 7))`, with the small-table
+/// cases 4 and 8. Used ONLY inside the declared byte accounting below —
+/// it is arithmetic over a documented policy, not a measurement of the
+/// allocator.
+fn hashmap_buckets(len: usize) -> usize {
+    if len < 4 {
+        4
+    } else if len < 8 {
+        8
+    } else {
+        (len * 8 / 7 + usize::from(!(len * 8).is_multiple_of(7))).next_power_of_two()
+    }
+}
+
+/// §46 stage C2 — the opening-root report. ONE run at the frozen
+/// `verify_player` receipt root h0-t1 (fiber 399,072,960, acting-seat
+/// hands 116,280) under the σ0 `Level0 { n0 = 2 }` field, producing all
+/// seven coordinates §46 requires reported separately. Costly by
+/// construction (the field classifier is the bill); run deliberately.
+fn c2_report(out_path: &str) {
+    let path = locate_verify_player().expect("rob/receipts/verify_player.txt above the workspace");
+    let receipt = parse_file(&path).expect("the verify_player receipt parses");
+    let oracle = FiberOracle;
+    let field = FieldModel::new(field_spec());
+    let (root, position) = root_at(&receipt, 0, 1);
+    let focal = lowest_focal(&root, &position);
+    let seat = root.kernel().viewer().plus(1);
+
+    let rss_start = rss_bytes();
+
+    // The fiber's own mass: the shipped capacity DP, no field, no world.
+    let t_mass = Instant::now();
+    let fiber_mass = oracle.mass(&FactorBelief::uniform_root(&root, &position, &field));
+    let mass_us = micros(t_mass);
+
+    let belief = FactorBelief::uniform_root(&root, &position, &field).focal_play(focal);
+
+    // COORDINATE 1/2 — the acting seat's root hands and the pure §21
+    // contraction arithmetic: one completion binomial per hand, the field
+    // never consulted.
+    let t_weights = Instant::now();
+    let weights = oracle.actor_completion_weights(&belief, seat);
+    let weights_us = micros(t_weights);
+    let hands = weights.len();
+    assert_eq!(hands, 116_280, "the opening root's acting-seat hand count");
+    let weight_total: u128 = weights.iter().map(|(_, w)| w).sum();
+    assert_eq!(
+        weight_total, fiber_mass,
+        "the completion weights partition the fiber"
+    );
+    let rss_after_weights = rss_bytes();
+
+    // COORDINATE 3 — the cold pass: contraction PLUS one σ0
+    // classification per hand.
+    let t_cold = Instant::now();
+    let branches = oracle.branch_masses(&belief, &field);
+    let cold_us = micros(t_cold);
+    let states = field.cache_len();
+    assert_eq!(states, hands, "one information state per acting-seat hand");
+    let rss_after_classification = rss_bytes();
+
+    // COORDINATE 5 — the warm pass: contraction plus full §43-key cache
+    // identity, zero classifications.
+    let t_warm = Instant::now();
+    let again = oracle.branch_masses(&belief, &field);
+    let warm_us = micros(t_warm);
+    assert_eq!(again, branches, "a repeat returns the identical table");
+    assert_eq!(
+        field.cache_len(),
+        states,
+        "a repeat materializes no new state"
+    );
+    let classify_us = cold_us - warm_us;
+
+    // COORDINATE 4 / 7 — distinct field actions, and conservation.
+    let total: u128 = branches.iter().map(|(_, m)| m).sum();
+    assert_eq!(total, 399_072_960, "the §46 stage-C2 fiber mass");
+    assert_eq!(total, root.count(), "exact mass conservation");
+    let actions = branches.len();
+
+    // §26 item 5, beyond the seven: support shrinkage after one observed
+    // action, on the heaviest branch.
+    let (top, top_mass) = *branches
+        .iter()
+        .max_by_key(|(_, m)| *m)
+        .expect("a nonempty branch table");
+    let t_cond = Instant::now();
+    let conditioned = oracle.condition(&belief, top, &field);
+    let condition_us = micros(t_cond);
+    assert_eq!(
+        oracle.mass(&conditioned),
+        top_mass,
+        "the conditioned mass recovers the branch mass"
+    );
+    let support = conditioned.factors()[0].support().len();
+    let new_states = field.cache_len() - states;
+    let rss_end = rss_bytes();
+
+    // COORDINATE 6 — memory. Two figures, labelled apart: a DECLARED
+    // ACCOUNTING over `size_of` and the documented map growth policy, and
+    // a MEASURED process resident size.
+    let entry = std::mem::size_of::<(FieldStateKey, Domino)>();
+    let tile = std::mem::size_of::<Domino>();
+    let buckets = hashmap_buckets(states);
+    let table_bytes = buckets * (entry + 1) + 16;
+    let heap_per_entry = tile; // history = [focal]: one tile, capacity 1
+    let heap_bytes = states * heap_per_entry;
+    let accounted = table_bytes + heap_bytes;
+
+    let mut out = String::new();
+    out.push_str(
+        "FACTOR-BELIEF C2 REPORT — the opening root (exploratory)\n\
+         ========================================================\n\
+         EXPLORATORY tier: sits below every evidentiary tier and is cited\n\
+         by nothing above it.\n\n\
+         §46 stage C2 in ONE run: the frozen verify_player receipt root\n\
+         h0-t1 under the σ0 Level0 { n0 = 2 } field (construction\n\
+         level0-modeled-mind-v1), all seven required coordinates reported\n\
+         separately. No complete world is materialized at any point — the\n\
+         enumeration and bundled routes are deliberately absent, because\n\
+         the 399,072,960-world loop is the representation this slice\n\
+         retires (§22).\n\n\
+         All times are integer microseconds, all memory integer bytes, all\n\
+         ratios integer division.\n\n",
+    );
+    out.push_str(&format!(
+        "root h0-t1  focal {focal:?}  acting seat {seat:?}\n\
+         fiber mass {fiber_mass} (shipped capacity DP, {mass_us}us, no enumeration)\n\n"
+    ));
+
+    out.push_str("COORDINATE 1 — number of acting-seat hands\n");
+    out.push_str(&format!(
+        "  {hands} root hands carry nonzero completion weight (asserted == 116280)\n  \
+         worlds per hand: {} (integer division of {} by {hands})\n\n",
+        u128::try_from(hands).map(|h| fiber_mass / h).expect("fits"),
+        fiber_mass,
+    ));
+
+    out.push_str("COORDINATE 2 — contraction time\n");
+    out.push_str(&format!(
+        "  completion weights (one binomial per hand, field never consulted): {weights_us}us\n  \
+         warm contraction (weights + full §43-key cache identity, zero\n    \
+         classifications): {warm_us}us\n  \
+         fiber mass alone: {mass_us}us\n\n"
+    ));
+
+    out.push_str("COORDINATE 3 — field-classification time\n");
+    out.push_str(&format!(
+        "  cold pass (contraction + one σ0 classification per hand): {cold_us}us\n  \
+         classification alone, DERIVED by subtraction (cold - warm): {classify_us}us\n  \
+         per hand: {}us  ({} of the cold pass in percent, integer division)\n\n",
+        classify_us / u128::try_from(hands).expect("fits"),
+        classify_us * 100 / cold_us,
+    ));
+
+    out.push_str("COORDINATE 4 — number of distinct field actions\n");
+    out.push_str(&format!(
+        "  {actions} distinct branch tiles over {hands} hands\n"
+    ));
+    branch_table(&mut out, "branches", &branches, total);
+    out.push('\n');
+
+    out.push_str("COORDINATE 5 — cache reuse\n");
+    out.push_str(&format!(
+        "  first contraction {cold_us}us, {states} states materialized\n  \
+         repeat contraction {warm_us}us, 0 states materialized, 0 classifications\n  \
+         identity cost {}ns/query; saving x{} (integer division)\n  \
+         cross-history reuse is 0 by the §43 identity law (stage C1,\n    \
+         cache_run1.txt): the full key carries the public history\n\n",
+        warm_us * 1000 / u128::try_from(states).expect("fits"),
+        cold_us / warm_us,
+    ));
+
+    out.push_str("COORDINATE 6 — memory\n");
+    out.push_str(&format!(
+        "  cache entries: {states}\n\
+         \n  \
+         DECLARED ACCOUNTING (arithmetic over size_of and the documented\n  \
+         std HashMap growth policy — NOT an allocator measurement):\n    \
+         entry inline size_of::<(FieldStateKey, Domino)>() = {entry} bytes\n    \
+         buckets = next_power_of_two(ceil(entries * 8 / 7)) = {buckets}\n    \
+         table  = buckets * (entry + 1 control byte) + 16 group bytes\n           \
+         = {buckets} * ({entry} + 1) + 16 = {table_bytes} bytes\n    \
+         per-entry heap = the key's history Vec<Domino>, len 1 at this\n      \
+         root (trick_plays is empty at a trick start, so the cloned\n      \
+         RootPosition allocates nothing) = size_of::<Domino>() = {tile} bytes\n    \
+         heap   = entries * {heap_per_entry} = {heap_bytes} bytes\n    \
+         TOTAL accounted for the action cache = {accounted} bytes\n\
+         \n  \
+         MEASURED process resident size (/bin/ps -o rss=, KiB * 1024 —\n  \
+         the WHOLE process at that instant, not the cache alone, and not\n  \
+         a peak; peak footprint is captured externally by\n  \
+         /usr/bin/time -l and recorded with this probe):\n"
+    ));
+    out.push_str(&rss_line("at start", rss_start));
+    out.push_str(&rss_line("after completion weights", rss_after_weights));
+    out.push_str(&rss_line("after classification", rss_after_classification));
+    out.push_str(&rss_line("at end", rss_end));
+    if let (Some(a), Some(b)) = (rss_after_weights, rss_after_classification) {
+        out.push_str(&format!(
+            "  classification resident delta: {} bytes over {states} entries\n",
+            b - a,
+        ));
+    }
+    out.push('\n');
+
+    out.push_str("COORDINATE 7 — exact mass conservation\n");
+    out.push_str(&format!(
+        "  sum of branch masses = {total}\n  \
+         fiber mass            = {}\n  \
+         asserted equal, and asserted == 399072960\n  \
+         completion weights also sum to the fiber mass exactly\n\n",
+        root.count(),
+    ));
+
+    out.push_str("BEYOND THE SEVEN — §26 item 5, support shrinkage\n");
+    out.push_str(&format!(
+        "  condition on the heaviest branch {top:?} (mass {top_mass} of {total}):\n    \
+         {condition_us}us, {new_states} new states, conditioned support {support}\n    \
+         hands of {hands} — the posterior update is table filtering over an\n    \
+         already-classified support (Theorem 20.1: only the acting seat's\n    \
+         factor is multiplied)\n"
+    ));
+
+    std::fs::write(out_path, &out).expect("the probe output writes");
+    println!("{out}");
+    println!("wrote {out_path}");
+}
+
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     match args.get(1).map(String::as_str) {
         Some("run") if args.len() == 3 => run(&args[2]),
         Some("opening-level0") if args.len() == 3 => opening_level0(&args[2]),
         Some("cache") if args.len() == 3 => cache_study(&args[2]),
+        Some("c2") if args.len() == 3 => c2_report(&args[2]),
         _ => {
             eprintln!(
                 "usage: factorbelief run <out.txt> | factorbelief opening-level0 <out.txt> | \
-                 factorbelief cache <out.txt>"
+                 factorbelief cache <out.txt> | factorbelief c2 <out.txt>"
             );
             std::process::exit(2);
         }
