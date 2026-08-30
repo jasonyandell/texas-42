@@ -448,8 +448,32 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   5.6 s (σ0 level-0 classification of all 116,280 hands, the C2 shape),
   399,072,960 worlds never materialized, conservation exact. Register
   `walt/FACTOR-BELIEF.md` updated with the build-time trait deviations.
-  The default player is untouched (CBS-A9). Still unbuilt: Slice B
-  (grammar/residual), C1's cache study proper, Slices D–G.
+  The default player is untouched (CBS-A9).
+- **The counted-belief build — Slice B landed** *(2026-08-30, the same
+  session's next round)*: `solver::grammar` — §11's induced
+  `PolicyGrammar` over `SlicePolicy` sources (legal combination by
+  information state, never by hidden world — type-enforced), one walk
+  producing the §12 triple `free`/`gram`/`dev` with Theorem 9.1's
+  `free = max(gram, dev)` asserted at EVERY node, verdicts under the
+  decided-truncation quotient, lazy first-deviation witnesses (CBS-A4),
+  the grammar-room census, the `CountPreservation` safety source, and
+  `residual_empirical_max_upper` — the §8 identity made mechanical: the
+  sampled residual upper IS the full-class upper (off-sample deviation
+  realizes the unrestricted optimum inside the residual; Corollary 5.2
+  refuses anything smaller), so sampled partitioning tightens nothing
+  and genuine residual bounds are the exact side's (`dev` over the
+  fiber). Gates at `tests/solver_grammar.rs` (8/8, incl. nodewise
+  identity against `exact_root_value`, singleton-grammar == §6 replay
+  count, and the frozen sweep finding: the two-preference grammar
+  leaves NO exact counterexample at tricks 5–6 while the singleton
+  does); instrument `bin/grammarsplit.rs` with records at
+  `walt/probes/grammar_residual/` — root closure attained by G2/G3 on
+  all six fixtures, the §12 boxed exclusion realized exactly with
+  margin 1 (h8-t5: gram 71 / dev 70), and one true counterexample with
+  its depth-4 witness. Recorded deviation: the level-2/waking grammar
+  source of §45 awaits a `SlicePolicy`-shaped continuation; the σ0 mind
+  stands in. The default player is untouched (CBS-A9). Still unbuilt:
+  C1's cache study proper, Slices D–G.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03

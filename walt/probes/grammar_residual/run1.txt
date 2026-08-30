@@ -1,0 +1,82 @@
+GRAMMAR-SPLIT PROBE (counted-belief Slice B, §45; EXPLORATORY, cited by nothing)
+field=fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e grammars: G2={lowest,highest} G3={level1[2,2]-pinned-per-action,sigma0-mind,count-preservation} sampled_prefix=64
+
+SECTION A — exact §12 triples over the complete fiber
+  h12-t6 fiber=6 viewer=S3
+    G1 action=4-4 free=0 gram=0 dev=- verdict=closes census[focal=0 G_total=0 legal_total=0 saturated=0] split_us=10
+    G1 action=6-0 free=0 gram=- dev=0 verdict=root-off-grammar census[focal=0 G_total=0 legal_total=0 saturated=0] split_us=3
+    G1 root-closure: exact_best=4-4(0) grammar_best=4-4(0) grammar_attains_root_optimum=YES
+    G2 action=4-4 free=0 gram=0 dev=- verdict=closes census[focal=0 G_total=0 legal_total=0 saturated=0] split_us=1
+    G2 action=6-0 free=0 gram=0 dev=- verdict=closes census[focal=0 G_total=0 legal_total=0 saturated=0] split_us=1
+    G2 root-closure: exact_best=4-4(0) grammar_best=4-4(0) grammar_attains_root_optimum=YES
+    G3 action=4-4 free=0 gram=0 dev=- verdict=closes census[focal=0 G_total=0 legal_total=0 saturated=0] split_us=31
+    G3 action=6-0 free=0 gram=0 dev=- verdict=closes census[focal=0 G_total=0 legal_total=0 saturated=0] split_us=4
+    G3 root-closure: exact_best=4-4(0) grammar_best=4-4(0) grammar_attains_root_optimum=YES
+  h10-t6 fiber=19 viewer=S1
+    G1 action=2-2 free=19 gram=19 dev=- verdict=closes census[focal=0 G_total=0 legal_total=0 saturated=0] split_us=2
+    G1 action=3-3 free=19 gram=- dev=19 verdict=root-off-grammar census[focal=0 G_total=0 legal_total=0 saturated=0] split_us=1
+    G1 root-closure: exact_best=2-2(19) grammar_best=2-2(19) grammar_attains_root_optimum=YES
+    G2 action=2-2 free=19 gram=19 dev=- verdict=closes census[focal=0 G_total=0 legal_total=0 saturated=0] split_us=1
+    G2 action=3-3 free=19 gram=19 dev=- verdict=closes census[focal=0 G_total=0 legal_total=0 saturated=0] split_us=1
+    G2 root-closure: exact_best=2-2(19) grammar_best=2-2(19) grammar_attains_root_optimum=YES
+    G3 action=2-2 free=19 gram=19 dev=- verdict=closes census[focal=0 G_total=0 legal_total=0 saturated=0] split_us=3
+    G3 action=3-3 free=19 gram=19 dev=- verdict=closes census[focal=0 G_total=0 legal_total=0 saturated=0] split_us=3
+    G3 root-closure: exact_best=2-2(19) grammar_best=2-2(19) grammar_attains_root_optimum=YES
+  h5-t6 fiber=27 viewer=S0
+    G1 action=4-1 free=12 gram=12 dev=- verdict=closes census[focal=25 G_total=25 legal_total=25 saturated=25] split_us=242
+    G1 action=5-2 free=12 gram=- dev=12 verdict=root-off-grammar census[focal=7 G_total=7 legal_total=7 saturated=7] split_us=146
+    G1 root-closure: exact_best=4-1(12) grammar_best=4-1(12) grammar_attains_root_optimum=YES
+    G2 action=4-1 free=12 gram=12 dev=- verdict=closes census[focal=25 G_total=25 legal_total=25 saturated=25] split_us=32
+    G2 action=5-2 free=12 gram=12 dev=- verdict=closes census[focal=7 G_total=7 legal_total=7 saturated=7] split_us=19
+    G2 root-closure: exact_best=4-1(12) grammar_best=4-1(12) grammar_attains_root_optimum=YES
+    G3 action=4-1 free=12 gram=12 dev=- verdict=closes census[focal=25 G_total=25 legal_total=25 saturated=25] split_us=55
+    G3 action=5-2 free=12 gram=12 dev=- verdict=closes census[focal=7 G_total=7 legal_total=7 saturated=7] split_us=31
+    G3 root-closure: exact_best=4-1(12) grammar_best=4-1(12) grammar_attains_root_optimum=YES
+  h4-t6 fiber=90 viewer=S2
+    G1 action=0-0 free=30 gram=30 dev=- verdict=closes census[focal=30 G_total=30 legal_total=30 saturated=30] split_us=441
+    G1 action=1-1 free=78 gram=- dev=78 verdict=root-off-grammar census[focal=30 G_total=30 legal_total=30 saturated=30] split_us=499
+    G1 root-closure: exact_best=1-1(78) grammar_best=0-0(30) grammar_attains_root_optimum=no
+    G2 action=0-0 free=30 gram=30 dev=- verdict=closes census[focal=30 G_total=30 legal_total=30 saturated=30] split_us=55
+    G2 action=1-1 free=78 gram=78 dev=- verdict=closes census[focal=30 G_total=30 legal_total=30 saturated=30] split_us=86
+    G2 root-closure: exact_best=1-1(78) grammar_best=1-1(78) grammar_attains_root_optimum=YES
+    G3 action=0-0 free=30 gram=30 dev=- verdict=closes census[focal=30 G_total=30 legal_total=30 saturated=30] split_us=80
+    G3 action=1-1 free=78 gram=78 dev=- verdict=closes census[focal=30 G_total=30 legal_total=30 saturated=30] split_us=109
+    G3 root-closure: exact_best=1-1(78) grammar_best=1-1(78) grammar_attains_root_optimum=YES
+  h8-t5 fiber=92 viewer=S3
+    G1 action=0-0 free=71 gram=64 dev=71 verdict=counterexample census[focal=112 G_total=112 legal_total=141 saturated=83] split_us=2688 witness=FirstDeviation{depth=4;deviation=5-3;grammar_size=1;legal_size=2;history=[0-0,3-0,6-0,6-6]}
+    G1 action=5-0 free=64 gram=- dev=64 verdict=root-off-grammar census[focal=91 G_total=91 legal_total=136 saturated=46] split_us=1898
+    G1 action=5-3 free=91 gram=- dev=91 verdict=root-off-grammar census[focal=149 G_total=149 legal_total=212 saturated=86] split_us=2669
+    G1 root-closure: exact_best=5-3(91) grammar_best=0-0(64) grammar_attains_root_optimum=no
+    G2 action=0-0 free=71 gram=71 dev=- verdict=closes census[focal=112 G_total=141 legal_total=141 saturated=112] split_us=234
+    G2 action=5-0 free=64 gram=- dev=64 verdict=root-off-grammar census[focal=91 G_total=136 legal_total=136 saturated=91] split_us=135
+    G2 action=5-3 free=91 gram=91 dev=- verdict=closes census[focal=149 G_total=212 legal_total=212 saturated=149] split_us=187
+    G2 root-closure: exact_best=5-3(91) grammar_best=5-3(91) grammar_attains_root_optimum=YES
+    G3 action=0-0 free=71 gram=71 dev=70 verdict=closes census[focal=112 G_total=140 legal_total=141 saturated=111] split_us=28516
+    G3 action=5-0 free=64 gram=64 dev=64 verdict=ties census[focal=91 G_total=105 legal_total=136 saturated=60] split_us=19884
+    G3 action=5-3 free=91 gram=91 dev=90 verdict=closes census[focal=149 G_total=196 legal_total=212 saturated=133] split_us=15395
+    G3 root-closure: exact_best=5-3(91) grammar_best=5-3(91) grammar_attains_root_optimum=YES
+  h3-t5 fiber=200 viewer=S0
+    G1 action=4-0 free=200 gram=200 dev=200 verdict=ties census[focal=268 G_total=268 legal_total=334 saturated=202] split_us=9375
+    G1 action=5-0 free=200 gram=- dev=200 verdict=root-off-grammar census[focal=246 G_total=246 legal_total=318 saturated=174] split_us=8775
+    G1 action=6-6 free=200 gram=- dev=200 verdict=root-off-grammar census[focal=283 G_total=283 legal_total=313 saturated=253] split_us=8070
+    G1 root-closure: exact_best=4-0(200) grammar_best=4-0(200) grammar_attains_root_optimum=YES
+    G2 action=4-0 free=200 gram=200 dev=- verdict=closes census[focal=268 G_total=334 legal_total=334 saturated=268] split_us=638
+    G2 action=5-0 free=200 gram=- dev=200 verdict=root-off-grammar census[focal=246 G_total=318 legal_total=318 saturated=246] split_us=627
+    G2 action=6-6 free=200 gram=200 dev=- verdict=closes census[focal=283 G_total=313 legal_total=313 saturated=283] split_us=596
+    G2 root-closure: exact_best=4-0(200) grammar_best=4-0(200) grammar_attains_root_optimum=YES
+    G3 action=4-0 free=200 gram=200 dev=- verdict=closes census[focal=268 G_total=334 legal_total=334 saturated=268] split_us=98782
+    G3 action=5-0 free=200 gram=200 dev=200 verdict=ties census[focal=246 G_total=246 legal_total=318 saturated=174] split_us=104577
+    G3 action=6-6 free=200 gram=200 dev=- verdict=closes census[focal=283 G_total=313 legal_total=313 saturated=283] split_us=47237
+    G3 root-closure: exact_best=4-0(200) grammar_best=4-0(200) grammar_attains_root_optimum=YES
+
+SECTION B — the sampled route (declared stream prefix; exact on the sample, bounds nothing about the fiber)
+  h8-t5 fiber=92 prefix=64
+    action=0-0 free=50 gram=50 dev=- verdict=closes sampled_us=186
+    action=5-0 free=44 gram=- dev=44 verdict=root-off-grammar sampled_us=117
+    action=5-3 free=63 gram=63 dev=- verdict=closes sampled_us=168
+    §8 identity at action=0-0: residual upper == full-class upper == 81/92 (count paths byte-identical)
+  h3-t5 fiber=200 prefix=64
+    action=4-0 free=64 gram=64 dev=- verdict=closes sampled_us=246
+    action=5-0 free=64 gram=64 dev=- verdict=closes sampled_us=215
+    action=6-6 free=64 gram=64 dev=- verdict=closes sampled_us=226
+    §8 identity at action=4-0: residual upper == full-class upper == 1 (count paths byte-identical)
