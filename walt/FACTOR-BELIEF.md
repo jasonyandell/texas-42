@@ -1,17 +1,26 @@
 # FACTOR-BELIEF — the Slice C design skeleton (specify, do not optimize)
 
-**Status:** stage C0 LANDED (2026-08-30) —
+**Status:** stages C0 AND C1 LANDED (2026-08-30) —
 `walt/walt/src/solver/factor_belief.rs`, gated by
-`walt/walt/tests/solver_factor_belief.rs` (7 gates: three-way mass
-parity, branch-mass parity with complete-world enumeration under two
-trivial fields and the σ0 level-0 mind, the Theorem 20.1 conditioning
-route, conditioned marginals against enumeration, the declared domain
-refusals, and the §22 opening-root contraction). Probe:
-`walt/probes/factor_belief/` — opening-root branch masses in 8.7 ms
-over a 399,072,960-world fiber; the σ0 opening classification (C2
-shape) realized in 5.6 s. EXPLORATORY tier. Source:
-`walt/math/counted_belief_sandwich_v0.1.md` Part V–VI (§18–26),
-rulings CBS-A6 and CBS-A9.
+`walt/walt/tests/solver_factor_belief.rs` (11 gates: the seven C0 gates —
+three-way mass parity, branch-mass parity with complete-world enumeration
+under two trivial fields and the σ0 level-0 mind, the Theorem 20.1
+conditioning route, conditioned marginals against enumeration, the
+declared domain refusals, the §22 opening-root contraction — plus the
+four C1 cache laws: σ0 branch parity with the bundled one-ply oracle on
+every receipt fiber WITH full extensional cache identity between the
+routes, classification once per information state, zero sharing across
+public histories under the full §43 identity key, and the opening root's
+116,280 hands classified exactly once). C1 added no library code: the C0
+contraction plus `FieldModel`'s insert-only cache already classify once
+per state; C1 is the gates and the measurements. Probe:
+`walt/probes/factor_belief/` — opening-root branch masses in 8.7 ms over
+a 399,072,960-world fiber; the σ0 opening classification realized in
+5.36 s (46 µs/hand); the REPEAT contraction 23.3 ms (200 ns/query pure
+cache identity, ×230); cross-history reuse exactly 0 (the honest
+negative that routes classifier compression to Slice F). EXPLORATORY
+tier. Source: `walt/math/counted_belief_sandwich_v0.1.md` Part V–VI
+(§18–26), rulings CBS-A6 and CBS-A9.
 
 Build-time deviations from the sketch below, under L2-A3's naming
 latitude (module docs carry the same list): `branch_masses`/`condition`
@@ -20,8 +29,11 @@ take no seat argument — the acting seat is the derived view
 masses are `u128` with checked arithmetic (the kernel's counting
 width), not `BigUint`; `count_cell` is deferred to the slice that gives
 Part IV cell predicates a concrete type (Slice F), with `marginal`
-covering the one-seat case. The remaining stages (C1 cache study, full
-C2 report, Slice D recursion) build on the landed trait.
+covering the one-seat case. The remaining stages (the full C2 report,
+Slice D recursion) build on the landed trait; the C1 cache study is
+done — its §26 coordinates live in the probe README, and its finding is
+that within-history reuse is total while cross-history reuse is zero by
+the identity law.
 
 ## The objects (parent §18–21)
 

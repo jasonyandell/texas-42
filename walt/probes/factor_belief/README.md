@@ -1,4 +1,4 @@
-# factor_belief — the Slice C stage C0 probe
+# factor_belief — the Slice C stage C0–C1 probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
@@ -69,6 +69,42 @@ stage C2's shape realized with the σ0 field.
   within one root — cross-root and cross-action reuse is where C1's
   cache study must look, and hand-class instrumentation (Slice F) is
   the declared route to compressing the classifier itself.
+
+## cache_run1.txt readings (2026-08-30) — the stage-C1 cache study
+
+`factorbelief cache` — the cached σ0 field under the contraction route,
+gated in CI by `solver_factor_belief.rs` gates 7–10 (bundled one-ply
+parity with full extensional cache identity, once-per-state, the zero
+cross-history law, the opening root once-per-hand).
+
+- **The two routes materialize the SAME states with the SAME actions.**
+  On all six receipt fibers, the contraction route's cache and the
+  bundled one-ply oracle's cache (fresh instance each) are equal as
+  maps — the feasible root hands exactly, one action each. Parity of
+  buckets AND parity of materialized information states, in one map
+  equality.
+- **Identity cost at scale is 200 ns/query.** The opening root: first
+  σ0 contraction 5.36 s (46 µs/hand over 116,280 hands — the field
+  classifier, as §22 predicted); the REPEAT contraction 23.3 ms with
+  zero classifications — counting plus full-key cache identity only,
+  a ×230 saving. Conditioning on the heaviest branch (1-0, mass
+  125,370,960 of 399,072,960) costs 16.8 ms and materializes 0 new
+  states: at the voidless opening the whole support is already
+  classified, so the posterior update is pure table filtering.
+- **Cross-history reuse is exactly zero, and that is the finding.**
+  0 of 36 queries hit across focal candidates (h4-t6, two candidates)
+  or across roots (h12-t6, same instance): the full §43 identity key
+  carries the public history, so no two histories share a state.
+  Sharing across histories requires a proven state reduction — the
+  Slice F vocabulary — never a looser key (a hit under an omitted
+  coordinate is the PiKey defect reborn, CBS-A6).
+- **Within-history reuse is total.** A repeated contraction and every
+  conditioning answer entirely from cache (gates 8/10); the σ0
+  first-call cost at trick 5–6 roots is 2–28 µs/hand, repeats 5–17 µs
+  total.
+- **At small worlds/hands ratios the bundled and contraction routes
+  cost the same** (both are bounded by distinct-hand classification);
+  the contraction advantage remains the ratio, 3,432 at the opening.
 
 ## Boundaries
 
