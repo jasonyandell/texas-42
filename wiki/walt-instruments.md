@@ -217,6 +217,7 @@ published tables from the records, so no aggregate is hand-maintained.
 | `field_cache_bench` | The surgical-levers A/B/C: bare field vs cached field vs cached+decided-cutoff over the same (world × candidate) replay grid, wins vectors asserted identical across arms | `probes/field_cache/` |
 | `bundle_bench` | The bundled-evaluator A/B: per-world route vs `solver::bundle` on complete fibers under two field configurations, wins asserted equal, exact node/field-query/settlement counters | `probes/bundle/` |
 | `rootinterval` | The counted-belief Slice A instrument [L2 thread, added 2026-08-30, CBS-A1..A9]: per legal root action, exact `Q_a` beside the δ-valid root interval — the pmake empirical-max upper (`sampled_root_optimum` inverted through the CE one-mean engine, no policy-count risk penalty) over a frozen-policy lower witness with the §6 discovery/evaluation lock — survivor-set evolution by prefix, worlds-to-singleton, and the upper-excess vs lower-shortfall attribution; ties come out `UnresolvedRootSet`, never a forced winner | `probes/root_interval/` |
+| `factorbelief` | The counted-belief Slice C stage-C0 instrument [L2 thread, added 2026-08-30, CBS-A6/A9]: exact one-ply branch masses `{t ↦ Z_ht}` by two routes — the §21 contraction (acting-seat root hands × exact completion binomials, each hand field-classified once) beside complete-world enumeration — with route parity and `Z_h = Σ_t Z_ht` asserted per row; the §22 opening-root demonstration (399,072,960 worlds → 116,280 hands, branch table in 8.7 ms trivially / 5.6 s under the σ0 mind, no world materialized) and the §26 cost coordinates (distinct information states = distinct hands on both routes) | `probes/factor_belief/` |
 
 Two declared-knob facts a future session must not inherit silently:
 
@@ -267,7 +268,18 @@ mirror-endpoint sweep at the adjudicated 11/128, realized L ≤ Q ≤ U
 against `exact_root_value` on both frozen fixtures with the exact
 optimizer surviving, the §6 same-stream lock as a refused construction,
 malformed-count-path rejection, exact risk summation, and
-starved-budget `UnresolvedRootSet` typing).
+starved-budget `UnresolvedRootSet` typing), and
+`walt/walt/tests/solver_factor_belief.rs` (counted-belief Slice C stage
+C0: three-way uniform-mass parity — backend zero, the canonical count,
+complete enumeration — with Theorem 23.1 focal invariance; branch-mass
+parity against world-by-world classification under two trivial fields
+and, on the smallest fibers, the σ0 level-0 mind; the Theorem 20.1
+conditioning route recovering each branch mass with only the acting
+factor touched; conditioned marginals against enumeration; the declared
+C0 domain refusals — field-identity mismatch, focal/hidden node
+confusion, and the two-table Slice-D boundary refused by panic; and the
+§22 opening root contracted to 116,280 hands with exact conservation,
+never enumerated).
 Per the receipt-discipline statements
 below, none of these JSONL records is byte-diffed by CI and none becomes a
 claim-tier result by existing.

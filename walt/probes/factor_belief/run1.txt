@@ -1,0 +1,136 @@
+FACTOR-BELIEF C0 PROBE (exploratory; cited by nothing above it)
+================================================================
+Both routes compute the same exact one-ply branch masses for the
+first hidden seat after the viewer's lowest legal focal play.
+contraction = acting-seat hands weighted by exact completions (§21);
+enumeration = every complete world classified one by one.
+
+SECTION A — receipt roots, trivial field (lowest-first)
+
+h12-t6: fiber 6  focal 4-4  acting-seat hands 6
+  contraction 9us  enumeration 5us  parity OK  conservation OK
+  branches:
+    3-3  mass 1 / 6
+    4-1  mass 3 / 6
+    4-3  mass 2 / 6
+
+h10-t6: fiber 19  focal 2-2  acting-seat hands 6
+  contraction 6us  enumeration 4us  parity OK  conservation OK
+  branches:
+    2-0  mass 7 / 19
+    3-2  mass 6 / 19
+    4-0  mass 6 / 19
+
+h5-t6: fiber 27  focal 4-1  acting-seat hands 6
+  contraction 4us  enumeration 7us  parity OK  conservation OK
+  branches:
+    4-2  mass 12 / 27
+    4-3  mass 12 / 27
+    4-4  mass 3 / 27
+
+h4-t6: fiber 90  focal 0-0  acting-seat hands 15
+  contraction 6us  enumeration 13us  parity OK  conservation OK
+  branches:
+    2-0  mass 30 / 90
+    2-1  mass 24 / 90
+    2-2  mass 18 / 90
+    5-1  mass 12 / 90
+    5-4  mass 6 / 90
+
+h8-t5: fiber 92  focal 0-0  acting-seat hands 28
+  contraction 14us  enumeration 37us  parity OK  conservation OK
+  branches:
+    3-0  mass 18 / 92
+    3-1  mass 22 / 92
+    3-3  mass 11 / 92
+    4-1  mass 25 / 92
+    6-0  mass 16 / 92
+
+h3-t5: fiber 200  focal 4-0  acting-seat hands 74
+  contraction 12us  enumeration 94us  parity OK  conservation OK
+  branches:
+    3-1  mass 100 / 200
+    3-2  mass 24 / 200
+    3-3  mass 21 / 200
+    4-1  mass 37 / 200
+    5-5  mass 8 / 200
+    6-1  mass 9 / 200
+    6-3  mass 1 / 200
+
+SECTION B — receipt roots, level-0 field (n0 = 2; stage-C1 down-payment)
+fresh field instance per route; cache_len = distinct information
+states materialized by that route alone
+
+h12-t6: fiber 6  hands 6  contraction 54us (6 states)  enumeration 10us (6 states)
+  branches:
+    3-3  mass 1 / 6
+    4-1  mass 3 / 6
+    4-3  mass 2 / 6
+
+h10-t6: fiber 19  hands 6  contraction 10us (6 states)  enumeration 12us (6 states)
+  branches:
+    2-0  mass 7 / 19
+    3-2  mass 6 / 19
+    4-0  mass 6 / 19
+
+h5-t6: fiber 27  hands 6  contraction 94us (6 states)  enumeration 47us (6 states)
+  branches:
+    4-2  mass 12 / 27
+    4-3  mass 12 / 27
+    4-4  mass 3 / 27
+
+h4-t6: fiber 90  hands 15  contraction 133us (15 states)  enumeration 139us (15 states)
+  branches:
+    2-0  mass 30 / 90
+    2-1  mass 24 / 90
+    2-2  mass 12 / 90
+    5-1  mass 18 / 90
+    5-5  mass 6 / 90
+
+h8-t5: fiber 92  hands 28  contraction 510us (28 states)  enumeration 526us (28 states)
+  branches:
+    3-0  mass 16 / 92
+    3-1  mass 22 / 92
+    3-3  mass 8 / 92
+    4-1  mass 21 / 92
+    4-3  mass 7 / 92
+    6-0  mass 18 / 92
+
+h3-t5: fiber 200  hands 74  contraction 2106us (74 states)  enumeration 2012us (74 states)
+  branches:
+    3-1  mass 77 / 200
+    3-2  mass 17 / 200
+    3-3  mass 17 / 200
+    4-1  mass 30 / 200
+    5-5  mass 17 / 200
+    6-1  mass 20 / 200
+    6-3  mass 6 / 200
+    6-4  mass 15 / 200
+    6-5  mass 1 / 200
+
+SECTION C — the opening root (h0-t1), trivial field, contraction ONLY
+399,072,960 worlds stand behind 116,280 acting-seat hands (§22);
+the enumeration route is deliberately absent
+
+fiber mass 399072960 (counted in 13us, no enumeration)
+focal 0-0
+acting-seat hands 116280 (completion weights in 8510us)
+branch masses in 8671us (completion + classification, one pass)
+  branches:
+    1-0  mass 133024320 / 399072960
+    1-1  mass 27483456 / 399072960
+    2-0  mass 93117024 / 399072960
+    2-2  mass 17177160 / 399072960
+    3-0  mass 10306296 / 399072960
+    3-1  mass 5889312 / 399072960
+    4-0  mass 63711648 / 399072960
+    4-1  mass 3171168 / 399072960
+    4-2  mass 1585584 / 399072960
+    4-3  mass 720720 / 399072960
+    4-4  mass 288288 / 399072960
+    5-0  mass 42474432 / 399072960
+    5-1  mass 96096 / 399072960
+    5-2  mass 24024 / 399072960
+    5-4  mass 3432 / 399072960
+  conservation: 399072960 = 399072960 OK
+

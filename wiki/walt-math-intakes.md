@@ -434,7 +434,22 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   `UnresolvedRootSet`), and the Slice C design skeleton
   `walt/FACTOR-BELIEF.md` (§56's second output — types, oracle trait,
   gates; no implementation). The default player is untouched (CBS-A9).
-  Still unbuilt: Slices B–G.
+- **The counted-belief build — Slice C stage C0 landed** *(2026-08-30,
+  the following session)*: `solver::factor_belief` — the §43-identity
+  `FactorBelief`, the `ExactCoverOracle` contraction trait, and backend
+  zero (`FiberOracle` wrapping the shipped `FiberDp` for 0/1 factors,
+  per CBS-A6), with the Theorem 20.1 conditioning route and the §46
+  mass-conservation gate asserted at every contraction. Gates at
+  `tests/solver_factor_belief.rs` (7/7, incl. branch-mass parity with
+  complete-world enumeration under three fields and the two-table
+  Slice-D boundary refused by panic); instrument `bin/factorbelief.rs`
+  with records at `walt/probes/factor_belief/` — the §22 opening root
+  contracted to its exact branch table in 8.7 ms (trivial field) and
+  5.6 s (σ0 level-0 classification of all 116,280 hands, the C2 shape),
+  399,072,960 worlds never materialized, conservation exact. Register
+  `walt/FACTOR-BELIEF.md` updated with the build-time trait deviations.
+  The default player is untouched (CBS-A9). Still unbuilt: Slice B
+  (grammar/residual), C1's cache study proper, Slices D–G.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03
