@@ -58,6 +58,7 @@ walt's exploratory fence, never the CONFIRMED pipeline.
 | Targeted level-2 field stability (side-channel, same lineage) | `targeted_level2_field_stability_v0.1.md` (SHA-256 `597d33c3…`) | `targeted_level2_field_stability_v0.1_intake.md` (intake audit) + `verify_targeted_level2_field_stability_v0.1.py` | **L2-A1..A7** (2026-08-24, same-day, under the standing same-lineage go) | First-disagreement localization L2-T1..T5 SOUND, 19/19 exact model-check (~1.57M pair instances); exposure bounds turn level 2 into a calculated refinement; O29–O38 accepted (L2-A2); build slots after CE shadow (L2-A6) |
 | Panel response x:019–023 (Pro, adversary panels on both threads) | `exchange/inbox/019-023-response-panel-and-cancellation-v0.1.md` (SHA-256 `a3f468aa…`) | `response_walt_panel_and_cancellation_v0.1_intake.md` + `exchange/inbox/verify_walt_panel_response_v0_1.py` (scratch tier) | **PANEL-A1..A8** (2026-08-24, same-day, standing same-lineage go) | Four briefs certified (020 wording narrowed, 023 with the τ coupling repair); Claim D counterexampled → future-only/preallocated opening binding (PANEL-A3); W7–W11 adopted (PANEL-A5); Part VI cancellation ladder \|c\| ≤ r ≤ d, (B,H,q,g) masses, dominance theorem, directional R± bounds adopted for slice 3 (PANEL-A7/A8); committed lift corrected 41/1200 → **31/1200** |
 | Deferred-producers response x:024 (Pro, three-part design brief on the slice-3 deferrals) | `exchange/inbox/024-response-deferred-producers-triple-v0.1.md` (SHA-256 `337296a7…`) | `response_deferred_producers_triple_v0.1_intake.md` + `exchange/inbox/verify_deferred_producers_triple_v0_1.py` (scratch tier) | **TRIPLE-A1..A7** (2026-08-25, same-day, hand-delivered by Jason) | All three deferrals answered at design level: max-preserving upper CS (no Bonferroni; the shipped split-reach count is already S\*_n) for the E3 producer; Hazard-Exclusion Invariant (sound + semantically complete, one verifier authority) for the dominance bound; six-motif first-split morphology + Other for §10 tags, `RevealResponse` refused pending suffix enrichment; branch-mixture upper route retired (wrong orientation); verifier 13/13 PASS incl. exhaustive 65,536-stream sweep; all three producers built with gates same night (slices 4a/4b/4c, main `cbce1ae`) |
+| Counted-belief refinement calculus (Pro, side-channel) | `counted_belief_sandwich_v0.1.md` (SHA-256 `4d2dfbe0…`) | `counted_belief_sandwich_v0.1_intake.md` + `verify_counted_belief_sandwich_v0.1.py` (scratch tier) | **CBS-A1..A9** (2026-08-30, same-day, hand-delivered by Jason) | The dual-refinement solver design — root intervals and survivor sets over policy regions and factorized belief: Theorem 5.1 recognized as x:024 M1/M2 over pmake (no new statistics; the pmake sampled optimizer is Slice A's one new producer); seat-factor posterior closure + factorized Bellman adopted (the new mathematics — 116,280 acting-seat hands vs 399,072,960 deals at trick 1); `FiberDp` recognized as the uniform-root `ExactCoverOracle`; §0 probe citations amended (READMEs stay the authority); "sandwich" naming retired for **root interval / survivor set**; verifier 20/20 PASS; build = §56 Slice A + Slice C skeleton, queued on Jason's word |
 
 ## 1. The frozen bases
 
@@ -323,6 +324,51 @@ Artifact map only; the adjudicated content lives on
   discipline and the level-3 tripwire adopted, no mitigation without a
   separate intake (L2-A7).
 
+- **`walt/math/counted_belief_sandwich_v0.1.md`** — *Counted Belief
+  Sandwiches and the Refinement Calculus for Walt* (received verbatim,
+  hand-delivered by Jason 2026-08-29/30; checksum-pinned, SHA-256
+  `4d2dfbe0…`; not a courier dispatch — the ledger is untouched; the
+  parent self-names `DESIGN-walt-counted-belief-sandwich-v0.1.md`,
+  recorded not repaired). Written against main `a1d2219` after the
+  speed campaign convicted the explicit-world representation. The
+  correctness-preserving path from sampled orientation to factorized
+  exact best response: root intervals and survivor sets (Part I),
+  the optimization-lock upper over the full information-consistent
+  policy class (Part II — recognized at intake as x:024 M1/M2 over
+  the pmake objective), policy cylinders and grammars (Part III),
+  counted consequence cells and threat/hazard covers (Part IV), the
+  seat-factor posterior-closure theorem and factorized Bellman
+  recursion (Part V — the genuinely new mathematics), the
+  `ExactCoverOracle` contraction interface (Part VI), consequence
+  CEGAR (Part VII), the slice program A–G (Part XI), and proof
+  obligations CBS-O1..O15 with a Lean module map (Part XIII).
+- **`walt/math/counted_belief_sandwich_v0.1_intake.md`** — **the
+  intake companion** (maintained). Verifier re-run 20/20 PASS from the
+  filed location (exhaustive 65,536-stream coverage sweep, worst
+  undercoverage 11/128 < 1/4 on both endpoints; 90-deal factor-belief
+  closure, Z = 282 both ways; factorized Bellman = explicit
+  optimization at 30/47). Records the identity finding (Theorem 5.1 =
+  adjudicated M1/M2), the code-boundary audit (split-reach S* ships,
+  the pmake sampled optimizer is green field; shipped fields verified
+  seat-local; `FiberDp` attribution amended from `kernel.rs` to
+  `fiber.rs`), the §0 probe-citation audit (three of four READMEs'
+  own negative verdicts softened by the parent — the corrected record
+  strengthens the thesis), and the vocabulary sweep (zero bare
+  "certificate"; the "sandwich" collision resolved by adopted names).
+  **Adjudicated same-day at CBS-A1..A9** (`walt/CENSUS-RULINGS.md`,
+  2026-08-30, standing same-lineage go plus Jason's explicit
+  in-session word): intake accepted at instrument tier (CBS-A1);
+  Part II recognized, §44 step 1 amended (CBS-A2); result types
+  adopted, root interval / survivor set naming ruled (CBS-A3);
+  cylinders/grammars adopted with the O34 fence restated (CBS-A4);
+  counted cells and covers adopted (CBS-A5); posterior closure adopted
+  with binding boundary obligations, `FiberDp` = the uniform-root
+  backend (CBS-A6); CEGAR adopted, witnesses decide (CBS-A7); §0
+  probe citations amended, READMEs stay the authority (CBS-A8); §56
+  build program adopted — Slice A + Slice C skeleton first, default
+  player untouched, CBS-O1..O15 to the Lean ledger, GPU under the
+  ripcord discipline (CBS-A9).
+
 ## 7. The pinned manifests
 
 The `.sha256` files under `walt/math/` are **pinned freeze artifacts** — never
@@ -340,6 +386,7 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
 | `gpu_native_trick1_m0_m2_sources_v2.sha256` | The post-fold re-issue at the unified layout — a **new** build identity (`8a780895…`), attested by no hardware receipt yet | FZ-A1..A6; re-earning deferred to [[m2-receipt-reearn]] |
 | `calculated_evidence_v0.1.sha256` | The received calculated-evidence parent's byte identity (`9b32b14f…`) | the 2026-08-24 intake |
 | `targeted_level2_field_stability_v0.1.sha256` | The received level-2 field-stability parent's byte identity (`597d33c3…`) | the 2026-08-24 intake (second drop, same day) |
+| `counted_belief_sandwich_v0.1.sha256` | The received counted-belief parent's byte identity (`4d2dfbe0…`) | the 2026-08-30 intake |
 
 ## 8. Pending, and deliberately not indexed as landed
 
@@ -374,6 +421,12 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   validated records are committed the screenshots remain discovery
   artifacts (parent §1.4, L2-A6). Carded as
   [[gran-anchor-reconstruction]].
+- **The counted-belief build — nothing landed yet** *(2026-08-30)*: the
+  CBS-A9 program (Slice A — the pmake-objective sampled optimizer, the
+  root-interval and survivor result types, the discovery/evaluation
+  stream separation, exact-root parity gates — plus the Slice C type
+  skeleton) is adopted and queued on Jason's word. No solver code from
+  this lineage exists; the default player is untouched.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03

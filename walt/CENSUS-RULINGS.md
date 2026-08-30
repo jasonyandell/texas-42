@@ -13686,3 +13686,101 @@ Intake: `walt/math/response_deferred_producers_triple_v0.1_intake.md`.*
   PartnerResponseCandidate at most, never a causal attribution;
   but-for attribution would require an intervention-replay producer,
   a separate construction not currently wanted. [L2]
+
+## The counted-belief-sandwich adjudication (2026-08-30)
+
+*Authorization note: Jason hand-delivered the parent 2026-08-29/30
+("new math buddy. I'm pretty excited about this") and gave the intake
+go explicitly this session ("it goes through the intake process that's
+been so successful for us so far"); filed under the standing
+same-lineage go for Pro-channel mathematics. Not a courier dispatch —
+no number, ledger untouched (the calculated-evidence precedent). These
+rulings are append-superseded without ceremony if he wants any point
+refined. Threads: Parts I–II [L2 consuming CE machinery]; Parts V–VI
+belief-representation substrate (kernel/fiber authority lineage).
+Intake: `walt/math/counted_belief_sandwich_v0.1_intake.md`.*
+
+- **CBS-A1 (intake ACCEPTED at instrument tier).** Verifier re-run
+  20/20 PASS, exit 0 (session evidence, scratch tier), including the
+  exhaustive 256-table × 65,536-stream coverage sweep (worst
+  finite-horizon undercoverage 11/128 < 1/4 on both endpoints), the
+  90-deal factor-belief closure (Z = 282 both ways; factorized Bellman
+  = explicit optimization at 30/47), and the three-stage CEGAR
+  fixture. Theorems 2.1, 5.1/5.2, 9.1, 17.1, 20.1, 23.1, 30.1, §16,
+  §38 step-checked sound. Nothing is promoted: every statement in this
+  lineage is exploratory instrument tier.
+- **CBS-A2 (Part II RECOGNIZED as the pmake generalization of
+  TRIPLE-A2/A3; §44 step 1 AMENDED).** Theorem 5.1 is Theorem M1 +
+  Corollary M2 of the x:024 adjudication restated over `Π_a` with the
+  pmake objective — no new statistics; the shipped inversion
+  (`solver/upper_cs.rs`) and ScopedDelta ledger apply as adopted. The
+  parent's "existing exact-on-prefix information-consistent solver"
+  exists only for the split-reach objective (`sampled_split_reach`);
+  the pmake-objective empirical optimizer — the declared-prefix
+  sibling of `exact_root_value`, branches run to decided terminals —
+  is GREEN FIELD and is Slice A's one genuinely new producer.
+  Corollary 5.2's one-way rule is binding on it: a pathwise upper
+  approximation to S* is admissible, a lower approximation is not.
+- **CBS-A3 (root-interval result types ADOPTED; vocabulary ruled).**
+  The seven result types extend the CE six-way ladder;
+  `HeuristicFallback` is never serialized as a settled winner.
+  Vocabulary: "sandwich" collides with adjudicated names (the
+  decision-sparse E6.3 value sandwich; the REFUTED T1-A trick-1
+  bounded sandwich; SP-A7). Adopted working names: **root interval**
+  and **survivor set**; "counted belief sandwich" survives only as
+  the parent's title and is not a citable object name.
+- **CBS-A4 (policy cylinders and grammars ADOPTED).** Theorem 9.1 and
+  the §12 decomposition sound. The §11 non-theorem is the O34
+  strategy-fusion fence restated and stays load-bearing: two disjoint
+  seed policies provide two lower witnesses and a grammar, NEVER
+  coverage of omitted policies — coverage is only ever a residual
+  bound. First-deviation cylinders may be discovered lazily.
+- **CBS-A5 (counted cells and threat/safety covers ADOPTED).** §13–17
+  sound; the pairwise cell table (Benefit/Hazard/Equal/NoHazard/
+  NoBenefit/Unknown) is the adopted vocabulary; `solver/hazard.rs`'s
+  exact-zero witness is the β(C) = 0 special case and small nonzero
+  covers are now first-class. "What can beat this line / what can set
+  this contract" = threat cover / hazard cover, formally.
+- **CBS-A6 (seat-factor posterior closure ADOPTED with boundary
+  obligations; attribution AMENDED).** Theorems 20.1/21/23.1 sound
+  under the five declared boundaries. Verified at intake: the shipped
+  level-0/level-1 modeled minds are seat-local (action = pure function
+  of own hand + public record + frozen identity/seeds; no shared
+  hidden tape). BINDING: any field or belief with cross-seat coupling
+  voids the closure until represented as explicit additional factors —
+  never silently projected into seat-local form. The §25.1 DP is
+  `kernel/fiber.rs` (`FiberDp`), not `kernel.rs` — and it is the
+  uniform-root special case of `ExactCoverOracle`: the existing
+  counting authority already is the factorized belief at the uniform
+  root. Backend changes only under exact extensional parity gates
+  (CBS-O13 shape); a factor-state cache identity omitting any field
+  or factor coordinate is the PiKey defect reborn (§43, binding).
+- **CBS-A7 (consequence CEGAR ADOPTED).** Witness-required refinement
+  only: a class splits when two same-class hands exhibit different
+  semantic behavior, discriminated by a decidable feature. Heuristic
+  discriminator suggestions ("look for the high trump") propose;
+  verifier-produced exactness alone aggregates. Only verifier output
+  types (`ExactAction`/`ActionSet`/`ExactValue`/`ValueInterval`/
+  `SplitWitness`/`Unknown`) carry authority.
+- **CBS-A8 (§0 probe citations AMENDED; probe READMEs remain the
+  authority).** The parent's executive-ruling summaries soften the
+  probes' own verdicts: ordering ruled "wall-clock deltas inside
+  single-shot noise" (not a consumed gain); field_cache's headline is
+  "the levers do not rescue the convicted regime on CPU"; bundle's is
+  "the claim is NOT confirmed at this slice" (mechanism real, wall
+  gain absent); waking is supported with the honest three-way split
+  (baseline 729‰ / wake check 269‰ / escalation 1‰). The parent's §0
+  sentences are unciteable as probe conclusions; the corrected record
+  STRENGTHENS the thesis — no confirmed wall gains at all in the
+  convicted regime, so the representation, not the schedule, is the
+  enemy.
+- **CBS-A9 (build program ADOPTED: §56 first, §57 stop conditions
+  verbatim).** First build session = Slice A + the Slice C type
+  skeleton only, queued on Jason's word; no recursive factorized
+  solver in the same session. The live default player is untouched by
+  this entire lineage until arena and conformance gates justify a
+  change on Jason's word (CE-A7/§20.16 restated). CBS-O1..O15
+  accepted into the Lean side-project ledger (Jason + Pro track;
+  deterministic finite theorems before the probability
+  formalization). GPU suitability in §26 is a measurement coordinate
+  under the ripcord discipline, not an authorization.
