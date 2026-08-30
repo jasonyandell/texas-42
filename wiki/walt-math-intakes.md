@@ -521,7 +521,39 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   heaviest branch (1-0, mass 125,370,960) leaves 36,530 of 116,280 hands
   in support, 0 new states. `walt/FACTOR-BELIEF.md` now reads SLICE C
   COMPLETE. The default player is untouched (CBS-A9). Still unbuilt:
-  Slices E–G; Slice D's recursion is in flight.
+  Slices E–G; Slice D's recursion landed the same day (next entry).
+- **The counted-belief build — Slice D landed** *(2026-08-30, the same
+  session's next round)*: the general support contraction
+  (`SupportOracle` — §25.2's acting-hand loop generalized to
+  conditioned completions, walking explicit supports so backend zero's
+  two-table refusal stays intact as the C0 boundary) and the §23
+  factorized fixed-policy recursion (`viewer_success_mass` — the
+  viewer-objective success mass `M` with `V = M/Z` the exact integer
+  pair, §23 cleared of denominators by conservation, no rationals
+  anywhere). Five gates at `tests/solver_factor_recursion.rs`:
+  C0-domain extensional parity with backend zero (through the opening
+  root's contraction); surviving-world mass parity beyond one table,
+  with backend zero refusing at the boundary; the §47 value gate — the
+  recursion equal to the bundled walk (`bundled_set_outcomes`) on every
+  enumerable root × two frozen focal policies × the trivial and σ0
+  fields; and the every-node checker — mass equals the surviving-world
+  count and branch masses equal the world partition at EVERY node of
+  the recursion tree. One law discovered at depth: `condition` now
+  restricts its support walk to hands consistent with the public
+  record — such hands are provably zero-mass and their action
+  likelihood is undefined; σ0's type-enforced information-state
+  constructor caught the unlawful classification, and the filter is a
+  no-op at one ply, so C1's conditioning-support law is unchanged.
+  Instrument: `factorrecursion report`, record
+  `walt/probes/factor_belief/recursion_run1.txt` — parity on every row
+  including trick-4 roots (deepest: fiber 34,650, 16 post-root plies,
+  121,868 conditionings under σ0); honest negatives: the bundled walk
+  is faster at worlds/hands ≈ 3, and the recursion classifies
+  record-consistent zero-completion hands the bundled route never
+  meets — the contraction advantage remains the worlds-to-hands ratio
+  (3,432 at the opening), and the opening-root recursion is
+  deliberately not attempted. The default player is untouched
+  (CBS-A9). Still unbuilt: Slices E–G.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03
