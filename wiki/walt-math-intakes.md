@@ -421,12 +421,20 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   validated records are committed the screenshots remain discovery
   artifacts (parent §1.4, L2-A6). Carded as
   [[gran-anchor-reconstruction]].
-- **The counted-belief build — nothing landed yet** *(2026-08-30)*: the
-  CBS-A9 program (Slice A — the pmake-objective sampled optimizer, the
-  root-interval and survivor result types, the discovery/evaluation
-  stream separation, exact-root parity gates — plus the Slice C type
-  skeleton) is adopted and queued on Jason's word. No solver code from
-  this lineage exists; the default player is untouched.
+- **The counted-belief build — Slice A landed** *(2026-08-30, same day,
+  on Jason's word)*: `solver::root_interval` (root intervals, survivor
+  sets, the typed decision ladder, the §6 discovery/evaluation lock, the
+  mirror lower endpoint) plus `exposure::sampled_root_optimum` (the
+  pmake empirical optimum — CBS-A2's one green-field producer),
+  gates at `tests/solver_root_interval.rs` (6/6, incl. realized
+  L ≤ Q ≤ U against `exact_root_value` and the adjudicated-11/128
+  mirror sweep), instrument `bin/rootinterval.rs` with records at
+  `walt/probes/root_interval/` (h4-t6 settles to the exact optimum in
+  8 worlds; four of six receipt roots are exact ties, honestly
+  `UnresolvedRootSet`), and the Slice C design skeleton
+  `walt/FACTOR-BELIEF.md` (§56's second output — types, oracle trait,
+  gates; no implementation). The default player is untouched (CBS-A9).
+  Still unbuilt: Slices B–G.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03

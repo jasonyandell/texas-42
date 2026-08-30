@@ -216,6 +216,7 @@ published tables from the records, so no aggregate is hand-maintained.
 | `ordering_bench` | The reorder-not-cull A/B (E-A15): both `MoveOrdering` arms over receipt and synthetic roots, values asserted byte-identical, children/legal break counters as the clean signal | `probes/ordering/` |
 | `field_cache_bench` | The surgical-levers A/B/C: bare field vs cached field vs cached+decided-cutoff over the same (world × candidate) replay grid, wins vectors asserted identical across arms | `probes/field_cache/` |
 | `bundle_bench` | The bundled-evaluator A/B: per-world route vs `solver::bundle` on complete fibers under two field configurations, wins asserted equal, exact node/field-query/settlement counters | `probes/bundle/` |
+| `rootinterval` | The counted-belief Slice A instrument [L2 thread, added 2026-08-30, CBS-A1..A9]: per legal root action, exact `Q_a` beside the δ-valid root interval — the pmake empirical-max upper (`sampled_root_optimum` inverted through the CE one-mean engine, no policy-count risk penalty) over a frozen-policy lower witness with the §6 discovery/evaluation lock — survivor-set evolution by prefix, worlds-to-singleton, and the upper-excess vs lower-shortfall attribution; ties come out `UnresolvedRootSet`, never a forced winner | `probes/root_interval/` |
 
 Two declared-knob facts a future session must not inherit silently:
 
@@ -260,7 +261,13 @@ identity bare-vs-cached, cutoff-vs-full per world over two complete
 fibers re-deriving the pinned wins vectors) and
 `walt/walt/tests/solver_bundle.rs` (element-wise equality against the
 exact per-world oracle, attribution completeness, focal-purity
-rejection).
+rejection), and — since 2026-08-30 —
+`walt/walt/tests/solver_root_interval.rs` (counted-belief Slice A: the
+mirror-endpoint sweep at the adjudicated 11/128, realized L ≤ Q ≤ U
+against `exact_root_value` on both frozen fixtures with the exact
+optimizer surviving, the §6 same-stream lock as a refused construction,
+malformed-count-path rejection, exact risk summation, and
+starved-budget `UnresolvedRootSet` typing).
 Per the receipt-discipline statements
 below, none of these JSONL records is byte-diffed by CI and none becomes a
 claim-tier result by existing.
