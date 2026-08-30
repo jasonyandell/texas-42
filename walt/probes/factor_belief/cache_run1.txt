@@ -1,0 +1,57 @@
+FACTOR-BELIEF C1 CACHE STUDY (exploratory; cited by nothing above it)
+=====================================================================
+The cached σ0 Level0 { n0 = 2 } field under the contraction route:
+every feasible acting-seat hand classified once (§46 stage C1),
+reuse measured through the insert-only cache's entry count, action
+buckets compared with the bundled one-ply oracle (one field query
+per distinct hand — solver::bundle's field-ply partition idiom).
+first = classification + counting; repeat = counting + key identity
+only (zero classifications); us/hand is integer division.
+
+SECTION A — receipt roots, both routes, fresh instance per route
+
+h12-t6: fiber 6  feasible hands 6
+  first 64us (10us/hand)  repeat 4us  bundled 13us over 6 worlds (6 distinct hands)
+  parity OK  cache-identity OK
+
+h10-t6: fiber 19  feasible hands 6
+  first 12us (2us/hand)  repeat 6us  bundled 14us over 19 worlds (6 distinct hands)
+  parity OK  cache-identity OK
+
+h5-t6: fiber 27  feasible hands 6
+  first 149us (24us/hand)  repeat 6us  bundled 46us over 27 worlds (6 distinct hands)
+  parity OK  cache-identity OK
+
+h4-t6: fiber 90  feasible hands 15
+  first 135us (9us/hand)  repeat 5us  bundled 129us over 90 worlds (15 distinct hands)
+  parity OK  cache-identity OK
+
+h8-t5: fiber 92  feasible hands 28
+  first 524us (18us/hand)  repeat 14us  bundled 532us over 92 worlds (28 distinct hands)
+  parity OK  cache-identity OK
+
+h3-t5: fiber 200  feasible hands 74
+  first 2110us (28us/hand)  repeat 17us  bundled 2000us over 200 worlds (74 distinct hands)
+  parity OK  cache-identity OK
+
+SECTION B — cross-history sharing (one shared σ0 instance)
+hits = queries answered from states an earlier history materialized
+
+h4-t6 focal 0-0: queries 15  hits 0
+h4-t6 focal 1-1: queries 15  hits 0
+h12-t6 focal 4-4 (same instance): queries 6  hits 0
+
+cross-history hits 0 of 36 queries — the full §43
+identity key shares nothing across public histories; sharing needs a
+proven state reduction (the Slice F vocabulary), never a looser key.
+
+SECTION C — the opening root (h0-t1), σ0, contraction ONLY
+the bundled route is deliberately absent: the 399,072,960-world
+loop is the representation this slice retires
+
+first: 5359572us (46us/hand)  states 116280
+repeat: 23279us (200ns/query, counting + key identity, zero classifications)
+condition on 1-0 (mass 125370960): 16805us, 0 new states — the whole
+support was already classified at the voidless opening
+cache entries 116280 (the §26 memory coordinate as an entry count;
+bytes belong to a dedicated probe)

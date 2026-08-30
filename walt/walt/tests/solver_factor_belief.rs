@@ -1,24 +1,31 @@
-//! Gates for the counted-belief Slice C, stage C0 [L2 thread]: the factor
-//! belief, the exact-cover contraction interface, and backend zero — mass
-//! parity with the shipped counting DP AND complete-world enumeration,
-//! branch-mass parity with world-by-world field classification, the
-//! Theorem 20.1 conditioning route, mass conservation at every
-//! contraction, and the declared C0 domain refusals.
+//! Gates for the counted-belief Slice C, stages C0 and C1 [L2 thread]:
+//! the factor belief, the exact-cover contraction interface, and backend
+//! zero — mass parity with the shipped counting DP AND complete-world
+//! enumeration, branch-mass parity with world-by-world field
+//! classification, the Theorem 20.1 conditioning route, mass conservation
+//! at every contraction, and the declared C0 domain refusals (gates 1–6);
+//! then the stage-C1 cache laws of the cached σ0 field (gates 7–10): σ0
+//! branch parity with the bundled one-ply oracle on every receipt fiber
+//! with full extensional cache identity between the routes, classification
+//! once per information state, zero sharing across public histories under
+//! the full §43 identity key, and the opening root's 116,280 hands
+//! classified exactly once.
 //!
 //! Mathematical source: `walt/math/counted_belief_sandwich_v0.1.md`
-//! Parts V–VI (§18–26, §43, §46 stage C0), adopted by rulings CBS-A6 and
-//! CBS-A9 (`walt/CENSUS-RULINGS.md`); design register
+//! Parts V–VI (§18–26, §43, §46 stages C0–C1), adopted by rulings CBS-A6
+//! and CBS-A9 (`walt/CENSUS-RULINGS.md`); design register
 //! `walt/FACTOR-BELIEF.md`.
 //!
 //! DECLARED TEST EPOCH: deterministic fields only — the trivial
-//! `FixedPreference` fields of §46 stage C0 and, as a stage-C1
-//! down-payment on the smallest fibers, the σ0 Level0 { n0 = 2 } modeled
-//! mind. Frozen `verify_player` receipt roots: hands 4/5/10/12 at trick 6
-//! (fibers 90/27/19/6), hands 3/8 at trick 5 (fibers 200/92), and hand 0
-//! at trick 1 (fiber 399,072,960 — contracted, never enumerated).
+//! `FixedPreference` fields of §46 stage C0 and the σ0 Level0 { n0 = 2 }
+//! modeled mind (stage C1's declared cached field). Frozen `verify_player`
+//! receipt roots: hands 4/5/10/12 at trick 6 (fibers 90/27/19/6), hands
+//! 3/8 at trick 5 (fibers 200/92), and hand 0 at trick 1 (fiber
+//! 399,072,960 — contracted, never enumerated).
 
 mod common;
 
+use std::collections::HashMap;
 use std::panic::{catch_unwind, AssertUnwindSafe};
 
 use common::receipt;
@@ -384,4 +391,209 @@ fn opening_root_contraction_without_worlds() {
     );
     let total: u128 = branches.iter().map(|(_, m)| m).sum();
     assert_eq!(total, 399_072_960, "Z_h = Σ_t Z_ht at the opening root");
+}
+
+// ---------------------------------------------------------------------------
+// Stage C1 — the cached σ0 field (§46 stage C1, §26 items 2/4/6).
+// ---------------------------------------------------------------------------
+
+/// The bundled one-ply oracle (stage C1's extensional route): iterate the
+/// fiber's worlds, group members by the acting seat's remaining hand,
+/// query the field ONCE per distinct hand — `solver::bundle`'s field-ply
+/// partition idiom realized at one ply — and bucket world counts by the
+/// chosen tile. The record is built by hand here, independently of the
+/// module's public-history walker. Returns the buckets and the number of
+/// distinct hands materialized.
+fn bundled_branches(
+    root: &CanonicalRoot,
+    position: &RootPosition,
+    focal: Domino,
+    field: &dyn SlicePolicy,
+) -> (Vec<(Domino, u128)>, usize) {
+    let seat = root.kernel().viewer().plus(1);
+    let trick_plays = vec![focal];
+    let history = vec![focal];
+    let mut by_hand: HashMap<u32, Domino> = HashMap::new();
+    let mut buckets: Vec<(Domino, u128)> = Vec::new();
+    for world in root.worlds() {
+        let hand = world.hand(seat);
+        let tile = match by_hand.get(&hand.bits()) {
+            Some(t) => *t,
+            None => {
+                let led = Some(position.decl.led_context(focal));
+                let legal = legal_plays(position.decl, hand, led);
+                let record = PublicRecord {
+                    leader: position.leader,
+                    trick_plays: &trick_plays,
+                    banked: position.banked,
+                    root: position,
+                    history: &history,
+                };
+                let t = field.choose(position.decl, hand, legal, &record);
+                by_hand.insert(hand.bits(), t);
+                t
+            }
+        };
+        match buckets.iter_mut().find(|(t, _)| *t == tile) {
+            Some((_, m)) => *m += 1,
+            None => buckets.push((tile, 1)),
+        }
+    }
+    buckets.sort_by_key(|(t, _)| t.index());
+    (buckets, by_hand.len())
+}
+
+/// Gate 7 (stage C1) — σ0 branch-mass parity with the bundled one-ply
+/// oracle on ALL six receipt fibers, one fresh field instance per route,
+/// plus the extensional cache identity: both routes materialize the SAME
+/// information states (exactly the feasible root hands — a root hand is
+/// realizable in some world iff its completion count is positive) with
+/// the SAME cached action at every one. Map equality over the two caches
+/// is the whole claim at once.
+#[test]
+fn level0_branch_parity_with_the_bundled_one_ply_oracle() {
+    let r = receipt();
+    let oracle = FiberOracle;
+    for (hand_id, trick_no) in [(12, 6), (10, 6), (5, 6), (4, 6), (8, 5), (3, 5)] {
+        let (root, position) = root_at(&r, hand_id, trick_no);
+        let focal = lowest_focal(&root, &position);
+        let field_c = level0_field();
+        let belief = FactorBelief::uniform_root(&root, &position, &field_c).focal_play(focal);
+        let contracted = oracle.branch_masses(&belief, &field_c);
+        let field_b = level0_field();
+        let (bundled, distinct) = bundled_branches(&root, &position, focal, &field_b);
+        assert_eq!(contracted, bundled, "h{hand_id}-t{trick_no}: route parity");
+        assert_eq!(
+            field_c.cache_len(),
+            distinct,
+            "h{hand_id}-t{trick_no}: the contraction route classifies exactly the realizable hands"
+        );
+        assert_eq!(
+            field_c.cache_snapshot(),
+            field_b.cache_snapshot(),
+            "h{hand_id}-t{trick_no}: both routes materialize identical states with identical actions"
+        );
+    }
+}
+
+/// Gate 8 (stage C1) — classification is once per information state:
+/// counting alone reads no field, the first contraction materializes one
+/// state per feasible hand, a repeated contraction materializes nothing
+/// and returns the identical table, and conditioning — which re-reads the
+/// WHOLE support — adds exactly the zero-completion support hands, once
+/// across every observed branch.
+#[test]
+fn classification_is_once_per_information_state() {
+    let r = receipt();
+    let oracle = FiberOracle;
+    let field = level0_field();
+    let (root, position) = root_at(&r, 4, 6);
+    let focal = lowest_focal(&root, &position);
+    let belief = FactorBelief::uniform_root(&root, &position, &field).focal_play(focal);
+    let seat = belief.seat_to_move();
+    let support_len = belief
+        .factors()
+        .iter()
+        .find(|f| f.seat() == seat)
+        .expect("a hidden actor")
+        .support()
+        .len();
+    let feasible = oracle.actor_completion_weights(&belief, seat).len();
+    assert_eq!(field.cache_len(), 0, "counting alone reads no field");
+    let first = oracle.branch_masses(&belief, &field);
+    assert_eq!(field.cache_len(), feasible, "one state per feasible hand");
+    let second = oracle.branch_masses(&belief, &field);
+    assert_eq!(second, first, "a repeat returns the identical table");
+    assert_eq!(
+        field.cache_len(),
+        feasible,
+        "a repeat classifies nothing new"
+    );
+    for (tile, mass) in &first {
+        let conditioned = oracle.condition(&belief, *tile, &field);
+        assert_eq!(oracle.mass(&conditioned), *mass);
+    }
+    assert_eq!(
+        field.cache_len(),
+        support_len,
+        "conditioning adds exactly the zero-completion support hands, once"
+    );
+}
+
+/// Gate 9 (stage C1) — the §43 identity law of the cache: the full
+/// information-state key shares NOTHING across focal candidates or roots.
+/// Every contraction under a new public history materializes its full
+/// query count — zero hits — because the key carries the history. Sharing
+/// across histories would need a proven state reduction (the Slice F
+/// vocabulary), never a looser key: a hit under an omitted coordinate is
+/// the PiKey defect reborn (CBS-A6).
+#[test]
+fn the_full_identity_key_shares_nothing_across_candidates_or_roots() {
+    let r = receipt();
+    let oracle = FiberOracle;
+    let field = level0_field();
+    let (root, position) = root_at(&r, 4, 6);
+    let led = position
+        .trick_plays
+        .first()
+        .map(|d| position.decl.led_context(*d));
+    let legal = legal_plays(position.decl, root.kernel().viewer_hand(), led);
+    assert!(
+        legal.len() >= 2,
+        "the cross-candidate claim needs two candidates"
+    );
+    for focal in legal.iter() {
+        let belief = FactorBelief::uniform_root(&root, &position, &field).focal_play(focal);
+        let queries = oracle
+            .actor_completion_weights(&belief, belief.seat_to_move())
+            .len();
+        let before = field.cache_len();
+        oracle.branch_masses(&belief, &field);
+        assert_eq!(
+            field.cache_len(),
+            before + queries,
+            "zero cross-candidate sharing under the full identity key"
+        );
+    }
+    let (root2, position2) = root_at(&r, 12, 6);
+    let focal2 = lowest_focal(&root2, &position2);
+    let belief2 = FactorBelief::uniform_root(&root2, &position2, &field).focal_play(focal2);
+    let queries2 = oracle
+        .actor_completion_weights(&belief2, belief2.seat_to_move())
+        .len();
+    let before2 = field.cache_len();
+    oracle.branch_masses(&belief2, &field);
+    assert_eq!(
+        field.cache_len(),
+        before2 + queries2,
+        "zero cross-root sharing under the full identity key"
+    );
+}
+
+/// Gate 10 (stage C1) — §46's charter sentence at the scale that names
+/// it: at the opening root every one of the 116,280 feasible acting-seat
+/// hands is classified by the σ0 mind EXACTLY ONCE, the branch masses
+/// conserve the 399,072,960-world mass, and a repeated contraction is
+/// pure cache identity — the identical table, zero new states. The
+/// bundled route is deliberately absent here: the 399-million-world loop
+/// is the representation this slice retires.
+#[test]
+fn opening_root_level0_classification_is_once_per_hand() {
+    let r = receipt();
+    let oracle = FiberOracle;
+    let field = level0_field();
+    let (root, position) = root_at(&r, 0, 1);
+    let focal = lowest_focal(&root, &position);
+    let belief = FactorBelief::uniform_root(&root, &position, &field).focal_play(focal);
+    let branches = oracle.branch_masses(&belief, &field);
+    assert_eq!(
+        field.cache_len(),
+        116_280,
+        "C(21,7) hands, each classified once"
+    );
+    let again = oracle.branch_masses(&belief, &field);
+    assert_eq!(again, branches, "a repeat is pure cache identity");
+    assert_eq!(field.cache_len(), 116_280, "a repeat materializes nothing");
+    let total: u128 = branches.iter().map(|(_, m)| m).sum();
+    assert_eq!(total, 399_072_960, "Z_h = Σ_t Z_ht under the σ0 mind");
 }

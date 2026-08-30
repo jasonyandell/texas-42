@@ -472,8 +472,29 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   margin 1 (h8-t5: gram 71 / dev 70), and one true counterexample with
   its depth-4 witness. Recorded deviation: the level-2/waking grammar
   source of §45 awaits a `SlicePolicy`-shaped continuation; the σ0 mind
-  stands in. The default player is untouched (CBS-A9). Still unbuilt:
-  C1's cache study proper, Slices D–G.
+  stands in. The default player is untouched (CBS-A9).
+- **The counted-belief build — stage C1 landed** *(2026-08-30, the same
+  session's next round)*: the cache study proper, with ZERO library
+  code added — the C0 contraction plus `FieldModel`'s insert-only cache
+  already classify once per information state; C1 is the gates and the
+  measurements. Four new gates at `tests/solver_factor_belief.rs`
+  (11/11): σ0 branch parity with the bundled one-ply oracle
+  (`solver::bundle`'s field-ply partition idiom at one ply) on ALL six
+  receipt fibers, with the two routes' caches asserted EQUAL AS MAPS —
+  the feasible root hands exactly, one action each; classification once
+  per state (a repeat classifies nothing; conditioning adds exactly the
+  zero-completion support hands, once); the §43 identity law — zero
+  sharing across focal candidates or roots, because the full key
+  carries the public history; and the opening root's 116,280 hands
+  classified by σ0 exactly once. Instrument: `factorbelief cache` mode,
+  record `walt/probes/factor_belief/cache_run1.txt` — §26 coordinates:
+  46 µs/hand first classification (5.36 s total at the opening), 200
+  ns/query repeat identity cost (23.3 ms, ×230), conditioning at the
+  voidless opening materializes 0 new states (pure table filtering),
+  cross-history hits exactly 0 of 36 — the honest negative that routes
+  classifier compression to Slice F's proven state reductions, never a
+  looser key. The default player is untouched (CBS-A9). Still unbuilt:
+  the full C2 report, Slices D–G.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03
