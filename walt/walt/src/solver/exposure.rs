@@ -1851,3 +1851,42 @@ pub fn exact_root_value(
         win_worlds,
     }
 }
+
+/// The sampled sibling of [`exact_root_value`] (CBS-A2, the one green-field
+/// producer of the counted-belief Slice A): the pmake-objective empirical
+/// optimum `S*_{a,t} = max_ρ Σ_{i<t} u_ρ(ω_i)` over the indexed
+/// evidence-stream prefix `0..worlds` at `epoch`, under ONE field. The walk
+/// is [`ReachWalk::value_count`] verbatim on the declared multiset —
+/// per-public-node action choice run to decided outcomes, no strategy
+/// fusion (O34): the returned count is the value of exactly one
+/// information-consistent policy shared across the whole prefix.
+///
+/// Like every sampled count it is an ESTIMATE and bounds NOTHING about the
+/// fiber on its own; the δ-valid claim is made only by the upper-CS
+/// inversion that consumes it (`solver::root_interval`, CBS-A2). A pathwise
+/// upper approximation of `S*` would remain admissible there; a lower
+/// approximation never is (parent Corollary 5.2) — this producer is exact
+/// on its declared prefix.
+pub fn sampled_root_optimum(
+    root: &CanonicalRoot,
+    position: &RootPosition,
+    action: Domino,
+    field: &FieldModel,
+    epoch: u64,
+    worlds: u64,
+) -> u64 {
+    assert!(worlds >= 1, "a declared prefix holds at least one world");
+    let root_id = root_identity(root, position);
+    let sample: Vec<World> = (0..worlds)
+        .map(|i| root.world_at(root_id, epoch, i))
+        .collect();
+    let walk = ReachWalk::setup_declared(root, position, &sample, field, field);
+    let exec = walk.root_exec(action);
+    let idxs: Vec<u32> = (0..u32::try_from(sample.len()).expect("fits")).collect();
+    let count = walk.value_count(&exec, &idxs);
+    assert!(
+        count <= worlds,
+        "the sampled optimum is at most the sample size"
+    );
+    count
+}

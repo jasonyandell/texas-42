@@ -1,0 +1,55 @@
+root-interval instrument (counted-belief Slice A, CBS-A1..A9)
+field=Level0{n0=2} witness=PinnedThenLevel1[2,2] provenance=fixed
+upper-epoch=0 eval-epoch=1 delta=1/20-per-endpoint prefix=16
+
+== root h4-t6 fiber=90 legal=2
+action=0-0 exact=1/3 lower=1/9 upper=17/30 shortfall=2/9 excess=7/30 covered=true optimal=false
+action=1-1 exact=13/15 lower=7/10 upper=1 shortfall=1/6 excess=2/15 covered=true optimal=true
+survivors-by-prefix: 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1
+worlds-to-singleton: 8
+decision: DeltaRootWinner{action=1-1;bar=7/10}
+wall-us: exact=1589 upper-walks=484 lower-replays=60
+
+== root h10-t6 fiber=19 legal=2
+action=2-2 exact=1 lower=15/19 upper=1 shortfall=4/19 excess=0 covered=true optimal=true
+action=3-3 exact=1 lower=15/19 upper=1 shortfall=4/19 excess=0 covered=true optimal=true
+survivors-by-prefix: 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+worlds-to-singleton: not-reached
+decision: UnresolvedRootSet{survivors=2;bar=15/19}
+wall-us: exact=8 upper-walks=132 lower-replays=26
+
+== root h5-t6 fiber=27 legal=2
+action=4-1 exact=4/9 lower=5/27 upper=22/27 shortfall=7/27 excess=10/27 covered=true optimal=true
+action=5-2 exact=4/9 lower=5/27 upper=22/27 shortfall=7/27 excess=10/27 covered=true optimal=true
+survivors-by-prefix: 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+worlds-to-singleton: not-reached
+decision: UnresolvedRootSet{survivors=2;bar=5/27}
+wall-us: exact=397 upper-walks=409 lower-replays=49
+
+== root h12-t6 fiber=6 legal=2
+action=4-4 exact=0 lower=0 upper=1/6 shortfall=0 excess=1/6 covered=true optimal=true
+action=6-0 exact=0 lower=0 upper=1/6 shortfall=0 excess=1/6 covered=true optimal=true
+survivors-by-prefix: 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+worlds-to-singleton: not-reached
+decision: UnresolvedRootSet{survivors=2;bar=0}
+wall-us: exact=4 upper-walks=84 lower-replays=16
+
+== root h8-t5 fiber=92 legal=3
+action=0-0 exact=71/92 lower=47/92 upper=81/92 shortfall=6/23 excess=5/46 covered=true optimal=false
+action=5-0 exact=16/23 lower=27/92 upper=17/23 shortfall=37/92 excess=1/23 covered=true optimal=false
+action=5-3 exact=91/92 lower=35/46 upper=1 shortfall=21/92 excess=1/92 covered=true optimal=true
+survivors-by-prefix: 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2
+worlds-to-singleton: not-reached
+decision: DeltaRootSet{survivors=2;bar=35/46}
+wall-us: exact=8081 upper-walks=1039 lower-replays=17509
+
+== root h3-t5 fiber=200 legal=3
+action=4-0 exact=1 lower=19/25 upper=1 shortfall=6/25 excess=0 covered=true optimal=true
+action=5-0 exact=1 lower=19/25 upper=1 shortfall=6/25 excess=0 covered=true optimal=true
+action=6-6 exact=1 lower=19/25 upper=1 shortfall=6/25 excess=0 covered=true optimal=true
+survivors-by-prefix: 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+worlds-to-singleton: not-reached
+decision: UnresolvedRootSet{survivors=3;bar=19/25}
+wall-us: exact=24903 upper-walks=1235 lower-replays=60809
+
+done
