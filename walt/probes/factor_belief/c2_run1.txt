@@ -1,0 +1,126 @@
+FACTOR-BELIEF C2 REPORT — the opening root (exploratory)
+========================================================
+EXPLORATORY tier: sits below every evidentiary tier and is cited
+by nothing above it.
+
+§46 stage C2 in ONE run: the frozen verify_player receipt root
+h0-t1 under the σ0 Level0 { n0 = 2 } field (construction
+level0-modeled-mind-v1), all seven required coordinates reported
+separately. No complete world is materialized at any point — the
+enumeration and bundled routes are deliberately absent, because
+the 399,072,960-world loop is the representation this slice
+retires (§22).
+
+All times are integer microseconds, all memory integer bytes, all
+ratios integer division.
+
+root h0-t1  focal 0-0  acting seat S2
+fiber mass 399072960 (shipped capacity DP, 63us, no enumeration)
+
+COORDINATE 1 — number of acting-seat hands
+  116280 root hands carry nonzero completion weight (asserted == 116280)
+  worlds per hand: 3432 (integer division of 399072960 by 116280)
+
+COORDINATE 2 — contraction time
+  completion weights (one binomial per hand, field never consulted): 5933us
+  warm contraction (weights + full §43-key cache identity, zero
+    classifications): 21818us
+  fiber mass alone: 63us
+
+COORDINATE 3 — field-classification time
+  cold pass (contraction + one σ0 classification per hand): 5361549us
+  classification alone, DERIVED by subtraction (cold - warm): 5339731us
+  per hand: 45us  (99 of the cold pass in percent, integer division)
+
+COORDINATE 4 — number of distinct field actions
+  20 distinct branch tiles over 116280 hands
+  branches:
+    1-0  mass 125370960 / 399072960
+    1-1  mass 25571832 / 399072960
+    2-0  mass 92612520 / 399072960
+    2-2  mass 16363776 / 399072960
+    3-0  mass 11236368 / 399072960
+    3-1  mass 6620328 / 399072960
+    4-0  mass 66762696 / 399072960
+    4-1  mass 3174600 / 399072960
+    4-2  mass 1808664 / 399072960
+    4-3  mass 1108536 / 399072960
+    4-4  mass 411840 / 399072960
+    5-0  mass 47581248 / 399072960
+    5-1  mass 223080 / 399072960
+    5-2  mass 92664 / 399072960
+    5-4  mass 41184 / 399072960
+    6-1  mass 37752 / 399072960
+    6-2  mass 17160 / 399072960
+    6-3  mass 27456 / 399072960
+    6-4  mass 6864 / 399072960
+    6-6  mass 3432 / 399072960
+
+COORDINATE 5 — cache reuse
+  first contraction 5361549us, 116280 states materialized
+  repeat contraction 21818us, 0 states materialized, 0 classifications
+  identity cost 187ns/query; saving x245 (integer division)
+  cross-history reuse is 0 by the §43 identity law (stage C1,
+    cache_run1.txt): the full key carries the public history
+
+COORDINATE 6 — memory
+  cache entries: 116280
+
+  DECLARED ACCOUNTING (arithmetic over size_of and the documented
+  std HashMap growth policy — NOT an allocator measurement):
+    entry inline size_of::<(FieldStateKey, Domino)>() = 88 bytes
+    buckets = next_power_of_two(ceil(entries * 8 / 7)) = 262144
+    table  = buckets * (entry + 1 control byte) + 16 group bytes
+           = 262144 * (88 + 1) + 16 = 23330832 bytes
+    per-entry heap = the key's history Vec<Domino>, len 1 at this
+      root (trick_plays is empty at a trick start, so the cloned
+      RootPosition allocates nothing) = size_of::<Domino>() = 2 bytes
+    heap   = entries * 2 = 232560 bytes
+    TOTAL accounted for the action cache = 23563392 bytes
+
+  MEASURED process resident size (/bin/ps -o rss=, KiB * 1024 —
+  the WHOLE process at that instant, not the cache alone, and not
+  a peak; peak footprint is captured externally by
+  /usr/bin/time -l and recorded with this probe):
+  at start: 2064384 bytes
+  after completion weights: 11976704 bytes
+  after classification: 63291392 bytes
+  at end: 63340544 bytes
+  classification resident delta: 51314688 bytes over 116280 entries
+
+COORDINATE 7 — exact mass conservation
+  sum of branch masses = 399072960
+  fiber mass            = 399072960
+  asserted equal, and asserted == 399072960
+  completion weights also sum to the fiber mass exactly
+
+BEYOND THE SEVEN — §26 item 5, support shrinkage
+  condition on the heaviest branch 1-0 (mass 125370960 of 399072960):
+    15864us, 0 new states, conditioned support 36530
+    hands of 116280 — the posterior update is table filtering over an
+    already-classified support (Theorem 20.1: only the acting seat's
+    factor is multiplied)
+
+EXTERNAL MEASUREMENT — peak footprint of the whole run
+======================================================
+Captured by the harness, not by the binary, so it is labelled apart from
+both memory figures above. Command, from walt/:
+
+  /usr/bin/time -l ./target/release/factorbelief c2 \
+      probes/factor_belief/c2_run1.txt
+
+Relevant lines of its report (darwin, integer bytes):
+
+  5.56 real  5.37 user  0.03 sys
+  63340544  maximum resident set size
+  62390680  peak memory footprint
+  4718 page reclaims, 4 page faults, 0 swaps
+
+The maximum resident set size agrees with the in-run /bin/ps reading at
+the end (63340544 bytes) to the byte on this run: the cache is the last
+thing allocated and nothing is freed before exit. Against it, the
+declared accounting for the action cache alone is 23563392 bytes — the
+remaining resident bytes are the completion-weight vector (116280
+entries), the receipt, the kernel, and the allocator's own slack. The
+accounting is arithmetic; the footprint is a measurement; neither is
+offered as the other.

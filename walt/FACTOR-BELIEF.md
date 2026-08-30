@@ -1,6 +1,7 @@
 # FACTOR-BELIEF — the Slice C/D design skeleton (specify, do not optimize)
 
-**Status:** SLICE D LANDED (2026-08-30, same day as C1) — the general
+**Status:** SLICE C COMPLETE AND SLICE D LANDED (2026-08-30) — Slice D
+is the general
 support contraction `SupportOracle` (§25.2's acting-hand loop
 generalized to conditioned completions, §25.4's sparse-support walk) and
 the §23 factorized fixed-policy recursion `viewer_success_mass` (§47),
@@ -27,7 +28,7 @@ under σ0); the honest negatives (bundled faster at worlds/hands ≈ 3,
 recursion classifies more σ0 states than the bundled walk meets) are in
 the probe README. EXPLORATORY tier.
 
-**Prior status:** stages C0 AND C1 LANDED (2026-08-30) —
+**Slice C in full** — stages C0, C1 AND C2 LANDED (2026-08-30) —
 `walt/walt/src/solver/factor_belief.rs`, gated by
 `walt/walt/tests/solver_factor_belief.rs` (11 gates: the seven C0 gates —
 three-way mass parity, branch-mass parity with complete-world enumeration
@@ -49,6 +50,24 @@ negative that routes classifier compression to Slice F). EXPLORATORY
 tier. Source: `walt/math/counted_belief_sandwich_v0.1.md` Part V–VI
 (§18–26), rulings CBS-A6 and CBS-A9.
 
+Stage C2 closes the slice and, like C1, added NO library code and no new
+gate — it is the report §46 asks for: all seven required coordinates
+from ONE opening-root run under the σ0 field (`factorbelief c2`, record
+`walt/probes/factor_belief/c2_run1.txt`). Hands 116,280 (asserted);
+contraction 5,933 µs for the completion weights alone, 21,818 µs warm
+(weights plus full §43-key identity, zero classifications); field
+classification 5,339,731 µs derived by subtraction from the 5,361,549 µs
+cold pass — 45 µs/hand, 99% of the bill; 20 distinct branch tiles; reuse
+×245 at 187 ns/query; memory as TWO figures kept apart — 23,563,392
+bytes of declared accounting for the action cache (88-byte entries,
+262,144 buckets, one control byte each, plus the key's one-tile history
+Vec) against a 63,340,544-byte MEASURED maximum resident size
+(`/usr/bin/time -l`, agreeing with the in-run `/bin/ps` reading at exit;
+peak footprint 62,390,680 bytes); conservation exact at 399,072,960.
+The memory coordinate deferred by C1 is therefore discharged, with the
+accounting never presented as a measurement. The Slice D recursion
+(§47) landed the same day, in a concurrent session (see Status above).
+
 Build-time deviations from the sketch below, under L2-A3's naming
 latitude (module docs carry the same list): `branch_masses`/`condition`
 take no seat argument — the acting seat is the derived view
@@ -59,11 +78,11 @@ Part IV cell predicates a concrete type (Slice F), with `marginal`
 covering the one-seat case. The C1 cache study is done — its §26
 coordinates live in the probe README, and its finding is that
 within-history reuse is total while cross-history reuse is zero by the
-identity law. Slice D is landed (see Status); the full C2 report is in
-flight in a concurrent session; the next construction on the ladder is
-Slice E — factorized exact best response inside a grammar (§48), where
-the focal node's single frozen action becomes a max over grammar
-actions.
+identity law. Slice C is complete (the C2 report discharges the §46
+coordinates) and Slice D is landed (see Status); the next construction
+on the ladder is Slice E — factorized exact best response inside a
+grammar (§48), where the focal node's single frozen action becomes a
+max over grammar actions.
 
 ## The objects (parent §18–21)
 
@@ -132,7 +151,8 @@ latitude applies.)
   are the extensional oracles — CBS-O13). Small/medium fibers first;
   the trick-1 target (399,072,960 worlds, 116,280 acting-seat hands) is
   stage C2 and is a REPRESENTATION result even if the field classifier
-  stays slow (§46).
+  stays slow (§46) — as reported, the classifier IS the bill, 99% of the
+  cold pass against 5.9 ms of counting.
 - **Boundary obligation (CBS-A6, binding):** any field or belief with
   cross-seat coupling voids Theorem 20.1 until represented as explicit
   additional factors — never silently projected into seat-local form.
@@ -142,10 +162,12 @@ latitude applies.)
 ## Build order when authorized (§46–48, unchanged)
 
 C0 trivial field (`FixedPreference::lowest_first`) → C1 cached level-0
-field with per-hand classification → C2 opening root branch masses.
-Recursion (§47's factorized fixed-policy Bellman) only after one-ply
-parity and cost are understood. Measured coordinates per §26: contraction
-arithmetic, distinct hand materializations, field cost per hand, reuse,
-support shrinkage, cache identity cost, integer width, trick-1 memory,
+field with per-hand classification → C2 opening root branch masses. All
+three are walked. Recursion (§47's factorized fixed-policy Bellman) only
+after one-ply parity and cost are understood — they now are, and Slice D
+is in flight. Measured coordinates per §26: contraction arithmetic,
+distinct hand materializations, field cost per hand, reuse, support
+shrinkage, cache identity cost, integer width, trick-1 memory (C2's
+report — an accounting and a measurement, kept apart),
 SIMD/GPU/WASM suitability (a measurement coordinate under the ripcord
 discipline — CBS-A9, never an authorization).

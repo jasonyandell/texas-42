@@ -1,4 +1,4 @@
-# factor_belief — the Slice C (stages C0–C1) and Slice D probes
+# factor_belief — the Slice C (stages C0–C2) and Slice D probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
@@ -8,8 +8,8 @@ Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C) and
 `walt/walt/src/bin/factorrecursion.rs` (Slice D). Gates (the CI-checked
 part): `walt/walt/tests/solver_factor_belief.rs` and
 `walt/walt/tests/solver_factor_recursion.rs`. Mathematical source:
-`walt/math/counted_belief_sandwich_v0.1.md` §21–23, §25–26, §46 stage C0,
-§47 Slice D, rulings CBS-A6/CBS-A9.
+`walt/math/counted_belief_sandwich_v0.1.md` §21–23, §25–26, §46 stages
+C0–C2, §47 Slice D, rulings CBS-A6/CBS-A9.
 
 ## What it measures
 
@@ -107,6 +107,53 @@ cross-history law, the opening root once-per-hand).
 - **At small worlds/hands ratios the bundled and contraction routes
   cost the same** (both are bounded by distinct-hand classification);
   the contraction advantage remains the ratio, 3,432 at the opening.
+
+## c2_run1.txt readings (2026-08-30) — the stage-C2 opening-root report
+
+`factorbelief c2` — §46 stage C2's seven required coordinates from ONE
+run at the frozen `verify_player` root h0-t1 under the σ0
+`Level0 { n0 = 2 }` field. Earlier records had most of these numbers
+piecemeal; C2's deliverable is that they are one measurement of one
+run, plus the memory coordinate that was deferred until now.
+
+- **The seven, as reported.** hands 116,280 (asserted); contraction
+  5,933 µs for the completion weights alone and 21,818 µs warm
+  (weights plus full §43-key identity, zero classifications); field
+  classification 5,339,731 µs derived by subtraction (cold 5,361,549 µs
+  minus warm), 45 µs/hand, 99% of the cold pass; 20 distinct branch
+  tiles; cache reuse ×245 with 187 ns/query identity cost; memory
+  23,563,392 bytes accounted for the action cache against a 63,340,544-
+  byte measured resident size; conservation exact at 399,072,960.
+- **The memory coordinate is two figures and they are not
+  interchangeable.** The DECLARED ACCOUNTING is arithmetic over
+  `size_of::<(FieldStateKey, Domino)>() = 88` bytes, the documented std
+  map growth policy (262,144 buckets for 116,280 entries), one control
+  byte per bucket, and the key's one-tile history Vec — 23,563,392
+  bytes for the cache. The MEASUREMENT is resident set size: 63,340,544
+  bytes maximum under `/usr/bin/time -l`, agreeing to the byte with the
+  in-run `/bin/ps` reading at exit; peak memory footprint 62,390,680
+  bytes. The gap is the completion-weight vector, the receipt, the
+  kernel, and allocator slack. Neither figure is offered as the other,
+  and no estimate is dressed as a measurement.
+- **The bill is still the classifier, now stated as one ratio.** 99% of
+  the cold pass is σ0 classification; the counting side of the same run
+  is 5.9 ms. At 3,432 worlds per hand the representation change is what
+  buys the run at all — no complete world is materialized at any point,
+  and the enumeration and bundled routes are deliberately absent.
+- **Support shrinkage, beyond the seven (§26 item 5).** Conditioning on
+  the heaviest branch (1-0, mass 125,370,960) costs 15,864 µs,
+  materializes 0 new states, and leaves 36,530 of 116,280 hands in
+  support: at the voidless opening the posterior update is table
+  filtering over an already-classified support.
+- **No new CI gate, deliberately.** C2 is a REPORT stage and every
+  invariant its run asserts is already gated: the opening root's hand
+  count, once-per-hand σ0 classification, repeat-is-pure-identity, and
+  `Z_h = Σ_t Z_ht` over 399,072,960 by gate 10 (and by gate 6 under the
+  trivial field); branch-table parity with enumeration and the
+  bundled route by gates 1–9. Nothing new is cheaply assertable — at
+  small fibers the distinct-action count is implied exactly by the
+  existing table-equality gates, and the memory figures are properties
+  of a run, not laws.
 
 ## recursion_run1.txt readings (2026-08-30) — the Slice D probe
 

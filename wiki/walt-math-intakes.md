@@ -494,6 +494,34 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   cross-history hits exactly 0 of 36 — the honest negative that routes
   classifier compression to Slice F's proven state reductions, never a
   looser key. The default player is untouched (CBS-A9).
+- **The counted-belief build — stage C2 landed, Slice C complete**
+  *(2026-08-30, the same session's next round)*: the §46 opening-root
+  report, again with ZERO library code and no new gate — C2 is a REPORT
+  stage, and every invariant its run asserts is already gated (gate 10
+  carries the opening root's hand count, once-per-hand σ0
+  classification, repeat-is-pure-identity, and `Z_h = Σ_t Z_ht` over
+  399,072,960). New `factorbelief c2` mode, record
+  `walt/probes/factor_belief/c2_run1.txt`: all seven coordinates §46
+  requires reported separately from ONE run at the frozen h0-t1 root
+  under the σ0 `Level0 { n0 = 2 }` field — 116,280 acting-seat hands
+  (asserted); contraction 5,933 µs for the completion weights alone and
+  21,818 µs warm (weights plus full §43-key identity, zero
+  classifications); field classification 5,339,731 µs derived by
+  subtraction from the 5,361,549 µs cold pass, 45 µs/hand and 99% of
+  the bill; 20 distinct branch tiles; cache reuse ×245 at 187 ns/query;
+  memory as TWO figures kept apart — a DECLARED ACCOUNTING of
+  23,563,392 bytes for the action cache (88-byte entries, 262,144
+  buckets by the documented map growth policy, one control byte each,
+  plus the key's one-tile history Vec) beside a MEASURED 63,340,544-byte
+  maximum resident size under `/usr/bin/time -l` (agreeing to the byte
+  with the in-run `/bin/ps` reading at exit; peak footprint 62,390,680
+  bytes); conservation exact at 399,072,960. The memory coordinate C1
+  deferred is thereby discharged, with no estimate presented as a
+  measurement. Beyond the seven, §26 item 5: conditioning on the
+  heaviest branch (1-0, mass 125,370,960) leaves 36,530 of 116,280 hands
+  in support, 0 new states. `walt/FACTOR-BELIEF.md` now reads SLICE C
+  COMPLETE. The default player is untouched (CBS-A9). Still unbuilt:
+  Slices E–G; Slice D's recursion landed the same day (next entry).
 - **The counted-belief build — Slice D landed** *(2026-08-30, the same
   session's next round)*: the general support contraction
   (`SupportOracle` — §25.2's acting-hand loop generalized to
@@ -525,8 +553,7 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   meets — the contraction advantage remains the worlds-to-hands ratio
   (3,432 at the opening), and the opening-root recursion is
   deliberately not attempted. The default player is untouched
-  (CBS-A9). Still unbuilt: the full C2 report (in flight in a
-  concurrent session), Slices E–G.
+  (CBS-A9). Still unbuilt: Slices E–G.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03
