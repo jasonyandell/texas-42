@@ -1,0 +1,48 @@
+EXPLORATORY factor-recursion probe (Slice D, counted_belief_sandwich_v0.1.md §23/§25/§47)
+Below every evidentiary tier; cited by nothing above it.
+M = viewer-objective success mass under (focal, field); the §23 value is the exact pair M/Z.
+
+SECTION A — receipt roots, trivial field (lowest-first)
+
+h12-t6 focal low: Z 6, M 0 (permille 0), recursion 0 us, bundled 6 us PARITY, nodes focal 0 hidden 0 decided 1+0, conditionings 0
+h12-t6 focal high: Z 6, M 0 (permille 0), recursion 0 us, bundled 3 us PARITY, nodes focal 0 hidden 0 decided 1+0, conditionings 0
+h10-t6 focal low: Z 19, M 19 (permille 1000), recursion 1 us, bundled 4 us PARITY, nodes focal 0 hidden 0 decided 1+0, conditionings 0
+h10-t6 focal high: Z 19, M 19 (permille 1000), recursion 2 us, bundled 2 us PARITY, nodes focal 0 hidden 0 decided 1+0, conditionings 0
+h5-t6 focal low: Z 27, M 12 (permille 444), recursion 166 us, bundled 46 us PARITY, nodes focal 26 hidden 77 decided 0+27, conditionings 103
+h5-t6 focal high: Z 27, M 12 (permille 444), recursion 61 us, bundled 19 us PARITY, nodes focal 8 hidden 39 decided 6+9, conditionings 53
+h4-t6 focal low: Z 90, M 34 (permille 377), recursion 177 us, bundled 50 us PARITY, nodes focal 35 hidden 96 decided 16+34, conditionings 145
+h4-t6 focal high: Z 90, M 78 (permille 866), recursion 258 us, bundled 81 us PARITY, nodes focal 31 hidden 204 decided 0+90, conditionings 293
+h8-t5 focal low: Z 92, M 64 (permille 695), recursion 402 us, bundled 91 us PARITY, nodes focal 32 hidden 166 decided 63+8, conditionings 236
+h8-t5 focal high: Z 92, M 92 (permille 1000), recursion 490 us, bundled 124 us PARITY, nodes focal 79 hidden 195 decided 35+35, conditionings 264
+h3-t5 focal low: Z 200, M 200 (permille 1000), recursion 759 us, bundled 224 us PARITY, nodes focal 57 hidden 322 decided 86+40, conditionings 447
+h3-t5 focal high: Z 200, M 200 (permille 1000), recursion 1123 us, bundled 330 us PARITY, nodes focal 125 hidden 613 decided 30+152, conditionings 794
+
+SECTION B — receipt roots, level-0 field (n0 = 2)
+
+h12-t6 focal low: Z 6, M 0 (permille 0), recursion 0 us, bundled 2 us PARITY, nodes focal 0 hidden 0 decided 1+0, conditionings 0
+  sigma0 states materialized: recursion route 0, bundled route 0
+h10-t6 focal low: Z 19, M 19 (permille 1000), recursion 1 us, bundled 2 us PARITY, nodes focal 0 hidden 0 decided 1+0, conditionings 0
+  sigma0 states materialized: recursion route 0, bundled route 0
+h5-t6 focal low: Z 27, M 12 (permille 444), recursion 464 us, bundled 208 us PARITY, nodes focal 26 hidden 77 decided 0+27, conditionings 103
+  sigma0 states materialized: recursion route 166, bundled route 128
+h4-t6 focal low: Z 90, M 30 (permille 333), recursion 853 us, bundled 486 us PARITY, nodes focal 31 hidden 85 decided 20+30, conditionings 134
+  sigma0 states materialized: recursion route 263, bundled route 201
+h8-t5 focal low: Z 92, M 64 (permille 695), recursion 8002 us, bundled 3840 us PARITY, nodes focal 51 hidden 242 decided 56+21, conditionings 318
+  sigma0 states materialized: recursion route 988, bundled route 449
+h3-t5 focal low: Z 200, M 200 (permille 1000), recursion 30684 us, bundled 9357 us PARITY, nodes focal 120 hidden 573 decided 123+62, conditionings 757
+  sigma0 states materialized: recursion route 2414, bundled route 1035
+
+SECTION C — trick-4 roots (16 post-root plies; the depth/scale coordinate)
+
+h3-t4 focal low: Z 11550, M 2808 (permille 243), recursion 68886 us, bundled 10778 us PARITY, nodes focal 8284 hidden 18943 decided 3088+4178, conditionings 26208
+h3-t4 focal low sigma0: Z 11550, M 2759 (permille 238), recursion 2339827 us, bundled 629536 us PARITY, nodes focal 11702 hidden 27177 decided 4795+3679, conditionings 35650
+  sigma0 states materialized: recursion route 146342, bundled route 52322
+h4-t4 focal low: Z 34650, M 30480 (permille 879), recursion 285368 us, bundled 37565 us PARITY, nodes focal 19878 hidden 58008 decided 9900+17232, conditionings 85139
+h4-t4 focal low sigma0: Z 34650, M 25039 (permille 722), recursion 7172768 us, bundled 2367679 us PARITY, nodes focal 38959 hidden 93258 decided 16237+12374, conditionings 121868
+  sigma0 states materialized: recursion route 401510, bundled route 174797
+h8-t4 focal low: Z 1200, M 975 (permille 812), recursion 14612 us, bundled 1777 us PARITY, nodes focal 1420 hidden 3760 decided 330+741, conditionings 4830
+h8-t4 focal low sigma0: Z 1200, M 843 (permille 702), recursion 819859 us, bundled 138307 us PARITY, nodes focal 2205 hidden 5800 decided 449+716, conditionings 6964
+  sigma0 states materialized: recursion route 34152, bundled route 9122
+h12-t4 focal low: Z 34650, M 0 (permille 0), recursion 0 us, bundled 37356 us PARITY, nodes focal 0 hidden 0 decided 1+0, conditionings 0
+h12-t4 focal low sigma0: Z 34650, M 0 (permille 0), recursion 0 us, bundled 5962 us PARITY, nodes focal 0 hidden 0 decided 1+0, conditionings 0
+  sigma0 states materialized: recursion route 0, bundled route 0

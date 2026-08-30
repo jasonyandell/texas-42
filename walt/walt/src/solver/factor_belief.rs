@@ -1,10 +1,12 @@
-//! `solver::factor_belief` — the counted-belief Slice C, stage C0: the
-//! seat-factored belief, the exact-cover contraction interface, and
-//! backend zero (the shipped `FiberDp` wrapped for 0/1 factors).
+//! `solver::factor_belief` — the counted-belief Slices C and D: the
+//! seat-factored belief, the exact-cover contraction interface, backend
+//! zero (the shipped `FiberDp` wrapped for 0/1 factors — stage C0), the
+//! general support contraction ([`SupportOracle`] — Slice D), and the
+//! §23 factorized fixed-policy recursion ([`viewer_success_mass`]).
 //!
 //! EXPLORATORY tier. Mathematical source:
 //! `walt/math/counted_belief_sandwich_v0.1.md` Parts V–VI (§18–26, §43,
-//! §46 stage C0), adopted by rulings CBS-A6 and CBS-A9
+//! §46 stage C0, §47 Slice D, §23), adopted by rulings CBS-A6 and CBS-A9
 //! (`walt/CENSUS-RULINGS.md`); design register `walt/FACTOR-BELIEF.md`;
 //! intake companion `walt/math/counted_belief_sandwich_v0.1_intake.md`.
 //!
@@ -37,15 +39,41 @@
 //! complete deals. At a trick-1 root that is 116,280 hands standing in for
 //! 399,072,960 worlds (§22).
 //!
-//! DECLARED C0 DOMAIN. Backend zero serves exactly the uniform-root
-//! special case and its one-ply conditionings: every factor is either the
-//! kernel's own 0/1 legality predicate or ONE explicit table produced by
-//! [`ExactCoverOracle::condition`]. A contraction across two or more
-//! table factors is the recursive machinery of Slice D (§47) and is
-//! REFUSED here, not approximated. Fields are deterministic
-//! [`SlicePolicy`] reads (the trait's documented contract); a stochastic
-//! field needs an explicit tape factor (CBS-A6's boundary obligation) and
-//! has no entry point in this module.
+//! DECLARED C0 DOMAIN of backend zero. [`FiberOracle`] serves exactly the
+//! uniform-root special case and its one-ply conditionings: every factor
+//! is either the kernel's own 0/1 legality predicate or ONE explicit
+//! table produced by [`ExactCoverOracle::condition`]. A contraction
+//! across two or more table factors is REFUSED by backend zero, not
+//! approximated — it is the declared domain of the Slice D backend
+//! [`SupportOracle`] (§47), which contracts any mix of uniform and table
+//! factors by walking explicit supports (§25.2's acting-hand loop
+//! generalized to conditioned completions, §25.4's sparse-support shape)
+//! and is gated by extensional parity with backend zero on the C0 domain
+//! and with surviving-world enumeration beyond it. Fields are
+//! deterministic [`SlicePolicy`] reads (the trait's documented contract);
+//! a stochastic field needs an explicit tape factor (CBS-A6's boundary
+//! obligation) and has no entry point in this module.
+//!
+//! SLICE D (§47, §23): [`viewer_success_mass`] evaluates ONE frozen focal
+//! policy under the declared field by the §23 factorized Bellman
+//! recursion, cleared of denominators. The recursion computes the
+//! viewer-objective success MASS `M(B)` — the exact weight of worlds
+//! whose terminal pmake indicator is true under (focal, field) — so the
+//! §23 value is the exact pair `V(B) = M(B)/Z(B)` and no rational ever
+//! appears:
+//!
+//! ```text
+//! decided:  M(B) = u·Z(B)          (u the decided indicator, §23 terminal)
+//! focal:    M(B) = M(B·ρ(I))       (§23 focal, one action — no max)
+//! hidden:   M(B) = Σ_t M(B·t)      (§23 field node × Z, by conservation)
+//! ```
+//!
+//! Exactness is Theorem 23.1 restricted to the singleton policy class
+//! {ρ}: branch ratios are exact conditional probabilities (Theorem 20.1),
+//! and mass conservation `Z = Σ_t Z_t` (asserted at every contraction)
+//! clears every denominator. The decided cutoff is
+//! [`decided_success`] — monotone in banked points, so truncation never
+//! changes the indicator (the same law the bundled walker relies on).
 //!
 //! Deviations from the `walt/FACTOR-BELIEF.md` trait sketch, under L2-A3's
 //! naming latitude, recorded here and in the register:
@@ -66,7 +94,7 @@ use crate::kernel::fiber::binomial;
 use crate::kernel::{FiberDp, Kernel, HIDDEN_SEATS};
 use crate::rules::{legal_plays, Domino, DominoSet, Seat, Trick};
 use crate::solver::adaptive::{
-    root_identity, CanonicalRoot, PublicRecord, RootPosition, SlicePolicy,
+    decided_success, root_identity, CanonicalRoot, PublicRecord, RootPosition, SlicePolicy,
 };
 
 // ---------------------------------------------------------------------------
@@ -439,37 +467,150 @@ impl FiberOracle {
             belief.factors[k].capacity,
         )
     }
+}
 
-    /// The per-hand walk shared by classification and conditioning: the
-    /// acting seat's remaining hand, its legal set, and the field's chosen
-    /// tile at this belief's public state. Field purity holds by
-    /// construction — the record is public data and `remaining` is the
-    /// seat's own hand.
-    fn field_action(
-        &self,
-        belief: &FactorBelief,
-        cursor: &PublicCursor,
-        root_hand: DominoSet,
-        field: &dyn SlicePolicy,
-    ) -> Domino {
-        let seat = cursor.seat();
-        let played = cursor.played_by[seat.index()];
-        assert!(
-            played.is_subset_of(root_hand),
-            "a factor's support contains the tiles its seat has played"
-        );
-        let remaining = root_hand.difference(played);
-        let led = cursor
-            .plays
-            .first()
-            .map(|d| belief.position.decl.led_context(*d));
-        let legal = legal_plays(belief.position.decl, remaining, led);
-        assert!(!legal.is_empty(), "a seat to move holds a legal tile");
-        let record = cursor.record(&belief.position, &belief.history);
-        let tile = field.choose(belief.position.decl, remaining, legal, &record);
-        assert!(legal.contains(tile), "a field chooses a legal tile");
-        tile
+/// The per-hand walk shared by classification and conditioning, on both
+/// backends: the acting seat's remaining hand, its legal set, and the
+/// field's chosen tile at this belief's public state. Field purity holds
+/// by construction — the record is public data and `remaining` is the
+/// seat's own hand.
+fn field_action(
+    belief: &FactorBelief,
+    cursor: &PublicCursor,
+    root_hand: DominoSet,
+    field: &dyn SlicePolicy,
+) -> Domino {
+    let seat = cursor.seat();
+    let played = cursor.played_by[seat.index()];
+    assert!(
+        played.is_subset_of(root_hand),
+        "a factor's support contains the tiles its seat has played"
+    );
+    let remaining = root_hand.difference(played);
+    let led = cursor
+        .plays
+        .first()
+        .map(|d| belief.position.decl.led_context(*d));
+    let legal = legal_plays(belief.position.decl, remaining, led);
+    assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+    let record = cursor.record(&belief.position, &belief.history);
+    let tile = field.choose(belief.position.decl, remaining, legal, &record);
+    assert!(legal.contains(tile), "a field chooses a legal tile");
+    tile
+}
+
+/// The one-ply branch-mass route (§21, boxed), shared by both backends:
+/// bucket the acting hidden seat's completion weights by the field's
+/// chosen tile, and assert the §46 conservation gate against the
+/// backend's own mass.
+fn branch_masses_via(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    field: &dyn SlicePolicy,
+) -> Vec<(Domino, u128)> {
+    assert_eq!(
+        field.id(),
+        belief.field_id,
+        "one field identity governs a belief's conditionings (§43)"
+    );
+    let cursor = belief.cursor();
+    let seat = cursor.seat();
+    assert_ne!(
+        seat,
+        belief.kernel.viewer(),
+        "branch masses are a hidden seat's"
+    );
+    let mut masses: Vec<(Domino, u128)> = Vec::new();
+    for (hand, weight) in oracle.actor_completion_weights(belief, seat) {
+        let tile = field_action(belief, &cursor, hand, field);
+        match masses.iter_mut().find(|(t, _)| *t == tile) {
+            Some((_, m)) => *m = m.checked_add(weight).expect("an exact mass fits u128"),
+            None => masses.push((tile, weight)),
+        }
     }
+    masses.sort_by_key(|(t, _)| t.index());
+    // The §46 gate, at every contraction: the branch masses partition
+    // the belief mass exactly.
+    let total: u128 = masses.iter().fold(0u128, |acc, (_, m)| {
+        acc.checked_add(*m).expect("an exact mass fits u128")
+    });
+    assert_eq!(
+        total,
+        oracle.mass(belief),
+        "mass conservation: Z_h = Σ_t Z_ht"
+    );
+    masses
+}
+
+/// The Theorem 20.1 posterior route, shared by both backends: multiply
+/// ONLY the acting seat's factor by the (deterministic) action likelihood
+/// — the 0/1 indicator that the field plays `action` from this root hand
+/// at this public state — and advance the history.
+///
+/// The support walk is restricted to hands CONSISTENT WITH THE PUBLIC
+/// RECORD: the seat's own post-root plays are in the hand, and no other
+/// seat's post-root play is. A hand failing either test has completion
+/// weight zero in EVERY contraction — a conditioned seat's table hands
+/// each contain that seat's own plays (the field chose them from the
+/// hand), so a candidate holding another seat's played tile overlaps
+/// every cover — and its action likelihood at this state is not even
+/// defined (its information state contradicts the record), so it is
+/// DROPPED, never classified. Zero-weight entries are never stored, so
+/// this loses nothing. At one conditioning after a focal play the filter
+/// is a no-op — the acting seat has played nothing and the only post-root
+/// play is the viewer's, outside the pool — which is why stage C1's
+/// conditioning-support law (the whole support classifies, once) is
+/// unchanged; beyond one ply the filter is what makes the recursion's
+/// deep conditionings lawful.
+fn condition_via(belief: &FactorBelief, action: Domino, field: &dyn SlicePolicy) -> FactorBelief {
+    assert_eq!(
+        field.id(),
+        belief.field_id,
+        "one field identity governs a belief's conditionings (§43)"
+    );
+    let cursor = belief.cursor();
+    let seat = cursor.seat();
+    assert_ne!(
+        seat,
+        belief.kernel.viewer(),
+        "conditioning is on a hidden action"
+    );
+    let slot = belief.slot_of(seat);
+    let own = cursor.played_by[seat.index()];
+    let others = (0..Seat::COUNT)
+        .filter(|i| *i != seat.index())
+        .fold(DominoSet::EMPTY, |acc, i| acc.union(cursor.played_by[i]));
+    let kept: Vec<(DominoSet, u128)> = belief.factors[slot]
+        .support()
+        .into_iter()
+        .filter(|(hand, _)| own.is_subset_of(*hand) && hand.is_disjoint(others))
+        .filter(|(hand, _)| field_action(belief, &cursor, *hand, field) == action)
+        .collect();
+    assert!(
+        !kept.is_empty(),
+        "an observed action has positive mass under the belief"
+    );
+    let mut out = belief.clone();
+    out.factors[slot].weights = FactorWeights::Table(kept);
+    out.history.push(action);
+    out
+}
+
+/// The exact marginal route, shared by both backends: filter the acting
+/// seat's completion weights by the predicate and sum.
+fn marginal_via(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    seat: Seat,
+    predicate: &dyn Fn(DominoSet) -> bool,
+) -> u128 {
+    oracle
+        .actor_completion_weights(belief, seat)
+        .into_iter()
+        .filter(|(hand, _)| predicate(*hand))
+        .fold(0u128, |acc, (_, w)| {
+            acc.checked_add(w).expect("an exact mass fits u128")
+        })
 }
 
 /// Exact count of ways to split `pool` between two slots with 0/1 legality
@@ -546,38 +687,7 @@ impl ExactCoverOracle for FiberOracle {
     }
 
     fn branch_masses(&self, belief: &FactorBelief, field: &dyn SlicePolicy) -> Vec<(Domino, u128)> {
-        assert_eq!(
-            field.id(),
-            belief.field_id,
-            "one field identity governs a belief's conditionings (§43)"
-        );
-        let cursor = belief.cursor();
-        let seat = cursor.seat();
-        assert_ne!(
-            seat,
-            belief.kernel.viewer(),
-            "branch masses are a hidden seat's"
-        );
-        let mut masses: Vec<(Domino, u128)> = Vec::new();
-        for (hand, weight) in self.actor_completion_weights(belief, seat) {
-            let tile = self.field_action(belief, &cursor, hand, field);
-            match masses.iter_mut().find(|(t, _)| *t == tile) {
-                Some((_, m)) => *m = m.checked_add(weight).expect("an exact mass fits u128"),
-                None => masses.push((tile, weight)),
-            }
-        }
-        masses.sort_by_key(|(t, _)| t.index());
-        // The §46 gate, at every contraction: the branch masses partition
-        // the belief mass exactly.
-        let total: u128 = masses.iter().fold(0u128, |acc, (_, m)| {
-            acc.checked_add(*m).expect("an exact mass fits u128")
-        });
-        assert_eq!(
-            total,
-            self.mass(belief),
-            "mass conservation: Z_h = Σ_t Z_ht"
-        );
-        masses
+        branch_masses_via(self, belief, field)
     }
 
     fn condition(
@@ -586,35 +696,7 @@ impl ExactCoverOracle for FiberOracle {
         action: Domino,
         field: &dyn SlicePolicy,
     ) -> FactorBelief {
-        assert_eq!(
-            field.id(),
-            belief.field_id,
-            "one field identity governs a belief's conditionings (§43)"
-        );
-        let cursor = belief.cursor();
-        let seat = cursor.seat();
-        assert_ne!(
-            seat,
-            belief.kernel.viewer(),
-            "conditioning is on a hidden action"
-        );
-        let slot = belief.slot_of(seat);
-        // Theorem 20.1: multiply ONLY the acting seat's factor by the
-        // (deterministic) action likelihood — the 0/1 indicator that the
-        // field plays `action` from this root hand at this public state.
-        let kept: Vec<(DominoSet, u128)> = belief.factors[slot]
-            .support()
-            .into_iter()
-            .filter(|(hand, _)| self.field_action(belief, &cursor, *hand, field) == action)
-            .collect();
-        assert!(
-            !kept.is_empty(),
-            "an observed action has positive mass under the belief"
-        );
-        let mut out = belief.clone();
-        out.factors[slot].weights = FactorWeights::Table(kept);
-        out.history.push(action);
-        out
+        condition_via(belief, action, field)
     }
 
     fn marginal(
@@ -623,11 +705,257 @@ impl ExactCoverOracle for FiberOracle {
         seat: Seat,
         predicate: &dyn Fn(DominoSet) -> bool,
     ) -> u128 {
-        self.actor_completion_weights(belief, seat)
-            .into_iter()
-            .filter(|(hand, _)| predicate(*hand))
-            .fold(0u128, |acc, (_, w)| {
-                acc.checked_add(w).expect("an exact mass fits u128")
-            })
+        marginal_via(self, belief, seat, predicate)
+    }
+}
+
+// ---------------------------------------------------------------------------
+// The §23 factorized fixed-policy recursion (Slice D, §47).
+// ---------------------------------------------------------------------------
+
+/// Exact integer counters of one recursion: how the walk's nodes divided
+/// between the three §23 cases, and how many conditionings (posterior
+/// updates) the hidden branches performed.
+#[derive(Clone, Debug, PartialEq, Eq, Default)]
+pub struct RecursionStats {
+    /// Nodes settled by the decided cutoff before the terminal depth.
+    pub decided_early: u64,
+    /// Nodes settled at the terminal depth itself.
+    pub decided_terminal: u64,
+    /// Focal (§23 focal-case) nodes walked.
+    pub focal_nodes: u64,
+    /// Hidden (§23 field-case) nodes walked.
+    pub hidden_nodes: u64,
+    /// Posterior updates performed — one per hidden branch taken.
+    pub conditionings: u64,
+}
+
+/// The §47 evaluation: one frozen focal policy under the belief's declared
+/// deterministic field, by the §23 recursion cleared of denominators (see
+/// the module doc). Returns the viewer-objective success mass `M(B)`; the
+/// §23 value is the exact pair `M(B) / oracle.mass(belief)`. The oracle
+/// must serve every belief the recursion reaches — beyond one conditioning
+/// that is [`SupportOracle`]'s domain, not backend zero's.
+pub fn viewer_success_mass(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    focal: &dyn SlicePolicy,
+    field: &dyn SlicePolicy,
+    stats: &mut RecursionStats,
+) -> u128 {
+    let cursor = belief.cursor();
+    let viewer = belief.kernel.viewer();
+    // Post-root plays to terminal: the viewer's hand plus every hidden
+    // capacity (the same derived view the bundled walker uses).
+    let total = belief.kernel.viewer_hand().len()
+        + belief
+            .kernel
+            .hidden()
+            .iter()
+            .map(|h| h.capacity)
+            .sum::<usize>();
+    let at_terminal = belief.history.len() == total;
+    if let Some(u) = decided_success(&belief.position, viewer, cursor.banked, at_terminal) {
+        // §23 terminal/decided case: the indicator is a constant of every
+        // continuation of every represented world (decidedness is
+        // monotone in banked points), so M = u·Z.
+        if at_terminal {
+            stats.decided_terminal += 1;
+        } else {
+            stats.decided_early += 1;
+        }
+        return if u { oracle.mass(belief) } else { 0 };
+    }
+    assert!(
+        belief.history.len() < total,
+        "the 42-point pool exhausts at terminal, so an undecided state has plays left"
+    );
+    if cursor.seat() == viewer {
+        // §23 focal case: every represented world shares this public
+        // history and the constant focal hand, hence ONE information
+        // state — the frozen policy's single choice serves them all, and
+        // no factor changes (Theorem 23.1, focal case).
+        stats.focal_nodes += 1;
+        let remaining = belief
+            .kernel
+            .viewer_hand()
+            .difference(cursor.played_by[viewer.index()]);
+        let led = cursor
+            .plays
+            .first()
+            .map(|d| belief.position.decl.led_context(*d));
+        let legal = legal_plays(belief.position.decl, remaining, led);
+        assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+        let record = cursor.record(&belief.position, &belief.history);
+        let tile = focal.choose(belief.position.decl, remaining, legal, &record);
+        assert!(legal.contains(tile), "a policy chooses a legal tile");
+        viewer_success_mass(oracle, &belief.focal_play(tile), focal, field, stats)
+    } else {
+        // §23 field case, cleared of denominators: the branch masses
+        // partition Z exactly (asserted inside the contraction), so
+        // M = Σ_t M(B·t) with each child conditioned by Theorem 20.1.
+        stats.hidden_nodes += 1;
+        let mut mass: u128 = 0;
+        for (tile, _) in oracle.branch_masses(belief, field) {
+            stats.conditionings += 1;
+            let child = oracle.condition(belief, tile, field);
+            let m = viewer_success_mass(oracle, &child, focal, field, stats);
+            mass = mass.checked_add(m).expect("an exact mass fits u128");
+        }
+        mass
+    }
+}
+
+// ---------------------------------------------------------------------------
+// The Slice D backend: the general support contraction (§47, §25.2/§25.4).
+// ---------------------------------------------------------------------------
+
+/// The Slice D backend. Contracts any mix of uniform and table factors by
+/// walking explicit supports: the acting seat's loop is §25.2 unchanged,
+/// and the completion count behind each hand generalizes `pair_count`'s
+/// one-binomial special case to a walk of the conditioned support
+/// (§25.4's sparse shape). On the C0 domain it is extensionally equal to
+/// backend zero (gated); beyond it, it is gated against surviving-world
+/// enumeration. No new counting mathematics — every count is a sum of
+/// products of factor weights over exact covers.
+pub struct SupportOracle;
+
+impl SupportOracle {
+    /// The exact completion count of the two slots other than `slot` over
+    /// `pool`: `C_{-s,h}(pool) = Σ_{B} w_j(B) · w_k(pool \ B)`. When both
+    /// remaining factors are uniform this IS `pair_count` (the C0 parity
+    /// anchor); when a table is present, its explicit support is walked
+    /// and the complement is weighed in the other factor.
+    fn completions(&self, belief: &FactorBelief, slot: usize, pool: DominoSet) -> u128 {
+        let others: Vec<usize> = (0..HIDDEN_SEATS).filter(|i| *i != slot).collect();
+        let (j, k) = (others[0], others[1]);
+        let table_j = matches!(belief.factors[j].weights, FactorWeights::Table(_));
+        let table_k = matches!(belief.factors[k].weights, FactorWeights::Table(_));
+        match (table_j, table_k) {
+            (false, false) => pair_count(
+                pool,
+                belief.kernel.allowed(j),
+                belief.factors[j].capacity,
+                belief.kernel.allowed(k),
+                belief.factors[k].capacity,
+            ),
+            // Walk one explicit support; the complement is weighed in the
+            // other factor. Iterating the table (never the uniform side)
+            // keeps the walk proportional to the SPARSE support.
+            (true, _) => self.split_sum(belief, j, k, pool),
+            (false, true) => self.split_sum(belief, k, j, pool),
+        }
+    }
+
+    /// `Σ_{(B, w) ∈ support(walked), B ⊆ pool} w · weight_of(other, pool \ B)`.
+    fn split_sum(
+        &self,
+        belief: &FactorBelief,
+        walked: usize,
+        other: usize,
+        pool: DominoSet,
+    ) -> u128 {
+        let mut total: u128 = 0;
+        for (hand, weight) in belief.factors[walked].support() {
+            if !hand.is_subset_of(pool) {
+                continue;
+            }
+            let rest = pool.difference(hand);
+            let w = weight
+                .checked_mul(self.weight_of(belief, other, rest))
+                .expect("an exact mass fits u128");
+            total = total.checked_add(w).expect("an exact mass fits u128");
+        }
+        total
+    }
+
+    /// One factor's exact weight on one specific root hand: the 0/1
+    /// capacity-and-legality indicator for a uniform factor, the stored
+    /// entry (zero when absent) for a table.
+    fn weight_of(&self, belief: &FactorBelief, slot: usize, hand: DominoSet) -> u128 {
+        match &belief.factors[slot].weights {
+            FactorWeights::UniformLawful { allowed } => u128::from(
+                hand.len() == belief.factors[slot].capacity && hand.is_subset_of(*allowed),
+            ),
+            FactorWeights::Table(entries) => entries
+                .iter()
+                .find(|(h, _)| *h == hand)
+                .map(|(_, w)| *w)
+                .unwrap_or(0),
+        }
+    }
+}
+
+impl ExactCoverOracle for SupportOracle {
+    fn mass(&self, belief: &FactorBelief) -> u128 {
+        let all_uniform = belief
+            .factors
+            .iter()
+            .all(|f| matches!(f.weights, FactorWeights::UniformLawful { .. }));
+        if all_uniform {
+            // The uniform-root special case IS the shipped counting DP —
+            // the same fast path as backend zero.
+            return FiberDp::new(&belief.kernel).count();
+        }
+        let slot = belief
+            .factors
+            .iter()
+            .position(|f| matches!(f.weights, FactorWeights::Table(_)))
+            .expect("a non-uniform belief holds a table");
+        let pool = belief.kernel.pool();
+        let mut total: u128 = 0;
+        for (hand, weight) in belief.factors[slot].support() {
+            let completions = self.completions(belief, slot, pool.difference(hand));
+            total = total
+                .checked_add(
+                    weight
+                        .checked_mul(completions)
+                        .expect("an exact mass fits u128"),
+                )
+                .expect("an exact mass fits u128");
+        }
+        total
+    }
+
+    fn actor_completion_weights(
+        &self,
+        belief: &FactorBelief,
+        seat: Seat,
+    ) -> Vec<(DominoSet, u128)> {
+        let slot = belief.slot_of(seat);
+        let pool = belief.kernel.pool();
+        let mut out = Vec::new();
+        for (hand, weight) in belief.factors[slot].support() {
+            let completions = self.completions(belief, slot, pool.difference(hand));
+            let w = weight
+                .checked_mul(completions)
+                .expect("an exact mass fits u128");
+            if w != 0 {
+                out.push((hand, w));
+            }
+        }
+        out
+    }
+
+    fn branch_masses(&self, belief: &FactorBelief, field: &dyn SlicePolicy) -> Vec<(Domino, u128)> {
+        branch_masses_via(self, belief, field)
+    }
+
+    fn condition(
+        &self,
+        belief: &FactorBelief,
+        action: Domino,
+        field: &dyn SlicePolicy,
+    ) -> FactorBelief {
+        condition_via(belief, action, field)
+    }
+
+    fn marginal(
+        &self,
+        belief: &FactorBelief,
+        seat: Seat,
+        predicate: &dyn Fn(DominoSet) -> bool,
+    ) -> u128 {
+        marginal_via(self, belief, seat, predicate)
     }
 }

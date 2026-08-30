@@ -1,13 +1,15 @@
-# factor_belief — the Slice C stage C0–C1 probes
+# factor_belief — the Slice C (stages C0–C1) and Slice D probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
 adds it to a verifier receipt.
 
-Instrument: `walt/walt/src/bin/factorbelief.rs`. Gates (the CI-checked
-part): `walt/walt/tests/solver_factor_belief.rs`. Mathematical source:
-`walt/math/counted_belief_sandwich_v0.1.md` §21–22, §26, §46 stage C0,
-rulings CBS-A6/CBS-A9.
+Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C) and
+`walt/walt/src/bin/factorrecursion.rs` (Slice D). Gates (the CI-checked
+part): `walt/walt/tests/solver_factor_belief.rs` and
+`walt/walt/tests/solver_factor_recursion.rs`. Mathematical source:
+`walt/math/counted_belief_sandwich_v0.1.md` §21–23, §25–26, §46 stage C0,
+§47 Slice D, rulings CBS-A6/CBS-A9.
 
 ## What it measures
 
@@ -106,10 +108,65 @@ cross-history law, the opening root once-per-hand).
   cost the same** (both are bounded by distinct-hand classification);
   the contraction advantage remains the ratio, 3,432 at the opening.
 
+## recursion_run1.txt readings (2026-08-30) — the Slice D probe
+
+`factorrecursion report` — the §23 factorized fixed-policy recursion
+over the support backend (`SupportOracle`), gated in CI by
+`solver_factor_recursion.rs` (5 gates: C0-domain parity with backend
+zero, surviving-world mass parity beyond it with backend zero's refusal
+at the two-table boundary, value parity with the bundled walk under the
+trivial field and under σ0, and the every-node checker).
+
+- **The §47 value gate holds on every row.** Six trick-5/6 roots × two
+  frozen focal policies × two fields, plus four trick-4 roots (16
+  post-root plies): the factorized success mass `M` equals the bundled
+  walk's wins exactly, with `V = M/Z` the exact value pair. The deepest
+  row (h4-t4, fiber 34,650, σ0) maintains the exact posterior through
+  121,868 conditionings and lands the same 25,039/34,650 as the bundled
+  route.
+- **Conditioning beyond one ply required a record-consistency law, and
+  σ0's own purity fence found it.** A deep uniform support still
+  contains hands holding tiles another seat has already played; such
+  hands carry zero completion weight in every contraction, and their
+  action likelihood is undefined (their information state contradicts
+  the record). The trivial field classified them silently; the σ0
+  field's type-enforced information-state constructor refused, and the
+  fix is the lawful one: `condition` drops record-inconsistent hands
+  (provably zero-mass) instead of classifying them. At one ply the
+  filter is a no-op — the C1 conditioning-support law is unchanged.
+- **The decided cutoff prunes at every depth, including the root.**
+  Three rows (h12-t6, h10-t6, h12-t4) settle with ZERO recursion nodes —
+  the bid is already made or missed at the root, so `M ∈ {0, Z}` by the
+  monotone cutoff alone. Elsewhere the early/terminal decided split
+  shows most leaves settling before terminal depth under the trivial
+  field.
+- **At small worlds/hands ratios the bundled walk is FASTER** (σ0
+  h4-t4: 6.8 s recursion vs 2.7 s bundled; trivial-field rows ~3–4×) —
+  the recursion pays per-node contraction and support classification
+  where the bundled walk shares one tree. The contraction advantage
+  remains the RATIO of worlds to hands (≈3 at these fibers, 3,432 at
+  the opening root); nothing here measures the opening-scale recursion,
+  which is deliberately not attempted (its conditioned completions walk
+  116,280-hand tables per node — a later slice's coordinate).
+- **The recursion route materializes MORE σ0 states than the bundled
+  route** (h3-t4: 146,342 vs 52,322) — conditioning classifies the
+  record-consistent support unfiltered by completions (the C1 law at
+  depth), so zero-completion hands the bundled walk never meets are
+  classified once each. Reuse across the recursion's own nodes is
+  already total (the C1 within-history law); compressing the classifier
+  itself stays Slice F's problem.
+
 ## Boundaries
 
 - Deterministic fields only; a stochastic field needs an explicit tape
   factor (CBS-A6 boundary obligation) and has no entry point here.
-- One conditioned factor at most (the declared C0 domain); contraction
-  across two tables is Slice D and is refused by panic, not approximated.
-- One-ply only: no recursion, no value claims, no play-strength readings.
+- Backend zero contracts at most one conditioned factor (the declared C0
+  domain, still refused by panic beyond it); the general contraction is
+  `SupportOracle` (Slice D), gated by parity on the C0 domain and by
+  surviving-world enumeration beyond it.
+- The recursion evaluates ONE frozen focal policy under the declared
+  field (§47): no maximization, no best-response claims, no
+  play-strength readings. Focal optimization inside a grammar is
+  Slice E.
+- The opening-root recursion is not attempted; only the opening-root
+  ONE-PLY contraction is measured (the Slice C probes above).

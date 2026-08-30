@@ -218,6 +218,7 @@ published tables from the records, so no aggregate is hand-maintained.
 | `bundle_bench` | The bundled-evaluator A/B: per-world route vs `solver::bundle` on complete fibers under two field configurations, wins asserted equal, exact node/field-query/settlement counters | `probes/bundle/` |
 | `rootinterval` | The counted-belief Slice A instrument [L2 thread, added 2026-08-30, CBS-A1..A9]: per legal root action, exact `Q_a` beside the δ-valid root interval — the pmake empirical-max upper (`sampled_root_optimum` inverted through the CE one-mean engine, no policy-count risk penalty) over a frozen-policy lower witness with the §6 discovery/evaluation lock — survivor-set evolution by prefix, worlds-to-singleton, and the upper-excess vs lower-shortfall attribution; ties come out `UnresolvedRootSet`, never a forced winner | `probes/root_interval/` |
 | `factorbelief` | The counted-belief Slice C stage-C0/C1 instrument [L2 thread, added 2026-08-30, C1 mode 2026-08-30, CBS-A6/A9]: exact one-ply branch masses `{t ↦ Z_ht}` by two routes — the §21 contraction (acting-seat root hands × exact completion binomials, each hand field-classified once) beside complete-world enumeration — with route parity and `Z_h = Σ_t Z_ht` asserted per row; the §22 opening-root demonstration (399,072,960 worlds → 116,280 hands, branch table in 8.7 ms trivially / 5.36 s under the σ0 mind, no world materialized) and the §26 cost coordinates; the `cache` mode is the stage-C1 study — first/repeat/bundled costs per root, the bundled one-ply oracle with full extensional cache identity, cross-history sharing (measured exactly 0 under the full §43 key), and the opening root's 200 ns/query repeat identity cost (×230 over first classification) | `probes/factor_belief/` |
+| `factorrecursion` | The counted-belief Slice D instrument [L2 thread, added 2026-08-30, CBS-A6/A9]: the §23 factorized fixed-policy recursion over the general support contraction (`SupportOracle` — §25.2's acting-hand loop generalized to conditioned completions) beside the bundled complete-world walk, value parity asserted on every row — six trick-5/6 roots × two frozen focal policies × two fields plus four trick-4 roots (deepest: fiber 34,650, 16 post-root plies, 121,868 conditionings under σ0) — with exact value pairs `M/Z`, per-route integer microseconds, and the recursion's node census; honest negatives recorded (bundled faster at worlds/hands ≈ 3; the recursion classifies record-consistent zero-completion hands the bundled walk never meets); the opening-root recursion deliberately not attempted | `probes/factor_belief/` |
 | `grammarsplit` | The counted-belief Slice B instrument [L2 thread, added 2026-08-30, CBS-A4]: per legal root action the exact §12 triple `free`/`gram`/`dev` (unrestricted, grammar-restricted, and residual optima, `free = max(gram, dev)` asserted at every walk node), verdicts (`closes`/`ties`/`counterexample`/`root-off-grammar`), lazy first-deviation witnesses, the grammar-room census, root-closure lines (`Q^G` best vs exact best), the sampled-route triples, and the §8 residual-upper identity in the numbers (residual empirical-max upper == the full-class upper, byte-identical count paths); grammars G1/G2/G3 over lowest/highest preference, the pinned level-1 continuation, the σ0 mind, and count-preservation safety | `probes/grammar_residual/` |
 
 Two declared-knob facts a future session must not inherit silently:
@@ -296,7 +297,18 @@ parity with `sampled_root_optimum` by prefix; source-monotone `Q^G`;
 off-grammar root actions typed all-residual with depth-0 witnesses; the
 §8 residual-upper identity against the Slice A producer; the level-1
 continuation dominated by its own grammar; and the empty-grammar and
-illegal-source refusals).
+illegal-source refusals), and
+`walt/walt/tests/solver_factor_recursion.rs` (counted-belief Slice D:
+the support backend extensionally equal to backend zero across the C0
+domain including the opening root's contraction; surviving-world mass
+parity beyond one table with backend zero's two-table refusal preserved
+at the boundary; the §47 value gate — the factorized recursion's success
+mass equal to the bundled walk's wins on every enumerable root under
+two frozen focal policies and both the trivial and σ0 fields; and the
+every-node checker — mass equals the surviving-world count and branch
+masses equal the world partition at EVERY node of the recursion tree,
+with the walk crossing the two-table boundary on every multi-trick
+root).
 Per the receipt-discipline statements
 below, none of these JSONL records is byte-diffed by CI and none becomes a
 claim-tier result by existing.

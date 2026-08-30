@@ -1,6 +1,33 @@
-# FACTOR-BELIEF — the Slice C design skeleton (specify, do not optimize)
+# FACTOR-BELIEF — the Slice C/D design skeleton (specify, do not optimize)
 
-**Status:** stages C0 AND C1 LANDED (2026-08-30) —
+**Status:** SLICE D LANDED (2026-08-30, same day as C1) — the general
+support contraction `SupportOracle` (§25.2's acting-hand loop
+generalized to conditioned completions, §25.4's sparse-support walk) and
+the §23 factorized fixed-policy recursion `viewer_success_mass` (§47),
+both in `solver/factor_belief.rs`, gated by
+`walt/walt/tests/solver_factor_recursion.rs` (5 gates: extensional
+parity with backend zero across the C0 domain including the opening
+root's contraction; surviving-world mass parity beyond one table with
+backend zero's refusal preserved at the boundary; §47 value parity with
+the bundled walk under the trivial field and under σ0 on every
+enumerable root; and the every-node checker — mass equals the
+surviving-world count and branch masses equal the world partition at
+EVERY node of the recursion tree). The recursion computes the
+viewer-objective success mass `M` with `V = M/Z` the exact integer pair
+— §23 cleared of denominators by conservation, no rationals anywhere.
+One law was discovered at depth: `condition` restricts its support walk
+to hands CONSISTENT WITH THE PUBLIC RECORD (own plays contained,
+others' plays excluded) — such hands are provably zero-mass and their
+action likelihood is undefined; σ0's type-enforced information-state
+constructor is what caught the unlawful classification, and at one ply
+the filter is a no-op, so the C1 conditioning-support law is unchanged.
+Probe: `factorrecursion report` — value parity on every row including
+trick-4 roots (fiber 34,650, 16 post-root plies, 121,868 conditionings
+under σ0); the honest negatives (bundled faster at worlds/hands ≈ 3,
+recursion classifies more σ0 states than the bundled walk meets) are in
+the probe README. EXPLORATORY tier.
+
+**Prior status:** stages C0 AND C1 LANDED (2026-08-30) —
 `walt/walt/src/solver/factor_belief.rs`, gated by
 `walt/walt/tests/solver_factor_belief.rs` (11 gates: the seven C0 gates —
 three-way mass parity, branch-mass parity with complete-world enumeration
@@ -29,11 +56,14 @@ take no seat argument — the acting seat is the derived view
 masses are `u128` with checked arithmetic (the kernel's counting
 width), not `BigUint`; `count_cell` is deferred to the slice that gives
 Part IV cell predicates a concrete type (Slice F), with `marginal`
-covering the one-seat case. The remaining stages (the full C2 report,
-Slice D recursion) build on the landed trait; the C1 cache study is
-done — its §26 coordinates live in the probe README, and its finding is
-that within-history reuse is total while cross-history reuse is zero by
-the identity law.
+covering the one-seat case. The C1 cache study is done — its §26
+coordinates live in the probe README, and its finding is that
+within-history reuse is total while cross-history reuse is zero by the
+identity law. Slice D is landed (see Status); the full C2 report is in
+flight in a concurrent session; the next construction on the ladder is
+Slice E — factorized exact best response inside a grammar (§48), where
+the focal node's single frozen action becomes a max over grammar
+actions.
 
 ## The objects (parent §18–21)
 
