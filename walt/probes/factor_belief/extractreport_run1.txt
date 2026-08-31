@@ -1,0 +1,110 @@
+extraction-report instrument (anytime proof-state Phase 6, §30/§63/APS-A9)
+field=Level0{n0=2} oracle=SupportOracle; facts = RefineV1 two-tier ample
+(prefix=16 delta=1/20 scope=1/2) + lowest-first baseline profiles, then the
+argmax-extraction-v1 producer (full legal set, tie rule = lowest tile index).
+Γ = U* − B_exec; permille floors of exact rationals; wall integer μs.
+EXPLORATORY — below every evidentiary tier, quotable only via gate receipts.
+
+root h12-t6: fiber=6 bid=30 parity=pmake-v1
+  before: bar=0‰ B_exec=0‰ U*=0‰ Γ=0‰ (refine 29574 μs)
+  extract a=4-4: Q_a=0‰ dag_states=0 focal=0 hidden=0 wall=2 μs
+  extract a=6-0: Q_a=0‰ dag_states=0 focal=0 hidden=0 wall=1 μs
+  after:  bar=0‰ B_exec=0‰ U*=0‰ Γ=0‰ (producer 103 μs)
+  recommend: a=4-4 policy=profile:lowest-first-after-root-action floor=0‰ upper=0‰ Γ=0‰ score=[20,20] fragile_d1=0‰ rescue_d1=0‰
+
+root h10-t6: fiber=19 bid=30 parity=pmake-v1
+  before: bar=1000‰ B_exec=1000‰ U*=1000‰ Γ=0‰ (refine 45139 μs)
+  extract a=2-2: Q_a=1000‰ dag_states=0 focal=0 hidden=0 wall=3 μs
+  extract a=3-3: Q_a=1000‰ dag_states=0 focal=0 hidden=0 wall=2 μs
+  after:  bar=1000‰ B_exec=1000‰ U*=1000‰ Γ=0‰ (producer 168 μs)
+  recommend: a=2-2 policy=refine-v1:exact-policy:focal:lowest-first floor=1000‰ upper=1000‰ Γ=0‰ score=[-,-] fragile_d1=-‰ rescue_d1=-‰
+
+root h5-t6: fiber=27 bid=30 parity=pmake-v1
+  before: bar=444‰ B_exec=444‰ U*=444‰ Γ=0‰ (refine 39575 μs)
+  extract a=4-1: Q_a=444‰ dag_states=25 focal=25 hidden=77 wall=120 μs
+  extract a=5-2: Q_a=444‰ dag_states=7 focal=7 hidden=39 wall=64 μs
+  after:  bar=444‰ B_exec=444‰ U*=444‰ Γ=0‰ (producer 415 μs)
+  recommend: a=4-1 policy=profile:lowest-first-after-root-action floor=444‰ upper=444‰ Γ=0‰ score=[19,36] fragile_d1=222‰ rescue_d1=0‰
+
+root h4-t6: fiber=90 bid=30 parity=pmake-setting-v1
+  before: bar=866‰ B_exec=866‰ U*=1000‰ Γ=133‰ (refine 29732 μs)
+  extract a=0-0: Q_a=333‰ dag_states=30 focal=30 hidden=85 wall=184 μs
+  extract a=1-1: Q_a=866‰ dag_states=30 focal=30 hidden=204 wall=303 μs
+  after:  bar=866‰ B_exec=866‰ U*=1000‰ Γ=133‰ (producer 1122 μs)
+  recommend: a=1-1 policy=profile:lowest-first-after-root-action floor=866‰ upper=1000‰ Γ=133‰ score=[29,40] fragile_d1=0‰ rescue_d1=866‰
+
+root h8-t5: fiber=92 bid=30 parity=pmake-v1
+  before: bar=989‰ B_exec=717‰ U*=1000‰ Γ=282‰ (refine 126172 μs)
+  extract a=0-0: Q_a=771‰ dag_states=60 focal=112 hidden=566 wall=3262 μs
+  extract a=5-0: Q_a=695‰ dag_states=83 focal=91 hidden=297 wall=965 μs
+  extract a=5-3: Q_a=989‰ dag_states=135 focal=149 hidden=430 wall=1138 μs
+  after:  bar=989‰ B_exec=989‰ U*=1000‰ Γ=10‰ (producer 4736 μs)
+  recommend: a=5-3 policy=profile:argmax-full-legal-4d8e34951b414de75b3b6438070f3cd6 floor=989‰ upper=1000‰ Γ=10‰ score=[14,41] fragile_d1=445‰ rescue_d1=0‰
+
+root h3-t5: fiber=200 bid=30 parity=pmake-v1
+  before: bar=1000‰ B_exec=1000‰ U*=1000‰ Γ=0‰ (refine 285264 μs)
+  extract a=4-0: Q_a=1000‰ dag_states=119 focal=268 hidden=1396 wall=6648 μs
+  extract a=5-0: Q_a=1000‰ dag_states=149 focal=246 hidden=1335 wall=6061 μs
+  extract a=6-6: Q_a=1000‰ dag_states=166 focal=283 hidden=1408 wall=9363 μs
+  after:  bar=1000‰ B_exec=1000‰ U*=1000‰ Γ=0‰ (producer 13162 μs)
+  recommend: a=4-0 policy=refine-v1:exact-policy:focal:lowest-first floor=1000‰ upper=1000‰ Γ=0‰ score=[-,-] fragile_d1=-‰ rescue_d1=-‰
+
+root h3-t4: fiber=11550 bid=30 parity=pmake-v1
+  before: bar=350‰ B_exec=267‰ U*=350‰ Γ=83‰ (refine 9749287 μs)
+  extract a=3-1: Q_a=350‰ dag_states=12420 focal=30147 hidden=89388 wall=1139726 μs
+  extract a=4-1: Q_a=271‰ dag_states=10859 focal=20586 hidden=58177 wall=548081 μs
+  extract a=4-4: Q_a=328‰ dag_states=14084 focal=28403 hidden=83028 wall=1043121 μs
+  extract a=6-4: Q_a=286‰ dag_states=11053 focal=27784 hidden=78754 wall=811703 μs
+  after:  bar=350‰ B_exec=350‰ U*=350‰ Γ=0‰ (producer 1720676 μs)
+  recommend: a=3-1 policy=profile:argmax-full-legal-5357e0c92372b6894f18beb4d6f4ab1e floor=350‰ upper=350‰ Γ=0‰ score=[3,42] fragile_d1=93‰ rescue_d1=1‰
+
+residual verdicts (per root action child; grammars: one=[low],
+two=[low;high], three=[low;high;count-preservation]):
+  h12-t6 g=one a=4-4: z=6 m*=0 gram=0 dev=- -> empty-class
+  h12-t6 g=one a=6-0: z=6 m*=0 gram=0 dev=- -> empty-class
+  h12-t6 g=two a=4-4: z=6 m*=0 gram=0 dev=- -> empty-class
+  h12-t6 g=two a=6-0: z=6 m*=0 gram=0 dev=- -> empty-class
+  h12-t6 g=three a=4-4: z=6 m*=0 gram=0 dev=- -> empty-class
+  h12-t6 g=three a=6-0: z=6 m*=0 gram=0 dev=- -> empty-class
+  h10-t6 g=one a=2-2: z=19 m*=19 gram=19 dev=- -> empty-class
+  h10-t6 g=one a=3-3: z=19 m*=19 gram=19 dev=- -> empty-class
+  h10-t6 g=two a=2-2: z=19 m*=19 gram=19 dev=- -> empty-class
+  h10-t6 g=two a=3-3: z=19 m*=19 gram=19 dev=- -> empty-class
+  h10-t6 g=three a=2-2: z=19 m*=19 gram=19 dev=- -> empty-class
+  h10-t6 g=three a=3-3: z=19 m*=19 gram=19 dev=- -> empty-class
+  h5-t6 g=one a=4-1: z=27 m*=12 gram=12 dev=- -> empty-class
+  h5-t6 g=one a=5-2: z=27 m*=12 gram=12 dev=- -> empty-class
+  h5-t6 g=two a=4-1: z=27 m*=12 gram=12 dev=- -> empty-class
+  h5-t6 g=two a=5-2: z=27 m*=12 gram=12 dev=- -> empty-class
+  h5-t6 g=three a=4-1: z=27 m*=12 gram=12 dev=- -> empty-class
+  h5-t6 g=three a=5-2: z=27 m*=12 gram=12 dev=- -> empty-class
+  h4-t6 g=one a=0-0: z=90 m*=30 gram=30 dev=- -> empty-class
+  h4-t6 g=one a=1-1: z=90 m*=78 gram=78 dev=- -> empty-class
+  h4-t6 g=two a=0-0: z=90 m*=30 gram=30 dev=- -> empty-class
+  h4-t6 g=two a=1-1: z=90 m*=78 gram=78 dev=- -> empty-class
+  h4-t6 g=three a=0-0: z=90 m*=30 gram=30 dev=- -> empty-class
+  h4-t6 g=three a=1-1: z=90 m*=78 gram=78 dev=- -> empty-class
+  h8-t5 g=one a=0-0: z=92 m*=71 gram=64 dev=71 -> escape
+  h8-t5 g=one a=5-0: z=92 m*=64 gram=63 dev=64 -> escape
+  h8-t5 g=one a=5-3: z=92 m*=91 gram=66 dev=91 -> escape
+  h8-t5 g=two a=0-0: z=92 m*=71 gram=71 dev=- -> empty-class
+  h8-t5 g=two a=5-0: z=92 m*=64 gram=64 dev=- -> empty-class
+  h8-t5 g=two a=5-3: z=92 m*=91 gram=91 dev=- -> empty-class
+  h8-t5 g=three a=0-0: z=92 m*=71 gram=71 dev=- -> empty-class
+  h8-t5 g=three a=5-0: z=92 m*=64 gram=64 dev=- -> empty-class
+  h8-t5 g=three a=5-3: z=92 m*=91 gram=91 dev=- -> empty-class
+  h3-t5 g=one a=4-0: z=200 m*=200 gram=200 dev=200 -> closure
+  h3-t5 g=one a=5-0: z=200 m*=200 gram=200 dev=200 -> closure
+  h3-t5 g=one a=6-6: z=200 m*=200 gram=200 dev=200 -> closure
+  h3-t5 g=two a=4-0: z=200 m*=200 gram=200 dev=- -> empty-class
+  h3-t5 g=two a=5-0: z=200 m*=200 gram=200 dev=- -> empty-class
+  h3-t5 g=two a=6-6: z=200 m*=200 gram=200 dev=- -> empty-class
+  h3-t5 g=three a=4-0: z=200 m*=200 gram=200 dev=- -> empty-class
+  h3-t5 g=three a=5-0: z=200 m*=200 gram=200 dev=- -> empty-class
+  h3-t5 g=three a=6-6: z=200 m*=200 gram=200 dev=- -> empty-class
+  h3-t4 g=two a=3-1: z=11550 m*=4047 gram=3498 dev=4047 -> escape
+  h3-t4 g=two a=4-1: z=11550 m*=3141 gram=3091 dev=3141 -> escape
+  h3-t4 g=two a=4-4: z=11550 m*=3797 gram=3721 dev=3797 -> escape
+  h3-t4 g=two a=6-4: z=11550 m*=3310 gram=3184 dev=3310 -> escape
+
+total wall 29183927 μs; no root was dropped

@@ -821,6 +821,35 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   explanations on the same block. Remaining phases (1's work
   frontier/solve goals, 4+ envelopes and covers) queued on Jason's
   word; default player untouched throughout.
+- **The anytime proof-state build — Phase 6 landed** *(2026-08-31,
+  same day, on Jason's "phase 6 it is")*: §63 argmax extraction and
+  residual policy bounds — the answer to Phase 3's h3-t4 finding.
+  `extract_success_policy` returns the §48/§36 optimum WITH one
+  policy attaining it (the argmax DAG under the declared
+  lowest-tile-index tie rule, history-keyed, on the Slice B decided
+  quotient, a total `SlicePolicy` re-priced unchanged by the
+  fixed-policy evaluators; content-addressed id — one realizable
+  policy, never an envelope); `residual_split` computes the exact
+  `(M*, D)` residual pair (empty deviating class = `None`; hidden
+  nodes deviate in at least one branch via the cheapest-downgrade
+  rule); `solver::extraction::ExtractionProducer` is the first
+  shipped ProofProducer — extract, re-price, install, and the
+  executable bar meets the proof bar (§30's bridge). Six gates
+  (`tests/solver_extraction.rs`), two forced discoveries: RefineV1
+  settles on cross-action dominance so a settled root can keep the
+  WINNER'S vacuous upper (Γ honestly positive until a §36 upper fact
+  prices it — h4-t6 at 2/15), and Slice E's "two-source grammar ties
+  free at t5/t6" is structural saturation (≤ 2-tile focal states ⇒
+  the deviating class is literally empty). Probe `extractreport
+  report` (`extractreport_run1.txt`, 29.2 s): **h3-t4 Γ 83‰ → 0‰
+  exactly** — the 12,420-state DAG materializes 3-1's optimal
+  continuation, `B_exec` rises 267‰ → 350‰, and the recommendation
+  switches from 4-4 to 3-1 under the extracted content id; h8-t5 Γ
+  282‰ → 10‰; the two-source grammar ESCAPES on every h3-t4 action
+  (the residual proves where trick-4 grammar room is real). Phase 4
+  envelope cells and Phase 5 count-threat covers stay unbuilt (the
+  exact residual is its own tightest cover); remaining phases queued
+  on Jason's word; default player and RefineV1 untouched.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03

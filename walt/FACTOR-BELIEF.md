@@ -90,6 +90,53 @@ below 4-4's (pmake belongs to the policy, not the first tile; the
 next §33 work item is materializing a stronger 3-1 continuation —
 Phase 6's argmax extraction); certain outcomes certify Γ = 0 in both
 directions (h12-t6 floor = upper = 0; h10-t6 floor = upper = 1000‰).
+
+**PHASE 6 LANDED** (2026-08-31, same day on Jason's go): §63 argmax
+extraction and residual policy bounds — the answer to Phase 3's h3-t4
+finding. `extract_success_policy` (factor_belief) is the §48/§36 max
+recursion returning, beside the optimum, ONE policy attaining it: the
+argmax DAG under the declared lowest-tile-index tie rule, keyed by
+post-root history (the viewer's information state at a focal node),
+living on the Slice B decided quotient, completed off-DAG by the same
+declared rule, and re-priced UNCHANGED by the fixed-policy evaluators
+(`ExtractedPolicy` is an ordinary `SlicePolicy`; its id is a content
+address of the choice table — one realizable policy, never an
+envelope, the §20 fence). `residual_split` is the §63 residual
+Bellman: the exact `(M*, D)` pair with `D` the best deviating-class
+mass (`None` = empty class, Slice B's Option discipline; hidden nodes
+deviate in AT LEAST ONE branch — keep `M*` everywhere except the
+cheapest-downgrade branch). `solver::extraction::ExtractionProducer`
+is the first shipped ProofProducer: per root action, extract, re-price
+through `viewer_score_profile`, install under the extracted content
+id — how a response optimum stops being proof-bar-only and enters
+`B_exec` (§30's bridge). Six gates
+(`walt/walt/tests/solver_extraction.rs`): re-pricing equality both
+sources at every enumerable root child; one realizable profile
+(conservation + contract projection); the §12 cover identity
+`M* = max(M^G, D)` with the residual walk's `M*` held to Slice G's;
+closure AND escape both directions with three non-vacuity counters;
+the §20 envelope specimen (tails cross, the threshold-wise max is no
+single policy's record, and what extraction serializes is its own
+evaluation bin for bin); and the §30 bridge end to end — `B_exec =
+B_proof` after the producer at every root, Γ = 0 exactly once the §36
+exact uppers price the upper side. Two discoveries the gates forced:
+RefineV1 settles on cross-action dominance, so the WINNER'S own upper
+can stay vacuous and Γ stays honestly positive at a settled root
+(h4-t6, 2/15) until an upper fact prices it; and Slice E's "two-source
+grammar ties free at t5/t6" is structural SATURATION — post-root focal
+states there hold ≤ 2 tiles, so the deviating class is literally empty
+(`None` everywhere multi-source at t5/t6). Probe: `extractreport
+report` (`probes/factor_belief/extractreport_run1.txt`) — h3-t4 Γ
+83‰ → 0‰ EXACTLY: the producer materializes 3-1's optimal continuation
+(a 12,420-state DAG, ~1.1 s extraction), `B_exec` rises 267‰ → 350‰,
+and the recommendation switches from 4-4 to 3-1 under the extracted
+content id; h8-t5 Γ 282‰ → 10‰ (the residue is the winner's δ-tier
+upper); and the two-source grammar ESCAPES on every h3-t4 root action
+(m* > gram, e.g. 4047 > 3498 on 3-1) — at trick 4 the grammar leaks
+and the residual proves exactly where, matching Slice E's trick-4
+finding from the other side. Phase 4's envelope cells and Phase 5's
+count-threat covers (which would bound `D` without walking it) remain
+unbuilt; the exact residual is its own tightest cover in this slice.
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint
 `response_success_mass` in `solver/factor_belief.rs` — the full-action-set
