@@ -358,6 +358,16 @@ rulings govern.
 | 57 | **The binding M3 perfect-recall-net gate.** Fixes the exact 962 ASCII bytes of `GT1-M3-FREEZE-SET-V1` (SHA-256 `e5efe6ce…`), naming binding contract `GPU-NATIVE-TRICK1-M3-v1` at SHA-256 `79de73e9…`, parent freeze 56, the M3 objectives/treatments ABI, carrier profile `M3CarrierProfileV1` (h8, roots 21-31-33-55), and `Texas42.Trick1PerfectRecallNet` as the proof boundary. It authorizes only the gate and records **no M3 result**; the GT1 ruling range is re-frozen at A1..A24 and the chapter closed. | **GT1-A24** |
 | 56 v2 | **Append-only re-issue at the unified layout** (the fold, 2026-08-24). New cumulative source manifest `walt/math/gpu_native_trick1_m0_m2_sources_v2.sha256` (identity `8a780895…`) beside the byte-immutable v1; a 32-entry fold-translation table as verifier amendment; full-closure checking demoted to freeze-event verification; the standing M2 receipt explicitly **old-layout evidence**, its re-earning deferred to [[m2-receipt-reearn]]. | **FZ-A1..FZ-A6** (§ "freeze-56 v2") |
 
+## Addendum 2026-08-31 — freeze 58, the RefineV1 semantic freeze
+
+One register event; pointer only, the ruling governs. This is a freeze of an
+implementation's *semantics*, in the frozen-policy-identity lineage: it exists
+so that "reproduces RefineV1" is a checkable sentence.
+
+| # | Content (one line) | Fixed by |
+|---|---|---|
+| 58 | **RefineV1.** `walt/walt/src/solver/refine.rs` as merged at main `25b40d9` (PR #69) is the semantically frozen reference controller: no new fields, enum variants, or work items, ever; bug fixes only with independent justification; its four gates (`walt/walt/tests/solver_factor_refine.rs`) never weaken. The anytime proof-state core must reproduce RefineV1's results wherever their scopes overlap (same producers, same goal) before any promotion, and remains removable without touching it. New capability goes to the new core, never to this file — the growing-enum temptation is refused by rule, not judgment. | **APS-A9** (number issued here) |
+
 ## Two discrepancies on the record
 
 Both were found by cross-checking the rulings against the code and the published

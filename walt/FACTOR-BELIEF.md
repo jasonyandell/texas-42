@@ -1,6 +1,39 @@
 # FACTOR-BELIEF — the Slice C–G design skeleton (specify, do not optimize)
 
-**Status:** SLICES C (COMPLETE), D, E, F AND G LANDED (2026-08-30).
+**Status:** SLICES C (COMPLETE), D, E, F AND G LANDED (2026-08-30);
+ANYTIME PROOF-STATE PHASES 0 AND 2 LANDED (2026-08-31, the follow-on
+parent `walt/math/anytime_proof_state_score_v0.1.md`, rulings
+APS-A1..A9). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
+register: `solver/refine.rs` as merged at `25b40d9` takes no new
+fields, variants, or work items, ever; its four gates never weaken; the
+coming proof-state core must reproduce it wherever scopes overlap and
+stays removable. Phase 2 is the §18 fixed-policy score profile
+`viewer_score_profile` in `solver/factor_belief.rs`, beside its Slice
+D/E/G siblings: the same factorized recursion carrying the full 43-bin
+exact score object — bin `s` = the exact world mass banking exactly `s`
+declaring-team points — instead of one tail sum. The profile is
+viewer-independent (parity enters only at projection) and never reads
+the bid, so one run yields the whole bid-threshold curve; the price is
+the decided cutoff (a decided state knows the indicator, not the
+score), and the probe measured that price at **~7–12% extra wall at
+trick 4** for roughly double the nodes — the forgone subtrees are the
+cheap late-hand ones. Gated by
+`walt/walt/tests/solver_factor_profile.rs` (5 gates: mass conservation
+`Σ H = Z` with tail projection to the Slice D success mass under both
+viewer parities and no early cutoff; the §3 tail-sum identity; §44
+contract reuse under a bid-blind semantics, checked against independent
+re-runs whose cutoffs differ per contract; the reuse BOUNDARY as a
+frozen specimen — σ0 reads the bid by construction, so under σ0 a
+cross-contract answer is a re-run, not a projection, made mechanical at
+h10-t6 threshold 42 where projection 12 ≠ evaluation 9; and entrywise
+parity with an independent complete-world replay to true terminals).
+Probe: `factorprofile report` (`probes/factor_belief/profile_run1.txt`)
+— all ten gated roots under σ0, two focals, no drops; first §10/§11
+band masses on real roots (h12-t6's certain miss is exactly 20 points
+in every world — inside the d=10 rescue band at 1000‰; h3-t4 under
+σ0-as-focal prices 280‰ with 22 distinct scores and 207‰ of mass
+within ten points below the contract). No envelope across policies is
+built anywhere — a profile is the record of ONE policy (APS-A4).
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint
 `response_success_mass` in `solver/factor_belief.rs` — the full-action-set
@@ -207,6 +240,12 @@ built), the unbuilt §33 producers (`SplitPolicyCylinder`,
 cost-model refinement, and — before any default change — arena and
 conformance gates: the existing controller player remains the fallback
 surface (§50), and nothing on this ladder touches the default player.
+The ladder's successor program is the anytime proof-state parent
+(`walt/math/anytime_proof_state_score_v0.1.md`, APS-A1..A9): its Phase
+0 (freeze 58, RefineV1) and Phase 2 (the score profile — see Status)
+are landed; the §49 architecture spike, contract projection with
+certified regret (Phase 3), and everything after are queued on Jason's
+word.
 
 ## The objects (parent §18–21)
 

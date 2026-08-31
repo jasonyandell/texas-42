@@ -1,4 +1,4 @@
-# factor_belief — the Slice C (stages C0–C2), D, E, F and G probes
+# factor_belief — the Slice C (stages C0–C2), D, E, F, G and Phase 2 probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
@@ -7,16 +7,20 @@ adds it to a verifier receipt.
 Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C),
 `walt/walt/src/bin/factorrecursion.rs` (Slice D),
 `walt/walt/src/bin/factorresponse.rs` (Slice E),
-`walt/walt/src/bin/factorcegar.rs` (Slice F) and
-`walt/walt/src/bin/factorrefine.rs` (Slice G). Gates (the CI-checked
-part): `walt/walt/tests/solver_factor_belief.rs`,
+`walt/walt/src/bin/factorcegar.rs` (Slice F),
+`walt/walt/src/bin/factorrefine.rs` (Slice G) and
+`walt/walt/src/bin/factorprofile.rs` (anytime proof-state Phase 2).
+Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
-`walt/walt/tests/solver_factor_consequence.rs` and
-`walt/walt/tests/solver_factor_refine.rs`. Mathematical source:
+`walt/walt/tests/solver_factor_consequence.rs`,
+`walt/walt/tests/solver_factor_refine.rs` and
+`walt/walt/tests/solver_factor_profile.rs`. Mathematical source:
 `walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31,
 Part VIII §32–37, §46 stages C0–C2, §47 Slice D, §48 Slice E, §49
-Slice F, §50 Slice G, rulings CBS-A4/CBS-A6/CBS-A9.
+Slice F, §50 Slice G, rulings CBS-A4/CBS-A6/CBS-A9; and
+`walt/math/anytime_proof_state_score_v0.1.md` §2–§4, §10–§11, §18, §44,
+ruling APS-A2.
 
 ## What it measures
 
@@ -355,10 +359,57 @@ the δ ledger).
   cost scheduling quality, never soundness), and the fallback choice in
   an UNRESOLVED result is never promoted to a settled claim.
 
+## profile_run1.txt readings (2026-08-31) — the Phase 2 score-profile probe
+
+- **The whole curve costs almost nothing extra where it matters.** The
+  profile walk forgoes the decided cutoff (§18's caveat: a decided
+  state knows the indicator, not the score), roughly doubling the
+  walked nodes at trick 4 — and the wall grows only ~7–12% (h3-t4 σ0:
+  1.149 s vs 1.023 s; h4-t4 σ0: 3.316 s vs 2.955 s). The forgone
+  subtrees are the cheap late-hand ones; the modeled-mind bill
+  concentrates early. One run buys all 42 thresholds where the Boolean
+  bought one.
+- **Certain outcomes now carry their explanation.** h12-t6's certain
+  miss (refine: EQUIVALENT value 0) is the single bin 20:6 — every
+  world banks exactly 20 of 30, all of it inside the §10 rescue band at
+  d = 10 (1000‰) and none at d = 5: only a ten-point swing could ever
+  have rescued it. h10-t6's certain make is 35:1 41:6 42:12 — expected
+  score 41.315, fragile only at d = 10 (52‰).
+- **The contract sits ON the score spike under σ0.** h8-t5 σ0-as-focal:
+  445‰ of the fiber lands EXACTLY at s = 30 = bid (fragile-make at
+  d = 1 is 445‰); h4-t6: 600‰ at exactly 30. The modeled mind's
+  settled branch reads the bid and stops accumulating once made — the
+  profile detects the field's bid-reading behavior as a spike at the
+  contract, which is precisely the §4 explanatory promise (which
+  points moved, not just whether).
+- **The reuse boundary is real and now mechanical.** σ0 reads the bid
+  by construction (its settled/desperation branches; the bid is in its
+  cache key), so a σ0 profile priced at one contract does NOT answer
+  another — gate 3b freezes the specimen (h10-t6: projection at 42
+  gives 12, evaluation at bid 42 gives 9). Under bid-blind semantics
+  (trivial field, fixed focal) reuse is exact at every threshold tried
+  (gate 3). §44's reuse claim is exactly as strong as the semantics'
+  bid-blindness.
+- **Focal quality is visible in the curve, not just the scalar.**
+  h4-t4: σ0-as-focal beats lowest-first at the bid (769‰ vs 722‰) and
+  everywhere in the upper tail, with expected score 35.544 vs 35.198 —
+  while h3-t4 σ0-as-focal (280‰, 22 distinct scores, expected 19.344)
+  shows a genuinely losing position whose 207‰ rescue band at d = 10
+  says most of the miss-mass is not even close.
+- No root was dropped: all ten gated roots ran under both focals;
+  whole probe 18.8 s.
+
 ## Boundaries
 
 - Deterministic fields only; a stochastic field needs an explicit tape
   factor (CBS-A6 boundary obligation) and has no entry point here.
+- The Phase 2 profile is the record of ONE policy — no envelope across
+  policies exists anywhere (the §20 fence, APS-A4), and no profile was
+  attempted at the opening root (the full walk without decided cutoffs
+  over 399M worlds is unaffordable by inspection; the ten gated roots
+  are the declared domain). Cross-contract reuse of a σ0 profile is
+  VOID (gate 3b's frozen specimen): under a bid-reading field a new
+  contract is a new evaluation.
 - Backend zero contracts at most one conditioned factor (the declared C0
   domain, still refused by panic beyond it); the general contraction is
   `SupportOracle` (Slice D), gated by parity on the C0 domain and by

@@ -147,6 +147,32 @@
 //!   IV's multi-seat structural cells still have no consumer; the slice
 //!   that first needs a cross-seat cell mass gives them their type.
 //!
+//! SCORE PROFILE (anytime proof-state §18, Phase 2, adopted APS-A2):
+//! [`viewer_score_profile`] is the Slice D recursion carrying the full
+//! 43-bin exact score object instead of one tail sum — bin `s` holds the
+//! integer world mass whose complete continuation banks exactly `s`
+//! points for the DECLARING team:
+//!
+//! ```text
+//! terminal:  H(B; s) = Z(B)·1{s = banked_decl}   (§18 terminal case)
+//! focal:     H(B; ·) = H(B·ρ(I); ·)              (§18 focal case)
+//! hidden:    H(B; s) = Σ_t H(B·t; s)             (§18 branch addition)
+//! ```
+//!
+//! The profile is viewer-independent — the viewer parity enters only at
+//! projection (`tail(bid)` for the declaring viewer, `Z − tail(bid)` for
+//! the setting viewer), and the profile never reads the bid, so ONE
+//! profile answers every contract threshold (§44's reuse, mechanical).
+//! The price of the whole curve is the decided cutoff: a monotone
+//! decided state knows the indicator, not the final score, so this
+//! recursion walks past [`decided_success`]'s early exit to true
+//! terminals (§18's own caveat) — the gates assert `decided_early == 0`
+//! and the probe reports the cost against [`viewer_success_mass`]
+//! honestly. Mass conservation `Σ_s H(s) = Z` and the tail projection
+//! `Σ_{s≥bid} H(s) = M` are gate families, and no threshold-wise
+//! envelope of profiles is ever built here — a profile is the record of
+//! ONE policy (the §20 fence, binding at APS-A4).
+//!
 //! No belief cache exists at C0. When one arrives, its key must be the
 //! FULL §43 identity list carried by [`FactorBelief`] — a hit under an
 //! omitted coordinate is the PiKey defect reborn (CBS-A6).
@@ -867,6 +893,142 @@ pub fn viewer_success_mass(
             mass = mass.checked_add(m).expect("an exact mass fits u128");
         }
         mass
+    }
+}
+
+// ---------------------------------------------------------------------------
+// The anytime proof-state §18 fixed-policy score profile (Phase 2).
+// ---------------------------------------------------------------------------
+
+/// The exact unnormalized score profile `H_ρ(B; ·)` of one frozen focal
+/// policy under the declared field (anytime proof-state parent §2/§18):
+/// bin `s` holds the exact integer world mass whose complete continuation
+/// banks exactly `s` points for the DECLARING team. Viewer-independent —
+/// the viewer parity enters only at projection ([`ScoreProfile::tail`]).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ScoreProfile {
+    /// Exact world mass per declaring-team final score, indices `0..=42`.
+    pub bins: [u128; 43],
+}
+
+impl ScoreProfile {
+    /// The all-zero profile (the additive identity of branch addition).
+    pub fn zero() -> ScoreProfile {
+        ScoreProfile { bins: [0; 43] }
+    }
+
+    /// Total represented mass `Σ_s H(s)` — equals `Z(B)` by conservation
+    /// (a gate, not an assumption).
+    pub fn total(&self) -> u128 {
+        self.bins
+            .iter()
+            .try_fold(0u128, |a, b| a.checked_add(*b))
+            .expect("an exact mass fits u128")
+    }
+
+    /// The tail mass `T(k) = Σ_{s ≥ k} H(s)` — the declaring team's
+    /// success mass at contract `k`; the setting side's is `Z − T(k)`.
+    /// `k > 42` gives 0 and `k = 0` gives the total, both meaningful.
+    pub fn tail(&self, k: u32) -> u128 {
+        self.bins
+            .iter()
+            .enumerate()
+            .filter(|(s, _)| *s as u32 >= k)
+            .try_fold(0u128, |a, (_, b)| a.checked_add(*b))
+            .expect("an exact mass fits u128")
+    }
+
+    /// The exact point-mass sum `Σ_s s·H(s)` — the §3 tail-sum identity's
+    /// left side (`= Σ_{k=1}^{42} T(k)`, a gate), so the expected score
+    /// is the exact pair `point_mass_sum / total`.
+    pub fn point_mass_sum(&self) -> u128 {
+        self.bins
+            .iter()
+            .enumerate()
+            .try_fold(0u128, |a, (s, b)| {
+                a.checked_add(b.checked_mul(s as u128).expect("fits"))
+            })
+            .expect("an exact point-mass sum fits u128")
+    }
+
+    fn add_assign(&mut self, other: &ScoreProfile) {
+        for (a, b) in self.bins.iter_mut().zip(other.bins.iter()) {
+            *a = a.checked_add(*b).expect("an exact mass fits u128");
+        }
+    }
+}
+
+/// The §18 evaluation: the exact 43-bin score profile of this belief
+/// state under ONE frozen focal policy and the declared field. Same walk
+/// as [`viewer_success_mass`] with two deliberate differences: the
+/// terminal case bins the declaring team's banked total instead of
+/// testing it against the bid, and there is NO early decided cutoff — a
+/// monotone decided state knows the make indicator, not the final score,
+/// so the recursion continues to true terminals (§18's caveat; the
+/// module doc's SCORE PROFILE section). `stats.decided_early` therefore
+/// stays 0 (gated) and `stats.decided_terminal` counts terminal leaves.
+pub fn viewer_score_profile(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    focal: &dyn SlicePolicy,
+    field: &dyn SlicePolicy,
+    stats: &mut RecursionStats,
+) -> ScoreProfile {
+    let cursor = belief.cursor();
+    let viewer = belief.kernel.viewer();
+    let total = belief.kernel.viewer_hand().len()
+        + belief
+            .kernel
+            .hidden()
+            .iter()
+            .map(|h| h.capacity)
+            .sum::<usize>();
+    if belief.history.len() == total {
+        // §18 terminal case: every play is public, so the declaring
+        // team's banked total is a constant of the represented worlds
+        // and the whole pool is banked (asserted).
+        stats.decided_terminal += 1;
+        let banked = cursor.banked;
+        assert_eq!(
+            banked[0] + banked[1],
+            42,
+            "the 42-point pool is fully banked at terminal"
+        );
+        let score = banked[belief.position.declaring_team.index()];
+        let mut profile = ScoreProfile::zero();
+        profile.bins[score as usize] = oracle.mass(belief);
+        return profile;
+    }
+    if cursor.seat() == viewer {
+        // §18 focal case: one information state, one frozen choice, no
+        // factor changes (Theorem 23.1, focal case — as in Slice D).
+        stats.focal_nodes += 1;
+        let remaining = belief
+            .kernel
+            .viewer_hand()
+            .difference(cursor.played_by[viewer.index()]);
+        let led = cursor
+            .plays
+            .first()
+            .map(|d| belief.position.decl.led_context(*d));
+        let legal = legal_plays(belief.position.decl, remaining, led);
+        assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+        let record = cursor.record(&belief.position, &belief.history);
+        let tile = focal.choose(belief.position.decl, remaining, legal, &record);
+        assert!(legal.contains(tile), "a policy chooses a legal tile");
+        viewer_score_profile(oracle, &belief.focal_play(tile), focal, field, stats)
+    } else {
+        // §18 branch addition: the branch masses partition Z exactly, so
+        // profiles add binwise — mass conservation follows binwise too.
+        stats.hidden_nodes += 1;
+        let mut profile = ScoreProfile::zero();
+        for (tile, _) in oracle.branch_masses(belief, field) {
+            stats.conditionings += 1;
+            let child = oracle.condition(belief, tile, field);
+            let h = viewer_score_profile(oracle, &child, focal, field, stats);
+            profile.add_assign(&h);
+        }
+        profile
     }
 }
 
