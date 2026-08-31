@@ -1,6 +1,35 @@
-# FACTOR-BELIEF — the Slice C/D design skeleton (specify, do not optimize)
+# FACTOR-BELIEF — the Slice C/D/E design skeleton (specify, do not optimize)
 
-**Status:** SLICE C COMPLETE AND SLICE D LANDED (2026-08-30) — Slice D
+**Status:** SLICES C (COMPLETE), D AND E LANDED (2026-08-30). Slice E
+(§48) is the factorized grammar best response `grammar_success_mass` in
+`solver/factor_belief.rs`: the §23 recursion with the focal case's
+frozen action replaced by a max over the grammar's actions —
+`M^G(B) = max_{t ∈ G(I)} M^G(B·t)`, lawful on the cleared side because
+every focal child shares `Z(B)`, so the max of masses is the max of
+values; hidden nodes keep the conservation sum, and nodewise max equals
+the §12 policy-class optimum `Q^G` by the cylinder-partition argument
+(the belief is a function of the public history, so focal nodes are in
+bijection with the viewer's information states). Gated by
+`walt/walt/tests/solver_factor_response.rs` (4 gates: per-root-action
+parity with Slice B's enumeration split `exact_grammar_split` under σ0,
+with the root call the max over grammar root actions; a singleton
+grammar collapsing exactly to the Slice D fixed-policy recursion;
+source dominance plus non-vacuity — the constraint BINDS somewhere, via
+singleton grammars, because the two-source grammar ties the free
+optimum on every enumerable root; and the every-node checker with the
+grammar max structure enumerated at every focal node). The §48 fence is
+kept: NOTHING maximizes over the full action set — `free` figures come
+only from the Slice B split, and no argmax/policy is extracted (that
+needs a declared tie order; not a Slice E claim). Probe:
+`factorresponse report` — the finding is that AT DEPTH THE MIX PAYS: at
+trick-4 roots the grammar optimum strictly beats every source (h4-t4
+trivial: Q^G = Z = 34,650, certain make, against 34,170 for the best
+source; h3-t4: 3,815 against 3,062), while at trick-5/6 roots it never
+exceeds the best source and the two-source grammar saturates every
+reached undecided state (every §12 verdict "closes" with no deviating
+continuation). EXPLORATORY tier.
+
+**Slice D** (landed the same day, concurrent session) — Slice D
 is the general
 support contraction `SupportOracle` (§25.2's acting-hand loop
 generalized to conditioned completions, §25.4's sparse-support walk) and
@@ -26,7 +55,9 @@ Probe: `factorrecursion report` — value parity on every row including
 trick-4 roots (fiber 34,650, 16 post-root plies, 121,868 conditionings
 under σ0); the honest negatives (bundled faster at worlds/hands ≈ 3,
 recursion classifies more σ0 states than the bundled walk meets) are in
-the probe README. EXPLORATORY tier.
+the probe README, and Slice E's probe extends them (the Slice B
+enumeration split is 30–40× faster than the grammar recursion at these
+same small ratios). EXPLORATORY tier.
 
 **Slice C in full** — stages C0, C1 AND C2 LANDED (2026-08-30) —
 `walt/walt/src/solver/factor_belief.rs`, gated by
@@ -79,10 +110,11 @@ covering the one-seat case. The C1 cache study is done — its §26
 coordinates live in the probe README, and its finding is that
 within-history reuse is total while cross-history reuse is zero by the
 identity law. Slice C is complete (the C2 report discharges the §46
-coordinates) and Slice D is landed (see Status); the next construction
-on the ladder is Slice E — factorized exact best response inside a
-grammar (§48), where the focal node's single frozen action becomes a
-max over grammar actions.
+coordinates), and Slices D and E are landed (see Status); the next
+construction on the ladder is Slice F — consequence CEGAR (§49), the
+declared home of classifier compression (hand classes instrumented at
+the field-classification bottleneck, witness pairs required for every
+refinement).
 
 ## The objects (parent §18–21)
 

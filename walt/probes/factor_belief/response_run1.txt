@@ -1,0 +1,78 @@
+EXPLORATORY factor-response probe (Slice E, counted_belief_sandwich_v0.1.md §11-12/§23/§48)
+Below every evidentiary tier; cited by nothing above it.
+Q^G = the exact grammar optimum as a success mass; the §12 value is the exact pair Q^G/Z. free/dev come from the Slice B enumeration split only (the §48 fence: the recursion never maximizes over the full action set).
+
+SECTION A — receipt roots, level-0 field (n0 = 2), per grammar root action; grammar grammar:[focal:lowest-first;focal:highest-first]-v1
+
+h12-t6 a=4-4: Z 6, Q^G_a 0 (permille 0), free 0, dev -, verdict closes, recursion 0 us, split 7 us PARITY, nodes focal 0 (actions 0) hidden 0 decided 1+0, conditionings 0
+h12-t6 a=6-0: Z 6, Q^G_a 0 (permille 0), free 0, dev -, verdict closes, recursion 0 us, split 7 us PARITY, nodes focal 0 (actions 0) hidden 0 decided 1+0, conditionings 0
+h10-t6 a=2-2: Z 19, Q^G_a 19 (permille 1000), free 19, dev -, verdict closes, recursion 3 us, split 6 us PARITY, nodes focal 0 (actions 0) hidden 0 decided 1+0, conditionings 0
+h10-t6 a=3-3: Z 19, Q^G_a 19 (permille 1000), free 19, dev -, verdict closes, recursion 3 us, split 6 us PARITY, nodes focal 0 (actions 0) hidden 0 decided 1+0, conditionings 0
+h5-t6 a=4-1: Z 27, Q^G_a 12 (permille 444), free 12, dev -, verdict closes, recursion 854 us, split 65 us PARITY, nodes focal 25 (actions 25) hidden 77 decided 0+27, conditionings 103
+h5-t6 a=5-2: Z 27, Q^G_a 12 (permille 444), free 12, dev -, verdict closes, recursion 508 us, split 38 us PARITY, nodes focal 7 (actions 7) hidden 39 decided 6+9, conditionings 53
+h4-t6 a=0-0: Z 90, Q^G_a 30 (permille 333), free 30, dev -, verdict closes, recursion 1368 us, split 106 us PARITY, nodes focal 30 (actions 30) hidden 85 decided 20+30, conditionings 134
+h4-t6 a=1-1: Z 90, Q^G_a 78 (permille 866), free 78, dev -, verdict closes, recursion 1737 us, split 173 us PARITY, nodes focal 30 (actions 30) hidden 204 decided 0+90, conditionings 293
+h8-t5 a=0-0: Z 92, Q^G_a 71 (permille 771), free 71, dev -, verdict closes, recursion 12330 us, split 365 us PARITY, nodes focal 112 (actions 141) hidden 566 decided 81+83, conditionings 700
+h8-t5 a=5-3: Z 92, Q^G_a 91 (permille 989), free 91, dev -, verdict closes, recursion 9219 us, split 264 us PARITY, nodes focal 149 (actions 212) hidden 430 decided 70+93, conditionings 529
+h3-t5 a=4-0: Z 200, Q^G_a 200 (permille 1000), free 200, dev -, verdict closes, recursion 30970 us, split 765 us PARITY, nodes focal 268 (actions 334) hidden 1396 decided 143+237, conditionings 1709
+h3-t5 a=6-6: Z 200, Q^G_a 200 (permille 1000), free 200, dev -, verdict closes, recursion 22243 us, split 568 us PARITY, nodes focal 283 (actions 313) hidden 1408 decided 49+337, conditionings 1763
+
+  same, grammar grammar:[focal:lowest-first;focal:highest-first;safety:count-preservation-v1]-v1
+
+h12-t6 a=4-4: Z 6, Q^G_a 0 (permille 0), free 0, dev -, verdict closes, recursion 0 us, split 2 us PARITY, nodes focal 0 (actions 0) hidden 0 decided 1+0, conditionings 0
+h12-t6 a=6-0: Z 6, Q^G_a 0 (permille 0), free 0, dev -, verdict closes, recursion 0 us, split 1 us PARITY, nodes focal 0 (actions 0) hidden 0 decided 1+0, conditionings 0
+h10-t6 a=2-2: Z 19, Q^G_a 19 (permille 1000), free 19, dev -, verdict closes, recursion 1 us, split 1 us PARITY, nodes focal 0 (actions 0) hidden 0 decided 1+0, conditionings 0
+h10-t6 a=3-3: Z 19, Q^G_a 19 (permille 1000), free 19, dev -, verdict closes, recursion 1 us, split 1 us PARITY, nodes focal 0 (actions 0) hidden 0 decided 1+0, conditionings 0
+h5-t6 a=4-1: Z 27, Q^G_a 12 (permille 444), free 12, dev -, verdict closes, recursion 338 us, split 32 us PARITY, nodes focal 25 (actions 25) hidden 77 decided 0+27, conditionings 103
+h5-t6 a=5-2: Z 27, Q^G_a 12 (permille 444), free 12, dev -, verdict closes, recursion 256 us, split 18 us PARITY, nodes focal 7 (actions 7) hidden 39 decided 6+9, conditionings 53
+h4-t6 a=0-0: Z 90, Q^G_a 30 (permille 333), free 30, dev -, verdict closes, recursion 713 us, split 59 us PARITY, nodes focal 30 (actions 30) hidden 85 decided 20+30, conditionings 134
+h4-t6 a=1-1: Z 90, Q^G_a 78 (permille 866), free 78, dev -, verdict closes, recursion 902 us, split 90 us PARITY, nodes focal 30 (actions 30) hidden 204 decided 0+90, conditionings 293
+h8-t5 a=0-0: Z 92, Q^G_a 71 (permille 771), free 71, dev -, verdict closes, recursion 7328 us, split 233 us PARITY, nodes focal 112 (actions 141) hidden 566 decided 81+83, conditionings 700
+h8-t5 a=5-3: Z 92, Q^G_a 91 (permille 989), free 91, dev -, verdict closes, recursion 6215 us, split 192 us PARITY, nodes focal 149 (actions 212) hidden 430 decided 70+93, conditionings 529
+h3-t5 a=4-0: Z 200, Q^G_a 200 (permille 1000), free 200, dev -, verdict closes, recursion 23928 us, split 643 us PARITY, nodes focal 268 (actions 334) hidden 1396 decided 143+237, conditionings 1709
+h3-t5 a=5-0: Z 200, Q^G_a 200 (permille 1000), free 200, dev -, verdict closes, recursion 23894 us, split 603 us PARITY, nodes focal 246 (actions 318) hidden 1335 decided 179+196, conditionings 1637
+h3-t5 a=6-6: Z 200, Q^G_a 200 (permille 1000), free 200, dev -, verdict closes, recursion 19579 us, split 649 us PARITY, nodes focal 283 (actions 313) hidden 1408 decided 49+337, conditionings 1763
+
+SECTION B — receipt roots, trivial field (lowest-first); grammar grammar:[focal:lowest-first;focal:highest-first;safety:count-preservation-v1]-v1
+
+h12-t6: Z 6, Q^G 0 (permille 0), 0 us, nodes focal 0 (actions 0) hidden 0 decided 1+0, conditionings 0
+  source low: M 0 (permille 0), gap 0
+  source high: M 0 (permille 0), gap 0
+  source safety: M 0 (permille 0), gap 0
+h10-t6: Z 19, Q^G 19 (permille 1000), 1 us, nodes focal 0 (actions 0) hidden 0 decided 1+0, conditionings 0
+  source low: M 19 (permille 1000), gap 0
+  source high: M 19 (permille 1000), gap 0
+  source safety: M 19 (permille 1000), gap 0
+h5-t6: Z 27, Q^G 12 (permille 444), 130 us, nodes focal 33 (actions 34) hidden 116 decided 6+36, conditionings 156
+  source low: M 12 (permille 444), gap 0
+  source high: M 12 (permille 444), gap 0
+  source safety: M 12 (permille 444), gap 0
+h4-t6: Z 90, Q^G 78 (permille 866), 325 us, nodes focal 65 (actions 66) hidden 300 decided 16+124, conditionings 438
+  source low: M 34 (permille 377), gap 44
+  source high: M 78 (permille 866), gap 0
+  source safety: M 78 (permille 866), gap 0
+h8-t5: Z 92, Q^G 92 (permille 1000), 1168 us, nodes focal 235 (actions 311) hidden 834 decided 144+172, conditionings 1073
+  source low: M 64 (permille 695), gap 28
+  source high: M 92 (permille 1000), gap 0
+  source safety: M 92 (permille 1000), gap 0
+h3-t5: Z 200, Q^G 200 (permille 1000), 4056 us, nodes focal 583 (actions 655) hidden 3206 decided 252+756, conditionings 4141
+  source low: M 200 (permille 1000), gap 0
+  source high: M 200 (permille 1000), gap 0
+  source safety: M 200 (permille 1000), gap 0
+
+SECTION C — trick-4 roots (16 post-root plies); grammar grammar:[focal:lowest-first;focal:highest-first]-v1
+
+h3-t4: Z 11550, Q^G 3815 (permille 330), 161106 us, nodes focal 34354 (actions 45594) hidden 88886 decided 18457+22311, conditionings 118413
+  source low: M 2808 (permille 243), gap 1007
+  source high: M 3062 (permille 265), gap 753
+h4-t4: Z 34650, Q^G 34650 (permille 1000), 516964 us, nodes focal 112846 (actions 130560) hidden 331387 decided 36888+111452, conditionings 462012
+  source low: M 30480 (permille 879), gap 4170
+  source high: M 34170 (permille 986), gap 480
+h8-t4: Z 1200, Q^G 1163 (permille 969), 32452 us, nodes focal 5930 (actions 7749) hidden 21727 decided 3108+4147, conditionings 27162
+  source low: M 975 (permille 812), gap 188
+  source high: M 1073 (permille 894), gap 90
+h12-t4: Z 34650, Q^G 0 (permille 0), 0 us, nodes focal 0 (actions 0) hidden 0 decided 1+0, conditionings 0
+  source low: M 0 (permille 0), gap 0
+  source high: M 0 (permille 0), gap 0
+h4-t4 sigma0: Z 34650, Q^G 33953 (permille 979), 9777288 us, nodes focal 146346 (actions 188594) hidden 455414 decided 71178+77410, conditionings 561753
+  sigma0 states materialized: 1652377

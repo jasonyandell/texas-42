@@ -1,14 +1,17 @@
-//! `solver::factor_belief` — the counted-belief Slices C and D: the
+//! `solver::factor_belief` — the counted-belief Slices C, D and E: the
 //! seat-factored belief, the exact-cover contraction interface, backend
 //! zero (the shipped `FiberDp` wrapped for 0/1 factors — stage C0), the
-//! general support contraction ([`SupportOracle`] — Slice D), and the
-//! §23 factorized fixed-policy recursion ([`viewer_success_mass`]).
+//! general support contraction ([`SupportOracle`] — Slice D), the §23
+//! factorized fixed-policy recursion ([`viewer_success_mass`]), and the
+//! §48 factorized grammar best response ([`grammar_success_mass`] —
+//! Slice E).
 //!
 //! EXPLORATORY tier. Mathematical source:
 //! `walt/math/counted_belief_sandwich_v0.1.md` Parts V–VI (§18–26, §43,
-//! §46 stage C0, §47 Slice D, §23), adopted by rulings CBS-A6 and CBS-A9
-//! (`walt/CENSUS-RULINGS.md`); design register `walt/FACTOR-BELIEF.md`;
-//! intake companion `walt/math/counted_belief_sandwich_v0.1_intake.md`.
+//! §46 stage C0, §47 Slice D, §48 Slice E, §23), adopted by rulings
+//! CBS-A6 and CBS-A9 (`walt/CENSUS-RULINGS.md`); design register
+//! `walt/FACTOR-BELIEF.md`; intake companion
+//! `walt/math/counted_belief_sandwich_v0.1_intake.md`.
 //!
 //! The objects (parent §18–21): a **hand factor** is one hidden seat's
 //! exact nonnegative integer weight table over its possible ROOT hands
@@ -75,6 +78,35 @@
 //! [`decided_success`] — monotone in banked points, so truncation never
 //! changes the indicator (the same law the bundled walker relies on).
 //!
+//! SLICE E (§48, §12): [`grammar_success_mass`] is the same recursion
+//! with the focal case's single frozen action replaced by a MAX over the
+//! grammar's actions at the focal information state:
+//!
+//! ```text
+//! grammar focal:  M^G(B) = max_{t ∈ G(I)} M^G(B·t)
+//! ```
+//!
+//! The max is lawful on the cleared side because every focal child shares
+//! `Z(B)` — a focal play changes no factor (Theorem 23.1, focal case) —
+//! so the max of masses IS the max of values. `M^G(B)` equals
+//! `max_{ρ ∈ Π^G} M_ρ(B)` (the §12 grammar optimum `Q^G` as a mass) by
+//! the cylinder-partition argument the Slice B walk asserts nodewise
+//! (Theorem 9.1): the viewer's information states are in bijection with
+//! the recursion's focal nodes — the belief IS a function of the public
+//! history, and the focal hand is constant across the represented worlds
+//! — so per-node choices compose into one lawful deterministic policy,
+//! and the branch-wise optimum distributes through the hidden sum
+//! because different branches' continuations are chosen at disjoint
+//! information states. No strategy fusion is possible by construction:
+//! [`PolicyGrammar::actions`] sees only public data and the focal hand
+//! (§11's non-theorem stays a fence). §48's second sentence is a fence
+//! too and it is kept: NOTHING here maximizes over the full action set —
+//! the exact lower witness `Q^G` is the deliverable, and "only after
+//! this lands should the full action set be enabled" means a later
+//! slice, on its own gates. The recursion returns the value, not an
+//! argmax — extracting an optimal grammar policy needs a declared tie
+//! order and is not a Slice E claim.
+//!
 //! Deviations from the `walt/FACTOR-BELIEF.md` trait sketch, under L2-A3's
 //! naming latitude, recorded here and in the register:
 //! - `branch_masses`/`condition` take no seat argument — the acting seat
@@ -96,6 +128,7 @@ use crate::rules::{legal_plays, Domino, DominoSet, Seat, Trick};
 use crate::solver::adaptive::{
     decided_success, root_identity, CanonicalRoot, PublicRecord, RootPosition, SlicePolicy,
 };
+use crate::solver::grammar::PolicyGrammar;
 
 // ---------------------------------------------------------------------------
 // Hand factors (parent §18–19).
@@ -800,6 +833,114 @@ pub fn viewer_success_mass(
             stats.conditionings += 1;
             let child = oracle.condition(belief, tile, field);
             let m = viewer_success_mass(oracle, &child, focal, field, stats);
+            mass = mass.checked_add(m).expect("an exact mass fits u128");
+        }
+        mass
+    }
+}
+
+// ---------------------------------------------------------------------------
+// The §48 factorized grammar best response (Slice E).
+// ---------------------------------------------------------------------------
+
+/// Exact integer counters of one grammar recursion — the [`RecursionStats`]
+/// shape plus how much room the max explored.
+#[derive(Clone, Debug, PartialEq, Eq, Default)]
+pub struct ResponseStats {
+    /// Nodes settled by the decided cutoff before the terminal depth.
+    pub decided_early: u64,
+    /// Nodes settled at the terminal depth itself.
+    pub decided_terminal: u64,
+    /// Focal (grammar-max) nodes walked.
+    pub focal_nodes: u64,
+    /// `Σ |G(I)|` over the walked focal nodes — the branches the max
+    /// actually explored (the recursion's grammar-branching census).
+    pub focal_actions: u64,
+    /// Hidden (§23 field-case) nodes walked.
+    pub hidden_nodes: u64,
+    /// Posterior updates performed — one per hidden branch taken.
+    pub conditionings: u64,
+}
+
+/// The §48 evaluation: the exact grammar optimum `Q^G` of this belief
+/// state as a success MASS — `max_{ρ ∈ Π^G} M_ρ(B)`, with the §12 value
+/// the exact pair `M^G(B) / oracle.mass(belief)`. Same recursion as
+/// [`viewer_success_mass`] except the focal case maximizes over `G(I)`
+/// (see the module doc for why the max is lawful and why nodewise max
+/// equals the policy-class max). Maximization is over GRAMMAR actions
+/// only — the §48 fence; the full action set has no entry point here.
+///
+/// Per-root-action values need no separate producer: for a grammar root
+/// action `a`, `Q^G_a` is this function on [`FactorBelief::focal_play`]
+/// `(a)`, and the root call is their max (asserted by the Slice E gates
+/// against the Slice B enumeration split).
+pub fn grammar_success_mass(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    grammar: &PolicyGrammar<'_>,
+    field: &dyn SlicePolicy,
+    stats: &mut ResponseStats,
+) -> u128 {
+    let cursor = belief.cursor();
+    let viewer = belief.kernel.viewer();
+    let total = belief.kernel.viewer_hand().len()
+        + belief
+            .kernel
+            .hidden()
+            .iter()
+            .map(|h| h.capacity)
+            .sum::<usize>();
+    let at_terminal = belief.history.len() == total;
+    if let Some(u) = decided_success(&belief.position, viewer, cursor.banked, at_terminal) {
+        // Decided: the indicator is a constant of every continuation of
+        // every represented world, so every policy class attains u·Z —
+        // the same decided quotient the Slice B walk truncates under.
+        if at_terminal {
+            stats.decided_terminal += 1;
+        } else {
+            stats.decided_early += 1;
+        }
+        return if u { oracle.mass(belief) } else { 0 };
+    }
+    assert!(
+        belief.history.len() < total,
+        "the 42-point pool exhausts at terminal, so an undecided state has plays left"
+    );
+    if cursor.seat() == viewer {
+        // §48 focal case: max over the grammar's actions at this ONE
+        // information state. Every child shares Z(B) — a focal play
+        // changes no factor — so the max of masses is the max of values.
+        stats.focal_nodes += 1;
+        let remaining = belief
+            .kernel
+            .viewer_hand()
+            .difference(cursor.played_by[viewer.index()]);
+        let led = cursor
+            .plays
+            .first()
+            .map(|d| belief.position.decl.led_context(*d));
+        let legal = legal_plays(belief.position.decl, remaining, led);
+        assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+        let record = cursor.record(&belief.position, &belief.history);
+        let actions = grammar.actions(belief.position.decl, remaining, legal, &record);
+        let mut best: Option<u128> = None;
+        for tile in actions.iter() {
+            stats.focal_actions += 1;
+            let m = grammar_success_mass(oracle, &belief.focal_play(tile), grammar, field, stats);
+            best = Some(best.map_or(m, |b| b.max(m)));
+        }
+        best.expect("a grammar holds an action at every focal state (§11)")
+    } else {
+        // §23 field case, unchanged from the fixed-policy recursion: the
+        // hidden seat is not the optimizer, and the branch-wise optimum
+        // distributes through the sum because different branches'
+        // continuations are chosen at disjoint information states.
+        stats.hidden_nodes += 1;
+        let mut mass: u128 = 0;
+        for (tile, _) in oracle.branch_masses(belief, field) {
+            stats.conditionings += 1;
+            let child = oracle.condition(belief, tile, field);
+            let m = grammar_success_mass(oracle, &child, grammar, field, stats);
             mass = mass.checked_add(m).expect("an exact mass fits u128");
         }
         mass
