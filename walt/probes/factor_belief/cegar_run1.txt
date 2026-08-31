@@ -1,0 +1,218 @@
+FACTOR-CEGAR PROBE (exploratory; cited by nothing above it)
+Slice F — §49 consequence CEGAR at the field-classification
+bottleneck: hand classes under the §28 feature map, §30
+witness-pair refinement to the action-exact endpoint.
+Stage tables: exact-mass = posterior mass in action-exact
+classes; max-width = widest per-branch interval U_t - L_t
+(the root-interval impact of the residual). All integers;
+permille of Z.
+
+SECTION A — receipt roots, sigma0 Level0 { n0 = 2 } field
+(classification warmed by the exact contraction first; the
+refine-loop time is pure partition machinery)
+
+  h12-t6 focal 4-4: Z 6, branch tiles 3, classify+contract 42 us, refine-loop 3 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       4     4            6 (1000)           0 (   0)
+    endpoint: hands 6, classes 4, refinements 0, critical [-]
+
+  h10-t6 focal 2-2: Z 19, branch tiles 3, classify+contract 7 us, refine-loop 3 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       4     4           19 (1000)           0 (   0)
+    endpoint: hands 6, classes 4, refinements 0, critical [-]
+
+  h5-t6 focal 4-1: Z 27, branch tiles 3, classify+contract 60 us, refine-loop 5 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       2     0            0 (   0)          27 (1000)
+        1      1       4     3           18 ( 666)           9 ( 333)
+        2      2       6     6           27 (1000)           0 (   0)
+    endpoint: hands 6, classes 6, refinements 2, critical [4-2 4-3]
+
+  h4-t6 focal 0-0: Z 90, branch tiles 5, classify+contract 85 us, refine-loop 7 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0      11    10           78 ( 866)          12 ( 133)
+        1      1      15    15           90 (1000)           0 (   0)
+    endpoint: hands 15, classes 15, refinements 1, critical [2-2]
+
+  h8-t5 focal 0-0: Z 92, branch tiles 6, classify+contract 297 us, refine-loop 22 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       8     2            8 (  86)          52 ( 565)
+        1      1      12     5           30 ( 326)          32 ( 347)
+        2      2      16    13           62 ( 673)          30 ( 326)
+        3      3      22    20           80 ( 869)          12 ( 130)
+        4      4      28    28           92 (1000)           0 (   0)
+    endpoint: hands 28, classes 28, refinements 4, critical [3-0 3-1 3-3 4-3]
+
+  h3-t5 focal 4-0: Z 200, branch tiles 9, classify+contract 1251 us, refine-loop 49 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       6     0            0 (   0)         195 ( 975)
+        1      1      11     3           10 (  50)         179 ( 895)
+        2      2      19     8           28 ( 140)         172 ( 860)
+        3      3      25    10           28 ( 140)         144 ( 720)
+        4      4      41    29          118 ( 590)          36 ( 180)
+        5      5      56    47          170 ( 850)          14 (  70)
+        6      6      74    74          200 (1000)           0 (   0)
+    endpoint: hands 74, classes 74, refinements 6, critical [3-1 3-2 3-3 5-5 6-1 6-3]
+
+  h3-t4 focal 3-1: Z 11550, branch tiles 8, classify+contract 4358 us, refine-loop 210 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0      70    31         2730 ( 236)        6930 ( 600)
+        1      1     108    75         6090 ( 527)        3745 ( 324)
+        2      2     146   128         9450 ( 818)         840 (  72)
+        3      3     162   146         9870 ( 854)         840 (  72)
+        4      4     246   238        10990 ( 951)         280 (  24)
+        5      5     330   330        11550 (1000)           0 (   0)
+    endpoint: hands 330, classes 330, refinements 5, critical [3-0 3-3 4-2 5-3 6-5]
+
+  h4-t4 focal 2-1: Z 34650, branch tiles 12, classify+contract 11683 us, refine-loop 397 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       8     4        11550 ( 333)       23100 ( 666)
+        1      1      16     8        11550 ( 333)       23100 ( 666)
+        2      2      31    16        11620 ( 335)       22540 ( 650)
+        3      3      57    31        11900 ( 343)       20650 ( 595)
+        4      4      99    57        12600 ( 363)       19250 ( 555)
+        5      5     163   100        14070 ( 406)       16940 ( 488)
+        6      6     255   177        18270 ( 527)       13020 ( 375)
+        7      7     375   328        28070 ( 810)        1960 (  56)
+        8      8     495   495        34650 (1000)           0 (   0)
+    endpoint: hands 495, classes 495, refinements 8, critical [0-0 2-0 2-2 4-2 4-3 4-4 5-2 5-4]
+
+  h8-t4 focal 2-1: Z 1200, branch tiles 9, classify+contract 1924 us, refine-loop 71 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       8     4          618 ( 515)         471 ( 392)
+        1      1      16     9          633 ( 527)         471 ( 392)
+        2      2      31    20          648 ( 540)         466 ( 388)
+        3      3      56    42          744 ( 620)         255 ( 212)
+        4      4      91    84         1106 ( 921)          50 (  41)
+        5      5     126   126         1200 (1000)           0 (   0)
+    endpoint: hands 126, classes 126, refinements 5, critical [0-0 3-0 4-0 4-3 6-0]
+
+  h12-t4 focal 2-0: Z 34650, branch tiles 9, classify+contract 316 us, refine-loop 166 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0      20    17        25830 ( 745)        8820 ( 254)
+        1      1      37    34        29750 ( 858)        4900 ( 141)
+        2      2      65    63        32900 ( 949)        1750 (  50)
+        3      3      88    86        33600 ( 969)        1050 (  30)
+        4      4     147   147        34650 (1000)           0 (   0)
+    endpoint: hands 495, classes 147, refinements 4, critical [1-1 3-1 3-2 3-3]
+
+SECTION B — the same roots, trivial lowest-first preference field
+
+  h12-t6 focal 4-4: Z 6, branch tiles 3, classify+contract 1 us, refine-loop 2 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       4     4            6 (1000)           0 (   0)
+    endpoint: hands 6, classes 4, refinements 0, critical [-]
+
+  h10-t6 focal 2-2: Z 19, branch tiles 3, classify+contract 2 us, refine-loop 2 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       4     4           19 (1000)           0 (   0)
+    endpoint: hands 6, classes 4, refinements 0, critical [-]
+
+  h5-t6 focal 4-1: Z 27, branch tiles 3, classify+contract 2 us, refine-loop 4 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       2     0            0 (   0)          27 (1000)
+        1      1       4     3           18 ( 666)           9 ( 333)
+        2      2       6     6           27 (1000)           0 (   0)
+    endpoint: hands 6, classes 6, refinements 2, critical [4-2 4-3]
+
+  h4-t6 focal 0-0: Z 90, branch tiles 5, classify+contract 2 us, refine-loop 4 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0      11     9           66 ( 733)          24 ( 266)
+        1      1      15    15           90 (1000)           0 (   0)
+    endpoint: hands 15, classes 15, refinements 1, critical [2-2]
+
+  h8-t5 focal 0-0: Z 92, branch tiles 5, classify+contract 6 us, refine-loop 13 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       8     2            8 (  86)          52 ( 565)
+        1      1      12     5           30 ( 326)          32 ( 347)
+        2      2      16    13           62 ( 673)          30 ( 326)
+        3      3      22    22           92 (1000)           0 (   0)
+    endpoint: hands 28, classes 22, refinements 3, critical [3-0 3-1 3-3]
+
+  h3-t5 focal 4-0: Z 200, branch tiles 7, classify+contract 6 us, refine-loop 32 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       6     0            0 (   0)         195 ( 975)
+        1      1      11     5          100 ( 500)          97 ( 485)
+        2      2      19    14          128 ( 640)          72 ( 360)
+        3      3      31    30          189 ( 945)          11 (  55)
+        4      4      41    40          191 ( 955)           9 (  45)
+        5      5      56    56          200 (1000)           0 (   0)
+    endpoint: hands 74, classes 56, refinements 5, critical [3-1 3-2 3-3 5-5 6-1]
+
+  h3-t4 focal 3-1: Z 11550, branch tiles 8, classify+contract 19 us, refine-loop 135 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0      70    44         5145 ( 445)        5880 ( 509)
+        1      1     108    92         8575 ( 742)        2450 ( 212)
+        2      2     146   143        11025 ( 954)         420 (  36)
+        3      3     162   161        11445 ( 990)         105 (   9)
+        4      4     246   246        11550 (1000)           0 (   0)
+    endpoint: hands 330, classes 246, refinements 4, critical [3-0 3-3 4-2 5-3]
+
+  h4-t4 focal 2-1: Z 34650, branch tiles 9, classify+contract 25 us, refine-loop 197 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       8     4        11550 ( 333)       23100 ( 666)
+        1      1      16    12        19950 ( 575)       14700 ( 424)
+        2      2      31    27        25830 ( 745)        8820 ( 254)
+        3      3      57    53        29750 ( 858)        4900 ( 141)
+        4      4      99    95        32200 ( 929)        2450 (  70)
+        5      5     163   160        33670 ( 971)         980 (  28)
+        6      6     255   255        34650 (1000)           0 (   0)
+    endpoint: hands 495, classes 255, refinements 6, critical [0-0 2-0 2-2 4-2 4-3 4-4]
+
+  h8-t4 focal 2-1: Z 1200, branch tiles 6, classify+contract 9 us, refine-loop 33 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0       8     6          729 ( 607)         471 ( 392)
+        1      1      16    14          945 ( 787)         255 ( 212)
+        2      2      31    30         1100 ( 916)         100 (  83)
+        3      3      56    56         1200 (1000)           0 (   0)
+    endpoint: hands 126, classes 56, refinements 3, critical [0-0 3-0 4-0]
+
+  h12-t4 focal 2-0: Z 34650, branch tiles 9, classify+contract 26 us, refine-loop 134 us (warm cache)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0      20    17        25830 ( 745)        8820 ( 254)
+        1      1      37    34        29750 ( 858)        4900 ( 141)
+        2      2      65    63        32900 ( 949)        1750 (  50)
+        3      3      88    86        33600 ( 969)        1050 (  30)
+        4      4     147   147        34650 (1000)           0 (   0)
+    endpoint: hands 495, classes 147, refinements 4, critical [1-1 3-1 3-2 3-3]
+
+SECTION C — the opening root (h0-t1), sigma0: 116,280 acting
+hands standing in for 399,072,960 worlds (never enumerated).
+The classification bill is paid once by the exact contraction;
+the refinement loop then partitions on pure cache hits.
+
+  h0-t1 focal 0-0: Z 399072960, acting hands 116280, sigma0 states 116280,
+  branch tiles 20, classification+contraction 5420302 us,
+  refine-loop 183283 us (warm cache, 16 stages)
+    stage |crit| classes exact  exact-mass(permille)  max-width(permille)
+        0      0     314    30      1499784 (   3)   330831072 ( 828)
+        1      1     503   147     47083608 ( 117)   283493496 ( 710)
+        2      2     742   291    101731344 ( 254)   202446816 ( 507)
+        3      3    1372   588    104741208 ( 262)   193482432 ( 484)
+        4      4    2473  1193    112363680 ( 281)   181161552 ( 453)
+        5      5    3093  1817    190819200 ( 478)    78781560 ( 197)
+        6      6    5387  3434    204972768 ( 513)    71365008 ( 178)
+        7      7    9119  6319    227771544 ( 570)    65389896 ( 163)
+        8      8   15005 11192    254479368 ( 637)    63419928 ( 158)
+        9      9   23966 19018    280778784 ( 703)    59140224 ( 148)
+       10     10   36923 31962    321568104 ( 805)    32604000 (  81)
+       11     11   53876 49991    356722080 ( 893)    13896168 (  34)
+       12     12   70829 67613    369176808 ( 925)    12924912 (  32)
+       13     13   92956 91095    382643976 ( 958)    11912472 (  29)
+       14     14  107712 106745    392435472 ( 983)     5607888 (  14)
+       15     15  116280 116280    399072960 (1000)           0 (   0)
+    endpoint: hands 116280, classes 116280, refinements 15, critical [1-0 1-1 2-0 2-2 3-0 3-1 4-0 4-2 4-4 5-1 5-2 5-4 5-5 6-1 6-2]
+
+  the endpoint: 116280 classes for 116280 hands — zero-residual
+  action-exactness under the SAMPLED sigma0 mind costs full
+  fragmentation (the S51 falsifier for the tail of the mass:
+  the feature set approaches all hidden tiles).
+  operating points (first stage at or above each exact-mass
+  share — S49's residual-interval discipline, not endpoint
+  chasing):
+    >=500 permille exact: 5387 classes (21 hands/class), residual 486 permille, max branch width 178 permille
+    >=800 permille exact: 36923 classes (3 hands/class), residual 194 permille, max branch width 81 permille
+    >=900 permille exact: 70829 classes (1 hands/class), residual 74 permille, max branch width 32 permille
+    >=950 permille exact: 92956 classes (1 hands/class), residual 41 permille, max branch width 29 permille
+  worlds never materialized: 399072960 (the contraction and every
+  partition walked hands, never deals).

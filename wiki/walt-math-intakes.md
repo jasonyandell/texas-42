@@ -583,8 +583,46 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   exists). Honest negative: the Slice B enumeration split answers
   30–40× faster at worlds/hands ≈ 3 — the contraction advantage
   remains the ratio, and the opening-root recursion stays not
-  attempted. The default player is untouched (CBS-A9). Still unbuilt:
-  Slices F–G.
+  attempted. The default player is untouched (CBS-A9). Slice F landed
+  in a following round (next entry).
+- **The counted-belief build — Slice F landed** *(2026-08-30, the round
+  after Slice E)*: the §49 consequence CEGAR
+  (`refine_to_action_exact` in `solver/factor_belief.rs`) — §28's
+  feature map `κ` as `ClassSignature` (the §49 starting vocabulary:
+  critical-tile membership, trump count/highest trump, led-suit count,
+  count-tile possession, current-winner/ruff possibility) partitioning
+  the acting seat's support at the field-classification bottleneck
+  (99% of the opening-root bill, per C2), with the §30 loop aggregating
+  action-uniform classes exactly and splitting the largest-mass
+  non-uniform class by a WITNESS PAIR whose lowest differing tile
+  enters the §31 critical set — termination ≤ 28 refinements because a
+  witnessed discriminator is provably outside the critical set. Four
+  gates at `tests/solver_factor_consequence.rs`: Theorem 30.1's
+  monotone narrowing with nested per-branch intervals `[L_t, U_t]`;
+  endpoint parity with `branch_masses` tile for tile; the witness
+  requirement re-derived independently (the field itself re-consulted
+  on hand-built records); and non-vacuity. Instrument: `factorcegar
+  report`, record `walt/probes/factor_belief/cegar_run1.txt` — the
+  two-sided finding: MASS CONCENTRATES BUT THE TAIL FRAGMENTS. At the
+  opening root under σ0, 513‰ of the 399,072,960-world posterior mass
+  is action-exact at 5,387 classes (21 hands/class) and 805‰ at 36,923
+  (3 hands/class), with max branch-interval width falling 828‰ → 81‰ of
+  Z — §51's success signal ("most posterior mass in action-exact
+  classes"); but ZERO residual costs full fragmentation to 116,280
+  singleton classes over 15 refinements — §51's falsifier for the last
+  slice of mass, and it is a property of the SAMPLED σ0 mind, not the
+  vocabulary (trivial-field endpoints on the same roots aggregate:
+  255/495, 246/330, 147/495 at trick 4). Read as design guidance, §49's
+  own measurement discipline wins: carry small residual as sound
+  per-branch intervals (gated to nest, so any budgeted stop is sound);
+  don't chase the action-exact endpoint. The instrument pays the full
+  per-hand classification bill (5.4 s at the opening; the 16-stage
+  refinement loop itself is 183 ms of partition arithmetic) and claims
+  representational structure only — the §29 class-verifier interface is
+  named, not built. `count_cell` stays deferred: a hand class is a
+  one-seat predicate `marginal` counts exactly. The default player is
+  untouched (CBS-A9). Still unbuilt: Slice G (§50, the integrated
+  refinement controller).
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03
