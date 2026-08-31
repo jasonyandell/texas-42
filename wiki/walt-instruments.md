@@ -362,7 +362,19 @@ BOUNDARY as a frozen specimen — the bid-reading σ0 makes a
 cross-contract answer a re-run, not a projection, h10-t6 threshold 42
 projecting 12 against the exact 9; and entrywise parity with an
 independent complete-world replay to true terminals under both
-fields).
+fields), and
+`walt/walt/tests/solver_proof_state.rs` (the §49 architecture spike —
+no instrument, the gates are the deliverable: the zero-budget top
+state sound with bytewise serialize/resume; RefineV1 endpoints
+imported as typed facts with closure reproducing survivors,
+exclusions, bar, and typed result on every enumerable root under both
+ample configurations; closure idempotent and
+insertion-order-independent; §51 identity fences and content-hash
+round-trips; a score-profile fact raising the executable bar through
+§41 derivation with `B_exec ≤ B_proof` asserted in every closure; and
+the open producer registry proven by a test-file banked-floor
+producer closing a repriced root to Equivalent-at-1 without touching
+the module).
 Per the receipt-discipline statements
 below, none of these JSONL records is byte-diffed by CI and none becomes a
 claim-tier result by existing.
