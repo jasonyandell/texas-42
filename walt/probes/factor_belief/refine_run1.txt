@@ -1,0 +1,269 @@
+refinement-controller instrument (counted-belief Slice G, §50/Part VIII)
+field=Level0{n0=2} oracle=SupportOracle grammar=[lowest,highest,count-preservation]
+sampled tier where on: prefix=16 delta=1/20-per-endpoint scope=4/5 epochs upper=0 eval=1
+work units are DECLARED FORECASTS (deterministic), never wall time
+
+== SECTION A: exact-only ladder, ample budget (prefix=0) ==
+== root h12-t6 fiber=6 Z=6 legal=2 budget=ample prefix=0
+    step item                     cost      cum  after[l,u]‰   bar‰ surv  event
+         refused consequence-census: presently useless (§34)
+       1 exact-fixed(4-4)            105      105  [   0,1000]      0    2  ran
+       2 exact-fixed(6-0)            105      210  [   0,1000]      0    2  ran
+       3 escalate-exact(4-4)         210      420  [   0,   0]      0    2  ran
+         refused exact-grammar(4-4): presently useless (§34)
+       4 escalate-exact(6-0)         210      630  [   0,   0]      0    2  ran
+    4-4: [0, 0] = [0‰, 0‰] lower exact-Q upper exact-Q
+    6-0: [0, 0] = [0‰, 0‰] lower exact-Q upper exact-Q
+    result EQUIVALENT [4-4 6-0] value 0 (0‰) (exact) | work 630 | risk 0 | bar 0‰ | wall 165 us
+== root h10-t6 fiber=19 Z=19 legal=2 budget=ample prefix=0
+    step item                     cost      cum  after[l,u]‰   bar‰ surv  event
+         refused consequence-census: presently useless (§34)
+       1 exact-fixed(2-2)            105      105  [1000,1000]   1000    2  ran
+         refused exact-fixed(3-3): presently useless (§34)
+         refused exact-grammar(2-2): presently useless (§34)
+         refused exact-grammar(3-3): presently useless (§34)
+         refused escalate-exact(2-2): presently useless (§34)
+       2 escalate-exact(3-3)         210      315  [1000,1000]   1000    2  ran
+    2-2: [1, 1] = [1000‰, 1000‰] lower exact-fixed upper vacuous
+    3-3: [1, 1] = [1000‰, 1000‰] lower exact-Q upper exact-Q
+    result EQUIVALENT [2-2 3-3] value 1 (1000‰) (exact) | work 315 | risk 0 | bar 1000‰ | wall 40 us
+== root h5-t6 fiber=27 Z=27 legal=2 budget=ample prefix=0
+    step item                     cost      cum  after[l,u]‰   bar‰ surv  event
+         refused consequence-census: presently useless (§34)
+       1 exact-fixed(4-1)            105      105  [ 444,1000]    444    2  ran
+       2 exact-fixed(5-2)            105      210  [ 444,1000]    444    2  ran
+       3 escalate-exact(4-1)         210      420  [ 444, 444]    444    2  ran
+         refused exact-grammar(4-1): presently useless (§34)
+       4 escalate-exact(5-2)         210      630  [ 444, 444]    444    2  ran
+    4-1: [4/9, 4/9] = [444‰, 444‰] lower exact-Q upper exact-Q
+    5-2: [4/9, 4/9] = [444‰, 444‰] lower exact-Q upper exact-Q
+    result EQUIVALENT [4-1 5-2] value 4/9 (444‰) (exact) | work 630 | risk 0 | bar 444‰ | wall 1728 us
+== root h4-t6 fiber=90 Z=90 legal=2 budget=ample prefix=0
+    step item                     cost      cum  after[l,u]‰   bar‰ surv  event
+         refused consequence-census: presently useless (§34)
+       1 exact-fixed(0-0)            105      105  [ 333,1000]    333    2  ran
+       2 exact-fixed(1-1)            105      210  [ 866,1000]    866    2  ran
+       3 escalate-exact(0-0)         210      420  [ 333, 333]    866    1  ran
+         excluded 0-0 below the bar held by 1-1 (exact)
+    0-0: [1/3, 1/3] = [333‰, 333‰] lower exact-Q upper exact-Q
+    1-1: [13/15, 1] = [866‰, 1000‰] lower exact-fixed upper vacuous
+    result SETTLED 1-1 (exact) | work 420 | risk 0 | bar 866‰ | wall 3382 us
+== root h8-t5 fiber=92 Z=92 legal=3 budget=ample prefix=0
+    step item                     cost      cum  after[l,u]‰   bar‰ surv  event
+         refused consequence-census: presently useless (§34)
+       1 exact-fixed(0-0)            924      924  [ 695,1000]    695    3  ran
+       2 exact-fixed(5-0)            924     1848  [ 684,1000]    695    3  ran
+       3 exact-fixed(5-3)            924     2772  [ 717,1000]    717    3  ran
+       4 escalate-exact(0-0)        2772     5544  [ 771, 771]    771    3  ran
+         refused exact-grammar(0-0): presently useless (§34)
+       5 exact-grammar(5-0)         2772     8316  [ 695,1000]    771    3  ran
+       6 exact-grammar(5-3)         2772    11088  [ 989,1000]    989    2  ran
+         excluded 0-0 below the bar held by 5-3 (exact)
+         refused exact-grammar(0-0): excluded action (§34)
+       7 escalate-exact(5-0)        2772    13860  [ 695, 695]    989    1  ran
+         excluded 5-0 below the bar held by 5-3 (exact)
+    0-0: [71/92, 71/92] = [771‰, 771‰] lower exact-Q upper exact-Q
+    5-0: [16/23, 16/23] = [695‰, 695‰] lower exact-Q upper exact-Q
+    5-3: [91/92, 1] = [989‰, 1000‰] lower exact-grammar upper vacuous
+    result SETTLED 5-3 (exact) | work 13860 | risk 0 | bar 989‰ | wall 30826 us
+== root h3-t5 fiber=200 Z=200 legal=3 budget=ample prefix=0
+    step item                     cost      cum  after[l,u]‰   bar‰ surv  event
+         refused consequence-census: presently useless (§34)
+       1 exact-fixed(4-0)            924      924  [1000,1000]   1000    3  ran
+         refused exact-fixed(5-0): presently useless (§34)
+         refused exact-fixed(6-6): presently useless (§34)
+         refused exact-grammar(4-0): presently useless (§34)
+         refused exact-grammar(5-0): presently useless (§34)
+         refused exact-grammar(6-6): presently useless (§34)
+         refused escalate-exact(4-0): presently useless (§34)
+       2 escalate-exact(5-0)        2772     3696  [1000,1000]   1000    3  ran
+       3 escalate-exact(6-6)        2772     6468  [1000,1000]   1000    3  ran
+    4-0: [1, 1] = [1000‰, 1000‰] lower exact-fixed upper vacuous
+    5-0: [1, 1] = [1000‰, 1000‰] lower exact-Q upper exact-Q
+    6-6: [1, 1] = [1000‰, 1000‰] lower exact-Q upper exact-Q
+    result EQUIVALENT [4-0 5-0 6-6] value 1 (1000‰) (exact) | work 6468 | risk 0 | bar 1000‰ | wall 66991 us
+== root h3-t4 fiber=11550 Z=11550 legal=4 budget=ample prefix=0
+    step item                     cost      cum  after[l,u]‰   bar‰ surv  event
+         refused consequence-census: presently useless (§34)
+       1 exact-fixed(3-1)           7425     7425  [ 238,1000]    238    4  ran
+       2 exact-fixed(4-1)           7425    14850  [ 199,1000]    238    4  ran
+       3 exact-fixed(4-4)           7425    22275  [ 267,1000]    267    4  ran
+       4 exact-fixed(6-4)           7425    29700  [ 228,1000]    267    4  ran
+       5 exact-grammar(3-1)        22275    51975  [ 344,1000]    344    4  ran
+       6 exact-grammar(4-1)        22275    74250  [ 267,1000]    344    4  ran
+       7 exact-grammar(4-4)        22275    96525  [ 322,1000]    344    4  ran
+       8 exact-grammar(6-4)        22275   118800  [ 286,1000]    344    4  ran
+       9 escalate-exact(3-1)       29700   148500  [ 350, 350]    350    4  ran
+      10 escalate-exact(4-1)       29700   178200  [ 271, 271]    350    3  ran
+         excluded 4-1 below the bar held by 3-1 (exact)
+      11 escalate-exact(4-4)       29700   207900  [ 328, 328]    350    2  ran
+         excluded 4-4 below the bar held by 3-1 (exact)
+      12 escalate-exact(6-4)       29700   237600  [ 286, 286]    350    1  ran
+         excluded 6-4 below the bar held by 3-1 (exact)
+    3-1: [1349/3850, 1349/3850] = [350‰, 350‰] lower exact-Q upper exact-Q
+    4-1: [1047/3850, 1047/3850] = [271‰, 271‰] lower exact-Q upper exact-Q
+    4-4: [3797/11550, 3797/11550] = [328‰, 328‰] lower exact-Q upper exact-Q
+    6-4: [331/1155, 331/1155] = [286‰, 286‰] lower exact-Q upper exact-Q
+    result SETTLED 3-1 (exact) | work 237600 | risk 0 | bar 350‰ | wall 8904449 us
+== root h4-t4 fiber=34650 Z=34650 legal=4 budget=ample prefix=0
+    step item                     cost      cum  after[l,u]‰   bar‰ surv  event
+         refused consequence-census: presently useless (§34)
+       1 exact-fixed(2-1)           7425     7425  [ 722,1000]    722    4  ran
+       2 exact-fixed(4-0)           7425    14850  [ 658,1000]    722    4  ran
+       3 exact-fixed(5-1)           7425    22275  [ 634,1000]    722    4  ran
+       4 exact-fixed(6-5)           7425    29700  [ 892,1000]    892    4  ran
+       5 escalate-exact(2-1)       29700    59400  [ 790, 790]    892    3  ran
+         excluded 2-1 below the bar held by 6-5 (exact)
+         refused exact-grammar(2-1): excluded action (§34)
+       6 escalate-exact(4-0)       29700    89100  [ 847, 847]    892    2  ran
+         excluded 4-0 below the bar held by 6-5 (exact)
+         refused exact-grammar(4-0): excluded action (§34)
+       7 escalate-exact(5-1)       29700   118800  [ 784, 784]    892    1  ran
+         excluded 5-1 below the bar held by 6-5 (exact)
+    2-1: [9131/11550, 9131/11550] = [790‰, 790‰] lower exact-Q upper exact-Q
+    4-0: [2936/3465, 2936/3465] = [847‰, 847‰] lower exact-Q upper exact-Q
+    5-1: [1511/1925, 1511/1925] = [784‰, 784‰] lower exact-Q upper exact-Q
+    6-5: [442/495, 1] = [892‰, 1000‰] lower exact-fixed upper vacuous
+    result SETTLED 6-5 (exact) | work 118800 | risk 0 | bar 892‰ | wall 19851252 us
+== root h8-t4 fiber=1200 Z=1200 legal=4 budget=ample prefix=0
+    step item                     cost      cum  after[l,u]‰   bar‰ surv  event
+         refused consequence-census: presently useless (§34)
+       1 exact-fixed(2-1)           7425     7425  [ 702,1000]    702    4  ran
+       2 exact-fixed(3-1)           7425    14850  [ 656,1000]    702    4  ran
+       3 exact-fixed(3-3)           7425    22275  [ 774,1000]    774    4  ran
+       4 exact-fixed(5-5)           7425    29700  [ 673,1000]    774    4  ran
+       5 escalate-exact(2-1)       29700    59400  [ 956, 956]    956    4  ran
+         refused exact-grammar(2-1): presently useless (§34)
+       6 exact-grammar(3-1)        22275    81675  [ 885,1000]    956    4  ran
+       7 exact-grammar(3-3)        22275   103950  [ 969,1000]    969    3  ran
+         excluded 2-1 below the bar held by 3-3 (exact)
+         refused exact-grammar(2-1): excluded action (§34)
+       8 escalate-exact(3-1)       29700   133650  [ 893, 893]    969    2  ran
+         excluded 3-1 below the bar held by 3-3 (exact)
+       9 escalate-exact(5-5)       29700   163350  [ 943, 943]    969    1  ran
+         excluded 5-5 below the bar held by 3-3 (exact)
+    2-1: [287/300, 287/300] = [956‰, 956‰] lower exact-Q upper exact-Q
+    3-1: [67/75, 67/75] = [893‰, 893‰] lower exact-Q upper exact-Q
+    3-3: [1163/1200, 1] = [969‰, 1000‰] lower exact-grammar upper vacuous
+    5-5: [283/300, 283/300] = [943‰, 943‰] lower exact-Q upper exact-Q
+    result SETTLED 3-3 (exact) | work 163350 | risk 0 | bar 969‰ | wall 2712439 us
+== root h12-t4 fiber=34650 Z=34650 legal=4 budget=ample prefix=0
+    step item                     cost      cum  after[l,u]‰   bar‰ surv  event
+         refused consequence-census: presently useless (§34)
+       1 exact-fixed(2-0)           7425     7425  [   0,1000]      0    4  ran
+       2 exact-fixed(3-0)           7425    14850  [   0,1000]      0    4  ran
+       3 exact-fixed(4-0)           7425    22275  [   0,1000]      0    4  ran
+       4 exact-fixed(6-5)           7425    29700  [   0,1000]      0    4  ran
+       5 exact-grammar(2-0)        22275    51975  [   0,1000]      0    4  ran
+       6 exact-grammar(3-0)        22275    74250  [   0,1000]      0    4  ran
+       7 exact-grammar(4-0)        22275    96525  [   0,1000]      0    4  ran
+       8 exact-grammar(6-5)        22275   118800  [   0,1000]      0    4  ran
+       9 escalate-exact(2-0)       29700   148500  [   0,   0]      0    4  ran
+      10 escalate-exact(3-0)       29700   178200  [   0,   0]      0    4  ran
+      11 escalate-exact(4-0)       29700   207900  [   0,   0]      0    4  ran
+      12 escalate-exact(6-5)       29700   237600  [   0,   0]      0    4  ran
+    2-0: [0, 0] = [0‰, 0‰] lower exact-Q upper exact-Q
+    3-0: [0, 0] = [0‰, 0‰] lower exact-Q upper exact-Q
+    4-0: [0, 0] = [0‰, 0‰] lower exact-Q upper exact-Q
+    6-5: [0, 0] = [0‰, 0‰] lower exact-Q upper exact-Q
+    result EQUIVALENT [2-0 3-0 4-0 6-5] value 0 (0‰) (exact) | work 237600 | risk 0 | bar 0‰ | wall 133 us
+
+== SECTION B: two-tier ladder, ample budget (prefix=16, delta=1/20) ==
+== root h12-t6 fiber=6 Z=6 legal=2 budget=ample prefix=16
+    result EQUIVALENT [4-4 6-0] value 0 (0‰) (exact) | work 694 | risk 1/5 | bar 0‰ | wall 17531 us
+    first exclusion after step None, first escalation at step Some(7), delta-decisive exclusions 0
+== root h10-t6 fiber=19 Z=19 legal=2 budget=ample prefix=16
+    result EQUIVALENT [2-2 3-3] value 1 (1000‰) (exact) | work 379 | risk 1/5 | bar 1000‰ | wall 35817 us
+    first exclusion after step None, first escalation at step Some(6), delta-decisive exclusions 0
+== root h5-t6 fiber=27 Z=27 legal=2 budget=ample prefix=16
+    result EQUIVALENT [4-1 5-2] value 4/9 (444‰) (exact) | work 694 | risk 1/5 | bar 444‰ | wall 37472 us
+    first exclusion after step None, first escalation at step Some(7), delta-decisive exclusions 0
+== root h4-t6 fiber=90 Z=90 legal=2 budget=ample prefix=16
+    result SETTLED 1-1 (delta-qualified) | work 64 | risk 1/5 | bar 700‰ | wall 25812 us
+    first exclusion after step Some(4), first escalation at step None, delta-decisive exclusions 1
+== root h8-t5 fiber=92 Z=92 legal=3 budget=ample prefix=16
+    result SETTLED 5-3 (delta-qualified) | work 3776 | risk 1/4 | bar 989‰ | wall 121020 us
+    first exclusion after step Some(3), first escalation at step None, delta-decisive exclusions 2
+== root h3-t5 fiber=200 Z=200 legal=3 budget=ample prefix=16
+    result EQUIVALENT [4-0 5-0 6-6] value 1 (1000‰) (exact) | work 6564 | risk 3/10 | bar 1000‰ | wall 284803 us
+    first exclusion after step None, first escalation at step Some(8), delta-decisive exclusions 0
+== root h3-t4 fiber=11550 Z=11550 legal=4 budget=ample prefix=16
+    result SETTLED 3-1 (exact) | work 237728 | risk 2/5 | bar 350‰ | wall 9966728 us
+    first exclusion after step Some(16), first escalation at step Some(14), delta-decisive exclusions 0
+== root h4-t4 fiber=34650 Z=34650 legal=4 budget=ample prefix=16
+    result SETTLED 6-5 (exact) | work 237728 | risk 2/5 | bar 980‰ | wall 30794060 us
+    first exclusion after step Some(17), first escalation at step Some(13), delta-decisive exclusions 0
+== root h8-t4 fiber=1200 Z=1200 legal=4 budget=ample prefix=16
+    result SETTLED 3-3 (exact) | work 237728 | risk 2/5 | bar 969‰ | wall 3484334 us
+    first exclusion after step Some(14), first escalation at step Some(14), delta-decisive exclusions 0
+== root h12-t4 fiber=34650 Z=34650 legal=4 budget=ample prefix=16
+    result EQUIVALENT [2-0 3-0 4-0 6-5] value 0 (0‰) (exact) | work 237728 | risk 2/5 | bar 0‰ | wall 2214742 us
+    first exclusion after step None, first escalation at step Some(17), delta-decisive exclusions 0
+
+== SECTION C: budget ladder (prefix=0) ==
+  -- h3-t4 --
+    budget    work surv result                              bar‰
+         1000     0    4 UNRESOLVED [3-1 4-1 4-4 6-4] fallback 3-1 (rule lowest-tile-among-survivors; never promoted)    0
+         3000     0    4 UNRESOLVED [3-1 4-1 4-4 6-4] fallback 3-1 (rule lowest-tile-among-survivors; never promoted)    0
+         6000     0    4 UNRESOLVED [3-1 4-1 4-4 6-4] fallback 3-1 (rule lowest-tile-among-survivors; never promoted)    0
+        12000  7425    4 UNRESOLVED [3-1 4-1 4-4 6-4] fallback 3-1 (rule lowest-tile-among-survivors; never promoted)  238
+        48000 29700    4 UNRESOLVED [3-1 4-1 4-4 6-4] fallback 3-1 (rule lowest-tile-among-survivors; never promoted)  267
+        ample 237600    1 SETTLED 3-1 (exact)                     350
+  -- h8-t4 --
+    budget    work surv result                              bar‰
+         1000     0    4 UNRESOLVED [2-1 3-1 3-3 5-5] fallback 2-1 (rule lowest-tile-among-survivors; never promoted)    0
+         3000     0    4 UNRESOLVED [2-1 3-1 3-3 5-5] fallback 2-1 (rule lowest-tile-among-survivors; never promoted)    0
+         6000     0    4 UNRESOLVED [2-1 3-1 3-3 5-5] fallback 2-1 (rule lowest-tile-among-survivors; never promoted)    0
+        12000  7425    4 UNRESOLVED [2-1 3-1 3-3 5-5] fallback 2-1 (rule lowest-tile-among-survivors; never promoted)  702
+        48000 29700    4 UNRESOLVED [2-1 3-1 3-3 5-5] fallback 2-1 (rule lowest-tile-among-survivors; never promoted)  774
+        ample 163350    1 SETTLED 3-3 (exact)                     969
+
+== SECTION D: opening root h0-t1, sampled tier only (budget=100000) ==
+== root h0-t1 fiber=399072960 Z=399072960 legal=7 budget=100000 prefix=16
+    step item                     cost      cum  after[l,u]‰   bar‰ surv  event
+         refused exact-fixed(0-0): exceeds remaining budget
+         refused exact-fixed(2-1): exceeds remaining budget
+         refused exact-fixed(3-2): exceeds remaining budget
+         refused exact-fixed(3-3): exceeds remaining budget
+         refused exact-fixed(5-3): exceeds remaining budget
+         refused exact-fixed(6-0): exceeds remaining budget
+         refused exact-fixed(6-5): exceeds remaining budget
+         refused exact-grammar(0-0): exceeds remaining budget
+         refused exact-grammar(2-1): exceeds remaining budget
+         refused exact-grammar(3-2): exceeds remaining budget
+         refused exact-grammar(3-3): exceeds remaining budget
+         refused exact-grammar(5-3): exceeds remaining budget
+         refused exact-grammar(6-0): exceeds remaining budget
+         refused exact-grammar(6-5): exceeds remaining budget
+         refused escalate-exact(0-0): exceeds remaining budget
+         refused escalate-exact(2-1): exceeds remaining budget
+         refused escalate-exact(3-2): exceeds remaining budget
+         refused escalate-exact(3-3): exceeds remaining budget
+         refused escalate-exact(5-3): exceeds remaining budget
+         refused escalate-exact(6-0): exceeds remaining budget
+         refused escalate-exact(6-5): exceeds remaining budget
+         refused consequence-census: presently useless (§34)
+       1 sampled-lower(0-0)           16       16  [ 482,1000]    482    7  ran
+       2 sampled-lower(2-1)           16       32  [ 490,1000]    490    7  ran
+       3 sampled-lower(3-2)           16       48  [ 382,1000]    490    7  ran
+       4 sampled-lower(3-3)           16       64  [ 409,1000]    490    7  ran
+       5 sampled-lower(5-3)           16       80  [ 235,1000]    490    7  ran
+       6 sampled-lower(6-0)           16       96  [ 346,1000]    490    7  ran
+       7 sampled-lower(6-5)           16      112  [ 482,1000]    490    7  ran
+       8 sampled-upper(0-0)           16      128  [ 482,1000]    490    7  ran
+       9 sampled-upper(3-2)           16      144  [ 382, 974]    490    7  ran
+      10 sampled-upper(3-3)           16      160  [ 409,1000]    490    7  ran
+      11 sampled-upper(5-3)           16      176  [ 235,1000]    490    7  ran
+      12 sampled-upper(6-0)           16      192  [ 346, 999]    490    7  ran
+      13 sampled-upper(6-5)           16      208  [ 482, 999]    490    7  ran
+      14 sampled-upper(2-1)           16      224  [ 490,1000]    490    7  ran
+    0-0: [1013039/2100384, 1] = [482‰, 1000‰] lower sampled upper vacuous
+    2-1: [97868963/199536480, 1] = [490‰, 1000‰] lower sampled upper vacuous
+    3-2: [152477729/399072960, 388840319/399072960] = [382‰, 974‰] lower sampled upper sampled
+    3-3: [27265273/66512160, 1] = [409‰, 1000‰] lower sampled upper vacuous
+    5-3: [852677/3627936, 1] = [235‰, 1000‰] lower sampled upper vacuous
+    6-0: [46077233/133024320, 20998049/21003840] = [346‰, 999‰] lower sampled upper sampled
+    6-5: [1013039/2100384, 398794277/399072960] = [482‰, 999‰] lower sampled upper sampled
+    result UNRESOLVED [0-0 2-1 3-2 3-3 5-3 6-0 6-5] fallback 0-0 (rule lowest-tile-among-survivors; never promoted) | work 224 | risk 7/10 | bar 490‰ | wall 11990554 us
+    the exact tier is refused by forecast at this budget (the §40 contraction/field-classification walls); 7 of 7 actions survive the sampled bounds; the surviving set is returned honestly, the fallback is named and never promoted (§37.9)
+    worlds in the fiber 399072960; worlds sampled per endpoint <= 16; no complete-world enumeration ran

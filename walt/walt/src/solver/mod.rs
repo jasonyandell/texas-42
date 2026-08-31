@@ -32,6 +32,7 @@ pub mod grammar;
 pub mod hazard;
 pub mod motif;
 pub mod policy;
+pub mod refine;
 pub mod root_interval;
 pub mod targeted;
 pub mod upper_cs;

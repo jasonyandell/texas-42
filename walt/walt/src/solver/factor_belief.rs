@@ -899,7 +899,9 @@ pub struct ResponseStats {
 /// [`viewer_success_mass`] except the focal case maximizes over `G(I)`
 /// (see the module doc for why the max is lawful and why nodewise max
 /// equals the policy-class max). Maximization is over GRAMMAR actions
-/// only — the §48 fence; the full action set has no entry point here.
+/// only — the §48 fence. The full action set's one entry point is
+/// [`response_success_mass`], the §36 EscalateExact endpoint Slice G
+/// enabled after this slice landed (§48's own sequencing).
 ///
 /// Per-root-action values need no separate producer: for a grammar root
 /// action `a`, `Q^G_a` is this function on [`FactorBelief::focal_play`]
@@ -972,6 +974,96 @@ pub fn grammar_success_mass(
             stats.conditionings += 1;
             let child = oracle.condition(belief, tile, field);
             let m = grammar_success_mass(oracle, &child, grammar, field, stats);
+            mass = mass.checked_add(m).expect("an exact mass fits u128");
+        }
+        mass
+    }
+}
+
+// ---------------------------------------------------------------------------
+// The §36 EscalateExact endpoint (Slice G): the full-action-set response.
+// ---------------------------------------------------------------------------
+
+/// The exact unrestricted best-response success mass — the §48 recursion
+/// with the focal max over the FULL legal action set. `M*(B) / Z(B)` is
+/// the exact viewer-objective value `Q(B)`; on a root child
+/// [`FactorBelief::focal_play`]`(a)` it is the exact `Q_a`. This is the
+/// §36 EscalateExact endpoint and the §38 enumeration-fallback authority
+/// of the Slice G controller: it collapses a root-action interval to a
+/// point, at full-recursion cost. §48 sequenced this deliberately —
+/// grammar first (Slice E), then the full action set (Slice G); the
+/// Slice G gates hold this recursion to extensional parity with the
+/// bundled exact authority (`exposure::exact_root_value`) at every gated
+/// root, the C→G cross-representation capstone.
+///
+/// The max is lawful for the same reason as the grammar max: every
+/// represented world shares the focal information state, so the nodewise
+/// max over legal actions equals the max over all lawful full policies
+/// (§12/§48 with `G(I)` = the legal set — the grammar argument never
+/// used properness of the restriction).
+pub fn response_success_mass(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    field: &dyn SlicePolicy,
+    stats: &mut ResponseStats,
+) -> u128 {
+    let cursor = belief.cursor();
+    let viewer = belief.kernel.viewer();
+    let total = belief.kernel.viewer_hand().len()
+        + belief
+            .kernel
+            .hidden()
+            .iter()
+            .map(|h| h.capacity)
+            .sum::<usize>();
+    let at_terminal = belief.history.len() == total;
+    if let Some(u) = decided_success(&belief.position, viewer, cursor.banked, at_terminal) {
+        // Decided: constant indicator over every continuation of every
+        // represented world — every policy class attains u·Z.
+        if at_terminal {
+            stats.decided_terminal += 1;
+        } else {
+            stats.decided_early += 1;
+        }
+        return if u { oracle.mass(belief) } else { 0 };
+    }
+    assert!(
+        belief.history.len() < total,
+        "the 42-point pool exhausts at terminal, so an undecided state has plays left"
+    );
+    if cursor.seat() == viewer {
+        // Focal case: max over EVERY legal action at this one
+        // information state. All children share Z(B), so the max of
+        // masses is the max of values.
+        stats.focal_nodes += 1;
+        let remaining = belief
+            .kernel
+            .viewer_hand()
+            .difference(cursor.played_by[viewer.index()]);
+        let led = cursor
+            .plays
+            .first()
+            .map(|d| belief.position.decl.led_context(*d));
+        let legal = legal_plays(belief.position.decl, remaining, led);
+        assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+        let mut best: Option<u128> = None;
+        for tile in legal.iter() {
+            stats.focal_actions += 1;
+            let m = response_success_mass(oracle, &belief.focal_play(tile), field, stats);
+            best = Some(best.map_or(m, |b| b.max(m)));
+        }
+        best.expect("a legal set holds an action")
+    } else {
+        // §23 field case, unchanged: the hidden seat is not the
+        // optimizer; the branch-wise optimum distributes through the sum
+        // because different branches' continuations are chosen at
+        // disjoint information states.
+        stats.hidden_nodes += 1;
+        let mut mass: u128 = 0;
+        for (tile, _) in oracle.branch_masses(belief, field) {
+            stats.conditionings += 1;
+            let child = oracle.condition(belief, tile, field);
+            let m = response_success_mass(oracle, &child, field, stats);
             mass = mass.checked_add(m).expect("an exact mass fits u128");
         }
         mass
