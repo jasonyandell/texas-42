@@ -25,6 +25,7 @@ pub mod calibrate;
 pub mod controller;
 pub mod evidence;
 pub mod exposure;
+pub mod extraction;
 pub mod factor_belief;
 pub mod field;
 pub mod field_swap;

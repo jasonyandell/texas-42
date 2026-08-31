@@ -1,4 +1,4 @@
-# factor_belief — the Slice C (stages C0–C2), D, E, F, G and Phase 2 probes
+# factor_belief — the Slice C (stages C0–C2), D, E, F, G and Phase 2/3/6 probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
@@ -9,21 +9,24 @@ Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C),
 `walt/walt/src/bin/factorresponse.rs` (Slice E),
 `walt/walt/src/bin/factorcegar.rs` (Slice F),
 `walt/walt/src/bin/factorrefine.rs` (Slice G),
-`walt/walt/src/bin/factorprofile.rs` (anytime proof-state Phase 2) and
-`walt/walt/src/bin/proofreport.rs` (anytime proof-state Phase 3).
+`walt/walt/src/bin/factorprofile.rs` (anytime proof-state Phase 2),
+`walt/walt/src/bin/proofreport.rs` (anytime proof-state Phase 3) and
+`walt/walt/src/bin/extractreport.rs` (anytime proof-state Phase 6).
 Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
 `walt/walt/tests/solver_factor_consequence.rs`,
 `walt/walt/tests/solver_factor_refine.rs`,
 `walt/walt/tests/solver_factor_profile.rs`,
-`walt/walt/tests/solver_proof_state.rs` and
-`walt/walt/tests/solver_proof_regret.rs`. Mathematical source:
+`walt/walt/tests/solver_proof_state.rs`,
+`walt/walt/tests/solver_proof_regret.rs` and
+`walt/walt/tests/solver_extraction.rs`. Mathematical source:
 `walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31,
 Part VIII §32–37, §46 stages C0–C2, §47 Slice D, §48 Slice E, §49
 Slice F, §50 Slice G, rulings CBS-A4/CBS-A6/CBS-A9; and
 `walt/math/anytime_proof_state_score_v0.1.md` §2–§4, §10–§11, §18,
-§24–§33, §41, §44, §49–§56, §60, rulings APS-A2/APS-A6/APS-A7/APS-A9.
+§24–§33, §41, §44, §49–§56, §60, §63, rulings
+APS-A2/APS-A4/APS-A6/APS-A7/APS-A9.
 
 ## What it measures
 
@@ -427,6 +430,39 @@ the δ ledger).
 - All seven roots completed; whole probe 14.1 s (13.4 s of it the
   h3-t4 refine + three t4 profiles).
 
+## extractreport_run1.txt readings (2026-08-31) — the Phase 6 §30 bridge
+
+- **h3-t4: Γ 83‰ → 0‰ EXACTLY.** The extraction producer materializes
+  3-1's optimal continuation — a 12,420-state argmax DAG, ~1.1 s of
+  extraction — and the executable bar rises 267‰ → 350‰ to meet the
+  proof bar. The recommendation switches from 4-4 (Phase 3's honest
+  fallback) to 3-1 under the extracted content id
+  (`profile:argmax-full-legal-5357…`), at certified regret zero. The
+  §30 gap Phase 3 priced is closed by exactly the §63 machinery the
+  parent said would close it.
+- **h8-t5: Γ 282‰ → 10‰.** Extraction lifts B_exec 717‰ → 989‰; the
+  10‰ residue is the winner's δ-tier upper (1000‰), not an executable
+  shortfall — upper-side work, not policy work.
+- **The vacuous winner-upper, on trace.** h4-t6 keeps Γ = 133‰ after
+  extraction with the action certain: RefineV1 settles on cross-action
+  dominance, so the winner's own upper stays 1000‰ and Γ honestly
+  refuses to reach zero until an upper fact prices it (gate 6 stage
+  two proves the §36 exact upper collapses it to 0).
+- **The residual proves where the grammar leaks.** h3-t4, two-source
+  grammar: ESCAPE on all four root actions (`m* = dev > gram`, e.g.
+  4047 > 3498 on 3-1) — trick-4 room is real and the residual finds
+  it, Slice E's trick-4 finding from the other side. At t5/t6 every
+  multi-source verdict is `empty-class`: post-root focal states hold
+  ≤ 2 tiles, so saturation makes the deviating class literally empty —
+  Slice E's "ties free everywhere at t5/t6" explained structurally.
+  The singleton grammar escapes at h8-t5 (71 > 64) and closes by tie
+  at h3-t5 (dev = gram = 200 = z: everything makes).
+- **Extraction is cheap where it matters.** Sub-millisecond DAGs at
+  t5/t6; ~0.5–1.1 s per action at h3-t4 (the response walk's own
+  price). Whole probe 29.2 s, dominated by the h3-t4 refine (9.7 s)
+  plus per-action extractions and the four t4 residual walks; no root
+  was dropped.
+
 ## Boundaries
 
 - Deterministic fields only; a stochastic field needs an explicit tape
@@ -446,8 +482,9 @@ the δ ledger).
   declared field (§47): no maximization. The Slice E recursion
   maximizes over GRAMMAR actions only (§48's fence): the full action
   set has no entry point, `free` figures come only from the Slice B
-  enumeration split, and no argmax or policy is extracted (that needs a
-  declared tie order — not a Slice E claim). Neither makes
+  enumeration split, and no argmax or policy is extracted THERE (the
+  declared-tie-order extraction is Phase 6's, on its own gates). Neither
+  makes
   play-strength claims: a grammar optimum under a modeled field is an
   evaluation subject, not a recommendation.
 - The Slice F loop refines at ONE hidden node (the one-ply contraction
@@ -466,6 +503,17 @@ the δ ledger).
   are the sampled optimization-lock bounds. The existing controller
   player remains the fallback surface; nothing here touches the
   default player.
+- Phase 6 extraction is AMPLE, not scheduled: the producer extracts
+  every root action unconditionally — §33 work-item selection (extract
+  only where the gap pays) is Phase 1's frontier. The extracted DAG is
+  rooted at its extraction belief: off-DAG queries complete by the
+  declared lowest-legal rule and the re-pricing equality is the
+  receipt that the completion never carries objective weight FROM THAT
+  ROOT — reuse from any other belief state is unmeasured and
+  unclaimed. Grammar-source extraction exists in the library and is
+  gated, but the shipped producer is full-legal only. Phase 4 envelope
+  cells and Phase 5 count-threat covers (bounding `D` without walking
+  it) are unbuilt; `residual_split` pays the full response-walk price.
 - The opening-root recursion is not attempted; only the opening-root
   ONE-PLY contraction is measured (the Slice C probes above, Slice F's
   refinement of the same contraction, and Slice G's Section D, where

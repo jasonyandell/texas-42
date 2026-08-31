@@ -173,6 +173,24 @@
 //! envelope of profiles is ever built here — a profile is the record of
 //! ONE policy (the §20 fence, binding at APS-A4).
 //!
+//! ARGMAX EXTRACTION (anytime proof-state §63, Phase 6): the Slice E
+//! sentence "the recursion returns the value, not an argmax" gets its
+//! promised sequel. [`extract_success_policy`] is the §48/§36 max
+//! recursion returning, beside the optimum, ONE policy attaining it —
+//! the argmax DAG under the declared lowest-tile-index tie rule, as a
+//! total [`SlicePolicy`] ([`ExtractedPolicy`]) the fixed-policy
+//! evaluators re-price unchanged. This is §30's bridge: a grammar or
+//! response optimum is proof-bar-only until its argmax policy is
+//! extracted and re-priced, and then it is executable. The §63
+//! residual Bellman is [`residual_split`]: the exact `(M*, D)` pair
+//! with `D` the best DEVIATING-class mass (off-grammar at ≥ 1
+//! reachable undecided focal state, empty class = `None` on Slice B's
+//! quotient), whose §12 cover identity `M* = max(M^G, D)` and closure
+//! implication `D ≤ M^G ⟹ M* = M^G` are gates. Score-gain and
+//! count-threat COVERS that would bound `D` without walking it are
+//! Phase 4/5 constructions and do not exist here — the exact residual
+//! is its own tightest cover in this slice.
+//!
 //! No belief cache exists at C0. When one arrives, its key must be the
 //! FULL §43 identity list carried by [`FactorBelief`] — a hit under an
 //! omitted coordinate is the PiKey defect reborn (CBS-A6).
@@ -186,6 +204,7 @@ use crate::solver::adaptive::{
     decided_success, root_identity, CanonicalRoot, PublicRecord, RootPosition, SlicePolicy,
 };
 use crate::solver::grammar::PolicyGrammar;
+use crate::solver::policy::content_digest;
 
 // ---------------------------------------------------------------------------
 // Hand factors (parent §18–19).
@@ -1229,6 +1248,357 @@ pub fn response_success_mass(
             mass = mass.checked_add(m).expect("an exact mass fits u128");
         }
         mass
+    }
+}
+
+// ---------------------------------------------------------------------------
+// The §63 argmax extraction (anytime proof-state Phase 6).
+// ---------------------------------------------------------------------------
+
+/// The focal action set a §63 extraction maximizes over: a declared
+/// grammar (the §48 fence — extraction of the exact `Q^G` optimum) or
+/// the full legal set (the §36 EscalateExact domain — extraction of
+/// the exact best response). The extracted policy's class identity
+/// travels with this choice through [`ExtractionSource::label`].
+pub enum ExtractionSource<'a> {
+    /// The full legal set at every focal state.
+    FullLegal,
+    /// A declared grammar's `G(I)` at every focal state.
+    Grammar(&'a PolicyGrammar<'a>),
+}
+
+impl ExtractionSource<'_> {
+    /// The class label the extracted policy's content id carries.
+    pub fn label(&self) -> String {
+        match self {
+            ExtractionSource::FullLegal => "full-legal".to_string(),
+            ExtractionSource::Grammar(g) => g.id().to_string(),
+        }
+    }
+
+    fn actions(
+        &self,
+        decl: Decl,
+        hand: DominoSet,
+        legal: DominoSet,
+        record: &PublicRecord<'_>,
+    ) -> DominoSet {
+        match self {
+            ExtractionSource::FullLegal => legal,
+            ExtractionSource::Grammar(g) => g.actions(decl, hand, legal, record),
+        }
+    }
+}
+
+/// The canonical key of one focal information state in an extraction
+/// walk: the post-root public history as tile indices. At a focal node
+/// the history IS the viewer's information state — the viewer sees
+/// every play, and its remaining hand is a function of root and
+/// history — so a history-keyed table is information-consistent by
+/// construction.
+fn history_key(history: &[Domino]) -> Vec<u8> {
+    history
+        .iter()
+        .map(|d| u8::try_from(d.index()).expect("a tile index fits u8"))
+        .collect()
+}
+
+/// A §63 extracted policy DAG: the argmax choice at every focal
+/// information state the extraction walk reached undecided, keyed by
+/// post-root history. Argmax ties break to the LOWEST tile index (the
+/// epoch's declared `TieRule::LowestTileIndex` vocabulary), realized
+/// by ascending `DominoSet` iteration with strictly-greater
+/// replacement. The DAG lives on the decided quotient (Slice B's
+/// class quotient, module doc): decided regions carry no choices
+/// because no choice there moves the objective. Off-DAG states —
+/// states unreachable under this policy from its extraction root, or
+/// inside a decided region — complete with the same declared rule's
+/// lowest legal tile, making the policy total, deterministic, and
+/// information-consistent everywhere; the §63 re-pricing gate (the
+/// extracted mass equals the recomputed fixed-policy mass) is the
+/// receipt that the completion never carries objective weight. The id
+/// is a content address over the choice table (`argmax-<class>-<hex>`),
+/// so the SERIALIZED policy is the choice table itself — one
+/// realizable policy, never a threshold-wise profile envelope (§20,
+/// APS-A4; the §63 fifth gate).
+pub struct ExtractedPolicy {
+    id: String,
+    choices: BTreeMap<Vec<u8>, Domino>,
+}
+
+impl ExtractedPolicy {
+    fn new(label: &str, choices: BTreeMap<Vec<u8>, Domino>) -> ExtractedPolicy {
+        // Canonical bytes: `key 0xff choice 0xfe` per entry in key
+        // order — tile indices are < 28, so the framing bytes cannot
+        // collide with content.
+        let mut bytes = Vec::new();
+        for (k, v) in &choices {
+            bytes.extend_from_slice(k);
+            bytes.push(0xff);
+            bytes.push(u8::try_from(v.index()).expect("a tile index fits u8"));
+            bytes.push(0xfe);
+        }
+        let digest = content_digest(&bytes);
+        let mut hex = String::new();
+        for b in &digest[..16] {
+            hex.push_str(&format!("{b:02x}"));
+        }
+        ExtractedPolicy {
+            id: format!("argmax-{label}-{hex}"),
+            choices,
+        }
+    }
+
+    /// Recorded focal states — the DAG's size.
+    pub fn states(&self) -> usize {
+        self.choices.len()
+    }
+
+    /// The recorded choice at one post-root history, when the state is
+    /// on the DAG.
+    pub fn choice_at(&self, history: &[Domino]) -> Option<Domino> {
+        self.choices.get(&history_key(history)).copied()
+    }
+}
+
+impl SlicePolicy for ExtractedPolicy {
+    fn id(&self) -> &str {
+        &self.id
+    }
+
+    fn choose(
+        &self,
+        _decl: Decl,
+        _hand: DominoSet,
+        legal: DominoSet,
+        record: &PublicRecord<'_>,
+    ) -> Domino {
+        if let Some(d) = self.choices.get(&history_key(record.history)) {
+            assert!(
+                legal.contains(*d),
+                "a recorded choice was legal at extraction and legality is a \
+                 function of the same public state and hand"
+            );
+            return *d;
+        }
+        // Off-DAG completion: the declared rule's lowest legal tile.
+        legal
+            .iter()
+            .next()
+            .expect("a seat to move holds a legal tile")
+    }
+}
+
+/// The recursive extraction walk: the §48/§36 max recursion returning,
+/// beside each subtree's optimal mass, the choice table of ONE optimal
+/// policy through it — the argmax child's table plus this node's own
+/// choice at focal nodes, the union of branch tables at hidden nodes
+/// (branches extend disjoint histories, asserted). Only the argmax
+/// child's subtree survives into the table, so the returned DAG is
+/// exactly the reachable-under-the-policy region.
+fn extract_walk(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    source: &ExtractionSource<'_>,
+    field: &dyn SlicePolicy,
+    stats: &mut ResponseStats,
+) -> (u128, BTreeMap<Vec<u8>, Domino>) {
+    let cursor = belief.cursor();
+    let viewer = belief.kernel.viewer();
+    let total = belief.kernel.viewer_hand().len()
+        + belief
+            .kernel
+            .hidden()
+            .iter()
+            .map(|h| h.capacity)
+            .sum::<usize>();
+    let at_terminal = belief.history.len() == total;
+    if let Some(u) = decided_success(&belief.position, viewer, cursor.banked, at_terminal) {
+        // Decided: the walk truncates (the Slice B quotient) — no
+        // choice below moves the objective, so the DAG records none.
+        if at_terminal {
+            stats.decided_terminal += 1;
+        } else {
+            stats.decided_early += 1;
+        }
+        return (if u { oracle.mass(belief) } else { 0 }, BTreeMap::new());
+    }
+    assert!(
+        belief.history.len() < total,
+        "the 42-point pool exhausts at terminal, so an undecided state has plays left"
+    );
+    if cursor.seat() == viewer {
+        stats.focal_nodes += 1;
+        let remaining = belief
+            .kernel
+            .viewer_hand()
+            .difference(cursor.played_by[viewer.index()]);
+        let led = cursor
+            .plays
+            .first()
+            .map(|d| belief.position.decl.led_context(*d));
+        let legal = legal_plays(belief.position.decl, remaining, led);
+        assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+        let record = cursor.record(&belief.position, &belief.history);
+        let actions = source.actions(belief.position.decl, remaining, legal, &record);
+        let mut best: Option<(u128, Domino, BTreeMap<Vec<u8>, Domino>)> = None;
+        for tile in actions.iter() {
+            stats.focal_actions += 1;
+            let (m, table) = extract_walk(oracle, &belief.focal_play(tile), source, field, stats);
+            // Strictly-greater replacement over ascending iteration:
+            // the declared lowest-tile-index tie rule.
+            let take = match &best {
+                None => true,
+                Some((b, _, _)) => m > *b,
+            };
+            if take {
+                best = Some((m, tile, table));
+            }
+        }
+        let (m, tile, mut table) =
+            best.expect("an action source holds an action at every focal state (§11)");
+        let prior = table.insert(history_key(&belief.history), tile);
+        assert!(prior.is_none(), "a history names one focal node");
+        (m, table)
+    } else {
+        stats.hidden_nodes += 1;
+        let mut mass: u128 = 0;
+        let mut table: BTreeMap<Vec<u8>, Domino> = BTreeMap::new();
+        for (tile, _) in oracle.branch_masses(belief, field) {
+            stats.conditionings += 1;
+            let child = oracle.condition(belief, tile, field);
+            let (m, sub) = extract_walk(oracle, &child, source, field, stats);
+            mass = mass.checked_add(m).expect("an exact mass fits u128");
+            for (k, v) in sub {
+                let prior = table.insert(k, v);
+                assert!(prior.is_none(), "hidden branches extend disjoint histories");
+            }
+        }
+        (mass, table)
+    }
+}
+
+/// The §63 extraction: the exact optimum of [`grammar_success_mass`] /
+/// [`response_success_mass`] (by [`ExtractionSource`]) TOGETHER with an
+/// executable policy attaining it — the argmax DAG under the declared
+/// lowest-tile-index tie rule, as a total [`SlicePolicy`] the
+/// fixed-policy evaluators ([`viewer_success_mass`],
+/// [`viewer_score_profile`]) re-price unchanged. Extraction is how a
+/// grammar or response optimum stops being proof-bar-only and enters
+/// the executable bar (§30: "It enters `B_exec` only after an argmax
+/// policy DAG is extracted and re-priced by the fixed-policy
+/// evaluator").
+pub fn extract_success_policy(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    source: &ExtractionSource<'_>,
+    field: &dyn SlicePolicy,
+    stats: &mut ResponseStats,
+) -> (u128, ExtractedPolicy) {
+    let (mass, table) = extract_walk(oracle, belief, source, field, stats);
+    (mass, ExtractedPolicy::new(&source.label(), table))
+}
+
+/// The §63 residual split: the exact pair `(M*, D)` of one belief
+/// state, where `M*` is the unrestricted best-response mass
+/// ([`response_success_mass`]'s value) and `D` is the best mass over
+/// the DEVIATING class — policies playing off-grammar at one or more
+/// reachable undecided focal states, on the Slice B decided quotient.
+/// `None` means the class is EMPTY (no reachable room to deviate) —
+/// never mass 0 (Slice B's `Option` discipline). The §12 cover
+/// identity `M* = max(M^G, D)` (with an empty class contributing
+/// nothing) is the §63 third gate; `D ≤ M^G` forcing `M* = M^G` — the
+/// residual upper at or below the grammar lower proving unrestricted
+/// closure — is the fourth.
+///
+/// Focal case: deviate NOW (an off-grammar action, then unrestricted
+/// continuation `M*`) or conform now and deviate later (`D` of an
+/// in-grammar child). Hidden case: branches are disjoint information
+/// states, so a policy deviates by deviating in AT LEAST ONE branch —
+/// the best deviating total keeps `M*` everywhere except the single
+/// deviation-capable branch where the downgrade `M* − D` is cheapest.
+pub fn residual_split(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    grammar: &PolicyGrammar<'_>,
+    field: &dyn SlicePolicy,
+    stats: &mut ResponseStats,
+) -> (u128, Option<u128>) {
+    let cursor = belief.cursor();
+    let viewer = belief.kernel.viewer();
+    let total = belief.kernel.viewer_hand().len()
+        + belief
+            .kernel
+            .hidden()
+            .iter()
+            .map(|h| h.capacity)
+            .sum::<usize>();
+    let at_terminal = belief.history.len() == total;
+    if let Some(u) = decided_success(&belief.position, viewer, cursor.banked, at_terminal) {
+        // Decided: the walk truncates, so the subtree holds no
+        // reachable undecided focal state — the deviating class below
+        // is empty.
+        if at_terminal {
+            stats.decided_terminal += 1;
+        } else {
+            stats.decided_early += 1;
+        }
+        return (if u { oracle.mass(belief) } else { 0 }, None);
+    }
+    assert!(
+        belief.history.len() < total,
+        "the 42-point pool exhausts at terminal, so an undecided state has plays left"
+    );
+    if cursor.seat() == viewer {
+        stats.focal_nodes += 1;
+        let remaining = belief
+            .kernel
+            .viewer_hand()
+            .difference(cursor.played_by[viewer.index()]);
+        let led = cursor
+            .plays
+            .first()
+            .map(|d| belief.position.decl.led_context(*d));
+        let legal = legal_plays(belief.position.decl, remaining, led);
+        assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+        let record = cursor.record(&belief.position, &belief.history);
+        let in_grammar = grammar.actions(belief.position.decl, remaining, legal, &record);
+        let mut m_star: Option<u128> = None;
+        let mut dev: Option<u128> = None;
+        for tile in legal.iter() {
+            stats.focal_actions += 1;
+            let (m, d) = residual_split(oracle, &belief.focal_play(tile), grammar, field, stats);
+            m_star = Some(m_star.map_or(m, |b| b.max(m)));
+            let contribution = if in_grammar.contains(tile) {
+                d
+            } else {
+                Some(m)
+            };
+            if let Some(c) = contribution {
+                dev = Some(dev.map_or(c, |b| b.max(c)));
+            }
+        }
+        let m = m_star.expect("a legal set holds an action");
+        if let Some(d) = dev {
+            assert!(d <= m, "the deviating class is a subclass");
+        }
+        (m, dev)
+    } else {
+        stats.hidden_nodes += 1;
+        let mut m_total: u128 = 0;
+        // min over deviation-capable branches of the downgrade M* − D.
+        let mut cheapest: Option<u128> = None;
+        for (tile, _) in oracle.branch_masses(belief, field) {
+            stats.conditionings += 1;
+            let child = oracle.condition(belief, tile, field);
+            let (m, d) = residual_split(oracle, &child, grammar, field, stats);
+            m_total = m_total.checked_add(m).expect("an exact mass fits u128");
+            if let Some(db) = d {
+                let downgrade = m - db;
+                cheapest = Some(cheapest.map_or(downgrade, |b| b.min(downgrade)));
+            }
+        }
+        (m_total, cheapest.map(|c| m_total - c))
     }
 }
 
