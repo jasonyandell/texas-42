@@ -1,16 +1,17 @@
-//! `solver::factor_belief` — the counted-belief Slices C, D and E: the
+//! `solver::factor_belief` — the counted-belief Slices C through F: the
 //! seat-factored belief, the exact-cover contraction interface, backend
 //! zero (the shipped `FiberDp` wrapped for 0/1 factors — stage C0), the
 //! general support contraction ([`SupportOracle`] — Slice D), the §23
-//! factorized fixed-policy recursion ([`viewer_success_mass`]), and the
+//! factorized fixed-policy recursion ([`viewer_success_mass`]), the
 //! §48 factorized grammar best response ([`grammar_success_mass`] —
-//! Slice E).
+//! Slice E), and the §49 consequence-CEGAR hand-class instrument
+//! ([`refine_to_action_exact`] — Slice F).
 //!
 //! EXPLORATORY tier. Mathematical source:
-//! `walt/math/counted_belief_sandwich_v0.1.md` Parts V–VI (§18–26, §43,
-//! §46 stage C0, §47 Slice D, §48 Slice E, §23), adopted by rulings
-//! CBS-A6 and CBS-A9 (`walt/CENSUS-RULINGS.md`); design register
-//! `walt/FACTOR-BELIEF.md`; intake companion
+//! `walt/math/counted_belief_sandwich_v0.1.md` Parts V–VII (§18–26, §43,
+//! §46 stage C0, §47 Slice D, §48 Slice E, §49 Slice F with §27–31, §23),
+//! adopted by rulings CBS-A6 and CBS-A9 (`walt/CENSUS-RULINGS.md`);
+//! design register `walt/FACTOR-BELIEF.md`; intake companion
 //! `walt/math/counted_belief_sandwich_v0.1_intake.md`.
 //!
 //! The objects (parent §18–21): a **hand factor** is one hidden seat's
@@ -107,6 +108,33 @@
 //! argmax — extracting an optimal grammar policy needs a declared tie
 //! order and is not a Slice E claim.
 //!
+//! SLICE F (§49, §27–31): [`refine_to_action_exact`] instruments hand
+//! classes at the field-classification bottleneck — the per-hand
+//! `field.choose` loop inside every contraction, measured at 99% of the
+//! opening-root bill (stage C2). A [`ClassSignature`] is §28's feature
+//! map `κ` on the acting seat's REMAINING hands with §49's starting
+//! vocabulary (critical tile membership, trump count and highest trump,
+//! led-suit count, count-tile possession, current-winner and ruff
+//! possibility), parameterized by the §31 critical tile set. The CEGAR
+//! loop is §30 verbatim: partition the support, aggregate action-uniform
+//! classes exactly, and for the largest-mass non-uniform class produce a
+//! WITNESS PAIR — two same-class hands with different field actions —
+//! whose lowest differing tile enters the critical set (every refinement
+//! carries its witness, §49's requirement). Theorem 30.1 is the safety
+//! law the gates assert: per-branch mass intervals `[L_t, U_t]` (exact
+//! classes below, exact plus action-bounded residual above) NEST as the
+//! critical set grows, residual class mass falls monotonically to zero,
+//! and the fully refined endpoint reproduces the exact contraction —
+//! completeness because two distinct hands in one class always differ in
+//! a tile outside the critical set. WHAT THIS SLICE IS NOT: the
+//! instrument pays one classification per support hand — the same bill
+//! as `branch_masses` — to measure what an action-exact class verifier
+//! WOULD make aggregatable; §49 measures residual class mass and root
+//! interval impact, never classifier accuracy, and nothing here is a
+//! faster classifier. A verifier that certifies action-exactness
+//! without per-hand classification is a later construction (§29's
+//! verifier vocabulary is its interface).
+//!
 //! Deviations from the `walt/FACTOR-BELIEF.md` trait sketch, under L2-A3's
 //! naming latitude, recorded here and in the register:
 //! - `branch_masses`/`condition` take no seat argument — the acting seat
@@ -114,17 +142,20 @@
 //!   authority twice;
 //! - masses are `u128` with checked arithmetic (the kernel's own counting
 //!   width; the trick-1 partition function is < 2^64), not `BigUint`;
-//! - `count_cell` is deferred to the slice that gives Part IV cell
-//!   predicates a concrete type (Slice F); `marginal` covers the one-seat
-//!   case exactly.
+//! - `count_cell` stays deferred: Slice F's hand class turned out to be
+//!   a ONE-seat predicate — `marginal` counts it exactly — while Part
+//!   IV's multi-seat structural cells still have no consumer; the slice
+//!   that first needs a cross-seat cell mass gives them their type.
 //!
 //! No belief cache exists at C0. When one arrives, its key must be the
 //! FULL §43 identity list carried by [`FactorBelief`] — a hit under an
 //! omitted coordinate is the PiKey defect reborn (CBS-A6).
 
+use std::collections::BTreeMap;
+
 use crate::kernel::fiber::binomial;
 use crate::kernel::{FiberDp, Kernel, HIDDEN_SEATS};
-use crate::rules::{legal_plays, Domino, DominoSet, Seat, Trick};
+use crate::rules::{legal_plays, Context, Decl, Domino, DominoSet, Seat, Trick};
 use crate::solver::adaptive::{
     decided_success, root_identity, CanonicalRoot, PublicRecord, RootPosition, SlicePolicy,
 };
@@ -1098,5 +1129,341 @@ impl ExactCoverOracle for SupportOracle {
         predicate: &dyn Fn(DominoSet) -> bool,
     ) -> u128 {
         marginal_via(self, belief, seat, predicate)
+    }
+}
+
+// ---------------------------------------------------------------------------
+// The §49 consequence CEGAR (Slice F, §27–31).
+// ---------------------------------------------------------------------------
+
+/// §28's feature map `κ` evaluated on one remaining hand at one public
+/// state, with §49's starting vocabulary plus the §31 critical-set
+/// coordinate. Two hands share a class exactly when their signatures are
+/// equal; the derived `Ord` gives the partition a deterministic order.
+/// The names do not make a class exact (§28) — exactness is decided by
+/// the verifier loop below, never by the vocabulary.
+#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
+pub struct ClassSignature {
+    /// `remaining ∩ critical`, as the set's bit representation — the §31
+    /// coordinate that CEGAR grows. Empty until a witness demands a tile.
+    critical_bits: u32,
+    /// Remaining called (trump) tiles.
+    trump_count: u8,
+    /// Highest declaration-relative rank among remaining called tiles.
+    highest_trump: Option<u8>,
+    /// Remaining tiles that follow the led effective context; 0 leading.
+    led_count: u8,
+    /// Count pips held (the sum of `count()` labels over the remaining
+    /// hand — count-tile possession as one exact coordinate).
+    count_pips: u8,
+    /// Some legal tile strictly beats the current trick's best key
+    /// (current-winner possibility; false when leading — no winner yet).
+    can_beat: bool,
+    /// Void in the led natural context while holding a called tile (ruff
+    /// possibility; false when leading or when the called suit was led).
+    can_ruff: bool,
+}
+
+/// Evaluate `κ` on one remaining hand. Public data plus the seat's own
+/// hand only — the same purity boundary as a field read: `trick_plays`
+/// are the current trick's plays in actor order (empty when the seat
+/// leads).
+pub fn class_signature(
+    decl: Decl,
+    remaining: DominoSet,
+    trick_plays: &[Domino],
+    critical: DominoSet,
+) -> ClassSignature {
+    let led = trick_plays.first().map(|d| decl.led_context(*d));
+    let legal = legal_plays(decl, remaining, led);
+    assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+    let trump = remaining.intersection(decl.called_set());
+    let (led_count, can_beat, can_ruff) = match led {
+        None => (0u8, false, false),
+        Some(q) => {
+            let followers = remaining.intersection(decl.effective_incidence(q));
+            let best = trick_plays
+                .iter()
+                .map(|d| decl.trick_key(*d, q))
+                .max()
+                .expect("a led trick has a play");
+            let beat = legal.iter().any(|t| decl.trick_key(t, q) > best);
+            let ruff =
+                followers.is_empty() && !trump.is_empty() && matches!(q, Context::Natural(_));
+            (
+                u8::try_from(followers.len()).expect("a hand holds at most 7 tiles"),
+                beat,
+                ruff,
+            )
+        }
+    };
+    ClassSignature {
+        critical_bits: remaining.intersection(critical).bits(),
+        trump_count: u8::try_from(trump.len()).expect("a hand holds at most 7 tiles"),
+        highest_trump: trump.iter().map(|d| decl.rank(d).value()).max(),
+        led_count,
+        count_pips: u8::try_from(remaining.iter().map(|d| d.count()).sum::<u32>())
+            .expect("count pips total 35"),
+        can_beat,
+        can_ruff,
+    }
+}
+
+/// One §30 refinement, witness attached (§49: every refinement carries
+/// one): a class that failed action-uniformity, two of its hands proving
+/// the failure, and the discriminator tile — the lowest-index tile the
+/// two hands disagree on — that enters the §31 critical set. Hands here
+/// are REMAINING hands (the domain `κ` classifies).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct RefinementWitness {
+    /// The signature of the class that split, under the critical set of
+    /// its stage.
+    pub signature: ClassSignature,
+    pub left_hand: DominoSet,
+    pub left_action: Domino,
+    pub right_hand: DominoSet,
+    pub right_action: Domino,
+    /// The tile that separates the pair. Same-class hands agree on every
+    /// critical tile, so a differing tile is provably fresh.
+    pub discriminator: Domino,
+}
+
+/// One abstraction stage's census — §49's measurements at one critical
+/// set. `branch_intervals` is the root-interval impact: per branch tile,
+/// the exact lower mass `L_t` (action-uniform classes choosing `t`) and
+/// the action-bounded upper `U_t` (plus every unresolved class whose
+/// observed action set contains `t`). Theorem 30.1 is the gates'
+/// monotonicity of exactly these fields across stages.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct AbstractionStage {
+    /// The §31 critical tile set this stage partitioned under.
+    pub critical: DominoSet,
+    /// Classes with positive support mass.
+    pub classes: u64,
+    /// Classes whose field action is uniform over their support.
+    pub exact_classes: u64,
+    /// Mass in action-uniform classes.
+    pub exact_mass: u128,
+    /// Mass in classes still awaiting a refinement — §49's residual
+    /// class mass. `exact_mass + residual_mass = Z` at every stage.
+    pub residual_mass: u128,
+    /// Per branch tile `(t, L_t, U_t)`, sorted by tile index.
+    pub branch_intervals: Vec<(Domino, u128, u128)>,
+}
+
+/// The full refinement record: every stage from the bare §49 vocabulary
+/// (stage 0, empty critical set) to the action-exact endpoint, the
+/// witness chain that drove it, and the endpoint's per-branch masses
+/// (equal to the exact contraction — gated).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct CegarOutcome {
+    /// Support hands classified (the instrument's ground-truth bill —
+    /// identical to one `branch_masses` pass).
+    pub hands: u64,
+    pub stages: Vec<AbstractionStage>,
+    /// One witness per refinement: `witnesses.len() + 1 == stages.len()`.
+    pub witnesses: Vec<RefinementWitness>,
+    /// The endpoint's exact per-tile masses.
+    pub branch_masses: Vec<(Domino, u128)>,
+}
+
+/// The §30 counterexample-guided refinement loop at one hidden node, run
+/// to the action-exact endpoint. Ground truth is one field
+/// classification per support hand (the same walk, and the same bill, as
+/// [`ExactCoverOracle::branch_masses`]); the loop then partitions by
+/// [`class_signature`], aggregates uniform classes, and splits the
+/// largest-mass non-uniform class by a witnessed discriminator until the
+/// residual is zero. Terminates in at most 28 refinements: every
+/// refinement adds a fresh tile to the critical set, and under the full
+/// tile set classes are singleton remaining hands (§30's completeness).
+///
+/// This is an INSTRUMENT (§49): it measures how much posterior mass a
+/// small exact vocabulary concentrates in action-exact classes and what
+/// interval the residual leaves on the branch masses — never a cheaper
+/// classifier. Deterministic throughout: support order, `BTreeMap`
+/// partition order, strict-improvement class selection, lowest-index
+/// discriminator.
+pub fn refine_to_action_exact(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    field: &dyn SlicePolicy,
+) -> CegarOutcome {
+    assert_eq!(
+        field.id(),
+        belief.field_id,
+        "one field identity governs a belief's classifications (§43)"
+    );
+    let cursor = belief.cursor();
+    let seat = cursor.seat();
+    assert_ne!(
+        seat,
+        belief.kernel.viewer(),
+        "hand classes are a hidden seat's (§28)"
+    );
+    let decl = belief.position.decl;
+    let played = cursor.played_by[seat.index()];
+    let trick_plays = cursor.plays.clone();
+    // Ground truth, once per support hand. `κ` classifies remaining
+    // hands: the played prefix is constant across the support, so the
+    // remaining hand determines the action given the public record.
+    let hands: Vec<(DominoSet, u128, Domino)> = oracle
+        .actor_completion_weights(belief, seat)
+        .into_iter()
+        .map(|(hand, weight)| {
+            let action = field_action(belief, &cursor, hand, field);
+            (hand.difference(played), weight, action)
+        })
+        .collect();
+    assert!(!hands.is_empty(), "a hidden seat to move has support");
+    let z = oracle.mass(belief);
+
+    struct ClassAcc {
+        mass: u128,
+        members: Vec<usize>,
+        actions: DominoSet,
+    }
+
+    let mut critical = DominoSet::EMPTY;
+    let mut stages: Vec<AbstractionStage> = Vec::new();
+    let mut witnesses: Vec<RefinementWitness> = Vec::new();
+    loop {
+        let mut classes: BTreeMap<ClassSignature, ClassAcc> = BTreeMap::new();
+        for (i, (remaining, weight, action)) in hands.iter().enumerate() {
+            let sig = class_signature(decl, *remaining, &trick_plays, critical);
+            let acc = classes.entry(sig).or_insert(ClassAcc {
+                mass: 0,
+                members: Vec::new(),
+                actions: DominoSet::EMPTY,
+            });
+            acc.mass = acc
+                .mass
+                .checked_add(*weight)
+                .expect("an exact mass fits u128");
+            acc.members.push(i);
+            acc.actions.insert(*action);
+        }
+        // The stage census (§49's measurements at this critical set).
+        let mut exact_classes: u64 = 0;
+        let mut exact_mass: u128 = 0;
+        let mut residual_mass: u128 = 0;
+        let mut tiles = DominoSet::EMPTY;
+        for acc in classes.values() {
+            tiles = tiles.union(acc.actions);
+            if acc.actions.len() == 1 {
+                exact_classes += 1;
+                exact_mass = exact_mass
+                    .checked_add(acc.mass)
+                    .expect("an exact mass fits u128");
+            } else {
+                residual_mass = residual_mass
+                    .checked_add(acc.mass)
+                    .expect("an exact mass fits u128");
+            }
+        }
+        assert_eq!(
+            exact_mass
+                .checked_add(residual_mass)
+                .expect("an exact mass fits u128"),
+            z,
+            "the classes partition the belief mass"
+        );
+        let branch_intervals: Vec<(Domino, u128, u128)> = tiles
+            .iter()
+            .map(|t| {
+                let mut lower: u128 = 0;
+                let mut upper: u128 = 0;
+                for acc in classes.values() {
+                    if !acc.actions.contains(t) {
+                        continue;
+                    }
+                    upper = upper
+                        .checked_add(acc.mass)
+                        .expect("an exact mass fits u128");
+                    if acc.actions.len() == 1 {
+                        lower = lower
+                            .checked_add(acc.mass)
+                            .expect("an exact mass fits u128");
+                    }
+                }
+                (t, lower, upper)
+            })
+            .collect();
+        stages.push(AbstractionStage {
+            critical,
+            classes: u64::try_from(classes.len()).expect("a class count fits u64"),
+            exact_classes,
+            exact_mass,
+            residual_mass,
+            branch_intervals,
+        });
+        // §30 steps 3–5 on the largest-mass unresolved class (§33 step
+        // 10's decision-impact order, mass as the exact proxy; ties fall
+        // to the smallest signature by strict improvement over the
+        // BTreeMap's deterministic order).
+        let split = classes
+            .iter()
+            .filter(|(_, acc)| acc.actions.len() > 1)
+            .fold(
+                None::<(&ClassSignature, &ClassAcc)>,
+                |best, (sig, acc)| match best {
+                    Some((_, b)) if b.mass >= acc.mass => best,
+                    _ => Some((sig, acc)),
+                },
+            );
+        let Some((sig, acc)) = split else {
+            break;
+        };
+        let first = acc.members[0];
+        let (left_hand, _, left_action) = hands[first];
+        let differing = acc
+            .members
+            .iter()
+            .copied()
+            .find(|&j| hands[j].2 != left_action)
+            .expect("a non-uniform class holds a differing pair");
+        let (right_hand, _, right_action) = hands[differing];
+        let disagreement = left_hand
+            .difference(right_hand)
+            .union(right_hand.difference(left_hand));
+        let discriminator = disagreement
+            .iter()
+            .next()
+            .expect("distinct remaining hands differ in a tile");
+        // Same class ⇒ equal critical_bits ⇒ agreement on every critical
+        // tile, so the discriminator is provably fresh and the loop
+        // terminates within the 28-tile alphabet.
+        assert!(
+            !critical.contains(discriminator),
+            "a witnessed discriminator is outside the critical set"
+        );
+        witnesses.push(RefinementWitness {
+            signature: *sig,
+            left_hand,
+            left_action,
+            right_hand,
+            right_action,
+            discriminator,
+        });
+        critical.insert(discriminator);
+    }
+    let last = stages.last().expect("the loop records at least one stage");
+    assert_eq!(last.residual_mass, 0, "the endpoint is action-exact");
+    let branch_masses: Vec<(Domino, u128)> = last
+        .branch_intervals
+        .iter()
+        .map(|(t, lower, upper)| {
+            assert_eq!(lower, upper, "an exact endpoint has point intervals");
+            (*t, *lower)
+        })
+        .collect();
+    let total: u128 = branch_masses.iter().fold(0u128, |a, (_, m)| {
+        a.checked_add(*m).expect("an exact mass fits u128")
+    });
+    assert_eq!(total, z, "mass conservation: Z_h = Σ_t Z_ht");
+    CegarOutcome {
+        hands: u64::try_from(hands.len()).expect("a hand count fits u64"),
+        stages,
+        witnesses,
+        branch_masses,
     }
 }

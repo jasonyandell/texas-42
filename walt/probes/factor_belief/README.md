@@ -1,17 +1,19 @@
-# factor_belief — the Slice C (stages C0–C2), Slice D and Slice E probes
+# factor_belief — the Slice C (stages C0–C2), D, E and F probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
 adds it to a verifier receipt.
 
 Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C),
-`walt/walt/src/bin/factorrecursion.rs` (Slice D) and
-`walt/walt/src/bin/factorresponse.rs` (Slice E). Gates (the CI-checked
+`walt/walt/src/bin/factorrecursion.rs` (Slice D),
+`walt/walt/src/bin/factorresponse.rs` (Slice E) and
+`walt/walt/src/bin/factorcegar.rs` (Slice F). Gates (the CI-checked
 part): `walt/walt/tests/solver_factor_belief.rs`,
-`walt/walt/tests/solver_factor_recursion.rs` and
-`walt/walt/tests/solver_factor_response.rs`. Mathematical source:
-`walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–26, §46
-stages C0–C2, §47 Slice D, §48 Slice E, rulings
+`walt/walt/tests/solver_factor_recursion.rs`,
+`walt/walt/tests/solver_factor_response.rs` and
+`walt/walt/tests/solver_factor_consequence.rs`. Mathematical source:
+`walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31, §46
+stages C0–C2, §47 Slice D, §48 Slice E, §49 Slice F, rulings
 CBS-A4/CBS-A6/CBS-A9.
 
 ## What it measures
@@ -257,6 +259,54 @@ every-node checker with the grammar max structure enumerated).
   the walk is the C1 within-history law, unchanged; compressing the
   classifier stays Slice F's problem.
 
+## cegar_run1.txt readings (2026-08-30) — the Slice F probe
+
+`factorcegar report` — the §49 consequence CEGAR at the
+field-classification bottleneck (`refine_to_action_exact`: §28 hand
+classes under the starting vocabulary, §30 witness-pair refinement to
+the action-exact endpoint), gated in CI by
+`solver_factor_consequence.rs` (4 gates: Theorem 30.1's monotone
+narrowing with nested per-branch intervals, endpoint parity with
+`branch_masses`, the witness requirement re-derived independently, and
+non-vacuity of vocabulary/aggregation/refinement).
+
+- **Mass concentrates fast — the §51 success signal.** At the opening
+  root under σ0 (116,280 hands, 399,072,960 worlds), 513‰ of the
+  posterior mass sits in action-exact classes at just 5,387 classes
+  (21 hands/class), 805‰ at 36,923 classes (3 hands/class): a few
+  exact features DO determine the modeled mind's action for most of
+  the mass. The refinement machinery itself is cheap — the 16-stage
+  loop costs 183 ms of pure partition arithmetic against the 5.4 s
+  classification bill it instruments.
+- **The tail fragments — the §51 falsifier for the last slice of
+  mass.** Driving residual class mass to ZERO under σ0 costs full
+  fragmentation: 116,280 singleton classes after 15 refinements (the
+  critical set reaches 15 of 21 pool tiles). Under a SAMPLED modeled
+  mind the action's tail structure is the sampler's, not the hand's —
+  the trivial-field endpoints on the same roots DO aggregate (255/495,
+  56/126, 246/330, 147/495 at trick 4), so the fragmentation is a
+  property of σ0's sampling, not of the vocabulary. §49's measurement
+  discipline ("residual class mass and root interval impact, not
+  classifier accuracy") is thereby vindicated as DESIGN guidance:
+  carry small residual as per-branch intervals; don't chase the
+  action-exact endpoint.
+- **Root-interval impact is the usable dial.** The per-branch interval
+  `[L_t, U_t]` narrows from a max width of 828‰ of Z (bare vocabulary)
+  to 81‰ at 36,923 classes and 32‰ at 70,829 — every stage's widths
+  are gated to nest, so a budgeted stop at ANY stage yields sound
+  branch-mass intervals.
+- **Every refinement carries its witness.** All recorded refinements
+  (0–15 per root) name two same-class hands, their differing field
+  actions (re-derived through the field itself in the gates), and the
+  discriminator tile that entered the §31 critical set — at trick-4
+  roots the witnessed critical tiles are recognizably consequential
+  (e.g. h12-t4: 1-1 3-1 3-2 3-3 under both fields).
+- **What the instrument does not claim.** It pays one field
+  classification per support hand — the same bill as `branch_masses` —
+  so it measures REPRESENTATIONAL structure (how few classes an §29
+  action-exact class verifier would face), never a faster classifier;
+  no such verifier is built here.
+
 ## Boundaries
 
 - Deterministic fields only; a stochastic field needs an explicit tape
@@ -273,5 +323,13 @@ every-node checker with the grammar max structure enumerated).
   declared tie order — not a Slice E claim). Neither makes
   play-strength claims: a grammar optimum under a modeled field is an
   evaluation subject, not a recommendation.
+- The Slice F loop refines at ONE hidden node (the one-ply contraction
+  after the fixed focal play): no cross-node or cross-history class
+  transfer is measured or claimed — a signature that is action-exact at
+  one public state must be re-verified at any other (the C1 identity
+  law, unweakened). No class verifier exists: exactness is established
+  by classifying every member hand, and the §29 verifier interface is
+  named, not built.
 - The opening-root recursion is not attempted; only the opening-root
-  ONE-PLY contraction is measured (the Slice C probes above).
+  ONE-PLY contraction is measured (the Slice C probes above, and Slice
+  F's refinement of the same contraction).

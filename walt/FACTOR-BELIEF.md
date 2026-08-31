@@ -1,8 +1,42 @@
-# FACTOR-BELIEF — the Slice C/D/E design skeleton (specify, do not optimize)
+# FACTOR-BELIEF — the Slice C–F design skeleton (specify, do not optimize)
 
-**Status:** SLICES C (COMPLETE), D AND E LANDED (2026-08-30). Slice E
-(§48) is the factorized grammar best response `grammar_success_mass` in
-`solver/factor_belief.rs`: the §23 recursion with the focal case's
+**Status:** SLICES C (COMPLETE), D, E AND F LANDED (2026-08-30). Slice F
+(§49, §27–31) is the consequence-CEGAR hand-class instrument
+`refine_to_action_exact` in `solver/factor_belief.rs`: §28's feature map
+`κ` (`ClassSignature` — the §49 starting vocabulary of critical tile
+membership, trump count/highest trump, led-suit count, count-tile
+possession, current-winner/ruff possibility) partitions the acting
+seat's support at the field-classification bottleneck, and the §30 loop
+aggregates action-uniform classes exactly while splitting the
+largest-mass non-uniform class by a WITNESS PAIR — two same-class hands
+with different field actions, their lowest differing tile entering the
+§31 critical set — until residual class mass is zero (termination ≤ 28
+refinements: a witnessed discriminator is provably outside the critical
+set). Gated by `walt/walt/tests/solver_factor_consequence.rs` (4 gates:
+Theorem 30.1's monotone narrowing with NESTED per-branch intervals
+`[L_t, U_t]` and an action-exact endpoint; endpoint parity — the fully
+refined abstraction reproduces `branch_masses` tile for tile; §49's
+witness requirement re-derived independently, the field itself
+re-consulted on hand-built records; and non-vacuity — the bare
+vocabulary resolves positive mass, classes aggregate, the loop fires).
+Probe: `factorcegar report` — the two-sided finding is that MASS
+CONCENTRATES BUT THE TAIL FRAGMENTS: at the opening root under σ0,
+805‰ of the 399,072,960-world posterior mass sits in action-exact
+classes at 36,923 classes (3 hands/class; 513‰ already at 5,387
+classes, 21 hands/class), but driving residual to ZERO costs full
+fragmentation — 116,280 singleton classes, §51's falsifier for the last
+slice of mass under a SAMPLED modeled mind — which vindicates §49's
+interval discipline (carry small residual as branch intervals; don't
+chase the endpoint). The instrument pays one classification per support
+hand (the same bill as `branch_masses`) and claims representational
+structure only, never a faster classifier; the trivial-field endpoints
+DO aggregate (255/495, 56/126, 147/495 at trick 4), so the tail
+fragmentation is a property of σ0's sampling, not of the vocabulary.
+EXPLORATORY tier.
+
+**Slice E** (landed the same day, an earlier round) —
+Slice E (§48) is the factorized grammar best response
+`grammar_success_mass` in `solver/factor_belief.rs`: the §23 recursion with the focal case's
 frozen action replaced by a max over the grammar's actions —
 `M^G(B) = max_{t ∈ G(I)} M^G(B·t)`, lawful on the cleared side because
 every focal child shares `Z(B)`, so the max of masses is the max of
@@ -104,17 +138,20 @@ latitude (module docs carry the same list): `branch_masses`/`condition`
 take no seat argument — the acting seat is the derived view
 `seat_to_move()`, and passing it would store one authority twice;
 masses are `u128` with checked arithmetic (the kernel's counting
-width), not `BigUint`; `count_cell` is deferred to the slice that gives
-Part IV cell predicates a concrete type (Slice F), with `marginal`
-covering the one-seat case. The C1 cache study is done — its §26
+width), not `BigUint`; `count_cell` stays deferred — Slice F's hand
+class turned out to be a ONE-seat predicate, which `marginal` counts
+exactly, while Part IV's multi-seat structural cells still have no
+consumer (the slice that first needs a cross-seat cell mass gives them
+their type). The C1 cache study is done — its §26
 coordinates live in the probe README, and its finding is that
 within-history reuse is total while cross-history reuse is zero by the
 identity law. Slice C is complete (the C2 report discharges the §46
-coordinates), and Slices D and E are landed (see Status); the next
-construction on the ladder is Slice F — consequence CEGAR (§49), the
-declared home of classifier compression (hand classes instrumented at
-the field-classification bottleneck, witness pairs required for every
-refinement).
+coordinates), and Slices D, E and F are landed (see Status); the next
+construction on the ladder is Slice G — the §50 integrated refinement
+controller, which unifies the root intervals, grammar/residual regions,
+factorized contractions, and consequence-cell bounds this file's slices
+built (the existing controller player remains the fallback surface
+until arena and conformance gates authorize a default change).
 
 ## The objects (parent §18–21)
 
