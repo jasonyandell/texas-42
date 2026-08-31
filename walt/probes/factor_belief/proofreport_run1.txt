@@ -1,0 +1,43 @@
+recommendation-report instrument (anytime proof-state Phase 3, §33/APS-A7)
+field=Level0{n0=2} oracle=SupportOracle; facts = RefineV1 two-tier ample
+(prefix=16 delta=1/20 scope=1/2) + lowest-first continuation profiles for up
+to three legal root actions. Γ = U* − B_exec is the certified pmake regret of
+the recommended EXECUTABLE policy under the declared semantics.
+
+-- h12-t6 bid=30 viewer=declaring survivors=[4-4 6-0] wall=17185 µs
+   recommended action=4-4 policy=profile:lowest-first-after-root-action
+   pmake floor 0‰  global upper 0‰  CERTIFIED REGRET 0‰  proof=deterministic
+   score floor 20 ceiling 20; declaring fragile(d=1) 0‰ rescue(d=1) 0‰
+   risk scopes: none
+-- h10-t6 bid=30 viewer=declaring survivors=[2-2 3-3] wall=36390 µs
+   recommended action=2-2 policy=refine-v1:exact-policy:focal:lowest-first
+   pmake floor 1000‰  global upper 1000‰  CERTIFIED REGRET 0‰  proof=deterministic
+   score coordinates: none (bound-fact witness)
+   risk scopes: none
+-- h5-t6 bid=30 viewer=declaring survivors=[4-1 5-2] wall=38135 µs
+   recommended action=4-1 policy=profile:lowest-first-after-root-action
+   pmake floor 444‰  global upper 444‰  CERTIFIED REGRET 0‰  proof=deterministic
+   score floor 19 ceiling 36; declaring fragile(d=1) 222‰ rescue(d=1) 0‰
+   risk scopes: none
+-- h4-t6 bid=30 viewer=setting survivors=[1-1] wall=30389 µs
+   recommended action=1-1 policy=profile:lowest-first-after-root-action
+   pmake floor 866‰  global upper 1000‰  CERTIFIED REGRET 133‰  proof=deterministic
+   score floor 29 ceiling 40; declaring fragile(d=1) 0‰ rescue(d=1) 866‰
+   risk scopes: 3 sampled scopes present
+-- h8-t5 bid=30 viewer=declaring survivors=[5-3] wall=136600 µs
+   recommended action=5-3 policy=profile:lowest-first-after-root-action
+   pmake floor 717‰  global upper 1000‰  CERTIFIED REGRET 282‰  proof=deterministic
+   score floor 14 ceiling 41; declaring fragile(d=1) 195‰ rescue(d=1) 21‰
+   risk scopes: 3 sampled scopes present
+-- h3-t5 bid=30 viewer=declaring survivors=[4-0 5-0 6-6] wall=322953 µs
+   recommended action=4-0 policy=refine-v1:exact-policy:focal:lowest-first
+   pmake floor 1000‰  global upper 1000‰  CERTIFIED REGRET 0‰  proof=deterministic
+   score coordinates: none (bound-fact witness)
+   risk scopes: none
+-- h3-t4 bid=30 viewer=declaring survivors=[3-1] wall=13350502 µs
+   recommended action=4-4 policy=profile:lowest-first-after-root-action
+   pmake floor 267‰  global upper 350‰  CERTIFIED REGRET 83‰  proof=deterministic
+   score floor 3 ceiling 42; declaring fragile(d=1) 59‰ rescue(d=1) 0‰
+   risk scopes: none
+
+no root was dropped: all seven roots ran to completion.

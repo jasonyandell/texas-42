@@ -8,19 +8,22 @@ Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C),
 `walt/walt/src/bin/factorrecursion.rs` (Slice D),
 `walt/walt/src/bin/factorresponse.rs` (Slice E),
 `walt/walt/src/bin/factorcegar.rs` (Slice F),
-`walt/walt/src/bin/factorrefine.rs` (Slice G) and
-`walt/walt/src/bin/factorprofile.rs` (anytime proof-state Phase 2).
+`walt/walt/src/bin/factorrefine.rs` (Slice G),
+`walt/walt/src/bin/factorprofile.rs` (anytime proof-state Phase 2) and
+`walt/walt/src/bin/proofreport.rs` (anytime proof-state Phase 3).
 Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
 `walt/walt/tests/solver_factor_consequence.rs`,
-`walt/walt/tests/solver_factor_refine.rs` and
-`walt/walt/tests/solver_factor_profile.rs`. Mathematical source:
+`walt/walt/tests/solver_factor_refine.rs`,
+`walt/walt/tests/solver_factor_profile.rs`,
+`walt/walt/tests/solver_proof_state.rs` and
+`walt/walt/tests/solver_proof_regret.rs`. Mathematical source:
 `walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31,
 Part VIII §32–37, §46 stages C0–C2, §47 Slice D, §48 Slice E, §49
 Slice F, §50 Slice G, rulings CBS-A4/CBS-A6/CBS-A9; and
-`walt/math/anytime_proof_state_score_v0.1.md` §2–§4, §10–§11, §18, §44,
-ruling APS-A2.
+`walt/math/anytime_proof_state_score_v0.1.md` §2–§4, §10–§11, §18,
+§24–§33, §41, §44, §49–§56, §60, rulings APS-A2/APS-A6/APS-A7/APS-A9.
 
 ## What it measures
 
@@ -398,6 +401,31 @@ the δ ledger).
   says most of the miss-mass is not even close.
 - No root was dropped: all ten gated roots ran under both focals;
   whole probe 18.8 s.
+
+## proofreport_run1.txt readings (2026-08-31) — the Phase 3 §33 blocks
+
+- **Certified regret zero far from certain make.** h5-t6: floor 444‰,
+  upper 444‰, Γ = 0 — the recommended policy is CERTIFIED optimal
+  under the declared semantics at a thoroughly uncertain value (the
+  escalated exact-response uppers pinned U*). Certainty about
+  optimality and certainty about making are different things, on
+  trace.
+- **§30's gap made flesh at h3-t4.** The controller settled the best
+  ACTION as 3-1 (Q = 350‰), but the best MATERIALIZED policy in the
+  state starts 4-4 at floor 267‰ — 3-1's naive lowest-first
+  continuation prices below 267‰, so the recommendation honestly
+  plays 4-4 with Γ = 83‰ covering the gap. pmake belongs to the
+  policy, not the first tile; the obvious next work item is a
+  stronger 3-1 continuation (Phase 6 argmax extraction).
+- **Certain outcomes certify in both directions.** h12-t6: floor =
+  upper = 0‰, Γ = 0 (a certified unmakeable contract, with the score
+  explanation on the same block: floor = ceiling = 20). h10-t6:
+  floor = upper = 1000‰, Γ = 0.
+- **The bands ride along.** h4-t6 (setting viewer): rescue(d = 1)
+  866‰ — the declaring side's mass sits one point under the contract
+  on 866‰ of worlds, the setting side's whole case in one number.
+- All seven roots completed; whole probe 14.1 s (13.4 s of it the
+  h3-t4 refine + three t4 profiles).
 
 ## Boundaries
 

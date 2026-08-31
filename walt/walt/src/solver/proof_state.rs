@@ -325,6 +325,23 @@ pub struct ActionView {
     pub excluded: bool,
 }
 
+/// The executable-bar witness (§30): the strongest lower fact backed by
+/// a MATERIALIZED lawful policy, with everything the §33 report needs
+/// to name it.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ExecWitness {
+    pub action: Domino,
+    pub value: BigRational,
+    /// The witnessing fact's authority (bound facts) or
+    /// `profile:<policy_id>` (profile projections).
+    pub authority: String,
+    /// The witness itself is δ-qualified.
+    pub sampled: bool,
+    /// The witnessing fact's id — profile witnesses resolve to bins for
+    /// score floors, ceilings, and bands.
+    pub fact_id: u128,
+}
+
 /// The §26 zero-cost closure's complete report — a pure function of
 /// the fact store, recomputed on demand.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -334,12 +351,62 @@ pub struct ClosureReport {
     pub bar_holder: Domino,
     pub survivors: Vec<Domino>,
     pub excluded: Vec<Domino>,
-    /// `B_exec` and its holder, when any executable lower exists (§30).
-    pub exec_bar: Option<(Domino, BigRational)>,
+    /// The §30 executable bar's witness, when any executable lower
+    /// exists. `B_exec` defaults to the vacuous 0 in the regret below.
+    pub exec: Option<ExecWitness>,
+    /// The §31 global upper `U* = max_a U_a` (equal over all actions
+    /// and over survivors: an excluded upper sits below the bar, which
+    /// the bar holder's own upper meets or exceeds).
+    pub u_star: BigRational,
+    /// The §31 certified pmake regret `Γ = U* − B_exec` (with the
+    /// vacuous `B_exec = 0` at zero executable work): on the joint
+    /// validity event, the recommended executable policy leaves at
+    /// most this much pmake unclaimed. Monotone nonincreasing under
+    /// refinement (gated).
+    pub certified_regret: BigRational,
     pub result: StateResult,
     /// A decisive exclusion comparison rests on a sampled fact
     /// (final-state view — the module doc's δ note).
     pub delta_decisive: bool,
+}
+
+/// The §33 recommendation block, derived from a closure whose
+/// executable bar is inhabited: the policy Walt would actually play,
+/// with its floor, the world's ceiling, and the certified gap. Score
+/// coordinates (floor/ceiling/bands) are DECLARING-side quantities
+/// from the witnessing profile's bins — named so the setting-viewer
+/// parity cannot be misread — and exist only for profile witnesses.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Recommendation {
+    pub action: Domino,
+    /// The witnessing authority (§33 "recommended policy").
+    pub policy: String,
+    /// `B_exec` — the certified pmake floor of the recommendation.
+    pub pmake_lower: BigRational,
+    /// `U*` — the valid upper on the unknown best response.
+    pub global_upper: BigRational,
+    /// `Γ = U* − B_exec`.
+    pub certified_regret: BigRational,
+    /// Lowest declaring score of nonzero mass (profile witnesses).
+    pub declaring_score_floor: Option<u32>,
+    /// Highest declaring score of nonzero mass (profile witnesses).
+    pub declaring_score_ceiling: Option<u32>,
+    /// §7 contract-sensitive residual of the witness: exactly 0 for an
+    /// exact profile (its cells are points); `None` for bound-fact
+    /// witnesses. Nonzero values arrive with envelope cells (Phase 4).
+    pub contract_sensitive_residual: Option<BigRational>,
+    /// §11 declaring fragile-make mass at d = 1: the exact share of
+    /// the witness profile sitting on `[c, c+1)` — one point of
+    /// slippage unmakes it (profile witnesses).
+    pub declaring_fragile_d1: Option<BigRational>,
+    /// §10 declaring rescue mass at d = 1: the share on `[c−1, c)`.
+    pub declaring_rescue_d1: Option<BigRational>,
+    /// The witness is δ-qualified.
+    pub sampled: bool,
+    /// Every sampled scope present in the store — the coarse §33 risk
+    /// summary (decisiveness itself is `delta_decisive` on the
+    /// closure).
+    pub risk_scopes: Vec<String>,
 }
 
 /// An open-registry producer: reads the state, proposes facts. Adding
@@ -483,7 +550,7 @@ impl ProofState {
         let zero = BigRational::zero();
         let one = BigRational::one();
         let mut views = Vec::with_capacity(self.legal.len());
-        let mut exec_bar: Option<(Domino, BigRational)> = None;
+        let mut exec: Option<ExecWitness> = None;
         for a in &self.legal {
             // Installed lower: max over lower facts and profile
             // projections (§41 derivation), vacuous 0 included.
@@ -500,12 +567,18 @@ impl ProofState {
                                 lower_sampled = matches!(b.proof, ProofTag::Sampled { .. });
                             }
                             if b.executable {
-                                let better = match &exec_bar {
+                                let better = match &exec {
                                     None => true,
-                                    Some((_, v)) => b.value > *v,
+                                    Some(w) => b.value > w.value,
                                 };
                                 if better {
-                                    exec_bar = Some((*a, b.value.clone()));
+                                    exec = Some(ExecWitness {
+                                        action: *a,
+                                        value: b.value.clone(),
+                                        authority: b.authority.clone(),
+                                        sampled: matches!(b.proof, ProofTag::Sampled { .. }),
+                                        fact_id: sf.id,
+                                    });
                                 }
                             }
                         }
@@ -522,12 +595,18 @@ impl ProofState {
                             lower = v.clone();
                             lower_sampled = false;
                         }
-                        let better = match &exec_bar {
+                        let better = match &exec {
                             None => true,
-                            Some((_, bv)) => v > *bv,
+                            Some(w) => v > w.value,
                         };
                         if better {
-                            exec_bar = Some((*a, v));
+                            exec = Some(ExecWitness {
+                                action: *a,
+                                value: v,
+                                authority: format!("profile:{}", p.policy_id),
+                                sampled: false,
+                                fact_id: sf.id,
+                            });
                         }
                     }
                     _ => {}
@@ -559,8 +638,8 @@ impl ProofState {
                 .expect("the max exists");
             (first.lower.clone(), first.action, first.lower_sampled)
         };
-        if let Some((_, ev)) = &exec_bar {
-            assert!(*ev <= bar, "the §30 chain: B_exec ≤ B_proof");
+        if let Some(w) = &exec {
+            assert!(w.value <= bar, "the §30 chain: B_exec ≤ B_proof");
         }
         let mut delta_decisive = false;
         for v in views.iter_mut() {
@@ -605,16 +684,101 @@ impl ProofState {
                 }
             }
         };
+        let u_star = views
+            .iter()
+            .map(|v| v.upper.clone())
+            .max()
+            .expect("a root holds a legal action");
+        let exec_value = exec
+            .as_ref()
+            .map(|w| w.value.clone())
+            .unwrap_or_else(BigRational::zero);
+        assert!(
+            bar <= u_star,
+            "the §31 chain: the bar holder's own upper meets the bar"
+        );
+        let certified_regret = &u_star - &exec_value;
         ClosureReport {
             views,
             bar,
             bar_holder,
             survivors,
             excluded,
-            exec_bar,
+            exec,
+            u_star,
+            certified_regret,
             result,
             delta_decisive,
         }
+    }
+
+    /// The §33 recommendation block: derived from the closure, present
+    /// exactly when an executable witness exists (at zero executable
+    /// work there is no policy to recommend — the regret is still
+    /// defined on the closure with the vacuous floor). Score
+    /// coordinates come from the witnessing profile's bins; a
+    /// bound-fact witness recommends its policy without them.
+    pub fn recommend(&self) -> Option<Recommendation> {
+        let report = self.closure();
+        let w = report.exec?;
+        let c = self.identity.contract;
+        let mut floor = None;
+        let mut ceiling = None;
+        let mut residual = None;
+        let mut fragile = None;
+        let mut rescue = None;
+        if let Some(sf) = self.facts.iter().find(|sf| sf.id == w.fact_id) {
+            if let Fact::Profile(p) = &sf.fact {
+                let z = BigInt::from(p.total());
+                floor = p
+                    .bins
+                    .iter()
+                    .position(|m| *m > 0)
+                    .map(|s| u32::try_from(s).expect("s <= 42"));
+                ceiling = p
+                    .bins
+                    .iter()
+                    .rposition(|m| *m > 0)
+                    .map(|s| u32::try_from(s).expect("s <= 42"));
+                // An exact profile's cells are points: the §7 straddle
+                // mass is exactly zero. Envelope cells (Phase 4) are
+                // what make it positive.
+                residual = Some(BigRational::zero());
+                fragile = Some(BigRational::new(
+                    BigInt::from(p.tail(c) - p.tail(c + 1)),
+                    z.clone(),
+                ));
+                rescue = Some(BigRational::new(
+                    BigInt::from(p.tail(c.saturating_sub(1)) - p.tail(c)),
+                    z,
+                ));
+            }
+        }
+        let mut risk_scopes: Vec<String> = Vec::new();
+        for sf in &self.facts {
+            if let Fact::Bound(b) = &sf.fact {
+                if let ProofTag::Sampled { scope, .. } = &b.proof {
+                    if !risk_scopes.contains(scope) {
+                        risk_scopes.push(scope.clone());
+                    }
+                }
+            }
+        }
+        risk_scopes.sort();
+        Some(Recommendation {
+            action: w.action,
+            policy: w.authority,
+            pmake_lower: w.value,
+            global_upper: report.u_star,
+            certified_regret: report.certified_regret,
+            declaring_score_floor: floor,
+            declaring_score_ceiling: ceiling,
+            contract_sensitive_residual: residual,
+            declaring_fragile_d1: fragile,
+            declaring_rescue_d1: rescue,
+            sampled: w.sampled,
+            risk_scopes,
+        })
     }
 
     /// Serialize: the versioned line format of the module doc. Facts

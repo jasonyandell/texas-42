@@ -140,10 +140,7 @@ fn the_zero_budget_state_is_sound_and_serializes_and_resumes() {
         );
         assert!(report.excluded.is_empty(), "nothing excludes at zero work");
         assert_eq!(report.bar, BigRational::zero(), "the zero-work bar");
-        assert!(
-            report.exec_bar.is_none(),
-            "no executable witness at zero work"
-        );
+        assert!(report.exec.is_none(), "no executable witness at zero work");
         assert!(!report.delta_decisive, "no sampled fact at zero work");
         assert!(
             matches!(report.result, StateResult::Unresolved { .. }),
@@ -424,10 +421,22 @@ fn a_score_profile_fact_raises_the_executable_bar_through_closure() {
              (hand {hand_id} trick {trick_no})"
         );
         assert!(!view.lower_sampled, "a profile projection is deterministic");
+        let w = report
+            .exec
+            .expect("the profile witnesses the executable bar");
         assert_eq!(
-            report.exec_bar,
-            Some((a, expect)),
+            (w.action, w.value.clone(), w.sampled),
+            (a, expect.clone(), false),
             "the profile witnesses the executable bar (hand {hand_id} trick {trick_no})"
+        );
+        assert!(
+            w.authority.starts_with("profile:"),
+            "the witness names its policy"
+        );
+        assert_eq!(
+            report.certified_regret,
+            &report.u_star - &expect,
+            "the §31 regret is the gap above the executable floor"
         );
     }
 }
@@ -508,9 +517,14 @@ fn a_producer_registers_without_editing_the_module() {
         );
         assert!(!report.delta_decisive, "a structural floor is exact");
         assert_eq!(
-            report.exec_bar.map(|(_, v)| v),
+            report.exec.map(|w| w.value),
             Some(BigRational::one()),
             "the floor is executable: any lawful policy witnesses it"
+        );
+        assert_eq!(
+            report.certified_regret,
+            BigRational::zero(),
+            "a banked contract certifies zero regret"
         );
     } else {
         assert!(
