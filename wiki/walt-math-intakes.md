@@ -369,12 +369,62 @@ Artifact map only; the adjudicated content lives on
   player untouched, CBS-O1..O15 to the Lean ledger, GPU under the
   ripcord discipline (CBS-A9).
 
+- **`walt/math/anytime_proof_state_score_v0.1.md`** — *Anytime
+  Proof-State Walt: count-aware score bounds, certified regret, laydown
+  semantics, and iterative refinement* (received verbatim,
+  hand-delivered by Jason 2026-08-31 ("this is a biggie");
+  checksum-pinned, SHA-256 `7a8c60fb…`; not a courier dispatch — the
+  ledger is untouched; the verifier docstring self-names the parent
+  `DESIGN-walt-anytime-proof-state-and-score-calculus-v0.1.md`,
+  recorded not repaired). Written against main `25b40d9` — the Slice G
+  merge itself — the day after the C→G ladder closed. The central
+  chain: behavior uncertainty → score uncertainty → contract
+  uncertainty, only the last controlling pmake. The score layer
+  beneath the contract (Parts I–III: 43-bin exact profiles, the
+  tail-sum identity, contract-sensitive residual mass W_ρ(c), rescue
+  and fragile-make bands, count-threat covers), the typed laydown
+  hierarchy (Part IV), the score-profile Bellman calculus with the
+  envelope-is-not-a-policy fence (Part V), the persistent proof state
+  as the primary theorem object (Part VI), proof bar vs executable bar
+  with certified pmake regret (Part VII), the debt taxonomy and
+  declared solve goals (Part VIII), closure-aware work selection
+  (Part IX), the fresh-orchestration-core architecture ruling behind a
+  spike gate (Parts X–XI), phases 0–8 (Part XII), and the Lean program
+  PS-T1..T15 (Part XV).
+- **`walt/math/anytime_proof_state_score_v0.1_intake.md`** — **the
+  intake companion** (maintained). Verifier re-run 36/36 PASS from the
+  filed location (256-signature census, exhaustive rescue/fragile
+  sweep, 65,625-case certified-regret sweep, the 63/2
+  threshold-envelope non-realizability specimen re-derived,
+  merge-before-max and closure-aware-scheduling counterexamples; weak
+  checks recorded). Records the identity findings (§29 survivor
+  theorem = CBS 2.1, Slice G's shipping law; §23 merge-before-max =
+  the O34 fence over score profiles), the code-boundary audit (the
+  shipped `bar_of` IS the proof bar — sound for G's action-selection
+  scope, with the executable-bar split becoming load-bearing at Phase
+  3; the selection-debt definitional variation recorded; §0's
+  engineering summaries verified ACCURATE — no probe softening found,
+  a first for this lineage), the §12 wording caveat (the companion
+  governs), and the vocabulary sweep (zero bare "certificate";
+  "laydown" enters as a typed hierarchy with the bare word reserved
+  for the universal quantifier). **Adjudicated same-day at
+  APS-A1..A9** (`walt/CENSUS-RULINGS.md`, 2026-08-31): score layer
+  sound and adopted (APS-A2); covers under the CBS-A7 discipline
+  (APS-A3); the envelope fence binding (APS-A4); laydown typing
+  (APS-A5); the bar split with the audit finding (APS-A6); certified
+  regret as the finite-budget deliverable (APS-A7); closure-aware
+  usefulness amending the steering doctrine, G's refusal rule
+  correct-in-scope (APS-A8); the greenfield proof-state core adopted
+  as candidate behind the §49 spike, `solver::refine` frozen as the
+  RefineV1 reference, phases queued on Jason's word, default player
+  untouched (APS-A9).
+
 ## 7. The pinned manifests
 
 The `.sha256` files under `walt/math/` are **pinned freeze artifacts** — never
 edited, superseded only by append-only re-issue.
 
-Only the four received parents below carry companion `.sha256` files; the
+Only the six received parents below carry companion `.sha256` files; the
 M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
 
 | File | What it pins | Fixed at |
@@ -387,6 +437,7 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
 | `calculated_evidence_v0.1.sha256` | The received calculated-evidence parent's byte identity (`9b32b14f…`) | the 2026-08-24 intake |
 | `targeted_level2_field_stability_v0.1.sha256` | The received level-2 field-stability parent's byte identity (`597d33c3…`) | the 2026-08-24 intake (second drop, same day) |
 | `counted_belief_sandwich_v0.1.sha256` | The received counted-belief parent's byte identity (`4d2dfbe0…`) | the 2026-08-30 intake |
+| `anytime_proof_state_score_v0.1.sha256` | The received anytime proof-state parent's byte identity (`7a8c60fb…`) | the 2026-08-31 intake |
 
 ## 8. Pending, and deliberately not indexed as landed
 

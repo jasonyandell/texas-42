@@ -13784,3 +13784,126 @@ Intake: `walt/math/counted_belief_sandwich_v0.1_intake.md`.*
   deterministic finite theorems before the probability
   formalization). GPU suitability in §26 is a measurement coordinate
   under the ripcord discipline, not an authorization.
+
+## The anytime-proof-state adjudication (2026-08-31)
+
+*Authorization note: Jason hand-delivered the parent 2026-08-31 ("new
+math intake buddy. this is a biggie.") with the explicit go ("standard
+protocol on an intake from pro"); filed under the standing same-lineage
+go for Pro-channel mathematics. Not a courier dispatch — no number,
+ledger untouched (the calculated-evidence precedent). These rulings are
+append-superseded without ceremony if he wants any point refined.
+Threads: an orchestration-layer design above both — sampled facts
+consume CE machinery through the sanctioned crossing; the fixed field
+stays an L2 model choice named in every semantics identity; the score
+layer itself is representation substrate. Intake:
+`walt/math/anytime_proof_state_score_v0.1_intake.md`.*
+
+- **APS-A1 (intake ACCEPTED at instrument tier).** Verifier re-run
+  36/36 PASS, exit 0 (session evidence, scratch tier): the
+  256-signature census (every integer score 0..42 represented), the
+  exhaustive 13×5×13×13 rescue/fragile-band sweep, the 65,625-case
+  certified-regret sweep, the threshold-envelope non-realizability
+  specimen (63/2 re-derived at intake), the merge-before-max and
+  closure-aware scheduling counterexamples, and the laydown
+  quantifier hierarchy. Weak checks recorded (14 near-tautological;
+  16/17/32 definitional illustrations). Snapshot verified: the parent
+  inspected the current main `25b40d9` and — rarely — its §0
+  engineering summaries are ACCURATE against the landed record; no
+  probe softening found. The verifier docstring self-names the parent
+  `DESIGN-walt-anytime-proof-state-and-score-calculus-v0.1.md`; filed
+  snake_case, recorded not repaired. Nothing is promoted.
+- **APS-A2 (the score layer SOUND & ADOPTED).** The boxed chain —
+  behavior uncertainty → score uncertainty → contract uncertainty,
+  only the last controlling pmake — is the adopted steering
+  statement. The 43-bin exact score profile H, the tail-sum identity
+  E[S] = Σ_k Pr(S ≥ k) (expected points = area under the score-tail
+  curve, a secondary objective, never replacing the contract), the
+  contract-sensitive residual mass W_ρ(c) as THE steering object, and
+  the §7/§8 width identities are step-checked sound. The three
+  unresolved states — action-ambiguous score-exact /
+  score-ambiguous contract-stable / contract-sensitive — are adopted
+  vocabulary: only the third buys pmake work.
+- **APS-A3 (rescue/fragile bands and count-threat covers ADOPTED).**
+  §10–14 sound (worldwise inclusion arguments; the positive-part
+  bound recorded as the weaker fallback). `CountThreatCover` enters
+  under the CBS-A7 discipline restated: producers may decline;
+  heuristic discriminators propose; only verifier-checked covers
+  carry authority; accepted covers must never understate exact
+  residual gain on enumerable fixtures (§62 gates). A cover's value
+  is its rescue-band mass at the incumbent — a cap that includes
+  every remaining point is vacuous by inspection (§70 falsifier).
+- **APS-A4 (the envelope fence BINDING).** §20: a threshold-wise
+  upper family is a bound object, NEVER an executable score profile —
+  the pointwise maximum of tails need not be attained by any one
+  policy (the 63/2 specimen). No threshold-wise envelope is ever
+  serialized, reported, or reused as a policy profile; an executable
+  recommendation always carries the profile of ONE policy under one
+  declared objective and tie rule (§21's lexicographic order is a
+  lawful declared secondary).
+- **APS-A5 (the laydown hierarchy ADOPTED as typed vocabulary).**
+  Four distinct result types with strictly separating quantifiers:
+  PolicyCertainMake (∀ω, one π one σ), AdversarialPolicyMake (∀ω ∀σ),
+  ForcedMake (∃π ∀ω ∀σ), Laydown (∀ω ∀π ∀σ — every legal continuation
+  makes). Bare "laydown" is RESERVED for the universal type; the
+  others are always named in full; a model-relative pmake = 1 is
+  never called a laydown; NO sampled route constructs any of the
+  four. A proven laydown-type fact closes pmake through zero-cost
+  closure without solving the best-response problem.
+- **APS-A6 (proof bar / executable bar split ADOPTED; audit
+  finding).** B^exec ≤ B^proof ≤ Q* sound. Audit at 25b40d9:
+  `bar_of` in `solver/refine.rs` maxes over ALL lowers including
+  `ExactGrammar` — the shipped bar IS the proof bar, sound for what G
+  outputs (action selection; exclusion licensed by the proof bar) —
+  and G never recommends a policy off a grammar lower, so nothing
+  shipped violates the split. The distinction becomes load-bearing
+  when output grows a recommended policy: a grammar lower enters
+  B^exec only after argmax extraction AND fixed-policy re-pricing
+  (Phase 6); until then it raises only the proof bar.
+- **APS-A7 (certified regret ADOPTED as the finite-budget
+  deliverable).** Γ^exec = U* − B^exec bounds the recommended
+  executable policy's pmake regret on the joint-validity event;
+  monotone under refinement (U* never rises, B^exec never falls);
+  Γ^exec ≤ ε certifies ε-optimality under the declared field and
+  belief. The §33 recommendation order is adopted: the pmake floor is
+  primary — a policy with a narrow low score interval never outranks
+  a policy with a higher make floor merely because it is less
+  uncertain. The §33 output block is the report shape.
+- **APS-A8 (closure-aware usefulness AMENDS the steering doctrine;
+  G's rule recorded as correct-in-scope).** "Presently useless" must
+  be evaluated after closure (Ĉ₀ ∘ F_W), and short declared
+  macro-plans W₁;…;W_k are lawful schedule candidates — a
+  prerequisite with zero standalone root effect must not be refused
+  when its enabled consequence is decisive (verifier check 31 is the
+  counterexample). Slice G's §34 refusal rule is CORRECT in its
+  closed producer universe (its census refusal was right: no consumer
+  existed) and INCOMPLETE for an open registry — the census becomes
+  useful exactly when residual-Bellman/score-projection consumers
+  exist (§61 gate). Recorded definitional variation: G's
+  `decision_width` sums survivor excess including the bar holder;
+  §34's selection debt excludes the canonical holder — both monotone,
+  agree at settlement, not comparable across definitions.
+- **APS-A9 (architecture ADOPTED AS CANDIDATE; build program queued
+  on Jason's word).** The fresh proof-state orchestration core is
+  accepted as the direction — a bounded greenfield CONTROLLER, never
+  a second Walt: rules, kernel, factor beliefs, fields, policies,
+  evidence, exact evaluators, and the F/G producers are reached
+  through narrow pure adapters and NEVER copied (§66/§67 acceptance
+  conditions adopted verbatim; §67.10: the new core must be removable
+  without changing current Walt). Gate: the §49 architecture spike —
+  serialize/resume a zero-budget state, import one exact lower and
+  one sampled upper, closure reproduces G's survivor set, one score
+  profile accepted, no rule duplication, open producer registry —
+  before any commitment; in-crate `solver::proof_state` FIRST, the
+  sibling-crate boundary optional (§74 escape pre-accepted).
+  `solver::refine` is frozen semantically as the RefineV1 reference
+  the new core must reproduce wherever scopes overlap (§48 path:
+  shadow-run, conformance, then promotion; V1 retained for a declared
+  period). Phases 0–8 (§57–65) adopted as the program; first target
+  per §65 is a smaller correct survivor set or a useful
+  certified-regret recommendation at a playable budget — NOT a
+  seven-trick exact opening solve. The live default player is
+  untouched by this entire lineage until arena and conformance gates
+  justify a change on Jason's word (CE-A7/CBS-A9 restated).
+  PS-T1..T15 and the 42 instance layer accepted into the Lean
+  side-project ledger (Jason + Pro track).
