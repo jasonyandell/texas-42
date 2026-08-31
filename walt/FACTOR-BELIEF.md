@@ -59,6 +59,37 @@ was reached through existing public APIs, and nothing imports the
 module except the crate root (deletable, §67.10). Phase 1 fleshing
 (the work frontier, declared solve goals) and Phase 3 (contract
 projection + certified regret) remain queued on Jason's word.
+
+**PHASE 3 LANDED** (2026-08-31, the round after the spike): contract
+projection and certified regret. The closure now carries the §31
+global upper `U* = max_a U_a` and the certified pmake regret
+`Γ = U* − B_exec` (vacuous floor 0 at zero executable work), the
+executable witness is a full `ExecWitness` (action, value, authority,
+δ-status, fact id), and `ProofState::recommend()` derives the §33
+block: recommended action and policy, pmake floor, global upper, Γ,
+declaring score floor/ceiling, the §7 residual (exactly 0 for exact
+profiles; positive values arrive with envelope cells), the §10/§11
+d = 1 declaring bands, proof class, and the sampled-scope summary.
+Five gates (`walt/walt/tests/solver_proof_regret.rs`): exact profiles
+project exactly (the recommendation is the stronger candidate policy
+at its independently recomputed exact value); Γ contains the exact
+best-response regret against the bundled authority `exact_root_value`,
+before and after the RefineV1 fact import, with `Q* ≤ U*`; Γ never
+increases, `U*` never rises, and `B_exec` never falls under fact-by-
+fact refinement; a non-executable grammar lower raises only the proof
+bar (nothing executable → nothing recommended); and report quantities
+reuse across contracts exactly when the semantics is bid-blind (the
+σ0 boundary stays owned by the profile gates' frozen specimen). Probe:
+`proofreport report` (`probes/factor_belief/proofreport_run1.txt`) —
+the first §33 blocks on real roots: h5-t6 certifies REGRET ZERO at
+444‰ (certified optimality far from certain make — the §31 point);
+h3-t4 is §30's gap on trace — the settled best ACTION is 3-1
+(Q = 350‰) while the best MATERIALIZED policy starts 4-4 at floor
+267‰, Γ = 83‰, because 3-1's naive lowest-first continuation prices
+below 4-4's (pmake belongs to the policy, not the first tile; the
+next §33 work item is materializing a stronger 3-1 continuation —
+Phase 6's argmax extraction); certain outcomes certify Γ = 0 in both
+directions (h12-t6 floor = upper = 0; h10-t6 floor = upper = 1000‰).
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint
 `response_success_mass` in `solver/factor_belief.rs` — the full-action-set

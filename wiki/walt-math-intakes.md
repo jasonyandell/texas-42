@@ -793,6 +793,34 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   deletable (nothing imports it but the crate root). Phase 1
   fleshing and Phase 3 (contract projection + certified regret)
   queued on Jason's word.
+- **The anytime proof-state build — Phase 3 landed** *(2026-08-31, the
+  round after the spike, on Jason's "go ahead with the next phase")*:
+  contract projection and certified regret. The closure carries the
+  §31 global upper `U* = max_a U_a` and `Γ = U* − B_exec` (vacuous
+  floor at zero executable work); `ProofState::recommend()` derives
+  the full §33 block — recommended action and policy, pmake floor,
+  global upper, Γ, declaring score floor/ceiling, the §7 residual
+  (exactly 0 for exact profiles), the §10/§11 d = 1 bands, proof
+  class, sampled-scope summary. Five gates
+  (`tests/solver_proof_regret.rs`): exact projection at independently
+  recomputed values; regret containment against the bundled authority
+  (`Q* ≤ U*`, `0 ≤ Q* − V(π̂) ≤ Γ`) before and after the RefineV1
+  import; Γ/U*/B_exec monotone under fact-by-fact refinement; the
+  grammar fence (non-executable lowers raise only the proof bar —
+  nothing executable, nothing recommended); bid-blind cross-contract
+  reuse (the σ0 boundary stays with the profile gates' frozen
+  specimen). Probe `proofreport report` (`proofreport_run1.txt`, seven
+  roots, 14.1 s): **certified regret ZERO far from certain make**
+  (h5-t6: floor = upper = 444‰ — optimality certainty and make
+  certainty split, on trace); **§30's gap made flesh** (h3-t4: the
+  settled best ACTION is 3-1 at Q = 350‰ while the best MATERIALIZED
+  policy starts 4-4 at floor 267‰, Γ = 83‰ — 3-1's naive continuation
+  prices below 4-4's, so pmake belongs to the policy, not the first
+  tile; the next §33 work item is Phase 6's argmax extraction);
+  certain outcomes certify Γ = 0 in both directions with their score
+  explanations on the same block. Remaining phases (1's work
+  frontier/solve goals, 4+ envelopes and covers) queued on Jason's
+  word; default player untouched throughout.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03
