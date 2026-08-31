@@ -762,6 +762,37 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   Next on Jason's word: the §49 architecture spike (in-crate
   `solver::proof_state`, open producer registry), then Phase 3
   (contract projection + certified regret).
+- **The anytime proof-state build — the §49 spike PASSED** *(2026-08-31,
+  the round after Phases 0+2, on Jason's "move on to the next
+  step")*: `solver::proof_state` — a persistent, serializable,
+  identity-scoped proof state over one root with an OPEN producer
+  registry (the deliberate break from RefineV1's closed work-item
+  enum). Six gates prove all seven §49 requirements: top-state
+  soundness with bytewise serialize/resume (`walt-proof-state-v1`,
+  exact rationals, per-fact FNV-1a content hashes re-validated on
+  parse); RefineV1's endpoints imported as typed facts — sampled
+  endpoints keep their full ScopedDelta provenance, exact
+  fixed-policy lowers are executable, grammar/response optima are
+  proof-bar-only (the APS-A6 audit finding, now load-bearing) — with
+  closure reproducing the controller's survivors, exclusions, bar,
+  and typed result on every enumerable root under both ample
+  configurations; closure idempotent and insertion-order-independent
+  (facts are the ONLY stored authority — installed intervals, bars,
+  survivors, results are derived views, per the repo's derived-views
+  rule); §51 identity fences (any-coordinate mismatch rejects) and
+  malformed-value fences, with full round-trips; §41 closure-aware
+  derivation live — a score-profile fact projects to a deterministic
+  EXECUTABLE lower, `B_exec ≤ B_proof` asserted inside every closure;
+  and the open registry proven literally: a banked-floor structural
+  producer (§5: a banked contract makes every continuation) defined
+  in the TEST FILE closes a repriced root to the exact
+  Equivalent-at-1 tie with no best-response solve and no module edit.
+  The §37 assert earned its keep in construction — it rejected a
+  contradictory toy fixture in the gate's first draft. Verdict:
+  in-crate shape CONFIRMED, zero duplication pressure, module
+  deletable (nothing imports it but the crate root). Phase 1
+  fleshing and Phase 3 (contract projection + certified regret)
+  queued on Jason's word.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03

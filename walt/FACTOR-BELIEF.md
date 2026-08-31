@@ -34,6 +34,31 @@ in every world — inside the d=10 rescue band at 1000‰; h3-t4 under
 σ0-as-focal prices 280‰ with 22 distinct scores and 207‰ of mass
 within ten points below the contract). No envelope across policies is
 built anywhere — a profile is the record of ONE policy (APS-A4).
+
+**The §49 architecture spike PASSED** (2026-08-31, the round after
+Phases 0+2): `solver::proof_state` — the smallest honest kernel of a
+persistent, serializable, identity-scoped proof state over one root,
+with an OPEN producer registry. All seven §49 requirements proven by
+six gates (`walt/walt/tests/solver_proof_state.rs`): the §25 top state
+is sound and serializes/resumes bytewise; RefineV1's final interval
+endpoints import as typed facts and closure reproduces its survivors,
+exclusions, bar, and typed result on every enumerable root under both
+ample configurations (freeze 58 consumed strictly as the frozen
+oracle); closure is idempotent and insertion-order-independent (a pure
+derived view — facts are the only stored authority); identity
+mismatches in ANY §51 coordinate and malformed values are rejected
+while stored facts round-trip serialization under re-validated content
+hashes; a score-profile fact raises the EXECUTABLE bar through §41
+closure derivation with `B_exec ≤ B_proof` asserted inside every
+closure; and a producer defined in the TEST FILE (a §5 banked-floor
+structural producer closing a repriced root to the exact
+Equivalent-at-1 tie with no best-response solve) registers without
+editing any enum in the module. Verdict: the in-crate shape is
+CONFIRMED — zero duplication pressure was encountered, every authority
+was reached through existing public APIs, and nothing imports the
+module except the crate root (deletable, §67.10). Phase 1 fleshing
+(the work frontier, declared solve goals) and Phase 3 (contract
+projection + certified regret) remain queued on Jason's word.
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint
 `response_success_mass` in `solver/factor_belief.rs` — the full-action-set
