@@ -728,6 +728,40 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   `counted_belief_sandwich_v0.1.md` is COMPLETE; beyond it sit the §29
   class verifier, the unbuilt §33 producers, cross-root reuse, and —
   before any default change — arena and conformance gates.
+- **The anytime proof-state build — Phases 0 and 2 landed** *(2026-08-31,
+  the same day as the intake, on Jason's word — "we go with your
+  approach")*: Phase 0 is **freeze 58** (the freeze register's
+  2026-08-31 addendum): `solver/refine.rs` as merged at `25b40d9` is
+  the semantically frozen **RefineV1** reference — no new fields,
+  variants, or work items ever, gates never weaken, the coming
+  proof-state core must reproduce it wherever scopes overlap and stays
+  removable. The adopted landing shape (Jason's protect-Walt instinct,
+  sharpened at the engineering call): in-crate additive modules, never
+  a sibling crate — authorities extended only BESIDE themselves behind
+  parity gates, protection living in gates-plus-freeze, not in
+  Cargo.toml. Phase 2 is `viewer_score_profile` in
+  `solver/factor_belief.rs` beside its D/E/G siblings — the §18
+  fixed-policy recursion carrying the exact 43-bin declaring-score
+  object (viewer-independent, bid-blind: one run = the whole
+  bid-threshold curve), walking past the decided cutoff to true
+  terminals (§18's caveat; the probe priced the whole curve at ~7–12%
+  extra wall at trick 4). Five gates
+  (`tests/solver_factor_profile.rs`): conservation + tail projection
+  both parities, the tail-sum identity, bid-blind contract reuse
+  against independent re-runs, the reuse boundary as a frozen specimen
+  (σ0 reads the bid — its settled/desperation branches — so h10-t6's
+  projection at 42 gives 12 where the exact evaluation gives 9: under
+  a bid-reading field re-pricing is a re-run), and entrywise
+  complete-world replay parity. Probe `factorprofile report`
+  (`profile_run1.txt`, all ten gated roots × two focals, no drops):
+  certain outcomes now carry their explanation (h12-t6's miss = exactly
+  20 points in every world, entirely inside the d = 10 rescue band);
+  the σ0 make-mass SPIKES exactly at the bid (445‰ at s = 30 on h8-t5
+  — the modeled mind's settled branch made visible in the score
+  domain); first §10/§11 rescue/fragile band masses on real roots.
+  Next on Jason's word: the §49 architecture spike (in-crate
+  `solver::proof_state`, open producer registry), then Phase 3
+  (contract projection + certified regret).
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03

@@ -1,0 +1,128 @@
+score-profile instrument (anytime proof-state Phase 2, §18/APS-A2)
+field=Level0{n0=2} oracle=SupportOracle focals=[lowest-first, sigma0-as-focal]
+one exact 43-bin profile per (root, focal): the full bid-threshold curve from one
+run; the profile walk forgoes the decided cutoff (§18's caveat) and its price is
+printed beside the truncating walk's. every mass integer, every ratio exact.
+
+-- h12-t6 focal=lowest-first viewer=declaring bid=30 Z=6
+   bins 20:6
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+   pmake(bid)=0/6 (0‰ viewer objective)  expected_score_milli=20000
+   rescue-band(§10) d=1:0‰ d=5:0‰ d=10:1000‰   fragile-make(§11) d=1:0‰ d=5:0‰ d=10:0‰
+   cost profile 127 µs (7 focal / 21 hidden / 6 terminals) vs success-mass 0 µs (0 focal / 0 hidden / 1 early+0 terminal decided)
+-- h12-t6 focal=sigma0-as-focal viewer=declaring bid=30 Z=6
+   bins 20:6
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+   pmake(bid)=0/6 (0‰ viewer objective)  expected_score_milli=20000
+   rescue-band(§10) d=1:0‰ d=5:0‰ d=10:1000‰   fragile-make(§11) d=1:0‰ d=5:0‰ d=10:0‰
+   cost profile 73 µs (7 focal / 21 hidden / 6 terminals) vs success-mass 0 µs (0 focal / 0 hidden / 1 early+0 terminal decided)
+-- h10-t6 focal=lowest-first viewer=declaring bid=30 Z=19
+   bins 35:1 41:6 42:12
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 947 947 947 947 947 947 631
+   pmake(bid)=19/19 (1000‰ viewer objective)  expected_score_milli=41315
+   rescue-band(§10) d=1:0‰ d=5:0‰ d=10:0‰   fragile-make(§11) d=1:0‰ d=5:0‰ d=10:52‰
+   cost profile 130 µs (14 focal / 52 hidden / 19 terminals) vs success-mass 1 µs (0 focal / 0 hidden / 1 early+0 terminal decided)
+-- h10-t6 focal=sigma0-as-focal viewer=declaring bid=30 Z=19
+   bins 35:1 41:6 42:12
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 947 947 947 947 947 947 631
+   pmake(bid)=19/19 (1000‰ viewer objective)  expected_score_milli=41315
+   rescue-band(§10) d=1:0‰ d=5:0‰ d=10:0‰   fragile-make(§11) d=1:0‰ d=5:0‰ d=10:52‰
+   cost profile 130 µs (14 focal / 52 hidden / 19 terminals) vs success-mass 1 µs (0 focal / 0 hidden / 1 early+0 terminal decided)
+-- h5-t6 focal=lowest-first viewer=declaring bid=30 Z=27
+   bins 19:12 25:3 30:6 36:6
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 555 555 555 555 555 555 444 444 444 444 444 222 222 222 222 222 222 0 0 0 0 0 0
+   pmake(bid)=12/27 (444‰ viewer objective)  expected_score_milli=25888
+   rescue-band(§10) d=1:0‰ d=5:111‰ d=10:111‰   fragile-make(§11) d=1:222‰ d=5:222‰ d=10:444‰
+   cost profile 411 µs (26 focal / 77 hidden / 27 terminals) vs success-mass 355 µs (26 focal / 77 hidden / 0 early+27 terminal decided)
+-- h5-t6 focal=sigma0-as-focal viewer=declaring bid=30 Z=27
+   bins 19:12 25:3 30:6 36:6
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 555 555 555 555 555 555 444 444 444 444 444 222 222 222 222 222 222 0 0 0 0 0 0
+   pmake(bid)=12/27 (444‰ viewer objective)  expected_score_milli=25888
+   rescue-band(§10) d=1:0‰ d=5:111‰ d=10:111‰   fragile-make(§11) d=1:222‰ d=5:222‰ d=10:444‰
+   cost profile 349 µs (26 focal / 77 hidden / 27 terminals) vs success-mass 336 µs (26 focal / 77 hidden / 0 early+27 terminal decided)
+-- h4-t6 focal=lowest-first viewer=setting bid=30 Z=90
+   bins 29:30 30:54 40:6
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 666 66 66 66 66 66 66 66 66 66 66 0 0
+   pmake(bid)=30/90 (333‰ viewer objective)  expected_score_milli=30333
+   rescue-band(§10) d=1:333‰ d=5:333‰ d=10:333‰   fragile-make(§11) d=1:600‰ d=5:600‰ d=10:600‰
+   cost profile 871 µs (85 focal / 207 hidden / 90 terminals) vs success-mass 714 µs (31 focal / 85 hidden / 20 early+30 terminal decided)
+-- h4-t6 focal=sigma0-as-focal viewer=setting bid=30 Z=90
+   bins 29:30 30:54 40:6
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 666 66 66 66 66 66 66 66 66 66 66 0 0
+   pmake(bid)=30/90 (333‰ viewer objective)  expected_score_milli=30333
+   rescue-band(§10) d=1:333‰ d=5:333‰ d=10:333‰   fragile-make(§11) d=1:600‰ d=5:600‰ d=10:600‰
+   cost profile 879 µs (85 focal / 207 hidden / 90 terminals) vs success-mass 708 µs (31 focal / 85 hidden / 20 early+30 terminal decided)
+-- h8-t5 focal=lowest-first viewer=declaring bid=30 Z=92
+   bins 15:5 25:23 41:64
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 945 945 945 945 945 945 945 945 945 945 695 695 695 695 695 695 695 695 695 695 695 695 695 695 695 695 0
+   pmake(bid)=64/92 (695‰ viewer objective)  expected_score_milli=35586
+   rescue-band(§10) d=1:0‰ d=5:250‰ d=10:250‰   fragile-make(§11) d=1:0‰ d=5:0‰ d=10:0‰
+   cost profile 4611 µs (122 focal / 430 hidden / 92 terminals) vs success-mass 4249 µs (51 focal / 242 hidden / 56 early+21 terminal decided)
+-- h8-t5 focal=sigma0-as-focal viewer=declaring bid=30 Z=92
+   bins 14:1 25:2 30:41 35:6 40:13 41:29
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 989 989 989 989 989 989 989 989 989 989 989 967 967 967 967 967 521 521 521 521 521 456 456 456 456 456 315 0
+   pmake(bid)=89/92 (967‰ viewer objective)  expected_score_milli=34923
+   rescue-band(§10) d=1:0‰ d=5:21‰ d=10:21‰   fragile-make(§11) d=1:445‰ d=5:445‰ d=10:510‰
+   cost profile 6536 µs (150 focal / 386 hidden / 92 terminals) vs success-mass 5730 µs (136 focal / 345 hidden / 12 early+79 terminal decided)
+-- h3-t5 focal=lowest-first viewer=declaring bid=30 Z=200
+   bins 42:200
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000
+   pmake(bid)=200/200 (1000‰ viewer objective)  expected_score_milli=42000
+   rescue-band(§10) d=1:0‰ d=5:0‰ d=10:0‰   fragile-make(§11) d=1:0‰ d=5:0‰ d=10:0‰
+   cost profile 18587 µs (244 focal / 971 hidden / 200 terminals) vs success-mass 18330 µs (120 focal / 573 hidden / 123 early+62 terminal decided)
+-- h3-t5 focal=sigma0-as-focal viewer=declaring bid=30 Z=200
+   bins 42:200
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000
+   pmake(bid)=200/200 (1000‰ viewer objective)  expected_score_milli=42000
+   rescue-band(§10) d=1:0‰ d=5:0‰ d=10:0‰   fragile-make(§11) d=1:0‰ d=5:0‰ d=10:0‰
+   cost profile 18790 µs (244 focal / 971 hidden / 200 terminals) vs success-mass 17816 µs (120 focal / 573 hidden / 123 early+62 terminal decided)
+-- h3-t4 focal=lowest-first viewer=declaring bid=30 Z=11550
+   bins 3:1880 4:351 5:4 9:1023 10:120 14:1704 15:391 16:2 19:380 20:1138 21:199 24:161 25:1251 26:185 29:2 30:424 31:542 35:118 36:870 40:5 41:197 42:603
+   tail-permille k=1..42 1000 1000 1000 837 806 806 806 806 806 717 707 707 707 707 560 526 525 525 525 493 394 377 377 377 363 255 239 239 239 238 202 155 155 155 155 145 69 69 69 69 69 52
+   pmake(bid)=2759/11550 (238‰ viewer objective)  expected_score_milli=19044
+   rescue-band(§10) d=1:0‰ d=5:124‰ d=10:254‰   fragile-make(§11) d=1:36‰ d=5:83‰ d=10:169‰
+   cost profile 1073133 µs (22221 focal / 56477 hidden / 11550 terminals) vs success-mass 996350 µs (11702 focal / 27177 hidden / 4795 early+3679 terminal decided)
+-- h3-t4 focal=sigma0-as-focal viewer=declaring bid=30 Z=11550
+   bins 3:1962 4:397 5:8 9:984 10:135 14:1578 15:402 16:13 19:436 20:1090 21:133 24:150 25:854 26:160 29:7 30:653 31:512 35:234 36:919 40:14 41:283 42:626
+   tail-permille k=1..42 1000 1000 1000 830 795 795 795 795 795 709 698 698 698 698 561 526 525 525 525 487 393 381 381 381 369 295 281 281 281 280 224 179 179 179 179 159 79 79 79 79 78 54
+   pmake(bid)=3241/11550 (280‰ viewer objective)  expected_score_milli=19344
+   rescue-band(§10) d=1:0‰ d=5:88‰ d=10:207‰   fragile-make(§11) d=1:56‰ d=5:100‰ d=10:200‰
+   cost profile 1148591 µs (22232 focal / 56512 hidden / 11550 terminals) vs success-mass 1023334 µs (11325 focal / 26054 hidden / 5765 early+2981 terminal decided)
+-- h4-t4 focal=lowest-first viewer=declaring bid=30 Z=34650
+   bins 24:5167 25:2750 26:694 29:1000 30:1155 31:622 35:3895 36:610 40:7189 41:5818 42:5750
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 850 771 751 751 751 722 689 671 671 671 671 558 541 541 541 541 333 165
+   pmake(bid)=25039/34650 (722‰ viewer objective)  expected_score_milli=35198
+   rescue-band(§10) d=1:28‰ d=5:128‰ d=10:277‰   fragile-make(§11) d=1:33‰ d=5:51‰ d=10:181‰
+   cost profile 3004942 µs (65658 focal / 169982 hidden / 34650 terminals) vs success-mass 2811732 µs (38959 focal / 93258 hidden / 16237 early+12374 terminal decided)
+-- h4-t4 focal=sigma0-as-focal viewer=declaring bid=30 Z=34650
+   bins 24:3027 25:3214 26:892 29:856 30:2311 31:1164 34:168 35:2391 36:1528 39:69 40:5797 41:9569 42:3664
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 912 819 794 794 794 769 702 669 669 669 664 595 551 551 551 549 381 105
+   pmake(bid)=26661/34650 (769‰ viewer objective)  expected_score_milli=35544
+   rescue-band(§10) d=1:24‰ d=5:143‰ d=10:230‰   fragile-make(§11) d=1:66‰ d=5:105‰ d=10:220‰
+   cost profile 3315858 µs (57391 focal / 161501 hidden / 34650 terminals) vs success-mass 2954635 µs (34353 focal / 93650 hidden / 13394 early+14692 terminal decided)
+-- h8-t4 focal=lowest-first viewer=declaring bid=30 Z=1200
+   bins 18:17 19:7 23:61 24:102 25:34 28:19 29:117 30:53 33:9 34:108 35:94 39:63 40:253 41:263
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 985 980 980 980 980 929 844 815 815 815 800 702 658 658 658 650 560 482 482 482 482 430 219 0
+   pmake(bid)=843/1200 (702‰ viewer objective)  expected_score_milli=34395
+   rescue-band(§10) d=1:97‰ d=5:141‰ d=10:277‰   fragile-make(§11) d=1:44‰ d=5:141‰ d=10:272‰
+   cost profile 386698 µs (2789 focal / 7527 hidden / 1200 terminals) vs success-mass 386441 µs (2205 focal / 5800 hidden / 449 early+716 terminal decided)
+-- h8-t4 focal=sigma0-as-focal viewer=declaring bid=30 Z=1200
+   bins 18:8 19:2 23:26 24:41 25:25 28:22 29:56 30:58 33:16 34:118 35:122 38:4 39:78 40:304 41:320
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 993 991 991 991 991 970 935 915 915 915 896 850 801 801 801 788 690 588 588 588 585 520 266 0
+   pmake(bid)=1020/1200 (850‰ viewer objective)  expected_score_milli=36377
+   rescue-band(§10) d=1:46‰ d=5:85‰ d=10:141‰   fragile-make(§11) d=1:48‰ d=5:160‰ d=10:330‰
+   cost profile 402033 µs (2758 focal / 7525 hidden / 1200 terminals) vs success-mass 385024 µs (2240 focal / 5971 hidden / 431 early+729 terminal decided)
+-- h12-t4 focal=lowest-first viewer=declaring bid=30 Z=34650
+   bins 7:1304 8:544 9:34 12:4572 13:5102 14:2478 17:876 18:6240 19:9000 20:4500
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 962 946 945 945 945 813 666 594 594 594 569 389 129 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+   pmake(bid)=0/34650 (0‰ viewer objective)  expected_score_milli=16100
+   rescue-band(§10) d=1:0‰ d=5:0‰ d=10:129‰   fragile-make(§11) d=1:0‰ d=5:0‰ d=10:0‰
+   cost profile 444922 µs (26703 focal / 95494 hidden / 34650 terminals) vs success-mass 0 µs (0 focal / 0 hidden / 1 early+0 terminal decided)
+-- h12-t4 focal=sigma0-as-focal viewer=declaring bid=30 Z=34650
+   bins 7:1304 8:544 9:34 12:4572 13:5102 14:2478 17:876 18:6240 19:9000 20:4500
+   tail-permille k=1..42 1000 1000 1000 1000 1000 1000 1000 962 946 945 945 945 813 666 594 594 594 569 389 129 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+   pmake(bid)=0/34650 (0‰ viewer objective)  expected_score_milli=16100
+   rescue-band(§10) d=1:0‰ d=5:0‰ d=10:129‰   fragile-make(§11) d=1:0‰ d=5:0‰ d=10:0‰
+   cost profile 463918 µs (26703 focal / 95494 hidden / 34650 terminals) vs success-mass 0 µs (0 focal / 0 hidden / 1 early+0 terminal decided)
+
+no root was dropped: all ten gated roots ran to completion under both focals.
