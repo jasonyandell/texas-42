@@ -553,7 +553,38 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   meets — the contraction advantage remains the worlds-to-hands ratio
   (3,432 at the opening), and the opening-root recursion is
   deliberately not attempted. The default player is untouched
-  (CBS-A9). Still unbuilt: Slices E–G.
+  (CBS-A9). Slice E landed in a following round (next entry).
+- **The counted-belief build — Slice E landed** *(2026-08-30, the round
+  after Slice D)*: the §48 factorized grammar best response
+  (`grammar_success_mass` in `solver/factor_belief.rs`) — the §23
+  recursion with the focal case's single frozen action replaced by a
+  MAX over the grammar's actions, `M^G(B) = max_{t ∈ G(I)} M^G(B·t)`,
+  lawful on the cleared side because every focal child shares `Z(B)`
+  (a focal play changes no factor), with nodewise max equal to the §12
+  policy-class optimum `Q^G` by the cylinder-partition argument; one
+  new library function plus a stats carrier, per-root-action values
+  needing no separate producer (`Q^G_a` is the recursion after
+  `focal_play(a)`). Four gates at `tests/solver_factor_response.rs`:
+  per-action parity with Slice B's `exact_grammar_split` grammar
+  optimum under σ0 (the enumeration-side authority), singleton-grammar
+  collapse to the Slice D recursion, source dominance with the
+  constraint proved to bind via singleton grammars, and the every-node
+  checker with the grammar-max structure enumerated. The §48 fence
+  kept: nothing maximizes over the full action set, and no
+  argmax/policy is extracted (that needs a declared tie order — not a
+  Slice E claim). Instrument: `factorresponse report`, record
+  `walt/probes/factor_belief/response_run1.txt` — the finding is that
+  AT DEPTH THE MIX PAYS: at trick-4 roots the grammar optimum strictly
+  beats every source (h4-t4 trivial: `Q^G = Z = 34,650`, certain make,
+  against 34,170 for the best source; gaps 90–753 worlds of
+  make-mass), while at trick-5/6 roots it never exceeds the best
+  source and the two-source grammar saturates every reached undecided
+  state (every §12 verdict "closes", no deviating continuation
+  exists). Honest negative: the Slice B enumeration split answers
+  30–40× faster at worlds/hands ≈ 3 — the contraction advantage
+  remains the ratio, and the opening-root recursion stays not
+  attempted. The default player is untouched (CBS-A9). Still unbuilt:
+  Slices F–G.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03

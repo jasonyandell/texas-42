@@ -1,15 +1,18 @@
-# factor_belief — the Slice C (stages C0–C2) and Slice D probes
+# factor_belief — the Slice C (stages C0–C2), Slice D and Slice E probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
 adds it to a verifier receipt.
 
-Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C) and
-`walt/walt/src/bin/factorrecursion.rs` (Slice D). Gates (the CI-checked
-part): `walt/walt/tests/solver_factor_belief.rs` and
-`walt/walt/tests/solver_factor_recursion.rs`. Mathematical source:
-`walt/math/counted_belief_sandwich_v0.1.md` §21–23, §25–26, §46 stages
-C0–C2, §47 Slice D, rulings CBS-A6/CBS-A9.
+Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C),
+`walt/walt/src/bin/factorrecursion.rs` (Slice D) and
+`walt/walt/src/bin/factorresponse.rs` (Slice E). Gates (the CI-checked
+part): `walt/walt/tests/solver_factor_belief.rs`,
+`walt/walt/tests/solver_factor_recursion.rs` and
+`walt/walt/tests/solver_factor_response.rs`. Mathematical source:
+`walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–26, §46
+stages C0–C2, §47 Slice D, §48 Slice E, rulings
+CBS-A4/CBS-A6/CBS-A9.
 
 ## What it measures
 
@@ -203,6 +206,57 @@ trivial field and under σ0, and the every-node checker).
   already total (the C1 within-history law); compressing the classifier
   itself stays Slice F's problem.
 
+## response_run1.txt readings (2026-08-30) — the Slice E probe
+
+`factorresponse report` — the §48 factorized grammar best response
+(`grammar_success_mass`: the §23 recursion with the focal case's frozen
+action replaced by a max over the grammar's actions), gated in CI by
+`solver_factor_response.rs` (4 gates: per-root-action parity with the
+Slice B enumeration split under σ0, singleton-grammar collapse to the
+Slice D recursion, source dominance with the binding check, and the
+every-node checker with the grammar max structure enumerated).
+
+- **The §48 witness holds on every checked row.** Under σ0, every
+  grammar root action's factorized `Q^G_a` equals the Slice B split's
+  grammar optimum exactly — twenty-five action rows across two grammars
+  (two-source lowest/highest; three-source adding the
+  count-preservation safety policy), six roots, no complete world ever
+  materialized on the recursion route.
+- **At depth the mix pays — the §11 freedom is real value.** At trick-4
+  roots the grammar optimum strictly beats every source policy: h4-t4
+  (trivial field) Q^G = 34,650 = Z — the grammar mix makes the bid on
+  EVERY represented world — against 34,170 (permille 986) for the best
+  single source; h3-t4 Q^G 3,815 against 3,062; h8-t4 1,163 against
+  1,073. The information-state-wise combination of sources, §11's "may
+  legally combine," is worth 90–753 worlds of make-mass at these
+  roots. At trick-5/6 roots the mix NEVER exceeds the best source (all
+  gaps zero against the best of three sources) — the room the grammar
+  needs grows with depth.
+- **At trick 5–6 the two-source grammar saturates everything reached.**
+  Every §12 verdict in Section A is "closes" with NO deviating
+  continuation at any reached, still-undecided state (`dev = -`) — with
+  2–3 legal tiles per endgame state, two sources usually cover the
+  whole legal set, so `Q^G = free` on all six roots and the §12
+  exclusion is trivially achieved. The gates therefore draw their
+  non-vacuity witness from SINGLETON grammars, which bind exactly where
+  the two sources' values differ. Grammar-vs-free daylight at richer
+  roots is a Slice F/G-era measurement, not assumed here.
+- **The honest negative, amplified.** At these fibers (worlds/hands
+  ≈ 3) the Slice B enumeration split answers in 30–40× less time than
+  the factorized recursion (e.g. h3-t5: 0.6 ms split vs 20–24 ms
+  recursion) — same cause as the Slice D finding: per-node contraction
+  and support classification against one shared enumeration tree. The
+  contraction advantage remains the worlds/hands ratio (3,432 at the
+  opening root, unmeasured here — the opening-root recursion stays not
+  attempted).
+- **The max multiplies the walk, not the law.** The grammar recursion's
+  node counts run ~1.3–1.6× the fixed-policy walk per explored action
+  (h4-t4 σ0: 146,346 focal nodes, 188,594 focal actions explored,
+  561,753 conditionings, 9.8 s vs Slice D's 6.8 s fixed row; 1,652,377
+  σ0 states materialized across the maximizing subtrees). Reuse within
+  the walk is the C1 within-history law, unchanged; compressing the
+  classifier stays Slice F's problem.
+
 ## Boundaries
 
 - Deterministic fields only; a stochastic field needs an explicit tape
@@ -211,9 +265,13 @@ trivial field and under σ0, and the every-node checker).
   domain, still refused by panic beyond it); the general contraction is
   `SupportOracle` (Slice D), gated by parity on the C0 domain and by
   surviving-world enumeration beyond it.
-- The recursion evaluates ONE frozen focal policy under the declared
-  field (§47): no maximization, no best-response claims, no
-  play-strength readings. Focal optimization inside a grammar is
-  Slice E.
+- The Slice D recursion evaluates ONE frozen focal policy under the
+  declared field (§47): no maximization. The Slice E recursion
+  maximizes over GRAMMAR actions only (§48's fence): the full action
+  set has no entry point, `free` figures come only from the Slice B
+  enumeration split, and no argmax or policy is extracted (that needs a
+  declared tie order — not a Slice E claim). Neither makes
+  play-strength claims: a grammar optimum under a modeled field is an
+  evaluation subject, not a recommendation.
 - The opening-root recursion is not attempted; only the opening-root
   ONE-PLY contraction is measured (the Slice C probes above).
