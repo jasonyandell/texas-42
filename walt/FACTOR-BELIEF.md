@@ -1,7 +1,57 @@
-# FACTOR-BELIEF — the Slice C–F design skeleton (specify, do not optimize)
+# FACTOR-BELIEF — the Slice C–G design skeleton (specify, do not optimize)
 
-**Status:** SLICES C (COMPLETE), D, E AND F LANDED (2026-08-30). Slice F
-(§49, §27–31) is the consequence-CEGAR hand-class instrument
+**Status:** SLICES C (COMPLETE), D, E, F AND G LANDED (2026-08-30).
+Slice G (§50, Part VIII §32–37) is the integrated refinement controller
+`refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint
+`response_success_mass` in `solver/factor_belief.rs` — the full-action-set
+recursion §48 sequenced for exactly this slice, gated to extensional
+parity with the bundled exact authority (`exposure::exact_root_value`)
+at every gated root and action, the C→G cross-representation capstone.
+The controller keeps one TYPED interval `[L_a, U_a]` per legal root
+action (§42's constructor discipline: sampled δ bounds carry their full
+Slice A record; exact bounds carry integer masses over the shared root
+`Z`), excludes an action exactly when its upper falls below the bar
+`B = max_a L_a`, and runs the §36 loop over the buildable §33 work-item
+subset — `SampledLower`/`SampledUpper` (Slice A's δ-valid witness and
+optimization-lock upper, each endpoint a distinct `ScopedDelta` against
+a declared root risk scope), `ExactFixed`/`ExactGrammar` (the Slice D/E
+factorized recursions as exact lowers), `EscalateExact` (the interval
+collapses to the exact point `Q_a`), and `ConsequenceCensus` (carried
+precisely to demonstrate §34: zero declared root-width reduction, so
+the steering rule refuses it at every bar). Scheduling is §35 verbatim:
+best-case reduction of the declared decision-width scalar
+`D = (|survivors| − 1) + Σ (U_a − B)` per declared integer forecast,
+exact rationals cross-multiplied; the budget charges FORECASTS, never
+wall time, so every run is a pure function of its inputs. Results are
+typed `Settled` / `Equivalent` (deterministic point intervals at the
+bar) / `Unresolved` (the honest surviving set with a NAMED fallback
+rule, never promoted — §37.9), with the proof class `DeltaQualified`
+whenever a sampled side took part in a decisive exclusion. Gated by
+`walt/walt/tests/solver_factor_refine.rs` (4 gates: escalation parity
+with the bundled authority plus the containment chain fixed ≤ grammar ≤
+response; the §37 soundness invariant walked over full runs with every
+exact bound independently recomputed; §34 refusals with bytewise
+run-determinism; §36 step-12 starvation honesty with the δ ledger
+re-asserted through `assert_screen_risk_allocation`). Probe:
+`factorrefine report` — the findings: (1) the exact ladder settles all
+ten gated roots (six SETTLED, four honest EQUIVALENT ties), and twice
+it settles WITHOUT escalating the winner — the winner's cheap exact
+lower cleared every rival's escalated point (h4-t6, h4-t4), §36's
+one-witness promise realized; (2) on the small t5/t6 fibers the sampled
+tier settles roots before ANY exact recursion runs (h4-t6 at 64 work
+units against 420 exact-only; h8-t5 at 3,776 against 13,860), correctly
+δ-qualified, while at trick 4 the sampled uppers are too loose to prune
+and the exact ladder does the work at negligible sampled overhead —
+both regimes on one trace; (3) at the opening root h0-t1 the controller
+walks the affordability cliff honestly: every exact item is refused by
+its own declared forecast (the §40 contraction/field-classification
+walls), fourteen sampled endpoints produce real intervals over the
+399,072,960-world fiber, nothing prunes, and the result is the honest
+UNRESOLVED surviving set with the fallback named and never promoted.
+EXPLORATORY tier.
+
+**Slice F** (landed the same day, an earlier round) —
+Slice F (§49, §27–31) is the consequence-CEGAR hand-class instrument
 `refine_to_action_exact` in `solver/factor_belief.rs`: §28's feature map
 `κ` (`ClassSignature` — the §49 starting vocabulary of critical tile
 membership, trump count/highest trump, led-suit count, count-tile
@@ -146,12 +196,17 @@ their type). The C1 cache study is done — its §26
 coordinates live in the probe README, and its finding is that
 within-history reuse is total while cross-history reuse is zero by the
 identity law. Slice C is complete (the C2 report discharges the §46
-coordinates), and Slices D, E and F are landed (see Status); the next
-construction on the ladder is Slice G — the §50 integrated refinement
-controller, which unifies the root intervals, grammar/residual regions,
-factorized contractions, and consequence-cell bounds this file's slices
-built (the existing controller player remains the fallback surface
-until arena and conformance gates authorize a default change).
+coordinates), and Slices D, E, F and G are landed (see Status). The
+C→G ladder of `counted_belief_sandwich_v0.1.md`'s Part XI program is
+COMPLETE: root intervals, grammar/residual, factorized contractions,
+recursion, grammar response, consequence CEGAR, and the integrated
+controller all exist with gates and probe records. What remains beyond
+this file's scope: the §29 action-exact class verifier (named, never
+built), the unbuilt §33 producers (`SplitPolicyCylinder`,
+`CountThreatCover`, `EnumerateResidual`, …), cross-root reuse and any
+cost-model refinement, and — before any default change — arena and
+conformance gates: the existing controller player remains the fallback
+surface (§50), and nothing on this ladder touches the default player.
 
 ## The objects (parent §18–21)
 

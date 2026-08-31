@@ -161,8 +161,10 @@ fn escalation_matches_the_bundled_exact_authority() {
 
             // Parity with the bundled exact authority.
             let exact = exact_root_value(&root, &position, action, &field_bundled);
-            let factorized =
-                BigRational::new(num_bigint::BigInt::from(response), num_bigint::BigInt::from(z));
+            let factorized = BigRational::new(
+                num_bigint::BigInt::from(response),
+                num_bigint::BigInt::from(z),
+            );
             assert_eq!(
                 factorized,
                 exact.value(),
@@ -254,7 +256,8 @@ fn the_controller_narrows_monotonically_and_soundly() {
             let belief = FactorBelief::uniform_root(&root, &position, &field_check);
             let z = oracle.mass(&belief);
             let low = walt::solver::adaptive::FixedPreference::lowest_first("focal:lowest-first");
-            let high = walt::solver::adaptive::FixedPreference::highest_first("focal:highest-first");
+            let high =
+                walt::solver::adaptive::FixedPreference::highest_first("focal:highest-first");
             let count = CountPreservation::new();
             let grammar = PolicyGrammar::new(vec![&low, &high, &count]);
             for interval in &outcome.intervals {
@@ -268,7 +271,8 @@ fn the_controller_narrows_monotonically_and_soundly() {
                     }
                     LowerBound::ExactGrammar { mass, .. } => {
                         let mut s = ResponseStats::default();
-                        let m = grammar_success_mass(&oracle, &child, &grammar, &field_check, &mut s);
+                        let m =
+                            grammar_success_mass(&oracle, &child, &grammar, &field_check, &mut s);
                         assert_eq!(*mass, m, "the grammar mass reproduces ({label})");
                     }
                     LowerBound::ExactResponse { mass } => {
@@ -294,7 +298,11 @@ fn the_controller_narrows_monotonically_and_soundly() {
                         assert_eq!(*proof, ProofClass::Exact, "no δ, exact proof ({label})");
                     }
                 }
-                RefineResult::Equivalent { actions, value, proof } => {
+                RefineResult::Equivalent {
+                    actions,
+                    value,
+                    proof,
+                } => {
                     assert_eq!(*actions, outcome.survivors, "{label}");
                     assert!(actions.len() >= 2, "{label}");
                     for interval in &outcome.intervals {
@@ -316,7 +324,10 @@ fn the_controller_narrows_monotonically_and_soundly() {
             }
             assert!(outcome.work_spent <= outcome.budget, "{label}");
             if cfg.prefix == 0 {
-                assert!(outcome.risk_spent.numer().bits() == 0, "no δ spent ({label})");
+                assert!(
+                    outcome.risk_spent.numer().bits() == 0,
+                    "no δ spent ({label})"
+                );
                 assert!(!outcome.delta_decisive, "no δ decisive ({label})");
             } else {
                 assert!(outcome.risk_spent <= cfg.scope_budget, "{label}");
@@ -394,7 +405,10 @@ fn steering_refuses_presently_useless_work_deterministically() {
                 TraceEvent::Refused { .. } => {}
             }
         }
-        assert_eq!(charged, outcome.work_spent, "refusals charge nothing ({label})");
+        assert_eq!(
+            charged, outcome.work_spent,
+            "refusals charge nothing ({label})"
+        );
 
         // Determinism: a run is a pure function of its inputs.
         let again = refine_root(&root, &position, &spec, &oracle, &cfg);
@@ -456,7 +470,10 @@ fn budget_exhaustion_returns_the_honest_surviving_set() {
             other => panic!("budget 1 starves a multi-action root ({label}): {other:?}"),
         }
         assert_eq!(outcome.work_spent, 0, "nothing charged ({label})");
-        assert!(outcome.risk_spent.numer().bits() == 0, "no δ spent ({label})");
+        assert!(
+            outcome.risk_spent.numer().bits() == 0,
+            "no δ spent ({label})"
+        );
         assert!(
             outcome.trace.iter().any(|e| matches!(
                 e,

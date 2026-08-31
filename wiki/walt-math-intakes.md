@@ -621,8 +621,62 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   representational structure only — the §29 class-verifier interface is
   named, not built. `count_cell` stays deferred: a hand class is a
   one-seat predicate `marginal` counts exactly. The default player is
-  untouched (CBS-A9). Still unbuilt: Slice G (§50, the integrated
-  refinement controller).
+  untouched (CBS-A9). Slice G landed in a following round (next
+  entry).
+- **The counted-belief build — Slice G landed, the C→G ladder
+  complete** *(2026-08-30, the round after Slice F)*: the §50
+  integrated refinement controller (`refine_root` in
+  `solver/refine.rs`), unifying the ladder's authorities under Part
+  VIII — per legal root action one TYPED interval `[L_a, U_a]` (§42's
+  constructor discipline: sampled δ bounds carry their full Slice A
+  record, exact bounds carry integer masses over the shared root `Z`),
+  the bar `B = max_a L_a`, exclusion exactly when `U_a < B`, permanent
+  because lowers only rise and uppers only fall. Work items (the
+  buildable §33 subset): `SampledLower`/`SampledUpper` (Slice A's
+  frozen-policy witness and optimization-lock upper, each endpoint a
+  distinct `ScopedDelta` against a declared root risk scope),
+  `ExactFixed`/`ExactGrammar` (the Slice D/E factorized recursions as
+  exact lowers), `EscalateExact` (the §36 endpoint: the full-action-set
+  recursion `response_success_mass` — §48's fence lifted on §48's own
+  sequencing, gated to extensional parity with the bundled exact
+  authority `exposure::exact_root_value` at every gated root and
+  action, the C→G cross-representation capstone), and
+  `ConsequenceCensus` (carried precisely so §34 can refuse it: zero
+  declared root-width reduction at every bar). Scheduling is §35 —
+  best-case reduction of the declared decision-width scalar
+  `D = (|survivors| − 1) + Σ (U_a − B)` per declared integer forecast,
+  exact rationals cross-multiplied; budgets charge FORECASTS, never
+  wall time, so a run is a pure function of its inputs. Results:
+  `Settled` / `Equivalent` (deterministic point intervals at the bar) /
+  `Unresolved` (honest surviving set, NAMED fallback, never promoted —
+  §37.9), `DeltaQualified` whenever a sampled side was decisive. Four
+  gates at `tests/solver_factor_refine.rs` (escalation parity +
+  containment; the §37 invariant walked with independent recomputation
+  of every exact bound; §34 refusals + bytewise determinism;
+  starvation honesty + the δ ledger through
+  `assert_screen_risk_allocation`). Instrument: `factorrefine report`,
+  record `walt/probes/factor_belief/refine_run1.txt` — findings: the
+  exact ladder settles all ten gated roots (six SETTLED, four honest
+  exact EQUIVALENT ties), twice WITHOUT escalating the winner (h4-t6,
+  h4-t4: the winner's exact-fixed lower cleared every rival's
+  escalated point — §36's one-witness promise on trace); the sampled
+  tier settles small fibers before ANY exact recursion runs (h4-t6 at
+  64 work units against 420 exact-only; h8-t5 at 3,776 against
+  13,860), correctly δ-qualified, while at trick 4 its uppers are too
+  loose to prune and the exact ladder does the work; and at the
+  opening root h0-t1 the controller walks the affordability cliff
+  honestly — every exact item refused by its own declared forecast
+  (the §40 walls, labeled), fourteen sampled endpoints producing real
+  δ intervals over the 399,072,960-world fiber, UNRESOLVED returned
+  with all seven actions and risk 7/10 inside the declared 4/5 scope.
+  The controller manufactures no bound (§37.8); grammar/residual
+  uppers are not wired as a work item (before escalation the only
+  nontrivial uppers are the sampled ones); the existing controller
+  player remains the fallback surface, and the default player is
+  untouched (CBS-A9). The Part XI C→G program of
+  `counted_belief_sandwich_v0.1.md` is COMPLETE; beyond it sit the §29
+  class verifier, the unbuilt §33 producers, cross-root reuse, and —
+  before any default change — arena and conformance gates.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03

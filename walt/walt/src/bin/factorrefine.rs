@@ -36,8 +36,8 @@ use walt::solver::factor_belief::{ExactCoverOracle, FactorBelief, SupportOracle}
 use walt::solver::field::{FieldKind, FieldModel, FieldSpec};
 use walt::solver::policy::{DecisionMode, TieRule};
 use walt::solver::refine::{
-    refine_root, ActionInterval, LowerBound, ProofClass, RefineConfig, RefineOutcome,
-    RefineResult, RefusalReason, TraceEvent, UpperBound, WorkItem,
+    refine_root, ActionInterval, LowerBound, ProofClass, RefineConfig, RefineOutcome, RefineResult,
+    RefusalReason, TraceEvent, UpperBound, WorkItem,
 };
 
 const GATED_ROOTS: [(usize, usize); 10] = [

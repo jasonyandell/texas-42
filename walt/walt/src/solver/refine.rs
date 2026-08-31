@@ -53,8 +53,9 @@
 //! domain × plays left for recursions, the prefix for sampled items —
 //! §33's "estimated cost", never a correctness input) and the controller
 //! charges the FORECAST, never wall time, so a run is a pure function of
-//! its inputs and a budgeted trace is a prefix-consistent restriction of
-//! the ample trace. On exhaustion the result is the honest surviving set
+//! its inputs (a budget refusal reroutes the scheduler to the next
+//! ranked item, so a budgeted trace is deterministic but NOT a prefix of
+//! the ample one). On exhaustion the result is the honest surviving set
 //! with a NAMED fallback rule that is never promoted to a settled result
 //! (§37.9).
 //!
@@ -290,7 +291,10 @@ pub enum TraceEvent {
     /// An item ran.
     Ran(Box<RanEvent>),
     /// An item was refused (recorded once per item per reason).
-    Refused { item: WorkItem, reason: RefusalReason },
+    Refused {
+        item: WorkItem,
+        reason: RefusalReason,
+    },
     /// An action fell below the bar. `delta_decisive` marks whether a
     /// sampled side took part in the decisive comparison.
     Excluded {
@@ -403,7 +407,13 @@ fn hand_domain(belief: &FactorBelief) -> u64 {
         .expect("a root belief holds hidden seats")
 }
 
-fn forecast(item: WorkItem, cfg: &RefineConfig, hands: u64, plays_left: u64, root_hand: u64) -> u64 {
+fn forecast(
+    item: WorkItem,
+    cfg: &RefineConfig,
+    hands: u64,
+    plays_left: u64,
+    root_hand: u64,
+) -> u64 {
     match item {
         WorkItem::SampledLower(_) | WorkItem::SampledUpper(_) => cfg.prefix,
         WorkItem::ExactFixed(_) => hands.saturating_mul(plays_left),
@@ -591,7 +601,10 @@ pub fn refine_root(
                 },
             };
         }
-        if survivors.iter().all(|&i| states[i].interval.deterministic_point()) {
+        if survivors
+            .iter()
+            .all(|&i| states[i].interval.deterministic_point())
+        {
             let mut set = DominoSet::EMPTY;
             for &i in &survivors {
                 set.insert(states[i].interval.action);
@@ -730,7 +743,8 @@ pub fn refine_root(
         let upper_before = states[idx].interval.upper_value();
         match item {
             WorkItem::SampledLower(_) => {
-                let scope = ScopedDelta::new(format!("refine-{root_id}/{a}/lower"), cfg.delta.clone());
+                let scope =
+                    ScopedDelta::new(format!("refine-{root_id}/{a}/lower"), cfg.delta.clone());
                 risk_entries.push(scope.clone());
                 risk_spent += cfg.delta.clone();
                 let policy = pinned_level1(position, a);
@@ -744,11 +758,15 @@ pub fn refine_root(
                     cfg.prefix,
                     scope,
                 );
-                assert_eq!(l.action, a, "the pinned witness plays its pinned root action");
+                assert_eq!(
+                    l.action, a,
+                    "the pinned witness plays its pinned root action"
+                );
                 install_lower(&mut states[idx].interval, LowerBound::Sampled(l));
             }
             WorkItem::SampledUpper(_) => {
-                let scope = ScopedDelta::new(format!("refine-{root_id}/{a}/upper"), cfg.delta.clone());
+                let scope =
+                    ScopedDelta::new(format!("refine-{root_id}/{a}/upper"), cfg.delta.clone());
                 risk_entries.push(scope.clone());
                 risk_spent += cfg.delta.clone();
                 let u = pmake_empirical_max_upper(
@@ -778,7 +796,8 @@ pub fn refine_root(
             WorkItem::ExactGrammar(_) => {
                 let child = belief.focal_play(a);
                 let mut stats = ResponseStats::default();
-                let mass = grammar_success_mass(oracle, &child, &grammar, &field_factor, &mut stats);
+                let mass =
+                    grammar_success_mass(oracle, &child, &grammar, &field_factor, &mut stats);
                 install_lower(
                     &mut states[idx].interval,
                     LowerBound::ExactGrammar {

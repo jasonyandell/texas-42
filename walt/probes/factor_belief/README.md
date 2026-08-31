@@ -1,4 +1,4 @@
-# factor_belief — the Slice C (stages C0–C2), D, E and F probes
+# factor_belief — the Slice C (stages C0–C2), D, E, F and G probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
@@ -6,15 +6,17 @@ adds it to a verifier receipt.
 
 Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C),
 `walt/walt/src/bin/factorrecursion.rs` (Slice D),
-`walt/walt/src/bin/factorresponse.rs` (Slice E) and
-`walt/walt/src/bin/factorcegar.rs` (Slice F). Gates (the CI-checked
+`walt/walt/src/bin/factorresponse.rs` (Slice E),
+`walt/walt/src/bin/factorcegar.rs` (Slice F) and
+`walt/walt/src/bin/factorrefine.rs` (Slice G). Gates (the CI-checked
 part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
-`walt/walt/tests/solver_factor_response.rs` and
-`walt/walt/tests/solver_factor_consequence.rs`. Mathematical source:
-`walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31, §46
-stages C0–C2, §47 Slice D, §48 Slice E, §49 Slice F, rulings
-CBS-A4/CBS-A6/CBS-A9.
+`walt/walt/tests/solver_factor_response.rs`,
+`walt/walt/tests/solver_factor_consequence.rs` and
+`walt/walt/tests/solver_factor_refine.rs`. Mathematical source:
+`walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31,
+Part VIII §32–37, §46 stages C0–C2, §47 Slice D, §48 Slice E, §49
+Slice F, §50 Slice G, rulings CBS-A4/CBS-A6/CBS-A9.
 
 ## What it measures
 
@@ -307,6 +309,52 @@ non-vacuity of vocabulary/aggregation/refinement).
   action-exact class verifier would face), never a faster classifier;
   no such verifier is built here.
 
+## refine_run1.txt readings (2026-08-30) — the Slice G probe
+
+`factorrefine report` — the §50 integrated refinement controller
+(`refine_root` in `solver/refine.rs`: typed per-action intervals, the
+§33 work-item subset, §34 refusals, §35 width-per-cost scheduling, §36
+loop, §37 invariant), gated in CI by `solver_factor_refine.rs` (4
+gates: escalation parity with the bundled exact authority plus the
+containment chain, the soundness invariant walked over full runs,
+steering refusals with bytewise determinism, starvation honesty with
+the δ ledger).
+
+- **The exact ladder settles every gated root** (Section A: six SETTLED,
+  four honest EQUIVALENT exact ties, all with `risk 0`), and twice it
+  settles WITHOUT escalating the winner: at h4-t6 and h4-t4 the
+  winner's cheap exact-fixed lower (866‰, 892‰) cleared every rival's
+  escalated exact point — §36's promise that one lower witness can
+  clear all rival uppers, realized on trace.
+- **The sampled tier pays for itself exactly where theory says**
+  (Section B): on the small t5/t6 fibers, δ bounds settle the root
+  before ANY exact recursion runs (h4-t6 at 64 work units against 420
+  exact-only; h8-t5 at 3,776 against 13,860) and the result is
+  correctly demoted to `delta-qualified`; at trick 4 the prefix-16
+  uppers are too loose to prune, the exact ladder does the work, and
+  the wasted sampled spend is 128 units of ~237,000 — both regimes on
+  one deterministic trace, with the winner agreeing across tiers
+  everywhere both settle.
+- **Decision width against cumulative cost is the §53 staircase**
+  (Section C): at h3-t4 the bar climbs 0‰ → 238‰ → 267‰ → 350‰ as the
+  budget grows 1k → 12k → 48k → ample, with the honest UNRESOLVED rows
+  carrying the full surviving set and the named fallback until the
+  escalations land and the root settles.
+- **The affordability cliff is walked honestly** (Section D): at the
+  opening root every exact item is refused by its own declared
+  forecast (the §40 contraction/field-classification walls, labeled),
+  fourteen sampled endpoints produce real δ intervals over the
+  399,072,960-world fiber (one upper reaches 974‰), nothing prunes at
+  bar 490‰, and the controller returns UNRESOLVED with all seven
+  actions, the fallback named, risk 7/10 inside the declared 4/5
+  scope. No complete-world enumeration ran.
+- **What the controller does not claim.** It schedules and accounts; it
+  manufactures no bound (§37.8) — every number is produced by a
+  pre-existing authority or by the escalation recursion the gates hold
+  to bundled parity. Forecasts are declared heuristics (wrong forecasts
+  cost scheduling quality, never soundness), and the fallback choice in
+  an UNRESOLVED result is never promoted to a settled claim.
+
 ## Boundaries
 
 - Deterministic fields only; a stochastic field needs an explicit tape
@@ -330,6 +378,17 @@ non-vacuity of vocabulary/aggregation/refinement).
   law, unweakened). No class verifier exists: exactness is established
   by classifying every member hand, and the §29 verifier interface is
   named, not built.
+- The Slice G controller works at ONE root per run: no cross-root
+  reuse, no cost-model learning, and the §48 fence is lifted only
+  through `response_success_mass` (whose sole role is the §36
+  escalation, gated to bundled parity). Grammar/residual UPPER bounds
+  (Slice B's `residual_empirical_max_upper`) are not wired in as a work
+  item — before escalation, the only nontrivial uppers on this ladder
+  are the sampled optimization-lock bounds. The existing controller
+  player remains the fallback surface; nothing here touches the
+  default player.
 - The opening-root recursion is not attempted; only the opening-root
-  ONE-PLY contraction is measured (the Slice C probes above, and Slice
-  F's refinement of the same contraction).
+  ONE-PLY contraction is measured (the Slice C probes above, Slice F's
+  refinement of the same contraction, and Slice G's Section D, where
+  every opening-root exact recursion is refused by its own declared
+  forecast).
