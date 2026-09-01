@@ -1,4 +1,4 @@
-# factor_belief — the Slice C (stages C0–C2), D, E, F, G and Phase 1/2/3/6 probes
+# factor_belief — the Slice C (stages C0–C2), D, E, F, G and Phase 1/2/3/4/5/6 probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
@@ -11,8 +11,9 @@ Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C),
 `walt/walt/src/bin/factorrefine.rs` (Slice G),
 `walt/walt/src/bin/factorprofile.rs` (anytime proof-state Phase 2),
 `walt/walt/src/bin/proofreport.rs` (anytime proof-state Phase 3),
-`walt/walt/src/bin/extractreport.rs` (anytime proof-state Phase 6) and
-`walt/walt/src/bin/frontierreport.rs` (anytime proof-state Phase 1).
+`walt/walt/src/bin/extractreport.rs` (anytime proof-state Phase 6),
+`walt/walt/src/bin/frontierreport.rs` (anytime proof-state Phase 1) and
+`walt/walt/src/bin/bellmanreport.rs` (anytime proof-state Phases 4/5).
 Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
@@ -21,13 +22,15 @@ Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_profile.rs`,
 `walt/walt/tests/solver_proof_state.rs`,
 `walt/walt/tests/solver_proof_regret.rs`,
-`walt/walt/tests/solver_extraction.rs` and
-`walt/walt/tests/solver_frontier.rs`. Mathematical source:
+`walt/walt/tests/solver_extraction.rs`,
+`walt/walt/tests/solver_frontier.rs`,
+`walt/walt/tests/solver_residual.rs` and
+`walt/walt/tests/solver_covers.rs`. Mathematical source:
 `walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31,
 Part VIII §32–37, §46 stages C0–C2, §47 Slice D, §48 Slice E, §49
 Slice F, §50 Slice G, rulings CBS-A4/CBS-A6/CBS-A9; and
-`walt/math/anytime_proof_state_score_v0.1.md` §2–§4, §10–§11, §18,
-§24–§33, §35, §39–§44, §49–§56, §60, §63, rulings
+`walt/math/anytime_proof_state_score_v0.1.md` §2–§13, §18, §22–§23,
+§24–§33, §35, §39–§44, §49–§56, §60–§63, rulings
 APS-A2/APS-A4/APS-A6/APS-A7/APS-A8/APS-A9.
 
 ## What it measures
@@ -498,6 +501,36 @@ the δ ledger).
 - Whole probe 13.3 s, dominated by h3-t4's three goals; no root was
   dropped.
 
+## bellmanreport_run1.txt readings (2026-08-31) — the Phase 4/5 staircases and covers
+
+- **The staircase is a real anytime object.** h3-t4 walks every action
+  from a wide stage-0 interval (3-1: [145,606]‰ over 50 classes) to
+  the exact response in 5–6 refinements, narrowing monotonically on
+  both sides; mid-staircase stages are honest intermediate answers
+  (stage 4 on 4-1: [223,387]‰ at 836‰ exact mass). h8-t5 0-0 climbs
+  86‰ → 771‰ exact-mass across five stages. The interval width IS the
+  unresolved mass — §22's identity, visible line by line.
+- **Decided cells stage for free.** h12-t6 and h10-t6 sit at exact
+  intervals from stage 0 (classes 0(0): the post-action node is
+  decided) — the staircase never spends where the game already knows.
+- **Covers certify BOTH collapses.** h12-t6: verified gain 0 against
+  an arithmetic envelope of 7 — the range walk proves no deviation
+  moves the declaring score, and the derived upper collapses both
+  actions to V* = 0 at range-walk cost (a failure certificate cheaper
+  than the response walk). h10-t6: the incumbent is a certain make and
+  the rescue band closes at 1000‰. h4-t6: the range walk beats the
+  arithmetic envelope by exactly one point (gain 11 vs 12) and leaves
+  the 5-5 ten-count hazard VISIBLE at 134‰ on 1-1 — small, nonzero,
+  never averaged away.
+- **The §70 caveat is live, honestly.** At rich early roots (h8-t5,
+  h5-t6, h3-t4) every trick and count tile is still contested: the
+  verified gain equals the whole §5 envelope and the first-generation
+  covers are vacuous (upper 1000‰). Richer structural producers
+  (protection conditions, per-cell partitions) are the declared next
+  answer — not a lowered verifier bar.
+- Whole probe 15.7 s, dominated by h3-t4's staircases; no root
+  dropped.
+
 ## Boundaries
 
 - Deterministic fields only; a stochastic field needs an explicit tape
@@ -522,6 +555,15 @@ the δ ledger).
   makes
   play-strength claims: a grammar optimum under a modeled field is an
   evaluation subject, not a recommendation.
+- The Phase 4 staircase stages at ONE hidden node per action — each
+  path's first field decision, the Slice F bottleneck — with the exact
+  recursion below every exact branch: per-node staging deeper is
+  Phase 8 scheduling territory, and the fused per-class sum exists
+  ONLY as the §23 rejection gate's instrument, never as a bound. The
+  Phase 5 covers are first-generation (§62 "deliberately incomplete"):
+  whole-cell resources, one cover per action against the strongest
+  incumbent, both viewer parities, nothing sampled; vacuity at rich
+  roots is recorded, not patched (§70).
 - The Slice F loop refines at ONE hidden node (the one-ply contraction
   after the fixed focal play): no cross-node or cross-history class
   transfer is measured or claimed — a signature that is action-exact at

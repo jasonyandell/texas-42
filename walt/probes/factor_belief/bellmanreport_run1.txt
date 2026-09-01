@@ -1,0 +1,175 @@
+bellman-report instrument (anytime proof-state Phases 4/5, §61/§62/APS-A8/A9)
+field=Level0{n0=2} oracle=SupportOracle; incumbents = lowest-first baselines.
+Staircase rows: stage s -> [lower,upper]permille exact-mass-permille classes(exact).
+Cover rows: verified gain vs arithmetic envelope, resources, derived upper vs exact.
+
+== h12-t6 bid=30 viewer=pmake-v1 z=6 legal=2 ==
+ action 4-4: exact-response 0permille
+   stage 0: [0,0]permille exact 1000permille classes 0(0)
+   envelope(s=1, lowest-first): straddle-at-contract 0permille
+ action 6-0: exact-response 0permille
+   stage 0: [0,0]permille exact 1000permille classes 0(0)
+   envelope(s=1, lowest-first): straddle-at-contract 0permille
+ cover 4-4: gain 0 (envelope 7) tricks 2 fives [4-1] tens []
+ cover 6-0: gain 0 (envelope 7) tricks 2 fives [4-1] tens []
+   4-4: incumbent 0permille upper 0permille exact 0permille COLLAPSED
+   6-0: incumbent 0permille upper 0permille exact 0permille COLLAPSED
+ wall 1102 us
+
+== h10-t6 bid=30 viewer=pmake-v1 z=19 legal=2 ==
+ action 2-2: exact-response 1000permille
+   stage 0: [1000,1000]permille exact 1000permille classes 0(0)
+   envelope(s=1, lowest-first): straddle-at-contract 0permille
+ action 3-3: exact-response 1000permille
+   stage 0: [1000,1000]permille exact 1000permille classes 0(0)
+   envelope(s=1, lowest-first): straddle-at-contract 0permille
+ cover 2-2: gain 7 (envelope 7) tricks 2 fives [3-2] tens []
+ cover 3-3: gain 7 (envelope 7) tricks 2 fives [3-2] tens []
+   2-2: incumbent 1000permille upper 1000permille exact 1000permille COLLAPSED
+   3-3: incumbent 1000permille upper 1000permille exact 1000permille COLLAPSED
+ wall 1098 us
+
+== h5-t6 bid=30 viewer=pmake-v1 z=27 legal=2 ==
+ action 4-1: exact-response 444permille
+   stage 0: [0,1000]permille exact 0permille classes 2(0)
+   stage 1: [296,629]permille exact 666permille classes 4(3)
+   stage 2: [444,444]permille exact 1000permille classes 6(6)
+   envelope(s=1, lowest-first): straddle-at-contract 333permille
+ action 5-2: exact-response 444permille
+   stage 0: [0,1000]permille exact 0permille classes 1(0)
+   stage 1: [185,740]permille exact 444permille classes 2(1)
+   stage 2: [444,444]permille exact 1000permille classes 4(4)
+   envelope(s=1, lowest-first): straddle-at-contract 555permille
+ cover 4-1: gain 17 (envelope 17) tricks 2 fives [4-1] tens [5-5]
+ cover 5-2: gain 17 (envelope 17) tricks 2 fives [4-1] tens [5-5]
+   4-1: incumbent 444permille upper 1000permille exact 444permille OPEN(hazard visible)
+   5-2: incumbent 444permille upper 1000permille exact 444permille OPEN(hazard visible)
+ wall 2856 us
+
+== h4-t6 bid=30 viewer=pmake-setting-v1 z=90 legal=2 ==
+ action 0-0: exact-response 333permille
+   stage 0: [266,400]permille exact 866permille classes 11(10)
+   stage 1: [333,333]permille exact 1000permille classes 15(15)
+   envelope(s=1, lowest-first): straddle-at-contract 0permille
+ action 1-1: exact-response 866permille
+   stage 0: [533,933]permille exact 600permille classes 7(5)
+   stage 1: [755,888]permille exact 866permille classes 11(10)
+   stage 2: [866,866]permille exact 1000permille classes 15(15)
+   envelope(s=1, lowest-first): straddle-at-contract 133permille
+ cover 0-0: gain 11 (envelope 12) tricks 2 fives [] tens [5-5]
+ cover 1-1: gain 11 (envelope 12) tricks 2 fives [] tens [5-5]
+   0-0: incumbent 333permille upper 1000permille exact 333permille OPEN(hazard visible)
+   1-1: incumbent 866permille upper 1000permille exact 866permille OPEN(hazard visible)
+ wall 7711 us
+
+== h8-t5 bid=30 viewer=pmake-v1 z=92 legal=3 ==
+ action 0-0: exact-response 771permille
+   stage 0: [86,1000]permille exact 86permille classes 8(2)
+   stage 1: [282,956]permille exact 326permille classes 12(5)
+   stage 2: [565,891]permille exact 673permille classes 16(13)
+   stage 3: [641,771]permille exact 869permille classes 22(20)
+   stage 4: [771,771]permille exact 1000permille classes 28(28)
+   envelope(s=1, lowest-first): straddle-at-contract 673permille
+ action 5-0: exact-response 695permille
+   stage 0: [0,695]permille exact 304permille classes 4(2)
+   stage 1: [65,695]permille exact 369permille classes 7(4)
+   stage 2: [130,695]permille exact 434permille classes 11(7)
+   stage 3: [369,695]permille exact 673permille classes 16(12)
+   stage 4: [630,695]permille exact 934permille classes 22(21)
+   stage 5: [695,695]permille exact 1000permille classes 28(28)
+   envelope(s=1, lowest-first): straddle-at-contract 630permille
+ action 5-3: exact-response 989permille
+   stage 0: [293,989]permille exact 304permille classes 4(2)
+   stage 1: [456,989]permille exact 467permille classes 7(5)
+   stage 2: [684,989]permille exact 695permille classes 11(9)
+   stage 3: [728,989]permille exact 739permille classes 16(13)
+   stage 4: [880,989]permille exact 891permille classes 22(20)
+   stage 5: [989,989]permille exact 1000permille classes 28(28)
+   envelope(s=1, lowest-first): straddle-at-contract 532permille
+ cover 0-0: gain 26 (envelope 33) tricks 3 fives [4-1 5-0] tens [5-5 6-4]
+ cover 5-0: gain 32 (envelope 33) tricks 3 fives [4-1 5-0] tens [5-5 6-4]
+ cover 5-3: gain 27 (envelope 33) tricks 3 fives [4-1 5-0] tens [5-5 6-4]
+   0-0: incumbent 695permille upper 1000permille exact 771permille OPEN(hazard visible)
+   5-0: incumbent 684permille upper 1000permille exact 695permille OPEN(hazard visible)
+   5-3: incumbent 717permille upper 1000permille exact 989permille OPEN(hazard visible)
+ wall 41902 us
+
+== h3-t5 bid=30 viewer=pmake-v1 z=200 legal=3 ==
+ action 4-0: exact-response 1000permille
+   stage 0: [0,1000]permille exact 0permille classes 6(0)
+   stage 1: [50,1000]permille exact 50permille classes 11(3)
+   stage 2: [140,1000]permille exact 140permille classes 19(8)
+   stage 3: [140,1000]permille exact 140permille classes 25(10)
+   stage 4: [590,1000]permille exact 590permille classes 41(29)
+   stage 5: [850,1000]permille exact 850permille classes 56(47)
+   stage 6: [1000,1000]permille exact 1000permille classes 74(74)
+   envelope(s=1, lowest-first): straddle-at-contract 950permille
+ action 5-0: exact-response 1000permille
+   stage 0: [0,1000]permille exact 0permille classes 6(0)
+   stage 1: [25,1000]permille exact 25permille classes 11(2)
+   stage 2: [50,1000]permille exact 50permille classes 15(4)
+   stage 3: [150,1000]permille exact 150permille classes 25(11)
+   stage 4: [620,1000]permille exact 620permille classes 41(32)
+   stage 5: [930,1000]permille exact 930permille classes 56(52)
+   stage 6: [1000,1000]permille exact 1000permille classes 74(74)
+   envelope(s=1, lowest-first): straddle-at-contract 975permille
+ action 6-6: exact-response 1000permille
+   stage 0: [105,1000]permille exact 105permille classes 17(5)
+   stage 1: [525,1000]permille exact 525permille classes 27(16)
+   stage 2: [665,1000]permille exact 665permille classes 38(26)
+   stage 3: [945,1000]permille exact 945permille classes 53(51)
+   stage 4: [950,1000]permille exact 950permille classes 71(69)
+   stage 5: [1000,1000]permille exact 1000permille classes 74(74)
+   envelope(s=1, lowest-first): straddle-at-contract 475permille
+ cover 4-0: gain 0 (envelope 38) tricks 3 fives [3-2 4-1 5-0] tens [5-5 6-4]
+ cover 5-0: gain 0 (envelope 38) tricks 3 fives [3-2 4-1 5-0] tens [5-5 6-4]
+ cover 6-6: gain 0 (envelope 38) tricks 3 fives [3-2 4-1 5-0] tens [5-5 6-4]
+   4-0: incumbent 1000permille upper 1000permille exact 1000permille COLLAPSED
+   5-0: incumbent 1000permille upper 1000permille exact 1000permille COLLAPSED
+   6-6: incumbent 1000permille upper 1000permille exact 1000permille COLLAPSED
+ wall 114619 us
+
+== h3-t4 bid=30 viewer=pmake-v1 z=11550 legal=4 ==
+ action 3-1: exact-response 350permille
+   stage 0: [66,830]permille exact 236permille classes 70(31)
+   stage 1: [168,640]permille exact 527permille classes 108(75)
+   stage 2: [275,457]permille exact 818permille classes 146(128)
+   stage 3: [279,425]permille exact 854permille classes 162(146)
+   stage 4: [326,374]permille exact 951permille classes 246(238)
+   stage 5: [350,350]permille exact 1000permille classes 330(330)
+   envelope(s=1, lowest-first): straddle-at-contract 472permille
+ action 4-1: exact-response 271permille
+   stage 0: [145,606]permille exact 539permille classes 50(34)
+   stage 1: [152,530]permille exact 621permille classes 57(43)
+   stage 2: [155,524]permille exact 630permille classes 99(74)
+   stage 3: [179,470]permille exact 709permille classes 162(130)
+   stage 4: [223,387]permille exact 836permille classes 246(219)
+   stage 5: [271,271]permille exact 1000permille classes 330(330)
+   envelope(s=1, lowest-first): straddle-at-contract 378permille
+ action 4-4: exact-response 328permille
+   stage 0: [145,682]permille exact 463permille classes 50(31)
+   stage 1: [151,620]permille exact 530permille classes 57(39)
+   stage 2: [182,569]permille exact 612permille classes 99(73)
+   stage 3: [235,499]permille exact 736permille classes 162(133)
+   stage 4: [283,416]permille exact 866permille classes 246(224)
+   stage 5: [328,328]permille exact 1000permille classes 330(330)
+   envelope(s=1, lowest-first): straddle-at-contract 469permille
+ action 6-4: exact-response 286permille
+   stage 0: [89,816]permille exact 272permille classes 93(43)
+   stage 1: [194,515]permille exact 678permille classes 131(103)
+   stage 2: [195,468]permille exact 727permille classes 146(120)
+   stage 3: [211,411]permille exact 800permille classes 162(140)
+   stage 4: [252,349]permille exact 903permille classes 246(230)
+   stage 5: [286,286]permille exact 1000permille classes 330(330)
+   envelope(s=1, lowest-first): straddle-at-contract 321permille
+ cover 3-1: gain 39 (envelope 39) tricks 4 fives [3-2 4-1 5-0] tens [5-5 6-4]
+ cover 4-1: gain 39 (envelope 39) tricks 4 fives [3-2 4-1 5-0] tens [5-5 6-4]
+ cover 4-4: gain 39 (envelope 39) tricks 4 fives [3-2 4-1 5-0] tens [5-5 6-4]
+ cover 6-4: gain 39 (envelope 39) tricks 4 fives [3-2 4-1 5-0] tens [5-5 6-4]
+   3-1: incumbent 238permille upper 1000permille exact 350permille OPEN(hazard visible)
+   4-1: incumbent 199permille upper 1000permille exact 271permille OPEN(hazard visible)
+   4-4: incumbent 267permille upper 1000permille exact 328permille OPEN(hazard visible)
+   6-4: incumbent 228permille upper 1000permille exact 286permille OPEN(hazard visible)
+ wall 15465940 us
+
+total wall 15696614 us

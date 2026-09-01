@@ -880,6 +880,39 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   upper-information value = future frontier work). Remaining: Phases
   4/5 (envelopes, covers), 7 (laydowns), 8 (opening-root iterative
   run), all on Jason's word; default player and RefineV1 untouched.
+- **The anytime proof-state build — Phases 4 + 5 landed** *(2026-08-31,
+  same day, on Jason's "go for 4/5 and if it fits, 7")*: the §61
+  score-aware residual Bellman and the §62 count-threat covers. Phase
+  4: `staged_response_interval`/`staged_policy_envelope` in
+  `solver::factor_belief` (the capped Slice F CEGAR replayed
+  prefix-stably at each path's first field decision; exact classes
+  merged by public action per §23 and recursed through the exact §36
+  response; unresolved mass attached as the §5 envelope — at an
+  undecided node the width IS the residual mass), the ample producer
+  in new `solver::residual`, the §54 `Fact::Envelope` (executable
+  lower + the first nonzero §7 contract-sensitive residual on the
+  recommendation), and the frontier's `ResidualInterval` item under
+  the §41 census law (potential nonzero exactly where closure can
+  consume an open interval; zero at the ε-goal's top-state stall; the
+  exact item dominates at the flat 3Z forecast — honest, the staged
+  item's cost advantage waits on Phase 8's staged cost model). Phase
+  5: `solver::covers` — `Fact::Cover` with the §13 resource
+  decomposition (the §5 remainder decomposes exactly, asserted) and a
+  verified movement bound from the new `declaring_score_range` walk;
+  closure derives the §10/§11 rescue-band upper through the named
+  incumbent's profile; no incumbent → decline → no number. Ten gates
+  green (`solver_residual.rs` incl. the §23 cellwise-max
+  counterexample rejected LIVE on h3-t4 — the fused per-class sum
+  strictly exceeds the lawful merged optimum of its own domain;
+  `solver_covers.rs`). Probe `bellmanreport` (15.7 s): the staircase
+  is a real anytime object (h3-t4 [145,606]‰ → exact in 5–6 monotone
+  stages); decided cells stage for free; h12-t6's cover certifies
+  V* = 0 for one range walk; h4-t6's range walk beats arithmetic by
+  one point with the 5-5 hazard visible at 134‰; §70's caveat live at
+  rich roots (first-generation covers vacuous where every resource is
+  contested — richer structural producers are the declared answer).
+  Remaining: Phases 7 (laydowns) and 8 (opening-root iterative run);
+  default player and RefineV1 untouched.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03
