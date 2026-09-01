@@ -1,0 +1,10 @@
+laydown-report instrument (anytime proof-state Phase 7, §15–§17/§64/APS-A9)
+census: laydown / forced(witness) / adversarial(lowest-first) / policy-certain.
+
+boss-chain bid33: laydown=true forced=true(Some(6-4)) adversarial=true policy-certain=true nodes=1492276 wall 373469 us
+already-made bid20: laydown=true forced=true(Some(6-4)) adversarial=true policy-certain=true nodes=3 wall 10 us
+loose-boss bid33: laydown=false forced=false(None) adversarial=false policy-certain=false nodes=280 wall 29325 us
+h12-t6: laydown=false forced=false(None) adversarial=false policy-certain=false nodes=5 wall 5 us
+h10-t6: laydown=true forced=true(Some(2-2)) adversarial=true policy-certain=true nodes=3 wall 6 us
+h5-t6: laydown=false forced=false(None) adversarial=false policy-certain=false nodes=67 wall 349 us
+h4-t6: laydown=false forced=false(None) adversarial=false policy-certain=false nodes=219 wall 773 us

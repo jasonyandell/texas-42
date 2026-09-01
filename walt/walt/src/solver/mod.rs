@@ -33,6 +33,7 @@ pub mod field_swap;
 pub mod frontier;
 pub mod grammar;
 pub mod hazard;
+pub mod laydown;
 pub mod motif;
 pub mod policy;
 pub mod proof_state;

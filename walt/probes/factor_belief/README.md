@@ -1,4 +1,4 @@
-# factor_belief — the Slice C (stages C0–C2), D, E, F, G and Phase 1/2/3/4/5/6 probes
+# factor_belief — the Slice C (stages C0–C2), D, E, F, G and Phase 1/2/3/4/5/6/7 probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
@@ -13,7 +13,8 @@ Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C),
 `walt/walt/src/bin/proofreport.rs` (anytime proof-state Phase 3),
 `walt/walt/src/bin/extractreport.rs` (anytime proof-state Phase 6),
 `walt/walt/src/bin/frontierreport.rs` (anytime proof-state Phase 1) and
-`walt/walt/src/bin/bellmanreport.rs` (anytime proof-state Phases 4/5).
+`walt/walt/src/bin/bellmanreport.rs` (anytime proof-state Phases 4/5) and
+`walt/walt/src/bin/laydownreport.rs` (anytime proof-state Phase 7).
 Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
@@ -25,12 +26,13 @@ Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_extraction.rs`,
 `walt/walt/tests/solver_frontier.rs`,
 `walt/walt/tests/solver_residual.rs` and
-`walt/walt/tests/solver_covers.rs`. Mathematical source:
+`walt/walt/tests/solver_covers.rs` and
+`walt/walt/tests/solver_laydown.rs`. Mathematical source:
 `walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31,
 Part VIII §32–37, §46 stages C0–C2, §47 Slice D, §48 Slice E, §49
 Slice F, §50 Slice G, rulings CBS-A4/CBS-A6/CBS-A9; and
 `walt/math/anytime_proof_state_score_v0.1.md` §2–§13, §18, §22–§23,
-§24–§33, §35, §39–§44, §49–§56, §60–§63, rulings
+§24–§33, §35, §15–§17, §39–§44, §49–§56, §60–§64, rulings
 APS-A2/APS-A4/APS-A6/APS-A7/APS-A8/APS-A9.
 
 ## What it measures
@@ -530,6 +532,22 @@ the δ ledger).
   answer — not a lowered verifier bar.
 - Whole probe 15.7 s, dominated by h3-t4's staircases; no root
   dropped.
+
+## laydownreport_run1.txt readings (2026-08-31) — the Phase 7 typed census
+
+- **Proved from the rules, not the phrase.** The boss-chain control
+  (6-6/6-5/6-4 at three remaining tricks, all-or-nothing contract)
+  certifies as a TRUE Laydown in 1.49M walk nodes / 0.37 s; the
+  already-made root classifies in 3 decided reads (10 μs — §17's
+  zero-cost closure, live); the loose-boss counterexample refutes
+  FAIL-FAST in 280 nodes.
+- **h10-t6 is a real receipt-root Laydown** — all four tiers true with
+  forcing witness 2-2: the first certified "expose the hand" on corpus
+  data.
+- Boundary: the universal walk quantifies over a per-seat RELAXATION
+  of the world set (jointly-impossible branches are walked as vacuous
+  or phantom worlds) — sound for certification, possibly conservative;
+  and it is an endgame instrument, exponential in remaining plays.
 
 ## Boundaries
 

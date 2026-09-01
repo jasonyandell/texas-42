@@ -2685,3 +2685,146 @@ pub fn declaring_score_range(
         range.expect("a hidden seat to move has support")
     }
 }
+
+// ---------------------------------------------------------------------------
+// The §16 universal-quantifier walk (anytime proof-state Phase 7).
+// ---------------------------------------------------------------------------
+
+/// The focal quantifier of a §16 universal walk: one fixed
+/// materialized policy (`AdversarialPolicyMake(π)`), the existential
+/// (`ForcedMake` — an OR over legal focal actions, whose per-node
+/// witness is a function of the public history and therefore an
+/// information-consistent policy), or the universal (`Laydown` — an
+/// AND over legal focal actions).
+pub enum FocalQuantifier<'a> {
+    Fixed(&'a dyn SlicePolicy),
+    Exists,
+    All,
+}
+
+/// The §16 universal walk: TRUE exactly when — under the regime's
+/// focal quantifier — the viewer objective succeeds in EVERY
+/// represented world under EVERY legal field reply (`∀ω ∀σ`; no
+/// field model anywhere — the field quantifier is universal, so this
+/// is field-identity-free and stronger than any declared σ). Nothing
+/// sampled can enter (§64's law): the walk is a pure Boolean
+/// recursion over decided cutoffs and legal sets.
+///
+/// The hidden case: the acting seat could play any tile legal from
+/// SOME record-consistent support hand; each such tile is one branch,
+/// with the posterior restricted to the hands that could legally play
+/// it. Posteriors OVERLAP (one hand serves many branches) — sound for
+/// universal semantics, where every (world, field-play) pair must
+/// hold and coverage, not partition, is what is needed. Each focal
+/// node below remains one information state keyed by the public
+/// history, so no strategy fusion enters the `Exists` witness.
+///
+/// The decided cutoff at the ROOT is §17's zero-cost closure: a state
+/// whose §5 arithmetic already decides the objective classifies with
+/// no walk at all (the "already-made" laydown).
+pub fn universal_viewer_success(
+    belief: &FactorBelief,
+    focal: &FocalQuantifier<'_>,
+    stats: &mut ResponseStats,
+) -> bool {
+    let cursor = belief.cursor();
+    let viewer = belief.kernel.viewer();
+    let total = belief.kernel.viewer_hand().len()
+        + belief
+            .kernel
+            .hidden()
+            .iter()
+            .map(|h| h.capacity)
+            .sum::<usize>();
+    let at_terminal = belief.history.len() == total;
+    if let Some(u) = decided_success(&belief.position, viewer, cursor.banked, at_terminal) {
+        if at_terminal {
+            stats.decided_terminal += 1;
+        } else {
+            stats.decided_early += 1;
+        }
+        return u;
+    }
+    if cursor.seat() == viewer {
+        stats.focal_nodes += 1;
+        let remaining = belief
+            .kernel
+            .viewer_hand()
+            .difference(cursor.played_by[viewer.index()]);
+        let led = cursor
+            .plays
+            .first()
+            .map(|d| belief.position.decl.led_context(*d));
+        let legal = legal_plays(belief.position.decl, remaining, led);
+        assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+        match focal {
+            FocalQuantifier::Fixed(policy) => {
+                stats.focal_actions += 1;
+                let record = cursor.record(&belief.position, &belief.history);
+                let tile = policy.choose(belief.position.decl, remaining, legal, &record);
+                assert!(legal.contains(tile), "a policy chooses a legal tile");
+                universal_viewer_success(&belief.focal_play(tile), focal, stats)
+            }
+            FocalQuantifier::Exists => legal.iter().any(|tile| {
+                stats.focal_actions += 1;
+                universal_viewer_success(&belief.focal_play(tile), focal, stats)
+            }),
+            FocalQuantifier::All => legal.iter().all(|tile| {
+                stats.focal_actions += 1;
+                universal_viewer_success(&belief.focal_play(tile), focal, stats)
+            }),
+        }
+    } else {
+        stats.hidden_nodes += 1;
+        let seat = cursor.seat();
+        let slot = belief.slot_of(seat);
+        let own = cursor.played_by[seat.index()];
+        let others = (0..Seat::COUNT)
+            .filter(|i| *i != seat.index())
+            .fold(DominoSet::EMPTY, |acc, i| acc.union(cursor.played_by[i]));
+        let led = cursor
+            .plays
+            .first()
+            .map(|d| belief.position.decl.led_context(*d));
+        // The consistent support and each hand's legal set, once.
+        let hands: Vec<(DominoSet, u128, DominoSet)> = belief.factors[slot]
+            .support()
+            .into_iter()
+            .filter(|(hand, _)| own.is_subset_of(*hand) && hand.is_disjoint(others))
+            .map(|(hand, w)| {
+                let legal = legal_plays(belief.position.decl, hand.difference(own), led);
+                assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+                (hand, w, legal)
+            })
+            .collect();
+        // Overlapping posteriors keep PER-SEAT consistency, not the
+        // joint exact cover: a branch can strand a seat whose every
+        // kept hand conflicts with tiles other seats have since
+        // played. Such a branch represents NO world — the universal
+        // quantifier holds vacuously. The walk therefore ranges over
+        // a RELAXATION of the true world set (branches that are
+        // per-seat consistent but jointly impossible are still
+        // walked), which is SOUND for certification — a phantom
+        // world can only turn a true universal false, never certify
+        // a false one — and possibly conservative; the §17
+        // structural route is the declared tightening.
+        if hands.is_empty() {
+            return true;
+        }
+        let playable = hands
+            .iter()
+            .fold(DominoSet::EMPTY, |acc, (_, _, legal)| acc.union(*legal));
+        playable.iter().all(|tile| {
+            stats.conditionings += 1;
+            let kept: Vec<(DominoSet, u128)> = hands
+                .iter()
+                .filter(|(_, _, legal)| legal.contains(tile))
+                .map(|(hand, w, _)| (*hand, *w))
+                .collect();
+            let mut child = belief.clone();
+            child.factors[slot].weights = FactorWeights::Table(kept);
+            child.history.push(tile);
+            universal_viewer_success(&child, focal, stats)
+        })
+    }
+}

@@ -913,6 +913,23 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   contested — richer structural producers are the declared answer).
   Remaining: Phases 7 (laydowns) and 8 (opening-root iterative run);
   default player and RefineV1 untouched.
+- **The anytime proof-state build — Phase 7 landed** *(2026-08-31,
+  same day, the "7 can follow" half of Jason's go)*: the §16 typed
+  laydown hierarchy. `universal_viewer_success` (one Boolean walk,
+  three focal regimes — Fixed/Exists/All — under ∀σ; overlapping
+  could-play posteriors, per-seat relaxation of the world set:
+  certification-sound, possibly conservative); `solver::laydown` —
+  `classify_root` four-tier census (PolicyCertainMake IS
+  `viewer_success_mass = Z`), `LaydownProducer` installing only
+  deterministic facts (§64's no-sampled-route law, gated), §17
+  zero-cost closure as the walk's first line. Four gates green;
+  probe `laydownreport`: boss-chain control = TRUE Laydown in 1.49M
+  nodes / 0.37s, already-made in 3 decided reads, loose-boss refutes
+  fail-fast, and h10-t6 is a REAL receipt-root Laydown (witness 2-2).
+  Boundary: endgame instrument — opening-depth certificates need a
+  future structural producer. Remaining: Phase 8 (opening-root
+  iterative run) on Jason's word; default player and RefineV1
+  untouched.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03

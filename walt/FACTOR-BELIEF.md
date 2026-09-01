@@ -230,6 +230,34 @@ the envelope, and the first-generation covers are vacuous: richer
 structural producers (protection conditions, per-cell partitions) are
 the declared answer, not a patched heuristic.
 
+**PHASE 7 LANDED** (2026-08-31, same day, the "7 can follow" half of
+Jason's go): the §16 typed laydown hierarchy. `universal_viewer_success`
+in `solver/factor_belief.rs` — one Boolean walk with three focal
+quantifier regimes (Fixed π / Exists / All) under the universal field
+quantifier ∀σ: hidden nodes branch over every could-play tile with
+OVERLAPPING posteriors (sound for universal semantics; the walk ranges
+over a per-seat relaxation of the world set — certification-sound,
+possibly conservative, §17's structural route is the declared
+tightening); the Exists witness is per-public-history, hence an
+information-consistent policy. `solver/laydown.rs`: `classify_root` =
+the four-tier census (PolicyCertainMake IS `viewer_success_mass = Z`,
+the recursion already trusted) with the hierarchy held as internal
+fences, and `LaydownProducer` ("laydown-v1") installing ONLY
+`ProofTag::Deterministic` facts — §64's no-sampled-route law, gated.
+§17's zero-cost closure is the walk's first line (a decided root
+classifies with zero tree). Four gates (`solver_laydown.rs`):
+boss-chain control = TRUE Laydown at the all-or-nothing contract,
+proved by walk not phrase; already-made = 3 decided reads, zero tree;
+loose-boss and possible-ruff counterexamples break every universal
+tier; hierarchy + §16.1-coincidence on receipt roots; producer
+determinism + immediate closure. Probe `laydownreport`
+(`probes/factor_belief/laydownreport_run1.txt`): control certifies in
+1.49M nodes / 0.37s, already-made in 10μs, loose-boss refutes
+fail-fast in 280 nodes — and h10-t6 is a REAL receipt-root Laydown
+(all four tiers, witness 2-2). Boundary: the walk is an ENDGAME
+instrument (exponential in remaining plays); opening-depth laydown
+certificates need a future structural producer, not a bigger budget.
+
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint
 `response_success_mass` in `solver/factor_belief.rs` — the full-action-set
