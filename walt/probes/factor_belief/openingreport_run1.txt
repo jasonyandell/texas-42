@@ -1,0 +1,161 @@
+ANYTIME PROOF-STATE PHASE 8 — THE §65 OPENING-ROOT ITERATIVE RUN (exploratory)
+==============================================================================
+One opening root, one append-only proof state, declared budget stops,
+the full §65 report panel at every stop. σ0 Level0{n0=2} under
+SupportOracle; δ=1/100 per endpoint against root scope budget 3/5;
+ladder ε=1/4; census at the Phase 4 declared stage; frontier budgets
+in §40 Z units. The declared first target (§65): not a seven-trick
+exact solution — a materially smaller correct survivor set or a
+useful certified-regret recommendation under a playable budget.
+
+root h0-t1 fiber Z=399072960 legal=7 contract=30
+
+== STOP 0 zero-budget (§25 top state): wall=69us sampled_work=0 facts=0 ==
+    0-0: [   0,1000]‰ 
+    2-1: [   0,1000]‰ 
+    3-2: [   0,1000]‰ 
+    3-3: [   0,1000]‰ 
+    5-3: [   0,1000]‰ 
+    6-0: [   0,1000]‰ 
+    6-5: [   0,1000]‰ 
+  survivors: 7 of 7  [0-0 2-1 3-2 3-3 5-3 6-0 6-5]
+  proof_bar=0‰ exec_bar=0‰ global_upper=1000‰ certified_regret=1000‰
+  width_debt=7000‰ policy_cylinders=0 count_threat_cells=0 covers_installed=0
+  risk_spent=0 (0 scopes) delta_decisive=false
+  contract_sensitive_residual=none (bound-fact witness)
+  recommendation: none (no executable witness yet)
+  verdict: UNRESOLVED
+
+== STOP 1 sampled p=16: wall=5682965us sampled_work=224 facts=14 ==
+    0-0: [ 407,1000]‰ lower-sampled 
+    2-1: [ 380,1000]‰ lower-sampled 
+    3-2: [ 315, 994]‰ lower-sampled upper-sampled 
+    3-3: [ 342,1000]‰ lower-sampled 
+    5-3: [ 186,1000]‰ lower-sampled 
+    6-0: [ 284, 999]‰ lower-sampled upper-sampled 
+    6-5: [ 407, 999]‰ lower-sampled upper-sampled 
+  survivors: 7 of 7  [0-0 2-1 3-2 3-3 5-3 6-0 6-5]
+  proof_bar=407‰ exec_bar=407‰ global_upper=1000‰ certified_regret=592‰
+  width_debt=4670‰ policy_cylinders=7 count_threat_cells=0 covers_installed=0
+  risk_spent=7/50 (14 scopes) delta_decisive=false
+  contract_sensitive_residual=none (bound-fact witness)
+  recommendation: 0-0 via refine-v1:sampled-lower pmake_lower=407‰ upper=1000‰ regret=592‰ sampled=true
+  verdict: UNRESOLVED
+
+== STOP 2 sampled p=64: wall=29826738us sampled_work=896 facts=28 ==
+    0-0: [ 534,1000]‰ lower-sampled 
+    2-1: [ 594,1000]‰ lower-sampled 
+    3-2: [ 451, 986]‰ lower-sampled upper-sampled 
+    3-3: [ 499, 999]‰ lower-sampled upper-sampled 
+    5-3: [ 410,1000]‰ lower-sampled 
+    6-0: [ 496, 999]‰ lower-sampled upper-sampled 
+    6-5: [ 584, 999]‰ lower-sampled upper-sampled 
+  survivors: 7 of 7  [0-0 2-1 3-2 3-3 5-3 6-0 6-5]
+  proof_bar=594‰ exec_bar=594‰ global_upper=1000‰ certified_regret=405‰
+  width_debt=3415‰ policy_cylinders=7 count_threat_cells=0 covers_installed=0
+  risk_spent=7/25 (28 scopes) delta_decisive=false
+  contract_sensitive_residual=none (bound-fact witness)
+  recommendation: 2-1 via refine-v1:sampled-lower pmake_lower=594‰ upper=1000‰ regret=405‰ sampled=true
+  verdict: UNRESOLVED
+
+== STOP 3 sampled p=256, census, frontier Z/2: wall=631739549us sampled_work=3584 facts=42 ==
+    0-0: [ 556,1000]‰ lower-sampled 
+    2-1: [ 623, 999]‰ lower-sampled upper-sampled 
+    3-2: [ 565, 970]‰ lower-sampled upper-sampled 
+    3-3: [ 556, 999]‰ lower-sampled upper-sampled 
+    5-3: [ 571, 999]‰ lower-sampled upper-sampled 
+    6-0: [ 621, 969]‰ lower-sampled upper-sampled 
+    6-5: [ 732, 991]‰ lower-sampled upper-sampled 
+  survivors: 7 of 7  [0-0 2-1 3-2 3-3 5-3 6-0 6-5]
+  proof_bar=732‰ exec_bar=732‰ global_upper=1000‰ certified_regret=267‰
+  width_debt=2703‰ policy_cylinders=7 count_threat_cells=0 covers_installed=0
+  risk_spent=21/50 (42 scopes) delta_decisive=false
+  contract_sensitive_residual=none (bound-fact witness)
+  census (stage 4 of the CEGAR record, §49 coordinate):
+    after 0-0: classes=2473 exact_classes=1193 exact_mass=281‰ residual_mass=718‰ of Z=399072960
+    after 2-1: classes=2157 exact_classes=793 exact_mass=235‰ residual_mass=764‰ of Z=399072960
+    after 3-2: classes=375 exact_classes=162 exact_mass=434‰ residual_mass=565‰ of Z=399072960
+    after 3-3: classes=375 exact_classes=178 exact_mass=440‰ residual_mass=559‰ of Z=399072960
+    after 5-3: classes=691 exact_classes=372 exact_mass=444‰ residual_mass=555‰ of Z=399072960
+    after 6-0: classes=2864 exact_classes=1163 exact_mass=167‰ residual_mass=832‰ of Z=399072960
+    after 6-5: classes=4971 exact_classes=1806 exact_mass=159‰ residual_mass=840‰ of Z=399072960
+  frontier: executed=0 spent=0Z-units met=false refusals=29
+    refused baseline-profile(0-0): exceeds remaining budget
+    refused exact-value(0-0): exceeds remaining budget
+    refused extract-argmax(0-0): exceeds remaining budget
+    refused residual-interval(0-0): exceeds remaining budget
+    refused baseline-profile(2-1): exceeds remaining budget
+    refused exact-value(2-1): exceeds remaining budget
+    refused extract-argmax(2-1): exceeds remaining budget
+    refused residual-interval(2-1): exceeds remaining budget
+    refused baseline-profile(3-2): exceeds remaining budget
+    refused exact-value(3-2): exceeds remaining budget
+    refused extract-argmax(3-2): exceeds remaining budget
+    refused residual-interval(3-2): exceeds remaining budget
+    refused baseline-profile(3-3): exceeds remaining budget
+    refused exact-value(3-3): exceeds remaining budget
+    refused extract-argmax(3-3): exceeds remaining budget
+    refused residual-interval(3-3): exceeds remaining budget
+    refused baseline-profile(5-3): exceeds remaining budget
+    refused exact-value(5-3): exceeds remaining budget
+    refused extract-argmax(5-3): exceeds remaining budget
+    refused residual-interval(5-3): exceeds remaining budget
+    refused baseline-profile(6-0): exceeds remaining budget
+    refused exact-value(6-0): exceeds remaining budget
+    refused extract-argmax(6-0): exceeds remaining budget
+    refused residual-interval(6-0): exceeds remaining budget
+    refused baseline-profile(6-5): exceeds remaining budget
+    refused exact-value(6-5): exceeds remaining budget
+    refused extract-argmax(6-5): exceeds remaining budget
+    refused residual-interval(6-5): exceeds remaining budget
+    refused exact-value-survivors: exceeds remaining budget
+  recommendation: 6-5 via refine-v1:sampled-lower pmake_lower=732‰ upper=1000‰ regret=267‰ sampled=true
+  verdict: UNRESOLVED
+
+== STOP 4 sampled p=512, frontier Z/2: wall=4559438863us sampled_work=7168 facts=56 ==
+    0-0: [ 575, 999]‰ lower-sampled upper-sampled 
+    2-1: [ 635, 999]‰ lower-sampled upper-sampled 
+    3-2: [ 565, 967]‰ lower-sampled upper-sampled 
+    3-3: [ 556, 999]‰ lower-sampled upper-sampled 
+    5-3: [ 571, 996]‰ lower-sampled upper-sampled 
+    6-0: [ 624, 960]‰ lower-sampled upper-sampled 
+    6-5: [ 732, 991]‰ lower-sampled upper-sampled 
+  survivors: 7 of 7  [0-0 2-1 3-2 3-3 5-3 6-0 6-5]
+  proof_bar=732‰ exec_bar=732‰ global_upper=999‰ certified_regret=267‰
+  width_debt=2650‰ policy_cylinders=7 count_threat_cells=0 covers_installed=0
+  risk_spent=14/25 (56 scopes) delta_decisive=false
+  contract_sensitive_residual=none (bound-fact witness)
+  frontier: executed=0 spent=0Z-units met=false refusals=29
+    refused baseline-profile(0-0): exceeds remaining budget
+    refused exact-value(0-0): exceeds remaining budget
+    refused extract-argmax(0-0): exceeds remaining budget
+    refused residual-interval(0-0): exceeds remaining budget
+    refused baseline-profile(2-1): exceeds remaining budget
+    refused exact-value(2-1): exceeds remaining budget
+    refused extract-argmax(2-1): exceeds remaining budget
+    refused residual-interval(2-1): exceeds remaining budget
+    refused baseline-profile(3-2): exceeds remaining budget
+    refused exact-value(3-2): exceeds remaining budget
+    refused extract-argmax(3-2): exceeds remaining budget
+    refused residual-interval(3-2): exceeds remaining budget
+    refused baseline-profile(3-3): exceeds remaining budget
+    refused exact-value(3-3): exceeds remaining budget
+    refused extract-argmax(3-3): exceeds remaining budget
+    refused residual-interval(3-3): exceeds remaining budget
+    refused baseline-profile(5-3): exceeds remaining budget
+    refused exact-value(5-3): exceeds remaining budget
+    refused extract-argmax(5-3): exceeds remaining budget
+    refused residual-interval(5-3): exceeds remaining budget
+    refused baseline-profile(6-0): exceeds remaining budget
+    refused exact-value(6-0): exceeds remaining budget
+    refused extract-argmax(6-0): exceeds remaining budget
+    refused residual-interval(6-0): exceeds remaining budget
+    refused baseline-profile(6-5): exceeds remaining budget
+    refused exact-value(6-5): exceeds remaining budget
+    refused extract-argmax(6-5): exceeds remaining budget
+    refused residual-interval(6-5): exceeds remaining budget
+    refused exact-value-survivors: exceeds remaining budget
+  recommendation: 6-5 via refine-v1:sampled-lower pmake_lower=732‰ upper=999‰ regret=267‰ sampled=true
+  verdict: UNRESOLVED
+
+serialized proof state: 56 facts, 10439 bytes (walt-proof-state-v1)
