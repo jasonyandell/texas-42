@@ -1,0 +1,159 @@
+frontier-report instrument (anytime proof-state Phase 1, §35/§39–§44/APS-A8/A9)
+field=Level0{n0=2} oracle=SupportOracle; top state (zero facts) per root × goal;
+declared cost model: Z per fixed-policy walk, 3Z per max walk (forecasts, not
+measurements — wall μs prints beside). Γ = U* − B_exec; permille floors.
+EXPLORATORY — below every evidentiary tier, quotable only via gate receipts.
+
+root h12-t6: fiber=6 bid=30 parity=pmake-v1
+  goal SelectAction: met=true spent=48 (8Z) wall=297 μs
+    buy baseline(4-4): cost=6 bound=1000‰ debt 1000‰ -> 1000‰
+    buy baseline(6-0): cost=6 bound=1000‰ debt 1000‰ -> 1000‰
+    buy exact(4-4): cost=18 bound=1000‰ debt 1000‰ -> 1000‰
+    buy exact(6-0): cost=18 bound=1000‰ debt 1000‰ -> 0‰
+    recommend: a=4-4 policy=profile:lowest-first-after-root-action floor=0‰ Γ=0‰
+  goal RecommendEpsilonPolicy(0): met=true spent=84 (14Z) wall=179 μs
+    buy baseline(4-4): cost=6 bound=1000‰ debt 1000‰ -> 1000‰
+    buy baseline(6-0): cost=6 bound=1000‰ debt 1000‰ -> 1000‰
+    buy extract(4-4): cost=18 bound=1000‰ debt 1000‰ -> 1000‰
+    buy extract(6-0): cost=18 bound=1000‰ debt 1000‰ -> 1000‰
+    buy exact-survivors[§41 macro]: cost=36 bound=1000‰ debt 1000‰ -> 0‰
+    recommend: a=4-4 policy=profile:lowest-first-after-root-action floor=0‰ Γ=0‰
+  goal StrengthenToExact: met=true spent=48 (8Z) wall=101 μs
+    buy baseline(4-4): cost=6 bound=1000‰ debt 2000‰ -> 2000‰
+    buy baseline(6-0): cost=6 bound=1000‰ debt 2000‰ -> 2000‰
+    buy exact(4-4): cost=18 bound=1000‰ debt 2000‰ -> 1000‰
+    buy exact(6-0): cost=18 bound=1000‰ debt 1000‰ -> 0‰
+    recommend: a=4-4 policy=profile:lowest-first-after-root-action floor=0‰ Γ=0‰
+
+root h10-t6: fiber=19 bid=30 parity=pmake-v1
+  goal SelectAction: met=true spent=133 (7Z) wall=151 μs
+    buy baseline(2-2): cost=19 bound=1000‰ debt 1000‰ -> 1000‰
+    buy exact(2-2): cost=57 bound=1000‰ debt 1000‰ -> 1000‰
+    buy exact(3-3): cost=57 bound=1000‰ debt 1000‰ -> 0‰
+    recommend: a=2-2 policy=profile:lowest-first-after-root-action floor=1000‰ Γ=0‰
+  goal RecommendEpsilonPolicy(0): met=true spent=19 (1Z) wall=82 μs
+    buy baseline(2-2): cost=19 bound=1000‰ debt 1000‰ -> 0‰
+    recommend: a=2-2 policy=profile:lowest-first-after-root-action floor=1000‰ Γ=0‰
+  goal StrengthenToExact: met=true spent=38 (2Z) wall=221 μs
+    buy baseline(2-2): cost=19 bound=1000‰ debt 2000‰ -> 1000‰
+    buy baseline(3-3): cost=19 bound=1000‰ debt 1000‰ -> 0‰
+    recommend: a=2-2 policy=profile:lowest-first-after-root-action floor=1000‰ Γ=0‰
+
+root h5-t6: fiber=27 bid=30 parity=pmake-v1
+  goal SelectAction: met=true spent=216 (8Z) wall=882 μs
+    buy baseline(4-1): cost=27 bound=1000‰ debt 1000‰ -> 1000‰
+    buy baseline(5-2): cost=27 bound=1000‰ debt 1000‰ -> 1000‰
+    buy exact(4-1): cost=81 bound=1000‰ debt 1000‰ -> 1000‰
+    buy exact(5-2): cost=81 bound=1000‰ debt 1000‰ -> 0‰
+    recommend: a=4-1 policy=profile:lowest-first-after-root-action floor=444‰ Γ=0‰
+  goal RecommendEpsilonPolicy(0): met=true spent=378 (14Z) wall=845 μs
+    buy baseline(4-1): cost=27 bound=1000‰ debt 1000‰ -> 555‰
+    buy baseline(5-2): cost=27 bound=555‰ debt 555‰ -> 555‰
+    buy extract(4-1): cost=81 bound=555‰ debt 555‰ -> 555‰
+    buy extract(5-2): cost=81 bound=555‰ debt 555‰ -> 555‰
+    buy exact-survivors[§41 macro]: cost=162 bound=555‰ debt 555‰ -> 0‰
+    recommend: a=4-1 policy=profile:lowest-first-after-root-action floor=444‰ Γ=0‰
+  goal StrengthenToExact: met=true spent=216 (8Z) wall=455 μs
+    buy baseline(4-1): cost=27 bound=1000‰ debt 2000‰ -> 1555‰
+    buy baseline(5-2): cost=27 bound=1000‰ debt 1555‰ -> 1111‰
+    buy exact(4-1): cost=81 bound=555‰ debt 1111‰ -> 555‰
+    buy exact(5-2): cost=81 bound=555‰ debt 555‰ -> 0‰
+    recommend: a=4-1 policy=profile:lowest-first-after-root-action floor=444‰ Γ=0‰
+
+root h4-t6: fiber=90 bid=30 parity=pmake-setting-v1
+  goal SelectAction: met=true spent=450 (5Z) wall=1955 μs
+    buy baseline(0-0): cost=90 bound=1000‰ debt 1000‰ -> 1000‰
+    buy baseline(1-1): cost=90 bound=1000‰ debt 1000‰ -> 1000‰
+    buy exact(0-0): cost=270 bound=1000‰ debt 1000‰ -> 0‰
+    recommend: a=1-1 policy=profile:lowest-first-after-root-action floor=866‰ Γ=133‰
+  goal RecommendEpsilonPolicy(0): met=true spent=1260 (14Z) wall=2233 μs
+    buy baseline(0-0): cost=90 bound=1000‰ debt 1000‰ -> 666‰
+    buy baseline(1-1): cost=90 bound=666‰ debt 666‰ -> 133‰
+    buy extract(0-0): cost=270 bound=133‰ debt 133‰ -> 133‰
+    buy extract(1-1): cost=270 bound=133‰ debt 133‰ -> 133‰
+    buy exact-survivors[§41 macro]: cost=540 bound=133‰ debt 133‰ -> 0‰
+    recommend: a=1-1 policy=profile:lowest-first-after-root-action floor=866‰ Γ=0‰
+  goal StrengthenToExact: met=true spent=720 (8Z) wall=1123 μs
+    buy baseline(0-0): cost=90 bound=1000‰ debt 2000‰ -> 1666‰
+    buy baseline(1-1): cost=90 bound=1000‰ debt 1666‰ -> 800‰
+    buy exact(0-0): cost=270 bound=666‰ debt 800‰ -> 133‰
+    buy exact(1-1): cost=270 bound=133‰ debt 133‰ -> 0‰
+    recommend: a=1-1 policy=profile:lowest-first-after-root-action floor=866‰ Γ=0‰
+
+root h8-t5: fiber=92 bid=30 parity=pmake-v1
+  goal SelectAction: met=true spent=1104 (12Z) wall=21117 μs
+    buy baseline(0-0): cost=92 bound=2000‰ debt 2000‰ -> 2000‰
+    buy baseline(5-0): cost=92 bound=2000‰ debt 2000‰ -> 2000‰
+    buy baseline(5-3): cost=92 bound=2000‰ debt 2000‰ -> 2000‰
+    buy exact(0-0): cost=276 bound=2000‰ debt 2000‰ -> 2000‰
+    buy exact(5-0): cost=276 bound=2000‰ debt 2000‰ -> 1000‰
+    buy exact(5-3): cost=276 bound=1000‰ debt 1000‰ -> 0‰
+    recommend: a=5-3 policy=profile:lowest-first-after-root-action floor=717‰ Γ=271‰
+  goal RecommendEpsilonPolicy(0): met=true spent=1932 (21Z) wall=9792 μs
+    buy baseline(0-0): cost=92 bound=1000‰ debt 1000‰ -> 304‰
+    buy baseline(5-0): cost=92 bound=304‰ debt 304‰ -> 304‰
+    buy baseline(5-3): cost=92 bound=304‰ debt 304‰ -> 282‰
+    buy extract(0-0): cost=276 bound=282‰ debt 282‰ -> 228‰
+    buy extract(5-0): cost=276 bound=228‰ debt 228‰ -> 228‰
+    buy extract(5-3): cost=276 bound=228‰ debt 228‰ -> 10‰
+    buy exact-survivors[§41 macro]: cost=828 bound=10‰ debt 10‰ -> 0‰
+    recommend: a=5-3 policy=profile:argmax-full-legal-4d8e34951b414de75b3b6438070f3cd6 floor=989‰ Γ=0‰
+  goal StrengthenToExact: met=true spent=1104 (12Z) wall=4934 μs
+    buy baseline(0-0): cost=92 bound=1000‰ debt 3000‰ -> 2304‰
+    buy baseline(5-0): cost=92 bound=1000‰ debt 2304‰ -> 1619‰
+    buy baseline(5-3): cost=92 bound=1000‰ debt 1619‰ -> 902‰
+    buy exact(5-0): cost=276 bound=315‰ debt 902‰ -> 586‰
+    buy exact(0-0): cost=276 bound=304‰ debt 586‰ -> 282‰
+    buy exact(5-3): cost=276 bound=282‰ debt 282‰ -> 0‰
+    recommend: a=5-3 policy=profile:lowest-first-after-root-action floor=717‰ Γ=271‰
+
+root h3-t5: fiber=200 bid=30 parity=pmake-v1
+  goal SelectAction: met=true spent=2000 (10Z) wall=70580 μs
+    buy baseline(4-0): cost=200 bound=2000‰ debt 2000‰ -> 2000‰
+    buy exact(4-0): cost=600 bound=2000‰ debt 2000‰ -> 2000‰
+    buy exact(5-0): cost=600 bound=2000‰ debt 2000‰ -> 2000‰
+    buy exact(6-6): cost=600 bound=2000‰ debt 2000‰ -> 0‰
+    recommend: a=4-0 policy=profile:lowest-first-after-root-action floor=1000‰ Γ=0‰
+  goal RecommendEpsilonPolicy(0): met=true spent=200 (1Z) wall=2037 μs
+    buy baseline(4-0): cost=200 bound=1000‰ debt 1000‰ -> 0‰
+    recommend: a=4-0 policy=profile:lowest-first-after-root-action floor=1000‰ Γ=0‰
+  goal StrengthenToExact: met=true spent=600 (3Z) wall=6683 μs
+    buy baseline(4-0): cost=200 bound=1000‰ debt 3000‰ -> 2000‰
+    buy baseline(5-0): cost=200 bound=1000‰ debt 2000‰ -> 1000‰
+    buy baseline(6-6): cost=200 bound=1000‰ debt 1000‰ -> 0‰
+    recommend: a=4-0 policy=profile:lowest-first-after-root-action floor=1000‰ Γ=0‰
+
+root h3-t4: fiber=11550 bid=30 parity=pmake-v1
+  goal SelectAction: met=true spent=184800 (16Z) wall=8164127 μs
+    buy baseline(3-1): cost=11550 bound=3000‰ debt 3000‰ -> 3000‰
+    buy baseline(4-1): cost=11550 bound=3000‰ debt 3000‰ -> 3000‰
+    buy baseline(4-4): cost=11550 bound=3000‰ debt 3000‰ -> 3000‰
+    buy baseline(6-4): cost=11550 bound=3000‰ debt 3000‰ -> 3000‰
+    buy exact(3-1): cost=34650 bound=3000‰ debt 3000‰ -> 3000‰
+    buy exact(4-1): cost=34650 bound=3000‰ debt 3000‰ -> 2000‰
+    buy exact(4-4): cost=34650 bound=2000‰ debt 2000‰ -> 1000‰
+    buy exact(6-4): cost=34650 bound=1000‰ debt 1000‰ -> 0‰
+    recommend: a=4-4 policy=profile:lowest-first-after-root-action floor=267‰ Γ=83‰
+  goal RecommendEpsilonPolicy(0): met=true spent=323400 (28Z) wall=3362592 μs
+    buy baseline(3-1): cost=11550 bound=1000‰ debt 1000‰ -> 761‰
+    buy baseline(4-1): cost=11550 bound=761‰ debt 761‰ -> 761‰
+    buy baseline(4-4): cost=11550 bound=761‰ debt 761‰ -> 732‰
+    buy baseline(6-4): cost=11550 bound=732‰ debt 732‰ -> 732‰
+    buy extract(3-1): cost=34650 bound=732‰ debt 732‰ -> 649‰
+    buy extract(4-1): cost=34650 bound=649‰ debt 649‰ -> 649‰
+    buy extract(4-4): cost=34650 bound=649‰ debt 649‰ -> 649‰
+    buy extract(6-4): cost=34650 bound=649‰ debt 649‰ -> 649‰
+    buy exact-survivors[§41 macro]: cost=138600 bound=649‰ debt 649‰ -> 0‰
+    recommend: a=3-1 policy=profile:argmax-full-legal-5357e0c92372b6894f18beb4d6f4ab1e floor=350‰ Γ=0‰
+  goal StrengthenToExact: met=true spent=184800 (16Z) wall=1648901 μs
+    buy baseline(3-1): cost=11550 bound=1000‰ debt 4000‰ -> 3761‰
+    buy baseline(4-1): cost=11550 bound=1000‰ debt 3761‰ -> 3561‰
+    buy baseline(4-4): cost=11550 bound=1000‰ debt 3561‰ -> 3294‰
+    buy baseline(6-4): cost=11550 bound=1000‰ debt 3294‰ -> 3065‰
+    buy exact(4-1): cost=34650 bound=800‰ debt 3065‰ -> 2265‰
+    buy exact(6-4): cost=34650 bound=771‰ debt 2265‰ -> 1493‰
+    buy exact(3-1): cost=34650 bound=761‰ debt 1493‰ -> 732‰
+    buy exact(4-4): cost=34650 bound=732‰ debt 732‰ -> 0‰
+    recommend: a=4-4 policy=profile:lowest-first-after-root-action floor=267‰ Γ=83‰
+
+total wall 13340983 μs; no root was dropped

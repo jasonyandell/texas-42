@@ -72,9 +72,9 @@
 //! no change to `solver::refine` — RefineV1 is frozen (freeze 58) and
 //! this module must remain deletable without touching it or anything
 //! else (§67.10, asserted by the module graph: nothing imports this
-//! module except the crate root and `solver::extraction` — the §63
-//! producer, itself new-core, deletable with this module as one
-//! boundary).
+//! module except the crate root, `solver::extraction` (the §63
+//! producer) and `solver::frontier` (the §39–§43 work frontier) —
+//! both new-core, deletable with this module as one boundary).
 
 use num_bigint::BigInt;
 use num_rational::BigRational;
