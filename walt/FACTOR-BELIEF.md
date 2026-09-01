@@ -1,9 +1,10 @@
 # FACTOR-BELIEF — the Slice C–G design skeleton (specify, do not optimize)
 
 **Status:** SLICES C (COMPLETE), D, E, F AND G LANDED (2026-08-30);
-ANYTIME PROOF-STATE PHASES 0 AND 2 LANDED (2026-08-31, the follow-on
-parent `walt/math/anytime_proof_state_score_v0.1.md`, rulings
-APS-A1..A9). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
+ANYTIME PROOF-STATE PHASES 0–8 ALL LANDED (2026-08-31/09-01, the
+follow-on parent `walt/math/anytime_proof_state_score_v0.1.md`,
+rulings APS-A1..A9 — THE PARENT PROGRAM IS COMPLETE; Phase 8's
+paragraph below is the capstone). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
 register: `solver/refine.rs` as merged at `25b40d9` takes no new
 fields, variants, or work items, ever; its four gates never weaken; the
 coming proof-state core must reproduce it wherever scopes overlap and
@@ -257,6 +258,49 @@ fail-fast in 280 nodes — and h10-t6 is a REAL receipt-root Laydown
 (all four tiers, witness 2-2). Boundary: the walk is an ENDGAME
 instrument (exponential in remaining plays); opening-depth laydown
 certificates need a future structural producer, not a bigger budget.
+
+**PHASE 8 LANDED — THE PARENT PROGRAM IS COMPLETE** (2026-08-31/09-01,
+the "bring us home" go): the §65 opening-root iterative run.
+`solver/opening.rs` — `OpeningLadder::run_stop` executes the §65 steps
+in declared order against ONE append-only proof state: sampled root
+bounds at each stop's declared prefix (the Slice A endpoints under
+fresh per-stop δ scopes, imported through the ordinary §48 adapter —
+the pinned-level1 witness IS the "cheap executable policy"); the
+§39–§43 frontier pass at a declared Z budget; count-threat covers
+through their producer (§62 decline while no incumbent exists,
+installs guarded by fact equality); the §49 census as a REPORTED
+COORDINATE at the Phase 4 stage; then the full §65 panel with the
+typed verdict (exact / δ-qualified / ε-optimal / unresolved). Reads no
+clock; RefineV1 untouched (the Slice A witness declaration restated as
+configuration); deletable with its new-core siblings. Five gates
+(`solver_opening.rs`): the §25 top state with the §67.4 bytewise round
+trip; monotone narrowing with an EXACT derived risk ledger and an
+idempotent presence guard; §67.5 resume ≡ uninterrupted, panel for
+panel and byte for byte; the honest cliff at h0-t1 (buys nothing,
+installs nothing, never manufactures a winner — §66.14); ample-budget
+settlement on enumerable roots with mass-conserving census. Probe
+`openingreport` (`probes/factor_belief/openingreport_run1.txt`), the
+ladder p=16/64/256/512 at h0-t1 (Z = 399,072,960, seven legal leads,
+contract 30 on threes): the bar climbs 0 → 407 → 594 → 732‰ and Γ
+falls 1000 → 592 → 405 → 267‰ with the recommendation MIGRATING
+0-0 → 2-1 → 6-5 as evidence deepens; nothing prunes (7/7 survive);
+the cliff replays on the new core with a sharpening — all 29 frontier
+refusals are pure AFFORDABILITY (with sampled facts installed every
+exact item has positive declared potential); the stage-4 census reads
+159–444‰ exact mass (the opening field far from action-exact — Slice
+F's fragmentation from a new angle); and at p=512 the "batting 1000"
+uppers finally break (U* 1000 → 999‰ — every sample-fitted optimum
+lost at least one of 512 worlds) while the bar HOLDS at 732‰: the
+SAMPLED TIER PLATEAUS. The remaining Γ ≈ 267‰ is policy gap plus lock
+looseness, purchasable only by structural work — extraction across
+the cliff, or counted failing sub-fibers installed as deterministic
+uppers (Jason's "doom census" framing: characterize beating
+arrangements by hand signature, size them with the §22 binomials,
+subtract exact mass — the §70 "richer structural producers" answer,
+the ∀-fail dual of Phase 7's laydown certificates). The final state:
+56 facts, 10,439 bytes, risk 14/25 ≤ 3/5 itemized over 56 scopes,
+verdict honest UNRESOLVED at ε = 1/4 — §65's first target met in its
+certified-regret form: play 6-5, floor 732‰, at most 267‰ unclaimed.
 
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint

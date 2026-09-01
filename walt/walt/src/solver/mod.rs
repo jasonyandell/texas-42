@@ -35,6 +35,7 @@ pub mod grammar;
 pub mod hazard;
 pub mod laydown;
 pub mod motif;
+pub mod opening;
 pub mod policy;
 pub mod proof_state;
 pub mod refine;

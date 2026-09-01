@@ -1,4 +1,4 @@
-# factor_belief — the Slice C (stages C0–C2), D, E, F, G and Phase 1/2/3/4/5/6/7 probes
+# factor_belief — the Slice C (stages C0–C2), D, E, F, G and Phase 1/2/3/4/5/6/7/8 probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
@@ -13,8 +13,9 @@ Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C),
 `walt/walt/src/bin/proofreport.rs` (anytime proof-state Phase 3),
 `walt/walt/src/bin/extractreport.rs` (anytime proof-state Phase 6),
 `walt/walt/src/bin/frontierreport.rs` (anytime proof-state Phase 1) and
-`walt/walt/src/bin/bellmanreport.rs` (anytime proof-state Phases 4/5) and
-`walt/walt/src/bin/laydownreport.rs` (anytime proof-state Phase 7).
+`walt/walt/src/bin/bellmanreport.rs` (anytime proof-state Phases 4/5),
+`walt/walt/src/bin/laydownreport.rs` (anytime proof-state Phase 7) and
+`walt/walt/src/bin/openingreport.rs` (anytime proof-state Phase 8).
 Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
@@ -27,12 +28,13 @@ Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_frontier.rs`,
 `walt/walt/tests/solver_residual.rs` and
 `walt/walt/tests/solver_covers.rs` and
-`walt/walt/tests/solver_laydown.rs`. Mathematical source:
+`walt/walt/tests/solver_laydown.rs` and
+`walt/walt/tests/solver_opening.rs`. Mathematical source:
 `walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31,
 Part VIII §32–37, §46 stages C0–C2, §47 Slice D, §48 Slice E, §49
 Slice F, §50 Slice G, rulings CBS-A4/CBS-A6/CBS-A9; and
 `walt/math/anytime_proof_state_score_v0.1.md` §2–§13, §18, §22–§23,
-§24–§33, §35, §15–§17, §39–§44, §49–§56, §60–§64, rulings
+§24–§33, §35, §15–§17, §39–§44, §49–§56, §60–§65, rulings
 APS-A2/APS-A4/APS-A6/APS-A7/APS-A8/APS-A9.
 
 ## What it measures
@@ -549,6 +551,41 @@ the δ ledger).
   or phantom worlds) — sound for certification, possibly conservative;
   and it is an endgame instrument, exponential in remaining plays.
 
+## openingreport_run1.txt readings (2026-08-31/09-01) — the Phase 8 §65 ladder
+
+- **The ladder ladders.** At h0-t1 (Z = 399,072,960, seven legal leads,
+  contract 30 on threes) across declared stops p=16/64/256/512: the
+  proof bar climbs 0 → 407 → 594 → 732‰, certified regret falls
+  1000 → 592 → 405 → 267‰, and the recommendation MIGRATES
+  0-0 → 2-1 → 6-5 as evidence deepens — every number δ-qualified with
+  the ledger exact (14/25 over 56 distinct scopes against the declared
+  3/5 budget).
+- **The sampled tier plateaus, and says so.** p=256 → p=512 leaves the
+  bar and Γ unchanged (732‰ / 267‰) while the last vacuous uppers
+  break (U* 1000 → 999‰ — every sample-fitted optimum finally lost at
+  least one of 512 worlds, the blank double included). The remaining Γ
+  is policy gap plus lock looseness — purchasable by structural work
+  (extraction, counted failing sub-fibers as deterministic uppers),
+  not by more prefix.
+- **The cliff, sharpened.** All 29 frontier refusals at the opening
+  root are pure AFFORDABILITY — with sampled facts installed, every
+  exact item has positive declared potential; the refusals are the
+  cliff, not the §41 stall. Zero Z spent, zero facts installed by the
+  pass (§66.14 live).
+- **The census at stage 4**: 159–444‰ exact mass across the seven
+  leads — the opening field far from action-exact at the declared
+  vocabulary depth (Slice F's fragmentation finding from a new angle);
+  richest after mid-tile leads (5-3 at 444‰), thinnest after 6-5
+  (159‰).
+- **The whole opening-root proof state is 56 facts, 10,439 bytes**,
+  serialization-versioned and resumed bytewise (the §67.5 gate).
+  Verdict at every stop: honest UNRESOLVED at ε = 1/4 (Γ = 267‰ vs
+  ε = 250‰) — §65's first target met in its certified-regret form.
+- Wall honesty: stops cost ≈0.1 ms / 5.7 s / 30 s / 11 min / 76 min —
+  the optimization-lock upper's cost grows quadratically in the prefix
+  while its declared forecast unit is linear; a staged cost model for
+  the sampled tier is follow-on work, priced but unbuilt.
+
 ## Boundaries
 
 - Deterministic fields only; a stochastic field needs an explicit tape
@@ -621,4 +658,7 @@ the δ ledger).
   ONE-PLY contraction is measured (the Slice C probes above, Slice F's
   refinement of the same contraction, and Slice G's Section D, where
   every opening-root exact recursion is refused by its own declared
-  forecast).
+  forecast). The Phase 8 ladder keeps this boundary: its opening-root
+  content is the sampled tier, the census coordinate, and the
+  frontier's RECORDED refusals — no exact walk runs at h0-t1, and the
+  §65 report says so at every stop.

@@ -930,6 +930,27 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   future structural producer. Remaining: Phase 8 (opening-root
   iterative run) on Jason's word; default player and RefineV1
   untouched.
+- **The anytime proof-state build — Phase 8 landed, THE PROGRAM IS
+  COMPLETE** *(2026-08-31/09-01, the "bring us home" go)*: the §65
+  opening-root iterative run. `solver::opening` —
+  `OpeningLadder::run_stop` executes the §65 steps in declared order
+  against one append-only proof state (sampled Slice A endpoints under
+  fresh per-stop δ scopes through the §48 adapter; the §39–§43
+  frontier pass at a declared Z budget; §62 covers with the decline
+  path live; the §49 census as a reported coordinate; the full panel
+  with the typed verdict). Five gates green incl. §67.5 resume ≡
+  uninterrupted byte for byte. Probe `openingreport` at h0-t1, ladder
+  p=16/64/256/512: bar 0→407→594→732‰, Γ 1000→592→405→267‰,
+  recommendation migrates 0-0→2-1→6-5; the sampled tier PLATEAUS at
+  p=512 (U* 1000→999‰, bar holds) — remaining Γ = policy gap + lock
+  looseness, structural work only; 29 opening refusals all
+  affordability; 56 facts / 10,439 bytes resumable; verdict honest
+  UNRESOLVED at ε=1/4 — §65's first target met as a certified-regret
+  recommendation (play 6-5, floor 732‰, ≤267‰ unclaimed). Articulated
+  next boundary (Jason's framing, recorded): the counterexample-mass
+  structural producer — counted failing sub-fibers as deterministic
+  uppers, the ∀-fail dual of Phase 7's laydowns and §70's "richer
+  structural producers" answer. Default player and RefineV1 untouched.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03
