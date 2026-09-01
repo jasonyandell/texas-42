@@ -86,9 +86,9 @@
 //! else (§67.10, asserted by the module graph: nothing imports this
 //! module except the crate root, `solver::extraction` (the §63
 //! producer), `solver::frontier` (the §39–§43 work frontier),
-//! `solver::residual` (the §61 producer) and `solver::covers` (the
-//! §62 producer) — all new-core, deletable with this module as one
-//! boundary).
+//! `solver::residual` (the §61 producer), `solver::covers` (the §62
+//! producer) and `solver::laydown` (the §16 producer) — all new-core,
+//! deletable with this module as one boundary).
 
 use num_bigint::BigInt;
 use num_rational::BigRational;
