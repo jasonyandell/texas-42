@@ -4,8 +4,12 @@
 //! general support contraction ([`SupportOracle`] — Slice D), the §23
 //! factorized fixed-policy recursion ([`viewer_success_mass`]), the
 //! §48 factorized grammar best response ([`grammar_success_mass`] —
-//! Slice E), and the §49 consequence-CEGAR hand-class instrument
-//! ([`refine_to_action_exact`] — Slice F).
+//! Slice E), the §49 consequence-CEGAR hand-class instrument
+//! ([`refine_to_action_exact`] — Slice F), the anytime §61 score-aware
+//! residual Bellman over the F staircase
+//! ([`staged_response_interval`] / [`staged_policy_envelope`] — Phase
+//! 4), and the anytime §62 declaring-score range walk
+//! ([`declaring_score_range`] — Phase 5's verifier substrate).
 //!
 //! EXPLORATORY tier. Mathematical source:
 //! `walt/math/counted_belief_sandwich_v0.1.md` Parts V–VII (§18–26, §43,
@@ -2089,5 +2093,595 @@ pub fn refine_to_action_exact(
         stages,
         witnesses,
         branch_masses,
+    }
+}
+
+// ---------------------------------------------------------------------------
+// The §61 score-aware residual Bellman (anytime proof-state Phase 4).
+// ---------------------------------------------------------------------------
+
+/// One staged hidden-node partition: the Slice F CEGAR loop run to a
+/// DECLARED refinement count instead of the action-exact endpoint, its
+/// action-uniform classes merged by public action (§23's lawful order),
+/// and the still-unresolved mass held aside for a §5 score envelope.
+/// The staircase parameter governs THIS node — each path's first field
+/// decision, the same classification bottleneck Slice F instrumented;
+/// everything below an exact branch recurses exactly. Per-node staging
+/// at deeper hidden nodes is Phase 8 scheduling territory, not a
+/// mathematical gap: the envelope truncates the walk below unresolved
+/// classes, which is where the affordability lives.
+type StagedBranch = (Domino, Vec<(DominoSet, u128)>, u128);
+
+/// One staged hidden node (the doc above): merged action branches,
+/// unmerged class branches for the counterexample instrument, and the
+/// stage census.
+struct StagedNode {
+    /// Per public action `t`, ascending tile index: the factor-support
+    /// entries (root hand, factor weight) of every action-uniform class
+    /// choosing `t`, merged (§23), plus their exact completion mass.
+    branches: Vec<StagedBranch>,
+    /// Per action-uniform CLASS, unmerged — the §23 counterexample
+    /// instrument's domain, never a bound's.
+    class_branches: Vec<StagedBranch>,
+    /// Completion mass in classes still awaiting refinement.
+    residual_mass: u128,
+    /// Completion mass in action-uniform classes.
+    exact_mass: u128,
+    classes: u64,
+    exact_classes: u64,
+    /// Refinements actually applied (≤ requested; the loop stops early
+    /// at the action-exact endpoint).
+    refinements: usize,
+}
+
+/// The capped Slice F loop: identical trajectory to
+/// [`refine_to_action_exact`] — same ground truth, same signature
+/// vocabulary, same largest-mass split and lowest-index discriminator —
+/// stopped after `refinements` witness refinements. Prefix-stability is
+/// what makes the staircase nest (gated): the first `s` splits of stage
+/// `s + 1` are exactly stage `s`'s, because the loop is a deterministic
+/// function of the same inputs.
+fn staged_partition(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    field: &dyn SlicePolicy,
+    refinements: usize,
+) -> StagedNode {
+    assert_eq!(
+        field.id(),
+        belief.field_id,
+        "one field identity governs a belief's classifications (§43)"
+    );
+    let cursor = belief.cursor();
+    let seat = cursor.seat();
+    assert_ne!(
+        seat,
+        belief.kernel.viewer(),
+        "hand classes are a hidden seat's (§28)"
+    );
+    let decl = belief.position.decl;
+    let played = cursor.played_by[seat.index()];
+    let trick_plays = cursor.plays.clone();
+    // Ground truth once per support hand — the same bill as one
+    // branch-mass contraction (the instrument discipline: this measures
+    // what the staircase yields, it is not yet a cheaper classifier).
+    let hands: Vec<(DominoSet, DominoSet, u128, Domino)> = oracle
+        .actor_completion_weights(belief, seat)
+        .into_iter()
+        .map(|(hand, weight)| {
+            let action = field_action(belief, &cursor, hand, field);
+            (hand, hand.difference(played), weight, action)
+        })
+        .collect();
+    assert!(!hands.is_empty(), "a hidden seat to move has support");
+    let z = oracle.mass(belief);
+    // Factor weights by root hand, for the branch Tables below.
+    let factor_weight: BTreeMap<u32, u128> = belief.factors[belief.slot_of(seat)]
+        .support()
+        .into_iter()
+        .map(|(hand, w)| (hand.bits(), w))
+        .collect();
+
+    struct ClassAcc {
+        mass: u128,
+        members: Vec<usize>,
+        actions: DominoSet,
+    }
+
+    let mut critical = DominoSet::EMPTY;
+    let mut applied = 0usize;
+    loop {
+        let mut classes: BTreeMap<ClassSignature, ClassAcc> = BTreeMap::new();
+        for (i, (_, remaining, weight, action)) in hands.iter().enumerate() {
+            let sig = class_signature(decl, *remaining, &trick_plays, critical);
+            let acc = classes.entry(sig).or_insert(ClassAcc {
+                mass: 0,
+                members: Vec::new(),
+                actions: DominoSet::EMPTY,
+            });
+            acc.mass = acc
+                .mass
+                .checked_add(*weight)
+                .expect("an exact mass fits u128");
+            acc.members.push(i);
+            acc.actions.insert(*action);
+        }
+        let done = applied == refinements || classes.values().all(|acc| acc.actions.len() == 1);
+        if done {
+            let mut branches: BTreeMap<u8, (Vec<(DominoSet, u128)>, u128)> = BTreeMap::new();
+            let mut class_branches = Vec::new();
+            let mut residual_mass: u128 = 0;
+            let mut exact_mass: u128 = 0;
+            let mut exact_classes: u64 = 0;
+            for acc in classes.values() {
+                if acc.actions.len() != 1 {
+                    residual_mass = residual_mass
+                        .checked_add(acc.mass)
+                        .expect("an exact mass fits u128");
+                    continue;
+                }
+                exact_classes += 1;
+                exact_mass = exact_mass
+                    .checked_add(acc.mass)
+                    .expect("an exact mass fits u128");
+                let action = acc.actions.iter().next().expect("a uniform class acts");
+                let entries: Vec<(DominoSet, u128)> = acc
+                    .members
+                    .iter()
+                    .map(|&i| {
+                        let hand = hands[i].0;
+                        let w = *factor_weight
+                            .get(&hand.bits())
+                            .expect("a classified hand is in the factor support");
+                        (hand, w)
+                    })
+                    .collect();
+                let slot = branches
+                    .entry(u8::try_from(action.index()).expect("index < 28"))
+                    .or_insert((Vec::new(), 0));
+                slot.0.extend(entries.iter().copied());
+                slot.1 = slot
+                    .1
+                    .checked_add(acc.mass)
+                    .expect("an exact mass fits u128");
+                class_branches.push((action, entries, acc.mass));
+            }
+            assert_eq!(
+                exact_mass
+                    .checked_add(residual_mass)
+                    .expect("an exact mass fits u128"),
+                z,
+                "the classes partition the belief mass"
+            );
+            return StagedNode {
+                branches: branches
+                    .into_iter()
+                    .map(|(idx, (entries, mass))| {
+                        let t = Domino::from_index(idx as usize).expect("index < 28");
+                        (t, entries, mass)
+                    })
+                    .collect(),
+                class_branches,
+                residual_mass,
+                exact_mass,
+                classes: u64::try_from(classes.len()).expect("a class count fits u64"),
+                exact_classes,
+                refinements: applied,
+            };
+        }
+        // The refine_to_action_exact split, verbatim: largest-mass
+        // non-uniform class, first differing pair, lowest-index
+        // discriminator.
+        let split = classes
+            .iter()
+            .filter(|(_, acc)| acc.actions.len() > 1)
+            .fold(
+                None::<(&ClassSignature, &ClassAcc)>,
+                |best, (sig, acc)| match best {
+                    Some((_, b)) if b.mass >= acc.mass => best,
+                    _ => Some((sig, acc)),
+                },
+            );
+        let (_, acc) = split.expect("a non-endpoint stage holds a non-uniform class");
+        let first = acc.members[0];
+        let (_, left_remaining, _, left_action) = hands[first];
+        let differing = acc
+            .members
+            .iter()
+            .copied()
+            .find(|&j| hands[j].3 != left_action)
+            .expect("a non-uniform class holds a differing pair");
+        let (_, right_remaining, _, _) = hands[differing];
+        let disagreement = left_remaining
+            .difference(right_remaining)
+            .union(right_remaining.difference(left_remaining));
+        let discriminator = disagreement
+            .iter()
+            .next()
+            .expect("distinct remaining hands differ in a tile");
+        assert!(
+            !critical.contains(discriminator),
+            "a witnessed discriminator is outside the critical set"
+        );
+        critical.insert(discriminator);
+        applied += 1;
+    }
+}
+
+/// Build the posterior branch belief of one staged merged branch: the
+/// acting seat's factor restricted to the branch's root hands (§23's
+/// one posterior branch per public action), history advanced by the
+/// action. The same Theorem 20.1 shape as [`condition_via`] — the kept
+/// set here is the action-uniform classes' support, a subset of the
+/// full observed-action posterior.
+fn staged_branch_belief(
+    belief: &FactorBelief,
+    seat_slot: usize,
+    action: Domino,
+    entries: &[(DominoSet, u128)],
+) -> FactorBelief {
+    assert!(!entries.is_empty(), "a staged branch has support");
+    let mut out = belief.clone();
+    out.factors[seat_slot].weights = FactorWeights::Table(entries.to_vec());
+    out.history.push(action);
+    out
+}
+
+/// One §61 staged root-action interval: exact integer bounds on the
+/// §36 best-response success mass of this belief, from the F staircase
+/// at the declared stage.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct StagedInterval {
+    /// `Σ_t M*(E_t)` — the §22 lower: the exact response optimum of
+    /// every merged exact branch; the residual contributes nothing
+    /// below (an undecided node's §5 envelope straddles the contract).
+    pub lower: u128,
+    /// `lower + R` — the §22 upper: in the worst case every unresolved
+    /// world makes.
+    pub upper: u128,
+    pub exact_mass: u128,
+    pub residual_mass: u128,
+    pub classes: u64,
+    pub exact_classes: u64,
+    /// Refinements actually applied (≤ requested).
+    pub refinements: usize,
+}
+
+/// The §61 score-aware residual Bellman at one F stage: connect the
+/// stage's unresolved field classes to a root bound. At the staged
+/// hidden node (each path's first field decision — the Slice F
+/// bottleneck): merge same-public-action exact classes (§23, gated
+/// with a deliberate counterexample), recurse the EXACT §36 response
+/// on each merged branch, attach the unresolved mass with its §5
+/// envelope — at an undecided node the envelope straddles the
+/// contract, so it contributes exactly `(0, R)` (the §22 crude and
+/// interval-sharpened forms coincide there) — and return the interval.
+///
+/// Soundness (both sides by mass additivity): the best continuation
+/// for a merged branch, played against the FULL posterior branch,
+/// scores at least its `E_t` mass and the residual at least 0, so
+/// `Σ_t M*(E_t) ≤ M*`; splitting the optimization per branch and
+/// crediting the whole residual is a relaxation, so
+/// `M* ≤ Σ_t M*(E_t) + R`. Nesting across the staircase (gated):
+/// stage `s + 1` moves mass `δ` from the envelope into branches, and
+/// `M*(E_t) ≤ M*(E_t ∪ δ_t) ≤ M*(E_t) + |δ_t|` by the same two
+/// arguments. The endpoint (residual 0) is the exact factorized
+/// response — the §23 hidden-case sum identity (gated).
+pub fn staged_response_interval(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    field: &dyn SlicePolicy,
+    refinements: usize,
+    stats: &mut ResponseStats,
+) -> StagedInterval {
+    let cursor = belief.cursor();
+    let viewer = belief.kernel.viewer();
+    let total = belief.kernel.viewer_hand().len()
+        + belief
+            .kernel
+            .hidden()
+            .iter()
+            .map(|h| h.capacity)
+            .sum::<usize>();
+    let at_terminal = belief.history.len() == total;
+    if let Some(u) = decided_success(&belief.position, viewer, cursor.banked, at_terminal) {
+        if at_terminal {
+            stats.decided_terminal += 1;
+        } else {
+            stats.decided_early += 1;
+        }
+        let z = oracle.mass(belief);
+        let m = if u { z } else { 0 };
+        return StagedInterval {
+            lower: m,
+            upper: m,
+            exact_mass: z,
+            residual_mass: 0,
+            classes: 0,
+            exact_classes: 0,
+            refinements: 0,
+        };
+    }
+    let node = staged_partition(oracle, belief, field, refinements);
+    stats.hidden_nodes += 1;
+    let slot = belief.slot_of(cursor.seat());
+    let mut lower: u128 = 0;
+    for (t, entries, mass) in &node.branches {
+        stats.conditionings += 1;
+        let branch = staged_branch_belief(belief, slot, *t, entries);
+        assert_eq!(
+            oracle.mass(&branch),
+            *mass,
+            "a merged branch's contraction mass is its classes' completion mass"
+        );
+        let m = response_success_mass(oracle, &branch, field, stats);
+        assert!(m <= *mass, "a success mass is bounded by its branch mass");
+        lower = lower.checked_add(m).expect("an exact mass fits u128");
+    }
+    let upper = lower
+        .checked_add(node.residual_mass)
+        .expect("an exact mass fits u128");
+    StagedInterval {
+        lower,
+        upper,
+        exact_mass: node.exact_mass,
+        residual_mass: node.residual_mass,
+        classes: node.classes,
+        exact_classes: node.exact_classes,
+        refinements: node.refinements,
+    }
+}
+
+/// The deliberate §23 VIOLATION, as an instrument for the rejection
+/// gate and nothing else: recurse the response optimum per
+/// action-uniform CLASS — unmerged — and sum. The continuation then
+/// reacts to the hidden class identity, information the focal player
+/// never receives (strategy fusion), so the sum can strictly exceed
+/// the exact optimum (gated: it does, on fixture roots) — which is
+/// exactly why it is never a bound and no caller but the gate exists.
+pub fn staged_fused_class_sum(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    field: &dyn SlicePolicy,
+    refinements: usize,
+    stats: &mut ResponseStats,
+) -> u128 {
+    let cursor = belief.cursor();
+    let viewer = belief.kernel.viewer();
+    let total = belief.kernel.viewer_hand().len()
+        + belief
+            .kernel
+            .hidden()
+            .iter()
+            .map(|h| h.capacity)
+            .sum::<usize>();
+    let at_terminal = belief.history.len() == total;
+    if let Some(u) = decided_success(&belief.position, viewer, cursor.banked, at_terminal) {
+        return if u { oracle.mass(belief) } else { 0 };
+    }
+    let node = staged_partition(oracle, belief, field, refinements);
+    let slot = belief.slot_of(cursor.seat());
+    let mut fused: u128 = 0;
+    for (t, entries, mass) in &node.class_branches {
+        let branch = staged_branch_belief(belief, slot, *t, entries);
+        assert_eq!(
+            oracle.mass(&branch),
+            *mass,
+            "a class branch's contraction mass is its completion mass"
+        );
+        let m = response_success_mass(oracle, &branch, field, stats);
+        fused = fused.checked_add(m).expect("an exact mass fits u128");
+    }
+    fused
+}
+
+/// One §61/§54 staged fixed-policy tail interval: exact integer tail
+/// bounds on one materialized policy's declaring-score profile under
+/// the F stage. `lower_tail[k]` is the mass provably scoring ≥ k;
+/// `upper_tail[k]` the mass possibly scoring ≥ k. Both are monotone
+/// nonincreasing, agree at `k = 0` (the whole mass `Z`), and bracket
+/// the policy's exact tails (§9: refinement narrows them — gated).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct TailInterval {
+    pub lower_tail: [u128; 43],
+    pub upper_tail: [u128; 43],
+    pub exact_mass: u128,
+    pub residual_mass: u128,
+    /// Refinements actually applied (≤ requested).
+    pub refinements: usize,
+}
+
+/// The §61 staged evaluation of one FIXED focal policy: exact §18
+/// profiles on the merged exact branches (for a fixed policy the merge
+/// is also value-neutral — no maximization exists to fuse — but the
+/// §23 order is the implementation law regardless), and the §5
+/// arithmetic envelope `[b, b + r]` on the unresolved mass: all of `R`
+/// joins lower tails `k ≤ b` and upper tails `k ≤ b + r` (§22's
+/// interval-sharpened residual contribution). The stage-endpoint
+/// interval collapses to the exact profile's tails (gated).
+pub fn staged_policy_envelope(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    focal: &dyn SlicePolicy,
+    field: &dyn SlicePolicy,
+    refinements: usize,
+    stats: &mut RecursionStats,
+) -> TailInterval {
+    let cursor = belief.cursor();
+    let total = belief.kernel.viewer_hand().len()
+        + belief
+            .kernel
+            .hidden()
+            .iter()
+            .map(|h| h.capacity)
+            .sum::<usize>();
+    if belief.history.len() == total {
+        stats.decided_terminal += 1;
+        let banked = cursor.banked;
+        assert_eq!(
+            banked[0] + banked[1],
+            42,
+            "the 42-point pool is fully banked at terminal"
+        );
+        let score = banked[belief.position.declaring_team.index()];
+        let z = oracle.mass(belief);
+        let mut lower_tail = [0u128; 43];
+        let mut upper_tail = [0u128; 43];
+        for k in 0..=score as usize {
+            lower_tail[k] = z;
+            upper_tail[k] = z;
+        }
+        return TailInterval {
+            lower_tail,
+            upper_tail,
+            exact_mass: z,
+            residual_mass: 0,
+            refinements: 0,
+        };
+    }
+    let node = staged_partition(oracle, belief, field, refinements);
+    stats.hidden_nodes += 1;
+    let slot = belief.slot_of(cursor.seat());
+    let mut exact = ScoreProfile::zero();
+    for (t, entries, mass) in &node.branches {
+        stats.conditionings += 1;
+        let branch = staged_branch_belief(belief, slot, *t, entries);
+        assert_eq!(
+            oracle.mass(&branch),
+            *mass,
+            "a merged branch's contraction mass is its classes' completion mass"
+        );
+        let h = viewer_score_profile(oracle, &branch, focal, field, stats);
+        exact.add_assign(&h);
+    }
+    assert_eq!(
+        exact.total(),
+        node.exact_mass,
+        "the exact branches' profiles carry the exact mass"
+    );
+    let banked = cursor.banked;
+    let b = banked[belief.position.declaring_team.index()];
+    let r = 42 - banked[0] - banked[1];
+    let mut lower_tail = [0u128; 43];
+    let mut upper_tail = [0u128; 43];
+    for (k, (lo, up)) in lower_tail.iter_mut().zip(upper_tail.iter_mut()).enumerate() {
+        let k = k as u32;
+        let t = exact.tail(k);
+        *lo = if k <= b {
+            t.checked_add(node.residual_mass)
+                .expect("an exact mass fits u128")
+        } else {
+            t
+        };
+        *up = if k <= b + r {
+            t.checked_add(node.residual_mass)
+                .expect("an exact mass fits u128")
+        } else {
+            t
+        };
+    }
+    TailInterval {
+        lower_tail,
+        upper_tail,
+        exact_mass: node.exact_mass,
+        residual_mass: node.residual_mass,
+        refinements: node.refinements,
+    }
+}
+
+// ---------------------------------------------------------------------------
+// The §62 declaring-score range walk (anytime proof-state Phase 5).
+// ---------------------------------------------------------------------------
+
+/// The exact declaring-score RANGE of this belief: the (min, max)
+/// final declaring-team score over every represented world — under
+/// one fixed focal policy (`focal = Some`), or over EVERY legal focal
+/// continuation (`focal = None`, the §10/§11 policy-region form: the
+/// free-focal fold visits all focal branches, so the range covers
+/// every information-consistent deviation, fusion admitted as a
+/// relaxation — a range, never a value). No decided cutoff exists —
+/// a decided node knows the make indicator, not the score — so the
+/// walk runs to true terminals (the §18 caveat). The §62 verifier is
+/// built on this: `dev_max − incumbent_floor` uniformly bounds every
+/// deviation's score gain, `incumbent_ceiling − dev_min` every loss.
+pub fn declaring_score_range(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    focal: Option<&dyn SlicePolicy>,
+    field: &dyn SlicePolicy,
+    stats: &mut ResponseStats,
+) -> (u32, u32) {
+    let cursor = belief.cursor();
+    let viewer = belief.kernel.viewer();
+    let total = belief.kernel.viewer_hand().len()
+        + belief
+            .kernel
+            .hidden()
+            .iter()
+            .map(|h| h.capacity)
+            .sum::<usize>();
+    if belief.history.len() == total {
+        stats.decided_terminal += 1;
+        let banked = cursor.banked;
+        assert_eq!(
+            banked[0] + banked[1],
+            42,
+            "the 42-point pool is fully banked at terminal"
+        );
+        let score = banked[belief.position.declaring_team.index()];
+        return (score, score);
+    }
+    if cursor.seat() == viewer {
+        stats.focal_nodes += 1;
+        let remaining = belief
+            .kernel
+            .viewer_hand()
+            .difference(cursor.played_by[viewer.index()]);
+        let led = cursor
+            .plays
+            .first()
+            .map(|d| belief.position.decl.led_context(*d));
+        let legal = legal_plays(belief.position.decl, remaining, led);
+        assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+        match focal {
+            Some(policy) => {
+                stats.focal_actions += 1;
+                let record = cursor.record(&belief.position, &belief.history);
+                let tile = policy.choose(belief.position.decl, remaining, legal, &record);
+                assert!(legal.contains(tile), "a policy chooses a legal tile");
+                declaring_score_range(oracle, &belief.focal_play(tile), focal, field, stats)
+            }
+            None => {
+                let mut range: Option<(u32, u32)> = None;
+                for tile in legal.iter() {
+                    stats.focal_actions += 1;
+                    let (lo, hi) = declaring_score_range(
+                        oracle,
+                        &belief.focal_play(tile),
+                        focal,
+                        field,
+                        stats,
+                    );
+                    range = Some(match range {
+                        None => (lo, hi),
+                        Some((a, b)) => (a.min(lo), b.max(hi)),
+                    });
+                }
+                range.expect("a legal set holds an action")
+            }
+        }
+    } else {
+        stats.hidden_nodes += 1;
+        let mut range: Option<(u32, u32)> = None;
+        for (tile, _) in oracle.branch_masses(belief, field) {
+            stats.conditionings += 1;
+            let child = oracle.condition(belief, tile, field);
+            let (lo, hi) = declaring_score_range(oracle, &child, focal, field, stats);
+            range = Some(match range {
+                None => (lo, hi),
+                Some((a, b)) => (a.min(lo), b.max(hi)),
+            });
+        }
+        range.expect("a hidden seat to move has support")
     }
 }

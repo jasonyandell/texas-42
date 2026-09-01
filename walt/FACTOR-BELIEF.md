@@ -180,6 +180,56 @@ extraction from the winner (every U_a − B_exec ties), so h3-t4's
 wastes time, it cannot weaken the proof state), and bound refinement
 that prices upper-information value is future work, not a patch
 rushed here.
+
+**PHASES 4 + 5 LANDED** (2026-08-31, same day on Jason's "go for 4/5"):
+the §61 score-aware residual Bellman and the §62 count-threat covers —
+the machinery that connects Slice F's unresolved field classes to root
+bounds and prices what the residual can still steal. Phase 4
+(`staged_response_interval` / `staged_policy_envelope` in
+`solver/factor_belief.rs`, producer in new `solver/residual.rs`): the F
+staircase applies at each path's first field decision — the same
+classification bottleneck Slice F instrumented — with the capped CEGAR
+loop replayed prefix-stably, exact classes MERGED BY PUBLIC ACTION
+(§23) and recursed through the exact §36 response, and the unresolved
+mass attached as the §5 envelope, which at an undecided node
+contributes exactly (0, R): the interval width IS the residual mass.
+Nesting and the exact endpoint are theorems by mass additivity (both
+proved in the fn doc, both gated). The fixed-policy side yields §54
+tail envelopes — the new `Fact::Envelope` closes to an executable
+lower and puts the first NONZERO §7 contract-sensitive residual on the
+recommendation. The frontier gains `ResidualInterval` under the §41
+CENSUS LAW: potential is nonzero exactly where an open interval lets
+closure consume one (and rightly ZERO for the ε-goal on the top state
+— the §41 stall applies to the census item too); at the declared flat
+3Z forecast the exact item dominates it (never bought — honest, the
+staged item's cost advantage arrives with Phase 8's staged cost
+model). Phase 5 (`solver/covers.rs`): `Fact::Cover` carries the §13
+resource decomposition (contested tricks + named count tiles — the §5
+remainder decomposes EXACTLY, asserted) plus a verified uniform
+movement bound from the new `declaring_score_range` walk (free-focal
+range ⊇ every information-consistent deviation, incumbent range read
+off its profile fact — no second walk); closure pairs cover with
+incumbent and derives the §10/§11 rescue-band upper; no incumbent
+profile → decline → no number. Ten gates
+(`walt/walt/tests/solver_residual.rs`, 6, incl. the §23 cellwise-max
+counterexample REJECTED — the fused per-class sum strictly exceeds the
+lawful merged optimum of its own domain on h3-t4, the same-domain
+comparison being the theorem's; `solver_covers.rs`, 4[3 fns]).
+Probe: `bellmanreport report`
+(`probes/factor_belief/bellmanreport_run1.txt`, 15.7s) — findings: the
+staircase is a real anytime object (h3-t4 walks [145,606]‰ → exact in
+5–6 stages with monotone narrowing; h8-t5 0-0 climbs 86‰ → 771‰ exact
+across five stages); h12-t6's cover CERTIFIES V* = 0 for one range
+walk (gain 0 collapses both actions — a cover proving failure at
+range-walk cost instead of response-walk cost), h10-t6 collapses the
+other way (certain make); h4-t6's range walk beats the arithmetic
+envelope by exactly one point and leaves the 5-5 ten-count hazard
+visible at 134‰; and the honest §70 caveat is live — at rich early
+roots (h8-t5, h3-t4) every resource is still contested, gain equals
+the envelope, and the first-generation covers are vacuous: richer
+structural producers (protection conditions, per-cell partitions) are
+the declared answer, not a patched heuristic.
+
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint
 `response_success_mass` in `solver/factor_belief.rs` — the full-action-set

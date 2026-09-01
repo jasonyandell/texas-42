@@ -90,6 +90,7 @@ fn item_name(item: &WorkItem) -> String {
         WorkItem::BaselineProfile { action } => format!("baseline({action})"),
         WorkItem::ExactValue { action } => format!("exact({action})"),
         WorkItem::ExtractArgmax { action } => format!("extract({action})"),
+        WorkItem::ResidualInterval { action } => format!("residual({action})"),
         WorkItem::ExactValueSurvivors => "exact-survivors[§41 macro]".to_string(),
     }
 }

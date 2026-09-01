@@ -44,6 +44,18 @@
 //! derived views (never stored), so closure is idempotent by
 //! construction — and gated anyway.
 //!
+//! THE PHASE 4/5 KINDS. A [`TailEnvelopeFact`] (§54) carries exact
+//! tail BOUNDS on one materialized policy's declaring-score profile:
+//! closure projects its guaranteed side at the contract to a
+//! deterministic executable lower, its straddle is the §7
+//! contract-sensitive residual the recommendation reports, and its
+//! possible side never becomes an action bound. A
+//! [`CountThreatCoverFact`] (§13) carries a verified uniform
+//! focal-favorable score-movement bound over the full deviation
+//! region, resource-decomposed; closure pairs it with the named
+//! incumbent's profile fact and derives the §10/§11 rescue-band upper
+//! — no matching profile, no number.
+//!
 //! THE OPEN REGISTRY (§49's seventh requirement). A producer is any
 //! implementor of [`ProofProducer`] — adding one edits NO enum in this
 //! module (the deliberate break from RefineV1's closed work-item
@@ -73,8 +85,10 @@
 //! this module must remain deletable without touching it or anything
 //! else (§67.10, asserted by the module graph: nothing imports this
 //! module except the crate root, `solver::extraction` (the §63
-//! producer) and `solver::frontier` (the §39–§43 work frontier) —
-//! both new-core, deletable with this module as one boundary).
+//! producer), `solver::frontier` (the §39–§43 work frontier),
+//! `solver::residual` (the §61 producer) and `solver::covers` (the
+//! §62 producer) — all new-core, deletable with this module as one
+//! boundary).
 
 use num_bigint::BigInt;
 use num_rational::BigRational;
@@ -245,14 +259,17 @@ pub struct ScoreProfileFact {
 }
 
 impl ScoreProfileFact {
-    fn total(&self) -> u128 {
+    /// Total represented mass — public for the Phase 5 producer's
+    /// incumbent reads (the fact's bins are its authority).
+    pub fn total(&self) -> u128 {
         self.bins
             .iter()
             .try_fold(0u128, |a, b| a.checked_add(*b))
             .expect("an exact mass fits u128")
     }
 
-    fn tail(&self, k: u32) -> u128 {
+    /// Tail mass at threshold `k` (`k > 42` holds no mass).
+    pub fn tail(&self, k: u32) -> u128 {
         self.bins
             .iter()
             .enumerate()
@@ -262,12 +279,104 @@ impl ScoreProfileFact {
     }
 }
 
+/// A §54 tail envelope as a FACT (Phase 4): exact integer tail BOUNDS
+/// on one materialized policy's declaring-score profile, from the §61
+/// staged evaluation — `lower_tail[k]` the mass provably scoring ≥ k,
+/// `upper_tail[k]` the mass possibly scoring ≥ k. Closure projects the
+/// viewer-objective GUARANTEED side at the contract to a deterministic
+/// EXECUTABLE lower for the action (the policy is materialized); the
+/// possible side is never an action bound — it bounds this policy, not
+/// the unknown best response. §54's fence holds by type: an envelope
+/// is never presented as a score profile (distinct kind, distinct
+/// serialization), and this fact family always carries its policy —
+/// the policy-less §22 response envelope installs as plain [`BoundFact`]s
+/// under the residual-Bellman authority instead.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct TailEnvelopeFact {
+    pub action: Domino,
+    /// The materialized policy whose score these tails bracket.
+    pub policy_id: String,
+    pub lower_tail: [u128; 43],
+    pub upper_tail: [u128; 43],
+}
+
+impl TailEnvelopeFact {
+    fn well_formed(&self) -> bool {
+        let z = self.lower_tail[0];
+        if z == 0 || self.upper_tail[0] != z {
+            return false;
+        }
+        for k in 0..43 {
+            if self.lower_tail[k] > self.upper_tail[k] {
+                return false;
+            }
+            if k > 0
+                && (self.lower_tail[k] > self.lower_tail[k - 1]
+                    || self.upper_tail[k] > self.upper_tail[k - 1])
+            {
+                return false;
+            }
+        }
+        true
+    }
+}
+
+/// A §13 count-threat cover as a FACT (Phase 5): a verified uniform
+/// bound on how far any information-consistent focal deviation sharing
+/// this root action can move the declaring score in the FOCAL team's
+/// favor (up for a declaring viewer, down for a setting viewer),
+/// decomposed into the §13 resources — trick-point swing and named
+/// count tiles — with `score_gain_upper ≤` the resource sum (the
+/// install fence). Closure pairs it with the named incumbent's profile
+/// fact and derives the §10 rescue-band upper
+/// `V*_a ≤ tail(c − d⁺)/Z` (declaring) or the §11 mirror
+/// `(Z − tail(c + d⁻))/Z` (setting); with no matching profile the
+/// cover derives nothing — a cover is relative to its incumbent.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct CountThreatCoverFact {
+    pub action: Domino,
+    /// The §13 policy region: every information-consistent focal
+    /// policy sharing the root action.
+    pub region_id: String,
+    /// The incumbent whose profile anchors the rescue band.
+    pub incumbent_policy_id: String,
+    /// Upper bound on trick-point swing (1 point per contested trick).
+    pub trick_gain_upper: u32,
+    /// Named five-count tiles whose ownership may still change,
+    /// ascending tile index, no duplicates (the install fence).
+    pub five_count_tiles: Vec<Domino>,
+    /// The analogous ten-count tiles.
+    pub ten_count_tiles: Vec<Domino>,
+    /// The verified uniform focal-favorable movement bound.
+    pub score_gain_upper: u32,
+}
+
+impl CountThreatCoverFact {
+    fn resource_sum(&self) -> u32 {
+        self.trick_gain_upper
+            + 5 * self.five_count_tiles.len() as u32
+            + 10 * self.ten_count_tiles.len() as u32
+    }
+
+    fn well_formed(&self) -> bool {
+        let sorted = |tiles: &[Domino], count: u32| {
+            tiles.windows(2).all(|w| w[0].index() < w[1].index())
+                && tiles.iter().all(|d| d.count() == count)
+        };
+        sorted(&self.five_count_tiles, 5)
+            && sorted(&self.ten_count_tiles, 10)
+            && self.score_gain_upper <= self.resource_sum()
+    }
+}
+
 /// The closed type vocabulary of facts. Producers are open
 /// ([`ProofProducer`]); kinds are the typed language they speak.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum Fact {
     Bound(BoundFact),
     Profile(Box<ScoreProfileFact>),
+    Envelope(Box<TailEnvelopeFact>),
+    Cover(Box<CountThreatCoverFact>),
 }
 
 /// Why an install was refused. Every rejection is recorded in the
@@ -499,6 +608,27 @@ impl ProofState {
                 }
                 p.total() > 0
             }
+            Fact::Envelope(e) => {
+                assert_ident_string(&e.policy_id);
+                if !self.legal.contains(&e.action) {
+                    self.trace.push(ProofEvent::Rejected {
+                        reason: Reject::UnknownAction,
+                    });
+                    return Err(Reject::UnknownAction);
+                }
+                e.well_formed()
+            }
+            Fact::Cover(cv) => {
+                assert_ident_string(&cv.region_id);
+                assert_ident_string(&cv.incumbent_policy_id);
+                if !self.legal.contains(&cv.action) {
+                    self.trace.push(ProofEvent::Rejected {
+                        reason: Reject::UnknownAction,
+                    });
+                    return Err(Reject::UnknownAction);
+                }
+                cv.well_formed()
+            }
         };
         if !ok {
             self.trace.push(ProofEvent::Rejected {
@@ -545,6 +675,43 @@ impl ProofState {
         BigRational::new(BigInt::from(mass), BigInt::from(z))
     }
 
+    /// The viewer-objective projection of an envelope fact's GUARANTEED
+    /// side at the contract (Phase 4): the declaring viewer's certain
+    /// make mass is `lower_tail(c)`; the setting viewer's is the mass
+    /// certainly below `c`, `Z − upper_tail(c)`. Executable — the
+    /// envelope's policy is materialized. The possible side is never
+    /// projected to an action bound (it bounds the policy, not the
+    /// unknown best response).
+    fn envelope_projection(&self, e: &TailEnvelopeFact) -> BigRational {
+        let z = e.lower_tail[0];
+        let c = self.identity.contract;
+        let mass = match self.identity.utility_id.as_str() {
+            "pmake-v1" => tail_at(&e.lower_tail, c),
+            "pmake-setting-v1" => z - tail_at(&e.upper_tail, c),
+            other => panic!("an unknown utility identity: {other}"),
+        };
+        BigRational::new(BigInt::from(mass), BigInt::from(z))
+    }
+
+    /// The §10/§11 rescue-band upper a cover derives through its
+    /// incumbent's profile (Phase 5): a declaring viewer's deviations
+    /// gain at most `d`, so `{S_ρ ≥ c} ⊆ {S_π ≥ c − d}` and
+    /// `V*_a ≤ tail(c − d)/Z`; a setting viewer's deviations lower the
+    /// declaring score by at most `d`, so `{S_ρ < c} ⊆ {S_π < c + d}`
+    /// and `V*_a ≤ (Z − tail(c + d))/Z`. Saturation is graceful on
+    /// both sides — the derived upper degrades to the vacuous 1.
+    fn cover_projection(&self, cv: &CountThreatCoverFact, p: &ScoreProfileFact) -> BigRational {
+        let z = p.total();
+        let c = self.identity.contract;
+        let d = cv.score_gain_upper;
+        let mass = match self.identity.utility_id.as_str() {
+            "pmake-v1" => p.tail(c.saturating_sub(d)),
+            "pmake-setting-v1" => z - p.tail(c + d),
+            other => panic!("an unknown utility identity: {other}"),
+        };
+        BigRational::new(BigInt::from(mass), BigInt::from(z))
+    }
+
     /// The §26 zero-cost closure: recompute every derived view from
     /// the facts. Pure — calling it twice yields equal reports
     /// (gated), because nothing is stored.
@@ -560,6 +727,8 @@ impl ProofState {
             let mut lower_sampled = false;
             let mut upper = one.clone();
             let mut upper_sampled = false;
+            let mut profiles: Vec<&ScoreProfileFact> = Vec::new();
+            let mut covers: Vec<&CountThreatCoverFact> = Vec::new();
             for sf in &self.facts {
                 match &sf.fact {
                     Fact::Bound(b) if b.action == *a => match b.side {
@@ -592,6 +761,7 @@ impl ProofState {
                         }
                     },
                     Fact::Profile(p) if p.action == *a => {
+                        profiles.push(p);
                         let v = self.profile_projection(p);
                         if v > lower {
                             lower = v.clone();
@@ -611,7 +781,48 @@ impl ProofState {
                             });
                         }
                     }
+                    Fact::Envelope(e) if e.action == *a => {
+                        // Phase 4: the guaranteed side is a
+                        // deterministic EXECUTABLE lower (the policy is
+                        // materialized); the possible side bounds only
+                        // the policy, never the action.
+                        let v = self.envelope_projection(e);
+                        if v > lower {
+                            lower = v.clone();
+                            lower_sampled = false;
+                        }
+                        let better = match &exec {
+                            None => true,
+                            Some(w) => v > w.value,
+                        };
+                        if better {
+                            exec = Some(ExecWitness {
+                                action: *a,
+                                value: v,
+                                authority: format!("envelope:{}", e.policy_id),
+                                sampled: false,
+                                fact_id: sf.id,
+                            });
+                        }
+                    }
+                    Fact::Cover(cv) if cv.action == *a => covers.push(cv),
                     _ => {}
+                }
+            }
+            // Phase 5: a cover derives its §10/§11 rescue-band upper
+            // through the named incumbent's profile fact — no matching
+            // profile, no number (a cover is relative to its
+            // incumbent). Deterministic on both inputs.
+            for cv in &covers {
+                for p in &profiles {
+                    if p.policy_id != cv.incumbent_policy_id {
+                        continue;
+                    }
+                    let v = self.cover_projection(cv, p);
+                    if v < upper {
+                        upper = v;
+                        upper_sampled = false;
+                    }
                 }
             }
             assert!(
@@ -730,6 +941,22 @@ impl ProofState {
         let mut fragile = None;
         let mut rescue = None;
         if let Some(sf) = self.facts.iter().find(|sf| sf.id == w.fact_id) {
+            if let Fact::Envelope(e) = &sf.fact {
+                // Phase 4: an envelope witness reports its certain
+                // floor, its possible ceiling, and the §7 straddle at
+                // the contract — the first nonzero
+                // `contract_sensitive_residual` the recommendation can
+                // carry. The d = 1 bands stay `None`: under an
+                // envelope they are interval-valued, and an interval
+                // band presented as a mass would blur the §54 fence.
+                let z = e.lower_tail[0];
+                floor = (0..=42u32).rev().find(|k| tail_at(&e.lower_tail, *k) == z);
+                ceiling = (0..=42u32).rev().find(|k| tail_at(&e.upper_tail, *k) > 0);
+                residual = Some(BigRational::new(
+                    BigInt::from(tail_at(&e.upper_tail, c) - tail_at(&e.lower_tail, c)),
+                    BigInt::from(z),
+                ));
+            }
             if let Fact::Profile(p) = &sf.fact {
                 let z = BigInt::from(p.total());
                 floor = p
@@ -857,6 +1084,16 @@ impl ProofState {
     }
 }
 
+/// Tail lookup with graceful saturation: thresholds above 42 hold no
+/// mass (mirroring [`ScoreProfile::tail`]'s domain).
+fn tail_at(tails: &[u128; 43], k: u32) -> u128 {
+    if k > 42 {
+        0
+    } else {
+        tails[k as usize]
+    }
+}
+
 fn rational(v: &BigRational) -> String {
     format!("{}/{}", v.numer(), v.denom())
 }
@@ -907,6 +1144,44 @@ fn serialize_fact_body(fact: &Fact) -> String {
                 p.action,
                 p.policy_id,
                 bins.join(",")
+            )
+        }
+        Fact::Envelope(e) => {
+            let csv = |tails: &[u128; 43]| {
+                tails
+                    .iter()
+                    .map(|m| m.to_string())
+                    .collect::<Vec<_>>()
+                    .join(",")
+            };
+            format!(
+                "envelope {} policy={} lower={} upper={}",
+                e.action,
+                e.policy_id,
+                csv(&e.lower_tail),
+                csv(&e.upper_tail)
+            )
+        }
+        Fact::Cover(cv) => {
+            let tiles = |ts: &[Domino]| {
+                if ts.is_empty() {
+                    "none".to_string()
+                } else {
+                    ts.iter()
+                        .map(|d| format!("{d}"))
+                        .collect::<Vec<_>>()
+                        .join("+")
+                }
+            };
+            format!(
+                "cover {} region={} incumbent={} tricks={} fives={} tens={} gain={}",
+                cv.action,
+                cv.region_id,
+                cv.incumbent_policy_id,
+                cv.trick_gain_upper,
+                tiles(&cv.five_count_tiles),
+                tiles(&cv.ten_count_tiles),
+                cv.score_gain_upper
             )
         }
     }
@@ -994,6 +1269,72 @@ fn parse_fact_body(body: &str) -> Result<Fact, String> {
                 action,
                 policy_id,
                 bins,
+            })))
+        }
+        Some("envelope") => {
+            let action = parse_domino(parts.next().ok_or("a missing action")?)?;
+            let policy_id = parts
+                .next()
+                .and_then(|s| s.strip_prefix("policy="))
+                .ok_or("a missing policy id")?
+                .to_string();
+            let mut parse_tails = |prefix: &str| -> Result<[u128; 43], String> {
+                let s = parts
+                    .next()
+                    .and_then(|s| s.strip_prefix(prefix))
+                    .ok_or("a missing tail list")?;
+                let mut tails = [0u128; 43];
+                let values: Vec<&str> = s.split(',').collect();
+                if values.len() != 43 {
+                    return Err("a tail list holds 43 values".to_string());
+                }
+                for (t, v) in tails.iter_mut().zip(values) {
+                    *t = v.parse().map_err(|_| "a malformed tail mass")?;
+                }
+                Ok(tails)
+            };
+            let lower_tail = parse_tails("lower=")?;
+            let upper_tail = parse_tails("upper=")?;
+            Ok(Fact::Envelope(Box::new(TailEnvelopeFact {
+                action,
+                policy_id,
+                lower_tail,
+                upper_tail,
+            })))
+        }
+        Some("cover") => {
+            let action = parse_domino(parts.next().ok_or("a missing action")?)?;
+            let mut field = |prefix: &str| -> Result<String, String> {
+                parts
+                    .next()
+                    .and_then(|s| s.strip_prefix(prefix))
+                    .map(str::to_string)
+                    .ok_or(format!("a missing cover field: {prefix}"))
+            };
+            let region_id = field("region=")?;
+            let incumbent_policy_id = field("incumbent=")?;
+            let trick_gain_upper: u32 = field("tricks=")?
+                .parse()
+                .map_err(|_| "a malformed trick bound")?;
+            let tiles = |s: String| -> Result<Vec<Domino>, String> {
+                if s == "none" {
+                    return Ok(Vec::new());
+                }
+                s.split('+').map(parse_domino).collect()
+            };
+            let five_count_tiles = tiles(field("fives=")?)?;
+            let ten_count_tiles = tiles(field("tens=")?)?;
+            let score_gain_upper: u32 = field("gain=")?
+                .parse()
+                .map_err(|_| "a malformed gain bound")?;
+            Ok(Fact::Cover(Box::new(CountThreatCoverFact {
+                action,
+                region_id,
+                incumbent_policy_id,
+                trick_gain_upper,
+                five_count_tiles,
+                ten_count_tiles,
+                score_gain_upper,
             })))
         }
         _ => Err("an unknown fact kind".to_string()),

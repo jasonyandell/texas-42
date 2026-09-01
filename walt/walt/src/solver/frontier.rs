@@ -44,7 +44,9 @@
 //! deterministic (RefineV1's two-tier ladder stays behind its own
 //! frozen interface; importing its facts is the caller's move, not a
 //! work item). No cross-root anything, no cost-model learning, no
-//! laydown/count goals (Phases 5/7 own those), and
+//! laydown goals (Phase 7 owns those; Phase 5's count-threat covers
+//! install through their PRODUCER — a cover work item waits on a
+//! cost model that can price a range walk), and
 //! `PriceRecommendedPolicy`/`ProveLaydown`/`ExplainCountRisk` from
 //! the §39 list are unbuilt — the four goals below are the ones whose
 //! debts today's fact types can move. New-core beside
@@ -66,6 +68,7 @@ use crate::solver::factor_belief::{
 use crate::solver::proof_state::{
     BoundFact, BoundSide, ClosureReport, Fact, ProofState, ProofTag, ScoreProfileFact, StateResult,
 };
+use crate::solver::residual::{residual_interval_facts_for_action, RESIDUAL_AUTHORITY};
 
 /// The declared baseline policy id (the σ0 tie-rule house policy, the
 /// same id the Phase 3 probe used — one vocabulary).
@@ -149,6 +152,15 @@ pub enum WorkItem {
     /// The §63 argmax extraction of `action`: the executable profile
     /// at the exact optimum. Cost `3Z`.
     ExtractArgmax { action: Domino },
+    /// The §61 residual-Bellman interval of `action` at the declared
+    /// F stage: a non-executable lower and an upper. Cost `3Z` — at
+    /// which forecast the exact item dominates it (first in order at
+    /// equal ratio); its §41 role here is the CENSUS LAW — Slice F's
+    /// consequence census now has nonzero root potential exactly
+    /// where the closure can consume an interval (gated); its cost
+    /// advantage arrives with a staged cost model (Phase 8), not by
+    /// fiat.
+    ResidualInterval { action: Domino },
     /// The §41 declared macro-plan: `ExactValue` on EVERY current
     /// survivor as one candidate, so the upper side can move at all
     /// (module doc). Cost `3Z · |survivors|`.
@@ -214,6 +226,12 @@ fn has_exact(state: &ProofState, action: Domino) -> bool {
     })
 }
 
+fn has_residual(state: &ProofState, action: Domino) -> bool {
+    state.facts().iter().any(|sf| {
+        matches!(&sf.fact, Fact::Bound(b) if b.action == action && b.authority == RESIDUAL_AUTHORITY && b.side == BoundSide::Upper)
+    })
+}
+
 fn has_argmax(state: &ProofState, action: Domino) -> bool {
     state.facts().iter().any(
         |sf| matches!(&sf.fact, Fact::Profile(p) if p.action == action && p.policy_id.starts_with("argmax-")),
@@ -237,7 +255,9 @@ impl Frontier<'_> {
         let z = self.root_mass();
         match item {
             WorkItem::BaselineProfile { .. } => z,
-            WorkItem::ExactValue { .. } | WorkItem::ExtractArgmax { .. } => {
+            WorkItem::ExactValue { .. }
+            | WorkItem::ExtractArgmax { .. }
+            | WorkItem::ResidualInterval { .. } => {
                 3u128.checked_mul(z).expect("a forecast fits u128")
             }
             WorkItem::ExactValueSurvivors => 3u128
@@ -295,6 +315,18 @@ impl Frontier<'_> {
                             all
                         }
                     }
+                    // The §41 census law: an interval item bites only
+                    // where an interval is open to consume — a point
+                    // or excluded action leaves closure nothing to
+                    // read (gated both ways).
+                    WorkItem::ResidualInterval { action } => {
+                        let v = view(*action);
+                        if v.excluded || v.lower == v.upper {
+                            zero
+                        } else {
+                            all
+                        }
+                    }
                     WorkItem::ExactValueSurvivors => all,
                 }
             }
@@ -321,6 +353,33 @@ impl Frontier<'_> {
                     }
                     WorkItem::ExactValue { action } => {
                         let v = view(*action);
+                        let others = report
+                            .views
+                            .iter()
+                            .filter(|w| w.action != *action)
+                            .map(|w| w.upper.clone())
+                            .max()
+                            .unwrap_or_else(BigRational::zero);
+                        let floor = if v.lower > others {
+                            v.lower.clone()
+                        } else {
+                            others
+                        };
+                        if report.u_star > floor {
+                            cap(&report.u_star - &floor)
+                        } else {
+                            zero
+                        }
+                    }
+                    // The upper it installs can lower `U*` like an
+                    // exact upper (its lower is non-executable, so
+                    // `B_exec` never moves); the census law gates it
+                    // on an open interval.
+                    WorkItem::ResidualInterval { action } => {
+                        let v = view(*action);
+                        if v.lower == v.upper {
+                            return zero;
+                        }
                         let others = report
                             .views
                             .iter()
@@ -375,6 +434,16 @@ impl Frontier<'_> {
                     WorkItem::ExactValue { action }
                     | WorkItem::BaselineProfile { action }
                     | WorkItem::ExtractArgmax { action } => per_action(*action),
+                    // Census law: a point interval leaves the item
+                    // nothing to narrow and no bar to raise.
+                    WorkItem::ResidualInterval { action } => {
+                        let v = view(*action);
+                        if v.lower == v.upper {
+                            zero
+                        } else {
+                            per_action(*action)
+                        }
+                    }
                     WorkItem::ExactValueSurvivors => debt.clone(),
                 }
             }
@@ -386,7 +455,9 @@ impl Frontier<'_> {
                         BigRational::from_integer(BigInt::from(1))
                     }
                 }
-                WorkItem::ExactValue { .. } | WorkItem::ExactValueSurvivors => zero,
+                WorkItem::ExactValue { .. }
+                | WorkItem::ResidualInterval { .. }
+                | WorkItem::ExactValueSurvivors => zero,
             },
         }
     }
@@ -400,9 +471,24 @@ impl Frontier<'_> {
             out.push(WorkItem::BaselineProfile { action: *a });
             out.push(WorkItem::ExactValue { action: *a });
             out.push(WorkItem::ExtractArgmax { action: *a });
+            out.push(WorkItem::ResidualInterval { action: *a });
         }
         out.push(WorkItem::ExactValueSurvivors);
         out
+    }
+
+    /// The declared §42 bound of one item for one goal on the CLOSED
+    /// state — public for the census-law gate and the probes (the
+    /// loop's own reads go through the same function).
+    pub fn item_potential(
+        &self,
+        item: &WorkItem,
+        goal: &SolveGoal,
+        state: &ProofState,
+    ) -> BigRational {
+        let report = state.closure();
+        let debt = goal.debt(state, &report);
+        self.potential(item, goal, state, &report, &debt)
     }
 
     fn already_present(&self, item: &WorkItem, state: &ProofState, report: &ClosureReport) -> bool {
@@ -410,6 +496,7 @@ impl Frontier<'_> {
             WorkItem::BaselineProfile { action } => has_baseline(state, *action),
             WorkItem::ExactValue { action } => has_exact(state, *action),
             WorkItem::ExtractArgmax { action } => has_argmax(state, *action),
+            WorkItem::ResidualInterval { action } => has_residual(state, *action),
             WorkItem::ExactValueSurvivors => report.survivors.iter().all(|a| has_exact(state, *a)),
         }
     }
@@ -437,6 +524,19 @@ impl Frontier<'_> {
                     .expect("a baseline profile installs");
             }
             WorkItem::ExactValue { action } => self.install_exact(state, *action),
+            WorkItem::ResidualInterval { action } => {
+                for fact in residual_interval_facts_for_action(
+                    self.oracle,
+                    self.root,
+                    self.position,
+                    self.field,
+                    *action,
+                ) {
+                    state
+                        .install(&identity, fact)
+                        .expect("a residual interval installs");
+                }
+            }
             WorkItem::ExtractArgmax { action } => {
                 let fact = extraction_fact_for_action(
                     self.oracle,
@@ -524,7 +624,7 @@ impl Frontier<'_> {
         let mut spent: u128 = 0;
         // Termination: each purchase installs facts its presence
         // guards then refuse; the candidate set is finite.
-        let ceiling = 3 * state.legal.len() + 1;
+        let ceiling = 4 * state.legal.len() + 1;
         loop {
             assert!(
                 executed.len() <= ceiling,
