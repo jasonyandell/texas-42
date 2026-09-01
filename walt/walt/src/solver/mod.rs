@@ -24,6 +24,7 @@ pub mod bundle;
 pub mod calibrate;
 pub mod controller;
 pub mod covers;
+pub mod doom;
 pub mod evidence;
 pub mod exposure;
 pub mod extraction;
