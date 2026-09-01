@@ -1,4 +1,4 @@
-# factor_belief — the Slice C (stages C0–C2), D, E, F, G and Phase 1/2/3/4/5/6/7/8 probes
+# factor_belief — the Slice C (stages C0–C2), D, E, F, G, Phase 1/2/3/4/5/6/7/8 and doom-census probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
@@ -15,7 +15,9 @@ Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C),
 `walt/walt/src/bin/frontierreport.rs` (anytime proof-state Phase 1) and
 `walt/walt/src/bin/bellmanreport.rs` (anytime proof-state Phases 4/5),
 `walt/walt/src/bin/laydownreport.rs` (anytime proof-state Phase 7) and
-`walt/walt/src/bin/openingreport.rs` (anytime proof-state Phase 8).
+`walt/walt/src/bin/openingreport.rs` (anytime proof-state Phase 8) and
+`walt/walt/src/bin/doomreport.rs` (the doom census — the §70
+structural producer, ∀-fail dual of §16).
 Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
@@ -29,7 +31,8 @@ Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_residual.rs` and
 `walt/walt/tests/solver_covers.rs` and
 `walt/walt/tests/solver_laydown.rs` and
-`walt/walt/tests/solver_opening.rs`. Mathematical source:
+`walt/walt/tests/solver_opening.rs` and
+`walt/walt/tests/solver_doom.rs`. Mathematical source:
 `walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31,
 Part VIII §32–37, §46 stages C0–C2, §47 Slice D, §48 Slice E, §49
 Slice F, §50 Slice G, rulings CBS-A4/CBS-A6/CBS-A9; and
@@ -586,10 +589,77 @@ the δ ledger).
   while its declared forecast unit is linear; a staged cost model for
   the sampled tier is follow-on work, priced but unbuilt.
 
+## doomreport_run1.txt readings (2026-09-01) — the doom census
+
+- **The instrument.** `solver/doom.rs`: `universal_viewer_failure` — the
+  ∀-fail dual of the §16 walk (focal nodes AND over every viewer
+  escape; hidden nodes partition the record-consistent support by the
+  DECLARED σ0's deterministic choice — `pmake`'s own field semantics,
+  where a ∀σ-fail dual would certify nearly nothing); `doom_census` —
+  the §28/§49 signature-vocabulary descent over one to three hidden
+  seats with exact oracle masses, a full mode under the §46 partition
+  law and a priority mode (declared punish order: opponents
+  nastiest-first, partner weakest-first, feasible-class cut) for rich
+  roots; `doom_enumeration` — the per-world ground truth (a singleton
+  class is a belief, so the exact recursion is a world-aware make
+  check); `DoomCensusProducer` — deterministic uppers
+  `(Z − M_doom)/Z` through the open §49 registry. Eight gates in
+  `solver_doom.rs`; nothing sampled exists on any path.
+- **Where doom lives, the census harvests it.** On the enumerable
+  receipt roots the full census recovers 809–1000‰ of the per-world
+  doom truth wholesale: h12-t6 is WHOLE-FIBER doomed in one decided
+  read per action (the §17-dual zero-cost path on a real root);
+  h5-t6's two actions certify 15/27 exactly; h4-t6's 0-0 certifies
+  56 of the true 60; h8-t5's 5-0 certifies 28/28 while its 0-0 takes
+  17 of 21 and its 5-3 misses the single doomed world (the per-seat
+  relaxation's price, stated by the instrument itself).
+- **At the opening root the census certifies ZERO — and the God grid
+  shows the zero is real, not instrumental.** All seven h0-t1 leads:
+  no class at any level of the declared top-8 priority descent
+  certifies; the trump leads (3-2/3-3/5-3) EXHAUST their priority
+  region (no refusals — every walked leaf found a genuine escape),
+  the six leads (6-0/6-5) refuse at the 500k-node budget inside their
+  first huge classes. Diagnosis by singleton checks: two adversarially
+  hand-built crusher worlds after the 0-0 lead (opponents holding the
+  top pool trump, both tens, both loose five-counts, junk partner; a
+  trump-wall over the viewer's 3-5) both let the world-aware viewer
+  MAKE 30 against σ0, and a declared stride-512 grid over the S2
+  support (lex-first completions — a structured grid, NOT a
+  probability estimate) finds 0 doomed worlds in 228.
+- **The finding that reframes the plateau.** Any doom-family upper is
+  floored at the world-aware (God) make rate, and at h0-t1 that rate
+  is ≈ 1 everywhere probed: with 3-3, 3-5 and 3-2 in the viewer's
+  hand, COUNTED counterexamples cannot move the 999‰ ceilings
+  appreciably — the openingreport plateau's remaining Γ is
+  overwhelmingly POLICY GAP (the info-consistency price), purchasable
+  on the floor side (extraction across the cliff) or by
+  info-consistency-aware uppers (optimization locks, §42 exact items),
+  never by doom counting. The composed panel says it plainly: p16+p64
+  sampled stops, then 0 doom uppers installed, panel unchanged, Γ
+  stands at 405‰.
+- **The census's home is therefore the endgame and the in-play
+  middlegame** — exactly where Phase 7's laydown walk also lives:
+  deterministic set-certificates (viewer-objective duals) at t4–t6
+  depths where fibers are enumerable-adjacent and σ0 reads are cheap.
+  A played hand REACHES that domain every deal; the opening root was
+  the stress test, and it priced the wall honestly: each non-forced
+  σ0 read is a modeled-mind mini-solve (the field-classification
+  bottleneck measured from the doom side), ~2.5–9k walk nodes/s at
+  trick-1 depth.
+- Wall honesty: Part 1 (twelve receipt-root censuses + enumerations)
+  runs in seconds; each opening census costs 41–55 s at the declared
+  budgets; the God grid costs 3.2 s for 228 worlds (12–25 ms per
+  singleton check, FieldModel-cached); the composed panel re-imports
+  p16+p64 in ~41 s.
+
 ## Boundaries
 
 - Deterministic fields only; a stochastic field needs an explicit tape
-  factor (CBS-A6 boundary obligation) and has no entry point here.
+  factor (CBS-A6 boundary obligation) and has no entry point here. The
+  doom walk leans on this twice: σ0-determinism is what makes hidden
+  branches a PARTITION, and the certified classes bound only the
+  declared field's `pmake` — the authority string carries the field
+  identity for exactly this reason.
 - The Phase 2 profile is the record of ONE policy — no envelope across
   policies exists anywhere (the §20 fence, APS-A4), and no profile was
   attempted at the opening root (the full walk without decided cutoffs

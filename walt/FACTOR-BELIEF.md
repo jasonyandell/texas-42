@@ -4,7 +4,9 @@
 ANYTIME PROOF-STATE PHASES 0–8 ALL LANDED (2026-08-31/09-01, the
 follow-on parent `walt/math/anytime_proof_state_score_v0.1.md`,
 rulings APS-A1..A9 — THE PARENT PROGRAM IS COMPLETE; Phase 8's
-paragraph below is the capstone). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
+paragraph below is the capstone); DOOM CENSUS LANDED (2026-09-01, the
+first post-program structural producer — the §70 answer, paragraph
+after the capstone). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
 register: `solver/refine.rs` as merged at `25b40d9` takes no new
 fields, variants, or work items, ever; its four gates never weaken; the
 coming proof-state core must reproduce it wherever scopes overlap and
@@ -301,6 +303,50 @@ the ∀-fail dual of Phase 7's laydown certificates). The final state:
 56 facts, 10,439 bytes, risk 14/25 ≤ 3/5 itemized over 56 scopes,
 verdict honest UNRESOLVED at ε = 1/4 — §65's first target met in its
 certified-regret form: play 6-5, floor 732‰, at most 267‰ unclaimed.
+
+**DOOM CENSUS LANDED** (2026-09-01, Jason's "construct and then size
+the number of beating arrangements" with explicit latitude): the first
+post-program structural producer — counterexample MASS as a
+deterministic upper, the ∀-fail dual of Phase 7's laydown hierarchy
+and the §70 falsifier's answer. `solver/doom.rs`:
+`universal_viewer_failure` (focal nodes AND over every viewer escape —
+one survivor kills the class; hidden nodes PARTITION the
+record-consistent support by the declared σ0's deterministic choice —
+`pmake`'s own field semantics; per-seat relaxation sound in the
+certifying direction, phantoms only ever BLOCK); `doom_census` (the
+§28/§49 signature vocabulary descending over one to three hidden seats
+in acting order, exact oracle masses, the §46 partition law asserted
+in full mode, a declared punish-priority mode — opponents
+nastiest-first, partner weakest-first, feasible-class cut — for rich
+roots); `doom_enumeration` (the per-world ground truth: a singleton
+class is a belief, so the exact recursion is a world-aware make
+check); `DoomCensusProducer` (uppers `(Z − M_doom)/Z`,
+`ProofTag::Deterministic`, field identity in the authority, idempotent
+against the append-only store). Eight gates (`solver_doom.rs`): the
+already-set root dooms its WHOLE fiber in one decided read; the
+loose-boss census meets the exact recursion EXACTLY (1120/1680, upper
+= the exact value, with the per-seat phantom escape defeated by
+physical tile conservation, not a deeper split); soundness against
+`response_success_mass` on receipt roots; honest deterministic
+starvation; producer/closure/round-trip; enumeration ≡ census on the
+fixture; enumeration DOMINATES the census and stays sound; the
+priority census is a sound partial harvest. Probe `doomreport`
+(`probes/factor_belief/doomreport_run1.txt`): where doom lives the
+census harvests it wholesale — 809–1000‰ of the per-world truth on
+the enumerable receipt roots, h12-t6 whole-fiber at one node — and at
+the h0-t1 opening root it certifies an honest ZERO whose diagnosis is
+the finding: two adversarially hand-built crusher worlds and a
+declared 228-point stride grid ALL let the world-aware viewer make 30
+against σ0 after the 0-0 lead. A doom-family upper is floored at the
+God make rate, and that rate is ≈ 1 here: the plateau's remaining
+Γ ≈ 267‰ is overwhelmingly the INFO-CONSISTENCY PRICE — purchasable
+by floor work (extraction across the cliff) and info-consistency-aware
+uppers, never by counterexample counting. The census's working domain
+is the endgame and in-play middlegame (t4–t6, where Phase 7's walk
+also lives, and where every played hand eventually arrives); the
+opening root priced the wall honestly — each non-forced σ0 read is a
+modeled-mind mini-solve, the field-classification bottleneck measured
+from the doom side.
 
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint

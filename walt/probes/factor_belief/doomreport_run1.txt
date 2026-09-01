@@ -1,0 +1,96 @@
+DOOM CENSUS REPORT — field field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e
+opening spec: node_budget=500000 walk_cap=100000 max_level=3 top-k=8 critical=empty
+authority: doom-census-v1:field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e:n500000:c100000:l3:k0
+
+#### PART 1 — enumerable receipt roots: census vs per-world truth ####
+
+h12-t6 (fiber 6):
+  4-4: census doomed 6 of 6 (1 walk nodes) | per-world truth 6 (6 search nodes) | census recovers 1000‰ of the doom
+  6-0: census doomed 6 of 6 (1 walk nodes) | per-world truth 6 (6 search nodes) | census recovers 1000‰ of the doom
+
+h10-t6 (fiber 19):
+  2-2: census doomed 0 of 19 (31 walk nodes) | per-world truth 0 (19 search nodes) | census recovers n/a (nothing to find)
+  3-3: census doomed 0 of 19 (21 walk nodes) | per-world truth 0 (19 search nodes) | census recovers n/a (nothing to find)
+
+h5-t6 (fiber 27):
+  4-1: census doomed 15 of 27 (421 walk nodes) | per-world truth 15 (216 search nodes) | census recovers 1000‰ of the doom
+  5-2: census doomed 15 of 27 (175 walk nodes) | per-world truth 15 (144 search nodes) | census recovers 1000‰ of the doom
+
+h4-t6 (fiber 90):
+  0-0: census doomed 56 of 90 (794 walk nodes) | per-world truth 60 (480 search nodes) | census recovers 933‰ of the doom
+  1-1: census doomed 12 of 90 (546 walk nodes) | per-world truth 12 (720 search nodes) | census recovers 1000‰ of the doom
+
+h8-t5 (fiber 92):
+  0-0: census doomed 17 of 92 (1124 walk nodes) | per-world truth 21 (1068 search nodes) | census recovers 809‰ of the doom
+  5-0: census doomed 28 of 92 (297 walk nodes) | per-world truth 28 (628 search nodes) | census recovers 1000‰ of the doom
+  5-3: census doomed 0 of 92 (220 walk nodes) | per-world truth 1 (880 search nodes) | census recovers 0‰ of the doom
+
+h3-t5 (fiber 200):
+  4-0: census doomed 0 of 200 (932 walk nodes) | per-world truth 0 (2296 search nodes) | census recovers n/a (nothing to find)
+  5-0: census doomed 0 of 200 (1082 walk nodes) | per-world truth 0 (2028 search nodes) | census recovers n/a (nothing to find)
+  6-6: census doomed 0 of 200 (4345 walk nodes) | per-world truth 0 (2204 search nodes) | census recovers n/a (nothing to find)
+
+#### PART 2 — h0-t1 opening root: the priority census ####
+
+== ACTION 0-0: doomed 0 of 399072960 (0‰) upper=1000‰ wall=53713842us ==
+  classes: walked 169 doomed 0 survived 96 refused 0 empty 20004 | nodes 182885
+  mass ledger: doomed 0 survived 480582 refused 0 (fiber 399072960)
+
+== ACTION 2-1: doomed 0 of 399072960 (0‰) upper=1000‰ wall=54736765us ==
+  classes: walked 114 doomed 0 survived 55 refused 7 empty 20074 | nodes 500000
+  mass ledger: doomed 0 survived 29364 refused 169524 (fiber 399072960)
+
+== ACTION 3-2: doomed 0 of 399072960 (0‰) upper=1000‰ wall=40960274us ==
+  classes: walked 93 doomed 0 survived 45 refused 0 empty 3442 | nodes 34564
+  mass ledger: doomed 0 survived 2611752 refused 0 (fiber 399072960)
+
+== ACTION 3-3: doomed 0 of 399072960 (0‰) upper=1000‰ wall=43915146us ==
+  classes: walked 93 doomed 0 survived 45 refused 0 empty 3435 | nodes 29915
+  mass ledger: doomed 0 survived 2611752 refused 0 (fiber 399072960)
+
+== ACTION 5-3: doomed 0 of 399072960 (0‰) upper=1000‰ wall=44338281us ==
+  classes: walked 93 doomed 0 survived 45 refused 0 empty 3435 | nodes 34894
+  mass ledger: doomed 0 survived 2611752 refused 0 (fiber 399072960)
+
+== ACTION 6-0: doomed 0 of 399072960 (0‰) upper=1000‰ wall=45826960us ==
+  classes: walked 6 doomed 0 survived 0 refused 8 empty 0 | nodes 500000
+  mass ledger: doomed 0 survived 0 refused 3709992 (fiber 399072960)
+
+== ACTION 6-5: doomed 0 of 399072960 (0‰) upper=1000‰ wall=44620870us ==
+  classes: walked 6 doomed 0 survived 0 refused 8 empty 0 | nodes 500000
+  mass ledger: doomed 0 survived 0 refused 3709992 (fiber 399072960)
+
+#### PART 3 — the God grid: world-aware make checks after the 0-0 lead ####
+  crusher (S2 blank-count winner, opponents hold top trump + both tens + both loose fives, junk partner):
+    => the world-aware viewer MAKES vs the declared field
+  trump-wall (S2 holds 6-3/4-3/3-1 over the viewer's 3-5, count behind it, junk partner):
+    => the world-aware viewer MAKES vs the declared field
+  stride-512 grid over the S2 support (lex-first completions): 0 of 228 grid worlds doomed for the world-aware viewer | wall 3158068us
+(a declared structured grid — NOT a probability estimate)
+
+== SAMPLED STOP p16: facts=14 bar=407‰ U*=1000‰ regret=592‰ wall=6133897us ==
+
+== SAMPLED STOP p64: facts=28 bar=594‰ U*=1000‰ regret=405‰ wall=34631624us ==
+
+== PANEL BEFORE DOOM: bar=594‰ U*=1000‰ regret=405‰ ==
+  0-0: [ 534,1000]‰
+  2-1: [ 594,1000]‰
+  3-2: [ 451, 986]‰
+  3-3: [ 499, 999]‰
+  5-3: [ 410,1000]‰
+  6-0: [ 496, 999]‰
+  6-5: [ 584, 999]‰
+
+== PANEL AFTER DOOM (0 uppers): bar=594‰ U*=1000‰ regret=405‰ ==
+  0-0: [ 534,1000]‰ det-upper
+  2-1: [ 594,1000]‰ det-upper
+  3-2: [ 451, 986]‰
+  3-3: [ 499, 999]‰
+  5-3: [ 410,1000]‰ det-upper
+  6-0: [ 496, 999]‰
+  6-5: [ 584, 999]‰
+  exec bar: 2-1 via refine-v1:sampled-lower = 594‰
+
+total certified doom across actions: 0 worlds (fiber 399072960 per action)
+
+EXPLORATORY — below every evidentiary tier; quotable only via gate receipts.

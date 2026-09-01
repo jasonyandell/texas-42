@@ -930,6 +930,32 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   future structural producer. Remaining: Phase 8 (opening-root
   iterative run) on Jason's word; default player and RefineV1
   untouched.
+- **The doom census — the first post-program structural producer**
+  *(2026-09-01, Jason's "construct and then size the number of beating
+  arrangements" with explicit solve-it-your-way latitude)*:
+  counterexample mass as deterministic uppers `(Z − M_doom)/Z` — the
+  ∀-fail dual of the Phase 7 laydown hierarchy, the §70 falsifier's
+  answer. `solver::doom` — `universal_viewer_failure` (viewer-∀,
+  σ0-partitioned hidden branches, per-seat relaxation sound in the
+  certifying direction), `doom_census` (the §28/§49 signature
+  vocabulary over one to three hidden seats, exact oracle masses, §46
+  partition law; a declared punish-priority mode for rich roots),
+  `doom_enumeration` (singleton classes make the exact recursion a
+  world-aware make check — the per-world ground truth), and
+  `DoomCensusProducer` in the open §49 registry. Eight gates
+  (`solver_doom.rs`), incl. the loose-boss census meeting the exact
+  recursion EXACTLY with phantom escapes defeated by tile
+  conservation. Probe `doomreport`: the census recovers 809–1000‰ of
+  true doom on enumerable receipt roots (h12-t6 whole-fiber in one
+  decided read), and at h0-t1 certifies an honest ZERO diagnosed by
+  singleton God-checks — two hand-built crusher worlds and a
+  228-point stride grid all let the world-aware viewer make 30
+  against σ0 after the 0-0 lead. Doom-family uppers are floored at
+  the God make rate, ≈ 1 at this root: the openingreport plateau's
+  remaining Γ is the info-consistency price, purchasable by floor
+  work and info-consistency-aware uppers, never by counterexample
+  counting; the census's working domain is the endgame and in-play
+  middlegame, where every played hand eventually arrives.
 - **The anytime proof-state build — Phase 8 landed, THE PROGRAM IS
   COMPLETE** *(2026-08-31/09-01, the "bring us home" go)*: the §65
   opening-root iterative run. `solver::opening` —

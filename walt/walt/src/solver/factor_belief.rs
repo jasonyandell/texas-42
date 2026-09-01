@@ -431,6 +431,34 @@ impl FactorBelief {
         out.history.push(action);
         out
     }
+
+    /// The belief refined to a DECLARED sub-table of one seat's factor:
+    /// the same root frame with `seat`'s weights replaced by an explicit
+    /// table. Every entry must be a lawful root hand of the seat (the
+    /// kernel's own legality predicate at the root capacity) — the
+    /// declared table can only narrow the factor, never invent support.
+    /// This is the census constructor for structural producers (a doom
+    /// or laydown class is a belief, so its exact mass is the oracle's
+    /// to count); posterior updates stay `condition`'s alone.
+    pub fn with_factor_table(&self, seat: Seat, entries: Vec<(DominoSet, u128)>) -> FactorBelief {
+        assert!(!entries.is_empty(), "a declared class holds a hand");
+        let slot = self.slot_of(seat);
+        let allowed = self.kernel.allowed(slot);
+        for (hand, _) in &entries {
+            assert_eq!(
+                hand.len(),
+                self.factors[slot].capacity,
+                "a class entry is a root hand"
+            );
+            assert!(
+                hand.is_subset_of(allowed),
+                "a class entry satisfies the kernel's legality predicate"
+            );
+        }
+        let mut out = self.clone();
+        out.factors[slot].weights = FactorWeights::Table(entries);
+        out
+    }
 }
 
 /// The walked public state: the same evolution as the replay walkers'
@@ -1774,22 +1802,22 @@ impl ExactCoverOracle for SupportOracle {
 pub struct ClassSignature {
     /// `remaining ∩ critical`, as the set's bit representation — the §31
     /// coordinate that CEGAR grows. Empty until a witness demands a tile.
-    critical_bits: u32,
+    pub critical_bits: u32,
     /// Remaining called (trump) tiles.
-    trump_count: u8,
+    pub trump_count: u8,
     /// Highest declaration-relative rank among remaining called tiles.
-    highest_trump: Option<u8>,
+    pub highest_trump: Option<u8>,
     /// Remaining tiles that follow the led effective context; 0 leading.
-    led_count: u8,
+    pub led_count: u8,
     /// Count pips held (the sum of `count()` labels over the remaining
     /// hand — count-tile possession as one exact coordinate).
-    count_pips: u8,
+    pub count_pips: u8,
     /// Some legal tile strictly beats the current trick's best key
     /// (current-winner possibility; false when leading — no winner yet).
-    can_beat: bool,
+    pub can_beat: bool,
     /// Void in the led natural context while holding a called tile (ruff
     /// possibility; false when leading or when the called suit was led).
-    can_ruff: bool,
+    pub can_ruff: bool,
 }
 
 /// Evaluate `κ` on one remaining hand. Public data plus the seat's own
