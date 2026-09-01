@@ -58,7 +58,8 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | [walt-factory-era](walt-factory-era.md) | S5a–S5d: the conflict-driven lesson factory, the label-fragility discovery, the lesson economy, and the re-tethering |
 | [walt-census-era](walt-census-era.md) | S5e–S5k: the situation censuses, the retrograde quotient and railyard, the fiber and endgame probes, and the seat census resolved by proof |
 | [walt-s6-era](walt-s6-era.md) | S6a–S6n: the predictive-rank dimension census, the policy-geometry probe, the deadness detectors, the first root-action certifications, the cheap-seed and map-free rule probes, the trick-1 and lay-down theorems, the two gluing rungs, and the fee line |
-| [walt-calculated-evidence](walt-calculated-evidence.md) | **2026-08-24 onward**: anytime-valid adaptive settlement as the new correctness path — the two same-day intakes (CE-A1..A8, L2-A1..A7), the §22 build through step 8, the shadow instrument, the step-8 V5 flip repair and E0 calibration, the live-player audit findings, the playable controller player (register [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md)), all three field-swap slices (the three-regime smoke, the rung/screen slice, and the Part VI cancellation ladder under PANEL-A7/A8), and the world-cap 512 ruling as applied |
+| [walt-calculated-evidence](walt-calculated-evidence.md) | **2026-08-24 → 2026-08-29**: anytime-valid adaptive settlement as the new correctness path — the two same-day intakes (CE-A1..A8, L2-A1..A7), the §22 build through step 8, the shadow instrument, the step-8 V5 flip repair and E0 calibration, the live-player audit findings, the playable controller player (register [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md)), all three field-swap slices (the three-regime smoke, the rung/screen slice, and the Part VI cancellation ladder under PANEL-A7/A8), and the world-cap 512 ruling as applied |
+| [walt-counted-belief-era](walt-counted-belief-era.md) | **2026-08-30 onward** (first-pass synthesis): Jason's counted-belief sandwich mathematics (CBS-A1..A9) and its C→G exact-mass ladder, the anytime proof-state program (APS-A1..A9, Phases 0–8 complete — freeze 58, the score profile, proof states with certified regret, extraction, the work frontier, residual Bellman and covers, the laydown hierarchy, the opening-root ladder), and the doom census. The running build record is [`walt/FACTOR-BELIEF.md`](../walt/FACTOR-BELIEF.md) |
 
 **Reference**
 
@@ -82,6 +83,7 @@ for, read [the game of 42, mathematically](game-of-42.md).
 | [`walt/LOG.md`](../walt/LOG.md) | The session index. Since the reorganization it carries a few summary lines per session and points at the owning page here; the full per-session records live in git history |
 | `walt/CENSUS-RULINGS.md` | The append-only adjudication record — every ruling, freeze and theorem that governs a probe. Mapped by [walt-math-reference](walt-math-reference.md) |
 | [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md) | The spec-after-build of the playing seat, with its proof-obligations ledger (§10) — the graduation path for everything on [walt-seat-play](walt-seat-play.md) |
+| [`walt/FACTOR-BELIEF.md`](../walt/FACTOR-BELIEF.md) | The running build record of the counted-belief/anytime era (2026-08-30 onward): the status ledger for Slices A–G, anytime Phases 0–8, and the doom census, with every gate suite and probe record named. The era's synthesis is [walt-counted-belief-era](walt-counted-belief-era.md) |
 | [`walt/LEVEL2-PROBE.md`](../walt/LEVEL2-PROBE.md) | The level-2 field-swap probe spec — filed 2026-08-23 as spec-only, amended 2026-08-24 (CE-A6, L2-A5) into the **detection layer** inside the targeted level-2 controller; the targeting layer is owned by the level-2 field-stability parent ([walt-calculated-evidence](walt-calculated-evidence.md)) |
 | `walt/*.md` design docs | The still-standing probe/design docs: `SEPARATION-PROBE` (adjudicated SEP-A1..A18), `SEPARATION-RUNG-N4`, `ECONOMY-SUCCESSOR`, `POLICY-GEOMETRY`, `TILT-AUDIT` (smoke run 2026-08-19), and the GPU contracts below. Seven completed-probe design docs (`CENSUS`, `FIBER-PROBE`, `FIBER-REFINE`, `ENDGAME-STORE`, `SEAT-CENSUS`, `PREDICTIVE-RANK`, `DEADNESS-PROBE`) were retired 2026-08-24 after their probes closed — each era page cites the preserved bytes by commit hash (`git show 2de8a05:walt/<NAME>.md`) |
 | [`walt/ARCHIVE.md`](../walt/ARCHIVE.md) | The archive ledger: where the untracked computation outputs live (`~/data`, HuggingFace), the recompute queue, and producer commit `648f93a` for the deleted probe binaries |
@@ -200,7 +202,26 @@ bridge speaking the existing protocol, and `ctrl` seats at the tables
 capability, not a comparison: no arena run and no conformance gate has been
 run on it. The live player is deliberately untouched — the old defaults remain
 until arena and conformance gates justify a change, on Jason's word
-(CE-A7/§20.16). In flight: step 9, the level-2 probe as the detection layer.
+(CE-A7/§20.16).
+
+Since 2026-08-30 the live build track is the **counted-belief and anytime
+proof-state era** ([walt-counted-belief-era](walt-counted-belief-era.md)):
+Jason's counted-belief sandwich parent (CBS-A1..A9) replaced sampled estimates
+with exact integer masses over the root fiber wherever affordable — the C→G
+ladder, complete in one day, put the opening root's exact branch table at
+8.7 ms over 399,072,960 worlds — and its anytime proof-state follow-on
+(APS-A1..A9, Phases 0–8 complete) wrapped the whole in append-only,
+serializable proof states whose deliverable is a certified-regret
+recommendation. At the receipt opening root the verdict is an honest
+UNRESOLVED in exactly that form — play 6-5, floor 732‰, at most 267‰
+unclaimed — with the sampled tier proved to plateau; the doom census (the
+first post-program structural producer) then showed the remaining regret is
+overwhelmingly the info-consistency price of playing blind, not hidden
+counterexample mass, routing future work to the floor side. RefineV1 is
+semantically frozen (freeze 58); the live player remains untouched, arena and
+conformance gates still ahead of any default change. The forward queue is the
+standing reorg plan: unification hygiene, the deeper wiki pass, the
+adaptive-sampling intake, then the level-2 probe.
 
 Every count above is carrier-relative, coordinate-relative, and exploratory. Full
 numbers, scope caveats and dissents live on the era pages; the refutations are

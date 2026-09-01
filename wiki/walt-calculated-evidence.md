@@ -1,6 +1,7 @@
 # walt — the calculated-evidence era
 
-[Home](Home.md) · owns: the calculated-evidence program (2026-08-24 onward) —
+[Home](Home.md) · owns: the calculated-evidence program (2026-08-24 →
+2026-08-29; succeeded by [walt-counted-belief-era](walt-counted-belief-era.md)) —
 anytime-valid adaptive settlement as walt's new correctness path, the §22 build
 (steps 2–8, with commits), the step-7 shadow instrument and its records, the
 step-8 V5 flip repair and E0 calibration, the live-player audit findings, the
@@ -850,3 +851,10 @@ open questions this era created (exposure tightening at early tricks,
 per-epoch field declaration, the armed-but-unrun cycle tripwire) are
 inventoried on [open questions](walt-math-open-questions.md); the obligations
 O20–O38 are the ledger debt it took on.
+
+**Where the program went next (2026-08-30):** the sampled instrument this era
+built became the *fallback tier* of its successor — the counted-belief and
+anytime proof-state era, which replaces estimates with exact integer masses
+wherever they are affordable and honest typed refusals where they are not.
+That era owns everything after 2026-08-29:
+[walt-counted-belief-era](walt-counted-belief-era.md).

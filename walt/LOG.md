@@ -601,3 +601,24 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   `wiki/walt-calculated-evidence.md` (PR #27). In flight: step 8 (V5
   flip repair + per-pair E0 calibration). Next: 512 default, exposure
   rungs E0–E2 + split-reach + admissible set, Gran transcription.
+- 2026-08-25 → 08-29 (logged retroactively 2026-09-01): the waking seat
+  (#54), the speed campaign (#53/#55/#56 — conclusion: the modeled minds
+  ARE the bill; sharing levers exhausted; quality never traded), and
+  walt2-wasm (#58, level 2 in the browser). Owning synthesis:
+  `wiki/walt-calculated-evidence.md` (era closed at 2026-08-29).
+- 2026-08-30 → 09-01 (logged retroactively 2026-09-01): THE
+  COUNTED-BELIEF / ANYTIME PROOF-STATE ERA — Jason's
+  `math/counted_belief_sandwich_v0.1.md` (CBS-A1..A9) and the C→G
+  ladder in one day (Slices A–G, #61–#69: exact-cover oracle, opening
+  root branch table 8.7 ms / 399,072,960 worlds, factorized recursion,
+  grammar response, consequence CEGAR, integrated controller); then
+  `math/anytime_proof_state_score_v0.1.md` (APS-A1..A9) and Phases 0–8
+  complete (#71–#78: freeze 58, score profile, proof-state spike,
+  certified regret, extraction, frontier, residual Bellman + covers,
+  laydown hierarchy, opening-root ladder — h0-t1 verdict: play 6-5,
+  floor 732‰, ≤267‰ unclaimed, honest UNRESOLVED at ε=1/4, sampled
+  tier plateaus at p=512); then the doom census (#79 — Γ is the
+  info-consistency price; census domain = endgame/in-play). Running
+  record: `walt/FACTOR-BELIEF.md`. First-pass wiki synthesis:
+  `wiki/walt-counted-belief-era.md` (deep pass queued). Live player
+  untouched throughout; RefineV1 frozen (freeze 58).
