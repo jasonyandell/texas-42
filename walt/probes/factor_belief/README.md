@@ -1,4 +1,4 @@
-# factor_belief — the Slice C (stages C0–C2), D, E, F, G and Phase 2/3/6 probes
+# factor_belief — the Slice C (stages C0–C2), D, E, F, G and Phase 1/2/3/6 probes
 
 **EXPLORATORY — sits below every evidentiary tier and is cited by nothing
 above it.** A probe number becomes quotable only by brief amendment that
@@ -10,8 +10,9 @@ Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C),
 `walt/walt/src/bin/factorcegar.rs` (Slice F),
 `walt/walt/src/bin/factorrefine.rs` (Slice G),
 `walt/walt/src/bin/factorprofile.rs` (anytime proof-state Phase 2),
-`walt/walt/src/bin/proofreport.rs` (anytime proof-state Phase 3) and
-`walt/walt/src/bin/extractreport.rs` (anytime proof-state Phase 6).
+`walt/walt/src/bin/proofreport.rs` (anytime proof-state Phase 3),
+`walt/walt/src/bin/extractreport.rs` (anytime proof-state Phase 6) and
+`walt/walt/src/bin/frontierreport.rs` (anytime proof-state Phase 1).
 Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
@@ -19,14 +20,15 @@ Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_refine.rs`,
 `walt/walt/tests/solver_factor_profile.rs`,
 `walt/walt/tests/solver_proof_state.rs`,
-`walt/walt/tests/solver_proof_regret.rs` and
-`walt/walt/tests/solver_extraction.rs`. Mathematical source:
+`walt/walt/tests/solver_proof_regret.rs`,
+`walt/walt/tests/solver_extraction.rs` and
+`walt/walt/tests/solver_frontier.rs`. Mathematical source:
 `walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31,
 Part VIII §32–37, §46 stages C0–C2, §47 Slice D, §48 Slice E, §49
 Slice F, §50 Slice G, rulings CBS-A4/CBS-A6/CBS-A9; and
 `walt/math/anytime_proof_state_score_v0.1.md` §2–§4, §10–§11, §18,
-§24–§33, §41, §44, §49–§56, §60, §63, rulings
-APS-A2/APS-A4/APS-A6/APS-A7/APS-A9.
+§24–§33, §35, §39–§44, §49–§56, §60, §63, rulings
+APS-A2/APS-A4/APS-A6/APS-A7/APS-A8/APS-A9.
 
 ## What it measures
 
@@ -463,6 +465,39 @@ the δ ledger).
   plus per-action extractions and the four t4 residual walks; no root
   was dropped.
 
+## frontierreport_run1.txt readings (2026-08-31) — the Phase 1 anytime schedules
+
+- **Goal separation is real money.** h10-t6 and h3-t5 certify Γ = 0
+  for ONE baseline profile (1Z spent): the executable floor reaches
+  the vacuous ceiling and the ε-goal owes nothing more — while
+  `SelectAction` on the same roots costs 7–10Z of upper work. Unlike
+  goals, unlike bills (§39).
+- **h3-t4 SelectAction never buys a DAG.** Settled at 16Z (baselines
+  + four exact values), recommendation honestly 4-4 at Γ = 83‰ —
+  action selection did not need extraction, and the schedule knew it.
+  Only `RecommendEpsilonPolicy(0)` pays for extraction, and its block
+  then reads 3-1 at Γ = 0.
+- **h4-t6 SelectAction is 5Z.** One exact upper on 0-0 (333‰ falls
+  below the baseline bar 866‰) excludes it; exact(1-1) is never
+  bought. Width-per-cost steering is visible at h8-t5 Strengthen too:
+  exacts bought in declared-bound order 315‰, 304‰, 282‰.
+- **The §41 macro is visibly load-bearing.** Every ε-schedule's upper
+  side moves ONLY via `exact-survivors[§41 macro]` — standalone exact
+  values are §42-refused from the top state, exactly as the module
+  doc proves.
+- **One honest waste, recorded, not patched.** Under vacuous uppers
+  the §42 bounds cannot rank extractions (every `U_a − B_exec` ties),
+  so h3-t4's ε-goal bought all four before the macro priced the
+  uppers: 28Z where uppers-first pays ~15Z. §43 verbatim — a poor
+  forecast wastes time, it cannot weaken the proof state. Bound
+  refinement that prices upper-information value is future frontier
+  work.
+- **Certain roots strengthen for free.** h3-t5 StrengthenToExact met
+  by three baselines alone (3Z): the baseline value 1000‰ meets the
+  vacuous upper, so every interval is already a point.
+- Whole probe 13.3 s, dominated by h3-t4's three goals; no root was
+  dropped.
+
 ## Boundaries
 
 - Deterministic fields only; a stochastic field needs an explicit tape
@@ -514,6 +549,14 @@ the δ ledger).
   gated, but the shipped producer is full-legal only. Phase 4 envelope
   cells and Phase 5 count-threat covers (bounding `D` without walking
   it) are unbuilt; `residual_split` pays the full response-walk price.
+- The Phase 1 frontier is deterministic-only: RefineV1's sampled tier
+  is not a work item (importing its facts is the caller's move), costs
+  are a DECLARED crude forecast model (Z/3Z units — no clock, no
+  learning), goals beyond the four built (laydown proving, count-risk
+  explanation, policy pricing) are Phases 5/7 vocabulary, and the §42
+  bounds are conservative by design — the recorded
+  extraction-under-vacuous-uppers waste is the price of safe bounds,
+  not a defect in them.
 - The opening-root recursion is not attempted; only the opening-root
   ONE-PLY contraction is measured (the Slice C probes above, Slice F's
   refinement of the same contraction, and Slice G's Section D, where

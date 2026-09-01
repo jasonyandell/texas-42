@@ -137,6 +137,49 @@ and the residual proves exactly where, matching Slice E's trick-4
 finding from the other side. Phase 4's envelope cells and Phase 5's
 count-threat covers (which would bound `D` without walking it) remain
 unbuilt; the exact residual is its own tightest cover in this slice.
+
+**PHASE 1 LANDED** (2026-08-31, same day on Jason's "phase 1 up next
+then!"): the Part IX work frontier — declared solve goals, work items
+as proof transformers, §42 safe steering bounds, §41 closure-aware
+selection, §43 containment (the §58 skeleton half was the §49 spike's,
+already gated). `solver::frontier` holds four typed goals
+(SelectAction, RecommendEpsilonPolicy(ε), StrengthenToExact,
+ComputeFullScoreProfile — each with its own debt in its own units,
+never one scalar), four deterministic work items (baseline profile,
+§36 exact value with the §30 executable/proof-bar split kept, §63
+targeted extraction, and the §41 macro `ExactValueSurvivors` — which
+is LOAD-BEARING from the first step: from the top state every
+standalone exact upper has provably zero effect on U* while any other
+upper is vacuous), a declared forecast cost model (Z per fixed-policy
+walk, 3Z per max walk — forecasts, never measurements), and
+`Frontier::advance`, the anytime loop: refuse zero-potential items
+(§34 as amended by §41), buy best bound-per-cost, install through the
+ordinary fence, assert the §42 law on every purchase. Six gates
+(`walt/walt/tests/solver_frontier.rs`): debt typing; the §42 law
+recomputed from the report across every root × goal; SelectAction
+settles with refusal honesty (a refused zero-potential item,
+hand-executed, moves exactly nothing — the specimen is §39's own
+sentence inverted: exact values are unconditionally irrelevant to the
+profile goal); the macro moves the upper side and dominated
+extractions are skipped (the frontier targets what Phase 6's ample
+producer bought wholesale); §43 containment — StrengthenToExact lands
+every surviving interval on the independently recomputed exact value,
+twice, with identical schedules and byte-identical serializations; and
+budget honesty with §44 resume-equals-uninterrupted. Probe:
+`frontierreport report` (`probes/factor_belief/frontierreport_run1.txt`)
+— goal separation is real money: h10-t6/h3-t5 certify Γ = 0 for ONE
+baseline (1Z) while SelectAction costs 7–10Z; h3-t4 SelectAction
+settles at 16Z WITHOUT buying any extraction (only the ε-goal pays for
+the DAG, and its recommendation is then 3-1 at Γ = 0); h4-t6
+SelectAction is 5Z — one exact upper excludes 0-0 against the baseline
+bar and exact(1-1) is never bought. One honest waste, recorded: under
+vacuous uppers the §42 bounds cannot distinguish a dominated
+extraction from the winner (every U_a − B_exec ties), so h3-t4's
+ε-goal bought all four extractions before the macro priced the uppers
+— 28Z where uppers-first would pay ~15Z; §43 verbatim (a poor forecast
+wastes time, it cannot weaken the proof state), and bound refinement
+that prices upper-information value is future work, not a patch
+rushed here.
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint
 `response_success_mass` in `solver/factor_belief.rs` — the full-action-set

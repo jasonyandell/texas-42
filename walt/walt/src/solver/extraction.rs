@@ -55,6 +55,52 @@ pub struct ExtractionProducer<'a> {
     pub field: &'a dyn SlicePolicy,
 }
 
+/// The §63 extraction of ONE root action's continuation, packaged as
+/// the installable profile fact: extract the exact best-response DAG
+/// after `action`, re-price it through the fixed-policy evaluator,
+/// hold the re-pricing receipt inline (a completion that carried
+/// objective weight would fail here), and return the profile under
+/// the extracted policy's content id. Shared by the ample producer
+/// below and the Phase 1 frontier's targeted `ExtractArgmax` item —
+/// one §63 code path.
+pub fn extraction_fact_for_action(
+    oracle: &dyn ExactCoverOracle,
+    root: &CanonicalRoot,
+    position: &RootPosition,
+    field: &dyn SlicePolicy,
+    contract: u32,
+    utility_id: &str,
+    action: crate::rules::Domino,
+) -> Fact {
+    let belief = FactorBelief::uniform_root(root, position, field).focal_play(action);
+    let mut stats = ResponseStats::default();
+    let (mass, policy) = extract_success_policy(
+        oracle,
+        &belief,
+        &ExtractionSource::FullLegal,
+        field,
+        &mut stats,
+    );
+    let mut ps = RecursionStats::default();
+    let profile = viewer_score_profile(oracle, &belief, &policy, field, &mut ps);
+    let z = profile.total();
+    let tail = profile.tail(contract);
+    let projected = match utility_id {
+        "pmake-v1" => tail,
+        "pmake-setting-v1" => z - tail,
+        other => panic!("an unknown utility identity: {other}"),
+    };
+    assert_eq!(
+        projected, mass,
+        "the §63 re-pricing gate: the extracted policy re-prices to its extraction mass"
+    );
+    Fact::Profile(Box::new(ScoreProfileFact {
+        action,
+        policy_id: policy.id().to_string(),
+        bins: profile.bins,
+    }))
+}
+
 impl ProofProducer for ExtractionProducer<'_> {
     fn name(&self) -> &str {
         "argmax-extraction-v1"
@@ -70,41 +116,20 @@ impl ProofProducer for ExtractionProducer<'_> {
             state.identity.contract, self.position.bid,
             "the producer's contract is the state's"
         );
-        let mut facts = Vec::new();
-        for a in &state.legal {
-            let belief =
-                FactorBelief::uniform_root(self.root, self.position, self.field).focal_play(*a);
-            let mut stats = ResponseStats::default();
-            let (mass, policy) = extract_success_policy(
-                self.oracle,
-                &belief,
-                &ExtractionSource::FullLegal,
-                self.field,
-                &mut stats,
-            );
-            let mut ps = RecursionStats::default();
-            let profile = viewer_score_profile(self.oracle, &belief, &policy, self.field, &mut ps);
-            // The §63 re-pricing receipt, held inline: the extracted
-            // mass equals the recomputed fixed-policy projection at
-            // the identity's contract and parity. A completion that
-            // carried objective weight would fail here.
-            let z = profile.total();
-            let tail = profile.tail(state.identity.contract);
-            let projected = match state.identity.utility_id.as_str() {
-                "pmake-v1" => tail,
-                "pmake-setting-v1" => z - tail,
-                other => panic!("an unknown utility identity: {other}"),
-            };
-            assert_eq!(
-                projected, mass,
-                "the §63 re-pricing gate: the extracted policy re-prices to its extraction mass"
-            );
-            facts.push(Fact::Profile(Box::new(ScoreProfileFact {
-                action: *a,
-                policy_id: policy.id().to_string(),
-                bins: profile.bins,
-            })));
-        }
-        facts
+        state
+            .legal
+            .iter()
+            .map(|a| {
+                extraction_fact_for_action(
+                    self.oracle,
+                    self.root,
+                    self.position,
+                    self.field,
+                    state.identity.contract,
+                    &state.identity.utility_id,
+                    *a,
+                )
+            })
+            .collect()
     }
 }

@@ -850,6 +850,36 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
   envelope cells and Phase 5 count-threat covers stay unbuilt (the
   exact residual is its own tightest cover); remaining phases queued
   on Jason's word; default player and RefineV1 untouched.
+- **The anytime proof-state build — Phase 1 landed** *(2026-08-31,
+  same day, on Jason's "phase 1 up next then!")*: the Part IX work
+  frontier (the §58 skeleton half was the §49 spike's).
+  `solver::frontier`: four typed solve goals with debts in their own
+  units (§39's fence — never one scalar), four deterministic work
+  items (baseline profile; §36 exact value keeping the §30
+  executable/proof-bar split; §63 targeted extraction; the §41 macro
+  `ExactValueSurvivors`, load-bearing from the first step — every
+  standalone exact upper is provably useless for U* while any other
+  upper is vacuous), a declared Z/3Z forecast cost model, and
+  `Frontier::advance` — refuse zero-potential (§34 as amended by
+  §41), buy best bound-per-cost, install through the fence, assert
+  the §42 law per purchase. Six gates
+  (`tests/solver_frontier.rs`) including refusal honesty
+  (hand-executing a refused item moves exactly nothing — the specimen
+  is §39's sentence inverted: exact values are unconditionally
+  irrelevant to the profile goal), §43 containment with
+  byte-identical deterministic replays, and §44
+  resume-equals-uninterrupted. Probe `frontierreport`
+  (`frontierreport_run1.txt`, 13.3 s): **goal separation is real
+  money** — h10-t6/h3-t5 certify Γ = 0 for 1Z while SelectAction
+  costs 7–10Z; **h3-t4 SelectAction settles at 16Z without buying any
+  extraction** (only the ε-goal pays for the DAG, then reads 3-1 at
+  Γ = 0); h4-t6 SelectAction is 5Z. One honest waste recorded: under
+  vacuous uppers the §42 bounds cannot rank extractions, so h3-t4's
+  ε-goal spent 28Z where uppers-first pays ~15Z (§43 verbatim: a poor
+  forecast wastes, never weakens; bound refinement pricing
+  upper-information value = future frontier work). Remaining: Phases
+  4/5 (envelopes, covers), 7 (laydowns), 8 (opening-root iterative
+  run), all on Jason's word; default player and RefineV1 untouched.
 - **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
   §2 above.
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03
