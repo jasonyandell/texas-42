@@ -133,11 +133,15 @@ too and records both answers side by side. MB1 measured that values move
 before argmaxes do; on a played line, both happen, and the corpus
 separates them cleanly.
 
-Nine states where the posterior moved the VALUE and left the argmax alone:
+Nine readings moved the value. SEVEN of them moved the value and left the
+argmax alone; the other two are the flips below, which moved both — the
+probe's own "9 moved the value, 2 flipped the argmax" counts the flips in
+both totals, and this report earlier miscounted the first group as nine.
+The seven:
 
 ```
 h8-t5 t5 p0 s3: Q(ν)=7/8   (875‰) vs fixed-field 91/92 (989‰)   argmax 5-3
-h3-t5 t5 p1 s1: Q(ν)=29/40 (725‰) vs fixed-field 4/5   (800‰)   argmax 6-1
+h3-t5 t5 p1 s1: Q(ν)=29/40 (725‰) vs fixed-field 4/5   (800‰)   argmax 6-1  [GATED]
 h3-t5 t5 p2 s2: Q(ν)=5/12  (416‰) vs fixed-field 32/75 (426‰)   argmax 4-1
 h3-t5 t5 p3 s3: Q(ν)=1/12  ( 83‰) vs fixed-field 1/9   (111‰)   argmax 6-3
 h8-t4 t5 p1 s2: Q(ν)=1/15  ( 66‰) vs fixed-field 2/15  (133‰)   argmax 4-0
@@ -145,14 +149,35 @@ h8-t4 t5 p2 s3: Q(ν)=31/54 (574‰) vs fixed-field 2/3   (666‰)   argmax 5-0
 h8-t4 t6 p0 s3: Q(ν)=7/9   (777‰) vs fixed-field 6/7   (857‰)   argmax 0-0
 ```
 
-Two states where it flipped the ARGMAX:
+**Tier marker, explicitly, because these are exact rationals:** exactly
+one row of that table is carried by a gate — the `[GATED]` one, pinned in
+`up3_the_value_move_specimen_is_pinned`. The other six are
+TRANSCRIPT-OBSERVED and reproducible from
+`probes/factor_belief/unified_run1.txt` under its declared header, and no
+receipt carries them. They are listed to show the SHAPE of the finding —
+that value movement is common and modest across the corpus — and the
+shape is what the paragraph claims, not the individual numbers. Both
+flips, by contrast, are gated, because the flips are the number-class
+finding of the slice and are quoted as such in the ledger.
+
+Two states where it flipped the ARGMAX (both gated):
 
 ```
 h3-t5 t6 p2 s2: model 6-4 vs fixed-field 3-1 | Q(ν)=3/5     (600‰) vs 5/6    (833‰)
 h8-t4 t4 p2 s3: model 0-0 vs fixed-field 6-2 | Q(ν)=617/864 (714‰) vs 173/216 (800‰)
 ```
 
-Both flips are pinned exactly in gate UP3. Note what the numbers are and
+Both flips are pinned exactly in gate UP3
+(`up3_both_argmax_flip_specimens_are_pinned`), together with the live
+profile count at each — a flip under an untouched prior (h8-t4, all eight
+profiles live) and a flip under a posterior that has already zeroed two
+profiles by observation (h3-t5, six live) are different evidence, and the
+second is the stronger specimen. The h3-t5 flip was originally
+transcript-only and its four rationals were quoted here as though a gate
+carried them; the independent audit caught the overclaim and the gate now
+carries both. See the note under Deviations, item 7.
+
+Note what the numbers are and
 are not: `Q(ν)` and the fixed-field optimum are values against DIFFERENT
 opponent models — a mixture over `{F₀, F₁}` against a point mass at `F₀` —
 so the lower number is not a worse answer, it is an answer to a harder
@@ -391,9 +416,13 @@ one carried line folded in a real observation, so the law is not
 demonstrated against a constant. Then the same law against MB1's OWN
 instrument: `trace_heaviest_line`'s descent is replayed manually through
 `focal_play`/`observe` and must land on the trace's own state, profiles,
-mass and marginals. Then the two pinned specimens — h3-t5's value move
-(29/40 against 4/5, argmax unchanged) and h8-t4's argmax flip (617/864
-against 173/216, model 0-0 against fixed-field 6-2).
+mass and marginals. Then the three pinned specimens — h3-t5's value move
+(29/40 against 4/5, argmax unchanged) and BOTH argmax flips: h8-t4
+t4-p2 (617/864 against 173/216, model 0-0 against fixed-field 6-2, eight
+profiles live) and h3-t5 t6-p2 (3/5 against 5/6, model 6-4 against
+fixed-field 3-1, six profiles live). Each flip pins its exact pair, its
+two actions, its live profile count, and that the cascade played the
+fixed-field answer.
 
 **UP4 — budget honesty.** A starved budget: every undecided state reaches
 the fallback, the fallback is named as the FORWARD recursion, the field is
@@ -497,6 +526,46 @@ and `Decision` hold no public field, and the module holds exactly one
    does not import `model_recursion` at all, and the diff against base
    over both is empty. Auditors anchoring at `ccafde9` should note that
    the brief file differs by that one commit, which is not this slice's.
+
+7. **An overclaim the independent audit caught, and the remedy taken.**
+   This report and the FACTOR-BELIEF ledger both originally said "both
+   flips pinned exactly in gate UP3". That was FALSE when written: the
+   gate pinned only h8-t4 t4-p2, and the h3-t5 t6-p2 flip — four exact
+   rationals, `3/5`, `5/6`, and the two actions — was transcript-only,
+   because the h3-t5 gate walk stopped at depth 2 and never reached the
+   trick-6 state. The gate itself was honestly named in the singular; the
+   PROSE overclaimed, which is a tier violation of exactly the kind the
+   house rules exist to prevent: exact numbers quoted for an ungated state
+   as though a receipt carried them.
+
+   The remedy is the stronger of the two the audit offered: the h3-t5 walk
+   now runs seven plies to the trick-6 ply-2 state and the gate asserts
+   that flip with its exact values, so the claim became TRUE rather than
+   being softened. The gate is renamed
+   `up3_both_argmax_flip_specimens_are_pinned` and both specimens now also
+   pin their live profile count — h8-t4's flip sits under an untouched
+   eight-profile prior while h3-t5's sits under a posterior that has
+   already zeroed two profiles, which makes the newly gated one the
+   stronger evidence of the pair. Cost: the UP0 suite moved from 16.4 s to
+   21.1 s, all 18 assertions green.
+
+   Worth recording as a process note rather than only as a fix: the gate
+   and the prose were written at different times, and the prose
+   generalized from two observed flips to "both pinned" without
+   re-reading what the gate carried. A quoted rational is a claim on the
+   receipt tier; the discipline that catches this is to write the number
+   into the gate first and the prose second, never the reverse.
+
+   Two more inaccuracies of the same family, found by self-checking the
+   rest of the quoted numbers after the audit rather than by the audit
+   itself, both now corrected above. First, the value-move table was
+   introduced as "nine states where the posterior moved the value and
+   left the argmax alone" — it is SEVEN; the probe's "9 moved the value"
+   counts the two flips, which moved both, in that total as well. Second,
+   that table's six ungated rows now carry an explicit tier marker naming
+   the one row a gate does carry, instead of relying on a reader to infer
+   the tier from the absence of a pinning claim. Under the standard the
+   audit applied, exact rationals get their tier stated, not implied.
 
 ---
 

@@ -12,7 +12,10 @@
 //! UP3 the join: the carried posterior is a derived view of (root,
 //!     public line) and nothing else, checked against an independent
 //!     replay and against MB1's own `trace_heaviest_line`; the value-move
-//!     specimen and the argmax-flip specimen are pinned.
+//!     specimen and BOTH argmax-flip specimens are pinned — every exact
+//!     rational the ledger and the slice report quote for a join reading
+//!     is carried by an assertion here, because a quoted rational no gate
+//!     carries is a tier violation.
 //! UP4 budget honesty: a starved budget falls through with every refusal
 //!     typed and the σ0 fallback named; the same state under the same
 //!     budget yields an identical Decision.
@@ -875,50 +878,143 @@ fn up3_the_value_move_specimen_is_pinned() {
 }
 
 #[test]
-fn up3_the_argmax_flip_specimen_is_pinned() {
+fn up3_both_argmax_flip_specimens_are_pinned() {
     let r = receipt();
-    // h8-t4: the one state on this corpus where the carried posterior
-    // would have chosen differently. The cascade's declared order plays
-    // the fixed-field answer; the reading records that the model-space
-    // recursion disagreed, and by how much.
-    let (plays, _) = walk(&r, 8, 4, &ample(), ReceiptStore::new(), 3);
-    let third = &plays[2];
-    assert_eq!(third.seat, 3, "UP3: the flip specimen is seat 3's decision");
-    assert_eq!(third.trick, 4);
-    assert_eq!(third.ply, 2);
-    let prov = third.decision.provenance();
-    let join = prov
-        .posterior()
-        .join
-        .as_ref()
-        .expect("UP3: the ample rung takes a join reading here");
-    assert!(
-        join.argmax_flipped,
-        "UP3: the argmax flipped at the specimen"
-    );
+    // The TWO states on this corpus where the carried posterior would have
+    // chosen differently from the fixed-field recursion. The cascade's
+    // declared order plays the fixed-field answer at both; the reading
+    // records that the model-space recursion disagreed, and by how much.
+    //
+    // Both are pinned here because both are quoted as exact rationals in
+    // the ledger and in the slice report, and a quoted rational that no
+    // gate carries is a tier violation.
+    struct Flip {
+        hand_id: usize,
+        trick_no: usize,
+        /// Plies to walk to reach the specimen, and its index in them.
+        plies: usize,
+        index: usize,
+        seat: usize,
+        trick: usize,
+        ply: usize,
+        /// The fixed-field exact optimum, as (numerator, denominator).
+        fixed: (i64, i64),
+        /// `Q(ν)` under the carried posterior, likewise.
+        mixture: (i64, i64),
+        /// Profiles the posterior had not zeroed at the flip.
+        live: usize,
+    }
+    let specimens = [
+        // h8-t4, trick 4 ply 2, seat 3: the flip at the deepest root of
+        // the corpus, at an UNTOUCHED posterior (all eight profiles live).
+        Flip {
+            hand_id: 8,
+            trick_no: 4,
+            plies: 3,
+            index: 2,
+            seat: 3,
+            trick: 4,
+            ply: 2,
+            fixed: (173, 216),
+            mixture: (617, 864),
+            live: 8,
+        },
+        // h3-t5, trick 6 ply 2, seat 2: the flip after the posterior has
+        // done real work — six of eight profiles live, two already zeroed
+        // by observation. The stronger of the two specimens for exactly
+        // that reason, and the one the audit found ungated.
+        Flip {
+            hand_id: 3,
+            trick_no: 5,
+            plies: 7,
+            index: 6,
+            seat: 2,
+            trick: 6,
+            ply: 2,
+            fixed: (5, 6),
+            mixture: (3, 5),
+            live: 6,
+        },
+    ];
+    let mut flips = 0usize;
+    for Flip {
+        hand_id,
+        trick_no,
+        plies,
+        index,
+        seat,
+        trick,
+        ply,
+        fixed,
+        mixture,
+        live,
+    } in specimens
+    {
+        let (plays, _) = walk(&r, hand_id, trick_no, &ample(), ReceiptStore::new(), plies);
+        assert_eq!(
+            plays.len(),
+            plies,
+            "UP3: the h{hand_id}-t{trick_no} walk reaches the specimen state"
+        );
+        let p = &plays[index];
+        assert_eq!(
+            p.seat, seat,
+            "UP3: the h{hand_id}-t{trick_no} flip is seat {seat}'s decision"
+        );
+        assert_eq!(p.trick, trick);
+        assert_eq!(p.ply, ply);
+        let prov = p.decision.provenance();
+        let join = prov
+            .posterior()
+            .join
+            .as_ref()
+            .expect("UP3: the ample rung takes a join reading here");
+        assert!(
+            join.argmax_flipped,
+            "UP3: the argmax flipped at h{hand_id}-t{trick_no} t{trick}-p{ply}"
+        );
+        assert_eq!(
+            join.fixed_field_value,
+            BigRational::new(BigInt::from(fixed.0), BigInt::from(fixed.1)),
+            "UP3: the fixed-field exact optimum at h{hand_id}-t{trick_no} t{trick}-p{ply} \
+             is {}/{}",
+            fixed.0,
+            fixed.1
+        );
+        assert_eq!(
+            join.mixture_value,
+            BigRational::new(BigInt::from(mixture.0), BigInt::from(mixture.1)),
+            "UP3: Q(nu) under the carried posterior at h{hand_id}-t{trick_no} \
+             t{trick}-p{ply} is {}/{}",
+            mixture.0,
+            mixture.1
+        );
+        assert!(
+            join.mixture_value < join.fixed_field_value,
+            "UP3: the two are values against different opponent models, and at both \
+             specimens the model-space one is the lower number"
+        );
+        assert_eq!(
+            prov.posterior().live_profiles,
+            live,
+            "UP3: and the posterior's own state at the flip is pinned too — a flip under \
+             an untouched prior and a flip under a posterior that has already zeroed two \
+             profiles are different evidence"
+        );
+        assert_eq!(
+            p.decision.action(),
+            join.fixed_field_action,
+            "UP3: the declared cascade plays tier (b)'s answer; the flip is RECORDED, not \
+             acted on. Whether it should be is a sequencing question this slice does not \
+             settle."
+        );
+        assert_ne!(join.mixture_action, join.fixed_field_action);
+        flips += 1;
+    }
     assert_eq!(
-        join.fixed_field_value,
-        BigRational::new(BigInt::from(173), BigInt::from(216)),
-        "UP3: the fixed-field exact optimum is 173/216"
+        flips, 2,
+        "UP3: both flips are gate-carried, not just quoted"
     );
-    assert_eq!(
-        join.mixture_value,
-        BigRational::new(BigInt::from(617), BigInt::from(864)),
-        "UP3: Q(nu) under the carried posterior is 617/864"
-    );
-    assert!(
-        join.mixture_value < join.fixed_field_value,
-        "UP3: the two are values against different opponent models, and here the \
-         model-space one is the lower number"
-    );
-    assert_eq!(
-        third.decision.action(),
-        join.fixed_field_action,
-        "UP3: the declared cascade plays tier (b)'s answer; the flip is RECORDED, not \
-         acted on. Whether it should be is a sequencing question this slice does not \
-         settle."
-    );
-    assert_ne!(join.mixture_action, join.fixed_field_action);
 }
 
 // ---------------------------------------------------------------------------

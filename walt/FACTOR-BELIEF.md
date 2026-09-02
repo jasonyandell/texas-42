@@ -805,9 +805,16 @@ gated: an empty type library opens no line and changes no action, tier
 or exact value the world-space tiers produced. THE JOIN, on played
 lines: 27 readings, **9 moved the value and 2 flipped the argmax** —
 MB1's "values move before argmaxes" separated cleanly on real play,
-with both flips pinned exactly (h3-t5 t6-p2, model 6-4 against
-fixed-field 3-1 at 3/5 versus 5/6; h8-t4 t4-p2, model 0-0 against
-fixed-field 6-2 at 617/864 versus 173/216). The declared cascade plays
+with both flips pinned exactly in gate UP3 — h8-t4 t4-p2, model 0-0
+against fixed-field 6-2 at 617/864 versus 173/216, under an UNTOUCHED
+eight-profile prior; and h3-t5 t6-p2, model 6-4 against fixed-field 3-1
+at 3/5 versus 5/6, under a posterior that has already zeroed two
+profiles, which makes the second the stronger of the pair (each
+specimen pins its live profile count for that reason). The second flip
+was transcript-only when this paragraph was first written and its
+rationals were quoted here as though gated; the independent audit
+caught the overclaim and the gate was extended to carry it, which is
+recorded as deviation 7 in the slice report. The declared cascade plays
 tier (b)'s answer and RECORDS the disagreement, and the report is
 explicit that this ordering is a declared choice rather than a theorem:
 MB0's point-mass parity makes tier (b) the `δ_{F₀}` special case of tier
