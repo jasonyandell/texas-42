@@ -1008,6 +1008,32 @@ pub fn belief_frame_feasibility(
     Ok(())
 }
 
+/// Draw from a belief frame carrying NO deduced voids — the auction and
+/// pre-play frames, where nothing has yet been observed to constrain any
+/// seat.
+///
+/// TOTAL BY CONSTRUCTION, and that is the point of having it. With every
+/// void mask zero the sampler's rejection test `w[s] & voids[s] != 0`
+/// cannot fire, so the first shuffle is accepted and the acceptance region
+/// is the entire deal space; [`belief_frame_feasibility`] cannot refuse
+/// such a frame. The proof lives here, once, instead of as an `expect` at
+/// each of the dozen call sites that draw open frames — which is what lets
+/// the live player's auction path carry no error branch at all, rather
+/// than one it can argue is unreachable. The remaining precondition is
+/// arity, asserted inside the sampler exactly as it was before the repair:
+/// the declared sizes must fit the unseen pool.
+pub fn sample_open_belief(
+    viewer: usize,
+    viewer_hand: u32,
+    played: u32,
+    sizes: [usize; 4],
+    n: usize,
+    rng: &mut SplitMix64,
+) -> Vec<[u32; 4]> {
+    sample_belief(viewer, viewer_hand, played, sizes, [0; 4], n, rng)
+        .expect("a frame with no deduced voids accepts every deal")
+}
+
 /// Void-conditioned belief sampler: uniform on the lawful-completion fiber
 /// by shuffle-and-reject (SCENARIO-PLAYER.md §4.2).
 ///

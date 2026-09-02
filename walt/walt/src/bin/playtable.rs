@@ -50,7 +50,9 @@ use walt::solver::adaptive::DrivenState;
 // distinct Rust type, so the seed paths in this binary run on the
 // library's stream — the same algorithm, hash-identical, so no draw
 // changes.
-use walt::solver::{mask_bits, sample_belief, Level1Refusal, SplitMix64, FULL_MASK};
+use walt::solver::{
+    mask_bits, sample_belief, sample_open_belief, Level1Refusal, SplitMix64, FULL_MASK,
+};
 
 /// Frozen seed for level-0 inner sampling (MUST match level1.rs so the field
 /// seats here play exactly the policy S1's solver models).
@@ -734,8 +736,7 @@ fn play_hand(
         ]
     } else {
         let s1_full = s1_initial_mask();
-        let mut h = sample_belief(1, s1_full, 0, [7, 7, 7, 7], [0u32; 4], 1, &mut deal_rng)
-            .expect("a void-free frame is feasible: every deal of the unseen pool is lawful")
+        let mut h = sample_open_belief(1, s1_full, 0, [7, 7, 7, 7], 1, &mut deal_rng)
             .pop()
             .expect("one deal");
         h[1] = s1_full;

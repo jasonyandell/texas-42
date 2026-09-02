@@ -53,8 +53,8 @@ use walt::solver::policy::{
     InnerSchedule, Level0Field, TieRule, NO_DEADLINE_SECS,
 };
 use walt::solver::{
-    arena_decl_id, best_of, level1_evaluate, mask_bits, mask_of, mix, record_hash, sample_belief,
-    set_of, SplitMix64,
+    arena_decl_id, best_of, level1_evaluate, mask_bits, mask_of, mix, record_hash,
+    sample_open_belief, set_of, SplitMix64,
 };
 
 /// Frozen shadow seed (a distinct stream from every other bin's constant).
@@ -641,8 +641,7 @@ fn driven_specs(n_hands: usize) -> Vec<HandSpec> {
     (0..n_hands)
         .map(|g| {
             let mut rng = SplitMix64(SHADOW_SEED ^ mix(g as u64));
-            let drawn = sample_belief(1, mask_of(s1), 0, [7, 7, 7, 7], [0u32; 4], 1, &mut rng)
-                .expect("a void-free frame is feasible: every deal of the unseen pool is lawful")
+            let drawn = sample_open_belief(1, mask_of(s1), 0, [7, 7, 7, 7], 1, &mut rng)
                 .pop()
                 .expect("one deal");
             let mut deal: [DominoSet; 4] = core::array::from_fn(|s| set_of(drawn[s]));

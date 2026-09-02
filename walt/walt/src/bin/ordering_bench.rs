@@ -34,8 +34,8 @@ use walt::solver::policy::{
 };
 use walt::solver::targeted::legal_root_actions;
 use walt::solver::{
-    level1_evaluate, mask_bits, mix, sample_belief, Deadline, Field, Key, MoveOrdering, Shared,
-    Solver, SplitMix64,
+    level1_evaluate, mask_bits, mix, sample_open_belief, Deadline, Field, Key, MoveOrdering,
+    Shared, Solver, SplitMix64,
 };
 
 /// The `solver_viewer_fiber` declared deal seed.
@@ -187,8 +187,7 @@ fn direct_item(hand_no: u64, ordering: MoveOrdering, tag: &str) {
     let hand = hands[1];
     let key = root_key();
     let mut rng = SplitMix64(SEED ^ mix(0x22 ^ hand_no));
-    let worlds = sample_belief(seat.index(), hand, 0, [7; 4], [0; 4], N_OUTER, &mut rng)
-        .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
+    let worlds = sample_open_belief(seat.index(), hand, 0, [7; 4], N_OUTER, &mut rng);
     let deadline = Deadline::after(Duration::from_secs(86_400));
     let sh = Arc::new(Shared::new(dcl, BID, vec![N0], 0, 7, deadline));
     let maximize = seat.team() == Team::T1;

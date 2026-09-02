@@ -50,8 +50,8 @@ use num_traits::Zero;
 use walt::rules::rules::legal_plays;
 use walt::rules::{Context, Decl, Domino, Seat, Team};
 use walt::solver::{
-    best_of, bit, bp, decl_of, mask_bits, mask_of, mix, record_hash, replay, sample_belief, set_of,
-    Deadline, Field, Key, Level1Refusal, Shared, Solver, SplitMix64,
+    best_of, bit, bp, decl_of, mask_bits, mask_of, mix, record_hash, replay, sample_belief,
+    sample_open_belief, set_of, Deadline, Field, Key, Level1Refusal, Shared, Solver, SplitMix64,
 };
 
 /// Default decision-stream seed (the bridge's frozen e-digits constant —
@@ -425,8 +425,7 @@ fn handle_bid(r: &Req) -> Result<String, String> {
     let budget_ms = r.scalar_or("budget_ms", 120_000)?;
 
     let mut rng = SplitMix64(seed ^ mix(u64::from(hand0)) ^ mix(u64::from(need)));
-    let worlds = sample_belief(1, hand0, 0, [7; 4], [0; 4], n, &mut rng)
-        .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
+    let worlds = sample_open_belief(1, hand0, 0, [7; 4], n, &mut rng);
     let prices: Vec<(usize, BigRational)> = DECL_IDS
         .iter()
         .map(|&d| {
@@ -479,8 +478,7 @@ fn handle_declare(r: &Req) -> Result<String, String> {
     let budget_ms = r.scalar_or("budget_ms", 120_000)?;
 
     let mut rng = SplitMix64(seed ^ mix(u64::from(hand0)) ^ mix(0xDEC1));
-    let worlds = sample_belief(1, hand0, 0, [7; 4], [0; 4], n, &mut rng)
-        .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
+    let worlds = sample_open_belief(1, hand0, 0, [7; 4], n, &mut rng);
     let mut prices: Vec<(usize, BigRational)> = DECL_IDS
         .iter()
         .map(|&d| {
@@ -508,8 +506,7 @@ fn handle_declare(r: &Req) -> Result<String, String> {
             break;
         }
         n_cur *= 4;
-        let worlds = sample_belief(1, hand0, 0, [7; 4], [0; 4], n_cur, &mut rng)
-            .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
+        let worlds = sample_open_belief(1, hand0, 0, [7; 4], n_cur, &mut rng);
         for d in tied {
             let v = eval_bid(decl_of(d), bid, n0, hand0, worlds.clone(), budget_ms);
             let slot = prices.iter_mut().find(|(x, _)| *x == d).expect("tied decl");

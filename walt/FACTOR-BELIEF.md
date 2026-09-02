@@ -476,11 +476,24 @@ way out as `Level1Refusal::{Deadline, InfeasibleFrame}` on
 `eval refused (<frame>); playing lowest legal` — never a panic, never
 the deadline's message, never a silent fallback — while the three
 `SlicePolicy` boundaries raise the frame's own description because the
-trait returns a tile and has no typed channel. THE FIVE COPIES ARE NOW
-ONE: walt_bridge, playout, playtable and divergence lost their local
-samplers (297 lines), and with them, by the forced type-identity
-cascade, their local `SplitMix64`/`mask_bits`/`FULL_MASK`; a source
-grep gates that exactly one definition survives. `level1_evaluate`
+trait returns a tile and has no typed channel. The auction and pre-play
+draws go through `sample_open_belief` instead, which is TOTAL: with
+every void mask zero the rejection test cannot fire, so the acceptance
+region is the whole deal space and there is no refusal to handle. That
+proof lives once, in the library, rather than as an `expect` at each of
+the twenty-two call sites that used to restate it — which is what lets
+the live player hold no error branch on a sampler result anywhere, as
+opposed to one it could only argue was unreachable (gate R6). THE FIVE
+COPIES ARE NOW ONE: walt_bridge, playout, playtable and divergence lost
+their local samplers and dependencies (297 lines), the latter by the
+forced type-identity cascade — a local `SplitMix64` is a distinct Rust
+type, so importing the sampler drags the RNG, `mask_bits` and
+`FULL_MASK` with it. Two witnesses gate the dedup: a source grep over
+`src/`, which catches a local copy that compiles because nothing calls
+it; and the compile itself, since each deduplicated binary imports the
+library name at module scope and a local `fn sample_belief` beside it is
+an E0255 collision — which is also the witness that survives a rename of
+the authority, where a fixed-name grep would not. `level1_evaluate`
 remains TRIPLICATED (`solver/mod.rs`, walt_bridge, playtable) — named
 debt, deliberately unpaid here. THE FINDING: the four roots G2 pinned as
 the raw σ1 authority's refusal set do NOT open. Each now terminates
@@ -492,7 +505,7 @@ and the caveat above stands unchanged; what changed is its status, from
 a wall the machinery ran into to a boundary it can name. The blocked set
 is a real property of the untightened route — zero-joint-mass hands sit
 in its raw support — so MB0's positive-support tightening is the
-enabling fix and not a workaround. Six gates
+enabling fix and not a workaround. Seven gates
 (`walt/walt/tests/solver_sigma1_repair.rs`); MB0's eight, G2 and G8
 included, stay green untouched. EXPLORATORY tier.
 

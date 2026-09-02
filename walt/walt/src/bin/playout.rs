@@ -40,7 +40,7 @@ use walt::rules::{Context, Decl, Domino, DominoSet, Pip, Seat, Team};
 // distinct Rust type, so the seed paths in this binary run on the
 // library's stream — the same algorithm, hash-identical, so no draw
 // changes.
-use walt::solver::{mask_bits, sample_belief, SplitMix64, FULL_MASK};
+use walt::solver::{mask_bits, sample_belief, sample_open_belief, SplitMix64, FULL_MASK};
 
 /// Frozen game seed (distinct stream from ladder/scenario/level1).
 const GAME_SEED: u64 = 0x6A09_E667_F3BC_C908;
@@ -557,8 +557,7 @@ fn play_game(
     // The DEAL stream — O27: it deals and does nothing else.
     let mut deal_rng = SplitMix64(GAME_SEED ^ mix(game_idx as u64));
     // Deal the other three hands uniformly (no voids exist pre-play).
-    let deal = sample_belief(1, s1_full, 0, [7, 7, 7, 7], [0u32; 4], 1, &mut deal_rng)
-        .expect("a void-free frame is feasible: every deal of the unseen pool is lawful")
+    let deal = sample_open_belief(1, s1_full, 0, [7, 7, 7, 7], 1, &mut deal_rng)
         .pop()
         .expect("one deal");
     let mut hands = deal; // [s0, s1, s2, s3] full 7-tile hands

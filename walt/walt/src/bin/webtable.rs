@@ -48,7 +48,7 @@ use walt::rules::{Context, ContextSet, Decl, Domino, Pip, Seat, Team};
 use walt::solver::act::{act, delta_run_default, ActConfig};
 use walt::solver::adaptive::DrivenState;
 use walt::solver::{
-    best_of, bp, level1_evaluate, mask_bits, mask_of, mix, record_hash, replay, sample_belief,
+    best_of, bp, level1_evaluate, mask_bits, mask_of, mix, record_hash, replay, sample_open_belief,
     set_of, viewer_fiber_evaluate, Deadline, Field, Key, Level1Refusal, Shared, Solver, SplitMix64,
 };
 
@@ -344,16 +344,8 @@ impl Game {
                         ^ mix(self.hand_no)
                         ^ mix(u64::from(self.hands[s])),
                 );
-                self.auct_worlds = sample_belief(
-                    BIDDER,
-                    self.hands[s],
-                    0,
-                    [7; 4],
-                    [0; 4],
-                    self.n_auct,
-                    &mut rng,
-                )
-                .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
+                self.auct_worlds =
+                    sample_open_belief(BIDDER, self.hands[s], 0, [7; 4], self.n_auct, &mut rng);
             }
             let i = self.auct_vals.len();
             let worlds = self.auct_worlds.clone();
@@ -482,16 +474,14 @@ impl Game {
                         ^ mix(self.hand_no)
                         ^ mix(u64::from(self.hands[BIDDER])),
                 );
-                self.trump_worlds = sample_belief(
+                self.trump_worlds = sample_open_belief(
                     BIDDER,
                     self.hands[BIDDER],
                     0,
                     [7; 4],
-                    [0; 4],
                     self.n_outer,
                     &mut rng,
-                )
-                .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
+                );
                 self.phase = Phase::Trump;
             }
         }
@@ -578,16 +568,7 @@ impl Game {
                     ^ mix(u64::from(self.hands[BIDDER]))
                     ^ mix(n_cur as u64),
             );
-            let worlds = sample_belief(
-                BIDDER,
-                self.hands[BIDDER],
-                0,
-                [7; 4],
-                [0; 4],
-                n_cur,
-                &mut rng,
-            )
-            .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
+            let worlds = sample_open_belief(BIDDER, self.hands[BIDDER], 0, [7; 4], n_cur, &mut rng);
             for &i in &tied {
                 let (t, v) = self.eval_decl(i, worlds.clone());
                 let slot = self

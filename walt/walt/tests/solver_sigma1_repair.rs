@@ -15,12 +15,17 @@
 //!   (`tests/data/sigma1_before_v1.txt`, captured while the sampler was
 //!   still the unbounded shuffle-and-reject loop) reproduces EXACTLY
 //!   through the repaired library path.
-//! - R3 dedup identity: no local `fn sample_belief` survives outside the
-//!   library (a source grep over `src/`).
+//! - R3 dedup identity, by TWO witnesses: a source grep over `src/`, and
+//!   the compile itself (the four deduplicated binaries import the library
+//!   name at module scope, so a local `fn sample_belief` is an E0255
+//!   collision — the gate keeps those imports armed).
 //! - R4 the previously-blocked MB0 roots under the repaired sampler.
 //! - R5 the feasibility oracle is faithful: it agrees with exhaustive
 //!   exact-partition search on every frame of a swept corpus, and the
 //!   library sampler's accepted deals are exactly the frames it admits.
+//! - R6 `sample_open_belief` is total — a frame with no deduced voids
+//!   cannot be refused, which is what lets the live player's auction path
+//!   carry no error branch instead of an unreachable one.
 //!
 //! THE BEFORE-SIDE WITNESS. `capture_before_side_fixture` is `#[ignore]`d
 //! and regenerates the fixture. It was run ONCE against the unpatched
@@ -45,7 +50,10 @@ use walt::solver::factor_belief::{
 };
 use walt::solver::field::{FieldKind, FieldModel, FieldSpec};
 use walt::solver::policy::{continuation_frame, DecisionMode, TieRule};
-use walt::solver::{belief_frame_feasibility, mask_of, mix, sample_belief, SplitMix64, FULL_MASK};
+use walt::solver::{
+    belief_frame_feasibility, mask_of, mix, sample_belief, sample_open_belief, SplitMix64,
+    FULL_MASK,
+};
 
 /// A pip by value, for writing specimen tiles the way the audit notes do.
 fn pip(v: u8) -> Pip {
@@ -570,6 +578,59 @@ fn the_oracle_models_the_prefix_slicing_not_an_exact_partition() {
     }
 }
 
+/// Gate R6 — `sample_open_belief` is total, so the call sites that use it
+/// have no refusal branch to get wrong.
+///
+/// This is the gate that lets the live player's auction path carry no
+/// error handling at all. With every void mask zero the sampler's
+/// rejection test cannot fire, so the acceptance region is the whole deal
+/// space; the sweep confirms the oracle never refuses such a frame across
+/// every viewer, every reachable played mask depth, and every size split
+/// that fits the pool — and that the drawn deals really are complete and
+/// disjoint.
+#[test]
+fn the_open_frame_entry_point_cannot_refuse() {
+    let mut rng = SplitMix64(mix(0x5164_09E4_0000_0001));
+    let mut checked = 0usize;
+    for viewer in 0..4usize {
+        for tricks_played in 0..7usize {
+            let remaining = 7 - tricks_played;
+            // A played mask of whole tricks, and a viewer hand drawn from
+            // what is left — the shape every auction/pre-play caller has.
+            let played = (0..(4 * tricks_played)).fold(0u32, |m, i| m | (1u32 << i));
+            let pool = FULL_MASK & !played;
+            let mut viewer_hand = 0u32;
+            let mut candidates = walt::solver::mask_bits(pool);
+            for i in (1..candidates.len()).rev() {
+                let j = rng.below((i + 1) as u64) as usize;
+                candidates.swap(i, j);
+            }
+            for &tile in candidates.iter().take(remaining) {
+                viewer_hand |= 1u32 << tile;
+            }
+            let mut sizes = [remaining; 4];
+            sizes[viewer] = remaining;
+            belief_frame_feasibility(viewer, viewer_hand, played, sizes, [0; 4])
+                .expect("an open frame is always feasible");
+            if remaining == 0 {
+                checked += 1;
+                continue;
+            }
+            let worlds = sample_open_belief(viewer, viewer_hand, played, sizes, 8, &mut rng);
+            assert_eq!(worlds.len(), 8);
+            for w in &worlds {
+                assert_eq!(w[viewer], viewer_hand, "the viewer keeps its own hand");
+                let union = w.iter().fold(0u32, |a, b| a | b);
+                let total: u32 = w.iter().map(|h| h.count_ones()).sum();
+                assert_eq!(union, FULL_MASK & !played, "the deal covers the pool");
+                assert_eq!(total, union.count_ones(), "the four hands are disjoint");
+            }
+            checked += 1;
+        }
+    }
+    assert_eq!(checked, 28, "every viewer at every trick depth");
+}
+
 /// Gate R2 — before/after determinism. The identical corpus, re-rendered
 /// through the repaired library path, must equal the committed capture
 /// byte for byte: same drawn worlds, same post-draw RNG state, same σ1
@@ -597,9 +658,28 @@ fn the_repaired_sampler_reproduces_the_before_side_capture_exactly() {
 // ---------------------------------------------------------------------------
 
 /// Gate R3 — dedup identity, gated BY GREP over the crate's own sources
-/// (not by compile: four binaries carry their own private solver stacks,
-/// so a local sampler would still compile). Exactly one definition may
-/// exist, and it is the library's.
+/// — the first of TWO witnesses, which cover each other's blind spots.
+///
+/// GREP (this test): exactly one `fn sample_belief(` definition exists
+/// under `src/`, and it is the library's. This catches a local copy that
+/// compiles because nothing calls it, and a local copy in a module that
+/// never imported the library name — neither of which the compiler would
+/// object to.
+///
+/// COMPILE (the build itself, re-armed by the assertion below): each of
+/// the four deduplicated binaries carries a MODULE-SCOPE
+/// `use walt::solver::sample_belief`, and Rust rejects a local `fn
+/// sample_belief` beside it as E0255 — "the name `sample_belief` is
+/// defined multiple times". So `cargo build` succeeding is itself proof
+/// that no local copy sits in those four modules, and this test asserts
+/// the imports are still present, because deleting one would silently
+/// disarm that proof. The compile witness also catches what grep cannot:
+/// if the library authority were renamed, these imports would fail to
+/// resolve, whereas a grep for a fixed name would pass over a wholesale
+/// rename in silence.
+///
+/// Neither witness catches a local copy under a DIFFERENT name that
+/// reimplements the loop; that is a review obligation, not a gate.
 #[test]
 fn exactly_one_sampler_definition_survives_in_the_crate() {
     fn rs_files(dir: &std::path::Path, out: &mut Vec<std::path::PathBuf>) {
@@ -639,6 +719,33 @@ fn exactly_one_sampler_definition_survives_in_the_crate() {
         vec!["solver/mod.rs".to_string()],
         "one belief sampler, in the library; the four bin copies are gone"
     );
+
+    // The compile witness, kept armed: each deduplicated binary imports the
+    // library name at module scope, which is what makes a local definition
+    // an E0255 collision rather than a silent shadow.
+    for bin in [
+        "walt_bridge.rs",
+        "playout.rs",
+        "playtable.rs",
+        "divergence.rs",
+    ] {
+        let text = std::fs::read_to_string(root.join("bin").join(bin))
+            .expect("a readable deduplicated binary");
+        // The use-tree may be wrapped across lines by rustfmt, so read the
+        // whole `use walt::solver::{ … };` item rather than one line.
+        // `sample_open_belief` is not a superstring of `sample_belief`, so
+        // the containment test names exactly the item it means.
+        let imported = text
+            .match_indices("use walt::solver::{")
+            .filter_map(|(at, _)| text[at..].find("};").map(|end| &text[at..at + end]))
+            .any(|item| item.contains("sample_belief"));
+        assert!(
+            imported,
+            "{bin} keeps its module-scope `use walt::solver::sample_belief`, so a \
+             local redefinition is an E0255 compile error and the build itself \
+             witnesses the dedup"
+        );
+    }
 }
 
 // ---------------------------------------------------------------------------

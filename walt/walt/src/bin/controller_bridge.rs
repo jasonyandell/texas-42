@@ -58,7 +58,7 @@ use walt::rules::{ContextSet, Decl, Domino, DominoSet, Seat, Team};
 use walt::solver::act::{act, delta_run_default, ActConfig};
 use walt::solver::adaptive::DrivenState;
 use walt::solver::{
-    arena_decl_id, bp, decl_of, mask_bits, mix, sample_belief, Deadline, Field, Key, Shared,
+    arena_decl_id, bp, decl_of, mask_bits, mix, sample_open_belief, Deadline, Field, Key, Shared,
     Solver, SplitMix64,
 };
 
@@ -299,8 +299,7 @@ fn declare(nums: &[usize], cfg: &Config, full: bool) -> usize {
         best
     };
 
-    let worlds = sample_belief(bidder_i, hand0, 0, [7; 4], [0; 4], cfg.n_declare, &mut rng)
-        .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
+    let worlds = sample_open_belief(bidder_i, hand0, 0, [7; 4], cfg.n_declare, &mut rng);
     let mut vals: Vec<(Decl, BigRational)> = candidates
         .iter()
         .map(|&dcl| (dcl, eval(dcl, worlds.clone())))
@@ -321,8 +320,7 @@ fn declare(nums: &[usize], cfg: &Config, full: bool) -> usize {
             break;
         }
         n_cur *= 4;
-        let worlds = sample_belief(bidder_i, hand0, 0, [7; 4], [0; 4], n_cur, &mut rng)
-            .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
+        let worlds = sample_open_belief(bidder_i, hand0, 0, [7; 4], n_cur, &mut rng);
         for dcl in tied {
             let v = eval(dcl, worlds.clone());
             let slot = vals.iter_mut().find(|(x, _)| *x == dcl).expect("tied decl");

@@ -11,8 +11,8 @@ use num_traits::{One, Zero};
 
 use walt::rules::{Decl, Seat, Team};
 use walt::solver::{
-    mask_bits, mix, sample_belief, viewer_fiber_evaluate, Deadline, Field, Key, Shared, Solver,
-    SplitMix64,
+    mask_bits, mix, sample_open_belief, viewer_fiber_evaluate, Deadline, Field, Key, Shared,
+    Solver, SplitMix64,
 };
 
 const N: usize = 8;
@@ -70,8 +70,7 @@ fn own_fiber_full_support_matches_plain_solver() {
     // The same worlds, drawn by an identically-seeded rng, priced by the
     // plain solver path (alive = the root all-worlds set).
     let mut rng2 = SplitMix64(SEED ^ 0xA5A5);
-    let worlds = sample_belief(1, hand, 0, [7; 4], [0; 4], N, &mut rng2)
-        .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
+    let worlds = sample_open_belief(1, hand, 0, [7; 4], N, &mut rng2);
     let deadline = Deadline::after(std::time::Duration::from_secs(120));
     let sh = Arc::new(Shared::new(dcl, bid, vec![N0], 0, 7, deadline));
     let maximize = actor.team() == Team::T1;
