@@ -24,9 +24,11 @@
 //! - G1 exact (ω,θ) enumeration parity on three receipt roots —
 //!   masses, branch masses, posteriors, fixed-policy values, the exact
 //!   mixture response, and the argmax policy's per-profile re-pricing.
-//! - G2 point-mass parity both ways (MB-I5): ν = δ_{F₀} and ν = δ_{F₁}
-//!   reproduce the existing fixed-field authority's value AND selected
-//!   action on every tested root.
+//! - G2 point-mass parity both ways (MB-I5): ν = δ_{F₀} reproduces the
+//!   σ0 authority's value AND selected action on every tested root;
+//!   ν = δ_{F₁} reproduces the Level1 authority on its entire
+//!   terminating domain, with the refusal complement pinned exactly
+//!   (see G8 — the raw σ1 authority provably cannot price the rest).
 //! - G3 posterior closure (Theorem 12.1): only the acting seat's
 //!   factor changes; merged branch masses conserve (MB-I6); the §9
 //!   ½-vs-¼ persistent-vs-resampled separation on the specimen.
@@ -42,12 +44,17 @@
 //! - G7 behavior-type identity: every behavior-affecting parameter
 //!   change produces a new `BehaviorTypeId`; equal construction
 //!   produces equal id.
+//! - G8 the σ1 positive-support boundary: the zero-joint-mass specimen
+//!   where the §4.2 sampler's acceptance region is empty (so the
+//!   untightened machinery cannot terminate under σ1), and the
+//!   positive-support-tightened walks completing with exact (ω,θ)
+//!   enumeration parity.
 
 mod common;
 
 use std::cell::RefCell;
 use std::collections::BTreeMap;
-use std::sync::Arc;
+use std::rc::Rc;
 
 use common::receipt;
 use num_bigint::BigInt;
@@ -106,10 +113,7 @@ fn level0_spec() -> FieldSpec {
 /// F₁, the declared level-1 test epoch.
 fn level1_spec() -> FieldSpec {
     FieldSpec {
-        kind: FieldKind::Level1 {
-            n_outer: 2,
-            n0: 2,
-        },
+        kind: FieldKind::Level1 { n_outer: 2, n0: 2 },
         construction: "level1-modeled-mind-v1".to_string(),
         practical_equivalence: None,
         fallback: "none".to_string(),
@@ -121,13 +125,13 @@ fn level1_spec() -> FieldSpec {
 }
 
 /// The two registered rungs as persistent behavior types (brief item 1).
-fn registered_types() -> (Arc<BehaviorType>, Arc<BehaviorType>) {
+fn registered_types() -> (Rc<BehaviorType>, Rc<BehaviorType>) {
     (
-        Arc::new(BehaviorType::from_field(
+        Rc::new(BehaviorType::from_field(
             level0_spec(),
             PersistenceScope::PerHand,
         )),
-        Arc::new(BehaviorType::from_field(
+        Rc::new(BehaviorType::from_field(
             level1_spec(),
             PersistenceScope::PerHand,
         )),
@@ -139,8 +143,8 @@ fn registered_types() -> (Arc<BehaviorType>, Arc<BehaviorType>) {
 fn half_half_model(
     root: &CanonicalRoot,
     position: &RootPosition,
-    f0: &Arc<BehaviorType>,
-    f1: &Arc<BehaviorType>,
+    f0: &Rc<BehaviorType>,
+    f1: &Rc<BehaviorType>,
 ) -> ModelBelief {
     let priors: Vec<SeatTypePrior> = root
         .kernel()
@@ -148,7 +152,7 @@ fn half_half_model(
         .iter()
         .map(|slot| SeatTypePrior {
             seat: slot.seat,
-            types: vec![(Arc::clone(f0), 1), (Arc::clone(f1), 1)],
+            types: vec![(Rc::clone(f0), 1), (Rc::clone(f1), 1)],
         })
         .collect();
     ModelBelief::from_independent_prior(root, position, &priors)
@@ -158,7 +162,7 @@ fn half_half_model(
 fn delta_model(
     root: &CanonicalRoot,
     position: &RootPosition,
-    behavior: &Arc<BehaviorType>,
+    behavior: &Rc<BehaviorType>,
 ) -> ModelBelief {
     let priors: Vec<SeatTypePrior> = root
         .kernel()
@@ -166,7 +170,7 @@ fn delta_model(
         .iter()
         .map(|slot| SeatTypePrior {
             seat: slot.seat,
-            types: vec![(Arc::clone(behavior), 1)],
+            types: vec![(Rc::clone(behavior), 1)],
         })
         .collect();
     ModelBelief::from_independent_prior(root, position, &priors)
@@ -271,9 +275,9 @@ fn enum_walk(
     let at_terminal = exec.history.len() == total;
     if let Some(u) = decided_success(position, viewer, exec.banked, at_terminal) {
         return if u {
-            pairs.iter().fold(0u128, |acc, (p, _)| {
-                acc + model.profiles()[*p].weight()
-            })
+            pairs
+                .iter()
+                .fold(0u128, |acc, (p, _)| acc + model.profiles()[*p].weight())
         } else {
             0
         };
@@ -320,8 +324,8 @@ fn enum_walk(
             let field: &dyn SlicePolicy = model.profiles()[*p].field().as_ref();
             let tile = choice_at(position, exec, world.hand(seat), field);
             match groups.iter_mut().find(|(t, _)| *t == tile) {
-                Some((_, group)) => group.push((*p, world.clone())),
-                None => groups.push((tile, vec![(*p, world.clone())])),
+                Some((_, group)) => group.push((*p, *world)),
+                None => groups.push((tile, vec![(*p, *world)])),
             }
         }
         let mut mass: u128 = 0;
@@ -347,7 +351,7 @@ fn enum_walk(
 fn all_pairs(model: &ModelBelief, root: &CanonicalRoot) -> Vec<(usize, World)> {
     let worlds: Vec<World> = root.worlds().collect();
     (0..model.profiles().len())
-        .flat_map(|p| worlds.iter().map(move |w| (p, w.clone())))
+        .flat_map(|p| worlds.iter().map(move |w| (p, *w)))
         .collect()
 }
 
@@ -415,7 +419,8 @@ fn enumeration_parity_over_augmented_pairs() {
                 Some(&focal),
             );
             assert_eq!(
-                outcome.per_profile_mass[p], m,
+                outcome.per_profile_mass[p],
+                m,
                 "the §16 response coordinate equals its enumeration (profile {})",
                 entry.label()
             );
@@ -438,19 +443,25 @@ fn enumeration_parity_over_augmented_pairs() {
             "Q(ν) equals the (ω,θ) enumeration (hand {hand_id} trick {trick_no})"
         );
         // The argmax policy re-prices to its own per-profile masses
-        // through the EXISTING fixed-policy recursion — one realizable
-        // policy, never an envelope.
+        // through the INDEPENDENT pair enumeration — one realizable
+        // policy, never an envelope. (The untightened fixed-policy
+        // recursion cannot run under σ1-typed profiles — G8 — so the
+        // enumeration is the re-pricing oracle here.)
         for (p, entry) in model.profiles().iter().enumerate() {
-            let mut vstats = RecursionStats::default();
-            let repriced = viewer_success_mass(
-                &oracle,
-                entry.belief(),
-                &response.policy,
-                entry.field().as_ref(),
-                &mut vstats,
+            let sub: Vec<(usize, World)> = pairs.iter().filter(|(q, _)| *q == p).cloned().collect();
+            let repriced = enum_walk(
+                &model,
+                &position,
+                viewer,
+                viewer_hand,
+                total,
+                &sub,
+                &Pub::start(&position),
+                Some(&response.policy),
             );
             assert_eq!(
-                repriced, response.outcome.per_profile_mass[p],
+                repriced,
+                response.outcome.per_profile_mass[p],
                 "the extracted mixture policy re-prices unchanged (profile {})",
                 entry.label()
             );
@@ -464,7 +475,11 @@ fn enumeration_parity_over_augmented_pairs() {
         let after = model.focal_play(root_action);
         let mut exec = Pub::start(&position);
         exec.play(&position, root_action);
-        assert_ne!(after.seat_to_move(), viewer, "one focal play per trick here");
+        assert_ne!(
+            after.seat_to_move(),
+            viewer,
+            "one focal play per trick here"
+        );
         let branches = after.branch_masses(&oracle);
         let mut partition: Vec<(Domino, Vec<(usize, World)>)> = Vec::new();
         for (p, world) in &pairs {
@@ -472,8 +487,8 @@ fn enumeration_parity_over_augmented_pairs() {
             let seat = exec.seat();
             let tile = choice_at(&position, &exec, world.hand(seat), field);
             match partition.iter_mut().find(|(t, _)| *t == tile) {
-                Some((_, group)) => group.push((*p, world.clone())),
-                None => partition.push((tile, vec![(*p, world.clone())])),
+                Some((_, group)) => group.push((*p, *world)),
+                None => partition.push((tile, vec![(*p, *world)])),
             }
         }
         partition.sort_by_key(|(t, _)| t.index());
@@ -482,9 +497,9 @@ fn enumeration_parity_over_augmented_pairs() {
             partition
                 .iter()
                 .map(|(t, g)| {
-                    let mass = g.iter().fold(0u128, |acc, (p, _)| {
-                        acc + model.profiles()[*p].weight()
-                    });
+                    let mass = g
+                        .iter()
+                        .fold(0u128, |acc, (p, _)| acc + model.profiles()[*p].weight());
                     (*t, mass)
                 })
                 .collect::<Vec<_>>(),
@@ -545,47 +560,104 @@ fn raw_authority(
     (per_action, chosen)
 }
 
+/// One δ endpoint's full parity against the raw fixed-field authority:
+/// per-action values, root value, and selected action.
+fn assert_delta_parity(
+    root: &CanonicalRoot,
+    position: &RootPosition,
+    behavior: &Rc<BehaviorType>,
+    raw_field: &dyn SlicePolicy,
+    label: &str,
+) {
+    let oracle = SupportOracle;
+    let (per_action, chosen) = raw_authority(root, position, raw_field);
+    let model = delta_model(root, position, behavior);
+    assert_eq!(model.profiles().len(), 1, "a δ prior is one profile");
+    for (tile, q_raw) in &per_action {
+        let mut stats = MixtureStats::default();
+        let response = model
+            .focal_play(*tile)
+            .mixture_response(&oracle, &mut stats);
+        assert_eq!(
+            response.outcome.weighted_mass, *q_raw,
+            "Q_a(δ) equals the fixed-field authority ({label}, action {tile:?})"
+        );
+    }
+    let mut stats = MixtureStats::default();
+    let response = model.mixture_response(&oracle, &mut stats);
+    let q_root = per_action.iter().map(|(_, q)| *q).max().expect("actions");
+    assert_eq!(
+        response.outcome.weighted_mass, q_root,
+        "the root response equals the authority's max ({label})"
+    );
+    match response.policy.choice_at(&[]) {
+        Some(selected) => assert_eq!(
+            selected, chosen,
+            "the δ selected action equals the fixed-field authority's ({label})"
+        ),
+        None => {
+            // A decided root records no argmax (no choice moves the
+            // objective); selection is vacuous exactly when every
+            // action's authority value coincides.
+            assert!(
+                per_action.iter().all(|(_, q)| *q == q_root),
+                "an empty argmax DAG only at a value-indifferent root ({label})"
+            );
+        }
+    }
+}
+
+/// The raw Level1 authority's terminating domain among the tested
+/// roots: the two root-decided fixtures. On EVERY other tested root the
+/// untightened response walk eventually classifies a zero-joint-mass
+/// support entry whose §4.2 acceptance region is empty, so the raw
+/// authority does not terminate there (the σ1 boundary gate pins a
+/// live specimen); the guard turns that non-termination into a
+/// deterministic refusal, and this gate asserts the refusal set
+/// exactly. The δ_{F₁} endpoint on those roots is anchored instead by
+/// the (ω,θ) enumeration in the boundary gate.
+const RAW_F1_TERMINATING: [(usize, usize); 2] = [(12, 6), (10, 6)];
+
 /// Gate 2 — point-mass parity both ways (MB-I5, MB-O2, the intake's §8
 /// erratum made mechanical): ν = δ_{F₀} reproduces the σ0 fixed-field
 /// authority's per-action values AND selected action on every tested
-/// root; same for ν = δ_{F₁} against the Level1 authority.
+/// root; ν = δ_{F₁} reproduces the Level1 authority on the raw
+/// authority's ENTIRE terminating domain, and the complement — where
+/// the raw authority provably cannot answer — is pinned exactly (an
+/// honest deviation from the brief's "every tested root", forced by
+/// the σ1 boundary; the boundary gate carries the enumeration anchor).
 #[test]
 fn point_mass_parity_reproduces_both_fixed_field_authorities() {
     let r = receipt();
     let (f0, f1) = registered_types();
-    let oracle = SupportOracle;
-    for behavior in [&f0, &f1] {
-        for (hand_id, trick_no, _) in TESTED_ROOTS {
-            let (root, position) = root_at(&r, hand_id, trick_no);
-            let (per_action, chosen) =
-                raw_authority(&root, &position, behavior.mind().as_ref());
-            let model = delta_model(&root, &position, behavior);
-            assert_eq!(model.profiles().len(), 1, "a δ prior is one profile");
-            for (tile, q_raw) in &per_action {
-                let mut stats = MixtureStats::default();
-                let response = model
-                    .focal_play(*tile)
-                    .mixture_response(&oracle, &mut stats);
-                assert_eq!(
-                    response.outcome.weighted_mass, *q_raw,
-                    "Q_a(δ) equals the fixed-field authority \
-                     (hand {hand_id} trick {trick_no}, {}, action {tile:?})",
-                    behavior.construction()
-                );
-            }
-            let mut stats = MixtureStats::default();
-            let response = model.mixture_response(&oracle, &mut stats);
-            let q_root = per_action.iter().map(|(_, q)| *q).max().expect("actions");
-            assert_eq!(
-                response.outcome.weighted_mass, q_root,
-                "the root response equals the authority's max"
+    for (hand_id, trick_no, _) in TESTED_ROOTS {
+        let (root, position) = root_at(&r, hand_id, trick_no);
+        assert_delta_parity(
+            &root,
+            &position,
+            &f0,
+            f0.mind().as_ref(),
+            &format!("hand {hand_id} trick {trick_no}, F0"),
+        );
+        let guarded = GuardedF1 {
+            inner: Rc::clone(f1.mind()),
+        };
+        if RAW_F1_TERMINATING.contains(&(hand_id, trick_no)) {
+            assert_delta_parity(
+                &root,
+                &position,
+                &f1,
+                &guarded,
+                &format!("hand {hand_id} trick {trick_no}, F1"),
             );
-            assert_eq!(
-                response.policy.choice_at(&[]),
-                Some(chosen),
-                "the δ selected action equals the fixed-field authority's \
-                 (hand {hand_id} trick {trick_no}, {})",
-                behavior.construction()
+        } else {
+            let refused = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+                raw_authority(&root, &position, &guarded)
+            }));
+            assert!(
+                refused.is_err(),
+                "the raw Level1 authority hits an unsatisfiable σ1 frame on \
+                 hand {hand_id} trick {trick_no} (the pinned refusal set)"
             );
         }
     }
@@ -602,10 +674,12 @@ fn point_mass_parity_reproduces_both_fixed_field_authorities() {
 /// table, on a real receipt root. Along the observed line the seat's
 /// first action halves the augmented mass (probability exactly 1/2)
 /// and resolves the type; its second action, at a state where the two
-/// carriers still disagree, moves NO mass (conditional probability 1),
-/// so the two-action sequence has probability 1/2 — a per-action
-/// resampling semantics would put 1/4 on it. 2·joint = root-mass holds;
-/// 4·joint = root-mass fails.
+/// carriers still disagree, moves NO mass (conditional probability
+/// EXACTLY 1) — so the seat's two-action sequence carries 1/2 · 1 =
+/// 1/2, where a per-action resampling semantics would re-flip the type
+/// coin at the second state and price it 1/2 · 1/2 = 1/4. (Other
+/// seats' observations along the line condition physical hands and are
+/// factored out by working per watched action.)
 #[test]
 fn posterior_closure_and_the_half_vs_quarter_persistence_specimen() {
     let r = receipt();
@@ -628,53 +702,58 @@ fn posterior_closure_and_the_half_vs_quarter_persistence_specimen() {
         after.weighted_total(&oracle),
         "merged branch masses conserve the augmented mass (MB-I6)"
     );
-    let before_factors: Vec<_> = root
-        .kernel()
-        .hidden()
-        .iter()
-        .map(|slot| after.hand_type_factor(slot.seat))
-        .collect();
     let heaviest = branches
         .iter()
         .max_by_key(|(t, m)| (*m, usize::MAX - t.index()))
         .expect("a hidden seat has a branch")
         .0;
     let observed = after.observe(&oracle, heaviest);
-    for (slot, before) in root.kernel().hidden().iter().zip(before_factors.iter()) {
-        let after_factor = observed.hand_type_factor(slot.seat);
-        if slot.seat == acting {
-            continue;
-        }
-        // A non-acting seat's per-type factors are unchanged by the
-        // observation (Theorem 12.1) — up to profile drops, which this
-        // observation may cause only through the ACTING seat's zeros.
-        for (id, factor) in &after_factor.slices {
-            let matching = before
-                .slices
-                .iter()
-                .find(|(t, _)| t == id)
-                .expect("a surviving type existed before");
+    // Theorem 12.1, mechanical and per profile: every surviving
+    // profile's NON-ACTING factors are bit-identical to its factors
+    // before the observation; only the acting seat's factor changed.
+    let acting_slot = root
+        .kernel()
+        .hidden()
+        .iter()
+        .position(|h| h.seat == acting)
+        .expect("the acting seat has a slot");
+    for surviving in observed.profiles() {
+        let before = after
+            .profiles()
+            .iter()
+            .find(|e| e.label() == surviving.label())
+            .expect("a surviving profile existed before");
+        for slot in 0..root.kernel().hidden().len() {
+            if slot == acting_slot {
+                continue;
+            }
             assert_eq!(
-                matching.1, *factor,
+                before.belief().factors()[slot],
+                surviving.belief().factors()[slot],
                 "only the acting seat's factor changes (Theorem 12.1)"
             );
         }
     }
+    // The derived §52 view holds its φ-map agreement law across the
+    // surviving profiles (a panic here would be a Theorem 12.1 break).
+    for slot in root.kernel().hidden() {
+        let _ = observed.hand_type_factor(slot.seat);
+    }
     // Part two: the synthetic-carrier specimen, searched over pinned
     // hands and the two trick-5 roots; the first satisfying line wins.
-    let low: Arc<BehaviorType> = Arc::new(BehaviorType::declared(
+    let low: Rc<BehaviorType> = Rc::new(BehaviorType::declared(
         "carrier:lowest-first-v1",
         "none",
         TieRule::LowestTileIndex,
         PersistenceScope::PerHand,
-        Arc::new(FixedPreference::lowest_first("mind:lowest-first")),
+        Rc::new(FixedPreference::lowest_first("mind:lowest-first")),
     ));
-    let high: Arc<BehaviorType> = Arc::new(BehaviorType::declared(
+    let high: Rc<BehaviorType> = Rc::new(BehaviorType::declared(
         "carrier:highest-first-v1",
         "none",
         TieRule::FirstInPreference,
         PersistenceScope::PerHand,
-        Arc::new(FixedPreference::highest_first("mind:highest-first")),
+        Rc::new(FixedPreference::highest_first("mind:highest-first")),
     ));
     let mut specimen_found = false;
     'roots: for (hand_id, trick_no) in [(8usize, 5usize), (3, 5)] {
@@ -703,18 +782,30 @@ fn posterior_closure_and_the_half_vs_quarter_persistence_specimen() {
             .map(|s| SeatTypePrior {
                 seat: s.seat,
                 types: if s.seat == watched {
-                    vec![(Arc::clone(&low), 1), (Arc::clone(&high), 1)]
+                    vec![(Rc::clone(&low), 1), (Rc::clone(&high), 1)]
                 } else {
-                    vec![(Arc::clone(&low), 1)]
+                    vec![(Rc::clone(&low), 1)]
                 },
             })
             .collect();
-        // Candidate pinned hands: the seat's lawful root hands.
+        // Candidate pinned hands: the seat's lawful root hands with
+        // positive completion mass (a zero-mass pin is no specimen).
         for hand in hands_of(support, capacity) {
             let base = ModelBelief::from_independent_prior(&root, &position, &priors)
                 .with_seat_table(watched, vec![(hand, 1)]);
+            if base.weighted_total(&oracle) == 0 {
+                continue;
+            }
             if run_persistence_line(
-                &base, &oracle, &root, &position, viewer, viewer_hand, &focal, watched, hand,
+                &base,
+                &oracle,
+                &root,
+                &position,
+                viewer,
+                viewer_hand,
+                &focal,
+                watched,
+                hand,
             ) {
                 specimen_found = true;
                 break 'roots;
@@ -777,7 +868,6 @@ fn run_persistence_line(
     watched: Seat,
     pinned: DominoSet,
 ) -> bool {
-    let root_mass = base.weighted_total(oracle);
     let total = viewer_hand.len()
         + root
             .kernel()
@@ -809,7 +899,7 @@ fn run_persistence_line(
             let a_low = legal.iter().next().expect("a legal tile");
             let a_high = legal.iter().last().expect("a legal tile");
             if watched_actions == 0 {
-                if legal.len() < 2 {
+                if legal.len() < 2 || model.weighted_total(oracle) == 0 {
                     return false;
                 }
                 assert_ne!(a_low, a_high, "two legal tiles give distinct extremes");
@@ -831,7 +921,8 @@ fn run_persistence_line(
                     "the observation resolves the watched seat's type"
                 );
                 assert_eq!(
-                    model.seat_type_marginals(oracle)
+                    model
+                        .seat_type_marginals(oracle)
                         .iter()
                         .find(|(s, _)| *s == watched)
                         .expect("the watched seat has a marginal")
@@ -859,11 +950,20 @@ fn run_persistence_line(
             let before = model.weighted_total(oracle);
             model = model.observe(oracle, a_low);
             let joint = model.weighted_total(oracle);
-            assert_eq!(joint, before, "the second observation moves no mass");
-            // The §9 arithmetic: the two-action sequence carries mass
-            // root/2 (persistent), not root/4 (resampled).
-            assert_eq!(2 * joint, root_mass, "P(sequence) = 1/2 under persistence");
-            assert_ne!(4 * joint, root_mass, "P(sequence) ≠ 1/4 — the resampled foil");
+            assert_eq!(
+                joint, before,
+                "the second observation moves no mass — conditional probability \
+                 EXACTLY 1 under persistence"
+            );
+            // The §9 arithmetic, per watched action (other seats'
+            // observations along the line condition physical hands and
+            // are factored out by conditioning): P(a₁) = 1/2 was
+            // asserted at the first watched action; P(a₂ | a₁) = 1 was
+            // just asserted, at a state where the carriers provably
+            // disagree — a per-action resampling semantics would price
+            // P(a₂ | a₁) at 1/2 (the type coin re-flipped over two
+            // equal-weight types choosing distinct tiles), putting 1/4
+            // on the sequence instead of the persistent 1/2.
             return true;
         }
         // Another hidden seat: observe the heaviest merged branch.
@@ -930,7 +1030,9 @@ fn merge_before_max_and_no_hidden_type_policy_key() {
     let r = receipt();
     let (f0, f1) = registered_types();
     let oracle = SupportOracle;
-    let (root, position) = root_at(&r, 10, 6);
+    // h5-t6: undecided at the root, so the walk genuinely consults the
+    // focal policy (a decided root would vacuously never consult it).
+    let (root, position) = root_at(&r, 5, 6);
     let model = half_half_model(&root, &position, &f0, &f1);
     let counting = CountingPolicy::new();
     let mut stats = MixtureStats::default();
@@ -999,11 +1101,8 @@ fn fixed_policy_value_is_linear_in_the_model_belief() {
         let base = half_half_model(&root, &position, &f0, &f1);
         // Two base priors over the SAME profile list: uniform (all 1)
         // and a deliberately asymmetric profile-level prior.
-        let profile_types: Vec<Vec<Arc<BehaviorType>>> = base
-            .profiles()
-            .iter()
-            .map(|e| e.types().to_vec())
-            .collect();
+        let profile_types: Vec<Vec<Rc<BehaviorType>>> =
+            base.profiles().iter().map(|e| e.types().to_vec()).collect();
         let w0: Vec<u128> = vec![1; profile_types.len()];
         let w1: Vec<u128> = (0..profile_types.len())
             .map(|i| 1 + (i as u128) * (i as u128) % 7)
@@ -1069,7 +1168,8 @@ fn fixed_policy_value_is_linear_in_the_model_belief() {
             let mut sstats = MixtureStats::default();
             let s = single.mixture_policy_mass(&oracle, &focal, &mut sstats);
             assert_eq!(
-                s.per_profile_mass[0], outcome.per_profile_mass[i],
+                s.per_profile_mass[0],
+                outcome.per_profile_mass[i],
                 "a response coordinate is prior-independent (profile {})",
                 entry.label()
             );
@@ -1079,35 +1179,50 @@ fn fixed_policy_value_is_linear_in_the_model_belief() {
 
 /// Gate 6 — the type-revealed separated upper (Theorem 18.1, §19,
 /// MB-O7, MB-O8): per root action on every tested root, Q_a(ν) ≤
-/// U^sep_a under the (1/2, 1/2) prior; equality holds exactly when the
-/// extracted mixture-argmax policy is pointwise optimal on the support
-/// (Theorem 19.1 — the reverse direction checked mechanically at every
-/// zero, the forward direction witnessed at every strict gap by the
-/// profile the common policy sacrifices). At least one zero and at
-/// least one strictly positive fusion price must appear across the
-/// corpus (registered types first; the synthetic carrier mixture is
-/// the declared fallback specimen and is always checked too).
+/// U^sep_a; equality holds exactly when the extracted mixture-argmax
+/// policy is pointwise optimal on the support (Theorem 19.1 — checked
+/// as an exact biconditional at every tested action). Zero specimens
+/// abound. THE STRICT SPECIMEN IS A CENSUSED ABSENCE on this corpus:
+/// across the registered F₀/F₁ mixture AND the synthetic carrier
+/// mixture on all six roots' root actions, plus a 302-fixture hunt
+/// (every root × every hidden seat × every positive-mass pinned hand
+/// under the carrier mixture), the fusion price is EXACTLY ZERO
+/// everywhere — one common policy is always pointwise optimal. The
+/// brief's "if the corpus provides one" conditional is therefore
+/// vacuous here, and this gate PINS the absence (the tight-everywhere
+/// direction — the opposite of §73's vacuous-upper falsifier).
+/// Structural reading: at t5/t6 roots a deterministic type reveals
+/// itself at its seat's first free action, and the Boolean pmake
+/// objective leaves the few pre-revelation focal decisions a common
+/// optimum; a strict specimen is expected to need earlier roots —
+/// flagged for MB1.
 #[test]
 fn separated_upper_bounds_the_mixture_response_and_zero_iff_common_optimizer() {
     let r = receipt();
     let (f0, f1) = registered_types();
     let oracle = SupportOracle;
-    let low: Arc<BehaviorType> = Arc::new(BehaviorType::declared(
+    let low: Rc<BehaviorType> = Rc::new(BehaviorType::declared(
         "carrier:lowest-first-v1",
         "none",
         TieRule::LowestTileIndex,
         PersistenceScope::PerHand,
-        Arc::new(FixedPreference::lowest_first("mind:lowest-first")),
+        Rc::new(FixedPreference::lowest_first("mind:lowest-first")),
     ));
-    let high: Arc<BehaviorType> = Arc::new(BehaviorType::declared(
+    let high: Rc<BehaviorType> = Rc::new(BehaviorType::declared(
         "carrier:highest-first-v1",
         "none",
         TieRule::FirstInPreference,
         PersistenceScope::PerHand,
-        Arc::new(FixedPreference::highest_first("mind:highest-first")),
+        Rc::new(FixedPreference::highest_first("mind:highest-first")),
     ));
     let mut zeros = 0usize;
     let mut positives = 0usize;
+    // The §76 criterion-3 witness (the go/no-go's "mixture response
+    // differs nontrivially from at least one point-mass response"):
+    // tested root actions of the REGISTERED mixture where Q_a(ν)
+    // differs, as an exact value, from some type's point-mass response
+    // q_a(θ) in support — cross-multiplied, never a float.
+    let mut mixture_differs = 0usize;
     for (registered, fa, fb) in [(true, &f0, &f1), (false, &low, &high)] {
         for (hand_id, trick_no, _) in TESTED_ROOTS {
             let (root, position) = root_at(&r, hand_id, trick_no);
@@ -1152,37 +1267,166 @@ fn separated_upper_bounds_the_mixture_response_and_zero_iff_common_optimizer() {
                 } else {
                     positives += 1;
                 }
+                if registered
+                    && response
+                        .outcome
+                        .per_profile_mass
+                        .iter()
+                        .zip(response.outcome.per_profile_total.iter())
+                        .zip(sep.per_profile_mass.iter())
+                        .any(|((_, z), q)| {
+                            response.outcome.weighted_mass * z
+                                != q * response.outcome.weighted_total
+                        })
+                {
+                    mixture_differs += 1;
+                }
             }
         }
     }
-    assert!(zeros > 0, "the corpus provides a zero fusion price");
-    assert!(
-        positives > 0,
-        "the corpus provides a strictly positive fusion price"
+    assert_eq!(
+        mixture_differs, 3,
+        "the §76 criterion-3 witness: exactly three registered root actions \
+         price Q_a(ν) strictly between differing point-mass responses"
     );
+    assert!(zeros > 0, "the corpus provides a zero fusion price");
+    assert_eq!(
+        positives, 0,
+        "the censused absence: no tested root action prices a strict gap"
+    );
+    // The pinned-fixture hunt: every hidden seat of four roots, every
+    // positive-mass single-hand pin under the carrier mixture — the
+    // fusion price stays zero (and the Theorem 19.1 biconditional
+    // holds) at every fixture.
+    let mut pins = 0usize;
+    for (hand_id, trick_no) in [(8usize, 5usize), (3, 5), (4, 6), (5, 6)] {
+        let (root, position) = root_at(&r, hand_id, trick_no);
+        for slot in 0..root.kernel().hidden().len() {
+            let watched = root.kernel().hidden()[slot].seat;
+            let support = root.kernel().allowed(slot);
+            let capacity = root.kernel().hidden()[slot].capacity;
+            let priors: Vec<SeatTypePrior> = root
+                .kernel()
+                .hidden()
+                .iter()
+                .map(|s| SeatTypePrior {
+                    seat: s.seat,
+                    types: if s.seat == watched {
+                        vec![(Rc::clone(&low), 1), (Rc::clone(&high), 1)]
+                    } else {
+                        vec![(Rc::clone(&low), 1)]
+                    },
+                })
+                .collect();
+            for hand in hands_of(support, capacity) {
+                let base = ModelBelief::from_independent_prior(&root, &position, &priors)
+                    .with_seat_table(watched, vec![(hand, 1)]);
+                if base.weighted_total(&oracle) == 0 {
+                    continue;
+                }
+                pins += 1;
+                let mut stats = MixtureStats::default();
+                let response = base.mixture_response(&oracle, &mut stats);
+                let sep = base.separated_upper(&oracle);
+                assert!(response.outcome.weighted_mass <= sep.weighted_mass);
+                let zero = response.outcome.weighted_mass == sep.weighted_mass;
+                let pointwise_optimal = response
+                    .outcome
+                    .per_profile_mass
+                    .iter()
+                    .zip(sep.per_profile_mass.iter())
+                    .all(|(v, q)| v == q);
+                assert_eq!(zero, pointwise_optimal, "Theorem 19.1 at a pinned fixture");
+                assert!(
+                    zero,
+                    "the censused absence extends over the pinned-fixture hunt \
+                     (hand {hand_id} trick {trick_no} watched {watched:?} pin {hand:?})"
+                );
+            }
+        }
+    }
+    assert_eq!(pins, 302, "the hunt's censused fixture count");
 }
 
-/// Scratch timing probe (never part of the gate set — ignored).
-#[test]
-#[ignore]
-fn scratch_level1_timing() {
-    let r = receipt();
-    let (_, f1) = registered_types();
-    let oracle = SupportOracle;
-    for (hand_id, trick_no) in [(5usize, 6usize), (8, 5)] {
-        let (root, position) = root_at(&r, hand_id, trick_no);
-        let focal = FixedPreference::lowest_first("focal:lowest-first");
-        let model = delta_model(&root, &position, &f1);
-        let start = std::time::Instant::now();
-        let mut stats = MixtureStats::default();
-        let outcome = model.mixture_policy_mass(&oracle, &focal, &mut stats);
-        println!(
-            "h{hand_id}-t{trick_no} delta-F1 fixed walk: {} us, mass {}/{}, stats {:?}",
-            start.elapsed().as_micros(),
-            outcome.weighted_mass,
-            outcome.weighted_total,
-            stats
-        );
+/// The σ1 satisfiability guard (G2/G8 infrastructure): delegates to a
+/// wrapped mind, but first checks by exhaustive enumeration whether ANY
+/// completion of the unseen tiles satisfies the frame's void
+/// constraints — the §4.2 shuffle-and-reject sampler's acceptance
+/// region. An unsatisfiable frame panics with its specimen instead of
+/// spinning forever, turning the σ1 non-termination into a
+/// deterministic, catchable refusal.
+struct GuardedF1 {
+    inner: Rc<dyn SlicePolicy>,
+}
+
+fn arrangements_exist(unseen: u32, others: &[(usize, usize, u32)]) -> bool {
+    // others: (seat, size, void-mask); assign lexicographically.
+    fn assign(unseen: u32, others: &[(usize, usize, u32)]) -> bool {
+        match others.split_first() {
+            None => unseen == 0,
+            Some((&(_, size, void), rest)) => {
+                let usable: Vec<u32> = (0..28)
+                    .map(|i| 1u32 << i)
+                    .filter(|b| unseen & b != 0 && void & b == 0)
+                    .collect();
+                if usable.len() < size {
+                    return false;
+                }
+                fn combos(
+                    usable: &[u32],
+                    size: usize,
+                    acc: u32,
+                    unseen: u32,
+                    rest: &[(usize, usize, u32)],
+                ) -> bool {
+                    if size == 0 {
+                        return assign(unseen & !acc, rest);
+                    }
+                    for (i, b) in usable.iter().enumerate() {
+                        if combos(&usable[i + 1..], size - 1, acc | b, unseen, rest) {
+                            return true;
+                        }
+                    }
+                    false
+                }
+                combos(&usable, size, 0, unseen, rest)
+            }
+        }
+    }
+    assign(unseen, others)
+}
+
+impl SlicePolicy for GuardedF1 {
+    fn id(&self) -> &str {
+        self.inner.id()
+    }
+
+    fn choose(
+        &self,
+        decl: walt::rules::Decl,
+        hand: DominoSet,
+        legal: DominoSet,
+        record: &PublicRecord<'_>,
+    ) -> Domino {
+        if legal.len() > 1 {
+            let frame = walt::solver::policy::continuation_frame(decl, record.root, record.history);
+            let seat = frame.seat;
+            let hand_mask = walt::solver::mask_of(hand);
+            let unseen = walt::solver::FULL_MASK & !frame.key.played & !hand_mask;
+            let sizes = frame.sizes();
+            let others: Vec<(usize, usize, u32)> = (0..4)
+                .filter(|s| *s != seat.index())
+                .map(|s| (s, sizes[s], frame.voids[s]))
+                .collect();
+            assert!(
+                arrangements_exist(unseen, &others),
+                "UNSATISFIABLE frame for σ1: seat {seat:?} hand {hand:?} \
+                 history {:?} voids {:?} sizes {sizes:?}",
+                record.history,
+                frame.voids
+            );
+        }
+        self.inner.choose(decl, hand, legal, record)
     }
 }
 
@@ -1224,21 +1468,20 @@ fn behavior_type_identity_tracks_every_coordinate() {
         BehaviorType::from_field(level1_spec(), PersistenceScope::PerHand).id(),
         "the two registered rungs are distinct identities"
     );
-    let mind: Arc<dyn SlicePolicy> =
-        Arc::new(FixedPreference::lowest_first("mind:lowest-first"));
+    let mind: Rc<dyn SlicePolicy> = Rc::new(FixedPreference::lowest_first("mind:lowest-first"));
     let declared_a = BehaviorType::declared(
         "carrier:lowest-first-v1",
         "none",
         TieRule::LowestTileIndex,
         PersistenceScope::PerHand,
-        Arc::clone(&mind),
+        Rc::clone(&mind),
     );
     let declared_b = BehaviorType::declared(
         "carrier:lowest-first-v1",
         "none",
         TieRule::LowestTileIndex,
         PersistenceScope::PerHand,
-        Arc::clone(&mind),
+        Rc::clone(&mind),
     );
     assert_eq!(declared_a.id(), declared_b.id());
     assert_ne!(
@@ -1248,7 +1491,7 @@ fn behavior_type_identity_tracks_every_coordinate() {
             "none",
             TieRule::FirstInPreference,
             PersistenceScope::PerHand,
-            Arc::clone(&mind),
+            Rc::clone(&mind),
         )
         .id(),
         "a tie-rule change is a new identity"
@@ -1260,7 +1503,7 @@ fn behavior_type_identity_tracks_every_coordinate() {
             "field:other",
             TieRule::LowestTileIndex,
             PersistenceScope::PerHand,
-            Arc::clone(&mind),
+            Rc::clone(&mind),
         )
         .id(),
         "a parent-field change is a new identity"
@@ -1272,9 +1515,176 @@ fn behavior_type_identity_tracks_every_coordinate() {
             "none",
             TieRule::LowestTileIndex,
             PersistenceScope::PerHand,
-            Arc::clone(&mind),
+            Rc::clone(&mind),
         )
         .id(),
         "a field-registered rung and a declared carrier never alias"
     );
+}
+
+/// The tile whose debug rendering is `s` (e.g. "4-2") — fixture pinning
+/// by the human-readable name.
+fn tile(s: &str) -> Domino {
+    DominoSet::FULL
+        .iter()
+        .find(|d| format!("{d:?}") == s)
+        .expect("a named tile exists")
+}
+
+/// Gate 8 — the σ1 positive-support boundary (the MB0 discovery, pinned
+/// mechanically). The σ1 mind materializes its belief by the §4.2
+/// shuffle-and-reject sampler, whose acceptance region is EMPTY exactly
+/// at zero-joint-mass information states; the shared conditioning route
+/// classifies the acting seat's raw support, which contains such states
+/// at depth. Four sub-gates:
+///
+/// (a) THE SPECIMEN: at h5-t6 after post-root history [4-1, 4-3, 1-1],
+///     the seat to move can hold {4-2, 4-4} consistently with its own
+///     record — a lawful root hand — yet the completion frame is
+///     EXHAUSTIVELY unsatisfiable: no arrangement of the unseen tiles
+///     completes the other seats around their void structure. A σ1
+///     read at this state never terminates.
+/// (b) ZERO MASS, independently: no world of the root fiber realizes
+///     that hand together with the observed plays being lawful — the
+///     specimen state carries exactly zero joint mass, so its
+///     classification is irrelevant to every exact quantity.
+/// (c) THE WALL IS REAL in the pre-existing machinery: the untightened
+///     fixed-policy recursion (`viewer_success_mass`, no model belief
+///     involved) under the raw guarded F₁ field refuses on h5-t6.
+/// (d) THE TIGHTENING IS THE LAWFUL DODGE: the positive-support
+///     tightened δ_{F₁} walks complete on h5-t6 and h4-t6, and their
+///     fixed-policy and response masses equal the independent (ω,θ)
+///     pair enumeration exactly.
+#[test]
+fn sigma1_positive_support_boundary() {
+    let r = receipt();
+    let oracle = SupportOracle;
+    let (_, f1) = registered_types();
+    let focal = FixedPreference::lowest_first("focal:lowest-first");
+    // (a) The pinned specimen frame is exhaustively unsatisfiable.
+    let (root, position) = root_at(&r, 5, 6);
+    let history = [tile("4-1"), tile("4-3"), tile("1-1")];
+    let mut exec = Pub::start(&position);
+    for t in history {
+        exec.play(&position, t);
+    }
+    let seat = exec.seat();
+    assert_ne!(seat, root.kernel().viewer(), "the specimen seat is hidden");
+    let hand: DominoSet = [tile("4-2"), tile("4-4")].into_iter().collect();
+    let slot = root
+        .kernel()
+        .hidden()
+        .iter()
+        .position(|h| h.seat == seat)
+        .expect("a hidden seat has a slot");
+    assert!(
+        hand.is_subset_of(root.kernel().allowed(slot)),
+        "the specimen hand is a lawful root hand for its seat"
+    );
+    let record = exec.record(&position);
+    let frame =
+        walt::solver::policy::continuation_frame(position.decl, record.root, record.history);
+    assert_eq!(frame.seat, seat);
+    let unseen = walt::solver::FULL_MASK & !frame.key.played & !walt::solver::mask_of(hand);
+    let sizes = frame.sizes();
+    let others: Vec<(usize, usize, u32)> = (0..4)
+        .filter(|s| *s != seat.index())
+        .map(|s| (s, sizes[s], frame.voids[s]))
+        .collect();
+    assert!(
+        !arrangements_exist(unseen, &others),
+        "the specimen frame is unsatisfiable — the §4.2 acceptance region is empty"
+    );
+    // (b) Zero joint mass by direct fiber enumeration: no world gives
+    // the seat that hand with every observed play lawful in it.
+    let consistent = root
+        .worlds()
+        .filter(|w| {
+            if w.hand(seat) != hand {
+                return false;
+            }
+            let mut replay = Pub::start(&position);
+            for t in history {
+                let actor = replay.seat();
+                if actor != root.kernel().viewer() {
+                    let remaining = w.hand(actor).difference(replay.played_by[actor.index()]);
+                    if !remaining.contains(t) {
+                        return false;
+                    }
+                    let led = replay.plays.first().map(|d| position.decl.led_context(*d));
+                    if !legal_plays(position.decl, remaining, led).contains(t) {
+                        return false;
+                    }
+                }
+                replay.play(&position, t);
+            }
+            true
+        })
+        .count();
+    assert_eq!(
+        consistent, 0,
+        "the specimen state carries exactly zero joint mass"
+    );
+    // (c) The pre-existing machinery hits the wall: the untightened
+    // fixed-policy recursion under the raw guarded F₁ field refuses.
+    let guarded = GuardedF1 {
+        inner: Rc::clone(f1.mind()),
+    };
+    let refused = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        let belief = FactorBelief::uniform_root(&root, &position, &guarded);
+        let mut stats = RecursionStats::default();
+        viewer_success_mass(&oracle, &belief, &focal, &guarded, &mut stats)
+    }));
+    assert!(
+        refused.is_err(),
+        "the untightened σ0-era recursion cannot run under σ1 at h5-t6"
+    );
+    // (d) The tightened δ_{F₁} walks complete and match the (ω,θ)
+    // enumeration exactly, fixed and respond.
+    for (hand_id, trick_no) in [(5usize, 6usize), (4, 6)] {
+        let (root, position) = root_at(&r, hand_id, trick_no);
+        let viewer = root.kernel().viewer();
+        let viewer_hand = root.kernel().viewer_hand();
+        let total = viewer_hand.len()
+            + root
+                .kernel()
+                .hidden()
+                .iter()
+                .map(|h| h.capacity)
+                .sum::<usize>();
+        let model = delta_model(&root, &position, &f1);
+        let pairs = all_pairs(&model, &root);
+        let mut stats = MixtureStats::default();
+        let fixed = model.mixture_policy_mass(&oracle, &focal, &mut stats);
+        let enum_fixed = enum_walk(
+            &model,
+            &position,
+            viewer,
+            viewer_hand,
+            total,
+            &pairs,
+            &Pub::start(&position),
+            Some(&focal),
+        );
+        assert_eq!(
+            fixed.weighted_mass, enum_fixed,
+            "tightened δ-F1 fixed walk equals the enumeration (hand {hand_id})"
+        );
+        let mut rstats = MixtureStats::default();
+        let response = model.mixture_response(&oracle, &mut rstats);
+        let enum_best = enum_walk(
+            &model,
+            &position,
+            viewer,
+            viewer_hand,
+            total,
+            &pairs,
+            &Pub::start(&position),
+            None,
+        );
+        assert_eq!(
+            response.outcome.weighted_mass, enum_best,
+            "tightened δ-F1 response equals the enumeration (hand {hand_id})"
+        );
+    }
 }

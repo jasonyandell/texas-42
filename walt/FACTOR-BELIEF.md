@@ -6,7 +6,9 @@ follow-on parent `walt/math/anytime_proof_state_score_v0.1.md`,
 rulings APS-A1..A9 — THE PARENT PROGRAM IS COMPLETE; Phase 8's
 paragraph below is the capstone); DOOM CENSUS LANDED (2026-09-01, the
 first post-program structural producer — the §70 answer, paragraph
-after the capstone). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
+after the capstone); SLICE MB0 LANDED (2026-09-01, the model-belief
+exact vertical slice — the §76 go/no-go evidence, paragraph after the
+doom census). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
 register: `solver/refine.rs` as merged at `25b40d9` takes no new
 fields, variants, or work items, ever; its four gates never weaken; the
 coming proof-state core must reproduce it wherever scopes overlap and
@@ -347,6 +349,87 @@ also lives, and where every played hand eventually arrives); the
 opening root priced the wall honestly — each non-forced σ0 read is a
 modeled-mind mini-solve, the field-classification bottleneck measured
 from the doom side.
+
+**SLICE MB0 LANDED** (2026-09-01, the model-belief exact vertical
+slice — the §74 assignment of
+`walt/math/model_belief_base_player_v0.1.md` under rulings MB-A1..A8
+and brief `walt/briefs/BRIEF-MB0.md`): the field model as a persistent
+hidden coordinate over the existing counted-belief machinery, no live-
+player change. `solver/model_belief.rs`: `BehaviorType`/`BehaviorTypeId`
+(the §51 content address — construction, parent field identity, tie
+rule, persistence scope, deterministic no-tape marker) registering
+F₀ = σ0 = `Level0 { n0: 2 }` and F₁ = `Level1 { n_outer: 2, n0: 2 }`
+per the intake's corrected rung table; `ModelBelief` = the exact
+Ξ = Ω×Θ profile expansion (Theorem 7.1 made a struct) — one
+`FactorBelief` per type profile driven by a seat-dispatching
+`ProfileField`, integer prior weights cleared of the denominator
+(ν = (1/2,1/2)³ is eight profiles over denominator 8), the §52
+hand-type factor a DERIVED VIEW under Theorem 12.1's φ-map agreement
+law, persistence structural (types fixed per lineage, no resampling
+path exists — MB-I2); hidden branching merged by PUBLIC ACTION before
+every max (§13/§32, MB-I4/MB-I6 asserted at the merged level), the
+focal policy consulted exactly ONCE per information state for the
+whole bundle (MB-I1: a type-keyed policy is unconstructible, witnessed
+by a counting instrument); `mixture_response` = the exact Q(ν) with an
+extracted history-keyed argmax `MixturePolicy`; `separated_upper` =
+Theorem 18.1's U^sep with the §19 fusion price per root action. Eight
+gates (`walt/walt/tests/solver_model_belief.rs`): (ω,θ) enumeration
+parity on three roots (masses, branch partitions, posteriors, response
+vectors, Q(ν), and argmax re-pricing through the raw pair walk);
+point-mass parity BOTH ways (δ_F₀ value AND selected action against
+the raw σ0 authority on all six enumerable roots; δ_F₁ on the raw
+Level1 authority's entire terminating domain, its refusal complement
+pinned exactly); Theorem 12.1 closure per profile plus the §9 ½-vs-¼
+persistence specimen (SYNTHETIC declared carriers on a real t5 root
+with a pinned-hand table, searched deterministically: first action
+halves the mass, second moves NONE where the carriers provably
+disagree); merge-before-max; exact ν-linearity on a swept rational
+grid including non-product profile priors; the Thm 18.1/19.1
+biconditional at every tested action; §51 identity under every
+coordinate change; and the σ1 boundary gate. TWO DISCOVERIES the
+gates pin: (1) THE σ1 POSITIVE-SUPPORT BOUNDARY — the Level1 mind's
+§4.2 shuffle-and-reject sampler has an EMPTY acceptance region exactly
+at zero-joint-mass information states, and the shared conditioning
+route classifies the acting seat's raw support, which contains such
+states at depth (harmless dead weight under σ0, NON-TERMINATION under
+σ1: the untightened recursion cannot run on ANY undecided tested root
+— live specimen h5-t6, history [4-1, 4-3, 1-1], hand {4-2 4-4},
+exhaustively unsatisfiable AND zero-mass by fiber enumeration); the
+module's positive-support tightening (narrow the acting factor to
+`actor_completion_weights`' nonzero support before every conditioning
+— pure counting, exactness-neutral by the zero-entry law) is the
+ENABLING construction: the δ-F₁ walk goes from non-terminating to
+12 ms at h5-t6 with exact enumeration parity. The sampler itself
+(`solver/mod.rs`, live-player code, off limits per the brief) is
+REPORTED, never repaired — the unbounded rejection loop is a
+pre-existing hazard that MB0 is simply the first caller to reach, and
+it plausibly gates MB1's larger roots. (2) THE FUSION PRICE IS
+ZERO EVERYWHERE ON THIS CORPUS — across the registered F₀/F₁ mixture
+AND the synthetic carrier mixture on every root action of all six
+roots, plus a 302-fixture hunt (every root × hidden seat ×
+positive-mass pinned hand), Q(ν) = U^sep exactly and one common policy
+is always pointwise optimal (the Theorem 19.1 biconditional green at
+every fixture): the type-revealed upper is TIGHT here — the opposite
+direction from §73's vacuous-upper falsifier — and a strict specimen
+is expected to need earlier roots with more pre-revelation focal
+decisions (MB1's first structural target). Probe `modelbeliefreport`
+(`probes/factor_belief/modelbelief_run1.txt`, 5.3 s total): the §75
+report on six roots × both mixtures — REAL type evidence moves on the
+registered mixture (h3-t5's third observation prices a seat's marginal
+at F₀ 51/75 against F₁ 24/75; h4-t6 reaches 24/40 vs 16/40) while the
+carrier mixture concentrates to full identification in one action;
+aggregation census up to 186 typed rows against 27 merged public
+branches on one line; the §76 criteria: 1, 2, 3, 5 YES (parity,
+closure, a nontrivial mixture response on exactly 3 registered root
+actions — gate-pinned in G6, never probe-only — and the type dimension
+small), criterion 4 honestly NO (the upper is never strict on this
+corpus). Deviations from the brief, recorded: δ_F₁ parity "on
+every tested root" narrowed to the raw authority's terminating domain
+(the raw authority provably cannot price the rest — G8's enumeration
+anchor covers the δ_F₁ endpoint there), and `separated_upper` computes
+q(θ) by the single-profile respond walk rather than
+`response_success_mass` (same wall; anchored to it on its terminating
+domain by G2). EXPLORATORY tier; the go/no-go reading is Jason's.
 
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint

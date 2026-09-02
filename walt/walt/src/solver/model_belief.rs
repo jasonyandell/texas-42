@@ -28,11 +28,12 @@
 //! nothing here forks the contraction, conditioning, or recursion
 //! machinery. The §52 hand-type factor `φ_s(H, θ_s)` is the DERIVED VIEW
 //! [`ModelBelief::hand_type_factor`]: profiles agreeing on seat `s`'s
-//! type must carry byte-equal seat-`s` hand factors — that identity IS
-//! Theorem 12.1's seat-locality, asserted on every derivation, and it
-//! holds because conditioning multiplies only the acting seat's factor
-//! by a kernel likelihood that reads only (θ_s, the seat's hand, the
-//! public record).
+//! type must agree as φ-maps wherever both store a hand — Theorem
+//! 12.1's seat-locality, asserted on every derivation (see the
+//! positive-support tightening below for why full byte equality is not
+//! the right law); it holds because conditioning multiplies only the
+//! acting seat's factor by a kernel likelihood that reads only (θ_s,
+//! the seat's hand, the public record).
 //!
 //! PERSISTENCE IS STRUCTURAL (§9, MB-I2, MB-O12). A profile's types are
 //! fixed at construction and never change along any lineage —
@@ -64,26 +65,53 @@
 //! grid); the mixture response `Q(ν)` maximizes `Σ_θ w·M_θ` at each
 //! focal node (lawful because a focal play changes no factor, so every
 //! child shares each `Z_θ` — the §48 argument, lifted to the weighted
-//! bundle); the separated upper is `Σ_θ w·q_θ` with `q_θ` the existing
-//! [`response_success_mass`] per profile. `Q(ν) ≤ U^sep` is Theorem
-//! 18.1; the difference is the model-fusion price (§19).
+//! bundle); the separated upper is `Σ_θ w·q_θ` with `q_θ` the
+//! single-profile respond walk — the §8 point-mass demotion, anchored
+//! by the gates to the raw fixed-field authority on its terminating
+//! domain. `Q(ν) ≤ U^sep` is Theorem 18.1; the difference is the
+//! model-fusion price (§19).
 //!
 //! Deterministic types only in this slice: a stochastic type needs an
 //! explicit tape coordinate (§6's `Z`), which is structurally absent
 //! here — [`BehaviorType`] holds no tape and its identity says so.
+//!
+//! THE POSITIVE-SUPPORT TIGHTENING (an MB0 discovery, mechanical in the
+//! gates). The σ1 mind materializes its belief by the §4.2
+//! shuffle-and-reject sampler (`solver::sample_belief`), whose
+//! acceptance region is empty exactly at information states of zero
+//! joint completion mass — a candidate hand that is record-consistent
+//! for its own seat but jointly uncompletable against the other seats'
+//! void structure. The shared conditioning route classifies the acting
+//! seat's RAW support, which can contain such zero-mass entries (they
+//! are harmless dead weight under σ0; under σ1 their classification
+//! never terminates — a live specimen is pinned in the gate file).
+//! This module therefore tightens the acting seat's factor to its
+//! positive joint support ([`ExactCoverOracle::actor_completion_weights`]
+//! — pure counting, no field reads) immediately before every
+//! conditioning. Dropping a zero-completion entry changes NO exact
+//! mass, branch table, posterior, or value (it contributes zero to
+//! every contraction — the same law that lets `FactorWeights` never
+//! store zero-weight entries); it changes only the stored table
+//! representation, so this module's factor tables are DECLARED to be
+//! φ restricted to the positive support at each conditioning time.
+//! Consequence for the derived §52 view: two profiles sharing θ_s may
+//! trim different zero-mass entries (positivity is a joint property),
+//! so [`ModelBelief::hand_type_factor`] asserts Theorem 12.1's
+//! mechanical residue — same-type factors agree as φ-maps wherever
+//! both store a hand — and returns the union table; every asymmetric
+//! entry was dropped by construction only when its completion weight
+//! was exactly zero in the trimming profile.
 
 use std::collections::BTreeMap;
 use std::fmt;
-use std::sync::Arc;
+use std::rc::Rc;
 
 use crate::kernel::HIDDEN_SEATS;
 use crate::rules::{legal_plays, Decl, Domino, DominoSet, Seat, Trick};
 use crate::solver::adaptive::{
     decided_success, CanonicalRoot, PublicRecord, RootPosition, SlicePolicy,
 };
-use crate::solver::factor_belief::{
-    response_success_mass, ExactCoverOracle, FactorBelief, HandFactor, ResponseStats,
-};
+use crate::solver::factor_belief::{ExactCoverOracle, FactorBelief};
 use crate::solver::field::{FieldModel, FieldSpec};
 use crate::solver::policy::{content_digest, Canon, TieRule};
 
@@ -154,7 +182,7 @@ pub struct BehaviorType {
     parent_field: String,
     tie_rule: TieRule,
     persistence: PersistenceScope,
-    mind: Arc<dyn SlicePolicy>,
+    mind: Rc<dyn SlicePolicy>,
 }
 
 impl BehaviorType {
@@ -206,7 +234,7 @@ impl BehaviorType {
             parent_field,
             tie_rule,
             persistence,
-            mind: Arc::new(model),
+            mind: Rc::new(model),
         }
     }
 
@@ -220,7 +248,7 @@ impl BehaviorType {
         parent_field: &str,
         tie_rule: TieRule,
         persistence: PersistenceScope,
-        mind: Arc<dyn SlicePolicy>,
+        mind: Rc<dyn SlicePolicy>,
     ) -> BehaviorType {
         let id = BehaviorTypeId(content_digest(&BehaviorType::canonical_bytes(
             construction,
@@ -260,7 +288,7 @@ impl BehaviorType {
 
     /// The materialized mind, for point-mass parity comparisons against
     /// the raw field authority.
-    pub fn mind(&self) -> &Arc<dyn SlicePolicy> {
+    pub fn mind(&self) -> &Rc<dyn SlicePolicy> {
         &self.mind
     }
 }
@@ -278,7 +306,7 @@ impl BehaviorType {
 /// it. The viewer has no assignment — a focal consultation panics.
 pub struct ProfileField {
     label: String,
-    assignment: [Option<Arc<BehaviorType>>; Seat::COUNT],
+    assignment: [Option<Rc<BehaviorType>>; Seat::COUNT],
 }
 
 impl SlicePolicy for ProfileField {
@@ -311,7 +339,7 @@ impl SlicePolicy for ProfileField {
 /// entries of weight 1.
 pub struct SeatTypePrior {
     pub seat: Seat,
-    pub types: Vec<(Arc<BehaviorType>, u128)>,
+    pub types: Vec<(Rc<BehaviorType>, u128)>,
 }
 
 /// One live profile θ of a [`ModelBelief`]: the per-hidden-slot types
@@ -320,15 +348,15 @@ pub struct SeatTypePrior {
 /// conditional on θ. Constructed only by [`ModelBelief`]; readable
 /// everywhere.
 pub struct ProfileEntry {
-    types: Vec<Arc<BehaviorType>>,
+    types: Vec<Rc<BehaviorType>>,
     weight: u128,
-    field: Arc<ProfileField>,
+    field: Rc<ProfileField>,
     belief: FactorBelief,
 }
 
 impl ProfileEntry {
     /// The profile's types in kernel hidden-slot order.
-    pub fn types(&self) -> &[Arc<BehaviorType>] {
+    pub fn types(&self) -> &[Rc<BehaviorType>] {
         &self.types
     }
 
@@ -340,7 +368,7 @@ impl ProfileEntry {
     }
 
     /// The profile's dispatched field.
-    pub fn field(&self) -> &Arc<ProfileField> {
+    pub fn field(&self) -> &Rc<ProfileField> {
         &self.field
     }
 
@@ -357,15 +385,17 @@ impl ProfileEntry {
 }
 
 /// The §52 hand-type factor `φ_s(H, θ_s)` as a derived view: one hidden
-/// seat's per-type hand factors, extracted from the profile expansion
-/// under the product-form assertion (profiles agreeing on the seat's
-/// type carry equal seat factors — Theorem 12.1's seat-locality, checked
-/// on every derivation). Types absent from the live support are absent
-/// here (their posterior mass is zero).
+/// seat's per-type hand tables, extracted from the profile expansion
+/// under Theorem 12.1's mechanical residue — profiles agreeing on the
+/// seat's type must agree as φ-maps wherever both store a hand (checked
+/// on every derivation); each slice is the UNION table over its
+/// profiles, since positive-support tightening (module doc) may trim
+/// different zero-mass entries in different profiles. Types absent from
+/// the live support are absent here (their posterior mass is zero).
 pub struct HandTypeFactor {
     pub seat: Seat,
-    /// (type id, the type's evolved hand factor), in first-live order.
-    pub slices: Vec<(BehaviorTypeId, HandFactor)>,
+    /// (type id, the type's evolved union hand table), first-live order.
+    pub slices: Vec<(BehaviorTypeId, Vec<(DominoSet, u128)>)>,
 }
 
 /// The augmented belief over Ξ = Ω×Θ (§6), stored as its exact profile
@@ -387,7 +417,7 @@ impl ModelBelief {
     pub fn from_profile_prior(
         root: &CanonicalRoot,
         position: &RootPosition,
-        profiles: Vec<(Vec<Arc<BehaviorType>>, u128)>,
+        profiles: Vec<(Vec<Rc<BehaviorType>>, u128)>,
     ) -> ModelBelief {
         assert!(!profiles.is_empty(), "a model belief holds a profile");
         let hidden = root.kernel().hidden();
@@ -411,7 +441,7 @@ impl ModelBelief {
                 }),
                 "prior profiles are distinct"
             );
-            let mut assignment: [Option<Arc<BehaviorType>>; Seat::COUNT] =
+            let mut assignment: [Option<Rc<BehaviorType>>; Seat::COUNT] =
                 core::array::from_fn(|_| None);
             for (slot, behavior) in types.iter().enumerate() {
                 assert_eq!(
@@ -419,7 +449,7 @@ impl ModelBelief {
                     PersistenceScope::PerHand,
                     "this slice's machinery implements the hand-persistent scope"
                 );
-                assignment[hidden[slot].seat.index()] = Some(Arc::clone(behavior));
+                assignment[hidden[slot].seat.index()] = Some(Rc::clone(behavior));
             }
             let label = format!(
                 "profile:{}",
@@ -429,7 +459,7 @@ impl ModelBelief {
                     .collect::<Vec<String>>()
                     .join(",")
             );
-            let field = Arc::new(ProfileField { label, assignment });
+            let field = Rc::new(ProfileField { label, assignment });
             let belief = FactorBelief::uniform_root(root, position, field.as_ref());
             denominator = denominator
                 .checked_add(weight)
@@ -475,13 +505,13 @@ impl ModelBelief {
             assert!(!prior.types.is_empty(), "a seat prior holds a type");
         }
         // The cartesian product, slot-0 outermost, deterministic order.
-        let mut profiles: Vec<(Vec<Arc<BehaviorType>>, u128)> = vec![(Vec::new(), 1u128)];
+        let mut profiles: Vec<(Vec<Rc<BehaviorType>>, u128)> = vec![(Vec::new(), 1u128)];
         for prior in &per_slot {
             let mut next = Vec::new();
             for (types, weight) in &profiles {
                 for (behavior, w) in &prior.types {
                     let mut extended = types.clone();
-                    extended.push(Arc::clone(behavior));
+                    extended.push(Rc::clone(behavior));
                     next.push((
                         extended,
                         weight.checked_mul(*w).expect("an exact weight fits u128"),
@@ -544,7 +574,7 @@ impl ModelBelief {
                 .map(|entry| ProfileEntry {
                     types: entry.types.clone(),
                     weight: entry.weight,
-                    field: Arc::clone(&entry.field),
+                    field: Rc::clone(&entry.field),
                     belief: entry.belief.focal_play(action),
                 })
                 .collect(),
@@ -613,7 +643,7 @@ impl ModelBelief {
                 .map(|entry| ProfileEntry {
                     types: entry.types.clone(),
                     weight: entry.weight,
-                    field: Arc::clone(&entry.field),
+                    field: Rc::clone(&entry.field),
                     belief: entry.belief.with_factor_table(seat, table.clone()),
                 })
                 .collect(),
@@ -632,17 +662,21 @@ impl ModelBelief {
         let entries: Vec<ProfileEntry> = self
             .entries
             .iter()
-            .filter(|entry| {
-                oracle
-                    .branch_masses(&entry.belief, entry.field.as_ref())
+            .filter_map(|entry| {
+                let tight = tighten_acting(oracle, &entry.belief);
+                let supported = oracle
+                    .branch_masses(&tight, entry.field.as_ref())
                     .iter()
-                    .any(|(tile, _)| *tile == action)
-            })
-            .map(|entry| ProfileEntry {
-                types: entry.types.clone(),
-                weight: entry.weight,
-                field: Arc::clone(&entry.field),
-                belief: oracle.condition(&entry.belief, action, entry.field.as_ref()),
+                    .any(|(tile, _)| *tile == action);
+                if !supported {
+                    return None;
+                }
+                Some(ProfileEntry {
+                    types: entry.types.clone(),
+                    weight: entry.weight,
+                    field: Rc::clone(&entry.field),
+                    belief: oracle.condition(&tight, action, entry.field.as_ref()),
+                })
             })
             .collect();
         assert!(
@@ -661,7 +695,12 @@ impl ModelBelief {
     pub fn posterior_profile_masses(&self, oracle: &dyn ExactCoverOracle) -> Vec<(String, u128)> {
         self.entries
             .iter()
-            .map(|entry| (entry.label(), weighted(entry.weight, oracle.mass(&entry.belief))))
+            .map(|entry| {
+                (
+                    entry.label(),
+                    weighted(entry.weight, oracle.mass(&entry.belief)),
+                )
+            })
             .collect()
     }
 
@@ -691,7 +730,7 @@ impl ModelBelief {
     }
 
     /// The §52 hand-type factor of one hidden seat, derived from the
-    /// profile expansion under the product-form assertion (see
+    /// profile expansion under Theorem 12.1's mechanical residue (see
     /// [`HandTypeFactor`]).
     pub fn hand_type_factor(&self, seat: Seat) -> HandTypeFactor {
         let hidden = self.entries[0].belief.kernel().hidden();
@@ -699,17 +738,24 @@ impl ModelBelief {
             .iter()
             .position(|h| h.seat == seat)
             .expect("a hidden seat has a slot");
-        let mut slices: Vec<(BehaviorTypeId, HandFactor)> = Vec::new();
+        let mut slices: Vec<(BehaviorTypeId, Vec<(DominoSet, u128)>)> = Vec::new();
         for entry in &self.entries {
             let id = entry.types[slot].id();
-            let factor = entry.belief.factors()[slot].clone();
-            match slices.iter().find(|(t, _)| *t == id) {
-                Some((_, existing)) => assert_eq!(
-                    *existing, factor,
-                    "profiles agreeing on a seat's type carry equal seat factors \
-                     (Theorem 12.1's seat-locality, mechanical)"
-                ),
-                None => slices.push((id, factor)),
+            let support = entry.belief.factors()[slot].support();
+            match slices.iter_mut().find(|(t, _)| *t == id) {
+                Some((_, union)) => {
+                    for (hand, weight) in support {
+                        match union.iter().find(|(h, _)| *h == hand) {
+                            Some((_, existing)) => assert_eq!(
+                                *existing, weight,
+                                "profiles agreeing on a seat's type agree as φ-maps \
+                                 wherever both store a hand (Theorem 12.1, mechanical)"
+                            ),
+                            None => union.push((hand, weight)),
+                        }
+                    }
+                }
+                None => slices.push((id, support)),
             }
         }
         HandTypeFactor { seat, slices }
@@ -719,6 +765,36 @@ impl ModelBelief {
 /// `w·m` with checked arithmetic.
 fn weighted(weight: u128, mass: u128) -> u128 {
     weight.checked_mul(mass).expect("an exact mass fits u128")
+}
+
+/// The positive-support tightening (module doc): the acting seat's
+/// factor narrowed to entries with nonzero exact completion weight,
+/// derived by pure counting before any classification touches the
+/// support. Exactness-neutral by the zero-entry law; load-bearing for
+/// σ1 termination. When nothing is dropped the belief is returned
+/// unchanged (representation stability in the common case).
+fn tighten_acting(oracle: &dyn ExactCoverOracle, belief: &FactorBelief) -> FactorBelief {
+    let seat = belief.seat_to_move();
+    let positive: Vec<DominoSet> = oracle
+        .actor_completion_weights(belief, seat)
+        .into_iter()
+        .map(|(hand, _)| hand)
+        .collect();
+    let slot = belief
+        .factors()
+        .iter()
+        .position(|f| f.seat() == seat)
+        .expect("a hidden seat has a factor");
+    let support = belief.factors()[slot].support();
+    let table: Vec<(DominoSet, u128)> = support
+        .iter()
+        .filter(|(hand, _)| positive.contains(hand))
+        .cloned()
+        .collect();
+    if table.len() == support.len() {
+        return belief.clone();
+    }
+    belief.with_factor_table(seat, table)
 }
 
 // ---------------------------------------------------------------------------
@@ -985,7 +1061,13 @@ fn mixture_walk(
                 // chosen by the weighted total — merged before max.
                 // Ascending tile order with strictly-greater replacement
                 // realizes the declared lowest-tile-index tie rule.
-                let mut best: Option<(u128, Vec<u128>, BTreeMap<Vec<u8>, Domino>, Domino)> = None;
+                struct Candidate {
+                    total: u128,
+                    masses: Vec<u128>,
+                    choices: BTreeMap<Vec<u8>, Domino>,
+                    tile: Domino,
+                }
+                let mut best: Option<Candidate> = None;
                 for tile in legal.iter() {
                     stats.focal_actions += 1;
                     let mut sub_choices = BTreeMap::new();
@@ -1011,17 +1093,21 @@ fn mixture_walk(
                         });
                     let better = match &best {
                         None => true,
-                        Some((incumbent, _, _, _)) => total > *incumbent,
+                        Some(incumbent) => total > incumbent.total,
                     };
                     if better {
-                        best = Some((total, masses, sub_choices, tile));
+                        best = Some(Candidate {
+                            total,
+                            masses,
+                            choices: sub_choices,
+                            tile,
+                        });
                     }
                 }
-                let (_, masses, sub_choices, tile) =
-                    best.expect("a legal set holds an action");
-                choices.extend(sub_choices);
-                choices.insert(history_key(&walk.history), tile);
-                masses
+                let winner = best.expect("a legal set holds an action");
+                choices.extend(winner.choices);
+                choices.insert(history_key(&walk.history), winner.tile);
+                winner.masses
             }
         }
     } else {
@@ -1030,6 +1116,18 @@ fn mixture_walk(
         // optimizer). Per-profile conservation is asserted inside every
         // `branch_masses` call.
         stats.hidden_nodes += 1;
+        // Tighten every profile to its positive support before any
+        // classification (module doc; exactness-neutral).
+        let entries: Vec<ProfileEntry> = entries
+            .iter()
+            .map(|entry| ProfileEntry {
+                types: entry.types.clone(),
+                weight: entry.weight,
+                field: Rc::clone(&entry.field),
+                belief: tighten_acting(oracle, &entry.belief),
+            })
+            .collect();
+        let entries = &entries[..];
         let tables: Vec<Vec<(Domino, u128)>> = entries
             .iter()
             .map(|entry| oracle.branch_masses(&entry.belief, entry.field.as_ref()))
@@ -1053,7 +1151,7 @@ fn mixture_walk(
                     sub_entries.push(ProfileEntry {
                         types: entry.types.clone(),
                         weight: entry.weight,
-                        field: Arc::clone(&entry.field),
+                        field: Rc::clone(&entry.field),
                         belief: oracle.condition(&entry.belief, tile, entry.field.as_ref()),
                     });
                     sub_index.push(i);
@@ -1102,7 +1200,7 @@ fn descend_focal(
         .map(|entry| ProfileEntry {
             types: entry.types.clone(),
             weight: entry.weight,
-            field: Arc::clone(&entry.field),
+            field: Rc::clone(&entry.field),
             belief: entry.belief.focal_play(tile),
         })
         .collect();
@@ -1146,22 +1244,22 @@ impl ModelBelief {
             .iter()
             .map(|entry| oracle.mass(&entry.belief))
             .collect();
-        let weighted_mass = self
-            .entries
-            .iter()
-            .zip(masses.iter())
-            .fold(0u128, |acc, (entry, m)| {
-                acc.checked_add(weighted(entry.weight, *m))
-                    .expect("an exact mass fits u128")
-            });
-        let weighted_total = self
-            .entries
-            .iter()
-            .zip(per_profile_total.iter())
-            .fold(0u128, |acc, (entry, z)| {
-                acc.checked_add(weighted(entry.weight, *z))
-                    .expect("an exact mass fits u128")
-            });
+        let weighted_mass =
+            self.entries
+                .iter()
+                .zip(masses.iter())
+                .fold(0u128, |acc, (entry, m)| {
+                    acc.checked_add(weighted(entry.weight, *m))
+                        .expect("an exact mass fits u128")
+                });
+        let weighted_total =
+            self.entries
+                .iter()
+                .zip(per_profile_total.iter())
+                .fold(0u128, |acc, (entry, z)| {
+                    acc.checked_add(weighted(entry.weight, *z))
+                        .expect("an exact mass fits u128")
+                });
         MixtureOutcome {
             per_profile_mass: masses,
             per_profile_total,
@@ -1228,20 +1326,43 @@ impl ModelBelief {
     }
 
     /// The type-revealed separated upper `U^sep` (§18): per live
-    /// profile, the existing exact best response `q_θ` against that
-    /// profile alone ([`response_success_mass`] — the point-mass
-    /// authority), weighted by the prior. The relaxation lets the focal
-    /// policy differ per type; Theorem 18.1 makes it an upper on the
-    /// mixture response, and the difference is the model-fusion price
-    /// (§19). Separately typed from every other upper (MB-I8): this
-    /// function's result is only ever a `U^sep`.
+    /// profile, the exact best response `q_θ = Q(δ_θ)` against that
+    /// profile alone — the single-entry respond walk, i.e. the mixture
+    /// response demoted to a point mass (the §8 ladder-demotion made
+    /// operational; the gates anchor it to the raw fixed-field
+    /// authority `response_success_mass` on its terminating domain) —
+    /// weighted by the prior. The relaxation lets the focal policy
+    /// differ per type; Theorem 18.1 makes it an upper on the mixture
+    /// response, and the difference is the model-fusion price (§19).
+    /// Separately typed from every other upper (MB-I8): this function's
+    /// result is only ever a `U^sep`.
     pub fn separated_upper(&self, oracle: &dyn ExactCoverOracle) -> MixtureOutcome {
+        let (position, viewer, viewer_hand, total_plays, walk) = self.walk_frame();
         let masses: Vec<u128> = self
             .entries
             .iter()
             .map(|entry| {
-                let mut stats = ResponseStats::default();
-                response_success_mass(oracle, &entry.belief, entry.field.as_ref(), &mut stats)
+                let single = [ProfileEntry {
+                    types: entry.types.clone(),
+                    weight: 1,
+                    field: Rc::clone(&entry.field),
+                    belief: entry.belief.clone(),
+                }];
+                let mut stats = MixtureStats::default();
+                let mut choices = BTreeMap::new();
+                let m = mixture_walk(
+                    oracle,
+                    &position,
+                    viewer,
+                    viewer_hand,
+                    total_plays,
+                    &single,
+                    &walk,
+                    &FocalMode::Respond,
+                    &mut stats,
+                    &mut choices,
+                );
+                m[0]
             })
             .collect();
         self.outcome_of(oracle, masses)
