@@ -50,6 +50,7 @@ pub mod waking;
 
 use std::collections::hash_map::DefaultHasher;
 use std::collections::HashMap;
+use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
@@ -892,8 +893,158 @@ impl Solver {
     }
 }
 
+/// A declared belief frame whose lawful-completion fiber is EMPTY: no
+/// deal of the unseen pool gives each other seat its declared number of
+/// tiles while respecting that seat's deduced voids. The shuffle-and-reject
+/// sampler's acceptance region is empty there, so it is a refusal, never a
+/// cost — the frame has no answer to sample.
+///
+/// The refusal carries the frame verbatim plus the blocking set that
+/// decides it, so a caller can name exactly which seats' voids collided
+/// with which tiles without re-deriving anything.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct InfeasibleFrame {
+    pub viewer: usize,
+    pub viewer_hand: u32,
+    pub played: u32,
+    pub sizes: [usize; 4],
+    pub voids: [u32; 4],
+    /// The seats the confined tiles must fit into.
+    pub blocking_seats: Vec<usize>,
+    /// Unseen tiles whose only lawful destinations lie in
+    /// `blocking_seats` — every other hidden seat is void in all of them.
+    pub confined: u32,
+    /// The room those seats have, plus the pool this frame never deals.
+    pub room: usize,
+}
+
+impl fmt::Display for InfeasibleFrame {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "unsatisfiable belief frame: viewer S{} hand {:07x} played {:07x} \
+             sizes {:?} voids [{:07x}, {:07x}, {:07x}, {:07x}] — {} unseen tiles \
+             ({:07x}) are confined to seats {:?}, which hold room for {}",
+            self.viewer,
+            self.viewer_hand,
+            self.played,
+            self.sizes,
+            self.voids[0],
+            self.voids[1],
+            self.voids[2],
+            self.voids[3],
+            self.confined.count_ones(),
+            self.confined,
+            self.blocking_seats,
+            self.room,
+        )
+    }
+}
+
+/// Exact feasibility of a declared belief frame, by counting alone.
+///
+/// The sampler deals the unseen pool out to the seats other than `viewer`,
+/// `sizes[s]` tiles apiece, rejecting any deal that hands a seat one of its
+/// deduced voids. That is a degree-constrained bipartite assignment (tiles
+/// to seats), so Hall's condition in its deficiency form decides it
+/// exactly: the frame is feasible iff, for every subset `S` of the other
+/// seats, the unseen tiles that NO seat outside `S` may hold do not
+/// outnumber the room inside `S` — where the room counts `S`'s declared
+/// sizes plus the leftover the sampler's prefix slicing never deals.
+///
+/// Three other seats means eight subsets, so this is a fixed amount of
+/// integer counting with no search — and it is the same acceptance region
+/// the sampler tests one draw at a time, not a conservative approximation
+/// of it (the equivalence against exhaustive exact-partition search is
+/// gated in `tests/solver_sigma1_repair.rs`).
+pub fn belief_frame_feasibility(
+    viewer: usize,
+    viewer_hand: u32,
+    played: u32,
+    sizes: [usize; 4],
+    voids: [u32; 4],
+) -> Result<(), InfeasibleFrame> {
+    let unseen = FULL_MASK & !played & !viewer_hand;
+    let others: Vec<usize> = (0..4).filter(|&s| s != viewer).collect();
+    let need: usize = others.iter().map(|&s| sizes[s]).sum();
+    let pool = unseen.count_ones() as usize;
+    assert!(
+        need <= pool,
+        "a belief frame deals at most the unseen pool: {need} tiles wanted, \
+         {pool} unseen"
+    );
+    let leftover = pool - need;
+    for subset in 0u32..(1u32 << others.len()) {
+        let mut room = leftover;
+        // A tile is confined to `subset` when every seat OUTSIDE it is
+        // void in that tile; the intersection over an empty complement is
+        // all tiles, which is the trivially satisfied subset.
+        let mut confined = unseen;
+        for (slot, &seat) in others.iter().enumerate() {
+            if subset & (1 << slot) == 0 {
+                confined &= voids[seat];
+            } else {
+                room += sizes[seat];
+            }
+        }
+        if confined.count_ones() as usize > room {
+            return Err(InfeasibleFrame {
+                viewer,
+                viewer_hand,
+                played,
+                sizes,
+                voids,
+                blocking_seats: others
+                    .iter()
+                    .enumerate()
+                    .filter(|(slot, _)| subset & (1 << slot) != 0)
+                    .map(|(_, &seat)| seat)
+                    .collect(),
+                confined,
+                room,
+            });
+        }
+    }
+    Ok(())
+}
+
+/// Draw from a belief frame carrying NO deduced voids — the auction and
+/// pre-play frames, where nothing has yet been observed to constrain any
+/// seat.
+///
+/// TOTAL BY CONSTRUCTION, and that is the point of having it. With every
+/// void mask zero the sampler's rejection test `w[s] & voids[s] != 0`
+/// cannot fire, so the first shuffle is accepted and the acceptance region
+/// is the entire deal space; [`belief_frame_feasibility`] cannot refuse
+/// such a frame. The proof lives here, once, instead of as an `expect` at
+/// each of the dozen call sites that draw open frames — which is what lets
+/// the live player's auction path carry no error branch at all, rather
+/// than one it can argue is unreachable. The remaining precondition is
+/// arity, asserted inside the sampler exactly as it was before the repair:
+/// the declared sizes must fit the unseen pool.
+pub fn sample_open_belief(
+    viewer: usize,
+    viewer_hand: u32,
+    played: u32,
+    sizes: [usize; 4],
+    n: usize,
+    rng: &mut SplitMix64,
+) -> Vec<[u32; 4]> {
+    sample_belief(viewer, viewer_hand, played, sizes, [0; 4], n, rng)
+        .expect("a frame with no deduced voids accepts every deal")
+}
+
 /// Void-conditioned belief sampler: uniform on the lawful-completion fiber
 /// by shuffle-and-reject (SCENARIO-PLAYER.md §4.2).
+///
+/// TERMINATION. The rejection loop is unbounded by design — it is the
+/// uniformity of the draw — so it terminates exactly when the acceptance
+/// region is nonempty. [`belief_frame_feasibility`] decides that first, by
+/// counting, and an empty region returns [`InfeasibleFrame`] instead of
+/// spinning. The precheck consumes no randomness and rejects no feasible
+/// frame, so on a feasible frame the draw sequence is bit-identical to the
+/// unguarded loop's: same stream, same accept path, same worlds
+/// (gated against a before-side capture in `tests/solver_sigma1_repair.rs`).
 pub fn sample_belief(
     viewer: usize,
     viewer_hand: u32,
@@ -902,7 +1053,8 @@ pub fn sample_belief(
     voids: [u32; 4],
     n: usize,
     rng: &mut SplitMix64,
-) -> Vec<[u32; 4]> {
+) -> Result<Vec<[u32; 4]>, InfeasibleFrame> {
+    belief_frame_feasibility(viewer, viewer_hand, played, sizes, voids)?;
     let unseen = FULL_MASK & !played & !viewer_hand;
     let mut tiles = mask_bits(unseen);
     let others: Vec<usize> = (0..4).filter(|&s| s != viewer).collect();
@@ -929,7 +1081,7 @@ pub fn sample_belief(
             out.push(w);
         }
     }
-    out
+    Ok(out)
 }
 
 /// Basis points of an exact probability, integer-rounded toward zero.
@@ -1031,10 +1183,42 @@ pub fn replay(dcl: Decl, bidder_arena: usize, pairs: &[(usize, usize)]) -> Repla
     st
 }
 
+/// Why a level-1 evaluation produced no estimates. The two reasons are
+/// kept apart on purpose: a deadline says the answer was too expensive
+/// here, an infeasible frame says there is no answer to compute.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum Level1Refusal {
+    /// The per-move wall-clock budget expired mid-evaluation. This is the
+    /// pre-repair `None`, renamed and nothing more.
+    Deadline,
+    /// The declared belief frame has an empty lawful-completion fiber, so
+    /// the sampler has nothing to draw ([`belief_frame_feasibility`]).
+    InfeasibleFrame(InfeasibleFrame),
+}
+
+impl fmt::Display for Level1Refusal {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Level1Refusal::Deadline => write!(f, "the per-move deadline expired"),
+            Level1Refusal::InfeasibleFrame(frame) => write!(f, "{frame}"),
+        }
+    }
+}
+
+impl From<InfeasibleFrame> for Level1Refusal {
+    fn from(frame: InfeasibleFrame) -> Level1Refusal {
+        Level1Refusal::InfeasibleFrame(frame)
+    }
+}
+
 /// The level-1 evaluation with saturation-tie refinement (the playtable.rs
 /// policy — one authority, shared by webtable and the WASM surface).
 /// Returns every legal option's estimate under the contract's bid
-/// thresholds; None iff the deadline died mid-evaluation.
+/// thresholds, or the typed reason there are none ([`Level1Refusal`]).
+///
+/// STILL TRIPLICATED (walt_bridge.rs, playtable.rs) — a named debt the
+/// σ1-repair slice deliberately did not pay. Only the sampler's refusal
+/// travels through here; the bodies are otherwise untouched.
 #[allow(clippy::too_many_arguments)]
 pub fn level1_evaluate(
     dcl: Decl,
@@ -1051,11 +1235,11 @@ pub fn level1_evaluate(
     n0: usize,
     per_move_secs: u64,
     rng: &mut SplitMix64,
-) -> Option<Vec<(u8, BigRational)>> {
+) -> Result<Vec<(u8, BigRational)>, Level1Refusal> {
     let deadline = Deadline::after(Duration::from_secs(per_move_secs));
     let maximize = seat.team() == Team::T1;
     let evaluate = |tiles: &[u8], n: usize, rng: &mut SplitMix64| {
-        let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, n, rng);
+        let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, n, rng)?;
         let sh = Arc::new(Shared::new(
             dcl,
             bid,
@@ -1080,10 +1264,10 @@ pub fn level1_evaluate(
             let child = solver.child_after_play(key, tile, 0);
             match solver.solve(&child) {
                 Some(v) => out.push((t, v)),
-                None => return None,
+                None => return Err(Level1Refusal::Deadline),
             }
         }
-        Some(out)
+        Ok(out)
     };
     let all_tiles = mask_bits(legal);
     let mut opts = evaluate(&all_tiles, n_outer, rng)?;
@@ -1113,7 +1297,7 @@ pub fn level1_evaluate(
             slot.1 = v;
         }
     }
-    Some(opts)
+    Ok(opts)
 }
 
 /// Cross-fiber pricing (the cheap first-order UI detector of
@@ -1152,7 +1336,7 @@ pub fn viewer_fiber_evaluate(
     n0: usize,
     per_move_secs: u64,
     rng: &mut SplitMix64,
-) -> Option<Vec<(u8, Option<BigRational>, usize)>> {
+) -> Result<Vec<(u8, Option<BigRational>, usize)>, Level1Refusal> {
     let deadline = Deadline::after(Duration::from_secs(per_move_secs));
     let maximize = viewer.team() == Team::T1;
     let worlds = sample_belief(
@@ -1163,7 +1347,7 @@ pub fn viewer_fiber_evaluate(
         voids,
         n_outer,
         rng,
-    );
+    )?;
     let led: Option<Context> = key
         .plays
         .first()
@@ -1207,12 +1391,12 @@ pub fn viewer_fiber_evaluate(
             Some(v) => out.push((t, Some(v), n_sup)),
             None => {
                 solver.flush_nodes();
-                return None;
+                return Err(Level1Refusal::Deadline);
             }
         }
     }
     solver.flush_nodes();
-    Some(out)
+    Ok(out)
 }
 
 /// Argmax (or argmin for T0 seats) over evaluated options, first-listed on
@@ -1398,7 +1582,7 @@ pub fn level1_race(
     n_self: usize,
     per_move_secs: u64,
     rng: &mut SplitMix64,
-) -> Option<RaceReport> {
+) -> Result<RaceReport, Level1Refusal> {
     const RACE_BLOCK: usize = 16;
     const RACE_KMIN: usize = 8;
     const RACE_DELTA: (u64, u64) = (1, 128);
@@ -1406,7 +1590,7 @@ pub fn level1_race(
     let maximize = seat.team() == Team::T1;
     let cands: Vec<u8> = mask_bits(legal);
     if cands.len() == 1 {
-        return Some(RaceReport {
+        return Ok(RaceReport {
             choice: cands[0],
             worlds_used: 0,
             tally: vec![(cands[0], 0, 0)],
@@ -1414,7 +1598,7 @@ pub fn level1_race(
         });
     }
     let deadline = Deadline::after(Duration::from_secs(per_move_secs));
-    let worlds = sample_belief(viewer, hand, key.played, sizes, voids, n_max, rng);
+    let worlds = sample_belief(viewer, hand, key.played, sizes, voids, n_max, rng)?;
     let sh = Arc::new(Shared::new(
         dcl,
         bid,
@@ -1452,7 +1636,7 @@ pub fn level1_race(
         let results: Option<Vec<(u8, usize, bool)>> = jobs.par_iter().map(run).collect();
         #[cfg(not(feature = "parallel"))]
         let results: Option<Vec<(u8, usize, bool)>> = jobs.iter().map(run).collect();
-        let mut results = results?;
+        let mut results = results.ok_or(Level1Refusal::Deadline)?;
         results.sort_by_key(|&(c, w, _)| (slot(c, &cands), w));
         for (c, _, success) in results {
             bits[slot(c, &cands)].push(success);
@@ -1496,7 +1680,7 @@ pub fn level1_race(
             (c, b.iter().filter(|&&s| s).count() as u32, b.len() as u32)
         })
         .collect();
-    Some(RaceReport {
+    Ok(RaceReport {
         choice,
         worlds_used: used,
         tally,
@@ -1547,13 +1731,13 @@ pub fn level1_raced(
     block: usize,
     per_move_secs: u64,
     rng: &mut SplitMix64,
-) -> Option<BlockRace> {
+) -> Result<BlockRace, Level1Refusal> {
     const RACE_KMIN: usize = 6;
     const RACE_DELTA: (u64, u64) = (1, 128);
     let maximize = seat.team() == Team::T1;
     let cands: Vec<u8> = mask_bits(legal);
     if cands.len() == 1 {
-        return Some(BlockRace {
+        return Ok(BlockRace {
             choice: cands[0],
             worlds_used: 0,
             values: Vec::new(),
@@ -1578,7 +1762,7 @@ pub fn level1_raced(
     let mut used = 0usize;
     while used < n_max && live.len() > 1 {
         let b = block.min(n_max - used);
-        let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, b, rng);
+        let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, b, rng)?;
         let eval_one = |&t: &u8| -> Option<(u8, BigRational)> {
             let solver = Solver::new(
                 Arc::clone(&sh),
@@ -1599,7 +1783,7 @@ pub fn level1_raced(
         let block_vals: Option<Vec<(u8, BigRational)>> = live.par_iter().map(eval_one).collect();
         #[cfg(not(feature = "parallel"))]
         let block_vals: Option<Vec<(u8, BigRational)>> = live.iter().map(eval_one).collect();
-        for (t, v) in block_vals? {
+        for (t, v) in block_vals.ok_or(Level1Refusal::Deadline)? {
             blocks_of[slot(t)].push(v);
             consumed[slot(t)] += b;
         }
@@ -1675,7 +1859,7 @@ pub fn level1_raced(
         .iter()
         .map(|&t| (t, mean_of(t), consumed[slot(t)]))
         .collect();
-    Some(BlockRace {
+    Ok(BlockRace {
         choice,
         worlds_used: used,
         values,
@@ -1708,7 +1892,7 @@ pub fn level1_race_refined(
     n0: usize,
     per_move_secs: u64,
     rng: &mut SplitMix64,
-) -> Option<u8> {
+) -> Result<u8, Level1Refusal> {
     let race = level1_raced(
         dcl,
         bid,
@@ -1727,7 +1911,7 @@ pub fn level1_race_refined(
         rng,
     )?;
     if race.values.len() <= 1 {
-        return Some(race.choice);
+        return Ok(race.choice);
     }
     let maximize = seat.team() == Team::T1;
     let best = race
@@ -1743,7 +1927,7 @@ pub fn level1_race_refined(
         .map(|(t, _, _)| *t)
         .collect();
     if tied.len() == 1 {
-        return Some(race.choice);
+        return Ok(race.choice);
     }
     let tied_mask = tied.iter().fold(0u32, |a, &t| a | (1u32 << t));
     let opts = level1_evaluate(
@@ -1762,5 +1946,5 @@ pub fn level1_race_refined(
         per_move_secs,
         rng,
     )?;
-    Some(best_of(&opts, maximize))
+    Ok(best_of(&opts, maximize))
 }

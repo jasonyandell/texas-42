@@ -30,7 +30,8 @@ use walt::solver::policy::{
 };
 use walt::solver::targeted::legal_root_actions;
 use walt::solver::{
-    mask_bits, mix, sample_belief, Deadline, Field, Key, MoveOrdering, Shared, Solver, SplitMix64,
+    mask_bits, mix, sample_open_belief, Deadline, Field, Key, MoveOrdering, Shared, Solver,
+    SplitMix64,
 };
 
 fn q(n: i64, d: i64) -> BigRational {
@@ -138,7 +139,7 @@ fn direct_solve(hand_no: u64, ordering: MoveOrdering) -> DirectSolve {
     let hand = hands[1];
     let key = root_key();
     let mut rng = SplitMix64(SEED ^ mix(0x22 ^ hand_no));
-    let worlds = sample_belief(seat.index(), hand, 0, [7; 4], [0; 4], N, &mut rng);
+    let worlds = sample_open_belief(seat.index(), hand, 0, [7; 4], N, &mut rng);
     let deadline = Deadline::after(Duration::from_secs(86_400));
     let sh = Arc::new(Shared::new(dcl, BID, vec![N0], 0, 7, deadline));
     let solver = Solver::new(
@@ -246,7 +247,7 @@ fn viewer_visit_order_is_a_canonical_permutation_of_the_legal_set() {
     let seat = Seat::from_index(1).expect("seat 1");
     let hand = hands[1];
     let mut rng = SplitMix64(SEED ^ mix(0x33));
-    let worlds = sample_belief(seat.index(), hand, 0, [7; 4], [0; 4], N, &mut rng);
+    let worlds = sample_open_belief(seat.index(), hand, 0, [7; 4], N, &mut rng);
     let deadline = Deadline::after(Duration::from_secs(86_400));
     let sh = Arc::new(Shared::new(dcl, BID, vec![N0], 0, 7, deadline));
     let solver = Solver::new(

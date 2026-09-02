@@ -336,7 +336,7 @@ fn continuation_materialization_equals_direct_level1_on_the_discovery_stream() {
         NO_DEADLINE_SECS,
         &mut rng,
     )
-    .expect("no wall-clock cutoff");
+    .expect("no wall-clock cutoff, and a receipt-root frame is feasible");
     let expected = Domino::from_index(usize::from(best_of(&opts, frame.seat.team() == Team::T1)))
         .expect("tile < 28");
     let cached = policy

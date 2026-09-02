@@ -50,8 +50,8 @@ use num_traits::Zero;
 use walt::rules::rules::legal_plays;
 use walt::rules::{Context, Decl, Domino, Seat, Team};
 use walt::solver::{
-    best_of, bit, bp, decl_of, mask_bits, mask_of, mix, record_hash, replay, sample_belief, set_of,
-    Deadline, Field, Key, Shared, Solver, SplitMix64,
+    best_of, bit, bp, decl_of, mask_bits, mask_of, mix, record_hash, replay, sample_belief,
+    sample_open_belief, set_of, Deadline, Field, Key, Level1Refusal, Shared, Solver, SplitMix64,
 };
 
 /// Default decision-stream seed (the bridge's frozen e-digits constant —
@@ -169,7 +169,8 @@ fn handle_inner(req: &str) -> Result<String, String> {
 /// level-1 minds of sample size `n1`, whose own modeled level-0 minds
 /// sample `n0` (`n_inner[k]` = a modeled level-k mind's sample size).
 /// Returns every legal option's estimate under the contract's bid
-/// thresholds; None iff the deadline died mid-evaluation.
+/// thresholds, or the typed reason there are none ([`Level1Refusal`] —
+/// the sampler and the deadline are shared with the level-1 machinery).
 #[allow(clippy::too_many_arguments)]
 fn level2_evaluate(
     dcl: Decl,
@@ -187,11 +188,11 @@ fn level2_evaluate(
     n0: usize,
     per_move_secs: u64,
     rng: &mut SplitMix64,
-) -> Option<Vec<(u8, BigRational)>> {
+) -> Result<Vec<(u8, BigRational)>, Level1Refusal> {
     let deadline = Deadline::after(Duration::from_secs(per_move_secs));
     let maximize = seat.team() == Team::T1;
     let evaluate = |tiles: &[u8], n: usize, rng: &mut SplitMix64| {
-        let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, n, rng);
+        let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, n, rng)?;
         let sh = Arc::new(Shared::new(
             dcl,
             bid,
@@ -216,10 +217,10 @@ fn level2_evaluate(
             let child = solver.child_after_play(key, tile, 0);
             match solver.solve(&child) {
                 Some(v) => out.push((t, v)),
-                None => return None,
+                None => return Err(Level1Refusal::Deadline),
             }
         }
-        Some(out)
+        Ok(out)
     };
     let all_tiles = mask_bits(legal);
     let mut opts = evaluate(&all_tiles, n_outer, rng)?;
@@ -249,7 +250,7 @@ fn level2_evaluate(
             slot.1 = v;
         }
     }
-    Some(opts)
+    Ok(opts)
 }
 
 fn handle_play(r: &Req) -> Result<String, String> {
@@ -333,7 +334,7 @@ fn handle_play(r: &Req) -> Result<String, String> {
             budget_ms.div_ceil(1000).max(1),
             &mut rng,
         )
-        .ok_or("evaluation deadline hit")?;
+        .map_err(|refusal| format!("evaluation refused: {refusal}"))?;
         let choice = best_of(&opts, seat.team() == Team::T1);
         (choice, false, opts)
     };
@@ -424,7 +425,7 @@ fn handle_bid(r: &Req) -> Result<String, String> {
     let budget_ms = r.scalar_or("budget_ms", 120_000)?;
 
     let mut rng = SplitMix64(seed ^ mix(u64::from(hand0)) ^ mix(u64::from(need)));
-    let worlds = sample_belief(1, hand0, 0, [7; 4], [0; 4], n, &mut rng);
+    let worlds = sample_open_belief(1, hand0, 0, [7; 4], n, &mut rng);
     let prices: Vec<(usize, BigRational)> = DECL_IDS
         .iter()
         .map(|&d| {
@@ -477,7 +478,7 @@ fn handle_declare(r: &Req) -> Result<String, String> {
     let budget_ms = r.scalar_or("budget_ms", 120_000)?;
 
     let mut rng = SplitMix64(seed ^ mix(u64::from(hand0)) ^ mix(0xDEC1));
-    let worlds = sample_belief(1, hand0, 0, [7; 4], [0; 4], n, &mut rng);
+    let worlds = sample_open_belief(1, hand0, 0, [7; 4], n, &mut rng);
     let mut prices: Vec<(usize, BigRational)> = DECL_IDS
         .iter()
         .map(|&d| {
@@ -505,7 +506,7 @@ fn handle_declare(r: &Req) -> Result<String, String> {
             break;
         }
         n_cur *= 4;
-        let worlds = sample_belief(1, hand0, 0, [7; 4], [0; 4], n_cur, &mut rng);
+        let worlds = sample_open_belief(1, hand0, 0, [7; 4], n_cur, &mut rng);
         for d in tied {
             let v = eval_bid(decl_of(d), bid, n0, hand0, worlds.clone(), budget_ms);
             let slot = prices.iter_mut().find(|(x, _)| *x == d).expect("tied decl");

@@ -8,7 +8,9 @@ paragraph below is the capstone); DOOM CENSUS LANDED (2026-09-01, the
 first post-program structural producer — the §70 answer, paragraph
 after the capstone); SLICE MB0 LANDED (2026-09-01, the model-belief
 exact vertical slice — the §76 go/no-go evidence, paragraph after the
-doom census). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
+doom census); SLICE σ1-REPAIR LANDED (2026-09-01, MB0's follow-up — the
+belief sampler terminates and the five copies are one, paragraph after
+MB0). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
 register: `solver/refine.rs` as merged at `25b40d9` takes no new
 fields, variants, or work items, ever; its four gates never weaken; the
 coming proof-state core must reproduce it wherever scopes overlap and
@@ -444,6 +446,77 @@ G8's enumeration anchor covers the δ_F₁ endpoint there), and `separated_upper
 q(θ) by the single-profile respond walk rather than
 `response_success_mass` (same wall; anchored to it on its terminating
 domain by G2). EXPLORATORY tier; the go/no-go reading is Jason's.
+
+**SLICE σ1-REPAIR LANDED** (2026-09-01, brief
+`walt/briefs/BRIEF-SIGMA1-REPAIR.md`, authorized as MB0's immediate
+follow-up so the evidence window stayed open): the §4.2
+shuffle-and-reject sampler MB0 reported now TERMINATES, and there is one
+of it. `solver::belief_frame_feasibility` decides a declared belief
+frame by counting alone — Hall's condition in deficiency form over the
+tiles-to-seats assignment, so for every subset S of the three other
+seats the unseen tiles no seat outside S may hold must not outnumber S's
+declared room plus the leftover the sampler's prefix slicing never
+deals. Eight subsets, exact integers, no search. It decides the
+sampler's own acceptance region rather than approximating it: gate R5
+agrees with exhaustive exact-partition search on 2,000 swept frames with
+both verdicts present, and a companion gate pins the
+prefix-versus-partition distinction the leftover creates.
+`sample_belief` now returns `Result<Vec<[u32;4]>, InfeasibleFrame>` —
+the precheck runs first, consumes no randomness and rejects no feasible
+frame, so a feasible frame's draw sequence is bit-identical to the
+unguarded loop's. That is not asserted but WITNESSED: a before-side
+determinism capture was taken against the UNPATCHED sampler and
+committed first (`walt/walt/tests/data/sigma1_before_v1.txt` — 48 belief
+frames, 43 carrying real deduced voids, each with its exact drawn worlds
+and its post-draw RNG word, plus 2,469 σ1 field actions and every pmake
+indicator over the four undecided receipt roots), and gate R2 reproduces
+it byte for byte through the repaired path. The refusal is typed all the
+way out as `Level1Refusal::{Deadline, InfeasibleFrame}` on
+`level1_evaluate` and its race siblings: the live bridge reports
+`eval refused (<frame>); playing lowest legal` — never a panic, never
+the deadline's message, never a silent fallback — while the three
+`SlicePolicy` boundaries raise the frame's own description because the
+trait returns a tile and has no typed channel. The auction and pre-play
+draws go through `sample_open_belief` instead, which is TOTAL: with
+every void mask zero the rejection test cannot fire, so the acceptance
+region is the whole deal space and there is no refusal to handle. That
+proof lives once, in the library, rather than as an `expect` at each of
+the twenty-two call sites that used to restate it — which is what lets
+the live player hold no error branch on a sampler result anywhere, as
+opposed to one it could only argue was unreachable (gate R6). THE FIVE
+COPIES ARE NOW ONE: walt_bridge, playout, playtable and divergence lost
+their local samplers and dependencies (297 lines), the latter by the
+forced type-identity cascade — a local `SplitMix64` is a distinct Rust
+type, so importing the sampler drags the RNG, `mask_bits` and
+`FULL_MASK` with it. Two witnesses gate the dedup: a source grep over
+`src/`, which catches a local copy that compiles because nothing calls
+it; and the compile itself, since each deduplicated binary imports the
+library name at module scope and a local `fn sample_belief` beside it is
+an E0255 collision — which is also the witness that survives a rename of
+the authority, where a fixed-name grep would not. The six binaries that
+already called the library copy — ordering_bench, webtable,
+controller_bridge, shadow, waking_bridge, tiltaudit — inherit the repair
+with no diff at all (audit follow-up: the covered-for-free half of the
+call-site enumeration, stated here so the coverage claim is complete in
+one place). Label note for cross-referencers: the gate names "R5"/"R6"
+in this paragraph are the test file's own (counting-oracle-vs-exhaustive
+and the walt_bridge no-error-branch sweep); BRIEF-SIGMA1-REPAIR.md's
+"R5" names a different obligation — MB0's gates staying green — which
+also holds (8 passed, untouched). `level1_evaluate`
+remains TRIPLICATED (`solver/mod.rs`, walt_bridge, playtable) — named
+debt, deliberately unpaid here. THE FINDING: the four roots G2 pinned as
+the raw σ1 authority's refusal set do NOT open. Each now terminates
+promptly with a named refusal instead of hanging — h5-t6 in 10.4 ms
+(the pinned specimen exactly: three unseen tiles confined to seats
+{S0, S2}, which hold room for two), h4-t6 in 52.5 ms, h8-t5 in 45.7 ms,
+h3-t5 in 109.3 ms. MB0's scoped parity domain therefore did not grow,
+and the caveat above stands unchanged; what changed is its status, from
+a wall the machinery ran into to a boundary it can name. The blocked set
+is a real property of the untightened route — zero-joint-mass hands sit
+in its raw support — so MB0's positive-support tightening is the
+enabling fix and not a workaround. Seven gates
+(`walt/walt/tests/solver_sigma1_repair.rs`); MB0's eight, G2 and G8
+included, stay green untouched. EXPLORATORY tier.
 
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint

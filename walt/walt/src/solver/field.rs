@@ -406,7 +406,14 @@ impl FieldModel {
             NO_DEADLINE_SECS,
             &mut rng,
         )
-        .expect("a modeled mind runs without a wall-clock cutoff");
+        .unwrap_or_else(|refusal| {
+            // A modeled mind runs with no wall-clock cutoff, so the only
+            // reachable refusal is an infeasible declared frame — the σ1
+            // boundary. `SlicePolicy::choose` returns a tile, so there is
+            // no typed channel here; the refusal is raised with the frame
+            // it names, which is what MB0's guarded instrument did by hand.
+            panic!("the σ1 field cannot act at an unsatisfiable state: {refusal}")
+        });
         let choice = best_of(&opts, seat.team() == Team::T1);
         Domino::from_index(usize::from(choice)).expect("tile < 28")
     }

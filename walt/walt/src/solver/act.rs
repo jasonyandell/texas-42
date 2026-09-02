@@ -439,7 +439,9 @@ pub fn act(
                     NO_DEADLINE_SECS,
                     &mut rng,
                 )
-                .expect("the fallback ranking runs without a wall-clock cutoff");
+                .unwrap_or_else(|refusal| {
+                    panic!("the fallback ranking has no answer here: {refusal}")
+                });
                 let choice = best_of(&opts, viewer.team() == Team::T1);
                 (
                     Domino::from_index(usize::from(choice)).expect("tile < 28"),

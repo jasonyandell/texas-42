@@ -33,8 +33,14 @@ use num_traits::{One, Zero};
 use walt::carrier::VIEWER;
 use walt::rules::rules::{legal_plays, Trick};
 use walt::rules::{Context, Decl, Domino, DominoSet, Pip, Seat, Team};
-
-const FULL_MASK: u32 = 0x0FFF_FFFF;
+// The void-conditioned belief sampler and its dependencies are the
+// LIBRARY's one authority (`solver::sample_belief` — the σ1-repair slice
+// deduplicated the five byte-identical copies onto it). Importing the
+// sampler forces the RNG type with it: a local `SplitMix64` would be a
+// distinct Rust type, so the seed paths in this binary run on the
+// library's stream — the same algorithm, hash-identical, so no draw
+// changes.
+use walt::solver::{mask_bits, sample_belief, sample_open_belief, SplitMix64, FULL_MASK};
 
 /// Frozen game seed (distinct stream from ladder/scenario/level1).
 const GAME_SEED: u64 = 0x6A09_E667_F3BC_C908;
@@ -46,28 +52,6 @@ const INNER_SEED: u64 = 0x243F_6A88_85A3_08D3;
 /// Frozen seed for the per-decision level-1 belief streams (O27:
 /// domain-separated from the deal stream and every other surface constant).
 const PLAYOUT_BELIEF_SEED: u64 = 0xD131_0BA6_98DF_B5AC;
-
-struct SplitMix64(u64);
-
-impl SplitMix64 {
-    fn next_u64(&mut self) -> u64 {
-        self.0 = self.0.wrapping_add(0x9E37_79B9_7F4A_7C15);
-        let mut z = self.0;
-        z = (z ^ (z >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
-        z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
-        z ^ (z >> 31)
-    }
-
-    fn below(&mut self, n: u64) -> u64 {
-        let zone = u64::MAX - (u64::MAX % n);
-        loop {
-            let v = self.next_u64();
-            if v < zone {
-                return v % n;
-            }
-        }
-    }
-}
 
 fn mix(h: u64) -> u64 {
     let mut z = h.wrapping_add(0x9E37_79B9_7F4A_7C15);
@@ -120,16 +104,6 @@ fn s1_initial_mask() -> u32 {
     .into_iter()
     .map(bit)
     .fold(0, |a, b| a | b)
-}
-
-fn mask_bits(mask: u32) -> Vec<u8> {
-    let mut v = Vec::with_capacity(mask.count_ones() as usize);
-    let mut m = mask;
-    while m != 0 {
-        v.push(m.trailing_zeros() as u8);
-        m &= m - 1;
-    }
-    v
 }
 
 type Alive = Rc<Vec<u32>>;
@@ -565,47 +539,6 @@ fn opts_json(opts: &[(u8, BigRational)]) -> String {
     format!("[{}]", parts.join(","))
 }
 
-/// Sample a seat's belief: deals consistent with the viewer's remaining
-/// hand, the played mask, the record's hand sizes, and every void observed
-/// so far in play (any seat can be the viewer).
-fn sample_belief(
-    viewer: usize,
-    viewer_hand: u32,
-    played: u32,
-    sizes: [usize; 4],
-    voids: [u32; 4],
-    n: usize,
-    rng: &mut SplitMix64,
-) -> Vec<[u32; 4]> {
-    let unseen = FULL_MASK & !played & !viewer_hand;
-    let mut tiles = mask_bits(unseen);
-    let others: Vec<usize> = (0..4).filter(|&s| s != viewer).collect();
-    let mask_slice = |sl: &[u8]| sl.iter().fold(0u32, |a, &x| a | (1u32 << x));
-    let mut out: Vec<[u32; 4]> = Vec::with_capacity(n);
-    while out.len() < n {
-        for i in (1..tiles.len()).rev() {
-            let j = rng.below((i + 1) as u64) as usize;
-            tiles.swap(i, j);
-        }
-        let mut w = [0u32; 4];
-        w[viewer] = viewer_hand;
-        let mut off = 0;
-        let mut ok = true;
-        for &s in &others {
-            w[s] = mask_slice(&tiles[off..off + sizes[s]]);
-            off += sizes[s];
-            if w[s] & voids[s] != 0 {
-                ok = false;
-                break;
-            }
-        }
-        if ok {
-            out.push(w);
-        }
-    }
-    out
-}
-
 fn hand_json(mask: u32) -> String {
     let parts: Vec<String> = mask_bits(mask).into_iter().map(tile_json).collect();
     format!("[{}]", parts.join(","))
@@ -624,7 +557,7 @@ fn play_game(
     // The DEAL stream — O27: it deals and does nothing else.
     let mut deal_rng = SplitMix64(GAME_SEED ^ mix(game_idx as u64));
     // Deal the other three hands uniformly (no voids exist pre-play).
-    let deal = sample_belief(1, s1_full, 0, [7, 7, 7, 7], [0u32; 4], 1, &mut deal_rng)
+    let deal = sample_open_belief(1, s1_full, 0, [7, 7, 7, 7], 1, &mut deal_rng)
         .pop()
         .expect("one deal");
     let mut hands = deal; // [s0, s1, s2, s3] full 7-tile hands
@@ -687,7 +620,9 @@ fn play_game(
                     let maximize = seat.team() == Team::T1;
                     let sizes = host.hand_sizes_at(&key);
                     let evaluate = |tiles: &[u8], n: usize, rng: &mut SplitMix64| {
-                        let worlds = sample_belief(seat_i, hand, played, sizes, voids, n, rng);
+                        let worlds = sample_belief(seat_i, hand, played, sizes, voids, n, rng)
+                            .map_err(|f| eprintln!("playout: belief draw refused ({f})"))
+                            .ok()?;
                         let mut solver = Solver::new(
                             dcl,
                             seat,
