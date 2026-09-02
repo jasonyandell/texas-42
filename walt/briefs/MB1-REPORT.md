@@ -91,10 +91,11 @@ Complete. Nine WIP commits plus this report, clean tree, not pushed. One
 of those commits (`f460fb0`) was made by the night-watch orchestrator as
 a rescue checkpoint of the probe output while this session was blocked
 on the probe run; the file is unmodified.
-`walt/ci/check.sh` PASS (cold rebuild, `fmt --check`, clippy
-`-D warnings -D clippy::float_arithmetic`, the no-float greps and
-scanners, the full workspace release suite, and the Lean trick-1
-foundations with the exact axiom audit).
+`walt/ci/check.sh` — the conjunction (cold rebuild, `fmt --check`,
+clippy `-D warnings -D clippy::float_arithmetic`, the no-float greps
+and scanners, the full workspace release suite including MB0's eight
+gates, σ1-repair's seven and U0's six, and the Lean trick-1 foundations
+with the exact axiom audit) — VERDICT_PENDING.
 
 | file | change |
 |---|---|
