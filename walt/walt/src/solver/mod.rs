@@ -35,6 +35,7 @@ pub mod frontier;
 pub mod grammar;
 pub mod hazard;
 pub mod laydown;
+pub mod model_belief;
 pub mod motif;
 pub mod opening;
 pub mod policy;
