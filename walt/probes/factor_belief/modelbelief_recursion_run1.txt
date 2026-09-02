@@ -1,0 +1,286 @@
+modelbeliefrecursionreport run 1 — the MB1 probe (EXPLORATORY tier)
+epoch: F0 = level0-modeled-mind-v1 (id 1b2c627fc67ba460), F1 = level1-modeled-mind-v1 (id 005e2a5904761f35); prior (1/2,1/2) per hidden seat, independent; SupportOracle; focal = lowest-first frozen preference. Values exact; reads MEASURED at the field dispatch; every cap is a DECLARED budget in field consultations.
+
+---- PART 1: MB0's corpus under the posterior-carrying recursion ----
+
+== h12-t6 [posterior-carrying recursion]
+declared fiber 6; augmented Σw·Z = 48; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
+declared budget per root action: response 4000000 reads, U^sep 4000000 reads
+posterior line: depth 5 of 5 requested; live profiles 8 -> 8; a profile was eliminated: false; line reads 416
+  seat S0 branches { 3-3:8 4-1:24 4-3:16 } typed 24 vs merged 3; observed 4-1 (live 8 -> 8)
+    posterior S0[ 1b2c627fc67ba460:12/24 005e2a5904761f35:12/24 ]
+    posterior S1[ 1b2c627fc67ba460:12/24 005e2a5904761f35:12/24 ]
+    posterior S2[ 1b2c627fc67ba460:12/24 005e2a5904761f35:12/24 ]
+  seat S1 branches { 3-0:24 } typed 8 vs merged 1; observed 3-0 (live 8 -> 8)
+    posterior S0[ 1b2c627fc67ba460:12/24 005e2a5904761f35:12/24 ]
+    posterior S1[ 1b2c627fc67ba460:12/24 005e2a5904761f35:12/24 ]
+    posterior S2[ 1b2c627fc67ba460:12/24 005e2a5904761f35:12/24 ]
+  seat S2 branches { 3-3:8 4-3:16 } typed 16 vs merged 2; observed 4-3 (live 8 -> 8)
+    posterior S0[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+    posterior S1[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+    posterior S2[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+  seat S1 branches { 4-0:16 } typed 8 vs merged 1; observed 4-0 (live 8 -> 8)
+    posterior S0[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+    posterior S1[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+    posterior S2[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+  seat S2 branches { 3-3:8 5-1:8 } typed 16 vs merged 2; observed 3-3 (live 8 -> 8)
+    posterior S0[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+    posterior S1[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+    posterior S2[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+  action 4-4: Q_a = 0 (~0‰); U^sep_a = 0 (~0‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-e3b0c4429 — Φ_a = 0 at EVERY ν over these types; reads 0
+  action 6-0: Q_a = 0 (~0‰); U^sep_a = 0 (~0‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-e3b0c4429 — Φ_a = 0 at EVERY ν over these types; reads 0
+MB0 root value 0 (~0‰) vs recursion max over actions 0 (~0‰) — MATCH
+reads total 416 ( 1b2c627fc67ba460:208 005e2a5904761f35:208 ); priced 2 / refused 0; substantive zero prices 0; vacuous zero prices 2; strict prices 0
+wall 705 us
+
+== h10-t6 [posterior-carrying recursion]
+declared fiber 19; augmented Σw·Z = 152; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
+declared budget per root action: response 4000000 reads, U^sep 4000000 reads
+posterior line: depth 5 of 5 requested; live profiles 8 -> 8; a profile was eliminated: false; line reads 512
+  seat S2 branches { 2-0:56 3-2:48 4-0:48 } typed 24 vs merged 3; observed 2-0 (live 8 -> 8)
+    posterior S2[ 1b2c627fc67ba460:28/56 005e2a5904761f35:28/56 ]
+    posterior S3[ 1b2c627fc67ba460:28/56 005e2a5904761f35:28/56 ]
+    posterior S0[ 1b2c627fc67ba460:28/56 005e2a5904761f35:28/56 ]
+  seat S3 branches { 3-2:32 6-3:24 } typed 16 vs merged 2; observed 3-2 (live 8 -> 8)
+    posterior S2[ 1b2c627fc67ba460:16/32 005e2a5904761f35:16/32 ]
+    posterior S3[ 1b2c627fc67ba460:16/32 005e2a5904761f35:16/32 ]
+    posterior S0[ 1b2c627fc67ba460:16/32 005e2a5904761f35:16/32 ]
+  seat S0 branches { 4-0:16 4-4:16 } typed 16 vs merged 2; observed 4-0 (live 8 -> 8)
+    posterior S2[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+    posterior S3[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+    posterior S0[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+  seat S2 branches { 4-4:16 } typed 8 vs merged 1; observed 4-4 (live 8 -> 8)
+    posterior S2[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+    posterior S3[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+    posterior S0[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+  seat S3 branches { 6-3:8 6-5:8 } typed 16 vs merged 2; observed 6-3 (live 8 -> 8)
+    posterior S2[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+    posterior S3[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+    posterior S0[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+  action 2-2: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-e3b0c4429 — Φ_a = 0 at EVERY ν over these types; reads 0
+  action 3-3: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-e3b0c4429 — Φ_a = 0 at EVERY ν over these types; reads 0
+MB0 root value 1 (~1000‰) vs recursion max over actions 1 (~1000‰) — MATCH
+reads total 512 ( 1b2c627fc67ba460:256 005e2a5904761f35:256 ); priced 2 / refused 0; substantive zero prices 0; vacuous zero prices 2; strict prices 0
+wall 712 us
+
+== h5-t6 [posterior-carrying recursion]
+declared fiber 27; augmented Σw·Z = 216; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
+declared budget per root action: response 4000000 reads, U^sep 4000000 reads
+posterior line: depth 5 of 5 requested; live profiles 8 -> 8; a profile was eliminated: false; line reads 768
+  seat S1 branches { 4-2:96 4-3:96 4-4:24 } typed 24 vs merged 3; observed 4-2 (live 8 -> 8)
+    posterior S1[ 1b2c627fc67ba460:48/96 005e2a5904761f35:48/96 ]
+    posterior S2[ 1b2c627fc67ba460:48/96 005e2a5904761f35:48/96 ]
+    posterior S3[ 1b2c627fc67ba460:48/96 005e2a5904761f35:48/96 ]
+  seat S2 branches { 1-1:16 4-3:48 4-4:24 5-1:8 } typed 32 vs merged 4; observed 4-3 (live 8 -> 8)
+    posterior S1[ 1b2c627fc67ba460:24/48 005e2a5904761f35:24/48 ]
+    posterior S2[ 1b2c627fc67ba460:24/48 005e2a5904761f35:24/48 ]
+    posterior S3[ 1b2c627fc67ba460:24/48 005e2a5904761f35:24/48 ]
+  seat S3 branches { 1-1:16 4-4:16 5-1:16 } typed 24 vs merged 3; observed 1-1 (live 8 -> 8)
+    posterior S1[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+    posterior S2[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+    posterior S3[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+  seat S2 branches { 5-1:8 5-5:8 } typed 16 vs merged 2; observed 5-1 (live 8 -> 8)
+    posterior S1[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+    posterior S2[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+    posterior S3[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+  seat S3 branches { 5-5:8 } typed 8 vs merged 1; observed 5-5 (live 8 -> 8)
+    posterior S1[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+    posterior S2[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+    posterior S3[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+  action 4-1: Q_a = 4/9 (~444‰); U^sep_a = 4/9 (~444‰); Φ_a = 0 (~0‰) [substantive]; §19 common optimizer mixture-argmax-1230c034f — Φ_a = 0 at EVERY ν over these types; reads 6000
+  action 5-2: Q_a = 4/9 (~444‰); U^sep_a = 4/9 (~444‰); Φ_a = 0 (~0‰) [substantive]; §19 common optimizer mixture-argmax-d4a6115af — Φ_a = 0 at EVERY ν over these types; reads 3824
+MB0 root value 4/9 (~444‰) vs recursion max over actions 4/9 (~444‰) — MATCH
+reads total 10592 ( 1b2c627fc67ba460:5296 005e2a5904761f35:5296 ); priced 2 / refused 0; substantive zero prices 2; vacuous zero prices 0; strict prices 0
+wall 37873 us
+
+== h4-t6 [posterior-carrying recursion]
+declared fiber 90; augmented Σw·Z = 720; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
+declared budget per root action: response 4000000 reads, U^sep 4000000 reads
+posterior line: depth 5 of 5 requested; live profiles 8 -> 8; a profile was eliminated: false; line reads 1152
+  seat S3 branches { 2-0:240 2-1:192 2-2:96 5-1:144 5-4:24 5-5:24 } typed 40 vs merged 6; observed 2-0 (live 8 -> 8)
+    posterior S3[ 1b2c627fc67ba460:120/240 005e2a5904761f35:120/240 ]
+    posterior S0[ 1b2c627fc67ba460:120/240 005e2a5904761f35:120/240 ]
+    posterior S1[ 1b2c627fc67ba460:120/240 005e2a5904761f35:120/240 ]
+  seat S0 branches { 2-1:96 2-2:48 5-1:72 5-4:12 5-5:12 } typed 32 vs merged 5; observed 2-1 (live 8 -> 8)
+    posterior S3[ 1b2c627fc67ba460:48/96 005e2a5904761f35:48/96 ]
+    posterior S0[ 1b2c627fc67ba460:48/96 005e2a5904761f35:48/96 ]
+    posterior S1[ 1b2c627fc67ba460:48/96 005e2a5904761f35:48/96 ]
+  seat S1 branches { 2-2:40 5-1:40 5-4:16 } typed 24 vs merged 3; observed 2-2 (live 8 -> 8)
+    posterior S3[ 1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ]
+    posterior S0[ 1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ]
+    posterior S1[ 1b2c627fc67ba460:24/40 005e2a5904761f35:16/40 ]
+  seat S0 branches { 5-1:16 5-4:12 5-5:12 } typed 24 vs merged 3; observed 5-1 (live 8 -> 8)
+    posterior S3[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+    posterior S0[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+    posterior S1[ 1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ]
+  seat S1 branches { 5-4:8 5-5:8 } typed 16 vs merged 2; observed 5-4 (live 8 -> 8)
+    posterior S3[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+    posterior S0[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+    posterior S1[ 1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ]
+  action 0-0: Q_a = 1/3 (~333‰); U^sep_a = 1/3 (~333‰); Φ_a = 0 (~0‰) [substantive]; §19 common optimizer mixture-argmax-987831e57 — Φ_a = 0 at EVERY ν over these types; reads 11104
+  action 1-1: Q_a = 13/15 (~866‰); U^sep_a = 13/15 (~866‰); Φ_a = 0 (~0‰) [substantive]; §19 common optimizer mixture-argmax-db104296c — Φ_a = 0 at EVERY ν over these types; reads 17664
+MB0 root value 13/15 (~866‰) vs recursion max over actions 13/15 (~866‰) — MATCH
+reads total 29920 ( 1b2c627fc67ba460:14968 005e2a5904761f35:14952 ); priced 2 / refused 0; substantive zero prices 2; vacuous zero prices 0; strict prices 0
+wall 92492 us
+
+== h8-t5 [posterior-carrying recursion]
+declared fiber 92; augmented Σw·Z = 736; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
+declared budget per root action: response 4000000 reads, U^sep 4000000 reads
+posterior line: depth 5 of 5 requested; live profiles 8 -> 8; a profile was eliminated: false; line reads 1696
+  seat S0 branches { 3-0:136 3-1:176 3-3:76 4-1:160 4-3:52 6-0:136 } typed 48 vs merged 6; observed 3-1 (live 8 -> 8)
+    posterior S0[ 1b2c627fc67ba460:88/176 005e2a5904761f35:88/176 ]
+    posterior S1[ 1b2c627fc67ba460:88/176 005e2a5904761f35:88/176 ]
+    posterior S2[ 1b2c627fc67ba460:88/176 005e2a5904761f35:88/176 ]
+  seat S1 branches { 3-0:88 3-3:8 6-0:72 6-6:8 } typed 24 vs merged 4; observed 3-0 (live 8 -> 8)
+    posterior S0[ 1b2c627fc67ba460:44/88 005e2a5904761f35:44/88 ]
+    posterior S1[ 1b2c627fc67ba460:36/88 005e2a5904761f35:52/88 ]
+    posterior S2[ 1b2c627fc67ba460:44/88 005e2a5904761f35:44/88 ]
+  seat S2 branches { 3-3:14 4-3:18 6-0:56 } typed 22 vs merged 3; observed 6-0 (live 8 -> 8)
+    posterior S0[ 1b2c627fc67ba460:28/56 005e2a5904761f35:28/56 ]
+    posterior S1[ 1b2c627fc67ba460:28/56 005e2a5904761f35:28/56 ]
+    posterior S2[ 1b2c627fc67ba460:28/56 005e2a5904761f35:28/56 ]
+  seat S0 branches { 3-3:8 4-1:40 5-5:8 } typed 24 vs merged 3; observed 4-1 (live 8 -> 8)
+    posterior S0[ 1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ]
+    posterior S1[ 1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ]
+    posterior S2[ 1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ]
+  seat S1 branches { 5-5:40 } typed 8 vs merged 1; observed 5-5 (live 8 -> 8)
+    posterior S0[ 1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ]
+    posterior S1[ 1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ]
+    posterior S2[ 1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ]
+  action 0-0: Q_a = 141/184 (~766‰); U^sep_a = 141/184 (~766‰); Φ_a = 0 (~0‰) [substantive]; §19 common optimizer mixture-argmax-9adef3225 — Φ_a = 0 at EVERY ν over these types; reads 37724
+  action 5-0: Q_a = 16/23 (~695‰); U^sep_a = 16/23 (~695‰); Φ_a = 0 (~0‰) [substantive]; §19 common optimizer mixture-argmax-d0dba9ea9 — Φ_a = 0 at EVERY ν over these types; reads 24628
+  action 5-3: Q_a = 7/8 (~875‰); U^sep_a = 7/8 (~875‰); Φ_a = 0 (~0‰) [substantive]; §19 common optimizer mixture-argmax-f8a85b9af — Φ_a = 0 at EVERY ν over these types; reads 29292
+MB0 root value 7/8 (~875‰) vs recursion max over actions 7/8 (~875‰) — MATCH
+reads total 93340 ( 1b2c627fc67ba460:47126 005e2a5904761f35:46214 ); priced 3 / refused 0; substantive zero prices 3; vacuous zero prices 0; strict prices 0
+wall 993692 us
+
+== h3-t5 [posterior-carrying recursion]
+declared fiber 200; augmented Σw·Z = 1600; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
+declared budget per root action: response 4000000 reads, U^sep 4000000 reads
+posterior line: depth 5 of 5 requested; live profiles 8 -> 6; a profile was eliminated: true; line reads 4289
+  seat S1 branches { 3-1:536 3-2:92 3-3:100 4-1:236 5-5:180 6-1:232 6-3:72 6-4:80 6-5:72 } typed 72 vs merged 9; observed 3-1 (live 8 -> 8)
+    posterior S1[ 1b2c627fc67ba460:308/536 005e2a5904761f35:228/536 ]
+    posterior S2[ 1b2c627fc67ba460:268/536 005e2a5904761f35:268/536 ]
+    posterior S3[ 1b2c627fc67ba460:268/536 005e2a5904761f35:268/536 ]
+  seat S2 branches { 3-2:118 3-3:86 4-1:192 5-5:48 6-1:42 6-3:26 6-4:10 6-5:14 } typed 60 vs merged 8; observed 4-1 (live 8 -> 8)
+    posterior S1[ 1b2c627fc67ba460:118/192 005e2a5904761f35:74/192 ]
+    posterior S2[ 1b2c627fc67ba460:90/192 005e2a5904761f35:102/192 ]
+    posterior S3[ 1b2c627fc67ba460:96/192 005e2a5904761f35:96/192 ]
+  seat S3 branches { 3-2:75 3-3:38 5-5:7 6-3:44 6-5:28 } typed 24 vs merged 5; observed 3-2 (live 8 -> 8)
+    posterior S1[ 1b2c627fc67ba460:44/75 005e2a5904761f35:31/75 ]
+    posterior S2[ 1b2c627fc67ba460:31/75 005e2a5904761f35:44/75 ]
+    posterior S3[ 1b2c627fc67ba460:51/75 005e2a5904761f35:24/75 ]
+  seat S1 branches { 3-3:24 5-5:8 6-1:28 6-3:12 6-4:3 } typed 30 vs merged 5; observed 6-1 (live 8 -> 8)
+    posterior S1[ 1b2c627fc67ba460:12/28 005e2a5904761f35:16/28 ]
+    posterior S2[ 1b2c627fc67ba460:7/28 005e2a5904761f35:21/28 ]
+    posterior S3[ 1b2c627fc67ba460:20/28 005e2a5904761f35:8/28 ]
+  seat S2 branches { 3-3:6 5-5:13 6-4:9 } typed 16 vs merged 3; observed 5-5 (live 8 -> 6)
+    posterior S1[ 1b2c627fc67ba460:6/13 005e2a5904761f35:7/13 ]
+    posterior S2[ 1b2c627fc67ba460:2/13 005e2a5904761f35:11/13 ]
+    posterior S3[ 1b2c627fc67ba460:11/13 005e2a5904761f35:2/13 ]
+  action 4-0: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-2139d779e — Φ_a = 0 at EVERY ν over these types; reads 105172
+  action 5-0: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-901f5e162 — Φ_a = 0 at EVERY ν over these types; reads 98276
+  action 6-6: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-708895979 — Φ_a = 0 at EVERY ν over these types; reads 105528
+MB0 root value 1 (~1000‰) vs recursion max over actions 1 (~1000‰) — MATCH
+reads total 313265 ( 1b2c627fc67ba460:158667 005e2a5904761f35:154598 ); priced 3 / refused 0; substantive zero prices 0; vacuous zero prices 3; strict prices 0
+wall 3675935 us
+
+---- PART 2: repricing the model belief instead of re-walking it ----
+
+== ν-sweep at h5-t6, root action 4-1 (item 2, §21/§23)
+grid: 7 beliefs from δ_F0 to δ_F1 along the per-seat weight line, integer weights, 8 product profiles
+  ν weights [343, 49, 49, 7, 49, 7, 7, 1]: Q = 4/9 (~444‰) via mixture-argmax-1230c034f [NEW FACET]
+  ν weights [216, 72, 72, 24, 72, 24, 24, 8]: Q = 4/9 (~444‰) via mixture-argmax-1230c034f
+  ν weights [125, 75, 75, 45, 75, 45, 45, 27]: Q = 4/9 (~444‰) via mixture-argmax-1230c034f
+  ν weights [64, 64, 64, 64, 64, 64, 64, 64]: Q = 4/9 (~444‰) via mixture-argmax-1230c034f
+  ν weights [27, 45, 45, 75, 45, 75, 75, 125]: Q = 4/9 (~444‰) via mixture-argmax-1230c034f
+  ν weights [8, 24, 24, 72, 24, 72, 72, 216]: Q = 4/9 (~444‰) via mixture-argmax-1230c034f
+  ν weights [1, 7, 7, 49, 7, 49, 49, 343]: Q = 4/9 (~444‰) via mixture-argmax-1230c034f
+facets 1 of 7 grid points — a repricing sweep needs one walk per facet; the remaining 6 points are dot products (§23). Envelope columns 1.
+wall 14339 us
+
+== ν-sweep at h8-t5, root action 0-0 (item 2, §21/§23)
+grid: 7 beliefs from δ_F0 to δ_F1 along the per-seat weight line, integer weights, 8 product profiles
+  ν weights [343, 49, 49, 7, 49, 7, 7, 1]: Q = 567/736 (~770‰) via mixture-argmax-9adef3225 [NEW FACET]
+  ν weights [216, 72, 72, 24, 72, 24, 24, 8]: Q = 283/368 (~769‰) via mixture-argmax-9adef3225
+  ν weights [125, 75, 75, 45, 75, 45, 45, 27]: Q = 565/736 (~767‰) via mixture-argmax-9adef3225
+  ν weights [64, 64, 64, 64, 64, 64, 64, 64]: Q = 141/184 (~766‰) via mixture-argmax-9adef3225
+  ν weights [27, 45, 45, 75, 45, 75, 75, 125]: Q = 563/736 (~764‰) via mixture-argmax-9adef3225
+  ν weights [8, 24, 24, 72, 24, 72, 72, 216]: Q = 281/368 (~763‰) via mixture-argmax-9adef3225
+  ν weights [1, 7, 7, 49, 7, 49, 49, 343]: Q = 561/736 (~762‰) via mixture-argmax-9adef3225
+facets 1 of 7 grid points — a repricing sweep needs one walk per facet; the remaining 6 points are dot products (§23). Envelope columns 1.
+wall 74873 us
+
+---- PART 3: the earlier roots (item 5 — the number of the slice) ----
+
+== h8-t4 [posterior-carrying recursion]
+declared fiber 1200; augmented Σw·Z = 9600; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
+declared budget per root action: response 12000000 reads, U^sep 12000000 reads
+  action 2-1: Q_a = 8851/9600 (~921‰); U^sep_a = 1483/1600 (~926‰); Φ_a = 47/9600 (~4‰) [substantive]; reads 1070014
+  action 3-1: Q_a = 8323/9600 (~866‰); U^sep_a = 2787/3200 (~870‰); Φ_a = 19/4800 (~3‰) [substantive]; reads 996406
+  action 3-3: Q_a = 4511/4800 (~939‰); U^sep_a = 1139/1200 (~949‰); Φ_a = 3/320 (~9‰) [substantive]; reads 1315966
+  action 5-5: Q_a = 2957/3200 (~924‰); U^sep_a = 8929/9600 (~930‰); Φ_a = 29/4800 (~6‰) [substantive]; reads 1459326
+MB0 root-value comparison NOT RUN here: the re-walk costs what the census cost, and this root's per-action parity is gate M1's
+reads total 4841712 ( 1b2c627fc67ba460:2447314 005e2a5904761f35:2394398 ); priced 4 / refused 0; substantive zero prices 0; vacuous zero prices 0; strict prices 4
+wall 97728325 us
+
+== h12-t4 [posterior-carrying recursion]
+declared fiber 34650; augmented Σw·Z = 277200; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
+declared budget per root action: response 12000000 reads, U^sep 12000000 reads
+  action 2-0: Q_a = 0 (~0‰); U^sep_a = 0 (~0‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-e3b0c4429 — Φ_a = 0 at EVERY ν over these types; reads 0
+  action 3-0: Q_a = 0 (~0‰); U^sep_a = 0 (~0‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-e3b0c4429 — Φ_a = 0 at EVERY ν over these types; reads 0
+  action 4-0: Q_a = 0 (~0‰); U^sep_a = 0 (~0‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-e3b0c4429 — Φ_a = 0 at EVERY ν over these types; reads 0
+  action 6-5: Q_a = 0 (~0‰); U^sep_a = 0 (~0‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-e3b0c4429 — Φ_a = 0 at EVERY ν over these types; reads 0
+MB0 root-value comparison NOT RUN here: the re-walk costs what the census cost, and this root's per-action parity is gate M1's
+reads total 0 ( ); priced 4 / refused 0; substantive zero prices 0; vacuous zero prices 4; strict prices 0
+wall 135 us
+
+== h3-t4 [posterior-carrying recursion]
+declared fiber 11550; augmented Σw·Z = 92400; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
+declared budget per root action: response 12000000 reads, U^sep 12000000 reads
+  action 3-1: Q_a = 563/1848 (~304‰); U^sep_a = 1781/5775 (~308‰); Φ_a = 173/46200 (~3‰) [substantive]; reads 6579284
+  action 4-1: Q_a = 7121/30800 (~231‰); U^sep_a = 269/1155 (~232‰); Φ_a = 157/92400 (~1‰) [substantive]; reads 4825668
+  action 4-4: Q_a = 4471/15400 (~290‰); U^sep_a = 1709/5775 (~295‰); Φ_a = 37/6600 (~5‰) [substantive]; reads 6901094
+  action 6-4: Q_a = 284/1155 (~245‰); U^sep_a = 11507/46200 (~249‰); Φ_a = 7/2200 (~3‰) [substantive]; reads 5857092
+MB0 root-value comparison NOT RUN here: the re-walk costs what the census cost, and this root's per-action parity is gate M1's
+reads total 24163138 ( 1b2c627fc67ba460:12155506 005e2a5904761f35:12007632 ); priced 4 / refused 0; substantive zero prices 0; vacuous zero prices 0; strict prices 4
+wall 412206767 us
+
+== h8-t3 [posterior-carrying recursion]
+declared fiber 59976; augmented Σw·Z = 479808; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
+declared budget per root action: response 7000000 reads, U^sep 7000000 reads
+  action 1-1: REFUSED (response) — read-budget refusal: spent 7000011 of cap 7000000 at [1-1 1-0 2-0 2-2 5-5 4-3]
+  action 2-1: REFUSED (response) — read-budget refusal: spent 7000000 of cap 7000000 at [2-1 1-0 6-1 2-0 5-5 4-3 5-0 2-2 1-1 4-1 0-0]
+  action 3-1: REFUSED (response) — read-budget refusal: spent 7000000 of cap 7000000 at [3-1 2-0 2-2 3-0 3-3 0-0 6-0 4-3 5-5 4-1 5-0 1-0 1-1 6-1]
+  action 3-3: REFUSED (response) — read-budget refusal: spent 7000028 of cap 7000000 at [3-3 1-0 0-0 3-0 5-5 2-0 5-0 6-1]
+  action 5-5: REFUSED (response) — read-budget refusal: spent 7000000 of cap 7000000 at [5-5 0-0 5-0 5-3 2-1 6-2 2-2 4-3 2-0 6-0 1-1 4-0 6-6]
+MB0 root-value comparison SKIPPED: 5 of 5 coordinates refused, so the recursion has no max to compare
+reads total 35000039 ( 1b2c627fc67ba460:21397957 005e2a5904761f35:13602082 ); priced 0 / refused 5; substantive zero prices 0; vacuous zero prices 0; strict prices 0
+wall 1864107115 us
+
+---- PART 4: the Φ table ----
+
+ root      | trick | coords | priced | Φ>0 | Φ=0 subst | Φ=0 vacuous | refused
+-----------+-------+--------+--------+-----+-----------+-------------+--------
+ h12-t6    |     6 |      2 |      2 |   0 |         0 |           2 |       0
+ h10-t6    |     6 |      2 |      2 |   0 |         0 |           2 |       0
+ h5-t6     |     6 |      2 |      2 |   0 |         2 |           0 |       0
+ h4-t6     |     6 |      2 |      2 |   0 |         2 |           0 |       0
+ h8-t5     |     5 |      3 |      3 |   0 |         3 |           0 |       0
+ h3-t5     |     5 |      3 |      3 |   0 |         0 |           3 |       0
+ h8-t4     |     4 |      4 |      4 |   4 |         0 |           0 |       0
+ h12-t4    |     4 |      4 |      4 |   0 |         0 |           4 |       0
+ h3-t4     |     4 |      4 |      4 |   4 |         0 |           0 |       0
+ h8-t3     |     3 |      5 |      0 |   0 |         0 |           0 |       5
+
+---- PART 5: the field-identity fence ----
+
+== field-identity fence at h5-t6 (item 7)
+source σ0 = field:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e; source σ1 = field:8933fdf04637390b1665948e4450e75f24a56a1023021d4df9e0545a582e1d98; mixture target = model-mixture:bda9e5a85a55e629d875a017e5ff0189; δ_F0 target = model-mixture:2964c6e8861008cf56e4e74b5bdc6eaf
+  σ0 fact into the (1/2,1/2) MIXTURE: REFUSED — field coupling refused: field:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e is fixed-field, model-mixture:bda9e5a85a55e629d875a017e5ff0189 spans 8 live profiles
+  σ0 fact into δ_F0 with a re-run parity witness: COUPLED — PointMassParity(PointMassWitness { fixed_side: (12, 27), model_side: (12, 27), behavior: BehaviorTypeId([27, 44, 98, 127, 198, 123, 164, 96, 242, 27, 221, 60, 163, 95, 2, 127, 29, 69, 177, 2, 126, 73, 23, 211, 55, 15, 110, 236, 155, 2, 40, 209]) })
+  σ0 fact into δ_F0 with NO witness: REFUSED — field coupling refused: model-mixture:2964c6e8861008cf56e4e74b5bdc6eaf is a point mass over field:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e but no re-run parity witness was supplied
+  σ1 fact into δ_F0 (wrong parent field): REFUSED — field coupling refused: source field:8933fdf04637390b1665948e4450e75f24a56a1023021d4df9e0545a582e1d98 is not the target type's parent field field:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e
+  §49 store: a σ0-authored fact installed under the mixture identity -> Err(IdentityMismatch)
+
+total wall 2378934268 us (single-threaded; σ0/σ1 field caches shared within this run)

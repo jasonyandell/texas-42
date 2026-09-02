@@ -101,7 +101,59 @@
 //! both store a hand — and returns the union table; every asymmetric
 //! entry was dropped by construction only when its completion weight
 //! was exactly zero in the trimming profile.
+//!
+//! ---
+//!
+//! MB1 EXTENSIONS (brief `walt/briefs/BRIEF-MB1.md`, items 3 and 4;
+//! the recursion's own machinery lives beside this module in
+//! [`crate::solver::model_recursion`]). Three additions, none of which
+//! changes any exact value MB0 computed:
+//!
+//! 1. TIGHTENING IS NOW THE DEFAULT ON EVERY CLASSIFYING ENTRY POINT
+//!    (item 3). MB0 tightened inside [`ModelBelief::observe`] and the
+//!    mixture walk but not in [`ModelBelief::branch_masses`] or
+//!    [`ModelBelief::typed_branch_census`], which classify the acting
+//!    seat's raw support and so could reach the σ1 sampler's empty
+//!    acceptance region. Both now tighten first. Exactness-neutral by
+//!    the zero-entry law (a dropped entry contributes zero to every
+//!    branch and to `Z`), so every merged branch mass is unchanged;
+//!    what changes is only [`ModelBelief::typed_branch_census`]'s
+//!    typed-row count, which is a representation census and is
+//!    declared to count POSITIVE-SUPPORT rows.
+//!
+//! 2. THE FIELD-READ LEDGER ([`ReadLedger`], item 4). Every
+//!    [`ProfileField`] dispatch records the consulted behavior type in
+//!    a ledger shared by the whole lineage of one constructed
+//!    [`ModelBelief`] — the same object survives
+//!    [`ModelBelief::focal_play`], [`ModelBelief::observe`] and the
+//!    per-profile walks inside [`ModelBelief::separated_upper`]. The
+//!    ledger is APPEND-ONLY and its counts are a measurement of work
+//!    actually spent, never a forecast and never the cap.
+//!
+//! 3. TYPED BUDGET REFUSALS ([`MixtureRefusal`], item 4). The budgeted
+//!    entry points ([`ModelBelief::mixture_response_budgeted`],
+//!    [`ModelBelief::mixture_policy_mass_budgeted`],
+//!    [`ModelBelief::separated_upper_budgeted`]) carry a declared
+//!    ceiling on the field reads one walk may spend and return
+//!    `Result`. There is no truncated value anywhere, and the
+//!    unbudgeted entry points MB0 shipped are the same walk under an
+//!    absent ceiling (a refusal is then unconstructible, which is why
+//!    they keep returning a value).
+//!
+//!    WHERE THE CEILING IS CHECKED, EXACTLY. At the boundary of every
+//!    walked bundle node, before that node is expanded. A node that
+//!    passes the check then classifies the acting seat's support for
+//!    every live profile, which is itself many field consultations, so
+//!    the ledger can pass the ceiling by up to ONE NODE'S
+//!    classification cost before the next check sees it. The ceiling is
+//!    therefore a budget and not a hard bound, and the number a
+//!    refusal reports is always the LEDGER'S MEASURED TOTAL — never the
+//!    ceiling, and never a value rounded to it. Observed overshoots on
+//!    the declared probe corpus are single- and double-digit reads
+//!    against ceilings in the millions (7,000,011 and 7,000,028 against
+//!    7,000,000), which is what the shape of the bound predicts.
 
+use std::cell::{Cell, RefCell};
 use std::collections::BTreeMap;
 use std::fmt;
 use std::rc::Rc;
@@ -297,6 +349,125 @@ impl BehaviorType {
 // The profile field: one θ's seat-local deterministic field.
 // ---------------------------------------------------------------------------
 
+/// The exact field-consultation ledger of one model-belief lineage
+/// (MB1 item 4). Every [`ProfileField`] dispatch records the behavior
+/// type it consulted. APPEND-ONLY: there is no reset and no decrement,
+/// so a reported count is always the work a walk actually spent —
+/// callers take a baseline before a walk and read the difference.
+/// Single-threaded interior mutability, because [`SlicePolicy::choose`]
+/// takes `&self` and the ledger must observe the real dispatch.
+pub struct ReadLedger {
+    per_type: RefCell<Vec<(BehaviorTypeId, u64)>>,
+    total: Cell<u64>,
+}
+
+impl ReadLedger {
+    fn new() -> ReadLedger {
+        ReadLedger {
+            per_type: RefCell::new(Vec::new()),
+            total: Cell::new(0),
+        }
+    }
+
+    fn record(&self, id: BehaviorTypeId) {
+        let mut per_type = self.per_type.borrow_mut();
+        match per_type.iter_mut().find(|(t, _)| *t == id) {
+            Some((_, n)) => *n += 1,
+            None => per_type.push((id, 1)),
+        }
+        self.total.set(self.total.get() + 1);
+    }
+
+    /// Total field consultations recorded on this lineage.
+    pub fn total(&self) -> u64 {
+        self.total.get()
+    }
+
+    /// The per-type census, in first-consulted order.
+    pub fn per_type(&self) -> Vec<(BehaviorTypeId, u64)> {
+        self.per_type.borrow().clone()
+    }
+
+    /// Consultations recorded for one type.
+    pub fn reads_of(&self, id: BehaviorTypeId) -> u64 {
+        self.per_type
+            .borrow()
+            .iter()
+            .find(|(t, _)| *t == id)
+            .map_or(0, |(_, n)| *n)
+    }
+}
+
+/// Why a budgeted mixture walk stopped without a value (MB1 item 4,
+/// §34/§35 shape). The only variant is a declared-ceiling refusal, and
+/// it carries the MEASURED reads spent — never the ceiling as a
+/// stand-in — together with the public history it stopped at. No
+/// variant carries a value: a refused walk has no number, and none can
+/// be written into this type.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum MixtureRefusal {
+    /// The declared field-read ceiling was reached before the walk
+    /// closed.
+    ReadBudget {
+        /// Field consultations this walk had spent when it stopped — the
+        /// ledger's own measurement, which may exceed `cap` by up to one
+        /// node's classification cost (module doc).
+        spent: u64,
+        /// The declared ceiling that stopped it.
+        cap: u64,
+        /// The post-root public history of the bundle node that was
+        /// about to be expanded.
+        at_history: Vec<Domino>,
+    },
+}
+
+impl fmt::Display for MixtureRefusal {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            MixtureRefusal::ReadBudget {
+                spent,
+                cap,
+                at_history,
+            } => {
+                write!(f, "read-budget refusal: spent {spent} of cap {cap} at [")?;
+                for (i, d) in at_history.iter().enumerate() {
+                    if i > 0 {
+                        write!(f, " ")?;
+                    }
+                    write!(f, "{d}")?;
+                }
+                write!(f, "]")
+            }
+        }
+    }
+}
+
+/// One walk's declared read ceiling, resolved against the lineage
+/// ledger's baseline. An absent cap makes [`WalkBudget::check`] total,
+/// which is why the unbudgeted entry points cannot refuse.
+struct WalkBudget<'a> {
+    ledger: &'a ReadLedger,
+    baseline: u64,
+    cap: Option<u64>,
+}
+
+impl WalkBudget<'_> {
+    fn spent(&self) -> u64 {
+        self.ledger.total() - self.baseline
+    }
+
+    fn check(&self, history: &[Domino]) -> Result<(), MixtureRefusal> {
+        match self.cap {
+            Some(cap) if self.spent() >= cap => Err(MixtureRefusal::ReadBudget {
+                spent: self.spent(),
+                cap,
+                at_history: history.to_vec(),
+            }),
+            _ => Ok(()),
+        }
+    }
+}
+
 /// The seat-dispatched field of one type profile θ: the acting hidden
 /// seat (a derived view of the public record — leader plus plays this
 /// trick) is routed to its assigned type's mind. Seat-locality is
@@ -304,9 +475,14 @@ impl BehaviorType {
 /// record), so the profile field is a lawful deterministic
 /// [`SlicePolicy`] and Theorem 12.1 applies to every conditioning under
 /// it. The viewer has no assignment — a focal consultation panics.
+/// Every dispatch is recorded in the lineage's [`ReadLedger`] (MB1
+/// item 4): the count is taken at the dispatch itself, so it measures
+/// the mind's real consultations rather than the walk's estimate of
+/// them.
 pub struct ProfileField {
     label: String,
     assignment: [Option<Rc<BehaviorType>>; Seat::COUNT],
+    ledger: Rc<ReadLedger>,
 }
 
 impl SlicePolicy for ProfileField {
@@ -325,6 +501,7 @@ impl SlicePolicy for ProfileField {
         let behavior = self.assignment[seat.index()]
             .as_ref()
             .expect("a hidden seat has a type; the viewer never consults the field");
+        self.ledger.record(behavior.id());
         behavior.mind.choose(decl, hand, legal, record)
     }
 }
@@ -407,6 +584,9 @@ pub struct ModelBelief {
     /// zero through `Z_θ = 0`, represented by absence).
     prior_denominator: u128,
     entries: Vec<ProfileEntry>,
+    /// The lineage's field-consultation ledger (MB1 item 4), shared by
+    /// every profile field and by every belief derived from this one.
+    ledger: Rc<ReadLedger>,
 }
 
 impl ModelBelief {
@@ -421,6 +601,7 @@ impl ModelBelief {
     ) -> ModelBelief {
         assert!(!profiles.is_empty(), "a model belief holds a profile");
         let hidden = root.kernel().hidden();
+        let ledger = Rc::new(ReadLedger::new());
         let mut entries: Vec<ProfileEntry> = Vec::new();
         let mut denominator: u128 = 0;
         for (types, weight) in profiles {
@@ -459,7 +640,11 @@ impl ModelBelief {
                     .collect::<Vec<String>>()
                     .join(",")
             );
-            let field = Rc::new(ProfileField { label, assignment });
+            let field = Rc::new(ProfileField {
+                label,
+                assignment,
+                ledger: Rc::clone(&ledger),
+            });
             let belief = FactorBelief::uniform_root(root, position, field.as_ref());
             denominator = denominator
                 .checked_add(weight)
@@ -474,6 +659,7 @@ impl ModelBelief {
         ModelBelief {
             prior_denominator: denominator,
             entries,
+            ledger,
         }
     }
 
@@ -578,7 +764,15 @@ impl ModelBelief {
                     belief: entry.belief.focal_play(action),
                 })
                 .collect(),
+            ledger: Rc::clone(&self.ledger),
         }
+    }
+
+    /// The lineage's field-consultation ledger (MB1 item 4) — a derived
+    /// view of work already spent, shared by every belief descended
+    /// from the same constructor call.
+    pub fn ledger(&self) -> &Rc<ReadLedger> {
+        &self.ledger
     }
 
     /// The §13 exact branch masses of the acting hidden seat, MERGED BY
@@ -586,10 +780,17 @@ impl ModelBelief {
     /// Z_ht(θ)`, sorted by tile. Conservation `Σ_t Z_ht = Σ_θ w·Z_θ` is
     /// asserted here at the merged level (MB-I6) on top of the
     /// per-profile assertion inside every contraction.
+    ///
+    /// MB1 item 3: the acting seat's factor is tightened to its
+    /// positive joint support before any classification, so this entry
+    /// point never asks a σ1 mind about a zero-completion hand. Every
+    /// returned mass is unchanged by the tightening (a dropped entry
+    /// contributes zero to every branch).
     pub fn branch_masses(&self, oracle: &dyn ExactCoverOracle) -> Vec<(Domino, u128)> {
         let mut merged: Vec<(Domino, u128)> = Vec::new();
         for entry in &self.entries {
-            for (tile, mass) in oracle.branch_masses(&entry.belief, entry.field.as_ref()) {
+            let tight = tighten_acting(oracle, &entry.belief);
+            for (tile, mass) in oracle.branch_masses(&tight, entry.field.as_ref()) {
                 let m = weighted(entry.weight, mass);
                 match merged.iter_mut().find(|(t, _)| *t == tile) {
                     Some((_, acc)) => *acc = acc.checked_add(m).expect("an exact mass fits u128"),
@@ -613,11 +814,14 @@ impl ModelBelief {
     /// over live profiles of their distinct branch tiles, the count of
     /// merged public branches). The first is what a type-branching
     /// solver would pay; the second is what public-action merging pays.
+    /// Both are counted over the POSITIVE-SUPPORT tables (MB1 item 3),
+    /// which is the representation every walk actually classifies.
     pub fn typed_branch_census(&self, oracle: &dyn ExactCoverOracle) -> (usize, usize) {
         let mut typed = 0usize;
         let mut merged: Vec<Domino> = Vec::new();
         for entry in &self.entries {
-            let branches = oracle.branch_masses(&entry.belief, entry.field.as_ref());
+            let tight = tighten_acting(oracle, &entry.belief);
+            let branches = oracle.branch_masses(&tight, entry.field.as_ref());
             typed += branches.len();
             for (tile, _) in branches {
                 if !merged.contains(&tile) {
@@ -647,6 +851,7 @@ impl ModelBelief {
                     belief: entry.belief.with_factor_table(seat, table.clone()),
                 })
                 .collect(),
+            ledger: Rc::clone(&self.ledger),
         }
     }
 
@@ -659,34 +864,51 @@ impl ModelBelief {
     /// change (persistence: the type is the same latent object; the
     /// evidence lives in the hand factors).
     pub fn observe(&self, oracle: &dyn ExactCoverOracle, action: Domino) -> ModelBelief {
-        let entries: Vec<ProfileEntry> = self
-            .entries
-            .iter()
-            .filter_map(|entry| {
-                let tight = tighten_acting(oracle, &entry.belief);
-                let supported = oracle
-                    .branch_masses(&tight, entry.field.as_ref())
-                    .iter()
-                    .any(|(tile, _)| *tile == action);
-                if !supported {
-                    return None;
-                }
-                Some(ProfileEntry {
-                    types: entry.types.clone(),
-                    weight: entry.weight,
-                    field: Rc::clone(&entry.field),
-                    belief: oracle.condition(&tight, action, entry.field.as_ref()),
-                })
-            })
-            .collect();
+        self.observe_with_survivors(oracle, action).0
+    }
+
+    /// [`ModelBelief::observe`] together with the indices (into
+    /// [`ModelBelief::profiles`] BEFORE the observation) of the
+    /// profiles that survived it — the alignment a posterior-carrying
+    /// recursion needs to scatter per-profile masses back to their
+    /// parents (MB1 item 1). The surviving indices are strictly
+    /// increasing.
+    pub fn observe_with_survivors(
+        &self,
+        oracle: &dyn ExactCoverOracle,
+        action: Domino,
+    ) -> (ModelBelief, Vec<usize>) {
+        let mut entries: Vec<ProfileEntry> = Vec::new();
+        let mut survivors: Vec<usize> = Vec::new();
+        for (i, entry) in self.entries.iter().enumerate() {
+            let tight = tighten_acting(oracle, &entry.belief);
+            let supported = oracle
+                .branch_masses(&tight, entry.field.as_ref())
+                .iter()
+                .any(|(tile, _)| *tile == action);
+            if !supported {
+                continue;
+            }
+            survivors.push(i);
+            entries.push(ProfileEntry {
+                types: entry.types.clone(),
+                weight: entry.weight,
+                field: Rc::clone(&entry.field),
+                belief: oracle.condition(&tight, action, entry.field.as_ref()),
+            });
+        }
         assert!(
             !entries.is_empty(),
             "an observed action has positive augmented mass"
         );
-        ModelBelief {
-            prior_denominator: self.prior_denominator,
-            entries,
-        }
+        (
+            ModelBelief {
+                prior_denominator: self.prior_denominator,
+                entries,
+                ledger: Rc::clone(&self.ledger),
+            },
+            survivors,
+        )
     }
 
     /// The posterior profile masses: per live profile, `w(θ)·Z_θ(B)`.
@@ -834,6 +1056,47 @@ pub struct MixtureOutcome {
     pub weighted_mass: u128,
     /// `Σ_θ w·Z_θ`.
     pub weighted_total: u128,
+}
+
+impl MixtureOutcome {
+    /// §16/§23 repricing: the same fixed policy's value under DIFFERENT
+    /// profile weights, as the exact pair `(Σ w'·M_θ, Σ w'·Z_θ)`. Two
+    /// dot products against the stored response vector — no walk. The
+    /// weights are integer prior weights in profile order, cleared of
+    /// their denominator exactly as [`ProfileEntry::weight`] is; they
+    /// need not sum to anything in particular, and a zero weight is a
+    /// profile the new belief excludes.
+    ///
+    /// Why this is exact and not an approximation: the walk's
+    /// per-profile masses `M_θ` are computed against θ alone (a fixed
+    /// focal policy makes the same public choices for every profile,
+    /// so no profile's mass depends on any other profile's weight),
+    /// and the mixture value at any state is
+    /// `Σ w·M_θ / Σ w·Z_θ` — the posterior-weighted average of the
+    /// per-profile values, since the posterior weight of θ is itself
+    /// `w·Z_θ / Σ w·Z`.
+    pub fn reprice(&self, weights: &[u128]) -> (u128, u128) {
+        assert_eq!(
+            weights.len(),
+            self.per_profile_mass.len(),
+            "a repricing weight vector is aligned with the response vector"
+        );
+        let mass = weights
+            .iter()
+            .zip(self.per_profile_mass.iter())
+            .fold(0u128, |acc, (w, m)| {
+                acc.checked_add(weighted(*w, *m))
+                    .expect("an exact mass fits u128")
+            });
+        let total = weights
+            .iter()
+            .zip(self.per_profile_total.iter())
+            .fold(0u128, |acc, (w, z)| {
+                acc.checked_add(weighted(*w, *z))
+                    .expect("an exact mass fits u128")
+            });
+        (mass, total)
+    }
 }
 
 /// The extracted mixture-argmax policy: ONE realizable deterministic
@@ -998,6 +1261,12 @@ enum FocalMode<'a> {
 /// success masses (unweighted `M_θ`); the caller weights them. In
 /// respond mode, `choices` receives the argmax table of the walked
 /// region (winner branches only).
+///
+/// MB1 item 4: the declared read ceiling is checked at the boundary of
+/// every walked node, BEFORE the node spends anything, and a refusal
+/// propagates out unchanged. Under an absent ceiling
+/// [`WalkBudget::check`] is total and the `Err` arm is unreachable —
+/// which is what lets MB0's entry points keep returning a bare value.
 #[allow(clippy::too_many_arguments)]
 fn mixture_walk(
     oracle: &dyn ExactCoverOracle,
@@ -1010,7 +1279,9 @@ fn mixture_walk(
     mode: &FocalMode<'_>,
     stats: &mut MixtureStats,
     choices: &mut BTreeMap<Vec<u8>, Domino>,
-) -> Vec<u128> {
+    budget: &WalkBudget<'_>,
+) -> Result<Vec<u128>, MixtureRefusal> {
+    budget.check(&walk.history)?;
     let at_terminal = walk.history.len() == total_plays;
     if let Some(u) = decided_success(position, viewer, walk.banked, at_terminal) {
         if at_terminal {
@@ -1018,10 +1289,10 @@ fn mixture_walk(
         } else {
             stats.decided_early += 1;
         }
-        return entries
+        return Ok(entries
             .iter()
             .map(|entry| if u { oracle.mass(&entry.belief) } else { 0 })
-            .collect();
+            .collect());
     }
     assert!(
         walk.history.len() < total_plays,
@@ -1054,6 +1325,7 @@ fn mixture_walk(
                     stats,
                     choices,
                     tile,
+                    budget,
                 )
             }
             FocalMode::Respond => {
@@ -1083,7 +1355,8 @@ fn mixture_walk(
                         stats,
                         &mut sub_choices,
                         tile,
-                    );
+                        budget,
+                    )?;
                     let total = entries
                         .iter()
                         .zip(masses.iter())
@@ -1107,7 +1380,7 @@ fn mixture_walk(
                 let winner = best.expect("a legal set holds an action");
                 choices.extend(winner.choices);
                 choices.insert(history_key(&walk.history), winner.tile);
-                winner.masses
+                Ok(winner.masses)
             }
         }
     } else {
@@ -1170,12 +1443,13 @@ fn mixture_walk(
                 mode,
                 stats,
                 choices,
-            );
+                budget,
+            )?;
             for (i, m) in sub_index.into_iter().zip(sub_masses) {
                 masses[i] = masses[i].checked_add(m).expect("an exact mass fits u128");
             }
         }
-        masses
+        Ok(masses)
     }
 }
 
@@ -1194,7 +1468,8 @@ fn descend_focal(
     stats: &mut MixtureStats,
     choices: &mut BTreeMap<Vec<u8>, Domino>,
     tile: Domino,
-) -> Vec<u128> {
+    budget: &WalkBudget<'_>,
+) -> Result<Vec<u128>, MixtureRefusal> {
     let sub_entries: Vec<ProfileEntry> = entries
         .iter()
         .map(|entry| ProfileEntry {
@@ -1217,10 +1492,79 @@ fn descend_focal(
         mode,
         stats,
         choices,
+        budget,
     )
 }
 
 impl ModelBelief {
+    /// A structural copy at the same state, sharing the lineage's
+    /// [`ReadLedger`] (MB1: a traced descent needs an owned belief to
+    /// advance, and a copy that started its own ledger would silently
+    /// stop measuring the walk it belongs to).
+    pub fn same_state(&self) -> ModelBelief {
+        ModelBelief {
+            prior_denominator: self.prior_denominator,
+            entries: self
+                .entries
+                .iter()
+                .map(|entry| ProfileEntry {
+                    types: entry.types.clone(),
+                    weight: entry.weight,
+                    field: Rc::clone(&entry.field),
+                    belief: entry.belief.clone(),
+                })
+                .collect(),
+            ledger: Rc::clone(&self.ledger),
+        }
+    }
+
+    /// The viewer's legal actions at the shared public state, and the
+    /// count of plays the whole hand still owes — the frame a traced
+    /// descent needs without re-deriving the trick arithmetic.
+    /// `None` when the seat to move is not the viewer.
+    pub fn legal_focal_actions(&self) -> Option<DominoSet> {
+        let (position, viewer, viewer_hand, _, walk) = self.walk_frame();
+        if walk.seat() != viewer {
+            return None;
+        }
+        let remaining = viewer_hand.difference(walk.played_by[viewer.index()]);
+        let led = walk.plays.first().map(|d| position.decl.led_context(*d));
+        Some(legal_plays(position.decl, remaining, led))
+    }
+
+    /// One focal consultation for the WHOLE bundle at the shared public
+    /// state (MB-I1: a policy is never evaluated per profile, so no
+    /// policy can key its choice on θ). Panics if the seat to move is
+    /// hidden — the caller checks [`ModelBelief::seat_to_move`].
+    pub fn focal_choice(&self, focal: &dyn SlicePolicy) -> Domino {
+        let (position, viewer, viewer_hand, _, walk) = self.walk_frame();
+        assert_eq!(
+            walk.seat(),
+            viewer,
+            "a focal consultation is at a focal state"
+        );
+        let remaining = viewer_hand.difference(walk.played_by[viewer.index()]);
+        let led = walk.plays.first().map(|d| position.decl.led_context(*d));
+        let legal = legal_plays(position.decl, remaining, led);
+        let record = walk.record(&position);
+        let tile = focal.choose(position.decl, remaining, legal, &record);
+        assert!(legal.contains(tile), "a policy chooses a legal tile");
+        tile
+    }
+
+    /// The total plays the hand owes from the root — the terminal depth
+    /// of every bundle walk over this belief.
+    pub fn total_plays(&self) -> usize {
+        let belief = &self.entries[0].belief;
+        belief.kernel().viewer_hand().len()
+            + belief
+                .kernel()
+                .hidden()
+                .iter()
+                .map(|h| h.capacity)
+                .sum::<usize>()
+    }
+
     fn walk_frame(&self) -> (RootPosition, Seat, DominoSet, usize, PublicWalk) {
         let belief = &self.entries[0].belief;
         let position = belief.position().clone();
@@ -1279,8 +1623,28 @@ impl ModelBelief {
         focal: &dyn SlicePolicy,
         stats: &mut MixtureStats,
     ) -> MixtureOutcome {
+        self.mixture_policy_mass_budgeted(oracle, focal, None, stats)
+            .expect("an absent read ceiling makes a budget refusal unconstructible")
+    }
+
+    /// [`ModelBelief::mixture_policy_mass`] under a declared field-read
+    /// ceiling (MB1 item 4): `cap` is the number of field
+    /// consultations THIS walk may spend, measured against the
+    /// lineage ledger's value on entry. `None` is the unbudgeted walk.
+    pub fn mixture_policy_mass_budgeted(
+        &self,
+        oracle: &dyn ExactCoverOracle,
+        focal: &dyn SlicePolicy,
+        cap: Option<u64>,
+        stats: &mut MixtureStats,
+    ) -> Result<MixtureOutcome, MixtureRefusal> {
         let (position, viewer, viewer_hand, total_plays, walk) = self.walk_frame();
         let mut choices = BTreeMap::new();
+        let budget = WalkBudget {
+            ledger: &self.ledger,
+            baseline: self.ledger.total(),
+            cap,
+        };
         let masses = mixture_walk(
             oracle,
             &position,
@@ -1292,8 +1656,9 @@ impl ModelBelief {
             &FocalMode::Fixed(focal),
             stats,
             &mut choices,
-        );
-        self.outcome_of(oracle, masses)
+            &budget,
+        )?;
+        Ok(self.outcome_of(oracle, masses))
     }
 
     /// The exact mixture response `Q(ν)` (§16, boxed): the max over
@@ -1305,8 +1670,28 @@ impl ModelBelief {
         oracle: &dyn ExactCoverOracle,
         stats: &mut MixtureStats,
     ) -> MixtureResponse {
+        self.mixture_response_budgeted(oracle, None, stats)
+            .expect("an absent read ceiling makes a budget refusal unconstructible")
+    }
+
+    /// [`ModelBelief::mixture_response`] under a declared field-read
+    /// ceiling (MB1 item 4). On refusal there is NO value — not a
+    /// truncated one, not a partial maximum: the walk's own maximum is
+    /// only defined once every branch of an information state has been
+    /// priced, so the honest result is the typed refusal alone.
+    pub fn mixture_response_budgeted(
+        &self,
+        oracle: &dyn ExactCoverOracle,
+        cap: Option<u64>,
+        stats: &mut MixtureStats,
+    ) -> Result<MixtureResponse, MixtureRefusal> {
         let (position, viewer, viewer_hand, total_plays, walk) = self.walk_frame();
         let mut choices = BTreeMap::new();
+        let budget = WalkBudget {
+            ledger: &self.ledger,
+            baseline: self.ledger.total(),
+            cap,
+        };
         let masses = mixture_walk(
             oracle,
             &position,
@@ -1318,11 +1703,12 @@ impl ModelBelief {
             &FocalMode::Respond,
             stats,
             &mut choices,
-        );
-        MixtureResponse {
+            &budget,
+        )?;
+        Ok(MixtureResponse {
             outcome: self.outcome_of(oracle, masses),
             policy: MixturePolicy::new(choices),
-        }
+        })
     }
 
     /// The type-revealed separated upper `U^sep` (§18): per live
@@ -1337,34 +1723,96 @@ impl ModelBelief {
     /// Separately typed from every other upper (MB-I8): this function's
     /// result is only ever a `U^sep`.
     pub fn separated_upper(&self, oracle: &dyn ExactCoverOracle) -> MixtureOutcome {
+        self.separated_upper_budgeted(oracle, None)
+            .expect("an absent read ceiling makes a budget refusal unconstructible")
+    }
+
+    /// [`ModelBelief::separated_upper`] under a declared field-read
+    /// ceiling (MB1 item 4). The ceiling covers the WHOLE sequence of
+    /// per-profile point-mass walks, because `U^sep` is their weighted
+    /// sum and a partial sum is not an upper on anything.
+    pub fn separated_upper_budgeted(
+        &self,
+        oracle: &dyn ExactCoverOracle,
+        cap: Option<u64>,
+    ) -> Result<MixtureOutcome, MixtureRefusal> {
         let (position, viewer, viewer_hand, total_plays, walk) = self.walk_frame();
-        let masses: Vec<u128> = self
-            .entries
-            .iter()
-            .map(|entry| {
-                let single = [ProfileEntry {
-                    types: entry.types.clone(),
-                    weight: 1,
-                    field: Rc::clone(&entry.field),
-                    belief: entry.belief.clone(),
-                }];
-                let mut stats = MixtureStats::default();
-                let mut choices = BTreeMap::new();
-                let m = mixture_walk(
-                    oracle,
-                    &position,
-                    viewer,
-                    viewer_hand,
-                    total_plays,
-                    &single,
-                    &walk,
-                    &FocalMode::Respond,
-                    &mut stats,
-                    &mut choices,
-                );
-                m[0]
-            })
-            .collect();
-        self.outcome_of(oracle, masses)
+        let budget = WalkBudget {
+            ledger: &self.ledger,
+            baseline: self.ledger.total(),
+            cap,
+        };
+        let mut masses: Vec<u128> = Vec::with_capacity(self.entries.len());
+        for entry in &self.entries {
+            let single = [ProfileEntry {
+                types: entry.types.clone(),
+                weight: 1,
+                field: Rc::clone(&entry.field),
+                belief: entry.belief.clone(),
+            }];
+            let mut stats = MixtureStats::default();
+            let mut choices = BTreeMap::new();
+            let m = mixture_walk(
+                oracle,
+                &position,
+                viewer,
+                viewer_hand,
+                total_plays,
+                &single,
+                &walk,
+                &FocalMode::Respond,
+                &mut stats,
+                &mut choices,
+                &budget,
+            )?;
+            masses.push(m[0]);
+        }
+        Ok(self.outcome_of(oracle, masses))
+    }
+
+    /// The per-profile point-mass optima `q_a(θ)` (§18) as raw masses,
+    /// aligned with [`ModelBelief::profiles`], together with the ONE
+    /// realizable policy each attains (MB1 item 2: these are the
+    /// columns a `U^sep`-attaining common policy would have to match
+    /// simultaneously, so Theorem 19.1's witness search reads off this
+    /// list). The weighted sum of the masses is exactly
+    /// [`ModelBelief::separated_upper`]'s `weighted_mass`.
+    pub fn point_mass_optima(
+        &self,
+        oracle: &dyn ExactCoverOracle,
+        cap: Option<u64>,
+    ) -> Result<Vec<(u128, MixturePolicy)>, MixtureRefusal> {
+        let (position, viewer, viewer_hand, total_plays, walk) = self.walk_frame();
+        let budget = WalkBudget {
+            ledger: &self.ledger,
+            baseline: self.ledger.total(),
+            cap,
+        };
+        let mut out: Vec<(u128, MixturePolicy)> = Vec::with_capacity(self.entries.len());
+        for entry in &self.entries {
+            let single = [ProfileEntry {
+                types: entry.types.clone(),
+                weight: 1,
+                field: Rc::clone(&entry.field),
+                belief: entry.belief.clone(),
+            }];
+            let mut stats = MixtureStats::default();
+            let mut choices = BTreeMap::new();
+            let m = mixture_walk(
+                oracle,
+                &position,
+                viewer,
+                viewer_hand,
+                total_plays,
+                &single,
+                &walk,
+                &FocalMode::Respond,
+                &mut stats,
+                &mut choices,
+                &budget,
+            )?;
+            out.push((m[0], MixturePolicy::new(choices)));
+        }
+        Ok(out)
     }
 }
