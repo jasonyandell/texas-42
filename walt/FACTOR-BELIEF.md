@@ -14,7 +14,10 @@ MB0); SLICE U0 LANDED (2026-09-02, the God-gap census — the §8
 decomposition made mechanical and the §38 fusion horizon measured at
 trick 5, paragraph after σ1-repair); SLICE MB1 LANDED (2026-09-02, the
 model-belief recursion joined to the solver — and the STRICT model-fusion
-price found at trick 4, paragraph after U0). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
+price found at trick 4, paragraph after U0); SLICE UP0 LANDED (2026-09-02,
+the FIRST SLICE OF THE NEW UNIFIED WALT PLAYER — one decision function
+over the whole instrument stack, provenance always, both recursions
+played and named, paragraph after MB1). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
 register: `solver/refine.rs` as merged at `25b40d9` takes no new
 fields, variants, or work items, ever; its four gates never weaken; the
 coming proof-state core must reproduce it wherever scopes overlap and
@@ -739,6 +742,113 @@ probe records are byte-identical to the pre-slice baseline. EXPLORATORY
 tier; the trick-4 prices are measurements on a declared corpus, never
 theorems — the §19 corollary alone is mathematics and carries Theorem
 19.1's status, not this slice's.
+
+**SLICE UP0 LANDED** (2026-09-02, the first slice of the NEW UNIFIED
+WALT PLAYER — Jason's §76 GO, "the interesting one is the new one,
+that's what I'm itching to play"; brief `walt/briefs/BRIEF-UP0.md`,
+report of record `walt/briefs/UP0-REPORT.md`): one decision function
+that consults every exact instrument the counted-belief program built,
+in the order the mathematics says they become affordable, with the
+model-belief posterior carried down the line, and with every decision
+carrying a typed provenance naming the instrument that produced it, the
+budget it spent and every refusal it fell through. New module
+`solver/unified.rs` — ADDITIVE, importing its siblings and imported by
+nothing but the crate root; the diff against the pre-slice baseline over
+`refine.rs`, `doom.rs`, `godgap.rs`, `model_belief.rs`,
+`model_recursion.rs`, `proof_state.rs`, `factor_belief.rs`,
+`adaptive.rs`, `field.rs` and the old player's four binaries is EMPTY,
+and the one edit outside new files is the module registration.
+`UnifiedPlayer::decide(state, budget)` runs a TOTAL five-tier cascade,
+each tier entered only on declared affordability and exited only by a
+typed refusal: (a) the free decided arithmetic, (b) the endgame exact —
+CONSUME a zero-regret necessary outer profile the §49 store already
+holds, else the exact world-space recursion where the fiber affords
+enumeration, (c) MB1's exact model-space response under the carried
+posterior and a declared read ceiling, (d) the §33 recommendation off
+the store's facts within a declared Γ, (e) the σ0 field, which always
+answers and is named as the fallback it is. Every decision knows which
+of the two recursions it stands in: `Recursion::direction` answers
+`backward` or `forward` in one word and `space` separates the world
+recursion over `Φ(C)` from the model recursion over `Ξ = Ω×Θ`, so
+Jason's frame is a field of the record rather than a remark about it.
+PROVENANCE IS A DERIVED VIEW: there is no `tier` field to lie in —
+`Provenance::tier()` is `Evidence::tier()`, and each evidence variant
+carries exactly what its tier can prove (the enumeration's exact mass
+pair and its §63 re-priced mass, or the consumed fact's id and value, or
+`Q(ν)` with the ledger's MEASURED spend, or the §33 block, or nothing
+but the field's own name); `Provenance` and `Decision` hold private
+members and the single assembly site is one private function, so a
+fabricated evidence value has nowhere to go. Eighteen gates
+(`walt/walt/tests/solver_unified.rs`, 17.0 s): UP1 totality over three
+rungs × seven roots plus the source gate that the module holds no
+`unwrap`/`panic!`/`unreachable!`/`todo!` and every `expect` in it is
+annotated a rules invariant; UP2 U0's God-tight receipts seeded into the
+store and CONSUMED at zero spend, re-pricing to the God upper recomputed
+in the gate, with the godgap/doom instruments byte-identical either
+side; UP3 the carried posterior checked as a derived view of (root,
+public line) against a per-seat independent replay AND against MB1's own
+`trace_heaviest_line`; UP4 starved-budget fall-through, decision
+determinism, and budget monotonicity; UP5 the consumed instruments
+unperturbed and the counting decorator value-neutral; UP6 every claimed
+tier re-derived independently. `check.sh` PASS cold; MB0's eight,
+σ1-repair's seven, U0's six and MB1's seven green untouched.
+
+THE MEASUREMENTS, and the first is not about deciding. Splitting the
+transcript's wall into time inside `decide` and time spent ADVANCING the
+carried posterior: on the lean rung **99.4% of the wall (2,105,672 µs of
+2,117,924 µs over 72 decisions) is carrying a posterior that no tier
+consulted** — the decisions themselves cost 12,117 µs. Advancing a model
+belief past a hidden play means classifying the acting seat's support
+under every live profile, at every ply, for every open line, and a lean
+budget affords no tier that reads the result. The lever is declared and
+gated: an empty type library opens no line and changes no action, tier
+or exact value the world-space tiers produced. THE JOIN, on played
+lines: 27 readings, **9 moved the value (7 of them purely) and 2
+flipped the argmax** (the flips move the value too — subset, not sum) —
+MB1's "values move before argmaxes" separated cleanly on real play,
+with both flips pinned exactly in gate UP3 — h8-t4 t4-p2, model 0-0
+against fixed-field 6-2 at 617/864 versus 173/216, under an UNTOUCHED
+eight-profile prior; and h3-t5 t6-p2, model 6-4 against fixed-field 3-1
+at 3/5 versus 5/6, under a posterior that has already zeroed two
+profiles, which makes the second the stronger of the pair (each
+specimen pins its live profile count for that reason). The second flip
+was transcript-only when this paragraph was first written and its
+rationals were quoted here as though gated; the independent audit
+caught the overclaim and the gate was extended to carry it, which is
+recorded as deviation 7 in the slice report. The declared cascade plays
+tier (b)'s answer and RECORDS the disagreement, and the report is
+explicit that this ordering is a declared choice rather than a theorem:
+MB0's point-mass parity makes tier (b) the `δ_{F₀}` special case of tier
+(c), so (b) is not deeper certainty than (c) but the same recursion
+under a strictly narrower belief. Inverting them is UP1's first
+question and two exact specimens now exist to answer it on. THE
+LIBRARY IS FALSIFIED BY THE PLAYER'S OWN PLAY: nine times across the
+transcript an observed action left the registered F₀/F₁ library's
+support entirely (support sets of one to three tiles), so UP0 checks the
+merged branch table BEFORE observing and retires the line with a typed
+`Falsification` rather than reaching MB0's positive-mass assertion — the
+posterior is never repaired, re-seeded or widened. A two-rung ladder of
+the same architecture does not contain the play of an exact solver, which
+is a second reason to run MB1's proposed experiment with a library
+chosen to disagree earlier. TIER OCCUPANCY, over 216 decisions: trick 7
+is entirely free on every rung (28/28 tier (a)); tier (c) never fires
+under a natural ladder, because the declared order only reaches it where
+tier (b) already refused and both natural rungs put the enumeration cap
+above the mixture cap — a third rung with the two structural caps
+SWAPPED was added so the model tier answers and can be gate-verified,
+since a transcript in which a built tier never fires has not exercised
+it; and tier (d) never fires anywhere, because the only producer filling
+the store is tier (b), which deposits only where it also answered — its
+domain begins the moment a producer that is not the exact walk fills the
+store, which is UP2's target. Probe `unifiedreport`
+(`probes/factor_belief/unified_run1.txt`, 216 decisions, 31.5 s), a
+TRANSCRIPT and never an evaluation: no play-strength claim, no
+comparison to the existing player, arena on Jason's word. The dominant
+refusal, 63 of 104, is `ProofStateUnavailable`: `ProofState::open`
+asserts a trick-START root, so tiers (b1) and (d) refuse at every
+mid-trick decision while (b2)'s enumeration, which needs no store, still
+runs — a scope limit of the §49 spike, typed rather than worked around,
+and UP1's clearest single piece of work. EXPLORATORY tier throughout.
 
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint

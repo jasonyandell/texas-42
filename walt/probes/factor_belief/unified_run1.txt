@@ -1,0 +1,904 @@
+UNIFIED-PLAYER TRANSCRIPT (slice UP0) — EXPLORATORY
+
+A record of what the unified player DID, decision by decision. Not an evaluation: no play-strength claim is made anywhere in this file, and nothing here is compared to the existing player.
+
+declared field: level0-modeled-mind-v1 (Level0 n0=2) under SupportOracle
+declared type library: F0 = Level0 n0=2, F1 = Level1 n_outer=2 n0=2, equal integer prior weight per hidden seat (8 profiles over denominator 8)
+declared ladder:
+  lean : enumeration_fiber_cap=32 mixture_fiber_cap=0 mixture_read_cap=0 join_reading=false
+  ample: enumeration_fiber_cap=40000 mixture_fiber_cap=256 mixture_read_cap=4000000 join_reading=true
+  model: enumeration_fiber_cap=8 mixture_fiber_cap=256 mixture_read_cap=4000000 join_reading=false (the two structural caps swapped, so the model-space tier is the one that ANSWERS rather than only being read)
+  certified-regret acceptance on every rung: 1/4
+corpus: MB0's six enumerable roots plus h8-t4, walked to terminal with the unified player choosing EVERY seat's action
+
+
+
+#### RUNG: lean ####################################################
+
+== h12-t6 [lean] — 8 decisions, banked 22/20, declaring MISSED the contract, wall 656us
+  t6 p0 s3 plays 4-4 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=6 value=- | reads: enum=0 mix=0 field=0 | wall decide=72us carry=9us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p1 s0 plays 4-1 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=3 value=- | reads: enum=0 mix=0 field=0 | wall decide=16us carry=98us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p2 s1 plays 3-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=3 value=- | reads: enum=0 mix=0 field=0 | wall decide=14us carry=100us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p3 s2 plays 4-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=12us carry=100us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p0 s1 plays 4-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=59us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s2 plays 3-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=48us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p2 s3 plays 6-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=63us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s0 plays 5-1 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=53us
+      posterior: carried=true consulted=false live=8 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h10-t6 [lean] — 8 decisions, banked 1/41, declaring MADE the contract, wall 695us
+  t6 p0 s1 plays 2-2 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=19 value=- | reads: enum=0 mix=0 field=0 | wall decide=17us carry=0us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p1 s2 plays 3-2 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=18 value=- | reads: enum=0 mix=0 field=0 | wall decide=11us carry=73us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p2 s3 plays 2-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=9 value=- | reads: enum=0 mix=0 field=0 | wall decide=10us carry=95us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p3 s0 plays 4-4 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=3 value=- | reads: enum=0 mix=0 field=0 | wall decide=11us carry=224us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p0 s1 plays 3-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=95us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s2 plays 4-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=48us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p2 s3 plays 6-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=55us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s0 plays 6-5 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=45us
+      posterior: carried=true consulted=false live=8 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h5-t6 [lean] — 8 decisions, banked 36/6, declaring MADE the contract, wall 11788us
+  t6 p0 s0 plays 4-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=27 value=4/9 (444‰) | reads: enum=1148 mix=0 field=0 | wall decide=777us carry=0us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p1 s1 plays 4-3 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=30 value=- | reads: enum=0 mix=0 field=0 | wall decide=11us carry=4555us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p2 s2 plays 5-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=9 value=1 (1000‰) | reads: enum=202 mix=0 field=0 | wall decide=107us carry=5064us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t6 p3 s3 plays 4-2 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=2 value=0 (0‰) | reads: enum=54 mix=0 field=0 | wall decide=48us carry=994us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s2 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=4 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=58us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s3 plays 4-4 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=56us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p2 s0 plays 5-2 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=54us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s1 plays 1-1 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=47us
+      posterior: carried=true consulted=false live=8 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h4-t6 [lean] — 8 decisions, banked 12/30, declaring MADE the contract, wall 19009us
+  t6 p0 s2 plays 0-0 | tier (e) field-fallback [forward / play] via field::SlicePolicy::choose:fallback
+      fiber=90 value=- | reads: enum=0 mix=0 field=1 | wall decide=31us carry=0us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 90, cap: 32 }; MixtureUnaffordable { fiber: 90, cap: 0 }
+  t6 p1 s3 plays 2-2 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=30 value=11/15 (733‰) | reads: enum=703 mix=0 field=0 | wall decide=428us carry=8944us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t6 p2 s0 plays 2-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=12 value=- | reads: enum=0 mix=0 field=0 | wall decide=14us carry=8096us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p3 s1 plays 2-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=6 value=1 (1000‰) | reads: enum=0 mix=0 field=0 | wall decide=22us carry=1189us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s1 plays 5-1 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=6 value=- | reads: enum=0 mix=0 field=0 | wall decide=3us carry=71us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s2 plays 1-1 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=4us carry=84us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p2 s3 plays 5-4 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=59us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s0 plays 5-5 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=51us
+      posterior: carried=true consulted=false live=8 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h8-t5 [lean] — 12 decisions, banked 1/41, declaring MADE the contract, wall 175402us
+  t5 p0 s3 plays 5-3 | tier (e) field-fallback [forward / play] via field::SlicePolicy::choose:fallback
+      fiber=92 value=- | reads: enum=0 mix=0 field=1 | wall decide=41us carry=0us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 92, cap: 32 }; MixtureUnaffordable { fiber: 92, cap: 0 }
+  t5 p1 s0 plays 3-0 | tier (e) field-fallback [forward / play] via field::SlicePolicy::choose:fallback
+      fiber=60 value=- | reads: enum=0 mix=0 field=1 | wall decide=40us carry=74735us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }; EnumerationUnaffordable { fiber: 60, cap: 32 }; MixtureUnaffordable { fiber: 60, cap: 0 }
+  t5 p2 s1 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=12 value=- | reads: enum=0 mix=0 field=0 | wall decide=18us carry=23587us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t5 p3 s2 plays 4-3 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=6 value=0 (0‰) | reads: enum=489 mix=0 field=0 | wall decide=802us carry=49515us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t6 p0 s1 plays 3-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=9 value=1 (1000‰) | reads: enum=380 mix=0 field=0 | wall decide=648us carry=17933us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p1 s2 plays 6-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=3 value=0 (0‰) | reads: enum=114 mix=0 field=0 | wall decide=141us carry=4787us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t6 p2 s3 plays 0-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=3 value=1 (1000‰) | reads: enum=95 mix=0 field=0 | wall decide=82us carry=2668us
+      posterior: carried=true consulted=false live=4 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t6 p3 s0 plays 4-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=1 value=0 (0‰) | reads: enum=16 mix=0 field=0 | wall decide=21us carry=180us
+      posterior: carried=true consulted=false live=4 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s1 plays 3-3 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=34us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s2 plays 6-6 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=51us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t7 p2 s3 plays 5-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=39us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t7 p3 s0 plays 6-4 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=50us
+      posterior: carried=true consulted=false live=4 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h3-t5 [lean] — 12 decisions, banked 42/0, declaring MADE the contract, wall 241924us
+  t5 p0 s0 plays 4-0 | tier (e) field-fallback [forward / play] via field::SlicePolicy::choose:fallback
+      fiber=200 value=- | reads: enum=0 mix=0 field=1 | wall decide=39us carry=1us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 200, cap: 32 }; MixtureUnaffordable { fiber: 200, cap: 0 }
+  t5 p1 s1 plays 6-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=10 value=4/5 (800‰) | reads: enum=1188 mix=0 field=0 | wall decide=4203us carry=114730us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t5 p2 s2 plays 3-1 | tier (e) field-fallback [forward / play] via field::SlicePolicy::choose:fallback
+      fiber=150 value=- | reads: enum=0 mix=0 field=1 | wall decide=37us carry=28266us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }; EnumerationUnaffordable { fiber: 150, cap: 32 }; MixtureUnaffordable { fiber: 150, cap: 0 }
+  t5 p3 s3 plays 3-2 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=18 value=1/6 (166‰) | reads: enum=1081 mix=0 field=0 | wall decide=1516us carry=62967us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t6 p0 s0 plays 5-0 | tier (e) field-fallback [forward / play] via field::SlicePolicy::choose:fallback
+      fiber=36 value=- | reads: enum=0 mix=0 field=1 | wall decide=13us carry=13525us
+      posterior: carried=true consulted=false live=4 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 36, cap: 32 }; MixtureUnaffordable { fiber: 36, cap: 0 }
+  t6 p1 s1 plays 3-3 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=3 value=1/3 (333‰) | reads: enum=122 mix=0 field=0 | wall decide=200us carry=13633us
+      posterior: carried=true consulted=false live=4 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t6 p2 s2 plays 6-4 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=12 value=5/6 (833‰) | reads: enum=260 mix=0 field=0 | wall decide=168us carry=1903us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t6 p3 s3 plays 6-3 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=4 value=1/4 (250‰) | reads: enum=52 mix=0 field=0 | wall decide=32us carry=550us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s0 plays 6-6 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=4 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=45us
+      posterior: carried=true consulted=false live=1 falsified=false
+  t7 p1 s1 plays 6-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=38us
+      posterior: carried=false consulted=false live=0 falsified=true
+  t7 p2 s2 plays 4-1 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=12us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t7 p3 s3 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=9us
+      posterior: carried=true consulted=false live=4 falsified=false
+  LIBRARY FALSIFIED at t6 p2: seat 2 played 6-4, library supported {4-1}
+  LIBRARY FALSIFIED at t7 p1: seat 1 played 6-5, library supported {4-1}
+
+== h8-t4 [lean] — 16 decisions, banked 1/41, declaring MADE the contract, wall 1668450us
+  t4 p0 s1 plays 2-1 | tier (e) field-fallback [forward / play] via field::SlicePolicy::choose:fallback
+      fiber=1200 value=- | reads: enum=0 mix=0 field=1 | wall decide=79us carry=0us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 1200, cap: 32 }; MixtureUnaffordable { fiber: 1200, cap: 0 }
+  t4 p1 s2 plays 4-3 | tier (e) field-fallback [forward / play] via field::SlicePolicy::choose:fallback
+      fiber=1260 value=- | reads: enum=0 mix=0 field=1 | wall decide=44us carry=176393us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }; EnumerationUnaffordable { fiber: 1260, cap: 32 }; MixtureUnaffordable { fiber: 1260, cap: 0 }
+  t4 p2 s3 plays 6-2 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=216 value=- | reads: enum=0 mix=0 field=0 | wall decide=20us carry=298050us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t4 p3 s0 plays 2-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=120 value=- | reads: enum=0 mix=0 field=0 | wall decide=18us carry=816890us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t5 p0 s3 plays 0-0 | tier (e) field-fallback [forward / play] via field::SlicePolicy::choose:fallback
+      fiber=92 value=- | reads: enum=0 mix=0 field=1 | wall decide=31us carry=246727us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 92, cap: 32 }; MixtureUnaffordable { fiber: 92, cap: 0 }
+  t5 p1 s0 plays 3-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=30 value=- | reads: enum=0 mix=0 field=0 | wall decide=6us carry=49332us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t5 p2 s1 plays 3-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=8 value=1 (1000‰) | reads: enum=684 mix=0 field=0 | wall decide=1206us carry=53025us
+      posterior: carried=true consulted=false live=6 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t5 p3 s2 plays 4-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=6 value=0 (0‰) | reads: enum=399 mix=0 field=0 | wall decide=575us carry=7111us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t6 p0 s3 plays 5-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=7 value=6/7 (857‰) | reads: enum=319 mix=0 field=0 | wall decide=360us carry=11334us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p1 s0 plays 4-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=7 value=0 (0‰) | reads: enum=210 mix=0 field=0 | wall decide=135us carry=6039us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t6 p2 s1 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=3 value=- | reads: enum=0 mix=0 field=0 | wall decide=3us carry=783us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t6 p3 s2 plays 6-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=2 value=0 (0‰) | reads: enum=0 mix=0 field=0 | wall decide=6us carry=106us
+      posterior: carried=true consulted=false live=4 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s1 plays 3-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=44us
+      posterior: carried=true consulted=false live=2 falsified=false
+  t7 p1 s2 plays 6-6 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=39us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t7 p2 s3 plays 5-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=25us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s0 plays 6-4 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=29us
+      posterior: carried=true consulted=false live=4 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+
+#### RUNG: ample ####################################################
+
+== h12-t6 [ample] — 8 decisions, banked 22/20, declaring MISSED the contract, wall 514us
+  t6 p0 s3 plays 4-4 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=6 value=- | reads: enum=0 mix=0 field=0 | wall decide=13us carry=0us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p1 s0 plays 4-1 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=3 value=- | reads: enum=0 mix=0 field=0 | wall decide=10us carry=66us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p2 s1 plays 3-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=3 value=- | reads: enum=0 mix=0 field=0 | wall decide=10us carry=86us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p3 s2 plays 4-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=10us carry=95us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p0 s1 plays 4-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=55us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s2 plays 3-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=48us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p2 s3 plays 6-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=57us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s0 plays 5-1 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=49us
+      posterior: carried=true consulted=false live=8 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h10-t6 [ample] — 8 decisions, banked 1/41, declaring MADE the contract, wall 691us
+  t6 p0 s1 plays 2-2 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=19 value=- | reads: enum=0 mix=0 field=0 | wall decide=13us carry=0us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p1 s2 plays 3-2 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=18 value=- | reads: enum=0 mix=0 field=0 | wall decide=11us carry=71us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p2 s3 plays 2-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=9 value=- | reads: enum=0 mix=0 field=0 | wall decide=10us carry=99us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p3 s0 plays 4-4 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=3 value=- | reads: enum=0 mix=0 field=0 | wall decide=11us carry=221us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p0 s1 plays 3-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=95us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s2 plays 4-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=49us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p2 s3 plays 6-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=54us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s0 plays 6-5 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=44us
+      posterior: carried=true consulted=false live=8 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h5-t6 [ample] — 8 decisions, banked 36/6, declaring MADE the contract, wall 32331us
+  t6 p0 s0 plays 4-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=27 value=4/9 (444‰) | reads: enum=1148 mix=4912 field=0 | wall decide=27281us carry=1us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=4/9 (444‰) vs fixed-field 4/9 (444‰) -> value_moved=false | argmax model 4-1 vs fixed 4-1 -> flipped=false
+  t6 p1 s1 plays 4-3 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=30 value=- | reads: enum=0 mix=0 field=0 | wall decide=15us carry=64us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p2 s2 plays 5-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=9 value=1 (1000‰) | reads: enum=202 mix=880 field=0 | wall decide=1187us carry=3002us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=1 (1000‰) vs fixed-field 1 (1000‰) -> value_moved=false | argmax model 5-1 vs fixed 5-1 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t6 p3 s3 plays 4-2 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=2 value=0 (0‰) | reads: enum=54 mix=224 field=0 | wall decide=214us carry=293us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=0 (0‰) vs fixed-field 0 (0‰) -> value_moved=false | argmax model 4-2 vs fixed 4-2 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s2 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=4 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=68us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s3 plays 4-4 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=71us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p2 s0 plays 5-2 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=65us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s1 plays 1-1 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=58us
+      posterior: carried=true consulted=false live=8 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h4-t6 [ample] — 8 decisions, banked 2/40, declaring MADE the contract, wall 102557us
+  t6 p0 s2 plays 1-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=90 value=13/15 (866‰) | reads: enum=3190 mix=14384 field=0 | wall decide=83008us carry=1us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=13/15 (866‰) vs fixed-field 13/15 (866‰) -> value_moved=false | argmax model 1-1 vs fixed 1-1 -> flipped=false
+  t6 p1 s3 plays 5-4 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=30 value=7/30 (233‰) | reads: enum=1065 mix=5280 field=0 | wall decide=16637us carry=105us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=7/30 (233‰) vs fixed-field 7/30 (233‰) -> value_moved=false | argmax model 5-4 vs fixed 5-4 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t6 p2 s0 plays 2-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=6 value=2/3 (666‰) | reads: enum=183 mix=912 field=0 | wall decide=1690us carry=149us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=2/3 (666‰) vs fixed-field 2/3 (666‰) -> value_moved=false | argmax model 2-0 vs fixed 2-0 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t6 p3 s1 plays 2-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=6 value=1 (1000‰) | reads: enum=126 mix=672 field=0 | wall decide=559us carry=117us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=1 (1000‰) vs fixed-field 1 (1000‰) -> value_moved=false | argmax model 2-1 vs fixed 2-1 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s2 plays 0-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=106us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s3 plays 2-2 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=69us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p2 s0 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=49us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s1 plays 5-1 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=49us
+      posterior: carried=true consulted=false live=8 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h8-t5 [ample] — 12 decisions, banked 1/41, declaring MADE the contract, wall 1452539us
+  t5 p0 s3 plays 5-3 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=92 value=91/92 (989‰) | reads: enum=12444 mix=45822 field=0 | wall decide=944151us carry=1us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=7/8 (875‰) vs fixed-field 91/92 (989‰) -> value_moved=true | argmax model 5-3 vs fixed 5-3 -> flipped=false
+  t5 p1 s0 plays 3-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=60 value=0 (0‰) | reads: enum=5700 mix=25616 field=0 | wall decide=441611us carry=179us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=0 (0‰) vs fixed-field 0 (0‰) -> value_moved=false | argmax model 3-0 vs fixed 3-0 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t5 p2 s1 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=12 value=- | reads: enum=0 mix=0 field=0 | wall decide=22us carry=224us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t5 p3 s2 plays 4-3 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=6 value=0 (0‰) | reads: enum=489 mix=2604 field=0 | wall decide=36546us carry=18297us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=0 (0‰) vs fixed-field 0 (0‰) -> value_moved=false | argmax model 4-3 vs fixed 4-3 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t6 p0 s1 plays 3-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=9 value=1 (1000‰) | reads: enum=380 mix=1000 field=0 | wall decide=10505us carry=161us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=1 (1000‰) vs fixed-field 1 (1000‰) -> value_moved=false | argmax model 3-1 vs fixed 3-1 -> flipped=false
+  t6 p1 s2 plays 6-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=3 value=0 (0‰) | reads: enum=114 mix=256 field=0 | wall decide=301us carry=59us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=0 (0‰) vs fixed-field 0 (0‰) -> value_moved=false | argmax model 6-0 vs fixed 6-0 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t6 p2 s3 plays 0-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=3 value=1 (1000‰) | reads: enum=95 mix=168 field=0 | wall decide=157us carry=69us
+      posterior: carried=true consulted=true live=4 falsified=false
+      JOIN: Q(nu)=1 (1000‰) vs fixed-field 1 (1000‰) -> value_moved=false | argmax model 0-0 vs fixed 0-0 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t6 p3 s0 plays 4-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=1 value=0 (0‰) | reads: enum=16 mix=24 field=0 | wall decide=36us carry=62us
+      posterior: carried=true consulted=true live=4 falsified=false
+      JOIN: Q(nu)=0 (0‰) vs fixed-field 0 (0‰) -> value_moved=false | argmax model 4-1 vs fixed 4-1 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s1 plays 3-3 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=26us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s2 plays 6-6 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=37us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t7 p2 s3 plays 5-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=30us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t7 p3 s0 plays 6-4 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=31us
+      posterior: carried=true consulted=false live=4 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h3-t5 [ample] — 12 decisions, banked 42/0, declaring MADE the contract, wall 4154739us
+  t5 p0 s0 plays 4-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=200 value=1 (1000‰) | reads: enum=38364 mix=154488 field=0 | wall decide=3565072us carry=1us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=1 (1000‰) vs fixed-field 1 (1000‰) -> value_moved=false | argmax model 4-0 vs fixed 4-0 -> flipped=false
+  t5 p1 s1 plays 6-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=10 value=4/5 (800‰) | reads: enum=1188 mix=3962 field=0 | wall decide=119467us carry=389us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=29/40 (725‰) vs fixed-field 4/5 (800‰) -> value_moved=true | argmax model 6-1 vs fixed 6-1 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t5 p2 s2 plays 4-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=150 value=32/75 (426‰) | reads: enum=7647 mix=39236 field=0 | wall decide=402603us carry=218us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=5/12 (416‰) vs fixed-field 32/75 (426‰) -> value_moved=true | argmax model 4-1 vs fixed 4-1 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t5 p3 s3 plays 6-3 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=18 value=1/9 (111‰) | reads: enum=1008 mix=5312 field=0 | wall decide=64525us carry=272us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=1/12 (83‰) vs fixed-field 1/9 (111‰) -> value_moved=true | argmax model 6-3 vs fixed 6-3 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t6 p0 s0 plays 5-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=36 value=1 (1000‰) | reads: enum=1579 mix=40 field=0 | wall decide=1274us carry=94us
+      posterior: carried=true consulted=true live=1 falsified=false
+      JOIN: Q(nu)=1 (1000‰) vs fixed-field 1 (1000‰) -> value_moved=false | argmax model 5-0 vs fixed 5-0 -> flipped=false
+  t6 p1 s1 plays 6-5 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=3 value=1/3 (333‰) | reads: enum=130 mix=0 field=0 | wall decide=207us carry=114us
+      posterior: carried=false consulted=false live=0 falsified=true
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }; PosteriorFalsified(Falsification { history: [6-1], seat: 2, observed: 4-1, supported: [3-1, 6-4] })
+  t6 p2 s2 plays 3-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=12 value=5/6 (833‰) | reads: enum=330 mix=166 field=0 | wall decide=305us carry=20us
+      posterior: carried=true consulted=true live=6 falsified=false
+      JOIN: Q(nu)=3/5 (600‰) vs fixed-field 5/6 (833‰) -> value_moved=true | argmax model 6-4 vs fixed 3-1 -> flipped=true
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t6 p3 s3 plays 3-2 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=4 value=0 (0‰) | reads: enum=78 mix=96 field=0 | wall decide=98us carry=16us
+      posterior: carried=true consulted=true live=4 falsified=false
+      JOIN: Q(nu)=0 (0‰) vs fixed-field 0 (0‰) -> value_moved=false | argmax model 3-2 vs fixed 3-2 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s0 plays 6-6 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=4 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=13us
+      posterior: carried=false consulted=false live=0 falsified=true
+  t7 p1 s1 plays 3-3 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=14us
+      posterior: carried=false consulted=false live=0 falsified=true
+  t7 p2 s2 plays 6-4 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=8us
+      posterior: carried=true consulted=false live=2 falsified=false
+  t7 p3 s3 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=5us
+      posterior: carried=true consulted=false live=4 falsified=false
+  LIBRARY FALSIFIED at t5 p2: seat 2 played 4-1, library supported {3-1 6-4}
+  LIBRARY FALSIFIED at t6 p1: seat 1 played 6-5, library supported {3-1 3-2}
+
+== h8-t4 [ample] — 16 decisions, banked 1/41, declaring MADE the contract, wall 15163189us
+  t4 p0 s1 plays 3-3 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=1200 value=1163/1200 (969‰) | reads: enum=724258 mix=0 field=0 | wall decide=2648960us carry=1us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: MixtureUnaffordable { fiber: 1200, cap: 256 }
+  t4 p1 s2 plays 4-3 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1260 value=- | reads: enum=0 mix=0 field=0 | wall decide=20us carry=273070us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t4 p2 s3 plays 6-2 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=216 value=173/216 (800‰) | reads: enum=106117 mix=413008 field=0 | wall decide=11269958us carry=345595us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=617/864 (714‰) vs fixed-field 173/216 (800‰) -> value_moved=true | argmax model 0-0 vs fixed 6-2 -> flipped=true
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t4 p3 s0 plays 3-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=30 value=- | reads: enum=0 mix=0 field=0 | wall decide=20us carry=140090us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t5 p0 s1 plays 2-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=92 value=1 (1000‰) | reads: enum=16061 mix=5175 field=0 | wall decide=278180us carry=101690us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=1 (1000‰) vs fixed-field 1 (1000‰) -> value_moved=false | argmax model 2-1 vs fixed 2-1 -> flipped=false
+  t5 p1 s2 plays 4-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=30 value=2/15 (133‰) | reads: enum=4945 mix=2010 field=0 | wall decide=80310us carry=11072us
+      posterior: carried=true consulted=true live=4 falsified=false
+      JOIN: Q(nu)=1/15 (66‰) vs fixed-field 2/15 (133‰) -> value_moved=true | argmax model 4-0 vs fixed 4-0 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t5 p2 s3 plays 5-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=15 value=2/3 (666‰) | reads: enum=2246 mix=3522 field=0 | wall decide=5421us carry=6774us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=31/54 (574‰) vs fixed-field 2/3 (666‰) -> value_moved=true | argmax model 5-0 vs fixed 5-0 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t5 p3 s0 plays 2-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=9 value=- | reads: enum=0 mix=0 field=0 | wall decide=5us carry=106us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t6 p0 s3 plays 0-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=7 value=6/7 (857‰) | reads: enum=406 mix=816 field=0 | wall decide=894us carry=266us
+      posterior: carried=true consulted=true live=8 falsified=false
+      JOIN: Q(nu)=7/9 (777‰) vs fixed-field 6/7 (857‰) -> value_moved=true | argmax model 0-0 vs fixed 0-0 -> flipped=false
+  t6 p1 s0 plays 4-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=2 value=0 (0‰) | reads: enum=92 mix=80 field=0 | wall decide=455us carry=45us
+      posterior: carried=true consulted=true live=4 falsified=false
+      JOIN: Q(nu)=0 (0‰) vs fixed-field 0 (0‰) -> value_moved=false | argmax model 4-1 vs fixed 4-1 -> flipped=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t6 p2 s1 plays 3-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=4 value=1 (1000‰) | reads: enum=85 mix=0 field=0 | wall decide=52us carry=50us
+      posterior: carried=false consulted=false live=0 falsified=true
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }; PosteriorFalsified(Falsification { history: [3-3, 4-3, 6-2, 3-0, 2-1, 4-0], seat: 3, observed: 5-0, supported: [2-0, 5-3, 6-0] })
+  t6 p3 s2 plays 6-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=25us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t7 p0 s3 plays 5-3 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=3 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=20us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s0 plays 6-4 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=27us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t7 p2 s1 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=23us
+      posterior: carried=false consulted=false live=0 falsified=true
+  t7 p3 s2 plays 6-6 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=19us
+      posterior: carried=true consulted=false live=4 falsified=false
+  LIBRARY FALSIFIED at t5 p2: seat 3 played 5-0, library supported {2-0 5-3 6-0}
+
+
+#### RUNG: model ####################################################
+
+== h12-t6 [model] — 8 decisions, banked 22/20, declaring MISSED the contract, wall 583us
+  t6 p0 s3 plays 4-4 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=6 value=- | reads: enum=0 mix=0 field=0 | wall decide=17us carry=1us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p1 s0 plays 4-1 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=3 value=- | reads: enum=0 mix=0 field=0 | wall decide=11us carry=73us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p2 s1 plays 3-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=3 value=- | reads: enum=0 mix=0 field=0 | wall decide=11us carry=96us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p3 s2 plays 4-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=10us carry=97us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p0 s1 plays 4-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=58us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s2 plays 3-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=48us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p2 s3 plays 6-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=96us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s0 plays 5-1 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=51us
+      posterior: carried=true consulted=false live=8 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h10-t6 [model] — 8 decisions, banked 1/41, declaring MADE the contract, wall 708us
+  t6 p0 s1 plays 2-2 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=19 value=- | reads: enum=0 mix=0 field=0 | wall decide=15us carry=1us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p1 s2 plays 3-2 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=18 value=- | reads: enum=0 mix=0 field=0 | wall decide=12us carry=73us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p2 s3 plays 2-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=9 value=- | reads: enum=0 mix=0 field=0 | wall decide=11us carry=102us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p3 s0 plays 4-4 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=3 value=- | reads: enum=0 mix=0 field=0 | wall decide=11us carry=222us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p0 s1 plays 3-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=99us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s2 plays 4-0 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=49us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p2 s3 plays 6-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=56us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s0 plays 6-5 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=45us
+      posterior: carried=true consulted=false live=8 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h5-t6 [model] — 8 decisions, banked 36/6, declaring MADE the contract, wall 29050us
+  t6 p0 s0 plays 4-1 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=27 value=4/9 (444‰) | reads: enum=0 mix=4912 field=0 | wall decide=24786us carry=0us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 27, cap: 8 }
+  t6 p1 s1 plays 4-3 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=30 value=- | reads: enum=0 mix=0 field=0 | wall decide=13us carry=59us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t6 p2 s2 plays 5-1 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=9 value=1 (1000‰) | reads: enum=0 mix=880 field=0 | wall decide=1060us carry=2594us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }; EnumerationUnaffordable { fiber: 9, cap: 8 }
+  t6 p3 s3 plays 4-2 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=2 value=0 (0‰) | reads: enum=54 mix=0 field=0 | wall decide=39us carry=265us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s2 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=4 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=59us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s3 plays 4-4 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=56us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p2 s0 plays 5-2 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=57us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s1 plays 1-1 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=46us
+      posterior: carried=true consulted=false live=8 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h4-t6 [model] — 8 decisions, banked 2/40, declaring MADE the contract, wall 98476us
+  t6 p0 s2 plays 1-1 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=90 value=13/15 (866‰) | reads: enum=0 mix=14384 field=0 | wall decide=80617us carry=0us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 90, cap: 8 }
+  t6 p1 s3 plays 5-4 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=30 value=7/30 (233‰) | reads: enum=0 mix=5280 field=0 | wall decide=16459us carry=99us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }; EnumerationUnaffordable { fiber: 30, cap: 8 }
+  t6 p2 s0 plays 2-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=6 value=2/3 (666‰) | reads: enum=183 mix=0 field=0 | wall decide=145us carry=145us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t6 p3 s1 plays 2-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=6 value=1 (1000‰) | reads: enum=126 mix=0 field=0 | wall decide=91us carry=612us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s2 plays 0-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=111us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s3 plays 2-2 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=73us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p2 s0 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=54us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p3 s1 plays 5-1 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=54us
+      posterior: carried=true consulted=false live=8 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h8-t5 [model] — 12 decisions, banked 1/41, declaring MADE the contract, wall 1393831us
+  t5 p0 s3 plays 5-3 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=92 value=7/8 (875‰) | reads: enum=0 mix=45822 field=0 | wall decide=921548us carry=1us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 92, cap: 8 }
+  t5 p1 s0 plays 3-0 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=60 value=0 (0‰) | reads: enum=0 mix=25616 field=0 | wall decide=435006us carry=199us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }; EnumerationUnaffordable { fiber: 60, cap: 8 }
+  t5 p2 s1 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=12 value=- | reads: enum=0 mix=0 field=0 | wall decide=17us carry=246us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t5 p3 s2 plays 4-3 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=6 value=0 (0‰) | reads: enum=489 mix=0 field=0 | wall decide=746us carry=18482us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t6 p0 s1 plays 3-1 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=9 value=1 (1000‰) | reads: enum=0 mix=1000 field=0 | wall decide=9376us carry=7200us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 9, cap: 8 }
+  t6 p1 s2 plays 6-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=3 value=0 (0‰) | reads: enum=114 mix=0 field=0 | wall decide=140us carry=67us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t6 p2 s3 plays 0-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=3 value=1 (1000‰) | reads: enum=95 mix=0 field=0 | wall decide=65us carry=458us
+      posterior: carried=true consulted=false live=4 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t6 p3 s0 plays 4-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=1 value=0 (0‰) | reads: enum=16 mix=0 field=0 | wall decide=18us carry=85us
+      posterior: carried=true consulted=false live=4 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s1 plays 3-3 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=31us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t7 p1 s2 plays 6-6 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=46us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t7 p2 s3 plays 5-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=32us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t7 p3 s0 plays 6-4 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=32us
+      posterior: carried=true consulted=false live=4 falsified=false
+  no line was falsified on this walk: every observed action stayed inside the declared type library's support
+
+== h3-t5 [model] — 12 decisions, banked 42/0, declaring MADE the contract, wall 4078458us
+  t5 p0 s0 plays 4-0 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=200 value=1 (1000‰) | reads: enum=0 mix=154488 field=0 | wall decide=3500838us carry=1us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 200, cap: 8 }
+  t5 p1 s1 plays 6-1 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=10 value=29/40 (725‰) | reads: enum=0 mix=3962 field=0 | wall decide=114360us carry=368us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }; EnumerationUnaffordable { fiber: 10, cap: 8 }
+  t5 p2 s2 plays 4-1 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=150 value=5/12 (416‰) | reads: enum=0 mix=39236 field=0 | wall decide=396644us carry=233us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }; EnumerationUnaffordable { fiber: 150, cap: 8 }
+  t5 p3 s3 plays 6-3 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=18 value=1/12 (83‰) | reads: enum=0 mix=5312 field=0 | wall decide=65065us carry=277us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }; EnumerationUnaffordable { fiber: 18, cap: 8 }
+  t6 p0 s0 plays 5-0 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=36 value=1 (1000‰) | reads: enum=0 mix=40 field=0 | wall decide=56us carry=96us
+      posterior: carried=true consulted=true live=1 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 36, cap: 8 }
+  t6 p1 s1 plays 6-5 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=3 value=1/3 (333‰) | reads: enum=130 mix=0 field=0 | wall decide=216us carry=115us
+      posterior: carried=false consulted=false live=0 falsified=true
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t6 p2 s2 plays 6-4 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=12 value=3/5 (600‰) | reads: enum=0 mix=166 field=0 | wall decide=114us carry=11us
+      posterior: carried=true consulted=true live=6 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }; EnumerationUnaffordable { fiber: 12, cap: 8 }
+  t6 p3 s3 plays 3-2 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=4 value=0 (0‰) | reads: enum=0 mix=0 field=0 | wall decide=4us carry=15us
+      posterior: carried=false consulted=false live=0 falsified=true
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s0 plays 6-6 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=4 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=5us
+      posterior: carried=false consulted=false live=0 falsified=true
+  t7 p1 s1 plays 3-3 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=4us
+      posterior: carried=false consulted=false live=0 falsified=true
+  t7 p2 s2 plays 3-1 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=0us
+      posterior: carried=true consulted=false live=2 falsified=false
+  t7 p3 s3 plays 5-5 | tier (a) decided-arithmetic [backward / world] via adaptive::decided_success
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=4us
+      posterior: carried=false consulted=false live=0 falsified=true
+  LIBRARY FALSIFIED at t5 p2: seat 2 played 4-1, library supported {3-1 6-4}
+  LIBRARY FALSIFIED at t6 p1: seat 1 played 6-5, library supported {3-1 3-2}
+  LIBRARY FALSIFIED at t6 p2: seat 2 played 6-4, library supported {3-1 3-3}
+
+== h8-t4 [model] — 16 decisions, banked 1/41, declaring MADE the contract, wall 2727930us
+  t4 p0 s1 plays 2-1 | tier (e) field-fallback [forward / play] via field::SlicePolicy::choose:fallback
+      fiber=1200 value=- | reads: enum=0 mix=0 field=1 | wall decide=79us carry=1us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 1200, cap: 8 }; MixtureUnaffordable { fiber: 1200, cap: 256 }
+  t4 p1 s2 plays 4-3 | tier (e) field-fallback [forward / play] via field::SlicePolicy::choose:fallback
+      fiber=1260 value=- | reads: enum=0 mix=0 field=1 | wall decide=50us carry=171744us
+      posterior: carried=true consulted=false live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }; EnumerationUnaffordable { fiber: 1260, cap: 8 }; MixtureUnaffordable { fiber: 1260, cap: 256 }
+  t4 p2 s3 plays 6-2 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=216 value=- | reads: enum=0 mix=0 field=0 | wall decide=19us carry=291490us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t4 p3 s0 plays 2-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=120 value=- | reads: enum=0 mix=0 field=0 | wall decide=21us carry=807189us
+      posterior: carried=true consulted=false live=8 falsified=false
+  t5 p0 s3 plays 5-3 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=92 value=311/368 (845‰) | reads: enum=0 mix=45147 field=0 | wall decide=918898us carry=247305us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 92, cap: 8 }
+  t5 p1 s0 plays 3-0 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=60 value=0 (0‰) | reads: enum=0 mix=5073 field=0 | wall decide=220432us carry=55035us
+      posterior: carried=true consulted=true live=8 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }; EnumerationUnaffordable { fiber: 60, cap: 8 }
+  t5 p2 s1 plays 5-5 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=12 value=- | reads: enum=0 mix=0 field=0 | wall decide=9us carry=271us
+      posterior: carried=true consulted=false live=6 falsified=false
+  t5 p3 s2 plays 4-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=6 value=0 (0‰) | reads: enum=594 mix=0 field=0 | wall decide=928us carry=5824us
+      posterior: carried=true consulted=false live=4 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t6 p0 s1 plays 3-1 | tier (c) middlegame-mixture [backward / model] via model_belief::mixture_response_budgeted
+      fiber=9 value=1 (1000‰) | reads: enum=0 mix=102 field=0 | wall decide=4581us carry=3411us
+      posterior: carried=true consulted=true live=4 falsified=false
+      refusals: EnumerationUnaffordable { fiber: 9, cap: 8 }
+  t6 p1 s2 plays 6-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=3 value=0 (0‰) | reads: enum=114 mix=0 field=0 | wall decide=111us carry=22us
+      posterior: carried=true consulted=false live=2 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 1 }
+  t6 p2 s3 plays 0-0 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=3 value=1 (1000‰) | reads: enum=95 mix=0 field=0 | wall decide=63us carry=285us
+      posterior: carried=true consulted=false live=4 falsified=false
+      refusals: ProofStateUnavailable { plays_in_trick: 2 }
+  t6 p3 s0 plays 4-1 | tier (b) endgame-exact [backward / world] via factor_belief::extract_success_policy
+      fiber=1 value=0 (0‰) | reads: enum=16 mix=0 field=0 | wall decide=18us carry=43us
+      posterior: carried=false consulted=false live=0 falsified=true
+      refusals: ProofStateUnavailable { plays_in_trick: 3 }
+  t7 p0 s1 plays 3-3 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=2 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=14us
+      posterior: carried=true consulted=false live=2 falsified=false
+  t7 p1 s2 plays 6-6 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=2us carry=16us
+      posterior: carried=true consulted=false live=2 falsified=false
+  t7 p2 s3 plays 5-0 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=1us carry=10us
+      posterior: carried=true consulted=false live=4 falsified=false
+  t7 p3 s0 plays 6-4 | tier (a) decided-arithmetic [backward / world] via rules::legal_plays:forced
+      fiber=1 value=- | reads: enum=0 mix=0 field=0 | wall decide=0us carry=18us
+      posterior: carried=false consulted=false live=0 falsified=true
+  LIBRARY FALSIFIED at t6 p0: seat 1 played 3-1, library supported {0-0}
+
+#### TIER OCCUPANCY BY TRICK — where each recursion answered ####
+
+ rung  | trick | decisions | (a) dec | (b) exact | (c) mix | (d) regret | (e) field
+-------+-------+-----------+---------+-----------+---------+------------+----------
+ lean  |  t4   |       4   |      2  |       0   |      0  |       0    |      2
+ lean  |  t5   |      12   |      2  |       5   |      0  |       0    |      5
+ lean  |  t6   |      28   |     11  |      15   |      0  |       0    |      2
+ lean  |  t7   |      28   |     28  |       0   |      0  |       0    |      0
+ ample |  t4   |       4   |      2  |       2   |      0  |       0    |      0
+ ample |  t5   |      12   |      2  |      10   |      0  |       0    |      0
+ ample |  t6   |      28   |     10  |      18   |      0  |       0    |      0
+ ample |  t7   |      28   |     28  |       0   |      0  |       0    |      0
+ model |  t4   |       4   |      2  |       0   |      0  |       0    |      2
+ model |  t5   |      12   |      2  |       2   |      8  |       0    |      0
+ model |  t6   |      28   |      9  |      11   |      8  |       0    |      0
+ model |  t7   |      28   |     28  |       0   |      0  |       0    |      0
+
+#### RECURSION OCCUPANCY ####
+
+  lean: backward/world 63, backward/model 0, forward/play 9
+  ample: backward/world 72, backward/model 0, forward/play 0
+  model: backward/world 54, backward/model 16, forward/play 2
+
+#### SPEND AND WALL, PER RUNG ####
+
+  lean: 72 decisions, field consultations enum=7516 mix=0 fallback=9
+      wall 2117924us total = 12117us deciding + 2105672us CARRYING the posterior; 168us mean decision, 4203us worst decision
+  ample: 72 decisions, field consultations enum=929740 mix=730665 fallback=0
+      wall 20906560us total = 20001864us deciding + 904569us CARRYING the posterior; 277803us mean decision, 11269958us worst decision
+  model: 72 decisions, field consultations enum=2026 mix=351420 fallback=2
+      wall 8329036us total = 6712759us deciding + 1616137us CARRYING the posterior; 93232us mean decision, 3500838us worst decision
+
+  The carry column is the price of item 3 and is paid at EVERY ply, by every
+  open line, whether or not any tier consulted it: advancing a model belief
+  past a hidden play means classifying the acting seat's support under every
+  live profile. On the lean rung no tier consults the posterior at all, so
+  that rung's carry column is the cost of carrying a belief nothing read.
+
+#### THE JOIN — where both recursions priced the same state ####
+
+  VALUE MOVE [ample] h8-t5 t5 p0 s3: Q(nu)=7/8 (875‰) vs fixed-field 91/92 (989‰) (same argmax 5-3)
+  VALUE MOVE [ample] h3-t5 t5 p1 s1: Q(nu)=29/40 (725‰) vs fixed-field 4/5 (800‰) (same argmax 6-1)
+  VALUE MOVE [ample] h3-t5 t5 p2 s2: Q(nu)=5/12 (416‰) vs fixed-field 32/75 (426‰) (same argmax 4-1)
+  VALUE MOVE [ample] h3-t5 t5 p3 s3: Q(nu)=1/12 (83‰) vs fixed-field 1/9 (111‰) (same argmax 6-3)
+  ARGMAX FLIP [ample] h3-t5 t6 p2 s2: model 6-4 vs fixed-field 3-1 | Q(nu)=3/5 (600‰) vs 5/6 (833‰)
+  ARGMAX FLIP [ample] h8-t4 t4 p2 s3: model 0-0 vs fixed-field 6-2 | Q(nu)=617/864 (714‰) vs 173/216 (800‰)
+  VALUE MOVE [ample] h8-t4 t5 p1 s2: Q(nu)=1/15 (66‰) vs fixed-field 2/15 (133‰) (same argmax 4-0)
+  VALUE MOVE [ample] h8-t4 t5 p2 s3: Q(nu)=31/54 (574‰) vs fixed-field 2/3 (666‰) (same argmax 5-0)
+  VALUE MOVE [ample] h8-t4 t6 p0 s3: Q(nu)=7/9 (777‰) vs fixed-field 6/7 (857‰) (same argmax 0-0)
+
+  27 join readings taken: 9 moved the value, 2 flipped the argmax.
+
+#### REFUSAL CENSUS ####
+
+     63  ProofStateUnavailable
+     27  EnumerationUnaffordable
+     12  MixtureUnaffordable
+      2  PosteriorFalsified
+
+EXPLORATORY — below every evidentiary tier; quotable only via gate receipts. This file is a transcript of decisions and their provenance. It makes no claim about how well the unified player plays, and none about how it compares to anything else.
