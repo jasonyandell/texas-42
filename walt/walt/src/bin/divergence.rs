@@ -741,7 +741,7 @@ fn eval_options(
         .map(|(t, _)| *t)
         .collect();
     if tied.len() > 1 {
-        let worlds4 = match sample_belief(
+        let worlds4 = sample_belief(
             actor.index(),
             hand,
             st.played,
@@ -749,13 +749,9 @@ fn eval_options(
             st.voids,
             n_outer * 4,
             rng,
-        ) {
-            Ok(worlds) => worlds,
-            Err(frame) => {
-                eprintln!("divergence: refinement draw refused ({frame})");
-                return None;
-            }
-        };
+        )
+        .map_err(|f| eprintln!("divergence: refinement draw refused ({f})"))
+        .ok()?;
         let refined = eval_base(dcl, actor, hand, &tied, st, lvl, deadline, worlds4)?;
         for (t, v) in refined {
             let slot = opts
