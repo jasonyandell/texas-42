@@ -281,7 +281,11 @@ members and no public constructor, so the only way to obtain one is
 `CoupledFact` cannot be handed a bare `Fact` at all. `FieldCoupling` has
 exactly two variants — `Identical` and `PointMassParity` — and no
 `Assumed`; adding one would be a mathematical claim, not a code change.
-`CouplingRefusal` names five reasons.
+`CouplingRefusal` names six reasons, and each names what actually
+happened rather than the nearest available variant: a nondegenerate
+mixture target, a wrong parent field, mixed seat types, a MISSING
+parity witness, a DISAGREEING one, and a witness the model side could
+not afford to produce.
 
 Where structure cannot reach — the §49 store accepts any well-typed
 `Fact` under a matching identity — the fence IS the identity:

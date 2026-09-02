@@ -264,6 +264,11 @@ pub enum CouplingRefusal {
         fixed_side: (u128, u128),
         model_side: (u128, u128),
     },
+    /// The target IS a point mass over the source field, but no re-run
+    /// parity witness was supplied. Extensional equality of a point
+    /// mass and its fixed field is a CLAIM about values, and an
+    /// unwitnessed claim does not cross the fence.
+    WitnessMissing { source: String, target: String },
     /// The point-mass parity witness could not be produced because the
     /// model side refused its own read budget. Nothing is claimed.
     WitnessRefused(MixtureRefusal),
@@ -293,6 +298,11 @@ impl fmt::Display for CouplingRefusal {
                 f,
                 "field coupling refused: the point mass assigns {seats} distinct \
                  types across hidden seats"
+            ),
+            CouplingRefusal::WitnessMissing { source, target } => write!(
+                f,
+                "field coupling refused: {target} is a point mass over {source} but \
+                 no re-run parity witness was supplied"
             ),
             CouplingRefusal::ParityDisagreement {
                 fixed_side,
@@ -390,10 +400,9 @@ pub fn couple_fixed_field_fact(
             target_parent: parent,
         });
     }
-    let witness = witness.ok_or(CouplingRefusal::MixtureTarget {
+    let witness = witness.ok_or_else(|| CouplingRefusal::WitnessMissing {
         source: source.as_str().to_string(),
         target: target_id.as_str().to_string(),
-        live_profiles: 1,
     })?;
     if witness.behavior != head {
         return Err(CouplingRefusal::ParentFieldMismatch {

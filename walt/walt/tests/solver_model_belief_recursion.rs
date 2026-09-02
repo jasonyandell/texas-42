@@ -1408,10 +1408,14 @@ fn m7_the_field_identity_fence_holds_on_both_sides() {
         Err(CouplingRefusal::ParentFieldMismatch { .. }) => {}
         other => panic!("σ1 is not δ_F₀'s parent: {}", describe(&other)),
     }
-    // (c) without a witness: refused. Extensional equality is a claim,
-    //     and an unwitnessed claim does not cross.
+    // (c) without a witness: refused, and refused by its OWN reason.
+    //     Extensional equality of a point mass and its fixed field is a
+    //     claim about values, and an unwitnessed claim does not cross.
     match couple_fixed_field_fact(fact.clone(), &sigma0, &delta0, None) {
-        Err(CouplingRefusal::MixtureTarget { .. }) => {}
+        Err(CouplingRefusal::WitnessMissing { source, target }) => {
+            assert_eq!(source, sigma0.as_str());
+            assert_eq!(target, delta_id.as_str());
+        }
         other => panic!("no witness, no coupling: {}", describe(&other)),
     }
     // (d) with a disagreeing witness: refused, reporting both sides.
