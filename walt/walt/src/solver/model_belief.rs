@@ -135,13 +135,23 @@
 //!    [`ModelBelief::mixture_policy_mass_budgeted`],
 //!    [`ModelBelief::separated_upper_budgeted`]) carry a declared
 //!    ceiling on the field reads one walk may spend and return
-//!    `Result`. The ceiling is checked at the boundary of every walked
-//!    bundle node BEFORE that node spends anything, so a refusal
-//!    reports the exact reads spent and the public history it stopped
-//!    at — there is no truncated value anywhere, and the unbudgeted
-//!    entry points MB0 shipped are the same walk under an absent
-//!    ceiling (a refusal is then unconstructible, which is why they
-//!    keep returning a value).
+//!    `Result`. There is no truncated value anywhere, and the
+//!    unbudgeted entry points MB0 shipped are the same walk under an
+//!    absent ceiling (a refusal is then unconstructible, which is why
+//!    they keep returning a value).
+//!
+//!    WHERE THE CEILING IS CHECKED, EXACTLY. At the boundary of every
+//!    walked bundle node, before that node is expanded. A node that
+//!    passes the check then classifies the acting seat's support for
+//!    every live profile, which is itself many field consultations, so
+//!    the ledger can pass the ceiling by up to ONE NODE'S
+//!    classification cost before the next check sees it. The ceiling is
+//!    therefore a budget and not a hard bound, and the number a
+//!    refusal reports is always the LEDGER'S MEASURED TOTAL — never the
+//!    ceiling, and never a value rounded to it. Observed overshoots on
+//!    the declared probe corpus are single- and double-digit reads
+//!    against ceilings in the millions (7,000,011 and 7,000,028 against
+//!    7,000,000), which is what the shape of the bound predicts.
 
 use std::cell::{Cell, RefCell};
 use std::collections::BTreeMap;
@@ -399,7 +409,9 @@ pub enum MixtureRefusal {
     /// The declared field-read ceiling was reached before the walk
     /// closed.
     ReadBudget {
-        /// Field consultations this walk had spent when it stopped.
+        /// Field consultations this walk had spent when it stopped — the
+        /// ledger's own measurement, which may exceed `cap` by up to one
+        /// node's classification cost (module doc).
         spent: u64,
         /// The declared ceiling that stopped it.
         cap: u64,

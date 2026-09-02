@@ -622,7 +622,12 @@ at an endpoint and every lawful policy attains every point-mass optimum
 for an arithmetic reason — which is U0's degenerate-God-tightness
 discipline carried across unchanged and earning its keep on first use
 (without it trick 4 would read "8 strict, 4 zero" instead of "8 strict,
-0 substantive zeros"). THE COROLLARY that makes the finding
+0 substantive zeros"). The same lens turned backwards on MB0's own
+corpus splits its fourteen zeros SEVEN substantive and SEVEN vacuous —
+h5-t6 and h4-t6 two each and h8-t5 three, against h12-t6 (`Q = 0`),
+h10-t6 and h3-t5 (`Q = 1`), which are endpoint cases where nothing was
+at stake — so MB0's "14 zero / 0 strict" reads more precisely as "7
+substantive zeros". THE COROLLARY that makes the finding
 load-bearing, and the one piece of this slice that is mathematics
 rather than measurement: Theorem 19.1 at FULL support forces the
 attaining policy ρ* to satisfy `V_θ(ρ*) = q_a(θ)` at every θ
@@ -670,9 +675,9 @@ model-mixture:<content address>`, so a σ0-authored fact is rejected
 mixture is a different identity again. MB1 TRANSPORTS NOTHING; the gate
 exists so the first future transport is honest, which is the only time
 it can be built. Seven gates
-(`walt/walt/tests/solver_model_belief_recursion.rs`, 27.4 s of which
-20.5 s is M6 re-deriving a trick-4 coordinate rather than citing it):
-M1 recursion-versus-(ω,θ)-enumeration parity on the FULL six-root MB0
+(`walt/walt/tests/solver_model_belief_recursion.rs`, 20.8 s in parallel, of
+which 20.5 s is M6 re-deriving a trick-4 coordinate rather than citing
+it): M1 recursion-versus-(ω,θ)-enumeration parity on the FULL six-root MB0
 corpus (augmented masses, all fourteen `Q_a`, every `q_a(θ)` behind
 every `U^sep_a`, the selected action, and the carried posterior
 marginals against the surviving pairs' weighted counts); M2 the
@@ -688,7 +693,34 @@ refused coordinate proposes no fact); M5 the consumed instruments
 unperturbed, doom bit-identical either side of a model census; M6 the
 pinned specimen and the corollary; M7 the fence on both sides. Probe
 `modelbeliefrecursionreport`
-(`probes/factor_belief/modelbelief_recursion_run1.txt`). Deviations
+(`probes/factor_belief/modelbelief_recursion_run1.txt`).
+
+PROBE FINDINGS beyond the headline (`modelbeliefrecursionreport`,
+2,412 s over run 1): the strictly-pre-t4 coordinate **h8-t3 (fiber
+59,976) REFUSES all five root actions**, each on the response side,
+each having spent the declared 7,000,000-read ceiling — 35,000,039
+consultations and 1,889 s for five typed refusals and no value, every
+one naming the public history it stopped at, so the answer to the
+question the ceiling was chosen to ask ("does a trick-3 coordinate close
+within the most a trick-4 coordinate cost?") is a clean and located NO;
+**78% of the probe's wall bought those five refusals**, the same shape
+U0 reported when 86% of its wall returned `UnknownGodGap`, and it is not
+waste because the refusal IS the measurement. The ν sweeps found **one
+facet across seven grid points** at both h5-t6 and h8-t5 — a single
+argmax policy optimal along the whole ν line, so six of seven beliefs
+are answered by dot product alone, and at h8-t5 the VALUE moves across
+the line (770, 769, 767, 766, 764, 763, 762‰) while the policy does not,
+which is repricing doing real work at the cost of one walk. Where the
+ceiling is checked, stated precisely because the probe makes it visible:
+at the boundary of every walked bundle node, before that node is
+expanded — a node that passes then classifies every live profile's
+acting support, so the ledger can pass the ceiling by up to ONE NODE's
+classification cost (two of h8-t3's refusals report 7,000,011 and
+7,000,028 against 7,000,000). The ceiling is a budget, not a hard
+bound; what is guaranteed is that the reported number is the ledger's
+MEASURED total, never the ceiling and never a value rounded to it.
+
+Deviations
 recorded in the report: "pre-t4" read as "earlier than MB0's corpus"
 with a strictly-pre-t4 coordinate attempted under a declared ceiling
 and reported as a typed refusal rather than an absence (the smallest

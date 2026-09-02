@@ -27,10 +27,10 @@ seat, **every substantive coordinate tested is strict**:
 | h8-t4 | 1,200 | 3-1 | 8323/9600 | 8361/9600 | **38/9600** | 3 |
 | h8-t4 | 1,200 | 3-3 | 9022/9600 | 9112/9600 | 90/9600 | 9 |
 | h8-t4 | 1,200 | 5-5 | 8871/9600 | 8929/9600 | 58/9600 | 6 |
-| h3-t4 | 11,550 | 3-1 | — | — | — | 3 |
-| h3-t4 | 11,550 | 4-1 | — | — | — | 1 |
-| h3-t4 | 11,550 | 4-4 | — | — | — | 5 |
-| h3-t4 | 11,550 | 6-4 | — | — | — | 3 |
+| h3-t4 | 11,550 | 3-1 | 563/1848 | 1781/5775 | 173/46200 | 3 |
+| h3-t4 | 11,550 | 4-1 | 7121/30800 | 269/1155 | 157/92400 | 1 |
+| h3-t4 | 11,550 | 4-4 | 4471/15400 | 1709/5775 | 37/6600 | 5 |
+| h3-t4 | 11,550 | 6-4 | 284/1155 | 11507/46200 | 7/2200 | 3 |
 
 The bolded row is gate M6's pinned specimen, re-derived by the gate
 rather than cited from the probe. Eight substantive trick-4 coordinates,
@@ -44,6 +44,14 @@ about the price of model blindness. That is U0's degenerate-God-tightness
 discipline carried across unchanged, and it earns its keep immediately —
 without it, trick 4 would read as "8 strict, 4 zero" instead of
 "8 strict, 0 substantive zeros".
+
+The same lens turned backwards on MB0's own corpus is worth recording,
+because it changes that headline too. Of MB0's fourteen zeros, **seven
+are substantive and seven are vacuous**: h5-t6 and h4-t6 contribute two
+each and h8-t5 three, while h12-t6 (`Q = 0`), h10-t6 and h3-t5 (`Q = 1`)
+are all endpoint cases where nothing was ever at stake. MB0's "14 zero /
+0 strict" is really "7 substantive zeros". The probe's Part 4 table
+carries the full breakdown.
 
 ## The corollary that makes the finding load-bearing
 
@@ -70,7 +78,10 @@ that found the trick-4 specimen had to move roots, and did.
 
 ## Status
 
-Complete. Seven WIP commits plus this report, clean tree, not pushed.
+Complete. Nine WIP commits plus this report, clean tree, not pushed. One
+of those commits (`f460fb0`) was made by the night-watch orchestrator as
+a rescue checkpoint of the probe output while this session was blocked
+on the probe run; the file is unmodified.
 `walt/ci/check.sh` PASS (cold rebuild, `fmt --check`, clippy
 `-D warnings -D clippy::float_arithmetic`, the no-float greps and
 scanners, the full workspace release suite, and the Lean trick-1
@@ -134,6 +145,17 @@ and division-free because at one state every column shares the same
 `Z_θ` (a focal choice changes no factor), so the argmax of the values is
 the argmax of `Σ w·M_θ`.
 
+What the sweep measured, on both h5-t6 and h8-t5: **one facet across
+seven grid points.** A single argmax policy is optimal along the whole ν
+line from near-δ_{F₀} to near-δ_{F₁}, so six of the seven beliefs are
+answered by dot product alone. At h8-t5 the VALUE moves while the policy
+does not — 770‰, 769‰, 767‰, 766‰, 764‰, 763‰, 762‰ across the line —
+which is the case worth having: repricing is doing real work (seven
+different exact values) at the cost of one walk. This is also what the
+§19 corollary predicts wherever `Φ = 0` at full support, since the
+common optimizer is then optimal at every ν; the interesting sweeps will
+be at the strict coordinates, where more than one facet must exist.
+
 `sweep_envelope` is the AUDITED sweep and walks at every grid point on
 purpose. Before each walk it records what the library would have
 answered; afterwards it asserts §21 (the library never exceeds the exact
@@ -179,6 +201,18 @@ entry points are the same walk under an ABSENT ceiling, where
 `WalkBudget::check` is total and the `Err` arm is unreachable — which is
 what lets them keep returning a bare value with no behavioural change.
 
+WHERE THE CEILING IS CHECKED, precisely, because the probe makes it
+visible: at the boundary of every walked bundle node, before that node
+is expanded. A node that passes the check then classifies the acting
+seat's support for every live profile, which is itself many
+consultations, so the ledger can pass the ceiling by up to ONE NODE'S
+classification cost before the next check sees it. Two of h8-t3's five
+refusals report 7,000,011 and 7,000,028 against a ceiling of 7,000,000
+for exactly that reason. The ceiling is a budget, not a hard bound —
+and the number reported is always the ledger's measured total, never the
+ceiling and never a value rounded to it, which is the property that
+actually matters.
+
 Gate M4 pins four things: a zero ceiling refuses having spent zero (the
 check is genuinely before the spend); a starved ceiling refuses with a
 spend equal to the ledger's own measurement; an ample ceiling returns
@@ -190,7 +224,19 @@ an upper.
 
 ### Item 5 — the earlier roots
 
-The finding is at the top of this report. The declared budgets:
+The finding is at the top of this report. What the strictly pre-t4
+coordinate returned: **h8-t3 (fiber 59,976) refuses all five root
+actions**, each on the response side, each having spent the declared
+7,000,000-read ceiling — 35,000,039 field consultations and 1,889 s for
+five typed refusals and no value. Every refusal names the public history
+it stopped at, so the coordinate is a measured budget decision at a
+named place rather than an absence. The answer to the question the
+ceiling was chosen to ask is therefore a clean NO: a trick-3 coordinate
+does not close within the most a trick-4 coordinate cost, and it is not
+close — the walk was still descending at fourteen plies deep on one of
+them.
+
+The declared budgets:
 12,000,000 field reads per trick-4 coordinate (comfortably above the
 largest trick-4 coordinate measured while choosing it — 6,901,094 reads
 at h3-t4 action 4-4), and 7,000,000 per strictly-pre-t4 coordinate,
@@ -301,7 +347,7 @@ and `doom_enumeration` bit-identical either side of a model census
 
 **M7** — the field-identity fence, both halves. Described under item 7.
 
-**Runtime:** the MB1 suite is 27.4 s, of which 20.5 s is M6 alone. That
+**Runtime:** the MB1 suite is 20.8 s wall (the seven gates run in parallel), of which M6 alone is 20.5 s. That
 is the honest cost of re-deriving a trick-4 coordinate rather than
 citing it: about a million field consultations for the one coordinate
 the gate pins. The other three coordinates of the same root, and all
@@ -317,6 +363,26 @@ earlier roots, the Φ table, and the field-identity fence census.
 
 A `measure <hand> <trick> <cap>` mode exists beside it and is the reason
 the declared budgets are numbers rather than guesses.
+
+Run 1 wall: **2,412 s total** (40 minutes, single-threaded driver with
+the σ0/σ1 field caches shared within the run). Where it went, and the
+distribution is the story: 31.5 minutes to h8-t3's five refusals, 7.0
+minutes to h3-t4, 1.6 minutes to h8-t4, and everything else — the whole
+six-root MB0 corpus, both ν sweeps, h12-t4 and the fence census —
+under 5 seconds combined. **78% of the run bought five typed refusals.**
+That is the same shape U0 reported (86% of its wall went to coordinates
+returning `UnknownGodGap`) and it is not waste: the refusal is the
+measurement.
+
+Per root, measured: h12-t6 1.0 ms, h10-t6 1.1 ms, h5-t6 42.8 ms, h4-t6
+93.5 ms, h8-t5 0.99 s, h3-t5 3.67 s, h8-t4 97.7 s, h12-t4 0.14 ms,
+h3-t4 420.0 s, h8-t3 1,889.4 s. Field reads, measured: 416 / 512 /
+10,592 / 29,920 / 93,340 / 313,265 at MB0's roots; 4,841,712 at h8-t4;
+0 at h12-t4; 24,163,138 at h3-t4; 35,000,039 at h8-t3. The two
+registered types draw almost exactly half the reads each everywhere
+except h8-t3, where the ratio tips to 21.4M σ0 against 13.6M σ1 —
+because the σ1 half of the bundle is refused into more often at that
+depth, not because it is cheaper.
 
 ## Deviations from the brief, recorded
 
