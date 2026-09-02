@@ -87,16 +87,20 @@ that found the trick-4 specimen had to move roots, and did.
 
 ## Status
 
-Complete. Fifteen WIP checkpoint commits plus this report, clean tree,
+Complete. Sixteen WIP checkpoint commits plus this report, clean tree,
 not pushed. Two of them (`f460fb0`, `b400357`) were made by the
 night-watch orchestrator as rescue checkpoints of the probe output
 while this session was asleep on a probe run; both files are the
 builder's own, committed unmodified.
-`walt/ci/check.sh` — the conjunction (cold rebuild, `fmt --check`,
-clippy `-D warnings -D clippy::float_arithmetic`, the no-float greps
-and scanners, the full workspace release suite including MB0's eight
-gates, σ1-repair's seven and U0's six, and the Lean trick-1 foundations
-with the exact axiom audit) — VERDICT_PENDING.
+`walt/ci/check.sh` **PASS**, exit 0, run cold on the frozen tree at
+`9d002ec` — all eight phases (immutable M0/M1 history, the frozen
+GPU-native guide identity, the deterministic M0/M1 replay,
+`fmt --check`, clippy `-D warnings -D clippy::float_arithmetic`, the
+no-float greps and scanners, the full workspace release suite, and the
+Lean trick-1 foundations with the exact axiom audit). 120 test suites
+ok, zero failures. Inside that run: MB1's seven gates in 19.8 s, MB0's
+eight, σ1-repair's seven and U0's six, all green — which is the M5
+conjunction discharged by the gate that can actually run other files.
 
 | file | change |
 |---|---|

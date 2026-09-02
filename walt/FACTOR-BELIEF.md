@@ -732,7 +732,9 @@ module because the ledger must be recorded at the dispatch and the
 budget threaded through the walk, both of which live there; M5 a
 property gate rather than a suite conjunction, since a test cannot run
 other test files. MB0's eight gates, σ1-repair's seven and U0's six
-stay green untouched; `doom.rs`, `godgap.rs`, `refine.rs` and their
+stay green untouched (verified inside one cold `check.sh` PASS, exit 0,
+all eight phases, 120 suites, zero failures); `doom.rs`, `godgap.rs`,
+`refine.rs` and their
 probe records are byte-identical to the pre-slice baseline. EXPLORATORY
 tier; the trick-4 prices are measurements on a declared corpus, never
 theorems — the §19 corollary alone is mathematics and carries Theorem
