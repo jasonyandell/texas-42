@@ -1,0 +1,261 @@
+modelbeliefreport run 1 — the MB0 §75 report (EXPLORATORY tier)
+epoch: F0 = level0-modeled-mind-v1 (id 1b2c627fc67ba460), F1 = level1-modeled-mind-v1 (id 005e2a5904761f35); prior (1/2,1/2) per hidden seat;
+SupportOracle; focal = lowest-first frozen preference; six enumerable
+verify_player receipt roots. Synthetic carrier mixture labeled below.
+carriers: carrier:lowest-first-v1 (id d3aef18a8d951776), carrier:highest-first-v1 (id 9718c4955e281f6b)
+
+== h12-t6 [registered F0/F1 mixture]
+physical world mass Z = 6; augmented mass Σw·Z = 48 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
+active types by seat: every hidden seat ∈ {level0-modeled-mind-v1, level1-modeled-mind-v1} at (1/2, 1/2), independent, persistence per hand
+fixed-policy mixture value V_nu(lowest-first) = 0 (~0‰)
+  action 4-4: Q_a = 0 (~0‰); U^sep_a = 0 (~0‰); fusion price Phi_a = 0 (~0‰)
+  action 6-0: Q_a = 0 (~0‰); U^sep_a = 0 (~0‰); fusion price Phi_a = 0 (~0‰)
+exact mixture response Q(nu) = 0 (~0‰) — selected action 4-4
+observed line (focal = lowest-first, heaviest branch observed):
+  (decided after 1 plays)
+parity verdict: EXACT — (omega,theta) enumeration over 48 pairs reproduces V_nu and Q(nu) to equality
+wall 235 us; declared memory 7232 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+== h10-t6 [registered F0/F1 mixture]
+physical world mass Z = 19; augmented mass Σw·Z = 152 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
+active types by seat: every hidden seat ∈ {level0-modeled-mind-v1, level1-modeled-mind-v1} at (1/2, 1/2), independent, persistence per hand
+fixed-policy mixture value V_nu(lowest-first) = 1 (~1000‰)
+  action 2-2: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); fusion price Phi_a = 0 (~0‰)
+  action 3-3: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); fusion price Phi_a = 0 (~0‰)
+exact mixture response Q(nu) = 1 (~1000‰) — selected action 2-2
+observed line (focal = lowest-first, heaviest branch observed):
+  (decided after 1 plays)
+parity verdict: EXACT — (omega,theta) enumeration over 152 pairs reproduces V_nu and Q(nu) to equality
+wall 262 us; declared memory 7232 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+== h5-t6 [registered F0/F1 mixture]
+physical world mass Z = 27; augmented mass Σw·Z = 216 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
+active types by seat: every hidden seat ∈ {level0-modeled-mind-v1, level1-modeled-mind-v1} at (1/2, 1/2), independent, persistence per hand
+fixed-policy mixture value V_nu(lowest-first) = 4/9 (~444‰)
+  action 4-1: Q_a = 4/9 (~444‰); U^sep_a = 4/9 (~444‰); fusion price Phi_a = 0 (~0‰)
+  action 5-2: Q_a = 4/9 (~444‰); U^sep_a = 4/9 (~444‰); fusion price Phi_a = 0 (~0‰)
+exact mixture response Q(nu) = 4/9 (~444‰) — selected action 4-1
+observed line (focal = lowest-first, heaviest branch observed):
+  seat S1 branch masses { 4-2:96 4-3:96 4-4:24 } — typed rows 24 vs merged 3
+  observed 4-2 -> posterior type marginals S1[1b2c627fc67ba460:48/96 005e2a5904761f35:48/96 ] S2[1b2c627fc67ba460:48/96 005e2a5904761f35:48/96 ] S3[1b2c627fc67ba460:48/96 005e2a5904761f35:48/96 ] 
+  seat S2 branch masses { 1-1:16 4-3:48 4-4:24 5-1:8 } — typed rows 32 vs merged 4
+  observed 4-3 -> posterior type marginals S1[1b2c627fc67ba460:24/48 005e2a5904761f35:24/48 ] S2[1b2c627fc67ba460:24/48 005e2a5904761f35:24/48 ] S3[1b2c627fc67ba460:24/48 005e2a5904761f35:24/48 ] 
+  seat S3 branch masses { 1-1:16 4-4:16 5-1:16 } — typed rows 24 vs merged 3
+  observed 1-1 -> posterior type marginals S1[1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ] S2[1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ] S3[1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ] 
+  seat S2 branch masses { 5-1:8 5-5:8 } — typed rows 16 vs merged 2
+  observed 5-1 -> posterior type marginals S1[1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ] S2[1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ] S3[1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ] 
+aggregation census along the line: 96 typed rows vs 12 merged public branches
+parity verdict: EXACT — (omega,theta) enumeration over 216 pairs reproduces V_nu and Q(nu) to equality
+wall 43293 us; declared memory 8000 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+== h4-t6 [registered F0/F1 mixture]
+physical world mass Z = 90; augmented mass Σw·Z = 720 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
+active types by seat: every hidden seat ∈ {level0-modeled-mind-v1, level1-modeled-mind-v1} at (1/2, 1/2), independent, persistence per hand
+fixed-policy mixture value V_nu(lowest-first) = 1/3 (~333‰)
+  action 0-0: Q_a = 1/3 (~333‰); U^sep_a = 1/3 (~333‰); fusion price Phi_a = 0 (~0‰)
+  action 1-1: Q_a = 13/15 (~866‰); U^sep_a = 13/15 (~866‰); fusion price Phi_a = 0 (~0‰)
+exact mixture response Q(nu) = 13/15 (~866‰) — selected action 1-1
+observed line (focal = lowest-first, heaviest branch observed):
+  seat S3 branch masses { 2-0:240 2-1:192 2-2:96 5-1:144 5-4:24 5-5:24 } — typed rows 40 vs merged 6
+  observed 2-0 -> posterior type marginals S3[1b2c627fc67ba460:120/240 005e2a5904761f35:120/240 ] S0[1b2c627fc67ba460:120/240 005e2a5904761f35:120/240 ] S1[1b2c627fc67ba460:120/240 005e2a5904761f35:120/240 ] 
+  seat S0 branch masses { 2-1:96 2-2:48 5-1:72 5-4:12 5-5:12 } — typed rows 32 vs merged 5
+  observed 2-1 -> posterior type marginals S3[1b2c627fc67ba460:48/96 005e2a5904761f35:48/96 ] S0[1b2c627fc67ba460:48/96 005e2a5904761f35:48/96 ] S1[1b2c627fc67ba460:48/96 005e2a5904761f35:48/96 ] 
+  seat S1 branch masses { 2-2:40 5-1:40 5-4:16 } — typed rows 24 vs merged 3
+  observed 2-2 -> posterior type marginals S3[1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ] S0[1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ] S1[1b2c627fc67ba460:24/40 005e2a5904761f35:16/40 ] 
+  seat S0 branch masses { 5-1:16 5-4:12 5-5:12 } — typed rows 24 vs merged 3
+  observed 5-1 -> posterior type marginals S3[1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ] S0[1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ] S1[1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ] 
+aggregation census along the line: 120 typed rows vs 17 merged public branches
+parity verdict: EXACT — (omega,theta) enumeration over 720 pairs reproduces V_nu and Q(nu) to equality
+wall 89169 us; declared memory 10688 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+== h8-t5 [registered F0/F1 mixture]
+physical world mass Z = 92; augmented mass Σw·Z = 736 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
+active types by seat: every hidden seat ∈ {level0-modeled-mind-v1, level1-modeled-mind-v1} at (1/2, 1/2), independent, persistence per hand
+fixed-policy mixture value V_nu(lowest-first) = 16/23 (~695‰)
+  action 0-0: Q_a = 141/184 (~766‰); U^sep_a = 141/184 (~766‰); fusion price Phi_a = 0 (~0‰)
+  action 5-0: Q_a = 16/23 (~695‰); U^sep_a = 16/23 (~695‰); fusion price Phi_a = 0 (~0‰)
+  action 5-3: Q_a = 7/8 (~875‰); U^sep_a = 7/8 (~875‰); fusion price Phi_a = 0 (~0‰)
+exact mixture response Q(nu) = 7/8 (~875‰) — selected action 5-3
+observed line (focal = lowest-first, heaviest branch observed):
+  seat S0 branch masses { 3-0:136 3-1:176 3-3:76 4-1:160 4-3:52 6-0:136 } — typed rows 48 vs merged 6
+  observed 3-1 -> posterior type marginals S0[1b2c627fc67ba460:88/176 005e2a5904761f35:88/176 ] S1[1b2c627fc67ba460:88/176 005e2a5904761f35:88/176 ] S2[1b2c627fc67ba460:88/176 005e2a5904761f35:88/176 ] 
+  seat S1 branch masses { 3-0:88 3-3:8 6-0:72 6-6:8 } — typed rows 24 vs merged 4
+  observed 3-0 -> posterior type marginals S0[1b2c627fc67ba460:44/88 005e2a5904761f35:44/88 ] S1[1b2c627fc67ba460:36/88 005e2a5904761f35:52/88 ] S2[1b2c627fc67ba460:44/88 005e2a5904761f35:44/88 ] 
+  seat S2 branch masses { 3-3:14 4-3:18 6-0:56 } — typed rows 22 vs merged 3
+  observed 6-0 -> posterior type marginals S0[1b2c627fc67ba460:28/56 005e2a5904761f35:28/56 ] S1[1b2c627fc67ba460:28/56 005e2a5904761f35:28/56 ] S2[1b2c627fc67ba460:28/56 005e2a5904761f35:28/56 ] 
+  seat S0 branch masses { 3-3:8 4-1:40 5-5:8 } — typed rows 24 vs merged 3
+  observed 4-1 -> posterior type marginals S0[1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ] S1[1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ] S2[1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ] 
+aggregation census along the line: 118 typed rows vs 16 merged public branches
+parity verdict: EXACT — (omega,theta) enumeration over 736 pairs reproduces V_nu and Q(nu) to equality
+wall 979434 us; declared memory 25856 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+== h3-t5 [registered F0/F1 mixture]
+physical world mass Z = 200; augmented mass Σw·Z = 1600 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
+active types by seat: every hidden seat ∈ {level0-modeled-mind-v1, level1-modeled-mind-v1} at (1/2, 1/2), independent, persistence per hand
+fixed-policy mixture value V_nu(lowest-first) = 1 (~1000‰)
+  action 4-0: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); fusion price Phi_a = 0 (~0‰)
+  action 5-0: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); fusion price Phi_a = 0 (~0‰)
+  action 6-6: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); fusion price Phi_a = 0 (~0‰)
+exact mixture response Q(nu) = 1 (~1000‰) — selected action 4-0
+observed line (focal = lowest-first, heaviest branch observed):
+  seat S1 branch masses { 3-1:536 3-2:92 3-3:100 4-1:236 5-5:180 6-1:232 6-3:72 6-4:80 6-5:72 } — typed rows 72 vs merged 9
+  observed 3-1 -> posterior type marginals S1[1b2c627fc67ba460:308/536 005e2a5904761f35:228/536 ] S2[1b2c627fc67ba460:268/536 005e2a5904761f35:268/536 ] S3[1b2c627fc67ba460:268/536 005e2a5904761f35:268/536 ] 
+  seat S2 branch masses { 3-2:118 3-3:86 4-1:192 5-5:48 6-1:42 6-3:26 6-4:10 6-5:14 } — typed rows 60 vs merged 8
+  observed 4-1 -> posterior type marginals S1[1b2c627fc67ba460:118/192 005e2a5904761f35:74/192 ] S2[1b2c627fc67ba460:90/192 005e2a5904761f35:102/192 ] S3[1b2c627fc67ba460:96/192 005e2a5904761f35:96/192 ] 
+  seat S3 branch masses { 3-2:75 3-3:38 5-5:7 6-3:44 6-5:28 } — typed rows 24 vs merged 5
+  observed 3-2 -> posterior type marginals S1[1b2c627fc67ba460:44/75 005e2a5904761f35:31/75 ] S2[1b2c627fc67ba460:31/75 005e2a5904761f35:44/75 ] S3[1b2c627fc67ba460:51/75 005e2a5904761f35:24/75 ] 
+  seat S1 branch masses { 3-3:24 5-5:8 6-1:28 6-3:12 6-4:3 } — typed rows 30 vs merged 5
+  observed 6-1 -> posterior type marginals S1[1b2c627fc67ba460:12/28 005e2a5904761f35:16/28 ] S2[1b2c627fc67ba460:7/28 005e2a5904761f35:21/28 ] S3[1b2c627fc67ba460:20/28 005e2a5904761f35:8/28 ] 
+aggregation census along the line: 186 typed rows vs 27 merged public branches
+parity verdict: EXACT — (omega,theta) enumeration over 1600 pairs reproduces V_nu and Q(nu) to equality
+wall 3674531 us; declared memory 36224 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+---- SYNTHETIC carrier mixture (lowest-first / highest-first declared carriers; labeled, never a solver rung) ----
+
+== h12-t6 [SYNTHETIC carrier mixture]
+physical world mass Z = 6; augmented mass Σw·Z = 48 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
+active types by seat: every hidden seat ∈ {carrier:lowest-first-v1, carrier:highest-first-v1} at (1/2, 1/2), independent, persistence per hand
+fixed-policy mixture value V_nu(lowest-first) = 0 (~0‰)
+  action 4-4: Q_a = 0 (~0‰); U^sep_a = 0 (~0‰); fusion price Phi_a = 0 (~0‰)
+  action 6-0: Q_a = 0 (~0‰); U^sep_a = 0 (~0‰); fusion price Phi_a = 0 (~0‰)
+exact mixture response Q(nu) = 0 (~0‰) — selected action 4-4
+observed line (focal = lowest-first, heaviest branch observed):
+  (decided after 1 plays)
+parity verdict: EXACT — (omega,theta) enumeration over 48 pairs reproduces V_nu and Q(nu) to equality
+wall 64 us; declared memory 7232 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+== h10-t6 [SYNTHETIC carrier mixture]
+physical world mass Z = 19; augmented mass Σw·Z = 152 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
+active types by seat: every hidden seat ∈ {carrier:lowest-first-v1, carrier:highest-first-v1} at (1/2, 1/2), independent, persistence per hand
+fixed-policy mixture value V_nu(lowest-first) = 1 (~1000‰)
+  action 2-2: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); fusion price Phi_a = 0 (~0‰)
+  action 3-3: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); fusion price Phi_a = 0 (~0‰)
+exact mixture response Q(nu) = 1 (~1000‰) — selected action 2-2
+observed line (focal = lowest-first, heaviest branch observed):
+  (decided after 1 plays)
+parity verdict: EXACT — (omega,theta) enumeration over 152 pairs reproduces V_nu and Q(nu) to equality
+wall 121 us; declared memory 7232 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+== h5-t6 [SYNTHETIC carrier mixture]
+physical world mass Z = 27; augmented mass Σw·Z = 216 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
+active types by seat: every hidden seat ∈ {carrier:lowest-first-v1, carrier:highest-first-v1} at (1/2, 1/2), independent, persistence per hand
+fixed-policy mixture value V_nu(lowest-first) = 4/9 (~444‰)
+  action 4-1: Q_a = 4/9 (~444‰); U^sep_a = 4/9 (~444‰); fusion price Phi_a = 0 (~0‰)
+  action 5-2: Q_a = 4/9 (~444‰); U^sep_a = 4/9 (~444‰); fusion price Phi_a = 0 (~0‰)
+exact mixture response Q(nu) = 4/9 (~444‰) — selected action 4-1
+observed line (focal = lowest-first, heaviest branch observed):
+  seat S1 branch masses { 4-2:60 4-3:96 4-4:60 } — typed rows 24 vs merged 3
+  observed 4-3 -> posterior type marginals S1[d3aef18a8d951776:48/96 9718c4955e281f6b:48/96 ] S2[d3aef18a8d951776:48/96 9718c4955e281f6b:48/96 ] S3[d3aef18a8d951776:48/96 9718c4955e281f6b:48/96 ] 
+  seat S2 branch masses { 1-1:8 4-2:32 4-4:32 5-1:12 5-5:12 } — typed rows 32 vs merged 5
+  observed 4-2 -> posterior type marginals S1[d3aef18a8d951776:22/32 9718c4955e281f6b:10/32 ] S2[d3aef18a8d951776:18/32 9718c4955e281f6b:14/32 ] S3[d3aef18a8d951776:16/32 9718c4955e281f6b:16/32 ] 
+  seat S3 branch masses { 1-1:4 4-4:16 5-1:6 5-5:6 } — typed rows 18 vs merged 4
+  observed 4-4 -> posterior type marginals S1[d3aef18a8d951776:8/16 9718c4955e281f6b:8/16 ] S2[d3aef18a8d951776:8/16 9718c4955e281f6b:8/16 ] S3[d3aef18a8d951776:8/16 9718c4955e281f6b:8/16 ] 
+  seat S3 branch masses { 5-1:8 5-5:8 } — typed rows 16 vs merged 2
+  observed 5-1 -> posterior type marginals S1[d3aef18a8d951776:4/8 9718c4955e281f6b:4/8 ] S2[d3aef18a8d951776:4/8 9718c4955e281f6b:4/8 ] S3[d3aef18a8d951776:4/8 9718c4955e281f6b:4/8 ] 
+aggregation census along the line: 90 typed rows vs 14 merged public branches
+parity verdict: EXACT — (omega,theta) enumeration over 216 pairs reproduces V_nu and Q(nu) to equality
+wall 3451 us; declared memory 8000 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+== h4-t6 [SYNTHETIC carrier mixture]
+physical world mass Z = 90; augmented mass Σw·Z = 720 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
+active types by seat: every hidden seat ∈ {carrier:lowest-first-v1, carrier:highest-first-v1} at (1/2, 1/2), independent, persistence per hand
+fixed-policy mixture value V_nu(lowest-first) = 8/15 (~533‰)
+  action 0-0: Q_a = 8/15 (~533‰); U^sep_a = 8/15 (~533‰); fusion price Phi_a = 0 (~0‰)
+  action 1-1: Q_a = 13/15 (~866‰); U^sep_a = 13/15 (~866‰); fusion price Phi_a = 0 (~0‰)
+exact mixture response Q(nu) = 13/15 (~866‰) — selected action 1-1
+observed line (focal = lowest-first, heaviest branch observed):
+  seat S3 branch masses { 2-0:240 2-1:96 2-2:96 5-1:96 5-4:96 5-5:96 } — typed rows 40 vs merged 6
+  observed 2-0 -> posterior type marginals S3[d3aef18a8d951776:120/240 9718c4955e281f6b:120/240 ] S0[d3aef18a8d951776:120/240 9718c4955e281f6b:120/240 ] S1[d3aef18a8d951776:120/240 9718c4955e281f6b:120/240 ] 
+  seat S0 branch masses { 2-1:48 2-2:48 5-1:48 5-4:48 5-5:48 } — typed rows 32 vs merged 5
+  observed 2-1 -> posterior type marginals S3[d3aef18a8d951776:24/48 9718c4955e281f6b:24/48 ] S0[d3aef18a8d951776:48/48 ] S1[d3aef18a8d951776:24/48 9718c4955e281f6b:24/48 ] 
+  seat S1 branch masses { 2-2:12 5-1:12 5-4:12 5-5:12 } — typed rows 12 vs merged 4
+  observed 2-2 -> posterior type marginals S3[d3aef18a8d951776:6/12 9718c4955e281f6b:6/12 ] S0[d3aef18a8d951776:12/12 ] S1[d3aef18a8d951776:12/12 ] 
+  seat S0 branch masses { 5-1:4 5-4:4 5-5:4 } — typed rows 6 vs merged 3
+  observed 5-1 -> posterior type marginals S3[d3aef18a8d951776:2/4 9718c4955e281f6b:2/4 ] S0[d3aef18a8d951776:4/4 ] S1[d3aef18a8d951776:4/4 ] 
+aggregation census along the line: 90 typed rows vs 18 merged public branches
+parity verdict: EXACT — (omega,theta) enumeration over 720 pairs reproduces V_nu and Q(nu) to equality
+wall 10656 us; declared memory 10688 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+== h8-t5 [SYNTHETIC carrier mixture]
+physical world mass Z = 92; augmented mass Σw·Z = 736 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
+active types by seat: every hidden seat ∈ {carrier:lowest-first-v1, carrier:highest-first-v1} at (1/2, 1/2), independent, persistence per hand
+fixed-policy mixture value V_nu(lowest-first) = 281/368 (~763‰)
+  action 0-0: Q_a = 21/23 (~913‰); U^sep_a = 21/23 (~913‰); fusion price Phi_a = 0 (~0‰)
+  action 5-0: Q_a = 16/23 (~695‰); U^sep_a = 16/23 (~695‰); fusion price Phi_a = 0 (~0‰)
+  action 5-3: Q_a = 169/184 (~918‰); U^sep_a = 169/184 (~918‰); fusion price Phi_a = 0 (~0‰)
+exact mixture response Q(nu) = 169/184 (~918‰) — selected action 5-3
+observed line (focal = lowest-first, heaviest branch observed):
+  seat S0 branch masses { 3-0:136 3-1:88 3-3:44 4-1:112 4-3:36 5-5:52 6-0:136 6-4:76 6-6:56 } — typed rows 48 vs merged 9
+  observed 3-0 -> posterior type marginals S0[d3aef18a8d951776:72/136 9718c4955e281f6b:64/136 ] S1[d3aef18a8d951776:68/136 9718c4955e281f6b:68/136 ] S2[d3aef18a8d951776:68/136 9718c4955e281f6b:68/136 ] 
+  seat S1 branch masses { 3-1:32 3-3:4 5-5:14 6-0:64 6-6:22 } — typed rows 24 vs merged 5
+  observed 6-0 -> posterior type marginals S0[d3aef18a8d951776:32/64 9718c4955e281f6b:32/64 ] S1[d3aef18a8d951776:32/64 9718c4955e281f6b:32/64 ] S2[d3aef18a8d951776:32/64 9718c4955e281f6b:32/64 ] 
+  seat S2 branch masses { 3-3:20 4-3:12 6-4:12 6-6:20 } — typed rows 16 vs merged 4
+  observed 3-3 -> posterior type marginals S0[d3aef18a8d951776:10/20 9718c4955e281f6b:10/20 ] S1[d3aef18a8d951776:10/20 9718c4955e281f6b:10/20 ] S2[d3aef18a8d951776:20/20 ] 
+  seat S0 branch masses { 3-1:2 4-1:8 4-3:2 5-5:4 6-4:2 6-6:2 } — typed rows 16 vs merged 6
+  observed 4-1 -> posterior type marginals S0[d3aef18a8d951776:6/8 9718c4955e281f6b:2/8 ] S1[d3aef18a8d951776:4/8 9718c4955e281f6b:4/8 ] S2[d3aef18a8d951776:8/8 ] 
+aggregation census along the line: 104 typed rows vs 24 merged public branches
+parity verdict: EXACT — (omega,theta) enumeration over 736 pairs reproduces V_nu and Q(nu) to equality
+wall 31658 us; declared memory 25856 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+== h3-t5 [SYNTHETIC carrier mixture]
+physical world mass Z = 200; augmented mass Σw·Z = 1600 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
+active types by seat: every hidden seat ∈ {carrier:lowest-first-v1, carrier:highest-first-v1} at (1/2, 1/2), independent, persistence per hand
+fixed-policy mixture value V_nu(lowest-first) = 1 (~1000‰)
+  action 4-0: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); fusion price Phi_a = 0 (~0‰)
+  action 5-0: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); fusion price Phi_a = 0 (~0‰)
+  action 6-6: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); fusion price Phi_a = 0 (~0‰)
+exact mixture response Q(nu) = 1 (~1000‰) — selected action 4-0
+observed line (focal = lowest-first, heaviest branch observed):
+  seat S1 branch masses { 3-1:400 3-2:96 3-3:88 4-1:184 5-5:64 6-1:184 6-3:88 6-4:336 6-5:160 } — typed rows 56 vs merged 9
+  observed 3-1 -> posterior type marginals S1[d3aef18a8d951776:400/400 ] S2[d3aef18a8d951776:200/400 9718c4955e281f6b:200/400 ] S3[d3aef18a8d951776:200/400 9718c4955e281f6b:200/400 ] 
+  seat S2 branch masses { 3-2:48 3-3:42 4-1:76 5-5:20 6-1:48 6-3:22 6-4:96 6-5:48 } — typed rows 24 vs merged 8
+  observed 6-4 -> posterior type marginals S1[d3aef18a8d951776:96/96 ] S2[9718c4955e281f6b:96/96 ] S3[d3aef18a8d951776:48/96 9718c4955e281f6b:48/96 ] 
+  seat S3 branch masses { 3-2:27 3-3:15 5-5:9 6-3:9 6-5:36 } — typed rows 6 vs merged 5
+  observed 6-5 -> posterior type marginals S1[d3aef18a8d951776:36/36 ] S2[9718c4955e281f6b:36/36 ] S3[9718c4955e281f6b:36/36 ] 
+  seat S1 branch masses { 3-2:9 3-3:8 4-1:12 5-5:4 6-1:3 } — typed rows 5 vs merged 5
+  observed 4-1 -> posterior type marginals S1[d3aef18a8d951776:12/12 ] S2[9718c4955e281f6b:12/12 ] S3[9718c4955e281f6b:12/12 ] 
+aggregation census along the line: 91 typed rows vs 27 merged public branches
+parity verdict: EXACT — (omega,theta) enumeration over 1600 pairs reproduces V_nu and Q(nu) to equality
+wall 97306 us; declared memory 36224 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+== the sigma1 boundary (the scope of criterion 1's F1 half) ==
+The Level1 (sigma1) mind materializes its belief through the SHIPPED
+shuffle-and-reject sampler `sample_belief` (solver/mod.rs:911): an
+unbounded rejection loop with no attempt cap and no feasibility
+precheck. Its acceptance region is EMPTY exactly at zero-joint-mass
+information states — a candidate hand that is record-consistent for
+its own seat but jointly uncompletable against the other seats' void
+structure — and there the loop never terminates. This is
+PRE-EXISTING in shipped code: MB0 is merely the first caller to
+sweep enough information states to reach it (the exact walks consult
+the field at every hand of the acting seat's factor support; the
+live player's single-line play never constructs such frames).
+Level0 (sigma0) never reaches the sampler; only Level1 does.
+Live specimen, pinned by gate G8: seat S3, hand {4-2 4-4}, history
+[4-1, 4-3, 1-1], sizes [1,1,1,2], voids [16786368, 69173248,
+33586176, 16786368] — exhaustively unsatisfiable AND zero-mass by
+fiber enumeration. Consequence for parity: the RAW Level1 authority
+(`response_success_mass` over an untightened uniform-root belief)
+terminates on exactly TWO of the six tested roots — h12-t6 and
+h10-t6, the root-decided fixtures — and provably cannot price the
+other four (h5-t6, h4-t6, h8-t5, h3-t5), where gate G2 pins its
+refusal. This module's positive-support tightening confines sigma1
+reads to provably-satisfiable states, which is why every mixture
+walk above completes; the delta-F1 endpoint on the blocked roots is
+anchored by (omega,theta) enumeration in G8 instead of by the raw
+authority. FOUR un-deduplicated bin copies of the sampler remain
+exposed (walt_bridge, playout, playtable, divergence — including
+the live player's own copy), plus the library copy; repair and
+dedup are DEFERRED to the follow-up slice by ruling, so the
+unpatched sampler stays available for that slice's before-side
+evidence capture.
+
+== the §76 go/no-go criteria ==
+1. point-mass parity exact: SCOPED YES — F0 exact on all six roots (value AND selected action, G2); F1 exact on the raw authority's ENTIRE terminating domain, which is exactly {h12-t6, h10-t6} (the root-decided fixtures), with the four blocked roots {h5-t6, h4-t6, h8-t5, h3-t5} pinned as the raw authority's refusal set (G2) and the delta-F1 endpoint on them anchored by exact (omega,theta) enumeration instead (G8). See the sigma1 boundary section above — the caveat is part of the result's name.
+2. persistent posterior closure exact: YES — G1/G3 (Theorem 12.1 mechanical; branch conservation MB-I6; the 1/2-vs-1/4 specimen).
+3. mixture response differs nontrivially from a point-mass response: YES — 3 root actions on the registered corpus have Q_a(nu) != q_a(theta) for some type in support.
+4. point-mass upper sometimes strict, finite, interpretable: NO — registered mixture: 14 zero / 0 strict root actions; SYNTHETIC carrier mixture: 0 strict root actions (every price finite and exact by construction).
+5. type dimension small after public-action aggregation: YES — at most 8 profiles live anywhere, and every hidden branch table is by public action (the typed-vs-merged census above; merged branches never exceed the acting seat's distinct tiles).
+
+total wall 5229376 us (single-threaded; sigma0/sigma1 field caches shared within this run)
+measured resident set at exit: 18768 KB (/bin/ps -o rss= — a measurement, kept strictly apart from the declared accountings above)
