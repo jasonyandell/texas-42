@@ -484,9 +484,11 @@ consultations — and the refusal is typed all the way out, so a player
 can fall back on a named refusal instead of a panic or a silent
 truncation.
 
-What it is NOT ready for is the clock. A trick-4 coordinate costs one to
-seven million field consultations and one to seven minutes; a whole
-trick-4 root is one to seven minutes times its action count. The
+What it is NOT ready for is the clock. A trick-4 coordinate costs one
+to seven million field consultations, which is roughly half a minute
+(h8-t4, ~24 s per coordinate) to two minutes (h3-t4, ~103 s); a whole
+trick-4 root is that times its action count, so 98 s to 412 s on the
+two measured here. The
 response-vector envelope is the one lever that is already built: a
 policy library priced once reprices under any belief for free, so a
 player that can afford the walk ONCE can afford to re-decide under a
