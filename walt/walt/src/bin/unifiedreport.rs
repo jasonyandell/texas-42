@@ -191,7 +191,11 @@ struct Row {
     live_profiles: usize,
     falsified: bool,
     join: Option<(BigRational, BigRational, bool, Domino, Domino, bool)>,
+    /// Wall inside `decide` — the cascade's own time.
     wall_us: u128,
+    /// Wall inside `observe_play` after the play — the price of CARRYING
+    /// the posterior, paid at every ply whether or not any tier read it.
+    carry_us: u128,
 }
 
 /// One walked hand: every decision from the root to the last tile.
@@ -306,6 +310,7 @@ fn walk_root(r: &Receipt, hand_id: usize, trick_no: usize, budget: &MoveBudget) 
                     )
                 }),
                 wall_us,
+                carry_us: 0,
             });
 
             // Advance every carried line past the play, then the world.
@@ -318,7 +323,12 @@ fn walk_root(r: &Receipt, hand_id: usize, trick_no: usize, budget: &MoveBudget) 
                     )
                 })
                 .collect();
+            let c0 = Instant::now();
             player.observe_play(&state, decision.action());
+            let carry_us = c0.elapsed().as_micros();
+            if let Some(row) = rows.last_mut() {
+                row.carry_us = carry_us;
+            }
             for (s, was) in before {
                 let seat = Seat::ALL[s];
                 if was {
@@ -396,7 +406,8 @@ fn print_walk(out: &mut String, label: &str, budget: &MoveBudget, walk: &Walk) {
         );
         let _ = writeln!(
             out,
-            "      fiber={} value={} | reads: enum={} mix={} field={} | wall={}us",
+            "      fiber={} value={} | reads: enum={} mix={} field={} | \
+             wall decide={}us carry={}us",
             match row.fiber {
                 Some(z) => z.to_string(),
                 None => "-".to_string(),
@@ -408,7 +419,8 @@ fn print_walk(out: &mut String, label: &str, budget: &MoveBudget, walk: &Walk) {
             row.enumeration_reads,
             row.mixture_reads,
             row.field_reads,
-            row.wall_us
+            row.wall_us,
+            row.carry_us
         );
         let _ = writeln!(
             out,
@@ -539,6 +551,8 @@ fn census(out: &mut String, walks: &[(String, String, Walk)]) {
         let mut mix_reads = 0u64;
         let mut field_reads = 0u64;
         let mut wall = 0u128;
+        let mut decide_wall = 0u128;
+        let mut carry_wall = 0u128;
         let mut decisions = 0usize;
         let mut worst = 0u128;
         for (r, _, w) in walks {
@@ -551,6 +565,8 @@ fn census(out: &mut String, walks: &[(String, String, Walk)]) {
                 enum_reads += row.enumeration_reads;
                 mix_reads += row.mixture_reads;
                 field_reads += row.field_reads;
+                decide_wall += row.wall_us;
+                carry_wall += row.carry_us;
                 if row.wall_us > worst {
                     worst = row.wall_us;
                 }
@@ -559,15 +575,24 @@ fn census(out: &mut String, walks: &[(String, String, Walk)]) {
         let per_move = if decisions == 0 {
             0
         } else {
-            wall / decisions as u128
+            decide_wall / decisions as u128
         };
         let _ = writeln!(
             out,
             "  {rung}: {decisions} decisions, field consultations enum={enum_reads} \
-             mix={mix_reads} fallback={field_reads}; wall {wall}us total, {per_move}us mean, \
-             {worst}us worst move"
+             mix={mix_reads} fallback={field_reads}\n\
+             \x20     wall {wall}us total = {decide_wall}us deciding + {carry_wall}us \
+             CARRYING the posterior; {per_move}us mean decision, {worst}us worst decision"
         );
     }
+    let _ = writeln!(
+        out,
+        "\n  The carry column is the price of item 3 and is paid at EVERY ply, by every\n\
+         \x20 open line, whether or not any tier consulted it: advancing a model belief\n\
+         \x20 past a hidden play means classifying the acting seat's support under every\n\
+         \x20 live profile. On the lean rung no tier consults the posterior at all, so\n\
+         \x20 that rung's carry column is the cost of carrying a belief nothing read."
+    );
 
     let _ = writeln!(
         out,

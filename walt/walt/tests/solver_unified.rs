@@ -221,8 +221,7 @@ struct LineView {
     focal_plays: usize,
 }
 
-/// Walk one receipt root to terminal (or for at most `max_plies`
-/// decisions) with the unified player choosing every seat's action.
+/// Walk one receipt root under the registered type library.
 fn walk(
     r: &Receipt,
     hand_id: usize,
@@ -231,13 +230,28 @@ fn walk(
     store: ReceiptStore,
     max_plies: usize,
 ) -> (Vec<Play>, Vec<LineView>) {
+    walk_with(r, hand_id, trick_no, b, store, max_plies, library())
+}
+
+/// Walk one receipt root to terminal (or for at most `max_plies`
+/// decisions) with the unified player choosing every seat's action.
+#[allow(clippy::too_many_arguments)]
+fn walk_with(
+    r: &Receipt,
+    hand_id: usize,
+    trick_no: usize,
+    b: &MoveBudget,
+    store: ReceiptStore,
+    max_plies: usize,
+    lib: TypeLibrary,
+) -> (Vec<Play>, Vec<LineView>) {
     let hand = &r.hands[hand_id];
     let (start_hands, start_leader) =
         state_before_trick(hand, trick_no).expect("a valid receipt trick");
     let decl = hand.decl;
     let oracle = SupportOracle;
     let field = FieldModel::new(field_spec_level0());
-    let mut player = UnifiedPlayer::new(&oracle, &field, library());
+    let mut player = UnifiedPlayer::new(&oracle, &field, lib);
     player.seed_store(store);
 
     let mut hands = start_hands;
@@ -968,6 +982,61 @@ fn up4_the_same_state_under_the_same_budget_yields_the_same_decision() {
                 x.decision, y.decision,
                 "UP4: a decision is a function of the state and the declared budget — \
                  identical provenance, identical spend, identical refusals"
+            );
+        }
+    }
+}
+
+#[test]
+fn up4_an_empty_library_carries_nothing_and_changes_no_world_space_answer() {
+    let r = receipt();
+    // The join is not free. Carrying a model belief costs a support
+    // classification under every live profile at EVERY ply, whether or
+    // not a tier reads it — on the lean rung of the committed transcript
+    // that carry is 99% of the wall, spent on a posterior nothing
+    // consulted. The lever is declared, not hidden: an EMPTY type
+    // library opens no line at all, and the world-space tiers, which
+    // never read the posterior, answer exactly as before.
+    for (hand_id, trick_no) in [(5usize, 6usize), (4, 6), (8, 5)] {
+        let (carried, lines) = walk(&r, hand_id, trick_no, &lean(), ReceiptStore::new(), 6);
+        let (bare, bare_lines) = walk_with(
+            &r,
+            hand_id,
+            trick_no,
+            &lean(),
+            ReceiptStore::new(),
+            6,
+            TypeLibrary::new(vec![]),
+        );
+        assert!(
+            !lines.is_empty(),
+            "UP4: the registered library carries lines at h{hand_id}-t{trick_no}"
+        );
+        assert!(
+            bare_lines.is_empty(),
+            "UP4: an empty library carries none — no line, no carry"
+        );
+        assert_eq!(carried.len(), bare.len());
+        for (x, y) in carried.iter().zip(bare.iter()) {
+            assert_eq!(
+                x.decision.action(),
+                y.decision.action(),
+                "UP4: the world-space tiers do not read the posterior, so dropping it \
+                 changes no action they produced (h{hand_id}-t{trick_no})"
+            );
+            assert_eq!(
+                x.decision.provenance().tier(),
+                y.decision.provenance().tier(),
+                "UP4: nor which tier answered"
+            );
+            assert_eq!(
+                x.decision.provenance().evidence().value(),
+                y.decision.provenance().evidence().value(),
+                "UP4: nor the exact value it claimed"
+            );
+            assert!(
+                !y.decision.provenance().posterior().carried,
+                "UP4: and the provenance says plainly that nothing was carried"
             );
         }
     }
