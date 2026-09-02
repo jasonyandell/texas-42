@@ -71,10 +71,10 @@ const MB0_ROOTS: [(usize, usize, u128); 6] = [
 /// is `PRE_T4_ROOTS`.
 const EARLIER_ROOTS: [(usize, usize, u128); 3] = [(8, 4, 1_200), (12, 4, 34_650), (3, 4, 11_550)];
 
-/// The strictly pre-trick-4 attempt, in increasing fiber order. These
-/// are declared so the refusal is a measured budget decision at a named
-/// coordinate rather than an absence.
-const PRE_T4_ROOTS: [(usize, usize, u128); 2] = [(8, 3, 59_976), (11, 3, 64_638)];
+/// The strictly pre-trick-4 attempt: the smallest receipt fiber at
+/// trick 3. Declared so that whatever comes back is a measured budget
+/// decision at a NAMED coordinate rather than an absence.
+const PRE_T4_ROOTS: [(usize, usize, u128); 1] = [(8, 3, 59_976)];
 
 /// Declared field-read ceiling for ONE root action's exact mixture
 /// response on the MB0 corpus. Generous: these roots are known to close.
@@ -83,14 +83,18 @@ const MB0_RESPONSE_CAP: u64 = 4_000_000;
 /// sequence on the MB0 corpus.
 const MB0_SEPARATED_CAP: u64 = 4_000_000;
 /// Declared ceiling per root action at the earlier (trick 4) roots.
+/// Comfortably above the largest trick-4 coordinate measured while
+/// choosing it (6,901,094 reads, h3-t4 action 4-4), so trick 4 is
+/// answered rather than budgeted.
 const EARLIER_RESPONSE_CAP: u64 = 12_000_000;
 const EARLIER_SEPARATED_CAP: u64 = 12_000_000;
-/// Declared ceiling per root action at the strictly pre-trick-4 roots.
-/// Deliberately the SAME as the trick-4 ceiling: the point of the
-/// coordinate is to report what one comparable budget buys one stratum
-/// earlier, not to buy the answer at any price.
-const PRE_T4_RESPONSE_CAP: u64 = 12_000_000;
-const PRE_T4_SEPARATED_CAP: u64 = 12_000_000;
+/// Declared ceiling per root action at the strictly pre-trick-4 roots,
+/// set to the LARGEST spend any trick-4 coordinate actually needed,
+/// rounded up. The question this coordinate asks is therefore a precise
+/// one — "does a trick-3 coordinate close within the most a trick-4
+/// coordinate cost?" — and not "will it close at any price".
+const PRE_T4_RESPONSE_CAP: u64 = 7_000_000;
+const PRE_T4_SEPARATED_CAP: u64 = 7_000_000;
 
 /// Grid resolution for the ν sweep (item 2): `SWEEP_STEPS + 1` beliefs
 /// from δ_{F₀} to δ_{F₁} along the per-seat weight line.
@@ -338,8 +342,11 @@ fn report_root(
     }
 
     // MB0 parity: the root value is the max over root actions (item 1's
-    // recursion-vs-MB0 check, in the probe as well as in the gate).
-    if census.refusals() == 0 {
+    // recursion-vs-MB0 check, in the probe as well as in the gate). The
+    // re-walk costs as much as the census did, so it is spent only on
+    // the roots where that is cheap; the earlier roots' parity is the
+    // gate's job (M1) and not worth doubling this run for.
+    if census.refusals() == 0 && trace_line {
         let mut stats = MixtureStats::default();
         let root_response = model.mixture_response(&oracle, &mut stats);
         let mb0 = (
@@ -359,13 +366,20 @@ fn report_root(
             }
         )
         .expect("write");
-    } else {
+    } else if census.refusals() > 0 {
         writeln!(
             out,
             "MB0 root-value comparison SKIPPED: {} of {} coordinates refused, so the \
              recursion has no max to compare",
             census.refusals(),
             census.coordinates.len()
+        )
+        .expect("write");
+    } else {
+        writeln!(
+            out,
+            "MB0 root-value comparison NOT RUN here: the re-walk costs what the census \
+             cost, and this root's per-action parity is gate M1's"
         )
         .expect("write");
     }
@@ -516,7 +530,7 @@ fn reweighted_like(
                         }
                     })
                     .collect::<Vec<Rc<BehaviorType>>>(),
-                (*w).max(1),
+                *w,
             )
         })
         .collect();
@@ -658,10 +672,16 @@ fn measure(hand_id: usize, trick_no: usize, cap: u64) {
     for c in &census.coordinates {
         match c {
             ActionCoordinate::Priced(p) => println!(
-                "  {} Q {}‰ Usep {}‰ Phi {}‰ substantive {} reads {}",
+                "  {} Q {}/{} ({}‰) Usep {}/{} ({}‰) Phi {}/{} ({}‰) substantive {} reads {}",
                 p.action,
+                p.q.0,
+                p.q.1,
                 permille(p.q.0, p.q.1),
+                p.usep.0,
+                p.usep.1,
                 permille(p.usep.0, p.usep.1),
+                p.phi.0,
+                p.phi.1,
                 permille(p.phi.0, p.phi.1),
                 p.substantive,
                 p.reads

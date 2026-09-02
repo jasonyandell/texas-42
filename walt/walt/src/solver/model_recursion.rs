@@ -1118,14 +1118,27 @@ pub fn response_vector(
     Ok((outcome.per_profile_mass, outcome.per_profile_total))
 }
 
-/// A rational-grid sweep of per-seat model beliefs: `steps + 1` points
-/// from all-weight-on-the-first-type to all-weight-on-the-second, over
-/// a two-type independent prior expanded to `profiles` product
-/// profiles. Integer weights throughout — the grid is exact.
+/// A rational-grid sweep of per-seat model beliefs over a two-type
+/// independent prior expanded to `2^seat_count` product profiles:
+/// `steps − 1` points along the per-seat weight line, integer weights
+/// throughout, so the grid is exact.
+///
+/// The line's ENDPOINTS ARE EXCLUDED, and deliberately. A per-seat
+/// weight of zero is a belief whose support is strictly smaller — a
+/// point mass, not a re-weighting — and the honest representation of
+/// that is a model belief built over the surviving profiles alone,
+/// which is a different object with a different response vector of a
+/// different length. Silently clamping a zero to one would make the
+/// sweep compare two different beliefs and call the disagreement a
+/// repricing error. The δ endpoints are reached by constructing them
+/// as point masses instead (that is what the point-mass gates do).
 pub fn two_type_grid(seat_count: usize, steps: u128) -> Vec<Vec<u128>> {
-    assert!(steps > 0, "a swept grid holds at least two points");
+    assert!(
+        steps >= 2,
+        "a swept grid with both endpoints excluded holds at least one point"
+    );
     let mut grid: Vec<Vec<u128>> = Vec::new();
-    for k in 0..=steps {
+    for k in 1..steps {
         // Per-seat weights (k, steps − k); the profile weight is the
         // product over seats of the seat's weight for its assigned
         // type, in the same slot-0-outermost order
