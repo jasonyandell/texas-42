@@ -116,9 +116,13 @@ checkpoint-commit per item, never squash; final commit `walt UP0:`; no
 push/PR (orchestrator lands); ambiguity protocol; FACTOR-BELIEF.md
 paragraph; independent audit follows (mb0-builder-3), anchors at base.
 Consume-only: ingest/, refine.rs (freeze 58), doom.rs (§47), godgap.rs
-(U0), and now model_belief.rs/model_recursion.rs are EXTEND-ONLY per MB1's
-precedent — additive changes with declared reasons, existing gate
-assertions untouchable. The old player (walt_bridge, playout, playtable,
+(U0), AND model_belief.rs + model_recursion.rs + both their gate files —
+UP0 is a CONSUMER of the recursion, and the freeze is what makes gate UP5's
+inheritance claim checkable rather than asserted (the doom→U0 and
+godgap→MB1 precedent). If you genuinely need an additive API surface on
+either module (a public getter, a re-export), STOP and message the
+orchestrator with the exact need before writing it — that path is
+ruled-per-case, never silent. The old player (walt_bridge, playout, playtable,
 webtable, level1_evaluate) is NOT TOUCHED in UP0 — the unified player is a
 new artifact beside it; bridging/defaults/arena are future slices on
 Jason's word.
