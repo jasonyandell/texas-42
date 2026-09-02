@@ -106,6 +106,7 @@ with the exact axiom audit) — VERDICT_PENDING.
 | `walt/walt/src/solver/model_belief.rs` | extended (MB0's module, items 3 and 4) |
 | `walt/walt/src/solver/mod.rs` | +1 (module registration) |
 | `walt/FACTOR-BELIEF.md` | status line + MB1 paragraph |
+| `walt/briefs/MB1-REPORT.md` | this document |
 
 Untouched, verified by `git diff eaed5b1 HEAD --stat`: `solver/doom.rs`
 (§47), `solver/godgap.rs` (U0's census), `solver/refine.rs` (freeze 58),
@@ -205,11 +206,10 @@ consultations rather than the walk's estimate of them.
 `MixtureRefusal::ReadBudget` carries the MEASURED spend, the declared
 ceiling, and the public history the walk stopped at. It has no value
 field, and no other variant exists, so a truncated number cannot be
-reported even by accident. The ceiling is checked at the boundary of
-every walked bundle node BEFORE the node spends anything; MB0's three
-entry points are the same walk under an ABSENT ceiling, where
-`WalkBudget::check` is total and the `Err` arm is unreachable — which is
-what lets them keep returning a bare value with no behavioural change.
+reported even by accident. MB0's three entry points are the same walk
+under an ABSENT ceiling, where `WalkBudget::check` is total and the
+`Err` arm is unreachable — which is what lets them keep returning a bare
+value with no behavioural change.
 
 WHERE THE CEILING IS CHECKED, precisely, because the probe makes it
 visible: at the boundary of every walked bundle node, before that node
@@ -424,7 +424,7 @@ not be read as either type being cheaper.
    other test files. M5 asserts the specific invariants MB1's changes
    could have broken (tightening's exactness-neutrality, doom's
    purity); the actual conjunction of MB0's eight, σ1-repair's seven and
-   U0's six is `check.sh`, and it is green.
+   U0's six is `check.sh`, whose verdict is recorded under Status.
 
 4. **The ν grid excludes its endpoints.** A per-seat weight of zero is a
    belief with strictly smaller SUPPORT — a point mass, not a
