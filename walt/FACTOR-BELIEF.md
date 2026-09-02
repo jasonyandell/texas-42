@@ -493,7 +493,16 @@ type, so importing the sampler drags the RNG, `mask_bits` and
 it; and the compile itself, since each deduplicated binary imports the
 library name at module scope and a local `fn sample_belief` beside it is
 an E0255 collision — which is also the witness that survives a rename of
-the authority, where a fixed-name grep would not. `level1_evaluate`
+the authority, where a fixed-name grep would not. The six binaries that
+already called the library copy — ordering_bench, webtable,
+controller_bridge, shadow, waking_bridge, tiltaudit — inherit the repair
+with no diff at all (audit follow-up: the covered-for-free half of the
+call-site enumeration, stated here so the coverage claim is complete in
+one place). Label note for cross-referencers: the gate names "R5"/"R6"
+in this paragraph are the test file's own (counting-oracle-vs-exhaustive
+and the walt_bridge no-error-branch sweep); BRIEF-SIGMA1-REPAIR.md's
+"R5" names a different obligation — MB0's gates staying green — which
+also holds (8 passed, untouched). `level1_evaluate`
 remains TRIPLICATED (`solver/mod.rs`, walt_bridge, playtable) — named
 debt, deliberately unpaid here. THE FINDING: the four roots G2 pinned as
 the raw σ1 authority's refusal set do NOT open. Each now terminates
