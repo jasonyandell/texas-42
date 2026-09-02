@@ -399,11 +399,25 @@ module's positive-support tightening (narrow the acting factor to
 `actor_completion_weights`' nonzero support before every conditioning
 — pure counting, exactness-neutral by the zero-entry law) is the
 ENABLING construction: the δ-F₁ walk goes from non-terminating to
-12 ms at h5-t6 with exact enumeration parity. The sampler itself
-(`solver/mod.rs`, live-player code, off limits per the brief) is
-REPORTED, never repaired — the unbounded rejection loop is a
-pre-existing hazard that MB0 is simply the first caller to reach, and
-it plausibly gates MB1's larger roots. (2) THE FUSION PRICE IS
+12 ms at h5-t6 with exact enumeration parity. The raw Level1
+authority's terminating domain among the tested roots is EXACTLY
+{h12-t6, h10-t6} (the root-decided fixtures); its refusal on the four
+undecided roots {h5-t6, h4-t6, h8-t5, h3-t5} is pinned in G2, so the
+F₁ half of point-mass parity is a SCOPED YES — exact on the entire
+terminating domain, enumeration-anchored on the blocked roots — and
+the caveat travels with the result wherever it is restated. The
+sampler itself is REPORTED, never repaired here (per ruling the
+repair and its evidence pass are the immediate follow-up slice, and
+the unpatched sampler is deliberately left in place for that slice's
+before-side determinism capture): the hazard is pre-existing shipped
+code with FIVE byte-identical copies — the library copy
+(`solver/mod.rs:897`, reached by field.rs → level1_evaluate) and four
+un-deduplicated bin copies (walt_bridge, playout, playtable,
+divergence — including the live player's own), with `level1_evaluate`
+itself separately triplicated (solver/mod.rs, walt_bridge, playtable)
+as named debt; MB0 is simply the first caller to sweep enough
+information states to reach an empty acceptance region, and the wall
+plausibly gates MB1's larger roots. (2) THE FUSION PRICE IS
 ZERO EVERYWHERE ON THIS CORPUS — across the registered F₀/F₁ mixture
 AND the synthetic carrier mixture on every root action of all six
 roots, plus a 302-fixture hunt (every root × hidden seat ×
@@ -425,8 +439,8 @@ actions — gate-pinned in G6, never probe-only — and the type dimension
 small), criterion 4 honestly NO (the upper is never strict on this
 corpus). Deviations from the brief, recorded: δ_F₁ parity "on
 every tested root" narrowed to the raw authority's terminating domain
-(the raw authority provably cannot price the rest — G8's enumeration
-anchor covers the δ_F₁ endpoint there), and `separated_upper` computes
+{h12-t6, h10-t6} (the raw authority provably cannot price the rest —
+G8's enumeration anchor covers the δ_F₁ endpoint there), and `separated_upper` computes
 q(θ) by the single-profile respond walk rather than
 `response_success_mass` (same wall; anchored to it on its terminating
 domain by G2). EXPLORATORY tier; the go/no-go reading is Jason's.

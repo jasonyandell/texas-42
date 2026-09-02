@@ -638,13 +638,59 @@ fn main() {
             }
         }
     }
+    // The σ1 boundary, defined in the committed record (the scope
+    // caveat travels with the result — a caveat that cannot be audited
+    // is functionally a bare YES).
+    let _ = writeln!(
+        out,
+        "== the sigma1 boundary (the scope of criterion 1's F1 half) =="
+    );
+    let _ = writeln!(
+        out,
+        "The Level1 (sigma1) mind materializes its belief through the SHIPPED\n\
+         shuffle-and-reject sampler `sample_belief` (solver/mod.rs:911): an\n\
+         unbounded rejection loop with no attempt cap and no feasibility\n\
+         precheck. Its acceptance region is EMPTY exactly at zero-joint-mass\n\
+         information states — a candidate hand that is record-consistent for\n\
+         its own seat but jointly uncompletable against the other seats' void\n\
+         structure — and there the loop never terminates. This is\n\
+         PRE-EXISTING in shipped code: MB0 is merely the first caller to\n\
+         sweep enough information states to reach it (the exact walks consult\n\
+         the field at every hand of the acting seat's factor support; the\n\
+         live player's single-line play never constructs such frames).\n\
+         Level0 (sigma0) never reaches the sampler; only Level1 does.\n\
+         Live specimen, pinned by gate G8: seat S3, hand {{4-2 4-4}}, history\n\
+         [4-1, 4-3, 1-1], sizes [1,1,1,2], voids [16786368, 69173248,\n\
+         33586176, 16786368] — exhaustively unsatisfiable AND zero-mass by\n\
+         fiber enumeration. Consequence for parity: the RAW Level1 authority\n\
+         (`response_success_mass` over an untightened uniform-root belief)\n\
+         terminates on exactly TWO of the six tested roots — h12-t6 and\n\
+         h10-t6, the root-decided fixtures — and provably cannot price the\n\
+         other four (h5-t6, h4-t6, h8-t5, h3-t5), where gate G2 pins its\n\
+         refusal. This module's positive-support tightening confines sigma1\n\
+         reads to provably-satisfiable states, which is why every mixture\n\
+         walk above completes; the delta-F1 endpoint on the blocked roots is\n\
+         anchored by (omega,theta) enumeration in G8 instead of by the raw\n\
+         authority. FOUR un-deduplicated bin copies of the sampler remain\n\
+         exposed (walt_bridge, playout, playtable, divergence — including\n\
+         the live player's own copy), plus the library copy; repair and\n\
+         dedup are DEFERRED to the follow-up slice by ruling, so the\n\
+         unpatched sampler stays available for that slice's before-side\n\
+         evidence capture."
+    );
+    let _ = writeln!(out);
     // The §76 go/no-go criteria.
     let _ = writeln!(out, "== the §76 go/no-go criteria ==");
     let _ = writeln!(
         out,
-        "1. point-mass parity exact: YES — G2 (F0 on all six roots; F1 on the raw \
-         authority's entire terminating domain, with the sigma1 boundary pinned \
-         and the F1 delta endpoint enumeration-anchored in G8)."
+        "1. point-mass parity exact: SCOPED YES — F0 exact on all six roots \
+         (value AND selected action, G2); F1 exact on the raw authority's \
+         ENTIRE terminating domain, which is exactly {{h12-t6, h10-t6}} (the \
+         root-decided fixtures), with the four blocked roots {{h5-t6, h4-t6, \
+         h8-t5, h3-t5}} pinned as the raw authority's refusal set (G2) and \
+         the delta-F1 endpoint on them anchored by exact (omega,theta) \
+         enumeration instead (G8). See the sigma1 boundary section above — \
+         the caveat is part of the result's name."
     );
     let _ = writeln!(
         out,

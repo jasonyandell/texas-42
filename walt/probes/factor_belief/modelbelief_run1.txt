@@ -14,7 +14,7 @@ exact mixture response Q(nu) = 0 (~0‰) — selected action 4-4
 observed line (focal = lowest-first, heaviest branch observed):
   (decided after 1 plays)
 parity verdict: EXACT — (omega,theta) enumeration over 48 pairs reproduces V_nu and Q(nu) to equality
-wall 106 us; declared memory 7232 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+wall 235 us; declared memory 7232 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
 
 == h10-t6 [registered F0/F1 mixture]
 physical world mass Z = 19; augmented mass Σw·Z = 152 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
@@ -26,7 +26,7 @@ exact mixture response Q(nu) = 1 (~1000‰) — selected action 2-2
 observed line (focal = lowest-first, heaviest branch observed):
   (decided after 1 plays)
 parity verdict: EXACT — (omega,theta) enumeration over 152 pairs reproduces V_nu and Q(nu) to equality
-wall 228 us; declared memory 7232 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+wall 262 us; declared memory 7232 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
 
 == h5-t6 [registered F0/F1 mixture]
 physical world mass Z = 27; augmented mass Σw·Z = 216 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
@@ -46,7 +46,7 @@ observed line (focal = lowest-first, heaviest branch observed):
   observed 5-1 -> posterior type marginals S1[1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ] S2[1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ] S3[1b2c627fc67ba460:4/8 005e2a5904761f35:4/8 ] 
 aggregation census along the line: 96 typed rows vs 12 merged public branches
 parity verdict: EXACT — (omega,theta) enumeration over 216 pairs reproduces V_nu and Q(nu) to equality
-wall 39566 us; declared memory 8000 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+wall 43293 us; declared memory 8000 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
 
 == h4-t6 [registered F0/F1 mixture]
 physical world mass Z = 90; augmented mass Σw·Z = 720 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
@@ -66,7 +66,7 @@ observed line (focal = lowest-first, heaviest branch observed):
   observed 5-1 -> posterior type marginals S3[1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ] S0[1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ] S1[1b2c627fc67ba460:8/16 005e2a5904761f35:8/16 ] 
 aggregation census along the line: 120 typed rows vs 17 merged public branches
 parity verdict: EXACT — (omega,theta) enumeration over 720 pairs reproduces V_nu and Q(nu) to equality
-wall 89773 us; declared memory 10688 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+wall 89169 us; declared memory 10688 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
 
 == h8-t5 [registered F0/F1 mixture]
 physical world mass Z = 92; augmented mass Σw·Z = 736 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
@@ -87,7 +87,7 @@ observed line (focal = lowest-first, heaviest branch observed):
   observed 4-1 -> posterior type marginals S0[1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ] S1[1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ] S2[1b2c627fc67ba460:20/40 005e2a5904761f35:20/40 ] 
 aggregation census along the line: 118 typed rows vs 16 merged public branches
 parity verdict: EXACT — (omega,theta) enumeration over 736 pairs reproduces V_nu and Q(nu) to equality
-wall 964263 us; declared memory 25856 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+wall 979434 us; declared memory 25856 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
 
 == h3-t5 [registered F0/F1 mixture]
 physical world mass Z = 200; augmented mass Σw·Z = 1600 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
@@ -108,7 +108,7 @@ observed line (focal = lowest-first, heaviest branch observed):
   observed 6-1 -> posterior type marginals S1[1b2c627fc67ba460:12/28 005e2a5904761f35:16/28 ] S2[1b2c627fc67ba460:7/28 005e2a5904761f35:21/28 ] S3[1b2c627fc67ba460:20/28 005e2a5904761f35:8/28 ] 
 aggregation census along the line: 186 typed rows vs 27 merged public branches
 parity verdict: EXACT — (omega,theta) enumeration over 1600 pairs reproduces V_nu and Q(nu) to equality
-wall 3594749 us; declared memory 36224 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+wall 3674531 us; declared memory 36224 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
 
 ---- SYNTHETIC carrier mixture (lowest-first / highest-first declared carriers; labeled, never a solver rung) ----
 
@@ -122,7 +122,7 @@ exact mixture response Q(nu) = 0 (~0‰) — selected action 4-4
 observed line (focal = lowest-first, heaviest branch observed):
   (decided after 1 plays)
 parity verdict: EXACT — (omega,theta) enumeration over 48 pairs reproduces V_nu and Q(nu) to equality
-wall 68 us; declared memory 7232 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+wall 64 us; declared memory 7232 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
 
 == h10-t6 [SYNTHETIC carrier mixture]
 physical world mass Z = 19; augmented mass Σw·Z = 152 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
@@ -134,7 +134,7 @@ exact mixture response Q(nu) = 1 (~1000‰) — selected action 2-2
 observed line (focal = lowest-first, heaviest branch observed):
   (decided after 1 plays)
 parity verdict: EXACT — (omega,theta) enumeration over 152 pairs reproduces V_nu and Q(nu) to equality
-wall 117 us; declared memory 7232 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+wall 121 us; declared memory 7232 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
 
 == h5-t6 [SYNTHETIC carrier mixture]
 physical world mass Z = 27; augmented mass Σw·Z = 216 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
@@ -154,7 +154,7 @@ observed line (focal = lowest-first, heaviest branch observed):
   observed 5-1 -> posterior type marginals S1[d3aef18a8d951776:4/8 9718c4955e281f6b:4/8 ] S2[d3aef18a8d951776:4/8 9718c4955e281f6b:4/8 ] S3[d3aef18a8d951776:4/8 9718c4955e281f6b:4/8 ] 
 aggregation census along the line: 90 typed rows vs 14 merged public branches
 parity verdict: EXACT — (omega,theta) enumeration over 216 pairs reproduces V_nu and Q(nu) to equality
-wall 3696 us; declared memory 8000 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+wall 3451 us; declared memory 8000 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
 
 == h4-t6 [SYNTHETIC carrier mixture]
 physical world mass Z = 90; augmented mass Σw·Z = 720 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
@@ -174,7 +174,7 @@ observed line (focal = lowest-first, heaviest branch observed):
   observed 5-1 -> posterior type marginals S3[d3aef18a8d951776:2/4 9718c4955e281f6b:2/4 ] S0[d3aef18a8d951776:4/4 ] S1[d3aef18a8d951776:4/4 ] 
 aggregation census along the line: 90 typed rows vs 18 merged public branches
 parity verdict: EXACT — (omega,theta) enumeration over 720 pairs reproduces V_nu and Q(nu) to equality
-wall 11070 us; declared memory 10688 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+wall 10656 us; declared memory 10688 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
 
 == h8-t5 [SYNTHETIC carrier mixture]
 physical world mass Z = 92; augmented mass Σw·Z = 736 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
@@ -195,7 +195,7 @@ observed line (focal = lowest-first, heaviest branch observed):
   observed 4-1 -> posterior type marginals S0[d3aef18a8d951776:6/8 9718c4955e281f6b:2/8 ] S1[d3aef18a8d951776:4/8 9718c4955e281f6b:4/8 ] S2[d3aef18a8d951776:8/8 ] 
 aggregation census along the line: 104 typed rows vs 24 merged public branches
 parity verdict: EXACT — (omega,theta) enumeration over 736 pairs reproduces V_nu and Q(nu) to equality
-wall 32724 us; declared memory 25856 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+wall 31658 us; declared memory 25856 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
 
 == h3-t5 [SYNTHETIC carrier mixture]
 physical world mass Z = 200; augmented mass Σw·Z = 1600 (prior denominator 8 — ν(θ) = 1/8 per profile, 8 profiles)
@@ -216,14 +216,46 @@ observed line (focal = lowest-first, heaviest branch observed):
   observed 4-1 -> posterior type marginals S1[d3aef18a8d951776:12/12 ] S2[9718c4955e281f6b:12/12 ] S3[9718c4955e281f6b:12/12 ] 
 aggregation census along the line: 91 typed rows vs 27 merged public branches
 parity verdict: EXACT — (omega,theta) enumeration over 1600 pairs reproduces V_nu and Q(nu) to equality
-wall 99114 us; declared memory 36224 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+wall 97306 us; declared memory 36224 bytes (formula: entries x 24 B + profiles x 256 B — an accounting, not a measurement)
+
+== the sigma1 boundary (the scope of criterion 1's F1 half) ==
+The Level1 (sigma1) mind materializes its belief through the SHIPPED
+shuffle-and-reject sampler `sample_belief` (solver/mod.rs:911): an
+unbounded rejection loop with no attempt cap and no feasibility
+precheck. Its acceptance region is EMPTY exactly at zero-joint-mass
+information states — a candidate hand that is record-consistent for
+its own seat but jointly uncompletable against the other seats' void
+structure — and there the loop never terminates. This is
+PRE-EXISTING in shipped code: MB0 is merely the first caller to
+sweep enough information states to reach it (the exact walks consult
+the field at every hand of the acting seat's factor support; the
+live player's single-line play never constructs such frames).
+Level0 (sigma0) never reaches the sampler; only Level1 does.
+Live specimen, pinned by gate G8: seat S3, hand {4-2 4-4}, history
+[4-1, 4-3, 1-1], sizes [1,1,1,2], voids [16786368, 69173248,
+33586176, 16786368] — exhaustively unsatisfiable AND zero-mass by
+fiber enumeration. Consequence for parity: the RAW Level1 authority
+(`response_success_mass` over an untightened uniform-root belief)
+terminates on exactly TWO of the six tested roots — h12-t6 and
+h10-t6, the root-decided fixtures — and provably cannot price the
+other four (h5-t6, h4-t6, h8-t5, h3-t5), where gate G2 pins its
+refusal. This module's positive-support tightening confines sigma1
+reads to provably-satisfiable states, which is why every mixture
+walk above completes; the delta-F1 endpoint on the blocked roots is
+anchored by (omega,theta) enumeration in G8 instead of by the raw
+authority. FOUR un-deduplicated bin copies of the sampler remain
+exposed (walt_bridge, playout, playtable, divergence — including
+the live player's own copy), plus the library copy; repair and
+dedup are DEFERRED to the follow-up slice by ruling, so the
+unpatched sampler stays available for that slice's before-side
+evidence capture.
 
 == the §76 go/no-go criteria ==
-1. point-mass parity exact: YES — G2 (F0 on all six roots; F1 on the raw authority's entire terminating domain, with the sigma1 boundary pinned and the F1 delta endpoint enumeration-anchored in G8).
+1. point-mass parity exact: SCOPED YES — F0 exact on all six roots (value AND selected action, G2); F1 exact on the raw authority's ENTIRE terminating domain, which is exactly {h12-t6, h10-t6} (the root-decided fixtures), with the four blocked roots {h5-t6, h4-t6, h8-t5, h3-t5} pinned as the raw authority's refusal set (G2) and the delta-F1 endpoint on them anchored by exact (omega,theta) enumeration instead (G8). See the sigma1 boundary section above — the caveat is part of the result's name.
 2. persistent posterior closure exact: YES — G1/G3 (Theorem 12.1 mechanical; branch conservation MB-I6; the 1/2-vs-1/4 specimen).
 3. mixture response differs nontrivially from a point-mass response: YES — 3 root actions on the registered corpus have Q_a(nu) != q_a(theta) for some type in support.
 4. point-mass upper sometimes strict, finite, interpretable: NO — registered mixture: 14 zero / 0 strict root actions; SYNTHETIC carrier mixture: 0 strict root actions (every price finite and exact by construction).
 5. type dimension small after public-action aggregation: YES — at most 8 profiles live anywhere, and every hidden branch table is by public action (the typed-vs-merged census above; merged branches never exceed the acting seat's distinct tiles).
 
-total wall 5141005 us (single-threaded; sigma0/sigma1 field caches shared within this run)
-measured resident set at exit: 19296 KB (/bin/ps -o rss= — a measurement, kept strictly apart from the declared accountings above)
+total wall 5229376 us (single-threaded; sigma0/sigma1 field caches shared within this run)
+measured resident set at exit: 18768 KB (/bin/ps -o rss= — a measurement, kept strictly apart from the declared accountings above)
