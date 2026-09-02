@@ -269,9 +269,6 @@ pub enum CouplingRefusal {
     /// mass and its fixed field is a CLAIM about values, and an
     /// unwitnessed claim does not cross the fence.
     WitnessMissing { source: String, target: String },
-    /// The point-mass parity witness could not be produced because the
-    /// model side refused its own read budget. Nothing is claimed.
-    WitnessRefused(MixtureRefusal),
 }
 
 impl fmt::Display for CouplingRefusal {
@@ -312,9 +309,6 @@ impl fmt::Display for CouplingRefusal {
                 "field coupling refused: authorities disagree — fixed {}/{} vs model {}/{}",
                 fixed_side.0, fixed_side.1, model_side.0, model_side.1
             ),
-            CouplingRefusal::WitnessRefused(r) => {
-                write!(f, "field coupling refused: witness unavailable — {r}")
-            }
         }
     }
 }

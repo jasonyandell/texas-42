@@ -1437,6 +1437,22 @@ fn m7_the_field_identity_fence_holds_on_both_sides() {
             describe(&other)
         ),
     }
+    // (d2) a point mass that does NOT assign one type to every hidden
+    //      seat: there is no single fixed field it collapses to, so
+    //      there is nothing for the coupling to be a coupling TO.
+    let mixed = ModelBelief::from_profile_prior(
+        &root,
+        &position,
+        vec![(vec![Rc::clone(&f0), Rc::clone(&f0), Rc::clone(&f1)], 1)],
+    );
+    match couple_fixed_field_fact(fact.clone(), &sigma0, &mixed, Some(witness.clone())) {
+        Err(CouplingRefusal::MixedSeatTypes { seats }) => assert_eq!(seats, 3),
+        other => panic!(
+            "a point mass over mixed seat types collapses to no field: {}",
+            describe(&other)
+        ),
+    }
+
     // (e) with the real witness: coupled, carrying its justification.
     let coupled = couple_fixed_field_fact(fact.clone(), &sigma0, &delta0, Some(witness.clone()))
         .expect("a real parity witness discharges the degenerate coupling");

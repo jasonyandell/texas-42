@@ -667,7 +667,9 @@ the model-space recursion and a bare `Fact` does not type-check there;
 `FieldCoupling` has `Identical` and `PointMassParity` and no `Assumed`;
 the degenerate coupling is discharged only by a re-run WITNESS carrying
 both authorities' exact pairs, and refuses where the raw authority
-cannot run. Where structure cannot reach — the §49 store takes any
+cannot run. `CouplingRefusal` names five reasons, every one
+constructible and every one gated — a variant nothing can produce would
+advertise a check that does not exist. Where structure cannot reach — the §49 store takes any
 well-typed fact under a matching identity — the fence is the identity:
 `mixture_identity` gives a model-belief state `field_id =
 model-mixture:<content address>`, so a σ0-authored fact is rejected

@@ -282,11 +282,13 @@ members and no public constructor, so the only way to obtain one is
 `CoupledFact` cannot be handed a bare `Fact` at all. `FieldCoupling` has
 exactly two variants — `Identical` and `PointMassParity` — and no
 `Assumed`; adding one would be a mathematical claim, not a code change.
-`CouplingRefusal` names six reasons, and each names what actually
+`CouplingRefusal` names five reasons, and each names what actually
 happened rather than the nearest available variant: a nondegenerate
 mixture target, a wrong parent field, mixed seat types, a MISSING
-parity witness, a DISAGREEING one, and a witness the model side could
-not afford to produce.
+parity witness, and a DISAGREEING one. Every one of the five is
+constructible and every one is gated — a refusal variant nothing can
+produce would advertise a check that does not exist, which is a
+different way of lying about the fence.
 
 Where structure cannot reach — the §49 store accepts any well-typed
 `Fact` under a matching identity — the fence IS the identity:
@@ -300,12 +302,14 @@ The one coupling this slice can discharge is the degenerate one, and it
 is not free. A point-mass δ_θ is extensionally the fixed field its type
 dispatches to, but "extensionally" is a claim about values and not an
 identity of objects, so `PointMassParity` carries a re-run WITNESS with
-both authorities' exact pairs recorded in it. Gate M7 runs all five
-outcomes: refused into the mixture (naming its 8 live profiles), refused
-into a point mass over the wrong parent field, refused with no witness,
-refused with a DISAGREEING witness (reporting both sides), and coupled
-only where a genuinely re-run `response_success_mass` under the raw σ0
-`FieldModel` agrees with the model side.
+both authorities' exact pairs recorded in it. Gate M7 runs all six
+outcomes: refused into the mixture (naming its 8 live profiles),
+refused into a point mass over the wrong parent field, refused into a
+point mass whose three seats do not carry ONE type (so there is no
+single fixed field for the coupling to be a coupling to), refused with
+no witness, refused with a DISAGREEING witness (reporting both sides),
+and coupled only where a genuinely re-run `response_success_mass` under
+the raw σ0 `FieldModel` agrees with the model side.
 
 **MB1 transports nothing.** The gate exists anyway, which is the point:
 it is what keeps the first future transport honest, and building it
