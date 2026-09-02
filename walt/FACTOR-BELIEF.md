@@ -564,7 +564,8 @@ coordinate — and the gate now pins all three
 THE FUSION HORIZON, MEASURED (§38, and an empirical object only —
 SC-A4 forbids theorem language here): over 37 coordinates on the ten
 gated roots plus the opening root, **the earliest fusion-free depth is
-trick 5**. Every one of the fourteen t5/t6 coordinates is God-tight;
+trick 5**. Every one of the fourteen t5/t6 coordinates is God-tight
+(twelve of them substantively — h12-t6's two are whole-fiber doom);
 all twelve t4 coordinates that have anything to save carry a POSITIVE
 God gap, `Φ` between 6‰ and 22‰ (the largest 43/1925 at h3-t4 4-4).
 The census distinguishes degenerate God-tightness from the real kind
