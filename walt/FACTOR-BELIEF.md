@@ -803,7 +803,8 @@ under every live profile, at every ply, for every open line, and a lean
 budget affords no tier that reads the result. The lever is declared and
 gated: an empty type library opens no line and changes no action, tier
 or exact value the world-space tiers produced. THE JOIN, on played
-lines: 27 readings, **9 moved the value and 2 flipped the argmax** —
+lines: 27 readings, **9 moved the value (7 of them purely) and 2
+flipped the argmax** (the flips move the value too — subset, not sum) —
 MB1's "values move before argmaxes" separated cleanly on real play,
 with both flips pinned exactly in gate UP3 — h8-t4 t4-p2, model 0-0
 against fixed-field 6-2 at 617/864 versus 173/216, under an UNTOUCHED
