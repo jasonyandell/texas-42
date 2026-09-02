@@ -31,7 +31,7 @@ posterior line: depth 5 of 5 requested; live profiles 8 -> 8; a profile was elim
   action 6-0: Q_a = 0 (~0‰); U^sep_a = 0 (~0‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-e3b0c4429 — Φ_a = 0 at EVERY ν over these types; reads 0
 MB0 root value 0 (~0‰) vs recursion max over actions 0 (~0‰) — MATCH
 reads total 416 ( 1b2c627fc67ba460:208 005e2a5904761f35:208 ); priced 2 / refused 0; substantive zero prices 0; vacuous zero prices 2; strict prices 0
-wall 1043 us
+wall 705 us
 
 == h10-t6 [posterior-carrying recursion]
 declared fiber 19; augmented Σw·Z = 152; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
@@ -61,7 +61,7 @@ posterior line: depth 5 of 5 requested; live profiles 8 -> 8; a profile was elim
   action 3-3: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-e3b0c4429 — Φ_a = 0 at EVERY ν over these types; reads 0
 MB0 root value 1 (~1000‰) vs recursion max over actions 1 (~1000‰) — MATCH
 reads total 512 ( 1b2c627fc67ba460:256 005e2a5904761f35:256 ); priced 2 / refused 0; substantive zero prices 0; vacuous zero prices 2; strict prices 0
-wall 914 us
+wall 712 us
 
 == h5-t6 [posterior-carrying recursion]
 declared fiber 27; augmented Σw·Z = 216; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
@@ -91,7 +91,7 @@ posterior line: depth 5 of 5 requested; live profiles 8 -> 8; a profile was elim
   action 5-2: Q_a = 4/9 (~444‰); U^sep_a = 4/9 (~444‰); Φ_a = 0 (~0‰) [substantive]; §19 common optimizer mixture-argmax-d4a6115af — Φ_a = 0 at EVERY ν over these types; reads 3824
 MB0 root value 4/9 (~444‰) vs recursion max over actions 4/9 (~444‰) — MATCH
 reads total 10592 ( 1b2c627fc67ba460:5296 005e2a5904761f35:5296 ); priced 2 / refused 0; substantive zero prices 2; vacuous zero prices 0; strict prices 0
-wall 42805 us
+wall 37873 us
 
 == h4-t6 [posterior-carrying recursion]
 declared fiber 90; augmented Σw·Z = 720; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
@@ -121,7 +121,7 @@ posterior line: depth 5 of 5 requested; live profiles 8 -> 8; a profile was elim
   action 1-1: Q_a = 13/15 (~866‰); U^sep_a = 13/15 (~866‰); Φ_a = 0 (~0‰) [substantive]; §19 common optimizer mixture-argmax-db104296c — Φ_a = 0 at EVERY ν over these types; reads 17664
 MB0 root value 13/15 (~866‰) vs recursion max over actions 13/15 (~866‰) — MATCH
 reads total 29920 ( 1b2c627fc67ba460:14968 005e2a5904761f35:14952 ); priced 2 / refused 0; substantive zero prices 2; vacuous zero prices 0; strict prices 0
-wall 93530 us
+wall 92492 us
 
 == h8-t5 [posterior-carrying recursion]
 declared fiber 92; augmented Σw·Z = 736; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
@@ -152,7 +152,7 @@ posterior line: depth 5 of 5 requested; live profiles 8 -> 8; a profile was elim
   action 5-3: Q_a = 7/8 (~875‰); U^sep_a = 7/8 (~875‰); Φ_a = 0 (~0‰) [substantive]; §19 common optimizer mixture-argmax-f8a85b9af — Φ_a = 0 at EVERY ν over these types; reads 29292
 MB0 root value 7/8 (~875‰) vs recursion max over actions 7/8 (~875‰) — MATCH
 reads total 93340 ( 1b2c627fc67ba460:47126 005e2a5904761f35:46214 ); priced 3 / refused 0; substantive zero prices 3; vacuous zero prices 0; strict prices 0
-wall 994511 us
+wall 993692 us
 
 == h3-t5 [posterior-carrying recursion]
 declared fiber 200; augmented Σw·Z = 1600; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
@@ -183,7 +183,7 @@ posterior line: depth 5 of 5 requested; live profiles 8 -> 6; a profile was elim
   action 6-6: Q_a = 1 (~1000‰); U^sep_a = 1 (~1000‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-708895979 — Φ_a = 0 at EVERY ν over these types; reads 105528
 MB0 root value 1 (~1000‰) vs recursion max over actions 1 (~1000‰) — MATCH
 reads total 313265 ( 1b2c627fc67ba460:158667 005e2a5904761f35:154598 ); priced 3 / refused 0; substantive zero prices 0; vacuous zero prices 3; strict prices 0
-wall 3672603 us
+wall 3675935 us
 
 ---- PART 2: repricing the model belief instead of re-walking it ----
 
@@ -197,7 +197,7 @@ grid: 7 beliefs from δ_F0 to δ_F1 along the per-seat weight line, integer weig
   ν weights [8, 24, 24, 72, 24, 72, 72, 216]: Q = 4/9 (~444‰) via mixture-argmax-1230c034f
   ν weights [1, 7, 7, 49, 7, 49, 49, 343]: Q = 4/9 (~444‰) via mixture-argmax-1230c034f
 facets 1 of 7 grid points — a repricing sweep needs one walk per facet; the remaining 6 points are dot products (§23). Envelope columns 1.
-wall 14503 us
+wall 14339 us
 
 == ν-sweep at h8-t5, root action 0-0 (item 2, §21/§23)
 grid: 7 beliefs from δ_F0 to δ_F1 along the per-seat weight line, integer weights, 8 product profiles
@@ -209,7 +209,7 @@ grid: 7 beliefs from δ_F0 to δ_F1 along the per-seat weight line, integer weig
   ν weights [8, 24, 24, 72, 24, 72, 72, 216]: Q = 281/368 (~763‰) via mixture-argmax-9adef3225
   ν weights [1, 7, 7, 49, 7, 49, 49, 343]: Q = 561/736 (~762‰) via mixture-argmax-9adef3225
 facets 1 of 7 grid points — a repricing sweep needs one walk per facet; the remaining 6 points are dot products (§23). Envelope columns 1.
-wall 75281 us
+wall 74873 us
 
 ---- PART 3: the earlier roots (item 5 — the number of the slice) ----
 
@@ -222,7 +222,7 @@ declared budget per root action: response 12000000 reads, U^sep 12000000 reads
   action 5-5: Q_a = 2957/3200 (~924‰); U^sep_a = 8929/9600 (~930‰); Φ_a = 29/4800 (~6‰) [substantive]; reads 1459326
 MB0 root-value comparison NOT RUN here: the re-walk costs what the census cost, and this root's per-action parity is gate M1's
 reads total 4841712 ( 1b2c627fc67ba460:2447314 005e2a5904761f35:2394398 ); priced 4 / refused 0; substantive zero prices 0; vacuous zero prices 0; strict prices 4
-wall 97746175 us
+wall 97728325 us
 
 == h12-t4 [posterior-carrying recursion]
 declared fiber 34650; augmented Σw·Z = 277200; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
@@ -233,7 +233,7 @@ declared budget per root action: response 12000000 reads, U^sep 12000000 reads
   action 6-5: Q_a = 0 (~0‰); U^sep_a = 0 (~0‰); Φ_a = 0 (~0‰) [VACUOUS — U^sep at an endpoint, the zero says nothing]; §19 common optimizer mixture-argmax-e3b0c4429 — Φ_a = 0 at EVERY ν over these types; reads 0
 MB0 root-value comparison NOT RUN here: the re-walk costs what the census cost, and this root's per-action parity is gate M1's
 reads total 0 ( ); priced 4 / refused 0; substantive zero prices 0; vacuous zero prices 4; strict prices 0
-wall 136 us
+wall 135 us
 
 == h3-t4 [posterior-carrying recursion]
 declared fiber 11550; augmented Σw·Z = 92400; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
@@ -244,7 +244,7 @@ declared budget per root action: response 12000000 reads, U^sep 12000000 reads
   action 6-4: Q_a = 284/1155 (~245‰); U^sep_a = 11507/46200 (~249‰); Φ_a = 7/2200 (~3‰) [substantive]; reads 5857092
 MB0 root-value comparison NOT RUN here: the re-walk costs what the census cost, and this root's per-action parity is gate M1's
 reads total 24163138 ( 1b2c627fc67ba460:12155506 005e2a5904761f35:12007632 ); priced 4 / refused 0; substantive zero prices 0; vacuous zero prices 0; strict prices 4
-wall 420002558 us
+wall 412206767 us
 
 == h8-t3 [posterior-carrying recursion]
 declared fiber 59976; augmented Σw·Z = 479808; profiles 8; field identity model-mixture:bda9e5a85a55e629d875a017e5ff0189
@@ -256,7 +256,7 @@ declared budget per root action: response 7000000 reads, U^sep 7000000 reads
   action 5-5: REFUSED (response) — read-budget refusal: spent 7000000 of cap 7000000 at [5-5 0-0 5-0 5-3 2-1 6-2 2-2 4-3 2-0 6-0 1-1 4-0 6-6]
 MB0 root-value comparison SKIPPED: 5 of 5 coordinates refused, so the recursion has no max to compare
 reads total 35000039 ( 1b2c627fc67ba460:21397957 005e2a5904761f35:13602082 ); priced 0 / refused 5; substantive zero prices 0; vacuous zero prices 0; strict prices 0
-wall 1889368023 us
+wall 1864107115 us
 
 ---- PART 4: the Φ table ----
 
@@ -279,8 +279,8 @@ wall 1889368023 us
 source σ0 = field:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e; source σ1 = field:8933fdf04637390b1665948e4450e75f24a56a1023021d4df9e0545a582e1d98; mixture target = model-mixture:bda9e5a85a55e629d875a017e5ff0189; δ_F0 target = model-mixture:2964c6e8861008cf56e4e74b5bdc6eaf
   σ0 fact into the (1/2,1/2) MIXTURE: REFUSED — field coupling refused: field:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e is fixed-field, model-mixture:bda9e5a85a55e629d875a017e5ff0189 spans 8 live profiles
   σ0 fact into δ_F0 with a re-run parity witness: COUPLED — PointMassParity(PointMassWitness { fixed_side: (12, 27), model_side: (12, 27), behavior: BehaviorTypeId([27, 44, 98, 127, 198, 123, 164, 96, 242, 27, 221, 60, 163, 95, 2, 127, 29, 69, 177, 2, 126, 73, 23, 211, 55, 15, 110, 236, 155, 2, 40, 209]) })
-  σ0 fact into δ_F0 with NO witness: REFUSED — field coupling refused: field:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e is fixed-field, model-mixture:2964c6e8861008cf56e4e74b5bdc6eaf spans 1 live profiles
+  σ0 fact into δ_F0 with NO witness: REFUSED — field coupling refused: model-mixture:2964c6e8861008cf56e4e74b5bdc6eaf is a point mass over field:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e but no re-run parity witness was supplied
   σ1 fact into δ_F0 (wrong parent field): REFUSED — field coupling refused: source field:8933fdf04637390b1665948e4450e75f24a56a1023021d4df9e0545a582e1d98 is not the target type's parent field field:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e
   §49 store: a σ0-authored fact installed under the mixture identity -> Err(IdentityMismatch)
 
-total wall 2412013378 us (single-threaded; σ0/σ1 field caches shared within this run)
+total wall 2378934268 us (single-threaded; σ0/σ1 field caches shared within this run)
