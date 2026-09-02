@@ -1,7 +1,7 @@
 # MB1-REPORT — the model-belief recursion joins the solver, as built
 
 **Slice:** MB1, assignment `walt/briefs/BRIEF-MB1.md`. **Branch:**
-`worktree-walt-s2` in the `walt-bundling` worktree, base `eaed5b1`.
+`walt-mb1` in the `walt-bundling` worktree, base `eaed5b1`.
 **Theory:** `walt/math/model_belief_base_player_v0.1.md` §§16–23 and
 §§29–33, under the intake companion's corrections and rulings MB-A1..A8
 (`walt/CENSUS-RULINGS.md`); U0's field-specificity flag under SC-A7
