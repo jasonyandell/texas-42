@@ -488,12 +488,15 @@ and `Decision` hold no public field, and the module holds exactly one
    claim. The doc now states the fence where it actually sits, one level
    out, and UP6 pins that level.
 
-6. **The brief file itself changed under the slice.** The orchestrator
-   amended `BRIEF-UP0.md` mid-flight, tightening `model_belief.rs` and
-   `model_recursion.rs` from EXTEND-ONLY to CONSUME-ONLY. The amendment was
-   picked up by a checkpoint's `git add -A` and is in this branch's
-   history. It required no change to the work: UP0 modified neither file,
-   and the diff against base over both is empty.
+6. **The brief was amended under the slice, and the amendment cost
+   nothing.** Commit `1327e86` (the orchestrator's, sitting between
+   `ccafde9` and this slice's first checkpoint) tightened
+   `model_belief.rs` and `model_recursion.rs` from EXTEND-ONLY to
+   CONSUME-ONLY. It required no change to the work: UP0 modified neither
+   file, imports `model_belief` only through its existing public API and
+   does not import `model_recursion` at all, and the diff against base
+   over both is empty. Auditors anchoring at `ccafde9` should note that
+   the brief file differs by that one commit, which is not this slice's.
 
 ---
 
