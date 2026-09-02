@@ -861,6 +861,10 @@ fn the_fusion_horizon_table_counts_every_coordinate_and_names_its_exceptions() {
         strata[1].substantively_fusion_free(),
         "t6's God-tightness is the substantive kind"
     );
+    // Some(6), not the ledger's trick 5: this gate's two-stratum sub-corpus
+    // (h8-t4, h12-t4, h5-t6) contains no t5 root, so the earliest fusion-free
+    // depth IT can see is t6. The full 37-coordinate probe corpus includes the
+    // t5 stratum and reads trick 5. Both are corpus-relative measurements.
     assert_eq!(
         earliest_fusion_free_trick(&strata),
         Some(6),

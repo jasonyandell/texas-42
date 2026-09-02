@@ -283,7 +283,9 @@ impl GodTightPolicy {
 
 /// A measured information-consistency price: the exact `Q` sits
 /// STRICTLY below the God upper. The witness is mandatory — this
-/// variant cannot be constructed without an exact `Q` (SC-A4).
+/// variant cannot be constructed without a `Q` witness present;
+/// that the witness is exact is gated by G2's independent
+/// reproduction through the response recursion (SC-A4).
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct PositiveGodGap {
     /// `M*` — the exact optimum mass witnessing `Q`.
