@@ -435,271 +435,279 @@ pub fn legal_actions(root: &CanonicalRoot, position: &RootPosition) -> Vec<Domin
     out
 }
 
-/// The God upper at one coordinate: the per-world truth where the
-/// fiber is enumerable, the class census's certified harvest
-/// otherwise. Both instruments come from `solver::doom` unmodified.
-fn god_upper(
-    oracle: &dyn ExactCoverOracle,
-    root: &CanonicalRoot,
-    position: &RootPosition,
-    field: &dyn SlicePolicy,
-    action: Domino,
-    spec: &GodGapSpec,
-    fiber: u128,
-    context: &SalvationContext,
-    refusals: &mut Vec<Refusal>,
-    cost: &mut GodGapCost,
-    progress: &mut dyn FnMut(u64, u64, u128, u64),
-) -> GodUpper {
-    if fiber <= spec.exact_fiber_cap {
-        let e = doom_enumeration(oracle, root, position, field, action, &spec.doom, progress);
-        assert_eq!(e.fiber, fiber, "the enumeration covers the census fiber");
-        cost.doom_nodes = e.nodes;
-        return GodUpper {
-            context: context.clone(),
-            doomed_mass: e.doomed,
-            fiber_mass: e.fiber,
-            source: DoomSource::PerWorldTruth { nodes: e.nodes },
-            value: e.upper,
-        };
-    }
-    refusals.push(Refusal::DoomTruthUnaffordable {
-        fiber,
-        cap: spec.exact_fiber_cap,
-    });
-    let census = doom_census(oracle, root, position, field, action, &spec.doom);
-    assert_eq!(census.fiber, fiber, "the census fiber is the coordinate's");
-    cost.doom_nodes = census.nodes;
-    if census.refused_mass > 0 {
-        refusals.push(Refusal::CensusLeftMassRefused {
-            mass: census.refused_mass,
+/// One root's census context: the evaluation authorities and the
+/// declared budget, constant across every coordinate of the root.
+pub struct GodGapWalk<'a> {
+    pub oracle: &'a dyn ExactCoverOracle,
+    pub root: &'a CanonicalRoot,
+    pub position: &'a RootPosition,
+    pub field: &'a dyn SlicePolicy,
+    pub spec: &'a GodGapSpec,
+}
+
+impl GodGapWalk<'_> {
+    /// The God upper at one coordinate: the per-world truth where the
+    /// fiber is enumerable, the class census's certified harvest
+    /// otherwise. Both instruments come from `solver::doom` unmodified.
+    fn god_upper(
+        &self,
+        context: &SalvationContext,
+        fiber: u128,
+        refusals: &mut Vec<Refusal>,
+        cost: &mut GodGapCost,
+        progress: &mut dyn FnMut(u64, u64, u128, u64),
+    ) -> GodUpper {
+        let action = context.root_action;
+        if fiber <= self.spec.exact_fiber_cap {
+            let e = doom_enumeration(
+                self.oracle,
+                self.root,
+                self.position,
+                self.field,
+                action,
+                &self.spec.doom,
+                progress,
+            );
+            assert_eq!(e.fiber, fiber, "the enumeration covers the census fiber");
+            cost.doom_nodes = e.nodes;
+            return GodUpper {
+                context: context.clone(),
+                doomed_mass: e.doomed,
+                fiber_mass: e.fiber,
+                source: DoomSource::PerWorldTruth { nodes: e.nodes },
+                value: e.upper,
+            };
+        }
+        refusals.push(Refusal::DoomTruthUnaffordable {
+            fiber,
+            cap: self.spec.exact_fiber_cap,
         });
-    }
-    GodUpper {
-        context: context.clone(),
-        doomed_mass: census.doomed_mass,
-        fiber_mass: census.fiber,
-        source: DoomSource::CertifiedCensus {
-            nodes: census.nodes,
-            refused_mass: census.refused_mass,
-            whole_fiber: census.whole_fiber,
-        },
-        value: census.upper,
+        let census = doom_census(
+            self.oracle,
+            self.root,
+            self.position,
+            self.field,
+            action,
+            &self.spec.doom,
+        );
+        assert_eq!(census.fiber, fiber, "the census fiber is the coordinate's");
+        cost.doom_nodes = census.nodes;
+        if census.refused_mass > 0 {
+            refusals.push(Refusal::CensusLeftMassRefused {
+                mass: census.refused_mass,
+            });
+        }
+        GodUpper {
+            context: context.clone(),
+            doomed_mass: census.doomed_mass,
+            fiber_mass: census.fiber,
+            source: DoomSource::CertifiedCensus {
+                nodes: census.nodes,
+                refused_mass: census.refused_mass,
+                whole_fiber: census.whole_fiber,
+            },
+            value: census.upper,
+        }
     }
 }
 
-/// One coordinate of the §40 census: establish the God upper, the
-/// exact `Q` where affordable, the extracted incumbent where
-/// affordable, and the typed §48 result they determine.
-///
-/// `progress` is forwarded to the per-world enumeration verbatim (a
-/// reporting hook only, no effect on the result).
-pub fn god_gap(
-    oracle: &dyn ExactCoverOracle,
-    root: &CanonicalRoot,
-    position: &RootPosition,
-    field: &dyn SlicePolicy,
-    action: Domino,
-    spec: &GodGapSpec,
-    progress: &mut dyn FnMut(u64, u64, u128, u64),
-) -> GodGapCoordinate {
-    let context = SalvationContext {
-        root_id: root_identity(root, position),
-        field_id: field.id().to_string(),
-        contract: position.bid,
-        root_action: action,
-    };
-    let belief = FactorBelief::uniform_root(root, position, field);
-    let fiber = oracle.mass(&belief);
-    assert!(fiber > 0, "a census coordinate has positive belief mass");
-    let mut refusals: Vec<Refusal> = Vec::new();
-    let mut cost = GodGapCost::default();
-    let upper = god_upper(
-        oracle,
-        root,
-        position,
-        field,
-        action,
-        spec,
-        fiber,
-        &context,
-        &mut refusals,
-        &mut cost,
-        progress,
-    );
-    let d_phys = upper.d_phys();
-
-    // The exact Q — the one number that turns an upper into a gap.
-    if fiber > spec.exact_fiber_cap {
-        refusals.push(Refusal::ExactValueUnaffordable {
-            fiber,
-            cap: spec.exact_fiber_cap,
-        });
-        refusals.push(Refusal::ExtractionUnaffordable {
-            fiber,
-            cap: spec.exact_fiber_cap,
-        });
-        // SC-A4: no exact Q, so nothing may be called a gap. The two
-        // honest types split on whether the doom side produced a
-        // nonvacuous upper at all.
-        let result = if upper.vacuous() {
-            GodGapResult::UnknownGodGap
-        } else {
-            GodGapResult::GodUpper
+impl GodGapWalk<'_> {
+    /// One coordinate of the §40 census: establish the God upper, the
+    /// exact `Q` where affordable, the extracted incumbent where
+    /// affordable, and the typed §48 result they determine.
+    ///
+    /// `progress` is forwarded to the per-world enumeration verbatim (a
+    /// reporting hook only, no effect on the result).
+    pub fn god_gap(
+        &self,
+        action: Domino,
+        progress: &mut dyn FnMut(u64, u64, u128, u64),
+    ) -> GodGapCoordinate {
+        let oracle = self.oracle;
+        let root = self.root;
+        let position = self.position;
+        let field = self.field;
+        let spec = self.spec;
+        let context = SalvationContext {
+            root_id: root_identity(root, position),
+            field_id: field.id().to_string(),
+            contract: position.bid,
+            root_action: action,
         };
-        return GodGapCoordinate {
-            context,
-            fiber_mass: fiber,
-            upper,
-            result,
-            decomposition: Decomposition {
-                d_phys,
-                d_info: None,
-                d_policy: None,
-            },
-            refusals,
-            cost,
-        };
-    }
+        let belief = FactorBelief::uniform_root(root, position, field);
+        let fiber = oracle.mass(&belief);
+        assert!(fiber > 0, "a census coordinate has positive belief mass");
+        let mut refusals: Vec<Refusal> = Vec::new();
+        let mut cost = GodGapCost::default();
+        let upper = self.god_upper(&context, fiber, &mut refusals, &mut cost, progress);
+        let d_phys = upper.d_phys();
 
-    let child = belief.focal_play(action);
-    let mut rstats = ResponseStats::default();
-    let q_mass = response_success_mass(oracle, &child, field, &mut rstats);
-    cost.response_focal = rstats.focal_nodes;
-    cost.response_hidden = rstats.hidden_nodes;
-    let q = BigRational::new(BigInt::from(q_mass), BigInt::from(fiber));
-    assert!(
-        q <= upper.value,
-        "a doom upper never sits below the exact information-consistent optimum: \
-         Q = {q_mass}/{fiber} against U^God = {}",
-        upper.value
-    );
-    let d_info = &upper.value - &q;
-
-    // The executable incumbent: the argmax DAG, re-priced by the
-    // independent fixed-policy evaluator (§63's re-pricing law is what
-    // makes the number a receipt rather than a restatement).
-    let mut estats = ResponseStats::default();
-    let (extracted_mass, policy) = extract_success_policy(
-        oracle,
-        &child,
-        &ExtractionSource::FullLegal,
-        field,
-        &mut estats,
-    );
-    cost.extraction_focal = estats.focal_nodes;
-    assert_eq!(
-        extracted_mass, q_mass,
-        "the §63 extraction attains the exact optimum it extracted from"
-    );
-    let mut pstats = RecursionStats::default();
-    let repriced = viewer_success_mass(oracle, &child, &policy, field, &mut pstats);
-    cost.repricing_nodes = pstats.focal_nodes + pstats.hidden_nodes;
-    assert_eq!(
-        repriced, extracted_mass,
-        "the §63 re-pricing gate: the extracted policy re-prices to its extraction mass"
-    );
-    let value = BigRational::new(BigInt::from(repriced), BigInt::from(fiber));
-    let d_policy = &q - &value;
-    let incumbent = Incumbent {
-        policy_id: policy.id().to_string(),
-        value_mass: repriced,
-        value,
-        d_policy: d_policy.clone(),
-    };
-    let decomposition = Decomposition {
-        d_phys,
-        d_info: Some(d_info.clone()),
-        d_policy: Some(d_policy),
-    };
-
-    if d_info == BigRational::from_integer(BigInt::from(0)) {
-        // God-tight: the executable lower MEETS the deterministic
-        // doom upper. Persist the profile where affordable.
-        let profile = if fiber <= spec.profile_fiber_cap {
-            let mut ps = RecursionStats::default();
-            let sp = viewer_score_profile(oracle, &child, &policy, field, &mut ps);
-            let z = sp.total();
-            assert_eq!(z, fiber, "a score profile conserves the fiber mass");
-            let tail = sp.tail(position.bid);
-            let projected = match utility_id(root, position) {
-                "pmake-v1" => tail,
-                _ => z - tail,
-            };
-            assert_eq!(
-                projected, repriced,
-                "the profile projects to the policy's re-priced mass"
-            );
-            Some(Box::new(ScoreProfileFact {
-                action,
-                policy_id: policy.id().to_string(),
-                bins: sp.bins,
-            }))
-        } else {
-            refusals.push(Refusal::ProfileUnaffordable {
+        // The exact Q — the one number that turns an upper into a gap.
+        if fiber > spec.exact_fiber_cap {
+            refusals.push(Refusal::ExactValueUnaffordable {
                 fiber,
-                cap: spec.profile_fiber_cap,
+                cap: spec.exact_fiber_cap,
             });
-            None
-        };
-        let tight = GodTightPolicy {
-            context: context.clone(),
-            policy_id: incumbent.policy_id.clone(),
-            value: incumbent.value.clone(),
-            god_upper: upper.value.clone(),
-            equality_receipt: EqualityReceipt {
-                belief_id: "uniform-root".to_string(),
-                utility_id: utility_id(root, position).to_string(),
-                extracted_mass,
-                repriced_mass: repriced,
-                doomed_mass: upper.doomed_mass,
+            refusals.push(Refusal::ExtractionUnaffordable {
+                fiber,
+                cap: spec.exact_fiber_cap,
+            });
+            // SC-A4: no exact Q, so nothing may be called a gap. The two
+            // honest types split on whether the doom side produced a
+            // nonvacuous upper at all.
+            let result = if upper.vacuous() {
+                GodGapResult::UnknownGodGap
+            } else {
+                GodGapResult::GodUpper
+            };
+            return GodGapCoordinate {
+                context,
                 fiber_mass: fiber,
-                policy_states: policy.states(),
-            },
-            profile,
+                upper,
+                result,
+                decomposition: Decomposition {
+                    d_phys,
+                    d_info: None,
+                    d_policy: None,
+                },
+                refusals,
+                cost,
+            };
+        }
+
+        let child = belief.focal_play(action);
+        let mut rstats = ResponseStats::default();
+        let q_mass = response_success_mass(oracle, &child, field, &mut rstats);
+        cost.response_focal = rstats.focal_nodes;
+        cost.response_hidden = rstats.hidden_nodes;
+        let q = BigRational::new(BigInt::from(q_mass), BigInt::from(fiber));
+        assert!(
+            q <= upper.value,
+            "a doom upper never sits below the exact information-consistent optimum: \
+         Q = {q_mass}/{fiber} against U^God = {}",
+            upper.value
+        );
+        let d_info = &upper.value - &q;
+
+        // The executable incumbent: the argmax DAG, re-priced by the
+        // independent fixed-policy evaluator (§63's re-pricing law is what
+        // makes the number a receipt rather than a restatement).
+        let mut estats = ResponseStats::default();
+        let (extracted_mass, policy) = extract_success_policy(
+            oracle,
+            &child,
+            &ExtractionSource::FullLegal,
+            field,
+            &mut estats,
+        );
+        cost.extraction_focal = estats.focal_nodes;
+        assert_eq!(
+            extracted_mass, q_mass,
+            "the §63 extraction attains the exact optimum it extracted from"
+        );
+        let mut pstats = RecursionStats::default();
+        let repriced = viewer_success_mass(oracle, &child, &policy, field, &mut pstats);
+        cost.repricing_nodes = pstats.focal_nodes + pstats.hidden_nodes;
+        assert_eq!(
+            repriced, extracted_mass,
+            "the §63 re-pricing gate: the extracted policy re-prices to its extraction mass"
+        );
+        let value = BigRational::new(BigInt::from(repriced), BigInt::from(fiber));
+        let d_policy = &q - &value;
+        let incumbent = Incumbent {
+            policy_id: policy.id().to_string(),
+            value_mass: repriced,
+            value,
+            d_policy: d_policy.clone(),
         };
-        return GodGapCoordinate {
+        let decomposition = Decomposition {
+            d_phys,
+            d_info: Some(d_info.clone()),
+            d_policy: Some(d_policy),
+        };
+
+        if d_info == BigRational::from_integer(BigInt::from(0)) {
+            // God-tight: the executable lower MEETS the deterministic
+            // doom upper. Persist the profile where affordable.
+            let profile = if fiber <= spec.profile_fiber_cap {
+                let mut ps = RecursionStats::default();
+                let sp = viewer_score_profile(oracle, &child, &policy, field, &mut ps);
+                let z = sp.total();
+                assert_eq!(z, fiber, "a score profile conserves the fiber mass");
+                let tail = sp.tail(position.bid);
+                let projected = match utility_id(root, position) {
+                    "pmake-v1" => tail,
+                    _ => z - tail,
+                };
+                assert_eq!(
+                    projected, repriced,
+                    "the profile projects to the policy's re-priced mass"
+                );
+                Some(Box::new(ScoreProfileFact {
+                    action,
+                    policy_id: policy.id().to_string(),
+                    bins: sp.bins,
+                }))
+            } else {
+                refusals.push(Refusal::ProfileUnaffordable {
+                    fiber,
+                    cap: spec.profile_fiber_cap,
+                });
+                None
+            };
+            let tight = GodTightPolicy {
+                context: context.clone(),
+                policy_id: incumbent.policy_id.clone(),
+                value: incumbent.value.clone(),
+                god_upper: upper.value.clone(),
+                equality_receipt: EqualityReceipt {
+                    belief_id: "uniform-root".to_string(),
+                    utility_id: utility_id(root, position).to_string(),
+                    extracted_mass,
+                    repriced_mass: repriced,
+                    doomed_mass: upper.doomed_mass,
+                    fiber_mass: fiber,
+                    policy_states: policy.states(),
+                },
+                profile,
+            };
+            return GodGapCoordinate {
+                context,
+                fiber_mass: fiber,
+                upper,
+                result: GodGapResult::GodTightPolicy(Box::new(tight)),
+                decomposition,
+                refusals,
+                cost,
+            };
+        }
+
+        GodGapCoordinate {
             context,
             fiber_mass: fiber,
             upper,
-            result: GodGapResult::GodTightPolicy(Box::new(tight)),
+            result: GodGapResult::PositiveGodGap(Box::new(PositiveGodGap {
+                q_mass,
+                q,
+                gap: d_info,
+                incumbent: Some(incumbent),
+            })),
             decomposition,
             refusals,
             cost,
-        };
+        }
     }
 
-    GodGapCoordinate {
-        context,
-        fiber_mass: fiber,
-        upper,
-        result: GodGapResult::PositiveGodGap(Box::new(PositiveGodGap {
-            q_mass,
-            q,
-            gap: d_info,
-            incumbent: Some(incumbent),
-        })),
-        decomposition,
-        refusals,
-        cost,
+    /// The census walk over one root: every legal root action, in tile
+    /// order, each coordinate typed and decomposed. Nothing is dropped
+    /// — the returned vector has one entry per legal action, refusals
+    /// included.
+    pub fn census(&self, progress: &mut dyn FnMut(u64, u64, u128, u64)) -> Vec<GodGapCoordinate> {
+        legal_actions(self.root, self.position)
+            .into_iter()
+            .map(|action| self.god_gap(action, progress))
+            .collect()
     }
-}
-
-/// The census walk over one root: every legal root action, in tile
-/// order, each coordinate typed and decomposed. Nothing is dropped —
-/// the returned vector has one entry per legal action.
-pub fn god_gap_census(
-    oracle: &dyn ExactCoverOracle,
-    root: &CanonicalRoot,
-    position: &RootPosition,
-    field: &dyn SlicePolicy,
-    spec: &GodGapSpec,
-    progress: &mut dyn FnMut(u64, u64, u128, u64),
-) -> Vec<GodGapCoordinate> {
-    legal_actions(root, position)
-        .into_iter()
-        .map(|action| god_gap(oracle, root, position, field, action, spec, progress))
-        .collect()
 }
 
 // ---------------------------------------------------------------------------
@@ -752,16 +760,15 @@ impl ProofProducer for GodGapProducer<'_> {
         );
         let mut out = Vec::new();
         let mut progress = |_: u64, _: u64, _: u128, _: u64| {};
+        let walk = GodGapWalk {
+            oracle: self.oracle,
+            root: self.root,
+            position: self.position,
+            field: self.field,
+            spec: &self.spec,
+        };
         for action in &state.legal {
-            let coordinate = god_gap(
-                self.oracle,
-                self.root,
-                self.position,
-                self.field,
-                *action,
-                &self.spec,
-                &mut progress,
-            );
+            let coordinate = walk.god_gap(*action, &mut progress);
             for fact in coordinate_facts(&coordinate) {
                 if state.facts().iter().any(|sf| sf.fact == fact) {
                     continue;
