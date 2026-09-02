@@ -32,6 +32,7 @@ pub mod factor_belief;
 pub mod field;
 pub mod field_swap;
 pub mod frontier;
+pub mod godgap;
 pub mod grammar;
 pub mod hazard;
 pub mod laydown;
