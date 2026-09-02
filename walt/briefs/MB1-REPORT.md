@@ -36,6 +36,15 @@ The bolded row is gate M6's pinned specimen, re-derived by the gate
 rather than cited from the probe. Eight substantive trick-4 coordinates,
 eight strict prices, none vacuous.
 
+A note for anyone diffing this table against the probe: the h8-t4 rows
+are written over the shared denominator `8 × 1,200 = 9,600` — the raw
+`(weighted mass, weighted total)` pair the machinery computes — while
+the probe prints every value in lowest terms, so its `3-1` upper reads
+`2787/3200` and its price reads `19/4800`. Same rationals. The h3-t4
+rows are quoted from the probe and are therefore already reduced. The
+M6 constant pins the raw triple, because raw masses are what the walk
+compares and reduction is a printing choice.
+
 Against that, **h12-t4's four coordinates are `Φ = 0` and are typed
 VACUOUS**, because the whole fiber is already decided at the root: there
 `U^sep` sits at an endpoint, every lawful policy attains every
@@ -347,10 +356,10 @@ and `doom_enumeration` bit-identical either side of a model census
 
 **M7** — the field-identity fence, both halves. Described under item 7.
 
-**Runtime:** the MB1 suite is 20.8 s wall (the seven gates run in parallel), of which M6 alone is 20.5 s. That
-is the honest cost of re-deriving a trick-4 coordinate rather than
-citing it: about a million field consultations for the one coordinate
-the gate pins. The other three coordinates of the same root, and all
+**Runtime:** the MB1 suite is 20.8 s wall (the seven gates run in
+parallel), of which M6 alone is 20.5 s. That is the honest cost of
+re-deriving a trick-4 coordinate rather than citing it: about a million
+field consultations for the one coordinate the gate pins. The other three coordinates of the same root, and all
 four of h3-t4, are in the probe.
 
 ## The probe
@@ -379,10 +388,14 @@ Per root, measured: h12-t6 1.0 ms, h10-t6 1.1 ms, h5-t6 42.8 ms, h4-t6
 h3-t4 420.0 s, h8-t3 1,889.4 s. Field reads, measured: 416 / 512 /
 10,592 / 29,920 / 93,340 / 313,265 at MB0's roots; 4,841,712 at h8-t4;
 0 at h12-t4; 24,163,138 at h3-t4; 35,000,039 at h8-t3. The two
-registered types draw almost exactly half the reads each everywhere
-except h8-t3, where the ratio tips to 21.4M σ0 against 13.6M σ1 —
-because the σ1 half of the bundle is refused into more often at that
-depth, not because it is cheaper.
+registered types draw almost exactly half the reads each at every root
+that COMPLETES (h3-t4: 12,155,506 σ0 against 12,007,632 σ1), which is
+what a bundle of eight profiles evenly split between them should do.
+The one exception is h8-t3, where the split is 21.4M σ0 against 13.6M
+σ1. That asymmetry is an artifact of the cut, not a property of the
+minds: a refused walk stops partway through a node, and the profiles a
+node classifies before the stop are not a balanced sample. It should
+not be read as either type being cheaper.
 
 ## Deviations from the brief, recorded
 
@@ -464,6 +477,21 @@ policy library priced once reprices under any belief for free, so a
 player that can afford the walk ONCE can afford to re-decide under a
 moving posterior. Whether that is the right use of the lever is a
 sequencing question, not something this slice establishes.
+
+### Where the affordability wall sits, located
+
+The slice put a number on it. Per root, exact-mixture coordinates cost
+roughly: trick 6 at fibers 6–90, microseconds to 94 ms; trick 5 at
+fibers 92–200, 1.0–3.7 s; trick 4 at fibers 1,200–11,550, 98–420 s; and
+trick 3 at fiber 59,976, not within 7,000,000 reads per coordinate —
+five refusals for 35M consultations and 31 minutes. Each stratum is
+roughly two orders of magnitude past the one behind it, and the wall
+lands between trick 4 and trick 3. That is the same place the doom-side
+work found its cliff, from the other direction, and it means an
+exact-mixture instrument is a middlegame instrument: trick 4 is
+affordable in minutes, trick 3 is not affordable at all under this
+architecture. Anything that wants trick 3 needs a structural producer
+rather than a bigger budget.
 
 ### For the census program
 
