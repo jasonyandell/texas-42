@@ -87,9 +87,24 @@
 //! `doom.rs` (§47) and `godgap.rs` (U0) are consume-only and are not
 //! imported here at all — U0's receipts reach the player as ordinary
 //! §49 facts in a [`ReceiptStore`] the caller seeds, which is what makes
-//! "consumed, not recomputed" checkable. `model_belief.rs` and
-//! `model_recursion.rs` are used through their existing public API with
-//! no change. The OLD PLAYER (walt_bridge, playout, playtable, webtable,
+//! "consumed, not recomputed" checkable.
+//!
+//! `model_belief.rs` and `model_recursion.rs` are FROZEN consume-only for
+//! this slice, together with both their gate files (the brief's
+//! amendment, on the doom→U0 and godgap→MB1 precedent: the freeze is what
+//! makes gate UP5's inheritance claim checkable rather than asserted).
+//! UP0 needed no additive surface on either. It imports exactly five
+//! pre-existing public items from `model_belief` — [`BehaviorType`],
+//! [`MixtureRefusal`], [`MixtureStats`], [`ModelBelief`],
+//! [`SeatTypePrior`] — and calls only `from_independent_prior`,
+//! `focal_play`, `observe`, `branch_masses`, `mixture_response_budgeted`,
+//! `ledger`, `history`, `seat_to_move` and `profiles`, every one of them
+//! shipped by MB0/MB1. It does not import `model_recursion` at all; the
+//! reference above is a doc link, and MB1's `trace_heaviest_line` is
+//! reached only from the gate file, as the independent authority UP3
+//! checks the carried posterior against.
+//!
+//! The OLD PLAYER (walt_bridge, playout, playtable, webtable,
 //! level1_evaluate) is untouched: UP0 is a new artifact beside it, and
 //! bridging, defaults and arena evaluation are future slices on Jason's
 //! word.
