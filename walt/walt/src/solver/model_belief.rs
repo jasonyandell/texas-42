@@ -1485,6 +1485,74 @@ fn descend_focal(
 }
 
 impl ModelBelief {
+    /// A structural copy at the same state, sharing the lineage's
+    /// [`ReadLedger`] (MB1: a traced descent needs an owned belief to
+    /// advance, and a copy that started its own ledger would silently
+    /// stop measuring the walk it belongs to).
+    pub fn same_state(&self) -> ModelBelief {
+        ModelBelief {
+            prior_denominator: self.prior_denominator,
+            entries: self
+                .entries
+                .iter()
+                .map(|entry| ProfileEntry {
+                    types: entry.types.clone(),
+                    weight: entry.weight,
+                    field: Rc::clone(&entry.field),
+                    belief: entry.belief.clone(),
+                })
+                .collect(),
+            ledger: Rc::clone(&self.ledger),
+        }
+    }
+
+    /// The viewer's legal actions at the shared public state, and the
+    /// count of plays the whole hand still owes — the frame a traced
+    /// descent needs without re-deriving the trick arithmetic.
+    /// `None` when the seat to move is not the viewer.
+    pub fn legal_focal_actions(&self) -> Option<DominoSet> {
+        let (position, viewer, viewer_hand, _, walk) = self.walk_frame();
+        if walk.seat() != viewer {
+            return None;
+        }
+        let remaining = viewer_hand.difference(walk.played_by[viewer.index()]);
+        let led = walk.plays.first().map(|d| position.decl.led_context(*d));
+        Some(legal_plays(position.decl, remaining, led))
+    }
+
+    /// One focal consultation for the WHOLE bundle at the shared public
+    /// state (MB-I1: a policy is never evaluated per profile, so no
+    /// policy can key its choice on θ). Panics if the seat to move is
+    /// hidden — the caller checks [`ModelBelief::seat_to_move`].
+    pub fn focal_choice(&self, focal: &dyn SlicePolicy) -> Domino {
+        let (position, viewer, viewer_hand, _, walk) = self.walk_frame();
+        assert_eq!(
+            walk.seat(),
+            viewer,
+            "a focal consultation is at a focal state"
+        );
+        let remaining = viewer_hand.difference(walk.played_by[viewer.index()]);
+        let led = walk.plays.first().map(|d| position.decl.led_context(*d));
+        let legal = legal_plays(position.decl, remaining, led);
+        let record = walk.record(&position);
+        let tile = focal.choose(position.decl, remaining, legal, &record);
+        assert!(legal.contains(tile), "a policy chooses a legal tile");
+        tile
+    }
+
+    /// The total plays the hand owes from the root — the terminal depth
+    /// of every bundle walk over this belief.
+    pub fn total_plays(&self) -> usize {
+        let belief = &self.entries[0].belief;
+        belief.kernel().viewer_hand().len()
+            + belief
+                .kernel()
+                .hidden()
+                .iter()
+                .map(|h| h.capacity)
+                .sum::<usize>()
+    }
+
     fn walk_frame(&self) -> (RootPosition, Seat, DominoSet, usize, PublicWalk) {
         let belief = &self.entries[0].belief;
         let position = belief.position().clone();

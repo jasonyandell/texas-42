@@ -37,6 +37,7 @@ pub mod grammar;
 pub mod hazard;
 pub mod laydown;
 pub mod model_belief;
+pub mod model_recursion;
 pub mod motif;
 pub mod opening;
 pub mod policy;
