@@ -13907,3 +13907,189 @@ layer itself is representation substrate. Intake:
   justify a change on Jason's word (CE-A7/CBS-A9 restated).
   PS-T1..T15 and the 42 instance layer accepted into the Lean
   side-project ledger (Jason + Pro track).
+
+## The model-belief base-player adjudication (2026-09-01)
+
+*Authorization note: Jason hand-delivered the parent 2026-09-01 ("big
+math intake coming. after intake and before you dive in, let's talk
+about it... this next round is about intake and collaboration"), with
+the engineering explicitly delegated ("the phases and steps and general
+engineering are all up to you"). Rulings proposed in-session, agreed by
+Jason ("overall, agreed on your rulings and division of labor"), build
+authorized same-day ("full go buddy. time to make this real"). Not a
+courier dispatch — no number, ledger untouched (the calculated-evidence
+precedent). Threads: primarily an L2-thread design (the field model
+becomes the hidden coordinate); its sampled point-mass components
+consume CE machinery through the sanctioned crossing (§20's risk-ledger
+rule). Intake: `walt/math/model_belief_base_player_v0.1_intake.md`.*
+
+- **MB-A1 (the substrate ADOPTED).** The augmented latent space
+  Ξ = Ω×Θ (×Z when a field uses persistent randomness) is adopted as
+  the closing move of book one. Theorem 7.1 (augmented-world
+  reduction) step-checked: a finite model-belief problem IS a finite
+  fixed-semantics Walt problem on Ξ, so every theorem whose proof used
+  only finiteness, lawful focal information, bounded utility, and a
+  fixed latent distribution lifts verbatim. The best-response ladder
+  is demoted from ontology to basis: a fixed field is the point-mass
+  case ν = δ_θ. Verifier re-run 40/40 PASS at the filed location
+  (session evidence, scratch tier; load-bearing sweeps: the 64-matrix
+  × 3-prior response-geometry/lattice/convexity/common-optimizer
+  product sweep and the 256-case transfer-bound sweep; several checks
+  recorded as definitional illustrations, see the intake companion).
+- **MB-A2 (the missing parent, RESOLVED same-day).** The parent names
+  five mathematical parents; *The Salvation Complex and
+  Information-Cut Calculus of Walt v0.1* was absent from the repo at
+  first intake ("oops missed a file!") and was delivered and intaken
+  the same session (`walt/math/salvation_complex_v0.1.md`, rulings
+  SC-A1.. below). §§26–27, 39–40 and MB-O11 are therefore grounded,
+  not forward references.
+- **MB-A3 (the rung registration, CORRECTED at intake).** The
+  registration proposed at first reading ("Dice = σ0") was WRONG and
+  is retracted; Jason's memory was right. The binding table:
+  D = `FieldModel::Dice` (uniform dice, frozen per-scenario draws —
+  `level1.rs`, `playout.rs`); F₀ = BR(D) = **σ0**, the banked-correct
+  level-0 modeled mind (`solver/field.rs`); F₁ = BR(F₀) = level-1
+  walt; F₂ = BR(F₁) = the unbuilt level-2 rung (on Jason's word, as
+  ever). The §43 representational fact (F₂ is the first rung whose
+  modeled partner treats the focal seat as a thinker rather than
+  dice) is consistent with this indexing and with L2-thread usage.
+- **MB-A4 (transcription errata; companion governs).** Two spots of
+  transit damage, recorded not repaired (the parent is
+  checksum-pinned): the §8 display `Q_a(δ_{F_k})` never closes — the
+  intended statement is Q_a(δ_{F_k}) = the ordinary best response to
+  rung F_k; §34's disagreement indicator prints as
+  `u_ρ(ω,θ) e u_ρ(ω,θ₀)` — the operator is ≠ (the outcome-
+  disagreement indicator). Cite the companion's forms.
+- **MB-A5 (the residual Other type is MANDATORY).** §15's honesty
+  rule — known mass 1−r lifts [L_K, U_K] to
+  [(1−r)L_K, (1−r)U_K + r]; contract-stable residual cells contribute
+  zero width — is binding from the first post-MB0 slice. Unknown
+  model mass is stored and propagated, never silently discarded
+  (MB-I7). The finite library is a model, not reality.
+- **MB-A6 (identity discipline COMPATIBLE).** Model type is genuine
+  semantic hidden state (like a hand), not a reachability
+  certificate — no conflict with the proof-irrelevance rule.
+  BehaviorTypeId/ModelBeliefId as content addresses (§51) adopted;
+  every behavior-affecting coordinate (registry, priors, correlation,
+  persistence scope, seeds, tie rule, fallback, solve budget, quality
+  claim) is identity (MB-I3). Persistence semantics binding (MB-I2):
+  one type per declared scope, never action-wise resampling — the
+  §9 half/quarter specimen separates the two models.
+- **MB-A7 (boundaries restated).** Branch by public action, never by
+  hidden type (MB-I4, merge-before-max in model space — the O34/CBS
+  fence over Θ); hidden type is inaccessible to focal policy keys
+  (MB-I1); a model-belief lower enters the executable bar only with a
+  materialized policy (MB-I9, the APS-A6 split restated). M7's
+  mirrored arena and any live-player default change stay on Jason's
+  word (CE-A7/CBS-A9/APS-A9 restated).
+- **MB-A8 (the build program, RESTRUCTURED and AUTHORIZED).** The
+  parent's M0–M7 is reorganized as: **MB0** — the §74 exact vertical
+  slice (two deterministic types, prior (½,½), hand-type factors,
+  posterior closure after one observed action, parity against
+  explicit (ω,θ) enumeration, both point-mass endpoints reproduce
+  existing walt, sep upper, exact mixture response, recorded
+  model-fusion gap; no live-player change), gated by §76's go/no-go
+  verbatim; **MB1** — full model-belief recursion (M1+M2 merged);
+  **MB2** — the type-revealed sep upper as a ProofProducer with
+  certified regret under (β,ν), probed at the opening root; **MB3** —
+  type-partition gluing, conditional on MB2's probe; **MB4** —
+  residual Other + robust report + sparse counterfactual scheduling
+  through the existing §33 frontier machinery; **MB5** — the base-
+  player run and arena, on Jason's word. **U0 (the God-gap census,
+  SC-A8) runs beside MB0** — the two-sided race is the round's shape.
+  Division of labor per Jason's go: serial fable agents, one brief
+  per slice (`walt/briefs/`), the orchestrating session holding plan,
+  adjudication, and probe findings only. In-crate additive landing,
+  gates + freeze discipline, `walt/FACTOR-BELIEF.md` stays the
+  running build record.
+
+## The salvation-complex adjudication (2026-09-01)
+
+*Authorization note: same session and same standing go as MB-A1..A8
+above — the parent arrived mid-adjudication ("oops missed a file!")
+and resolves MB-A2. It is the fixed-field half of the round: the
+model-belief parent lifts this geometry to Ξ = Ω×Θ. Threads: L2-thread
+mathematics (fixed declared field per complex; the tower changes the
+field identity, never the physical fiber). No verify companion was
+shipped with this parent — see SC-A2. Intake:
+`walt/math/salvation_complex_v0.1_intake.md`.*
+
+- **SC-A1 (the geometry ADOPTED; the record CORROBORATES it).** The
+  central identity — 1−Q = minimum belief-mass transversal of the
+  salvation-conflict hypergraph (Thm 12.1, both directions
+  step-checked) — is the era's steering statement, with Thm 6.1
+  (max-weight face), Thm 7.1 (God-tight iff common intersection over
+  saveable worlds), the §13 split 1−Q = β(D) + τ(H_{≥2}) (doom =
+  singleton cuts, information price = higher-order cuts), §14
+  (any verified conflict family gives an admissible upper), and §15
+  (rational packing as the cheap dual). The §9 fourteen-coordinate
+  table was verified at intake against `doomreport_run1.txt`'s
+  **per-world truth** column (every figure matches; the doc correctly
+  uses truth, not census recovery — h4-t6 0-0 60/90 where the census
+  certified 56; h8-t5 5-3 1/92 where the census got 0) and the
+  d_info = 0 inference cross-checked against the exact response
+  records (h5-t6: 1 − 15/27 = 12/27 = 444‰, exactly Phase 3's
+  recorded value). Phase 6's "structural saturation" finding now has
+  its name: those roots are God-tight.
+- **SC-A2 (no verifier shipped; the gates ARE the checks).** Unlike
+  the sibling parent, no verify companion accompanied this one. The
+  theorems are elementary finite statements, all step-checked at
+  intake (6.1, 7.1, 12.1, 13, 14, 15, 19.1, 20, the §23 and §26
+  counterexamples re-derived, §31 filtration nesting with its
+  field-dependence boundary, §44 periodicity). Binding consequence:
+  **U0's gate suite must re-derive the §9 table mechanically from the
+  committed records** — the census table becomes a byte-checked gate,
+  not a quoted number. The §60 Lean tranche (incidence / complex /
+  conflict / transversal — finite types and rational weights only) is
+  accepted into the Lean side-project ledger (Jason + Pro track).
+- **SC-A3 (the §47 immediate ruling ADOPTED).** Do not broaden the
+  doom census indiscriminately at the opening root. Doom is
+  preserved as: deterministic singleton-conflict producer, exact
+  God-upper ground truth on enumerable roots, suffix-candidate
+  detector, and the base case of salvation-mask generation (§34:
+  doom is the empty-mask endpoint of an action-indexed ceiling
+  producer, not a separate idea). The next upper work is
+  information-consistency-aware.
+- **SC-A4 (the fusion horizon is an EMPIRICAL object first).** The
+  fusion-free-suffix hypothesis (§37–38) — beyond some horizon,
+  physical doom is the only unavoidable failure and one lawful
+  policy realizes every saveable world — is the most consequential
+  hypothesis of the round (it is what makes F₂ affordable, §46). It
+  is adopted as a census target; a theorem may be proposed only
+  after adversarial counterexample search, per the parent's own
+  discipline. `UnknownGodGap` is a distinct result type: zero
+  certified doom with no exact Q is never `PositiveGodGap`.
+- **SC-A5 (the two fences BINDING).** §26: an optimizer disagreement
+  is not a cut — a valid gluing cut requires complete masks, safe
+  supersets with proved-empty intersection, exact ceilings, or
+  another proof that no alternate successful completion restores
+  compatibility ({00,01}/{00,10} is the counterexample). §23/§24: G
+  is neither submodular nor supermodular — zero one-glue gain proves
+  nothing ({00,11}/{01,10}); the scheduler must permit short gluing
+  coalitions, which is APS-A8's closure-aware macro rule arriving
+  from the mathematics a second time.
+- **SC-A6 (provenance notes).** The parent declares its basis as
+  main `08fe3d2` (verified: the PR #80 merge) "including... the doom
+  census at `eb5a459...`" — that hash does not appear in main's
+  history (a branch-state hash from Pro's inspection); harmless,
+  recorded. The doc's empirical citations were independently
+  verified against the committed probes at intake (SC-A1), so
+  nothing rests on the stray hash.
+- **SC-A7 (reuse discipline across the tower ADOPTED).** §45's
+  three-way fact typing is binding vocabulary: field-independent /
+  field-relative-but-transportable / field-specific. A higher-level
+  proof state starts from transported valid intervals, never from
+  [0,1] — but every imported fact retains both field identities and
+  its coupling proof. Tie-inertial exact selection (§44) is the
+  preferred tower selector: retain the predecessor action when it is
+  among the exact maximizers.
+- **SC-A8 (the U/T program ADOPTED, U0 pulled forward).** Slices
+  U0–U4 and T0–T1 are adopted as the fixed-field program racing the
+  MB program (§29's two-oracle form: construct a God-tight policy vs
+  exhibit a salvation conflict — whichever lands first says what
+  kind of difficulty the root contains). **U0 (God-gap census with
+  GodUpper/GodTightPolicy/PositiveGodGap/UnknownGodGap result types
+  and God-tight policy extraction) runs beside MB0** per MB-A8; U1+
+  are sequenced by what U0 and MB2 find. T0/T1 (the tower
+  laboratory and lazy F₂) remain behind the level-2 boundary on
+  Jason's word.
