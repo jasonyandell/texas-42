@@ -86,6 +86,37 @@ vocabulary, descending seat by seat), never witnessed one by one, and installed
 as uppers `(Z − M_doom)/Z` with the field identity in the authority string.
 Gated against a per-world enumeration ground truth.
 
+## The book-one closing round (2026-09-01, intaken)
+
+Two Pro parents, delivered together and adjudicated the same session
+(**MB-A1..A8**, **SC-A1..A8**; companions beside the parents in
+`walt/math/`), close the era's diagnosis and open the build that ends
+book one:
+
+- **The salvation complex** (`salvation_complex_v0.1.md`) — the
+  fixed-field unification: 1−Q = minimum belief-mass transversal of the
+  salvation-conflict hypergraph; doom supplies the singleton cuts,
+  gluing the higher-order ones; the solver becomes column-and-cut. Its
+  §9 table, verified at intake against the committed doom records,
+  shows all fourteen enumerable t5/t6 action coordinates are
+  **God-tight** (d_info = 0) — Phase 6's "structural saturation" named
+  — and poses the **fusion horizon** as the round's key empirical
+  object.
+- **The model-belief base player** (`model_belief_base_player_v0.1.md`)
+  — the field model becomes one more persistent hidden coordinate:
+  Ξ = Ω×Θ lifts every fixed-field theorem verbatim, the ladder is
+  demoted from ontology to basis (D = `FieldModel::Dice`, F₀ = σ0,
+  F₁ = level-1 walt — registration corrected at intake), and the
+  gloriously boring base player (§43) is defined with §48's completion
+  criteria as book one's finish line.
+
+Build authorized same-day: **MB0** (the §74 exact vertical slice, §76
+go/no-go) and **U0** (the God-gap census) first — §29's two-oracle race
+(construct a God-tight policy vs exhibit a salvation conflict) — then
+MB1–MB5/U1+ sequenced by evidence, serial fable agents under
+per-slice briefs (`walt/briefs/`), `walt/FACTOR-BELIEF.md` the running
+record. Live player untouched; arena on Jason's word.
+
 ## What the era found
 
 - **The opening-root verdict, in certified-regret form** (Phase 8, probe
