@@ -35,6 +35,18 @@
 //! exactly where it is affordable, which is strictly more than §36
 //! asks for and is what lets the census also report POSITIVE gaps.
 //!
+//! One reading caveat travels with every God-tight receipt, and the
+//! census keeps it typed rather than in prose. Where the WHOLE fiber
+//! is physically doomed, `U^God = Q = 0` and Theorem 7.1's common
+//! intersection is an intersection over an empty index set: every
+//! lawful policy is God-tight, and the equality carries no information
+//! about the price of blindness. Those coordinates are real receipts
+//! but degenerate evidence, so [`GodTightPolicy::nothing_saveable`]
+//! flags them and the §38 stratification counts them apart
+//! ([`FusionStratum::substantively_fusion_free`]) — a depth that looks
+//! fusion-free only because everything in it is lost is not evidence
+//! for the fusion-free-suffix hypothesis.
+//!
 //! THE FOUR RESULT TYPES (§48, exactly these, and the SC-A4 rule).
 //!
 //! ```text
@@ -898,7 +910,10 @@ pub fn fusion_horizon(entries: &[(usize, String, GodGapCoordinate)]) -> Vec<Fusi
 
 /// The §38 horizon itself: the earliest tested depth from which every
 /// deeper tested stratum (this one included) is fusion-free. `None`
-/// when no such depth exists on the declared corpus. Depth increases
+/// when no such depth exists on the declared corpus. This is §38's
+/// condition verbatim, degenerate coordinates included — read it
+/// beside each stratum's `god_tight_vacuous` count, since a stratum of
+/// nothing-but-doom satisfies the condition while evidencing nothing. Depth increases
 /// with the trick number — trick 6 is the latest, so the walk runs
 /// from the deepest stratum backwards and stops at the first
 /// exception.

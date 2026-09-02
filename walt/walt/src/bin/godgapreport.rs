@@ -338,7 +338,16 @@ fn main() {
             }
 
             // -------- Part 3: the §38 fusion-horizon table.
-            out.push_str("\n#### PART 3 — the fusion-horizon table (§38, EMPIRICAL) ####\n");
+            out.push_str(
+                "\n#### PART 3 — the fusion-horizon table (§38, EMPIRICAL) ####\n\
+                 §48 asks for stratification by trick, grade, contract, trump structure, \
+                 count state and field level. On THIS corpus the last four are constant — \
+                 one declared field (above), contract 30 at every root, the receipt's own \
+                 trump per root, and field level 0 — so trick depth is the only \
+                 stratification coordinate that varies, with the fiber mass (the grade) \
+                 printed per coordinate in Part 1. A corpus that varies the others is \
+                 future work, and this table makes no claim beyond the roots it names.\n",
+            );
             let strata = fusion_horizon(&entries);
             out.push_str(
                 "\n trick | tested | God-tight (vacuous) | pos gap | GodUpper | Unknown \

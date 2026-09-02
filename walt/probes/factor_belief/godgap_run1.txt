@@ -9,139 +9,24 @@ corpus: the ten gated roots of the Slice F epoch, plus the h0-t1 opening root
 h3-t4 (fiber 11550, bid 30, viewer declaring (pmake-v1)):
   3-1: Z=11550 doomed=7328 U^God=2111/5775 (365‰) | PositiveGodGap
       Q=1349/3850 (350‰) | d_phys=3664/5775 (634‰) d_info=1/66 (15‰) d_policy=0 (0‰)
-      cost: doom_nodes=215670 response_focal=30147 response_hidden=89388 extraction_focal=30147 repricing_nodes=41337 | wall=2282104us
+      cost: doom_nodes=215670 response_focal=30147 response_hidden=89388 extraction_focal=30147 repricing_nodes=41337 | wall=2287556us
   4-1: Z=11550 doomed=8330 U^God=46/165 (278‰) | PositiveGodGap
       Q=1047/3850 (271‰) | d_phys=119/165 (721‰) d_info=79/11550 (6‰) d_policy=0 (0‰)
-      cost: doom_nodes=173219 response_focal=20586 response_hidden=58177 extraction_focal=20586 repricing_nodes=35865 | wall=1907576us
+      cost: doom_nodes=173219 response_focal=20586 response_hidden=58177 extraction_focal=20586 repricing_nodes=35865 | wall=1880072us
   4-4: Z=11550 doomed=7495 U^God=811/2310 (351‰) | PositiveGodGap
       Q=3797/11550 (328‰) | d_phys=1499/2310 (648‰) d_info=43/1925 (22‰) d_policy=0 (0‰)
-      cost: doom_nodes=210763 response_focal=28403 response_hidden=83028 extraction_focal=28403 repricing_nodes=48160 | wall=2737222us
+      cost: doom_nodes=210763 response_focal=28403 response_hidden=83028 extraction_focal=28403 repricing_nodes=48160 | wall=2745002us
   6-4: Z=11550 doomed=8079 U^God=1157/3850 (300‰) | PositiveGodGap
       Q=331/1155 (286‰) | d_phys=2693/3850 (699‰) d_info=23/1650 (13‰) d_policy=0 (0‰)
-      cost: doom_nodes=210638 response_focal=27784 response_hidden=78754 extraction_focal=27784 repricing_nodes=35594 | wall=1869600us
+      cost: doom_nodes=210638 response_focal=27784 response_hidden=78754 extraction_focal=27784 repricing_nodes=35594 | wall=1864276us
 
 h4-t4 (fiber 34650, bid 30, viewer declaring (pmake-v1)):
   2-1: Z=34650 doomed=6928 U^God=13861/17325 (800‰) | PositiveGodGap
       Q=9131/11550 (790‰) | d_phys=3464/17325 (199‰) d_info=47/4950 (9‰) d_policy=0 (0‰)
-      cost: doom_nodes=452106 response_focal=77368 response_hidden=242836 extraction_focal=77368 repricing_nodes=135083 | wall=5308231us
+      cost: doom_nodes=452106 response_focal=77368 response_hidden=242836 extraction_focal=77368 repricing_nodes=135083 | wall=5241098us
   4-0: Z=34650 doomed=4538 U^God=15056/17325 (869‰) | PositiveGodGap
       Q=2936/3465 (847‰) | d_phys=2269/17325 (130‰) d_info=376/17325 (21‰) d_policy=0 (0‰)
-      cost: doom_nodes=503793 response_focal=113298 response_hidden=392212 extraction_focal=113298 repricing_nodes=129263 | wall=7696173us
+      cost: doom_nodes=503793 response_focal=113298 response_hidden=392212 extraction_focal=113298 repricing_nodes=129263 | wall=7609313us
   5-1: Z=34650 doomed=7146 U^God=1528/1925 (793‰) | PositiveGodGap
       Q=1511/1925 (784‰) | d_phys=397/1925 (206‰) d_info=17/1925 (8‰) d_policy=0 (0‰)
-      cost: doom_nodes=457542 response_focal=77979 response_hidden=243968 extraction_focal=77979 repricing_nodes=130444 | wall=5618153us
-  6-5: Z=34650 doomed=191 U^God=34459/34650 (994‰) | PositiveGodGap
-      Q=16994/17325 (980‰) | d_phys=191/34650 (5‰) d_info=157/11550 (13‰) d_policy=0 (0‰)
-      cost: doom_nodes=490138 response_focal=125972 response_hidden=415761 extraction_focal=125972 repricing_nodes=151528 | wall=9643682us
-
-h8-t4 (fiber 1200, bid 30, viewer declaring (pmake-v1)):
-  2-1: Z=1200 doomed=44 U^God=289/300 (963‰) | PositiveGodGap
-      Q=287/300 (956‰) | d_phys=11/300 (36‰) d_info=1/150 (6‰) d_policy=0 (0‰)
-      cost: doom_nodes=19751 response_focal=5725 response_hidden=21255 extraction_focal=5725 repricing_nodes=8495 | wall=663373us
-  3-1: Z=1200 doomed=109 U^God=1091/1200 (909‰) | PositiveGodGap
-      Q=67/75 (893‰) | d_phys=109/1200 (90‰) d_info=19/1200 (15‰) d_policy=0 (0‰)
-      cost: doom_nodes=21192 response_focal=5233 response_hidden=18742 extraction_focal=5233 repricing_nodes=7773 | wall=595887us
-  3-3: Z=1200 doomed=17 U^God=1183/1200 (985‰) | PositiveGodGap
-      Q=1163/1200 (969‰) | d_phys=17/1200 (14‰) d_info=1/60 (16‰) d_policy=0 (0‰)
-      cost: doom_nodes=18621 response_focal=5692 response_hidden=23036 extraction_focal=5692 repricing_nodes=7567 | wall=845464us
-  5-5: Z=1200 doomed=44 U^God=289/300 (963‰) | PositiveGodGap
-      Q=283/300 (943‰) | d_phys=11/300 (36‰) d_info=1/50 (20‰) d_policy=0 (0‰)
-      cost: doom_nodes=18885 response_focal=5824 response_hidden=23676 extraction_focal=5824 repricing_nodes=5836 | wall=707792us
-
-h12-t4 (fiber 34650, bid 30, viewer declaring (pmake-v1)):
-  2-0: Z=34650 doomed=34650 U^God=0 (0‰) | GodTightPolicy
-      Q=0 (0‰) | d_phys=1 (1000‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-e3b0c44298fc1c149afbf4c8996fb924 states=0 | L=0/34650 = U^God with doomed=34650 | root=9696745506744104161 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=refused (cap)
-      NOTE: whole-fiber doom — every policy is God-tight here and the equality carries no information about blindness (counted apart)
-      refusals: [ProfileUnaffordable { fiber: 34650, cap: 12000 }]
-      cost: doom_nodes=34650 response_focal=0 response_hidden=0 extraction_focal=0 repricing_nodes=0 | wall=550us
-  3-0: Z=34650 doomed=34650 U^God=0 (0‰) | GodTightPolicy
-      Q=0 (0‰) | d_phys=1 (1000‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-e3b0c44298fc1c149afbf4c8996fb924 states=0 | L=0/34650 = U^God with doomed=34650 | root=9696745506744104161 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=refused (cap)
-      NOTE: whole-fiber doom — every policy is God-tight here and the equality carries no information about blindness (counted apart)
-      refusals: [ProfileUnaffordable { fiber: 34650, cap: 12000 }]
-      cost: doom_nodes=34650 response_focal=0 response_hidden=0 extraction_focal=0 repricing_nodes=0 | wall=560us
-  4-0: Z=34650 doomed=34650 U^God=0 (0‰) | GodTightPolicy
-      Q=0 (0‰) | d_phys=1 (1000‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-e3b0c44298fc1c149afbf4c8996fb924 states=0 | L=0/34650 = U^God with doomed=34650 | root=9696745506744104161 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=refused (cap)
-      NOTE: whole-fiber doom — every policy is God-tight here and the equality carries no information about blindness (counted apart)
-      refusals: [ProfileUnaffordable { fiber: 34650, cap: 12000 }]
-      cost: doom_nodes=34650 response_focal=0 response_hidden=0 extraction_focal=0 repricing_nodes=0 | wall=541us
-  6-5: Z=34650 doomed=34650 U^God=0 (0‰) | GodTightPolicy
-      Q=0 (0‰) | d_phys=1 (1000‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-e3b0c44298fc1c149afbf4c8996fb924 states=0 | L=0/34650 = U^God with doomed=34650 | root=9696745506744104161 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=refused (cap)
-      NOTE: whole-fiber doom — every policy is God-tight here and the equality carries no information about blindness (counted apart)
-      refusals: [ProfileUnaffordable { fiber: 34650, cap: 12000 }]
-      cost: doom_nodes=34650 response_focal=0 response_hidden=0 extraction_focal=0 repricing_nodes=0 | wall=548us
-
-h8-t5 (fiber 92, bid 30, viewer declaring (pmake-v1)):
-  0-0: Z=92 doomed=21 U^God=71/92 (771‰) | GodTightPolicy
-      Q=71/92 (771‰) | d_phys=21/92 (228‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-958d817a534d19a1be76b5988e0617fc states=60 | L=71/92 = U^God with doomed=21 | root=6193178273893078997 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=persisted
-      cost: doom_nodes=1068 response_focal=112 response_hidden=566 extraction_focal=112 repricing_nodes=332 | wall=9573us
-  5-0: Z=92 doomed=28 U^God=16/23 (695‰) | GodTightPolicy
-      Q=16/23 (695‰) | d_phys=7/23 (304‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-7394e84a3b64999d1d1bbc1185b2653f states=83 | L=64/92 = U^God with doomed=28 | root=6193178273893078997 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=persisted
-      cost: doom_nodes=628 response_focal=91 response_hidden=297 extraction_focal=91 repricing_nodes=311 | wall=6849us
-  5-3: Z=92 doomed=1 U^God=91/92 (989‰) | GodTightPolicy
-      Q=91/92 (989‰) | d_phys=1/92 (10‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-4d8e34951b414de75b3b6438070f3cd6 states=135 | L=91/92 = U^God with doomed=1 | root=6193178273893078997 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=persisted
-      cost: doom_nodes=880 response_focal=149 response_hidden=430 extraction_focal=149 repricing_nodes=480 | wall=8644us
-
-h3-t5 (fiber 200, bid 30, viewer declaring (pmake-v1)):
-  4-0: Z=200 doomed=0 U^God=1 (1000‰) | GodTightPolicy
-      Q=1 (1000‰) | d_phys=0 (0‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-3e913f8c6b46b5799b0bc39e4913eefe states=119 | L=200/200 = U^God with doomed=0 | root=1366376390704611548 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=persisted
-      cost: doom_nodes=2296 response_focal=268 response_hidden=1396 extraction_focal=268 repricing_nodes=692 | wall=29730us
-  5-0: Z=200 doomed=0 U^God=1 (1000‰) | GodTightPolicy
-      Q=1 (1000‰) | d_phys=0 (0‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-79dd0f4bc22653bf51d3a219e1c8cab6 states=149 | L=200/200 = U^God with doomed=0 | root=1366376390704611548 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=persisted
-      cost: doom_nodes=2028 response_focal=246 response_hidden=1335 extraction_focal=246 repricing_nodes=824 | wall=30232us
-  6-6: Z=200 doomed=0 U^God=1 (1000‰) | GodTightPolicy
-      Q=1 (1000‰) | d_phys=0 (0‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-88c242b483c243bcab441a348e347fcf states=166 | L=200/200 = U^God with doomed=0 | root=1366376390704611548 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=persisted
-      cost: doom_nodes=2204 response_focal=283 response_hidden=1408 extraction_focal=283 repricing_nodes=923 | wall=25416us
-
-h12-t6 (fiber 6, bid 30, viewer declaring (pmake-v1)):
-  4-4: Z=6 doomed=6 U^God=0 (0‰) | GodTightPolicy
-      Q=0 (0‰) | d_phys=1 (1000‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-e3b0c44298fc1c149afbf4c8996fb924 states=0 | L=0/6 = U^God with doomed=6 | root=12590328478269197245 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=persisted
-      NOTE: whole-fiber doom — every policy is God-tight here and the equality carries no information about blindness (counted apart)
-      cost: doom_nodes=6 response_focal=0 response_hidden=0 extraction_focal=0 repricing_nodes=0 | wall=85us
-  6-0: Z=6 doomed=6 U^God=0 (0‰) | GodTightPolicy
-      Q=0 (0‰) | d_phys=1 (1000‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-e3b0c44298fc1c149afbf4c8996fb924 states=0 | L=0/6 = U^God with doomed=6 | root=12590328478269197245 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=persisted
-      NOTE: whole-fiber doom — every policy is God-tight here and the equality carries no information about blindness (counted apart)
-      cost: doom_nodes=6 response_focal=0 response_hidden=0 extraction_focal=0 repricing_nodes=0 | wall=85us
-
-h10-t6 (fiber 19, bid 30, viewer declaring (pmake-v1)):
-  2-2: Z=19 doomed=0 U^God=1 (1000‰) | GodTightPolicy
-      Q=1 (1000‰) | d_phys=0 (0‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-e3b0c44298fc1c149afbf4c8996fb924 states=0 | L=19/19 = U^God with doomed=0 | root=8700899280982998152 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=persisted
-      cost: doom_nodes=19 response_focal=0 response_hidden=0 extraction_focal=0 repricing_nodes=0 | wall=142us
-  3-3: Z=19 doomed=0 U^God=1 (1000‰) | GodTightPolicy
-      Q=1 (1000‰) | d_phys=0 (0‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-e3b0c44298fc1c149afbf4c8996fb924 states=0 | L=19/19 = U^God with doomed=0 | root=8700899280982998152 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=persisted
-      cost: doom_nodes=19 response_focal=0 response_hidden=0 extraction_focal=0 repricing_nodes=0 | wall=150us
-
-h5-t6 (fiber 27, bid 30, viewer declaring (pmake-v1)):
-  4-1: Z=27 doomed=15 U^God=4/9 (444‰) | GodTightPolicy
-      Q=4/9 (444‰) | d_phys=5/9 (555‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-1230c034ffeca8c074575b587f0196ad states=25 | L=12/27 = U^God with doomed=15 | root=2579321237014044723 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=persisted
-      cost: doom_nodes=216 response_focal=25 response_hidden=77 extraction_focal=25 repricing_nodes=102 | wall=693us
-  5-2: Z=27 doomed=15 U^God=4/9 (444‰) | GodTightPolicy
-      Q=4/9 (444‰) | d_phys=5/9 (555‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-d4a6115af57cb0afdac3e86e4bb2b1e8 states=7 | L=12/27 = U^God with doomed=15 | root=2579321237014044723 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-v1 | profile=persisted
-      cost: doom_nodes=144 response_focal=7 response_hidden=39 extraction_focal=7 repricing_nodes=46 | wall=519us
-
-h4-t6 (fiber 90, bid 30, viewer setting (pmake-setting-v1)):
-  0-0: Z=90 doomed=60 U^God=1/3 (333‰) | GodTightPolicy
-      Q=1/3 (333‰) | d_phys=2/3 (666‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-23ace9addc805501e510353687f2eb11 states=30 | L=30/90 = U^God with doomed=60 | root=17576469444068474954 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-setting-v1 | profile=persisted
-      cost: doom_nodes=480 response_focal=30 response_hidden=85 extraction_focal=30 repricing_nodes=115 | wall=1455us
-  1-1: Z=90 doomed=12 U^God=13/15 (866‰) | GodTightPolicy
-      Q=13/15 (866‰) | d_phys=2/15 (133‰) d_info=0 (0‰) d_policy=0 (0‰)
-      GOD-TIGHT receipt: policy=argmax-full-legal-4b3f8067c77294cccfc740c7fd2ba4e9 states=30 | L=78/90 = U^God with doomed=12 | root=17576469444068474954 field=field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e contract=30 belief=uniform-root utility=pmake-setting-v1 | profile=persisted
-      cost: doom_nodes=720 response_focal=30 response_hidden=204 extraction_focal=30 repricing_nodes=234 | wall=1843us
-
-#### PART 2 — the h0-t1 opening root ####
+      cost: doom_nodes=457542 response_focal=77979 response_hidden=243968 extraction_focal=77979 repricing_nodes=130444 | wall=6521150us
