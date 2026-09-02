@@ -237,7 +237,7 @@ an upper.
 The finding is at the top of this report. What the strictly pre-t4
 coordinate returned: **h8-t3 (fiber 59,976) refuses all five root
 actions**, each on the response side, each having spent the declared
-7,000,000-read ceiling — 35,000,039 field consultations and 1,889 s for
+7,000,000-read ceiling — 35,000,039 field consultations and 1,864 s for
 five typed refusals and no value. Every refusal names the public history
 it stopped at, so the coordinate is a measured budget decision at a
 named place rather than an absence. The answer to the question the
@@ -378,21 +378,30 @@ earlier roots, the Φ table, and the field-identity fence census.
 A `measure <hand> <trick> <cap>` mode exists beside it and is the reason
 the declared budgets are numbers rather than guesses.
 
-Run 1 wall: **2,412 s total** (40 minutes, single-threaded driver with
-the σ0/σ1 field caches shared within the run). Where it went, and the
-distribution is the story: 31.5 minutes to h8-t3's five refusals, 7.0
-minutes to h3-t4, 1.6 minutes to h8-t4, and everything else — the whole
-six-root MB0 corpus, both ν sweeps, h12-t4 and the fence census —
-under 5 seconds combined. **78% of the run bought five typed refusals.**
-That is the same shape U0 reported (86% of its wall went to coordinates
-returning `UnknownGodGap`) and it is not waste: the refusal is the
-measurement.
+Committed run wall: **2,379 s total** (40 minutes, single-threaded
+driver with the σ0/σ1 field caches shared within the run). Where it
+went, and the distribution is the story: 31.1 minutes to h8-t3's five
+refusals, 6.9 minutes to h3-t4, 1.6 minutes to h8-t4, and everything
+else — the whole six-root MB0 corpus, both ν sweeps, h12-t4 and the
+fence census — under 5 seconds combined. **78% of the run bought five
+typed refusals.** That is the same shape U0 reported (86% of its wall
+went to coordinates returning `UnknownGodGap`) and it is not waste: the
+refusal is the measurement.
 
-Per root, measured: h12-t6 1.0 ms, h10-t6 1.1 ms, h5-t6 42.8 ms, h4-t6
-93.5 ms, h8-t5 0.99 s, h3-t5 3.67 s, h8-t4 97.7 s, h12-t4 0.14 ms,
-h3-t4 420.0 s, h8-t3 1,889.4 s. Field reads, measured: 416 / 512 /
+Per root, measured: h12-t6 0.7 ms, h10-t6 0.7 ms, h5-t6 37.9 ms, h4-t6
+92.5 ms, h8-t5 0.99 s, h3-t5 3.68 s, h8-t4 97.7 s, h12-t4 0.14 ms,
+h3-t4 412.2 s, h8-t3 1,864.1 s. Field reads, measured: 416 / 512 /
 10,592 / 29,920 / 93,340 / 313,265 at MB0's roots; 4,841,712 at h8-t4;
-0 at h12-t4; 24,163,138 at h3-t4; 35,000,039 at h8-t3. The two
+0 at h12-t4; 24,163,138 at h3-t4; 35,000,039 at h8-t3.
+
+The record was produced twice — once before the `WitnessMissing` repair
+and once after — which makes a determinism statement available for
+free, so it is worth recording: **the two runs differ in the wall-time
+lines and the one repaired refusal message, and in nothing else.**
+Every mass, rational, posterior, read count, facet count and table cell
+is byte-identical across the pair. Reads are a deterministic function of
+the declared inputs; wall is not, and is the only number here that
+should be read as approximate. The two
 registered types draw almost exactly half the reads each at every root
 that COMPLETES (h3-t4: 12,155,506 σ0 against 12,007,632 σ1), which is
 what a bundle of eight profiles evenly split between them should do.
@@ -409,7 +418,7 @@ not be read as either type being cheaper.
    for "at least two pre-t4 receipt-root coordinates (affordability
    permitting)". Taken literally that means trick ≤ 3, where the
    smallest receipt fiber is 59,976 against trick 4's 1,200 — and
-   trick 4 already costs 97 s (h8-t4) to 416 s (h3-t4) per root. The
+   trick 4 already costs 98 s (h8-t4) to 412 s (h3-t4) per root. The
    slice therefore delivers eight fully priced coordinates at trick 4,
    which is the stratum U0 measured a positive God gap at and which MB0
    never entered, AND runs h8-t3 under a declared ceiling so that the
@@ -487,7 +496,7 @@ sequencing question, not something this slice establishes.
 
 The slice put a number on it. Per root, exact-mixture coordinates cost
 roughly: trick 6 at fibers 6–90, microseconds to 94 ms; trick 5 at
-fibers 92–200, 1.0–3.7 s; trick 4 at fibers 1,200–11,550, 98–420 s; and
+fibers 92–200, 1.0–3.7 s; trick 4 at fibers 1,200–11,550, 98–412 s; and
 trick 3 at fiber 59,976, not within 7,000,000 reads per coordinate —
 five refusals for 35M consultations and 31 minutes. Each stratum is
 roughly two orders of magnitude past the one behind it, and the wall

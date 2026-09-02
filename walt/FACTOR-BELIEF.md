@@ -614,8 +614,8 @@ criterion 4 as an honest NO; one stratum earlier, under the same
 registered F₀/F₁ mixture at the same ν = (1/2,1/2) per hidden seat,
 every substantive coordinate tested is strict — h8-t4 (fiber 1,200)
 gives 47/9600, 38/9600, 90/9600, 58/9600 on its four actions (4, 3, 9,
-6‰; 4.84M field reads, 97 s) and h3-t4 (fiber 11,550) gives four more
-at 3, 1, 5 and 3‰ (24.2M reads, 416 s). Eight substantive trick-4
+6‰; 4.84M field reads, 98 s) and h3-t4 (fiber 11,550) gives four more
+at 3, 1, 5 and 3‰ (24.2M reads, 412 s). Eight substantive trick-4
 coordinates, eight strict prices. Against them h12-t4's four zeros are
 typed VACUOUS — the whole fiber is decided at the root, so `U^sep` sits
 at an endpoint and every lawful policy attains every point-mass optimum
@@ -696,10 +696,10 @@ pinned specimen and the corollary; M7 the fence on both sides. Probe
 (`probes/factor_belief/modelbelief_recursion_run1.txt`).
 
 PROBE FINDINGS beyond the headline (`modelbeliefrecursionreport`,
-2,412 s over run 1): the strictly-pre-t4 coordinate **h8-t3 (fiber
+2,379 s): the strictly-pre-t4 coordinate **h8-t3 (fiber
 59,976) REFUSES all five root actions**, each on the response side,
 each having spent the declared 7,000,000-read ceiling — 35,000,039
-consultations and 1,889 s for five typed refusals and no value, every
+consultations and 1,864 s for five typed refusals and no value, every
 one naming the public history it stopped at, so the answer to the
 question the ceiling was chosen to ask ("does a trick-3 coordinate close
 within the most a trick-4 coordinate cost?") is a clean and located NO;
@@ -725,7 +725,7 @@ recorded in the report: "pre-t4" read as "earlier than MB0's corpus"
 with a strictly-pre-t4 coordinate attempted under a declared ceiling
 and reported as a typed refusal rather than an absence (the smallest
 trick-3 receipt fiber is 59,976 against trick 4's 1,200, and trick 4
-already costs 97–416 s per root); items 3 and 4 landing inside MB0's
+already costs 98–412 s per root); items 3 and 4 landing inside MB0's
 module because the ledger must be recorded at the dispatch and the
 budget threaded through the walk, both of which live there; M5 a
 property gate rather than a suite conjunction, since a test cannot run
