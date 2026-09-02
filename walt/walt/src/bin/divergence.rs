@@ -57,37 +57,21 @@ use rayon::prelude::*;
 
 use walt::rules::rules::{legal_plays, Trick};
 use walt::rules::{Context, Decl, Domino, DominoSet, Pip, Seat, Team};
+// The void-conditioned belief sampler and its dependencies are the
+// LIBRARY's one authority (`solver::sample_belief` — the σ1-repair slice
+// deduplicated the five byte-identical copies onto it). Importing the
+// sampler forces the RNG type with it: a local `SplitMix64` would be a
+// distinct Rust type, so the seed paths in this binary run on the
+// library's stream — the same algorithm, hash-identical, so no draw
+// changes.
+use walt::solver::{mask_bits, sample_belief, SplitMix64, FULL_MASK};
 
 /// All 28 tiles.
-const FULL_MASK: u32 = 0x0FFF_FFFF;
-
 /// Frozen seed for inner-mind sampling (identical to level1/level2/bridge).
 const INNER_SEED: u64 = 0x243F_6A88_85A3_08D3;
 
 /// Frozen miner stream seed (fresh constant; hands are functions of it).
 const MINER_SEED: u64 = 0x9216_D5D9_8979_FB1B;
-
-struct SplitMix64(u64);
-
-impl SplitMix64 {
-    fn next_u64(&mut self) -> u64 {
-        self.0 = self.0.wrapping_add(0x9E37_79B9_7F4A_7C15);
-        let mut z = self.0;
-        z = (z ^ (z >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
-        z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
-        z ^ (z >> 31)
-    }
-
-    fn below(&mut self, n: u64) -> u64 {
-        let zone = u64::MAX - (u64::MAX % n);
-        loop {
-            let v = self.next_u64();
-            if v < zone {
-                return v % n;
-            }
-        }
-    }
-}
 
 fn mix(h: u64) -> u64 {
     let mut z = h.wrapping_add(0x9E37_79B9_7F4A_7C15);
@@ -117,16 +101,6 @@ fn set_of(mask: u32) -> DominoSet {
         m &= m - 1;
     }
     s
-}
-
-fn mask_bits(mask: u32) -> Vec<u8> {
-    let mut v = Vec::with_capacity(mask.count_ones() as usize);
-    let mut m = mask;
-    while m != 0 {
-        v.push(m.trailing_zeros() as u8);
-        m &= m - 1;
-    }
-    v
 }
 
 #[derive(Clone, PartialEq, Eq, Hash)]
@@ -632,44 +606,6 @@ impl Solver {
 // Belief sampling (void-conditioned, identical scheme to walt_bridge)
 // ---------------------------------------------------------------------------
 
-fn sample_belief(
-    viewer: usize,
-    viewer_hand: u32,
-    played: u32,
-    sizes: [usize; 4],
-    voids: [u32; 4],
-    n: usize,
-    rng: &mut SplitMix64,
-) -> Vec<[u32; 4]> {
-    let unseen = FULL_MASK & !played & !viewer_hand;
-    let mut tiles = mask_bits(unseen);
-    let others: Vec<usize> = (0..4).filter(|&s| s != viewer).collect();
-    let mask_slice = |sl: &[u8]| sl.iter().fold(0u32, |a, &x| a | (1u32 << x));
-    let mut out: Vec<[u32; 4]> = Vec::with_capacity(n);
-    while out.len() < n {
-        for i in (1..tiles.len()).rev() {
-            let j = rng.below((i + 1) as u64) as usize;
-            tiles.swap(i, j);
-        }
-        let mut w = [0u32; 4];
-        w[viewer] = viewer_hand;
-        let mut off = 0;
-        let mut ok = true;
-        for &s in &others {
-            w[s] = mask_slice(&tiles[off..off + sizes[s]]);
-            off += sizes[s];
-            if w[s] & voids[s] != 0 {
-                ok = false;
-                break;
-            }
-        }
-        if ok {
-            out.push(w);
-        }
-    }
-    out
-}
-
 // ---------------------------------------------------------------------------
 // Self-play state
 // ---------------------------------------------------------------------------
@@ -805,7 +741,7 @@ fn eval_options(
         .map(|(t, _)| *t)
         .collect();
     if tied.len() > 1 {
-        let worlds4 = sample_belief(
+        let worlds4 = match sample_belief(
             actor.index(),
             hand,
             st.played,
@@ -813,7 +749,13 @@ fn eval_options(
             st.voids,
             n_outer * 4,
             rng,
-        );
+        ) {
+            Ok(worlds) => worlds,
+            Err(frame) => {
+                eprintln!("divergence: refinement draw refused ({frame})");
+                return None;
+            }
+        };
         let refined = eval_base(dcl, actor, hand, &tied, st, lvl, deadline, worlds4)?;
         for (t, v) in refined {
             let slot = opts
@@ -1008,7 +950,7 @@ fn run_hand(h: u64, n_outer: usize, budget_l1: u64, budget_l2: u64, out: &mut im
         } else {
             // The actor's real decision: level-1, bridge-strength.
             let t_l1 = Instant::now();
-            let base = sample_belief(
+            let base = match sample_belief(
                 seat_idx,
                 hand,
                 st.played,
@@ -1016,7 +958,13 @@ fn run_hand(h: u64, n_outer: usize, budget_l1: u64, budget_l2: u64, out: &mut im
                 st.voids,
                 n_outer,
                 &mut rng,
-            );
+            ) {
+                Ok(worlds) => worlds,
+                Err(frame) => {
+                    eprintln!("divergence: hand {h} belief draw refused ({frame}) — hand dropped");
+                    return;
+                }
+            };
             let l1 = eval_options(
                 dcl, seat, hand, legal, &st, 1, n_outer, budget_l1, &base, &mut rng,
             );

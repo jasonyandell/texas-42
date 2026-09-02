@@ -39,7 +39,10 @@ use walt::kernel::Kernel;
 use walt::rules::rules::{legal_plays, Trick};
 use walt::rules::Pip;
 use walt::rules::{Decl, Domino, DominoSet, Seat};
-use walt::solver::adaptive::{replay_viewer_success, CanonicalRoot, RootPosition};
+use walt::solver::adaptive::{replay_viewer_success, CanonicalRoot, RootPosition, SlicePolicy};
+use walt::solver::factor_belief::{
+    response_success_mass, FactorBelief, ResponseStats, SupportOracle,
+};
 use walt::solver::field::{FieldKind, FieldModel, FieldSpec};
 use walt::solver::policy::{continuation_frame, DecisionMode, TieRule};
 use walt::solver::{belief_frame_feasibility, mask_of, mix, sample_belief, SplitMix64, FULL_MASK};
@@ -587,4 +590,141 @@ fn the_repaired_sampler_reproduces_the_before_side_capture_exactly() {
              ({first_difference})"
         );
     }
+}
+
+// ---------------------------------------------------------------------------
+// R3 — one sampler in the workspace.
+// ---------------------------------------------------------------------------
+
+/// Gate R3 — dedup identity, gated BY GREP over the crate's own sources
+/// (not by compile: four binaries carry their own private solver stacks,
+/// so a local sampler would still compile). Exactly one definition may
+/// exist, and it is the library's.
+#[test]
+fn exactly_one_sampler_definition_survives_in_the_crate() {
+    fn rs_files(dir: &std::path::Path, out: &mut Vec<std::path::PathBuf>) {
+        for entry in std::fs::read_dir(dir).expect("the source tree is readable") {
+            let path = entry.expect("a readable directory entry").path();
+            if path.is_dir() {
+                rs_files(&path, out);
+            } else if path.extension().is_some_and(|e| e == "rs") {
+                out.push(path);
+            }
+        }
+    }
+    let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("src");
+    let mut files = Vec::new();
+    rs_files(&root, &mut files);
+    files.sort();
+    assert!(files.len() > 40, "the sweep really read the source tree");
+
+    let mut definitions: Vec<String> = Vec::new();
+    for path in &files {
+        let text = std::fs::read_to_string(path).expect("a readable source file");
+        for line in text.lines() {
+            if line.trim_start().starts_with("fn sample_belief(")
+                || line.trim_start().starts_with("pub fn sample_belief(")
+            {
+                definitions.push(
+                    path.strip_prefix(&root)
+                        .expect("under src")
+                        .display()
+                        .to_string(),
+                );
+            }
+        }
+    }
+    assert_eq!(
+        definitions,
+        vec!["solver/mod.rs".to_string()],
+        "one belief sampler, in the library; the four bin copies are gone"
+    );
+}
+
+// ---------------------------------------------------------------------------
+// R4 — the previously-blocked MB0 roots.
+// ---------------------------------------------------------------------------
+
+/// The MB0 gate file's raw fixed-field authority, reproduced here as
+/// test-local reference code: a plain uniform-root factor belief with NO
+/// model belief and NO positive-support tightening, priced by
+/// `response_success_mass` per legal root action. This is exactly the
+/// route the σ1 boundary blocked.
+fn raw_authority(
+    root: &CanonicalRoot,
+    position: &RootPosition,
+    field: &dyn SlicePolicy,
+) -> Vec<(Domino, u128)> {
+    let oracle = SupportOracle;
+    let belief = FactorBelief::uniform_root(root, position, field);
+    let led = position
+        .trick_plays
+        .first()
+        .map(|d| position.decl.led_context(*d));
+    let legal = legal_plays(position.decl, root.kernel().viewer_hand(), led);
+    legal
+        .iter()
+        .map(|tile| {
+            let mut stats = ResponseStats::default();
+            let q = response_success_mass(&oracle, &belief.focal_play(tile), field, &mut stats);
+            (tile, q)
+        })
+        .collect()
+}
+
+/// Gate R4 — the four roots the MB0 report pinned as the raw σ1
+/// authority's refusal set: h5-t6, h4-t6, h8-t5, h3-t5. Against the
+/// unpatched sampler each of these HANGS. Under the repair each must
+/// finish, and finish in one of exactly two ways: with exact per-action
+/// masses, or with a named refusal carrying the unsatisfiable frame.
+///
+/// The refusal reaches the caller as a panic rather than a value because
+/// `SlicePolicy::choose` returns a tile and has no typed channel — the
+/// same shape MB0's `GuardedF1` instrument used, and the same shape MB0's
+/// G2 pins with `catch_unwind`. The typed outcome is at the sampler; this
+/// gate checks the boundary reports it faithfully instead of spinning.
+#[test]
+fn the_blocked_roots_now_terminate_with_a_value_or_a_named_refusal() {
+    let previous = std::panic::take_hook();
+    std::panic::set_hook(Box::new(|_| {}));
+    let mut outcomes: Vec<(String, String)> = Vec::new();
+    for (hand_id, trick_no) in [(5usize, 6usize), (4, 6), (8, 5), (3, 5)] {
+        let (root, position) = root_at(hand_id, trick_no);
+        let field = FieldModel::new(level1_spec());
+        let label = format!("h{hand_id}-t{trick_no}");
+        let started = std::time::Instant::now();
+        let outcome = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            raw_authority(&root, &position, &field)
+        }));
+        let micros = started.elapsed().as_micros();
+        match outcome {
+            Ok(per_action) => {
+                let rendered: Vec<String> = per_action
+                    .iter()
+                    .map(|(t, q)| format!("{t:?}={q}"))
+                    .collect();
+                outcomes.push((
+                    label,
+                    format!("VALUES in {micros} us: {}", rendered.join(" ")),
+                ));
+            }
+            Err(payload) => {
+                let message = payload
+                    .downcast_ref::<String>()
+                    .cloned()
+                    .or_else(|| payload.downcast_ref::<&str>().map(|s| (*s).to_string()))
+                    .unwrap_or_else(|| "(non-string panic payload)".to_string());
+                assert!(
+                    message.contains("unsatisfiable belief frame"),
+                    "a σ1 refusal names the frame it refused, not something else: {message}"
+                );
+                outcomes.push((label, format!("REFUSED in {micros} us: {message}")));
+            }
+        }
+    }
+    std::panic::set_hook(previous);
+    for (label, outcome) in &outcomes {
+        println!("R4 {label}: {outcome}");
+    }
+    assert_eq!(outcomes.len(), 4, "all four blocked roots ran to a verdict");
 }

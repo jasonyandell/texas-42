@@ -47,36 +47,20 @@ use num_traits::{One, Zero};
 
 use walt::rules::rules::{legal_plays, Trick};
 use walt::rules::{Context, Decl, Domino, DominoSet, Seat, Team};
-
-const FULL_MASK: u32 = 0x0FFF_FFFF;
+// The void-conditioned belief sampler and its dependencies are the
+// LIBRARY's one authority (`solver::sample_belief` — the σ1-repair slice
+// deduplicated the five byte-identical copies onto it). Importing the
+// sampler forces the RNG type with it: a local `SplitMix64` would be a
+// distinct Rust type, so the seed paths in this binary run on the
+// library's stream — the same algorithm, hash-identical, so no draw
+// changes.
+use walt::solver::{mask_bits, sample_belief, Level1Refusal, SplitMix64, FULL_MASK};
 
 /// Frozen seed for level-0 inner sampling (MUST match level1.rs so walt
 /// models exactly the level-0 policy the rest of the family does).
 const INNER_SEED: u64 = 0x243F_6A88_85A3_08D3;
 /// Frozen seed for the bridge's outer belief sampling (e digits).
 const BRIDGE_SEED: u64 = 0xB7E1_5162_8AED_2A6B;
-
-struct SplitMix64(u64);
-
-impl SplitMix64 {
-    fn next_u64(&mut self) -> u64 {
-        self.0 = self.0.wrapping_add(0x9E37_79B9_7F4A_7C15);
-        let mut z = self.0;
-        z = (z ^ (z >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
-        z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
-        z ^ (z >> 31)
-    }
-
-    fn below(&mut self, n: u64) -> u64 {
-        let zone = u64::MAX - (u64::MAX % n);
-        loop {
-            let v = self.next_u64();
-            if v < zone {
-                return v % n;
-            }
-        }
-    }
-}
 
 fn mix(h: u64) -> u64 {
     let mut z = h.wrapping_add(0x9E37_79B9_7F4A_7C15);
@@ -106,16 +90,6 @@ fn set_of(mask: u32) -> DominoSet {
         m &= m - 1;
     }
     s
-}
-
-fn mask_bits(mask: u32) -> Vec<u8> {
-    let mut v = Vec::with_capacity(mask.count_ones() as usize);
-    let mut m = mask;
-    while m != 0 {
-        v.push(m.trailing_zeros() as u8);
-        m &= m - 1;
-    }
-    v
 }
 
 type Alive = Rc<Vec<u32>>;
@@ -528,47 +502,6 @@ impl Solver {
     }
 }
 
-/// Sample a seat's belief: deals consistent with the viewer's remaining
-/// hand, the played mask, the record's hand sizes, and every void observed
-/// so far in play (any seat can be the viewer).
-fn sample_belief(
-    viewer: usize,
-    viewer_hand: u32,
-    played: u32,
-    sizes: [usize; 4],
-    voids: [u32; 4],
-    n: usize,
-    rng: &mut SplitMix64,
-) -> Vec<[u32; 4]> {
-    let unseen = FULL_MASK & !played & !viewer_hand;
-    let mut tiles = mask_bits(unseen);
-    let others: Vec<usize> = (0..4).filter(|&s| s != viewer).collect();
-    let mask_slice = |sl: &[u8]| sl.iter().fold(0u32, |a, &x| a | (1u32 << x));
-    let mut out: Vec<[u32; 4]> = Vec::with_capacity(n);
-    while out.len() < n {
-        for i in (1..tiles.len()).rev() {
-            let j = rng.below((i + 1) as u64) as usize;
-            tiles.swap(i, j);
-        }
-        let mut w = [0u32; 4];
-        w[viewer] = viewer_hand;
-        let mut off = 0;
-        let mut ok = true;
-        for &s in &others {
-            w[s] = mask_slice(&tiles[off..off + sizes[s]]);
-            off += sizes[s];
-            if w[s] & voids[s] != 0 {
-                ok = false;
-                break;
-            }
-        }
-        if ok {
-            out.push(w);
-        }
-    }
-    out
-}
-
 /// The level-1 evaluation with saturation-tie refinement (identical policy
 /// to playtable.rs). Returns every legal option's estimate.
 #[allow(clippy::too_many_arguments)]
@@ -586,11 +519,11 @@ fn level1_evaluate(
     n0: usize,
     per_move_secs: u64,
     rng: &mut SplitMix64,
-) -> Option<Vec<(u8, BigRational)>> {
+) -> Result<Vec<(u8, BigRational)>, Level1Refusal> {
     let deadline = Instant::now() + std::time::Duration::from_secs(per_move_secs);
     let maximize = seat.team() == Team::T1;
     let evaluate = |tiles: &[u8], n: usize, rng: &mut SplitMix64| {
-        let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, n, rng);
+        let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, n, rng)?;
         let mut solver = Solver::new(
             dcl,
             seat,
@@ -610,10 +543,10 @@ fn level1_evaluate(
             let child = solver.child_after_play(key, tile, 0);
             match solver.solve(&child) {
                 Some(v) => out.push((t, v)),
-                None => return None,
+                None => return Err(Level1Refusal::Deadline),
             }
         }
-        Some(out)
+        Ok(out)
     };
     let all_tiles = mask_bits(legal);
     let mut opts = evaluate(&all_tiles, n_outer, rng)?;
@@ -643,7 +576,7 @@ fn level1_evaluate(
             slot.1 = v;
         }
     }
-    Some(opts)
+    Ok(opts)
 }
 
 fn best_of(opts: &[(u8, BigRational)], maximize: bool) -> u8 {
@@ -874,13 +807,16 @@ fn decide(nums: &[usize], cfg: &Config) -> (usize, usize, u8, u8) {
             cfg.per_move_secs,
             &mut rng,
         ) {
-            Some(opts) => {
+            Ok(opts) => {
                 let choice = best_of(&opts, seat.team() == Team::T1);
                 log_decision(nums, &st, viewer_i, &opts, choice);
                 choice
             }
-            None => {
-                eprintln!("walt_bridge: eval deadline hit; playing lowest legal");
+            Err(refusal) => {
+                // The live player never panics on a refusal, and never
+                // reports one as something else: the fallback is declared
+                // and the refusal is named with the frame it came from.
+                eprintln!("walt_bridge: eval refused ({refusal}); playing lowest legal");
                 legal.trailing_zeros() as u8
             }
         }
@@ -965,7 +901,8 @@ fn declare(nums: &[usize], cfg: &Config, full: bool) -> usize {
         best
     };
 
-    let worlds = sample_belief(bidder_i, hand0, 0, [7; 4], [0; 4], cfg.n_declare, &mut rng);
+    let worlds = sample_belief(bidder_i, hand0, 0, [7; 4], [0; 4], cfg.n_declare, &mut rng)
+        .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
     let mut vals: Vec<(Decl, BigRational)> = candidates
         .iter()
         .map(|&d| (d, eval(d, worlds.clone())))
@@ -987,7 +924,8 @@ fn declare(nums: &[usize], cfg: &Config, full: bool) -> usize {
             break;
         }
         n_cur *= 4;
-        let worlds = sample_belief(bidder_i, hand0, 0, [7; 4], [0; 4], n_cur, &mut rng);
+        let worlds = sample_belief(bidder_i, hand0, 0, [7; 4], [0; 4], n_cur, &mut rng)
+            .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
         for d in tied {
             let v = eval(d, worlds.clone());
             let slot = vals.iter_mut().find(|(x, _)| *x == d).expect("tied decl");
