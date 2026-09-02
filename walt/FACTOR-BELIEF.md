@@ -12,7 +12,9 @@ doom census); SLICE σ1-REPAIR LANDED (2026-09-01, MB0's follow-up — the
 belief sampler terminates and the five copies are one, paragraph after
 MB0); SLICE U0 LANDED (2026-09-02, the God-gap census — the §8
 decomposition made mechanical and the §38 fusion horizon measured at
-trick 5, paragraph after σ1-repair). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
+trick 5, paragraph after σ1-repair); SLICE MB1 LANDED (2026-09-02, the
+model-belief recursion joined to the solver — and the STRICT model-fusion
+price found at trick 4, paragraph after U0). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
 register: `solver/refine.rs` as merged at `25b40d9` takes no new
 fields, variants, or work items, ever; its four gates never weaken; the
 coming proof-state core must reproduce it wherever scopes overlap and
@@ -598,6 +600,109 @@ the round, now with a number under it: 42 is two recursions running in
 opposite directions, and on this corpus they trade dominance between
 trick 4 and trick 5. EXPLORATORY tier throughout; the horizon is a
 measurement on the declared corpus, never a theorem.
+
+**SLICE MB1 LANDED** (2026-09-02, the model-belief recursion joins the
+solver — §§16–23 and §§29–33 of
+`walt/math/model_belief_base_player_v0.1.md` under rulings MB-A1..A8
+and brief `walt/briefs/BRIEF-MB1.md`; report of record
+`walt/briefs/MB1-REPORT.md`): MB0's exact mixture machinery taken from
+"evaluated at roots" to "runs inside the recursion," and with it the
+answer to the question MB0 left open. THE NUMBER: **the model-fusion
+price is STRICTLY POSITIVE at trick 4.** MB0 censused `Φ = 0` at all
+fourteen of its t5/t6 root-action coordinates and reported §76's
+criterion 4 as an honest NO; one stratum earlier, under the same
+registered F₀/F₁ mixture at the same ν = (1/2,1/2) per hidden seat,
+every substantive coordinate tested is strict — h8-t4 (fiber 1,200)
+gives 47/9600, 38/9600, 90/9600, 58/9600 on its four actions (4, 3, 9,
+6‰; 4.84M field reads, 97 s) and h3-t4 (fiber 11,550) gives four more
+at 3, 1, 5 and 3‰ (24.2M reads, 416 s). Eight substantive trick-4
+coordinates, eight strict prices. Against them h12-t4's four zeros are
+typed VACUOUS — the whole fiber is decided at the root, so `U^sep` sits
+at an endpoint and every lawful policy attains every point-mass optimum
+for an arithmetic reason — which is U0's degenerate-God-tightness
+discipline carried across unchanged and earning its keep on first use
+(without it trick 4 would read "8 strict, 4 zero" instead of "8 strict,
+0 substantive zeros"). THE COROLLARY that makes the finding
+load-bearing, and the one piece of this slice that is mathematics
+rather than measurement: Theorem 19.1 at FULL support forces the
+attaining policy ρ* to satisfy `V_θ(ρ*) = q_a(θ)` at every θ
+whatsoever, so `Q_a(ν′) ≥ ⟨ν′, v_{ρ*}⟩ = U^sep_a(ν′)` for any other
+belief ν′ and Theorem 18.1 gives the reverse — hence a zero measured at
+one full-support belief is a zero at EVERY belief over the same types.
+MB0's fourteen zeros were therefore never movable by re-weighting, and
+a strict specimen had to come from a new ROOT; MB1 carries the witness
+explicitly (`CommonOptimizer`, present on exactly the zero coordinates)
+and gate M6 sweeps a rational ν grid to confirm the single witness
+policy attains `U^sep` at every point. What was built: new sibling
+module `solver/model_recursion.rs` — `PosteriorTrace` /
+`trace_heaviest_line` (the posterior carried down a public line, every
+reported field a derived view of the one carried `ModelBelief`, no
+second authority to drift from), `ModelBeliefProducer` installing `Q_a`
+as a matched executable-lower/deterministic-upper pair and `U^sep_a` as
+the Theorem 18.1 upper into the §49 store, `MixtureOutcome::reprice`
+and `ResponseEnvelope` (§21's column-and-cut library, compared over
+MASSES because one state shares its `Z_θ`, so the argmax is
+division-free) with `sweep_envelope`'s audited facet count, and
+`RootModelCensus` with the vacuity typing. Inside MB0's own module
+(extended, never forked — the walk and the dispatch live there):
+`ReadLedger`, an append-only per-type field-consultation census
+recorded at the `ProfileField` dispatch itself and shared by a whole
+lineage; `MixtureRefusal::ReadBudget` carrying the MEASURED spend, the
+declared ceiling and the history it stopped at, with no value field in
+any variant; budgeted entry points whose unbudgeted siblings are the
+same walk under an absent ceiling; positive-support tightening now the
+DEFAULT in `branch_masses` and `typed_branch_census` (MB0 flag 3 —
+exactness-neutral by the zero-entry law, with every dropped entry's zero
+completion weight independently confirmed in a gate); and
+`observe_with_survivors`, the index alignment a scattering recursion
+needs. THE FIELD-IDENTITY FENCE (U0's SC-A7 flag, item 7): `CoupledFact`
+has private members and no public constructor, so
+`couple_fixed_field_fact` is the only way a fixed-field fact reaches
+the model-space recursion and a bare `Fact` does not type-check there;
+`FieldCoupling` has `Identical` and `PointMassParity` and no `Assumed`;
+the degenerate coupling is discharged only by a re-run WITNESS carrying
+both authorities' exact pairs, and refuses where the raw authority
+cannot run. Where structure cannot reach — the §49 store takes any
+well-typed fact under a matching identity — the fence is the identity:
+`mixture_identity` gives a model-belief state `field_id =
+model-mixture:<content address>`, so a σ0-authored fact is rejected
+`IdentityMismatch` by machinery that already existed, and a REWEIGHTED
+mixture is a different identity again. MB1 TRANSPORTS NOTHING; the gate
+exists so the first future transport is honest, which is the only time
+it can be built. Seven gates
+(`walt/walt/tests/solver_model_belief_recursion.rs`, 27.4 s of which
+20.5 s is M6 re-deriving a trick-4 coordinate rather than citing it):
+M1 recursion-versus-(ω,θ)-enumeration parity on the FULL six-root MB0
+corpus (augmented masses, all fourteen `Q_a`, every `q_a(θ)` behind
+every `U^sep_a`, the selected action, and the carried posterior
+marginals against the surviving pairs' weighted counts); M2 the
+§16/§23 repricing identity and the §21 envelope, plus item 6's
+non-product prior (weights 5,1,1,1,1,1,1,5, shown non-product by the
+product identity it fails, repricing to the independent prior's own
+walked value because a response vector belongs to the policy and the
+state); M3 point-mass collapse at DEPTH against both the enumeration and
+an independently conditioned raw σ0 `response_success_mass`; M4 typed
+budget refusals (a zero ceiling spends zero, a starved ceiling reports
+the ledger's own measurement, an ample ceiling changes no value, a
+refused coordinate proposes no fact); M5 the consumed instruments
+unperturbed, doom bit-identical either side of a model census; M6 the
+pinned specimen and the corollary; M7 the fence on both sides. Probe
+`modelbeliefrecursionreport`
+(`probes/factor_belief/modelbelief_recursion_run1.txt`). Deviations
+recorded in the report: "pre-t4" read as "earlier than MB0's corpus"
+with a strictly-pre-t4 coordinate attempted under a declared ceiling
+and reported as a typed refusal rather than an absence (the smallest
+trick-3 receipt fiber is 59,976 against trick 4's 1,200, and trick 4
+already costs 97–416 s per root); items 3 and 4 landing inside MB0's
+module because the ledger must be recorded at the dispatch and the
+budget threaded through the walk, both of which live there; M5 a
+property gate rather than a suite conjunction, since a test cannot run
+other test files. MB0's eight gates, σ1-repair's seven and U0's six
+stay green untouched; `doom.rs`, `godgap.rs`, `refine.rs` and their
+probe records are byte-identical to the pre-slice baseline. EXPLORATORY
+tier; the trick-4 prices are measurements on a declared corpus, never
+theorems — the §19 corollary alone is mathematics and carries Theorem
+19.1's status, not this slice's.
 
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint
