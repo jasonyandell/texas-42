@@ -593,7 +593,11 @@ fn parse_tile(s: &str) -> Option<u8> {
 }
 
 /// The level-1 evaluation with saturation-tie refinement (identical policy
-/// to the informed-table playouts). Returns every legal option's estimate.
+/// to the informed-table playouts). Returns every legal option's estimate,
+/// or the typed reason there are none — a deadline, or the library
+/// sampler's refusal of a frame with no lawful completion. STILL
+/// TRIPLICATED with `solver::level1_evaluate` and walt_bridge.rs's copy: a
+/// named debt, and the σ1-repair slice deliberately did not pay it.
 #[allow(clippy::too_many_arguments)]
 fn level1_evaluate(
     dcl: Decl,
