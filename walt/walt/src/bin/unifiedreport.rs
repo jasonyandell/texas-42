@@ -75,7 +75,18 @@ const AMPLE_ENUMERATION_FIBER_CAP: u128 = 40_000;
 const AMPLE_MIXTURE_FIBER_CAP: u128 = 256;
 const AMPLE_MIXTURE_READ_CAP: u64 = 4_000_000;
 
-/// The certified-regret acceptance of tier (d) on both rungs: ε = 1/4,
+/// Rung three — MODEL. The same ladder with the two structural caps
+/// SWAPPED in size: the world-space recursion is afforded only at the
+/// very smallest fibers, so on the band between the caps it refuses and
+/// the model-space recursion is the tier that ANSWERS. The rung exists
+/// because the cascade's declared order means tier (c) can only ever
+/// answer where tier (b) refused first — and a transcript in which one
+/// tier never fires has not exercised it.
+const MODEL_ENUMERATION_FIBER_CAP: u128 = 8;
+const MODEL_MIXTURE_FIBER_CAP: u128 = 256;
+const MODEL_MIXTURE_READ_CAP: u64 = 4_000_000;
+
+/// The certified-regret acceptance of tier (d) on every rung: ε = 1/4,
 /// the same target §65 set for the opening root.
 fn regret_acceptance() -> BigRational {
     BigRational::new(BigInt::from(1), BigInt::from(4))
@@ -100,6 +111,17 @@ fn ample() -> MoveBudget {
         mixture_read_cap: AMPLE_MIXTURE_READ_CAP,
         regret_acceptance: regret_acceptance(),
         join_reading: true,
+    }
+}
+
+fn model_rung() -> MoveBudget {
+    MoveBudget {
+        label: "model".to_string(),
+        enumeration_fiber_cap: MODEL_ENUMERATION_FIBER_CAP,
+        mixture_fiber_cap: MODEL_MIXTURE_FIBER_CAP,
+        mixture_read_cap: MODEL_MIXTURE_READ_CAP,
+        regret_acceptance: regret_acceptance(),
+        join_reading: false,
     }
 }
 
@@ -670,13 +692,18 @@ fn main() {
                  \x20 ample: enumeration_fiber_cap={AMPLE_ENUMERATION_FIBER_CAP} \
                  mixture_fiber_cap={AMPLE_MIXTURE_FIBER_CAP} \
                  mixture_read_cap={AMPLE_MIXTURE_READ_CAP} join_reading=true\n\
-                 \x20 certified-regret acceptance on both rungs: 1/4\n\
+                 \x20 model: enumeration_fiber_cap={MODEL_ENUMERATION_FIBER_CAP} \
+                 mixture_fiber_cap={MODEL_MIXTURE_FIBER_CAP} \
+                 mixture_read_cap={MODEL_MIXTURE_READ_CAP} join_reading=false \
+                 (the two structural caps swapped, so the model-space tier is the one \
+                 that ANSWERS rather than only being read)\n\
+                 \x20 certified-regret acceptance on every rung: 1/4\n\
                  corpus: MB0's six enumerable roots plus h8-t4, walked to terminal with the \
                  unified player choosing EVERY seat's action\n"
             );
             flush(&out);
             let mut walks: Vec<(String, String, Walk)> = Vec::new();
-            for budget in [lean(), ample()] {
+            for budget in [lean(), ample(), model_rung()] {
                 let _ = writeln!(
                     out,
                     "\n\n#### RUNG: {} ####################################################",

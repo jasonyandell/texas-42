@@ -153,6 +153,14 @@ fn ample() -> MoveBudget {
     budget("ample", 40_000, 256, 4_000_000, true)
 }
 
+/// The two structural caps swapped: the world-space tier refuses on the
+/// band between them and the MODEL-space tier is the one that answers.
+/// The cascade's declared order means tier (c) can only ever answer where
+/// tier (b) refused first, so this is the rung that exercises it.
+fn model_rung() -> MoveBudget {
+    budget("model", 8, 256, 4_000_000, false)
+}
+
 // ---------------------------------------------------------------------------
 // The walk driver — the gates' own, independent of the probe binary.
 // ---------------------------------------------------------------------------
@@ -348,11 +356,7 @@ const CORPUS: [(usize, usize); 7] = [(12, 6), (10, 6), (5, 6), (4, 6), (8, 5), (
 #[test]
 fn up1_every_legal_state_gets_a_well_formed_decision() {
     let r = receipt();
-    let rungs = [
-        MoveBudget::starved("starved"),
-        lean(),
-        budget("midweight", 256, 32, 100_000, false),
-    ];
+    let rungs = [MoveBudget::starved("starved"), lean(), model_rung()];
     let mut decisions = 0usize;
     let mut tiers_seen: Vec<Tier> = Vec::new();
     for b in &rungs {
@@ -439,6 +443,11 @@ fn up1_every_legal_state_gets_a_well_formed_decision() {
     assert!(
         tiers_seen.contains(&Tier::EndgameExact),
         "UP1: the exact tier fires where the fiber affords it"
+    );
+    assert!(
+        tiers_seen.contains(&Tier::MiddlegameMixture),
+        "UP1: the model-space tier fires on the rung that affords it and not the \
+         world-space one"
     );
 }
 
@@ -1099,6 +1108,7 @@ fn up6_every_claimed_tier_is_independently_verifiable() {
     for (b, roots, cap) in [
         (lean(), &CORPUS[..], usize::MAX),
         (ample(), &CORPUS[4..6], 4usize),
+        (model_rung(), &CORPUS[2..6], 4usize),
     ] {
         for (hand_id, trick_no) in roots.iter().copied() {
             let decl = r.hands[hand_id].decl;
@@ -1233,8 +1243,64 @@ fn up6_every_claimed_tier_is_independently_verifiable() {
         }
     }
     assert!(
-        verified[0] > 0 && verified[1] > 0,
-        "UP6: the sweep verified the free tier and the exact tier, got {verified:?}"
+        verified[0] > 0 && verified[1] > 0 && verified[2] > 0 && verified[4] > 0,
+        "UP6: the sweep verified the free tier, both endgame-exact evidences, the \
+         model-space tier and the fallback, got {verified:?}"
+    );
+}
+
+#[test]
+fn up6_the_model_tier_answers_where_the_world_tier_refused() {
+    let r = receipt();
+    let oracle = SupportOracle;
+    // On the model rung the world-space tier refuses structurally and the
+    // model-space tier answers. The claim it carries is re-derived here
+    // from an independently constructed belief at the same root.
+    let (plays, _) = walk(&r, 5, 6, &model_rung(), ReceiptStore::new(), 1);
+    let prov = plays[0].decision.provenance();
+    assert_eq!(prov.tier(), Tier::MiddlegameMixture);
+    assert_eq!(prov.recursion(), Recursion::BackwardModel);
+    assert_eq!(
+        prov.recursion().direction(),
+        "backward",
+        "UP6: the model-space tier is a BACKWARD recursion — over Xi = Omega x Theta"
+    );
+    let text = format!("{:?}", prov.refusals());
+    assert!(
+        text.contains("EnumerationUnaffordable"),
+        "UP6: and it was entered only after the world-space tier typed its refusal: {text}"
+    );
+    let Evidence::Mixture {
+        weighted_mass,
+        weighted_total,
+        reads,
+        live_profiles,
+        ..
+    } = prov.evidence()
+    else {
+        panic!("UP6: the model rung answers with mixture evidence");
+    };
+    assert!(*reads > 0, "UP6: the ledger measured a real spend");
+    assert_eq!(
+        *live_profiles, 8,
+        "UP6: eight profiles at an unobserved root"
+    );
+    let (root, position) = root_at(&r, 5, 6);
+    let model = mixture_at(&root, &position);
+    let mut stats = MixtureStats::default();
+    let independent = model.mixture_response(&oracle, &mut stats);
+    assert_eq!(
+        (*weighted_mass, *weighted_total),
+        (
+            independent.outcome.weighted_mass,
+            independent.outcome.weighted_total
+        ),
+        "UP6: a tier (c) claim carries the exact Q(nu) an independent walk reproduces"
+    );
+    assert_eq!(
+        independent.policy.choice_at(&[]),
+        Some(plays[0].decision.action()),
+        "UP6: and the mixture argmax action"
     );
 }
 
