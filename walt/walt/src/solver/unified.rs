@@ -50,10 +50,18 @@
 //! variants each carry exactly what their tier can prove — the
 //! enumeration's exact mass pair, the consumed fact's id, the mixture's
 //! weighted pair together with the ledger spend, the §33 block, or
-//! nothing but the field's own name. [`Evidence`] has no public
-//! constructor, so a caller cannot assemble a decision that claims work
-//! it did not do (the [`crate::solver::model_recursion::CoupledFact`]
-//! pattern).
+//! nothing but the field's own name.
+//!
+//! Precisely where the fence sits, since the distinction matters: an
+//! [`Evidence`] value is a public sum type and a reader must be able to
+//! MATCH on it, so its variants are constructible like any Rust enum's.
+//! What cannot be constructed outside this module is a [`Provenance`] or
+//! a [`Decision`] — both hold private members and neither has a public
+//! constructor, so the only decisions in existence are the ones
+//! [`UnifiedPlayer::decide`] returned, and each carries the evidence its
+//! own cascade produced. A fabricated `Evidence` is a value nobody can
+//! attach to a decision; that is the [`crate::solver::model_recursion::CoupledFact`]
+//! pattern, applied one level out.
 //!
 //! THE JOIN (§76). A [`ModelBelief`] is constructed at the seat's first
 //! decision and carried down its line: [`ModelBelief::focal_play`] when

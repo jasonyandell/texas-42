@@ -50,9 +50,7 @@ use walt::solver::factor_belief::SupportOracle;
 use walt::solver::field::{FieldKind, FieldModel, FieldSpec};
 use walt::solver::model_belief::{BehaviorType, PersistenceScope};
 use walt::solver::policy::{DecisionMode, TieRule};
-use walt::solver::unified::{
-    Evidence, MoveBudget, Recursion, Tier, TypeLibrary, UnifiedPlayer,
-};
+use walt::solver::unified::{Evidence, MoveBudget, Recursion, Tier, TypeLibrary, UnifiedPlayer};
 
 /// MB0's six enumerable roots, plus the smallest trick-4 receipt root —
 /// the stratum U0 measured a positive God gap at and MB1 priced a strict
@@ -292,7 +290,10 @@ fn walk_root(r: &Receipt, hand_id: usize, trick_no: usize, budget: &MoveBudget) 
             let before: Vec<(usize, bool)> = (0..4)
                 .map(|s| {
                     let seat = Seat::ALL[s];
-                    (s, player.line(seat).is_some_and(|l| l.falsified().is_some()))
+                    (
+                        s,
+                        player.line(seat).is_some_and(|l| l.falsified().is_some()),
+                    )
                 })
                 .collect();
             player.observe_play(&state, decision.action());
@@ -546,7 +547,10 @@ fn census(out: &mut String, walks: &[(String, String, Walk)]) {
         );
     }
 
-    let _ = writeln!(out, "\n#### THE JOIN — where both recursions priced the same state ####\n");
+    let _ = writeln!(
+        out,
+        "\n#### THE JOIN — where both recursions priced the same state ####\n"
+    );
     let mut joins = 0usize;
     let mut moved = 0usize;
     let mut flipped = 0usize;
@@ -605,7 +609,7 @@ fn census(out: &mut String, walks: &[(String, String, Walk)]) {
     for (_, _, w) in walks {
         for row in &w.rows {
             for r in &row.refusals {
-                let head = match r.find(|c: char| c == ' ' || c == '(' || c == '{') {
+                let head = match r.find([' ', '(', '{']) {
                     Some(i) => r[..i].to_string(),
                     None => r.clone(),
                 };
