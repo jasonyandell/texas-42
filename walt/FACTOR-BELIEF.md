@@ -10,7 +10,9 @@ after the capstone); SLICE MB0 LANDED (2026-09-01, the model-belief
 exact vertical slice — the §76 go/no-go evidence, paragraph after the
 doom census); SLICE σ1-REPAIR LANDED (2026-09-01, MB0's follow-up — the
 belief sampler terminates and the five copies are one, paragraph after
-MB0). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
+MB0); SLICE U0 LANDED (2026-09-02, the God-gap census — the §8
+decomposition made mechanical and the §38 fusion horizon measured at
+trick 5, paragraph after σ1-repair). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
 register: `solver/refine.rs` as merged at `25b40d9` takes no new
 fields, variants, or work items, ever; its four gates never weaken; the
 coming proof-state core must reproduce it wherever scopes overlap and
@@ -517,6 +519,84 @@ in its raw support — so MB0's positive-support tightening is the
 enabling fix and not a workaround. Seven gates
 (`walt/walt/tests/solver_sigma1_repair.rs`); MB0's eight, G2 and G8
 included, stay green untouched. EXPLORATORY tier.
+
+**SLICE U0 LANDED** (2026-09-02, the God-gap census — §48 of
+`walt/math/salvation_complex_v0.1.md` under rulings SC-A1..A8 and brief
+`walt/briefs/BRIEF-U0.md`): the §8 three-part failure decomposition
+made mechanical, and with it the first measurement of WHERE
+information-consistency starts costing anything.
+`1 − V(ρ) = d_phys + d_info + d_policy(ρ)` — physical doom, the
+information price `U^God − Q`, the policy gap `Q − V(ρ)` — where a zero
+doom census moves only the first term and says nothing at all about
+the other two. New module `solver/godgap.rs`, a SIBLING of `doom.rs`
+rather than an extension of it (§47/SC-A3 preserves the doom census as
+the God-upper ground truth, so the composing module is the one that
+moves): `GodGapWalk::god_gap` establishes the God upper from
+`doom_enumeration`'s per-world truth where the fiber is enumerable and
+from `doom_census`'s certified harvest otherwise, computes exact `Q`
+through `response_success_mass`, extracts the incumbent with
+`extract_success_policy` and re-prices it through the INDEPENDENT
+fixed-policy evaluator `viewer_success_mass` (a different recursion —
+a frozen policy, not a max — so the §36 equality receipt is a
+cross-check and not a restatement), and types the coordinate as
+exactly one of §48's four: `GodTightPolicy`, `PositiveGodGap`,
+`GodUpper` (a nonvacuous deterministic upper with the gap beneath it
+unmeasured), `UnknownGodGap`. SC-A4 is structural, not a convention:
+`PositiveGodGap` holds its exact witness mass in the type, and the two
+honest variants hold no value field into which an unmeasured gap could
+be written. Six gates (`solver_godgap.rs`), plus `GodGapProducer` in
+the §49 registry and the probe `godgapreport`
+(`probes/factor_belief/godgap_run1.txt`).
+
+THE §9 TABLE IS NOW A CHECKED NUMBER (SC-A2, the binding gate): G1
+parses the per-world truth column out of the committed
+`doomreport_run1.txt` and re-derives all fourteen coordinates —
+matching truth mass, and `d_info = 0` asserted by exact rational
+equality `Q = 1 − doomed/Z` on every one. Re-deriving the class
+census's weaker harvest in the same pass turned up a small correction
+to the intake companion: the record carries THREE truth-vs-census
+divergences, not the two the companion names — h8-t5 0-0 (17 certified
+against truth 21) joins h4-t6 0-0 (56 against 60) and h8-t5 5-3 (0
+against 1). Nothing above it moves — the §9 table cites truth at every
+coordinate — and the gate now pins all three
+(`walt/DISCREPANCIES.md`).
+
+THE FUSION HORIZON, MEASURED (§38, and an empirical object only —
+SC-A4 forbids theorem language here): over 37 coordinates on the ten
+gated roots plus the opening root, **the earliest fusion-free depth is
+trick 5**. Every one of the fourteen t5/t6 coordinates is God-tight;
+all twelve t4 coordinates that have anything to save carry a POSITIVE
+God gap, `Φ` between 6‰ and 22‰ (the largest 43/1925 at h3-t4 4-4).
+The census distinguishes degenerate God-tightness from the real kind
+and the horizon reading depends on it: h12-t4's four coordinates are
+God-tight only because the whole fiber is doomed — where nothing is
+saveable every policy is God-tight and the equality carries no
+information — so t4 has 4 vacuous receipts and 12 measured prices, and
+is not fusion-free. Two strata (t5, t6) are SUBSTANTIVELY fusion-free.
+The number this makes concrete: at t4 the exact best information-
+consistent play leaves 6–22‰ of individually saveable mass unsaved,
+and `d_policy = 0` at every single coordinate — the incumbent IS the
+argmax — so that remainder is not a bad policy and not physical doom.
+It is the price of not knowing, and no amount of further counterexample
+counting can reach it. Eighteen God-tight policies were extracted and
+persisted (14 with a score profile at the declared cap); installing a
+coordinate's facts makes the closure show the executable lower meeting
+the deterministic upper with `Γ = 0`, which is the doom census's
+upper-only store acquiring an executable bar it never had.
+
+THE OPENING VERDICT IS UnknownGodGap, on all seven actions, and that
+is the honest floor rather than a disappointment: the exact side is
+unaffordable (fiber 399,072,960 against the declared cap) and the doom
+side certifies zero, so the God upper is the vacuous 1 and NOTHING is
+claimed about `d_info` or `d_policy` there. What would change it: an
+exact `Q` at the opening (out of reach), or any nonvacuous opening doom
+mass (which §47 declines to chase, and which the committed doom record
+argues is near zero anyway) — or, the route the mathematics actually
+points at, an information-consistency-aware upper. Jason's framing of
+the round, now with a number under it: 42 is two recursions running in
+opposite directions, and on this corpus they trade dominance between
+trick 4 and trick 5. EXPLORATORY tier throughout; the horizon is a
+measurement on the declared corpus, never a theorem.
 
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint

@@ -255,6 +255,20 @@ pub struct GodTightPolicy {
     pub profile: Option<Box<ScoreProfileFact>>,
 }
 
+impl GodTightPolicy {
+    /// God-tightness with NOTHING to save: every world of the fiber is
+    /// physically doomed, so the God upper is 0, the exact optimum is
+    /// 0, and Theorem 7.1's common intersection is the intersection
+    /// over an empty index set — every lawful policy is God-tight
+    /// here, and the equality carries no information about blindness.
+    /// A census that counted these beside the substantive receipts
+    /// would overstate its own finding, so they are labelled and
+    /// tallied apart (§38's horizon table).
+    pub fn nothing_saveable(&self) -> bool {
+        self.equality_receipt.doomed_mass == self.equality_receipt.fiber_mass
+    }
+}
+
 /// A measured information-consistency price: the exact `Q` sits
 /// STRICTLY below the God upper. The witness is mandatory — this
 /// variant cannot be constructed without an exact `Q` (SC-A4).
@@ -794,6 +808,10 @@ pub struct FusionStratum {
     pub trick: usize,
     pub tested: usize,
     pub god_tight: usize,
+    /// Of `god_tight`, the DEGENERATE ones: whole-fiber doom, where
+    /// every policy is God-tight and the equality says nothing
+    /// ([`GodTightPolicy::nothing_saveable`]).
+    pub god_tight_vacuous: usize,
     pub positive_gap: usize,
     pub god_upper_only: usize,
     pub unknown: usize,
@@ -807,9 +825,19 @@ pub struct FusionStratum {
 }
 
 impl FusionStratum {
-    /// Every tested coordinate is God-tight.
+    /// Every tested coordinate is God-tight — §38's condition,
+    /// verbatim.
     pub fn fusion_free(&self) -> bool {
         self.tested > 0 && self.god_tight == self.tested
+    }
+
+    /// Fusion-free with at least one SUBSTANTIVE God-tight coordinate
+    /// (something was actually saveable there). A stratum that is
+    /// fusion-free only because everything in it is doomed carries no
+    /// evidence about the information price, and the horizon reading
+    /// says so.
+    pub fn substantively_fusion_free(&self) -> bool {
+        self.fusion_free() && self.god_tight > self.god_tight_vacuous
     }
 }
 
@@ -828,6 +856,7 @@ pub fn fusion_horizon(entries: &[(usize, String, GodGapCoordinate)]) -> Vec<Fusi
                 trick,
                 tested: 0,
                 god_tight: 0,
+                god_tight_vacuous: 0,
                 positive_gap: 0,
                 god_upper_only: 0,
                 unknown: 0,
@@ -838,7 +867,12 @@ pub fn fusion_horizon(entries: &[(usize, String, GodGapCoordinate)]) -> Vec<Fusi
                 assert_eq!(*t, trick, "the stratum filter selects its own trick");
                 stratum.tested += 1;
                 match &coordinate.result {
-                    GodGapResult::GodTightPolicy(_) => stratum.god_tight += 1,
+                    GodGapResult::GodTightPolicy(t) => {
+                        stratum.god_tight += 1;
+                        if t.nothing_saveable() {
+                            stratum.god_tight_vacuous += 1;
+                        }
+                    }
                     GodGapResult::PositiveGodGap(p) => {
                         stratum.positive_gap += 1;
                         stratum.max_gap = Some(match stratum.max_gap.take() {

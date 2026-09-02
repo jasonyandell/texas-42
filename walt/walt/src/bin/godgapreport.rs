@@ -160,6 +160,12 @@ fn print_coordinate(out: &mut String, c: &GodGapCoordinate, wall_us: u128) {
                 "refused (cap)"
             },
         ));
+        if tight.nothing_saveable() {
+            out.push_str(
+                "      NOTE: whole-fiber doom — every policy is God-tight here and the \
+                 equality carries no information about blindness (counted apart)\n",
+            );
+        }
     }
     if !c.refusals.is_empty() {
         out.push_str(&format!("      refusals: {:?}\n", c.refusals));
@@ -335,15 +341,19 @@ fn main() {
             out.push_str("\n#### PART 3 — the fusion-horizon table (§38, EMPIRICAL) ####\n");
             let strata = fusion_horizon(&entries);
             out.push_str(
-                "\n trick | tested | God-tight | pos gap | GodUpper | Unknown | max Φ\n\
-                 -------+--------+-----------+---------+----------+---------+-------\n",
+                "\n trick | tested | God-tight (vacuous) | pos gap | GodUpper | Unknown \
+                 | max Φ\n\
+                 -------+--------+---------------------+---------+----------+---------\
+                 +-------\n",
             );
             for s in &strata {
                 out.push_str(&format!(
-                    "   t{}  |   {:>3}  |    {:>3}    |   {:>3}   |   {:>3}    |   {:>3}   | {}\n",
+                    "   t{}  |   {:>3}  |     {:>3} ({:>3})        |   {:>3}   |   {:>3}    \
+                     |   {:>3}   | {}\n",
                     s.trick,
                     s.tested,
                     s.god_tight,
+                    s.god_tight_vacuous,
                     s.positive_gap,
                     s.god_upper_only,
                     s.unknown,
@@ -364,10 +374,22 @@ fn main() {
                 }
             }
             match earliest_fusion_free_trick(&strata) {
-                Some(t) => out.push_str(&format!(
-                    "\n  earliest fusion-free depth on THIS corpus: trick {t} \
-                     (every tested coordinate at t{t} and later is God-tight)\n"
-                )),
+                Some(t) => {
+                    out.push_str(&format!(
+                        "\n  earliest fusion-free depth on THIS corpus: trick {t} \
+                         (every tested coordinate at t{t} and later is God-tight)\n"
+                    ));
+                    let substantive = strata
+                        .iter()
+                        .filter(|s| s.trick >= t && s.substantively_fusion_free())
+                        .count();
+                    out.push_str(&format!(
+                        "  of those strata, {substantive} are SUBSTANTIVELY fusion-free — \
+                         they hold God-tight coordinates with something left to save; a \
+                         stratum that is fusion-free only because everything in it is \
+                         doomed is no evidence about the information price\n"
+                    ));
+                }
                 None => out.push_str("\n  no fusion-free depth on this corpus\n"),
             }
             let tight: Vec<&GodGapCoordinate> = entries
@@ -436,26 +458,38 @@ fn two_regime_summary(
         .iter()
         .filter(|(_, _, c)| c.god_tight().is_some())
         .count();
+    let late_vacuous = late
+        .iter()
+        .filter(|(_, _, c)| c.god_tight().is_some_and(|t| t.nothing_saveable()))
+        .count();
     let t4: Vec<&(usize, String, GodGapCoordinate)> =
         entries.iter().filter(|(t, _, _)| *t == 4).collect();
     let t4_tight = t4
         .iter()
         .filter(|(_, _, c)| c.god_tight().is_some())
         .count();
+    let t4_vacuous = t4
+        .iter()
+        .filter(|(_, _, c)| c.god_tight().is_some_and(|t| t.nothing_saveable()))
+        .count();
     let opening: Vec<&(usize, String, GodGapCoordinate)> =
         entries.iter().filter(|(t, _, _)| *t == 1).collect();
     s.push_str(&format!(
-        "LATE REGIME (t5/t6, {} coordinates): {late_tight} God-tight. Where the census can \
-         see the whole fiber, the deterministic doom upper and the exact \
+        "LATE REGIME (t5/t6, {} coordinates): {late_tight} God-tight, {} of them \
+         substantively (the other {late_vacuous} are whole-fiber doom). Where the census \
+         can see the whole fiber, the deterministic doom upper and the exact \
          information-consistent optimum are the SAME NUMBER — blindness costs nothing, and \
          the executable policy that attains it is extracted and re-priced.\n\n",
-        late.len()
+        late.len(),
+        late_tight - late_vacuous
     ));
     s.push_str(&format!(
-        "MIDDLE REGIME (t4, {} coordinates): {t4_tight} God-tight. This is where the \
-         information-consistency price first appears on this corpus: the God upper stays \
-         high while the exact Q sits below it, so the failure that remains is NOT physical \
-         doom.\n\n",
+        "MIDDLE REGIME (t4, {} coordinates): {t4_tight} God-tight, of which {t4_vacuous} \
+         are whole-fiber doom — every policy is God-tight where nothing is saveable, so \
+         those carry no evidence either way. This is where the information-consistency \
+         price first appears on this corpus: the God upper stays high while the exact Q \
+         sits below it, so the failure that remains is NOT physical doom, and no amount \
+         of further counterexample counting will touch it.\n\n",
         t4.len()
     ));
     s.push_str(&format!(

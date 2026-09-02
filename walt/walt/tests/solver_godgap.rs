@@ -789,10 +789,15 @@ fn the_census_consumes_doom_and_never_modifies_it() {
 }
 
 /// Gate 6 (§38) — the fusion-horizon table is an honest stratification:
-/// it counts every coordinate handed to it, names every exception, and
-/// reports the earliest fusion-free depth only when every DEEPER
-/// stratum is fusion-free too. Run over the census's own t4 and t6
-/// specimens, where the answer is known to differ by depth.
+/// it counts every coordinate handed to it, names every exception,
+/// separates DEGENERATE God-tightness (whole-fiber doom, where every
+/// policy is God-tight and the equality says nothing) from the
+/// substantive kind, and reports the earliest fusion-free depth only
+/// when every deeper stratum is fusion-free too. Run over the census's
+/// own t4 and t6 specimens, where the answer differs by depth: h8-t4
+/// carries four measured information-consistency prices, h12-t4 is
+/// God-tight in the degenerate way only, and h5-t6 is substantively
+/// fusion-free.
 #[test]
 fn the_fusion_horizon_table_counts_every_coordinate_and_names_its_exceptions() {
     let oracle = SupportOracle;
@@ -801,7 +806,7 @@ fn the_fusion_horizon_table_counts_every_coordinate_and_names_its_exceptions() {
     let spec = ample_spec();
     let mut progress = |_: u64, _: u64, _: u128, _: u64| {};
     let mut entries: Vec<(usize, String, GodGapCoordinate)> = Vec::new();
-    for (hand_id, trick_no) in [(8usize, 4usize), (5, 6)] {
+    for (hand_id, trick_no) in [(8usize, 4usize), (12, 4), (5, 6)] {
         let (root, position) = root_at(&r, hand_id, trick_no);
         let walk = GodGapWalk {
             oracle: &oracle,
@@ -838,7 +843,24 @@ fn the_fusion_horizon_table_counts_every_coordinate_and_names_its_exceptions() {
     );
     assert_eq!(strata[0].positive_gap, 4, "all four h8-t4 actions");
     assert!(strata[0].max_gap.is_some(), "a measured Φ");
+    assert_eq!(
+        strata[0].god_tight, 4,
+        "h12-t4's four actions close at the God upper"
+    );
+    assert_eq!(
+        strata[0].god_tight_vacuous, 4,
+        "and every one of them does so on whole-fiber doom — nothing was saveable,          so every policy is God-tight there and the equality carries no information"
+    );
+    assert!(
+        !strata[0].substantively_fusion_free(),
+        "a degenerate God-tightness never makes a stratum fusion-free"
+    );
     assert!(strata[1].fusion_free(), "t6 is fusion-free here");
+    assert_eq!(strata[1].god_tight_vacuous, 0, "h5-t6 has worlds to save");
+    assert!(
+        strata[1].substantively_fusion_free(),
+        "t6's God-tightness is the substantive kind"
+    );
     assert_eq!(
         earliest_fusion_free_trick(&strata),
         Some(6),

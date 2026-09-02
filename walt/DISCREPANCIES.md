@@ -10,6 +10,30 @@ here rather than silently picking a reading.
 
 ## Reconciled, not discrepancies
 
+### salvation-complex intake companion: two divergence points named, three in the record (U0, 2026-09-02)
+
+The intake companion `walt/math/salvation_complex_v0.1_intake.md` records
+that the parent's §9 table "correctly cites truth, not census recovery, at
+both divergence points (h4-t6 0-0: truth 60 where the census certified 56;
+h8-t5 5-3: truth 1 where the census certified 0)". U0's G1 gate re-derives
+the whole table mechanically from the committed record
+(`walt/probes/factor_belief/doomreport_run1.txt`) and finds **three**
+coordinates where the class census's certified mass falls short of the
+per-world truth: the two named, plus **h8-t5 0-0, where the census
+certified 17 of 21** — a divergence the record itself prints in its own
+recovery column (809‰).
+
+Not a conflict, and nothing above it moves: the §9 table cites the TRUTH
+column at every one of its fourteen coordinates, so every `d_info = 0`
+inference stands exactly as adjudicated (SC-A1), and the class census's
+one-sided soundness is unaffected (a certified harvest never exceeds the
+truth — asserted per coordinate in the same gate). What is one short is
+the companion's COUNT of divergence points. Recorded rather than repaired
+(the companion is a dated intake record); the gate
+`walt/walt/tests/solver_godgap.rs::the_section_nine_table_is_re_derived_from_the_committed_record`
+now asserts all three by exact value, so the number cannot drift again
+without a red suite.
+
 ### exp3A descriptor pin: blocked in S4, unblocked in S4.5
 
 S4 recorded this as open: v0.4 §14.4 reports the winning static descriptor
