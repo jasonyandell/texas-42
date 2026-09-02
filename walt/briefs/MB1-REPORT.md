@@ -87,10 +87,11 @@ that found the trick-4 specimen had to move roots, and did.
 
 ## Status
 
-Complete. Nine WIP commits plus this report, clean tree, not pushed. One
-of those commits (`f460fb0`) was made by the night-watch orchestrator as
-a rescue checkpoint of the probe output while this session was blocked
-on the probe run; the file is unmodified.
+Complete. Fifteen WIP checkpoint commits plus this report, clean tree,
+not pushed. Two of them (`f460fb0`, `b400357`) were made by the
+night-watch orchestrator as rescue checkpoints of the probe output
+while this session was asleep on a probe run; both files are the
+builder's own, committed unmodified.
 `walt/ci/check.sh` — the conjunction (cold rebuild, `fmt --check`,
 clippy `-D warnings -D clippy::float_arithmetic`, the no-float greps
 and scanners, the full workspace release suite including MB0's eight
