@@ -98,9 +98,7 @@
 //! and [`RootModelCensus::substantive_zero_prices`] counts only the
 //! coordinates where the zero says something.
 
-use std::collections::BTreeMap;
 use std::fmt;
-use std::rc::Rc;
 
 use num_bigint::BigInt;
 use num_rational::BigRational;
@@ -921,7 +919,7 @@ pub fn model_census(
         .legal_focal_actions()
         .expect("a census root has the viewer to move");
     assert!(!legal.is_empty(), "a root holds a legal action");
-    let weights: Vec<u128> = model.profiles().iter().map(|e| e.weight()).collect();
+    let weights = weights_of(model);
     let mut coordinates: Vec<ActionCoordinate> = Vec::new();
     for action in legal.iter() {
         let before = model.ledger().total();
@@ -1164,33 +1162,3 @@ pub fn two_type_grid(seat_count: usize, steps: u128) -> Vec<Vec<u128>> {
 pub fn weights_of(model: &ModelBelief) -> Vec<u128> {
     model.profiles().iter().map(|e| e.weight()).collect()
 }
-
-/// The declared behavior-type multiset of a model belief, for report
-/// headers: every distinct type id in first-profile order.
-pub fn declared_types(model: &ModelBelief) -> Vec<BehaviorTypeId> {
-    let mut out: Vec<BehaviorTypeId> = Vec::new();
-    for entry in model.profiles() {
-        for behavior in entry.types() {
-            if !out.contains(&behavior.id()) {
-                out.push(behavior.id());
-            }
-        }
-    }
-    out
-}
-
-/// Ordered profile labels, for report headers and identity dumps.
-pub fn profile_labels(model: &ModelBelief) -> Vec<String> {
-    model.profiles().iter().map(|e| e.label()).collect()
-}
-
-/// A map from behavior-type id to its short label, for reports.
-pub fn short_labels(ids: &[BehaviorTypeId]) -> BTreeMap<String, String> {
-    ids.iter()
-        .map(|id| (id.to_string(), id.short()))
-        .collect::<BTreeMap<String, String>>()
-}
-
-/// Keep the `Rc` import meaningful for downstream callers constructing
-/// shared minds; re-exported so gates and probes name one path.
-pub type SharedMind = Rc<dyn SlicePolicy>;

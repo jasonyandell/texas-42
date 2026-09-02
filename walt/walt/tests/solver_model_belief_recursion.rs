@@ -62,9 +62,9 @@ use walt::solver::model_belief::{
 };
 use walt::solver::model_recursion::{
     column_of, couple_fixed_field_fact, mixture_field_id, mixture_identity, model_census,
-    response_vector, sweep_envelope, trace_heaviest_line, two_type_grid, ActionCoordinate,
-    CensusBudget, CouplingRefusal, FieldCoupling, ModelBeliefProducer, ModelFieldId,
-    PointMassWitness, ResponseEnvelope,
+    response_vector, sweep_envelope, trace_heaviest_line, two_type_grid, weights_of,
+    ActionCoordinate, CensusBudget, CouplingRefusal, FieldCoupling, ModelBeliefProducer,
+    ModelFieldId, PointMassWitness, ResponseEnvelope,
 };
 use walt::solver::policy::{DecisionMode, TieRule};
 use walt::solver::proof_state::{ProofProducer, ProofState, Reject};
@@ -1225,7 +1225,7 @@ fn m6_the_earlier_root_finding_is_pinned() {
     let optima = at_action
         .point_mass_optima(&oracle, None)
         .expect("the specimen's point-mass sequence closes uncapped");
-    let weights: Vec<u128> = model.profiles().iter().map(|e| e.weight()).collect();
+    let weights = weights_of(&model);
     let usep = weights
         .iter()
         .zip(optima.iter())
