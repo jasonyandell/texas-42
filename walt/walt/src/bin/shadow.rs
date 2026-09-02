@@ -495,7 +495,9 @@ fn drive_hand(spec: &HandSpec, cfg: Config) -> Vec<String> {
                     NO_DEADLINE_SECS,
                     &mut rng,
                 )
-                .expect("the live evaluation runs without a wall-clock cutoff");
+                .unwrap_or_else(|refusal| {
+                    panic!("the live evaluation has no answer at this state: {refusal}")
+                });
                 let live_us = micros(started);
                 let live_choice =
                     Domino::from_index(usize::from(best_of(&opts, seat.team() == Team::T1)))
@@ -640,6 +642,7 @@ fn driven_specs(n_hands: usize) -> Vec<HandSpec> {
         .map(|g| {
             let mut rng = SplitMix64(SHADOW_SEED ^ mix(g as u64));
             let drawn = sample_belief(1, mask_of(s1), 0, [7, 7, 7, 7], [0u32; 4], 1, &mut rng)
+                .expect("a void-free frame is feasible: every deal of the unseen pool is lawful")
                 .pop()
                 .expect("one deal");
             let mut deal: [DominoSet; 4] = core::array::from_fn(|s| set_of(drawn[s]));

@@ -165,8 +165,10 @@ struct Cfg {
 }
 
 /// Play one world forward from the root under (frozen focal policy, level-0
-/// field), first focal action forced. Returns Some(made) or None on budget
-/// death. `rem` are the four remaining hands of the world at the root.
+/// field), first focal action forced. Returns Some(made), or None when the
+/// evaluation cannot answer — budget death, or a level-1 refusal, which is
+/// printed with the frame it names before the None. `rem` are the four
+/// remaining hands of the world at the root.
 #[allow(clippy::too_many_arguments)]
 fn replay_world(
     dcl: Decl,
@@ -194,7 +196,7 @@ fn replay_world(
             } else {
                 let key = key_of(&st);
                 let mut rng = policy_rng(h, seed_i, &key);
-                let opts = level1_evaluate(
+                let opts = match level1_evaluate(
                     dcl,
                     BID,
                     Seat::from_index(1).expect("seat"),
@@ -209,7 +211,13 @@ fn replay_world(
                     cfg.n0,
                     cfg.secs,
                     &mut rng,
-                )?;
+                ) {
+                    Ok(opts) => opts,
+                    Err(refusal) => {
+                        eprintln!("tiltaudit: replay evaluation refused ({refusal})");
+                        return None;
+                    }
+                };
                 best_of(&opts, true)
             }
         } else if legal.count_ones() == 1 {
@@ -279,7 +287,7 @@ fn find_root(h: u64, t_target: usize, cfg: &Cfg, field_host: &Solver) -> Option<
             // frozen policy itself, so the root is on-policy for seed 0.
             let key = key_of(&st);
             let mut prng = policy_rng(h, 0, &key);
-            let opts = level1_evaluate(
+            let opts = match level1_evaluate(
                 dcl,
                 BID,
                 Seat::from_index(1).expect("seat"),
@@ -294,7 +302,13 @@ fn find_root(h: u64, t_target: usize, cfg: &Cfg, field_host: &Solver) -> Option<
                 cfg.n0,
                 cfg.secs,
                 &mut prng,
-            )?;
+            ) {
+                Ok(opts) => opts,
+                Err(refusal) => {
+                    eprintln!("tiltaudit: root scaffolding refused ({refusal})");
+                    return None;
+                }
+            };
             best_of(&opts, true)
         } else {
             let key = key_of(&st);
@@ -426,7 +440,7 @@ fn bench(args: &[String]) {
 
         let t_full = Instant::now();
         let mut frng = policy_rng(h, 0, &key);
-        let Some(opts) = level1_evaluate(
+        let Ok(opts) = level1_evaluate(
             root.dcl,
             BID,
             seat,
@@ -442,7 +456,7 @@ fn bench(args: &[String]) {
             secs,
             &mut frng,
         ) else {
-            println!("hand {h}: full evaluation died — skipped");
+            println!("hand {h}: full evaluation refused — skipped");
             continue;
         };
         let full_choice = best_of(&opts, true);
@@ -450,7 +464,7 @@ fn bench(args: &[String]) {
 
         let t_race = Instant::now();
         let mut rrng = SplitMix64(PANEL_SEED ^ mix(h) ^ record_hash(&key));
-        let Some(race) = level1_race(
+        let Ok(race) = level1_race(
             root.dcl,
             BID,
             seat,
@@ -467,14 +481,14 @@ fn bench(args: &[String]) {
             secs,
             &mut rrng,
         ) else {
-            println!("hand {h}: race died — skipped");
+            println!("hand {h}: race refused — skipped");
             continue;
         };
         let race_ms = t_race.elapsed().as_millis();
 
         let t_blk = Instant::now();
         let mut brng = SplitMix64(PANEL_SEED ^ mix(h) ^ 0xB10C_0000_0000_0001 ^ record_hash(&key));
-        let Some(blk) = level1_raced(
+        let Ok(blk) = level1_raced(
             root.dcl,
             BID,
             seat,
@@ -491,7 +505,7 @@ fn bench(args: &[String]) {
             secs,
             &mut brng,
         ) else {
-            println!("hand {h}: block race died — skipped");
+            println!("hand {h}: block race refused — skipped");
             continue;
         };
         let blk_ms = t_blk.elapsed().as_millis();
@@ -656,8 +670,9 @@ fn arena(args: &[String]) {
                         dec_full += 1;
                     }
                     match pick {
-                        Some(t) => t,
-                        None => {
+                        Ok(t) => t,
+                        Err(refusal) => {
+                            eprintln!("tiltaudit: arena decision refused ({refusal})");
                             dead = true;
                             break;
                         }
@@ -765,7 +780,7 @@ fn main() {
         let mut pooled: Vec<(u8, BigRational)> = Vec::new();
         for i in 0..n_seeds {
             let mut rng = policy_rng(h, i, &key);
-            let Some(opts) = level1_evaluate(
+            let Ok(opts) = level1_evaluate(
                 root.dcl,
                 BID,
                 Seat::from_index(1).expect("seat"),
@@ -781,7 +796,7 @@ fn main() {
                 cfg.secs,
                 &mut rng,
             ) else {
-                println!("  discovery seed {i} died — hand skipped\n");
+                println!("  discovery seed {i} refused — seed skipped\n");
                 continue;
             };
             let c = best_of(&opts, true);
@@ -840,7 +855,7 @@ fn main() {
 
         // Panel — disjoint-by-seed from discovery (O13).
         let mut prng = SplitMix64(PANEL_SEED ^ mix(h));
-        let worlds = sample_belief(
+        let worlds = match sample_belief(
             1,
             root.rem1,
             key.played,
@@ -848,7 +863,13 @@ fn main() {
             root.st.voids,
             panel_n,
             &mut prng,
-        );
+        ) {
+            Ok(worlds) => worlds,
+            Err(frame) => {
+                println!("  panel draw refused ({frame}) — hand skipped\n");
+                continue;
+            }
+        };
 
         // Phase B — replay both frozen policies per seed on the panel.
         let t_b = Instant::now();

@@ -49,7 +49,7 @@ use walt::solver::act::{act, delta_run_default, ActConfig};
 use walt::solver::adaptive::DrivenState;
 use walt::solver::{
     best_of, bp, level1_evaluate, mask_bits, mask_of, mix, record_hash, replay, sample_belief,
-    set_of, viewer_fiber_evaluate, Deadline, Field, Key, Shared, Solver, SplitMix64,
+    set_of, viewer_fiber_evaluate, Deadline, Field, Key, Level1Refusal, Shared, Solver, SplitMix64,
 };
 
 /// Internal bid seat after rotation (the bidding team is internal T1).
@@ -352,7 +352,8 @@ impl Game {
                     [0; 4],
                     self.n_auct,
                     &mut rng,
-                );
+                )
+                .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
             }
             let i = self.auct_vals.len();
             let worlds = self.auct_worlds.clone();
@@ -489,7 +490,8 @@ impl Game {
                     [0; 4],
                     self.n_outer,
                     &mut rng,
-                );
+                )
+                .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
                 self.phase = Phase::Trump;
             }
         }
@@ -584,7 +586,8 @@ impl Game {
                 [0; 4],
                 n_cur,
                 &mut rng,
-            );
+            )
+            .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
             for &i in &tied {
                 let (t, v) = self.eval_decl(i, worlds.clone());
                 let slot = self
@@ -662,7 +665,7 @@ impl Game {
             .map(|p| dcl.led_context(Domino::from_index(usize::from(p.tile)).expect("led")))
     }
 
-    fn evaluate_seat(&mut self, seat_i: usize) -> Option<Vec<(u8, BigRational)>> {
+    fn evaluate_seat(&mut self, seat_i: usize) -> Result<Vec<(u8, BigRational)>, Level1Refusal> {
         let dcl = self.dcl.expect("declared");
         let seat = Seat::from_index(seat_i).expect("seat");
         let hand = self.hands[seat_i] & !self.played;
@@ -702,14 +705,15 @@ impl Game {
         } else {
             let seat = Seat::from_index(seat_i).expect("seat");
             match self.evaluate_seat(seat_i) {
-                Some(o) => {
+                Ok(o) => {
                     let c = best_of(&o, seat.team() == Team::T1);
                     let obp: Vec<(u8, i64)> = o.iter().map(|(t, v)| (*t, bp(v))).collect();
                     (c, false, obp)
                 }
-                None => {
-                    self.msgs
-                        .push(format!("S{seat_i} eval timed out; playing lowest legal"));
+                Err(refusal) => {
+                    self.msgs.push(format!(
+                        "S{seat_i} eval refused ({refusal}); playing lowest legal"
+                    ));
                     (legal.trailing_zeros() as u8, false, Vec::new())
                 }
             }
@@ -903,18 +907,19 @@ impl Game {
         }
         let seat = Seat::from_index(self.human).expect("seat");
         let maximize = seat.team() == Team::T1;
-        if let Some(o) = self.evaluate_seat(self.human) {
-            let mut sorted: Vec<(u8, i64)> = o.iter().map(|(t, v)| (*t, bp(v))).collect();
-            sorted.sort_by(|a, b| {
-                if maximize {
-                    b.1.cmp(&a.1)
-                } else {
-                    a.1.cmp(&b.1)
-                }
-            });
-            self.hint = Some(sorted);
-        } else {
-            self.msgs.push("hint timed out; play on".to_string());
+        match self.evaluate_seat(self.human) {
+            Ok(o) => {
+                let mut sorted: Vec<(u8, i64)> = o.iter().map(|(t, v)| (*t, bp(v))).collect();
+                sorted.sort_by(|a, b| {
+                    if maximize {
+                        b.1.cmp(&a.1)
+                    } else {
+                        a.1.cmp(&b.1)
+                    }
+                });
+                self.hint = Some(sorted);
+            }
+            Err(refusal) => self.msgs.push(format!("hint refused ({refusal}); play on")),
         }
     }
 
@@ -1018,8 +1023,11 @@ impl Game {
             self.per_move_secs,
             &mut rng,
         );
-        let Some(priced) = priced else {
-            return "{\"error\":\"review evaluation timed out\"}".to_string();
+        let priced = match priced {
+            Ok(priced) => priced,
+            Err(refusal) => {
+                return format!("{{\"error\":\"review evaluation refused: {refusal}\"}}");
+            }
         };
         let items: Vec<String> = priced
             .iter()

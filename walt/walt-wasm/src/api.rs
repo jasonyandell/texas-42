@@ -265,7 +265,7 @@ fn handle_play(r: &Req) -> Result<String, String> {
                 budget_ms.div_ceil(1000).max(1),
                 &mut rng,
             )
-            .ok_or("evaluation deadline hit")?;
+            .map_err(|refusal| format!("evaluation refused: {refusal}"))?;
             (choice, false, Vec::new(), true)
         } else {
             let opts = level1_evaluate(
@@ -284,7 +284,7 @@ fn handle_play(r: &Req) -> Result<String, String> {
                 budget_ms.div_ceil(1000).max(1),
                 &mut rng,
             )
-            .ok_or("evaluation deadline hit")?;
+            .map_err(|refusal| format!("evaluation refused: {refusal}"))?;
             let choice = best_of(&opts, seat.team() == Team::T1);
             (choice, false, opts, false)
         }
@@ -342,7 +342,7 @@ fn handle_play(r: &Req) -> Result<String, String> {
                 budget_ms.div_ceil(1000).max(1),
                 &mut xrng,
             )
-            .ok_or("evaluation deadline hit")?;
+            .map_err(|refusal| format!("evaluation refused: {refusal}"))?;
             let items: Vec<String> = priced
                 .iter()
                 .map(|(t, v, w)| match v {
@@ -439,7 +439,8 @@ fn handle_bid(r: &Req) -> Result<String, String> {
     let budget_ms = r.scalar_or("budget_ms", 120_000)?;
 
     let mut rng = SplitMix64(seed ^ mix(u64::from(hand0)) ^ mix(u64::from(need)));
-    let worlds = sample_belief(1, hand0, 0, [7; 4], [0; 4], n, &mut rng);
+    let worlds = sample_belief(1, hand0, 0, [7; 4], [0; 4], n, &mut rng)
+        .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
     let prices: Vec<(usize, BigRational)> = DECL_IDS
         .iter()
         .map(|&d| {
@@ -492,7 +493,8 @@ fn handle_declare(r: &Req) -> Result<String, String> {
     let budget_ms = r.scalar_or("budget_ms", 120_000)?;
 
     let mut rng = SplitMix64(seed ^ mix(u64::from(hand0)) ^ mix(0xDEC1));
-    let worlds = sample_belief(1, hand0, 0, [7; 4], [0; 4], n, &mut rng);
+    let worlds = sample_belief(1, hand0, 0, [7; 4], [0; 4], n, &mut rng)
+        .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
     let mut prices: Vec<(usize, BigRational)> = DECL_IDS
         .iter()
         .map(|&d| {
@@ -520,7 +522,8 @@ fn handle_declare(r: &Req) -> Result<String, String> {
             break;
         }
         n_cur *= 4;
-        let worlds = sample_belief(1, hand0, 0, [7; 4], [0; 4], n_cur, &mut rng);
+        let worlds = sample_belief(1, hand0, 0, [7; 4], [0; 4], n_cur, &mut rng)
+            .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
         for d in tied {
             let v = eval_bid(decl_of(d), bid, n0, hand0, worlds.clone(), budget_ms);
             let slot = prices.iter_mut().find(|(x, _)| *x == d).expect("tied decl");

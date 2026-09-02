@@ -766,7 +766,9 @@ impl FrozenPolicy {
             NO_DEADLINE_SECS,
             &mut rng,
         )
-        .expect("frozen materialization runs without a wall-clock cutoff");
+        .unwrap_or_else(|refusal| {
+            panic!("a frozen level-1 materialization has no answer here: {refusal}")
+        });
         let choice = best_of(&opts, seat.team() == Team::T1);
         Domino::from_index(usize::from(choice)).expect("tile < 28")
     }

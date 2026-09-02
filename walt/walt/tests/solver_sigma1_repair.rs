@@ -37,11 +37,17 @@ use std::fmt::Write as _;
 use common::receipt;
 use walt::kernel::Kernel;
 use walt::rules::rules::{legal_plays, Trick};
+use walt::rules::Pip;
 use walt::rules::{Decl, Domino, DominoSet, Seat};
 use walt::solver::adaptive::{replay_viewer_success, CanonicalRoot, RootPosition};
 use walt::solver::field::{FieldKind, FieldModel, FieldSpec};
-use walt::solver::policy::{DecisionMode, TieRule};
-use walt::solver::{mask_of, mix, sample_belief, SplitMix64};
+use walt::solver::policy::{continuation_frame, DecisionMode, TieRule};
+use walt::solver::{belief_frame_feasibility, mask_of, mix, sample_belief, SplitMix64, FULL_MASK};
+
+/// A pip by value, for writing specimen tiles the way the audit notes do.
+fn pip(v: u8) -> Pip {
+    Pip::new(v).expect("a pip 0..=6")
+}
 
 /// The committed before-side capture.
 const FIXTURE: &str = include_str!("data/sigma1_before_v1.txt");
@@ -154,6 +160,9 @@ fn draw(f: &SamplerFrame, rng: &mut SplitMix64) -> Vec<[u32; 4]> {
         f.n,
         rng,
     )
+    .unwrap_or_else(|frame| {
+        panic!("every corpus-A frame is dealt from a real world, so it is feasible: {frame}")
+    })
 }
 
 /// The declared corpus: twelve deals crossed with four play depths.
@@ -313,6 +322,249 @@ fn capture_before_side_fixture() {
         .join("data")
         .join("sigma1_before_v1.txt");
     std::fs::write(&path, render_capture()).expect("the fixture path is writable");
+}
+
+// ---------------------------------------------------------------------------
+// R1 — the pinned infeasible specimen.
+// ---------------------------------------------------------------------------
+
+/// Gate R1 — the live specimen from the MB0 audit
+/// (`walt/briefs/MB0-COLLISION-NOTES.md`): seat S3, hand {4-2 4-4},
+/// history [4-1, 4-3, 1-1], sizes [1, 1, 1, 2], voids
+/// [16786368, 69173248, 33586176, 16786368]. Against the unpatched
+/// sampler this frame spins forever; here it must come back with the
+/// typed refusal, and the refusal must name a real blocking set.
+///
+/// The frame is rebuilt through the library's own authorities
+/// (`continuation_frame` at the h5-t6 receipt root) rather than pasted as
+/// literals, so every pinned coordinate is re-derived and re-checked.
+#[test]
+fn the_pinned_infeasible_specimen_refuses_instead_of_spinning() {
+    let (_, position) = root_at(5, 6);
+    let history: Vec<Domino> = [(4, 1), (4, 3), (1, 1)]
+        .into_iter()
+        .map(|(a, b)| Domino::new(pip(a), pip(b)))
+        .collect();
+    let frame = continuation_frame(position.decl, &position, &history);
+    let hand: DominoSet = [(4, 2), (4, 4)]
+        .into_iter()
+        .map(|(a, b)| Domino::new(pip(a), pip(b)))
+        .collect();
+
+    assert_eq!(frame.seat, Seat::S3, "the specimen's acting seat");
+    assert_eq!(frame.sizes(), [1, 1, 1, 2], "the specimen's declared sizes");
+    assert_eq!(
+        frame.voids,
+        [16_786_368, 69_173_248, 33_586_176, 16_786_368],
+        "the specimen's deduced void masks"
+    );
+    assert_eq!(hand.len(), frame.sizes()[Seat::S3.index()]);
+
+    let refusal = belief_frame_feasibility(
+        Seat::S3.index(),
+        mask_of(hand),
+        frame.key.played,
+        frame.sizes(),
+        frame.voids,
+    )
+    .expect_err("the pinned specimen has an empty lawful-completion fiber");
+    assert!(
+        refusal.confined.count_ones() as usize > refusal.room,
+        "a refusal names a blocking set that really overflows"
+    );
+
+    // The sampler itself terminates with the same refusal — no spin.
+    let mut rng = SplitMix64(0x5164_5EC1_0000_0001);
+    let drawn = sample_belief(
+        Seat::S3.index(),
+        mask_of(hand),
+        frame.key.played,
+        frame.sizes(),
+        frame.voids,
+        4,
+        &mut rng,
+    );
+    assert_eq!(
+        drawn.expect_err("the sampler refuses the specimen"),
+        refusal,
+        "the sampler's refusal is the oracle's refusal"
+    );
+    assert_eq!(
+        rng.0, 0x5164_5EC1_0000_0001,
+        "a refused frame consumes no randomness"
+    );
+
+    // And the exhaustive search agrees: no exact partition exists.
+    assert!(
+        !exact_partition_exists(
+            FULL_MASK & !frame.key.played & !mask_of(hand),
+            &[
+                (frame.sizes()[0], frame.voids[0]),
+                (frame.sizes()[1], frame.voids[1]),
+                (frame.sizes()[2], frame.voids[2]),
+            ],
+        ),
+        "exhaustive search confirms the specimen is unsatisfiable"
+    );
+}
+
+// ---------------------------------------------------------------------------
+// R5 — the feasibility oracle is faithful.
+// ---------------------------------------------------------------------------
+
+/// Exhaustive exact-partition search: deal `unseen` out to the listed
+/// (size, void-mask) seats, every tile used. A test-local reference
+/// implementation of the sampler's acceptance predicate — never library
+/// source, and never used outside this file.
+fn exact_partition_exists(unseen: u32, seats: &[(usize, u32)]) -> bool {
+    match seats.split_first() {
+        None => unseen == 0,
+        Some((&(size, void), rest)) => {
+            let usable: Vec<u32> = (0..28)
+                .map(|i| 1u32 << i)
+                .filter(|b| unseen & b != 0 && void & b == 0)
+                .collect();
+            fn choose(
+                usable: &[u32],
+                size: usize,
+                acc: u32,
+                unseen: u32,
+                rest: &[(usize, u32)],
+            ) -> bool {
+                if size == 0 {
+                    return exact_partition_exists(unseen & !acc, rest);
+                }
+                if usable.len() < size {
+                    return false;
+                }
+                for (i, b) in usable.iter().enumerate() {
+                    if choose(&usable[i + 1..], size - 1, acc | b, unseen, rest) {
+                        return true;
+                    }
+                }
+                false
+            }
+            choose(&usable, size, 0, unseen, rest)
+        }
+    }
+}
+
+/// Gate R5 — the counting oracle decides exactly what the shuffle-and-
+/// reject loop accepts. Over a swept corpus of small frames with adversarial
+/// void structure, `belief_frame_feasibility` agrees with exhaustive
+/// exact-partition search on EVERY frame, in both directions: no feasible
+/// frame is refused (which would silently perturb the live player) and no
+/// infeasible frame is admitted (which would restore the hang).
+#[test]
+fn the_counting_oracle_agrees_with_exhaustive_partition_search() {
+    // A small unseen pool, so exhaustive search is affordable and the
+    // adversarial void structures are dense: 9 tiles to three seats.
+    let pool: Vec<usize> = (0..9).collect();
+    let unseen = pool.iter().fold(0u32, |m, &i| m | (1u32 << i));
+    let played = FULL_MASK & !unseen & !0x0007_0000;
+    let viewer_hand = 0x0007_0000;
+    assert_eq!(FULL_MASK & !played & !viewer_hand, unseen);
+
+    let mut rng = SplitMix64(mix(0x5164_FA17_0000_0001));
+    let mut checked = 0usize;
+    let mut infeasible = 0usize;
+    for size_split in [[3usize, 3, 3], [1, 3, 5], [5, 3, 1], [2, 4, 3], [4, 4, 1]] {
+        // Void density is swept as well as the size split: dense frames are
+        // mostly infeasible, sparse ones mostly feasible, and the interesting
+        // disagreements would live in between.
+        for density in [2u64, 3, 4, 6, 9] {
+            for _ in 0..80 {
+                // Each hidden seat is void in a random subset of the pool.
+                // Voids are really contexts, not arbitrary tiles, but the
+                // sampler only ever tests `w[s] & voids[s]`, so an arbitrary
+                // mask is the widest lawful stress of that predicate.
+                let mut voids = [0u32; 4];
+                for seat in [1usize, 2, 3] {
+                    let mut mask = 0u32;
+                    for &tile in &pool {
+                        if rng.below(density) == 0 {
+                            mask |= 1u32 << tile;
+                        }
+                    }
+                    voids[seat] = mask;
+                }
+                let sizes = [0usize, size_split[0], size_split[1], size_split[2]];
+                let counted = belief_frame_feasibility(0, viewer_hand, played, sizes, voids);
+                let searched = exact_partition_exists(
+                    unseen,
+                    &[
+                        (sizes[1], voids[1]),
+                        (sizes[2], voids[2]),
+                        (sizes[3], voids[3]),
+                    ],
+                );
+                assert_eq!(
+                    counted.is_ok(),
+                    searched,
+                    "the counting oracle decides the sampler's acceptance region \
+                     (sizes {sizes:?}, voids {voids:?})"
+                );
+                if let Err(frame) = &counted {
+                    assert!(
+                        frame.confined.count_ones() as usize > frame.room,
+                        "a refusal names a blocking set that really overflows"
+                    );
+                    infeasible += 1;
+                }
+                checked += 1;
+            }
+        }
+    }
+    assert_eq!(checked, 2_000);
+    assert!(
+        infeasible > 100 && infeasible < checked - 100,
+        "the sweep exercises both verdicts (saw {infeasible} refusals of {checked})"
+    );
+}
+
+/// Gate R5, part two — the LEFTOVER case. The sampler slices a prefix of
+/// the shuffled pool, so when the declared sizes ask for fewer tiles than
+/// the pool holds, the tail is never dealt and a tile no seat may hold is
+/// harmless. The oracle must model that, not the exact partition.
+#[test]
+fn the_oracle_models_the_prefix_slicing_not_an_exact_partition() {
+    // Nine unseen tiles, three seats wanting two apiece: three tiles are
+    // dealt to nobody. One tile is void for every seat — feasible anyway.
+    let unseen = 0x0000_01FFu32;
+    let viewer_hand = 0x0007_0000u32;
+    let played = FULL_MASK & !unseen & !viewer_hand;
+    let sizes = [0usize, 2, 2, 2];
+    let mut voids = [0u32; 4];
+    for seat in [1usize, 2, 3] {
+        voids[seat] = 0x0000_0001;
+    }
+    belief_frame_feasibility(0, viewer_hand, played, sizes, voids)
+        .expect("an undealt tile no seat may hold does not block the frame");
+
+    // Four such tiles cannot all sit in a three-tile tail.
+    for seat in [1usize, 2, 3] {
+        voids[seat] = 0x0000_000F;
+    }
+    let refusal = belief_frame_feasibility(0, viewer_hand, played, sizes, voids)
+        .expect_err("four universally-void tiles overflow a three-tile tail");
+    assert!(refusal.blocking_seats.is_empty(), "no seat can take them");
+    assert_eq!(refusal.confined, 0x0000_000F);
+    assert_eq!(refusal.room, 3, "the leftover is the only room they have");
+
+    // And the sampler agrees on the feasible side: it draws, and every
+    // drawn seat hand respects its voids.
+    for seat in [1usize, 2, 3] {
+        voids[seat] = 0x0000_0001;
+    }
+    let mut rng = SplitMix64(mix(0x5164_1EF7_0000_0001));
+    let worlds = sample_belief(0, viewer_hand, played, sizes, voids, 32, &mut rng)
+        .expect("the feasible leftover frame draws");
+    for w in &worlds {
+        for seat in [1usize, 2, 3] {
+            assert_eq!(w[seat].count_ones() as usize, sizes[seat]);
+            assert_eq!(w[seat] & voids[seat], 0, "a drawn hand respects its voids");
+        }
+    }
 }
 
 /// Gate R2 — before/after determinism. The identical corpus, re-rendered

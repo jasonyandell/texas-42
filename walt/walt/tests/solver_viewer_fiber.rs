@@ -65,12 +65,13 @@ fn own_fiber_full_support_matches_plain_solver() {
     let priced = viewer_fiber_evaluate(
         dcl, bid, actor, actor, hand, &options, &key, [7; 4], [0; 4], 0, 7, N, N0, 120, &mut rng,
     )
-    .expect("no deadline in tests");
+    .expect("no deadline in tests, and a void-free frame is feasible");
 
     // The same worlds, drawn by an identically-seeded rng, priced by the
     // plain solver path (alive = the root all-worlds set).
     let mut rng2 = SplitMix64(SEED ^ 0xA5A5);
-    let worlds = sample_belief(1, hand, 0, [7; 4], [0; 4], N, &mut rng2);
+    let worlds = sample_belief(1, hand, 0, [7; 4], [0; 4], N, &mut rng2)
+        .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
     let deadline = Deadline::after(std::time::Duration::from_secs(120));
     let sh = Arc::new(Shared::new(dcl, bid, vec![N0], 0, 7, deadline));
     let maximize = actor.team() == Team::T1;
@@ -116,7 +117,7 @@ fn cross_fiber_lawful_and_deterministic() {
             dcl, bid, actor, viewer, hands[2], &options, &key, [7; 4], [0; 4], 0, 7, N, N0, 120,
             &mut rng,
         )
-        .expect("no deadline in tests")
+        .expect("no deadline in tests, and a void-free frame is feasible")
     };
     let a = run();
     let b = run();

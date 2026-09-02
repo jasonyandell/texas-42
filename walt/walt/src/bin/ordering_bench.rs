@@ -169,7 +169,7 @@ fn level1_item(hand_no: u64) {
     let opts = level1_evaluate(
         dcl, BID, seat, hand, hand, &key, [7; 4], [0; 4], 0, 7, N_OUTER, N0, 86_400, &mut rng,
     )
-    .expect("no deadline in the bench");
+    .expect("no deadline in the bench, and a void-free frame is feasible");
     let micros = t.elapsed().as_micros();
     println!(
         "item=level1-deal{hand_no} options={} micros={micros}",
@@ -187,7 +187,8 @@ fn direct_item(hand_no: u64, ordering: MoveOrdering, tag: &str) {
     let hand = hands[1];
     let key = root_key();
     let mut rng = SplitMix64(SEED ^ mix(0x22 ^ hand_no));
-    let worlds = sample_belief(seat.index(), hand, 0, [7; 4], [0; 4], N_OUTER, &mut rng);
+    let worlds = sample_belief(seat.index(), hand, 0, [7; 4], [0; 4], N_OUTER, &mut rng)
+        .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
     let deadline = Deadline::after(Duration::from_secs(86_400));
     let sh = Arc::new(Shared::new(dcl, BID, vec![N0], 0, 7, deadline));
     let maximize = seat.team() == Team::T1;

@@ -284,7 +284,8 @@ fn declare_internal(bidder_i: usize, hand0: u32, cfg: &Config, full: bool) -> De
         best
     };
 
-    let worlds = sample_belief(bidder_i, hand0, 0, [7; 4], [0; 4], cfg.n_declare, &mut rng);
+    let worlds = sample_belief(bidder_i, hand0, 0, [7; 4], [0; 4], cfg.n_declare, &mut rng)
+        .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
     let mut vals: Vec<(Decl, BigRational)> = candidates
         .iter()
         .map(|&dcl| (dcl, eval(dcl, worlds.clone())))
@@ -305,7 +306,8 @@ fn declare_internal(bidder_i: usize, hand0: u32, cfg: &Config, full: bool) -> De
             break;
         }
         n_cur *= 4;
-        let worlds = sample_belief(bidder_i, hand0, 0, [7; 4], [0; 4], n_cur, &mut rng);
+        let worlds = sample_belief(bidder_i, hand0, 0, [7; 4], [0; 4], n_cur, &mut rng)
+            .expect("a void-free frame is feasible: every deal of the unseen pool is lawful");
         for dcl in tied {
             let v = eval(dcl, worlds.clone());
             let slot = vals.iter_mut().find(|(x, _)| *x == dcl).expect("tied decl");
