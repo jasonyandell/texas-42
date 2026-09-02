@@ -202,7 +202,7 @@ fn permille(mass: u128, total: u128) -> u128 {
 // One root's section.
 // ---------------------------------------------------------------------------
 
-#[allow(clippy::too_many_lines)]
+#[allow(clippy::too_many_lines, clippy::too_many_arguments)]
 fn report_root(
     out: &mut String,
     r: &Receipt,
@@ -401,12 +401,7 @@ fn report_root(
         census.strict_prices().len(),
     )
     .expect("write");
-    writeln!(
-        out,
-        "wall {} us",
-        u128::try_from(started.elapsed().as_micros()).expect("fits")
-    )
-    .expect("write");
+    writeln!(out, "wall {} us", started.elapsed().as_micros()).expect("write");
     writeln!(out).expect("write");
     Some(census)
 }
@@ -493,12 +488,7 @@ fn report_sweep(
         envelope.len()
     )
     .expect("write");
-    writeln!(
-        out,
-        "wall {} us",
-        u128::try_from(started.elapsed().as_micros()).expect("fits")
-    )
-    .expect("write");
+    writeln!(out, "wall {} us", started.elapsed().as_micros()).expect("write");
     writeln!(out).expect("write");
 }
 
