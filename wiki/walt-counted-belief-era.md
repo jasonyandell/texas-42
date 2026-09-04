@@ -117,6 +117,35 @@ MB1–MB5/U1+ sequenced by evidence, serial fable agents under
 per-slice briefs (`walt/briefs/`), `walt/FACTOR-BELIEF.md` the running
 record. Live player untouched; arena on Jason's word.
 
+## The build after the closing round (2026-09-02 → 09-03)
+
+One line each; `walt/FACTOR-BELIEF.md` and the per-slice reports under
+`walt/briefs/` carry the record.
+
+| Slice | PR / report | What it is |
+|---|---|---|
+| MB0 + σ1-repair | #82, #83 | The model-belief exact vertical slice over Ξ = Ω×Θ (§74), point-mass parity both ways, fusion price zero on the t5/t6 corpus; the Level1 sampler's empty acceptance region found and repaired, five copies made one |
+| U0 | #84, `U0-REPORT.md` | The God-gap census: `1 − V = d_phys + d_info + d_policy` mechanical; the fusion horizon at **trick 5** on the receipt-root corpus (twelve t4 prices 6–22‰ with `d_policy = 0`; opening root `UnknownGodGap`) |
+| MB1 | #85, `MB1-REPORT.md` | The model-belief recursion joins the solver; the model-fusion price is **strictly positive at trick 4** (1–9‰), zero at every belief by the §19 corollary where zero at one |
+| UP0 | #86, `UP0-REPORT.md` | The unified player, slice 0: one five-tier decision cascade over every instrument, provenance a derived view of evidence, both recursions named; 99.4% of the lean rung's wall spent carrying an unread posterior |
+| UP1a | `UP1A-REPORT.md` | The lazy carry: the line is recorded per ply and the posterior materialized only when read; lean carry 2.1 s → 0 µs, every read charged to its reader, lazy ≡ eager on all 216 decisions |
+| U0b | `U0B-REPORT.md` | The in-solve horizon census: the God-gap census at every frontier node a solve reaches, plus the exact root price of a §39 fusion cut at that depth |
+
+**What U0b changed about the horizon.** U0's "fusion-free from trick 5"
+held at fourteen uniform receipt roots with the viewer on lead. Inside a
+trick-4 solve the conditioned trick-5 nodes are **not** fusion-free —
+9–31% carry a positive price, 13–14‰ mass-weighted at the receipt
+contract and up to 105‰ of root value at higher contracts — while the
+trick-6 frontier is 0–7‰ in value and still flips the root play in two of
+thirty rows. The trick-3 root h8-t3 solved exactly under σ0 in 14 minutes
+(the program's first trick-3 exact value; MB1's refusal there was the
+mixture's), and a cut at its trick-4 frontier over-prices by 31‰ and
+changes the play. A §39 substitution as a live backend therefore needs a
+trick-6 frontier or gluing work at the priced trick-5 nodes, which the
+record now lists. A ledger correction travelled with the slice: the doom
+paragraph's "overwhelmingly the info-consistency price" outran SC-A1/SC-A4
+(`walt/DISCREPANCIES.md`).
+
 ## What the era found
 
 - **The opening-root verdict, in certified-regret form** (Phase 8, probe

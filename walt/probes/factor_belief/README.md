@@ -18,7 +18,13 @@ Instruments: `walt/walt/src/bin/factorbelief.rs` (Slice C),
 `walt/walt/src/bin/openingreport.rs` (anytime proof-state Phase 8) and
 `walt/walt/src/bin/doomreport.rs` (the doom census — the §70
 structural producer, ∀-fail dual of §16).
-Gates (the CI-checked part): `walt/walt/tests/solver_factor_belief.rs`,
+`walt/walt/src/bin/unifiedreport.rs` (the unified player transcript,
+UP0; re-run under UP1a's lazy carry as `unified_run2.txt`) and
+`walt/walt/src/bin/horizonreport.rs` (the in-solve horizon census, U0b —
+`horizon_run1.txt`).
+Gates (the CI-checked part): `walt/walt/tests/solver_unified.rs`,
+`walt/walt/tests/solver_unified_carry.rs`, `walt/walt/tests/solver_horizon.rs`,
+`walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
 `walt/walt/tests/solver_factor_consequence.rs`,

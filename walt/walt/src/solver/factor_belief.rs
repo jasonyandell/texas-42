@@ -395,6 +395,22 @@ impl FactorBelief {
         self.cursor().seat()
     }
 
+    /// The walked public state at this belief — leader, current partial
+    /// trick, banked totals, and each seat's post-root plays — as an owned
+    /// snapshot. A derived view of (root position, history), recomputed on
+    /// every call; consumers that need a line state (the in-solve horizon
+    /// census, slice U0b) build it from this rather than from a second
+    /// stored authority.
+    pub fn public_state(&self) -> PublicState {
+        let cursor = self.cursor();
+        PublicState {
+            leader: cursor.leader,
+            plays: cursor.plays.clone(),
+            banked: cursor.banked,
+            played_by: cursor.played_by,
+        }
+    }
+
     /// Replay the post-root public history over the root frame. Public
     /// data only; the same trick arithmetic as the replay walkers.
     fn cursor(&self) -> PublicCursor {
@@ -459,6 +475,19 @@ impl FactorBelief {
         out.factors[slot].weights = FactorWeights::Table(entries);
         out
     }
+}
+
+/// An owned snapshot of a belief's walked public state
+/// ([`FactorBelief::public_state`]).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct PublicState {
+    pub leader: Seat,
+    /// The current partial trick in play order (empty at a trick start).
+    pub plays: Vec<Domino>,
+    /// Banked points so far, indexed by `Team::index()`.
+    pub banked: [u32; 2],
+    /// Each seat's POST-ROOT plays, seat-indexed.
+    pub played_by: [DominoSet; Seat::COUNT],
 }
 
 /// The walked public state: the same evolution as the replay walkers'
