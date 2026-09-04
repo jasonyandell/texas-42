@@ -639,3 +639,17 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   play. Ledger correction filed (`DISCREPANCIES.md`): the doom paragraph's
   "overwhelmingly the info-consistency price" outruns SC-A1/SC-A4.
   Running record: `walt/FACTOR-BELIEF.md`.
+- 2026-09-04: THE FOCAL-HORIZON PROGRAM (branch `walt-fh`, one day):
+  intake FH0 (`walt/math/focal_horizon_sandwich_v0.1.md`, FH-A1..A11,
+  propositions FH-God/FH-int/FH-tie/FH-cut/FH-last); FH1 engine
+  (`solver/focal_horizon.rs`, 10 gates, `focal_run0.txt`); CI1 (concurrent
+  test binaries + recompute-once fixtures, gate ~15 min → 230 s); FH2
+  ladder (`solver/focal_ladder.rs`, 9 gates, `focal_ladder_run1.txt`); FH3
+  report of record + anchors (`focal_run1.txt`, 4 gates); FH4 audit. Findings:
+  trick-4 corpus settles by k ≤ 2 (11/14 by k ≤ 1); h8-t3 at k = 3; residual
+  width = tail policy gap not fusion price; ply-cut flips never certified;
+  memory 19 GB at h8-t3 ([[ladder-policy-store]]). Process: the background-
+  wedge rule in CLAUDE.md; gate-sizing rule; [[gate-corpus-trim]];
+  `walt/MAP.md` (walt on one page). Ruling (Jason): no new parent until a
+  consolidation slice lands. Reports under `walt/briefs/FH*-REPORT.md`,
+  `CI1-REPORT.md`; Pro response drafted `walt/briefs/FH-RESPONSE-TO-PRO.md`.
