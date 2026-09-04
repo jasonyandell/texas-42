@@ -26,7 +26,11 @@ reaches, and the exact price of a §39 fusion cut at that depth,
 paragraph after UP1a); SLICE FH1 LANDED (2026-09-04, the focal-horizon
 hierarchy engine — three instruments become the endpoints of one
 refinement object indexed by focal decisions, affordable-or-refuse,
-paragraph after U0b). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
+paragraph after U0b); SLICE FH2 LANDED (2026-09-04, the focal-horizon
+ladder — the engine made anytime under Proposition FH-int: budgeted
+passes that stop and resume on a store of node facts installed by
+intersection, proof-state facts with their witnesses, exact suffix
+reuse under the full belief identity, paragraph after FH1). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
 register: `solver/refine.rs` as merged at `25b40d9` takes no new
 fields, variants, or work items, ever; its four gates never weaken; the
 coming proof-state core must reproduce it wherever scopes overlap and
@@ -987,6 +991,73 @@ zero; (5) h4-t4 costs 5.0M / 8.3M / 10.0M field reads at k = 0 / 1 / 2.
 Budget honesty with retained intervals and suffix reuse are FH2 (gated
 on FH-int); the report of record and the FH8 anchors are FH3.
 EXPLORATORY tier; no live default change (FH-A10).
+
+**SLICE FH2 LANDED** (2026-09-04, the focal-horizon ladder — the
+parent's §23 sound interruption, §19 preserved facts and §25
+continuation substitution as narrowed by the companion's P8/P11/P12 and
+rulings FH-A3/FH-A9/FH-A11 with Proposition FH-int; report of record
+`walt/briefs/FH2-REPORT.md`): new `solver/focal_ladder.rs` makes FH1's
+engine ANYTIME. A `FocalLadder` is a per-root store of NODE FACTS under
+FH1's identity minus the horizon — `[L(C), U(C)]` in mass form with the
+policy attaining `L(C)` stored beside it and the residual horizons each
+side was established at — installed by INTERSECTION only (lower = max
+keeping the winning policy, the prior winning ties; upper = min), and
+only when a node's whole subtree completed at its residual horizon:
+nothing partial is ever written, so the fact set is a function of the
+set of completed nodes. `advance(ctx, k, budget, memo)` runs the
+recursion at horizon `k` under a read ceiling (field + tail reads, the
+exact unit) and the fiber cap; at the ceiling the pass STOPS
+deterministically and the `Interrupted` outcome carries the residual
+frontier (every node whose parent was entered and which did not
+complete, typed `Stopped` / `Enclosing` / `Unvisited` / `Unaffordable`,
+with its mass and retained fact), the stopping node, reads spent and the
+ceiling; a cap refusal leaves the enclosing root child unfinished and the
+pass continues at the next (FH-A3). A resume is the same horizon again:
+nodes completed at that residual return their stored fact read-free. The
+root is a DERIVED VIEW of the facts — per action the stored fact or the
+placeholder (lower 0 with the tail, NO upper), bar, survivors (an absent
+upper survives and blocks `Settled`), verdict, `π` as the union of the
+children's stored tables, `U*` and `Γ` only when every upper exists.
+Decided nodes store the §5 arithmetic as a fact at zero reads. Within a
+ladder a collapsed fact (`L = U`) becomes a receipt in a `SuffixMemo`
+keyed by the belief's FULL identity (bucketed by history, matched by
+`FactorBelief`'s componentwise equality — root, position incl. contract,
+history, field id, the posterior with weights); a later pass returns the
+receipt instead of descending (P12). `FocalHorizonProducer:
+ProofProducer` emits `Fact::Bound` per action — lowers under
+`focal-horizon:<tail id>:k=<k>:lower`, executable iff the stored policy
+re-prices to the value through `viewer_success_mass` AT PRODUCTION;
+uppers under `focal-horizon:god:k=<k>:upper`, never executable — with
+retained values from an interrupted pass. FH1's engine gained one
+`pub(crate)` seam (`Engine::price_frontier`, the k = 0 leaf both walks
+call) and is otherwise unchanged; its ten gates stay green. Nine gates
+(`solver_focal_ladder.rs`, ~24 s standalone): parity with `focal_horizon`
+(a fresh direct-k ladder reproduces FH1's `π_k` id; the sequential
+ladder every value view); FH7's five bullets at h8-t4 (no child dropped,
+retained k = 0 facts equal the uncapped run's, `Q_a` inside every
+interval, the boundary typed, resume + completion ≡ uninterrupted
+bytewise on the fact render and on every derived view, the spend as a
+sum); monotone under a pinned eight-step ceiling schedule; the
+placeholder is not a fact (h4-t6 and h8-t4 at ceiling 0 — no interval,
+no regret — against h10-t6 where decided children are facts at zero
+reads); proof-state install/closure parity and tightening through k = 2;
+executability honest including the retained k = 0 lower; suffix reuse
+invisible in value at h8-t4 and h3-t4 with the first hit PINNED at
+[2-1 0-0 2-0 3-0]; the identity is the full belief (a frozen contract-30
+memo answers a contract-36 ladder with zero hits; a belief narrowed in
+one factor alone misses); determinism of an interrupted run. Probe
+`focalreport ladder` / `ladder-record`
+(`probes/factor_belief/focal_ladder_run1.txt`, h8-t4 and h3-t4, pinned
+schedules). THE FINDINGS (exploratory): (1) at h3-t4 the INTERRUPTED
+k = 1 pass settles 3-1 at 1.20M reads with 6-4 still unfinished — its
+retained k = 0 upper already sits below the new bar — where FH1's k = 1
+needed 2.63M; (2) the suffix memo cuts the k = 2 pass to 0.42M reads at
+h3-t4 (FH1: 2.83M) and 0.13M at h8-t4 (FH1: 0.66M) with identical views;
+(3) the price: peak RSS at h3-t4 662 MB memo-on / 509 MB memo-off against
+FH1's 411 MB (the fact store's per-node policy tables and the memo's
+belief clones), and a resume re-reads the stopped chain (h8-t4: under 0.4%
+over the uninterrupted pass). EXPLORATORY tier; no live default change
+(FH-A10).
 
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint

@@ -147,7 +147,13 @@ pub struct FocalChoices {
 }
 
 impl FocalChoices {
-    fn new(horizon: usize, tail_id: &str, choices: BTreeMap<Vec<u8>, Domino>) -> FocalChoices {
+    /// `pub(crate)` so the focal ladder (slice FH2) can bind its derived
+    /// root table under the same content address.
+    pub(crate) fn new(
+        horizon: usize,
+        tail_id: &str,
+        choices: BTreeMap<Vec<u8>, Domino>,
+    ) -> FocalChoices {
         let mut bytes = Vec::new();
         for (k, v) in &choices {
             bytes.extend_from_slice(k);
@@ -239,7 +245,7 @@ impl SlicePolicy for FocalPolicy<'_> {
     }
 }
 
-fn history_key(history: &[Domino]) -> Vec<u8> {
+pub(crate) fn history_key(history: &[Domino]) -> Vec<u8> {
     history
         .iter()
         .map(|d| u8::try_from(d.index()).expect("a tile index fits u8"))
@@ -350,13 +356,31 @@ pub enum FocalRefusal {
     },
 }
 
-fn ratio(m: u128, z: u128) -> BigRational {
+pub(crate) fn ratio(m: u128, z: u128) -> BigRational {
     BigRational::new(BigInt::from(m), BigInt::from(z))
 }
 
 // ---------------------------------------------------------------------------
 // The recursion.
 // ---------------------------------------------------------------------------
+
+/// The viewer's legal set at a viewer-to-move node (the same public state
+/// and hand the tail reads).
+pub(crate) fn viewer_legal(belief: &FactorBelief) -> DominoSet {
+    let viewer = belief.kernel().viewer();
+    let state = belief.public_state();
+    let remaining = belief
+        .kernel()
+        .viewer_hand()
+        .difference(state.played_by[viewer.index()]);
+    let led = state
+        .plays
+        .first()
+        .map(|d| belief.position().decl.led_context(*d));
+    let legal = legal_plays(belief.position().decl, remaining, led);
+    assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+    legal
+}
 
 /// One subtree's exact-mass interval and the choice table of `π_k`
 /// through it.
@@ -366,18 +390,79 @@ struct Node {
     choices: BTreeMap<Vec<u8>, Domino>,
 }
 
-struct Engine<'a> {
-    oracle: &'a dyn ExactCoverOracle,
+/// The evaluation context of one run: the oracle, the counted field and
+/// tail, the fiber cap and the exact counters. `pub(crate)` so the focal
+/// ladder (slice FH2) prices its frontier through THIS code path —
+/// [`Engine::price_frontier`] is the one implementation of the `k = 0`
+/// leaf (compose, never copy).
+pub(crate) struct Engine<'a> {
+    pub(crate) oracle: &'a dyn ExactCoverOracle,
     /// The declared field, counted.
-    field: &'a CountingField<'a>,
+    pub(crate) field: &'a CountingField<'a>,
     /// The lower tail, counted.
-    tail: &'a CountingField<'a>,
-    cap: u128,
-    total_plays: usize,
-    spend: FocalSpend,
+    pub(crate) tail: &'a CountingField<'a>,
+    pub(crate) cap: u128,
+    pub(crate) total_plays: usize,
+    pub(crate) spend: FocalSpend,
 }
 
 impl Engine<'_> {
+    /// Field plus tail reads so far — the ladder's work unit (FH2).
+    pub(crate) fn reads(&self) -> u64 {
+        self.field.reads.get().saturating_add(self.tail.reads.get())
+    }
+
+    /// The `k`-th focal frontier at an undecided viewer node: the lower
+    /// tail's value through [`viewer_success_mass`] and the God upper
+    /// through the doom census's line walk — or the typed refusal when
+    /// the node's fiber exceeds the cap (FH-A3: nothing is priced, the
+    /// trivial upper is never installed).
+    pub(crate) fn price_frontier(
+        &mut self,
+        belief: &FactorBelief,
+        legal_len: usize,
+        depth: usize,
+    ) -> Result<(u128, u128), FocalRefusal> {
+        let z = self.oracle.mass(belief);
+        if z > self.cap {
+            return Err(FocalRefusal::UpperUnaffordable {
+                history: belief.history().to_vec(),
+                fiber: z,
+                cap: self.cap,
+            });
+        }
+        self.spend.lower_tail_evaluations += 1;
+        self.spend.upper_tail_evaluations += 1;
+        if legal_len == 1 {
+            self.spend.forced_tail_evaluations += 1;
+        }
+        *self.spend.tail_plies.entry(depth).or_insert(0) += 1;
+        let mut rs = RecursionStats::default();
+        let lower = viewer_success_mass(self.oracle, belief, self.tail, self.field, &mut rs);
+        self.spend.lower_tail_stats.decided_early += rs.decided_early;
+        self.spend.lower_tail_stats.decided_terminal += rs.decided_terminal;
+        self.spend.lower_tail_stats.focal_nodes += rs.focal_nodes;
+        self.spend.lower_tail_stats.hidden_nodes += rs.hidden_nodes;
+        self.spend.lower_tail_stats.conditionings += rs.conditionings;
+        let (doomed, worlds, nodes) = doom_over_belief(belief, self.field);
+        assert_eq!(
+            worlds, z,
+            "the per-world enumeration covers the node's posterior mass exactly"
+        );
+        self.spend.worlds_enumerated = self
+            .spend
+            .worlds_enumerated
+            .checked_add(worlds)
+            .expect("an exact count fits u128");
+        self.spend.line_walk_nodes = self.spend.line_walk_nodes.saturating_add(nodes);
+        let upper = z - doomed;
+        assert!(
+            lower <= upper,
+            "a lawful tail never exceeds the world-revealed upper (Lemma 0.3, FH-God)"
+        );
+        Ok((lower, upper))
+    }
+
     fn walk(&mut self, belief: &FactorBelief, k: usize) -> Result<Node, FocalRefusal> {
         let viewer = belief.kernel().viewer();
         let state = belief.public_state();
@@ -429,55 +514,10 @@ impl Engine<'_> {
                 choices,
             });
         }
-        let remaining = belief
-            .kernel()
-            .viewer_hand()
-            .difference(state.played_by[viewer.index()]);
-        let led = state
-            .plays
-            .first()
-            .map(|d| belief.position().decl.led_context(*d));
-        let legal = legal_plays(belief.position().decl, remaining, led);
-        assert!(!legal.is_empty(), "a seat to move holds a legal tile");
+        let legal = viewer_legal(belief);
         if k == 0 {
             // The k-th focal frontier: both tails, or a whole-root refusal.
-            let z = self.oracle.mass(belief);
-            if z > self.cap {
-                return Err(FocalRefusal::UpperUnaffordable {
-                    history: belief.history().to_vec(),
-                    fiber: z,
-                    cap: self.cap,
-                });
-            }
-            self.spend.lower_tail_evaluations += 1;
-            self.spend.upper_tail_evaluations += 1;
-            if legal.len() == 1 {
-                self.spend.forced_tail_evaluations += 1;
-            }
-            *self.spend.tail_plies.entry(depth).or_insert(0) += 1;
-            let mut rs = RecursionStats::default();
-            let lower = viewer_success_mass(self.oracle, belief, self.tail, self.field, &mut rs);
-            self.spend.lower_tail_stats.decided_early += rs.decided_early;
-            self.spend.lower_tail_stats.decided_terminal += rs.decided_terminal;
-            self.spend.lower_tail_stats.focal_nodes += rs.focal_nodes;
-            self.spend.lower_tail_stats.hidden_nodes += rs.hidden_nodes;
-            self.spend.lower_tail_stats.conditionings += rs.conditionings;
-            let (doomed, worlds, nodes) = doom_over_belief(belief, self.field);
-            assert_eq!(
-                worlds, z,
-                "the per-world enumeration covers the node's posterior mass exactly"
-            );
-            self.spend.worlds_enumerated = self
-                .spend
-                .worlds_enumerated
-                .checked_add(worlds)
-                .expect("an exact count fits u128");
-            self.spend.line_walk_nodes = self.spend.line_walk_nodes.saturating_add(nodes);
-            let upper = z - doomed;
-            assert!(
-                lower <= upper,
-                "a lawful tail never exceeds the world-revealed upper (Lemma 0.3, FH-God)"
-            );
+            let (lower, upper) = self.price_frontier(belief, legal.len(), depth)?;
             return Ok(Node {
                 lower,
                 upper,

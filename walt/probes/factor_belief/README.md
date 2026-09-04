@@ -23,10 +23,12 @@ UP0; re-run under UP1a's lazy carry as `unified_run2.txt`) and
 `walt/walt/src/bin/horizonreport.rs` (the in-solve horizon census, U0b —
 `horizon_run1.txt`) and
 `walt/walt/src/bin/focalreport.rs` (the focal-horizon hierarchy engine
-scout, FH1 — `focal_run0.txt`).
+scout, FH1 — `focal_run0.txt`; its `ladder` / `ladder-record` modes are
+the focal ladder, FH2 — `focal_ladder_run1.txt`).
 Gates (the CI-checked part): `walt/walt/tests/solver_unified.rs`,
 `walt/walt/tests/solver_unified_carry.rs`, `walt/walt/tests/solver_horizon.rs`,
 `walt/walt/tests/solver_focal_horizon.rs`,
+`walt/walt/tests/solver_focal_ladder.rs`,
 `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
@@ -684,6 +686,33 @@ splits into fusion price `U − Q` and policy gap `Q − L`. Gated by
   forced trick-7 node; at k = 3 there are none (FH-last, FH-A6).
 - Wall: h4-t4 17–27 s per horizon; h3-t4 6–9 s; h8-t4 2–3 s; the
   record's one approximate number.
+
+## focal_ladder_run1.txt readings (2026-09-04) — the focal-horizon ladder
+
+`focalreport ladder-record`: the FH2 ladder (`solver/focal_ladder.rs`)
+at h8-t4 and h3-t4, receipt contract, σ0 tail, suffix memo on, through
+the pinned schedules `0:150000 0:inf 1:250000 1:inf 2:inf` (h8-t4) and
+`0:800000 0:inf 1:1200000 1:inf 2:inf` (h3-t4) — each horizon first
+interrupted by a read ceiling, then resumed to completion. Gated by
+`solver_focal_ladder.rs` (LP, FH7, FH7b, FH7c, PS1, PS2, SR1, SR2, FH-D).
+
+- **An interrupted pass can settle.** h3-t4 k = 1 at ceiling 1.2M reads:
+  3-1, 4-1 and 4-4 complete, 6-4 is left at its retained k = 0 fact
+  (`U_0 = 328‰`), and the derived view is already `SETTLED 3-1` (bar
+  338‰, Γ 12‰) — the same verdict FH1 reached only after 2.63M reads.
+- **Retained facts are the uncapped run's.** h8-t4 k = 1 at ceiling
+  250k: 5-5 stays at `[811‰, 963‰]` from k = 0 while the three completed
+  children move to their k = 1 intervals; the resume spends 110k more
+  and lands on FH1's k = 1 view exactly.
+- **Suffix reuse is a cost story, not a value story.** With the memo the
+  k = 2 pass costs 0.13M reads at h8-t4 (FH1: 0.66M; 1,353 hits) and
+  0.42M at h3-t4 (FH1: 2.83M; 5,272 hits); memo off, the ladder's reads
+  reproduce FH1's per horizon. Views identical either way (SR1).
+- **The first hit** at h8-t4 is `[2-1 0-0 2-0 3-0]` — the viewer's
+  trick-5 lead after 2-1, collapsed at k = 0, returned at k = 1.
+- **Price:** the fact store grows to 19,369 facts at h8-t4 and 89,923 at
+  h3-t4; peak RSS at h3-t4 662 MB (memo on) / 509 MB (memo off) vs FH1's
+  411 MB. Wall: h3-t4 under 3.1 s per pass; h8-t4 under 0.9 s.
 
 ## Boundaries
 

@@ -16,11 +16,22 @@
 //! Modes:
 //!   `focalreport scout <hand> <trick> <k> [contract] [node-cap] [tail] [exact]`
 //!   `focalreport scout-corpus <out.txt>`
+//!   `focalreport ladder <hand> <trick> <contract|receipt> [nomemo] <k:ceiling>...`
+//!   `focalreport ladder-record <out.txt>`
 //!
 //! `tail` is `sigma0` (default) or `lowest`; a trailing `exact` also
 //! prices every `Q_a` by `response_success_mass` and prints the
 //! per-action split `(U − Q) + (Q − L)` (walt-math W3). The
 //! report-of-record mode is slice FH3's; the binary stays open for it.
+//!
+//! `ladder` (slice FH2, `solver::focal_ladder`) runs ONE ladder through
+//! a schedule of `k:ceiling` steps (ceiling = field + tail reads for that
+//! pass; `k:inf` for no ceiling) with the suffix memo on (`nomemo` turns
+//! it off — the memory and read comparison), printing per
+//! step the outcome, reads, residual frontier, fact-store movement,
+//! suffix hits and the derived root view. `ladder-record` is the record
+//! of record over h8-t4 and h3-t4 at the receipt contract with the
+//! pinned schedules stated in its header.
 //!
 //! No floats anywhere; wall time is integer microseconds and the one
 //! approximate number.
@@ -40,6 +51,9 @@ use walt::solver::factor_belief::{
 use walt::solver::field::{FieldKind, FieldModel, FieldSpec};
 use walt::solver::focal_horizon::{
     focal_depth, focal_horizon, FocalHorizonResult, FocalRefusal, FocalSpec, FocalVerdict,
+};
+use walt::solver::focal_ladder::{
+    FocalLadder, LadderContext, LadderView, Outcome, ResidualCause, SuffixMemo, WorkBudget,
 };
 use walt::solver::horizon::with_contract;
 use walt::solver::policy::{DecisionMode, TieRule};
@@ -374,6 +388,343 @@ fn print_table(out: &mut String, rows: &[Row]) {
     }
 }
 
+// ---------------------------------------------------------------------------
+// The ladder (slice FH2).
+// ---------------------------------------------------------------------------
+
+/// One schedule step: the horizon and the read ceiling for that pass.
+#[derive(Clone, Copy)]
+struct Step {
+    k: usize,
+    ceiling: u64,
+}
+
+fn parse_step(s: &str) -> Step {
+    let (k, c) = s
+        .split_once(':')
+        .unwrap_or_else(|| panic!("a schedule step is k:ceiling, got {s}"));
+    let k: usize = k.parse().expect("a horizon");
+    let ceiling: u64 = if c == "inf" {
+        u64::MAX
+    } else {
+        c.parse().expect("a read ceiling")
+    };
+    Step { k, ceiling }
+}
+
+fn step_name(step: &Step) -> String {
+    if step.ceiling == u64::MAX {
+        format!("{}:inf", step.k)
+    } else {
+        format!("{}:{}", step.k, step.ceiling)
+    }
+}
+
+fn verdict_name(view: &LadderView) -> String {
+    let z = view.root_mass;
+    match &view.verdict {
+        FocalVerdict::Settled { action } => format!("SETTLED {action}"),
+        FocalVerdict::Equivalent {
+            actions,
+            value_mass,
+        } => {
+            let names: Vec<String> = actions.iter().map(|d| format!("{d}")).collect();
+            format!(
+                "EQUIVALENT {{{}}} at {}",
+                names.join(" "),
+                exact(&ratio(*value_mass, z))
+            )
+        }
+        FocalVerdict::Unresolved { survivors } => {
+            let names: Vec<String> = survivors.iter().map(|d| format!("{d}")).collect();
+            format!("UNRESOLVED survivors {{{}}}", names.join(" "))
+        }
+    }
+}
+
+fn print_view(out: &mut String, view: &LadderView) {
+    let z = view.root_mass;
+    for a in &view.actions {
+        let mark = if view.survivors.contains(&a.action) {
+            "S"
+        } else {
+            "-"
+        };
+        let lower = match a.lower_horizon {
+            Some(k) => format!("L {} @k{k}", exact(&a.lower())),
+            None => "L 0 (placeholder, tail)".to_string(),
+        };
+        let upper = match (a.upper_mass, a.upper_horizon) {
+            (Some(u), Some(k)) => format!(
+                "U {} @k{k} | width {}",
+                exact(&ratio(u, z)),
+                exact(&ratio(u - a.lower_mass, z))
+            ),
+            _ => "U absent (no fact) | no interval".to_string(),
+        };
+        let _ = writeln!(out, "     action {} [{mark}]: {lower} | {upper}", a.action);
+    }
+    let survivors: Vec<String> = view.survivors.iter().map(|d| format!("{d}")).collect();
+    let _ = writeln!(
+        out,
+        "   bar {} (plays {}) | survivors {{{}}} | verdict {}",
+        exact(&view.bar()),
+        view.bar_action,
+        survivors.join(" "),
+        verdict_name(view)
+    );
+    let u_star = view
+        .global_upper()
+        .map_or("absent".to_string(), |u| exact(&u));
+    let gamma = view
+        .certified_regret
+        .as_ref()
+        .map_or("absent".to_string(), exact);
+    let horizon = view.horizon.map_or("-".to_string(), |h| format!("{h}"));
+    let _ = writeln!(
+        out,
+        "   π {} ({} states) | L_exec {} | U* {u_star} | Γ {gamma} | established horizon {horizon}",
+        view.policy.id(),
+        view.policy.states(),
+        exact(&ratio(view.executable_lower_mass, z))
+    );
+}
+
+/// One ladder coordinate: the root, the contract, the cap and the memo switch.
+struct LadderRun {
+    hand_id: usize,
+    trick_no: usize,
+    contract: Option<u32>,
+    cap: u128,
+    use_memo: bool,
+}
+
+/// One ladder through a schedule at one root; returns the per-step table
+/// rows for the summary.
+fn run_ladder(out: &mut String, r: &Receipt, run: &LadderRun, schedule: &[Step]) -> Vec<LadderRow> {
+    let LadderRun {
+        hand_id,
+        trick_no,
+        contract,
+        cap,
+        use_memo,
+    } = *run;
+    let (root, position) = root_at(r, hand_id, trick_no);
+    let position = match contract {
+        Some(c) => with_contract(&position, c),
+        None => position,
+    };
+    let oracle = SupportOracle;
+    let field = FieldModel::new(field_spec());
+    let ctx = LadderContext {
+        oracle: &oracle,
+        root: &root,
+        position: &position,
+        lower_tail: &field,
+        field: &field,
+    };
+    let mut ladder = FocalLadder::open(&ctx);
+    let mut memo = SuffixMemo::new();
+    let label = format!("h{hand_id}-t{trick_no}");
+    let _ = writeln!(
+        out,
+        "== {label} contract {} tail sigma0 | Z={} | legal {} | schedule [{}] | node cap {cap} | suffix memo {}",
+        position.bid,
+        ladder.root_mass(),
+        ladder.legal().len(),
+        schedule.iter().map(step_name).collect::<Vec<_>>().join(" "),
+        if use_memo { "on" } else { "off" }
+    );
+    let mut rows = Vec::new();
+    for (i, step) in schedule.iter().enumerate() {
+        eprintln!("  {label} step {} ({}) ...", i + 1, step_name(step));
+        let t0 = Instant::now();
+        let outcome = ladder.advance(
+            &ctx,
+            step.k,
+            &WorkBudget {
+                read_ceiling: step.ceiling,
+                node_fiber_cap: cap,
+            },
+            if use_memo { Some(&mut memo) } else { None },
+        );
+        let wall_us = t0.elapsed().as_micros();
+        let report = outcome.report();
+        let outcome_name = match &outcome {
+            Outcome::Completed { .. } => "COMPLETED".to_string(),
+            Outcome::Interrupted {
+                residual_frontier,
+                stopping_node,
+                unaffordable,
+                ..
+            } => {
+                let stop = stopping_node.as_ref().map_or("none".to_string(), |h| {
+                    let names: Vec<String> = h.iter().map(|d| format!("{d}")).collect();
+                    format!("[{}]", names.join(" "))
+                });
+                let mass: u128 = residual_frontier.iter().map(|n| n.mass).sum();
+                let mut stopped = 0usize;
+                let mut enclosing = 0usize;
+                let mut unvisited = 0usize;
+                let mut refused = 0usize;
+                let mut retained = 0usize;
+                for n in residual_frontier {
+                    match n.cause {
+                        ResidualCause::Stopped => stopped += 1,
+                        ResidualCause::Enclosing => enclosing += 1,
+                        ResidualCause::Unvisited => unvisited += 1,
+                        ResidualCause::Unaffordable { .. } => refused += 1,
+                    }
+                    if n.retained.is_some() {
+                        retained += 1;
+                    }
+                }
+                let root_children: Vec<String> = residual_frontier
+                    .iter()
+                    .filter(|n| n.history.len() == 1)
+                    .map(|n| format!("{}", n.history[0]))
+                    .collect();
+                format!(
+                    "INTERRUPTED stop {stop} | residual frontier {} nodes (mass {mass}; stopped {stopped}, \
+                     enclosing {enclosing}, unvisited {unvisited}, unaffordable {refused}; {retained} with \
+                     retained facts) | unfinished root children {{{}}} | cap refusals {}",
+                    residual_frontier.len(),
+                    root_children.join(" "),
+                    unaffordable.len()
+                )
+            }
+        };
+        let _ = writeln!(
+            out,
+            "-- step {} k={} ceiling {} | {} | reads {} (field {} + tail {}) | wall {wall_us}us",
+            i + 1,
+            step.k,
+            if step.ceiling == u64::MAX {
+                "inf".to_string()
+            } else {
+                format!("{}", step.ceiling)
+            },
+            outcome_name,
+            report.reads_spent,
+            report.spend.field_reads,
+            report.spend.tail_reads
+        );
+        let completed: Vec<String> = report
+            .children_completed
+            .iter()
+            .map(|d| format!("{d}"))
+            .collect();
+        let _ = writeln!(
+            out,
+            "   facts: {} stored ({} collapsed) | this pass new {} | revisited {} (tightened {}) | root children completed {{{}}}",
+            ladder.facts().len(),
+            ladder.collapsed_count(),
+            report.facts_new,
+            report.facts_revisited,
+            report.facts_tightened,
+            completed.join(" ")
+        );
+        let first_hit = memo.first_hit.as_ref().map_or("none yet".to_string(), |h| {
+            let names: Vec<String> = h.iter().map(|d| format!("{d}")).collect();
+            format!("[{}]", names.join(" "))
+        });
+        let _ = writeln!(
+            out,
+            "   suffix memo: hits {} / lookups {} this pass | receipts held {} | first hit ever {first_hit} | spend: focal {} hidden {} tail evaluations {} (forced {})",
+            report.suffix_hits,
+            report.suffix_lookups,
+            memo.receipts,
+            report.spend.focal_nodes,
+            report.spend.hidden_nodes,
+            report.spend.tail_consultations(),
+            report.spend.forced_tail_evaluations
+        );
+        print_view(out, &report.view);
+        rows.push(LadderRow {
+            label: label.clone(),
+            step: step_name(step),
+            outcome: if outcome.is_completed() {
+                "completed".to_string()
+            } else {
+                "interrupted".to_string()
+            },
+            survivors: report
+                .view
+                .survivors
+                .iter()
+                .map(|d| format!("{d}"))
+                .collect::<Vec<_>>()
+                .join(" "),
+            verdict: match &report.view.verdict {
+                FocalVerdict::Settled { action } => format!("SETTLED {action}"),
+                FocalVerdict::Equivalent { .. } => "EQUIV".to_string(),
+                FocalVerdict::Unresolved { .. } => "UNRESOLVED".to_string(),
+            },
+            bar: report.view.bar(),
+            regret: report.view.certified_regret.clone(),
+            reads: report.reads_spent,
+            hits: report.suffix_hits,
+            facts: ladder.facts().len(),
+            wall_us,
+        });
+    }
+    rows
+}
+
+struct LadderRow {
+    label: String,
+    step: String,
+    outcome: String,
+    survivors: String,
+    verdict: String,
+    bar: BigRational,
+    regret: Option<BigRational>,
+    reads: u64,
+    hits: u64,
+    facts: usize,
+    wall_us: u128,
+}
+
+fn print_ladder_table(out: &mut String, rows: &[LadderRow]) {
+    let _ = writeln!(
+        out,
+        "\n#### THE LADDER TABLE — one row per schedule step, σ0 tail, suffix memo on ####\n"
+    );
+    let _ = writeln!(
+        out,
+        " root    | step       | outcome     | survivors   | verdict      | bar ‰ | Γ ‰  | reads     | hits   | facts  | wall"
+    );
+    let _ = writeln!(
+        out,
+        "---------+------------+-------------+-------------+--------------+-------+------+-----------+--------+--------+------"
+    );
+    for r in rows {
+        let _ = writeln!(
+            out,
+            " {:<7} | {:<10} | {:<11} | {:<11} | {:<12} | {:>5} | {:>4} | {:>9} | {:>6} | {:>6} | {}us",
+            r.label,
+            r.step,
+            r.outcome,
+            r.survivors,
+            r.verdict,
+            permille(&r.bar),
+            r.regret
+                .as_ref()
+                .map_or("-".to_string(), |g| format!("{}", permille(g))),
+            r.reads,
+            r.hits,
+            r.facts,
+            r.wall_us
+        );
+    }
+}
+
+/// The record's pinned schedules (stated in its header).
+const LADDER_RECORD: [(usize, usize, &str); 2] = [
+    (8, 4, "0:150000 0:inf 1:250000 1:inf 2:inf"),
+    (3, 4, "0:800000 0:inf 1:1200000 1:inf 2:inf"),
+];
+
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let mode = args.get(1).map(String::as_str).unwrap_or("");
@@ -463,10 +814,95 @@ fn main() {
             flush(&out);
             println!("{out}");
         }
+        "ladder" => {
+            let hand_id: usize = args[2].parse().expect("a hand id");
+            let trick_no: usize = args[3].parse().expect("a trick number");
+            let contract: Option<u32> = match args[4].as_str() {
+                "receipt" => None,
+                c => Some(c.parse().expect("a contract or 'receipt'")),
+            };
+            let use_memo = !args[5..].iter().any(|s| s == "nomemo");
+            let schedule: Vec<Step> = args[5..]
+                .iter()
+                .filter(|s| *s != "nomemo")
+                .map(|s| parse_step(s))
+                .collect();
+            assert!(!schedule.is_empty(), "a schedule holds a step");
+            let mut out = String::new();
+            let rows = run_ladder(
+                &mut out,
+                &r,
+                &LadderRun {
+                    hand_id,
+                    trick_no,
+                    contract,
+                    cap: NODE_CAP,
+                    use_memo,
+                },
+                &schedule,
+            );
+            print_ladder_table(&mut out, &rows);
+            print!("{out}");
+        }
+        "ladder-record" => {
+            let path = args.get(2).expect("an output path").clone();
+            let mut out = String::new();
+            let flush = |s: &str| {
+                let mut f = std::fs::File::create(&path).expect("the output file opens");
+                f.write_all(s.as_bytes()).expect("the output file writes");
+            };
+            let _ = writeln!(
+                out,
+                "FOCAL-HORIZON LADDER RECORD (slice FH2) — EXPLORATORY\n\
+                 \n\
+                 One focal ladder per root (solver::focal_ladder) through a PINNED schedule of \
+                 k:ceiling passes — ceiling = field + tail reads for that pass, inf = no ceiling — \
+                 with the suffix memo on. Facts are installed by intersection at completed nodes \
+                 only (Proposition FH-int); an interrupted pass retains every prior fact; a resume \
+                 is the same horizon again with more budget. Every root view below is DERIVED from \
+                 the fact store. Never a theorem; never a play-strength claim.\n\
+                 \n\
+                 declared field: level0-modeled-mind-v1 (Level0 n0=2) under SupportOracle\n\
+                 lower tail: σ0 driving the viewer seat (FH-A4); upper tail: the God line walk (FH-God)\n\
+                 node fiber cap: {NODE_CAP}\n\
+                 tie rule for π: lowest tile index; a prior lower's policy survives a tie\n\
+                 schedules: h8-t4 [{}]; h3-t4 [{}]\n\
+                 wall is the only approximate number here\n",
+                LADDER_RECORD[0].2,
+                LADDER_RECORD[1].2
+            );
+            flush(&out);
+            let mut rows = Vec::new();
+            for (hand_id, trick_no, schedule) in LADDER_RECORD {
+                let steps: Vec<Step> = schedule.split(' ').map(parse_step).collect();
+                rows.extend(run_ladder(
+                    &mut out,
+                    &r,
+                    &LadderRun {
+                        hand_id,
+                        trick_no,
+                        contract: None,
+                        cap: NODE_CAP,
+                        use_memo: true,
+                    },
+                    &steps,
+                ));
+                flush(&out);
+            }
+            print_ladder_table(&mut out, &rows);
+            let _ = writeln!(
+                out,
+                "\nEXPLORATORY — below every evidentiary tier; quotable only via gate receipts."
+            );
+            flush(&out);
+            println!("{out}");
+        }
         _ => {
             eprintln!(
                 "usage: focalreport scout <hand> <trick> <k> [contract] [node-cap] [sigma0|lowest] [exact] | \
-                 focalreport scout-corpus <out.txt>"
+                 focalreport scout-corpus <out.txt> | \
+                 focalreport ladder <hand> <trick> <contract|receipt> <k:ceiling>... | \
+                 focalreport ladder-record <out.txt>"
             );
             std::process::exit(2);
         }
