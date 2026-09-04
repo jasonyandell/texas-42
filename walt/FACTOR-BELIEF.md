@@ -30,7 +30,12 @@ paragraph after U0b); SLICE FH2 LANDED (2026-09-04, the focal-horizon
 ladder — the engine made anytime under Proposition FH-int: budgeted
 passes that stop and resume on a store of node facts installed by
 intersection, proof-state facts with their witnesses, exact suffix
-reuse under the full belief identity, paragraph after FH1). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
+reuse under the full belief identity, paragraph after FH1); SLICE FH3
+LANDED (2026-09-04, the report of record and the FH8 anchors — every §38
+measurement at 32 (root, contract) coordinates × k ∈ {0, 1, 2, 3}, the
+anchors' settling horizons DISCOVERED: trick-4 anchors at k ≤ 2, the
+trick-3 root at k = 3 with Γ_2 = 34‰, the ply cut's wrong action never
+certified, paragraph after FH2). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
 register: `solver/refine.rs` as merged at `25b40d9` takes no new
 fields, variants, or work items, ever; its four gates never weaken; the
 coming proof-state core must reproduce it wherever scopes overlap and
@@ -1058,6 +1063,57 @@ FH1's 411 MB (the fact store's per-node policy tables and the memo's
 belief clones), and a resume re-reads the stopped chain (h8-t4: under 0.4%
 over the uninterrupted pass). EXPLORATORY tier; no live default change
 (FH-A10).
+
+**SLICE FH3 LANDED** (2026-09-04, the report of record and the FH8
+anchors — the parent's §38 measurements, §37 anchors and §39–§41 verdict
+as narrowed by FH-A8 (the answers discovered, never pinned); report of
+record `walt/briefs/FH3-REPORT.md`): `focalreport report` writes
+`probes/factor_belief/focal_run1.txt` — at every (root, contract) of the
+corpus (T4 × {receipt, 33, 36, 39, 42}, T56 × {receipt, 36}) and the
+h8-t3 anchor, horizons k ∈ {0, 1, 2, 3}, the direct engine per k (reads
+WITHOUT reuse, on a fresh σ0 instance) beside ONE memo-on ladder per
+coordinate (reads WITH reuse); per action `L`, `U`, `U − L`, `Δ^L`,
+`Δ^U`, the survivor mark, `Q_a` by a fresh `response_success_mass` (the
+record's 14-minute values, cited, at h8-t3) and the split; per horizon
+the bar, survivors, verdict, both `π_k` ids where the ladder's differs
+on a tie, `L_exec`, `U*`, `Γ_k`, the lower policy's root action and its
+changes by horizon, the ply cut's argmax under Proposition FH-cut and
+whether any horizon certifies it, `h_f`, the first suffix hit; the §41
+laws asserted at every coordinate (a failure stops the record naming
+it — none fired). Gate file `walt/walt/tests/solver_focal_anchors.rs`
+(4 gates, ~85 s standalone / 200 s in-gate, 17.8 GB peak RSS from five
+concurrent h4-t4 ladders; `check.sh` 230 s → 308 s wall, 123 binaries) at anchors (ii) h8-t4 × {36, 39} and (iii) h4-t4 × five
+contracts with `Q_a` recomputed independently and the ply cut recomputed
+live: FHA1 sandwich/nesting/containment and FH-last collapse at k = 2;
+FHA2 `Settled ⇒` unique exact argmax, `Equivalent ⇒` the exact tie set,
+`Unresolved ⊇` the exact maximizers, and FH-A8's law in conditional
+form; FHA3 the census's cut readings ARE `U_{a,0}`/`U_{a,1}` (FH-cut)
+and wherever the cut's argmax is not exact no horizon certifies it;
+FHA4 the memo-on ladder equals the direct engine in every value. Anchor
+(i) h8-t3 is probe-only (its k ≤ 2 ladder alone is ~9 min and 17 GB).
+THE FINDINGS (exploratory): (1) every live trick-4 coordinate settles by
+k ≤ 2 — five at k = 0 (h4-t4 at 30/33/36/42, h3-t4 at 42), six more at
+k = 1 (h3-t4 at 30/33/36/39, h4-t4 at 39, h8-t4 at 33), the last three
+at k = 2 (h8-t4 at 30/36/39, the collapse); Γ_1 ≤ 45‰ everywhere at
+trick 4; (2) anchor (ii) settles 2-1 only at k = 2, exactly as FH-A8's
+law said (`U_{5-5,1} = 757‰ > Q_{2-1} = 750‰`), and neither the cut-4
+argmax (3-3) nor the cut-8 argmax (5-5) is ever certified; (3) anchor
+(iii) settles 6-5 at k = 0 at four contracts and at k = 1 at bid 39
+(`B_0 = 651‰` against `U_{4-0,0} = 655‰` — the tail-quality question of
+FH-A8 answered by 4‰); (4) anchor (i) h8-t3: k = 0 Γ 141‰ / k = 1 100‰
+/ k = 2 34‰ with survivors {1-1 2-1 3-3} and π_2 already playing the
+exact 1-1 uncertified; k = 3 (the FH-last collapse, run because k = 2
+came in under the 10-minute gate) SETTLES 1-1 at `28859/29988` = the
+record's 14-minute exact value, in 27.2M + 73.5M + 69.7M + 20.0M reads
+with reuse (the direct engine: 27.2M at k = 0, 79.2M at k = 1) — the
+cut-4 argmax 3-3 that flipped the record's play is never certified;
+(5) the cost trend, up front: the fact store at trick 3 is 3.82M facts
+and the record run's peak RSS 19.4 GB (FH2's 662 MB at h3-t4 → 17–19 GB at
+h8-t3, 7.8 GB for five concurrent h4-t4 coordinates); reads per horizon
+are unchanged from FH1/FH2; the σ0 cache makes a warm ladder pass 15×
+faster in wall than a cold one at identical reads (h8-t3 k = 0: 154 s
+cold, 10 s warm), which is why the record uses a fresh field instance
+per direct run. EXPLORATORY tier; no live default change (FH-A10).
 
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint

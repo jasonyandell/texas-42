@@ -24,11 +24,13 @@ UP0; re-run under UP1a's lazy carry as `unified_run2.txt`) and
 `horizon_run1.txt`) and
 `walt/walt/src/bin/focalreport.rs` (the focal-horizon hierarchy engine
 scout, FH1 — `focal_run0.txt`; its `ladder` / `ladder-record` modes are
-the focal ladder, FH2 — `focal_ladder_run1.txt`).
+the focal ladder, FH2 — `focal_ladder_run1.txt`; its `report` mode is
+the report of record and the FH8 anchors, FH3 — `focal_run1.txt`).
 Gates (the CI-checked part): `walt/walt/tests/solver_unified.rs`,
 `walt/walt/tests/solver_unified_carry.rs`, `walt/walt/tests/solver_horizon.rs`,
 `walt/walt/tests/solver_focal_horizon.rs`,
 `walt/walt/tests/solver_focal_ladder.rs`,
+`walt/walt/tests/solver_focal_anchors.rs`,
 `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
@@ -713,6 +715,42 @@ interrupted by a read ceiling, then resumed to completion. Gated by
 - **Price:** the fact store grows to 19,369 facts at h8-t4 and 89,923 at
   h3-t4; peak RSS at h3-t4 662 MB (memo on) / 509 MB (memo off) vs FH1's
   411 MB. Wall: h3-t4 under 3.1 s per pass; h8-t4 under 0.9 s.
+
+## focal_run1.txt readings (2026-09-04) — the report of record and the FH8 anchors
+
+`focalreport report`: the parent's §38 measurements at every (root,
+contract) of the corpus — T4 × {receipt, 33, 36, 39, 42}, T56 ×
+{receipt, 36} — and anchor (i) h8-t3, horizons k ∈ {0, 1, 2, 3}: the
+direct engine per k (reads without reuse, fresh σ0 instance per run)
+beside one memo-on ladder per coordinate (reads with reuse), `Q_a` by a
+fresh `response_success_mass` (cited from `horizon_run1.txt` at h8-t3),
+the §41 laws asserted at every coordinate. Gated by
+`solver_focal_anchors.rs` (FHA1–FHA4) at anchors (ii) and (iii); anchor
+(i) is probe-only. Report: `walt/briefs/FH3-REPORT.md`.
+
+- **Every live trick-4 coordinate settles by k ≤ 2**: k = 0 settles
+  h4-t4 at 30/33/36/42 and h3-t4 at 42; k = 1 settles h3-t4 at
+  30/33/36/39, h4-t4 at 39 and h8-t4 at 33; k = 2 (the collapse)
+  settles h8-t4 at 30/36/39. h12-t4 and h8-t4 at 42 are decided at the
+  root (`Equivalent` at 0). Γ_1 ≤ 45‰ at every trick-4 coordinate.
+- **Anchor (ii)** h8-t4 at 36/39: k = 1 keeps {2-1 3-3 5-5} with Γ 43‰
+  (`U_{5-5,1} = 757‰ > Q_{2-1} = 750‰`, FH-A8's law); k = 2 settles 2-1.
+  The cut-4 argmax 3-3 and the cut-8 argmax 5-5 both flip and neither is
+  ever certified.
+- **Anchor (iii)** h4-t4: k = 0 settles 6-5 at 30/33/36/42 (Γ_0 30 /
+  132 / 177 / 61‰); at bid 39 k = 0 leaves {4-0 6-5} (bar 651‰ against
+  `U_{4-0,0} = 655‰`) and k = 1 settles (Γ_1 29‰). The cut-4 argmax
+  agrees with exact at every contract.
+- **Anchor (i)** h8-t3 (Z = 59,976): k = 0 Γ 141‰, all five survive,
+  π_0 plays 3-3; k = 1 Γ 100‰, all five, π_1 plays 1-1; k = 2 Γ 34‰,
+  survivors {1-1 2-1 3-3}, UNRESOLVED; k = 3 SETTLED 1-1 at 28859/29988
+  (the record's exact value, cited). Reads with reuse: 27.2M / 73.5M /
+  69.7M / 20.0M; direct: 27.2M at k = 0, 79.2M at k = 1. The cut-4
+  argmax 3-3 (the record's flip) is never certified.
+- **Cost:** ladder facts 3.82M at h8-t3 with peak RSS 19.4 GB for
+  the record run (17.1 GB for the h8-t3 ladder alone); five concurrent
+  h4-t4 coordinates 7.8 GB. Walls: h8-t3 ladder passes cold
+  161 s / 276 s / 113 s / 8.7 s (the k = 3 pass rides the ladder's own warm instance and its 3.68M collapsed receipts); the record 23 min 55 s (1,435 s) wall.
 
 ## Boundaries
 
