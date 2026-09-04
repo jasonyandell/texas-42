@@ -131,7 +131,7 @@ One `LazyLock` fixture: at (ii) h8-t4 × {36, 39} and (iii) h4-t4 × {30,
 8 and cut 4 for (ii), cut 4 for (iii); the memo-on ladder walked k = 0,
 1, 2. Nothing pins WHICH k settles or whether a cut flips.
 
-- **FHA1** sandwich, nesting, containment: `L_{a,k} ≤ Q_a ≤ U_{a,k}` at
+- **FHA1** containment, nesting, collapse: `L_{a,k} ≤ Q_a ≤ U_{a,k}` at
   every action and k; no lower falls and no upper rises with k; bar, `U*`
   and `Γ` monotone; survivors only shrink; at k = 2 every action is
   collapsed to `Q_a` with every tail consultation forced (FH-last).
@@ -240,7 +240,7 @@ contract: the record's 13–105‰ over-pricing never moved the argmax here.
 π_k plays 3-3 at k = 0 (the cut-4 argmax, by the LOWER side — the tail
 after 3-3 is worth 852‰) and 1-1 from k = 1 on; the bar 852 → 876 → 928
 → 962. At k = 2 the width per action is 13–34‰ and the split is the
-FH1 pattern again — `U − Q` 1–3‰, `Q − L` 13–34‰: the residual is the
+FH1 pattern again — `U − Q` 1–2‰, `Q − L` 12–33‰: the residual is the
 tail's policy gap, not fusion price. `h_f = 4` after the root action
 (FH-A6's law; not walked).
 
@@ -293,7 +293,7 @@ or trick-5/6 one; certified regret at k = 1 of 3–45‰ at trick 4 and
 action at the h8-t4 anchor; suffix reuse cutting the k = 2 pass to
 15–30% of the direct engine's reads at trick 4 and the k = 3 pass at
 trick 3 to 20.0M reads. Against the honest reading of §40: every
-sandwich gate holds, every lower re-prices as one lawful policy (FH5 /
+root-interval containment gate holds, every lower re-prices as one lawful policy (FH5 /
 PS2 in the FH1/FH2 suites; the ladder's `π_k` here equals the direct
 engine's in value at every coordinate), uppers nest, and the record
 localizes the remaining width to the tail's policy gap. The one place

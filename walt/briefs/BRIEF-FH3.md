@@ -41,8 +41,8 @@ investigate, never a disappointing number.
    must not select ANY action it cannot certify; a `Settled` verdict at
    any k must agree with the exact argmax — assert it).
 3. **Gate file `walt/walt/tests/solver_focal_anchors.rs`:** the anchors
-   (ii) and (iii) with `Q_a` recomputed independently — sandwich,
-   nesting, containment, `Settled ⇒ exact`, and the ply-cut comparison
+   (ii) and (iii) with `Q_a` recomputed independently — containment,
+   nesting, collapse, `Settled ⇒ exact`, and the ply-cut comparison
    (the `horizon_census` cut argmax vs the focal ladder's verdict, on
    the same root/contract). Anchor (i) is probe-only unless k ≤ 2 there
    is cheap enough to gate under ~3 minutes — measure, then decide,

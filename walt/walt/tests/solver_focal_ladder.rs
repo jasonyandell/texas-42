@@ -42,6 +42,13 @@
 //!      by a contract-36 ladder (`with_contract`) hits zero times over
 //!      positive lookups; a belief differing in factors alone is a miss.
 //! FH-D determinism of an interrupted run (fresh vs the fixture's).
+//! FH-C  the in-pass fiber-cap refusal (FH-A3, §41(7); FH4-AUDIT N3): an
+//!      h8-t4 k = 0 pass at cap 40 is `Interrupted` with `unaffordable`
+//!      non-empty and `stopping_node == None`; every refused node is a
+//!      viewer node of positive mass above the cap with no fact under it;
+//!      the enclosing root children are unfinished with placeholders (no
+//!      interval, no regret) while the other root children completed with
+//!      the uncapped run's k = 0 facts; the uncapped pass then completes.
 //!
 //! EXPLORATORY tier throughout.
 
@@ -105,6 +112,10 @@ fn with_contract(position: &RootPosition, bid: u32) -> RootPosition {
 
 const AMPLE_CAP: u128 = 40_000;
 const INF: u64 = u64::MAX;
+
+/// The FH-C fiber cap at h8-t4 k = 0: two root children's frontiers fit
+/// under it, two hold a node above it (found by the probe; not a law).
+const H8_TINY_CAP: u128 = 40;
 
 /// The FH7 interruption ceiling at h8-t4 k = 1 (the uncapped k = 1 pass
 /// after k = 0 costs ~0.36M reads with the memo off; this stops inside
@@ -220,6 +231,8 @@ struct Fixture {
     h8_resumed: Walk,
     /// FH7b: the pinned ceiling schedule at h8-t4, memo on.
     h8_schedule: Walk,
+    /// FH-C: a fresh h8-t4 k = 0 pass at the tiny cap, memo off.
+    h8_capped: Walk,
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -230,6 +243,7 @@ enum Job {
     SeqOn(usize, usize),
     Interrupted,
     Schedule,
+    Capped,
 }
 
 enum Value {
@@ -289,6 +303,7 @@ fn build_fixture() -> Fixture {
     }
     jobs.push(Job::Interrupted);
     jobs.push(Job::Schedule);
+    jobs.push(Job::Capped);
     let values = fixture::compute_all(&jobs, |job| match *job {
         Job::Fh1(h, t, k) => Value::Fh1(Arc::new(fh1_at(&r, h, t, k))),
         Job::Q(h, t) => Value::Q(exact_q_at(&r, h, t)),
@@ -324,6 +339,24 @@ fn build_fixture() -> Fixture {
             let mut memo = SuffixMemo::new();
             Value::Walk(walk(&frame, &H8_SCHEDULE, Some(&mut memo)))
         }
+        Job::Capped => {
+            let frame = Frame::new(&r, 8, 4, None);
+            let ctx = frame.ctx();
+            let mut ladder = FocalLadder::open(&ctx);
+            let o = ladder.advance(
+                &ctx,
+                0,
+                &WorkBudget {
+                    read_ceiling: INF,
+                    node_fiber_cap: H8_TINY_CAP,
+                },
+                None,
+            );
+            Value::Walk(Walk {
+                ladder,
+                outcomes: vec![o],
+            })
+        }
     });
     let mut fx = Fixture {
         fh1: HashMap::new(),
@@ -339,6 +372,10 @@ fn build_fixture() -> Fixture {
             outcomes: Vec::new(),
         },
         h8_schedule: Walk {
+            ladder: FocalLadder::open(&Frame::new(&r, 8, 4, None).ctx()),
+            outcomes: Vec::new(),
+        },
+        h8_capped: Walk {
             ladder: FocalLadder::open(&Frame::new(&r, 8, 4, None).ctx()),
             outcomes: Vec::new(),
         },
@@ -363,6 +400,9 @@ fn build_fixture() -> Fixture {
             }
             (Job::Schedule, Value::Walk(w)) => {
                 fx.h8_schedule = w;
+            }
+            (Job::Capped, Value::Walk(w)) => {
+                fx.h8_capped = w;
             }
             _ => unreachable!("a job's value is of the job's kind"),
         }
@@ -1261,4 +1301,135 @@ fn fh_d_interrupted_run_is_deterministic() {
         .certified_regret
         .as_ref()
         .is_some_and(|g| g < &one));
+}
+
+// ---------------------------------------------------------------------------
+// FH-C — the in-pass fiber-cap refusal (FH-A3, §41(7); FH4-AUDIT N3).
+// ---------------------------------------------------------------------------
+
+#[test]
+fn fh_c_cap_refusal_leaves_the_enclosing_child_unfinished() {
+    let r = receipt();
+    let w = &FIXTURE.h8_capped;
+    let Outcome::Interrupted {
+        report,
+        residual_frontier,
+        stopping_node,
+        unaffordable,
+    } = &w.outcomes[0]
+    else {
+        panic!("FH-C: a tiny cap refuses somewhere")
+    };
+    assert!(
+        stopping_node.is_none(),
+        "FH-C: no budget stop, only cap refusals"
+    );
+    assert!(!unaffordable.is_empty(), "FH-C: at least one refusal");
+    assert_eq!(report.ceiling, INF);
+    let legal = w.ladder.legal().to_vec();
+    let k0 = fh1(8, 4, 0);
+    let frame = Frame::new(&r, 8, 4, None);
+    // Every refused node: a viewer node of positive mass above the cap,
+    // listed `Unaffordable` in the frontier with no fact at or under it.
+    let viewer = frame.root.kernel().viewer();
+    let mut refused_children: Vec<Domino> = Vec::new();
+    for (history, fiber) in unaffordable {
+        assert!(
+            *fiber > H8_TINY_CAP,
+            "FH-C: the refused fiber is above the cap"
+        );
+        assert!(
+            history.len() > 1,
+            "FH-C: the refused node is below a root child"
+        );
+        let belief = frame.belief_at(history);
+        assert_eq!(belief.seat_to_move(), viewer, "FH-C: a viewer node refuses");
+        assert_eq!(
+            frame.oracle.mass(&belief),
+            *fiber,
+            "FH-C: the refusal names the exact fiber"
+        );
+        let node = residual_frontier
+            .iter()
+            .find(|n| &n.history == history)
+            .expect("FH-C: the refused node is in the residual frontier");
+        assert_eq!(
+            node.cause,
+            ResidualCause::Unaffordable {
+                fiber: *fiber,
+                cap: H8_TINY_CAP
+            }
+        );
+        assert!(
+            node.retained.is_none(),
+            "FH-C: nothing was priced at a refused node"
+        );
+        assert!(w.ladder.fact_at(history).is_none());
+        let key_prefix = history.clone();
+        assert!(
+            !w.ladder.facts().keys().any(|k| {
+                k.len() >= key_prefix.len()
+                    && key_prefix
+                        .iter()
+                        .zip(k.iter())
+                        .all(|(d, b)| u8::try_from(d.index()).expect("fits") == *b)
+            }),
+            "FH-C: no fact at or under a refused node"
+        );
+        if !refused_children.contains(&history[0]) {
+            refused_children.push(history[0]);
+        }
+    }
+    // The enclosing root children are unfinished with placeholders; the
+    // others completed with the uncapped run's k = 0 facts.
+    let view = &report.view;
+    assert!(
+        !refused_children.is_empty() && refused_children.len() < legal.len(),
+        "FH-C: some root children refuse and some complete at this cap"
+    );
+    for a in &legal {
+        let v = view.action(*a).expect("a root action");
+        if refused_children.contains(a) {
+            assert!(
+                w.ladder.fact_at(&[*a]).is_none(),
+                "FH-C: no fact under the refused child {a}"
+            );
+            assert!(v.interval().is_none(), "FH-C: no interval at {a}");
+            assert_eq!(v.lower_mass, 0);
+            assert!(v.lower_horizon.is_none() && v.upper_mass.is_none());
+            assert!(
+                residual_frontier
+                    .iter()
+                    .any(|n| n.history == [*a] && n.cause == ResidualCause::Enclosing),
+                "FH-C: the enclosing root child {a} is listed unfinished"
+            );
+            assert!(!report.children_completed.contains(a));
+        } else {
+            assert!(report.children_completed.contains(a), "FH-C: {a} completed");
+            let fh = k0.interval(*a).expect("a root action");
+            assert_eq!(
+                v.lower_mass, fh.lower_mass,
+                "FH-C: the completed child's L_0 at {a}"
+            );
+            assert_eq!(
+                v.upper_mass,
+                Some(fh.upper_mass),
+                "FH-C: the completed child's U_0 at {a}"
+            );
+        }
+    }
+    assert!(
+        view.certified_regret.is_none(),
+        "FH-C: no regret from a placeholder"
+    );
+    assert!(view.global_upper_mass.is_none());
+    assert_eq!(view.survivors, legal, "FH-C: an absent upper survives");
+    assert!(matches!(view.verdict, FocalVerdict::Unresolved { .. }));
+    // The uncapped pass at the same horizon then completes, and equals
+    // the uncapped k = 0 run on every value view.
+    let mut ladder = w.ladder.clone();
+    let ctx = frame.ctx();
+    let o = ladder.advance(&ctx, 0, &budget(INF), None);
+    assert!(o.is_completed(), "FH-C: the ample cap completes");
+    assert_values_equal_fh1(&o.report().view, k0, "FH-C uncapped after refusal");
 }

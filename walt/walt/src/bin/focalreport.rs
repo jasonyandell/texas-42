@@ -16,7 +16,7 @@
 //! Modes:
 //!   `focalreport scout <hand> <trick> <k> [contract] [node-cap] [tail] [exact]`
 //!   `focalreport scout-corpus <out.txt>`
-//!   `focalreport ladder <hand> <trick> <contract|receipt> [nomemo] <k:ceiling>...`
+//!   `focalreport ladder <hand> <trick> <contract|receipt> [nomemo] [cap=N] <k:ceiling>...`
 //!   `focalreport ladder-record <out.txt>`
 //!   `focalreport report <out.txt> [h<hand>-t<trick> ...]`
 //!
@@ -28,7 +28,8 @@
 //! `ladder` (slice FH2, `solver::focal_ladder`) runs ONE ladder through
 //! a schedule of `k:ceiling` steps (ceiling = field + tail reads for that
 //! pass; `k:inf` for no ceiling) with the suffix memo on (`nomemo` turns
-//! it off — the memory and read comparison), printing per
+//! it off — the memory and read comparison; `cap=N` sets the node fiber
+//! cap, default 40,000), printing per
 //! step the outcome, reads, residual frontier, fact-store movement,
 //! suffix hits and the derived root view. `ladder-record` is the record
 //! of record over h8-t4 and h3-t4 at the receipt contract with the
@@ -1896,9 +1897,13 @@ fn main() {
                 c => Some(c.parse().expect("a contract or 'receipt'")),
             };
             let use_memo = !args[5..].iter().any(|s| s == "nomemo");
+            let cap: u128 = args[5..]
+                .iter()
+                .find_map(|s| s.strip_prefix("cap="))
+                .map_or(NODE_CAP, |c| c.parse().expect("a node fiber cap"));
             let schedule: Vec<Step> = args[5..]
                 .iter()
-                .filter(|s| *s != "nomemo")
+                .filter(|s| *s != "nomemo" && !s.starts_with("cap="))
                 .map(|s| parse_step(s))
                 .collect();
             assert!(!schedule.is_empty(), "a schedule holds a step");
@@ -1910,7 +1915,7 @@ fn main() {
                     hand_id,
                     trick_no,
                     contract,
-                    cap: NODE_CAP,
+                    cap,
                     use_memo,
                 },
                 &schedule,

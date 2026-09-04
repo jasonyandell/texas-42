@@ -20,7 +20,7 @@
 //! `response_success_mass` and the ply cut recomputed live by
 //! `horizon_census`:
 //!
-//! FHA1 sandwich, nesting, containment: `L_{a,k} ≤ Q_a ≤ U_{a,k}` for
+//! FHA1 containment, nesting, collapse: `L_{a,k} ≤ Q_a ≤ U_{a,k}` for
 //!      every action and k ∈ {0, 1, 2}; no lower falls and no upper
 //!      rises with k (§41(2), (3), (4)); bar, `U*` and `Γ` monotone;
 //!      survivors only shrink (Theorem 6); at k = 2 every trick-4 action
@@ -51,7 +51,7 @@ mod fixture;
 
 use std::cmp::Reverse;
 use std::collections::HashMap;
-use std::sync::LazyLock;
+use std::sync::{Condvar, LazyLock, Mutex};
 
 use walt::kernel::Kernel;
 use walt::rules::receipt::{locate_verify_player, parse_file, Receipt};
@@ -324,14 +324,50 @@ fn fixture_jobs() -> Vec<Job> {
     jobs
 }
 
+/// At most this many HEAVY jobs in flight at once (FH4-AUDIT N13). The
+/// suite's transient peak is threads × one job's footprint, and EVERY
+/// h4-t4 evaluation costs ~1.6 GB whatever its kind (measured standalone:
+/// the k = 0 engine 1.6 GB, the k = 2 engine 1.6 GB, the ladder walk
+/// 1.7 GB, exact `Q_a` inside the same 1.6 GB) — so with 18 threads the
+/// unlimited fixture peaked at 18.2 GB, serializing the ladders alone
+/// still 13.8 GB, and capping ladders plus deep engines at four 13.7 GB.
+/// Five h4-t4 jobs at a time hold the transient near 8 GB; the h8-t4
+/// jobs stay fully parallel; a waiting thread holds no memory. This
+/// changes no assertion and no value.
+const HEAVY_IN_FLIGHT: usize = 5;
+
+fn heavy(job: &Job) -> bool {
+    let c = match *job {
+        Job::Ladder(c) | Job::Q(c) => c,
+        Job::Engine(c, _) | Job::Census(c, _) => c,
+    };
+    c.hand_id == 4
+}
+
 fn build_fixture() -> Fixture {
     let r = receipt();
     let jobs = fixture_jobs();
-    let values = fixture::compute_all(&jobs, |job| match *job {
-        Job::Engine(c, k) => Value::Engine(Box::new(engine_at(&r, c, k))),
-        Job::Q(c) => Value::Q(exact_q_at(&r, c)),
-        Job::Census(c, cut) => Value::Census(census_at(&r, c, cut)),
-        Job::Ladder(c) => Value::Ladder(ladder_at(&r, c)),
+    let heavy_slots = (Mutex::new(0usize), Condvar::new());
+    let values = fixture::compute_all(&jobs, |job| {
+        let (lock, ready) = &heavy_slots;
+        if heavy(job) {
+            let mut busy = lock.lock().expect("the slot count is not poisoned");
+            while *busy >= HEAVY_IN_FLIGHT {
+                busy = ready.wait(busy).expect("the slot count is not poisoned");
+            }
+            *busy += 1;
+        }
+        let value = match *job {
+            Job::Engine(c, k) => Value::Engine(Box::new(engine_at(&r, c, k))),
+            Job::Q(c) => Value::Q(exact_q_at(&r, c)),
+            Job::Census(c, cut) => Value::Census(census_at(&r, c, cut)),
+            Job::Ladder(c) => Value::Ladder(ladder_at(&r, c)),
+        };
+        if heavy(job) {
+            *lock.lock().expect("the slot count is not poisoned") -= 1;
+            ready.notify_one();
+        }
+        value
     });
     let mut fixture = Fixture {
         engines: HashMap::new(),
@@ -412,11 +448,11 @@ fn coords() -> impl Iterator<Item = Coord> {
 }
 
 // ---------------------------------------------------------------------------
-// FHA1 — sandwich, nesting, containment, collapse.
+// FHA1 — containment, nesting, collapse.
 // ---------------------------------------------------------------------------
 
 #[test]
-fn fha1_sandwich_nesting_containment_collapse() {
+fn fha1_containment_nesting_collapse() {
     for c in coords() {
         let label = c.label();
         for k in HORIZONS {

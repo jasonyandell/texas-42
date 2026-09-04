@@ -32,7 +32,7 @@ passes that stop and resume on a store of node facts installed by
 intersection, proof-state facts with their witnesses, exact suffix
 reuse under the full belief identity, paragraph after FH1); SLICE FH3
 LANDED (2026-09-04, the report of record and the FH8 anchors — every §38
-measurement at 32 (root, contract) coordinates × k ∈ {0, 1, 2, 3}, the
+measurement at 33 (root, contract) coordinates × k ∈ {0, 1, 2, 3}, the
 anchors' settling horizons DISCOVERED: trick-4 anchors at k ≤ 2, the
 trick-3 root at k = 3 with Γ_2 = 34‰, the ply cut's wrong action never
 certified, paragraph after FH2). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
@@ -1035,7 +1035,7 @@ re-prices to the value through `viewer_success_mass` AT PRODUCTION;
 uppers under `focal-horizon:god:k=<k>:upper`, never executable — with
 retained values from an interrupted pass. FH1's engine gained one
 `pub(crate)` seam (`Engine::price_frontier`, the k = 0 leaf both walks
-call) and is otherwise unchanged; its ten gates stay green. Nine gates
+call) and is otherwise unchanged; its ten gates stay green. Ten gates
 (`solver_focal_ladder.rs`, ~24 s standalone): parity with `focal_horizon`
 (a fresh direct-k ladder reproduces FH1's `π_k` id; the sequential
 ladder every value view); FH7's five bullets at h8-t4 (no child dropped,
@@ -1050,7 +1050,13 @@ executability honest including the retained k = 0 lower; suffix reuse
 invisible in value at h8-t4 and h3-t4 with the first hit PINNED at
 [2-1 0-0 2-0 3-0]; the identity is the full belief (a frozen contract-30
 memo answers a contract-36 ladder with zero hits; a belief narrowed in
-one factor alone misses); determinism of an interrupted run. Probe
+one factor alone misses); determinism of an interrupted run; the
+in-pass fiber-cap refusal (FH-C, added post-audit for FH4-AUDIT N3: an
+h8-t4 k = 0 pass at cap 40 refuses under two root children and completes
+the other two — `unaffordable` non-empty, no stopping node, no fact at
+or under a refused node, the enclosing children unfinished with
+placeholders, the others at the uncapped run's k = 0 facts, the ample
+cap then completing). Probe
 `focalreport ladder` / `ladder-record`
 (`probes/factor_belief/focal_ladder_run1.txt`, h8-t4 and h3-t4, pinned
 schedules). THE FINDINGS (exploratory): (1) at h3-t4 the INTERRUPTED
@@ -1081,10 +1087,13 @@ changes by horizon, the ply cut's argmax under Proposition FH-cut and
 whether any horizon certifies it, `h_f`, the first suffix hit; the §41
 laws asserted at every coordinate (a failure stops the record naming
 it — none fired). Gate file `walt/walt/tests/solver_focal_anchors.rs`
-(4 gates, ~85 s standalone / 200 s in-gate, 17.8 GB peak RSS from five
-concurrent h4-t4 ladders; `check.sh` 230 s → 308 s wall, 123 binaries) at anchors (ii) h8-t4 × {36, 39} and (iii) h4-t4 × five
+(4 gates; post-audit for FH4-AUDIT N13 the fixture admits at most five
+h4-t4 jobs at once — every h4-t4 evaluation costs ~1.6 GB whatever its
+kind, so the 18.2 GB / 78 s standalone peak was eighteen threads each
+holding one, not the ladders alone — now 8.8 GB / 165 s standalone,
+248 s in-gate; `check.sh` PASS, 123 binaries) at anchors (ii) h8-t4 × {36, 39} and (iii) h4-t4 × five
 contracts with `Q_a` recomputed independently and the ply cut recomputed
-live: FHA1 sandwich/nesting/containment and FH-last collapse at k = 2;
+live: FHA1 containment/nesting and FH-last collapse at k = 2;
 FHA2 `Settled ⇒` unique exact argmax, `Equivalent ⇒` the exact tie set,
 `Unresolved ⊇` the exact maximizers, and FH-A8's law in conditional
 form; FHA3 the census's cut readings ARE `U_{a,0}`/`U_{a,1}` (FH-cut)
