@@ -44,6 +44,21 @@ Binding work assignments live in `rob/BRIEF*.md`.
   reading — add a failing/blocked test, report the exact conflicting passages,
   continue elsewhere.
 
+## Agents (builders, auditors, intake agents)
+
+- **Never end a turn with background work pending.** A subagent that yields
+  while a `run_in_background` job is still running is not woken when the job
+  finishes (the completion goes to a turn that no longer exists) — this is the
+  project's recurring wedge (2026-09-04, FH1: gates and record finished at
+  02:11, agent silent for five hours). Run long jobs (gate files, `check.sh`,
+  probe records) in the FOREGROUND with the tool's 600 s timeout, split them
+  under that limit, or poll them with a foreground loop. "I'll pick up when it
+  reports" is forbidden wording for an agent.
+- **Orchestrators:** an idle notification from a builder that mentions running
+  jobs is a stall signal, not a status. Watch the job's output files and ping
+  the builder the moment they land; a watchdog on file/git silence is the
+  predicate (`~/.claude` memory: harness false-drop lesson).
+
 ## Commands
 
 - **rob CI (the gate):** `rob/ci/check.sh` — fmt, clippy `-D warnings

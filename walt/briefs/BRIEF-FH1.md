@@ -170,10 +170,13 @@ assert it).
   `response_success_mass` computed independently. Assert at least one
   strict `L` rise and one strict `U` fall somewhere on the corpus (else
   the gate proves nothing).
-- **FH3 exact collapse (FH-last).** At t6 roots k = 0, t5 roots k = 1,
-  t4 roots k = 2: `L_k = Q = U_k` for every action, tail consultations
-  = 0, `focal_depth` ≤ the corresponding `6 − T`, and the viewer-tile
-  bound holds. Also assert collapse is NOT reached at `k − 1` on at
+- **FH3 exact collapse (FH-last, as corrected 2026-09-04 after the
+  builder's blocked test).** At t6 roots k = 0, t5 roots k = 1, t4 roots
+  k = 2 (= `6 − T`): `L_k = Q = U_k` for every action — the forced
+  trick-7 layer still CONSULTS the tails there (FH-A6 counts it, so
+  `h_f = 7 − T`), it just cannot move the value. Tail consultations = 0
+  and `focal_depth = 7 − T` are the checks at `k = 7 − T`; the
+  viewer-tile bound holds at both. Also assert collapse is NOT reached at `k − 1` on at
   least one coordinate per trick (strict), so the depth is load-bearing.
 - **FH4 action containment and survivor monotonicity.** For every k:
   `L_{a,k} ≤ Q_a ≤ U_{a,k}`; the exact argmax set (from the independent
@@ -218,6 +221,10 @@ fine). The report-of-record mode is FH3's; leave the binary open for it.
 
 ## Discipline
 
+- **Never end a turn with background work pending** (CLAUDE.md, Agents):
+  run the gate file, `check.sh` and the record in the foreground under the
+  600 s tool timeout, split or polled in a foreground loop — a yielded
+  agent is not woken when its background job finishes.
 - `walt/ci/check.sh` green (fmt, clippy `-D warnings -D float_arithmetic`,
   no-float greps, vocabulary greps, release tests, Lean) before calling
   the slice done — it takes ~6 minutes.

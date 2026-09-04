@@ -58,6 +58,10 @@ investigate, never a disappointing number.
 
 ## Discipline
 
+- **Never end a turn with background work pending** (CLAUDE.md, Agents):
+  run the gate file, `check.sh` and the record in the foreground under the
+  600 s tool timeout, split or polled in a foreground loop — a yielded
+  agent is not woken when its background job finishes.
 As FH1/FH2. The record is byte-diffed by nobody but must be
 reproducible: every number in the report is in the record; wall is the
 one approximate number. Commit with `walt FH3:`; no push, no PR. Report

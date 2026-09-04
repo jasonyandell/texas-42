@@ -99,6 +99,10 @@ over T4 at the receipt contract.
 
 ## Discipline
 
+- **Never end a turn with background work pending** (CLAUDE.md, Agents):
+  run the gate file, `check.sh` and the record in the foreground under the
+  600 s tool timeout, split or polled in a foreground loop — a yielded
+  agent is not woken when its background job finishes.
 As FH1's: `walt/ci/check.sh` green; `ingest/` and freeze 58 untouched;
 compose never copy; exact integers; no stored duplicate authority (the
 residual frontier is the one place a retained interval lives, and it is
