@@ -51,6 +51,24 @@ recursion, and `refine.rs` (917, frozen as freeze 58) was already
 declared removable. `doom.rs` stays: it is the God tail's engine. That
 is the consolidation slice, after FH3 lands.
 
+## What FH3 measured (2026-09-04, the report of record `focal_run1.txt`, 33 coordinates × k ≤ 3)
+
+- **Every live trick-4 coordinate settles by k ≤ 2** (5 at k = 0, 6 at
+  k = 1, 3 at k = 2 across contracts 30–42); `Γ_1 ≤ 45‰` everywhere.
+  Trick 5/6 roots settle at k = 0 or give exact tie sets by k ≤ 1.
+- **The trick-3 anchor h8-t3 settles only at k = 3** (the collapse):
+  survivors 5 / 5 / 3 / 1, `Γ` 141 / 100 / 34 / 0‰. `π_1` already
+  plays the exact action 1-1, uncertified. At k = 2 the residual width
+  is again the tail's policy gap (Q − L 13–34‰ vs U − Q 1–3‰).
+- **The ply-cut flips of U0b live entirely on the upper side**: a cut's
+  argmax is `argmax U_{a,m−1}`, which the hierarchy carries as an upper
+  and never as a verdict. No wrong action is ever certified.
+- **Cost, stated as findings:** reads per horizon unchanged from FH1;
+  memory grew again — the fact store holds 3.82M facts at h8-t3, peak
+  RSS 19.4 GB for the record and 17.8 GB for the gate (five concurrent
+  h4-t4 ladders); gate wall 230 → 308 s. A warm σ0 instance runs a pass
+  15× faster at identical reads — the field cache is the lever.
+
 ## What FH1 measured (2026-09-04, receipt contract, σ0 tail)
 
 - **k = 0 settles h4-t4 with no search**; k = 1 settles h3-t4; h8-t4
@@ -69,13 +87,12 @@ is the consolidation slice, after FH3 lands.
 | reads per trick-4 decision, exact | 0.7M–10M | flat since Slice G; the ceiling is σ0 |
 | trick-3 exact | 289M reads, 14 min | one root; the wall |
 | `solver/` size | 36,076 lines, 35 modules | growing one module per intake; consolidation not yet started |
-| peak memory, ladder at h3-t4 | 662 MB (memo on), 509 MB (off); direct engine 411 MB | new cost axis; a version-referenced policy store is the fix, not built |
-| gate wall (`check.sh`) | 230 s (was ~15 min serial on 2026-09-04) | fixed by concurrency + fixtures; corpus trimming still owed ([[gate-corpus-trim]]) |
+| peak memory, ladder | 662 MB at h3-t4; **19.4 GB at h8-t3**; the gate 17.8 GB | the cost that is growing fastest; a version-referenced policy store is the fix, not built ([[ladder-policy-store]]) |
+| gate wall (`check.sh`) | 308 s with FH3's anchors gate (230 s before it; ~15 min serial on 2026-09-04 morning) | fixed by concurrency + fixtures; corpus trimming still owed ([[gate-corpus-trim]]) |
 
 ## Next, in order
 
-FH2 ✓ (dc515ac) → FH3 the report of record and the PR #87 anchors,
-including h8-t3 at k = 2 (the real test) → independent audit → one PR
+FH2 ✓ (dc515ac) → FH3 ✓ (fc171e1) → independent audit → one PR
 → the σ0 read-key study (does its answer depend on the full record? if
 not, the cache key coarsens and every recursion gets 10–100× cheaper)
 → the consolidation slice. **No new mathematical parent until the
