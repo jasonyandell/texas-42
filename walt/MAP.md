@@ -30,6 +30,7 @@ target.
 | 7 | model belief Ξ = Ω×Θ | `model_belief.rs`, `model_recursion.rs` | the field itself as hidden state (types); fusion price strictly positive at trick 4 (MB1) | the wall: affordable at t4, refused at t3 |
 | 8 | unified player | `unified.rs` | one decision core over every instrument: decided → endgame exact → mixture → certified regret → σ0 fallback; posterior carried lazily | lean rung 11.6 ms for 72 decisions; ample rung 20 s |
 | 9 | **focal-horizon hierarchy** | `focal_horizon.rs` (FH1, 2026-09-04) | `[L_k, U_k]` per root action, `k` = focal decisions made exact; `k = 0` is (4) below and (5) above; collapses to (3) at `k = 6 − T` because trick 7 is forced | k = 0 at h4-t4 5.1M reads; k = 2 = the exact solve |
+| 9b | focal-horizon ladder | `focal_ladder.rs` (FH2, 2026-09-04) | the same recursion as budgeted PASSES over a store of node facts: stop at a read ceiling, resume to the identical result; exact suffix reuse | reads at k = 2 fall 2.83M → 0.42M (h3-t4) with reuse; memory GREW: 662 MB peak vs 411 MB for the direct engine (per-node policy tables) |
 | 10 | the live default player | `CONTROLLER-PLAYER.md` | the pre-program player people actually play | untouched by everything above (FH-A10) |
 
 Side tracks, not in the critical path: GPU-native trick 1 (M0–M2 parity
@@ -68,12 +69,12 @@ is the consolidation slice, after FH3 lands.
 | reads per trick-4 decision, exact | 0.7M–10M | flat since Slice G; the ceiling is σ0 |
 | trick-3 exact | 289M reads, 14 min | one root; the wall |
 | `solver/` size | 36,076 lines, 35 modules | growing one module per intake; consolidation not yet started |
+| peak memory, ladder at h3-t4 | 662 MB (memo on), 509 MB (off); direct engine 411 MB | new cost axis; a version-referenced policy store is the fix, not built |
 | gate wall (`check.sh`) | 230 s (was ~15 min serial on 2026-09-04) | fixed by concurrency + fixtures; corpus trimming still owed ([[gate-corpus-trim]]) |
 
 ## Next, in order
 
-FH2 the anytime ladder (budget, interruption, resume, proof-state
-facts, suffix reuse) → FH3 the report of record and the PR #87 anchors,
+FH2 ✓ (dc515ac) → FH3 the report of record and the PR #87 anchors,
 including h8-t3 at k = 2 (the real test) → independent audit → one PR
 → the σ0 read-key study (does its answer depend on the full record? if
 not, the cache key coarsens and every recursion gets 10–100× cheaper)
