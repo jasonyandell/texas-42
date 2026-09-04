@@ -23,7 +23,10 @@ only when read; the lean rung's 2.1 s of unread carry became 0 µs,
 paragraph after UP0); SLICE U0b LANDED (2026-09-03, the in-solve horizon
 census — the God-gap census at every frontier node a trick-4 solve
 reaches, and the exact price of a §39 fusion cut at that depth,
-paragraph after UP1a). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
+paragraph after UP1a); SLICE FH1 LANDED (2026-09-04, the focal-horizon
+hierarchy engine — three instruments become the endpoints of one
+refinement object indexed by focal decisions, affordable-or-refuse,
+paragraph after U0b). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
 register: `solver/refine.rs` as merged at `25b40d9` takes no new
 fields, variants, or work items, ever; its four gates never weaken; the
 coming proof-state core must reproduce it wherever scopes overlap and
@@ -938,6 +941,52 @@ flips. Every positive-gap frontier node is listed in the record with
 history, mass, doomed count and gap — U1's input. Deterministic fields
 only; no producer and no substitution built (U4's territory).
 EXPLORATORY tier; the horizon is a measurement, never a theorem (SC-A4).
+
+**SLICE FH1 LANDED** (2026-09-04, the focal-horizon hierarchy engine —
+the parent's §28 generic engine of `walt/math/focal_horizon_sandwich_v0.1.md`
+as narrowed by its companion and rulings FH-A1..A11; report of record
+`walt/briefs/FH1-REPORT.md`): new `solver/focal_horizon.rs` computes,
+per legal root action, the focal-horizon interval `[L_{a,k}, U_{a,k}]`
+in exact-mass form for `k` additional focal layers — at `k = 0` the
+lower is `viewer_success_mass` under the tail (σ0 driving the viewer
+seat, FH-A4's primary; lowest-first as the gate tail) and the upper is
+the undoomed-world count through the doom census's OWN line walk
+(`horizon.rs`'s `doom_over_belief`, now `pub(crate)`); each further `k`
+maxes over EVERY legal action at one public information state, hidden
+branches summing at the same `k`, the argmax materialized under the
+lowest-tile rule as `π_k` — a total `SlicePolicy` whose off-DAG
+continuation is the tail, never the lowest tile (FH-A7). The root
+reports bar, survivor set, verdict (`Settled` / `Equivalent` by FH-tie /
+`Unresolved`), `L_exec = V(π_k)`, `U*_k`, `Γ_k`, the spend with forced
+tail evaluations and the k-th frontier's ply histogram; a frontier node
+above the fiber cap refuses the WHOLE root, typed (FH-A11, FH-A3).
+`focal_depth` is the §6 walk, independent, forced nodes counting (FH-A6).
+Ten gates (`solver_focal_horizon.rs`, ~6 min): endpoint parity with
+`viewer_success_mass` and `doom_enumeration` on ten roots × two
+contracts (harmonicity of `G` through hidden nodes checked on real
+roots); `horizon_census` cut-4 = `U_{a,0}` and cut-8 = `U_{a,1}` live
+(FH-cut) plus the companion's Q6 record values; nesting; collapse at
+k = 6 − T with every tail consultation FORCED and zero consultations at
+k = 7 − T = h_f (FH-last, FH-A6); action containment and survivor
+monotonicity; `V(π_k) = L_k` through the independent evaluator at root
+and every child under both tails; merge-before-max against a test-local
+fused walk that EQUALS `U_{a,0}` and the salvation-mask identity for
+`U_{a,1}` (Theorem 5); the FH-A8 anchor laws at h8-t4 bids 36/39;
+refusal shape; determinism. Probe `focalreport`
+(`probes/factor_belief/focal_run0.txt`, T4 at the receipt contract,
+k = 0, 1, 2, σ0 tail). THE FINDINGS: (1) one focal layer settles h3-t4
+(k = 1, bar 338‰ over the next upper 328‰) and h4-t4 settles at k = 0
+already (the σ0 tail after 6-5 is worth 964‰ against every other God
+upper ≤ 869‰); h8-t4 needs k = 2, survivors 4 → 3 → 1; (2) at k = 1 the
+remaining width is almost all policy gap — fusion price `U − Q` 0–3‰
+per action, `Q − L` 9–41‰ — so on this corpus the better-tail question
+outweighs the glue question; (3) at h8-t4 k = 1 `π_1` plays 2-1 while
+the exact best is 3-3, and the certified regret 39‰ contains the true
+13‰ — §20 live; (4) collapse at k = 2 is 100% forced consultations, k = 3
+zero; (5) h4-t4 costs 5.0M / 8.3M / 10.0M field reads at k = 0 / 1 / 2.
+Budget honesty with retained intervals and suffix reuse are FH2 (gated
+on FH-int); the report of record and the FH8 anchors are FH3.
+EXPLORATORY tier; no live default change (FH-A10).
 
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint

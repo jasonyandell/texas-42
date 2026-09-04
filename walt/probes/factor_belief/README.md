@@ -21,9 +21,12 @@ structural producer, ∀-fail dual of §16).
 `walt/walt/src/bin/unifiedreport.rs` (the unified player transcript,
 UP0; re-run under UP1a's lazy carry as `unified_run2.txt`) and
 `walt/walt/src/bin/horizonreport.rs` (the in-solve horizon census, U0b —
-`horizon_run1.txt`).
+`horizon_run1.txt`) and
+`walt/walt/src/bin/focalreport.rs` (the focal-horizon hierarchy engine
+scout, FH1 — `focal_run0.txt`).
 Gates (the CI-checked part): `walt/walt/tests/solver_unified.rs`,
 `walt/walt/tests/solver_unified_carry.rs`, `walt/walt/tests/solver_horizon.rs`,
+`walt/walt/tests/solver_focal_horizon.rs`,
 `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
@@ -39,6 +42,10 @@ Gates (the CI-checked part): `walt/walt/tests/solver_unified.rs`,
 `walt/walt/tests/solver_laydown.rs` and
 `walt/walt/tests/solver_opening.rs` and
 `walt/walt/tests/solver_doom.rs`. Mathematical source:
+`walt/math/focal_horizon_sandwich_v0.1.md` (the focal-horizon hierarchy,
+Parts II–X and XIV–XV as narrowed by its companion
+`walt/math/focal_horizon_sandwich_v0.1_intake.md` and rulings
+FH-A1..A11);
 `walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31,
 Part VIII §32–37, §46 stages C0–C2, §47 Slice D, §48 Slice E, §49
 Slice F, §50 Slice G, rulings CBS-A4/CBS-A6/CBS-A9; and
@@ -657,6 +664,26 @@ the δ ledger).
   budgets; the God grid costs 3.2 s for 228 worlds (12–25 ms per
   singleton check, FieldModel-cached); the composed panel re-imports
   p16+p64 in ~41 s.
+
+## focal_run0.txt readings (2026-09-04) — the focal-horizon hierarchy scout
+
+`focalreport scout-corpus`: the FH1 engine (`solver/focal_horizon.rs`)
+at the four trick-4 gated roots, receipt contract, k ∈ {0, 1, 2}, σ0
+driving the viewer seat as the lower tail and the world-revealed God
+continuation as the upper; every `Q_a` priced so each action's width
+splits into fusion price `U − Q` and policy gap `Q − L`. Gated by
+`solver_focal_horizon.rs` (FH1–FH6, FH-A8, FH-R, FH-D).
+
+- **Settling horizons under the σ0 tail:** h4-t4 settles 6-5 at k = 0
+  (Γ 30‰), h3-t4 settles 3-1 at k = 1 (Γ 12‰), h8-t4 needs k = 2
+  (survivors 4 → 3 → 1, Γ 100‰ → 39‰ → 0); h12-t4 is decided at the
+  root (`Equivalent` at 0, zero reads).
+- **The k = 1 width is policy gap, not fusion price:** `U − Q` ≤ 3‰ per
+  action on every live root; `Q − L` 9–41‰.
+- **Collapse is mechanical:** at k = 2 every tail consultation is at a
+  forced trick-7 node; at k = 3 there are none (FH-last, FH-A6).
+- Wall: h4-t4 17–27 s per horizon; h3-t4 6–9 s; h8-t4 2–3 s; the
+  record's one approximate number.
 
 ## Boundaries
 

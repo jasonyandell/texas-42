@@ -1,0 +1,137 @@
+FOCAL-HORIZON HIERARCHY SCOUT (slice FH1) — EXPLORATORY
+
+The parent's §28 engine at the four trick-4 gated roots, receipt contract, horizons k ∈ [0, 1, 2], σ0 driving the viewer seat as the lower tail (FH-A4) and the world-revealed God continuation as the upper tail (FH-God). Every Q_a priced by response_success_mass so the per-action width splits into the fusion price (U − Q) and the policy gap (Q − L). Never a theorem; never a play-strength claim.
+
+declared field: level0-modeled-mind-v1 (Level0 n0=2) under SupportOracle
+node fiber cap: 40000
+tie rule for π_k: lowest tile index
+forced focal nodes consume a unit of horizon (FH-A6)
+wall is the only approximate number here
+
+== h3-t4 contract 30 tail sigma0 k=0 | Z=11550 | wall 6172178us
+     action 3-1 [S]: L 463/1650 (280‰) | U 2111/5775 (365‰) | width 327/3850 (84‰) | Q 1349/3850 (350‰) | fusion price U−Q 1/66 (15‰) | policy gap Q−L 403/5775 (69‰)
+     action 4-1 [-]: L 2609/11550 (225‰) | U 46/165 (278‰) | width 611/11550 (52‰) | Q 1047/3850 (271‰) | fusion price U−Q 79/11550 (6‰) | policy gap Q−L 38/825 (46‰)
+     action 4-4 [S]: L 101/350 (288‰) | U 811/2310 (351‰) | width 361/5775 (62‰) | Q 3797/11550 (328‰) | fusion price U−Q 43/1925 (22‰) | policy gap Q−L 232/5775 (40‰)
+     action 6-4 [S]: L 92/385 (238‰) | U 1157/3850 (300‰) | width 237/3850 (61‰) | Q 331/1155 (286‰) | fusion price U−Q 23/1650 (13‰) | policy gap Q−L 1/21 (47‰)
+   bar B_k 101/350 (288‰) | survivors {3-1 4-4 6-4} | verdict UNRESOLVED survivors {3-1 4-4 6-4}
+   π_k focal-k0-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-ef150bd00a01c0d5a87aee2d06994faa (1 states, plays 4-4) | L_exec 101/350 (288‰) | U* 2111/5775 (365‰) | Γ_k 127/1650 (76‰)
+   focal depth h_f: root 4 | after action 3-1:3 4-1:3 4-4:3 6-4:3
+   spend: field reads 1728605 | tail reads 47393 | conditionings 14507 | focal 0 | hidden 5514 | decided early 49 terminal 0 | tail evaluations lower 8948 upper 8948 (forced 2828) | worlds 45148 | line-walk nodes 581468 | frontier plies [ply4:105 ply5:830 ply6:3101 ply7:4912]
+== h3-t4 contract 30 tail sigma0 k=1 | Z=11550 | wall 8547619us
+     action 3-1 [S]: L 1954/5775 (338‰) | U 1349/3850 (350‰) | width 139/11550 (12‰) | Q 1349/3850 (350‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 139/11550 (12‰)
+     action 4-1 [-]: L 433/1650 (262‰) | U 1571/5775 (272‰) | width 37/3850 (9‰) | Q 1047/3850 (271‰) | fusion price U−Q 1/11550 (0‰) | policy gap Q−L 1/105 (9‰)
+     action 4-4 [-]: L 166/525 (316‰) | U 633/1925 (328‰) | width 73/5775 (12‰) | Q 3797/11550 (328‰) | fusion price U−Q 1/11550 (0‰) | policy gap Q−L 29/2310 (12‰)
+     action 6-4 [-]: L 19/70 (271‰) | U 221/770 (287‰) | width 6/385 (15‰) | Q 331/1155 (286‰) | fusion price U−Q 1/2310 (0‰) | policy gap Q−L 1/66 (15‰)
+   bar B_k 1954/5775 (338‰) | survivors {3-1} | verdict SETTLED 3-1
+   π_k focal-k1-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-d8b0c64c422c92dd6743b54e138e785b (8949 states, plays 3-1) | L_exec 1954/5775 (338‰) | U* 1349/3850 (350‰) | Γ_k 139/11550 (12‰)
+   focal depth h_f: root 4 | after action 3-1:3 4-1:3 4-4:3 6-4:3
+   spend: field reads 2548902 | tail reads 79284 | conditionings 141868 | focal 8948 | hidden 90963 | decided early 12623 terminal 0 | tail evaluations lower 50231 upper 50231 (forced 14010) | worlds 67127 | line-walk nodes 400000 | frontier plies [ply8:562 ply9:8170 ply10:26901 ply11:14598]
+== h3-t4 contract 30 tail sigma0 k=2 | Z=11550 | wall 8340413us
+     action 3-1 [S]: L 1349/3850 (350‰) | U 1349/3850 (350‰) | width 0 (0‰) | Q 1349/3850 (350‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 4-1 [-]: L 1047/3850 (271‰) | U 1047/3850 (271‰) | width 0 (0‰) | Q 1047/3850 (271‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 4-4 [-]: L 3797/11550 (328‰) | U 3797/11550 (328‰) | width 0 (0‰) | Q 3797/11550 (328‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 6-4 [-]: L 331/1155 (286‰) | U 331/1155 (286‰) | width 0 (0‰) | Q 331/1155 (286‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+   bar B_k 1349/3850 (350‰) | survivors {3-1} | verdict SETTLED 3-1
+   π_k focal-k2-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-1501ff0135b03d12d50b00660a4472f7 (33749 states, plays 3-1) | L_exec 1349/3850 (350‰) | U* 1349/3850 (350‰) | Γ_k 0 (0‰)
+   focal depth h_f: root 4 | after action 3-1:3 4-1:3 4-4:3 6-4:3
+   spend: field reads 2781565 | tail reads 47741 | conditionings 333864 | focal 59179 | hidden 263173 | decided early 71120 terminal 0 | tail evaluations lower 47741 upper 47741 (forced 47741) | worlds 48104 | line-walk nodes 142807 | frontier plies [ply12:1645 ply13:5903 ply14:28952 ply15:11241]
+== h4-t4 contract 30 tail sigma0 k=0 | Z=34650 | wall 16584062us
+     action 2-1 [-]: L 2518/3465 (726‰) | U 13861/17325 (800‰) | width 1271/17325 (73‰) | Q 9131/11550 (790‰) | fusion price U−Q 47/4950 (9‰) | policy gap Q−L 2213/34650 (63‰)
+     action 4-0 [-]: L 8887/11550 (769‰) | U 15056/17325 (869‰) | width 493/4950 (99‰) | Q 2936/3465 (847‰) | fusion price U−Q 376/17325 (21‰) | policy gap Q−L 2699/34650 (77‰)
+     action 5-1 [-]: L 12209/17325 (704‰) | U 1528/1925 (793‰) | width 1543/17325 (89‰) | Q 1511/1925 (784‰) | fusion price U−Q 17/1925 (8‰) | policy gap Q−L 278/3465 (80‰)
+     action 6-5 [S]: L 1591/1650 (964‰) | U 34459/34650 (994‰) | width 524/17325 (30‰) | Q 16994/17325 (980‰) | fusion price U−Q 157/11550 (13‰) | policy gap Q−L 577/34650 (16‰)
+   bar B_k 1591/1650 (964‰) | survivors {6-5} | verdict SETTLED 6-5
+   π_k focal-k0-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-0c86319a42326e5744499803853a44c4 (1 states, plays 6-5) | L_exec 1591/1650 (964‰) | U* 34459/34650 (994‰) | Γ_k 524/17325 (30‰)
+   focal depth h_f: root 4 | after action 2-1:3 4-0:3 5-1:3 6-5:3
+   spend: field reads 4977105 | tail reads 149171 | conditionings 36682 | focal 0 | hidden 12851 | decided early 23 terminal 0 | tail evaluations lower 23812 upper 23812 (forced 14408) | worlds 138050 | line-walk nodes 1251258 | frontier plies [ply4:214 ply5:2280 ply6:6785 ply7:14533]
+== h4-t4 contract 30 tail sigma0 k=1 | Z=34650 | wall 24205774us
+     action 2-1 [-]: L 1801/2310 (779‰) | U 13744/17325 (793‰) | width 43/3150 (13‰) | Q 9131/11550 (790‰) | fusion price U−Q 19/6930 (2‰) | policy gap Q−L 3/275 (10‰)
+     action 4-0 [-]: L 3203/3850 (831‰) | U 421/495 (850‰) | width 643/34650 (18‰) | Q 2936/3465 (847‰) | fusion price U−Q 1/315 (3‰) | policy gap Q−L 533/34650 (15‰)
+     action 5-1 [-]: L 4472/5775 (774‰) | U 27253/34650 (786‰) | width 421/34650 (12‰) | Q 1511/1925 (784‰) | fusion price U−Q 1/630 (1‰) | policy gap Q−L 61/5775 (10‰)
+     action 6-5 [S]: L 16822/17325 (970‰) | U 2429/2475 (981‰) | width 181/17325 (10‰) | Q 16994/17325 (980‰) | fusion price U−Q 1/1925 (0‰) | policy gap Q−L 172/17325 (9‰)
+   bar B_k 16822/17325 (970‰) | survivors {6-5} | verdict SETTLED 6-5
+   π_k focal-k1-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-30c2c02ae9add0d8a6ccb7b5186e7526 (23813 states, plays 6-5) | L_exec 16822/17325 (970‰) | U* 2429/2475 (981‰) | Γ_k 181/17325 (10‰)
+   focal depth h_f: root 4 | after action 2-1:3 4-0:3 5-1:3 6-5:3
+   spend: field reads 8341191 | tail reads 271756 | conditionings 385787 | focal 23812 | hidden 233972 | decided early 15209 terminal 0 | tail evaluations lower 154445 upper 154445 (forced 44049) | worlds 241485 | line-walk nodes 1461401 | frontier plies [ply8:20367 ply9:38646 ply10:38963 ply11:56469]
+== h4-t4 contract 30 tail sigma0 k=2 | Z=34650 | wall 26532623us
+     action 2-1 [-]: L 9131/11550 (790‰) | U 9131/11550 (790‰) | width 0 (0‰) | Q 9131/11550 (790‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 4-0 [-]: L 2936/3465 (847‰) | U 2936/3465 (847‰) | width 0 (0‰) | Q 2936/3465 (847‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 5-1 [-]: L 1511/1925 (784‰) | U 1511/1925 (784‰) | width 0 (0‰) | Q 1511/1925 (784‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 6-5 [S]: L 16994/17325 (980‰) | U 16994/17325 (980‰) | width 0 (0‰) | Q 16994/17325 (980‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+   bar B_k 16994/17325 (980‰) | survivors {6-5} | verdict SETTLED 6-5
+   π_k focal-k2-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-40ac5c2d2c2960bfbaa8a95093faf291 (97633 states, plays 6-5) | L_exec 16994/17325 (980‰) | U* 16994/17325 (980‰) | Γ_k 0 (0‰)
+   focal depth h_f: root 4 | after action 2-1:3 4-0:3 5-1:3 6-5:3
+   spend: field reads 9993021 | tail reads 216360 | conditionings 1181600 | focal 178257 | hidden 906499 | decided early 186976 terminal 0 | tail evaluations lower 216360 upper 216360 (forced 216360) | worlds 229721 | line-walk nodes 864701 | frontier plies [ply12:76014 ply13:54487 ply14:30992 ply15:54867]
+== h8-t4 contract 30 tail sigma0 k=0 | Z=1200 | wall 1670636us
+     action 2-1 [S]: L 17/20 (850‰) | U 289/300 (963‰) | width 17/150 (113‰) | Q 287/300 (956‰) | fusion price U−Q 1/150 (6‰) | policy gap Q−L 8/75 (106‰)
+     action 3-1 [S]: L 469/600 (781‰) | U 1091/1200 (909‰) | width 51/400 (127‰) | Q 67/75 (893‰) | fusion price U−Q 19/1200 (15‰) | policy gap Q−L 67/600 (111‰)
+     action 3-3 [S]: L 177/200 (885‰) | U 1183/1200 (985‰) | width 121/1200 (100‰) | Q 1163/1200 (969‰) | fusion price U−Q 1/60 (16‰) | policy gap Q−L 101/1200 (84‰)
+     action 5-5 [S]: L 487/600 (811‰) | U 289/300 (963‰) | width 91/600 (151‰) | Q 283/300 (943‰) | fusion price U−Q 1/50 (20‰) | policy gap Q−L 79/600 (131‰)
+   bar B_k 177/200 (885‰) | survivors {2-1 3-1 3-3 5-5} | verdict UNRESOLVED survivors {2-1 3-1 3-3 5-5}
+   π_k focal-k0-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-27813122b9fa770036165fb867048a2d (1 states, plays 3-3) | L_exec 177/200 (885‰) | U* 1183/1200 (985‰) | Γ_k 121/1200 (100‰)
+   focal depth h_f: root 4 | after action 2-1:3 3-1:3 3-3:3 5-5:3
+   spend: field reads 323520 | tail reads 7442 | conditionings 2428 | focal 0 | hidden 1018 | decided early 1 terminal 0 | tail evaluations lower 1413 upper 1413 (forced 266) | worlds 4798 | line-walk nodes 59183 | frontier plies [ply4:235 ply5:206 ply6:585 ply7:387]
+== h8-t4 contract 30 tail sigma0 k=1 | Z=1200 | wall 2563790us
+     action 2-1 [S]: L 373/400 (932‰) | U 23/24 (958‰) | width 31/1200 (25‰) | Q 287/300 (956‰) | fusion price U−Q 1/600 (1‰) | policy gap Q−L 29/1200 (24‰)
+     action 3-1 [-]: L 257/300 (856‰) | U 179/200 (895‰) | width 23/600 (38‰) | Q 67/75 (893‰) | fusion price U−Q 1/600 (1‰) | policy gap Q−L 11/300 (36‰)
+     action 3-3 [S]: L 371/400 (927‰) | U 583/600 (971‰) | width 53/1200 (44‰) | Q 1163/1200 (969‰) | fusion price U−Q 1/400 (2‰) | policy gap Q−L 1/24 (41‰)
+     action 5-5 [S]: L 137/150 (913‰) | U 283/300 (943‰) | width 3/100 (30‰) | Q 283/300 (943‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 3/100 (30‰)
+   bar B_k 373/400 (932‰) | survivors {2-1 3-3 5-5} | verdict UNRESOLVED survivors {2-1 3-3 5-5}
+   π_k focal-k1-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-2a4bb9aff36afd8835d69827c4c82918 (1414 states, plays 2-1) | L_exec 373/400 (932‰) | U* 583/600 (971‰) | Γ_k 47/1200 (39‰)
+   focal depth h_f: root 4 | after action 2-1:3 3-1:3 3-3:3 5-5:3
+   spend: field reads 563145 | tail reads 15844 | conditionings 25710 | focal 1413 | hidden 18172 | decided early 602 terminal 0 | tail evaluations lower 9155 upper 9155 (forced 1562) | worlds 12276 | line-walk nodes 81214 | frontier plies [ply8:2985 ply9:1468 ply10:3065 ply11:1637]
+== h8-t4 contract 30 tail sigma0 k=2 | Z=1200 | wall 2858319us
+     action 2-1 [-]: L 287/300 (956‰) | U 287/300 (956‰) | width 0 (0‰) | Q 287/300 (956‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 3-1 [-]: L 67/75 (893‰) | U 67/75 (893‰) | width 0 (0‰) | Q 67/75 (893‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 3-3 [S]: L 1163/1200 (969‰) | U 1163/1200 (969‰) | width 0 (0‰) | Q 1163/1200 (969‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 5-5 [-]: L 283/300 (943‰) | U 283/300 (943‰) | width 0 (0‰) | Q 283/300 (943‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+   bar B_k 1163/1200 (969‰) | survivors {3-3} | verdict SETTLED 3-3
+   π_k focal-k2-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-557dedfa2f0aa367419c6a495768ac3d (4777 states, plays 3-3) | L_exec 1163/1200 (969‰) | U* 1163/1200 (969‰) | Γ_k 0 (0‰)
+   focal depth h_f: root 4 | after action 2-1:3 3-1:3 3-3:3 5-5:3
+   spend: field reads 650297 | tail reads 11906 | conditionings 77690 | focal 10568 | hidden 65368 | decided early 10228 terminal 0 | tail evaluations lower 11906 upper 11906 (forced 11906) | worlds 12121 | line-walk nodes 45866 | frontier plies [ply12:4091 ply13:2343 ply14:4037 ply15:1435]
+== h12-t4 contract 30 tail sigma0 k=0 | Z=34650 | wall 18us
+     action 2-0 [S]: L 0 (0‰) | U 0 (0‰) | width 0 (0‰) | Q 0 (0‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 3-0 [S]: L 0 (0‰) | U 0 (0‰) | width 0 (0‰) | Q 0 (0‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 4-0 [S]: L 0 (0‰) | U 0 (0‰) | width 0 (0‰) | Q 0 (0‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 6-5 [S]: L 0 (0‰) | U 0 (0‰) | width 0 (0‰) | Q 0 (0‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+   bar B_k 0 (0‰) | survivors {2-0 3-0 4-0 6-5} | verdict EQUIVALENT {2-0 3-0 4-0 6-5} at 0 (0‰)
+   π_k focal-k0-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-dec454c7a66411532c95f5943a1449eb (1 states, plays 2-0) | L_exec 0 (0‰) | U* 0 (0‰) | Γ_k 0 (0‰)
+   focal depth h_f: root 0 | after action 2-0:0 3-0:0 4-0:0 6-5:0
+   spend: field reads 0 | tail reads 0 | conditionings 0 | focal 0 | hidden 0 | decided early 4 terminal 0 | tail evaluations lower 0 upper 0 (forced 0) | worlds 0 | line-walk nodes 0 | frontier plies []
+== h12-t4 contract 30 tail sigma0 k=1 | Z=34650 | wall 11us
+     action 2-0 [S]: L 0 (0‰) | U 0 (0‰) | width 0 (0‰) | Q 0 (0‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 3-0 [S]: L 0 (0‰) | U 0 (0‰) | width 0 (0‰) | Q 0 (0‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 4-0 [S]: L 0 (0‰) | U 0 (0‰) | width 0 (0‰) | Q 0 (0‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 6-5 [S]: L 0 (0‰) | U 0 (0‰) | width 0 (0‰) | Q 0 (0‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+   bar B_k 0 (0‰) | survivors {2-0 3-0 4-0 6-5} | verdict EQUIVALENT {2-0 3-0 4-0 6-5} at 0 (0‰)
+   π_k focal-k1-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-dec454c7a66411532c95f5943a1449eb (1 states, plays 2-0) | L_exec 0 (0‰) | U* 0 (0‰) | Γ_k 0 (0‰)
+   focal depth h_f: root 0 | after action 2-0:0 3-0:0 4-0:0 6-5:0
+   spend: field reads 0 | tail reads 0 | conditionings 0 | focal 0 | hidden 0 | decided early 4 terminal 0 | tail evaluations lower 0 upper 0 (forced 0) | worlds 0 | line-walk nodes 0 | frontier plies []
+== h12-t4 contract 30 tail sigma0 k=2 | Z=34650 | wall 15us
+     action 2-0 [S]: L 0 (0‰) | U 0 (0‰) | width 0 (0‰) | Q 0 (0‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 3-0 [S]: L 0 (0‰) | U 0 (0‰) | width 0 (0‰) | Q 0 (0‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 4-0 [S]: L 0 (0‰) | U 0 (0‰) | width 0 (0‰) | Q 0 (0‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+     action 6-5 [S]: L 0 (0‰) | U 0 (0‰) | width 0 (0‰) | Q 0 (0‰) | fusion price U−Q 0 (0‰) | policy gap Q−L 0 (0‰)
+   bar B_k 0 (0‰) | survivors {2-0 3-0 4-0 6-5} | verdict EQUIVALENT {2-0 3-0 4-0 6-5} at 0 (0‰)
+   π_k focal-k2-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-dec454c7a66411532c95f5943a1449eb (1 states, plays 2-0) | L_exec 0 (0‰) | U* 0 (0‰) | Γ_k 0 (0‰)
+   focal depth h_f: root 0 | after action 2-0:0 3-0:0 4-0:0 6-5:0
+   spend: field reads 0 | tail reads 0 | conditionings 0 | focal 0 | hidden 0 | decided early 4 terminal 0 | tail evaluations lower 0 upper 0 (forced 0) | worlds 0 | line-walk nodes 0 | frontier plies []
+
+#### THE FOCAL-HORIZON TABLE — one row per (root, contract, k), σ0 tail ####
+
+ root    | bid | k |    Z    | survivors   | verdict          | B_k ‰ | U* ‰ | Γ_k ‰ | reads     | tail evals | wall
+---------+-----+---+---------+-------------+------------------+-------+------+-------+-----------+------------+------
+ h3-t4   |  30 | 0 |   11550 | 3-1 4-4 6-4 | UNRESOLVED       |   288 |  365 |    76 |   1775998 |      17896 | 6172178us
+ h3-t4   |  30 | 1 |   11550 | 3-1         | SETTLED 3-1      |   338 |  350 |    12 |   2628186 |     100462 | 8547619us
+ h3-t4   |  30 | 2 |   11550 | 3-1         | SETTLED 3-1      |   350 |  350 |     0 |   2829306 |      95482 | 8340413us
+ h4-t4   |  30 | 0 |   34650 | 6-5         | SETTLED 6-5      |   964 |  994 |    30 |   5126276 |      47624 | 16584062us
+ h4-t4   |  30 | 1 |   34650 | 6-5         | SETTLED 6-5      |   970 |  981 |    10 |   8612947 |     308890 | 24205774us
+ h4-t4   |  30 | 2 |   34650 | 6-5         | SETTLED 6-5      |   980 |  980 |     0 |  10209381 |     432720 | 26532623us
+ h8-t4   |  30 | 0 |    1200 | 2-1 3-1 3-3 5-5 | UNRESOLVED       |   885 |  985 |   100 |    330962 |       2826 | 1670636us
+ h8-t4   |  30 | 1 |    1200 | 2-1 3-3 5-5 | UNRESOLVED       |   932 |  971 |    39 |    578989 |      18310 | 2563790us
+ h8-t4   |  30 | 2 |    1200 | 3-3         | SETTLED 3-3      |   969 |  969 |     0 |    662203 |      23812 | 2858319us
+ h12-t4  |  30 | 0 |   34650 | 2-0 3-0 4-0 6-5 | EQUIV {2-0 3-0 4-0 6-5} |     0 |    0 |     0 |         0 |          0 | 18us
+ h12-t4  |  30 | 1 |   34650 | 2-0 3-0 4-0 6-5 | EQUIV {2-0 3-0 4-0 6-5} |     0 |    0 |     0 |         0 |          0 | 11us
+ h12-t4  |  30 | 2 |   34650 | 2-0 3-0 4-0 6-5 | EQUIV {2-0 3-0 4-0 6-5} |     0 |    0 |     0 |         0 |          0 | 15us
+
+EXPLORATORY — below every evidentiary tier; quotable only via gate receipts.
