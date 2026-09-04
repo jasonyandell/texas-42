@@ -8,7 +8,7 @@ proofs P8/P11/P12 and rulings FH-A3, FH-A9, FH-A11 with Proposition
 FH-int (`walt/CENSUS-RULINGS.md`), under `walt/briefs/BRIEF-FH2.md`.
 Authorized 2026-09-04 by Jason ("take this to the finish line").
 **Status: COMPLETE.** New module `solver/focal_ladder.rs`, two new
-`focalreport` modes (`ladder`, `ladder-record`), nine gates in
+`focalreport` modes (`ladder`, `ladder-record`), nine gates (ten after the post-audit fix FH5 added FH-C, the in-pass cap-refusal gate — audit N3) in
 `walt/walt/tests/solver_focal_ladder.rs` (24 s release standalone),
 record `walt/probes/factor_belief/focal_ladder_run1.txt` (h8-t4 and
 h3-t4, receipt contract, σ0 tail, pinned schedules). One seam opened in
