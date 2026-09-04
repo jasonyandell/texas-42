@@ -10,6 +10,32 @@ here rather than silently picking a reading.
 
 ## Reconciled, not discrepancies
 
+### doom-census ledger paragraph: "overwhelmingly the info-consistency price" outruns what was established (UP1a/U0b, 2026-09-03)
+
+The doom-census paragraph of `walt/FACTOR-BELIEF.md` (2026-09-01) closes
+its opening-root diagnosis with: "the plateau's remaining Γ ≈ 267‰ is
+overwhelmingly the INFO-CONSISTENCY PRICE — purchasable by floor work
+... and info-consistency-aware uppers, never by counterexample
+counting." The salvation parent adjudicated the same session (SC-A1)
+states the correction in its §8–§9: a zero doom census moves only
+`d_phys` and "does **not**, by itself, prove that the remaining gap is
+information-consistency price" — the unclaimed mass is `d_info +
+d_policy`, and zero doom does not distinguish them. U0 then typed the
+opening root `UnknownGodGap` on all seven actions, claiming nothing
+about either term (SC-A4). The ledger sentence therefore overclaims
+relative to the mathematics adjudicated the same day.
+
+What the later evidence suggests, without settling it: U0's twelve
+trick-4 information prices are 6–22‰ with `d_policy = 0` at every one,
+and U0b's in-solve census finds the trick-5 frontier's mass-weighted
+price at 13–14‰ under the trick-4 roots; the opening upper of 999‰ is a
+512-world sampled optimization lock, not a doom bound. The honest
+statement is that the 267‰ is UNKNOWN in its split, with the sampled
+upper's looseness and the policy gap both live candidates. Recorded
+here rather than rewritten in the ledger (the ledger is a dated
+running record); the doom paragraph carries a one-line pointer to this
+entry.
+
 ### salvation-complex intake companion: two divergence points named, three in the record (U0, 2026-09-02)
 
 The intake companion `walt/math/salvation_complex_v0.1_intake.md` records

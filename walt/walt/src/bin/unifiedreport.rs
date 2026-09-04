@@ -1,5 +1,14 @@
-//! EXPLORATORY UNIFIED-PLAYER TRANSCRIPT (`solver::unified`, slice UP0)
-//! — sits below every evidentiary tier and is cited by nothing above it.
+//! EXPLORATORY UNIFIED-PLAYER TRANSCRIPT (`solver::unified`, slice UP0;
+//! re-run under slice UP1a's lazy carry) — sits below every evidentiary
+//! tier and is cited by nothing above it.
+//!
+//! SLICE UP1a. The carry is lazy: `observe_play` RECORDS the line and
+//! the posterior is materialized only when a tier reads it, with the
+//! classification bill charged to that decision as `carry_reads`. The
+//! `carry` wall column therefore now measures recording, and the
+//! materialization cost appears inside `decide` at consulting decisions.
+//! Falsifications a walk never reads are discovered at a final
+//! materialization after the hand and listed as such.
 //!
 //! THIS IS A TRANSCRIPT, NOT AN EVALUATION. It records what the unified
 //! player did at every decision of a walked hand: which tier answered,
@@ -185,10 +194,13 @@ struct Row {
     enumeration_reads: u64,
     mixture_reads: u64,
     field_reads: u64,
+    carry_reads: u64,
     refusals: Vec<String>,
     posterior_carried: bool,
     posterior_consulted: bool,
     live_profiles: usize,
+    materialized: usize,
+    line_plays: usize,
     falsified: bool,
     join: Option<(BigRational, BigRational, bool, Domino, Domino, bool)>,
     /// Wall inside `decide` — the cascade's own time.
@@ -203,9 +215,12 @@ struct Walk {
     rows: Vec<Row>,
     banked: [u32; 2],
     made: bool,
-    /// Falsification events observed on the walk, as
-    /// `(trick, ply, seat, observed, supported)`.
-    falsifications: Vec<(usize, usize, usize, Domino, Vec<Domino>)>,
+    /// Falsification events, as `(line play index, seat, observed,
+    /// supported, discovered during play)`. Under the lazy carry a
+    /// falsification is discovered when the line is materialized — by a
+    /// consulting decision during play, or by the final materialization
+    /// after the hand.
+    falsifications: Vec<(usize, usize, Domino, Vec<Domino>, bool)>,
     wall_us: u128,
 }
 
@@ -254,7 +269,7 @@ fn walk_root(r: &Receipt, hand_id: usize, trick_no: usize, budget: &MoveBudget) 
 
     let mut trick_plays: Vec<Domino> = Vec::new();
     let mut rows: Vec<Row> = Vec::new();
-    let mut falsifications: Vec<(usize, usize, usize, Domino, Vec<Domino>)> = Vec::new();
+    let mut falsifications: Vec<(usize, usize, Domino, Vec<Domino>, bool)> = Vec::new();
     let started = Instant::now();
     for trick_index in trick_no..=7usize {
         for _ in 0..4usize {
@@ -294,10 +309,13 @@ fn walk_root(r: &Receipt, hand_id: usize, trick_no: usize, budget: &MoveBudget) 
                 enumeration_reads: p.spend().enumeration_reads,
                 mixture_reads: p.spend().mixture_reads,
                 field_reads: p.spend().field_reads,
+                carry_reads: p.spend().carry_reads,
                 refusals: p.refusals().iter().map(|x| format!("{x:?}")).collect(),
                 posterior_carried: post.carried,
                 posterior_consulted: post.consulted,
                 live_profiles: post.live_profiles,
+                materialized: post.materialized,
+                line_plays: post.line_plays,
                 falsified: post.falsified.is_some(),
                 join: post.join.as_ref().map(|j| {
                     (
@@ -313,38 +331,35 @@ fn walk_root(r: &Receipt, hand_id: usize, trick_no: usize, budget: &MoveBudget) 
                 carry_us: 0,
             });
 
-            // Advance every carried line past the play, then the world.
-            let before: Vec<(usize, bool)> = (0..4)
-                .map(|s| {
-                    let seat = Seat::ALL[s];
-                    (
-                        s,
-                        player.line(seat).is_some_and(|l| l.falsified().is_some()),
-                    )
-                })
-                .collect();
+            // Falsifications discovered by THIS decision's materialization
+            // (a consulting tier brought the line to its head and found
+            // the library did not support an earlier play).
+            for s in 0..4 {
+                let seat = Seat::ALL[s];
+                if let Some(line) = player.line(seat) {
+                    if let Some(f) = line.falsified() {
+                        let key = (f.history.len(), f.seat, f.observed);
+                        if !falsifications
+                            .iter()
+                            .any(|(k, se, ob, _, _)| (*k, *se, *ob) == key)
+                        {
+                            falsifications.push((
+                                f.history.len(),
+                                f.seat,
+                                f.observed,
+                                f.supported.clone(),
+                                true,
+                            ));
+                        }
+                    }
+                }
+            }
+            // Record the play on every open line, then advance the world.
             let c0 = Instant::now();
             player.observe_play(&state, decision.action());
             let carry_us = c0.elapsed().as_micros();
             if let Some(row) = rows.last_mut() {
                 row.carry_us = carry_us;
-            }
-            for (s, was) in before {
-                let seat = Seat::ALL[s];
-                if was {
-                    continue;
-                }
-                if let Some(line) = player.line(seat) {
-                    if let Some(f) = line.falsified() {
-                        falsifications.push((
-                            trick_index,
-                            trick_plays.len(),
-                            f.seat,
-                            f.observed,
-                            f.supported.clone(),
-                        ));
-                    }
-                }
             }
 
             if let Some(led) = led {
@@ -367,6 +382,31 @@ fn walk_root(r: &Receipt, hand_id: usize, trick_no: usize, budget: &MoveBudget) 
         }
         leader = winner;
         trick_plays.clear();
+    }
+    // The final materialization: bring every line to its head so the
+    // falsifications a lean walk never read are still reported — marked
+    // as discovered AFTER the hand, which is the honest statement of
+    // when a lazy carrier learned them.
+    for s in 0..4 {
+        let seat = Seat::ALL[s];
+        let _ = player.materialize_line(seat);
+        if let Some(line) = player.line(seat) {
+            if let Some(f) = line.falsified() {
+                let key = (f.history.len(), f.seat, f.observed);
+                if !falsifications
+                    .iter()
+                    .any(|(k, se, ob, _, _)| (*k, *se, *ob) == key)
+                {
+                    falsifications.push((
+                        f.history.len(),
+                        f.seat,
+                        f.observed,
+                        f.supported.clone(),
+                        false,
+                    ));
+                }
+            }
+        }
     }
     let made = banked[hand.declaring_team.index()] >= hand.bid_points;
     Walk {
@@ -406,8 +446,8 @@ fn print_walk(out: &mut String, label: &str, budget: &MoveBudget, walk: &Walk) {
         );
         let _ = writeln!(
             out,
-            "      fiber={} value={} | reads: enum={} mix={} field={} | \
-             wall decide={}us carry={}us",
+            "      fiber={} value={} | reads: enum={} mix={} carry={} field={} | \
+             wall decide={}us record={}us",
             match row.fiber {
                 Some(z) => z.to_string(),
                 None => "-".to_string(),
@@ -418,14 +458,20 @@ fn print_walk(out: &mut String, label: &str, budget: &MoveBudget, walk: &Walk) {
             },
             row.enumeration_reads,
             row.mixture_reads,
+            row.carry_reads,
             row.field_reads,
             row.wall_us,
             row.carry_us
         );
         let _ = writeln!(
             out,
-            "      posterior: carried={} consulted={} live={} falsified={}",
-            row.posterior_carried, row.posterior_consulted, row.live_profiles, row.falsified
+            "      posterior: carried={} consulted={} materialized={}/{} live={} falsified={}",
+            row.posterior_carried,
+            row.posterior_consulted,
+            row.materialized,
+            row.line_plays,
+            row.live_profiles,
+            row.falsified
         );
         if let Some((mv, fv, moved, ma, fa, flipped)) = &row.join {
             let _ = writeln!(
@@ -451,13 +497,18 @@ fn print_walk(out: &mut String, label: &str, budget: &MoveBudget, walk: &Walk) {
              inside the declared type library's support"
         );
     } else {
-        for (trick, ply, seat, observed, supported) in &walk.falsifications {
+        for (at, seat, observed, supported, during) in &walk.falsifications {
             let names: Vec<String> = supported.iter().map(|d| format!("{d}")).collect();
             let _ = writeln!(
                 out,
-                "  LIBRARY FALSIFIED at t{trick} p{ply}: seat {seat} played {observed}, \
-                 library supported {{{}}}",
-                names.join(" ")
+                "  LIBRARY FALSIFIED at line play {at}: seat {seat} played {observed}, \
+                 library supported {{{}}} — discovered {}",
+                names.join(" "),
+                if *during {
+                    "during play, by a consulting decision"
+                } else {
+                    "after the hand, at the final materialization (no tier read this line)"
+                }
             );
         }
     }
@@ -553,6 +604,7 @@ fn census(out: &mut String, walks: &[(String, String, Walk)]) {
         let mut wall = 0u128;
         let mut decide_wall = 0u128;
         let mut carry_wall = 0u128;
+        let mut carry_reads = 0u64;
         let mut decisions = 0usize;
         let mut worst = 0u128;
         for (r, _, w) in walks {
@@ -567,6 +619,7 @@ fn census(out: &mut String, walks: &[(String, String, Walk)]) {
                 field_reads += row.field_reads;
                 decide_wall += row.wall_us;
                 carry_wall += row.carry_us;
+                carry_reads += row.carry_reads;
                 if row.wall_us > worst {
                     worst = row.wall_us;
                 }
@@ -580,18 +633,19 @@ fn census(out: &mut String, walks: &[(String, String, Walk)]) {
         let _ = writeln!(
             out,
             "  {rung}: {decisions} decisions, field consultations enum={enum_reads} \
-             mix={mix_reads} fallback={field_reads}\n\
+             mix={mix_reads} carry={carry_reads} fallback={field_reads}\n\
              \x20     wall {wall}us total = {decide_wall}us deciding + {carry_wall}us \
-             CARRYING the posterior; {per_move}us mean decision, {worst}us worst decision"
+             RECORDING the line; {per_move}us mean decision, {worst}us worst decision"
         );
     }
     let _ = writeln!(
         out,
-        "\n  The carry column is the price of item 3 and is paid at EVERY ply, by every\n\
-         \x20 open line, whether or not any tier consulted it: advancing a model belief\n\
-         \x20 past a hidden play means classifying the acting seat's support under every\n\
-         \x20 live profile. On the lean rung no tier consults the posterior at all, so\n\
-         \x20 that rung's carry column is the cost of carrying a belief nothing read."
+        "\n  Under the lazy carry (slice UP1a) the record column is one push per open line\n\
+         \x20 per ply. Materializing the posterior — classifying the acting seat's support\n\
+         \x20 under every live profile — happens inside `decide`, only at a decision that\n\
+         \x20 reads it, and is charged there as carry reads. On the lean rung no tier reads\n\
+         \x20 the posterior, so that rung's carry reads are zero and its lines are never\n\
+         \x20 materialized during play."
     );
 
     let _ = writeln!(

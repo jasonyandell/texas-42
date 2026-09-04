@@ -175,14 +175,19 @@ pub struct DoomCensus {
 // ---------------------------------------------------------------------------
 
 /// Immutable walk frame: everything constant across one walk.
-struct WalkFrame<'a> {
-    position: &'a RootPosition,
-    viewer: Seat,
-    viewer_root_hand: DominoSet,
-    hidden_seats: [Seat; 3],
+///
+/// `pub(crate)` with its line-walk companions since slice U0b, so the
+/// in-solve horizon census (`solver::horizon`) can run the SAME per-world
+/// make check at frontier nodes rather than a copy of it. Visibility
+/// only; nothing here changed behaviour (§47/SC-A3).
+pub(crate) struct WalkFrame<'a> {
+    pub(crate) position: &'a RootPosition,
+    pub(crate) viewer: Seat,
+    pub(crate) viewer_root_hand: DominoSet,
+    pub(crate) hidden_seats: [Seat; 3],
     /// Post-root plays at terminal (viewer remaining + hidden capacities).
-    total_plays: usize,
-    field: &'a dyn SlicePolicy,
+    pub(crate) total_plays: usize,
+    pub(crate) field: &'a dyn SlicePolicy,
 }
 
 /// One node's public state: the same evolution as the replay walkers,
@@ -709,24 +714,24 @@ pub struct DoomEnumeration {
     pub by_first_responder: Vec<(ClassSignature, u128, u128)>,
 }
 
-struct LineCtx<'a> {
-    frame: &'a WalkFrame<'a>,
-    history: Vec<Domino>,
-    nodes: u64,
+pub(crate) struct LineCtx<'a> {
+    pub(crate) frame: &'a WalkFrame<'a>,
+    pub(crate) history: Vec<Domino>,
+    pub(crate) nodes: u64,
 }
 
 /// Small copyable line state for one world's search.
 #[derive(Clone, Copy)]
-struct LineState {
-    leader: Seat,
-    plays: [Domino; 4],
-    play_count: usize,
-    banked: [u32; 2],
-    remaining: [DominoSet; 4],
-    played: usize,
+pub(crate) struct LineState {
+    pub(crate) leader: Seat,
+    pub(crate) plays: [Domino; 4],
+    pub(crate) play_count: usize,
+    pub(crate) banked: [u32; 2],
+    pub(crate) remaining: [DominoSet; 4],
+    pub(crate) played: usize,
 }
 
-fn line_apply(position: &RootPosition, mut st: LineState, tile: Domino) -> LineState {
+pub(crate) fn line_apply(position: &RootPosition, mut st: LineState, tile: Domino) -> LineState {
     let seat = st.leader.plus(st.play_count);
     assert!(
         st.remaining[seat.index()].remove(tile),
@@ -749,7 +754,7 @@ fn line_apply(position: &RootPosition, mut st: LineState, tile: Domino) -> LineS
 /// the declared field on its known hand? Viewer tiles are tried in
 /// descending index (a declared order — strong tiles first finds make
 /// lines early; the answer is order-independent).
-fn line_can_make(ctx: &mut LineCtx<'_>, position: &RootPosition, st: LineState) -> bool {
+pub(crate) fn line_can_make(ctx: &mut LineCtx<'_>, position: &RootPosition, st: LineState) -> bool {
     ctx.nodes += 1;
     let at_terminal = st.played == ctx.frame.total_plays;
     if let Some(u) = decided_success(position, ctx.frame.viewer, st.banked, at_terminal) {

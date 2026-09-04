@@ -622,3 +622,20 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   record: `walt/FACTOR-BELIEF.md`. First-pass wiki synthesis:
   `wiki/walt-counted-belief-era.md` (deep pass queued). Live player
   untouched throughout; RefineV1 frozen (freeze 58).
+- 2026-09-03: TWO SLICES ON JASON'S "YOUR WAY" (first session of the new
+  fable buddy): UP1a the lazy carry (`solver/unified.rs` records the
+  line and materializes the posterior only when read; lean rung's 2.1 s
+  unread carry → 0 µs, reads charged to the reader, lazy ≡ eager on all
+  216 decisions; 5 gates `solver_unified_carry.rs`; record
+  `unified_run2.txt`; report `briefs/UP1A-REPORT.md`) and U0b the
+  in-solve horizon census (`solver/horizon.rs`: the God-gap census at
+  every frontier node a solve reaches + the exact root price of a §39
+  fusion cut; 5 gates `solver_horizon.rs`; record `horizon_run1.txt`, 53
+  censuses; report `briefs/U0B-REPORT.md`). Findings: the trick-5
+  frontier inside a t4 solve is not fusion-free (13–14‰ mass-weighted,
+  contract-sensitive up to 105‰ at the root); the trick-6 frontier is
+  0–7‰ and still flips a play twice; h8-t3 solved exactly in 14 min (first
+  trick-3 exact value, 962‰, argmax 1-1) and a trick-4 cut there flips the
+  play. Ledger correction filed (`DISCREPANCIES.md`): the doom paragraph's
+  "overwhelmingly the info-consistency price" outruns SC-A1/SC-A4.
+  Running record: `walt/FACTOR-BELIEF.md`.

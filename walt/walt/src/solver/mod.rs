@@ -35,6 +35,7 @@ pub mod frontier;
 pub mod godgap;
 pub mod grammar;
 pub mod hazard;
+pub mod horizon;
 pub mod laydown;
 pub mod model_belief;
 pub mod model_recursion;

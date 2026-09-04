@@ -64,14 +64,38 @@
 //! pattern, applied one level out.
 //!
 //! THE JOIN (§76). A [`ModelBelief`] is constructed at the seat's first
-//! decision and carried down its line: [`ModelBelief::focal_play`] when
+//! decision and advanced down its line: [`ModelBelief::focal_play`] when
 //! that seat acts, [`ModelBelief::observe`] when another does. The
-//! posterior is CARRIED, never recomputed, and the player stores no
+//! posterior is never recomputed from scratch, and the player stores no
 //! derived view of it — every reported marginal is read back off the one
-//! carried belief. Where the budget declares a join reading, tier (b)
-//! also prices the mixture and records both answers side by side: MB1
+//! belief. Where the budget declares a join reading, tier (b) also
+//! prices the mixture and records both answers side by side: MB1
 //! measured that values move before argmaxes do, so both are recorded
 //! and neither is presented as the other.
+//!
+//! THE CARRY IS LAZY (slice UP1a). UP0 advanced every open line at every
+//! ply, and its transcript measured the price: on the lean rung 99.4% of
+//! the wall was classifying acting-seat supports for a posterior no tier
+//! ever read. Gate UP3 had already proved the posterior is a derived view
+//! of (root, public line) and nothing else — which makes eager advancing
+//! a second copy of a fact the line already holds. So the player now
+//! records the LINE at every ply (free: one `(seat, tile)` push per open
+//! line) and MATERIALIZES the posterior only when a tier asks for it,
+//! advancing it from wherever it last stood to the head of the line. The
+//! belief is still advanced incrementally and still never rebuilt; what
+//! changed is WHEN. Consulted every ply, the classification bill is
+//! UP0's; consulted never, it is zero. Every consultation the lineage
+//! makes is charged to the decision that caused it
+//! ([`Spend::carry_reads`]), so a walk's ledger total equals the sum of
+//! its decisions' charges — a conservation law the gates assert.
+//!
+//! One consequence is stated rather than hidden: a falsification (below)
+//! is DISCOVERED at materialization, at the ply it happened, not at the
+//! ply it was played. The falsifying observation is at the same point of
+//! the line either way — a pure function of root and line — but a lean
+//! player that never reads its posterior never learns its library was
+//! falsified, and its provenance says so by reporting how far the line
+//! has been materialized.
 //!
 //! THE LIBRARY CAN BE FALSIFIED, AND SAYS SO. A model belief's support is
 //! the actions its declared type library would play. UP0 is not in that
@@ -136,7 +160,7 @@ use crate::solver::factor_belief::{
     RecursionStats, ResponseStats,
 };
 use crate::solver::model_belief::{
-    BehaviorType, MixtureRefusal, MixtureStats, ModelBelief, SeatTypePrior,
+    BehaviorType, MixtureRefusal, MixtureStats, ModelBelief, ReadLedger, SeatTypePrior,
 };
 use crate::solver::proof_state::{
     BoundFact, Fact, ProofState, ProofTag, Reject, SemanticsIdentity,
@@ -517,6 +541,12 @@ pub struct Spend {
     pub mixture_reads: u64,
     /// Consultations the σ0 fallback made (one per fallback answer).
     pub field_reads: u64,
+    /// Consultations spent MATERIALIZING the carried line up to this
+    /// decision — the classification bill of advancing the posterior past
+    /// plays it had not yet folded in, paid here because this decision is
+    /// the one that read it (slice UP1a). Zero at every decision that
+    /// never consulted the posterior.
+    pub carry_reads: u64,
 }
 
 impl Spend {
@@ -524,6 +554,7 @@ impl Spend {
         self.enumeration_reads
             .saturating_add(self.mixture_reads)
             .saturating_add(self.field_reads)
+            .saturating_add(self.carry_reads)
     }
 }
 
@@ -554,12 +585,19 @@ pub struct JoinReading {
 pub struct PosteriorNote {
     /// A live model belief is carried for this seat.
     pub carried: bool,
-    /// Live profiles — profiles the posterior has not zeroed.
+    /// Live profiles — profiles the posterior has not zeroed, AS OF the
+    /// materialized point (see `materialized`).
     pub live_profiles: usize,
-    /// Observations of other seats folded into the line so far.
+    /// Observations of other seats folded into the posterior so far.
     pub observations: usize,
-    /// This seat's own plays folded into the line so far.
+    /// This seat's own plays folded into the posterior so far.
     pub focal_plays: usize,
+    /// Plays recorded on the line since the root — the free record.
+    pub line_plays: usize,
+    /// How many of those plays the posterior has been advanced past.
+    /// Equal to `line_plays` exactly when the posterior is current;
+    /// smaller when it has been carried unread (slice UP1a).
+    pub materialized: usize,
     /// The answering tier read the posterior.
     pub consulted: bool,
     /// The line was retired: an observed action left the library.
@@ -752,16 +790,26 @@ impl ReceiptStore {
 // The carried line.
 // ---------------------------------------------------------------------------
 
-/// One seat's carried model-belief lineage: the belief constructed at
-/// that seat's first decision, advanced by
-/// [`ModelBelief::focal_play`] when the seat acts and
-/// [`ModelBelief::observe`] when another does. The belief is the only
-/// authority here; `observations` and `focal_plays` are counters of what
-/// was done to it, not a second record of the line.
+/// One seat's carried line: the public plays since the seat's root, and
+/// the model belief constructed at that root, advanced LAZILY past them
+/// — by [`ModelBelief::focal_play`] where the seat acted and
+/// [`ModelBelief::observe`] where another did — only when a tier reads
+/// it (slice UP1a). The belief is the only posterior authority here;
+/// `line` is the public record the posterior is a derived view of, and
+/// `observations` / `focal_plays` count what has been folded into it.
 pub struct SeatLine {
     viewer: Seat,
     root_id: u64,
+    /// `(acting seat index, tile)` for every play since the root, in play
+    /// order. Free to record; the posterior is a function of it.
+    line: Vec<(usize, Domino)>,
+    /// How many entries of `line` the belief has been advanced past.
+    materialized: usize,
     model: Option<ModelBelief>,
+    /// The lineage's consultation ledger, held here as well as by the
+    /// belief so the record survives the belief's retirement: a
+    /// falsifying classification is a real read and stays charged.
+    ledger: Rc<ReadLedger>,
     falsified: Option<Falsification>,
     observations: usize,
     focal_plays: usize,
@@ -776,7 +824,17 @@ impl SeatLine {
         self.root_id
     }
 
-    /// The carried belief, absent once the line is retired.
+    /// Every field consultation this seat's lineage has ever made —
+    /// MB1's ledger, read through the line so it is still readable once
+    /// the line is retired.
+    pub fn ledger_total(&self) -> u64 {
+        self.ledger.total()
+    }
+
+    /// The belief as last materialized — a posterior over the line's
+    /// first [`SeatLine::materialized`] plays. Absent once the line is
+    /// retired. To bring it to the head of the line, ask the player
+    /// ([`UnifiedPlayer::materialize_line`]).
     pub fn model(&self) -> Option<&ModelBelief> {
         self.model.as_ref()
     }
@@ -785,12 +843,29 @@ impl SeatLine {
         self.falsified.as_ref()
     }
 
+    /// Observations folded into the posterior so far.
     pub fn observations(&self) -> usize {
         self.observations
     }
 
+    /// Own plays folded into the posterior so far.
     pub fn focal_plays(&self) -> usize {
         self.focal_plays
+    }
+
+    /// Plays recorded on the line since the root.
+    pub fn line_plays(&self) -> usize {
+        self.line.len()
+    }
+
+    /// Plays the posterior has been advanced past.
+    pub fn materialized(&self) -> usize {
+        self.materialized
+    }
+
+    /// Whether the posterior stands at the head of the line.
+    pub fn is_current(&self) -> bool {
+        self.materialized == self.line.len()
     }
 
     fn note(&self) -> PosteriorNote {
@@ -799,10 +874,57 @@ impl SeatLine {
             live_profiles: self.model.as_ref().map_or(0, |m| m.profiles().len()),
             observations: self.observations,
             focal_plays: self.focal_plays,
+            line_plays: self.line.len(),
+            materialized: self.materialized,
             consulted: false,
             falsified: self.falsified.clone(),
             join: None,
         }
+    }
+
+    /// Advance the belief past the next recorded play. Returns `false`
+    /// when there is nothing left to fold (line exhausted, or the line
+    /// already retired). The falsification check and the update are
+    /// exactly UP0's, applied at materialization rather than at the ply.
+    fn fold_next(&mut self, oracle: &dyn ExactCoverOracle) -> bool {
+        if self.materialized >= self.line.len() {
+            return false;
+        }
+        let Some(model) = self.model.take() else {
+            return false;
+        };
+        let (actor, tile) = self.line[self.materialized];
+        self.materialized += 1;
+        if model.seat_to_move() == self.viewer {
+            if self.viewer.index() == actor {
+                self.model = Some(model.focal_play(tile));
+                self.focal_plays += 1;
+            } else {
+                // The carried line disagrees with the driver about whose
+                // turn it is; a belief that cannot be advanced truthfully
+                // is retired rather than forced.
+                self.falsified = Some(Falsification {
+                    history: model.history().to_vec(),
+                    seat: actor,
+                    observed: tile,
+                    supported: Vec::new(),
+                });
+            }
+            return true;
+        }
+        let supported = model.branch_masses(oracle);
+        if supported.iter().any(|(t, _)| *t == tile) {
+            self.model = Some(model.observe(oracle, tile));
+            self.observations += 1;
+        } else {
+            self.falsified = Some(Falsification {
+                history: model.history().to_vec(),
+                seat: actor,
+                observed: tile,
+                supported: supported.into_iter().map(|(t, _)| t).collect(),
+            });
+        }
+        true
     }
 }
 
@@ -1198,48 +1320,32 @@ impl<'a> UnifiedPlayer<'a> {
         )
     }
 
-    /// Advance every carried line past one play. The driver calls this
-    /// after every ply, whoever made it: the line whose viewer played
-    /// advances by [`ModelBelief::focal_play`], every other line by
-    /// [`ModelBelief::observe`]. A line whose library does not support
-    /// the observed action is RETIRED with a typed
-    /// [`Falsification`] — never widened, never re-seeded.
+    /// Record one play on every open line. The driver calls this after
+    /// every ply, whoever made it. Nothing is classified here (slice
+    /// UP1a): the posterior is advanced past the recorded plays only when
+    /// a tier reads it, by [`UnifiedPlayer::materialize_line`]. A line
+    /// whose library does not support an observed action is RETIRED, at
+    /// materialization, with a typed [`Falsification`] — never widened,
+    /// never re-seeded.
     pub fn observe_play(&mut self, state: &DrivenState<'_>, tile: Domino) {
         let actor = state.leader.plus(state.trick_plays.len());
         for line in self.lines.values_mut() {
-            let Some(model) = line.model.take() else {
-                continue;
-            };
-            if model.seat_to_move() == line.viewer {
-                if line.viewer == actor {
-                    line.model = Some(model.focal_play(tile));
-                    line.focal_plays += 1;
-                } else {
-                    // The carried line disagrees with the driver about
-                    // whose turn it is; a belief that cannot be advanced
-                    // truthfully is retired rather than forced.
-                    line.falsified = Some(Falsification {
-                        history: model.history().to_vec(),
-                        seat: actor.index(),
-                        observed: tile,
-                        supported: Vec::new(),
-                    });
-                }
+            if line.model.is_none() {
                 continue;
             }
-            let supported = model.branch_masses(self.oracle);
-            if supported.iter().any(|(t, _)| *t == tile) {
-                line.model = Some(model.observe(self.oracle, tile));
-                line.observations += 1;
-            } else {
-                line.falsified = Some(Falsification {
-                    history: model.history().to_vec(),
-                    seat: actor.index(),
-                    observed: tile,
-                    supported: supported.into_iter().map(|(t, _)| t).collect(),
-                });
-            }
+            line.line.push((actor.index(), tile));
         }
+    }
+
+    /// Bring one seat's posterior to the head of its line, folding in
+    /// every recorded play it has not yet been advanced past, and return
+    /// it. Idempotent: a current line folds nothing and spends nothing.
+    /// `None` when the seat carries no line or the line has been retired.
+    pub fn materialize_line(&mut self, seat: Seat) -> Option<&ModelBelief> {
+        let oracle = self.oracle;
+        let line = self.lines.get_mut(&seat.index())?;
+        while line.fold_next(oracle) {}
+        line.model.as_ref()
     }
 
     // -- the tiers, one function each --------------------------------------
@@ -1249,12 +1355,16 @@ impl<'a> UnifiedPlayer<'a> {
             return;
         }
         let model = ModelBelief::from_independent_prior(root, position, &self.library.priors(root));
+        let ledger = Rc::clone(model.ledger());
         self.lines.insert(
             seat.index(),
             SeatLine {
                 viewer: seat,
                 root_id: root_identity(root, position),
+                line: Vec::new(),
+                materialized: 0,
                 model: Some(model),
+                ledger,
                 falsified: None,
                 observations: 0,
                 focal_plays: 0,
@@ -1392,7 +1502,7 @@ impl<'a> UnifiedPlayer<'a> {
         refusals: &mut Vec<TierRefusal>,
     ) -> Option<(Domino, Evidence)> {
         let (mass, total, policy_id, live, reads, action) =
-            self.mixture_walk(seat, legal, budget, fiber, refusals)?;
+            self.mixture_walk(seat, legal, budget, fiber, spend, refusals)?;
         spend.mixture_reads = spend.mixture_reads.saturating_add(reads);
         Some((
             action,
@@ -1415,9 +1525,45 @@ impl<'a> UnifiedPlayer<'a> {
         legal: DominoSet,
         budget: &MoveBudget,
         fiber: Option<u128>,
+        spend: &mut Spend,
         refusals: &mut Vec<TierRefusal>,
     ) -> Option<(u128, u128, String, usize, u64, Domino)> {
+        // The free structural checks come FIRST: a budget that does not
+        // afford this tier refuses before a single classification is
+        // spent (slice UP1a — the lean rung's carry is zero because of
+        // this ordering).
+        if !self.lines.contains_key(&seat.index()) {
+            return None;
+        }
+        if let Some(z) = fiber {
+            if z > budget.mixture_fiber_cap {
+                refusals.push(TierRefusal::MixtureUnaffordable {
+                    fiber: z,
+                    cap: budget.mixture_fiber_cap,
+                });
+                return None;
+            }
+        }
+        if budget.mixture_read_cap == 0 {
+            refusals.push(TierRefusal::MixtureRefused {
+                refusal: "read ceiling 0: the budget affords no model-space consultation"
+                    .to_string(),
+            });
+            return None;
+        }
+        // The posterior is read here, so here is where it is brought to
+        // the head of the line — and the classification bill of doing so
+        // is charged to THIS decision. The ledger is read through the
+        // line, so a falsifying classification stays charged even though
+        // it retires the belief.
+        let carry_before = self.lines.get(&seat.index()).map(|l| l.ledger_total());
+        self.materialize_line(seat);
         let line = self.lines.get(&seat.index())?;
+        if let Some(before) = carry_before {
+            spend.carry_reads = spend
+                .carry_reads
+                .saturating_add(line.ledger_total().saturating_sub(before));
+        }
         if let Some(f) = &line.falsified {
             refusals.push(TierRefusal::PosteriorFalsified(Box::new(f.clone())));
             return None;
@@ -1429,15 +1575,6 @@ impl<'a> UnifiedPlayer<'a> {
                 to_move: model.seat_to_move().index(),
             });
             return None;
-        }
-        if let Some(z) = fiber {
-            if z > budget.mixture_fiber_cap {
-                refusals.push(TierRefusal::MixtureUnaffordable {
-                    fiber: z,
-                    cap: budget.mixture_fiber_cap,
-                });
-                return None;
-            }
         }
         let baseline = model.ledger().total();
         let mut stats = MixtureStats::default();
@@ -1496,7 +1633,7 @@ impl<'a> UnifiedPlayer<'a> {
     ) -> Option<JoinReading> {
         let (fixed_action, fixed_value) = fixed.as_ref()?;
         let (mass, total, _, _, reads, action) =
-            self.mixture_walk(seat, legal, budget, Some(fiber), refusals)?;
+            self.mixture_walk(seat, legal, budget, Some(fiber), spend, refusals)?;
         spend.mixture_reads = spend.mixture_reads.saturating_add(reads);
         if total == 0 {
             return None;
@@ -1576,6 +1713,8 @@ impl<'a> UnifiedPlayer<'a> {
                 live_profiles: 0,
                 observations: 0,
                 focal_plays: 0,
+                line_plays: 0,
+                materialized: 0,
                 consulted: false,
                 falsified: None,
                 join: None,

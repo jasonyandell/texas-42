@@ -17,7 +17,13 @@ model-belief recursion joined to the solver — and the STRICT model-fusion
 price found at trick 4, paragraph after U0); SLICE UP0 LANDED (2026-09-02,
 the FIRST SLICE OF THE NEW UNIFIED WALT PLAYER — one decision function
 over the whole instrument stack, provenance always, both recursions
-played and named, paragraph after MB1). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
+played and named, paragraph after MB1); SLICE UP1a LANDED (2026-09-03, the
+lazy carry — the posterior is recorded at every ply and materialized
+only when read; the lean rung's 2.1 s of unread carry became 0 µs,
+paragraph after UP0); SLICE U0b LANDED (2026-09-03, the in-solve horizon
+census — the God-gap census at every frontier node a trick-4 solve
+reaches, and the exact price of a §39 fusion cut at that depth,
+paragraph after UP1a). Phase 0 is the RefineV1 semantic freeze — freeze 58 in the
 register: `solver/refine.rs` as merged at `25b40d9` takes no new
 fields, variants, or work items, ever; its four gates never weaken; the
 coming proof-state core must reproduce it wherever scopes overlap and
@@ -352,7 +358,10 @@ against σ0 after the 0-0 lead. A doom-family upper is floored at the
 God make rate, and that rate is ≈ 1 here: the plateau's remaining
 Γ ≈ 267‰ is overwhelmingly the INFO-CONSISTENCY PRICE — purchasable
 by floor work (extraction across the cliff) and info-consistency-aware
-uppers, never by counterexample counting. The census's working domain
+uppers, never by counterexample counting. [Corrected 2026-09-03: this
+sentence outruns SC-A1/SC-A4 — zero doom leaves the split between
+`d_info` and `d_policy` UNKNOWN, and U0 typed the opening `UnknownGodGap`;
+see `walt/DISCREPANCIES.md`, "doom-census ledger paragraph".] The census's working domain
 is the endgame and in-play middlegame (t4–t6, where Phase 7's walk
 also lives, and where every played hand eventually arrives); the
 opening root priced the wall honestly — each non-forced σ0 read is a
@@ -849,6 +858,86 @@ asserts a trick-START root, so tiers (b1) and (d) refuse at every
 mid-trick decision while (b2)'s enumeration, which needs no store, still
 runs — a scope limit of the §49 spike, typed rather than worked around,
 and UP1's clearest single piece of work. EXPLORATORY tier throughout.
+
+**SLICE UP1a LANDED** (2026-09-03, the lazy carry — Jason's "do the carry
+fix ... your way"; report of record `walt/briefs/UP1A-REPORT.md`): UP0's
+transcript had measured that on the lean rung 99.4% of the wall was
+classifying acting-seat supports for a posterior no tier read, and gate
+UP3 had already proved the posterior a derived view of (root, public
+line) — which makes eager advancing a stored second copy of a fact the
+line holds. `solver/unified.rs` now RECORDS the line at every ply (one
+`(seat, tile)` push per open line) and MATERIALIZES the posterior only
+when a tier reads it (`UnifiedPlayer::materialize_line`, incremental and
+idempotent), charging every consultation the materialization spends to
+the decision that read it (`Spend::carry_reads`). THE NUMBERS
+(`probes/factor_belief/unified_run2.txt`, the same corpus and rungs as
+`unified_run1.txt`): lean rung 2,105,672 µs of carrying → 0 µs of
+recording, 72 decisions in 11.6 ms all in, carry reads 0; ample and
+model rungs charge 17,724 and 12,164 carry reads to their consulting
+decisions and their deciding wall grows by roughly what the carrying wall
+lost (wall shared with the gate suites, approximate); 27 join readings,
+9 value moves, 2 argmax flips — identical. Falsifications are now
+DISCOVERED at materialization, at the ply they happened: 2 of the
+transcript's 9 by a consulting decision during play, 7 at a final
+materialization after the hand, and a lean player that never reads its
+posterior never learns its library was falsified — its provenance says
+so through the new `materialized=k/n` field. Five gates
+(`walt/walt/tests/solver_unified_carry.rs`, 67 s): UC1 nothing read,
+nothing paid (lean rung: zero carry at every decision, every lineage
+ledger at zero, and the deferred bill real when collected afterwards);
+UC2 conservation — each seat's ledger total equals the sum of its
+decisions' `carry_reads + mixture_reads`; UC3 the lazy discovery of a
+falsification agrees with an independent eager replay on history, seat,
+tile and supported set; UC4 idempotence and currency; UC5 lazy ≡ eager on
+every action, evidence, refusal, frame and join reading at all 216
+decisions. UP0's 18 gates green with ONE driver edit (materialize before
+reading a line's views). Two defects the gates caught in the first
+version, recorded: the ledger handle was lost when a retired line dropped
+its belief (the falsifying read vanished from the charge — fixed by
+holding the ledger on the line), and tier (c) materialized before its
+free structural checks (a 2,178-read charge on the lean rung — fixed by
+checking fiber and read caps first). The (b)/(c) ordering and the
+trick-start proof-state boundary are untouched. EXPLORATORY tier.
+
+**SLICE U0b LANDED** (2026-09-03, the in-solve horizon census — the §38/§40
+God-gap census of `salvation_complex_v0.1.md` run at EVERY belief node the
+exact recursion reaches at a declared depth, and the exact root price of
+a §39 fusion cut at that depth; report of record
+`walt/briefs/U0B-REPORT.md`): new `solver/horizon.rs` descends from a
+root exactly as `response_success_mass` does, prices each frontier node
+by exact `Q`, per-world `U^God` (the doom census's OWN line walk,
+reached through `pub(crate)` visibility rather than a copy — gate H2
+holds the two equal on all eighteen receipt coordinates) and `Φ`, and
+re-prices the root twice, with exact leaves (asserted equal to
+`response_success_mass` at the root) and with God uppers at the frontier
+— what a fusion cut would compute — under the lowest-tile tie rule for
+both argmaxes. Five gates (`solver_horizon.rs`, 142 s); probe
+`horizonreport` (`probes/factor_belief/horizon_run1.txt`, 53 censuses,
+19 min). THE FINDINGS: (1) the trick-5 frontier inside a trick-4 solve is
+NOT fusion-free — 9/22/31% of frontier nodes at h8/h3/h4-t4 carry a
+positive price at the receipt contract, mass-weighted 13–14‰ (U0's
+"trick 5 is fusion-free" was true of fourteen uniform receipt roots
+with the viewer on lead; the cut-4 root over-pricing reproduces U0's
+twelve Φ exactly by partition additivity, since no focal decision lies
+between the lead and that frontier — a consistency check, not a
+finding); (2) the trick-6 frontier is nearly exact in value — root
+over-pricing 0–7‰, exactly 0 at three h3-t4 contracts — and still FLIPS
+the root play at h8-t4 under contracts 36/39 (7‰), 2 rows of 30; (3) the
+price is contract-sensitive: a trick-5 cut over-prices h4-t4 by 13‰ at
+bid 30 and 105‰ at 39, h8-t4 by 16‰ at 30 and 102‰ at 36 where it flips
+the play, and the receipt contract is the friendliest on this corpus;
+(4) h8-t3 (fiber 59,976) solved EXACTLY under σ0 in 14 min / 289M reads
+— `Q* = 28859/29988` (962‰), argmax 1-1, the program's first trick-3
+exact value (MB1's 31-minute refusal was the eight-profile mixture; the
+single-field recursion completes) — and a cut at its trick-4 frontier
+(624 of 2,098 nodes with a gap, mass-weighted 37‰) over-prices by 31‰
+and FLIPS the play 1-1 → 3-3. Three layers on this corpus: trick-6 cut
+0–7‰ and occasionally wrong on the play; trick-5 cut 3–105‰,
+contract-sensitive, flips 3 of 15 substantive rows; trick-4 cut 31‰ and
+flips. Every positive-gap frontier node is listed in the record with
+history, mass, doomed count and gap — U1's input. Deterministic fields
+only; no producer and no substitution built (U4's territory).
+EXPLORATORY tier; the horizon is a measurement, never a theorem (SC-A4).
 
 Slice G (§50, Part VIII §32–37) is the integrated refinement controller
 `refine_root` in `solver/refine.rs`, plus the §36 EscalateExact endpoint

@@ -333,6 +333,9 @@ fn walk_with(
     }
     let mut views: Vec<LineView> = Vec::new();
     for seat in player.lines() {
+        // The carry is lazy (UP1a): bring the posterior to the head of the
+        // line before reading its derived views.
+        let _ = player.materialize_line(seat);
         let Some(line) = player.line(seat) else {
             continue;
         };
