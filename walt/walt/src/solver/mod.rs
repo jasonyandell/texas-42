@@ -31,6 +31,8 @@ pub mod extraction;
 pub mod factor_belief;
 pub mod field;
 pub mod field_swap;
+pub mod focal_horizon;
+pub mod focal_ladder;
 pub mod frontier;
 pub mod godgap;
 pub mod grammar;

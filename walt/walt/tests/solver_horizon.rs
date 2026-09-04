@@ -24,6 +24,12 @@
 //! EXPLORATORY tier throughout. The horizon is a measurement, never a
 //! theorem (SC-A4).
 
+#[path = "common/fixture.rs"]
+mod fixture;
+
+use std::collections::HashMap;
+use std::sync::LazyLock;
+
 use num_bigint::BigInt;
 use num_rational::BigRational;
 use walt::kernel::Kernel;
@@ -36,7 +42,9 @@ use walt::solver::factor_belief::{
 };
 use walt::solver::field::{FieldKind, FieldModel, FieldSpec};
 use walt::solver::godgap::legal_actions;
-use walt::solver::horizon::{horizon_census, with_contract, HorizonSpec, NodeVerdict};
+use walt::solver::horizon::{
+    horizon_census, with_contract, HorizonCensus, HorizonSpec, NodeVerdict,
+};
 use walt::solver::policy::{DecisionMode, TieRule};
 
 fn field_spec() -> FieldSpec {
@@ -75,22 +83,130 @@ fn spec(cut: usize, cap: u128) -> HorizonSpec {
 const T4: [(usize, usize); 4] = [(3, 4), (4, 4), (8, 4), (12, 4)];
 const T56: [(usize, usize); 6] = [(8, 5), (3, 5), (12, 6), (10, 6), (5, 6), (4, 6)];
 
+// ---------------------------------------------------------------------------
+// The recompute-once fixture (BRIEF-CI1): every census the gates read,
+// per (root, contract, cut) under the ample cap, and the root's
+// `response_success_mass` per (root, contract) — the independent path
+// H1 compares the re-descent to — computed once per test-binary process.
+// A derived view of the declared epoch, immutable after construction.
+// ---------------------------------------------------------------------------
+
+struct Fixture {
+    censuses: HashMap<(usize, usize, u32, usize), HorizonCensus>,
+    root_masses: HashMap<(usize, usize, u32), u128>,
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum Job {
+    Census(usize, usize, u32, usize),
+    RootMass(usize, usize, u32),
+}
+
+enum Value {
+    Census(Box<HorizonCensus>),
+    RootMass(u128),
+}
+
+fn build_fixture() -> Fixture {
+    let r = receipt();
+    // Heaviest first: the cut-4 censuses of the trick-4 roots.
+    let mut jobs: Vec<Job> = Vec::new();
+    let mut push = |job: Job| {
+        if !jobs.contains(&job) {
+            jobs.push(job);
+        }
+    };
+    for cut in [4usize, 1] {
+        for (hand_id, trick_no) in T4.iter().chain(T56.iter()).copied() {
+            let (_, position) = root_at(&r, hand_id, trick_no);
+            for contract in [position.bid, 36] {
+                push(Job::Census(hand_id, trick_no, contract, cut));
+            }
+        }
+    }
+    for (hand_id, trick_no) in T4.iter().chain(T56.iter()).copied() {
+        let (_, position) = root_at(&r, hand_id, trick_no);
+        for contract in [position.bid, 36] {
+            push(Job::RootMass(hand_id, trick_no, contract));
+        }
+    }
+    let values = fixture::compute_all(&jobs, |job| {
+        let oracle = SupportOracle;
+        let field = FieldModel::new(field_spec());
+        match *job {
+            Job::Census(hand_id, trick_no, contract, cut) => {
+                let (root, position) = root_at(&r, hand_id, trick_no);
+                let position = with_contract(&position, contract);
+                Value::Census(Box::new(horizon_census(
+                    &oracle,
+                    &root,
+                    &position,
+                    &field,
+                    &spec(cut, 40_000),
+                )))
+            }
+            Job::RootMass(hand_id, trick_no, contract) => {
+                let (root, position) = root_at(&r, hand_id, trick_no);
+                let position = with_contract(&position, contract);
+                let belief = FactorBelief::uniform_root(&root, &position, &field);
+                let mut rs = ResponseStats::default();
+                Value::RootMass(response_success_mass(&oracle, &belief, &field, &mut rs))
+            }
+        }
+    });
+    let mut fixture = Fixture {
+        censuses: HashMap::new(),
+        root_masses: HashMap::new(),
+    };
+    for (job, value) in jobs.into_iter().zip(values) {
+        match (job, value) {
+            (Job::Census(hand_id, trick_no, contract, cut), Value::Census(c)) => {
+                fixture
+                    .censuses
+                    .insert((hand_id, trick_no, contract, cut), *c);
+            }
+            (Job::RootMass(hand_id, trick_no, contract), Value::RootMass(m)) => {
+                fixture.root_masses.insert((hand_id, trick_no, contract), m);
+            }
+            _ => unreachable!("a job's value is of the job's kind"),
+        }
+    }
+    fixture
+}
+
+static FIXTURE: LazyLock<Fixture> = LazyLock::new(build_fixture);
+
+/// The census at one root, contract and cut under the ample cap.
+fn census(hand_id: usize, trick_no: usize, contract: u32, cut: usize) -> &'static HorizonCensus {
+    FIXTURE
+        .censuses
+        .get(&(hand_id, trick_no, contract, cut))
+        .unwrap_or_else(|| {
+            panic!("the fixture holds no census at h{hand_id}-t{trick_no} contract {contract} cut {cut}")
+        })
+}
+
+/// `response_success_mass` at one root and contract.
+fn root_response_mass(hand_id: usize, trick_no: usize, contract: u32) -> u128 {
+    *FIXTURE
+        .root_masses
+        .get(&(hand_id, trick_no, contract))
+        .unwrap_or_else(|| {
+            panic!("the fixture holds no root mass at h{hand_id}-t{trick_no} contract {contract}")
+        })
+}
+
 #[test]
 fn h1_the_frontier_re_descent_reproduces_the_root() {
     let r = receipt();
-    let oracle = SupportOracle;
-    let field = FieldModel::new(field_spec());
     let mut checked = 0usize;
     let mut priced = 0usize;
     for (hand_id, trick_no) in T4.iter().chain(T56.iter()).copied() {
-        let (root, position) = root_at(&r, hand_id, trick_no);
+        let (_, position) = root_at(&r, hand_id, trick_no);
         for contract in [position.bid, 36] {
-            let position = with_contract(&position, contract);
             for cut in [1usize, 4] {
-                let c = horizon_census(&oracle, &root, &position, &field, &spec(cut, 40_000));
-                let belief = FactorBelief::uniform_root(&root, &position, &field);
-                let mut rs = ResponseStats::default();
-                let independent = response_success_mass(&oracle, &belief, &field, &mut rs);
+                let c = census(hand_id, trick_no, contract, cut);
+                let independent = root_response_mass(hand_id, trick_no, contract);
                 assert_eq!(
                     c.root_exact_mass, independent,
                     "H1: the re-descent through the frontier equals the root's own exact \
@@ -141,7 +257,7 @@ fn h2_per_node_doom_is_the_doom_census_per_world_truth() {
     let mut coordinates = 0usize;
     for (hand_id, trick_no) in T56.iter().chain([(8usize, 4usize)].iter()).copied() {
         let (root, position) = root_at(&r, hand_id, trick_no);
-        let c = horizon_census(&oracle, &root, &position, &field, &spec(1, 40_000));
+        let c = census(hand_id, trick_no, position.bid, 1);
         let actions = legal_actions(&root, &position);
         assert_eq!(
             c.frontier_nodes() + c.decided_before_cut().0,
@@ -191,14 +307,12 @@ fn h2_per_node_doom_is_the_doom_census_per_world_truth() {
 #[test]
 fn h3_the_cut_never_under_prices_and_is_exact_iff_the_frontier_is() {
     let r = receipt();
-    let oracle = SupportOracle;
-    let field = FieldModel::new(field_spec());
     let mut exact_cuts = 0usize;
     let mut strict_cuts = 0usize;
     for (hand_id, trick_no) in T4.iter().chain(T56.iter()).copied() {
-        let (root, position) = root_at(&r, hand_id, trick_no);
+        let (_, position) = root_at(&r, hand_id, trick_no);
         for cut in [1usize, 4] {
-            let c = horizon_census(&oracle, &root, &position, &field, &spec(cut, 40_000));
+            let c = census(hand_id, trick_no, position.bid, cut);
             let cut_mass = c
                 .root_cut_mass
                 .expect("H3: nothing refused, so the cut is priced");
@@ -255,7 +369,7 @@ fn h4_refusals_are_typed_and_nothing_is_dropped() {
     let oracle = SupportOracle;
     let field = FieldModel::new(field_spec());
     let (root, position) = root_at(&r, 8, 4);
-    let ample = horizon_census(&oracle, &root, &position, &field, &spec(4, 40_000));
+    let ample = census(8, 4, position.bid, 4);
     let tiny = horizon_census(&oracle, &root, &position, &field, &spec(4, 8));
     assert_eq!(
         ample.nodes.len(),
@@ -309,8 +423,9 @@ fn h5_two_censuses_of_one_root_render_identically() {
     let oracle = SupportOracle;
     let field = FieldModel::new(field_spec());
     let (root, position) = root_at(&r, 3, 4);
+    // One fresh census against the fixture's.
     let a = horizon_census(&oracle, &root, &position, &field, &spec(4, 40_000));
-    let b = horizon_census(&oracle, &root, &position, &field, &spec(4, 40_000));
+    let b = census(3, 4, position.bid, 4).clone();
     assert_eq!(a, b, "H5: deterministic");
     assert_eq!(format!("{a:?}"), format!("{b:?}"));
 }

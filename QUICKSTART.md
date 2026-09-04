@@ -8,6 +8,10 @@ Read [the game of 42, mathematically](wiki/game-of-42.md) — the game, what has
 proved and measured about it, and what can be done with it now, written for a
 technical reader who has never played. This page assumes that vocabulary.
 
+**Want walt (the imperfect-information seat) on one page — what exists, what
+it costs, what is redundant, what is next?** Read [`walt/MAP.md`](walt/MAP.md);
+it is rewritten at every landing.
+
 ## What this project is
 
 Solve straight points-and-marks Texas 42 as an imperfect-information game, on

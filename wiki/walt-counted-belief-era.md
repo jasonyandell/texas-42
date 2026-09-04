@@ -146,6 +146,49 @@ record now lists. A ledger correction travelled with the slice: the doom
 paragraph's "overwhelmingly the info-consistency price" outran SC-A1/SC-A4
 (`walt/DISCREPANCIES.md`).
 
+## The focal-horizon program (2026-09-04, one day, one object)
+
+*Intake: `walt/math/focal_horizon_sandwich_v0.1.md` (Pro, hand-ferried; the
+object is the **focal-horizon hierarchy** — FH-A2 retired "sandwich" as a
+name) with companion `focal_horizon_sandwich_v0.1_intake.md`, rulings
+FH-A1..A11 and five delivered propositions (FH-God, FH-int, FH-tie, FH-cut,
+FH-last) in `walt/CENSUS-RULINGS.md`. Branch `walt-fh`. EXPLORATORY
+throughout; one-page map at `walt/MAP.md`.*
+
+| slice | what it is | where |
+|---|---|---|
+| FH0 | intake and walt-math review: Theorems 1–6 proved in full; God tail proved a Bellman supersolution; §23 sound only under intersection; §25 identity sharpened to include the posterior; trick 7 forced ⇒ trick-4 roots exact at k = 2 | companion, FH-A1..A11 |
+| FH1 | the engine `focal_horizon`: `[L_{a,k}, U_{a,k}]` per root action in exact masses, `k` = focal decisions made exact, `π_k` a total policy with the tail off-DAG, whole-root typed refusal; 10 gates; `focal_run0.txt` | `solver/focal_horizon.rs`, `FH1-REPORT.md` |
+| CI1 | process: test binaries run concurrently, recompute-once fixtures in the heavy suites; gate wall ~15 min → 230 s | `ci/run_test_binaries.py`, `CI1-REPORT.md` |
+| FH2 | the ladder: budgeted passes over a store of node facts under FH-int, stop/resume byte-identical, proof-state facts with re-priced witnesses, exact suffix reuse keyed by the full belief; 9 gates; `focal_ladder_run1.txt` | `solver/focal_ladder.rs`, `FH2-REPORT.md` |
+| FH3 | the report of record over 33 (root, contract) coordinates × k ≤ 3 and the PR #87 anchors; 4 gates; `focal_run1.txt` | `FH3-REPORT.md` |
+| FH4 | independent audit before the PR | `FH4-AUDIT.md` |
+
+**What it found.** In the hierarchy's vocabulary the God-gap census (U0)
+is `U_{a,0}`, the in-solve ply-cut census (U0b) is `U_{a,m−1}` on
+viewer-lead roots, the salvation-mask upper is `U_{a,1}`, argmax
+extraction is `π_k` — three instruments became endpoints of one object.
+On the whole trick-4 corpus every live coordinate settles by k ≤ 2 (five at
+k = 0 with no search, six at k = 1 with Γ ≤ 45‰, three at the collapse);
+the trick-3 anchor h8-t3 settles only at k = 3 (survivors 5/5/3/1, Γ
+141/100/34/0‰), its lower policy playing the exact action from k = 1 on. The
+two ply-cut flips U0b reported are upper-side artifacts — never certified.
+**The direction-changing finding: at k ≥ 1 the residual width is the
+tail's policy gap (Q − L 9–41‰), not the fusion price (U − Q 0–3‰)** — a
+better lawful tail buys more than a deeper search. **Costs as findings:**
+reads per horizon unchanged from the engine (h8-t3: 27M/74M/70M/20M with
+reuse, 190M for the exact answer against 289M plain); memory grew — 3.8M
+facts and 19 GB peak at h8-t3 (card [[ladder-policy-store]]); a warm field
+instance runs a pass 15× faster at identical reads. The morning also caught
+a process wedge (an agent that yields with background work pending is never
+woken — now a CLAUDE.md rule) and a CI wall that had grown to ~15 min
+(fixed; corpus trimming owed at [[gate-corpus-trim]]).
+
+**What is next, ruled by Jason the same day:** no new mathematical parent;
+finish the program, then a consolidation slice that retires the endpoint
+instruments, the σ0 sufficient-statistic study, and the policy-store fix.
+The response to Pro is drafted at `walt/briefs/FH-RESPONSE-TO-PRO.md`.
+
 ## What the era found
 
 - **The opening-root verdict, in certified-regret form** (Phase 8, probe

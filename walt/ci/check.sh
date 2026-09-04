@@ -321,9 +321,13 @@ fi
     ../rob/crates/verify/Cargo.toml \
     ../lean/lakefile.toml ../lean/lake-manifest.json
 
-echo "== cargo test --workspace --release"
+echo "== cargo test --workspace --release (build, then run the binaries concurrently)"
 "$cargo_bin" --locked test --workspace --release --target "$rust_target" \
-    --target-dir "$cargo_target_dir"
+    --target-dir "$cargo_target_dir" --no-run --message-format=json |
+    /usr/bin/python3 -I -B ci/run_test_binaries.py "$cargo_target_dir"
+echo "== cargo test --workspace --release --doc"
+"$cargo_bin" --locked test --workspace --release --target "$rust_target" \
+    --target-dir "$cargo_target_dir" --doc
 
 echo "== Lean trick-1 foundations and exact axiom audit"
 failure_phase=1

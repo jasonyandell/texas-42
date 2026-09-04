@@ -14093,3 +14093,266 @@ shipped with this parent — see SC-A2. Intake:
   are sequenced by what U0 and MB2 find. T0/T1 (the tower
   laboratory and lazy F₂) remain behind the level-2 boundary on
   Jason's word.
+
+## The focal-horizon adjudication (2026-09-04)
+
+*Authorization note: Jason hand-delivered the parent 2026-09-04
+("please prepare to orchestrate the intake, a walt-math review ... and
+the implementations"; "you're the engineer in charge"; "good stuff in
+here, could it be better without losing what it is?"). Not a courier
+dispatch — no number, ledger untouched (the calculated-evidence
+precedent). Parent `walt/math/focal_horizon_sandwich_v0.1.md`
+(SHA-256 `892bc343…`, checksum-pinned, never edited); verifier
+`walt/math/verify_focal_horizon_sandwich_v0.1.py` (`7700a35e…`,
+scratch tier). Threads: fixed-field L2-thread mathematics, no sampling
+anywhere in the hierarchy; the Ω×Θ lift deferred and staying deferred.
+Intake and walt-math review: `walt/math/focal_horizon_sandwich_v0.1_intake.md`
+(BRIEF-FH0). EXPLORATORY tier throughout; nothing promoted.*
+
+- **FH-A1 (intake ACCEPTED at instrument tier; the verifier's count
+  RULED).** Verifier re-run from the upload location and from
+  `walt/math/`: identical output, exit 0 both times. **The printed "24
+  CHECK FAMILIES" is a literal, never a count of theorem
+  verifications**: 31 asserts in 18 labelled blocks, of which the nine
+  inside the exhaustive sweep (4,096 Boolean systems × 8 lower tails)
+  are theorem checks on a three-world two-layer toy, two post-sweep
+  specimens are genuine strictness witnesses (public branches consume
+  no horizon; merge-before-max), and seven are literal illustrations
+  carrying no weight (one asserts `1/2 < 3/4`, one asserts an
+  expression equals a copy of itself). The §23 interruption rule and
+  the §25 substitution are NOT exercised by the sweep. Theorems 1–6,
+  §18, §19, §22, §23, §25 step-checked sound with full proofs in the
+  companion (§ "Proofs", P0–P14). No transcription errata.
+- **FH-A2 (vocabulary and thread RULED).** As CBS-A3 ruled for the
+  sibling: **"sandwich" is not a citable object name** — it survives
+  only when the parent's title is cited. Adopted names: **focal-horizon
+  hierarchy** (the construction), **focal-horizon interval
+  `[L_k(B), U_k(B)]`** (the object at a node), **action interval
+  `[L_{a,k}, U_{a,k}]`**, **bar `B_k`**, **survivor set `S_k`**,
+  **focal depth `h_f`**. Code and ledger use these (`solver/
+  focal_horizon.rs` is a fine module name; type names are the
+  builders'). "Certified regret" stays (APS term of art); no bare
+  "certificate"; no float types. Thread: L2 fixed-field; CE consumed
+  nowhere.
+- **FH-A3 (the upper tail ADMISSIBLE, proved; the trivial upper is a
+  REFUSAL).** Proposition FH-God (delivered below): under a
+  deterministic field the world-revealed continuation `G` is
+  terminal-exact, public-branch harmonic and focally optimistic;
+  admissibility `Q ≤ G` is a consequence (Lemma 2.1), and `U_0^G ≡ G`
+  at every node (Lemma 2.0). The parent's one-line assertion is
+  discharged. **The trivial upper 1 is never installed as a fact** —
+  the `GodUpper::fact() = None` discipline — so on the first pass an
+  unaffordable God branch is a typed refusal that leaves the enclosing
+  child unfinished; "retain a previously valid upper" means the
+  intersection with a fact established under the same identity
+  (FH-A9), never replacement.
+- **FH-A4 (the lower tail RULED).** Primary tail for the report of
+  record: **σ0 driving the viewer seat** (σ0-as-focal) through
+  `viewer_success_mass(oracle, belief, focal = σ0, field = σ0, stats)`
+  — lawful, exact, already exercised (`profile_run1.txt`), and the
+  parent's §15 one-baseline-for-everything. **Its identity includes
+  the contract** (σ0 reads the bid): `L_k^π` is per (root, contract,
+  field) and is never projected across contracts. Gate-only second
+  tail: `FixedPreference::lowest_first` (free; its `π_k` is the
+  existing `ExtractedPolicy` unchanged). Extracted policies are
+  admissible tails by Theorem 1 but not first-slice tails. The FH8
+  anchors run under BOTH tails so tail quality is a measured column.
+- **FH-A5 (existing instruments IDENTIFIED in the new vocabulary;
+  the ply/focal cut RULED).** `U_{a,0}^{God}` at a root action IS the
+  U0 coordinate's `GodUpper.value = (Z − |D_a|)/Z` (`solver/godgap.rs`);
+  `U^{God}` at any belief node IS `price_node`'s `upper`
+  (`solver/horizon.rs`, `doom_over_belief` — exposure is the builders'
+  call); `L_0^π(B) = viewer_success_mass/Z(B)`. **Theorem 5 subsumes
+  the queued U1 salvation-mask slice as an upper producer** (`U_1 =
+  max_a Pr(S_a)`, masses without sets); it does NOT subsume the
+  set-valued mask instrument the salvation complex's conflict work
+  needs — that stays sequenced by evidence (SC-A8). **Proposition
+  FH-cut**: on a viewer-lead uniform root, the U0b census's cut at
+  `4m` plays equals `U_{a,m−1}` for every root action; hence **cut-4 =
+  `U_{a,0}` and cut-8 = `U_{a,1}`** — the orchestrator's "cut-8 is not
+  `U_{a,1}` in general" is CORRECTED (the trick-5 decision's ply varies
+  but is always < 8; the identity fails only off trick boundaries or
+  when the viewer does not lead). `horizon_run1.txt` therefore already
+  holds `U_{a,0}` and `U_{a,1}` per action on h3-t4/h4-t4/h8-t4 × five
+  contracts and `U_{a,0}` on h8-t3: a free parity oracle for FH1.
+- **FH-A6 (`h_f` RULED).** §6 is the definition, with "decided" = the
+  §5 arithmetic through the SAME `decided_success` predicate the value
+  recursions use (a node decided early has `h_f = 0` with plays
+  remaining; a different cutoff in the depth walk than in the value
+  walk breaks Theorem 4). Forced focal nodes consume a unit under the
+  parent's convention — **binding for the FH1–FH3 numbers**; a
+  forced-free variant is a declared identity coordinate if ever built.
+  Independent checks for FH3: the walk; `h_f ≤` viewer tiles remaining;
+  `h_f = 7 − T` after the root action at an undecided viewer-lead
+  trick-`T` root; and **tail consultations = 0 whenever `k ≥ h_f`** —
+  the mechanical form of "the tail is never consulted." Proposition
+  FH-last (delivered below): with trick 7 forced, the hierarchy is
+  exact at `k = 6 − T` — trick-6 roots at k = 0, trick-5 at k = 1,
+  **trick-4 at k = 2**, trick-3 at k = 3.
+- **FH-A7 (the tie rule RULED; FH5 is the lower-side fusion gate).**
+  `π_k` is materialized under `TieRule::LowestTileIndex` at every focal
+  node of the first `k` layers and is **the tail π below them**; the
+  tie rule changes the policy, never the value. FH5 (`V^{π_k} = L_k`
+  through the independent evaluator) fails iff some max was taken over
+  something other than one public information state — exactly the
+  lower-side no-strategy-fusion gate the parent names. Binding detail:
+  the existing extractor completes off-DAG by lowest tile index; for a
+  σ0 tail the off-DAG continuation must be σ0.
+- **FH-A8 (the anchors CONFIRMED; the answer NOT pinned).** From
+  `horizon_run1.txt`: (i) h8-t3 bid 30, Z = 59,976, `Q* = 28859/29988`
+  (962‰) argmax 1-1, `U_{a,0}` 992‰ (1-1) / 993‰ (3-3) / 965 / 936 /
+  959‰; (ii) h8-t4 bids 36 and 39, Z = 1,200, exact 2-1 = 3/4 (750‰),
+  5-5 = 893/1200 (744‰); `U_{a,1}` 2-1 = 451/600 (751‰), 5-5 = 303/400
+  (757‰); (iii) h4-t4 cut 4 = `U_{a,0}`, Z = 34,650, over-pricing
+  13/65/85/105/33‰ at bids 30/33/36/39/42, exact 980/889/794/734/217‰,
+  argmax 6-5 throughout. Coordinates and per-action values in the
+  companion (Q6). The parent's rule is kept: the settling horizon is
+  discovered, not pinned. What the soundness laws already say is law,
+  not pin: at (ii) `U_{5-5,1} = 757‰ > Q_{2-1} = 750‰ ≥ L_{2-1,k}`, so
+  **k = 1 cannot settle 2-1** there; at (i) k = 0 cannot settle 1-1; at
+  (iii) bid 39, k = 0 settles iff the tail is worth > 655‰ after 6-5;
+  and by FH-last every trick-4 anchor is exact at k = 2, so (ii)/(iii)
+  are k ∈ {0,1} experiments with k = 2 as a collapse gate, while (i)
+  is where k = 2 is the real test.
+- **FH-A9 (interruption, preserved facts, suffix identity RULED).**
+  Proposition FH-int (delivered below) proves §23 under the
+  **intersection discipline**: every node's fact is the intersection
+  of prior and new; composition is max/max over EVERY legal action and
+  Σ/Σ over EVERY positive-mass branch; the composed lower is one
+  lawful policy (which is why **a stored policy travels with every
+  lower fact**); the root interval never widens across passes; resume
+  ≡ uninterrupted because facts are a derived view of the completed
+  set. As literally worded ("install its new [L, U]") §23 is sound
+  only because a trivial upper is not a completion (FH-A3). §19's
+  "preserved facts" MEANS: no lower fact (with its policy) and no upper
+  fact is ever discarded — then `Γ_{k+1} ≤ Γ_k` unconditionally. §25's
+  identity list is SHARPENED: a suffix receipt is keyed by viewer seat,
+  viewer hand, **the public record as read by the field** (σ0 reads the
+  full history, not the tabular state), declaration/contract/utility,
+  field identity with frozen parameters, and **the posterior itself**
+  (the survivor set with weights) — record alone is the PiKey defect
+  reborn (CBS-A6).
+- **FH-A10 (non-goals BINDING).** No builder adds glue-coalition
+  selection, the Ω×Θ hierarchy, a new residual behavior type, joint
+  partnership prescriptions, a global response-polytope
+  representation, a new rules engine, a live default change, or an
+  arena claim to FH1–FH3. The live default player is untouched by this
+  lineage until arena and conformance gates justify a change on
+  Jason's word (CE-A7/CBS-A9/APS-A9/MB-A7 restated).
+- **FH-A11 (the split — walt-math's COMMENT, the orchestrator's
+  call).** The mathematics constrains the order in one place: no
+  budgeted run may report partial intervals before FH-int's
+  intersection-and-witness discipline exists in the proof-state facts.
+  So FH1 lands first **only as an affordable-or-refuse engine** (whole-
+  root typed refusal, no partial install); under that fence FH1 → FH2
+  → FH3 is right. Recommended FH1 gates, free from the record:
+  `U_{a,0}` parity with `godgap_run1.txt`; `U_{a,1}` parity with the
+  cut-8 per-action readings on the viewer-lead trick-4 roots (FH-cut);
+  `L_0` parity with `viewer_success_mass`; collapse with tail
+  consultations = 0 at trick-6 (k = 0), trick-5 (k = 1) and trick-4
+  (k = 2) roots (FH-last). Recommended report columns: the per-action
+  split `(U_{a,k} − Q_a) + (Q_a − L_{a,k})` where `Q_a` is affordable,
+  and the ply distribution of the k-th focal frontier.
+
+### Proposition FH-God (the world-revealed continuation is a Bellman supersolution) — delivered here
+
+Fix a deterministic field `σ`, contract, utility and viewer seat. For a
+node `B` and surviving world `ω` let `g(ω, B)` be the value of the
+perfect-information game from `B` in which the viewer knows `ω` and
+every other seat plays `σ` on its hand in `ω`; let `G(B) = Σ_ω β_B(ω)
+g(ω, B)`. Then `G` is terminal-exact, public-branch harmonic
+(`G(B) = Σ_t p_t G(B_t)`) and focally optimistic (`G(B) ≥ max_a
+G(Ba)`); hence `Q ≤ G` and `U_0^G ≡ G`.
+
+*Proof.* Terminal/decided: the utility is a constant of every
+continuation of every surviving world, so `g(ω, B) = u(B)`. Focal: the
+viewer's node is a max node in the perfect-information game, `g(ω, B)
+= max_a g(ω, Ba)`; a focal action does not change the posterior
+(`β_{Ba} = β_B`, the viewer's action carries no likelihood), so `G(B) =
+Σ_ω β_B(ω) max_a g(ω, Ba) ≥ max_a Σ_ω β_B(ω) g(ω, Ba) = max_a G(Ba)`.
+Public branch: in world `ω` the field's move is the determined `t(ω)`,
+so `g(ω, B) = g(ω, B_{t(ω)})`; the branch supports partition the
+support and `β_B(ω) = p_t β_{B_t}(ω)` on branch `t` (0/1 likelihoods),
+so `G(B) = Σ_t p_t Σ_{ω∈t} β_{B_t}(ω) g(ω, B_t) = Σ_t p_t G(B_t)`.
+Admissibility and `U_0 ≡ G` are the companion's Lemmas 2.1 and 2.0
+(structural inductions). ∎ In mass form with unit world weights,
+`Z(B)·G(B)` is the count of undoomed worlds — `line_can_make`'s count,
+so `price_node`'s `upper` and `GodUpper.value` ARE `G`.
+
+### Proposition FH-int (the §23 interruption rule is sound and its lower is executable) — delivered here
+
+A fact at `C` is `[L(C), U(C)]` with `L(C) = V^{ρ_C}(C)` for a stored
+lawful `ρ_C` and `Q(C) ≤ U(C)`, under one semantics identity; a
+never-priced node holds `[0, 1]` with `ρ_C = π` (the 1 is a placeholder,
+not a fact). Let a pass end with, at every node of a frontier-closed
+set, the **intersection** of the prior fact and any new one, composed
+upward by `[max_a L(Ba), max_a U(Ba)]` over every legal action at focal
+nodes and `[Σ_t p_t L(B_t), Σ_t p_t U(B_t)]` over every positive-mass
+branch at public nodes. Then every composed interval contains `Q`, the
+composed lower is attained by one lawful policy, and the root interval
+is contained in the previous pass's.
+
+*Proof.* Intersections of intervals containing `Q(C)` contain `Q(C)`.
+Focal: `Q(B) = max_a Q(Ba)` lies between `max_a L(Ba)` and `max_a
+U(Ba)` because each child's interval contains `Q(Ba)` — every legal
+action is needed on the upper side (a dropped action may be the true
+maximizer). Public branch: `Q(B) = Σ_t p_t Q(B_t)` lies between the
+corresponding sums — every positive-mass branch is needed (a dropped
+branch of mass `p` moves both endpoints by up to `p`). Executability:
+at a focal node choose `a* ∈ argmax_a L(Ba)` under the declared tie
+rule, set `ρ(B) = a*` and `ρ = ρ_{Ba*}` below it, so `V^ρ(B) = L(Ba*)
+= max_a L(Ba)`; at a public branch distinct branches are distinct public
+histories, so `ρ = ∪_t ρ_{B_t}` is one lawful policy with `V^ρ(B) = Σ_t
+p_t V^{ρ_{B_t}}(B_t)`; where the intersection kept the prior lower, its
+stored policy is the one used. Containment: each fact is contained in
+its prior by intersection, and max and Σ are monotone in every
+argument. Resume ≡ uninterrupted: the facts are a function of the set
+of completed nodes, and intersection is idempotent and
+order-independent. ∎
+
+### Proposition FH-tie (the exact survivor set under ties) — delivered here
+
+Call `a` collapsed at `k` if `L_{a,k} = U_{a,k}`. If every `a ∈ S_k` is
+collapsed, then `Q* = B_k` and the exact optimal set is `{a ∈ S_k :
+Q_a = B_k}`. *Proof.* The action attaining `B_k` is in `S_k`, hence
+collapsed, hence `Q* ≥ B_k`; every `a ∉ S_k` has `Q_a ≤ U_{a,k} < B_k`;
+every `a ∈ S_k` has `Q_a = L_{a,k} ≤ B_k`. ∎ The survivor set is exact
+iff all its members are collapsed; until then it is a superset (the
+exact best always survives: `U_{a*,k} ≥ Q* ≥ Q_a ≥ L_{a,k}`).
+
+### Proposition FH-cut (a ply cut at a trick boundary is a focal cut on viewer-lead roots) — delivered here
+
+Let `C_c(B)` be the U0b census's cut value with `cut_plays = c`: `G` at
+depth `≥ c`, `u` at decided nodes above it, max over legal actions at
+viewer nodes, `Σ_t p_t` at field nodes. If every continuation from `B`
+reaches depth `c` after exactly `j` viewer decisions or is decided
+first, then `C_c(B) = U_j^{God}(B)`. *Proof.* Structural induction: at
+depth `≥ c`, `j = 0` and `U_0 = G`; decided nodes agree; a viewer node
+above the cut with `j ≥ 1` gives `max_a C_c(Ba) = max_a U_{j−1}(Ba) =
+U_j(B)`; a field node is the sum with `j` unchanged. ∎
+
+**Corollary.** At a uniform root where the viewer leads trick `T`,
+`C_{4m}(B_0 a) = U_{a,m−1}` for every root action `a` and `m ≥ 1`: the
+remaining plays of trick `T` are the field's and each of tricks `T+1 …
+T+m−1` holds exactly one viewer decision at a depth `< 4m`. So cut-4 =
+`U_{a,0}` and cut-8 = `U_{a,1}`; off trick boundaries, mid-trick, or
+without the viewer on lead, `j` varies by branch and the ply cut is a
+branch-wise mixture of horizons — a valid upper, not a `U_k`.
+
+### Proposition FH-last (a forced last layer collapses the hierarchy one layer early) — delivered here
+
+If on every continuation from `B` every focal node beyond the `k`-th
+layer has a singleton legal set, then `L_k^π(B) = Q(B) = U_k^G(B)` for
+every lawful tail `π` and terminal-exact supersolution `G`. *Proof.*
+Below the `k`-th layer the three recursions differ only at focal
+nodes, where all three take the same unique action: max over a
+singleton is the identity, `π` plays the only legal tile, and `G` at a
+forced node is `Σ_ω β g(ω, Ba)` for the unique `a` — no clairvoyance is
+exercised — and remains harmonic below; Theorem 4's induction then
+runs with its base one layer higher. ∎ **Corollary.** Trick 7 is forced
+for every seat, so at an undecided viewer-lead uniform root at trick
+`T` the hierarchy is exact at `k = 6 − T` after the root action
+(trick-6 roots at k = 0, trick-5 at k = 1, trick-4 at k = 2, trick-3 at
+k = 3); follow-suit may close earlier, which is measured, not assumed.
+This is Lemma SR-forced and Lemma FT-trunc arriving in the focal-
+horizon calculus.

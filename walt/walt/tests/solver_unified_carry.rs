@@ -26,7 +26,12 @@
 //!
 //! EXPLORATORY tier throughout. Nothing here is a play-strength claim.
 
+#[path = "common/fixture.rs"]
+mod fixture;
+
+use std::collections::HashMap;
 use std::rc::Rc;
+use std::sync::LazyLock;
 
 use num_bigint::BigInt;
 use num_rational::BigRational;
@@ -146,6 +151,7 @@ enum Carry {
     Eager,
 }
 
+#[derive(Clone)]
 struct Play {
     seat: usize,
     state: OwnedState,
@@ -185,6 +191,7 @@ impl OwnedState {
 
 /// What one seat's line looked like at the end of the walk, read BEFORE
 /// and AFTER a final materialization.
+#[derive(Clone)]
 struct LineView {
     seat: usize,
     line_plays: usize,
@@ -351,16 +358,71 @@ fn walk(
 }
 
 // ---------------------------------------------------------------------------
+// The recompute-once fixture (BRIEF-CI1): the lazy walk to its end at
+// every (budget, corpus root) the gates read, computed once per
+// test-binary process. A derived view of the declared epoch, immutable
+// after construction; UC5's eager walks stay fresh — that gate's law is
+// that two carries agree.
+// ---------------------------------------------------------------------------
+
+/// One lazy walk to its end: the budget it ran under, its plays, its
+/// line views.
+type Walk = (MoveBudget, Vec<Play>, Vec<LineView>);
+
+struct Fixture {
+    walks: HashMap<(String, usize, usize), Walk>,
+}
+
+fn build_fixture() -> Fixture {
+    let r = receipt();
+    // Heaviest first: the consulting rungs before the lean one.
+    let mut keys: Vec<(MoveBudget, usize, usize)> = Vec::new();
+    for b in [ample(), model_rung(), lean()] {
+        for (hand_id, trick_no) in CORPUS {
+            keys.push((b.clone(), hand_id, trick_no));
+        }
+    }
+    let walks = fixture::compute_all(&keys, |(b, hand_id, trick_no)| {
+        walk(&r, *hand_id, *trick_no, b, Carry::Lazy, usize::MAX)
+    });
+    let mut fixture = Fixture {
+        walks: HashMap::new(),
+    };
+    for ((b, hand_id, trick_no), (plays, views)) in keys.into_iter().zip(walks) {
+        fixture
+            .walks
+            .insert((b.label.clone(), hand_id, trick_no), (b, plays, views));
+    }
+    fixture
+}
+
+static FIXTURE: LazyLock<Fixture> = LazyLock::new(build_fixture);
+
+/// The lazy walk at one budget and corpus root, to its end.
+fn lazy_walk(b: &MoveBudget, hand_id: usize, trick_no: usize) -> (Vec<Play>, Vec<LineView>) {
+    let (stored, plays, views) = FIXTURE
+        .walks
+        .get(&(b.label.clone(), hand_id, trick_no))
+        .unwrap_or_else(|| {
+            panic!(
+                "the fixture holds no lazy walk at h{hand_id}-t{trick_no} under {}",
+                b.label
+            )
+        });
+    assert_eq!(stored, b, "the fixture's walk is under this budget");
+    (plays.clone(), views.clone())
+}
+
+// ---------------------------------------------------------------------------
 // UC1 — nothing read, nothing paid.
 // ---------------------------------------------------------------------------
 
 #[test]
 fn uc1_a_posterior_nobody_reads_costs_nothing_to_carry() {
-    let r = receipt();
     let mut recorded_lines = 0usize;
     let mut deferred_bills = 0usize;
     for (hand_id, trick_no) in CORPUS {
-        let (plays, views) = walk(&r, hand_id, trick_no, &lean(), Carry::Lazy, usize::MAX);
+        let (plays, views) = lazy_walk(&lean(), hand_id, trick_no);
         for p in &plays {
             let prov = p.decision.provenance();
             assert_eq!(
@@ -422,11 +484,10 @@ fn uc1_a_posterior_nobody_reads_costs_nothing_to_carry() {
 
 #[test]
 fn uc2_every_lineage_read_is_charged_to_a_decision() {
-    let r = receipt();
     let mut charged_lines = 0usize;
     for b in [ample(), model_rung()] {
         for (hand_id, trick_no) in CORPUS {
-            let (plays, views) = walk(&r, hand_id, trick_no, &b, Carry::Lazy, usize::MAX);
+            let (plays, views) = lazy_walk(&b, hand_id, trick_no);
             for v in &views {
                 let charged: u64 = plays
                     .iter()
@@ -466,7 +527,7 @@ fn uc3_a_falsification_is_found_at_materialization_where_an_eager_replay_finds_i
     // h3-t5 and h8-t4: the roots UP0's transcript recorded falsifications
     // at. Lean rung — nothing is read during the walk.
     for (hand_id, trick_no) in [(3usize, 5usize), (8, 4)] {
-        let (plays, views) = walk(&r, hand_id, trick_no, &lean(), Carry::Lazy, usize::MAX);
+        let (plays, views) = lazy_walk(&lean(), hand_id, trick_no);
         assert!(
             plays.iter().all(|p| !p.falsified_known_after_ply),
             "UC3: a lean walk that never reads its posterior never learns of a \
@@ -533,11 +594,10 @@ fn uc3_a_falsification_is_found_at_materialization_where_an_eager_replay_finds_i
 
 #[test]
 fn uc4_materialization_is_idempotent_and_a_consulted_posterior_is_current() {
-    let r = receipt();
     let mut consulted = 0usize;
     for b in [ample(), model_rung()] {
         for (hand_id, trick_no) in CORPUS {
-            let (plays, views) = walk(&r, hand_id, trick_no, &b, Carry::Lazy, usize::MAX);
+            let (plays, views) = lazy_walk(&b, hand_id, trick_no);
             for v in &views {
                 assert!(
                     v.is_current_after || v.falsified_after.is_some(),
@@ -591,7 +651,8 @@ fn uc5_the_lazy_carry_changes_no_answer_the_eager_carry_gave() {
     let mut carry_moved = 0usize;
     for b in [lean(), ample(), model_rung()] {
         for (hand_id, trick_no) in CORPUS {
-            let (lazy, _) = walk(&r, hand_id, trick_no, &b, Carry::Lazy, usize::MAX);
+            // The fixture's lazy walk against one fresh eager walk.
+            let (lazy, _) = lazy_walk(&b, hand_id, trick_no);
             let (eager, _) = walk(&r, hand_id, trick_no, &b, Carry::Eager, usize::MAX);
             assert_eq!(lazy.len(), eager.len());
             for (x, y) in lazy.iter().zip(eager.iter()) {

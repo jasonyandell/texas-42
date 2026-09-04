@@ -35,6 +35,12 @@ Binding work assignments live in `rob/BRIEF*.md`.
   equality/hashing/serialization through projected state only.
 - No floats anywhere near ranks or probabilities — exact integers and rationals
   (clippy denies `float_arithmetic`; a grep denies `f32`/`f64` mentions).
+- Gates are sized to their laws, not to a census: one coordinate per law plus a
+  PINNED strictness witness; a corpus sweep belongs in a probe record. Expensive
+  oracle values a suite needs in several gates (exact `Q_a`, a census) are
+  computed once in a shared fixture and read by every gate — independence is
+  between code paths, never between recomputations. Suites still sized like
+  censuses are tracked at [[gate-corpus-trim]]; trim one when you touch it.
 - Every exhaustive count in the spec is a CI assertion; receipts under
   `rob/receipts/` are byte-diffed in CI — regenerate via the verify binaries, never
   hand-edit.
@@ -43,6 +49,21 @@ Binding work assignments live in `rob/BRIEF*.md`.
 - Ambiguity protocol: if a spec is internally inconsistent, don't pick a plausible
   reading — add a failing/blocked test, report the exact conflicting passages,
   continue elsewhere.
+
+## Agents (builders, auditors, intake agents)
+
+- **Never end a turn with background work pending.** A subagent that yields
+  while a `run_in_background` job is still running is not woken when the job
+  finishes (the completion goes to a turn that no longer exists) — this is the
+  project's recurring wedge (2026-09-04, FH1: gates and record finished at
+  02:11, agent silent for five hours). Run long jobs (gate files, `check.sh`,
+  probe records) in the FOREGROUND with the tool's 600 s timeout, split them
+  under that limit, or poll them with a foreground loop. "I'll pick up when it
+  reports" is forbidden wording for an agent.
+- **Orchestrators:** an idle notification from a builder that mentions running
+  jobs is a stall signal, not a status. Watch the job's output files and ping
+  the builder the moment they land; a watchdog on file/git silence is the
+  predicate (`~/.claude` memory: harness false-drop lesson).
 
 ## Commands
 

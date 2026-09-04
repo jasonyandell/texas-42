@@ -1,0 +1,116 @@
+# BRIEF-FH3 — the report of record and the PR #87 anchors
+
+**Status: FINAL (2026-09-04, after FH2 dc515ac).** **Authorized:** 2026-09-04. **Binding
+theory:** `walt/math/focal_horizon_sandwich_v0.1.md` §XV FH8, §XVI
+(the report of record — every measurement listed there), §XVII (success
+and falsifiers, §41 correctness failures), as narrowed by the companion
+and the FH-A rulings (the anchors' coordinates are ruled at FH-A —
+use those). Read `FH1-REPORT.md`, `FH2-REPORT.md`, `U0B-REPORT.md`, and
+`walt/probes/factor_belief/horizon_run1.txt`'s horizon table (its tail)
+first.
+
+**EXPLORATORY tier throughout.** The parent's own rule is binding: do
+not pin the focal-horizon answer in advance beyond the soundness laws.
+"The experiment is to discover the smallest k that settles or
+ε-settles these anchors." No success rate is assumed (§39); an honest
+partial success (§40) is a success; every §41 item is a stop-and-
+investigate, never a disappointing number.
+
+## Mission
+
+1. **The report of record** `walt/probes/factor_belief/focal_run1.txt`
+   via `focalreport report <out>`: for each root × contract × k ∈
+   {0,1,2} (k = 3 where affordable) and each root action, everything §38
+   lists — `L_{a,k}`, `U_{a,k}`, `U − L`, `Δ^L_{a,k}`, `Δ^U_{a,k}`,
+   survivor set, exact action where independently known (the record's
+   exact values where a fresh `response_success_mass` is unaffordable —
+   say which), `π_k` id, `L_exec`, `U*_k`, `Γ_k`, the lower-policy's
+   root action, action changes by horizon, exact field reads,
+   conditioned nodes, suffix receipt hits, completed focal depth,
+   refused frontier mass/count, wall. Corpus: T4 × contracts
+   {receipt, 33, 36, 39, 42}; T56 × {receipt, 36}; plus the anchors.
+2. **The FH8 anchors**, each at k = 0, 1, 2 (3 if affordable): (i) the
+   h8-t3 fixed-field root (exact `Q* = 28859/29988`, argmax 1-1, 14 min
+   exact in `horizon_run1.txt`; a trick-4 ply cut flipped it to 3-3);
+   (ii) h8-t4 at contracts 36 and 39, where a trick-6 ply cut of 7‰
+   flipped the root action; (iii) h4-t4 across contracts, the
+   contract-sensitive trick-5 specimen (13/65/85/105/33‰). Report the
+   smallest k that settles (unique exact survivor), that gives an exact
+   tie set, or the `Γ_k` ladder where neither happens — and whether the
+   focal-horizon ladder ever selects the ply cut's wrong action (it
+   must not select ANY action it cannot certify; a `Settled` verdict at
+   any k must agree with the exact argmax — assert it).
+3. **Gate file `walt/walt/tests/solver_focal_anchors.rs`:** the anchors
+   (ii) and (iii) with `Q_a` recomputed independently — containment,
+   nesting, collapse, `Settled ⇒ exact`, and the ply-cut comparison
+   (the `horizon_census` cut argmax vs the focal ladder's verdict, on
+   the same root/contract). Anchor (i) is probe-only unless k ≤ 2 there
+   is cheap enough to gate under ~3 minutes — measure, then decide,
+   and say which in the report.
+4. **`walt/briefs/FH3-REPORT.md`** — the findings, in the shape of
+   `U0B-REPORT.md`: the question, what was built, the gates, the
+   findings with tables (`Δ^L`/`Δ^U` by k; survivors by k; `Γ_k` by k;
+   cost by k in reads), the §39/§40 verdict in the parent's own terms,
+   the wall, deviations and boundaries. Then the FH3 paragraph in
+   `walt/FACTOR-BELIEF.md` (and the status line), the README entries.
+   The wiki era page and `walt/LOG.md` are the orchestrator's.
+
+## Report format (Jason, 2026-09-04)
+
+The report of record opens with ONE section titled **"What this means
+and what it cost"** — one paragraph a reader can act on without the
+mathematics: what changed in what walt can do, the decision-relevant
+numbers, and the cost (reads, wall, gate seconds) — then the record as
+before. Cost trends are FINDINGS, not footnotes: if anything got slower
+or bigger than its predecessor, say so at the top.
+
+## The shipped surface you build on (FH1 1e213bd, CI1 508cc4a, FH2 dc515ac)
+
+- Direct engine: `focal_horizon(oracle, root, position, tail, field,
+  FocalSpec{horizon, node_fiber_cap}) -> Result<FocalHorizonResult,
+  FocalRefusal>` — whole-root refusal; use it for the per-k report rows
+  (reads per horizon WITHOUT reuse, FH1-comparable).
+- Ladder: `FocalLadder::advance(ctx, k, WorkBudget{read_ceiling,
+  node_fiber_cap}, Option<&mut SuffixMemo>) -> Outcome::{Completed,
+  Interrupted{residual_frontier, stopping_node, unaffordable}}`,
+  `root_view()` derived from facts (uppers `Option`, `Settled` needs
+  every other upper a real fact), `render()` bytewise. Use it for the
+  WITH-reuse cost column (memo on) and for any root where the direct
+  engine refuses under the cap: a cap refusal leaves that root child
+  unfinished and the pass continues (FH2 deviation 4) — report such
+  rows as partial with the retained interval, never as a number.
+- `FocalHorizonProducer` re-prices every emitted lower at production;
+  `SuffixMemo::freeze()` to consult without polluting; `first_hit` is
+  a pinned witness.
+- Read `walt/briefs/FH2-REPORT.md` first, its "Deviations" section in
+  full (prior-wins-ties on the lower side means the ladder's `π_k` can
+  differ from the direct engine's on equal-value ties — report both
+  policy ids where they differ, value equality is the law).
+
+## Cost and wall budget
+
+- Anchor (i) h8-t3 (Z = 59,976): cap 40,000 (U0b's; nothing refused
+  there at cut 4). Run k = 0, 1, 2 with the memo on and record reads
+  and wall per horizon; k = 3 is the exact solve (FH-last: t3 collapses
+  at k = 3) — run it ONLY if k = 2 came in under ~10 minutes, and say
+  so either way. Do not recompute the 14-minute exact `Q*` — cite the
+  record (`horizon_run1.txt`, 28859/29988) and mark it as such.
+- Anything over the 600 s tool timeout runs as a process you poll from
+  a foreground loop (never yield with it pending), writing to
+  `<scratchpad>/fh3/`.
+- Report memory beside reads where you measure it (FH2 found the
+  ladder's fact store is the thing that grew: 662 MB peak at h3-t4).
+  Cost trends are findings.
+
+## Discipline
+
+- **Never end a turn with background work pending** (CLAUDE.md, Agents):
+  run the gate file, `check.sh` and the record in the foreground under the
+  600 s tool timeout, split or polled in a foreground loop — a yielded
+  agent is not woken when its background job finishes.
+As FH1/FH2. The record is byte-diffed by nobody but must be
+reproducible: every number in the report is in the record; wall is the
+one approximate number. Commit with `walt FH3:`; no push, no PR. Report
+back with: the anchors table (per anchor: verdict by k, `Γ_k` by k,
+reads by k), the three-layer picture the parent asked for in one
+paragraph, and every §41 item if any fired.

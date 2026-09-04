@@ -1,0 +1,120 @@
+FOCAL-HORIZON LADDER RECORD (slice FH2) — EXPLORATORY
+
+One focal ladder per root (solver::focal_ladder) through a PINNED schedule of k:ceiling passes — ceiling = field + tail reads for that pass, inf = no ceiling — with the suffix memo on. Facts are installed by intersection at completed nodes only (Proposition FH-int); an interrupted pass retains every prior fact; a resume is the same horizon again with more budget. Every root view below is DERIVED from the fact store. Never a theorem; never a play-strength claim.
+
+declared field: level0-modeled-mind-v1 (Level0 n0=2) under SupportOracle
+lower tail: σ0 driving the viewer seat (FH-A4); upper tail: the God line walk (FH-God)
+node fiber cap: 40000
+tie rule for π: lowest tile index; a prior lower's policy survives a tie
+schedules: h8-t4 [0:150000 0:inf 1:250000 1:inf 2:inf]; h3-t4 [0:800000 0:inf 1:1200000 1:inf 2:inf]
+wall is the only approximate number here
+
+== h8-t4 contract 30 tail sigma0 | Z=1200 | legal 4 | schedule [0:150000 0:inf 1:250000 1:inf 2:inf] | node cap 40000 | suffix memo on
+-- step 1 k=0 ceiling 150000 | INTERRUPTED stop [3-1 4-3 3-0 4-0 6-4 6-0 6-6] | residual frontier 24 nodes (mass 4982; stopped 1, enclosing 6, unvisited 17, unaffordable 0; 0 with retained facts) | unfinished root children {3-1 3-3 5-5} | cap refusals 0 | reads 150000 (field 146321 + tail 3679) | wall 693366us
+   facts: 1596 stored (1190 collapsed) | this pass new 1596 | revisited 0 (tightened 0) | root children completed {2-1}
+   suffix memo: hits 0 / lookups 1602 this pass | receipts held 1189 | first hit ever none yet | spend: focal 0 hidden 688 tail evaluations 1826 (forced 175)
+     action 2-1 [S]: L 17/20 (850‰) @k0 | U 289/300 (963‰) @k0 | width 17/150 (113‰)
+     action 3-1 [S]: L 0 (placeholder, tail) | U absent (no fact) | no interval
+     action 3-3 [S]: L 0 (placeholder, tail) | U absent (no fact) | no interval
+     action 5-5 [S]: L 0 (placeholder, tail) | U absent (no fact) | no interval
+   bar 17/20 (850‰) (plays 2-1) | survivors {2-1 3-1 3-3 5-5} | verdict UNRESOLVED survivors {2-1 3-1 3-3 5-5}
+   π focal-k0-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-bfe8f3af80b69ad7d27993bcc7f07785 (1 states) | L_exec 17/20 (850‰) | U* absent | Γ absent | established horizon -
+-- step 2 k=0 ceiling inf | COMPLETED | reads 182931 (field 179168 + tail 3763) | wall 819527us
+   facts: 2432 stored (1748 collapsed) | this pass new 836 | revisited 0 (tightened 0) | root children completed {2-1 3-1 3-3 5-5}
+   suffix memo: hits 0 / lookups 836 this pass | receipts held 1747 | first hit ever none yet | spend: focal 0 hidden 336 tail evaluations 1000 (forced 91)
+     action 2-1 [S]: L 17/20 (850‰) @k0 | U 289/300 (963‰) @k0 | width 17/150 (113‰)
+     action 3-1 [S]: L 469/600 (781‰) @k0 | U 1091/1200 (909‰) @k0 | width 51/400 (127‰)
+     action 3-3 [S]: L 177/200 (885‰) @k0 | U 1183/1200 (985‰) @k0 | width 121/1200 (100‰)
+     action 5-5 [S]: L 487/600 (811‰) @k0 | U 289/300 (963‰) @k0 | width 91/600 (151‰)
+   bar 177/200 (885‰) (plays 3-3) | survivors {2-1 3-1 3-3 5-5} | verdict UNRESOLVED survivors {2-1 3-1 3-3 5-5}
+   π focal-k0-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-27813122b9fa770036165fb867048a2d (1 states) | L_exec 177/200 (885‰) | U* 1183/1200 (985‰) | Γ 121/1200 (100‰) | established horizon 0
+-- step 3 k=1 ceiling 250000 | INTERRUPTED stop [5-5 0-0 5-0 4-0 3-1 3-0 5-3] | residual frontier 29 nodes (mass 3029; stopped 1, enclosing 6, unvisited 22, unaffordable 0; 19 with retained facts) | unfinished root children {5-5} | cap refusals 0 | reads 250046 (field 244492 + tail 5554) | wall 381761us
+   facts: 10760 stored (9183 collapsed) | this pass new 8328 | revisited 1185 (tightened 470) | root children completed {2-1 3-1 3-3}
+   suffix memo: hits 570 / lookups 9272 this pass | receipts held 8935 | first hit ever [2-1 0-0 2-0 3-0] | spend: focal 261 hidden 5384 tail evaluations 6112 (forced 658)
+     action 2-1 [S]: L 373/400 (932‰) @k1 | U 23/24 (958‰) @k1 | width 31/1200 (25‰)
+     action 3-1 [-]: L 257/300 (856‰) @k1 | U 179/200 (895‰) @k1 | width 23/600 (38‰)
+     action 3-3 [S]: L 371/400 (927‰) @k1 | U 583/600 (971‰) @k1 | width 53/1200 (44‰)
+     action 5-5 [S]: L 487/600 (811‰) @k0 | U 289/300 (963‰) @k0 | width 91/600 (151‰)
+   bar 373/400 (932‰) (plays 2-1) | survivors {2-1 3-3 5-5} | verdict UNRESOLVED survivors {2-1 3-3 5-5}
+   π focal-k0-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-7988e347ef9a0ab4261787175287bd29 (171 states) | L_exec 373/400 (932‰) | U* 583/600 (971‰) | Γ 47/1200 (39‰) | established horizon 0
+-- step 4 k=1 ceiling inf | COMPLETED | reads 109854 (field 107156 + tail 2698) | wall 197481us
+   facts: 15859 stored (14124 collapsed) | this pass new 5099 | revisited 124 (tightened 62) | root children completed {2-1 3-1 3-3 5-5}
+   suffix memo: hits 54 / lookups 5201 this pass | receipts held 13854 | first hit ever [2-1 0-0 2-0 3-0] | spend: focal 42 hidden 3381 tail evaluations 3448 (forced 52)
+     action 2-1 [S]: L 373/400 (932‰) @k1 | U 23/24 (958‰) @k1 | width 31/1200 (25‰)
+     action 3-1 [-]: L 257/300 (856‰) @k1 | U 179/200 (895‰) @k1 | width 23/600 (38‰)
+     action 3-3 [S]: L 371/400 (927‰) @k1 | U 583/600 (971‰) @k1 | width 53/1200 (44‰)
+     action 5-5 [S]: L 137/150 (913‰) @k1 | U 283/300 (943‰) @k1 | width 3/100 (30‰)
+   bar 373/400 (932‰) (plays 2-1) | survivors {2-1 3-3 5-5} | verdict UNRESOLVED survivors {2-1 3-3 5-5}
+   π focal-k1-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-7ce6c52bcd4ef052d155a0002ca87f3b (207 states) | L_exec 373/400 (932‰) | U* 583/600 (971‰) | Γ 47/1200 (39‰) | established horizon 1
+-- step 5 k=2 ceiling inf | COMPLETED | reads 125666 (field 125114 + tail 552) | wall 36918us
+   facts: 19369 stored (19035 collapsed) | this pass new 3510 | revisited 2785 (tightened 1401) | root children completed {2-1 3-1 3-3 5-5}
+   suffix memo: hits 1353 / lookups 5729 this pass | receipts held 18230 | first hit ever [2-1 0-0 2-0 3-0] | spend: focal 431 hidden 3393 tail evaluations 1104 (forced 552)
+     action 2-1 [-]: L 287/300 (956‰) @k2 | U 287/300 (956‰) @k2 | width 0 (0‰)
+     action 3-1 [-]: L 67/75 (893‰) @k2 | U 67/75 (893‰) @k2 | width 0 (0‰)
+     action 3-3 [S]: L 1163/1200 (969‰) @k2 | U 1163/1200 (969‰) @k2 | width 0 (0‰)
+     action 5-5 [-]: L 283/300 (943‰) @k2 | U 283/300 (943‰) @k1 | width 0 (0‰)
+   bar 1163/1200 (969‰) (plays 3-3) | survivors {3-3} | verdict SETTLED 3-3
+   π focal-k2-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-2a3c8a0826ebf39e4a41997c18067ca6 (457 states) | L_exec 1163/1200 (969‰) | U* 1163/1200 (969‰) | Γ 0 (0‰) | established horizon 2
+== h3-t4 contract 30 tail sigma0 | Z=11550 | legal 4 | schedule [0:800000 0:inf 1:1200000 1:inf 2:inf] | node cap 40000 | suffix memo on
+-- step 1 k=0 ceiling 800000 | INTERRUPTED stop [4-1 4-2 6-6 3-0 6-5] | residual frontier 19 nodes (mass 40057; stopped 1, enclosing 4, unvisited 14, unaffordable 0; 0 with retained facts) | unfinished root children {4-1 4-4 6-4} | cap refusals 0 | reads 800252 (field 779168 + tail 21084) | wall 2173476us
+   facts: 6991 stored (5371 collapsed) | this pass new 6991 | revisited 0 (tightened 0) | root children completed {3-1}
+   suffix memo: hits 0 / lookups 6977 this pass | receipts held 5352 | first hit ever none yet | spend: focal 0 hidden 2661 tail evaluations 8630 (forced 1105)
+     action 3-1 [S]: L 463/1650 (280‰) @k0 | U 2111/5775 (365‰) @k0 | width 327/3850 (84‰)
+     action 4-1 [S]: L 0 (placeholder, tail) | U absent (no fact) | no interval
+     action 4-4 [S]: L 0 (placeholder, tail) | U absent (no fact) | no interval
+     action 6-4 [S]: L 0 (placeholder, tail) | U absent (no fact) | no interval
+   bar 463/1650 (280‰) (plays 3-1) | survivors {3-1 4-1 4-4 6-4} | verdict UNRESOLVED survivors {3-1 4-1 4-4 6-4}
+   π focal-k0-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-684fe70b2d03ec4cfb731c56f727fc3c (1 states) | L_exec 463/1650 (280‰) | U* absent | Γ absent | established horizon -
+-- step 2 k=0 ceiling inf | COMPLETED | reads 980643 (field 954334 + tail 26309) | wall 2992874us
+   facts: 14511 stored (11412 collapsed) | this pass new 7520 | revisited 0 (tightened 0) | root children completed {3-1 4-1 4-4 6-4}
+   suffix memo: hits 0 / lookups 7490 this pass | receipts held 11363 | first hit ever none yet | spend: focal 0 hidden 2857 tail evaluations 9266 (forced 1723)
+     action 3-1 [S]: L 463/1650 (280‰) @k0 | U 2111/5775 (365‰) @k0 | width 327/3850 (84‰)
+     action 4-1 [-]: L 2609/11550 (225‰) @k0 | U 46/165 (278‰) @k0 | width 611/11550 (52‰)
+     action 4-4 [S]: L 101/350 (288‰) @k0 | U 811/2310 (351‰) @k0 | width 361/5775 (62‰)
+     action 6-4 [S]: L 92/385 (238‰) @k0 | U 1157/3850 (300‰) @k0 | width 237/3850 (61‰)
+   bar 101/350 (288‰) (plays 4-4) | survivors {3-1 4-4 6-4} | verdict UNRESOLVED survivors {3-1 4-4 6-4}
+   π focal-k0-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-ef150bd00a01c0d5a87aee2d06994faa (1 states) | L_exec 101/350 (288‰) | U* 2111/5775 (365‰) | Γ 127/1650 (76‰) | established horizon 0
+-- step 3 k=1 ceiling 1200000 | INTERRUPTED stop [6-4 5-3 6-5] | residual frontier 8 nodes (mass 20739; stopped 1, enclosing 2, unvisited 5, unaffordable 0; 8 with retained facts) | unfinished root children {6-4} | cap refusals 0 | reads 1200264 (field 1168631 + tail 31633) | wall 1286219us
+   facts: 70145 stored (65200 collapsed) | this pass new 55634 | revisited 5652 (tightened 2158) | root children completed {3-1 4-1 4-4}
+   suffix memo: hits 3037 / lookups 58324 this pass | receipts held 62208 | first hit ever [3-1 3-0 3-2 3-3 4-0 4-2] | spend: focal 1219 hidden 34600 tail evaluations 38934 (forced 5456)
+     action 3-1 [S]: L 1954/5775 (338‰) @k1 | U 1349/3850 (350‰) @k1 | width 139/11550 (12‰)
+     action 4-1 [-]: L 433/1650 (262‰) @k1 | U 1571/5775 (272‰) @k1 | width 37/3850 (9‰)
+     action 4-4 [-]: L 166/525 (316‰) @k1 | U 633/1925 (328‰) @k1 | width 73/5775 (12‰)
+     action 6-4 [-]: L 92/385 (238‰) @k0 | U 1157/3850 (300‰) @k0 | width 237/3850 (61‰)
+   bar 1954/5775 (338‰) (plays 3-1) | survivors {3-1} | verdict SETTLED 3-1
+   π focal-k0-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-039f80893302a4e9c9c68640932cd414 (817 states) | L_exec 1954/5775 (338‰) | U* 1349/3850 (350‰) | Γ 139/11550 (12‰) | established horizon 0
+-- step 4 k=1 ceiling inf | COMPLETED | reads 273498 (field 264402 + tail 9096) | wall 245809us
+   facts: 81770 stored (76284 collapsed) | this pass new 11625 | revisited 1047 (tightened 366) | root children completed {3-1 4-1 4-4 6-4}
+   suffix memo: hits 534 / lookups 12384 this pass | receipts held 73011 | first hit ever [3-1 3-0 3-2 3-3 4-0 4-2] | spend: focal 274 hidden 6434 tail evaluations 10284 (forced 1246)
+     action 3-1 [S]: L 1954/5775 (338‰) @k1 | U 1349/3850 (350‰) @k1 | width 139/11550 (12‰)
+     action 4-1 [-]: L 433/1650 (262‰) @k1 | U 1571/5775 (272‰) @k1 | width 37/3850 (9‰)
+     action 4-4 [-]: L 166/525 (316‰) @k1 | U 633/1925 (328‰) @k1 | width 73/5775 (12‰)
+     action 6-4 [-]: L 19/70 (271‰) @k1 | U 221/770 (287‰) @k1 | width 6/385 (15‰)
+   bar 1954/5775 (338‰) (plays 3-1) | survivors {3-1} | verdict SETTLED 3-1
+   π focal-k1-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-f54071c183a7db4ec1ef54beca9e8745 (1014 states) | L_exec 1954/5775 (338‰) | U* 1349/3850 (350‰) | Γ 139/11550 (12‰) | established horizon 1
+-- step 5 k=2 ceiling inf | COMPLETED | reads 421175 (field 419476 + tail 1699) | wall 114391us
+   facts: 89923 stored (88331 collapsed) | this pass new 8153 | revisited 9339 (tightened 3894) | root children completed {3-1 4-1 4-4 6-4}
+   suffix memo: hits 5272 / lookups 16351 this pass | receipts held 84090 | first hit ever [3-1 3-0 3-2 3-3 4-0 4-2] | spend: focal 1210 hidden 8170 tail evaluations 3398 (forced 1699)
+     action 3-1 [S]: L 1349/3850 (350‰) @k2 | U 1349/3850 (350‰) @k1 | width 0 (0‰)
+     action 4-1 [-]: L 1047/3850 (271‰) @k2 | U 1047/3850 (271‰) @k2 | width 0 (0‰)
+     action 4-4 [-]: L 3797/11550 (328‰) @k2 | U 3797/11550 (328‰) @k2 | width 0 (0‰)
+     action 6-4 [-]: L 331/1155 (286‰) @k2 | U 331/1155 (286‰) @k2 | width 0 (0‰)
+   bar 1349/3850 (350‰) (plays 3-1) | survivors {3-1} | verdict SETTLED 3-1
+   π focal-k2-field:level0:fca68d941c5edb15b86a6a312334b25439393ed19b95244ad2037892cb22bc3e-7cd2b54d8ab894155591bce151627449 (1944 states) | L_exec 1349/3850 (350‰) | U* 1349/3850 (350‰) | Γ 0 (0‰) | established horizon 2
+
+#### THE LADDER TABLE — one row per schedule step, σ0 tail, suffix memo on ####
+
+ root    | step       | outcome     | survivors   | verdict      | bar ‰ | Γ ‰  | reads     | hits   | facts  | wall
+---------+------------+-------------+-------------+--------------+-------+------+-----------+--------+--------+------
+ h8-t4   | 0:150000   | interrupted | 2-1 3-1 3-3 5-5 | UNRESOLVED   |   850 |    - |    150000 |      0 |   1596 | 693366us
+ h8-t4   | 0:inf      | completed   | 2-1 3-1 3-3 5-5 | UNRESOLVED   |   885 |  100 |    182931 |      0 |   2432 | 819527us
+ h8-t4   | 1:250000   | interrupted | 2-1 3-3 5-5 | UNRESOLVED   |   932 |   39 |    250046 |    570 |  10760 | 381761us
+ h8-t4   | 1:inf      | completed   | 2-1 3-3 5-5 | UNRESOLVED   |   932 |   39 |    109854 |     54 |  15859 | 197481us
+ h8-t4   | 2:inf      | completed   | 3-3         | SETTLED 3-3  |   969 |    0 |    125666 |   1353 |  19369 | 36918us
+ h3-t4   | 0:800000   | interrupted | 3-1 4-1 4-4 6-4 | UNRESOLVED   |   280 |    - |    800252 |      0 |   6991 | 2173476us
+ h3-t4   | 0:inf      | completed   | 3-1 4-4 6-4 | UNRESOLVED   |   288 |   76 |    980643 |      0 |  14511 | 2992874us
+ h3-t4   | 1:1200000  | interrupted | 3-1         | SETTLED 3-1  |   338 |   12 |   1200264 |   3037 |  70145 | 1286219us
+ h3-t4   | 1:inf      | completed   | 3-1         | SETTLED 3-1  |   338 |   12 |    273498 |    534 |  81770 | 245809us
+ h3-t4   | 2:inf      | completed   | 3-1         | SETTLED 3-1  |   350 |    0 |    421175 |   5272 |  89923 | 114391us
+
+EXPLORATORY — below every evidentiary tier; quotable only via gate receipts.

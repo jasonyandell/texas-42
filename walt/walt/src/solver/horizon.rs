@@ -445,7 +445,14 @@ fn price_node(
 /// `(doomed, worlds, line-walk nodes)`. The posterior under a
 /// deterministic field is uniform on its surviving worlds (every
 /// likelihood is 0 or 1), so the count IS the mass; asserted per world.
-fn doom_over_belief(belief: &FactorBelief, field: &dyn SlicePolicy) -> (u128, u128, u64) {
+/// `pub(crate)` so the focal-horizon hierarchy (`solver::focal_horizon`,
+/// slice FH1) evaluates its God upper tail through THIS walk rather than
+/// a copy — one authority for `Z − doomed`, checked by gate H2 here and
+/// gate FH1 there.
+pub(crate) fn doom_over_belief(
+    belief: &FactorBelief,
+    field: &dyn SlicePolicy,
+) -> (u128, u128, u64) {
     let kernel = belief.kernel();
     let viewer = kernel.viewer();
     let position = belief.position();
@@ -522,10 +529,11 @@ fn doom_over_belief(belief: &FactorBelief, field: &dyn SlicePolicy) -> (u128, u1
 }
 
 /// The counting decorator around the declared field, so the census
-/// reports its consultations as a measurement.
-struct CountingField<'a> {
-    inner: &'a dyn SlicePolicy,
-    reads: std::cell::Cell<u64>,
+/// reports its consultations as a measurement. `pub(crate)` so the
+/// focal-horizon engine counts through the same decorator.
+pub(crate) struct CountingField<'a> {
+    pub(crate) inner: &'a dyn SlicePolicy,
+    pub(crate) reads: std::cell::Cell<u64>,
 }
 
 impl SlicePolicy for CountingField<'_> {

@@ -21,9 +21,16 @@ structural producer, ∀-fail dual of §16).
 `walt/walt/src/bin/unifiedreport.rs` (the unified player transcript,
 UP0; re-run under UP1a's lazy carry as `unified_run2.txt`) and
 `walt/walt/src/bin/horizonreport.rs` (the in-solve horizon census, U0b —
-`horizon_run1.txt`).
+`horizon_run1.txt`) and
+`walt/walt/src/bin/focalreport.rs` (the focal-horizon hierarchy engine
+scout, FH1 — `focal_run0.txt`; its `ladder` / `ladder-record` modes are
+the focal ladder, FH2 — `focal_ladder_run1.txt`; its `report` mode is
+the report of record and the FH8 anchors, FH3 — `focal_run1.txt`).
 Gates (the CI-checked part): `walt/walt/tests/solver_unified.rs`,
 `walt/walt/tests/solver_unified_carry.rs`, `walt/walt/tests/solver_horizon.rs`,
+`walt/walt/tests/solver_focal_horizon.rs`,
+`walt/walt/tests/solver_focal_ladder.rs`,
+`walt/walt/tests/solver_focal_anchors.rs`,
 `walt/walt/tests/solver_factor_belief.rs`,
 `walt/walt/tests/solver_factor_recursion.rs`,
 `walt/walt/tests/solver_factor_response.rs`,
@@ -39,6 +46,10 @@ Gates (the CI-checked part): `walt/walt/tests/solver_unified.rs`,
 `walt/walt/tests/solver_laydown.rs` and
 `walt/walt/tests/solver_opening.rs` and
 `walt/walt/tests/solver_doom.rs`. Mathematical source:
+`walt/math/focal_horizon_sandwich_v0.1.md` (the focal-horizon hierarchy,
+Parts II–X and XIV–XV as narrowed by its companion
+`walt/math/focal_horizon_sandwich_v0.1_intake.md` and rulings
+FH-A1..A11);
 `walt/math/counted_belief_sandwich_v0.1.md` §11–12, §21–23, §25–31,
 Part VIII §32–37, §46 stages C0–C2, §47 Slice D, §48 Slice E, §49
 Slice F, §50 Slice G, rulings CBS-A4/CBS-A6/CBS-A9; and
@@ -657,6 +668,89 @@ the δ ledger).
   budgets; the God grid costs 3.2 s for 228 worlds (12–25 ms per
   singleton check, FieldModel-cached); the composed panel re-imports
   p16+p64 in ~41 s.
+
+## focal_run0.txt readings (2026-09-04) — the focal-horizon hierarchy scout
+
+`focalreport scout-corpus`: the FH1 engine (`solver/focal_horizon.rs`)
+at the four trick-4 gated roots, receipt contract, k ∈ {0, 1, 2}, σ0
+driving the viewer seat as the lower tail and the world-revealed God
+continuation as the upper; every `Q_a` priced so each action's width
+splits into fusion price `U − Q` and policy gap `Q − L`. Gated by
+`solver_focal_horizon.rs` (FH1–FH6, FH-A8, FH-R, FH-D).
+
+- **Settling horizons under the σ0 tail:** h4-t4 settles 6-5 at k = 0
+  (Γ 30‰), h3-t4 settles 3-1 at k = 1 (Γ 12‰), h8-t4 needs k = 2
+  (survivors 4 → 3 → 1, Γ 100‰ → 39‰ → 0); h12-t4 is decided at the
+  root (`Equivalent` at 0, zero reads).
+- **The k = 1 width is policy gap, not fusion price:** `U − Q` ≤ 3‰ per
+  action on every live root; `Q − L` 9–41‰.
+- **Collapse is mechanical:** at k = 2 every tail consultation is at a
+  forced trick-7 node; at k = 3 there are none (FH-last, FH-A6).
+- Wall: h4-t4 17–27 s per horizon; h3-t4 6–9 s; h8-t4 2–3 s; the
+  record's one approximate number.
+
+## focal_ladder_run1.txt readings (2026-09-04) — the focal-horizon ladder
+
+`focalreport ladder-record`: the FH2 ladder (`solver/focal_ladder.rs`)
+at h8-t4 and h3-t4, receipt contract, σ0 tail, suffix memo on, through
+the pinned schedules `0:150000 0:inf 1:250000 1:inf 2:inf` (h8-t4) and
+`0:800000 0:inf 1:1200000 1:inf 2:inf` (h3-t4) — each horizon first
+interrupted by a read ceiling, then resumed to completion. Gated by
+`solver_focal_ladder.rs` (LP, FH7, FH7b, FH7c, PS1, PS2, SR1, SR2, FH-D).
+
+- **An interrupted pass can settle.** h3-t4 k = 1 at ceiling 1.2M reads:
+  3-1, 4-1 and 4-4 complete, 6-4 is left at its retained k = 0 fact
+  (`U_0 = 328‰`), and the derived view is already `SETTLED 3-1` (bar
+  338‰, Γ 12‰) — the same verdict FH1 reached only after 2.63M reads.
+- **Retained facts are the uncapped run's.** h8-t4 k = 1 at ceiling
+  250k: 5-5 stays at `[811‰, 963‰]` from k = 0 while the three completed
+  children move to their k = 1 intervals; the resume spends 110k more
+  and lands on FH1's k = 1 view exactly.
+- **Suffix reuse is a cost story, not a value story.** With the memo the
+  k = 2 pass costs 0.13M reads at h8-t4 (FH1: 0.66M; 1,353 hits) and
+  0.42M at h3-t4 (FH1: 2.83M; 5,272 hits); memo off, the ladder's reads
+  reproduce FH1's per horizon. Views identical either way (SR1).
+- **The first hit** at h8-t4 is `[2-1 0-0 2-0 3-0]` — the viewer's
+  trick-5 lead after 2-1, collapsed at k = 0, returned at k = 1.
+- **Price:** the fact store grows to 19,369 facts at h8-t4 and 89,923 at
+  h3-t4; peak RSS at h3-t4 662 MB (memo on) / 509 MB (memo off) vs FH1's
+  411 MB. Wall: h3-t4 under 3.1 s per pass; h8-t4 under 0.9 s.
+
+## focal_run1.txt readings (2026-09-04) — the report of record and the FH8 anchors
+
+`focalreport report`: the parent's §38 measurements at every (root,
+contract) of the corpus — T4 × {receipt, 33, 36, 39, 42}, T56 ×
+{receipt, 36} — and anchor (i) h8-t3, horizons k ∈ {0, 1, 2, 3}: the
+direct engine per k (reads without reuse, fresh σ0 instance per run)
+beside one memo-on ladder per coordinate (reads with reuse), `Q_a` by a
+fresh `response_success_mass` (cited from `horizon_run1.txt` at h8-t3),
+the §41 laws asserted at every coordinate. Gated by
+`solver_focal_anchors.rs` (FHA1–FHA4) at anchors (ii) and (iii); anchor
+(i) is probe-only. Report: `walt/briefs/FH3-REPORT.md`.
+
+- **Every live trick-4 coordinate settles by k ≤ 2**: k = 0 settles
+  h4-t4 at 30/33/36/42 and h3-t4 at 42; k = 1 settles h3-t4 at
+  30/33/36/39, h4-t4 at 39 and h8-t4 at 33; k = 2 (the collapse)
+  settles h8-t4 at 30/36/39. h12-t4 and h8-t4 at 42 are decided at the
+  root (`Equivalent` at 0). Γ_1 ≤ 45‰ at every trick-4 coordinate.
+- **Anchor (ii)** h8-t4 at 36/39: k = 1 keeps {2-1 3-3 5-5} with Γ 43‰
+  (`U_{5-5,1} = 757‰ > Q_{2-1} = 750‰`, FH-A8's law); k = 2 settles 2-1.
+  The cut-4 argmax 3-3 and the cut-8 argmax 5-5 both flip and neither is
+  ever certified.
+- **Anchor (iii)** h4-t4: k = 0 settles 6-5 at 30/33/36/42 (Γ_0 30 /
+  132 / 177 / 61‰); at bid 39 k = 0 leaves {4-0 6-5} (bar 651‰ against
+  `U_{4-0,0} = 655‰`) and k = 1 settles (Γ_1 29‰). The cut-4 argmax
+  agrees with exact at every contract.
+- **Anchor (i)** h8-t3 (Z = 59,976): k = 0 Γ 141‰, all five survive,
+  π_0 plays 3-3; k = 1 Γ 100‰, all five, π_1 plays 1-1; k = 2 Γ 34‰,
+  survivors {1-1 2-1 3-3}, UNRESOLVED; k = 3 SETTLED 1-1 at 28859/29988
+  (the record's exact value, cited). Reads with reuse: 27.2M / 73.5M /
+  69.7M / 20.0M; direct: 27.2M at k = 0, 79.2M at k = 1. The cut-4
+  argmax 3-3 (the record's flip) is never certified.
+- **Cost:** ladder facts 3.82M at h8-t3 with peak RSS 19.4 GB for
+  the record run (17.1 GB for the h8-t3 ladder alone); five concurrent
+  h4-t4 coordinates 7.8 GB. Walls: h8-t3 ladder passes cold
+  161 s / 276 s / 113 s / 8.7 s (the k = 3 pass rides the ladder's own warm instance and its 3.68M collapsed receipts); the record 23 min 55 s (1,435 s) wall.
 
 ## Boundaries
 
