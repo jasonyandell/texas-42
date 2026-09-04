@@ -23,7 +23,7 @@ target.
 |---|---|---|---|---|
 | 1 | counted belief | `solver/factor_belief.rs` | the 399,072,960 trick-1 worlds as 116,280 acting-seat hands × exact-cover counts; posterior = one seat's factor changes per observed play | counting ≈ ms; classifying each hand through σ is 99% of every bill |
 | 2 | the field σ0 | `solver/field.rs` | the level-0 modeled mind for the other three seats; deterministic; reads the bid and the FULL public record | one read ≈ µs; every recursion's cost = its read count. Cross-history cache reuse measured 0 because the record is in the key |
-| 3 | exact response | `response_success_mass` | `Q` exactly at a root; the oracle every gate checks against | h8-t4 0.66M reads; h4-t4 10M reads ≈ 30 s; h8-t3 289M ≈ 14 min; trick 1 unreachable by this path |
+| 3 | exact response | `response_success_mass` | `Q` exactly at a root; the oracle every gate checks against | h8-t3 289M reads ≈ 14 min (`horizon_run1.txt`); at trick-4 roots the same tree as the FH1 engine at k = 2 (0.66M reads h8-t4, 10M h4-t4, `focal_run0.txt` — the engine's count, not a separate measurement); trick 1 unreachable by this path |
 | 4 | fixed-policy value | `viewer_success_mass` | `V^π` of one lawful policy π (a "tail") | the cheap one: hidden branching only |
 | 5 | God upper | `doom.rs`, `godgap.rs`, `horizon.rs` | per-world clairvoyant make check; `1 − doomed/Z` bounds `Q` from above | one line walk per world of the node |
 | 6 | proof state | `proof_state.rs` + frontier/refine/opening/residual/covers/laydown/extraction | append-only facts; survivors, verdict and certified regret `Γ = U* − B_exec` are DERIVED from them | container, not compute |
@@ -86,13 +86,13 @@ is the consolidation slice, after FH3 lands.
 |---|---|---|
 | reads per trick-4 decision, exact | 0.7M–10M | flat since Slice G; the ceiling is σ0 |
 | trick-3 exact | 289M reads, 14 min | one root; the wall |
-| `solver/` size | 36,076 lines, 35 modules | growing one module per intake; consolidation not yet started |
+| `solver/` size | 37,260 lines, 36 modules (after FH2) | growing one module per intake; consolidation not yet started |
 | peak memory, ladder | 662 MB at h3-t4; **19.4 GB at h8-t3**; the gate 17.8 GB | the cost that is growing fastest; a version-referenced policy store is the fix, not built ([[ladder-policy-store]]) |
 | gate wall (`check.sh`) | 308 s with FH3's anchors gate (230 s before it; ~15 min serial on 2026-09-04 morning) | fixed by concurrency + fixtures; corpus trimming still owed ([[gate-corpus-trim]]) |
 
 ## Next, in order
 
-FH2 ✓ (dc515ac) → FH3 ✓ (fc171e1) → independent audit → one PR
+FH2 ✓ (dc515ac) → FH3 ✓ (fc171e1) → audit ✓ (8aae7c7: one BLOCK, vocabulary, fixed; 13 NOTEs, 5 fixed, rest carded) → one PR
 → the σ0 read-key study (does its answer depend on the full record? if
 not, the cache key coarsens and every recursion gets 10–100× cheaper)
 → the consolidation slice. **No new mathematical parent until the

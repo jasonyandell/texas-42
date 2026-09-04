@@ -157,7 +157,11 @@ typed; nothing partial, no trivial upper installed as a fact (FH-A3).
    under σ0's content id; deliberate (FH-A4 identity).
 5. **Process.** The gate file and record were run in the background
    and the builder was never woken — the FH1 wedge that became
-   CLAUDE.md's "Agents" rule. Everything after that ran foreground.
+   CLAUDE.md's "Agents" rule. Timeline (CDT, 2026-09-04): 02:06 the
+   builder yielded with both jobs running; 02:08 the record finished;
+   02:11 the gate suite finished (10 passed); nothing happened until the
+   orchestrator's ping at about 07:15 (five hours); commit 07:31.
+   Everything after the ping ran foreground.
 
 ## FOR FH2/FH3
 

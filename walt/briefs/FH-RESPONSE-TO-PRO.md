@@ -86,8 +86,10 @@ facts under FH-int — stop at a read ceiling, resume to the byte-identical
 result, proof-state facts with re-priced witnesses, exact suffix reuse
 keyed by the full belief identity); and the report of record over 33
 (root, contract) coordinates at k ≤ 3 with your three anchors. Twenty-
-three gates, every §41 correctness failure named to a gate that would
-catch it, none fired.
+four gates after the audit; every §41 correctness failure is named to a
+gate that would catch it (the audit found the ladder's in-pass cap
+refusal was the one branch no gate exercised, and a gate was added);
+none fired. The audit's one block was a vocabulary slip, fixed.
 
 ## 3. What it measured
 
@@ -107,8 +109,8 @@ catch it, none fired.
   action.
 - **The finding that changes our direction: at k ≥ 1 the remaining
   width is the tail's policy gap, not the fusion price.** Per action,
-  `U − Q` is 0–3‰ once one focal layer is explicit; `Q − L` is 9–41‰
-  at trick 4 and 13–34‰ at trick 3. A better lawful tail buys more than
+  `U − Q` is 0–3‰ at trick 4 and 1–2‰ at trick 3 once one focal layer is explicit; `Q − L` is 9–41‰
+  at trick 4 and 12–33‰ at trick 3. A better lawful tail buys more than
   a deeper search, everywhere we measured.
 - **Costs, stated as findings.** Reads per horizon at the trick-3 root:
   27M / 74M / 70M / 20M with suffix reuse (190M for the exact answer

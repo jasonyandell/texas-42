@@ -14,6 +14,18 @@ policies by content id, the total policy is a derived view assembled on
 demand. Same facts, same views, same gates; memory should fall to the
 size of the distinct choice tables.
 
+## Audit finding (FH4 N8, 2026-09-04) — two sinks, measure before fixing
+
+At h3-t4 the fact store without the memo adds ~98 MB over the direct
+engine (509 − 411 MB) while the memo's `FactorBelief` clones add ~153 MB
+(662 − 509); at h8-t3 there are 3.55M receipts against 3.82M facts.
+Within one ladder a memo hit is exactly "a collapsed priced fact exists
+at this node with `completed_at < j`", so a `collapsed ⇒ return the
+fact` clause in the resume rule delivers the same hits with no clone;
+the full-belief key is needed only for cross-ladder consultation (SR2).
+Measure which sink dominates at h8-t3 first; the policy-table fix below
+may be the smaller one.
+
 ## Done when
 
 FH2's nine gates and FH3's anchors gate pass unchanged; the h8-t3
