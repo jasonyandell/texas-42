@@ -51,7 +51,11 @@ def collect(stream):
         if not exe or not msg.get("profile", {}).get("test"):
             continue
         target = msg["target"]
-        label = f"{msg['package_id'].split('#')[-1].split('@')[0]}::{target['name']}"
+        # package_id is "<source>#<name>@<version>" or, when the package is
+        # named after its directory, "<source>/<name>#<version>".
+        fragment = msg["package_id"].rsplit("#", 1)
+        package = fragment[1].split("@")[0] if "@" in fragment[1] else fragment[0].rstrip("/").rsplit("/", 1)[-1]
+        label = f"{package}::{target['name']}"
         seen[exe] = (label, os.path.dirname(msg["manifest_path"]))
     return seen
 
