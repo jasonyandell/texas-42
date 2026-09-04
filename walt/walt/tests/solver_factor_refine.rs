@@ -30,13 +30,18 @@
 //! declaration), upper epoch 0, evaluation epoch 1.
 
 mod common;
+#[path = "common/fixture.rs"]
+mod fixture;
+
+use std::collections::HashMap;
+use std::sync::LazyLock;
 
 use common::receipt;
 use num_rational::BigRational;
 use walt::kernel::Kernel;
 use walt::rules::receipt::Receipt;
 use walt::rules::rules::legal_plays;
-use walt::rules::DominoSet;
+use walt::rules::{Domino, DominoSet};
 use walt::solver::adaptive::{CanonicalRoot, RootPosition};
 use walt::solver::exposure::exact_root_value;
 use walt::solver::factor_belief::{
@@ -47,8 +52,8 @@ use walt::solver::field::{FieldKind, FieldModel, FieldSpec};
 use walt::solver::grammar::{CountPreservation, PolicyGrammar};
 use walt::solver::policy::{DecisionMode, TieRule};
 use walt::solver::refine::{
-    refine_root, LowerBound, ProofClass, RefineConfig, RefineResult, RefusalReason, TraceEvent,
-    UpperBound, WorkItem,
+    refine_root, LowerBound, ProofClass, RefineConfig, RefineOutcome, RefineResult, RefusalReason,
+    TraceEvent, UpperBound, WorkItem,
 };
 
 /// The gated roots of the Slice F epoch.
@@ -121,6 +126,140 @@ fn ample_two_tier() -> RefineConfig {
 }
 
 // ---------------------------------------------------------------------------
+// The recompute-once fixture (BRIEF-CI1): the expensive oracle values
+// every gate reads, computed once per test-binary process — the three
+// exact masses of the independent recursions per (gated root, action)
+// and the controller record per (ample configuration, gated root). A
+// derived view of the declared epoch, immutable after construction.
+// ---------------------------------------------------------------------------
+
+/// Per legal action of one gated root: `(action, fixed lowest-first
+/// mass, grammar mass, response mass)`.
+type RootMasses = Vec<(Domino, u128, u128, u128)>;
+
+struct Fixture {
+    masses: HashMap<(usize, usize), RootMasses>,
+    /// Keyed by the configuration's `prefix` — the one field that differs
+    /// between the two ample configurations; the stored configuration is
+    /// re-asserted on every read.
+    outcomes: HashMap<(u64, usize, usize), (RefineConfig, RefineOutcome)>,
+}
+
+enum Job {
+    Masses(usize, usize),
+    Outcome(RefineConfig, usize, usize),
+}
+
+enum Value {
+    Masses(RootMasses),
+    Outcome(Box<RefineOutcome>),
+}
+
+fn masses_at(r: &Receipt, hand_id: usize, trick_no: usize) -> RootMasses {
+    let oracle = SupportOracle;
+    let (root, position) = root_at(r, hand_id, trick_no);
+    let field = FieldModel::new(level0_spec());
+    let belief = FactorBelief::uniform_root(&root, &position, &field);
+    let low = walt::solver::adaptive::FixedPreference::lowest_first("focal:lowest-first");
+    let high = walt::solver::adaptive::FixedPreference::highest_first("focal:highest-first");
+    let count = CountPreservation::new();
+    let grammar = PolicyGrammar::new(vec![&low, &high, &count]);
+    let mut out = Vec::new();
+    for action in root_actions(&root, &position).iter() {
+        let child = belief.focal_play(action);
+        let mut vs = RecursionStats::default();
+        let fixed = viewer_success_mass(&oracle, &child, &low, &field, &mut vs);
+        let mut gs = ResponseStats::default();
+        let gmass = grammar_success_mass(&oracle, &child, &grammar, &field, &mut gs);
+        let mut rs = ResponseStats::default();
+        let response = response_success_mass(&oracle, &child, &field, &mut rs);
+        out.push((action, fixed, gmass, response));
+    }
+    out
+}
+
+fn build_fixture() -> Fixture {
+    let r = receipt();
+    // Heaviest first: the two-tier controller runs, then the exact-only
+    // runs, then the per-action recursions.
+    let mut jobs: Vec<Job> = Vec::new();
+    for cfg in [ample_two_tier(), ample_exact()] {
+        for (hand_id, trick_no) in GATED_ROOTS {
+            jobs.push(Job::Outcome(cfg.clone(), hand_id, trick_no));
+        }
+    }
+    for (hand_id, trick_no) in GATED_ROOTS {
+        jobs.push(Job::Masses(hand_id, trick_no));
+    }
+    let values = fixture::compute_all(&jobs, |job| match job {
+        Job::Masses(hand_id, trick_no) => Value::Masses(masses_at(&r, *hand_id, *trick_no)),
+        Job::Outcome(cfg, hand_id, trick_no) => {
+            let (root, position) = root_at(&r, *hand_id, *trick_no);
+            let spec = level0_spec();
+            Value::Outcome(Box::new(refine_root(
+                &root,
+                &position,
+                &spec,
+                &SupportOracle,
+                cfg,
+            )))
+        }
+    });
+    let mut fixture = Fixture {
+        masses: HashMap::new(),
+        outcomes: HashMap::new(),
+    };
+    for (job, value) in jobs.into_iter().zip(values) {
+        match (job, value) {
+            (Job::Masses(hand_id, trick_no), Value::Masses(m)) => {
+                fixture.masses.insert((hand_id, trick_no), m);
+            }
+            (Job::Outcome(cfg, hand_id, trick_no), Value::Outcome(o)) => {
+                fixture
+                    .outcomes
+                    .insert((cfg.prefix, hand_id, trick_no), (cfg, *o));
+            }
+            _ => unreachable!("a job's value is of the job's kind"),
+        }
+    }
+    fixture
+}
+
+static FIXTURE: LazyLock<Fixture> = LazyLock::new(build_fixture);
+
+/// `(fixed lowest-first, grammar, response)` exact masses at one gated
+/// root action, from the independent recursions.
+fn masses(hand_id: usize, trick_no: usize, action: Domino) -> (u128, u128, u128) {
+    FIXTURE
+        .masses
+        .get(&(hand_id, trick_no))
+        .unwrap_or_else(|| panic!("the fixture holds no masses at h{hand_id}-t{trick_no}"))
+        .iter()
+        .find(|(a, _, _, _)| *a == action)
+        .map(|(_, fixed, gmass, response)| (*fixed, *gmass, *response))
+        .unwrap_or_else(|| panic!("the fixture holds no masses at h{hand_id}-t{trick_no} {action}"))
+}
+
+/// The controller record at one ample configuration and gated root.
+fn refined(cfg: &RefineConfig, hand_id: usize, trick_no: usize) -> &'static RefineOutcome {
+    let (stored, outcome) = FIXTURE
+        .outcomes
+        .get(&(cfg.prefix, hand_id, trick_no))
+        .unwrap_or_else(|| {
+            panic!(
+                "the fixture holds no controller run at h{hand_id}-t{trick_no} prefix={}",
+                cfg.prefix
+            )
+        });
+    assert_eq!(
+        format!("{stored:?}"),
+        format!("{cfg:?}"),
+        "the fixture's run is under this configuration"
+    );
+    outcome
+}
+
+// ---------------------------------------------------------------------------
 // Gate 1 — the C→G capstone: escalation parity with the bundled exact
 // authority, and the containment chain.
 // ---------------------------------------------------------------------------
@@ -136,21 +275,11 @@ fn escalation_matches_the_bundled_exact_authority() {
         let belief = FactorBelief::uniform_root(&root, &position, &field_factor);
         let z = oracle.mass(&belief);
 
-        let low = walt::solver::adaptive::FixedPreference::lowest_first("focal:lowest-first");
-        let high = walt::solver::adaptive::FixedPreference::highest_first("focal:highest-first");
-        let count = CountPreservation::new();
-        let grammar = PolicyGrammar::new(vec![&low, &high, &count]);
-
         for action in root_actions(&root, &position).iter() {
             let child = belief.focal_play(action);
             assert_eq!(oracle.mass(&child), z, "a focal play changes no factor");
 
-            let mut rs = ResponseStats::default();
-            let response = response_success_mass(&oracle, &child, &field_factor, &mut rs);
-            let mut vs = RecursionStats::default();
-            let fixed = viewer_success_mass(&oracle, &child, &low, &field_factor, &mut vs);
-            let mut gs = ResponseStats::default();
-            let gmass = grammar_success_mass(&oracle, &child, &grammar, &field_factor, &mut gs);
+            let (fixed, gmass, response) = masses(hand_id, trick_no, action);
 
             // Containment: a policy is a one-policy grammar, a grammar
             // is a restriction of the full action set.
@@ -186,8 +315,7 @@ fn the_controller_narrows_monotonically_and_soundly() {
     for cfg in [ample_exact(), ample_two_tier()] {
         for (hand_id, trick_no) in GATED_ROOTS {
             let (root, position) = root_at(&r, hand_id, trick_no);
-            let spec = level0_spec();
-            let outcome = refine_root(&root, &position, &spec, &oracle, &cfg);
+            let outcome = refined(&cfg, hand_id, trick_no);
             let label = format!("h{hand_id}-t{trick_no} prefix={}", cfg.prefix);
 
             // The trace walk: monotone bounds per Ran event, monotone
@@ -255,36 +383,26 @@ fn the_controller_narrows_monotonically_and_soundly() {
             let field_check = FieldModel::new(level0_spec());
             let belief = FactorBelief::uniform_root(&root, &position, &field_check);
             let z = oracle.mass(&belief);
-            let low = walt::solver::adaptive::FixedPreference::lowest_first("focal:lowest-first");
-            let high =
-                walt::solver::adaptive::FixedPreference::highest_first("focal:highest-first");
-            let count = CountPreservation::new();
-            let grammar = PolicyGrammar::new(vec![&low, &high, &count]);
             for interval in &outcome.intervals {
                 assert_eq!(interval.z, z, "the shared root mass ({label})");
-                let child = belief.focal_play(interval.action);
+                let (fixed, gmass, response) = masses(hand_id, trick_no, interval.action);
                 match &interval.lower {
                     LowerBound::ExactPolicy { mass, .. } => {
-                        let mut s = RecursionStats::default();
-                        let m = viewer_success_mass(&oracle, &child, &low, &field_check, &mut s);
+                        let m = fixed;
                         assert_eq!(*mass, m, "the fixed-policy mass reproduces ({label})");
                     }
                     LowerBound::ExactGrammar { mass, .. } => {
-                        let mut s = ResponseStats::default();
-                        let m =
-                            grammar_success_mass(&oracle, &child, &grammar, &field_check, &mut s);
+                        let m = gmass;
                         assert_eq!(*mass, m, "the grammar mass reproduces ({label})");
                     }
                     LowerBound::ExactResponse { mass } => {
-                        let mut s = ResponseStats::default();
-                        let m = response_success_mass(&oracle, &child, &field_check, &mut s);
+                        let m = response;
                         assert_eq!(*mass, m, "the response mass reproduces ({label})");
                     }
                     LowerBound::Vacuous | LowerBound::Sampled(_) => {}
                 }
                 if let UpperBound::ExactResponse { mass } = &interval.upper {
-                    let mut s = ResponseStats::default();
-                    let m = response_success_mass(&oracle, &child, &field_check, &mut s);
+                    let m = response;
                     assert_eq!(*mass, m, "the point upper reproduces ({label})");
                 }
             }
@@ -348,7 +466,7 @@ fn steering_refuses_presently_useless_work_deterministically() {
     for (hand_id, trick_no) in GATED_ROOTS {
         let (root, position) = root_at(&r, hand_id, trick_no);
         let spec = level0_spec();
-        let outcome = refine_root(&root, &position, &spec, &oracle, &cfg);
+        let outcome = refined(&cfg, hand_id, trick_no);
         let label = format!("h{hand_id}-t{trick_no}");
 
         // The consequence census is refused as presently useless at
@@ -410,7 +528,8 @@ fn steering_refuses_presently_useless_work_deterministically() {
             "refusals charge nothing ({label})"
         );
 
-        // Determinism: a run is a pure function of its inputs.
+        // Determinism: a run is a pure function of its inputs — one fresh
+        // run against the fixture's.
         let again = refine_root(&root, &position, &spec, &oracle, &cfg);
         assert_eq!(
             format!("{:?}", outcome),

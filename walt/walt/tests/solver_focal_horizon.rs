@@ -47,8 +47,12 @@
 //!
 //! EXPLORATORY tier throughout.
 
+#[path = "common/fixture.rs"]
+mod fixture;
+
+use std::cmp::Reverse;
 use std::collections::{BTreeMap, HashMap};
-use std::sync::{Arc, Mutex, OnceLock};
+use std::sync::{Arc, LazyLock};
 
 use num_bigint::BigInt;
 use num_rational::BigRational;
@@ -58,7 +62,7 @@ use walt::rules::{legal_plays, Domino, DominoSet, Seat, Trick};
 use walt::solver::adaptive::{
     decided_success, CanonicalRoot, FixedPreference, PublicRecord, RootPosition, SlicePolicy,
 };
-use walt::solver::doom::{doom_enumeration, DoomSpec};
+use walt::solver::doom::{doom_enumeration, DoomEnumeration, DoomSpec};
 use walt::solver::factor_belief::{
     response_success_mass, viewer_success_mass, ExactCoverOracle, FactorBelief, RecursionStats,
     ResponseStats, SupportOracle,
@@ -68,7 +72,7 @@ use walt::solver::focal_horizon::{
     focal_depth, focal_horizon, FocalHorizonResult, FocalRefusal, FocalSpec, FocalVerdict,
 };
 use walt::solver::godgap::legal_actions;
-use walt::solver::horizon::{horizon_census, with_contract, HorizonSpec};
+use walt::solver::horizon::{horizon_census, with_contract, HorizonCensus, HorizonSpec};
 use walt::solver::policy::{DecisionMode, TieRule};
 
 fn field_spec() -> FieldSpec {
@@ -123,86 +127,452 @@ fn lowest() -> FixedPreference {
 }
 
 type Key = (usize, usize, u32, usize, Tail);
-type Slot<T> = Arc<OnceLock<Arc<T>>>;
 type QKey = (usize, usize, u32);
 type QTable = Vec<(Domino, u128)>;
-type Memo<K, T> = Mutex<HashMap<K, Slot<T>>>;
 
-/// A memo shared by every gate of this binary: one slot per key, filled
-/// once even under concurrent first requests (the slot's `OnceLock`
-/// blocks the second requester rather than recomputing).
-fn memo<K: Copy + Eq + std::hash::Hash, T>(
-    map: &Mutex<HashMap<K, Slot<T>>>,
-    key: K,
-    compute: impl FnOnce() -> T,
-) -> Arc<T> {
-    let slot = map.lock().expect("memo").entry(key).or_default().clone();
-    slot.get_or_init(|| Arc::new(compute())).clone()
+// ---------------------------------------------------------------------------
+// The recompute-once fixture (BRIEF-CI1): every expensive value the gates
+// of this binary read, computed once per test-binary process — the engine
+// per (root, contract, k, tail) under the ample cap, the exact `Q_a` per
+// (root, contract), FH1b's record-parity censuses per (root, contract,
+// cut), FH1's independent endpoints per (root, contract, action), FH3's
+// independent depth walk per (root, contract, action) and FH5's replays
+// per engine coordinate. A derived view of the declared
+// epoch, immutable after construction; a key the fixture lacks is a
+// plumbing error, never a silent recomputation. FH-D's and FH-R's fresh
+// engine runs stay fresh.
+// ---------------------------------------------------------------------------
+
+/// FH1's independent endpoints at one root action: the σ0 and
+/// lowest-first `viewer_success_mass` lowers and `doom_enumeration`'s
+/// per-world truth.
+struct Endpoint {
+    action: Domino,
+    l_sigma: u128,
+    l_low: u128,
+    doom: DoomEnumeration,
 }
 
-fn cache() -> &'static Memo<Key, FocalHorizonResult> {
-    static CACHE: OnceLock<Memo<Key, FocalHorizonResult>> = OnceLock::new();
-    CACHE.get_or_init(|| Mutex::new(HashMap::new()))
+/// FH5's replays at one engine coordinate: `π_k` through
+/// `viewer_success_mass` at the root and at every root child.
+struct Replay {
+    root: u128,
+    per_action: Vec<(Domino, u128)>,
 }
 
-/// The engine at one coordinate under the ample cap, memoized across the
-/// gates of this binary (an affordable root completes; a refusal here is
-/// a gate failure).
-fn fh(
+struct Fixture {
+    engine: HashMap<Key, Arc<FocalHorizonResult>>,
+    exact_q: HashMap<QKey, Arc<QTable>>,
+    censuses: HashMap<(usize, usize, u32, usize), HorizonCensus>,
+    endpoints: HashMap<QKey, Vec<Endpoint>>,
+    depths: HashMap<(usize, usize, u32, Domino), usize>,
+    replays: HashMap<Key, Replay>,
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum Job {
+    Engine(Key),
+    Q(QKey),
+    Census(usize, usize, u32, usize),
+    Endpoints(QKey),
+    Depth(QKey, Domino),
+}
+
+enum Value {
+    Engine(Arc<FocalHorizonResult>),
+    Q(QTable),
+    Census(HorizonCensus),
+    Endpoints(Vec<Endpoint>),
+    Depth(usize),
+}
+
+/// The engine at one coordinate under the ample cap (an affordable root
+/// completes; a refusal here is a gate failure).
+fn engine_at(
     r: &Receipt,
     hand_id: usize,
     trick_no: usize,
     contract: u32,
     k: usize,
     tail: Tail,
-) -> Arc<FocalHorizonResult> {
-    memo(cache(), (hand_id, trick_no, contract, k, tail), || {
-        let (root, position) = root_at(r, hand_id, trick_no);
-        let position = with_contract(&position, contract);
-        let oracle = SupportOracle;
-        let field = FieldModel::new(field_spec());
-        let low = lowest();
-        let tail_policy: &dyn SlicePolicy = match tail {
-            Tail::Sigma0 => &field,
-            Tail::Lowest => &low,
-        };
-        let spec = FocalSpec {
-            horizon: k,
-            node_fiber_cap: AMPLE_CAP,
-        };
-        focal_horizon(&oracle, &root, &position, tail_policy, &field, &spec)
-            .unwrap_or_else(|e| panic!("an affordable root completes under the ample cap: {e:?}"))
-    })
+) -> FocalHorizonResult {
+    let (root, position) = root_at(r, hand_id, trick_no);
+    let position = with_contract(&position, contract);
+    let oracle = SupportOracle;
+    let field = FieldModel::new(field_spec());
+    let low = lowest();
+    let tail_policy: &dyn SlicePolicy = match tail {
+        Tail::Sigma0 => &field,
+        Tail::Lowest => &low,
+    };
+    let spec = FocalSpec {
+        horizon: k,
+        node_fiber_cap: AMPLE_CAP,
+    };
+    focal_horizon(&oracle, &root, &position, tail_policy, &field, &spec)
+        .unwrap_or_else(|e| panic!("an affordable root completes under the ample cap: {e:?}"))
 }
 
-fn q_cache() -> &'static Memo<QKey, QTable> {
-    static CACHE: OnceLock<Memo<QKey, QTable>> = OnceLock::new();
-    CACHE.get_or_init(|| Mutex::new(HashMap::new()))
+/// The exact `Q_a` per root action by `response_success_mass`.
+fn exact_q_at(r: &Receipt, hand_id: usize, trick_no: usize, contract: u32) -> QTable {
+    let (root, position) = root_at(r, hand_id, trick_no);
+    let position = with_contract(&position, contract);
+    let oracle = SupportOracle;
+    let field = FieldModel::new(field_spec());
+    let belief = FactorBelief::uniform_root(&root, &position, &field);
+    let mut out = Vec::new();
+    for a in legal_actions(&root, &position) {
+        let mut rs = ResponseStats::default();
+        out.push((
+            a,
+            response_success_mass(&oracle, &belief.focal_play(a), &field, &mut rs),
+        ));
+    }
+    out
 }
 
-/// The exact `Q_a` per root action by `response_success_mass`, memoized.
-fn exact_q(
+fn census_at(
     r: &Receipt,
     hand_id: usize,
     trick_no: usize,
     contract: u32,
-) -> Arc<Vec<(Domino, u128)>> {
-    memo(q_cache(), (hand_id, trick_no, contract), || {
+    cut: usize,
+) -> HorizonCensus {
+    let (root, position) = root_at(r, hand_id, trick_no);
+    let position = with_contract(&position, contract);
+    let oracle = SupportOracle;
+    let field = FieldModel::new(field_spec());
+    horizon_census(
+        &oracle,
+        &root,
+        &position,
+        &field,
+        &HorizonSpec {
+            cut_plays: cut,
+            node_fiber_cap: AMPLE_CAP,
+        },
+    )
+}
+
+fn endpoints_at(r: &Receipt, hand_id: usize, trick_no: usize, contract: u32) -> Vec<Endpoint> {
+    let dspec = DoomSpec {
+        node_budget: 100_000_000,
+        walk_cap: 10_000_000,
+        max_level: 3,
+        critical: DominoSet::EMPTY,
+        descend_top: None,
+    };
+    let (root, position) = root_at(r, hand_id, trick_no);
+    let position = with_contract(&position, contract);
+    let oracle = SupportOracle;
+    let field = FieldModel::new(field_spec());
+    let low = lowest();
+    let belief = FactorBelief::uniform_root(&root, &position, &field);
+    let mut out = Vec::new();
+    for a in legal_actions(&root, &position) {
+        let child = belief.focal_play(a);
+        let mut rs = RecursionStats::default();
+        let l_sigma = viewer_success_mass(&oracle, &child, &field, &field, &mut rs);
+        let mut rs = RecursionStats::default();
+        let l_low = viewer_success_mass(&oracle, &child, &low, &field, &mut rs);
+        let mut progress = |_: u64, _: u64, _: u128, _: u64| {};
+        let doom = doom_enumeration(&oracle, &root, &position, &field, a, &dspec, &mut progress);
+        out.push(Endpoint {
+            action: a,
+            l_sigma,
+            l_low,
+            doom,
+        });
+    }
+    out
+}
+
+/// FH3's independent depth walk after one root action.
+fn depth_at(r: &Receipt, hand_id: usize, trick_no: usize, contract: u32, action: Domino) -> usize {
+    let (root, position) = root_at(r, hand_id, trick_no);
+    let position = with_contract(&position, contract);
+    let oracle = SupportOracle;
+    let field = FieldModel::new(field_spec());
+    let belief = FactorBelief::uniform_root(&root, &position, &field);
+    focal_depth(&oracle, &belief.focal_play(action), &field)
+}
+
+fn replay_at(r: &Receipt, key: Key, res: &FocalHorizonResult) -> Replay {
+    let (hand_id, trick_no, contract, _, tail) = key;
+    let (root, position) = root_at(r, hand_id, trick_no);
+    let position = with_contract(&position, contract);
+    let oracle = SupportOracle;
+    let field = FieldModel::new(field_spec());
+    let low = lowest();
+    let tail_policy: &dyn SlicePolicy = match tail {
+        Tail::Sigma0 => &field,
+        Tail::Lowest => &low,
+    };
+    let belief = FactorBelief::uniform_root(&root, &position, &field);
+    let pi_k = res.policy.with_tail(tail_policy);
+    let mut rs = RecursionStats::default();
+    let root_value = viewer_success_mass(&oracle, &belief, &pi_k, &field, &mut rs);
+    let mut per_action = Vec::new();
+    for i in &res.actions {
+        let mut rs = RecursionStats::default();
+        let v = viewer_success_mass(
+            &oracle,
+            &belief.focal_play(i.action),
+            &pi_k,
+            &field,
+            &mut rs,
+        );
+        per_action.push((i.action, v));
+    }
+    Replay {
+        root: root_value,
+        per_action,
+    }
+}
+
+/// The core engine coordinates: every root and contract, both tails,
+/// k ∈ {0, 1, 2} (FH2, FH4, FH5).
+fn core_keys(r: &Receipt) -> Vec<Key> {
+    let mut keys = Vec::new();
+    for (hand_id, trick_no) in corpus() {
+        let (_, base) = root_at(r, hand_id, trick_no);
+        for contract in contracts(&base) {
+            for tail in TAILS {
+                for k in [0usize, 1, 2] {
+                    keys.push((hand_id, trick_no, contract, k, tail));
+                }
+            }
+        }
+    }
+    keys
+}
+
+/// Every key the gates read, heaviest first.
+fn fixture_jobs(r: &Receipt) -> Vec<Job> {
+    let mut jobs: Vec<Job> = Vec::new();
+    let mut push = |job: Job| {
+        if !jobs.contains(&job) {
+            jobs.push(job);
+        }
+    };
+    for key in core_keys(r) {
+        push(Job::Engine(key));
+    }
+    for (hand_id, trick_no) in corpus() {
+        let (root, base) = root_at(r, hand_id, trick_no);
+        let h_f = 7 - trick_no;
+        for contract in contracts(&base) {
+            push(Job::Q((hand_id, trick_no, contract)));
+            push(Job::Endpoints((hand_id, trick_no, contract)));
+            for a in legal_actions(&root, &with_contract(&base, contract)) {
+                push(Job::Depth((hand_id, trick_no, contract), a));
+            }
+            // FH3's coordinates at k = h_f (trick-4 roots under σ0 only)
+            // and one beyond it (trick-5 roots, both tails).
+            if trick_no == 4 {
+                push(Job::Engine((
+                    hand_id,
+                    trick_no,
+                    contract,
+                    h_f,
+                    Tail::Sigma0,
+                )));
+            }
+            if trick_no == 5 {
+                for tail in TAILS {
+                    push(Job::Engine((hand_id, trick_no, contract, h_f + 1, tail)));
+                }
+            }
+        }
+    }
+    // FH1b's record-parity censuses on the viewer-lead trick-4 roots.
+    for (hand_id, trick_no) in [(3usize, 4usize), (4, 4), (8, 4)] {
+        let (_, base) = root_at(r, hand_id, trick_no);
+        for contract in contracts(&base) {
+            for cut in [4usize, 8] {
+                push(Job::Census(hand_id, trick_no, contract, cut));
+            }
+        }
+    }
+    // The anchors at contracts outside a root's own pair (FH1b, FH6, FH-A8).
+    for contract in [36u32, 39] {
+        push(Job::Q((8, 4, contract)));
+        for tail in TAILS {
+            for k in [0usize, 1, 2] {
+                push(Job::Engine((8, 4, contract, k, tail)));
+            }
+        }
+    }
+    push(Job::Engine((4, 4, 39, 0, Tail::Sigma0)));
+    // Heaviest first — the largest root fibers, then the kinds measured
+    // costliest at one root (the deep-horizon engines and the cut-8
+    // censuses) — so the makespan approaches the longest single job.
+    let mut fiber: HashMap<(usize, usize), u128> = HashMap::new();
+    for (hand_id, trick_no) in corpus() {
         let (root, position) = root_at(r, hand_id, trick_no);
-        let position = with_contract(&position, contract);
-        let oracle = SupportOracle;
         let field = FieldModel::new(field_spec());
         let belief = FactorBelief::uniform_root(&root, &position, &field);
-        let mut out = Vec::new();
-        for a in legal_actions(&root, &position) {
-            let mut rs = ResponseStats::default();
-            out.push((
-                a,
-                response_success_mass(&oracle, &belief.focal_play(a), &field, &mut rs),
-            ));
+        fiber.insert((hand_id, trick_no), SupportOracle.mass(&belief));
+    }
+    let root_of = |job: &Job| match *job {
+        Job::Engine((hand_id, trick_no, ..)) => (hand_id, trick_no),
+        Job::Census(hand_id, trick_no, ..) => (hand_id, trick_no),
+        Job::Endpoints((hand_id, trick_no, _)) | Job::Q((hand_id, trick_no, _)) => {
+            (hand_id, trick_no)
         }
-        out
-    })
+        Job::Depth((hand_id, trick_no, _), _) => (hand_id, trick_no),
+    };
+    let kind = |job: &Job| match *job {
+        Job::Engine((.., k, _)) if k >= 2 => 30,
+        Job::Engine((.., 1, _)) | Job::Census(.., 8) => 25,
+        Job::Q(_) | Job::Census(..) => 20,
+        Job::Endpoints(_) | Job::Engine(_) => 15,
+        Job::Depth(..) => 5,
+    };
+    jobs.sort_by_key(|job| (Reverse(fiber[&root_of(job)]), Reverse(kind(job))));
+    jobs
+}
+
+fn build_fixture() -> Fixture {
+    let r = receipt();
+    let jobs = fixture_jobs(&r);
+    let values = fixture::compute_all(&jobs, |job| match *job {
+        Job::Engine((hand_id, trick_no, contract, k, tail)) => Value::Engine(Arc::new(engine_at(
+            &r, hand_id, trick_no, contract, k, tail,
+        ))),
+        Job::Q((hand_id, trick_no, contract)) => {
+            Value::Q(exact_q_at(&r, hand_id, trick_no, contract))
+        }
+        Job::Census(hand_id, trick_no, contract, cut) => {
+            Value::Census(census_at(&r, hand_id, trick_no, contract, cut))
+        }
+        Job::Endpoints((hand_id, trick_no, contract)) => {
+            Value::Endpoints(endpoints_at(&r, hand_id, trick_no, contract))
+        }
+        Job::Depth((hand_id, trick_no, contract), action) => {
+            Value::Depth(depth_at(&r, hand_id, trick_no, contract, action))
+        }
+    });
+    let mut fixture = Fixture {
+        engine: HashMap::new(),
+        exact_q: HashMap::new(),
+        censuses: HashMap::new(),
+        endpoints: HashMap::new(),
+        depths: HashMap::new(),
+        replays: HashMap::new(),
+    };
+    for (job, value) in jobs.into_iter().zip(values) {
+        match (job, value) {
+            (Job::Engine(key), Value::Engine(res)) => {
+                fixture.engine.insert(key, res);
+            }
+            (Job::Q(key), Value::Q(q)) => {
+                fixture.exact_q.insert(key, Arc::new(q));
+            }
+            (Job::Census(hand_id, trick_no, contract, cut), Value::Census(c)) => {
+                fixture
+                    .censuses
+                    .insert((hand_id, trick_no, contract, cut), c);
+            }
+            (Job::Endpoints(key), Value::Endpoints(e)) => {
+                fixture.endpoints.insert(key, e);
+            }
+            (Job::Depth((hand_id, trick_no, contract), action), Value::Depth(d)) => {
+                fixture
+                    .depths
+                    .insert((hand_id, trick_no, contract, action), d);
+            }
+            _ => unreachable!("a job's value is of the job's kind"),
+        }
+    }
+    // The replays read the engine's policies, so they follow.
+    let keys = core_keys(&r);
+    let replays = fixture::compute_all(&keys, |key| replay_at(&r, *key, &fixture.engine[key]));
+    for (key, replay) in keys.into_iter().zip(replays) {
+        fixture.replays.insert(key, replay);
+    }
+    fixture
+}
+
+static FIXTURE: LazyLock<Fixture> = LazyLock::new(build_fixture);
+
+/// The engine at one coordinate under the ample cap.
+fn fh(
+    _r: &Receipt,
+    hand_id: usize,
+    trick_no: usize,
+    contract: u32,
+    k: usize,
+    tail: Tail,
+) -> Arc<FocalHorizonResult> {
+    FIXTURE
+        .engine
+        .get(&(hand_id, trick_no, contract, k, tail))
+        .cloned()
+        .unwrap_or_else(|| {
+            panic!(
+                "the fixture holds no engine result at h{hand_id}-t{trick_no} {contract} k={k} {tail:?}"
+            )
+        })
+}
+
+/// The exact `Q_a` per root action by `response_success_mass`.
+fn exact_q(
+    _r: &Receipt,
+    hand_id: usize,
+    trick_no: usize,
+    contract: u32,
+) -> Arc<Vec<(Domino, u128)>> {
+    FIXTURE
+        .exact_q
+        .get(&(hand_id, trick_no, contract))
+        .cloned()
+        .unwrap_or_else(|| {
+            panic!("the fixture holds no exact Q at h{hand_id}-t{trick_no} {contract}")
+        })
+}
+
+/// The census at one trick-4 root, contract and cut under the ample cap.
+fn census(hand_id: usize, trick_no: usize, contract: u32, cut: usize) -> &'static HorizonCensus {
+    FIXTURE
+        .censuses
+        .get(&(hand_id, trick_no, contract, cut))
+        .unwrap_or_else(|| {
+            panic!("the fixture holds no census at h{hand_id}-t{trick_no} {contract} cut {cut}")
+        })
+}
+
+/// FH1's independent endpoints at one root action.
+fn endpoint(hand_id: usize, trick_no: usize, contract: u32, action: Domino) -> &'static Endpoint {
+    FIXTURE
+        .endpoints
+        .get(&(hand_id, trick_no, contract))
+        .and_then(|e| e.iter().find(|e| e.action == action))
+        .unwrap_or_else(|| {
+            panic!("the fixture holds no endpoints at h{hand_id}-t{trick_no} {contract} {action}")
+        })
+}
+
+/// FH3's independent depth walk after one root action.
+fn depth(hand_id: usize, trick_no: usize, contract: u32, action: Domino) -> usize {
+    *FIXTURE
+        .depths
+        .get(&(hand_id, trick_no, contract, action))
+        .unwrap_or_else(|| {
+            panic!("the fixture holds no depth at h{hand_id}-t{trick_no} {contract} {action}")
+        })
+}
+
+/// FH5's replays at one engine coordinate.
+fn replay(hand_id: usize, trick_no: usize, contract: u32, k: usize, tail: Tail) -> &'static Replay {
+    FIXTURE
+        .replays
+        .get(&(hand_id, trick_no, contract, k, tail))
+        .unwrap_or_else(|| {
+            panic!(
+                "the fixture holds no replay at h{hand_id}-t{trick_no} {contract} k={k} {tail:?}"
+            )
+        })
 }
 
 /// A tile by its printed name.
@@ -240,13 +610,6 @@ fn ratio(m: u128, z: u128) -> BigRational {
 fn fh1_endpoint_parity_with_the_independent_tails() {
     let r = receipt();
     let oracle = SupportOracle;
-    let dspec = DoomSpec {
-        node_budget: 100_000_000,
-        walk_cap: 10_000_000,
-        max_level: 3,
-        critical: DominoSet::EMPTY,
-        descend_top: None,
-    };
     let mut coordinates = 0usize;
     for (hand_id, trick_no) in corpus() {
         let (root, base) = root_at(&r, hand_id, trick_no);
@@ -263,14 +626,8 @@ fn fh1_endpoint_parity_with_the_independent_tails() {
             assert_eq!(lf.identity.tail_id, low.id());
             assert_eq!(s0.identity.horizon, 0);
             for a in legal_actions(&root, &position) {
-                let child = belief.focal_play(a);
-                let mut rs = RecursionStats::default();
-                let l_sigma = viewer_success_mass(&oracle, &child, &field, &field, &mut rs);
-                let mut rs = RecursionStats::default();
-                let l_low = viewer_success_mass(&oracle, &child, &low, &field, &mut rs);
-                let mut progress = |_: u64, _: u64, _: u128, _: u64| {};
-                let e =
-                    doom_enumeration(&oracle, &root, &position, &field, a, &dspec, &mut progress);
+                let endpoint = endpoint(hand_id, trick_no, contract, a);
+                let (l_sigma, l_low, e) = (endpoint.l_sigma, endpoint.l_low, &endpoint.doom);
                 assert_eq!(e.fiber, z);
                 let i_s = s0.interval(a).expect("every root action has an interval");
                 let i_l = lf.interval(a).expect("every root action has an interval");
@@ -304,26 +661,14 @@ fn fh1_endpoint_parity_with_the_independent_tails() {
 #[test]
 fn fh1b_record_parity_cut4_is_u0_and_cut8_is_u1() {
     let r = receipt();
-    let oracle = SupportOracle;
     let mut checked = 0usize;
     for (hand_id, trick_no) in [(3usize, 4usize), (4, 4), (8, 4)] {
-        let (root, base) = root_at(&r, hand_id, trick_no);
+        let (_, base) = root_at(&r, hand_id, trick_no);
         for contract in contracts(&base) {
-            let position = with_contract(&base, contract);
-            let field = FieldModel::new(field_spec());
             let u0 = fh(&r, hand_id, trick_no, contract, 0, Tail::Sigma0);
             let u1 = fh(&r, hand_id, trick_no, contract, 1, Tail::Sigma0);
             for (cut, res) in [(4usize, &u0), (8usize, &u1)] {
-                let c = horizon_census(
-                    &oracle,
-                    &root,
-                    &position,
-                    &field,
-                    &HorizonSpec {
-                        cut_plays: cut,
-                        node_fiber_cap: AMPLE_CAP,
-                    },
-                );
+                let c = census(hand_id, trick_no, contract, cut);
                 assert_eq!(c.refused(), 0);
                 for a in &c.actions {
                     let i = res.interval(a.action).expect("interval");
@@ -465,8 +810,7 @@ fn fh3_exact_collapse_one_layer_before_the_forced_trick() {
             // (a) the independent depth walk.
             let mut max_depth = 0usize;
             for a in legal_actions(&root, &position) {
-                let child = belief.focal_play(a);
-                let d = focal_depth(&oracle, &child, &field);
+                let d = depth(hand_id, trick_no, contract, a);
                 assert!(
                     d <= h_f_root_child,
                     "FH3: h_f after the root action ≤ 7 − T (h{hand_id}-t{trick_no} {contract} {a}: {d})"
@@ -683,8 +1027,8 @@ fn fh5_executable_lower_witness_and_off_dag_tail() {
                     let res = fh(&r, hand_id, trick_no, contract, k, tail);
                     let pi_k = res.policy.with_tail(tail_policy);
                     assert_eq!(pi_k.id(), res.policy.id());
-                    let mut rs = RecursionStats::default();
-                    let v_root = viewer_success_mass(&oracle, &belief, &pi_k, &field, &mut rs);
+                    let replayed = replay(hand_id, trick_no, contract, k, tail);
+                    let v_root = replayed.root;
                     assert_eq!(
                         v_root, res.bar_mass,
                         "FH5: V(π_k) at the root IS B_k (h{hand_id}-t{trick_no} {contract} {tail:?} k={k})"
@@ -698,14 +1042,7 @@ fn fh5_executable_lower_witness_and_off_dag_tail() {
                         "FH5: π_k plays a bar action"
                     );
                     for i in &res.actions {
-                        let mut rs = RecursionStats::default();
-                        let v = viewer_success_mass(
-                            &oracle,
-                            &belief.focal_play(i.action),
-                            &pi_k,
-                            &field,
-                            &mut rs,
-                        );
+                        let v = q_of(&replayed.per_action, i.action);
                         assert_eq!(
                             v, i.lower_mass,
                             "FH5: V(π_k) at every root child IS L_{{a,k}} (h{hand_id}-t{trick_no} {contract} {tail:?} k={k} {})",
@@ -1120,8 +1457,9 @@ fn fh_d_two_runs_render_identically() {
         horizon: 1,
         node_fiber_cap: AMPLE_CAP,
     };
+    // One fresh run against the fixture's.
     let a = focal_horizon(&oracle, &root, &position, &field, &field, &spec).expect("completes");
-    let b = focal_horizon(&oracle, &root, &position, &field, &field, &spec).expect("completes");
+    let b = fh(&r, 3, 4, position.bid, 1, Tail::Sigma0).as_ref().clone();
     assert_eq!(a, b, "FH-D: deterministic");
     assert_eq!(format!("{a:?}"), format!("{b:?}"));
     assert_eq!(a.policy.id(), b.policy.id());
