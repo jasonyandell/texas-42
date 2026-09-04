@@ -35,6 +35,12 @@ Binding work assignments live in `rob/BRIEF*.md`.
   equality/hashing/serialization through projected state only.
 - No floats anywhere near ranks or probabilities — exact integers and rationals
   (clippy denies `float_arithmetic`; a grep denies `f32`/`f64` mentions).
+- Gates are sized to their laws, not to a census: one coordinate per law plus a
+  PINNED strictness witness; a corpus sweep belongs in a probe record. Expensive
+  oracle values a suite needs in several gates (exact `Q_a`, a census) are
+  computed once in a shared fixture and read by every gate — independence is
+  between code paths, never between recomputations. Suites still sized like
+  censuses are tracked at [[gate-corpus-trim]]; trim one when you touch it.
 - Every exhaustive count in the spec is a CI assertion; receipts under
   `rob/receipts/` are byte-diffed in CI — regenerate via the verify binaries, never
   hand-edit.
