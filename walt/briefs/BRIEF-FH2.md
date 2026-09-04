@@ -149,6 +149,15 @@ new fact counts, suffix hits, and the derived root views. Commit
 at the receipt contract with a pinned ceiling schedule (say the schedule
 in the record header).
 
+## Report format (Jason, 2026-09-04)
+
+The report of record opens with ONE section titled **"What this means
+and what it cost"** — one paragraph a reader can act on without the
+mathematics: what changed in what walt can do, the decision-relevant
+numbers, and the cost (reads, wall, gate seconds) — then the record as
+before. Cost trends are FINDINGS, not footnotes: if anything got slower
+or bigger than its predecessor, say so at the top.
+
 ## Discipline
 
 - **Never end a turn with background work pending** (CLAUDE.md,

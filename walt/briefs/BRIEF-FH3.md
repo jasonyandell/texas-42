@@ -56,6 +56,15 @@ investigate, never a disappointing number.
    `walt/FACTOR-BELIEF.md` (and the status line), the README entries.
    The wiki era page and `walt/LOG.md` are the orchestrator's.
 
+## Report format (Jason, 2026-09-04)
+
+The report of record opens with ONE section titled **"What this means
+and what it cost"** — one paragraph a reader can act on without the
+mathematics: what changed in what walt can do, the decision-relevant
+numbers, and the cost (reads, wall, gate seconds) — then the record as
+before. Cost trends are FINDINGS, not footnotes: if anything got slower
+or bigger than its predecessor, say so at the top.
+
 ## Discipline
 
 - **Never end a turn with background work pending** (CLAUDE.md, Agents):
