@@ -1,7 +1,6 @@
 # BRIEF-FH3 — the report of record and the PR #87 anchors
 
-**Status: DRAFT until FH2 lands** — finalized by the orchestrator
-against the shipped surface. **Authorized:** 2026-09-04. **Binding
+**Status: FINAL (2026-09-04, after FH2 dc515ac).** **Authorized:** 2026-09-04. **Binding
 theory:** `walt/math/focal_horizon_sandwich_v0.1.md` §XV FH8, §XVI
 (the report of record — every measurement listed there), §XVII (success
 and falsifiers, §41 correctness failures), as narrowed by the companion
@@ -64,6 +63,44 @@ mathematics: what changed in what walt can do, the decision-relevant
 numbers, and the cost (reads, wall, gate seconds) — then the record as
 before. Cost trends are FINDINGS, not footnotes: if anything got slower
 or bigger than its predecessor, say so at the top.
+
+## The shipped surface you build on (FH1 1e213bd, CI1 508cc4a, FH2 dc515ac)
+
+- Direct engine: `focal_horizon(oracle, root, position, tail, field,
+  FocalSpec{horizon, node_fiber_cap}) -> Result<FocalHorizonResult,
+  FocalRefusal>` — whole-root refusal; use it for the per-k report rows
+  (reads per horizon WITHOUT reuse, FH1-comparable).
+- Ladder: `FocalLadder::advance(ctx, k, WorkBudget{read_ceiling,
+  node_fiber_cap}, Option<&mut SuffixMemo>) -> Outcome::{Completed,
+  Interrupted{residual_frontier, stopping_node, unaffordable}}`,
+  `root_view()` derived from facts (uppers `Option`, `Settled` needs
+  every other upper a real fact), `render()` bytewise. Use it for the
+  WITH-reuse cost column (memo on) and for any root where the direct
+  engine refuses under the cap: a cap refusal leaves that root child
+  unfinished and the pass continues (FH2 deviation 4) — report such
+  rows as partial with the retained interval, never as a number.
+- `FocalHorizonProducer` re-prices every emitted lower at production;
+  `SuffixMemo::freeze()` to consult without polluting; `first_hit` is
+  a pinned witness.
+- Read `walt/briefs/FH2-REPORT.md` first, its "Deviations" section in
+  full (prior-wins-ties on the lower side means the ladder's `π_k` can
+  differ from the direct engine's on equal-value ties — report both
+  policy ids where they differ, value equality is the law).
+
+## Cost and wall budget
+
+- Anchor (i) h8-t3 (Z = 59,976): cap 40,000 (U0b's; nothing refused
+  there at cut 4). Run k = 0, 1, 2 with the memo on and record reads
+  and wall per horizon; k = 3 is the exact solve (FH-last: t3 collapses
+  at k = 3) — run it ONLY if k = 2 came in under ~10 minutes, and say
+  so either way. Do not recompute the 14-minute exact `Q*` — cite the
+  record (`horizon_run1.txt`, 28859/29988) and mark it as such.
+- Anything over the 600 s tool timeout runs as a process you poll from
+  a foreground loop (never yield with it pending), writing to
+  `<scratchpad>/fh3/`.
+- Report memory beside reads where you measure it (FH2 found the
+  ladder's fact store is the thing that grew: 662 MB peak at h3-t4).
+  Cost trends are findings.
 
 ## Discipline
 
