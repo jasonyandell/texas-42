@@ -87,7 +87,7 @@ is the consolidation slice, after FH3 lands.
 | reads per trick-4 decision, exact | 0.7M–10M | flat since Slice G; the ceiling is σ0 |
 | trick-3 exact | 289M reads, 14 min | one root; the wall |
 | `solver/` size | 37,260 lines, 36 modules (after FH2) | growing one module per intake; consolidation not yet started |
-| peak memory, ladder | 662 MB at h3-t4; **19.4 GB at h8-t3**; the gate 17.8 GB | the cost that is growing fastest; a version-referenced policy store is the fix, not built ([[ladder-policy-store]]) |
+| peak memory | ladder 662 MB at h3-t4; **19.4 GB at h8-t3** (3.8M facts + 3.55M memo receipts); the anchors gate 18.2 GB → 8.8 GB after FH5 capped h4-t4 jobs in flight (each h4-t4 evaluation ≈ 1.6 GB whatever its kind) | the cost that is growing fastest; a version-referenced policy store is the fix, not built ([[ladder-policy-store]]) |
 | gate wall (`check.sh`) | 308 s with FH3's anchors gate (230 s before it; ~15 min serial on 2026-09-04 morning) | fixed by concurrency + fixtures; corpus trimming still owed ([[gate-corpus-trim]]) |
 
 ## Next, in order
