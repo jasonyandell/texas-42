@@ -18,6 +18,14 @@ sum of suite walls 498 s before the concurrent runner):
 are NOT the problem (world caps 512–4096, sub-second); the exact
 recursions on oversized corpora are.
 
+## Also (FH4 re-audit observation, 2026-09-04)
+
+`tests/solver_focal_anchors.rs`'s fixture caps h4-t4 jobs at five in
+flight (memory, FH5) but schedules heaviest-first, so light h8-t4 jobs
+queue behind the cap — the suite's wall went 79 → 165 s standalone for
+the memory cap. Interleaving light jobs ahead of the capped ones would
+recover part of that at no memory cost.
+
 ## Done when
 
 Each listed suite asserts the same laws with a pinned witness and its
