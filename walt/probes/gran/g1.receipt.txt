@@ -1,0 +1,33 @@
+# G1 — the "Gran 6-4" FAILED hand, reconstructed from the Plunge screenshots
+# `gran-failed-hand-trick1-40w.png` and `gran-failed-hand-trick3-160w.png`
+# (`~/data/texas-42/gran-anchors-2026-08-24/`, MANIFEST.sha256 verified).
+#
+# EXPLORATORY TIER. A discovery artifact transcribed by hand, then
+# validated mechanically against the rules layer (`rules::replay::replay_hand`
+# re-derives every follow, winner, trick point, total and verdict). It is
+# NOT a rob receipt: no engine produced it and it backs no claim above
+# the exploratory tier. The format is rob's receipt grammar only because
+# `rules::receipt::parse` already reads that grammar.
+#
+# Seat map (screenshot label -> internal seat):
+#   Y = S0  "You" — Jason, the declarer (screenshot: "You bid 30, sixes")
+#   E = S1
+#   G = S2  "Gran" — the walt (level-1) seat, Jason's partner
+#   R = S3
+# Teams follow S0/S2 vs S1/S3, so the declaring team is T0 = {Jason, Gran}
+# — exactly the screenshot's "Us 25 - Them 17".
+#
+# NOT RECOVERED from the screenshots: the shaker, the auction, and the
+# match's prior mark ledger. `shaker S3` below is a PLACEHOLDER (the seat
+# before the bidder); `replay_hand` never reads it. The mark lines are
+# fixture-local for a single hand and are not the real match's standing.
+hand 0: shaker S3, bidder S0, bid P(30), declaration P6
+trick 1: S0:6-6 S1:6-0 S2:6-2 S3:3-1 -> S0 +1
+trick 2: S0:4-4 S1:5-4 S2:4-1 S3:4-0 -> S0 +6
+trick 3: S0:3-3 S1:3-0 S2:6-4 S3:5-3 -> S2 +11
+trick 4: S2:2-2 S3:3-2 S0:2-1 S1:5-1 -> S2 +6
+trick 5: S2:4-2 S3:2-0 S0:6-1 S1:4-3 -> S0 +1
+trick 6: S0:6-3 S1:6-5 S2:1-0 S3:5-0 -> S1 +6
+trick 7: S1:1-1 S2:5-2 S3:5-5 S0:0-0 -> S1 +11
+result: declaring T0 25 points -> set (1 mark to T1); marks T0 0 - 1 T1
+match result: T0 0 - 1 T1 after 1 hands
