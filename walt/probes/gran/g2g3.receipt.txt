@@ -1,0 +1,48 @@
+# G2/G3 — the "Gran 6-4" MADE hand, reconstructed from the Plunge screenshot
+# `gran-made-hand-trick4-saturation.png`
+# (`~/data/texas-42/gran-anchors-2026-08-24/`, MANIFEST.sha256 verified).
+#
+# EXPLORATORY TIER. A hand transcription, mechanically validated over the
+# recorded PREFIX by `granrun validate-partial`. Not a rob receipt.
+#
+# Seat map is G1's: Y = S0 (Jason, declarer), E = S1, G = S2 ("Gran", the
+# walt seat), R = S3. Screenshot header: "You bid 31, sixes. Us 36 - Them 0."
+#
+# INCOMPLETE BY CONSTRUCTION. The grid shows SIX tricks, not seven: the
+# declaring side had 36 points after trick 6 against a bid of 31, and the
+# app stopped there. So 24 of the 28 tiles are recorded and FOUR are not:
+#   residual = { 4-1, 5-2, 5-3, 4-4 },  one per seat.
+# The deal is therefore NOT fully recovered. What IS recovered:
+#   - every seat's first six tiles, in play order, exactly;
+#   - S2's residual tile, 5-2, read off the trick-4 review panel, which
+#     lists S2's four options as 3-3 / 4-3 / 5-2 / 5-5 — so S2's complete
+#     seven-tile hand is 6-4 5-0 3-2 3-3 4-3 5-5 5-2.
+# The remaining ambiguity is the assignment of { 4-1, 5-3, 4-4 } to
+# S0/S1/S3. `granrun validate-partial` enumerates it: nothing in the
+# recorded prefix distinguishes those six assignments, because none of the
+# three tiles is a six or a blank and every seat that failed to follow in
+# the prefix failed on sixes or blanks.
+#
+# CONSEQUENCE for the anchor program: the G2 and G3 ROOTS are nonetheless
+# fully determined as INFORMATION SETS. A waking-seat decision at S2 needs
+# S2's own hand (known in full) plus the public record (known in full);
+# the three unassigned tiles are exactly what that seat does not see.
+# The full DEAL is what is missing, so a driven whole-hand run on this
+# anchor is not available, and neither is a `replay_hand` validation.
+#
+# G2 = S2's trick-1 decision (the early 6-4 reveal).
+# G3 = S2's trick-4 decision (the all-100%-on-160-worlds saturation panel).
+#
+# `known S2: 5-2` is the panel-read residual constraint, consumed by
+# validate-partial. `shaker S3` is a PLACEHOLDER (not recovered); the
+# marks lines are fixture-local, not the real match's standing.
+known S2: 5-2
+hand 0: shaker S3, bidder S0, bid P(31), declaration P6
+trick 1: S0:6-6 S1:6-2 S2:6-4 S3:2-0 -> S0 +11
+trick 2: S0:6-1 S1:2-2 S2:5-0 S3:5-1 -> S0 +6
+trick 3: S0:6-5 S1:2-1 S2:3-2 S3:3-1 -> S0 +6
+trick 4: S0:0-0 S1:1-0 S2:3-3 S3:3-0 -> S0 +1
+trick 5: S0:6-3 S1:4-2 S2:4-3 S3:5-4 -> S0 +1
+trick 6: S0:6-0 S1:4-0 S2:5-5 S3:1-1 -> S0 +11
+result: declaring T0 36 points -> made (1 mark to T0); marks T0 1 - 0 T1
+match result: T0 1 - 0 T1 after 1 hands

@@ -1,0 +1,35 @@
+mode replay, anchor probes/gran/g1.receipt.txt
+census records (decisions): 7
+PHASE ATTRIBUTION (integer micros; share in exact permille, floor):
+  baseline (sigma0 act):  11021108 (440 permille)
+  wake check:             13433307 (536 permille)
+  escalation:             589818 (23 permille)
+  grand total:            25044233
+  by trick (baseline / wake / escalation micros):
+    trick 1: 5980498 / 6569693 / 0  (trick total 12550191, 501 permille of the run)
+    trick 2: 2246540 / 3051703 / 0  (trick total 5298243, 211 permille of the run)
+    trick 3: 1804649 / 951599 / 0  (trick total 2756248, 110 permille of the run)
+    trick 4: 819838 / 761596 / 0  (trick total 1581434, 63 permille of the run)
+    trick 5: 166879 / 2091880 / 589818  (trick total 2848577, 113 permille of the run)
+    trick 6: 2704 / 6836 / 0  (trick total 9540, 0 permille of the run)
+    trick 7: 0 / 0 / 0  (trick total 0, 0 permille of the run)
+PATHS: forced 1, no-wake-budget-exhausted 4, no-wake-settled 1, wake 1
+WAKE EVIDENCE: None 1, exact-sigma1-selects-rival 1, exact-sigma1-tie 1, sampled-open 4
+wake rate: 1/6 checked decisions
+agreement with sigma0: 6/7
+  wake at trick 5 (d17, seat S2, fiber 300): sigma0 1-0 -> played 4-2; escalation exact-survivors / provably-useless / exact-argmax
+    spend baseline-sigma0: 152301 us over 3 items
+    spend rung-e1: 23 us over 1 items
+    spend rung-e2: 198873 us over 3 items
+    spend steering: 237596 us over 3 items
+    spend stage4-sigma1: 968 us over 3 items
+    spend stage4-ladders: 17 us over 3 items
+PER-DECISION (record vs waking):
+  trick 1 d3: legal {6-2 6-4}; record 6-2, sigma0 6-4, waking 6-4, DIFFERS; wall 12550240 us
+  trick 2 d7: legal {4-1 4-2}; record 4-1, sigma0 4-1, waking 4-1, AGREES; wall 5298292 us
+  trick 3 d11: legal {1-0 2-2 4-2 5-2 6-4}; record 6-4, sigma0 6-4, waking 6-4, AGREES; wall 2756279 us
+  trick 4 d13: legal {1-0 2-2 4-2 5-2}; record 2-2, sigma0 2-2, waking 2-2, AGREES; wall 1581460 us
+  trick 5 d17: legal {1-0 4-2 5-2}; record 4-2, sigma0 1-0, waking 4-2, AGREES; wall 2848654 us
+  trick 6 d23: legal {1-0 5-2}; record 1-0, sigma0 1-0, waking 1-0, AGREES; wall 9550 us
+  trick 7 d26: legal {5-2}; record 5-2, sigma0 5-2, waking 5-2, AGREES; wall 2 us
+replay summary: 7 decisions, 6 matched the record, sigma1 cache 9489

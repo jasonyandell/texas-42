@@ -1,0 +1,20 @@
+mode driven, anchor probes/gran/g1.receipt.txt
+census records (decisions): 28
+PHASE ATTRIBUTION (integer micros; share in exact permille, floor):
+  baseline (sigma0 act):  112579826 (677 permille)
+  wake check:             53533144 (322 permille)
+  escalation:             0 (0 permille)
+  grand total:            166112970
+  by trick (baseline / wake / escalation micros):
+    trick 1: 71477455 / 31346991 / 0  (trick total 102824446, 619 permille of the run)
+    trick 2: 30239919 / 15025792 / 0  (trick total 45265711, 272 permille of the run)
+    trick 3: 7820717 / 4278668 / 0  (trick total 12099385, 72 permille of the run)
+    trick 4: 2376678 / 1588967 / 0  (trick total 3965645, 23 permille of the run)
+    trick 5: 661584 / 1280770 / 0  (trick total 1942354, 11 permille of the run)
+    trick 6: 3473 / 11956 / 0  (trick total 15429, 0 permille of the run)
+    trick 7: 0 / 0 / 0  (trick total 0, 0 permille of the run)
+PATHS: forced 9, no-wake-budget-exhausted 14, no-wake-settled 5
+WAKE EVIDENCE: None 9, exact-sigma1-selects-baseline 4, exact-sigma1-tie 1, sampled-open 14
+wake rate: 0/19 checked decisions
+agreement with sigma0: 28/28
+hand: banked T0 26 - 16 T1, made=False, 28 decisions, sigma1 cache 14414

@@ -17,6 +17,13 @@
 //!   granrun validate <fixture.txt>
 //!       Parse and replay the anchor; print the derived deal and the
 //!       per-trick derivation. Non-zero exit on any disagreement.
+//!   granrun validate-partial <fixture.txt>
+//!       The same check for an anchor whose record STOPS EARLY (the app
+//!       ends a hand once the bid is decided), so the deal is not fully
+//!       recovered. Re-derives every follow, winner and trick point over
+//!       the recorded prefix, then enumerates every assignment of the
+//!       residual tiles to seats that the prefix admits — the honest
+//!       statement of what the screenshot does and does not pin.
 //!   granrun replay <fixture.txt> <seat> <out.jsonl>
 //!       The waking seat sits in `seat` (e.g. `S2`) from the OPENING
 //!       LEAD; the other three seats play exactly what the record says.
@@ -143,6 +150,249 @@ fn validate(path: &str) {
 }
 
 // -------------------------------------------------------------------------
+// validate-partial — an anchor whose record stops before trick 7.
+// -------------------------------------------------------------------------
+
+/// `known Sn: h-l` lines: a residual tile pinned by a review panel rather
+/// than by the record. Ignored by `receipt::parse` (which reads only
+/// `hand`/`trick`/`result`/`match result` lines), so the constraint and
+/// the record live in one file without either grammar knowing the other.
+fn known_residuals(path: &str) -> Vec<(Seat, Domino)> {
+    let text = std::fs::read_to_string(path).expect("the anchor reads");
+    let mut out = Vec::new();
+    for line in text.lines() {
+        let Some(rest) = line.trim().strip_prefix("known ") else {
+            continue;
+        };
+        let (seat, tile) = rest.split_once(": ").expect("`known Sn: h-l`");
+        out.push((seat_of(seat), tile.parse::<Domino>().expect("a domino")));
+    }
+    out
+}
+
+/// The search that enumerates residual assignments: the fixed inputs live
+/// here, the recursion carries only what changes.
+struct Assigner<'a> {
+    hand: &'a ReceiptHand,
+    played: [DominoSet; Seat::COUNT],
+    residual: &'a [Domino],
+    known: &'a [(Seat, Domino)],
+    out: Vec<[DominoSet; Seat::COUNT]>,
+}
+
+impl Assigner<'_> {
+    fn walk(
+        &mut self,
+        i: usize,
+        need: [usize; Seat::COUNT],
+        assign: &mut [DominoSet; Seat::COUNT],
+    ) {
+        if i == self.residual.len() {
+            if need.iter().any(|&n| n != 0) {
+                return;
+            }
+            if self
+                .known
+                .iter()
+                .any(|&(ks, kt)| !assign[ks.index()].contains(kt))
+            {
+                return;
+            }
+            let full: [DominoSet; Seat::COUNT] =
+                core::array::from_fn(|s| self.played[s].union(assign[s]));
+            if prefix_is_legal(self.hand, full) {
+                self.out.push(full);
+            }
+            return;
+        }
+        let tile = self.residual[i];
+        for s in Seat::ALL {
+            if need[s.index()] == 0 {
+                continue;
+            }
+            // A pinned tile goes to its pinned seat and nowhere else.
+            if self.known.iter().any(|&(ks, kt)| kt == tile && ks != s) {
+                continue;
+            }
+            let mut next = need;
+            next[s.index()] -= 1;
+            assign[s.index()].insert(tile);
+            self.walk(i + 1, next, assign);
+            assign[s.index()].remove(tile);
+        }
+    }
+}
+
+/// Every assignment of the residual tiles to seats, respecting each
+/// seat's residual count, the `known` constraints, and the legality of
+/// the whole recorded prefix under the resulting full hands.
+fn consistent_assignments(
+    hand: &ReceiptHand,
+    played: [DominoSet; Seat::COUNT],
+    residual: &[Domino],
+    need: [usize; Seat::COUNT],
+    known: &[(Seat, Domino)],
+) -> Vec<[DominoSet; Seat::COUNT]> {
+    let mut search = Assigner {
+        hand,
+        played,
+        residual,
+        known,
+        out: Vec::new(),
+    };
+    let mut assign = [DominoSet::EMPTY; Seat::COUNT];
+    search.walk(0, need, &mut assign);
+    search.out
+}
+
+/// Walk the recorded prefix with the candidate full hands and check every
+/// follow against `legal_plays`.
+fn prefix_is_legal(hand: &ReceiptHand, full: [DominoSet; Seat::COUNT]) -> bool {
+    let mut hands = full;
+    let mut leader = hand.bidder;
+    for rec in &hand.tricks {
+        if rec.plays[0].0 != leader {
+            return false;
+        }
+        let mut led = None;
+        for (k, (actor, tile)) in rec.plays.into_iter().enumerate() {
+            if actor != leader.plus(k) {
+                return false;
+            }
+            let held = &mut hands[actor.index()];
+            if !held.contains(tile) || !legal_plays(hand.decl, *held, led).contains(tile) {
+                return false;
+            }
+            held.remove(tile);
+            if k == 0 {
+                led = Some(hand.decl.led_context(tile));
+            }
+        }
+        let doms: [Domino; 4] = core::array::from_fn(|i| rec.plays[i].1);
+        let Ok(trick) = Trick::new(leader, doms) else {
+            return false;
+        };
+        leader = trick.winner(hand.decl);
+    }
+    true
+}
+
+fn validate_partial(path: &str) {
+    let hand = load(path);
+    let known = known_residuals(path);
+    let n = hand.tricks.len();
+    assert!(
+        n < 7,
+        "a complete record uses `validate`, not `validate-partial`"
+    );
+
+    // Recorded plays, per seat, and the derived prefix outcome.
+    let mut played = [DominoSet::EMPTY; Seat::COUNT];
+    let mut leader = hand.bidder;
+    let mut team_points = [0u32; 2];
+    let mut derived: Vec<(Seat, u32)> = Vec::new();
+    for rec in &hand.tricks {
+        assert_eq!(rec.plays[0].0, leader, "the record's leader");
+        for (k, (actor, tile)) in rec.plays.into_iter().enumerate() {
+            assert_eq!(actor, leader.plus(k), "turn order");
+            assert!(played[actor.index()].insert(tile), "each tile once");
+        }
+        let doms: [Domino; 4] = core::array::from_fn(|i| rec.plays[i].1);
+        let trick = Trick::new(leader, doms).expect("four distinct tiles");
+        let winner = trick.winner(hand.decl);
+        let points = trick.points();
+        assert_eq!(winner, rec.winner, "derived winner matches the record");
+        assert_eq!(points, rec.points, "derived points match the record");
+        team_points[winner.team().index()] += points;
+        derived.push((winner, points));
+        leader = winner;
+    }
+
+    let mut seen = DominoSet::EMPTY;
+    for h in played {
+        assert!(seen.is_disjoint(h), "no seat shares a recorded tile");
+        seen = seen.union(h);
+    }
+    let residual: Vec<Domino> = Domino::ALL
+        .into_iter()
+        .filter(|d| !seen.contains(*d))
+        .collect();
+    let need: [usize; Seat::COUNT] = core::array::from_fn(|s| 7 - played[s].len());
+    assert_eq!(
+        need.iter().sum::<usize>(),
+        residual.len(),
+        "the residual fills every seat to seven"
+    );
+
+    let cands = consistent_assignments(&hand, played, &residual, need, &known);
+    assert!(!cands.is_empty(), "the transcription admits NO legal deal");
+
+    println!("anchor {path} (PARTIAL: {n} of 7 tricks recorded)");
+    println!(
+        "  bidder {} bid {} declaration {} declaring {}",
+        hand.bidder, hand.bid_points, hand.decl, hand.declaring_team
+    );
+    for s in Seat::ALL {
+        let tiles: Vec<String> = played[s.index()].iter().map(|d| d.to_string()).collect();
+        println!("  recorded {s}: {}", tiles.join(" "));
+    }
+    for (i, (w, p)) in derived.iter().enumerate() {
+        println!("  trick {} -> {w} +{p}", i + 1);
+    }
+    println!(
+        "  prefix points T0 {} - {} T1; declaring {} took {} against bid {} -> {}",
+        team_points[0],
+        team_points[1],
+        hand.declaring_team,
+        team_points[hand.declaring_team.index()],
+        hand.bid_points,
+        if hand.declaring_points >= hand.bid_points {
+            "made"
+        } else {
+            "undecided on the prefix"
+        }
+    );
+    assert_eq!(
+        team_points[hand.declaring_team.index()],
+        hand.declaring_points,
+        "derived declaring points match the record"
+    );
+    let res: Vec<String> = residual.iter().map(|d| d.to_string()).collect();
+    println!("  residual (never played, one per seat): {}", res.join(" "));
+    for (s, t) in &known {
+        println!("  known constraint: {s} holds {t} (review panel, not the record)");
+    }
+    println!(
+        "  assignments of the residual the prefix admits: {}",
+        cands.len()
+    );
+    for (i, c) in cands.iter().enumerate() {
+        let parts: Vec<String> = Seat::ALL
+            .into_iter()
+            .map(|s| {
+                let extra: Vec<String> = c[s.index()]
+                    .difference(played[s.index()])
+                    .iter()
+                    .map(|d| d.to_string())
+                    .collect();
+                format!("{s}:{}", extra.join("+"))
+            })
+            .collect();
+        println!("    [{}] {}", i + 1, parts.join(" "));
+    }
+    if cands.len() == 1 {
+        println!("VALIDATED: the prefix is legal and the residual is pinned — the deal is fully recovered.");
+    } else {
+        println!(
+            "VALIDATED over the prefix: every follow legal, every winner and every trick's \
+             points re-derived, declaring total agrees. The DEAL is NOT recovered: {} \
+             assignments of the residual are equally consistent.",
+            cands.len()
+        );
+    }
+}
+
+// -------------------------------------------------------------------------
 // replay — the waking seat in one chair against the recorded line.
 // -------------------------------------------------------------------------
 
@@ -225,8 +475,7 @@ fn replay(path: &str, seat_tok: &str, out_path: &str) {
                     agreements += 1;
                 }
                 decisions += 1;
-                let legal_list: Vec<String> =
-                    legal.iter().map(|t| t.index().to_string()).collect();
+                let legal_list: Vec<String> = legal.iter().map(|t| t.index().to_string()).collect();
                 writeln!(
                     out,
                     "{{\"kind\":\"compare\",\"ctx\":\"{ctx}\",\"d\":{d},\"trick\":{},\
@@ -283,7 +532,9 @@ fn replay(path: &str, seat_tok: &str, out_path: &str) {
     )
     .expect("the output writes");
     out.flush().expect("the output flushes");
-    eprintln!("granrun: replay wrote {out_path} ({decisions} decisions, {agreements} matched the record)");
+    eprintln!(
+        "granrun: replay wrote {out_path} ({decisions} decisions, {agreements} matched the record)"
+    );
 }
 
 // -------------------------------------------------------------------------
@@ -363,7 +614,10 @@ fn driven(path: &str, out_path: &str) {
                     voids[seat.index()].insert(led);
                 }
             }
-            assert!(hands[seat.index()].remove(choice), "the chosen tile is held");
+            assert!(
+                hands[seat.index()].remove(choice),
+                "the chosen tile is held"
+            );
             trick_plays.push(choice);
         }
         let doms: [Domino; 4] = core::array::from_fn(|i| trick_plays[i]);
@@ -403,6 +657,9 @@ fn main() {
     let args: Vec<String> = std::env::args().collect();
     match args.get(1).map(String::as_str) {
         Some("validate") => validate(args.get(2).expect("granrun validate <fixture>")),
+        Some("validate-partial") => {
+            validate_partial(args.get(2).expect("granrun validate-partial <fixture>"))
+        }
         Some("replay") => replay(
             args.get(2).expect("granrun replay <fixture> <seat> <out>"),
             args.get(3).expect("granrun replay <fixture> <seat> <out>"),
@@ -415,6 +672,7 @@ fn main() {
         _ => {
             eprintln!(
                 "usage: granrun validate <fixture.txt>\n       \
+                 granrun validate-partial <fixture.txt>\n       \
                  granrun replay <fixture.txt> <seat> <out.jsonl>\n       \
                  granrun driven <fixture.txt> <out.jsonl>"
             );
