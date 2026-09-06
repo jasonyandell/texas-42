@@ -1,0 +1,33 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-06T17:07:36.661255+00:00",
+  "cwd": "/Users/jason/code/texas-42-partnership-launch",
+  "command": [
+    "python3",
+    "experiments/partnership/experiment.py",
+    "hand",
+    "--deal-seed",
+    "420602",
+    "--strong-contract",
+    "--n",
+    "40",
+    "--n0",
+    "8",
+    "--n1",
+    "2",
+    "--lineups",
+    "baseline:phone:baseline:phone,all-l1:phone:all-l1:phone"
+  ],
+  "allowance_seconds": 180.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 14.465357,
+  "status": "completed",
+  "child_pid": 3775,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

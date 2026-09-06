@@ -203,3 +203,16 @@ then the level-2 probe as the detection layer
 ([walt-calculated-evidence](walt-calculated-evidence.md)). [rob](rob.md)
 remains the exact-truth solver; walt remains the seat; neither impersonates
 the other.
+# Local partnership launch, 2026-09-06
+
+**EXPLORATORY, local variant.** The
+[partnership experiment report](../experiments/partnership/REPORT.md) owns the
+2026-09-06 launch, packet provenance, fixed phone reference, and measured
+results. Its native player upgrades the modeled partner while keeping L0
+opponents, and has a full-L2 comparison mode and a local human play table.
+All 336 decisions in twelve completed comparison/diagnostic hands were legal;
+the largest four-play trick was 24.238 seconds. The three fresh deals produced
+no favorable contract flip and one defensive regression; full L2 repeated that
+failure. The report preserves the first differing information state and
+separates lawfulness, timing, behavior, and strength. No full CI, mathematical
+certification, deployment, or phone-default change is claimed.

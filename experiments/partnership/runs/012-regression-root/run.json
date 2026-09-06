@@ -1,0 +1,32 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-06T17:09:30.429466+00:00",
+  "cwd": "/Users/jason/code/texas-42-partnership-launch",
+  "command": [
+    "python3",
+    "experiments/partnership/experiment.py",
+    "roots",
+    "--n",
+    "40",
+    "--n0",
+    "8",
+    "--n1",
+    "2",
+    "--modes",
+    "baseline,partner,all-l1,phone",
+    "--ids",
+    "regression-602-t3-s0"
+  ],
+  "allowance_seconds": 60.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 4.513471,
+  "status": "completed",
+  "child_pid": 5866,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

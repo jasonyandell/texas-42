@@ -94,6 +94,8 @@ def main():
     p.add_argument("--decl", type=int, default=6)
     p.add_argument("--bid", type=int, default=30)
     p.add_argument("--bidder", type=int, default=0)
+    p.add_argument("--strong-contract", action="store_true",
+                   help="before play select longest pip-trump hand, then trump double, then off-trump doubles; bid stays fixed")
     p.add_argument("--lineups", default="phone:phone:phone:phone,partner:phone:partner:phone,phone:partner:phone:partner")
     args = p.parse_args()
     fixture = json.loads((HERE/"fixtures.json").read_text())
@@ -133,8 +135,24 @@ def main():
             hands = [sorted(tiles[7*s:7*s+7]) for s in range(4)]
             decl, bid, bidder = args.decl, args.bid, args.bidder
             name = "holdout-" + str(args.deal_seed)
+            if args.strong_contract:
+                # One frozen, outcome-blind contract rule. This is only a
+                # matched fixture generator, not an auction-strength claim.
+                def rank(option):
+                    seat, trump = option
+                    ts = [t for t in hands[seat] if trump in TILES[t]]
+                    return (len(ts), int((trump, trump) in [TILES[t] for t in ts]),
+                            sum(TILES[t][0] == TILES[t][1] for t in hands[seat] if t not in ts),
+                            -seat, -trump)
+                bidder, decl = max(((s, d) for s in range(4) for d in range(7)), key=rank)
+                emit({"event": "matched-contract", "rule": "longest-trump-then-double-then-off-doubles-v1",
+                      "bidder": bidder, "decl": decl, "bid": bid, "rank": rank((bidder, decl))})
         for i, lineup in enumerate(args.lineups.split(",")):
-            modes = lineup.split(":")
+            if lineup == "bidder-partner":
+                modes = ["phone"]*4
+                modes[(bidder+2)%4] = "partner"
+            else:
+                modes = lineup.split(":")
             assert len(modes) == 4
             drive(hands, decl, bid, bidder, modes, args, name+"-"+str(i))
 

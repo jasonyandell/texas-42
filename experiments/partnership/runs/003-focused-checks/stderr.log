@@ -1,0 +1,21 @@
+error[E0382]: borrow of partially moved value: `frame`
+  --> /Users/jason/code/texas-42-partnership-launch/walt/walt/tests/solver_partnership.rs:53:16
+   |
+52 |         key: frame.key,
+   |              --------- value partially moved here
+53 |         sizes: frame.sizes(),
+   |                ^^^^^ value borrowed here after partial move
+   |
+   = note: partial move occurs because `frame.key` has type `Key`, which does not implement the `Copy` trait
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0382`.
+Traceback (most recent call last):
+  File "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/checks.py", line 61, in <module>
+    main()
+  File "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/checks.py", line 26, in main
+    subprocess.run(command, check=True)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['rustc', '--edition=2021', '--test', '/Users/jason/code/texas-42-partnership-launch/walt/walt/tests/solver_partnership.rs', '-L', 'dependency=/Users/jason/code/texas-42-partnership-launch/walt/target/release/deps', '-C', 'opt-level=3', '-C', 'overflow-checks=yes', '--extern', 'walt=/Users/jason/code/texas-42-partnership-launch/walt/target/release/deps/libwalt-b3448dcced665265.rlib', '--extern', 'num_rational=/Users/jason/code/texas-42-partnership-launch/walt/target/release/deps/libnum_rational-8da145fb03cd7a13.rlib', '-o', '/Users/jason/code/texas-42-partnership-launch/walt/target/release/partnership_checks']' returned non-zero exit status 1.

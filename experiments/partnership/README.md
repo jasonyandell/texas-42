@@ -1,7 +1,7 @@
 # A partner-aware Texas 42 player
 
 **Exploratory, playable native prototype.** It evaluates a thinking partner
-while retaining the ordinary L1 model for the opponents. The default is 40
+while retaining level-0 modeled opponents, as in L1's field. The default is 40
 outer worlds, 8 worlds per modeled L0 mind, and 2 per modeled L1 partner.
 It keeps a legal move in reserve and allows at most 14 seconds per decision,
 leaving headroom within the 60-second four-play trick target.

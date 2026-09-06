@@ -1,0 +1,31 @@
+   Compiling autocfg v1.5.1
+   Compiling crossbeam-utils v0.8.22
+   Compiling crossbeam-epoch v0.9.20
+   Compiling crossbeam-deque v0.8.7
+   Compiling rayon-core v1.13.0
+   Compiling either v1.17.0
+   Compiling num-traits v0.2.19
+   Compiling num-integer v0.1.47
+   Compiling num-bigint v0.4.8
+   Compiling num-rational v0.4.2
+   Compiling rayon v1.12.0
+   Compiling walt v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt)
+error[E0277]: `Deadline` doesn't implement `Debug`
+  --> walt/src/solver/partnership.rs:61:5
+   |
+50 | #[derive(Clone, Copy, Debug)]
+   |                       ----- in this derive macro expansion
+...
+61 |     pub deadline: Deadline,
+   |     ^^^^^^^^^^^^^^^^^^^^^^ the trait `Debug` is not implemented for `Deadline`
+   |
+   = note: add `#[derive(Debug)]` to `Deadline` or manually `impl Debug for Deadline`
+help: consider annotating `Deadline` with `#[derive(Debug)]`
+  --> walt/src/solver/mod.rs:74:1
+   |
+74 + #[derive(Debug)]
+75 | pub struct Deadline {
+   |
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `walt` (lib) due to 1 previous error

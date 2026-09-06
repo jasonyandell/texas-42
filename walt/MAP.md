@@ -1,5 +1,14 @@
 # walt on one page — what exists, what it costs, what is now redundant
 
+**Local partnership experiment, 2026-09-06 — EXPLORATORY:**
+[`experiments/partnership/REPORT.md`](../experiments/partnership/REPORT.md)
+records a playable, externally budgeted partner-only L1-field variant and full
+L2 comparison against a preserved local phone WASM. Twelve completed hands
+met the trick budget, but the tested partner model caused one contract-level
+defensive regression and did not establish a strength improvement. The packet,
+phone provenance, runnable table, focused checks, and failure fixture are
+preserved beside that report. This is a local variant, not a new phone default.
+
 **For Jason, to hold in his head.** Written 2026-09-04; rewritten at
 every landing (the orchestrating session owns it). Ten minutes to
 reread. Everything here is EXPLORATORY tier; nothing is promoted by

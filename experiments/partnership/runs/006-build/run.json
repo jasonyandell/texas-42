@@ -1,0 +1,28 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-06T16:59:20.856418+00:00",
+  "cwd": "/Users/jason/code/texas-42-partnership-launch",
+  "command": [
+    "cargo",
+    "build",
+    "--release",
+    "--manifest-path",
+    "walt/Cargo.toml",
+    "-p",
+    "walt",
+    "--bin",
+    "partnership"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 4.440147,
+  "status": "completed",
+  "child_pid": 93832,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

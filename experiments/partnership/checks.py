@@ -38,7 +38,7 @@ def main():
         req = {k: v for k, v in root.items() if k in INPUT_KEYS}
         value, status = child([str(BINARY)], native_text(req, "status"), 1)
         assert value is not None, (root["id"], status)
-    print("PASS all seven named bidder/partner/defender information roots", flush=True)
+    print("PASS all named bidder/partner/defender information roots", flush=True)
     root = fixtures["roots"][0]
     req = {k: v for k, v in root.items() if k in INPUT_KEYS}
     small = decide(req, "all-l1", 640, 64, 64, 100)

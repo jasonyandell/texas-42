@@ -465,6 +465,48 @@
       "recorded_choice": 9,
       "information_set_only": true,
       "note": "Four legal remaining tiles 3-3, 4-3, 5-2, 5-5; historical 160-world review saturation anchor."
+    },
+    {
+      "id": "regression-602-t3-s0",
+      "split": "diagnostic-after-heldout-regression",
+      "source": "First divergence of run011 baseline-defenders and run010 partner-defenders; both prefixes identical.",
+      "role": "defender",
+      "decl": 1,
+      "bid": 30,
+      "bidder": 3,
+      "seat": 0,
+      "hand": [
+        8,
+        10,
+        11,
+        12,
+        23,
+        24,
+        26
+      ],
+      "plays": [
+        3,
+        7,
+        0,
+        11,
+        1,
+        4,
+        2,
+        1,
+        0,
+        10,
+        1,
+        13,
+        2,
+        19,
+        3,
+        25,
+        3,
+        2
+      ],
+      "seed": 420600,
+      "baseline_choice": 12,
+      "partner_choice": 26
     }
   ]
 }
