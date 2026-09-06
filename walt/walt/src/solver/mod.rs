@@ -43,6 +43,8 @@ pub mod model_belief;
 pub mod model_recursion;
 pub mod motif;
 pub mod opening;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod partnership;
 pub mod policy;
 pub mod proof_state;
 pub mod refine;
@@ -68,7 +70,7 @@ use std::time::Instant;
 /// monotonic deadline; on wasm32 there is no monotonic clock without a JS
 /// import, so it never expires — budget there is carried by the sample
 /// counts (n_outer, n0), not wall time.
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub struct Deadline {
     #[cfg(not(target_arch = "wasm32"))]
     at: Instant,
@@ -210,10 +212,13 @@ fn nth_set_bit(mask: u32, n: u32) -> u32 {
 
 /// How the field seats behave inside a solver: dice at the bottom, a
 /// level-k policy above it. THE FIELD MODEL IS A PARAMETER.
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Field {
     Dice,
     Level(usize),
+    /// Per-seat modeled levels. The viewer entry is ignored because the
+    /// viewer always takes the maximizing/minimizing branch directly.
+    SeatLevels([usize; 4]),
 }
 
 /// The modeled mind's entire information state, banked totals included
@@ -246,6 +251,7 @@ pub struct Shared {
     pub deadline: Deadline,
     pi_cache: Vec<PiShard>,
     pub pi_calls: AtomicU64,
+    pi_calls_by_level: Vec<AtomicU64>,
     pub nodes: AtomicU64,
     /// Break instrumentation on the `solve_viewer` loop, folded from each
     /// solver's locals by `flush_nodes`: children actually solved vs legal
@@ -266,6 +272,7 @@ impl Shared {
         boundary_hand_size: usize,
         deadline: Deadline,
     ) -> Self {
+        let pi_calls_by_level = (0..n_inner.len()).map(|_| AtomicU64::new(0)).collect();
         Shared {
             dcl,
             bid,
@@ -275,6 +282,7 @@ impl Shared {
             deadline,
             pi_cache: (0..PI_SHARDS).map(|_| Mutex::new(HashMap::new())).collect(),
             pi_calls: AtomicU64::new(0),
+            pi_calls_by_level,
             nodes: AtomicU64::new(0),
             viewer_children: AtomicU64::new(0),
             viewer_legal: AtomicU64::new(0),
@@ -304,6 +312,15 @@ impl Shared {
             .iter()
             .map(|s| s.lock().expect("pi shard poisoned").len())
             .sum()
+    }
+
+    /// Cache-miss computations performed at each modeled level. A level-k
+    /// miss consumes exactly `n_inner[k]` sampled worlds.
+    pub fn pi_calls_by_level(&self) -> Vec<u64> {
+        self.pi_calls_by_level
+            .iter()
+            .map(|n| n.load(Ordering::Relaxed))
+            .collect()
     }
 }
 
@@ -352,6 +369,17 @@ impl Solver {
         seeds: Vec<u64>,
         field: Field,
     ) -> Self {
+        match field {
+            Field::Dice => {}
+            Field::Level(level) => assert!(
+                level < sh.n_inner.len(),
+                "the uniform field level has a declared inner sample count"
+            ),
+            Field::SeatLevels(levels) => assert!(
+                levels.iter().all(|&level| level < sh.n_inner.len()),
+                "every seat field level has a declared inner sample count"
+            ),
+        }
         let all: Arc<Vec<u32>> = Arc::new((0..worlds.len() as u32).collect());
         let mut map = HashMap::new();
         map.insert(Arc::clone(&all), 0u32);
@@ -422,22 +450,24 @@ impl Solver {
             return false;
         }
         let n = self.local_nodes.fetch_add(1, Ordering::Relaxed) + 1;
-        if n & 0xFFFF == 0 {
+        if n == 1 || n & 0xFF == 0 {
             if self.sh.deadline.passed() {
                 self.sh.dead.store(true, Ordering::Relaxed);
                 return false;
             }
-            self.sh.nodes.fetch_add(0x1_0000, Ordering::Relaxed);
+            if n & 0xFF == 0 {
+                self.sh.nodes.fetch_add(0x100, Ordering::Relaxed);
+            }
         }
         true
     }
 
-    /// Flush the sub-64k remainder of this solver's node count into the
+    /// Flush the sub-256 remainder of this solver's node count into the
     /// global total, and this solver's `solve_viewer` break counters whole.
     /// Call exactly once, after this solver's last solve.
     pub fn flush_nodes(&self) {
         self.sh.nodes.fetch_add(
-            self.local_nodes.load(Ordering::Relaxed) & 0xFFFF,
+            self.local_nodes.load(Ordering::Relaxed) & 0xFF,
             Ordering::Relaxed,
         );
         self.sh.viewer_children.fetch_add(
@@ -522,6 +552,9 @@ impl Solver {
             match self.field {
                 Field::Dice => self.solve_field_dice(key, seat, led)?,
                 Field::Level(k) => self.solve_field_policy(key, seat, led, k)?,
+                Field::SeatLevels(levels) => {
+                    self.solve_field_policy(key, seat, led, levels[seat.index()])?
+                }
             }
         };
         self.memo
@@ -787,7 +820,12 @@ impl Solver {
         {
             return Some(t);
         }
+        if self.sh.deadline.passed() {
+            self.sh.dead.store(true, Ordering::Relaxed);
+            return None;
+        }
         self.sh.pi_calls.fetch_add(1, Ordering::Relaxed);
+        self.sh.pi_calls_by_level[k].fetch_add(1, Ordering::Relaxed);
         let n_k = self.sh.n_inner[k];
         let sizes = self.hand_sizes_at(key);
         let unseen = FULL_MASK & !key.played & !hand;
@@ -805,7 +843,11 @@ impl Solver {
         let mut tiles = mask_bits(unseen);
         let mask_slice = |sl: &[u8]| sl.iter().fold(0u32, |a, &x| a | (1u32 << x));
         let mut inner_worlds: Vec<[u32; 4]> = Vec::with_capacity(n_k);
-        for _ in 0..n_k {
+        for sample_index in 0..n_k {
+            if (sample_index == 0 || sample_index & 0xFF == 0) && self.sh.deadline.passed() {
+                self.sh.dead.store(true, Ordering::Relaxed);
+                return None;
+            }
             for i in (1..tiles.len()).rev() {
                 let j = rng.below((i + 1) as u64) as usize;
                 tiles.swap(i, j);
@@ -818,6 +860,10 @@ impl Solver {
                 off += sizes[s];
             }
             inner_worlds.push(w);
+        }
+        if self.sh.deadline.passed() {
+            self.sh.dead.store(true, Ordering::Relaxed);
+            return None;
         }
         let (inner_field, inner_seeds) = if k == 0 {
             let seeds: Vec<u64> = (0..n_k).map(|_| rng.next_u64()).collect();
@@ -850,6 +896,11 @@ impl Solver {
         let mut lm = legal_mask;
         let mut died = false;
         while lm != 0 {
+            if self.sh.deadline.passed() {
+                self.sh.dead.store(true, Ordering::Relaxed);
+                died = true;
+                break;
+            }
             let tile_idx = lm.trailing_zeros() as u8;
             lm &= lm - 1;
             let tile = Domino::from_index(usize::from(tile_idx)).expect("tile < 28");
@@ -868,9 +919,15 @@ impl Solver {
                     break;
                 }
             }
+            if self.sh.deadline.passed() {
+                self.sh.dead.store(true, Ordering::Relaxed);
+                died = true;
+                break;
+            }
         }
         inner.flush_nodes();
-        if died {
+        if died || self.sh.deadline.passed() {
+            self.sh.dead.store(true, Ordering::Relaxed);
             return None;
         }
         let (_, choice) = best.expect("legal play exists");
