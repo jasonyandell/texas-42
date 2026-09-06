@@ -44,11 +44,13 @@ the original TypeScript wrapper.
 
 The local WASM file was added by Plunge commit
 `1810da2060bb8354130fd0315efb5b5d04816392` (2026-08-22); `git log` shows no
-later binary update. The commit describes copying the Texas 42 handoff verbatim
-but does not identify the source Rust commit. **Current native L1 is therefore
-not automatically the literal local phone binary.** Preserve or load that exact
-WASM for a literal phone-artifact comparison, or label a current native 40/8
-race run as a proxy and report its parity checks separately.
+later binary update. A subsequent historical-object search identified its
+byte-for-byte match in this repository at
+`9a056f20461fbe951544e4145ee49b726e0f6852` (2026-08-19). The source anchor and
+hashes are in [PROVENANCE.md](reference/phone/PROVENANCE.md).
+**Current native L1 is still a separate decision procedure.** Preserve or load
+the exact WASM for a literal phone-artifact comparison, or label a current
+native 40/8 race run as a proxy and report its parity checks separately.
 
 ## Current repository implementation
 

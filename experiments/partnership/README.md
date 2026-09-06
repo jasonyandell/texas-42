@@ -16,6 +16,11 @@ strength question back to the launch request, including the native-L1 / phone
 calibration. The native implementation is a separate internal reference;
 interchangeability with the archived phone has not been established.
 
+[HEAD-TO-HEAD.md](HEAD-TO-HEAD.md) records the recovered historical phone source,
+the existing arena/pool assessment, a direct recount of the saved mixed games,
+and the proposed reusable two-player comparison format. The generalized format
+is a design, not an implemented new runner.
+
 ## Play a hand
 
 From the worktree root:
