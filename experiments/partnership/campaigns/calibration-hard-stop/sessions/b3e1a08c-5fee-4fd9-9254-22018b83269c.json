@@ -1,0 +1,1 @@
+{"command":["experiments/partnership/campaign.py","advance","experiments/partnership/campaigns/calibration-hard-stop","--seconds","260"],"committed_this_slice":1,"elapsed_seconds":13.582672917,"finished_utc":"2026-09-06T18:15:43.143687+00:00","id":"b3e1a08c-5fee-4fd9-9254-22018b83269c","seconds":260,"started_utc":"2026-09-06T18:15:29.561032+00:00","status":"slice-complete"}

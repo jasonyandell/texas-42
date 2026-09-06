@@ -1,0 +1,1 @@
+{"command":["experiments/partnership/campaign.py","advance","experiments/partnership/campaigns/calibration-t4","--seconds","1"],"committed_this_slice":0,"elapsed_seconds":4.607309667,"finished_utc":"2026-09-06T18:03:41.187824+00:00","id":"212ade72-a8d8-478a-b113-67e2e306b79a","seconds":1,"started_utc":"2026-09-06T18:03:36.580479+00:00","status":"slice-complete"}

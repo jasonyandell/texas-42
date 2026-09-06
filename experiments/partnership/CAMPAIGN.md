@@ -75,6 +75,9 @@ python3 experiments/partnership/packet/texas42-partnership-launch-v0.1/tools/run
 
 Inspect `campaigns/random-420600-699/STATUS.md` or `status.json` while running.
 Each completed seed is in `results/`; detailed decisions are in `seeds/`.
+Run `verify_campaign.py PATH` before and after each slice to independently
+replay all committed games and check the manifest and aggregate arithmetic.
+Run `campaign_report.py PATH` to refresh `RESULTS.md` and `results.csv`.
 Stop and resume commands:
 
 ```sh
