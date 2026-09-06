@@ -229,3 +229,13 @@ was not established. A user-authorized ten-game
 work; concurrency changes and deadline-dependent fallbacks remain explicit
 in the records. This is generated-contract, executed-policy evidence, not an
 auction improvement or a theorem claim.
+
+**EXPLORATORY fixed-hand follow-up.** The
+[same-opening-hand panel](../experiments/partnership/campaigns/worlds-520600-699/WORLD-RESULTS.md)
+completed ten hand groups with ten hidden completions each (300 games). All
+opening choices stayed constant within each hand/lineup, without opening
+fallbacks, while make/set outcomes varied across hidden hands. One candidate
+position ranged from 14 to 42 points; another improved from phone 3/10 makes
+to candidate 7/10. Raw paired totals were 21 favorable / 27 unfavorable / 152
+ties. The independent-position sample size is ten hand groups; the 100
+completions must not be treated as independent opening positions.

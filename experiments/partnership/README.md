@@ -119,3 +119,9 @@ For throughput across many games or experiments, use the ten-worker
 [shared pool](POOL.md). It measured roughly three times the earlier scheduling
 speed on repeated deals, retains all checkpoints, retries failed workers, and
 supports multiple campaigns under one shared concurrency limit.
+
+The completed [same-opening-hand panel](campaigns/worlds-520600-699/WORLD-RESULTS.md)
+holds ten hands fixed across ten different hidden completions each. Its report
+compares conditional make/set frequencies, unchanged opening choices, point
+ranges, and sampled opening model scores. Use `worlds_report.py PATH` for this
+grouped view; completions within a hand are not independent positions.

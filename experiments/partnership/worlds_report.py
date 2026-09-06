@@ -56,6 +56,9 @@ def report(path):
         data.append(item)
     summary={'campaign':spec['id'],'completed_worlds':len(rows),'completed_games':len(rows)*3,
              'complete_hand_groups':sum(g['worlds']==spec['worlds_per_hand'] for g in data),'groups':data}
+    summary['all_observed_opening_choices_fixed']=all(len(a['opening_choices'])==1 for g in data for a in g['arms'].values())
+    summary['opening_fallbacks']=sum(a['opening_fallbacks'] for g in data for a in g['arms'].values())
+    summary['mixed_outcome_groups']={a:sum(g['arms'][a]['same_opening_mixed_outcomes'] for g in data) for a in c.ARMS}
     c.atomic(path/'world-summary.json',summary)
     out=(f"# Same opening hand, different hidden deals\n\n"
          f"**{len(rows)}/{spec['count']} worlds, {len(rows)*3} completed games**, grouped under {len(data)} fixed opening hands. "

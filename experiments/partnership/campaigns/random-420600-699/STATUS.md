@@ -12,4 +12,4 @@ Maximum trick: 33.961s; maximum decision: 13.939s.
 
 Shared pool: up to **10 games concurrently**, across seeds/campaigns; 6 native threads per game.
 
-Updated 2026-09-06T18:49:44.697204+00:00. Full records: results/ and seeds/. Stop: `campaign.py stop PATH`; resume: `campaign.py resume PATH`, then a capped `advance`.
+Updated 2026-09-06T20:29:50.815090+00:00. Full records: results/ and seeds/. Stop: `campaign.py stop PATH`; resume: `campaign.py resume PATH`, then a capped `advance`.

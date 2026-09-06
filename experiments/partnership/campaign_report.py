@@ -18,18 +18,20 @@ def report(path):
     sessions=[s for s in sessions if 'workers' not in s or s['id'] in own_pool_sessions]
     seconds=sum(r.get("elapsed_seconds",0) for r in sessions)
     pair=s["fresh_paired"]
+    unit='seeds' if spec['panel']=='random' else 'hidden completions'
+    comparison_label='Fresh comparisons' if spec['panel']=='random' else 'Paired comparisons'
     out=(f"# Bid-30 {spec['panel']} campaign results\n\n"
          f"Exploratory executed-policy comparison; generated contracts, no auction evaluation.\n\n"
-         f"Completed **{len(rows)}/{spec['count']} seeds**, **{3*len(rows)} games**. "
-         f"Fresh comparisons: **{pair['wins']} wins, {pair['losses']} losses, {pair['ties']} ties** "
-         f"across {len(fresh)} seeds. Make/set is the only ranking criterion.\n\n")
+         f"Completed **{len(rows)}/{spec['count']} {unit}**, **{3*len(rows)} games**. "
+         f"{comparison_label}: **{pair['wins']} wins, {pair['losses']} losses, {pair['ties']} ties** "
+         f"across {len(fresh)} {unit}. Make/set is the only ranking criterion.\n\n")
     if s["stop"]:
         out+=f"Paused: `{s['stop']['reason']}`.\n\n"
-    out+="| Fresh role | Wins | Losses | Ties |\n|---|---:|---:|---:|\n"
+    out+="| Role | Wins | Losses | Ties |\n|---|---:|---:|---:|\n"
     for name,key in (("Candidate declaring","declaring_delta"),("Candidate defending","defending_delta")):
         vals=[r["paired"][key] for r in fresh]
         out+=f"| {name} | {sum(v>0 for v in vals)} | {sum(v<0 for v in vals)} | {sum(v==0 for v in vals)} |\n"
-    out+=(f"\nPhone references made {s['fresh_reference_makes']}/{len(fresh)} fresh contracts. "
+    out+=(f"\nPhone references made {s['fresh_reference_makes']}/{len(fresh)} compared contracts. "
           f"Recorded fallbacks: {s['fallbacks']}/{s['nonforced_decisions']} nonforced decisions. "
           f"Longest decision {s['max_decision_us']/1e6:.3f}s; longest four-play trick {s['max_trick_us']/1e6:.3f}s.\n\n"
           f"Completed runner slices used {seconds/60:.2f} minutes. "
@@ -37,7 +39,8 @@ def report(path):
     pooled=[r for r in sessions if 'workers' in r]
     if pooled:
         out+=(f"Execution includes the user-authorized shared pool, up to {max(r['workers'] for r in pooled)} simultaneous games across seeds. "
-              "Earlier slices used three games within one seed. Per-game attempt receipts identify resumed moves and concurrency; deadline-dependent outcomes must be interpreted with that execution change visible.\n\n")
+              +("Earlier slices used three games within one seed. " if any('workers' not in r for r in sessions) else '')
+              +"Per-game attempt receipts identify resumed moves and concurrency; deadline-dependent outcomes must be interpreted with the execution settings visible.\n\n")
     else:
         out+="Three games run concurrently within one seed.\n\n"
     e=s["downside_e_value"]

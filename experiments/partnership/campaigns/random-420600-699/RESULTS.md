@@ -4,16 +4,16 @@ Exploratory executed-policy comparison; generated contracts, no auction evaluati
 
 Completed **100/100 seeds**, **300 games**. Fresh comparisons: **15 wins, 23 losses, 156 ties** across 97 seeds. Make/set is the only ranking criterion.
 
-| Fresh role | Wins | Losses | Ties |
+| Role | Wins | Losses | Ties |
 |---|---:|---:|---:|
 | Candidate declaring | 8 | 16 | 73 |
 | Candidate defending | 7 | 7 | 83 |
 
-Phone references made 73/97 fresh contracts. Recorded fallbacks: 83/5502 nonforced decisions. Longest decision 13.939s; longest four-play trick 33.961s.
+Phone references made 73/97 compared contracts. Recorded fallbacks: 83/5502 nonforced decisions. Longest decision 13.939s; longest four-play trick 33.961s.
 
 Completed runner slices used 23.80 minutes. An active slice's time is added when it closes.
 
-Execution includes the user-authorized shared pool, up to 10 simultaneous games across seeds. Earlier slices used three games within one seed. Per-game attempt receipts identify resumed moves and concurrency; deadline-dependent outcomes must be interpreted with that execution change visible.
+Execution includes the user-authorized shared pool, up to 10 simultaneous games across seeds. Earlier slices used three games within one seed. Per-game attempt receipts identify resumed moves and concurrency; deadline-dependent outcomes must be interpreted with the execution settings visible.
 
 Downside monitor: 14348907/4194304 (pause threshold 20, minimum ten fresh seeds; see CAMPAIGN.md for assumptions).
 

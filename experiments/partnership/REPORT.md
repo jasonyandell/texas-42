@@ -16,6 +16,22 @@ preserves the execution change and deadline fallbacks; points never break
 make/set ties. Full records, resume verification, and runtime calibration are
 checked in beside the source packet.
 
+## Same opening hand, different hidden deals
+
+**EXPLORATORY.** The [fixed-hand panel](campaigns/worlds-520600-699/WORLD-RESULTS.md)
+completed ten opening hands, ten hidden completions per hand, and three lineups
+per completion: 300 games / 8,400 verified moves. Each group had ten distinct
+partner hands and ten distinct complete hidden deals. Every lineup kept the
+same opening choice across its ten worlds, with zero opening fallbacks.
+
+Outcomes still varied: phone had both makes and sets in all ten hand groups;
+candidate declaring did in nine (the remaining group made 10/10). H1's fixed
+candidate 2-1 lead yielded 14–42 points and 4/10 makes. H5 improved from phone
+3/10 to candidate 7/10 makes, while H3 declined from 9/10 to 6/10. Full paired
+outcomes were 21 favorable flips / 27 unfavorable flips / 152 ties. These are
+ten hand clusters, not 100 independent opening positions. The report preserves
+opening model scores as diagnostics rather than calibrated probabilities.
+
 ## Original launch batch
 
 **EXPLORATORY. A lawful, playable native prototype was built and tested within
