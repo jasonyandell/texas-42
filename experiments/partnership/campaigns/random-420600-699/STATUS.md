@@ -1,15 +1,15 @@
 # Texas 42 — random campaign
 
-Resumable
+COMPLETE
 
-**35 / 100 seeds** · 105 completed games · 32 fresh seeds
+**100 / 100 seeds** · 300 completed games · 97 fresh seeds
 
-Fresh paired make/set: **4 wins / 7 losses / 53 ties**. Points never break ties. Bid always 30.
+Fresh paired make/set: **15 wins / 23 losses / 156 ties**. Points never break ties. Bid always 30.
 
-Fresh phone references made: 23. Fallbacks: 18 / 1935 nonforced decisions.
+Fresh phone references made: 73. Fallbacks: 83 / 5502 nonforced decisions.
 
-Maximum trick: 22.155s; maximum decision: 13.906s.
+Maximum trick: 33.961s; maximum decision: 13.939s.
 
-Workers: 3 games within one seed, 6 native threads per game.
+Shared pool: up to **10 games concurrently**, across seeds/campaigns; 6 native threads per game.
 
-Updated 2026-09-06T18:20:35.448469+00:00. Full records: results/ and seeds/. Stop: `campaign.py stop PATH`; resume: `campaign.py resume PATH`, then a capped `advance`.
+Updated 2026-09-06T18:49:44.697204+00:00. Full records: results/ and seeds/. Stop: `campaign.py stop PATH`; resume: `campaign.py resume PATH`, then a capped `advance`.

@@ -79,3 +79,12 @@ one-minute schedule reduces scheduling gaps, and locks prevent duplicate runs.
 Focused tests cover out-of-order completion, round-robin campaign scheduling,
 skipping completed arms, durable retry accounting, and injected launch failures
 that exhaust retries without manufacturing a result.
+
+The primary campaign then completed all 100 seeds / 300 games / 8,400 moves.
+Its final 52 seeds used two pool slices totaling 371.31 seconds (6.19 minutes).
+At the slice boundary, 13 finished-but-uncommitted games were retained while
+ten partial games resumed. All 406 previously saved decisions across those
+23 checkpoints were preserved exactly. Receipts are
+`random-420600-699/pool-resume-proof.json` and `pool-resume-verification.json`.
+The separate lock-contention trial refused a second pool while the first was
+running, without launching workers or stopping the active campaign.

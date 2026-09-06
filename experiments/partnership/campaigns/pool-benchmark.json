@@ -1,0 +1,34 @@
+{
+  "schema": "pool-throughput-comparison-v1",
+  "seeds": [
+    420636,
+    420637,
+    420638,
+    420639,
+    420640,
+    420641,
+    420642,
+    420643,
+    420644,
+    420645,
+    420646,
+    420647
+  ],
+  "games": 36,
+  "repeated_known_deals": true,
+  "old_critical_path_us": 250236127,
+  "old_fallbacks": 8,
+  "pool_fallbacks": 14,
+  "changed_trajectories": [
+    [
+      420644,
+      "phone"
+    ],
+    [
+      420644,
+      "defending"
+    ]
+  ],
+  "changed_make_set": [],
+  "pool_wall_seconds": 84.641998
+}

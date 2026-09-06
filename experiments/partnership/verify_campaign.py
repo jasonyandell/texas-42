@@ -12,6 +12,7 @@ def verify(path):
     spec=c.load(path)
     assert c.digest({k:v for k,v in spec.items() if k!="id"})==spec["id"], "manifest changed"
     rows=c.complete_results(path,spec)
+    assert [r['seed'] for r in rows]==list(range(spec['start'],spec['start']+len(rows))), 'committed seed prefix has a gap'
     for r in rows:
         seed=r["seed"]
         assert spec["start"]<=seed<spec["start"]+spec["count"]

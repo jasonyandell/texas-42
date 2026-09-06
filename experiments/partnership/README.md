@@ -114,3 +114,8 @@ parallel workers, atomic decision/seed checkpoints, stop/resume commands, and
 early review rules. Live progress is in
 [the campaign status](campaigns/random-420600-699/STATUS.md). Same-opening-hand
 hidden-world panels are also supported separately.
+
+For throughput across many games or experiments, use the ten-worker
+[shared pool](POOL.md). It measured roughly three times the earlier scheduling
+speed on repeated deals, retains all checkpoints, retries failed workers, and
+supports multiple campaigns under one shared concurrency limit.

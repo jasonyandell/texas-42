@@ -1,5 +1,23 @@
 # Partnership launch — results, 2026-09-06
 
+## Completed 100-deal follow-up
+
+**EXPLORATORY.** The [bid-30 follow-up](campaigns/random-420600-699/RESULTS.md)
+completed seeds 420600–420699: 300 games and 8,400 independently verified moves.
+The 97 fresh seeds produced **15 favorable contract flips, 23 unfavorable
+flips, and 156 ties**. Candidate declaring was 8 wins / 16 losses / 73 ties;
+candidate defending was 7 / 7 / 83. No early-stop rule triggered. These
+settings produced more losses than wins in this panel and did not establish
+a strength improvement.
+
+The user-authorized [shared pool](POOL.md) increased concurrency after 48
+completed seeds. It finished the remaining 52 seeds in 6.2 minutes. The report
+preserves the execution change and deadline fallbacks; points never break
+make/set ties. Full records, resume verification, and runtime calibration are
+checked in beside the source packet.
+
+## Original launch batch
+
 **EXPLORATORY. A lawful, playable native prototype was built and tested within
 the latency target. The strength goal was not reached: the partner upgrade
 produced no favorable contract flip in this small batch and caused one

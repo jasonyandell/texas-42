@@ -210,9 +210,22 @@ the other.
 2026-09-06 launch, packet provenance, fixed phone reference, and measured
 results. Its native player upgrades the modeled partner while keeping L0
 opponents, and has a full-L2 comparison mode and a local human play table.
-All 336 decisions in twelve completed comparison/diagnostic hands were legal;
+In the original launch batch, all 336 decisions in twelve completed
+comparison/diagnostic hands were legal;
 the largest four-play trick was 24.238 seconds. The three fresh deals produced
 no favorable contract flip and one defensive regression; full L2 repeated that
 failure. The report preserves the first differing information state and
 separates lawfulness, timing, behavior, and strength. No full CI, mathematical
 certification, deployment, or phone-default change is claimed.
+
+**EXPLORATORY follow-up.** The
+[100-deal bid-30 campaign](../experiments/partnership/campaigns/random-420600-699/RESULTS.md)
+completed 300 games and 8,400 independently replay-verified moves. Excluding
+three previously examined seeds, candidate partnerships recorded 15 favorable
+make/set flips, 23 unfavorable flips, and 156 ties. Declaring was 8/16/73;
+defending was 7/7/83. No early-stop rule triggered, and strength improvement
+was not established. A user-authorized ten-game
+[shared pool](../experiments/partnership/POOL.md) accelerated the remaining
+work; concurrency changes and deadline-dependent fallbacks remain explicit
+in the records. This is generated-contract, executed-policy evidence, not an
+auction improvement or a theorem claim.

@@ -1,0 +1,26 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-06T18:45:12.350632+00:00",
+  "cwd": "/Users/jason/code/texas-42-partnership-launch",
+  "command": [
+    "python3",
+    "experiments/partnership/pool.py",
+    "experiments/partnership/campaigns/bench-pool10",
+    "--workers",
+    "10",
+    "--seconds",
+    "1"
+  ],
+  "allowance_seconds": 10.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.085825,
+  "status": "failed",
+  "child_pid": 23577,
+  "child_returncode": 1,
+  "runner_returncode": 1,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

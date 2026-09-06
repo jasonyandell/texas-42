@@ -1,0 +1,25 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-06T18:26:55.553244+00:00",
+  "cwd": "/Users/jason/code/texas-42-partnership-launch",
+  "command": [
+    "python3",
+    "experiments/partnership/campaign.py",
+    "advance",
+    "experiments/partnership/campaigns/random-420600-699",
+    "--seconds",
+    "260"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 263.48189,
+  "status": "completed",
+  "child_pid": 95542,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

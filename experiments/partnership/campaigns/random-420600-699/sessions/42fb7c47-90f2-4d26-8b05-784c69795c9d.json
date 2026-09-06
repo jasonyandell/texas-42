@@ -1,0 +1,1 @@
+{"command":["experiments/partnership/campaign.py","advance","experiments/partnership/campaigns/random-420600-699","--seconds","260"],"committed_this_slice":13,"elapsed_seconds":263.38196862499996,"finished_utc":"2026-09-06T18:31:18.968239+00:00","id":"42fb7c47-90f2-4d26-8b05-784c69795c9d","seconds":260,"started_utc":"2026-09-06T18:26:55.588004+00:00","status":"slice-complete"}
