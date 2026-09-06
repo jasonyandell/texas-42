@@ -101,7 +101,16 @@ independently of all deal seeds. Contracts are matched and fixed; no result
 here measures an auction improvement. The harness sends only lawful requests
 to workers and independently checks every move against the referee's deal.
 
-All native worker invocations use six Rayon threads. Workers start afresh on
+Native worker invocations default to six Rayon threads; the resumable campaign
+sets an explicit per-game thread count. Workers start afresh on
 each decision, so caches are evaluation-local. Their startup, belief work,
 fallback work, synchronization, and cleanup are included in decision timing.
 The source packet is immutable; new findings live beside it.
+
+## Resumable 100-deal evaluation
+
+[CAMPAIGN.md](CAMPAIGN.md) defines the fixed-bid-30, make/set-only comparison,
+parallel workers, atomic decision/seed checkpoints, stop/resume commands, and
+early review rules. Live progress is in
+[the campaign status](campaigns/random-420600-699/STATUS.md). Same-opening-hand
+hidden-world panels are also supported separately.

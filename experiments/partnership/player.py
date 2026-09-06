@@ -39,7 +39,7 @@ def child(command, text, allowance):
         # workers launch no children. subprocess.run kills/reaps on timeout.
         result = subprocess.run(command, input=text, text=True,
                                 capture_output=True, timeout=allowance,
-                                env={**os.environ, "RAYON_NUM_THREADS": "6"})
+                                env={**os.environ, "RAYON_NUM_THREADS": os.environ.get("WALT_RAYON_THREADS", "6")})
     except subprocess.TimeoutExpired:
         return None, "timeout"
     except (OSError, subprocess.SubprocessError) as error:
