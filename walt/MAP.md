@@ -9,6 +9,13 @@ defensive regression and did not establish a strength improvement. The packet,
 phone provenance, runnable table, focused checks, and failure fixture are
 preserved beside that report. This is a local variant, not a new phone default.
 
+The shared sampling-stack solver also now accepts an independent
+[`InnerBelief` strategy](../experiments/partnership/INNER-BELIEF.md): legacy
+voidless sampling or opt-in counted sampling with public voids retained in
+search and policy keys. Both use the same recursion and seat-level fields.
+Compatibility and support checks pass; no strength campaign for this option
+has run, and existing entry points retain their legacy default.
+
 **For Jason, to hold in his head.** Written 2026-09-04; rewritten at
 every landing (the orchestrating session owns it). Ten minutes to
 reread. Everything here is EXPLORATORY tier; nothing is promoted by

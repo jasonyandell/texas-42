@@ -3,9 +3,11 @@
 //! lineage, itself the divergence.rs/level2.rs line). Sits below every
 //! evidentiary tier; nothing above the Ideas tier cites it.
 //!
-//! One solver, three axes of configuration:
+//! One solver, independent axes of configuration:
 //!   - `Field`: Dice at the bottom, `Level(k)` above it (the field model
 //!     is a parameter — level-k minds best-respond to level-(k−1) minds).
+//!   - `InnerBelief`: legacy voidless or public-void-conditioned counted
+//!     sampling inside every modeled level. Legacy is the default.
 //!   - `bid`: the pmake objective's threshold pair (make ⇔ banked_T1 ≥ bid
 //!     ⇔ banked_T0 ≤ 42 − bid), so bidding and play share the machinery.
 //!   - `parallel` (cargo feature + runtime flag): rayon fan-out on root
@@ -13,8 +15,8 @@
 //!     out entirely without the "parallel" feature (the WASM build).
 //!
 //! Invariants (SCENARIO-PLAYER.md): PiKey carries the modeled mind's
-//! ENTIRE information state, banked totals included (§3.4); every cache
-//! entry is a pure function of its key, which is what makes results
+//! represented information state, including banked totals and the selected
+//! void state. Every cache entry is a pure function of its key, which is what makes results
 //! invariant across thread counts and call orders (§8). Exact rationals
 //! only — no floats.
 
@@ -38,6 +40,8 @@ pub mod godgap;
 pub mod grammar;
 pub mod hazard;
 pub mod horizon;
+pub mod inner_belief;
+pub use inner_belief::InnerBelief;
 pub mod laydown;
 pub mod model_belief;
 pub mod model_recursion;
@@ -185,6 +189,8 @@ pub fn mask_bits(mask: u32) -> Vec<u8> {
 
 #[derive(Clone, PartialEq, Eq, Hash)]
 pub struct Key {
+    /// None preserves legacy identity; Some tracks public void deductions.
+    pub voids: Option<[u32; 4]>,
     pub played: u32,
     pub leader: u8,
     pub plays: Vec<u8>,
@@ -221,10 +227,11 @@ pub enum Field {
     SeatLevels([usize; 4]),
 }
 
-/// The modeled mind's entire information state, banked totals included
+/// The modeled mind's represented information state, banked totals included
 /// (SCENARIO-PLAYER.md §3.1/§3.4).
 #[derive(Clone, PartialEq, Eq, Hash)]
 pub struct PiKey {
+    pub voids: Option<[u32; 4]>,
     pub seat: u8,
     pub hand: u32,
     pub played: u32,
@@ -241,6 +248,7 @@ type PiShard = Mutex<HashMap<(u8, PiKey), u8>>;
 /// State shared by every solver in one evaluation: declaration, bid
 /// thresholds, boundary frame, budget, and the cross-level policy cache.
 pub struct Shared {
+    inner_belief: InnerBelief,
     pub dcl: Decl,
     /// make ⇔ banked_t1 ≥ bid ⇔ banked_t0 ≤ 42 − bid.
     pub bid: u8,
@@ -274,6 +282,7 @@ impl Shared {
     ) -> Self {
         let pi_calls_by_level = (0..n_inner.len()).map(|_| AtomicU64::new(0)).collect();
         Shared {
+            inner_belief: InnerBelief::Voidless,
             dcl,
             bid,
             n_inner,
@@ -288,6 +297,19 @@ impl Shared {
             viewer_legal: AtomicU64::new(0),
             dead: AtomicBool::new(false),
         }
+    }
+
+    /// Select before sharing an evaluation. One cache never mixes belief
+    /// strategies; existing constructors retain historical behavior.
+    #[must_use]
+    pub fn with_inner_belief(mut self, strategy: InnerBelief) -> Self {
+        assert_eq!(self.pi_cache_len(), 0, "select belief before evaluating");
+        self.inner_belief = strategy;
+        self
+    }
+
+    pub const fn inner_belief(&self) -> InnerBelief {
+        self.inner_belief
     }
 
     /// Folded `solve_viewer` break counters: (children actually solved,
@@ -489,7 +511,17 @@ impl Solver {
         )
     }
 
+    fn check_belief_key(&self, key: &Key) {
+        assert_eq!(
+            key.voids.is_some(),
+            self.sh.inner_belief == InnerBelief::VoidsCounted,
+            "search key and evaluation belief strategy must agree"
+        );
+    }
+
     pub fn child_after_play(&self, key: &Key, tile: Domino, alive: u32) -> Key {
+        self.check_belief_key(key);
+        let voids = inner_belief::after_play(key, self.sh.dcl, tile);
         let mut plays = key.plays.clone();
         plays.push(tile.index() as u8);
         let played = key.played | bit(tile);
@@ -506,6 +538,7 @@ impl Solver {
             let value = trick.points() as u8;
             let t1_won = winner.team() == Team::T1;
             Key {
+                voids,
                 played,
                 leader: winner.index() as u8,
                 plays: Vec::new(),
@@ -515,6 +548,7 @@ impl Solver {
             }
         } else {
             Key {
+                voids,
                 played,
                 leader: key.leader,
                 plays,
@@ -526,6 +560,7 @@ impl Solver {
     }
 
     pub fn solve(&self, key: &Key) -> Option<BigRational> {
+        self.check_belief_key(key);
         if !self.bump_node() {
             return None;
         }
@@ -801,7 +836,12 @@ impl Solver {
     /// The level-k policy at a modeled seat's information state (pure in
     /// (k, PiKey); level-0 seeding bit-identical across the stack).
     fn pi(&self, k: usize, key: &Key, seat: Seat, hand: u32, legal_mask: u32) -> Option<u8> {
+        self.check_belief_key(key);
         let pk = PiKey {
+            voids: match self.sh.inner_belief {
+                InnerBelief::Voidless => None,
+                InnerBelief::VoidsCounted => Some(key.voids.expect("tracked inner belief")),
+            },
             seat: seat.index() as u8,
             hand,
             played: key.played,
@@ -828,10 +868,6 @@ impl Solver {
         self.sh.pi_calls_by_level[k].fetch_add(1, Ordering::Relaxed);
         let n_k = self.sh.n_inner[k];
         let sizes = self.hand_sizes_at(key);
-        let unseen = FULL_MASK & !key.played & !hand;
-        let others: Vec<usize> = (0..4).filter(|&s| s != seat.index()).collect();
-        let need: usize = others.iter().map(|&s| sizes[s]).sum();
-        assert_eq!(unseen.count_ones() as usize, need, "unseen tiles fit sizes");
         let level_tag = if k == 0 { 0 } else { mix(0x4C32 ^ k as u64) };
         let mut rng = SplitMix64(
             INNER_SEED
@@ -840,27 +876,19 @@ impl Solver {
                 ^ mix(u64::from(hand))
                 ^ record_hash(key),
         );
-        let mut tiles = mask_bits(unseen);
-        let mask_slice = |sl: &[u8]| sl.iter().fold(0u32, |a, &x| a | (1u32 << x));
-        let mut inner_worlds: Vec<[u32; 4]> = Vec::with_capacity(n_k);
-        for sample_index in 0..n_k {
-            if (sample_index == 0 || sample_index & 0xFF == 0) && self.sh.deadline.passed() {
-                self.sh.dead.store(true, Ordering::Relaxed);
-                return None;
-            }
-            for i in (1..tiles.len()).rev() {
-                let j = rng.below((i + 1) as u64) as usize;
-                tiles.swap(i, j);
-            }
-            let mut w = [0u32; 4];
-            w[seat.index()] = hand;
-            let mut off = 0;
-            for &s in &others {
-                w[s] = mask_slice(&tiles[off..off + sizes[s]]);
-                off += sizes[s];
-            }
-            inner_worlds.push(w);
-        }
+        let Some(inner_worlds) = self.sh.inner_belief.sample(
+            self.sh.dcl,
+            seat,
+            hand,
+            key,
+            sizes,
+            n_k,
+            &mut rng,
+            self.sh.deadline,
+        ) else {
+            self.sh.dead.store(true, Ordering::Relaxed);
+            return None;
+        };
         if self.sh.deadline.passed() {
             self.sh.dead.store(true, Ordering::Relaxed);
             return None;
@@ -885,6 +913,7 @@ impl Solver {
         )
         .with_ordering(self.ordering);
         let root = Key {
+            voids: pk.voids,
             played: key.played,
             leader: key.leader,
             plays: key.plays.clone(),
@@ -1523,9 +1552,9 @@ fn binom_tail_leq(k: usize, m: usize, delta_num: u64, delta_den: u64) -> bool {
     tail * BigUint::from(delta_den) <= BigUint::from(delta_num) * (BigUint::from(1u32) << k)
 }
 
-/// Step a Key forward by one play (banked-correct trick resolution; no void
-/// tracking — modeled minds do not condition on voids).
+/// Step a Key forward, preserving the selected void-tracking semantics.
 pub(crate) fn key_step(key: &mut Key, dcl: Decl, tile: Domino) {
+    key.voids = inner_belief::after_play(key, dcl, tile);
     key.plays.push(tile.index() as u8);
     key.played |= bit(tile);
     if key.plays.len() == 4 {
@@ -1564,6 +1593,7 @@ fn race_replay(
     first: u8,
 ) -> Option<bool> {
     let mut key = Key {
+        voids: root.voids,
         played: root.played,
         leader: root.leader,
         plays: root.plays.clone(),

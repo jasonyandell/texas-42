@@ -1,0 +1,9 @@
+   Compiling autocfg v1.5.1
+   Compiling num-traits v0.2.19
+    Checking num-integer v0.1.47
+    Checking num-bigint v0.4.8
+    Checking num-rational v0.4.2
+    Checking walt v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt)
+    Checking walt-wasm v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt-wasm)
+    Checking walt2-wasm v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt2-wasm)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.37s

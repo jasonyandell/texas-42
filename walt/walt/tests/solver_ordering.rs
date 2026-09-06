@@ -115,6 +115,7 @@ fn deal(hand_no: u64) -> [u32; 4] {
 
 fn root_key() -> Key {
     Key {
+        voids: None,
         played: 0,
         leader: 1,
         plays: Vec::new(),
@@ -264,6 +265,7 @@ fn viewer_visit_order_is_a_canonical_permutation_of_the_legal_set() {
     let lead_key = root_key();
     let led_tile = mask_bits(hand)[0];
     let follow_key = Key {
+        voids: None,
         played: 1u32 << led_tile,
         leader: 1,
         plays: vec![led_tile],

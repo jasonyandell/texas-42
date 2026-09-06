@@ -149,6 +149,7 @@ fn deal(hand_no: u64) -> [u32; 4] {
 
 fn root_key() -> Key {
     Key {
+        voids: None,
         played: 0,
         leader: 1,
         plays: Vec::new(),

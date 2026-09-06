@@ -231,6 +231,7 @@ fn handle_play(r: &Req) -> Result<String, String> {
         (legal.trailing_zeros() as u8, true, Vec::new(), false)
     } else {
         let key = Key {
+            voids: None,
             played: st.played,
             leader: st.leader,
             plays: st.plays.clone(),
@@ -306,6 +307,7 @@ fn handle_play(r: &Req) -> Result<String, String> {
                 return Err("viewer_hand overlaps the actor's hand".to_string());
             }
             let key = Key {
+                voids: None,
                 played: st.played,
                 leader: st.leader,
                 plays: st.plays.clone(),
@@ -396,6 +398,7 @@ fn eval_bid(
     )
     .parallel();
     let root = Key {
+        voids: None,
         played: 0,
         leader: 1,
         plays: Vec::new(),

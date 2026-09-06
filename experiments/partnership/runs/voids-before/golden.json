@@ -1,0 +1,662 @@
+{
+  "binary_sha256": "b711b9b0ef7bbd18f4a4fab95107d7072ac31ffa05d20ee6f583c1ccb8fa99f2",
+  "n": 4,
+  "n0": 2,
+  "n1": 2,
+  "rows": [
+    {
+      "request": {
+        "decl": 6,
+        "bid": 30,
+        "bidder": 0,
+        "seat": 0,
+        "hand": [
+          0,
+          4,
+          9,
+          14,
+          22,
+          24,
+          27
+        ],
+        "plays": [],
+        "seed": 420600
+      },
+      "mode": "baseline",
+      "response": [
+        {
+          "legal": [
+            0,
+            4,
+            9,
+            14,
+            22,
+            24,
+            27
+          ],
+          "leader": 0,
+          "points": [
+            0,
+            0
+          ],
+          "trick": 1,
+          "choice": 0,
+          "options": [
+            [
+              0,
+              "1",
+              "1"
+            ],
+            [
+              4,
+              "1",
+              "1"
+            ],
+            [
+              9,
+              "1",
+              "1"
+            ],
+            [
+              14,
+              "1",
+              "1"
+            ],
+            [
+              22,
+              "1",
+              "1"
+            ],
+            [
+              24,
+              "1",
+              "1"
+            ],
+            [
+              27,
+              "1",
+              "1"
+            ]
+          ],
+          "outer_worlds": 4,
+          "outer_draw_attempts": 4,
+          "pi_calls_by_level": [
+            478,
+            0
+          ],
+          "inner_worlds_by_level": [
+            956,
+            0
+          ],
+          "nodes": 67013,
+          "solver_us": 19969
+        },
+        "completed"
+      ]
+    },
+    {
+      "request": {
+        "decl": 6,
+        "bid": 30,
+        "bidder": 0,
+        "seat": 0,
+        "hand": [
+          0,
+          4,
+          9,
+          14,
+          22,
+          24,
+          27
+        ],
+        "plays": [],
+        "seed": 420600
+      },
+      "mode": "partner",
+      "response": [
+        {
+          "legal": [
+            0,
+            4,
+            9,
+            14,
+            22,
+            24,
+            27
+          ],
+          "leader": 0,
+          "points": [
+            0,
+            0
+          ],
+          "trick": 1,
+          "choice": 0,
+          "options": [
+            [
+              0,
+              "1",
+              "1"
+            ],
+            [
+              4,
+              "1",
+              "1"
+            ],
+            [
+              9,
+              "1",
+              "1"
+            ],
+            [
+              14,
+              "1",
+              "1"
+            ],
+            [
+              22,
+              "1",
+              "1"
+            ],
+            [
+              24,
+              "1",
+              "1"
+            ],
+            [
+              27,
+              "1",
+              "1"
+            ]
+          ],
+          "outer_worlds": 4,
+          "outer_draw_attempts": 4,
+          "pi_calls_by_level": [
+            21056,
+            173
+          ],
+          "inner_worlds_by_level": [
+            42112,
+            346
+          ],
+          "nodes": 1140914,
+          "solver_us": 204555
+        },
+        "completed"
+      ]
+    },
+    {
+      "request": {
+        "decl": 6,
+        "bid": 30,
+        "bidder": 0,
+        "seat": 0,
+        "hand": [
+          0,
+          4,
+          9,
+          14,
+          22,
+          24,
+          27
+        ],
+        "plays": [],
+        "seed": 420600
+      },
+      "mode": "all-l1",
+      "response": [
+        {
+          "legal": [
+            0,
+            4,
+            9,
+            14,
+            22,
+            24,
+            27
+          ],
+          "leader": 0,
+          "points": [
+            0,
+            0
+          ],
+          "trick": 1,
+          "choice": 0,
+          "options": [
+            [
+              0,
+              "1",
+              "1"
+            ],
+            [
+              4,
+              "1",
+              "1"
+            ],
+            [
+              9,
+              "1",
+              "1"
+            ],
+            [
+              14,
+              "1",
+              "1"
+            ],
+            [
+              22,
+              "1",
+              "1"
+            ],
+            [
+              24,
+              "1",
+              "1"
+            ],
+            [
+              27,
+              "1",
+              "1"
+            ]
+          ],
+          "outer_worlds": 4,
+          "outer_draw_attempts": 4,
+          "pi_calls_by_level": [
+            39131,
+            584
+          ],
+          "inner_worlds_by_level": [
+            78262,
+            1168
+          ],
+          "nodes": 2298600,
+          "solver_us": 379577
+        },
+        "completed"
+      ]
+    },
+    {
+      "request": {
+        "decl": 6,
+        "bid": 30,
+        "bidder": 0,
+        "seat": 1,
+        "hand": [
+          2,
+          6,
+          13,
+          16,
+          19,
+          21,
+          26
+        ],
+        "plays": [
+          0,
+          27
+        ],
+        "seed": 420600
+      },
+      "mode": "baseline",
+      "response": [
+        {
+          "legal": [
+            21,
+            26
+          ],
+          "leader": 0,
+          "points": [
+            0,
+            0
+          ],
+          "trick": 1,
+          "choice": 21,
+          "options": [
+            [
+              21,
+              "0",
+              "1"
+            ],
+            [
+              26,
+              "1",
+              "2"
+            ]
+          ],
+          "outer_worlds": 4,
+          "outer_draw_attempts": 4,
+          "pi_calls_by_level": [
+            199,
+            0
+          ],
+          "inner_worlds_by_level": [
+            398,
+            0
+          ],
+          "nodes": 23354,
+          "solver_us": 7234
+        },
+        "completed"
+      ]
+    },
+    {
+      "request": {
+        "decl": 6,
+        "bid": 30,
+        "bidder": 0,
+        "seat": 1,
+        "hand": [
+          2,
+          6,
+          13,
+          16,
+          19,
+          21,
+          26
+        ],
+        "plays": [
+          0,
+          27
+        ],
+        "seed": 420600
+      },
+      "mode": "partner",
+      "response": [
+        {
+          "legal": [
+            21,
+            26
+          ],
+          "leader": 0,
+          "points": [
+            0,
+            0
+          ],
+          "trick": 1,
+          "choice": 21,
+          "options": [
+            [
+              21,
+              "1",
+              "4"
+            ],
+            [
+              26,
+              "1",
+              "2"
+            ]
+          ],
+          "outer_worlds": 4,
+          "outer_draw_attempts": 4,
+          "pi_calls_by_level": [
+            2003,
+            76
+          ],
+          "inner_worlds_by_level": [
+            4006,
+            152
+          ],
+          "nodes": 130128,
+          "solver_us": 27529
+        },
+        "completed"
+      ]
+    },
+    {
+      "request": {
+        "decl": 6,
+        "bid": 30,
+        "bidder": 0,
+        "seat": 1,
+        "hand": [
+          2,
+          6,
+          13,
+          16,
+          19,
+          21,
+          26
+        ],
+        "plays": [
+          0,
+          27
+        ],
+        "seed": 420600
+      },
+      "mode": "all-l1",
+      "response": [
+        {
+          "legal": [
+            21,
+            26
+          ],
+          "leader": 0,
+          "points": [
+            0,
+            0
+          ],
+          "trick": 1,
+          "choice": 21,
+          "options": [
+            [
+              21,
+              "1",
+              "4"
+            ],
+            [
+              26,
+              "1",
+              "4"
+            ]
+          ],
+          "outer_worlds": 4,
+          "outer_draw_attempts": 4,
+          "pi_calls_by_level": [
+            14276,
+            183
+          ],
+          "inner_worlds_by_level": [
+            28552,
+            366
+          ],
+          "nodes": 775307,
+          "solver_us": 161250
+        },
+        "completed"
+      ]
+    },
+    {
+      "request": {
+        "decl": 6,
+        "bid": 30,
+        "bidder": 0,
+        "seat": 2,
+        "hand": [
+          1,
+          5,
+          11,
+          12,
+          17,
+          23,
+          25
+        ],
+        "plays": [
+          0,
+          27,
+          1,
+          21
+        ],
+        "seed": 420600
+      },
+      "mode": "baseline",
+      "response": [
+        {
+          "legal": [
+            23,
+            25
+          ],
+          "leader": 0,
+          "points": [
+            0,
+            0
+          ],
+          "trick": 1,
+          "choice": 23,
+          "options": [
+            [
+              23,
+              "3",
+              "4"
+            ],
+            [
+              25,
+              "3",
+              "4"
+            ]
+          ],
+          "outer_worlds": 4,
+          "outer_draw_attempts": 4,
+          "pi_calls_by_level": [
+            189,
+            0
+          ],
+          "inner_worlds_by_level": [
+            378,
+            0
+          ],
+          "nodes": 17211,
+          "solver_us": 4958
+        },
+        "completed"
+      ]
+    },
+    {
+      "request": {
+        "decl": 6,
+        "bid": 30,
+        "bidder": 0,
+        "seat": 2,
+        "hand": [
+          1,
+          5,
+          11,
+          12,
+          17,
+          23,
+          25
+        ],
+        "plays": [
+          0,
+          27,
+          1,
+          21
+        ],
+        "seed": 420600
+      },
+      "mode": "partner",
+      "response": [
+        {
+          "legal": [
+            23,
+            25
+          ],
+          "leader": 0,
+          "points": [
+            0,
+            0
+          ],
+          "trick": 1,
+          "choice": 25,
+          "options": [
+            [
+              23,
+              "3",
+              "4"
+            ],
+            [
+              25,
+              "1",
+              "1"
+            ]
+          ],
+          "outer_worlds": 4,
+          "outer_draw_attempts": 4,
+          "pi_calls_by_level": [
+            5103,
+            74
+          ],
+          "inner_worlds_by_level": [
+            10206,
+            148
+          ],
+          "nodes": 269136,
+          "solver_us": 45494
+        },
+        "completed"
+      ]
+    },
+    {
+      "request": {
+        "decl": 6,
+        "bid": 30,
+        "bidder": 0,
+        "seat": 2,
+        "hand": [
+          1,
+          5,
+          11,
+          12,
+          17,
+          23,
+          25
+        ],
+        "plays": [
+          0,
+          27,
+          1,
+          21
+        ],
+        "seed": 420600
+      },
+      "mode": "all-l1",
+      "response": [
+        {
+          "legal": [
+            23,
+            25
+          ],
+          "leader": 0,
+          "points": [
+            0,
+            0
+          ],
+          "trick": 1,
+          "choice": 23,
+          "options": [
+            [
+              23,
+              "3",
+              "4"
+            ],
+            [
+              25,
+              "3",
+              "4"
+            ]
+          ],
+          "outer_worlds": 4,
+          "outer_draw_attempts": 4,
+          "pi_calls_by_level": [
+            9412,
+            275
+          ],
+          "inner_worlds_by_level": [
+            18824,
+            550
+          ],
+          "nodes": 456209,
+          "solver_us": 91286
+        },
+        "completed"
+      ]
+    }
+  ]
+}

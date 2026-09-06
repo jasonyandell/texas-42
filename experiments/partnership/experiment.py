@@ -39,7 +39,8 @@ def drive(hands, decl, bid, bidder, modes, args, name):
             # input. No hand seed or teammate hand crosses the boundary.
             mode = modes[seat]
             resp = decide(req, mode, 40 if mode == "phone" else args.n,
-                          8 if mode == "phone" else args.n0, args.n1, args.budget_ms)
+                          8 if mode == "phone" else args.n0, args.n1, args.budget_ms,
+                          "voidless" if mode == "phone" else args.inner_belief)
             expected_legal = legal_tiles(remaining[seat], trick, decl)
             assert resp["legal"] == expected_legal
             assert resp["leader"] == leader and resp["points"] == points
@@ -88,6 +89,7 @@ def main():
     p.add_argument("--modes", default="baseline,partner,phone")
     p.add_argument("--n", type=int, default=40)
     p.add_argument("--n0", type=int, default=8)
+    p.add_argument("--inner-belief", choices=["voidless", "voids-counted"], default="voidless")
     p.add_argument("--n1", type=int, default=2)
     p.add_argument("--budget-ms", type=int, default=14000)
     p.add_argument("--deal-seed", type=int)
@@ -116,7 +118,8 @@ def main():
                 assert req["seat"] == (lead+len(trick)) % 4
             for mode in args.modes.split(","):
                 resp = decide(req, mode, 40 if mode == "phone" else args.n,
-                              8 if mode == "phone" else args.n0, args.n1, args.budget_ms)
+                              8 if mode == "phone" else args.n0, args.n1, args.budget_ms,
+                              "voidless" if mode == "phone" else args.inner_belief)
                 if root["id"].startswith("g1-"):
                     assert resp["points"] == pts and resp["leader"] == lead
                     assert resp["legal"] == legal_tiles(remaining[req["seat"]], trick, req["decl"])

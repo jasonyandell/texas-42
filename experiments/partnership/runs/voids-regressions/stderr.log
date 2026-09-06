@@ -1,0 +1,24 @@
+error: environment variable `CARGO_MANIFEST_DIR` not defined at compile time
+   --> walt/walt/tests/solver_sigma1_repair.rs:331:37
+    |
+331 |     let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+    |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: there is a similar Cargo environment variable: `CARGO_MANIFEST_DIR`
+
+error: environment variable `CARGO_MANIFEST_DIR` not defined at compile time
+   --> walt/walt/tests/solver_sigma1_repair.rs:695:37
+    |
+695 |     let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("src");
+    |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: there is a similar Cargo environment variable: `CARGO_MANIFEST_DIR`
+
+error: aborting due to 2 previous errors
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "<string>", line 1, in <listcomp>
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 528, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['rustc', '--edition=2021', '--test', 'walt/walt/tests/solver_sigma1_repair.rs', '-L', 'dependency=walt/target/release/deps', '-C', 'opt-level=3', '-C', 'overflow-checks=yes', '--extern', 'walt=walt/target/release/deps/libwalt-b3448dcced665265.rlib', '--extern', 'num_rational=walt/target/release/deps/libnum_rational-8da145fb03cd7a13.rlib', '--extern', 'num_bigint=walt/target/release/deps/libnum_bigint-bc467e5f8e5531b4.rlib', '--extern', 'num_traits=walt/target/release/deps/libnum_traits-aea8a76e3bc5dd9e.rlib', '-o', 'walt/target/release/voids-solver_sigma1_repair']' returned non-zero exit status 1.

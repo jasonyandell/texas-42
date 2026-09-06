@@ -21,6 +21,7 @@ def main():
     p.add_argument("--bid", type=int, default=30)
     p.add_argument("--decl", type=int, choices=[0,1,2,3,4,5,6,7,9], help="0..6 pip trump; 7 doubles; 9 no trump")
     p.add_argument("--deal-seed", type=int)
+    p.add_argument("--inner-belief", choices=["voidless", "voids-counted"], default="voidless")
     p.add_argument("--n1", type=int, default=2)
     args = p.parse_args()
     if not 30 <= args.bid <= 42:
@@ -69,7 +70,8 @@ def main():
                 response = decide({"decl": decl, "bid": args.bid, "seat": seat,
                                    "bidder": 0, "hand": hands[seat], "plays": record[:],
                                    "seed": 420600},
-                                  "partner" if seat == 2 else "phone", n1=args.n1)
+                                  "partner" if seat == 2 else "phone", n1=args.n1,
+                                  inner_belief=args.inner_belief if seat == 2 else "voidless")
                 tile = response["choice"]
                 if "fallback" in response["route"]:
                     print("  (used the move kept in reserve)")

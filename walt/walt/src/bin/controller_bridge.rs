@@ -264,6 +264,7 @@ fn declare(nums: &[usize], cfg: &Config, full: bool) -> usize {
     let mut rng = SplitMix64(CTRL_DECLARE_SEED ^ mix(u64::from(hand0)) ^ mix(0xDEC1));
     let deadline = Deadline::after(Duration::from_secs(cfg.per_move_secs));
     let root = Key {
+        voids: None,
         played: 0,
         leader: bidder_i as u8,
         plays: Vec::new(),

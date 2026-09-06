@@ -1,0 +1,30 @@
+   Compiling autocfg v1.5.1
+   Compiling crossbeam-utils v0.8.22
+   Compiling crossbeam-epoch v0.9.20
+   Compiling crossbeam-deque v0.8.7
+   Compiling rayon-core v1.13.0
+    Checking either v1.17.0
+   Compiling objc2 v0.6.4
+    Checking objc2-encode v4.1.0
+    Checking bitflags v2.13.1
+    Checking objc2-core-foundation v0.3.2
+    Checking objc2-core-graphics v0.3.2
+   Compiling num-traits v0.2.19
+    Checking block2 v0.6.2
+    Checking objc2-foundation v0.3.2
+    Checking dispatch2 v0.3.1
+    Checking objc2-metal v0.3.2
+    Checking rayon v1.12.0
+    Checking num-integer v0.1.47
+    Checking num-bigint v0.4.8
+    Checking num-rational v0.4.2
+    Checking walt v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt)
+    Checking rob-core v0.1.0 (/Users/jason/code/texas-42-partnership-launch/rob/crates/core)
+    Checking rob-player v0.1.0 (/Users/jason/code/texas-42-partnership-launch/rob/crates/player)
+    Checking rob-verify v0.1.0 (/Users/jason/code/texas-42-partnership-launch/rob/crates/verify)
+    Checking walt-gpu-ref v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt-gpu-ref)
+    Checking walt-wasm v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt-wasm)
+    Checking walt2-wasm v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt2-wasm)
+    Checking walt-metal v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt-metal)
+    Checking walt-m2-runner v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt-m2-runner)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.12s

@@ -1,0 +1,45 @@
+Checking solver_sigma1_repair
+
+running 8 tests
+test capture_before_side_fixture ... ignored, regenerates the committed before-side evidence; see the module doc
+test exactly_one_sampler_definition_survives_in_the_crate ... ok
+test the_blocked_roots_now_terminate_with_a_value_or_a_named_refusal ... ok
+test the_counting_oracle_agrees_with_exhaustive_partition_search ... ok
+test the_open_frame_entry_point_cannot_refuse ... ok
+test the_oracle_models_the_prefix_slicing_not_an_exact_partition ... ok
+test the_pinned_infeasible_specimen_refuses_instead_of_spinning ... ok
+test the_repaired_sampler_reproduces_the_before_side_capture_exactly ... ok
+
+test result: ok. 7 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.70s
+
+Checking solver_policy
+
+running 7 tests
+test discovery_streams_are_domain_separated_and_derive_from_the_information_state_alone ... ok
+test equal_tuples_freeze_to_equal_policy_ids_and_the_label_names_the_id ... ok
+test evaluate_pair_accepts_frozen_policies_and_walks_the_identical_stream ... ok
+test every_freeze_tuple_field_change_produces_a_new_policy_id ... ok
+test hidden_worlds_with_identical_focal_information_materialize_the_identical_action ... ok
+test replay_parity_the_frozen_pair_reproduces_the_pinned_78_34_split_and_replays_from_cache ... ok
+test the_cache_extends_on_new_states_and_never_changes_a_defined_action ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+Checking solver_viewer_fiber
+
+running 2 tests
+test cross_fiber_lawful_and_deterministic ... ok
+test own_fiber_full_support_matches_plain_solver ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+Checking solver_ordering
+
+running 4 tests
+test bench_root_exact_values_match_their_frozen_pins ... ok
+test both_orderings_agree_on_every_exact_value ... ok
+test direct_solve_values_and_break_counters_are_sane ... ok
+test viewer_visit_order_is_a_canonical_permutation_of_the_legal_set ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.59s
+

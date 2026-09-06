@@ -305,6 +305,7 @@ fn handle_play(r: &Req) -> Result<String, String> {
         (legal.trailing_zeros() as u8, true, Vec::new())
     } else {
         let key = Key {
+            voids: None,
             played: st.played,
             leader: st.leader,
             plays: st.plays.clone(),
@@ -382,6 +383,7 @@ fn eval_bid(
     )
     .parallel();
     let root = Key {
+        voids: None,
         played: 0,
         leader: 1,
         plays: Vec::new(),

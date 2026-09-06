@@ -1,0 +1,4 @@
+PASS nine pre-change decisions: legacy choices and every rational action value unchanged
+PASS counted strategy completes the same nine opening/partial-trick decisions
+PASS explicit strategy reaches primary and fallback; archived phone rejects unsupported changes
+PASS campaign identity freezes the selected strategy (no games launched)

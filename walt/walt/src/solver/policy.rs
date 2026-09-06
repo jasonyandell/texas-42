@@ -916,6 +916,7 @@ pub fn continuation_frame(
     let mut completed = root.prior_played.len() / 4;
     let mut trick_start_played = mask_of(root.prior_played);
     let mut key = Key {
+        voids: None,
         played: trick_start_played,
         leader: root.leader.index() as u8,
         plays: Vec::new(),

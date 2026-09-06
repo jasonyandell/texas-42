@@ -69,13 +69,15 @@ def identities():
             "native": hashlib.sha256(BINARY.read_bytes()).hexdigest()}
 
 
-def initialize(path, start=420600, count=100, panel="random", threads=4, workers=3):
+def initialize(path, start=420600, count=100, panel="random", threads=4, workers=3, inner_belief="voidless"):
     path = Path(path).resolve()
     if (path/"manifest.json").exists():
         raise ValueError("campaign already exists; use advance to resume")
     if not 1 <= threads <= 18 or not 1 <= workers <= 3 or not 1 <= count <= 1000:
         raise ValueError("invalid threads, workers, or count")
-    spec = {"schema": "partnership-campaign-v1", "start": start, "count": count,
+    if inner_belief not in ("voidless", "voids-counted"):
+        raise ValueError("unknown inner belief strategy")
+    spec = {"inner_belief": inner_belief, "schema": "partnership-campaign-v1", "start": start, "count": count,
             "panel": panel, "worlds_per_hand": 10, "bid": 30, "public_seed": PUBLIC_SEED,
             "n": 40, "n0": 8, "n1": 2, "budget_ms": 14000,
             "threads": threads, "workers": workers, "seed_cap_seconds": 270,
@@ -158,7 +160,8 @@ def arm_run(path, seed, arm, yield_path):
         seat = (lead+len(trick)) % 4
         req = {"decl": f["decl"], "bid": 30, "bidder": f["bidder"], "seat": seat,
                "hand": f["hands"][seat], "plays": record, "seed": PUBLIC_SEED}
-        response = decide(req, modes[seat], spec["n"], spec["n0"], spec["n1"], spec["budget_ms"])
+        response = decide(req, modes[seat], spec["n"], spec["n0"], spec["n1"], spec["budget_ms"],
+                          "voidless" if modes[seat] == "phone" else spec.get("inner_belief", "voidless"))
         assert response["points"] == points and response["leader"] == lead
         assert response["choice"] in information_state(req)["legal"]
         assert not response["over_budget"], "decision deadline overrun"
@@ -401,6 +404,7 @@ def main():
     p.add_argument("--start",type=int,default=420600)
     p.add_argument("--count",type=int,default=100)
     p.add_argument("--panel",choices=("random","worlds"),default="random")
+    p.add_argument("--inner-belief",choices=("voidless","voids-counted"),default="voidless")
     p.add_argument("--threads",type=int,default=4)
     p.add_argument("--workers",type=int,default=3)
     p.add_argument("--seconds",type=int,default=260)
@@ -411,7 +415,7 @@ def main():
     p.add_argument("--yield-path")
     args=p.parse_args()
     if args.command=="init":
-        initialize(args.path,args.start,args.count,args.panel,args.threads,args.workers)
+        initialize(args.path,args.start,args.count,args.panel,args.threads,args.workers,args.inner_belief)
     elif args.command=="advance":
         advance(args.path,args.seconds,args.max_seeds)
     elif args.command=="arm":

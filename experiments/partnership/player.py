@@ -22,8 +22,9 @@ BINARY = ROOT / "walt/target/release/partnership"
 INPUT_KEYS = {"decl", "bid", "bidder", "seat", "hand", "plays", "seed"}
 
 
-def native_text(req, mode, n=8, n0=2, n1=2, budget_ms=1000):
+def native_text(req, mode, n=8, n0=2, n1=2, budget_ms=1000, inner_belief="voidless"):
     fields = {**req, "n": n, "n0": n0, "n1": n1, "budget_ms": budget_ms}
+    fields["inner_belief"] = {"voidless": 0, "voids-counted": 1}[inner_belief]
     lines = [mode]
     for name, value in fields.items():
         values = value if isinstance(value, list) else [value]
@@ -98,7 +99,7 @@ def normalize(raw):
     return req
 
 
-def decide(raw, mode="partner", n=40, n0=8, n1=2, budget_ms=14000):
+def decide(raw, mode="partner", n=40, n0=8, n1=2, budget_ms=14000, inner_belief="voidless"):
     start = time.monotonic()
     if mode not in ("partner", "baseline", "all-l1", "phone"):
         raise ValueError("unknown player mode")
@@ -106,6 +107,10 @@ def decide(raw, mode="partner", n=40, n0=8, n1=2, budget_ms=14000):
         raise ValueError("budget_ms must be 100..14000 (four seats fit one minute)")
     if not 1 <= n <= 640 or not 1 <= n0 <= 64 or not 1 <= n1 <= 64:
         raise ValueError("invalid sample counts")
+    if inner_belief not in ("voidless", "voids-counted"):
+        raise ValueError("unknown inner belief strategy")
+    if mode == "phone" and inner_belief != "voidless":
+        raise ValueError("the preserved phone does not support inner belief selection")
     deadline = start + budget_ms / 1000
     reserve = min(0.10, budget_ms / 10000)
     req = normalize(raw)
@@ -135,7 +140,7 @@ def decide(raw, mode="partner", n=40, n0=8, n1=2, budget_ms=14000):
         allowance = min(1.5, max(0, (deadline - t - reserve) / 4))
         fallback_evaluation, status = child(
             [str(BINARY)], native_text(req, "baseline", 8, 2, 2,
-                                       max(0, int(allowance*1000)-40)), allowance)
+                                       max(0, int(allowance*1000)-40), inner_belief), allowance)
         fallback_choice = None
         if fallback_evaluation is not None:
             fallback_choice, status = checked_response(fallback_evaluation, state)
@@ -152,7 +157,7 @@ def decide(raw, mode="partner", n=40, n0=8, n1=2, budget_ms=14000):
             command = ["node", str(HERE / "phone.mjs")]
         else:
             text = native_text(req, mode, n, n0, n1,
-                               max(0, int(allowance*1000)-40))
+                               max(0, int(allowance*1000)-40), inner_belief)
             command = [str(BINARY)]
         evaluation, status = child(command, text, allowance)
         primary_choice = None
@@ -165,7 +170,7 @@ def decide(raw, mode="partner", n=40, n0=8, n1=2, budget_ms=14000):
             route = mode
     elapsed_us = round((time.monotonic()-start)*1_000_000)
     return {"schema": "partnership-decision-v1", "choice": choice, "route": route,
-            **state, "mode": mode, "n": n, "n0": n0, "n1": n1,
+            **state, "mode": mode, "inner_belief": inner_belief, "n": n, "n0": n0, "n1": n1,
             "budget_ms": budget_ms, "elapsed_us": elapsed_us,
             "over_budget": elapsed_us > budget_ms*1000,
             "phases": phases, "evaluation": evaluation,
@@ -175,6 +180,7 @@ def decide(raw, mode="partner", n=40, n0=8, n1=2, budget_ms=14000):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--mode", choices=["partner", "baseline", "all-l1", "phone"], default="partner")
+    p.add_argument("--inner-belief", choices=["voidless", "voids-counted"], default="voidless")
     p.add_argument("--n", type=int, default=40)
     p.add_argument("--n0", type=int, default=8)
     p.add_argument("--n1", type=int, default=2)

@@ -1,0 +1,1292 @@
+[
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 0,
+      "hand": [
+        0,
+        4,
+        9,
+        14,
+        22,
+        24,
+        27
+      ],
+      "plays": [],
+      "seed": 420600
+    },
+    "mode": "baseline",
+    "inner_belief": "voidless",
+    "response": {
+      "legal": [
+        0,
+        4,
+        9,
+        14,
+        22,
+        24,
+        27
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 0,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          4,
+          "1",
+          "1"
+        ],
+        [
+          9,
+          "1",
+          "1"
+        ],
+        [
+          14,
+          "1",
+          "1"
+        ],
+        [
+          22,
+          "1",
+          "1"
+        ],
+        [
+          24,
+          "1",
+          "1"
+        ],
+        [
+          27,
+          "1",
+          "1"
+        ]
+      ],
+      "inner_belief": "voidless",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        478,
+        0
+      ],
+      "inner_worlds_by_level": [
+        956,
+        0
+      ],
+      "nodes": 67013,
+      "solver_us": 32153
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 0,
+      "hand": [
+        0,
+        4,
+        9,
+        14,
+        22,
+        24,
+        27
+      ],
+      "plays": [],
+      "seed": 420600
+    },
+    "mode": "baseline",
+    "inner_belief": "voids-counted",
+    "response": {
+      "legal": [
+        0,
+        4,
+        9,
+        14,
+        22,
+        24,
+        27
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 0,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          4,
+          "1",
+          "1"
+        ],
+        [
+          9,
+          "1",
+          "1"
+        ],
+        [
+          14,
+          "1",
+          "1"
+        ],
+        [
+          22,
+          "1",
+          "1"
+        ],
+        [
+          24,
+          "1",
+          "1"
+        ],
+        [
+          27,
+          "1",
+          "1"
+        ]
+      ],
+      "inner_belief": "voids-counted",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        494,
+        0
+      ],
+      "inner_worlds_by_level": [
+        988,
+        0
+      ],
+      "nodes": 62315,
+      "solver_us": 23851
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 0,
+      "hand": [
+        0,
+        4,
+        9,
+        14,
+        22,
+        24,
+        27
+      ],
+      "plays": [],
+      "seed": 420600
+    },
+    "mode": "partner",
+    "inner_belief": "voidless",
+    "response": {
+      "legal": [
+        0,
+        4,
+        9,
+        14,
+        22,
+        24,
+        27
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 0,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          4,
+          "1",
+          "1"
+        ],
+        [
+          9,
+          "1",
+          "1"
+        ],
+        [
+          14,
+          "1",
+          "1"
+        ],
+        [
+          22,
+          "1",
+          "1"
+        ],
+        [
+          24,
+          "1",
+          "1"
+        ],
+        [
+          27,
+          "1",
+          "1"
+        ]
+      ],
+      "inner_belief": "voidless",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        21056,
+        173
+      ],
+      "inner_worlds_by_level": [
+        42112,
+        346
+      ],
+      "nodes": 1140914,
+      "solver_us": 220744
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 0,
+      "hand": [
+        0,
+        4,
+        9,
+        14,
+        22,
+        24,
+        27
+      ],
+      "plays": [],
+      "seed": 420600
+    },
+    "mode": "partner",
+    "inner_belief": "voids-counted",
+    "response": {
+      "legal": [
+        0,
+        4,
+        9,
+        14,
+        22,
+        24,
+        27
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 0,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          4,
+          "1",
+          "1"
+        ],
+        [
+          9,
+          "1",
+          "1"
+        ],
+        [
+          14,
+          "1",
+          "1"
+        ],
+        [
+          22,
+          "1",
+          "1"
+        ],
+        [
+          24,
+          "1",
+          "1"
+        ],
+        [
+          27,
+          "1",
+          "1"
+        ]
+      ],
+      "inner_belief": "voids-counted",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        17141,
+        164
+      ],
+      "inner_worlds_by_level": [
+        34282,
+        328
+      ],
+      "nodes": 983862,
+      "solver_us": 213724
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 0,
+      "hand": [
+        0,
+        4,
+        9,
+        14,
+        22,
+        24,
+        27
+      ],
+      "plays": [],
+      "seed": 420600
+    },
+    "mode": "all-l1",
+    "inner_belief": "voidless",
+    "response": {
+      "legal": [
+        0,
+        4,
+        9,
+        14,
+        22,
+        24,
+        27
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 0,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          4,
+          "1",
+          "1"
+        ],
+        [
+          9,
+          "1",
+          "1"
+        ],
+        [
+          14,
+          "1",
+          "1"
+        ],
+        [
+          22,
+          "1",
+          "1"
+        ],
+        [
+          24,
+          "1",
+          "1"
+        ],
+        [
+          27,
+          "1",
+          "1"
+        ]
+      ],
+      "inner_belief": "voidless",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        39131,
+        584
+      ],
+      "inner_worlds_by_level": [
+        78262,
+        1168
+      ],
+      "nodes": 2298600,
+      "solver_us": 400674
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 0,
+      "hand": [
+        0,
+        4,
+        9,
+        14,
+        22,
+        24,
+        27
+      ],
+      "plays": [],
+      "seed": 420600
+    },
+    "mode": "all-l1",
+    "inner_belief": "voids-counted",
+    "response": {
+      "legal": [
+        0,
+        4,
+        9,
+        14,
+        22,
+        24,
+        27
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 0,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          4,
+          "1",
+          "1"
+        ],
+        [
+          9,
+          "1",
+          "1"
+        ],
+        [
+          14,
+          "1",
+          "1"
+        ],
+        [
+          22,
+          "1",
+          "1"
+        ],
+        [
+          24,
+          "1",
+          "1"
+        ],
+        [
+          27,
+          "1",
+          "1"
+        ]
+      ],
+      "inner_belief": "voids-counted",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        35251,
+        557
+      ],
+      "inner_worlds_by_level": [
+        70502,
+        1114
+      ],
+      "nodes": 2077928,
+      "solver_us": 385468
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 1,
+      "hand": [
+        2,
+        6,
+        13,
+        16,
+        19,
+        21,
+        26
+      ],
+      "plays": [
+        0,
+        27
+      ],
+      "seed": 420600
+    },
+    "mode": "baseline",
+    "inner_belief": "voidless",
+    "response": {
+      "legal": [
+        21,
+        26
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 21,
+      "options": [
+        [
+          21,
+          "0",
+          "1"
+        ],
+        [
+          26,
+          "1",
+          "2"
+        ]
+      ],
+      "inner_belief": "voidless",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        199,
+        0
+      ],
+      "inner_worlds_by_level": [
+        398,
+        0
+      ],
+      "nodes": 23354,
+      "solver_us": 6346
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 1,
+      "hand": [
+        2,
+        6,
+        13,
+        16,
+        19,
+        21,
+        26
+      ],
+      "plays": [
+        0,
+        27
+      ],
+      "seed": 420600
+    },
+    "mode": "baseline",
+    "inner_belief": "voids-counted",
+    "response": {
+      "legal": [
+        21,
+        26
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 21,
+      "options": [
+        [
+          21,
+          "0",
+          "1"
+        ],
+        [
+          26,
+          "1",
+          "4"
+        ]
+      ],
+      "inner_belief": "voids-counted",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        178,
+        0
+      ],
+      "inner_worlds_by_level": [
+        356,
+        0
+      ],
+      "nodes": 20449,
+      "solver_us": 6639
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 1,
+      "hand": [
+        2,
+        6,
+        13,
+        16,
+        19,
+        21,
+        26
+      ],
+      "plays": [
+        0,
+        27
+      ],
+      "seed": 420600
+    },
+    "mode": "partner",
+    "inner_belief": "voidless",
+    "response": {
+      "legal": [
+        21,
+        26
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 21,
+      "options": [
+        [
+          21,
+          "1",
+          "4"
+        ],
+        [
+          26,
+          "1",
+          "2"
+        ]
+      ],
+      "inner_belief": "voidless",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        2003,
+        76
+      ],
+      "inner_worlds_by_level": [
+        4006,
+        152
+      ],
+      "nodes": 130128,
+      "solver_us": 29544
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 1,
+      "hand": [
+        2,
+        6,
+        13,
+        16,
+        19,
+        21,
+        26
+      ],
+      "plays": [
+        0,
+        27
+      ],
+      "seed": 420600
+    },
+    "mode": "partner",
+    "inner_belief": "voids-counted",
+    "response": {
+      "legal": [
+        21,
+        26
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 21,
+      "options": [
+        [
+          21,
+          "0",
+          "1"
+        ],
+        [
+          26,
+          "1",
+          "4"
+        ]
+      ],
+      "inner_belief": "voids-counted",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        2415,
+        56
+      ],
+      "inner_worlds_by_level": [
+        4830,
+        112
+      ],
+      "nodes": 164292,
+      "solver_us": 46636
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 1,
+      "hand": [
+        2,
+        6,
+        13,
+        16,
+        19,
+        21,
+        26
+      ],
+      "plays": [
+        0,
+        27
+      ],
+      "seed": 420600
+    },
+    "mode": "all-l1",
+    "inner_belief": "voidless",
+    "response": {
+      "legal": [
+        21,
+        26
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 21,
+      "options": [
+        [
+          21,
+          "1",
+          "4"
+        ],
+        [
+          26,
+          "1",
+          "4"
+        ]
+      ],
+      "inner_belief": "voidless",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        14276,
+        183
+      ],
+      "inner_worlds_by_level": [
+        28552,
+        366
+      ],
+      "nodes": 775307,
+      "solver_us": 137988
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 1,
+      "hand": [
+        2,
+        6,
+        13,
+        16,
+        19,
+        21,
+        26
+      ],
+      "plays": [
+        0,
+        27
+      ],
+      "seed": 420600
+    },
+    "mode": "all-l1",
+    "inner_belief": "voids-counted",
+    "response": {
+      "legal": [
+        21,
+        26
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 26,
+      "options": [
+        [
+          21,
+          "1",
+          "2"
+        ],
+        [
+          26,
+          "1",
+          "4"
+        ]
+      ],
+      "inner_belief": "voids-counted",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        14654,
+        220
+      ],
+      "inner_worlds_by_level": [
+        29308,
+        440
+      ],
+      "nodes": 788550,
+      "solver_us": 157488
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 2,
+      "hand": [
+        1,
+        5,
+        11,
+        12,
+        17,
+        23,
+        25
+      ],
+      "plays": [
+        0,
+        27,
+        1,
+        21
+      ],
+      "seed": 420600
+    },
+    "mode": "baseline",
+    "inner_belief": "voidless",
+    "response": {
+      "legal": [
+        23,
+        25
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 23,
+      "options": [
+        [
+          23,
+          "3",
+          "4"
+        ],
+        [
+          25,
+          "3",
+          "4"
+        ]
+      ],
+      "inner_belief": "voidless",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        189,
+        0
+      ],
+      "inner_worlds_by_level": [
+        378,
+        0
+      ],
+      "nodes": 17211,
+      "solver_us": 4923
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 2,
+      "hand": [
+        1,
+        5,
+        11,
+        12,
+        17,
+        23,
+        25
+      ],
+      "plays": [
+        0,
+        27,
+        1,
+        21
+      ],
+      "seed": 420600
+    },
+    "mode": "baseline",
+    "inner_belief": "voids-counted",
+    "response": {
+      "legal": [
+        23,
+        25
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 23,
+      "options": [
+        [
+          23,
+          "1",
+          "1"
+        ],
+        [
+          25,
+          "3",
+          "4"
+        ]
+      ],
+      "inner_belief": "voids-counted",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        203,
+        0
+      ],
+      "inner_worlds_by_level": [
+        406,
+        0
+      ],
+      "nodes": 16210,
+      "solver_us": 5239
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 2,
+      "hand": [
+        1,
+        5,
+        11,
+        12,
+        17,
+        23,
+        25
+      ],
+      "plays": [
+        0,
+        27,
+        1,
+        21
+      ],
+      "seed": 420600
+    },
+    "mode": "partner",
+    "inner_belief": "voidless",
+    "response": {
+      "legal": [
+        23,
+        25
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 25,
+      "options": [
+        [
+          23,
+          "3",
+          "4"
+        ],
+        [
+          25,
+          "1",
+          "1"
+        ]
+      ],
+      "inner_belief": "voidless",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        5103,
+        74
+      ],
+      "inner_worlds_by_level": [
+        10206,
+        148
+      ],
+      "nodes": 269136,
+      "solver_us": 46780
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 2,
+      "hand": [
+        1,
+        5,
+        11,
+        12,
+        17,
+        23,
+        25
+      ],
+      "plays": [
+        0,
+        27,
+        1,
+        21
+      ],
+      "seed": 420600
+    },
+    "mode": "partner",
+    "inner_belief": "voids-counted",
+    "response": {
+      "legal": [
+        23,
+        25
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 23,
+      "options": [
+        [
+          23,
+          "3",
+          "4"
+        ],
+        [
+          25,
+          "3",
+          "4"
+        ]
+      ],
+      "inner_belief": "voids-counted",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        4438,
+        72
+      ],
+      "inner_worlds_by_level": [
+        8876,
+        144
+      ],
+      "nodes": 257566,
+      "solver_us": 73479
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 2,
+      "hand": [
+        1,
+        5,
+        11,
+        12,
+        17,
+        23,
+        25
+      ],
+      "plays": [
+        0,
+        27,
+        1,
+        21
+      ],
+      "seed": 420600
+    },
+    "mode": "all-l1",
+    "inner_belief": "voidless",
+    "response": {
+      "legal": [
+        23,
+        25
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 23,
+      "options": [
+        [
+          23,
+          "3",
+          "4"
+        ],
+        [
+          25,
+          "3",
+          "4"
+        ]
+      ],
+      "inner_belief": "voidless",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        9412,
+        275
+      ],
+      "inner_worlds_by_level": [
+        18824,
+        550
+      ],
+      "nodes": 456209,
+      "solver_us": 95958
+    }
+  },
+  {
+    "request": {
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 2,
+      "hand": [
+        1,
+        5,
+        11,
+        12,
+        17,
+        23,
+        25
+      ],
+      "plays": [
+        0,
+        27,
+        1,
+        21
+      ],
+      "seed": 420600
+    },
+    "mode": "all-l1",
+    "inner_belief": "voids-counted",
+    "response": {
+      "legal": [
+        23,
+        25
+      ],
+      "leader": 0,
+      "points": [
+        0,
+        0
+      ],
+      "trick": 1,
+      "choice": 23,
+      "options": [
+        [
+          23,
+          "1",
+          "1"
+        ],
+        [
+          25,
+          "1",
+          "1"
+        ]
+      ],
+      "inner_belief": "voids-counted",
+      "outer_worlds": 4,
+      "outer_draw_attempts": 4,
+      "pi_calls_by_level": [
+        11842,
+        403
+      ],
+      "inner_worlds_by_level": [
+        23684,
+        806
+      ],
+      "nodes": 579101,
+      "solver_us": 149490
+    }
+  }
+]

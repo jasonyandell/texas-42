@@ -18,6 +18,15 @@ profile," never "certificate," where D3 vocabulary is at issue (not used
 here). Sampled numbers are ESTIMATES, never receipts; nothing here is a
 P-A21 statement.
 
+**Optional inner-belief extension, 2026-09-06:** the unified solver now also
+supports `InnerBelief::VoidsCounted`. The definitions below continue to describe
+the default legacy stack. In the opt-in extension, every modeled mind samples
+the public-void-conditioned support, and both search and policy keys retain
+those deductions through future plays. `None` is the legacy cache coordinate;
+`Some([0; 4])` is a tracked opening with no deductions yet. This implements an
+alternative for obligation O5; it does not discharge the cost/strength
+measurement obligation. [Engineering contract and checks](../experiments/partnership/INNER-BELIEF.md).
+
 ## 1. Setting
 
 Straight points-and-marks 42, one hand, a fixed declaration `dcl` and a fixed

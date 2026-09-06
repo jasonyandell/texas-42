@@ -1,0 +1,31 @@
+{
+  "base_commit": "fe17548c9a807115fcdefb4fb188a82367e2e732",
+  "files": {
+    "experiments/partnership/README.md": "d808d36898796cd2e1d34a9aa4cc28929e2821fa87f2660f2020535c65f7c7b1",
+    "experiments/partnership/campaign.py": "5e54d97ceaa02ebf5fa5ddbb7b983955949918eb52c4b83b42ca678098b0ce49",
+    "experiments/partnership/experiment.py": "936098c91525102771a880bd1196a7e2fb6b7ca55b4e92dad988712d8a842282",
+    "experiments/partnership/player.py": "112fd800a089b4b1f15d466e622999564b80221af6291ceb5d6fdc0cb8a2b9d2",
+    "experiments/partnership/table.py": "7fcacc842c68a7c43c3e79f7a1999f2a41bbb6b7ca36e181b043b15e40dc6d79",
+    "walt/MAP.md": "e72bdc14a6f294f5a64960c42e52a2bc80c49bb2d6bec0963dc44328f347dd10",
+    "walt/SCENARIO-PLAYER.md": "60bf2869e4e702661506d8df959b3e843dfe6b2692b24662df82e3a1f6b65404",
+    "walt/walt-wasm/src/api.rs": "ffab7ac60f43fdaff15b775c7520b8cdf5483a7bcebc0d8a64d1469f345772fa",
+    "walt/walt/src/bin/bidcurve.rs": "e66f221bfce23b6b2970abb40d0dfe0c438fa054e8f81aa989532c5aa31598fa",
+    "walt/walt/src/bin/controller_bridge.rs": "1194d49d6294c489784eb6b590637936e9529e2527b2ca1ae1a07b7e29f40b80",
+    "walt/walt/src/bin/ordering_bench.rs": "2e08386f662f6d853473df206894154a687af89705d885dfde0aad2fb0d0f7f6",
+    "walt/walt/src/bin/partnership.rs": "0cb0c055285a047979045fcc8f1cef574de745b50d7ac58d7f2be02434a3c573",
+    "walt/walt/src/bin/tiltaudit.rs": "62c11d6b3ff8e2736c3ddf7ad67ec277b161f15a97e10459deaf0d521de4b542",
+    "walt/walt/src/bin/waking_bridge.rs": "c87ed484e4402c526b48826be41e67806f09f6d8874ab3501e06eab7e9e10d3c",
+    "walt/walt/src/bin/webtable.rs": "49965d9df3c914e199ce96d7a747503d9f2087cb1fbf2794a88dbb0351168871",
+    "walt/walt/src/solver/mod.rs": "b9e0968831948e7326358d659c17a13ab6e927585b5c1dee5e6a51dcb7934a72",
+    "walt/walt/src/solver/partnership.rs": "ae34ade15347a6dc67cc372d3b0161ec780af621f42a41f821951b4d68dc8968",
+    "walt/walt/src/solver/policy.rs": "6fdb344afe6045fa433bd60fe6d46c8eb019fd96372e6c4d774cc7cf9c91b23f",
+    "walt/walt/tests/solver_ordering.rs": "e0a9bbfac084835330be18323931363279e949ea4fa324d75a82aee234e97ce3",
+    "walt/walt/tests/solver_partnership.rs": "4e6a3bb8c352eab3a4e8396e33bfde1095620e2fa480180869aa49346335046e",
+    "walt/walt/tests/solver_viewer_fiber.rs": "3a7ded28b8d1488b68003337bdf08233bef4b59e713e50ac8308d95f3d5d8cec",
+    "walt/walt2-wasm/src/api.rs": "fccf434f7a1f283efe40cb59208db1430bc9762ba730d2f84356afdcdeb9115e",
+    "walt/walt/src/solver/inner_belief.rs": "761432a6ede1dfd5f6df9deca3861a86a6085f22841d5af505437016f165e293",
+    "experiments/partnership/belief_checks.py": "66313c4c0922e0a743a1e3cd8120e6058480629bac62e4cd6432e610371b8262",
+    "experiments/partnership/INNER-BELIEF.md": "41795e484411cf5200ca3188466499f634576e515e73e1a24b04feb818bfe9e5",
+    "walt/target/release/partnership": "df2c48621c3b11ce42787b441a461f12b156c99bdf1ec0c7e359f5372a09d7b0"
+  }
+}

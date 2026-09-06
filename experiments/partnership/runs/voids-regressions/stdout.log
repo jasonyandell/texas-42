@@ -1,0 +1,12 @@
+Checking kernel_sampler
+
+running 5 tests
+test collision_fingerprint_on_hand_0_trick_6 ... ok
+test expected_distinct_is_exact ... ok
+test prng_is_reproducible_and_unbiased_enough_to_select ... ok
+test sampling_respects_voids_across_the_corpus ... ok
+test small_fiber_is_covered_uniformly ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+Checking solver_sigma1_repair

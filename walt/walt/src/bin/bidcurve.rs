@@ -133,6 +133,7 @@ fn main() {
                 )
                 .parallel();
                 let root = Key {
+                    voids: None,
                     played: 0,
                     leader: 1,
                     plays: Vec::new(),

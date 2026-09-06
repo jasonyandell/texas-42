@@ -49,6 +49,8 @@ impl FieldProfile {
 /// Fixed work schedule for one root decision.
 #[derive(Clone, Copy, Debug)]
 pub struct Config {
+    /// Independent of seat levels; applies to every modeled mind.
+    pub inner_belief: super::InnerBelief,
     pub profile: FieldProfile,
     pub n_outer: usize,
     /// Belief worlds used by each level-1 modeled-policy cache miss.
@@ -275,14 +277,19 @@ pub fn evaluate(
             });
         }
     };
-    let sh = Arc::new(Shared::new(
-        dcl,
-        bid,
-        vec![cfg.n0, cfg.n1],
-        trick_start_played,
-        boundary_hand_size,
-        deadline,
-    ));
+    let sh = Arc::new(
+        Shared::new(
+            dcl,
+            bid,
+            vec![cfg.n0, cfg.n1],
+            trick_start_played,
+            boundary_hand_size,
+            deadline,
+        )
+        .with_inner_belief(cfg.inner_belief),
+    );
+    let mut root = key.clone();
+    root.voids = cfg.inner_belief.root_voids(voids);
     let solver = Solver::new(
         Arc::clone(&sh),
         seat,
@@ -304,7 +311,7 @@ pub fn evaluate(
             });
         }
         let tile = Domino::from_index(usize::from(tile_index)).expect("tile < 28");
-        let child = solver.child_after_play(key, tile, 0);
+        let child = solver.child_after_play(&root, tile, 0);
         let Some(value) = solver.solve(&child) else {
             solver.flush_nodes();
             return Err(Refusal {

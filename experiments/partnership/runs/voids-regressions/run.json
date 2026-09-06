@@ -1,0 +1,22 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-06T21:58:03.375090+00:00",
+  "cwd": "/Users/jason/code/texas-42-partnership-launch",
+  "command": [
+    "python3",
+    "-c",
+    "from pathlib import Path; import subprocess,os; deps=Path(\"walt/target/release/deps\"); tests=(\"kernel_sampler\",\"solver_sigma1_repair\",\"solver_policy\",\"solver_viewer_fiber\",\"solver_ordering\"); libs=[]; [(libs.extend([\"--extern\",name+\"=\"+str(next(deps.glob(\"lib\"+name+\"-*.rlib\")))])) for name in (\"walt\",\"num_rational\",\"num_bigint\",\"num_traits\")]; [(print(\"Checking\",name,flush=True),subprocess.run([\"rustc\",\"--edition=2021\",\"--test\",\"walt/walt/tests/\"+name+\".rs\",\"-L\",\"dependency=\"+str(deps),\"-C\",\"opt-level=3\",\"-C\",\"overflow-checks=yes\",*libs,\"-o\",\"walt/target/release/voids-\"+name],check=True),subprocess.run([\"walt/target/release/voids-\"+name,\"--test-threads=1\"],check=True,env={**os.environ,\"RAYON_NUM_THREADS\":\"6\"})) for name in tests]"
+  ],
+  "allowance_seconds": 120.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.744337,
+  "status": "failed",
+  "child_pid": 52741,
+  "child_returncode": 1,
+  "runner_returncode": 1,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

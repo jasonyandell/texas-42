@@ -65,9 +65,13 @@ modeled policies used inside completed evaluations have fixed sample counts
 and never choose a clock-dependent fallback.
 
 The modeled partner can respond to tiles becoming public and changing scores.
-It uses its own hand and resamples what it cannot see. It currently forgets
-past void information in its inner belief, following the existing L1/L2
-approximation. It is a program model, not a fitted human partner model.
+It uses its own hand and resamples what it cannot see. The default
+`--inner-belief voidless` preserves the existing L1/L2 approximation. Select
+`--inner-belief voids-counted` to track public voids through every modeled
+level and use the existing exact uniform sampler over valid hands. The same
+flag is available on the table, experiment runner, and campaign initialization;
+archived phone seats stay on the reference. See [the strategy and cache
+contract](INNER-BELIEF.md). It is a program model, not a fitted human partner model.
 
 ## Rebuild and check
 

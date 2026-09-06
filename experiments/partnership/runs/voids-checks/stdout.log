@@ -1,0 +1,22 @@
+
+running 11 tests
+test baseline_evaluator_uses_the_exact_common_world_stream_and_level_zero_field ... ok
+test bounded_evaluator_is_deterministic_and_reports_every_legal_action ... ok
+test counted_belief_runs_all_three_seat_profiles_and_refuses_expired_sampling ... ok
+test counted_inner_samples_belong_to_independently_replayed_receipt_fibers ... ok
+test inner_cache_separates_void_profiles_and_remains_independent_of_host_worlds ... ok
+test modeled_level_one_is_independent_of_outer_completions_and_cache_order ... ok
+test seat_levels_all_one_is_exactly_the_uniform_level_one_field ... ok
+test seat_levels_all_zero_is_exactly_the_uniform_level_zero_field ... ok
+test seat_profiles_upgrade_exactly_the_declared_seats ... ok
+test voids_survive_trick_resolution_and_use_declaration_relative_following ... ok
+test zero_deadline_aborts_before_sampling_or_action_comparison ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+PASS independent G1 full-deal legality, winner, count, score replay
+PASS all named bidder/partner/defender information roots
+PASS externally bounded 100 ms decision returns labeled legal fallback: 53787 us
+PASS private input, replay, seed, hand, sample, and time-budget validation
+PASS worker startup failure, malformed fallback rejection, and actual child timeout
+PASS 252 native/Python position comparisons across all declarations and seats

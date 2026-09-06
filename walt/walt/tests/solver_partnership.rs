@@ -13,8 +13,243 @@ use walt::solver::adaptive::RootPosition;
 use walt::solver::partnership::{self, Config, FieldProfile, RefusalReason};
 use walt::solver::policy::{continuation_frame, t1_frame_bid};
 use walt::solver::{
-    mask_bits, mask_of, sample_belief, Deadline, Field, Key, Shared, Solver, SplitMix64,
+    mask_bits, mask_of, sample_belief, Deadline, Field, InnerBelief, Key, Shared, Solver,
+    SplitMix64,
 };
+
+#[test]
+fn counted_inner_samples_belong_to_independently_replayed_receipt_fibers() {
+    let receipt = receipt();
+    let mut legacy_violations = 0;
+    for hand in &receipt.hands {
+        for trick in [5, 6] {
+            let kernel = walt::kernel::Kernel::from_receipt_trick(hand, trick).unwrap();
+            let root = RootPosition::from_receipt_trick(hand, trick).unwrap();
+            let frame = continuation_frame(hand.decl, &root, &[]);
+            let mut key = frame.key.clone();
+            key.voids = Some(frame.voids);
+            let draw = |strategy| {
+                strategy_sample(
+                    strategy,
+                    hand.decl,
+                    frame.seat,
+                    mask_of(kernel.viewer_hand()),
+                    &key,
+                    frame.sizes(),
+                    64,
+                )
+            };
+            let worlds = draw(InnerBelief::VoidsCounted);
+            assert_eq!(
+                worlds,
+                draw(InnerBelief::VoidsCounted),
+                "fixed seed is reproducible"
+            );
+            let contains = |w: &[u32; 4]| {
+                let hidden = core::array::from_fn(|i| {
+                    walt::solver::set_of(w[kernel.hidden()[i].seat.index()])
+                });
+                assert_eq!(w[frame.seat.index()], mask_of(kernel.viewer_hand()));
+                kernel.contains(&kernel.world(hidden))
+            };
+            assert!(
+                worlds.iter().all(contains),
+                "every counted sample respects full public support"
+            );
+            legacy_violations += draw(InnerBelief::Voidless)
+                .iter()
+                .filter(|w| !contains(w))
+                .count();
+        }
+    }
+    assert!(
+        legacy_violations > 0,
+        "the corpus must distinguish the approximation"
+    );
+}
+
+fn strategy_sample(
+    strategy: InnerBelief,
+    dcl: walt::rules::Decl,
+    seat: Seat,
+    hand: u32,
+    key: &Key,
+    sizes: [usize; 4],
+    n: usize,
+) -> Vec<[u32; 4]> {
+    strategy
+        .sample(
+            dcl,
+            seat,
+            hand,
+            key,
+            sizes,
+            n,
+            &mut SplitMix64(SEED),
+            Deadline::after(Duration::from_secs(30)),
+        )
+        .unwrap()
+}
+
+#[test]
+fn voids_survive_trick_resolution_and_use_declaration_relative_following() {
+    // Lead 6-6, follow with 6-0, then two off-suit plays. Both the
+    // partial-trick and resolved-trick transitions must retain deductions.
+    for decl in [0, 1, 2, 3, 4, 5, 6, 7, 9] {
+        let dcl = walt::solver::decl_of(decl);
+        let f = fixture();
+        let sh = Arc::new(
+            Shared::new(
+                dcl,
+                30,
+                vec![2, 2],
+                0,
+                7,
+                Deadline::after(Duration::from_secs(30)),
+            )
+            .with_inner_belief(InnerBelief::VoidsCounted),
+        );
+        let solver = Solver::new(sh, f.seat, f.hand, true, vec![], vec![], Field::Level(0));
+        let mut key = Key {
+            voids: Some([0; 4]),
+            played: 0,
+            leader: 0,
+            plays: vec![],
+            banked_t1: 0,
+            banked_t0: 0,
+            alive: 0,
+        };
+        let lead = Domino::from_index(27).unwrap();
+        let context = dcl.led_context(lead);
+        let incidence = mask_of(dcl.effective_incidence(context));
+        let mut expected = [0; 4];
+        for (seat, id) in [27, 21, 0, 2].into_iter().enumerate() {
+            let tile = Domino::from_index(id).unwrap();
+            if seat > 0 && incidence & walt::solver::bit(tile) == 0 {
+                expected[seat] = incidence;
+            }
+            key = solver.child_after_play(&key, tile, 0);
+            assert_eq!(key.voids, Some(expected), "decl {decl}, seat {seat}");
+        }
+        assert!(key.plays.is_empty());
+        assert_eq!(key.played.count_ones(), 4);
+    }
+}
+
+#[test]
+fn inner_cache_separates_void_profiles_and_remains_independent_of_host_worlds() {
+    let f = fixture();
+    assert_ne!(f.voids, [0; 4]);
+    let shared = || {
+        Arc::new(
+            Shared::new(
+                f.dcl,
+                f.bid,
+                vec![2, 2],
+                f.trick_start_played,
+                f.boundary_hand_size,
+                Deadline::after(Duration::from_secs(30)),
+            )
+            .with_inner_belief(InnerBelief::VoidsCounted),
+        )
+    };
+    // No host worlds at all: a modeled mind must get all its information
+    // from its own hand and the public key, including the new coordinate.
+    let solver = |sh| {
+        Solver::new(
+            sh,
+            f.seat.plus(1),
+            0,
+            false,
+            vec![],
+            vec![],
+            Field::Level(0),
+        )
+    };
+    let sh = shared();
+    let warm = solver(Arc::clone(&sh));
+    let mut tracked = f.key.clone();
+    tracked.voids = Some(f.voids);
+    let mut unconstrained = tracked.clone();
+    unconstrained.voids = Some([0; 4]);
+    for level in [0, 1] {
+        let cold_a = solver(shared())
+            .modeled_choice(level, &tracked, f.seat, f.hand, f.legal)
+            .unwrap();
+        let cold_b = solver(shared())
+            .modeled_choice(level, &unconstrained, f.seat, f.hand, f.legal)
+            .unwrap();
+        let a = warm
+            .modeled_choice(level, &tracked, f.seat, f.hand, f.legal)
+            .unwrap();
+        let calls = sh.pi_calls_by_level()[level];
+        let b = warm
+            .modeled_choice(level, &unconstrained, f.seat, f.hand, f.legal)
+            .unwrap();
+        assert!(
+            sh.pi_calls_by_level()[level] > calls,
+            "different voids require their own cache entry"
+        );
+        assert_eq!((a, b), (cold_a, cold_b));
+        let calls = sh.pi_calls_by_level();
+        assert_eq!(
+            warm.modeled_choice(level, &tracked, f.seat, f.hand, f.legal),
+            Some(cold_a)
+        );
+        assert_eq!(sh.pi_calls_by_level(), calls, "repeat is a true cache hit");
+    }
+    let mut keys = std::collections::HashMap::new();
+    keys.insert(tracked, 1);
+    keys.insert(unconstrained, 2);
+    assert_eq!(
+        keys.len(),
+        2,
+        "the search memo key also separates public beliefs"
+    );
+}
+
+#[test]
+fn counted_belief_runs_all_three_seat_profiles_and_refuses_expired_sampling() {
+    let f = fixture();
+    for profile in [
+        FieldProfile::Baseline,
+        FieldProfile::PartnerOnly,
+        FieldProfile::AllLevel1,
+    ] {
+        let mut cfg = config(profile);
+        cfg.inner_belief = InnerBelief::VoidsCounted;
+        let result = partnership::evaluate(
+            f.dcl,
+            f.bid,
+            f.seat,
+            f.hand,
+            f.legal,
+            &f.key,
+            f.sizes,
+            f.voids,
+            f.trick_start_played,
+            f.boundary_hand_size,
+            &cfg,
+        )
+        .unwrap();
+        assert_eq!(result.actions.len(), f.legal.count_ones() as usize);
+        assert!(f.legal & (1 << result.best()) != 0);
+    }
+    let mut key = f.key.clone();
+    key.voids = Some(f.voids);
+    assert!(InnerBelief::VoidsCounted
+        .sample(
+            f.dcl,
+            f.seat,
+            f.hand,
+            &key,
+            f.sizes,
+            2,
+            &mut SplitMix64(SEED),
+            Deadline::after(Duration::ZERO)
+        )
+        .is_none());
+}
 
 const SEED: u64 = 0xD1CE_5041_5254_4E52;
 
@@ -61,6 +296,7 @@ fn fixture() -> Fixture {
 
 fn config(profile: FieldProfile) -> Config {
     Config {
+        inner_belief: walt::solver::InnerBelief::Voidless,
         profile,
         n_outer: 2,
         n1: 2,
@@ -343,6 +579,7 @@ fn bounded_evaluator_is_deterministic_and_reports_every_legal_action() {
 fn zero_deadline_aborts_before_sampling_or_action_comparison() {
     let f = fixture();
     let cfg = Config {
+        inner_belief: walt::solver::InnerBelief::Voidless,
         deadline: Deadline::after(Duration::ZERO),
         ..config(FieldProfile::PartnerOnly)
     };

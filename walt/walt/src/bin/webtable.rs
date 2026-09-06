@@ -303,6 +303,7 @@ impl Game {
         )
         .parallel();
         let root = Key {
+            voids: None,
             played: 0,
             leader: BIDDER as u8,
             plays: Vec::new(),
@@ -498,6 +499,7 @@ impl Game {
         let solver =
             Solver::new(sh, seat, hand, true, worlds, Vec::new(), Field::Level(0)).parallel();
         let root = Key {
+            voids: None,
             played: 0,
             leader: BIDDER as u8,
             plays: Vec::new(),
@@ -631,6 +633,7 @@ impl Game {
 
     fn key_now(&self) -> Key {
         Key {
+            voids: None,
             played: self.played,
             leader: self.leader,
             plays: self.cur.iter().map(|p| p.tile).collect(),
@@ -965,6 +968,7 @@ impl Game {
         let st = replay(dcl, BIDDER, &pairs[..k]);
         assert_eq!(st.r, 0, "internal frame replays identically");
         let key = Key {
+            voids: None,
             played: st.played,
             leader: st.leader,
             plays: st.plays.clone(),

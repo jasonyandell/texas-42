@@ -95,6 +95,7 @@ fn run(input: &str) -> Result<String, String> {
         return Err("not this seat's turn, or hand is complete".into());
     }
     let key = Key {
+        voids: None,
         played: st.played,
         leader: st.leader,
         plays: st.plays.clone(),
@@ -142,8 +143,14 @@ fn run(input: &str) -> Result<String, String> {
         "all-l1" => solver::partnership::FieldProfile::AllLevel1,
         _ => return Err("unknown mode".into()),
     };
+    let inner_belief = match f.get("inner_belief").map(Vec::as_slice) {
+        None | Some([0]) => solver::InnerBelief::Voidless,
+        Some([1]) => solver::InnerBelief::VoidsCounted,
+        _ => return Err("unknown inner belief strategy".into()),
+    };
     let seed = scalar(&f, "seed")? ^ solver::mix(u64::from(hand0)) ^ solver::record_hash(&key);
     let cfg = solver::partnership::Config {
+        inner_belief,
         profile,
         n_outer: n,
         n0,
@@ -177,7 +184,7 @@ fn run(input: &str) -> Result<String, String> {
             )
         })
         .collect();
-    Ok(format!("{{{prefix},\"choice\":{},\"options\":[{}],\"outer_worlds\":{},\"outer_draw_attempts\":{},\"pi_calls_by_level\":{:?},\"inner_worlds_by_level\":{:?},\"nodes\":{},\"solver_us\":{}}}",report.best(), options.join(","), report.stats.outer_worlds, report.stats.outer_draw_attempts, report.stats.pi_calls_by_level,report.stats.inner_worlds_by_level,report.stats.nodes,report.stats.elapsed.as_micros()))
+    Ok(format!("{{{prefix},\"choice\":{},\"options\":[{}],\"inner_belief\":\"{}\",\"outer_worlds\":{},\"outer_draw_attempts\":{},\"pi_calls_by_level\":{:?},\"inner_worlds_by_level\":{:?},\"nodes\":{},\"solver_us\":{}}}",report.best(), options.join(","), inner_belief.name(), report.stats.outer_worlds, report.stats.outer_draw_attempts, report.stats.pi_calls_by_level,report.stats.inner_worlds_by_level,report.stats.nodes,report.stats.elapsed.as_micros()))
 }
 
 fn main() {

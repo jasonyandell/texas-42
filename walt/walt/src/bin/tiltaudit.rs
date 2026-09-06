@@ -94,6 +94,7 @@ fn advance(st: &mut State, dcl: Decl, tile: Domino) {
 
 fn key_of(st: &State) -> Key {
     Key {
+        voids: None,
         played: st.played,
         leader: st.leader,
         plays: st.plays.clone(),
