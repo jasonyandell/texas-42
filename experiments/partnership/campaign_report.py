@@ -14,6 +14,8 @@ def report(path):
     s=c.summarize(path,spec)
     fresh=[r for r in rows if r["fresh"]]
     sessions=[c.read(p) for p in (path/"sessions").glob("*.json")]
+    own_pool_sessions={c.read(p)['session'] for p in (path/'seeds').glob('*/*/pool-attempts/*.json')}
+    sessions=[s for s in sessions if 'workers' not in s or s['id'] in own_pool_sessions]
     seconds=sum(r.get("elapsed_seconds",0) for r in sessions)
     pair=s["fresh_paired"]
     out=(f"# Bid-30 {spec['panel']} campaign results\n\n"
@@ -39,7 +41,10 @@ def report(path):
     else:
         out+="Three games run concurrently within one seed.\n\n"
     e=s["downside_e_value"]
-    out+=f"Downside monitor: {e['numerator']}/{e['denominator']} (pause threshold 20, minimum ten fresh seeds; see CAMPAIGN.md for assumptions).\n\n"
+    if spec['panel']=='random':
+        out+=f"Downside monitor: {e['numerator']}/{e['denominator']} (pause threshold 20, minimum ten fresh seeds; see CAMPAIGN.md for assumptions).\n\n"
+    else:
+        out+='World completions are clustered by opening hand. The independent-deal sequential test is disabled; see WORLD-RESULTS.md for the conditional comparison.\n\n'
     out+="Points below are diagnostic. Every number below 30 is an equally complete set; every number at least 30 is a make.\n\n"
     out+="| Seed | Fresh | Bidder / trump | Phone declaring points | Candidate declaring points | Phone points vs candidate defense | Candidate W/L/T | Fallbacks |\n|---|---|---|---:|---:|---:|---|---:|\n"
     buf=io.StringIO()
@@ -52,7 +57,11 @@ def report(path):
         fallback=sum(r["arms"][a]["fallbacks"] for a in c.ARMS)
         out+=f"| {r['seed']} | {'yes' if r['fresh'] else 'development'} | S{f['bidder']} / {f['decl']} | {points[0]} | {points[1]} | {points[2]} | {p['wins']}/{p['losses']}/{p['ties']} | {fallback} |\n"
         writer.writerow([r["seed"],r["fresh"],f["bidder"],f["decl"],30,*points,p["wins"],p["losses"],p["ties"],fallback])
-    out+="\nCheckpoints preserve all 28 decisions per game. Source/binary identities and the complete protocol are pinned in manifest.json. Seeds 420601–420603 are excluded from fresh random-panel evidence because they were previously examined; 420601 now uses the campaign's declaration heuristic rather than its earlier fixed sixes contract.\n"
+    out+="\nCheckpoints preserve all 28 decisions per game. Source/binary identities and the complete protocol are pinned in manifest.json. "
+    if spec['panel']=='random':
+        out+="Seeds 420601–420603 are excluded from fresh random-panel evidence because they were previously examined; 420601 now uses the campaign's declaration heuristic rather than its earlier fixed sixes contract.\n"
+    else:
+        out+='Completions within one opening-hand group are dependent comparisons; they are not independent opening-position trials.\n'
     c.atomic(path/"RESULTS.md",out)
     c.atomic(path/"results.csv",buf.getvalue())
     print(out[:out.index("| Seed")])
