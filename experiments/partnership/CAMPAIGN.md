@@ -1,5 +1,10 @@
 # Resumable bid-30 campaign
 
+**Execution update, 2026-09-06:** Jason subsequently authorized many seeds in
+flight and ten concurrent games. [POOL.md](POOL.md) defines the measured shared
+pool, retry policy, and ordered result commits that supersede this document's
+original one-active-seed scheduling restriction. The game protocol stays fixed.
+
 Exploratory executed-policy evidence. Primary panel: seeds 420600–420699,
 three matched games per seed: all phone, candidate declaring partnership,
 candidate defending partnership. All bids are 30. A deterministic fixture

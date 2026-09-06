@@ -30,8 +30,14 @@ def report(path):
     out+=(f"\nPhone references made {s['fresh_reference_makes']}/{len(fresh)} fresh contracts. "
           f"Recorded fallbacks: {s['fallbacks']}/{s['nonforced_decisions']} nonforced decisions. "
           f"Longest decision {s['max_decision_us']/1e6:.3f}s; longest four-play trick {s['max_trick_us']/1e6:.3f}s.\n\n"
-          f"Completed runner slices used {seconds/60:.2f} minutes; three games run concurrently within one seed. "
+          f"Completed runner slices used {seconds/60:.2f} minutes. "
           "An active slice's time is added when it closes.\n\n")
+    pooled=[r for r in sessions if 'workers' in r]
+    if pooled:
+        out+=(f"Execution includes the user-authorized shared pool, up to {max(r['workers'] for r in pooled)} simultaneous games across seeds. "
+              "Earlier slices used three games within one seed. Per-game attempt receipts identify resumed moves and concurrency; deadline-dependent outcomes must be interpreted with that execution change visible.\n\n")
+    else:
+        out+="Three games run concurrently within one seed.\n\n"
     e=s["downside_e_value"]
     out+=f"Downside monitor: {e['numerator']}/{e['denominator']} (pause threshold 20, minimum ten fresh seeds; see CAMPAIGN.md for assumptions).\n\n"
     out+="Points below are diagnostic. Every number below 30 is an equally complete set; every number at least 30 is a make.\n\n"

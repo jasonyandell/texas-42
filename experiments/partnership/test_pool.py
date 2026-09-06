@@ -40,5 +40,15 @@ class PoolTests(unittest.TestCase):
                 c.atomic(p/'pool-attempts'/f'{i}.json',{'status':status})
             self.assertEqual(pool.failed_attempts(p),2)
 
+    def test_launch_failures_retry_then_stop_without_losing_checkpoints(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p=Path(tmp)
+            c.initialize(p,start=420601,count=1)
+            with patch.object(pool.subprocess,'Popen',side_effect=OSError('injected launch failure')):
+                pool.advance([p],workers=2,seconds=1,retries=2)
+            self.assertEqual(pool.failed_attempts(p/'seeds/420601/phone'),3)
+            self.assertTrue(c.read(p/'STOP.json')['reason'].startswith('worker-retries-exhausted'))
+            self.assertEqual(c.complete_results(p,c.load(p)),[])
+
 
 if __name__=='__main__': unittest.main()

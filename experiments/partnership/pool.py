@@ -76,6 +76,11 @@ def advance(paths,workers=10,seconds=260,retries=2):
         assert c.digest({k:v for k,v in spec.items() if k!='id'})==spec['id'], 'manifest changed'
     locks=[]
     try:
+        # All pools in this worktree share one machine budget. Additional
+        # campaigns belong in the queue, not in competing pool processes.
+        global_lock=(c.HERE/'campaigns'/'pool.lock').open('a+')
+        locks.append(global_lock)
+        fcntl.flock(global_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         for p in paths:
             lock=(p/'runner.lock').open('a+')
             locks.append(lock)
@@ -194,9 +199,18 @@ def advance(paths,workers=10,seconds=260,retries=2):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('paths',type=Path,nargs='+')
+    parser.add_argument('paths',type=Path,nargs='*')
+    parser.add_argument('--queue',type=Path)
     parser.add_argument('--workers',type=int,default=10)
     parser.add_argument('--seconds',type=int,default=260)
     parser.add_argument('--retries',type=int,default=2)
     args=parser.parse_args()
+    if args.queue:
+        if args.paths: parser.error('use paths or --queue, not both')
+        config=c.read(args.queue)
+        args.paths=[args.queue.resolve().parent/str(p) for p in config['campaigns']]
+        args.workers=config.get('workers',args.workers)
+        args.seconds=config.get('seconds',args.seconds)
+        args.retries=config.get('retries',args.retries)
+    if not args.paths: parser.error('provide campaign paths or --queue')
     advance(args.paths,args.workers,args.seconds,args.retries)

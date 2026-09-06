@@ -1,0 +1,9 @@
+{
+  "schema": "partnership-pool-queue-v1",
+  "workers": 10,
+  "seconds": 260,
+  "retries": 2,
+  "campaigns": [
+    "random-420600-699"
+  ]
+}
