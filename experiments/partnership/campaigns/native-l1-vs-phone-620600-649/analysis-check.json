@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "terminal_bit_recomputed_counts": {
+    "-1": 15,
+    "0": 77,
+    "1": 8
+  },
+  "source_sha256": {
+    "campaign.py": "e413a6b25c5a5d6d09616eb52b993453373c3db9953d3bfb748e4ca6343674cf",
+    "verify_campaign.py": "cf9ed8e924daa001335f7755e07acd2b91674d9e770f143f9fb97059bfa47884",
+    "reference_report.py": "74e16b2499d9472f7d0dc7bbe1e116786449751a5baebe0570cd39a919915e24",
+    "test_pool.py": "e36eb0edfddd0f44ae55693e3f12321b31c135f037947988a92c8906c4dae22f"
+  }
+}

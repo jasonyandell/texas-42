@@ -25,7 +25,7 @@ def verify(path):
             assert (snap["campaign"],snap["seed"],snap["arm"])==(spec["id"],seed,a)
             ds=snap["decisions"]
             assert len(ds)==28
-            modes=c.modes_for(a,f["bidder"])
+            modes=c.modes_for(a,f["bidder"],spec.get("candidate_mode","partner"))
             for i,d in enumerate(ds):
                 points,lead,_,trick=replay_record(f["hands"],c.record_of(ds[:i]),f["decl"],f["bidder"])
                 assert d["seat"]==(lead+len(trick))%4

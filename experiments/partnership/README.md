@@ -11,6 +11,11 @@ outcomes. [BASELINE.md](BASELINE.md) freezes the separate local phone artifact
 and its 40/8/racing configuration. The complete original launch packet and
 both mathematical notes are preserved in [packet/](packet/).
 
+[SESSION-STATUS.md](SESSION-STATUS.md) maps the current deliverables and open
+strength question back to the launch request, including the native-L1 / phone
+calibration. The native implementation is a separate internal reference;
+interchangeability with the archived phone has not been established.
+
 ## Play a hand
 
 From the worktree root:

@@ -5,6 +5,13 @@ and reproducible instrument inputs; no playing-strength result is established by
 this document. The packet is the experiment brief, while repository sources and
 the inspected local client establish what actually exists.
 
+**Later calibration, 2026-09-06:** [50 fresh paired deals / 150 games](campaigns/native-l1-vs-phone-620600-649/CALIBRATION.md)
+completed in 202.12 seconds. Native fixed-sample L1 recorded 8 favorable
+contract flips / 15 unfavorable / 77 ties against this phone reference;
+equivalence was not established. Native L1 is a useful separately named
+internal reference, with the phone retained as an external strength anchor.
+The original artifact identification below remains unchanged.
+
 ## Actual local phone client
 
 The available client is `/Users/jason/code/plunge`, inspected clean at commit

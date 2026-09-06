@@ -69,7 +69,7 @@ def identities():
             "native": hashlib.sha256(BINARY.read_bytes()).hexdigest()}
 
 
-def initialize(path, start=420600, count=100, panel="random", threads=4, workers=3, inner_belief="voidless"):
+def initialize(path, start=420600, count=100, panel="random", threads=4, workers=3, inner_belief="voidless", candidate_mode="partner"):
     path = Path(path).resolve()
     if (path/"manifest.json").exists():
         raise ValueError("campaign already exists; use advance to resume")
@@ -77,7 +77,9 @@ def initialize(path, start=420600, count=100, panel="random", threads=4, workers
         raise ValueError("invalid threads, workers, or count")
     if inner_belief not in ("voidless", "voids-counted"):
         raise ValueError("unknown inner belief strategy")
-    spec = {"inner_belief": inner_belief, "schema": "partnership-campaign-v1", "start": start, "count": count,
+    if candidate_mode not in ("baseline", "partner", "all-l1"):
+        raise ValueError("unknown native candidate mode")
+    spec = {"candidate_mode": candidate_mode, "inner_belief": inner_belief, "schema": "partnership-campaign-v1", "start": start, "count": count,
             "panel": panel, "worlds_per_hand": 10, "bid": 30, "public_seed": PUBLIC_SEED,
             "n": 40, "n0": 8, "n1": 2, "budget_ms": 14000,
             "threads": threads, "workers": workers, "seed_cap_seconds": 270,
@@ -130,11 +132,11 @@ def fixture(spec, seed):
     return {"hands": hands, "bidder": bidder, "decl": decl, "bid": 30, "group": group}
 
 
-def modes_for(arm, bidder):
+def modes_for(arm, bidder, candidate_mode="partner"):
     if arm == "phone":
         return ["phone"]*4
     parity = bidder % 2 if arm == "declaring" else 1-bidder % 2
-    return ["partner" if seat % 2 == parity else "phone" for seat in range(4)]
+    return [candidate_mode if seat % 2 == parity else "phone" for seat in range(4)]
 
 
 def record_of(decisions):
@@ -146,7 +148,7 @@ def arm_run(path, seed, arm, yield_path):
     spec = load(path)
     os.environ["WALT_RAYON_THREADS"] = str(spec["threads"])
     f = fixture(spec, seed)
-    modes = modes_for(arm, f["bidder"])
+    modes = modes_for(arm, f["bidder"], spec.get("candidate_mode", "partner"))
     location = path/"seeds"/str(seed)/arm
     checkpoint = location/"checkpoint.json"
     snap = read(checkpoint, {"campaign": spec["id"], "seed": seed, "arm": arm, "decisions": []})
@@ -404,6 +406,7 @@ def main():
     p.add_argument("--start",type=int,default=420600)
     p.add_argument("--count",type=int,default=100)
     p.add_argument("--panel",choices=("random","worlds"),default="random")
+    p.add_argument("--candidate-mode",choices=("baseline","partner","all-l1"),default="partner")
     p.add_argument("--inner-belief",choices=("voidless","voids-counted"),default="voidless")
     p.add_argument("--threads",type=int,default=4)
     p.add_argument("--workers",type=int,default=3)
@@ -415,7 +418,7 @@ def main():
     p.add_argument("--yield-path")
     args=p.parse_args()
     if args.command=="init":
-        initialize(args.path,args.start,args.count,args.panel,args.threads,args.workers,args.inner_belief)
+        initialize(args.path,args.start,args.count,args.panel,args.threads,args.workers,args.inner_belief,args.candidate_mode)
     elif args.command=="advance":
         advance(args.path,args.seconds,args.max_seeds)
     elif args.command=="arm":
