@@ -1,4 +1,4 @@
-// One isolated call to the preserved local phone solver. Node >= 23.6 is
+// Calls to the preserved local phone solver; --stream keeps the module loaded. Node >= 23.6 is
 // required for the unmodified TypeScript wrapper. The parent process owns
 // wall-clock enforcement and accounting; this process has no timeout logic.
 import { readFile } from 'node:fs/promises';
@@ -25,9 +25,12 @@ function seedOf(value) {
   return seed;
 }
 
-try {
-  let inputText = '';
-  for await (const chunk of process.stdin) inputText += chunk;
+const { Walt } = await import('./reference/phone/walt.ts');
+const bytes = await readFile(new URL('./reference/phone/walt.wasm', import.meta.url));
+const walt = await Walt.load(bytes);
+
+function respond(inputText) {
+ try {
   const input = JSON.parse(inputText);
   const knobs = input.knobs ?? {};
   const race = knobs.race ?? input.race ?? true;
@@ -46,12 +49,21 @@ try {
     race,
     seed: seedOf(knobs.seed ?? input.seed),
   };
-  const { Walt } = await import('./reference/phone/walt.ts');
-  const bytes = await readFile(new URL('./reference/phone/walt.wasm', import.meta.url));
-  const walt = await Walt.load(bytes);
   const response = walt.play(req);
   process.stdout.write(`${JSON.stringify(response)}\n`);
 } catch (error) {
   process.stdout.write(`${JSON.stringify({status: 'error', error: error instanceof Error ? error.message : String(error)})}\n`);
-  process.exitCode = 1;
+  if (!process.argv.includes("--stream")) process.exitCode = 1;
+}
+
+}
+if (process.argv.includes('--stream')) {
+  const { createInterface } = await import('node:readline');
+  for await (const line of createInterface({ input: process.stdin, crlfDelay: Infinity })) {
+    if (line.trim()) respond(line);
+  }
+} else {
+  let inputText = '';
+  for await (const chunk of process.stdin) inputText += chunk;
+  respond(inputText);
 }

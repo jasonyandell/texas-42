@@ -1,0 +1,4 @@
+{"path": "/var/folders/3m/szvt8zm17tx5r8dyn4q7rqyw0000gn/T/tmp2kffog6t", "seed": 1, "paired": {"seed_delta": 1}, "completed": 3}
+{"path": "/var/folders/3m/szvt8zm17tx5r8dyn4q7rqyw0000gn/T/tmp2kffog6t", "seed": 2, "paired": {"seed_delta": 1}, "completed": 3}
+{"path": "/var/folders/3m/szvt8zm17tx5r8dyn4q7rqyw0000gn/T/tmp2kffog6t", "seed": 3, "paired": {"seed_delta": 1}, "completed": 3}
+{"id": "pool-1ecb1397-d5df-459c-bd96-dd3e60d8f0ed", "started_utc": "2026-09-06T23:41:00.458320+00:00", "status": "slice-complete", "workers": 2, "seconds": 1, "retries": 2, "paths": ["/private/var/folders/3m/szvt8zm17tx5r8dyn4q7rqyw0000gn/T/tmp32i77ook"], "scheduler_sha256": "7d34094f3971b00119ff8aaedbd0950e832eb3692bc8989656affff06ada4857", "committed": {"/private/var/folders/3m/szvt8zm17tx5r8dyn4q7rqyw0000gn/T/tmp32i77ook": []}, "attempts": 0, "peak_active_games": 0, "elapsed_seconds": 0.0038132909999999964, "finished_utc": "2026-09-06T23:41:00.462170+00:00"}

@@ -54,6 +54,7 @@ pub mod proof_state;
 pub mod refine;
 pub mod residual;
 pub mod root_interval;
+pub mod selection;
 pub mod targeted;
 pub mod unified;
 pub mod upper_cs;
@@ -249,6 +250,8 @@ type PiShard = Mutex<HashMap<(u8, PiKey), u8>>;
 /// thresholds, boundary frame, budget, and the cross-level policy cache.
 pub struct Shared {
     inner_belief: InnerBelief,
+    modeled_selection: selection::Rule,
+    inner_worlds_by_level: Vec<AtomicU64>,
     pub dcl: Decl,
     /// make ⇔ banked_t1 ≥ bid ⇔ banked_t0 ≤ 42 − bid.
     pub bid: u8,
@@ -283,6 +286,8 @@ impl Shared {
         let pi_calls_by_level = (0..n_inner.len()).map(|_| AtomicU64::new(0)).collect();
         Shared {
             inner_belief: InnerBelief::Voidless,
+            modeled_selection: selection::Rule::Fixed,
+            inner_worlds_by_level: (0..n_inner.len()).map(|_| AtomicU64::new(0)).collect(),
             dcl,
             bid,
             n_inner,
@@ -306,6 +311,22 @@ impl Shared {
         assert_eq!(self.pi_cache_len(), 0, "select belief before evaluating");
         self.inner_belief = strategy;
         self
+    }
+
+    /// Cache identity includes this immutable evaluation-scoped policy.
+    #[must_use]
+    pub fn with_modeled_selection(mut self, rule: selection::Rule) -> Self {
+        assert_eq!(self.pi_cache_len(), 0, "select policy before evaluating");
+        self.modeled_selection = rule;
+        self
+    }
+
+    /// Completed sampled worlds, including every refinement/racing batch.
+    pub fn inner_worlds_by_level(&self) -> Vec<u64> {
+        self.inner_worlds_by_level
+            .iter()
+            .map(|n| n.load(Ordering::Relaxed))
+            .collect()
     }
 
     pub const fn inner_belief(&self) -> InnerBelief {
@@ -337,7 +358,8 @@ impl Shared {
     }
 
     /// Cache-miss computations performed at each modeled level. A level-k
-    /// miss consumes exactly `n_inner[k]` sampled worlds.
+    /// miss invokes the level's frozen selection schedule. Sample totals are
+    /// measured separately because a schedule can evaluate several bundles.
     pub fn pi_calls_by_level(&self) -> Vec<u64> {
         self.pi_calls_by_level
             .iter()
@@ -876,42 +898,7 @@ impl Solver {
                 ^ mix(u64::from(hand))
                 ^ record_hash(key),
         );
-        let Some(inner_worlds) = self.sh.inner_belief.sample(
-            self.sh.dcl,
-            seat,
-            hand,
-            key,
-            sizes,
-            n_k,
-            &mut rng,
-            self.sh.deadline,
-        ) else {
-            self.sh.dead.store(true, Ordering::Relaxed);
-            return None;
-        };
-        if self.sh.deadline.passed() {
-            self.sh.dead.store(true, Ordering::Relaxed);
-            return None;
-        }
-        let (inner_field, inner_seeds) = if k == 0 {
-            let seeds: Vec<u64> = (0..n_k).map(|_| rng.next_u64()).collect();
-            (Field::Dice, seeds)
-        } else {
-            (Field::Level(k - 1), Vec::new())
-        };
         let maximize = seat.team() == Team::T1;
-        // Inner minds inherit the host's visit-order selector so an A/B
-        // arm is whole-stack, not host-only (value-invariant either way).
-        let inner = Solver::new(
-            Arc::clone(&self.sh),
-            seat,
-            hand,
-            maximize,
-            inner_worlds,
-            inner_seeds,
-            inner_field,
-        )
-        .with_ordering(self.ordering);
         let root = Key {
             voids: pk.voids,
             played: key.played,
@@ -921,51 +908,89 @@ impl Solver {
             banked_t0: key.banked_t0,
             alive: 0,
         };
-        let mut best: Option<(BigRational, u8)> = None;
-        let mut lm = legal_mask;
-        let mut died = false;
-        while lm != 0 {
-            if self.sh.deadline.passed() {
+        // L0 retains its fixed Dice response. L1 and higher use the same
+        // selector as the real player, at their independently frozen budgets.
+        let rule = if k == 0 {
+            selection::Rule::Fixed
+        } else {
+            self.sh.modeled_selection
+        };
+        let chosen = selection::select(
+            rule,
+            &mask_bits(legal_mask),
+            maximize,
+            n_k,
+            |tiles, n, _| {
+                let worlds = self
+                    .sh
+                    .inner_belief
+                    .sample(
+                        self.sh.dcl,
+                        seat,
+                        hand,
+                        key,
+                        sizes,
+                        n,
+                        &mut rng,
+                        self.sh.deadline,
+                    )
+                    .ok_or(())?;
+                self.sh.inner_worlds_by_level[k].fetch_add(n as u64, Ordering::Relaxed);
+                let (field, seeds) = if k == 0 {
+                    (Field::Dice, (0..n).map(|_| rng.next_u64()).collect())
+                } else {
+                    (Field::Level(k - 1), Vec::new())
+                };
+                Solver::new(
+                    Arc::clone(&self.sh),
+                    seat,
+                    hand,
+                    maximize,
+                    worlds,
+                    seeds,
+                    field,
+                )
+                .with_ordering(self.ordering)
+                .action_values(&root, tiles)
+                .ok_or(())
+            },
+        );
+        let choice = match chosen {
+            Ok(result) if !self.sh.deadline.passed() => result.choice,
+            _ => {
                 self.sh.dead.store(true, Ordering::Relaxed);
-                died = true;
-                break;
+                return None;
             }
-            let tile_idx = lm.trailing_zeros() as u8;
-            lm &= lm - 1;
-            let tile = Domino::from_index(usize::from(tile_idx)).expect("tile < 28");
-            let child = inner.child_after_play(&root, tile, 0);
-            match inner.solve(&child) {
-                Some(v) => {
-                    let better = best
-                        .as_ref()
-                        .is_none_or(|(b, _)| if maximize { v > *b } else { v < *b });
-                    if better {
-                        best = Some((v, tile_idx));
-                    }
-                }
-                None => {
-                    died = true;
-                    break;
-                }
-            }
-            if self.sh.deadline.passed() {
-                self.sh.dead.store(true, Ordering::Relaxed);
-                died = true;
-                break;
-            }
-        }
-        inner.flush_nodes();
-        if died || self.sh.deadline.passed() {
-            self.sh.dead.store(true, Ordering::Relaxed);
-            return None;
-        }
-        let (_, choice) = best.expect("legal play exists");
+        };
         self.sh
             .pi_shard(kb, &pk)
             .lock()
             .expect("pi shard poisoned")
             .insert((kb, pk), choice);
         Some(choice)
+    }
+
+    /// Evaluate a complete ordered root comparison on this solver's common
+    /// worlds. Statistics are flushed on success AND refusal.
+    pub fn action_values(&self, key: &Key, tiles: &[u8]) -> Option<selection::Values> {
+        let result = (|| {
+            let mut values = Vec::with_capacity(tiles.len());
+            for &id in tiles {
+                if self.sh.deadline.passed() {
+                    return None;
+                }
+                let tile = Domino::from_index(id as usize).expect("legal tile");
+                let child = self.child_after_play(key, tile, 0);
+                values.push((id, self.solve(&child)?));
+            }
+            if self.sh.deadline.passed() {
+                None
+            } else {
+                Some(values)
+            }
+        })();
+        self.flush_nodes();
+        result
     }
 
     /// Public exposure of the modeled level-k field policy at an information
@@ -1361,35 +1386,14 @@ pub fn level1_evaluate(
         }
         Ok(out)
     };
-    let all_tiles = mask_bits(legal);
-    let mut opts = evaluate(&all_tiles, n_outer, rng)?;
-    let mut n_cur = n_outer;
-    loop {
-        let best = if maximize {
-            opts.iter().map(|(_, v)| v.clone()).max()
-        } else {
-            opts.iter().map(|(_, v)| v.clone()).min()
-        }
-        .expect("legal play");
-        let tied: Vec<u8> = opts
-            .iter()
-            .filter(|(_, v)| *v == best)
-            .map(|(t, _)| *t)
-            .collect();
-        if tied.len() == 1 || n_cur >= n_outer * 16 {
-            break;
-        }
-        n_cur *= 4;
-        let refined = evaluate(&tied, n_cur, rng)?;
-        for (t, v) in refined {
-            let slot = opts
-                .iter_mut()
-                .find(|(ot, _)| *ot == t)
-                .expect("tied tile present");
-            slot.1 = v;
-        }
-    }
-    Ok(opts)
+    selection::select(
+        selection::Rule::Refine,
+        &mask_bits(legal),
+        maximize,
+        n_outer,
+        |tiles, n, _| evaluate(tiles, n, rng),
+    )
+    .map(|result| result.values)
 }
 
 /// Cross-fiber pricing (the cheap first-order UI detector of
@@ -1825,8 +1829,6 @@ pub fn level1_raced(
     per_move_secs: u64,
     rng: &mut SplitMix64,
 ) -> Result<BlockRace, Level1Refusal> {
-    const RACE_KMIN: usize = 6;
-    const RACE_DELTA: (u64, u64) = (1, 128);
     let maximize = seat.team() == Team::T1;
     let cands: Vec<u8> = mask_bits(legal);
     if cands.len() == 1 {
@@ -1846,15 +1848,7 @@ pub fn level1_raced(
         boundary_hand_size,
         deadline,
     ));
-    let slot = |t: u8| cands.iter().position(|&c| c == t).expect("candidate");
-    let mut live: Vec<u8> = cands.clone();
-    // Per candidate: per-block values (aligned across live candidates).
-    let mut blocks_of: Vec<Vec<BigRational>> = vec![Vec::new(); cands.len()];
-    let mut consumed: Vec<usize> = vec![0; cands.len()];
-    let mut eliminated: Vec<(u8, usize)> = Vec::new();
-    let mut used = 0usize;
-    while used < n_max && live.len() > 1 {
-        let b = block.min(n_max - used);
+    selection::race(&cands, maximize, n_max, block, |live, b, _| {
         let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, b, rng)?;
         let eval_one = |&t: &u8| -> Option<(u8, BigRational)> {
             let solver = Solver::new(
@@ -1876,87 +1870,7 @@ pub fn level1_raced(
         let block_vals: Option<Vec<(u8, BigRational)>> = live.par_iter().map(eval_one).collect();
         #[cfg(not(feature = "parallel"))]
         let block_vals: Option<Vec<(u8, BigRational)>> = live.iter().map(eval_one).collect();
-        for (t, v) in block_vals.ok_or(Level1Refusal::Deadline)? {
-            blocks_of[slot(t)].push(v);
-            consumed[slot(t)] += b;
-        }
-        used += b;
-        // Leader by exact running mean over the common live prefix (equal
-        // block counts among live candidates), lowest tile on exact ties.
-        let sum_of = |t: u8| -> BigRational {
-            blocks_of[slot(t)]
-                .iter()
-                .fold(BigRational::zero(), |a, v| a + v)
-        };
-        let leader = live
-            .iter()
-            .copied()
-            .reduce(|best, cand| {
-                let (bs, cs) = (sum_of(best), sum_of(cand));
-                let better = if maximize { cs > bs } else { cs < bs };
-                if better {
-                    cand
-                } else {
-                    best
-                }
-            })
-            .expect("live nonempty");
-        let mut still: Vec<u8> = Vec::with_capacity(live.len());
-        for &r in &live {
-            if r == leader {
-                still.push(r);
-                continue;
-            }
-            let lb = &blocks_of[slot(leader)];
-            let rb = &blocks_of[slot(r)];
-            let mut n_plus = 0usize;
-            let mut n_minus = 0usize;
-            for (lv, rv) in lb.iter().zip(rb) {
-                let leader_won = if maximize { lv > rv } else { lv < rv };
-                let rival_won = if maximize { rv > lv } else { rv < lv };
-                if leader_won {
-                    n_plus += 1;
-                } else if rival_won {
-                    n_minus += 1;
-                }
-            }
-            let k = n_plus + n_minus;
-            let settled = k >= RACE_KMIN && binom_tail_leq(k, n_plus, RACE_DELTA.0, RACE_DELTA.1);
-            if settled {
-                eliminated.push((r, used));
-            } else {
-                still.push(r);
-            }
-        }
-        live = still;
-    }
-    let mean_of = |t: u8| -> BigRational {
-        let bs = &blocks_of[slot(t)];
-        let sum = bs.iter().fold(BigRational::zero(), |a, v| a + v);
-        sum / BigRational::from_integer(BigInt::from(bs.len().max(1)))
-    };
-    let choice = live
-        .iter()
-        .copied()
-        .reduce(|best, cand| {
-            let (bm, cm) = (mean_of(best), mean_of(cand));
-            let better = if maximize { cm > bm } else { cm < bm };
-            if better {
-                cand
-            } else {
-                best
-            }
-        })
-        .expect("live nonempty");
-    let values = live
-        .iter()
-        .map(|&t| (t, mean_of(t), consumed[slot(t)]))
-        .collect();
-    Ok(BlockRace {
-        choice,
-        worlds_used: used,
-        values,
-        eliminated,
+        block_vals.ok_or(Level1Refusal::Deadline)
     })
 }
 
@@ -1986,58 +1900,44 @@ pub fn level1_race_refined(
     per_move_secs: u64,
     rng: &mut SplitMix64,
 ) -> Result<u8, Level1Refusal> {
-    let race = level1_raced(
-        dcl,
-        bid,
-        seat,
-        hand,
-        legal,
-        key,
-        sizes,
-        voids,
-        trick_start_played,
-        boundary_hand_size,
-        n_race,
-        n0,
-        8,
-        per_move_secs,
-        rng,
-    )?;
-    if race.values.len() <= 1 {
-        return Ok(race.choice);
-    }
     let maximize = seat.team() == Team::T1;
-    let best = race
-        .values
-        .iter()
-        .map(|(_, v, _)| v.clone())
-        .reduce(|a, b| if maximize { a.max(b) } else { a.min(b) })
-        .expect("nonempty");
-    let tied: Vec<u8> = race
-        .values
-        .iter()
-        .filter(|(_, v, _)| *v == best)
-        .map(|(t, _, _)| *t)
-        .collect();
-    if tied.len() == 1 {
-        return Ok(race.choice);
-    }
-    let tied_mask = tied.iter().fold(0u32, |a, &t| a | (1u32 << t));
-    let opts = level1_evaluate(
-        dcl,
-        bid,
-        seat,
-        hand,
-        tied_mask,
-        key,
-        sizes,
-        voids,
-        trick_start_played,
-        boundary_hand_size,
+    let deadline = Deadline::after(Duration::from_secs(per_move_secs));
+    let make_shared = || {
+        Arc::new(Shared::new(
+            dcl,
+            bid,
+            vec![n0],
+            trick_start_played,
+            boundary_hand_size,
+            deadline,
+        ))
+    };
+    let race_shared = make_shared();
+    selection::race_refine(
+        &mask_bits(legal),
+        maximize,
+        n_race,
         n_refine,
-        n0,
-        per_move_secs,
-        rng,
-    )?;
-    Ok(best_of(&opts, maximize))
+        |tiles, n, kind| {
+            let worlds = sample_belief(seat.index(), hand, key.played, sizes, voids, n, rng)?;
+            let shared = if kind == selection::Batch::Block {
+                Arc::clone(&race_shared)
+            } else {
+                make_shared()
+            };
+            Solver::new(
+                shared,
+                seat,
+                hand,
+                maximize,
+                worlds,
+                Vec::new(),
+                Field::Level(0),
+            )
+            .parallel()
+            .action_values(key, tiles)
+            .ok_or(Level1Refusal::Deadline)
+        },
+    )
+    .map(|result| result.choice)
 }

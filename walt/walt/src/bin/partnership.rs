@@ -2,7 +2,7 @@
 //! decision budget live in experiments/partnership/player.py. This worker
 //! receives only one seat's original hand and the public record.
 use std::collections::HashMap;
-use std::io::{self, Read};
+use std::io::{self, BufRead, Read, Write};
 use std::time::Duration;
 
 use walt::rules::rules::legal_plays;
@@ -24,6 +24,26 @@ fn run(input: &str) -> Result<String, String> {
     for line in lines {
         let mut words = line.split_whitespace();
         let Some(name) = words.next() else { continue };
+        if ![
+            "decl",
+            "bid",
+            "seat",
+            "bidder",
+            "hand",
+            "plays",
+            "seed",
+            "n",
+            "n0",
+            "n1",
+            "budget_ms",
+            "inner_belief",
+            "selection",
+            "modeled_selection",
+        ]
+        .contains(&name)
+        {
+            return Err("unknown request field".into());
+        }
         let values: Result<Vec<u64>, _> = words.map(str::parse).collect();
         if f.insert(name.to_owned(), values.map_err(|_| "invalid integer")?)
             .is_some()
@@ -148,9 +168,19 @@ fn run(input: &str) -> Result<String, String> {
         Some([1]) => solver::InnerBelief::VoidsCounted,
         _ => return Err("unknown inner belief strategy".into()),
     };
+    let rule = |name: &str| match f.get(name).map(Vec::as_slice) {
+        None | Some([0]) => Ok(solver::selection::Rule::Fixed),
+        Some([1]) => Ok(solver::selection::Rule::Refine),
+        Some([2]) => Ok(solver::selection::Rule::RaceRefine),
+        _ => Err(format!("unknown {name}")),
+    };
+    let selection = rule("selection")?;
+    let modeled_selection = rule("modeled_selection")?;
     let seed = scalar(&f, "seed")? ^ solver::mix(u64::from(hand0)) ^ solver::record_hash(&key);
     let cfg = solver::partnership::Config {
         inner_belief,
+        selection,
+        modeled_selection,
         profile,
         n_outer: n,
         n0,
@@ -184,10 +214,39 @@ fn run(input: &str) -> Result<String, String> {
             )
         })
         .collect();
-    Ok(format!("{{{prefix},\"choice\":{},\"options\":[{}],\"inner_belief\":\"{}\",\"outer_worlds\":{},\"outer_draw_attempts\":{},\"pi_calls_by_level\":{:?},\"inner_worlds_by_level\":{:?},\"nodes\":{},\"solver_us\":{}}}",report.best(), options.join(","), inner_belief.name(), report.stats.outer_worlds, report.stats.outer_draw_attempts, report.stats.pi_calls_by_level,report.stats.inner_worlds_by_level,report.stats.nodes,report.stats.elapsed.as_micros()))
+    Ok(format!("{{{prefix},\"choice\":{},\"options\":[{}],\"selection\":\"{}\",\"modeled_selection\":\"{}\",\"inner_belief\":\"{}\",\"outer_worlds\":{},\"outer_draw_attempts\":{},\"pi_calls_by_level\":{:?},\"inner_worlds_by_level\":{:?},\"nodes\":{},\"solver_us\":{}}}",report.best(), options.join(","), selection.name(), modeled_selection.name(), inner_belief.name(), report.stats.outer_worlds, report.stats.outer_draw_attempts, report.stats.pi_calls_by_level,report.stats.inner_worlds_by_level,report.stats.nodes,report.stats.elapsed.as_micros()))
 }
 
 fn main() {
+    if std::env::args().any(|a| a == "--stream") {
+        let mut input = String::new();
+        for line in io::stdin().lock().lines() {
+            let line = line.expect("read request");
+            if line.is_empty() {
+                if input.is_empty() {
+                    continue;
+                }
+                match run(&input) {
+                    Ok(output) => println!("{output}"),
+                    Err(e) => {
+                        // Protocol errors have controlled, ASCII messages.
+                        let escaped = e
+                            .replace('\\', "\\\\")
+                            .replace('"', "\\\"")
+                            .replace('\n', " ");
+                        println!("{{\"status\":\"error\",\"error\":\"{escaped}\"}}");
+                    }
+                }
+                io::stdout().flush().expect("flush response");
+                input.clear();
+            } else {
+                input.push_str(&line);
+                input.push('\n');
+                assert!(input.len() <= 16384, "request too large");
+            }
+        }
+        return;
+    }
     let mut input = String::new();
     io::stdin()
         .read_to_string(&mut input)

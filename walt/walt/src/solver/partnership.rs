@@ -1,7 +1,7 @@
 //! Bounded native evaluator for fixed, information-consistent seat-level fields.
 //!
-//! The focal seat evaluates every legal root action on one common set of
-//! sampled worlds. `PartnerOnly` raises only the seat across the table to
+//! Each completed comparison uses common sampled worlds for all candidates.
+//! The shared selector controls fixed sampling, refinement, or racing. `PartnerOnly` raises only the seat across the table to
 //! level 1; both opponents remain level 0. Modeled level-1 minds continue to
 //! best respond to the uniform level-0 field through `Solver::pi`.
 
@@ -12,9 +12,10 @@ use std::time::{Duration, Instant};
 use num_rational::BigRational;
 
 use crate::rules::{Decl, Domino, Seat, Team};
+use crate::solver::selection::{self, Rule};
 use crate::solver::{
-    belief_frame_feasibility, best_of, mask_bits, Deadline, Field, InfeasibleFrame, Key, Shared,
-    Solver, SplitMix64, FULL_MASK,
+    belief_frame_feasibility, mask_bits, Deadline, Field, InfeasibleFrame, Key, Shared, Solver,
+    SplitMix64, FULL_MASK,
 };
 
 /// Which fixed field the focal best response faces.
@@ -46,14 +47,16 @@ impl FieldProfile {
     }
 }
 
-/// Fixed work schedule for one root decision.
+/// Deterministic selection rules and base sample budgets for one decision.
 #[derive(Clone, Copy, Debug)]
 pub struct Config {
     /// Independent of seat levels; applies to every modeled mind.
     pub inner_belief: super::InnerBelief,
+    pub selection: Rule,
+    pub modeled_selection: Rule,
     pub profile: FieldProfile,
     pub n_outer: usize,
-    /// Belief worlds used by each level-1 modeled-policy cache miss.
+    /// Base bundle size of a modeled L1 mind; refinement may draw more.
     pub n1: usize,
     /// Belief worlds used by each level-0 modeled-policy cache miss.
     pub n0: usize,
@@ -121,20 +124,12 @@ struct SampleFailure {
 
 fn stats(
     sh: Option<&Shared>,
-    cfg: &Config,
     outer_worlds: u64,
     outer_draw_attempts: u64,
     start: Instant,
 ) -> WorkStats {
     let pi_calls_by_level = sh.map_or_else(Vec::new, Shared::pi_calls_by_level);
-    let inner_worlds_by_level = pi_calls_by_level
-        .iter()
-        .enumerate()
-        .map(|(level, calls)| {
-            let sample_count = if level == 0 { cfg.n0 } else { cfg.n1 };
-            calls.saturating_mul(sample_count as u64)
-        })
-        .collect();
+    let inner_worlds_by_level = sh.map_or_else(Vec::new, Shared::inner_worlds_by_level);
     WorkStats {
         outer_worlds,
         outer_draw_attempts,
@@ -225,7 +220,7 @@ fn sample_belief_bounded(
     Ok((out, attempts))
 }
 
-/// Evaluate every legal focal action on fixed common random worlds.
+/// Evaluate the focal actions through the common selection schedule.
 ///
 /// `cfg.seed` is the complete common-random-world stream seed. Callers use
 /// `phone_seed ^ mix(original_hand) ^ record_hash(key)` so the evaluator
@@ -243,7 +238,7 @@ pub fn evaluate(
     trick_start_played: u32,
     boundary_hand_size: usize,
     cfg: &Config,
-) -> Result<Evaluation, Refusal> {
+) -> Result<Evaluation, Box<Refusal>> {
     assert!(
         cfg.n_outer > 0 && cfg.n1 > 0 && cfg.n0 > 0,
         "sample counts are positive"
@@ -259,24 +254,6 @@ pub fn evaluate(
     let start = Instant::now();
     let deadline = cfg.deadline;
     let mut rng = SplitMix64(cfg.seed);
-    let (worlds, attempts) = match sample_belief_bounded(
-        seat.index(),
-        hand,
-        key.played,
-        sizes,
-        voids,
-        cfg.n_outer,
-        &mut rng,
-        deadline,
-    ) {
-        Ok(sampled) => sampled,
-        Err(failure) => {
-            return Err(Refusal {
-                reason: failure.reason,
-                stats: stats(None, cfg, failure.accepted, failure.attempts, start),
-            });
-        }
-    };
     let sh = Arc::new(
         Shared::new(
             dcl,
@@ -286,59 +263,69 @@ pub fn evaluate(
             boundary_hand_size,
             deadline,
         )
-        .with_inner_belief(cfg.inner_belief),
+        .with_inner_belief(cfg.inner_belief)
+        .with_modeled_selection(cfg.modeled_selection),
     );
     let mut root = key.clone();
     root.voids = cfg.inner_belief.root_voids(voids);
-    let solver = Solver::new(
-        Arc::clone(&sh),
-        seat,
-        hand,
+    let (mut total_worlds, mut total_attempts) = (0, 0);
+    let selected = selection::select(
+        cfg.selection,
+        &mask_bits(legal),
         seat.team() == Team::T1,
-        worlds,
-        Vec::new(),
-        Field::SeatLevels(cfg.profile.seat_levels(seat)),
-    )
-    .parallel();
-    let mut actions = Vec::with_capacity(legal.count_ones() as usize);
-    for tile_index in mask_bits(legal) {
-        if deadline.passed() {
-            sh.dead.store(true, Ordering::Relaxed);
-            solver.flush_nodes();
-            return Err(Refusal {
-                reason: RefusalReason::Deadline,
-                stats: stats(Some(&sh), cfg, cfg.n_outer as u64, attempts, start),
-            });
-        }
-        let tile = Domino::from_index(usize::from(tile_index)).expect("tile < 28");
-        let child = solver.child_after_play(&root, tile, 0);
-        let Some(value) = solver.solve(&child) else {
-            solver.flush_nodes();
-            return Err(Refusal {
-                reason: RefusalReason::Deadline,
-                stats: stats(Some(&sh), cfg, cfg.n_outer as u64, attempts, start),
-            });
-        };
-        if deadline.passed() {
-            sh.dead.store(true, Ordering::Relaxed);
-            solver.flush_nodes();
-            return Err(Refusal {
-                reason: RefusalReason::Deadline,
-                stats: stats(Some(&sh), cfg, cfg.n_outer as u64, attempts, start),
-            });
-        }
-        actions.push(ActionValue { tile, value });
+        cfg.n_outer,
+        |tiles, n, _| {
+            let sampled = sample_belief_bounded(
+                seat.index(),
+                hand,
+                key.played,
+                sizes,
+                voids,
+                n,
+                &mut rng,
+                deadline,
+            );
+            let worlds = match sampled {
+                Ok((worlds, attempts)) => {
+                    total_worlds += worlds.len() as u64;
+                    total_attempts += attempts;
+                    worlds
+                }
+                Err(failure) => {
+                    total_worlds += failure.accepted;
+                    total_attempts += failure.attempts;
+                    return Err(failure.reason);
+                }
+            };
+            Solver::new(
+                Arc::clone(&sh),
+                seat,
+                hand,
+                seat.team() == Team::T1,
+                worlds,
+                Vec::new(),
+                Field::SeatLevels(cfg.profile.seat_levels(seat)),
+            )
+            .parallel()
+            .action_values(&root, tiles)
+            .ok_or(RefusalReason::Deadline)
+        },
+    );
+    let stats = stats(Some(&sh), total_worlds, total_attempts, start);
+    match selected {
+        Ok(result) => Ok(Evaluation {
+            profile: cfg.profile,
+            actions: result
+                .values
+                .into_iter()
+                .map(|(id, value)| ActionValue {
+                    tile: Domino::from_index(id as usize).expect("legal tile"),
+                    value,
+                })
+                .collect(),
+            stats,
+            choice: result.choice,
+        }),
+        Err(reason) => Err(Box::new(Refusal { reason, stats })),
     }
-    solver.flush_nodes();
-    let opts: Vec<(u8, BigRational)> = actions
-        .iter()
-        .map(|a| (a.tile.index() as u8, a.value.clone()))
-        .collect();
-    let choice = best_of(&opts, seat.team() == Team::T1);
-    Ok(Evaluation {
-        profile: cfg.profile,
-        actions,
-        stats: stats(Some(&sh), cfg, cfg.n_outer as u64, attempts, start),
-        choice,
-    })
 }

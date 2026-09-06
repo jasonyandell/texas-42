@@ -1,0 +1,31 @@
+
+running 7 tests
+test fixed_ties_use_tile_order_without_extra_sampling ... ok
+test forced_race_never_requests_an_evaluation ... ok
+test racing_uses_paired_blocks_and_both_objectives ... ok
+test refinement_reconsiders_formerly_lower_candidates ... ok
+test refusal_discards_previous_completed_rounds ... ok
+test saturation_race_refines_only_tied_survivors ... ok
+test unresolved_ties_exhaust_exactly_the_historical_fresh_bundles ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 12 tests
+test baseline_evaluator_uses_the_exact_common_world_stream_and_level_zero_field ... ok
+test bounded_evaluator_is_deterministic_and_reports_every_legal_action ... ok
+test counted_belief_runs_all_three_seat_profiles_and_refuses_expired_sampling ... ok
+test counted_inner_samples_belong_to_independently_replayed_receipt_fibers ... ok
+test inner_cache_separates_void_profiles_and_remains_independent_of_host_worlds ... ok
+test modeled_l1_inherits_selection_but_l0_keeps_its_fixed_dice_boundary ... ok
+test modeled_level_one_is_independent_of_outer_completions_and_cache_order ... ok
+test seat_levels_all_one_is_exactly_the_uniform_level_one_field ... ok
+test seat_levels_all_zero_is_exactly_the_uniform_level_zero_field ... ok
+test seat_profiles_upgrade_exactly_the_declared_seats ... ok
+test voids_survive_trick_resolution_and_use_declaration_relative_following ... ok
+test zero_deadline_aborts_before_sampling_or_action_comparison ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+PASS nine frozen fixed-policy comparisons, exact values and moves
+PASS 64 native/archived-WASM comparisons at identical information states, racing and refinement

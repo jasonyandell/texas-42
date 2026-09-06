@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
 """Small declared batches; always launch beneath packet/tools/run_capped.py."""
+
 import argparse
 import hashlib
 import json
-from pathlib import Path
 import random
 import time
 from collections import Counter
 
 from player import BINARY, HERE, INPUT_KEYS, decide
-from rules import TILES, called, context, follows, legal_tiles, winner, trick_points, replay_record
+from rules import (
+    TILES,
+    legal_tiles,
+    replay_record,
+    trick_points,
+    winner,
+)
 
 PUBLIC_SEED = 420600  # independent of all hidden-deal seeds
 
@@ -25,59 +31,112 @@ def drive(hands, decl, bid, bidder, modes, args, name):
     all_decisions, trick_times, fallback_count = [], [], 0
     route_counts = Counter()
     begin = time.monotonic()
-    emit({"event": "hand-start", "name": name, "hands": hands,
-          "decl": decl, "bid": bid, "bidder": bidder, "modes": modes,
-          "public_seed": PUBLIC_SEED})
+    emit(
+        {
+            "event": "hand-start",
+            "name": name,
+            "hands": hands,
+            "decl": decl,
+            "bid": bid,
+            "bidder": bidder,
+            "modes": modes,
+            "public_seed": PUBLIC_SEED,
+        }
+    )
     for ti in range(7):
         trick = []
         trick_begin = time.monotonic()
         for pos in range(4):
-            seat = (leader+pos) % 4
-            req = {"decl": decl, "bid": bid, "bidder": bidder, "seat": seat,
-                   "hand": hands[seat], "plays": record[:], "seed": PUBLIC_SEED}
+            seat = (leader + pos) % 4
+            req = {
+                "decl": decl,
+                "bid": bid,
+                "bidder": bidder,
+                "seat": seat,
+                "hand": hands[seat],
+                "plays": record[:],
+                "seed": PUBLIC_SEED,
+            }
             # Referee knows full deal; this exact object is the complete worker
             # input. No hand seed or teammate hand crosses the boundary.
             mode = modes[seat]
-            resp = decide(req, mode, 40 if mode == "phone" else args.n,
-                          8 if mode == "phone" else args.n0, args.n1, args.budget_ms,
-                          "voidless" if mode == "phone" else args.inner_belief)
+            resp = decide(
+                req,
+                mode,
+                40 if mode == "phone" else args.n,
+                8 if mode == "phone" else args.n0,
+                args.n1,
+                args.budget_ms,
+                "voidless" if mode == "phone" else args.inner_belief,
+                "fixed" if mode == "phone" else args.selection,
+                args.modeled_selection if mode in ("partner", "all-l1") else "fixed",
+            )
             expected_legal = legal_tiles(remaining[seat], trick, decl)
             assert resp["legal"] == expected_legal
             assert resp["leader"] == leader and resp["points"] == points
             assert resp["choice"] in expected_legal and not resp["over_budget"]
-            assert resp["phases"][0]["status"] == "completed", "native/Python state conformance failed"
+            assert resp["phases"][0]["status"] == "completed", (
+                "native/Python state conformance failed"
+            )
             fallback_count += "fallback" in resp["route"]
-            route_counts[mode+":"+resp["route"]] += 1
+            route_counts[mode + ":" + resp["route"]] += 1
             remaining[seat].remove(resp["choice"])
             record.extend([seat, resp["choice"]])
             trick.append((seat, resp["choice"]))
-            item = {"event": "decision", "hand": name, "trick": ti+1,
-                    "seat": seat, "request": req, "response": resp}
+            item = {
+                "event": "decision",
+                "hand": name,
+                "trick": ti + 1,
+                "seat": seat,
+                "request": req,
+                "response": resp,
+            }
             emit(item)
             all_decisions.append(item)
         leader = winner(trick, decl)
         points[leader % 2] += trick_points(trick)
-        elapsed = round((time.monotonic()-trick_begin)*1_000_000)
+        elapsed = round((time.monotonic() - trick_begin) * 1_000_000)
         trick_times.append(elapsed)
         assert elapsed < 60_000_000, "four-play trick exceeded one minute"
-        emit({"event": "trick", "hand": name, "trick": ti+1,
-              "winner": leader, "points": points[:], "elapsed_us": elapsed})
+        emit(
+            {
+                "event": "trick",
+                "hand": name,
+                "trick": ti + 1,
+                "winner": leader,
+                "points": points[:],
+                "elapsed_us": elapsed,
+            }
+        )
     assert sum(points) == 42 and not any(remaining)
     replayed, _, _, _ = replay_record(hands, record, decl, bidder)
     assert replayed == points
-    result = {"event": "hand-result", "name": name, "modes": modes,
-              "points": points, "made": points[bidder % 2] >= bid,
-              "decl": decl, "bid": bid, "bidder": bidder, "plays": record,
-              "decisions": 28, "fallbacks": fallback_count,
-              "routes": dict(route_counts),
-              "literal_phone_on_all_phone_turns": all(
-                  d["response"]["route"] in ("phone", "forced")
-                  for d in all_decisions if d["response"]["mode"] == "phone"),
-              "candidate_team_success": {
-                  str(team): (points[bidder % 2] >= bid) == (team == bidder % 2)
-                  for team in {s % 2 for s, m in enumerate(modes) if m == "partner"}},
-              "max_trick_us": max(trick_times), "trick_us": trick_times,
-              "elapsed_us": round((time.monotonic()-begin)*1_000_000)}
+    result = {
+        "event": "hand-result",
+        "name": name,
+        "modes": modes,
+        "points": points,
+        "made": points[bidder % 2] >= bid,
+        "decl": decl,
+        "bid": bid,
+        "bidder": bidder,
+        "plays": record,
+        "decisions": 28,
+        "fallbacks": fallback_count,
+        "routes": dict(route_counts),
+        "literal_phone_on_all_phone_turns": all(
+            d["response"]["route"] in ("phone", "forced")
+            for d in all_decisions
+            if d["response"]["mode"] == "phone"
+        ),
+        "candidate_team_success": {
+            str(team): (points[bidder % 2] >= bid) == (team == bidder % 2)
+            for team in {s % 2 for s, m in enumerate(modes) if m == "partner"}
+        },
+        "max_trick_us": max(trick_times),
+        "trick_us": trick_times,
+        "elapsed_us": round((time.monotonic() - begin) * 1_000_000),
+    }
     emit(result)
     return result
 
@@ -89,23 +148,49 @@ def main():
     p.add_argument("--modes", default="baseline,partner,phone")
     p.add_argument("--n", type=int, default=40)
     p.add_argument("--n0", type=int, default=8)
-    p.add_argument("--inner-belief", choices=["voidless", "voids-counted"], default="voidless")
+    p.add_argument(
+        "--inner-belief", choices=["voidless", "voids-counted"], default="voidless"
+    )
+    p.add_argument(
+        "--selection", choices=["fixed", "refine", "race-refine"], default="fixed"
+    )
+    p.add_argument(
+        "--modeled-selection",
+        choices=["fixed", "refine", "race-refine"],
+        default="fixed",
+    )
     p.add_argument("--n1", type=int, default=2)
     p.add_argument("--budget-ms", type=int, default=14000)
     p.add_argument("--deal-seed", type=int)
     p.add_argument("--decl", type=int, default=6)
     p.add_argument("--bid", type=int, default=30)
     p.add_argument("--bidder", type=int, default=0)
-    p.add_argument("--strong-contract", action="store_true",
-                   help="before play select longest pip-trump hand, then trump double, then off-trump doubles; bid stays fixed")
-    p.add_argument("--lineups", default="phone:phone:phone:phone,partner:phone:partner:phone,phone:partner:phone:partner")
+    p.add_argument(
+        "--strong-contract",
+        action="store_true",
+        help="before play select longest pip-trump hand, then trump double, then off-trump doubles; bid stays fixed",
+    )
+    p.add_argument(
+        "--lineups",
+        default="phone:phone:phone:phone,partner:phone:partner:phone,phone:partner:phone:partner",
+    )
     args = p.parse_args()
-    fixture = json.loads((HERE/"fixtures.json").read_text())
-    emit({"event": "config", "args": vars(args), "public_seed": PUBLIC_SEED,
-          "native_sha256": hashlib.sha256(BINARY.read_bytes()).hexdigest(),
-          "phone_sha256": hashlib.sha256((HERE/"reference/phone/walt.wasm").read_bytes()).hexdigest()})
+    fixture = json.loads((HERE / "fixtures.json").read_text())
+    emit(
+        {
+            "event": "config",
+            "args": vars(args),
+            "public_seed": PUBLIC_SEED,
+            "native_sha256": hashlib.sha256(BINARY.read_bytes()).hexdigest(),
+            "phone_sha256": hashlib.sha256(
+                (HERE / "reference/phone/walt.wasm").read_bytes()
+            ).hexdigest(),
+        }
+    )
     if args.kind == "roots":
-        selected = args.ids.split(",") if args.ids else [r["id"] for r in fixture["roots"]]
+        selected = (
+            args.ids.split(",") if args.ids else [r["id"] for r in fixture["roots"]]
+        )
         found = [r for r in fixture["roots"] if r["id"] in selected]
         assert len(found) == len(selected), "unknown or repeated root id"
         for root in found:
@@ -113,18 +198,41 @@ def main():
             req["seed"] = PUBLIC_SEED
             if root["id"].startswith("g1-"):
                 deal = fixture["full_deals"][0]
-                pts, lead, remaining, trick = replay_record(deal["hands"], req["plays"], req["decl"], req["bidder"])
+                pts, lead, remaining, trick = replay_record(
+                    deal["hands"], req["plays"], req["decl"], req["bidder"]
+                )
                 assert req["hand"] == deal["hands"][req["seat"]]
-                assert req["seat"] == (lead+len(trick)) % 4
+                assert req["seat"] == (lead + len(trick)) % 4
             for mode in args.modes.split(","):
-                resp = decide(req, mode, 40 if mode == "phone" else args.n,
-                              8 if mode == "phone" else args.n0, args.n1, args.budget_ms,
-                              "voidless" if mode == "phone" else args.inner_belief)
+                resp = decide(
+                    req,
+                    mode,
+                    40 if mode == "phone" else args.n,
+                    8 if mode == "phone" else args.n0,
+                    args.n1,
+                    args.budget_ms,
+                    "voidless" if mode == "phone" else args.inner_belief,
+                    "fixed" if mode == "phone" else args.selection,
+                    args.modeled_selection
+                    if mode in ("partner", "all-l1")
+                    else "fixed",
+                )
                 if root["id"].startswith("g1-"):
                     assert resp["points"] == pts and resp["leader"] == lead
-                    assert resp["legal"] == legal_tiles(remaining[req["seat"]], trick, req["decl"])
-                assert resp["phases"][0]["status"] == "completed", "native/Python state conformance failed"
-                emit({"event": "root", "id": root["id"], "request": req, "response": resp})
+                    assert resp["legal"] == legal_tiles(
+                        remaining[req["seat"]], trick, req["decl"]
+                    )
+                assert resp["phases"][0]["status"] == "completed", (
+                    "native/Python state conformance failed"
+                )
+                emit(
+                    {
+                        "event": "root",
+                        "id": root["id"],
+                        "request": req,
+                        "response": resp,
+                    }
+                )
     else:
         if args.deal_seed is None:
             source = fixture["full_deals"][0]
@@ -135,7 +243,7 @@ def main():
             assert args.deal_seed in fixture["holdout"]["deal_seeds"]
             tiles = list(range(28))
             random.Random(args.deal_seed).shuffle(tiles)
-            hands = [sorted(tiles[7*s:7*s+7]) for s in range(4)]
+            hands = [sorted(tiles[7 * s : 7 * s + 7]) for s in range(4)]
             decl, bid, bidder = args.decl, args.bid, args.bidder
             name = "holdout-" + str(args.deal_seed)
             if args.strong_contract:
@@ -144,20 +252,39 @@ def main():
                 def rank(option):
                     seat, trump = option
                     ts = [t for t in hands[seat] if trump in TILES[t]]
-                    return (len(ts), int((trump, trump) in [TILES[t] for t in ts]),
-                            sum(TILES[t][0] == TILES[t][1] for t in hands[seat] if t not in ts),
-                            -seat, -trump)
-                bidder, decl = max(((s, d) for s in range(4) for d in range(7)), key=rank)
-                emit({"event": "matched-contract", "rule": "longest-trump-then-double-then-off-doubles-v1",
-                      "bidder": bidder, "decl": decl, "bid": bid, "rank": rank((bidder, decl))})
+                    return (
+                        len(ts),
+                        int((trump, trump) in [TILES[t] for t in ts]),
+                        sum(
+                            TILES[t][0] == TILES[t][1]
+                            for t in hands[seat]
+                            if t not in ts
+                        ),
+                        -seat,
+                        -trump,
+                    )
+
+                bidder, decl = max(
+                    ((s, d) for s in range(4) for d in range(7)), key=rank
+                )
+                emit(
+                    {
+                        "event": "matched-contract",
+                        "rule": "longest-trump-then-double-then-off-doubles-v1",
+                        "bidder": bidder,
+                        "decl": decl,
+                        "bid": bid,
+                        "rank": rank((bidder, decl)),
+                    }
+                )
         for i, lineup in enumerate(args.lineups.split(",")):
             if lineup == "bidder-partner":
-                modes = ["phone"]*4
-                modes[(bidder+2)%4] = "partner"
+                modes = ["phone"] * 4
+                modes[(bidder + 2) % 4] = "partner"
             else:
                 modes = lineup.split(":")
             assert len(modes) == 4
-            drive(hands, decl, bid, bidder, modes, args, name+"-"+str(i))
+            drive(hands, decl, bid, bidder, modes, args, name + "-" + str(i))
 
 
 if __name__ == "__main__":

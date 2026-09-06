@@ -1,0 +1,21 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-06T23:40:02.077392+00:00",
+  "cwd": "/Users/jason/code/texas-42-partnership-launch",
+  "command": [
+    "python3",
+    "experiments/partnership/foundation_checks.py"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 89.092811,
+  "status": "completed",
+  "child_pid": 70956,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

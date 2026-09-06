@@ -1,0 +1,18 @@
+   Compiling walt v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt)
+error[E0433]: cannot find type `Ordering` in this scope
+   --> walt/src/solver/partnership.rs:138:46
+    |
+138 |         nodes: sh.map_or(0, |s| s.nodes.load(Ordering::Relaxed)),
+    |                                              ^^^^^^^^ use of undeclared type `Ordering`
+    |
+help: consider importing one of these enums
+    |
+  8 + use crate::solver::Ordering;
+    |
+  8 + use std::cmp::Ordering;
+    |
+  8 + use std::sync::atomic::Ordering;
+    |
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `walt` (lib) due to 1 previous error

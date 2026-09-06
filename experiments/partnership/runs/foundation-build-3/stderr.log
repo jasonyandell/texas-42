@@ -1,0 +1,11 @@
+warning: unused variable: `cfg`
+   --> walt/src/solver/partnership.rs:127:5
+    |
+127 |     cfg: &Config,
+    |     ^^^ help: if this is intentional, prefix it with an underscore: `_cfg`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `walt` (lib) generated 1 warning (run `cargo fix --lib -p walt` to apply 1 suggestion)
+   Compiling walt v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt)
+    Finished `release` profile [optimized] target(s) in 0.23s

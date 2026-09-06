@@ -1,0 +1,17 @@
+E.............
+======================================================================
+ERROR: test_atomic_completion_and_identity (test_campaign.CampaignTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/test_campaign.py", line 38, in test_atomic_completion_and_identity
+    result=c.commit_seed(path,spec,420601)
+  File "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/campaign.py", line 296, in commit_seed
+    validate_checkpoint(read(path/"seeds"/str(seed)/a/"checkpoint.json"), spec, fixture(spec,seed), seed, a)
+  File "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/campaign.py", line 53, in validate_checkpoint
+    assert (snap["campaign"], snap["seed"], snap["arm"]) == (spec["id"], seed, arm), "checkpoint identity"
+TypeError: 'NoneType' object is not subscriptable
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.163s
+
+FAILED (errors=1)

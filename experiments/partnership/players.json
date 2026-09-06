@@ -1,0 +1,53 @@
+{
+  "phone": {
+    "name": "phone",
+    "mode": "phone"
+  },
+  "l1-fixed": {
+    "name": "l1-fixed"
+  },
+  "l1-refine": {
+    "name": "l1-refine",
+    "selection": "refine"
+  },
+  "l1-race": {
+    "name": "l1-race",
+    "selection": "race-refine"
+  },
+  "l1-refine-voids": {
+    "name": "l1-refine-voids",
+    "selection": "refine",
+    "inner_belief": "voids-counted"
+  },
+  "l1-race-voids": {
+    "name": "l1-race-voids",
+    "selection": "race-refine",
+    "inner_belief": "voids-counted"
+  },
+  "partner-refine": {
+    "name": "partner-refine",
+    "mode": "partner",
+    "selection": "refine",
+    "modeled_selection": "refine"
+  },
+  "partner-race": {
+    "name": "partner-race",
+    "mode": "partner",
+    "selection": "race-refine",
+    "modeled_selection": "race-refine"
+  },
+  "partner-refine-voids": {
+    "name": "partner-refine-voids",
+    "mode": "partner",
+    "selection": "refine",
+    "modeled_selection": "refine",
+    "inner_belief": "voids-counted"
+  },
+  "partner-race-voids": {
+    "name": "partner-race-voids",
+    "mode": "partner",
+    "selection": "race-refine",
+    "modeled_selection": "race-refine",
+    "inner_belief": "voids-counted"
+  }
+}

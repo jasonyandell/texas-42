@@ -298,11 +298,65 @@ fn config(profile: FieldProfile) -> Config {
     Config {
         inner_belief: walt::solver::InnerBelief::Voidless,
         profile,
+        selection: walt::solver::selection::Rule::Fixed,
+        modeled_selection: walt::solver::selection::Rule::Fixed,
         n_outer: 2,
         n1: 2,
         n0: 2,
         seed: SEED,
         deadline: Deadline::after(Duration::from_secs(30)),
+    }
+}
+
+#[test]
+fn modeled_l1_inherits_selection_but_l0_keeps_its_fixed_dice_boundary() {
+    use walt::solver::selection::Rule;
+    let f = fixture();
+    // An already-made contract is an analytic saturation witness: every
+    // continuation has value one, independently of any sampled hidden hand.
+    let mut key = f.key.clone();
+    key.banked_t1 = f.bid;
+    for (rule, expected) in [(Rule::Fixed, 2), (Rule::Refine, 42), (Rule::RaceRefine, 46)] {
+        let sh = Arc::new(
+            Shared::new(
+                f.dcl,
+                f.bid,
+                vec![2, 2],
+                f.trick_start_played,
+                f.boundary_hand_size,
+                Deadline::after(Duration::from_secs(30)),
+            )
+            .with_modeled_selection(rule),
+        );
+        let host = Solver::new(
+            Arc::clone(&sh),
+            f.seat.plus(1),
+            0,
+            false,
+            vec![],
+            vec![],
+            Field::Level(0),
+        );
+        for k in [0, 1] {
+            let choice = host
+                .modeled_choice(k, &key, f.seat, f.hand, f.legal)
+                .unwrap();
+            assert_eq!(choice, f.legal.trailing_zeros() as u8);
+            assert_eq!(
+                sh.inner_worlds_by_level()[k],
+                if k == 0 { 2 } else { expected }
+            );
+            let counts = sh.inner_worlds_by_level();
+            assert_eq!(
+                host.modeled_choice(k, &key, f.seat, f.hand, f.legal),
+                Some(choice)
+            );
+            assert_eq!(
+                sh.inner_worlds_by_level(),
+                counts,
+                "warm cache does not resample"
+            );
+        }
     }
 }
 

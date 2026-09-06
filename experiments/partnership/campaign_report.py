@@ -10,6 +10,9 @@ import campaign as c
 def report(path):
     path=Path(path).resolve()
     spec=c.load(path,verify=False)
+    if "players" in spec:
+        from match import report as match_report
+        return match_report(path)
     rows=c.complete_results(path,spec)
     s=c.summarize(path,spec)
     fresh=[r for r in rows if r["fresh"]]

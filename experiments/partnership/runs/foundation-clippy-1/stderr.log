@@ -1,0 +1,32 @@
+    Checking either v1.17.0
+    Checking crossbeam-utils v0.8.22
+    Checking num-traits v0.2.19
+    Checking crossbeam-epoch v0.9.20
+    Checking crossbeam-deque v0.8.7
+    Checking num-integer v0.1.47
+    Checking rayon-core v1.13.0
+    Checking num-bigint v0.4.8
+    Checking rayon v1.12.0
+    Checking num-rational v0.4.2
+    Checking walt v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt)
+error: unused variable: `cfg`
+   --> walt/src/solver/partnership.rs:127:5
+    |
+127 |     cfg: &Config,
+    |     ^^^ help: if this is intentional, prefix it with an underscore: `_cfg`
+    |
+    = note: `-D unused-variables` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(unused_variables)]`
+
+error: the `Err`-variant returned from this function is very large
+   --> walt/src/solver/partnership.rs:242:6
+    |
+242 | ) -> Result<Evaluation, Refusal> {
+    |      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ the `Err`-variant is at least 192 bytes
+    |
+    = help: try reducing the size of `solver::partnership::Refusal`, for example by boxing large elements or replacing it with `Box<solver::partnership::Refusal>`
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#result_large_err
+    = note: `-D clippy::result-large-err` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::result_large_err)]`
+
+error: could not compile `walt` (lib) due to 2 previous errors

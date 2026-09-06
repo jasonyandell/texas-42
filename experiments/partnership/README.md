@@ -21,6 +21,42 @@ the existing arena/pool assessment, a direct recount of the saved mixed games,
 and the proposed reusable two-player comparison format. The generalized format
 is a design, not an implemented new runner.
 
+
+## Unified selection and fast head-to-head
+
+The native player now exposes the same selection machinery at the real root
+and inside modeled L1 minds. `--selection fixed|refine|race-refine` selects the
+root rule; `--modeled-selection` selects the rule for modeled levels >=1.
+L0 retains its fixed Dice response. `--n` and `--n1` are independent base
+bundle sizes, so a modeled L1 mind is an explicitly budgeted approximation.
+Both rules are also available on `table.py` and `experiment.py`.
+
+The new [foundation record](FOUNDATION.md) explains the invariants and gates.
+[players.json](players.json) contains named configurations. Existing defaults
+remain fixed/voidless; the literal phone keeps its archived policy.
+
+Create a mirrored match, then run the shared pool under its watchdog:
+
+```sh
+python3 experiments/partnership/match.py init experiments/partnership/campaigns/my-match --a l1-race --b phone --start 900600 --count 50
+python3 experiments/partnership/packet/texas42-partnership-launch-v0.1/tools/run_capped.py --seconds 295 --output-dir experiments/partnership/runs/my-match-slice-1 -- python3 experiments/partnership/pool.py experiments/partnership/campaigns/my-match --workers 10 --seconds 270
+python3 experiments/partnership/verify_campaign.py experiments/partnership/campaigns/my-match
+python3 experiments/partnership/match.py report experiments/partnership/campaigns/my-match
+```
+
+Repeat the pool command with a new watchdog output directory to resume. A
+normal slice yields after the current move. `campaign.py stop PATH` pauses an
+individual match; `campaign.py resume PATH` clears its stop marker. An abrupt
+interrupt loses at most the active decision per worker; validated saved moves
+are retained. Source/configuration changes refuse silent resume.
+
+`--panel worlds --worlds-per-hand 20 --count 200` creates ten fixed opening
+hands with twenty hidden-hand completions each. The report groups those
+completions by focal hand when estimating uncertainty. A two-player match
+uses two games per deal; both teams making, or both getting set, is a pair tie.
+Per-player void choices, sampling budgets, decision rules, and fallback costs
+are explicit. Persistent workers reuse startup, not evaluation state.
+
 ## Play a hand
 
 From the worktree root:

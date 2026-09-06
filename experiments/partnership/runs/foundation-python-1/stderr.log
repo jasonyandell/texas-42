@@ -1,0 +1,15 @@
+....F.........
+======================================================================
+FAIL: test_checkpoint_rejects_config_and_move_corruption (test_foundation.FoundationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/test_foundation.py", line 65, in test_checkpoint_rejects_config_and_move_corruption
+    c.validate_checkpoint(snap,spec,f,880000,'declaring')
+  File "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/campaign.py", line 65, in validate_checkpoint
+    assert all(response[k] == v for k,v in players[seat].kwargs().items()), "checkpoint player configuration"
+AssertionError: checkpoint player configuration
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.148s
+
+FAILED (failures=1)

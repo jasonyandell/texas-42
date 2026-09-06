@@ -1,0 +1,7 @@
+    Checking walt v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt)
+    Checking walt-gpu-ref v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt-gpu-ref)
+    Checking walt-wasm v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt-wasm)
+    Checking walt2-wasm v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt2-wasm)
+    Checking walt-metal v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt-metal)
+    Checking walt-m2-runner v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt-m2-runner)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.10s
