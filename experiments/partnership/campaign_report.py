@@ -43,7 +43,7 @@ def report(path):
     out+="Points below are diagnostic. Every number below 30 is an equally complete set; every number at least 30 is a make.\n\n"
     out+="| Seed | Fresh | Bidder / trump | Phone declaring points | Candidate declaring points | Phone points vs candidate defense | Candidate W/L/T | Fallbacks |\n|---|---|---|---:|---:|---:|---|---:|\n"
     buf=io.StringIO()
-    writer=csv.writer(buf)
+    writer=csv.writer(buf,lineterminator='\n')
     writer.writerow(["seed","fresh","bidder","decl","bid","phone_points","candidate_declaring_points","against_candidate_defending_points","wins","losses","ties","fallbacks"])
     for r in rows:
         f=r["arms"]["phone"]["fixture"]
