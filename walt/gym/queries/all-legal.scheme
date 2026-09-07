@@ -1,0 +1,4 @@
+(fix
+  (roles (domino action))
+  (out action)
+  (case (own-legal action)))

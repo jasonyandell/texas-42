@@ -1,5 +1,11 @@
 # The partnership gym
 
+**Outcome-only extension, 2026-09-07:** [find the bid-making play](BID-MAKING.md).
+The all-legal Scheme query and exact success-only selector found **433**
+declaring-side exercises, including 367 unique best plays and 26 certain
+make/set swings under the declared field. The same runner accepts
+`--gallery walt/gym/collections/bid-making-v1`; no new pupil comparison yet.
+
 **Expanded 2026-09-07:** [Scheme now drives discovery](DISCOVERY.md). Three
 ordinary query files found 170 distinct late-game coordinates with strict
 outcome differences. The [expanded catalog](collections/scheme-v1/catalog.json)

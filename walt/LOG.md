@@ -693,3 +693,20 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   Eight gym + 19 Scheme Rust tests, 14 Python tests, clippy and formatting
   passed; full CI remains waived. No expanded pupil-strength result claimed.
   Guide and measured record: `gym/DISCOVERY.md`; wiki: Scheme/Fix section 0.
+
+- 2026-09-07: OUTCOME-ONLY BID-MAKING GYM (Jason's request after the main
+  merge): the ordinary all-legal Scheme query plus explicit outcome selection
+  removes tactical pattern requirements. A ten-worker sweep of 1,929 saved
+  late-game coordinates completed in 50.616 seconds: 1,684 exact keys, 245
+  above-cap exclusions, no failed measurements. Of 837 graded declaring
+  coordinates, 433 have strict make-probability differences, 367 have exactly
+  one best play, and 26 have a certain make versus certain set alternative
+  under the fixed field. All 433 are published with full keys and replays,
+  complete optimal sets, exact per-action regret, same-world outcome counts,
+  and retained controls/denominators. Publication re-audited all selected
+  cases in 16.414 seconds. Seventeen focused Python tests pass; no native
+  evaluator or player change, no expanded pupil ranking, full CI still waived.
+  Guide: `gym/BID-MAKING.md`. Previous work through `b0c7c0aa` was merged by
+  plain fast-forward into local main; work continues in the same development
+  worktree and branch. No general decision-sparsity or field-independent
+  optimality claim follows from these finite-domain exercise keys.

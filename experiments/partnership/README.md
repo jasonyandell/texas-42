@@ -18,6 +18,9 @@ The [first results](../../walt/gym/RESULTS.md) compare the three default players
 The [Scheme-driven discovery extension](../../walt/gym/DISCOVERY.md) now sweeps
 saved late-game positions using query files and publishes 170 distinct strict
 exercises across count offers, overtaking partner, and possible partner entries.
+The [bid-making extension](../../walt/gym/BID-MAKING.md) publishes 433 declaring
+exercises selected only by make-probability differences, including all optimal
+ties, exact regret, and 26 certain make/set swings under the declared field.
 [SCHEME-GYM-ASSESSMENT.md](SCHEME-GYM-ASSESSMENT.md) preserves the preceding
 investigation and the wider proposed exercise families.
 

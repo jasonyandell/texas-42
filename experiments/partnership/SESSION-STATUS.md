@@ -16,6 +16,15 @@ files select count offers, overtaking partner, and leads toward a possible
 partner boss across 1,929 saved coordinates. Exact matching and grading remain
 separate; no expanded pupil ranking has yet been measured.
 
+**2026-09-07, outcome-only extension:** [433 bid-making exercises](../../walt/gym/BID-MAKING.md)
+now select solely by strict make-probability differences. Among 837 exactly
+graded declaring coordinates, 367 have a unique best play and 26 have a
+certain make/set swing under the fixed field. The complete 1,929-coordinate
+scan took 50.616 seconds with ten workers; exclusions and all-tied controls
+are retained. No new pupil matchup or player change. The pre-extension work
+through `b0c7c0aa` was merged directly into local `main`; development continues
+on `codex/partnership-launch` in the same worktree.
+
 **Latest full-game battery completed:** [default fixed-search results](campaigns/default-partner-battery/RESULTS.md),
 400 games on 100 shared fresh deals. L2 Partner versus L1: **14 wins / 14 losses /
 72 ties** (50% comparative contract wins). L2 Partner with voids versus without:

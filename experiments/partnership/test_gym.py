@@ -119,6 +119,72 @@ class GymTests(unittest.TestCase):
         self.assertEqual(gym.classify(key, [2])[0]["category"], "disadvantage")
         self.assertEqual(gym.classify(key, [1, 2]), [])
 
+    def test_outcome_geometry_retains_ties_and_distinguishes_certainty(self):
+        key = {"worlds": 10, "offers": [3], "best": [1, 2], "actions": [
+            {"tile": 1, "success_mass": 10, "score_bins": [30]},
+            {"tile": 2, "success_mass": 10, "score_bins": [42]},
+            {"tile": 3, "success_mass": 9, "score_bins": [41]},
+            {"tile": 4, "success_mass": 0, "score_bins": [29]}]}
+        p = gym.outcome_profile(key)
+        self.assertEqual(p["optimal"], [1, 2])
+        self.assertEqual(p["nearest_mistake"], "1/10")
+        self.assertEqual(p["spread"], "1")
+        self.assertFalse(p["unique_best"])
+        self.assertTrue(p["certain_success_failure_swing"])
+        case = dict(key=key, request=dict(seat=0, bidder=2), criterion="outcome", target_actions=[1, 2, 3, 4])
+        self.assertEqual(len(gym.case_pairs(case)), 4)
+        self.assertEqual(gym.case_pairs(case)[0]["category"], "bid-making")
+        case["request"]["seat"] = 1
+        self.assertEqual(gym.case_pairs(case)[0]["category"], "bid-setting")
+        for mass in (0, 7, 10):
+            for a in key["actions"]:
+                a["success_mass"] = mass
+            self.assertFalse(gym.outcome_profile(key)["strict"])
+            self.assertIsNone(gym.outcome_profile(key)["nearest_mistake"])
+            self.assertEqual(gym.case_pairs(case), [])
+
+    def test_outcome_discovery_publication_and_resume_use_same_full_key(self):
+        roots = [{k: c[k] for k in ("id", "request", "source")} for c in self.cases.values()]
+        with tempfile.TemporaryDirectory() as d, patch("builtins.print"):
+            raw, published = Path(d) / "raw", Path(d) / "gallery"
+            args = SimpleNamespace(query=gym.ROOT / "walt/gym/queries/all-legal.scheme",
+                source=[gym.DEFAULT_SOURCE], min_trick=5, max_trick=6, limit=6,
+                max_worlds=400, partner_worlds=40, min_presence="1", case_seconds=15,
+                workers=2, seconds=30, output=raw)
+            with patch.object(gym, "positions", return_value=iter(roots)):
+                gym.discover(args)
+            self.assertEqual(len(list((raw / "items").glob("*.json"))), 6)
+            with patch.object(gym, "positions", return_value=iter(roots)), patch.object(gym, "native", side_effect=AssertionError("completed item recomputed")):
+                gym.discover(args)
+            gym.select(SimpleNamespace(source=raw, output=published, all=True, each=3,
+                                       criterion="outcome", side="declaring"))
+            cases = list(gym.gallery(published))
+            self.assertTrue(cases)
+            original = {c["id"]: c for c in self.cases.values()}
+            for _, c in cases:
+                self.assertEqual(c["key"], original[c["id"]]["key"])
+                self.assertEqual(gym.side_of(c), "declaring")
+                self.assertEqual(c["target_actions"], c["key"]["legal"])
+                self.assertEqual(set(gym.pupil_request(c["request"])), gym.INPUT_KEYS)
+                gym.verify(c)
+                c["outcome"]["spread"] = "999"
+                with self.assertRaises(AssertionError):
+                    gym.verify(c)
+            self.assertEqual(len(json.loads((published / "discovery.json").read_text())["rows"]), 6)
+
+    def test_published_bid_making_witness_is_certain_across_all_sixty_worlds(self):
+        base = gym.ROOT / "walt/gym/collections/bid-making-v1"
+        case = next(c for n, c in gym.gallery(base) if n == "bid-making-17")
+        self.assertEqual(case["key"]["worlds"], 60)
+        self.assertEqual(case["outcome"]["optimal"], [3])  # 2-0, trump
+        self.assertEqual(case["outcome"]["guaranteed_failure"], [15, 18])
+        self.assertEqual(case["paired_outcomes"], dict(gained=60, lost=0, both_success=0, both_failure=0))
+        self.assertEqual(gym.native(case["request"], max_worlds=60, seconds=15), case["key"])
+        gym.verify(case)
+        case["paired_outcomes"]["gained"] -= 1
+        with self.assertRaises(AssertionError):
+            gym.verify(case)
+
     def test_published_discovery_is_distinct_by_coordinate_and_queries_broaden_it(self):
         base = gym.ROOT / "walt/gym/collections/scheme-v1"
         cases = dict(gym.gallery(base))

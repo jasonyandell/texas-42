@@ -52,6 +52,12 @@ grading belief. The original procedural prefilter is retained only for its
 starter experiment. Three general public atoms supply own legality, current
 trick seat/tile association, and the context a candidate would lead.
 
+The [outcome-only follow-up](../walt/gym/BID-MAKING.md) asks Scheme simply for
+all legal plays, then selects exercises by strict make-probability differences.
+It publishes 433 declaring-side coordinates, with all optimal ties and exact
+regret, using the same evaluator and independent replay audit. No partnership
+descriptor is required; the original field-relative evidence boundary remains.
+
 Sections 1–6 retain the earlier descriptor/compression research and archived
 factory examples. Their historical producers remain archived; the expressive
 runtime imports current rules/kernel directly. Section 7 separates the delivered

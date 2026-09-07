@@ -257,6 +257,58 @@ def classify(key, targets=None):
     return sorted(pairs, key=lambda p: (-p["gap_mass"], p["category"], p["preferred"], p["comparison"]))
 
 
+def outcome_profile(key):
+    """Derived decision geometry, using success mass alone. No point tie-break."""
+    masses = {a["tile"]: a["success_mass"] for a in key["actions"]}
+    total = key["worlds"]
+    if total <= 0 or not masses or any(not 0 <= m <= total for m in masses.values()):
+        raise ValueError("invalid outcome masses")
+    best, worst = max(masses.values()), min(masses.values())
+    optimal = sorted(t for t, m in masses.items() if m == best)
+    gaps = [best - m for m in masses.values() if m < best]
+    return dict(schema="gym-outcome-v1", legal_count=len(masses), optimal=optimal,
+                optimal_count=len(optimal), strict=best > worst,
+                unique_best=len(optimal) == 1 and bool(gaps),
+                best_success=str(Fraction(best, total)), worst_success=str(Fraction(worst, total)),
+                spread=str(Fraction(best - worst, total)),
+                nearest_mistake=str(Fraction(min(gaps), total)) if gaps else None,
+                guaranteed_success=sorted(t for t, m in masses.items() if m == total),
+                guaranteed_failure=sorted(t for t, m in masses.items() if m == 0),
+                certain_success_failure_swing=best == total and worst == 0,
+                actions=[dict(tile=t, success=str(Fraction(m, total)),
+                              regret=str(Fraction(best - m, total))) for t, m in sorted(masses.items())])
+
+
+def case_pairs(case):
+    """Keep structural contrast and pure outcome selection explicitly distinct."""
+    criterion = case.get("criterion", "query")
+    if criterion == "query":
+        return classify(case["key"], case.get("target_actions"))
+    if criterion != "outcome":
+        raise ValueError("unknown exercise selection criterion")
+    key, req = case["key"], case["request"]
+    masses = {a["tile"]: a["success_mass"] for a in key["actions"]}
+    profile = outcome_profile(key)
+    category = "bid-making" if req["seat"] % 2 == req["bidder"] % 2 else "bid-setting"
+    pairs = [dict(category=category, preferred=a, comparison=b, gap_mass=masses[a] - masses[b])
+             for a in profile["optimal"] for b in sorted(masses) if masses[a] > masses[b]]
+    return sorted(pairs, key=lambda p: (-p["gap_mass"], p["preferred"], p["comparison"]))
+
+
+def paired_outcomes(key, pair):
+    """Same-world outcomes of two attained lawful continuation policies."""
+    actions = {a["tile"]: a for a in key["actions"]}
+    good = {world_key(t["hands"]): t["success"] for t in actions[pair["preferred"]]["traces"]}
+    other = {world_key(t["hands"]): t["success"] for t in actions[pair["comparison"]]["traces"]}
+    assert good.keys() == other.keys() and len(good) == key["worlds"]
+    counts = dict(gained=0, lost=0, both_success=0, both_failure=0)
+    for world, succeeds in good.items():
+        label = ("both_success" if other[world] else "gained") if succeeds else ("lost" if other[world] else "both_failure")
+        counts[label] += 1
+    assert counts["gained"] - counts["lost"] == pair["gap_mass"]
+    return counts
+
+
 def verify(case):
     """Independent support, rules, scores, and on-support information audit.
 
@@ -323,9 +375,13 @@ def verify(case):
     best_mass = max(a["success_mass"] for a in key["actions"])
     assert key["best"] == [a["tile"] for a in key["actions"] if a["success_mass"] == best_mass]
     if "pair" in case:
-        assert case["pair"] in classify(key, case.get("target_actions"))
+        assert case["pair"] in case_pairs(case)
     if "categories" in case:
-        assert case["categories"] == classify(key, case.get("target_actions"))
+        assert case["categories"] == case_pairs(case)
+    if "outcome" in case:
+        assert case["outcome"] == outcome_profile(key)
+    if "paired_outcomes" in case:
+        assert case["paired_outcomes"] == paired_outcomes(key, case["pair"])
     if "query_match" in case:
         found = case["query_match"]
         assert found["worlds"] == key["worlds"]
@@ -489,32 +545,54 @@ def inventory(args):
                   strict_advantage=sum(any(p["category"] == "advantage" for p in r["categories"]) for r in measured),
                   strict_disadvantage=sum(any(p["category"] == "disadvantage" for p in r["categories"]) for r in measured),
                   no_strict_pair=sum(not r["categories"] for r in measured), failed=len(failures))
+    report["outcomes"] = {}
+    for side in ("declaring", "defending"):
+        profiles = [outcome_profile(r["key"]) for r in measured if side_of(r) == side]
+        report["outcomes"][side] = dict(measured=len(profiles),
+            strict=sum(p["strict"] for p in profiles), unique_best=sum(p["unique_best"] for p in profiles),
+            certain_success_failure_swing=sum(p["certain_success_failure_swing"] for p in profiles),
+            all_tied=sum(not p["strict"] for p in profiles))
     print(json.dumps(report, indent=2))
+
+
+def side_of(case):
+    req = case["request"]
+    return "declaring" if req["seat"] % 2 == req["bidder"] % 2 else "defending"
 
 
 def select(args):
     cases = [json.loads(p.read_text()) for p in sorted((args.source / "items").glob("*.json"))]
     manifest = json.loads((args.source / "manifest.json").read_text())
+    criterion, side = args.criterion, args.side
+    categories = (["bid-making", "bid-setting"] if criterion == "outcome"
+                  else ["advantage", "disadvantage"])
+    if criterion == "outcome" and side != "both":
+        categories = ["bid-making" if side == "declaring" else "bid-setting"]
     chosen, used = [], set()
-    for category in ("advantage", "disadvantage"):
+    for category in categories:
         for case in cases:
-            if case["id"] in used or "key" not in case:
+            if case["id"] in used or "key" not in case or (side != "both" and side_of(case) != side):
                 continue
-            pairs = [p for p in classify(case["key"], case.get("target_actions")) if p["category"] == category]
+            selection_case = {**case, "criterion": criterion}
+            all_pairs = case_pairs(selection_case)
+            pairs = [p for p in all_pairs if p["category"] == category]
             if not pairs:
                 continue
-            if args.all and classify(case["key"], case.get("target_actions"))[0]["category"] != category:
+            if args.all and all_pairs[0]["category"] != category:
                 continue
-            specimen = {**case, "pair": pairs[0], "provenance": {
+            specimen = {**selection_case, "categories": all_pairs, "pair": pairs[0], "provenance": {
                 "engine_sha256": manifest["engine"], "runner_sha256": manifest["runner"],
                 "rules_sha256": manifest["rules"], "mining_manifest_sha256": digest(manifest)}}
+            if criterion == "outcome":
+                specimen["outcome"] = outcome_profile(case["key"])
+                specimen["paired_outcomes"] = paired_outcomes(case["key"], pairs[0])
             verify(specimen)
             chosen.append(specimen)
             used.add(case["id"])
             if not args.all and sum(c["pair"]["category"] == category for c in chosen) == args.each:
                 break
-    if not chosen or (not args.all and any(sum(c["pair"]["category"] == k for c in chosen) < args.each for k in ("advantage", "disadvantage"))):
-        raise ValueError("not enough verified examples in both categories")
+    if not chosen or (not args.all and any(sum(c["pair"]["category"] == k for c in chosen) < args.each for k in categories)):
+        raise ValueError("not enough verified examples in requested categories")
     with run_lock(args.output):
         catalog = []
         for case in chosen:
@@ -523,9 +601,23 @@ def select(args):
             name = f"{category}-{number:02d}"
             atomic(args.output / (name + ".json"), case)
             catalog.append(dict(id=name, file=name + ".json", sha256=file_hash(args.output / (name + ".json"))))
-        selection = ("All strict cases, one per coordinate, strongest target/comparison pair; diagnostic outcome-selected gallery."
+        selection = ("All strict cases, one per coordinate, strongest comparison pair; diagnostic outcome-selected gallery."
                      if args.all else "First stable-id cases per category; diagnostic outcome-selected gallery, not a strength sample.")
-        atomic(args.output / "catalog.json", dict(schema="gym-catalog-v1", scenarios=catalog, selection=selection))
+        atomic(args.output / "catalog.json", dict(schema="gym-catalog-v1", scenarios=catalog,
+               selection=selection, criterion=criterion, side=side))
+        if criterion == "outcome":
+            # Preserve denominators, including ties and cap skips, beside the
+            # portable fixtures. Full unselected replays stay in the raw run.
+            summaries = []
+            for case in cases:
+                row = dict(id=case["id"], side=side_of(case))
+                if "key" in case:
+                    row.update(worlds=case["key"]["worlds"], outcome=outcome_profile(case["key"]))
+                else:
+                    row.update(skipped=case.get("skipped"), worlds=case.get("worlds"))
+                summaries.append(row)
+            atomic(args.output / "discovery.json", dict(manifest=manifest, rows=summaries,
+                   raw_directory=str(args.source.resolve()), criterion=criterion, side=side))
     print(f"Selected {len(chosen)} independently verified exercises into {args.output}")
 
 
@@ -610,6 +702,12 @@ def show(args):
     print("Public history:", " ".join(f"{s}:{tile(t)}" for s, t in zip(req["plays"][::2], req["plays"][1::2])))
     for action in key["actions"]:
         print(f"  {tile(action['tile'])}: {action['success_mass']}/{key['worlds']} success", "optimal" if action["tile"] in key["best"] else "")
+    if "outcome" in case:
+        profile = outcome_profile(key)
+        print("Optimal plays:", ", ".join(tile(t) for t in profile["optimal"]),
+              "of", profile["legal_count"], "legal; probability spread", profile["spread"],
+              "; smallest mistake", profile["nearest_mistake"])
+        print("Same-world pair outcomes:", canonical(paired_outcomes(key, pair)))
     good = next(a for a in key["actions"] if a["tile"] == pair["preferred"])
     bad = next(a for a in key["actions"] if a["tile"] == pair["comparison"])
     bad_by_world = {world_key(t["hands"]): t for t in bad["traces"]}
@@ -651,6 +749,9 @@ def main():
     s.add_argument("--output", type=Path, default=DEFAULT_GALLERY)
     s.add_argument("--each", type=int, default=3)
     s.add_argument("--all", action="store_true", help="Publish every strict coordinate once, using its strongest pair")
+    s.add_argument("--criterion", choices=("query", "outcome"), default="query",
+                   help="Query target contrast, or any strict success-probability difference")
+    s.add_argument("--side", choices=("both", "declaring", "defending"), default="both")
     r = sub.add_parser("run")
     r.add_argument("--output", type=Path, required=True)
     r.add_argument("--players", nargs="+", default=["l1-default", "l2-partner-default", "l2-partner-voids"])

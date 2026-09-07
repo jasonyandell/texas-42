@@ -77,6 +77,14 @@ eligible saved late-game states. Public relations use one evaluation; hidden
 relations report exact full-belief presence. The independent grader always
 retains the original belief, and all strict keys are published with replays.
 
+**Outcome-only extension, 2026-09-07:** [bid-making discovery](../walt/gym/BID-MAKING.md)
+uses an all-legal Scheme query and exact success-only selection. It publishes
+433 declaring-side strict coordinates (367 unique best plays; 26 certain
+make/set swings under the declared field), retaining the full optimal set,
+per-action regret, same-world outcome counts, controls, and cap exclusions.
+The native evaluator and pupil interface are unchanged. Exploratory evidence;
+no new player-strength measurement or general decision-sparsity theorem.
+
 Six crates, Rust 2021, in one Cargo workspace at `walt/Cargo.toml`: the unified
 **`walt`** crate, **`walt-wasm`** and **`walt2-wasm`** (the browser oracles for
 plunge — level 1 and level 2), and the GPU

@@ -5,6 +5,10 @@ The expanded gallery contains **170 distinct late-game coordinates with strict
 outcome differences**, expressed through three query files. The original six
 fixtures remain unchanged as the starter gallery.
 
+**Next application:** [outcome-only discovery](BID-MAKING.md) removes the
+partnership descriptor entirely. An all-legal query and exact-value selector
+publish 433 declaring-side bid-making exercises from the same source corpus.
+
 ## What changed
 
 The first miner performed the count-offer test in Python, then checked the

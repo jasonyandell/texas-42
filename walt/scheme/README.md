@@ -19,6 +19,9 @@ still has no solver dependency.
 The [discovery extension](../gym/DISCOVERY.md) now lets query files drive the
 search, including exact belief-presence queries, and publishes 170 distinct
 late-game exercises.
+The [bid-making application](../gym/BID-MAKING.md) uses a four-line all-legal
+query and separate exact outcome selection to publish 433 declaring exercises,
+with no tactical descriptor required.
 
 ## Run it
 
