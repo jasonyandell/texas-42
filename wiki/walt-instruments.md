@@ -57,6 +57,13 @@ instrument." This page is the catalog — read it before building anything under
 
 ## The workspace (unified 2026-08-24)
 
+**Added 2026-09-06:** [`walt::scheme`](../walt/scheme/README.md), an expressive
+relational query layer importing rules/kernel, plus the `scheme` command-line
+tool. It implements typed roles, equality cases, existential projection, Fix
+union, exact weighted events, explicit selectors, conditioning, and finite-domain
+equivalence counterexamples. It does not restore the old factory crates or
+claim state compression; their archival status below remains unchanged.
+
 Six crates, Rust 2021, in one Cargo workspace at `walt/Cargo.toml`: the unified
 **`walt`** crate, **`walt-wasm`** and **`walt2-wasm`** (the browser oracles for
 plunge — level 1 and level 2), and the GPU

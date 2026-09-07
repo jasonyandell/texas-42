@@ -1,5 +1,13 @@
 # walt on one page — what exists, what it costs, what is now redundant
 
+**Scheme is executable (2026-09-06, EXPLORATORY):**
+[`scheme/README.md`](scheme/README.md) documents `walt::scheme` and its query
+tool. Typed relational expressions return sets of role bindings over worlds,
+with exact event probabilities, explicit answer selectors, belief conditioning,
+and counterexample comparisons. This is an expression layer for analysis and
+future belief studies; no player, general compression claim, or automatic
+belief-transition model is introduced. Enumeration has explicit world/work caps.
+
 **Local partnership experiment, 2026-09-06 — EXPLORATORY:**
 [`experiments/partnership/SESSION-STATUS.md`](../experiments/partnership/SESSION-STATUS.md)
 tracks the playable, externally budgeted partnership variant and original

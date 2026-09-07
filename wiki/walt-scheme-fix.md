@@ -1,4 +1,4 @@
-# Scheme/Fix — the descriptor language, and how to use it
+# Scheme/Fix — expressing situations, answers, and beliefs
 
 [Home](Home.md) · owns: the Scheme/Fix descriptor language — what a descriptor is, what the language is for, how to read and write one, and how much of it is built · Sources: walt v0.4 §3 (Scheme and Fix as typed relational queries), §12.1 (static descriptor factorization), §12.5 (dynamic control skeleton), §12.6 (controlled lumpability), §12.7 (Scheme/Fix as a control-skeleton language), §12.9 (counterexample-guided synthesis), §16.11 (experimental record schema), §17.4 (open questions); `walt/math/equivariant_lumpability_v0.5.md` (§12.6A); `walt/math/implementers_guide.md` §1.20–1.21; `walt/LOG.md` (and the retired `walt/PLAN.md`, `git show 56e2173:walt/PLAN.md`); the `walt-skeleton` and `walt-factory` sources; the results files named inline.
 
@@ -16,6 +16,32 @@
 
 Siblings: [walt hub](walt.md) · [foundation era](walt-foundation-era.md) · [factory era](walt-factory-era.md) · [census era](walt-census-era.md) · [decision-sparse track](walt-decision-sparse.md) · [instruments](walt-instruments.md) · [math reference](walt-math-reference.md).
 
+## 0. The executable expressive layer (2026-09-06)
+
+**Scheme/Fix is now implemented as `walt::scheme` in the unified crate.** Jason's
+direction is expression: it was invented to compress, but will be used to express.
+The implementation targets v0.4 sections 3–5's role schemas, equality patterns,
+output interfaces, answer relations, and probability distinctions. It does not
+claim general compression or implement the separate compact-transducer program.
+
+The [user guide and runnable examples](../walt/scheme/README.md) are the current
+entry point. The `scheme` binary reads a query and a real receipt coordinate,
+enumerates a bounded legal support, and reports exact event and answer-presence
+probabilities. The Rust API additionally accepts arbitrary finite rational
+physical-world marginals, conditions on events or explicit likelihoods, and
+compares expressions with concrete counterexamples. A versioned predicate
+registry declares types, information access, and continuation horizons.
+
+Overlapping branches and internal witnesses never multiply answers or world
+mass. Selecting a referent is explicit. Support-wide certainty and certainty
+under a named belief remain distinct. Implementation tests are finite-domain
+evidence at exploratory tier.
+
+Sections 1–6 retain the earlier descriptor/compression research and archived
+factory examples. Their historical producers remain archived; the expressive
+runtime imports current rules/kernel directly. Section 7 separates the delivered
+language from the remaining dynamic-compression obligations.
+
 ---
 
 ## 1. What is a descriptor?
@@ -32,7 +58,10 @@ The distinction is the whole point. A labeling is evaluated *against the world*;
 again after a trick and you consult the world again. That is fine for an analyst with
 God's-eye access and useless for a seat, which never had the world to consult. A transducer
 reads the world **once**, at the root, and thereafter advances on public observations alone.
-Whatever it still knows at trick six, a real seat could also have known.
+Closed updating prevents another hidden-world read, but does not make the initial
+hidden descriptor known to the seat. Unless disclosed, the seat must carry belief
+over its possible descriptor values. Public-only updates alone do not establish
+information-local executability.
 
 walt makes this a type property rather than a promise (`walt-skeleton/src/skeleton.rs`):
 
@@ -151,9 +180,10 @@ on — see [census era](walt-census-era.md).
 
 ## 4. How to read a descriptor
 
-No printed Scheme/Fix formula exists anywhere in walt, because the language is not built
-(§7). What *is* printed is the **lesson implicant language**: a conjunction of typed cells
-with a graded, labelled verdict. It is the closest existing thing to a Fix and is what you
+At the archived producer commit, no Scheme/Fix parser existed. Current formulas
+and syntax are in the [expression guide](../walt/scheme/README.md). This historical
+section reads the **lesson implicant language**: a conjunction of typed cells
+with a graded, labelled verdict. It was the closest available thing to a Fix and is what you
 meet in the results files. Verbatim from
 `walt/walt-factory/results/lesson_basins_2026-08-10_r4.txt`:
 
@@ -445,53 +475,35 @@ Adding every holder fact to the chassis does produce a genuinely lumpable, genui
 compressing descriptor on hand 0 — 738 carrier nodes into 366 classes. It also very nearly
 reconstructs the world, which is exactly the tension §12.4 named.
 
-## 7. What is not built
+## 7. Delivered expression semantics and remaining dynamic work
 
-**§12.7 is not implemented.** There is no Scheme/Fix parser, no `Scheme` or `Fix` data type,
-no role schema `Σ`, no output interface `O`, no equality-pattern quotient, no step compiler,
-and no denotational-equality proof. `walt/walt-skeleton/src/lib.rs` says so itself:
-"Scheme/Fix as a descriptor query language (§12.7) arrives later inside this crate's
-vocabulary; it will import this physics, never the reverse." `walt/PLAN.md` and `walt/LOG.md`
-name Scheme/Fix as the *intended* descriptor language for work still to come, not as an
-available tool; `walt/CENSUS-RULINGS.md` and the [walt hub](walt.md) both record the
-compact-description question as separate and open.
+The current implementation supplies a parser, `Scheme`/`Fix` construction types,
+a typed role schema and output interface, equality-pattern quotienting with
+injective bindings, answer-set projection and union, and exact finite-measure
+query operations. Runtime validation keeps exact support authoritative. Predicates
+carry semantic versions, information-access declarations, and bounded horizons;
+custom computations remain trusted implementations of those declarations.
 
-Against §12.7's six conditions:
+This delivers the expressive query language of v0.4 sections 3–5. The historical
+section 12.7 compact control-skeleton deliverable is a different target:
 
-| §12.7 condition | Built? |
-|---|---|
-| Output roles explicit | **No.** No role schema in code; atoms name concrete tiles and slots. |
-| Rigid and fresh role semantics distinguished | **No** in the descriptor language. Declared transports exist in the equivariant census module for §12.6A, not as query semantics. |
-| Exact support remains authoritative | **Yes.** The kernel and its exactly-counted fiber are the authority; descriptor state is a derived view. |
-| Every derived continuation atom declares horizon and information access | **Partly.** Preconditions and horizons are documented in prose and enforced by partial evaluation; no machine-readable field on an atom. |
-| Step compiler proved to preserve the answer relation | **No.** No step compiler exists, so nothing is proved about one. |
-| Induced transition satisfies the selected theorem | **Yes, as an exhaustive finite check.** The two checkers decide §12.1 and §12.6 on a declared finite domain. |
+| Section 12.7 condition | Current status |
+| --- | --- |
+| Output roles explicit | Implemented and type-checked; internal witnesses are projected away. |
+| Rigid and fresh roles distinguished | Fresh queries rebind roles; literal anchors express rigid referents. No automatic referent selection or compiled transport across observations. |
+| Exact support authoritative | Enforced by Frame/World compatibility and measure construction. |
+| Continuation horizon and information access declared | Metadata required by the registry; Viewer callbacks receive no World. Callback semantic fidelity is a trusted extension obligation. |
+| Step compiler preserves the answer relation | No compact step compiler. The owning state/belief system supplies each new exact frame and measure for reevaluation. |
+| Induced descriptor transition meets a selected theorem | Not claimed for the new expression layer. Archived finite-domain descriptor checkers retain their original limited status. |
 
-Of §12.7's boxed three-part deliverable — descriptor semantics, exact update law,
-response-preservation proof — walt has the first two as a type discipline and the third only
-as an exhaustive machine check on one finite domain, by a single implementation, at
-exploratory tier. Evidence, not proof.
+The old concrete-tile implicant language still lacks the role-binding generality
+of the new expressions. Recovering its widening/generalization workflow for a
+gym remains useful, but its old perfect-information pair verdicts cannot serve
+as lawful make-30 answer keys unchanged.
 
-**What exists instead** is three registries and one implicant language that is a single
-conjunction with a graded, labelled verdict. In §3's terms that is roughly *one Scheme case
-without a role schema and without an output interface*: no disjunction, so no Fix; no role
-names, so no rigid transport, no equality patterns, and no way to say "some tile playing this
-role" instead of "tile 2-0". That last gap is why the §6.2 lesson generalized in vocabulary
-but not in reach — with concrete tile names in the cells, a lesson can only travel to
-decisions whose pools still carry those exact tiles.
-
-**Where the open work sits.** The retired `walt/PLAN.md` named §12.7 compact descriptions as rung 3 of
-the census track: "make classes sayable (descriptor semantics + update law + preservation
-proof); needed for both the seat-level construction and analysis." The original target was
-the 306 root classes of the trick-six retrograde census — "what IS a class, in words a player
-could read" (`walt/LOG.md`, S5e). After the railyard results PLAN.md retargets it: "§12.7
-descriptions now naturally target the PARTS catalog (small) rather than raw classes," since
-the suffix-library measurement suggested classes are menus over a compact shared catalog of
-parts. Both targets are open. The related v0.4 §17.4 questions are number 3 (find a compact
-Scheme/Fix transducer satisfying an exact predictive or lumpability theorem on nontrivial
-kernels), number 5 (which Scheme fragments are closed under exact observation transport), and
-number 6 (purpose-*exact* descriptions, whose cells equal rather than merely refine the
-response classes).
+The historical PARTS-catalog and compact-descriptor research questions remain
+open. They are not prerequisites for asking relational questions, integrating
+query events under a declared belief, or producing concrete counterexamples.
 
 One naming note for readers coming from the rest of the wiki: walt's §16.11 experimental
 record type is called a *certificate* in its own namespace (the files under

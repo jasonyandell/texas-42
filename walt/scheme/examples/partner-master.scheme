@@ -1,0 +1,10 @@
+; Entry CANDIDATES: a partner-held tile that no live tile can beat when led.
+; This is a current mechanical relation, not a claim about reaching that lead.
+(fix
+  (roles (chair me) (chair partner) (domino entry))
+  (out entry)
+  (case
+    (viewer me)
+    (partner me partner)
+    (holds partner entry)
+    (master entry)))

@@ -1,0 +1,4 @@
+(fix
+  (roles (chair actor) (domino tile))
+  (out actor tile)
+  (case (next-actor actor) (forced actor tile)))

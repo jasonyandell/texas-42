@@ -653,3 +653,15 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   `walt/MAP.md` (walt on one page). Ruling (Jason): no new parent until a
   consolidation slice lands. Reports under `walt/briefs/FH*-REPORT.md`,
   `CI1-REPORT.md`; Pro response drafted `walt/briefs/FH-RESPONSE-TO-PRO.md`.
+
+- 2026-09-06: SCHEME FOR EXPRESSION (Jason's explicit direction): implemented
+  `walt::scheme` in the unified crate on v0.4 sections 3–5. Typed role schemas,
+  equality cases, output projection and Fix union, versioned predicate registry,
+  exact finite-world belief events and conditioning, explicit selectors, and
+  answer-equivalence counterexamples. Added a receipt-query CLI and examples.
+  Invented to compress; commissioned here to express. No general compression,
+  player-strength, or compact-transducer theorem claim. The archived factory
+  remains archived. 19 focused tests, clippy, all-target native compilation,
+  formatting, and WASM library compilation passed; full CI deliberately skipped
+  under the session waiver. Guide: `scheme/README.md`; record:
+  `scheme/VALIDATION.md`; wiki: `wiki/walt-scheme-fix.md` section 0.

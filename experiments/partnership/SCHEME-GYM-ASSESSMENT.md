@@ -6,6 +6,13 @@ partnership play with bid 30. Count capture is a mechanism to investigate;
 make/set is the primary outcome. This assessment follows the discussion of
 [conditional strength](campaigns/default-partner-battery/STRENGTH-ASSESSMENT.md).
 
+**Implementation follow-up, later 2026-09-06:** Jason commissioned Scheme for
+expression independently of the gym. The [executable language](../../walt/scheme/README.md)
+now exists in the unified crate, including parser, typed roles, equality cases,
+answer sets, weighted events, conditioning, and counterexamples. The inventory
+below records the pre-implementation investigation; the compact step compiler
+and the gym itself remain separate work.
+
 ## What Scheme contributes
 
 Scheme/Fix is a typed relational query language over the worlds of an exact

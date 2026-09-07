@@ -1,0 +1,15 @@
+; Return count tiles held by partner. Partner is an existential chair role;
+; the output is a SET of tiles, not one chosen tile and not an answer lottery.
+(fix
+  (roles (chair me) (chair partner) (domino count-tile))
+  (out count-tile)
+  (case
+    (viewer me)
+    (partner me partner)
+    (holds partner count-tile)
+    (count count-tile 5))
+  (case
+    (viewer me)
+    (partner me partner)
+    (holds partner count-tile)
+    (count count-tile 10)))

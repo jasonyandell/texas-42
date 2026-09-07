@@ -1,0 +1,6 @@
+; Boolean event. Existence of multiple count tiles contributes mass only once.
+(fix
+  (roles (chair me) (chair partner) (domino count-tile))
+  (out)
+  (case (viewer me) (partner me partner) (holds partner count-tile) (count count-tile 5))
+  (case (viewer me) (partner me partner) (holds partner count-tile) (count count-tile 10)))
