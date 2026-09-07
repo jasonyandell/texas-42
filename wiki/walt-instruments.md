@@ -92,6 +92,14 @@ arguments. The generator reproduces full reference keys, supports exact
 filters, shares evaluations across views, and preserves resume/partial-result
 boundaries. This orchestrates existing instruments without changing the solver.
 
+**First composed exam, 2026-09-07:** [partnership plus bid-making](../walt/gym/PARTNERSHIP-COMPOSITION.md)
+uses the existing count-offer Fix with `query-required`: the best matched action
+must beat the best unmatched action. The 30 declaring positions yielded 24/30
+optimal L1 choices and 26/30 optimal L2 Partner choices; mean exact root regret
+fell by 1/300 make probability. Four disagreements, no fallbacks; a selected,
+field-relative diagnostic. New exam identity pins questions and full keys so
+faithful regeneration can reuse saved pupil results despite new timing metadata.
+
 Six crates, Rust 2021, in one Cargo workspace at `walt/Cargo.toml`: the unified
 **`walt`** crate, **`walt-wasm`** and **`walt2-wasm`** (the browser oracles for
 plunge — level 1 and level 2), and the GPU

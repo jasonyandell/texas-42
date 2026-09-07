@@ -64,6 +64,13 @@ defines a repeatable exercise family; the 433 saved bid-making examples are its
 materialized reference. Full position-set and answer-key fingerprints validate
 reproduction after solving, without becoming inputs to discovery or play.
 
+The [first composed specification](../walt/gym/PARTNERSHIP-COMPOSITION.md)
+uses the existing partnership count-offer Fix and requires its best returned
+action to beat the best nonreturned action. All optimal root choices must
+therefore match the expression, under the declared field. This yielded 30
+exercises; default L1 chose optimally on 24, L2 Partner on 26. The composition
+is at the gym layer; no solver dependency or value predicate was added to Scheme.
+
 Sections 1–6 retain the earlier descriptor/compression research and archived
 factory examples. Their historical producers remain archived; the expressive
 runtime imports current rules/kernel directly. Section 7 separates the delivered

@@ -10,6 +10,10 @@ embedded Scheme query, evaluation contract and budgets, and exact outcome
 selection. It contains **no list of the 433 position IDs or answer labels**.
 A small reference section records fingerprints used only to check reproduction.
 
+The [first composed family](PARTNERSHIP-COMPOSITION.md) combines the partnership
+count-offer Fix with a required-action-class outcome condition, yielding 30
+positions and a completed default L1/L2 Partner exam.
+
 ## Generate and use it
 
 From the repository root, run one generation command under the session's
@@ -96,9 +100,12 @@ while `max_worlds` is the exact root-support cap. These are distinct quantities.
 The contract and every implementation/binary identity are saved in the run.
 An unknown evaluator contract is refused, never silently approximated.
 
-`selection.criterion` supports either `outcome` (any strict success-probability
-difference) or the existing `query` (best action versus the opposite side of
-the query target/non-target division). Side and outcome filters apply afterward.
+`selection.criterion` supports `outcome` (any strict success-probability
+difference), `query` (best action versus the opposite side of the query
+target/non-target division), or `query-required` (the best matched action
+strictly beats the best unmatched action, so every optimum must match).
+The required criterion refuses empty and full target sets, which lack a
+matched/unmatched comparison. Side and outcome filters apply afterward.
 Scheme matching, exact grading, and outcome selection remain separate stages.
 
 The baseline reference pins the default arguments and source, then checks the

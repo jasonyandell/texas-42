@@ -1,5 +1,11 @@
 # The partnership gym
 
+**First composed exam:** [partnership query plus bid-making](PARTNERSHIP-COMPOSITION.md)
+defines 30 positions where offering count to partner is required for an optimal
+root choice. Default L1 chose optimally on 24/30; L2 Partner on 26/30, with
+three improvements and one regression. Exact teacher-relative diagnostic;
+the specification and all pupil responses are checked in.
+
 **Start with a specification:** [one parameterized collection definition](SPECIFICATIONS.md)
 now generates the exercises. [specs/bid-making.json](specs/bid-making.json)
 reproduces the same 433 positions and complete answer keys, supports exact

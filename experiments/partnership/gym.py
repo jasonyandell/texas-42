@@ -279,9 +279,30 @@ def outcome_profile(key):
                               regret=str(Fraction(best - m, total))) for t, m in sorted(masses.items())])
 
 
+def query_contrast(key, targets):
+    """Compare the best matched and unmatched actions, with all ties retained."""
+    masses = {a["tile"]: a["success_mass"] for a in key["actions"]}
+    targets = set(targets)
+    if not targets <= set(masses):
+        raise ValueError("query target is not a legal action")
+    others = set(masses) - targets
+    if not targets or not others:
+        return None
+    target_best, other_best = max(masses[t] for t in targets), max(masses[t] for t in others)
+    return dict(target_best=str(Fraction(target_best, key["worlds"])),
+                other_best=str(Fraction(other_best, key["worlds"])),
+                gap=str(Fraction(target_best - other_best, key["worlds"])),
+                target_required=target_best > other_best,
+                best_targets=sorted(t for t in targets if masses[t] == target_best),
+                best_others=sorted(t for t in others if masses[t] == other_best))
+
+
 def case_pairs(case):
     """Keep structural contrast and pure outcome selection explicitly distinct."""
     criterion = case.get("criterion", "query")
+    if criterion == "query-required":
+        contrast = query_contrast(case["key"], case["target_actions"])
+        return classify(case["key"], case["target_actions"]) if contrast and contrast["target_required"] else []
     if criterion == "query":
         return classify(case["key"], case.get("target_actions"))
     if criterion != "outcome":
@@ -382,6 +403,8 @@ def verify(case):
         assert case["outcome"] == outcome_profile(key)
     if "paired_outcomes" in case:
         assert case["paired_outcomes"] == paired_outcomes(key, case["pair"])
+    if "query_contrast" in case:
+        assert case["query_contrast"] == query_contrast(key, case["target_actions"])
     if "query_match" in case:
         found = case["query_match"]
         assert found["worlds"] == key["worlds"]
@@ -570,6 +593,8 @@ def select(args, *, predicate=None, allow_empty=False):
     criterion, side = args.criterion, args.side
     categories = (["bid-making", "bid-setting"] if criterion == "outcome"
                   else ["advantage", "disadvantage"])
+    if criterion == "query-required":
+        categories = ["advantage"]
     if criterion == "outcome" and side != "both":
         categories = ["bid-making" if side == "declaring" else "bid-setting"]
     chosen, used = [], set()
@@ -589,9 +614,11 @@ def select(args, *, predicate=None, allow_empty=False):
             specimen = {**selection_case, "categories": all_pairs, "pair": pairs[0], "provenance": {
                 "engine_sha256": manifest["engine"], "runner_sha256": manifest["runner"],
                 "rules_sha256": manifest["rules"], "mining_manifest_sha256": digest(manifest)}}
-            if criterion == "outcome":
+            if criterion in ("outcome", "query-required"):
                 specimen["outcome"] = outcome_profile(case["key"])
                 specimen["paired_outcomes"] = paired_outcomes(case["key"], pairs[0])
+            if criterion == "query-required":
+                specimen["query_contrast"] = query_contrast(case["key"], case["target_actions"])
             verify(specimen)
             chosen.append(specimen)
             used.add(case["id"])
@@ -611,7 +638,7 @@ def select(args, *, predicate=None, allow_empty=False):
                      if args.all else "First stable-id cases per category; diagnostic outcome-selected gallery, not a strength sample.")
         atomic(args.output / "catalog.json", dict(schema="gym-catalog-v1", scenarios=catalog,
                selection=selection, criterion=criterion, side=side))
-        if criterion == "outcome":
+        if criterion in ("outcome", "query-required"):
             # Preserve denominators, including ties and cap skips, beside the
             # portable fixtures. Full unselected replays stay in the raw run.
             summaries = []
@@ -643,6 +670,12 @@ def gallery(directory):
         yield entry["id"], case
 
 
+def exam_identity(cases):
+    """A regenerated question/key is the same exam despite new timing metadata."""
+    return digest({name: {k: case[k] for k in ("id", "request", "key", "semantics")}
+                   for name, case in cases.items()})
+
+
 def run(args):
     from matchup import Player
     from player import BINARY, decide
@@ -656,11 +689,12 @@ def run(args):
     os.environ["WALT_RAYON_THREADS"] = "1"
     items = [dict(id=case_id + "--" + name, scenario=case_id, player=name)
              for case_id in cases for name in players]
-    manifest = dict(schema="gym-pupils-v1", engine=file_hash(BINARY), runner=file_hash(__file__),
+    manifest = dict(schema="gym-pupils-v2", engine=file_hash(BINARY), runner=file_hash(__file__),
                     player=file_hash(HERE / "player.py"), rules=file_hash(HERE / "rules.py"),
                     runtime=file_hash(HERE / "runtime.py"), matchup=file_hash(HERE / "matchup.py"),
                     rayon_threads_per_process=1,
-                    catalog=digest(cases), players={name: configs[name] for name in players})
+                    catalog_identity="questions-and-keys-v1", catalog=exam_identity(cases),
+                    players={name: configs[name] for name in players})
 
     def job(item):
         case = cases[item["scenario"]]
@@ -688,7 +722,11 @@ def report(args):
         print(f"| {name} | {role} | {key['trick']} | {key['worlds']} | {', '.join(tile(t) for t in case.get('target_actions', key['offers']))} | {tile(preferred)} | {tile(comparison)} | {masses[preferred]}/{key['worlds']} vs {masses[comparison]}/{key['worlds']} | {Fraction(pair['gap_mass'], key['worlds'])} |")
     if args.results:
         manifest = json.loads((args.results / "manifest.json").read_text())
-        if manifest["catalog"] != digest(dict(cases)):
+        identity_kind = manifest.get("catalog_identity", "full-artifact-v1")
+        if identity_kind not in ("questions-and-keys-v1", "full-artifact-v1"):
+            raise ValueError("unknown exam identity contract")
+        expected = exam_identity(dict(cases)) if identity_kind == "questions-and-keys-v1" else digest(dict(cases))
+        if manifest["catalog"] != expected:
             raise ValueError("results belong to a different scenario catalog")
         rows = [json.loads(p.read_text()) for p in sorted((args.results / "items").glob("*.json"))]
         by_name = dict(cases)
@@ -763,7 +801,7 @@ def main():
     s.add_argument("--output", type=Path, default=DEFAULT_GALLERY)
     s.add_argument("--each", type=int, default=3)
     s.add_argument("--all", action="store_true", help="Publish every strict coordinate once, using its strongest pair")
-    s.add_argument("--criterion", choices=("query", "outcome"), default="query",
+    s.add_argument("--criterion", choices=("query", "query-required", "outcome"), default="query",
                    help="Query target contrast, or any strict success-probability difference")
     s.add_argument("--side", choices=("both", "declaring", "defending"), default="both")
     r = sub.add_parser("run")

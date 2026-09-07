@@ -24,6 +24,10 @@ ties, exact regret, and 26 certain make/set swings under the declared field.
 Its maintained definition is now [one parameterized specification](../../walt/gym/SPECIFICATIONS.md),
 with a single generate command, full-answer reproduction checks, and shared
 evaluation caches for filtered collections.
+The [first composed partnership exam](../../walt/gym/PARTNERSHIP-COMPOSITION.md)
+requires the best count-offer play to beat the best non-offer. Its 30 positions
+gave 24 optimal L1 choices and 26 optimal L2 Partner choices; exact root-regret
+and all responses are saved for further analysis.
 [SCHEME-GYM-ASSESSMENT.md](SCHEME-GYM-ASSESSMENT.md) preserves the preceding
 investigation and the wider proposed exercise families.
 

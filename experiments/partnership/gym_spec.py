@@ -69,7 +69,7 @@ def arguments(value):
     integer(e["partner_worlds"], 1, 640, "evaluation.partner_worlds")
     s = a["selection"]
     fields(s, "criterion side min_spread min_mistake max_optimal certain", "selection")
-    if s["criterion"] not in ("query", "outcome") or s["side"] not in ("both", "declaring", "defending"):
+    if s["criterion"] not in ("query", "query-required", "outcome") or s["side"] not in ("both", "declaring", "defending"):
         raise ValueError("unsupported selection criterion or side")
     for key in ("min_spread", "min_mistake"):
         s[key] = probability(s[key], "selection." + key)

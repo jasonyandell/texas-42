@@ -22,6 +22,10 @@ late-game exercises.
 The [bid-making application](../gym/BID-MAKING.md) uses a four-line all-legal
 query and separate exact outcome selection to publish 433 declaring exercises,
 with no tactical descriptor required.
+The [composed partnership exam](../gym/PARTNERSHIP-COMPOSITION.md) combines the
+existing count-offer Fix with a strict comparison of the best matching and
+nonmatching actions. Its 30 positions have now been taken by default L1 and
+L2 Partner; composition and grading remain outside the Scheme interpreter.
 
 ## Run it
 

@@ -32,6 +32,14 @@ keys. Filter arguments create derived collections while reusing evaluated
 coordinates; source/evaluation changes separate the cache. The existing saved
 gallery is the reference result, and the player interface is unchanged.
 
+**2026-09-07, first composed exam:** [partnership plus bid-making](../../walt/gym/PARTNERSHIP-COMPOSITION.md)
+selects 30 positions where every optimal root play offers count to the winning
+partner. Default L1: 24/30 optimal, mean make-probability regret 0.8007 percentage
+points. Default L2 Partner: 26/30, 0.4673 points. Three improvements, one regression,
+26 identical choices; no fallbacks. These 30 selected coordinates come from 21
+source deal seeds under the fixed teacher field. This is a diagnostic result,
+not a revision to the full-game strength conclusions below.
+
 **Latest full-game battery completed:** [default fixed-search results](campaigns/default-partner-battery/RESULTS.md),
 400 games on 100 shared fresh deals. L2 Partner versus L1: **14 wins / 14 losses /
 72 ties** (50% comparative contract wins). L2 Partner with voids versus without:

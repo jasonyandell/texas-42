@@ -50,6 +50,48 @@ class SpecificationTests(unittest.TestCase):
         case["key"]["actions"][2]["success_mass"] = 0
         self.assertTrue(gym_spec.accepts(case, {**s, "certain": True}))
 
+    def test_query_required_compares_against_best_alternative_not_a_weak_one(self):
+        # A matching optimal move beating one weak nonmatch is not enough:
+        # there must be no equally good nonmatching escape.
+        key = dict(worlds=10, offers=[], best=[1, 2], actions=[
+            dict(tile=1, success_mass=9), dict(tile=2, success_mass=9),
+            dict(tile=3, success_mass=1)])
+        case = dict(key=key, target_actions=[1], criterion="query-required")
+        self.assertTrue(gym.classify(key, [1]))
+        self.assertEqual(gym.case_pairs(case), [])
+        key["actions"][1]["success_mass"] = 8
+        key["best"] = [1]
+        self.assertEqual(gym.query_contrast(key, [1])["gap"], "1/10")
+        self.assertTrue(gym.case_pairs(case))
+        self.assertEqual(gym.query_contrast(key, [1, 2])["best_targets"], [1])
+        key["actions"][1]["success_mass"] = 9
+        key["best"] = [1, 2]
+        self.assertEqual(gym.query_contrast(key, [1, 2])["best_targets"], [1, 2])
+        for targets in ([], [1, 2, 3]):
+            self.assertIsNone(gym.query_contrast(key, targets))
+            self.assertEqual(gym.case_pairs({**case, "target_actions": targets}), [])
+        with self.assertRaises(ValueError):
+            gym.query_contrast(key, [99])
+
+    def test_regenerated_exam_identity_ignores_artifact_metadata_but_pins_question_and_key(self):
+        original = dict(gym.gallery(gym.DEFAULT_GALLERY))
+        rebuilt = copy.deepcopy(original)
+        for c in rebuilt.values():
+            c["elapsed_seconds"] = 999
+            c["provenance"] = {"new_run": True}
+        self.assertEqual(gym.exam_identity(original), gym.exam_identity(rebuilt))
+        name = next(iter(rebuilt))
+        rebuilt[name]["key"]["actions"][0]["success_mass"] += 1
+        self.assertNotEqual(gym.exam_identity(original), gym.exam_identity(rebuilt))
+
+    def test_partnership_specification_embeds_the_existing_expression_and_required_contrast(self):
+        path = gym.ROOT / "walt/gym/specs/partnership-bid-making.json"
+        _, a, ref = gym_spec.load(path, [])
+        self.assertEqual(a["query"]["source"], (gym.ROOT / "walt/gym/queries/offer-count.scheme").read_text())
+        self.assertEqual(a["selection"]["criterion"], "query-required")
+        self.assertEqual(a["selection"]["side"], "declaring")
+        self.assertEqual(ref["count"], 30)
+
     def test_source_identity_is_portable_and_detects_record_edits(self):
         _, a, _ = gym_spec.load(SPEC, [])
         with tempfile.TemporaryDirectory() as d:

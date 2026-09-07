@@ -1,0 +1,44 @@
+{
+  "schema": "gym-spec-v1",
+  "name": "partnership-bid-making",
+  "arguments": {
+    "source": {
+      "paths": [
+        "experiments/partnership/campaigns/default-partner-battery"
+      ]
+    },
+    "domain": {
+      "tricks": [
+        5,
+        6
+      ],
+      "limit": 5000,
+      "seed": 420600
+    },
+    "query": {
+      "name": "offer-count",
+      "source": "; Return count plays that leave our currently winning partner ahead.\n; Every relation is public or own-hand. No bespoke gym predicate.\n(fix\n  (roles (chair me) (chair mate) (domino action) (domino incumbent) (context led))\n  (out action)\n  (case (viewer me) (partner me mate) (current-winner mate)\n        (trick-play mate incumbent) (led-context led)\n        (own-legal action) (count action 5) (beats incumbent action led))\n  (case (viewer me) (partner me mate) (current-winner mate)\n        (trick-play mate incumbent) (led-context led)\n        (own-legal action) (count action 10) (beats incumbent action led)))\n",
+      "min_presence": "1"
+    },
+    "evaluation": {
+      "contract": "partnership-gym-v1",
+      "max_worlds": 400,
+      "partner_worlds": 40
+    },
+    "selection": {
+      "criterion": "query-required",
+      "side": "declaring",
+      "min_spread": "0",
+      "min_mistake": "0",
+      "max_optimal": null,
+      "certain": false
+    }
+  },
+  "reference": {
+    "arguments_sha256": "2c14a38df48539238f9dae38c9a591be5014474bfcff7ee79600e2ada44595e3",
+    "source_sha256": "d77f6b361fbdcae04558acc04583403718400e63818e8c28b51b973db910e6a2",
+    "count": 30,
+    "coordinates_sha256": "01d6c635a2abf2ea414520c92689b52ff18dbb27b36fc779219b6987729af328",
+    "answers_sha256": "05fa40823694e44b10fa2edf11ca8f3d75343e19fca0f3d8146e65433f321a08"
+  }
+}

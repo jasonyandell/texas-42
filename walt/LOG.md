@@ -726,3 +726,22 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   cache reuse. No native/player change or new strength claim. Definitions:
   `gym/specs/bid-making.json`; guide: `gym/SPECIFICATIONS.md`; original 433
   fixtures retained as the materialized reference. Full CI remains waived.
+
+- 2026-09-07: PARTNERSHIP/BID-MAKING COMPOSITION (Jason's request to compose
+  the partnership expression with bid-making and examine L1/L2). The existing
+  count-offer Fix now composes with generic query-required selection: the best
+  matching action must strictly beat the best nonmatching alternative. The
+  named specification reproduces 30 declaring coordinates from 21 deal seeds;
+  all full keys match the frozen reference. Final generation took 11.075s.
+  Default L1 chose optimally on 24/30, L2 Partner on 26/30; exact mean regrets
+  1643/205200 versus 959/205200 (0.8007 versus 0.4673 percentage points).
+  L2 improved three choices and worsened one; mean regret reduction 1/300.
+  Both solve the sole certain make/set case. Sixty decisions completed in
+  1.458s with no fallback, under the same fixed teacher field. All pupil
+  responses, coordinate summaries, and the specification are checked in;
+  full exercises remain reproducible generated artifacts. New benchmark
+  identity excludes generation timing metadata while retaining complete
+  questions/keys; both generated versions were verified compatible. Twenty-five
+  focused Python tests pass. No native/player change, general strength claim,
+  or policy-independent partnership-necessity claim. Guide:
+  `gym/PARTNERSHIP-COMPOSITION.md`; full CI remains waived for the session.
