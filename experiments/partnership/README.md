@@ -21,6 +21,9 @@ exercises across count offers, overtaking partner, and possible partner entries.
 The [bid-making extension](../../walt/gym/BID-MAKING.md) publishes 433 declaring
 exercises selected only by make-probability differences, including all optimal
 ties, exact regret, and 26 certain make/set swings under the declared field.
+Its maintained definition is now [one parameterized specification](../../walt/gym/SPECIFICATIONS.md),
+with a single generate command, full-answer reproduction checks, and shared
+evaluation caches for filtered collections.
 [SCHEME-GYM-ASSESSMENT.md](SCHEME-GYM-ASSESSMENT.md) preserves the preceding
 investigation and the wider proposed exercise families.
 

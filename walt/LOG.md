@@ -710,3 +710,19 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   plain fast-forward into local main; work continues in the same development
   worktree and branch. No general decision-sparsity or field-independent
   optimality claim follows from these finite-domain exercise keys.
+
+- 2026-09-07: SPECIFICATION-FIRST GYM (Jason's correction: one definition
+  with arguments, rather than 433 individual exercise definitions). Added a
+  strict JSON specification embedding Scheme plus source/domain/evaluation/
+  selection arguments. One generate command creates or resumes evaluated
+  coordinates and materializes a filtered collection. Defaults regenerated
+  the exact original 433 positions and complete native answer keys in
+  67.707 seconds; max-optimal=1 yielded 367 in 13.991 seconds and certain=true
+  yielded 26 in 1.921 seconds. Both variants shared the evaluation cache,
+  whose saved item bytes remained unchanged. Reference fingerprints check
+  results after generation, never guide matching, solving, or pupil play.
+  Twenty-two focused Python tests passed, including schema refusal, exact
+  filters, identity drift, failure/resume, incomplete-result refusal, and
+  cache reuse. No native/player change or new strength claim. Definitions:
+  `gym/specs/bid-making.json`; guide: `gym/SPECIFICATIONS.md`; original 433
+  fixtures retained as the materialized reference. Full CI remains waived.

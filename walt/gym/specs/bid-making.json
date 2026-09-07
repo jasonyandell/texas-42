@@ -1,0 +1,44 @@
+{
+  "schema": "gym-spec-v1",
+  "name": "bid-making",
+  "arguments": {
+    "source": {
+      "paths": [
+        "experiments/partnership/campaigns/default-partner-battery"
+      ]
+    },
+    "domain": {
+      "tricks": [
+        5,
+        6
+      ],
+      "limit": 5000,
+      "seed": 420600
+    },
+    "query": {
+      "name": "all-legal",
+      "source": "(fix\n  (roles (domino action))\n  (out action)\n  (case (own-legal action)))\n",
+      "min_presence": "1"
+    },
+    "evaluation": {
+      "contract": "partnership-gym-v1",
+      "max_worlds": 400,
+      "partner_worlds": 40
+    },
+    "selection": {
+      "criterion": "outcome",
+      "side": "declaring",
+      "min_spread": "0",
+      "min_mistake": "0",
+      "max_optimal": null,
+      "certain": false
+    }
+  },
+  "reference": {
+    "arguments_sha256": "4bdb6144bbc3b24851af6b9dd46e78d29f4085a5a02b66a8a2a085f3f73d3939",
+    "source_sha256": "d77f6b361fbdcae04558acc04583403718400e63818e8c28b51b973db910e6a2",
+    "count": 433,
+    "coordinates_sha256": "1500c25e5f43580ee9212f55c1f591aea3d772736cd76b4b5b532d57114e11a4",
+    "answers_sha256": "1f766e678a3db870fc26436f12522985f6c469f9263e2ecdaa8252b2e99613db"
+  }
+}

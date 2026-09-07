@@ -1,5 +1,11 @@
 # The partnership gym
 
+**Start with a specification:** [one parameterized collection definition](SPECIFICATIONS.md)
+now generates the exercises. [specs/bid-making.json](specs/bid-making.json)
+reproduces the same 433 positions and complete answer keys, supports exact
+outcome filters, and reuses evaluations across filtered collections. Saved
+galleries below are materialized reference results.
+
 **Outcome-only extension, 2026-09-07:** [find the bid-making play](BID-MAKING.md).
 The all-legal Scheme query and exact success-only selector found **433**
 declaring-side exercises, including 367 unique best plays and 26 certain

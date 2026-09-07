@@ -58,6 +58,12 @@ It publishes 433 declaring-side coordinates, with all optimal ties and exact
 regret, using the same evaluator and independent replay audit. No partnership
 descriptor is required; the original field-relative evidence boundary remains.
 
+The [specification layer](../walt/gym/SPECIFICATIONS.md) now packages an embedded
+Scheme query with source, coordinate, evaluator, and selection arguments. This
+defines a repeatable exercise family; the 433 saved bid-making examples are its
+materialized reference. Full position-set and answer-key fingerprints validate
+reproduction after solving, without becoming inputs to discovery or play.
+
 Sections 1–6 retain the earlier descriptor/compression research and archived
 factory examples. Their historical producers remain archived; the expressive
 runtime imports current rules/kernel directly. Section 7 separates the delivered

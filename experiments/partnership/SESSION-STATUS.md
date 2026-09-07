@@ -25,6 +25,13 @@ are retained. No new pupil matchup or player change. The pre-extension work
 through `b0c7c0aa` was merged directly into local `main`; development continues
 on `codex/partnership-launch` in the same worktree.
 
+**2026-09-07, specification-first gym:** [one collection specification](../../walt/gym/SPECIFICATIONS.md)
+now defines source, domain, Scheme query, evaluator arguments, and selection.
+Its defaults reproduce the exact 433 coordinate identities and full answer
+keys. Filter arguments create derived collections while reusing evaluated
+coordinates; source/evaluation changes separate the cache. The existing saved
+gallery is the reference result, and the player interface is unchanged.
+
 **Latest full-game battery completed:** [default fixed-search results](campaigns/default-partner-battery/RESULTS.md),
 400 games on 100 shared fresh deals. L2 Partner versus L1: **14 wins / 14 losses /
 72 ties** (50% comparative contract wins). L2 Partner with voids versus without:

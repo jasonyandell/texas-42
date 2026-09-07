@@ -3,6 +3,11 @@
 2026-09-07. Exploratory, exact finite-domain evidence under the gym's declared
 belief and continuation field. [Mathematical contract](README.md#what-an-answer-means).
 
+**The maintained family definition is [specs/bid-making.json](specs/bid-making.json).**
+[Generate it with arguments](SPECIFICATIONS.md) to reproduce, filter, or extend
+the collection. The 433 fixtures and measurements below are its first
+materialized reference result. They are not separate maintained definitions.
+
 The [bid-making collection](collections/bid-making-v1/catalog.json) contains
 **433 distinct declaring-side decisions where legal plays have different make
 probabilities**. No partnership, count, suit, or other tactical motif is required.

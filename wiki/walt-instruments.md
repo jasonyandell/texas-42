@@ -85,6 +85,13 @@ per-action regret, same-world outcome counts, controls, and cap exclusions.
 The native evaluator and pupil interface are unchanged. Exploratory evidence;
 no new player-strength measurement or general decision-sparsity theorem.
 
+**Specification-first collections, 2026-09-07:** [gym specifications](../walt/gym/SPECIFICATIONS.md)
+are the maintained definitions; galleries are materialized results. One JSON
+specification embeds Scheme and binds source/domain/evaluation/selection
+arguments. The generator reproduces full reference keys, supports exact
+filters, shares evaluations across views, and preserves resume/partial-result
+boundaries. This orchestrates existing instruments without changing the solver.
+
 Six crates, Rust 2021, in one Cargo workspace at `walt/Cargo.toml`: the unified
 **`walt`** crate, **`walt-wasm`** and **`walt2-wasm`** (the browser oracles for
 plunge — level 1 and level 2), and the GPU

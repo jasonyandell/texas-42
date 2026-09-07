@@ -483,19 +483,23 @@ def mine(args):
         bounded(selected, job, args.output, args.workers, args.seconds, args.case_seconds)
 
 
-def discover(args):
+def discover(args, *, coordinates=None, query_source=None, query_name=None, identity=None):
     """Scheme is the matcher; the exact grader is independent of its answers."""
-    query_source = args.query.read_text()
+    query_source = args.query.read_text() if query_source is None else query_source
+    query_name = args.query.stem if query_name is None else query_name
     # Explicit limit counts coordinates examined, not successful matches.
     from itertools import islice
-    selected = list(islice(positions(args.source, args.min_trick, args.max_trick), args.limit))
+    selected = list(islice(positions(args.source, args.min_trick, args.max_trick)
+                          if coordinates is None else coordinates, args.limit))
     if not selected:
         raise ValueError("no eligible recorded coordinates in source")
     manifest = dict(schema="gym-discovery-v1", engine=file_hash(ENGINE), runner=file_hash(__file__),
                     rules=file_hash(HERE / "rules.py"), candidates=selected,
-                    query_source=query_source, query_name=args.query.stem,
+                    query_source=query_source, query_name=query_name,
                     min_presence=str(Fraction(args.min_presence)), max_worlds=args.max_worlds,
                     partner_worlds=args.partner_worlds, min_trick=args.min_trick, max_trick=args.max_trick)
+    if identity is not None:
+        manifest["generator"] = identity
     threshold = Fraction(args.min_presence)
 
     def job(item):
@@ -508,7 +512,7 @@ def discover(args):
         targets = [tile for tile, mass in matched["presence"]
                    if Fraction(mass, matched["worlds"]) >= threshold]
         base = {**item, "query_match": matched, "target_actions": targets,
-                "min_presence": str(threshold), "family": args.query.stem}
+                "min_presence": str(threshold), "family": query_name}
         if not targets:
             return {**base, "skipped": "no query match"}
         key = native(item["request"], max_worlds=args.max_worlds,
@@ -527,7 +531,7 @@ def discover(args):
         checked = subprocess.run([str(ENGINE), "--check-query", str(snapshot)], capture_output=True, text=True, timeout=3)
         if checked.returncode:
             raise ValueError(checked.stderr.strip())
-        print(canonical({"coordinates": len(selected), "query": args.query.stem,
+        print(canonical({"coordinates": len(selected), "query": query_name,
                          "min_presence": str(threshold)}), flush=True)
         bounded(selected, job, args.output, args.workers, args.seconds, args.case_seconds)
 
@@ -560,7 +564,7 @@ def side_of(case):
     return "declaring" if req["seat"] % 2 == req["bidder"] % 2 else "defending"
 
 
-def select(args):
+def select(args, *, predicate=None, allow_empty=False):
     cases = [json.loads(p.read_text()) for p in sorted((args.source / "items").glob("*.json"))]
     manifest = json.loads((args.source / "manifest.json").read_text())
     criterion, side = args.criterion, args.side
@@ -572,6 +576,8 @@ def select(args):
     for category in categories:
         for case in cases:
             if case["id"] in used or "key" not in case or (side != "both" and side_of(case) != side):
+                continue
+            if predicate is not None and not predicate(case):
                 continue
             selection_case = {**case, "criterion": criterion}
             all_pairs = case_pairs(selection_case)
@@ -591,7 +597,7 @@ def select(args):
             used.add(case["id"])
             if not args.all and sum(c["pair"]["category"] == category for c in chosen) == args.each:
                 break
-    if not chosen or (not args.all and any(sum(c["pair"]["category"] == k for c in chosen) < args.each for k in categories)):
+    if (not chosen and not allow_empty) or (not args.all and any(sum(c["pair"]["category"] == k for c in chosen) < args.each for k in categories)):
         raise ValueError("not enough verified examples in requested categories")
     with run_lock(args.output):
         catalog = []
@@ -622,6 +628,12 @@ def select(args):
 
 
 def gallery(directory):
+    receipt = directory / "latest.json"
+    if receipt.exists():
+        latest = json.loads(receipt.read_text())
+        if not latest.get("complete") or not latest.get("gallery"):
+            raise ValueError("specification generation is incomplete; resume before using its collection")
+        directory = Path(latest["gallery"])
     catalog = json.loads((directory / "catalog.json").read_text())
     for entry in catalog["scenarios"]:
         path = directory / entry["file"]
@@ -724,6 +736,8 @@ def show(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
+    from gym_spec import add_parser, generate
+    add_parser(sub)
     m = sub.add_parser("mine")
     m.add_argument("--source", type=Path, default=DEFAULT_SOURCE)
     m.add_argument("--output", type=Path, required=True)
@@ -775,7 +789,9 @@ def main():
         parser.error("discovery needs case-seconds >=14, tricks 5..6, and presence in (0,1]")
     if args.command == "select" and args.each < 1:
         parser.error("each must be positive")
-    if args.command == "verify":
+    if args.command == "generate":
+        generate(args)
+    elif args.command == "verify":
         for name, case in gallery(args.gallery):
             print(name, verify(case))
     else:

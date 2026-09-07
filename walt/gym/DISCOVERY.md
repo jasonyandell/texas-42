@@ -8,6 +8,9 @@ fixtures remain unchanged as the starter gallery.
 **Next application:** [outcome-only discovery](BID-MAKING.md) removes the
 partnership descriptor entirely. An all-legal query and exact-value selector
 publish 433 declaring-side bid-making exercises from the same source corpus.
+The [specification runner](SPECIFICATIONS.md) now combines source, Scheme,
+evaluation, and selection arguments into one repeatable collection definition.
+
 
 ## What changed
 
