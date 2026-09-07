@@ -11,6 +11,11 @@ outcomes. [BASELINE.md](BASELINE.md) freezes the separate local phone artifact
 and its 40/8/racing configuration. The complete original launch packet and
 both mathematical notes are preserved in [packet/](packet/).
 
+[SCHEME-GYM-ASSESSMENT.md](SCHEME-GYM-ASSESSMENT.md) records the Scheme/Fix
+investigation and a proposed partnership gym: relational exercise families,
+lawful make-30 answer keys, and counterexamples, with current versus archived
+tooling identified. It is a research proposal, not an implemented gym.
+
 [SESSION-STATUS.md](SESSION-STATUS.md) maps the current deliverables and open
 strength question back to the launch request, including the native-L1 / phone
 calibration. The native `l1-race` configuration now matches the recovered phone
