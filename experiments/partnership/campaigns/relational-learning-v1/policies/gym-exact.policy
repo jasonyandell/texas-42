@@ -1,0 +1,31 @@
+(policy shared-relational
+  (initial shared)
+  (fallback lowest-legal)
+  (rule r0-partner-winning-count-10 (in shared) (next shared) (select answer) (guard (fix
+  (roles (domino action) (chair viewer) (chair winner))
+  (out action)
+  (case
+    (own-legal action)
+    (count action 10)
+    (viewer viewer)
+    (current-winner winner)
+    (partner viewer winner))
+)))
+  (rule r1-partner-winning-count-0 (in shared) (next shared) (select answer) (guard (fix
+  (roles (domino action) (chair viewer) (chair winner))
+  (out action)
+  (case
+    (own-legal action)
+    (count action 0)
+    (viewer viewer)
+    (current-winner winner)
+    (partner viewer winner))
+)))
+  (rule r2-master (in shared) (next shared) (select answer) (guard (fix
+  (roles (domino action))
+  (out action)
+  (case
+    (own-legal action)
+    (master action))
+)))
+)

@@ -759,3 +759,19 @@ full-policy grading. Exact table policies still fit training worlds much better
 than heldout worlds; relational generalization across starting hands is open.
 Report and pinned measurements: [policy synthesis](../experiments/partnership/campaigns/policy-synthesis-v1/RESULTS.md).
 The current [Scheme guide](scheme/README.md) owns the language/API entry points.
+
+## 2026-09-07 — Shared relational learner and information-price examiner
+
+Preserved the Astra relational-learning packet unchanged in `14e01322`; built
+provenance tracing, a bounded shared one-mode grammar constructor, exact
+all-action teachers, on-policy aggregation, grouped development/test selection,
+and separately centered finite information-price bounds. Two field panels use
+288 fresh three-domino roots (128 final test roots), plus the 30-case maintained
+partnership exam. Shared actors still trail sampled tables. One frozen-table
+fallback substitution gains an uncertain 0.771 percentage points; L0 development
+selects the empty baseline. The fixed price basis tightens no tested bounds.
+With fixed lowers, changing the state-common upper cost cannot rerank actors;
+this limit is now tested explicitly. Actual interruption/resume and 8,694
+independent full-game replays pass. Full legacy Rust CI remains waived.
+[Guide](../experiments/partnership/RELATIONAL-LEARNING.md) and
+[report/evidence](../experiments/partnership/campaigns/relational-learning-v1/RESULTS.md).

@@ -22,8 +22,9 @@ pub use dynamics::{
 };
 pub use eval::{Answer, Answers, Budget, CompiledFix, Frame};
 pub use policy::{
-    CompiledPolicy, ExactRule, Fallback, PolicyController, PolicyInput, PolicyKey, PolicyProgram,
-    PolicyRule, RigidBinding, Selector,
+    CompiledPolicy, DecisionProvenance, ExactRule, Fallback, PolicyController,
+    PolicyControllerState, PolicyDecisionTrace, PolicyInput, PolicyKey, PolicyProgram, PolicyRule,
+    RigidBinding, Selector,
 };
 pub use registry::{Access, Predicate, PredicateContext, PredicateSpec, Registry};
 pub use syntax::{Atom, Fix, Role, Scheme, Sort, Term, Value};

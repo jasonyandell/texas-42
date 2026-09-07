@@ -1,0 +1,90 @@
+{
+  "artifacts": {
+    "current_runner_sha256": "24f8878a1e0c519eb8cc62ba2fc50a2e7e682abf6c5dd898a5999629600bdbf2",
+    "measured_runner_reference_sha256": "afdcc85d72e34acbaab8cea85614cbc063d49438707bd83b66f856ba9d33b41f",
+    "native_binary_sha256": "d0c6b02d5c126caddddfcf16e03984613101a935c1034e63b8fd2ab1cde1c29e",
+    "verifier": "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/verify_relational.py",
+    "verifier_sha256": "f1eeb01d72b79ee4f5c5a49d0552ced827f4133dd63b40f92e3729c8b6a5bc45",
+    "watchdog_sha256": "b4a5a17a9bf2497e439d8d2acd6c546faab1ed30c2e5be37eacd150459c93cb0"
+  },
+  "created_utc": "2026-09-07T14:37:01.483380+00:00",
+  "fixed_runner_resume": {
+    "campaign": "/Users/jason/data/texas-42/relational-resume-v2-sigint",
+    "committed_results_after_exit": 6,
+    "completed_jobs": 36,
+    "config": {
+      "beam": 3,
+      "dev": 2,
+      "field": "l0-8",
+      "seed": 98000000,
+      "test": 4,
+      "train": 4,
+      "workers": 2
+    },
+    "final_status": {
+      "active_jobs": [],
+      "completed_jobs_this_run": 30,
+      "interrupted": false,
+      "phase": "complete",
+      "test_roots": 4
+    },
+    "interrupt_child_returncode": 75,
+    "interrupt_receipt": "/Users/jason/data/texas-42/relational-resume-v2-sigint-watchdog-initial/run.json",
+    "interrupt_watchdog_returncode": 75,
+    "live_processes_after_resume": [],
+    "observed_campaign_pid": 65652,
+    "observed_results_at_sigint": 4,
+    "post_interrupt_live_processes": [],
+    "preinterrupt_hash_changes_after_resume": [],
+    "resume_child_returncode": 0,
+    "resume_receipt": "/Users/jason/data/texas-42/relational-resume-v2-sigint-watchdog-resume/run.json",
+    "resume_watchdog_returncode": 0,
+    "snapshot": "/Users/jason/data/texas-42/relational-resume-v2-sigint/interrupted-result-hashes.json"
+  },
+  "measured_snapshot_resume_v1": {
+    "campaign": "/Users/jason/data/texas-42/relational-resume-v1-sigint",
+    "interrupt_receipt": "/Users/jason/data/texas-42/relational-resume-v1-sigint-watchdog-initial/run.json",
+    "note": "same protocol passed against preserved measured-runner snapshot before the signal-race fix",
+    "resume_receipt": "/Users/jason/data/texas-42/relational-resume-v1-sigint-watchdog-resume/run.json"
+  },
+  "schema": "texas42-relational-operational-verification-v1",
+  "scope": "operational resumability and static trace integrity; no performance claim",
+  "static_audits": {
+    "relational-exam-v1": {
+      "completed_jobs": 30,
+      "evaluation_jobs": 30,
+      "focal_decision_traces": 1743,
+      "path": "/Users/jason/data/texas-42/relational-exam-v1/static-verification.json",
+      "retained_replays": 630,
+      "sha256": "58467ad0747272dc941c90126c53483c5bf4974d1d4cc1be2a41e7e358dd17d1",
+      "status": "verified"
+    },
+    "relational-gym-v1": {
+      "completed_jobs": 310,
+      "evaluation_jobs": 160,
+      "focal_decision_traces": 12096,
+      "path": "/Users/jason/data/texas-42/relational-gym-v1/static-verification.json",
+      "retained_replays": 4032,
+      "sha256": "63c0c5ba6e8295ad16890f63d614f46d5234be7159ebeffffa6e89725f78ba19",
+      "status": "verified"
+    },
+    "relational-l0-v1": {
+      "completed_jobs": 310,
+      "evaluation_jobs": 160,
+      "focal_decision_traces": 12096,
+      "path": "/Users/jason/data/texas-42/relational-l0-v1/static-verification.json",
+      "retained_replays": 4032,
+      "sha256": "8b2accbc4acaf99fca624379eb85240fd4edb374a0a44b4b11d9e8ad33b8d4a3",
+      "status": "verified"
+    },
+    "relational-resume-v2-sigint": {
+      "completed_jobs": 36,
+      "evaluation_jobs": 16,
+      "focal_decision_traces": 882,
+      "path": "/Users/jason/data/texas-42/relational-resume-v2-sigint/static-verification.json",
+      "retained_replays": 294,
+      "sha256": "5775e87842860249d46ac743e3efb9af97c8c21c04a3dfcc09a053e10755333e",
+      "status": "verified"
+    }
+  }
+}

@@ -86,3 +86,26 @@ transform. It then verifies a display/parse roundtrip before returning the
 artifact. `replay_program` performs an independent full deal replay through the
 compiled artifact. The concrete sampled world supplies physical hands to the
 rules engine; policy calls receive only `PolicyInput`.
+
+## Decision provenance and shared fallback composition
+
+`CompiledPolicy::choose_traced` returns the chosen action, exact-key/named-rule/
+final-fallback provenance, controller modes before and after, and public contract
+resolution. `choose` is the same operation projected to its action. Every error
+restores controller state while preserving charged work. `PolicyController::state`
+provides an inspectable mode and rigid-binding snapshot.
+
+`replay_program_traced` retains the complete physical play sequence and each
+focal decision's zero-based depth, provenance, policy work and controller
+snapshots. Post-resolution moves are retained; consumers can explicitly exclude
+them from unresolved-policy diagnostics.
+
+`combine_exact_table_with_relational` preserves a frozen exact table's keys and
+actions while placing a stateless shared relational program above the final
+fallback. It refuses bindings, mode transitions, or exact patches in the shared
+source. Full-policy replay evaluates the actual substitution, rather than
+comparing outcomes only on worlds where a lookup missed.
+
+The [shared relational learner](RELATIONAL.md) emits this language; its
+[campaign](../../experiments/partnership/RELATIONAL-LEARNING.md) owns cost data,
+selection, and statistical claims.

@@ -1,0 +1,40 @@
+{
+  "binary_sha256": "d0c6b02d5c126caddddfcf16e03984613101a935c1034e63b8fd2ab1cde1c29e",
+  "campaign": "/Users/jason/data/texas-42/relational-l0-v1",
+  "checks": [
+    "immutable job payload and artifact digests",
+    "declared root groups or maintained exam coordinates",
+    "frozen actor, manifest, and summary parity",
+    "full-deal reconstruction from root-remaining hands plus public prefix",
+    "independent 28-play legality, 42-point score, empty-hand, and made parity",
+    "focal depth, action, provenance, controller mode, contract state, and work"
+  ],
+  "completed_jobs": 310,
+  "evaluation_jobs": 160,
+  "focal_decision_traces": 12096,
+  "manifest_sha256": "b7f3acbd8ef666a9c46e41015ed8decaab8eff365ec8833360d698b4f026df1e",
+  "retained_replays": 4032,
+  "schema": "texas42-relational-static-verification-v1",
+  "splits": {
+    "dev": 16,
+    "test": 64,
+    "train-a": 32,
+    "train-b": 32
+  },
+  "status": "verified",
+  "test_actors": [
+    "exact",
+    "hybrid-exact",
+    "hybrid-priced",
+    "hybrid-unpriced",
+    "priced",
+    "table",
+    "unpriced"
+  ],
+  "verified_source_paths": {
+    "experiments/partnership/gym.py": "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/gym.py",
+    "experiments/partnership/process_groups.py": "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/process_groups.py",
+    "experiments/partnership/relational_campaign.py": "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/campaigns/relational-learning-v1/reference/relational_campaign.py",
+    "experiments/partnership/rules.py": "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/rules.py"
+  }
+}

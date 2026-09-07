@@ -5,8 +5,8 @@ use std::collections::BTreeMap;
 use crate::kernel::World;
 use crate::rules::{legal_plays, Domino, Seat};
 use crate::scheme::{
-    step_frame, Budget, CompiledPolicy, ExactRule, Fallback, ObservedPlay, PlayClass, PolicyInput,
-    PolicyKey, PolicyProgram,
+    step_frame, Budget, CompiledPolicy, DecisionProvenance, ExactRule, Fallback, ObservedPlay,
+    PlayClass, PolicyControllerState, PolicyInput, PolicyKey, PolicyProgram,
 };
 use crate::solver::adaptive::SlicePolicy;
 
@@ -94,6 +94,65 @@ pub fn export(fixture: &Fixture, table: &TablePolicy, name: &str) -> Result<Poli
     Ok(program)
 }
 
+/// Layer a frozen exact-table export over a stateless relational program.
+///
+/// The exact source must contain only exact rules. The relational source must
+/// contain no exact rules or rigid bindings, and every rule must remain in its
+/// initial mode. These restrictions make the composition an exact-key layer
+/// followed by one shared relational fallback without inventing controller
+/// initialization or transition semantics.
+pub fn combine_exact_table_with_relational(
+    exact: &PolicyProgram,
+    relational: &PolicyProgram,
+    name: &str,
+) -> Result<PolicyProgram, String> {
+    if !exact.bindings.is_empty() || !exact.rules.is_empty() {
+        return Err("exact-table source must contain only exact rules".into());
+    }
+    if !relational.exact_rules.is_empty() {
+        return Err("relational source must not contain exact rules".into());
+    }
+    if !relational.bindings.is_empty() {
+        return Err("stateless relational source must not contain rigid bindings".into());
+    }
+    if relational.rules.iter().any(|rule| {
+        rule.in_mode != relational.initial_mode || rule.next_mode != relational.initial_mode
+    }) {
+        return Err("stateless relational rules must stay in the initial mode".into());
+    }
+    Ok(PolicyProgram {
+        name: name.to_owned(),
+        initial_mode: relational.initial_mode.clone(),
+        bindings: vec![],
+        exact_rules: exact.exact_rules.clone(),
+        rules: relational.rules.clone(),
+        fallback: relational.fallback,
+    })
+}
+
+/// One focal decision in an independent full-program replay.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ProgramDecisionTrace {
+    /// Number of earlier focal decisions in this replay; the first is zero.
+    pub focal_decision_depth: usize,
+    pub action: Domino,
+    pub provenance: DecisionProvenance,
+    pub contract_resolved: Option<bool>,
+    pub policy_work_used: u64,
+    pub controller_before: PolicyControllerState,
+    pub controller_after: PolicyControllerState,
+}
+
+/// Auditable output of a complete independent serialized-program replay.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ProgramReplayTrace {
+    pub made: bool,
+    pub plays: Vec<(Seat, Domino)>,
+    pub initialization_work: u64,
+    pub total_policy_work: u64,
+    pub focal_decisions: Vec<ProgramDecisionTrace>,
+}
+
 /// Independent full-rules replay through a compiled serialized policy.
 /// The controller sees its remaining hand and actor-attributed public record;
 /// the concrete world is used only to supply each acting seat's physical hand.
@@ -103,18 +162,33 @@ pub fn replay_program(
     world: &World,
     compiled: &CompiledPolicy,
 ) -> Result<(bool, Vec<(Seat, Domino)>), String> {
+    let replay = replay_program_traced(fixture, field, world, compiled)?;
+    Ok((replay.made, replay.plays))
+}
+
+/// Independent full-rules replay with policy provenance and work accounting.
+pub fn replay_program_traced(
+    fixture: &Fixture,
+    field: &dyn SlicePolicy,
+    world: &World,
+    compiled: &CompiledPolicy,
+) -> Result<ProgramReplayTrace, String> {
     if !fixture.exercise.root.kernel().contains(world) {
         return Err("program replay outside support".into());
     }
     let initial = root_input(fixture)?;
     let mut budget = Budget::new(POLICY_WORK);
+    let before_initialization = budget.spent();
     let mut controller = compiled
         .initialize(&initial, &mut budget)
         .map_err(|e| e.to_string())?;
+    let initialization_work = budget.spent() - before_initialization;
+    let mut total_policy_work = initialization_work;
     let mut frame = fixture.exercise.frame.clone();
     let mut state = State::from_root(&fixture.exercise.position);
     let mut public_history = fixture.history.clone();
     let mut trace = Vec::new();
+    let mut focal_decisions = Vec::new();
     while state.played.len() < 28 {
         let actor = state.actor();
         let hand = world.hand(actor).difference(state.played);
@@ -138,9 +212,24 @@ pub fn replay_program(
                 fixture.exercise.position.declaring_team,
             )
             .map_err(|e| e.to_string())?;
-            compiled
-                .choose(&mut controller, &input, &mut budget)
-                .map_err(|e| e.to_string())?
+            let controller_before = controller.state();
+            let work_before = budget.spent();
+            let decision = compiled
+                .choose_traced(&mut controller, &input, &mut budget)
+                .map_err(|e| e.to_string())?;
+            let policy_work_used = budget.spent() - work_before;
+            total_policy_work += policy_work_used;
+            let action = decision.action;
+            focal_decisions.push(ProgramDecisionTrace {
+                focal_decision_depth: focal_decisions.len(),
+                action,
+                provenance: decision.provenance,
+                contract_resolved: decision.contract_resolved,
+                policy_work_used,
+                controller_before,
+                controller_after: controller.state(),
+            });
+            action
         } else {
             field.choose(
                 fixture.exercise.position.decl,
@@ -161,9 +250,12 @@ pub fn replay_program(
     if state.banked.iter().sum::<u32>() != 42 {
         return Err("program replay score conservation".into());
     }
-    Ok((
-        state.banked[fixture.exercise.position.declaring_team.index()]
+    Ok(ProgramReplayTrace {
+        made: state.banked[fixture.exercise.position.declaring_team.index()]
             >= fixture.exercise.position.bid,
-        trace,
-    ))
+        plays: trace,
+        initialization_work,
+        total_policy_work,
+        focal_decisions,
+    })
 }

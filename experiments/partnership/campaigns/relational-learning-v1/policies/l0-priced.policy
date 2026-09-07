@@ -1,0 +1,4 @@
+(policy shared-relational
+  (initial shared)
+  (fallback lowest-legal)
+)

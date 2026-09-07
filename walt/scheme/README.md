@@ -20,6 +20,10 @@ The current executable layers are documented separately:
   relational guards, rigid bindings, and persistent controller modes;
 - [donor composition](COMPOSITION.md) for the sampled exact-table experiment
   comparing fresh solution, memo persistence, and composed donor alternatives.
+- [shared relational construction](RELATIONAL.md) for bounded programs learned
+  across hands using action costs, with [information-price teaching](INFORMATION-PRICES.md)
+  confined to the examiner. The [learning campaign](../../experiments/partnership/RELATIONAL-LEARNING.md)
+  freezes actors before evaluating new source-deal groups.
 
 These layers execute on the full finite states supplied to them. They do not
 implement the still-absent compact descriptor step compiler.

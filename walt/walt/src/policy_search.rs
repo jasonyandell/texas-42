@@ -17,6 +17,10 @@ use crate::solver::mix;
 pub mod request;
 
 pub mod program;
+pub mod relational;
+pub mod prices;
+pub mod learning_io;
+pub mod learning_eval;
 
 /// Stable content identity for serialized executable experiment policies.
 pub fn program_digest(source: &str) -> String {

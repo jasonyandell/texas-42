@@ -155,6 +155,36 @@ pub struct PolicyController {
     rigid: BTreeMap<String, Value>,
 }
 
+/// Why an executable policy selected one action.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum DecisionProvenance {
+    /// The full viewer-information key was present in the frozen exact table.
+    Exact,
+    /// The named ordered relational rule was the first rule to select legally.
+    RelationalRule { name: String },
+    /// No exact key or relational rule selected, so the total fallback ran.
+    Fallback,
+}
+
+/// The auditable result of one policy decision.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct PolicyDecisionTrace {
+    pub action: Domino,
+    pub provenance: DecisionProvenance,
+    pub mode_before: String,
+    pub mode_after: String,
+    /// `Some(true)` means the declaring side has already made its contract;
+    /// `Some(false)` means the remaining unbanked points cannot make it.
+    pub contract_resolved: Option<bool>,
+}
+
+/// The inspectable part of controller state relevant to later decisions.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct PolicyControllerState {
+    pub mode: String,
+    pub rigid: BTreeMap<String, Value>,
+}
+
 impl PolicyProgram {
     pub fn compile(&self, registry: &Registry) -> Result<CompiledPolicy> {
         if !super::syntax::valid_name(&self.name) || !super::syntax::valid_name(&self.initial_mode)
@@ -417,6 +447,36 @@ impl CompiledPolicy {
         input: &PolicyInput<'_>,
         budget: &mut Budget,
     ) -> Result<Domino> {
+        self.choose_traced(controller, input, budget)
+            .map(|trace| trace.action)
+    }
+
+    /// Choose exactly as [`Self::choose`] does, while recording which policy
+    /// layer answered and the controller/contract state at that decision.
+    ///
+    /// A refusal, including budget exhaustion partway through an ordered rule
+    /// scan, restores the controller to its entry state. Work already performed
+    /// remains charged to `budget`.
+    pub fn choose_traced(
+        &self,
+        controller: &mut PolicyController,
+        input: &PolicyInput<'_>,
+        budget: &mut Budget,
+    ) -> Result<PolicyDecisionTrace> {
+        let checkpoint = controller.clone();
+        let result = self.choose_traced_inner(controller, input, budget);
+        if result.is_err() {
+            *controller = checkpoint;
+        }
+        result
+    }
+
+    fn choose_traced_inner(
+        &self,
+        controller: &mut PolicyController,
+        input: &PolicyInput<'_>,
+        budget: &mut Budget,
+    ) -> Result<PolicyDecisionTrace> {
         let frame = input.frame;
         if !Arc::ptr_eq(&controller.program_identity, &self.identity)
             && controller.program_identity.as_ref() != self.identity.as_ref()
@@ -436,11 +496,19 @@ impl CompiledPolicy {
         if legal.is_empty() {
             return Err(error("policy has no legal action"));
         }
+        let mode_before = controller.mode.clone();
+        let contract_resolved = contract_resolution(input);
         if let Some(tile) = self.exact.get(&PolicyKey::from_input(input)) {
             if !legal.contains(*tile) {
                 return Err(error(format!("exact policy action {tile} is illegal")));
             }
-            return Ok(*tile);
+            return Ok(PolicyDecisionTrace {
+                action: *tile,
+                provenance: DecisionProvenance::Exact,
+                mode_before: mode_before.clone(),
+                mode_after: mode_before,
+                contract_resolved,
+            });
         }
         for (rule, guard) in &self.rules {
             if rule.in_mode != controller.mode {
@@ -469,15 +537,44 @@ impl CompiledPolicy {
             };
             if let Some(tile) = selected {
                 controller.mode = rule.next_mode.clone();
-                return Ok(tile);
+                return Ok(PolicyDecisionTrace {
+                    action: tile,
+                    provenance: DecisionProvenance::RelationalRule {
+                        name: rule.name.clone(),
+                    },
+                    mode_before,
+                    mode_after: controller.mode.clone(),
+                    contract_resolved,
+                });
             }
         }
-        match self.source.fallback {
+        let action = match self.source.fallback {
             Fallback::LowestLegal => legal
                 .iter()
                 .min()
                 .ok_or_else(|| error("policy has no legal action")),
-        }
+        }?;
+        Ok(PolicyDecisionTrace {
+            action,
+            provenance: DecisionProvenance::Fallback,
+            mode_before: mode_before.clone(),
+            mode_after: mode_before,
+            contract_resolved,
+        })
+    }
+}
+
+fn contract_resolution(input: &PolicyInput<'_>) -> Option<bool> {
+    let total = input.banked[0] + input.banked[1];
+    debug_assert!(total <= 42, "validated policy history conserves points");
+    let declared = input.banked[input.declaring_team.index()];
+    let bid = u32::from(input.bid);
+    if declared >= bid {
+        Some(true)
+    } else if declared + (42 - total) < bid {
+        Some(false)
+    } else {
+        None
     }
 }
 
@@ -487,6 +584,12 @@ impl PolicyController {
     }
     pub fn rigid(&self, name: &str) -> Option<Value> {
         self.rigid.get(name).copied()
+    }
+    pub fn state(&self) -> PolicyControllerState {
+        PolicyControllerState {
+            mode: self.mode.clone(),
+            rigid: self.rigid.clone(),
+        }
     }
 }
 

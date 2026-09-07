@@ -84,8 +84,22 @@ on every completed comparison. Complete singleton-donor composition preserved
 those policies but cost 6–13% more overall. On the 30 composed gym exercises,
 64-sample policies chose an optimal first action on 26. The current constructor
 emits separate exact information-state tables for each root; relational policy
-rule induction and a generalized pre-deal player remain open. Saved programs,
+rule induction was not part of that constructor. Saved programs,
 measurement manifests, and interruption/resume evidence accompany the report.
+
+The subsequent [relational learner](../experiments/partnership/RELATIONAL-LEARNING.md)
+implements a bounded shared grammar, exact action-cost teaching, on-policy
+aggregation, independent development selection, provenance tracing, and a
+separate correctly centered information-price examiner. Its
+[first measured panel](../experiments/partnership/campaigns/relational-learning-v1/RESULTS.md)
+uses 288 fresh endgame roots across two fields, with 128 held-out test roots,
+and a separate 30-coordinate existing gym exam. Shared actors still trail
+sampled tables. A learned fallback gave a small uncertain improvement in one
+field; the other field selected the empty baseline. The frozen price basis
+tightened no bounds. With fixed continuation lowers, tighter uppers only add a
+state-common constant to this cost objective; they cannot rerank programs by
+themselves. General opening play, adaptive teacher pruning and richer actor
+observation/memory interfaces remain separate work.
 
 Sections 1–6 retain the earlier descriptor/compression research and archived
 factory examples. Their historical producers remain archived; the expressive

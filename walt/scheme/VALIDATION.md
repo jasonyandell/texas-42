@@ -55,3 +55,21 @@ and its verification receipt. The completed gates passed 46 focused Rust tests
 runner tests, strict native lint checks, and 222 independent full-game rules
 replays. A real interruption/resume check preserved committed seed bytes and
 finished all six seeds without leaving native workers running.
+
+## Shared relational learning and price teaching
+
+The [relational report](../../experiments/partnership/campaigns/relational-learning-v1/RESULTS.md)
+adds explicit provenance, shared bounded grammar construction, action-cost
+wire formats, finite information prices, and independent complete-program
+evaluation. The final focused Rust gate totals 66 tests across `scheme`,
+`scheme_dynamics`, `scheme_policy`, `policy_search`, `relational_runtime`,
+`relational_learning`, `information_prices`, and `learning_io`. Seven new
+Python runner tests and twelve existing policy-runner tests pass. Strict native
+clippy passes without exemptions. The attached mathematical verifier remains
+a separate generic finite check.
+
+Independent Python audits cover 8,694 retained full games and 25,935 focal
+decision traces in the measured panels and existing gym. Actual SIGINT/resume
+was tested again against the final runner, including unchanged completed job
+hashes and absence of leftover native workers. Correctness gates do not turn
+the measured weak shared actors into a strength or opening-play result.
