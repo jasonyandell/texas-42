@@ -27,6 +27,11 @@ refined partner modeling.
 
 ## Unified selection and fast head-to-head
 
+Start with the [player families](PLAYERS.md): **L1 default**, **L2 Partner
+default**, and **L2 Partner with voids**. `match.py players` shows their exact
+settings; add `--all` for historical and advanced presets. "Default" means
+fixed search. The archived phone and native L1 Race are separate named choices.
+
 The native player now exposes the same selection machinery at the real root
 and inside modeled L1 minds. `--selection fixed|refine|race-refine` selects the
 root rule; `--modeled-selection` selects the rule for modeled levels >=1.

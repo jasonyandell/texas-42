@@ -10,6 +10,38 @@ from fractions import Fraction
 from pathlib import Path
 
 import campaign as c
+from matchup import Player
+
+
+def show_players(path, include_all=False):
+    """Describe actual preset coordinates without changing player identity."""
+    presets = json.loads(Path(path).read_text())
+    names = (
+        sorted(presets)
+        if include_all
+        else ("l1-default", "l2-partner-default", "l2-partner-voids")
+    )
+    families = {
+        "baseline": "L1",
+        "partner": "L2 Partner",
+        "all-l1": "L2 All",
+        "phone": "Phone reference",
+    }
+    print(
+        "| Preset | Family | Root search | Modeled L1 search | Inner belief | Worlds: root / L0 / L1 |"
+    )
+    print("|---|---|---|---|---|---|")
+    for name in names:
+        p = Player(**presets[name])
+        modeled = p.modeled_selection if p.mode in ("partner", "all-l1") else "—"
+        root = "archived racing" if p.mode == "phone" else p.selection
+        n1 = str(p.n1) if p.mode in ("partner", "all-l1") else "—"
+        print(
+            f"| {name} | {families[p.mode]} | {root} | {modeled} | {p.inner_belief} | {p.n} / {p.n0} / {n1} |"
+        )
+    print(
+        "\nDefault means fixed search. Phone is a separate archived reference. Use --all for historical and advanced presets; see PLAYERS.md for naming and fallback semantics."
+    )
 
 
 def report(path):
@@ -136,8 +168,17 @@ def main():
     init.add_argument("--cold", action="store_true")
     rep = sub.add_parser("report")
     rep.add_argument("path", type=Path)
+    catalog = sub.add_parser(
+        "players", help="show the main player families and exact settings"
+    )
+    catalog.add_argument(
+        "--all", action="store_true", help="include historical and advanced presets"
+    )
+    catalog.add_argument("--players", type=Path, default=c.HERE / "players.json")
     args = parser.parse_args()
-    if args.command == "init":
+    if args.command == "players":
+        show_players(args.players, args.all)
+    elif args.command == "init":
         players = json.loads(args.players.read_text())
         result = c.initialize_match(
             args.path,
