@@ -10,8 +10,10 @@ make/set is the primary outcome. This assessment follows the discussion of
 expression independently of the gym. The [executable language](../../walt/scheme/README.md)
 now exists in the unified crate, including parser, typed roles, equality cases,
 answer sets, weighted events, conditioning, and counterexamples. The inventory
-below records the pre-implementation investigation; the compact step compiler
-and the gym itself remain separate work.
+below records the pre-implementation investigation. The
+[partnership gym](../../walt/gym/README.md) is now implemented with six exact
+count-offer advantage/disadvantage exercises and native L1/L2 grading. The
+compact step compiler and broader exercise families remain separate work.
 
 ## What Scheme contributes
 

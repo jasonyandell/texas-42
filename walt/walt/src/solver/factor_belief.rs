@@ -728,11 +728,17 @@ fn branch_masses_via(
 /// DROPPED, never classified. Zero-weight entries are never stored, so
 /// this loses nothing. At one conditioning after a focal play the filter
 /// is a no-op — the acting seat has played nothing and the only post-root
-/// play is the viewer's, outside the pool — which is why stage C1's
-/// conditioning-support law (the whole support classifies, once) is
-/// unchanged; beyond one ply the filter is what makes the recursion's
-/// deep conditionings lawful.
-fn condition_via(belief: &FactorBelief, action: Domino, field: &dyn SlicePolicy) -> FactorBelief {
+/// play is the viewer's, outside the pool. In addition, the completion
+/// oracle removes zero-joint-mass hands before classification. This
+/// extends the positive-support guard already used by model-belief to
+/// single-field recursion, preserving masses while trimming dead factor
+/// entries. The original factor weight, never its marginal weight, is kept.
+fn condition_via(
+    oracle: &dyn ExactCoverOracle,
+    belief: &FactorBelief,
+    action: Domino,
+    field: &dyn SlicePolicy,
+) -> FactorBelief {
     assert_eq!(
         field.id(),
         belief.field_id,
@@ -750,10 +756,22 @@ fn condition_via(belief: &FactorBelief, action: Domino, field: &dyn SlicePolicy)
     let others = (0..Seat::COUNT)
         .filter(|i| *i != seat.index())
         .fold(DominoSet::EMPTY, |acc, i| acc.union(cursor.played_by[i]));
+    // A locally admissible hand can still have no compatible full deal:
+    // other seats' capacities, voids, or action likelihoods can exclude it.
+    // Such a hand has zero mass and may not define a policy information
+    // state at all. Never ask a modeled mind to classify it. Pruning zero
+    // marginal hands preserves the joint measure; retain the ORIGINAL
+    // factor weight below, not the completion-weighted marginal.
+    let supported: std::collections::HashSet<_> = oracle
+        .actor_completion_weights(belief, seat)
+        .into_iter()
+        .map(|(hand, _)| hand)
+        .collect();
     let kept: Vec<(DominoSet, u128)> = belief.factors[slot]
         .support()
         .into_iter()
         .filter(|(hand, _)| own.is_subset_of(*hand) && hand.is_disjoint(others))
+        .filter(|(hand, _)| supported.contains(hand))
         .filter(|(hand, _)| field_action(belief, &cursor, *hand, field) == action)
         .collect();
     assert!(
@@ -866,7 +884,7 @@ impl ExactCoverOracle for FiberOracle {
         action: Domino,
         field: &dyn SlicePolicy,
     ) -> FactorBelief {
-        condition_via(belief, action, field)
+        condition_via(self, belief, action, field)
     }
 
     fn marginal(
@@ -1804,7 +1822,7 @@ impl ExactCoverOracle for SupportOracle {
         action: Domino,
         field: &dyn SlicePolicy,
     ) -> FactorBelief {
-        condition_via(belief, action, field)
+        condition_via(self, belief, action, field)
     }
 
     fn marginal(

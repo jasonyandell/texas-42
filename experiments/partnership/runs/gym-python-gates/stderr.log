@@ -1,0 +1,13 @@
+test_every_published_key_has_exact_support_and_lawful_replays (test_gym.GymTests) ... ok
+test_failed_item_retries_but_saved_item_is_not_recomputed (test_gym.GymTests) ... ok
+test_full_optimal_set_and_set_outcomes_tie_without_point_tiebreak (test_gym.GymTests) ... ok
+test_interrupt_drains_current_coordinate_then_resume_completes (test_gym.GymTests) ... ok
+test_manifest_drift_refuses_resume (test_gym.GymTests) ... ok
+test_native_key_agrees_with_published_key (test_gym.GymTests) ... ok
+test_private_teacher_fields_are_refused (test_gym.GymTests) ... ok
+test_tampered_mass_missing_world_or_illegal_trace_is_rejected (test_gym.GymTests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.579s
+
+OK

@@ -665,3 +665,16 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   formatting, and WASM library compilation passed; full CI deliberately skipped
   under the session waiver. Guide: `scheme/README.md`; record:
   `scheme/VALIDATION.md`; wiki: `wiki/walt-scheme-fix.md` section 0.
+
+- 2026-09-06: FIRST PARTNERSHIP GYM (Jason's follow-up): Scheme describes
+  public count offers; the lawful exact evaluator prices every alternative
+  under a fixed L1 teammate / L0 opponents field. Sixty small coordinates
+  audited; six advantage/disadvantage exercises published with all hidden
+  completions and same-world replay witnesses. Ten-worker atomic/resumable
+  mining and pupil runs. Starter optimal choices: L1 5/6, L2 Partner 6/6,
+  L2 with voids 5/6; diagnostic only, no general-strength claim. Shared
+  conditioning now prunes zero-completion hands before policy consultation;
+  the old impossible frame remains checked and raw/mixture Level1 parity
+  now holds on all six receipt roots. 61 distinct focused Rust tests and
+  nine Python tests passed; full CI waived for the session. Guide and
+  evidence: `gym/README.md`, `gym/RESULTS.md`; wiki: Scheme/Fix section 0.

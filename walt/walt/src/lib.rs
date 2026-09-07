@@ -21,6 +21,7 @@
 
 pub mod carrier;
 pub mod geom;
+pub mod gym;
 pub mod kernel;
 pub mod rules;
 pub mod scheme;

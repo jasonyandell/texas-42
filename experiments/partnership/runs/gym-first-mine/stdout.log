@@ -1,0 +1,6 @@
+{"category":[{"category":"disadvantage","comparison":20,"gap_mass":2,"preferred":24}],"completed":"c7303b5625f244d93186","grade":null}
+{"error":"thread 'main' (106689124) panicked at walt/src/solver/field.rs:415:13:\nthe \u03c31 field cannot act at an unsatisfiable state: unsatisfiable belief frame: viewer S1 hand 0004800 played df2b77f sizes [1, 2, 2, 2] voids [41d8000, 0821138, 49f9138, fe21138] \u2014 3 unseen tiles (00d0000) are confined to seats [3], which hold room for 2\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace","failed":"073193109a65b085ff01"}
+{"category":[],"completed":"bf7b6fe39358ae226415","grade":null}
+{"category":[{"category":"advantage","comparison":9,"gap_mass":4,"preferred":11}],"completed":"6e65aed248278f9eba6a","grade":null}
+{"category":[{"category":"advantage","comparison":2,"gap_mass":2,"preferred":25}],"completed":"ec85e1fc54aae89d8bea","grade":null}
+{"category":[{"category":"advantage","comparison":9,"gap_mass":4,"preferred":15}],"completed":"5d94a343252b3d621691","grade":null}

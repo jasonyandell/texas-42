@@ -64,6 +64,13 @@ union, exact weighted events, explicit selectors, conditioning, and finite-domai
 equivalence counterexamples. It does not restore the old factory crates or
 claim state compression; their archival status below remains unchanged.
 
+**First consumer, 2026-09-06:** the [partnership gym](../walt/gym/README.md)
+(`walt::gym`, `partnership_gym`, `experiments/partnership/gym.py`): exact
+field-relative root-action keys, public Scheme candidate descriptions, full
+same-world replays, independent support/rules audits, and a resumable native
+player runner. Six initial count-offer advantage/disadvantage exercises; no
+perfect-information answer labels or general-strength claim.
+
 Six crates, Rust 2021, in one Cargo workspace at `walt/Cargo.toml`: the unified
 **`walt`** crate, **`walt-wasm`** and **`walt2-wasm`** (the browser oracles for
 plunge — level 1 and level 2), and the GPU

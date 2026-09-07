@@ -16,6 +16,11 @@
 //! (`walt/CENSUS-RULINGS.md`); brief `walt/briefs/BRIEF-MB0.md`; status
 //! ledger `walt/FACTOR-BELIEF.md`.
 //!
+//! Gym integration, September 2026: the common single-field conditioning
+//! route now also guards positive completion support. The historical
+//! boundary account below explains why this module already tightened;
+//! single-field Level1 parity now passes on all six tested receipt roots.
+//!
 //! THE REPRESENTATION (Theorem 7.1 made a struct). A [`ModelBelief`] is
 //! the augmented belief over Ξ = Ω×Θ stored as its exact type-profile
 //! expansion: one existing [`FactorBelief`] per profile θ (the physical

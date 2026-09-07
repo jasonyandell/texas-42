@@ -12,6 +12,11 @@ archived skeleton/factory supplied the semantic and counterexample discipline;
 the new runtime uses the current rules and kernel directly. Everything here is
 exploratory implementation evidence, not a promoted theorem.
 
+Its first consumer is the [partnership gym](../gym/README.md), with six
+count-offer advantage/disadvantage exercises and exact lawful answer keys.
+The gym registers a public mechanical relation; the Scheme language itself
+still has no solver dependency.
+
 ## Run it
 
 From the repository root:

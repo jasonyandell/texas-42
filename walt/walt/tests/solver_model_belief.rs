@@ -27,8 +27,7 @@
 //! - G2 point-mass parity both ways (MB-I5): ν = δ_{F₀} reproduces the
 //!   σ0 authority's value AND selected action on every tested root;
 //!   ν = δ_{F₁} reproduces the Level1 authority on its entire
-//!   terminating domain, with the refusal complement pinned exactly
-//!   (see G8 — the raw σ1 authority provably cannot price the rest).
+//!   tested domain, including the formerly refusing roots (G8).
 //! - G3 posterior closure (Theorem 12.1): only the acting seat's
 //!   factor changes; merged branch masses conserve (MB-I6); the §9
 //!   ½-vs-¼ persistent-vs-resampled separation on the specimen.
@@ -46,9 +45,9 @@
 //!   produces equal id.
 //! - G8 the σ1 positive-support boundary: the zero-joint-mass specimen
 //!   where the §4.2 sampler's acceptance region is empty (so the
-//!   untightened machinery cannot terminate under σ1), and the
-//!   positive-support-tightened walks completing with exact (ω,θ)
-//!   enumeration parity.
+//!   historical untightened machinery could not terminate under σ1),
+//!   and both single-field and mixture walks now completing with exact
+//!   (ω,θ) enumeration parity.
 
 mod common;
 
@@ -444,9 +443,8 @@ fn enumeration_parity_over_augmented_pairs() {
         );
         // The argmax policy re-prices to its own per-profile masses
         // through the INDEPENDENT pair enumeration — one realizable
-        // policy, never an envelope. (The untightened fixed-policy
-        // recursion cannot run under σ1-typed profiles — G8 — so the
-        // enumeration is the re-pricing oracle here.)
+        // policy, never an envelope. This independent enumeration remains
+        // useful after the single-field positive-support repair (G8).
         for (p, entry) in model.profiles().iter().enumerate() {
             let sub: Vec<(usize, World)> = pairs.iter().filter(|(q, _)| *q == p).cloned().collect();
             let repriced = enum_walk(
@@ -607,25 +605,10 @@ fn assert_delta_parity(
     }
 }
 
-/// The raw Level1 authority's terminating domain among the tested
-/// roots: the two root-decided fixtures. On EVERY other tested root the
-/// untightened response walk eventually classifies a zero-joint-mass
-/// support entry whose §4.2 acceptance region is empty, so the raw
-/// authority does not terminate there (the σ1 boundary gate pins a
-/// live specimen); the guard turns that non-termination into a
-/// deterministic refusal, and this gate asserts the refusal set
-/// exactly. The δ_{F₁} endpoint on those roots is anchored instead by
-/// the (ω,θ) enumeration in the boundary gate.
-const RAW_F1_TERMINATING: [(usize, usize); 2] = [(12, 6), (10, 6)];
-
-/// Gate 2 — point-mass parity both ways (MB-I5, MB-O2, the intake's §8
-/// erratum made mechanical): ν = δ_{F₀} reproduces the σ0 fixed-field
-/// authority's per-action values AND selected action on every tested
-/// root; ν = δ_{F₁} reproduces the Level1 authority on the raw
-/// authority's ENTIRE terminating domain, and the complement — where
-/// the raw authority provably cannot answer — is pinned exactly (an
-/// honest deviation from the brief's "every tested root", forced by
-/// the σ1 boundary; the boundary gate carries the enumeration anchor).
+/// Gate 2 — point-mass parity both ways. The common conditioning path
+/// now removes zero-completion hands before consulting a policy, extending
+/// single-field Level1 parity to ALL six roots. The impossible specimen
+/// remains independently pinned by G8; it is no longer consulted.
 #[test]
 fn point_mass_parity_reproduces_both_fixed_field_authorities() {
     let r = receipt();
@@ -642,24 +625,13 @@ fn point_mass_parity_reproduces_both_fixed_field_authorities() {
         let guarded = GuardedF1 {
             inner: Rc::clone(f1.mind()),
         };
-        if RAW_F1_TERMINATING.contains(&(hand_id, trick_no)) {
-            assert_delta_parity(
-                &root,
-                &position,
-                &f1,
-                &guarded,
-                &format!("hand {hand_id} trick {trick_no}, F1"),
-            );
-        } else {
-            let refused = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-                raw_authority(&root, &position, &guarded)
-            }));
-            assert!(
-                refused.is_err(),
-                "the raw Level1 authority hits an unsatisfiable σ1 frame on \
-                 hand {hand_id} trick {trick_no} (the pinned refusal set)"
-            );
-        }
+        assert_delta_parity(
+            &root,
+            &position,
+            &f1,
+            &guarded,
+            &format!("hand {hand_id} trick {trick_no}, F1"),
+        );
     }
 }
 
@@ -1531,30 +1503,9 @@ fn tile(s: &str) -> Domino {
         .expect("a named tile exists")
 }
 
-/// Gate 8 — the σ1 positive-support boundary (the MB0 discovery, pinned
-/// mechanically). The σ1 mind materializes its belief by the §4.2
-/// shuffle-and-reject sampler, whose acceptance region is EMPTY exactly
-/// at zero-joint-mass information states; the shared conditioning route
-/// classifies the acting seat's raw support, which contains such states
-/// at depth. Four sub-gates:
-///
-/// (a) THE SPECIMEN: at h5-t6 after post-root history [4-1, 4-3, 1-1],
-///     the seat to move can hold {4-2, 4-4} consistently with its own
-///     record — a lawful root hand — yet the completion frame is
-///     EXHAUSTIVELY unsatisfiable: no arrangement of the unseen tiles
-///     completes the other seats around their void structure. A σ1
-///     read at this state never terminates.
-/// (b) ZERO MASS, independently: no world of the root fiber realizes
-///     that hand together with the observed plays being lawful — the
-///     specimen state carries exactly zero joint mass, so its
-///     classification is irrelevant to every exact quantity.
-/// (c) THE WALL IS REAL in the pre-existing machinery: the untightened
-///     fixed-policy recursion (`viewer_success_mass`, no model belief
-///     involved) under the raw guarded F₁ field refuses on h5-t6.
-/// (d) THE TIGHTENING IS THE LAWFUL DODGE: the positive-support
-///     tightened δ_{F₁} walks complete on h5-t6 and h4-t6, and their
-///     fixed-policy and response masses equal the independent (ω,θ)
-///     pair enumeration exactly.
+/// Gate 8 — the historical σ1 zero-completion specimen. Independent
+/// enumeration still proves the frame impossible. Both exact evaluators
+/// must now avoid consulting it and agree with an independent world walk.
 #[test]
 fn sigma1_positive_support_boundary() {
     let r = receipt();
@@ -1625,19 +1576,26 @@ fn sigma1_positive_support_boundary() {
         consistent, 0,
         "the specimen state carries exactly zero joint mass"
     );
-    // (c) The pre-existing machinery hits the wall: the untightened
-    // fixed-policy recursion under the raw guarded F₁ field refuses.
+    // (c) The raw evaluator now tightens before consulting the field.
+    // GuardedF1 independently rejects any infeasible call, so completion
+    // here verifies that the invalid state was avoided, not papered over.
     let guarded = GuardedF1 {
         inner: Rc::clone(f1.mind()),
     };
-    let refused = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-        let belief = FactorBelief::uniform_root(&root, &position, &guarded);
-        let mut stats = RecursionStats::default();
-        viewer_success_mass(&oracle, &belief, &focal, &guarded, &mut stats)
-    }));
-    assert!(
-        refused.is_err(),
-        "the untightened σ0-era recursion cannot run under σ1 at h5-t6"
+    let belief = FactorBelief::uniform_root(&root, &position, &guarded);
+    let raw = viewer_success_mass(
+        &oracle,
+        &belief,
+        &focal,
+        &guarded,
+        &mut RecursionStats::default(),
+    );
+    let model = delta_model(&root, &position, &f1);
+    assert_eq!(
+        raw,
+        model
+            .mixture_policy_mass(&oracle, &focal, &mut MixtureStats::default())
+            .weighted_mass
     );
     // (d) The tightened δ_{F₁} walks complete and match the (ω,θ)
     // enumeration exactly, fixed and respond.

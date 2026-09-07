@@ -1,0 +1,95 @@
+
+running 4 tests
+test malformed_or_private_inconsistent_history_is_rejected ... ok
+test public_bridge_and_offer_query_are_seat_covariant_and_world_invariant ... ok
+test hold_count_has_strict_make_advantage_and_complete_replay_keys ... ok
+test third_hand_offer_regression_never_queries_an_uncompletable_partner_hand ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 19 tests
+test answer_multiplicity_is_not_a_probability_distribution ... ok
+test duplicate_worlds_merge_but_bad_measures_and_caps_are_refused ... ok
+test extension_registry_freezes_semantics_and_enforces_information_access ... ok
+test examples_parse_compile_and_roundtrip ... ok
+test empty_fix_false_empty_case_true_and_hidden_witnesses_are_existential ... ok
+test frames_reject_incoherent_history_and_do_not_invent_played_tiles ... ok
+test declared_public_residue_drives_partial_trick_queries ... ok
+test equality_patterns_are_complete_and_quotient_before_injective_binding ... ok
+test certainty_does_not_confuse_existence_with_identity ... ok
+test syntax_and_type_errors_are_refused_before_evaluation ... ok
+test undefined_is_not_false_and_never_satisfies_negation ... ok
+test conditioning_uses_events_and_exact_likelihoods_transactionally ... ok
+test zero_weight_worlds_do_not_affect_belief_certainty ... ok
+test answer_equivalence_is_stronger_than_boolean_equivalence ... ok
+test work_exhaustion_refuses_a_partial_query_or_summary ... ok
+test overlapping_branches_and_internal_witnesses_do_not_multiply_mass ... ok
+test mastery_beating_and_negative_joins_match_direct_set_queries ... ok
+test joins_match_direct_relations_on_every_world_under_all_nine_declarations ... ok
+test receipt_cli_queries_conditions_and_refuses_without_partial_reports ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+
+running 6 tests
+test an_extracted_profile_is_one_realizable_profile ... ok
+test no_threshold_envelope_is_serialized_as_the_extracted_policy ... ok
+test an_extracted_policy_reprices_to_the_extraction_optimum ... ok
+test the_extraction_producer_collapses_certified_regret_at_settled_roots ... ok
+test grammar_plus_residual_covers_the_full_policy_class ... ok
+test a_residual_below_the_grammar_lower_proves_unrestricted_closure ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s
+
+
+running 11 tests
+test condition_recovers_each_branch_mass ... ok
+test conditioned_marginal_matches_enumeration ... ok
+test level0_field_branch_parity ... ok
+test uniform_mass_three_way_parity_and_focal_invariance ... ok
+test classification_is_once_per_information_state ... ok
+test the_full_identity_key_shares_nothing_across_candidates_or_roots ... ok
+test branch_masses_match_complete_world_enumeration ... ok
+test c0_domain_and_identity_refusals ... ok
+test level0_branch_parity_with_the_bundled_one_ply_oracle ... ok
+test opening_root_contraction_without_worlds ... ok
+test opening_root_level0_classification_is_once_per_hand ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.47s
+
+
+running 5 tests
+test beyond_one_table_mass_matches_surviving_worlds_and_backend_zero_refuses ... ok
+test frozen_policy_values_match_the_bundled_walk_under_the_trivial_field ... ok
+test support_backend_matches_backend_zero_across_the_c0_domain ... ok
+test every_node_mass_and_branch_parity_with_world_enumeration ... ok
+test frozen_policy_values_match_the_bundled_walk_under_the_level0_field ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 8 tests
+test behavior_type_identity_tracks_every_coordinate ... ok
+test posterior_closure_and_the_half_vs_quarter_persistence_specimen ... ok
+test fixed_policy_value_is_linear_in_the_model_belief ... ok
+test merge_before_max_and_no_hidden_type_policy_key ... ok
+test enumeration_parity_over_augmented_pairs ... ok
+test sigma1_positive_support_boundary ... ok
+test point_mass_parity_reproduces_both_fixed_field_authorities ... ok
+test separated_upper_bounds_the_mixture_response_and_zero_iff_common_optimizer ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.41s
+
+
+running 7 tests
+test m5_the_consumed_instruments_are_unperturbed ... ok
+test m7_the_field_identity_fence_holds_on_both_sides ... ok
+test m3_point_mass_endpoints_collapse_at_depth ... ok
+test m2_response_vectors_reprice_by_dot_product ... ok
+test m4_read_budget_refusals_are_typed_and_honest ... ok
+test m1_recursion_matches_the_pair_enumeration_on_the_whole_corpus ... ok
+test m6_the_earlier_root_finding_is_pinned ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 21.26s
+

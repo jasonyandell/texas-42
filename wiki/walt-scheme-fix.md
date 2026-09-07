@@ -37,6 +37,13 @@ mass. Selecting a referent is explicit. Support-wide certainty and certainty
 under a named belief remain distinct. Implementation tests are finite-domain
 evidence at exploratory tier.
 
+The first consumer is the [partnership gym](../walt/gym/README.md): a versioned
+public count-offer predicate describes the candidates, while the lawful exact
+evaluator supplies separate make/set values and replayable counterexamples.
+Six exercises and a resumable L1/L2 comparison are implemented. This uses
+existing full-state transitions and fresh queries; a compact Scheme transition
+system is still separate work.
+
 Sections 1–6 retain the earlier descriptor/compression research and archived
 factory examples. Their historical producers remain archived; the expressive
 runtime imports current rules/kernel directly. Section 7 separates the delivered

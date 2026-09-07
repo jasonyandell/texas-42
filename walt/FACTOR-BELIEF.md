@@ -1,5 +1,14 @@
 # FACTOR-BELIEF — the Slice C–G design skeleton (specify, do not optimize)
 
+**Gym integration, 2026-09-06:** common `condition_via` now restricts the acting
+factor to positive completion support before consulting a policy, as the
+model-belief path already did. It retains original factor weights; only
+zero-joint-mass entries are removed. This preserves exact masses and makes
+single-field Level1 terminate on the formerly refusing receipt roots. Updated
+MB0 gates retain the impossible-frame witness and establish point-mass parity
+on all six roots. The historical status paragraphs below describe their
+original epochs. See [gym verification](gym/RESULTS.md) for current evidence.
+
 **Status:** SLICES C (COMPLETE), D, E, F AND G LANDED (2026-08-30);
 ANYTIME PROOF-STATE PHASES 0–8 ALL LANDED (2026-08-31/09-01, the
 follow-on parent `walt/math/anytime_proof_state_score_v0.1.md`,

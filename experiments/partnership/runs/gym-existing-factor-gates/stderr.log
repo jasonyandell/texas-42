@@ -1,0 +1,7 @@
+   Compiling walt v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt)
+    Finished `release` profile [optimized] target(s) in 3.87s
+     Running tests/solver_extraction.rs (walt/target/release/deps/solver_extraction-3237878cea648df0)
+     Running tests/solver_factor_belief.rs (walt/target/release/deps/solver_factor_belief-1a65347e53afefae)
+     Running tests/solver_factor_recursion.rs (walt/target/release/deps/solver_factor_recursion-09109918e2b3faae)
+     Running tests/solver_model_belief.rs (walt/target/release/deps/solver_model_belief-d2fe24e1cc35d4f8)
+error: test failed, to rerun pass `-p walt --test solver_model_belief`

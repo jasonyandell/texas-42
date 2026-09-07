@@ -2,7 +2,15 @@
 
 2026-09-06. Exploratory observations and local engineering status.
 
-**Latest follow-up completed:** [default fixed-search results](campaigns/default-partner-battery/RESULTS.md),
+**Newest deliverables:** the expressive [Scheme/Fix runtime](../../walt/scheme/README.md)
+and its first [partnership gym](../../walt/gym/README.md). Six verified
+count-offer advantage/disadvantage exercises now have exact lawful answer keys,
+same-world witnesses, and an interruptible native-player benchmark. Starter
+optimal choices: L1 5/6, L2 Partner 6/6, L2 with voids 5/6. This diagnostic
+gallery is not evidence of a general strength ranking. The existing playing
+rules and default configurations remain as described below.
+
+**Latest full-game battery completed:** [default fixed-search results](campaigns/default-partner-battery/RESULTS.md),
 400 games on 100 shared fresh deals. L2 Partner versus L1: **14 wins / 14 losses /
 72 ties** (50% comparative contract wins). L2 Partner with voids versus without:
 **12 / 17 / 71** (47.5%). Both rough intervals include 50%; no strength gain is

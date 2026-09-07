@@ -1,0 +1,10 @@
+
+running 5 tests
+test malformed_or_private_inconsistent_history_is_rejected ... ok
+test positive_support_pruning_preserves_factor_weights_not_marginal_weights ... ok
+test public_bridge_and_offer_query_are_seat_covariant_and_world_invariant ... ok
+test hold_count_has_strict_make_advantage_and_complete_replay_keys ... ok
+test third_hand_offer_regression_never_queries_an_uncompletable_partner_hand ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+

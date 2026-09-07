@@ -1,0 +1,68 @@
+
+running 6 tests
+test an_extracted_profile_is_one_realizable_profile ... ok
+test no_threshold_envelope_is_serialized_as_the_extracted_policy ... ok
+test the_extraction_producer_collapses_certified_regret_at_settled_roots ... ok
+test an_extracted_policy_reprices_to_the_extraction_optimum ... ok
+test grammar_plus_residual_covers_the_full_policy_class ... ok
+test a_residual_below_the_grammar_lower_proves_unrestricted_closure ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+
+
+running 11 tests
+test condition_recovers_each_branch_mass ... ok
+test conditioned_marginal_matches_enumeration ... ok
+test c0_domain_and_identity_refusals ... ok
+test classification_is_once_per_information_state ... ok
+test level0_field_branch_parity ... ok
+test the_full_identity_key_shares_nothing_across_candidates_or_roots ... ok
+test uniform_mass_three_way_parity_and_focal_invariance ... ok
+test branch_masses_match_complete_world_enumeration ... ok
+test level0_branch_parity_with_the_bundled_one_ply_oracle ... ok
+test opening_root_contraction_without_worlds ... ok
+test opening_root_level0_classification_is_once_per_hand ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.42s
+
+
+running 5 tests
+test beyond_one_table_mass_matches_surviving_worlds_and_backend_zero_refuses ... ok
+test frozen_policy_values_match_the_bundled_walk_under_the_trivial_field ... ok
+test support_backend_matches_backend_zero_across_the_c0_domain ... ok
+test every_node_mass_and_branch_parity_with_world_enumeration ... ok
+test frozen_policy_values_match_the_bundled_walk_under_the_level0_field ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+
+running 8 tests
+test behavior_type_identity_tracks_every_coordinate ... ok
+test posterior_closure_and_the_half_vs_quarter_persistence_specimen ... ok
+test fixed_policy_value_is_linear_in_the_model_belief ... ok
+test sigma1_positive_support_boundary ... FAILED
+test merge_before_max_and_no_hidden_type_policy_key ... ok
+test point_mass_parity_reproduces_both_fixed_field_authorities ... FAILED
+test enumeration_parity_over_augmented_pairs ... ok
+test separated_upper_bounds_the_mixture_response_and_zero_iff_common_optimizer ... ok
+
+failures:
+
+---- sigma1_positive_support_boundary stdout ----
+
+thread 'sigma1_positive_support_boundary' (106705531) panicked at walt/tests/solver_model_belief.rs:1638:5:
+the untightened σ0-era recursion cannot run under σ1 at h5-t6
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- point_mass_parity_reproduces_both_fixed_field_authorities stdout ----
+
+thread 'point_mass_parity_reproduces_both_fixed_field_authorities' (106705528) panicked at walt/tests/solver_model_belief.rs:657:13:
+the raw Level1 authority hits an unsatisfiable σ1 frame on hand 5 trick 6 (the pinned refusal set)
+
+
+failures:
+    point_mass_parity_reproduces_both_fixed_field_authorities
+    sigma1_positive_support_boundary
+
+test result: FAILED. 6 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.11s
+
