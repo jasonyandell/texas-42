@@ -12,6 +12,18 @@ archived skeleton/factory supplied the semantic and counterexample discipline;
 the new runtime uses the current rules and kernel directly. Everything here is
 exploratory implementation evidence, not a promoted theorem.
 
+The current executable layers are documented separately:
+
+- [finite extensional dynamics](DYNAMICS.md) for typed observations, exact
+  support and belief pushforward, rigid transport, and backward preimages;
+- [executable policies](POLICIES.md) for exact information-state rules,
+  relational guards, rigid bindings, and persistent controller modes;
+- [donor composition](COMPOSITION.md) for the sampled exact-table experiment
+  comparing fresh solution, memo persistence, and composed donor alternatives.
+
+These layers execute on the full finite states supplied to them. They do not
+implement the still-absent compact descriptor step compiler.
+
 Its first consumer is the [partnership gym](../gym/README.md), with six
 count-offer advantage/disadvantage exercises and exact lawful answer keys.
 The gym registers a public mechanical relation; the Scheme language itself
@@ -204,13 +216,15 @@ These obligations are part of the trusted extension contract; Rust cannot
 audit arbitrary callback captures or prove a horizon declaration. Builtins
 import rules/kernel only; the expression engine imports no solver.
 
-Fresh roles are rebound on every query evaluation. Rigid referents can be
-expressed by explicit constant anchors in subsequent queries. The runtime
-does not select a referent implicitly, treat a hidden root label as known, or
-automatically update the game's state after an observation. Supply the next
-exact frame and measure from the owning replay/belief system. A compact
-descriptor step compiler and a response-preservation/lumpability proof remain
-separate work; they are unnecessary for this expressive layer.
+Fresh roles are rebound on every query evaluation. The
+[dynamics layer](DYNAMICS.md) can transport explicit prior output identities
+through a typed play and compare them with a fresh successor query. The
+[policy layer](POLICIES.md) can initialize rigid bindings once and carry them,
+along with a controller mode, across observations. Neither selects a hidden
+referent implicitly or treats a hidden root label as known. These are finite
+extensional state transitions and executable policies; a compact descriptor
+step compiler and a response-preservation/lumpability proof remain separate
+work.
 
 ## Validation and boundaries
 
@@ -220,7 +234,11 @@ Focused tests check equality-pattern completeness, existential projection,
 overlap, declaration-relative joins against direct hand enumeration, exact
 weighted conditioning, selector laws, certainty distinctions, registry access,
 partial tricks, invalid inputs, counterexamples, and refusal with no partial
-CLI report. The receipt CLI test independently pins the six-world / 1/3 example.
+CLI report. Additional focused gates cover typed predecessor legality and
+belief pushforward, rigid/fresh answer comparison, policy serialization and
+stateful execution, fresh-versus-persistent search, donor composition, cache
+scope, duplicate sample weight, and held-out replay. The receipt CLI test
+independently pins the six-world / 1/3 example.
 These are finite-domain implementation checks. They do not establish player
 strength, optimal partnership play, or a general theorem about compression.
 

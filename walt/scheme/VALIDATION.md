@@ -31,3 +31,27 @@ waiver. No large census, player-strength match, general compression experiment,
 or compact-transducer proof was performed. Exact evaluation is of a declared
 finite physical-world measure. Query expression does not certify that a
 hidden event is observable or that a described partnership move is optimal.
+
+## 2026-09-07 focused extension gates
+
+The finite dynamics, executable policy, policy export/replay, and sampled
+policy-search extensions add these focused gates:
+
+```sh
+cargo test -p walt --test scheme_dynamics
+cargo test -p walt --test scheme_policy
+cargo test -p walt --test policy_search
+```
+
+They cover typed predecessor legality, exact support and physical-belief
+pushforward, viewer interventions, rigid transport versus fresh evaluation,
+hindsight preimages, controller persistence and refusal atomicity, policy text
+roundtrips and independent replay, accumulated-sample persistence versus fresh
+solution, complete donor-alternative composition, duplicate sample weight,
+cache scoping, and held-out replay. Final test counts and broader validation are
+recorded in the [experiment report](../../experiments/partnership/campaigns/policy-synthesis-v1/RESULTS.md)
+and its verification receipt. The completed gates passed 46 focused Rust tests
+(including the existing 19 Scheme tests and two request-parser tests), 12 Python
+runner tests, strict native lint checks, and 222 independent full-game rules
+replays. A real interruption/resume check preserved committed seed bytes and
+finished all six seeds without leaving native workers running.

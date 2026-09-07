@@ -23,6 +23,7 @@ pub mod carrier;
 pub mod geom;
 pub mod gym;
 pub mod kernel;
+pub mod policy_search;
 pub mod rules;
 pub mod scheme;
 pub mod solver;

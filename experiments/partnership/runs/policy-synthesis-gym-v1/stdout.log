@@ -1,0 +1,1 @@
+{"active_cases": [], "completed_cases": 30, "evaluated_rows": 360, "exact_policy_makes": 32655, "exact_policy_worlds": 39060, "failures": {}, "pending_cases": [], "root_action_optimal": 267, "schema": "texas42-policy-gym-status-v1", "target_cases": 30}

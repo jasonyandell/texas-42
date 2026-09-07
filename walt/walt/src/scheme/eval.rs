@@ -273,7 +273,7 @@ impl CompiledAtom {
     fn check(
         &self,
         frame: &Frame,
-        world: &World,
+        world: Option<&World>,
         values: &[Option<Value>],
         budget: &mut Budget,
     ) -> Result<bool> {
@@ -288,7 +288,10 @@ impl CompiledAtom {
             .collect();
         let context = match self.spec.access {
             Access::Viewer => PredicateContext::Viewer(frame),
-            Access::World => PredicateContext::World(frame, world),
+            Access::World => PredicateContext::World(
+                frame,
+                world.ok_or_else(|| error("viewer evaluation refused a World predicate"))?,
+            ),
         };
         Ok(self
             .predicate
@@ -322,7 +325,25 @@ impl CompiledFix {
         }
         let mut answers = Answers::new();
         for case in &self.cases {
-            case.evaluate(frame, world, budget, &mut answers)?;
+            case.evaluate(frame, Some(world), budget, &mut answers)?;
+        }
+        Ok(answers)
+    }
+
+    /// Evaluate an information-measurable Fix without constructing or supplying
+    /// a realized hidden world. This refuses the query before doing any work if
+    /// one of its registered predicates has `World` access.
+    pub fn evaluate_viewer(&self, frame: &Frame, budget: &mut Budget) -> Result<Answers> {
+        if let Some(spec) = self.specs.iter().find(|spec| spec.access == Access::World) {
+            return Err(error(format!(
+                "viewer evaluation refused World predicate {}",
+                spec.name
+            )));
+        }
+        budget.spend(1)?;
+        let mut answers = Answers::new();
+        for case in &self.cases {
+            case.evaluate(frame, None, budget, &mut answers)?;
         }
         Ok(answers)
     }
@@ -332,7 +353,7 @@ impl Case {
     fn evaluate(
         &self,
         frame: &Frame,
-        world: &World,
+        world: Option<&World>,
         budget: &mut Budget,
         answers: &mut Answers,
     ) -> Result<()> {
@@ -403,7 +424,7 @@ impl Case {
 struct Search<'a> {
     case: &'a Case,
     frame: &'a Frame,
-    world: &'a World,
+    world: Option<&'a World>,
     budget: &'a mut Budget,
     answers: &'a mut Answers,
     domains: &'a [Vec<Value>],

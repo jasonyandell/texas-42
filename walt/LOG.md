@@ -745,3 +745,17 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   focused Python tests pass. No native/player change, general strength claim,
   or policy-independent partnership-necessity claim. Guide:
   `gym/PARTNERSHIP-COMPOSITION.md`; full CI remains waived for the session.
+
+## 2026-09-07 — Scheme dynamics and persistent policy construction
+
+Implemented finite Scheme transitions, role transport/backward preimages, and
+serializable information-local policy programs with exact and relational guards.
+Added a bounded sampled policy constructor, persistent exact memo reuse, complete
+singleton-donor composition, and resumable parallel campaign/gym runners.
+Across 32 opening roots and a separate 12-root native L0 panel, persistence
+roughly halved search time with exact completed-policy parity; donor composition
+did not repay its setup cost. All 30 partnership gym cases completed with exact
+full-policy grading. Exact table policies still fit training worlds much better
+than heldout worlds; relational generalization across starting hands is open.
+Report and pinned measurements: [policy synthesis](../experiments/partnership/campaigns/policy-synthesis-v1/RESULTS.md).
+The current [Scheme guide](scheme/README.md) owns the language/API entry points.

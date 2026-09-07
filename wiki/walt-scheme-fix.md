@@ -20,9 +20,10 @@ Siblings: [walt hub](walt.md) · [foundation era](walt-foundation-era.md) · [fa
 
 **Scheme/Fix is now implemented as `walt::scheme` in the unified crate.** Jason's
 direction is expression: it was invented to compress, but will be used to express.
-The implementation targets v0.4 sections 3–5's role schemas, equality patterns,
-output interfaces, answer relations, and probability distinctions. It does not
-claim general compression or implement the separate compact-transducer program.
+The implementation covers v0.4 sections 3–6's role schemas, equality patterns,
+output interfaces, answer relations, probability distinctions, and finite
+extensional transforms. It does not claim general compression or implement the
+separate compact-transducer program.
 
 The [user guide and runnable examples](../walt/scheme/README.md) are the current
 entry point. The `scheme` binary reads a query and a real receipt coordinate,
@@ -31,6 +32,9 @@ probabilities. The Rust API additionally accepts arbitrary finite rational
 physical-world marginals, conditions on events or explicit likelihoods, and
 compares expressions with concrete counterexamples. A versioned predicate
 registry declares types, information access, and continuation horizons.
+The companion guides document [typed dynamics](../walt/scheme/DYNAMICS.md),
+[executable stateful policies](../walt/scheme/POLICIES.md), and the
+[donor-composition experiment](../walt/scheme/COMPOSITION.md).
 
 Overlapping branches and internal witnesses never multiply answers or world
 mass. Selecting a referent is explicit. Support-wide certainty and certainty
@@ -40,9 +44,10 @@ evidence at exploratory tier.
 The first consumer is the [partnership gym](../walt/gym/README.md): a versioned
 public count-offer predicate describes the candidates, while the lawful exact
 evaluator supplies separate make/set values and replayable counterexamples.
-Six exercises and a resumable L1/L2 comparison are implemented. This uses
-existing full-state transitions and fresh queries; a compact Scheme transition
-system is still separate work.
+Six exercises and a resumable L1/L2 comparison are implemented. Scheme now has
+typed full-state transitions, exact physical-belief pushforward, rigid output
+transport, and executable policies with persistent bindings and modes. A
+compact Scheme transition compiler is still separate work.
 
 **2026-09-07:** the [query-driven discovery path](../walt/gym/DISCOVERY.md) now
 uses ordinary Scheme expressions as the matching authority over a generic
@@ -70,6 +75,17 @@ action to beat the best nonreturned action. All optimal root choices must
 therefore match the expression, under the declared field. This yielded 30
 exercises; default L1 chose optimally on 24, L2 Partner on 26. The composition
 is at the gym layer; no solver dependency or value predicate was added to Scheme.
+
+The [policy-synthesis experiments](../experiments/partnership/campaigns/policy-synthesis-v1/RESULTS.md)
+now connect transforms, executable policies, growing-sample construction, and
+the gym. Across 44 random opening hands, retaining completed search subproblems
+saved 46–53% of paired schedule search time while producing identical policies
+on every completed comparison. Complete singleton-donor composition preserved
+those policies but cost 6–13% more overall. On the 30 composed gym exercises,
+64-sample policies chose an optimal first action on 26. The current constructor
+emits separate exact information-state tables for each root; relational policy
+rule induction and a generalized pre-deal player remain open. Saved programs,
+measurement manifests, and interruption/resume evidence accompany the report.
 
 Sections 1–6 retain the earlier descriptor/compression research and archived
 factory examples. Their historical producers remain archived; the expressive
@@ -509,25 +525,32 @@ Adding every holder fact to the chassis does produce a genuinely lumpable, genui
 compressing descriptor on hand 0 — 738 carrier nodes into 366 classes. It also very nearly
 reconstructs the world, which is exactly the tension §12.4 named.
 
-## 7. Delivered expression semantics and remaining dynamic work
+## 7. Delivered expression, transition, and policy semantics
 
 The current implementation supplies a parser, `Scheme`/`Fix` construction types,
 a typed role schema and output interface, equality-pattern quotienting with
 injective bindings, answer-set projection and union, and exact finite-measure
-query operations. Runtime validation keeps exact support authoritative. Predicates
+query operations. The finite [dynamics](../walt/scheme/DYNAMICS.md) and
+[policy](../walt/scheme/POLICIES.md) layers add typed observation transforms,
+physical-belief updates, rigid identity transport, fresh successor evaluation,
+and information-local executable controllers. The
+[composition instrument](../walt/scheme/COMPOSITION.md) compares accumulated
+samples solved afresh with memo persistence and complete donor-action union.
+Runtime validation keeps exact support authoritative. Predicates
 carry semantic versions, information-access declarations, and bounded horizons;
 custom computations remain trusted implementations of those declarations.
 
-This delivers the expressive query language of v0.4 sections 3–5. The historical
+This delivers the expressive query language of v0.4 sections 3–5 and the finite
+extensional operations of section 6. The historical
 section 12.7 compact control-skeleton deliverable is a different target:
 
 | Section 12.7 condition | Current status |
 | --- | --- |
 | Output roles explicit | Implemented and type-checked; internal witnesses are projected away. |
-| Rigid and fresh roles distinguished | Fresh queries rebind roles; literal anchors express rigid referents. No automatic referent selection or compiled transport across observations. |
+| Rigid and fresh roles distinguished | Implemented finite transport preserves explicit output identities; fresh successor queries rebind independently; persistence, extinction, and birth compare the two relations. |
 | Exact support authoritative | Enforced by Frame/World compatibility and measure construction. |
 | Continuation horizon and information access declared | Metadata required by the registry; Viewer callbacks receive no World. Callback semantic fidelity is a trusted extension obligation. |
-| Step compiler preserves the answer relation | No compact step compiler. The owning state/belief system supplies each new exact frame and measure for reevaluation. |
+| Step compiler preserves the answer relation | Typed finite frame/world/belief transforms are implemented. No compact descriptor step compiler or compressed transition is claimed. |
 | Induced descriptor transition meets a selected theorem | Not claimed for the new expression layer. Archived finite-domain descriptor checkers retain their original limited status. |
 
 The old concrete-tile implicant language still lacks the role-binding generality

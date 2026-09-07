@@ -1,0 +1,33 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-07T08:10:46.668732+00:00",
+  "cwd": "/Users/jason/code/texas-42-partnership-launch",
+  "command": [
+    "python3",
+    "experiments/partnership/policy_gym.py",
+    "--gallery",
+    "/Users/jason/data/texas-42/partnership-bid-making-v1",
+    "--output",
+    "/Users/jason/data/texas-42/policy-synthesis-gym-v1",
+    "--binary",
+    "walt/target/release/policy_lab",
+    "--workers",
+    "10",
+    "--seconds",
+    "285",
+    "--case-timeout",
+    "120"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 2.117733,
+  "status": "completed",
+  "child_pid": 58147,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

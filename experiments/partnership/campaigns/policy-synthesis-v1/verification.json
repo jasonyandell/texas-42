@@ -1,0 +1,81 @@
+{
+  "fixed_interruption": {
+    "campaign": "/Users/jason/data/texas-42/policy-synthesis-resume-check-v1/campaign-fixed-v3",
+    "campaign_id": "eafc1ddf69f1e1a05fa8b22a081d0c8e0caf503ac362119b0ddd7841b8ff59eb",
+    "completed_at_signal": [
+      "864001.json"
+    ],
+    "expected_incomplete_exit_code": 75,
+    "live_native_after_exit": [],
+    "observed_campaign_pid": 73069,
+    "outer_pid": 73066,
+    "outer_receipt": "/Users/jason/data/texas-42/policy-synthesis-resume-check-v1/cap-fixed-v3-interrupt/run.json",
+    "pending_at_signal": 5,
+    "pre_interrupt_hashes": {
+      "864001.json": "2e51c12a6ebcd4dcb654e78df82c996869f77d057bff1122c3a4a7a2910d4661"
+    },
+    "runner_exit_code": 75,
+    "signal": "SIGINT",
+    "stderr": ""
+  },
+  "fixed_resume": {
+    "completed_seeds": 6,
+    "failures": {},
+    "live_native_after_resume": [],
+    "outer_receipt": "/Users/jason/data/texas-42/policy-synthesis-resume-check-v1/cap-fixed-v3-resume/run.json",
+    "post_resume_hashes": {
+      "864000.json": "3a0991460e241fc4b292e50ae889b00a228fc41812df287aae078d9e57d1d270",
+      "864001.json": "2e51c12a6ebcd4dcb654e78df82c996869f77d057bff1122c3a4a7a2910d4661",
+      "864002.json": "fbfd6ee7d8c3ad703720a5131f453680b472761ca327d3b24b487bf699d05146",
+      "864003.json": "a9a871c0dd5cf9bcfc479d91a9c963134845bcd685202b6cb09390bf85248997",
+      "864004.json": "08f8359b12b6e5dd683e239ddb60c70d0987c0e75996149104077bc25f89da85",
+      "864005.json": "c6f253bce6cde24fcb4b427a2329103db0ce8887d9a8db3eccab83dbf057c8dd"
+    },
+    "pre_interrupt_hashes_unchanged": true,
+    "runner_exit_code": 0,
+    "target_seeds": 6
+  },
+  "observed_bug": {
+    "pre_fix_campaign_pid": 63580,
+    "record": "/Users/jason/data/texas-42/policy-synthesis-resume-check-v1/cap-interrupt-verified/run.json",
+    "result": "runner exited 2 after EPERM race; no native child remained"
+  },
+  "producer_versions": {
+    "post_fix_binary_sha256": "5529a91fd003c40b00d731c065d498097330589119e72a047078c95cd5f5c3b8",
+    "post_fix_runner_sha256": "d1fdb7b36be5bc13d22daec612c955f558d7d76cf4c6f22512b9b7a7831d28f8",
+    "pre_fix_binary_sha256": "a23cd6aa20481bda2dae8fea3b89a9a8d5bf709be1aad923d388d9916d23cac4",
+    "pre_fix_runner_sha256": "e1f5d5bd6780ea46f1fa857ea5727d018615ff09a5b7d29beb521aab85aad294",
+    "pre_fix_snapshots": "experiments/partnership/campaigns/policy-synthesis-v1/reference/",
+    "process_group_helper_sha256": "f559a0d78a5d91064a31f27d8269aa330502c3bf95ea3154a5b5da91e45dfd44"
+  },
+  "purpose": "development verification only; excluded from training evidence",
+  "schema": "texas42-policy-synthesis-resume-verification-v2",
+  "trace_audit": {
+    "datasets": {
+      "gym": {
+        "distinct_final_scores": 16,
+        "errors": [],
+        "passed": true,
+        "result_files": 30,
+        "traces": 90
+      },
+      "l0": {
+        "distinct_final_scores": 9,
+        "errors": [],
+        "passed": true,
+        "result_files": 12,
+        "traces": 36
+      },
+      "opening": {
+        "distinct_final_scores": 23,
+        "errors": [],
+        "passed": true,
+        "result_files": 32,
+        "traces": 96
+      }
+    },
+    "method": "reconstruct each original deal by adding root-history actor tiles to retained remaining hands, then rules.replay_record the full retained trace",
+    "passed": true,
+    "total_traces": 222
+  }
+}

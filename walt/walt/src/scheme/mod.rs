@@ -7,14 +7,24 @@
 //! All results are exploratory finite-domain computations.
 
 mod belief;
+mod dynamics;
 mod eval;
+mod policy;
 mod registry;
 mod syntax;
 
 pub use belief::{
     Belief, Certainty, Comparison, Difference, QuerySummary, Selection, SelectionLaw,
 };
+pub use dynamics::{
+    anchor_back, compare_answers, play_is_legal, step_belief, step_frame, step_world,
+    transport_answers, unit_likelihood, AnswerDynamics, BeliefStep, ObservedPlay, PlayClass,
+};
 pub use eval::{Answer, Answers, Budget, CompiledFix, Frame};
+pub use policy::{
+    CompiledPolicy, ExactRule, Fallback, PolicyController, PolicyInput, PolicyKey, PolicyProgram,
+    PolicyRule, RigidBinding, Selector,
+};
 pub use registry::{Access, Predicate, PredicateContext, PredicateSpec, Registry};
 pub use syntax::{Atom, Fix, Role, Scheme, Sort, Term, Value};
 
