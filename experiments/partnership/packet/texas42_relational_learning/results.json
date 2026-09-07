@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "seed": 420907,
+  "scope": "independent exact-rational finite mathematics; no native Rust or Texas 42 training run",
+  "random_games": 128,
+  "policies_per_game": 64,
+  "policy_checks": 8192,
+  "horizon": 3,
+  "terminal_utility_range": "[0,1]",
+  "checks": [
+    "exact performance-difference identity",
+    "action-interval regret upper",
+    "sample fitting can coexist with zero empirical dual gap",
+    "pooling public information can invalidate an information price",
+    "label disagreement need not force policy complexity"
+  ],
+  "sample_fitting": {
+    "scope": "synthetic one-choice example; not a 42 benchmark",
+    "training_observations": 16,
+    "table_training": "1",
+    "shared_rule_training": "3/4",
+    "table_unseen_contexts": "1/2",
+    "shared_rule_unseen_contexts": "3/4",
+    "empirical_optimum_and_exact_empirical_dual": "1",
+    "true_conditional_lawful_optimum": "3/4"
+  },
+  "coarse_centering": {
+    "true_lawful_value": "1",
+    "incorrect_pooled_center_upper": "1/2",
+    "correct_information_conditional_upper": "1",
+    "lawful_policy_mean_of_incorrect_penalty": "1/2"
+  },
+  "label_disagreement": {
+    "different_exact_teacher_labels": [
+      0,
+      1
+    ],
+    "constant_action_maximum_regret": "1/100",
+    "point": "small regret does not require copying every teacher label"
+  }
+}

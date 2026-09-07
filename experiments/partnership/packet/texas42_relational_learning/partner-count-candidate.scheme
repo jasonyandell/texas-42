@@ -1,0 +1,36 @@
+; A candidate in the CURRENT Scheme policy syntax, not a verified good tactic.
+; Not compiled or benchmarked in Rust in this session.
+; No exact keys, literal dominoes, hidden-world predicates, bindings, or modes
+; beyond the single initial mode. The constructor should learn when to retain,
+; qualify, or reject these clauses using lawful action costs and full replay.
+(policy partner-count-candidate
+  (initial play)
+  (fallback lowest-legal)
+  (rule offer-ten
+    (in play)
+    (next play)
+    (select answer)
+    (guard
+      (fix
+        (roles (chair me) (chair ally) (domino action))
+        (out action)
+        (case
+          (viewer me)
+          (partner me ally)
+          (current-winner ally)
+          (own-legal action)
+          (count action 10)))))
+  (rule offer-five
+    (in play)
+    (next play)
+    (select answer)
+    (guard
+      (fix
+        (roles (chair me) (chair ally) (domino action))
+        (out action)
+        (case
+          (viewer me)
+          (partner me ally)
+          (current-winner ally)
+          (own-legal action)
+          (count action 5))))))

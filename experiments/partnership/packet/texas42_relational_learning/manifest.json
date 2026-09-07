@@ -1,0 +1,10 @@
+{
+  "repository_commit": "08fad7264fb3986878de67e1b4106b0028192325",
+  "status": "proposal with generic exact-rational checks; no native compilation or training",
+  "files": {
+    "results.json": "60dfdaf96887ca35a326e83b5b0cb0e923b5615e5126a4bff1cc17e115fde8b8",
+    "PATH-TO-GENERALIZING-SCHEME-POLICIES-v0.1.md": "deff51a34075204e0af2240938c03305914d01941d0eb3d51ea21fbb144246e1",
+    "verify.py": "dbb0265cdeb4836519cd08caaa97a9f3c3ecabf5e611e96b1a60ef7bdec400bc",
+    "partner-count-candidate.scheme": "a44737b8c271ea2b0ec7acae3174a5cb87b2971f661cd1620c92ae45204e66e0"
+  }
+}
