@@ -1,6 +1,13 @@
 # Inner belief options in the unified solver
 
-2026-09-06. **Exploratory engineering change.** No new strength campaign.
+2026-09-06. **Exploratory engineering change.** The initial implementation
+checks below preceded strength evaluation. The subsequent
+[foundation battery](campaigns/foundation-battery/RESULTS.md) completed paired
+L1 comparisons: voids won 9/lost 5/tied 36 on 50 random deals, and won 5/lost
+8/tied 37 on five hands with ten hidden completions each. No general strength
+gain is established. Mean racing-L1 latency with voids was about 0.53 seconds
+per move with zero native fallbacks; refined partner configurations exceeded
+the technical fallback threshold. These findings do not change the default.
 
 Jason asked for a clean option in the recently unified implementation rather
 than an immediate fork. The shared solver now has an independent `InnerBelief`
@@ -91,7 +98,7 @@ source/binary identity checks still prohibit resuming a campaign with a changed
 implementation. The shared pool consumes this frozen setting through the
 existing campaign worker; it needs no second scheduler.
 
-No campaign was created or launched for this change. The temporary manifest
+No campaign was created during the initial strategy change. The temporary manifest
 test creates no games and deletes its temporary directory.
 
 ## Validation

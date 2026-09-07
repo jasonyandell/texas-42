@@ -1,5 +1,15 @@
 # Shared Texas 42 experiment pool
 
+**Foundation update:** the same scheduler now runs independently configured
+two-player mirrored matches, created with `match.py init`. Persistent native
+and phone workers retain process startup while resetting evaluation state per
+request. The [foundation battery](campaigns/foundation-battery/RESULTS.md)
+published 524 independently verified games across four resumable foreground
+slices; every one of 4,639 saved first-slice moves survived resume unchanged.
+Technical fallback stops are per player. Read [README.md](README.md) for the
+new format and [FOUNDATION.md](FOUNDATION.md) for its contracts. The original
+three-arm campaigns and historical measurements below remain intact.
+
 Jason authorized multiple seeds/experiments in flight on 2026-09-06, including
 ten simultaneous games, interrupt/restart, and retrying failed work. This
 supersedes CAMPAIGN.md's original one-active-seed scheduling restriction.

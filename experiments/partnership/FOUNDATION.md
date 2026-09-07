@@ -91,3 +91,27 @@ rejects a result that disagrees with its checkpoint. The parallel runner has
 no lockstep game barrier and retains one native/phone worker per active game,
 restarting failed workers under the parent deadline. Every request constructs
 fresh native evaluator state and supplies explicit phone randomness.
+
+## Fresh battery and remaining limits
+
+The [completed report](campaigns/foundation-battery/RESULTS.md) records 524
+published games and 14,672 independently replay-verified moves across five
+completed panels and seven technically stopped partner configurations. All
+4,639 saved moves from the first slice survived resume unchanged.
+
+Native race/refine matched every move in all 35 phone pairs without fallbacks;
+all first divergences began at phone fallbacks. Neither native selection
+changes nor void conditioning established a general strength gain. Every
+tested refined partner configuration exceeded the declared fallback threshold,
+including smaller budgets and fixed-rule modeled minds. Improving an internal
+policy need not improve a wall-limited player when the change costs fallbacks.
+
+The selection result is a completed comparison under its declared schedule,
+not necessarily a value table from one common final bundle: racing can remove
+options and refinement can leave options at different refinement stages.
+Omitted options are not zero-valued. These sampled model estimates are neither
+calibrated outcome probabilities nor an oracle over every feasible world.
+
+The native `l1-race` preset is the recovered-phone procedural anchor. Existing
+fixed defaults remain available and unchanged. The original partner-strength
+requirement remains open; no new experiment is running or scheduled.

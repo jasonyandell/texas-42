@@ -1,20 +1,26 @@
 # walt on one page — what exists, what it costs, what is now redundant
 
 **Local partnership experiment, 2026-09-06 — EXPLORATORY:**
-[`experiments/partnership/REPORT.md`](../experiments/partnership/REPORT.md)
-records a playable, externally budgeted partner-only L1-field variant and full
-L2 comparison against a preserved local phone WASM. Twelve completed hands
-met the trick budget, but the tested partner model caused one contract-level
-defensive regression and did not establish a strength improvement. The packet,
-phone provenance, runnable table, focused checks, and failure fixture are
-preserved beside that report. This is a local variant, not a new phone default.
+[`experiments/partnership/SESSION-STATUS.md`](../experiments/partnership/SESSION-STATUS.md)
+tracks the playable, externally budgeted partnership variant and original
+phone-strength question. The [unified selection foundation](../experiments/partnership/FOUNDATION.md)
+now shares fixed/refine/race rules between the real root and modeled minds.
+Native racing L1 matches the archived phone in 64 decision checks and every
+move of 35 fallback-free matched pairs. Its asynchronous two-player arena
+published 524 independently verified games in the [fresh battery](../experiments/partnership/campaigns/foundation-battery/RESULTS.md).
+Refined partner configurations exceeded the fallback gate; their strength
+remains open. The original packet and earlier results are preserved. No phone
+default was changed. This extends the sampling-stack player; it does not
+replace the proof-state player `unified.rs` described below.
 
 The shared sampling-stack solver also now accepts an independent
 [`InnerBelief` strategy](../experiments/partnership/INNER-BELIEF.md): legacy
 voidless sampling or opt-in counted sampling with public voids retained in
 search and policy keys. Both use the same recursion and seat-level fields.
-Compatibility and support checks pass; no strength campaign for this option
-has run, and existing entry points retain their legacy default.
+Compatibility and support checks pass. Void-aware racing L1 scored 9 wins /
+5 losses / 36 ties on random deals and 5 / 8 / 37 over five hands with ten
+hidden completions each. No general strength gain is established. Native L1
+completed without fallbacks; existing entry points retain their legacy default.
 
 **For Jason, to hold in his head.** Written 2026-09-04; rewritten at
 every landing (the orchestrating session owns it). Ten minutes to

@@ -38,13 +38,23 @@ def report(path):
 
     se = (
         statistics.stdev(float(x) / 2 for x in units) / math.sqrt(len(units))
-        if len(units) > 1
+        if len(units) >= 10
         else None
     )
     if se == 0:
         se = None  # Identical observed scores do not establish zero uncertainty.
     counts = Counter(r["paired"]["seed_delta"] for r in scored)
     runtime = c.summarize(path, spec)
+    deals = [
+        {
+            "seed": row["seed"],
+            "a_declaring_made": row["arms"]["declaring"]["made"],
+            "b_declaring_made": row["arms"]["defending"]["made"],
+            "pair_score": row["paired"]["seed_delta"],
+            "in_complete_analysis_group": i < complete,
+        }
+        for i, row in enumerate(rows)
+    ]
     result = {
         "campaign": spec["id"],
         "panel_id": spec["panel_id"],
@@ -67,11 +77,15 @@ def report(path):
         if se is not None
         else None,
         "runtime": runtime,
+        "deals": deals,
         "groups": [
             {
                 "first_seed": group[0]["seed"],
                 "worlds": len(group),
                 "pair_score": ratio(score),
+                "a_pair_wins": sum(r["paired"]["seed_delta"] == 1 for r in group),
+                "a_pair_losses": sum(r["paired"]["seed_delta"] == -1 for r in group),
+                "pair_ties": sum(r["paired"]["seed_delta"] == 0 for r in group),
             }
             for group, score in zip(groups, units)
         ],
@@ -86,6 +100,8 @@ def report(path):
     if se is not None:
         lo, hi = result["rough_two_se_win_fraction"]
         body += f"Descriptive mean ±2 SE: {lo:.1%} to {hi:.1%}, clustered by {result['unit']}. This is a rough interval, not a formal equivalence or optional-stopping claim.\n\n"
+    else:
+        body += "No uncertainty interval is shown: the report requires at least ten independent units and nonzero observed variance for its rough approximation. Raw scores remain descriptive evidence.\n\n"
     body += (
         "| Player | Mean seconds / move | Fallbacks / nonforced |\n|---|---:|---:|\n"
     )
@@ -93,6 +109,12 @@ def report(path):
         body += f"| {name} | {v['elapsed_us'] / 1e6 / v['moves']:.3f} | {v['fallbacks']} / {v['nonforced']} |\n"
     if runtime["stop"]:
         body += "\nStopped: " + runtime["stop"]["reason"] + "\n"
+    if width > 1:
+        body += "\n| Focal hand: first seed | Completions | A wins / losses / ties | Mean pair score |\n|---|---:|---:|---:|\n"
+        for group in result["groups"]:
+            score = group["pair_score"]
+            body += f"| {group['first_seed']} | {group['worlds']} | {group['a_pair_wins']} / {group['a_pair_losses']} / {group['pair_ties']} | {score['numerator'] / score['denominator']:+.2f} |\n"
+    body += "\n`MATCH.json` retains each seed's two make indicators and paired score, plus complete hand-group scores. A seed score is comparative against this opponent, not an absolute hand-difficulty or probability estimate.\n"
     body += "\nTiming includes the bounded wrapper and its fallback work. Completed deadline fallbacks remain in the score. Incomplete pairs/groups do not enter the primary score.\n"
     c.atomic(path / "MATCH.md", body)
     return result

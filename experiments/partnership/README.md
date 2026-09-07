@@ -13,13 +13,16 @@ both mathematical notes are preserved in [packet/](packet/).
 
 [SESSION-STATUS.md](SESSION-STATUS.md) maps the current deliverables and open
 strength question back to the launch request, including the native-L1 / phone
-calibration. The native implementation is a separate internal reference;
-interchangeability with the archived phone has not been established.
+calibration. The native `l1-race` configuration now matches the recovered phone
+procedure in 64 decision checks and all 35 fallback-free pairs in a fresh
+50-deal match. This is measured parity, not whole-program equivalence.
 
 [HEAD-TO-HEAD.md](HEAD-TO-HEAD.md) records the recovered historical phone source,
 the existing arena/pool assessment, a direct recount of the saved mixed games,
-and the proposed reusable two-player comparison format. The generalized format
-is a design, not an implemented new runner.
+and the original two-player comparison design. That format is now implemented
+in the shared pool. The [foundation battery](campaigns/foundation-battery/RESULTS.md)
+records 524 verified games, selection/void comparisons, and the cost stops for
+refined partner modeling.
 
 
 ## Unified selection and fast head-to-head
@@ -99,16 +102,17 @@ defenders minimize them. The public seed must not reveal the hidden deal.
 Modes: `partner`, `baseline` (same fixed search with a weaker partner),
 `all-l1` (ordinary L2 field), and `phone` (the preserved WASM). Candidate knobs
 are `--n`, `--n0`, `--n1`; `--budget-ms` accepts 100 through 14000.
-No saturation-tie refinement is used by the three native fixed-sample modes.
-The phone retains its own racing and refinement semantics.
+All three native profiles default to fixed sampling; refinement and racing are
+explicit independent options. The phone retains its archived decision rule.
 
 Every non-forced decision first attempts a complete 8/2 L1 fallback, for up
 to 1.5 seconds. It then spends the remaining allowance on the requested mode.
 An incomplete evaluation contributes no partial ranking. `l1-fallback` and
 `legal-fallback` are explicitly labeled; neither means the deeper model ran
 successfully. Timeout policies remain lawful but timing-dependent; the
-modeled policies used inside completed evaluations have fixed sample counts
-and never choose a clock-dependent fallback.
+modeled policies used inside completed evaluations have frozen sampling and
+selection rules and never choose a clock-dependent fallback. A refined rule
+can use more samples when estimates tie; its schedule does not depend on time.
 
 The modeled partner can respond to tiles becoming public and changing scores.
 It uses its own hand and resamples what it cannot see. The default
@@ -152,9 +156,10 @@ here measures an auction improvement. The harness sends only lawful requests
 to workers and independently checks every move against the referee's deal.
 
 Native worker invocations default to six Rayon threads; the resumable campaign
-sets an explicit per-game thread count. Workers start afresh on
-each decision, so caches are evaluation-local. Their startup, belief work,
-fallback work, synchronization, and cleanup are included in decision timing.
+sets an explicit per-game thread count. Single-decision calls start workers
+afresh; new two-player campaigns retain a process per active game while
+constructing fresh evaluation state for every request. Belief work, fallback
+work, synchronization, and any startup are included in decision timing.
 The source packet is immutable; new findings live beside it.
 
 ## Resumable 100-deal evaluation

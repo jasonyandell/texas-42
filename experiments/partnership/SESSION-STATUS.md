@@ -18,12 +18,43 @@ authorized resumable campaigns and ten concurrent games.
 | A usable player from trick 1 | Complete | `player.py` decision interface and `table.py` human table; native baseline, partner-only, and full-L2 diagnostic modes |
 | Explicit partner reasoning | Implemented, with a concrete decision witness | The focal solver models its partner at L1 and opponents at L0. Gran's validated 6-2/6-4 root distinguishes the partner upgrade from the matched native baseline. The phone already chooses 6-4 with its own search settings |
 | Information consistency and legal mechanics | Focused checks pass | Own hand/public inputs, independent replay, hidden-world invariance, modeled-policy purity, cache separation; not a full mechanics proof or full-repository certification |
+| Unified L1 foundation and reusable comparison arena | Complete for this scope | One shared selector at the root and inside modeled minds; independent belief/profile/budget choices; persistent bounded workers and mirrored per-seed/per-hand scoring |
 | At most 60 seconds per trick | Met in measured play | Largest four-play trick in the 100-deal panel: 33.961 seconds; fixed-hand panel: 30.950 seconds. The wrapper reserves a legal move and limits each decision to 14 seconds |
 | Frozen actual phone reference | Preserved locally | Original Plunge WASM and wrapper, 40/8 with racing and original refinement. The currently deployed phone version was not independently verified |
 | At least comparable strength | Not established for the partner upgrade | Both larger voidless panels had more unfavorable contract flips than favorable flips; details below |
 | Reproducible results and honest reporting | Complete for executed work | Named fixtures, source/binary identities, every move, clocks, fallbacks, paired make/set summaries, watchdog records, and local commits |
 
-## What the larger panels actually established
+## Latest: foundation and fresh matched battery
+
+The [foundation record](FOUNDATION.md) explains the shared selection authority,
+cache and information boundaries, completed-comparison contract, and checks.
+The [fresh battery](campaigns/foundation-battery/RESULTS.md) published 524 games /
+14,672 independently verified moves in 13.74 minutes of capped foreground pool
+time. All 4,639 moves saved at its first boundary survived resume unchanged.
+
+- Native `l1-race` reproduces the recovered phone procedure: 64 direct checks,
+  and identical 28-move trajectories in all 35 fallback-free mirrored pairs.
+  All first divergences in the other pairs began at phone fallbacks.
+- On 50 random deals, race versus fixed L1 scored 4 wins / 5 losses / 41 ties;
+  refinement versus race scored 4 / 2 / 44. Their order is unresolved.
+- Void-aware race versus voidless race scored 9 / 5 / 36 on 50 random deals,
+  but 5 / 8 / 37 on five opening hands × ten hidden completions. There is no
+  established general voids strength gain. All native L1 comparisons completed
+  with zero fallbacks.
+- Every tested refined partner configuration crossed the declared >5% fallback
+  threshold, including smaller budgets and the configuration
+  with fixed-rule modeled L1 minds. These short stopped panels reveal a cost
+  problem; they cannot rank the intended deeper policy's strength.
+- Per-move means under load were 0.137 seconds fixed L1, 0.313 refinement L1,
+  0.502 racing L1, 0.535 void-aware racing L1, and 0.778 archived phone. These
+  include forced moves and wrapper work. Defaults remain unchanged.
+
+Use native `l1-race` as the internal counterpart of the recovered phone rule.
+Retain the literal phone for occasional artifact checks. Measured parity does
+not prove whole-program equivalence or retroactively replace the older fixed
+L1 measurements. No experiment is running or scheduled.
+
+## Earlier panels: original fixed-root candidate
 
 - **Random panel:** 100 deals / 300 games; 97 fresh deal units after excluding
   three development seeds. Partner-only candidate: 15 favorable contract flips,
@@ -52,8 +83,8 @@ authorized resumable campaigns and ten concurrent games.
 - A shared [inner-belief strategy](INNER-BELIEF.md), retaining legacy behavior
   and adding opt-in void-conditioned counted sampling. Public voids persist
   through modeled continuations and both cache types; no second search engine.
-  The option has compatibility and support checks, but no full-setting strength
-  or latency campaign yet.
+  The subsequent foundation battery above adds full-setting L1 strength and
+  latency observations; refined partner configurations stopped on cost.
 - A five-minute native-L1 / phone reference calibration, recorded separately
   [here](campaigns/native-l1-vs-phone-620600-649/CALIBRATION.md): 50 fresh deals,
   150 games, 4,200 independently verified moves, completed in **202.12 seconds**.
@@ -62,26 +93,24 @@ authorized resumable campaigns and ten concurrent games.
   **0.636 seconds phone** (0.121 versus 0.964 seconds for nonforced decisions).
   No native fallbacks; 15 phone fallbacks. This does not establish equivalence.
 
-The native reference is suitable for routine controlled comparisons within the
-same engine. Keep the archived phone as an occasional external strength anchor.
-Do not substitute native L1 for historical phone results or treat native-relative
-improvement as having met the original phone-strength criterion. Native L1 and
-the partner upgrade were compared with the phone on **different panels**; their
-reported deficits cannot be subtracted to establish a partner-model gain.
+The older fixed native L1 and original partner upgrade were compared with the
+phone on **different panels**; their reported deficits cannot be subtracted to
+establish a partner-model gain. The new matched comparisons preserve physical
+deals across matchups and identify every selection rule explicitly.
 
 ## What remains open, in order
 
-1. Use explicitly named native L1 as the internal development reference;
-   keep the archived phone and historical comparison intact. The five-minute
-   calibration supports a practical separation of these roles, not equality.
-2. Measure the new void-aware option's full-setting latency and actual contract
-   outcomes. A useful next comparison holds the native engine, bid 30, paired
-   deals, seat roles, and sample budgets fixed while varying belief and partner
-   level. Changing the inner sampler also changes its deterministic sample
-   stream; individual decision changes alone do not isolate the cause.
-3. Establish whether the partner upgrade adds strength under those beliefs.
+1. Profile the expensive partner-field decisions before enlarging that model.
+   The shared rule is implemented, but the stronger real-root/model schedules
+   currently cause too many fallbacks under the declared allowance.
+2. Establish whether a practical, cost-matched partner upgrade adds strength.
+   Improving a completed model is not sufficient if more real decisions fall
+   back. The existing fixed-root partner remains a separate available baseline.
+3. Resolve selection and void-option strength with more independent hands when
+   requested. Changing the inner sampler also changes its deterministic sample
+   stream; individual move changes alone do not isolate void conditioning.
    More hidden completions per hand and more distinct opening hands answer
-   different generalization questions. Neither expansion has been launched.
+   different generalization questions. No further expansion has been launched.
 4. Add probability calibration scoring against a specified continuation policy
    if desired. Paired contract scoring is implemented; Brier scoring and
    oracle-makeability annotations were discussed but are not implemented.
@@ -92,9 +121,10 @@ penalties, GPU acceleration, and global optimality remain possible research
 directions, not requirements silently added to this milestone.
 
 Full Rust CI was deliberately skipped under the launch instruction. The latest
-change passed 36 focused Rust tests (one additional pre-existing ignored test),
-Python integration/replay checks, native workspace compilation, and actual WASM
-target compilation. Those checks have their stated scope.
+change passed 44 focused Rust tests (one additional pre-existing ignored test),
+14 Python tests, native clippy with warnings denied, workspace compilation,
+and actual WASM target compilation, plus the decision parity and full replay
+checks above. Those checks have their stated scope.
 
 The engineering deliverables are usable. The central empirical question—does
 the richer partner model meet or improve on the reference's playing strength?—

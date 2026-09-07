@@ -1,53 +1,88 @@
 {
-  "phone": {
-    "name": "phone",
-    "mode": "phone"
-  },
   "l1-fixed": {
     "name": "l1-fixed"
-  },
-  "l1-refine": {
-    "name": "l1-refine",
-    "selection": "refine"
   },
   "l1-race": {
     "name": "l1-race",
     "selection": "race-refine"
   },
-  "l1-refine-voids": {
-    "name": "l1-refine-voids",
-    "selection": "refine",
-    "inner_belief": "voids-counted"
+  "l1-race-small": {
+    "n": 8,
+    "name": "l1-race-small",
+    "selection": "race-refine"
   },
   "l1-race-voids": {
+    "inner_belief": "voids-counted",
     "name": "l1-race-voids",
-    "selection": "race-refine",
-    "inner_belief": "voids-counted"
+    "selection": "race-refine"
   },
-  "partner-refine": {
-    "name": "partner-refine",
-    "mode": "partner",
-    "selection": "refine",
-    "modeled_selection": "refine"
+  "l1-refine": {
+    "name": "l1-refine",
+    "selection": "refine"
+  },
+  "l1-refine-voids": {
+    "inner_belief": "voids-counted",
+    "name": "l1-refine-voids",
+    "selection": "refine"
   },
   "partner-race": {
+    "mode": "partner",
+    "modeled_selection": "race-refine",
     "name": "partner-race",
-    "mode": "partner",
-    "selection": "race-refine",
-    "modeled_selection": "race-refine"
+    "selection": "race-refine"
   },
-  "partner-refine-voids": {
-    "name": "partner-refine-voids",
+  "partner-race-fixedmind": {
     "mode": "partner",
-    "selection": "refine",
-    "modeled_selection": "refine",
-    "inner_belief": "voids-counted"
+    "modeled_selection": "fixed",
+    "name": "partner-race-fixedmind",
+    "selection": "race-refine"
+  },
+  "partner-race-fixedmind-voids": {
+    "inner_belief": "voids-counted",
+    "mode": "partner",
+    "modeled_selection": "fixed",
+    "name": "partner-race-fixedmind-voids",
+    "selection": "race-refine"
+  },
+  "partner-race-small": {
+    "mode": "partner",
+    "modeled_selection": "race-refine",
+    "n": 8,
+    "n1": 1,
+    "name": "partner-race-small",
+    "selection": "race-refine"
+  },
+  "partner-race-small-voids": {
+    "inner_belief": "voids-counted",
+    "mode": "partner",
+    "modeled_selection": "race-refine",
+    "n": 8,
+    "n1": 1,
+    "name": "partner-race-small-voids",
+    "selection": "race-refine"
   },
   "partner-race-voids": {
-    "name": "partner-race-voids",
+    "inner_belief": "voids-counted",
     "mode": "partner",
-    "selection": "race-refine",
     "modeled_selection": "race-refine",
-    "inner_belief": "voids-counted"
+    "name": "partner-race-voids",
+    "selection": "race-refine"
+  },
+  "partner-refine": {
+    "mode": "partner",
+    "modeled_selection": "refine",
+    "name": "partner-refine",
+    "selection": "refine"
+  },
+  "partner-refine-voids": {
+    "inner_belief": "voids-counted",
+    "mode": "partner",
+    "modeled_selection": "refine",
+    "name": "partner-refine-voids",
+    "selection": "refine"
+  },
+  "phone": {
+    "mode": "phone",
+    "name": "phone"
   }
 }

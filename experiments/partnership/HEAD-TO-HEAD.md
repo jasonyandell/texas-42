@@ -5,6 +5,13 @@ code and existing arena, then discussion of a fast, parallel, interruptible
 head-to-head battery. This document records that analysis. No new matches ran
 and no generalized runner was implemented during this analysis.
 
+**Subsequent implementation:** the [foundation](FOUNDATION.md) now supplies the
+shared selector, independent player specifications, persistent workers, and
+this mirrored format through the existing pool. The [fresh battery](campaigns/foundation-battery/RESULTS.md)
+records the measurements. The analysis below is retained as the pre-build
+design and historical-source assessment; its future-tense statements describe
+that earlier point in the session.
+
 ## Historical phone source
 
 The preserved WASM exactly matches `walt/walt-wasm/pkg/walt.wasm` at
