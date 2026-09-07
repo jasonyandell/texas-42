@@ -1,4 +1,37 @@
 {
+  "l1-default": {
+    "name": "l1-default",
+    "mode": "baseline",
+    "inner_belief": "voidless",
+    "selection": "fixed",
+    "modeled_selection": "fixed",
+    "n": 40,
+    "n0": 8,
+    "n1": 2,
+    "budget_ms": 14000
+  },
+  "l2-partner-default": {
+    "name": "l2-partner-default",
+    "mode": "partner",
+    "inner_belief": "voidless",
+    "selection": "fixed",
+    "modeled_selection": "fixed",
+    "n": 40,
+    "n0": 8,
+    "n1": 2,
+    "budget_ms": 14000
+  },
+  "l2-partner-voids": {
+    "name": "l2-partner-voids",
+    "mode": "partner",
+    "inner_belief": "voids-counted",
+    "selection": "fixed",
+    "modeled_selection": "fixed",
+    "n": 40,
+    "n0": 8,
+    "n1": 2,
+    "budget_ms": 14000
+  },
   "l1-fixed": {
     "name": "l1-fixed"
   },
