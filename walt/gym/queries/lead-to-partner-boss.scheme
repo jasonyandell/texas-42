@@ -1,0 +1,9 @@
+; A belief query: lead a context in which partner holds the live boss.
+; This is an entry opportunity, not a guarantee against off-suit trumping.
+; "leads-context" is intentional: containing a pip is not the same as leading it.
+(fix
+  (roles (chair me) (chair mate) (domino action) (domino entry) (context led))
+  (out action)
+  (case (viewer me) (leader me) (next-actor me) (partner me mate)
+        (own-legal action) (leads-context action led)
+        (holds mate entry) (boss entry led) (beats entry action led)))

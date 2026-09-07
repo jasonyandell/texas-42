@@ -84,6 +84,7 @@ class GymTests(unittest.TestCase):
             gym.atomic(directory / "manifest.json", {"catalog": "foreign"})
             with self.assertRaises(ValueError):
                 gym.report(args)
+
             gym.atomic(directory / "manifest.json", {"catalog": gym.digest(self.cases), "players": {"pupil": {}}})
             name, case = next(iter(self.cases.items()))
             gym.atomic(directory / "items/bad.json", {"id": name + "--pupil", "scenario": name,
@@ -91,6 +92,54 @@ class GymTests(unittest.TestCase):
                        "grade": {"regret": "1"}})
             with self.assertRaises(ValueError):
                 gym.report(args)
+
+
+    def test_declarative_offer_matches_legacy_detector_on_all_original_mining_roots(self):
+        query = gym.ROOT / "walt/gym/queries/offer-count.scheme"
+        roots = json.loads((gym.ROOT / "walt/gym/mining.json").read_text())["manifest"]["candidates"]
+        for item in roots:
+            found = gym.native(item["request"], inspect=True, query=query, seconds=3)
+            self.assertTrue(found["query_match"]["public"])
+            self.assertEqual(found["query_match"]["presence"], [[t, found["worlds"]] for t in found["offers"]])
+
+    def test_generic_stream_includes_positions_outside_original_pattern(self):
+        source = gym.DEFAULT_SOURCE
+        legacy = {c["id"] for c in gym.candidates(source)}
+        general = list(gym.positions([source]))
+        self.assertTrue(legacy <= {c["id"] for c in general})
+        self.assertGreater(len(general), len(legacy))
+        for item in general[:10]:
+            self.assertEqual(set(item["request"]), gym.INPUT_KEYS)
+
+    def test_generic_targets_control_pair_categories(self):
+        key = {"offers": [], "best": [1], "actions": [
+            {"tile": 1, "success_mass": 4}, {"tile": 2, "success_mass": 1}]}
+        self.assertEqual(gym.classify(key), [])
+        self.assertEqual(gym.classify(key, [1])[0]["category"], "advantage")
+        self.assertEqual(gym.classify(key, [2])[0]["category"], "disadvantage")
+        self.assertEqual(gym.classify(key, [1, 2]), [])
+
+    def test_published_discovery_is_distinct_by_coordinate_and_queries_broaden_it(self):
+        base = gym.ROOT / "walt/gym/collections/scheme-v1"
+        cases = dict(gym.gallery(base))
+        self.assertEqual(len(cases), 170)
+        self.assertEqual(len({c["id"] for c in cases.values()}), 170)
+        self.assertTrue(any(not c["key"]["offers"] and c["target_actions"] for c in cases.values()))
+        # The declared pattern is the selection authority; query changes must
+        # refuse resume even when all other experiment inputs are identical.
+        with tempfile.TemporaryDirectory() as d:
+            gym.pin(Path(d), {"query_source": "a"})
+            with self.assertRaises(ValueError):
+                gym.pin(Path(d), {"query_source": "b"})
+
+    def test_fractional_partner_boss_query_keeps_the_entire_grading_belief(self):
+        base = gym.ROOT / "walt/gym/collections/scheme-v1/lead-to-partner-boss"
+        case = next(c for _, c in gym.gallery(base) if c["id"] == "1bdec02c98fb0deb9df4")
+        self.assertFalse(case["query_match"]["public"])
+        self.assertEqual(case["query_match"]["presence"], [[21, 40], [25, 40]])
+        self.assertEqual(case["key"]["worlds"], 140)
+        self.assertEqual(gym.native(case["request"], max_worlds=140, seconds=15), case["key"])
+        gym.verify(case)
 
     def test_failed_item_retries_but_saved_item_is_not_recomputed(self):
         with tempfile.TemporaryDirectory() as d, patch("builtins.print"):

@@ -1,0 +1,28 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-07T04:54:10.388750+00:00",
+  "cwd": "/Users/jason/code/texas-42-partnership-launch",
+  "command": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "experiments/partnership",
+    "-p",
+    "test_gym.py",
+    "-v"
+  ],
+  "allowance_seconds": 120.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.047997,
+  "status": "failed",
+  "child_pid": 6260,
+  "child_returncode": 1,
+  "runner_returncode": 1,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

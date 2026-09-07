@@ -1,5 +1,11 @@
 # The partnership gym
 
+**Expanded 2026-09-07:** [Scheme now drives discovery](DISCOVERY.md). Three
+ordinary query files found 170 distinct late-game coordinates with strict
+outcome differences. The [expanded catalog](collections/scheme-v1/catalog.json)
+is ready for the same player runner via `--gallery walt/gym/collections/scheme-v1`.
+The six starter exercises and their original results below remain preserved.
+
 Six working exercises: three where offering count to partner helps, three
 where holding it back helps. Each has every legal alternative, an exact
 make/set answer key under a declared field, and complete same-world paired

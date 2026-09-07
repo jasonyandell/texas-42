@@ -17,6 +17,7 @@ import os
 from pathlib import Path
 import signal
 import subprocess
+import tempfile
 import threading
 import time
 
@@ -96,7 +97,7 @@ def pupil_request(req):
     return json.loads(canonical(req))
 
 
-def native(req, *, inspect=False, max_worlds=400, partner_worlds=40, seconds=45):
+def native(req, *, inspect=False, max_worlds=400, partner_worlds=40, seconds=45, query=None):
     req = pupil_request(req)
     lines = []
     for key in sorted(req):
@@ -105,6 +106,8 @@ def native(req, *, inspect=False, max_worlds=400, partner_worlds=40, seconds=45)
     command = [str(ENGINE), "--max-worlds", str(max_worlds), "--partner-worlds", str(partner_worlds)]
     if inspect:
         command.append("--inspect")
+    if query is not None:
+        command.extend(["--query", str(query)])
     result = subprocess.run(command, input="\n".join(lines) + "\n", text=True,
                             capture_output=True, timeout=seconds,
                             env={**os.environ, "RAYON_NUM_THREADS": "1"})
@@ -153,6 +156,48 @@ def candidates(source, max_trick=6):
                 trick = []
 
 
+def positions(sources, min_trick=5, max_trick=6):
+    """Generic legal-coordinate stream. No partnership pattern lives here.
+
+    Scope filters are only stage, choice availability, and unsettled contract.
+    Scheme is responsible for every pattern match in `discover`.
+    """
+    seen = set()
+    for source in sources:
+        for path in sorted(source.rglob("result.json")):
+            checkpoint = path.with_name("checkpoint.json")
+            if not checkpoint.exists():
+                continue
+            result = json.loads(path.read_text())
+            fixture = result.get("fixture", {})
+            if fixture.get("bid") != 30:
+                continue
+            record, trick, points = [], [], [0, 0]
+            hands = [set(h) for h in fixture["hands"]]
+            for index, decision in enumerate(json.loads(checkpoint.read_text())["decisions"]):
+                seat, tile = decision["seat"], decision["response"]["choice"]
+                decl, declaring = fixture["decl"], fixture["bidder"] % 2
+                legal = legal_tiles(hands[seat], trick, decl)
+                if (min_trick <= index // 4 + 1 <= max_trick and len(legal) > 1
+                        and points[declaring] < 30 and points[1 - declaring] <= 12):
+                    req = dict(decl=decl, bid=30, bidder=fixture["bidder"], seat=seat,
+                               hand=sorted(fixture["hands"][seat]), plays=record[:], seed=420600)
+                    canonical_req = canonical(req)
+                    if canonical_req not in seen:
+                        seen.add(canonical_req)
+                        yield dict(id=digest(req)[:20], request=req, source={
+                            "path": str(path.relative_to(source)), "corpus": str(source),
+                            "seed": result["seed"], "decision": index,
+                            "result_sha256": file_hash(path), "checkpoint_sha256": file_hash(checkpoint)})
+                assert tile in legal
+                record.extend([seat, tile])
+                hands[seat].remove(tile)
+                trick.append((seat, tile))
+                if len(trick) == 4:
+                    points[winner(trick, decl) % 2] += trick_points(trick)
+                    trick = []
+
+
 def world_key(hands):
     return tuple(tuple(sorted(h)) for h in hands)
 
@@ -195,9 +240,11 @@ def compatible_worlds(req):
     return answer
 
 
-def classify(key):
+def classify(key, targets=None):
     masses = {a["tile"]: a["success_mass"] for a in key["actions"]}
-    offers = set(key["offers"])
+    offers = set(key["offers"] if targets is None else targets)
+    if not offers <= set(masses):
+        raise ValueError("query target is not a legal action")
     pairs = []
     for offer in sorted(offers):
         for other in sorted(set(masses) - offers):
@@ -276,7 +323,23 @@ def verify(case):
     best_mass = max(a["success_mass"] for a in key["actions"])
     assert key["best"] == [a["tile"] for a in key["actions"] if a["success_mass"] == best_mass]
     if "pair" in case:
-        assert case["pair"] in classify(key)
+        assert case["pair"] in classify(key, case.get("target_actions"))
+    if "categories" in case:
+        assert case["categories"] == classify(key, case.get("target_actions"))
+    if "query_match" in case:
+        found = case["query_match"]
+        assert found["worlds"] == key["worlds"]
+        threshold = Fraction(case["min_presence"])
+        assert 0 < threshold <= 1
+        assert case["target_actions"] == [t for t, mass in found["presence"]
+                                            if Fraction(mass, key["worlds"]) >= threshold]
+        # Re-run the declared expression, not a pattern-specific Python copy.
+        # Support and attained values above remain independently audited.
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / "query.scheme"
+            path.write_text(found["source"])
+            recomputed = native(req, inspect=True, query=path, max_worlds=key["worlds"], seconds=5)
+        assert recomputed["query_match"] == found
     return dict(worlds=len(worlds), actions=len(key["actions"]), information_sets=len(decisions))
 
 
@@ -364,6 +427,71 @@ def mine(args):
         bounded(selected, job, args.output, args.workers, args.seconds, args.case_seconds)
 
 
+def discover(args):
+    """Scheme is the matcher; the exact grader is independent of its answers."""
+    query_source = args.query.read_text()
+    # Explicit limit counts coordinates examined, not successful matches.
+    from itertools import islice
+    selected = list(islice(positions(args.source, args.min_trick, args.max_trick), args.limit))
+    if not selected:
+        raise ValueError("no eligible recorded coordinates in source")
+    manifest = dict(schema="gym-discovery-v1", engine=file_hash(ENGINE), runner=file_hash(__file__),
+                    rules=file_hash(HERE / "rules.py"), candidates=selected,
+                    query_source=query_source, query_name=args.query.stem,
+                    min_presence=str(Fraction(args.min_presence)), max_worlds=args.max_worlds,
+                    partner_worlds=args.partner_worlds, min_trick=args.min_trick, max_trick=args.max_trick)
+    threshold = Fraction(args.min_presence)
+
+    def job(item):
+        start = time.monotonic()
+        info = native(item["request"], inspect=True, seconds=3)
+        if info["worlds"] > args.max_worlds:
+            return {**item, "skipped": "world cap", "worlds": info["worlds"]}
+        matched = native(item["request"], inspect=True, query=args.output / "query.scheme",
+                         max_worlds=args.max_worlds, seconds=5)["query_match"]
+        targets = [tile for tile, mass in matched["presence"]
+                   if Fraction(mass, matched["worlds"]) >= threshold]
+        base = {**item, "query_match": matched, "target_actions": targets,
+                "min_presence": str(threshold), "family": args.query.stem}
+        if not targets:
+            return {**base, "skipped": "no query match"}
+        key = native(item["request"], max_worlds=args.max_worlds,
+                     partner_worlds=args.partner_worlds, seconds=args.case_seconds - 13)
+        case = {**base, "key": key, "categories": classify(key, targets), "semantics": SEMANTICS}
+        case["audit"] = verify(case)
+        case["elapsed_seconds"] = round(time.monotonic() - start, 6)
+        return case
+
+    with run_lock(args.output):
+        pin(args.output, manifest)
+        snapshot = args.output / "query.scheme"
+        if snapshot.exists() and snapshot.read_text() != query_source:
+            raise ValueError("frozen query snapshot changed")
+        snapshot.write_text(query_source)
+        checked = subprocess.run([str(ENGINE), "--check-query", str(snapshot)], capture_output=True, text=True, timeout=3)
+        if checked.returncode:
+            raise ValueError(checked.stderr.strip())
+        print(canonical({"coordinates": len(selected), "query": args.query.stem,
+                         "min_presence": str(threshold)}), flush=True)
+        bounded(selected, job, args.output, args.workers, args.seconds, args.case_seconds)
+
+
+def inventory(args):
+    """Report every measured coordinate, including no-match and tie controls."""
+    rows = [json.loads(p.read_text()) for p in sorted((args.source / "items").glob("*.json"))]
+    manifest = json.loads((args.source / "manifest.json").read_text())
+    from collections import Counter
+    measured = [r for r in rows if "key" in r]
+    failures = [p.stem for p in (args.source / "failures").glob("*.json")
+                if not (args.source / "items" / p.name).exists()]
+    report = dict(coordinates_planned=len(manifest["candidates"]), saved=len(rows),
+                  exact_keys=len(measured), skipped=dict(Counter(r["skipped"] for r in rows if "skipped" in r)),
+                  strict_advantage=sum(any(p["category"] == "advantage" for p in r["categories"]) for r in measured),
+                  strict_disadvantage=sum(any(p["category"] == "disadvantage" for p in r["categories"]) for r in measured),
+                  no_strict_pair=sum(not r["categories"] for r in measured), failed=len(failures))
+    print(json.dumps(report, indent=2))
+
+
 def select(args):
     cases = [json.loads(p.read_text()) for p in sorted((args.source / "items").glob("*.json"))]
     manifest = json.loads((args.source / "manifest.json").read_text())
@@ -372,8 +500,10 @@ def select(args):
         for case in cases:
             if case["id"] in used or "key" not in case:
                 continue
-            pairs = [p for p in classify(case["key"]) if p["category"] == category]
+            pairs = [p for p in classify(case["key"], case.get("target_actions")) if p["category"] == category]
             if not pairs:
+                continue
+            if args.all and classify(case["key"], case.get("target_actions"))[0]["category"] != category:
                 continue
             specimen = {**case, "pair": pairs[0], "provenance": {
                 "engine_sha256": manifest["engine"], "runner_sha256": manifest["runner"],
@@ -381,9 +511,9 @@ def select(args):
             verify(specimen)
             chosen.append(specimen)
             used.add(case["id"])
-            if sum(c["pair"]["category"] == category for c in chosen) == args.each:
+            if not args.all and sum(c["pair"]["category"] == category for c in chosen) == args.each:
                 break
-    if any(sum(c["pair"]["category"] == k for c in chosen) < args.each for k in ("advantage", "disadvantage")):
+    if not chosen or (not args.all and any(sum(c["pair"]["category"] == k for c in chosen) < args.each for k in ("advantage", "disadvantage"))):
         raise ValueError("not enough verified examples in both categories")
     with run_lock(args.output):
         catalog = []
@@ -393,8 +523,9 @@ def select(args):
             name = f"{category}-{number:02d}"
             atomic(args.output / (name + ".json"), case)
             catalog.append(dict(id=name, file=name + ".json", sha256=file_hash(args.output / (name + ".json"))))
-        atomic(args.output / "catalog.json", dict(schema="gym-catalog-v1", scenarios=catalog,
-               selection="First stable-id cases per category; diagnostic outcome-selected gallery, not a strength sample."))
+        selection = ("All strict cases, one per coordinate, strongest target/comparison pair; diagnostic outcome-selected gallery."
+                     if args.all else "First stable-id cases per category; diagnostic outcome-selected gallery, not a strength sample.")
+        atomic(args.output / "catalog.json", dict(schema="gym-catalog-v1", scenarios=catalog, selection=selection))
     print(f"Selected {len(chosen)} independently verified exercises into {args.output}")
 
 
@@ -443,14 +574,14 @@ def tile(t):
 
 def report(args):
     cases = list(gallery(args.gallery))
-    print("| Exercise | Role | Trick | Worlds | Offered count | Preferred | Comparison | Exact success | Gap |")
+    print("| Exercise | Role | Trick | Worlds | Query targets | Preferred | Comparison | Exact success | Gap |")
     print("|---|---|---:|---:|---|---|---|---|---|")
     for name, case in cases:
         key, pair, req = case["key"], case["pair"], case["request"]
         masses = {a["tile"]: a["success_mass"] for a in key["actions"]}
         role = "make 30" if req["seat"] % 2 == req["bidder"] % 2 else "set 30"
         preferred, comparison = pair["preferred"], pair["comparison"]
-        print(f"| {name} | {role} | {key['trick']} | {key['worlds']} | {', '.join(tile(t) for t in key['offers'])} | {tile(preferred)} | {tile(comparison)} | {masses[preferred]}/{key['worlds']} vs {masses[comparison]}/{key['worlds']} | {Fraction(pair['gap_mass'], key['worlds'])} |")
+        print(f"| {name} | {role} | {key['trick']} | {key['worlds']} | {', '.join(tile(t) for t in case.get('target_actions', key['offers']))} | {tile(preferred)} | {tile(comparison)} | {masses[preferred]}/{key['worlds']} vs {masses[comparison]}/{key['worlds']} | {Fraction(pair['gap_mass'], key['worlds'])} |")
     if args.results:
         manifest = json.loads((args.results / "manifest.json").read_text())
         if manifest["catalog"] != digest(dict(cases)):
@@ -502,14 +633,28 @@ def main():
     m.add_argument("--max-worlds", type=int, default=400)
     m.add_argument("--partner-worlds", type=int, default=40)
     m.add_argument("--case-seconds", type=float, default=45)
+    d = sub.add_parser("discover", help="Sweep legal coordinates using a supplied Scheme expression")
+    d.add_argument("--query", type=Path, required=True)
+    d.add_argument("--source", type=Path, nargs="+", default=[DEFAULT_SOURCE.parent])
+    d.add_argument("--output", type=Path, required=True)
+    d.add_argument("--limit", type=int, default=5000)
+    d.add_argument("--max-worlds", type=int, default=400)
+    d.add_argument("--partner-worlds", type=int, default=40)
+    d.add_argument("--case-seconds", type=float, default=45)
+    d.add_argument("--min-presence", default="1", help="Exact belief-presence threshold, e.g. 1 or 1/4")
+    d.add_argument("--min-trick", type=int, default=5)
+    d.add_argument("--max-trick", type=int, default=6)
+    inventory_parser = sub.add_parser("inventory")
+    inventory_parser.add_argument("--source", type=Path, required=True)
     s = sub.add_parser("select")
     s.add_argument("--source", type=Path, required=True)
     s.add_argument("--output", type=Path, default=DEFAULT_GALLERY)
     s.add_argument("--each", type=int, default=3)
+    s.add_argument("--all", action="store_true", help="Publish every strict coordinate once, using its strongest pair")
     r = sub.add_parser("run")
     r.add_argument("--output", type=Path, required=True)
     r.add_argument("--players", nargs="+", default=["l1-default", "l2-partner-default", "l2-partner-voids"])
-    for p in (m, r):
+    for p in (m, d, r):
         p.add_argument("--workers", type=int, default=10)
         p.add_argument("--seconds", type=float, default=240)
     v = sub.add_parser("verify")
@@ -520,11 +665,13 @@ def main():
     for p in (r, v, p, h):
         p.add_argument("--gallery", type=Path, default=DEFAULT_GALLERY)
     args = parser.parse_args()
-    if args.command in ("mine", "run"):
+    if args.command in ("mine", "discover", "run"):
         if not 1 <= args.workers <= 10 or not 20 <= args.seconds <= 270:
             parser.error("workers 1..10, seconds 20..270; run inside the session watchdog")
-    if args.command == "mine" and not (4 <= args.case_seconds < args.seconds and 1 <= args.max_worlds <= 10000 and 1 <= args.partner_worlds <= 640 and args.limit > 0):
+    if args.command in ("mine", "discover") and not (4 <= args.case_seconds < args.seconds and 1 <= args.max_worlds <= 10000 and 1 <= args.partner_worlds <= 640 and args.limit > 0):
         parser.error("invalid mining bounds")
+    if args.command == "discover" and not (14 <= args.case_seconds and 5 <= args.min_trick <= args.max_trick <= 6 and 0 < Fraction(args.min_presence) <= 1):
+        parser.error("discovery needs case-seconds >=14, tricks 5..6, and presence in (0,1]")
     if args.command == "select" and args.each < 1:
         parser.error("each must be positive")
     if args.command == "verify":

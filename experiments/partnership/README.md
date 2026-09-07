@@ -15,6 +15,9 @@ The [partnership gym](../../walt/gym/README.md) is now implemented: six first
 count-offer exercises, exact lawful make/set answer keys under a declared
 field, independent replay audits, and a resumable ten-worker pupil runner.
 The [first results](../../walt/gym/RESULTS.md) compare the three default players.
+The [Scheme-driven discovery extension](../../walt/gym/DISCOVERY.md) now sweeps
+saved late-game positions using query files and publishes 170 distinct strict
+exercises across count offers, overtaking partner, and possible partner entries.
 [SCHEME-GYM-ASSESSMENT.md](SCHEME-GYM-ASSESSMENT.md) preserves the preceding
 investigation and the wider proposed exercise families.
 

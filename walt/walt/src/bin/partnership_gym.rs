@@ -22,12 +22,28 @@ fn quote(s: &str) -> String {
 }
 fn run() -> Result<String, String> {
     let args: Vec<_> = std::env::args().skip(1).collect();
+    if args.len() == 2 && args[0] == "--check-query" {
+        let mut source = String::new();
+        std::fs::File::open(&args[1])
+            .map_err(|e| e.to_string())?
+            .take(1_048_577)
+            .read_to_string(&mut source)
+            .map_err(|e| e.to_string())?;
+        let query = gym::compile_query(&source)?;
+        return Ok(format!(
+            "{{\"identity\":{},\"source\":{}}}",
+            quote(&query.identity()),
+            quote(&query.source().to_string())
+        ));
+    }
     if args == ["--help"] {
-        return Ok("Usage: partnership_gym [--inspect] [--max-worlds N] [--partner-worlds N]\nInput lines: decl, bid (30), bidder, seat, hand (7 original ids), plays (actor/tile pairs), seed.\n".into());
+        return Ok("Usage: partnership_gym [--inspect] [--query FILE] [--max-worlds N] [--query-work N] [--partner-worlds N]\nInput lines: decl, bid (30), bidder, seat, hand (7 original ids), plays (actor/tile pairs), seed.\n".into());
     }
     let mut inspect = false;
     let mut cap = 400u128;
     let mut partner_worlds = 40u64;
+    let mut query_path = None;
+    let mut query_work = 20_000_000;
     let mut i = 0;
     while i < args.len() {
         match args[i].as_str() {
@@ -35,7 +51,11 @@ fn run() -> Result<String, String> {
                 inspect = true;
                 i += 1;
             }
-            "--max-worlds" | "--partner-worlds" => {
+            "--query" => {
+                query_path = Some(args.get(i + 1).ok_or("missing query path")?.clone());
+                i += 2;
+            }
+            "--max-worlds" | "--partner-worlds" | "--query-work" => {
                 let n = args
                     .get(i + 1)
                     .ok_or("missing option value")?
@@ -43,6 +63,8 @@ fn run() -> Result<String, String> {
                     .map_err(|_| "invalid option value")?;
                 if args[i] == "--max-worlds" {
                     cap = u128::from(n);
+                } else if args[i] == "--query-work" {
+                    query_work = n;
                 } else {
                     partner_worlds = n;
                 }
@@ -152,6 +174,25 @@ fn run() -> Result<String, String> {
     let header = format!("\"schema\":\"partnership-gym-v1\",\"root_id\":\"{:016x}\",\"worlds\":{},\"legal\":{:?},\"offers\":{:?},\"leader\":{},\"prefix\":{:?},\"banked\":{:?},\"trick\":{},\"remaining\":{:?},\"scheme_identity\":{}",
         root_identity(&ex.root, &ex.position), ex.root.count(), legal, offers, ex.position.leader.index(), ex.position.trick_plays.iter().map(|d| d.index()).collect::<Vec<_>>(), ex.position.banked,
         ex.position.prior_played.len()/4 + 1, ex.root.kernel().viewer_hand().iter().map(Domino::index).collect::<Vec<_>>(), quote(&query.identity()));
+    let header = if let Some(path) = query_path {
+        let mut source = String::new();
+        std::fs::File::open(path)
+            .map_err(|e| e.to_string())?
+            .take(1_048_577)
+            .read_to_string(&mut source)
+            .map_err(|e| e.to_string())?;
+        let found = gym::match_query(&ex, &source, cap, query_work)?;
+        let presence = found
+            .presence
+            .iter()
+            .map(|(tile, mass)| format!("[{tile},{mass}]"))
+            .collect::<Vec<_>>()
+            .join(",");
+        format!("{header},\"query_match\":{{\"identity\":{},\"source\":{},\"worlds\":{},\"public\":{},\"presence\":[{}],\"work\":{}}}",
+            quote(&found.identity), quote(&found.source), found.worlds, found.public, presence, found.work)
+    } else {
+        header
+    };
     if inspect {
         return Ok(format!("{{{header}}}"));
     }

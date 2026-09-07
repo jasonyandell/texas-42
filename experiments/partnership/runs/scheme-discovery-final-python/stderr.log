@@ -1,0 +1,19 @@
+test_declarative_offer_matches_legacy_detector_on_all_original_mining_roots (test_gym.GymTests) ... ok
+test_every_published_key_has_exact_support_and_lawful_replays (test_gym.GymTests) ... ok
+test_failed_item_retries_but_saved_item_is_not_recomputed (test_gym.GymTests) ... ok
+test_fractional_partner_boss_query_keeps_the_entire_grading_belief (test_gym.GymTests) ... ok
+test_full_optimal_set_and_set_outcomes_tie_without_point_tiebreak (test_gym.GymTests) ... ok
+test_generic_stream_includes_positions_outside_original_pattern (test_gym.GymTests) ... ok
+test_generic_targets_control_pair_categories (test_gym.GymTests) ... ok
+test_interrupt_drains_current_coordinate_then_resume_completes (test_gym.GymTests) ... ok
+test_manifest_drift_refuses_resume (test_gym.GymTests) ... ok
+test_native_key_agrees_with_published_key (test_gym.GymTests) ... ok
+test_private_teacher_fields_are_refused (test_gym.GymTests) ... ok
+test_published_discovery_is_distinct_by_coordinate_and_queries_broaden_it (test_gym.GymTests) ... ok
+test_report_refuses_foreign_catalog_and_tampered_grade (test_gym.GymTests) ... ok
+test_tampered_mass_missing_world_or_illegal_trace_is_rejected (test_gym.GymTests) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 1.348s
+
+OK

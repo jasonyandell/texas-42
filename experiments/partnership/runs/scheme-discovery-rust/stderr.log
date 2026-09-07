@@ -1,0 +1,4 @@
+   Compiling walt v0.1.0 (/Users/jason/code/texas-42-partnership-launch/walt/walt)
+    Finished `release` profile [optimized] target(s) in 3.38s
+     Running tests/gym.rs (walt/target/release/deps/gym-16534d9c87d2a72b)
+     Running tests/scheme.rs (walt/target/release/deps/scheme-70f2f08f10cd05f3)

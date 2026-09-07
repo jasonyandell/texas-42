@@ -10,6 +10,12 @@ optimal choices: L1 5/6, L2 Partner 6/6, L2 with voids 5/6. This diagnostic
 gallery is not evidence of a general strength ranking. The existing playing
 rules and default configurations remain as described below.
 
+**2026-09-07:** [Scheme-driven discovery](../../walt/gym/DISCOVERY.md) expands
+the gym to 170 distinct strict late-game coordinates. Three ordinary query
+files select count offers, overtaking partner, and leads toward a possible
+partner boss across 1,929 saved coordinates. Exact matching and grading remain
+separate; no expanded pupil ranking has yet been measured.
+
 **Latest full-game battery completed:** [default fixed-search results](campaigns/default-partner-battery/RESULTS.md),
 400 games on 100 shared fresh deals. L2 Partner versus L1: **14 wins / 14 losses /
 72 ties** (50% comparative contract wins). L2 Partner with voids versus without:

@@ -1,0 +1,11 @@
+; Return count plays that leave our currently winning partner ahead.
+; Every relation is public or own-hand. No bespoke gym predicate.
+(fix
+  (roles (chair me) (chair mate) (domino action) (domino incumbent) (context led))
+  (out action)
+  (case (viewer me) (partner me mate) (current-winner mate)
+        (trick-play mate incumbent) (led-context led)
+        (own-legal action) (count action 5) (beats incumbent action led))
+  (case (viewer me) (partner me mate) (current-winner mate)
+        (trick-play mate incumbent) (led-context led)
+        (own-legal action) (count action 10) (beats incumbent action led)))

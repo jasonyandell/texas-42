@@ -16,6 +16,9 @@ Its first consumer is the [partnership gym](../gym/README.md), with six
 count-offer advantage/disadvantage exercises and exact lawful answer keys.
 The gym registers a public mechanical relation; the Scheme language itself
 still has no solver dependency.
+The [discovery extension](../gym/DISCOVERY.md) now lets query files drive the
+search, including exact belief-presence queries, and publishes 170 distinct
+late-game exercises.
 
 ## Run it
 
@@ -127,6 +130,9 @@ from manufacturing a fact out of missing context.
 | `viewer(c)`, `leader(c)`, `next-actor(c)` | Viewer, current trick leader, and next actor from the public frame. There is no next actor when that seat has no remaining tile. |
 | `led-context(q)`, `current-winner(c)` | Current partial-trick facts; undefined at an empty trick. |
 | `legal(c,d)`, `forced(c,d)` | Legal play or unique legal play of the next actor; undefined for other seats. These require world access. |
+| `own-legal(d)` | Viewer-only legal action; undefined unless the viewer is next to act. |
+| `trick-play(c,d)` | Public seat/tile association in the current partial trick; false when absent. |
+| `leads-context(d,q)` | The context that `d` leads under the declaration, distinct from merely following `q`. |
 
 ## Use it from Rust
 

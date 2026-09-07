@@ -678,3 +678,18 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   now holds on all six receipt roots. 61 distinct focused Rust tests and
   nine Python tests passed; full CI waived for the session. Guide and
   evidence: `gym/README.md`, `gym/RESULTS.md`; wiki: Scheme/Fix section 0.
+
+- 2026-09-07: SCHEME-DRIVEN GYM DISCOVERY (Jason's request to express a
+  situation and let Scheme search): replaced the procedural discovery path
+  with a generic late-coordinate stream and supplied query files. Three
+  general public atoms support own legality, current-trick seat/tile binding,
+  and lead context. Ordinary expressions for count offers, overtaking partner,
+  and a possible partner boss scanned 1,929 coordinates each. They yielded
+  176 strict memberships / 170 distinct coordinates, including all six
+  starters, in about 13 seconds with ten workers total; 245 above-cap states
+  per query were explicitly skipped, no measurements failed. All strict keys
+  and replays published, controls and denominators retained. Hidden query
+  presence is integrated over the full fiber without conditioning the grade.
+  Eight gym + 19 Scheme Rust tests, 14 Python tests, clippy and formatting
+  passed; full CI remains waived. No expanded pupil-strength result claimed.
+  Guide and measured record: `gym/DISCOVERY.md`; wiki: Scheme/Fix section 0.

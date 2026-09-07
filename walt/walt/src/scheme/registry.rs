@@ -119,6 +119,9 @@ impl Registry {
             ("count", vec![D, N], Viewer),
             ("legal", vec![C, D], World),
             ("forced", vec![C, D], World),
+            ("own-legal", vec![D], Viewer),
+            ("trick-play", vec![C, D], Viewer),
+            ("leads-context", vec![D, Q], Viewer),
         ] {
             registry
                 .register(Builtin(PredicateSpec {
@@ -193,6 +196,18 @@ impl Predicate for Builtin {
             },
             ("played", [D(d)]) => frame.played().contains(*d),
             ("count", [D(d), N(n)]) => d.count() == *n,
+            ("own-legal", [D(d)]) => {
+                if frame.next_actor() != Some(kernel.viewer()) {
+                    return Ok(None);
+                }
+                legal_plays(decl, kernel.viewer_hand(), frame.led_context()).contains(*d)
+            }
+            ("trick-play", [C(c), D(d)]) => frame
+                .prefix()
+                .iter()
+                .enumerate()
+                .any(|(i, tile)| frame.leader().plus(i) == *c && tile == d),
+            ("leads-context", [D(d), Q(q)]) => decl.led_context(*d) == *q,
             ("legal" | "forced", [C(c), D(d)]) => {
                 if frame.next_actor() != Some(*c) {
                     return Ok(None);

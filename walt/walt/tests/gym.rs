@@ -183,3 +183,68 @@ fn positive_support_pruning_preserves_factor_weights_not_marginal_weights() {
         }
     }
 }
+
+#[test]
+fn ordinary_scheme_offer_matches_the_original_predicate_in_every_rotation() {
+    let source = include_str!("../../gym/queries/offer-count.scheme");
+    for rotate in 0..4 {
+        let ex = hold(rotate);
+        let found = gym::match_query(&ex, source, 1, 100_000).unwrap();
+        assert!(found.public);
+        assert_eq!(found.presence, [(20, 6)]);
+        let old = gym::match_query(&ex, gym::OFFER_QUERY, 1, 100_000).unwrap();
+        assert_eq!(found.presence, old.presence);
+        assert_ne!(found.identity, old.identity); // expression identity, not equivalence
+    }
+}
+
+#[test]
+fn hidden_relation_reports_full_fiber_presence_without_conditioning_it() {
+    let ex = hold(0);
+    let hidden = ex
+        .root
+        .worlds()
+        .next()
+        .unwrap()
+        .hand(Seat::S0)
+        .iter()
+        .next()
+        .unwrap();
+    let source = format!("(fix (roles (domino action)) (out action) (case (own-legal action) (holds S0 {hidden:?})))");
+    let found = gym::match_query(&ex, &source, 6, 100_000).unwrap();
+    assert!(!found.public);
+    let count = ex
+        .root
+        .worlds()
+        .filter(|w| w.hand(Seat::S0).contains(hidden))
+        .count() as u128;
+    assert!(count > 0 && count < 6);
+    assert_eq!(found.worlds, 6);
+    assert_eq!(found.presence, [(20, count), (24, count)]);
+    assert_eq!(ex.root.count(), 6);
+    assert!(gym::match_query(&ex, &source, 5, 100_000).is_err());
+}
+
+#[test]
+fn query_contract_budget_and_source_errors_refuse_partial_matches() {
+    let ex = hold(0);
+    for bad in [
+        "(fix (roles (chair me)) (out me) (case (viewer me)))",
+        "(fix (roles (domino action)) (out action) (case (tile action 0-0)))",
+    ] {
+        assert!(gym::match_query(&ex, bad, 6, 100_000).is_err());
+    }
+    assert!(gym::match_query(
+        &ex,
+        include_str!("../../gym/queries/offer-count.scheme"),
+        6,
+        1
+    )
+    .is_err());
+    for source in [
+        include_str!("../../gym/queries/overtake-partner.scheme"),
+        include_str!("../../gym/queries/lead-to-partner-boss.scheme"),
+    ] {
+        assert!(gym::compile_query(source).is_ok());
+    }
+}

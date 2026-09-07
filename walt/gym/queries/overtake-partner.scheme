@@ -1,0 +1,8 @@
+; Return legal plays that take the current lead away from partner.
+; Whether this is useful or wasteful is the independent grader's question.
+(fix
+  (roles (chair me) (chair mate) (domino action) (domino incumbent) (context led))
+  (out action)
+  (case (viewer me) (partner me mate) (current-winner mate)
+        (trick-play mate incumbent) (led-context led)
+        (own-legal action) (beats action incumbent led)))

@@ -44,6 +44,14 @@ Six exercises and a resumable L1/L2 comparison are implemented. This uses
 existing full-state transitions and fresh queries; a compact Scheme transition
 system is still separate work.
 
+**2026-09-07:** the [query-driven discovery path](../walt/gym/DISCOVERY.md) now
+uses ordinary Scheme expressions as the matching authority over a generic
+coordinate stream. Three files found 170 distinct strict late-game exercises;
+hidden-holding queries report exact full-belief presence without narrowing the
+grading belief. The original procedural prefilter is retained only for its
+starter experiment. Three general public atoms supply own legality, current
+trick seat/tile association, and the context a candidate would lead.
+
 Sections 1–6 retain the earlier descriptor/compression research and archived
 factory examples. Their historical producers remain archived; the expressive
 runtime imports current rules/kernel directly. Section 7 separates the delivered

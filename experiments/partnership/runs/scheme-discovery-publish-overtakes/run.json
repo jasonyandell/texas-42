@@ -1,0 +1,27 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-07T04:57:50.962493+00:00",
+  "cwd": "/Users/jason/code/texas-42-partnership-launch",
+  "command": [
+    "python3",
+    "experiments/partnership/gym.py",
+    "select",
+    "--source",
+    "/Users/jason/data/texas-42/scheme-discovery-v1/overtake-partner",
+    "--output",
+    "walt/gym/collections/scheme-v1/overtake-partner",
+    "--all"
+  ],
+  "allowance_seconds": 120.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.836359,
+  "status": "completed",
+  "child_pid": 21860,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

@@ -1,0 +1,37 @@
+
+running 8 tests
+test malformed_or_private_inconsistent_history_is_rejected ... ok
+test positive_support_pruning_preserves_factor_weights_not_marginal_weights ... ok
+test hidden_relation_reports_full_fiber_presence_without_conditioning_it ... ok
+test public_bridge_and_offer_query_are_seat_covariant_and_world_invariant ... ok
+test query_contract_budget_and_source_errors_refuse_partial_matches ... ok
+test ordinary_scheme_offer_matches_the_original_predicate_in_every_rotation ... ok
+test hold_count_has_strict_make_advantage_and_complete_replay_keys ... ok
+test third_hand_offer_regression_never_queries_an_uncompletable_partner_hand ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 19 tests
+test answer_multiplicity_is_not_a_probability_distribution ... ok
+test duplicate_worlds_merge_but_bad_measures_and_caps_are_refused ... ok
+test empty_fix_false_empty_case_true_and_hidden_witnesses_are_existential ... ok
+test equality_patterns_are_complete_and_quotient_before_injective_binding ... ok
+test certainty_does_not_confuse_existence_with_identity ... ok
+test declared_public_residue_drives_partial_trick_queries ... ok
+test syntax_and_type_errors_are_refused_before_evaluation ... ok
+test answer_equivalence_is_stronger_than_boolean_equivalence ... ok
+test frames_reject_incoherent_history_and_do_not_invent_played_tiles ... ok
+test undefined_is_not_false_and_never_satisfies_negation ... ok
+test examples_parse_compile_and_roundtrip ... ok
+test conditioning_uses_events_and_exact_likelihoods_transactionally ... ok
+test extension_registry_freezes_semantics_and_enforces_information_access ... ok
+test zero_weight_worlds_do_not_affect_belief_certainty ... ok
+test work_exhaustion_refuses_a_partial_query_or_summary ... ok
+test overlapping_branches_and_internal_witnesses_do_not_multiply_mass ... ok
+test mastery_beating_and_negative_joins_match_direct_set_queries ... ok
+test joins_match_direct_relations_on_every_world_under_all_nine_declarations ... ok
+test receipt_cli_queries_conditions_and_refuses_without_partial_reports ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+

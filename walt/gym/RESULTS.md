@@ -1,5 +1,9 @@
 # First partnership gym: count offers
 
+Follow-up: [Scheme-driven discovery](DISCOVERY.md) expands the collection to
+170 distinct strict coordinates. The six-exercise pupil results below remain
+the original starter measurement.
+
 2026-09-06, `codex/partnership-launch`. Bid 30 throughout. Exactness here is
 relative to the declared uniform mechanical belief and fixed seat-local field;
 it is not perfect-information optimality or a general player-strength result.

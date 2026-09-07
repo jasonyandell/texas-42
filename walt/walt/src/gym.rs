@@ -25,6 +25,83 @@ use crate::solver::{mask_of, mix, Deadline, InnerBelief};
 
 pub const OFFER_QUERY: &str = include_str!("../../gym/offer-count.scheme");
 
+/// Query discovery is separate from pricing. Presence is counted over the
+/// ENTIRE mechanical fiber; matching never conditions the answer-key belief.
+pub struct QueryMatches {
+    pub identity: String,
+    pub source: String,
+    pub worlds: u128,
+    pub public: bool,
+    pub presence: Vec<(usize, u128)>,
+    pub work: u64,
+}
+
+pub fn compile_query(source: &str) -> Result<scheme::CompiledFix, String> {
+    let query = source
+        .parse::<Fix>()
+        .map_err(|e| e.to_string())?
+        .compile(&registry())
+        .map_err(|e| e.to_string())?;
+    if query.outputs().len() != 1 || query.outputs()[0].sort != Sort::Domino {
+        return Err(
+            "gym query must return exactly one domino action; keep other roles existential".into(),
+        );
+    }
+    Ok(query)
+}
+
+pub fn match_query(
+    ex: &ExerciseRoot,
+    source: &str,
+    max_worlds: u128,
+    work_limit: u64,
+) -> Result<QueryMatches, String> {
+    let query = compile_query(source)?;
+    let worlds = ex.root.count();
+    let public = query
+        .predicate_specs()
+        .iter()
+        .all(|s| s.access == Access::Viewer);
+    if !public && worlds > max_worlds {
+        return Err(format!("query world cap: {worlds} > {max_worlds}"));
+    }
+    let legal = legal_plays(
+        ex.position.decl,
+        ex.root.kernel().viewer_hand(),
+        ex.frame.led_context(),
+    );
+    let mut budget = Budget::new(work_limit);
+    let mut presence = std::collections::BTreeMap::new();
+    for world in ex.root.worlds().take(if public {
+        1
+    } else {
+        usize::try_from(worlds).map_err(|e| e.to_string())?
+    }) {
+        let answers = query
+            .evaluate(&ex.frame, &world, &mut budget)
+            .map_err(|e| e.to_string())?;
+        for answer in answers {
+            let [Value::Domino(tile)] = answer.0.as_slice() else {
+                unreachable!("checked output sort")
+            };
+            if !legal.contains(*tile) {
+                return Err(
+                    "gym query returned an illegal action; constrain it with own-legal".into(),
+                );
+            }
+            *presence.entry(tile.index()).or_insert(0) += if public { worlds } else { 1 };
+        }
+    }
+    Ok(QueryMatches {
+        identity: query.identity(),
+        source: query.source().to_string(),
+        worlds,
+        public,
+        presence: presence.into_iter().collect(),
+        work: budget.spent(),
+    })
+}
+
 pub struct ExerciseRoot {
     pub root: CanonicalRoot,
     pub position: RootPosition,
