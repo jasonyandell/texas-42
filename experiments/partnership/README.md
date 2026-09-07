@@ -31,6 +31,11 @@ Start with the [player families](PLAYERS.md): **L1 default**, **L2 Partner
 default**, and **L2 Partner with voids**. `match.py players` shows their exact
 settings; add `--all` for historical and advanced presets. "Default" means
 fixed search. The archived phone and native L1 Race are separate named choices.
+The [default-player battery](campaigns/default-partner-battery/RESULTS.md)
+completed 400 games: L2 Partner tied L1 on the 100-deal panel, and its void
+option scored 12 wins / 17 losses / 71 ties against default L2 Partner. Neither
+comparison establishes a strength gain; timing and uncertainty are reported
+separately.
 
 The native player now exposes the same selection machinery at the real root
 and inside modeled L1 minds. `--selection fixed|refine|race-refine` selects the

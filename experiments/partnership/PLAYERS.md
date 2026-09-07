@@ -83,6 +83,7 @@ change a running or saved experiment.
 The [default-partner protocol](campaigns/default-partner-battery/PROTOCOL.md)
 compares L2 Partner default against L1 default, then L2 Partner with voids
 against L2 Partner default, on the same 100 fresh deals at bid 30. Both use
-Fixed root/model search throughout. Its live progress is in
-[level status](campaigns/default-partner-battery/01-level/STATUS.md) and
-[void status](campaigns/default-partner-battery/02-voids/STATUS.md).
+Fixed root/model search throughout. The [completed results](campaigns/default-partner-battery/RESULTS.md)
+are 14/14/72 for the level comparison and 12/17/71 for the void comparison
+(wins/losses/ties for the first named player). Neither establishes a strength
+gain. All 400 games completed; L1 was the cheapest measured default.

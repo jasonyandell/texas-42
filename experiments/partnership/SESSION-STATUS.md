@@ -2,6 +2,17 @@
 
 2026-09-06. Exploratory observations and local engineering status.
 
+**Latest follow-up completed:** [default fixed-search results](campaigns/default-partner-battery/RESULTS.md),
+400 games on 100 shared fresh deals. L2 Partner versus L1: **14 wins / 14 losses /
+72 ties** (50% comparative contract wins). L2 Partner with voids versus without:
+**12 / 17 / 71** (47.5%). Both rough intervals include 50%; no strength gain is
+established. Mean time/move under this load: **0.228 seconds L1, 1.127 L2 Partner,
+1.318 L2 Partner with voids**; fallback rates 0%, 1.2%, and 3.3%. All three
+completed under the technical gate. The unchanged engine and binary were used.
+See the [player family guide](PLAYERS.md) for the now-explicit names. No
+experiment is running or scheduled. The foundation battery below remains a
+separate historical result, using different search procedures.
+
 The [launch brief](packet/texas42-partnership-launch-v0.1/EXPERIMENT-BRIEF.md)
 asked for a lawful, playable partnership-aware player from trick 1, within
 60 seconds per four-play trick on the M5 Max, with useful partnership behavior
@@ -101,11 +112,13 @@ deals across matchups and identify every selection rule explicitly.
 ## What remains open, in order
 
 1. Profile the expensive partner-field decisions before enlarging that model.
-   The shared rule is implemented, but the stronger real-root/model schedules
-   currently cause too many fallbacks under the declared allowance.
+   Fixed L2 Partner completed the follow-up with modest fallback rates, but
+   cost about five times default L1 without a demonstrated gain. The stronger
+   real-root/model schedules crossed the technical fallback gate earlier.
 2. Establish whether a practical, cost-matched partner upgrade adds strength.
    Improving a completed model is not sufficient if more real decisions fall
-   back. The existing fixed-root partner remains a separate available baseline.
+   back. The fixed-root partner now has a direct matched result against default
+   L1: tied on the 100-deal follow-up, with uncertainty about wider strength.
 3. Resolve selection and void-option strength with more independent hands when
    requested. Changing the inner sampler also changes its deterministic sample
    stream; individual move changes alone do not isolate void conditioning.

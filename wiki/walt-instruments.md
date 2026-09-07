@@ -86,6 +86,14 @@ arithmetic and adds the lockfile-pinned `objc2`, `objc2-core-graphics`,
 | `walt-metal` (crate) | The only Metal/Objective-C boundary: fixed scalar-word ABI, checked MSL kernels, retained completion evidence and safe runtime tokens around the contract's private unsafe operations. | `abi`, `bridge`, `runtime`, `error`; `shaders/00_u256.metal`, `01_opening_projector.metal`, `02_m3_wavefront.metal`, the deterministic build scripts and checked-in metallib |
 | `walt-m2-runner` (crate) | The supervised freeze-56 executable. It assembles the complete carrier, runs smoke and official child profiles, validates typed progress/timeout/no-partial semantics, and constructs or adjudicates the closed receipt. | `assembly`, `observation`, `child`, `protocol`; `descriptor-verify`, `run-smoke`, `run-official`, `validate-receipt` and `adjudicate-receipts` modes |
 
+The local [default fixed-search follow-up](../experiments/partnership/campaigns/default-partner-battery/RESULTS.md)
+adds 400 independently verified games on 100 shared fresh deals: L2 Partner
+versus L1 scored 14 wins / 14 losses / 72 ties; L2 Partner with voids versus
+without scored 12 / 17 / 71. Both rough intervals include 50%; no strength gain
+is established. All configurations completed below the technical fallback gate.
+The engine and binary were unchanged. [Player families](../experiments/partnership/PLAYERS.md)
+now distinguish L1, L2 Partner, and L2 All from search and belief options.
+
 **Deleted, archive-only** (producer commit `648f93a`; deletion commits
 `ad355e9`/`fa3fe74`; recompute queue in [`walt/ARCHIVE.md`](../walt/ARCHIVE.md)):
 `walt-skeleton` — the `ControlSkeleton` trait, the §12.1 soundness and §12.6

@@ -22,6 +22,15 @@ Compatibility and support checks pass. Void-aware racing L1 scored 9 wins /
 hidden completions each. No general strength gain is established. Native L1
 completed without fallbacks; existing entry points retain their legacy default.
 
+The subsequent [default fixed-search battery](../experiments/partnership/campaigns/default-partner-battery/RESULTS.md)
+completed 400 games on 100 shared deals: L2 Partner versus L1 scored 14 wins /
+14 losses / 72 ties; L2 Partner with voids versus without scored 12 / 17 / 71.
+Neither establishes a strength gain. Mean wall/move under that load was 0.228s,
+1.127s, and 1.318s for L1, L2 Partner, and L2 Partner with voids; all completed
+below the fallback gate. The [family guide](../experiments/partnership/PLAYERS.md)
+separates modeled level, search procedure, and belief. Engine and binary were
+unchanged for this follow-up; the earlier refinement cost stops remain valid.
+
 **For Jason, to hold in his head.** Written 2026-09-04; rewritten at
 every landing (the orchestrating session owns it). Ten minutes to
 reread. Everything here is EXPLORATORY tier; nothing is promoted by
