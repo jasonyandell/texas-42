@@ -38,6 +38,7 @@ def snapshot(directory):
 def transition(row):
     if row is None: return 'outside source/domain'
     if 'skipped' in row: return row['skipped']
+    if 'query_contrast' not in row: return 'not recorded'
     contrast = row.get('query_contrast')
     if contrast is None: return 'no target/non-target contrast'
     gap = Fraction(contrast['gap'])
@@ -86,7 +87,8 @@ def comparison(before, after):
                              retained=len(old_selected & new_selected), measured_both=len(measured_both),
                              best_changed=sum(r['best_changed'] for r in rows),
                              values_changed=sum(r['values_changed'] for r in rows),
-                             relation_changed=sum(r['before_relation'] != r['after_relation'] for r in measured_both)),
+                             relation_changed=sum(r['before_relation'] != r['after_relation'] for r in measured_both
+                                                  if 'not recorded' not in (r['before_relation'],r['after_relation']))),
                 rows=rows, examples=examples)
 
 

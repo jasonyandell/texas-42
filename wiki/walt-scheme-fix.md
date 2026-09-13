@@ -18,6 +18,17 @@ Siblings: [walt hub](walt.md) · [foundation era](walt-foundation-era.md) · [fa
 
 ## 0. The executable expressive layer (2026-09-06)
 
+**Current continuation-selectable gym (2026-09-13):** the
+[same Scheme recipe interface](../walt/gym/SPECIFICATIONS.md) now evaluates
+actions with named deployed focal, partner and opponent policies, as well as
+the original fixed teacher. Matching and action values have separate caches;
+query/filter changes reuse applicable valuations. The
+[L1 count-offer validation](../experiments/partnership/campaigns/sunshine-recipes-v1/RESULTS.md)
+regenerates helpful and harmful examples and retains model disagreements.
+Support coverage is explicit: a census is exact for the frozen continuation;
+a without-replacement sample is an estimate. This connects the experiment to
+the deployed continuation, but does not itself repair the live review policy.
+
 The [sunshine discussion notes](../experiments/partnership/SUNSHINE-NOTES.md)
 preserve the subsequent research direction: a fast partner-aware player using
 fallible guesses, targeted checks, and hindsight learning, with a reusable

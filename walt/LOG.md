@@ -815,3 +815,35 @@ of advantage-27 makes 36 by giving 6–4 and sets at 25 by keeping it; across it
 3/3 versus 0/3. Teacher labels do not automatically transfer to deployed
 continuations. [Guide](../experiments/partnership/GYM-REPLAY.md),
 [results and paired witnesses](../experiments/partnership/campaigns/sunshine-gym-replay-v1/RESULTS.md).
+
+## 2026-09-13 — Continuation-selectable Scheme scenario recipes
+
+Connected the existing gym specification to named deployed focal, partner and
+opponent policies. Scheme matching and action valuation now have separate cache
+identities; query/filter/source membership changes reuse applicable measured
+values. Full-support and shared without-replacement sample modes carry distinct
+coverage claims. Added required/avoided query selection, minimum class contrast,
+own-tiles-remaining domains, collection comparisons and paired witnesses.
+
+The existing count-offer query matched 206 of 1,929 examined coordinates within
+the support cap. Full L1 continuation covered 9,188 worlds and 26,340 terminal
+trajectories. The declaring-side collection contains 27 required offers, 46
+withholding cases and three tied-class cases with a weaker third action.
+Default L1 chose a best action on 62/76. Four misses withhold useful count; six
+offer harmful count; four choose a weaker non-offer. This is conditional skill
+measurement, not an ordinary-game strength result.
+
+The original teacher's 30 complete keys reproduced exactly. Changing to L1
+continuation changes best-action sets on 35/206 common coordinates. All 45
+previous targeted replay roots agree exactly with the new generic evaluator.
+Four query/filter variants took approximately 11–12 seconds each, made no new
+deployed evaluations, and preserved all 192,693 saved value/trajectory/decision
+records. A deliberate interruption preserved 9,774 durable records. Independent
+replay and all 83 partnership Python tests passed; a native sampled smoke check
+matched its census subset and correctly refused certainty claims.
+
+No live player/reviewer changed. The next sunshine step remains an affordable
+deployed-consequence check, challenged on fresh source groups and measured for
+helpful and harmful interventions. See the
+[recipe guide](gym/SPECIFICATIONS.md) and
+[complete validation record](../experiments/partnership/campaigns/sunshine-recipes-v1/RESULTS.md).

@@ -6,6 +6,7 @@ thresholds and selection filters never change an already applicable value key.
 from collections import Counter
 from fractions import Fraction
 import json
+import os
 from pathlib import Path
 import subprocess
 import time
@@ -61,7 +62,8 @@ def generate(args):
     value_identity, match_identity = identities(a)
     evaluation_id, match_id = gym.digest(value_identity), gym.digest(match_identity)
     view_id = gym.digest(dict(evaluation=evaluation_id, matching=match_id, arguments=a,
-                             source_sha256=source_hash, coordinates=items))
+                             source_sha256=source_hash, coordinates=items,
+                             specification_sha256=gym.digest(definition)))
     values = args.output/'evaluations'/evaluation_id
     matches = args.output/'matches'/match_id
     view = args.output/'collections'/view_id
@@ -86,7 +88,15 @@ def generate(args):
         snapshot = matches/'query.scheme'
         if snapshot.exists() and snapshot.read_text() != a['query']['source']:
             raise ValueError('frozen query snapshot changed')
-        snapshot.write_text(a['query']['source'])
+        if not snapshot.exists():
+            # A stop during query publication must not strand a truncated
+            # snapshot that would refuse the otherwise valid resumable cache.
+            temporary = snapshot.with_suffix('.tmp')
+            with temporary.open('w') as out:
+                out.write(a['query']['source'])
+                out.flush()
+                os.fsync(out.fileno())
+            temporary.replace(snapshot)
         checked = subprocess.run([str(gym.ENGINE), '--check-query', str(snapshot)],
                                  capture_output=True, text=True, timeout=3)
         if checked.returncode:

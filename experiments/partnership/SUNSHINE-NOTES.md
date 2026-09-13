@@ -17,6 +17,12 @@ rarity in an ordinary arena is not a reason to abandon the skill. The
 implements that follow-up and distinguishes useful corrections from teacher
 labels that reverse with the actual future players.
 
+The next platform step is now implemented: [continuation-selectable Scheme
+recipes](../../walt/gym/SPECIFICATIONS.md) regenerate the same question under
+named deployed players and reuse measured values when the query or filters
+change. [Validation and model comparisons](campaigns/sunshine-recipes-v1/RESULTS.md)
+make the continuation assumption a selectable experimental condition.
+
 ## The priority
 
 A reasonable, fairly quick, partner-aware Texas 42 player on the Mac. It must
@@ -153,7 +159,7 @@ The same method can later support belief and dynamics studies: test how evidence
 changes predictions and how beliefs and partnership opportunities evolve through
 play. The partner-aware player remains the immediate application.
 
-## Proposed next step, not yet executed
+## Original proposed first cycle (historical)
 
 Use the existing player and gym to find one recurring family of avoidable
 partnership mistakes. Explain what opportunity is lost and formulate a specific
@@ -169,3 +175,26 @@ its answer, and an investigation that simply costs too much.
 This is a proposed first learning cycle, not an assertion that the layered
 architecture will win. It ties the next platform addition to an observable
 partnership consequence while leaving room for alternative implementations.
+
+## Where the next sunshine cycle starts now
+
+We can now express a partnership concern, generate exercises with the actual
+continuation players, and change the question while keeping applicable measured
+values. The current live review still uses the original teacher-style model;
+that mismatch has been measured, not repaired by this instrument change.
+
+The next player experiment should use a cheap proposal and an affordable
+deployed-continuation check. Start with the count-offer skill's positive cases
+and the equally important withholding controls. Keep a baseline move ready;
+an incomplete investigation is unresolved, not evidence that no improvement
+exists. Measure how often the proposal helps, how often it harms, and its cost.
+
+Challenge any chosen repair on new source-deal groups and different named
+partners before promoting it. The gym tests competence on these intended
+situations; matched ordinary games check broader side effects and practical
+cost. Neither measurement replaces the other. Hindsight can then teach which
+concerns deserve investigation, not just which tile happened to win once.
+
+The priority remains a reasonable, fast, partner-aware player. We have improved
+the instrument for learning that skill; we have not yet established the skill's
+successful affordable repair.

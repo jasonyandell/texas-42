@@ -1,5 +1,15 @@
 # The partnership gym
 
+**Current recipe workflow (2026-09-13):** the
+[continuation-selectable specification](SPECIFICATIONS.md) connects Scheme
+matching to either the original teacher or named deployed focal/partner/opponent
+players. [The L1 count-offer recipe](specs/partnership-count-l1.json) regenerated
+76 declaring-side exercises: 27 require an offer, 46 favor withholding, and
+three have a tied best offer/non-offer but a weaker third action. Query and
+filter changes reuse action values. The
+[validation record](../../experiments/partnership/campaigns/sunshine-recipes-v1/RESULTS.md)
+retains ties, exclusions, model disagreements and paired witnesses.
+
 **First composed exam:** [partnership query plus bid-making](PARTNERSHIP-COMPOSITION.md)
 defines 30 positions where offering count to partner is required for an optimal
 root choice. Default L1 chose optimally on 24/30; L2 Partner on 26/30, with
@@ -93,7 +103,7 @@ compatible remaining deals**, including public voids and exact capacities.
 It is an explicit experimental prior; earlier observed actions are not
 reweighted under an assumed historical player.
 
-The fixed future field is:
+Under the original `partnership-gym-v1` contract, the fixed future field is:
 
 - Teammate: the shared playable L1 evaluator, fixed search, 40 outer worlds,
   eight inner L0 worlds, voidless inner modeling, lowest-index ties.

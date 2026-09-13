@@ -118,6 +118,11 @@ class SpecificationTests(unittest.TestCase):
             path, output = Path(d) / "spec.json", Path(d) / "run"
             path.write_text(json.dumps(spec))
             args = SimpleNamespace(spec=path, output=output, overrides=[], workers=2, seconds=30, case_seconds=15)
+            import gym_generation
+            _, matching = gym_generation.identities(gym_spec.arguments(spec['arguments']))
+            partial = output / 'matches' / gym.digest(matching) / 'query.tmp'
+            partial.parent.mkdir(parents=True)
+            partial.write_text('(unfinished query from an interrupted write')
             native = gym.native
             failed = False
             calls = []
@@ -135,6 +140,7 @@ class SpecificationTests(unittest.TestCase):
                     patch.object(gym_spec, "inputs", return_value=([gym.DEFAULT_SOURCE], "0" * 64)), \
                     patch.object(gym, "native", side_effect=instrument):
                 gym_spec.generate(args)
+                self.assertFalse(partial.exists())
                 pending = json.loads((output / "latest.json").read_text())
                 self.assertFalse(pending["complete"])
                 self.assertEqual(pending["pending"], 1)
@@ -158,6 +164,17 @@ class SpecificationTests(unittest.TestCase):
                 args.overrides += ["selection.certain=true"]
                 gym_spec.generate(args)
                 self.assertEqual(list(gym.gallery(output)), [])
+                # A renamed recipe or a newly frozen reference is a new view,
+                # not a collision with an old immutable publication manifest.
+                prior = json.loads((output / 'latest.json').read_text())
+                spec['name'] = 'same-questions-new-name'
+                path.write_text(json.dumps(spec))
+                gym_spec.generate(args)
+                renamed = json.loads((output / 'latest.json').read_text())
+                self.assertTrue(renamed['complete'])
+                self.assertNotEqual(prior['resolved']['collection_id'], renamed['resolved']['collection_id'])
+                self.assertEqual(prior['resolved']['evaluation_id'], renamed['resolved']['evaluation_id'])
+                self.assertEqual(calls, [])
 
 
 if __name__ == "__main__":

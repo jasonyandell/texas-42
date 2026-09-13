@@ -731,14 +731,17 @@ def tile(t):
 
 def report(args):
     cases = list(gallery(args.gallery))
-    print("| Exercise | Role | Trick | Worlds | Query targets | Preferred | Comparison | Exact success | Gap |")
-    print("|---|---|---:|---:|---|---|---|---|---|")
+    print('Values are conditional on each key\'s frozen continuation and stated support coverage.')
+    print("| Exercise | Role | Own tiles | Coverage | Query targets | Preferred | Comparison | Success count | Gap |")
+    print("|---|---|---:|---|---|---|---|---|---|")
     for name, case in cases:
         key, pair, req = case["key"], case["pair"], case["request"]
         masses = {a["tile"]: a["success_mass"] for a in key["actions"]}
         role = "make 30" if req["seat"] % 2 == req["bidder"] % 2 else "set 30"
         preferred, comparison = pair["preferred"], pair["comparison"]
-        print(f"| {name} | {role} | {key['trick']} | {key['worlds']} | {', '.join(tile(t) for t in case.get('target_actions', key['offers']))} | {tile(preferred)} | {tile(comparison)} | {masses[preferred]}/{key['worlds']} vs {masses[comparison]}/{key['worlds']} | {Fraction(pair['gap_mass'], key['worlds'])} |")
+        coverage = ('census' if key.get('coverage', 'census') == 'census' else 'sample')
+        support = key.get('support_worlds', key['worlds'])
+        print(f"| {name} | {role} | {len(key['remaining'])} | {coverage} {key['worlds']}/{support} | {', '.join(tile(t) for t in case.get('target_actions', key['offers']))} | {tile(preferred)} | {tile(comparison)} | {masses[preferred]}/{key['worlds']} vs {masses[comparison]}/{key['worlds']} | {Fraction(pair['gap_mass'], key['worlds'])} |")
     if args.results:
         manifest = json.loads((args.results / "manifest.json").read_text())
         identity_kind = manifest.get("catalog_identity", "full-artifact-v1")
@@ -768,6 +771,11 @@ def show(args):
     req, key, pair = case["request"], case["key"], case["pair"]
     print(name, "\nSeat", req["seat"], "partner", req["seat"] ^ 2, "bidder", req["bidder"], "declaration", req["decl"])
     print("Own remaining:", " ".join(tile(t) for t in key["remaining"]), "banked:", key["banked"])
+    print('Continuation:', case['semantics']['continuation'])
+    if 'players' in key:
+        print('Players:', ', '.join(f'{role}={config["name"]}' for role, config in key['players'].items()))
+    print('Coverage:', key.get('coverage', 'census'), key['worlds'],
+          'of', key.get('support_worlds', key['worlds']), 'mechanically compatible worlds')
     print("Public history:", " ".join(f"{s}:{tile(t)}" for s, t in zip(req["plays"][::2], req["plays"][1::2])))
     for action in key["actions"]:
         print(f"  {tile(action['tile'])}: {action['success_mass']}/{key['worlds']} success", "optimal" if action["tile"] in key["best"] else "")
