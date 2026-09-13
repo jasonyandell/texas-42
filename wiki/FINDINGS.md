@@ -4,18 +4,46 @@
 results, risks, next questions. Written 2026-07-26 (exhaustive read of both packages,
 all verifiers executed, doc-by-doc comparison); updated 2026-07-27 with the exchange
 adjudications and rob receipts; addenda 2026-08-01/-02 (the constellation exchange
-batch, §4; the PA-E10 kernel tier, §4 item 3); scope note 2026-08-24 (§7). Citations
-per [Home](Home.md) (v0.7 / rec).
+batch, §4; the PA-E10 kernel tier, §4 item 3); scope note 2026-08-24, extended
+2026-09-13 to every walt era page; §3's verifier caveat corrected 2026-09-13 in step
+with [discrepancies](discrepancies.md) D15; §8's Q1 progress text collapsed to a
+pointer at [open-problems](open-problems.md) OPEN-11 the same day. Nothing in the
+assessment itself has changed since 2026-08-02. Citations per [Home](Home.md)
+(v0.7 / rec).
 
-*Scope note (2026-08-24, extended later the same day).* This page assesses the
-claim-tier mathematics only. The project's player build — walt, primary since
-2026-08-17 — lives entirely at the exploratory tier behind
-[the walt hub](walt.md)'s fence, and per that fence nothing from it is cited
-here. The walt-side findings of 2026-08-24 — the calculated-evidence era's
-build, its shadow and field-swap instrument records, and its live-player audit
-findings — are owned at that tier by
-[walt-calculated-evidence](walt-calculated-evidence.md); this paragraph is a
-map pointer, not a citation, and quotes no number from behind the fence.
+*Scope note (2026-08-24, extended later the same day; pointer list extended
+2026-09-13).* This page assesses the claim-tier mathematics only. The project's
+player build — walt, primary since 2026-08-17 — lives entirely at the exploratory
+tier behind [the walt hub](walt.md)'s fence, and per that fence nothing from it is
+cited here. The walt-side findings are owned at that tier by the era pages, and
+this paragraph is a **map pointer only** — not a citation; it quotes no number from
+behind the fence, and none of the pages it names is quotable above it:
+[walt-calculated-evidence](walt-calculated-evidence.md) (2026-08-24 → 08-29: the
+calculated-evidence build, its shadow and field-swap instrument records, the
+live-player audit findings), [walt-counted-belief-era](walt-counted-belief-era.md)
+(2026-08-30 → 09-01: counted belief, the anytime proof state, the doom census),
+[walt-focal-horizon-era](walt-focal-horizon-era.md) (2026-09-01 → 09-05: model
+belief, the unified player, the focal-horizon hierarchy),
+[walt-gran-anchors](walt-gran-anchors.md) (the 6-4 problem, exact indifference,
+obligation O5), [walt-partnership-program](walt-partnership-program.md) and
+[walt-gym](walt-gym.md) (2026-09-06/07), and [walt-seat-play](walt-seat-play.md)
+(how the player decides — the natural map entry for the player itself). The
+exploratory *questions* those programs leave open are inventoried on
+[walt-math-open-questions](walt-math-open-questions.md), never on
+[open-problems](open-problems.md)'s claim-tier list (that page carries only a
+fenced pointer block). ChatGPT 5.6 Pro's walt-side parents (the calculated-evidence,
+level-2, counted-belief, anytime, model-belief, salvation-complex and focal-horizon
+notes) were hand-ferried outside the numbered courier protocol and are indexed
+only on [walt-math-intakes](walt-math-intakes.md), at the exploratory tier; the
+numbered dispatches this page cites are the claim-tier exchange
+([exchange](exchange.md)).
+
+*Exploratory-tier note (2026-09-13; no claim attached).* The partnership program's
+"phone" reference artifact — the `walt.wasm` plunge deploys — is pinned by
+`experiments/partnership/BASELINE.md` to this repository's commit `9a056f20`
+(2026-08-19), identified byte-for-byte on 2026-09-06. That is a provenance fact
+about an artifact below the fence, recorded here so the ledgers know the pin
+exists; it establishes no result and changes no tier.
 
 ---
 
@@ -42,8 +70,10 @@ built. The mathematical skeleton:
 4. **A reachability theory**: legal play reaches a strict subset of feasible supports
    (explicit witness), with an exact outer necessary language giving 26 ≤ bits ≤ 46,
    exact cardinality open. rec adds a *symbolic* replay machine: the support itself
-   carries the existential deal through the public trace, giving deal-free exact
-   reachability certificates and a finite graded support DAG.
+   carries the existential deal through the public trace, giving what rec calls
+   deal-free "exact reachability certificates" (rec's own term, quoted; the
+   wiki's name for the outer object is *necessary outer profile*, D3) and a
+   finite graded support DAG.
 5. **A dynamics** (rec): the minimal support state is closed under typed public
    observations via a force/delete/contract/reduce **matching-minor calculus**, with
    proved monotone edge deletion and a hard 63-edge-per-hand budget. Hidden-information
@@ -85,15 +115,22 @@ types.
 All mathematical verifiers **pass** and reproduce committed outputs byte-for-byte
 (modulo the header lines in the committed transcripts): `verify_foundation` (both,
 identical), `verify_minimality_and_reachability` (both), `verify_reduced_kernel`
-(rec). Both MANIFESTs verify clean. One operational finding: rec's
-`audit_package.py` **fails on the checked-in tree** because `verification/__pycache__`
-directories (generated by earlier runs; present in this repo's ingest copies) trip its
-no-transients check; on a clean copy it passes and reproduces `AUDIT_OUTPUT.txt`
-exactly. Reproduction requires nothing but Python 3.12 stdlib.
+(rec). Both MANIFESTs verify clean. One operational trap, not a package defect:
+running the rec verifiers *in place* with a default `python3` invocation writes
+`verification/__pycache__`, after which rec's `audit_package.py` fails its
+no-transients check. The checked-in `ingest/` tree is clean and always has been —
+git has never tracked a `__pycache__` directory or `.pyc` file under it (an earlier
+wording of this sentence said the copies "contain" such directories; that described
+a working tree after an in-place run, never the repository, and is withdrawn). Run
+the verifiers from a copy or with `python3 -B`; either keeps the audit green and
+reproduces `AUDIT_OUTPUT.txt` exactly ([discrepancies](discrepancies.md) D15, which
+carries the measured reproduction). Reproduction requires nothing but Python 3.12
+stdlib.
 
 ## 4. Strongest results (my ranking)
 
-*Addendum 2026-08-01 (exchange batch, [claim-ledger](claim-ledger.md) rows 9–10):*
+*Addendum 2026-08-01 (exchange batch, [claim-ledger](claim-ledger.md) rows 9–11 —
+the three constellation rows x:009, x:010, x:012; "rows 9–10" until 2026-09-13):*
 **C1 — suffix minimax factors through the declaration-free constellation**
 (adversarially step-checked proof, external tier, Lean pending), with its
 counterweight: **backward commutation for the pooled key REFUTED**
@@ -125,7 +162,8 @@ only, no REACH-\* impact). Owning page:
    2³⁵ — and REACH-19 — filtered outer census 33,297,009,347,414 < 2⁴⁵) with honest
    refusal to guess the exact count (REACH-11..13, REACH-17/18/19). The no-void
    stratum is the exception: exactly counted and saturated at **624,892,870**
-   (REACH-20). A second feasible-but-unreachable witness that *passes*
+   (REACH-20; panel 2/3 SOUND + 1 UNVERIFIABLE-no-defect, carried as such and never
+   presented as 3/3). A second feasible-but-unreachable witness that *passes*
    lead-witness (exchange 002) shows the outer language is not even tight.
 5. **rec's dynamic-support package** (TRANS-08..14): support-NF as a closed transition
    state, matching-minor update ≡ conditioning, monotone deletion, 63-edge budget —
@@ -231,17 +269,13 @@ packages):
   exact integer (with an independently checkable enumeration strategy) or a proved
   tighter interval than 26–46 bits. Partial credit: the exact count restricted to
   no-void states or to `j ≤ 2` completed tricks.
-  *Progress (exchange-adjudicated):* best floor **36,913,384,410 > 2³⁵** (REACH-17 +
-  REACH-18, exchange 001 + 006 — the 006 family is a structurally disjoint
-  two-void-context construction of 19,245,318,365 supports) and best ceiling **45
-  bits** (REACH-19, exchange 007 — filtered outer census 33,297,009,347,414 < 2⁴⁵),
-  giving **[36,45]**; the no-void stratum is exactly closed — saturated,
-  **624,892,870** (REACH-20, exchange 008, first exact stratum; derived combined
-  floor 36,978,961,138) — while the census over void contexts remains open,
-  explicitly disclaimed by 006; and by the
-  transport theorem (exchange 004) the DP need only
-  enumerate one pip-trump class plus DT and NT, so restate the feasibility window
-  against `7·r_pip + |R_DT| + |R_NT|` rather than nine independent classes.
+  *Progress (exchange-adjudicated):* narrowed to **[36,45] bits** with the no-void
+  stratum exactly closed. The full statement — floor, ceiling, the stratum count,
+  the 2/3-SOUND panel carried verbatim, and the transport-theorem restatement of
+  the feasibility window — is owned by [open-problems](open-problems.md) OPEN-11
+  and [reachability](reachability.md); §5 above gives the one-line form. (This
+  paragraph duplicated OPEN-11 nearly verbatim until 2026-09-13; every figure it
+  carried is on those two pages and on [exchange](exchange.md).)
 - **Q2 (attack REACH-11's language).** Construct a feasible, support-reduced normal
   form that passes **all** outer necessary checks — reachable capacity shape (range
   ≤1), schedule-admissible void masks, lead-witness tiles outside the pool, Hall —

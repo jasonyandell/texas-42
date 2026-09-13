@@ -111,7 +111,16 @@ mid-game (windowed, imperfect-information) solves; no theorem — 32,886 agreeme
 are evidence the quotient conjecture is worth proving, not a proof. *Update
 2026-08-01: the conjecture now carries an adversarially step-checked proof at the
 exchange tier (C1, x:009 — [claim-ledger](claim-ledger.md)); kernel/Lean
-mechanization pending (dispatch 011).* Caveat
+mechanization pending (dispatch 011).* *Lean status, updated 2026-09-13: the
+thread ran x:011 (an honest refusal that caught a dispatch spec error) → x:013
+Stage 1 GREEN (`lean/Texas42/ConstellationCore.lean`, commit 1d36ddb8) → x:015
+Stage 2 GREEN after local repair (`ConstellationSuffix.lean`, commit f0de9333);
+both files are sorry-free and kernel-checked for exactly the statements they make
+(`unique_winner`; a fuel-indexed exact suffix minimax with two k = 1 values), but
+they are self-contained, **unreconciled** with the main spine, carry no
+mechanization-ledger row, and state C1 nowhere. Reconciliation is carried by
+[[lean-catchup]] (`kanban/backlog/lean-catchup.md`, opened 2026-08-24, still in
+backlog as of 2026-09-07) — [lean](lean.md) §8.* Caveat
 (Jason, 2026-08-01): the whole record, scarcity funnel included, was measured
 **trumps-declared-first** — inside a per-declaration coordinate frame. It is
 evidence about that frame; it is not a measurement of the constellation space of
@@ -224,7 +233,10 @@ unification, the suit-permutation transports).
    at k=2, owned by `constellation_k2_probe.rs` (817,896 checks, 279,732
    cross-declaration groups, zero divergences — dispatch 009's program adds
    nothing here beyond the already-proved 2↔3 transport); now subsumed for all
-   depths by the C1 exchange-tier proof (x:009), pending Lean.*
+   depths by the C1 exchange-tier proof (x:009), pending Lean — and as of
+   2026-09-13 still pending: Stages 1–2 are GREEN (x:013/x:015) but C1 is stated
+   in neither file and the files are unreconciled with the spine; see §4's status
+   note and [[lean-catchup]].*
 3. **True retrograde enumeration** — enumerate constellations directly at depth k,
    count realizations per constellation via the embedding check (the reachability
    census of the idea), and back-value constellations instead of positions, with
@@ -329,6 +341,33 @@ reachable terminal constellations — support first, belief second, per
 being a metaphor: symbols (canonical constellations), formation rules
 (realizability), rewrite rules (the backward step), semantics (the value table),
 and an epistemic layer (beliefs over constellations) on top.
+
+## 9. Kin, not descendants (noted 2026-09-13; repository state as of 2026-09-07, `c00717d1`)
+
+*Cross-reference only, per the descendants rule on [ideas](ideas.md); nothing here
+promotes this page, and nothing on this page is cited by what follows.*
+
+No walt object descends from this direction — no retrograde table, no constellation
+key in any player, no probe work since 2026-08-03. What the repository holds instead:
+
+- **Adjudication and kernel status** (§4's updated note): x:009 C1 PARTIAL with the
+  2/3 + 1 FLAWED dissent travelling verbatim and pooled-key backward commutation
+  REFUTED; x:010 R1 CONFIRMED; x:012 staircase CONFIRMED
+  ([claim-ledger](claim-ledger.md)); Lean Stages 1–2 GREEN, self-contained,
+  unreconciled, C1 unstated — reconciliation on [[lean-catchup]] ([lean](lean.md) §8).
+- **Scheme/Fix is kin.** Implemented 2026-09-06 as `walt::scheme`
+  ([walt-scheme-fix](walt-scheme-fix.md)): typed relational expressions over the
+  kernel's worlds — roles bound by relations among dominoes rather than by pips,
+  exact event probabilities under a belief, counterexamples, one-play finite
+  dynamics (2026-09-07). It is the "relations, not pips" wager of §1 made
+  executable, and the nearest thing in the repository to §8's "42 calculus"
+  (symbols, formation rules, rewrite rules, semantics, an epistemic layer). It is
+  **not** a constellation quotient: its identities are rigid bindings over concrete
+  worlds, it carries no canonicalization over color permutations, and it makes no
+  lumpability or compression claim (its archived research on descriptors and
+  soundness is [walt-scheme-fix](walt-scheme-fix.md) §16). Jason's framing of the
+  commission: "invented to compress; commissioned here to express." Neither page
+  cites the other as evidence.
 
 An idea leaves this page only by promotion to a brief or a dispatch, per
 [ideas](ideas.md).

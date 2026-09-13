@@ -1,7 +1,9 @@
 # walt — session log
 
-The session index. Each entry is a few lines: what the session asked, what it
-found, and the wiki page that now owns the full account.
+The session index. Each entry is a few lines (the 2026-09-06/07 entries run
+to a paragraph each): what the session asked, what it found, and the wiki
+page that now owns the full account. Entries marked "(logged YYYY-MM-DD)"
+were written after the fact from the commits and records they cite.
 
 **Pruned 2026-08-13.** This file used to carry the complete per-session build
 records. Those records were absorbed into the wiki — see `wiki/walt.md` for the
@@ -23,8 +25,16 @@ Owning pages: [foundation era](../wiki/walt-foundation-era.md) ·
 [program and resets](../wiki/walt-program.md) ·
 [decision-sparse](../wiki/walt-decision-sparse.md) ·
 [GPU-native trick-1](../wiki/walt-gpu-native-trick1.md) ·
+[seat play](../wiki/walt-seat-play.md) ·
+[calculated-evidence era](../wiki/walt-calculated-evidence.md) ·
+[counted-belief era](../wiki/walt-counted-belief-era.md) ·
+[focal-horizon era](../wiki/walt-focal-horizon-era.md) ·
+[Gran anchors](../wiki/walt-gran-anchors.md) ·
+[partnership program](../wiki/walt-partnership-program.md) ·
+[gym](../wiki/walt-gym.md) ·
 [Scheme/Fix](../wiki/walt-scheme-fix.md) ·
-[math reference](../wiki/walt-math-reference.md).
+[math reference](../wiki/walt-math-reference.md) ·
+the book's table of contents: [Home](../wiki/Home.md).
 
 ## The foundation era — S1 to S4.5
 
@@ -462,7 +472,9 @@ and its state: [`wiki/walt-decision-sparse.md`](../wiki/walt-decision-sparse.md)
 Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
 `SCENARIO-PLAYER.md`; results: `walt-m3-probe/arena_results_2026-08-17.txt`,
 `walt-m3-probe/level2_results_2026-08-17.txt`,
-`walt-m3-probe/divergence_results_2026-08-18.txt`.
+`walt-m3-probe/divergence_results_2026-08-18.txt` (correction 2026-09-13:
+these three files and the `mined/` corpus live at `walt/probes/m3/` since the
+2026-08-24 unification; the bins moved to `walt/walt/src/bin/`).
 
 - 2026-08-17: first lawful hands (scenario → level-1 → playout/viewer); web
   table with trump picking; `walt_bridge` into the mk5 arena over the
@@ -653,6 +665,85 @@ Owning page: [walt-seat-play](../wiki/walt-seat-play.md); spec:
   `walt/MAP.md` (walt on one page). Ruling (Jason): no new parent until a
   consolidation slice lands. Reports under `walt/briefs/FH*-REPORT.md`,
   `CI1-REPORT.md`; Pro response drafted `walt/briefs/FH-RESPONSE-TO-PRO.md`.
+- 2026-09-04 (logged 2026-09-13): THE GRAN G1 ANCHOR (branch `walt-gran`,
+  merged; commits 32aa14f1, 8174fa83). The failed Plunge hand (Jason bid 30 on
+  sixes; his walt partner "Gran" held the 6-4 and played the 6-2 at trick 1;
+  25–17, set) transcribed tile by tile from two screenshots and validated
+  mechanically by `rules::replay::replay_hand` through the new bin `granrun`
+  — 28 distinct tiles, every follow legal, all seven winners, points and the
+  25–17 verdict re-derived, no game seed needed: `probes/gran/g1.receipt.txt`.
+  The made hand (bid 31 sixes, 36–0) committed as a validated six-trick
+  partial: 24 of 28 tiles recorded, the deal NOT recovered ({4-1, 4-4, 5-3}
+  six-way ambiguous), the G2/G3 roots fully determined as information sets
+  (`g2g3.receipt.txt`). First waking-seat run on the real hand: replay mode
+  plays the 6-4 at trick 1 where the record played 6-2, but the wake did NOT
+  fire there — fiber 46,558,512 above the exact wake cap 1024, σ0 already
+  picks 6-4, route `unresolved-level1` — an epoch/baseline difference, not the
+  waking mechanism; the one real wake (trick 5, fiber 300, exact route) chose
+  4-2, the human play; agreement with the record 6/7; 25.04 s. Driven mode
+  (the seat at all four chairs) 26–16, still set, zero wakes, 166.11 s.
+  Record `probes/gran/README.md`; card [[gran-anchor-reconstruction]] (G1
+  done; open on the G2/G3 deal and the intake-companion repoint). Owning
+  page: `wiki/walt-gran-anchors.md`.
+- 2026-09-05 (logged 2026-09-13): THE MORNING READOUT
+  (`briefs/MORNING-2026-09-05.md`, 9d6a5a2e — the only main-side record of
+  two branches still UNMERGED at c00717d1; commit counts verified 2026-09-13
+  by listing each branch's commits not in main). `walt-g1-l2` (8 commits,
+  2d3907bd..6abdd78f): the 2026-08-17 level-2 player at Gran's seat HOLDS the
+  6-4 at both legal G1 nodes (trick 3 exact over 17,640 deals: 5-2 654‰ vs
+  6-4 640‰); G2 is exactly locked from trick 3 (all 280 trick-4 deals make
+  whatever Gran plays; level 1 gives the identical tie set); the hoarding
+  mechanism read from source — `TieRule::LowestTileIndex` in `solver/act.rs`
+  plus `solver::best_of`'s strict-improvement reduce keep the lowest-index
+  tile at an exact tie, and the 6-4 is index 25 of 0..27; a synthetic lock
+  (threes trump) shows no saturation and a release margin moving L1 → L2 by
+  +30/−15/+40/+134/+43/0 at tricks 1–6, trick 5 exact over 210 deals flipping
+  L1 hold → L2 release. Design conclusion: another rung is not the remedy;
+  the levers are the objective (pmake pins at 1) and the tie-break at exact
+  indifference. `walt-o5` (9 commits, 0b65efb9..2981e090; `check.sh` PASS on
+  the branch): obligation O5 measured — the modeled minds' no-void fiber is
+  median 250–363‰ dead from trick 3 (max 988‰); the σ0 flip rate GROWS with
+  n0 (102‰ → 189‰ at n0 2 → 8), a bias floor; level-1 recommendations move
+  90–454‰ by trick; a match-seed defect found and the mirrored match rerun:
+  live epoch 33/19/20 pairs aware (+262 of 6048), reduced epoch 76/83/33
+  blind (−226 of 16128) — "dead heat" WITHDRAWN; flag stays off; Jason ruled
+  rank/unrank over a counting DP as the sampler for any future default
+  ([[inner-voids-default]]). Jason's calls (A)–(F) open. Owning page:
+  `wiki/walt-gran-anchors.md`.
+
+- 2026-09-06 (logged 2026-09-13): THE PARTNERSHIP PROGRAM — the player and
+  campaign side (Codex session on `codex/partnership-launch`, fast-forwarded
+  into main as d8400713..0b65e5b1; full Rust CI deliberately WAIVED for the
+  session — `walt/ci/check.sh` was not run on these commits). Launch packet
+  preserved (`experiments/partnership/packet/texas42-partnership-launch-v0.1/`);
+  a bounded partner-aware sampling-stack player (partner modeled at L1,
+  opponents at L0; 40/8/2 samples; a 14 s per-decision wrapper; the brief's
+  60 s per trick met — largest four-play trick 33.961 s) beside the archived
+  Plunge WASM as the frozen "phone" reference (40/8 racing; the currently
+  deployed phone build not independently verified). Batteries, all mirrored
+  paired bid-30 deals with make/set the only criterion: the random 100-seed
+  panel, 300 games, 15 favorable / 23 unfavorable / 156 ties
+  (`campaigns/random-420600-699/RESULTS.md`); the fixed-hand panel (10 hands
+  × 10 hidden completions), 300 games, 21 / 27 / 152
+  (`campaigns/worlds-520600-699/RESULTS.md`); native L1 vs phone calibration,
+  150 games, 8 / 15 / 77 at 0.080 s vs 0.636 s per decision
+  (`campaigns/native-l1-vs-phone-620600-649/CALIBRATION.md`); the unified
+  selection foundation (`solver/selection.rs`, `FOUNDATION.md`) with a
+  resumable paired arena published the foundation battery — 524 games /
+  14,672 independently replay-verified moves, native racing L1 matching the
+  phone on every move of all 35 fallback-free pairs, void-aware racing L1
+  9/5/36 (random) and 5/8/37 (fixed hands)
+  (`campaigns/foundation-battery/RESULTS.md`); selectable inner beliefs
+  `InnerBelief::{Voidless, VoidsCounted}` (`solver/inner_belief.rs`, dbcc698f;
+  `INNER-BELIEF.md` — an O5 alternative that does not discharge O5's
+  measurement obligation); the player families named (`PLAYERS.md`); the
+  default fixed-search battery, 400 games on 100 shared deals — L2 Partner
+  vs L1 14/14/72, L2 Partner with voids vs without 12/17/71; 0.228 / 1.127 /
+  1.318 s per move (`campaigns/default-partner-battery/RESULTS.md`). No
+  strength gain established; no default changed; the 420602 defensive
+  reversal is the named open uncertainty ([[partnership-strength-question]]).
+  Status ledger `experiments/partnership/SESSION-STATUS.md`. Owning page:
+  `wiki/walt-partnership-program.md`.
 
 - 2026-09-06: SCHEME FOR EXPRESSION (Jason's explicit direction): implemented
   `walt::scheme` in the unified crate on v0.4 sections 3–5. Typed role schemas,
@@ -775,3 +866,33 @@ this limit is now tested explicitly. Actual interruption/resume and 8,694
 independent full-game replays pass. Full legacy Rust CI remains waived.
 [Guide](../experiments/partnership/RELATIONAL-LEARNING.md) and
 [report/evidence](../experiments/partnership/campaigns/relational-learning-v1/RESULTS.md).
+
+## 2026-09-07 — PR #88 recorded merged (logged 2026-09-13)
+
+`walt-fh` — the focal-horizon program of 2026-09-04 (FH0–FH5, CI1, the FH4
+audit) — was recorded MERGED on GitHub at 2026-09-07T06:17Z by fast-forward:
+the merge commit is the branch head `a0d594b2` (2026-09-04) and no merge
+commit exists. The branch's commits were already on main's first-parent line
+ahead of `walt-gran` (32aa14f1, 8174fa83), the readout (9d6a5a2e) and the
+partnership commits (d8400713..c00717d1). HEAD `c00717d1` (2026-09-07) is the
+repository state the book describes.
+
+## 2026-09-12/13 — the wiki rewritten as the book (branch `worktree-wiki-book`)
+
+The wiki was rewritten as "the book on 42 as we know it" — `wiki/Home.md`
+the table of contents, each page a chapter — from a survey of every source
+at `c00717d1`. New chapters: timeline, vocabulary, exchange,
+walt-pre-pivot-results, walt-focal-horizon-era, walt-gran-anchors,
+walt-partnership-program, walt-gym, walt-architecture; the three idea pages
+gained dated descendants notes. On the walt side this file, `MAP.md`
+(rewritten), `SCENARIO-PLAYER.md` (§9 paths, Def 6.3 exact-tie note, the O5
+row), `CONTROLLER-PLAYER.md` (dated notes for #55/#83), `DISCREPANCIES.md`
+(header date), `ARCHIVE.md` (HF status), `probes/factor_belief/README.md`
+(the [145,606]‰ mislabel) and `CLAUDE.md` (the briefs convention) were brought
+into line with the book; the kanban board was reconciled
+([[adaptive-sampling-intake]] closed as of 2026-08-24,
+[[gran-anchor-reconstruction]] to doing, new cards [[sigma0-read-key-study]],
+[[consolidation-slice]], [[partnership-strength-question]],
+[[scheme-compact-compiler]], [[inner-voids-default]],
+[[wiki-book-followups]]). No source of evidence changed; every tier label
+stands; the rewrite is documentation only.

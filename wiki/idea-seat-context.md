@@ -4,11 +4,44 @@
 
 **EXPLORATORY / IDEA TIER.** Nothing on this page is adjudicated, kernel-proved, or receipt-backed. It records a framing developed in conversation. The central question (§2) is **deliberately unresolved at Jason's request** — do not treat either reading as settled.
 
-*Build note (2026-08-10):* the seat is under construction at [walt](walt.md)
-(exploratory tier, its own frozen basis). walt's dynamic control-skeleton
-search — typed relational state with a closed update over observations — is
-the operational form of this page's maintained-context frame. The build
-neither settles nor promotes §2.
+*Build note (2026-08-10, superseded):* the seat was under construction at
+[walt](walt.md), and this note pointed at walt's dynamic control-skeleton
+search — typed relational state with a closed update over observations — as
+the operational form of this page's maintained-context frame. That search
+(the S4–S6 `ControlSkeleton` program) was **deleted by the unification on
+2026-08-24**; its code survives at `git show 648f93ae` and its negative result
+is recorded on [walt-negative-results](walt-negative-results.md).
+
+*Descendants (noted 2026-09-13; repository state as of 2026-09-07, `c00717d1`;
+cross-reference only, per the rule on [ideas](ideas.md) — nothing here settles or
+promotes §2, which stays open as Jason ruled):*
+
+- **§3's cost inversion, as built.** UP1a, the lazy carry in
+  `walt/walt/src/solver/unified.rs` (2026-09-03, PR #87 `a80b9829`;
+  `walt/briefs/UP1A-REPORT.md`): gate UP3 had proved the carried posterior is a
+  derived view of (root, public line) and nothing else, so the unified player now
+  *records* the public line per ply and *materializes* the posterior only when a
+  decision tier reads it — exactly "context is a derived view of the history
+  stream, cheap to maintain incrementally, expensive to reconstruct cold". Measured
+  on the lean rung: the unread carry fell from 2,105,672 µs to 0 µs, lazy ≡ eager on
+  all 216 decisions (5 gates, `walt/walt/tests/solver_unified_carry.rs`; record
+  `walt/probes/factor_belief/unified_run2.txt`). Owning page:
+  [walt-focal-horizon-era](walt-focal-horizon-era.md) §4.
+- **§4's two-sort constraint store, as expressed.** Scheme/Fix (`walt::scheme`,
+  2026-09-06) carries Sort 1 as exact finite-world belief conditioning over the
+  kernel's void-conditioned fiber, and its dynamics layer (`walt/scheme/DYNAMICS.md`,
+  2026-09-07) steps a belief through one typed public play in the order this page
+  asks for — discard worlds outside the legal domain, multiply by a declared policy
+  likelihood (the Sort 2 revealed-preference weight, supplied by the caller, never
+  inferred), push worlds forward, merge. Its policy layer (`walt/scheme/POLICIES.md`)
+  carries rigid bindings and a persistent controller mode across observations, a
+  first executable form of "the fold's intermediates". Owning page:
+  [walt-scheme-fix](walt-scheme-fix.md) §§7–9. Open middle (§4) untouched: no
+  general factored compilation of Sort 2 into Sort 1 exists.
+- **What is not a descendant.** The partnership program's modeled partner
+  ([walt-partnership-program](walt-partnership-program.md)) and the Gran anchors
+  ([walt-gran-anchors](walt-gran-anchors.md)) test *player models*, not maintained
+  context; the seat's beliefs there are still redealt per decision.
 
 ## 1. The reframe: neither pip-shaped nor decl-shaped
 

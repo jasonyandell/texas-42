@@ -199,6 +199,23 @@ exactly where the estimate is least informative. (The level-2 t=1 episode:
 a three-way 100% tie at n=200 whose refinement at n=800 separated 5-5
 uniquely; an index-break would have led 1-1.)
 
+*What happens at the bound (note added 2026-09-13, from the 2026-09-05
+readout and a source reading of `solver/act.rs` lines 288 and 315 and
+`solver::best_of` at `solver/mod.rs:1500`; a reading, not a run at a tied
+node).* Def 6.3 governs *sampled* ties. When the refinement bound is hit
+still tied, and at an *exact* tie — every candidate at 1 over the complete
+support, as at G2 from trick 3 where no worlds remain to add — the shipped
+stack does break by tile index after all: the field specs declare
+`TieRule::LowestTileIndex`, and `best_of` keeps the incumbent unless a
+candidate is strictly better, so candidate order — ascending domino index,
+`hi·(hi+1)/2 + lo` — decides. The 6-4 is index 25 of 0..27; a tied seat
+discards almost anything before it. That is the hoarding mechanism of the
+Gran hands ([wiki/walt-gran-anchors.md](../wiki/walt-gran-anchors.md) §6):
+at P(make) = 1 the objective has no gradient and no model of the partner
+can reach the decision through it. The levers are the objective and an
+explicit tie-break at exact indifference — Jason's open call (C) in
+`briefs/MORNING-2026-09-05.md`; neither is built.
+
 ## 7. Estimator semantics — what walt's numbers mean
 
 The root value is a plug-in estimator: exact best-response value *on the
@@ -233,15 +250,23 @@ transposition races is wasted, not wrong (same pure value re-derived).
 
 ## 9. Current implementations bound by this spec
 
-`walt/walt-m3-probe/src/bin/`: `level1.rs` (fixed-carrier ladder, level-1),
-`level2.rs` (fixed-carrier ladder, level-k parameterized, parallel),
+`walt/walt/src/bin/` (paths corrected 2026-09-13: the crate
+`walt/walt-m3-probe/` was folded into the unified crate on 2026-08-24 and no
+longer exists): `level1.rs` (fixed-carrier ladder, level-1),
+`level2.rs` (fixed-carrier ladder, level-k parameterized, parallel; a
+`fixture` mode exists only on the unmerged branch `walt-g1-l2`),
 `playtable.rs` / `webtable.rs` (interactive tables, level-1),
 `walt_bridge.rs` (mk5 arena seat, level-1, rotation frame §1),
 `divergence.rs` (self-play miner, level-1 trajectory + level-2 shadow).
 All post-`1fc2319` binaries carry the banked-correct PiKey. Frozen match
-and probe results: `arena_results_2026-08-17.txt`,
-`level2_results_2026-08-17.txt`, `divergence_results_2026-08-18.txt`,
-corpus under `mined/`.
+and probe results, now under `walt/probes/m3/`:
+`arena_results_2026-08-17.txt`, `level2_results_2026-08-17.txt`,
+`divergence_results_2026-08-18.txt`, corpus under `mined/`. Bound by the
+same spec since: `walt-wasm` (the phone/plunge build) and `walt2-wasm`
+(level 2 in the browser); the variant seats `controller_bridge`
+(`CONTROLLER-PLAYER.md`), `waking_bridge` and `granrun`
+(`probes/gran/README.md`); and the `partnership` stream driven from
+`experiments/partnership/` (families in `PLAYERS.md`; no default changed).
 
 ## 10. Obligations ledger (the bridge still to build)
 
@@ -251,7 +276,7 @@ corpus under `mined/`.
 | O2 | Key sufficiency (Lemma 2.4) | proof | paper proof; candidate for exchange review |
 | O3 | Sampler correctness (Lemma 4.2) | proof | short paper proof |
 | O4 | Posterior semantics (Lemma 5.2) | proof | paper proof; the load-bearing one |
-| O5 | Cost of the no-void inner simplification | measurement | ablation probe (void-conditioned inner minds vs current) |
+| O5 | Cost of the no-void inner simplification | measurement | ablation probe (void-conditioned inner minds vs current). **Note 2026-09-13 — two implementations exist as of 2026-09-07 (`c00717d1`); neither discharges this obligation.** (a) Branch `walt-o5` (9 commits, UNMERGED): `Level0Field::void_aware` behind the `Key::voids` epoch marker, gates `walt/walt/tests/solver_inner_voids.rs`, measurement `walt/probes/o5/README.md` on that branch — the dead fraction is exact (median 250–363‰ from trick 3, max 988‰), the σ0 flip rate GROWS with n0 (102‰ → 189‰), level-1 recommendations move 90–454‰ by trick, and the mirrored match is epoch-dependent after a seed repair (live epoch 33/19/20 pairs aware, reduced epoch 76/83/33 blind; "dead heat" withdrawn). That branch rewrites this row on merge. (b) Main, `solver/inner_belief.rs` (`InnerBelief::VoidsCounted`, dbcc698f, the 2026-09-06 note at the top of this file; [`experiments/partnership/INNER-BELIEF.md`](../experiments/partnership/INNER-BELIEF.md)): paired batteries 9/5/36, 5/8/37 (racing L1) and 12/17/71 (L2 Partner), no strength gain, and the two settings use different inner draw streams so void conditioning is not isolated. The cost/strength question stays open; the default is Jason's word ([[inner-voids-default]]). |
 | O6 | Sampling error quantification on root values | design + math | per-world make indicators admit binomial-style intervals; correlation caveats to state |
 | O7 | Execution-order invariance (8.1) | proof | from O2/purity + rational-arithmetic lemmas |
 | O8 | Tie-refinement bias (does conditional re-sampling bias the reported top value?) | analysis | small-sample analysis; label reported values accordingly |

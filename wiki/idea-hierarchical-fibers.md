@@ -352,7 +352,67 @@ census slice 03 — slice 03 builds the future-equivalence corpus the quotient t
 would be tested against, so the two want to be interleaved rather than sequenced —
 then rung 3, if the bound theorems materialize.
 
-Landing site: a future player-track brief (P-series, successor to
-`rob/BRIEF_PLAYER_01.md`), interleaved with census slice 03. Until such a brief exists
-with named invariants and receipt rows, this page is the whole of it, at the tier
-[ideas](ideas.md) declares.
+Landing site, as written 2026-07-29: a future player-track brief (P-series, successor
+to `rob/BRIEF_PLAYER_01.md`), interleaved with census slice 03. Until such a brief
+exists with named invariants and receipt rows, this page is the whole of it, at the
+tier [ideas](ideas.md) declares.
+
+*Status of that landing site, 2026-09-13:* no P-series brief was ever opened — rob's
+player track has been dormant since 2026-07-30 ([rob](rob.md)) — and the direction
+is best described as **absorbed** by walt's consolidation track (§11). The page's
+own open remainder is rung 2's unmeasured cross-solve reuse (§7).
+
+## 11. Descendants under walt (noted 2026-09-13; repository state as of 2026-09-07, `c00717d1`)
+
+*Cross-reference only, per the descendants rule on [ideas](ideas.md): nothing here
+promotes this page, and every number below is quotable only from the record or gate
+file named beside it. Everything under `walt/` is EXPLORATORY tier and rests on
+walt's own basis — a declared field σ0 for the other three seats, the pmake objective
+(ruled 2026-08-17), and counted belief — not on rob's perfect-information basis.*
+
+**Rung 1 became the counted belief.** "Carry bundles intensionally as cell systems
+plus exact counts; open them into worlds only where the value depends on which world
+it is" is what `walt/walt/src/solver/factor_belief.rs` does (Slice C, 2026-08-30,
+PR #62): the 399,072,960 trick-1 worlds are held as 116,280 acting-seat hands × exact-
+cover counts, and one seat's factor changes per observed play; the opening root's
+exact branch table takes 8.7 ms (record `walt/probes/factor_belief/c2_run1.txt`). The
+finding this page predicted in §6 — that classifying, not counting, is the bill —
+came back as "classifying each hand through σ is ≈ 99 % of every bill". Owning page:
+[walt-counted-belief-era](walt-counted-belief-era.md) §1.
+
+**Rung 3 became the interval objects.** §3 called sound-bound coverings "furthest
+out" and §9 built them without new theorems. Under walt the same shape was
+mathematized and built three times, each time as the one object: root intervals and
+survivor sets (Slice A, 2026-08-30), the certified regret Γ = U* − B_exec of the
+proof state (Phase 3, 2026-08-31, PR #73 — the recommendation carries the gap between
+the best upper and the best executable bar, and refinement is spent only on
+survivors), and the focal-horizon hierarchy [L_k, U_k] per root action
+(`solver/focal_horizon.rs`, FH1, 2026-09-04), whose k = 0 is a lawful tail below and
+the world-revealed continuation above and which collapses to the exact value at
+k = 6 − T because trick 7 is forced. §9's "decided on S when the incumbent's lower
+clears every rival's upper" is the survivor rule; §9's "refine only the contested
+regions" is the focal decision made exact. Owning pages:
+[walt-focal-horizon-era](walt-focal-horizon-era.md) §5,
+[walt-decision-sparse](walt-decision-sparse.md).
+
+**Rung 2 stays falsified, twice.** The world-level tile-exchange quotient of §7 was
+refuted over rob; walt's S4–S6 lumpability program (2026-08-09 → 08-16) reached a
+kindred negative on its own objects — at the candidate scale the only lumpable
+control skeletons were world-reconstructing ([walt-negative-results](walt-negative-results.md),
+[walt-foundation-era](walt-foundation-era.md)). The two results are about different
+quotients and neither cites the other; they are listed together here because a reader
+of this page will ask.
+
+**Two different walls, not one wall solved.** This page's wall is rob's: the
+trick-3 full-depth solve at boundary 2 of the P2 corpus, a fiber of up to **756,756
+worlds** (receipt row `r_pos_bounds`) carried as a world list under perfect-information
+minimax against σ, ≈ 10–17 s per decision. walt's first exact trick-3 value is a
+different object: the receipt-root **h8-t3** (contract 30) under σ0 has **Z = 59,976**
+worlds, and `response_success_mass` — the exact pmake response against the declared
+field, with the modeled minds inside the recursion — was solved there in
+289,407,472 field reads and 797.43 s (13.3 min), value 962‰, argmax 1-1
+(U0b, 2026-09-03, record `walt/probes/factor_belief/horizon_run1.txt` line 11932;
+reproduced by FH3 at k = 3, `focal_run1.txt`). Different corpus, different solver,
+different question; the smaller Z is the counted belief's void-conditioned fiber at a
+trick-3 root, not a compression of rob's 756,756. Neither number says anything about
+the other.
