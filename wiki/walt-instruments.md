@@ -57,6 +57,16 @@ instrument." This page is the catalog — read it before building anything under
 
 ## The workspace (unified 2026-08-24)
 
+**Mac play-to-gym loop, 2026-09-13:** the
+[local Plunge table](../experiments/partnership/PLUNGE.md) calls the measured
+native L1 or L1 + partner rollout for bid-30 practice. It saves original
+own/public decision receipts and imports flagged finished-hand moves into
+the deployed gym, with named continuation players and capped, resumable full
+comparisons. [The study and first live examples](../experiments/partnership/campaigns/sunshine-playable-v1/RESULTS.md)
+keep the existing override rule and demonstrate the workflow. The exact
+comparison claim remains relative to uniform mechanical support and frozen
+continuations; this is not a new general strength result.
+
 **Bounded partnership continuation check, 2026-09-13:** the optional
 [`l1-partner-rollout`](../experiments/partnership/PARTNER-ROLLOUT.md) composes a
 completed default L1 move, a public count-offer Scheme gate, and paired full

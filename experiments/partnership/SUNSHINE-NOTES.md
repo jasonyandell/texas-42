@@ -34,6 +34,13 @@ the small-sample limit: a deadline-truncated comparison can favor the wrong
 side of a close decision. This is an available experimental skill, not a new
 default or a settled strength gain.
 
+The next use step is now implemented: the [Mac Plunge table](PLUNGE.md) plays
+the native L1 or L1 + partner check, saves original decision receipts, and
+turns a flagged human-play observation into a continuation-selectable gym
+comparison. The [bounded override study](campaigns/sunshine-playable-v1/RESULTS.md)
+keeps the existing rule: larger required sampled gains traded fewer harms for
+more missed help. Human play can now supply the next hypotheses and controls.
+
 ## The priority
 
 A reasonable, fairly quick, partner-aware Texas 42 player on the Mac. It must
@@ -189,23 +196,20 @@ partnership consequence while leaving room for alternative implementations.
 
 ## Where the next sunshine cycle starts now
 
-We can now express a partnership concern, generate exercises with the actual
+We can express a partnership concern, generate exercises with named
 continuation players, and change the question while keeping applicable measured
-values. The current live review still uses the original teacher-style model;
-that mismatch has been measured, not repaired by this instrument change.
+values. The optional live rollout now uses completed deployed L1 continuations;
+the original teacher-style review remains a separate experimental option.
 
-The next player experiment should use a cheap proposal and an affordable
-deployed-continuation check. Start with the count-offer skill's positive cases
-and the equally important withholding controls. Keep a baseline move ready;
-an incomplete investigation is unresolved, not evidence that no improvement
-exists. Measure how often the proposal helps, how often it harms, and its cost.
+The immediate next step is to play. Save mistakes and good partnership plays
+with the original decision evidence. Separate failures of the public gate,
+an inadequate sample, the modeled continuation, and the way an answer is used.
+The human partner is itself a new continuation condition: an all-L1 census
+does not automatically explain what happens with Jason at the table.
 
-Challenge any chosen repair on new source-deal groups and different named
-partners before promoting it. The gym tests competence on these intended
-situations; matched ordinary games check broader side effects and practical
-cost. Neither measurement replaces the other. Hindsight can then teach which
-concerns deserve investigation, not just which tile happened to win once.
-
-The priority remains a reasonable, fast, partner-aware player. We have improved
-the instrument for learning that skill; we have not yet established the skill's
-successful affordable repair.
+Use those examples to propose a small repair, test it on relevant positive and
+withholding controls, and challenge it on new source-deal groups and different
+named partners. Keep an affordable baseline ready. Hindsight should teach
+which concerns deserve investigation, not just which tile happened to win once.
+The priority remains a reasonable, fast, partner-aware player; neither a few
+good demonstrations nor tied ordinary games settle its broader strength.

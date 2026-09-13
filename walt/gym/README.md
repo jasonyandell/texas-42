@@ -1,5 +1,11 @@
 # The partnership gym
 
+**Human-play intake, 2026-09-13:** the [Mac Plunge table](../../experiments/partnership/PLUNGE.md)
+now imports flagged human or native decisions from finished hands. It preserves
+the original native receipt, independently reconstructs the actor's own/public
+position, and offers capped, resumable censuses under named continuation
+players. [First examples and validation](../../experiments/partnership/campaigns/sunshine-playable-v1/RESULTS.md).
+
 **Current recipe workflow (2026-09-13):** the
 [continuation-selectable specification](SPECIFICATIONS.md) connects Scheme
 matching to either the original teacher or named deployed focal/partner/opponent

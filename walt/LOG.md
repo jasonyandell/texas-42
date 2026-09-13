@@ -876,3 +876,27 @@ adapter audits passed again. Measured and release fingerprints are separate.
 See the [player guide](../experiments/partnership/PARTNER-ROLLOUT.md),
 [results, fresh recipe and counterexamples](../experiments/partnership/campaigns/sunshine-rollout-v1/RESULTS.md),
 and [sunshine notes](../experiments/partnership/SUNSHINE-NOTES.md).
+
+## 2026-09-13 — The Mac sunshine table and live-move gym intake
+
+A bounded override-margin study retained the current one-success rule: larger
+margins removed some harms but missed useful changes, giving slightly higher
+development regret. The 25 previously seen follow-up roots are explicitly
+regressions, not fresh evidence; repeated subsets are sensitivity measurements.
+Native player behavior and budgets are unchanged.
+
+Connected a separate Plunge worktree to native L1/L1 + partner rollout for
+assigned-bid-30 practice. Original own/public decisions are saved before play;
+finished hands can be flagged with a note and legal alternative and independently
+imported into the deployed gym. Named continuation models, a 400-world full
+comparison cap, progress and pause/resume are exposed in the table. Local
+offline caching is disabled so source and comparison status remain current.
+
+One browser-played hand produced 18 native receipts and two flagged examples.
+Earl's defending 6–4 scores 12/18 sets versus 6/18 for 2–2 under full L1
+continuations; this is competence already present in L1, not a new-check gain.
+Native interruption/resume retained all saved files unchanged, and the complete
+keys passed independent replay. 97 Python and 116 Plunge tests passed, plus
+typecheck/native-mode build. Plunge companion commit `adfd7d4`; both worktrees
+remain local. [Operating guide](../experiments/partnership/PLUNGE.md),
+[study and integration evidence](../experiments/partnership/campaigns/sunshine-playable-v1/RESULTS.md).
