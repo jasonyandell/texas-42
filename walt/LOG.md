@@ -794,3 +794,24 @@ and files preserved. 69 Python and 35 focused Rust tests, strict clippy, and
 its unread original is not claimed as a source. Full legacy CI remains waived.
 [Player guide](../experiments/partnership/PARTNER-REVIEW.md) and
 [protocol, results, and receipts](../experiments/partnership/campaigns/sunshine-partner-count-v1/RESULTS.md).
+
+## 2026-09-13 — Exact gym mistakes with deployed L1 continuations
+
+Jason clarified that rare, frustrating partner-count mistakes deserve a direct
+competence test even if they scarcely affect ordinary-game win rates. Added a
+resumable action-intervention replay using the existing frozen decision cache.
+The six original misses plus 38 withholding controls and one certain control
+cover 45 distinct roots, 24 source seeds, and all 1,919 compatible root/world
+pairs. Every legal first action and the reviewed-team arm completed: 7,338
+independently audited trajectories and 41,602 frozen decisions in 58.20 seconds
+including interruption/resume and the final audit. All 121 interrupted-run
+durable files remained unchanged; 76 Python tests passed. No player change.
+Two missed offers remain useful under deployed L1, while four reverse. The
+review times out on the strongest useful correction and changes the other five;
+the full reviewed partnership saves 21 worlds and loses 32 across the six cases.
+All withholding-control outcomes remain unchanged by review. A concrete world
+of advantage-27 makes 36 by giving 6–4 and sets at 25 by keeping it; across its
+90 worlds the correction saves one and loses none. The certain case retains
+3/3 versus 0/3. Teacher labels do not automatically transfer to deployed
+continuations. [Guide](../experiments/partnership/GYM-REPLAY.md),
+[results and paired witnesses](../experiments/partnership/campaigns/sunshine-gym-replay-v1/RESULTS.md).

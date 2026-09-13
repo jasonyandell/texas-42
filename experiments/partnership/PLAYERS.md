@@ -98,3 +98,8 @@ The [guide](PARTNER-REVIEW.md) defines its scope. The
 [first sunshine experiment](campaigns/sunshine-partner-count-v1/RESULTS.md)
 improved selected gym grades but changed no moves in 100 fresh paired deals;
 all 100 make/set comparisons tied. Practical strength improvement remains open.
+The [targeted continuation replay](campaigns/sunshine-gym-replay-v1/RESULTS.md)
+then found two useful offers and four reversed judgments on the six original
+misses. Review timed out on the strongest useful offer and changed the other
+five. Use this preset as an investigated candidate, not a validated partnership
+repair. The selected withholding controls incurred no additional harm.

@@ -6,6 +6,13 @@
 define its evidence and scope. This implements the first bounded repair proposed
 in [Sunshine Notes](SUNSHINE-NOTES.md).
 
+The [subsequent replay of the exact gym misses](campaigns/sunshine-gym-replay-v1/RESULTS.md)
+found that two offers still help under deployed L1 continuations, while four
+reverse and hurt. The reviewer changes five choices but times out on the
+strongest useful one. Its teacher-relative improvement therefore does not
+establish a successful repair under the deployed continuation. This remains an
+experimental preset; the [replay instrument](GYM-REPLAY.md) now measures that gap.
+
 ## Behavior
 
 `l1-partner-count-review` is default fixed L1 with an optional review after its

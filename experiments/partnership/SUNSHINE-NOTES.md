@@ -9,6 +9,14 @@ Follow-up on the same date: Jason authorized this next step, and the
 now implements and measures one bounded review. The text below preserves the
 discussion as it stood before that experiment.
 
+Jason's subsequent clarification: this particular count-offer competence is
+expected to be uncommon, but an avoidable failure can be disproportionately
+frustrating to a human partner. Measure success on the intended situations;
+rarity in an ordinary arena is not a reason to abandon the skill. The
+[targeted deployed-continuation replay](campaigns/sunshine-gym-replay-v1/RESULTS.md)
+implements that follow-up and distinguishes useful corrections from teacher
+labels that reverse with the actual future players.
+
 ## The priority
 
 A reasonable, fairly quick, partner-aware Texas 42 player on the Mac. It must

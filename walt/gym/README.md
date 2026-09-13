@@ -6,6 +6,14 @@ root choice. Default L1 chose optimally on 24/30; L2 Partner on 26/30, with
 three improvements and one regression. Exact teacher-relative diagnostic;
 the specification and all pupil responses are checked in.
 
+**Deployed continuation check (2026-09-13):** the
+[targeted replay](../../experiments/partnership/campaigns/sunshine-gym-replay-v1/RESULTS.md)
+tests those six missed root choices with actual L1 continuation over every
+compatible hidden hand. Two offers remain useful; four reverse. It also covers
+38 withholding controls and the already-correct certain case. This makes the
+teacher-versus-deployment distinction below measurable. The
+[replay guide](../../experiments/partnership/GYM-REPLAY.md) owns that instrument.
+
 **Start with a specification:** [one parameterized collection definition](SPECIFICATIONS.md)
 now generates the exercises. [specs/bid-making.json](specs/bid-making.json)
 reproduces the same 433 positions and complete answer keys, supports exact

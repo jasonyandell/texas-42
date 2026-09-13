@@ -35,6 +35,16 @@ partnership evidence, not an established live strength gain. The existing
 default remains unchanged. The [review guide](../experiments/partnership/PARTNER-REVIEW.md)
 documents the 250 ms allowance, finite model, and interruption-safe backstop.
 
+The [subsequent replay of the exact gym misses](../experiments/partnership/campaigns/sunshine-gym-replay-v1/RESULTS.md)
+replaces the teacher continuation with deployed L1 at every seat. Two of six
+offers remain beneficial and four reverse. Across all 746 missed-case worlds,
+the reviewed partnership saves 21 and loses 32 compared with L1; its strongest
+useful root review times out. The 38 withholding controls incur no additional
+harm across 1,170 worlds, and the certain control retains 3/3 versus 0/3 action
+values. All 7,338 complete continuations were audited. This is a conditional
+competence test for a rare partnership annoyance, not a prevalence requirement;
+the deployed-continuation labels and paired witnesses are now reusable.
+
 **Scheme/Fix is now implemented as `walt::scheme` in the unified crate.** Jason's
 direction is expression: it was invented to compress, but will be used to express.
 The implementation covers v0.4 sections 3–6's role schemas, equality patterns,
