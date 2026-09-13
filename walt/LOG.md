@@ -775,3 +775,22 @@ this limit is now tested explicitly. Actual interruption/resume and 8,694
 independent full-game replays pass. Full legacy Rust CI remains waived.
 [Guide](../experiments/partnership/RELATIONAL-LEARNING.md) and
 [report/evidence](../experiments/partnership/campaigns/relational-learning-v1/RESULTS.md).
+
+## 2026-09-13 — First sunshine cycle: bounded partnership review
+
+Added an optional Scheme-directed count-offer investigation after default L1,
+with a 250 ms allowance, exact finite model-relative comparison, and unchanged
+baseline on ties or refusal. Selected gym grades improved 24/30 to 29/30 and
+100/117 to 107/117 (overlapping galleries). The final 100 fresh paired bid-30
+deals changed no moves and all tied; 192 conditional hidden-hand pairs also
+tied. Mean live decision time was 0.18262s versus L1's 0.18245s; separately
+recorded review work averaged 0.463 ms per candidate move. No strength gain is
+established and default L1 remains unchanged. Post-hoc exact comparisons found
+two selected action preferences that reverse when only the checker's partner
+model changes; four other corrections also appear with the simpler model.
+Both experiment runners passed actual interruption/resume, with saved decisions
+and files preserved. 69 Python and 35 focused Rust tests, strict clippy, and
+648 independent full-game replays passed. POLICY-ANTS retrieval remains pending;
+its unread original is not claimed as a source. Full legacy CI remains waived.
+[Player guide](../experiments/partnership/PARTNER-REVIEW.md) and
+[protocol, results, and receipts](../experiments/partnership/campaigns/sunshine-partner-count-v1/RESULTS.md).

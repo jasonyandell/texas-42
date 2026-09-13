@@ -16,12 +16,15 @@ class Player:
     n0: int = 8
     n1: int = 2
     budget_ms: int = 14000
+    review: str = "off"
 
     def __post_init__(self):
         if not isinstance(self.name, str) or not self.name.strip():
             raise ValueError("player needs a name")
         if self.mode not in ("phone", "baseline", "partner", "all-l1"):
             raise ValueError("unknown modeled-seat profile")
+        if self.review not in ("off", "partner-count") or (self.review != "off" and self.mode != "baseline"):
+            raise ValueError("partner-count review requires the baseline profile")
         if self.inner_belief not in ("voidless", "voids-counted"):
             raise ValueError("unknown inner belief")
         if self.selection not in RULES or self.modeled_selection not in RULES:

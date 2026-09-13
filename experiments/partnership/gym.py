@@ -695,6 +695,9 @@ def run(args):
                     rayon_threads_per_process=1,
                     catalog_identity="questions-and-keys-v1", catalog=exam_identity(cases),
                     players={name: configs[name] for name in players})
+    if any(p.review != "off" for p in players.values()):
+        manifest.update(review=file_hash(HERE / "partner_review.py"),
+                        review_native=file_hash(BINARY.parent / "partner_review"))
 
     def job(item):
         case = cases[item["scenario"]]

@@ -18,6 +18,23 @@ Siblings: [walt hub](walt.md) · [foundation era](walt-foundation-era.md) · [fa
 
 ## 0. The executable expressive layer (2026-09-06)
 
+The [sunshine discussion notes](../experiments/partnership/SUNSHINE-NOTES.md)
+preserve the subsequent research direction: a fast partner-aware player using
+fallible guesses, targeted checks, and hindsight learning, with a reusable
+experimental method for later belief and dynamics studies. These are proposals,
+separate from the implemented capabilities and measured results below.
+
+**2026-09-13:** the [first sunshine experiment](../experiments/partnership/campaigns/sunshine-partner-count-v1/RESULTS.md)
+implements an optional Scheme-directed count-offer review around default L1.
+It improved 24/30 to 29/30 on the selected composed exam and 100/117 to 107/117
+on the overlapping broader gallery. In 100 fresh paired bid-30 deals it changed
+no moves and all outcomes tied; 192 conditional hidden-hand pairs also tied.
+A post-hoc controlled check found two selected positions where changing only
+the modeled partner reverses an action preference. This is model-relative
+partnership evidence, not an established live strength gain. The existing
+default remains unchanged. The [review guide](../experiments/partnership/PARTNER-REVIEW.md)
+documents the 250 ms allowance, finite model, and interruption-safe backstop.
+
 **Scheme/Fix is now implemented as `walt::scheme` in the unified crate.** Jason's
 direction is expression: it was invented to compress, but will be used to express.
 The implementation covers v0.4 sections 3–6's role schemas, equality patterns,

@@ -137,9 +137,12 @@ def decide(
     selection="fixed",
     modeled_selection="fixed",
     session=None,
+    review="off",
 ):
     start = time.monotonic()
     send = session.call if session is not None else child
+    if review not in ("off", "partner-count") or (review != "off" and mode != "baseline"):
+        raise ValueError("partner-count review requires the baseline profile")
     if selection not in ("fixed", "refine", "race-refine") or modeled_selection not in (
         "fixed",
         "refine",
@@ -256,6 +259,15 @@ def decide(
         if primary_choice is not None:
             choice = primary_choice
             route = mode
+    review_result = None
+    if review == "partner-count" and route == "baseline":
+        from partner_review import investigate
+        t = time.monotonic()
+        choice, review_result = investigate(req, state, choice, deadline - t - reserve, child)
+        phases.append({"name": "partner-count-review", "status": review_result["status"],
+                       "elapsed_us": round((time.monotonic() - t) * 1_000_000)})
+        if review_result["status"] == "changed":
+            route = "baseline-reviewed"
     elapsed_us = round((time.monotonic() - start) * 1_000_000)
     return {
         "schema": "partnership-decision-v1",
@@ -270,6 +282,8 @@ def decide(
         "budget_ms": budget_ms,
         "selection": selection,
         "modeled_selection": modeled_selection,
+        "review": review,
+        "review_result": review_result,
         "elapsed_us": elapsed_us,
         "over_budget": elapsed_us > budget_ms * 1000,
         "phases": phases,
@@ -298,6 +312,7 @@ def main():
     p.add_argument("--n0", type=int, default=8)
     p.add_argument("--n1", type=int, default=2)
     p.add_argument("--budget-ms", type=int, default=14000)
+    p.add_argument("--review", choices=["off", "partner-count"], default="off")
     args = p.parse_args()
     for line in sys.stdin:
         if not line.strip():

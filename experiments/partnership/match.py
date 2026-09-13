@@ -28,16 +28,16 @@ def show_players(path, include_all=False):
         "phone": "Phone reference",
     }
     print(
-        "| Preset | Family | Root search | Modeled L1 search | Inner belief | Worlds: root / L0 / L1 |"
+        "| Preset | Family | Root search | Modeled L1 search | Inner belief | Worlds: root / L0 / L1 | Review |"
     )
-    print("|---|---|---|---|---|---|")
+    print("|---|---|---|---|---|---|---|")
     for name in names:
         p = Player(**presets[name])
         modeled = p.modeled_selection if p.mode in ("partner", "all-l1") else "—"
         root = "archived racing" if p.mode == "phone" else p.selection
         n1 = str(p.n1) if p.mode in ("partner", "all-l1") else "—"
         print(
-            f"| {name} | {families[p.mode]} | {root} | {modeled} | {p.inner_belief} | {p.n} / {p.n0} / {n1} |"
+            f"| {name} | {families[p.mode]} | {root} | {modeled} | {p.inner_belief} | {p.n} / {p.n0} / {n1} | {p.review} |"
         )
     print(
         "\nDefault means fixed search. Phone is a separate archived reference. Use --all for historical and advanced presets; see PLAYERS.md for naming and fallback semantics."
