@@ -550,10 +550,15 @@ here.
   Jason 2026-09-01 mid-adjudication of the sibling — "oops missed a
   file!" — resolving MB-A2; checksum-pinned, SHA-256 `eca69bd5…`; not a
   courier dispatch; upload `THEORYwaltsalvationcomplexv0.1.md`, filed
-  snake_case, recorded not repaired). Written against main `08fe3d2`; its
-  stated doom-census hash `eb5a459…` is not in main's history — a
-  branch-state hash from Pro's inspection, harmless and recorded (SC-A6);
-  the census landed via PR #79. The fixed-field unification: salvation
+  snake_case, recorded not repaired). Written against main `08fe3d2`; SC-A6 recorded
+  its stated doom-census hash `eb5a459…` as one that "does not appear in
+  main's history (a branch-state hash from Pro's inspection); harmless,
+  recorded" — *correction, measured 2026-09-13 on this machine:*
+  `eb5a459d` **is** on main, the squash commit of PR #79 ("walt doom
+  census: counterexample mass as deterministic uppers", 2026-09-01), so the
+  parent's citation was exact and SC-A6's observation was wrong; nothing
+  rests on it either way, as the ruling itself says (SC-A1 verified the
+  empirical citations against the committed probes). The fixed-field unification: salvation
   sets and the salvation-conflict hypergraph; Thm 6.1 (max-weight face);
   Thm 7.1 (**God-tight** iff nonempty common intersection over saveable
   worlds); the §8 three-part failure decomposition
@@ -837,9 +842,11 @@ records they concern were not rewritten.
   accept obligations "into the Lean side-project ledger" — CBS-O1..O15 (CBS-A9),
   PS-T1..T15 plus the 42-instance layer (APS-A9), MB-O1..O20 (MB-A8), the SC
   §60 tranche (SC-A2) — but as of 2026-09-07 the identifiers occur only in
-  `walt/CENSUS-RULINGS.md`, `walt/FACTOR-BELIEF.md` and this page; nothing
-  under `lean/` or on [lean](lean.md) names them, and
-  `kanban/backlog/lean-catchup.md` is the only card. Where the ledger lives is
+  `walt/CENSUS-RULINGS.md`, the CBS parent and companion,
+  `walt/FACTOR-BELIEF.md`, `solver/factor_belief.rs`, and on the pages that
+  record the same absence (this page, [lean](lean.md) §10,
+  `kanban/backlog/lean-catchup.md` — the only card); nothing under `lean/`
+  names them (grep `CBS-O1`, measured 2026-09-13). Where the ledger lives is
   an open question ([open questions](walt-math-open-questions.md)).
 - **Errata §9 and §4.3 still owed** under DS-A28(ii) since 2026-08-14 — the FT
   and SR objects (FT-A27(i), SEP-A2) and Corollary E4.1. Verified unfiled at

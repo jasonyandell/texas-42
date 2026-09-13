@@ -778,7 +778,7 @@ SHA-256 af0200af…, byte-identical to this repository's build at commit 9a056f2
 of 2026-08-19), playing level 1 at 40 outer / 8 inner worlds with racing on, and
 bidding by plunge's own heuristic, not walt's. Native fixed level 1 turned out to
 trail that phone — 8 favorable / 15 unfavorable / 77 ties over 50 deals (−7.0
-points per matched contract), at 0.080 s versus 0.636 s per move
+percentage points per matched contract opportunity), at 0.080 s versus 0.636 s per move
 (`campaigns/native-l1-vs-phone-620600-649/CALIBRATION.md`) — because the phone
 races and refines; one selection authority (`solver/selection.rs`: fixed, refine,
 race-refine) then made native **l1-race reproduce the phone move for move in all
@@ -786,7 +786,9 @@ race-refine) then made native **l1-race reproduce the phone move for move in all
 3/1/46 on the pairs overall. The partner-aware candidate — the partner modeled as
 a level-1 mind, opponents as level 0 — is lawful, information-consistent and fast
 enough for the 14 s wrapper, and **has not beaten its reference**: against the
-phone 15 favorable / 23 unfavorable / 156 ties on 97 fresh deals (−4.1 points),
+phone 15 favorable / 23 unfavorable / 156 ties on 97 fresh deals (−4.1 percentage
+points net, derived by the calibration convention: favorable minus unfavorable
+flips over the 194 matched contract opportunities),
 21/27/152 on a fixed-hand panel; against native level 1 on 100 shared deals,
 **L2 Partner 14 wins / 14 losses / 72 ties (50.0%) at about five times the cost**
 (1.127 s versus 0.228 s per move; `campaigns/default-partner-battery/RESULTS.md`);

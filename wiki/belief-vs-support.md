@@ -101,11 +101,12 @@ independent tier. rob's `r_cell_ninety_world_support: 90` is conformance evidenc
 | Finite exponential-tilt form; forced-action world-nondiscrimination (BEL-12) | PA-E05, PA-E06 (1) | **open** | — |
 | INFO-11, BEL-03A, BEL-06/06B, BEL-11/11A, BEL-14, BEL-15/OPEN-07, STR-11 | no rows | not mechanized | — |
 | STR-06: the endpoint fiber is exactly 90 worlds, each rule-realized | PA-E10 (0) | **proved**: `worldPairs.card = 90`; fiber = cells (`isWorld_iff`); every world realized by a rule-compatible deal that legally replays the five-trick prefix (90 kernel replays) | `Witness.lean:99` `card_worldPairs`, `:590` `isWorld_iff`, `:692` `replay_check`, `:708` `rule_fiber` |
-| STR-07: two distinct legal auction histories `α_A`, `α_B`, same result (`P(31)`, seat 3) | PA-E10 | **proved** | `Witness.lean:506` `auction_histories` |
-| STR-08: both posteriors give all 90 worlds positive mass | PA-E10 | **proved** (weights sum 210 and 120) | `Witness.lean:233` `same_full_support` |
+| STR-07 pointwise anchors: two fiber members have `Q` tables `(10, −22)` and `(−22, 22)` | PA-E10 | **proved** | `Witness.lean:147` `anchor_values` |
+| STR-08 (setup): two distinct legal auction histories `α_A`, `α_B`, same result (`P(31)`, seat 3) | PA-E10 | **proved** | `Witness.lean:506` `auction_histories` |
+| STR-08: both posteriors give all 90 worlds positive mass (the opposite-lead half is the STR-09 row) | PA-E10 | **proved** (weights sum 210 and 120) | `Witness.lean:233` `same_full_support` |
 | STR-09: the lead flips under **all four** lenses | PA-E10 | **proved for two lenses** — expected signed differential (`−160/21, 10/7, −217/30, −52/5`) and contract-make probability (`1/3, 16/35, 1/3, 1/5`); the remaining two §10.4 lenses (expected declaring points; one-mark hand utility) are positive affine transforms of these and are **not separately stated** in Lean — the four-lens claim stays at corpus finite-verification tier | `Witness.lean:400` `expected_differentials`, `:438` `make_probabilities`, `:477` `posterior_action_reversal`, `:728` `ninety_world_witness` |
 | STR-10 no strategy fusion (every own action forced after the root lead) | — | not a named kernel theorem; the values `Q` come from 180 deterministic lowest-ID rollouts of the committed `PlayState.step` (`Witness.lowestLegal`, `rollout`) | — |
-| HAND-07 world-conditional values `−22` / `+22` of `4-1` | PA-E11 (1, WITNESS) | row **open**; the anchor table (10, −22, −22, +22) is kernel-evaluated but not stated as the HAND-07 counterexample | `Witness.lean:147` `anchor_values` |
+| HAND-07 world-conditional values `−22` / `+22` of `4-1` | PA-E11 (1, WITNESS) | row **open**; the STR-07 anchor table (10, −22, −22, +22) is kernel-evaluated but not stated as the HAND-07 counterexample | `Witness.lean:147` `anchor_values` |
 | Minimality of 90 | no row | **open** | — |
 
 Cost record (engineering, not a game result): `Witness.lean` verifies in 33 s under

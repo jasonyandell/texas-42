@@ -25,7 +25,7 @@ the next calendar day (PRs #37–#42, #58–#59, #67–#69, #75–#77, #81–#87
 day later on GitHub). Where the two differ this page keeps the git date.
 
 **Shape of the record.** Before 2026-08-24 the history is a single line of
-direct commits plus eight merged pull requests (#1, #3–#8); after the
+direct commits plus seven merged pull requests (#1, #3–#8; #2 is an issue); after the
 unification base `2de8a055` (PR #8, 2026-08-24) it is 197 commits and 78
 merged pull requests #9–#88 (#10 and #11 were closed unmerged — they carry the
 same titles as #12 and #13 and were superseded by them). Not one commit after
@@ -187,7 +187,7 @@ first-pass wiki). Reports of record are under `walt/briefs/` from #81 on.
 | 09-02 | #84 `c5d2f32a` | U0: the God-gap census (`solver/godgap.rs`) — 1 − V = d_phys + d_info + d_policy; **the fusion horizon measured at trick 5** on the receipt corpus (a measurement, never a theorem, SC-A4); twelve t4 prices 6–22‰ with d_policy = 0; the opening root typed `UnknownGodGap`. | `U0-REPORT.md`; `godgap_run1.txt` |
 | 09-02 | #85 `bfbb45ce` | MB1: `solver/model_recursion.rs` — **the model-fusion price is strictly positive at trick 4**: Φ = 38/9600 at h8-t4 3-1 (8323/9600 vs 8361/9600), pinned by gate M6; h8-t3 refuses at 7M reads. | `MB1-REPORT.md`; `modelbelief_recursion_run1.txt` |
 | 09-02 | #86 `3b4105ca` | UP0: `solver/unified.rs`, the unified player — one five-tier decision cascade, provenance always; 99.4% of the lean-rung wall spent carrying an unread posterior; two pinned argmax flips; the declared type library falsified by the player's own play (UP0-REPORT §4). Not the live default; no arena result. | `UP0-REPORT.md`; `unified_run1.txt` |
-| 09-03 | #87 `a80b9829` (`62abe028`) | UP1a the lazy carry (2.1 s → 0 µs) and U0b the in-solve horizon census (`solver/horizon.rs`): **h8-t3 solved exactly, Q* = 28859/29988 (962‰), argmax 1-1, 289,407,472 field reads, 14 min 13 s**; the trick-5 frontier is NOT fusion-free inside a trick-4 solve (13–14‰); a trick-6 cut is 0–7‰ yet flips the play twice. | `UP1A-REPORT.md`, `U0B-REPORT.md`; `horizon_run1.txt`, `unified_run2.txt` |
+| 09-03 | #87 `a80b9829` (`62abe028`) | UP1a the lazy carry (2.1 s → 0 µs) and U0b the in-solve horizon census (`solver/horizon.rs`): **h8-t3 solved exactly, Q* = 28859/29988 (962‰), argmax 1-1, 289,407,472 field reads, 797 s of wall in the record (13 min 17 s; U0B-REPORT's standalone trick-3 scout ran 14 min 13 s)**; the trick-5 frontier is NOT fusion-free inside a trick-4 solve (13–14‰); a trick-6 cut is 0–7‰ yet flips the play twice. | `UP1A-REPORT.md`, `U0B-REPORT.md`; `horizon_run1.txt`, `unified_run2.txt` |
 
 ### Wave 4 — the focal-horizon program and the Gran anchor (2026-09-04; branch `walt-fh` → PR #88, merged 2026-09-07 by fast-forward)
 

@@ -400,7 +400,9 @@ and `extraction.rs` (135) are measurement scaffolding around one recursion, and
 `refine.rs` (917, freeze 58) was already declared removable; `doom.rs` stays as
 the God tail's engine. Before it, the σ0 read-key study (does σ0's answer depend
 on the full public record? if not, every recursion gets 10–100× cheaper). As of
-`c00717d1` neither has a kanban card, a brief, or a commit. The walt-fh branch
+`c00717d1` neither had a brief or a commit; both were carded on 2026-09-13 in the
+book rewrite (`kanban/backlog/sigma0-read-key-study.md`,
+`kanban/backlog/consolidation-slice.md`). The walt-fh branch
 merged as PR #88 on 2026-09-07 (fast-forward, tip `a0d594b2`).
 
 ### 14. The Gran anchors: one human failure as the standing anchor (2026-08-24 → 2026-09-05)
@@ -620,8 +622,10 @@ read key, not a deeper search.
 What is ruled and what is queued, in order (`walt/MAP.md`): the σ0 read-key
 study → the consolidation slice (retire `godgap.rs`, `horizon.rs`,
 `extraction.rs`, `refine.rs` as endpoints of the focal-horizon hierarchy) →
-**no new mathematical parent until the consolidation lands**. Neither item has a
-kanban card. Beside that queue, not sequenced against it: the Gran calls
+**no new mathematical parent until the consolidation lands**. Both items are
+carded (`kanban/backlog/sigma0-read-key-study.md`,
+`kanban/backlog/consolidation-slice.md`, opened 2026-09-13); neither has a brief
+or a commit. Beside that queue, not sequenced against it: the Gran calls
 (A)–(F) of 2026-09-05 (more live-epoch match deals; the declarer-side
 measurement; the objective and tie-break design at exact indifference; the void
 flag default; the shape of the two unmerged branches `walt-o5` and `walt-g1-l2`;

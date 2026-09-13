@@ -3,7 +3,7 @@
 [Home](Home.md) · owns: the calculated-evidence program (2026-08-24 →
 2026-08-29; succeeded by [walt-counted-belief-era](walt-counted-belief-era.md)) —
 anytime-valid adaptive settlement as walt's new correctness path, the §22 build
-(steps 2–8, with commits), the step-7 shadow instrument and its records, the
+(steps 2–9, with commits; step 9 has its own section below), the step-7 shadow instrument and its records, the
 step-8 V5 flip repair and E0 calibration, the live-player audit findings, the
 playable controller player as an era event (the register owns it), the
 targeted level-2 extension with all three field-swap slices (the fixed-policy

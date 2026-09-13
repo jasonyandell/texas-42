@@ -6,9 +6,10 @@ of the ingest packages' executable specification, built as the reconciled merge 
 is on its own.
 
 rob is an *executable mathematical specification with proof receipts*, not a game
-server. Its job is to reproduce, independently and exactly, every number the
-ingest verifiers certify, under invariants the ingest packages state but could
-not enforce.
+server. Its job is to reproduce, independently and exactly, the numbers the
+ingest verifiers certify — so far every slice-01 and slice-02 target (the
+reduced-kernel and belief-layer numbers belong to slices never begun) — under
+invariants the ingest packages state but could not enforce.
 
 **Full documentation lives in the wiki**, which is the reference this file points
 at rather than duplicates:

@@ -571,7 +571,10 @@ Results, each with its state set (`feature_fee_2026-08-14.txt`, `feature_fee_v11
 - **Jason's boss-keyed feature F1 is REFUTED where it has a domain**: over h0's 574
   leading states (the only part of this carrier where a boss trump survives to the
   frontier), swept across 23,016 breakpoints, oracle-θ capture 88457474377/24082518161460
-  ≈ **3,673 ppm**; a family that cannot break 0.37% with 574 free parameters cannot break
+  ≈ **3,673 ppm** (the leading-part fraction as stated in the FF-A rulings; the results
+  file prints the all-states capture 88457474377/24775917854710 ≈ 3,570 ppm at its F1
+  summary line and the leading/following split beneath it); a family that cannot break
+  0.37% with 574 free parameters cannot break
   it with one. Elsewhere it is inapplicable — a boss-keyed feature's domain shrinks as the
   hand simplifies. Table reasoning is a source of hypotheses and no kind of evidence for
   them; losing this job says nothing about Jason's reading of that hand.
@@ -791,8 +794,10 @@ producer commit `648f93a`. (Measured 2026-09-12 on this machine: a grep over
 55, 56, 57 and 58; freezes 26 and 37 are live as objects — `strat/hidden_scalar.rs`,
 `strat/revealed.rs` — without naming their number.) Cross-checked against
 [walt-math-freezes](walt-math-freezes.md) and the declaring rulings in
-`walt/CENSUS-RULINGS.md`; that page's header still reads "1–57" and "56 issued", which
-Appendix C records.
+`walt/CENSUS-RULINGS.md`; that page's header was brought to "58 issued; 56 spent; 39 and
+40 reserved" in the 2026-09-13 book rewrite (its "freezes 1–57" clause refers to the
+freezes declared in `CENSUS-RULINGS.md`, which is correct — 58 is issued by the register),
+see Appendix C row 12.
 
 | # | date | content (one line) | fixed by | still live? |
 |---|---|---|---|---|
@@ -879,10 +884,10 @@ complete set known to this page.
 | 6 | S6h, the tightest exact negative | LOG: 8524657/479001600 (h6) | `separation_n4_2026-08-14.txt`: 9557/554400 at h2 = 8257248/479001600, strictly smaller | file governs |
 | 7 | S6j, the h9 rule bar | LOG: "within 1202339/8870400" unqualified | `rule_economy_n4_2026-08-14.txt`: that gap is at the two H-optimal actions 41 and 54; the smallest gap anywhere at h9 is 177253/3326400 at the non-binding action 61 | qualifier mandatory |
 | 8 | S6k, how many pairs failed | FT-A25(vi) commentary: "ten of twelve" | `fusion_tax_2026-08-14.txt`: one CLOSED, ten tied NOT CLOSED, one untied (h0) NOT CLOSED — eleven of twelve | corrected at FT-A29; the mandatory sentence itself unaffected |
-| 9 | S6c, detector cost | `walt-s6-era.md` (lines 283–285, 928–929), `walt.md` line 113, `walt-instruments.md` line 571, `game-of-42.md` line 401: the timing rung is "unrun" / cost "not quotable" | `deadness_rung_2026-08-13.txt` exists: 17 ns/call (384 calls) and 42 ns/call (3,540,143 calls) at W = 1 | prose stale; LOG and `walt-instruments.md` lines 239–242 / 788–792 already carry the rung |
+| 9 | S6c, detector cost | the 2026-08-24 wiki (`walt-s6-era.md` lines 283–285, 928–929; `walt.md` line 113; `walt-instruments.md` line 571; `game-of-42.md` line 401 at `c00717d1`): the timing rung is "unrun" / cost "not quotable" | `deadness_rung_2026-08-13.txt` exists: 17 ns/call (384 calls) and 42 ns/call (3,540,143 calls) at W = 1 | prose was stale; LOG and `walt-instruments.md` already carried the rung; the 2026-09-12/13 book pages (`game-of-42.md` §5.2, this page §2.3) cite the rung — `walt-s6-era.md`'s two sentences are the remaining stale text |
 | 10 | S6f, the cause of the NO-GO | wiki and LOG: the partition exceeds P_max = 32,000,000 (estimate said 24.8M) | `separation_n4_rung_2026-08-14.txt`: "partition STOPPED — states 0, walk-steps 10,000,000,000, cap_hit true" | consistent: N4-A13(i) rules the printed step count a poison artifact and confirms the stop was the 32,000,000-state cap; the 24,825,150 estimate is struck at N4-A4's superseded note |
 | 11 | S6i, (LD-R4) | FT-A16(ii): "(LD-R4) remains owed" | `laydown_2026-08-14.txt`: (LD-R4) HELD, 2,107 receipted | stale ruling text; corrected at FT-A29 |
-| 12 | the freeze register's header | `walt-math-freezes.md`: "freezes 1–57", "56 issued, 54 spent"; `walt-math-reference.md`: "all 57 issued freezes" | the same page's 2026-08-31 addendum issues 58 | 58 issued, 56 spent, 39/40 reserved (Appendix A) |
+| 12 | the freeze register's header | `walt-math-freezes.md` at `c00717d1`: "freezes 1–57", "56 issued, 54 spent"; `walt-math-reference.md`: "all 57 issued freezes" | the same page's 2026-08-31 addendum issues 58 | RESOLVED in the 2026-09-13 book rewrite: both pages now read 58 issued, 56 spent, 39/40 reserved (Appendix A agrees) |
 | 13 | freeze 1/2 | r3 Q5.3 prose orders them "move order, then encoding"; census-era headers call the sort key `k` | code and X-A7: encoding is 1, move order is 2; code names the key `increment` | recorded, unresolved by design; code authoritative |
 
 Also carried: the S6d "108-decision playbook" was RESOLVED at EC-A12 (use 384); the

@@ -41,8 +41,9 @@ never claims, and nothing above the walt fence cites them.
   x:002/004/005 results are backed by rob `x-` receipt lines (S7–S10,
   [verification](verification.md)). **REACH-18, REACH-19 and REACH-20 — the results
   the [36,45] box actually rests on — are backed solely by the exchange programs**
-  (`programs/006.py`, `007.py`, `008.py`; 007 re-run green 2026-09-12, 008 not re-run
-  in this pass); rob has reproduced none of them. Their reproduction in Rust is the
+  (`programs/006.py`, `007.py`, `008.py`; 006 and 007 re-run green 2026-09-13 with
+  their recorded PASS counts, 008 not re-run — its 71.8 s exceeds the pass's 60 s
+  budget); rob has reproduced none of them. Their reproduction in Rust is the
   named slice-03 target ([rob-slices](rob-slices.md)), and rob's second brief closes
   with "Do not begin slice 03" (`rob/BRIEF_SLICE_02.md` §13) — so the next receipt
   for OPEN-11's interval has an owner and no start date. Until it exists, quote the

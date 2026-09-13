@@ -23,9 +23,11 @@ file itself, `walt/walt/src/solver/refine.rs`, with its four gates in
 **The register in one line, as of 2026-09-07 (`c00717d1`):** 58 numbers
 issued; 56 spent; **39 and 40 reserved** since DS-A13 (2026-08-13) and
 confirmed untouched at every later freeze through 58; no freeze 59 has been
-issued anywhere in the repository (checked 2026-09-12: a case-insensitive
-search for "freeze 59" over `walt/`, `wiki/`, `kanban/` finds only this
-sentence). The last two events are freeze
+issued anywhere in the repository (re-checked 2026-09-13: a case-insensitive
+search for "freeze 59" over `walt/`, `wiki/`, `kanban/` finds only the
+sentences stating its absence — this one, and their echoes on
+[the reference map](walt-math-reference.md) and
+[open questions](walt-math-open-questions.md)). The last two events are freeze
 57 (GT1-A24, 2026-08-17) and freeze 58 (the RefineV1 semantic freeze,
 2026-08-31). The focal-horizon program of 2026-09-04 issued **no** freeze —
 see [the note below](#what-was-not-frozen-the-focal-horizon-program-2026-09-04).

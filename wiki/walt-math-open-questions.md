@@ -339,10 +339,12 @@ into what the rulings call the Lean side-project ledger: **CBS-O1..O15**
 2026-08-31), **MB-O1..O20 / MB-I1..I10** (MB-A8, 2026-09-01) and the salvation
 complex's §60 tranche, indexed as **SC-O1..O16** on
 [walt-math-intakes](walt-math-intakes.md) (SC-A2, 2026-09-01). **That ledger
-exists in no file**: the identifiers occur only in `walt/CENSUS-RULINGS.md`,
-`walt/FACTOR-BELIEF.md` and the intakes page; nothing under `lean/`,
-`wiki/lean.md` or `kanban/` names them, and `kanban/backlog/lean-catchup.md`
-(opened 2026-08-24) is still backlog. Where the ledger lives, and whether that
+exists in no file**: the identifiers occur in `walt/CENSUS-RULINGS.md`, the
+CBS parent and companion, `walt/FACTOR-BELIEF.md`, `solver/factor_belief.rs`,
+and on the pages that record the same absence (the intakes page,
+[lean](lean.md) §10, `kanban/backlog/lean-catchup.md`); nothing under `lean/`
+names them, and the catch-up card (opened 2026-08-24) is still backlog
+(grep `CBS-O1`, measured 2026-09-13 on this machine). Where the ledger lives, and whether that
 card owns it, is item 26. On the scenario-player ledger itself no row is marked
 discharged, and exactly one row now has a measurement: **O5**, the cost of the
 no-void inner simplification, run on 2026-09-05 on branch `walt-o5` (unmerged
@@ -558,10 +560,12 @@ under σ0, `Q* = 28859/29988` (962‰), argmax 1-1, 289,407,472 field reads,
 report's 14 min 13 s is the standalone scout wall, the record line's own wall
 field reads 797,430,769 µs for the census pass; reads are exact, wall is the
 only approximate number). FH3 reproduced the value independently by the k = 3
-collapse (`L = U = 28859/29988` at 1-1, `focal_run1.txt`), and the anchors gate
-`walt/walt/tests/solver_focal_anchors.rs` asserts the containment against the
-*cited* value (FH4 audit N5: cited from the record, not re-derived, in the
-gate). So the counted recursion's cost at trick 3 is not a belief-state count
+collapse (`L = U = 28859/29988` at 1-1, `focal_run1.txt`) — a probe
+reproduction: the h8-t3 anchor is PROBE-ONLY, the anchors gate
+`walt/walt/tests/solver_focal_anchors.rs` covers the seven h8-t4/h4-t4
+coordinates, and h8-t3's §41 law checks run inside `focalreport.rs` against
+`Q_a` *cited* from `horizon_run1.txt` (FH4 audit N5). No file under
+`walt/walt/tests/` contains `28859` (grep, measured 2026-09-13). So the counted recursion's cost at trick 3 is not a belief-state count
 at all: it is field reads — 99% of them σ0's per-hand classification — and
 memory (item 28). The conjecture keeps its label; it is no longer the reason
 trick 3 is expensive, and it is not the reason tricks 1–2 are unaffordable
@@ -1042,7 +1046,8 @@ blocking, all real.**
   "semantically as the RefineV1 reference" without a number; the number 58 was
   issued by [the freeze register](walt-math-freezes.md) (2026-08-31 addendum)
   and is cited as "freeze 58" by `walt/FACTOR-BELIEF.md`, `walt/MAP.md`,
-  `walt/LOG.md`, eleven briefs and six solver source/test files — while a
+  `walt/LOG.md`, fourteen briefs and five solver source/test files (`grep -il
+  'freeze 58'`, measured 2026-09-13 on this machine) — while a
   search for "freeze 58" over `walt/CENSUS-RULINGS.md` returns nothing
   (0 hits, measured 2026-09-13 on this machine). The question: intended, or
   should a one-line append in the rulings file name the number so the
@@ -1099,8 +1104,8 @@ carded.** The ladder stores a full policy table beside every node's lower fact
 (the FH-int requirement that every lower carries its witness) by copying the
 subtree's choice table into each ancestor's fact. At h8-t3 that is **3.82M
 facts and 19.4 GB peak RSS** (FH3 record; standalone ladder 17.1 GB; the
-anchors gate 17.8 GB with five h4-t4 ladders in flight, capped to 8.8 GB after
-FH5); at h3-t4 the numbers are 662 MB memo-on, 509 MB memo-off, 411 MB for the
+anchors gate 17.8 GB by FH3's own figure, 18.22 GB as the FH4 audit measured
+it, with five h4-t4 ladders in flight; capped to 8.8 GB after FH5); at h3-t4 the numbers are 662 MB memo-on, 509 MB memo-off, 411 MB for the
 direct engine. The FH4 audit (N8) found **two sinks** — the fact store's
 per-node policy tables (~98 MB at h3-t4) and the memo's `FactorBelief` clones
 (~153 MB) — and rules "measure which dominates at h8-t3 before fixing"; within
@@ -1161,9 +1166,11 @@ re-closing open ones.
   is not evidence of anything about partner modelling
   ([walt-gran-anchors](walt-gran-anchors.md) §7).
 - **The h8-t3 exact value is not a receipt.** `28859/29988` is a probe record
-  (`horizon_run1.txt`), reproduced by a second probe (`focal_run1.txt`) and
-  *cited* inside a gate (`solver_focal_anchors.rs`, audit N5). It is quotable
-  at exactly that standing and no higher (item 12).
+  (`horizon_run1.txt`), reproduced by a second probe (`focal_run1.txt`, the k = 3
+  collapse) whose own law checks *cite* it (`focalreport.rs`, audit N5); the
+  anchors gate `solver_focal_anchors.rs` covers seven other coordinates and
+  no gate under `walt/walt/tests/` contains `28859` (grep, 2026-09-13). It is
+  quotable at exactly that standing and no higher (item 12).
 - **The doom-census diagnosis is corrected, not open.** "The plateau's
   remaining Γ ≈ 267‰ is overwhelmingly the info-consistency price" outran
   SC-A1/SC-A4 and was reconciled on 2026-09-03 (`walt/DISCREPANCIES.md`): the

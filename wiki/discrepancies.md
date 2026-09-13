@@ -170,16 +170,18 @@ editing the packages.
   2026-09-12). An earlier wording of this entry said the copies "currently contain"
   such directories — that described a working tree after an in-place run, never the
   repository, and is withdrawn. ([verification](verification.md) caveat 1 and
-  [FINDINGS](FINDINGS.md) §3 carry the same stale sentence.)
+  [FINDINGS](FINDINGS.md) §3 carry the same correction.)
 - **Resolution:** never run the verifiers in place. Run them from a copy
   (`cp -r ingest/<package> /tmp/…`) or with `python3 -B` (which writes no bytecode);
-  either keeps the audit green. Measured 2026-09-12 on this machine: rec package copied
-  to `/tmp`, `verify_foundation.py` / `verify_minimality_and_reachability.py` /
-  `verify_reduced_kernel.py` run with `python3 -B` in 4.6 s / 3.3 s / 8.6 s, all PASS
-  with every line identical to the committed `VERIFICATION_OUTPUT.txt`, zero
-  `__pycache__` created, and `audit_package.py` then PASS in 0.03 s reproducing
-  `AUDIT_OUTPUT.txt` (255 claim IDs, 8 documents, 17 kernel markers); the rec
-  `MANIFEST.sha256` verifies 14/14. Confidence: **high**.
+  either keeps the audit green. Measured 2026-09-13 on this machine (re-run of the
+  2026-09-12 measurement): rec package copied out of the tree,
+  `verify_foundation.py` / `verify_minimality_and_reachability.py` /
+  `verify_reduced_kernel.py` run with `python3 -B` in 4.6 s / 3.3 s / 8.2 s, all PASS
+  with every output line identical to the committed `VERIFICATION_OUTPUT.txt` (which
+  adds only its three per-script headers), zero `__pycache__` created, and
+  `audit_package.py` then PASS in 0.02 s reproducing `AUDIT_OUTPUT.txt` byte-for-byte
+  (255 claim IDs, 8 documents, 17 kernel markers); the rec `MANIFEST.sha256` verifies
+  14/14. Confidence: **high**.
 
 ## D16. Exchange-side SHA provenance blemishes (non-load-bearing)
 

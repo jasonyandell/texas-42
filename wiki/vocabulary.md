@@ -795,7 +795,8 @@ is not a citable object name.
 *Precise.* Permitted only as: the adjudicated name of Theorem E6.3 ("value
 sandwich", decision-sparse errata); the title of a parent document quoted as
 such (`counted_belief_sandwich_v0.1.md`, `focal_horizon_sandwich_v0.1.md`);
-and the REFUTED T1-A "bounded sandwich". The objects are **root interval**,
+the REFUTED T1-A "bounded sandwich"; and an explicit note that the name was
+retired (this entry; the doorways). The objects are **root interval**,
 **survivor set**, **focal-horizon hierarchy/interval**; gates and ledgers
 say *containment*.
 

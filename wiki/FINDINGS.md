@@ -132,7 +132,9 @@ stdlib.
 *Addendum 2026-08-01 (exchange batch, [claim-ledger](claim-ledger.md) rows 9–11 —
 the three constellation rows x:009, x:010, x:012; "rows 9–10" until 2026-09-13):*
 **C1 — suffix minimax factors through the declaration-free constellation**
-(adversarially step-checked proof, external tier, Lean pending), with its
+(adversarially step-checked proof, external tier; **not mechanized** — the Lean
+thread x:013/x:015 built a sorry-free core and suffix minimax but neither file states
+C1, and no dispatch is queued for it: [open-problems](open-problems.md) item 4), with its
 counterweight: **backward commutation for the pooled key REFUTED**
 (exchange-adjudicated CONFIRMED witness) — value pools across declarations
 forward, but the backward step must go through realizations. Plus the

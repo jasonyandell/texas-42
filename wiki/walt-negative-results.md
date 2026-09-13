@@ -796,8 +796,8 @@ ranks.
 | Battery | Games | A wins / losses / ties | Reading | Results file |
 |---|---|---|---|---|
 | Launch batch, 3 fresh deals × 2 placements | 12 hands | **0 / 1 / 5** | one unfavorable flip (420602: candidate defenders let 36 through); the regression survives an all-L1 ablation | `experiments/partnership/REPORT.md`, `SUMMARY.json` |
-| Random bid-30 panel, 97 fresh seeds | 300 | **15 / 23 / 156** (−4.1 pp) | declaring 8/16/73, defending 7/7/83; 8,400 replay-verified moves | `campaigns/random-420600-699/RESULTS.md` |
-| Fixed-hand panel, 10 hands × 10 completions | 300 | **21 / 27 / 152** (−3.0 pp) | ten clusters, not 100 independent positions | `campaigns/worlds-520600-699/WORLD-RESULTS.md` |
+| Random bid-30 panel, 97 fresh seeds | 300 | **15 / 23 / 156** (−4.1 pp net — derived here as (15 − 23)/194 matched contract opportunities, the `CALIBRATION.md` convention; the results file prints only the counts) | declaring 8/16/73, defending 7/7/83; 8,400 replay-verified moves | `campaigns/random-420600-699/RESULTS.md` |
+| Fixed-hand panel, 10 hands × 10 completions | 300 | **21 / 27 / 152** (−3.0 pp net, derived the same way: (21 − 27)/200) | ten clusters, not 100 independent positions | `campaigns/worlds-520600-699/WORLD-RESULTS.md` |
 | Native fixed L1 vs phone (calibration) | 150 | 8 / 15 / 77 (−7.0 pp) | the phone races and refines; native `l1-race` later matches it 3 / 1 / 46 with all 35 fallback-free pairs identical for 28 moves | `campaigns/native-l1-vs-phone-620600-649/RESULTS.md`; `foundation-battery/RESULTS.md` |
 | Default battery, 100 shared deals | 400 | **L2 Partner vs L1 14 / 14 / 72** (50.0%, 44.7%–55.3%) | 0.228 s (L1) vs 1.127 s (L2 Partner) per move; fallbacks 0/1821 vs 43/3690 | `campaigns/default-partner-battery/RESULTS.md` |
 

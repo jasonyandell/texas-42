@@ -4,7 +4,7 @@
 (slices 01+02 and the player track, all twelve receipts), exchange program runs ·
 Sources: `ingest/*/verification/`, `rob/receipts/`, `rob/ci/check.sh`,
 `exchange/adjudication/`, [exchange/README.md](../exchange/README.md). Fresh ingest
-runs 2026-07-26; re-timed 2026-09-12 from a copy (never in place). Related:
+runs 2026-07-26; re-timed 2026-09-13 from a copy (never in place). Related:
 [rob](rob.md), [claim-ledger](claim-ledger.md), [lean](lean.md).
 
 Three reminders before any number below is used. A `PASS` line is a **finite
@@ -26,26 +26,29 @@ first (caveat 1).
 "Exact" means the committed `VERIFICATION_OUTPUT.txt` is the concatenation of the
 actual stdout plus `=== script name ===` header lines — no numeric or textual drift.
 
-### Measured walls (2026-09-12, this machine)
+### Measured walls (2026-09-13, this machine)
 
 Run from a copy of each package under the job's scratch directory, Python 3.12.13,
-Apple M5 Max; each command wrapped in a 60 s timeout. Tails of every run were checked
-against the committed transcripts (the interval line, the 90-world posterior lines,
-the future-equivalence census); the full byte-diff was done 2026-07-26 and again
-2026-09-07 and was not repeated in this pass.
+Apple M5 Max; each command wrapped in a 60 s timeout. The full byte-diff against the
+committed `VERIFICATION_OUTPUT.txt` was repeated in this pass for all five runs: the
+fresh stdout is identical to the committed transcript once the `=== script ===`
+header lines and the blank separator after each section are removed (rec: 35 + 16 +
+10 lines; v0.7: 35 + 16), and the clean-copy `audit_package.py` stdout is identical
+to `AUDIT_OUTPUT.txt`.
 
 | Script | Copy | Wall | Exit | Note |
 |---|---|---|---|---|
-| `audit_package.py` | rec, clean copy, **before** any verifier | 0.02 s | 0 | 14 files / 14,390 lines; 255 claim IDs; 17 markers |
-| `verify_foundation.py` | rec | 4.84 s | 0 | 35 stdout lines; 90-world witness lines as committed |
-| `verify_minimality_and_reachability.py` | rec | 3.41 s | 0 | 16 lines; "proved standalone reachable-support interval: 26..46 bits" |
-| `verify_reduced_kernel.py` | rec | 8.52 s | 0 | 10 lines; 5,898 machines / 17,560 pairs |
-| `audit_package.py` | rec, same copy, **after** the three verifiers | 0.02 s | **1** | `AssertionError: transient Python files present: ['verification/__pycache__', …]` — the D15 trap, reproduced on purpose |
-| `verify_foundation.py` | v0.7 (`python3 -B`) | 4.92 s | 0 | identical tail to rec's |
-| `verify_minimality_and_reachability.py` | v0.7 (`python3 -B`) | 3.48 s | 0 | identical tail to rec's |
+| `audit_package.py` | rec, clean copy, **before** any verifier | 0.03 s | 0 | 14 files / 14,390 lines; 255 claim IDs; 17 markers; byte-identical to `AUDIT_OUTPUT.txt` |
+| `verify_foundation.py` | rec | 4.54 s | 0 | 35 stdout lines; 90-world witness lines as committed |
+| `verify_minimality_and_reachability.py` | rec | 3.28 s | 0 | 16 lines; "proved standalone reachable-support interval: 26..46 bits" |
+| `verify_reduced_kernel.py` | rec | 8.08 s | 0 | 10 lines; 5,898 machines / 17,560 pairs |
+| `audit_package.py` | rec, same copy, **after** the three verifiers | 0.03 s | **1** | `AssertionError: transient Python files present: ['verification/__pycache__', …]` — the D15 trap, reproduced on purpose |
+| `verify_foundation.py` | v0.7 (`python3 -B`) | 4.59 s | 0 | identical to rec's output; no `__pycache__` written |
+| `verify_minimality_and_reachability.py` | v0.7 (`python3 -B`) | 3.22 s | 0 | identical to rec's output |
 
-Total for the four rec scripts: about 17 s. The 2026-09-07 survey measured 4.8 / 3.3 /
-8.2 / 0.03 s on the same machine; load noise accounts for the difference.
+Total for the four rec scripts: about 16 s. Earlier passes on the same machine
+measured 4.8 / 3.3 / 8.2 / 0.03 s (2026-09-07) and 4.84 / 3.41 / 8.52 / 0.02 s
+(2026-09-12); load noise accounts for the differences.
 
 ## What each script exhausts
 
@@ -189,7 +192,7 @@ number — it still ranks below ingest and is never definitional** (BRIEF_SLICE_
 
 **Provenance of 839,220,930,919.** The max single-profile block is *not* a line of
 either package's `VERIFICATION_OUTPUT.txt` (grep of `ingest/*/verification/*.txt`,
-2026-09-12: no hit). Its source is the Math text — v0.7
+2026-09-13: no hit). Its source is the Math text — v0.7
 `20_MATHEMATICAL_FOUNDATION.md` §7.13.6, the displayed
 `max_k C(k) = 839,220,930,919 < 2^40` (line 3543; rec line 3681) — and the REACH-11A
 row that cites that section. Two independent computations reproduce it: rob's
@@ -355,7 +358,7 @@ inventoried here now, which is where it belongs.
 ### Enforcement of the player invariants (INV-P1..P7)
 
 `rob/BRIEF_PLAYER_01.md` §5 names seven player invariants. Their enforcement, as it
-actually stands at c00717d1 (grep 2026-09-12), is uneven and should be read
+actually stands at c00717d1 (grep 2026-09-13), is uneven and should be read
 precisely:
 
 - **INV-P1 PLAN-NOT-TILE** and **INV-P7 FRONTIER-LEAF-IS-LAW** are enforced by a CI
@@ -393,27 +396,29 @@ statements and caveats live in [claim-ledger](claim-ledger.md); this table owns 
 receipts. Dispatches 011/013/014/015 (the Lean thread and the informal take) had no
 program — their deliverable was a `lake build` or nothing.
 
-| # | Program (lines) | Result | Recorded adjudication run | Referee panel | Re-run 2026-09-12 (this machine, `python3 -B`, 60 s cap) |
+| # | Program (lines) | Result | Recorded adjudication run | Referee panel | Re-run 2026-09-13 (this machine, from a copy, `python3 -B`, 60 s cap) |
 |---|---|---|---|---|---|
-| 001 | `001.py` (1,789) | REACH-17 — floor 17,668,066,045, [35,46] | ALL_PASS, 15.9 s | 3/3 SOUND | 16.73 s, exit 0, 13 PASS lines, 0 FAIL; `PASS headline INTERVAL [35,46] bits` |
-| 002 | `002.py` (965) | outer language not tight; fifth condition | 16/16 PASS, 0.9 s | 3/3 SOUND | 0.96 s, exit 0, 16 PASS, 0 FAIL; `generators=450 traces=425520` |
-| 003 | `003.py` (907) | OPEN-01 COLLAPSE (bisimulation checker) | ALL_PASS 8/8, 0.4 s | 3/3 SOUND | 0.40 s, exit 0, 8 PASS, 0 FAIL; 204 / 22,848 / 1,604 / 1,280 |
-| 004 | `004.py` (673) | transport theorem, 9→3 classes | ALL_PASS, 4.6 s | 3/3 SOUND | 4.56 s, exit 0, 6 PASS, 0 FAIL; 45,472 commutation checks |
+| 001 | `001.py` (1,789) | REACH-17 — floor 17,668,066,045, [35,46] | ALL_PASS, 15.9 s | 3/3 SOUND | 15.45 s, exit 0, 13 PASS lines, 0 FAIL; `PASS headline INTERVAL [35,46] bits` |
+| 002 | `002.py` (965) | outer language not tight; fifth condition | 16/16 PASS, 0.9 s | 3/3 SOUND | 0.91 s, exit 0, 16 PASS, 0 FAIL; `generators=450 traces=425520` |
+| 003 | `003.py` (907) | OPEN-01 COLLAPSE (bisimulation checker) | ALL_PASS 8/8, 0.4 s | 3/3 SOUND | 0.38 s, exit 0, 8 PASS, 0 FAIL; 204 / 22,848 / 1,604 / 1,280 |
+| 004 | `004.py` (673) | transport theorem, 9→3 classes | ALL_PASS, 4.6 s | 3/3 SOUND | 4.28 s, exit 0, 6 PASS, 0 FAIL; 45,472 commutation checks |
 | 004 | `004-cocycle.py` (146) — **in-house, Claude-authored**, not a Pro deliverable, not referee-panelled | Step-15 cocycle lemma `f_{u,v}∘f_{t,u}=f_{t,v}` over all 343 ordered pip-trump triples (+ identity and inverse legs) | ALL_PASS, 2026-07-27 | — (finite verification receipt, exchange-side) | 0.02 s, exit 0, 4 PASS, 0 FAIL; `ALL_PASS 343 ordered triples` |
-| 005 | `005.py` (699) | census-integer audit, 19 integers | 19/19 PASS, ~13 s | 3/3 SOUND | 13.49 s, exit 0, 19 PASS, 0 FAIL |
-| 006 | `006.py` (1,053) | REACH-18 — combined floor 36,913,384,410, [36,46] | 16/16 PASS, 17.3 s | 3/3 SOUND | 17.05 s, exit 0, 16 PASS, 0 FAIL; `PASS headline INTERVAL [36,46] bits` |
-| 007 | `007.py` (975) | REACH-19 — filtered census 33,297,009,347,414, ceiling 45, [36,45] | 17/17 PASS, 44.1 s | 3/3 SOUND | 37.07 s, exit 0, 17 PASS, 0 FAIL; `FILTERED_TAGGED_OUTER=33297009347414 CEILING=45` |
+| 005 | `005.py` (699) | census-integer audit, 19 integers | 19/19 PASS, ~13 s | 3/3 SOUND | 12.90 s, exit 0, 19 PASS, 0 FAIL |
+| 006 | `006.py` (1,053) | REACH-18 — combined floor 36,913,384,410, [36,46] | 16/16 PASS, 17.3 s | 3/3 SOUND | 16.88 s, exit 0, 16 PASS, 0 FAIL; `PASS headline INTERVAL [36,46] bits` |
+| 007 | `007.py` (975) | REACH-19 — filtered census 33,297,009,347,414, ceiling 45, [36,45] | 17/17 PASS, 44.1 s | 3/3 SOUND | 36.42 s, exit 0, 17 PASS, 0 FAIL; `FILTERED_TAGGED_OUTER=33297009347414 CEILING=45` |
 | 008 | `008.py` (1,217; SHA 38fd84ea…) | REACH-20 — no-void slice exactly 624,892,870 | ALL_PASS 38/38, 71.8 s | **2/3 SOUND + 1 UNVERIFIABLE-no-defect** (dissent carried verbatim in the claim-ledger row) | **not re-run** — the recorded 71.8 s exceeds this pass's 60 s budget; last executed 2026-07-27 |
-| 009 | `009.py` (383) | C1 PARTIAL; pooled-key backward commutation REFUTED | ALL_PASS 8/8, 16.3 s | 2/3 SOUND + 1 FLAWED (flaw in corroboration artifacts, not the proof chain) | 14.77 s, exit 0, 8 PASS, 0 FAIL; `fixed_partial_maps=4 full_embeddings=0 legal_embeddings=0` |
-| 010 | `010.py` (1,051) | R1 — realizable = reachable at k=1; 31,197 classes | 31,830 PASS / 0 FAIL, ~19 s | 3/3 SOUND | 18.00 s, exit 0, 31,830 PASS, 0 FAIL |
-| 012 | `012.py` (651) | carrier-skeleton staircase a₄=37, b₄=486, b₈=126,657 | 14/14 PASS, 18.95 s | 3/3 SOUND | 17.73 s, exit 0, 14 PASS, 0 FAIL; `total_a=79264 total_b=47940826` |
+| 009 | `009.py` (383) | C1 PARTIAL; pooled-key backward commutation REFUTED | ALL_PASS 8/8, 16.3 s | 2/3 SOUND + 1 FLAWED (flaw in corroboration artifacts, not the proof chain) | 13.98 s, exit 0, 8 PASS, 0 FAIL; `fixed_partial_maps=4 full_embeddings=0 legal_embeddings=0` |
+| 010 | `010.py` (1,051) | R1 — realizable = reachable at k=1; 31,197 classes | 31,830 PASS / 0 FAIL, ~19 s | 3/3 SOUND | 17.46 s, exit 0, 31,830 PASS, 0 FAIL |
+| 012 | `012.py` (651) | carrier-skeleton staircase a₄=37, b₄=486, b₈=126,657 | 14/14 PASS, 18.95 s | 3/3 SOUND | 17.43 s, exit 0, 14 PASS, 0 FAIL; `a4=37 b4=486 b8=126657` |
 
 "PASS lines" counts stdout lines containing `PASS`, which for 001 and 004 includes the
 program's own ALL/headline line; the recorded columns are the adjudication's own
-counts. Witness JSON for 001/002/003/006/007/008 and the referee-independent b₈
-routes for 012 (`witnesses/012/`: `indep012*.py`, `ref012.c`, `012_out.txt`) are
-static under `exchange/adjudication/witnesses/`. The worktree stayed clean after the
-runs (`-B` suppresses bytecode).
+counts. The 2026-09-12 pass measured the same PASS/FAIL counts at 16.73 / 0.96 /
+0.40 / 4.56 / 0.02 / 13.49 / 17.05 / 37.07 / 14.77 / 18.00 / 17.73 s. Witness JSON
+for 001/002/003/006/007/008 and the referee-independent b₈ routes for 012
+(`witnesses/012/`: `indep012*.py`, `ref012.c`, `012_out.txt`) are static under
+`exchange/adjudication/witnesses/`. The programs were copied out and run with `-B`,
+so the worktree stayed clean.
 
 Three of the programs deserve a sentence beyond their row:
 
@@ -453,7 +458,7 @@ tier.
 
 1. **The `__pycache__` trap** ([discrepancies D15](discrepancies.md)): running any
    verifier creates `verification/__pycache__`, after which `audit_package.py` fails
-   its no-transients check — reproduced on purpose 2026-09-12 (table above: exit 1,
+   its no-transients check — reproduced on purpose 2026-09-13 (table above: exit 1,
    `transient Python files present`). The checked-in `ingest/` tree is **clean**: no
    `__pycache__` is tracked (`git ls-files ingest | grep -c pycache` = 0) or present on
    disk at c00717d1 (`find ingest -name __pycache__` = nothing), so the trap is one a
@@ -468,12 +473,13 @@ tier.
 3. **Receipts are not kernel proofs** [TRUST-01, Boundary]: `PASS` output supports
    finite claims but must be re-proved or reflected inside a proof assistant
    ([proof-assistant-plan](proof-assistant-plan.md), [lean-row-index](lean-row-index.md)).
-4. Both MANIFEST.sha256 files verify clean (17 and 14 entries; re-verified 2026-09-07).
-5. **Runtimes are seconds, not minutes** (measured 2026-09-12 on this machine, Apple
-   M5 Max, Python 3.12.13, from a copy): `audit_package.py` 0.02 s,
-   `verify_foundation.py` 4.84 s, `verify_minimality_and_reachability.py` 3.41 s,
-   `verify_reduced_kernel.py` 8.52 s — about 17 s for all four; the v0.7 copies of the
-   first two run in 4.92 s and 3.48 s. All scripts are stdlib-only Python. The
+4. Both MANIFEST.sha256 files verify clean (17 and 14 entries; re-verified 2026-09-13
+   from the copies with `shasum -a 256 -c`).
+5. **Runtimes are seconds, not minutes** (measured 2026-09-13 on this machine, Apple
+   M5 Max, Python 3.12.13, from a copy): `audit_package.py` 0.03 s,
+   `verify_foundation.py` 4.54 s, `verify_minimality_and_reachability.py` 3.28 s,
+   `verify_reduced_kernel.py` 8.08 s — about 16 s for all four; the v0.7 copies of the
+   first two run in 4.59 s and 3.22 s. All scripts are stdlib-only Python. The
    exchange programs are likewise seconds-scale except `008.py` (71.8 s recorded) and
-   `007.py` (37–44 s). rob's `rob/ci/check.sh`, by contrast, is an hours-long job whose
-   wall clock has never been recorded ([rob](rob.md)).
+   `007.py` (36–44 s). rob's `rob/ci/check.sh`, by contrast, is an hours-long job whose
+   wall clock has never been recorded to completion ([rob](rob.md)).

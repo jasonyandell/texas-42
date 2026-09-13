@@ -61,7 +61,7 @@ d190b264]**. Two trick-1 modules are built and axiom-audited by
 | Trick-1 modules (`Trick1Foundation`, `Trick1MetalFoundation`) | 25 + 8 theorems, kernel-checked as statements about Lean-defined arithmetic; built and receipt-diffed by `walt/ci/check.sh`; what they certify about walt is exploratory (§7) | kernel as arithmetic; exploratory as meaning |
 | `Trick1PerfectRecallNet` tree (M3) | facade + 8 submodules, 103 `#print axioms` lines; **statements committed 2026-08-17 in a commit titled "does not build"; build and audit unverified as of 2026-09-07** (§7.4) | unverified |
 | Constellation modules (x:013/x:015) | sorry-free, kernel-evaluated; self-contained, unreconciled, no ledger row (§8) | kernel; exchange provenance |
-| Last commit touching `lean/` | 97ce321a, 2026-08-17 | engineering |
+| Last commit touching the Lean sources (`lean/Texas42/`, `Texas42.lean`, the pins, the receipts) | 97ce321a, 2026-08-17 (this book rewrite touches only `lean/README.md`'s status note) | engineering |
 | Walt-era Lean programs | CBS-O1..O15, PS-T1..T15, MB-O1..O20, SC-O1..O15, the lean-catchup card: accepted, zero kernel coverage, ledgered in no file under `lean/` (§10) | exploratory |
 
 ---
@@ -702,7 +702,7 @@ The facts **[engineering, verified 2026-09-12 unless dated otherwise]**:
   only so the work survives the worktree." The same commit added the module to
   `lean/Texas42.lean`'s import list and the M3 paragraph to
   [proof-assistant-plan](proof-assistant-plan.md). It is the last commit to
-  touch `lean/`.
+  touch the Lean sources (later commits touch only `lean/README.md`).
 - **No build artifact.** The main checkout's `lean/.lake/build/lib/lean/Texas42/`
   holds oleans for all 16 priority-0-era modules (2026-08-03) and for the two
   gated trick-1 modules (2026-09-03 23:09, a CI run) and **none** for
@@ -1070,4 +1070,4 @@ to tell elaborator frames from kernel evaluation.
 | 2026-08-31 | APS intake: PS-T1..T15 accepted into the Lean side-project ledger (no file) | — |
 | 2026-09-03 | `Trick1Foundation`/`Trick1MetalFoundation` oleans rebuilt in main's `.lake` at 23:09 (a CI run); no M3 outputs | — |
 | 2026-09-07 | survey for this book: 27 files, 8,504 lines, 365 theorems; no sorry/native_decide/axiom; 32/32 manifest digests match | c00717d1 |
-| 2026-09-12 | this page: counts re-taken; M2 receipt reproduced byte-identically read-only (27 s); M3 `Types.lean` elaborates (3 s); no `lean/` commit since 2026-08-17 | — |
+| 2026-09-12 | this page: counts re-taken; M2 receipt reproduced byte-identically read-only (27 s); M3 `Types.lean` elaborates (3 s); no commit to the Lean sources since 2026-08-17 (the book rewrite adds a status note to `lean/README.md`) | — |

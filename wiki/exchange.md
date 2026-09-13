@@ -1,8 +1,8 @@
-[Home](Home.md) · owns: the Claude ↔ ChatGPT 5.6 Pro exchange as a whole — the courier mechanism, the evidentiary tier it produces, the quota protocol, every numbered dispatch 001–024 and what came of it, the reading discipline for an exchange result, the incidents and costs, and the ledger-drift errata · Sources: `exchange/README.md` (the operational ledger of record), `exchange/outbox/`, `exchange/inbox/`, `exchange/adjudication/{workflow.js, programs/, witnesses/}`, `automation/submit.mjs`, `.claude/skills/pro-exchange/SKILL.md`, [claim-ledger](claim-ledger.md) (caveats verbatim), `walt/CENSUS-RULINGS.md` (the walt-tier rulings), [walt-math-intakes](walt-math-intakes.md) (the side channel), `git log -p -- exchange/submission_count.txt`. Repository state as of 2026-09-07 (c00717d1); fresh measurements dated 2026-09-12.
+[Home](Home.md) · owns: the Claude ↔ ChatGPT 5.6 Pro exchange as a whole — the courier mechanism, the evidentiary tier it produces, the quota protocol, every numbered dispatch 001–024 and what came of it, the reading discipline for an exchange result, the incidents and costs, and the ledger-drift errata · Sources: `exchange/README.md` (the operational ledger of record), `exchange/outbox/`, `exchange/inbox/`, `exchange/adjudication/{workflow.js, programs/, witnesses/}`, `automation/submit.mjs`, `.claude/skills/pro-exchange/SKILL.md`, [claim-ledger](claim-ledger.md) (caveats verbatim), `walt/CENSUS-RULINGS.md` (the walt-tier rulings), [walt-math-intakes](walt-math-intakes.md) (the side channel), `git log -p -- exchange/submission_count.txt`. Repository state as of 2026-09-07 (c00717d1); fresh measurements dated 2026-09-13 (an earlier pass on 2026-09-12 gave the same PASS counts and outputs).
 
 # The adversary in the loop — the ChatGPT 5.6 Pro exchange
 
-**Plain statement.** From 2026-07-27 the project has used a second model, ChatGPT 5.6 Pro, as an adversary and later as a colleague. It has no API, so every exchange is a courier run: a self-contained prompt is pasted into the web app, the reply is harvested verbatim, any program in the reply is executed unmodified, and the proof is attacked by three referees before a verdict is written. Twenty-four numbered dispatches exist. Eleven produced results at the **exchange-adjudicated** tier — the flagship open problem OPEN-11 went from a corpus-proved 26–46-bit interval to **[36,45] bits**, its no-void stratum was closed exactly at **624,892,870**, and OPEN-01 collapsed. Six more (016–024) fed the walt program inside its exploratory fence, where Pro's mathematics has since arrived mostly by side channel rather than by numbered dispatch.
+**Plain statement.** From 2026-07-27 the project has used a second model, ChatGPT 5.6 Pro, as an adversary and later as a colleague. It has no API, so every exchange is a courier run: a self-contained prompt is pasted into the web app, the reply is harvested verbatim, any program in the reply is executed unmodified, and the proof is attacked by three referees before a verdict is written. Twenty-four numbered dispatches exist. Eleven produced results at the **exchange-adjudicated** tier — the flagship open problem OPEN-11 went from a corpus-proved 26–46-bit interval to **[36,45] bits**, its no-void stratum was closed exactly at **624,892,870**, and OPEN-01 collapsed. The nine dispatches 016–024 (five threads: 016, 017, the unanswered 018, the 019–023 panel batch, 024) fed the walt program inside its exploratory fence, where Pro's mathematics has since arrived mostly by side channel rather than by numbered dispatch.
 
 **Precise object.** An exchange result is a triple (dispatch prompt, harvested response, adjudication record) whose verdict is one of CONFIRMED / PARTIAL / REFUTED / UNVERIFIABLE / CONTRACT_VIOLATION, cited as `x:NNN`. The tier it can reach is tier 3 of [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred): below corpus statuses and the Lean kernel, above rob's conformance receipts. Nothing an external model asserts is ever imported as an axiom (TRUST-01, v0.7).
 
@@ -63,7 +63,7 @@ What the tier means in practice:
 
 - **A result at this tier can narrow an open problem but never closes a corpus row.** OPEN-11's interval is *corpus-proved* [26,46] and *exchange-adjudicated* [36,45]; both endpoints are always stated with their tier ([reachability](reachability.md), [open-problems](open-problems.md)).
 - **TRUST-01 (v0.7): external `PASS` is never imported as an axiom.** A program that printed `ALL_PASS` here is evidence about the statement its program checks, at module granularity, under the caveats the referees recorded — nothing more. The Lean thread (§5.5) is the one place an exchange produced kernel artifacts, and those files prove their own statements, not C1.
-- **rob receipts sit *below* this tier, not above it.** rob's `x-` prefixed receipt lines (S7–S10: `x-r_unr_002_*`, `x-r_tra_corpus_commutation`, `x-r_out_burnside`, `x-r_flo_*`) reproduce x:002, x:004, x:005 and the x:001 family totals in Rust — independent cross-language evidence, never a status change ([verification](verification.md)). REACH-19 (x:007) and REACH-20 (x:008), the two results the [36,45] box rests on, have **no rob backing yet**: they are the named rob slice-03 targets ([rob-slices](rob-slices.md)), and slice 03 has not begun.
+- **rob receipts sit *below* this tier, not above it.** rob's `x-` prefixed receipt lines (S7–S10: `x-r_unr_002_*`, `x-r_tra_corpus_commutation`, `x-r_out_burnside`, `x-r_flo_*`) reproduce x:002, x:004, x:005 and the x:001 family totals in Rust — independent cross-language evidence, never a status change ([verification](verification.md)). REACH-18 (x:006, the floor's second family), REACH-19 (x:007, the ceiling) and REACH-20 (x:008, the no-void stratum) — the results the [36,45] box actually rests on — have **no rob backing yet**: rob reproduces x:001's family totals, not x:006's; 007 and 008 are the named rob slice-03 targets ([rob-slices](rob-slices.md)), and slice 03 has not begun (`rob/BRIEF_SLICE_02.md` §13 closes with "Do not begin slice 03").
 - **The walt-tier registers produce no tier-3 results at all.** FT/SR/PANEL/TRIPLE rulings are real adjudications (repairs filed, claims confirmed or rejected) inside walt's exploratory fence; they can never become CONFIRMED by this pipeline and are cited by nothing above the fence.
 
 ## 3. The quota protocol
@@ -99,17 +99,17 @@ All eight dispatches were automated, all eight were adjudicated CONFIRMED the sa
 
 ### 4.2 The table
 
-Recorded runtime is the adjudication run's; "re-run" is `timeout 60 python3 -B programs/NNN.py` measured 2026-09-12 on this machine (008's recorded 71.8 s exceeds the 60 s budget and was not re-run). Line counts are `wc -l`.
+Recorded runtime is the adjudication run's; "re-run" is `timeout 60 python3 -B NNN.py` on a copy of the program, measured 2026-09-13 on this machine (008's recorded 71.8 s exceeds the 60 s budget and was not re-run). Line counts are `wc -l`. [verification](verification.md) owns the receipts and carries the PASS/FAIL line counts of this pass and the previous one.
 
-| x | Question | FINAL ANSWER (verbatim) | Program | Recorded run | Re-run 2026-09-12 | Referees | Result |
+| x | Question | FINAL ANSWER (verbatim) | Program | Recorded run | Re-run 2026-09-13 | Referees | Result |
 |---|---|---|---|---|---|---|---|
-| 001 | exact `|R_Str^m|` or a tighter interval than 26–46 bits | `INTERVAL [35,46] bits` | `001.py`, 1,789 lines | ALL_PASS 15.9 s | `PASS headline INTERVAL [35,46] bits`, 16.8 s | 3/3 SOUND | **REACH-17** |
-| 002 | witness passing all four outer checks yet unreachable, or a sufficiency proof | `COUNTEREXAMPLE` | `002.py`, 965 lines | 16/16 PASS 0.9 s | `PASS overall counterexample_verified generators=450 traces=425520`, 0.95 s | 3/3 SOUND | **outer language NOT tight**; fifth condition |
-| 003 | two future-equivalent distinct reduced kernels, or a Myhill–Nerode proof | `COLLAPSE` | `003.py`, 907 lines | ALL_PASS 0.43 s (8/8) | `PASS OPEN-01_COLLAPSE`, 0.40 s | 3/3 SOUND | **OPEN-01 RESOLVED (collapse)** |
-| 004 | transport bijects reachable images (9 → 3), or a counterexample | `TRUE (bijection proved)` | `004.py`, 673 lines; `004-cocycle.py`, 146 lines (in-house) | ALL_PASS 4.6 s; cocycle ALL_PASS | `PASS ALL`, 4.58 s; `ALL_PASS 343 ordered triples`, 0.02 s | 3/3 SOUND | **transport theorem** |
-| 005 | independent re-derivation of every census integer | `ALL REPRODUCED` | `005.py`, 699 lines | 19/19 PASS ~13 s | `PASS max_matrix_orbits_per_signature 103`, 13.3 s | 3/3 SOUND | **19 integers independently reproduced**; Burnside supplement |
-| 006 | exact `|R|` or a slice, else an interval strictly inside [35,46] | `INTERVAL [36,46] bits` | `006.py`, 1,053 lines | 16/16 PASS 17.3 s | `PASS headline INTERVAL [36,46] bits`, 17.4 s | 3/3 SOUND | **REACH-18** |
-| 007 | filtered outer census and a proved ceiling below 46 | `FILTERED_TAGGED_OUTER = 33297009347414` / `CEILING = 45 bits` / `INTERVAL [36,45] bits` | `007.py`, 975 lines | 17/17 PASS 44.1 s | `PASS overall FILTERED_TAGGED_OUTER=33297009347414 CEILING=45 INTERVAL=[36,45]`, 36.6 s | 3/3 SOUND | **REACH-19** |
+| 001 | exact `|R_Str^m|` or a tighter interval than 26–46 bits | `INTERVAL [35,46] bits` | `001.py`, 1,789 lines | ALL_PASS 15.9 s | `PASS headline INTERVAL [35,46] bits`, 15.5 s | 3/3 SOUND | **REACH-17** |
+| 002 | witness passing all four outer checks yet unreachable, or a sufficiency proof | `COUNTEREXAMPLE` | `002.py`, 965 lines | 16/16 PASS 0.9 s | `PASS overall counterexample_verified generators=450 traces=425520`, 0.91 s | 3/3 SOUND | **outer language NOT tight**; fifth condition |
+| 003 | two future-equivalent distinct reduced kernels, or a Myhill–Nerode proof | `COLLAPSE` | `003.py`, 907 lines | ALL_PASS 0.43 s (8/8) | `PASS OPEN-01_COLLAPSE`, 0.38 s | 3/3 SOUND | **OPEN-01 RESOLVED (collapse)** |
+| 004 | transport bijects reachable images (9 → 3), or a counterexample | `TRUE (bijection proved)` | `004.py`, 673 lines; `004-cocycle.py`, 146 lines (in-house) | ALL_PASS 4.6 s; cocycle ALL_PASS | `PASS ALL`, 4.28 s; `ALL_PASS 343 ordered triples`, 0.02 s | 3/3 SOUND | **transport theorem** |
+| 005 | independent re-derivation of every census integer | `ALL REPRODUCED` | `005.py`, 699 lines | 19/19 PASS ~13 s | `PASS max_matrix_orbits_per_signature 103`, 12.9 s | 3/3 SOUND | **19 integers independently reproduced**; Burnside supplement |
+| 006 | exact `|R|` or a slice, else an interval strictly inside [35,46] | `INTERVAL [36,46] bits` | `006.py`, 1,053 lines | 16/16 PASS 17.3 s | `PASS headline INTERVAL [36,46] bits`, 16.9 s | 3/3 SOUND | **REACH-18** |
+| 007 | filtered outer census and a proved ceiling below 46 | `FILTERED_TAGGED_OUTER = 33297009347414` / `CEILING = 45 bits` / `INTERVAL [36,45] bits` | `007.py`, 975 lines | 17/17 PASS 44.1 s | `PASS overall FILTERED_TAGGED_OUTER=33297009347414 CEILING=45 INTERVAL=[36,45]`, 36.4 s | 3/3 SOUND | **REACH-19** |
 | 008 | exact no-void slice with a two-sided completeness proof | `NO_VOID_SLICE = 624892870` | `008.py`, 1,217 lines | ALL_PASS 38/38, 71.8 s | not re-run (budget) | **2/3 SOUND-high + 1 UNVERIFIABLE-medium** | **REACH-20** |
 
 ### 4.3 The caveats, verbatim
@@ -131,7 +131,7 @@ Authorized by Jason on 2026-08-01 (up to eight dispatches that day; the fixed ca
 
 ### 5.1 C1, the first PARTIAL (x:009)
 
-**Claim.** Suffix minimax factors through the declaration-free constellation key at all depths with all nine declarations pooled — "C1". Response: `FINAL ANSWER: TRUE (C1 proved)`; program 8/8 ALL_PASS 16.3 s (re-run 2026-09-12: `PASS all-checks`, 14.6 s); panel **2/3 SOUND-high + 1 FLAWED-high**.
+**Claim.** Suffix minimax factors through the declaration-free constellation key at all depths with all nine declarations pooled — "C1". Response: `FINAL ANSWER: TRUE (C1 proved)`; program 8/8 ALL_PASS 16.3 s (re-run 2026-09-13: `PASS all-checks`, 14.0 s); panel **2/3 SOUND-high + 1 FLAWED-high**.
 
 **Verdict: PARTIAL, split by sub-result.** (i) The C1 proof chain survived all three referees step by step — an adversarially step-checked proof at the external tier, *not* a kernel proof. (ii) The FLAWED referee's confirmed flaw was in the response's *corroboration artifacts*, not the proof chain: deliverables (c)/(d) were vacuous — the k ≥ 2 "cross-declaration" evidence was an undisclosed 2↔3 pip-transport monoculture (independent nontrivial k2 agreements = 5; zero DT/NT positions solved), and deliverable (b)'s class count was a non-invariant selection artifact.
 
@@ -143,13 +143,13 @@ The same response refuted backward commutation for the pooled key with a zeros-t
 
 ### 5.3 R1: realizable = reachable at k = 1 (x:010)
 
-Every realizable last-trick constellation class is legal-play reachable via a forward-replayed full-hand witness; the realizable-but-unreachable gap is zero, so reachability filtering of the k = 1 retrograde seed table is a no-op at class granularity. `FINAL ANSWER: R1 TRUE`; 31,830 PASS / 0 FAIL ~19 s (re-run 2026-09-12: `PASS R1 every realizable class has a replayed legal full-hand witness`, 18.1 s); 3/3 SOUND-high; all 31,197 witnesses independently re-replayed through the corpus ingest verifier by a referee, 0 failures. **CONFIRMED.**
+Every realizable last-trick constellation class is legal-play reachable via a forward-replayed full-hand witness; the realizable-but-unreachable gap is zero, so reachability filtering of the k = 1 retrograde seed table is a no-op at class granularity. `FINAL ANSWER: R1 TRUE`; 31,830 PASS / 0 FAIL ~19 s (re-run 2026-09-13: `PASS R1 every realizable class has a replayed legal full-hand witness`, 17.5 s); 3/3 SOUND-high; all 31,197 witnesses independently re-replayed through the corpus ingest verifier by a referee, 0 failures. **CONFIRMED.**
 
 **The convention note.** 31,197 is the dispatch-literal ordered-opponent count; rob's frozen number is the swap-pooled 15,680, of which 163 classes are reflection-fixed — **31,197 = 2·15,680 − 163**. Convert before diffing against `constellation_k1_census.rs`. Scope caveats verbatim: REACHABLE here means legal-play reachable (follow obligations + winner-leads; no contract/bid consistency) — a different predicate from the reachable-support image, no REACH-* impact; outcome-constancy is quotable only from the adjudication re-run (all 4,422,600 oriented positions, 0 collisions, 14 outcomes) or rob's `fine_collisions == 0`, never from the response's tautological per-class receipt; 0 NT and 0 δ = 3 witnesses in the exhaustive loop (NT realizes 19,069 of 31,197 classes), so per-declaration reachability rests on the 600-case sample over all 216 = 9 × 24 declaration × hold cells.
 
 ### 5.4 The carrier staircase (x:012)
 
-Exact S₇ orbit counts of j-edge subgraphs of K₇-with-loops: **a₄ = 37, b₄ = 486, b₈ = 126,657**, role-decorated count-labelled 4-carriers **4,767**; the full pure row a₀..a₂₈ is palindromic with Σa = 79,264 (a = 1, 2, 5, 14, 37, 98, 252, 585, 1239, 2396, 4135, 6340, 8630, 10381, 11034, …); the count-labelled row is not palindromic (b₁ = 5 vs b₂₇ = 22) with Σb = 47,940,826. 14/14 PASS 18.95 s (re-run 2026-09-12: `a4=37 b4=486 b8=126657`, 18.7 s); 3/3 SOUND-high; b₈ triply confirmed by referee-independent routes including a C program (`witnesses/012/ref012.c`); the corpus-frozen 486 / 4,767 match rob's instrument exactly. **CONFIRMED.**
+Exact S₇ orbit counts of j-edge subgraphs of K₇-with-loops: **a₄ = 37, b₄ = 486, b₈ = 126,657**, role-decorated count-labelled 4-carriers **4,767**; the full pure row a₀..a₂₈ is palindromic with Σa = 79,264 (a = 1, 2, 5, 14, 37, 98, 252, 585, 1239, 2396, 4135, 6340, 8630, 10381, 11034, …); the count-labelled row is not palindromic (b₁ = 5 vs b₂₇ = 22) with Σb = 47,940,826. 14/14 PASS 18.95 s (re-run 2026-09-13: `a4=37 b4=486 b8=126657`, 17.4 s); 3/3 SOUND-high; b₈ triply confirmed by referee-independent routes including a C program (`witnesses/012/ref012.c`); the corpus-frozen 486 / 4,767 match rob's instrument exactly. **CONFIRMED.**
 
 Caveats verbatim: b is computed by a fibered stabilizer-Burnside, a disclosed substitute for the displayed but infeasible conjugacy-class cycle index (correctness proved by the response's Step-4 theorem and independently reproved); the `ROLE_LOCAL_OK` conjunct is a literal `True`; two PASS lines are tautological; the response's own direct anchors are only j ∈ {0..5, 27, 28} (mid-layers closed by referee reruns); the OEIS attribution is unverified (403). **The counts are the rule-free carrier skeleton — feasibility, not reachability** — a strictly poorer object than the standings-bearing carrier of the idea page; the vocabulary split is recorded there.
 
@@ -192,7 +192,7 @@ Dispatch 018 (`outbox/018-fee-correlation-update.md`, 19,260 bytes) is correspon
 
 ### 6.5 The adversary panel on calculated evidence and level 2 (x:019–023 → PANEL-A1..A8)
 
-The register returned to adversarial on 2026-08-24, when Jason hand-ferried five self-contained briefs as one authorized batch (drafted earlier the same day in `exchange/drafts/`, see `exchange/drafts/README.md`): 019 the CE-T1/T2/T3 evidence process, 020 the CE-T4/T5 bounded mean, 021 the O21/O24 risk ledger and exact escalation, 022 the O26 execution-order invariance, 023 the L2-T1..T5 coupling theorems. They attack the two side-channel parents — calculated evidence (CE-A1..A8) and targeted level-2 field stability (L2-A1..A7) — that never had courier rows. One consolidated response came back the same day (`inbox/019-023-response-panel-and-cancellation-v0.1.md`, SHA-256 `a3f468aa…`, pinned; verified 2026-09-12) with an exact-rational companion `verify_walt_panel_response_v0_1.py` (36/36, `ALL CHECKS PASS` in 0.78 s on 2026-09-12 — session evidence, scratch tier, never a receipt).
+The register returned to adversarial on 2026-08-24, when Jason hand-ferried five self-contained briefs as one authorized batch (drafted earlier the same day in `exchange/drafts/`, see `exchange/drafts/README.md`): 019 the CE-T1/T2/T3 evidence process, 020 the CE-T4/T5 bounded mean, 021 the O21/O24 risk ledger and exact escalation, 022 the O26 execution-order invariance, 023 the L2-T1..T5 coupling theorems. They attack the two side-channel parents — calculated evidence (CE-A1..A8) and targeted level-2 field stability (L2-A1..A7) — that never had courier rows. One consolidated response came back the same day (`inbox/019-023-response-panel-and-cancellation-v0.1.md`, SHA-256 `a3f468aa…`, pinned; re-verified 2026-09-13) with an exact-rational companion `verify_walt_panel_response_v0_1.py` (36/36, `ALL CHECKS PASS` in 0.74 s on 2026-09-13 from a copy — session evidence, scratch tier, never a receipt).
 
 Verdicts as the panel wrote them: CE-T1/T2/T3 CERTIFIED; CE-T4/T5 CERTIFIED with one sentence narrowed (the unrestricted bounded-rational class is not sign-safe, but it contains sign-safe subclasses); O21/O24 MIXED; O26 UNDER-SPECIFIED, REPAIRABLE; L2-T1..T5 CERTIFIED with the coupling definition repaired. "Certified" is the panel's word for its own step-check; it promotes nothing (PANEL-A1). Three concrete corrections:
 
@@ -204,13 +204,13 @@ Also adopted: the unsolicited Part VI — the strict hierarchy |net value correc
 
 ### 6.6 Three deferred producers, built the same night (x:024 → TRIPLE-A1..A7)
 
-Dispatch 024 (drafted and hand-ferried 2026-08-24; the count reached 24) stated the project's own candidate solutions to three slice-3 deferrals for attack. Pro's response "Three Deferred Producers" (`inbox/024-…`, SHA-256 `337296a7…`, pinned; verified 2026-09-12) with `verify_deferred_producers_triple_v0_1.py` (13/13, `ALL CHECKS PASS` in 6.9 s on 2026-09-12; scratch tier) was hand-delivered 2026-08-25 and adjudicated the same day:
+Dispatch 024 (drafted and hand-ferried 2026-08-24; the count reached 24) stated the project's own candidate solutions to three slice-3 deferrals for attack. Pro's response "Three Deferred Producers" (`inbox/024-…`, SHA-256 `337296a7…`, pinned; re-verified 2026-09-13) with `verify_deferred_producers_triple_v0_1.py` (13/13, `ALL CHECKS PASS` in 6.6 s on 2026-09-13 from a copy; scratch tier) was hand-delivered 2026-08-25 and adjudicated the same day:
 
 - **Part 1, CONSTRUCTION** — a class-size-free anytime upper confidence sequence for a finite maximum of means: one fixed true maximizer suffices, so no |Π_a| Bonferroni split (Theorem M1); endpoint monotonicity collapses the family to the single empirical-optimum count S*_n, which the shipped split-reach count already computes (Corollary M2). Exhaustive sweep of all 256 two-policy Boolean tables × 256 length-4 streams (65,536 evaluations), worst finite-horizon undercoverage 11/128 < δ = 1/4; in the worked example at δ = 1/4 the e-process value E^>_{2,2}(1/4) = 1/3 + 1/2 + 3/10 = 17/15 < 4 = 1/δ, so the grid point 3/4 is not rejected, and the standing specimen is R = 1/2 ≤ E3 = 3/4 < E2 = 1 (TRIPLE-A2). The dispatch's branch-mixture upper route was retired (wrong orientation).
 - **Part 2, CONDITION** — there is no canonical weakest *local* exchange predicate; the **Hazard-Exclusion Invariant** (initial coverage, forward closure, terminal safety) is sound (H1) and semantically complete (H2) and becomes the single dominance-bound authority; a one-round trump-extraction witness ships as the first incomplete producer with an explicit non-coverage specimen.
 - **Part 3, ALPHABET** — six mutually exclusive first-split motifs (LeadContextFork, ImmediateControlFork, CountCommitmentFork, TrumpCommitmentFork, SuitShapeFork, StrengthCommitmentFork) plus Other; `RevealResponse` refused as undecidable pending suffix enrichment.
 
-All three producers were built with gates the same night (slices 4a/4b/4c, PRs #44/#45/#46, main `cbce1ae`): `walt/walt/tests/solver_e3_upper.rs`, `solver_hazard_witness.rs`, `solver_fieldswap_motifs.rs`, with instrument records at `walt/probes/hazard_witness/` and `walt/probes/fieldswap_motifs/`. Thread label [L2] throughout; Part 1 consumes the CE evidence engine through the sanctioned one-directional crossing (L2 consumes CE, never the reverse). A later side-channel note (CBS) recognized its Theorem 5.1 as x:024's M1/M2 over pmake.
+All three producers were built with gates the same night (slices 4a/4b/4c = PRs #45/#46/#44, all merged 2026-08-25, the last of them `cbce1ae3`): `walt/walt/tests/solver_e3_upper.rs`, `solver_hazard_witness.rs`, `solver_fieldswap_motifs.rs`, with instrument records at `walt/probes/hazard_witness/` and `walt/probes/fieldswap_motifs/`. Thread label [L2] throughout; Part 1 consumes the CE evidence engine through the sanctioned one-directional crossing (L2 consumes CE, never the reverse). A later side-channel note (CBS) recognized its Theorem 5.1 as x:024's M1/M2 over pmake.
 
 ### 6.7 The side channel: seven parents the courier ledger never saw
 
@@ -226,7 +226,7 @@ Since 2026-08-24 the bulk of Pro's walt contribution has arrived outside the num
 | `salvation_complex_v0.1.md` | SC-A1..A8 | 2026-09-01 | 1 − Q as a minimum belief-mass transversal; doom = singleton cuts |
 | `focal_horizon_sandwich_v0.1.md` (parent title; the object is the focal-horizon hierarchy — FH-A2) | FH-A1..A11 | 2026-09-04 | one refinement hierarchy indexed by focal decisions, L_k ≤ Q ≤ U_k |
 
-Every ruling range above was checked against `walt/CENSUS-RULINGS.md` on 2026-09-12 (the highest identifier present in each family matches). After FH: `walt/briefs/FH-RESPONSE-TO-PRO.md` (2026-09-04) is a draft letter for Jason's hand-ferry — "not a courier dispatch — no number, the exchange ledger is untouched" — and the two Pro packet notes of 2026-09-05 (`TEXAS42-UNIFIED-REVIEW-v0.1`, `TEXAS42-IMPROVISATION-v0.1`) live under `experiments/partnership/packet/` and belong to [walt-partnership-program](walt-partnership-program.md). The eras these parents opened are [walt-calculated-evidence](walt-calculated-evidence.md), [walt-counted-belief-era](walt-counted-belief-era.md) and [walt-focal-horizon-era](walt-focal-horizon-era.md).
+Every ruling range above was checked against `walt/CENSUS-RULINGS.md` on 2026-09-13 (the highest identifier present in each family matches). After FH: `walt/briefs/FH-RESPONSE-TO-PRO.md` (2026-09-04) is a draft letter for Jason's hand-ferry — "not a courier dispatch — no number, the exchange ledger is untouched" — and the two Pro packet notes of 2026-09-05 (`TEXAS42-UNIFIED-REVIEW-v0.1`, `TEXAS42-IMPROVISATION-v0.1`) live under `experiments/partnership/packet/` and belong to [walt-partnership-program](walt-partnership-program.md). The eras these parents opened are [walt-calculated-evidence](walt-calculated-evidence.md), [walt-counted-belief-era](walt-counted-belief-era.md) and [walt-focal-horizon-era](walt-focal-horizon-era.md).
 
 ## 7. How to read an exchange result
 
@@ -330,41 +330,41 @@ What this rewrite cleared (files owned by this chapter):
 | `exchange/README.md` informal-captures section | no pointer to the side channel | pointer to [walt-math-intakes](walt-math-intakes.md) for hand-delivered walt notes |
 | `exchange/drafts/README.md` index | listed five drafts that had moved | provenance note pointing at outbox 019–023 |
 
-Drift found at c00717d1 in pages owned by other chapters (reported, not edited here). The book rewrite runs page by page, so some of these were already cleared in the working tree on 2026-09-12 — noted where seen:
+Drift found at c00717d1 in pages owned by other chapters (reported, not edited here). The book rewrite runs page by page, so most of these have since been cleared in the working tree — status as re-checked 2026-09-13:
 
-- `QUICKSTART.md`: "dispatches 001–018 (count 18; 016–018 hand-ferried)" — the count is 24 and 019–024 are missing. Still present 2026-09-12.
-- [Home](Home.md) exchange row opens "Dispatches 001–018:" then describes 019–024; the tier-3 sentence "3/3 adversarial referees SOUND" is stricter than the applied rule and REACH-20 does not satisfy it literally. Still present 2026-09-12.
+- `QUICKSTART.md`: said "dispatches 001–018 (count 18; 016–018 hand-ferried)" — the count is 24. Cleared in the working tree (no "count 18" remains).
+- [Home](Home.md) exchange row opened "Dispatches 001–018:" then described 019–024, and its tier-3 sentence "3/3 adversarial referees SOUND" was stricter than the applied rule (REACH-20 does not satisfy it literally). Both cleared in the working tree.
 - [reachability](reachability.md) said "In flight: dispatch 007 … dispatch 008" although both were adjudicated 2026-07-27 and are described as REACH-19/20 on the same page. Cleared in the working tree 2026-09-12.
 - [claim-ledger](claim-ledger.md) at c00717d1: x:017 said SR-A36; the x:009 row said "Lean mechanization pending (dispatch 011)"; the x:004 row did not say `004-cocycle.py` is in-house; the Lean thread had no row. All four cleared in the working tree 2026-09-12 (it now carries a Lean-thread row: kernel tier for exactly the statements the two files make, C1 not mechanized).
-- [FINDINGS](FINDINGS.md) §4 addendum cites "claim-ledger rows 9–10" for three constellation rows. Still present 2026-09-12.
-- [verification](verification.md) "Exchange-adjudicated program runs" enumerates only 003/004/005 although it owns every receipt.
-- [open-problems](open-problems.md) does not note that REACH-19/REACH-20 have no rob backing.
-- [idea-retrograde-rank](idea-retrograde-rank.md) says C1 is "pending Lean" (dispatch 011) in two places.
-- `automation/submit.mjs` header and the `pro-exchange` skill quote "count 18 > cap 17"; `workflow.js` hard-codes `REPO` to the main checkout and mentions a "5-shot reserve"; `inbox/010-….FAILED.md` and `outbox/017-….md.ready` are residue.
+- [FINDINGS](FINDINGS.md) §4 addendum cited "claim-ledger rows 9–10" for three constellation rows. Cleared ("rows 9–11").
+- [verification](verification.md) "Exchange-adjudicated program runs" enumerated only 003/004/005 although it owns every receipt. Cleared — it now tabulates every program, its recorded run and its re-run.
+- [open-problems](open-problems.md) did not note that REACH-18/19/20 have no rob backing. Cleared (the OPEN-11 evidentiary note).
+- [idea-retrograde-rank](idea-retrograde-rank.md) said C1 is "pending Lean" (dispatch 011); the working tree now annotates it as still pending with C1 stated in neither Lean file.
+- `automation/submit.mjs` header and the `pro-exchange` skill quote "count 18 > cap 17"; `workflow.js` hard-codes `REPO` to the main checkout and mentions a "5-shot reserve"; `inbox/010-….FAILED.md` and `outbox/017-….md.ready` are residue. All still present at c00717d1 (outside the wiki; not book pages).
 
 ## 11. Running the receipts
 
-All programs are stdlib-only Python 3; use `-B` so no `__pycache__` is created. Everything below was run 2026-09-12 on this machine with the wall times shown in §4.2 and §5.
+All programs are stdlib-only Python 3; use `-B` so no `__pycache__` is created. Everything below was run 2026-09-13 on this machine (and 2026-09-12 before that) with the wall times shown in §4.2 and §5.
 
 ```
 cd exchange/adjudication
 timeout 60 python3 -B programs/002.py          # ~1 s   → PASS overall counterexample_verified …
 timeout 60 python3 -B programs/003.py          # ~0.4 s → PASS OPEN-01_COLLAPSE
-timeout 60 python3 -B programs/004.py          # ~5 s   → PASS ALL
+timeout 60 python3 -B programs/004.py          # ~4 s   → PASS ALL
 timeout 60 python3 -B programs/004-cocycle.py  # ~0.02 s→ ALL_PASS 343 ordered triples …
 timeout 60 python3 -B programs/005.py          # ~13 s  → 19 PASS lines
-timeout 60 python3 -B programs/001.py          # ~17 s  → PASS headline INTERVAL [35,46] bits
+timeout 60 python3 -B programs/001.py          # ~15 s  → PASS headline INTERVAL [35,46] bits
 timeout 60 python3 -B programs/006.py          # ~17 s  → PASS headline INTERVAL [36,46] bits
-timeout 60 python3 -B programs/007.py          # ~37 s  → … CEILING=45 INTERVAL=[36,45]
+timeout 60 python3 -B programs/007.py          # ~36 s  → … CEILING=45 INTERVAL=[36,45]
 timeout 120 python3 -B programs/008.py         # ~72 s  → PASS … NO_VOID_SLICE (not re-run in this pass)
-timeout 60 python3 -B programs/009.py          # ~15 s  → PASS all-checks
-timeout 60 python3 -B programs/010.py          # ~18 s  → PASS R1 …
-timeout 60 python3 -B programs/012.py          # ~19 s  → a4=37 b4=486 b8=126657
+timeout 60 python3 -B programs/009.py          # ~14 s  → PASS all-checks
+timeout 60 python3 -B programs/010.py          # ~17 s  → PASS R1 …
+timeout 60 python3 -B programs/012.py          # ~17 s  → a4=37 b4=486 b8=126657
 
 cd ../inbox
 shasum -a 256 -c 019-023-response-panel-and-cancellation-v0.1.sha256     # OK (response + verifier)
 shasum -a 256 024-response-deferred-producers-triple-v0.1.md verify_deferred_producers_triple_v0_1.py   # 337296a7… / a4d23d50…
-timeout 60 python3 -B verify_walt_panel_response_v0_1.py      # ~0.8 s → ALL CHECKS PASS (36/36; scratch tier)
+timeout 60 python3 -B verify_walt_panel_response_v0_1.py      # ~0.7 s → ALL CHECKS PASS (36/36; scratch tier)
 timeout 60 python3 -B verify_deferred_producers_triple_v0_1.py # ~7 s   → ALL CHECKS PASS (13/13; scratch tier)
 ```
 

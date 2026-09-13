@@ -176,7 +176,8 @@ correspondence debt and would need the separate executable parity conjunction
 even after a green build. Details and the missing-name list: [lean](lean.md)
 §7.4.
 
-**After 2026-08-17.** No commit has touched `lean/` since 97ce321a. What
+**After 2026-08-17.** No commit has touched the Lean sources since 97ce321a
+(this book rewrite adds only a status note to `lean/README.md`). What
 changed around it: the Lean step of `walt/ci/check.sh` (since 813d5e81) builds
 the two trick-1 modules and diffs the M2 receipt on every run — the first
 mechanical enforcement of PROOFS.md rule 2 — while the 20 other modules remain

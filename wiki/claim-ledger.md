@@ -45,9 +45,10 @@ corpus sense and **not** a proof-assistant kernel proof; per TRUST-01 these rece
 stay visibly external. Where such a result RESOLVES an open question, the evidentiary
 tier is kept next to the RESOLVED label. One panel (REACH-20) was not unanimous:
 2/3 SOUND + 1 UNVERIFIABLE that found no defect — the dissent is carried verbatim in
-that row's caveat and never presented as 3/3. Ten of the eleven result rows below
-were 3/3 SOUND; the C1 row (x:009) is PARTIAL with a 2/3 + 1 FLAWED panel whose flaw
-lies in the response's corroboration artifacts, not its proof chain.
+that row's caveat and never presented as 3/3. Nine of the eleven result rows below
+were 3/3 SOUND; the two exceptions are REACH-20 and the C1 row (x:009), which is
+PARTIAL with a 2/3 + 1 FLAWED panel whose flaw lies in the response's corroboration
+artifacts, not its proof chain.
 
 **Proof-assistant kernel** (tier above exchange, below corpus): a statement checked
 by the Lean 4 kernel over the standard axioms (`propext`, `Classical.choice`,
@@ -117,7 +118,8 @@ Status is **exchange-adjudicated CONFIRMED** as defined above unless a row state
 otherwise; each row cites its inbox file and the verified program under
 `exchange/adjudication/programs/`. Every program is Pro's, saved verbatim, except
 `004-cocycle.py`, which is **in-house (Claude-authored)**. Program line counts and
-the 2026-09-12 re-runs are tabulated on [verification](verification.md).
+the 2026-09-13 re-runs (all green, same PASS counts as recorded; 008 not re-run) are
+tabulated on [verification](verification.md).
 
 | Result | Where explained | Status / caveat |
 |---|---|---|

@@ -1,7 +1,7 @@
 # Strict Straight Reachability
 
 [Home](Home.md) · owns: feasible ≠ reachable, both witnesses, the [36,45]-bit
-interval, symbolic certificates · Sources: both packages Math §7.13, **rec Math
+interval, symbolic (deal-free) reachability witnesses · Sources: both packages Math §7.13, **rec Math
 §7.13.7** (rec-only). Related: [minimal-support-normal-form](minimal-support-normal-form.md),
 [support-dynamics](support-dynamics.md), [open-problems](open-problems.md).
 
@@ -224,6 +224,11 @@ transition state once declaration and the typed public observation context are
 supplied — see [support-dynamics](support-dynamics.md).
 
 ## rec-only: symbolic support reachability (deal-free certificates)
+
+(Vocabulary note: "certificate" in this section is rec's own name for REACH-15's
+*sufficient* replay witness — a trace that provably realizes the support — not the
+necessary-only outer profile that [discrepancies D3](discrepancies.md) forbids calling
+a certificate.)
 
 **[Theorem — proved, rec Math §7.13.7, REACH-14]** Replay a public trace against the
 *support itself*: start from unrestricted 21-tile support; accept a hidden action iff
