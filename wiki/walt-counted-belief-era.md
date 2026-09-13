@@ -1,4 +1,4 @@
-[Home](Home.md) · owns: the counted-belief and anytime proof-state era, 2026-08-30 → 2026-09-01 — the CBS mathematics and the C→G exact-mass ladder (Slices A–G, PRs #61–#69, freeze 58), the anytime proof-state program (Phases 0–8, PRs #71–#78) and the doom census (#79); the era's diagnosis of the opening root together with its 2026-09-03 correction · Sources: `walt/math/counted_belief_sandwich_v0.1.md` (received parent, SHA-256 `4d2dfbe0…`, adjudicated **CBS-A1..A9** 2026-08-30) and `walt/math/anytime_proof_state_score_v0.1.md` (received parent, `7a8c60fb…`, adjudicated **APS-A1..A9** 2026-08-31) with their intake companions and scratch-tier verifiers ([walt-math-intakes](walt-math-intakes.md)); `walt/CENSUS-RULINGS.md`; [`walt/FACTOR-BELIEF.md`](../walt/FACTOR-BELIEF.md) (the dated running record); `walt/probes/factor_belief/README.md` (the quotable authority for probe findings, CBS-A8) and the records under `walt/probes/{factor_belief,root_interval,grammar_residual}/`; `walt/DISCREPANCIES.md` (the 2026-09-03 correction); the gate files `walt/walt/tests/solver_*.rs`; main's history #60–#80; [the freeze register](walt-math-freezes.md) (freeze 58)
+[Home](Home.md) · owns: the counted-belief and anytime proof-state era, 2026-08-30 → 2026-09-01 — the CBS mathematics and the C→G exact-mass ladder (Slices A–G, PRs #61–#69, freeze 58), the anytime proof-state program (Phases 0–8, PRs #71–#78) and the doom census (#79); the era's diagnosis of the opening root together with its 2026-09-03 correction; successor page [walt-focal-horizon-era](walt-focal-horizon-era.md) (2026-09-01 → 2026-09-05) · Sources: `walt/math/counted_belief_sandwich_v0.1.md` (received parent, SHA-256 `4d2dfbe0…`, adjudicated **CBS-A1..A9** 2026-08-30) and `walt/math/anytime_proof_state_score_v0.1.md` (received parent, `7a8c60fb…`, adjudicated **APS-A1..A9** 2026-08-31) with their intake companions and scratch-tier verifiers ([walt-math-intakes](walt-math-intakes.md)); `walt/CENSUS-RULINGS.md`; [`walt/FACTOR-BELIEF.md`](../walt/FACTOR-BELIEF.md) (the dated running record); `walt/probes/factor_belief/README.md` (the quotable authority for probe findings, CBS-A8) and the records under `walt/probes/{factor_belief,root_interval,grammar_residual}/`; `walt/DISCREPANCIES.md` (the 2026-09-03 correction); the gate files `walt/walt/tests/solver_*.rs`; main's history #60–#80; [the freeze register](walt-math-freezes.md) (freeze 58)
 
 # walt — the counted-belief and anytime proof-state era (2026-08-30 → 2026-09-01)
 
@@ -90,7 +90,7 @@ Appendix A; the gate index is Appendix B.
 | 2026-09-01 | First-pass wiki synthesis (superseded by this page) | #80 · `08fe3d2d` |
 
 Hashes are main's first-parent commits (`git log --first-parent main`,
-checked 2026-09-12).
+re-checked 2026-09-13).
 
 ## 1. Counting instead of enumerating (Slice C: stages C0, C1, C2)
 
@@ -163,8 +163,8 @@ enumerable receipt roots under the trivial lowest-first field and under σ0
 `level0_field_branch_parity`). At the opening root only the contraction
 runs: branch masses in **8,671 µs** under the trivial field (15 branch
 tiles), 5,622,659 µs under σ0 (20 tiles), conservation exact. Measured
-2026-09-12 on this machine (`factorbelief run`, release binary built
-2026-09-07): 0.02 s, the fifteen trivial-field masses identical to
+2026-09-13 on this machine (`factorbelief run`, release binary built
+2026-09-07): 0.04 s, the fifteen trivial-field masses byte-identical to
 `run1.txt` Section C.
 
 **Stage C1 (`cache_run1.txt`; gated).** Within one history reuse is total
@@ -297,8 +297,8 @@ trick-5/6 receipt roots, prefix 16, δ = 1/20 per endpoint, pinned level-1
 | h8-t5 | 92 | `DeltaRootSet{2 of 3; bar 35/46}` | 5-0 (16/23) excluded at t = 15; 5-3 (91/92) and 0-0 (71/92) still entangled |
 | h10-t6, h5-t6, h12-t6, h3-t5 | 19, 27, 6, 200 | `UnresolvedRootSet` | exact ties (Q = 1, 4/9, 0, 1) — the parent's §40.7 "true decision hardness"; the typing refuses to invent a winner |
 
-All 14 action rows have L ≤ Q ≤ U. Measured 2026-09-12 on this machine
-(`rootinterval run`): 0.19 s, the same six decisions.
+All 14 action rows have L ≤ Q ≤ U. Measured 2026-09-13 on this machine
+(`rootinterval run`): 0.20 s, the same six decisions.
 
 **Slice B (PR #63; `walt/probes/grammar_residual/run1.txt`; the §8
 identity and the exact split gated in `solver_grammar.rs`, 8 gates).** The
@@ -557,15 +557,19 @@ remainder exactly) with a verified uniform movement bound from
 incumbent profile → decline → no number. Ten gates (`solver_residual.rs` 6,
 `solver_covers.rs` 3). The record (`bellmanreport_run1.txt`, total wall
 15,696,614 µs): h3-t4 action 3-1 walks [66,830]‰ → [168,640] → [275,457] →
-[279,425] → [326,374] → [350,350]‰ in five stages, exact mass rising 236‰ →
-1000‰; 4-1 walks [145,606]‰ → [271,271]‰ (*the ledger's "[145,606]‰"
-quotes action 4-1's stage 0; 3-1 starts at [66,830]‰*); h8-t5 0-0 climbs
-86‰ → 771‰ exact across five stages. Covers: h12-t6's verified gain 0
+[279,425] → [326,374] → [350,350]‰ in six stages (stage 0 through stage 5,
+five refinements), exact mass rising 236‰ → 1000‰; 4-1 walks [145,606]‰ → [271,271]‰ (*the ledger's "[145,606]‰"
+quotes action 4-1's stage 0; 3-1 starts at [66,830]‰*); h8-t5 0-0's interval
+climbs [86,1000]‰ → [771,771]‰ across five stages (0–4), its exact mass
+86‰ → 1000‰. Covers: h12-t6's verified gain 0
 (against an arithmetic envelope of 7) certifies V* = 0 for one range walk;
 h4-t6's range walk beats arithmetic by exactly one point (gain 11 vs 12)
-and leaves the 5-5 ten-count hazard visible; at rich roots (h8-t5, h5-t6,
-h3-t4) gain equals the envelope and first-generation covers are vacuous —
-the §70 caveat live and recorded, not patched.
+and leaves the 5-5 ten-count hazard visible; at rich roots the derived upper
+stays at 1000‰ — h5-t6 and h3-t4 with gain equal to the envelope (17 = 17;
+39 = 39 on all four h3-t4 actions), h8-t5 with gains 26 / 32 / 27 against an
+envelope of 33 (*the ledger says "gain equals the envelope" at h8-t5 too;
+the record prints the shortfall, and the record wins*) — first-generation
+covers are vacuous, the §70 caveat live and recorded, not patched.
 
 ### 5.7 Phase 7 — the typed laydown hierarchy (PR #77)
 
@@ -581,13 +585,13 @@ a root into the four §16 tiers — `PolicyCertainMake` (∀ω, one π, one σ),
 four, and bare "laydown" is reserved for the universal type (APS-A5). Four
 gates (`solver_laydown.rs`). The record (`laydownreport_run1.txt`): the
 boss-chain control is a true `Laydown` in 1,492,276 walk nodes / 373,469
-µs, proved by walk not phrase; already-made classifies in 3 nodes / 10 µs
+µs, established by the walk, never by the phrase; already-made classifies in 3 nodes / 10 µs
 (§17's zero-cost closure); loose-boss refutes fail-fast in 280 nodes;
 **h10-t6 is a real receipt-root `Laydown`** (all four tiers, forcing
 witness 2-2); h12-t6, h5-t6, h4-t6 are not. The walk is an endgame
-instrument, exponential in remaining plays. Measured 2026-09-12 on this
-machine (`laydownreport report`): 0.45 s, the same seven verdicts,
-boss-chain 1,492,276 nodes in 420,220 µs.
+instrument, exponential in remaining plays. Measured 2026-09-13 on this
+machine (`laydownreport report`): 0.40 s, the same seven verdicts,
+boss-chain 1,492,276 nodes in 366,357 µs.
 
 ### 5.8 Phase 8 — the opening-root iterative run (PR #78)
 
@@ -767,8 +771,10 @@ gap, not fusion price) are suggestive, not settling, and are owned by
 (t4–t6), where fibers are enumerable-adjacent and σ0 reads are cheap — the
 same domain as Phase 7's walk, and one every played hand reaches. The
 opening root priced the wall honestly: each non-forced σ0 read is a
-modeled-mind mini-solve (about 2.5–9k walk nodes per second at trick-1
-depth), the field-classification bottleneck seen from the doom side. The
+modeled-mind mini-solve (the probe README's "~2.5–9k walk nodes/s" at
+trick-1 depth; the record's own per-lead arithmetic ranges wider, 34,564
+nodes in 41 s on 3-2 to 500,000 in 46 s on 6-0), the field-classification
+bottleneck seen from the doom side. The
 salvation-complex ruling SC-A3 preserved the census as it stands
 (singleton-conflict producer, God-upper ground truth on enumerable roots,
 suffix-candidate detector, the empty-mask base case of salvation masks) and
@@ -808,7 +814,7 @@ main `c00717d1` (2026-09-07).
 
 **Reproduction caveat (repository fact, git).** On 2026-09-06 the
 partnership-gym commit `c59f1115` changed `solver/factor_belief.rs`
-(+32 lines): the private `condition_via` now restricts the acting factor to
+(25 insertions, 7 deletions): the private `condition_via` now restricts the acting factor to
 hands with positive completion support before consulting a policy, as the
 model-belief path already did, retaining original factor weights and
 removing only zero-joint-mass entries; the head note of
@@ -833,9 +839,9 @@ the module layout.
 
 | binary | modes | record | wall (record) | gate file (functions) |
 |---|---|---|---|---|
-| `rootinterval` | `run <out> [prefix]` | `../root_interval/run1.txt` | 0.52 s (2026-09-07); 0.19 s measured 2026-09-12 | `solver_root_interval.rs` (6) |
+| `rootinterval` | `run <out> [prefix]` | `../root_interval/run1.txt` | 0.52 s (2026-09-07); 0.20 s measured 2026-09-13 | `solver_root_interval.rs` (6) |
 | `grammarsplit` | `run <out> [prefix]` | `../grammar_residual/run1.txt` | exact splits ≈ 0.35 s total | `solver_grammar.rs` (8) |
-| `factorbelief` | `run` (C0), `opening-level0`, `cache` (C1), `c2` | `run1.txt`, `opening_level0_run1.txt`, `cache_run1.txt`, `c2_run1.txt` | C0 0.02 s (measured 2026-09-12); σ0 opening ≈ 5.4–5.6 s | `solver_factor_belief.rs` (11) |
+| `factorbelief` | `run` (C0), `opening-level0`, `cache` (C1), `c2` | `run1.txt`, `opening_level0_run1.txt`, `cache_run1.txt`, `c2_run1.txt` | C0 0.04 s (measured 2026-09-13); σ0 opening ≈ 5.4–5.6 s | `solver_factor_belief.rs` (11) |
 | `factorrecursion` | `report <out>` | `recursion_run1.txt` | ≈ 15 s (h4-t4 σ0 7.2 s) | `solver_factor_recursion.rs` (5) |
 | `factorresponse` | `report <out>` | `response_run1.txt` | ≈ 12 s (h4-t4 σ0 9.8 s) | `solver_factor_response.rs` (4) |
 | `factorcegar` | `report <out>` | `cegar_run1.txt` | ≈ 6 s (opening classification 5.4 s) | `solver_factor_consequence.rs` (4) |
@@ -858,7 +864,7 @@ their PRs; the release binaries present on this machine were built
 
 ## Appendix B — the gate index
 
-Seventeen gate files, 96 `#[test]` functions (counted 2026-09-12 with
+Seventeen gate files, 96 `#[test]` functions (re-counted 2026-09-13 with
 `grep -c '#\[test\]'`), all under `walt/walt/tests/`; every one ran green
 in `walt/ci/check.sh` at its landing per the ledger, and cold `check.sh`
 PASS runs are recorded by the successor slices (MB1, UP0, FH3, FH4). Not
@@ -898,8 +904,8 @@ the optimization-lock sweep over all 256 two-policy tables × 65,536 streams
 envelope non-realizability specimen, merge-before-max, the laydown
 hierarchy, the closure-aware scheduling counterexample; the intake companion
 flags checks 14, 16, 17 and 32 as near-tautological or definitional.
-Measured 2026-09-12 on this machine from `walt/math/` with
-`python3 -I -B`: both print `ALL CHECKS PASS`, exit 0, in 3.77 s and 0.16 s,
+Measured 2026-09-13 on this machine from `walt/math/` with
+`python3 -I -B`: both print `ALL CHECKS PASS`, exit 0, in 3.69 s and 0.17 s,
 leaving no `__pycache__` (the D15 trap).
 
 ## Appendix D — rulings and freezes touched by this era

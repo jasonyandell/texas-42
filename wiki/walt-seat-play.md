@@ -58,7 +58,10 @@ build of 2026-08-17; the objective ruled 2026-08-17, [walt-program](walt-program
   position is P(make) under the model: a `BigRational`, exact on the
   sample, with decided cutoffs (value 1 once banked(T1) ≥ b, value 0 once
   banked(T0) > 42 − b) that are sound by count conservation. No floats
-  anywhere. A trick-difference proxy is never the target.
+  anywhere. A trick-difference proxy is never the target. The Boolean
+  has one designed-in consequence the book keeps in view: at exact
+  indifference P(make) pins at 1 and has no gradient, which is the G1/G2
+  lesson of §4 (`walt/briefs/MORNING-2026-09-05.md` item 4).
 - **The field** — the model of the other three seats, a parameter (§3).
   *Dice* (Def 3.5): each non-viewer seat in world w plays uniformly among
   its legal tiles by a deterministic tickertape `SplitMix64(seed_w ⊕
@@ -115,8 +118,8 @@ only thing that varies (`arena_results_2026-08-17.txt`, honesty notes).
 Def 6.3 says a saturation tie (several candidates equal at the top,
 typically at 1-on-sample) is "never broken by tile index: tied candidates
 are re-evaluated on fresh, larger samples (4× per round, bounded) until
-separated or the bound is hit" — and the spec does not say what happens
-at the bound. The code does (`selection::refine`: `if ties.len() == 1 ||
+separated or the bound is hit" — and as written on 2026-08-18 the spec
+did not say what happens at the bound. The code does (`selection::refine`: `if ties.len() == 1 ||
 size >= cap { break; }`, then `best_of`; `best_of`'s reduce replaces the
 incumbent only on *strict* improvement, "first-listed on exact ties — the
 ascending-tile-order convention of the whole stack"; candidates are
@@ -129,12 +132,13 @@ the 6-4). The gate `fixed_ties_use_tile_order_without_extra_sampling`
 (`walt/walt/tests/solver_selection.rs`) pins the `Fixed` case;
 `FieldModel::new` and `FrozenPolicy::new` assert `TieRule::LowestTileIndex`
 names what the algorithm does (`solver/policy.rs`, `solver/act.rs`
-`act_field_spec` / `continuation_tuple`). Earlier prose on this page,
-in the `webtable.rs`/`playtable.rs` headers and in `SCENARIO-PLAYER.md`
-Def 6.3 ("never index-broken") overstated the rule for the post-cap
-case; the correction was read from source on 2026-09-05
-(`walt/briefs/MORNING-2026-09-05.md` item 2 — a source reading, never
-executed at a tied node). The rationale for refining first is still
+`act_field_spec` / `continuation_tuple`). The `webtable.rs`/`playtable.rs`
+headers and Def 6.3's own sentence ("never index-broken") overstate the
+rule for the post-cap case; the correction was read from source on
+2026-09-05 (`walt/briefs/MORNING-2026-09-05.md` item 2 — a source
+reading, never executed at a tied node) and `SCENARIO-PLAYER.md` now
+carries it as a note under Def 6.3 dated 2026-09-13 ("What happens at
+the bound"). The rationale for refining first is still
 right: support ≠ belief, 1-on-sample is not certainty, and an index
 break injects an arbitrary preference exactly where the estimate is
 least informative (the level-2 n = 200 three-way tie of §4 would have
@@ -160,12 +164,12 @@ level-0 inner worlds / level-1 inner worlds.
 | **`walt-wasm` repository default** (`walt-wasm/src/api.rs`; committed `pkg/walt.wasm` SHA-256 `d7f61f22…`, *not* the phone's bytes) | 40 / 8 | `Refine` (`level1_evaluate`); `race 0` | `walt1 bid`: price all nine declarations at `need` (default 30) over n = 40 common open worlds; pass if best < θ, else walk that declaration's bid up while P(make b+1) ≥ θ; θ default 11/16, a request parameter | `walt1 declare`: argmax over nine declarations at the contract bid, 4×/16× refinement | `budget_ms` 120000, inert in wasm | `DEFAULT_SEED 0xB7E1_5162_8AED_2A6B` | string-line API (§7); `sh walt-wasm/build.sh`; `node walt-wasm/smoke.mjs` |
 | **`webtable`** — localhost human table with a real auction | 100 / 8 | `Refine` (`level1_evaluate`) | AI seats price nine declarations at the minimum viable bid over `n_auct = clamp(n_outer/2, 24, 60)` open worlds (50 at the default), pass if best < 11/16, else walk up; deal rotates so the winner sits at internal S1 | trump by best-lead pricing with 16× tie refinement (`webtable.rs:555`) | 120 s (fixed) | `WEB_BELIEF_SEED 0x3F84_D5B5_B547_0917`, `WEB_AUCT_SEED 0xBE54_66CF_34E9_0C6C`, `WEB_TRUMP_SEED 0xC0AC_29B7_C97C_50DD` | `webtable [port=4242] [n_outer=100] [n0=8] [seed=42] [human_seat=0] [ctrl] [cap=N]`; open `http://127.0.0.1:<port>` |
 | **`playtable`** — terminal table | 100 / 8 | local copy of the refine loop (`playtable.rs:662`) | none: contract frozen to receipt hand 8 — fives, P30 by T1, S1 leads; `fresh` re-deals | none (frozen) | 180 s (fixed) | `INNER_SEED`, `TABLE_BELIEF_SEED 0x9216_D5D9_8979_FB1B` | `playtable [human_seat=0] [n_outer=100] [n0=8] [seed=42] [fresh] [ctrl] [cap=N]` |
-| **experiments `l1-default`** (= `l1-fixed`) | 40 / 8 (n₁ = 2 inactive) | `Fixed` / modeled `Fixed` | none: bid fixed at 30 | fixed by the fixture rule or the match protocol (heuristic trump); never an auction | 14 000 ms wrapper, with an 8/2 level-1 reserve prepared first (≤ 1.5 s) | request `seed` (e.g. 420600); deals from Python `random.Random(seed)` | `python3 experiments/partnership/player.py --mode baseline`; native `partnership [--stream]` (§7) |
+| **experiments `l1-default`** (= `l1-fixed`) | 40 / 8 (n₁ = 2 inactive) — these are the Python driver's defaults (`experiments/partnership/players.json`); the native `partnership` bin has no defaults of its own and takes `n` / `n0` / `n1` / `budget_ms` per request within `n ≤ 640`, `n0, n1 ≤ 64`, `budget_ms ≤ 14 000` (`bin/partnership.rs`) | `Fixed` / modeled `Fixed` | none: bid fixed at 30 | fixed by the fixture rule or the match protocol (heuristic trump); never an auction | 14 000 ms wrapper, with an 8/2 level-1 reserve prepared first (≤ 1.5 s) | request `seed` (e.g. 420600); deals from Python `random.Random(seed)` | `python3 experiments/partnership/player.py --mode baseline`; native `partnership [--stream]` (§7) |
 | experiments `l1-race` / `l1-refine` | 40 / 8 | `RaceRefine` (cap 80) / `Refine` | as above | as above | 14 000 ms | as above | `--selection race-refine` / `refine`; `l1-race` is the procedural anchor that reproduced the phone (§4, §8) |
-| **controller fallback** inside `solver::act` (`controller_bridge`, `ctrl` seats) | 200 / 8 (the live ordering); frozen candidates at 8 / 2 | `Refine` via `level1_evaluate` among survivors or tied maxima | none (bridge is bid-blind) | `declare` kept from `walt_bridge` through the library solver | `per_move` 120 s; controller `world_cap` 128 interactive / 512 batch, `exact_cap` 2000 | `ACT_FALLBACK_SEED 0x4528_21E6_38D0_1377` | `controller_bridge [world_cap=128] [exact_cap=2000] [fallback_n_outer=200] [fallback_n0=8] [n_declare=100] [per_move=120]`; env `WALT_CTRL_*`, `WALT_CTRL_LOG` |
+| **controller fallback** inside `solver::act` (`controller_bridge`, `ctrl` seats) | 200 / 8 (the live ordering); frozen candidates at 8 / 2 | `Refine` via `level1_evaluate` among survivors or tied maxima | none (bridge is bid-blind) | `declare` kept from `walt_bridge` through the library solver | `per_move` 120 s; controller `world_cap` 128 interactive / 512 batch, `exact_cap` 2000 | `ACT_FALLBACK_SEED 0x4528_21E6_38D0_1377` | `controller_bridge [world_cap=128] [exact_cap=2000] [fallback_n_outer=200] [fallback_n0=8] [n_declare=100] [per_move=120]`; env `WALT_CTRL_WORLD_CAP` / `WALT_CTRL_EXACT_CAP` / `WALT_N_OUTER` / `WALT_N0` / `WALT_N_DECLARE` / `WALT_PER_MOVE`, frozen schedule `WALT_CTRL_N_OUTER_FROZEN` 8 / `WALT_CTRL_N0_FROZEN` 2 (env only), log `WALT_CTRL_LOG` |
 | **σ1 inside the waking seat** (`solver::waking`, `waking_bridge`, `granrun`) | σ0 = `Level0{n₀ = 2}`; σ1 = `Level1{n_outer = 4, n₀ = 2}`; candidates at [8, 2] | act's baseline (as above); σ1 = `level1_evaluate` per non-focal seat | none | level-1 auction policy (bid 30 in driven mode) | wake check 24 paired worlds, exact route at fiber ≤ 1024; escalation exact cap 4096 | `WAKING_DRIVEN_SEED 0x51EE_D42A_11FE_600D`, `WAKING_DECLARE_SEED 0x7A3E_9B21_5C48_D6F1` | `waking_bridge [controller knobs]`; `waking_bridge driven <out.jsonl> [n_hands]`; `granrun replay|driven` |
 | **`walt2-wasm`** — level 2 in the browser | 8 / 2 / n₁ = 4 | `Refine` over `Field::Level(1)`, `n_inner = [n₀, n₁]`, same outer worlds and seed formula as `walt-wasm` (CRN across levels) | byte-identical to `walt-wasm`'s `bid` (pinned by `auction_matches_walt1`) | byte-identical to `walt-wasm`'s `declare` | inert | `DEFAULT_SEED` as above | `walt2 play` with the extra knob `n1`; response carries `level: 2`; never a default (PR #58, 2026-08-25) |
-| **experiments `l2-partner-default`** (family "L2 Partner") / `l2-partner-voids` | 40 / 8 / 2 | `Fixed` / modeled `Fixed`; inner belief `voidless` / `voids-counted` | none (bid 30) | fixed, as above | 14 000 ms | as `l1-default` | `--mode partner [--inner-belief voids-counted]`; `--mode all-l1` is the separate family "L2 All" |
+| **experiments `l2-partner-default`** (family "L2 Partner") / `l2-partner-voids` | 40 / 8 / 2 (`players.json` defaults, same bin bounds as above) | `Fixed` / modeled `Fixed`; inner belief `voidless` / `voids-counted` | none (bid 30) | fixed, as above | 14 000 ms | as `l1-default` | `--mode partner [--inner-belief voids-counted]`; `--mode all-l1` is the separate family "L2 All" |
 
 Probe epochs that are not players but appear in results: `level1.rs`
 (fixed carrier, receipt hand 8; up to n = 2000 / n₀ = 16 in
@@ -295,9 +299,10 @@ carrier, one hand; "says nothing yet about hands where coordination is
 load-bearing". The n = 200 tie and its break at n = 800 is the standing
 argument for tie refinement (§1). Costs: the rayon port ran t = 1 n = 800
 in 214.9 s against 1211.3 s serial (~5.6×), byte-identical across 1 and
-18 threads; t = 4 3.1 s vs 16.0 s single-threaded. The old "≈ 25–50×
-level-1 per decision" on this page had no source in the record and is
-withdrawn; the record gives absolute timings only.
+18 threads; t = 4 3.1 s vs 16.0 s single-threaded. No level-2-to-level-1
+cost multiplier is quotable from this record — it gives absolute timings
+only (a "≈ 25–50×" figure once stated here had no source and is
+withdrawn).
 
 **The correction the parallel port caught (Def 3.4).** The serial probe's
 PiKey — documented as the modeled mind's "entire information state" —
@@ -338,7 +343,8 @@ hoards the 4-1 five-count (62.5%); level 2 wants 4-1 at 85.0% vs 5-3 at
 trick; the hand made 31:11. Caveats that travel: self-graded on level-2's
 own table (the mirrored-replay referee was never run); trajectories are
 level-1 self-play, so positions level 2 would have steered into are
-unexplored; and the **level mismatch in the mirror** (§7.3): inside a
+unexplored; and the **level mismatch in the mirror** (`SCENARIO-PLAYER.md`
+§7, item 3): inside a
 level-2 walt the modeled partner reads walt itself as level 0, so
 signaling value found at level 2 is signaling into a simplified reader —
 a lower bound on matched-reader coordination.
@@ -373,9 +379,11 @@ fraction 50.0%, rough ±2 SE 44.7–55.3%); L2 Partner with counted voids vs
 without: 12 / 17 / 71 (47.5%, 42.1–52.9%). Per-move wall under the shared
 ten-game load: L1 0.228 s (0/1821 fallbacks), L2 Partner 1.127 s
 (43/3690), L2 Partner with voids 1.318 s (60/1809) — "about five times"
-L1's cost with no observed net contract advantage; the assessment's
-practical ruling is that L1 default "is a defensible operating default
-now without claiming a proved strategic ordering". Refined partner minds
+L1's cost with no observed net contract advantage; the practical ruling
+in `default-partner-battery/STRENGTH-ASSESSMENT.md` is that L1 default
+"is a defensible operating default now without claiming a proved
+strategic ordering" (that document's own reading, not a strength result
+— a "proved" ordering is exactly what nothing here has). Refined partner minds
 are unplayable under the wrapper: every race/refine partner configuration
 crossed the > 5% fallback gate within one or two pairs (`partner-race`
 10/33 fallbacks at 3.582 s per move; `partner-race-voids` 11/33 at 3.786 s;
@@ -622,7 +630,7 @@ internal T1 (seats 1, 3): when the arena's bidder sits on an even seat
 every label is rotated by +1 internally and rotated back in replies
 (audited in the arena record). Refusals (`Level1Refusal::{Deadline,
 InfeasibleFrame}`) play the lowest legal tile with a stderr note. Measured
-2026-09-12 on this machine, release binary under
+2026-09-13 on this machine, release binary under
 `/Users/jason/code/texas-42/walt/target/release/` (mtime 2026-09-07 11:54,
 after HEAD c00717d1; its provenance against c00717d1 is not verified):
 `printf 'declare 0 1 5 11 12 17 23 25\n2 6 0 1 5 11 12 17 23 25 2 0 27 1 21\n' | walt_bridge 8 2 20 8`
@@ -676,8 +684,8 @@ points against the **independent Python referee** (`rules.py`), prepares a
 `--mode phone` drives the archived plunge WASM through `phone.mjs` at the
 phone's 40/8 race-on settings. A fallback is an execution route, never a
 search family; modeled minds never fall back — an incomplete nested solve
-aborts the host attempt (`PLAYERS.md`). Measured 2026-09-12 on this
-machine: `status` on the G1 root returns
+aborts the host attempt (`PLAYERS.md`). Measured 2026-09-13 on this
+machine (same binary as above): `status` on the G1 root returns
 `{"legal":[23, 25],"leader":0,"points":[0, 0],"trick":1}`.
 
 **The mirrored-pair arena and its pool discipline**
@@ -701,8 +709,8 @@ pins strength.
 
 | gate | pins | count / fixture |
 |---|---|---|
-| `walt-wasm/smoke.mjs` (Node ≥ 23.6) | the committed `walt.wasm` reproduces the frozen native full-hand trace (contract S0 bid 42 decl 9) play for play | 28/28 — measured 2026-09-12 on this machine: OK, 934 ms |
-| `walt2-wasm/smoke.mjs` | same for `walt2.wasm` on its own trace | 28/28 — measured 2026-09-12: OK, 6931 ms, slowest decision 3593 ms (trick 1 pos 1) at n = 4 / n₁ = 2 / n₀ = 2 |
+| `walt-wasm/smoke.mjs` (Node ≥ 23.6) | the committed `walt.wasm` reproduces the frozen native full-hand trace (contract S0 bid 42 decl 9) play for play | 28/28 — measured 2026-09-13 on this machine: OK, 874 ms (934 ms on 2026-09-12; wall times are the only thing that varies) |
+| `walt2-wasm/smoke.mjs` | same for `walt2.wasm` on its own trace | 28/28 — measured 2026-09-13: OK, 7436 ms, slowest decision 3842 ms (trick 1 pos 1) at n = 4 / n₁ = 2 / n₀ = 2 (6931 ms / 3593 ms on 2026-09-12) |
 | `walt-wasm/tests/full_hand.rs` | full-hand lawfulness and conformance (`full_hand_all_walt`), the viewer review (`play_viewer_fiber_review`), the race mode (`full_hand_all_walt_raced`) | 3 |
 | `walt2-wasm/tests/full_hand.rs` | `full_hand_all_walt2`, `auction_matches_walt1` (bid/declare byte-identical to walt-wasm), `protocol_rejections` | 3 |
 | `walt/walt/tests/solver_selection.rs` | the three selection schedules: fixed ties use tile order without extra sampling; refinement reconsiders formerly lower candidates; unresolved ties exhaust exactly the historical fresh bundles; racing uses paired blocks and both objectives; a saturation race refines only tied survivors; a refusal discards previous rounds; a forced race never requests an evaluation | 7 |
@@ -710,7 +718,7 @@ pins strength.
 | `walt/walt/tests/solver_partnership.rs` | counted inner samples belong to independently replayed receipt fibers; voids survive trick resolution with declaration-relative following; the inner cache separates void profiles and ignores host worlds; counted belief runs all three seat profiles and refuses expired sampling; modeled L1 inherits selection while L0 keeps its fixed Dice boundary; seat profiles upgrade exactly the declared seats; all-zero = uniform level-0 and all-one = uniform level-1 fields; modeled level 1 independent of outer completions and cache order; the baseline evaluator uses the exact common world stream; the bounded evaluator is deterministic and reports every legal action; a zero deadline aborts before sampling | 12 |
 | `walt/walt/tests/solver_act.rs` + unit tests in `act.rs` | route alphabet and fixtures (§6) | 5 + 6 |
 | `walt/walt/tests/solver_waking.rs` | the waking seat (§6) | 9 + compile-fail locks |
-| `walt/walt/tests/solver_viewer_fiber.rs`, `solver_policy.rs`, `solver_ordering.rs`, `solver_panel_conformance.rs` | cross-fiber pricing; frozen-policy identity and the pinned 78/34 split replay; reorder-not-cull value equivalence; panel conformance | 2 / 7 / 4 / — |
+| `walt/walt/tests/solver_viewer_fiber.rs`, `solver_policy.rs`, `solver_ordering.rs`, `solver_panel_conformance.rs` | cross-fiber pricing; frozen-policy identity and the pinned 78/34 split replay; reorder-not-cull value equivalence; panel conformance | 2 / 7 / 4 / 8 |
 
 The whole gate is `walt/ci/check.sh` (fmt, clippy `-D warnings
 -D float_arithmetic`, the no-float grep, vocabulary greps, release tests,
@@ -740,7 +748,7 @@ Each entry is parity-gated; none changed what plunge or the arena runs.
   a typed `InfeasibleFrame`; the draw sequence on feasible frames
   bit-identical (fixture R2); `Level1Refusal::{Deadline, InfeasibleFrame}`
   threaded through `level1_evaluate`; the live bridges play lowest-legal on
-  refusal and log it. Verified on this tree 2026-09-12: `fn sample_belief`
+  refusal and log it. Verified on this tree 2026-09-13: `fn sample_belief`
   is defined only in `solver/mod.rs` (`solver/partnership.rs` carries
   `sample_belief_bounded`, a deadline-checked wrapper that preserves the
   stream); `fn level1_evaluate` is defined in `solver/mod.rs`,
@@ -788,9 +796,9 @@ Each entry is parity-gated; none changed what plunge or the arena runs.
 
 | debt | state at c00717d1 | where filed |
 |---|---|---|
-| **`level1_evaluate` triplicated** | library `solver/mod.rs:1340`, `walt_bridge.rs:~510`, `playtable.rs:~597`, each headed "STILL TRIPLICATED"; the 2026-09-06 selection reroute touched only the library copy | `BRIEF-SIGMA1-REPAIR.md`; source headers |
+| **`level1_evaluate` triplicated** | library `solver/mod.rs:1340`, `walt_bridge.rs:514`, `playtable.rs:604`, each headed "STILL TRIPLICATED"; the 2026-09-06 selection reroute touched only the library copy | `BRIEF-SIGMA1-REPAIR.md`; source headers |
 | **`playout.rs`'s PiKey omits banked totals** (Def 3.4) | deliberately filed, not fixed; the `all1` mode's information-inconsistency finding also stays filed | `playout.rs` header; CE-era audit |
-| **O5 measured only on branch `walt-o5`** (9 commits, tip 2981e090, 2026-09-05, not in main) | after a seed repair, live epoch (50 / 8, 72 deals) 33 / 19 / 20 pairs void-aware ahead, +262 of 6048 points; reduced epoch (16 / 4, 192 deals) 76 / 83 / 33 blind ahead, −226 of 16128; "dead heat" withdrawn; flag off; main's `SCENARIO-PLAYER.md` O5 row still reads "ablation probe" | `walt/briefs/MORNING-2026-09-05.md` item 5; [walt-gran-anchors](walt-gran-anchors.md) |
+| **O5 measured only on branch `walt-o5`** (9 commits, tip 2981e090, 2026-09-05, not in main) | after a seed repair, live epoch (50 / 8, 72 deals) 33 / 19 / 20 pairs void-aware ahead, +262 of 6048 points; reduced epoch (16 / 4, 192 deals) 76 / 83 / 33 blind ahead, −226 of 16128; "dead heat" withdrawn; flag off; the `SCENARIO-PLAYER.md` O5 row's route is still "ablation probe", with a note added 2026-09-13 recording both implementations and that neither discharges the obligation | `walt/briefs/MORNING-2026-09-05.md` item 5; [walt-gran-anchors](walt-gran-anchors.md) |
 | **Two void-aware implementations** | `walt-o5`'s `Level0Field::void_aware` + shuffle-and-reject with `Key::voids`, and main's `InnerBelief::VoidsCounted` via `FiberDp`, both add `voids: Option<[u32;4]>` to `Key`/`PiKey` with different semantics — a merge-conflict surface; Jason's 2026-09-05 ruling asked for rank/unrank over a counting DP, which main's kernel path may already satisfy (no record says so) | `walt-o5:walt/kanban/backlog/inner-voids.md` |
 | **`walt-g1-l2` unmerged** (8 commits, tip 6abdd78f) | `level2.rs` `fixture` mode and the L2 Gran records exist only there | MORNING item 6 |
 | **The champion binary was never re-matched** | the 3×384 pool ran the pre-PiKey-fix bridge; every player since has been measured only against walt or the phone | §3 |
@@ -800,7 +808,7 @@ Each entry is parity-gated; none changed what plunge or the arena runs.
 | **`v5_literal_count_timing_position_reconstructs` still `#[ignore]`d** | `tests/solver_calibrate.rs:420`; its stated blocker (G1 reconstruction) was discharged 2026-09-04; whether G1 is the literal position it names is unverified | [walt-calculated-evidence](walt-calculated-evidence.md) |
 | **Tie-break at exact indifference unruled** | the lever named 2026-09-05 (objective + tie-break); Jason's calls (A)–(F) from the MORNING brief have no recorded decision after 2026-09-05 | MORNING items 4 and "Your calls" |
 | **"Level-1 walt" is not one thing** | §2; the book always names the configuration | — |
-| **Spec staleness** | `SCENARIO-PLAYER.md` §9 still places the binaries under `walt/walt-m3-probe/src/bin/` (folded to `walt/walt/src/bin/` at d1499d43, 2026-08-24); Def 6.3 does not state the post-cap index break | — |
+| **Spec staleness** | `SCENARIO-PLAYER.md` was written 2026-08-18 and patched by dated notes rather than rewritten: §9's paths were corrected 2026-09-13 (the binaries moved from `walt/walt-m3-probe/` to `walt/walt/src/bin/` at d1499d43, 2026-08-24), Def 6.3 gained its post-cap note 2026-09-13, the O5 row its two-implementation note; the definitions themselves still describe the 2026-08-18 build | — |
 
 **The obligations ledger (`SCENARIO-PLAYER.md` §10) is the graduation
 path.** Nothing on this page is promoted by its own existence; each

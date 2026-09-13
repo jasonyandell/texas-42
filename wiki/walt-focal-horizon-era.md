@@ -38,8 +38,10 @@ The ledger's U0 paragraph (`walt/FACTOR-BELIEF.md`) put a number under it:
 
 That sentence is this chapter's thesis. Walking backward from the last
 trick, exactness is free at trick 7, microseconds at trick 6, seconds at
-trick 5, minutes at trick 4 and a wall at trick 3; walking forward from the
-deal, play is sampled or structural and carries model uncertainty. The era
+trick 5, minutes at trick 4, and at trick 3 the eight-profile mixture hits
+a wall while the single-field solve still closes in a quarter of an hour
+(§2, §3); walking forward from the deal, play is sampled or structural and
+carries model uncertainty. The era
 measured where the two meet, built one player that stands in both and says
 which, and then built one object — the focal-horizon hierarchy — that makes
 three earlier instruments its endpoints. (The phrase "bending unit" does not
@@ -69,8 +71,9 @@ the machinery to refine an answer one focal decision at a time.
 | 2026-09-07 | PR #88 merged (GitHub `mergedAt` 2026-09-07T06:17:04Z; its recorded merge commit `a0d594b2` is the branch head — no merge commit on main, i.e. a fast-forward) | #88 |
 | 2026-09-06 | Postscript: the partnership-gym commit `c59f1115` changes `factor_belief.rs::condition_via` and rewrites MB0's gates G2/G8 | — |
 
-Hashes checked against `git log` on 2026-09-12; the two `mergedAt` stamps
-against `gh pr view`.
+Hashes checked against `git log` on 2026-09-12 and re-checked 2026-09-13
+(all 29 resolve; `a0d594b2` is in main's first-parent history with no
+merge commit for #88); the two `mergedAt` stamps against `gh pr view`.
 
 ## 1. The book-one closing intakes (2026-09-01)
 
@@ -228,7 +231,7 @@ recorded for the next specimen: earlier roots, more types, or types that
 disagree earlier — never other ν, never deeper.
 
 **The wall, located (record; refusal typing gated in M4).** Per
-exact-mixture root: trick 6 (fibers 6–90) microseconds to 94 ms; trick 5
+exact-mixture root: trick 6 (fibers 6–90) microseconds to 92.5 ms; trick 5
 (92–200) 1.0–3.7 s; trick 4 (1,200–11,550) 98–412 s (h8-t4 97.7 s and
 4,841,712 reads; h3-t4 412.2 s and 24,163,138 reads); **trick 3 — h8-t3,
 fiber 59,976 — refuses all five root actions at the declared 7,000,000-read
@@ -242,9 +245,11 @@ chosen from a `measure` mode: 12,000,000 reads per trick-4 coordinate,
 the trick-3 question is precise — does a trick-3 coordinate close within
 the most a trick-4 coordinate cost? — and the answer is no. Reads are
 deterministic (two runs of the record differ only in wall lines); wall is
-the only approximate number. Measured 2026-09-12 on this machine
-(`modelbeliefrecursionreport measure 5 6 1000000`): 0.04 s, 9,824 reads,
-Φ = 0 substantive on both h5-t6 actions.
+the only approximate number. Measured 2026-09-12 and 2026-09-13 on this
+machine (`modelbeliefrecursionreport measure 5 6 1000000`): 0.04 s, Φ = 0
+substantive on both h5-t6 actions with Q = U^sep = 96/216 as in the
+record, but 9,824 reads against the record's 10,592 at this root (the
+present binary post-dates the 2026-09-06 `condition_via` change; §7).
 
 **The field-identity fence (U0's SC-A7 flag; gate M7 on both sides).**
 God-tightness and every doom-derived bound is field-specific.
@@ -369,8 +374,8 @@ root's exact response, H1) and with God uppers substituted at the frontier
    single-field recursion completes, so the wall MB1 located is the
    mixture's. Its trick-4 frontier: 2,098 nodes, 624 with a positive price
    (mass-weighted 37‰, max 500‰); a cut there over-prices the root by
-   236/7497 (31‰) and **flips the play 1-1 → 3-3** (cut values 993‰ vs
-   992‰ against exact 962‰ vs 955‰).
+   236/7497 (31‰) and **flips the play 1-1 → 3-3** (cut values 992‰ for
+   1-1 vs 993‰ for 3-3, against exact 962‰ vs 955‰).
 5. **Three layers on this corpus**: a trick-6 cut is 0–7‰ in value and
    flips 2 of 30 rows; a trick-5 cut 3–105‰, contract-sensitive, flips 3 of
    15 substantive rows; a trick-4 cut 31‰ and flips, on the one root
@@ -382,9 +387,11 @@ root's exact response, H1) and with God uppers substituted at the frontier
 U0b travelled with the ledger correction of the predecessor era's doom
 diagnosis (`walt/DISCREPANCIES.md`, 2026-09-03; quoted in full on
 [walt-counted-belief-era](walt-counted-belief-era.md#7-doom-god-and-the-price-of-playing-blind)).
-Measured 2026-09-12 (`horizonreport scout 8 4 4`): 1.01 s, 640,283 reads,
-40 of 466 positive-gap nodes, over-pricing 1/60, no flip — the record's
-row.
+Measured 2026-09-12 and 2026-09-13 (`horizonreport scout 8 4 4`): about
+1 s; 40 of 466 positive-gap nodes, mass-weighted Φ 71/4800, exact root
+1163/1200, over-pricing 1/60, no flip — the record's masses exactly; but
+640,283 reads against the record row's 1,326,591 (the present binary
+post-dates the 2026-09-06 `condition_via` change; §7's open question).
 
 ## 4. The unified player (UP0, UP1a)
 
@@ -581,21 +588,24 @@ strictly above `U_{a,1}` and equal to `U_{a,0}`, plus the salvation-mask
 identity (`fh6_…`); the FH-A8 anchor laws; typed whole-root refusal;
 determinism. The scout (σ0 tail, receipt contract; record):
 
-| root | Z | k | survivors | verdict | B_k ‰ | U* ‰ | Γ_k ‰ | field reads |
+| root | Z | k | survivors | verdict | B_k ‰ | U* ‰ | Γ_k ‰ | reads (field + tail) |
 |---|---:|---:|---|---|---:|---:|---:|---:|
-| h3-t4 | 11,550 | 0 | 3-1 4-4 6-4 | UNRESOLVED (π plays 4-4) | 288 | 365 | 76 | 1.73M |
-| | | 1 | 3-1 | SETTLED 3-1 | 338 | 350 | 12 | 2.55M |
-| | | 2 | 3-1 | SETTLED 3-1 (collapse) | 350 | 350 | 0 | 2.78M |
-| h4-t4 | 34,650 | 0 | 6-5 | SETTLED 6-5 | 964 | 994 | 30 | 4.98M |
-| | | 1 | 6-5 | SETTLED 6-5 | 970 | 981 | 10 | 8.34M |
+| h3-t4 | 11,550 | 0 | 3-1 4-4 6-4 | UNRESOLVED (π plays 4-4) | 288 | 365 | 76 | 1.78M |
+| | | 1 | 3-1 | SETTLED 3-1 | 338 | 350 | 12 | 2.63M |
+| | | 2 | 3-1 | SETTLED 3-1 (collapse) | 350 | 350 | 0 | 2.83M |
+| h4-t4 | 34,650 | 0 | 6-5 | SETTLED 6-5 | 964 | 994 | 30 | 5.13M |
+| | | 1 | 6-5 | SETTLED 6-5 | 970 | 981 | 10 | 8.61M |
 | | | 2 | 6-5 | SETTLED 6-5 (collapse) | 980 | 980 | 0 | 10.2M |
-| h8-t4 | 1,200 | 0 | all four | UNRESOLVED (π plays 3-3) | 885 | 985 | 100 | 0.13M |
-| | | 1 | 2-1 3-3 5-5 | UNRESOLVED (π plays 2-1) | 932 | 971 | 39 | 0.58M (field + tail) |
-| | | 2 | 3-3 | SETTLED 3-3 (collapse) | 969 | 969 | 0 | 0.66M (field + tail) |
+| h8-t4 | 1,200 | 0 | all four | UNRESOLVED (π plays 3-3) | 885 | 985 | 100 | 0.33M |
+| | | 1 | 2-1 3-3 5-5 | UNRESOLVED (π plays 2-1) | 932 | 971 | 39 | 0.58M |
+| | | 2 | 3-3 | SETTLED 3-3 (collapse) | 969 | 969 | 0 | 0.66M |
 | h12-t4 | 34,650 | 0–2 | all four | EQUIVALENT at 0 (decided) | 0 | 0 | 0 | 0 |
 
-(Read columns are the record's field reads where printed per row; the FH1
-report's totals add tail reads: h4-t4 5.0M / 8.3M / 10.0M.) Three findings
+(The read column is the record table's `reads` column, which the record's
+per-row `spend` line shows is field reads plus tail reads — h8-t4 k = 0:
+323,520 + 7,442 = 330,962; h3-t4 1,775,998 / 2,628,186 / 2,829,306;
+h4-t4 5,126,276 / 8,612,947 / 10,209,381. The FH1 report's prose figures
+for h4-t4 — 5.0M / 8.3M / 10.0M — are field reads alone.) Three findings
 from the scout, probe-record only except where a gate is named: k = 0
 settles h4-t4 with no search (the σ0 tail after 6-5 is worth 964‰ against
 every rival's God upper ≤ 869‰); h3-t4 settles at k = 1 (bar 338‰ over the
@@ -609,9 +619,13 @@ best is 3-3 (969‰ vs 956‰); Γ₁ = 39‰ ⊇ the true regret 13‰ (the law
 gated in FH5; the specimen is record). The first FH3-gate wording
 contradicted FH-A6 (`6 − T` vs `7 − T`); under the ambiguity protocol a
 BLOCKED test cited both and the brief was corrected (`8efe6923`). Measured
-2026-09-12 (`focalreport scout 8 4 0 30 40000 sigma0 exact`): 1.31 s, the
-record's h8-t4 k = 0 row reproduced (bar 885‰, Γ 100‰, 133,867 field reads,
-7,442 tail reads).
+2026-09-12 and again 2026-09-13 on the present release binary
+(`focalreport scout 8 4 0 30 40000 sigma0 exact`, 0.5–1.3 s): every mass
+of the record's h8-t4 k = 0 row reproduced (all four `[L, U]`, every `Q`,
+bar 885‰, Γ 100‰, 7,442 tail reads) but the **field reads did not** —
+133,867 against the record's 323,520. The binary post-dates the
+2026-09-06 `condition_via` change (§2's postscript); see the open
+question in §7.
 
 **CI1 — the gate made concurrent (`508cc4af`; `CI1-REPORT.md`).** Test
 binaries run nine at a time (`walt/ci/run_test_binaries.py`) with one
@@ -796,7 +810,7 @@ predecessor era's cost law) is the unit throughout.
 | trick | fibers | exact mixture over Ξ (MB1) | God-gap census per coordinate (U0) | exact single-field solve | focal-horizon hierarchy | memory |
 |---:|---|---|---|---|---|---|
 | 7 | — | — | — | tier (a): free, 28 of 28 decisions on every rung | — | — |
-| 6 | 6–90 | microseconds to 94 ms per root | 0.1–2.8 ms | microseconds | settled at k = 0 | — |
+| 6 | 6–90 | microseconds to 92.5 ms per root | 0.1–2.8 ms | microseconds | settled at k = 0 | — |
 | 5 | 92–200 | 1.0–3.7 s per root | 8.5–29 ms | milliseconds (h3-t5 3.68 s under the mixture) | settled at k = 0 or exact tie set by k ≤ 1 | — |
 | 4 | 1,200–34,650 | 98–412 s per root (h8-t4, h3-t4) | 0.70–7.28 s | 0.66M–10.2M reads (the FH engine at k = 2; `response_success_mass` itself uncounted at these roots — audit N11) | settles by k ≤ 2; engine runs 17–27 s each at h4-t4 | ladder 411 → 662 MB at h3-t4; about 1.6 GB per h4-t4 evaluation |
 | 3 | 59,976 | refused at 7M reads per action (35M, 31 min) | — | 289,407,472 reads, 13 min 17 s in-report / 14 min 13 s standalone | k = 3 only; 190M reads with reuse; 27.2M / 73.5M / 69.7M / 20.0M | **19.4 GB, 3.82M facts** |
@@ -819,8 +833,8 @@ collapse. So `godgap.rs` (933 lines), `horizon.rs` (635) and
 `extraction.rs` (135) are measurement scaffolding around one recursion,
 and `refine.rs` (917, freeze 58) was already declared removable; `doom.rs`
 stays as the God tail's engine. That is the tree-shake list of the
-consolidation slice, **not built as of `c00717d1`** and carrying no kanban
-card.
+consolidation slice, **not built as of `c00717d1`**; carded 2026-09-13 as
+`kanban/backlog/consolidation-slice.md`.
 
 **Jason's ruling (2026-09-04).** "follow through on what we have, then
 invest in a simplification/unification attempt" — **no new mathematical
@@ -832,7 +846,8 @@ is keyed by the full record and gets no reuse across histories while
 within one history it is the entire cost. If a level-0 modeled mind's
 decision depends on a small sufficient statistic of the record, the key
 coarsens and every recursion in the stack gets ten to a hundred times
-cheaper without changing a value. Not started; no card.
+cheaper without changing a value. Not started; carded 2026-09-13 as
+`kanban/backlog/sigma0-read-key-study.md`.
 
 **The three questions put to Pro (`FH-RESPONSE-TO-PRO.md`, `35d76796`,
 amended after the audit — a draft for Jason's hand-ferry, not a courier
@@ -856,7 +871,10 @@ census across contracts at receipt roots (U0's cheapest falsifier); the
 split of the opening root's 267‰ between `d_info` and `d_policy`
 (`UnknownGodGap`); whether the 2026-09-06 `condition_via` change alters any
 committed record's read counts (masses are claimed exact-neutral; nothing
-was regenerated).
+was regenerated — and the 2026-09-13 spot runs on a post-change binary
+give identical masses with fewer field reads at all three coordinates
+compared, Appendix A; which change is responsible is not established,
+since that binary's branch is unrecorded).
 
 ## 8. Method notes the book keeps
 
@@ -919,8 +937,12 @@ Modules: `solver/model_belief.rs` (1,823 lines), `model_recursion.rs`
 `focal_horizon.rs` (758), `focal_ladder.rs` (1,143) — line counts from the
 2026-09-07 survey. The release binaries present on this machine were built
 2026-09-07 11:54 from an unrecorded branch (after `c59f1115`); the
-2026-09-12 spot measurements above reproduced the records' values at every
-coordinate tried.
+2026-09-12/13 spot measurements above reproduced the records' masses,
+verdicts and tail reads at every coordinate tried, and reproduced the
+records' field-read counts at none of the three where a read count was
+compared (h8-t4 focal k = 0: 133,867 vs 323,520; h8-t4 cut 4: 640,283 vs
+1,326,591; h5-t6 mixture: 9,824 vs 10,592). Session observations on an
+unrecorded build, not records.
 
 ## Appendix B — the gate index
 
