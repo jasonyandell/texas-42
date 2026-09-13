@@ -1,10 +1,6 @@
-# Ledger Row → Lean Declaration Index
+[Home](Home.md) · owns: the map from mechanization-ledger rows to the Lean declarations that discharge them, and the explicit list of what the ledger still leaves open · Sources: **v0.7** `65_MECHANIZATION_LEDGER.md` (83 rows, recounted 2026-09-07); [lean/README.md](../lean/README.md); the `PA-` citations in the Lean docstrings under `lean/Texas42/` (as of commit c00717d1). Related: [lean](lean.md) (the chapter), [proof-assistant-plan](proof-assistant-plan.md) (the plan and scoreboard).
 
-[lean](lean.md) · [Home](Home.md) · owns: the map from mechanization-ledger rows
-to the Lean declarations that discharge them · Sources: **v0.7**
-`65_MECHANIZATION_LEDGER.md`; [lean/README.md](../lean/README.md); the `PA-`
-citations in the Lean docstrings. Related: [lean](lean.md),
-[proof-assistant-plan](proof-assistant-plan.md).
+# Ledger Row → Lean Declaration Index
 
 The mechanization ledger in the **v0.7** package is the proof-assistant work
 queue. It is deliberately much smaller than the full claim ledger: a row enters
@@ -27,21 +23,35 @@ them close:
 > library assumptions. Every external finite receipt not yet internalized must
 > remain visibly external in the generated theorem inventory.
 
-There are exactly **42** such rows across the ledger's six sections — 13 in A, 7
-in B, 9 in C, 7 in D, 5 in E, 1 in F — and as of 2026-08-02 all 42 are
-kernel-proved. Row IDs are not contiguous: the gaps are rows at priority 1 or
-higher, several of which are also proved (listed at the end).
+The ledger has **83** `PA-` rows (17 A, 14 B, 15 C, 18 D, 12 E, 7 F). Exactly
+**42** are priority 0 — 13 in A, 7 in B, 9 in C, 7 in D, 5 in E, 1 in F — and
+as of 2026-08-02 (commit d190b264) all 42 are kernel-proved. Row IDs are not
+contiguous: the gaps are rows at priority 1 or higher, several of which are also
+proved (§ Beyond priority 0). **[bookkeeping: recounted against the ledger
+2026-09-07]**
 
 **Tier: proof-assistant kernel** — the declarations below are checked by the Lean
-kernel over the standard axioms
-([Home](Home.md#evidentiary-tiers--never-promoted-never-blurred)).
+kernel over at most the standard axioms `propext`, `Classical.choice`,
+`Quot.sound` ([Home](Home.md#evidentiary-tiers--never-promoted-never-blurred)).
+Several receipts show a theorem depending on `[propext]` alone or on no axiom;
+"at most the three" is the accurate wording.
 
 **How this index is maintained.** By hand. Nothing generates or checks it: the
 ledger lives in immutable ingest, the declarations live in `lean/`, and the join
-between them is the `PA-` citations in the Lean docstrings plus the layout list
-in [lean/README.md](../lean/README.md). Treat a mismatch as a bug in this page
+between them is the `PA-` citations in the Lean docstrings (48 distinct rows
+cited in source as of 2026-09-07) plus the layout list in
+[lean/README.md](../lean/README.md). Treat a mismatch as a bug in this page
 until proven otherwise, and re-derive from the docstrings. All modules below are
 under `lean/Texas42/`.
+
+**Modules with no ledger row.** `Trick1Foundation.lean`,
+`Trick1MetalFoundation.lean` and the `Trick1PerfectRecallNet` tree carry **no
+ledger row**; their citations are walt's GT1-A rulings (GT1-A8, GT1-A17,
+GT1-A23/A24), not `PA-` rows, and what they certify about walt is exploratory
+([lean](lean.md) §7). `ConstellationCore.lean` and `ConstellationSuffix.lean`
+likewise carry no ledger row — they came from the exchange Lean thread
+(x:013, x:015) and are not reconciled with the main layers ([lean](lean.md) §8).
+None of the five appears in the tables below.
 
 ## A — finite rule algebra (13 rows)
 
@@ -92,19 +102,22 @@ into PA-A11 — the winner theorem is proved structurally, not by enumeration.
 | PA-C09 | PROVE | the hidden-play typed predecessor/successor bijection | `Cells.lean` | `ViewerCtx.remainder_injective`, groundwork `Coheres.step` |
 | PA-C10 | PROVE | viewer-play identity on hidden remainders | `Cells.lean` | `hands_step_ne`, `legalSet_congr`, `allowed_step_viewer` |
 
-**A citation gap worth knowing.** PA-C05 is the one priority-0 row with no `PA-`
-citation anywhere in the Lean source. It is covered by `Cells.lean`'s module
-docstring, which names the range PA-C01–PA-C07, and by
-[lean/README.md](../lean/README.md), which tags `losslessness` as PA-C05/C07 —
-but the theorem's own docstring names only PA-C07. Every other priority-0 row is
-cited in-source. Reported, not resolved; the discipline's rule that every theorem
-docstring names its row would close it.
+**Two citation gaps worth knowing** (verified by grep, 2026-09-07). PA-C05 is
+the one priority-0 row with no `PA-` citation anywhere in the Lean source: it is
+covered by `Cells.lean`'s module docstring, which names the range PA-C01–PA-C07,
+and by [lean/README.md](../lean/README.md), which tags `losslessness` as
+PA-C05/C07 — but the theorem's own docstring names only PA-C07. PA-C03 is cited
+in source only in a section-header comment, `(PA-C02/C03, Math §7.1)` at
+`Cells.lean:450`, not in any declaration docstring. Every other priority-0 row is
+cited in a docstring. Reported, not resolved; the discipline's rule that every
+theorem docstring names its row would close both.
 
 Layer C also produced the library's most interesting **mechanization finding**:
 the completeness half of the losslessness induction needs a fact the prose leaves
 implicit — a hidden seat's publicly played tile must respect that seat's
-previously recorded voids. The Lean proof derives it from true-trajectory void
-soundness rather than assuming it.
+previously recorded voids. The Lean proof derives it (`hd_allowed`,
+`Cells.lean:884`) from true-trajectory void soundness rather than assuming it
+([lean](lean.md) §4.5).
 
 ## D — normal form and reachability (7 rows)
 
@@ -118,8 +131,10 @@ soundness rather than assuming it.
 | PA-D09 | DEFINE | the reachability predicate on mechanical states | `Reachability.lean` | `Reachable`, `reachable_init` |
 | PA-D10 | PROVE / extensionality | reachability is proof-irrelevant semantic evidence | `Reachability.lean` | `CertifiedState`, `.ext`, `.ext_iff` |
 
-PA-D10 is the kernel-side counterpart of rob's INV-3: the certified state has no
-identity-bearing content, and its extensionality lemma is what says so.
+PA-D10 is the kernel-side counterpart of rob's INV-3 and the wiki's D3 ruling:
+the certified state has no identity-bearing content, and its extensionality
+lemma is what says so. (`CertifiedState` is Handoff §5's own identifier, quoted
+as such; the wiki's word for the object is *necessary outer profile*.)
 
 ## E — finite belief and the strategic boundary (5 rows)
 
@@ -136,7 +151,7 @@ from the other direction: the posterior's support lies **inside** the cell fiber
 so the fiber bounds belief exactly without determining it. PA-E10 is the
 counterexample showing the bound cannot be tightened to an identity — see
 [belief-vs-support](belief-vs-support.md) for the mathematics and [lean](lean.md)
-for what "internalized whole" means.
+§6 for what "internalized whole" means.
 
 ## F — quotients, gauges, and boundaries (1 row)
 
@@ -146,8 +161,10 @@ for what "internalized whole" means.
 
 ## Beyond priority 0
 
-Rows above priority 0 that are nonetheless already kernel-proved, so that nobody
-proves them twice:
+The ledger has 27 rows at priority 1, 11 at priority 2, one at priority 3 and
+two at priority 4. **[bookkeeping against the ledger, 2026-09-07]**
+
+### Priority-1 rows already kernel-proved (so that nobody proves them twice)
 
 | Row | Priority | Discharged by |
 |---|---|---|
@@ -155,13 +172,56 @@ proves them twice:
 | PA-A16 | 1 | `countPreserving_iff` (`Transport.lean`) |
 | PA-A17 | 1 | `swap23_transport_iff` (`Transport.lean`) |
 | PA-B03 | 1 | `mark_le_ceiling`, `mark_five_reachable` (`Auction.lean`) |
-| PA-B05 | 1 (define half) | `Deal` and its lemmas (`Deal.lean`); the deal cardinalities remain open |
-| PA-C08 | 1 (groundwork) | `CellSys.exists_partition_of_hall` (`NormalForm.lean`) |
-| PA-C15 | 1 (backbone) | `CellSys.red`, `red_red`, `fiber_eq_iff_red_eq` (`Reduction.lean`) |
 
-The remaining priority-1 tiers and the two open pure-`REFLECT` rows (PA-A12, the
-737,100-case resolver agreement, and PA-B04, the exact auction history counts)
-are the live queue; [proof-assistant-plan](proof-assistant-plan.md) owns that
-scoreboard. The two constellation modules carry **no ledger row at all** — they
-came from the exchange Lean thread and are not yet reconciled with the main
-layers ([lean](lean.md)).
+### Priority-1 rows proved in part (three half-rows)
+
+| Row | Proved | Open |
+|---|---|---|
+| PA-B05 | `Deal` and its lemmas `biUnion_eq_univ`, `existsUnique_mem`, `owner_eq` (`Deal.lean`) — the define half | the cardinalities `28!/(7!)⁴ = 472,518,347,558,400` and `21!/(7!)³ = 399,072,960` as cardinalities of the deal type (`Trick1Foundation.openingDealCount_eq_multinomial` proves the second only as a `Nat` identity) |
+| PA-C08 | `CellSys.exists_partition_of_hall` (`NormalForm.lean`) — the generic capacitated Hall lemma by slot expansion into mathlib's Hall theorem | the game-level Hall/max-flow feasibility equivalence |
+| PA-C15 | `CellSys.red`, `red_red`, `fiber_eq_iff_red_eq`, `isWorld_iff_cellSys` (`Reduction.lean`) — the backbone: reduction is fiber-preserving, idempotent, and the coarsest exact quotient | the row's dependence on the open PA-C14 (marginal holder edge iff forced successor feasible); no finer statement of the residue is recorded anywhere |
+
+### Priority-1 rows open, 20 — the live queue
+
+| Row | Route | Target |
+|---|---|---|
+| PA-B11 | PROVE | fixed-hand play graph is finite and graded |
+| PA-B12 | PROVE | objective physical Markov congruence |
+| PA-B13 | PROVE | deterministic contract/mark settlement |
+| PA-C11 | PROVE | exact capacity-DP count recurrence and soundness |
+| PA-C13 | WITNESS | local possible holder is not marginal possible holder |
+| PA-C14 | PROVE | marginal holder edge iff forced successor feasible |
+| PA-D06 | PROVE | global deterministic support minimality/factorization |
+| PA-D11 | PROVE | reachable support image and restricted minimality |
+| PA-D13 | PROVE | seven observable lead contexts per declaration |
+| PA-D14 | PROVE | lead-witness necessity |
+| PA-D15 | PROVE | witness validator soundness/completeness |
+| PA-D16 | WITNESS | feasible-but-unreachable support |
+| PA-E04 | PROVE | physics-only posterior under uniform chance assumptions |
+| PA-E05 | PROVE | finite exponential-tilt form |
+| PA-E06 | PROVE | forced-action world-nondiscrimination |
+| PA-E08 | PROVE | deterministic information-set best-response existence |
+| PA-E09 | PROVE | coordinate-only scalar factorization criterion |
+| PA-E11 | WITNESS | context-free domino value counterexample |
+| PA-F01 | PROVE | local hand-order invariant/equivariant gauge |
+| PA-F07 | PROVE/BOUNDARY | shared utility does not centralize partner information |
+
+(Any list that names PA-B14 or PA-D12 as priority 1 is wrong: both are priority
+2 in the ledger. [proof-assistant-plan](proof-assistant-plan.md) carried that
+error from 2026-08-02 until 2026-09-12.)
+
+### Priority 2 and above
+
+| Priority | Rows |
+|---|---|
+| 2 | PA-A12 (737,100-case resolver agreement, REFLECT), PA-B14, PA-C12, PA-D07, PA-D08, PA-D12 (the 50 hidden-capacity profiles), PA-E12, PA-F02, PA-F03, PA-F04, PA-F06 |
+| 3 | PA-B04 (exact auction history counts for caps 1..7, REFLECT) |
+| 4 | PA-D17 (81-bit support census, "REFLECT or keep external"), PA-D18 (26–46-bit reachable interval) |
+
+The two pure-`REFLECT` rows (PA-A12, PA-B04) and the two census rows are the
+receipts the ledger's definition of done allows to "remain visibly external";
+whether reflection is still the intended route for them is undecided.
+[proof-assistant-plan](proof-assistant-plan.md) owns the scoreboard; the
+walt-era programs with no kernel coverage (CBS-O1..O15, PS-T1..T15, MB-O1..O20,
+SC-O1..O15, the [[lean-catchup]] card) are listed in [lean](lean.md) §10.2 —
+they are outside this ledger entirely.

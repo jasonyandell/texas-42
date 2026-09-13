@@ -209,8 +209,14 @@ change ([verification](verification.md)).
   ([verification](verification.md)); conformance evidence, not a status upgrade.
 - **[UNRESOLVED, REACH-13 / OPEN-11]**: the exact `|R_Str^m|`, and hence the optimal
   standalone width in `36..45` (exchange-adjudicated; corpus-proved `26..46`), is open.
-  Both packages refuse to collapse it by guesswork. In flight: dispatch 007 attacks
-  the ceiling via the fifth condition; dispatch 008 attacks the exact no-void slice.
+  Both packages refuse to collapse it by guesswork. Dispatches 007 and 008 — both
+  adjudicated CONFIRMED on 2026-07-27 — are the REACH-19 ceiling and the REACH-20
+  no-void slice reported above; what remains open is the census over the void-context
+  strata. Evidentiary note (as of 2026-09-07): rob has reproduced none of REACH-18,
+  REACH-19, REACH-20 (x:006/007/008) — the `[36,45]` endpoints rest on the exchange
+  programs alone, with rob conformance only for x:001 (`verify_floor`), x:002
+  (`verify_unreachable`) and x:004 (`verify_transport`); slice-03 reproduction is the
+  named next receipt ([verification](verification.md), [rob-slices](rob-slices.md)).
 
 Boundary [REACH-03A + rec TRANS-08]: standalone reachable support is not a complete
 game state (no declaration/actor/trick/score); but rec proves support *is* a closed
@@ -234,3 +240,34 @@ whose support-output image is exactly `R_Str^m`. This DAG is the natural substra
 ever *counting* `R_Str^m` — see [open-problems](open-problems.md). Receipt: 108
 deterministic complete hands, 3,024 transitions replayed symbolically
 (`verify_reduced_kernel.py`).
+
+## Mechanization status (proof-assistant kernel tier)
+
+Rows are **v0.7** `65_MECHANIZATION_LEDGER.md` `PA-` rows (priority in parentheses);
+"proved" = a declaration under `lean/Texas42/` checked by the Lean kernel over at most
+`propext`/`Classical.choice`/`Quot.sound`, with no `sorry`, `native_decide` or local
+axiom (grep re-verified 2026-09-12), as of commit d190b26 (2026-08-02; all 42
+priority-0 rows closed). Row-to-declaration map: [lean-row-index](lean-row-index.md).
+A kernel theorem never promotes a corpus status; rob receipts named here are
+conformance evidence, never a status change; exchange-adjudicated results are a third
+tier, neither corpus nor kernel. Of this page's content only the *definition* of
+reachability and its proof-irrelevance are kernel-proved (both priority 0); every
+reachability theorem, both witnesses, the ceilings and floors, and the whole
+exchange-tier interval are **not mechanized**.
+
+| Result on this page | Ledger row (priority) | Kernel status (d190b26) | Declaration (`lean/Texas42/`) |
+|---|---|---|---|
+| REACH-01 reachable support image (the predicate: some deal + legal public prefix replays to the state); the initial record is reachable | PA-D09 (0) | **defined / proved** | `Reachability.lean:23` `Reachable`, `:54` `reachable_init` |
+| REACH-03 no runtime flag → v0.7 proof-irrelevance (TYPE-01; [discrepancies D1](discrepancies.md)) | PA-D10 (0) | **proved**: `CertifiedState := {P // Reachable K v P}`; equality, hashing and serialization factor through `.val` — the kernel counterpart of rob's INV-3 | `Reachability.lean:33` `CertifiedState`, `.ext`, `.ext_iff` |
+| REACH-01A viewer gauge; REACH-02 restricted-domain minimality | PA-D11 (1) | **open** | — |
+| REACH-04 exactly 50 capacity profiles | PA-D12 (2) | **open**; rob `r_nf_capacity_profiles` (50) conformance | — |
+| REACH-05 seven leadable contexts | PA-D13 (1) | **open**; rob `r_alg_contexts` conformance | — |
+| REACH-06/06A schedule language and its census rows | no row | not mechanized; rob `r_out_schedule` reproduces all three rows | — |
+| REACH-07 lead-witness necessity | PA-D14 (1) | **open** | — |
+| REACH-08/09 exact witness criterion; decidability | PA-D15 (1) | **open** | — |
+| REACH-10 feasible-but-unreachable witness | PA-D16 (1, WITNESS) | **open**; rob `r_unr_reach10` "450 generators; 2 matches; lead-fiber sizes (7, 1); all lead tiles hidden" conformance | — |
+| REACH-11/11A ceiling 46 (64,123,542,674,901); REACH-12 floor 26 (44,352,165); REACH-13 interval `[26,46]` | PA-D18 (4, PROVE/REFLECT) | **open**, deliberately late in the queue; ingest verifier (re-run 2026-09-12: "proved standalone reachable-support interval: 26..46 bits", identical), rob `r_out_profiles`, `r_nf_floor`, `r_out_interval` conformance | — |
+| REACH-14/15/16 (rec) symbolic support reachability, deal-free replay | no row (rec-only; rec Kernel spine K11) | not mechanized; rob `r_sym_corpus` (108 hands; 3,024 transitions), `r_sym_reject` (324) conformance | — |
+| x:002 outer language not tight; follower-supply obstruction | exchange tier; no row | not mechanized; rob `x-r_unr_002_*` conformance | — |
+| x:001 REACH-17, x:006 REACH-18, x:007 REACH-19, x:008 REACH-20 (interval `[36,45]`, no-void slice 624,892,870 with the 2/3 panel) | exchange tier; no rows | not mechanized; rob conformance for x:001 only (`x-r_flo_total`); none for x:006/007/008 | — |
+| x:004 transport commutation, 9 → 3 classes | exchange tier; no row | not mechanized; rob `verify_transport` conformance | — |

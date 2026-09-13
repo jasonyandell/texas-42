@@ -1,9 +1,13 @@
 # Game Analysis — Instruments Over the Exact Machinery
 
-[Home](Home.md) · owns: the catalog of probes, rigs, and dashboards that interrogate
-rob's play · Sources: none (this page cites; it is never cited by any page above the
-Ideas tier). Related: [ideas](ideas.md), [verification](verification.md),
-[strategic-state](strategic-state.md), [belief-vs-support](belief-vs-support.md).
+[Home](Home.md) · owns: the catalog of rob's probes, rigs, and instruments — the
+tools that take an exact solve apart · Sources: `rob/crates/verify/tests/*_probe.rs`
+and `constellation_*.rs` (file headers and asserted findings), `rob/inspector/`,
+`rob/crates/player/src/solver.rs` (`gate`); this page cites and is never cited by any
+page above the Ideas tier. Related: [rob](rob.md), [ideas](ideas.md),
+[verification](verification.md), [strategic-state](strategic-state.md),
+[belief-vs-support](belief-vs-support.md). **walt's instruments are not here**: they
+are catalogued at [walt-instruments](walt-instruments.md); this page owns rob's only.
 
 > **Epistemic tier: DISPLAY / EXPLORATORY — below every tier on
 > [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).** Analysis
@@ -28,7 +32,31 @@ manufacture a fact, or leak information the viewer does not hold.
 
 ## Existing instruments
 
-*(state of the repo, 2026-08-01)*
+*(state of the repo, 2026-08-01 — and still the state on 2026-09-07, c00717d1)*
+
+> **Status note (2026-09-12).** rob's instrument set is **frozen at 2026-08-01**
+> (last code commit cd51ce2e, the k=2 probe); nothing under `rob/` has changed since
+> except documentation. The "planned instruments" below were **never built in rob**;
+> walt built its own viewer and instrument set instead, catalogued at
+> [walt-instruments](walt-instruments.md). Every number on this page was re-checked
+> against its probe file's header or asserted findings on 2026-09-07; every one is
+> still **exploratory, below every tier**, and none has been promoted by brief
+> amendment.
+>
+> **Which probes run when you run the suite.** `cargo test --workspace --release`
+> (gate step 6) runs every test that is not `#[ignore]`d. Checked by grep 2026-09-12:
+>
+> | File | Runs in the normal suite | `#[ignore]`d (run with `-- --ignored --nocapture`) |
+> |---|---|---|
+> | `ablation_probe.rs` | `myopic_rob_vs_baseline`, `full_rob_vs_myopic_rob` — 200 mirrored hands each, the second with full rolling re-solve; a real share of the suite's wall-clock | — |
+> | `nickel_probe.rs` | `nickel_autopsy` | — |
+> | `sigma_counterfactual_probe.rs` | `sigma_counterfactual_trick_contest` | — |
+> | `hierarchical_fiber_probe.rs` | the six cross-checks (`deep_matches_streaming_*`, `deep_h1_matches_counting_h1`, `class_growth_by_depth`, `dag_dedup_by_depth`) | `trick_one_depth_two`, `trick_one_depth_three` (the H = 3 run is ≈ 4 min) |
+> | `strategic_exchange_probe.rs` | — | `strategic_exchange_falsification` |
+> | `fiber_factor_probe.rs` | — | all four (`count_location_boundary3/2`, `bound_cover_boundary3/2`) |
+> | `retrograde_rank_probe.rs` | `retrograde_rank_smoke` | `retrograde_rank_sweep` (≈ 2 s) |
+> | `constellation_k1_census.rs` | `constellation_k1_smoke` | `constellation_k1_full` |
+> | `constellation_k2_probe.rs` | `constellation_k2_smoke` | `constellation_k2_full` |
 
 ### The inspector — the per-decision contingency book
 
@@ -40,7 +68,7 @@ fiber count, an expandable **plan tree** (action / observation keys / bundle siz
 each node), and the **openings table**: the exact best-plan value for every legal
 opening, chosen *and* rejected. The table prices *plans*, not tiles — each row is the
 whole contingent plan that opens with that tile (PLAN-NOT-TILE; the plan type is
-INV-P1). Full usage, keys, and shareable-URL format in `rob/inspector/README.md`.
+INV-P1). Full usage, keys, and shareable-URL format in `rob/inspector/README.md` (corrected 2026-09-12: it now names `trace_rob` as the regeneration command; `trace_player` regenerates the baseline-only view and overwrites the committed rob trace).
 
 ### `gate::solve_opening` — the rejected-plan recovery surface
 
@@ -57,7 +85,8 @@ it exists for display and probes.
 knob turned down: myopic rob (window 1 at every decision) scores **net −288** against
 the baseline; full rob against myopic rob, mirrored over 200 hands, is **net +876**.
 These are **exploratory numbers, not receipt rows** — the file says so in its own header
-comment, and they are the worked example of the promotion path below.
+comment (`cf75e71f`, 2026-07-28), and they are the worked example of the promotion path below.
+Both tests run in the normal suite (not `#[ignore]`d), which is one reason gate step 6 is not cheap.
 
 ### `nickel_probe.rs` — the decision autopsy pattern
 
@@ -175,6 +204,11 @@ Findings in [idea-retrograde-rank](idea-retrograde-rank.md) §7.
 *(named by Jason, 2026-07-28. Exploratory, and deliberately without a schedule — the
 tier statement above applies in full; none of these is an expectation.)*
 
+**None of these was built in rob** (as of 2026-09-07). After the 2026-08-17 pivot the
+instrument work moved to walt, which grew its own viewer, shadow instrument, and
+probe binaries ([walt-instruments](walt-instruments.md)); the ideas here are kept as
+the record of what rob's path-analysis layer would have been.
+
 **Path analysis.** Aggregate over the play-out paths of a solved plan: for a fixed
 policy in a fixed game, which dominoes contribute to good and bad outcomes, and through
 which events — captured count, spent control, forced leads. This is the nickel autopsy
@@ -208,7 +242,10 @@ editorial act: an amendment to the owning brief that names the invariant, fixes 
 seed and corpus, and adds the row to a verifier's receipt. Nothing is promoted by
 having been useful, or by having been quoted often. The ablation-probe numbers above
 are the standing worked example — measured, reproducible, cited, and still exploratory,
-because that choice has not been made.
+because that choice has not been made. As of 2026-09-07 **no rob probe number has ever
+taken the road**; the constellation k=1 counts (15,680; 486 / 4,767) were corroborated
+at the *exchange* tier by x:009's referees and x:012, which is a different tier reached by
+a different road — the instrument itself stays exploratory.
 
 [ideas](ideas.md) is the sibling of this page on the other axis: it captures directions
 we have not earned the right to claim, while this page captures instruments whose

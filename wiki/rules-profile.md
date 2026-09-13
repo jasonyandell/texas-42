@@ -23,6 +23,15 @@ unless labeled otherwise).
   is `min(m_max, 5)` — longest chain `M(2),M(3),M(4),M(5)`; every cap ≥5 induces the
   same legal auction tree. Terminal-history counts for caps 1..7:
   2380, 3060, 3196, 3213, 3214, 3214, 3214 [Theorem — exhaustive finite verification].
+  *Tier line.* The **mark ceiling** (CFG-03) is a corpus THEOREM — proved *and* a
+  proof-assistant kernel theorem: PA-B03 `mark_le_ceiling` / `mark_five_reachable`
+  (`lean/Texas42/Auction.lean:207`, `:216`; kernel-proved 2026-07-29). The **auction
+  census** (AUC-05A) is a corpus THEOREM — finite verification (`verify_foundation.py`,
+  line "auction terminal histories for caps 1..7"; re-run 2026-09-12 on this machine,
+  identical), reproduced in Rust by rob's receipt `r_obj_auction_census` — conformance
+  evidence, never a status change ([verification](verification.md)); its kernel
+  reflection PA-B04 (priority 3) is **open**, so the seven integers remain visibly
+  external to the kernel.
 
 ## Declaration and contract
 - Winner publicly declares one of **nine** options: pips 0–6 trump, doubles trump,
@@ -65,3 +74,29 @@ Nello, plunge, splash/crash, sevens, exposed-hand rules, renege adjudication, et
 **outside the formal object** and structurally so — they can change declaration
 semantics, active-player count, and the shape of exact support; no theorem transfers
 automatically (00_THESIS §3; Rules §12).
+
+## Mechanization status (proof-assistant kernel tier)
+
+Rows are **v0.7** `65_MECHANIZATION_LEDGER.md` `PA-` rows (priority in parentheses);
+"proved" = a declaration under `lean/Texas42/` checked by the Lean kernel over at most
+`propext`/`Classical.choice`/`Quot.sound`, with no `sorry`, `native_decide` or local
+axiom (grep re-verified 2026-09-12), as of commit d190b26 (2026-08-02; all 42
+priority-0 rows closed). Row-to-declaration map: [lean-row-index](lean-row-index.md).
+A kernel theorem never promotes a corpus status, and a rob receipt named here is
+conformance evidence, never a status change ([Home](Home.md)).
+
+| Rule / claim on this page | Ledger row (priority) | Kernel status (d190b26) | Declaration (`lean/Texas42/`) |
+|---|---|---|---|
+| R-SET-01, R-DEAL-01: one double-six set (28), four seats, seven each | PA-A01, PA-A02 (0); PA-B05 (1) | proved (finite types; `Fintype.card Domino = 28`); `Deal` defined; the deal cardinalities `28!/(7!)⁴` and `21!/(7!)³` **open** (PA-B05 prove half) | `Basic.lean:60` `card_domino`; `Deal.lean` `Deal`, `biUnion_eq_univ` |
+| R-AUC-01..08: one round, one action per seat, ordered bids, mark entry ≤2, +1 overcalls | PA-B01, PA-B02 (0) | proved: decidable `legalBid`, deterministic `step`, `LegalAuction` derivations | `Auction.lean` |
+| R-AUC-12 / CFG-03: mark ceiling `min(m_max,5)`, chain to `M(5)` | PA-B03 (1) | **proved** | `Auction.lean:207` `mark_le_ceiling`, `:216` `mark_five_reachable` |
+| AUC-05A census 2380 … 3214 | PA-B04 (3, REFLECT) | **open** — external finite receipt (ingest verifier; rob `r_obj_auction_census`) | — |
+| R-DECL-01: nine declarations, legality hand-independent | PA-A05 (0) | proved (`card_declaration = 9`) | `Trick.lean:38` |
+| R-SUIT / R-PLAY-04/05 / R-FOLLOW / R-WIN / R-RANK: effective suits, led context, follow, unique winner | PA-A05..A11 (0); PA-B08 (0) | proved (winner from key injectivity, not enumeration); legal set lead/follow/slough characterization | `Trick.lean:319` `existsUnique_winner`; `Play.lean:193–221` `legalSet_*` |
+| R-SCORE-01..04: 35 count, one point per trick, hand total 42 | PA-A04, PA-B09, PA-B10 (0) | proved: `total_countPoints = 35`; invariant-preserving step; at any terminal state seven tricks and `score 0 + score 1 = 42` | `Basic.lean:77`; `Play.lean:359` `inv_step`, `:559` `terminal_scores` |
+| R-CONTRACT-01/02, settlement K-01..K-03 | PA-B06 (0); PA-B13 (1) | contract, threshold, stake, `Makes`, `award` **defined**; deterministic-settlement theorem **open** | `Play.lean` `Contract` |
+| R-SETTLE-02A / K-04 sweep equivalence (`P_D = 42` ⇔ seven tricks) | no row of its own (PA-B13 territory) | not stated as a named kernel theorem; rob `r_obj_conservation` "201 hands; P_D=42 iff seven-trick sweep" is conformance | — |
+| R-MATCH-01..03; MATCH-01 (≤ `2T−1` contracted hands); MATCH-02 / AUC-06 (all-pass unbounded) | none — "full match almost-sure termination" is a **deferred module** of the ledger | not mechanized | — |
+| R-INFO-01..03 perfect recall; R-INFO-02A derived facts are not a second source of truth | PA-C01 (0); PA-F05 (0) | proved: deal-local perfect-recall record; the mechanical projection is **not injective** on it | `Information.lean` `DealLocalInfo`, `:47` `mech_not_injective` |
+| R-DEAL-02/03 uniform chance rule and its posterior | PA-E04 (1) | **open** (physics-only posterior under uniform chance) | — |
+| Exclusions (nello, plunge, splash, sevens, …) | "special contracts" is a **deferred module** | not mechanized, by design | — |

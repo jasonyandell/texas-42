@@ -65,3 +65,32 @@ game absent a proved equivalence [Proposition, TEAM-01].
 - Outcome-determined early settlement is a *scoped* quotient: preserves current-hand
   make/set, award, score update, match-end; later-hand match value only under explicit
   reset assumptions [QUO-07/08]. Full seven-trick play stays primitive.
+
+## Mechanization status (proof-assistant kernel tier)
+
+Rows are **v0.7** `65_MECHANIZATION_LEDGER.md` `PA-` rows (priority in parentheses);
+"proved" = a declaration under `lean/Texas42/` checked by the Lean kernel over at most
+`propext`/`Classical.choice`/`Quot.sound`, with no `sorry`, `native_decide` or local
+axiom (grep re-verified 2026-09-12), as of commit d190b26 (2026-08-02; all 42
+priority-0 rows closed). Map: [lean-row-index](lean-row-index.md). A kernel theorem
+never promotes a corpus status. Two of this page's results are kernel-proved
+(strategic sufficiency, generically; the information/mechanical non-injectivity);
+the utility lenses, quotients and gauges are all open or unlisted.
+
+| Result on this page | Ledger row (priority) | Kernel status (d190b26) | Declaration (`lean/Texas42/`) |
+|---|---|---|---|
+| STR-01 exact decision state `B = (c, e, β)`: fixed-strategy values and best responses are functions of `B` under the §10.1 assumptions | PA-E07 (0) | **proved generically** (2026-07-31): for a finite-horizon viewer decision process with latent state, `beliefVal σ n s β = β.exp (latentVal σ n s)` at every horizon, zero-probability segments contribute zero; hence any finite-class best response is a function of `(s, β)`. The **Straight-42 instantiation** — wiring `CertifiedState`/`physicalBelief` into a concrete `BeliefProc` — is **not done** (the PA-E08+ tier) | `Strategic.lean` `BeliefProc`, `:153` `beliefVal_eq_exp_latentVal`, `:284` `bestResponse_eq` |
+| STR-02 `(c, β)` shorthand | — | not stated | — |
+| STR-04/04A coordinate-only value criterion; scalar ≠ action-value factorization | PA-E09 (1) | **open** | — |
+| UTIL-04A/B deterministic best response attains the max | PA-E08 (1) | **open** | — |
+| UTIL-03 expected points vs contract success rank oppositely | PA-E12 (2, WITNESS) | **open** | — |
+| TEAM-01 shared utility does not merge partner information | PA-F07 (1, PROVE/BOUNDARY) | **open** | — |
+| HAND-06 local slot order is a gauge | PA-F01 (1) | **open** | — |
+| HAND-01/02/08 marked hand; non-identifiable attributions | no rows | not mechanized | — |
+| The 90-world witness this page cites | PA-E10 (0) | **proved** — see [belief-vs-support](belief-vs-support.md) | `Witness.lean:728` |
+| QUO-01 / PLAY-07 physical congruence (reduced play state Markov for the hand) | PA-B12 (1) | **open** | — |
+| INFO-10 mechanical projection ≠ information state (the boundary the quotients respect) | PA-F05 (0) | **proved**: two `DealLocalInfo` records differing only in which losing seat bid `P(30)` are distinct with identical mechanical projections | `Information.lean:47` `mech_not_injective` |
+| QUO-02 field-relative strategic isomorphism; QUO-03/04 evidence cannot be forgotten | PA-F06 (2); no rows | **open** / not mechanized | — |
+| SYM-01 rotations `C₄`; SYM-02 bidder anchoring; SYM-03 reflection fails | PA-F02, PA-F03, PA-F04 (2) | **open** | — |
+| SYM-04 (rec) oriented `D₄` gauge | no row (rec Kernel spine K13) | not mechanized | — |
+| QUO-07/08 early settlement is a scoped quotient | PA-B14 (2) | **open** | — |

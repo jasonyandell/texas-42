@@ -99,6 +99,15 @@ Formal statements, hypotheses and proof provenance are owned by the mathematics 
 cite the **errata theorem number** for the mathematics and the **DS-A ruling** for its provenance, and where parent
 and errata differ, **the errata governs**.
 
+**Where the proofs actually live, as of 2026-09-07.** The errata's section headers end at §8.6 (the second-audit
+index addendum): there is **no §4.3 and no §9**. So `walt/CENSUS-RULINGS.md` is the **only authority** for
+Corollary E4.1's proof (owed as errata §4.3 since SEP-A2 under DS-A28(ii)) and for every object of the FT, SR, FF
+and FC families — Lemmas FT-arrive/FT-trunc/FT-post/FT-mix, Propositions FT-flat/FT-tie, Corollaries
+FT-grade4/FT-conv, Lemma SR-coord/SR-forced, Propositions SR-sep/SR-post/SR-degen/SR-taut/SR-loc, Corollary SR-conv,
+Propositions FF-blind/FF-oracle/FF-degen/FF-corr, Lemma FF-min, Propositions FC-drop/FC-width/FC-tight and
+Corollary FC-null — owed as errata §9 since FT-A27(i). Cite them by ruling section and heading, never by line number
+(the file is append-only). No kanban card tracks the filing.
+
 | Name | One-line statement | Repairs / status |
 |---|---|---|
 | **Theorem E1** | Order exchange holds under a *declared involution* Θ intertwining the two kernels, over a Θ-closed policy class — not under bare commutation. | Replaces parent §7.1, which is **UNSOUND as written** (DS-A6). |
@@ -167,6 +176,7 @@ receipt free (DS-A36).
 | **F** | Reachable envelope: compare N_pol, N_par, W_all, W_reach, d_adv without conflating them. | Designable now under DS-A10 with the DS-A2 ladder; W_reach needs exact enumeration of reachable posteriors, feasible only at the small grades, and a stop is a stop. |
 | **G** | Count and score lift — the valuation cone, the gauge, which count-free verdicts are re-derived versus inherited. | **NEEDS ITS OWN ADJUDICATION** (DS-A12): this is where E-A2 bites hardest and it touches Jason's binding count constraint. Propositions J-0 and J-1 survive count re-entry; J-win does not; every form-keyed record is void wholesale, never extended. |
 | **H** | Grade climb, measuring truth size, circuit size, active policy size and constraint size independently. | **PREMATURE** by its own terms (DS-A12), and governed by P-A21 when it comes: three rungs are not a law, and no growth rate measured at grades ≤ 4 is quoted for the opening. |
+| **SS** | The seed survey (2026-08-15/16, SS-A1..SS-A18, freeze 54): a hundred grade-4 coordinates chosen by an arithmetic map — index(n) = (n · 292,032,399,099,041) mod 472,518,347,558,400 — with every legal root action a unit, the branch's **first carrier not selected by outcome**; per unit the exact Q^H, complete H-optimal face, U^C, the two-rung tax split, the tie-multiplicity census and four rule values. | **COMPLETE** (`walt/probes/factory-results/seed_survey_2026-08-15.txt`; 400 units, 0 declared stops). The pre-declared association (tie multiplicity tracks separation structure) is **NOT REPORTABLE** — the two aggregation conventions reverse the verdict-cell ordering and the confound table does not separate cleanly, so the multiplicity → separation arrow of the fee screening chain is broken at unselected coordinates (SS-A15). The finding nobody pre-declared: optimal root actions produce **smaller depth-one frontiers** — within a coordinate the optimal action is the smallest-frontier action of its four in 43.5%–58.8% of 85 clean seeds against a 25% baseline, a solve-free move-ordering statistic (SS-A16(iii), SS-A17(ii)). Off-carrier tax sparsity 6.25% against 4.49% on the margin-selected carrier; 36.3% of frontier states forced. Nothing at grade 4 is quoted for trick 1 (P-A21). Results and readings: [walt-pre-pivot-results](walt-pre-pivot-results.md#37-the-seed-survey-ss-2026-08-1516--the-ending). |
 
 ## The named next step
 
@@ -732,6 +742,65 @@ widespread ties; nothing forbids it. Every standing fence is
 undiminished: three units at two coordinates chosen by negative binding margin are **a carrier and not a sample**;
 **grade 4, so no verdict moved and none could**; the **first layer only**; and **nothing quoted for trick 1 or for
 the opening**, binding hardest here because multiplicity is now the variable most tempting to extrapolate.
+
+---
+
+## Lineage since 2026-08-24
+
+Everything above this heading is the state of the track on 2026-08-16, unchanged since (this section and the SS row
+were added 2026-09-12 against the repository as of 2026-09-07, c00717d1). The inequality the track is built on did
+not stop there; it was renamed, generalised and consumed by three later programs, all EXPLORATORY tier, each on its
+own page.
+
+**The object, by name, in order.**
+
+| era | the object | statement | naming rule | page |
+|---|---|---|---|---|
+| decision-sparse (2026-08-13) | L_a ≤ Q^H(a) ≤ U_a, **Theorem E6.3** (adjudicated name *value sandwich*) and root-action separation E6.4 | one fixed lawful policy below, treatment C above, per root action | "certificate" barred forward (DS-A1) | this page |
+| counted belief (2026-08-30, CBS-A1..A9) | the **root interval** [L_a, U_a] and the **survivor set** (CBS Theorem 2.1 survivor soundness; Theorem 5.1 optimization-lock upper CS; Theorem 20.1 seat-factor posterior closure) | E6.3/E6.4 restated over the pmake objective with a sampled optimization-lock upper and an exact-cover oracle below | **"sandwich" is not a citable object name** (CBS-A3): it collides with E6.3's adjudicated name, the refuted T1-A bounded corner bounds and SP-A7; the objects are root interval and survivor set | [walt-counted-belief-era](walt-counted-belief-era.md) |
+| anytime proof state (2026-08-31, APS-A1..A9) | **certified regret** Γ = U* − B_exec, monotone under refinement; the executable bar B_exec ≤ B_proof ≤ Q* | the same interval carried as facts in an append-only proof state; "certified regret" is APS's term of art and does not collide with the D3 ban | laydown hierarchy typed by quantifier (APS-A5); decision-dead ≠ decided ≠ laydown | [walt-counted-belief-era](walt-counted-belief-era.md) |
+| focal horizon (2026-09-04, FH-A1..A11) | the **focal-horizon hierarchy** [L_{a,k}, U_{a,k}] indexed by the number k of focal decisions taken exactly, with survivor set S_k, bar B_k and focal depth h_f; U_{a,0} = the God-gap census, U_{a,1} = the salvation-mask upper, exact collapse at k ≥ h_f | the reveal-delay ladder C^(k) of the FT chapter, made a hierarchy of intervals over the pmake objective and gated | interval / action interval / hierarchy (FH-A2); never "sandwich" | [walt-focal-horizon-era](walt-focal-horizon-era.md) |
+
+The FT chapter's reveal-delay ladder C^(k) and Lemma FT-trunc are the direct ancestors of the focal-horizon
+hierarchy; Proposition FH-cut then identifies the U0b ply cut on viewer-lead roots with U_{a,m−1}, and Proposition
+FH-last (a forced last layer collapses the hierarchy one layer early) is Lemma FT-trunc one program later. The FT
+chapter's fusion-gap identity became the **model-fusion price** of the model-belief program (MB1: strictly positive
+at trick 4, 38/9600 gate-pinned at h8-t4 action 3-1) and the God-gap decomposition 1 − V = d_phys + d_info +
+d_policy of U0 ([walt-counted-belief-era](walt-counted-belief-era.md)).
+
+**The three trick-1 obligations, re-stated where they now stand.** "Where this leaves the track" above lists them as
+BLOCKED. As of 2026-09-07:
+
+1. *"The exact table at trick 1 ranges over 399,072,960 worlds and nothing reduces it."* **Superseded.** The
+   counted-belief slices C0–C2 (PR #62/#64/#66, 2026-08-30) compute the opening root's **exact branch table over all
+   399,072,960 worlds through 116,280 acting-seat hands, in 8.7 ms under the trivial field** (5.36 s under σ0), by
+   the seat-factor factorisation of CBS Theorem 20.1 — exactly the "factorised representation" escape hatch that
+   Corollary E5.2 leaves open. Nothing about Lemma R(c) or Proposition E5 changed: the linear atom algebra still
+   saturates; the table is computed without materialising a world.
+2. *"The only routes that avoid it need proved pointwise upper bounds or proved regret events, neither of which has a
+   single proved instance."* **Re-scoped, not discharged.** Phase 8 of the anytime program (2026-09-01,
+   `openingreport`) produced a certified-regret recommendation at the receipt opening root h0-t1 (Z = 399,072,960,
+   contract 30): executable bar 0 → 732‰ over the ladder p = 16/64/256/512, Γ 1000 → 267‰, recommendation migrating
+   0-0 → 2-1 → 6-5, **honest UNRESOLVED at ε = 1/4** — *play 6-5, floor 732‰, at most 267‰ unclaimed* — with the
+   sampled tier plateauing at p = 512 and 29 refusals all affordability. The doom census certifies an honest zero
+   there. **The split of the remaining 267‰ is UNKNOWN**: the earlier wiki gloss that it is "overwhelmingly the
+   info-consistency price" was corrected on 2026-09-03 in `walt/DISCREPANCIES.md` as outrunning SC-A1/SC-A4 — a zero
+   doom census moves only d_phys and does not distinguish d_info from d_policy, and U0 typed the opening root
+   `UnknownGodGap`. The sampled upper (999‰ at p = 512) is an optimization lock over a frozen world set, not a doom
+   bound: **exact-for-the-frozen-set is not exact-root**, and a proved pointwise upper at the opening remains owed.
+3. *"Any event mass must be counted exhaustively, with no decimation inside a witness."* **Unchanged and inherited.**
+   Condition (C2) stands in every descendant; the calculated-evidence adjudication made fixed sample counts leave the
+   correctness path altogether (CE-A5) and typed the result ladder ExactFiberRoot / ExactFrozenSet / DeltaSettled /
+   EpsilonEquivalent / Unresolved / HeuristicFallback (CE-A3), so a sampled tier is a separate result type and never
+   a bound.
+
+**Grade 4 as a test-bed, revisited.** The SR chapter ended by saying the next question needed a longer ladder. The
+counted-belief program went to the opening root by factorisation instead, and the focal-horizon program's
+direction-changing measurement (FH3, 2026-09-04) is that at k ≥ 1 the residual width is the tail's **policy gap**
+(Q − L, 9–41‰ at trick 4), not the fusion price (U − Q, 0–3‰) — which is Corollary E3.2's "the remaining difficulty
+is primal" measured on live roots. The economy claim's two halves keep their fence: primal answered at trick 4 by
+four-word rules; the full claim still untested in this track's sense, though the later programs no longer ask it in
+this form. Every number in this section is exploratory, gate-pinned only where its owning page says so.
 
 ---
 

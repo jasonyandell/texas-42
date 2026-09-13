@@ -8,8 +8,12 @@ step-8 V5 flip repair and E0 calibration, the live-player audit findings, the
 playable controller player as an era event (the register owns it), the
 targeted level-2 extension with all three field-swap slices (the fixed-policy
 smoke, the rung/screen slice, and the slice-3 cancellation ladder), the
-sampling-cap analysis and Jason's 512 ruling as applied, the waking seat and
-its phase conviction, the 2026-08-25 speed campaign, and what is in flight ·
+sampling-cap analysis, Jason's 512 ruling as applied and the two committed
+512-epoch shadow reruns, step 9 (the detection layer), the panel-conformance
+audits, the targeted controller, the waking seat and its phase conviction, the
+2026-08-25 speed campaign, walt2-wasm (level 2 in the browser), what was in
+flight at the era's close, and the post-era notes that correct this record as
+of 2026-09-07 (`c00717d1`) ·
 Sources:
 `walt/math/calculated_evidence_v0.1.md` (received parent,
 adjudicated **CE-A1..A8**) and `walt/math/targeted_level2_field_stability_v0.1.md`
@@ -20,23 +24,39 @@ PANEL-A7/A8 govern slice 3; math source
 `exchange/inbox/019-023-response-panel-and-cancellation-v0.1.md` Part VI),
 [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md) (**the owning
 register for the playable controller player — linked, never restated here**),
-[`walt/probes/shadow/README.md`](../walt/probes/shadow/README.md),
+[`walt/probes/shadow/README.md`](../walt/probes/shadow/README.md) (with
+its four committed epochs `receipt.jsonl`, `driven.jsonl`,
+`receipt_512.jsonl`, `driven_512.jsonl`),
 [`walt/probes/fieldswap/README.md`](../walt/probes/fieldswap/README.md),
 [`walt/probes/step8/README.md`](../walt/probes/step8/README.md),
-[`walt/probes/fieldswap_screen/README.md`](../walt/probes/fieldswap_screen/README.md)
-and
+[`walt/probes/fieldswap_screen/README.md`](../walt/probes/fieldswap_screen/README.md),
 [`walt/probes/fieldswap_cancel/README.md`](../walt/probes/fieldswap_cancel/README.md),
+[`walt/probes/fieldswap_motifs/README.md`](../walt/probes/fieldswap_motifs/README.md),
+[`walt/probes/hazard_witness/README.md`](../walt/probes/hazard_witness/README.md),
+[`walt/probes/step9/README.md`](../walt/probes/step9/README.md),
+[`walt/probes/l2_controller/README.md`](../walt/probes/l2_controller/README.md),
 [`walt/probes/waking/README.md`](../walt/probes/waking/README.md),
 [`walt/probes/ordering/README.md`](../walt/probes/ordering/README.md),
-[`walt/probes/field_cache/README.md`](../walt/probes/field_cache/README.md)
-and [`walt/probes/bundle/README.md`](../walt/probes/bundle/README.md)
-(instrument records), `walt/SCENARIO-PLAYER.md` §10 (the obligations ledger),
-`kanban/` cards. Related: [walt](walt.md) (hub and fence),
-[walt-seat-play](walt-seat-play.md) (the live track this era instruments),
-[received artifacts and intakes](walt-math-intakes.md) (artifact-by-artifact
-lineage — not restated here), [the reference map](walt-math-reference.md)
-(ruling families CE-A and L2-A),
-[open questions](walt-math-open-questions.md).
+[`walt/probes/field_cache/README.md`](../walt/probes/field_cache/README.md),
+[`walt/probes/bundle/README.md`](../walt/probes/bundle/README.md)
+and, for the post-era notes,
+[`walt/probes/gran/README.md`](../walt/probes/gran/README.md)
+(instrument records), `walt/walt2-wasm/pkg/README.md` (the level-2 browser
+oracle), `walt/SCENARIO-PLAYER.md` §10 (the obligations ledger),
+`walt/audits/panel_response_conformance.md`, `kanban/` cards
+(`kanban/backlog/gran-anchor-reconstruction.md` for the Gran state), and
+`git log` for the post-era commits named below. Related: [walt](walt.md)
+(hub and fence), [walt-seat-play](walt-seat-play.md) (the live track this
+era instruments), [walt-instruments](walt-instruments.md) (every binary's
+invocation), [received artifacts and intakes](walt-math-intakes.md)
+(artifact-by-artifact lineage — not restated here),
+[the reference map](walt-math-reference.md) (ruling families CE-A and L2-A),
+[open questions](walt-math-open-questions.md); the eras that follow are
+[walt-counted-belief-era](walt-counted-belief-era.md) (2026-08-30 → 09-01,
+and the σ1-repair row that rewrote this era's live sampler) and
+[walt-focal-horizon-era](walt-focal-horizon-era.md) (2026-09-01 → 09-05);
+the Gran anchors this era carded are owned by
+[walt-gran-anchors](walt-gran-anchors.md).
 
 > **Epistemic tier: EXPLORATORY — the hub's fence applies unchanged, and most
 > of this page sits *below* even that.** The two adjudications (CE-A1..A8,
@@ -47,11 +67,19 @@ lineage — not restated here), [the reference map](walt-math-reference.md)
 > [claim ledger](claim-ledger.md) row x:019–023) — adoption inside the fence,
 > never a tier change. Every count quoted from `walt/probes/shadow/`,
 > `walt/probes/fieldswap/`, `walt/probes/step8/`,
-> `walt/probes/fieldswap_screen/` or `walt/probes/fieldswap_cancel/` is an
-> **instrument record** — probe output
+> `walt/probes/fieldswap_screen/`, `walt/probes/fieldswap_cancel/`,
+> `walt/probes/fieldswap_motifs/`, `walt/probes/hazard_witness/`,
+> `walt/probes/step9/`, `walt/probes/l2_controller/`, `walt/probes/waking/`,
+> `walt/probes/ordering/`, `walt/probes/field_cache/`, `walt/probes/bundle/`
+> or (post-era) `walt/probes/gran/` is an **instrument record** — probe output
 > that sits below every evidentiary tier and is cited by nothing above it; the
-> READMEs' own fences and caveats travel with every number here. Nothing on
-> this page is a receipt, a strength claim, or a statement about exact values.
+> READMEs' own fences and caveats travel with every number here. A probe
+> number is quotable as a *result* only through the gate file that pins it
+> (named where one exists) — otherwise it is a probe record, not gate-pinned.
+> Nothing on this page is a receipt, a strength claim, or a statement about
+> exact values. Numbers re-derived for this page on 2026-09-12 (by running
+> the probe directories' `summarize.py` or reading the records directly) are
+> marked as such; they reproduce the committed READMEs and change no tier.
 
 ## What the program is
 
@@ -153,8 +181,23 @@ Step 1 (intake before code) is the two intake/adjudication pairs above
 | (L2 §21 steps 3–5) | The field-swap slice 1: `solver::field` (FieldId), `solver::exposure` (coupled first-split replay), `bin/fieldswap` + smoke records | #26 / `ffdc002` |
 | (L2 §21 steps 6–8) | The field-swap slice 2: exposure rungs E0–E2 and the exact split-reach route E4 in `solver::exposure`, the L2-T4 admissible screen in `solver::field_swap`, `bin/fieldswap_screen` + screen records | #30 / `ca0483d` |
 | (cap ruling applied) | Shadow bin `world_cap` default 128 → 512; the committed 128-epoch outputs stay reproducible by passing `128` explicitly | #32 / `6e00528` |
+| (cap ruling exercised) | The 512-epoch shadow reruns as committed records: `walt/probes/shadow/receipt_512.jsonl` (13 receipt hands) and `driven_512.jsonl` (20 driven hands) — read in the cap-analysis section below | #34 / `039b11d` (receipt), #36 / `80f94a0` (driven) |
 | (CE) the playable controller | `solver::act` (the §16.4 controller as an acting player), `bin/controller_bridge`, `ctrl [cap=N]` seats in webtable/playtable, the O27 deal/belief stream separation, register `walt/CONTROLLER-PLAYER.md` | #37 / `23ba1c2` |
 | (L2 §21 slice 3) | The cancellation ladder, pairwise masses and directional rungs in `solver::exposure` / `solver::field_swap`, `bin/fieldswap_cancel` + probe records (PANEL-A7/A8) | #38 / `151ea4f` |
+
+The 2026-08-25 landings, each with its own section below (first-parent
+`main`, dates from `git log`):
+
+| Landing | What landed | PR / merge commit |
+|---|---|---|
+| x:024 intake | The deferred-producers triple adjudicated TRIPLE-A1..A7 | #43 / `60f01dc` |
+| L2 slice 4c / 4a / 4b | Motif morphology (`solver::motif`), the E3 admissible-upper producer (`solver::upper_cs`), the Hazard-Exclusion Invariant verifier (`solver::hazard`) | #44 / `43967f3`, #45 / `668c5fb`, #46 / `cbce1ae` |
+| Panel-conformance audits | `walt/audits/panel_response_conformance.md` + eight gates | #48 / `0224471` |
+| CE step 9 | `solver::wakeup`, `bin/wakeup`, `walt/probes/step9/` | #49 / `4301754` |
+| L2 targeted controller | `solver::targeted`, `bin/l2_controller`, `walt/probes/l2_controller/` | #51 / `68f9d04` |
+| Speed campaign | Reorder-not-cull; cached field + decided cutoff; the bundled evaluator (`solver::bundle`) | #53 / `aff5321`, #55 / `a28ddce`, #56 / `5bead5c` |
+| The waking seat | `solver::waking`, `bin/waking_bridge`, `walt/probes/waking/` | #54 / `93d9956` |
+| walt2-wasm | The level-2 browser oracle for plunge (`walt/walt2-wasm/`) | #58 / `33d541f` |
 
 ## The shadow instrument (step 7): the controller beside the live player
 
@@ -174,8 +217,18 @@ frozen-set endpoint, larger fibers run the adaptive controller at
 world_cap 128 (a resource limit producing honest `Unresolved`, never a
 settlement rule). Agreement is recorded, never acted on.
 
+The declared knobs of the committed run, in the bin's positional order:
+`n_outer_live=200 n0_live=8 n_outer_frozen=8 n0_frozen=2 world_cap=128
+exact_cap=2000`, δ_run = 1/100 per hand. Four record files are committed
+under `walt/probes/shadow/`: `receipt.jsonl` and `driven.jsonl` are this
+**world_cap = 128 epoch** (the counts below); `receipt_512.jsonl` and
+`driven_512.jsonl` are the **world_cap = 512 epoch** run the same night
+after Jason's cap ruling (PRs #34 / `039b11d` and #36 / `80f94a0`), read
+in the cap-analysis section below. Records are byte-deterministic except
+the two wall-microsecond fields; `summarize.py` regenerates every count.
+
 The headline counts (plain counts over the records, regenerable by
-`summarize.py`, 2026-08-24):
+`summarize.py`, 2026-08-24; re-run 2026-09-12, identical):
 
 - **183 decisions shadowed**: **ExactFrozenSet 67 / Unresolved 116 /
   DeltaSettled 0** (ε-mode not configured; §11.3 escalations fired 0 times —
@@ -211,9 +264,26 @@ these:
 - **The §3.4 defect persists in `playout.rs`'s standalone copy.** The library
   PiKey was repaired 2026-08-17 (the parallel-port catch,
   [walt-seat-play](walt-seat-play.md)), but `walt/walt/src/bin/playout.rs`
-  carries its own embedded `PiKey` (line ~158) with fields
+  carries its own embedded `PiKey` (line ~158 at `ffdc002`) with fields
   seat/hand/played/leader/plays and **no banked totals** — the exact defect
   the spec's Def 3.4 documents, alive in the probe bin's copy.
+  **Post-era re-check (2026-09-12, against `c00717d1`).** Commit
+  `161b0195` (#83, 2026-09-02, the σ1-repair — the row on
+  [walt-counted-belief-era](walt-counted-belief-era.md)) rewrote
+  `playout.rs`, `playtable.rs`, `webtable.rs`, `walt_bridge.rs` and
+  `divergence.rs` and touched `act.rs`, `field.rs`, `policy.rs`,
+  `shadow.rs` and `controller_bridge.rs`, so this finding had to be
+  re-checked rather than carried forward. **The standalone copy survives
+  #83 unchanged**: at `c00717d1` `struct PiKey` sits at `playout.rs:144`
+  with exactly the five fields above and no banked totals, is the key of
+  `pi_cache` (line 164) and is built at the `pi0` call site (line 407);
+  `git blame` dates every one of those lines to the 2026-08-17 original
+  (`6ee8e1b`), and `git show 161b0195 -- walt/walt/src/bin/playout.rs`
+  has no hunk touching `PiKey` or a banked field. The bin's own
+  doc-comment (lines 21–23, added by #37) still reads "this bin's local
+  `PiKey` copy still omits banked totals — the filed §3.4 finding — and is
+  deliberately NOT fixed here; it stays filed, not silently patched." So
+  the finding is still open, by design, as of 2026-09-07.
 - **One RNG threaded through deal + belief sampling** in `playout.rs`,
   `playtable.rs`, and `webtable.rs` — a seat's belief sample depends on how
   many draws other consumers took from the shared stream. This violates the
@@ -233,7 +303,9 @@ these:
   plays level-1 "from its own chair," but the per-seat evaluations are not
   pure functions of the acting seat's information state (the shared stream
   above is the visible mechanism), contra the information-consistency
-  discipline O29 makes explicit for field models.
+  discipline O29 makes explicit for field models. Not re-checked against
+  #83 in the 2026-09-12 pass — #83 rewrote the sampler the bins share, so
+  the finding needs its own re-examination on the current source (open).
 
 These are recorded so they are never re-discovered; repairs route through the
 obligations ledger, not silent patches.
@@ -299,7 +371,15 @@ was entitled to make either way. The **literal** plunge position's game seeds
 live plunge-side, so the family carries the specimen's shape under an honest
 label and the literal reconstruction is filed as a **blocked test**
 (`v5_literal_count_timing_position_reconstructs`, `#[ignore]`d), waiting on
-[[gran-anchor-reconstruction]] (L2-A6).
+[[gran-anchor-reconstruction]] (L2-A6). *Post-era state (2026-09-04 →
+09-07):* the literal position was reconstructed from the screenshot grid
+without any seed — G1 is validated by `rules::replay::replay_hand` and
+committed at `walt/probes/gran/g1.receipt.txt`
+([walt-gran-anchors](walt-gran-anchors.md)) — so the blocker this test
+names is discharged for G1; **the test is nonetheless still `#[ignore]`d
+at `c00717d1`** (`walt/walt/tests/solver_calibrate.rs:419`, its ignore
+reason still reading "blocked: plunge-side game seeds"), and un-ignoring
+it against the committed fixture is queued work, not done work.
 
 **E0 calibration (§19 V6): 18 pairs × 3 replicates at T = 400.** Each record
 puts the exact fiber coordinates `(a, b), q, τ, g, H` beside the initial
@@ -361,7 +441,8 @@ player is better than the seat that plays today, and it is **not** a new
 default: per CE-A7/§20.16 the old player remains the default everywhere until
 arena and conformance gates justify a change, on Jason's word. The O27 deal/
 belief stream separation shipped in the same delivery (above); the §3.4
-playout PiKey defect stays filed, untouched.
+playout PiKey defect stays filed, untouched (still true at `c00717d1` after
+the #83 rewrite — the re-check is recorded in the audit section above).
 
 ## The field-swap slice 1: three regimes on the first smoke
 
@@ -371,9 +452,14 @@ numbers, and its tier fence is binding and travels verbatim: everything is a
 declared field models σ0 (banked-correct level-0 at n0 = 8) and σ1 (level-1
 per non-focal seat at 4×2), for two frozen focal pins per root (reveal-shaped
 vs retain-shaped) — **NEVER a root-action bound and never screening input**
-(L2-A4, O31). The Gran anchor seeds are not yet reconstructed, so the smoke
-ran on roots reconstructable from the shadow run. Three regimes appeared on
-the first probe:
+(L2-A4, O31). At the time of the smoke (2026-08-24) the Gran anchors were
+screenshots not yet transcribed, so the smoke ran on roots reconstructable
+from the shadow run. (No seeds were ever needed or recovered: G1 was
+reconstructed from the screenshot grid on 2026-09-04 and validated by the
+rules engine — [walt-gran-anchors](walt-gran-anchors.md) — but this smoke
+was not rerun on it; the Gran roots' first runs are the waking seat's, in
+the post-era note of that section.) Three regimes appeared on the first
+probe:
 
 - **receipt-h7-t5 — the targeting phenomenon, observed in the wild.** On the
   complete 1,680-world fiber the two fields **never split** under either
@@ -499,7 +585,11 @@ the restriction is a type-level lock rather than a convention.
 
 **Directional rungs, as bounds and only as bounds.** Beside the exact E4 the
 probe produces the coupled directional uppers (R⁺)^U and (R⁻)^U, with the
-sandwich V⁰ − (R⁻)^U ≤ V¹ ≤ V⁰ + (R⁺)^U, the §36 winner-stability table and
+two-sided bound V⁰ − (R⁻)^U ≤ V¹ ≤ V⁰ + (R⁺)^U (the gate that asserts
+it is named `..._and_the_sandwich` after the response's own word; the
+object is a two-sided interval on the σ1 root-action value — "sandwich"
+names no object here, per the later CBS-A3 rule), the
+§36 winner-stability table and
 the extended ladder **R± ≤ R^outcome ≤ R^exposure** all asserted in the
 producer rather than printed. They are **valid UPPER bounds** obtained by
 cross-branch fusion in the safe direction — never claimed exact, never lower
@@ -616,7 +706,9 @@ Mining the persisted §8.5 refinement vectors of the 116 `Unresolved` shadow
 records (a 2026-08-24 session analysis over the committed JSONL —
 instrument-grade, regenerable from the records, not a separate committed
 artifact): the forecast median is **~139 additional worlds** to isolate a
-winner; a cap of **512 would settle ~108 of the 116**; and **~22% of open
+winner; a cap of **512 would settle ~108 of the 116** (a forecast that the
+same night's 512-epoch reruns refuted — 3 of 116 settled — and that the
+shadow README retracts; below); and **~22% of open
 directed edges are true fog** (|τ̂| ≤ 0.1) that no cap fixes — those are
 honest near-ties where the ladder's ε-equivalence and tie modes are the
 correct answers, not more sampling.
@@ -630,9 +722,68 @@ flip dissolves into an honest `Unresolved` near-tie.
 bin's `world_cap` default is now **512**. The cap is a resource limit either
 way (CE-A3), so this changed a schedule, not a correctness rule. The committed
 step-7 outputs remain the **world_cap = 128 epoch** and stay reproducible
-byte-identically by passing `128` explicitly; a 512-epoch regeneration is a
-separate run that supersedes nothing, because it is a different epoch by
-construction and every record carries its own config.
+byte-identically by passing `128` explicitly; the 512-epoch regeneration
+below is a separate run that supersedes nothing, because it is a different
+epoch by construction and every record carries its own config.
+
+**The 512-epoch reruns (same night, 2026-08-24; committed as
+`walt/probes/shadow/receipt_512.jsonl`, PR #34 / `039b11d`, and
+`driven_512.jsonl`, PR #36 / `80f94a0`).** Same 33 hands, same knobs except
+`world_cap=512`; instrument records, same tier as everything here. Every
+number below is quoted from `walt/probes/shadow/README.md` ("The 512-epoch
+receipt rerun") and, wherever `summarize.py` or a record states it
+directly, was re-derived on 2026-09-12 by running `summarize.py` on both
+files (0.03 s), summing the shadow micros, and reading the three settled
+records and the opening-lead record themselves (the survivor-set shrink
+counts are the README's own):
+
+| Count | 128 epoch | 512 epoch |
+|---|---|---|
+| Decisions shadowed | 183 | 183 (70 receipt + 113 driven) |
+| ExactFrozenSet / Unresolved / DeltaSettled | 67 / 116 / 0 | 67 / 113 / **3** |
+| Controller winners; live agreement | 27; 23/27 | 30; **24/30** |
+| Live choice among survivors | 116/116 | **112/113** |
+| Settlement indices (worlds consumed) | — | 196 / 333 / 395 |
+| Exact ties among ExactFrozenSet | 40 | 40 (unchanged) |
+| Summed shadow micros | ≈ 1.5 h receipt + ≈ 4.15 h driven | ≈ 4.15 h receipt + ≈ 16.3 h driven |
+
+The three settlements, each from the sampled route at δ_run = 1/100:
+
+- **receipt hand 3, trick 4 ply 2** (fiber 4,200, m = 4): settles at world
+  196 with winner **5-2 — agreeing** with the live choice.
+- **receipt hand 10, trick 1 ply 0** (the opening lead, fiber 399,072,960,
+  m = 7): settles at world 395 with winner **5-5 against the live 6-3** —
+  the instrument's first sampled-route settled disagreement with the live
+  player.
+- **driven hand 5, trick 2 ply 0** (fiber 7,399,392, m = 6): settles at
+  world 333 with winner **5-4 against the live 3-3**.
+
+And the one live-line elimination: **receipt hand 0, trick 1 ply 0** (the
+opening lead, fiber 399,072,960, m = 7) stays `Unresolved` at 512 worlds,
+but the live **0-0 lead is δ-safely eliminated** (by the 6-5 candidate at
+world 455, after 3-3, 3-2 and 5-3 fell at 156/191/313); the survivors are
+**3 of 7** (2-1, 6-0, 6-5), and the live choice is not among them — the
+one exception in 112/113. Per side: receipt 28 exact / 40 unresolved / 2
+settled, live among survivors 39/40, winner agreement 8/12; driven 39 / 73
+/ 1, live among survivors 73/73, winner agreement 16/18. Among the still-
+Unresolved decisions, survivor sets shrank in 21 of 40 (receipt) and 43 of
+73 (driven). The README's reading travels verbatim: both settled
+disagreements and the elimination sit in tricks 1–2, where the dropped-30
+arena localized the live player's deficit — *suggestive, instrument-grade
+only*; every winner is model-relative to sampled inner minds at the
+declared 8/2 schedule (the Phase-1 fence), and nothing here is a strength
+claim or a default change.
+
+**The forecast above was wrong, and the README retracts it.** The
+session mining of the 128-epoch §8.5 refinement vectors read the
+per-decision n̂±-based winner-isolation proxy as "~108 of 116 settle by
+512"; observed: **2 of 42 on the receipt side, 3 of 116 overall**. The
+proxy's semantics were too optimistic — it priced edge crossings at frozen
+τ̂, and most open edges regress toward the near-tie as worlds accumulate.
+The per-pair forecasts that *did* calibrate are step 8's E0 discipline
+(`walt/probes/step8/`); cap-sizing claims route through that, never
+through the mining. The "~22% true fog" reading stands only as the same
+instrument-grade mining, uncorrected and unpromoted.
 
 ## Step 9: the detection layer runs [L2 thread]
 
@@ -655,7 +806,11 @@ pairs exact, the count-timing six sampled) reads, at estimate tier:
 
 - **Exact route:** value wake-up 18/18, decision wake-up 8/18 with five
   outright exact-winner flips — but response wake-up is the *rarest*
-  signal, and on 13/18 pairs pivotal mass **drops** under σ1. Receipt h4
+  signal (strict q₁ > q₀ on 5/18, above ε_q on 2/18), and on **12/18**
+  pairs pivotal mass **drops** under σ1 (unchanged on 1 — the h7 6-2 v 6-3
+  pair with dq = 0 exactly — and rises on 5; the README's prose says
+  "13/18", its own `records.jsonl` says 12 / 1 / 5, re-counted 2026-09-12
+  via `summarize.py`, and the records win). Receipt h4
   is the standout: all three of its pairs reach **q₁ = 0 exactly** (lawful
   exact-zero by enumeration) — its σ0 disagreement structure was entirely
   a level-0-field artifact. And h7 (6-2 v 6-3) wakes value+decision with
@@ -776,6 +931,56 @@ not affordable as-is at the live epoch); the profile's attribution IS the
 deliverable, and it became the targeting data for the speed campaign
 below.
 
+**The first real hand (post-era, 2026-09-04; instrument record
+`walt/probes/gran/README.md`, `summary-replay.txt`, `summary-driven.txt`,
+`g1-replay.jsonl`, `g1-driven.jsonl`; runner `bin/granrun`, an additive
+variant surface that modifies no existing player; commits `32aa14f1`
+(anchor validated) and `8174fa83` (played); owned in full by
+[walt-gran-anchors](walt-gran-anchors.md)).** The anchor is G1 — the
+Plunge hand where Jason's walt partner ("Gran", the live level-1 seat at
+S2) held the 6-4 and played the 6-2 at trick 1, bid 30 on sixes, 25–17
+set — reconstructed from the screenshot grid with no seed and validated by
+`rules::replay::replay_hand`. The waking seat ran it at exactly the
+`probes/waking` epoch above (σ0 = `Level0{n0=2}`, σ1 = `Level1{4,2}`,
+candidates `[8,2]`, wake budget 24 paired worlds, exact wake route at
+fiber ≤ 1024), so the two records compose:
+
+- **Replay mode** (waking seat at S2, the other three seats on the
+  record): agreement with the record **6 of 7**; the one difference is
+  trick 1, where the seat plays **6-4** and Gran played 6-2. **The caveat
+  travels with that number, loudly: the 6-4 came from σ0's epoch, not from
+  the wake.** The trick-1 fiber is 46,558,512, far above the exact wake
+  cap, so the check took the sampled route, spent its 24 worlds and
+  returned `sampled-open` — no wake; the σ0 baseline (`solver::act`, route
+  `unresolved-level1`, i.e. the level-1 fallback ranking among survivors,
+  not a settled selection) already picks 6-4 on its own. The live Plunge
+  panel (40 worlds, 6-2 at 90% vs 6-4 at 80%) and this σ0 are different
+  samplers at different world counts and do not compose; the run does not
+  show that partner modelling fixes the 6-4 problem. The **one real wake**
+  landed at trick 5 (fiber 300, exact route, `exact-sigma1-selects-rival`):
+  the escalation (`exact-survivors / provably-useless / exact-argmax`)
+  moved the play off σ0's 1-0 onto **4-2 — the tile the human game
+  played**. Wake rate 1 of 6 checked decisions. Wall 25,044,233 µs for
+  seven decisions (trick 1 alone 12.55 s); phase shares baseline 440‰,
+  wake check 536‰, escalation 23‰ (589,818 µs, of which steering 237,596
+  and rung-e2 198,873 against stage4-sigma1 968).
+- **Driven mode** (the waking seat at all four chairs from the G1 deal):
+  T0 **26 – 16**, still set against 30 (one point better than the real
+  25); 28 decisions, 9 forced, **zero wakes** (14 `sampled-open`, 4
+  `exact-sigma1-selects-baseline`, 1 `exact-sigma1-tie`), agreement with
+  σ0 28/28; 166,112,970 µs, trick 1 = 619‰ of it, phase shares baseline
+  677‰ / wake 322‰ / escalation 0. The line diverges from the record at
+  trick 1 (S0 opens 4-4, not 6-6), so 26 is not a partner-only
+  counterfactual — the replay run is the one that isolates the partner's
+  seat.
+
+Wall times vary run to run; the played line is a pure function of the
+anchor and the epoch (no clock in the value path). G2/G3 (the made hand,
+bid 31, 36–0) are committed as a validated six-trick partial — S2's hand
+fully known, the residual assignment of {4-1, 4-4, 5-3} to the other three
+seats 6-way ambiguous, no driven run possible — and were not run. Nothing
+here is a strength claim; the seat is still not a default.
+
 ## The speed campaign: four value-identical levers, honestly benched
 
 One day (2026-08-25), four E-A15-lawful levers against the convicted
@@ -790,7 +995,7 @@ exploratory tier throughout, cited by nothing above.
 |---|---|---|
 | Reorder-not-cull: capture-first visit order at the `solve_viewer` pmake break (`MoveOrdering`, two-arm equivalence gate) | #53 / `aff5321` | tree ~9% smaller, children/legal down modestly; **wall-clock wash** (saturation needs certainty, rare in open positions) |
 | Cached field in `act` + decided cutoff in the per-world replay (monotone bid arithmetic; early return at the first all-decided trick boundary) | #55 / `a28ddce` | 2.2× on fiber-90, 1.2× on fiber-1120, **~4% on the convicted trick-1 regime** — full-record info states fan out immediately, so shallow modeled choices never recur |
-| Bundled world evaluator: one shared-tree walk per candidate carrying the whole fiber, per-world attribution exactly-once, focal purity asserted (`solver::bundle`) | #56 / `5bead5c` | node sharing 5–6×, ~2× fewer field queries — **wall ~1.04×** post-#55; what survives is the PRIMITIVE (the GPU kernel shape), not a speedup |
+| Bundled world evaluator: one shared-tree walk per candidate carrying the whole fiber, per-world attribution exactly-once, focal purity asserted (`solver::bundle`) | #56 / `5bead5c` | node sharing ≈3–5× by the record's own counters (per-world plays bound / bundled nodes: 2160/657 = 3.3× at h4-t6, 53760/11629 = 4.6× at h11-t5, 1108800/224983 = 4.9× at h11-t4 — the README's prose says "~5–6×", its readings table does not), ~2.1× fewer field queries (626,028 → 295,433 at h11-t4) — **wall ~1.04×** (874,333 → 839,684 µs) post-#55, and SLOWER than per-world on the trivial field; what survives is the PRIMITIVE (the GPU kernel shape), not a speedup |
 
 **The campaign's conclusion, stated plainly:** the cost is the modeled
 minds themselves — thousands of *distinct* deliberations (distinct
@@ -810,6 +1015,39 @@ untouched and remains the exploratory instrument and the default player;
 the exact seat (`waking_bridge`, minutes per hand at the live epoch) is
 the evidence-of-record surface. Division of labor, not a succession.
 
+## walt2-wasm: level 2 in the browser (2026-08-25)
+
+**PR #58 / `33d541f`, 2026-08-25 (wiki sync #59 / `a1d2219b`) — exploratory
+tier; a live-surface *option* for plunge's strength ladder, never a default.
+The owning documentation is `walt/walt2-wasm/pkg/README.md`; the inventory
+row is on [walt-instruments](walt-instruments.md).** `walt/walt2-wasm/` is
+the level-2 sibling of `walt-wasm` (the level-1 browser oracle): a
+WebAssembly decision oracle (`pkg/walt2.wasm`, ~280 KB, zero imports, with
+the typed wrapper `pkg/walt2.ts`) whose `play` prices the seat's options
+against modeled **level-1** minds — the solver's field seats run
+`Field::Level(1)` with `n_inner = [n0, n1]` — over the *same* outer worlds
+and seed formula walt-wasm draws (common random numbers across levels).
+`bid` and `declare` are the walt-1 auction rules, **byte-identical to
+walt-wasm's by a native equality test** (the auction sees an empty record,
+and nine level-2 declaration pricings are not phone-affordable). Defaults
+n = 8, n1 = 4, n0 = 2; the ABI export names match walt.wasm's so the client
+worker pattern is the same file with two renames; `smoke.mjs` drives a full
+hand through the binary and reproduces the native `tests/full_hand.rs`
+trace play-for-play. Purely additive — zero changes to the `walt` crate.
+The pkg README carries a measured trick-1 latency grid (single-threaded
+Node on an M-series; a phone ~2–3× slower): (n, n1, n0) = (4,2,2) 0.5 /
+3.6 / 1.4 / 0 s; (8,2,2) 3.8 / 1.6 / 0 / 0; (8,4,2) 6.3 / 10.1 / 2.1 / 0;
+(16,4,2) 13.0 / 1.2 / 0 / 2.9; (16,8,2) 26.0 / 11.9 / 7.2 / 0 — machine-
+local wall readings, and its own caution: do not assume depth beats
+samples at equal latency; whether small-knob level 2 beats big-knob
+level 1 is an open head-to-head question, not a result. Level-model typing
+applies unchanged: a level-2 choice is a best response to the modeled
+level-1 field it declares (O36), never "equilibrium". Post-era:
+`src/api.rs` was touched by #83 (`161b0195`, 2026-09-02) and `dbcc698f`
+(2026-09-06); `pkg/walt2.wasm` was last rebuilt at #58 (`git log --
+walt/walt2-wasm/pkg`), so the committed binary predates both — not
+re-verified in this pass.
+
 ## In flight, and deliberately not presented as results
 
 - **Step 10 — recurse inward** — last, per the Phase-1 fence; the
@@ -823,16 +1061,36 @@ the evidence-of-record surface. Division of labor, not a succession.
   kind — so per CE-A7/§20.16 the old player remains the default, and any
   change is Jason's word after the gates, never a consequence of the code
   existing.
-- **Gran anchors — carded, artifacts in hand, no results.** Three Plunge
-  screenshots pinned at `~/data/texas-42/gran-anchors-2026-08-24/`
-  (`MANIFEST.sha256`); the reconstruction path needs **no seeds** — the
-  "How it went" grid *is* the complete deal, transcribed and validated by the
-  rules engine ([[gran-anchor-reconstruction]]). Until reconstructed, the
-  screenshots remain discovery artifacts (parent §1.4, L2-A6) and the G1–G4
-  experiments stay gated. Step 8 filed the concrete dependency as a **blocked
-  test** — `v5_literal_count_timing_position_reconstructs`, `#[ignore]`d —
-  so the literal plunge count-timing position is a named, failing-by-omission
-  obligation rather than a silently approximated one.
+- **Gran anchors — carded 2026-08-24 (artifacts in hand, no results at
+  the era's close); reconstructed and first played 2026-09-04.** At the
+  era's close: three Plunge screenshots pinned at
+  `~/data/texas-42/gran-anchors-2026-08-24/` (`MANIFEST.sha256`, PR #25 /
+  `31b6a88`), the screenshots discovery artifacts only (parent §1.4,
+  L2-A6), the G1–G4 experiments gated on [[gran-anchor-reconstruction]],
+  and the literal plunge count-timing position filed as the **blocked
+  test** `v5_literal_count_timing_position_reconstructs` (`#[ignore]`d).
+  **State as of 2026-09-07** (the card's 2026-09-04 update;
+  `walt/probes/gran/README.md`; owned by
+  [walt-gran-anchors](walt-gran-anchors.md)): **G1** (bid 30 sixes, 25–17)
+  is transcribed from the grid — **no seeds were needed or recovered** —
+  and validated mechanically by `rules::replay::replay_hand` (28 distinct
+  tiles, every follow, all seven winners and trick values, the totals and
+  the set verdict re-derived; the partition closed with nothing
+  ambiguous), committed at `walt/probes/gran/g1.receipt.txt`, and played by
+  the waking seat: **6/7 agreement with the record, one wake at trick 5**
+  (the waking-seat section above carries the numbers and the caveat that
+  the trick-1 6-4 is σ0's, not the wake's). **G2/G3** (bid 31 sixes, 36–0)
+  are committed **partial**: the app ended the hand after six tricks, so
+  24 of 28 tiles are recorded, S2's hand is fully known (the trick-4 panel
+  pins its residual 5-2), the G2/G3 roots are fully determined as
+  information sets, and the assignment of {4-1, 4-4, 5-3} to the other
+  seats is 6-way ambiguous — enumerated, never guessed; no driven run or
+  `replay_hand` validation exists for them. **The card stays open** on two
+  items: seed provenance (unavailable for all three — no seed capture
+  existed when the screenshots were taken) and the intake companion's
+  "Gran-anchor gap" note, not yet repointed at these files. The ignored
+  test's blocker is discharged for G1, but the test itself is still
+  `#[ignore]`d at `c00717d1` (the step-8 section above).
 
 ## Where this leaves the program
 
@@ -857,4 +1115,20 @@ built became the *fallback tier* of its successor — the counted-belief and
 anytime proof-state era, which replaces estimates with exact integer masses
 wherever they are affordable and honest typed refusals where they are not.
 That era owns everything after 2026-08-29:
-[walt-counted-belief-era](walt-counted-belief-era.md).
+[walt-counted-belief-era](walt-counted-belief-era.md); the era after that,
+[walt-focal-horizon-era](walt-focal-horizon-era.md) (2026-09-01 → 09-05:
+model belief, the σ1 repair, the God-gap censuses, the unified player, the
+focal-horizon hierarchy), is where this era's two threads — CE = sampling
+depth, L2 = model choice — meet the live player again.
+
+## Post-era notes (state as of 2026-09-07, `c00717d1`)
+
+What later commits did to this era's record, so the page stays true
+without being rewritten; each note points at its owner.
+
+| Later event | Date / commit | Effect on this page |
+|---|---|---|
+| The σ1-repair | 2026-09-02, #83 / `161b0195` — the "MB0 + σ1-repair" row of [walt-counted-belief-era](walt-counted-belief-era.md) | The Level1 sampler's empty acceptance region was found and repaired and the five sampler copies (`walt_bridge`, `playout`, `playtable`, `webtable`, `divergence`) made one; the commit also touched `act.rs`, `field.rs`, `policy.rs`, `shadow.rs`, `controller_bridge.rs`. The live sampler pictured on this page is therefore the **pre-repair** one; every committed record here keeps its own epoch. The §3.4 PiKey re-check is above (copy survives, still filed); the `all1` finding is not re-checked (open) |
+| Gran G1 reconstructed and played | 2026-09-04, `32aa14f1` / `8174fa83` — [walt-gran-anchors](walt-gran-anchors.md) | Supersedes "no results" (above); G2/G3 partial; card open on seed provenance and the intake-companion pointer; `v5_literal_count_timing_position_reconstructs` still `#[ignore]`d |
+| walt2-wasm source touched | 2026-09-02 (#83) and 2026-09-06 (`dbcc698f`) | `src/api.rs` changed; `pkg/walt2.wasm` last rebuilt at #58 — binary predates both, not re-verified here |
+| The record's own corrections | 2026-09-12 (this pass) | Step 9's "13/18" → 12 / 1 / 5 from the records; the bundle lever's "5–6×" → 3.3–4.9× from the record's counters; the 128-epoch "~108/116" forecast retracted per the shadow README. None of these changes a tier |

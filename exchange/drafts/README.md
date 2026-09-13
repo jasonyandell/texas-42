@@ -35,15 +35,27 @@ companions). The briefs seek independent adversarial review of exploratory
 claims; nothing about drafting or dispatching them promotes any claim to a
 higher evidentiary tier.
 
-## Index
+## Where the drafts went (provenance note, 2026-09-12)
 
-| draft | attacks | primary sources |
-|---|---|---|
-| [`panel-ce-evidence-process.md`](panel-ce-evidence-process.md) | CE-T1/T2/T3: the finite-sum and closed-form evidence identities and the anytime-valid supermartingale claims | CE parent §3–§4, intake §1, CE-A1 |
-| [`panel-ce-bounded-mean.md`](panel-ce-bounded-mean.md) | CE-T4/T5: bounded-mean betting processes, λ-range validity, mixture construction; the §10.1 sign-majority defect | CE parent §10, intake §1, CE-A5/V7 |
-| [`panel-ce-risk-ledger-escalation.md`](panel-ce-risk-ledger-escalation.md) | O21 + O24: all-pairs and telescoping risk allocation, safe elimination, and the sample-to-enumeration switch bookkeeping | CE parent §5–§6, §11; O21/O24 rows in `walt/SCENARIO-PLAYER.md`; CE-A8 items (2)(4) |
-| [`panel-ce-execution-order.md`](panel-ce-execution-order.md) | O26: execution-order invariance of evidence, plus the CE-A8 item (1) predictable-sequence / conditional-null question stated precisely | CE parent §17, intake §5 item 1, CE-A8 item (1), O26 row |
-| [`panel-l2-coupling-theorems.md`](panel-l2-coupling-theorems.md) (optional fifth) | L2-T1..T5: coupling and field-stability theorems — the sup/optimization-lock step of L2-T2 and the L2-T4 bar argument | `walt/math/targeted_level2_field_stability_v0.1.md` §3–§5, §13; L2-A1 |
+This directory holds only this README. Everything ever drafted here has been
+moved to `../outbox/` under an authorized batch; the former index is retained
+as provenance so the outbox numbers can be traced back:
+
+| former draft here | now | attacked | adjudication |
+|---|---|---|---|
+| `panel-ce-evidence-process.md` | [`../outbox/019-panel-ce-evidence-process.md`](../outbox/019-panel-ce-evidence-process.md) | CE-T1/T2/T3: the finite-sum and closed-form evidence identities and the anytime-valid supermartingale claims (CE parent §3–§4, intake §1, CE-A1) | PANEL-A1..A8, 2026-08-24 |
+| `panel-ce-bounded-mean.md` | [`../outbox/020-panel-ce-bounded-mean.md`](../outbox/020-panel-ce-bounded-mean.md) | CE-T4/T5: bounded-mean betting processes, λ-range validity, mixture construction; the §10.1 sign-majority defect (CE parent §10, intake §1, CE-A5/V7) | PANEL-A1..A8, 2026-08-24 |
+| `panel-ce-risk-ledger-escalation.md` | [`../outbox/021-panel-ce-risk-ledger-escalation.md`](../outbox/021-panel-ce-risk-ledger-escalation.md) | O21 + O24: all-pairs and telescoping risk allocation, safe elimination, and the sample-to-enumeration switch bookkeeping (CE parent §5–§6, §11; O21/O24 rows in `walt/SCENARIO-PLAYER.md`; CE-A8 items (2)(4)) | PANEL-A1..A8, 2026-08-24 |
+| `panel-ce-execution-order.md` | [`../outbox/022-panel-ce-execution-order.md`](../outbox/022-panel-ce-execution-order.md) | O26: execution-order invariance of evidence, plus the CE-A8 item (1) predictable-sequence / conditional-null question (CE parent §17, intake §5 item 1, CE-A8 item (1), O26 row) | PANEL-A1..A8, 2026-08-24 |
+| `panel-l2-coupling-theorems.md` (the optional fifth) | [`../outbox/023-panel-l2-coupling-theorems.md`](../outbox/023-panel-l2-coupling-theorems.md) | L2-T1..T5: coupling and field-stability theorems — the sup/optimization-lock step of L2-T2 and the L2-T4 bar argument (`walt/math/targeted_level2_field_stability_v0.1.md` §3–§5, §13; L2-A1) | PANEL-A1..A8, 2026-08-24 |
+| `deferred-producers-triple.md` (drafted here the same evening, PR #40) | [`../outbox/024-deferred-producers-triple.md`](../outbox/024-deferred-producers-triple.md) | the three slice-3 deferrals: δ-valid admissible-upper E3 on a supremum; dominance valid-bound route; §10 motif tags as decidable predicates | TRIPLE-A1..A7, 2026-08-25 |
+
+The 019–023 briefs were answered by one consolidated response,
+`../inbox/019-023-response-panel-and-cancellation-v0.1.md` (SHA-256 pinned);
+024's response is `../inbox/024-response-deferred-producers-triple-v0.1.md`.
+Rulings live in `walt/CENSUS-RULINGS.md`; the ledger rows are in
+[`../README.md`](../README.md); the book's account is
+[`wiki/exchange.md`](../../wiki/exchange.md).
 
 ## Dispatch mechanics when (and only when) authorized
 
