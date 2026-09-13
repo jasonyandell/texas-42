@@ -57,6 +57,18 @@ instrument." This page is the catalog — read it before building anything under
 
 ## The workspace (unified 2026-08-24)
 
+**Bounded partnership continuation check, 2026-09-13:** the optional
+[`l1-partner-rollout`](../experiments/partnership/PARTNER-ROLLOUT.md) composes a
+completed default L1 move, a public count-offer Scheme gate, and paired full
+continuations using the shared native L1 evaluator. It can reconsider offering
+or withholding count, uses at most 64 compatible worlds and 500 ms extra, and
+retains the baseline on inadequate evidence or failure. The
+[experiment](../experiments/partnership/campaigns/sunshine-rollout-v1/RESULTS.md)
+found 11 improved / two harmed development roots, one improved / one harmed
+fresh root, and 64 ordinary mirrored ties. The complete fresh counterexample
+exposes a misleading deadline-truncated sample. This adds a usable player
+option and an adapter audit, not a general partnership-strength claim.
+
 **Added 2026-09-06:** [`walt::scheme`](../walt/scheme/README.md), an expressive
 relational query layer importing rules/kernel, plus the `scheme` command-line
 tool. It implements typed roles, equality cases, existential projection, Fix

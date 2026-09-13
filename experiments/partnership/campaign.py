@@ -43,6 +43,7 @@ SOURCE_FILES = [
     "matchup.py",
     "pool.py",
     "partner_review.py",
+    "partner_rollout.py",
     "reference/phone/walt.ts",
     "reference/phone/walt.wasm",
 ]
@@ -215,6 +216,8 @@ def identities():
         "native": hashlib.sha256(BINARY.read_bytes()).hexdigest(),
         "partner_review_native": hashlib.sha256((BINARY.parent / "partner_review").read_bytes()).hexdigest()
         if (BINARY.parent / "partner_review").exists() else None,
+        "partner_rollout_native": hashlib.sha256((BINARY.parent / "partner_rollout").read_bytes()).hexdigest()
+        if (BINARY.parent / "partner_rollout").exists() else None,
     }
 
 

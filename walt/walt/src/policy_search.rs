@@ -22,6 +22,7 @@ pub mod prices;
 pub mod learning_io;
 pub mod learning_eval;
 pub mod partner_review;
+pub mod partner_rollout;
 
 /// Stable content identity for serialized executable experiment policies.
 pub fn program_digest(source: &str) -> String {

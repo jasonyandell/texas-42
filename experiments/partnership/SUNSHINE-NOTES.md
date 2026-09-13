@@ -23,6 +23,17 @@ named deployed players and reuse measured values when the query or filters
 change. [Validation and model comparisons](campaigns/sunshine-recipes-v1/RESULTS.md)
 make the continuation assumption a selectable experimental condition.
 
+The next player step is now implemented and measured: the optional
+[bounded partnership rollout](PARTNER-ROLLOUT.md) compares all legal moves
+through completed L1 continuations. It improved 11 and harmed two development
+decisions; on fresh sources it improved one and harmed one, with a larger
+model-relative gain than loss. Mean investigation took about 0.11–0.12 seconds.
+All 64 fresh mirrored make/set pairs tied. The
+[results and counterexample](campaigns/sunshine-rollout-v1/RESULTS.md) preserve
+the small-sample limit: a deadline-truncated comparison can favor the wrong
+side of a close decision. This is an available experimental skill, not a new
+default or a settled strength gain.
+
 ## The priority
 
 A reasonable, fairly quick, partner-aware Texas 42 player on the Mac. It must
@@ -59,8 +70,8 @@ a useful contribution without knowing exactly what partner can contribute.
   had an uncertain positive signal in one endgame panel; another panel selected
   the empty baseline. The tested prices tightened no bounds.
 
-The partnership gap is still open. The sunshine discussion proposed how to use
-these instruments to investigate it; the layered player below is not yet built.
+The partnership gap is still open. The first bounded partnership layer is now
+built; the broader architecture below remains a research direction.
 
 ## Ideas worth retaining
 

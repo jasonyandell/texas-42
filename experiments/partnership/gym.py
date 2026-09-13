@@ -714,6 +714,9 @@ def run(args):
     if any(p.review != "off" for p in players.values()):
         manifest.update(review=file_hash(HERE / "partner_review.py"),
                         review_native=file_hash(BINARY.parent / "partner_review"))
+    if any(p.review == 'partner-rollout' for p in players.values()):
+        manifest.update(rollout_review=file_hash(HERE/'partner_rollout.py'),
+                        rollout_review_native=file_hash(BINARY.parent/'partner_rollout'))
 
     def job(item):
         case = cases[item["scenario"]]

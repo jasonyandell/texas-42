@@ -141,8 +141,11 @@ def decide(
 ):
     start = time.monotonic()
     send = session.call if session is not None else child
-    if review not in ("off", "partner-count") or (review != "off" and mode != "baseline"):
-        raise ValueError("partner-count review requires the baseline profile")
+    if review not in ("off", "partner-count", "partner-rollout") or (review != "off" and mode != "baseline"):
+        raise ValueError("partnership review requires the baseline profile")
+    if review == 'partner-rollout':
+        from partner_rollout import validate_configuration
+        validate_configuration(n,n0,inner_belief,selection)
     if selection not in ("fixed", "refine", "race-refine") or modeled_selection not in (
         "fixed",
         "refine",
@@ -260,11 +263,14 @@ def decide(
             choice = primary_choice
             route = mode
     review_result = None
-    if review == "partner-count" and route == "baseline":
-        from partner_review import investigate
+    if review != "off" and route == "baseline":
+        if review == 'partner-count':
+            from partner_review import investigate
+        else:
+            from partner_rollout import investigate
         t = time.monotonic()
         choice, review_result = investigate(req, state, choice, deadline - t - reserve, child)
-        phases.append({"name": "partner-count-review", "status": review_result["status"],
+        phases.append({"name": review + "-review", "status": review_result["status"],
                        "elapsed_us": round((time.monotonic() - t) * 1_000_000)})
         if review_result["status"] == "changed":
             route = "baseline-reviewed"
@@ -312,7 +318,7 @@ def main():
     p.add_argument("--n0", type=int, default=8)
     p.add_argument("--n1", type=int, default=2)
     p.add_argument("--budget-ms", type=int, default=14000)
-    p.add_argument("--review", choices=["off", "partner-count"], default="off")
+    p.add_argument("--review", choices=["off", "partner-count", "partner-rollout"], default="off")
     args = p.parse_args()
     for line in sys.stdin:
         if not line.strip():

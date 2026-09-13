@@ -847,3 +847,32 @@ deployed-consequence check, challenged on fresh source groups and measured for
 helpful and harmful interventions. See the
 [recipe guide](gym/SPECIFICATIONS.md) and
 [complete validation record](../experiments/partnership/campaigns/sunshine-recipes-v1/RESULTS.md).
+
+## 2026-09-13 — A bounded partnership check in the live L1 player
+
+Added optional `l1-partner-rollout`: completed default L1 plus a public
+count-offer Scheme gate and paired continuations using the shared native L1
+evaluator at every future seat. Both offering and withholding can be reviewed.
+All legal root actions share each sampled world; incomplete world comparisons
+do not count. Up to 64 worlds, 400-world support cap, 500 ms extra inside the
+existing 14-second ceiling. Exact own/public policy inputs and deadline/failure
+backstops are retained; sampled decisions remain fallible guesses.
+
+On 143 declaring development roots, L1 optimality changed 129 to 137:
+11 improved, two harmed. On 25 matched declaring roots from 64 fresh source
+deals, one improved and one was harmed: an 8 pp gain versus a 0.4762 pp loss in
+model-relative make probability. The harmed choice was favored by a
+52-world prefix but rejected by both the 64-world prefix and full census.
+All 64 mirrored ordinary pairs tied; one move changed without changing its
+realized make/set outcome. Mean investigation took about 112–123 ms. These
+measure one rare conditional skill and do not establish general strength.
+
+89 Python and 38 targeted native tests passed. Five independently replayed
+adapter examples matched 1,710 trajectories and 7,825 own/public decisions.
+SIGINT/resume preserved all 31 already committed pairs and completed 128 games.
+A final failure-reporting correction preserves infeasible-frame errors rather
+than labeling them deadlines; 20 relevant native tests and all five complete
+adapter audits passed again. Measured and release fingerprints are separate.
+See the [player guide](../experiments/partnership/PARTNER-ROLLOUT.md),
+[results, fresh recipe and counterexamples](../experiments/partnership/campaigns/sunshine-rollout-v1/RESULTS.md),
+and [sunshine notes](../experiments/partnership/SUNSHINE-NOTES.md).

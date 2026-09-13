@@ -10,6 +10,11 @@ use super::Fixture;
 /// Parse the seven-line partnership-gym wire format.  No hidden hand is an
 /// accepted field; the resulting root is reconstructed by `gym::from_request`.
 pub fn from_text(text: &str) -> Result<Fixture, String> {
+    from_text_with_seed(text).map(|(fixture, _)| fixture)
+}
+
+/// Preserve the public seed for consumers that reproduce deployed decisions.
+pub fn from_text_with_seed(text: &str) -> Result<(Fixture, u64), String> {
     if text.len() > 65_536 {
         return Err("request too large".into());
     }
@@ -44,7 +49,7 @@ pub fn from_text(text: &str) -> Result<Fixture, String> {
     }
     // Required and range-checked even though synthesis uses its CLI seed for
     // sample streams.  This preserves the exact seven-field request identity.
-    let _request_seed = scalar("seed")?;
+    let request_seed = scalar("seed")?;
     let seat = |value: u64| {
         Seat::from_index(usize::try_from(value).unwrap_or(usize::MAX))
             .ok_or_else(|| "seat outside 0..3".to_owned())
@@ -80,11 +85,14 @@ pub fn from_text(text: &str) -> Result<Fixture, String> {
         hand,
         &history,
     )?;
-    Ok(Fixture {
-        exercise,
-        original: hand,
-        history,
-    })
+    Ok((
+        Fixture {
+            exercise,
+            original: hand,
+            history,
+        },
+        request_seed,
+    ))
 }
 
 #[cfg(test)]

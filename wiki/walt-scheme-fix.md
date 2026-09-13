@@ -27,7 +27,20 @@ query/filter changes reuse applicable valuations. The
 regenerates helpful and harmful examples and retains model disagreements.
 Support coverage is explicit: a census is exact for the frozen continuation;
 a without-replacement sample is an estimate. This connects the experiment to
-the deployed continuation, but does not itself repair the live review policy.
+the deployed continuation; live player changes are measured separately below.
+
+**Bounded live continuation follow-up (2026-09-13):**
+[`l1-partner-rollout`](../experiments/partnership/PARTNER-ROLLOUT.md) now uses
+that own/public Scheme question to investigate both offering and withholding
+count through the shared native L1 evaluator. It compares complete paired
+worlds within 500 ms extra. The
+[frozen experiment](../experiments/partnership/campaigns/sunshine-rollout-v1/RESULTS.md)
+found 11 improvements and two harms on 143 development roots, then one
+improvement and one smaller harm on 25 fresh roots. All 64 mirrored ordinary
+pairs tied. A full census explains the fresh mistake: the deadline-truncated
+prefix briefly favored the wrong move. Mean investigation took 0.11–0.12 s.
+The candidate remains optional, with the successful example and counterexample
+both retained for the next decision-budget study.
 
 The [sunshine discussion notes](../experiments/partnership/SUNSHINE-NOTES.md)
 preserve the subsequent research direction: a fast partner-aware player using

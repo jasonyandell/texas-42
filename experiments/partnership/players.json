@@ -1,4 +1,9 @@
 {
+  "l1-partner-rollout": {
+    "name": "l1-partner-rollout",
+    "mode": "baseline",
+    "review": "partner-rollout"
+  },
   "l1-partner-count-review": {
     "name": "l1-partner-count-review",
     "review": "partner-count"

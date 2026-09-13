@@ -23,8 +23,11 @@ class Player:
             raise ValueError("player needs a name")
         if self.mode not in ("phone", "baseline", "partner", "all-l1"):
             raise ValueError("unknown modeled-seat profile")
-        if self.review not in ("off", "partner-count") or (self.review != "off" and self.mode != "baseline"):
-            raise ValueError("partner-count review requires the baseline profile")
+        if self.review not in ("off", "partner-count", "partner-rollout") or (self.review != "off" and self.mode != "baseline"):
+            raise ValueError("partnership review requires the baseline profile")
+        if self.review == 'partner-rollout':
+            from partner_rollout import validate_configuration
+            validate_configuration(self.n,self.n0,self.inner_belief,self.selection)
         if self.inner_belief not in ("voidless", "voids-counted"):
             raise ValueError("unknown inner belief")
         if self.selection not in RULES or self.modeled_selection not in RULES:
