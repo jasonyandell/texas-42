@@ -199,6 +199,10 @@ unification, the suit-permutation transports).
   hand. **Answered at the exchange tier, 2026-08-01 (x:009,
   [claim-ledger](claim-ledger.md)): value-invariance (C1) is PROVED for the
   declaration-free key, and backward commutation for that same key is REFUTED** —
+  [C1's verdict is **PARTIAL**: the proof chain survived all three referees, the panel
+  is 2/3 SOUND + 1 FLAWED on the response's corroboration artifacts, and the dissent
+  travels with it ([claim-ledger](claim-ledger.md)); the REFUTED half is adjudicated
+  CONFIRMED] —
   zeroes-trump/doubles-trump witness, predecessor trick `2:1, 2:2, 3:1, 3:0`,
   exhaustive zero-embedding exclusion, confirmed 3/3 with two referee routes
   disjoint from the responder's. The failure is embeddability-shaped in exactly
@@ -365,8 +369,9 @@ key in any player, no probe work since 2026-08-03. What the repository holds ins
   **not** a constellation quotient: its identities are rigid bindings over concrete
   worlds, it carries no canonicalization over color permutations, and it makes no
   lumpability or compression claim (its archived research on descriptors and
-  soundness is [walt-scheme-fix](walt-scheme-fix.md) §16). Jason's framing of the
-  commission: "invented to compress; commissioned here to express." Neither page
+  soundness is [walt-scheme-fix](walt-scheme-fix.md) §16). `walt/LOG.md`'s one-line
+  record of Jason's redirection (entry "SCHEME FOR EXPRESSION", 2026-09-06): "Invented
+  to compress; commissioned here to express." Neither page
   cites the other as evidence.
 
 An idea leaves this page only by promotion to a brief or a dispatch, per

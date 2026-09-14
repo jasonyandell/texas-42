@@ -281,8 +281,10 @@ certifies essentially all of it — 7,416 of 7,416 at lead 21, 19,924 of 19,930 
 sweep condition does not occur at these coordinates.
 
 **Cost: about 25 ns per call**, with the honesty note attached because it is the whole point of freeze 43 — that
-figure is **contended and therefore not quotable**, and the sequential timing rung, the only quotable cost
-instrument, is unrun. Against solve arms in the 10^4–10^5 ms range at the n = 4 rungs, detection is effectively free,
+figure is **contended and therefore not quotable**; the sequential timing rung, the only quotable cost
+instrument, was run on 2026-08-13 (`walt/probes/factory-results/deadness_rung_2026-08-13.txt`, W = 1, selection
+by rule: 17 ns/call over 384 calls at the grade-3 unit, 42 ns/call over 3,540,143 calls at the n = 4 unit;
+[walt-pre-pivot-results](walt-pre-pivot-results.md) §2.3 — corrected 2026-09-13, the sentence had said "unrun"). Against solve arms in the 10^4–10^5 ms range at the n = 4 rungs, detection is effectively free,
 and S5j's failure mode (detection cost eating the tablebase's dividend) did not recur.
 
 **The open mechanism stays open (J-A8).** The trumpless-junk grade-3 family at idx = 0 has 276–1,773 ties per lead and
@@ -926,7 +928,8 @@ Drift between `walt/LOG.md` and the results files is a bug; these are recorded r
   them at records `[10 20]` and `[11 21]` and reports only the 16,384 cap; the earlier 4,096 cap and the partial-sum
   coincidence are LOG-only provenance.
 - **S6c, detector cost.** The LOG quotes "~25 ns/call"; the results file, a RESUMED run, prints "0 ns over 0 calls".
-  The 25 ns figure comes from a prior invocation, and is contended and not quotable either way (DS-A32).
+  The 25 ns figure comes from a prior invocation, and is contended and not quotable either way (DS-A32); the
+  quotable cost is the sequential timing rung's 17 ns/call and 42 ns/call (`deadness_rung_2026-08-13.txt`).
 - **S6c, solve-arm scale.** "10^4–10^5 ms" describes the n = 4 rung arms (33,247–503,876 ms in the timing block); the
   grade-3 arms are 40–308 ms.
 - **S6c, run provenance.** "Survived a mid-run kill at 41/45" and "byte-diff across two invocations IDENTICAL" are

@@ -27,7 +27,8 @@ the kanban cards [[gpu-level2]], [[m2-receipt-reearn]], [[m2-runner-trace]].
 Related: [walt hub](walt.md), [freeze register](walt-math-freezes.md),
 [received artifacts](walt-math-intakes.md), [instruments](walt-instruments.md),
 [the kernel](lean.md), [counted-belief era](walt-counted-belief-era.md),
-[how walt plays](walt-seat-play.md), [rob](rob.md).
+[how walt plays](walt-seat-play.md), [rob](rob.md),
+[proof-assistant plan](proof-assistant-plan.md), [decision-sparse](walt-decision-sparse.md).
 
 > **Epistemic tier: EXPLORATORY — below every tier on
 > [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).** The
@@ -429,7 +430,9 @@ followed by `diff -r receipts/gpu_native_trick1_m0_m1_v1 <tmpdir>`. Invoking
 the prebuilt `walt/target/release/examples/generate_m0_m1_receipts` twice into
 fresh directories took **0.021 s and 0.018 s** wall; both directories were
 byte-identical to the committed comparands and to each other (`diff -r` clean;
-SHA-256 `7e8dfecf…`, `1127d386…`, `51a162ea…`). A replay is evidence that the
+SHA-256 `7e8dfecf…`, `1127d386…`, `51a162ea…`). Repeated 2026-09-13 with the
+same prebuilt example into two fresh directories: both `diff -r` clean against
+the committed comparands and against each other. A replay is evidence that the
 comparands regenerate; it changes no status.
 
 ### 4.2 Rung 2 — M2 METAL PROJECTOR PARITY COMPLETE under freeze 56 (2026-08-17, `a6df853c`)
@@ -451,7 +454,7 @@ two fresh complete runs that equal each other and the committed receipt.
 | Arithmetic corpus `U256MetalCorpusV1` | **16,384** cases = a 4,288-case prefix built from a 32-value edge list + 12,096 SplitMix64 cases; independent `BigUint` oracle; 13 malformed controls per domain, never accepted results | M2 §6; GT1-A12; receipt header word `accepted_arithmetic_case_count` |
 | Projector carrier `M2OpeningParityCarrierV1` | **614** tasks = 64 Reduced + 46 GradeMatching + 504 SameContextPair; 103 reduced bindings; 1,015 physical bindings; 73 direct-parity tasks; 541 direct stops; 1,118 binding instances; task-key stream 39,296 bytes | M2 §8; `walt-gpu-ref/src/m2.rs` constants; `Trick1MetalFoundation` (46 tasks) |
 | Arenas | projector 5,109,296 bytes; arithmetic 2,359,424 bytes (both allocated to exactly their high-water) | M2 §10.7; `Trick1MetalFoundation` |
-| Receipt `W42M2R01` | **420,738** bytes, 768-byte header, 10 sections with record counts 13/1/1/2/2/1/614/103/1,015/1; **mismatch 0, partial 0**; **76,639,960** accepted payload bytes (`Σ (50 + 26·cells)` over 614 tasks); build identity `257d2fdb…` at offset 64; freeze-56 descriptor hash `7bdc5e05…` at offset 96; ends with the 50 claim bytes | `walt/receipts/gpu_native_trick1_m2_v1/m2_metal_parity_v1.bin`, SHA-256 `0aa2f6ab…` — header re-parsed 2026-09-13, every word as the contract states |
+| Receipt `W42M2R01` | **420,738** bytes, 768-byte header, 10 sections with record counts 13/1/1/2/2/1/614/103/1,015/1; **mismatch 0, partial 0**; **76,639,960** accepted payload bytes (`Σ (50 + 26·cells)` over 614 tasks); build identity `257d2fdb…` at offset 64; freeze-56 descriptor hash `7bdc5e05…` at offset 96; ends with the 50 claim bytes | `walt/receipts/gpu_native_trick1_m2_v1/m2_metal_parity_v1.bin`, SHA-256 `0aa2f6ab…` — header re-parsed 2026-09-13 and again 2026-09-13 (magic `W42M2R01`, header 768, 10 sections, u32 fields 16,384 / 614 / 103 / 1,015 / 0 / 0, u64 76,639,960 at offset 56, `257d2fdb…` at 64, `7bdc5e05…` at 96, the 50-byte claim last), every word as the contract states |
 | Toolchain | Metal toolchain 32023.883 (Xcode 26.6 build 17F113, SDK 26.5), `-std=metal3.2 -fmetal-math-mode=safe -fno-fast-math -Wall -Wextra -Werror`; two fresh-directory compiles give different AIR (source paths embedded) but identical metallibs | M2 §2; `check_m2_metal.sh` two-build phase |
 | Checked-in library | `walt/walt-metal/shaders/walt_m2.metallib`, 14,348 bytes, SHA-256 `2bc886eb…` (the M3 contract pins this value; a *pre-freeze* smoke produced 6,877-byte libraries at `7ee31770…` — a recipe smoke, not the final digest, by the contract's own words) | hashed 2026-09-13 |
 | Runner protocol | child polls a committed command ≤ 120,000 ms; parent watchdog 125,000 ms, unextendable; CPU phases 600,000 ms liveness; timed-out child exits 124; any failure yields a distinct 256-byte `W42M2F01` receipt with zero accepted counts | M2 §9–10.8; GT1-A14; `walt-m2-runner/src/protocol.rs` (32 unit tests) |
@@ -531,8 +534,9 @@ never been issued.
 - The production, oracle and Metal crates (`walt-m3-net`, `walt-m3-oracle-a`,
   `walt-m3-metal`) were committed at `97ce321a` (2026-08-17 09:45) in a commit
   titled "WIP: M3 perfect-recall net scaffolding (mid-flight, does not build)"
-  — cargo refused the first two outright; the third compiled only in
-  isolation — and **deleted at `ad355e93` (2026-08-24 01:47)** as
+  — per `walt/UNIFICATION-CENSUS.md` §1 cargo refused the first two outright
+  and the third compiled only in isolation — and **deleted at `ad355e93`
+  (2026-08-24 01:47)** as
   closure-clean orphans in unification stage 1. They are addressable at
   `97ce321a`; no later commit rebuilt them.
 - `walt/walt-metal/shaders/02_m3_wavefront.metal` (27,918 bytes) and
@@ -552,7 +556,9 @@ never been issued.
   hashes, the freeze-57 descriptor (962 bytes, `e5efe6ce…`), the two-way
   support construction and the 128-byte root-alias KAT. It is imported by the
   fixed-carrier bins (`scenario`, `level1`, `level2`, `playout`, `ladder`,
-  `m3probe`; grep 2026-09-13), not by the live solver modules.
+  `m3probe`, and the report bins `modelbeliefreport`, `unifiedreport`; grep
+  2026-09-13), not by the live solver modules (`grep -l carrier
+  walt/walt/src/solver/*.rs` is empty).
 - The M0–M2 objects are unaffected: freeze 57's descriptor names freeze 56 as
   its parent, and the M3 contract §1 pins the 929,957-byte freeze-56 CENSUS
   prefix (`d573ac68…`), the M2 contract, receipt and metallib hashes — all
@@ -587,7 +593,10 @@ substrate to build on when the program is unparked.
 > at trick 4 of a real receipt hand. `C > H` holds at all four roots under
 > M3A, as GT1-A19 would require of the gate; a probe cannot discharge a gate
 > conjunct, and none of these fractions is quotable as a result. The ladder
-> (§1) reproduces the four M3B H values exactly as its t = 4 rung.
+> (§1) reproduces the four M3B H values exactly as its t = 4 rung. (The
+> prebuilt `walt/target/release/m3probe`, run 2026-09-13, printed all sixteen
+> fractions, both `H-optimal` markers and the `1200 * 12^12` root-mass line
+> exactly as the 2026-08-17 record has them.)
 
 ---
 
@@ -617,7 +626,7 @@ touching it:
   (`/bin/bash -p walt/ci/verify_m2_sources.sh`); `check.sh` keeps the per-run
   immutable checks — M0/M1 history at its producing commit
   (`verify_m2_history.sh`: 184 blobs at `3b4c6d60`, the 921,481-byte CENSUS
-  prefix, six artifact hashes), the guide checksum, the M0/M1 receipt replay,
+  prefix, the pinned artifact hashes), the guide checksum, the M0/M1 receipt replay,
   the Lean build and axiom audit (FZ-A5). Living append-only documents can
   thus be pinned by full digest in the closure without making every append a
   CI failure.
@@ -666,7 +675,12 @@ that is intact, not broken. (Both hashes re-verified 2026-09-13.)
 | Gate-0 receipt | 1,171 | `b57f7077…` | `walt/receipts/gpu_native_trick1_gate0_2026-08-16.txt` |
 | `verify_player.txt` (carrier input) | 6,650 | `cf2c9dd2…` | `rob/receipts/`; pinned by `walt::carrier` and M3 §1 |
 
-Every hash in this table was recomputed 2026-09-13 and matches its source.
+Every hash in this table was recomputed 2026-09-13 and matches its source;
+an independent recomputation on 2026-09-13 (`shasum -a 256` on every on-disk
+file, `git show 20a9fecc:walt/GPU-NATIVE-TRICK1-M2.md | shasum -a 256` for the
+frozen blob, the two descriptor lines of `walt/CENSUS-RULINGS.md` measured at
+899 and 962 bytes, and the manifest entry counts 184/381/282 by `grep -c` of
+64-hex lines) matched every row again.
 
 ---
 
@@ -738,8 +752,8 @@ nothing from it.
 
 **Living descendants.** `walt::spec` (the U256 integer, role/frame types,
 canonical tables, SHA-256 anchors; 12 tests in `walt/walt/tests/spec_m0.rs`) —
-"load-bearing for the GPU branch and the player spine" per the unification
-census; `walt::carrier` (the h8 carrier; 7 tests) — the fixed carrier every
+"LIVE — load-bearing for GPU branch AND player spine" per the unification
+census (`walt/UNIFICATION-CENSUS.md` crate table); `walt::carrier` (the h8 carrier; 7 tests) — the fixed carrier every
 2026-08-17 seat-play probe and the ladder stand on; the no-float CI gates
 (`-D float_arithmetic`, the MSL/Rust/TOML scanners) and the scrubbed-environment
 verifier pattern, now the whole crate's gate; the two gated Lean modules
@@ -760,9 +774,11 @@ and which no program has yet pushed past the opening response.
 | 08-17 04:32 | `a6df853c` | "Harden M2 timeout provenance" — the immutable commit at which **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56** was earned. |
 | 08-17 04:54 | `20a9fecc` | Freeze-56 closure recorded; committed receipt `0aa2f6ab…`; the M2 contract blob `aacb6df5…`. |
 | 08-17 08:36 | `e6cd9586` | M3 contract frozen: GT1-A18..A24, **freeze 57**, GT1 range re-frozen A1..A24 and closed. |
-| 08-17 09:45 | `97ce321a` | WIP M3 scaffolding committed "mid-flight, does not build" (`walt-m3-net`, `-oracle-a`, `-metal`, `-carrier`, `-probe`; `02_m3_wavefront.metal`; the `Trick1PerfectRecallNet` tree). The exploratory m3probe and ladder results filed under `walt/probes/m3/`. Same day: pmake ruled the objective; the seat player begins ([walt-program](walt-program.md)). |
+| 08-17 09:45 | `97ce321a` | WIP M3 scaffolding committed "mid-flight, does not build" (`walt-m3-net`, `-oracle-a`, `-metal`, `-carrier`; `02_m3_wavefront.metal` and `build_m3_metallib.sh`; the `Trick1PerfectRecallNet` tree; the body: "four walt-m3-* crates not yet wired into the workspace (cargo refuses them as-is) … Committed only so the work survives the worktree"). |
+| 08-17 10:39 | `1aa409c8`, then `171cd22c` | The exploratory `walt-m3-probe` crate and `results_2026-08-17.txt` ("first lawful play — exact H-treatment solve of the frozen M3 carrier"), then the ladder and `ladder_results_2026-08-17.txt`; both records moved to `walt/probes/m3/` at THE FOLD. Same day: pmake ruled the objective; the seat player begins ([walt-program](walt-program.md)). |
 | 08-24 01:47 | `ad355e93` | Unification stage 1: `walt-m3-net`, `walt-m3-oracle-a`, `walt-m3-metal` deleted as unbuildable orphans. |
 | 08-24 03:31 | `d1499d43`, `c92175ae` | THE FOLD (`gpu-spec` → `walt::spec`, `m3-carrier` → `walt::carrier`; GPU trio kept separate); **freeze-56 v2** re-issued append-only (FZ-A1..A6); full `check.sh` PASS. |
 | 08-24 | `e463665e` | Wiki stale-path sweep; the previous edit of this page. |
 | 09-07 | `c00717d1` | Survey snapshot: no GPU-track file changed since 2026-08-24; every frozen hash re-verified; M0/M1 replay byte-identical. |
 | 09-13 | — | This rewrite; hashes, receipt header and the M0/M1 replay re-verified on this machine. |
+| 09-16 | — | Independent fact-check of this page: every hash, byte count, manifest entry count, descriptor length, receipt header word, gate line citation, commit date, kanban card and probe fraction on the page re-verified against its source; the M0/M1 replay and `m3probe` re-run; the `97ce321a` row corrected (the probe crate and records were `1aa409c8`/`171cd22c`, not the WIP commit). |

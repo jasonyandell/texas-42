@@ -358,7 +358,8 @@ exists with named invariants and receipt rows, this page is the whole of it, at 
 tier [ideas](ideas.md) declares.
 
 *Status of that landing site, 2026-09-13:* no P-series brief was ever opened — rob's
-player track has been dormant since 2026-07-30 ([rob](rob.md)) — and the direction
+player track has had no work since first contact on 2026-07-30, and rob's last code
+commit is 2026-08-01 ([rob](rob.md) §10, [rob-slices](rob-slices.md)) — and the direction
 is best described as **absorbed** by walt's consolidation track (§11). The page's
 own open remainder is rung 2's unmeasured cross-solve reuse (§7).
 
@@ -375,7 +376,9 @@ plus exact counts; open them into worlds only where the value depends on which w
 it is" is what `walt/walt/src/solver/factor_belief.rs` does (Slice C, 2026-08-30,
 PR #62): the 399,072,960 trick-1 worlds are held as 116,280 acting-seat hands × exact-
 cover counts, and one seat's factor changes per observed play; the opening root's
-exact branch table takes 8.7 ms (record `walt/probes/factor_belief/c2_run1.txt`). The
+exact branch table takes 8.7 ms under the trivial field, contraction only (record
+`walt/probes/factor_belief/run1.txt`, Section C); under σ0 the same root's cold pass
+is 5.36 s, of which the once-per-hand classification is 99 % (`c2_run1.txt`). The
 finding this page predicted in §6 — that classifying, not counting, is the bill —
 came back as "classifying each hand through σ is ≈ 99 % of every bill". Owning page:
 [walt-counted-belief-era](walt-counted-belief-era.md) §1.

@@ -571,8 +571,11 @@ The §62 count-threat covers work where a resource is uncontested — h12-t6's
 verified gain 0 (against an arithmetic envelope of 7) certifies V* = 0 for one
 range walk; h4-t6's range walk beats the arithmetic envelope by exactly one point
 (gain 11 vs 12) and leaves the 5-5 ten-count hazard visible — and at rich roots
-(h8-t5, h5-t6, h3-t4) every resource is contested, gain equals the envelope, and
-the covers prove nothing. The §70 caveat is live: richer structural producers
+(h8-t5, h5-t6, h3-t4) every resource is contested and the covers prove nothing:
+at h5-t6 and h3-t4 the verified gain equals the envelope (17 = 17; 39 = 39), and
+at h8-t5 it falls short of it (gains 26 / 32 / 27 against an envelope of 33 —
+`walt/FACTOR-BELIEF.md`'s "gain equals the envelope" for h8-t5 is the ledger's
+misstatement; the record wins). The §70 caveat is live: richer structural producers
 (protection conditions, per-cell partitions) are the declared answer, not a
 patched heuristic. Record: `bellmanreport_run1.txt`; gates `solver_covers.rs`
 (`zero_gain_collapses_and_rare_hazards_stay_visible`).

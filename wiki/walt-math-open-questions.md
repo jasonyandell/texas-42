@@ -861,7 +861,8 @@ epoch only (8× keys, 6× wall at n_outer 200 / n0 4; readout item 5).
 ### 18. σ0's sufficient statistic — the read-key study
 
 **Status: open, not started; the next slice named in `walt/MAP.md` after the
-focal-horizon PR and before consolidation; no card.** Pro's question 2, quoted
+focal-horizon PR and before consolidation; carded 2026-09-13 as
+[[sigma0-read-key-study]] (`kanban/backlog/sigma0-read-key-study.md`).** Pro's question 2, quoted
 from `walt/briefs/FH-RESPONSE-TO-PRO.md` (draft for hand-ferry, 2026-09-04;
 sent/unsent status unrecorded):
 

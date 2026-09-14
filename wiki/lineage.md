@@ -11,7 +11,10 @@ Jason has built 42 players since long before this repo (the dream dates to age
 
 - **The champion**: E[Q] n=10 — expected Q over ten sampled worlds consistent
   with public history, evaluated per move, average-then-max. Undefeated at pure
-  play against every learned challenger (zeb, burl, gus, jud's play half).
+  play against every learned challenger (zeb, burl, gus, jud's play half), and
+  against rob's exact seat under the dropped-30 protocol on 2026-07-30 (1,152
+  games, 6.5σ — `walt/probes/m3/arena_results_2026-08-17.txt` line 113; the
+  encounter is [rob](rob.md) §10).
 - **The wall** (the project's central question): *something that can reason
   with E[Q], do better, and have a plan that actually succeeds.* Learned
   approaches hit it repeatedly; the diagnosis matured into: the champion's

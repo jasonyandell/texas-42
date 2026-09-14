@@ -4,7 +4,7 @@
 
 > **Epistemic tier: EXPLORATORY — the whole page.** Everything under `experiments/partnership/` sits below every tier on [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred): below corpus statuses, the Lean kernel, exchange-adjudicated CONFIRMED results, and rob's byte-diffed conformance receipts. The program's receipts are its own — independent Python rules replays, SHA-256-pinned artifact identities, resume proofs, and machine-readable `RESULTS.json`/`MATCH.json`/`measurements.json` files. They are evidence about *executed play under a modeled field*, never statements about exact values, never a status change, never quotable upward. Full Rust CI (`walt/ci/check.sh`) was **deliberately waived** for the whole program under the launch brief; every "gate" below is a focused check with the scope stated. A walt number on this page is quotable only through the results file or test named beside it; a number with no such anchor is labeled a probe record.
 
-**Repository state as of 2026-09-07 (c00717d1).** The program is 31 commits, `d8400713` (2026-09-06 11:43 −0500) through `c00717d1` (2026-09-07 09:45 −0500), on branch `codex/partnership-launch` from `walt-gran` base `9d6a5a2`; the work through `b0c7c0aa` was fast-forwarded into local `main`. No live default changed (the standing ruling CE-A7/§20.16, restated CBS-A9, APS-A9, MB-A7, FH-A10 — [walt-calculated-evidence](walt-calculated-evidence.md)).
+**Repository state as of 2026-09-07 (c00717d1).** The program is 31 commits, `d8400713` (2026-09-06 11:43 −0500) through `c00717d1` (2026-09-07 09:45 −0500), on branch `codex/partnership-launch` from `walt-gran` base `9d6a5a2`. `SESSION-STATUS.md` (written at `b0c7c0aa`) records the work through `b0c7c0aa` as merged directly into local `main`; at the book's snapshot `main` contains all 31 commits through `c00717d1` (branch containment verified read-only 2026-09-13). No live default changed (the standing ruling CE-A7/§20.16, restated CBS-A9, APS-A9, MB-A7, FH-A10 — [walt-calculated-evidence](walt-calculated-evidence.md)).
 
 ---
 
@@ -383,7 +383,7 @@ Why a fallback is part of the executed player: a deadline fallback is a lawful, 
 | Per-move latency by preset | §4.5 table (0.137 / 0.313 / 0.502 / 0.535 / 0.778 s) and §4.6 table (0.228 / 1.127 / 1.318 s) | match reports |
 | Opening cost structure | dominated by modeled-policy calls and recursive nodes, not the outer sampler — no GPU or exact-integration port was needed to meet the trick target | `REPORT.md` |
 
-Roughly 1.4 h of pool wall across the four big batteries. Persistent workers (`runtime.py`) reuse process startup, never evaluation state; every request builds fresh native evaluator state and supplies explicit phone randomness. The `pool-queue.json` (workers 10, seconds 260, retries 2) shares one Mac budget across campaigns; ≤ 2 retries then a STOP marker; interruptions do not count as failures.
+Roughly 1.1 h of pool wall across the four big batteries (23.80 + 9.58 + 13.74 + 18.31 = 65.4 min). Persistent workers (`runtime.py`) reuse process startup, never evaluation state; every request builds fresh native evaluator state and supplies explicit phone randomness. The `pool-queue.json` (workers 10, seconds 260, retries 2) shares one Mac budget across campaigns; ≤ 2 retries then a STOP marker; interruptions do not count as failures.
 
 **The lesson**, stated in `FOUNDATION.md` and `RESULTS.md` and worth its own line: **under a clock cap, a stronger modeled procedure can weaken the executed player** — the refined partner minds were unplayable inside the 14 s wrapper (§4.5), and fixed L2 Partner bought nothing measurable at five times L1's cost (§4.6).
 
@@ -606,7 +606,7 @@ Roots: `g1-t1-s0` (S0 leads; recorded 27 = 6-6), `g1-t1-s1` (after 6-6; recorded
 | 19:45–20:11 | `10950845`, `1c99cf6a`, `0b65e5b1` | default protocol frozen; player families named; default battery 14/14/72, 12/17/71 |
 | 20:53, 21:31 | `5cbede4e`, `0be750a9` | `STRENGTH-ASSESSMENT.md`; `SCHEME-GYM-ASSESSMENT.md` |
 | 22:04, 22:49 | `b764665f`, `c59f1115` | Scheme/Fix executable; first exact gym (6 exercises) |
-| 2026-09-07 00:09 | `b0c7c0aa` | Scheme-driven discovery: 170 coordinates (fast-forwarded into local `main` through here) |
+| 2026-09-07 00:09 | `b0c7c0aa` | Scheme-driven discovery: 170 coordinates (`SESSION-STATUS.md`'s merged-into-`main` note is dated here; `main` now holds the whole series) |
 | 00:44–01:14 | `67f1e4ab`, `75b6a3f1`, `1df741db` | 433 bid-making exercises; specifications; composed exam 24/30 vs 26/30 |
 | 03:29 | `08fad726` | Scheme dynamics + persistent policy synthesis |
 | 08:57 | `14e01322` | Astra relational-learning packet preserved |

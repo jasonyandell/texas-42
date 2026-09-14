@@ -19,9 +19,9 @@
 
 Siblings: [walt hub](walt.md) · [the partnership gym](walt-gym.md) · [the partnership program](walt-partnership-program.md) · [instruments](walt-instruments.md) · [architecture](walt-architecture.md) · [seat play](walt-seat-play.md) · [negative results](walt-negative-results.md) · [factory era](walt-factory-era.md) · [census era](walt-census-era.md) · [math reference](walt-math-reference.md) · [vocabulary](vocabulary.md).
 
-**Repository state as of 2026-09-07 (`c00717d1`).** The language landed in three commits on branch `codex/partnership-launch`: `b764665f` (2026-09-06, the expression runtime), `08fad726` (2026-09-07, dynamics, policies, sampled-table synthesis) and `c00717d1` (2026-09-07, the shared relational learner and the information-price examiner). Live measurements on this page are dated 2026-09-12 and were made with the release binaries built 2026-09-07 11:54 under `walt/target/release/`.
+**Repository state as of 2026-09-07 (`c00717d1`).** The language landed in three commits on branch `codex/partnership-launch`: `b764665f` (2026-09-06, the expression runtime), `08fad726` (2026-09-07, dynamics, policies, sampled-table synthesis) and `c00717d1` (2026-09-07, the shared relational learner and the information-price examiner). Live measurements on this page are dated 2026-09-12 and were made with the release binaries built 2026-09-07 11:54 under `walt/target/release/`; an independent re-run on 2026-09-13 with the same binaries reproduced every quoted §2, §5, §6, §7 and §13.1 output line (6 worlds, 1/3, 2 positive worlds, the counterexample world, `{2-2: 1/3}`, 28 registry lines with 4 World-access, the cap refusal at 17,153,136 worlds, the `offer-count-to-partner` refusal, and `seed 910003, attempts 4, worlds 210`).
 
-**How to read this page.** A newcomer to 42 needs §1–§2 (what the language says and one worked example). A mathematician needs §3–§8 (the semantics, the belief operations, the dynamics) and §11 (the one clean theorem in the slice, which is a negative result). An engineer who wants to run it needs §13 and the invocations in §9–§10. The archived descriptor research — the reason the language exists at all — is §16, kept intact because its counterexample discipline is what the new layer inherited.
+**How to read this page.** A newcomer to 42 needs §1–§2 (what the language says and one worked example). A mathematician needs §3–§8 (the semantics, the belief operations, the dynamics) and §11 (the one clean mathematical statement in the slice, which is a negative result). An engineer who wants to run it needs §13 and the invocations in §9–§10. The archived descriptor research — the reason the language exists at all — is §16, kept intact because its counterexample discipline is what the new layer inherited.
 
 ---
 
@@ -338,11 +338,11 @@ Scheme was the *matching authority* at each rung of the gym ladder; the exact ma
 | Outcome-only bid-making (`67f1e4ab`) | the four-line `all-legal.scheme` — `(fix (roles (domino action)) (out action) (case (own-legal action)))` — with selection by strict make-probability difference | **433** declaring coordinates from 837 graded (367 unique best play, 26 certain make vs certain set); sweep 50.616 s, re-audit 16.414 s | `walt/gym/BID-MAKING.md`; `walt/gym/collections/bid-making-v1/` |
 | Composed exam (`1df741db`) | the count-offer Fix under query-required selection: the best matching action must strictly beat the best non-matching action | **30** positions from 21 deal seeds; L1 24/30 (mean regret 1643/205200 = 0.8007 pp), L2 Partner 26/30 (959/205200 = 0.4673 pp); mean regret reduction 1/300 | `walt/gym/PARTNERSHIP-COMPOSITION.md`; `walt/gym/benchmarks/partnership-bid-making-v1/` |
 
-"L2 Partner" is a best response to a *named* field (partner modeled at L1, opponents at L0 — [walt-seat-play](walt-seat-play.md)), never an equilibrium. Hidden-holding queries such as `lead-to-partner-boss` report exact full-belief presence without narrowing the grading belief. Composition and grading happen at the gym-specification layer; the language gained no solver dependency and no value predicate.
+"L2 Partner" is a best response to a *named* field (partner modeled at L1, opponents at L0 — [walt-seat-play](walt-seat-play.md)), never an equilibrium. Hidden-holding queries such as `lead-to-partner-boss` report exact full-belief presence without narrowing the grading belief. Composition and grading happen at the gym-specification layer (`walt/gym/SPECIFICATIONS.md`: a specification packages an embedded Scheme query with its source, coordinate, evaluator and selection arguments as a repeatable exercise family, with position-set and answer-key fingerprints that validate a reproduction after solving without becoming inputs to discovery or play); the language gained no solver dependency and no value predicate.
 
 ### 10.2 Persistent policy synthesis (`08fad726`, 2026-09-07)
 
-Question (`experiments/partnership/POLICY-SYNTHESIS.md`): can a constructor retain or compose work as its world sample grows while matching the policy obtained by solving the accumulated sample afresh? Three arms on identical nested sample streams under a frozen field: `fresh` (empty cache), `persistent` (retains completed exact subproblems; must equal fresh), `compose` (union of every successful singleton-donor action at each information state, then a restricted joint search — `walt/scheme/COMPOSITION.md` proves a *complete* donor pool preserves the training optimum and that a partial pool does not). Record: `campaigns/policy-synthesis-v1/RESULTS.md` + `measurements.json` (schema `policy-synthesis-evidence-v1`).
+Question (`experiments/partnership/POLICY-SYNTHESIS.md`): can a constructor retain or compose work as its world sample grows while matching the policy obtained by solving the accumulated sample afresh? Three arms on identical nested sample streams under a frozen field: `fresh` (empty cache), `persistent` (retains completed exact subproblems; must equal fresh), `compose` (union of every successful singleton-donor action at each information state, then a restricted joint search — `walt/scheme/COMPOSITION.md` states, as a walt-internal argument pinned by the donor-completeness gate in `policy_search.rs`, that a *complete* donor pool preserves the training optimum and that the guarantee does not extend to a partial pool). Record: `campaigns/policy-synthesis-v1/RESULTS.md` + `measurements.json` (schema `policy-synthesis-evidence-v1`).
 
 | Panel | Roots | Schedule | Test worlds/root | Campaign wall |
 |---|---:|---|---:|---:|
@@ -401,7 +401,7 @@ This is the slice's cleanest negative result, and it is presented as such. Sourc
 
 **The idea.** A shared relational actor is trained on per-action costs `max_b U(I,b) − L(I,a)` where `U` is an upper on the best lawful continuation and `L` a lower from an actually executed lawful policy. A hidden-information *price* — a charge that is centered so its expectation is zero under every lawful (information-consistent) policy but not under a clairvoyant one — can tighten `U`: relax the future viewer decisions to per-world clairvoyance, charge the price, and weak duality gives an upper on the lawful value.
 
-**The four events**, fixed by the basis version (`event_scheme_source` returns the actual Fix for each; the inner loop uses a native specialization proved extensionally equal on concrete worlds by test `native_event_basis_is_extensionally_equal_to_its_scheme_fixes`):
+**The four events**, fixed by the basis version (`event_scheme_source` returns the actual Fix for each; the inner loop uses a native specialization checked extensionally equal on concrete worlds by test `native_event_basis_is_extensionally_equal_to_its_scheme_fixes`):
 
 1. the viewer's partner holds a five-count tile;
 2. the partner holds a ten-count tile;
@@ -418,7 +418,7 @@ These use `holds` — World access — and so live only in the **examiner**; no 
 
 **What happened.** One coefficient vector `[0, 1, −1, 1]` was frozen before data selection (`learning_eval.rs` line 227; `relational_campaign.py`). Across the 128 discovery roots it tightened **zero of 64,806 action bounds**. There was little room: mean unpriced upper-minus-Q width, averaged over root actions then roots, was 0.186 pp (gym field) and 0.378 pp (L0-8), and pricing left both unchanged. The priced passes charged 2,856,972 and 1,932,754 units against 692,994 and 469,593 unpriced — about **4.1× the bound-pass work**, excluding the shared tree build; both routes had the same total allowance. No teacher acceleration was demonstrated. (`RESULTS.md` "What prices told us"; per-root rows in `measurements.json` `panels/*/price_diagnostics`.)
 
-**The invariance theorem.** With fixed continuation lowers, changing the upper changes the cost `max_b U(I,b) − L(I,a)` by a constant common to every action at that state; clipping to [0,1] does not alter this. Hence a tighter upper *alone* cannot rerank programs under this cost-sensitive constructor — whatever the price does to the bound, it cannot change which program is selected. Pinned natively by `changing_only_a_state_common_upper_cannot_rerank_programs` (`relational_learning.rs` line 53). The remaining legitimate uses the sources name — narrowing an action's interval, guiding adaptive teacher work, pruning a search — are stated and untested.
+**The invariance statement** (a walt-internal, test-pinned finite-domain result at exploratory tier — not a kernel proof). With fixed continuation lowers, changing the upper changes the cost `max_b U(I,b) − L(I,a)` by a constant common to every action at that state; clipping to [0,1] does not alter this. Hence a tighter upper *alone* cannot rerank programs under this cost-sensitive constructor — whatever the price does to the bound, it cannot change which program is selected. Pinned natively by `changing_only_a_state_common_upper_cannot_rerank_programs` (`relational_learning.rs` line 53). The remaining legitimate uses the sources name — narrowing an action's interval, guiding adaptive teacher work, pruning a search — are stated and untested.
 
 ---
 
@@ -513,7 +513,9 @@ The one permitted walt term of art is **certified regret** Γ = U* − B_exec ([
 > never quoted without its grade and operator pair, a failure names its witnessing world, an
 > undefined atom is never defaulted — and none of its compression claims.** No lumpability
 > result is claimed for the new layer. The text below is kept essentially verbatim from the
-> page as it stood at `c00717d1`, with two edits marked *[2026-09-12]*.
+> page as it stood at `c00717d1`: tenses were moved to the past and the crate/test paths
+> marked "archived", and three insertions are marked *[2026-09-12]* (§16.1, §16.4, §16.5 rule 4).
+> No number, quotation or verdict was changed (diffed against `git show c00717d1:wiki/walt-scheme-fix.md` §§1–6 on 2026-09-13).
 
 ### 16.1 What is a descriptor?
 

@@ -1,4 +1,4 @@
-[Home](Home.md) · owns: the 6-4 problem — the Gran anchors G1/G2/G3 and the synthetic lock, the waking seat's first real hand, exact indifference and the live seat's tie-break, obligation O5 and both void-aware inner-belief implementations, and the branch status of the whole program · Sources: walt/briefs/MORNING-2026-09-05.md (9d6a5a2e); walt/probes/gran/{README.md,g1.receipt.txt,g2g3.receipt.txt,summary-replay.txt,summary-driven.txt} (32aa14f1, 8174fa83); walt/probes/waking/{README.md,summary.txt} (PR #54 93d99563); kanban/backlog/gran-anchor-reconstruction.md; kanban/done/waking-seat-census.md; walt/SCENARIO-PLAYER.md Def 3.2 / Def 4.3 / O5; walt/walt/src/solver/{act,policy,mod,waking,wakeup,inner_belief,selection}.rs; walt/walt/src/rules/domino.rs; experiments/partnership/{INNER-BELIEF.md,REPORT.md,SESSION-STATUS.md,fixtures.json}; experiments/partnership/campaigns/{foundation-battery,default-partner-battery}/RESULTS.md (dbcc698f, e310e6ff, 0b65e5b1); branch walt-g1-l2 (walt/probes/gran/level2_g1.txt, level2_g2.txt, level2_lock.txt, synthetic_lock.receipt.txt; tip 6abdd78f); branch walt-o5 (walt/probes/o5/README.md, walt/kanban/backlog/inner-voids.md, walt/walt/tests/solver_inner_voids.rs; tip 2981e090)
+[Home](Home.md) · owns: the 6-4 problem — the Gran anchors G1/G2/G3 and the synthetic lock, the waking seat's first real hand, exact indifference and the live seat's tie-break, obligation O5 and both void-aware inner-belief implementations, and the branch status of the whole program · Sources: walt/briefs/MORNING-2026-09-05.md (9d6a5a2e); walt/probes/gran/{README.md,g1.receipt.txt,g2g3.receipt.txt,summary-replay.txt,summary-driven.txt} (32aa14f1, 8174fa83); walt/probes/waking/{README.md,summary.txt} (PR #54 93d99563); kanban/doing/gran-anchor-reconstruction.md (in backlog/ at c00717d1, moved to doing/ on 2026-09-13); kanban/backlog/inner-voids-default.md (opened 2026-09-13); kanban/done/waking-seat-census.md; walt/SCENARIO-PLAYER.md Def 3.2 / Def 4.3 / O5; walt/walt/src/solver/{act,policy,mod,waking,wakeup,inner_belief,selection}.rs; walt/walt/src/rules/domino.rs; experiments/partnership/{INNER-BELIEF.md,REPORT.md,SESSION-STATUS.md,fixtures.json}; experiments/partnership/campaigns/{foundation-battery,default-partner-battery}/RESULTS.md (dbcc698f, e310e6ff, 0b65e5b1); branch walt-g1-l2 (walt/probes/gran/level2_g1.txt, level2_g2.txt, level2_lock.txt, synthetic_lock.receipt.txt; tip 6abdd78f); branch walt-o5 (walt/probes/o5/README.md, walt/kanban/backlog/inner-voids.md, walt/walt/tests/solver_inner_voids.rs; tip 2981e090)
 
 # The 6-4 problem — the Gran anchors
 
@@ -375,9 +375,9 @@ Two void-aware inner-belief implementations now exist, and they are not the same
 | draw stream vs legacy | bit-identical with mask 0 | different stream (not attributable to voids alone) |
 | gates | `solver_inner_voids.rs`, 7 | `solver_partnership.rs`, void subset |
 | measurement | O5 stages 1–4 (census, flips, level-1 moves, mirrored match) | foundation and default batteries |
-| SCENARIO-PLAYER O5 row | rewritten on the branch | line 254 still reads "ablation probe"; 2026-09-06 note added |
+| SCENARIO-PLAYER O5 row | rewritten on the branch | line 254 at c00717d1 still reads "ablation probe", with the 2026-09-06 note at the top of the file; on this book branch the row carries a 2026-09-13 note naming both implementations and the card [[inner-voids-default]] |
 
-Both add a `voids: Option<[u32; 4]>` field to `Key`/`PiKey` with different semantics and samplers: merging walt-o5 into main will conflict on that surface, and whichever lands first rewrites the O5 row. Jason's rank/unrank ruling may already be satisfied by main's `FiberDp` path, but no record says so. Which implementation goes forward is Jason's call (E).
+Both add a `voids: Option<[u32; 4]>` field to `Key`/`PiKey` with different semantics and samplers: merging walt-o5 into main will conflict on that surface, and whichever lands first rewrites the O5 row. Jason's rank/unrank ruling may already be satisfied by main's `FiberDp` path, but no record says so. Which implementation goes forward is Jason's call (E); the main-side card `kanban/backlog/inner-voids-default.md` (opened 2026-09-13) carries the default question, call (D).
 
 ## 9. Methodology box
 
@@ -400,7 +400,7 @@ Both add a `voids: Option<[u32; 4]>` field to `Key`/`PiKey` with different seman
 | InnerBelief::{Voidless, VoidsCounted}; selection rules | `walt/walt/src/solver/{inner_belief,selection}.rs` | dbcc698f, 9236ca7f (2026-09-06) |
 | partnership batteries | `experiments/partnership/campaigns/{foundation-battery,default-partner-battery}/` | e310e6ff, 0b65e5b1 (2026-09-06) |
 | MORNING readout | `walt/briefs/MORNING-2026-09-05.md` | 9d6a5a2e (2026-09-05 02:09; walt-gran, since merged) |
-| kanban cards | `kanban/backlog/gran-anchor-reconstruction.md` (open on two items), `kanban/done/waking-seat-census.md` | 2026-08-24 / 2026-09-04; 2026-08-25 |
+| kanban cards | `kanban/doing/gran-anchor-reconstruction.md` (open on two items; sat in `backlog/` at c00717d1 and was moved to `doing/` on 2026-09-13 with a note on what has used G1 since), `kanban/done/waking-seat-census.md`, and the main-side card `kanban/backlog/inner-voids-default.md` (opened 2026-09-13 as the counterpart of walt-o5's `inner-voids.md`) | 2026-08-24 / 2026-09-04; 2026-08-25; 2026-09-13 |
 
 **Only on branch walt-o5** (9 commits not in main, 0b65efb9 … tip 2981e090, 2026-09-04 22:10 → 2026-09-05 00:42; merge base a0d594b2; 33 files, +6460/−32; local branch, not on origin per `git branch -a`): `walt/probes/o5/*`, bins `voidcensus` / `o5flip` / `o5level1` / `o5match` / `o5anchor`, `tests/solver_inner_voids.rs` (7 gates), `Level0Field::void_aware`, `walt/kanban/backlog/inner-voids.md`, the SCENARIO-PLAYER O5 row rewrite. The MORNING brief counts this branch as "walt-o5 (10, check.sh PASS incl. Lean)"; `git log main..walt-o5` counts 9 at c00717d1.
 
@@ -420,7 +420,7 @@ Of these, only the merge half of (E) is recorded as done (walt-fh is in main); n
 
 ## 11. How to run
 
-From the repository root; the release binaries already exist under `walt/target/release/`.
+From the repository root; the release binaries already exist under `walt/target/release/` of the main checkout (`/Users/jason/code/texas-42`; a worktree without a build has no `walt/target/`). `granrun validate` and `validate-partial` were re-run from that binary on 2026-09-13 with output identical to the 2026-09-12 measurement.
 
 ```
 walt/target/release/granrun validate         walt/probes/gran/g1.receipt.txt      # 0.005 s, measured 2026-09-12

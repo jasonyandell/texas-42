@@ -35,7 +35,7 @@ with exact information-set machinery.
 | `ingest/` | Two immutable spec packages, **v0.7** and **rec**; unchanged since 2026-07-26 | **Never modify.** Each has a verifying `MANIFEST.sha256` |
 | `wiki/` | The book: what's proved, at what tier, what's open; [Home](wiki/Home.md) is the TOC | Yes — it's the living synthesis; keep the page convention (line 1: the Home link · owns: … · Sources: …) and the cross-referenced ledgers in step |
 | `walt/` | **The project's player** — the imperfect-information seat that acts from one chair. One crate `walt` of ten modules across six workspace members ([walt-architecture](wiki/walt-architecture.md)); hub [walt](wiki/walt.md) | Yes, per `kanban/` and the binding briefs `walt/briefs/BRIEF-*.md` — but **everything under it is EXPLORATORY tier**, below every tier below |
-| `experiments/` | `experiments/partnership/` — the 2026-09-06/07 partnership program (player families, matched batteries, the pool, policy synthesis, relational learning); owned by [walt-partnership-program](wiki/walt-partnership-program.md) | Yes — but it is **EXPLORATORY and CI-waived** (`walt/ci/check.sh` was not run on its commits); its results files govern its prose |
+| `experiments/` | `experiments/partnership/` — the 2026-09-06/07 partnership program (player families, matched batteries, the pool, policy synthesis, relational learning); owned by [walt-partnership-program](wiki/walt-partnership-program.md); its own entry point is [`experiments/partnership/README.md`](experiments/partnership/README.md) | Yes — but it is **EXPLORATORY and CI-waived** (`walt/ci/check.sh` was not run on its commits); its results files govern its prose |
 | `rob/` | The Rust exact engine: executable spec + twelve byte-diffed receipts, rob the exact plan solver, the demoted baseline (evening player v0), the HTML inspector — the receipt discipline walt aspires to. Artifact guide: [rob](wiki/rob.md) | Yes, per its BRIEFs; code dormant since 2026-08-01 |
 | `exchange/` | Courier channel to ChatGPT 5.6 Pro for adversarial research; dispatches authorized in batches, quota agreed per batch (count in `exchange/submission_count.txt`; batch ceiling `HARD_CAP` in `automation/submit.mjs`). Chapter: [exchange](wiki/exchange.md) | Per the [pro-exchange protocol](exchange/README.md); **never submit without Jason's explicit go** |
 | `lean/` | Lean 4 + mathlib kernel formalization — all 42 priority-0 rows kernel-proved (2026-08-02). Artifact guide: [lean](wiki/lean.md) | Yes, per [lean/PROOFS.md](lean/PROOFS.md) |
@@ -72,7 +72,10 @@ with exact information-set machinery.
   that pins it; otherwise label it a probe record. A walt number never appears in a
   brief, a dispatch, [FINDINGS](wiki/FINDINGS.md), or any claim-tier page.
 - **The gates cost what they cost.** `rob/ci/check.sh` is hours. `walt/ci/check.sh`
-  is about **308 s wall but needs about 18–19 GB of RAM at the anchors suite**
+  is about **308 s wall and memory-hungry**: the anchors suite measured 18.2 GB
+  standalone at the FH4 audit, 8.8 GB in-gate after FH5 capped its in-flight
+  h4-t4 jobs (`b6de5a25`, in `main`), and the whole gate still runs more than
+  20 GB of test-binary RSS on the 48 GB machine
   ([walt-architecture](wiki/walt-architecture.md) §4 owns the numbers). **Full walt
   CI was waived on the 2026-09-06/07 landings** (`d8400713..c00717d1`); whether
   `main` is green under the full gate at `c00717d1` is not known from any record.
@@ -124,7 +127,7 @@ strictly finer than the true quotient via the dead-cut lemma
 - **Calculated evidence, 2026-08-24 → 08-29** (EXPLORATORY;
   [walt-calculated-evidence](wiki/walt-calculated-evidence.md)). Jason's two
   hand-ferried parents adjudicated same-day (CE-A1..A8, L2-A1..A7): anytime-valid
-  adaptive settlement, the §22 build through step 9, the shadow instrument beside the
+  adaptive settlement, the §22 build (steps 2–9), the shadow instrument beside the
   live player, four field-swap slices, the controller made seatable (a capability,
   never a comparison), the waking seat, the speed campaign, level 2 in the browser
   (walt2-wasm, never a default). CE = sampling depth, L2 = model choice; L2 consumes CE
@@ -151,7 +154,10 @@ strictly finer than the true quotient via the dead-cut lemma
   every live trick-4 coordinate settles by k ≤ 2, and at k ≥ 1 the remaining width is
   the tail's policy gap, not fusion price — a better lawful tail buys more than a
   deeper search (record `walt/probes/factor_belief/focal_run1.txt`). The trick-3
-  anchor h8-t3 settles only at the collapse: 289M field reads, 14 min, 19.4 GB.
+  anchor h8-t3 settles only at k = 3, the collapse; that root is the wall — the
+  single-field exact solve costs 289M field reads and 14 min (record
+  `walt/probes/factor_belief/horizon_run1.txt`), and the FH3 record run that
+  includes it peaked at 19.4 GB (`focal_run1.txt`; `walt/briefs/FH3-REPORT.md`).
 - **The Gran anchors, 2026-09-04/05** (EXPLORATORY;
   [walt-gran-anchors](wiki/walt-gran-anchors.md)). The real "6-4" hands from the
   phone were reconstructed tile-by-tile, validated by the rules engine, and played by
@@ -179,8 +185,9 @@ strictly finer than the true quotient via the dead-cut lemma
   014 an informal capture (unadjudicated); 016/017 the decision-sparse thread and
   **019–023 the CE/L2 adversary panel (PANEL-A1..A8) and 024 the deferred-producers
   triple (TRIPLE-A1..A7)** all adjudicated same-day into **walt's exploratory tier**,
-  never the CONFIRMED pipeline; **018 (correspondence) awaiting Pro's reply as of
-  2026-09-07**. Seven further Pro parents (CE, L2, CBS, APS, MB, SC, FH) came by side
+  never the CONFIRMED pipeline; **018 (correspondence) has no reply in the inbox as
+  of 2026-09-07, and whether it was ever delivered is not established from the
+  record** ([exchange](wiki/exchange.md) §6.4). Seven further Pro parents (CE, L2, CBS, APS, MB, SC, FH) came by side
   channel and are indexed only on [walt-math-intakes](wiki/walt-math-intakes.md); the
   FH response to Pro was drafted 2026-09-04 and not dispatched. Results table:
   [claim-ledger](wiki/claim-ledger.md). Standing headlines: interval [36,45] bits
@@ -276,9 +283,11 @@ strictly finer than the true quotient via the dead-cut lemma
   complete green `PASS` is not recorded anywhere. It is not hung — that is what the
   gate costs. Budget for it, and don't start one casually late in a session.
 - **`walt/ci/check.sh` is seconds-to-minutes but memory-hungry**: about 308 s wall
-  with the test binaries run concurrently, but about 18–19 GB of RAM at the anchors
-  suite and more than 20 GB of test-binary RSS on the 48 GB machine
-  ([walt-architecture](wiki/walt-architecture.md) §4). Don't run two gates at once.
+  with the test binaries run concurrently, more than 20 GB of test-binary RSS on the
+  48 GB machine, and the anchors suite alone 18.2 GB standalone before FH5 capped
+  its in-flight jobs (8.8 GB in-gate after `b6de5a25`); the FH3 record run peaked
+  at 19.4 GB ([walt-architecture](wiki/walt-architecture.md) §4). Don't run two
+  gates at once.
   And it was **not run on the 2026-09-06/07 commits** (session waiver).
 - **The wedge.** An agent that ends its turn with a background job running is never
   woken when the job finishes — the project's recurring stall (2026-09-04: gates and

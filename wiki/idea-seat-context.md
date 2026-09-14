@@ -9,7 +9,8 @@
 search — typed relational state with a closed update over observations — as
 the operational form of this page's maintained-context frame. That search
 (the S4–S6 `ControlSkeleton` program) was **deleted by the unification on
-2026-08-24**; its code survives at `git show 648f93ae` and its negative result
+2026-08-24** (commit fa3fe743); its code survives in the tree at `648f93ae`, the
+2026-08-23 census commit that precedes the deletion, and its negative result
 is recorded on [walt-negative-results](walt-negative-results.md).
 
 *Descendants (noted 2026-09-13; repository state as of 2026-09-07, `c00717d1`;
@@ -18,7 +19,7 @@ promotes §2, which stays open as Jason ruled):*
 
 - **§3's cost inversion, as built.** UP1a, the lazy carry in
   `walt/walt/src/solver/unified.rs` (2026-09-03, PR #87 `a80b9829`;
-  `walt/briefs/UP1A-REPORT.md`): gate UP3 had proved the carried posterior is a
+  `walt/briefs/UP1A-REPORT.md`): gate UP3 had pinned (asserted, not proved) that the carried posterior is a
   derived view of (root, public line) and nothing else, so the unified player now
   *records* the public line per ply and *materializes* the posterior only when a
   decision tier reads it — exactly "context is a derived view of the history

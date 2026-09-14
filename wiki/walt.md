@@ -118,14 +118,14 @@ fixed on [vocabulary](vocabulary.md).
 | [`walt/DISCREPANCIES.md`](../walt/DISCREPANCIES.md) | Spec-versus-reference reconciliations, same protocol as the corpus: never pick a plausible reading silently. Carries the 2026-09-03 doom-census correction (the 267‰ split is UNKNOWN) |
 | [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md) | The spec-after-build of the playing seat (2026-08-18), with its proof-obligations ledger (§10) and the 2026-09-06 inner-belief note — the graduation path for everything on [walt-seat-play](walt-seat-play.md) |
 | [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md) | The register for the controller variant (`solver::act`, its route labels, the `controller_bridge` / `ctrl` surfaces, the knobs and gates). Estimates never receipts, no strength claim, never the default |
-| [`walt/briefs/`](../walt/briefs/) | The binding assignments `BRIEF-*.md` (CI1, FH0–FH3, FH4-AUDIT, MB0, MB1, SIGMA1-REPAIR, U0, UP0) and the reports of record `*-REPORT.md` / `FH4-AUDIT.md`; the readout `MORNING-2026-09-05.md` (the only main-side record of the two unmerged branches); `FH-RESPONSE-TO-PRO.md` (drafted 2026-09-04 for hand-ferry, not a dispatch) |
-| [`walt/math/`](../walt/math/) | The frozen bases, never edited (`unified_information_geometry_v0.4.md`, `equivariant_lumpability_v0.5.md`, `predictive_algebra_v0.6.md`); the received parents byte-for-byte with `.sha256` pins, `_intake.md` companions and scratch-tier `verify_*.py` (decision-sparse and its errata and second audit, signed-pivotal, calculated evidence, targeted level 2, the panel and triple responses, counted belief, anytime proof state, model belief, salvation complex, focal horizon); the GPU guides and rebriefs; the derived `implementers_guide.md` (non-authoritative). Indexed on [walt-math-intakes](walt-math-intakes.md) |
+| [`walt/briefs/`](../walt/briefs/) | The binding assignments `BRIEF-*.md` (CI1, FH0–FH3, FH4-AUDIT, MB0, MB1, SIGMA1-REPAIR, U0, UP0) and the reports of record `*-REPORT.md` / `FH4-AUDIT.md`; the readout `MORNING-2026-09-05.md` (the main-side record of the two unmerged branches, with `walt/LOG.md`'s 2026-09-05 entry); `FH-RESPONSE-TO-PRO.md` (drafted 2026-09-04 for hand-ferry, not a dispatch) |
+| [`walt/math/`](../walt/math/) | The frozen bases, never edited (`unified_information_geometry_v0.4.md`, `equivariant_lumpability_v0.5.md`, `predictive_algebra_v0.6.md`); the received parents byte-for-byte with `.sha256` pins, `_intake.md` companions and scratch-tier `verify_*.py` (decision-sparse and its errata and second audit, signed-pivotal, calculated evidence, targeted level 2, the panel and triple responses, counted belief, anytime proof state, model belief, salvation complex, focal horizon); the 2026-08-17 pmake question/ruling pair (`WALT-MATH-QUESTION-…` / `WALT-MATH-RULING-…`); the GPU guides and rebriefs; the derived `implementers_guide.md` (non-authoritative). Indexed on [walt-math-intakes](walt-math-intakes.md) |
 | [`walt/probes/`](../walt/probes/) | The frozen probe records, one directory per program, each README carrying its own fence: `bidcurve/` (bid calibration), `bundle/` (bundled evaluator vs per-world exact), `exp3a/` and `exp5/` (the rescued Python suites — frozen validators, never source), `factor_belief/` (Slices C–G, Phases 1–8, doom, godgap, horizon, model belief, unified, focal — the `*_run1.txt` records), `factory-results/` (the pre-pivot result summaries; producers archive-only at `648f93a`), `field_cache/` (the two hot-path levers), `fieldswap/`, `fieldswap_screen/`, `fieldswap_cancel/`, `fieldswap_motifs/` (the four field-swap slices), `grammar_residual/` (Slice B), `gran/` (the Gran anchors), `hazard_witness/` (slice 4b), `l2_controller/` (the targeted field-1 controller), `m3/` (the seat-play result files incl. the 2026-08-17 arena), `ordering/` (reorder-not-cull), `root_interval/` (Slice A), `shadow/` (step 7), `step8/` (V5 flip repair), `step9/` (the level-2 detection layer), `waking/` (the waking-seat profile); plus `tilt_arena_2026-08-19.log` |
 | [`walt/gym/`](../walt/gym/) | The exact partnership gym's artifacts: `README`, `RESULTS`, `DISCOVERY`, `BID-MAKING`, `SPECIFICATIONS`, `PARTNERSHIP-COMPOSITION`; `queries/*.scheme`, `scenarios/`, `collections/`, `specs/`, `benchmarks/`, `mining.json` — [walt-gym](walt-gym.md) |
 | [`walt/scheme/`](../walt/scheme/) | The Scheme/Fix guides: `README`, `DYNAMICS`, `POLICIES`, `RELATIONAL`, `COMPOSITION`, `INFORMATION-PRICES`, `VALIDATION`, `examples/` — [walt-scheme-fix](walt-scheme-fix.md) |
 | [`walt/receipts/`](../walt/receipts/) | The GPU track's committed receipts: the Gate-0 NO-GO record (`gpu_native_trick1_gate0_2026-08-16.txt`, a true observation of its old environment), `gpu_native_trick1_m0_m1_v1/`, `gpu_native_trick1_m2_v1/` — executable fixed-carrier evidence, never a theorem or player artifact |
 | [`walt/ci/`](../walt/ci/) | `check.sh` (the gate: bootstrap, immutable M0/M1 history, guide checksum, receipt replay, fmt, clippy `-D warnings -D float_arithmetic`, the no-float scans, all workspace release tests run concurrently, doc tests, the Lean trick-1 build and axiom audit), `check_m2_metal.sh` (the freeze-56 integrated gate), `verify_m2_history.sh`, `verify_m2_sources.sh`, the no-float checkers, `run_test_binaries.py`, `render_m2_failure.py` — [walt-architecture](walt-architecture.md) §4 and §7 |
-| `walt/audits/` | `panel_response_conformance.md` — the 2026-08-25 audit of the panel's two believed-by-construction claims (PANEL-A7/A8) |
+| `walt/audits/` | `panel_response_conformance.md` — the 2026-08-25 audit (PR #48) of the panel response's Claim-D repair, W7–W11 and the τ coupling against PANEL-A3/A5/A6, at base `51eac3f`, with eight conformance gates; the believed-by-construction claims are the ones it checks |
 | `walt/viewer/` | `walt_viewer.html`, `walt_table_viewer.html` — the browser viewers over records and playouts |
 | The standing design docs `walt/*.md` | `SEPARATION-PROBE` (SEP-A1..A19), `SEPARATION-RUNG-N4`, `ECONOMY-SUCCESSOR`, `POLICY-GEOMETRY`, `TILT-AUDIT`, `LEVEL2-PROBE` (the detection layer), `GPU-NATIVE-TRICK1` / `-M2` / `-M3` (the adjudicated GPU contracts), `UNIFICATION-CENSUS` (the 2026-08-24 fold), `ARCHIVE` (where the untracked outputs live, the recompute queue, producer commit `648f93a`). Seven completed-probe design docs were retired 2026-08-24; each era page cites the preserved bytes by commit hash (`git show 2de8a05:walt/<NAME>.md`) |
 | [`experiments/partnership/`](../experiments/partnership/) | The partnership program directory (2026-09-06/07, CI-waived): `SCOPE.md` (the waiver's own words), `SESSION-STATUS.md` (the status ledger), `REPORT.md`, `PLAYERS.md`, `BASELINE.md` (the "phone"), `INNER-BELIEF.md`, `POLICY-SYNTHESIS.md`, `RELATIONAL-LEARNING.md`, the Python drivers, `campaigns/` and `runs/` (the results files that govern), `packet/` (the launch packet, preserved byte-for-byte) — [walt-partnership-program](walt-partnership-program.md) |
@@ -138,11 +138,14 @@ fixed on [vocabulary](vocabulary.md).
 modules** (`rules`, `kernel`, `geom`, `strat`, `spec`, `carrier`, `solver`,
 `scheme`, `gym`, `policy_search`) and **54 binaries plus `webtable.html`** under
 `src/bin/` (counts from `ls` on 2026-09-13 at `c00717d1`); the fold of
-2026-08-24 (`d1499d4`, seventeen crates → one, trace-identical) is recorded in
+2026-08-24 (`d1499d4`: seven crates → seven modules of one crate, trace-identical,
+after the census had sorted the workspace's seventeen crates into three stacks
+plus orphans and the stage-1 deletions) is recorded in
 `walt/UNIFICATION-CENSUS.md`. [walt-architecture](walt-architecture.md) owns
 every detail — module sizes and import order, the two stacks, the gate's stages
-and cost (about 308 s wall, about 18–19 GB at the anchors suite; not run on the
-2026-09-06/07 commits), the declared epochs, the debts.
+and cost (about 308 s wall; the anchors suite 18.2 GB standalone at the FH4 audit
+and 8.8 GB in-gate after FH5's job cap; not run on the 2026-09-06/07 commits),
+the declared epochs, the debts.
 
 ## The ruling families, in `walt/CENSUS-RULINGS.md` order
 
@@ -166,8 +169,10 @@ and never move; sections are located by heading, never by line number.
 
 ## The unmerged branches
 
-Measured with `git log main..<branch>` on 2026-09-13. Both fork from
-`walt-gran` (`9d6a5a2e`, itself in `main`); their results reach `main` only
+Measured with `git log main..<branch>` on 2026-09-13. Both fork from the
+`walt-gran` line, which is itself in `main` (`git merge-base`: `walt-o5` at
+`a0d594b2`, `walt-g1-l2` at `8174fa83`; the `walt-gran` tip is `9d6a5a2e`);
+their results reach `main` only
 through `walt/briefs/MORNING-2026-09-05.md`; [walt-gran-anchors](walt-gran-anchors.md)
 owns the status.
 
@@ -184,8 +189,10 @@ owns the status.
 The frame, twice-measured: **42 is two recursions running in opposite
 directions**, and on the receipt corpus they trade dominance between trick 4 and
 trick 5 — from trick 5 in, exact instruments are effectively free; trick 4 is
-minutes per root; trick 3 is the wall (one root, 289M reads, 14 min, 19.4 GB,
-record `walt/probes/factor_belief/horizon_run1.txt`); earlier than that the
+minutes per root; trick 3 is the wall (one root, h8-t3: 289M field reads and
+14 min for the single-field exact solve, record
+`walt/probes/factor_belief/horizon_run1.txt`; the FH3 record run that includes
+it peaked at 19.4 GB, `focal_run1.txt`); earlier than that the
 seat plays forward on sampled evidence with a certified regret it cannot yet
 close (the opening root: play 6-5, floor 732‰, at most 267‰ unclaimed, the
 split of the 267‰ UNKNOWN). At k ≥ 1 the remaining width is the tail's policy
