@@ -927,3 +927,10 @@ agreed on all nine declarations of the opening fixture plus a late-game root;
 the full 64-world paired partner prefix agreed too. An accelerated browser clock
 verified deadline fallback. The phone itself has not yet been timed. Guide:
 `walt-player/README.md`; receipts: `/Users/jason/data/texas-42/phone-v2/`.
+
+Port validation follow-up: 31 focused Rust, 103 Python and 157 UI tests passed.
+A real browser hand, saved-score reload, and 160-world recheck completed. The
+accelerated-clock assertion verifies a solver Deadline refusal in both stages,
+not merely skipping work at an already exhausted outer budget. Publishing was
+held at the authentication boundary: CLI login invalid and connected GitHub
+write endpoint 403; no remote release was changed by these attempts.

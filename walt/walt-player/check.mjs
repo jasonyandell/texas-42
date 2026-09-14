@@ -55,10 +55,11 @@ if(a.review_result.samples===64) {
   assert.equal(a.choice,checked.choice);
 }
 let ticks=0n;
-const stopped=wasm({request:{...opening,decl:5},worlds:40,partner:true,budget_ms:100},()=>ticks+=5000n);
+const stopped=wasm({request:{...opening,decl:5},worlds:40,partner:true,budget_ms:1000},()=>ticks+=5000n);
 assert.ok(['legal-fallback','l1-fallback'].includes(stopped.value.route));
 assert.ok(stopped.checkpoints.length>=1);assert.ok(stopped.value.legal.includes(stopped.value.choice));
 assert.equal(stopped.value.evaluation,null);
+assert.ok(stopped.value.phases.some(p=>p.status.includes("Deadline")), "solver must observe the imported clock");
 for(const request of [{...opening,decl:5,hands:[]},{...opening,decl:5,seed:-1},{...opening,decl:5,hand:[1,1,8,19,20,23,27]}])assert.ok(wasm({request}).value.error);
 const result={rows,partner:{native:a.review_result,wasm:checked.review_result,complete_native:completeReview},deadline:stopped.value};
 if(process.argv[2])writeFileSync(process.argv[2],JSON.stringify(result,null,2)+'\n');

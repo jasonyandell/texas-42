@@ -70,3 +70,14 @@ hand's observation link includes the replay, selected move, public seed, note,
 alternative and original receipt when available. The Mac can import that link
 into the gym. Imported links are examiner data and never become live chooser
 inputs. Live server logging and full gym comparisons remain Mac facilities.
+
+## Validation of the first port
+
+The focused Rust suites passed 31 tests; the Python suite passed 103 and the
+Plunge suite 157. The browser smoke test completed a five-trick hand, retrieved
+its original 40-world scores, completed a 160-world recheck (4.85 seconds on this
+Mac's embedded browser), and recovered the original scores after reloading the
+page. The ordinary 30-point make/set stopping rule ended that hand. The final
+clock test expired inside both evaluator stages and retained a legal checkpoint
+with no partial action values. These receipts establish tested behavior and
+port conformance, not calibration or increased playing strength.
