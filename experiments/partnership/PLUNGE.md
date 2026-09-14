@@ -8,7 +8,7 @@ first human-play loop for the [sunshine goals](SUNSHINE-NOTES.md).
 
 The companion checkout is `/Users/jason/code/plunge-sunshine` on
 `codex/sunshine-table`, based on `jasonyandell/plunge` main `122ea7a5`.
-The implemented companion is commit `adfd7d4b3707f2324c395c88e5f7dbae1d3b315a`.
+The implemented companion is commit `ac7e65a20f213823bfb926ad62e5b3c5443bbb4c`.
 The research checkout is `/Users/jason/code/texas-42-partnership-launch`.
 From anywhere:
 
@@ -47,6 +47,34 @@ python3 experiments/partnership/packet/texas42-partnership-launch-v0.1/tools/run
 
 Choose a new watchdog output directory for each workload. No wasm rebuild is
 needed for this table. The measured native presets remain unchanged.
+
+## Inspect any play
+
+After a hand, choose **See how it went**, then tap a domino. On the Mac,
+history sits beside the selected move's stats; narrow screens scroll to the
+selected move. The view shows trump, the led suit, the actor's remaining hand
+and legal choices. Original saved L1 option scores show **make** for a member
+of the declaring team and **set** for a defender. These are sampled model
+estimates. A forced move has an explanation, not an invented probability.
+If the partner check changed L1's choice, the L1 scores are explicitly labeled
+as preceding that check.
+
+**Look closer · 160 worlds** runs the current native L1 default on that same
+own/public position and seed. Human plays and shared hands without receipts
+offer **Ask Walt · 40 worlds** too. The new result appears below the original;
+it does not rewrite the decision or its evidence. Completed estimates survive
+restart in `estimates/`, keyed by request, player settings and implementation.
+Frontend presentation changes do not invalidate them. Historical receipts
+remain available even when the current player implementation changes.
+
+Inspection has the existing 14-second decision budget and a separate worker
+from live play. Only one inspection runs at once; a concurrent request receives
+a retry message. A failed large comparison reports the actual smaller fallback
+sample if available, and remains retryable. There is no gym support-size cap
+on this sampled comparison, so opening leads are inspectable too.
+
+The [stats validation record](campaigns/sunshine-review-v1/RESULTS.md) includes
+the saved double-six discard, forced-trump example, cache and evidence checks.
 
 ## Bring a move back to the gym
 

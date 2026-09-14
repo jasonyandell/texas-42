@@ -900,3 +900,17 @@ keys passed independent replay. 97 Python and 116 Plunge tests passed, plus
 typecheck/native-mode build. Plunge companion commit `adfd7d4`; both worktrees
 remain local. [Operating guide](../experiments/partnership/PLUNGE.md),
 [study and integration evidence](../experiments/partnership/campaigns/sunshine-playable-v1/RESULTS.md).
+
+## 2026-09-13 — General move stats beside the gym
+
+Restored the recorded native option estimates in Plunge's finished-hand review,
+with explicit make/set perspective, actor holdings, legal choices and trump.
+Added separate budgeted 40/160-world native reinspection and durable caching;
+original playing receipts remain untouched. Forced moves show the constraint
+instead of fabricated scores. No live player settings or policies changed.
+
+The user's double-six discard and forced partner-overtake flags now explain
+themselves in the review. 149 Plunge tests, 100 Python tests, the native-mode
+build, a live API audit and browser checks passed. Companion commit `ac7e65a`.
+[Operating guide](../experiments/partnership/PLUNGE.md),
+[stats evidence](../experiments/partnership/campaigns/sunshine-review-v1/RESULTS.md).

@@ -79,6 +79,54 @@ class PlungeTests(unittest.TestCase):
                 with self.assertRaises(ValueError):store.flag({**flag,'alternative':illegal})
             finally:store.close()
 
+    def test_inspection_cache_is_separate_and_tracks_worlds_without_rewriting_play(self):
+        with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide',side_effect=lambda req,**kw:{**self.fake(req),'route':'baseline'}) as decide:
+            store=Store(tmp)
+            try:
+                body,_=self.body();original=deepcopy(store.decision(body))
+                query=dict(request=body['request'],worlds=40)
+                first=store.estimate(query)
+                self.assertEqual(decide.call_args.kwargs['n'],40)
+                self.assertEqual(decide.call_args.kwargs['review'],'off')
+                self.assertIsNot(decide.call_args.kwargs['session'],store.session)
+                store.implementation['frontend']='presentation change'
+                self.assertEqual(store.estimate(query),first);self.assertEqual(decide.call_count,2)
+                closer=store.estimate({**query,'worlds':160})
+                self.assertNotEqual(first['id'],closer['id']);self.assertEqual(decide.call_args.kwargs['n'],160)
+                self.assertEqual(store.receipt(original['id']),original)
+                path=Path(tmp)/'estimates'/(first['id']+'.json');bad=deepcopy(first);bad['response']['choice']+=1;gym.atomic(path,bad)
+                with self.assertRaisesRegex(ValueError,'contents changed'):store.estimate(query)
+            finally:store.close()
+
+    def test_inspection_rejects_hidden_inputs_and_concurrency_but_does_not_lock_live_play(self):
+        with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide',side_effect=self.fake) as decide:
+            store=Store(tmp)
+            try:
+                body,_=self.body();query=dict(request=body['request'],worlds=40)
+                for worlds in (True,0,41,100000):
+                    with self.assertRaises(ValueError):store.estimate({**query,'worlds':worlds})
+                for extra in ('hands','worlds','teacher','dealt'):
+                    with self.assertRaises(ValueError):store.estimate({**query,'request':{**query['request'],extra:[]}})
+                with self.assertRaises(ValueError):store.estimate({**query,'request':{**query['request'],'bid':31}})
+                decide.assert_not_called()
+                with store.estimate_lock:
+                    with self.assertRaisesRegex(ValueError,'another move'):store.estimate(query)
+                    store.decision(body)
+                self.assertEqual(decide.call_count,1)
+            finally:store.close()
+
+    def test_inspection_timeout_is_retryable_and_closes_its_worker(self):
+        with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide',side_effect=self.fake) as decide:
+            store=Store(tmp)
+            try:
+                body,_=self.body();query=dict(request=body['request'],worlds=160)
+                with patch('plunge_bridge.DecisionSession') as session:
+                    store.estimate(query);store.estimate(query)
+                    self.assertEqual(decide.call_count,2)
+                    self.assertEqual(session.return_value.__exit__.call_count,2)
+                self.assertFalse(list((Path(tmp)/'estimates').glob('*.json')))
+            finally:store.close()
+
     def test_finished_comparison_is_a_census_and_resumes_without_redeciding(self):
         with tempfile.TemporaryDirectory() as tmp,patch('sunshine_worlds.decide',side_effect=self.fake) as decide,patch('builtins.print'):
             store=Store(tmp)

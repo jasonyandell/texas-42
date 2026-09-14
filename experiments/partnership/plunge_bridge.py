@@ -1,5 +1,6 @@
 """Local native player, immutable decision receipts, and a separate finished-hand examiner."""
 import argparse
+from dataclasses import replace
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
@@ -40,6 +41,7 @@ class Store:
         self.implementation=dict(player=c.identities(),bridge=gym.file_hash(__file__),
                                  importer=gym.file_hash(gym.HERE/'plunge_io.py'),frontend=frontend)
         self.session=DecisionSession();self.lock=threading.Lock();self.job_lock=threading.Lock();self.jobs={}
+        self.estimate_lock=threading.Lock()
         self.players={name:Player(**c.read(gym.HERE/'players.json')[name]) for name in PRESETS}
 
     def decision(self,body):
@@ -73,6 +75,39 @@ class Store:
         if value.get('sha256')!=gym.digest({k:v for k,v in value.items() if k!='sha256'}):
             raise ValueError('receipt contents changed')
         return value
+
+    def estimate(self,body):
+        """Reinspect one own/public position without changing its original decision.
+
+        Inspection has its own worker and the normal decision deadline. Reject
+        concurrent inspections instead of queuing unbounded work behind a play.
+        Only completed primary estimates are cached; a timeout can be retried.
+        """
+        fields(body,'request worlds')
+        fields(body['request'],'decl bid bidder seat hand plays seed')
+        req=normalize(body['request']);worlds=body['worlds']
+        if req['bid']!=30:raise ValueError('the native practice table currently supports bid 30')
+        information_state(req)
+        if type(worlds) is not int or worlds not in (40,160):raise ValueError('choose 40 or 160 sampled worlds')
+        player=replace(self.players['l1-default'],n=worlds)
+        identity=dict(request=req,player=c.asdict(player),implementation={
+            k:v for k,v in self.implementation.items() if k!='frontend'})
+        eid=gym.digest(identity);path=self.root/'estimates'/(eid+'.json')
+        if not self.estimate_lock.acquire(blocking=False):raise ValueError('another move is being inspected; retry in a moment')
+        try:
+            saved=c.read(path)
+            if saved is not None:
+                if saved['identity']!=identity or saved['id']!=eid:raise ValueError('estimate identity mismatch')
+                if saved.get('sha256')!=gym.digest({k:v for k,v in saved.items() if k!='sha256'}):
+                    raise ValueError('estimate contents changed')
+                return saved
+            with DecisionSession() as session:
+                response=decide(req,session=session,**player.kwargs())
+            saved=dict(schema='plunge-estimate-v1',id=eid,identity=identity,response=response,created=c.now())
+            saved['sha256']=gym.digest(saved)
+            if response['route'] in ('baseline','forced'):gym.atomic(path,saved)
+            return saved
+        finally:self.estimate_lock.release()
 
     def flag(self,body):
         fields(body,'share_code ply seed note alternative receipt_id')
@@ -155,6 +190,8 @@ class Store:
                 try:proc.wait(timeout=5)
                 except subprocess.TimeoutExpired:os.killpg(proc.pid,signal.SIGKILL);proc.wait()
         with self.lock:self.session.close()
+        # An inspection owns and closes its worker, including during shutdown.
+        with self.estimate_lock:pass
 
 
 def handler(store):
@@ -183,6 +220,7 @@ def handler(store):
                     body=json.loads(self.rfile.read(size))
                 if parts==['health'] and not post:value=dict(status='ready',players=list(PRESETS),implementation=store.implementation)
                 elif parts==['decide'] and post:value=store.decision(body)
+                elif parts==['estimates'] and post:value=store.estimate(body)
                 elif len(parts)==2 and parts[0]=='receipts' and not post:value=store.receipt(parts[1])
                 elif parts==['flags'] and post:value=store.flag(body)
                 elif len(parts)==2 and parts[0]=='flags' and not post:value=store.get_flag(parts[1])
