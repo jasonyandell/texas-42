@@ -29,3 +29,5 @@ pub mod scheme;
 pub mod solver;
 pub mod spec;
 pub mod strat;
+
+pub mod clock;

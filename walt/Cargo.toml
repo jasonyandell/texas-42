@@ -6,6 +6,7 @@ members = [
     "walt-metal",
     "walt-m2-runner",
     "walt-wasm",
+    "walt-player",
     "walt2-wasm",
 ]
 

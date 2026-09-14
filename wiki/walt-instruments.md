@@ -57,6 +57,12 @@ instrument." This page is the catalog — read it before building anything under
 
 ## The workspace (unified 2026-08-24)
 
+**Shared deployed player, 2026-09-14:** [`walt-player`](../walt/walt-player/README.md)
+owns the complete L1/fallback/partner-check procedure for native Plunge and the
+phone WebAssembly worker. Real browser deadlines, completed checkpoints,
+device-local move scores and portable gym observation links. Exact native/wasm
+option-vector and paired-prefix conformance checks; no new strength claim.
+
 **Mac play-to-gym loop, 2026-09-13:** the
 [local Plunge table](../experiments/partnership/PLUNGE.md) calls the measured
 native L1 or L1 + partner rollout for bid-30 practice. It saves original

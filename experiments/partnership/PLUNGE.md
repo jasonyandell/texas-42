@@ -1,8 +1,8 @@
-# The Mac sunshine table
+# The sunshine table: Mac and phone
 
 Play a bid-30 hand with the measured native player, save a particular decision,
 then compare its alternatives in the continuation-selectable gym. This is the
-first human-play loop for the [sunshine goals](SUNSHINE-NOTES.md).
+human-play loop for the [sunshine goals](SUNSHINE-NOTES.md).
 
 ## Start and play
 
@@ -45,8 +45,9 @@ If setting up a new checkout, run `npm ci` in the Plunge checkout and build
 python3 experiments/partnership/packet/texas42-partnership-launch-v0.1/tools/run_capped.py --seconds 295 --output-dir /tmp/sunshine-native-build-01 -- cargo build --release --manifest-path walt/Cargo.toml -p walt --bin partnership --bin partner_rollout --bin partnership_gym
 ```
 
-Choose a new watchdog output directory for each workload. No wasm rebuild is
-needed for this table. The measured native presets remain unchanged.
+Choose a new watchdog output directory for each workload. The live decision procedure now comes from the shared `walt-player` crate.
+Build `walt-table` too with `cargo build --locked --release --manifest-path walt/Cargo.toml -p walt-player --bin walt-table`.
+See [the shared-player guide](../../walt/walt-player/README.md) for phone builds and release checks.
 
 ## Inspect any play
 
@@ -145,3 +146,18 @@ The bridge lives in `plunge_bridge.py`; `plunge_io.py` imports finished hands;
 the two local services. `plunge_check.py` audits a live receipt and real native
 pause/resume. [The study and integration results](campaigns/sunshine-playable-v1/RESULTS.md)
 include the first played examples and the final checks.
+
+## Phone deployment (2026-09-14)
+
+The hosted Plunge app runs the same Rust L1 + optional partner check in a browser
+worker. Native logging is replaced by device-local original scores and portable
+observation links. Copy an observation link after a hand, open it on the Mac
+(replace the origin with `http://127.0.0.1:4244/` while preserving the fragment),
+and save the selected move for the gym. Its imported scores remain visible; the
+gym reconstructs its own/public request from the hand replay. A normal hand link
+remains available too. Neither link overwrites an ongoing game.
+
+`table_player.py` is the native transport and independent rules checker. Policy,
+budgets and fallback ordering live in Rust. Existing campaign player identities
+and old receipts remain historical records; this port is an implementation
+conformance result, not another partnership-strength result.

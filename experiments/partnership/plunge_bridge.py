@@ -16,7 +16,8 @@ from urllib.parse import urlparse
 import campaign as c
 import gym
 from matchup import Player
-from player import decide, normalize
+from player import normalize
+from table_player import decide, BINARY as TABLE_BINARY
 from plunge_io import flag_root
 from rules import information_state
 from runtime import DecisionSession
@@ -38,7 +39,7 @@ def identifier(value):
 class Store:
     def __init__(self,root,frontend='development'):
         self.root=Path(root);self.root.mkdir(parents=True,exist_ok=True)
-        self.implementation=dict(player=c.identities(),bridge=gym.file_hash(__file__),
+        self.implementation=dict(table_binary=gym.file_hash(TABLE_BINARY), table_adapter=gym.file_hash(gym.HERE/'table_player.py'), player=c.identities(),bridge=gym.file_hash(__file__),
                                  importer=gym.file_hash(gym.HERE/'plunge_io.py'),frontend=frontend)
         self.session=DecisionSession();self.lock=threading.Lock();self.job_lock=threading.Lock();self.jobs={}
         self.estimate_lock=threading.Lock()

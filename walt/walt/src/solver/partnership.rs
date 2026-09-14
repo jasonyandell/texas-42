@@ -7,7 +7,8 @@
 
 use std::sync::atomic::Ordering;
 use std::sync::Arc;
-use std::time::{Duration, Instant};
+use std::time::Duration;
+use crate::clock::Instant;
 
 use num_rational::BigRational;
 

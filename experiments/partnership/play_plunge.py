@@ -31,7 +31,7 @@ def main():
     parser.add_argument('--bridge-port',type=int,default=4245)
     args=parser.parse_args();root=args.plunge.resolve();data=args.data.resolve()
     if not (root/'node_modules/.bin/vite').exists():parser.error('Install Plunge dependencies with npm ci first.')
-    for binary in ('partnership','partnership_gym','partner_rollout'):
+    for binary in ('partnership','partnership_gym','partner_rollout','walt-table'):
         if not (HERE.parents[1]/'walt/target/release'/binary).exists():parser.error('Build native binary '+binary+' first (see PLUNGE.md).')
     if args.port==args.bridge_port:parser.error('The table and player need different ports.')
     for port in (args.port,args.bridge_port):

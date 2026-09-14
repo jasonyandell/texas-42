@@ -5,7 +5,7 @@
 //! substituted. A completed prefix of a shuffled finite support is a heuristic
 //! sample, NOT a calibrated confidence claim; only a census is exact.
 use std::collections::HashMap;
-use std::time::Instant;
+use crate::clock::Instant;
 
 use super::{Fixture, State};
 use crate::gym;

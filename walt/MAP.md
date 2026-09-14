@@ -137,3 +137,12 @@ not, the cache key coarsens and every recursion gets 10–100× cheaper)
 → the consolidation slice. **No new mathematical parent until the
 consolidation lands** (Jason, 2026-09-04: "follow through on what we
 have, then invest in a simplification/unification attempt").
+
+## Shared phone and Mac deployment — 2026-09-14
+
+[`walt-player`](walt-player/README.md) is the live table procedure on both hosts.
+It shares the partnership evaluator and count-offer continuation check, and owns
+the complete fallback ordering and wall budget. Plunge imports one hashed wasm
+asset; native Plunge calls `walt-table`. Historical research profiles remain
+available for reproduction. This is portability/conformance work, not evidence
+of improved game strength.

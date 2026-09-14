@@ -914,3 +914,16 @@ themselves in the review. 149 Plunge tests, 100 Python tests, the native-mode
 build, a live API audit and browser checks passed. Companion commit `ac7e65a`.
 [Operating guide](../experiments/partnership/PLUNGE.md),
 [stats evidence](../experiments/partnership/campaigns/sunshine-review-v1/RESULTS.md).
+
+## 2026-09-14 — shared native/browser sunshine player
+
+Moved live decision orchestration into `walt-player`, sharing the strict
+partnership wire adapter, L1 fixed 40/8 and optional count-offer paired rollout.
+Added browser monotonic deadlines and complete-decision checkpoints; native
+Plunge now uses the same crate through an independent rules-checking adapter.
+Plunge has device-local original scores, portable selected-move observation
+links and a source/wasm manifest import command. Native/wasm exact option vectors
+agreed on all nine declarations of the opening fixture plus a late-game root;
+the full 64-world paired partner prefix agreed too. An accelerated browser clock
+verified deadline fallback. The phone itself has not yet been timed. Guide:
+`walt-player/README.md`; receipts: `/Users/jason/data/texas-42/phone-v2/`.

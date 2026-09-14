@@ -47,7 +47,6 @@ pub mod model_belief;
 pub mod model_recursion;
 pub mod motif;
 pub mod opening;
-#[cfg(not(target_arch = "wasm32"))]
 pub mod partnership;
 pub mod policy;
 pub mod proof_state;
@@ -68,46 +67,16 @@ use std::hash::{Hash, Hasher};
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
-#[cfg(not(target_arch = "wasm32"))]
-use std::time::Instant;
+use crate::clock::Instant;
 
-/// Wall-clock budget for one evaluation. On native targets this is a real
-/// monotonic deadline; on wasm32 there is no monotonic clock without a JS
-/// import, so it never expires — budget there is carried by the sample
-/// counts (n_outer, n0), not wall time.
+/// Monotonic wall budget on both native and browser hosts.
 #[derive(Clone, Copy, Debug)]
-pub struct Deadline {
-    #[cfg(not(target_arch = "wasm32"))]
-    at: Instant,
-}
-
+pub struct Deadline { at: Instant }
 impl Deadline {
     #[must_use]
-    pub fn after(budget: Duration) -> Self {
-        #[cfg(not(target_arch = "wasm32"))]
-        {
-            Deadline {
-                at: Instant::now() + budget,
-            }
-        }
-        #[cfg(target_arch = "wasm32")]
-        {
-            let _ = budget;
-            Deadline {}
-        }
-    }
-
+    pub fn after(budget: Duration) -> Self { Self { at: Instant::now() + budget } }
     #[must_use]
-    pub fn passed(&self) -> bool {
-        #[cfg(not(target_arch = "wasm32"))]
-        {
-            Instant::now() >= self.at
-        }
-        #[cfg(target_arch = "wasm32")]
-        {
-            false
-        }
-    }
+    pub fn passed(&self) -> bool { Instant::now() >= self.at }
 }
 
 use num_bigint::BigInt;
@@ -1941,3 +1910,5 @@ pub fn level1_race_refined(
     )
     .map(|result| result.choice)
 }
+
+pub mod partnership_wire;
