@@ -7,8 +7,13 @@ Pixel 9 / Chrome installed web app; newer iPhones are a secondary target.
 the actor's own/public position, retain a legal fallback, complete an 8/2 L1
 comparison, try default fixed L1 40/8, then optionally spend up to 500 ms on the
 existing count-offer partner rollout. Total compute budget remains 14 seconds.
-The inner model remains voidless. Neither the policy nor its strength claim was
-changed to make the port. A 160-world inspection uses L1 without a partner check.
+The bidder's opening lead instead requests the existing 160-world deeper L1
+comparison with a 20-second budget. The inner model remains voidless. A
+160-world opening or later inspection first retains a complete 40/8 comparison,
+then tries 160-world L1 without a partner check. The partner review is defined
+for the default 40/8 profile and is not reinterpreted at 160 worlds. All later
+table play keeps the 40-world, 14-second profile and its selected difficulty's
+normal partner-review behavior.
 
 Both hosts call `handle` with a JSON object containing `request` (exactly the
 seven existing fields), `worlds`, `partner`, and optionally `budget_ms`.
@@ -39,13 +44,13 @@ rule use that same target. Historical research specifications still default to 3
 ## Regular auction
 
 An `auction` call contains only `hand`, `seat`, `bid` (30–42) and `seed`, plus
-the outer `budget_ms` (default 4500). It compares all nine straight declarations
+the outer `worlds` (default 160) and `budget_ms` (default 20000). It compares all nine straight declarations
 at that target through the same fixed L1/voidless solver. It needs only the best
 opening value, so the solver can stop pricing a declaration at value 1 instead
 of producing every opening move's score. Tested against full action vectors at
 three contracts and seats; native and wasm prices agree.
 
-The successive complete surveys use 4, 12 and up to 40 worlds, with eight inner
+The successive complete surveys use 4, 12, 40 and up to 160 worlds, with eight inner
 worlds. Only a whole nine-declaration sweep replaces the previous survey. Each
 completed survey emits a checkpoint. A partial sweep contributes no prices;
 an entirely unpriced auction passes. Equal model prices use a public-seeded tie
@@ -56,9 +61,9 @@ at least 3/4, otherwise passes. It passes over its partner's standing bid. It
 does not walk the bid amount upward: that old scheme overbid against a stronger
 field. This threshold is an initial playing policy, not an empirical strength
 result. Humans retain the full straight bid ladder. The winning AI remembers
-its surveyed trump without another search, including across reloads. Three
-4.5-second computer budgets target approximately 13.5 seconds of calculation
-per auction, plus table pacing; CPU throttling or host recovery can add time.
+its surveyed trump without another search, including across reloads. Each
+auction decision has one 20-second wall budget; CPU throttling or host recovery
+can add only the host's bounded shutdown margin.
 
 ### Independent declaration workers
 
@@ -80,8 +85,8 @@ The shared JSON API adds two calls:
   validated unpriced fallback.
 
 The browser owns only scheduling and lifetime. It completes a whole 4-world
-survey before beginning 12, then 40; it never combines fragments from different
-rounds. All jobs share the original 4.5-second wall budget. Infrastructure
+survey before beginning 12, then 40 and 160; it never combines fragments from different
+rounds. All jobs share the original 20-second wall budget. Infrastructure
 failures get one retry per job within that deadline; partial rounds are discarded.
 Only a completed Rust merge replaces the checkpoint. Explicit cancellation
 discards even that checkpoint. Job receipts identify inputs; they are not

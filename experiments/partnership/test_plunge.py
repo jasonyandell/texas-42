@@ -76,6 +76,24 @@ class PlungeTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError,'contents changed'):store.decision(body)
             finally:store.close()
 
+    def test_only_bidder_opening_uses_deeper_l1_without_partner_review(self):
+        with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide',side_effect=self.fake) as decide:
+            store=Store(tmp)
+            try:
+                body,_=self.body()
+                opening={**body,'request':{**body['request'],'seat':body['request']['bidder'],'plays':[]}}
+                store.decision(opening)
+                self.assertEqual(decide.call_args.kwargs['n'],160)
+                self.assertEqual(decide.call_args.kwargs['budget_ms'],20000)
+                self.assertEqual(decide.call_args.kwargs['review'],'off')
+                self.assertEqual(c.read(next((Path(tmp)/'decisions').glob('*.json')))['identity']['player']['n'],160)
+                decide.reset_mock()
+                store.decision(body)
+                self.assertEqual(decide.call_args.kwargs['n'],40)
+                self.assertEqual(decide.call_args.kwargs['budget_ms'],14000)
+                self.assertEqual(decide.call_args.kwargs['review'],'partner-rollout')
+            finally:store.close()
+
     def test_flag_keeps_original_receipt_but_gym_input_excludes_examiner_hands(self):
         with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide') as decide:
             store=Store(tmp)
@@ -107,6 +125,7 @@ class PlungeTests(unittest.TestCase):
                 self.assertEqual(store.estimate(query),first);self.assertEqual(decide.call_count,2)
                 closer=store.estimate({**query,'worlds':160})
                 self.assertNotEqual(first['id'],closer['id']);self.assertEqual(decide.call_args.kwargs['n'],160)
+                self.assertEqual(decide.call_args.kwargs['budget_ms'],20000)
                 self.assertEqual(store.receipt(original['id']),original)
                 path=Path(tmp)/'estimates'/(first['id']+'.json');bad=deepcopy(first);bad['response']['choice']+=1;gym.atomic(path,bad)
                 with self.assertRaisesRegex(ValueError,'contents changed'):store.estimate(query)

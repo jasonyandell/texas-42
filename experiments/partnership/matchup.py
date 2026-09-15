@@ -36,7 +36,7 @@ class Player:
             ("n", 1, 640),
             ("n0", 1, 64),
             ("n1", 1, 64),
-            ("budget_ms", 100, 14000),
+            ("budget_ms", 100, 20000),
         ]:
             value = getattr(self, name)
             if type(value) is not int or not low <= value <= high:

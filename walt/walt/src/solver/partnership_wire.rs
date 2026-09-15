@@ -151,7 +151,7 @@ pub fn run(input: &str) -> Result<String, String> {
     let n0 = scalar(&f, "n0")? as usize;
     let n1 = scalar(&f, "n1")? as usize;
     let ms = scalar(&f, "budget_ms")?;
-    if n == 0 || n > 640 || n0 == 0 || n0 > 64 || n1 == 0 || n1 > 64 || ms > 14000 {
+    if n == 0 || n > 640 || n0 == 0 || n0 > 64 || n1 == 0 || n1 > 64 || ms > 20000 {
         return Err("invalid sampling or time budget".into());
     }
     let profile = match mode {

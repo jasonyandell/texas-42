@@ -5,9 +5,9 @@ import {fileURLToPath} from 'node:url';
 import assert from 'node:assert/strict';
 const target=new URL('../target/',import.meta.url);
 const module=await WebAssembly.compile(readFileSync(new URL('wasm32-unknown-unknown/release/walt_player.wasm',target)));
-function wasm(call,clock=()=>BigInt(Math.floor(performance.now()*1000))) {
+function wasm(call,clock=()=>BigInt(Math.floor(performance.now()*1000)),onCheckpoint=()=>{}) {
   const checkpoints=[];let x;
-  x=new WebAssembly.Instance(module,{walt_host:{now_us:clock,checkpoint:(p,n)=>checkpoints.push(JSON.parse(new TextDecoder().decode(new Uint8Array(x.memory.buffer,p,n))))}}).exports;
+  x=new WebAssembly.Instance(module,{walt_host:{now_us:clock,checkpoint:(p,n)=>{const value=JSON.parse(new TextDecoder().decode(new Uint8Array(x.memory.buffer,p,n)));checkpoints.push(value);onCheckpoint(value);}}}).exports;
   const data=new TextEncoder().encode(JSON.stringify(call));
   const p=x.walt_in_prepare(data.length);new Uint8Array(x.memory.buffer,p,data.length).set(data);
   const n=x.walt_call();return {value:JSON.parse(new TextDecoder().decode(new Uint8Array(x.memory.buffer,x.walt_out_ptr(),n))),checkpoints};
@@ -57,7 +57,7 @@ for(const [bid,seat] of [[30,0],[36,2],[42,3]]) {
   console.log(JSON.stringify(rows.at(-1)));
 }
 const call={auction:{bid:30,seat:0,hand:[1,6,8,19,20,23,27],seed:420914},budget_ms:4500};
-const live=wasm(call);assert.ok(live.value.elapsed_us<5500000);assert.ok([0,4,12,40].includes(live.value.worlds));
+const live=wasm(call);assert.ok(live.value.elapsed_us<5500000);assert.ok([0,4,12,40,160].includes(live.value.worlds));
 assert.equal(live.value.prices.length,live.value.worlds?9:0);
 let ticks=0n;const stopped=wasm(call,()=>ticks+=100000n);
 assert.equal(stopped.value.worlds,0);assert.equal(stopped.value.eligible,false);assert.equal(stopped.value.prices.length,0);
@@ -67,5 +67,13 @@ for(const job of [{decl:8,worlds:4,budget_ms:100},{decl:0,worlds:8,budget_ms:100
 assert.equal(wasm({auction_merge:call.auction,worlds:0,receipts:[]}).value.worlds,0);
 let jobTicks=0n;
 assert.equal(wasm({auction_price:call.auction,decl:0,worlds:40,budget_ms:5},()=>jobTicks+=100000n).value.error,'deadline');
+assert.equal(wasm({auction_price:call.auction,decl:0,worlds:160,budget_ms:20000},()=>jobTicks+=100000n).value.error,'deadline');
+let stopDeeper=false;
+const deeperRequest={...call.auction,bidder:0,plays:[],decl:5};
+const ordinary=wasm({request:deeperRequest,worlds:40,partner:false,budget_ms:20000},()=>0n).value;
+const held=wasm({request:deeperRequest,worlds:160,partner:false,budget_ms:20000},
+  ()=>stopDeeper?25000000n:0n,value=>{if(value.phases?.some(p=>p.name==='baseline'&&p.worlds===40&&p.status==='completed'))stopDeeper=true;}).value;
+assert.deepEqual(held.evaluation,ordinary.evaluation);assert.equal(held.choice,ordinary.choice);assert.equal(held.route,'baseline',JSON.stringify(held));
+assert.equal(held.phases.at(-1).worlds,160);assert.notEqual(held.phases.at(-1).status,'completed');
 const result={rows,live,stopped};if(process.argv[2])writeFileSync(process.argv[2],JSON.stringify(result,null,2)+'\n');
 console.log('Auction/job/merge parity, order-independent ties, receipt validation, best-value shortcut, higher contracts, and clock interruption passed.');

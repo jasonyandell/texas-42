@@ -31,11 +31,13 @@ pub struct Call {
     worlds: usize,
 }
 fn budget() -> u64 {
-    4500
+    20_000
 }
 fn worlds() -> usize {
-    40
+    160
 }
+
+const ROUNDS: [usize; 4] = [4, 12, 40, 160];
 
 /// Independent, deterministic jobs for hosts with a pool of ordinary workers.
 /// The host schedules declarations; this module still owns all bidding math.
@@ -107,8 +109,8 @@ fn empty(req: &Request, seed: u64) -> Value {
 
 pub fn price_call(call: PriceCall) -> Result<Value, String> {
     if !DECLS.contains(&call.decl)
-        || ![4, 12, 40].contains(&call.worlds)
-        || !(5..=14000).contains(&call.budget_ms)
+        || !ROUNDS.contains(&call.worlds)
+        || !(5..=20_000).contains(&call.budget_ms)
     {
         return Err("invalid auction job".into());
     }
@@ -129,7 +131,7 @@ pub fn merge(call: MergeCall) -> Result<Value, String> {
     if call.worlds == 0 && call.receipts.is_empty() {
         return Ok(value);
     }
-    if ![4, 12, 40].contains(&call.worlds) || call.receipts.len() != DECLS.len() {
+    if !ROUNDS.contains(&call.worlds) || call.receipts.len() != DECLS.len() {
         return Err("incomplete auction survey".into());
     }
     let expected = identity(&req, seed);
@@ -215,13 +217,13 @@ fn better(a: &Value, b: &Value) -> Result<bool, String> {
 
 pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, String> {
     let start = Instant::now();
-    if !(100..=14000).contains(&call.budget_ms) || ![4, 12, 40].contains(&call.worlds) {
+    if !(100..=20_000).contains(&call.budget_ms) || !ROUNDS.contains(&call.worlds) {
         return Err("invalid auction budget".into());
     }
     let (mut req, seed) = request(call.auction)?;
     let mut value = empty(&req, seed);
     emit(&mut value, start, call.budget_ms, &mut checkpoint);
-    for n in [4, 12, 40].into_iter().filter(|n| *n <= call.worlds) {
+    for n in ROUNDS.into_iter().filter(|n| *n <= call.worlds) {
         let mut prices = Vec::new();
         let mut failure = None;
         for decl in DECLS {

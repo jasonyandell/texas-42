@@ -41,9 +41,9 @@ class SharedTableTests(unittest.TestCase):
                    prices=[[d,'1','1'] for d in (*range(8),9)])
         timeout=subprocess.TimeoutExpired('walt-table',8.5,output=(json.dumps(dict(checkpoint=value))+'\n').encode())
         with patch('table_player.subprocess.run',side_effect=timeout):
-            result=auction(dict(auction=req,budget_ms=4500))
+            result=auction(dict(auction=req,worlds=160,budget_ms=20000))
         self.assertEqual(result['prices'],value['prices'])
         self.assertIn('interruption',result)
-        with self.assertRaises(ValueError):auction(dict(auction={**req,'hands':[]},budget_ms=4500))
+        with self.assertRaises(ValueError):auction(dict(auction={**req,'hands':[]},worlds=160,budget_ms=20000))
 
 if __name__=='__main__':unittest.main()

@@ -99,7 +99,7 @@ fn emit(value: &mut Value, start: Instant, budget_ms: u64, checkpoint: &mut impl
 /// engine. The host receives a legal checkpoint before expensive evaluation.
 pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, String> {
     let start = Instant::now();
-    if !(100..=14_000).contains(&call.budget_ms) || !(1..=640).contains(&call.worlds) {
+    if !(100..=20_000).contains(&call.budget_ms) || !(1..=640).contains(&call.worlds) {
         return Err("invalid time or sampling budget".into());
     }
     if call.partner && call.worlds != 40 {
@@ -129,21 +129,24 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
             .saturating_sub(start.elapsed().as_millis() as u64)
             .saturating_sub(100)
     };
-    // Preserve the native deployed sequence: cheap complete L1, full L1, then
-    // at most 500 ms for the optional count-offer continuation check.
-    for (name, n, n0, ms) in [
-        (
-            "fallback-l1",
-            8,
-            2,
-            remaining()
-                .checked_div(4)
-                .unwrap_or(0)
-                .min(1500)
-                .saturating_sub(40),
-        ),
-        ("baseline", call.worlds, 8, 0),
-    ] {
+    // Preserve complete comparisons as checkpoints. A deeper request first
+    // completes ordinary 40/8 L1, so a slow 160-world attempt cannot demote
+    // the retained move to the cheap 8/2 fallback.
+    let mut stages = vec![(
+        "fallback-l1",
+        8,
+        2,
+        remaining()
+            .checked_div(4)
+            .unwrap_or(0)
+            .min(1500)
+            .saturating_sub(40),
+    )];
+    if call.worlds > 40 {
+        stages.push(("baseline", 40, 8, 0));
+    }
+    stages.push(("baseline", call.worlds, 8, 0));
+    for (name, n, n0, ms) in stages {
         let ms = if name == "baseline" {
             remaining().saturating_sub(40)
         } else {
@@ -173,7 +176,7 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
             }
             Err(error) => error,
         };
-        value["phases"].as_array_mut().unwrap().push(json!({"name":name,"status":phase_status,"elapsed_us":phase_start.elapsed().as_micros() as u64}));
+        value["phases"].as_array_mut().unwrap().push(json!({"name":name,"worlds":n,"status":phase_status,"elapsed_us":phase_start.elapsed().as_micros() as u64}));
         emit(&mut value, start, call.budget_ms, &mut checkpoint);
     }
     if call.partner && value["route"] == "baseline" {

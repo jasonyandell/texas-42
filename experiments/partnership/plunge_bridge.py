@@ -25,6 +25,8 @@ from plunge_analysis import FUTURES, identity_for
 
 PRESETS=('l1-default','l1-partner-rollout')
 WATCHDOG=gym.HERE/'packet/texas42-partnership-launch-v0.1/tools/run_capped.py'
+OPENING_WORLDS=160
+OPENING_BUDGET_MS=20000
 
 
 def fields(value,names):
@@ -54,6 +56,11 @@ class Store:
         if type(hand_number) is not int or not 1<=hand_number<=10000:raise ValueError('invalid hand number')
         if body['player'] not in self.players:raise ValueError('unknown live player')
         player=self.players[body['player']]
+        # The bidder's lead before any public play uses the same deeper L1
+        # profile as inspection. The bounded partner review is a 40/8
+        # instrument, so it stays off for this 160-world comparison.
+        if req['seat']==req['bidder'] and not req['plays']:
+            player=replace(player,n=OPENING_WORLDS,budget_ms=OPENING_BUDGET_MS,review='off')
         identity=dict(request=req,player=c.asdict(player),implementation=self.implementation,
                       game_id=game_id,hand_number=hand_number)
         rid=gym.digest(identity);path=self.root/'decisions'/(rid+'.json')
@@ -88,7 +95,8 @@ class Store:
         req=normalize(body['request']);worlds=body['worlds']
         information_state(req)
         if type(worlds) is not int or worlds not in (40,160):raise ValueError('choose 40 or 160 sampled worlds')
-        player=replace(self.players['l1-default'],n=worlds)
+        player=replace(self.players['l1-default'],n=worlds,
+                       budget_ms=OPENING_BUDGET_MS if worlds==OPENING_WORLDS else 14000)
         identity=dict(request=req,player=c.asdict(player),implementation={
             k:v for k,v in self.implementation.items() if k!='frontend'})
         eid=gym.digest(identity);path=self.root/'estimates'/(eid+'.json')

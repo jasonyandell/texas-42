@@ -30,12 +30,13 @@ def decide(raw, *, mode='baseline', n=40, n0=8, n1=2, budget_ms=14000,
 
 
 def auction(body):
-    if not isinstance(body,dict) or set(body) != {'auction','budget_ms'}:
-        raise ValueError('auction needs auction and budget_ms')
+    if not isinstance(body,dict) or set(body) != {'auction','budget_ms','worlds'}:
+        raise ValueError('auction needs auction, worlds, and budget_ms')
     req=body['auction']
     if not isinstance(req,dict) or set(req) != {'hand','seat','bid','seed'}:
         raise ValueError('auction accepts only own hand, seat, bid, and seed')
-    if type(body['budget_ms']) is not int or not 100 <= body['budget_ms'] <= 14000:
+    if (type(body['budget_ms']) is not int or not 100 <= body['budget_ms'] <= 20000
+            or type(body['worlds']) is not int or body['worlds'] not in (4,12,40,160)):
         raise ValueError('invalid auction budget')
     normalized=normalize(dict(decl=0,bidder=req['seat'],plays=[],**req))
     information_state(normalized)
