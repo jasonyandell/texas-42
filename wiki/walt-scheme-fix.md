@@ -48,6 +48,12 @@ fallible guesses, targeted checks, and hindsight learning, with a reusable
 experimental method for later belief and dynamics studies. These are proposals,
 separate from the implemented capabilities and measured results below.
 
+**Future Sunshine harness (2026-09-15):** the
+[Scheme workshop direction](../experiments/partnership/SUNSHINE-NOTES.md#sunshine-harness-a-scheme-workshop)
+adds a designed 3D research bench with linked analytics, reproducible Scheme
+searches, comparative continuations, and shared human/agent operations. It is
+recorded for later; the immediate focus returns to the playable game.
+
 **2026-09-13:** the [first sunshine experiment](../experiments/partnership/campaigns/sunshine-partner-count-v1/RESULTS.md)
 implements an optional Scheme-directed count-offer review around default L1.
 It improved 24/30 to 29/30 on the selected composed exam and 100/117 to 107/117

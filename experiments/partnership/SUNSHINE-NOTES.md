@@ -41,9 +41,13 @@ comparison. The [bounded override study](campaigns/sunshine-playable-v1/RESULTS.
 keeps the existing rule: larger required sampled gains traded fewer harms for
 more missed help. Human play can now supply the next hypotheses and controls.
 
+**2026-09-15 direction:** retain the [Sunshine harness](#sunshine-harness-a-scheme-workshop)
+as a future workshop goal. The immediate focus returns to the playable game;
+this records the workshop vision without starting its implementation.
+
 ## The priority
 
-A reasonable, fairly quick, partner-aware Texas 42 player on the Mac. It must
+A reasonable, fairly quick, partner-aware Texas 42 player on the Mac and phone. It must
 make a lawful choice within its computation budget. Guesses and occasional
 mistakes are allowed. Spending the entire budget is optional.
 
@@ -193,6 +197,69 @@ its answer, and an investigation that simply costs too much.
 This is a proposed first learning cycle, not an assertion that the layered
 architecture will win. It ties the next platform addition to an observable
 partnership consequence while leaving room for alternative implementations.
+
+## Sunshine harness: a Scheme workshop
+
+Added 2026-09-15. **Future product and research direction; not yet implemented.**
+Jason wants a designed, interactive 3D analytics workshop for Walt: a place to
+describe situations, express them with Scheme, discover examples, run scenes,
+and investigate the game together with Codex. Rich visual design, animations,
+and changes of perspective are part of the intended experience. The harness
+supports the fast partner-aware player and later belief and dynamics studies.
+
+The central object is a **saved, reproducible experiment**. Its coordinate or
+search domain, Scheme expression, belief assumptions, named continuation
+players, seeds, budgets, and implementation provenance connect every view and
+result. Queries and filters reuse existing action values when their evaluation
+conditions still match. A saved gallery remains attached to the specification
+that generated it, so it can be filtered, extended, and regenerated.
+
+Coordinated views should make the existing instruments accessible:
+
+- **Table and history:** rotate into a seat's information perspective, scrub
+  public history, and animate the flow of count, lead, and partnership resources.
+  Clearly distinguish the actor's own/public information from an examiner's
+  revealed hidden hands.
+- **Compatible worlds:** hold the actor's hand and public history fixed while
+  exploring different compatible hidden deals. Show which conclusions survive
+  those changes and which depend on them.
+- **Alternative continuations:** branch at a decision, compare plays side by
+  side under named players, and locate where their consequences diverge.
+- **Analytics and controls:** link candidate scores, coverage and uncertainty,
+  timing, sampling progress, belief constraints, and player settings to the
+  selected position. Use readable charts and tables alongside the 3D scene.
+
+The first complete workflow to design is:
+
+**Question → editable Scheme specification → matching positions → comparative
+replay → saved gym exercise.**
+
+For example: "Find positions where offering count to partner changes make/set
+under our current player." The specification must make the continuation model
+and search domain explicit. Scheme expresses the situation; measured or exact
+action values under those conditions determine the outcome comparison. The
+workshop should make exact versus sampled evidence, completed coverage, and
+unresolved work visible. A discovered witness establishes possibility; frequency
+and practical improvement require their own measurements.
+
+Jobs should be bounded, monitorable, interruptible, and resumable, with durable
+requests and completed results. A rich interface does not imply that opening
+searches or arbitrary Scheme questions become cheap. Plunge observations and
+original decision receipts should feed directly into this investigation loop.
+
+**Codex at the same bench:** expose the workshop's operations through an MCP
+adapter or another supported integration. Human and agent should inspect the
+same experiment, edit its specification, run or pause investigations, select
+views, and attach reproducible findings. Natural-language requests and agent
+actions should remain visible in the workspace. An active agent can wait for
+requests; waking an idle Codex session is a separate integration question.
+Persistent job queues and a client-owned agent connection are options to
+investigate, not capabilities already delivered by MCP alone.
+
+When this direction resumes, design that complete workflow around one useful
+partnership investigation. The immediate priority remains playing and improving
+the game; the harness is retained here so the larger workshop vision survives
+that pivot.
 
 ## Where the next sunshine cycle starts now
 
