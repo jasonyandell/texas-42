@@ -44,7 +44,8 @@ rule use that same target. Historical research specifications still default to 3
 ## Regular auction
 
 An `auction` call contains only `hand`, `seat`, `bid` (30–42) and `seed`, plus
-the outer `worlds` (default 160) and `budget_ms` (default 20000). It compares all nine straight declarations
+the outer `worlds` (default 160) and `budget_ms` (default 20000). It compares all
+nine straight declarations
 at that target through the same fixed L1/voidless solver. It needs only the best
 opening value, so the solver can stop pricing a declaration at value 1 instead
 of producing every opening move's score. Tested against full action vectors at

@@ -8,11 +8,16 @@ human-play loop for the [sunshine goals](SUNSHINE-NOTES.md).
 
 The live table now runs the normal straight auction (30–41, then marks), with
 Walt comparing all nine declarations at the cheapest legal bid. The winner
-reuses its trump selection. Each computer bidder has a 4.5-second calculation
-budget. Play, partner continuations, original score inspection, and links carry
+reuses its trump selection. Each computer bidder has one 20-second calculation
+budget for complete 4/12/40/160-world surveys. Play, partner continuations, original score inspection, and links carry
 the actual 30–42 target. Above-30 flags are saved normally; the older full
 counterfactual comparison is explicitly outside scope for those flags.
 See [the shared player guide](../../walt/walt-player/README.md#regular-auction).
+
+The bidder's opening lead uses deeper 160-world L1 with a 20-second budget,
+retaining a complete ordinary 40-world comparison before trying 160. It does
+not run the 40/8-only partner review. Later play keeps the ordinary 40-world,
+14-second profile and its selected partner-review setting.
 
 ## Start and play
 
@@ -28,10 +33,8 @@ python3 /Users/jason/code/texas-42-partnership-launch/experiments/partnership/pl
 
 Open <http://127.0.0.1:4244>. Choose **L1 + partner check** or **L1**, then
 **Deal me in**. That choice controls all three computer seats. You play seat
-zero with Gran as partner. Each hand has a fixed 30 bid; the first bidder
-rotates with the shaker. The bidder chooses trump: you when it is your turn,
-Plunge's existing own-information hard player for a computer bidder.
-This is practice under assigned contracts, not a voluntary bidding evaluation.
+zero with Gran as partner. Each hand begins with a normal straight auction;
+the first bidder rotates with the shaker. The winner chooses trump and leads.
 The table ends a hand when the bid is made or set, as ordinary Plunge does.
 
 The launcher keeps the table and native service together. Ctrl-C stops both
@@ -78,8 +81,8 @@ restart in `estimates/`, keyed by request, player settings and implementation.
 Frontend presentation changes do not invalidate them. Historical receipts
 remain available even when the current player implementation changes.
 
-Inspection has the existing 14-second decision budget and a separate worker
-from live play. Only one inspection runs at once; a concurrent request receives
+The 160-world inspection has a 20-second decision budget; the 40-world request
+keeps 14 seconds. Inspection uses a separate worker from live play. Only one inspection runs at once; a concurrent request receives
 a retry message. A failed large comparison reports the actual smaller fallback
 sample if available, and remains retryable. There is no gym support-size cap
 on this sampled comparison, so opening leads are inspectable too.

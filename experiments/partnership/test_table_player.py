@@ -44,6 +44,8 @@ class SharedTableTests(unittest.TestCase):
             result=auction(dict(auction=req,worlds=160,budget_ms=20000))
         self.assertEqual(result['prices'],value['prices'])
         self.assertIn('interruption',result)
+        with patch('table_player.subprocess.run',side_effect=timeout):
+            self.assertEqual(auction(dict(auction=req,budget_ms=4500))['prices'],value['prices'])
         with self.assertRaises(ValueError):auction(dict(auction={**req,'hands':[]},worlds=160,budget_ms=20000))
 
 if __name__=='__main__':unittest.main()

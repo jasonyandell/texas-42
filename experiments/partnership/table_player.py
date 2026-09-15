@@ -30,8 +30,9 @@ def decide(raw, *, mode='baseline', n=40, n0=8, n1=2, budget_ms=14000,
 
 
 def auction(body):
-    if not isinstance(body,dict) or set(body) != {'auction','budget_ms','worlds'}:
+    if not isinstance(body,dict) or set(body) not in ({'auction','budget_ms'},{'auction','budget_ms','worlds'}):
         raise ValueError('auction needs auction, worlds, and budget_ms')
+    body={**body,'worlds':body.get('worlds',160)}
     req=body['auction']
     if not isinstance(req,dict) or set(req) != {'hand','seat','bid','seed'}:
         raise ValueError('auction accepts only own hand, seat, bid, and seed')
