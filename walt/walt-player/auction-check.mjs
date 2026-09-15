@@ -22,6 +22,30 @@ for(const [bid,seat] of [[30,0],[36,2],[42,3]]) {
   const call={auction,budget_ms:14000,worlds:4};
   const a=native(call),b=wasm(call).value;
   assert.equal(a.worlds,4);assert.equal(b.worlds,4);assert.deepEqual(a.prices,b.prices);assert.equal(a.decl,b.decl);
+  const receipts=b.prices.map(([decl])=>{
+    const job={auction_price:auction,decl,worlds:4,budget_ms:14000};
+    const receipt=wasm(job).value;
+    assert.deepEqual(receipt,native(job));
+    return receipt;
+  });
+  const merge={auction_merge:auction,worlds:4,receipts};
+  const merged=wasm({...merge,receipts:[...receipts].reverse()}).value;
+  assert.deepEqual(merged,native(merge));
+  assert.deepEqual(merged.prices,b.prices);assert.equal(merged.decl,b.decl);assert.equal(merged.eligible,b.eligible);
+  const invalid=[{...merge,receipts:receipts.slice(1)},
+    {...merge,receipts:[receipts[0],...receipts.slice(0,8)]},
+    {...merge,worlds:12},{...merge,auction_merge:{...auction,seed:auction.seed+1}}];
+  for(const field of ['schema','auction','worlds','inner_worlds','price']) {
+    const bad=structuredClone(merge);
+    bad.receipts[0][field]=({schema:'old',auction:{...auction,seat:(seat+1)%4},worlds:12,inner_worlds:2,price:[0,'1','0']})[field];
+    invalid.push(bad);
+  }
+  for(const bad of invalid)assert.ok(wasm(bad).value.error,JSON.stringify(bad));
+  // Identical ties cannot acquire an order preference from worker timing.
+  const ties=receipts.map(r=>({...r,price:[r.price[0],'3','4']}));
+  const tied=wasm({...merge,receipts:ties}).value;
+  assert.equal(tied.eligible,true);
+  assert.equal(wasm({...merge,receipts:ties.reverse()}).value.decl,tied.decl);
   // Root-value shortcut must equal max of the SAME complete action vector.
   for(const [decl,num,den] of b.prices) {
     const full=wasm({request:{...auction,bidder:seat,plays:[],decl},worlds:4,partner:false}).value;
@@ -38,5 +62,10 @@ assert.equal(live.value.prices.length,live.value.worlds?9:0);
 let ticks=0n;const stopped=wasm(call,()=>ticks+=100000n);
 assert.equal(stopped.value.worlds,0);assert.equal(stopped.value.eligible,false);assert.equal(stopped.value.prices.length,0);
 for(const auction of [{...call.auction,hands:[]},{...call.auction,bid:29},{...call.auction,hand:[1,1,8,19,20,23,27]}])assert.ok(wasm({auction}).value.error);
+for(const job of [{decl:8,worlds:4,budget_ms:100},{decl:0,worlds:8,budget_ms:100},{decl:0,worlds:4,budget_ms:0}])
+  assert.ok(wasm({auction_price:call.auction,...job}).value.error);
+assert.equal(wasm({auction_merge:call.auction,worlds:0,receipts:[]}).value.worlds,0);
+let jobTicks=0n;
+assert.equal(wasm({auction_price:call.auction,decl:0,worlds:40,budget_ms:5},()=>jobTicks+=100000n).value.error,'deadline');
 const result={rows,live,stopped};if(process.argv[2])writeFileSync(process.argv[2],JSON.stringify(result,null,2)+'\n');
-console.log('Auction parity, best-value shortcut, higher contracts, and clock interruption passed.');
+console.log('Auction/job/merge parity, order-independent ties, receipt validation, best-value shortcut, higher contracts, and clock interruption passed.');

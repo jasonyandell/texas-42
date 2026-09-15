@@ -215,12 +215,16 @@ pub fn handle(text: &str, checkpoint: impl FnMut(&Value)) -> Value {
     enum Input {
         Play(Call),
         Auction(auction::Call),
+        AuctionPrice(auction::PriceCall),
+        AuctionMerge(auction::MergeCall),
     }
     match serde_json::from_str::<Input>(text)
         .map_err(|e| e.to_string())
         .and_then(|call| match call {
             Input::Play(call) => decide(call, checkpoint),
             Input::Auction(call) => auction::decide(call, checkpoint),
+            Input::AuctionPrice(call) => auction::price_call(call),
+            Input::AuctionMerge(call) => auction::merge(call),
         }) {
         Ok(value) => value,
         Err(error) => json!({"error":error}),

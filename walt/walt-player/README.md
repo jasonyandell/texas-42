@@ -60,6 +60,41 @@ its surveyed trump without another search, including across reloads. Three
 4.5-second computer budgets target approximately 13.5 seconds of calculation
 per auction, plus table pacing; CPU throttling or host recovery can add time.
 
+### Independent declaration workers
+
+Browser hosts may distribute declarations across ordinary Web Workers, each
+with its own instance of this same WASM. No shared memory or threaded Rust build
+is needed. Two workers are the initial phone default; one on a browser reporting
+one logical processor. A worker reuses its instance within an auction, and all
+workers are terminated when that auction finishes or is cancelled.
+
+The shared JSON API adds two calls:
+
+- `{"auction_price":{hand,seat,bid,seed},"decl":0,"worlds":4,"budget_ms":1000}`
+  returns a `walt-auction-price-v1` receipt. This is exactly the serial auction's
+  declaration evaluator, including sample generation and inner policy.
+- `{"auction_merge":{hand,seat,bid,seed},"worlds":4,"receipts":[...]}` validates
+  nine receipts and returns a normal auction survey. Receipt identity, sample
+  size, inner budget, exact fractions and declaration coverage must match. Rows
+  are sorted before the same seeded tiebreak. `worlds:0,receipts:[]` obtains the
+  validated unpriced fallback.
+
+The browser owns only scheduling and lifetime. It completes a whole 4-world
+survey before beginning 12, then 40; it never combines fragments from different
+rounds. All jobs share the original 4.5-second wall budget. Infrastructure
+failures get one retry per job within that deadline; partial rounds are discarded.
+Only a completed Rust merge replaces the checkpoint. Explicit cancellation
+discards even that checkpoint. Job receipts identify inputs; they are not
+cryptographic attestations of a remote worker's computation.
+
+This splits independent declarations, not one policy solve into smaller world
+sets. At the same completed sample size, serial and pooled results must agree
+exactly. A faster host can reach a larger complete survey within the budget and
+therefore legitimately choose a different declaration. `auction-check.mjs`
+checks native/WASM/job/merge parity, order-independent ties, malformed or mixed
+receipts and deadlines. Pool scheduling/lifetime tests live in Plunge. Receipts:
+`/Users/jason/data/texas-42/auction-pool/`.
+
 Regular bidding, points/marks scoring, original play scores and portable links
 are supported. The existing Mac counterfactual gym comparison remains explicitly
 scoped to bid 30; higher-bid flags can be saved and their moves re-inspected.
