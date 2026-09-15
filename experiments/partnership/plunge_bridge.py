@@ -17,7 +17,7 @@ import campaign as c
 import gym
 from matchup import Player
 from player import normalize
-from table_player import decide, BINARY as TABLE_BINARY
+from table_player import decide, auction, BINARY as TABLE_BINARY
 from plunge_io import flag_root
 from rules import information_state
 from runtime import DecisionSession
@@ -49,7 +49,6 @@ class Store:
         fields(body,'request player game_id hand_number')
         fields(body['request'],'decl bid bidder seat hand plays seed')
         req=normalize(body['request'])
-        if req['bid']!=30:raise ValueError('the native practice table currently supports bid 30')
         information_state(req)
         game_id=identifier(body['game_id']);hand_number=body['hand_number']
         if type(hand_number) is not int or not 1<=hand_number<=10000:raise ValueError('invalid hand number')
@@ -87,7 +86,6 @@ class Store:
         fields(body,'request worlds')
         fields(body['request'],'decl bid bidder seat hand plays seed')
         req=normalize(body['request']);worlds=body['worlds']
-        if req['bid']!=30:raise ValueError('the native practice table currently supports bid 30')
         information_state(req)
         if type(worlds) is not int or worlds not in (40,160):raise ValueError('choose 40 or 160 sampled worlds')
         player=replace(self.players['l1-default'],n=worlds)
@@ -143,6 +141,8 @@ class Store:
         return self.root/'analyses'/fid/(future+'-'+key)
 
     def analysis(self,fid,future,start=False):
+        if self.get_flag(fid)['request']['bid']!=30:
+            return dict(status='outside-scope',message='This research comparison is scoped to bid 30. Original scores and move rechecks use the actual contract.')
         output=self.analysis_dir(fid,future);key=str(output)
         with self.job_lock:
             proc=self.jobs.get(key)
@@ -221,6 +221,7 @@ def handler(store):
                     body=json.loads(self.rfile.read(size))
                 if parts==['health'] and not post:value=dict(status='ready',players=list(PRESETS),implementation=store.implementation)
                 elif parts==['decide'] and post:value=store.decision(body)
+                elif parts==['auction'] and post:value=auction(body)
                 elif parts==['estimates'] and post:value=store.estimate(body)
                 elif len(parts)==2 and parts[0]=='receipts' and not post:value=store.receipt(parts[1])
                 elif parts==['flags'] and post:value=store.flag(body)

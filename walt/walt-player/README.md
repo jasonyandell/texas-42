@@ -32,8 +32,40 @@ evaluated actions. Cancelling because the user left a position discards the call
 There is no JS translation of L1, the partner gate, selection, or fallbacks.
 The same complete sample produces the same values. A clock-limited partner
 prefix can differ between devices; it remains an explicitly fallible heuristic,
-not a confidence-certified decision. The existing own-hand declaration chooser
-is still a separate, inexpensive table choice. All contracts are assigned 30.
+not a confidence-certified decision. Straight play now accepts targets 30–42;
+any marks contract uses target 42. The partner continuation and its stopping
+rule use that same target. Historical research specifications still default to 30.
+
+## Regular auction
+
+An `auction` call contains only `hand`, `seat`, `bid` (30–42) and `seed`, plus
+the outer `budget_ms` (default 4500). It compares all nine straight declarations
+at that target through the same fixed L1/voidless solver. It needs only the best
+opening value, so the solver can stop pricing a declaration at value 1 instead
+of producing every opening move's score. Tested against full action vectors at
+three contracts and seats; native and wasm prices agree.
+
+The successive complete surveys use 4, 12 and up to 40 worlds, with eight inner
+worlds. Only a whole nine-declaration sweep replaces the previous survey. Each
+completed survey emits a checkpoint. A partial sweep contributes no prices;
+an entirely unpriced auction passes. Equal model prices use a public-seeded tie
+choice. This is a small-sample, optimistic model, not calibrated table odds.
+
+The table bids the cheapest legal raise when the best modeled make estimate is
+at least 3/4, otherwise passes. It passes over its partner's standing bid. It
+does not walk the bid amount upward: that old scheme overbid against a stronger
+field. This threshold is an initial playing policy, not an empirical strength
+result. Humans retain the full straight bid ladder. The winning AI remembers
+its surveyed trump without another search, including across reloads. Three
+4.5-second computer budgets target approximately 13.5 seconds of calculation
+per auction, plus table pacing; CPU throttling or host recovery can add time.
+
+Regular bidding, points/marks scoring, original play scores and portable links
+are supported. The existing Mac counterfactual gym comparison remains explicitly
+scoped to bid 30; higher-bid flags can be saved and their moves re-inspected.
+Validation: `auction-check.mjs`, `tests/contracts.rs`, Plunge's auction tests,
+and the independent higher-contract replay fixtures. Raw receipts:
+`/Users/jason/data/texas-42/regular-bidding/`.
 
 ## Build and check
 

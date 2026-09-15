@@ -1,8 +1,18 @@
 # The sunshine table: Mac and phone
 
-Play a bid-30 hand with the measured native player, save a particular decision,
+Play straight 42 with the shared Walt player, save a particular decision,
 then compare its alternatives in the continuation-selectable gym. This is the
 human-play loop for the [sunshine goals](SUNSHINE-NOTES.md).
+
+## Regular bidding (2026-09-14)
+
+The live table now runs the normal straight auction (30–41, then marks), with
+Walt comparing all nine declarations at the cheapest legal bid. The winner
+reuses its trump selection. Each computer bidder has a 4.5-second calculation
+budget. Play, partner continuations, original score inspection, and links carry
+the actual 30–42 target. Above-30 flags are saved normally; the older full
+counterfactual comparison is explicitly outside scope for those flags.
+See [the shared player guide](../../walt/walt-player/README.md#regular-auction).
 
 ## Start and play
 

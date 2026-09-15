@@ -23,6 +23,31 @@ def decide(raw, *, mode='baseline', n=40, n0=8, n1=2, budget_ms=14000,
     req = normalize(raw)
     state = information_state(req)
     payload = dict(request=req, worlds=n, partner=review == 'partner-rollout', budget_ms=budget_ms)
+    def check(value):
+        if checked_status(value,state) != 'completed' or checked_response(value,state)[0] is None:
+            raise ValueError('shared player disagrees with independent rules')
+    return call_player(payload, check)
+
+
+def auction(body):
+    if not isinstance(body,dict) or set(body) != {'auction','budget_ms'}:
+        raise ValueError('auction needs auction and budget_ms')
+    req=body['auction']
+    if not isinstance(req,dict) or set(req) != {'hand','seat','bid','seed'}:
+        raise ValueError('auction accepts only own hand, seat, bid, and seed')
+    if type(body['budget_ms']) is not int or not 100 <= body['budget_ms'] <= 14000:
+        raise ValueError('invalid auction budget')
+    normalized=normalize(dict(decl=0,bidder=req['seat'],plays=[],**req))
+    information_state(normalized)
+    def check(value):
+        if value.get('schema') != 'walt-auction-v1' or any(value.get(k)!=v for k,v in req.items()):
+            raise ValueError('auction request mismatch')
+        if value.get('decl') not in (*range(8),9):raise ValueError('invalid declaration')
+    return call_player(body,check)
+
+
+def call_player(payload, check):
+    budget_ms=payload['budget_ms']
     interrupted = None
     try:
         result = subprocess.run([str(BINARY)], input=json.dumps(payload)+'\n', text=True,
@@ -41,8 +66,7 @@ def decide(raw, *, mode='baseline', n=40, n0=8, n1=2, budget_ms=14000,
         value = message.get('result', message.get('checkpoint'))
         if not isinstance(value,dict): continue
         if 'error' in value: raise ValueError(value['error'])
-        if checked_status(value,state) != 'completed' or checked_response(value,state)[0] is None:
-            raise ValueError('shared player disagrees with independent rules')
+        check(value)
         saved = value
     if saved is None: raise RuntimeError('shared player produced no complete decision')
     if interrupted: saved = {**saved, 'interruption':interrupted}

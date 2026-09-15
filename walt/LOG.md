@@ -934,3 +934,18 @@ accelerated-clock assertion verifies a solver Deadline refusal in both stages,
 not merely skipping work at an already exhausted outer budget. Publishing was
 held at the authentication boundary: CLI login invalid and connected GitHub
 write endpoint 403; no remote release was changed by these attempts.
+
+## 2026-09-14 — regular auction for shared Walt
+
+Replaced the assigned-30 live table cadence with a once-around straight auction.
+The shared player surveys all nine declarations at the cheapest legal bid, using
+complete 4/12/40-world sweeps and a 4.5-second bidder budget. A root-value query
+avoids computing unused opening scores, matching the full comparison on all
+nine declarations at bids 30/36/42 and three seats. Equal sample prices use a
+public-seeded tie choice. The initial policy bids at modeled make >= 3/4 and
+passes over partner; this is deliberately an uncalibrated bidding policy, not
+a new strength finding. Normal human points/marks bids and the winning trump
+survey survive saves; the shared play and partner rollout carry the actual bid.
+Independent replay of higher point and marks links agrees with Plunge. The old
+full counterfactual examiner remains explicitly bid-30-only. Reproduction and
+receipts: `walt-player/README.md`, `/Users/jason/data/texas-42/regular-bidding/`.

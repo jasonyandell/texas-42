@@ -1,4 +1,4 @@
-"""Independent import of Plunge's v1 finished-hand links into bid-30 gym roots."""
+"""Independent import of Plunge's straight-contract finished-hand links."""
 from rules import TILES, legal_tiles, replay_record, winner
 from player import normalize
 
@@ -16,15 +16,21 @@ def decode_hand(code):
     if len(code)<61 or code[3] not in '0123' or code[60]!='.': raise ValueError('malformed hand header')
     shaker=int(code[3]);hands=[[tile_id(code[4+14*s+2*j:6+14*s+2*j]) for j in range(7)] for s in range(4)]
     if sorted(t for hand in hands for t in hand)!=list(range(28)): raise ValueError('deal does not partition all dominoes')
-    cursor=61;bid=0;bidder=None
+    cursor=61;bid=0;bidder=None;strength=0;marks=0
     for i in range(4):
         if code[cursor:cursor+1]=='P':cursor+=1;continue
         token=code[cursor:cursor+2]
-        if len(token)!=2 or not token.isascii() or not token.isdigit(): raise ValueError('research import supports points bids only')
-        value=int(token)
-        if not 30<=value<=41 or value<=bid: raise ValueError('invalid auction')
+        if len(token)==2 and token[0]=='M' and token[1] in '123456789':
+            level=int(token[1]);value=42
+            if (level>2 and level!=marks+1) or 41+level<=strength:raise ValueError('invalid marks auction')
+            marks=level;strength=41+level
+        else:
+            if len(token)!=2 or not token.isascii() or not token.isdigit(): raise ValueError('research import supports straight bids only')
+            value=int(token)
+            if not 30<=value<=41 or value<=strength: raise ValueError('invalid auction')
+            strength=value
         bid=value;bidder=(shaker+1+i)%4;cursor+=2
-    if bid!=30 or bidder is None: raise ValueError('research import currently needs a 30 bid')
+    if bidder is None: raise ValueError('hand has no winning bidder')
     if code[cursor:cursor+1]!='D' or code[cursor+1:cursor+2] not in tuple('012345679'):
         raise ValueError('research import needs a straight declaration')
     decl=int(code[cursor+1]);cursor+=2
@@ -38,10 +44,10 @@ def decode_hand(code):
         if len(trick)==4:
             leader=winner(trick,decl);trick=[]
             points,_,_,_=replay_record(hands,record,decl,bidder)
-            if (points[bidder%2]>=30 or points[1-bidder%2]>=13) and cursor<len(code):
+            if (points[bidder%2]>=bid or points[1-bidder%2]>42-bid) and cursor<len(code):
                 raise ValueError('record continues after the table settled the contract')
     points,_,remaining,trick=replay_record(hands,record,decl,bidder)
-    if trick or not (points[bidder%2]>=30 or points[1-bidder%2]>=13):
+    if trick or not (points[bidder%2]>=bid or points[1-bidder%2]>42-bid):
         raise ValueError('hand has not settled the contract')
     return dict(decl=decl,bid=bid,bidder=bidder,hands=hands,plays=record,points=points,shaker=shaker)
 
@@ -51,6 +57,6 @@ def flag_root(code, ply, seed):
     game=decode_hand(code)
     if 2*ply>=len(game['plays']):raise ValueError('play index after the finished hand')
     seat,played=game['plays'][2*ply:2*ply+2]
-    request=normalize(dict(decl=game['decl'],bid=30,bidder=game['bidder'],seat=seat,
+    request=normalize(dict(decl=game['decl'],bid=game['bid'],bidder=game['bidder'],seat=seat,
                            hand=sorted(game['hands'][seat]),plays=game['plays'][:2*ply],seed=seed))
     return request,played,game

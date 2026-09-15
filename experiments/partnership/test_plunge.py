@@ -39,12 +39,26 @@ class PlungeTests(unittest.TestCase):
 
     def test_malformed_and_illegal_hand_codes_are_rejected(self):
         code=c.read(FIXTURE)[0]['code']
-        bads=['',code[:-2],code+'00',code.replace('30PPP','31PPP'),code.replace('D0','D8'),
+        bads=['',code[:-2],code+'00',code.replace('30PPP','29PPP'),code.replace('D0','D8'),
               code[:4]+code[6:8]+code[6:],code[:-2]+code[-4:-2],code.replace('30PPP','PPPP')]
         for bad in bads:
             with self.subTest(code=bad),self.assertRaises(ValueError):decode_hand(bad)
         for ply in (-1,28,True):
             with self.assertRaises(ValueError):flag_root(code,ply,1)
+
+    def test_higher_straight_contracts_preserve_targets_and_scoring(self):
+        for row in c.read(gym.HERE/'campaigns/regular-bidding-v1/codec.json'):
+            decoded=decode_hand(row['code'])
+            self.assertEqual(decoded['points'],row['points'])
+            self.assertEqual(decoded['bid'],row['bid'])
+            req,_,_=flag_root(row['code'],0,42)
+            self.assertEqual(req['bid'],row['bid'])
+            with tempfile.TemporaryDirectory() as tmp:
+                store=Store(tmp)
+                try:
+                    flag=store.flag(dict(share_code=row['code'],ply=0,seed=42,note='higher bid',alternative=None,receipt_id=None))
+                    self.assertEqual(store.analysis(flag['id'],'l1',True)['status'],'outside-scope')
+                finally:store.close()
 
     def test_retry_freezes_original_answer_and_player_identity(self):
         with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide',side_effect=self.fake) as decide:
@@ -107,7 +121,7 @@ class PlungeTests(unittest.TestCase):
                     with self.assertRaises(ValueError):store.estimate({**query,'worlds':worlds})
                 for extra in ('hands','worlds','teacher','dealt'):
                     with self.assertRaises(ValueError):store.estimate({**query,'request':{**query['request'],extra:[]}})
-                with self.assertRaises(ValueError):store.estimate({**query,'request':{**query['request'],'bid':31}})
+                with self.assertRaises(ValueError):store.estimate({**query,'request':{**query['request'],'bid':29}})
                 decide.assert_not_called()
                 with store.estimate_lock:
                     with self.assertRaisesRegex(ValueError,'another move'):store.estimate(query)

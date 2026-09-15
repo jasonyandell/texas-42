@@ -117,6 +117,19 @@ pub fn from_request(
     original: DominoSet,
     history: &[(Seat, Domino)],
 ) -> Result<ExerciseRoot, String> {
+    from_request_bid(decl, 30, bidder, viewer, original, history)
+}
+
+/// Live straight-contract adapter; historical gym specifications default to 30.
+pub fn from_request_bid(
+    decl: Decl,
+    bid: u32,
+    bidder: Seat,
+    viewer: Seat,
+    original: DominoSet,
+    history: &[(Seat, Domino)],
+) -> Result<ExerciseRoot, String> {
+    if !(30..=42).contains(&bid) { return Err("bid outside 30..42".into()); }
     if original.len() != 7 || history.len() >= 28 {
         return Err("need one seven-tile original hand and an unfinished history".into());
     }
@@ -167,7 +180,7 @@ pub fn from_request(
     }
     let (root, position) = driven_root(&DrivenState {
         decl,
-        bid: 30,
+        bid,
         declaring_team: bidder.team(),
         viewer_hand: remaining,
         leader,

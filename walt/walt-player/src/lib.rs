@@ -11,6 +11,7 @@ use walt::{
 };
 
 pub const PLAYER_ID: &str = "walt-table-v2";
+mod auction;
 
 #[derive(Deserialize)]
 #[serde(untagged)]
@@ -35,8 +36,8 @@ impl Request {
             Seed::Integer(n) => *n,
             Seed::Decimal(s) => s.parse::<u64>().map_err(|_| "invalid seed")?,
         };
-        if self.bid != 30 {
-            return Err("the table player requires bid 30".into());
+        if !(30..=42).contains(&self.bid) {
+            return Err("the table player requires a straight bid from 30 through 42".into());
         }
         let words = |xs: &[u64]| xs.iter().map(u64::to_string).collect::<Vec<_>>().join(" ");
         Ok(format!(
@@ -209,10 +210,18 @@ pub fn handle(text: &str, checkpoint: impl FnMut(&Value)) -> Value {
     if text.len() > 16_384 {
         return json!({"error":"request too large"});
     }
-    match serde_json::from_str::<Call>(text)
+    #[derive(Deserialize)]
+    #[serde(untagged)]
+    enum Input {
+        Play(Call),
+        Auction(auction::Call),
+    }
+    match serde_json::from_str::<Input>(text)
         .map_err(|e| e.to_string())
-        .and_then(|call| decide(call, checkpoint))
-    {
+        .and_then(|call| match call {
+            Input::Play(call) => decide(call, checkpoint),
+            Input::Auction(call) => auction::decide(call, checkpoint),
+        }) {
         Ok(value) => value,
         Err(error) => json!({"error":error}),
     }

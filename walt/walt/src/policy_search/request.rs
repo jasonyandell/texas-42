@@ -44,8 +44,9 @@ pub fn from_text_with_seed(text: &str) -> Result<(Fixture, u64), String> {
         }
     };
     let decl_id = scalar("decl")?;
-    if ![0, 1, 2, 3, 4, 5, 6, 7, 9].contains(&decl_id) || scalar("bid")? != 30 {
-        return Err("gym request needs a straight declaration and bid 30".into());
+    let bid = scalar("bid")?;
+    if ![0, 1, 2, 3, 4, 5, 6, 7, 9].contains(&decl_id) || !(30..=42).contains(&bid) {
+        return Err("request needs a straight declaration and bid 30..42".into());
     }
     // Required and range-checked even though synthesis uses its CLI seed for
     // sample streams.  This preserves the exact seven-field request identity.
@@ -78,8 +79,9 @@ pub fn from_text_with_seed(text: &str) -> Result<(Fixture, u64), String> {
         .chunks(2)
         .map(|pair| Ok((seat(pair[0])?, tile(pair[1])?)))
         .collect::<Result<Vec<_>, String>>()?;
-    let exercise = gym::from_request(
+    let exercise = gym::from_request_bid(
         solver::decl_of(decl_id as usize),
+        bid as u32,
         bidder,
         viewer,
         hand,

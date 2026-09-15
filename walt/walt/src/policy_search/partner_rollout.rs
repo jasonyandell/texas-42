@@ -38,6 +38,7 @@ type Information = (usize, u32, Vec<(usize, usize)>);
 pub struct L1 {
     decl: crate::rules::Decl,
     bidder: usize,
+    bid: u8,
     seed: u64,
     deadline: Deadline,
     cache: HashMap<Information, usize>,
@@ -47,9 +48,15 @@ pub struct L1 {
 
 impl L1 {
     pub fn new(decl: crate::rules::Decl, bidder: usize, seed: u64, deadline: Deadline) -> Self {
+        Self::with_bid(decl, bidder, 30, seed, deadline)
+    }
+
+    pub fn with_bid(decl: crate::rules::Decl, bidder: usize, bid: u8, seed: u64, deadline: Deadline) -> Self {
+        assert!((30..=42).contains(&bid));
         Self {
             decl,
             bidder,
+            bid,
             seed,
             deadline,
             cache: HashMap::new(),
@@ -114,7 +121,7 @@ impl L1 {
             };
             partnership::evaluate(
                 self.decl,
-                30,
+                self.bid,
                 seat,
                 hand,
                 legal,
@@ -294,7 +301,7 @@ pub fn review(
         .ok_or("late-game history required")?
         .0
         .index();
-    let mut policy = L1::new(ex.position.decl, bidder, seed, deadline);
+    let mut policy = L1::with_bid(ex.position.decl, bidder, ex.position.bid as u8, seed, deadline);
     let mut worlds = ex.root.worlds().collect::<Vec<_>>();
     KernelRng::new(seed ^ ex.position.identity() ^ STREAM_DOMAIN).shuffle(&mut worlds);
     result.stop = if result.requested == result.support {
