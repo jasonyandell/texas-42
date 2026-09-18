@@ -1,0 +1,19 @@
+{
+  "covered_deals": 218,
+  "exit": 0,
+  "run": {
+    "completed": 2436,
+    "completed_per_second": 40.46358582451755,
+    "ended": 1789720208.660807,
+    "errors": 0,
+    "id": 32,
+    "producer": "e6cea7cf0d62796e60f0756d849098a3fa64c2985c6dc207fac37ed65c0a748d",
+    "started": 1789720148.45853,
+    "status": "stopped",
+    "threads": 1,
+    "workers": 18
+  },
+  "settled_deals": 218,
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/rule-table-production.json",
+  "evidence_sha256": "83ac6326310ef3275d426d8660684b0909182561266d23de15909b1891ecf759"
+}
