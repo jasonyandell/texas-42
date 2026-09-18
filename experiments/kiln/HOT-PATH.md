@@ -87,3 +87,26 @@ The candidate is preserved, including the exact temporary Cargo configuration,
 under producer 20722f673026bc853a12cadffa35cd3084a95b91c5652df1b2050e07ac5dff3c.
 See lto-parity-summary.json, lto-timing-summary.json, and the campaign's
 lto-build/run.json. The phone build and the bidding model were unchanged.
+
+## Sparse Dice buckets
+
+A five-second sample of the running release worker still spent substantial time
+in the small-support Dice path. That path partitioned at most eight samples, then
+scanned all 28 domino buckets. It now records occupied buckets in a 28-bit mask
+and visits their ascending set bits. Nonempty buckets, sample membership, visit
+order and success mass are identical; empty buckets do no work.
+
+The candidate passed 64 retained/fresh exact-fraction and node/policy/inner-world
+counter comparisons, including 4/12/40/160-world cases. Partnership (12), selection
+(7), ordering (4) and public-void sampler (7, plus one historical ignored fixture
+generator) tests passed. Thirty-two paired 160-world requests, four concurrent
+pairs, alternating baseline/candidate order and a 60-second limit, measured
+**1.197x median / 1.198x geometric speedup**. Production was stopped for that
+timing, then the previous immutable worker was safely resumed before adoption.
+
+Candidate binary/source snapshot:
+`8b5e78750f9a7aca70b7c0e1a124976a148aff82faf2e633173156a4f3372aa5`.
+The snapshot records base commit 4bc60d64 and the exact modified source hashes.
+See sparse-buckets-parity-summary.json and sparse-buckets-timing-summary.json;
+the raw profile is profile-current-worker.txt in the campaign. This changes
+implementation cost, not the bidding model or its calibration evidence.

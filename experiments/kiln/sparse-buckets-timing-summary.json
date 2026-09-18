@@ -1,0 +1,13 @@
+{
+  "baseline": "c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1",
+  "candidate": "8b5e78750f9a7aca70b7c0e1a124976a148aff82faf2e633173156a4f3372aa5",
+  "completed": 32,
+  "geometric_speedup": 1.1984366685195447,
+  "median_speedup": 1.196678707909275,
+  "requested": 32,
+  "schema": "kiln-paired-timing-v1",
+  "workers": 4,
+  "worlds": 160,
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/sparse-buckets-timing.json",
+  "evidence_sha256": "23eb23bf8f2d4d3ef8bf9f22ff4df13ed88366e613e88da7915889414143d0e4"
+}

@@ -727,6 +727,7 @@ impl Solver {
                 // allocation. Sample identity, tile visit order and mass remain
                 // exactly the same as the general path below.
                 let mut buckets=[0u8;28];
+                let mut occupied=0u32;
                 for sid in alive.iter() {
                     let hand=self.worlds[sid as usize][seat.index()] & !key.played;
                     let lm=mask_of(legal_plays(self.sh.dcl,set_of(hand),led));
@@ -738,10 +739,15 @@ impl Solver {
                         nth_set_bit(lm,idx)
                     };
                     buckets[tile as usize] |= 1u8<<sid;
+                    occupied |= 1u32<<tile;
                 }
                 let mut total=0u64;let mut redistributed=0;
-                for (tile,mask) in buckets.into_iter().enumerate() {
-                    if mask==0 {continue;}
+                // Ascending set bits preserve the full scan's visit order.
+                // A small support can occupy at most eight of the 28 buckets.
+                while occupied!=0 {
+                    let tile=occupied.trailing_zeros() as usize;
+                    occupied &= occupied-1;
+                    let mask=buckets[tile];
                     redistributed+=mask.count_ones() as usize;
                     let child=self.child_after_play(key,Domino::from_index(tile).expect("tile < 28"),small.encode(mask));
                     total+=self.solve_count(&child)?;
