@@ -1,0 +1,5 @@
+(fix
+ (roles (chair me) (chair after) (chair mate) (chair before) (domino baseline) (domino alternative) (domino hidden) (context led))
+ (out alternative baseline)
+ (case (viewer me) (successor me after) (partner me mate) (successor mate before) (own-legal baseline) (own-legal alternative) (holds after hidden) (beats hidden alternative led) (boss hidden q*) (led-context led))
+ (case (viewer me) (successor me after) (partner me mate) (successor mate before) (own-legal baseline) (own-legal alternative) (holds after hidden) (beats hidden alternative led) (boss hidden q*) (leader me) (leads-context baseline led)))

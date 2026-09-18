@@ -57,6 +57,17 @@ instrument." This page is the catalog — read it before building anything under
 
 ## The workspace (unified 2026-08-24)
 
+**Whole-game contrast mining, 2026-09-18:** the
+[sampled extension](../experiments/kiln/whole-game-contrasts-v1/RESULTS.md)
+covers own-hand sizes seven through two using the existing exact capacity-DP
+sampler and actual ordinary-player continuations after every legal action.
+It keeps original played moves, complete hidden-world/action contrasts,
+progressive sample history and executable witness-derived Schemes. All 9,200
+branches and 46,452 native memberships passed independent checks. Three frozen
+descriptions failed the fresh transfer gate; no learned policy or sampling
+gain is claimed. This is the broader discovery domain; the earlier endgame
+census remains a useful bounded correctness instrument.
+
 **Paired decision mining, 2026-09-18:** the
 [two-tile continuation rig](../experiments/kiln/decision-mining-v1/RESULTS.md)
 uses the actual shared deployed player after each forced legal root action,

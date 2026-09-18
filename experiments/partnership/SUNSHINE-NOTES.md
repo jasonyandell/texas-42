@@ -47,6 +47,18 @@ this records the workshop vision without starting its implementation.
 
 ## The priority
 
+**2026-09-18 whole-game direction:** the
+[sampled contrast rig](../kiln/whole-game-contrasts-v1/RESULTS.md) now studies
+seven through two dominoes remaining, rather than treating endgame tactics as
+our general discovery domain. It retains original moves, changed hidden
+holdings and all complete continuations. Across 240 roots, 2,304 sampled worlds
+and 9,200 forced-action branches, the first three witness-derived descriptions
+did not pass their frozen fresh test. Twenty-four roots were extended from
+eight to 24 worlds without changing any original receipt; eight empirical
+preferred moves changed. We now have exactly which additions changed the
+estimate, not yet a reusable explanation of why. The learning loop remains
+play, preserve contrasts, derive descriptions, challenge them on new hands.
+
 **2026-09-18 decision-mining cycle:** the
 [paired continuation rig](../kiln/decision-mining-v1/RESULTS.md) now connects
 actual play, Scheme descriptions, counterfactual continuations and a frozen

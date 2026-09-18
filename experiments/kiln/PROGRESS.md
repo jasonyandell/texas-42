@@ -5,7 +5,19 @@ The old 1,000-deal scalar-price production target is superseded, not completed.
 The app goal flag may still show the old usage-limited objective; it is not the
 current work instruction. Do not restart the old campaign automatically.
 
-**Latest completed research cycle:** [decision mining](decision-mining-v1/RESULTS.md)
+**Latest completed research cycle:** [whole-game sampled contrasts](whole-game-contrasts-v1/RESULTS.md)
+adds 360 new source games, 240 roots covering all six decision-bearing hand
+sizes, 2,304 sampled worlds and 9,200 complete forced-action branches. All
+passed independent replay; no errors, fallbacks or overruns. Three frozen
+witness-derived Schemes did not clear the fresh transfer gate. Refining 24
+development roots from eight to 24 worlds changed eight empirical preferred
+moves while preserving all 960 initial receipt hashes. Full data is outside
+the worktree at `~/data/texas-42/kiln-played-v1/whole-game-contrasts-v1`;
+tracked results include 72 world contrasts, every refinement curve and all
+candidate/query evidence. This extends discovery beyond the two-tile endgame.
+No player change, production restart or monitor.
+
+**Previous completed research cycle:** [decision mining](decision-mining-v1/RESULTS.md)
 adds 360 new source games, 480 completed position/seed assessments on 240
 two-tile coordinates, and 21,620 full paired continuations. It found 17 missed
 position/seed cases across 13 positions; none of 114 simple action/gate candidates
