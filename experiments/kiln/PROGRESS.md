@@ -35,7 +35,23 @@ PreventUserIdleSystemSleep assertion was verified. It ends with this coordinator
 If restarting production, bind a new guard to the new actual coordinator PID.
 Metadata is power-guard.json; as always, verify live processes rather than the file.
 
-One-third audit checkpoint: **335 settled deals**, **394,287 receipts**
+Halfway audit checkpoint: **502 settled deals**, **589,743 receipts**
+(234,992 at 8 worlds, 215,711 at 40, 139,040 at 160). The independent read-only
+audit verified every saved receipt, refinement chain, and all 12 recorded
+source/binary identities in 18.4 seconds; no failed jobs were present. Of 1,938
+preselected deep audit cells that would have screened early, none reached the
+75% model threshold; 55 reached 50%. There are 4,711 of 9,420 preselected audit
+cells at target depth. These correlated cases remain descriptive screening
+evidence, separate from actual-play calibration. Evidence: audit-halfway.json
+and the committed halfway-audit-summary.json. This remains a partial audit with
+no book id; all 1,000 deals and the final book audit are still required.
+PID69038 and sleep guard69039 remained live throughout. After the audit, all
+18 native workers were busy (1,767% aggregate CPU, about 1.9 GiB aggregate RSS).
+Recent production intervals continued at roughly 42 saved evaluations/second
+with no run errors. Both worktrees were clean before recording this evidence;
+the Plunge book manifest is still null. No production restart occurred.
+
+Earlier one-third audit checkpoint: **335 settled deals**, **394,287 receipts**
 (157,128 at 8 worlds, 144,195 at 40, 92,964 at 160), verified structure and
 source/binary identities, no failed jobs. Of 1,317 preselected deep audit cells
 that would have screened out, none reached the 75% model threshold; 38 reached
