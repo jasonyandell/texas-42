@@ -77,7 +77,10 @@ missed-opportunity audits. Screening is heuristic and can miss viable bids;
 0/8 is not impossibility. No score is inferred for another target, and none is
 imputed from neighboring bids. Sampled optimized policies can change as the
 bundle grows; independently optimized scores are never averaged as if they were
-one larger solve. The initial generator retains no cross-job solver cache.
+one larger solve. The native worker now retains one bounded cache of completed
+inner-policy answers across matching contexts, commonly between 8/40/160 stages.
+Outer solves and samples are still fresh; disk receipts remain the durable unit.
+See [CARRY-CACHE.md](CARRY-CACHE.md) for its full context checks and equivalence gates.
 
 The shipping book contains only deals with all 468 entries present. Each cell
 retains its actual sample count and disposition; own-hand sampling seeds are

@@ -8,7 +8,8 @@ the goal complete from the local integration preview.
 ## Current checkouts and commits
 
 - Texas 42: `/Users/jason/code/texas-42-partnership-launch`, branch
-  `codex/partnership-launch`. Latest core optimization is 1dbea2c0 (sparse Dice
+  `codex/partnership-launch`. Latest native-worker optimization is 850f589b (policy
+  cache carry); latest phone core is 1dbea2c0 (sparse Dice
   buckets), following f91533cc (move ordering), 1a43d763 (small support) and
   7377ff32 (allocation removal and release audit).
 - Plunge: `/Users/jason/code/plunge-sunshine`, branch `codex/sunshine-table`.
@@ -23,20 +24,19 @@ the goal complete from the local integration preview.
 ## Production (revalidate; this file is not liveness evidence)
 
 Campaign: `/Users/jason/data/texas-42/kiln-v1`. SQLite/WAL are authoritative.
-Coordinator **1275** was launched detached, 18 processes, one internal thread,
+Coordinator **32719** was launched detached, 18 processes, one internal thread,
 `--seconds 0 --job-ms 120000 --order deal`. Process metadata is
 production-process.json; status.json is expendable. The exclusive OS lock
 prevents another writer. Graceful SIGTERM retains completed prices and returns
 unfinished work to the queue. Check actual process identity before stopping it.
-Mac sleep guard **1277** is `/usr/bin/caffeinate -i -w 1275`; its actual
+Mac sleep guard **32720** is `/usr/bin/caffeinate -i -w 32719`; its actual
 PreventUserIdleSystemSleep assertion was verified. It ends with this coordinator.
 If restarting production, bind a new guard to the new actual coordinator PID.
 Metadata is power-guard.json; as always, verify live processes rather than the file.
 
-Last audited: 173 base-covered deals, **101 fully refined**, no job errors. Last
-live check: **123 fully refined**, 173 base-covered. The latest one-minute
-production firing retained **1,102** prices; the new continuous run was around
-20 prices/s while other validation work was running. These counts
+Last audited: 173 base-covered deals, **172 fully refined**, no job errors. The
+latest one-minute production firing retained **1,562** prices; the new continuous
+run was around 24 prices/s while validation was running. These counts
 are production progress, not controlled speedups across different job mixes.
 Order `deal` is finishing refinements in the covered prefix before new coverage.
 The latest process snapshot showed 18 workers using about 1,775% CPU
@@ -44,7 +44,7 @@ The latest process snapshot showed 18 workers using about 1,775% CPU
 useful integration and validation; do not replace the goal with this partial book.
 
 Current immutable native worker SHA:
-`8b5e78750f9a7aca70b7c0e1a124976a148aff82faf2e633173156a4f3372aa5`.
+`77f81f56770c3cf166b15ab6b3742a1f43462b9c5814e2ee541a732373c2cbc4`.
 Binary and exact source snapshot are under producers/<sha>/. The running process
 uses that copy, so rebuilding Cargo outputs does not alter active work.
 
@@ -53,7 +53,30 @@ Rust tests (one historical ignored fixture generator), then measured 1.197x medi
 / 1.198x geometric speedup on 32 paired deep jobs. The timed comparison ran with
 production stopped. Production then resumed on the old worker before a separate
 one-minute candidate firing saved 1,102 new prices with zero errors. PID1275 is
-the continuous candidate run. See HOT-PATH.md and sparse-buckets-{parity,timing}-summary.json.
+the former continuous sparse-bucket run. See HOT-PATH.md and sparse-buckets-{parity,timing}-summary.json.
+
+Native cache carry (850f589b) then passed 36 cold exact/counter checks and all 96
+prices in 32 paired persistent-worker 8/40/160 ladders. It measured 1.244x median /
+1.226x geometric speedup over the sparse-bucket worker. Two Rust tests cover warm
+prices, all seven context guards and fresh budget/counter state; 13 Python tests
+passed, including new carried-counter validation and existing abrupt-death recovery.
+The committed rebuild was byte-identical to the tested candidate. Browser-target
+library compilation passed; the installed phone WASM is intentionally unchanged
+because this carry slot belongs only to the native Kiln worker.
+
+The one-minute candidate firing completed 1,562 prices, 25.93/s, zero errors.
+Then PID32719 started unbounded production, with sleep guard32720. A sample of
+787 new deep receipts showed 761 carrying completed policy entries from the prior
+stage; 40-world jobs were cold because that covered prefix's 8-world jobs had run
+earlier. See CARRY-CACHE.md and carry-cache-*-summary.json. Counters measure actual
+new work; cold replays reproduce prices, not necessarily warm work counts.
+
+The expanded independent audit passed **203,139 receipts**, including carried
+counter bounds and the new producer source/binary identity. Its pinned snapshot
+had 172 settled deals and 173 covered. Of 666 audited cells that would have been
+screened, none reached 75% at 160 worlds; 19 reached 50%. Evidence is
+audit-after-carry-cache.json. This is still a partial audit without an exported
+book identity; final release gates remain unchanged.
 
 Before that speedup, observed 40/160-world job costs and refinement fractions
 projected about ten more hours of refinement, excluding initial 8-world work.
@@ -181,7 +204,7 @@ No preview is installed or eligible for production deployment.
 - Core: retained/fresh comparisons include 4/12/40/160 worlds and exact work
   counters. Exhaustive rules, partnership, public-void sampler, frozen ordering
   and selection suites passed. One historical fixture-generator test is ignored.
-- Twelve Python tests passed after release-audit and producer-publication work;
+- Thirteen Python tests passed after release-audit, producer-publication and cache-accounting work;
   they include actual abrupt-death/restart and malformed artifact rejection.
 - Previous phone optimization: shared core at f91533cc imported as WASM SHA
   `ce0e5a958b6dfe42c77080ab85126905d105039bdaf425a1b0ebf1103cec251d`.
@@ -214,7 +237,7 @@ No preview is installed or eligible for production deployment.
 
 ## Next actions
 
-1. Revalidate PID1275 and sleep guard1277, database progress/errors, and git state. Core, pool and
+1. Revalidate PID32719 and sleep guard32720, database progress/errors, and git state. Core, pool and
    phone checks passed, and both worktrees are committed. No pending test process
    is intentionally left running. Production is the only sustained job.
 2. Keep the long run producing all 1,000 deals and planned refinements. Tuning

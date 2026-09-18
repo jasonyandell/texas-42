@@ -1,0 +1,14 @@
+{
+  "completed": 1562,
+  "completed_per_second": 25.930031429408757,
+  "ended": 1789718739.282345,
+  "errors": 0,
+  "id": 27,
+  "producer": "77f81f56770c3cf166b15ab6b3742a1f43462b9c5814e2ee541a732373c2cbc4",
+  "started": 1789718679.0433128,
+  "status": "stopped",
+  "threads": 1,
+  "workers": 18,
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/carry-cache-production.json",
+  "evidence_sha256": "49d051c54fb661b974f0b13143b53cba509ad6ddcdb244ddf98bf5dff847e356"
+}

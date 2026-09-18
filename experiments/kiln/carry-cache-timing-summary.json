@@ -1,0 +1,17 @@
+{
+  "baseline": "8b5e78750f9a7aca70b7c0e1a124976a148aff82faf2e633173156a4f3372aa5",
+  "candidate": "77f81f56770c3cf166b15ab6b3742a1f43462b9c5814e2ee541a732373c2cbc4",
+  "completed": 32,
+  "geometric_speedup": 1.2261907719925729,
+  "median_speedup": 1.2444613840619427,
+  "requested": 32,
+  "schema": "kiln-carry-timing-v1",
+  "workers": 4,
+  "worlds": [
+    8,
+    40,
+    160
+  ],
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/carry-cache-timing.json",
+  "evidence_sha256": "4aa5e0a1bfb3d60dd5a12895480c15c82f2296275ba4c6251cafcaea6653c384"
+}
