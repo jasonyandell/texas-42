@@ -46,6 +46,17 @@ surviving cell; query the database for current counts, not this note.
 Every8 or40-game early screen remains explicitly labeled and a preselected2%
 audit subset bypasses screening. All prior games and the old model survey remain.
 
+Continuous actual-play production started from commit **170178e2**. Verified
+coordinator **93902**, sleep guard **93903**, 18 workers, one internal thread,
+target 160 games per surviving cell. Process metadata is in the campaign's
+production-process.json; verify actual identity before signaling. The OS sleep
+assertion was verified. All 900 hand/declaration cells have at least one completed
+game; the first eight-game pass remains in progress. Latest pinned audit/export
+snapshot is played-live-audit.json. A 15-minute thread heartbeat,
+`kiln-actual-play-production`, checks completion/errors and the first eight-game
+coverage milestone. It does not silently restart a user stop. The empirical
+preview remains local; no new game asset has been installed or deployed.
+
 The remainder of this ledger records the **historical model-survey work**.
 Its old production PIDs, completion requirements and restart suggestions are
 historical, superseded by the paragraph above.
