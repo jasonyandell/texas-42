@@ -35,7 +35,17 @@ PreventUserIdleSystemSleep assertion was verified. It ends with this coordinator
 If restarting production, bind a new guard to the new actual coordinator PID.
 Metadata is power-guard.json; as always, verify live processes rather than the file.
 
-Quarter-catalogue checkpoint: **251 settled deals**, **294,840 receipts**
+One-third audit checkpoint: **335 settled deals**, **394,287 receipts**
+(157,128 at 8 worlds, 144,195 at 40, 92,964 at 160), verified structure and
+source/binary identities, no failed jobs. Of 1,317 preselected deep audit cells
+that would have screened out, none reached the 75% model threshold; 38 reached
+50%. These correlated cells remain descriptive screening evidence, separate
+from actual-play calibration. Evidence: audit-one-third.json and the committed
+one-third-audit-summary.json. It is still a partial audit without a book id.
+PID69038 continued writing fresh receipts during the read-only audit; later live
+checks passed 337 settled deals with no errors. No production restart occurred.
+
+Earlier quarter-catalogue checkpoint: **251 settled deals**, **294,840 receipts**
 (117,534 at8 worlds,107,909 at40,69,397 at160), zero failed jobs. PID69038 was
 confirmed live and writing fresh receipts after two bounded waits. Production
 continues on the validated rule-table worker. A compiler feature inspection
