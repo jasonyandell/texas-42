@@ -1,10 +1,15 @@
 # Kiln
 
+**Current direction: [played-game performance production](PLAYED.md).**
+The previous scalar-price survey is frozen and preserved; its calibration gap
+motivated measuring the actual player directly. The commands and checklist below
+describe that older survey, not the current production target.
+
 Kiln produces a versioned opening bidding book for Plunge using the same lawful
 L1/8-inner-world, voidless evaluator as the deployed player. This is exploratory
 model pricing, not calibrated odds or a perfect-information oracle.
 
-## Active objective and completion ledger
+## Historical model-survey objective (superseded)
 
 - [ ] 1,000 complete deals; all four seats, nine declarations, targets 30–42.
 - [ ] Progressive 8 → 40 → 160 outer samples; every stop recorded honestly.

@@ -12,6 +12,8 @@ use walt::{
 
 pub const PLAYER_ID: &str = "walt-table-v2";
 mod auction;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod played;
 
 #[cfg(not(target_arch = "wasm32"))]
 pub use auction::kiln as kiln_price;
@@ -78,9 +80,9 @@ fn default_budget() -> u64 {
     14_000
 }
 
-fn evaluation(text: &str, n: usize, n0: usize, ms: u64) -> Result<Value, String> {
+fn evaluation(text: &str, n: usize, n0: usize, ms: u64, previous: &mut Option<solver::Shared>) -> Result<Value, String> {
     let wire = format!("baseline\n{text}n {n}\nn0 {n0}\nn1 2\nbudget_ms {ms}\ninner_belief 0\nselection 0\nmodeled_selection 0\n");
-    let value = solver::partnership_wire::run(&wire)?;
+    let value = solver::partnership_wire::run_with_cache(&wire, previous)?;
     serde_json::from_str(&value).map_err(|e| e.to_string())
 }
 
@@ -151,6 +153,7 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
         stages.push(("baseline", 40, 8, 0));
     }
     stages.push(("baseline", call.worlds, 8, 0));
+    let mut previous = None;
     for (name, n, n0, ms) in stages {
         let ms = if name == "baseline" {
             remaining().saturating_sub(40)
@@ -161,7 +164,7 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
         let result = if ms == 0 {
             Err("no-time".into())
         } else {
-            evaluation(&text, n, n0, ms)
+            evaluation(&text, n, n0, ms, &mut previous)
         };
         let phase_status = match result {
             Ok(report) => {
@@ -184,6 +187,7 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
         value["phases"].as_array_mut().unwrap().push(json!({"name":name,"worlds":n,"status":phase_status,"elapsed_us":phase_start.elapsed().as_micros() as u64}));
         emit(&mut value, start, call.budget_ms, &mut checkpoint);
     }
+    drop(previous);
     if call.partner && value["route"] == "baseline" {
         let baseline = value["choice"].as_u64().unwrap() as usize;
         let ms = remaining().min(500);

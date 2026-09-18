@@ -240,6 +240,18 @@ pub fn evaluate(
     boundary_hand_size: usize,
     cfg: &Config,
 ) -> Result<Evaluation, Box<Refusal>> {
+    evaluate_with_cache(dcl, bid, seat, hand, legal, key, sizes, voids,
+        trick_start_played, boundary_hand_size, cfg, &mut None)
+}
+
+/// Carry only completed, context-checked modeled-policy answers between stages.
+/// Samples, outer search, deadlines and work counters always start fresh.
+#[allow(clippy::too_many_arguments)]
+pub fn evaluate_with_cache(
+    dcl: Decl, bid: u8, seat: Seat, hand: u32, legal: u32, key: &Key,
+    sizes: [usize; 4], voids: [u32; 4], trick_start_played: u32,
+    boundary_hand_size: usize, cfg: &Config, previous: &mut Option<Shared>,
+) -> Result<Evaluation, Box<Refusal>> {
     assert!(
         cfg.n_outer > 0 && cfg.n1 > 0 && cfg.n0 > 0,
         "sample counts are positive"
@@ -255,8 +267,7 @@ pub fn evaluate(
     let start = Instant::now();
     let deadline = cfg.deadline;
     let mut rng = SplitMix64(cfg.seed);
-    let sh = Arc::new(
-        Shared::new(
+    let mut shared = Shared::new(
             dcl,
             bid,
             vec![cfg.n0, cfg.n1],
@@ -265,8 +276,11 @@ pub fn evaluate(
             deadline,
         )
         .with_inner_belief(cfg.inner_belief)
-        .with_modeled_selection(cfg.modeled_selection),
-    );
+        .with_modeled_selection(cfg.modeled_selection);
+    if let Some(old) = previous.as_mut().filter(|old| old.pi_cache_len() <= 100_000) {
+        shared.take_policy_cache_from(old);
+    }
+    let sh = Arc::new(shared);
     let mut root = key.clone();
     root.voids = cfg.inner_belief.root_voids(voids);
     let (mut total_worlds, mut total_attempts) = (0, 0);
@@ -313,6 +327,8 @@ pub fn evaluate(
         },
     );
     let stats = stats(Some(&sh), total_worlds, total_attempts, start);
+    *previous = Some(Arc::try_unwrap(sh)
+        .unwrap_or_else(|_| panic!("completed comparison still owns a solver")));
     match selected {
         Ok(result) => Ok(Evaluation {
             profile: cfg.profile,

@@ -1,0 +1,123 @@
+{
+  "audit_cells": {
+    "at_target_depth": 8014,
+    "preselected": 9420,
+    "screening": {
+      "40": {
+        "deep_at_least_half": 78,
+        "deep_eligible": 0,
+        "deep_eligible_wilson95": [
+          -1.0842021724855044e-19,
+          0.00116382440163139
+        ],
+        "would_screen": 3297
+      },
+      "8": {
+        "deep_at_least_half": 1,
+        "deep_eligible": 0,
+        "deep_eligible_wilson95": [
+          0.0,
+          0.0058844289334503185
+        ],
+        "would_screen": 649
+      },
+      "either": {
+        "deep_at_least_half": 78,
+        "deep_eligible": 0,
+        "deep_eligible_wilson95": [
+          0.0,
+          0.0011631196603554951
+        ],
+        "would_screen": 3299
+      }
+    }
+  },
+  "book_id": "89717b76ec55216936d79e39d6d90ef48b2c27fb1b6c0d1e4429cc6d265052a8",
+  "complete": false,
+  "covered_deals": 851,
+  "depth": {
+    "8": 398587,
+    "40": 366185,
+    "160": 236576
+  },
+  "dispositions": {
+    "advance": 598832,
+    "audit-advance": 3946,
+    "screened-heuristic": 161994,
+    "target-depth": 236576
+  },
+  "elapsed_seconds": 17.307551041,
+  "note": "Sampling depth and model scores are verified; calibration and actual player strength are separate evidence.",
+  "producers": [
+    {
+      "binary": "14939b7ab95452efb82be60e2678081fe5bf32bdee0f7fe88c665ed620b4d08f",
+      "source_commit": "98648370c059ee4948a54c336a59188e2173a595",
+      "verified_source_files": 168
+    },
+    {
+      "binary": "2119905effc9054d59792050a508660404b83d45210a04a434cd3662ce7e755a",
+      "source_commit": "1a43d76322468be55521f5a169d4084ad9f6a6d0",
+      "verified_source_files": 170
+    },
+    {
+      "binary": "2b0adffe75e60312e5d8af8e1ac6091900b16850d6981a549a4392265da29094",
+      "source_commit": "98648370c059ee4948a54c336a59188e2173a595",
+      "verified_source_files": 168
+    },
+    {
+      "binary": "51849e8b0581deffb840c7898a8d51dc24f44e47e38f3aacddfb1c86e908254c",
+      "source_commit": "4fff75ac1db3df46b533d26eac0d9ce663f427d8",
+      "verified_source_files": 169
+    },
+    {
+      "binary": "751c14b2b695930d4465ba8ef9904cce31e1e1826488b104dff53ea24d371288",
+      "source_commit": "7377ff32ad3fecec648dcbf9d05195870a0af1a3",
+      "verified_source_files": 170
+    },
+    {
+      "binary": "77f81f56770c3cf166b15ab6b3742a1f43462b9c5814e2ee541a732373c2cbc4",
+      "source_commit": "a8622306936f41c37f88d3e9da9833c9fc15dc99",
+      "verified_source_files": 170
+    },
+    {
+      "binary": "8b5e78750f9a7aca70b7c0e1a124976a148aff82faf2e633173156a4f3372aa5",
+      "source_commit": "4bc60d64ee66d48c8bc6cfe6b49a925d0f5bd7d5",
+      "verified_source_files": 170
+    },
+    {
+      "binary": "c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1",
+      "source_commit": "1a43d76322468be55521f5a169d4084ad9f6a6d0",
+      "verified_source_files": 170
+    },
+    {
+      "binary": "cc2bc646629c6e872ce3e8fbfb307799139996b9c75823c8480aac7dd2b02a27",
+      "source_commit": "9bb393d748cc60fb6a67d48a3484f4b677d6146d",
+      "verified_source_files": 169
+    },
+    {
+      "binary": "e6cea7cf0d62796e60f0756d849098a3fa64c2985c6dc207fac37ed65c0a748d",
+      "source_commit": "8ee0cb71dbb6081fe6d698a0f5aefa90d6a2cf2a",
+      "verified_source_files": 170
+    },
+    {
+      "binary": "f00a7e54e39ff145a49139cbb8f00994f6ae3ebf4801e0b57adab76a5eecf1ca",
+      "source_commit": "98648370c059ee4948a54c336a59188e2173a595",
+      "verified_source_files": 168
+    },
+    {
+      "binary": "f138bd42fd581f09ecc84809215261a7ff9364a0f3b2a7b499187c8bd723c961",
+      "source_commit": "1a43d76322468be55521f5a169d4084ad9f6a6d0",
+      "verified_source_files": 170
+    }
+  ],
+  "profile": "kiln-l1-fixed-inner8-voidless-v1",
+  "receipts": 1001348,
+  "required_deals": 1000,
+  "schema": "kiln-campaign-audit-v1",
+  "settled_deals": 851,
+  "states": {
+    "done": 1001348,
+    "pending": 69430
+  },
+  "verified_structure": true
+}

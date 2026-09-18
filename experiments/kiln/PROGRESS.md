@@ -1,9 +1,54 @@
 # Kiln work ledger
 
-Updated 2026-09-18. The goal remains ACTIVE and incomplete. Full 1,000-deal
-production, screening audit, final book installation, deployment and production
-browser verification are still required. Do not recreate the campaign or mark
-the goal complete from the local integration preview.
+Updated 2026-09-18. **User-directed pivot: actual player performance.**
+The old 1,000-deal scalar-price production target is superseded, not completed.
+The app goal flag may still show the old usage-limited objective; it is not the
+current work instruction. Do not restart the old campaign automatically.
+
+Current work: [PLAYED.md](PLAYED.md). Start with 100 individual bidder hands
+(25 complete Plunge deals × four seats), all nine declarations. Play the actual
+deployed player at bid30 through all seven tricks, accumulate final-score
+histograms, and recommend the highest score reached in at least 80% of games.
+Build durable progressive production; tune throughput in at most one-minute
+firings. Preserve the previous survey as useful, separately labeled evidence.
+
+Old campaign stopped cleanly: **1,001,348 receipts, 851 settled deals**, no
+running leases, 69,430 pending old prices. Coordinator69038 and sleep guard69039
+are gone. All receipts and producer snapshots remain in kiln-v1. Export:
+`/Users/jason/data/texas-42/kiln-v1/survey-book-partial.json` (14,420,032 bytes),
+id `89717b76ec55216936d79e39d6d90ef48b2c27fb1b6c0d1e4429cc6d265052a8`.
+Independent partial audit verified every receipt, producer and book in17.3s;
+see survey-frozen-summary.json. This is a preserved model survey, not an empirical
+bid database or a complete 1,000-deal book.
+
+## Actual-play runner implemented
+
+`played.py` and `kiln-play-worker` implement the user-directed100-hand empirical
+campaign at `/Users/jason/data/texas-42/kiln-played-v1`. All players call the shared
+deployed decision procedure; every retained game finishes28 legal moves and
+stores its original actor-only calls and responses. Score histograms and4/5 tail
+recommendations export as `kiln-played-book-v1`. This schema is not yet wired into
+Plunge; the old model-book manifest remains null.
+
+The initial60-second firing saved382 games at6.35/s; the independent audit checked
+all10,696 moves. The new staged-cache reuse then matched all decisions, candidate
+values, partner reviews and final scores in two72-pair comparisons (4,032 compared
+moves total). Final worker91386e6e measured1.146× aggregate speedup on the second
+comparison. Existing context-guard tests and new fresh-deadline/value tests pass.
+29 focused Rust tests, four Python integration/property tests, and the browser
+library compile passed (one existing unused-mut warning). No phone deployment.
+
+The72-game pool comparison selected18 workers with one internal thread.24 is
+within repeated18-run variation;12 is slower. The second60-second firing saved401 more games at6.67/s, again with no errors,
+overruns or fallbacks. All783 games (21,924 moves) passed the independent audit;
+see played-startup-audit.json. Continue the same campaign toward160 games per
+surviving cell; query the database for current counts, not this note.
+Every8 or40-game early screen remains explicitly labeled and a preselected2%
+audit subset bypasses screening. All prior games and the old model survey remain.
+
+The remainder of this ledger records the **historical model-survey work**.
+Its old production PIDs, completion requirements and restart suggestions are
+historical, superseded by the paragraph above.
 
 ## Current checkouts and commits
 

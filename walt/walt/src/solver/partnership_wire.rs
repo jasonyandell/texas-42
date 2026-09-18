@@ -15,6 +15,11 @@ fn scalar(fields: &HashMap<String, Vec<u64>>, key: &str) -> Result<u64, String> 
 }
 
 pub fn run(input: &str) -> Result<String, String> {
+    run_with_cache(input, &mut None)
+}
+
+/// Optional staged-call acceleration; context guards live in Shared.
+pub fn run_with_cache(input: &str, previous: &mut Option<solver::Shared>) -> Result<String, String> {
     let mut lines = input.lines();
     let mode = lines.next().ok_or("missing mode")?;
     let mut f = HashMap::new();
@@ -185,7 +190,7 @@ pub fn run(input: &str) -> Result<String, String> {
         seed,
         deadline: solver::Deadline::after(Duration::from_millis(ms)),
     };
-    let report = solver::partnership::evaluate(
+    let report = solver::partnership::evaluate_with_cache(
         dcl,
         bid,
         seat,
@@ -197,6 +202,7 @@ pub fn run(input: &str) -> Result<String, String> {
         st.trick_start_played,
         7 - st.completed,
         &cfg,
+        previous,
     )
     .map_err(|e| format!("{e:?}"))?;
     let options: Vec<String> = report
