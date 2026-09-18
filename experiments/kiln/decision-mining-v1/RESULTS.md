@@ -154,6 +154,16 @@ producer archives and resumable `assessments.sqlite`; `fresh/` contains the new
 complete games. SQLite rows contain compressed full receipts and SHA-256 hashes.
 The separate resumption audit is not counted as additional research evidence.
 
+All raw data and producer snapshots were backed up to the existing private
+Hugging Face dataset `jasonyandell/texas-42-walt-archive`, snapshot
+`kiln/snapshots/20260918T162757.222700Z`, immutable commit
+`285444c2817fa40a1a8aa9df4c003601b5d2f6c7`. Downloaded archives and manifests
+matched their checksums; every database snapshot passed integrity checks.
+See [backup evidence](backup-evidence.json). The backup used the same Python
+3.12 runtime as this experiment after the system Python's SQLite library
+refused readonly access to the new assessment databases; no source data was
+modified to work around that runtime difference.
+
 Fit ID: `83798ea0e3f595adc8a4d1f4e8dd893017c82a08ed16ec0cf7c218b789ff5085`.
 Fresh result ID: `399511376e51b65713772f0ba053934963c13f5108f488f12ba7b2596326773b`.
 
