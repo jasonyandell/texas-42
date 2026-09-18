@@ -1,78 +1,132 @@
 # Kiln work ledger
 
-Updated 2026-09-18. The goal remains ACTIVE and incomplete. No prior Kiln files or
-running jobs existed when this goal continuation began; this turn built the
-first implementation and started actual production.
+Updated 2026-09-18. The goal remains ACTIVE and incomplete. Full 1,000-deal
+production, screening audit, final book installation, deployment and production
+browser verification are still required. Do not recreate the campaign or mark
+the goal complete from the local integration preview.
 
-## Verified implementation
+## Current checkouts and commits
 
-- `kiln.py`: deterministic 1,000-deal catalogue, SQLite queue/results, 8/40/160
-  refinement, explicit heuristic stops plus 2% audit, immutable producer copies
-  and source archives, one FULL/fsync transaction per completed price, exclusive
-  writer lock, retries, interruption/recovery, status and complete-deal export.
-- `kiln-worker`: persistent native transport around the existing auction solver.
-  Own hand only; original hidden opponents are never evaluation inputs.
-- Solver optimization: exact integer success counts internally, BigRational at
-  public boundaries; avoid nested Rayon dispatch in single-thread workers.
-  See COUNTED-VALUES.md. No floating-point approximation and no policy change.
-- 121 cases matched original prices, nodes, policy calls and inner sample counts,
-  including 4/12/40/160 worlds. Repeated after serial-dispatch optimization.
-  Sources: counted-parity-summary.json and serial-counted-parity-summary.json;
-  full receipts under the external campaign directory.
-- Six Python tests passed: all 1,000 shuffle seeds against actual Plunge RNG,
-  four native endpoint parity cases, SQL identity/refinement/export, actual
-  SIGKILL/restart preserving committed rows, calibration completions, summaries.
-- Rust tests: 12 partnership, 7 sampler, 4 ordering/frozen-value, 7 selection
-  tests passed. One historical fixture regeneration test intentionally ignored.
-- SQLite integrity_check returned ok; a preview book was exported successfully.
-  No Plunge changes or deployment yet.
+- Texas 42: `/Users/jason/code/texas-42-partnership-launch`, branch
+  `codex/partnership-launch`. Kiln creation/count arithmetic at 101d805b;
+  calibration/export/scheduling at 9bb393d7; compact caches at 662f298c.
+- Plunge: `/Users/jason/code/plunge-sunshine`, branch `codex/sunshine-table`.
+  Integration committed as ef5d92d. Its manifest is intentionally null until the
+  complete book is installed. No Kiln changes have been merged/pushed/deployed.
+- Base cwd `/Users/jason/code/texas-42` is an unrelated checkout; do not edit it.
 
-## Live work (revalidate processes; this file is not liveness evidence)
+## Production (revalidate; this file is not liveness evidence)
 
-Campaign: `/Users/jason/data/texas-42/kiln-v1`
+Campaign: `/Users/jason/data/texas-42/kiln-v1`. SQLite/WAL are authoritative.
+Coordinator **86060** was launched detached, 18 processes, one internal thread,
+`--seconds 0 --job-ms 120000 --order deal`. The exclusive OS lock prevents another
+writer. Process metadata is production-process.json; status.json is expendable;
+production.log now includes covered AND fully refined deals, and per-depth totals.
+At the last completed firing: 173 covered deals, 4 fully refined; 81,290 initial
+prices, 1,836 at 40 worlds, 1,169 at 160. Zero job errors so far.
 
-Production process 55050 was verified live with PPID 1. Six initial one-minute
-firings retained 20,875 prices. Raw throughput measurements are committed in
-throughput-initial.json. Different jobs and some concurrent checks mean these
-are scheduling evidence, not controlled speedup factors. Approximately 70 prices/s
-at 16–18 workers; 24 did not improve it. Current long run uses 16 processes,
-1 internal thread, 120-second per-cell deadline, and no overall time limit.
-Watch production.log, status.json, or `kiln.py status`; SQLite is authoritative.
-Last sampled coverage: 65/1000 deals, zero fully refined deals.
+Current native worker SHA:
+`cc2bc646629c6e872ce3e8fbfb307799139996b9c75823c8480aac7dd2b02a27`.
+Immutable binary and exact source snapshot are under producers/<sha>/.
+The previous counted worker SHA is
+`2b0adffe75e60312e5d8af8e1ac6091900b16850d6981a549a4392265da29094`.
 
-Calibration process 56627 resumed the first 60-second firing, which had completed
-18/100 games with 1 make. Case: sixes, bid 36, seat 3, own hand
-[0,3,13,21,22,23,26], forecast 121/160 = 75.625%. Chosen before outcomes as nearest
-to .78 among six initial .75-at-eight candidates; selection receipt and all six
-160-world price receipts are in calibration-prices/. Uses original walt-table
-binary (its SHA is pinned in case.json), actual deployed L1+partner 40/8 with
-160-world opening, four workers. Each move saved; outcome certified by independent
-rules when contract made/set, so complete need not mean all 28 plies played.
-Last sampled result: 5/35 made. This large discrepancy
-is preliminary calibration evidence, not a defect inferred from win rate alone.
-Do not advertise model prices as calibrated odds. Keep evaluating all 100.
+Initial 8-world coverage ran around 64–72 prices/s with 16–18 workers. Refinement
+is substantially slower: first 60-second deep firings retained 375 and 435 jobs.
+The compact-cache production firing retained 404. These are DIFFERENT jobs and
+are not controlled speedup factors. A controlled 16-case paired 160-world check
+measured 1.299x median / 1.296x geometric speedup from compact caches. All prices,
+nodes, policy calls and inner sample counts matched. See COMPACT-CACHE.md and
+compact-cache-timing-summary.json. Actual whole-catalogue completion may take
+many hours; keep the continuous run producing while pursuing useful work.
 
-## Immediate next actions
+Scheduling is selectable: coverage (all base cells first), depth (refinements
+first), deal (finish each deal in seed order, refinements first). An added queue
+index supports deal scheduling. This changes work order, not sample semantics.
+Every result/refinement insertion remains one FULL/fsync transaction. A bounded
+run cancels unfinished prices only. Completed production progress is retained.
 
-1. Revalidate both coordinator PIDs plus database/result progress. Never restart
-   from a stale log or an observation timeout. Production still has a large queue.
-2. Finish and independently audit all 100 calibration games; record mismatch,
-   intervals and declared policies. Distinguish best response to modeled sigma0
-   from actual repeated replanning against deployed L1+partner players.
-3. Continue throughput work. A promising next mathematical optimization is
-   evaluating the sigma0 Dice-response *vector* of all 13 bid thresholds together
-   (one transition tree, target-specific choices). It is only an idea; neither
-   implemented nor proven/tested here. Do not reuse a scalar result across bids.
-4. Implement Plunge book reader and catalogue dealing/bidding while generation
-   proceeds. Keep ordinary auction cadence and current minimum-raise policy;
-   do not introduce aggressive maximum bids justified by uncalibrated prices.
-5. Finish all 1000 × 4 × 9 × 13 cells and planned refinements, audit screened
-   cells, validate/export/version full book, integrate, deploy, browser-test actual
-   production. README is the completion checklist; do not shrink its scope.
-6. Preserve Sunshine: quick lawful partner-aware player; original receipts and
-   saved questions; Scheme gym and future workshop. Kiln addresses bidding latency.
+## Calibration completed and independently audited
 
-Data is outside Git. Source changes belong on codex/partnership-launch. Worktree
-root: /Users/jason/code/texas-42-partnership-launch. Plunge companion worktree:
-/Users/jason/code/plunge-sunshine. Other historical solver/proof worktrees are
-unrelated and were not modified.
+**21/100 makes**, versus frozen forecast **121/160 = 75.625%**; Wilson95
+**14.17–29.98%**. Sixes, bid36, seat3, own hand [0,3,13,21,22,23,26]. Selected
+before outcomes from six candidate forecasts as nearest .78. All receipts and
+selection evidence are retained under calibration-six36/ and calibration-prices/.
+
+All four actual players used deployed L1+partner 40/8, 160-world opening without
+review, 14s ordinary/20s opening budgets. The price uses a modeled sigma0 field;
+this continuation mismatch is a candidate cause, not established by this one hand.
+Python checked every move while running. A separate audit through Plunge's actual
+engine checked all **1,808 decisions**, actor-only requests, public prefixes,
+legality, leaders, scores and final outcomes. All matched. No calibration job is
+still running. See CALIBRATION-SIX36.md and calibration-six36-summary.json.
+
+## Game integration implemented, not deployed
+
+Plunge's `src/ai/kiln/book.ts` validates a versioned book and exposes an evaluator
+that receives only own-hand/seat/bid/public-seed requests. It preserves separate
+calculation seeds and per-declaration depths. Deal selection is deterministic in
+game seed and hand number, score-independent, and keeps rotating shaker/marks.
+The current minimum-raise, partner-pass and 3/4 model-threshold policy remains;
+there is no new aggressive maximum-bid rule. Native tie selection was ported and
+verified against 15 frozen native cases. Live play and partner review are unchanged.
+
+`scripts/install-kiln.mjs` imports a hash-addressed asset and manifest. It verifies
+content identity, 1000 complete panels, terminal refinements, own-hand seeds and
+screen/audit rules. Normal prebuild rejects previews. Runtime verifies bytes,
+profile and every shuffle against the game engine. Existing off-book hands or
+visible download failures can use ordinary live bidding. The static asset uses
+existing service-worker caching. No new backend is needed.
+
+A 133-deal **local preview only** was installed temporarily. Mobile-size browser
+automation at port4280 completed three AI bids in about3.8s including normal
+presentation pauses; no auction workers ran, no browser errors, reload preserved
+the hand. Evidence: browser-local-check.json and browser-local-book.png in the
+campaign. The preview asset was removed from the repo and manifest reset to null
+before committing. Local Vite session33127 may still be running, but is now back
+to live bidding until another book is installed.
+
+Validation: full Plunge suite 199 passed/2 optional skipped, typecheck and build;
+then focused auction/book suites after final changes and 15 native-tie parity
+cases. The optional exported-book validation was explicitly run on all 133 preview
+deals. The calibration test was explicitly run on all100 games (it is skipped
+in ordinary CI without the external data path). More in Plunge docs-kiln.md.
+
+## Solver verification
+
+- Counted integer success values replace internal BigRational with the same
+  public rational results; exact finite equal-weight recurrence in COUNTED-VALUES.md.
+- Compact private cache keys preserve every identity field. Packed unfinished
+  trick is injective (exhaustively tested lengths0..3 including zeros). Fast hashes
+  route tables only, full equality resolves collisions; sampling hashes untouched.
+- Each optimization passed 121 exact/counter parity cases, including 4/12/40/160.
+- Rust: 12 partnership, 7 sampler, 4 ordering/frozen-value, 7 selection tests;
+  packing unit test. One historical fixture-generation test intentionally ignored.
+- Six Python tests passed again after latest scheduler/status/export changes,
+  including actual SIGKILL/restart retaining all committed receipts.
+
+## Next actions
+
+1. Revalidate PID86060, database progress, errors and disk/resources. Never restart
+   solely from an old status snapshot or observation timeout.
+2. Continue useful throughput work if justified. Profile showed hashing/allocation
+   costs. Remaining obvious allocation candidates: 28-vector bucket outer storage
+   and intermediate child-value vectors. Any change needs exact/counter parity and
+   bounded paired measurement. More ambitious all-target Dice vector reuse is
+   only an idea; do not infer one target's score from another.
+3. Finish all1000 deals and planned refinements. Audit the preselected2% deep cells
+   for heuristic screening misses; validate complete book against stored receipts,
+   profile identities, real Plunge shuffles, pending/failed counts and integrity.
+4. Export finalbook, install in Plunge with no preview flag, remove superseded
+   generated book assets if any, update docs from preview to final. Run actual-book
+   checks, build/tests and local browser smoke including next-hand/reload.
+5. Merge/push appropriate branches to main and deploy Plunge (authorized by goal).
+   Verify actual production via browser automation, including catalogue bidding,
+   live move execution, saved receipts/questions and reload. Only then complete goal.
+6. Preserve Sunshine: quick lawful partner-aware play; evidence-calibrated guesses,
+   original receipts/questions feeding Scheme gym; future belief/workshop work.
+
+Deployment: Plunge GitHub Actions main uses Node22 and Cloudflare deploy. Existing
+scoped Cloudflare token service is cloudflare-table42; never print token values.
+Account eb6564e57c2aebe97bbc5d33a0ffe5cb. Production URL:
+https://plunge.jasonyandell.workers.dev/. Verify auth/workflow state when needed.
