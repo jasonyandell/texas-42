@@ -47,6 +47,13 @@ this records the workshop vision without starting its implementation.
 
 ## The priority
 
+**2026-09-18 research lead:** preserve the samples that change a recommendation
+and the ones that do not. The [Kiln sample-history instrument](../kiln/SAMPLE-HISTORY.md)
+reconstructs all empirical prefixes and emits original-game explanation packets.
+This supports later tests of more informative sample allocation or world proposals,
+with retained probabilities/weights and fresh controls. It does not change the
+player or claim that a threshold flip establishes a strategic mechanism.
+
 A reasonable, fairly quick, partner-aware Texas 42 player on the Mac and phone. It must
 make a lawful choice within its computation budget. Guesses and occasional
 mistakes are allowed. Spending the entire budget is optional.

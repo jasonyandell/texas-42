@@ -60,6 +60,12 @@ silently consume it. Plunge installation/deployment remains a later step.
 
 ## Preserved survey
 
+[Sample history](SAMPLE-HISTORY.md) reconstructs every empirical recommendation
+change without altering production. Every game remains available, including
+non-changing controls, and explanation packets preserve the exact before/after
+prefixes plus original game receipts. This is the evidence base for later
+experiments with sample allocation or belief proposals, not a sampler change now.
+
 Both live campaigns reside outside git under `/Users/jason/data/texas-42/`.
 `backup.py` makes consistent SQLite snapshots while production continues, includes
 receipts and immutable producer/source bundles, and reads back every archive
