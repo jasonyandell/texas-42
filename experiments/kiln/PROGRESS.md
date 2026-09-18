@@ -5,6 +5,15 @@ The old 1,000-deal scalar-price production target is superseded, not completed.
 The app goal flag may still show the old usage-limited objective; it is not the
 current work instruction. Do not restart the old campaign automatically.
 
+**Latest completed research cycle:** [decision mining](decision-mining-v1/RESULTS.md)
+adds 360 new source games, 480 completed position/seed assessments on 240
+two-tile coordinates, and 21,620 full paired continuations. It found 17 missed
+position/seed cases across 13 positions; none of 114 simple action/gate candidates
+had positive mean development gain, so the frozen rule retained the baseline.
+Fresh action evidence, all controls and paired witnesses are preserved in
+`~/data/texas-42/kiln-played-v1/decision-mining-v1`. Both batches and the fresh
+source campaign are complete. No monitor, production restart or phone change.
+
 Completed campaign: [PLAYED.md](PLAYED.md). 100 individual bidder hands
 (25 complete Plunge deals × four seats), all nine declarations. Play the actual
 deployed player at bid30 through all seven tricks, accumulate final-score

@@ -47,6 +47,19 @@ this records the workshop vision without starting its implementation.
 
 ## The priority
 
+**2026-09-18 decision-mining cycle:** the
+[paired continuation rig](../kiln/decision-mining-v1/RESULTS.md) now connects
+actual play, Scheme descriptions, counterfactual continuations and a frozen
+fresh exam. Across 240 two-tile positions / two policy seeds, it retained 17
+missed position/seed cases (13 positions). No tested simple action fragment
+earned an override; the top-trump investigation gate gave mixed transfer.
+Threat strata explained about 10% of action-difference variation retrospectively,
+which is a possible measurement lead, not demonstrated new sample savings.
+The loop is **play, preserve contrasts, propose a relational description,
+challenge it on fresh hands, measure what it buys**. Attention is optional and
+was not used. Distinguish learning difficult situations from learning where a
+different action helps. The actual phone player remains unchanged.
+
 **2026-09-18 research lead:** preserve the samples that change a recommendation
 and the ones that do not. The [Kiln sample-history instrument](../kiln/SAMPLE-HISTORY.md)
 reconstructs all empirical prefixes and emits original-game explanation packets.

@@ -297,7 +297,11 @@ def rows(output):
             masks={name:data['memberships'][0]['actions'] for name,data in v['queries'].items() if data['public']},
             world_threat=[any(v['queries'][q]['memberships'][i]['exists'] for q in presences) for i in range(n)],
             audit=v['independent_audit'],sha256=row['sha256'],elapsed_us=v['elapsed_us']))
-    db.close();return answer
+    db.close()
+    expected={(root,rep) for root in roots for rep in range(2)}
+    if len(answer)!=len(expected) or {(r['root'],r['rep']) for r in answer}!=expected:
+        raise ValueError('Assessment queue does not cover the entire frozen panel')
+    return answer
 
 
 def choose(rule,row):

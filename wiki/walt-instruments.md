@@ -57,6 +57,16 @@ instrument." This page is the catalog — read it before building anything under
 
 ## The workspace (unified 2026-08-24)
 
+**Paired decision mining, 2026-09-18:** the
+[two-tile continuation rig](../experiments/kiln/decision-mining-v1/RESULTS.md)
+uses the actual shared deployed player after each forced legal root action,
+enumerates compatible worlds, audits actor-only calls and Scheme memberships,
+and fits simple Viewer-only action descriptions before a fresh exam. It found
+13 distinct positions with model-relative misses, but selected no move override.
+The resumable queue, all controls, original responses and paired helpful/harmful
+witnesses remain available. This is a bounded analysis instrument, not a player
+strength gain or a new sampling policy.
+
 **Outcome-first Scheme discovery, 2026-09-18:** the bounded
 [`threat_probe.py`](../experiments/kiln/threat_probe.py) derives ownership
 conjunctions from actual losing worlds, deletes facts, emits executable Schemes,

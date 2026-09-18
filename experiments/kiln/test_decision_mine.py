@@ -2,6 +2,9 @@ import copy
 from fractions import Fraction as F
 import json
 import subprocess
+import sqlite3
+import tempfile
+from pathlib import Path
 import unittest
 
 import decision_mine as m
@@ -12,6 +15,14 @@ REQUEST = dict(bid=30,bidder=1,decl=1,hand=[3,5,9,21,23,26,27],
 
 
 class LearningTests(unittest.TestCase):
+    def test_deleted_queue_rows_are_not_a_complete_panel(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output=Path(folder)
+            (output/'panel.json').write_text(json.dumps(dict(roots=[dict(id='missing')])) )
+            db=sqlite3.connect(output/'assessments.sqlite')
+            db.execute('CREATE TABLE jobs(root TEXT,rep INTEGER,payload BLOB)');db.close()
+            with self.assertRaisesRegex(ValueError,'entire frozen panel'):m.rows(output)
+
     def test_gate_uses_integrated_belief_not_actual_world(self):
         row=dict(baseline=4,threat=F(1,2),masks={'x':[8]},world_threat=[True,False])
         rule=dict(query='x',threshold='1/3')

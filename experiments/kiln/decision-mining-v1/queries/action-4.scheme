@@ -1,0 +1,1 @@
+(fix (roles (domino a)) (out a) (case (own-legal a) (count a 0)))
