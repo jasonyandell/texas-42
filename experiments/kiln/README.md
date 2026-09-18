@@ -80,6 +80,13 @@ included separately as decimal strings; a covered deal can be exported
 while refinements remain pending. Final completion additionally requires every
 retained cell to reach its planned depth and no failed/pending jobs remaining.
 
+The preselected deals contain three repeated own-hand identities (same seat,
+different hidden hands). Their sampling seeds are identical. Generation retains
+each deal's own receipts and audit decisions; Plunge reconciles repeats by using
+the deepest saved price for each own-hand declaration/target, rejecting conflicting
+values at a common depth. It never chooses between these prices by the actual
+opponent hands or by the most favorable estimate.
+
 ## Validation and continuation
 
 `python3 -m unittest discover -s experiments/kiln -v` checks all 1,000 generator

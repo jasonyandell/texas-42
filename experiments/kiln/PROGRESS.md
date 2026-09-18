@@ -12,7 +12,8 @@ the goal complete from the local integration preview.
   1a43d763 (small support) and 7377ff32 (allocation removal and release audit).
 - Plunge: `/Users/jason/code/plunge-sunshine`, branch `codex/sunshine-table`.
   Book integration is ef5d92d; optimized phone asset and validation notes are
-  committed as **70e170c**. The book manifest remains intentionally null.
+  committed as **70e170c**. Repeated own-hand reconciliation is **cdf6bfe**.
+  The book manifest remains intentionally null.
 - No Kiln changes have been merged/pushed/deployed. Base cwd
   `/Users/jason/code/texas-42` is unrelated; do not edit it.
 
@@ -25,7 +26,7 @@ production-process.json; status.json is expendable. The exclusive OS lock
 prevents another writer. Graceful SIGTERM retains completed prices and returns
 unfinished work to the queue. Check actual process identity before stopping it.
 
-Last checked: 173 base-covered deals, **51 fully refined**, no job errors. The
+Last checked: 173 base-covered deals, **65 fully refined**, no job errors. The
 latest one-minute production firing retained **1,071** prices; the continuous
 run was around 17 prices/s while other validation work was running. These counts
 are production progress, not controlled speedups across different job mixes.
@@ -103,6 +104,20 @@ then focused auction/book suites after final changes and 15 native-tie parity
 cases. The optional exported-book validation was explicitly run on all 133 preview
 deals. The calibration test was explicitly run on all100 games (it is skipped
 in ordinary CI without the external data path). More in Plunge docs-kiln.md.
+
+## Full-catalogue repeated-hand edge case
+
+The 1,000 preselected shuffles contain three repeated own hands:
+seat2 at seeds420695/420778; seat2 at420702/421106; seat1 at421103/421573.
+Plunge previously rejected duplicates. This is fixed in cdf6bfe: one lookup panel
+per own hand/seat uses each cell's deepest saved evidence, regardless of favorable
+score, current hidden deal or catalogue order. Common-depth scores and sampling
+seeds must agree. Original per-deal receipts and generation audit rules stay intact.
+
+The runtime and independent import validator passed tests covering all 1,000
+actual shuffles with explicitly synthetic test-only prices, conflicting prices /
+sampling seeds, higher-depth reuse and catalogue-order invariance. Build and 46
+focused integration tests passed. This does not claim 1,000 measured panels exist.
 
 ## Solver and phone verification
 
