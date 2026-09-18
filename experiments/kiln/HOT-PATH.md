@@ -172,3 +172,15 @@ the validated rule-table worker resumed. No additional source path or phone
 asset is retained for this negligible effect. The experimental binary/source
 snapshot is d94470d03e393c3f1fd286e3201d16786d0d6ab8f628ba405eccbfd8a1405c06;
 see serial-grouping-{parity,timing}-summary.json.
+
+## Compiler instruction target inspection
+
+The installed compiler's default Mac target already enables LSE integer atomics
+and NEON, among other modern instruction features. `target-cpu=native` adds
+BF16, integer matrix multiplication and branch-target identification; it reports
+the host as apple-m4 even though macOS identifies the machine as Apple M5 Max.
+This inspection found no obvious missing instruction feature for the current
+scalar search workload, so it did not trigger another rebuild or production
+interruption. It is not a timing comparison or a claim that CPU scheduling
+choices cannot help. See compiler-target-summary.json for the exact compiler
+version and the raw feature inventory's identity.
