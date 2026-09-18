@@ -155,3 +155,10 @@ can study relationships along these saved continuations, with new confirmation
 hands after fitting. This run does not yet demonstrate learned threats,
 improved sampling or stronger play. The production campaign stays stopped and
 the phone player is unchanged.
+
+The complete corpus and runner tools were backed up locally and verified by
+immutable remote download from the private Hugging Face archive. Snapshot
+`20260918T174948.127967Z`, remote commit
+`82c3ebc1899d3ba9c91e8333efb643eb43e19d59`;
+[backup evidence](backup-evidence.json) records archive hashes and database
+integrity checks. The local snapshot is under `~/data/texas-42/backups/`.
