@@ -13,7 +13,8 @@ the goal complete from the local integration preview.
 - Plunge: `/Users/jason/code/plunge-sunshine`, branch `codex/sunshine-table`.
   Book integration is ef5d92d; optimized phone asset and validation notes are
   committed as **70e170c**. Repeated own-hand reconciliation is **cdf6bfe**; automatic installed-book
-  validation in the normal test run is **9963705**.
+  validation in the normal test run is **9963705**. Reusable browser release
+  verification is **b891e8e**.
   The book manifest remains intentionally null.
 - No Kiln changes have been merged/pushed/deployed. Base cwd
   `/Users/jason/code/texas-42` is unrelated; do not edit it.
@@ -31,7 +32,7 @@ PreventUserIdleSystemSleep assertion was verified. It ends with this coordinator
 If restarting production, bind a new guard to the new actual coordinator PID.
 Metadata is power-guard.json; as always, verify live processes rather than the file.
 
-Last checked: 173 base-covered deals, **83 fully refined**, no job errors. The
+Last audited: 173 base-covered deals, **101 fully refined**, no job errors. The
 latest one-minute production firing retained **1,071** prices; the continuous
 run was around 17 prices/s while other validation work was running. These counts
 are production progress, not controlled speedups across different job mixes.
@@ -107,6 +108,30 @@ the hand. Evidence: browser-local-check.json and browser-local-book.png in the
 campaign. The preview asset was removed from the repo and manifest reset to null
 before committing. Local Vite session33127 may still be running, but is now back
 to live bidding until another book is installed.
+
+The reusable Plunge `scripts/kiln-browser-check.mjs` now covers actual mobile UI
+play, original decision bookmarking, notes, reload of the game/question/receipt,
+finished-hand replay attachment, and next-hand shaker/marks/session/catalogue bid.
+The final expanded local run passed in 23.6s on the 133-deal preview: three AI bids
+in 3.15s including presentation pauses, 15 actual Walt decisions through the hand's
+early set, no auction workers or browser errors, and the expected optimized WASM
+identity. Report/screenshots: browser-release-local-complete/ in the campaign.
+Uploads were deliberately blocked; this proves local persistence, not the deployed
+question service. The script's explicit --submit mode checks anonymous upload and
+the completed public share, and remains to be exercised on production. Optional
+--book, --wasm and --build arguments pin release identities. Both temporary local
+previews were removed and the null manifest restored. Plunge is committed/clean.
+
+At the 100-deal milestone, an independent read-only audit passed all **152,680**
+saved receipts, refinement chains, exact original scores and producer source/binary
+identities. Its pinned snapshot contained 101 settled deals. Of 923 preselected
+audit cells already at 160 worlds, 376 would have stopped at a cheap stage; **none
+reached the 75% model eligibility threshold** at depth 160. Nine reached 50%.
+This supports retaining the current screen provisionally, not a proof of no misses.
+The report's cell-wise Wilson intervals are descriptive: related declarations and
+targets share hands/samples, so they are not calibrated campaign-wide bounds.
+Evidence: audit-100-deal-milestone.json. Full release still requires all 1,000 deals
+and a final audit with the actual exported book; this partial audit has no book id.
 
 Validation: full Plunge suite 199 passed/2 optional skipped, typecheck and build;
 then focused auction/book suites after final changes and 15 native-tie parity
