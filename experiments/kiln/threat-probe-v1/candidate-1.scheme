@@ -1,0 +1,10 @@
+(fix
+  (roles (chair me) (chair after) (chair mate) (chair before))
+  (out)
+  (case
+    (viewer me)
+    (successor me after)
+    (partner me mate)
+    (successor mate before)
+    (holds before 5-2)
+    (holds before 5-5)))

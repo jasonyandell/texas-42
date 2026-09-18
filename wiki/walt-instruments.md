@@ -57,6 +57,17 @@ instrument." This page is the catalog — read it before building anything under
 
 ## The workspace (unified 2026-08-24)
 
+**Outcome-first Scheme discovery, 2026-09-18:** the bounded
+[`threat_probe.py`](../experiments/kiln/threat_probe.py) derives ownership
+conjunctions from actual losing worlds, deletes facts, emits executable Schemes,
+and audits associations on separate worlds and source deals. The
+[first probe](../experiments/kiln/threat-probe-v1/RESULTS.md) preserves mixed
+transfer evidence, post-hoc ablations, original receipts, and native membership
+checks. No claim of learned causal threats, revised beliefs, or stronger play;
+physical tile literals remain in this first grammar. It is separate from the
+Viewer-only relational actor constructor and never supplies hidden facts to a
+live player's policy guard.
+
 **Shared deployed player, 2026-09-14:** [`walt-player`](../walt/walt-player/README.md)
 owns the complete L1/fallback/partner-check procedure for native Plunge and the
 phone WebAssembly worker. Real browser deadlines, completed checkpoints,

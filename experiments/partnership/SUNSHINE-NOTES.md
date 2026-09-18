@@ -287,3 +287,21 @@ named partners. Keep an affordable baseline ready. Hindsight should teach
 which concerns deserve investigation, not just which tile happened to win once.
 The priority remains a reasonable, fast, partner-aware player; neither a few
 good demonstrations nor tied ordinary games settle its broader strength.
+
+### Outcome-first Scheme discovery (2026-09-18)
+
+The workshop also needs the reverse direction: **observed outcomes → candidate
+Scheme → ablation/generalization → matching new worlds → measured continuation
+outcomes**. Start from a specific world, remove details, and let independent
+examples decide which abstractions deserve to survive. We choose mechanical
+primitives and budgets; we need not prewrite every tactical pattern.
+
+The first [bounded ownership-deletion probe](../kiln/threat-probe-v1/RESULTS.md)
+runs this loop on saved actual-player games. It found mixed transfer evidence
+and a simpler double-five ownership association worth challenging, with complete
+negative/control results retained. The current grammar keeps physical tile
+identities; relational lifting and learned temporal threat descriptions remain
+future work. These queries inspect possible hidden worlds for analysis/belief
+integration; they are not privileged inputs to the acting player. Validate
+outcome prediction before claiming mechanism, and cheaper decisions before
+claiming useful sample compression.

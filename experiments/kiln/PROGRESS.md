@@ -88,6 +88,24 @@ more live games arrived. Four focused tests passed. No sampler or player change.
 The report, packet, raw data and tools are also in verified private Hugging Face
 snapshot `kiln/snapshots/20260918T142655.519133Z`, commit
 `d03d928614069a47b769a96c6786747a3b0a813c`, with 13,320 games in its database.
+
+## Outcome-first Scheme probe
+
+[Protocol](THREAT-PROBE.md), [results](threat-probe-v1/RESULTS.md). User-directed
+preliminary discovery from observed worlds rather than prewritten tactical
+patterns: retain subsets of ownership facts from losing games, compile the
+learned Schemes, and test on separate worlds and source deals. The frozen first
+eight trials supply 7,200 games but only 800 hidden completions (declarations
+share completions). All original receipts were independently revalidated.
+
+57,008 clauses searched; eight frozen candidates; 244,800 actual Scheme membership
+checks including seed descriptions and later ablations, no mismatch. Four Python
+checks and one Rust input check passed. Primary transfer evidence is weak; a
+secondary double-five ownership association merits further investigation. The
+post-hoc simpler query retains a new-hand association, but is not confirmed as
+a causal threat or useful sampling rule. Full artifacts are outside the checkout
+under the live campaign's `threat-probe-v1/`; compact evidence and queries are
+tracked. No player, sampler, production scheduling, or phone change.
 See SAMPLE-HISTORY.md and sample-history-evidence.json. The monitor regenerates
 content-addressed history reports before subsequent milestone backups. Internal
 solver-world traces are a separate future instrument; do not call an empirical
