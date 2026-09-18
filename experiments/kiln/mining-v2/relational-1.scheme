@@ -1,0 +1,10 @@
+(fix
+  (roles (chair me) (chair after) (chair mate) (chair before) (domino hidden))
+  (out)
+  (case
+    (viewer me)
+    (successor me after)
+    (partner me mate)
+    (successor mate before)
+    (holds after hidden)
+    (boss hidden q*)))

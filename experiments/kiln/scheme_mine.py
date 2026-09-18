@@ -293,12 +293,51 @@ def evaluate(directory, output, binary):
     return value
 
 
+def publish(output, destination):
+    """Keep every frozen query and its evidence, including failed replication."""
+    fitted = json.loads((output/'fit.json').read_text())
+    result = json.loads((output/'result.json').read_text())
+    efficiency = json.loads((output/'cv-result.json').read_text())
+    for value in (fitted,result,efficiency): verify_identity(value)
+    if result['fit_id'] != fitted['id'] or efficiency['fresh_result_id'] != result['id']:
+        raise ValueError('Publication inputs belong to different experiments')
+    destination.mkdir(parents=True,exist_ok=True)
+    outcomes = {q['name']:q for q in result['queries']}
+    corrections = {q['name']:q for q in efficiency['queries']}
+    entries = []
+    for query in fitted['queries']:
+        evidence = outcomes[query['name']]
+        path = destination/(query['name']+'.scheme')
+        if path.exists() and path.read_text() != query['source']:
+            raise ValueError('Refusing to replace another query source')
+        path.write_text(query['source'])
+        entries.append({'name':query['name'],'source':path.name,
+            'source_sha256':hashlib.sha256(query['source'].encode()).hexdigest(),
+            'kind':query['kind'],'origin':query.get('witness'),
+            'status':'replicated-outcome-association' if evidence['replication_gate_passed'] else 'unconfirmed-outcome-association',
+            'scope':'opening bidder; fixed bid30 deployed player; fresh uniform hidden completions',
+            'evidence':evidence,
+            'measurement_efficiency':corrections.get(query['name'])})
+    catalog = {'schema':'sunshine-scheme-mining-catalog-v1','fit_id':fitted['id'],
+        'fresh_result_id':result['id'],'efficiency_result_id':efficiency['id'],
+        'deployment':'analysis-only; hidden-world predicates must not become live policy guards',
+        'replication_gate_passed':result['replication_gate_passed'],'queries':entries}
+    catalog['id'] = t.digest(catalog)
+    immutable_json(destination/'catalog.json',catalog)
+    for filename,value in [('fit.json',fitted),('result.json',result),('cv-result.json',efficiency)]:
+        immutable_json(destination/filename,value)
+    print(t.p.canonical({'catalog':str(destination/'catalog.json'),'id':catalog['id'],
+        'replicated':[q['name'] for q in entries if q['status']=='replicated-outcome-association']}))
+    return catalog
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command',choices=['fit','evaluate'])
+    parser.add_argument('command',choices=['fit','evaluate','publish'])
     parser.add_argument('input',type=Path)
     parser.add_argument('--output',required=True,type=Path)
     parser.add_argument('--binary',type=Path,default=t.p.ROOT/'walt/target/release/scheme_worlds')
     args = parser.parse_args()
     if args.command == 'fit': fit(args.input,args.output,args.binary)
-    else: evaluate(args.input,args.output,args.binary)
+    elif args.command == 'evaluate': evaluate(args.input,args.output,args.binary)
+    else: publish(args.input,args.output)

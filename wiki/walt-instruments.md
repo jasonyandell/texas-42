@@ -68,6 +68,16 @@ physical tile literals remain in this first grammar. It is separate from the
 Viewer-only relational actor constructor and never supplies hidden facts to a
 live player's policy guard.
 
+**Fresh relational mining, 2026-09-18:** the
+[v2 probe](../experiments/kiln/mining-v2/RESULTS.md) generates role/property
+Schemes from those losing examples and freezes hypotheses before 2,880 new
+played games. Both registered primary associations replicated; a learned
+top-trump control reduced measured fixed-player estimator variance by 2.34%.
+The bounded fit/evaluate/publication tools preserve a query evidence catalog,
+original witnesses, counterexamples and inconclusive results. These are opening
+outcome/measurement instruments, not live policy guards, causal threat proofs,
+or established player-strength gains.
+
 **Shared deployed player, 2026-09-14:** [`walt-player`](../walt/walt-player/README.md)
 owns the complete L1/fallback/partner-check procedure for native Plunge and the
 phone WebAssembly worker. Real browser deadlines, completed checkpoints,

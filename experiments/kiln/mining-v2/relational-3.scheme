@@ -1,0 +1,14 @@
+(fix
+  (roles (chair me) (chair after) (chair mate) (chair before) (domino hidden) (domino own) (context led))
+  (out)
+  (case
+    (viewer me)
+    (successor me after)
+    (partner me mate)
+    (successor mate before)
+    (holds after hidden)
+    (double hidden)
+    (own-legal own)
+    (leads-context own led)
+    (beats hidden own led)
+    (in own q*)))

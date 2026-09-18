@@ -305,3 +305,14 @@ future work. These queries inspect possible hidden worlds for analysis/belief
 integration; they are not privileged inputs to the acting player. Validate
 outcome prediction before claiming mechanism, and cheaper decisions before
 claiming useful sample compression.
+
+The [fresh follow-up](../kiln/mining-v2/RESULTS.md) completed ten unseen source
+deals / 2,880 games. Two predeclared outcome associations replicated, including
+a learned opponent-top-trump condition. A correction using its known uniform
+opening prevalence reduced measured variance of fixed-player bid-success
+estimates by 2.34% overall; a simpler double-five correction was inconclusive.
+This is modest evidence of a useful shortcut for measurement, not a live-player
+improvement. The frozen fit/evaluate/catalog tooling and retained failures are
+the first mining-rig components. Next connect learned conditions to the gym's
+paired alternative continuations, so unavoidable difficulty is separated from
+decisions where helping partner can change the result.

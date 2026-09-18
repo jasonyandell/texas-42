@@ -107,7 +107,7 @@ a causal threat or useful sampling rule. Full artifacts are outside the checkout
 under the live campaign's `threat-probe-v1/`; compact evidence and queries are
 tracked. No player, sampler, production scheduling, or phone change.
 
-## Fresh relational mining probes (in progress)
+## Fresh relational mining probes (complete)
 
 User authorized further probes toward a reusable mining rig. The fixed
 [v2 protocol](MINING-PROBE-V2.md) freezes 13 queries (eight original literal
@@ -131,6 +131,19 @@ A [pre-label measurement-efficiency extension](MINING-PROBE-V2-CV.md) froze
 control-variate coefficients from discovery data only. It tests whether the
 known 1/3 opening ownership probability reduces variance of fixed-player
 bid-success estimates. It does not change Walt's internal samples or live play.
+
+[Fresh results](mining-v2/RESULTS.md): both predeclared primaries passed on 2,880
+new games / 320 completions, with no errors, overruns, or fallbacks. The simpler
+double-five association had +4.65 pp failure excess; learned top-trump ownership
+had +10.13 pp. The old strongest training pattern disappeared (-0.48 pp).
+The frozen top-trump correction reduced measured estimator variance by 2.34%
+overall; the double-five correction's 0.53% reduction was inconclusive. These
+are fixed-player outcome/measurement results, not stronger play or faster Walt
+planning. All 13 queries and negative/control results are in the evidence
+catalog. Eight focused tests passed; 1,012,464 Scheme membership checks and
+80,640 fresh plays passed their audits. The tools now separate frozen fitting,
+fresh evaluation, variance checks and catalog publication. Original bid
+production and the deployed phone player were not changed.
 See SAMPLE-HISTORY.md and sample-history-evidence.json. The monitor regenerates
 content-addressed history reports before subsequent milestone backups. Internal
 solver-world traces are a separate future instrument; do not call an empirical
