@@ -51,3 +51,40 @@ retains the current minimum-raise and partner-pass auction policy; it does not
 turn this uncalibrated panel into a new maximum-bid policy. Future work can
 separately measure the modeled-field match-up, actual continuation match-ups,
 and additional hands before revising the model or its bid threshold.
+
+## Diagnostic follow-up: what is and is not explained
+
+Inspection of the saved 100 games found that their independently seeded opening
+evaluations averaged **76.7125%** for the move actually chosen (range 70–85.625%).
+Tile 0 was chosen 53 times (10 makes, mean model score 76.10%); tile 13 was
+chosen 47 times (11 makes, mean model score 77.41%). Thus the discrepancy is
+present across repeated forecasts for this hand, not just the originally
+selected 121/160 receipt. These remain one-hand observations.
+
+All 100 opening evaluations completed 160 worlds; all 1,195 non-opening
+evaluated decisions completed 40 worlds; the remaining 513 moves were forced.
+None of the 1,808 decisions reported a budget overrun. The partnership review
+changed exactly one move, in game 39 at ply 22 (that game made). It made no
+choice changes on the other 99 observed trajectories. Deadline truncation and
+frequent partner overrides therefore do not describe this execution.
+
+Two structural mismatches are confirmed by the source:
+
+- Auction pricing uses `Field::SeatLevels([0; 4])`. These modeled level-0
+  policies optimize against Dice on eight inner worlds; they are not literal
+  random players. Actual seats used the deployed L1 player and partner review.
+- The forecast optimizes the bidder's future choices over its original sampled
+  worlds. As modeled seats act, `combine_buckets` conditions those worlds on
+  their policy-dependent moves. Actual play samples anew on each decision:
+  `partnership::evaluate` conditions the outer sample on legality and voids,
+  without carrying the forecast's policy-conditioned posterior or contingent
+  plan. SCENARIO-PLAYER.md section 4.4 explicitly records this distinction.
+
+The causal contributions remain unmeasured. Finite-sample plan overfitting,
+changed future belief updates/replanning, and changed partner/opponent policies
+are separate candidate contributors. First replay held-out completions with
+the deployed bidder and the same modeled field, then separately change partner
+and opponent policies. To isolate plan fitting from deployed replanning, a
+frozen bidder policy must declare its behavior on histories absent from the
+training sample before evaluation on held-out completions. This inspection
+does not establish that any one change repairs the gap.
