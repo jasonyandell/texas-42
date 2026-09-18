@@ -46,6 +46,11 @@ transaction per completed price plus its refinement decision. At most unfinished
 worker jobs are lost; no whole panel is discarded. `status.json` and run logs are
 views, not authority. The database and WAL must stay together while running.
 
+For an unattended Mac run, prefix the command with `caffeinate -i` to prevent
+idle system sleep for that command's lifetime. For a coordinator already running,
+`caffeinate -i -w COORDINATOR_PID` ties the assertion to that specific process and
+releases it automatically on exit. Rebind it after any coordinator restart.
+
 A persistent native process per worker accepts only own-hand auction requests.
 `RAYON_NUM_THREADS` controls inner concurrency independently of process count.
 Start with one inner thread and tune completed prices/second, RAM and errors;

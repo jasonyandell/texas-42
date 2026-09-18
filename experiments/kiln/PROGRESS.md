@@ -12,7 +12,8 @@ the goal complete from the local integration preview.
   1a43d763 (small support) and 7377ff32 (allocation removal and release audit).
 - Plunge: `/Users/jason/code/plunge-sunshine`, branch `codex/sunshine-table`.
   Book integration is ef5d92d; optimized phone asset and validation notes are
-  committed as **70e170c**. Repeated own-hand reconciliation is **cdf6bfe**.
+  committed as **70e170c**. Repeated own-hand reconciliation is **cdf6bfe**; automatic installed-book
+  validation in the normal test run is **9963705**.
   The book manifest remains intentionally null.
 - No Kiln changes have been merged/pushed/deployed. Base cwd
   `/Users/jason/code/texas-42` is unrelated; do not edit it.
@@ -25,8 +26,12 @@ Coordinator **64852** was launched detached, 18 processes, one internal thread,
 production-process.json; status.json is expendable. The exclusive OS lock
 prevents another writer. Graceful SIGTERM retains completed prices and returns
 unfinished work to the queue. Check actual process identity before stopping it.
+Mac sleep guard **72443** is `/usr/bin/caffeinate -i -w 64852`; its actual
+PreventUserIdleSystemSleep assertion was verified. It ends with this coordinator.
+If restarting production, bind a new guard to the new actual coordinator PID.
+Metadata is power-guard.json; as always, verify live processes rather than the file.
 
-Last checked: 173 base-covered deals, **72 fully refined**, no job errors. The
+Last checked: 173 base-covered deals, **83 fully refined**, no job errors. The
 latest one-minute production firing retained **1,071** prices; the continuous
 run was around 17 prices/s while other validation work was running. These counts
 are production progress, not controlled speedups across different job mixes.
@@ -122,6 +127,13 @@ The runtime and independent import validator passed tests covering all 1,000
 actual shuffles with explicitly synthetic test-only prices, conflicting prices /
 sampling seeds, higher-depth reuse and catalogue-order invariance. Build and 46
 focused integration tests passed. This does not claim 1,000 measured panels exist.
+
+The normal Plunge test run now automatically validates any installed book against
+the real game shuffle and exercises all seat/target lookups. This was verified
+by temporarily installing the 133-deal preview and running without KILN_BOOK /
+KILN_PREVIEW environment overrides: all 10 catalogue tests passed. The preview
+asset was removed and the null manifest restored afterward. Typecheck passed.
+No preview is installed or eligible for production deployment.
 
 ## Solver and phone verification
 
