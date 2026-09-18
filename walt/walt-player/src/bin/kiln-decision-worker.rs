@@ -6,6 +6,7 @@ use std::io::{self, BufRead, Write};
 use walt::rules::{legal_plays, Domino, DominoSet, Seat};
 use walt::scheme::{Access, Budget, Fix, Value as Answer};
 use walt::{gym, solver};
+use walt::kernel::SplitMix64;
 
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -18,7 +19,12 @@ struct Request {
 struct Query { name: String, source: String }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
-struct Job { request: Request, queries: Vec<Query> }
+struct Job {
+    request: Request, queries: Vec<Query>,
+    #[serde(default)] sample_seed: Option<u64>,
+    #[serde(default)] baseline: Option<usize>,
+    #[serde(default)] sample_only: bool,
+}
 
 fn tile(n: usize) -> Result<Domino, String> {
     Domino::from_index(n).ok_or_else(|| "invalid tile".into())
@@ -41,9 +47,9 @@ fn assess(text: &str, mut choose: impl FnMut(Value) -> Result<Value,String>) -> 
     let job: Job = serde_json::from_str(text).map_err(|e| e.to_string())?;
     let req = &job.request;
     if req.bid != 30 || ![0,1,2,3,4,5,6,7,9].contains(&req.decl)
-        || !(40..=46).contains(&req.plays.len()) || req.plays.len()%2 != 0
+        || req.plays.len()>52 || req.plays.len()%2 != 0
         || req.hand.len() != 7 || job.queries.len() > 80 {
-        return Err("expected bid30, ply20..23 and at most 80 queries".into());
+        return Err("expected bid30, unfinished history and at most 80 queries".into());
     }
     let hand: DominoSet = req.hand.iter().map(|&t| tile(t)).collect::<Result<Vec<_>,_>>()?.into_iter().collect();
     let history = req.plays.chunks_exact(2).map(|p| Ok((seat(p[0])?,tile(p[1])?)))
@@ -52,11 +58,19 @@ fn assess(text: &str, mut choose: impl FnMut(Value) -> Result<Value,String>) -> 
     let ex = gym::from_request(dcl, seat(req.bidder)?, seat(req.seat)?, hand, &history)?;
     let legal = legal_plays(dcl, ex.root.kernel().viewer_hand(), ex.frame.led_context())
         .iter().map(Domino::index).collect::<Vec<_>>();
-    if ex.root.kernel().viewer_hand().len() != 2 || legal.len() != 2
-        || ex.root.count() > 90 || ex.root.count() == 0 {
-        return Err("assessment requires two legal tiles and 1..90 worlds".into());
-    }
-    let worlds = ex.root.worlds().collect::<Vec<_>>();
+    let support = ex.root.count();
+    let worlds = if let Some(seed) = job.sample_seed {
+        if legal.len()<2 || !job.baseline.is_some_and(|a|legal.contains(&a)) {
+            return Err("sampled comparison requires a saved legal baseline and alternatives".into());
+        }
+        vec![ex.root.kernel().sample(&mut SplitMix64::new(seed)).ok_or("empty support")?]
+    } else {
+        if !(40..=46).contains(&req.plays.len()) || ex.root.kernel().viewer_hand().len()!=2
+            || legal.len()!=2 || support>90 || support==0 || job.baseline.is_some() || job.sample_only {
+            return Err("census assessment requires two legal tiles and 1..90 worlds".into());
+        }
+        ex.root.worlds().collect::<Vec<_>>()
+    };
     let mut query_results = BTreeMap::new();
     for q in &job.queries {
         if query_results.contains_key(&q.name) { return Err("duplicate query".into()); }
@@ -97,7 +111,9 @@ fn assess(text: &str, mut choose: impl FnMut(Value) -> Result<Value,String>) -> 
         Ok((choice,index))
     };
     let pairs = history.iter().map(|(s,t)|(s.index(),t.index())).collect::<Vec<_>>();
-    let (baseline,baseline_index) = decision(policy_call(req,req.seat,&req.hand,&pairs))?;
+    let (baseline,baseline_index) = if let Some(a) = job.baseline { (a,None) } else {
+        let (a,i)=decision(policy_call(req,req.seat,&req.hand,&pairs))?; (a,Some(i))
+    };
     if !legal.contains(&baseline) { return Err("illegal baseline".into()); }
     let mut traces = Vec::new();
     let mut full_worlds = Vec::new();
@@ -107,6 +123,7 @@ fn assess(text: &str, mut choose: impl FnMut(Value) -> Result<Value,String>) -> 
         for h in &mut hands { h.sort_unstable(); }
         if hands[req.seat] != req.hand { return Err("original hand mismatch".into()); }
         full_worlds.push(hands.clone());
+        if job.sample_only { continue; }
         for &action in &legal {
             let mut record = pairs.clone();
             record.push((req.seat,action));
@@ -129,9 +146,11 @@ fn assess(text: &str, mut choose: impl FnMut(Value) -> Result<Value,String>) -> 
                 "decisions":ids,"points":points,"made":points[req.bidder%2]>=30}));
         }
     }
-    Ok(json!({"schema":"kiln-decision-assessment-v1","request":serde_json::from_str::<Value>(text).unwrap()["request"],
+    Ok(json!({"schema":if job.sample_seed.is_some() {"kiln-sampled-contrast-v1"} else {"kiln-decision-assessment-v1"},
+        "request":serde_json::from_str::<Value>(text).unwrap()["request"],
         "legal":legal,"worlds":full_worlds,"queries":query_results,"baseline":baseline,
         "baseline_decision":baseline_index,"decisions":decisions,"traces":traces,
+        "support_worlds":support.to_string(),"sample_seed":job.sample_seed,"sample_only":job.sample_only,
         "elapsed_us":start.elapsed().as_micros() as u64}))
 }
 
