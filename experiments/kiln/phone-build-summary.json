@@ -1,0 +1,85 @@
+{
+  "schema": "walt-build-comparison-v1",
+  "before": "2730dc305e3399863235a273e5c0df8a4928a03a7671811a6f9772cfdebd6aa7",
+  "after": "ce0e5a958b6dfe42c77080ab85126905d105039bdaf425a1b0ebf1103cec251d",
+  "clock": "frozen",
+  "host": "Node WASM; not phone timing",
+  "requested": 12,
+  "completed": 12,
+  "all_completed": true,
+  "median_speedup": 3.7032851549959744,
+  "geometric_speedup": 3.714456319350075,
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/phone-before-after-v2.json",
+  "evidence_sha256": "8bbe69913714c39ef0ed4e4ea973e3b70d82ff103e830712f355d37965ccba6e",
+  "notes": "Paired full calculations under frozen host time; concurrent Kiln production. Mac Node WASM timings, not Pixel timings.",
+  "checks": {
+    "phone-conformance-run": {
+      "schema": "texas42-partnership-run-v1",
+      "started_utc": "2026-09-18T06:40:46.821666+00:00",
+      "cwd": "/Users/jason/code/texas-42-partnership-launch",
+      "command": [
+        "node",
+        "walt/walt-player/check.mjs",
+        "/Users/jason/data/texas-42/kiln-v1/phone-conformance.json"
+      ],
+      "allowance_seconds": 60.0,
+      "experiment_ceiling_seconds": 300,
+      "elapsed_seconds": 13.144157,
+      "status": "completed",
+      "child_pid": 43249,
+      "child_returncode": 0,
+      "runner_returncode": 0,
+      "interruption_signal": null,
+      "error": null,
+      "cleanup_errors": [],
+      "stdout": "stdout.log",
+      "stderr": "stderr.log"
+    },
+    "phone-auction-run": {
+      "schema": "texas42-partnership-run-v1",
+      "started_utc": "2026-09-18T06:42:01.591767+00:00",
+      "cwd": "/Users/jason/code/texas-42-partnership-launch",
+      "command": [
+        "node",
+        "walt/walt-player/auction-check.mjs",
+        "/Users/jason/data/texas-42/kiln-v1/phone-auction.json"
+      ],
+      "allowance_seconds": 60.0,
+      "experiment_ceiling_seconds": 300,
+      "elapsed_seconds": 11.894388,
+      "status": "completed",
+      "child_pid": 44625,
+      "child_returncode": 0,
+      "runner_returncode": 0,
+      "interruption_signal": null,
+      "error": null,
+      "cleanup_errors": [],
+      "stdout": "stdout.log",
+      "stderr": "stderr.log"
+    },
+    "phone-before-after-run2": {
+      "schema": "texas42-partnership-run-v1",
+      "started_utc": "2026-09-18T06:44:21.021057+00:00",
+      "cwd": "/Users/jason/code/texas-42-partnership-launch",
+      "command": [
+        "node",
+        "walt/walt-player/compare-builds.mjs",
+        "/Users/jason/data/texas-42/kiln-v1/phone-before/walt-player.wasm",
+        "/Users/jason/code/plunge-sunshine/src/ai/phone/walt-player.wasm",
+        "/Users/jason/data/texas-42/kiln-v1/phone-before-after-v2.json"
+      ],
+      "allowance_seconds": 60.0,
+      "experiment_ceiling_seconds": 300,
+      "elapsed_seconds": 29.865281,
+      "status": "completed",
+      "child_pid": 47043,
+      "child_returncode": 0,
+      "runner_returncode": 0,
+      "interruption_signal": null,
+      "error": null,
+      "cleanup_errors": [],
+      "stdout": "stdout.log",
+      "stderr": "stderr.log"
+    }
+  }
+}

@@ -39,6 +39,7 @@ Forty retained/fresh cases matched exact fractions, nodes, policy calls and inne
 sample counts. Partnership, public-void sampler, selection and frozen ordering
 tests passed. A paired 16-case deep check measured 1.100x median / 1.099x geometric
 speedup against the bitset worker.
+The one-minute production firing retained 1,071 prices with zero errors.
 
 Each paired timing used four concurrent pairs with alternating old/new order and
 a 60-second bound, with no competing production process. Production firings ran
@@ -57,3 +58,18 @@ Each run is bounded to at most 60 seconds and saves completed cases. Compare
 elapsed time only when all layouts finish the same requested workload. Run with
 production stopped so competing jobs do not contaminate the comparison. A timed
 out run is explicitly incomplete and is not treated as an equivalent full run.
+
+All five checks completed the same 256 retained 160-world requests:
+
+| Processes × threads | Elapsed seconds |
+|---|---:|
+| 18 × 1 | 26.04 |
+| 9 × 2 | 33.59 |
+| 12 × 1 | 37.60 |
+| 24 × 1 | 28.72 |
+| 18 × 1, repeat | 28.79 |
+
+The repeated 18-worker run tied 24 workers. Production keeps 18 independent
+single-threaded workers; this is a measured practical choice, not a proof of
+universal optimality. All values agreed; all serial work counters agreed.
+See pool-timing-summary.json for hashes of the full request/timing records.

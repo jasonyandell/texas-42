@@ -8,43 +8,55 @@ the goal complete from the local integration preview.
 ## Current checkouts and commits
 
 - Texas 42: `/Users/jason/code/texas-42-partnership-launch`, branch
-  `codex/partnership-launch`. Kiln creation/count arithmetic at 101d805b;
-  calibration/export/scheduling at 9bb393d7; compact caches at 662f298c.
+  `codex/partnership-launch`. Core optimization committed at f91533cc, following
+  1a43d763 (small support) and 7377ff32 (allocation removal and release audit).
 - Plunge: `/Users/jason/code/plunge-sunshine`, branch `codex/sunshine-table`.
-  Integration committed as ef5d92d. Its manifest is intentionally null until the
-  complete book is installed. No Kiln changes have been merged/pushed/deployed.
-- Base cwd `/Users/jason/code/texas-42` is an unrelated checkout; do not edit it.
+  Book integration is ef5d92d; optimized phone asset and validation notes are
+  committed as **70e170c**. The book manifest remains intentionally null.
+- No Kiln changes have been merged/pushed/deployed. Base cwd
+  `/Users/jason/code/texas-42` is unrelated; do not edit it.
 
 ## Production (revalidate; this file is not liveness evidence)
 
 Campaign: `/Users/jason/data/texas-42/kiln-v1`. SQLite/WAL are authoritative.
-Coordinator **86060** was launched detached, 18 processes, one internal thread,
-`--seconds 0 --job-ms 120000 --order deal`. The exclusive OS lock prevents another
-writer. Process metadata is production-process.json; status.json is expendable;
-production.log now includes covered AND fully refined deals, and per-depth totals.
-At the last completed firing: 173 covered deals, 4 fully refined; 81,290 initial
-prices, 1,836 at 40 worlds, 1,169 at 160. Zero job errors so far.
+Coordinator **41774** was launched detached, 18 processes, one internal thread,
+`--seconds 0 --job-ms 120000 --order deal`. Process metadata is
+production-process.json; status.json is expendable. The exclusive OS lock
+prevents another writer. Graceful SIGTERM retains completed prices and returns
+unfinished work to the queue. Check actual process identity before stopping it.
 
-Current native worker SHA:
-`cc2bc646629c6e872ce3e8fbfb307799139996b9c75823c8480aac7dd2b02a27`.
-Immutable binary and exact source snapshot are under producers/<sha>/.
-The previous counted worker SHA is
-`2b0adffe75e60312e5d8af8e1ac6091900b16850d6981a549a4392265da29094`.
+Last checked: 173 base-covered deals, **51 fully refined**, no job errors. The
+latest one-minute production firing retained **1,071** prices; the continuous
+run was around 17 prices/s while other validation work was running. These counts
+are production progress, not controlled speedups across different job mixes.
+Order `deal` is finishing refinements in the covered prefix before new coverage.
+The latest process snapshot showed 18 workers using about 1,775% CPU
+(roughly all 18 cores) and 1.2 GiB aggregate RSS. The full catalogue remains hours of work. Leave production running alongside
+useful integration and validation; do not replace the goal with this partial book.
 
-Initial 8-world coverage ran around 64–72 prices/s with 16–18 workers. Refinement
-is substantially slower: first 60-second deep firings retained 375 and 435 jobs.
-The compact-cache production firing retained 404. These are DIFFERENT jobs and
-are not controlled speedup factors. A controlled 16-case paired 160-world check
-measured 1.299x median / 1.296x geometric speedup from compact caches. All prices,
-nodes, policy calls and inner sample counts matched. See COMPACT-CACHE.md and
-compact-cache-timing-summary.json. Actual whole-catalogue completion may take
-many hours; keep the continuous run producing while pursuing useful work.
+Current immutable native worker SHA:
+`c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1`.
+Binary and exact source snapshot are under producers/<sha>/. The running process
+uses that copy, so rebuilding Cargo outputs does not alter active work.
 
-Scheduling is selectable: coverage (all base cells first), depth (refinements
-first), deal (finish each deal in seed order, refinements first). An added queue
-index supports deal scheduling. This changes work order, not sample semantics.
-Every result/refinement insertion remains one FULL/fsync transaction. A bounded
-run cancels unfinished prices only. Completed production progress is retained.
+Measured tuning is recorded in COMPACT-CACHE.md, SMALL-SUPPORT.md and HOT-PATH.md.
+Private integer values, compact cache keys, small-support bitsets, fewer
+allocations, direct bitset access and stack move ordering all preserve the
+finite sampled evaluator. Every step passed retained/fresh exact-fraction and
+work-counter checks. Forced-Dice draw elimination measured no useful speedup;
+bitset access measured about 8%, then move-order allocation removal about 10%.
+
+A fixed 256-case deep workload completed at every tested pool layout:
+18x1 26.04s, 9x2 33.59s, 12x1 37.60s, 24x1 28.72s, repeated18x1 28.79s.
+All exact values matched; serial work counters matched. Use **18x1**: the
+repeat tied 24 processes with fewer workers, and both alternatives were slower.
+See pool-timing-summary.json and the repeatable pool_benchmark.py diagnostic.
+No claim that this finds a universal optimum over every workload.
+
+The independent partial campaign audit passed **109,592 receipts**, all queue
+relationships, sampling identities, screening decisions and immutable source /
+binary bundles. File: audit-partial.json in the campaign. This verifies structure,
+not completion. Final release must run audit.py with the complete exported book.
 
 ## Calibration completed and independently audited
 
@@ -92,37 +104,48 @@ cases. The optional exported-book validation was explicitly run on all 133 previ
 deals. The calibration test was explicitly run on all100 games (it is skipped
 in ordinary CI without the external data path). More in Plunge docs-kiln.md.
 
-## Solver verification
+## Solver and phone verification
 
-- Counted integer success values replace internal BigRational with the same
-  public rational results; exact finite equal-weight recurrence in COUNTED-VALUES.md.
-- Compact private cache keys preserve every identity field. Packed unfinished
-  trick is injective (exhaustively tested lengths0..3 including zeros). Fast hashes
-  route tables only, full equality resolves collisions; sampling hashes untouched.
-- Each optimization passed 121 exact/counter parity cases, including 4/12/40/160.
-- Rust: 12 partnership, 7 sampler, 4 ordering/frozen-value, 7 selection tests;
-  packing unit test. One historical fixture-generation test intentionally ignored.
-- Six Python tests passed again after latest scheduler/status/export changes,
-  including actual SIGKILL/restart retaining all committed receipts.
+- Core: retained/fresh comparisons include 4/12/40/160 worlds and exact work
+  counters. Exhaustive rules, partnership, public-void sampler, frozen ordering
+  and selection suites passed. One historical fixture-generator test is ignored.
+- Twelve Python tests passed after release-audit and producer-publication work;
+  they include actual abrupt-death/restart and malformed artifact rejection.
+- Phone: shared core at f91533cc imported as WASM SHA
+  `ce0e5a958b6dfe42c77080ab85126905d105039bdaf425a1b0ebf1103cec251d`.
+  Budgets, sample sizes, partner review and auction policy remain unchanged.
+- Native/WASM complete option vectors, full partner check, malformed requests,
+  deadline interruption, auction/job/merge/tie checks all passed on this build.
+  Plunge build passed; full tests **200 passed / 2 optional skipped**.
+- Direct previous/current WASM comparison passed all 12 complete decisions,
+  exact option vectors, search counters and full partner review. It includes all
+  nine declarations and higher bids. Host time is frozen for policy comparison.
+  phone-before-after-v2.json and phone-before-after-run2/ preserve the final
+  evidence. The first attempt found a checker label mistake (a changed partner
+  decision correctly uses baseline-reviewed); the corrected full run passed.
+  Mac Node WASM timing was about 3.7x faster; this is not a Pixel measurement.
+- The exact native calibration binary was preserved before rebuilding at
+  calibration-six36/player/d970a82b7bc38971311275ca0e6b6dac0e2fbc799840e57909b6858b7ea25768/walt-table.
+  The previous phone WASM/manifest are in phone-before/. Original calibration
+  evidence is never relabeled as a new-binary experiment.
 
 ## Next actions
 
-1. Revalidate PID86060, database progress, errors and disk/resources. Never restart
-   solely from an old status snapshot or observation timeout.
-2. Continue useful throughput work if justified. Profile showed hashing/allocation
-   costs. Remaining obvious allocation candidates: 28-vector bucket outer storage
-   and intermediate child-value vectors. Any change needs exact/counter parity and
-   bounded paired measurement. More ambitious all-target Dice vector reuse is
-   only an idea; do not infer one target's score from another.
-3. Finish all1000 deals and planned refinements. Audit the preselected2% deep cells
-   for heuristic screening misses; validate complete book against stored receipts,
-   profile identities, real Plunge shuffles, pending/failed counts and integrity.
-4. Export finalbook, install in Plunge with no preview flag, remove superseded
-   generated book assets if any, update docs from preview to final. Run actual-book
-   checks, build/tests and local browser smoke including next-hand/reload.
+1. Revalidate PID41774, database progress/errors, and git state. Core, pool and
+   phone checks passed, and both worktrees are committed. No pending test process
+   is intentionally left running. Production is the only sustained job.
+2. Keep the long run producing all 1,000 deals and planned refinements. Tuning
+   now has measured gains and a measured process/thread choice. Further changes
+   need a concrete reason and bounded exact/parity measurements.
+3. Audit the preselected 2% deep cells for screening misses. Export final book
+   only when all 1,000 deals and every refinement are settled, then audit with
+   --book and require no pending/running/failed work. Keep the calibration finding.
+4. Install the final book in Plunge with no preview flag. Remove any superseded
+   generated assets. Run actual-book checks, build/tests and local browser smoke
+   including catalogue bidding, live play, next-hand and reload.
 5. Merge/push appropriate branches to main and deploy Plunge (authorized by goal).
    Verify actual production via browser automation, including catalogue bidding,
-   live move execution, saved receipts/questions and reload. Only then complete goal.
+   live move execution, saved receipts/questions and reload. Only then complete.
 6. Preserve Sunshine: quick lawful partner-aware play; evidence-calibrated guesses,
    original receipts/questions feeding Scheme gym; future belief/workshop work.
 

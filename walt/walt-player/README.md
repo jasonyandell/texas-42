@@ -130,6 +130,14 @@ roughly 0.8–2.2 seconds; these are host measurements, not Pixel measurements.
 The 500 ms native review completed only a prefix in that run, as expected.
 Raw receipts: `/Users/jason/data/texas-42/phone-v2/`.
 
+For implementation changes, `compare-builds.mjs BEFORE.wasm AFTER.wasm OUT.json`
+also checks the previously shipped and candidate builds on complete decisions,
+exact option vectors, work counters and a full partner review. Run it under the
+same external watchdog; it saves each completed pair and freezes the imported
+clock so device-dependent deadline prefixes do not masquerade as policy changes.
+Its Node-host timings are not phone measurements. The Kiln optimization pass
+matched all 12 cases; evidence is in `experiments/kiln/phone-build-summary.json`.
+
 ## Ship an iteration
 
 In the Plunge checkout, `python3 scripts/update-walt.py /path/to/texas-42`
