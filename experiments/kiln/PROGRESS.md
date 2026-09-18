@@ -5,12 +5,31 @@ The old 1,000-deal scalar-price production target is superseded, not completed.
 The app goal flag may still show the old usage-limited objective; it is not the
 current work instruction. Do not restart the old campaign automatically.
 
-Current work: [PLAYED.md](PLAYED.md). Start with 100 individual bidder hands
+Completed campaign: [PLAYED.md](PLAYED.md). 100 individual bidder hands
 (25 complete Plunge deals × four seats), all nine declarations. Play the actual
 deployed player at bid30 through all seven tricks, accumulate final-score
 histograms, and recommend the highest score reached in at least 80% of games.
 Build durable progressive production; tune throughput in at most one-minute
 firings. Preserve the previous survey as useful, separately labeled evidence.
+
+**Completion, 2026-09-18:** 42,008 complete games / 1,176,224 audited moves in
+900 hand/declaration cells. 311 cells stopped at eight samples, 456 at forty,
+and 133 reached 160. No failed jobs, deadline overruns, or fallback moves. Final
+book: `/Users/jason/data/texas-42/kiln-played-v1/played-book-final.json`, identity
+`5e26796cb85ee50aa16a956bd2e51721835359f48532cf89cf1e51eed47268e0`.
+All completed receipts/producers and the complete book passed the independent
+audit. See [completion evidence](played-completion.json). No phone installation.
+
+Under the chosen 4/5 empirical score-tail cutoff, 12 of 900 panels qualify:
+five at 30, six at 31, one at 36. Taking each hand's highest qualifying panel,
+10 of the 100 hands qualify (four at 30, five at 31, one at 36). The other 90
+do not clear this conservative empirical rule; that does not establish that
+they are unbiddable under other risk thresholds or policies. The outcomes are
+the bid30 player's achieved scores, not performance of retargeted higher bids.
+
+The final history snapshot retains 693 recommendation changes, 254 after at
+least eight observations and 111 after at least forty. These are movements of
+an estimate, not independent strategic discoveries or causal explanations.
 
 Old campaign stopped cleanly: **1,001,348 receipts, 851 settled deals**, no
 running leases, 69,430 pending old prices. Coordinator69038 and sleep guard69039
