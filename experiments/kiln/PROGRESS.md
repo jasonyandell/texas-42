@@ -8,13 +8,14 @@ the goal complete from the local integration preview.
 ## Current checkouts and commits
 
 - Texas 42: `/Users/jason/code/texas-42-partnership-launch`, branch
-  `codex/partnership-launch`. Core optimization committed at f91533cc, following
-  1a43d763 (small support) and 7377ff32 (allocation removal and release audit).
+  `codex/partnership-launch`. Latest core optimization is 1dbea2c0 (sparse Dice
+  buckets), following f91533cc (move ordering), 1a43d763 (small support) and
+  7377ff32 (allocation removal and release audit).
 - Plunge: `/Users/jason/code/plunge-sunshine`, branch `codex/sunshine-table`.
   Book integration is ef5d92d; optimized phone asset and validation notes are
   committed as **70e170c**. Repeated own-hand reconciliation is **cdf6bfe**; automatic installed-book
   validation in the normal test run is **9963705**. Reusable browser release
-  verification is **b891e8e**.
+  verification is **b891e8e**. Latest matching phone asset is **4c19ca6**.
   The book manifest remains intentionally null.
 - No Kiln changes have been merged/pushed/deployed. Base cwd
   `/Users/jason/code/texas-42` is unrelated; do not edit it.
@@ -22,19 +23,20 @@ the goal complete from the local integration preview.
 ## Production (revalidate; this file is not liveness evidence)
 
 Campaign: `/Users/jason/data/texas-42/kiln-v1`. SQLite/WAL are authoritative.
-Coordinator **64852** was launched detached, 18 processes, one internal thread,
+Coordinator **1275** was launched detached, 18 processes, one internal thread,
 `--seconds 0 --job-ms 120000 --order deal`. Process metadata is
 production-process.json; status.json is expendable. The exclusive OS lock
 prevents another writer. Graceful SIGTERM retains completed prices and returns
 unfinished work to the queue. Check actual process identity before stopping it.
-Mac sleep guard **72443** is `/usr/bin/caffeinate -i -w 64852`; its actual
+Mac sleep guard **1277** is `/usr/bin/caffeinate -i -w 1275`; its actual
 PreventUserIdleSystemSleep assertion was verified. It ends with this coordinator.
 If restarting production, bind a new guard to the new actual coordinator PID.
 Metadata is power-guard.json; as always, verify live processes rather than the file.
 
-Last audited: 173 base-covered deals, **101 fully refined**, no job errors. The
-latest one-minute production firing retained **1,071** prices; the continuous
-run was around 17 prices/s while other validation work was running. These counts
+Last audited: 173 base-covered deals, **101 fully refined**, no job errors. Last
+live check: **123 fully refined**, 173 base-covered. The latest one-minute
+production firing retained **1,102** prices; the new continuous run was around
+20 prices/s while other validation work was running. These counts
 are production progress, not controlled speedups across different job mixes.
 Order `deal` is finishing refinements in the covered prefix before new coverage.
 The latest process snapshot showed 18 workers using about 1,775% CPU
@@ -42,9 +44,23 @@ The latest process snapshot showed 18 workers using about 1,775% CPU
 useful integration and validation; do not replace the goal with this partial book.
 
 Current immutable native worker SHA:
-`c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1`.
+`8b5e78750f9a7aca70b7c0e1a124976a148aff82faf2e633173156a4f3372aa5`.
 Binary and exact source snapshot are under producers/<sha>/. The running process
 uses that copy, so rebuilding Cargo outputs does not alter active work.
+
+The new sparse-bucket worker passed 64 exact/counter comparisons and 30 focused
+Rust tests (one historical ignored fixture generator), then measured 1.197x median
+/ 1.198x geometric speedup on 32 paired deep jobs. The timed comparison ran with
+production stopped. Production then resumed on the old worker before a separate
+one-minute candidate firing saved 1,102 new prices with zero errors. PID1275 is
+the continuous candidate run. See HOT-PATH.md and sparse-buckets-{parity,timing}-summary.json.
+
+Before that speedup, observed 40/160-world job costs and refinement fractions
+projected about ten more hours of refinement, excluding initial 8-world work.
+The new worker should shorten this, but the full catalogue is still an overnight
+batch; no deadline is promised from a small workload sample. GitHub auth was
+rechecked successfully. Remote mains remain Plunge b88b7ae and research 5e8cd0f7,
+with clean local fast-forward paths; latest Plunge deployment on that main passed.
 
 Measured tuning is recorded in COMPACT-CACHE.md, SMALL-SUPPORT.md and HOT-PATH.md.
 Private integer values, compact cache keys, small-support bitsets, fewer
@@ -167,7 +183,7 @@ No preview is installed or eligible for production deployment.
   and selection suites passed. One historical fixture-generator test is ignored.
 - Twelve Python tests passed after release-audit and producer-publication work;
   they include actual abrupt-death/restart and malformed artifact rejection.
-- Phone: shared core at f91533cc imported as WASM SHA
+- Previous phone optimization: shared core at f91533cc imported as WASM SHA
   `ce0e5a958b6dfe42c77080ab85126905d105039bdaf425a1b0ebf1103cec251d`.
   Budgets, sample sizes, partner review and auction policy remain unchanged.
 - Native/WASM complete option vectors, full partner check, malformed requests,
@@ -180,6 +196,17 @@ No preview is installed or eligible for production deployment.
   evidence. The first attempt found a checker label mistake (a changed partner
   decision correctly uses baseline-reviewed); the corrected full run passed.
   Mac Node WASM timing was about 3.7x faster; this is not a Pixel measurement.
+- Latest phone build: shared core **1dbea2c02f471f2eace576bad022168ba0f61ad6**,
+  WASM **3a6d7d6790033e3b21a1de244bf3cdf74f0bd3e85b83cd96b50d7680623eecf8**,
+  769,304 bytes. Another 12 complete decisions, exact vectors/counters and full
+  partner review matched the preceding optimized WASM under frozen host time.
+  Paired Mac Node timings measured 1.172x median / 1.154x geometric speedup.
+  Native/browser play, auction and deadline conformance passed again; native
+  walt-table and partner_rollout were rebuilt too. Plunge build and 38 focused
+  phone/table/auction/catalogue tests passed; one external-book test skipped
+  because the manifest is still null. Budgets/sample counts/auction policy remain
+  unchanged. Evidence: sparse-phone-build-summary.json and campaign
+  sparse-phone-*.json / sparse-phone-*-run/. Preceding asset is phone-before-sparse/.
 - The exact native calibration binary was preserved before rebuilding at
   calibration-six36/player/d970a82b7bc38971311275ca0e6b6dac0e2fbc799840e57909b6858b7ea25768/walt-table.
   The previous phone WASM/manifest are in phone-before/. Original calibration
@@ -187,7 +214,7 @@ No preview is installed or eligible for production deployment.
 
 ## Next actions
 
-1. Revalidate PID64852, database progress/errors, and git state. Core, pool and
+1. Revalidate PID1275 and sleep guard1277, database progress/errors, and git state. Core, pool and
    phone checks passed, and both worktrees are committed. No pending test process
    is intentionally left running. Production is the only sustained job.
 2. Keep the long run producing all 1,000 deals and planned refinements. Tuning

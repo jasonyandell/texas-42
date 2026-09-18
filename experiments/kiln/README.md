@@ -8,7 +8,7 @@ model pricing, not calibrated odds or a perfect-information oracle.
 
 - [ ] 1,000 complete deals; all four seats, nine declarations, targets 30–42.
 - [ ] Progressive 8 → 40 → 160 outer samples; every stop recorded honestly.
-- [ ] Measured throughput tuning on the M5 Max, then long observable production.
+- [x] Measured throughput tuning on the M5 Max, then long observable production.
 - [x] Interrupt/restart and abrupt-death recovery verified; atomic durable results.
 - [x] Calibration: at least 100 fresh hidden-hand completions of selected bids,
       including a sixes/36 example near 0.78 if the catalogue produces one.
