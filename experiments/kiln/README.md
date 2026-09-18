@@ -9,10 +9,12 @@ model pricing, not calibrated odds or a perfect-information oracle.
 - [ ] 1,000 complete deals; all four seats, nine declarations, targets 30–42.
 - [ ] Progressive 8 → 40 → 160 outer samples; every stop recorded honestly.
 - [ ] Measured throughput tuning on the M5 Max, then long observable production.
-- [ ] Interrupt/restart and abrupt-death recovery verified; atomic durable results.
-- [ ] Calibration: at least 100 fresh hidden-hand completions of selected bids,
+- [x] Interrupt/restart and abrupt-death recovery verified; atomic durable results.
+- [x] Calibration: at least 100 fresh hidden-hand completions of selected bids,
       including a sixes/36 example near 0.78 if the catalogue produces one.
       Compare original estimates with executed player outcomes and uncertainty.
+      Completed: 21/100 versus 121/160 for one sixes/36 hand; see
+      [CALIBRATION-SIX36.md](CALIBRATION-SIX36.md).
 - [ ] Versioned complete book independently validated against its receipts.
 - [ ] Integrate catalogue deals and instant bidding into Plunge, preserving saves,
       receipts, questions, regular auction cadence, and existing lawful play.
@@ -60,7 +62,10 @@ hand, seat and fixed profile, never the actual unseen opposing hands. All
 prices explicitly condition on that own hand under Walt's uniform opening model,
 not the smaller distribution induced by limiting play to a finite catalogue.
 
-Coverage comes first. Eight-world prices at most 1/8 stop provisionally; prices
+The initial run prioritized coverage. `--order coverage` retains that scheduling;
+`--order depth` prioritizes pending refinements; `--order deal` finishes deals
+in seed order, deeper stages first within a deal. These change scheduling only.
+Eight-world prices at most 1/8 stop provisionally; prices
 at 40 worlds below 1/2 stop provisionally. Other entries advance to 160. A
 preselected, deterministic 2% of *all cells* bypass screening and reach 160 for
 missed-opportunity audits. Screening is heuristic and can miss viable bids;
@@ -70,7 +75,8 @@ bundle grows; independently optimized scores are never averaged as if they were
 one larger solve. The initial generator retains no cross-job solver cache.
 
 The shipping book contains only deals with all 468 entries present. Each cell
-retains its actual sample count and disposition; a covered deal can be exported
+retains its actual sample count and disposition; own-hand sampling seeds are
+included separately as decimal strings; a covered deal can be exported
 while refinements remain pending. Final completion additionally requires every
 retained cell to reach its planned depth and no failed/pending jobs remaining.
 

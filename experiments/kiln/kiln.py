@@ -179,6 +179,8 @@ async def run(args):
     lock.write(str(os.getpid()));lock.flush()
     binary,producer = preserve_producer(directory,Path(args.binary).resolve())
     db = connect(directory)
+    if getattr(args,'order','coverage')=='deal':
+        db.execute('CREATE INDEX IF NOT EXISTS ready_deal ON jobs(state,deal_id,stage DESC,id)')
     with db:
         # Exclusive OS lock proves any old leases have no active coordinator.
         db.execute("UPDATE jobs SET state='pending' WHERE state='running'")
@@ -189,12 +191,13 @@ async def run(args):
     for sig in (signal.SIGINT,signal.SIGTERM): loop.add_signal_handler(sig,stopped.set)
     end = time.monotonic()+args.seconds if args.seconds else float('inf')
     completed = errors = 0
+    order = {'coverage':'stage,id','depth':'stage DESC,id','deal':'deal_id,stage DESC,id'}[getattr(args,'order','coverage')]
     async def worker(slot):
         nonlocal completed,errors
         process = None
         try:
             while not stopped.is_set() and time.monotonic()<end:
-                job = db.execute("SELECT * FROM jobs WHERE state='pending' AND available<=? ORDER BY stage,id LIMIT 1",(time.time(),)).fetchone()
+                job = db.execute(f"SELECT * FROM jobs WHERE state='pending' AND available<=? ORDER BY {order} LIMIT 1",(time.time(),)).fetchone()
                 if job is None:
                     if db.execute("SELECT 1 FROM jobs WHERE state='pending' LIMIT 1").fetchone():
                         await asyncio.sleep(.5);continue
@@ -264,6 +267,7 @@ def export(directory,output):
             ORDER BY j.seat,j.decl,j.bid''',(deal_row['id'],)).fetchall()
         if len(rows)!=468: continue
         deals.append({'seed':deal_row['seed'],'shaker':deal_row['shaker'],'hands':json.loads(deal_row['hands']),
+                      'sample_seeds':[str(sample_seed(h,s)) for s,h in enumerate(json.loads(deal_row['hands']))],
                       'prices':[[r[k] for k in ('seat','decl','bid','num','den','worlds','disposition')] for r in rows]})
     producers=[r[0] for r in db.execute('SELECT DISTINCT producer FROM results ORDER BY producer')]
     artifact={'schema':'kiln-book-v1','campaign':manifest,'producers':producers,'deals':deals}
@@ -274,7 +278,7 @@ def export(directory,output):
 def main():
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='command',required=True)
     i=sub.add_parser('init');i.add_argument('directory');i.add_argument('--count',type=int,default=1000);i.add_argument('--seed-start',type=int,default=420600)
-    r=sub.add_parser('run');r.add_argument('directory');r.add_argument('--seconds',type=float,default=60);r.add_argument('--workers',type=int,default=12);r.add_argument('--threads',type=int,default=1);r.add_argument('--job-ms',type=int,default=30000);r.add_argument('--binary',default=str(DEFAULT_BINARY))
+    r=sub.add_parser('run');r.add_argument('directory');r.add_argument('--seconds',type=float,default=60);r.add_argument('--workers',type=int,default=12);r.add_argument('--threads',type=int,default=1);r.add_argument('--job-ms',type=int,default=30000);r.add_argument('--binary',default=str(DEFAULT_BINARY));r.add_argument('--order',choices=['coverage','depth','deal'],default='coverage',help='Coverage first, deep refinement first, or finish each deal')
     s=sub.add_parser('status');s.add_argument('directory')
     e=sub.add_parser('export');e.add_argument('directory');e.add_argument('output')
     a=p.parse_args()

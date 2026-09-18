@@ -1,0 +1,30 @@
+{
+  "result": {
+    "case_id": "ecd47c3c40f1f7b8e5a942291911314cb22f213d85fc7526538c3b6210e72b1e",
+    "completed": 100,
+    "made": 21,
+    "note": "Fixed own hand; fresh uniform hidden completions. Played outcomes assess calibration against the declared executed policy, not an exact win probability.",
+    "observed": 0.21,
+    "prediction": {
+      "den": 160,
+      "num": 121,
+      "worlds": 160
+    },
+    "profile": "deployed-l1-partner-40-8-opening160-budget14s-opening20s-v1",
+    "requested": 100,
+    "schema": "kiln-calibration-summary-v1",
+    "wilson95": [
+      0.14165549531645788,
+      0.2998014930196232
+    ]
+  },
+  "plunge_audit": {
+    "schema": "kiln-plunge-calibration-audit-v1",
+    "case_id": "ecd47c3c40f1f7b8e5a942291911314cb22f213d85fc7526538c3b6210e72b1e",
+    "games": 100,
+    "moves": 1808,
+    "made": 21,
+    "games_sha256": "b69ab2b0f11bb1d35cc78ed30ca18835e9b6dc425e122f89f73d2217c71c3c9d",
+    "checks": "All public prefixes, own-hand requests, legal moves, leaders, points, and final outcomes match Plunge."
+  }
+}
