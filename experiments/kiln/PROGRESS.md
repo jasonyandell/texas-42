@@ -57,6 +57,24 @@ snapshot is played-live-audit.json. A 15-minute thread heartbeat,
 coverage milestone. It does not silently restart a user stop. The empirical
 preview remains local; no new game asset has been installed or deployed.
 
+## Data durability
+
+Live data already resides outside the worktree in `/Users/jason/data/texas-42/`.
+Verified local snapshot: `backups/20260918T141408.625440Z/`, containing the complete
+frozen survey (1,001,348 evaluations) and an online snapshot of actual play
+(8,161 games, 228,508 moves). Both databases passed integrity checks; every archive
+member was read back and hashed. The actual-play audit also passed using only
+archived runner tools, without importing code from the worktree.
+
+All archives, manifest and restore guide were uploaded to the existing **private**
+Hugging Face dataset `jasonyandell/texas-42-walt-archive`, under
+`kiln/snapshots/20260918T141408.625440Z`, commit
+`f4a347dff80ece5bb2ae9696129a5ce07f3fffd4`. Remote downloads matched every local
+archive checksum and both metadata files. See backup-evidence.json. Production
+was never stopped. Later eight-game/completion milestones also back up the
+growing actual-play campaign. The helper reuses the authenticated HF CLI's Python
+when the checkout's Python lacks huggingface_hub; no new login is necessary.
+
 The remainder of this ledger records the **historical model-survey work**.
 Its old production PIDs, completion requirements and restart suggestions are
 historical, superseded by the paragraph above.

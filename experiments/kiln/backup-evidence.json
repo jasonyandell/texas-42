@@ -1,0 +1,76 @@
+{
+  "schema": "kiln-backup-evidence-v1",
+  "local_snapshot": "/Users/jason/data/texas-42/backups/20260918T141408.625440Z",
+  "remote": {
+    "commit": "f4a347dff80ece5bb2ae9696129a5ce07f3fffd4",
+    "path": "kiln/snapshots/20260918T141408.625440Z",
+    "private": true,
+    "repository": "jasonyandell/texas-42-walt-archive",
+    "schema": "kiln-remote-backup-v1",
+    "url": "https://huggingface.co/datasets/jasonyandell/texas-42-walt-archive/tree/f4a347dff80ece5bb2ae9696129a5ce07f3fffd4/kiln/snapshots/20260918T141408.625440Z",
+    "verified_downloads": [
+      "kiln-v1.tar.gz",
+      "kiln-played-v1.tar.gz",
+      "runner-tools.tar.gz",
+      "MANIFEST.json",
+      "README.md"
+    ]
+  },
+  "campaign_databases": {
+    "kiln-played-v1": {
+      "played.sqlite": {
+        "counts": {
+          "cells": 900,
+          "games": 8161,
+          "hands": 100,
+          "jobs": 8750
+        },
+        "integrity_check": "ok"
+      }
+    },
+    "kiln-v1": {
+      "kiln.sqlite": {
+        "counts": {
+          "deals": 1000,
+          "jobs": 1070778,
+          "results": 1001348
+        },
+        "integrity_check": "ok"
+      },
+      "warm-checker-verification/kiln.sqlite": {
+        "counts": {
+          "results": 32
+        },
+        "integrity_check": "ok"
+      }
+    }
+  },
+  "archives": [
+    {
+      "bytes": 136477888,
+      "file": "kiln-v1.tar.gz",
+      "members": 398,
+      "sha256": "6a315546d218415b0eb1a40139643f420a6013f7f3a725fda169b2e83de77643",
+      "verified_members": true
+    },
+    {
+      "bytes": 35430876,
+      "file": "kiln-played-v1.tar.gz",
+      "members": 35,
+      "sha256": "1ff485083fe08e6c4278d778b642098e0cef1be8739fcaa26950efe7ff1f8058",
+      "verified_members": true
+    },
+    {
+      "bytes": 74611,
+      "file": "runner-tools.tar.gz",
+      "members": 25,
+      "sha256": "4d7f2ce515f9cbce35f0f4eaca907e1da784937a8909cc26a63d3ba8a78b37f5",
+      "verified_members": true
+    }
+  ],
+  "standalone_played_audit": {
+    "games": 8161,
+    "moves": 228508,
+    "verified": true
+  }
+}

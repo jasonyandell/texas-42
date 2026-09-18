@@ -14,6 +14,7 @@ from pathlib import Path
 import shutil
 import sqlite3
 import subprocess
+import sys
 import tarfile
 import tempfile
 
@@ -171,7 +172,20 @@ not a perfect-information oracle or a policy optimized for each other bid level.
 
 
 def upload(folder,repo):
-    from huggingface_hub import HfApi, hf_hub_download
+    os.environ.setdefault('HF_HUB_DISABLE_PROGRESS_BARS','1')
+    try:
+        from huggingface_hub import HfApi, hf_hub_download
+    except ModuleNotFoundError as error:
+        if error.name != 'huggingface_hub':raise
+        # This checkout may select a different Python from the authenticated HF
+        # CLI. Reuse that installed CLI's interpreter rather than modifying either
+        # environment or asking the user to log in again.
+        cli = shutil.which('hf')
+        interpreter = Path(cli).read_text().splitlines()[0][2:].strip() if cli else ''
+        if not interpreter or not Path(interpreter).is_absolute() or not Path(interpreter).is_file() or Path(interpreter).resolve() == Path(sys.executable).resolve():
+            raise RuntimeError('Local backup is complete; upload needs a Python with huggingface_hub installed') from None
+        subprocess.run([interpreter,str(Path(__file__).resolve()),'--existing',str(folder),'--repo',repo,'--upload'],check=True)
+        return
     api = HfApi()
     info = api.repo_info(repo,repo_type='dataset')
     if not info.private:raise ValueError('Backup destination must remain private')
@@ -187,6 +201,11 @@ def upload(folder,repo):
         if sha256(downloaded) != archive['sha256']:
             raise ValueError('Remote readback checksum mismatch: '+archive['file'])
         verified.append(archive['file'])
+    for name in ('MANIFEST.json','README.md'):
+        downloaded = hf_hub_download(repo,filename=prefix+'/'+name,repo_type='dataset',revision=result.oid)
+        if Path(downloaded).read_bytes() != (folder/name).read_bytes():
+            raise ValueError('Remote metadata mismatch: '+name)
+        verified.append(name)
     remote = {'schema':'kiln-remote-backup-v1','repository':repo,'private':True,'commit':result.oid,
               'path':prefix,'verified_downloads':verified,
               'url':f'https://huggingface.co/datasets/{repo}/tree/{result.oid}/{prefix}'}
