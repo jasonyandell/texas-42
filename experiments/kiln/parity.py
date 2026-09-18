@@ -29,14 +29,22 @@ async def main(a):
             if proc.returncode is None:proc.kill();await proc.wait()
     async def check(req,old):
         async with sem:
-            if old is None:old=await call(a.baseline,req)
+            retained=old
+            # A retained warm receipt has process-history-dependent work counts.
+            # Reprice it cold for the counter comparison, retaining its scalar as
+            # an independent checkpoint. Both candidate and baseline start fresh.
+            if old is None or old['work'].get('carried_policy_entries',0):
+                old=await call(a.baseline,req)
+            if retained is not None:
+                assert old['price']==retained['price'],(req,old,retained)
             candidate=await call(a.candidate,req)
             assert candidate['price']==old['price'],(req,candidate,old)
             # Same visit counts provide stronger evidence than the scalar alone.
             for key in ['nodes','pi_calls','inner_worlds']:
                 assert candidate['work'][key]==old['work'][key],(key,req,candidate['work'],old['work'])
             evidence.append({'request':req,'price':candidate['price'],'baseline_us':old['work']['elapsed_us'],
-                'candidate_us':candidate['work']['elapsed_us'],'nodes':candidate['work']['nodes']})
+                'candidate_us':candidate['work']['elapsed_us'],'nodes':candidate['work']['nodes'],
+                'retained_carried_entries':retained['work'].get('carried_policy_entries',0) if retained else None})
     await asyncio.gather(*(check(req,old) for req,old in requests))
     report={'schema':'kiln-parity-v1','baseline':digest(a.baseline),'candidate':digest(a.candidate),'cases':len(evidence),'passed':True,'evidence':evidence}
     atomic_json(a.output,report);print(canonical({k:v for k,v in report.items() if k!='evidence'}))

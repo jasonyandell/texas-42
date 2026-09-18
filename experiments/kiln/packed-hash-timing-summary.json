@@ -1,0 +1,18 @@
+{
+  "baseline": "77f81f56770c3cf166b15ab6b3742a1f43462b9c5814e2ee541a732373c2cbc4",
+  "candidate": "bec66bf994ffe92ff49b1f932dcb650a4b3d867cd77da09d62f81a732281d6af",
+  "completed": 32,
+  "geometric_speedup": 1.0110889012568591,
+  "median_speedup": 1.011811835021357,
+  "requested": 32,
+  "schema": "kiln-carry-timing-v1",
+  "workers": 4,
+  "worlds": [
+    8,
+    40,
+    160
+  ],
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/packed-hash-timing.json",
+  "evidence_sha256": "6fafa433610eb0854cefaece0aeddc1f9dc26f107a6191e0cdfc1acdbc8d9666",
+  "adopted": false
+}

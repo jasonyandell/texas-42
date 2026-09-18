@@ -38,12 +38,19 @@ async def run(a):
             bins=[('baseline',a.baseline),('candidate',a.candidate)]
             if i%2:bins.reverse()
             got={}
+            work={}
             for label,binary in bins:
                 v=await call(binary,req)
                 if v['price']!=old['price']:raise ValueError('Price mismatch')
-                for k in ('nodes','pi_calls','inner_worlds'):
-                    if v['work'][k]!=old['work'][k]:raise ValueError(f'{k} mismatch')
+                work[label]=v['work']
                 got[label+'_us']=v['work']['elapsed_us']
+            # The stored price may have reused earlier policy answers. Its
+            # counters describe that warm process; compare these two fresh
+            # workers with each other instead.
+            for k in ('nodes','pi_calls','inner_worlds'):
+                if work['baseline'][k]!=work['candidate'][k]:raise ValueError(f'{k} mismatch')
+                if not old['work'].get('carried_policy_entries',0) and work['baseline'][k]!=old['work'][k]:
+                    raise ValueError(f'Cold retained {k} mismatch')
             pairs.append({'request':req,**got})
             atomic_json(a.output,report())
     tasks=[asyncio.create_task(pair(i,r)) for i,r in enumerate(records)]

@@ -24,15 +24,27 @@ the goal complete from the local integration preview.
 ## Production (revalidate; this file is not liveness evidence)
 
 Campaign: `/Users/jason/data/texas-42/kiln-v1`. SQLite/WAL are authoritative.
-Coordinator **32719** was launched detached, 18 processes, one internal thread,
+Coordinator **45275** was launched detached, 18 processes, one internal thread,
 `--seconds 0 --job-ms 120000 --order deal`. Process metadata is
 production-process.json; status.json is expendable. The exclusive OS lock
 prevents another writer. Graceful SIGTERM retains completed prices and returns
 unfinished work to the queue. Check actual process identity before stopping it.
-Mac sleep guard **32720** is `/usr/bin/caffeinate -i -w 32719`; its actual
+Mac sleep guard **45277** is `/usr/bin/caffeinate -i -w 45275`; its actual
 PreventUserIdleSystemSleep assertion was verified. It ends with this coordinator.
 If restarting production, bind a new guard to the new actual coordinator PID.
 Metadata is power-guard.json; as always, verify live processes rather than the file.
+
+Latest verified production checkpoint: **202 settled / 202 covered** deals,
+237,664 saved evaluations, run29 about38 saved prices/s with zero errors. Run28 was stopped only for the
+isolated 25-second packed-hash experiment; its completed work was retained. The
+candidate preserved all checked prices but measured only about1% faster, so the
+source edit was reverted and the existing worker resumed as PID45275. Its sleep
+guard is45277. See packed-hash-*-summary.json and HOT-PATH.md. The comparison
+instruments were also corrected to reprice warm receipts before cold-counter
+comparisons; 36 actual warm/fresh parity cases and four paired cases passed.
+All 32 warm fixture receipts differed in cold work counts, while their prices
+matched. The restored release output was byte-identical to the current production
+worker. Both the new coordinator and its actual idle-sleep assertion were verified.
 
 Last audited: 173 base-covered deals, **172 fully refined**, no job errors. The
 latest one-minute production firing retained **1,562** prices; the new continuous
@@ -237,7 +249,7 @@ No preview is installed or eligible for production deployment.
 
 ## Next actions
 
-1. Revalidate PID32719 and sleep guard32720, database progress/errors, and git state. Core, pool and
+1. Revalidate PID45275 and sleep guard45277, database progress/errors, and git state. Core, pool and
    phone checks passed, and both worktrees are committed. No pending test process
    is intentionally left running. Production is the only sustained job.
 2. Keep the long run producing all 1,000 deals and planned refinements. Tuning

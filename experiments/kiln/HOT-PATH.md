@@ -110,3 +110,29 @@ The snapshot records base commit 4bc60d64 and the exact modified source hashes.
 See sparse-buckets-parity-summary.json and sparse-buckets-timing-summary.json;
 the raw profile is profile-current-worker.txt in the campaign. This changes
 implementation cost, not the bidding model or its calibration evidence.
+
+## Packed hash experiment: retain the current key implementation
+
+A five-second profile after policy-cache carry still showed substantial table
+insertion/rehashing work. A bounded candidate hashed each private key's scalar
+fields as two packed words, retaining all fields and full equality, with a final
+avalanche so high packed bits also reached low table/shard bits. Its 64 cold
+retained/fresh exact-price and node/policy/world-counter checks passed.
+
+The isolated comparison completed 32 paired persistent-worker 8/40/160 ladders,
+all 96 prices equal, in 24.9 seconds. It measured only **1.012x median / 1.011x
+geometric speedup**. This was insufficient evidence to adopt the change. The
+source edit was reverted; production resumed on the existing carry-cache worker.
+The candidate remains archived as
+`bec66bf994ffe92ff49b1f932dcb650a4b3d867cd77da09d62f81a732281d6af`.
+See packed-hash-{parity,timing}-summary.json and profile-cache-carry.txt in the
+campaign. This negative result does not establish a universal performance ceiling.
+
+The comparison tools now also distinguish warm saved work counts from cold
+replay counts. `parity.py` reprices a warm receipt with the baseline before
+comparing counters; `benchmark.py` compares its two fresh workers to each other.
+Both still require the original saved price exactly. A fixture of 32 actual warm
+production receipts passed 36 parity cases and four paired diagnostic cases.
+All 32 warm receipts had different cold node counts, confirming why the old
+counter comparison was inappropriate. This validation ran alongside production;
+its timings are not performance evidence. See warm-checker-summary.json.
