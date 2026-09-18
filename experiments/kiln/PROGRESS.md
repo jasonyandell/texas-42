@@ -106,6 +106,31 @@ post-hoc simpler query retains a new-hand association, but is not confirmed as
 a causal threat or useful sampling rule. Full artifacts are outside the checkout
 under the live campaign's `threat-probe-v1/`; compact evidence and queries are
 tracked. No player, sampler, production scheduling, or phone change.
+
+## Fresh relational mining probes (in progress)
+
+User authorized further probes toward a reusable mining rig. The fixed
+[v2 protocol](MINING-PROBE-V2.md) freezes 13 queries (eight original literal
+patterns, the simpler double-five pattern, four learned relational patterns)
+before assessing ten completely new source deals. The separate nested campaign
+`kiln-played-v1/mining-v2/fresh/` runs 2,880 games / 320 completions, 40 bidder
+hands, all declarations, eight trials, no screening. It uses the same pinned
+player binary, with its own durable queue. Original bidding production continues.
+
+Relational discovery generated 411 descriptions from the same 64 losing
+discovery worlds. The top queries describe opponents holding the live top trump,
+and opponents holding a double that beats an own-hand trump lead. All selected
+patterns were frozen before fresh evaluation. Actual Scheme audit: 946,944
+full-library and 28,080 selected-training memberships, no mismatch. The active
+fit is `mining-v2/analysis-v2/fit.json`, ID
+`173bd310c97901a6f4629117bcc082492b49bff272c9b2abcaa649578f3fbe8a`.
+An earlier atom-count metadata correction preserved every selected query and
+their order; see [amendments](MINING-V2-AMENDMENTS.md).
+
+A [pre-label measurement-efficiency extension](MINING-PROBE-V2-CV.md) froze
+control-variate coefficients from discovery data only. It tests whether the
+known 1/3 opening ownership probability reduces variance of fixed-player
+bid-success estimates. It does not change Walt's internal samples or live play.
 See SAMPLE-HISTORY.md and sample-history-evidence.json. The monitor regenerates
 content-addressed history reports before subsequent milestone backups. Internal
 solver-world traces are a separate future instrument; do not call an empirical
