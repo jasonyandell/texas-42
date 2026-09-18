@@ -1,0 +1,11 @@
+{
+  "baseline": "51849e8b0581deffb840c7898a8d51dc24f44e47e38f3aacddfb1c86e908254c",
+  "candidate": "751c14b2b695930d4465ba8ef9904cce31e1e1826488b104dff53ea24d371288",
+  "completed": 16,
+  "geometric_speedup": 1.6716403569222489,
+  "median_speedup": 1.6788446594180537,
+  "requested": 16,
+  "schema": "kiln-paired-timing-v1",
+  "workers": 4,
+  "worlds": 160
+}

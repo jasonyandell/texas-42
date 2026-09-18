@@ -56,6 +56,8 @@ pub mod refine;
 pub mod residual;
 pub mod root_interval;
 pub mod selection;
+mod support;
+use support::{Alive, SmallSupport};
 pub mod targeted;
 pub mod unified;
 pub mod upper_cs;
@@ -365,6 +367,7 @@ pub struct Solver {
     seeds: Vec<u64>,
     field: Field,
     intern: Mutex<Intern>,
+    small_support: Option<SmallSupport>,
     // All worlds have equal mass, including duplicate sampled worlds. Each
     // node's value is an integer success count over its alive set. Convert to
     // a rational only at the public boundary (experiments/kiln/COUNTED-VALUES.md).
@@ -396,9 +399,13 @@ impl Solver {
                 "every seat field level has a declared inner sample count"
             ),
         }
-        let all: Arc<Vec<u32>> = Arc::new((0..worlds.len() as u32).collect());
+        let small_support=SmallSupport::new(worlds.len());
         let mut map = CacheMap::default();
-        map.insert(Arc::clone(&all), 0u32);
+        let list=if small_support.is_some() { Vec::new() } else {
+            let all: Arc<Vec<u32>> = Arc::new((0..worlds.len() as u32).collect());
+            map.insert(Arc::clone(&all),0u32);
+            vec![all]
+        };
         Solver {
             sh,
             viewer,
@@ -408,10 +415,8 @@ impl Solver {
             worlds,
             seeds,
             field,
-            intern: Mutex::new(Intern {
-                list: vec![all],
-                map,
-            }),
+            intern: Mutex::new(Intern { list, map }),
+            small_support,
             memo: Mutex::new(CacheMap::default()),
             local_nodes: AtomicU64::new(0),
             local_viewer_children: AtomicU64::new(0),
@@ -445,10 +450,14 @@ impl Solver {
     }
 
     pub fn alive_sets(&self) -> usize {
-        self.intern.lock().expect("intern poisoned").list.len()
+        self.small_support.as_ref().map_or_else(
+            || self.intern.lock().expect("intern poisoned").list.len(),
+            SmallSupport::seen_count,
+        )
     }
 
     fn intern(&self, v: Vec<u32>) -> u32 {
+        if let Some(small)=&self.small_support { return small.encode_ids(&v); }
         let rc: Arc<Vec<u32>> = Arc::new(v);
         let mut st = self.intern.lock().expect("intern poisoned");
         if let Some(&id) = st.map.get(&rc) {
@@ -460,8 +469,11 @@ impl Solver {
         id
     }
 
-    fn alive_of(&self, id: u32) -> Arc<Vec<u32>> {
-        Arc::clone(&self.intern.lock().expect("intern poisoned").list[id as usize])
+    fn alive_of(&self, id: u32) -> Alive {
+        match &self.small_support {
+            Some(small)=>small.decode(id),
+            None=>Alive::Large(Arc::clone(&self.intern.lock().expect("intern poisoned").list[id as usize])),
+        }
     }
 
     fn bump_node(&self) -> bool {
@@ -718,8 +730,33 @@ impl Solver {
     fn solve_field_dice(&self, key: &Key, seat: Seat, led: Option<Context>) -> Option<u64> {
         let alive = self.alive_of(key.alive);
         let rh = record_hash(key);
+        if let Some(small)=&self.small_support {
+            if !self.parallel {
+                // The common eight-world modeled mind needs no bucket/list
+                // allocation. Sample identity, tile visit order and mass remain
+                // exactly the same as the general path below.
+                let mut buckets=[0u8;28];
+                for sid in alive.iter() {
+                    let hand=self.worlds[sid as usize][seat.index()] & !key.played;
+                    let lm=mask_of(legal_plays(self.sh.dcl,set_of(hand),led));
+                    debug_assert!(lm!=0);
+                    let idx=SplitMix64(self.seeds[sid as usize]^rh).below(u64::from(lm.count_ones())) as u32;
+                    buckets[nth_set_bit(lm,idx) as usize] |= 1u8<<sid;
+                }
+                let mut total=0u64;let mut redistributed=0;
+                for (tile,mask) in buckets.into_iter().enumerate() {
+                    if mask==0 {continue;}
+                    redistributed+=mask.count_ones() as usize;
+                    let child=self.child_after_play(key,Domino::from_index(tile).expect("tile < 28"),small.encode(mask));
+                    total+=self.solve_count(&child)?;
+                }
+                assert_eq!(redistributed,alive.len(),"field partition conservation");
+                assert!(total<=alive.len() as u64,"success mass cannot exceed support mass");
+                return Some(total);
+            }
+        }
         let mut buckets: [Vec<u32>; 28] = std::array::from_fn(|_| Vec::new());
-        for &sid in alive.iter() {
+        for sid in alive.iter() {
             let hand = self.worlds[sid as usize][seat.index()] & !key.played;
             let lm = mask_of(legal_plays(self.sh.dcl, set_of(hand), led));
             debug_assert!(lm != 0);
@@ -740,7 +777,7 @@ impl Solver {
         let alive = self.alive_of(key.alive);
         let mut per_sid: Vec<(u32, u32)> = Vec::with_capacity(alive.len());
         let mut distinct: HashMap<u32, u32> = HashMap::new();
-        for &sid in alive.iter() {
+        for sid in alive.iter() {
             let hand = self.worlds[sid as usize][seat.index()] & !key.played;
             let lm = mask_of(legal_plays(self.sh.dcl, set_of(hand), led));
             debug_assert!(lm != 0);
@@ -761,7 +798,7 @@ impl Solver {
             }
         }
         let mut buckets: [Vec<u32>; 28] = std::array::from_fn(|_| Vec::new());
-        for (i, &sid) in alive.iter().enumerate() {
+        for (i, sid) in alive.iter().enumerate() {
             let (hand, lm) = per_sid[i];
             let tile = if lm.count_ones() == 1 {
                 lm.trailing_zeros() as u8
