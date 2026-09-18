@@ -146,6 +146,12 @@ Fresh result ID:
 Efficiency result ID:
 `8bfa65719f7e1c6c8008ab852312a89ce0ba54f8a812d3842c06a2ba36f05b93`.
 
+The complete corpus and analysis were also saved in verified private Hugging
+Face snapshot `kiln/snapshots/20260918T154209.756236Z`, commit
+`77ae730a1ebd50375569a9c295c5a73928b36140`. Archive downloads matched their
+checksums. [Backup evidence](../completion-backup-evidence.json) also covers the
+now-completed original 42,008-game bidding campaign and its exported book.
+
 ## The next sunshine connection
 
 The campaign has become a usable source of measured, reproducible regularities.

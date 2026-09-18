@@ -31,6 +31,15 @@ The final history snapshot retains 693 recommendation changes, 254 after at
 least eight observations and 111 after at least forty. These are movements of
 an estimate, not independent strategic discoveries or causal explanations.
 
+Completion backup verified locally and by immutable remote download: private
+Hugging Face `jasonyandell/texas-42-walt-archive`, snapshot
+`kiln/snapshots/20260918T154209.756236Z`, commit
+`77ae730a1ebd50375569a9c295c5a73928b36140`. It includes the complete production
+database, both mining probes, fresh 2,880-game validation corpus, histories,
+producers, tools and final book. See [backup evidence](completion-backup-evidence.json).
+The completion monitor is now PAUSED; both production coordinators and the
+original sleep guard exited. No automatic work remains for this campaign.
+
 Old campaign stopped cleanly: **1,001,348 receipts, 851 settled deals**, no
 running leases, 69,430 pending old prices. Coordinator69038 and sleep guard69039
 are gone. All receipts and producer snapshots remain in kiln-v1. Export:
