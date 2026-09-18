@@ -35,7 +35,15 @@ PreventUserIdleSystemSleep assertion was verified. It ends with this coordinator
 If restarting production, bind a new guard to the new actual coordinator PID.
 Metadata is power-guard.json; as always, verify live processes rather than the file.
 
-Latest verified checkpoint: **238 settled / 238 covered**, run34, zero errors.
+Quarter-catalogue checkpoint: **251 settled deals**, **294,840 receipts**
+(117,534 at8 worlds,107,909 at40,69,397 at160), zero failed jobs. PID69038 was
+confirmed live and writing fresh receipts after two bounded waits. Production
+continues on the validated rule-table worker. A compiler feature inspection
+found the default target already supplies modern integer atomics and NEON;
+no further compiler build or production interruption was made. See
+compiler-target-summary.json. The final-book release gates remain open.
+
+Previous verified checkpoint: **238 settled / 238 covered**, run34, zero errors.
 The previous continuous run was stopped for one isolated serial-grouping
 experiment. That edit matched64 cold cases and all192 prices in64 paired ladders,
 but improved timing only0.4%, so it was reverted. Production resumed on the same
