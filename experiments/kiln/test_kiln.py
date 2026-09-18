@@ -6,12 +6,27 @@ import subprocess
 import tempfile
 import time
 import unittest
+from unittest import mock
 
 HERE=Path(__file__).resolve().parent
 spec=importlib.util.spec_from_file_location('kiln',HERE/'kiln.py')
 k=importlib.util.module_from_spec(spec);spec.loader.exec_module(k)
 
 class KilnTests(unittest.TestCase):
+    def test_producer_bundle_is_published_only_when_complete(self):
+        with tempfile.TemporaryDirectory() as folder:
+            binary=Path(folder)/'fixture-worker';binary.write_bytes(b'fixture worker')
+            producer=k.digest(binary);published=Path(folder)/'producers'/producer
+            with mock.patch.object(k,'atomic_json',side_effect=OSError('simulated interrupted publication')):
+                with self.assertRaises(OSError):k.preserve_producer(folder,binary)
+            self.assertFalse(published.exists())
+            target,identity=k.preserve_producer(folder,binary)
+            self.assertEqual(identity,producer);self.assertEqual(k.digest(target),producer)
+            original=(published/'producer.json').read_bytes()
+            self.assertEqual(k.preserve_producer(folder,binary),(target,producer))
+            self.assertEqual((published/'producer.json').read_bytes(),original)
+            self.assertTrue((published/'source.tar.gz').is_file())
+
     def test_abrupt_death_preserves_commits_and_reclaims_leases(self):
         with tempfile.TemporaryDirectory() as folder:
             k.init(folder,1,420600)

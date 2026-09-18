@@ -519,15 +519,14 @@ impl Solver {
     pub fn child_after_play(&self, key: &Key, tile: Domino, alive: u32) -> Key {
         self.check_belief_key(key);
         let voids = inner_belief::after_play(key, self.sh.dcl, tile);
-        let mut plays = key.plays.clone();
-        plays.push(tile.index() as u8);
         let played = key.played | bit(tile);
-        if plays.len() == 4 {
+        if key.plays.len() == 3 {
+            // Closing a trick needs no temporary heap-allocated play record.
             let doms = [
-                Domino::from_index(usize::from(plays[0])).expect("p0"),
-                Domino::from_index(usize::from(plays[1])).expect("p1"),
-                Domino::from_index(usize::from(plays[2])).expect("p2"),
-                Domino::from_index(usize::from(plays[3])).expect("p3"),
+                Domino::from_index(usize::from(key.plays[0])).expect("p0"),
+                Domino::from_index(usize::from(key.plays[1])).expect("p1"),
+                Domino::from_index(usize::from(key.plays[2])).expect("p2"),
+                tile,
             ];
             let leader = Seat::from_index(usize::from(key.leader)).expect("leader");
             let trick = Trick::new(leader, doms).expect("distinct tiles in trick");
@@ -544,6 +543,9 @@ impl Solver {
                 alive,
             }
         } else {
+            let mut plays = Vec::with_capacity(key.plays.len() + 1);
+            plays.extend_from_slice(&key.plays);
+            plays.push(tile.index() as u8);
             Key {
                 voids,
                 played,
@@ -716,7 +718,7 @@ impl Solver {
     fn solve_field_dice(&self, key: &Key, seat: Seat, led: Option<Context>) -> Option<u64> {
         let alive = self.alive_of(key.alive);
         let rh = record_hash(key);
-        let mut buckets: Vec<Vec<u32>> = vec![Vec::new(); 28];
+        let mut buckets: [Vec<u32>; 28] = std::array::from_fn(|_| Vec::new());
         for &sid in alive.iter() {
             let hand = self.worlds[sid as usize][seat.index()] & !key.played;
             let lm = mask_of(legal_plays(self.sh.dcl, set_of(hand), led));
@@ -758,7 +760,7 @@ impl Solver {
                 return None;
             }
         }
-        let mut buckets: Vec<Vec<u32>> = vec![Vec::new(); 28];
+        let mut buckets: [Vec<u32>; 28] = std::array::from_fn(|_| Vec::new());
         for (i, &sid) in alive.iter().enumerate() {
             let (hand, lm) = per_sid[i];
             let tile = if lm.count_ones() == 1 {
@@ -775,9 +777,9 @@ impl Solver {
         &self,
         key: &Key,
         alive_len: usize,
-        buckets: Vec<Vec<u32>>,
+        buckets: [Vec<u32>; 28],
     ) -> Option<u64> {
-        let mut children: Vec<Key> = Vec::new();
+        let mut children: Vec<Key> = Vec::with_capacity(alive_len.min(28));
         let mut redistributed: usize = 0;
         for (tile, bucket) in buckets.into_iter().enumerate() {
             if bucket.is_empty() {
@@ -794,27 +796,18 @@ impl Solver {
             );
         }
         assert_eq!(redistributed, alive_len, "field partition conservation");
-        let serial = || -> Vec<Option<u64>> {
-            children
-                .iter()
-                .map(|child| self.solve_count(child))
-                .collect()
+        let serial = || -> Option<u64> {
+            children.iter().try_fold(0, |total, child| Some(total + self.solve_count(child)?))
         };
         #[cfg(feature = "parallel")]
-        let vals: Vec<Option<u64>> = if self.parallel && children.len() > 1 {
-            children
-                .par_iter()
-                .map(|child| self.solve_count(child))
-                .collect()
+        let total = if self.parallel && children.len() > 1 {
+            let vals: Vec<Option<u64>> = children.par_iter().map(|child| self.solve_count(child)).collect();
+            vals.into_iter().try_fold(0u64, |total, v| Some(total + v?))?
         } else {
-            serial()
+            serial()?
         };
         #[cfg(not(feature = "parallel"))]
-        let vals: Vec<Option<u64>> = serial();
-        let mut total = 0u64;
-        for v in vals {
-            total += v?;
-        }
+        let total = serial()?;
         assert!(total <= alive_len as u64, "success mass cannot exceed support mass");
         Some(total)
     }

@@ -39,3 +39,13 @@ four-player match. The diagnostic is bounded to 60 seconds and saves each
 completed pair. See compact-cache-timing-summary.json and benchmark.py.
 The production one-minute firing also retained 404 actual prices with zero
 errors; differing job difficulty prevents using it as a controlled speedup.
+
+A subsequent allocation pass kept per-tile bucket headers on the stack, summed
+serial child values without an intermediate vector, and avoided allocating an
+unfinished-trick vector when the fourth domino completes the trick. The public
+transitions and completed search order are unchanged; an interrupted serial sum
+can stop immediately on refusal. It passed 40 exact/counter cases (predominantly
+retained deeper jobs plus fresh 4/12/40/160 cases), the four solver suites, and a
+non-parallel library build. A paired 16-case deep test measured a further 1.201x
+median / 1.200x geometric speedup relative to the compact-cache binary. Its
+one-minute production firing retained 455 prices. See allocation-*-summary.json.

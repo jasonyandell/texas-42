@@ -1,0 +1,7 @@
+{
+  "baseline": "cc2bc646629c6e872ce3e8fbfb307799139996b9c75823c8480aac7dd2b02a27",
+  "candidate": "51849e8b0581deffb840c7898a8d51dc24f44e47e38f3aacddfb1c86e908254c",
+  "cases": 40,
+  "passed": true,
+  "schema": "kiln-parity-v1"
+}

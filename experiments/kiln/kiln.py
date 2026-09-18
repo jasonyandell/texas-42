@@ -15,6 +15,7 @@ import sqlite3
 import shutil
 import subprocess
 import tarfile
+import tempfile
 import time
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -33,22 +34,39 @@ def digest(path):
 
 def preserve_producer(directory, binary):
     producer = digest(binary)
-    folder = Path(directory)/'producers'/producer
-    folder.mkdir(parents=True,exist_ok=True)
-    target = folder/'kiln-worker'
-    if not target.exists():
-        shutil.copy2(binary,target)
-        assert digest(target)==producer
-        paths = sorted([*ROOT.glob('walt/walt/src/**/*.rs'), *ROOT.glob('walt/walt-player/src/**/*.rs'),
-                        ROOT/'walt/Cargo.toml', ROOT/'walt/Cargo.lock',ROOT/'walt/walt/Cargo.toml',
-                        ROOT/'walt/walt-player/Cargo.toml',Path(__file__)])
-        with tarfile.open(folder/'source.tar.gz','w:gz') as archive:
-            for path in paths: archive.add(path,arcname=str(path.relative_to(ROOT)),recursive=False)
-        atomic_json(folder/'producer.json',{'schema':'kiln-producer-v1','binary_sha256':producer,
-          'profile':PROFILE,'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
-          'rustc':subprocess.check_output(['rustc','--version'],text=True).strip(),
-          'sources':{str(p.relative_to(ROOT)):digest(p) for p in paths}})
-    if digest(target)!=producer: raise ValueError('Stored producer binary is corrupt')
+    parent = Path(directory)/'producers'
+    parent.mkdir(parents=True,exist_ok=True)
+    folder = parent/producer
+    if not folder.exists():
+        # Publish a complete immutable bundle only after its files are durable.
+        # A crash before rename leaves an unused temporary directory, never a
+        # half-populated producer that resumed jobs could mistakenly reuse.
+        temporary=Path(tempfile.mkdtemp(prefix=producer+'.pending-',dir=parent))
+        try:
+            target=temporary/'kiln-worker';shutil.copy2(binary,target)
+            if digest(target)!=producer:raise ValueError('Producer copy is corrupt')
+            paths = sorted([*ROOT.glob('walt/walt/src/**/*.rs'), *ROOT.glob('walt/walt-player/src/**/*.rs'),
+                            ROOT/'walt/Cargo.toml', ROOT/'walt/Cargo.lock',ROOT/'walt/walt/Cargo.toml',
+                            ROOT/'walt/walt-player/Cargo.toml',Path(__file__)])
+            with tarfile.open(temporary/'source.tar.gz','w:gz') as archive:
+                for path in paths: archive.add(path,arcname=str(path.relative_to(ROOT)),recursive=False)
+            for path in (target,temporary/'source.tar.gz'):
+                with path.open('rb') as handle:os.fsync(handle.fileno())
+            atomic_json(temporary/'producer.json',{'schema':'kiln-producer-v1','binary_sha256':producer,
+              'profile':PROFILE,'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+              'rustc':subprocess.check_output(['rustc','--version'],text=True).strip(),
+              'sources':{str(p.relative_to(ROOT)):digest(p) for p in paths}})
+            os.rename(temporary,folder)
+            for path in (parent,Path(directory)):
+                fd=os.open(path,os.O_RDONLY)
+                try:os.fsync(fd)
+                finally:os.close(fd)
+        except BaseException:
+            if temporary.exists():shutil.rmtree(temporary)
+            raise
+    target=folder/'kiln-worker'
+    if digest(target)!=producer or not (folder/'source.tar.gz').is_file() or not (folder/'producer.json').is_file():
+        raise ValueError('Stored producer bundle is incomplete or corrupt')
     return target,producer
 
 def mulberry(seed):

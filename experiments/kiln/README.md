@@ -90,3 +90,20 @@ Plunge checkout currently defaults to `/Users/jason/code/plunge-sunshine`.
 See `PROGRESS.md` for last verified runs and immediate next actions. Raw data,
 SQLite, logs, and full books live outside Git under `/Users/jason/data/texas-42/`.
 Check the live process before treating any old status snapshot as running.
+
+## Release audit
+
+The read-only auditor pins a consistent SQLite snapshot, checks every receipt
+against its own-hand identity, samples, counters and exact fraction, checks every
+refinement chain and screening decision, verifies immutable binary/source bundles,
+and reports the preselected screening audit. With a book, it also checks all book
+cells against original saved receipts. A partial audit never certifies completion.
+
+```sh
+python3 experiments/kiln/audit.py /Users/jason/data/texas-42/kiln-v1 /Users/jason/data/texas-42/kiln-v1/audit-partial.json --partial
+python3 experiments/kiln/audit.py /Users/jason/data/texas-42/kiln-v1 /Users/jason/data/texas-42/kiln-v1/audit-final.json --book /Users/jason/data/texas-42/kiln-v1/book.json
+```
+
+The second command is a release gate: all 1,000 deals and every scheduled
+refinement must be done. Run it before installing the book in Plunge. Original
+model calibration remains separate from structural verification.
