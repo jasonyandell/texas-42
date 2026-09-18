@@ -136,3 +136,27 @@ production receipts passed 36 parity cases and four paired diagnostic cases.
 All 32 warm receipts had different cold node counts, confirming why the old
 counter comparison was inappropriate. This validation ran alongside production;
 its timings are not performance evidence. See warm-checker-summary.json.
+
+## Precomputed trick strengths
+
+The same profile showed repeated declaration-relative tier/rank calculations.
+`Decl::trick_key` now reads a compile-time table containing every one of the
+9 declarations × 8 led contexts × 28 dominoes. The original `tier` and `rank`
+definitions generate this table; it contains no hands, beliefs or policies.
+All 2,016 entries are checked against the direct rule algebra, including the
+called context and every declaration. Public types, ordering and rules remain
+unchanged. The table occupies 4,032 bytes with the current two-byte `TrickKey`.
+
+All 44 focused rules/ordering/partnership/selection/void-sampler tests passed
+(one historical fixture generator ignored). Sixty-four retained/fresh prices
+and their cold search/policy/sample counters matched. An isolated 32-case paired
+8/40/160 ladder comparison measured 1.044x median / 1.044x geometric speedup;
+all 32 pairs improved. A larger 64-case repeat completed in39.4s and measured
+**1.047x median / 1.045x geometric speedup**, with all192 stage prices matching.
+Both runs used four concurrent pairs, alternating order and a60s limit, with
+production stopped. Their small but consistent gain supports retaining the
+lookup. The initial source/binary snapshot is
+`e6cea7cf0d62796e60f0756d849098a3fa64c2985c6dc207fac37ed65c0a748d`.
+See rule-table-{parity,timing,repeat}-summary.json and PROGRESS.md for adoption
+and the separate phone validation. This is an implementation speedup, not a
+change to the calibration finding or a new claim about playing strength.

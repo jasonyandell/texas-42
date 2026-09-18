@@ -147,6 +147,19 @@ fn ranks_are_injective_within_every_nonzero_tier() {
     assert!(checked > 0);
 }
 
+#[test]
+fn every_precomputed_trick_key_matches_the_direct_rule_algebra() {
+    for decl in Decl::ALL {
+        for led in Context::ALL {
+            for tile in Domino::ALL {
+                let actual = decl.trick_key(tile, led);
+                assert_eq!(actual.tier, decl.tier(tile, led), "{decl} {led} {tile}");
+                assert_eq!(actual.rank, decl.rank(tile), "{decl} {led} {tile}");
+            }
+        }
+    }
+}
+
 /// The spec's uniqueness claim, checked over every four-tile trick with every
 /// designated lead, for every declaration.
 #[test]

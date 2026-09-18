@@ -1,0 +1,9 @@
+{
+  "baseline": "77f81f56770c3cf166b15ab6b3742a1f43462b9c5814e2ee541a732373c2cbc4",
+  "candidate": "e6cea7cf0d62796e60f0756d849098a3fa64c2985c6dc207fac37ed65c0a748d",
+  "cases": 64,
+  "passed": true,
+  "schema": "kiln-parity-v1",
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/rule-table-parity.json",
+  "evidence_sha256": "19585b27b688a6f17149f28f1955b4a4e6affee70e6f62ca43222ddc3955fdf4"
+}
