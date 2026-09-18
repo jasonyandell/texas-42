@@ -160,3 +160,15 @@ lookup. The initial source/binary snapshot is
 See rule-table-{parity,timing,repeat}-summary.json and PROGRESS.md for adoption
 and the separate phone validation. This is an implementation speedup, not a
 change to the calibration finding or a new claim about playing strength.
+
+## Serial grouping experiment: no useful gain
+
+A small candidate skipped populating the distinct-hand grouping used only by
+parallel policy preloading when the solver ran serially. Sixty-four cold
+retained/fresh prices and work counts matched. An isolated 64-case persistent
+8/40/160 ladder comparison also matched all 192 prices, but measured only
+**1.004x median / 1.004x geometric speedup** in39.6s. The edit was reverted and
+the validated rule-table worker resumed. No additional source path or phone
+asset is retained for this negligible effect. The experimental binary/source
+snapshot is d94470d03e393c3f1fd286e3201d16786d0d6ab8f628ba405eccbfd8a1405c06;
+see serial-grouping-{parity,timing}-summary.json.

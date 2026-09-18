@@ -25,17 +25,24 @@ the goal complete from the local integration preview.
 ## Production (revalidate; this file is not liveness evidence)
 
 Campaign: `/Users/jason/data/texas-42/kiln-v1`. SQLite/WAL are authoritative.
-Coordinator **58752** was launched detached, 18 processes, one internal thread,
+Coordinator **69038** was launched detached, 18 processes, one internal thread,
 `--seconds 0 --job-ms 120000 --order deal`. Process metadata is
 production-process.json; status.json is expendable. The exclusive OS lock
 prevents another writer. Graceful SIGTERM retains completed prices and returns
 unfinished work to the queue. Check actual process identity before stopping it.
-Mac sleep guard **58753** is `/usr/bin/caffeinate -i -w 58752`; its actual
+Mac sleep guard **69039** is `/usr/bin/caffeinate -i -w 69038`; its actual
 PreventUserIdleSystemSleep assertion was verified. It ends with this coordinator.
 If restarting production, bind a new guard to the new actual coordinator PID.
 Metadata is power-guard.json; as always, verify live processes rather than the file.
 
-Latest verified production checkpoint: **224 settled / 224 covered** deals,
+Latest verified checkpoint: **238 settled / 238 covered**, run34, zero errors.
+The previous continuous run was stopped for one isolated serial-grouping
+experiment. That edit matched64 cold cases and all192 prices in64 paired ladders,
+but improved timing only0.4%, so it was reverted. Production resumed on the same
+validated rule-table worker as PID69038 with verified sleep guard69039. The
+phone asset did not change. See serial-grouping-*-summary.json and HOT-PATH.md.
+
+Previous rule-table adoption checkpoint: **224 settled / 224 covered** deals,
 263,269 saved evaluations, run33 about42.7 saved prices/s with zero errors. The
 new rule-table worker completed a bounded production firing of2,436 prices in
 60.2s, zero errors, before continuous production resumed. PID58752 and its actual
@@ -282,7 +289,7 @@ No preview is installed or eligible for production deployment.
 
 ## Next actions
 
-1. Revalidate PID58752 and sleep guard58753, database progress/errors, and git state. Core, pool and
+1. Revalidate PID69038 and sleep guard69039, database progress/errors, and git state. Core, pool and
    phone checks passed, and both worktrees are committed. No pending test process
    is intentionally left running. Production is the only sustained job.
 2. Keep the long run producing all 1,000 deals and planned refinements. Tuning

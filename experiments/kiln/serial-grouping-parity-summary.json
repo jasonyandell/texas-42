@@ -1,0 +1,10 @@
+{
+  "baseline": "e6cea7cf0d62796e60f0756d849098a3fa64c2985c6dc207fac37ed65c0a748d",
+  "candidate": "d94470d03e393c3f1fd286e3201d16786d0d6ab8f628ba405eccbfd8a1405c06",
+  "cases": 64,
+  "passed": true,
+  "schema": "kiln-parity-v1",
+  "adopted": false,
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/serial-grouping-parity.json",
+  "evidence_sha256": "5a49f7bc0fc75d8ab0629df22d3c8fcac555e4e9dc9c280bc2e597d4b2f88b82"
+}

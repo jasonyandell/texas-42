@@ -1,0 +1,18 @@
+{
+  "baseline": "e6cea7cf0d62796e60f0756d849098a3fa64c2985c6dc207fac37ed65c0a748d",
+  "candidate": "d94470d03e393c3f1fd286e3201d16786d0d6ab8f628ba405eccbfd8a1405c06",
+  "completed": 64,
+  "geometric_speedup": 1.0042228035340106,
+  "median_speedup": 1.004434979910723,
+  "requested": 64,
+  "schema": "kiln-carry-timing-v1",
+  "workers": 4,
+  "worlds": [
+    8,
+    40,
+    160
+  ],
+  "adopted": false,
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/serial-grouping-timing.json",
+  "evidence_sha256": "4d5503c20cca390e6801165b59fb4eb755699c2b6dfa83a0675a9ec4661407e0"
+}
