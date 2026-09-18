@@ -60,6 +60,22 @@ silently consume it. Plunge installation/deployment remains a later step.
 
 ## Preserved survey
 
+Both live campaigns reside outside git under `/Users/jason/data/texas-42/`.
+`backup.py` makes consistent SQLite snapshots while production continues, includes
+receipts and immutable producer/source bundles, and reads back every archive
+member to verify its hash. Local backups live under `~/data/texas-42/backups/`.
+Optional uploads use the existing **private** Hugging Face dataset
+`jasonyandell/texas-42-walt-archive`, in a separate `kiln/snapshots/` namespace.
+Uploads are checked by downloading and hashing the archives at the saved commit.
+
+```sh
+python3 experiments/kiln/backup.py --upload
+# Later milestones need only the growing actual-play campaign:
+python3 experiments/kiln/backup.py --campaign played --upload
+# An authentication failure leaves the verified local snapshot intact:
+python3 experiments/kiln/backup.py --existing /absolute/snapshot/path --upload
+```
+
 The previous `kiln-v1` database, receipts, producer bundles and partial export
 remain intact:1,001,348 audited prices covering851 fully settled deals. See
 [PROGRESS.md](PROGRESS.md) and survey-frozen-summary.json. No old scalar price is
