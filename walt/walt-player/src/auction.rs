@@ -155,6 +155,11 @@ pub fn merge(call: MergeCall) -> Result<Value, String> {
 // Only the best opening value is needed for bidding. The shared solver can
 // stop once that value is 1; play's full action vector cannot take that shortcut.
 fn price(req: &Request, n: usize, ms: u64, seed: u64) -> Result<Value, String> {
+    Ok(price_with_work(req, n, ms, seed)?.0)
+}
+
+fn price_with_work(req: &Request, n: usize, ms: u64, seed: u64) -> Result<(Value, Value), String> {
+    let started = Instant::now();
     let hand = req.hand.iter().fold(0u32, |mask, t| mask | (1u32 << t));
     let leader = (req.seat + u64::from(req.seat % 2 == 0)) as u8;
     let key = Key {
@@ -177,7 +182,7 @@ fn price(req: &Request, n: usize, ms: u64, seed: u64) -> Result<Value, String> {
         Deadline::after(Duration::from_millis(ms)),
     ));
     let solver = Solver::new(
-        sh,
+        Arc::clone(&sh),
         Seat::from_index(leader as usize).unwrap(),
         hand,
         true,
@@ -187,11 +192,36 @@ fn price(req: &Request, n: usize, ms: u64, seed: u64) -> Result<Value, String> {
     )
     .parallel();
     let v = solver.solve(&key).ok_or("deadline")?;
-    Ok(json!([
+    solver.flush_nodes();
+    let work = json!({"elapsed_us":started.elapsed().as_micros() as u64,
+        "nodes":sh.nodes.load(std::sync::atomic::Ordering::Relaxed),
+        "pi_calls":sh.pi_calls_by_level(),"inner_worlds":sh.inner_worlds_by_level(),
+        "policy_cache_entries":sh.pi_cache_len(),"search_cache_entries":solver.memo_len()});
+    Ok((json!([
         req.decl,
         v.numer().to_string(),
         v.denom().to_string()
-    ]))
+    ]), work))
+}
+
+/// Native offline price producer. The same evaluator as the live auction,
+/// with explicit small/deep sample sizes and work counters. Never a new policy.
+#[cfg(not(target_arch = "wasm32"))]
+pub fn kiln(text: &str) -> Value {
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct Job { auction: Auction, decl: u64, worlds: usize, budget_ms: u64 }
+    let run = || -> Result<Value, String> {
+        let job: Job = serde_json::from_str(text).map_err(|e| e.to_string())?;
+        if !DECLS.contains(&job.decl) || ![4,8,12,40,160].contains(&job.worlds)
+            || !(5..=600_000).contains(&job.budget_ms) { return Err("invalid kiln job".into()); }
+        let (mut req, seed) = request(job.auction)?;
+        req.decl = job.decl;
+        let (price, work) = price_with_work(&req, job.worlds, job.budget_ms, seed)?;
+        Ok(json!({"schema":"kiln-price-v1","auction":identity(&req,seed),
+            "worlds":job.worlds,"inner_worlds":8,"price":price,"work":work}))
+    };
+    run().unwrap_or_else(|error| json!({"error":error}))
 }
 
 // Small exact fractions emitted by the completed finite-sample evaluator.

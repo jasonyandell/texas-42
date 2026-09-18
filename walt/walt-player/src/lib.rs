@@ -13,6 +13,9 @@ use walt::{
 pub const PLAYER_ID: &str = "walt-table-v2";
 mod auction;
 
+#[cfg(not(target_arch = "wasm32"))]
+pub use auction::kiln as kiln_price;
+
 #[derive(Deserialize)]
 #[serde(untagged)]
 enum Seed {

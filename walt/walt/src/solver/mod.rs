@@ -81,7 +81,6 @@ impl Deadline {
 
 use num_bigint::BigInt;
 use num_rational::BigRational;
-use num_traits::{One, Zero};
 #[cfg(feature = "parallel")]
 use rayon::prelude::*;
 
@@ -365,7 +364,10 @@ pub struct Solver {
     seeds: Vec<u64>,
     field: Field,
     intern: Mutex<Intern>,
-    memo: Mutex<HashMap<Key, BigRational>>,
+    // All worlds have equal mass, including duplicate sampled worlds. Each
+    // node's value is an integer success count over its alive set. Convert to
+    // a rational only at the public boundary (experiments/kiln/COUNTED-VALUES.md).
+    memo: Mutex<HashMap<Key, u64>>,
     local_nodes: AtomicU64,
     local_viewer_children: AtomicU64,
     local_viewer_legal: AtomicU64,
@@ -421,7 +423,10 @@ impl Solver {
     /// feature — the flag is kept so caller code is identical).
     #[must_use]
     pub fn parallel(mut self) -> Self {
-        self.parallel = true;
+        // A one-thread production worker gains nothing from nested Rayon
+        // dispatch; retain the serial path and its allocation savings.
+        #[cfg(feature = "parallel")]
+        { self.parallel = rayon::current_num_threads() > 1; }
         self
     }
 
@@ -551,18 +556,23 @@ impl Solver {
     }
 
     pub fn solve(&self, key: &Key) -> Option<BigRational> {
+        let wins = self.solve_count(key)?;
+        Some(BigRational::new(BigInt::from(wins), BigInt::from(self.alive_of(key.alive).len())))
+    }
+
+    fn solve_count(&self, key: &Key) -> Option<u64> {
         self.check_belief_key(key);
         if !self.bump_node() {
             return None;
         }
         if key.banked_t1 >= self.sh.bid {
-            return Some(BigRational::one());
+            return Some(self.alive_of(key.alive).len() as u64);
         }
         if key.banked_t0 > 42 - self.sh.bid {
-            return Some(BigRational::zero());
+            return Some(0);
         }
         if let Some(v) = self.memo.lock().expect("memo poisoned").get(key) {
-            return Some(v.clone());
+            return Some(*v);
         }
         assert_ne!(key.played, FULL_MASK, "terminal states are always decided");
         let seat =
@@ -586,7 +596,7 @@ impl Solver {
         self.memo
             .lock()
             .expect("memo poisoned")
-            .insert(key.clone(), val.clone());
+            .insert(key.clone(), val);
         Some(val)
     }
 
@@ -667,7 +677,7 @@ impl Solver {
         order.into_iter().map(|(_, t)| t).collect()
     }
 
-    fn solve_viewer(&self, key: &Key, led: Option<Context>) -> Option<BigRational> {
+    fn solve_viewer(&self, key: &Key, led: Option<Context>) -> Option<u64> {
         let hand = self.viewer_hand0 & !key.played;
         let legal = legal_plays(self.sh.dcl, set_of(hand), led);
         // Reorder, never cull (E-A15): the same legal set in heuristic
@@ -677,19 +687,20 @@ impl Solver {
         let order = self.viewer_visit_order(key, led, legal);
         self.local_viewer_legal
             .fetch_add(order.len() as u64, Ordering::Relaxed);
-        let mut best: Option<BigRational> = None;
+        let mut best: Option<u64> = None;
+        let mass = self.alive_of(key.alive).len() as u64;
         for &tile in &order {
             self.local_viewer_children.fetch_add(1, Ordering::Relaxed);
             let child = self.child_after_play(key, tile, key.alive);
-            let v = self.solve(&child)?;
+            let v = self.solve_count(&child)?;
             let better = best
                 .as_ref()
                 .is_none_or(|b| if self.maximize { v > *b } else { v < *b });
             if better {
                 let decided = if self.maximize {
-                    v.is_one()
+                    v == mass
                 } else {
-                    v.is_zero()
+                    v == 0
                 };
                 best = Some(v);
                 if decided {
@@ -700,7 +711,7 @@ impl Solver {
         Some(best.expect("viewer always has a legal play"))
     }
 
-    fn solve_field_dice(&self, key: &Key, seat: Seat, led: Option<Context>) -> Option<BigRational> {
+    fn solve_field_dice(&self, key: &Key, seat: Seat, led: Option<Context>) -> Option<u64> {
         let alive = self.alive_of(key.alive);
         let rh = record_hash(key);
         let mut buckets: Vec<Vec<u32>> = vec![Vec::new(); 28];
@@ -721,7 +732,7 @@ impl Solver {
         seat: Seat,
         led: Option<Context>,
         k: usize,
-    ) -> Option<BigRational> {
+    ) -> Option<u64> {
         let alive = self.alive_of(key.alive);
         let mut per_sid: Vec<(u32, u32)> = Vec::with_capacity(alive.len());
         let mut distinct: HashMap<u32, u32> = HashMap::new();
@@ -763,51 +774,46 @@ impl Solver {
         key: &Key,
         alive_len: usize,
         buckets: Vec<Vec<u32>>,
-    ) -> Option<BigRational> {
-        let denom = BigInt::from(alive_len);
-        let mut children: Vec<(BigInt, Key)> = Vec::new();
+    ) -> Option<u64> {
+        let mut children: Vec<Key> = Vec::new();
         let mut redistributed: usize = 0;
         for (tile, bucket) in buckets.into_iter().enumerate() {
             if bucket.is_empty() {
                 continue;
             }
             redistributed += bucket.len();
-            let reach = BigInt::from(bucket.len());
             let child_alive = self.intern(bucket);
-            children.push((
-                reach,
+            children.push(
                 self.child_after_play(
                     key,
                     Domino::from_index(tile).expect("tile < 28"),
                     child_alive,
                 ),
-            ));
+            );
         }
         assert_eq!(redistributed, alive_len, "field partition conservation");
-        let serial = || -> Vec<Option<BigRational>> {
+        let serial = || -> Vec<Option<u64>> {
             children
                 .iter()
-                .map(|(_, child)| self.solve(child))
+                .map(|child| self.solve_count(child))
                 .collect()
         };
         #[cfg(feature = "parallel")]
-        let vals: Vec<Option<BigRational>> = if self.parallel && children.len() > 1 {
+        let vals: Vec<Option<u64>> = if self.parallel && children.len() > 1 {
             children
                 .par_iter()
-                .map(|(_, child)| self.solve(child))
+                .map(|child| self.solve_count(child))
                 .collect()
         } else {
             serial()
         };
         #[cfg(not(feature = "parallel"))]
-        let vals: Vec<Option<BigRational>> = serial();
-        let mut total = BigRational::zero();
-        for ((reach, _), v) in children.iter().zip(vals) {
-            let v = v?;
-            if !v.is_zero() {
-                total += v * BigRational::new(reach.clone(), denom.clone());
-            }
+        let vals: Vec<Option<u64>> = serial();
+        let mut total = 0u64;
+        for v in vals {
+            total += v?;
         }
+        assert!(total <= alive_len as u64, "success mass cannot exceed support mass");
         Some(total)
     }
 
