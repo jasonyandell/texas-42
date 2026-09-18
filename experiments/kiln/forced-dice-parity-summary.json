@@ -1,0 +1,9 @@
+{
+  "baseline": "751c14b2b695930d4465ba8ef9904cce31e1e1826488b104dff53ea24d371288",
+  "candidate": "2119905effc9054d59792050a508660404b83d45210a04a434cd3662ce7e755a",
+  "cases": 64,
+  "passed": true,
+  "schema": "kiln-parity-v1",
+  "evidence_sha256": "aefe382c501c8bbefe3291f6b31af6981bd673afb6f4b49875adcbb1e94acd29",
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/forced-dice-parity.json"
+}

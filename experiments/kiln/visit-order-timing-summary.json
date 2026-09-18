@@ -1,0 +1,13 @@
+{
+  "baseline": "f138bd42fd581f09ecc84809215261a7ff9364a0f3b2a7b499187c8bd723c961",
+  "candidate": "c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1",
+  "completed": 16,
+  "geometric_speedup": 1.098679509317421,
+  "median_speedup": 1.100353815110382,
+  "requested": 16,
+  "schema": "kiln-paired-timing-v1",
+  "workers": 4,
+  "worlds": 160,
+  "evidence_sha256": "d66eb7f5bc7e2db890267351ae9a330a1e99df1567d2677228b01be13b4b768e",
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/visit-order-timing.json"
+}

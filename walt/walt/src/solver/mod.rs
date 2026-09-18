@@ -131,22 +131,11 @@ pub fn bit(dm: Domino) -> u32 {
 }
 
 pub fn mask_of(set: DominoSet) -> u32 {
-    let mut m = 0u32;
-    for dm in set.iter() {
-        m |= bit(dm);
-    }
-    m
+    set.bits()
 }
 
 pub fn set_of(mask: u32) -> DominoSet {
-    let mut s = DominoSet::default();
-    let mut m = mask;
-    while m != 0 {
-        let i = m.trailing_zeros() as usize;
-        s.insert(Domino::from_index(i).expect("index < 28"));
-        m &= m - 1;
-    }
-    s
+    DominoSet::from_bits(mask).expect("indices < 28")
 }
 
 pub fn mask_bits(mask: u32) -> Vec<u8> {
@@ -626,48 +615,55 @@ impl Solver {
     /// the earliest exact decision either way. Pure in (dcl, key, led,
     /// tile), integer-only, no RNG, no shared tables — the visit order
     /// is deterministic run-to-run under rayon.
-    fn viewer_visit_priority(&self, key: &Key, led: Option<Context>, tile: Domino) -> u32 {
+    fn viewer_visit_order_into<'a>(
+        &self, key: &Key, led: Option<Context>, legal: DominoSet,
+        storage: &'a mut [(u32, Domino); Domino::COUNT],
+    ) -> &'a [(u32, Domino)] {
         let dcl = self.sh.dcl;
-        let Some(q) = led else {
-            // Leading: strongest lead first — called tier over natural,
-            // declaration rank within the tier.
-            let k = dcl.trick_key(tile, dcl.led_context(tile));
-            return 100 * k.tier as u32 + u32::from(k.rank.value());
-        };
-        let on_table = || {
-            key.plays
-                .iter()
-                .map(|&p| Domino::from_index(usize::from(p)).expect("played tile"))
-        };
-        // The trick's standing winner: first strict maximum in play
-        // order, the `Trick::winner` convention.
-        let mut best = None;
-        let mut winner_at = 0;
-        for (i, d) in on_table().enumerate() {
-            let k = dcl.trick_key(d, q);
-            if best.as_ref().is_none_or(|b| k > *b) {
-                best = Some(k);
-                winner_at = i;
+        // The standing winner/count are shared by all candidate priorities.
+        // With zero or one candidate there is no ordering work to perform.
+        let needs_priority = legal.len() > 1 && self.ordering == MoveOrdering::CaptureFirst;
+        let table = if needs_priority { led.map(|q| {
+            let mut best = None;
+            let mut winner_at = 0;
+            let mut count = 0;
+            for (i, &p) in key.plays.iter().enumerate() {
+                let tile = Domino::from_index(usize::from(p)).expect("played tile");
+                let k = dcl.trick_key(tile, q);
+                count += tile.count();
+                // First strict maximum, matching Trick::winner.
+                if best.as_ref().is_none_or(|b| k > *b) {
+                    best = Some(k);
+                    winner_at = i;
+                }
             }
-        }
-        let best = best.expect("a led context implies a play");
-        if dcl.trick_key(tile, q) > best {
-            // Wins the trick as it stands: richest capture first (count
-            // on the table plus the tile's own).
-            1_000 + on_table().map(Domino::count).sum::<u32>() + tile.count()
-        } else {
             let winner = Seat::from_index((usize::from(key.leader) + winner_at) % 4)
                 .expect("winner seat index");
-            if winner.team() == self.viewer.team() {
-                // The trick currently falls to the viewer's own team:
-                // feed it count first.
-                20 + tile.count()
+            (q, best.expect("a led context implies a play"), count,
+             winner.team() == self.viewer.team())
+        }) } else { None };
+        let priority = |tile: Domino| {
+            if !needs_priority { return 0; }
+            if let Some((q, best, count, own_team)) = table {
+                if dcl.trick_key(tile, q) > best {
+                    1_000 + count + tile.count()
+                } else if own_team {
+                    20 + tile.count()
+                } else {
+                    10 - tile.count()
+                }
             } else {
-                // It falls to the opponents: give up the least count
-                // first.
-                10 - tile.count()
+                // Leading: called tier first, then declaration rank.
+                let k = dcl.trick_key(tile, dcl.led_context(tile));
+                100 * k.tier as u32 + u32::from(k.rank.value())
             }
+        };
+        let order = &mut storage[..legal.len()];
+        for (slot, tile) in order.iter_mut().zip(legal.iter()) {
+            *slot = (priority(tile), tile);
         }
+        order.sort_unstable_by_key(|&(p, t)| (std::cmp::Reverse(p), t.index()));
+        order
     }
 
     /// The `solve_viewer` visit order (reorder-not-cull;
@@ -682,15 +678,9 @@ impl Solver {
         led: Option<Context>,
         legal: DominoSet,
     ) -> Vec<Domino> {
-        let priority = |t: Domino| match self.ordering {
-            MoveOrdering::CaptureFirst => self.viewer_visit_priority(key, led, t),
-            // A constant priority leaves only the index tie-break: the
-            // historical ascending order, kept for the equivalence gate.
-            MoveOrdering::TileIndex => 0,
-        };
-        let mut order: Vec<(u32, Domino)> = legal.iter().map(|t| (priority(t), t)).collect();
-        order.sort_unstable_by_key(|&(p, t)| (std::cmp::Reverse(p), t.index()));
-        order.into_iter().map(|(_, t)| t).collect()
+        let mut storage = [(0, Domino::ALL[0]); Domino::COUNT];
+        self.viewer_visit_order_into(key, led, legal, &mut storage)
+            .iter().map(|&(_, tile)| tile).collect()
     }
 
     fn solve_viewer(&self, key: &Key, led: Option<Context>) -> Option<u64> {
@@ -700,12 +690,13 @@ impl Solver {
         // order. This loop is value-only — max/min over children, no
         // action returned — so no tie-break is exposed; the order only
         // moves where the Boolean break lands.
-        let order = self.viewer_visit_order(key, led, legal);
+        let mut storage = [(0, Domino::ALL[0]); Domino::COUNT];
+        let order = self.viewer_visit_order_into(key, led, legal, &mut storage);
         self.local_viewer_legal
             .fetch_add(order.len() as u64, Ordering::Relaxed);
         let mut best: Option<u64> = None;
         let mass = self.alive_of(key.alive).len() as u64;
-        for &tile in &order {
+        for &(_, tile) in order {
             self.local_viewer_children.fetch_add(1, Ordering::Relaxed);
             let child = self.child_after_play(key, tile, key.alive);
             let v = self.solve_count(&child)?;
@@ -729,7 +720,7 @@ impl Solver {
 
     fn solve_field_dice(&self, key: &Key, seat: Seat, led: Option<Context>) -> Option<u64> {
         let alive = self.alive_of(key.alive);
-        let rh = record_hash(key);
+        let mut record = None;
         if let Some(small)=&self.small_support {
             if !self.parallel {
                 // The common eight-world modeled mind needs no bucket/list
@@ -740,8 +731,13 @@ impl Solver {
                     let hand=self.worlds[sid as usize][seat.index()] & !key.played;
                     let lm=mask_of(legal_plays(self.sh.dcl,set_of(hand),led));
                     debug_assert!(lm!=0);
-                    let idx=SplitMix64(self.seeds[sid as usize]^rh).below(u64::from(lm.count_ones())) as u32;
-                    buckets[nth_set_bit(lm,idx) as usize] |= 1u8<<sid;
+                    let choices=lm.count_ones();
+                    let tile=if choices==1 { lm.trailing_zeros() } else {
+                        let rh=*record.get_or_insert_with(||record_hash(key));
+                        let idx=SplitMix64(self.seeds[sid as usize]^rh).below(u64::from(choices)) as u32;
+                        nth_set_bit(lm,idx)
+                    };
+                    buckets[tile as usize] |= 1u8<<sid;
                 }
                 let mut total=0u64;let mut redistributed=0;
                 for (tile,mask) in buckets.into_iter().enumerate() {
@@ -760,9 +756,15 @@ impl Solver {
             let hand = self.worlds[sid as usize][seat.index()] & !key.played;
             let lm = mask_of(legal_plays(self.sh.dcl, set_of(hand), led));
             debug_assert!(lm != 0);
-            let idx =
-                SplitMix64(self.seeds[sid as usize] ^ rh).below(u64::from(lm.count_ones())) as u32;
-            buckets[nth_set_bit(lm, idx) as usize].push(sid);
+            let choices=lm.count_ones();
+            // This Dice stream is local to this state/sample and discarded.
+            // A sole legal tile needs neither a draw nor the record hash.
+            let tile=if choices==1 { lm.trailing_zeros() } else {
+                let rh=*record.get_or_insert_with(||record_hash(key));
+                let idx=SplitMix64(self.seeds[sid as usize]^rh).below(u64::from(choices)) as u32;
+                nth_set_bit(lm,idx)
+            };
+            buckets[tile as usize].push(sid);
         }
         self.combine_buckets(key, alive.len(), buckets)
     }
