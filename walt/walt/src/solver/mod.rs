@@ -24,6 +24,8 @@ pub mod act;
 pub mod adaptive;
 pub mod bundle;
 pub mod calibrate;
+mod cache;
+use cache::{CacheHasher, CacheMap, MemoKey, PolicyKey};
 pub mod controller;
 pub mod covers;
 pub mod doom;
@@ -60,7 +62,6 @@ pub mod upper_cs;
 pub mod wakeup;
 pub mod waking;
 
-use std::collections::hash_map::DefaultHasher;
 use std::collections::HashMap;
 use std::fmt;
 use std::hash::{Hash, Hasher};
@@ -212,7 +213,7 @@ pub struct PiKey {
 
 const PI_SHARDS: usize = 64;
 
-type PiShard = Mutex<HashMap<(u8, PiKey), u8>>;
+type PiShard = Mutex<CacheMap<(u8, PolicyKey), u8>>;
 
 /// State shared by every solver in one evaluation: declaration, bid
 /// thresholds, boundary frame, budget, and the cross-level policy cache.
@@ -262,7 +263,7 @@ impl Shared {
             boundary_played,
             boundary_hand_size,
             deadline,
-            pi_cache: (0..PI_SHARDS).map(|_| Mutex::new(HashMap::new())).collect(),
+            pi_cache: (0..PI_SHARDS).map(|_| Mutex::new(CacheMap::default())).collect(),
             pi_calls: AtomicU64::new(0),
             pi_calls_by_level,
             nodes: AtomicU64::new(0),
@@ -312,8 +313,8 @@ impl Shared {
         )
     }
 
-    fn pi_shard(&self, k: u8, pk: &PiKey) -> &PiShard {
-        let mut h = DefaultHasher::new();
+    fn pi_shard(&self, k: u8, pk: &PolicyKey) -> &PiShard {
+        let mut h = CacheHasher::default();
         (k, pk).hash(&mut h);
         &self.pi_cache[(h.finish() as usize) & (PI_SHARDS - 1)]
     }
@@ -338,7 +339,7 @@ impl Shared {
 
 struct Intern {
     list: Vec<Arc<Vec<u32>>>,
-    map: HashMap<Arc<Vec<u32>>, u32>,
+    map: CacheMap<Arc<Vec<u32>>, u32>,
 }
 
 /// The `solve_viewer` visit-order selector (reorder-not-cull;
@@ -367,7 +368,7 @@ pub struct Solver {
     // All worlds have equal mass, including duplicate sampled worlds. Each
     // node's value is an integer success count over its alive set. Convert to
     // a rational only at the public boundary (experiments/kiln/COUNTED-VALUES.md).
-    memo: Mutex<HashMap<Key, u64>>,
+    memo: Mutex<CacheMap<MemoKey, u64>>,
     local_nodes: AtomicU64,
     local_viewer_children: AtomicU64,
     local_viewer_legal: AtomicU64,
@@ -396,7 +397,7 @@ impl Solver {
             ),
         }
         let all: Arc<Vec<u32>> = Arc::new((0..worlds.len() as u32).collect());
-        let mut map = HashMap::new();
+        let mut map = CacheMap::default();
         map.insert(Arc::clone(&all), 0u32);
         Solver {
             sh,
@@ -411,7 +412,7 @@ impl Solver {
                 list: vec![all],
                 map,
             }),
-            memo: Mutex::new(HashMap::new()),
+            memo: Mutex::new(CacheMap::default()),
             local_nodes: AtomicU64::new(0),
             local_viewer_children: AtomicU64::new(0),
             local_viewer_legal: AtomicU64::new(0),
@@ -571,7 +572,8 @@ impl Solver {
         if key.banked_t0 > 42 - self.sh.bid {
             return Some(0);
         }
-        if let Some(v) = self.memo.lock().expect("memo poisoned").get(key) {
+        let memo_key = MemoKey::from(key);
+        if let Some(v) = self.memo.lock().expect("memo poisoned").get(&memo_key) {
             return Some(*v);
         }
         assert_ne!(key.played, FULL_MASK, "terminal states are always decided");
@@ -596,7 +598,7 @@ impl Solver {
         self.memo
             .lock()
             .expect("memo poisoned")
-            .insert(key.clone(), val);
+            .insert(memo_key, val);
         Some(val)
     }
 
@@ -847,13 +849,14 @@ impl Solver {
             banked_t1: key.banked_t1,
             banked_t0: key.banked_t0,
         };
+        let cache_key = PolicyKey::from(&pk);
         let kb = k as u8;
         if let Some(&t) = self
             .sh
-            .pi_shard(kb, &pk)
+            .pi_shard(kb, &cache_key)
             .lock()
             .expect("pi shard poisoned")
-            .get(&(kb, pk.clone()))
+            .get(&(kb, cache_key))
         {
             return Some(t);
         }
@@ -938,10 +941,10 @@ impl Solver {
             }
         };
         self.sh
-            .pi_shard(kb, &pk)
+            .pi_shard(kb, &cache_key)
             .lock()
             .expect("pi shard poisoned")
-            .insert((kb, pk), choice);
+            .insert((kb, cache_key), choice);
         Some(choice)
     }
 

@@ -243,6 +243,7 @@ async def run(args):
             if time.monotonic()-last>=10:
                 view = status(db);atomic_json(directory/'status.json',view)
                 print(canonical({'completed':completed,'errors':errors,'covered_deals':view['covered_deals'],
+                                 'settled_deals':view['settled_deals'],'by_depth':{n:sum(r['n'] for r in view['depth'] if r['worlds']==n) for n in STAGES},
                                  'rate':view['runs'][0]['completed_per_second'],'pid':os.getpid()}),flush=True)
                 last=time.monotonic()
             try: await asyncio.wait_for(stopped.wait(),timeout=.25)
@@ -252,7 +253,8 @@ async def run(args):
         await asyncio.gather(*tasks,return_exceptions=True)
         with db:
             db.execute("UPDATE jobs SET state='pending' WHERE state='running'")
-            db.execute("UPDATE runs SET ended=?,completed=?,errors=?,status='stopped' WHERE id=?",(time.time(),completed,errors,run_id))
+            outstanding=db.execute("SELECT count(*) FROM jobs WHERE state!='done'").fetchone()[0]
+            db.execute("UPDATE runs SET ended=?,completed=?,errors=?,status=? WHERE id=?",(time.time(),completed,errors,'complete' if outstanding==0 else 'stopped',run_id))
         view=status(db);atomic_json(directory/'status.json',view)
         print(canonical(view),flush=True)
         db.execute('PRAGMA wal_checkpoint(FULL)');db.close();lock.close()
