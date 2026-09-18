@@ -1,0 +1,13 @@
+{
+  "baseline": "c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1",
+  "candidate": "20722f673026bc853a12cadffa35cd3084a95b91c5652df1b2050e07ac5dff3c",
+  "completed": 32,
+  "geometric_speedup": 1.0114754694815677,
+  "median_speedup": 1.0129038393872807,
+  "requested": 32,
+  "schema": "kiln-paired-timing-v1",
+  "workers": 4,
+  "worlds": 160,
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/lto-timing.json",
+  "evidence_sha256": "6e3252733afcaafb85bcd980073ae347b6c0a289df935cce644a30e1f0af5651"
+}

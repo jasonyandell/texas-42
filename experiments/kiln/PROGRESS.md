@@ -20,13 +20,13 @@ the goal complete from the local integration preview.
 ## Production (revalidate; this file is not liveness evidence)
 
 Campaign: `/Users/jason/data/texas-42/kiln-v1`. SQLite/WAL are authoritative.
-Coordinator **41774** was launched detached, 18 processes, one internal thread,
+Coordinator **64852** was launched detached, 18 processes, one internal thread,
 `--seconds 0 --job-ms 120000 --order deal`. Process metadata is
 production-process.json; status.json is expendable. The exclusive OS lock
 prevents another writer. Graceful SIGTERM retains completed prices and returns
 unfinished work to the queue. Check actual process identity before stopping it.
 
-Last checked: 173 base-covered deals, **65 fully refined**, no job errors. The
+Last checked: 173 base-covered deals, **72 fully refined**, no job errors. The
 latest one-minute production firing retained **1,071** prices; the continuous
 run was around 17 prices/s while other validation work was running. These counts
 are production progress, not controlled speedups across different job mixes.
@@ -52,7 +52,11 @@ A fixed 256-case deep workload completed at every tested pool layout:
 All exact values matched; serial work counters matched. Use **18x1**: the
 repeat tied 24 processes with fewer workers, and both alternatives were slower.
 See pool-timing-summary.json and the repeatable pool_benchmark.py diagnostic.
-No claim that this finds a universal optimum over every workload.
+No claim that this finds a universal optimum over every workload. A subsequent
+60-second-bounded ThinLTO / one-codegen-unit experiment matched all 64 values
+and counters but measured only about 1% on 32 paired deep cases. Its temporary
+Cargo profile was removed; production stays on c4678091. See HOT-PATH.md and
+lto-*-summary.json. No remaining compiler experiment is running.
 
 The independent partial campaign audit passed **109,592 receipts**, all queue
 relationships, sampling identities, screening decisions and immutable source /
@@ -146,7 +150,7 @@ focused integration tests passed. This does not claim 1,000 measured panels exis
 
 ## Next actions
 
-1. Revalidate PID41774, database progress/errors, and git state. Core, pool and
+1. Revalidate PID64852, database progress/errors, and git state. Core, pool and
    phone checks passed, and both worktrees are committed. No pending test process
    is intentionally left running. Production is the only sustained job.
 2. Keep the long run producing all 1,000 deals and planned refinements. Tuning

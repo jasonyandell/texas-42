@@ -73,3 +73,17 @@ The repeated 18-worker run tied 24 workers. Production keeps 18 independent
 single-threaded workers; this is a measured practical choice, not a proof of
 universal optimality. All values agreed; all serial work counters agreed.
 See pool-timing-summary.json for hashes of the full request/timing records.
+
+## Compiler profile experiment: retain the existing release build
+
+A temporary Cargo profile inherited release's checked arithmetic and enabled
+ThinLTO with one codegen unit. Its build finished in 41.7 seconds under a
+60-second watchdog. All 64 retained/fresh exact-value and counter checks passed.
+On 32 paired deep requests it measured only 1.013x median / 1.011x geometric
+speedup. This small effect was not sufficient evidence to change production;
+the temporary profile was removed and the existing release worker resumed.
+
+The candidate is preserved, including the exact temporary Cargo configuration,
+under producer 20722f673026bc853a12cadffa35cd3084a95b91c5652df1b2050e07ac5dff3c.
+See lto-parity-summary.json, lto-timing-summary.json, and the campaign's
+lto-build/run.json. The phone build and the bidding model were unchanged.
