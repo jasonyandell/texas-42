@@ -75,6 +75,24 @@ was never stopped. Later eight-game/completion milestones also back up the
 growing actual-play campaign. The helper reuses the authenticated HF CLI's Python
 when the checkout's Python lacks huggingface_hub; no new login is necessary.
 
+## Sample history for later belief studies
+
+`history.py` is a read-only companion, committed as **ec308ba7**. It reconstructs
+all empirical sample prefixes and recommendation changes, including non-changing
+controls, and emits original-game explanation packets. The first report covers
+12,056 games / 900 cells: 511 changes after the first observation, 72 after at
+least eight games. Cell 351 documents a 35-to-33 recommendation change on game17.
+All 900 histories reconstructed exactly; that packet remained identical after
+more live games arrived. Four focused tests passed. No sampler or player change.
+
+The report, packet, raw data and tools are also in verified private Hugging Face
+snapshot `kiln/snapshots/20260918T142655.519133Z`, commit
+`d03d928614069a47b769a96c6786747a3b0a813c`, with 13,320 games in its database.
+See SAMPLE-HISTORY.md and sample-history-evidence.json. The monitor regenerates
+content-addressed history reports before subsequent milestone backups. Internal
+solver-world traces are a separate future instrument; do not call an empirical
+threshold flip a causal strategic discovery.
+
 The remainder of this ledger records the **historical model-survey work**.
 Its old production PIDs, completion requirements and restart suggestions are
 historical, superseded by the paragraph above.
