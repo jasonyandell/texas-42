@@ -15,6 +15,8 @@ mod auction;
 
 #[cfg(not(target_arch = "wasm32"))]
 pub use auction::kiln as kiln_price;
+#[cfg(not(target_arch = "wasm32"))]
+pub use auction::KilnPricer;
 
 #[derive(Deserialize)]
 #[serde(untagged)]

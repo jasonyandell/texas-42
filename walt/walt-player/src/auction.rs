@@ -159,6 +159,12 @@ fn price(req: &Request, n: usize, ms: u64, seed: u64) -> Result<Value, String> {
 }
 
 fn price_with_work(req: &Request, n: usize, ms: u64, seed: u64) -> Result<(Value, Value), String> {
+    price_with_cache(req, n, ms, seed, None).map(|(price, work, _)| (price, work))
+}
+
+fn price_with_cache(req: &Request, n: usize, ms: u64, seed: u64, previous: Option<&mut Shared>)
+    -> Result<(Value, Value, Shared), String>
+{
     let started = Instant::now();
     let hand = req.hand.iter().fold(0u32, |mask, t| mask | (1u32 << t));
     let leader = (req.seat + u64::from(req.seat % 2 == 0)) as u8;
@@ -173,14 +179,16 @@ fn price_with_work(req: &Request, n: usize, ms: u64, seed: u64) -> Result<(Value
     };
     let mut rng = SplitMix64(seed ^ solver::mix(u64::from(hand)) ^ solver::record_hash(&key));
     let worlds = solver::sample_open_belief(leader as usize, hand, 0, [7; 4], n, &mut rng);
-    let sh = Arc::new(Shared::new(
+    let mut shared = Shared::new(
         solver::decl_of(req.decl as usize),
         req.bid as u8,
         vec![8, 2],
         0,
         7,
         Deadline::after(Duration::from_millis(ms)),
-    ));
+    );
+    let carried = previous.map_or(0, |old| shared.take_policy_cache_from(old));
+    let sh = Arc::new(shared);
     let solver = Solver::new(
         Arc::clone(&sh),
         Seat::from_index(leader as usize).unwrap(),
@@ -196,32 +204,131 @@ fn price_with_work(req: &Request, n: usize, ms: u64, seed: u64) -> Result<(Value
     let work = json!({"elapsed_us":started.elapsed().as_micros() as u64,
         "nodes":sh.nodes.load(std::sync::atomic::Ordering::Relaxed),
         "pi_calls":sh.pi_calls_by_level(),"inner_worlds":sh.inner_worlds_by_level(),
-        "policy_cache_entries":sh.pi_cache_len(),"search_cache_entries":solver.memo_len()});
+        "policy_cache_entries":sh.pi_cache_len(),"search_cache_entries":solver.memo_len(),
+        "carried_policy_entries":carried});
+    drop(solver);
+    let shared = Arc::try_unwrap(sh).unwrap_or_else(|_| panic!("completed auction still owns a solver"));
     Ok((json!([
         req.decl,
         v.numer().to_string(),
         v.denom().to_string()
-    ]), work))
+    ]), work, shared))
 }
 
 /// Native offline price producer. The same evaluator as the live auction,
 /// with explicit small/deep sample sizes and work counters. Never a new policy.
 #[cfg(not(target_arch = "wasm32"))]
 pub fn kiln(text: &str) -> Value {
-    #[derive(Deserialize)]
-    #[serde(deny_unknown_fields)]
-    struct Job { auction: Auction, decl: u64, worlds: usize, budget_ms: u64 }
-    let run = || -> Result<Value, String> {
-        let job: Job = serde_json::from_str(text).map_err(|e| e.to_string())?;
-        if !DECLS.contains(&job.decl) || ![4,8,12,40,160].contains(&job.worlds)
-            || !(5..=600_000).contains(&job.budget_ms) { return Err("invalid kiln job".into()); }
-        let (mut req, seed) = request(job.auction)?;
-        req.decl = job.decl;
-        let (price, work) = price_with_work(&req, job.worlds, job.budget_ms, seed)?;
-        Ok(json!({"schema":"kiln-price-v1","auction":identity(&req,seed),
-            "worlds":job.worlds,"inner_worlds":8,"price":price,"work":work}))
-    };
-    run().unwrap_or_else(|error| json!({"error":error}))
+    KilnPricer::default().price(text)
+}
+
+/// One bounded carry slot per native worker. Different policy contexts start
+/// cold; process restart merely loses this optional acceleration.
+#[cfg(not(target_arch = "wasm32"))]
+#[derive(Default)]
+pub struct KilnPricer {
+    previous: Option<Shared>,
+}
+
+#[cfg(not(target_arch = "wasm32"))]
+impl KilnPricer {
+    pub fn price(&mut self, text: &str) -> Value {
+        #[derive(Deserialize)]
+        #[serde(deny_unknown_fields)]
+        struct Job { auction: Auction, decl: u64, worlds: usize, budget_ms: u64 }
+        let mut run = || -> Result<Value, String> {
+            let job: Job = serde_json::from_str(text).map_err(|e| e.to_string())?;
+            if !DECLS.contains(&job.decl) || ![4,8,12,40,160].contains(&job.worlds)
+                || !(5..=600_000).contains(&job.budget_ms) { return Err("invalid kiln job".into()); }
+            let (mut req, seed) = request(job.auction)?;
+            req.decl = job.decl;
+            // Bound retention by entry count. A single active solve retains its
+            // ordinary working set; no collection of previous requests accumulates.
+            if self.previous.as_ref().is_some_and(|s| s.pi_cache_len() > 100_000) {
+                self.previous = None;
+            }
+            let (price, work, shared) = price_with_cache(&req, job.worlds, job.budget_ms, seed, self.previous.as_mut())?;
+            self.previous = Some(shared);
+            Ok(json!({"schema":"kiln-price-v1","auction":identity(&req,seed),
+                "worlds":job.worlds,"inner_worlds":8,"price":price,"work":work}))
+        };
+        run().unwrap_or_else(|error| json!({"error":error}))
+    }
+}
+
+#[cfg(all(test, not(target_arch = "wasm32")))]
+mod carry_tests {
+    use super::*;
+    use std::sync::atomic::Ordering;
+
+    fn job(worlds: usize) -> Value {
+        json!({"auction":{"hand":[1,6,8,19,20,23,27],"seat":0,"bid":30,"seed":420914},
+            "decl":5,"worlds":worlds,"budget_ms":60000})
+    }
+
+    #[test]
+    fn retained_answers_match_cold_prices_across_refinement_and_changed_requests() {
+        let mut pricer = KilnPricer::default();
+        let mut carried = 0;
+        let mut jobs = vec![job(8), job(40), job(160), job(8)];
+        let mut changed = job(8); changed["decl"] = json!(6); jobs.push(changed.clone());
+        changed["auction"]["bid"] = json!(36); jobs.push(changed.clone());
+        changed["auction"]["seed"] = json!(0); jobs.push(changed.clone());
+        changed["auction"]["seat"] = json!(2); jobs.push(changed.clone());
+        changed["auction"]["hand"] = json!([0,2,5,7,14,16,26]); jobs.push(changed);
+        for (index, job) in jobs.iter().enumerate() {
+            let cold = kiln(&job.to_string());
+            let warm = pricer.price(&job.to_string());
+            assert!(cold.get("error").is_none(), "{cold}");
+            assert!(warm.get("error").is_none(), "{warm}");
+            for key in ["auction", "worlds", "inner_worlds", "price"] {
+                assert_eq!(warm[key], cold[key], "request {index}, {key}");
+            }
+            carried += warm["work"]["carried_policy_entries"].as_u64().unwrap();
+            if [0, 4, 5].contains(&index) {
+                assert_eq!(warm["work"]["carried_policy_entries"], 0);
+            }
+        }
+        assert!(carried > 0, "test must actually carry completed answers");
+        assert!(pricer.price("{}").get("error").is_some());
+        let valid = job(8);
+        assert_eq!(pricer.price(&valid.to_string())["price"], kiln(&valid.to_string())["price"]);
+    }
+
+    #[test]
+    fn every_policy_context_change_refuses_reuse_and_budget_state_is_fresh() {
+        let (mut req, seed) = request(serde_json::from_value(job(8)["auction"].clone()).unwrap()).unwrap();
+        req.decl = 5;
+        let (_, _, mut old) = price_with_cache(&req, 8, 60000, seed, None).unwrap();
+        let entries = old.pi_cache_len();
+        assert!(entries > 0);
+        let fresh = || Shared::new(solver::decl_of(5),30,vec![8,2],0,7,Deadline::after(Duration::from_secs(60)));
+        for dimension in 0..7 {
+            let mut next = fresh();
+            match dimension {
+                0 => next.dcl = solver::decl_of(6),
+                1 => next.bid = 31,
+                2 => next.n_inner = vec![4,2],
+                3 => next.boundary_played = 15,
+                4 => next.boundary_hand_size = 6,
+                5 => next = next.with_inner_belief(solver::inner_belief::InnerBelief::VoidsCounted),
+                6 => next = next.with_modeled_selection(solver::selection::Rule::RaceRefine),
+                _ => unreachable!(),
+            }
+            assert_eq!(next.take_policy_cache_from(&mut old), 0, "dimension {dimension}");
+            assert_eq!(next.pi_cache_len(), 0);
+            assert_eq!(old.pi_cache_len(), entries);
+        }
+        old.dead.store(true, Ordering::Relaxed);
+        old.deadline = Deadline::after(Duration::ZERO);
+        let mut next = fresh();
+        assert_eq!(next.take_policy_cache_from(&mut old), entries);
+        assert_eq!(old.pi_cache_len(), 0, "ownership moves; storage is not duplicated");
+        assert_eq!(next.nodes.load(Ordering::Relaxed), 0);
+        assert_eq!(next.pi_calls.load(Ordering::Relaxed), 0);
+        assert!(!next.dead.load(Ordering::Relaxed));
+        assert!(!next.deadline.passed());
+    }
 }
 
 // Small exact fractions emitted by the completed finite-sample evaluator.

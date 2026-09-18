@@ -317,6 +317,26 @@ impl Shared {
             .sum()
     }
 
+    /// Move completed modeled-policy answers into a fresh evaluation of the
+    /// same policy context. Outer samples and deadlines are deliberately absent:
+    /// `pi` seeds its own belief from (level, seat, hand, public record), and
+    /// inserts only completed answers. Budgets/counters/death flags stay fresh.
+    /// Exclusive ownership of both contexts prevents use during a live solve.
+    pub fn take_policy_cache_from(&mut self, previous: &mut Shared) -> usize {
+        assert_eq!(self.pi_cache_len(), 0, "reuse only before evaluating");
+        if self.dcl != previous.dcl || self.bid != previous.bid
+            || self.n_inner != previous.n_inner
+            || self.boundary_played != previous.boundary_played
+            || self.boundary_hand_size != previous.boundary_hand_size
+            || self.inner_belief != previous.inner_belief
+            || self.modeled_selection != previous.modeled_selection
+        {
+            return 0;
+        }
+        std::mem::swap(&mut self.pi_cache, &mut previous.pi_cache);
+        self.pi_cache_len()
+    }
+
     /// Cache-miss computations performed at each modeled level. A level-k
     /// miss invokes the level's frozen selection schedule. Sample totals are
     /// measured separately because a schedule can evaluate several bundles.

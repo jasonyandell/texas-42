@@ -98,6 +98,9 @@ def audit(directory,book_path=None,partial=False,required_deals=1000):
                     f'{cell}: invalid modeled-level counters')
                 require(work['inner_worlds'][0]==8*work['pi_calls'][0] and work['inner_worlds'][1]==0 and work['pi_calls'][1]==0,
                     f'{cell}: counters disagree with L1/inner8 profile')
+                carried=work.get('carried_policy_entries',0)
+                require(number(carried) and 0<=carried<=work['policy_cache_entries']
+                    <=carried+sum(work['pi_calls']),f'{cell}: invalid carried-policy counters')
                 reason=stop_reason(cell,stage,n,q)
                 require(r['disposition']==reason,f'{cell}: wrong refinement disposition')
                 require(re.fullmatch('[a-f0-9]{64}',r['producer']) is not None,f'{cell}: invalid producer')

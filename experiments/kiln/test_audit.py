@@ -71,4 +71,17 @@ class AuditTests(unittest.TestCase):
             report=audit(d,partial=True,required_deals=1)
             self.assertFalse(report['complete']);self.assertEqual(report['states'],{'pending':468})
             with self.assertRaisesRegex(ValueError,'incomplete'):audit(d,required_deals=1)
+
+    def test_carried_policy_answers_are_distinguished_from_new_work(self):
+        with tempfile.TemporaryDirectory() as d:
+            db,book,_=self.populate(d)
+            value=json.loads(db.execute('SELECT payload FROM results WHERE job_id=1').fetchone()[0])
+            value['work'].update(carried_policy_entries=3,policy_cache_entries=3)
+            with db:db.execute('UPDATE results SET payload=? WHERE job_id=1',(k.canonical(value),))
+            self.assertTrue(audit(d,book,required_deals=1)['complete'])
+            for carried,entries in [(4,3),(-1,3),(0.5,3),(3,4)]:
+                value['work'].update(carried_policy_entries=carried,policy_cache_entries=entries)
+                with db:db.execute('UPDATE results SET payload=? WHERE job_id=1',(k.canonical(value),))
+                with self.assertRaisesRegex(ValueError,'carried-policy'):audit(d,book,required_deals=1)
+            db.close()
 if __name__=='__main__':unittest.main()
