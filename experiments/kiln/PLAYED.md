@@ -17,6 +17,29 @@ deals for later game integration. Original other hands determine the catalogue
 deal only; evaluation reshuffles them. Complete the first game across the panel
 before the next. Keep prior games when adding samples. Initial depths8→40→160.
 
+**2026-09-19 expansion:** append 400 bidder hands, for **500 total** from 125
+complete deals at seeds420600–420724. All nine declarations gives 4,500 panels.
+The 42,008 original games and original 100-hand export remain intact. This range
+now includes earlier research exam source seeds; they are consumed research
+data, not an untouched future confirmation set.
+
+After the existing 8/40 screens, panels reach160 games. At160 and320, compare
+each observed score tail30–42 with the4/5 recommendation cutoff using Wilson
+intervals with z=1.96. If any interval contains0.8, add the next stage, up to640.
+Check only at stage boundaries. The preselected2% audit cells bypass screening
+and uncertainty stopping, reaching640 regardless. At the cap, retain an explicit
+`capped-unsettled` label if ambiguity remains. These intervals allocate compute;
+they are **not simultaneous or anytime confidence guarantees**, and adaptive
+screening does not certify bid reliability. The underlying empirical bid rule,
+deployed player and uniform completion sampler are unchanged.
+
+`extend` acquires the writer lock, appends hands/cells and updates the database
+manifest atomically. It saves the previous manifest and every original receipt
+hash under `extensions/`, records the allocation plan and an extension event,
+and is idempotent. Each subsequent run records its allocation plan separately.
+The queue still prioritizes the lowest trial index, so new-hand coverage comes
+before expensive refinements. Every completed game remains available.
+
 Same hidden completion and policy seed across declarations for a given own hand
 and trial index. The two seeds use independent labels. The player sees only its
 own original hand and public plays; the full deal exists only in the host. Opening
@@ -57,6 +80,20 @@ retries those same trials after the cause is addressed. Completed games are neve
 replaced by a retry. An explicit stop is not a request for a monitor to restart it.
 Export is a separate empirical schema; the old model-book consumer must not
 silently consume it. Plunge installation/deployment remains a later step.
+
+For the500-hand adaptive campaign (use Python3.12; the system SQLite runtime has
+previously failed to read this database's WAL correctly):
+
+```sh
+python3.12 experiments/kiln/played.py extend /Users/jason/data/texas-42/kiln-played-v1 --hands 500 --refine-games 640
+python3.12 experiments/kiln/played.py run /Users/jason/data/texas-42/kiln-played-v1 --workers 18 --seconds 60 --games 160 --binary /Users/jason/data/texas-42/kiln-played-v1/producers/5a746760284713ca17397a985e8ec53dd3489ab3526aaecff467a5fec32a2c66/kiln-play-worker
+# Same command with --seconds 0 resumes unattended production.
+```
+
+The stored allocation plan sets the640 ceiling; `--games 160` supplies its base
+depth. Status/export distinguish screened, resolved, refining, audit-complete
+and capped-unsettled panels. Completion means the planned allocation finished,
+not that every panel reached640 or every bid was statistically resolved.
 
 ## Preserved survey
 

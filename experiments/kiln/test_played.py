@@ -119,5 +119,64 @@ for line in sys.stdin:
         self.assertFalse(p.blocked(8,0,True,True))
         self.assertFalse(p.blocked(8,0,False,False))
 
+    def test_extension_preserves_catalogue_trial_identity_and_is_idempotent(self):
+        with tempfile.TemporaryDirectory() as folder:
+            p.init(folder,hands=4)
+            db=p.connect(folder)
+            hands=[tuple(r) for r in db.execute('SELECT * FROM hands ORDER BY id')]
+            jobs=[tuple(r) for r in db.execute('SELECT * FROM jobs ORDER BY id')]
+            request=p.game_request(db.execute(p.JOB_SQL+' WHERE j.id=1').fetchone())
+            with p.writer_lock(folder):
+                with self.assertRaisesRegex(ValueError,'Another coordinator'):p.extend(folder,8)
+            record=p.extend(folder,8)
+            self.assertEqual(record['before']['hands'],4)
+            self.assertEqual(p.manifest(db)['hands'],8)
+            self.assertEqual([tuple(r) for r in db.execute('SELECT * FROM hands WHERE id<4 ORDER BY id')],hands)
+            self.assertEqual([tuple(r) for r in db.execute('SELECT * FROM jobs WHERE id<=36 ORDER BY id')],jobs)
+            self.assertEqual(p.game_request(db.execute(p.JOB_SQL+' WHERE j.id=1').fetchone()),request)
+            self.assertEqual(db.execute('SELECT COUNT(*) FROM cells').fetchone()[0],72)
+            self.assertEqual(p.extend(folder,8),record)
+            with self.assertRaisesRegex(ValueError,'preserve'):p.extend(folder,4)
+            db.close()
+
+    def test_uncertainty_targets_all_score_tails_and_checks_only_at_stages(self):
+        plan={'base_games':160,'cap_games':640,'checkpoints':[160,320,640]}
+        # Certain make30 can still leave a higher bid unresolved.
+        tails=[160]*6+[128]*7
+        self.assertEqual(p.uncertain_tails(160,tails),list(range(36,43)))
+        self.assertEqual(p.allocation_state(160,tails,False,True,plan),'refining')
+        self.assertEqual(p.allocation_state(160,[160]*13,False,True,plan),'resolved')
+        self.assertEqual(p.allocation_state(161,[161]*13,False,True,plan),'refining')
+        self.assertEqual(p.allocation_state(320,[320]*13,False,True,plan),'resolved')
+        self.assertEqual(p.allocation_state(640,[512]*13,False,True,plan),'capped-unsettled')
+        self.assertEqual(p.allocation_state(160,[0]*13,True,True,plan),'refining-audit')
+        self.assertEqual(p.allocation_state(640,[0]*13,True,True,plan),'audit-complete')
+        self.assertEqual(p.allocation_state(8,[1]*13,False,True,plan),'screened')
+
+    def test_adaptive_queue_and_export_resolve_without_inventing_max_depth(self):
+        with tempfile.TemporaryDirectory() as folder:
+            p.init(folder,hands=1,screen=False);p.extend(folder,1)
+            db=p.connect(folder)
+            cell=db.execute('SELECT id FROM cells WHERE audited=0 LIMIT 1').fetchone()[0]
+            def add(trial,score):
+                with db:
+                    db.execute('INSERT OR IGNORE INTO jobs(cell_id,trial) VALUES (?,?)',(cell,trial))
+                    job=db.execute('SELECT id FROM jobs WHERE cell_id=? AND trial=?',(cell,trial)).fetchone()[0]
+                    # Synthetic storage fixtures, never evidence from a player.
+                    db.execute('INSERT INTO games VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+                        (job,score,'fixture',0,0,0,0,0,0,'fixture',b'fixture',0))
+                    db.execute("UPDATE jobs SET state='done' WHERE id=?",(job,))
+                    p.schedule(db,160,False,cell)
+            for i in range(160):add(i,30 if i<128 else 0)
+            self.assertEqual(db.execute("SELECT trial FROM jobs WHERE cell_id=? AND state='pending'",(cell,)).fetchone()[0],160)
+            for i in range(160,320):add(i,0)
+            self.assertEqual(db.execute("SELECT COUNT(*) FROM jobs WHERE cell_id=? AND state='pending'",(cell,)).fetchone()[0],0)
+            out=Path(folder)/'book.json';p.export(db,out)
+            book=json.loads(out.read_text());row=next(r for r in book['panels'] if r['decl']==db.execute('SELECT decl FROM cells WHERE id=?',(cell,)).fetchone()[0])
+            self.assertEqual(row['games'],320);self.assertEqual(row['allocation_state'],'resolved')
+            self.assertFalse(book['complete'])
+            self.assertEqual(p.status(db)['allocation_states']['resolved'],1)
+            db.close()
+
 
 if __name__ == '__main__':unittest.main()

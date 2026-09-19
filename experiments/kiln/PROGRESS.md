@@ -1,9 +1,22 @@
 # Kiln work ledger
 
-Updated 2026-09-18. **User-directed pivot: actual player performance.**
+Updated 2026-09-19. **User-directed expansion: 500 actual-play bidder hands.**
 The old 1,000-deal scalar-price production target is superseded, not completed.
 The app goal flag may still show the old usage-limited objective; it is not the
 current work instruction. Do not restart the old campaign automatically.
+
+**Active direction, 2026-09-19:** add400 bidder hands to the existing100, keeping
+all42,008 prior games. Total500 hands /125 catalogue deals420600..420724 /4,500
+hand-declaration panels. Existing8/40 screens remain; survivors get160 games.
+At160 and320, an allocation heuristic checks whether any Wilson score-tail
+interval straddles the80% bidding cutoff and continues uncertain panels up
+to640. Preselected audit controls reach640 regardless. This allocates compute;
+it is not a confidence guarantee or a new player. Old100-hand data contains17
+uncertain panels and10 audit controls eligible for more games;106 additional
+panels resolve at160 and767 retain their earlier screens. See [PLAYED.md](PLAYED.md).
+The following completed-research sections describe earlier runs; they do not
+override this authorized production extension. Inspect live status and process
+identity for current progress. Keep the original100-hand final book unchanged.
 
 **Latest completed research cycle:** [whole-game sampled contrasts](whole-game-contrasts-v1/RESULTS.md)
 adds 360 new source games, 240 roots covering all six decision-bearing hand
@@ -58,8 +71,9 @@ Hugging Face `jasonyandell/texas-42-walt-archive`, snapshot
 `77ae730a1ebd50375569a9c295c5a73928b36140`. It includes the complete production
 database, both mining probes, fresh 2,880-game validation corpus, histories,
 producers, tools and final book. See [backup evidence](completion-backup-evidence.json).
-The completion monitor is now PAUSED; both production coordinators and the
-original sleep guard exited. No automatic work remains for this campaign.
+At the100-hand completion the monitor was PAUSED, and both production
+coordinators and the original sleep guard exited. The500-hand extension above
+supersedes that stopping point; the old scalar survey remains stopped.
 
 Old campaign stopped cleanly: **1,001,348 receipts, 851 settled deals**, no
 running leases, 69,430 pending old prices. Coordinator69038 and sleep guard69039

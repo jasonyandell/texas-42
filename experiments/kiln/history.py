@@ -61,7 +61,7 @@ def cell_history(cell,samples,threshold):
                 'cell_id':cell['cell_id'],'added_trial':sample['trial'],'added_game':sample,
                 'before':previous,'after':current,'thresholds_crossed':changed,
                 'before_prefix_sha256':old_chain,'after_prefix_sha256':chain})
-        if current['games'] in (8,40,160):
+        if current['games'] in (8,40,160,320,640,1280):
             milestones[str(current['games'])] = {**current,'prefix_sha256':chain}
         previous = current
     return {**cell,'observations':observations,'latest':previous,'prefix_sha256':chain,

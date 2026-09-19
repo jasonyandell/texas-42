@@ -10,6 +10,7 @@ import contextlib
 import fcntl
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import random
@@ -120,6 +121,92 @@ def game_request(job):
             'seed':seeded('kiln-played-policy-v1/' + identity) & 0xffffffff}
 
 
+def allocation(db):
+    row = db.execute("SELECT value FROM meta WHERE key='sampling-allocation'").fetchone()
+    return json.loads(row[0]) if row else None
+
+
+def extend(directory, hands, refine_games=640):
+    """Append catalogue hands and allocation policy; existing trials stay intact."""
+    directory = Path(directory)
+    with writer_lock(directory):
+        db = connect(directory)
+        try:
+            before = manifest(db)
+            if hands < before['hands'] or before['seed_start']+(hands+3)//4 > 2**32:
+                raise ValueError('Extension must preserve the existing hand catalogue')
+            if refine_games not in (320,640,1280):
+                raise ValueError('Refinement cap must be 320, 640 or 1280')
+            plan = {'schema':'kiln-score-tail-allocation-v1','base_games':160,'cap_games':refine_games,
+                'threshold':[4,5],'interval':'Wilson z=1.96, heuristic allocation only',
+                'checkpoints':[n for n in (160,320,640,1280) if n<=refine_games],
+                'audit_to_cap':True}
+            key = f'extension-{hands}-{refine_games}'
+            old = db.execute('SELECT value FROM meta WHERE key=?',(key,)).fetchone()
+            if old:
+                if before['hands']!=hands or allocation(db)!=plan:
+                    raise ValueError('A later extension superseded this request')
+                atomic_json(directory/'manifest.json',before)
+                return json.loads(old[0])
+            saved = {str(r[0]):r[1] for r in db.execute('SELECT job_id,sha256 FROM games ORDER BY job_id')}
+            record = {'schema':'kiln-played-extension-v1','before':before,'hands':hands,'allocation':plan,
+                'preserved_games':len(saved),'preserved_receipts_sha256':hashlib.sha256(canonical(saved).encode()).hexdigest(),
+                'created':time.time()}
+            folder = directory/'extensions'/key
+            folder.mkdir(parents=True,exist_ok=True)
+            atomic_json(folder/'prior-receipts.json',saved)
+            atomic_json(folder/'prior-manifest.json',before)
+            after = {**before,'hands':hands}
+            with db:
+                for hand_id in range(before['hands'],hands):
+                    seed,seat = before['seed_start']+hand_id//4,hand_id%4
+                    hand = deal(seed)[1][seat]
+                    db.execute('INSERT INTO hands VALUES (?,?,?,?)',(hand_id,seed,seat,canonical(hand)))
+                    for decl in DECLS:
+                        audited = seeded(f'kiln-played-audit-v1/{seat}/{canonical(hand)}/{decl}')%50==0
+                        cell = db.execute('INSERT INTO cells(hand_id,decl,audited) VALUES (?,?,?)',
+                                          (hand_id,decl,int(audited))).lastrowid
+                        db.execute('INSERT INTO jobs(cell_id,trial) VALUES (?,0)',(cell,))
+                db.execute("UPDATE meta SET value=? WHERE key='manifest'",(canonical(after),))
+                db.execute('INSERT OR REPLACE INTO meta VALUES (?,?)',('sampling-allocation',canonical(plan)))
+                db.execute('INSERT INTO meta VALUES (?,?)',(key,canonical(record)))
+            atomic_json(directory/'manifest.json',after)
+            atomic_json(folder/'extension.json',record)
+            return record
+        finally:
+            db.close()
+
+
+def uncertain_tails(n,tails):
+    """Allocation diagnostic, not simultaneous or anytime confidence coverage."""
+    if not n:return list(range(30,43))
+    z2=1.96**2;denom=1+z2/n;answer=[]
+    for bid,makes in zip(range(30,43),tails):
+        rate=makes/n
+        center=(rate+z2/(2*n))/denom
+        radius=1.96*math.sqrt(rate*(1-rate)/n+z2/(4*n*n))/denom
+        if center-radius<=.8<=center+radius:answer.append(bid)
+    return answer
+
+
+def allocation_state(n,tails,audited,screen,plan):
+    if blocked(n,tails[0] if tails else 0,audited,screen):return 'screened'
+    if n<plan['base_games']:return 'sampling'
+    if audited:return 'audit-complete' if n>=plan['cap_games'] else 'refining-audit'
+    if n not in plan['checkpoints'] and n<plan['cap_games']:return 'refining'
+    if not uncertain_tails(n,tails):return 'resolved'
+    return 'capped-unsettled' if n>=plan['cap_games'] else 'refining'
+
+
+def cell_allocation(db,cell,screen,plan):
+    tails=[cell['makes']]+[0]*12
+    if cell['n']>=plan['base_games']:
+        hist=dict(db.execute('''SELECT score,COUNT(*) FROM games g JOIN jobs j ON j.id=g.job_id
+            WHERE j.cell_id=? GROUP BY score''',(cell['id'],)))
+        tails=[sum(v for score,v in hist.items() if score>=bid) for bid in range(30,43)]
+    return allocation_state(cell['n'],tails,cell['audited'],screen,plan)
+
+
 def validate_game(request, value):
     """Independent rules, complete history, and exact actor-only call boundary."""
     def require(test, message):
@@ -171,6 +258,7 @@ def blocked(n, makes, audited, screen):
 
 
 def schedule(db, target, screen, cell_id=None):
+    plan=allocation(db)
     query = '''SELECT c.id,c.audited,COUNT(g.job_id) AS n,
         COALESCE(SUM(g.score>=30),0) AS makes FROM cells c
         LEFT JOIN jobs j ON j.cell_id=c.id LEFT JOIN games g ON g.job_id=j.id'''
@@ -179,7 +267,9 @@ def schedule(db, target, screen, cell_id=None):
         query += ' WHERE c.id=?'
         params = (cell_id,)
     for cell in db.execute(query+' GROUP BY c.id',params).fetchall():
-        if cell['n'] < target and not blocked(cell['n'],cell['makes'],cell['audited'],screen):
+        pending = cell_allocation(db,cell,screen,plan) in ('sampling','refining','refining-audit') if plan else \
+            cell['n'] < target and not blocked(cell['n'],cell['makes'],cell['audited'],screen)
+        if pending:
             db.execute('INSERT OR IGNORE INTO jobs(cell_id,trial) VALUES (?,?)',(cell['id'],cell['n']))
 
 
@@ -242,10 +332,15 @@ def status(db):
     last = db.execute('SELECT * FROM runs ORDER BY id DESC LIMIT 1').fetchone()
     row.update(schema='kiln-played-status-v1',hands=cfg['hands'],cells=len(counts),
         covered_cells=sum(c['n']>0 for c in counts),
-        depth={str(n):sum(c['n']>=n for c in counts) for n in (8,40,160)},
+        depth={str(n):sum(c['n']>=n for c in counts) for n in (8,40,160,320,640,1280)},
         screened_cells=sum(blocked(c['n'],c['makes'],c['audited'],cfg['screen']) for c in counts),
         states={r[0]:r[1] for r in db.execute('SELECT state,COUNT(*) FROM jobs GROUP BY state')},
         last_run=dict(last) if last else None)
+    plan=allocation(db)
+    if plan:
+        states=[cell_allocation(db,c,cfg['screen'],plan) for c in counts]
+        row['sampling_allocation']=plan
+        row['allocation_states']={s:states.count(s) for s in sorted(set(states))}
     if last:
         seconds = (last['ended'] or time.time()) - last['started']
         row['last_run_seconds'] = round(seconds,3)
@@ -260,6 +355,10 @@ async def run(args):
         cfg = manifest(db)
         if cfg['profile'] != PROFILE:
             raise ValueError('Campaign profile mismatch')
+        plan=allocation(db)
+        if plan and args.games!=plan['base_games']:
+            raise ValueError('Adaptive campaign resumes with --games 160; cap is stored in its allocation plan')
+        limit=plan['cap_games'] if plan else args.games
         binary,producer = preserve(directory,Path(args.binary))
         with db:
             db.execute("UPDATE jobs SET state='pending' WHERE state='running'")
@@ -268,7 +367,8 @@ async def run(args):
             db.execute("UPDATE runs SET status='interrupted',ended=? WHERE status='running'",(time.time(),))
             schedule(db,args.games,cfg['screen'])
             run_id = db.execute('INSERT INTO runs(started,workers,target,producer,status) VALUES (?,?,?,?,?)',
-                (time.time(),args.workers,args.games,producer,'running')).lastrowid
+                (time.time(),args.workers,limit,producer,'running')).lastrowid
+            db.execute('INSERT INTO meta VALUES (?,?)',(f'run-sampling-{run_id}',canonical(plan)))
         stop = asyncio.Event()
         loop = asyncio.get_running_loop()
         for sig in (signal.SIGINT,signal.SIGTERM):
@@ -288,10 +388,10 @@ async def run(args):
                 try:
                     while not stop.is_set() and time.monotonic() < end:
                         job = db.execute(JOB_SQL+" WHERE j.state='pending' AND j.trial<? ORDER BY j.trial,j.id LIMIT 1",
-                                         (args.games,)).fetchone()
+                                         (limit,)).fetchone()
                         if job is None:
                             # Another worker may publish the next sample shortly.
-                            if not db.execute("SELECT 1 FROM jobs WHERE state='running' AND trial<? LIMIT 1",(args.games,)).fetchone():
+                            if not db.execute("SELECT 1 FROM jobs WHERE state='running' AND trial<? LIMIT 1",(limit,)).fetchone():
                                 return
                             await asyncio.sleep(.05)
                             continue
@@ -361,7 +461,7 @@ async def run(args):
             outcomes = await asyncio.gather(*tasks,return_exceptions=True)
             failure = failure or next((e for e in outcomes if isinstance(e,Exception)),None)
             with db:
-                pending = db.execute("SELECT COUNT(*) FROM jobs WHERE state!='done' AND trial<?",(args.games,)).fetchone()[0]
+                pending = db.execute("SELECT COUNT(*) FROM jobs WHERE state!='done' AND trial<?",(limit,)).fetchone()[0]
                 failed = db.execute("SELECT COUNT(*) FROM jobs WHERE state='failed'").fetchone()[0]
                 result = 'failed' if failure or failed else 'stopped' if pending else 'complete'
                 db.execute('UPDATE runs SET ended=?,status=? WHERE id=?',(time.time(),result,run_id))
@@ -378,6 +478,7 @@ async def run(args):
 
 def panels(db):
     cfg = manifest(db)
+    plan=allocation(db)
     result = []
     for cell in db.execute('SELECT c.*,h.seed,h.seat,h.tiles FROM cells c JOIN hands h ON h.id=c.hand_id ORDER BY c.id'):
         hist = [0]*43
@@ -390,6 +491,9 @@ def panels(db):
             'hand':json.loads(cell['tiles']),'decl':cell['decl'],'games':n,'histogram':hist,
             'tails30_42':tails,'recommended_bid':bid,'audited':bool(cell['audited']),
             'screened':bool(blocked(n,tails[0],cell['audited'],cfg['screen']))})
+        if plan:
+            result[-1]['allocation_state']=allocation_state(n,tails,cell['audited'],cfg['screen'],plan)
+            result[-1]['uncertain_thresholds']=uncertain_tails(n,tails)
     return result
 
 
@@ -401,6 +505,10 @@ def export(db,path):
             'target_games':target,'complete':bool(target and all(r['screened'] or r['games']>=target for r in rows)),
             'producers':[r[0] for r in db.execute('SELECT DISTINCT producer FROM games ORDER BY producer')],
             'interpretation':'Observed score tails under bid30 play; 4/5 empirical recommendation, not a confidence bound.'}
+    plan=allocation(db)
+    if plan:
+        book['sampling_allocation']=plan
+        book['complete']=all(r['allocation_state'] in ('screened','resolved','capped-unsettled','audit-complete') for r in rows)
     book['id'] = hashlib.sha256(canonical(book).encode()).hexdigest()
     atomic_json(path,book)
     return {'book_id':book['id'],'panels':len(book['panels']),'games':sum(p['games'] for p in book['panels'])}
@@ -470,6 +578,8 @@ def main():
     sub = parser.add_subparsers(dest='command',required=True)
     p = sub.add_parser('init');p.add_argument('directory');p.add_argument('--hands',type=int,default=100)
     p.add_argument('--seed-start',type=int,default=420600);p.add_argument('--no-screen',action='store_true')
+    p = sub.add_parser('extend');p.add_argument('directory');p.add_argument('--hands',type=int,required=True)
+    p.add_argument('--refine-games',type=int,default=640)
     p = sub.add_parser('run');p.add_argument('directory');p.add_argument('--binary',default=str(BINARY))
     p.add_argument('--workers',type=int,default=18);p.add_argument('--seconds',type=float,default=60)
     p.add_argument('--games',type=int,default=8);p.add_argument('--job-seconds',type=float,default=180)
@@ -480,6 +590,8 @@ def main():
     args = parser.parse_args()
     if args.command == 'init':
         init(args.directory,args.hands,args.seed_start,not args.no_screen)
+    elif args.command == 'extend':
+        print(canonical(extend(args.directory,args.hands,args.refine_games)))
     elif args.command == 'run':
         if args.workers < 1 or args.games < 1 or args.seconds < 0 or args.job_seconds <= 0:
             parser.error('Invalid run bounds')
