@@ -1,0 +1,40 @@
+{
+  "title": "Sunshine Atlas",
+  "published_at": "2026-09-19T15:03:49.641568+00:00",
+  "url": "https://sunshine-atlas.psychometrix.chatgpt.site",
+  "access": "owner-private",
+  "project_id": "appgprj_6aaea2d3a61c81918c2993a84b5bab74",
+  "version_id": "appgprj_6aaea2d3a61c81918c2993a84b5bab74~appgver_6ee43ee68498819199fb20d4def9b6a5",
+  "version_number": 1,
+  "deployment_id": "appgdep_6aaea437a8488191930f7d8b38bf000f",
+  "source_commit": "d47eda25e6030fdbd8b8df2692247439b51003c2",
+  "source_repository": "/Users/jason/code/texas-42-sunshine-atlas",
+  "snapshot_id": "d75e8160caff3daf2d9bcaad325077b984f25af55f33dcde5dea2e52603f1c6f",
+  "package_sha256": "794e7c7c62941fbd74dceb28d259de7492345b8becb9e2eed2dd5dd24e0d0b37",
+  "archive_storage": {
+    "archive_format": "tar",
+    "sediment_file_id": "file_00000000a46081f59c66a710f905412c",
+    "content_hash": "sha256:d02c6dcc8238acc30c6e1b1bc0d3af9fc65465fbe1a90b1f79c2f7945fb8b743",
+    "size_bytes": 37386240,
+    "file_count": 4746
+  },
+  "verification": {
+    "hosted_desktop": {
+      "width": 1440,
+      "height": 1100,
+      "passed": true
+    },
+    "hosted_pixel": {
+      "width": 412,
+      "height": 915,
+      "passed": true
+    },
+    "javascript_errors": 0,
+    "deep_links": true,
+    "complete_trick_traces": true,
+    "horizontal_document_overflow": false
+  },
+  "raw_campaign_unchanged": true,
+  "player_unchanged": true,
+  "monitor_created": false
+}

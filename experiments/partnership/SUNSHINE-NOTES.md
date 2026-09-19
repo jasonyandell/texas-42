@@ -47,6 +47,13 @@ this records the workshop vision without starting its implementation.
 
 ## The priority
 
+**2026-09-19 Atlas:** the [Sunshine Atlas](../kiln/ATLAS.md) now provides a
+phone-friendly, hosted overview of 36,000 balanced actual games and the existing
+9,200 paired continuation branches. It connects broad count/control patterns to
+complete game witnesses and counterexamples. This is descriptive exploration,
+not a new threat detector or player-strength result; the campaign and player
+remain unchanged.
+
 **2026-09-18 whole-game direction:** the
 [sampled contrast rig](../kiln/whole-game-contrasts-v1/RESULTS.md) now studies
 seven through two dominoes remaining, rather than treating endgame tactics as
