@@ -70,3 +70,10 @@ reopening deep links. No JavaScript errors or horizontal page overflow.
 The campaign, deployed Walt and stopped monitor were not modified. This viewer
 supports the Sunshine loop: see a broad pattern, inspect its witnesses and
 counterexamples, then formulate and separately challenge a hypothesis.
+
+## Pattern Workshop addition
+
+The [biclustering workshop](BICLUSTERS.md) is now published at `/biclusters/`
+in Site version 3. It adds two frozen association studies and leaves the original
+Atlas snapshot intact. [BICLUSTERS-v1.json](BICLUSTERS-v1.json) records the updated
+publication and durable evidence; `ATLAS-v1.json` remains the original receipt.

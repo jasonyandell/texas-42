@@ -1,0 +1,410 @@
+{
+  "title": "Sunshine Atlas \u2014 Pattern Workshop",
+  "url": "https://sunshine-atlas.psychometrix.chatgpt.site/biclusters/",
+  "access": "owner-private",
+  "published_at": "2026-09-19T16:58:32.801938+00:00",
+  "project_id": "appgprj_6aaea2d3a61c81918c2993a84b5bab74",
+  "version_id": "appgprj_6aaea2d3a61c81918c2993a84b5bab74~appgver_709aea78f080819187fcaf534b6c4c73",
+  "version_number": 3,
+  "deployment_id": "appgdep_6aaebf2ea00481919a6cdada47032c59",
+  "source_commit": "cb81771c9e0945862dd8391ad47b47f6006d7d89",
+  "source_repository": "/Users/jason/code/texas-42-sunshine-atlas",
+  "archive_storage": {
+    "archive_format": "tar",
+    "sediment_file_id": "file_00000000857c81f5856fe9a852c0d2f8",
+    "content_hash": "sha256:f9625afb54e69b6751b7a13f5cb2e905773c8d95d8d3b56d8027a454368a93e1",
+    "size_bytes": 119613440,
+    "file_count": 5565
+  },
+  "package_sha256": "aa3c7a3e14a4a3030e33d155bda40f2073741e010776265ec3ce6e8bd98b4a22",
+  "compressed_bytes": 20377546,
+  "uncompressed_bytes": 119623680,
+  "files": 5565,
+  "verification": {
+    "hosted": [
+      {
+        "name": "desktop",
+        "deep_worlds": 120,
+        "pilot_worlds": 8,
+        "game_tricks": 7,
+        "condition_filter": true,
+        "matrix_selection": true,
+        "deep_link": true,
+        "overflow": false,
+        "errors": []
+      },
+      {
+        "name": "pixel",
+        "deep_worlds": 120,
+        "pilot_worlds": 8,
+        "game_tricks": 7,
+        "condition_filter": true,
+        "matrix_selection": true,
+        "deep_link": true,
+        "overflow": false,
+        "errors": []
+      }
+    ],
+    "numerical": {
+      "pilot": {
+        "independent_condition_checks": 400,
+        "blocks_audited": 36,
+        "source_assets_verified_in_extraction": true,
+        "fit_check_disjoint": true,
+        "all_directions_published": true
+      },
+      "deep": {
+        "independent_condition_checks": 400,
+        "blocks_audited": 36,
+        "source_assets_verified_in_extraction": true,
+        "fit_check_disjoint": true,
+        "all_directions_published": true
+      }
+    },
+    "delayed_matrix_loading_passed": true
+  },
+  "studies": {
+    "pilot": {
+      "id": "fac462c311ad285443dbbc14d68cfaecc5d782f03b554949160287f9fa8ab61b",
+      "asset_sha256": "ff98def0e80904180080fc974104ba36cdf1b2b3361312d7c63f6f360be03378",
+      "balanced_games": 36000,
+      "eligible_panels": 3008,
+      "panels_total": 4500,
+      "condition_count": 3486,
+      "featured": "0-0",
+      "method": {
+        "algorithm": "SpectralBiclustering",
+        "normalization": "log(exp(centered regularized association))",
+        "n_components": 6,
+        "n_best": 3,
+        "n_init": 12,
+        "shrinkage": 2,
+        "col_min_variable_panels": 25,
+        "fit_trials": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "check_trials": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "bootstrap_deal_draws": 600,
+        "condition_generation": "all 28 physical tiles x 3 hidden roles; all 378 pairs x 9 role assignments",
+        "score": "sum((Y - panel_mean_Y) * condition) / (n_present*n_absent/4 + 2)",
+        "center": "subtract per-condition mean across informative eligible fit panels; freeze this mean for check",
+        "unobserved": "0 only for fitting after centering; gray/missing in the matrix; excluded from averages",
+        "eligibility": "At least one make and one set among trials 0..3. No check outcomes used.",
+        "null": "Shuffle outcomes across trials within bidder hand, using shared permutations across declarations. Independently shuffle fit/check halves. Refit both row and column clusters every time.",
+        "selection": "All 36 blocks retained. Featured block maximizes absolute discovery mean; check never selects it."
+      },
+      "source": "d75e8160caff3daf2d9bcaad325077b984f25af55f33dcde5dea2e52603f1c6f",
+      "featured_block": {
+        "id": "0-0",
+        "row_group": 0,
+        "column_group": 0,
+        "panels": 433,
+        "holdings": 471,
+        "source_deals": 114,
+        "discovery": 0.057188,
+        "check": -6.1e-05,
+        "check_interval": [
+          -0.004305,
+          0.004093
+        ],
+        "discovery_cells": 45530,
+        "check_cells": 44438,
+        "same_direction": false,
+        "top": [
+          {
+            "id": 2805,
+            "atoms": [
+              [
+                15,
+                2
+              ],
+              [
+                18,
+                1
+              ]
+            ],
+            "discovery": 0.145317,
+            "check": -0.014371,
+            "n_fit": 97,
+            "n_check": 100
+          },
+          {
+            "id": 3135,
+            "atoms": [
+              [
+                18,
+                1
+              ],
+              [
+                25,
+                1
+              ]
+            ],
+            "discovery": 0.144886,
+            "check": -0.000509,
+            "n_fit": 101,
+            "n_check": 96
+          },
+          {
+            "id": 3044,
+            "atoms": [
+              [
+                17,
+                3
+              ],
+              [
+                23,
+                3
+              ]
+            ],
+            "discovery": 0.144403,
+            "check": 0.001375,
+            "n_fit": 87,
+            "n_check": 78
+          }
+        ]
+      },
+      "blocks_retaining_direction": 17,
+      "null_refits": 24,
+      "null_exceedances": 16
+    },
+    "deep": {
+      "id": "1d0b36cae6f957e7396bab2a9dfd4cee1a1db6230be7fd31c5ae9781071a6f85",
+      "asset_sha256": "94e523da5db55f43dbc33ec3dceab62112eac2426f503ecbb5314c4560dde791",
+      "balanced_games": 88320,
+      "eligible_panels": 733,
+      "panels_total": 736,
+      "condition_count": 3486,
+      "featured": "1-2",
+      "method": {
+        "algorithm": "SpectralBiclustering",
+        "normalization": "log(exp(centered regularized association))",
+        "n_components": 6,
+        "n_best": 3,
+        "n_init": 12,
+        "shrinkage": 2,
+        "col_min_variable_panels": 25,
+        "fit_trials": [
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99
+        ],
+        "check_trials": [
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          153,
+          154,
+          155,
+          156,
+          157,
+          158,
+          159
+        ],
+        "bootstrap_deal_draws": 600,
+        "condition_generation": "all 28 physical tiles x 3 hidden roles; all 378 pairs x 9 role assignments",
+        "score": "sum((Y - panel_mean_Y) * condition) / (n_present*n_absent/60 + 2)",
+        "center": "subtract per-condition mean across informative eligible fit panels; freeze this mean for check",
+        "unobserved": "0 only for fitting after centering; gray/missing in the matrix; excluded from averages",
+        "eligibility": "At least one make and one set among trials 40..99. No check outcomes used.",
+        "null": "Shuffle outcomes across trials within bidder hand, using shared permutations across declarations. Independently shuffle fit/check halves. Refit both row and column clusters every time.",
+        "selection": "All 36 blocks retained. Featured block maximizes absolute discovery mean; check never selects it."
+      },
+      "source": "338b6e9576f42a213089be33c6b791bc31def9e247df6a40574c66b4e788c573",
+      "featured_block": {
+        "id": "1-2",
+        "row_group": 1,
+        "column_group": 2,
+        "panels": 143,
+        "holdings": 86,
+        "source_deals": 85,
+        "discovery": 0.059622,
+        "check": 0.055874,
+        "check_interval": [
+          0.037379,
+          0.077134
+        ],
+        "discovery_cells": 5909,
+        "check_cells": 5907,
+        "same_direction": true,
+        "top": [
+          {
+            "id": 3274,
+            "atoms": [
+              [
+                20,
+                2
+              ],
+              [
+                25,
+                2
+              ]
+            ],
+            "discovery": 0.12451,
+            "check": 0.129576,
+            "n_fit": 46,
+            "n_check": 46
+          },
+          {
+            "id": 3471,
+            "atoms": [
+              [
+                25,
+                2
+              ],
+              [
+                27,
+                1
+              ]
+            ],
+            "discovery": 0.115371,
+            "check": 0.069174,
+            "n_fit": 60,
+            "n_check": 60
+          },
+          {
+            "id": 1381,
+            "atoms": [
+              [
+                5,
+                1
+              ],
+              [
+                25,
+                2
+              ]
+            ],
+            "discovery": 0.103962,
+            "check": 0.071617,
+            "n_fit": 56,
+            "n_check": 56
+          }
+        ]
+      },
+      "blocks_retaining_direction": 32,
+      "null_refits": 24,
+      "null_exceedances": 0
+    }
+  },
+  "raw_campaign_unchanged": true,
+  "player_unchanged": true,
+  "monitor_created": false,
+  "validation_scope": "Separate worlds on the same already-explored hands; deeper cohort selected by completed depth, not a fresh-hand exam.",
+  "local_archive": "/Users/jason/data/texas-42/sunshine-biclusters-v1/sunshine-biclusters-v3.tar.gz",
+  "evidence_directory": "/Users/jason/data/texas-42/sunshine-biclusters-v1"
+}

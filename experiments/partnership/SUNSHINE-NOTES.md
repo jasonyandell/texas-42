@@ -47,6 +47,14 @@ this records the workshop vision without starting its implementation.
 
 ## The priority
 
+**2026-09-19 Pattern Workshop:** the [biclustering study](../kiln/BICLUSTERS.md)
+lets whole hand/declaration families and hidden-holding families emerge together.
+The 4+4-world pilot failed replication and remains visible. A frozen 60+60-world
+study of 736 completed-depth panels shows a repeatable partner-6–4/fours/count
+association on separate worlds of the same hands. This is a recognizable discovery
+lead, not new-hand transfer or a player gain. The hosted workshop links every block
+to complete games, controls and counterexamples; no live policy changed.
+
 **2026-09-19 Atlas:** the [Sunshine Atlas](../kiln/ATLAS.md) now provides a
 phone-friendly, hosted overview of 36,000 balanced actual games and the existing
 9,200 paired continuation branches. It connects broad count/control patterns to
