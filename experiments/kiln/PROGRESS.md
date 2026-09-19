@@ -34,6 +34,14 @@ games /1,187,396 moves and verified every producer and500 catalogue hands;
 see [audit evidence](extension-500-audit.json). Expected duration is roughly8–10 hours at this rate,
 depending on screening and how many panels need refinement.
 
+**500-hand eight-game coverage milestone, 2026-09-19:** all4,500 panels now
+have at least8 completed games. The milestone snapshot has74,227 games, all
+42,008 original receipt hashes unchanged, and no errors, fallbacks or deadline
+overruns. The18-worker run continues at about6.5 games/second. The preserved
+history report covers74,229 games and retains every empirical prefix and its
+original observations. These are estimate changes, not new player-strength
+claims. See [milestone and verified backup evidence](extension-500-first-eight.json).
+
 **Latest completed research cycle:** [whole-game sampled contrasts](whole-game-contrasts-v1/RESULTS.md)
 adds 360 new source games, 240 roots covering all six decision-bearing hand
 sizes, 2,304 sampled worlds and 9,200 complete forced-action branches. All

@@ -15,8 +15,9 @@ exact 4/5 empirical cutoff. A greater sample count never replaces the old games.
 `history.py` reconstructs every sample prefix in **trial order**, independent of
 worker completion order. It records each recommendation change, the before/after
 histograms and score tails, the added receipt, crossed thresholds, and hashes
-binding both prefixes to their original receipts. Milestones at 8/40/160 are
-included. Content-addressed reports are saved under the external campaign's
+binding both prefixes to their original receipts. Milestones at 8/40/160/320/640
+are included (also 1280 if a later allocation explicitly uses that cap).
+Content-addressed reports are saved under the external campaign's
 `history/` directory and are included automatically in subsequent backups.
 No production database mutation, worker restart or extra Walt solve is needed.
 
