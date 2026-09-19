@@ -18,6 +18,22 @@ The following completed-research sections describe earlier runs; they do not
 override this authorized production extension. Inspect live status and process
 identity for current progress. Keep the original100-hand final book unchanged.
 
+Expansion launched from `40be1356`: the bounded60-second firing saved399 new
+games (6.62/s), with no errors. All42,008 original receipt hashes matched;
+the catalogue now has500 hands and4,500 panels. Seven played-runner tests and
+four history tests passed, including append-only extension, lock exclusion,
+adaptive stopping, export, abrupt death/resume and prefix preservation.
+Continuous production coordinator8878 and its idle-sleep guard8879 were both
+verified, with18 workers and unchanged native binary91386e6e. The existing
+15-minute heartbeat is ACTIVE with the500-hand scope, separate milestone state,
+and verified cloud backups at eight-game coverage and completion. Notify only
+for milestones, meaningful findings, failures or required action. See
+[startup evidence](extension-500-startup.json); verify live identities before
+signaling processes. A consistent live snapshot independently replayed all42,407
+games /1,187,396 moves and verified every producer and500 catalogue hands;
+see [audit evidence](extension-500-audit.json). Expected duration is roughly8–10 hours at this rate,
+depending on screening and how many panels need refinement.
+
 **Latest completed research cycle:** [whole-game sampled contrasts](whole-game-contrasts-v1/RESULTS.md)
 adds 360 new source games, 240 roots covering all six decision-bearing hand
 sizes, 2,304 sampled worlds and 9,200 complete forced-action branches. All

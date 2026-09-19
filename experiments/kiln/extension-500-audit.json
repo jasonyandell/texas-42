@@ -1,0 +1,13 @@
+{
+  "games": 42407,
+  "hands": 500,
+  "moves": 1187396,
+  "producers": [
+    "39f76061da83c294b7c0427ec32360075eccc16751ef981c5ab719eb6d486a4f",
+    "824f9d155c7309ff1f460d23d656b0e355308a8cf3c4d6145f4f77ded32d0d57",
+    "5a746760284713ca17397a985e8ec53dd3489ab3526aaecff467a5fec32a2c66",
+    "6ea576a9436d3da8aa3dd10628a3137f16bd056872f673ebe91691272974158c"
+  ],
+  "schema": "kiln-played-audit-v1",
+  "verified": true
+}
