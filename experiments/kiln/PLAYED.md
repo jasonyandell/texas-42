@@ -1,5 +1,12 @@
 # Kiln: actual played-game performance
 
+**2026-09-19 release:** the500-hand campaign completed at305,440 games and passed
+its full independent audit. [The empirical bidder is deployed](PLAYED-BIDDER-RELEASE.md)
+in Plunge, using all125 catalogue deals and the agreed80% score-tail rule. The
+completed export is `played-book-500-final.json`; original receipts and the older
+100-hand book are intact.75 capped-unsettled panels retain that label. Production
+and monitoring remain stopped. Earlier sections below describe the build history.
+
 Exploratory empirical evidence. User direction, 2026-09-18: the unit is the
 player making bids. Its internal forecasts are not the outcome being measured.
 

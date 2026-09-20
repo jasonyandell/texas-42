@@ -4,7 +4,21 @@ Play straight 42 with the shared Walt player, save a particular decision,
 then compare its alternatives in the continuation-selectable gym. This is the
 human-play loop for the [sunshine goals](SUNSHINE-NOTES.md).
 
-## Regular bidding (2026-09-14)
+## Played-game bid book (2026-09-19)
+
+The [published game](https://plunge.jasonyandell.workers.dev/) now uses the
+[actual-play bid book](../kiln/PLAYED-BIDDER-RELEASE.md) for new matches and each
+new hand. It shuffles125 covered deals and looks up each bidder's own hand in
+305,440 completed games. The highest legal score reached in at least80% of its
+recorded games supplies the bid, with the best declaration at that target.
+The ordinary auction cadence remains, without live bidding calculations.
+
+An old saved hand keeps its original deal and uses live pricing if uncovered;
+its next hand enters the catalogue. Both playing profiles remain available.
+The book's measurements are bid30 partner-profile score tails, not a higher-bid
+or human-opponent guarantee. See the release for audit, limits and provenance.
+
+## Earlier live-calculation bidding (2026-09-14)
 
 The live table now runs the normal straight auction (30–41, then marks), with
 Walt comparing all nine declarations at the cheapest legal bid. The winner

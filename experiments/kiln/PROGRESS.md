@@ -1,6 +1,21 @@
 # Kiln work ledger
 
-Updated 2026-09-19. **User-directed expansion: 500 actual-play bidder hands.**
+Updated 2026-09-19. **500-hand expansion complete; empirical bidder deployed.**
+
+**Current status:** 305,440 completed games /8,552,320 independently audited moves;
+all4,500 panels covered, original42,008 receipts unchanged. 75 panels finish capped
+and unsettled, as allowed by the allocation plan. No failed games, fallback moves
+or budget overruns. The producer completed normally; the monitor remains stopped
+at Jason's request. No more production was started for this release.
+
+The [played bidder is now live in Plunge](PLAYED-BIDDER-RELEASE.md): all125 catalogue
+deals, own-hand score-tail lookup, the agreed4/5 empirical cutoff, no auction-worker
+compute for covered hands. Higher-bid reliability remains a heuristic based on
+bid30 play. Book77cb49c7 is saved as `played-book-500-final.json`; the original100-hand
+book is unchanged. Deployment, full audit,201 passing tests and hosted phone-size
+playthrough evidence are in [the release record](played-bidder-release.json).
+
+The following expansion launch and milestone notes are historical.
 The old 1,000-deal scalar-price production target is superseded, not completed.
 The app goal flag may still show the old usage-limited objective; it is not the
 current work instruction. Do not restart the old campaign automatically.

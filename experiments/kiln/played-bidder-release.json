@@ -1,0 +1,179 @@
+{
+  "schema": "plunge-played-book-release-v1",
+  "book_id": "77cb49c7a8d7f8b4548cf982d97f424d062ed1a88f9091bbb0ba0484528f2bc2",
+  "source_export": "/Users/jason/data/texas-42/kiln-played-v1/played-book-500-final.json",
+  "source_export_sha256": "e3629558f53c901ddf750554ba22ce0f0cd0171ea4f81049324ce3895731895d",
+  "plunge_commit": "c7a1215d4d1ece0e24e13fef693ed17f55475112",
+  "games": 305440,
+  "hands": 500,
+  "panels": 4500,
+  "deals": 125,
+  "recommendation_cutoff": [
+    4,
+    5
+  ],
+  "qualified_hands": 61,
+  "qualified_panels": 80,
+  "capped_unsettled_panels": 75,
+  "sample_depths": {
+    "8": 1575,
+    "40": 2189,
+    "160": 541,
+    "320": 19,
+    "640": 176
+  },
+  "allocation_states": {
+    "screened": 3764,
+    "resolved": 582,
+    "audit-complete": 79,
+    "capped-unsettled": 75
+  },
+  "audit": {
+    "schema": "kiln-played-audit-v1",
+    "games": 305440,
+    "moves": 8552320,
+    "producers": [
+      "39f76061da83c294b7c0427ec32360075eccc16751ef981c5ab719eb6d486a4f",
+      "824f9d155c7309ff1f460d23d656b0e355308a8cf3c4d6145f4f77ded32d0d57",
+      "5a746760284713ca17397a985e8ec53dd3489ab3526aaecff467a5fec32a2c66",
+      "6ea576a9436d3da8aa3dd10628a3137f16bd056872f673ebe91691272974158c"
+    ],
+    "hands": 500,
+    "verified": true,
+    "integrity": "ok",
+    "elapsed_s": 211.431,
+    "export": {
+      "book_id": "77cb49c7a8d7f8b4548cf982d97f424d062ed1a88f9091bbb0ba0484528f2bc2",
+      "panels": 4500,
+      "games": 305440
+    },
+    "original_receipts_verified": 42008
+  },
+  "local_browser": {
+    "origin": "http://127.0.0.1:4283",
+    "played_hand": true,
+    "reshakes": 11,
+    "openings": [
+      {
+        "auction_ms": 3396,
+        "hand": 12,
+        "bids": [
+          {
+            "seat": 3,
+            "bid": {
+              "kind": "points",
+              "value": 30
+            }
+          },
+          {
+            "seat": 0,
+            "bid": {
+              "kind": "pass"
+            }
+          },
+          {
+            "seat": 1,
+            "bid": {
+              "kind": "pass"
+            }
+          },
+          {
+            "seat": 2,
+            "bid": {
+              "kind": "pass"
+            }
+          }
+        ],
+        "contract": {
+          "kind": "points",
+          "value": 30
+        },
+        "declaration": {
+          "type": "pip",
+          "pip": 2
+        }
+      }
+    ],
+    "completed_points": [
+      0,
+      30
+    ],
+    "reload": true,
+    "next_hand": 13,
+    "auction_workers": 0,
+    "play_workers": 15,
+    "javascript_errors": [],
+    "overflow": false
+  },
+  "tests": {
+    "files": 25,
+    "passed": 201
+  },
+  "wasm_unchanged": true,
+  "url": "https://plunge.jasonyandell.workers.dev/",
+  "deployment": "success",
+  "remaining_limit": "Empirical score tails from bid-30 play, not a guarantee for higher contracts or humans.",
+  "ci": "success",
+  "workflow_url": "https://github.com/jasonyandell/plunge/actions/runs/35488961822",
+  "hosted_browser": {
+    "origin": "https://plunge.jasonyandell.workers.dev",
+    "played_hand": true,
+    "reshakes": 4,
+    "openings": [
+      {
+        "auction_ms": 3441,
+        "hand": 5,
+        "bids": [
+          {
+            "seat": 1,
+            "bid": {
+              "kind": "pass"
+            }
+          },
+          {
+            "seat": 2,
+            "bid": {
+              "kind": "points",
+              "value": 30
+            }
+          },
+          {
+            "seat": 3,
+            "bid": {
+              "kind": "pass"
+            }
+          },
+          {
+            "seat": 0,
+            "bid": {
+              "kind": "pass"
+            }
+          }
+        ],
+        "contract": {
+          "kind": "points",
+          "value": 30
+        },
+        "declaration": {
+          "type": "pip",
+          "pip": 3
+        }
+      }
+    ],
+    "completed_points": [
+      40,
+      1
+    ],
+    "reload": true,
+    "next_hand": 6,
+    "auction_workers": 0,
+    "play_workers": 18,
+    "javascript_errors": [],
+    "overflow": false
+  },
+  "offline": {
+    "live_build": "c7a1215d4d1ece0e24e13fef693ed17f55475112",
+    "offline_app": true,
+    "offline_empirical_auction": true
+  }
+}

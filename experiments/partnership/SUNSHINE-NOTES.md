@@ -47,6 +47,12 @@ this records the workshop vision without starting its implementation.
 
 ## The priority
 
+**2026-09-19 playable bidder:** exploration is set aside while the accumulated
+actual-play data goes into the game. [Plunge now bids from the audited book](../kiln/PLAYED-BIDDER-RELEASE.md)
+with305,440 games /500 bidder hands /125 catalogue deals. Covered auctions take
+only normal presentation pauses, and the shared playing WASM stays unchanged.
+This delivers the bidding-speed objective; no partnership improvement is claimed.
+
 **2026-09-19 Pattern Workshop:** the [biclustering study](../kiln/BICLUSTERS.md)
 lets whole hand/declaration families and hidden-holding families emerge together.
 The 4+4-world pilot failed replication and remains visible. A frozen 60+60-world
