@@ -1,0 +1,533 @@
+{
+  "schema": "walt-full-game-panel-v1",
+  "status": "verified",
+  "scope": "direct native requested search; no outer L1 reserve or fallback",
+  "player_settings": {
+    "profile": "partner",
+    "cache": "cold",
+    "samples": {
+      "l0": 8,
+      "l1": 2,
+      "root": 40
+    },
+    "selection": "fixed",
+    "modeled_selection": "fixed",
+    "inner_belief": "voidless",
+    "budget_ms_per_call": 20000
+  },
+  "paired_games": 12,
+  "all_choices_and_exact_values_equal": true,
+  "batches": [
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/g1-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/g1-optimized.json",
+      "games": 1,
+      "reference_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/g1-baseline-usage.json",
+        "process_wall_s": 1.354247042,
+        "user_cpu_s": 12.629969,
+        "system_cpu_s": 0.685611,
+        "total_cpu_s": 13.315579999999999
+      },
+      "candidate_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/g1-optimized-usage.json",
+        "process_wall_s": 0.47861979099999985,
+        "user_cpu_s": 1.050434000000001,
+        "system_cpu_s": 0.3498589999999999,
+        "total_cpu_s": 1.400293000000001
+      }
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420601-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420601-optimized.json",
+      "games": 1,
+      "reference_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420601-baseline-usage.json",
+        "process_wall_s": 2.04725875,
+        "user_cpu_s": 17.705433999999997,
+        "system_cpu_s": 0.580554,
+        "total_cpu_s": 18.285987999999996
+      },
+      "candidate_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420601-optimized-usage.json",
+        "process_wall_s": 0.19808950000000003,
+        "user_cpu_s": 1.3122290000000003,
+        "system_cpu_s": 0.303906,
+        "total_cpu_s": 1.6161350000000003
+      }
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420602-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420602-optimized.json",
+      "games": 1,
+      "reference_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420602-baseline-usage.json",
+        "process_wall_s": 3.6737152909999997,
+        "user_cpu_s": 32.07010100000001,
+        "system_cpu_s": 1.099329,
+        "total_cpu_s": 33.169430000000006
+      },
+      "candidate_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420602-optimized-usage.json",
+        "process_wall_s": 0.3113557920000005,
+        "user_cpu_s": 2.368009999999998,
+        "system_cpu_s": 0.4850240000000001,
+        "total_cpu_s": 2.8530339999999983
+      }
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420603-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420603-optimized.json",
+      "games": 1,
+      "reference_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420603-baseline-usage.json",
+        "process_wall_s": 2.1198126669999997,
+        "user_cpu_s": 18.959901000000002,
+        "system_cpu_s": 0.8876,
+        "total_cpu_s": 19.847501
+      },
+      "candidate_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420603-optimized-usage.json",
+        "process_wall_s": 0.2070720829999999,
+        "user_cpu_s": 1.4321769999999958,
+        "system_cpu_s": 0.40326400000000007,
+        "total_cpu_s": 1.8354409999999959
+      }
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420604-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420604-optimized.json",
+      "games": 1,
+      "reference_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420604-baseline-usage.json",
+        "process_wall_s": 1.5259146659999985,
+        "user_cpu_s": 15.043783000000005,
+        "system_cpu_s": 0.5836749999999995,
+        "total_cpu_s": 15.627458000000004
+      },
+      "candidate_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420604-optimized-usage.json",
+        "process_wall_s": 0.15162337499999978,
+        "user_cpu_s": 1.1528809999999936,
+        "system_cpu_s": 0.2704530000000007,
+        "total_cpu_s": 1.4233339999999943
+      }
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420605-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420605-optimized.json",
+      "games": 1,
+      "reference_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420605-baseline-usage.json",
+        "process_wall_s": 2.3663725830000004,
+        "user_cpu_s": 20.741584000000003,
+        "system_cpu_s": 0.8679369999999995,
+        "total_cpu_s": 21.609521
+      },
+      "candidate_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420605-optimized-usage.json",
+        "process_wall_s": 0.2545780000000004,
+        "user_cpu_s": 1.6731269999999938,
+        "system_cpu_s": 0.44209299999999985,
+        "total_cpu_s": 2.1152199999999937
+      }
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420606-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420606-optimized.json",
+      "games": 1,
+      "reference_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420606-baseline-usage.json",
+        "process_wall_s": 2.507825207999998,
+        "user_cpu_s": 20.90016200000001,
+        "system_cpu_s": 0.7799990000000001,
+        "total_cpu_s": 21.68016100000001
+      },
+      "candidate_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420606-optimized-usage.json",
+        "process_wall_s": 0.19535045800000006,
+        "user_cpu_s": 1.641935999999987,
+        "system_cpu_s": 0.39940199999999937,
+        "total_cpu_s": 2.0413379999999863
+      }
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420607-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420607-optimized.json",
+      "games": 1,
+      "reference_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420607-baseline-usage.json",
+        "process_wall_s": 3.0244784579999973,
+        "user_cpu_s": 25.698750000000018,
+        "system_cpu_s": 0.90381,
+        "total_cpu_s": 26.602560000000018
+      },
+      "candidate_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420607-optimized-usage.json",
+        "process_wall_s": 0.2604555409999989,
+        "user_cpu_s": 1.8850419999999986,
+        "system_cpu_s": 0.36760700000000135,
+        "total_cpu_s": 2.252649
+      }
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420608-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420608-optimized.json",
+      "games": 1,
+      "reference_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420608-baseline-usage.json",
+        "process_wall_s": 1.6727433329999997,
+        "user_cpu_s": 11.828926999999993,
+        "system_cpu_s": 0.2557999999999989,
+        "total_cpu_s": 12.084726999999992
+      },
+      "candidate_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420608-optimized-usage.json",
+        "process_wall_s": 0.13783995799999715,
+        "user_cpu_s": 0.9016369999999938,
+        "system_cpu_s": 0.10646000000000022,
+        "total_cpu_s": 1.008096999999994
+      }
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-0-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-0-optimized.json",
+      "games": 1,
+      "reference_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-0-baseline-usage.json",
+        "process_wall_s": 1.5104782919999984,
+        "user_cpu_s": 14.774752000000007,
+        "system_cpu_s": 0.4294240000000009,
+        "total_cpu_s": 15.204176000000007
+      },
+      "candidate_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-0-optimized-usage.json",
+        "process_wall_s": 0.13685824999999952,
+        "user_cpu_s": 0.9479839999999911,
+        "system_cpu_s": 0.19457599999999964,
+        "total_cpu_s": 1.1425599999999907
+      }
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-7-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-7-optimized.json",
+      "games": 1,
+      "reference_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-7-baseline-usage.json",
+        "process_wall_s": 1.0421858329999978,
+        "user_cpu_s": 8.51579000000001,
+        "system_cpu_s": 0.1944599999999994,
+        "total_cpu_s": 8.71025000000001
+      },
+      "candidate_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-7-optimized-usage.json",
+        "process_wall_s": 0.08190125000000137,
+        "user_cpu_s": 0.5787770000000023,
+        "system_cpu_s": 0.06554600000000121,
+        "total_cpu_s": 0.6443230000000035
+      }
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-9-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-9-optimized.json",
+      "games": 1,
+      "reference_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-9-baseline-usage.json",
+        "process_wall_s": 1.1028602079999992,
+        "user_cpu_s": 10.602217999999993,
+        "system_cpu_s": 0.3842060000000007,
+        "total_cpu_s": 10.986423999999994
+      },
+      "candidate_process_usage": {
+        "path": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-9-optimized-usage.json",
+        "process_wall_s": 0.08558387500000109,
+        "user_cpu_s": 0.7006690000000049,
+        "system_cpu_s": 0.15855599999999903,
+        "total_cpu_s": 0.8592250000000039
+      }
+    }
+  ],
+  "summary": {
+    "reference_full_game_us": {
+      "count": 12,
+      "median": 1830484.5,
+      "p95_nearest_rank": 3633494,
+      "range": [
+        999937,
+        3633494
+      ]
+    },
+    "candidate_full_game_us": {
+      "count": 12,
+      "median": 142999.5,
+      "p95_nearest_rank": 278183,
+      "range": [
+        63296,
+        278183
+      ]
+    },
+    "paired_speedup": {
+      "count": 12,
+      "median": 13.12524023363122,
+      "p95_nearest_rank": 15.797791329625884,
+      "range": [
+        9.325597250234354,
+        15.797791329625884
+      ]
+    }
+  },
+  "games": [
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/g1-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/g1-optimized.json",
+      "repetition": 0,
+      "fixture": "g1",
+      "deal_seed": null,
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "public_seed": 420600,
+      "exact_values_equal": true,
+      "choices_equal": true,
+      "value_digest": "078258da771f899c",
+      "reference_full_game_us": 1313156,
+      "candidate_full_game_us": 140812,
+      "reference_call_wall_us": 1309844,
+      "candidate_call_wall_us": 137523,
+      "reference_nodes": 87717645,
+      "candidate_nodes": 30889922,
+      "speedup": 9.325597250234354
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420601-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420601-optimized.json",
+      "repetition": 0,
+      "fixture": "shuffle",
+      "deal_seed": 420601,
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "public_seed": 420600,
+      "exact_values_equal": true,
+      "choices_equal": true,
+      "value_digest": "589169ca383c027e",
+      "reference_full_game_us": 2024812,
+      "candidate_full_game_us": 145187,
+      "reference_call_wall_us": 2021481,
+      "candidate_call_wall_us": 142148,
+      "reference_nodes": 130312320,
+      "candidate_nodes": 43025293,
+      "speedup": 13.946234855737773
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420602-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420602-optimized.json",
+      "repetition": 0,
+      "fixture": "shuffle",
+      "deal_seed": 420602,
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "public_seed": 420600,
+      "exact_values_equal": true,
+      "choices_equal": true,
+      "value_digest": "9f209d247f068dd1",
+      "reference_full_game_us": 3633494,
+      "candidate_full_game_us": 278183,
+      "reference_call_wall_us": 3630105,
+      "candidate_call_wall_us": 275060,
+      "reference_nodes": 252743092,
+      "candidate_nodes": 82168358,
+      "speedup": 13.061524248426396
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420603-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420603-optimized.json",
+      "repetition": 0,
+      "fixture": "shuffle",
+      "deal_seed": 420603,
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "public_seed": 420600,
+      "exact_values_equal": true,
+      "choices_equal": true,
+      "value_digest": "1fd7fd736af11b6f",
+      "reference_full_game_us": 2108904,
+      "candidate_full_game_us": 166183,
+      "reference_call_wall_us": 2105540,
+      "candidate_call_wall_us": 163138,
+      "reference_nodes": 143243203,
+      "candidate_nodes": 47930637,
+      "speedup": 12.690251108717499
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420604-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420604-optimized.json",
+      "repetition": 0,
+      "fixture": "shuffle",
+      "deal_seed": 420604,
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "public_seed": 420600,
+      "exact_values_equal": true,
+      "choices_equal": true,
+      "value_digest": "e84d546e33c04e41",
+      "reference_full_game_us": 1519883,
+      "candidate_full_game_us": 131417,
+      "reference_call_wall_us": 1516724,
+      "candidate_call_wall_us": 128197,
+      "reference_nodes": 115855285,
+      "candidate_nodes": 41190890,
+      "speedup": 11.565345427151739
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420605-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420605-optimized.json",
+      "repetition": 0,
+      "fixture": "shuffle",
+      "deal_seed": 420605,
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "public_seed": 420600,
+      "exact_values_equal": true,
+      "choices_equal": true,
+      "value_digest": "afd51a449c7cd426",
+      "reference_full_game_us": 2360344,
+      "candidate_full_game_us": 196487,
+      "reference_call_wall_us": 2356920,
+      "candidate_call_wall_us": 193378,
+      "reference_nodes": 160332948,
+      "candidate_nodes": 55507790,
+      "speedup": 12.012723488067913
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420606-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420606-optimized.json",
+      "repetition": 0,
+      "fixture": "shuffle",
+      "deal_seed": 420606,
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "public_seed": 420600,
+      "exact_values_equal": true,
+      "choices_equal": true,
+      "value_digest": "69c9fed9a0f6b7b0",
+      "reference_full_game_us": 2457274,
+      "candidate_full_game_us": 186313,
+      "reference_call_wall_us": 2453882,
+      "candidate_call_wall_us": 183158,
+      "reference_nodes": 157656403,
+      "candidate_nodes": 53568640,
+      "speedup": 13.188956218836045
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420607-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420607-optimized.json",
+      "repetition": 0,
+      "fixture": "shuffle",
+      "deal_seed": 420607,
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "public_seed": 420600,
+      "exact_values_equal": true,
+      "choices_equal": true,
+      "value_digest": "baddc3302cfac431",
+      "reference_full_game_us": 2997925,
+      "candidate_full_game_us": 230250,
+      "reference_call_wall_us": 2994804,
+      "candidate_call_wall_us": 227124,
+      "reference_nodes": 198318159,
+      "candidate_nodes": 65278292,
+      "speedup": 13.020304017372421
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420608-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420608-optimized.json",
+      "repetition": 0,
+      "fixture": "shuffle",
+      "deal_seed": 420608,
+      "decl": 6,
+      "bid": 30,
+      "bidder": 0,
+      "public_seed": 420600,
+      "exact_values_equal": true,
+      "choices_equal": true,
+      "value_digest": "a215fed46f24ba7d",
+      "reference_full_game_us": 1636157,
+      "candidate_full_game_us": 123191,
+      "reference_call_wall_us": 1633260,
+      "candidate_call_wall_us": 120451,
+      "reference_nodes": 94367196,
+      "candidate_nodes": 33332136,
+      "speedup": 13.281465366788158
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-0-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-0-optimized.json",
+      "repetition": 0,
+      "fixture": "shuffle",
+      "deal_seed": 420609,
+      "decl": 0,
+      "bid": 30,
+      "bidder": 0,
+      "public_seed": 420600,
+      "exact_values_equal": true,
+      "choices_equal": true,
+      "value_digest": "c5c71ab478dcf73f",
+      "reference_full_game_us": 1478097,
+      "candidate_full_game_us": 110330,
+      "reference_call_wall_us": 1475032,
+      "candidate_call_wall_us": 107462,
+      "reference_nodes": 103286104,
+      "candidate_nodes": 33811770,
+      "speedup": 13.397054291670443
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-7-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-7-optimized.json",
+      "repetition": 0,
+      "fixture": "shuffle",
+      "deal_seed": 420609,
+      "decl": 7,
+      "bid": 30,
+      "bidder": 0,
+      "public_seed": 420600,
+      "exact_values_equal": true,
+      "choices_equal": true,
+      "value_digest": "4e5f869f280ab009",
+      "reference_full_game_us": 999937,
+      "candidate_full_game_us": 63296,
+      "reference_call_wall_us": 997335,
+      "candidate_call_wall_us": 60662,
+      "reference_nodes": 72903329,
+      "candidate_nodes": 22751700,
+      "speedup": 15.797791329625884
+    },
+    {
+      "reference": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-9-baseline.json",
+      "candidate": "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-9-optimized.json",
+      "repetition": 0,
+      "fixture": "shuffle",
+      "deal_seed": 420609,
+      "decl": 9,
+      "bid": 30,
+      "bidder": 0,
+      "public_seed": 420600,
+      "exact_values_equal": true,
+      "choices_equal": true,
+      "value_digest": "74454a0d1edf3cef",
+      "reference_full_game_us": 1041320,
+      "candidate_full_game_us": 69864,
+      "reference_call_wall_us": 1038442,
+      "candidate_call_wall_us": 67085,
+      "reference_nodes": 75251561,
+      "candidate_nodes": 24896451,
+      "speedup": 14.904958204511622
+    }
+  ]
+}

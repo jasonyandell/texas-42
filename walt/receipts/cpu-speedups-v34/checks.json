@@ -1,0 +1,60 @@
+{
+  "tier": "exploratory engineering conformance",
+  "native_unit_tests": {
+    "passed": 59,
+    "command": "RAYON_NUM_THREADS=6 cargo test --offline --release --manifest-path walt/Cargo.toml -p walt --lib -- --test-threads=4"
+  },
+  "scoped_integration_tests": {
+    "passed": 47,
+    "ignored": 1,
+    "suites": [
+      "solver_compact_dice",
+      "solver_hand_cache",
+      "solver_ordering",
+      "solver_partnership",
+      "solver_policy",
+      "solver_selection",
+      "solver_sigma1_repair",
+      "solver_viewer_fiber"
+    ],
+    "ignored_reason": "pre-existing record-emission test"
+  },
+  "player_contract_tests": {
+    "passed": 1
+  },
+  "fallback_unit_tests": {
+    "passed": 40,
+    "features": "--no-default-features"
+  },
+  "strict_clippy": {
+    "status": "passed",
+    "command": "cargo clippy --offline --manifest-path walt/Cargo.toml -p walt --lib -- -D warnings"
+  },
+  "wasm_fallback_lib": {
+    "status": "passed",
+    "features": "--no-default-features"
+  },
+  "wasm_optimized_lib": {
+    "status": "passed",
+    "features": "--no-default-features --features cpu-speedups"
+  },
+  "wasm_completed_semantic_comparisons": 12,
+  "native_current_baseline_full_game_pairs": 12,
+  "native_current_baseline_exact_plays": 336,
+  "frozen_v34_full_game_pairs": 8,
+  "frozen_v34_exact_plays": 224,
+  "frozen_archive_sha256": "804261f2027f3b992043a4f786a66027f1415d12a5132cdce7766b06892f74bf",
+  "frozen_source_files_sha256_verified": 1035,
+  "full_workspace_ci": "not run; scoped sampling-stack solver and player checks selected",
+  "production_build": {
+    "status": "passed",
+    "command": "bash walt/tools/build_cpu.sh --features mac-qos"
+  },
+  "player_unit_tests": {
+    "passed": 4
+  },
+  "fallback_player_unit_tests": {
+    "passed": 4
+  },
+  "final_wasm_receipt": "wasm-final-parity.json"
+}

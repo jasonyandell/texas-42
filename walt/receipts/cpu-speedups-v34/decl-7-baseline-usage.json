@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/private/tmp/walt-cpu-current-baseline/target/release/walt-cpu-baseline",
+    "--fixture",
+    "shuffle",
+    "--deal-seed",
+    "420609",
+    "--decl",
+    "7",
+    "--repeats",
+    "1",
+    "--output",
+    "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/decl-7-baseline.json"
+  ],
+  "rayon_num_threads": 18,
+  "process_wall_s": 1.0421858329999978,
+  "user_cpu_s": 8.51579000000001,
+  "system_cpu_s": 0.1944599999999994
+}
