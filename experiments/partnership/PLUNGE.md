@@ -4,6 +4,15 @@ Play straight 42 with the shared Walt player, save a particular decision,
 then compare its alternatives in the continuation-selectable gym. This is the
 human-play loop for the [sunshine goals](SUNSHINE-NOTES.md).
 
+## Forced last bid (2026-09-20)
+
+The live table uses straight 42 with a forced bid: after three passes, the
+shaker must bid at least 30. Walt uses the bid book's best declaration for a
+forced weak hand. Resumed auctions and new hands use this rule; already-played
+hands retain their original rules. Replay prefix `v1f` preserves the forced-bid
+configuration, alongside the existing `v1t` and `v1c` formats. The independent
+research importer accepts all three; four forced-bid fixtures check every seat.
+
 ## Optional deeper play (2026-09-20)
 
 Home → Advanced settings → **Think deeper** uses the existing 160-world,

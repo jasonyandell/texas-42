@@ -37,6 +37,16 @@ class PlungeTests(unittest.TestCase):
                 state=information_state(req)
                 for name in ('legal','leader','points'):self.assertEqual(state[name],expected[name])
 
+    def test_forced_bid_links_agree_with_the_table_for_every_shaker(self):
+        for row in c.read(gym.HERE/'campaigns/forced-bidding-v1/codec.json'):
+            game=decode_hand(row['code'])
+            self.assertEqual(game['points'],row['points'])
+            self.assertEqual(game['bidder'],row['bidder'])
+            self.assertEqual(game['bid'],30)
+            self.assertEqual(game['bidder'],game['shaker'])
+            req,_,_=flag_root(row['code'],0,42)
+            self.assertEqual(req['seat'],game['bidder'])
+
     def test_malformed_and_illegal_hand_codes_are_rejected(self):
         code=c.read(FIXTURE)[0]['code']
         bads=['',code[:-2],code+'00',code.replace('30PPP','29PPP'),code.replace('D0','D8'),

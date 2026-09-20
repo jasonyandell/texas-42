@@ -11,7 +11,7 @@ def tile_id(text):
 
 
 def decode_hand(code):
-    if not isinstance(code,str) or len(code)>1000 or code[:3] not in ('v1c','v1t'):
+    if not isinstance(code,str) or len(code)>1000 or code[:3] not in ('v1c','v1t','v1f'):
         raise ValueError('expected a Plunge v1 hand code')
     if len(code)<61 or code[3] not in '0123' or code[60]!='.': raise ValueError('malformed hand header')
     shaker=int(code[3]);hands=[[tile_id(code[4+14*s+2*j:6+14*s+2*j]) for j in range(7)] for s in range(4)]
