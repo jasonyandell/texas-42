@@ -94,6 +94,27 @@ class PlungeTests(unittest.TestCase):
                 self.assertEqual(decide.call_args.kwargs['review'],'partner-rollout')
             finally:store.close()
 
+    def test_deeper_toggle_changes_profile_and_cache_without_losing_original(self):
+        with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide',side_effect=self.fake) as decide:
+            store=Store(tmp)
+            try:
+                body,_=self.body()
+                regular=store.decision(body)
+                deeper=store.decision({**body,'think_deeper':True})
+                self.assertEqual(decide.call_args.kwargs['n'],160)
+                self.assertEqual(decide.call_args.kwargs['budget_ms'],20000)
+                self.assertEqual(decide.call_args.kwargs['review'],'off')
+                self.assertNotEqual(regular['id'],deeper['id'])
+                self.assertEqual(store.decision({**body,'think_deeper':True}),deeper)
+                self.assertEqual(store.decision({**body,'think_deeper':False}),regular)
+                self.assertEqual(store.receipt(regular['id']),regular)
+                self.assertEqual(decide.call_count,2)
+                for invalid in (1,'true',None):
+                    with self.assertRaises(ValueError):store.decision({**body,'think_deeper':invalid})
+                with self.assertRaises(ValueError):store.decision({**body,'think_deeper':True,'hands':[]})
+                self.assertEqual(decide.call_count,2)
+            finally:store.close()
+
     def test_flag_keeps_original_receipt_but_gym_input_excludes_examiner_hands(self):
         with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide') as decide:
             store=Store(tmp)

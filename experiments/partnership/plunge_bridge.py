@@ -48,7 +48,10 @@ class Store:
         self.players={name:Player(**c.read(gym.HERE/'players.json')[name]) for name in PRESETS}
 
     def decision(self,body):
-        fields(body,'request player game_id hand_number')
+        optional=isinstance(body,dict) and 'think_deeper' in body
+        fields(body,'request player game_id hand_number'+(' think_deeper' if optional else ''))
+        think_deeper=body.get('think_deeper',False)
+        if type(think_deeper) is not bool:raise ValueError('think_deeper must be boolean')
         fields(body['request'],'decl bid bidder seat hand plays seed')
         req=normalize(body['request'])
         information_state(req)
@@ -56,10 +59,9 @@ class Store:
         if type(hand_number) is not int or not 1<=hand_number<=10000:raise ValueError('invalid hand number')
         if body['player'] not in self.players:raise ValueError('unknown live player')
         player=self.players[body['player']]
-        # The bidder's lead before any public play uses the same deeper L1
-        # profile as inspection. The bounded partner review is a 40/8
-        # instrument, so it stays off for this 160-world comparison.
-        if req['seat']==req['bidder'] and not req['plays']:
+        # The bidder's opening and opt-in deeper play use the inspection
+        # profile. The bounded partner review requires 40/8, so stays off.
+        if think_deeper or (req['seat']==req['bidder'] and not req['plays']):
             player=replace(player,n=OPENING_WORLDS,budget_ms=OPENING_BUDGET_MS,review='off')
         identity=dict(request=req,player=c.asdict(player),implementation=self.implementation,
                       game_id=game_id,hand_number=hand_number)

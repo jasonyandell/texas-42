@@ -4,6 +4,19 @@ Play straight 42 with the shared Walt player, save a particular decision,
 then compare its alternatives in the continuation-selectable gym. This is the
 human-play loop for the [sunshine goals](SUNSHINE-NOTES.md).
 
+## Optional deeper play (2026-09-20)
+
+Home → Advanced settings → **Think deeper** uses the existing 160-world,
+20-second L1 profile for every computer play. It defaults off, persists across
+reloads, and can be changed while keeping the current game. Deeper mode skips
+the 40/8-only partner review. The empirical bid book is unchanged.
+
+The updated Plunge main checkout is `/Users/jason/code/plunge`; use
+`--plunge /Users/jason/code/plunge` with the launcher for this UI on the Mac.
+The native `/decide` boundary accepts an optional boolean `think_deeper` and
+records the resolved profile in its receipt/cache identity. Existing requests
+remain valid, and regular/deeper answers cannot collide in that cache.
+
 ## Portable CPU speedups (2026-09-20)
 
 Plunge `65f8f68` now ships the shared CPU optimizations in its WASM player.
