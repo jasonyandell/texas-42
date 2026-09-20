@@ -1,0 +1,24 @@
+{
+  "live_build": "65f8f68b3d7d460a62abcfcc1ed00bc201331c6c",
+  "asset": {
+    "sha256": "b3016e18e0b119a3967d42a901e51655e28176d3fce500f159501748de5a6fd4",
+    "bytes": 6265946,
+    "content_encoding": "zstd",
+    "content_type": "application/wasm",
+    "encoded_body_size": 6265946,
+    "decoded_body_size": 6265946
+  },
+  "online": {
+    "worlds": 160,
+    "choice": 19,
+    "ms": 566.8999999761581
+  },
+  "offline": {
+    "worlds": 160,
+    "choice": 19,
+    "ms": 503.90000000596046
+  },
+  "offline_app": true,
+  "offline_empirical_auction": true,
+  "service_worker_controlled": true
+}

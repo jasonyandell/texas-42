@@ -1,0 +1,18 @@
+{
+  "wasm_sha256": "b3016e18e0b119a3967d42a901e51655e28176d3fce500f159501748de5a6fd4",
+  "compile_ms": 3.199999988079071,
+  "forced_deadline": "legal-fallback",
+  "checkpoint_count": 5,
+  "live_ms": 1889.199999988079,
+  "completed_worlds": 160,
+  "initial_memory": 6684672,
+  "peak_linear_memory": 22347776,
+  "cancellation": {
+    "checkpoint": true,
+    "late_messages": 0
+  },
+  "browser_cpu_throttle": 4,
+  "old_shared_link": true,
+  "old_link_deeper": true,
+  "scope": "Mac Chrome with renderer CPU throttling; not a physical phone measurement"
+}

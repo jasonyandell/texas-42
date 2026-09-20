@@ -1,7 +1,7 @@
 # CPU speedups: main alignment and phone release plan
 
-Status: planned, 2026-09-20. No branch merges, product changes, or deployments have
-been performed by this planning pass. Performance and conformance below are
+Status: completed, 2026-09-20. See [deployed release and verification](CPU-PHONE-RELEASE.md).
+The plan below preserves the pre-release inspection and intended gates. Performance and conformance below are
 exploratory engineering evidence, not a strength result or equivalence proof.
 
 ## Verified starting point

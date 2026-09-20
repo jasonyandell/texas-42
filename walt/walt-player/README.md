@@ -1,5 +1,9 @@
 # One deployed Walt, two hosts
 
+The [portable CPU speedup release](../CPU-PHONE-RELEASE.md) is live in Plunge as of
+2026-09-20. Its importer explicitly enables `cpu-speedups` with native parallelism
+disabled; the empirical bid book and playing budgets retain their settings.
+
 Native builds enable the validated `cpu-speedups` bundle by default. Run
 `bash walt/tools/build_cpu.sh` from the repository root to rebuild the current
 experiment workers with the measured compiler settings. See the
@@ -120,7 +124,7 @@ Run builds/tests through the packet watchdog with a fresh output directory:
 
 ```sh
 cargo build --locked --release --manifest-path walt/Cargo.toml -p walt-player --bin walt-table
-cargo build --locked --release --manifest-path walt/Cargo.toml -p walt-player --lib --no-default-features --target wasm32-unknown-unknown
+cargo build --locked --release --manifest-path walt/Cargo.toml -p walt-player --lib --no-default-features --features cpu-speedups --target wasm32-unknown-unknown
 node walt/walt-player/check.mjs /path/to/parity.json
 ```
 

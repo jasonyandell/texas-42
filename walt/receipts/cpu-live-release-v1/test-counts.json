@@ -1,0 +1,17 @@
+{
+  "optimized": {
+    "passed": 120,
+    "failed": 0,
+    "ignored": 1
+  },
+  "player": {
+    "passed": 5,
+    "failed": 0,
+    "ignored": 0
+  },
+  "reference": {
+    "passed": 40,
+    "failed": 0,
+    "ignored": 0
+  }
+}

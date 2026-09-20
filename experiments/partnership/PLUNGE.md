@@ -4,6 +4,13 @@ Play straight 42 with the shared Walt player, save a particular decision,
 then compare its alternatives in the continuation-selectable gym. This is the
 human-play loop for the [sunshine goals](SUNSHINE-NOTES.md).
 
+## Portable CPU speedups (2026-09-20)
+
+Plunge `65f8f68` now ships the shared CPU optimizations in its WASM player.
+[Release evidence](../../walt/CPU-PHONE-RELEASE.md) records source/build identity,
+exact-value comparisons, deadline checks, hosted/offline play and rollback.
+The empirical bid book and 160/40-world playing profiles retain their settings.
+
 ## Played-game bid book (2026-09-19)
 
 The [published game](https://plunge.jasonyandell.workers.dev/) now uses the
