@@ -7,6 +7,7 @@ members = [
     "walt-m2-runner",
     "walt-wasm",
     "walt-player",
+    "walt-cpu-bench",
     "walt2-wasm",
 ]
 

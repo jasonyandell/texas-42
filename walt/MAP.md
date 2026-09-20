@@ -1,5 +1,13 @@
 # walt on one page — what exists, what it costs, what is now redundant
 
+**Native CPU integration — EXPLORATORY:** the validated v34 solver implementation
+is now the native default in `walt` and `walt-player`. The existing experiment
+entry points use it after `bash walt/tools/build_cpu.sh`. Completed full-game
+40/8/2 action vectors and choices agree with the pre-change current player and
+frozen v34; deadline-limited stages may complete more work. The
+[CPU integration record](CPU-SPEEDUPS.md) owns the timing receipts, enabled paths,
+portable checks, and reproduction commands.
+
 **Scheme is executable (2026-09-06, EXPLORATORY):**
 [`scheme/README.md`](scheme/README.md) documents `walt::scheme` and its query
 tool. Typed relational expressions return sets of role bindings over worlds,

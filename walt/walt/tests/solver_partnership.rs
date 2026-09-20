@@ -346,7 +346,12 @@ fn modeled_l1_inherits_selection_but_l0_keeps_its_fixed_dice_boundary() {
                 sh.inner_worlds_by_level()[k],
                 if k == 0 { 2 } else { expected }
             );
-            let counts = sh.inner_worlds_by_level();
+            let mut counts = sh.inner_worlds_by_level();
+            if k == 0 && cfg!(feature = "bypass-l0-cache")
+                && (cfg!(feature = "bypass-l0-cache-all") || f.hand.count_ones() <= 2)
+            {
+                counts[0] += 2; // The cheap L0 policy deliberately recomputes.
+            }
             assert_eq!(
                 host.modeled_choice(k, &key, f.seat, f.hand, f.legal),
                 Some(choice)
@@ -354,7 +359,7 @@ fn modeled_l1_inherits_selection_but_l0_keeps_its_fixed_dice_boundary() {
             assert_eq!(
                 sh.inner_worlds_by_level(),
                 counts,
-                "warm cache does not resample"
+                "cached levels do not resample; bypassed L0 repeats its fixed sample"
             );
         }
     }
@@ -639,9 +644,12 @@ fn staged_policy_cache_preserves_values_and_uses_a_fresh_deadline() {
                 &f.key, f.sizes, f.voids, f.trick_start_played,
                 f.boundary_hand_size, cfg, previous)
         };
-        run(&config(profile), &mut previous).unwrap();
+        // Nine L0 worlds use the general cached fallback, so both profiles
+        // exercise an actual cache transfer even when cheap L0 bypass is on.
+        let cfg = Config { n0: 9, ..config(profile) };
+        run(&cfg, &mut previous).unwrap();
         assert!(previous.as_ref().unwrap().pi_cache_len() > 0);
-        let deeper = Config { n_outer: 8, ..config(profile) };
+        let deeper = Config { n_outer: 8, ..cfg };
         let warm = run(&deeper, &mut previous).unwrap();
         let cold = run(&deeper, &mut None).unwrap();
         assert_eq!(warm.actions, cold.actions);

@@ -57,6 +57,14 @@ instrument." This page is the catalog — read it before building anything under
 
 ## The workspace (unified 2026-08-24)
 
+**Native CPU integration — EXPLORATORY:** the
+[validated v34 CPU implementation](../walt/CPU-SPEEDUPS.md) is enabled in the
+current native player and experiment workers. The complete-game benchmark,
+independent replay auditor, source/binary manifests, and portable exact-output
+comparison are maintained under `walt/`. The generic fallback remains available;
+completed-solve parity is distinct from wall-limited wrapper stage completion.
+
+
 **Whole-game contrast mining, 2026-09-18:** the
 [sampled extension](../experiments/kiln/whole-game-contrasts-v1/RESULTS.md)
 covers own-hand sizes seven through two using the existing exact capacity-DP

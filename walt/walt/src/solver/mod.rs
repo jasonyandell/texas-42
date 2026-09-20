@@ -23,8 +23,24 @@
 pub mod act;
 pub mod adaptive;
 pub mod bundle;
-pub mod calibrate;
 mod cache;
+pub mod calibrate;
+#[cfg(feature = "sharded-root-memo")]
+mod root_memo;
+#[cfg(feature = "sharded-root-memo")]
+use root_memo::RootMemo;
+#[cfg(feature = "bypass-l0-cache")]
+mod uncached_l0;
+
+pub mod counters;
+#[cfg(feature = "compact-dice")]
+use counters::MaxCounter;
+use counters::SumCounter;
+#[cfg(feature = "compact-dice")]
+mod compact_dice;
+
+#[cfg(feature = "compact-policy")]
+mod compact_policy;
 use cache::{CacheHasher, CacheMap, MemoKey, PolicyKey};
 pub mod controller;
 pub mod covers;
@@ -43,6 +59,8 @@ pub mod grammar;
 pub mod hazard;
 pub mod horizon;
 pub mod inner_belief;
+#[cfg(feature = "fast-rng")]
+mod rng_small;
 pub use inner_belief::InnerBelief;
 pub mod laydown;
 pub mod model_belief;
@@ -58,28 +76,41 @@ pub mod root_interval;
 pub mod selection;
 mod support;
 use support::{Alive, SmallSupport};
+#[cfg(feature = "mask64-support-arena")]
+mod mask64_arena;
+#[cfg(feature = "mask64-support-arena")]
+use mask64_arena::Mask64Arena;
 pub mod targeted;
 pub mod unified;
 pub mod upper_cs;
 pub mod wakeup;
 pub mod waking;
 
+use crate::clock::Instant;
+#[cfg(not(feature = "fast-policy"))]
 use std::collections::HashMap;
 use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
-use crate::clock::Instant;
 
 /// Monotonic wall budget on both native and browser hosts.
 #[derive(Clone, Copy, Debug)]
-pub struct Deadline { at: Instant }
+pub struct Deadline {
+    at: Instant,
+}
 impl Deadline {
     #[must_use]
-    pub fn after(budget: Duration) -> Self { Self { at: Instant::now() + budget } }
+    pub fn after(budget: Duration) -> Self {
+        Self {
+            at: Instant::now() + budget,
+        }
+    }
     #[must_use]
-    pub fn passed(&self) -> bool { Instant::now() >= self.at }
+    pub fn passed(&self) -> bool {
+        Instant::now() >= self.at
+    }
 }
 
 use num_bigint::BigInt;
@@ -109,6 +140,10 @@ impl SplitMix64 {
     }
 
     pub fn below(&mut self, n: u64) -> u64 {
+        #[cfg(feature = "fast-rng")]
+        if (1..=28).contains(&n) {
+            return rng_small::below(self, n);
+        }
         let zone = u64::MAX - (u64::MAX % n);
         loop {
             let v = self.next_u64();
@@ -204,14 +239,22 @@ pub struct PiKey {
 
 const PI_SHARDS: usize = 64;
 
-type PiShard = Mutex<CacheMap<(u8, PolicyKey), u8>>;
+#[cfg_attr(feature = "aligned-cache", repr(align(128)))]
+struct PiShard(Mutex<CacheMap<(u8, PolicyKey), u8>>);
+
+impl std::ops::Deref for PiShard {
+    type Target = Mutex<CacheMap<(u8, PolicyKey), u8>>;
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
 
 /// State shared by every solver in one evaluation: declaration, bid
 /// thresholds, boundary frame, budget, and the cross-level policy cache.
 pub struct Shared {
     inner_belief: InnerBelief,
     modeled_selection: selection::Rule,
-    inner_worlds_by_level: Vec<AtomicU64>,
+    inner_worlds_by_level: Vec<SumCounter>,
     pub dcl: Decl,
     /// make ⇔ banked_t1 ≥ bid ⇔ banked_t0 ≤ 42 − bid.
     pub bid: u8,
@@ -221,15 +264,28 @@ pub struct Shared {
     pub boundary_hand_size: usize,
     pub deadline: Deadline,
     pi_cache: Vec<PiShard>,
-    pub pi_calls: AtomicU64,
-    pi_calls_by_level: Vec<AtomicU64>,
-    pub nodes: AtomicU64,
+    pub pi_calls: SumCounter,
+    pi_calls_by_level: Vec<SumCounter>,
+
+    pub nodes: SumCounter,
     /// Break instrumentation on the `solve_viewer` loop, folded from each
     /// solver's locals by `flush_nodes`: children actually solved vs legal
     /// moves available. An instrument only — read by probes and tests,
     /// never by a receipt bin.
-    pub viewer_children: AtomicU64,
-    pub viewer_legal: AtomicU64,
+    pub viewer_children: SumCounter,
+    pub viewer_legal: SumCounter,
+    /// Opt-in compact Dice calls, recursive visits, and largest remaining
+    /// trick count seen. These measure completed and refused calls alike.
+    #[cfg(feature = "compact-dice")]
+    pub compact_dice_calls: SumCounter,
+    #[cfg(feature = "compact-dice")]
+    pub compact_dice_nodes: SumCounter,
+    #[cfg(feature = "compact-dice")]
+    pub compact_dice_max_tricks: MaxCounter,
+    #[cfg(feature = "bounded-choice")]
+    pub bounded_choice_probes: SumCounter,
+    #[cfg(feature = "bounded-choice")]
+    pub bounded_choice_rejections: SumCounter,
     pub dead: AtomicBool,
 }
 
@@ -243,23 +299,37 @@ impl Shared {
         boundary_hand_size: usize,
         deadline: Deadline,
     ) -> Self {
-        let pi_calls_by_level = (0..n_inner.len()).map(|_| AtomicU64::new(0)).collect();
+        let levels = n_inner.len();
+        let pi_calls_by_level = (0..levels).map(|_| SumCounter::new(0)).collect();
         Shared {
             inner_belief: InnerBelief::Voidless,
             modeled_selection: selection::Rule::Fixed,
-            inner_worlds_by_level: (0..n_inner.len()).map(|_| AtomicU64::new(0)).collect(),
+            inner_worlds_by_level: (0..levels).map(|_| SumCounter::new(0)).collect(),
             dcl,
             bid,
             n_inner,
             boundary_played,
             boundary_hand_size,
             deadline,
-            pi_cache: (0..PI_SHARDS).map(|_| Mutex::new(CacheMap::default())).collect(),
-            pi_calls: AtomicU64::new(0),
+            pi_cache: (0..PI_SHARDS)
+                .map(|_| PiShard(Mutex::new(CacheMap::default())))
+                .collect(),
+            pi_calls: SumCounter::new(0),
             pi_calls_by_level,
-            nodes: AtomicU64::new(0),
-            viewer_children: AtomicU64::new(0),
-            viewer_legal: AtomicU64::new(0),
+
+            nodes: SumCounter::new(0),
+            viewer_children: SumCounter::new(0),
+            viewer_legal: SumCounter::new(0),
+            #[cfg(feature = "compact-dice")]
+            compact_dice_calls: SumCounter::new(0),
+            #[cfg(feature = "compact-dice")]
+            compact_dice_nodes: SumCounter::new(0),
+            #[cfg(feature = "compact-dice")]
+            compact_dice_max_tricks: MaxCounter::new(0),
+            #[cfg(feature = "bounded-choice")]
+            bounded_choice_probes: SumCounter::new(0),
+            #[cfg(feature = "bounded-choice")]
+            bounded_choice_rejections: SumCounter::new(0),
             dead: AtomicBool::new(false),
         }
     }
@@ -317,6 +387,31 @@ impl Shared {
             .sum()
     }
 
+    // A balanced boundary (B,H) reconstructs later hand sizes solely through
+    // C = H + |B|/4. Do not transfer from malformed or incompatible frames.
+    // See walt/CPU-SPEEDUPS.md for the cache transfer condition.
+    #[cfg(feature = "hand-cache")]
+    fn normalized_boundary(&self) -> Option<usize> {
+        let played = self.boundary_played.count_ones() as usize;
+        if self.boundary_played & !FULL_MASK != 0 || !played.is_multiple_of(4) {
+            return None;
+        }
+        self.boundary_hand_size.checked_add(played / 4)
+    }
+
+    fn same_policy_boundary(&self, previous: &Shared) -> bool {
+        #[cfg(feature = "hand-cache")]
+        {
+            self.normalized_boundary()
+                .is_some_and(|c| previous.normalized_boundary() == Some(c))
+        }
+        #[cfg(not(feature = "hand-cache"))]
+        {
+            self.boundary_played == previous.boundary_played
+                && self.boundary_hand_size == previous.boundary_hand_size
+        }
+    }
+
     /// Move completed modeled-policy answers into a fresh evaluation of the
     /// same policy context. Outer samples and deadlines are deliberately absent:
     /// `pi` seeds its own belief from (level, seat, hand, public record), and
@@ -324,10 +419,10 @@ impl Shared {
     /// Exclusive ownership of both contexts prevents use during a live solve.
     pub fn take_policy_cache_from(&mut self, previous: &mut Shared) -> usize {
         assert_eq!(self.pi_cache_len(), 0, "reuse only before evaluating");
-        if self.dcl != previous.dcl || self.bid != previous.bid
+        if self.dcl != previous.dcl
+            || self.bid != previous.bid
             || self.n_inner != previous.n_inner
-            || self.boundary_played != previous.boundary_played
-            || self.boundary_hand_size != previous.boundary_hand_size
+            || !self.same_policy_boundary(previous)
             || self.inner_belief != previous.inner_belief
             || self.modeled_selection != previous.modeled_selection
         {
@@ -377,10 +472,15 @@ pub struct Solver {
     field: Field,
     intern: Mutex<Intern>,
     small_support: Option<SmallSupport>,
+    #[cfg(feature = "mask64-support-arena")]
+    mask64_support: Option<Mask64Arena>,
     // All worlds have equal mass, including duplicate sampled worlds. Each
     // node's value is an integer success count over its alive set. Convert to
     // a rational only at the public boundary (experiments/kiln/COUNTED-VALUES.md).
+    #[cfg(not(feature = "sharded-root-memo"))]
     memo: Mutex<CacheMap<MemoKey, u64>>,
+    #[cfg(feature = "sharded-root-memo")]
+    memo: RootMemo,
     local_nodes: AtomicU64,
     local_viewer_children: AtomicU64,
     local_viewer_legal: AtomicU64,
@@ -408,11 +508,21 @@ impl Solver {
                 "every seat field level has a declared inner sample count"
             ),
         }
-        let small_support=SmallSupport::new(worlds.len());
+        let small_support = SmallSupport::new(worlds.len());
+        #[cfg(feature = "mask64-support-arena")]
+        let mask64_support = Mask64Arena::new(worlds.len());
+        #[cfg(feature = "mask64-support-arena")]
+        let large_support = small_support.is_none() && mask64_support.is_none();
+        #[cfg(not(feature = "mask64-support-arena"))]
+        let large_support = small_support.is_none();
+        #[cfg(feature = "sharded-root-memo")]
+        let memo = RootMemo::new(worlds.len());
         let mut map = CacheMap::default();
-        let list=if small_support.is_some() { Vec::new() } else {
+        let list = if !large_support {
+            Vec::new()
+        } else {
             let all: Arc<Vec<u32>> = Arc::new((0..worlds.len() as u32).collect());
-            map.insert(Arc::clone(&all),0u32);
+            map.insert(Arc::clone(&all), 0u32);
             vec![all]
         };
         Solver {
@@ -426,7 +536,12 @@ impl Solver {
             field,
             intern: Mutex::new(Intern { list, map }),
             small_support,
+            #[cfg(feature = "mask64-support-arena")]
+            mask64_support,
+            #[cfg(not(feature = "sharded-root-memo"))]
             memo: Mutex::new(CacheMap::default()),
+            #[cfg(feature = "sharded-root-memo")]
+            memo,
             local_nodes: AtomicU64::new(0),
             local_viewer_children: AtomicU64::new(0),
             local_viewer_legal: AtomicU64::new(0),
@@ -437,12 +552,20 @@ impl Solver {
     /// Enable rayon fan-out (no-op in a build without the "parallel"
     /// feature — the flag is kept so caller code is identical).
     #[must_use]
-    pub fn parallel(mut self) -> Self {
+    pub fn parallel(self) -> Self {
         // A one-thread production worker gains nothing from nested Rayon
         // dispatch; retain the serial path and its allocation savings.
         #[cfg(feature = "parallel")]
-        { self.parallel = rayon::current_num_threads() > 1; }
-        self
+        {
+            Self {
+                parallel: rayon::current_num_threads() > 1,
+                ..self
+            }
+        }
+        #[cfg(not(feature = "parallel"))]
+        {
+            self
+        }
     }
 
     /// Select the `solve_viewer` visit order (default `CaptureFirst`).
@@ -454,19 +577,53 @@ impl Solver {
         self
     }
 
+    #[cfg(feature = "parallel")]
+    fn field_prewarm_parallel(&self, key: &Key, alive_len: usize, distinct: usize) -> bool {
+        if !self.parallel || distinct < 2 {
+            return false;
+        }
+        #[cfg(feature = "adaptive-parallel")]
+        {
+            let _ = key;
+            alive_len > 2 && distinct >= 4
+        }
+        #[cfg(not(feature = "adaptive-parallel"))]
+        {
+            let _ = (key, alive_len);
+            true
+        }
+    }
+
     pub fn memo_len(&self) -> usize {
-        self.memo.lock().expect("memo poisoned").len()
+        #[cfg(not(feature = "sharded-root-memo"))]
+        {
+            self.memo.lock().expect("memo poisoned").len()
+        }
+        #[cfg(feature = "sharded-root-memo")]
+        {
+            self.memo.len()
+        }
     }
 
     pub fn alive_sets(&self) -> usize {
-        self.small_support.as_ref().map_or_else(
-            || self.intern.lock().expect("intern poisoned").list.len(),
-            SmallSupport::seen_count,
-        )
+        if let Some(small) = &self.small_support {
+            return small.seen_count();
+        }
+        #[cfg(feature = "mask64-support-arena")]
+        if let Some(mask64) = &self.mask64_support {
+            return mask64.seen_count();
+        }
+        self.intern.lock().expect("intern poisoned").list.len()
     }
 
     fn intern(&self, v: Vec<u32>) -> u32 {
-        if let Some(small)=&self.small_support { return small.encode_ids(&v); }
+        if let Some(small) = &self.small_support {
+            return small.encode_ids(&v);
+        }
+        #[cfg(feature = "mask64-support-arena")]
+        if let Some(mask64) = &self.mask64_support {
+            return mask64.intern_ids(&v);
+        }
         let rc: Arc<Vec<u32>> = Arc::new(v);
         let mut st = self.intern.lock().expect("intern poisoned");
         if let Some(&id) = st.map.get(&rc) {
@@ -479,10 +636,16 @@ impl Solver {
     }
 
     fn alive_of(&self, id: u32) -> Alive {
-        match &self.small_support {
-            Some(small)=>small.decode(id),
-            None=>Alive::Large(Arc::clone(&self.intern.lock().expect("intern poisoned").list[id as usize])),
+        if let Some(small) = &self.small_support {
+            return small.decode(id);
         }
+        #[cfg(feature = "mask64-support-arena")]
+        if let Some(mask64) = &self.mask64_support {
+            return mask64.decode(id);
+        }
+        Alive::Large(Arc::clone(
+            &self.intern.lock().expect("intern poisoned").list[id as usize],
+        ))
     }
 
     fn bump_node(&self) -> bool {
@@ -581,7 +744,10 @@ impl Solver {
 
     pub fn solve(&self, key: &Key) -> Option<BigRational> {
         let wins = self.solve_count(key)?;
-        Some(BigRational::new(BigInt::from(wins), BigInt::from(self.alive_of(key.alive).len())))
+        Some(BigRational::new(
+            BigInt::from(wins),
+            BigInt::from(self.alive_of(key.alive).len()),
+        ))
     }
 
     fn solve_count(&self, key: &Key) -> Option<u64> {
@@ -596,8 +762,17 @@ impl Solver {
             return Some(0);
         }
         let memo_key = MemoKey::from(key);
-        if let Some(v) = self.memo.lock().expect("memo poisoned").get(&memo_key) {
-            return Some(*v);
+        #[cfg(not(feature = "sharded-root-memo"))]
+        let cached = self
+            .memo
+            .lock()
+            .expect("memo poisoned")
+            .get(&memo_key)
+            .copied();
+        #[cfg(feature = "sharded-root-memo")]
+        let cached = self.memo.get(&memo_key);
+        if let Some(value) = cached {
+            return Some(value);
         }
         assert_ne!(key.played, FULL_MASK, "terminal states are always decided");
         let seat =
@@ -618,10 +793,13 @@ impl Solver {
                 }
             }
         };
+        #[cfg(not(feature = "sharded-root-memo"))]
         self.memo
             .lock()
             .expect("memo poisoned")
             .insert(memo_key, val);
+        #[cfg(feature = "sharded-root-memo")]
+        self.memo.insert(memo_key, val);
         Some(val)
     }
 
@@ -636,34 +814,47 @@ impl Solver {
     /// tile), integer-only, no RNG, no shared tables — the visit order
     /// is deterministic run-to-run under rayon.
     fn viewer_visit_order_into<'a>(
-        &self, key: &Key, led: Option<Context>, legal: DominoSet,
+        &self,
+        key: &Key,
+        led: Option<Context>,
+        legal: DominoSet,
         storage: &'a mut [(u32, Domino); Domino::COUNT],
     ) -> &'a [(u32, Domino)] {
         let dcl = self.sh.dcl;
         // The standing winner/count are shared by all candidate priorities.
         // With zero or one candidate there is no ordering work to perform.
         let needs_priority = legal.len() > 1 && self.ordering == MoveOrdering::CaptureFirst;
-        let table = if needs_priority { led.map(|q| {
-            let mut best = None;
-            let mut winner_at = 0;
-            let mut count = 0;
-            for (i, &p) in key.plays.iter().enumerate() {
-                let tile = Domino::from_index(usize::from(p)).expect("played tile");
-                let k = dcl.trick_key(tile, q);
-                count += tile.count();
-                // First strict maximum, matching Trick::winner.
-                if best.as_ref().is_none_or(|b| k > *b) {
-                    best = Some(k);
-                    winner_at = i;
+        let table = if needs_priority {
+            led.map(|q| {
+                let mut best = None;
+                let mut winner_at = 0;
+                let mut count = 0;
+                for (i, &p) in key.plays.iter().enumerate() {
+                    let tile = Domino::from_index(usize::from(p)).expect("played tile");
+                    let k = dcl.trick_key(tile, q);
+                    count += tile.count();
+                    // First strict maximum, matching Trick::winner.
+                    if best.as_ref().is_none_or(|b| k > *b) {
+                        best = Some(k);
+                        winner_at = i;
+                    }
                 }
-            }
-            let winner = Seat::from_index((usize::from(key.leader) + winner_at) % 4)
-                .expect("winner seat index");
-            (q, best.expect("a led context implies a play"), count,
-             winner.team() == self.viewer.team())
-        }) } else { None };
+                let winner = Seat::from_index((usize::from(key.leader) + winner_at) % 4)
+                    .expect("winner seat index");
+                (
+                    q,
+                    best.expect("a led context implies a play"),
+                    count,
+                    winner.team() == self.viewer.team(),
+                )
+            })
+        } else {
+            None
+        };
         let priority = |tile: Domino| {
-            if !needs_priority { return 0; }
+            if !needs_priority {
+                return 0;
+            }
             if let Some((q, best, count, own_team)) = table {
                 if dcl.trick_key(tile, q) > best {
                     1_000 + count + tile.count()
@@ -700,7 +891,9 @@ impl Solver {
     ) -> Vec<Domino> {
         let mut storage = [(0, Domino::ALL[0]); Domino::COUNT];
         self.viewer_visit_order_into(key, led, legal, &mut storage)
-            .iter().map(|&(_, tile)| tile).collect()
+            .iter()
+            .map(|&(_, tile)| tile)
+            .collect()
     }
 
     fn solve_viewer(&self, key: &Key, led: Option<Context>) -> Option<u64> {
@@ -724,11 +917,7 @@ impl Solver {
                 .as_ref()
                 .is_none_or(|b| if self.maximize { v > *b } else { v < *b });
             if better {
-                let decided = if self.maximize {
-                    v == mass
-                } else {
-                    v == 0
-                };
+                let decided = if self.maximize { v == mass } else { v == 0 };
                 best = Some(v);
                 if decided {
                     break;
@@ -741,39 +930,50 @@ impl Solver {
     fn solve_field_dice(&self, key: &Key, seat: Seat, led: Option<Context>) -> Option<u64> {
         let alive = self.alive_of(key.alive);
         let mut record = None;
-        if let Some(small)=&self.small_support {
-            if !self.parallel {
+        if let Some(small) = &self.small_support {
+            if !self.parallel || (cfg!(feature = "adaptive-parallel") && self.worlds.len() <= 2) {
                 // The common eight-world modeled mind needs no bucket/list
                 // allocation. Sample identity, tile visit order and mass remain
                 // exactly the same as the general path below.
-                let mut buckets=[0u8;28];
-                let mut occupied=0u32;
+                let mut buckets = [0u8; 28];
+                let mut occupied = 0u32;
                 for sid in alive.iter() {
-                    let hand=self.worlds[sid as usize][seat.index()] & !key.played;
-                    let lm=mask_of(legal_plays(self.sh.dcl,set_of(hand),led));
-                    debug_assert!(lm!=0);
-                    let choices=lm.count_ones();
-                    let tile=if choices==1 { lm.trailing_zeros() } else {
-                        let rh=*record.get_or_insert_with(||record_hash(key));
-                        let idx=SplitMix64(self.seeds[sid as usize]^rh).below(u64::from(choices)) as u32;
-                        nth_set_bit(lm,idx)
+                    let hand = self.worlds[sid as usize][seat.index()] & !key.played;
+                    let lm = mask_of(legal_plays(self.sh.dcl, set_of(hand), led));
+                    debug_assert!(lm != 0);
+                    let choices = lm.count_ones();
+                    let tile = if choices == 1 {
+                        lm.trailing_zeros()
+                    } else {
+                        let rh = *record.get_or_insert_with(|| record_hash(key));
+                        let idx = SplitMix64(self.seeds[sid as usize] ^ rh)
+                            .below(u64::from(choices)) as u32;
+                        nth_set_bit(lm, idx)
                     };
-                    buckets[tile as usize] |= 1u8<<sid;
-                    occupied |= 1u32<<tile;
+                    buckets[tile as usize] |= 1u8 << sid;
+                    occupied |= 1u32 << tile;
                 }
-                let mut total=0u64;let mut redistributed=0;
+                let mut total = 0u64;
+                let mut redistributed = 0;
                 // Ascending set bits preserve the full scan's visit order.
                 // A small support can occupy at most eight of the 28 buckets.
-                while occupied!=0 {
-                    let tile=occupied.trailing_zeros() as usize;
-                    occupied &= occupied-1;
-                    let mask=buckets[tile];
-                    redistributed+=mask.count_ones() as usize;
-                    let child=self.child_after_play(key,Domino::from_index(tile).expect("tile < 28"),small.encode(mask));
-                    total+=self.solve_count(&child)?;
+                while occupied != 0 {
+                    let tile = occupied.trailing_zeros() as usize;
+                    occupied &= occupied - 1;
+                    let mask = buckets[tile];
+                    redistributed += mask.count_ones() as usize;
+                    let child = self.child_after_play(
+                        key,
+                        Domino::from_index(tile).expect("tile < 28"),
+                        small.encode(mask),
+                    );
+                    total += self.solve_count(&child)?;
                 }
-                assert_eq!(redistributed,alive.len(),"field partition conservation");
-                assert!(total<=alive.len() as u64,"success mass cannot exceed support mass");
+                assert_eq!(redistributed, alive.len(), "field partition conservation");
+                assert!(
+                    total <= alive.len() as u64,
+                    "success mass cannot exceed support mass"
+                );
                 return Some(total);
             }
         }
@@ -782,13 +982,16 @@ impl Solver {
             let hand = self.worlds[sid as usize][seat.index()] & !key.played;
             let lm = mask_of(legal_plays(self.sh.dcl, set_of(hand), led));
             debug_assert!(lm != 0);
-            let choices=lm.count_ones();
+            let choices = lm.count_ones();
             // This Dice stream is local to this state/sample and discarded.
             // A sole legal tile needs neither a draw nor the record hash.
-            let tile=if choices==1 { lm.trailing_zeros() } else {
-                let rh=*record.get_or_insert_with(||record_hash(key));
-                let idx=SplitMix64(self.seeds[sid as usize]^rh).below(u64::from(choices)) as u32;
-                nth_set_bit(lm,idx)
+            let tile = if choices == 1 {
+                lm.trailing_zeros()
+            } else {
+                let rh = *record.get_or_insert_with(|| record_hash(key));
+                let idx =
+                    SplitMix64(self.seeds[sid as usize] ^ rh).below(u64::from(choices)) as u32;
+                nth_set_bit(lm, idx)
             };
             buckets[tile as usize].push(sid);
         }
@@ -803,8 +1006,74 @@ impl Solver {
         k: usize,
     ) -> Option<u64> {
         let alive = self.alive_of(key.alive);
+        #[cfg(feature = "fast-policy")]
+        if let Some(small) = &self.small_support {
+            if !self.parallel || (cfg!(feature = "adaptive-parallel") && self.worlds.len() <= 2) {
+                // At most eight sample IDs. Preserve the serial reference's
+                // first-seen modeled-hand order, then classify every sample
+                // into ascending action buckets without heap containers.
+                let mut hands = [0u32; 8];
+                let mut legal = [0u32; 8];
+                let mut choices = [0u8; 8];
+                let mut distinct_len = 0usize;
+                for sid in alive.iter() {
+                    let hand = self.worlds[sid as usize][seat.index()] & !key.played;
+                    let lm = mask_of(legal_plays(self.sh.dcl, set_of(hand), led));
+                    debug_assert_ne!(lm, 0);
+                    if let Some(i) = (0..distinct_len).find(|&i| hands[i] == hand) {
+                        debug_assert_eq!(legal[i], lm);
+                    } else {
+                        hands[distinct_len] = hand;
+                        legal[distinct_len] = lm;
+                        distinct_len += 1;
+                    }
+                }
+                for i in 0..distinct_len {
+                    let lm = legal[i];
+                    choices[i] = if lm.count_ones() == 1 {
+                        lm.trailing_zeros() as u8
+                    } else {
+                        self.pi(k, key, seat, hands[i], lm)?
+                    };
+                }
+                let mut buckets = [0u8; 28];
+                let mut occupied = 0u32;
+                for sid in alive.iter() {
+                    let hand = self.worlds[sid as usize][seat.index()] & !key.played;
+                    let i = (0..distinct_len)
+                        .find(|&i| hands[i] == hand)
+                        .expect("every alive hand was classified");
+                    let tile = usize::from(choices[i]);
+                    buckets[tile] |= 1u8 << sid;
+                    occupied |= 1u32 << tile;
+                }
+                let mut redistributed = 0usize;
+                let mut total = 0u64;
+                while occupied != 0 {
+                    let tile = occupied.trailing_zeros() as usize;
+                    occupied &= occupied - 1;
+                    let mask = buckets[tile];
+                    redistributed += mask.count_ones() as usize;
+                    let child = self.child_after_play(
+                        key,
+                        Domino::from_index(tile).expect("tile < 28"),
+                        small.encode(mask),
+                    );
+                    total += self.solve_count(&child)?;
+                }
+                assert_eq!(redistributed, alive.len(), "field partition conservation");
+                assert!(
+                    total <= alive.len() as u64,
+                    "success mass cannot exceed support mass"
+                );
+                return Some(total);
+            }
+        }
         let mut per_sid: Vec<(u32, u32)> = Vec::with_capacity(alive.len());
+        #[cfg(not(feature = "fast-policy"))]
         let mut distinct: HashMap<u32, u32> = HashMap::new();
+        #[cfg(feature = "fast-policy")]
+        let mut distinct: CacheMap<u32, u32> = CacheMap::default();
         for sid in alive.iter() {
             let hand = self.worlds[sid as usize][seat.index()] & !key.played;
             let lm = mask_of(legal_plays(self.sh.dcl, set_of(hand), led));
@@ -814,8 +1083,8 @@ impl Solver {
             }
             per_sid.push((hand, lm));
         }
-        #[cfg(feature = "parallel")]
-        if self.parallel && distinct.len() > 1 {
+        #[cfg(all(feature = "parallel", not(feature = "fast-policy")))]
+        if self.field_prewarm_parallel(key, alive.len(), distinct.len()) {
             let reqs: Vec<(u32, u32)> = distinct.iter().map(|(&h, &lm)| (h, lm)).collect();
             let alive_count = reqs
                 .par_iter()
@@ -825,12 +1094,44 @@ impl Solver {
                 return None;
             }
         }
+        #[cfg(feature = "fast-policy")]
+        let precomputed = {
+            #[cfg(feature = "parallel")]
+            if self.field_prewarm_parallel(key, alive.len(), distinct.len()) {
+                let reqs: Vec<(u32, u32)> = distinct.iter().map(|(&h, &lm)| (h, lm)).collect();
+                let choices: Option<Vec<(u32, u8)>> = reqs
+                    .par_iter()
+                    .map(|&(hand, lm)| Some((hand, self.pi(k, key, seat, hand, lm)?)))
+                    .collect();
+                // Keep the completed answers instead of immediately asking
+                // the shared policy cache for each of them a second time.
+                for (hand, tile) in choices? {
+                    distinct.insert(hand, u32::from(tile));
+                }
+                true
+            } else {
+                false
+            }
+            #[cfg(not(feature = "parallel"))]
+            {
+                false
+            }
+        };
         let mut buckets: [Vec<u32>; 28] = std::array::from_fn(|_| Vec::new());
         for (i, sid) in alive.iter().enumerate() {
             let (hand, lm) = per_sid[i];
             let tile = if lm.count_ones() == 1 {
                 lm.trailing_zeros() as u8
             } else {
+                #[cfg(feature = "fast-policy")]
+                if precomputed {
+                    *distinct
+                        .get(&hand)
+                        .expect("completed policy for each distinct hand") as u8
+                } else {
+                    self.pi(k, key, seat, hand, lm)?
+                }
+                #[cfg(not(feature = "fast-policy"))]
                 self.pi(k, key, seat, hand, lm)?
             };
             buckets[usize::from(tile)].push(sid);
@@ -838,42 +1139,51 @@ impl Solver {
         self.combine_buckets(key, alive.len(), buckets)
     }
 
-    fn combine_buckets(
-        &self,
-        key: &Key,
-        alive_len: usize,
-        buckets: [Vec<u32>; 28],
-    ) -> Option<u64> {
+    fn combine_buckets(&self, key: &Key, alive_len: usize, buckets: [Vec<u32>; 28]) -> Option<u64> {
         let mut children: Vec<Key> = Vec::with_capacity(alive_len.min(28));
         let mut redistributed: usize = 0;
+
         for (tile, bucket) in buckets.into_iter().enumerate() {
             if bucket.is_empty() {
                 continue;
             }
+
             redistributed += bucket.len();
             let child_alive = self.intern(bucket);
-            children.push(
-                self.child_after_play(
-                    key,
-                    Domino::from_index(tile).expect("tile < 28"),
-                    child_alive,
-                ),
-            );
+            children.push(self.child_after_play(
+                key,
+                Domino::from_index(tile).expect("tile < 28"),
+                child_alive,
+            ));
         }
         assert_eq!(redistributed, alive_len, "field partition conservation");
         let serial = || -> Option<u64> {
-            children.iter().try_fold(0, |total, child| Some(total + self.solve_count(child)?))
+            children
+                .iter()
+                .try_fold(0, |total, child| Some(total + self.solve_count(child)?))
         };
         #[cfg(feature = "parallel")]
-        let total = if self.parallel && children.len() > 1 {
-            let vals: Vec<Option<u64>> = children.par_iter().map(|child| self.solve_count(child)).collect();
-            vals.into_iter().try_fold(0u64, |total, v| Some(total + v?))?
+        let total = if self.parallel && children.len() > 1
+            // Preserve the original width until only one or two sample IDs
+            // remain; those descendants finish serially on this Solver.
+            && (!cfg!(feature = "adaptive-parallel") || alive_len > 2)
+        {
+            let vals: Vec<Option<u64>> = children
+                .par_iter()
+                .map(|child| self.solve_count(child))
+                .collect();
+            vals.into_iter()
+                .try_fold(0u64, |total, v| Some(total + v?))?
         } else {
             serial()?
         };
+
         #[cfg(not(feature = "parallel"))]
         let total = serial()?;
-        assert!(total <= alive_len as u64, "success mass cannot exceed support mass");
+        assert!(
+            total <= alive_len as u64,
+            "success mass cannot exceed support mass"
+        );
         Some(total)
     }
 
@@ -894,20 +1204,19 @@ impl Solver {
     /// (k, PiKey); level-0 seeding bit-identical across the stack).
     fn pi(&self, k: usize, key: &Key, seat: Seat, hand: u32, legal_mask: u32) -> Option<u8> {
         self.check_belief_key(key);
-        let pk = PiKey {
-            voids: match self.sh.inner_belief {
-                InnerBelief::Voidless => None,
-                InnerBelief::VoidsCounted => Some(key.voids.expect("tracked inner belief")),
-            },
-            seat: seat.index() as u8,
+        #[cfg(feature = "bypass-l0-cache")]
+        if k == 0 {
+            if let Some(choice) = self.uncached_l0(key, seat, hand, legal_mask) {
+                return choice;
+            }
+        }
+
+        let cache_key = PolicyKey::from_state(
+            key,
+            seat,
             hand,
-            played: key.played,
-            leader: key.leader,
-            plays: key.plays.clone(),
-            banked_t1: key.banked_t1,
-            banked_t0: key.banked_t0,
-        };
-        let cache_key = PolicyKey::from(&pk);
+            self.sh.inner_belief == InnerBelief::VoidsCounted,
+        );
         let kb = k as u8;
         if let Some(&t) = self
             .sh
@@ -918,6 +1227,7 @@ impl Solver {
         {
             return Some(t);
         }
+
         if self.sh.deadline.passed() {
             self.sh.dead.store(true, Ordering::Relaxed);
             return None;
@@ -935,8 +1245,39 @@ impl Solver {
                 ^ record_hash(key),
         );
         let maximize = seat.team() == Team::T1;
+        #[cfg(feature = "stack-dice")]
+        if k == 0 && (1..=8).contains(&n_k) && self.sh.inner_belief == InnerBelief::Voidless {
+            let choice = compact_dice::prepared_choice(
+                &self.sh,
+                key,
+                seat.index(),
+                hand,
+                maximize,
+                sizes,
+                n_k,
+                &mut rng,
+                legal_mask,
+            );
+            let choice = match choice {
+                Some(tile)
+                    if !self.sh.dead.load(Ordering::Relaxed) && !self.sh.deadline.passed() =>
+                {
+                    tile
+                }
+                _ => {
+                    self.sh.dead.store(true, Ordering::Relaxed);
+                    return None;
+                }
+            };
+            self.sh
+                .pi_shard(kb, &cache_key)
+                .lock()
+                .expect("pi shard poisoned")
+                .insert((kb, cache_key), choice);
+            return Some(choice);
+        }
         let root = Key {
-            voids: pk.voids,
+            voids: key.voids,
             played: key.played,
             leader: key.leader,
             plays: key.plays.clone(),
@@ -951,6 +1292,97 @@ impl Solver {
         } else {
             self.sh.modeled_selection
         };
+        #[cfg(feature = "bounded-choice")]
+        if k == 0 && (1..=8).contains(&n_k) {
+            let worlds = self.sh.inner_belief.sample(
+                self.sh.dcl,
+                seat,
+                hand,
+                key,
+                sizes,
+                n_k,
+                &mut rng,
+                self.sh.deadline,
+            )?;
+            self.sh.inner_worlds_by_level[k].fetch_add(n_k as u64, Ordering::Relaxed);
+            let seeds = (0..n_k).map(|_| rng.next_u64()).collect();
+            let dice = Solver::new(
+                Arc::clone(&self.sh),
+                seat,
+                hand,
+                maximize,
+                worlds,
+                seeds,
+                Field::Dice,
+            )
+            .with_ordering(self.ordering);
+            let choice = compact_dice::fixed_choice(&dice, &root, &mask_bits(legal_mask));
+            dice.flush_nodes();
+            let choice = match choice {
+                Some(tile)
+                    if !self.sh.dead.load(Ordering::Relaxed) && !self.sh.deadline.passed() =>
+                {
+                    tile
+                }
+                _ => {
+                    self.sh.dead.store(true, Ordering::Relaxed);
+                    return None;
+                }
+            };
+            self.sh
+                .pi_shard(kb, &cache_key)
+                .lock()
+                .expect("pi shard poisoned")
+                .insert((kb, cache_key), choice);
+            return Some(choice);
+        }
+        #[cfg(feature = "fixed-policy-choice")]
+        if k > 0 && rule == selection::Rule::Fixed {
+            let worlds = self.sh.inner_belief.sample(
+                self.sh.dcl,
+                seat,
+                hand,
+                key,
+                sizes,
+                n_k,
+                &mut rng,
+                self.sh.deadline,
+            )?;
+            self.sh.inner_worlds_by_level[k].fetch_add(n_k as u64, Ordering::Relaxed);
+            let modeled = Solver::new(
+                Arc::clone(&self.sh),
+                seat,
+                hand,
+                maximize,
+                worlds,
+                Vec::new(),
+                Field::Level(k - 1),
+            )
+            .with_ordering(self.ordering);
+            let candidates = mask_bits(legal_mask);
+            #[cfg(feature = "compact-policy")]
+            let choice = compact_policy::fixed_choice(&modeled, &root, &candidates)
+                .unwrap_or_else(|| modeled.fixed_policy_choice(&root, &candidates));
+            #[cfg(not(feature = "compact-policy"))]
+            let choice = modeled.fixed_policy_choice(&root, &candidates);
+            let choice = match choice {
+                Some(tile)
+                    if !self.sh.dead.load(Ordering::Relaxed) && !self.sh.deadline.passed() =>
+                {
+                    tile
+                }
+                _ => {
+                    self.sh.dead.store(true, Ordering::Relaxed);
+                    return None;
+                }
+            };
+            self.sh
+                .pi_shard(kb, &cache_key)
+                .lock()
+                .expect("pi shard poisoned")
+                .insert((kb, cache_key), choice);
+            return Some(choice);
+        }
         let chosen = selection::select(
             rule,
             &mask_bits(legal_mask),
@@ -1006,9 +1438,95 @@ impl Solver {
         Some(choice)
     }
 
+    /// Fixed modeled-mind choice from one ordered sampled bundle. The public
+    /// root still uses action_values, which reports every exact rational value.
+    #[cfg(feature = "fixed-policy-choice")]
+    fn fixed_policy_choice(&self, key: &Key, tiles: &[u8]) -> Option<u8> {
+        assert!(!tiles.is_empty());
+        debug_assert!(tiles.windows(2).all(|w| w[0] < w[1]));
+        let result = (|| {
+            let mass = self.alive_of(key.alive).len() as u64;
+            let mut best: Option<(u8, u64)> = None;
+            for &id in tiles {
+                if self.sh.deadline.passed() {
+                    return None;
+                }
+                let tile = Domino::from_index(id as usize).expect("legal tile");
+                let child = self.child_after_play(key, tile, key.alive);
+                let value = self.solve_count(&child)?;
+                if best.as_ref().is_none_or(|&(_, prior)| {
+                    if self.maximize {
+                        value > prior
+                    } else {
+                        value < prior
+                    }
+                }) {
+                    best = Some((id, value));
+                }
+                // Strictly unbeatable value; ascending candidates retain the
+                // first tile on every tie, including unvisited later ties.
+                if (self.maximize && value == mass) || (!self.maximize && value == 0) {
+                    break;
+                }
+            }
+            if self.sh.deadline.passed() {
+                None
+            } else {
+                best.map(|(tile, _)| tile)
+            }
+        })();
+        self.flush_nodes();
+        result
+    }
+
     /// Evaluate a complete ordered root comparison on this solver's common
     /// worlds. Statistics are flushed on success AND refusal.
     pub fn action_values(&self, key: &Key, tiles: &[u8]) -> Option<selection::Values> {
+        #[cfg(feature = "compact-dice")]
+        if let Some(values) = compact_dice::action_values(self, key, tiles) {
+            // The compact recurrence counts successful sample IDs. Keep the
+            // public exact rational boundary and the caller's candidate order.
+            let result = values.map(|counts| {
+                let denominator = BigInt::from(self.worlds.len());
+                tiles
+                    .iter()
+                    .copied()
+                    .zip(counts)
+                    .map(|(tile, count)| {
+                        (
+                            tile,
+                            BigRational::new(BigInt::from(count), denominator.clone()),
+                        )
+                    })
+                    .collect()
+            });
+            self.flush_nodes();
+            return result;
+        }
+        #[cfg(all(feature = "parallel", feature = "parallel-roots"))]
+        if self.parallel && tiles.len() > 1 {
+            // Each legal root candidate uses the same frozen bundle. Indexed
+            // parallel collection preserves the exact caller order; memo and
+            // policy tables already synchronize their pure completed values.
+            let values: Vec<Option<(u8, BigRational)>> = tiles
+                .par_iter()
+                .map(|&id| {
+                    if self.sh.deadline.passed() {
+                        return None;
+                    }
+                    let tile = Domino::from_index(id as usize).expect("legal tile");
+                    let child = self.child_after_play(key, tile, 0);
+                    Some((id, self.solve(&child)?))
+                })
+                .collect();
+            let result = if self.sh.deadline.passed() {
+                None
+            } else {
+                values.into_iter().collect()
+            };
+            self.flush_nodes();
+            return result;
+        }
         let result = (|| {
             let mut values = Vec::with_capacity(tiles.len());
             for &id in tiles {
@@ -1979,3 +2497,387 @@ pub fn level1_race_refined(
 }
 
 pub mod partnership_wire;
+
+#[cfg(all(test, feature = "mask64-support-arena"))]
+mod mask64_support_tests {
+    use super::*;
+
+    #[test]
+    fn solver_keeps_root_zero_and_falls_back_above_sixty_four_worlds() {
+        for n in [9, 40, 64, 65] {
+            let shared = Arc::new(Shared::new(
+                decl_of(6),
+                30,
+                vec![1],
+                0,
+                7,
+                Deadline::after(Duration::from_secs(10)),
+            ));
+            let solver = Solver::new(
+                shared,
+                Seat::S0,
+                0,
+                false,
+                vec![[0; 4]; n],
+                Vec::new(),
+                Field::Dice,
+            );
+            assert!(solver.small_support.is_none());
+            assert_eq!(solver.mask64_support.is_some(), n <= 64);
+            assert_eq!(solver.alive_sets(), 1);
+            assert_eq!(
+                solver.alive_of(0).iter().collect::<Vec<_>>(),
+                (0..n as u32).collect::<Vec<_>>()
+            );
+            let subset = vec![0, (n / 2) as u32, (n - 1) as u32];
+            let id = solver.intern(subset.clone());
+            assert_ne!(id, 0);
+            assert_eq!(solver.intern(subset.clone()), id);
+            assert_eq!(solver.alive_of(id).iter().collect::<Vec<_>>(), subset);
+            assert_eq!(solver.alive_sets(), 2);
+        }
+    }
+}
+
+#[cfg(all(test, feature = "fast-policy", feature = "parallel"))]
+mod fast_policy_tests {
+    use super::*;
+
+    #[test]
+    fn small_serial_policy_matches_parallel_field_at_partial_trick() {
+        // Five completed no-count tricks leave all count tiles live. The two
+        // samples share the focal hand but distribute the field hands
+        // differently; sample IDs remain distinct even at equal outcomes.
+        let remaining = [0u8, 8, 11, 15, 20, 25, 26, 27];
+        let unplayed = remaining.iter().fold(0u32, |mask, &t| mask | (1u32 << t));
+        let boundary_played = FULL_MASK & !unplayed;
+        let worlds = vec![
+            [
+                bit(Domino::ALL[0]) | bit(Domino::ALL[27]),
+                bit(Domino::ALL[8]) | bit(Domino::ALL[25]),
+                bit(Domino::ALL[11]) | bit(Domino::ALL[20]),
+                bit(Domino::ALL[15]) | bit(Domino::ALL[26]),
+            ],
+            [
+                bit(Domino::ALL[0]) | bit(Domino::ALL[27]),
+                bit(Domino::ALL[8]) | bit(Domino::ALL[11]),
+                bit(Domino::ALL[20]) | bit(Domino::ALL[25]),
+                bit(Domino::ALL[15]) | bit(Domino::ALL[26]),
+            ],
+        ];
+        let key = Key {
+            voids: None,
+            played: boundary_played | bit(Domino::ALL[8]),
+            leader: 1,
+            plays: vec![8],
+            banked_t1: 3,
+            banked_t0: 2,
+            alive: 0,
+        };
+        let pool = rayon::ThreadPoolBuilder::new()
+            .num_threads(2)
+            .build()
+            .unwrap();
+        for decl_id in [6, 9] {
+            let eval = |parallel: bool| {
+                let shared = Arc::new(Shared::new(
+                    decl_of(decl_id),
+                    30,
+                    vec![1],
+                    boundary_played,
+                    2,
+                    Deadline::after(Duration::from_secs(10)),
+                ));
+                let solver = Solver::new(
+                    shared,
+                    Seat::S0,
+                    worlds[0][0],
+                    false,
+                    worlds.clone(),
+                    Vec::new(),
+                    Field::Level(0),
+                );
+                let solver = if parallel { solver.parallel() } else { solver };
+                solver.solve(&key).expect("complete field value")
+            };
+            let serial = eval(false);
+            let parallel = pool.install(|| eval(true));
+            assert_eq!(serial, parallel, "declaration {decl_id}");
+        }
+    }
+}
+
+#[cfg(all(test, feature = "parallel", feature = "adaptive-parallel"))]
+mod parallel_schedule_tests {
+    use super::*;
+
+    #[test]
+    fn root_vectors_match_serial_at_support_one_two_eight_and_forty() {
+        // Five completed no-count tricks leave these eight count-bearing
+        // tiles. The acting seat has two legal options after tile 8 was led.
+        let remaining = [0u8, 8, 11, 15, 20, 25, 26, 27];
+        let unplayed = remaining.iter().fold(0u32, |mask, &t| mask | (1u32 << t));
+        let boundary = FULL_MASK & !unplayed;
+        let hand = bit(Domino::ALL[11]) | bit(Domino::ALL[20]);
+        let key = Key {
+            voids: None,
+            played: boundary | bit(Domino::ALL[8]),
+            leader: 1,
+            plays: vec![8],
+            banked_t1: 3,
+            banked_t0: 2,
+            alive: 0,
+        };
+        let pool = rayon::ThreadPoolBuilder::new()
+            .num_threads(4)
+            .build()
+            .unwrap();
+        for decl_id in [6, 9] {
+            let decl = decl_of(decl_id);
+            assert_eq!(
+                mask_of(legal_plays(
+                    decl,
+                    set_of(hand),
+                    Some(decl.led_context(Domino::ALL[8]))
+                )),
+                hand
+            );
+            let sampler = Shared::new(
+                decl,
+                30,
+                vec![1],
+                boundary,
+                2,
+                Deadline::after(Duration::from_secs(30)),
+            );
+            let mut rng = SplitMix64(0xC0A2_5EED);
+            let sizes = [2, 1, 2, 2];
+            let worlds = sampler
+                .inner_belief
+                .sample(
+                    decl,
+                    Seat::S2,
+                    hand,
+                    &key,
+                    sizes,
+                    40,
+                    &mut rng,
+                    sampler.deadline,
+                )
+                .expect("forty lawful worlds");
+            for support in [1, 2, 8, 40] {
+                let evaluate = |parallel: bool| {
+                    let sh = Arc::new(Shared::new(
+                        decl,
+                        30,
+                        vec![1],
+                        boundary,
+                        2,
+                        Deadline::after(Duration::from_secs(30)),
+                    ));
+                    let solver = Solver::new(
+                        sh,
+                        Seat::S2,
+                        hand,
+                        false,
+                        worlds[..support].to_vec(),
+                        Vec::new(),
+                        Field::Level(0),
+                    );
+                    let solver = if parallel { solver.parallel() } else { solver };
+                    solver
+                        .action_values(&key, &[11, 20])
+                        .expect("complete root vector")
+                };
+                let serial = evaluate(false);
+                let parallel = pool.install(|| evaluate(true));
+                assert_eq!(parallel, serial, "declaration {decl_id}, support {support}");
+            }
+        }
+    }
+}
+
+#[cfg(all(test, feature = "fixed-policy-choice"))]
+mod fixed_policy_choice_tests {
+    use super::*;
+
+    fn position(second_field_play: bool) -> (u32, Key, Seat, u32) {
+        let remaining = [0u8, 8, 11, 15, 20, 25, 26, 27];
+        let unplayed = remaining.iter().fold(0u32, |mask, &t| mask | (1u32 << t));
+        let boundary = FULL_MASK & !unplayed;
+        // These eight tiles hold all 35 count points. Five completed tricks
+        // therefore banked exactly their five trick points (3 to T1, 2 to T0).
+        let outstanding = remaining
+            .iter()
+            .map(|&id| Domino::ALL[id as usize].count())
+            .sum::<u32>()
+            + 2; // two trick points remain
+        assert_eq!(outstanding, 37);
+        let mut key = Key {
+            voids: None,
+            played: boundary | bit(Domino::ALL[8]),
+            leader: 1,
+            plays: vec![8],
+            banked_t1: 3,
+            banked_t0: 2,
+            alive: 0,
+        };
+        assert_eq!(
+            u32::from(key.banked_t1) + u32::from(key.banked_t0) + outstanding,
+            42
+        );
+        assert!(key.banked_t1 < 30 && key.banked_t0 <= 42 - 30);
+        if second_field_play {
+            key.played |= bit(Domino::ALL[11]);
+            key.plays.push(11);
+            (
+                boundary,
+                key,
+                Seat::S3,
+                bit(Domino::ALL[15]) | bit(Domino::ALL[26]),
+            )
+        } else {
+            (
+                boundary,
+                key,
+                Seat::S2,
+                bit(Domino::ALL[11]) | bit(Domino::ALL[20]),
+            )
+        }
+    }
+
+    fn shared(decl: Decl, boundary: u32, deadline: Duration) -> Arc<Shared> {
+        Arc::new(Shared::new(
+            decl,
+            30,
+            vec![1, 2, 2],
+            boundary,
+            2,
+            Deadline::after(deadline),
+        ))
+    }
+
+    #[test]
+    fn modeled_fixed_choice_matches_complete_values_at_nonterminal_levels() {
+        for (decl_id, k, maximize) in [
+            (6, 1, false),
+            (6, 1, true),
+            (9, 1, false),
+            (9, 1, true),
+            (6, 2, false),
+            (6, 2, true),
+        ] {
+            let decl = decl_of(decl_id);
+            let (boundary, key, seat, hand) = position(maximize);
+            assert_eq!(seat.team() == Team::T1, maximize);
+            let led = decl.led_context(Domino::ALL[8]);
+            assert_eq!(mask_of(legal_plays(decl, set_of(hand), Some(led))), hand);
+            let choices = mask_bits(hand);
+            let reference_sh = shared(decl, boundary, Duration::from_secs(10));
+            let reference_host = Solver::new(
+                Arc::clone(&reference_sh),
+                Seat::S0,
+                0,
+                false,
+                Vec::new(),
+                Vec::new(),
+                Field::Level(0),
+            );
+            let sizes = reference_host.hand_sizes_at(&key);
+            let mut rng = SplitMix64(
+                INNER_SEED
+                    ^ mix(0x4C32 ^ k as u64)
+                    ^ mix(seat.index() as u64)
+                    ^ mix(u64::from(hand))
+                    ^ record_hash(&key),
+            );
+            let worlds = reference_sh
+                .inner_belief
+                .sample(
+                    decl,
+                    seat,
+                    hand,
+                    &key,
+                    sizes,
+                    reference_sh.n_inner[k],
+                    &mut rng,
+                    reference_sh.deadline,
+                )
+                .expect("complete fixed sample");
+            let root = Key {
+                alive: 0,
+                ..key.clone()
+            };
+            #[cfg(feature = "compact-policy")]
+            let compact_worlds = worlds.clone();
+            let reference = Solver::new(
+                Arc::clone(&reference_sh),
+                seat,
+                hand,
+                maximize,
+                worlds,
+                Vec::new(),
+                Field::Level(k - 1),
+            )
+            .action_values(&root, &choices)
+            .expect("complete old fixed vector");
+            let expected = best_of(&reference, maximize);
+
+            #[cfg(feature = "compact-policy")]
+            {
+                let compact_sh = shared(decl, boundary, Duration::from_secs(10));
+                let compact = Solver::new(
+                    compact_sh,
+                    seat,
+                    hand,
+                    maximize,
+                    compact_worlds,
+                    Vec::new(),
+                    Field::Level(k - 1),
+                );
+                assert_eq!(
+                    compact_policy::fixed_choice(&compact, &root, &choices),
+                    Some(Some(expected)),
+                    "direct compact choice decl={decl_id} level={k} maximize={maximize}"
+                );
+            }
+
+            let candidate_sh = shared(decl, boundary, Duration::from_secs(10));
+            let host = Solver::new(
+                candidate_sh,
+                Seat::S0,
+                0,
+                false,
+                Vec::new(),
+                Vec::new(),
+                Field::Level(0),
+            );
+            let actual = host
+                .modeled_choice(k, &key, seat, hand, hand)
+                .expect("choice-only modeled policy");
+            assert_eq!(
+                actual, expected,
+                "decl={decl_id} level={k} maximize={maximize}"
+            );
+        }
+    }
+
+    #[test]
+    fn choice_only_refuses_expired_deadline() {
+        let (boundary, key, seat, hand) = position(false);
+        let sh = shared(decl_of(6), boundary, Duration::ZERO);
+        let worlds = vec![[
+            bit(Domino::ALL[0]) | bit(Domino::ALL[27]),
+            bit(Domino::ALL[8]) | bit(Domino::ALL[25]),
+            hand,
+            bit(Domino::ALL[15]) | bit(Domino::ALL[26]),
+        ]];
+        let solver = Solver::new(sh, seat, hand, false, worlds, Vec::new(), Field::Level(0));
+        assert_eq!(solver.fixed_policy_choice(&key, &mask_bits(hand)), None);
+        #[cfg(feature = "compact-policy")]
+        assert_eq!(
+            compact_policy::fixed_choice(&solver, &key, &mask_bits(hand)),
+            Some(None)
+        );
+    }
+}

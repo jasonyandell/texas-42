@@ -289,7 +289,11 @@ mod carry_tests {
                 assert_eq!(warm["work"]["carried_policy_entries"], 0);
             }
         }
-        assert!(carried > 0, "test must actually carry completed answers");
+        if cfg!(feature = "cpu-speedups") {
+            assert_eq!(carried, 0, "the auction deliberately recomputes cheap L0 policies");
+        } else {
+            assert!(carried > 0, "the reference path must actually carry completed answers");
+        }
         assert!(pricer.price("{}").get("error").is_some());
         let valid = job(8);
         assert_eq!(pricer.price(&valid.to_string())["price"], kiln(&valid.to_string())["price"]);
@@ -299,7 +303,17 @@ mod carry_tests {
     fn every_policy_context_change_refuses_reuse_and_budget_state_is_fresh() {
         let (mut req, seed) = request(serde_json::from_value(job(8)["auction"].clone()).unwrap()).unwrap();
         req.decl = 5;
-        let (_, _, mut old) = price_with_cache(&req, 8, 60000, seed, None).unwrap();
+        let (_, _, old) = price_with_cache(&req, 8, 60000, seed, None).unwrap();
+        // L0 can bypass its cache. Populate a real L1 answer so this still
+        // checks nonempty transfer and every context refusal in both builds.
+        let hand = req.hand.iter().fold(0u32, |mask, t| mask | (1u32 << t));
+        let key = Key { voids: None, played: 0, leader: 1, plays: vec![],
+            banked_t1: 0, banked_t0: 0, alive: 0 };
+        let old = Arc::new(old);
+        Solver::new(Arc::clone(&old), Seat::S1, hand, true,
+            vec![], vec![], Field::Level(0))
+            .modeled_choice(1, &key, Seat::S1, hand, hand).unwrap();
+        let mut old = Arc::try_unwrap(old).unwrap_or_else(|_| panic!("cache fixture owns a solver"));
         let entries = old.pi_cache_len();
         assert!(entries > 0);
         let fresh = || Shared::new(solver::decl_of(5),30,vec![8,2],0,7,Deadline::after(Duration::from_secs(60)));

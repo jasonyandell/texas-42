@@ -6,8 +6,61 @@ license.workspace = true
 publish.workspace = true
 
 [features]
-default = ["parallel"]
+default = ["parallel", "cpu-speedups"]
+# Frozen v34 CPU implementation; --no-default-features retains the reference paths.
+cpu-speedups = [
+    "adaptive-parallel",
+    "aligned-cache",
+    "bounded-choice",
+    "bypass-l0-cache",
+    "bypass-l0-cache-all",
+    "closed-buckets",
+    "coalesced-deadlines",
+    "compact-depth",
+    "compact-dice",
+    "compact-policy",
+    "const-objective",
+    "fast-policy",
+    "fast-rng",
+    "fixed-policy-choice",
+    "hand-cache",
+    "lazy-record-hash",
+    "mask64-support-arena",
+    "parallel-roots",
+    "sharded-counters",
+    "sharded-root-memo",
+    "singleton-dice",
+    "stack-dice",
+    "trick-table",
+    "two-trick-single",
+    "two-trick-sum",
+]
 parallel = ["dep:rayon"]
+compact-dice = []
+bounded-choice = ["compact-dice"]
+stack-dice = ["bounded-choice"]
+hand-cache = []
+fast-policy = []
+sharded-counters = []
+sharded-root-memo = []
+mask64-support-arena = []
+fast-rng = []
+two-trick-sum = ["bounded-choice", "compact-depth", "trick-table"]
+two-trick-single = ["two-trick-sum"]
+lazy-record-hash = ["compact-dice"]
+coalesced-deadlines = ["stack-dice"]
+singleton-dice = ["compact-dice"]
+compact-depth = ["compact-dice"]
+parallel-roots = []
+compact-policy = ["fixed-policy-choice"]
+aligned-cache = []
+adaptive-parallel = ["parallel-roots"]
+closed-buckets = ["compact-policy"]
+trick-table = ["compact-dice"]
+const-objective = ["compact-dice"]
+bypass-l0-cache = ["stack-dice"]
+bypass-l0-cache-all = ["bypass-l0-cache"]
+fixed-policy-choice = []
 
 [dependencies]
 num-bigint.workspace = true

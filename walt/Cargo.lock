@@ -308,6 +308,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "walt-cpu-bench"
+version = "0.1.0"
+dependencies = [
+ "rayon",
+ "serde_json",
+ "walt",
+]
+
+[[package]]
 name = "walt-gpu-ref"
 version = "0.1.0"
 dependencies = [

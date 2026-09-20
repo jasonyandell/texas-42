@@ -1,5 +1,11 @@
 # One deployed Walt, two hosts
 
+Native builds enable the validated `cpu-speedups` bundle by default. Run
+`bash walt/tools/build_cpu.sh` from the repository root to rebuild the current
+experiment workers with the measured compiler settings. See the
+[CPU integration record](../CPU-SPEEDUPS.md) for conformance and portability.
+Wall-limited stages may now complete more work within the same budget.
+
 Exploratory player engineering, not a new strength result. Initial phone target:
 Pixel 9 / Chrome installed web app; newer iPhones are a secondary target.
 

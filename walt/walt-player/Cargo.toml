@@ -9,7 +9,8 @@ publish.workspace = true
 crate-type = ["cdylib", "rlib"]
 
 [features]
-default = ["parallel"]
+default = ["parallel", "cpu-speedups"]
+cpu-speedups = ["walt/cpu-speedups"]
 parallel = ["walt/parallel"]
 
 [dependencies]
