@@ -1,0 +1,18 @@
+{
+  "status": "planning-check-completed-not-released",
+  "tier": "exploratory engineering evidence",
+  "shipped_app_commit": "c7a1215d4d1ece0e24e13fef693ed17f55475112",
+  "candidate_source_commit": "f1a0fb045a316379a853b63df696d7e924349826",
+  "verified_recorded_source_hashes": 59,
+  "source_hash_mismatches": 0,
+  "completed_cases": 15,
+  "requested_cases": 15,
+  "exact_comparisons_passed": true,
+  "median_paired_speedup": 21.34534399249679,
+  "limits": [
+    "One opening hand across declarations, two higher targets, one late partner case, and three 160-world opening cases.",
+    "One alternating-order observation per build per case; frozen clock; Node host, not phone performance.",
+    "Includes prior Kiln optimizations as well as the CPU bundle; cannot attribute the full speedup to the CPU bundle alone.",
+    "Candidate was the previously built artifact matched to its committed parity hash. Fresh release build and browser/deadline acceptance remain outstanding."
+  ]
+}
