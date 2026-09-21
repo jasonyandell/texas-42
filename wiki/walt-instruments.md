@@ -3,7 +3,7 @@
 [Home](Home.md) · owns: the catalog of walt's executable instruments — every
 binary under `walt/walt/src/bin/` (54 `.rs` files plus `webtable.html` at
 `c00717d1`, 2026-09-07 — unchanged at this branch's HEAD `6a319216`, whose
-walt-side edits are prose files only) with its purpose, exact invocation, record path, gate
+walt-side edits are prose files only; 58 `.rs` files at `afd46420`, 2026-09-20, plus the five binaries of the `walt-player` crate and `walt-cpu-bench` — §1, §3.7, §6) with its purpose, exact invocation, record path, gate
 file, cost and status, organized by role and by program; the seats a person
 can play; how to read a walt record; the historical (archive-only) instruments
 of 2026-08-09 → 08-24 · Sources: the binary headers under
@@ -25,7 +25,7 @@ read from `main()`, not from prose); the probe records under
 [`walt/ci/check_m2_metal.sh`](../walt/ci/check_m2_metal.sh);
 [`walt/UNIFICATION-CENSUS.md`](../walt/UNIFICATION-CENSUS.md), [`walt/ARCHIVE.md`](../walt/ARCHIVE.md);
 `walt/walt-wasm/`, `walt/walt2-wasm/`, `walt/walt-m2-runner/src/main.rs`,
-`walt/walt-metal/tests/metal_device.rs`; the survey maps of 2026-09-07; fresh
+`walt/walt-metal/tests/metal_device.rs`; for §3.7 and the rows dated 2026-09-20: [`walt/CPU-SPEEDUPS.md`](../walt/CPU-SPEEDUPS.md), [`walt/CPU-RELEASE-PLAN.md`](../walt/CPU-RELEASE-PLAN.md), [`walt/CPU-PHONE-RELEASE.md`](../walt/CPU-PHONE-RELEASE.md), `walt/receipts/cpu-speedups-v34/`, `walt/receipts/cpu-live-plan-v1/`, `walt/receipts/cpu-live-release-v1/`, `walt/tools/`, `walt/walt-cpu-bench/src/`, [`walt/walt-player/README.md`](../walt/walt-player/README.md), `walt/walt-player/src/`, `walt/Cargo.toml`, the `walt-player` and `walt-cpu-bench` manifests; the survey maps of 2026-09-07; fresh
 measurements made 2026-09-13 and re-run 2026-09-20 on this machine (labelled
 as such).
 Related: [walt hub](walt.md), [walt-architecture](walt-architecture.md) (the
@@ -87,86 +87,84 @@ The unified crate holds **54 binaries plus `webtable.html`** (counted at
 "nineteen" and then "twenty-seven"; both were true when written and both went
 stale, so this page now counts by directory listing. The 54 are catalogued
 exactly once each: six play surfaces in §1 and forty-eight instruments in §3.
+(Corrected 2026-09-20: **58** `.rs` files at `afd46420` — the four added since
+`c00717d1` are `partner_review` and `partner_review_ablation` (`58e15cd1`,
+2026-09-13; "One optional investigation per process" and the "Post-hoc
+attribution instrument … This does not change the deployed candidate or
+select a new player"; [walt-partnership-program §11.2](walt-partnership-program.md#112-the-bounded-partnership-review-l1-partner-count-review-58e15cd1-2026-09-13)),
+`partner_rollout` (`a4c2c20d`, 2026-09-13; "One bounded continuation check.
+Its caller retains the completed baseline"; [§11.3](walt-partnership-program.md#113-the-partner-rollout-l1-partner-rollout-a4c2c20d-2026-09-13))
+and `scheme_worlds` (`231eb1b0`, 2026-09-18; "Batch membership audit of
+Scheme queries on supplied opening worlds … No outcome labels enter this
+process. No support enumeration or player call."; [walt-kiln §8](walt-kiln.md#8-mining-studies-from-played-worlds-2026-09-18)).
+Beside the crate, `walt-player` now carries five binaries and
+`walt-cpu-bench` one (§1, §6); §1 gains the `walt-table` row and the Plunge
+WASM seat; §3.7 is new.)
 
-> **Landings on main after `c00717d1` (2026-09-13 → 09-20), not yet curated into this chapter.** The paragraphs below were appended at their landing by the session that produced them; the curator folds them into the chapter in the next cycle.
+**Landings on `main` after `c00717d1` (2026-09-13 → 09-20), curated 2026-09-20
+(cycle 1).** The eight paragraphs that sat here under a "not yet curated"
+banner from their landing sessions were folded into the chapters that own
+them; every fact they carried survives at its pointer, and the numbers of
+the four mining paragraphs are kept in this list until their Kiln section is
+verified:
 
-**Native CPU integration — EXPLORATORY:** the
-[validated v34 CPU implementation](../walt/CPU-SPEEDUPS.md) is enabled in the
-current native player and experiment workers. The complete-game benchmark,
-independent replay auditor, source/binary manifests, and portable exact-output
-comparison are maintained under `walt/`. The generic fallback remains available;
-completed-solve parity is distinct from wall-limited wrapper stage completion.
-
-
-**Whole-game contrast mining, 2026-09-18:** the
-[sampled extension](../experiments/kiln/whole-game-contrasts-v1/RESULTS.md)
-covers own-hand sizes seven through two using the existing exact capacity-DP
-sampler and actual ordinary-player continuations after every legal action.
-It keeps original played moves, complete hidden-world/action contrasts,
-progressive sample history and executable witness-derived Schemes. All 9,200
-branches and 46,452 native memberships passed independent checks. Three frozen
-descriptions failed the fresh transfer gate; no learned policy or sampling
-gain is claimed. This is the broader discovery domain; the earlier endgame
-census remains a useful bounded correctness instrument.
-
-**Paired decision mining, 2026-09-18:** the
-[two-tile continuation rig](../experiments/kiln/decision-mining-v1/RESULTS.md)
-uses the actual shared deployed player after each forced legal root action,
-enumerates compatible worlds, audits actor-only calls and Scheme memberships,
-and fits simple Viewer-only action descriptions before a fresh exam. It found
-13 distinct positions with model-relative misses, but selected no move override.
-The resumable queue, all controls, original responses and paired helpful/harmful
-witnesses remain available. This is a bounded analysis instrument, not a player
-strength gain or a new sampling policy.
-
-**Outcome-first Scheme discovery, 2026-09-18:** the bounded
-[`threat_probe.py`](../experiments/kiln/threat_probe.py) derives ownership
-conjunctions from actual losing worlds, deletes facts, emits executable Schemes,
-and audits associations on separate worlds and source deals. The
-[first probe](../experiments/kiln/threat-probe-v1/RESULTS.md) preserves mixed
-transfer evidence, post-hoc ablations, original receipts, and native membership
-checks. No claim of learned causal threats, revised beliefs, or stronger play;
-physical tile literals remain in this first grammar. It is separate from the
-Viewer-only relational actor constructor and never supplies hidden facts to a
-live player's policy guard.
-
-**Fresh relational mining, 2026-09-18:** the
-[v2 probe](../experiments/kiln/mining-v2/RESULTS.md) generates role/property
-Schemes from those losing examples and freezes hypotheses before 2,880 new
-played games. Both registered primary associations replicated; a learned
-top-trump control reduced measured fixed-player estimator variance by 2.34%.
-The bounded fit/evaluate/publication tools preserve a query evidence catalog,
-original witnesses, counterexamples and inconclusive results. These are opening
-outcome/measurement instruments, not live policy guards, causal threat proofs,
-or established player-strength gains.
-
-**Shared deployed player, 2026-09-14:** [`walt-player`](../walt/walt-player/README.md)
-owns the complete L1/fallback/partner-check procedure for native Plunge and the
-phone WebAssembly worker. Real browser deadlines, completed checkpoints,
-device-local move scores and portable gym observation links. Exact native/wasm
-option-vector and paired-prefix conformance checks; no new strength claim.
-
-**Mac play-to-gym loop, 2026-09-13:** the
-[local Plunge table](../experiments/partnership/PLUNGE.md) calls the measured
-native L1 or L1 + partner rollout for bid-30 practice. It saves original
-own/public decision receipts and imports flagged finished-hand moves into
-the deployed gym, with named continuation players and capped, resumable full
-comparisons. [The study and first live examples](../experiments/partnership/campaigns/sunshine-playable-v1/RESULTS.md)
-keep the existing override rule and demonstrate the workflow. The exact
-comparison claim remains relative to uniform mechanical support and frozen
-continuations; this is not a new general strength result.
-
-**Bounded partnership continuation check, 2026-09-13:** the optional
-[`l1-partner-rollout`](../experiments/partnership/PARTNER-ROLLOUT.md) composes a
-completed default L1 move, a public count-offer Scheme gate, and paired full
-continuations using the shared native L1 evaluator. It can reconsider offering
-or withholding count, uses at most 64 compatible worlds and 500 ms extra, and
-retains the baseline on inadequate evidence or failure. The
-[experiment](../experiments/partnership/campaigns/sunshine-rollout-v1/RESULTS.md)
-found 11 improved / two harmed development roots, one improved / one harmed
-fresh root, and 64 ordinary mirrored ties. The complete fresh counterexample
-exposes a misleading deadline-truncated sample. This adds a usable player
-option and an adapter audit, not a general partnership-strength claim.
+- *Native CPU integration* (2026-09-20; "the validated v34 CPU implementation
+  is enabled in the current native player and experiment workers … The
+  generic fallback remains available; completed-solve parity is distinct
+  from wall-limited wrapper stage completion") → **§3.7 below**.
+- *Whole-game contrast mining, paired decision mining, outcome-first Scheme
+  discovery, fresh relational mining* (2026-09-18;
+  `experiments/kiln/{whole-game-contrasts-v1,decision-mining-v1,threat-probe-v1,mining-v2}/RESULTS.md`,
+  `experiments/kiln/threat_probe.py`) →
+  [walt-kiln §8](walt-kiln.md#8-mining-studies-from-played-worlds-2026-09-18).
+  As the landing paragraphs stated them: the sampled whole-game extension
+  "covers own-hand sizes seven through two using the existing exact
+  capacity-DP sampler and actual ordinary-player continuations after every
+  legal action"; "All 9,200 branches and 46,452 native memberships passed
+  independent checks. Three frozen descriptions failed the fresh transfer
+  gate; no learned policy or sampling gain is claimed"; the two-tile
+  continuation rig "uses the actual shared deployed player after each forced
+  legal root action" and "found 13 distinct positions with model-relative
+  misses, but selected no move override … This is a bounded analysis
+  instrument, not a player strength gain or a new sampling policy"; the
+  bounded `threat_probe.py` "derives ownership conjunctions from actual
+  losing worlds" with "No claim of learned causal threats, revised beliefs,
+  or stronger play; physical tile literals remain in this first grammar";
+  the v2 probe "freezes hypotheses before 2,880 new played games. Both
+  registered primary associations replicated; a learned top-trump control
+  reduced measured fixed-player estimator variance by 2.34%" — "opening
+  outcome/measurement instruments, not live policy guards, causal threat
+  proofs, or established player-strength gains." The `walt-player` workers
+  those studies run on (`kiln-decision-worker`, `kiln-scheme-contrast-worker`)
+  and the `scheme_worlds` bin are listed in §0, §1 and §6.
+- *Shared deployed player* (2026-09-14; "owns the complete
+  L1/fallback/partner-check procedure for native Plunge and the phone
+  WebAssembly worker. Real browser deadlines, completed checkpoints,
+  device-local move scores and portable gym observation links. Exact
+  native/wasm option-vector and paired-prefix conformance checks; no new
+  strength claim") → the `walt-table` and Plunge-WASM rows of **§1** and
+  [walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward).
+- *Mac play-to-gym loop* (2026-09-13; `experiments/partnership/PLUNGE.md`,
+  `campaigns/sunshine-playable-v1/RESULTS.md`; "keep the existing override
+  rule and demonstrate the workflow. The exact comparison claim remains
+  relative to uniform mechanical support and frozen continuations; this is
+  not a new general strength result") →
+  [walt-gym §11.3](walt-gym.md#113-the-mac-sunshine-table-and-the-live-move-gym-intake-5bdd8b48-2c2d7ae2)
+  and [walt-partnership-program §11.5](walt-partnership-program.md#115-the-playable-campaign-the-override-study-and-the-first-played-examples-5bdd8b48-2c2d7ae2-2026-09-13).
+- *Bounded partnership continuation check* (2026-09-13; `l1-partner-rollout`,
+  `experiments/partnership/PARTNER-ROLLOUT.md`,
+  `campaigns/sunshine-rollout-v1/RESULTS.md`: "at most 64 compatible worlds
+  and 500 ms extra"; "11 improved / two harmed development roots, one
+  improved / one harmed fresh root, and 64 ordinary mirrored ties. The
+  complete fresh counterexample exposes a misleading deadline-truncated
+  sample. This adds a usable player option and an adapter audit, not a
+  general partnership-strength claim") →
+  [walt-partnership-program §11.3](walt-partnership-program.md#113-the-partner-rollout-l1-partner-rollout-a4c2c20d-2026-09-13)
+  (and [§11.2](walt-partnership-program.md#112-the-bounded-partnership-review-l1-partner-count-review-58e15cd1-2026-09-13)
+  for `l1-partner-count-review`). Sunshine as a whole:
+  [walt-partnership-program §11](walt-partnership-program.md#11-sunshine-2026-09-13--09-15-the-partner-aware-live-player),
+  [walt-gym §11](walt-gym.md#11-sunshine-2026-09-13-the-gym-under-deployed-continuations-and-the-live-move-intake),
+  [walt-scheme-fix §10.4](walt-scheme-fix.md#104-sunshine-2026-09-13--09-15-the-count-offer-query-as-a-live-gate-and-recipes-with-a-selectable-continuation).
 
 ## 1. The seats you can play
 
@@ -176,6 +174,11 @@ untouched by every program since 2026-08-24 (FH-A10 restates it); every other
 seat below is a **variant surface with no strength claim**, seated only by an
 explicit flag or by launching a different binary. Nothing here is a strength
 claim; the one arena outcome (§4) is an exploratory result about play.
+(Corrected 2026-09-20: the fence held through `c00717d1`. Since 2026-09-14 the
+seat Plunge ships and the seat the Mac bridge runs is `walt-table` /
+`walt-player`'s WASM — the two rows added below — under conformance receipts
+only; `walt/MAP.md`: "portability/conformance work, not evidence of improved
+game strength"; [walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward).)
 
 | Surface | Library entry point | How it is spoken to | Declared defaults | Per-move cap | Status |
 | --- | --- | --- | --- | --- | --- |
@@ -185,11 +188,17 @@ claim; the one arena outcome (§4) is an exploratory result about play.
 | `controller_bridge` | `solver::act` — one decision in, one `ActDecision` out carrying the `route` that chose the tile and a `settled` flag that is false on every fallback; δ-safe elimination inside the correctness boundary, level-1 ranking among ties/δ-survivors outside it (δ_run = 1/100) | The same line protocol as `walt_bridge` — an external consumer seats it with zero changes on its side; empty stdin exits 0 | `controller_bridge [world_cap=128] [exact_cap=2000] [n_outer=200] [n0=8] [n_declare=100] [per_move_secs=120]`; env `WALT_CTRL_WORLD_CAP / WALT_CTRL_EXACT_CAP / WALT_N_OUTER / WALT_N0 / WALT_N_DECLARE / WALT_PER_MOVE`; env-only `WALT_CTRL_N_OUTER_FROZEN=8 / WALT_CTRL_N0_FROZEN=2`; `WALT_DECLARE_FULL=1`; `WALT_CTRL_LOG=<base>` (one JSONL record per decision: route, settled flag, among-set, fallback options) | 120 s | variant surface (2026-08-24, #37); touched by the σ1-repair (#83) and the 2026-09-06 inner-belief option; never a default; the owning register is `CONTROLLER-PLAYER.md` |
 | `waking_bridge` | `solver::waking::WakingSeat` — act's σ0 baseline always, a hard-budgeted wake check, wake-gated σ1 escalation through `solver::targeted`; one seat per dealt hand so the σ1 action cache amortizes | The same line protocol; plus `waking_bridge driven <out.jsonl> [n_hands=2] [same knobs]` (whole fresh-deal hands with the waking seat at all four chairs; `WAKING_DRIVEN_SEED` mixed per hand, bidder rotating, bid 30) | Same six positional/env knobs as `controller_bridge`; env-only `WALT_WAKING_N_OUTER_FROZEN=8 / WALT_WAKING_N0_FROZEN=2 / WALT_WAKE_WORLDS=24 / WALT_WAKE_EXACT_CAP=1024 / WALT_WAKE_ESC_EXACT_CAP=4096 / WALT_WAKE_ESC_BASELINE=128 / WALT_WAKE_ESC_E3=24`; census JSONL to `$WALT_WAKING_LOG.<pid>` | 120 s | variant surface + instrument (2026-08-25, #54); record `probes/waking/driven.jsonl` + `summary.txt` (2 hands, 56 decisions, 283,899,641 µs of decision compute — "not affordable as-is"); gates `tests/solver_waking.rs` (9 tests; the 2 `compile_fail` typing locks are doctests on `src/solver/waking.rs`) |
 | `partnership` (`--stream`) | `solver::partnership` + `solver::selection` (one fixed/refine/race-refine selection authority shared by the real root and the modeled minds) and `solver::inner_belief` (voidless / voids-counted) | One request on stdin → one JSON line; `partnership --stream` answers blank-line-separated requests one after another (protocol errors as `{"status":"error","error":…}`, 16 KB request cap). **The first line of a request is the bare mode word** — `status`, `baseline`, `partner` or `all-l1` (there is no `mode` field; a first line `mode status` is rejected as `unknown mode`) — and every following line is `field value…` over exactly these fields: `decl` (0..7, 9), `bid` (30..42), `seat`, `bidder`, `hand` (7 ids), `plays` (actor/tile pairs), `seed`, `n` (1..640), `n0` (1..64), `n1` (1..64), `budget_ms` (≤ 14000), `inner_belief` (0 voidless / 1 voids-counted), `selection` / `modeled_selection` (0 fixed / 1 refine / 2 race-refine); even `status` needs the sampling fields to parse. Reply: `legal, leader, points, trick`, and for the play modes `choice, options [[tile, "numer", "denom"]…], selection, modeled_selection, inner_belief, outer_worlds, outer_draw_attempts, pi_calls_by_level, inner_worlds_by_level, nodes, solver_us`. There is no `--help`; a bare run prints `missing mode` and exits 2. `experiments/partnership/player.py::native_text` writes this grammar | The families are declared by `experiments/partnership/player.py` (`BINARY = walt/target/release/partnership`): L1 = n 40 / n0 8; L2 Partner = 40/8/2 (partner modeled at level 1, opponents level 0) | 14 s (the wrapper's ceiling) | live surface of the [partnership program](walt-partnership-program.md) — the L1 / L2 Partner / L2 All families behind the 524- and 400-game batteries; exploratory; not a default anywhere (2026-09-06, `cfb0fb25`, `9236ca7f`, `dbcc698f`). Measured 2026-09-13 (release binary of the main checkout): `status` on the opening root answers `{"legal":[0, 1, 2, 3, 4, 5, 6],"leader":1,"points":[0, 0],"trick":1}` in 3 ms; a `partner` request at n 8 / n0 2 / n1 2 answers in 0.63 s (`solver_us` 626,070; 4,409,364 nodes) |
+| `walt-table` (`walt/walt-player/src/bin/walt-table.rs`, 13 lines; crate `walt-player`, `cffd66fc` 2026-09-14) | `walt_player::handle` — "the complete live decision sequence": reconstruct the actor's own/public position, retain a legal fallback, complete an 8/2 L1 reserve (≤ 1.5 s), fixed L1 40/8, then optionally ≤ 500 ms of the count-offer partner rollout (`policy_search::partner_rollout`); `auction` / `auction_price` / `auction_merge` survey all nine declarations at 4/12/40/160 worlds; wire adapter `solver::partnership_wire`, shared with `partnership` | One JSON object per line in (`request` with exactly the seven fields, `worlds` 1..=640, `partner`, optional `budget_ms` 100..=20 000; unknown fields, hidden hands and unsupported contracts rejected), newline-delimited checkpoint/result envelopes out ("Each completed stage emits a full checkpoint"); `experiments/partnership/table_player.py` supplies process lifetime and the independent Python rules check; Plunge's Mac bridge (`plunge_bridge.py`) calls that adapter | 40/8 fixed, voidless, `n1 2`, `budget_ms` 14 000; the bidder's opening lead and "Think deeper" 160 worlds / 20 s without the partner check; auction 160 worlds / 20 s, bid when best modeled make ≥ 3/4 ("deliberately an uncalibrated bidding policy"); targets 30–42 (marks contracts 42) | 14 s per play; 20 s for the opening lead and each auction decision | **the deployed seat on the Mac since 2026-09-14** and the same crate Plunge ships as WASM; `cpu-speedups` default since 2026-09-20 (`701e8589`). Build `cargo build --locked --release --manifest-path walt/Cargo.toml -p walt-player --bin walt-table` or `bash walt/tools/build_cpu.sh`; check `node walt/walt-player/check.mjs /path/to/parity.json` (nine declarations + a late root native vs WASM, exact option vectors, a 64-world partner prefix, malformed inputs, an accelerated-clock deadline) and `node walt/walt-player/auction-check.mjs`; `tests/contracts.rs` (1). Conformance receipts only — "not evidence of improved game strength" (`walt/MAP.md`); [walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward) |
 
-The **phone** is the seat plunge ships, and it is not one of the 54 binaries:
+The **phone** is the seat plunge ships, and it is not one of the 54 binaries
+(corrected 2026-09-20: through `c00717d1` the phone was the `walt-wasm` row;
+since 2026-09-14 it is `walt-player`'s WASM — the first row below; the
+`walt-wasm` and `walt2-wasm` rows describe the repository's oracle crates and
+the archived phone comparand `experiments/partnership/reference/phone/`):
 
 | Oracle | Entry point | Defaults | Build and verify | State of the committed binary |
 | --- | --- | --- | --- | --- |
+| **`walt-player` WASM — the phone since 2026-09-14** (no committed `pkg/`: Plunge's `scripts/update-walt.py` builds `-p walt-player --lib --no-default-features --features cpu-speedups --target wasm32-unknown-unknown` and imports it with recorded source and asset hashes; the 2026-09-20 release is 6,265,946 bytes, SHA-256 `b3016e18…`, source `1dfd0e22…`, `walt/receipts/cpu-live-release-v1/release.json`) | `handle` over a JSON object: play (`request` + `worlds` + `partner` + `budget_ms`), `auction`, `auction_price`, `auction_merge`; exactly two host imports (monotonic microseconds, checkpoint copy), the clock installed by the adapter through `walt::clock` before solving; one dedicated Web Worker plus independent declaration workers for the auction (two on the phone by default, one on a single-processor browser) | as `walt-table`: 40/8 fixed voidless with the 8/2 reserve and ≤ 500 ms partner rollout in 14 s; opening lead 160 worlds / 20 s; auction 160 worlds / 20 s at threshold 3/4; release manifest `worlds 40, inner_worlds 8, budget_ms 14000, partner_ms 500, auction_worlds 160, auction_budget_ms 20000, opening_worlds 160, opening_budget_ms 20000, opening_partner false`; `cpu-speedups` on, native parallelism off | `node walt/walt-player/check.mjs` (native vs WASM on nine declarations and a late root: exact option vectors, the completed fallback, a 64-world partner prefix, malformed inputs, an accelerated browser clock forcing a deadline); `auction-check.mjs`; `compare-builds.mjs BEFORE.wasm AFTER.wasm OUT.json` between two builds under a frozen clock ("Its Node-host timings are not phone measurements") | Verified from Chrome against the hosted site on 2026-09-20 (release.json: production version and served WASM SHA checked; offline reload, a cached 160-world solve and empirical bidding passed). "The phone itself has not yet been timed" (2026-09-14) and every later timing is "Mac Chrome timings, not Pixel measurements or a controlled cross-device benchmark" (2026-09-20) — §3.7 |
 | `walt-wasm` (`pkg/walt.wasm`, 304,312 bytes committed — the pkg README's "~250 KB" is stale — zero imports; `pkg/walt.ts`) | `api::handle` — request kinds `play` / `bid` / `declare` over a string API; play fields `seat, decl, bid, bidder, hand, plays, seed, n, n0, race, viewer, viewer_hand`; bid fields `hand, need, theta num den` | `n=40`, `n0=8`, θ = 11/16, `race` opt-in (`race: true` → race-then-refine, response marked `raced`), `budgetMs` inert in wasm (no monotonic clock — budget by `n`) | `sh walt/walt-wasm/build.sh` (needs `rustup target add wasm32-unknown-unknown`; Node ≥ 23.6) builds, copies to `pkg/`, runs `smoke.mjs`, which drives a full hand and byte-compares with the native `tests/full_hand.rs` trace (28/28); `cargo test --release -p walt-wasm` | `pkg/walt.wasm` was last rebuilt at `df3ffcd5` (2026-08-24). `src/api.rs` changed after that at `161b0195` (2026-09-02, σ1-repair) and `dbcc698f` (2026-09-06, inner-belief option), and the `walt` crate it links changed with them — **the committed binary is behind its source**. Whether that is intentional is an open item: `experiments/partnership/BASELINE.md` deliberately freezes the phone artifact plunge actually runs (the Plunge checkout at `122ea7a5`, whose `walt.wasm` was added at plunge `1810da20` on 2026-08-22; byte-for-byte texas-42 `9a056f20` of 2026-08-19) as an external anchor |
 | `walt2-wasm` (`pkg/walt2.wasm`, 282,019 bytes committed; `pkg/walt2.ts`) | same ABI export names and request mapping, `walt2` request magic; play evaluated against modeled level-1 minds (`Field::Level(1)`, `n_inner=[n0,n1]`) over the same outer worlds and seed formula as walt-wasm (common random numbers across levels); bid/declare are walt-wasm's auction handlers, byte-identical by a native equality test | `n=8`, `n1=4`, `n0=2` — "thinks for a bit"; the pkg README carries a measured trick-1 latency grid | `sh walt/walt2-wasm/build.sh`; `cargo test --release -p walt2-wasm` | last rebuilt at `33d541fe` (2026-08-25, #58); its `src/api.rs` changed at `161b0195` and `dbcc698f` likewise. Never a default; whether small-knob level 2 beats big-knob level 1 at equal latency is an open head-to-head the README states |
 
@@ -503,6 +512,303 @@ landed with the full walt gate deliberately waived (the partnership packet's
 | `policy_lab` | One seed's paired policy-construction experiment: for a fixture root (random own hand, fixed root hand with `--hand`, or an existing gym `--request`) and a nested training-world stream, three arms per schedule prefix — fresh (empty cache), persistent (retained exact search state), compose (singleton-donor `ActionPool` union) — under a node budget and a frozen field (`hash-legal` \| `l0-8` \| `gym`), replaying each extracted `TablePolicy` on train/test worlds, exporting it as a Scheme `PolicyProgram`, re-parsing/compiling/re-replaying the serialized program (parity asserted), optional `--exact-test` full-fiber repricing (fiber ≤ 10,000), optional `--artifact-dir`; prints `policy-lab-v1` JSON rows plus replay records | `policy_lab --seed N --tiles 2..7 --samples 1,2,4,8 --test-worlds N --node-budget N --decl 0..7\|9 --mode random-own-hand\|fixed-root-hand [--hand seven,ids] [--field hash-legal\|l0-8\|gym] [--artifact-dir PATH]` or `policy_lab --request FILE --seed N [--exact-test 1]`; `policy_lab --help`. Defaults: seed 420600, tiles 7, samples 1,2,4,8,16,32, test 128, node budget 2,000,000, decl 0. Outer runners `experiments/partnership/policy_campaign.py`, `policy_gym.py` | 32 opening roots on the hash-legal field 17.189 s (10 workers); 12 roots on the native L0-8 field 64.590 s | instrument (2026-09-07, `08fad726`) | The persistent arm roughly halves search with exact completed-policy parity (287 + 72 three-arm comparisons agree); complete singleton-donor composition preserves the training optimum but does not repay its setup cost; exact table policies fit training worlds far better than held-out worlds |
 | `relational_lab` | Bounded native jobs for the shared-policy campaign: `generate` finds the first qualifying own/public root in a seed range (tiles 2..4, support ≤ `--max-worlds`, unresolved bid 30, ≥ 2 legal) and prints a `relational-root-v1` request; `fit` learns a shared one-mode `RelationalLearner` program from a lessons file under clause/beam/AST/work caps and writes `candidate-N.policy` files with digests and metrics; `evaluate` runs `learning_eval` over a request + policies directory with a field, seed, samples, work and optional information prices | `relational_lab generate [--seed 910000] [--tiles 3] [--max-worlds 512] [--attempts 1000] [--decl 6]` \| `relational_lab fit --lessons FILE --output DIR [--clauses 3] [--beam 6] [--ast 256] [--work 2000000]` \| `relational_lab evaluate --request FILE --policies DIR --output DIR [--field gym] [--seed 0] [--samples 16] [--work 2000000] [--prices on]`; `relational_lab --help`. Outer runners `experiments/partnership/relational_campaign.py`, `relational_exam.py`, `verify_relational.py` | generate milliseconds; the gym-field pipeline 39.411 s (10 workers), the L0-8 pipeline 11.352 s (8 workers) | instrument (2026-09-07, `c00717d1` = HEAD) | Learned actors have ≤ 3 clauses from a fixed 14-clause grammar and still trail sampled tables; one frozen-table fallback substitution gains an uncertain 0.771 pp; L0 development selects the empty baseline; the fixed price basis tightens no tested bound, and with fixed lowers a state-common upper cannot rerank actors (now tested explicitly); 8,694 independent full-game replays pass — positive engineering, negative strength |
 
+### 3.7 Native CPU speedups v34 and the phone release, 2026-09-18 → 09-20
+
+Owned here; the seat it serves is [walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward).
+
+Curated 2026-09-20 from `701e8589` (enable), `f1a0fb04` (receipts),
+`1dfd0e22` (release plan and shipped-WASM parity), `3cf2536d` (deployed
+release record) — all 2026-09-20 — with the Kiln-round solver work of
+2026-09-18 that preceded them (`662f298c` cache keys, `1a43d763` small-support
+bitsets, `7377ff32` / `f91533cc` allocation and bitset removals, `91e8925e`
+the trick-strength rule table). Sources:
+[`walt/CPU-SPEEDUPS.md`](../walt/CPU-SPEEDUPS.md),
+[`walt/CPU-RELEASE-PLAN.md`](../walt/CPU-RELEASE-PLAN.md),
+[`walt/CPU-PHONE-RELEASE.md`](../walt/CPU-PHONE-RELEASE.md); receipts
+[`walt/receipts/cpu-speedups-v34/`](../walt/receipts/cpu-speedups-v34/),
+[`walt/receipts/cpu-live-plan-v1/`](../walt/receipts/cpu-live-plan-v1/),
+[`walt/receipts/cpu-live-release-v1/`](../walt/receipts/cpu-live-release-v1/);
+`walt/tools/{build_cpu.sh, verify_cpu_speedups.py, compare_cpu_wasm.mjs,
+audit_receipt.py, compare_panel.py}`; `walt/walt-cpu-bench/src/{main,mac_qos}.rs`;
+`walt/walt/Cargo.toml`. Results files outrank the prose; where they
+disagree it is said below. `walt/LOG.md` carries no entry after 2026-09-14
+(last touched at the branch merge `f92ee4d4`): these landings are recorded
+only in the three CPU documents, the top paragraph of `walt/MAP.md`, and
+`experiments/partnership/PLUNGE.md`.
+
+**Tier and sorting.** `CPU-SPEEDUPS.md`: "EXPLORATORY engineering
+evidence. This integrates the completed CPU campaign into the current
+partnership player. It changes the implementation of the existing sampled
+game, preserving sample identity (including repeated deals), deterministic
+Dice tapes, ascending choice ties, lawful information sets, exact rational
+root values, and refusal on an incomplete comparison. It is not a new belief
+model, stronger-player result, exact full-game solution, or kernel proof."
+Curator: adds to the deployed-player area; no rules-profile, objective,
+level or tier change. "v34" is the CPU campaign's implementation number (the
+campaign itself is `experiments/full-game-speed/`, not curated here; its
+frozen archive SHA-256 `804261f2…` and 1,035 verified source-file hashes are
+in `checks.json`).
+
+**What is enabled** (`CPU-SPEEDUPS.md` "What is enabled"; the umbrella
+feature `cpu-speedups` in `walt/walt/Cargo.toml` names 26 features and is
+default in `walt`, `walt-player` and `walt-cpu-bench`; `--no-default-features`
+"retains the reference paths"):
+
+- "Compact Dice and modeled-policy evaluation, stack preparation, exact
+  bounded choice, one-world and two-trick specializations, static trick
+  outcomes, constant objective specialization, and deferred record hashing."
+- "The identical small-range RNG with frozen rejection-state checks; sample
+  positions and random consumption remain unchanged."
+- "Cheap pure L0 policy recomputation instead of cache traffic, worker-sharded
+  diagnostic counters, aligned policy caches, sharded root memoization, and an
+  arena of 64-bit support masks for 9–64 sampled worlds."
+- "Parallel root comparisons and adaptive field prewarming, with serial paths
+  for small jobs and one-thread pools."
+- "Coalesced internal deadline checks plus mandatory completion/cancellation
+  checks at comparison boundaries; no partial vector becomes a decision."
+- "Guarded within-hand policy-cache transfer. A balanced boundary `(B,H)` has
+  normalized coordinate `H + |B|/4`. Transfer additionally requires identical
+  declaration, bid, inner sample budgets, inner-belief strategy, and modeled
+  selection. Malformed or incompatible boundaries refuse transfer."
+
+"The generic implementations remain available for unsupported sizes and
+modes, and in a `--no-default-features` build. Voids-counted inner beliefs
+keep their own sampling and cache context. Supports above 64 worlds retain
+the general arena. Diagnostic node counts, cache sizes, and policy-call
+counts may change; these counters never choose moves or stop search."
+Absent by design: "Rejected payoff tables, packed tables, root pivoting,
+padded tables, inner parallelism, and unfinished post-v34 bucket/profiling
+work are absent. The only lookup artifact is the validated 5,531,904-byte
+completed-trick table" — `walt/walt/src/solver/compact_dice/trick_table.bin`,
+9 · 28⁴ bytes, "Completed-trick outcomes in actor order, with no runtime
+initialization"; regenerate or check it against the rule algebra with
+`cargo run --offline --release --manifest-path walt/Cargo.toml -p walt --example generate_trick_table -- --check`.
+The module-by-module map of the 14 solver files this added is
+[walt-architecture §1.4](walt-architecture.md#14-the-solvers-thirty-eight-modules);
+the `rules.rs` change of the same round (a compile-time `TRICK_KEYS` table,
+gated by `rules_exhaustive`) is [walt-architecture §3.9](walt-architecture.md#39-the-2026-09-14--09-20-changes-to-rules-clock-gym-and-policy_search).
+
+**Build and run.** From the repository root, `bash walt/tools/build_cpu.sh`
+builds `walt-table`, `kiln-worker`, `kiln-play-worker`, `kiln-decision-worker`,
+`kiln-scheme-contrast-worker`, `partnership`, `partner_rollout`,
+`partnership_gym` and `walt-cpu-bench` at `walt/target/release/` with
+`--locked --offline`, `-C target-cpu=native`, thin LTO, one codegen unit and
+the workspace's checked overflow; "Binaries built this way target the
+machine that built them." "There are no new sampler, model, sample-budget,
+or deadline defaults. `RAYON_NUM_THREADS` continues to control worker count;
+the reported timing panel used 18." `bash walt/tools/build_cpu.sh --features mac-qos`
+then `walt-cpu-bench --mac-qos interactive` is the benchmark runner's
+optional process-local macOS QoS control (`mac_qos.rs`: "No other process,
+thread pool, or system scheduling setting is modified"); its default remains
+ordinary scheduling, and "This option belongs only to the benchmark runner."
+
+**Evidence and limits — the native panel** (`receipts/cpu-speedups-v34/`).
+[`comparison.json`](../walt/receipts/cpu-speedups-v34/comparison.json)
+(schema `walt-full-game-panel-v1`, `status: verified`, scope "direct native
+requested search; no outer L1 reserve or fallback"): fixed **L2 Partner
+40/8/2**, cache cold, selection fixed, inner belief voidless, 20 000 ms per
+call, **12 paired games**, `all_choices_and_exact_values_equal: true`;
+reference full game median **1,830,484.5 µs** (range 999,937–3,633,494),
+candidate median **142,999.5 µs** (range 63,296–278,183); paired speedup
+median **13.13×**, range 9.33–15.80× (`summary.paired_speedup`;
+`CPU-SPEEDUPS.md` rounds these to "13.13x (range 9.33–15.80x); … 1.830s to
+0.143s"). The 12 games: frozen G1 (decl 6, bid 30; 1,313,156 → 140,812 µs,
+9.33×; nodes 87,717,645 → 30,889,922 — a diagnostic count), shuffled seeds
+420601–420608 at decl 6 (13.95×, 13.06×, 12.69×, 11.57×, 12.01×, 13.19×,
+13.02×, 13.28×), and seed 420609 at decl 0 (1,478,097 → 110,330 µs, 13.40×),
+decl 7 (999,937 → 63,296 µs, 15.80×) and decl 9 (1,041,320 → 69,864 µs,
+14.90×) — the "pip/doubles/no-trump fixtures"; 336 plays
+(`checks.json` `native_current_baseline_exact_plays`). Every game was
+independently replayed by `audit_receipt.py` before any timing was reported.
+Baseline ([`builds.json`](../walt/receipts/cpu-speedups-v34/builds.json)):
+the unmodified current player at `5ab08bbc`, `rustc 1.95.0`,
+`-C target-cpu=native`, thin LTO, 1 codegen unit, overflow checks on,
+18 Rayon workers, QoS default; binary SHA-256 `67728197…` (baseline) and
+`4bc030f5…` (optimized); `comparison_scope`: "completed fixed L2 Partner
+search; wall-limited wrapper stage outcomes may change".
+[`frozen-v34-parity.json`](../walt/receipts/cpu-speedups-v34/frozen-v34-parity.json):
+**8 games (224 plays)** against the campaign's own frozen v34 binaries
+(`experiments/full-game-speed/results/paired-table-arena-v1-native-v34-mask64-arena-*.json`),
+`all_choices_and_exact_values_equal: true`; "timings come from different
+sessions and are not compared." The document's fence, verbatim: "These are
+finite conformance receipts, not universal equivalence proofs." And: "The
+live wrapper has staged searches and a wall-clock budget. Faster evaluation
+can complete a later stage or more partner-review work before the same
+deadline; its resulting choice can therefore differ from a slower build's
+completed prefix. The measured speedup concerns completed fixed solves. It
+does not establish strength improvement or a device-wide speedup guarantee."
+[`checks.json`](../walt/receipts/cpu-speedups-v34/checks.json) (tier
+"exploratory engineering conformance"): native unit tests 59 passed; scoped
+integration 47 passed, 1 ignored ("pre-existing record-emission test") over
+`solver_compact_dice`, `solver_hand_cache`, `solver_ordering`,
+`solver_partnership`, `solver_policy`, `solver_selection`,
+`solver_sigma1_repair`, `solver_viewer_fiber`; player contract tests 1;
+fallback unit tests 40 (`--no-default-features`); strict clippy passed;
+`wasm32-unknown-unknown` `walt-player --lib` builds pass both as fallback and
+as `--no-default-features --features cpu-speedups`; player unit tests 4 (+ 4
+fallback); production build `build_cpu.sh --features mac-qos` passed;
+**`full_workspace_ci`: "not run; scoped sampling-stack solver and player
+checks selected"** — the CI waiver of [walt-architecture §4.6](walt-architecture.md#46-the-2026-09-0607-landings-merged-with-the-gate-waived)
+continues through this landing. The portable check
+([`wasm-final-parity.json`](../walt/receipts/cpu-speedups-v34/wasm-final-parity.json),
+schema `walt-cpu-build-comparison-v1`, clock frozen, host "Node WASM; not
+phone timing"): 12/12 completed semantic comparisons between builds
+`3a9c9391…` and `bb50e08e…` (nine declarations at 40 worlds, the late
+partner root, bids 36 and 42); the median before/after ratio over its rows
+is 4.42× (computed here from the rows; `CPU-RELEASE-PLAN.md` says "about
+4.42x"). "No phone asset is published by this landing. Native scheduling
+acceleration does not apply to a single-thread WebAssembly host."
+
+**The release plan and the shipped-WASM parity check** (`CPU-RELEASE-PLAN.md`,
+`1dfd0e22`; "Status: completed, 2026-09-20"). Verified starting point:
+GitHub `main` at `5e8cd0f7`; `codex/partnership-launch` and
+`codex/walt-cpu-speedups` both at `f1a0fb04` with main 56 commits behind;
+`codex/walt-response-ladder` at `92ddcaa0` is "the separate experimental GPU
+player, not needed for this release"; Plunge `main` at `c7a1215d` (the live
+empirical-bidder release) still pinned source `5e8cd0f7` and WASM
+`2730dc30…`; its importer passed `--no-default-features`, "so merely merging
+main or rebuilding with that importer will not enable the CPU bundle."
+Direct check against the shipped asset
+([`cpu-live-plan-v1/summary.json`](../walt/receipts/cpu-live-plan-v1/summary.json),
+status `planning-check-completed-not-released`): 59 recorded source hashes
+match, 0 mismatches; **15/15 comparisons** — nine declarations at 40 worlds,
+targets 36 and 42, one complete partner review, and 160-world openings at
+decl 0/6/9 ("blanks, sixes, and no trump"); selected moves and exact action
+values agree; median paired speedup **21.35×** in Node on this Mac; the
+three 160-world calls 7.51/9.39/4.15 s → 0.33/0.44/0.18 s (`parity.json`
+rows: 7,506/9,388/4,146 → 329/441/182 ms). Its four stated limits, verbatim:
+"One opening hand across declarations, two higher targets, one late partner
+case, and three 160-world opening cases." / "One alternating-order
+observation per build per case; frozen clock; Node host, not phone
+performance." / "Includes prior Kiln optimizations as well as the CPU bundle;
+cannot attribute the full speedup to the CPU bundle alone." / "Candidate was
+the previously built artifact matched to its committed parity hash. Fresh
+release build and browser/deadline acceptance remain outstanding." Sizes
+(`identity.json`): candidate 6,404,138 raw bytes vs 786,884 shipped; local
+gzip 404,394 vs 266,921 — "these gzip measurements are not observed network
+payload sizes"; "The 5,531,904-byte completed-trick lookup explains most raw
+growth." The plan's gates: focused optimized/reference solver tests, player
+contract tests and the exhaustive completed-trick check; repeated
+shipped-versus-release exact-value checks over multiple games, seats,
+declarations, 40 and 160 worlds, higher targets and partner reviews,
+exercising both the ≤ 64-support specialization and the > 64 general path;
+`check.mjs` and `auction-check.mjs` on the optimized native/WASM pair with
+forced deadlines, retained 40-world checkpoints, malformed inputs,
+cancellation and a complete partner review ("Real-clock runs must respect the
+existing host timeout and never return partial action vectors as completed
+decisions"); Plunge typecheck, tests, build and deployment dry-run with a
+browser check of a whole hand, opening 160, ordinary 40, Think Deeper,
+question receipts, saved-game reload, old shared links, cached/offline play
+and version refresh ("Report Mac browser results as such; Pixel/iPhone
+measurements remain separate"); and the bid book preserved with its source
+identity ("do not silently relabel or regenerate its probabilities. Faster
+deadline-limited execution may complete more review work and occasionally
+choose differently, even when completed fixed solves agree. Record that
+distinction in the release evidence rather than claiming stronger play or
+new calibration"). "Do not increase worlds, budgets or alter player policy
+during this release." Rollback: revert the focused Plunge release commit
+through the same pipeline; "Rollback needs no solver reset, data migration or
+Kiln restart."
+
+**The phone deployment of 2026-09-20** (`CPU-PHONE-RELEASE.md`, `3cf2536d`;
+[`cpu-live-release-v1/release.json`](../walt/receipts/cpu-live-release-v1/release.json),
+`status: deployed-and-verified`). Plunge app `65f8f68b…` ships shared source
+`1dfd0e22…` (previous app `c7a1215d…`); manifest player `walt-table-v2`,
+target `wasm32-unknown-unknown`, `default_features: false`, features
+`[cpu-speedups]`, opt-level 3, thin LTO, 1 codegen unit, overflow checks
+true, debug info stripped, `rustflags: []`, locked; profile fields `worlds 40`,
+`inner_worlds 8`, `budget_ms 14000`, `partner_ms 500`, `auction_worlds 160`,
+`auction_budget_ms 20000`, `opening_worlds 160`, `opening_budget_ms 20000`,
+`opening_partner false`; WASM SHA-256 `b3016e18…`; source SHA-256
+`43e6ee1d…` under schema `walt-player-source-v2` ("Its corrected source
+digest includes embedded Scheme inputs"). The importer "builds in a fresh
+target location, verifies committed source before/after compilation, clears
+inherited native compiler flags, and records its feature/profile/compiler/source
+identity"; "Four importer guard tests run in both app workflows." Validation
+(`release.json`, `test-counts.json`): 120 optimized Rust tests passed, 0
+failed, 1 ignored ("one pre-existing receipt-emission test"); 5 player
+tests; 40 reference tests; exhaustive completed-trick table validation;
+native/WASM play and auction parity (`host-parity.json`,
+`auction-parity.json`); forced deadlines and completed-stage retention;
+**112 exact live-wrapper comparisons on four complete reference
+trajectories** (`trajectory-final.json`); 201 app tests; 4 importer tests;
+typecheck/build and deployment dry-run; both GitHub workflows succeeded (CI
+run 35536524754, deploy run 35536524757); "Production version and served
+WASM SHA were verified from Chrome after deployment." Hosted browser
+(`release.json` `hosted_browser`): a completed hand (points 31–11, 2
+reshakes, 21 receipts), original scores preserved, Think Deeper run
+(`deeper_ms 209`), a question saved locally with upload disabled, reload,
+next hand 4, no JavaScript errors, no horizontal overflow; the observed
+opening 265 ms hosted (262.9 ms local) — verbatim: "These are Mac Chrome
+timings, not Pixel measurements or a controlled cross-device benchmark."
+The 4×-throttled renderer check
+([`local-edges.json`](../walt/receipts/cpu-live-release-v1/local-edges.json)):
+forced deadline → `legal-fallback`, 5 checkpoints, a 160-world live solve in
+1,889 ms, WASM linear memory 6,684,672 → 22,347,776 bytes ("from about 6.7 MB
+to 22.3 MB for that one deeper comparison; this is not whole browser
+memory"), cancellation with 0 late messages, a pre-bid-book shared link
+opened and deepened; scope "Mac Chrome with renderer CPU throttling; not a
+physical phone measurement." Artifact: 6,265,946 raw bytes;
+`release.json` `local_gzip_bytes` **383,024**, while the prose says "about
+403 KB under local gzip" — **the receipt and the prose disagree; the
+receipt's figure is the one this page quotes** (403 KB is close to the
+planning candidate's 404,394). Production served it with zstd encoding;
+"Service-worker timing fields do not provide a trustworthy compressed-byte
+count here" (`hosted-offline.json`: `encoded_body_size` = `decoded_body_size`
+= 6,265,946). Offline ([`hosted-offline.json`](../walt/receipts/cpu-live-release-v1/hosted-offline.json)):
+online 160-world solve choice 19 in 566.9 ms, offline choice 19 in 503.9 ms,
+offline app and offline empirical auction true, service-worker controlled.
+"The bid catalogue and bidding logic are byte-identical to the previous
+release. Opening160/ordinary40, the partner budget, and deadlines retain
+their settings. Faster execution can finish more stages/review work under an
+unchanged deadline; completed fixed comparisons matching does not imply every
+timed move is identical. The catalogue continues to describe its original
+measured player. No new policy, strength claim, or higher-bid calibration is
+inferred from these speedups." `release.json` limits, verbatim: "Finite
+conformance, not a proof of equivalence or player strength." / "Mac
+Chrome/Node timings, not physical Pixel or iPhone results." / "Unchanged wall
+deadlines may permit more completed work and different live decisions." /
+"Bid book retains its original measured-player provenance." /
+"Service-worker resource size fields are decoded sizes; zstd header verifies
+hosting compression, not compressed transfer byte count." Durable evidence
+outside the worktrees: `/Users/jason/data/texas-42/releases/cpu-speedup-65f8f68/`.
+Side effects recorded in the same document: Texas 42 `main` fast-forwarded
+through the CPU integration and the Kiln work; `main` merged into the GPU
+response-ladder branch; the `walt-gran` checkout untouched.
+
+**Reproduce a comparison.** `walt-cpu-bench` (648 lines; "Native, four-seat,
+full-hand timing of Walt's actual partnership wire path. The referee owns
+all hands; each solver call receives only its own original hand, contract,
+public history, and a deal-independent public seed") generates a lawful
+whole game and emits the exact native request and complete response for
+every play; "it does not include the live wrapper's earlier reserve or
+fallback"; `--help` describes its fixed seeds, contracts, cache modes and
+bounded deadlines. Then, with two binaries built under identical settings
+(the `--no-default-features` build is the reference; save it before building
+the optimized runner, or use a preserved pre-change executable):
+
+```sh
+python3 walt/tools/verify_cpu_speedups.py \
+  --baseline /absolute/path/to/reference-binary \
+  --optimized /absolute/path/to/optimized-binary \
+  --baseline-revision REFERENCE_REVISION \
+  --output-dir /absolute/path/to/new-receipts --threads 18
+```
+
+("Replay 12 completed fixed-search pairs from caller-supplied matched
+builds"; alternates pair order, refuses to overwrite evidence, records binary
+and source identities, and "independently replays all 28 plays and exact
+choices before reporting timings. Run it without other timed workloads.")
+`audit_receipt.py` is the referee — "imports no solver and never trusts the
+receipt's legal sets, score, or action-value digest as its own oracle";
+rules per `experiments/partnership/rules.py` — and `compare_panel.py`
+replays every game before any timing and reports a nearest-rank p95 that
+"includes the slowest observation for panels of 20 games or fewer". For
+portable parity: `node walt/tools/compare_cpu_wasm.mjs BEFORE.wasm AFTER.wasm OUT.json`
+(frozen host time; "compares algorithms, not device-dependent review
+prefixes"; work counters allowed to change). None of these is a
+sixty-second command on a cold tree and none was re-run for this page.
+
 ## 4. What each instrument established
 
 Headline numbers, each with its record and its tier, beside the honest
@@ -518,6 +824,7 @@ test file that pins the *law*, never a promotion of the number.
 | `divergence` | 27.8% divergence, in tricks 1–4 and (at large gaps) partner-bid/defense | `probes/m3/divergence_results_2026-08-18.txt` | none | Self-graded on level-2's own table; the referee protocol was never run |
 | `bidcurve` | θ = 11/16 (0 overbids, 0 missed bids at n40 vs the n200 reference) | `probes/bidcurve/ANALYSIS-2026-08-19.txt` | none (a constant in `webtable.rs` and `walt-wasm`) | Monotonicity in b violated 1357/1822/1536 times — adjacent cells are different games |
 | `tiltaudit` | The race is faster per lead and the arena is a dead heat (the audit's own word for paired makes race-only 1 / full-only 2 / both 11 over 24 deals on 2026-08-19 — not the O5 match sentence that `SCENARIO-PLAYER.md`'s O5 row later withdrew) | `walt/TILT-AUDIT.md`; `probes/tilt_arena_2026-08-19.log` | none | The race loses on decision cost in saturation-heavy self-play; Phase E vacuous (deterministic field) |
+| `walt-cpu-bench` + `verify_cpu_speedups.py` (2026-09-20) | The v34 CPU implementation: 12/12 paired L2 Partner 40/8/2 full games preserve every exact option vector and choice; median paired speedup 13.13× (full-game median 1,830,484.5 → 142,999.5 µs); 8 further games agree with the campaign's frozen v34 binaries; 15/15 shipped-vs-candidate WASM comparisons agree under a frozen clock | `receipts/cpu-speedups-v34/{comparison,frozen-v34-parity,checks}.json`; `receipts/cpu-live-plan-v1/summary.json` | conformance receipts independently replayed by `walt/tools/audit_receipt.py`; the laws are pinned by `tests/solver_compact_dice.rs` (5), `tests/solver_hand_cache.rs` (2) and `rules_exhaustive::every_precomputed_trick_key_matches_the_direct_rule_algebra` | "finite conformance receipts, not universal equivalence proofs"; "does not establish strength improvement or a device-wide speedup guarantee"; wall-limited wrapper stages may complete more work and choose differently; `full_workspace_ci: not run` (§3.7) |
 | `shadow` | 183 decisions: 67 exact / 116 unresolved / 0 δ-settled at cap 128; 23/27 agreement | `probes/shadow/README.md` (+ `summarize.py`) | library pieces only (`solver_shadow.rs`) | The live line was never eliminated at 128; at 512, 2 of 42 receipt-side settled (the "~108/116" forecast was wrong) |
 | `v5flip` | No cap-dependent flip anywhere on 40/160/640 | `probes/step8/README.md` | `solver_calibrate.rs` (the V5 law) | The count-timing family stays honestly Unresolved at every cap |
 | `e0cal` | 45/54 settled, all with the sign of the exact τ | `probes/step8/README.md` | `solver_calibrate.rs` | 9 honest Unresolved on the small-\|τ\| pairs |
@@ -580,7 +887,9 @@ opening root is reached only by contraction or sampling — never by enumeration
 | `shadow` at cap 512 | ≈ 4.15 h summed (receipt), ≈ 16.3 h (driven) | `probes/shadow/README.md` |
 | `bidcurve` corpus (200 hands × 3 passes) | hours (117 cells/hand at ≤ 120 s) | `run_calibration.sh` |
 | `divergence` (900 hands) | hours (overnight) | `divergence_results_2026-08-18.txt` |
-| Interactive caps | `webtable` 120 s/move; `playtable` 180 s/move; `walt_bridge`/`controller_bridge`/`waking_bridge` 120 s declare-path budget; `partnership` 14 s | the binaries' `main()` |
+| `walt-cpu-bench` full game, L2 Partner 40/8/2 fixed, 20 s per call, 18 threads, cache cold (2026-09-20) | reference median 1,830,484.5 µs → optimized 142,999.5 µs per full game over 12 paired games (median speedup 13.13×, range 9.33–15.80×); G1 1,313,156 → 140,812 µs | `receipts/cpu-speedups-v34/comparison.json` (§3.7) |
+| `walt-table` / Node-hosted `walt-player` WASM opening decision, this Mac | "roughly 0.8–2.2 seconds" (2026-09-14, before the CPU bundle); hosted Chrome opening 265 ms and deeper inspection 209 ms (2026-09-20, with it) — "not Pixel measurements" | `walt/walt-player/README.md`; `receipts/cpu-live-release-v1/release.json` (§3.7) |
+| Interactive caps | `webtable` 120 s/move; `playtable` 180 s/move; `walt_bridge`/`controller_bridge`/`waking_bridge` 120 s declare-path budget; `partnership` 14 s; `walt-table` 14 s per play, 20 s for the opening lead and each auction decision (added 2026-09-20) | the binaries' `main()`; `walt/walt-player/src/{lib,auction}.rs` |
 | The gate (`walt/ci/check.sh`) | 230 s wall, 121 test binaries (CI1, down from 367 s serial); 308 s with FH3's anchors gate inside; 18.22 GB peak RSS for `solver_focal_anchors` standalone (FH3 said 17.8 GB) | `walt/briefs/CI1-REPORT.md`; `walt/briefs/FH3-REPORT.md` and `walt/MAP.md` (230 → 308 s); `walt/briefs/FH4-AUDIT.md` (18.22 GB). Not re-run here |
 
 **Newcomer first-run order** — each step run 2026-09-13 (the two previously untimed parts of steps 5 and 7 on 2026-09-14) from the worktree root
@@ -608,7 +917,10 @@ Nothing in the list exceeded 30 s; the only steps skipped for time are the
 ## 6. Everything else that runs under `walt/`
 
 **The workspace beyond the unified crate.** Six crates in one Cargo workspace
-at `walt/Cargo.toml`: `walt` (the unified crate — ten modules `rules, kernel,
+at `walt/Cargo.toml` (corrected 2026-09-20: **eight** members — `walt-player`
+since `cffd66fc`, 2026-09-14, and `walt-cpu-bench` since `701e8589`,
+2026-09-20, joined the six; the rows for both are at the end of the table
+below): `walt` (the unified crate — ten modules `rules, kernel,
 scheme, geom, strat, spec, carrier, solver, gym, policy_search`; `lib.rs`'s doc
 comment still lists eight and omits `gym`/`policy_search`), `walt-wasm` and
 `walt2-wasm` (§1), and the GPU trio. [walt-architecture](walt-architecture.md)
@@ -625,6 +937,9 @@ track's status. What this page adds about them is only what runs:
 | `walt/ci/run_test_binaries.py` | the gate's test scheduler since CI1 (`e53752b`, 2026-09-04): runs every test executable concurrently with max(2, cpu/2) workers, heavy suites first, PASS/FAIL per binary, the eight slowest and the sum of walls | purely a scheduler; its `HEAVY_FIRST` list names a `solver_focal_budget` suite that does not exist under `walt/walt/tests/` (the focal suites are `solver_focal_anchors`, `solver_focal_horizon`, `solver_focal_ladder`) — a leftover, flagged, not repaired here |
 | `walt/ci/check_m2_metal.sh` | the elevated native gate: the portable conjunction, the host/tool descriptor, the metallib rebuilt twice and compared with the committed library, canonical Gate 0, the full U256 corpus, malformed/timeout/no-partial controls, the complete 614-task carrier twice from fresh process state | requires the exact native toolchain and a real device; whether it still runs green after the fold has not been traced (open item) |
 | `walt/ci/verify_m2_sources.sh` | the cumulative source-manifest closure | a **freeze-event** check only (FZ-A5), because the unified crate contains the actively developed solver |
+| `walt-player` (added 2026-09-20; crate since `cffd66fc`, 2026-09-14; 1,185 lines) | the deployed seat of §1 — `walt-table` — and four Kiln workers: `kiln-worker` (`101d805b`, 2026-09-18: "Long-lived native worker. Every line is independent own-hand input; only completed pure inner-policy answers may carry across matching contexts"), `kiln-play-worker` (`170178e2`: "Persistent full-game transport; policy implementation remains walt_player::decide"), `kiln-decision-worker` (`3545a3fe`: "Bounded continuation examiner. The player receives only its normal Call"), `kiln-scheme-contrast-worker` (`313a12dd`: "Query supplied contrast worlds; never invoke a player or consume outcomes"); library `src/{lib,auction,played}.rs` (`played.rs`: "Native experiment host. Full deals stay here; the unchanged deployed decision procedure receives exactly one original hand and public history"); checks `check.mjs`, `auction-check.mjs`, `compare-builds.mjs`; `tests/contracts.rs` (1) plus 5 in-crate `#[test]`s (`auction.rs` 2, `played.rs` 2, `kiln-decision-worker.rs` 1) | owned by [walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward) and, for the workers, [walt-kiln](walt-kiln.md); default features `parallel` + `cpu-speedups`; `[lints.rust] unsafe_code = "deny"` and no `[lints.clippy]` table of its own (tree fact; [walt-architecture §1.1](walt-architecture.md#11-the-workspace-six-crates-and-why-two-stay-separate)) |
+| `walt-cpu-bench` (added 2026-09-20; `701e8589`; `main.rs` 542 lines + `mac_qos.rs` 106) | the full-game timing runner of §3.7: a lawful whole game with the referee owning all hands, the exact native request and complete response for every play; features `cpu-speedups` (default) and `mac-qos` | no `[lints]` table; `mac_qos.rs` carries the workspace's one `unsafe extern "C"` outside the Metal crate, feature-gated and macOS-only (tree fact) |
+| `walt/tools/` (added 2026-09-20) | `build_cpu.sh`, `verify_cpu_speedups.py`, `compare_panel.py`, `audit_receipt.py`, `compare_cpu_wasm.mjs` — §3.7 | stdlib Python 3 and Node; not part of `walt/ci/check.sh` |
 | `experiments/partnership/*.py` | `player.py` (the JSON wrapper over `partnership`), `table.py`, `experiment.py`, `campaign.py`, `pool.py`, `match.py`, `verify_campaign.py`, `gym.py`, `gym_spec.py`, `policy_campaign.py`, `policy_gym.py`, `relational_campaign.py`, `relational_exam.py`, `verify_relational.py`, `checks.py`; every long job under `packet/texas42-partnership-launch-v0.1/tools/run_capped.py --seconds 295` | owned by [walt-partnership-program §10](walt-partnership-program.md) and [walt-gym §8](walt-gym.md) |
 
 **`walt::carrier`, corrected.** The frozen hand-8 receipt carrier (freeze-57
@@ -1006,3 +1321,18 @@ instruments:
   L2-thread bins at `n0 = 2`, so their numbers compose with nothing later;
   whether such a re-run is wanted is an open call (survey of 2026-09-07),
   not scheduled anywhere.
+- (Added 2026-09-20.) `walt/LOG.md` has no entry after 2026-09-14: the Kiln
+  round of 2026-09-18/19 and the CPU landings of 2026-09-20 are documented
+  only at their sources (`experiments/kiln/`, `walt/CPU-*.md`, `walt/MAP.md`,
+  `experiments/partnership/PLUNGE.md`); §3.7 says so.
+- (Added 2026-09-20.) The workspace gate `walt/ci/check.sh` was not run for
+  the CPU landing either (`receipts/cpu-speedups-v34/checks.json`:
+  `full_workspace_ci: "not run; scoped sampling-stack solver and player
+  checks selected"`); the last recorded green run is still the FH4 audit's of
+  2026-09-04 ([walt-architecture §4.6](walt-architecture.md#46-the-2026-09-0607-landings-merged-with-the-gate-waived)).
+  `check_rust_no_float.py`'s crate list in `check.sh` (line 312) still names
+  six crates and not `walt-player` or `walt-cpu-bench` (tree fact).
+- (Added 2026-09-20.) The [walt-kiln §8](walt-kiln.md#8-mining-studies-from-played-worlds-2026-09-18)
+  pointer at the top of this page was written in cycle 1 while that section
+  was being written by another agent; the mining numbers are kept in the
+  pointer until the verifier confirms the anchor.

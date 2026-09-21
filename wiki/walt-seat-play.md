@@ -1,4 +1,4 @@
-[Home](Home.md) · owns: how walt plays — the seat's one decision procedure and the three axes every variant is a point in; every configuration of the level-1 player that coexists (arena, phone, browser, tables, experiments, fallbacks); the 2026-08-17 arena match against the E[Q] champion; the level-2 question; bidding and declaring; the variant seats that are not the default (controller, waking, unified); the play surfaces and the gates that pin their determinism; changes to the live code since 2026-08-25; debts and honest gaps — 2026-08-17 → 2026-09-07 at c00717d1 · Sources: [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md) and [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md) (the specs); result files [`walt/probes/m3/`](../walt/probes/m3/) (`arena_results_2026-08-17.txt`, `level2_results_2026-08-17.txt`, `divergence_results_2026-08-18.txt`, `level1_results_2026-08-17.txt`, `scenario_results_2026-08-17.txt`, `ladder_results_2026-08-17.txt`, `sampling_results_2026-08-17.txt`), [`walt/probes/bidcurve/ANALYSIS-2026-08-19.txt`](../walt/probes/bidcurve/ANALYSIS-2026-08-19.txt), `walt/probes/tilt_arena_2026-08-19.log`, [`walt/probes/waking/README.md`](../walt/probes/waking/README.md), [`walt/probes/gran/README.md`](../walt/probes/gran/README.md), `walt/probes/shadow/README.md`; [`walt/TILT-AUDIT.md`](../walt/TILT-AUDIT.md), [`walt/LEVEL2-PROBE.md`](../walt/LEVEL2-PROBE.md); source `walt/walt/src/solver/{mod,selection,inner_belief,act,waking,partnership}.rs`, `walt/walt/src/bin/{walt_bridge,webtable,playtable,playout,controller_bridge,waking_bridge,granrun,partnership,level1,level2,divergence,bidcurve,tiltaudit}.rs`, `walt/walt-wasm/src/api.rs`, `walt/walt2-wasm/src/api.rs` and the two `pkg/README.md`; `experiments/partnership/{players.json,PLAYERS.md,BASELINE.md,FOUNDATION.md,INNER-BELIEF.md,SCOPE.md}` and its campaign `RESULTS.md` files; `walt/briefs/BRIEF-SIGMA1-REPAIR.md`, `walt/briefs/MORNING-2026-09-05.md`, `walt/briefs/UP0-REPORT.md`; rulings in `walt/CENSUS-RULINGS.md` (CE-A7, CBS-A9, APS-A9, MB-A7, FH-A10). Related: [walt](walt.md) (hub and fence), [walt-program](walt-program.md), [walt-instruments](walt-instruments.md), [walt-architecture](walt-architecture.md), [walt-calculated-evidence](walt-calculated-evidence.md), [walt-focal-horizon-era](walt-focal-horizon-era.md), [walt-gran-anchors](walt-gran-anchors.md), [walt-partnership-program](walt-partnership-program.md), [walt-gym](walt-gym.md), [walt-negative-results](walt-negative-results.md), [lineage](lineage.md), [rob](rob.md).
+[Home](Home.md) · owns: how walt plays — the seat's one decision procedure and the three axes every variant is a point in; every configuration of the level-1 player that coexists (arena, phone, browser, tables, experiments, fallbacks); the 2026-08-17 arena match against the E[Q] champion; the level-2 question; bidding and declaring; the variant seats that are not the default (controller, waking, unified); the play surfaces and the gates that pin their determinism; changes to the live code since 2026-08-25; the shared deployed player `walt-player` on both hosts since 2026-09-14 (§8A); debts and honest gaps — 2026-08-17 → 2026-09-07 at c00717d1, §8A and the dated corrections curated 2026-09-20 to afd46420 · Sources: [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md) and [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md) (the specs); result files [`walt/probes/m3/`](../walt/probes/m3/) (`arena_results_2026-08-17.txt`, `level2_results_2026-08-17.txt`, `divergence_results_2026-08-18.txt`, `level1_results_2026-08-17.txt`, `scenario_results_2026-08-17.txt`, `ladder_results_2026-08-17.txt`, `sampling_results_2026-08-17.txt`), [`walt/probes/bidcurve/ANALYSIS-2026-08-19.txt`](../walt/probes/bidcurve/ANALYSIS-2026-08-19.txt), `walt/probes/tilt_arena_2026-08-19.log`, [`walt/probes/waking/README.md`](../walt/probes/waking/README.md), [`walt/probes/gran/README.md`](../walt/probes/gran/README.md), `walt/probes/shadow/README.md`; [`walt/TILT-AUDIT.md`](../walt/TILT-AUDIT.md), [`walt/LEVEL2-PROBE.md`](../walt/LEVEL2-PROBE.md); source `walt/walt/src/solver/{mod,selection,inner_belief,act,waking,partnership}.rs`, `walt/walt/src/bin/{walt_bridge,webtable,playtable,playout,controller_bridge,waking_bridge,granrun,partnership,level1,level2,divergence,bidcurve,tiltaudit}.rs`, `walt/walt-wasm/src/api.rs`, `walt/walt2-wasm/src/api.rs` and the two `pkg/README.md`; `experiments/partnership/{players.json,PLAYERS.md,BASELINE.md,FOUNDATION.md,INNER-BELIEF.md,SCOPE.md}` and its campaign `RESULTS.md` files; `walt/briefs/BRIEF-SIGMA1-REPAIR.md`, `walt/briefs/MORNING-2026-09-05.md`, `walt/briefs/UP0-REPORT.md`; rulings in `walt/CENSUS-RULINGS.md` (CE-A7, CBS-A9, APS-A9, MB-A7, FH-A10); for §8A: `walt/LOG.md` entries of 2026-09-14, `walt/MAP.md` ("Shared phone and Mac deployment — 2026-09-14"), [`walt/walt-player/README.md`](../walt/walt-player/README.md), `walt/walt-player/src/{lib,auction}.rs`, `walt/walt-player/{check,auction-check,compare-builds}.mjs`, `walt/walt/src/clock.rs`, `walt/walt/src/solver/partnership_wire.rs`, [`experiments/partnership/PLUNGE.md`](../experiments/partnership/PLUNGE.md), `experiments/kiln/phone-build-summary.json`, `walt/CPU-PHONE-RELEASE.md`. Related: [walt](walt.md) (hub and fence), [walt-program](walt-program.md), [walt-instruments](walt-instruments.md), [walt-architecture](walt-architecture.md), [walt-calculated-evidence](walt-calculated-evidence.md), [walt-focal-horizon-era](walt-focal-horizon-era.md), [walt-gran-anchors](walt-gran-anchors.md), [walt-partnership-program](walt-partnership-program.md), [walt-gym](walt-gym.md), [walt-negative-results](walt-negative-results.md), [lineage](lineage.md), [rob](rob.md).
 
 # How walt plays
 
@@ -72,7 +72,7 @@ build of 2026-08-17; the objective ruled 2026-08-17, [walt-program](walt-program
   (Def 3.3): draws `n_k` worlds and best-responds to level-(k−1) minds;
   the stack bottoms out at Dice. *Level-k walt* (Def 6.1) is the real
   seat with field = level-(k−1) minds: level 1 is the match champion and
-  the live default; level 2 is the first level whose modeled partner
+  the live default (still true of the deployed `walt-player` of 2026-09-14, §8A); level 2 is the first level whose modeled partner
   coordinates back. Since 2026-09-06, `Field::SeatLevels` assigns a level
   per seat (`solver/partnership.rs`: `FieldProfile::{Baseline,
   PartnerOnly, AllLevel1}` — all L0; partner L1 and opponents L0; all L1).
@@ -205,7 +205,12 @@ level 2 at 40/8/2 fixed 1.127 s; the controller at cap 128 about ten
 seconds at trick 1; the waking seat minutes per hand (§6). Third, **no
 default has changed since 2026-08-19** (θ = 11/16 at 9a056f20): the seat
 plunge runs and the seat the mk5 arena runs are level-1 walt at the
-first two rows; everything below them is a variant (§6, §8).
+first two rows; everything below them is a variant (§6, §8). (Corrected
+2026-09-20: true at `c00717d1`. From 2026-09-14 (`cffd66fc`) the seat Plunge
+runs is the shared `walt-player` crate — fixed L1 40/8 with an 8/2 reserve
+and an optional 500 ms partner rollout under a 14 s budget, the `l1-default`
+point of the experiments row, not the race-on `walt.wasm` row above, which
+remains the archived phone comparand; the arena row is unchanged. §8A.)
 
 ## 3. The match: walt vs the E[Q] champion, 2026-08-17/18
 
@@ -506,7 +511,13 @@ the arena's best-pip-trump heuristic (§3; a `WaltDeclareBidder` patch was
 drafted for the arena and never applied). In plunge, the auction is the
 app's heuristic `mediumBid` ladder and only the declaration goes through
 walt at 40/8 (`experiments/partnership/BASELINE.md`), so the phone runs
-the 11/16 auction default without exercising it. The partnership
+the 11/16 auction default without exercising it. (Corrected 2026-09-20:
+that describes Plunge at `c00717d1`. From 2026-09-14 Plunge's auction is
+`walt-player`'s once-around survey at threshold 3/4 — "deliberately an
+uncalibrated bidding policy" — and from 2026-09-19 the empirical Kiln bid
+book with that survey as the non-catalogue fallback; §8A and
+[walt-kiln §3](walt-kiln.md#3-the-empirical-bidder-release-in-plunge-2026-09-19).
+The θ = 11/16 walk survives in `walt-wasm`, `walt2-wasm` and `webtable`.) The partnership
 campaigns fix bid 30 and match contracts, so nothing since 2026-08-19 has
 measured auction strength (obligation O9, bid-level generalization, is
 still "trivial by conservation; assert in CI when built").
@@ -520,7 +531,10 @@ FH-A10 ("The live default player is untouched by this lineage until arena
 and conformance gates justify a change on Jason's word", 2026-09-04;
 `walt/CENSUS-RULINGS.md`). "Untouched" is a statement about the default,
 not the code — §8 lists what changed inside the shared library under
-parity gates. Two of the three variants below speak the same line
+parity gates. (Corrected 2026-09-20: the fence held through `c00717d1`;
+on 2026-09-14 the deployed Plunge and Mac-bridge seat became the shared
+`walt-player` procedure — §8A, where the change is recorded together with
+the fact that no record cites this ruling for it.) Two of the three variants below speak the same line
 protocol as `walt_bridge`, so plunge or the arena could seat them with
 zero external changes; none has an arena result.
 
@@ -691,7 +705,11 @@ how the mk5 arena runs the subprocess bridge"). `walt2` is the same API
 with `n1` and `level: 2`. Plunge integrated the level-1 oracle on
 2026-08-22 (plunge 1810da20) and Jason played it at length from
 2026-08-23; the sync between plunge's copy and the repository's is a
-standing card ([[plunge-walt-sync]], §9).
+standing card ([[plunge-walt-sync]], §9). (Corrected 2026-09-20: since
+2026-09-14 Plunge ships `walt-player`'s JSON `handle` API — request kinds
+play, `auction`, `auction_price`, `auction_merge` — from a hashed WASM asset
+with exactly two host imports, not this string API; `walt-wasm` remains the
+repository's level-1 oracle crate and the archived phone comparand. §8A.)
 
 **The human tables.** `webtable` (localhost HTTP; `/state`, `/step`,
 `/play?t=`, `/bid?b=|pass`, `/pick?d=`, `/hint`, `/auto`, `/review?p=`,
@@ -773,7 +791,8 @@ byte-diffed receipts, Lean); last recorded green runs at 230 s (CI1,
 
 ## 8. Since 2026-08-25: changes to the live code, with no default change
 
-Each entry is parity-gated; none changed what plunge or the arena runs.
+Each entry is parity-gated; none changed what plunge or the arena runs
+(through `c00717d1`; the 2026-09-14 change to what Plunge runs is §8A).
 
 - **2026-08-25 — walt2-wasm (PR #58 / 33d541fe).** Level 2 in the browser
   (§4). Additive; never a default.
@@ -837,6 +856,236 @@ Each entry is parity-gated; none changed what plunge or the arena runs.
   completions; default battery 12 / 17 / 71 (§4). No strength gain
   established; default stays `Voidless`.
 
+## 8A. The shared deployed player (`walt-player`, 2026-09-14 onward)
+
+Curated 2026-09-20 from the landings `cffd66fc`, `eb37fa14`, `83b712f0`,
+`7d5f3000`, `657576e8`, `5e8cd0f7` (all 2026-09-14) and `2d18731e`, `d24eaefe`
+(2026-09-20); sources `walt/LOG.md` ("2026-09-14 — shared native/browser
+sunshine player", "2026-09-14 — regular auction for shared Walt"),
+`walt/MAP.md` ("Shared phone and Mac deployment — 2026-09-14"),
+[`walt/walt-player/README.md`](../walt/walt-player/README.md),
+`walt/walt-player/src/{lib,auction}.rs`, `walt/walt/src/clock.rs`,
+[`experiments/partnership/PLUNGE.md`](../experiments/partnership/PLUNGE.md).
+**Tier: EXPLORATORY.** `walt/MAP.md`, verbatim: "This is
+portability/conformance work, not evidence of improved game strength."
+Sorting (curator, 2026-09-20): an add to this area that changes what the
+deployed player *is* structurally — the seat Plunge ships and the seat the
+Mac bridge runs are now one crate and one procedure — without changing the
+rules profile, the objective (pmake), the tier ladder, the level (level 1),
+the inner belief (voidless) or the selection rule (fixed). The CE-A7 fence
+of §6 ("the live default player is untouched until arena and conformance
+gates justify a change, on Jason's word") is therefore stale as a
+description of Plunge from 2026-09-14: no record read for this section
+cites that ruling or an arena gate for the change, and no arena run of
+`walt-player` exists; the conformance receipts below are the whole of its
+evidence.
+
+**One deployed Walt, two hosts.** The crate `walt-player`
+([`walt/walt-player/`](../walt/walt-player/README.md); `cdylib` + `rlib`;
+`PLAYER_ID = "walt-table-v2"`, `src/lib.rs:13`; 1,185 lines of Rust across
+`src/` and `src/bin/` at `afd46420`) "owns the complete live decision
+sequence". Browser host: Plunge imports one hashed WASM asset built from this
+crate and runs it in a dedicated Web Worker. Native host: the `walt-table`
+binary (`src/bin/walt-table.rs`, 13 lines — "Line-delimited native transport.
+All policy decisions live in the library.") emits newline-delimited
+checkpoint/result envelopes; `experiments/partnership/table_player.py`
+supplies process lifetime and checks each answer against the independent
+Python rules; Plunge's Mac bridge (`experiments/partnership/plunge_bridge.py`)
+calls that adapter. README: "There is no JS translation of L1, the partner
+gate, selection, or fallbacks. The same complete sample produces the same
+values." The Rust wire adapter is `solver::partnership_wire` (`cffd66fc`;
+"Strict own/public wire adapter shared by the research worker and deployed
+player"), shared with the `partnership` research binary, which shrank from a
+221-line parser to a 46-line transport over it. `experiments/partnership/player.py`
+"remains a reproducer for earlier experiments and selectable research
+profiles, including the archived phone comparand." Initial phone target,
+per the README: "Pixel 9 / Chrome installed web app; newer iPhones are a
+secondary target."
+
+**The decision procedure and its fallback chain** (README, in the README's
+order; constants read from `src/lib.rs`): "independently reconstruct the
+actor's own/public position, retain a legal fallback, complete an 8/2 L1
+comparison, try default fixed L1 40/8, then optionally spend up to 500 ms on
+the existing count-offer partner rollout. Total compute budget remains 14
+seconds." In source: `default_budget() = 14_000` ms (`lib.rs:79–80`), the
+8/2 reserve capped at `.min(1500)` ms (`lib.rs:149`), the partner rollout at
+`.min(500)` ms (`lib.rs:193`); the wire request is `baseline` mode with
+`n0 8`, `n1 2`, `inner_belief 0`, `selection 0`, `modeled_selection 0`
+(`lib.rs:84`) — the experiments' `l1-default` point of §2 (fixed selection,
+voidless inner belief), *not* the pre-09-14 phone's race-on 40/8 and not the
+arena's 50/8 refine. "The inner model remains voidless." The bidder's
+opening lead "instead requests the existing 160-world deeper L1 comparison
+with a 20-second budget. … A 160-world opening or later inspection first
+retains a complete 40/8 comparison, then tries 160-world L1 without a partner
+check. The partner review is defined for the default 40/8 profile and is not
+reinterpreted at 160 worlds. All later table play keeps the 40-world,
+14-second profile and its selected difficulty's normal partner-review
+behavior." Targets: "Straight play now accepts targets 30–42; any marks
+contract uses target 42. The partner continuation and its stopping rule use
+that same target. Historical research specifications still default to 30"
+(`lib.rs:46`, `(30..=42)`). Hosts call `handle` with a JSON object of
+`request` (exactly the seven existing fields), `worlds` (1..=640),
+`partner`, and optionally `budget_ms` (100..=20,000; `lib.rs:109`);
+"Unknown fields, hidden hands and unsupported contracts are rejected."
+Checkpoints: "Each completed stage emits a full checkpoint. A host that
+exhausts its outer deadline keeps the latest complete checkpoint; it never
+ranks partially evaluated actions. Cancelling because the user left a
+position discards the call." The browser clock: "Only two host imports are
+allowed: monotonic microseconds and copying a checkpoint. The clock is
+installed by the adapter before solving. Core code remains safe Rust; the
+two foreign calls are isolated in the ABI module." The clock is
+`walt::clock` (`walt/walt/src/clock.rs`, 34 lines, `cffd66fc`: "Clock is
+host infrastructure, never an input to an action value"; on `wasm32` a
+thread-local `install(fn() -> Duration)` and an `Instant::now()` that panics
+`"host clock not installed"`), so "A missing browser clock now fails
+explicitly instead of silently disabling deadlines." The partner check's own
+fence, verbatim: "A clock-limited partner prefix can differ between devices;
+it remains an explicitly fallible heuristic, not a confidence-certified
+decision." The rollout itself (`l1-partner-rollout`, `a4c2c20d`) is owned by
+[walt-partnership-program §11.3](walt-partnership-program.md#113-the-partner-rollout-l1-partner-rollout-a4c2c20d-2026-09-13)
+(and §11.2 for the earlier `l1-partner-count-review`).
+
+**The regular auction (`83b712f0`, `7d5f3000`, `657576e8`).** LOG:
+"Replaced the assigned-30 live table cadence with a once-around straight
+auction." An `auction` call carries only `hand`, `seat`, `bid` (30–42) and
+`seed`, plus the outer `worlds` (default 160, `auction.rs:37`) and
+`budget_ms` (default 20 000, `auction.rs:34`); it "compares all nine straight
+declarations at that target through the same fixed L1/voidless solver",
+stopping a declaration's pricing at value 1 — LOG: "A root-value query avoids
+computing unused opening scores, matching the full comparison on all nine
+declarations at bids 30/36/42 and three seats." Successive complete surveys
+at 4, 12, 40 and up to 160 worlds (`ROUNDS`, `auction.rs:40`) with eight inner
+worlds; "Only a whole nine-declaration sweep replaces the previous survey.
+… A partial sweep contributes no prices; an entirely unpriced auction
+passes. Equal model prices use a public-seeded tie choice. This is a
+small-sample, optimistic model, not calibrated table odds." The policy: "The
+table bids the cheapest legal raise when the best modeled make estimate is at
+least 3/4, otherwise passes. It passes over its partner's standing bid. It
+does not walk the bid amount upward: that old scheme overbid against a
+stronger field." LOG, verbatim: "this is deliberately an uncalibrated bidding
+policy, not a new strength finding." One 20-second wall budget per auction
+decision. Independent declaration workers (`7d5f3000`): browser hosts may
+distribute declarations across ordinary Web Workers, each with its own
+instance of the same WASM (no shared memory, no threaded build); two workers
+are the initial phone default, one where the browser reports one logical
+processor; the JSON API adds `auction_price` (one declaration → a
+`walt-auction-price-v1` receipt, "exactly the serial auction's declaration
+evaluator") and `auction_merge` (validates nine receipts → a normal survey;
+`worlds:0, receipts:[]` obtains the validated unpriced fallback); the 4-world
+survey completes before 12, then 40 and 160, never combining rounds; one
+retry per job inside the same 20-second budget; "Only a completed Rust merge
+replaces the checkpoint"; "Job receipts identify inputs; they are not
+cryptographic attestations of a remote worker's computation"; "At the same
+completed sample size, serial and pooled results must agree exactly. A faster
+host can reach a larger complete survey within the budget and therefore
+legitimately choose a different declaration." Humans keep the full straight
+ladder; the winning AI remembers its surveyed trump across reloads; the Mac
+counterfactual gym comparison "remains explicitly scoped to bid 30".
+Validation the README names: `auction-check.mjs` (native/WASM/job/merge
+parity, order-independent ties, malformed or mixed receipts, deadlines),
+`tests/contracts.rs` (1 test), Plunge's auction tests, the independent
+higher-contract replay fixtures (LOG: "Independent replay of higher point
+and marks links agrees with Plunge"). Raw receipts outside the repo:
+`/Users/jason/data/texas-42/regular-bidding/`,
+`/Users/jason/data/texas-42/auction-pool/`. Two later facts bound this
+policy: since 2026-09-19 Plunge's auction reads the empirical actual-play
+bid book first ([walt-kiln §3](walt-kiln.md#3-the-empirical-bidder-release-in-plunge-2026-09-19)),
+the survey remaining the "noncatalogue live-auction fallback"
+(`walt/CPU-RELEASE-PLAN.md`); and since 2026-09-20 the live Plunge table
+plays with a forced last bid — `PLUNGE.md`: "after three passes, the shaker
+must bid at least 30. Walt uses the bid book's best declaration for a forced
+weak hand"; replay prefix `v1f` beside `v1t` and `v1c`; the research
+importer accepts all three and "four forced-bid fixtures check every seat"
+(`d24eaefe`). Whether a forced last bid belongs to the book's straight-42
+rules profile is a question for the Part I owner, not settled here.
+
+**Port validation, and what it does not show.** LOG (2026-09-14):
+"Native/wasm exact option vectors agreed on all nine declarations of the
+opening fixture plus a late-game root; the full 64-world paired partner
+prefix agreed too. An accelerated browser clock verified deadline fallback.
+The phone itself has not yet been timed." README: "The first audit passed
+all ten L1 comparisons and the 64-world paired partner comparison. Native
+and Node-hosted wasm opening decisions on this Mac were roughly 0.8–2.2
+seconds; these are host measurements, not Pixel measurements. The 500 ms
+native review completed only a prefix in that run, as expected." The
+follow-up (`eb37fa14`): "31 focused Rust, 103 Python and 157 UI tests
+passed"; the browser smoke test "completed a five-trick hand, retrieved its
+original 40-world scores, completed a 160-world recheck (4.85 seconds on
+this Mac's embedded browser), and recovered the original scores after
+reloading the page. The ordinary 30-point make/set stopping rule ended that
+hand." The clock assertion "verifies a solver Deadline refusal in both
+stages, not merely skipping work at an already exhausted outer budget";
+"The final clock test expired inside both evaluator stages and retained a
+legal checkpoint with no partial action values." The README's own reading:
+"These receipts establish tested behavior and port conformance, not
+calibration or increased playing strength." Publishing on 2026-09-14 "was
+held at the authentication boundary: CLI login invalid and connected GitHub
+write endpoint 403; no remote release was changed by these attempts."
+Receipts: `/Users/jason/data/texas-42/phone-v2/` (outside the repo). The
+phone was still untimed on 2026-09-20: `walt/CPU-PHONE-RELEASE.md` reports a
+hosted opening of 265 ms and a deeper inspection of 209 ms and says "These
+are Mac Chrome timings, not Pixel measurements or a controlled cross-device
+benchmark" ([walt-instruments §3.7](walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20)).
+
+**Build, check, ship** (README "Build and check", "Ship an iteration"):
+
+```sh
+cargo build --locked --release --manifest-path walt/Cargo.toml -p walt-player --bin walt-table
+cargo build --locked --release --manifest-path walt/Cargo.toml -p walt-player --lib --no-default-features --features cpu-speedups --target wasm32-unknown-unknown
+node walt/walt-player/check.mjs /path/to/parity.json
+```
+
+`check.mjs` "compares all nine declarations of a fixed opening hand plus a
+late position, native versus WebAssembly, including exact rational option
+vectors and the completed fallback. It compares a full 64-world partner
+prefix against the native rollout instrument, tests malformed inputs, and
+advances a fake browser clock to force a deadline without relying on machine
+speed." `compare-builds.mjs BEFORE.wasm AFTER.wasm OUT.json` (`43a5a297`,
+2026-09-18) checks a previously shipped and a candidate build "on complete
+decisions, exact option vectors, work counters and a full partner review",
+freezing the imported clock "so device-dependent deadline prefixes do not
+masquerade as policy changes"; "Its Node-host timings are not phone
+measurements. The Kiln optimization pass matched all 12 cases"
+(`experiments/kiln/phone-build-summary.json`: `requested 12`, `completed 12`,
+`median_speedup 3.70`, host "Node WASM; not phone timing"). Shipping: in the
+Plunge checkout, `python3 scripts/update-walt.py /path/to/texas-42` "builds
+this crate under the watchdog, copies the wasm, and records source and asset
+hashes"; Plunge's build verifies the asset hash and the allowed host
+imports; "The phone offers a reload on a new deployment." Plunge stores
+original decision receipts in IndexedDB on the device; a finished hand's
+observation link carries "the replay, selected move, public seed, note,
+alternative and original receipt when available"; "Imported links are
+examiner data and never become live chooser inputs."
+
+**The Plunge table around the seat, one line each.** The empirical Kiln
+bidder in Plunge's auction (2026-09-19):
+[walt-kiln §3](walt-kiln.md#3-the-empirical-bidder-release-in-plunge-2026-09-19).
+The Mac Plunge bridge, the live-move gym intake and the override study
+(`5bdd8b48`, `2c2d7ae2`, 2026-09-13):
+[walt-gym §11.3](walt-gym.md#113-the-mac-sunshine-table-and-the-live-move-gym-intake-5bdd8b48-2c2d7ae2)
+and [walt-partnership-program §11.5](walt-partnership-program.md#115-the-playable-campaign-the-override-study-and-the-first-played-examples-5bdd8b48-2c2d7ae2-2026-09-13);
+Sunshine as a whole:
+[walt-partnership-program §11](walt-partnership-program.md#11-sunshine-2026-09-13--09-15-the-partner-aware-live-player),
+[walt-gym §11](walt-gym.md#11-sunshine-2026-09-13-the-gym-under-deployed-continuations-and-the-live-move-intake),
+[walt-scheme-fix §10.4](walt-scheme-fix.md#104-sunshine-2026-09-13--09-15-the-count-offer-query-as-a-live-gate-and-recipes-with-a-selectable-continuation).
+Optional deeper play (`2d18731e`, 2026-09-20; `PLUNGE.md` "Optional deeper
+play"): Home → Advanced settings → **Think deeper** "uses the existing
+160-world, 20-second L1 profile for every computer play. It defaults off,
+persists across reloads, and can be changed while keeping the current game.
+Deeper mode skips the 40/8-only partner review"; the native `/decide`
+boundary takes an optional boolean `think_deeper` recorded in the
+receipt/cache identity. The native CPU speedups v34 that this crate enables
+by default since 2026-09-20 (`701e8589`), and the Plunge asset that ships
+them since the same day (`3cf2536d`):
+[walt-instruments §3.7](walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20).
+
+**What no record claims.** No arena run, mirrored campaign or strength
+number exists for `walt-player` as a player; the port receipts are
+conformance receipts; the auction threshold is uncalibrated by its own
+statement; the deployed level, inner belief and selection are the §2
+`l1-default` point; "Historical research profiles remain available for
+reproduction" (`walt/MAP.md`).
+
 ## 9. Debts and honest gaps
 
 | debt | state at c00717d1 | where filed |
@@ -848,7 +1097,7 @@ Each entry is parity-gated; none changed what plunge or the arena runs.
 | **`walt-g1-l2` unmerged** (8 commits, tip 6abdd78f) | `level2.rs` `fixture` mode and the L2 Gran records exist only there | MORNING item 6 |
 | **The champion binary was never re-matched** | the 3×384 pool ran the pre-PiKey-fix bridge; every player since has been measured only against walt or the phone | §3 |
 | **CI waived 2026-09-06/07** | `walt/ci/check.sh` deliberately not run for the partnership and Scheme sessions (focused suites only: 44 then 36 Rust tests, 14 Python tests, clippy, wasm32 compile); no record says the central gate has been green at or after 9236ca7f / dbcc698f | `experiments/partnership/SCOPE.md`, `FOUNDATION.md` |
-| **[[plunge-walt-sync]] drift** | the committed `walt-wasm/pkg/walt.wasm` (SHA-256 `d7f61f22…`, rebuilt 2026-08-24 with the review column) differs from the phone's bytes (`af0200af…` = 9a056f20); the version on any actual phone was never independently verified (only the local plunge checkout 122ea7a5); race wiring is plunge's decision | kanban card, opened 2026-08-24 |
+| **[[plunge-walt-sync]] drift** | the committed `walt-wasm/pkg/walt.wasm` (SHA-256 `d7f61f22…`, rebuilt 2026-08-24 with the review column) differs from the phone's bytes (`af0200af…` = 9a056f20); the version on any actual phone was never independently verified (only the local plunge checkout 122ea7a5); race wiring is plunge's decision. (Corrected 2026-09-20: since 2026-09-14 Plunge's asset is `walt-player`'s WASM, imported by `scripts/update-walt.py` with recorded source and asset hashes; the 2026-09-20 release manifest pins source `1dfd0e22…` and WASM SHA-256 `b3016e18…` (`walt/receipts/cpu-live-release-v1/release.json`), verified from Chrome against the hosted site — the first independently verified phone artifact; §8A, [walt-instruments §3.7](walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20)) | kanban card, opened 2026-08-24 |
 | **G2/G3 deal unrecoverable** | six-trick prefix validated; S2's hand fully known; the residual {4-1, 4-4, 5-3} is 6-way ambiguous and mechanically undecidable; no driven run or `replay_hand` validation possible unless plunge recovers the seed. The G2 (trick-1) and G3 (trick-4) roots *are* fully determined as S2's information sets (own hand + public record), so a decision run at S2 — `granrun replay`-style, no deal needed — is possible and has not been done; whether one is wanted is unruled ([walt-gran-anchors §4](walt-gran-anchors.md)) | [[gran-anchor-reconstruction]] (open on two items) |
 | **`v5_literal_count_timing_position_reconstructs` still `#[ignore]`d** | `tests/solver_calibrate.rs:420`; its stated blocker (G1 reconstruction) was discharged 2026-09-04; whether G1 is the literal position it names is unverified | [walt-calculated-evidence](walt-calculated-evidence.md) |
 | **Tie-break at exact indifference unruled** | the lever named 2026-09-05 (objective + tie-break); Jason's calls (A)–(F) from the MORNING brief have no recorded decision after 2026-09-05 | MORNING items 4 and "Your calls" |
@@ -1000,7 +1249,11 @@ did to this track's episodes:
 The seat is real and it wins the match it was built to win, and every
 one of its numbers is a sampled estimate against a modeled field — not an
 exact value, not an equilibrium, not a demonstrated strategic reason.
-Since 2026-08-19 nothing has changed what the phone or the arena runs;
+Since 2026-08-19 nothing has changed what the phone or the arena runs
+(corrected 2026-09-20: through `c00717d1`; on 2026-09-14 the phone and the
+Mac bridge moved to the shared `walt-player` procedure, and on 2026-09-20
+the phone asset gained the v34 CPU speedups — conformance-receipted,
+never strength-measured, §8A);
 what has changed is the shared library under parity gates (§8), the
 inventory of variants beside it (§6), and the understanding of where the
 next unit of strength does *not* come from: not from another rung of

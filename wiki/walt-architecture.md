@@ -1,8 +1,8 @@
-[Home](Home.md) · owns: the engineering of the `walt` crate — the six-crate workspace and the one crate's ten modules with their verified import order; the two solver stacks (sampled forward, counted backward) and the four seams where they meet; the invariants carried by types and CI rather than by convention; the gate (`walt/ci/check.sh`), its stages, its suite inventory and what it costs; the declared epochs every number is relative to; the named debts and the freezes by path · Sources: `walt/Cargo.toml`, `walt/walt/Cargo.toml`, `walt/walt/src/lib.rs`, `walt/walt/src/**/*.rs` module docs, `walt/walt/tests/*.rs` headers, `walt/ci/*`, `walt/UNIFICATION-CENSUS.md`, `walt/MAP.md`, `walt/SCENARIO-PLAYER.md` §3.4, `walt/CONTROLLER-PLAYER.md`, `walt/DISCREPANCIES.md`, `walt/briefs/{CI1-REPORT,FH3-REPORT,FH4-AUDIT,MB1-REPORT,UP1A-REPORT}.md`, `walt/probes/{waking,gran}/README.md`, `kanban/backlog/{gate-corpus-trim,ladder-policy-store}.md`, [walt-math-freezes](walt-math-freezes.md) rows 55–58, `git log` over `walt/walt/src`
+[Home](Home.md) · owns: the engineering of the `walt` crate — the six-crate workspace (eight members since 2026-09-20, §1.1) and the one crate's ten modules (eleven with `clock`, §3.9) with their verified import order; the two solver stacks (sampled forward, counted backward) and the four seams where they meet; the invariants carried by types and CI rather than by convention; the gate (`walt/ci/check.sh`), its stages, its suite inventory and what it costs; the declared epochs every number is relative to; the named debts and the freezes by path · Sources: `walt/Cargo.toml`, `walt/walt/Cargo.toml`, `walt/walt/src/lib.rs`, `walt/walt/src/**/*.rs` module docs, `walt/walt/tests/*.rs` headers, `walt/ci/*`, `walt/UNIFICATION-CENSUS.md`, `walt/MAP.md`, `walt/SCENARIO-PLAYER.md` §3.4, `walt/CONTROLLER-PLAYER.md`, `walt/DISCREPANCIES.md`, `walt/briefs/{CI1-REPORT,FH3-REPORT,FH4-AUDIT,MB1-REPORT,UP1A-REPORT}.md`, `walt/probes/{waking,gran}/README.md`, `kanban/backlog/{gate-corpus-trim,ladder-policy-store}.md`, [walt-math-freezes](walt-math-freezes.md) rows 55–58, `git log` over `walt/walt/src`; for the 2026-09-20 corrections: `git diff c00717d1..afd46420 -- walt/walt walt/walt-player walt/walt-cpu-bench walt/tools`, `walt/Cargo.toml`, `walt/walt-player/Cargo.toml`, `walt/walt-cpu-bench/Cargo.toml`, the headers of every file named in §1.4's last group and §3.9, `walt/walt/src/clock.rs`, [`walt/CPU-SPEEDUPS.md`](../walt/CPU-SPEEDUPS.md), `walt/receipts/cpu-speedups-v34/checks.json`
 
 # walt — the architecture: one crate, ten modules
 
-**Tier.** Everything on this page is **EXPLORATORY** (`walt/` sits below every evidentiary tier of [Home](Home.md) and is cited by nothing above it). The numbers here are of three kinds, and each is labelled: **tree facts** (line counts, file counts, constants, import edges) measured 2026-09-13 on this checkout (re-checked 2026-09-13), whose `walt/walt/`, `walt/ci/`, crate, `walt/math/`, `walt/briefs/` and probe-record trees are byte-identical to `c00717d1` (2026-09-07): `git diff --stat c00717d1 HEAD -- walt/` names only the seven register documents this rewrite edited (`MAP.md`, `LOG.md`, `SCENARIO-PLAYER.md`, `CONTROLLER-PLAYER.md`, `DISCREPANCIES.md`, `ARCHIVE.md`, `probes/factor_belief/README.md`) and no source, gate, script or record; **gate-pinned values**, named with the test file that asserts them; and **machine figures** (wall clock, resident memory) from the briefs — measured on one 18-core / 48 GB machine, never receipts. A walt probe number is quotable as a result only through the gate that pins it; a green gate is evidence at a declared configuration, never a status change.
+**Tier.** Everything on this page is **EXPLORATORY** (`walt/` sits below every evidentiary tier of [Home](Home.md) and is cited by nothing above it). The numbers here are of three kinds, and each is labelled: **tree facts** (line counts, file counts, constants, import edges) measured 2026-09-13 on this checkout (re-checked 2026-09-13; the counts re-measured 2026-09-20 at `afd46420` are marked as such in §1.1, §1.3, §1.4, §3.9 and §4.3), whose `walt/walt/`, `walt/ci/`, crate, `walt/math/`, `walt/briefs/` and probe-record trees are byte-identical to `c00717d1` (2026-09-07): `git diff --stat c00717d1 HEAD -- walt/` names only the seven register documents this rewrite edited (`MAP.md`, `LOG.md`, `SCENARIO-PLAYER.md`, `CONTROLLER-PLAYER.md`, `DISCREPANCIES.md`, `ARCHIVE.md`, `probes/factor_belief/README.md`) and no source, gate, script or record; **gate-pinned values**, named with the test file that asserts them; and **machine figures** (wall clock, resident memory) from the briefs — measured on one 18-core / 48 GB machine, never receipts. A walt probe number is quotable as a result only through the gate that pins it; a green gate is evidence at a declared configuration, never a status change.
 
 **Who this chapter is for.** A newcomer should read §1 and §2 to learn what the crate is and why it has two halves. A mathematician should read §2 and §3: the objects of [walt-math-reference](walt-math-reference.md) live in named modules, and the invariants of §3 are where the mathematics is made unforgeable in code. An engineer who wants to run the player should read §4 (the gate), §5 (which epoch a number belongs to) and §6 (what is owed), then go to [walt-instruments](walt-instruments.md) for every binary's invocation and record path. The programs that produced the code are told in Part III ([walt-calculated-evidence](walt-calculated-evidence.md), [walt-counted-belief-era](walt-counted-belief-era.md), [walt-focal-horizon-era](walt-focal-horizon-era.md), [walt-partnership-program](walt-partnership-program.md)); this page is the shape they left behind.
 
@@ -12,7 +12,7 @@
 
 ### 1.1 The workspace: six crates, and why two stay separate
 
-`walt/Cargo.toml` is a Cargo workspace (resolver 2, Rust 2021, toolchain pinned to `1.95.0` by `walt/rust-toolchain.toml`) with six members (tree fact):
+`walt/Cargo.toml` is a Cargo workspace (resolver 2, Rust 2021, toolchain pinned to `1.95.0` by `walt/rust-toolchain.toml`) with six members (tree fact; corrected 2026-09-20: **eight** — `walt-player` since `cffd66fc`, 2026-09-14, and `walt-cpu-bench` since `701e8589`, 2026-09-20, the two rows at the foot of the table):
 
 | Crate | What it is | Depends on | Lints |
 |---|---|---|---|
@@ -22,8 +22,10 @@
 | `walt-gpu-ref` | The portable M1 reference projector and the M2 carrier/receipt codecs of the GPU-native trick-1 track. | `walt` (spec/rules/kernel); dev-deps reach across the tree into `rob/crates/{core,verify}` | `unsafe_code = "forbid"`, `float_arithmetic = "deny"` |
 | `walt-metal` | The only Metal / Objective-C boundary (`objc2` family, lockfile-pinned exact versions). | `walt`, `walt-gpu-ref`, `objc2-*`, `dispatch2` | `unsafe_code = "deny"` + `unsafe_op_in_unsafe_fn = "deny"`, `float_arithmetic = "deny"` |
 | `walt-m2-runner` | The supervised freeze-56 M2 gate executable (`ci/check_m2_metal.sh` drives it). | `walt`, `walt-gpu-ref`, `walt-metal` | `unsafe_code = "forbid"`, `float_arithmetic = "deny"` |
+| `walt-player` (added 2026-09-14, `cffd66fc`) | The deployed seat on both hosts: `cdylib` + `rlib`; library `src/{lib,auction,played}.rs` (1,185 lines with its five binaries at `afd46420`), binaries `walt-table` and the four Kiln workers (`kiln-worker`, `kiln-play-worker`, `kiln-decision-worker`, `kiln-scheme-contrast-worker`); `check.mjs`, `auction-check.mjs`, `compare-builds.mjs`; `tests/contracts.rs`. Default features `parallel` + `cpu-speedups`; Plunge builds it `--no-default-features --features cpu-speedups` for `wasm32-unknown-unknown`. Owned by [walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward). | `walt` with `default-features = false`, `serde`, `serde_json` | `unsafe_code = "deny"`; **no `[lints.clippy]` table** — `float_arithmetic` is enforced on it only by the command-line flag of `check.sh` stage 5 (`--workspace … -D clippy::float_arithmetic`); `grep -rnE '\b(f32|f64)\b'` over the crate returns nothing (measured 2026-09-20) |
+| `walt-cpu-bench` (added 2026-09-20, `701e8589`) | The full-game timing runner of the CPU speedups: `src/main.rs` (542 lines) and `src/mac_qos.rs` (106); features `cpu-speedups` (default) and `mac-qos`. Owned by [walt-instruments §3.7](walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20). | `walt` (default-features off, `parallel` on), `serde_json`, optional `rayon` | **no `[lints]` table at all**; `mac_qos.rs` holds an `unsafe extern "C"` declaration and one `unsafe` call (`pthread_set_qos_class_self_np`), feature-gated and `compile_error!` outside macOS — the only unsafe outside the Metal crate; `grep -rnE '\b(f32|f64)\b'` returns nothing (2026-09-20) |
 
-The workspace profiles set `overflow-checks = true` in **dev, release and test** — the manifest's own comment: "a silent wrap is a wrong count, so check in every profile."
+The workspace profiles set `overflow-checks = true` in **dev, release and test** — the manifest's own comment: "a silent wrap is a wrong count, so check in every profile." Two facts about the two new members the gate does not yet know (tree facts, 2026-09-20): `check.sh`'s no-float scanner call (`ci/check_rust_no_float.py`, `check.sh:311–312`) names `walt walt-gpu-ref walt-m2-runner walt-metal walt-wasm walt2-wasm` and not `walt-player` or `walt-cpu-bench`; and neither new manifest carries the `float_arithmetic = "deny"` lint the six older ones do (§3.1). Filed as §6.1 item 15.
 
 Why the fold of 2026-08-24 (commit `d1499d43`, "THE FOLD — one crate, seven modules; pure code motion, trace-identical") stopped at one crate rather than one workspace member is recorded in `walt/UNIFICATION-CENSUS.md` §5 and stands unchanged: **`walt-wasm` stays separate** because it needs the `cdylib` crate type, `default-features = false` to compile rayon out, and its own `build.sh` / `smoke.mjs` / `pkg` pipeline — folding it would force that feature gymnastics onto the whole crate; **the Metal pair stays separate** because the objc2/Metal stack and its `unsafe_code = "deny"` posture (versus `forbid` everywhere else) must not leak into the unified crate; and **`walt-gpu-ref` stays with the Metal pair** because its dev-dependencies reach into the rob tree, which would otherwise make the unified crate's test build depend on `rob/`. The fold was verified as code motion: 42 suites green and the wasm smoke 28/28 byte-identical to the frozen native trace (`walt/LOG.md`, 2026-08-24). The freeze-56 source closure, which pins the GPU track's sources by path, was re-issued the same day as freeze-56 v2 (`c92175ae`) so that the fold was an amendment to the freeze and not a reading of it (§6.2).
 
@@ -31,7 +33,7 @@ The pre-fold history, for provenance: the rules and kernel were born as `walt-co
 
 ### 1.2 The layer diagram and the verified import rules
 
-Inside the crate the old strict crate boundaries survive as a module order. `lib.rs` declares ten public modules; the import direction below was regenerated on 2026-09-13 by grepping `use crate::<module>` in every file of each module (tree fact — the arrows are exhaustive, not illustrative):
+Inside the crate the old strict crate boundaries survive as a module order. `lib.rs` declares ten public modules (eleven since `cffd66fc`, 2026-09-14: `pub mod clock;` — host infrastructure imported by `solver` alone, `mod.rs:89`, and by nothing else in the crate; §3.9); the import direction below was regenerated on 2026-09-13 by grepping `use crate::<module>` in every file of each module (tree fact — the arrows are exhaustive, not illustrative):
 
 ```
 policy_search  →  gym, scheme, solver, kernel, rules        (2026-09-07)
@@ -55,7 +57,7 @@ Three consequences worth knowing before reading any module:
 
 ### 1.3 The module table
 
-Line counts are `wc -l` over `walt/walt/src` on 2026-09-13 (total **82,324** lines of Rust in `src/`, of which 29,664 are the 54 binaries under `src/bin/`; the twelve rows below sum to the total exactly). "Created" is the commit that first added the module's root file to `walt/walt/src` (`git log --diff-filter=A`); for the seven modules that existed as crates before the fold that is the fold commit, with the crate's own birth in §1.1.
+Line counts are `wc -l` over `walt/walt/src` on 2026-09-13 (total **82,324** lines of Rust in `src/`, of which 29,664 are the 54 binaries under `src/bin/`; the twelve rows below sum to the total exactly). (Re-measured 2026-09-20 at `afd46420`: total **88,023**; `solver` 43,013 lines in 53 files (`mod.rs` 2,883); `policy_search` 3,656 in 8 files; `gym` 561; `bin/` 29,769 in 58 files; `lib.rs` 33; the new `clock` 34 in 1 file; `rules` 1,496 in 10 files (the `TRICK_KEYS` table, §3.9) — the other rows unchanged. The rows below keep the `c00717d1` figures.) "Created" is the commit that first added the module's root file to `walt/walt/src` (`git log --diff-filter=A`); for the seven modules that existed as crates before the fold that is the fold commit, with the crate's own birth in §1.1.
 
 | Module | Lines (files) | Created as a module | Purpose, in the module's own words | Public API highlights (`pub` items at module root) |
 |---|---|---|---|---|
@@ -74,7 +76,7 @@ Line counts are `wc -l` over `walt/walt/src` on 2026-09-13 (total **82,324** lin
 
 ### 1.4 The solver's thirty-eight modules
 
-`solver/mod.rs` (1,943 lines) is the original sampling stack and still the live player's library: `Solver`, `Shared`, `Key`, `PiKey`, `Field::{Dice, Level(k), SeatLevels([usize; 4])}`, `Deadline` (a real monotonic deadline on native targets; on `wasm32` it never expires and the budget is carried by the sample counts), `INNER_SEED`, `level1_evaluate` (line 1340), `viewer_fiber_evaluate` (1419), `level1_race` / `level1_raced` / `level1_race_refined` (1666 / 1815 / 1886), `sample_open_belief` (1142). The thirty-eight modules beside it, by the stack they belong to (§2), with creation commit and the parent document each names in its header (tree facts, 2026-09-13):
+`solver/mod.rs` (1,943 lines) is the original sampling stack and still the live player's library: `Solver`, `Shared`, `Key`, `PiKey`, `Field::{Dice, Level(k), SeatLevels([usize; 4])}`, `Deadline` (a real monotonic deadline on native targets; on `wasm32` it never expires and the budget is carried by the sample counts — corrected 2026-09-20: since `cffd66fc` it is built on `crate::clock::Instant` and expires on `wasm32` too once the host installs a clock, §3.9), `INNER_SEED`, `level1_evaluate` (line 1340), `viewer_fiber_evaluate` (1419), `level1_race` / `level1_raced` / `level1_race_refined` (1666 / 1815 / 1886), `sample_open_belief` (1142). The thirty-eight modules beside it, by the stack they belong to (§2), with creation commit and the parent document each names in its header (tree facts, 2026-09-13). (Corrected 2026-09-20: **fifty-two** beside `mod.rs` at `afd46420` — the fifteen added between 2026-09-14 and 09-20 are the last group of the table; `mod.rs` grew from 1,943 to 2,883 lines at `701e8589` and the line numbers above moved: `sample_open_belief` 1696, `sample_belief` 1719, `level1_evaluate` 1894, `viewer_fiber_evaluate` 1973, `level1_race` / `level1_raced` / `level1_race_refined` 2220 / 2369 / 2440.)
 
 | Module | Lines | Created | One line from its header |
 |---|---|---|---|
@@ -122,12 +124,29 @@ Line counts are `wc -l` over `walt/walt/src` on 2026-09-13 (total **82,324** lin
 | `horizon` | 635 | `62abe028` 09-03 | "The in-solve horizon census (slice U0b) — the §38/§40 God-gap census … run at EVERY belief node the exact recursion reaches at a declared depth below a root." |
 | `focal_horizon` | 758 | `1e213bdb` 09-04 | "The focal-horizon hierarchy, slice FH1 — the parent's §28 generic fixed-field engine (`focal_horizon_sandwich_v0.1.md`, cited by title only; the construction is the FOCAL-HORIZON HIERARCHY, FH-A2)." |
 | `focal_ladder` | 1,143 | `dc515ac0` 09-04 | "The focal-horizon ladder, slice FH2 — … an append-only store of NODE FACTS" walked in budgeted passes; the root is a derived view. |
+| **The deployed-player wire and the native CPU speedups v34 (2026-09-14 → 09-20; 15 files, all feature-gated except `partnership_wire`; added 2026-09-20 — see the correction above the table)** | | | |
+| `partnership_wire` | 221 | `cffd66fc` 09-14 | "Strict own/public wire adapter shared by the research worker and deployed player." (`pub`; consumed by `bin/partnership.rs`, `walt-player` and `walt-cpu-bench`.) |
+| `cache` | 190 | `662f298c` 09-18 | "Private search-table representation. Full equality still resolves hash collisions; these hashes never seed samples, choose actions, or identify persisted evidence." |
+| `support` | 139 | `1a43d763` 09-18 | "Allocation-free support identity for up to eight sampled world IDs. IDs identify samples, not distinct deals: duplicate deals keep separate bits." |
+| `compact_dice` | 1,170 | `701e8589` 09-20 | "Allocation-free CPU recurrence for small fixed Dice bundles. This is an implementation of the existing sampled Dice value, not a new policy or sampler. Sample IDs remain distinct even when deals repeat." (`cfg(feature = "compact-dice")`) |
+| `compact_dice/const_objective` | 192 | `701e8589` | "Feature-on monomorphized Dice recurrences. The feature-off Search methods retain their runtime MAX/MIN branch for an exact A/B comparison." |
+| `compact_dice/singleton` | 351 | `701e8589` | "Exact Boolean continuation after observations leave one sampled ID. … This is not a clairvoyant split of a multi-world information set." |
+| `compact_dice/trick_table` (+ `trick_table.bin`) | 68 | `701e8589` | "Completed-trick outcomes in actor order, with no runtime initialization. … The dense table is 9 * 28^4 = 5,531,904 bytes." Regenerated and checked by `examples/generate_trick_table.rs`. |
+| `compact_dice/two_trick` | 244 | `701e8589` | "SUM-only penultimate-trick suffix after the viewer has already acted. Every remaining current-trick actor is field." |
+| `compact_policy` | 720 | `701e8589` | "Exact small-support evaluator for a fixed modeled level-k policy. … Bounds are intervals of integer successful-world counts, never approximate probabilities or partial policies." (`cfg(feature = "compact-policy")`) |
+| `counters` | 220 | `701e8589` | "Diagnostic counters with an optional worker-sharded implementation. … These counters must not control search, cancellation, or sampling." (`pub`) |
+| `mask64_arena` | 153 | `701e8589` | "Interned support for 9–64 original sampled world IDs. One bit represents each original sample position, even when two sampled deals have identical hands." (`cfg(feature = "mask64-support-arena")`) |
+| `rng_small` | 118 | `701e8589` | "Exact strength reduction for the frozen small-bound SplitMix draw. … The rejection zone and RNG consumption remain the historical ones." (`cfg(feature = "fast-rng")`) |
+| `root_memo` | 159 | `701e8589` | "Opt-in sharding of the general solver's exact count memo. Only large support bundles use shards. The key and value are identical to the single-map solver memo." (`cfg(feature = "sharded-root-memo")`) |
+| `uncached_l0` | 65 | `701e8589` | "Recompute cheap, pure L0 policies instead of looking up and retaining them. … no previously computed answer is substituted." (`cfg(feature = "bypass-l0-cache")`) |
+
+The feature umbrella that gates the last group: `cpu-speedups` in `walt/walt/Cargo.toml` ("Frozen v34 CPU implementation; --no-default-features retains the reference paths") names 26 features — `adaptive-parallel, aligned-cache, bounded-choice, bypass-l0-cache, bypass-l0-cache-all, closed-buckets, coalesced-deadlines, compact-depth, compact-dice, compact-policy, const-objective, fast-policy, fast-rng, fixed-policy-choice, hand-cache, lazy-record-hash, mask64-support-arena, parallel-roots, sharded-counters, sharded-root-memo, singleton-dice, stack-dice, trick-table, two-trick-single, two-trick-sum` — and is a default feature beside `parallel`; the receipts and the fence are on [walt-instruments §3.7](walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20). The 2026-09-13 import counts below were not re-derived for the new files.
 
 Two structural facts a reader of the table should hold: `adaptive` is imported by **33 of the other 37** solver modules (every one except `evidence`, `inner_belief`, `selection`, `partnership`; re-counted 2026-09-20 by grepping `adaptive::` per file — the 2026-09-07 survey's "36 of 38" names the same four non-importers and is an arithmetic slip); and `mod.rs` and its two 2026-09-06 companions are mutually dependent — `mod.rs` re-exports `inner_belief::InnerBelief` and stores a `selection::Rule` in `Shared`, while `selection.rs` uses `mod.rs`'s `best_of`, `BlockRace`, `Key` and `SplitMix64`. That is one module split across files, not a layering violation, but it is the only cycle in the crate and the table records it as such.
 
 ### 1.5 What the binaries consume
 
-The 54 binaries under `src/bin/` are the instruments; [walt-instruments](walt-instruments.md) owns each one's invocation, record path and pinning gate. Their crate-module imports (tree fact, 2026-09-13) confirm the layer picture: six fixed-carrier probes import `carrier` + `rules` only (`ladder`, `level1`, `level2`, `m3probe`, `scenario`; `playout` adds `solver`); the `scheme` bin imports `kernel`, `rules`, `scheme`; `partnership_gym` imports `gym`, `rules`, `scheme`, `solver`; `policy_lab` imports `gym`, `policy_search`, `rules`, `scheme`, `solver`; `relational_lab` imports `policy_search`, `rules`, `solver`; every other binary imports `solver` and `rules` (most with `kernel`). No binary imports `geom`, `strat` or `spec` directly.
+The 54 binaries under `src/bin/` (58 at `afd46420`, §3.9) are the instruments; [walt-instruments](walt-instruments.md) owns each one's invocation, record path and pinning gate. Their crate-module imports (tree fact, 2026-09-13) confirm the layer picture: six fixed-carrier probes import `carrier` + `rules` only (`ladder`, `level1`, `level2`, `m3probe`, `scenario`; `playout` adds `solver`); the `scheme` bin imports `kernel`, `rules`, `scheme`; `partnership_gym` imports `gym`, `rules`, `scheme`, `solver`; `policy_lab` imports `gym`, `policy_search`, `rules`, `scheme`, `solver`; `relational_lab` imports `policy_search`, `rules`, `solver`; every other binary imports `solver` and `rules` (most with `kernel`). No binary imports `geom`, `strat` or `spec` directly.
 
 ---
 
@@ -178,11 +197,11 @@ The crate's discipline is that a law which can be made unforgeable by a type, a 
 
 ### 3.1 No floats
 
-Five mechanisms, all in `walt/ci/check.sh` (§4.1): (i) `cargo clippy --workspace --all-targets -- -D warnings -D clippy::float_arithmetic`, backed by `float_arithmetic = "deny"` in every one of the six manifests; then the `== no-float gates` stage's four scans — (ii) a token grep for explicit `f32`/`f64` types and suffixes over `*.rs` and `*.toml` in `walt/` **and** `rob/crates/{core,player,verify}` (rob is bound as the independent oracle); (iii) an MSL grep rejecting the `half`/`float`/`double`/`bfloat` families (scalar, vector, matrix, packed, simdgroup) plus `ci/check_msl_no_float.awk` over the two Metal shaders; (iv) `ci/check_rust_no_float.py`, a fail-closed lexical scanner that rejects inferred float literals after stripping comments, strings, raw strings, byte strings and character literals, over all six crates and rob's three; (v) `ci/check_toml_no_float.awk` over every manifest and lockfile including `lean/lakefile.toml`. `grep -rnE '\b(f32|f64)\b' walt/walt/src` returns nothing (measured 2026-09-13). Exactness is `BigInt`/`BigRational` (`num-bigint`, `num-rational`) in the solver, `i128`-backed rationals in `geom`, `U256` limbs in `spec`.
+Five mechanisms, all in `walt/ci/check.sh` (§4.1): (i) `cargo clippy --workspace --all-targets -- -D warnings -D clippy::float_arithmetic`, backed by `float_arithmetic = "deny"` in every one of the six manifests (not in the two added 2026-09-14/20, §1.1); then the `== no-float gates` stage's four scans — (ii) a token grep for explicit `f32`/`f64` types and suffixes over `*.rs` and `*.toml` in `walt/` **and** `rob/crates/{core,player,verify}` (rob is bound as the independent oracle); (iii) an MSL grep rejecting the `half`/`float`/`double`/`bfloat` families (scalar, vector, matrix, packed, simdgroup) plus `ci/check_msl_no_float.awk` over the two Metal shaders; (iv) `ci/check_rust_no_float.py`, a fail-closed lexical scanner that rejects inferred float literals after stripping comments, strings, raw strings, byte strings and character literals, over all six crates and rob's three (the scanner's list was not extended to `walt-player` or `walt-cpu-bench` — tree fact 2026-09-20, §1.1); (v) `ci/check_toml_no_float.awk` over every manifest and lockfile including `lean/lakefile.toml`. `grep -rnE '\b(f32|f64)\b' walt/walt/src` returns nothing (measured 2026-09-13). Exactness is `BigInt`/`BigRational` (`num-bigint`, `num-rational`) in the solver, `i128`-backed rationals in `geom`, `U256` limbs in `spec`.
 
 ### 3.2 Overflow and unsafe
 
-`overflow-checks = true` in dev, release and test (workspace `Cargo.toml`): an integer wrap panics in the release binaries the probes run. `unsafe_code = "forbid"` in `walt`, `walt-gpu-ref` and `walt-m2-runner`; `"deny"` with a scoped allow only where `#[no_mangle]` exports (wasm) or the Metal ABI (`walt-metal`, which also denies `unsafe_op_in_unsafe_fn`) require it. `spec/mod.rs` and `carrier/mod.rs` additionally carry `#![forbid(unsafe_code)]` at the module root, a leftover of their crate days.
+`overflow-checks = true` in dev, release and test (workspace `Cargo.toml`): an integer wrap panics in the release binaries the probes run. `unsafe_code = "forbid"` in `walt`, `walt-gpu-ref` and `walt-m2-runner`; `"deny"` with a scoped allow only where `#[no_mangle]` exports (wasm) or the Metal ABI (`walt-metal`, which also denies `unsafe_op_in_unsafe_fn`) require it. (Added 2026-09-20: `walt-player` denies `unsafe_code`; `walt-cpu-bench` has no lints table and its `mac_qos.rs` carries one `unsafe extern "C"` and one `unsafe` call, feature-gated `mac-qos`, macOS-only — §1.1.) `spec/mod.rs` and `carrier/mod.rs` additionally carry `#![forbid(unsafe_code)]` at the module root, a leftover of their crate days.
 
 ### 3.3 Derived views, never stored state
 
@@ -233,6 +252,118 @@ Freeze 58 (APS-A9; the number issued by [walt-math-freezes](walt-math-freezes.md
 
 ---
 
+### 3.9 The 2026-09-14 → 09-20 changes to `rules`, `clock`, `gym` and `policy_search`
+
+Curated 2026-09-20 from `git diff c00717d1..afd46420 -- walt/walt`. Four
+files outside `solver/` changed in the intake; each is stated with what the
+diff shows, and the one that touches the rules layer is flagged.
+
+**`rules/rules.rs` — a compile-time trick-key table (`91e8925e`,
+2026-09-18, "Precompute the finite trick-strength rule table"; +27/−4
+lines).** The diff adds one `const` and rewrites one method:
+
+```rust
+// The finite rule algebra is still defined by `tier` and `rank` below. Compute
+// its 9 * 8 * 28 answers at compile time so recursive play only performs a
+// lookup. This table contains rules, never hands, beliefs or policy answers.
+const TRICK_KEYS: [[[TrickKey; Domino::COUNT]; Context::COUNT]; Decl::COUNT] = { … };
+
+    #[inline]
+    pub const fn trick_key(self, d: Domino, led: Context) -> TrickKey {
+        let di = match self {
+            Decl::PipTrump(p) => p.value() as usize,
+            Decl::DoublesTrump => 7,
+            Decl::NoTrump => 8,
+        };
+        TRICK_KEYS[di][led.index()][d.index()]
+    }
+```
+
+(previously `TrickKey { tier: self.tier(d, led), rank: self.rank(d) }`).
+`tier` and `rank` are unchanged; the table has 9 × 8 × 28 = 2,016 entries.
+The gate added in the same commit, `rules_exhaustive::every_precomputed_trick_key_matches_the_direct_rule_algebra`,
+asserts `trick_key(tile, led)` equals `(decl.tier(tile, led), decl.rank(tile))`
+for every declaration, led context and tile (the suite is 14 tests, from
+13). **Flag for the Part I owner (curator, 2026-09-20):** this is the first
+change to `walt/walt/src/rules/` since the fold; by the diff and its gate it
+is an implementation of the unchanged algebra, not a rules-profile change,
+and the book's rules pages need no edit unless the verifier reads it
+otherwise. (A second rules-adjacent fact of the same week sits in Plunge, not
+in this crate: the live table's forced last bid of 2026-09-20 —
+[walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward).)
+
+**`clock.rs` — the eleventh module (`cffd66fc`, 2026-09-14; 34 lines;
+`lib.rs` gained `pub mod clock;`).** "Clock is host infrastructure, never an
+input to an action value." On native targets it re-exports
+`std::time::Instant`; on `wasm32` it is a thread-local `install(fn() ->
+Duration)` and an `Instant` whose `now()` panics `"host clock not installed"`
+("The adapter must install a monotonic clock before invoking a solver.
+Missing clocks fail explicitly rather than silently disabling budgets"),
+with saturating `elapsed` and `Add<Duration>`. `solver::Deadline` (`mod.rs:98–113`,
+"Monotonic wall budget on both native and browser hosts") is now built on
+`crate::clock::Instant`: `after(budget)` and `passed()`. This corrects §1.4's
+"on `wasm32` it never expires and the budget is carried by the sample
+counts", which was true at `c00717d1`: since `cffd66fc` a browser deadline is
+real once the adapter installs the clock, and `walt-player`'s accelerated-clock
+test forces a `Deadline` refusal in both evaluator stages
+([walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward)).
+`walt-wasm` and `walt2-wasm` install no clock and are unchanged in the
+intake (no file under either crate is in the diff), so their `budget_ms`
+remains inert as [walt-instruments §1](walt-instruments.md#1-the-seats-you-can-play)
+states.
+
+**`gym.rs` (+13/−2; `83b712f0`, 2026-09-14).** `from_request_bid(decl, bid,
+bidder, viewer, original, history)` — "Live straight-contract adapter;
+historical gym specifications default to 30" — validates `bid` in `30..=42`
+and passes it to `driven_root` where `bid: 30` was hard-coded;
+`from_request` now delegates with 30. The gym's own answer keys and the
+bid-30 scope of the Mac counterfactual comparison are unchanged
+([walt-gym](walt-gym.md)).
+
+**`policy_search.rs` and its two new files.** `policy_search.rs` (+35) declares
+`pub mod partner_review;` and `pub mod partner_rollout;` and adds
+`Search::compare_root(actions, work)` — "Compare a requested root-action set
+with unrestricted lawful future choices. All actions use the same immutable
+finite prior and field. A refusal returns no partial comparison." The files:
+`policy_search/partner_review.rs` (97 lines, `58e15cd1`, 2026-09-13:
+"Optional, bounded investigation of an existing player's count-offer choice.
+The Scheme relation proposes alternatives; it supplies no reward bonus. …
+This is model-relative exact comparison, not a guarantee about live
+players") and `policy_search/partner_rollout.rs` (373 lines, `a4c2c20d`,
+2026-09-13: "Bounded, paired continuation guesses around an already
+completed L1 move. Every compared world uses every legal first action and the
+SAME completed deployed L1 procedure afterward. No perfect-information
+continuation is substituted. A completed prefix of a shuffled finite support
+is a heuristic sample, NOT a calibrated confidence claim; only a census is
+exact"). `policy_search/request.rs` ("Strict public/own-hand request bridge
+for existing partnership-gym cases") changed in place. The module count of
+`policy_search` is now 8 files, 3,656 lines. Owned by
+[walt-partnership-program §11.2–§11.3](walt-partnership-program.md#112-the-bounded-partnership-review-l1-partner-count-review-58e15cd1-2026-09-13).
+
+**Binaries added to the unified crate (four; 58 `.rs` files under `src/bin/`
+at `afd46420`, from 54):** `partner_review` (47 lines) and
+`partner_review_ablation` (67; both `58e15cd1`), `partner_rollout` (90;
+`a4c2c20d`), `scheme_worlds` (116; `231eb1b0`, 2026-09-18). `bin/partnership.rs`
+shrank from 221 to 46 lines: its request parser moved into
+`solver::partnership_wire` and it is now "Native transport for the shared
+partnership evaluator" (`cffd66fc`). `bin/partner_rollout.rs`'s header: "One
+bounded continuation check. Its caller retains the completed baseline and
+enforces the outer wall deadline, including process startup and output."
+The invocations are on [walt-instruments](walt-instruments.md).
+
+**Tests added (2026-09-13 → 09-20).** `tests/partner_review.rs` (4),
+`tests/partner_rollout.rs` (4), `tests/solver_compact_dice.rs` (5;
+`#![cfg(all(feature = "compact-dice", feature = "parallel"))]`),
+`tests/solver_hand_cache.rs` (2; `#![cfg(feature = "hand-cache")]`);
+`rules_exhaustive` 13 → 14 (above); `solver_partnership` 12 → 13. Outside
+the crate: `walt-player/tests/contracts.rs` (1) and five in-crate `#[test]`s
+(`auction.rs` 2, `played.rs` 2, `bin/kiln-decision-worker.rs` 1);
+`walt/examples/generate_trick_table.rs` (`-- --check` verifies
+`trick_table.bin` "without changing it"). The suite inventory of §4.3 carries
+the new totals.
+
+---
+
 ## 4. The gate and what it costs
 
 ### 4.1 `walt/ci/check.sh`, stage by stage
@@ -265,13 +396,13 @@ The fixtured suites and what stays fresh by law are tabulated in `walt/briefs/CI
 
 ### 4.3 The suite inventory
 
-Tree facts, 2026-09-13: **70** integration-test files under `walt/walt/tests/` (36,631 lines), **503** `#[test]` functions (counted as attributes at line start), and **2** `#[ignore]` attributes (§8 records why the 2026-09-07 survey said five). The runner reports 121 test executables at CI1 and 123 at FH3/FH4 — every crate's lib and bin targets get a harness too, so the executable count exceeds the file count. The full list, grouped by the module each suite gates, with one line from each header (rows ordered as the files sort within a group; the test count is `#[test]` occurrences in the file):
+Tree facts, 2026-09-13: **70** integration-test files under `walt/walt/tests/` (36,631 lines), **503** `#[test]` functions (counted as attributes at line start), and **2** `#[ignore]` attributes (§8 records why the 2026-09-07 survey said five). (Re-measured 2026-09-20 at `afd46420`: **74** files, 37,486 lines, **520** `#[test]`, still 2 `#[ignore]`; the four new files and the two rows that grew are in §3.9 and marked below.) The runner reports 121 test executables at CI1 and 123 at FH3/FH4 — every crate's lib and bin targets get a harness too, so the executable count exceeds the file count. The full list, grouped by the module each suite gates, with one line from each header (rows ordered as the files sort within a group; the test count is `#[test]` occurrences in the file):
 
 **Rules, kernel, geometry, operators, ABI, carrier (20 files)**
 
 | Suite | Tests | From its header |
 |---|---|---|
-| `rules_exhaustive` | 13 | Every exhaustive count the spec states is asserted here (v0.4 §1.1–§1.4). |
+| `rules_exhaustive` | 13 (14 at `afd46420`: `every_precomputed_trick_key_matches_the_direct_rule_algebra`, `91e8925e`, §3.9) | Every exhaustive count the spec states is asserted here (v0.4 §1.1–§1.4). |
 | `rules_receipt_replay` | 3 | The ground-truth bridge: all 13 hands of rob's `verify_player.txt` re-derived from the rules alone (read-only on the receipt). |
 | `kernel_known_fibers` | 9 | Fiber sizes cross-checked against the exp5 probe corpus; what is authoritative is the internal agreement of counting DP, enumeration and sampler. |
 | `kernel_receipt_decisions` | 1 | The arbitrary-decision-point kernel constructor (`ReceiptDecision`, v0.4 §2.1) against all 13 hands × 4 seats × 7 decisions — 364 decision points. |
@@ -301,7 +432,11 @@ Tree facts, 2026-09-13: **70** integration-test files under `walt/walt/tests/` (
 | `solver_panel_conformance` | 8 | The panel-response conformance audits (PANEL-A3/A5/A6). |
 | `solver_sigma1_repair` | 8 | The σ1-repair slice: terminating the void-conditioned belief sampler and deduplicating its five copies onto one library authority. One test `#[ignore]`d: it regenerates the committed before-side evidence. |
 | `solver_selection` | 7 | Exact synthetic schedules: independent expected work and winners. |
-| `solver_partnership` | 12 | Focused gates for the bounded partnership evaluator. Exploratory tier. |
+| `solver_partnership` | 12 (13 at `afd46420`; changed at `cffd66fc` and `701e8589`) | Focused gates for the bounded partnership evaluator. Exploratory tier. |
+| `solver_compact_dice` (added `701e8589`, 2026-09-20) | 5 | `#![cfg(all(feature = "compact-dice", feature = "parallel"))]`; the compact Dice recurrence against the reference paths (§3.9). |
+| `solver_hand_cache` (added `701e8589`) | 2 | `#![cfg(feature = "hand-cache")]`; the guarded within-hand policy-cache transfer. |
+| `partner_review` (added `58e15cd1`, 2026-09-13) | 4 | `policy_search::partner_review` — the bounded count-offer investigation (§3.9). |
+| `partner_rollout` (added `a4c2c20d`, 2026-09-13) | 4 | `policy_search::partner_rollout` — the paired continuation check on the fixed `MISSED` fixture (§3.9). |
 
 **Solver — the calculated-evidence path, CE thread (9 files)**
 
@@ -401,7 +536,7 @@ CLAUDE.md's rule (2026-09-04): a gate is sized to its laws, not to a census — 
 
 ### 4.6 The 2026-09-06/07 landings, merged with the gate waived
 
-Every entry in `walt/LOG.md` dated 2026-09-06 and 2026-09-07 — `walt::scheme` and the `scheme` bin (`b764665f`), `inner_belief` (`dbcc698f`), `partnership` (`cfb0fb25`), `selection` and `Field::SeatLevels` (`9236ca7f`), `gym` and `partnership_gym` (`c59f1115`), `policy_search` with `scheme/{dynamics,policy}` and `policy_lab` (`08fad726`), the relational learner and `relational_lab` (`c00717d1`) — ends with "full CI deliberately skipped/waived under the session waiver" or "full legacy Rust CI remains waived." Focused suites, clippy and fmt did pass per each entry (for example "61 distinct focused Rust tests", "eight gym + 19 Scheme Rust tests", "clippy and formatting passed"). **The last recorded green `walt/ci/check.sh` is the FH4 audit's 306.65 s run of 2026-09-04**, which predates every module listed in this paragraph. Whether the workspace gate is green at `c00717d1` is therefore not known from any record, and this page does not run it (it is not a sixty-second command). Recorded as the first open item of §8.
+Every entry in `walt/LOG.md` dated 2026-09-06 and 2026-09-07 — `walt::scheme` and the `scheme` bin (`b764665f`), `inner_belief` (`dbcc698f`), `partnership` (`cfb0fb25`), `selection` and `Field::SeatLevels` (`9236ca7f`), `gym` and `partnership_gym` (`c59f1115`), `policy_search` with `scheme/{dynamics,policy}` and `policy_lab` (`08fad726`), the relational learner and `relational_lab` (`c00717d1`) — ends with "full CI deliberately skipped/waived under the session waiver" or "full legacy Rust CI remains waived." Focused suites, clippy and fmt did pass per each entry (for example "61 distinct focused Rust tests", "eight gym + 19 Scheme Rust tests", "clippy and formatting passed"). **The last recorded green `walt/ci/check.sh` is the FH4 audit's 306.65 s run of 2026-09-04**, which predates every module listed in this paragraph. Whether the workspace gate is green at `c00717d1` is therefore not known from any record, and this page does not run it (it is not a sixty-second command). Recorded as the first open item of §8. (Added 2026-09-20: the waiver continues through the CPU landing — `walt/receipts/cpu-speedups-v34/checks.json`: `"full_workspace_ci": "not run; scoped sampling-stack solver and player checks selected"` (59 native unit tests, 47 scoped integration tests + 1 ignored, strict clippy on `-p walt --lib`, 40 fallback tests); `walt/LOG.md` has no entry after 2026-09-14 to say otherwise for the Kiln round. The last recorded green `check.sh` remains 2026-09-04.)
 
 ---
 
@@ -418,6 +553,7 @@ Every walt number is relative to a declared epoch — the σ0/σ1 field identiti
 | **Model belief (MB0/MB1) and the unified player** | F₀ = `Level0 { n0 = 2 }` | F₁ = `Level1 { n_outer = 2, n0 = 2 }`; prior (1/2, 1/2) per hidden seat | MB1 read caps 4M (MB0 roots) / 12M (trick 4) / 7M (trick 3) | `walt/briefs/{MB1,UP0}-REPORT.md`; `bin/{modelbeliefreport,modelbeliefrecursionreport,unifiedreport}.rs` | `modelbeliefreport`, `modelbeliefrecursionreport`, `unifiedreport` |
 | **The gym field** | opponents `Level0Field::new(8)`; partner a fixed level-1 mind at `partner_worlds`/8 | — | `Rule::Fixed`, `InnerBelief::Voidless`, `FieldProfile::Baseline`; id `gym-field-v1/partner=<seat+2>/l1-fixed-<partner_worlds>-8/inner=voidless/opponents=<σ0 id>/seed=420600-state-v1/tie=lowest/fallback=none` | `src/gym.rs` (`GymField::new`) | `partnership_gym`, `policy_lab --field gym` |
 | **Live level-1 surfaces** (argv/env defaults, tree facts) | the Dice field inside each modeled level-0 mind at `n0` | — | `walt_bridge` n_outer 50, n0 8, 120 s per move (`WALT_N_OUTER`/`WALT_N0`/`WALT_PER_MOVE`); `webtable` 100/8, `ctrl` cap 128, port 4242; `playtable` 100/8, seed 42, `ctrl` cap 128; `playout` 3 games / 300 s / 200 / 8; `walt-wasm` n 40, n0 8, `race` opt-in, θ = 11/16; `walt2-wasm` n 8, n1 4, n0 2; `partnership` takes n/n0/n1 from each request within n ≤ 640, n0, n1 ≤ 64, budget_ms ≤ 14,000 — the 40/8/2 family defaults are the Python driver's | `bin/walt_bridge.rs:957–959`, `bin/webtable.rs:1301–1314`, `bin/playtable.rs:1077–1092`, `bin/playout.rs:787–796`, `bin/partnership.rs:153–157`, `walt-wasm/src/api.rs` header, `walt2-wasm/src/api.rs` header | the seats people play — [walt-seat-play](walt-seat-play.md) §2; [walt-partnership-program](walt-partnership-program.md) §3 |
+| **The deployed `walt-player` profile** (added 2026-09-20; source constants) | the Dice field inside each modeled level-0 mind at `n0 = 8` | modeled `n1 = 2` is sent on the wire (`baseline` mode, so inactive) | 8/2 reserve ≤ 1,500 ms, fixed L1 40/8, optional partner rollout ≤ 500 ms, `budget_ms` 14,000; opening lead and Think-deeper 160 worlds / 20,000 ms; auction rounds 4/12/40/160 worlds, 20,000 ms, threshold 3/4; targets 30–42 | `walt/walt-player/src/lib.rs:46,79–84,109,149,193`, `src/auction.rs:34–40`; the Plunge release manifest in `walt/receipts/cpu-live-release-v1/release.json` | `walt-table`, Plunge's WASM — [walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward) |
 
 The do-not-compose rule in the records' own words (`walt/probes/gran/README.md`): "**The `l2_controller` probe's epoch is DIFFERENT (σ0 n0 = 8): numbers do not compose across the two.**" The Plunge panel's forty-world percentages on the Gran hand do not compose with any row above either ([walt-gran-anchors](walt-gran-anchors.md)). A receipt-corpus caveat travels with every row that reads `rob/receipts/verify_player.txt` for its roots: the receipt hands are pip-trump contracts only.
 
@@ -442,6 +578,9 @@ The do-not-compose rule in the records' own words (`walt/probes/gran/README.md`)
 | 11 | **`check.sh` has no vocabulary grep**; rob's does. The FH4 audit's one BLOCK ("sandwich" as an object name in a gate name and reports) was caught by reading, and fixed at FH5 (`b6de5a25`). | `walt/briefs/FH4-AUDIT.md` | open |
 | 12 | **`walt/MAP.md` was stale on two rows** at `c00717d1`: the size row ("37,260 lines, 36 modules (after FH2)") and objects-table row 10, which labelled `CONTROLLER-PLAYER.md` "the live default player" while that document says the old level-1 sampling-stack seat remains the default everywhere. | tree fact vs `walt/MAP.md` | fixed 2026-09-13 in this rewrite (size row 38,013 / 39 files; row 10 now the sampling-stack seat, row 10b the controller variant); MAP.md is rewritten by the orchestrating session at every landing |
 | 13 | **The workspace gate has not been recorded green since the 2026-09-06/07 modules landed** (§4.6). | `walt/LOG.md` | open |
+| 15 | (Added 2026-09-20.) **The two new crates sit outside two of the no-float mechanisms**: `walt-player` and `walt-cpu-bench` carry no manifest `float_arithmetic = "deny"`, and `check_rust_no_float.py`'s crate list in `check.sh:312` names only the six older crates; clippy's command-line `-D clippy::float_arithmetic` still covers them and a grep finds no `f32`/`f64` in either (§1.1). `walt-cpu-bench` also has no `unsafe_code` lint (its `mac_qos.rs` needs one FFI call). | tree facts | open |
+| 16 | (Added 2026-09-20.) **`walt/LOG.md` stops at 2026-09-14**: the Kiln round (2026-09-18/19) and the CPU landings (2026-09-20) have no LOG entry; their records are `experiments/kiln/`, `walt/CPU-*.md`, `walt/MAP.md`'s top paragraph and `experiments/partnership/PLUNGE.md`. | `git log -1 -- walt/LOG.md` | open |
+| 17 | (Added 2026-09-20.) **`lib.rs`'s doc is further behind**: it now also omits `clock` (§3.9), and `walt/MAP.md`'s size row is not this page's concern but reads stale against the 88,023-line tree of §1.3. | tree fact | open |
 | 14 | **The committed browser oracles may be behind their source**: `pkg/walt.wasm` was last rebuilt 2026-08-24 and `pkg/walt2.wasm` 2026-08-25, while both crates' `api.rs` changed at `161b0195` (2026-09-02) and the `walt` crate they link changed again on 2026-09-06. `experiments/partnership/BASELINE.md` deliberately freezes the *phone* artifact as an external anchor, so a stale repo `pkg` may be intentional. | survey of 2026-09-07; [[plunge-walt-sync]] | not verified in this pass |
 
 ### 6.2 The freezes, by what each pins and where
@@ -469,7 +608,7 @@ Freezes 1–54 belong to the archived eras (Part III) and to walt's mathematics;
 | `verify_m2_sources.sh` | The freeze-56 v2 cumulative source-closure verifier over the 282-entry v2 manifest with the fold-translation table; a **freeze-event** verification since FZ-A5, not a per-commit gate. |
 | `verify_m2_history.sh` | The freeze-56 historical verifier: inspects the freeze-55 bytes (the Gate-0 NO-GO record and the M0/M1 receipt files) at their producing commit `3b4c6d60` through `git cat-file`, "never through current-path reinterpretation." Stage 1 of `check.sh`. |
 | `check_m2_metal.sh` | The elevated freeze-56 conjunction (needs a Metal device): the portable conjunction, an immutable committed source snapshot, the release M2 runner, a checked host/tool/device descriptor and a two-build metallib, canonical Rust Gate 0 with U256 parity and negative controls, timeout / malformed-protocol / no-partial controls, a discarded maximum-projector smoke child, two fresh official M2 children, typed receipt adjudication against the immutable HEAD comparands, the final Lean audit and the final cumulative source identity. "Success exists only after the discarded smoke, two fresh complete official children, and exact receipt regeneration." Its final step is freeze-event dependent since v2 ([[m2-runner-trace]]). |
-| `check_rust_no_float.py` | Fail-closed lexical scanner for inferred Rust float literals after stripping comments and literals; called by `check.sh` over the six walt crates and rob's core/player/verify. |
+| `check_rust_no_float.py` | Fail-closed lexical scanner for inferred Rust float literals after stripping comments and literals; called by `check.sh` over the six walt crates and rob's core/player/verify (still six at `afd46420`, not the eight members — §1.1, §6.1 item 15). |
 | `check_msl_no_float.awk` | Fail-closed scan of the two Metal shaders for decimal/exponent/inf/nan tokens; the MSL type-family rejection is a separate grep in `check.sh`. |
 | `check_toml_no_float.awk` | Conservative no-float scan of every manifest, lockfile and the Lean manifests, continuation lines included; multiline or unterminated strings fail closed. |
 | `render_m2_failure.py` | Renders one typed freeze-56 outer-gate failure without a Rust binary — the bootstrap path for failures before the checked runner is built; "no success encoding, never overwrites an existing artifact." |
@@ -478,7 +617,7 @@ Freezes 1–54 belong to the archived eras (Part III) and to walt's mathematics;
 
 ## 8. Open items and what was not verified in this pass
 
-- **Is the workspace gate green at `c00717d1`?** Unknown from any record (§4.6); not run here.
+- **Is the workspace gate green at `c00717d1`?** Unknown from any record (§4.6); not run here. (2026-09-20: nor at `afd46420` — `checks.json` records the CPU landing's scoped checks and `full_workspace_ci: not run`.)
 - **The survey of 2026-09-07 counted 5 `#[ignore]`d tests** (`solver_sigma1_repair` 3, `solver_calibrate` 1, `solver_wakeup` 1); on the tree, two of those five occurrences are doc-comment mentions of the word (`solver_sigma1_repair.rs:30, 325`) and one is a code comment (`solver_wakeup.rs:559`). The attributes that actually ignore a test are two: `solver_sigma1_repair.rs:329` (`capture_before_side_fixture`, "regenerates the committed before-side evidence") and `solver_calibrate.rs:419` (`v5_literal_count_timing_position_reconstructs`, "blocked: plunge-side game seeds (L2-A6 [[gran-anchor-reconstruction]])"; its blocker is discharged for G1 but the test is still ignored on main — [walt-gran-anchors](walt-gran-anchors.md) §10). Any page quoting "5 ignored" is quoting the loose count.
 - **The L2-thread gate and probe epochs differ** (§5): the probe bins declare σ0 `n0 = 8` / σ1 `4×2`, the gate file `tests/solver_fieldswap_screen.rs` runs σ0 `n0 = 2` / σ1 `2×2`. Both are declared in their own headers, so nothing composes wrongly by accident — but a page that says "the fieldswap gates pin the n0 = 8 epoch" would be wrong. Checked 2026-09-13: every other L2 gate file (`fieldswap_cancel`, `fieldswap_motifs`, `e3_upper`, `hazard_witness`, `targeted`, `wakeup`, `waking`) also runs the small pair, each declaring it in its header (§5).
 - **Whether the committed wasm packages match their sources** (§6.1 item 14) is not verified; it belongs to [[plunge-walt-sync]] and [walt-instruments](walt-instruments.md).
