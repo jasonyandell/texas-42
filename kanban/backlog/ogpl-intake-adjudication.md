@@ -21,9 +21,14 @@ Open items, all Jason's:
    unfiled per the SP-A11 precedent.
 3. Disposition against the consolidation ruling (queue behind
    [[consolidation-slice]], or amend the ruling).
-4. Build go/no-go on the companion's proposed OG0–OG6 program (rational
-   multiplicative-weights actor over the Scheme dictionary, outcome-gradient
-   estimator, constructor, risk-budgeted promotion, multifidelity harness).
+4. ~~Build go/no-go~~ — **resolved in-session 2026-09-21**: Jason authorized
+   the build ("all the way to running it"); the instrument lives at
+   `experiments/og-learning/` and campaign `og-v1` ran to its registered
+   stall stop (record: `experiments/og-learning/campaigns/og-v1/RESULTS.md`;
+   the companion's dated marker records the authorization). Still open from
+   the build: the constructor-growth slice (OG4), the multifidelity harness
+   (OG6, wants PR #93 landed), and harder-lineup targets (L0-8 / gym field)
+   as new campaigns.
 
 ## Done when
 

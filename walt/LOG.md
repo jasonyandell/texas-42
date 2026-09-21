@@ -1084,3 +1084,20 @@ floats. Hand audit found no unsound claim. Adjudication PENDING (proposed
 family OG-A; agenda in the companion); proposed build program OG0–OG6 queued
 behind it; no build authorized, no default touched. Index:
 `wiki/walt-math-intakes.md`; card: `kanban/backlog/ogpl-intake-adjudication.md`.
+
+## 2026-09-21 — outcome-grounded learning: first campaign ran to completion
+
+Jason authorized the OGPL build in-session, hours after the intake. The
+instrument is `experiments/og-learning/` (outside the walt workspace; consumes
+the walt crate read-only): exact-rational multiplicative-weights softmax over
+the versioned 14-clause relational library, on-policy complete-deal outcome
+gradients with LOO baselines, multi-step generations with snapshot finalists,
+risk-budgeted promotion (δ=1/20, τ=1/100, exact-rational Hoeffding uppers),
+registered stall stop, untouched final exam. 21 law-sized gates, clippy clean,
+no floats. Campaign og-v1 (bid-30 longest-pip target, random-legal co-players):
+three promotions in eight generations, ~1.3M complete deals in ~15 min; exam
+550‰ vs the uniform start's 424‰, paired +125.9‰, exact CI [83,168]‰. The
+learned coefficients are powers of 9/8 and read as count husbandry and master
+timing — from make/set outcomes alone. EXPLORATORY, target-specific; parent
+adjudication still pending (OG-A agenda). Record of record:
+`experiments/og-learning/campaigns/og-v1/RESULTS.md`.

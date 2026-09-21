@@ -298,6 +298,24 @@ laws, one coordinate per law plus a PINNED strictness witness.
   variance estimation, the allocation ratio, and the direct-target-only
   control arm.
 
+**Dated provenance marker — 2026-09-21, later the same session.** Jason
+authorized the build in-session ("my hope is to let you do this your way …
+how would you make that happen all the way to running it?") — an explicit
+instruction from the same authority this section was waiting on, superseding
+the "nothing is authorized" line above for the build only. The instrument
+was built at `experiments/og-learning/` (its README declares the campaign
+target, the registered evidence rule, and the disjoint seed ranges) and the
+first campaign ran to its registered stall stop the same day; the record of
+record is `experiments/og-learning/campaigns/og-v1/RESULTS.md` (three
+promotions in eight generations; untouched exam: learned 550‰ vs uniform
+424‰, paired +125.9‰, exact CI [+83.3‰, +168.5‰] at α = 1/20 — EXPLORATORY,
+target-specific). Two declared deviations from the §8 slice sketch: the
+fixed 14-clause library was consumed whole as the campaign language (no
+constructor-growth phase yet — OG4 remains open), and a generation takes
+multiple audited inner steps with snapshot finalists (the parent's §5
+steps 5–6 allow both). The parent's adjudication below remains PENDING;
+nothing in the campaign record is quotable above walt's exploratory tier.
+
 ## 9. Adjudication agenda (for Jason; proposed rulings family OG-A)
 
 1. Accept or decline the intake at instrument tier; disposition of the
