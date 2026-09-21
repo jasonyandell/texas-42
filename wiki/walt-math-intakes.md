@@ -801,8 +801,16 @@ adjudication PENDING; it is the last entry in this section.
   exam 550‰ vs 424‰ (paired +125.9‰, exact CI [83, 168]‰ at α = 1/20).
   Record of record: `experiments/og-learning/campaigns/og-v1/RESULTS.md`;
   the companion's dated 2026-09-21 marker records the authorization and the
-  two declared deviations from the proposed slice order. All of it
-  EXPLORATORY and target-specific; the adjudication agenda is unchanged.
+  two declared deviations from the proposed slice order. **Later the same
+  day, on Jason's direction that the grammar itself is the learned object,
+  the constructor slice (the companion's OG4) was built and campaign
+  `og-v2` ran with the language open** — 539 typed expressions generated,
+  panel-deduplicated and g_F-scored, 24 admitted over eight generations,
+  four promotions, declared budget stop; untouched exam 638‰ vs 437‰
+  (paired +201.1‰, exact CI [158.5, 243.7]‰ at α = 1/20, disjoint deals
+  from og-v1) — record `experiments/og-learning/campaigns/og-v2/RESULTS.md`.
+  All of it EXPLORATORY and target-specific; the adjudication agenda is
+  unchanged.
 
 ## 7. The pinned manifests
 

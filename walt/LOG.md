@@ -1101,3 +1101,20 @@ learned coefficients are powers of 9/8 and read as count husbandry and master
 timing — from make/set outcomes alone. EXPLORATORY, target-specific; parent
 adjudication still pending (OG-A agenda). Record of record:
 `experiments/og-learning/campaigns/og-v1/RESULTS.md`.
+
+## 2026-09-21 — the constructor: og-v2 opens the language, exam +201 permille
+
+Jason's direction after og-v1: the relational grammar is the learned object,
+not a fixture. Built the parent's §5 constructor into og-learning: a declared
+typed language of 539 bounded expressions over the scheme viewer predicates
+(negations, trump membership via the Called literal, a beats-the-current-
+winner composite, trick-position and hand-size qualifiers), panel dedup,
+covariance scores g_F at coefficient zero, top-3 admitted per generation at
+weight 1 (play-invisible until the gradient moves them). Campaign og-v2 (same
+target, all seeds offset 100M): four promotions in eight generations, 24
+expressions admitted, declared budget stop; untouched exam 638‰ vs the
+uniform start's 437‰ — paired +201.1‰, exact CI [158.5, 243.7]‰ — versus
+og-v1's +125.9‰ with the fixed library on disjoint deals. First promoted
+composite cleared at the first 1,024-deal checkpoint (+12.3%), equal to all
+of og-v1's final gain. EXPLORATORY, target-specific; adjudication (OG-A)
+still pending. Record: experiments/og-learning/campaigns/og-v2/RESULTS.md.

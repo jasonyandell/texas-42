@@ -25,10 +25,13 @@ Open items, all Jason's:
    the build ("all the way to running it"); the instrument lives at
    `experiments/og-learning/` and campaign `og-v1` ran to its registered
    stall stop (record: `experiments/og-learning/campaigns/og-v1/RESULTS.md`;
-   the companion's dated marker records the authorization). Still open from
-   the build: the constructor-growth slice (OG4), the multifidelity harness
-   (OG6, wants PR #93 landed), and harder-lineup targets (L0-8 / gym field)
-   as new campaigns.
+   the companion's dated marker records the authorization). The
+   constructor-growth slice (OG4) was then built the same day on Jason's
+   direction and ran as campaign `og-v2` (record:
+   `experiments/og-learning/campaigns/og-v2/RESULTS.md` — open language,
+   +201.1‰ on its untouched exam vs og-v1's +125.9‰). Still open from the
+   build: the multifidelity harness (OG6, wants PR #93 landed) and
+   harder-lineup targets (L0-8 / gym field) as new campaigns.
 
 ## Done when
 
