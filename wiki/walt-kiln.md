@@ -82,7 +82,7 @@ proof sketch and exploratory regression evidence; not a new corpus theorem or a
 claim of player strength." Validation: 117 retained price cases and four
 additional 4/12/40/160-world comparisons matched prices, node counts,
 policy-call counts and inner-world counts against the preserved rational
-implementation (original binary `14939b7b…`; raw comparison
+implementation (original binary `14939b7a…`; raw comparison
 `/Users/jason/data/texas-42/kiln-v1/counted-parity.json`). The later
 worker-speed studies are §9.
 

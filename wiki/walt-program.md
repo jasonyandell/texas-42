@@ -595,9 +595,16 @@ notification mentioning running jobs is a stall signal, not a status
 conformance gates justify a change, on Jason's word (CE-A7/§20.16; restated at
 CBS-A9, APS-A9, MB-A7, FH-A10). As of `c00717d1` no arena or conformance run
 exists for the controller, waking, unified or partner-aware players, so none of
-them carries a strength number and none is the default.
+them carries a strength number and none is the default. (Corrected 2026-09-20:
+true through `c00717d1`. On 2026-09-14 the seat Plunge ships became the shared
+`walt-player` procedure on conformance receipts alone — level 1, voidless,
+fixed selection, an 8/2 reserve, an optional 500 ms partner check — and no
+record cites this rule or an arena gate for the change; it still carries no
+strength number. The rule stands for the controller, waking, unified and
+partner-aware variants, none of which is a default; the Sunshine presets of
+2026-09-13 are optional. [walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward).)
 
-## Where the program stands (2026-09-07, `c00717d1`)
+## Where the program stands (2026-09-07, `c00717d1`; addendum as of `afd46420`, 2026-09-20)
 
 The standing epistemic frame, unchanged since S5d: the mathematics has proven
 that the object exists; it has not proven its utility. If the utility turns out
@@ -637,6 +644,61 @@ and the standing debts — [[ladder-policy-store]] (memory), [[gate-corpus-trim]
 2026-08-13/14), the corpus check T1-A12 before any rules-level theorem is cited
 outside walt, and the FH response to Pro drafted 2026-09-04 and not recorded as
 sent.
+
+**Addendum, as of `afd46420` (2026-09-20; cycle 1 of the [curator](curator.md),
+curated 2026-09-20).** Between 2026-09-13 and 09-20 the program took no
+sixteenth reset: Jason's 2026-09-04 ruling holds, the σ0 read-key study and
+the consolidation slice are still uncommitted, and no new mathematical parent
+arrived. The movement was on the seat, in three areas, none of them a change
+to what 42 *is* for the book. **Sunshine** (2026-09-13 → 09-15;
+[walt-partnership-program §11](walt-partnership-program.md#11-sunshine-2026-09-13--09-15-the-partner-aware-live-player)) asked for "a reasonable, fairly quick, partner-aware Texas 42
+player on the Mac and phone" and built two optional, bounded second looks
+around L1 — a 250 ms partner review valued under the gym teacher's field and
+a 500 ms partner rollout valued under the deployed players' own continuations
+— then measured them the way the method above demands: on the intended
+situations (the review 24/30 → 29/30 on the teacher's exam, of which two of
+the six corrections hold and four reverse once deployed L1 plays on; the
+rollout 11 improved / 2 harmed development roots and 1 / 1 fresh, the fresh
+harm a deadline-truncated prefix that the full census would have reversed)
+and on ordinary games, where every panel tied — 32 + 100 + 64 mirrored pairs
+and 192 conditional. "No demonstrated strength gain"; neither preset is a
+default; the exact gym now names the continuation its answer key assumes,
+and the Mac table feeds flagged human-play moves into it ([walt-gym §11](walt-gym.md#11-sunshine-2026-09-13-the-gym-under-deployed-continuations-and-the-live-move-intake)). On
+2026-09-15 the notes recorded the workshop harness as a future goal and
+turned to the playable game. **The shared deployed player** (2026-09-14;
+[walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward)): the seat Plunge ships and the seat the Mac bridge runs became
+one crate, `walt-player` — level 1, voidless, fixed selection with an 8/2
+reserve and the optional partner check, and a once-around auction at
+threshold 3/4 that its own record calls "deliberately an uncalibrated
+bidding policy, not a new strength finding" — under conformance receipts
+only. This is where the no-default rule above became stale as a description
+of Plunge: the level, the belief and the objective did not move, the
+deployed procedure did, and no record cites CE-A7 or an arena gate for it.
+**Kiln** (2026-09-18 → 09-19; [walt-kiln](walt-kiln.md)): the model-price
+survey of opening bids was frozen after its one calibration check — a
+sixes/36 hand the model forecast at 121/160 made 21/100 when the table
+actually played it — and replaced, on Jason's direction that "the unit is
+the player making bids", by playing the deployed player 305,440 times at
+bid 30 over 500 catalogue hands and reading off score tails; Plunge bids
+from that book since 2026-09-19 (a lookup: the highest 30–42 target reached
+in 4/5 of games), play unchanged. The calibration gap's cause is unmeasured
+("a candidate explanation, not a cause established by the experiment",
+`CALIBRATION-SIX36.md`). Then, on 2026-09-20, the CPU campaign's **v34**
+speedups became the native default (13.13× median on completed fixed solves,
+exact-equal on 12/12 paired games) and went to the phone the same day —
+portability evidence, "not evidence of improved game strength" — while the
+full walt gate remained unrun on every landing since 2026-09-06
+([walt-instruments §3.7](walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20)). *Stopped:* Kiln production and its monitor. *Frozen:* the
+scalar survey (never installed); RefineV1 (freeze 58) as before. *Deployed:*
+`walt-player` with v34 and the Kiln book, on the phone and the Mac. *Open,
+as the chapters name it:* the partnership gap ("The partnership gap is still
+open"; whether a bounded partner check should override L1 on sampled
+evidence at all; the human partner as a continuation condition no census
+models); the calibration gap; whether Plunge's forced last bid of 2026-09-20
+belongs to the straight-42 rules profile — a question for Part I; and PR
+#90's Nel-O, which would be the first foundation change ([walt](walt.md),
+"The unmerged branches"). The queue of the paragraph above is otherwise as
+it was.
 
 The summary of results by result lives on [the hub](walt.md) and
 [pre-pivot results](walt-pre-pivot-results.md); the refutations at

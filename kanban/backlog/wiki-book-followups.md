@@ -289,3 +289,52 @@ Five completeness critics audited every results[], tools[], open_questions[], wi
 - [MINOR/ownership-gap] wiki/Home.md (Part I list, rules-profile line): Consequence of the fixes above: rules-profile now owns the Math §§4–5 DEAL/AUC/PLAY/ORC/MATCH theorems, but Home's TOC one-liner still reads 'the normative rules profile (byte-identical in both packag → Left; owner Home.md — append 'and the objective contracted hand (Math §§4–5)' to the rules-profile line so the doorway matches the chapter.
 - [MINOR/omitted-result] wiki/walt-partnership-program.md (pool infrastructure, §10 of walt-seat-play delegates it): walt-live-players results[24] — pool throughput benchmark (36 games in 84.642 s at ten workers, 2.96× the 250.236 s critical path; fallbacks 8 → 14) → Left; present on the owning page walt-partnership-program.
 - [MINOR/omitted-result] wiki/walt-foundation-era.md (S1 history); not walt-architecture: source-map results[16] note — S1 (2026-08-09) asserted the unique-winner property over all 737,100 four-tile tricks × 9 declarations (walt/LOG.md) → Left; belongs to the S1 era page, and it is not pinned by any current test file so the architecture gate list is right not to carry it.
+
+## Cycle 1 (2026-09-20)
+
+The curator's first cycle (intake `c00717d1..afd46420`, 73 landings; chapters
+[walt-kiln](../../wiki/walt-kiln.md), Sunshine §11 on three pages, `walt-player`
+and CPU speedups v34 on three pages; cross-references on Home, walt,
+walt-program, timeline Part E, vocabulary, QUICKSTART, curator). Every
+"unplaced" item the four chapter writers reported, verbatim, as follow-ups;
+none is evidence; each names where it belongs.
+
+**From the walt-kiln writer (§0–§7)**
+
+- Line count: the page is 586 wrapped lines against the ~250-400 target; trimmed once from 618 without dropping facts. Further cuts would drop quoted numbers or the §7 verbatim collection; left for the verifier/curator to decide.
+- Plunge-repository commits named in PROGRESS.md (ef5d92d book integration, 70e170c phone asset, 9963705 auto book validation, b891e8e browser check, a0437a1 phone asset) live in another repository; only cdf6bfe (repeated-hand reconciliation) and c7a1215d (release) are cited on the page.
+- phone-build-summary.json's 3.70x median / 3.71x geometric Node-WASM speedup and the per-step phone asset SHAs in PROGRESS.md 'Solver and phone verification' are solver-study material; only the file's caveat text is used. Round 2 (§9) should place the numbers.
+- COUNTED-VALUES.md is placed as §1.2 (it shipped in the first Kiln commit 101d805b and the survey-frozen producers list depends on it); the round-2 agent may prefer to move or cross-link it from §9.
+- audit-100-deal-milestone.json, audit-after-rule-table.json, audit-after-carry-cache.json and audit-partial.json are cited by PROGRESS.md but live in the campaign directory outside git; the page names them as campaign files, unverifiable here.
+- walt/walt-player/README.md has no section describing the kiln worker bins (only one line citing phone-build-summary.json); the bins are described from their own source headers instead.
+- The walt-instruments.md paragraphs (lines ~91-142) covering Kiln-adjacent landings were used for orientation only; that page is owned by another agent.
+
+**From the Sunshine writer (walt-partnership-program §11, walt-gym §11, walt-scheme-fix §10.4)**
+
+- SUNSHINE-NOTES.md entries dated 2026-09-18 and 2026-09-19 (playable bidder, Pattern Workshop/biclusters, Atlas, whole-game contrasts, decision-mining, sample-history, outcome-first Scheme discovery): referenced by one line each in §11.1/§11.7/§11.8 as Kiln's; not curated here — walt-kiln's writer owns them.
+- PLUNGE.md sections dated 2026-09-14 (regular auction, phone deployment), 2026-09-19 (played-game bid book), 2026-09-20 (forced last bid, Think deeper, portable CPU speedups): named as out of scope in walt-gym §11.3 with pointers to walt-seat-play and walt-kiln; the walt-player seat is another agent's.
+- walt/LOG.md 2026-09-14 entries (shared native/browser sunshine player; regular auction for shared Walt): only the partner-rollout-in-the-deployed-profile line was placed (partnership §11.3); the rest is walt-seat-play's.
+- The recipes RESULTS.md test list names a 'corrupt-certificate refusal' test: not quoted, because the book never writes that word; the 83-test count is quoted instead.
+- sunshine-rollout-v1 summary.json 'arena_reviews' per-review JSON and 'workloads' receipts: only the counts RESULTS.md states were placed; the raw per-review records are pointed to, not transcribed.
+- sunshine-partner-count-v1 attribution.json per-action masses beyond the two-row table in RESULTS.md: pointed to, not transcribed.
+
+**From the walt-kiln writer (§8–§9)**
+
+- experiments/kiln/throughput-initial.json (101d805b) — not in the assigned source list; no timing summary exists for the counted-values row, so that row's timing cell says 'none recorded in a timing summary'
+- walt/CPU-PHONE-RELEASE.md and walt/receipts/cpu-live-release-v1/ (3cf2536d) — the v34 hosted release; only linked via walt-instruments per the brief, not restated
+- PROGRESS.md 'Next actions' survey-era list and the Plunge-side hashes (ef5d92d, 70e170c, 9963705, b891e8e) in 'Current checkouts and commits' — already covered by §1.5/§6 or out of scope for §8/§9
+
+**From the walt-player / CPU writer (walt-seat-play §8A, walt-instruments §1/§3.7/§6, walt-architecture)**
+
+- Branch state recorded in CPU-RELEASE-PLAN.md (codex/partnership-launch and codex/walt-cpu-speedups at f1a0fb04; codex/walt-response-ladder at 92ddcaa0 = 'the separate experimental GPU player', experiments/response-ladder/; walt-gran checkout untouched) — belongs on walt.md's 'unmerged' line, not on my three pages; mentioned only inside §3.7's release-plan paragraph. *(Placed 2026-09-20 on [walt](../../wiki/walt.md) "The unmerged branches", verified with `git log main..codex/walt-response-ladder` on 2026-09-21: 7 commits ahead.)*
+- 701e8589 also touched .gitattributes (+3) and walt/Cargo.lock (+9) — not described anywhere
+- Plunge-side facts in PLUNGE.md not owned by my pages: the played-game bid book (2026-09-19) and its shuffle of 125 covered deals — walt-kiln's; the Plunge commit hashes of the Sunshine table (adfd7d4b…, ac7e65a2…) already on walt-gym §11.3
+- experiments/partnership/campaigns/forced-bidding-v1/codec.json (d24eaefe) — named only via the 'four forced-bid fixtures' sentence; no page owns a forced-bidding campaign
+- The Kiln-round solver commits 7377ff32 / f91533cc ('Remove transient solver allocations', 'Remove redundant bitset and viewer-order work') and 662f298c 'parity evidence' — cited by hash in §3.7's opening, their own receipts (under experiments/kiln/) not read; walt-kiln owns them
+
+**Flagged by the cross-reference writer (not unplaced items; for the verifier and the next cycle)**
+
+- Two questions for the Part I owner, recorded on walt-seat-play §8A and walt-architecture §3.9 and repeated on timeline Part E: whether Plunge's forced last bid (2026-09-20, `PLUNGE.md`: "after three passes, the shaker must bid at least 30") belongs to the book's straight-42 rules profile; and whether `rules.rs`'s compile-time `TRICK_KEYS` table (91e8925e; gated by `rules_exhaustive`) is, as read, an implementation and not a rules-profile change. Neither was written into curator.md's "changes the foundation" bullet: no chapter found a foundation change.
+- The Sunshine writer's question for the walt-player seat — which of "L1" / "L1 + partner check" is the Mac table's default selection — is not answered by `PLUNGE.md` or `walt/walt-player/README.md` as read; the book states only what the results files state (both presets optional; L1 default unchanged).
+- QUICKSTART has no commands section, so the `walt-player` check (`node walt/walt-player/check.mjs`) and the Kiln status command (`python3 experiments/kiln/played.py status …`) were not added there; they live on walt-seat-play §8A "Build, check, ship" and walt-kiln §5.
+- PR #92 (the curator charter, `worktree-wiki-book`) is open; cycle 1's edits ride the same branch, so the cycle-log row says "PR #92, pending" — update the row if cycle 1 lands under a different PR number.

@@ -124,16 +124,18 @@ appendices is a separate, later ask; the curator does not start it unasked.
 
 ## Baseline
 
-**Book baseline: `afd46420` (2026-09-20, the merge of PR #91), which curated
-the corpus as of `c00717d1` (2026-09-07).** Landings on `main` between
-`c00717d1` and `afd46420` (73 commits: Kiln, Sunshine, `walt-player`, CPU
-speedups v34) are NOT yet curated; the two pages they appended to
-([walt-instruments](walt-instruments.md), [walt-scheme-fix](walt-scheme-fix.md))
-carry their paragraphs under a "not yet curated" banner. Cycle 1 owns them.
-Move this pointer in every cycle's PR.
+**Book baseline: `afd46420` (2026-09-20, the merge of PR #91), curated
+through `afd46420` by cycle 1 (PR #92, pending).** Cycle 0 (PR #91) curated
+the corpus as of `c00717d1` (2026-09-07); cycle 1 curated the 73 landings
+`c00717d1..afd46420` (Kiln, Sunshine, `walt-player`, CPU speedups v34) and
+folded the two "not yet curated" banners ([walt-instruments](walt-instruments.md),
+[walt-scheme-fix](walt-scheme-fix.md)) into their owning sections. The next
+cycle's intake is `git log --first-parent afd46420..origin/main`. Move this
+pointer in every cycle's PR.
 
 ## Cycle log
 
 | cycle | intake | landed | what changed for the book |
 |---|---|---|---|
 | 0 | `c00717d1` survey (19 slices) | PR #91, 2026-09-20 | the rewrite: 65 pages, five parts, ~5,200 numbers verified |
+| 1 | `c00717d1..afd46420` (73 landings, 2026-09-13 → 09-20), curated 2026-09-20 | PR #92, pending | new chapter [walt-kiln](walt-kiln.md) (§0–§9); Sunshine on three pages ([walt-partnership-program](walt-partnership-program.md) §11, [walt-gym](walt-gym.md) §11, [walt-scheme-fix](walt-scheme-fix.md) §10.4); `walt-player` and CPU speedups v34 on three pages ([walt-seat-play](walt-seat-play.md) §8A, [walt-instruments](walt-instruments.md) §1/§3.7/§6, [walt-architecture](walt-architecture.md) §1/§3.9); the deployed table's bidding for catalogue hands is a Kiln lookup since 2026-09-19, play unchanged; Home's "no default change since 2026-08-19" corrected in place (the deployed procedure changed on 2026-09-14 under conformance receipts); [timeline](timeline.md) Part E; nine vocabulary entries. Sorting: every landing an area; **no foundation change**; two questions flagged for the Part I owner (Plunge's forced last bid of 2026-09-20; `rules.rs`'s compile-time `TRICK_KEYS` table) and PR #90 (Nel-O) open as the first expected foundation change |
