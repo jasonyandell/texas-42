@@ -159,21 +159,39 @@ files. To keep the diff focused on the implementation, selected result files
 are packed byte-for-byte in `review/SELECTED-RESULTS.tar.gz`; the latest actors,
 compact fresh-panel summary and trace-union report are also directly readable.
 The original campaign contains 36,965 tracked files and roughly 6 GB of
-raw results. Bulk game receipts, lesson corpora, request streams and cycle
-traces remain in the original local research checkout and commit
-`25af9d07da66fe93229ada1f6122f2e6f08d34a9`; they are not hosted in this PR.
+raw results. The complete package is now public in the
+[Hugging Face dataset](https://huggingface.co/datasets/jasonyandell/texas-42-walt-response-ladder),
+including bulk game receipts, lesson corpora, request streams and cycle traces
+from commit `25af9d07da66fe93229ada1f6122f2e6f08d34a9`. Its 49 raw archives
+preserve every original byte, compressed to about 207 MB. The dataset also
+provides browsable Parquet views of 4,542 game receipts (one partial), 127,170
+observed moves, 15,862 canonical lessons, and the complete file inventory.
+[Public dataset receipt](review/PUBLIC-DATASET.json) pins the verified Hub
+revision, source commit, counts and publication checks.
 
 [Export manifest](review/EXPORT-MANIFEST.json) records the included paths and
 SHA256 digests and loose/archive locations. From this package,
 `tar -xzf review/SELECTED-RESULTS.tar.gz -C .` restores the selected result files.
 That archive does not contain the omitted bulk evidence. The compressed full inventory beside it records every original
 git blob ID, size and path. Included original files are byte-identical copies.
-The selected summaries support inspection, but this export alone cannot replay
-or independently audit the omitted campaign. Old manifests retain original
+The selected summaries support inspection; data-dependent replay and audits
+also require the public raw corpus. Download instructions, checksums and an
+export-integrity report are in the dataset card. Extract the desired campaign
+archives into this package, preserving their `results/<campaign>/` paths.
+Original source documents remain unchanged. Old manifests retain original
 local paths and hashes; do not treat them as portable resume commands.
+
+The Parquet decision table contains observed moves, not counterfactual modeled
+FieldQuery samples. Preserve lesson physical groups/splits and campaign roles.
+The shared `physical_deal_id` in games and decisions detects exact seat-preserving
+deal reuse across campaigns; repeatedly reused development hands are not
+independent strength evidence. Full hidden hands are for offline analysis.
+Export checks verified all 36,965 archive members against original SHA256
+digests and reproduced the recorded C/D outcome counts from the tables. This
+publication check does not replace the unexecuted independent scientific audit.
 
 For a fresh build, first run `python3 tools/prepare_reference.py` from this
 package; it verifies and extracts the included immutable reference. Build/test
 commands and worker wire format are in [README.md](README.md). Data-dependent
-Python audits require the omitted source corpus. Staged audit files are
+Python audits require the downloaded raw corpus. Staged audit files are
 preserved for later review and are not part of the validated player runtime.
