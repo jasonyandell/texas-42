@@ -11,7 +11,9 @@ file is the working discipline.
 2. **No `native_decide`, no new axioms.** Every theorem must close over the
    standard axioms only (`propext`, `Classical.choice`, `Quot.sound`).
    Verify with `#print axioms` in a scratch file before committing —
-   this is the receipt; record it in the commit message.
+   this is the receipt; record it in the commit message — or, since
+   2026-08-17, as a committed `#print axioms` transcript regenerated through
+   Lean and byte-diffed by CI (the file form; `lean/README.md` status note).
 3. **Never import an external `PASS` as an axiom** (TRUST-01). External
    receipts (Python verifiers, rob) are evidence for *us*, never premises
    for the kernel.

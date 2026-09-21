@@ -1,228 +1,227 @@
 # walt — the imperfect-information seat
 
-[Home](Home.md) · owns: the hub for the [`walt/`](../walt/) build — what
-walt is, the fence around it, and the map of its pages · Sources: none upward
-(this page cites; nothing above the Ideas tier ever cites it). Related:
-[ideas](ideas.md), [idea-seat-context](idea-seat-context.md),
+[Home](Home.md) · owns: the hub for the [`walt/`](../walt/) build and the
+[`experiments/`](../experiments/partnership/) directory — the fence around them,
+what walt is now, the map of Parts II–IV of the book, the sources under `walt/`,
+the workspace in one line, the ruling families, and the unmerged branches ·
+Sources: none upward (this page cites; nothing above the Ideas tier ever cites
+it); [`walt/MAP.md`](../walt/MAP.md), [`walt/LOG.md`](../walt/LOG.md),
+[`walt/CENSUS-RULINGS.md`](../walt/CENSUS-RULINGS.md), `walt/Cargo.toml`,
+`ls walt/` and `git log main..<branch>` measured 2026-09-13 on the tree at
+`c00717d1` (2026-09-07). Related: [ideas](ideas.md),
+[idea-seat-context](idea-seat-context.md),
 [idea-retrograde-rank](idea-retrograde-rank.md), [lineage](lineage.md),
-[analysis](analysis.md), [field/](field/Home.md), [rob](rob.md),
-[GPU-native trick-1](walt-gpu-native-trick1.md).
+[analysis](analysis.md), [field/](field/Home.md), [rob](rob.md), [lean](lean.md),
+[exchange](exchange.md), [timeline](timeline.md), [vocabulary](vocabulary.md).
 
 > **Epistemic tier: EXPLORATORY — below every tier on
-> [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).** Everything
-> under `walt/` is exploratory: the frozen mathematical bases in `walt/math/`,
-> the Rust workspace, every pin, every measured number, and every receipt-shaped
-> artifact (each marked exploratory in its own header). walt's
-> cross-implementation pins are **regression pins against probe records, never
-> axioms** — TRUST-01 applies unchanged. Nothing under this hub may be quoted in
-> a brief, a dispatch, [FINDINGS](FINDINGS.md), or any claim-tier page. Promotion
-> path: independent re-verification, and per the no-rescue policy of 2026-08-10
-> new mechanical verification goes through **Lean** ([lean](lean.md)); the
-> preserved Python probe *records* remain frozen cross-implementation pins.
+> [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred), cited by
+> nothing above [ideas](ideas.md).** Everything under `walt/` and
+> `experiments/` is exploratory: the frozen mathematical bases in `walt/math/`,
+> the Rust workspace, every pin, every measured number, every probe record, every
+> gate, and every receipt-shaped artifact (each marked exploratory in its own
+> header). walt's cross-implementation pins are **regression pins against probe
+> records, never axioms** — TRUST-01 applies unchanged. A walt number is
+> quotable only through the gate or test file that pins it; otherwise it is a
+> probe record, and results files outrank prose. Nothing under this hub may be
+> quoted in a brief, a dispatch, [FINDINGS](FINDINGS.md), or any claim-tier
+> page. Promotion path: independent re-verification, and per the no-rescue
+> policy of 2026-08-10 (F7) new mechanical verification goes through **Lean**
+> ([lean](lean.md)); the preserved Python probe *records* remain frozen
+> cross-implementation pins. The fence is stated here once; every other walt
+> page inherits it.
 
-## What walt is
+## What walt is now
 
 [rob](rob.md) answers *what is exactly true*. **walt is the seat** — the
 full-hand imperfect-information player that has to act from one chair, seeing
-only what a chair legally sees, built math-first on its own frozen basis. Since
-the 2026-08-17 pivot to play it is also **the project's primary build**: the
-player that defeated the mk5 E[Q] champion and runs live in plunge, built
-iteratively, with rob's receipt discipline as the engineering bar it is expected
-to grow into. The name is continuity: in the predecessor project, walt was the
-exact four-tile endgame solver, the first artifact that provably had a plan and
-cashed it ([lineage](lineage.md)).
+only what a chair legally sees. It is one decision procedure
+([walt-seat-play](walt-seat-play.md) §1): at its turn the seat imagines many
+complete deals consistent with what it has seen, plays each out exactly against
+its model of the other three seats, and chooses the tile that makes the bid in
+the largest share of them — **pmake**, the objective ruled 2026-08-17, with trick
+differential explicitly a proxy. Every walt that has ever played a hand is that
+procedure at a point on **three axes**: the *field model* (`Dice`, `Level(k)`,
+`SeatLevels`), the *inner belief* a modeled mind samples (`Voidless`,
+`VoidsCounted`), and *selection* (`Fixed`, `Refine`, `RaceRefine`). **The live
+default is level-1 walt** — `walt_bridge` in the arena, `walt-wasm` on the
+phone, `webtable`/`playtable` at the tables — and **no default has changed since
+2026-08-19** (θ = 11/16 at `9a056f20`); the ruling lineage is CE-A7/§20.16 →
+CBS-A9 → APS-A9 → MB-A7 → FH-A10, each restating that the old defaults remain
+until arena and conformance gates justify a change, on Jason's word. The
+variants that coexist and are not defaults: level 2 in the browser
+(`walt2-wasm`), the controller seat (`solver::act`, `controller_bridge`, the
+`ctrl` seats), the waking seat (`waking_bridge`, `granrun`), the unified player
+(`solver/unified.rs`), and the partnership families L2 Partner and L2 Partner
+with voids under `experiments/partnership/`. Code changes on the live path since
+2026-08-25 are parity-gated ([walt-seat-play](walt-seat-play.md) §8). Behind the
+player stands the counted backward stack — the exact instruments that walk in
+from the last trick: counted belief, exact response, God uppers, proof states
+with certified regret, model belief, the focal-horizon hierarchy — so that the
+crate is organized around Jason's frame "**two recursions running in opposite
+directions**" ([walt-architecture](walt-architecture.md) §2). Since 2026-08-17
+walt is also the project's primary build, with rob's receipt discipline as the
+engineering bar it is expected to grow into.
 
-The ingest packages never name walt — implementation names are deliberately
-excluded from the corpus ([package-provenance](package-provenance.md)) — so this
-hub cites `walt/`'s own documents only.
+The name is continuity: in the predecessor project, walt was the exact four-tile
+endgame solver, the first artifact that provably had a plan and cashed it
+([lineage](lineage.md)). The ingest packages never name walt — implementation
+names are deliberately excluded from the corpus
+([package-provenance](package-provenance.md)) — so this hub cites `walt/`'s own
+documents only.
 
 New here? Read [the program and its resets](walt-program.md) first; it is the
 narrative spine. For the game itself in plain language, and what any of this is
-for, read [the game of 42, mathematically](game-of-42.md).
+for, read [the game of 42, mathematically](game-of-42.md). To run something,
+read [walt-instruments](walt-instruments.md); to change something, read
+[walt-architecture](walt-architecture.md) first.
 
-## The pages
+## The map of Parts II–IV
 
-**Orientation**
+| Page | Owns | Dates |
+|---|---|---|
+| **Part II — the seat's mathematics** | | |
+| [walt-program](walt-program.md) | The goal, every direction reset and why, the working method, and where the program stands | 2026-08-09 → 09-07 |
+| [walt-math-reference](walt-math-reference.md) | The map of walt's mathematics by idea — every named object, the ruling that fixed it, the measurement that last moved it; siblings: [structure and transport](walt-math-structure-transport.md), [information geometry](walt-math-information-geometry.md), [decision-deadness](walt-math-deadness.md), [decision-sparse witnesses](walt-math-decision-sparse.md), [received artifacts and intakes](walt-math-intakes.md), [the freeze register](walt-math-freezes.md) (freezes 1–58), [open questions](walt-math-open-questions.md) | through 2026-09-07 |
+| [walt-pre-pivot-results](walt-pre-pivot-results.md) | What the frozen-basis programs established, by result: what a seat cannot compress, decision sparsity, the interval at four tricks, two theorems about the rules, the lesson factory — with the prose-versus-artifact disagreements tabled | 2026-08-09 → 08-16 |
+| [walt-negative-results](walt-negative-results.md) | The refutations and negative results as first-class findings — what each refuted, at what scope, under which pre-declared criterion | 2026-08-09 → 09-07 |
+| [walt-decision-sparse](walt-decision-sparse.md) | The decision-sparse architecture, its objects, audits and experiments, and its lineage into root intervals, certified regret and focal-horizon intervals | 2026-08-13 → 08-16; lineage to 09-04 |
+| **Part III — the programs, as records** | | |
+| [walt-foundation-era](walt-foundation-era.md) | *Provenance record.* S1–S4.5: the rules-to-operators stack, the control skeleton and its two exhaustive checkers | 2026-08-09 |
+| [walt-factory-era](walt-factory-era.md) | *Provenance record.* S5a–S5d: the conflict-driven lesson factory, the label-fragility discovery, the lesson economy, the re-tethering | 2026-08-10 |
+| [walt-census-era](walt-census-era.md) | *Provenance record.* S5e–S5k: the situation censuses, the retrograde quotient and railyard, the fiber and endgame probes, the seat census resolved by proof | 2026-08-10 → 08-11 |
+| [walt-s6-era](walt-s6-era.md) | *Provenance record.* S6a–S6n: the predictive-rank census, policy geometry, deadness detectors, the separation and economy probes, the trick-1 and lay-down theorems, the fusion-tax, second-rung, feature-fee and fee-correlation chapters | 2026-08-12 → 08-16 |
+| [walt-seat-play](walt-seat-play.md) | How walt plays: the decision procedure and its three axes, every coexisting configuration, the 2026-08-17 match, the level-2 question, bidding and declaring, the variant seats, surfaces and gates, the live-code changes with no default change, debts | 2026-08-17 → 09-07 |
+| [walt-calculated-evidence](walt-calculated-evidence.md) | *Provenance record.* The CE and L2 threads: adaptive settlement (CE-A1..A8, L2-A1..A7), the §22 build, the shadow instrument, the field-swap slices, the controller and waking seats, the speed campaign, walt2-wasm | 2026-08-24 → 08-29 |
+| [walt-counted-belief-era](walt-counted-belief-era.md) | *Provenance record.* The CBS C→G exact-mass ladder, the anytime proof-state Phases 0–8 (CBS-A1..A9, APS-A1..A9, freeze 58), the doom census, and the opening-root diagnosis with its 2026-09-03 correction | 2026-08-30 → 09-01 |
+| [walt-focal-horizon-era](walt-focal-horizon-era.md) | *Provenance record.* Two recursions running in opposite directions: the book-one closing intakes (MB-A1..A8, SC-A1..A8), model belief (MB0, σ1-repair, MB1), the God-gap censuses (U0, U0b), the unified player (UP0, UP1a), the focal-horizon hierarchy (FH-A1..A11; FH0–FH5, CI1, the FH4 audit), the consolidation ruling | 2026-09-01 → 09-05; merged 09-07 (PR #88) |
+| [walt-gran-anchors](walt-gran-anchors.md) | The 6-4 problem: the Gran anchors G1/G2/G3 and the synthetic lock, the waking seat's first real hand, exact indifference and the tie-break, obligation O5 and both void-aware inner-belief implementations, branch status | 2026-09-04 → 09-06 |
+| [walt-partnership-program](walt-partnership-program.md) | `experiments/partnership/`: the launch packet, the "phone" reference artifact, the player families, every battery and its numbers, the pool, policy synthesis, relational learning, what is settled and open | 2026-09-06 → 09-07 |
+| [walt-gym](walt-gym.md) | The exact partnership gym: coordinates, answer keys, Scheme-driven discovery, the 6 → 170 → 433 → 30 ladder, reproduction | 2026-09-06 → 09-07 |
+| [walt-scheme-fix](walt-scheme-fix.md) | The Scheme/Fix relational expression language as implemented (`walt::scheme`), and the archived descriptor research that preceded it | 2026-09-06/07; research 2026-08 |
+| [walt-gpu-native-trick1](walt-gpu-native-trick1.md) | The GPU side track: M0/M1, M2 parity, the M3 gate, the freeze-56 v2 re-issue, why it never became a player | 2026-08-16 → 08-24 |
+| **Part IV — the tools** | | |
+| [walt-architecture](walt-architecture.md) | One crate, ten modules; the two stacks and their seams; invariants carried by types; the gate and its cost; the declared epochs; named debts; freezes by path | tree at `c00717d1` |
+| [walt-instruments](walt-instruments.md) | The instrument catalog by program: every binary with its invocation, record path and gate; the seats you can play; how to read a record; the archive-only historical inventory | tree at `c00717d1` |
 
-| Page | Scope |
-|---|---|
-| [walt-program](walt-program.md) | What walt is trying to do, every direction reset and why, and the working method that governs how it builds |
-| [walt-negative-results](walt-negative-results.md) | The refutations as first-class findings — what each refuted, at what scope, and what it redirected |
-| [walt-instruments](walt-instruments.md) | The inventory of what exists and can be reused: crates, solvers, probe binaries, stores, frozen artifacts, and how to run them |
+The dated spine across all of these is [timeline](timeline.md); the terms are
+fixed on [vocabulary](vocabulary.md).
 
-**The build, era by era**
-
-| Page | Scope |
-|---|---|
-| [walt-foundation-era](walt-foundation-era.md) | S1–S4.5: the rules-to-operators stack, the control skeleton, and its two exhaustive checkers |
-| [walt-factory-era](walt-factory-era.md) | S5a–S5d: the conflict-driven lesson factory, the label-fragility discovery, the lesson economy, and the re-tethering |
-| [walt-census-era](walt-census-era.md) | S5e–S5k: the situation censuses, the retrograde quotient and railyard, the fiber and endgame probes, and the seat census resolved by proof |
-| [walt-s6-era](walt-s6-era.md) | S6a–S6n: the predictive-rank dimension census, the policy-geometry probe, the deadness detectors, the first root-action certifications, the cheap-seed and map-free rule probes, the trick-1 and lay-down theorems, the two gluing rungs, and the fee line |
-| [walt-calculated-evidence](walt-calculated-evidence.md) | **2026-08-24 → 2026-08-29**: anytime-valid adaptive settlement as the new correctness path — the two same-day intakes (CE-A1..A8, L2-A1..A7), the §22 build through step 8, the shadow instrument, the step-8 V5 flip repair and E0 calibration, the live-player audit findings, the playable controller player (register [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md)), all three field-swap slices (the three-regime smoke, the rung/screen slice, and the Part VI cancellation ladder under PANEL-A7/A8), and the world-cap 512 ruling as applied |
-| [walt-counted-belief-era](walt-counted-belief-era.md) | **2026-08-30 onward** (first-pass synthesis): Jason's counted-belief sandwich mathematics (CBS-A1..A9) and its C→G exact-mass ladder, the anytime proof-state program (APS-A1..A9, Phases 0–8 complete — freeze 58, the score profile, proof states with certified regret, extraction, the work frontier, residual Bellman and covers, the laydown hierarchy, the opening-root ladder), and the doom census. The running build record is [`walt/FACTOR-BELIEF.md`](../walt/FACTOR-BELIEF.md) |
-
-**Reference**
-
-| Page | Scope |
-|---|---|
-| [walt-scheme-fix](walt-scheme-fix.md) | The descriptor language: what a descriptor is, how to read and write one, worked examples, and how much of §12.7 is actually built |
-| [walt-decision-sparse](walt-decision-sparse.md) | The decision-sparse architecture, its objects, its audit history, and the state of its experiment program |
-| [walt-seat-play](walt-seat-play.md) | **The live track since 2026-08-17**: the scenario-player (sampling-stack) seat — level-1's arena win over the E[Q] champion, level-2, divergence mining, and the spec [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md) with its obligations ledger |
-| [walt-gpu-native-trick1](walt-gpu-native-trick1.md) | The adjudicated narrow opening-root contracts, the bounded M0/M1 portable build, M2 Metal parity, and the still-unbuilt perfect-recall/controller ladder |
-| [walt-math-reference](walt-math-reference.md) | The map of walt's mathematics — every named object, where its statement lives, what it binds. Siblings: [structure and transport](walt-math-structure-transport.md), [information geometry](walt-math-information-geometry.md), [decision-deadness](walt-math-deadness.md), [decision-sparse witnesses](walt-math-decision-sparse.md), [received artifacts and intakes](walt-math-intakes.md), [the freeze register](walt-math-freezes.md), [open questions](walt-math-open-questions.md) |
-
-## The sources under `walt/`
+## The sources under `walt/` (and `experiments/`)
 
 | Piece | What it is |
 |---|---|
-| [`walt/math/`](../walt/math/) | The frozen mathematical bases, never edited: `unified_information_geometry_v0.4.md` (the ~3,800-line basis with its own §17 claim ledger), `equivariant_lumpability_v0.5.md` (§12.6A, authored by Jason), `predictive_algebra_v0.6.md`, `decision_sparse_exact_solving_v0.1.md` and its maintained errata, the second-audit record, and the derived `implementers_guide.md` (non-authoritative; the basis wins on any conflict) |
-| [`gpu_native_trick1_implementers_guide_v0.2.md`](../walt/math/gpu_native_trick1_implementers_guide_v0.2.md) | Received Pro design input, preserved byte-for-byte. Original source commit `ca18bc6807b974b31d4640786d7a2d63ae0b79fe`; intake commit on this branch `c230949c77ff7e8e22f912ed70f8206488ac9022`; SHA-256 `ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44`. The adjudicated v0.3 contract governs wherever it repairs or narrows this source. |
-| [`walt/GPU-NATIVE-TRICK1.md`](../walt/GPU-NATIVE-TRICK1.md) | The adjudicated v0.3 first-build contract: binding inside this exploratory track, and authoritative wherever it narrows, repairs or rejects v0.2. It is a design authority, not a Metal result or an opening-root verdict. |
-| [`gpu_native_trick1_m2_rebrief_v0.1.md`](../walt/math/gpu_native_trick1_m2_rebrief_v0.1.md) and [`walt/GPU-NATIVE-TRICK1-M2.md`](../walt/GPU-NATIVE-TRICK1-M2.md) | The checksum-gated bridge from freeze 55 and exact M2 contract frozen at GT1-A17. They govern only the arithmetic/opening-projector parity slice and authorize no root verdict. |
-| `kanban/` (repo root) | The forward queue since 2026-08-24: one card per task, status = directory, `[[card-id]]` links. `walt/PLAN.md` is retired — its historical content is at `git show 56e2173:walt/PLAN.md` |
-| [`walt/LOG.md`](../walt/LOG.md) | The session index. Since the reorganization it carries a few summary lines per session and points at the owning page here; the full per-session records live in git history |
-| `walt/CENSUS-RULINGS.md` | The append-only adjudication record — every ruling, freeze and theorem that governs a probe. Mapped by [walt-math-reference](walt-math-reference.md) |
-| [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md) | The spec-after-build of the playing seat, with its proof-obligations ledger (§10) — the graduation path for everything on [walt-seat-play](walt-seat-play.md) |
-| [`walt/FACTOR-BELIEF.md`](../walt/FACTOR-BELIEF.md) | The running build record of the counted-belief/anytime era (2026-08-30 onward): the status ledger for Slices A–G, anytime Phases 0–8, and the doom census, with every gate suite and probe record named. The era's synthesis is [walt-counted-belief-era](walt-counted-belief-era.md) |
-| [`walt/LEVEL2-PROBE.md`](../walt/LEVEL2-PROBE.md) | The level-2 field-swap probe spec — filed 2026-08-23 as spec-only, amended 2026-08-24 (CE-A6, L2-A5) into the **detection layer** inside the targeted level-2 controller; the targeting layer is owned by the level-2 field-stability parent ([walt-calculated-evidence](walt-calculated-evidence.md)) |
-| `walt/*.md` design docs | The still-standing probe/design docs: `SEPARATION-PROBE` (adjudicated SEP-A1..A18), `SEPARATION-RUNG-N4`, `ECONOMY-SUCCESSOR`, `POLICY-GEOMETRY`, `TILT-AUDIT` (smoke run 2026-08-19), and the GPU contracts below. Seven completed-probe design docs (`CENSUS`, `FIBER-PROBE`, `FIBER-REFINE`, `ENDGAME-STORE`, `SEAT-CENSUS`, `PREDICTIVE-RANK`, `DEADNESS-PROBE`) were retired 2026-08-24 after their probes closed — each era page cites the preserved bytes by commit hash (`git show 2de8a05:walt/<NAME>.md`) |
-| [`walt/ARCHIVE.md`](../walt/ARCHIVE.md) | The archive ledger: where the untracked computation outputs live (`~/data`, HuggingFace), the recompute queue, and producer commit `648f93a` for the deleted probe binaries |
-| [`walt/UNIFICATION-CENSUS.md`](../walt/UNIFICATION-CENSUS.md) | The 2026-08-24 unification analysis and execution record: the 17-crate census, the fold plan, and what was deleted or folded |
-| [`walt/DISCREPANCIES.md`](../walt/DISCREPANCIES.md) | Spec-versus-reference reconciliations, same protocol as the corpus: never pick a plausible reading silently |
-| [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md) | The register for the playable controller walt (2026-08-24, CE thread): `solver::act`'s action policy and its route labels, the `controller_bridge` / `ctrl`-seat surfaces, the knobs, and the gates. Exploratory tier, estimates never receipts, no strength claim — the old player remains the default (CE-A7/§20.16) |
-| `walt/probes/` | The frozen probe records: the rescued Python suites (`exp3a/`, `exp5/` — frozen validators, never source), the relocated factory result summaries (`factory-results/`, provenance README inside), the seat-play result files (`m3/`), the bidcurve corpus (`bidcurve/`), and the calculated-evidence instrument records (`shadow/`, `fieldswap/`, `fieldswap_screen/`, `fieldswap_cancel/`, `step8/` — exploratory instrument output, below every tier, each README carrying its own fence) |
-| The Rust workspace | **One unified crate** `walt/walt/` since 2026-08-24 (fold commit `d1499d4`, trace-identical): modules `rules`, `kernel`, `geom`, `strat`, `spec`, `carrier`, `solver`, nineteen bins (the seat player, the two arena bridges, web and terminal tables, probes — inventory on [walt-instruments](walt-instruments.md)), tests prefixed by module. Beside it: `walt-wasm` and `walt2-wasm` (the browser oracles for plunge — level 1, and since 2026-08-25 level 2 with modeled level-1 minds) and the GPU trio `walt-gpu-ref` (M1 + portable M2 reference/receipt machinery), `walt-metal`, `walt-m2-runner`. The workspace records **PORTABLE M0/M1 COMPLETE under freeze 55** and **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56** (re-issued append-only as **freeze-56 v2** at the unified layout, FZ-A1..A6; the standing M2 receipt is explicitly old-layout evidence — [[m2-receipt-reearn]]); nothing in the GPU track is an opening player or supplies an action value, selected lead, optimal set, information net, continuation or performance claim. |
-| `walt/ci/check.sh` | The gate: fmt, clippy `-D warnings -D float_arithmetic`, no-float grep, release tests |
-| `walt/ci/check_m2_metal.sh` | The freeze-56 integrated gate: historical/current source checks, metallib reproducibility, native controls and smoke, two fresh complete official runs, committed receipt adjudication, Lean audit and final source verification |
-| [`walt/receipts/gpu_native_trick1_m2_v1/`](../walt/receipts/gpu_native_trick1_m2_v1/) | The committed M2 binary receipt and external checksum. This is executable fixed-carrier evidence, not a theorem, player artifact or reusable projector value. |
+| [`walt/MAP.md`](../walt/MAP.md) | walt on one page, for Jason: the objects that exist and what each costs, the tree-shake list, the cost trend, what is next in order. Rewritten at landings by the orchestrating session (last rewrite 2026-09-13 for the state at `c00717d1`) |
+| [`walt/LOG.md`](../walt/LOG.md) | The session index. Entries through 2026-08-24 are summary lines pointing at the owning page here; the 2026-08-25 → 09-01 entries were logged retroactively; the 2026-09-06/07 entries are multi-paragraph session records. The full per-session records live in git history |
+| [`walt/CENSUS-RULINGS.md`](../walt/CENSUS-RULINGS.md) | The append-only adjudication record — every ruling, freeze and theorem that governs a probe (14,358 lines at `c00717d1`); the families are listed below and mapped with ranges on [walt-math-reference](walt-math-reference.md) Appendix C |
+| [`walt/FACTOR-BELIEF.md`](../walt/FACTOR-BELIEF.md) | The running build record from 2026-08-30: the status ledger for Slices A–G, anytime Phases 0–8, the doom census, then MB0/σ1-repair/U0/MB1/UP0/UP1a/U0b and the FH program, with every gate suite and probe record named |
+| [`walt/DISCREPANCIES.md`](../walt/DISCREPANCIES.md) | Spec-versus-reference reconciliations, same protocol as the corpus: never pick a plausible reading silently. Carries the 2026-09-03 doom-census correction (the 267‰ split is UNKNOWN) |
+| [`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md) | The spec-after-build of the playing seat (2026-08-18), with its proof-obligations ledger (§10) and the 2026-09-06 inner-belief note — the graduation path for everything on [walt-seat-play](walt-seat-play.md) |
+| [`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md) | The register for the controller variant (`solver::act`, its route labels, the `controller_bridge` / `ctrl` surfaces, the knobs and gates). Estimates never receipts, no strength claim, never the default |
+| [`walt/briefs/`](../walt/briefs/) | The binding assignments `BRIEF-*.md` (CI1, FH0–FH3, FH4-AUDIT, MB0, MB1, SIGMA1-REPAIR, U0, UP0) and the reports of record `*-REPORT.md` / `FH4-AUDIT.md`; the readout `MORNING-2026-09-05.md` (the main-side record of the two unmerged branches, with `walt/LOG.md`'s 2026-09-05 entry); `FH-RESPONSE-TO-PRO.md` (drafted 2026-09-04 for hand-ferry, not a dispatch) |
+| [`walt/math/`](../walt/math/) | The frozen bases, never edited (`unified_information_geometry_v0.4.md`, `equivariant_lumpability_v0.5.md`, `predictive_algebra_v0.6.md`); the received parents byte-for-byte with `.sha256` pins, `_intake.md` companions and scratch-tier `verify_*.py` (decision-sparse and its errata and second audit, signed-pivotal, calculated evidence, targeted level 2, the panel and triple responses, counted belief, anytime proof state, model belief, salvation complex, focal horizon); the 2026-08-17 pmake question/ruling pair (`WALT-MATH-QUESTION-…` / `WALT-MATH-RULING-…`); the GPU guides and rebriefs; the derived `implementers_guide.md` (non-authoritative). Indexed on [walt-math-intakes](walt-math-intakes.md) |
+| [`walt/probes/`](../walt/probes/) | The frozen probe records, one directory per program, each README carrying its own fence: `bidcurve/` (bid calibration), `bundle/` (bundled evaluator vs per-world exact), `exp3a/` and `exp5/` (the rescued Python suites — frozen validators, never source), `factor_belief/` (Slices C–G, Phases 1–8, doom, godgap, horizon, model belief, unified, focal — the `*_run1.txt` records), `factory-results/` (the pre-pivot result summaries; producers archive-only at `648f93a`), `field_cache/` (the two hot-path levers), `fieldswap/`, `fieldswap_screen/`, `fieldswap_cancel/`, `fieldswap_motifs/` (the four field-swap slices), `grammar_residual/` (Slice B), `gran/` (the Gran anchors), `hazard_witness/` (slice 4b), `l2_controller/` (the targeted field-1 controller), `m3/` (the seat-play result files incl. the 2026-08-17 arena), `ordering/` (reorder-not-cull), `root_interval/` (Slice A), `shadow/` (step 7), `step8/` (V5 flip repair), `step9/` (the level-2 detection layer), `waking/` (the waking-seat profile); plus `tilt_arena_2026-08-19.log` |
+| [`walt/gym/`](../walt/gym/) | The exact partnership gym's artifacts: `README`, `RESULTS`, `DISCOVERY`, `BID-MAKING`, `SPECIFICATIONS`, `PARTNERSHIP-COMPOSITION`; `queries/*.scheme`, `scenarios/`, `collections/`, `specs/`, `benchmarks/`, `mining.json` — [walt-gym](walt-gym.md) |
+| [`walt/scheme/`](../walt/scheme/) | The Scheme/Fix guides: `README`, `DYNAMICS`, `POLICIES`, `RELATIONAL`, `COMPOSITION`, `INFORMATION-PRICES`, `VALIDATION`, `examples/` — [walt-scheme-fix](walt-scheme-fix.md) |
+| [`walt/receipts/`](../walt/receipts/) | The GPU track's committed receipts: the Gate-0 NO-GO record (`gpu_native_trick1_gate0_2026-08-16.txt`, a true observation of its old environment), `gpu_native_trick1_m0_m1_v1/`, `gpu_native_trick1_m2_v1/` — executable fixed-carrier evidence, never a theorem or player artifact |
+| [`walt/ci/`](../walt/ci/) | `check.sh` (the gate: bootstrap, immutable M0/M1 history, guide checksum, receipt replay, fmt, clippy `-D warnings -D float_arithmetic`, the no-float scans, all workspace release tests run concurrently, doc tests, the Lean trick-1 build and axiom audit), `check_m2_metal.sh` (the freeze-56 integrated gate), `verify_m2_history.sh`, `verify_m2_sources.sh`, the no-float checkers, `run_test_binaries.py`, `render_m2_failure.py` — [walt-architecture](walt-architecture.md) §4 and §7 |
+| `walt/audits/` | `panel_response_conformance.md` — the 2026-08-25 audit (PR #48) of the panel response's Claim-D repair, W7–W11 and the τ coupling against PANEL-A3/A5/A6, at base `51eac3f`, with eight conformance gates; the believed-by-construction claims are the ones it checks |
+| `walt/viewer/` | `walt_viewer.html`, `walt_table_viewer.html` — the browser viewers over records and playouts |
+| The standing design docs `walt/*.md` | `SEPARATION-PROBE` (SEP-A1..A19), `SEPARATION-RUNG-N4`, `ECONOMY-SUCCESSOR`, `POLICY-GEOMETRY`, `TILT-AUDIT`, `LEVEL2-PROBE` (the detection layer), `GPU-NATIVE-TRICK1` / `-M2` / `-M3` (the adjudicated GPU contracts), `UNIFICATION-CENSUS` (the 2026-08-24 fold), `ARCHIVE` (where the untracked outputs live, the recompute queue, producer commit `648f93a`). Seven completed-probe design docs were retired 2026-08-24; each era page cites the preserved bytes by commit hash (`git show 2de8a05:walt/<NAME>.md`) |
+| [`experiments/partnership/`](../experiments/partnership/) | The partnership program directory (2026-09-06/07, CI-waived): `SCOPE.md` (the waiver's own words), `SESSION-STATUS.md` (the status ledger), `REPORT.md`, `PLAYERS.md`, `BASELINE.md` (the "phone"), `INNER-BELIEF.md`, `POLICY-SYNTHESIS.md`, `RELATIONAL-LEARNING.md`, the Python drivers, `campaigns/` and `runs/` (the results files that govern), `packet/` (the launch packet, preserved byte-for-byte) — [walt-partnership-program](walt-partnership-program.md) |
+| `kanban/` (repo root) | The forward queue since 2026-08-24: one card per task, status = directory, `[[card-id]]` links; the board is listed on [Home](Home.md). `walt/PLAN.md` is retired — its historical content is at `git show 56e2173:walt/PLAN.md` |
 
-## Where it stands
+## The workspace in one line
 
-The seat's opening situation space **does not compress** — not structurally
-(Corollary S-rigid makes the first-play quotient the identity, so the count is
-exactly C(28,7) = 1,184,040) and not linearly (the value closure saturates by
-grade three, refuting the predictive-rank payoff at its pre-declared threshold).
-Both failures have the same cause: 42's public-attribution structure means
-complete records determine worlds. Structural compression is bought with
-deadness, and nothing is dead at the first play.
+`walt/Cargo.toml` has **six members** — `walt`, `walt-gpu-ref`, `walt-metal`,
+`walt-m2-runner`, `walt-wasm`, `walt2-wasm` — and the `walt` crate has **ten
+modules** (`rules`, `kernel`, `geom`, `strat`, `spec`, `carrier`, `solver`,
+`scheme`, `gym`, `policy_search`) and **54 binaries plus `webtable.html`** under
+`src/bin/` (counts from `ls` on 2026-09-13 at `c00717d1`); the fold of
+2026-08-24 (`d1499d4`: seven crates → seven modules of one crate, trace-identical,
+after the census had sorted the workspace's seventeen crates into three stacks
+plus orphans and the stage-1 deletions) is recorded in
+`walt/UNIFICATION-CENSUS.md`. [walt-architecture](walt-architecture.md) owns
+every detail — module sizes and import order, the two stacks, the gate's stages
+and cost (about 308 s wall; the anchors suite 18.2 GB standalone at the FH4 audit
+and 8.8 GB in-gate after FH5's job cap; not run on the 2026-09-06/07 commits),
+the declared epochs, the debts.
 
-What is measured instead is that the **decision** side collapses where the value
-side does not. About half of mid-game free decisions are one-deviation ties;
-proved one-sided detectors certify roughly a third of them with zero false
-positives over 174 million calls, at a cost the probe declares contended and
-therefore not quotable; and at seven of nine measured grade-3 pairs one policy
-weakly dominates every lawful alternative in all 1,680 worlds. That last figure
-travels with its dissent: the other two pairs blew past the declared frontier
-cap, a partial frontier bounds nothing, and **the probe's formal verdict is
-STOPPED with no verdict** — never a seven-of-nine success.
+## The ruling families, in `walt/CENSUS-RULINGS.md` order
 
-That pairing redirected the program from compressing truth to **proving the root
-action**, and seven coordinates have now had their root action certified exactly
-— three at grade 3, four more one grade deeper on real-deal hands, including one
-where the objects the previous probe could not compute turned out to be
-unnecessary. ("Certification" here is walt's own object, an exact separation of
-one action from every competitor; it is not the D3 sense fenced on
-[reachability](reachability.md), and nothing in it is identity-bearing.) The
-negatives came with them and are the more useful half: at four further
-coordinates it is now *proved* that **no candidate set whatsoever** separates the
-pair under the standing relaxation, which is what tells the program where the
-remaining work has to happen.
+Every family exists in the file (checked by `grep -o` of the prefixes on
+2026-09-13); ranges and dates are on [walt-math-reference](walt-math-reference.md)
+Appendix C. In section order: **SEP** (the separation probe), **N4** (the n = 4
+rung, two sections), **EC** (the economy successor), **T1** (the trick-1 witness),
+**LD** (lay downs), **RW** (the map-free rule walk), **FT** (the fusion tax, x:016),
+**SR** (the second rung, x:017), **FF** (the feature-fee audition), **FC** (the
+fee-correlation chapter), **SS** (the seed survey), **GT1** (GPU-native trick 1,
+three sections), **SP** (signed pivotal), **FZ** (the freeze-56 v2 amendment),
+**CE** (calculated evidence), **L2** (targeted level-2 field stability), **PANEL**
+(the x:019–023 panel response), **TRIPLE** (the x:024 deferred producers),
+**CBS** (counted belief), **APS** (the anytime proof state), **MB** (the
+model-belief base player), **SC** (the salvation complex), **FH** (the focal
+horizon, 2026-09-04 — the last section). Before SEP the file carries the census
+fork rulings **F1–F7** (F7 = the NO-RESCUE protocol), the r3 quotient **Q1–Q5**,
+the railyard **Y1–Y3**, and the probe families **P-A**, **X-A**, **E-A**, **S-A**,
+**R-A**, **PG-A**, **J-A**, **DS-A** (2026-08-10 → 08-13). Ranges are append-only
+and never move; sections are located by heading, never by line number.
 
-The live question is the economy claim, which since EC-A13 splits in two and is
-never written as one thing. Its **primal half** — whether the certification still
-closes when the witness it starts from is not itself an exact solve — is
-answered as far as it has been asked: at every coordinate where separation is
-possible at all, at trick 4, on real deals, a four-word rule certifies it. The
-**full** claim, a solver that avoids exact solves altogether, additionally needs
-the upper side cheapened. That side is no longer untouched — one competitor has
-been excluded by an information tax rather than by an exact solve — but it is not
-settled either, since the run that did it still prices the upper witness exactly
-everywhere else. Any sentence saying "the economy claim was tested" without the
-word *primal* has over-claimed.
+## The unmerged branches
 
-Both rungs of that information tax have now been computed exactly at the depth
-where walt's exact answers already exist, and that has retired the question
-rather than answered it: at that depth the ladder is only two rungs long and both
-its endpoints were already filed, so it can instantiate the mathematics but can no
-longer decide anything about how far the architecture reaches. Progress needs a
-**longer ladder** — a coordinate where a rung's value is not already known before
-it is computed — which puts the first trick, and the three obligations blocking
-it, back in front of everything else.
+Measured with `git log main..<branch>` on 2026-09-13. Both fork from the
+`walt-gran` line, which is itself in `main` (`git merge-base`: `walt-o5` at
+`a0d594b2`, `walt-g1-l2` at `8174fa83`; the `walt-gran` tip is `9d6a5a2e`);
+their results reach `main` only
+through `walt/briefs/MORNING-2026-09-05.md`; [walt-gran-anchors](walt-gran-anchors.md)
+owns the status.
 
-The [GPU-native trick-1 track](walt-gpu-native-trick1.md) is the new engineering
-route toward that longer ladder. Its received v0.2 design has been frozen and
-source-hash gated. The v0.3 portable contract and exact M2 contract have been
-adjudicated through GT1-A17 with freezes 55 and 56. Portable M0/M1 remains
-**PORTABLE M0/M1 COMPLETE under freeze 55**. At immutable commit `a6df853`, the
-track earned exactly **M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**. It establishes no action value,
-selected lead, optimal set, information net, continuation, performance claim, or
-player. The M3 perfect-recall-net contract has since been frozen (freeze 57,
-GT1-A24 — `GPU-NATIVE-TRICK1-M3.md` v1 is the binding authority and the GT1
-range is re-frozen at A1..A24, chapter closed); freeze 57 authorizes only the
-gate and records **no M3 result**. Every root verdict remains untouched.
+| Branch | Ahead of `main` | Contents |
+|---|---|---|
+| `walt-o5` | **9 commits** (`0b65efb9` … `2981e090`) | O5 measured: the modeled minds' void-aware inner belief (`Level0Field::void_aware`), its gates and bins, the mirrored match whose "dead heat" is withdrawn after a seed repair; the readout records `check.sh PASS` on the branch. The void-aware *belief* itself reached `main` separately at `dbcc698f` (2026-09-06, default off) — the two-implementation fork is open ([[inner-voids-default]]) |
+| `walt-g1-l2` | **8 commits** (`2d3907bd` … `6abdd78f`) | Level 2 at Gran's seat holds the 6-4 at both G1 nodes; G2 locked from trick 3; the synthetic lock; the tie-break `TieRule::LowestTileIndex` identified as the hoarding mechanism at exact indifference; the over-claim withdrawn |
 
-The historical Gate-0 NO-GO receipt remains a true immutable observation of its
-old Command Line Tools environment. GT1-A10 supersedes only its statement about
-the current host precondition; the old receipt is not rewritten.
+`walt-gran` and `walt-fh` (PR #88) are fully contained in `main`. Jason's calls
+(A)–(F) in the readout are open.
 
-Since 2026-08-17 the live track is the **scenario-player seat**
-([walt-seat-play](walt-seat-play.md)): a sampling-stack player (exact best
-response over sampled fiber worlds against modeled level-k minds) that plays
-full hands, under the objective Jason ruled the same day — **P(make the bid)**,
-pmake, with trick differential explicitly a proxy. Its level-1 instance defeated
-the mk5 E[Q] champion under the dropped-30 3×384 protocol (pooled McNemar
-z = +6.28 — an arena outcome about play, exploratory like everything else here,
-never a statement about exact values), and since 2026-08-23 it runs live inside
-plunge, where Jason has played it at length. The spec-after-build and its
-proof-obligations ledger live at
-[`walt/SCENARIO-PLAYER.md`](../walt/SCENARIO-PLAYER.md); the declared program is
-to pay that ledger down — the leap happened first, the bridge is being built
-behind it, deliberately and on the record.
+## Where it stands (2026-09-07, `c00717d1`)
 
-On 2026-08-24 the build itself was unified — seventeen organically grown crates
-folded into the one-crate workspace described above, pure code motion,
-trace-identical, with the deleted producers archived behind a recompute queue
-([`walt/ARCHIVE.md`](../walt/ARCHIVE.md)). The same day, the
-**calculated-evidence era** landed on top of the unified build
-([walt-calculated-evidence](walt-calculated-evidence.md)): Jason's
-adaptive-settlement mathematics arrived in two hand-ferried drops and was
-adjudicated same-day inside the exploratory fence (CE-A1..A8, L2-A1..A7);
-its §22 build program executed through step 8 (evidence arithmetic, frozen
-policies, the decision controller, exact endpoints, a shadow instrument run
-beside the live player, and the V5 flip repair with per-fixed-pair E0
-calibration), and the field-swap track ran three slices — the fixed-policy
-smoke, the exposure rungs with the admissible screen, then the Part VI
-cancellation ladder with its directional bounds (PANEL-A7/A8). Two old
-episodes came back answered: the historical 40-vs-160 flip is an honest
-`Unresolved` near-tie at every ladder cap, and the "the fields never split
-here" root is an exact zero over all information-consistent continuations.
-That same controller is now **seatable as a player** — `solver::act`, a
-bridge speaking the existing protocol, and `ctrl` seats at the tables
-([`walt/CONTROLLER-PLAYER.md`](../walt/CONTROLLER-PLAYER.md)) — which is a
-capability, not a comparison: no arena run and no conformance gate has been
-run on it. The live player is deliberately untouched — the old defaults remain
-until arena and conformance gates justify a change, on Jason's word
-(CE-A7/§20.16).
+The frame, twice-measured: **42 is two recursions running in opposite
+directions**, and on the receipt corpus they trade dominance between trick 4 and
+trick 5 — from trick 5 in, exact instruments are effectively free; trick 4 is
+minutes per root; trick 3 is the wall (one root, h8-t3: 289M field reads and
+14 min for the single-field exact solve, record
+`walt/probes/factor_belief/horizon_run1.txt`; the FH3 record run that includes
+it peaked at 19.4 GB, `focal_run1.txt`); earlier than that the
+seat plays forward on sampled evidence with a certified regret it cannot yet
+close (the opening root: play 6-5, floor 732‰, at most 267‰ unclaimed, the
+split of the 267‰ UNKNOWN). At k ≥ 1 the remaining width is the tail's policy
+gap, so the next money is a better lawful tail and a cheaper σ0 read key, not a
+deeper search ([walt-focal-horizon-era](walt-focal-horizon-era.md);
+[walt-program](walt-program.md) "Where the program stands").
 
-Since 2026-08-30 the live build track is the **counted-belief and anytime
-proof-state era** ([walt-counted-belief-era](walt-counted-belief-era.md)):
-Jason's counted-belief sandwich parent (CBS-A1..A9) replaced sampled estimates
-with exact integer masses over the root fiber wherever affordable — the C→G
-ladder, complete in one day, put the opening root's exact branch table at
-8.7 ms over 399,072,960 worlds — and its anytime proof-state follow-on
-(APS-A1..A9, Phases 0–8 complete) wrapped the whole in append-only,
-serializable proof states whose deliverable is a certified-regret
-recommendation. At the receipt opening root the verdict is an honest
-UNRESOLVED in exactly that form — play 6-5, floor 732‰, at most 267‰
-unclaimed — with the sampled tier proved to plateau; the doom census (the
-first post-program structural producer) then showed the remaining regret is
-overwhelmingly the info-consistency price of playing blind, not hidden
-counterexample mass, routing future work to the floor side. RefineV1 is
-semantically frozen (freeze 58); the live player remains untouched, arena and
-conformance gates still ahead of any default change. The forward queue is the
-standing reorg plan: unification hygiene, the deeper wiki pass, the
-adaptive-sampling intake, then the level-2 probe.
+What is ruled and queued, in order (`walt/MAP.md`): the σ0 read-key study
+([[sigma0-read-key-study]]) → the consolidation slice ([[consolidation-slice]]:
+retire `godgap.rs`, `horizon.rs`, `extraction.rs`, `refine.rs` as endpoints of
+the focal-horizon hierarchy) → **no new mathematical parent until the
+consolidation lands** (Jason, 2026-09-04). Beside that queue: the Gran calls
+(A)–(F), the partnership strength question
+([[partnership-strength-question]]), the void flag default
+([[inner-voids-default]]), and the standing debts [[ladder-policy-store]] and
+[[gate-corpus-trim]].
 
-Every count above is carrier-relative, coordinate-relative, and exploratory. Full
-numbers, scope caveats and dissents live on the era pages; the refutations are
-collected at [negative results](walt-negative-results.md).
+The partnership program (2026-09-06/07) is a local experiment under a CI
+waiver: a lawful partner-aware player exists and is playable within the trick
+target, and **no tested partner model has beaten the phone or L1** (L2 Partner
+vs L1 14/14/72 at about 5× the cost; results file
+`experiments/partnership/campaigns/default-partner-battery/RESULTS.md`);
+Scheme/Fix and the exact gym are its instruments; defaults are unchanged
+([walt-partnership-program](walt-partnership-program.md) §9). The GPU side track
+holds portable M0/M1 and M2 Metal parity under freezes 55/56 and no player
+([walt-gpu-native-trick1](walt-gpu-native-trick1.md)).
+
+Every count above is carrier-relative, coordinate-relative, epoch-relative and
+exploratory. Full numbers, scope caveats and dissents live on the era pages;
+the refutations are collected at [negative results](walt-negative-results.md);
+the results of the pre-pivot programs at
+[walt-pre-pivot-results](walt-pre-pivot-results.md).

@@ -40,7 +40,13 @@ Field-measurement tier; cites [first-contact](first-contact.md).
   independently derived trick leader and team points; the harness asserts them
   against its own engine every single decision. ~180k+ decisions, zero
   divergences, at zero marginal cost — continuous cross-validation of two
-  independent rules implementations, riding along under the eval.
+  independent rules implementations, riding along under the eval. (The figure
+  lives only in this area's prose; no artifact in this repository pins it.)
+  The seam outlived its first user: `walt_bridge` reimplemented the identical
+  protocol on 2026-08-17 and was seated with zero arena changes
+  ([walt-seat-play](../walt-seat-play.md)); walt's `walt-gpu-ref` crate also
+  reuses rob's independent prose resolver as its rules cross-check
+  (`tests/prose_bridge.rs`), which is the same idea applied at build time.
 
 ## Interpretation discipline
 

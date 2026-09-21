@@ -87,3 +87,40 @@ reachability, derived views, "necessary outer profile").
 - rec `audit_package.py` enforces structural hygiene (required files, no
   project-specific names like Atlas/Walt/Hoyt/Forge/mk5-main, claim-ID uniqueness:
   255 IDs, link integrity) — a package-quality gate v0.7 lacks.
+
+## Mechanization status (what the kernel formalizes, and from which package)
+
+Tier: proof-assistant kernel bookkeeping; statuses as of commit d190b26 (2026-08-02;
+merged 0d1bf7ea 2026-08-03), re-checked against the sources 2026-09-12.
+
+- **Authority order.** `lean/` formalizes *ingest as reconciled by this wiki*
+  (`lean/README.md`): the v0.7 package plus the reconstructed package, merged by the
+  synthesis rule above. rob is outside the kernel trust boundary and cross-validates
+  via receipts; per TRUST-01 no external `PASS` (ingest verifier, rob receipt, walt
+  gate, exchange program) is ever imported as an axiom — finite facts enter only by
+  direct proof, a proved decision procedure with kernel evaluation, or proved
+  reflection. Grep re-verified 2026-09-12: no `sorry`, no `native_decide`, no local
+  `axiom` under `lean/Texas42/`.
+- **The work queue is v0.7's.** Only v0.7 carries `65_MECHANIZATION_LEDGER.md`
+  (83 `PA-` rows; 42 at priority 0, **all 42 kernel-proved**; 20 priority-1 rows plus
+  the remaining halves of PA-B05/C08/C15, and every priority-2/3/4 row, open —
+  [lean-row-index](lean-row-index.md), [proof-assistant-plan](proof-assistant-plan.md)).
+  v0.7's type-discipline rows are realized in Lean by construction: TYPE-01
+  proof-irrelevant reachability = PA-D10 `CertifiedState` (`Reachability.lean`);
+  TYPE-02 derived views = `tricksDone`/`scoredTiles` and the cells computed, never
+  stored (`Play.lean`, `Cells.lean`); TYPE-03 total well-formedness = PA-D02
+  `SupportNF.WellFormed` (`NormalForm.lean`).
+- **rec's new mathematics has zero kernel coverage.** rec's
+  `60_PROOF_ASSISTANT_KERNEL.md` supplies the K0–K15 dependency spine, but its
+  rec-only sections — K10 dynamic support (TRANS-08..14), K11 symbolic reachability
+  (REACH-14..16), K12 folded kernel (PLAY-12..17), K13 seat-frame gauges (SYM-04),
+  K14 future-equivalence minimum (QUO-09..11) — have **no `PA-` row** and no Lean
+  declaration. The one rec-spine section with kernel coverage is K15 (finite belief),
+  discharged through v0.7's PA-E01..E03, E07 and E10 (the 90-world witness,
+  `Witness.lean`). The generic capacitated cell kernel `CellSys` (`Reduction.lean`)
+  is the K7 groundwork both packages share.
+- **What stays visibly external by design:** PA-A12 (737,100-case resolver
+  agreement), PA-B04 (auction census), PA-D17 (81-bit census), PA-D18 (26–46-bit
+  interval), the deal cardinalities (PA-B05 prove half) — reflection targets or
+  deliberately external receipts; and every exchange-adjudicated result, which has
+  no ledger row at all.

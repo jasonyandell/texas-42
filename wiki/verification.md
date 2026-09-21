@@ -1,8 +1,18 @@
 # Verification Scripts and Fresh-Run Results
 
 [Home](Home.md) · owns: every verifier and receipt — ingest Python, rob Rust
-(slices 01+02, all twelve receipts), exchange program runs. Fresh ingest runs
-2026-07-26, Python 3.12, this machine. Related: [rob](rob.md).
+(slices 01+02 and the player track, all twelve receipts), exchange program runs ·
+Sources: `ingest/*/verification/`, `rob/receipts/`, `rob/ci/check.sh`,
+`exchange/adjudication/`, [exchange/README.md](../exchange/README.md). Fresh ingest
+runs 2026-07-26; re-timed 2026-09-13 from a copy (never in place). Related:
+[rob](rob.md), [claim-ledger](claim-ledger.md), [lean](lean.md).
+
+Three reminders before any number below is used. A `PASS` line is a **finite
+verification receipt**: it supports the finite statement the program exhausts and
+nothing wider (Math §0). Receipts are never promoted — an ingest verifier, a rob
+receipt and an exchange program are three different tiers of evidence and this page
+labels each. And the `ingest/` tree is immutable: to re-run anything, copy it out
+first (caveat 1).
 
 ## Status: everything passes
 
@@ -11,10 +21,34 @@
 | `verify_foundation.py` (1,850 ln, byte-identical in both) | both | **PASS** | yes — exact |
 | `verify_minimality_and_reachability.py` | both (differ only in docstring + "profiles"/"certificates" wording) | **PASS** | yes — exact |
 | `verify_reduced_kernel.py` (871 ln) | rec only | **PASS** | yes — exact |
-| `audit_package.py` | rec only | **PASS on a clean tree**; FAILS if `verification/__pycache__` exists (see below) | yes — exact, on clean copy |
+| `audit_package.py` | rec only | **PASS on a clean tree**; FAILS after a verifier has run in the same tree (caveat 1) | yes — exact, on a clean copy |
 
 "Exact" means the committed `VERIFICATION_OUTPUT.txt` is the concatenation of the
 actual stdout plus `=== script name ===` header lines — no numeric or textual drift.
+
+### Measured walls (2026-09-13, this machine)
+
+Run from a copy of each package under the job's scratch directory, Python 3.12.13,
+Apple M5 Max; each command wrapped in a 60 s timeout. The full byte-diff against the
+committed `VERIFICATION_OUTPUT.txt` was repeated in this pass for all five runs: the
+fresh stdout is identical to the committed transcript once the `=== script ===`
+header lines and the blank separator after each section are removed (rec: 35 + 16 +
+10 lines; v0.7: 35 + 16), and the clean-copy `audit_package.py` stdout is identical
+to `AUDIT_OUTPUT.txt`.
+
+| Script | Copy | Wall | Exit | Note |
+|---|---|---|---|---|
+| `audit_package.py` | rec, clean copy, **before** any verifier | 0.03 s | 0 | 14 files / 14,390 lines; 255 claim IDs; 17 markers; byte-identical to `AUDIT_OUTPUT.txt` |
+| `verify_foundation.py` | rec | 4.54 s | 0 | 35 stdout lines; 90-world witness lines as committed |
+| `verify_minimality_and_reachability.py` | rec | 3.28 s | 0 | 16 lines; "proved standalone reachable-support interval: 26..46 bits" |
+| `verify_reduced_kernel.py` | rec | 8.08 s | 0 | 10 lines; 5,898 machines / 17,560 pairs |
+| `audit_package.py` | rec, same copy, **after** the three verifiers | 0.03 s | **1** | `AssertionError: transient Python files present: ['verification/__pycache__', …]` — the D15 trap, reproduced on purpose |
+| `verify_foundation.py` | v0.7 (`python3 -B`) | 4.59 s | 0 | identical to rec's output; no `__pycache__` written |
+| `verify_minimality_and_reachability.py` | v0.7 (`python3 -B`) | 3.22 s | 0 | identical to rec's output |
+
+Total for the four rec scripts: about 16 s. Earlier passes on the same machine
+measured 4.8 / 3.3 / 8.2 / 0.03 s (2026-09-07) and 4.84 / 3.41 / 8.52 / 0.02 s
+(2026-09-12); load noise accounts for the differences.
 
 ## What each script exhausts
 
@@ -151,10 +185,20 @@ number — it still ranks below ingest and is never definitional** (BRIEF_SLICE_
 | Receipt | Stage | Headline exact integers |
 |---|---|---|
 | `verify_dynamics` | S5 matching-minor calculus | dynamics corpus **66,969** systems / **14,579** feasible / **1,331** distinct feasible NFs (the S4 corpus extended by n = 0, quotiented by NF equality); **170,058** typed observations with matching-minor update ≡ NF of extensional conditioning + pushforward (agreeing on `Empty` both routes), **157,809** nonempty successors; **1,406,592** holder-edge inclusion checks + 157,809 rank checks (monotonicity, never reactivating); **864** game-typed transitions (**648** hidden, **216** viewer) along the S3 parity corpus; **972** native-sampler agreements through the offset↔`DominoId` bijection |
-| `verify_symbolic` | S6 symbolic trace validator | **108**-hand deterministic corpus (9 declarations × 12 hands), **3,024** transitions with symbolic support / S5 dynamics / `derive_rule_cells` NF agreeing **3,024** three ways; deletion budget **6,804** = 108·63 with every hand's ledger totalling 63, no edge reappearing, ≤2 edges lost per live tile (INV-11); **324** = 3·108 mutated certificates each rejected with the expected typed reason |
-| `verify_outer` | S7 necessary outer language | projected schedule censuses `A_j` = (1, 50, 1079, 13084, 97119, 450066, 1273609, 2097152), `T_{j,1}` = (8, 323, 5524, 51759, 286770, 947017, 1817216, 2097152), `T_{j,2}` = (22, 743, 10844, 88159, 428562, 1244937, 2080768, 2097152); `B_{n,u}` lead-witness table **176** = 22·8 entries agreeing by two independent routes (inclusion–exclusion vs polynomial convolution); **7,124,838,074,989** per declaration (< 2⁴³), **64,123,542,674,901** total (< 2⁴⁶), **839,220,930,919** max single-profile block (< 2⁴⁰), ceilings **46 / 43 / 43 / 40 bits** (standalone / declaration-supplied / capacities-supplied / both); interval line held at **26..46 bits** (rob prints only what rob computed); all big values computed from the Math §7.13.3/§7.13.6 formulas in exact `BigUint`, never hard-coded |
+| `verify_symbolic` | S6 symbolic trace validator | **108**-hand deterministic corpus (9 declarations × 12 hands), **3,024** transitions with symbolic support / S5 dynamics / `derive_rule_cells` NF agreeing **3,024** three ways; deletion budget **6,804** = 108·63 with every hand's ledger totalling 63, no edge reappearing, ≤2 edges lost per live tile (INV-11); **324** = 3·108 mutated symbolic traces each rejected with the expected typed reason |
+| `verify_outer` | S7 necessary outer language | projected schedule censuses `A_j` = (1, 50, 1079, 13084, 97119, 450066, 1273609, 2097152), `T_{j,1}` = (8, 323, 5524, 51759, 286770, 947017, 1817216, 2097152), `T_{j,2}` = (22, 743, 10844, 88159, 428562, 1244937, 2080768, 2097152); `B_{n,u}` lead-witness table **176** = 22·8 entries agreeing by two independent routes (inclusion–exclusion vs polynomial convolution); **7,124,838,074,989** per declaration (< 2⁴³), **64,123,542,674,901** total (< 2⁴⁶), **839,220,930,919** max single-profile block (< 2⁴⁰; see the provenance note below), ceilings **46 / 43 / 43 / 40 bits** (standalone / declaration-supplied / capacities-supplied / both); interval line held at **26..46 bits** (rob prints only what rob computed); all big values computed from the Math §7.13.3/§7.13.6 formulas in exact `BigUint`, never hard-coded |
 | `verify_unreachable` | S8 REACH-10 regression | **450** static generators at capacities (6,6,6), exactly **2** decode to the REACH-10 witness (zeros-trump called context, NT context 0; each only hidden seat 1 void), lead-fiber sizes **(7, 1)**, both with the entire lead fiber inside the hidden pool ⇒ lead-witness necessity fails |
 | `verify_transport` | S9 transport quotient | `reachable_census_class` constant on the 7 pip trumps yielding exactly **3** classes, agreeing with S1's `unscored_mechanics_class` partition |
+
+**Provenance of 839,220,930,919.** The max single-profile block is *not* a line of
+either package's `VERIFICATION_OUTPUT.txt` (grep of `ingest/*/verification/*.txt`,
+2026-09-13: no hit). Its source is the Math text — v0.7
+`20_MATHEMATICAL_FOUNDATION.md` §7.13.6, the displayed
+`max_k C(k) = 839,220,930,919 < 2^40` (line 3543; rec line 3681) — and the REACH-11A
+row that cites that section. Two independent computations reproduce it: rob's
+`r_out_profiles` line (from the §7.13.6 formulas) and exchange 005. Cite it as a
+Math-§7.13.6 number reproduced by rob and by x:005, never as a verifier-output
+number.
 
 ### What was reproduced — exchange-adjudicated tier (`x-` receipt lines)
 
@@ -246,26 +290,44 @@ called-suit void / **8,721,399,239** natural-suit void; grand total
 `x-r_flo_total`: **17,668,066,045 > 2³⁴** ⇒ floor **35 bits** — rob's receipt is
 independent Rust evidence for the exchange-adjudicated REACH-17 family; the
 corpus-proved interval statement (26..46, REACH-11/12) is unchanged and any
-evidentiary reframing belongs to the wiki. (The wiki-level interval has since
-tightened to **[36,45]**: floor via the disjoint REACH-18 family, exchange 006;
-ceiling 45 via the REACH-19 filtered census, exchange 007, verifier
-`exchange/adjudication/programs/007.py`, 17/17 PASS 44.1s. rob has reproduced
-neither yet — natural slice-03+ receipt targets.) One rob-frozen value: the step-5 one-context verification exhausts a
-principled **369-profile superset** of x:001's 216 tabled profiles, all satisfying
-the step-5 marginal descriptions (noted in the receipt and named test).
+evidentiary reframing belongs to the wiki. One rob-frozen value: the step-5
+one-context verification exhausts a principled **369-profile superset** of x:001's
+216 tabled profiles, all satisfying the step-5 marginal descriptions (noted in the
+receipt and named test).
 
-### The eleventh receipt: the evening player (`verify_player`)
+Two dated notes on that receipt. (i) The wiki-level interval has since tightened to
+**[36,45]**: floor via the disjoint REACH-18 family, exchange 006 (dispatched
+2026-07-27T14:53:19Z, harvested 17:40:53Z, `programs/006.py`, 16/16 PASS 17.3 s);
+ceiling 45 via the REACH-19 filtered census, exchange 007 (dispatched
+2026-07-27T18:15:07Z, harvested 19:01:13Z, `programs/007.py`, 17/17 PASS 44.1 s) —
+both later than S10's recording on the same day. rob has reproduced neither, nor
+REACH-20 (exchange 008); they are the named slice-03 targets
+([rob-slices](rob-slices.md)), and slice 03 has not begun. (ii) rob's
+`x-r_flo_families` no-void figure **559,316,142** is x:001's grammar-subfamily count,
+which x:008 later showed to be a proper subfamily of the exact no-void slice
+624,892,870 (undercount 65,576,728; [discrepancies D17](discrepancies.md)). rob's
+receipt intentionally still reproduces x:001's construction; do not diff it against
+x:008.
+
+### The eleventh receipt: the baseline (evening player v0, demoted 2026-07-28)
 
 `rob/receipts/verify_player.txt` freezes a complete self-play match transcript of the
-**evening player v0** (`rob/crates/player`): fixed-field Monte Carlo best response
-(Math §11.4) — rollout policy fixed before worlds are drawn, world identity
-unrepresentable in its view — over exact uniform fiber sampling (rejection, no modulo
-bias), exact integer/rational values, 12 worlds per decision, player seed 7, match
-seed 42: 13 hands, T0 7–6 T1. Like `FROZEN_WITH_VOIDS` above, this is a
-**determinism freeze of rob's own construction**, not an ingest-corpus number. The
-HTML inspector (`rob/inspector/`) renders the same trace per-seat with exact fiber
-counts, marginals, decision values, trump display, and shareable URL-hash state; the
-JS recomputes no game logic — everything is emitted from Rust.
+player that `rob/crates/player` shipped on 2026-07-27 under the name **evening player
+v0**: fixed-field Monte Carlo best response (Math §11.4) — rollout policy fixed before
+worlds are drawn, world identity unrepresentable in its view — over exact uniform
+fiber sampling (rejection, no modulo bias), exact integer/rational values, 12 worlds
+per decision, player seed 7, match seed 42: 13 hands, T0 7–6 T1. **Naming law**
+(`rob/BRIEF_PLAYER_01.md` §1, 2026-07-28): the player specified by that brief *is*
+rob; the slice-01 player continues as the **baseline / receipt mode** — it keeps its
+receipts (`verify_player.txt`), its docs say "baseline", and its receipt text does not
+change. Every later rob number "against the baseline" (the +718 below) names this
+player, not σ. Like `FROZEN_WITH_VOIDS` above, the transcript is a **determinism
+freeze of rob's own construction**, not an ingest-corpus number. The HTML inspector
+(`rob/inspector/`) renders the same trace per-seat with exact fiber counts, marginals,
+decision values, trump display, and shareable URL-hash state; the JS recomputes no game
+logic — everything is emitted from Rust. Two named invariant tests guard it:
+`inv_rollout_conservation` and `inv_sampled_world_voids`
+(`rob/crates/player/tests/inv_player.rs`).
 
 ### The twelfth receipt: the player track (`verify_rob`)
 
@@ -287,64 +349,137 @@ the window ablation; P5 plan-book round-trip and trace embedding.
 Tier, unchanged: this is a **rob conformance receipt**, evidence and never a status
 change, and its self-play and match figures are determinism freezes of rob's own
 construction rather than ingest-corpus numbers — the same standing as
-`FROZEN_WITH_VOIDS` and the `verify_player` transcript above. One tier inversion is
+`FROZEN_WITH_VOIDS` and the baseline transcript above. One tier inversion is
 worth recording: before this correction, `verify_rob.txt`'s only mention anywhere in
 the wiki was in [idea-hierarchical-fibers](idea-hierarchical-fibers.md), an
 **ideas**-tier page — a tier-4 receipt documented only below every tier. It is
 inventoried here now, which is where it belongs.
 
+### Enforcement of the player invariants (INV-P1..P7)
+
+`rob/BRIEF_PLAYER_01.md` §5 names seven player invariants. Their enforcement, as it
+actually stands at c00717d1 (grep 2026-09-13), is uneven and should be read
+precisely:
+
+- **INV-P1 PLAN-NOT-TILE** and **INV-P7 FRONTIER-LEAF-IS-LAW** are enforced by a CI
+  grep: `rob/ci/check.sh` step "vocabulary grep (INV-P1, INV-P7)" fails on any
+  forbidden identifier ("no per-domino scalar value API; no tunable leaf"). INV-P1 is
+  additionally cited in `p5.rs` (the plan-book round-trip, `r_book_roundtrip`).
+- **INV-P2..P6 have no test named for them.** They are asserted *inside* the P-stage
+  receipt code and surface as receipt lines: INV-P4 FIELD-FIXED in `p1.rs`
+  (`r_sig_deterministic`, 108 traces byte-equal); INV-P6 WINDOW-EXACTNESS in `p2.rs`
+  (`r_pos_schedule`) and `p4.rs` (`r_mat_rolling`, 2,800 window agreements); INV-P5
+  BUNDLE-CONSERVATION in `p3.rs` (`r_sol_conservation`, 58,609,267 nodes); INV-P3
+  EXACT-NO-SAMPLING in `p3.rs` (`r_sol_deterministic`, 756 double-solves byte-equal).
+  **INV-P2 ONE-INFOSET-ONE-ACTION has neither a named test nor an in-source citation
+  in `p1.rs`–`p5.rs`.**
+- The brief itself names three tests — `inv_p2_partition` (line 157),
+  `inv_p4_determinism` (line 170), `inv_p5_conservation` (line 178) — **that do not
+  exist under those names anywhere in `rob/crates`**. The obligations they describe
+  are covered by the receipt lines above; the names are a documentation debt
+  ([rob](rob.md) "Known documentation drift"). No `ambiguity_*` test exists anywhere
+  in rob: the ambiguity protocol was never triggered.
+
 ## Exchange-adjudicated program runs (external evidentiary tier)
 
-Recorded 2026-07-27. Five verification programs from the Claude ↔ ChatGPT 5.6 Pro
-exchange were executed here unmodified from `exchange/adjudication/programs/`; each
-result is **exchange-adjudicated CONFIRMED** (program `ALL_PASS`; 3/3 adversarial
-referees SOUND) — a new external tier, **not** a proof-assistant kernel proof (TRUST-01).
-See [claim-ledger](claim-ledger.md) for the full set. A second adjudication batch ran
-2026-08-01 (`programs/009.py`, `010.py`, `012.py` — the constellation batch); its run
-stats, verdicts, and caveats live in the [claim-ledger](claim-ledger.md) rows and the
-[exchange README](../exchange/README.md) ledger, which own them.
+Every numbered exchange response that carried a verification program had that
+program extracted **unmodified** to `exchange/adjudication/programs/NNN.py` and
+executed here (stdlib-only Python) as the Execute phase of the adjudication workflow
+(`exchange/adjudication/workflow.js`: Extract → Execute → Verify by three referee
+lenses → Verdict). The first batch ran 2026-07-27 (workflow `wf_775fe0ec`, 30
+agents); the second ran 2026-08-01. Each result is **exchange-adjudicated** at the
+verdict shown — a tier below corpus theorems and Lean kernel proofs and above rob
+receipts, **never** imported as an axiom (TRUST-01). The verdict rule is "program
+green on its own claims + no referee demonstrates a real flaw"; the referee tally is
+printed for every row and the one non-unanimous panel is marked. Full result
+statements and caveats live in [claim-ledger](claim-ledger.md); this table owns the
+receipts. Dispatches 011/013/014/015 (the Lean thread and the informal take) had no
+program — their deliverable was a `lake build` or nothing.
 
-- **Census integers independently reproduced** (dispatch 005): all 19 load-bearing
-  census integers — previously single-source verifier receipts — were reproduced by an
-  external audit, program archived at `exchange/adjudication/programs/005.py`, rerun
-  locally **19 PASS / exit 0 / ~13s**, with three SOUND referee reports. The integers:
-  N_det 8,102,258,940,222,814; N_bin 11,495,078,055,913,018,482;
-  N_ter 1,830,955,704,129,296,418,354,864; grand total
+| # | Program (lines) | Result | Recorded adjudication run | Referee panel | Re-run 2026-09-13 (this machine, from a copy, `python3 -B`, 60 s cap) |
+|---|---|---|---|---|---|
+| 001 | `001.py` (1,789) | REACH-17 — floor 17,668,066,045, [35,46] | ALL_PASS, 15.9 s | 3/3 SOUND | 15.45 s, exit 0, 13 PASS lines, 0 FAIL; `PASS headline INTERVAL [35,46] bits` |
+| 002 | `002.py` (965) | outer language not tight; fifth condition | 16/16 PASS, 0.9 s | 3/3 SOUND | 0.91 s, exit 0, 16 PASS, 0 FAIL; `generators=450 traces=425520` |
+| 003 | `003.py` (907) | OPEN-01 COLLAPSE (bisimulation checker) | ALL_PASS 8/8, 0.4 s | 3/3 SOUND | 0.38 s, exit 0, 8 PASS, 0 FAIL; 204 / 22,848 / 1,604 / 1,280 |
+| 004 | `004.py` (673) | transport theorem, 9→3 classes | ALL_PASS, 4.6 s | 3/3 SOUND | 4.28 s, exit 0, 6 PASS, 0 FAIL; 45,472 commutation checks |
+| 004 | `004-cocycle.py` (146) — **in-house, Claude-authored**, not a Pro deliverable, not referee-panelled | Step-15 cocycle lemma `f_{u,v}∘f_{t,u}=f_{t,v}` over all 343 ordered pip-trump triples (+ identity and inverse legs) | ALL_PASS, 2026-07-27 | — (finite verification receipt, exchange-side) | 0.02 s, exit 0, 4 PASS, 0 FAIL; `ALL_PASS 343 ordered triples` |
+| 005 | `005.py` (699) | census-integer audit, 19 integers | 19/19 PASS, ~13 s | 3/3 SOUND | 12.90 s, exit 0, 19 PASS, 0 FAIL |
+| 006 | `006.py` (1,053) | REACH-18 — combined floor 36,913,384,410, [36,46] | 16/16 PASS, 17.3 s | 3/3 SOUND | 16.88 s, exit 0, 16 PASS, 0 FAIL; `PASS headline INTERVAL [36,46] bits` |
+| 007 | `007.py` (975) | REACH-19 — filtered census 33,297,009,347,414, ceiling 45, [36,45] | 17/17 PASS, 44.1 s | 3/3 SOUND | 36.42 s, exit 0, 17 PASS, 0 FAIL; `FILTERED_TAGGED_OUTER=33297009347414 CEILING=45` |
+| 008 | `008.py` (1,217; SHA 38fd84ea…) | REACH-20 — no-void slice exactly 624,892,870 | ALL_PASS 38/38, 71.8 s | **2/3 SOUND + 1 UNVERIFIABLE-no-defect** (dissent carried verbatim in the claim-ledger row) | **not re-run** — the recorded 71.8 s exceeds this pass's 60 s budget; last executed 2026-07-27 |
+| 009 | `009.py` (383) | C1 PARTIAL; pooled-key backward commutation REFUTED | ALL_PASS 8/8, 16.3 s | 2/3 SOUND + 1 FLAWED (flaw in corroboration artifacts, not the proof chain) | 13.98 s, exit 0, 8 PASS, 0 FAIL; `fixed_partial_maps=4 full_embeddings=0 legal_embeddings=0` |
+| 010 | `010.py` (1,051) | R1 — realizable = reachable at k=1; 31,197 classes | 31,830 PASS / 0 FAIL, ~19 s | 3/3 SOUND | 17.46 s, exit 0, 31,830 PASS, 0 FAIL |
+| 012 | `012.py` (651) | carrier-skeleton staircase a₄=37, b₄=486, b₈=126,657 | 14/14 PASS, 18.95 s | 3/3 SOUND | 17.43 s, exit 0, 14 PASS, 0 FAIL; `a4=37 b4=486 b8=126657` |
+
+"PASS lines" counts stdout lines containing `PASS`, which for 001 and 004 includes the
+program's own ALL/headline line; the recorded columns are the adjudication's own
+counts. The 2026-09-12 pass measured the same PASS/FAIL counts at 16.73 / 0.96 /
+0.40 / 4.56 / 0.02 / 13.49 / 17.05 / 37.07 / 14.77 / 18.00 / 17.73 s. Witness JSON
+for 001/002/003/006/007/008 and the referee-independent b₈ routes for 012
+(`witnesses/012/`: `indep012*.py`, `ref012.c`, `012_out.txt`) are static under
+`exchange/adjudication/witnesses/`. The programs were copied out and run with `-B`,
+so the worktree stayed clean.
+
+Three of the programs deserve a sentence beyond their row:
+
+- **`005.py` (census-integer audit)** upgraded the status of the 19 load-bearing
+  integers from single-source verifier receipts to **independently reproduced** (two
+  computation routes per integer). The integers: N_det 8,102,258,940,222,814; N_bin
+  11,495,078,055,913,018,482; N_ter 1,830,955,704,129,296,418,354,864; grand total
   1,830,967,207,309,611,271,596,161 (2⁸⁰ < total < 2⁸¹); outer-profile totals
-  7,124,838,074,989 and 64,123,542,674,901; max C(k) 839,220,930,919; floor 44,352,165;
-  and the signature-census chain 136,514 / 23,842 / 1,667,666 / 114 / 296,721 / 21,686 /
-  2,121 / 35 / 279,048 / 103. Referee-side foreign methods included a max-flow validator
-  over all 343 triples reproducing the 136,514 criterion, an exact-rational EGF for
-  N_det, and a brute-forced ternary validity criterion over 16,712 structural cases.
-  The status of these integers is upgraded from single-source verifier receipts to
-  **independently reproduced**.
-- **Transport-commutation run** (dispatch 004): `programs/004.py`, stdlib-only, exit 0
-  in 4.58s, all anchors reproduced (307,328 ALG-22 comparisons; 45,472 commutation
-  checks, 38,976 nontrivial; 6,496 prefixes; 224 deals); 4/4 injected mutations caught
-  (broken order preservation, unmapped exclusions, untransported deal, unmapped void
-  contexts). Mechanical scope is **family certification per contract** (single auction
-  shape, 224 pseudo-random traces); universality is carried by the prose induction, not
-  the run. The Step-15 cocycle gap is separately closed by `programs/004-cocycle.py`
-  (all 343 ordered pip-trump triples, ALL_PASS; finite verification receipt,
-  exchange-side).
-- **Kernel-quotient adjudication tooling** (dispatch 003): `programs/003.py` is a
-  reusable synchronized-product **bisimulation checker** with diagonal closure plus
-  capacitated-Hall support-fiber conditioning, teeth-tested via forged `r/w/z`
-  perturbations — the standard instrument for future kernel-vs-quotient claims (exit 0,
-  0.43s, 8/8 checks green).
+  7,124,838,074,989 and 64,123,542,674,901; max C(k) 839,220,930,919; floor
+  44,352,165; and the signature-census chain 136,514 / 23,842 / 1,667,666 / 114 /
+  296,721 / 21,686 / 2,121 / 35 / 279,048 / 103. Referee-side foreign methods included
+  a max-flow validator over all 343 triples reproducing the 136,514 criterion, an
+  exact-rational EGF for N_det, and a brute-forced ternary validity criterion over
+  16,712 structural cases.
+- **`004.py` (transport commutation)**: all anchors reproduced (307,328 ALG-22
+  comparisons; 45,472 commutation checks, 38,976 nontrivial; 6,496 prefixes; 224
+  deals); 4/4 injected mutations caught (broken order preservation, unmapped
+  exclusions, untransported deal, unmapped void contexts). Mechanical scope is
+  **family certification per contract** (single auction shape, 224 pseudo-random
+  traces); universality is carried by the prose induction, not the run. The Step-15
+  cocycle gap is closed separately by the in-house `004-cocycle.py`, whose transport
+  definition is copied verbatim from `004.py` rather than imported so that the
+  receipt stands alone.
+- **`003.py` (kernel-vs-quotient)** is a reusable synchronized-product **bisimulation
+  checker** with diagonal closure plus capacitated-Hall support-fiber conditioning,
+  teeth-tested via forged `r/w/z` perturbations — the standard instrument for future
+  kernel-vs-quotient claims.
+
+The two walt-side companion verifiers Pro shipped with x:019–023 and x:024
+(`exchange/inbox/verify_walt_panel_response_v0_1.py`, 36/36;
+`exchange/inbox/verify_deferred_producers_triple_v0_1.py`, 13/13) are **scratch
+tier — session evidence, never a receipt** ([claim-ledger](claim-ledger.md) walt-tier
+table); they are not in the table above because they verify nothing at the claim
+tier.
 
 ## Caveats
 
-1. **The `__pycache__` trap** ([discrepancies D15](discrepancies.md)): running the
-   verifiers creates `verification/__pycache__`, which then makes `audit_package.py`
-   fail its no-transients check. The `ingest/` copies in this repo currently contain
-   `__pycache__` directories (generated; not in the MANIFESTs). Audit on a clean copy
-   reproduces `AUDIT_OUTPUT.txt` exactly.
+1. **The `__pycache__` trap** ([discrepancies D15](discrepancies.md)): running any
+   verifier creates `verification/__pycache__`, after which `audit_package.py` fails
+   its no-transients check — reproduced on purpose 2026-09-13 (table above: exit 1,
+   `transient Python files present`). The checked-in `ingest/` tree is **clean**: no
+   `__pycache__` is tracked (`git ls-files ingest | grep -c pycache` = 0) or present on
+   disk at c00717d1 (`find ingest -name __pycache__` = nothing), so the trap is one a
+   reader sets for themself by running in place. Since `ingest/` is immutable anyway,
+   the discipline is: **copy the package out, audit first, then run the verifiers**
+   (or run with `python3 -B`). An earlier version of this caveat said the ingest copies
+   "currently contain" `__pycache__` directories; that described a working tree after a
+   run, not the repository.
 2. **The two verifier entry points are not independent**: the minimality script
    imports abstract-world helpers from `verify_foundation`. v0.7 states this; rec's
    docstring wrongly claims "dependency-free" ([discrepancies D4](discrepancies.md)).
 3. **Receipts are not kernel proofs** [TRUST-01, Boundary]: `PASS` output supports
    finite claims but must be re-proved or reflected inside a proof assistant
-   ([proof-assistant-plan](proof-assistant-plan.md)).
-4. Both MANIFEST.sha256 files verify clean (17 and 14 entries).
-5. Runtimes are minutes-scale; all scripts are stdlib-only Python.
+   ([proof-assistant-plan](proof-assistant-plan.md), [lean-row-index](lean-row-index.md)).
+4. Both MANIFEST.sha256 files verify clean (17 and 14 entries; re-verified 2026-09-13
+   from the copies with `shasum -a 256 -c`).
+5. **Runtimes are seconds, not minutes** (measured 2026-09-13 on this machine, Apple
+   M5 Max, Python 3.12.13, from a copy): `audit_package.py` 0.03 s,
+   `verify_foundation.py` 4.54 s, `verify_minimality_and_reachability.py` 3.28 s,
+   `verify_reduced_kernel.py` 8.08 s — about 16 s for all four; the v0.7 copies of the
+   first two run in 4.59 s and 3.22 s. All scripts are stdlib-only Python. The
+   exchange programs are likewise seconds-scale except `008.py` (71.8 s recorded) and
+   `007.py` (36–44 s). rob's `rob/ci/check.sh`, by contrast, is an hours-long job whose
+   wall clock has never been recorded to completion ([rob](rob.md)).

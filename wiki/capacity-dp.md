@@ -67,3 +67,29 @@ reduced predecessor can have a raw successor with newly unsupported edges, so st
 reduced means re-reducing after each exact update [Constructed counterexample,
 CELL-10N] — the seed of rec's matching-minor calculus
 ([support-dynamics](support-dynamics.md)).
+
+## Mechanization status (proof-assistant kernel tier)
+
+Rows are **v0.7** `65_MECHANIZATION_LEDGER.md` `PA-` rows (priority in parentheses);
+"proved" = a declaration under `lean/Texas42/` checked by the Lean kernel over at most
+`propext`/`Classical.choice`/`Quot.sound`, with no `sorry`, `native_decide` or local
+axiom (grep re-verified 2026-09-12), as of commit d190b26 (2026-08-02; all 42
+priority-0 rows closed). Row-to-declaration map: [lean-row-index](lean-row-index.md).
+A kernel theorem never promotes a corpus status; the rob receipts named here
+(`rob/receipts/verify_normal_form.txt`) are conformance evidence, never a status
+change. None of this page's counting rows is priority 0, so its kernel coverage is
+partial by design.
+
+| Result on this page | Ledger row (priority) | Kernel status (d190b26) | Declaration (`lean/Texas42/`) |
+|---|---|---|---|
+| CELL-09 capacitated Hall feasibility | PA-C08 (1) | **groundwork proved**: the generic capacitated Hall lemma, by slot expansion into mathlib's Hall theorem; the row as stated (Hall / max-flow feasibility equivalence) remains open | `NormalForm.lean:383` `exists_partition_of_hall` |
+| CELL-10: 66,968 tiny systems vs enumeration | external receipt | not a kernel target; rob `r_nf_hall` "66,968 systems; 14,578 feasible; 22,620 worlds" conformance | — |
+| CELL-09A (rec) b-matching framing | no row (rec-only) | not stated; but the generic `CellSys` kernel over an arbitrary finite holder type *is* the "formalize generically, then specialize to three seats" route this framing licenses | `Reduction.lean` `CellSys` |
+| CELL-10A/B/H three exact counting routes; CELL-10I/I1 native bounds 512 / 1,533 / 1,344 / 48 and `399,072,960` | PA-C11 (1) | **open**; ingest verifier and rob `r_nf_count_routes` (66,968), `r_nf_capacity_dp` ("512 profiles; 512 occupancy states; 1,533 candidate-holder checks; 1,344 capacity-eligible updates; 48 live states/layer; max count 399,072,960") are conformance | — |
+| CELL-10D support selects no probability law | no row | not mechanized (the one-directional kernel fact — posterior support lies *inside* the fiber — is PA-E03 on [belief-vs-support](belief-vs-support.md)) | — |
+| CELL-10E/F/G exact count-ratio uniform sampler; 22,620 world probabilities | PA-C12 (2) | **open**; rob `r_nf_sampler` (22,620) conformance | — |
+| CELL-10J local allowance ≠ marginal possibility | PA-C13 (1, WITNESS) | **open** | — |
+| CELL-10K marginal edge ⇔ forced successor Hall-feasible | PA-C14 (1) | **open**; rob `r_nf_marginal` (785,736) conformance | — |
+| CELL-10L/L1 canonical reduction: fiber-preserving, contractive, idempotent, a normal form (equal fibers ⇔ equal reductions) | PA-C15 (1) | **backbone proved** over the generic kernel: `red`, contractive (`marginal_subset`), fiber-preserving (`isWorld_red_iff`), idempotent (`red_red`), coarsest exact quotient (`fiber_eq_iff_red_eq`); monotonicity in the allowed sets is not a separately named theorem (not verified in this pass); rob `r_nf_reduction` (66,968) conformance | `Reduction.lean:55`, `:59`, `:65`, `:90`, `:112` |
+| CELL-10N reduction is not transition-stable | no row | not mechanized | — |
+| OPEN-06 predicate-restricted counting boundary | boundary | n/a | — |

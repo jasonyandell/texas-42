@@ -103,3 +103,48 @@ seed capture existed when the screenshots were taken) — the card's own
 "no seed needed" path is what was used. The intake companion's
 "Gran-anchor gap" note has NOT yet been repointed at these files.
 CARD STAYS OPEN on those two items.
+
+## Update 2026-09-13 — moved to doing/; what has used G1 since
+
+Moved from backlog/ to doing/ on 2026-09-13: G1 is done (2026-09-04), the
+card is open on exactly the two items above (the G2/G3 full deal, which is
+mechanically undecidable from the record; the intake companion's
+"Gran-anchor gap" note at
+`walt/math/targeted_level2_field_stability_v0.1_intake.md`, not yet repointed
+at `walt/probes/gran/`). Also still blocked on it:
+`walt/walt/tests/solver_calibrate.rs:420`
+`v5_literal_count_timing_position_reconstructs` stays `#[ignore]` with this
+card named as the blocker even though G1 is committed — whether G1 is the
+literal count-timing position that test wants is not recorded on the test.
+
+What has been run on the anchors since 2026-09-04 (all EXPLORATORY; the
+owning page is `wiki/walt-gran-anchors.md`):
+
+- **Level 2 on G1/G2 and a synthetic lock, 2026-09-05, branch `walt-g1-l2`
+  (8 commits, UNMERGED).** The 2026-08-17 level-2 player at Gran's seat holds
+  the 6-4 at both legal G1 nodes (trick 3 exact over 17,640 deals: 5-2 654‰ vs
+  6-4 640‰); G2 is exactly locked from trick 3 (all 280 trick-4 deals make
+  whatever Gran plays; identical tie set at level 1); the synthetic
+  threes-trump lock shows no saturation and a release margin that moves
+  L1 → L2 (trick 5 exact over 210 deals flips L1 hold → L2 release). Records
+  `walt/probes/gran/level2_g1.txt`, `level2_g2.txt`, `level2_lock.txt`,
+  `synthetic_lock.receipt.txt` on that branch; readout
+  `walt/briefs/MORNING-2026-09-05.md` (on main). Finding: G2's trick-1 6-4
+  was FORCED (S2's only six), so G2 does not contain the "indifferent and
+  holding the 6-4" scenario; the hoarding mechanism is the exact-tie
+  tile-index break (`TieRule::LowestTileIndex`), see `SCENARIO-PLAYER.md`
+  Def 6.3 note.
+- **O5 on G1, 2026-09-04/05, branch `walt-o5` (9 commits, UNMERGED).** G1's
+  S2 line dead fractions 0 / 785 / 804 / 745 / 821 / 0‰ by trick; void-aware
+  level 1 moves G1 S2's trick-3 pick 6-4 → 5-2 and trick 5 4-2 → 5-2
+  (`walt/probes/o5/README.md` on that branch; [[inner-voids-default]]).
+- **The partnership program, 2026-09-06 (main).** `experiments/partnership/
+  fixtures.json` carries G1 (`id: g1`, source `walt/probes/gran/g1.receipt.txt`
+  lines 24–32) and the G2/G3 partial as named fixtures; at the G1 trick-1 root
+  the native 40/8 baseline ties 33/40 vs 33/40 and plays 6-2 by index, the
+  partner-only n1 = 2 profile plays 6-4 (34/40 vs 37/40), full L2 plays 6-2
+  (38/40 vs 36/40); the archived phone plays 6-4 under its own settings
+  (`experiments/partnership/REPORT.md`, "Gran's actual information root").
+  Different samplers at different epochs — the trick-1 choice is decided by
+  epoch, not by model level.
+

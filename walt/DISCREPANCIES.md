@@ -6,7 +6,8 @@ here rather than silently picking a reading.
 
 ## Open discrepancies
 
-**None as of S5a.**
+**None as of 2026-09-03** (the date of the latest entry below; every entry
+filed since S5a sits under *Reconciled*). Header refreshed 2026-09-13.
 
 ## Reconciled, not discrepancies
 

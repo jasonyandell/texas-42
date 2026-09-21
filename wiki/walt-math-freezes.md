@@ -1,20 +1,36 @@
 # walt mathematics — the freeze register
 
-[Home](Home.md) · owns: the register of walt's determinism freezes 1–57 —
+[Home](Home.md) · owns: the register of walt's determinism freezes 1–58 —
 number, content, version, and the ruling that fixed each · Sources:
-`walt/CENSUS-RULINGS.md` (every freeze is declared in a ruling there);
-cross-checked against the `Freeze NN:` doc comments in the factory's
-`examples/*.rs` (archive-only at commit `648f93a` since the 2026-08-24
-unification), the results-file headers (now under
-`walt/probes/factory-results/`), for freeze 55 the
-canonical descriptor in `walt-gpu-ref/src/receipt.rs`, and for freeze 56 the
-canonical descriptor in `walt-gpu-ref/src/m2_receipt/receipt.rs`. Related:
+`walt/CENSUS-RULINGS.md` (freezes 1–57 are each declared in a ruling there;
+freeze 58 is issued by *this register* at APS-A9 and is named nowhere in that
+file — see its row); cross-checked against the `Freeze NN:` doc comments in
+the factory's `examples/*.rs` (archive-only at commit `648f93a` since the
+2026-08-24 unification), the results-file headers (now under
+`walt/probes/factory-results/`), for freeze 55 the canonical descriptor in
+`walt/walt-gpu-ref/src/receipt.rs`, for freeze 56 the canonical descriptor in
+`walt/walt-gpu-ref/src/m2_receipt/receipt.rs`, and for freeze 58 the frozen
+file itself, `walt/walt/src/solver/refine.rs`, with its four gates in
+`walt/walt/tests/solver_factor_refine.rs`. Related:
 [the reference map](walt-math-reference.md),
 [information geometry](walt-math-information-geometry.md),
-[decision-sparse witnesses](walt-math-decision-sparse.md).
+[decision-sparse witnesses](walt-math-decision-sparse.md),
+[received artifacts and intakes](walt-math-intakes.md).
 
 > **Tier: EXPLORATORY throughout**, below every tier on
 > [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).
+
+**The register in one line, as of 2026-09-07 (`c00717d1`):** 58 numbers
+issued; 56 spent; **39 and 40 reserved** since DS-A13 (2026-08-13) and
+confirmed untouched at every later freeze through 58; no freeze 59 has been
+issued anywhere in the repository (re-checked 2026-09-13: a case-insensitive
+search for "freeze 59" over `walt/`, `wiki/`, `kanban/` finds only the
+sentences stating its absence — this one, and their echoes on
+[the reference map](walt-math-reference.md) and
+[open questions](walt-math-open-questions.md)). The last two events are freeze
+57 (GT1-A24, 2026-08-17) and freeze 58 (the RefineV1 semantic freeze,
+2026-08-31). The focal-horizon program of 2026-09-04 issued **no** freeze —
+see [the note below](#what-was-not-frozen-the-focal-horizon-program-2026-09-04).
 
 ## What a freeze is, and what it is not
 
@@ -47,16 +63,22 @@ Four standing rules, and they are the reason the register exists at all:
 
 ## The register
 
-All 56 issued numbers are accounted for: 54 spent, and **39 and 40 still
+All 58 issued numbers are accounted for: 56 spent, and **39 and 40 still
 RESERVED**. "Fixed at" names the declaring ruling; where a number has been
-amended, the version and its amending ruling are named in the same cell.
+amended, the version and its amending ruling are named in the same cell. Rows
+57 and 58 were added to this table on 2026-09-12 from the dated addenda below
+(which remain as the provenance of when each entered the register).
 
 **How to follow a pointer.** Locate a ruling by its **ID and section heading**,
-never by line number — `CENSUS-RULINGS.md` is append-only and line numbers drift
-with every append (the discipline is stated on [the reference
+never by line number — `CENSUS-RULINGS.md` is append-only, so line numbers are
+stable for what is already written but the file's end moves with every append
+(the discipline is stated on [the reference
 map](walt-math-reference.md#the-ruling-families)). Line areas given below are
-dated conveniences, correct as of **2026-08-16**, and the heading governs if they
-disagree.
+dated conveniences, first recorded **2026-08-16** and re-checked **2026-09-12**
+against `main` at `c00717d1`: none had moved (the FT/SR/FF/FC/SS/GT1 rulings
+they cite sit at lines 7297 / 9010–9046 / 10122–11095 / 11330 / 12265 /
+12899–13115 of a 14,358-line file whose last section is "The focal-horizon
+adjudication (2026-09-04)"). The heading governs if they ever disagree.
 
 | # | Content | Fixed at |
 |---|---|---|
@@ -116,6 +138,9 @@ disagree.
 | 54 | **The seed-survey carrier and measured objects.** **Carrier generating rule:** seeds `0..99`; `index(n) = (n*A) mod D`, with `A = 292,032,399,099,041` and `D = 472,518,347,558,400`; standard mixed-radix combinadic deal unranking; declaration `PipTrump(n mod 7)`; seat 0 leads; freeze-26 least-index policy plays three tricks; focal seat is the trick-3 winner; every legal focal action is one unit. The generated 100 coordinates are printed in freeze-45 form and are not a redundant authority list. **Measured per unit:** exact `Q^H`, complete H-optimal face and separation cell, `U^C` and fusion gap, first-frontier/tie-multiplicity census, the two-rung tax split, four frozen rule values, and the count-only partition pass against `P_max v2`; exact arithmetic only, with the committed-summary/companion split and checkpoint order fixed at SS-A4 | **SS-A4** (§ "The seed survey: a hundred fresh coordinates, designed"); range closed at SS-A18 |
 | 55 | **The GPU-native trick-1 portable M0/M1 authority and deterministic encodings.** Fixes the bytes of `GT1_FREEZE_SET_DESCRIPTOR_V1` and the v1 encoding rules it names: received-v0.2 identity and v0.3/GT1 authority; the exact `OpeningRootV1` profiles; `U256MassV1` (`8 x LE-u32`) at field scale 420; `SemanticTablesCanonicalV2`; the opening-cell generator/order and 11,730 cap; `ReducedOpeningCarrierV1` grades 2..5, the 100,000 direct-world cap and 756,756-world zero-output grade-5 stop; tasks `M1OpeningResponseProjectorV1` and `M1OpeningDirectParityDeclaredStopV1`; and the canonical run-envelope, declared-stop and source-manifest-derived build-identity schemas. Generated hashes, lengths and counts are asserted derived checks, never parallel authorities. Freezes 7/23/26/47 are cited unchanged; 39/40 remain reserved; freeze 44 and M2+ are excluded | **GT1-A9** (§ "GPU-native trick-1: the bounded portable foundation") |
 | 56 | **The binding M2 Metal parity authority and deterministic encodings.** Fixes the exact 899 ASCII bytes of `GT1-M2-FREEZE-SET-V1`, SHA-256 `7bdc5e05513fd1d7e7b6c26870cf9bd4a16966c5daf48963729d999c4b6b28cf`, naming: binding contract `GPU-NATIVE-TRICK1-M2-v1` at SHA-256 `aacb6df5e9106b3b6bf00ccfb496c71f762c0fb4644c13a17f76d2ac2f0326e3`; parent freeze 55 at SHA-256 `9b181092045b003893cae7c09cc7b7c8b57f75c3c5c4cf7043b8d428df738efa` and commit `3b4c6d60fef371e3050de151ccf9eaefbc2d2da7`; received guide at SHA-256 `ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44` and exact rebrief at SHA-256 `9183132529a42289a104a73d8f7e196eb95058ac2edda60bb42c715f1f8a139a`; tasks `U256MetalParityV1` and `OpeningProjectorMetalParityV1`; `U256MassV1`, `U256MetalCorpusV1`, `M2MetalAbiV1`, `OpeningChooseTableV1`, `M2OpeningParityCarrierV1`, `ReducedEvidenceBindingV1`, `PhysicalActionBindingV1`, `M2SequentialRunnerV1`, `M2MetalCompilerProfileV1`, `M2MetalParityReceiptV1`, `M2SourceManifestV1` and `Texas42.Trick1MetalFoundation`. It keeps 39/40 reserved and excludes action value, selected lead, information net, K-OPEN4+ continuation, performance and player. Generated receipt/build hashes, byte lengths, counts and observed limits remain asserted consequences, never parallel authorities | **GT1-A17** (§ "GPU-native trick-1: the binding M2 Metal parity gate") |
+| 56 v2 | **Append-only re-issue at the unified layout** (the fold, 2026-08-24). New cumulative source manifest `walt/math/gpu_native_trick1_m0_m2_sources_v2.sha256` (identity `8a780895…`) beside the byte-immutable v1; a 32-entry fold-translation table as verifier amendment; full-closure checking demoted to freeze-event verification; the standing M2 receipt explicitly **old-layout evidence**, its re-earning deferred to [[m2-receipt-reearn]]. No number is reused: v2 is a version of 56, fixed by a later adjudication | **FZ-A1..FZ-A6** (§ "The freeze-56 v2 amendment (2026-08-24)") |
+| 57 | **The binding M3 perfect-recall-net gate.** Fixes the exact **962 ASCII bytes** of `GT1-M3-FREEZE-SET-V1` (SHA-256 `e5efe6ce5c293b29fc05902e7bf913fd13f04a031c2951f7a1bf5cf92137f852`), naming binding contract `GPU-NATIVE-TRICK1-M3-v1` at SHA-256 `79de73e9…`, parent freeze 56, the M3 objectives/treatments ABI, carrier profile `M3CarrierProfileV1` (h8, roots 21-31-33-55), and `Texas42.Trick1PerfectRecallNet` as the proof boundary. It authorizes **only the gate** and records **no M3 result**; the GT1 ruling range is re-frozen at A1..A24 and the chapter closed | **GT1-A24** (§ "GPU-native trick-1: the binding M3 perfect-recall-net parity gate", ≈ 13115) |
+| 58 | **RefineV1 — a semantic freeze of an implementation.** `walt/walt/src/solver/refine.rs` as merged at main `25b40d9` (PR #69, 2026-08-30) is the semantically frozen reference controller: no new fields, enum variants or work items, ever; bug fixes only with independent justification; its four gates in `walt/walt/tests/solver_factor_refine.rs` never weaken. The anytime proof-state core must reproduce RefineV1's results wherever their scopes overlap before any promotion, and stays removable without touching it. **The number was issued by this register** (the 2026-08-31 addendum below) when APS-A9 ruled `solver::refine` "frozen semantically as the RefineV1 reference" without naming a number; **`walt/CENSUS-RULINGS.md` never contains the string "freeze 58"** (checked 2026-09-12). Its consumers are code and briefs: `walt/walt/src/solver/{opening,unified,proof_state,godgap}.rs`, `walt/walt/tests/solver_proof_state.rs`, `walt/FACTOR-BELIEF.md`, `walt/MAP.md`, `walt/LOG.md`, and fourteen `walt/briefs/*` files (counted 2026-09-12) cite it by number | **APS-A9** (§ "The anytime-proof-state adjudication (2026-08-31)") for the content; **this register** for the number |
 
 ## Freeze 52's amendment chain: v1 → v1.4
 
@@ -350,8 +375,8 @@ adjudication. No number is reused; **39 and 40 remain reserved and untouched**.
 
 ## Addendum 2026-08-24 — freeze 57, and freeze-56's v2 re-issue
 
-Two register events since the table above was written; pointers only, the
-rulings govern.
+Two register events after the table above was first written (they are now
+also rows of the table); pointers only, the rulings govern.
 
 | # | Content (one line) | Fixed by |
 |---|---|---|
@@ -360,13 +385,45 @@ rulings govern.
 
 ## Addendum 2026-08-31 — freeze 58, the RefineV1 semantic freeze
 
-One register event; pointer only, the ruling governs. This is a freeze of an
-implementation's *semantics*, in the frozen-policy-identity lineage: it exists
-so that "reproduces RefineV1" is a checkable sentence.
+One register event (now also a row of the table); the ruling governs the
+content, this register the number. This is a freeze of an implementation's
+*semantics*, in the frozen-policy-identity lineage: it exists so that
+"reproduces RefineV1" is a checkable sentence.
+
+**On the number.** APS-A9 says `solver::refine` is "frozen semantically as the
+RefineV1 reference" and issues no number; the number 58 was assigned here the
+same day, and every later consumer — the source files, the briefs, the running
+records — cites "freeze 58" by that name. `walt/CENSUS-RULINGS.md` therefore
+carries the freeze's *content* but not its *number*. Whether a one-line append
+naming the number belongs in the rulings file is an open register question
+(see [open questions](walt-math-open-questions.md)); until it is answered, this
+page is the authority for "58".
 
 | # | Content (one line) | Fixed by |
 |---|---|---|
 | 58 | **RefineV1.** `walt/walt/src/solver/refine.rs` as merged at main `25b40d9` (PR #69) is the semantically frozen reference controller: no new fields, enum variants, or work items, ever; bug fixes only with independent justification; its four gates (`walt/walt/tests/solver_factor_refine.rs`) never weaken. The anytime proof-state core must reproduce RefineV1's results wherever their scopes overlap (same producers, same goal) before any promotion, and remains removable without touching it. New capability goes to the new core, never to this file — the growing-enum temptation is refused by rule, not judgment. | **APS-A9** (number issued here) |
+
+## What was not frozen: the focal-horizon program (2026-09-04)
+
+The focal-horizon adjudication (FH-A1..A11, `walt/CENSUS-RULINGS.md` § "The
+focal-horizon adjudication (2026-09-04)") and the five slices built the same
+day (FH1 engine, FH2 ladder, FH3 report of record, FH4 audit, FH5 post-audit
+fixes; commits `fc171e1f`, `8aae7c79`, `b6de5a25`) issued **no freeze**. The
+word "freeze" does not occur in the FH section of the rulings file (checked
+2026-09-12), and the FH1/FH2 reports say only "Freeze 58 untouched". What the
+program fixed instead are **declared identity coordinates carried in code**,
+which is a different kind of object: FH-A6 makes the forced-focal-node
+convention ("forced focal nodes consume a unit of horizon") binding for the
+FH1–FH3 numbers and says a forced-free variant "is a declared identity
+coordinate if ever built"; FH-A9 sharpens the suffix-receipt identity to
+include the viewer seat, viewer hand, the public record *as read by the field*,
+declaration/contract/utility, field identity with frozen parameters, **and the
+posterior itself** (record alone is the PiKey defect of CBS-A6 reborn); FH-A7
+fixes `TieRule::LowestTileIndex` as the rule that materializes `π_k`. These are
+part of what a result *names*, not constants a later adjudication would
+re-issue as "freeze N v2". A reader looking for "the FH freeze" should look for
+the identity fields on the records (`walt/probes/factor_belief/focal_run1.txt`,
+`focal_ladder_run1.txt`) instead.
 
 ## Two discrepancies on the record
 

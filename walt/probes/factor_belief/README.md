@@ -528,9 +528,12 @@ the δ ledger).
 ## bellmanreport_run1.txt readings (2026-08-31) — the Phase 4/5 staircases and covers
 
 - **The staircase is a real anytime object.** h3-t4 walks every action
-  from a wide stage-0 interval (3-1: [145,606]‰ over 50 classes) to
-  the exact response in 5–6 refinements, narrowing monotonically on
-  both sides; mid-staircase stages are honest intermediate answers
+  from a wide stage-0 interval (action 3-1: [66,830]‰ over 70 classes →
+  [350,350]‰ at stage 5; action 4-1 from [145,606]‰ over 50 classes —
+  label corrected 2026-09-13 against `bellmanreport_run1.txt` lines
+  133–158, which had been misattributed here to 3-1) to the exact
+  response in six stages, narrowing monotonically on both sides;
+  mid-staircase stages are honest intermediate answers
   (stage 4 on 4-1: [223,387]‰ at 836‰ exact mass). h8-t5 0-0 climbs
   86‰ → 771‰ exact-mass across five stages. The interval width IS the
   unresolved mass — §22's identity, visible line by line.
