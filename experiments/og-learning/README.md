@@ -70,11 +70,44 @@ typed outcome, never a loss (parent §8-9).
 - Promotion streams: seeds `20_000_000 + k * 100_000 + i` for frozen
   candidate k <= 100 (frozen before its stream starts).
 
+## The constructor and campaign og-v2
+
+og-v1 froze the dictionary at the seed library; og-v2 opens the language
+(parent §5). `src/constructor.rs` declares a fixed typed language over the
+scheme registry's viewer predicates: 22 action fragments (double/master/
+count-n and their negations, follow/boss/would-lead of the led context,
+trump membership and trump-boss through the `Called` context literal, and
+the `takes-trick` composite - action beats the current winning tile) x 13
+qualifier fragments (partner/opponent currently winning, the four trick
+positions through leader/successor/partner chains, and hand-size stage
+markers through `quota`), assembled as `own-legal(action)` conjunctions:
+each action fragment alone, crossed with each qualifier, and every pair of
+action fragments - 539 expressions, every one compiled and text-round-trip
+verified. A human declares the language and its caps; the campaign selects
+within it. Per generation: dedup + constancy filtering on a declared prefix
+of the versioned panel; candidate derivatives g_F at coefficient zero on a
+fresh frozen-incumbent bundle (parent §3); top-3 admitted at weight 1 -
+semantically invisible until the gradient moves them; dictionary cap 60.
+Admitted expressions persist in `state.txt` as canonical single-line
+s-expressions and re-compile at load.
+
+**og-v2 declaration**: same target law as og-v1; every seed base shifted by
+the campaign offset 100,000,000 (no deal shared with og-v1); constructor
+on; train 4096 x 8 inner steps, dev 2048, stall 3; constructor scoring
+bundles at region offset +50,000, capped at 2,048 deals; panel filter reads
+the first 64 panel seeds (the 256-seed panel remains the versioned record).
+
 ## Layout
 
 - `src/bounds.rs` - conservative exact-rational Hoeffding machinery.
 - `src/rng.rs` - SplitMix64 + exact rational categorical sampling.
 - `src/promotion.rs` - the registered evidence rule.
-- (further modules land with the trainer: actor, features, rollout, gradient,
-  generation loop, campaign binary)
+- `src/target.rs` - the campaign target: deal law, declaration rule, root.
+- `src/features.rs` - the growing expression dictionary (seed + learned).
+- `src/constructor.rs` - the typed language, panel dedup, admission.
+- `src/actor.rs` - the rational multiplicative-weights softmax actor.
+- `src/rollout.rs` - complete-deal driver on the walt rules engine.
+- `src/gradient.rs` - the outcome-gradient estimator (LOO baselines).
+- `src/campaign.rs` - the generation loop, state, records, exam.
+- `src/bin/og_campaign.rs` - init | bench | train | panel | exam.
 - `campaigns/<name>/` - run records; RESULTS.md + measurements govern prose.

@@ -1,5 +1,5 @@
 //! Campaign driver. Subcommands:
-//!   init  --dir D [--train N] [--dev N] [--stall K]
+//!   init  --dir D [--train N] [--dev N] [--stall K] [--offset S] [--constructor 0|1]
 //!   bench --deals N
 //!   train --dir D [--generations N] [--wall-budget-secs S]
 //!   panel --dir D [--seeds N]     (versioned dedup probe panel record)
@@ -10,8 +10,8 @@ use std::time::Instant;
 
 use og_learning::actor::RationalActor;
 use og_learning::campaign::{run_exam, run_generation, CampaignState, PANEL_BASE};
-use og_learning::features::ClauseDictionary;
-use og_learning::rollout::play_deal;
+use og_learning::features::{set_for, ClauseDictionary};
+use og_learning::rollout::{collect_panel_decisions, play_deal, DEAL_WORK_BUDGET};
 use og_learning::target::CampaignTarget;
 
 fn arg(name: &str, default: u64) -> u64 {
@@ -36,38 +36,43 @@ fn dir_arg() -> PathBuf {
 fn main() -> Result<(), String> {
     let sub = std::env::args().nth(1).unwrap_or_default();
     let target = CampaignTarget::og_v1();
-    let dict = ClauseDictionary::standard()?;
     match sub.as_str() {
         "init" => {
             let dir = dir_arg();
             std::fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
+            let dict = ClauseDictionary::standard()?;
             let state = CampaignState::fresh(
                 &target,
                 &dict,
                 arg("--train", 4096),
                 arg("--dev", 2048),
                 arg("--stall", 3) as u32,
+                arg("--offset", 0),
+                arg("--constructor", 0) == 1,
             );
             state.save(&dir.join("state.txt"))?;
             println!(
-                "initialized {} at {} (train={}, dev={}, stall={})",
+                "initialized {} at {} (train={}, dev={}, stall={}, offset={}, constructor={})",
                 target.id,
                 dir.display(),
                 state.train_deals,
                 state.dev_deals,
-                state.stall_after
+                state.stall_after,
+                state.seed_offset,
+                state.constructor
             );
             Ok(())
         }
         "bench" => {
             let n = arg("--deals", 200);
+            let dict = ClauseDictionary::standard()?;
             let actor = RationalActor::uniform(dict.len(), &dict.version);
             let started = Instant::now();
             let mut makes = 0u64;
             let mut decisions = 0u64;
             let mut plies = 0u64;
             for i in 0..n {
-                let r = play_deal(&target, &dict, &actor, 77_000_000 + i, true)?;
+                let r = play_deal(&target, &dict, &actor, 77_000_000 + i, true, &[])?;
                 makes += u64::from(r.y);
                 decisions += u64::from(r.learner_decisions);
                 plies += u64::from(r.plies);
@@ -88,8 +93,9 @@ fn main() -> Result<(), String> {
             let wall_budget = arg("--wall-budget-secs", 480);
             let started = Instant::now();
             let mut state = CampaignState::load(&dir.join("state.txt"))?;
+            let mut dict = ClauseDictionary::with_learned(&state.learned)?;
             for _ in 0..generations {
-                let report = run_generation(&dir, &mut state, &target, &dict)?;
+                let report = run_generation(&dir, &mut state, &target, &mut dict)?;
                 println!("{}", report.json);
                 if report.stalled {
                     println!("{{\"stopped\":\"registered stall condition\"}}");
@@ -105,25 +111,45 @@ fn main() -> Result<(), String> {
         "panel" => {
             let dir = dir_arg();
             let n = arg("--seeds", 256);
+            let state = CampaignState::load(&dir.join("state.txt")).unwrap_or_else(|_| {
+                let dict = ClauseDictionary::standard().expect("seed dictionary");
+                CampaignState::fresh(&target, &dict, 0, 0, 3, 0, false)
+            });
+            let dict = ClauseDictionary::with_learned(&state.learned)?;
             let actor = RationalActor::uniform(dict.len(), &dict.version);
-            // The versioned dedup probe panel (parent §5 step 4): collect
-            // every clause's candidate set over the panel's decisions under
-            // the uniform actor; report per-clause constancy and pairwise
-            // agreement. Empirical agreement is NOT semantic equivalence.
+            // The versioned dedup probe panel (parent §5 step 4): every
+            // expression's candidate set over the panel's decisions under
+            // uniform play. Empirical agreement is NOT semantic equivalence.
             let mut per_clause_nontrivial = vec![0u64; dict.len()];
             let mut pair_disagree = vec![vec![0u64; dict.len()]; dict.len()];
             let mut decisions = 0u64;
+            let mut budget = walt::scheme::Budget::new(DEAL_WORK_BUDGET * 64);
             for i in 0..n {
-                let stats =
-                    og_learning::rollout::panel_decision_sets(&target, &dict, &actor, PANEL_BASE + i)?;
-                for sets in stats {
+                let panel = collect_panel_decisions(
+                    &target,
+                    &dict,
+                    &actor,
+                    PANEL_BASE + state.seed_offset + i,
+                )?;
+                for (frame, legal) in panel {
                     decisions += 1;
-                    for (j, s) in sets.iter().enumerate() {
-                        if !s.trivial {
+                    let sets: Vec<(u32, bool)> = dict
+                        .compiled()
+                        .iter()
+                        .map(|fix| {
+                            let s = set_for(fix, &frame, legal, &mut budget)?;
+                            Ok::<(u32, bool), String>((
+                                s.bits(),
+                                s.is_empty() || s == legal,
+                            ))
+                        })
+                        .collect::<Result<_, _>>()?;
+                    for (j, (bits, trivial)) in sets.iter().enumerate() {
+                        if !trivial {
                             per_clause_nontrivial[j] += 1;
                         }
-                        for (j2, s2) in sets.iter().enumerate().skip(j + 1) {
-                            if s.bits != s2.bits {
+                        for (j2, (bits2, _)) in sets.iter().enumerate().skip(j + 1) {
+                            if bits != bits2 {
                                 pair_disagree[j][j2] += 1;
                             }
                         }
@@ -135,10 +161,7 @@ fn main() -> Result<(), String> {
             for j in 0..dict.len() {
                 for j2 in (j + 1)..dict.len() {
                     if pair_disagree[j][j2] == 0 {
-                        dupes.push(format!(
-                            "[\"{}\",\"{}\"]",
-                            dict.ids[j], dict.ids[j2]
-                        ));
+                        dupes.push(format!("[\"{}\",\"{}\"]", dict.ids[j], dict.ids[j2]));
                     }
                 }
             }
@@ -168,6 +191,7 @@ fn main() -> Result<(), String> {
             let dir = dir_arg();
             let n = arg("--deals", 4096);
             let state = CampaignState::load(&dir.join("state.txt"))?;
+            let dict = ClauseDictionary::with_learned(&state.learned)?;
             let json = run_exam(&dir, &state, &target, &dict, n)?;
             println!("{json}");
             Ok(())

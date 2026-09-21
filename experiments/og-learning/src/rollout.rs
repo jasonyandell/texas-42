@@ -4,18 +4,19 @@
 //! `policy_search::program::replay_program_traced`. The physical deal only
 //! supplies hands; every learner decision consumes its own seat's `Frame`
 //! (own hand + public record) - hidden-world predicates cannot be evaluated
-//! on that surface at all.
+//! on that surface at all. Probe expressions (constructor candidates at
+//! coefficient zero) are scored alongside without influencing play.
 
 use num_rational::BigRational;
-use num_traits::Zero;
+use num_traits::{One, Zero};
 use walt::kernel::{Hidden, Kernel};
 use walt::policy_search::{HashField, State};
 use walt::rules::{legal_plays, Domino, DominoSet, Seat};
-use walt::scheme::{step_frame, Budget, Frame, ObservedPlay, PlayClass};
+use walt::scheme::{step_frame, Budget, CompiledFix, Frame, ObservedPlay, PlayClass};
 use walt::solver::adaptive::SlicePolicy;
 
 use crate::actor::RationalActor;
-use crate::features::ClauseDictionary;
+use crate::features::{set_for, ClauseDictionary};
 use crate::rng::SplitMix64;
 use crate::target::CampaignTarget;
 
@@ -25,13 +26,16 @@ use crate::target::CampaignTarget;
 pub const PLAY_DOMAIN: u64 = 0x4F47_504C;
 
 /// Work budget per deal for scheme inference + frame dynamics (declared cap).
-pub const DEAL_WORK_BUDGET: u64 = 50_000_000;
+pub const DEAL_WORK_BUDGET: u64 = 200_000_000;
 
 pub struct DealRecord {
     pub y: bool,
     /// Per-clause sum over the learner's decisions of the exact score
     /// x_j(a_t) - E_{b~pi} x_j(b); empty unless `collect_scores`.
     pub score_sums: Vec<BigRational>,
+    /// The same exact score sums for the probe expressions (coefficient
+    /// zero - they never touch play); empty when no probes are passed.
+    pub probe_scores: Vec<BigRational>,
     pub learner_decisions: u32,
     pub plies: u32,
     pub inference_work: u64,
@@ -72,6 +76,32 @@ fn opening_frame(
     Frame::new(kernel, leader, Vec::new(), DominoSet::EMPTY).map_err(|e| e.to_string())
 }
 
+/// Test-only accessor for an S0 opening frame (used by constructor gates).
+pub fn opening_frame_for_test(decl: walt::rules::Decl, hands: &[DominoSet; 4]) -> Frame {
+    opening_frame(decl, Seat::S0, hands, Seat::S0).expect("opening frame")
+}
+
+fn centered_score(
+    set: DominoSet,
+    chosen: Domino,
+    actions: &[Domino],
+    weights: &[BigRational],
+    total: &BigRational,
+) -> BigRational {
+    let mut mass = BigRational::zero();
+    for (a, w) in actions.iter().zip(weights) {
+        if set.contains(*a) {
+            mass += w;
+        }
+    }
+    let x_chosen = if set.contains(chosen) {
+        BigRational::one()
+    } else {
+        BigRational::zero()
+    };
+    x_chosen - mass / total
+}
+
 /// Play one complete deal of the target with `actor` on the learner seats.
 /// Stops as soon as make/set is decided (the utility is already determined
 /// and later score terms only add variance).
@@ -81,6 +111,7 @@ pub fn play_deal(
     actor: &RationalActor,
     deal_seed: u64,
     collect_scores: bool,
+    probes: &[CompiledFix],
 ) -> Result<DealRecord, String> {
     let hands = target.deal(deal_seed);
     let decl = target.declaration(hands[target.bidder.index()]);
@@ -95,6 +126,7 @@ pub fn play_deal(
     let mut budget = Budget::new(DEAL_WORK_BUDGET);
     let mut state = State::from_root(&position);
     let mut score_sums = vec![BigRational::zero(); dict.len()];
+    let mut probe_scores = vec![BigRational::zero(); probes.len()];
     let mut learner_decisions = 0u32;
     let mut plies = 0u32;
 
@@ -129,26 +161,24 @@ pub fn play_deal(
                     SplitMix64::new(deal_seed ^ PLAY_DOMAIN).derive(u64::from(plies));
                 stream.sample_rational(&weights)
             };
-            if collect_scores {
+            let tile = actions[chosen];
+            if collect_scores || !probes.is_empty() {
                 let total: BigRational = weights.iter().sum();
-                for (j, set) in sets.iter().enumerate() {
-                    let mut mass = BigRational::zero();
-                    for (a, w) in actions.iter().zip(&weights) {
-                        if set.contains(*a) {
-                            mass += w;
-                        }
+                if collect_scores {
+                    for (j, set) in sets.iter().enumerate() {
+                        score_sums[j] +=
+                            centered_score(*set, tile, &actions, &weights, &total);
                     }
-                    let expected = mass / &total;
-                    let x_chosen = if set.contains(actions[chosen]) {
-                        BigRational::from_integer(1.into())
-                    } else {
-                        BigRational::zero()
-                    };
-                    score_sums[j] += x_chosen - expected;
+                }
+                for (j, probe) in probes.iter().enumerate() {
+                    let set = set_for(probe, frame, legal, &mut budget)
+                        .map_err(|e| format!("probe {j}: {e}"))?;
+                    probe_scores[j] +=
+                        centered_score(set, tile, &actions, &weights, &total);
                 }
             }
             learner_decisions += 1;
-            actions[chosen]
+            tile
         } else {
             field.choose(decl, hand, legal, &state.record(&position))
         };
@@ -167,27 +197,23 @@ pub fn play_deal(
     Ok(DealRecord {
         y: outcome,
         score_sums: if collect_scores { score_sums } else { Vec::new() },
+        probe_scores: if probes.is_empty() { Vec::new() } else { probe_scores },
         learner_decisions,
         plies,
         inference_work: budget.spent(),
     })
 }
 
-/// One clause's candidate set at one panel decision, as raw bits plus a
-/// triviality flag (empty, or the whole legal set - action-independent).
-pub struct PanelSet {
-    pub bits: u32,
-    pub trivial: bool,
-}
-
-/// Replay one panel deal under `actor` and record every learner decision's
-/// per-clause candidate sets (for the versioned dedup probe panel).
-pub fn panel_decision_sets(
+/// Replay one panel deal under `actor` and return every learner decision's
+/// (frame, legal set) pair - the versioned probe panel's raw decisions.
+/// With all-ones weights the play law is uniform over legal whatever the
+/// dictionary, so the panel is fixed across dictionary growth.
+pub fn collect_panel_decisions(
     target: &CampaignTarget,
     dict: &ClauseDictionary,
     actor: &RationalActor,
     deal_seed: u64,
-) -> Result<Vec<Vec<PanelSet>>, String> {
+) -> Result<Vec<(Frame, DominoSet)>, String> {
     let hands = target.deal(deal_seed);
     let decl = target.declaration(hands[target.bidder.index()]);
     let position = target.opening_root(decl);
@@ -206,15 +232,8 @@ pub fn panel_decision_sets(
         let led = state.prefix.first().map(|d| decl.led_context(*d));
         let legal = legal_plays(decl, hand, led);
         let tile = if let Some((_, frame)) = frames.iter().find(|(s, _)| *s == seat) {
+            out.push((frame.clone(), legal));
             let sets = dict.candidate_sets(frame, legal, &mut budget)?;
-            out.push(
-                sets.iter()
-                    .map(|s| PanelSet {
-                        bits: s.bits(),
-                        trivial: s.is_empty() || *s == legal,
-                    })
-                    .collect(),
-            );
             let (actions, weights) = actor.action_weights(legal, &sets);
             let chosen = if actions.len() == 1 {
                 0
@@ -240,7 +259,6 @@ pub fn panel_decision_sets(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use num_traits::One;
 
     #[test]
     fn rollouts_are_deterministic_and_conserve_the_law() {
@@ -248,8 +266,8 @@ mod tests {
         let dict = ClauseDictionary::standard().unwrap();
         let actor = RationalActor::uniform(dict.len(), &dict.version);
         for seed in [11u64, 12, 13] {
-            let a = play_deal(&target, &dict, &actor, seed, true).unwrap();
-            let b = play_deal(&target, &dict, &actor, seed, true).unwrap();
+            let a = play_deal(&target, &dict, &actor, seed, true, &[]).unwrap();
+            let b = play_deal(&target, &dict, &actor, seed, true, &[]).unwrap();
             assert_eq!(a.y, b.y);
             assert_eq!(a.score_sums, b.score_sums);
             assert_eq!(a.plies, b.plies);
@@ -258,19 +276,43 @@ mod tests {
     }
 
     #[test]
+    fn probes_never_change_play_and_score_like_dictionary_members() {
+        // Law: a probe identical to a dictionary member accumulates exactly
+        // that member's score sum, and probing changes nothing about play.
+        let target = CampaignTarget::og_v1();
+        let dict = ClauseDictionary::standard().unwrap();
+        let actor = RationalActor::uniform(dict.len(), &dict.version);
+        let master_probe = walt::policy_search::relational::relational_grammar()
+            .into_iter()
+            .find(|t| t.id == "master")
+            .unwrap()
+            .guard
+            .compile(dict.registry())
+            .unwrap();
+        for seed in [21u64, 22] {
+            let plain = play_deal(&target, &dict, &actor, seed, true, &[]).unwrap();
+            let probed =
+                play_deal(&target, &dict, &actor, seed, true, &[master_probe.clone()]).unwrap();
+            assert_eq!(plain.y, probed.y);
+            assert_eq!(plain.plies, probed.plies);
+            assert_eq!(plain.score_sums, probed.score_sums);
+            // seed index 4 is "master" in relational_grammar order? assert
+            // by lookup instead of position:
+            let master_idx = dict.ids.iter().position(|i| i == "master").unwrap();
+            assert_eq!(probed.probe_scores[0], plain.score_sums[master_idx]);
+        }
+    }
+
+    #[test]
     fn per_decision_scores_have_zero_expectation_by_construction() {
-        // Law: sum_a pi(a) [x_j(a) - E x_j] = 0 exactly. We check the
-        // aggregate consequence: with ALL-ONES weights, every clause's score
-        // is x_j(a) - |F_j ∩ legal|/|legal|; summed against the uniform law
-        // it vanishes. Here we assert the mechanical version at one real
-        // decision by recomputing from candidate sets.
+        // Law: sum_a pi(a) [x_j(a) - E x_j] = 0 exactly, recomputed at one
+        // real opening decision from candidate sets.
         let target = CampaignTarget::og_v1();
         let dict = ClauseDictionary::standard().unwrap();
         let actor = RationalActor::uniform(dict.len(), &dict.version);
         let hands = target.deal(7);
         let decl = target.declaration(hands[0]);
-        let position = target.opening_root(decl);
-        let frame = opening_frame(decl, Seat::S0, &hands, position.leader).unwrap();
+        let frame = opening_frame(decl, Seat::S0, &hands, Seat::S0).unwrap();
         let legal = legal_plays(decl, hands[0], None);
         let mut budget = Budget::new(DEAL_WORK_BUDGET);
         let sets = dict.candidate_sets(&frame, legal, &mut budget).unwrap();
@@ -279,26 +321,14 @@ mod tests {
         for set in &sets {
             let mut expectation_of_score = BigRational::zero();
             for (a, w) in actions.iter().zip(&weights) {
-                let x = if set.contains(*a) {
-                    BigRational::one()
-                } else {
-                    BigRational::zero()
-                };
-                let mut mass = BigRational::zero();
-                for (b, wb) in actions.iter().zip(&weights) {
-                    if set.contains(*b) {
-                        mass += wb;
-                    }
-                }
-                expectation_of_score += (w / &total) * (x - mass / &total);
+                expectation_of_score +=
+                    (w / &total) * centered_score(*set, *a, &actions, &weights, &total);
             }
             assert!(expectation_of_score.is_zero());
         }
         // PINNED strictness witness: at this opening root some clause
         // separates the legal actions (its set is neither empty nor all).
         let n = legal.len();
-        assert!(sets
-            .iter()
-            .any(|s| !s.is_empty() && s.len() < n));
+        assert!(sets.iter().any(|s| !s.is_empty() && s.len() < n));
     }
 }

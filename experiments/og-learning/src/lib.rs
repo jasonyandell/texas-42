@@ -7,6 +7,7 @@
 pub mod actor;
 pub mod bounds;
 pub mod campaign;
+pub mod constructor;
 pub mod features;
 pub mod gradient;
 pub mod promotion;

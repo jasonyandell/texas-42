@@ -81,6 +81,7 @@ mod tests {
         DealRecord {
             y,
             score_sums: scores,
+            probe_scores: Vec::new(),
             learner_decisions: 1,
             plies: 1,
             inference_work: 0,

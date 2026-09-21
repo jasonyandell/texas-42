@@ -1,7 +1,8 @@
 //! The generation loop (parent §5) under the registered evidence rule:
-//! freeze -> on-policy deals -> outcome gradient -> a bounded candidate
-//! ladder -> development screening on fresh deals -> frozen-finalist
-//! promotion stream -> promote or retain the incumbent -> repeat or stop.
+//! freeze -> constructor (generate, dedup on the versioned panel, score
+//! candidate derivatives at coefficient zero, admit a bounded number) ->
+//! on-policy inner steps -> snapshot finalists -> development screening ->
+//! frozen-finalist promotion stream -> promote or retain -> repeat or stop.
 //! State is a plain text file; every generation appends one JSON record.
 //! All statistics are exact rationals rendered as "num/den" (permille given
 //! as an exact integer floor for reading convenience only).
@@ -16,10 +17,11 @@ use num_traits::{One, Signed, Zero};
 
 use crate::actor::RationalActor;
 use crate::bounds::ln_upper;
-use crate::features::ClauseDictionary;
+use crate::constructor::{generate_pool, panel_filter};
+use crate::features::{set_for, ClauseDictionary};
 use crate::gradient::{estimate, GradientEstimate};
 use crate::promotion::{EvidenceRule, Verdict};
-use crate::rollout::play_deal;
+use crate::rollout::{collect_panel_decisions, play_deal, DealRecord, DEAL_WORK_BUDGET};
 use crate::target::CampaignTarget;
 
 pub const TRAIN_BASE: u64 = 1_000_000;
@@ -27,10 +29,22 @@ pub const DEV_BASE: u64 = 3_000_000;
 pub const EXAM_BASE: u64 = 9_000_000;
 pub const PROMO_BASE: u64 = 20_000_000;
 pub const PANEL_BASE: u64 = 500_000;
+/// Constructor-scoring bundles live inside the generation's train region,
+/// above the inner-step ranges.
+pub const SCORE_OFFSET_IN_REGION: u64 = 50_000;
+
+pub const PANEL_SEEDS: u64 = 256;
+/// The constructor's dedup filter reads a declared prefix of the panel
+/// (cost control; the full panel remains the versioned record).
+pub const PANEL_FILTER_SEEDS: u64 = 64;
+/// Candidate derivatives are scored on bundles of at most this many deals.
+pub const SCORE_DEALS_CAP: u64 = 2_048;
 
 #[derive(Clone, Debug)]
 pub struct CampaignState {
     pub target_id: String,
+    /// The SEED grammar version; learned expressions extend it and the
+    /// composed version lives on the dictionary and in the records.
     pub dictionary_version: String,
     pub generation: u64,
     pub candidate_counter: u64,
@@ -38,6 +52,15 @@ pub struct CampaignState {
     pub train_deals: u64,
     pub dev_deals: u64,
     pub stall_after: u32,
+    /// All seed ranges shift by this per-campaign offset, so distinct
+    /// campaigns never share deals.
+    pub seed_offset: u64,
+    /// Constructor switch and caps (frozen at init).
+    pub constructor: bool,
+    pub dict_cap: usize,
+    pub admit_k: usize,
+    /// Admitted expressions in admission order: (id, canonical text).
+    pub learned: Vec<(String, String)>,
     pub weights: Vec<BigRational>,
 }
 
@@ -64,12 +87,15 @@ pub fn permille(r: &BigRational) -> i64 {
 }
 
 impl CampaignState {
+    #[allow(clippy::too_many_arguments)]
     pub fn fresh(
         target: &CampaignTarget,
         dict: &ClauseDictionary,
         train_deals: u64,
         dev_deals: u64,
         stall_after: u32,
+        seed_offset: u64,
+        constructor: bool,
     ) -> Self {
         CampaignState {
             target_id: target.id.clone(),
@@ -80,6 +106,11 @@ impl CampaignState {
             train_deals,
             dev_deals,
             stall_after,
+            seed_offset,
+            constructor,
+            dict_cap: 60,
+            admit_k: 3,
+            learned: Vec::new(),
             weights: vec![BigRational::one(); dict.len()],
         }
     }
@@ -94,6 +125,14 @@ impl CampaignState {
         let _ = writeln!(out, "train_deals={}", self.train_deals);
         let _ = writeln!(out, "dev_deals={}", self.dev_deals);
         let _ = writeln!(out, "stall_after={}", self.stall_after);
+        let _ = writeln!(out, "seed_offset={}", self.seed_offset);
+        let _ = writeln!(out, "constructor={}", u8::from(self.constructor));
+        let _ = writeln!(out, "dict_cap={}", self.dict_cap);
+        let _ = writeln!(out, "admit_k={}", self.admit_k);
+        for (id, text) in &self.learned {
+            assert!(!id.contains(' '), "expression ids carry no spaces");
+            let _ = writeln!(out, "expr={id} {text}");
+        }
         let weights: Vec<String> = self.weights.iter().map(rat_to_str).collect();
         let _ = writeln!(out, "weights={}", weights.join(","));
         std::fs::write(path, out).map_err(|e| e.to_string())
@@ -102,8 +141,14 @@ impl CampaignState {
     pub fn load(path: &Path) -> Result<Self, String> {
         let text = std::fs::read_to_string(path).map_err(|e| e.to_string())?;
         let mut fields = std::collections::BTreeMap::new();
+        let mut learned = Vec::new();
         for line in text.lines() {
-            if let Some((k, v)) = line.split_once('=') {
+            if let Some(rest) = line.strip_prefix("expr=") {
+                let (id, expr) = rest
+                    .split_once(' ')
+                    .ok_or_else(|| format!("bad expr line {rest}"))?;
+                learned.push((id.to_string(), expr.to_string()));
+            } else if let Some((k, v)) = line.split_once('=') {
                 fields.insert(k.to_string(), v.to_string());
             }
         }
@@ -112,6 +157,9 @@ impl CampaignState {
                 .get(k)
                 .cloned()
                 .ok_or_else(|| format!("state missing {k}"))
+        };
+        let get_or = |k: &str, default: &str| -> String {
+            fields.get(k).cloned().unwrap_or_else(|| default.to_string())
         };
         let weights = get("weights")?
             .split(',')
@@ -130,32 +178,32 @@ impl CampaignState {
             train_deals: get("train_deals")?.parse().map_err(|e| format!("{e}"))?,
             dev_deals: get("dev_deals")?.parse().map_err(|e| format!("{e}"))?,
             stall_after: get("stall_after")?.parse().map_err(|e| format!("{e}"))?,
+            seed_offset: get_or("seed_offset", "0").parse().map_err(|e| format!("{e}"))?,
+            constructor: get_or("constructor", "0") == "1",
+            dict_cap: get_or("dict_cap", "60").parse().map_err(|e| format!("{e}"))?,
+            admit_k: get_or("admit_k", "3").parse().map_err(|e| format!("{e}"))?,
+            learned,
             weights,
         })
     }
 }
 
-/// Play a seed range with an actor; return (makes, total, learner decisions,
-/// inference work). Scores are not collected.
+/// Play a seed range with an actor; return (makes, total).
 fn measure(
     target: &CampaignTarget,
     dict: &ClauseDictionary,
     actor: &RationalActor,
     base: u64,
     n: u64,
-) -> Result<(u64, u64, u64, u64), String> {
+) -> Result<(u64, u64), String> {
     let mut makes = 0u64;
-    let mut decisions = 0u64;
-    let mut work = 0u64;
     for i in 0..n {
-        let rec = play_deal(target, dict, actor, base + i, false)?;
+        let rec = play_deal(target, dict, actor, base + i, false, &[])?;
         if rec.y {
             makes += 1;
         }
-        decisions += u64::from(rec.learner_decisions);
-        work += rec.inference_work;
     }
-    Ok((makes, n, decisions, work))
+    Ok((makes, n))
 }
 
 /// One inner-step multiplier (declared); its ln upper bound audits the step.
@@ -212,6 +260,104 @@ fn apply_step(
     moved
 }
 
+/// The constructor phase: pool -> panel dedup -> candidate derivatives at
+/// coefficient zero on a fresh frozen-incumbent bundle -> admit top-K.
+/// Returns a JSON fragment describing what happened.
+fn run_constructor(
+    state: &mut CampaignState,
+    target: &CampaignTarget,
+    dict: &mut ClauseDictionary,
+    incumbent: &RationalActor,
+    train_base: u64,
+) -> Result<String, String> {
+    if dict.len() >= state.dict_cap {
+        return Ok(format!(
+            "{{\"skipped\":\"dictionary at declared cap {}\"}}",
+            state.dict_cap
+        ));
+    }
+    // The versioned panel: uniform play is dictionary-independent, so these
+    // decisions are fixed for the campaign.
+    let uniform = RationalActor::uniform(dict.len(), &dict.version);
+    let mut panel = Vec::new();
+    for i in 0..PANEL_FILTER_SEEDS {
+        panel.extend(collect_panel_decisions(
+            target,
+            dict,
+            &uniform,
+            PANEL_BASE + state.seed_offset + i,
+        )?);
+    }
+    let mut budget = walt::scheme::Budget::new(DEAL_WORK_BUDGET * 64);
+    let mut dict_columns = Vec::with_capacity(dict.len());
+    for fix in dict.compiled() {
+        let mut column = Vec::with_capacity(panel.len());
+        for (frame, legal) in &panel {
+            column.push(set_for(fix, frame, *legal, &mut budget)?.bits());
+        }
+        dict_columns.push(column);
+    }
+    let (pool, dropped) = generate_pool(dict.registry());
+    let survivors = panel_filter(&pool, &dict_columns, &panel, &mut budget)?;
+
+    // Candidate derivatives at coefficient zero (parent §3 g_F), on a fresh
+    // frozen-incumbent bundle disjoint from the inner-step ranges.
+    let probes: Vec<walt::scheme::CompiledFix> = survivors
+        .iter()
+        .map(|&i| pool[i].compiled.clone())
+        .collect();
+    let score_base = train_base + SCORE_OFFSET_IN_REGION;
+    let score_deals = state.train_deals.min(SCORE_DEALS_CAP);
+    let mut records: Vec<DealRecord> = Vec::with_capacity(score_deals as usize);
+    for i in 0..score_deals {
+        let mut rec = play_deal(target, dict, incumbent, score_base + i, false, &probes)?;
+        rec.score_sums = std::mem::take(&mut rec.probe_scores);
+        records.push(rec);
+    }
+    let g = estimate(&records, probes.len())?;
+
+    let mut ranked: Vec<(usize, BigRational)> = g
+        .per_clause
+        .iter()
+        .cloned()
+        .enumerate()
+        .map(|(i, v)| (i, v.abs()))
+        .collect();
+    ranked.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(&b.0)));
+
+    let mut admitted_json = Vec::new();
+    for (rank_idx, _) in ranked.iter().take(state.admit_k) {
+        if dict.len() >= state.dict_cap {
+            break;
+        }
+        let cand = &pool[survivors[*rank_idx]];
+        let g_f = &g.per_clause[*rank_idx];
+        if g_f.is_zero() {
+            continue;
+        }
+        dict.admit(cand.id.clone(), cand.text.clone(), cand.compiled.clone());
+        state.learned.push((cand.id.clone(), cand.text.clone()));
+        state.weights.push(BigRational::one());
+        admitted_json.push(format!(
+            "{{\"id\":\"{}\",\"g\":\"{}\",\"g_permille\":{}}}",
+            cand.id,
+            rat_to_str(g_f),
+            permille(g_f)
+        ));
+    }
+    Ok(format!(
+        "{{\"pool\":{},\"dropped\":{dropped},\"panel_decisions\":{},\"survivors\":{},\
+         \"scored_deals\":{},\"admitted\":[{}],\"dict_len\":{},\"dict_version\":\"{}\"}}",
+        pool.len(),
+        panel.len(),
+        survivors.len(),
+        score_deals,
+        admitted_json.join(","),
+        dict.len(),
+        dict.version
+    ))
+}
+
 pub struct GenerationReport {
     pub json: String,
     pub promoted: bool,
@@ -222,13 +368,27 @@ pub fn run_generation(
     dir: &Path,
     state: &mut CampaignState,
     target: &CampaignTarget,
-    dict: &ClauseDictionary,
+    dict: &mut ClauseDictionary,
 ) -> Result<GenerationReport, String> {
-    if state.target_id != target.id || state.dictionary_version != dict.version {
+    if state.target_id != target.id || !dict.version.starts_with(&state.dictionary_version) {
         return Err("state does not match target/dictionary".into());
     }
     let started = Instant::now();
     let g = state.generation;
+    assert!(state.train_deals * u64::from(INNER_STEPS) <= SCORE_OFFSET_IN_REGION);
+    assert!(g < 20, "training seed regions are declared for g < 20");
+    let train_base = TRAIN_BASE + state.seed_offset + g * 100_000;
+
+    // 0. Constructor: grow the dictionary before this generation's steps.
+    let incumbent_before = RationalActor {
+        weights: state.weights.clone(),
+        dictionary_version: dict.version.clone(),
+    };
+    let constructor_json = if state.constructor {
+        run_constructor(state, target, dict, &incumbent_before, train_base)?
+    } else {
+        "null".to_string()
+    };
     let incumbent = RationalActor {
         weights: state.weights.clone(),
         dictionary_version: dict.version.clone(),
@@ -237,9 +397,6 @@ pub fn run_generation(
     // 1. Inner loop: audited small steps on fresh on-policy sub-bundles
     //    (each step re-samples with the WORKING weights - on-policy per
     //    step), with snapshots after 2/4/8 steps as the candidate ladder.
-    assert!(state.train_deals * u64::from(INNER_STEPS) <= 100_000);
-    assert!(g < 20, "training seed regions are declared for g < 20");
-    let train_base = TRAIN_BASE + g * 100_000;
     let mut working = state.weights.clone();
     let mut total_moved = 0u64;
     let mut snapshots: Vec<(u32, Vec<BigRational>, u64)> = Vec::new();
@@ -255,7 +412,14 @@ pub fn run_generation(
         };
         let mut records = Vec::with_capacity(state.train_deals as usize);
         for i in 0..state.train_deals {
-            records.push(play_deal(target, dict, &working_actor, step_base + i, true)?);
+            records.push(play_deal(
+                target,
+                dict,
+                &working_actor,
+                step_base + i,
+                true,
+                &[],
+            )?);
         }
         train_work += records.iter().map(|r| r.inference_work).sum::<u64>();
         train_makes += records.iter().filter(|r| r.y).count() as u64;
@@ -273,9 +437,9 @@ pub fn run_generation(
     let grad = first_grad.expect("at least one inner step");
 
     // 2. Development screening of the snapshot ladder on fresh paired seeds.
-    let dev_base = DEV_BASE + g * 10_000;
+    let dev_base = DEV_BASE + state.seed_offset + g * 10_000;
     assert!(state.dev_deals <= 10_000);
-    let (inc_makes, inc_n, _, _) = measure(target, dict, &incumbent, dev_base, state.dev_deals)?;
+    let (inc_makes, inc_n) = measure(target, dict, &incumbent, dev_base, state.dev_deals)?;
 
     let mut dev_rows = Vec::new();
     let mut best: Option<(u32, u64, Vec<BigRational>, u64)> = None;
@@ -287,7 +451,7 @@ pub fn run_generation(
             weights: weights.clone(),
             dictionary_version: dict.version.clone(),
         };
-        let (makes, n, _, _) = measure(target, dict, &cand, dev_base, state.dev_deals)?;
+        let (makes, n) = measure(target, dict, &cand, dev_base, state.dev_deals)?;
         dev_rows.push(format!(
             "{{\"snapshot_steps\":{steps},\"moved_total\":{moved_total},\"dev_makes\":\"{makes}/{n}\"}}"
         ));
@@ -314,8 +478,7 @@ pub fn run_generation(
         // Cumulative L1 audit (parent §4): each inner step moved a set of
         // coordinates by exactly ln(9/8), so ||dtheta||_1 over the whole
         // composite is bounded by (total moves) * ln_upper(9/8). The
-        // per-step alpha bound is (moves that step) * ln_upper(9/8) / 4;
-        // the composite is graded whole-policy, as the parent requires.
+        // composite is graded whole-policy, as the parent requires.
         let m = &INNER_MULTIPLIER;
         let l1_upper = BigRational::from_integer(BigInt::from(moved_total))
             * ln_upper(&BigRational::new(BigInt::from(m.0), BigInt::from(m.1)));
@@ -329,15 +492,15 @@ pub fn run_generation(
         };
 
         assert!(k <= 100, "promotion seed regions are declared for k <= 100");
-        let promo_base = PROMO_BASE + k * 100_000;
+        let promo_base = PROMO_BASE + state.seed_offset + k * 100_000;
         let mut sum_d = BigRational::zero();
         let mut n_done = 0u64;
         let mut checkpoints_json = Vec::new();
         let mut verdict = Verdict::Unresolved;
         for (j0, n_target) in rule.checkpoints.iter().enumerate() {
             for i in n_done..*n_target {
-                let a = play_deal(target, dict, &cand, promo_base + i, false)?;
-                let b = play_deal(target, dict, &incumbent, promo_base + i, false)?;
+                let a = play_deal(target, dict, &cand, promo_base + i, false, &[])?;
+                let b = play_deal(target, dict, &incumbent, promo_base + i, false, &[])?;
                 let d = i64::from(a.y) - i64::from(b.y);
                 sum_d += BigRational::from_integer(BigInt::from(d));
             }
@@ -397,7 +560,8 @@ pub fn run_generation(
     let train_mean = BigRational::new(BigInt::from(train_makes), BigInt::from(train_n));
     let json = format!(
         "{{\"generation\":{},\"target\":\"{}\",\"dictionary\":\"{}\",\
-         \"incumbent_digest\":\"{:016x}\",\"train\":{{\"n\":{},\"inner_steps\":{},\
+         \"incumbent_digest\":\"{:016x}\",\"constructor\":{},\
+         \"train\":{{\"n\":{},\"inner_steps\":{},\
          \"mean_y\":\"{}\",\"mean_y_permille\":{},\"inference_work\":{}}},\
          \"first_step_gradient\":[{}],\
          \"dev\":{{\"incumbent_makes\":\"{}/{}\",\"candidates\":[{}]}},\
@@ -405,8 +569,9 @@ pub fn run_generation(
          \"stalled\":{},\"wall_ms\":{}}}",
         g,
         state.target_id,
-        state.dictionary_version,
+        dict.version,
         incumbent.digest(),
+        constructor_json,
         train_n,
         INNER_STEPS,
         rat_to_str(&train_mean),
@@ -454,9 +619,10 @@ pub fn run_exam(
     let mut sum_d = BigRational::zero();
     let mut inc_makes = 0u64;
     let mut uni_makes = 0u64;
+    let exam_base = EXAM_BASE + state.seed_offset;
     for i in 0..n {
-        let a = play_deal(target, dict, &incumbent, EXAM_BASE + i, false)?;
-        let b = play_deal(target, dict, &uniform, EXAM_BASE + i, false)?;
+        let a = play_deal(target, dict, &incumbent, exam_base + i, false, &[])?;
+        let b = play_deal(target, dict, &uniform, exam_base + i, false, &[])?;
         inc_makes += u64::from(a.y);
         uni_makes += u64::from(b.y);
         let d = i64::from(a.y) - i64::from(b.y);
@@ -468,7 +634,8 @@ pub fn run_exam(
     let lower = &mean - &radius;
     let upper = &mean + &radius;
     let json = format!(
-        "{{\"exam\":{{\"target\":\"{}\",\"n\":{},\"incumbent_digest\":\"{:016x}\",\
+        "{{\"exam\":{{\"target\":\"{}\",\"n\":{},\"exam_base\":{},\
+         \"dictionary\":\"{}\",\"incumbent_digest\":\"{:016x}\",\
          \"incumbent_makes\":\"{}/{}\",\"incumbent_permille\":{},\
          \"uniform_makes\":\"{}/{}\",\"uniform_permille\":{},\
          \"paired_mean_d\":\"{}\",\"paired_mean_d_permille\":{},\
@@ -476,6 +643,8 @@ pub fn run_exam(
          \"ci_lower\":\"{}\",\"ci_upper\":\"{}\"}}}}",
         state.target_id,
         n,
+        exam_base,
+        dict.version,
         incumbent.digest(),
         inc_makes,
         n,
@@ -498,18 +667,44 @@ mod tests {
     use super::*;
 
     #[test]
-    fn state_round_trips_through_the_text_format() {
+    fn state_round_trips_including_learned_expressions() {
         let target = CampaignTarget::og_v1();
-        let dict = ClauseDictionary::standard().unwrap();
-        let mut s = CampaignState::fresh(&target, &dict, 128, 64, 3);
-        s.weights[2] = BigRational::new(BigInt::from(17), BigInt::from(16));
+        let mut dict = ClauseDictionary::standard().unwrap();
+        let (pool, _) = generate_pool(dict.registry());
+        let cand = pool.iter().find(|c| c.id == "x[takes-trick]").unwrap();
+        dict.admit(cand.id.clone(), cand.text.clone(), cand.compiled.clone());
+        let mut s = CampaignState::fresh(&target, &dict, 128, 64, 3, 100_000_000, true);
+        s.learned = dict.learned.clone();
+        s.weights = vec![BigRational::one(); dict.len()];
+        s.weights[14] = BigRational::new(BigInt::from(9), BigInt::from(8));
         s.generation = 4;
-        let tmp = std::env::temp_dir().join("og_state_roundtrip_test.txt");
+        let tmp = std::env::temp_dir().join("og_state_roundtrip_v2_test.txt");
         s.save(&tmp).unwrap();
         let loaded = CampaignState::load(&tmp).unwrap();
         assert_eq!(loaded.weights, s.weights);
-        assert_eq!(loaded.generation, 4);
-        assert_eq!(loaded.target_id, s.target_id);
+        assert_eq!(loaded.learned, s.learned);
+        assert_eq!(loaded.seed_offset, 100_000_000);
+        assert!(loaded.constructor);
+        // Law: the dictionary rebuilt from the loaded state matches.
+        let rebuilt = ClauseDictionary::with_learned(&loaded.learned).unwrap();
+        assert_eq!(rebuilt.version, dict.version);
+        let _ = std::fs::remove_file(tmp);
+    }
+
+    #[test]
+    fn old_states_load_with_default_offsets_and_no_constructor() {
+        // PINNED compatibility witness: an og-v1-era state file (no
+        // seed_offset/constructor/expr lines) loads with the defaults.
+        let text = "target=t\ndictionary=d\ngeneration=1\ncandidate_counter=2\n\
+                    consecutive_failures=0\ntrain_deals=8\ndev_deals=4\nstall_after=3\n\
+                    weights=1/1,9/8\n";
+        let tmp = std::env::temp_dir().join("og_state_compat_test.txt");
+        std::fs::write(&tmp, text).unwrap();
+        let loaded = CampaignState::load(&tmp).unwrap();
+        assert_eq!(loaded.seed_offset, 0);
+        assert!(!loaded.constructor);
+        assert!(loaded.learned.is_empty());
+        assert_eq!(loaded.weights.len(), 2);
         let _ = std::fs::remove_file(tmp);
     }
 
