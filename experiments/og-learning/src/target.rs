@@ -2,10 +2,22 @@
 //! Every number this crate reports names its target by `id()`.
 
 use walt::rules::{ContextSet, Decl, Domino, DominoSet, Pip, Seat, Team};
-use walt::solver::adaptive::RootPosition;
+use walt::solver::adaptive::{RootPosition, SlicePolicy};
 
 /// Domain constant for the deal stream ("OGLD").
 pub const DEAL_DOMAIN: u64 = 0x4F47_4C44;
+
+/// The fixed other-player profile - part of the target's law; changing it
+/// is a new target (parent §1).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum FieldKind {
+    /// walt's `HashField`: hash-seeded uniform legal, O(1).
+    HashLegal,
+    /// walt's `Level0Field` (σ0): n0 no-void belief worlds from the frozen
+    /// INNER_SEED derivation, best response against the Dice field - a pure
+    /// function of seat, hand and record.
+    Level0 { n0: usize },
+}
 
 #[derive(Clone, Debug)]
 pub struct CampaignTarget {
@@ -15,6 +27,7 @@ pub struct CampaignTarget {
     pub bidder: Seat,
     /// The two decentralized learner invocations of one coefficient vector.
     pub learner_seats: [Seat; 2],
+    pub field: FieldKind,
 }
 
 impl CampaignTarget {
@@ -28,6 +41,38 @@ impl CampaignTarget {
             bid: 30,
             bidder: Seat::S0,
             learner_seats: [Seat::S0, Seat::S2],
+            field: FieldKind::HashLegal,
+        }
+    }
+
+    /// og-v3: identical law except the fixed seats are the σ0 modeled mind
+    /// (`Level0Field::new(8)` - the field the live level-1 player models).
+    pub fn og_v3() -> Self {
+        CampaignTarget {
+            id: "og-v3/bid30-longest-pip/S0S2-learner/S1S3-level0-n8-v1".into(),
+            bid: 30,
+            bidder: Seat::S0,
+            learner_seats: [Seat::S0, Seat::S2],
+            field: FieldKind::Level0 { n0: 8 },
+        }
+    }
+
+    /// Resolve a target from a recorded identity (state files).
+    pub fn from_id(id: &str) -> Result<Self, String> {
+        for t in [Self::og_v1(), Self::og_v3()] {
+            if t.id == id {
+                return Ok(t);
+            }
+        }
+        Err(format!("unknown campaign target id {id:?}"))
+    }
+
+    /// The fixed seats' policy - constructed per deal; both variants are
+    /// pure functions of public state, so coupling and replay hold.
+    pub fn field_policy(&self) -> Box<dyn SlicePolicy> {
+        match self.field {
+            FieldKind::HashLegal => Box::new(walt::policy_search::HashField),
+            FieldKind::Level0 { n0 } => Box::new(walt::solver::policy::Level0Field::new(n0)),
         }
     }
 

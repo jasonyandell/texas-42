@@ -23,6 +23,23 @@ fn arg(name: &str, default: u64) -> u64 {
         .unwrap_or(default)
 }
 
+fn str_arg(name: &str, default: &str) -> String {
+    let args: Vec<String> = std::env::args().collect();
+    args.iter()
+        .position(|a| a == name)
+        .and_then(|i| args.get(i + 1))
+        .cloned()
+        .unwrap_or_else(|| default.to_string())
+}
+
+fn field_target() -> Result<CampaignTarget, String> {
+    match str_arg("--field", "hash").as_str() {
+        "hash" => Ok(CampaignTarget::og_v1()),
+        "l0-8" => Ok(CampaignTarget::og_v3()),
+        other => Err(format!("unknown --field {other:?}; use hash | l0-8")),
+    }
+}
+
 fn dir_arg() -> PathBuf {
     let args: Vec<String> = std::env::args().collect();
     let d = args
@@ -35,9 +52,9 @@ fn dir_arg() -> PathBuf {
 
 fn main() -> Result<(), String> {
     let sub = std::env::args().nth(1).unwrap_or_default();
-    let target = CampaignTarget::og_v1();
     match sub.as_str() {
         "init" => {
+            let target = field_target()?;
             let dir = dir_arg();
             std::fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
             let dict = ClauseDictionary::standard()?;
@@ -64,6 +81,7 @@ fn main() -> Result<(), String> {
             Ok(())
         }
         "bench" => {
+            let target = field_target()?;
             let n = arg("--deals", 200);
             let dict = ClauseDictionary::standard()?;
             let actor = RationalActor::uniform(dict.len(), &dict.version);
@@ -93,6 +111,7 @@ fn main() -> Result<(), String> {
             let wall_budget = arg("--wall-budget-secs", 480);
             let started = Instant::now();
             let mut state = CampaignState::load(&dir.join("state.txt"))?;
+            let target = CampaignTarget::from_id(&state.target_id)?;
             let mut dict = ClauseDictionary::with_learned(&state.learned)?;
             for _ in 0..generations {
                 let report = run_generation(&dir, &mut state, &target, &mut dict)?;
@@ -111,10 +130,8 @@ fn main() -> Result<(), String> {
         "panel" => {
             let dir = dir_arg();
             let n = arg("--seeds", 256);
-            let state = CampaignState::load(&dir.join("state.txt")).unwrap_or_else(|_| {
-                let dict = ClauseDictionary::standard().expect("seed dictionary");
-                CampaignState::fresh(&target, &dict, 0, 0, 3, 0, false)
-            });
+            let state = CampaignState::load(&dir.join("state.txt"))?;
+            let target = CampaignTarget::from_id(&state.target_id)?;
             let dict = ClauseDictionary::with_learned(&state.learned)?;
             let actor = RationalActor::uniform(dict.len(), &dict.version);
             // The versioned dedup probe panel (parent §5 step 4): every
@@ -191,6 +208,7 @@ fn main() -> Result<(), String> {
             let dir = dir_arg();
             let n = arg("--deals", 4096);
             let state = CampaignState::load(&dir.join("state.txt"))?;
+            let target = CampaignTarget::from_id(&state.target_id)?;
             let dict = ClauseDictionary::with_learned(&state.learned)?;
             let json = run_exam(&dir, &state, &target, &dict, n)?;
             println!("{json}");

@@ -97,6 +97,20 @@ on; train 4096 x 8 inner steps, dev 2048, stall 3; constructor scoring
 bundles at region offset +50,000, capped at 2,048 deals; panel filter reads
 the first 64 panel seeds (the 256-seed panel remains the versioned record).
 
+**og-v3 declaration** (`og-v3/bid30-longest-pip/S0S2-learner/S1S3-level0-n8-v1`,
+authorized by Jason 2026-09-21 "go - declare og-v3 against L0-8 and let it
+run"): identical law to og-v2 except the fixed seats are walt's
+`Level0Field::new(8)` - the σ0 modeled mind, n0 = 8 no-void belief worlds
+from the frozen INNER_SEED derivation, best response against the Dice
+field; a pure function of seat, hand and public record, so pairing and
+replay determinism hold (cross-process replay verified at init). Campaign
+offset 200,000,000; constructor on; all other budgets and the evidence
+rule unchanged from og-v2. Measured cost at init: 0.70 ms/deal (make rate
+of the uniform start 323/1000 on bench seeds vs 456/1000 under og-v1's
+random-legal field - the harder lineup, at essentially no extra cost, so
+the §6 multifidelity harness stays queued for genuinely expensive lineups
+like the gym field).
+
 ## Layout
 
 - `src/bounds.rs` - conservative exact-rational Hoeffding machinery.

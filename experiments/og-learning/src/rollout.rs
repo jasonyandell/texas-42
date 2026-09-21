@@ -10,7 +10,7 @@
 use num_rational::BigRational;
 use num_traits::{One, Zero};
 use walt::kernel::{Hidden, Kernel};
-use walt::policy_search::{HashField, State};
+use walt::policy_search::State;
 use walt::rules::{legal_plays, Domino, DominoSet, Seat};
 use walt::scheme::{step_frame, Budget, CompiledFix, Frame, ObservedPlay, PlayClass};
 use walt::solver::adaptive::SlicePolicy;
@@ -116,7 +116,7 @@ pub fn play_deal(
     let hands = target.deal(deal_seed);
     let decl = target.declaration(hands[target.bidder.index()]);
     let position = target.opening_root(decl);
-    let field = HashField;
+    let field = target.field_policy();
 
     let mut frames: Vec<(Seat, Frame)> = Vec::new();
     for seat in target.learner_seats {
@@ -217,7 +217,7 @@ pub fn collect_panel_decisions(
     let hands = target.deal(deal_seed);
     let decl = target.declaration(hands[target.bidder.index()]);
     let position = target.opening_root(decl);
-    let field = HashField;
+    let field = target.field_policy();
     let mut frames: Vec<(Seat, Frame)> = Vec::new();
     for seat in target.learner_seats {
         frames.push((seat, opening_frame(decl, seat, &hands, position.leader)?));
