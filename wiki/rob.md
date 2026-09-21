@@ -324,6 +324,7 @@ cargo test --workspace --release          # the suite, including every count ass
 cargo run --release --bin verify_rob      # the player-track receipt, printed (the expensive one)
 cargo run --release --bin verify_algebra  # any single stage receipt, seconds
 cargo run --release --bin trace_rob       # regenerate the inspector trace, then open inspector/index.html
+cargo run --release --bin rob_bridge      # the seat: one decision per stdin line (§10), replies on stdout; mk5's arena/rob_play.py drove an 8-worker pool of these
 ci/check.sh                               # the full gate — hours
 cargo test --release --test hierarchical_fiber_probe -- --ignored --nocapture   # an ignored probe, on purpose
 ```

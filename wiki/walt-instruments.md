@@ -169,7 +169,12 @@ enforces rather than a convention:
 
    The Plunge panel that started the Gran program (40 sampled worlds, 6-2 at
    90% vs 6-4 at 80%) is a fourth epoch and composes with none of these
-   (`probes/gran/README.md`). One more typed fact about the first row: the
+   (`probes/gran/README.md`). This table is the instruments' view; the
+   crate-wide declared-epochs table — which adds the batch controller, the
+   gym field and the argv/env defaults of every live level-1 surface, each
+   with the source line that declares it — is
+   [walt-architecture §5](walt-architecture.md), and the two agree row for
+   row (checked 2026-09-14). One more typed fact about the first row: the
    **gate files** of the L2-thread family (`tests/solver_fieldswap*.rs`,
    `solver_hazard_witness.rs`, `solver_targeted.rs`) run at σ0 =
    `Level0{n0=2}`, σ1 = `Level1{n_outer=2, n0=2}` — the second row's epoch,
@@ -490,7 +495,7 @@ opening root is reached only by contraction or sampling — never by enumeration
 | Interactive caps | `webtable` 120 s/move; `playtable` 180 s/move; `walt_bridge`/`controller_bridge`/`waking_bridge` 120 s declare-path budget; `partnership` 14 s | the binaries' `main()` |
 | The gate (`walt/ci/check.sh`) | 230 s wall, 121 test binaries (CI1, down from 367 s serial); 308 s with FH3's anchors gate inside; 18.22 GB peak RSS for `solver_focal_anchors` standalone (FH3 said 17.8 GB) | `walt/briefs/CI1-REPORT.md`; `walt/briefs/FH3-REPORT.md` and `walt/MAP.md` (230 → 308 s); `walt/briefs/FH4-AUDIT.md` (18.22 GB). Not re-run here |
 
-**Newcomer first-run order** — each step run 2026-09-13 from the worktree root
+**Newcomer first-run order** — each step run 2026-09-13 (the two previously untimed parts of steps 5 and 7 on 2026-09-14) from the worktree root
 with the release binaries under `walt/target/release/` (built 2026-09-07 in
 the main checkout; the worktree has no `target/`) and `timeout 60`; walls are
 wall-clock seconds on this machine:
@@ -499,9 +504,9 @@ wall-clock seconds on this machine:
 2. `rootinterval run /tmp/ri.txt` — real 0.18 s; six roots, exact Q beside [L, U] per action; `h4-t6 … decision: DeltaRootWinner{action=1-1;bar=7/10}`, `worlds-to-singleton: 8`; ties typed `UnresolvedRootSet`. Identical to `run1.txt` except the six `wall-us` lines.
 3. `ordering_bench` — real 1.10 s; twelve items, values byte-identical across arms, counters `1198/1308 … 22803/30924` identical to the README. The counters are the signal.
 4. `proofreport report /tmp/pr.txt` — real 7.35 s; seven roots; `h3-t4 … survivors=[3-1]`, `recommended action=4-4` at floor 267‰, CERTIFIED REGRET 83‰ — certified regret on real roots.
-5. `unifiedreport walk 8 5 lean` — real 0.18 s; 12 decisions to terminal, each with its tier ((e) field-fallback, (a) decided-arithmetic, (b) endgame-exact), reads and typed refusals; "no line was falsified on this walk". Then `walk 8 4 ample` for the mixture tier (not timed here).
+5. `unifiedreport walk 8 5 lean` — real 0.18 s; 12 decisions to terminal, each with its tier ((e) field-fallback, (a) decided-arithmetic, (b) endgame-exact), reads and typed refusals; "no line was falsified on this walk". Then `walk 8 4 ample` — real 13.0 s (run 2026-09-14): 16 decisions, 8 at tier (a) and 8 at tier (b), join reading on; at the h8-t4 root the mixture is *refused* (`MixtureUnaffordable { fiber: 1200, cap: 256 }`) and tier (b) answers, and the walk ends with a `LIBRARY FALSIFIED at line play 6` line (seat 3 played 5-0 where the carried library supported {2-0 5-3 6-0} — the UP1a lazy carry catching a falsified posterior during play, the honest output, not an error). An earlier revision of this step said `ample` shows "the mixture tier"; it does not — `walk` takes only `lean|ample` (a bare fourth argument other than `lean` is `ample`), and tier (c) answers only under `report`'s `model` rung, whose caps are swapped for that purpose (§3.4).
 6. `m3probe` — real 28.85 s; the one exact anchor of the seat-play era, `lawful play under M3B P30 make probability: 33`, output identical to the 2026-08-17 record.
-7. `webtable` then open `http://127.0.0.1:4242` and play a hand; `webtable ctrl` to watch routes per play. (Interactive; not timed.)
+7. `webtable` then open `http://127.0.0.1:4242` and play a hand; `webtable ctrl` to watch routes per play. (Interactive; the hand itself is not timed.) Run 2026-09-14 as `webtable 4737 8 2 42 0` (a spare port, small knobs): the process prints its tier line ("walt web table — EXPLORATORY; estimates, never receipts"), `n_outer=8 n0=2 seed=42`, and serves within 2 s — `GET /` answers HTTP 200 with the 23,173-byte page (`<title>walt table`), `GET /state` answers `{"phase":"auction","hand_no":1,"human":0,"bidder":1,"bid":30,…,"sizes":[7,7,7,7],…}` with seven tile ids in `hand`. Pick a free port first: the binary panics on `bind localhost port … AddrInUse` if the port is taken (observed on the first port tried on 2026-09-14; a `webtable` process 27 days old was still running on this machine).
 8. `partnership_gym --inspect < request` (a seven-line request: `decl 5 / bid 30 / bidder 1 / seat 1 / hand 0 1 2 3 4 5 6 / plays / seed 1`) — real 0.01 s; the `partnership-gym-v1` header with `worlds 399072960`; then `python3 experiments/partnership/gym.py show advantage-01` — real 0.04 s; the exercise with its answer key (`5-0: 30/36 success optimal`, `5-3: 8/36`) and the examiner-only witness. (The `partnership` oracle itself wants its mode as the bare first line — `status`, then the field lines — see §1.)
 
 Nothing in the list exceeded 30 s; the only steps skipped for time are the
@@ -901,3 +906,10 @@ instruments:
 - The `report` modes of §3.4–§3.5 and `openingreport` were not re-run on
   2026-09-13 (minutes to hours each); their figures are the committed
   records'.
+- The L2-thread probe records (§3.2: `fieldswap*`, `hazard_witness`,
+  `l2_controller`) were bin-run at σ0 = `Level0{n0=8}`, while every
+  instrument since the counted-belief round, the act/waking/gran seats and
+  the L2 gates themselves run at `Level0{n0=2}` (§2). No record re-runs the
+  L2-thread bins at `n0 = 2`, so their numbers compose with nothing later;
+  whether such a re-run is wanted is an open call (survey of 2026-09-07),
+  not scheduled anywhere.

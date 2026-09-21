@@ -191,7 +191,16 @@ builders on MB0 is a method note (§8).
 the walk (`solver/model_recursion.rs`: `PosteriorTrace`, every field a
 derived view of the one carried `ModelBelief`); values are installed as
 facts (`ModelBeliefProducer`); response vectors reprice any ν by two dot
-products (`MixtureOutcome::reprice`, gate M2); reads are ledgered at the
+products (`MixtureOutcome::reprice`, gate M2 — the repricing identity on a
+rational ν grid, with the facet count strictly below the grid size somewhere).
+The audited sweep (`sweep_envelope`, §21 column-and-cut over masses; MB1
+report item 2) found **one facet across seven grid points** at both h5-t6
+and h8-t5: a single argmax policy is optimal along the whole ν line from
+near δ_{F₀} to near δ_{F₁}, so six of the seven beliefs are answered by dot
+product alone, and at h8-t5 the *value* moves — 770 / 769 / 767 / 766 /
+764 / 763 / 762‰ across the line — while the policy does not (record
+`modelbelief_recursion_run1.txt`; what the §19 corollary below predicts
+wherever Φ = 0 at full support). Reads are ledgered at the
 `ProfileField` dispatch and budgets refuse typed with the measured spend
 and the stopping history, never a value (`MixtureRefusal::ReadBudget`, gate
 M4). **The number of the slice: the model-fusion price is strictly
@@ -436,7 +445,10 @@ binaries is empty. Eighteen gates in `solver_unified.rs` (UP1–UP6).
 carrying (advancing every open model-belief line past every play): on the
 lean rung **99.4% of the wall — 2,105,672 µs of 2,117,924 µs over 72
 decisions — was carrying a posterior no tier consulted**; deciding cost
-12,117 µs. UP1a (`62abe028`, PR #87) records the line at every ply and
+12,117 µs. The other rungs, same record (`UP0-REPORT.md` §1 table, 72
+decisions each): ample 20,001,864 µs deciding / 904,569 µs carrying (mean
+decision 277,803 µs, worst 11,269,958 µs); model 6,712,759 / 1,616,137 µs
+(mean 93,232 µs, worst 3,500,838 µs). UP1a (`62abe028`, PR #87) records the line at every ply and
 materializes the posterior only when a tier reads it, charging every
 consultation to the decision that read it (`Spend::carry_reads`). Record
 `unified_run2.txt`: lean-rung carry **2,105,672 µs → 0 µs**, 72 decisions
@@ -734,7 +746,14 @@ survivors 5 / 5 / 3 / 1, **Γ 141 / 100 / 34 / 0‰**, π_k playing 3-3 at
 k = 0 (the cut-4 argmax, by the lower side) and the exact 1-1 from k = 1
 on, uncertified until the FH-last collapse settles 1-1 at 28859/29988 —
 the record's exact value reproduced by a different recursion (probe
-internal, not a gate). At h8-t3 k = 2 the per-action split reads
+internal, not a gate). Per action at h8-t3, `L_0 → L_1 → L_2 → L_3` and
+`U_0 → U_1 → U_2 → U_3` in ‰ (`FH3-REPORT.md` anchor (i) table; record
+`focal_run1.txt`): 1-1 837 → 876 → 928 → 962 and 992 → 977 → 963 → 962;
+2-1 764 → 843 → 903 → 928 and 965 → 941 → 931 → 928 (survives through
+k = 2); 3-1 736 → 794 → 861 → 890 and 936 → 912 → 892 → 890 (k = 1); 3-3
+852 → 872 → 927 → 955 and 993 → 968 → 956 → 955 (k = 2); 5-5 685 → 813 →
+909 → 922 and 959 → 941 → 923 → 922 (k = 1); the bar 852 → 876 → 928 → 962.
+At h8-t3 k = 2 the per-action split reads
 **`Q − L` 12–33‰ and `U − Q` 1–2‰** (1-1: 33 / 1; 2-1: 25 / 2; 3-1: 29 / 2;
 3-3: 27 / 1; 5-5: 12 / 1; the FH3 report's "13–34‰ / 1–3‰" quoted the width
 column — audit N4). **The ply-cut flips live entirely on the upper side**:

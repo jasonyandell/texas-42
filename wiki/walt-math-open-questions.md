@@ -89,6 +89,36 @@ since 2026-09-12, an *exploratory-tier pointer block* naming several of items
 statement. Neither cites the other upward. Where a number here and a record
 disagree, the record wins and the disagreement is a bug to report.
 
+**Open items owned by era pages and deliberately not numbered here** (all
+EXPLORATORY; each is stated once, on its owner). Four census-era items stand
+exactly as [walt-census-era](walt-census-era.md) § "What the era left" states
+them: the **weighted-H re-solve over a fixed class DAG** — UNMEASURED since S5h
+(P-A14), and the number the belief/policy-iteration platform claim actually
+rests on; the **t4 second clean step** for S5g's parts catalog, never run;
+**§12.7 compact descriptions** for classes, never built; and **role re-entry**
+through the §12.6A gauge corollary (item 8 above is its adjudication half). The
+**four obligations owed on the next second-rung emission** and the
+**uncommissioned third fee coordinate** (now to be chosen on measured argmax
+multiplicity) are on [walt-decision-sparse](walt-decision-sparse.md). The seed
+survey's **solve-free move-ordering statistic** (the optimal root action is the
+smallest-depth-one-frontier action in 43.5%–58.8% of 85 clean seeds, SS-A17;
+[walt-pre-pivot-results](walt-pre-pivot-results.md) §3.7) has been consumed by
+no later search — no source under `walt/walt/src`, `walt/scheme` or the briefs
+names it (grep, measured 2026-09-14 on this machine). Two counted-belief-era
+questions are recorded on [walt-counted-belief-era](walt-counted-belief-era.md):
+whether the opening ladder's **plateau** is a property of the sampled tier or of
+the declared δ (δ = 1/100 there against RefineV1 Section D's 1/20 at the same
+prefixes; no sweep over δ exists), and whether the **§33 work items RefineV1
+named but never built** (`SplitPolicyCylinder`, `CountThreatCover` as a
+scheduled item, `EnumerateResidual`) are retired by the focal-horizon hierarchy
+or still queued — `walt/MAP.md` and the briefs name none of them (grep,
+2026-09-14). And one calculated-evidence-era question is recorded on
+[walt-calculated-evidence](walt-calculated-evidence.md): the W10 conformance
+verdict is vacuous (typed `InconsistentEvidence` does not exist; the CONFORMS
+rests on the one-common-stream design), so any non-common-stream variant must
+build the typed result — whether any later producer has broken that structure
+is unchecked.
+
 ## Why these are not in [open-problems](open-problems.md)
 
 That page owns the **merged corpus and exchange-tier** OPEN inventory — the

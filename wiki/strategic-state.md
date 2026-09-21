@@ -11,7 +11,14 @@ A hand is **not** an isolated induced 7-node graph: two ambient states with iden
 owned structure can differ in which external tiles are live threats and who can hold
 them [Constructed counterexample, HAND-01]. The exact object is the *owned marking in
 the full 28-node declaration algebra* plus public location, voids, certain-holder
-marks, and the tagged ambiguity component [Definition, HAND-02]. Local slot order is a
+marks, and the tagged ambiguity component [Definition, HAND-02]. The ambient marked
+structure determines the induced hand and every boundary query (live threats, holder
+constraints), and the converse fails [Theorem — proved, HAND-03]; before the
+declaration one physical hand is embedded in all nine algebra layers at once — the
+auction is bid over that bundle, not over one algebra [Corollary/Synthesis, HAND-04];
+and a legal play of an owned node is an *expenditure* that induces four transitions
+together — physical, retained-record, support-typing and belief [Definition/Synthesis,
+HAND-05]. Local slot order is a
 gauge (physical values invariant, slot-indexed outputs equivariant) [Theorem — proved,
 HAND-06]; additive "intrinsic + interaction" attributions are non-identifiable without
 extra conventions [Theorem — proved, HAND-08].
@@ -28,11 +35,23 @@ fixed-strategy values and any attained best-response correspondence are function
 trivial/fixed [STR-02]. rec refines `c` to the reduced kernel `K`
 ([reduced-viewer-kernel](reduced-viewer-kernel.md), FAC-02).
 
+**Bellman accounting** [Definition/Boundary, Math §10.2, STR-03]: the bundled
+observation kernel, the cumulative reward, the retained-record update and the
+successor filter must all use the *same* segment boundary — the recursion boundary
+and the utility representation are named once, or points are counted twice.
+([FINDINGS](FINDINGS.md) §6 names this the interface where implementation bugs live;
+rec's utility accumulator `α_U` on [reduced-viewer-kernel](reduced-viewer-kernel.md)
+is its concrete form.)
+
 Coordinate-only value criterion [Theorem — proved, STR-04]: a scalar value factors
 through a projection iff it is constant on projection fibers — and scalar
 factorization is strictly weaker than action-value factorization [Constructed
 counterexample, STR-04A]. The [90-world witness](belief-vs-support.md) shows the
-mechanical projection fails the criterion for history-sensitive fields.
+mechanical projection fails the criterion for history-sensitive fields. In the other
+direction, an isomorphism preserving posterior, retained record, field, utility and
+transitions is **sufficient but not necessary** for equal value [Proposition/Boundary,
+Math §§10.3, 12.2, STR-05] — which is why the quotients below are stated as
+isomorphism theorems and never as "the" strategic quotient.
 
 ## Utility (Math §11)
 
@@ -65,6 +84,12 @@ game absent a proved equivalence [Proposition, TEAM-01].
 - Outcome-determined early settlement is a *scoped* quotient: preserves current-hand
   make/set, award, score update, match-end; later-hand match value only under explicit
   reset assumptions [QUO-07/08]. Full seven-trick play stays primitive.
+- Explicit predicates (Math §12.8): intersecting an object with a named predicate
+  restricts it and never redefines the unrestricted object [Corollary/Synthesis,
+  FILT-01]; a bounded traversal (`traverseUntil`) returns a *frontier*, not terminal
+  values — no quotient is supplied by stopping early [Boundary, FILT-02]. (walt's
+  anytime intervals and certified regret, below the fence, are built on exactly this
+  boundary: a frontier is an interval, never a value.)
 
 ## Mechanization status (proof-assistant kernel tier)
 
@@ -86,7 +111,8 @@ the utility lenses, quotients and gauges are all open or unlisted.
 | UTIL-03 expected points vs contract success rank oppositely | PA-E12 (2, WITNESS) | **open** | — |
 | TEAM-01 shared utility does not merge partner information | PA-F07 (1, PROVE/BOUNDARY) | **open** | — |
 | HAND-06 local slot order is a gauge | PA-F01 (1) | **open** | — |
-| HAND-01/02/08 marked hand; non-identifiable attributions | no rows | not mechanized | — |
+| HAND-01/02/03/04/05/08 marked hand; boundary recoverability; the nine-algebra auction bundle; action as expenditure; non-identifiable attributions | no rows | not mechanized | — |
+| STR-03 Bellman accounting; STR-05 structural isomorphism sufficient, not necessary; FILT-01/02 predicate restriction and stopping frontier | no rows | not mechanized (STR-03's one-segment-boundary discipline is what `Strategic.lean`'s `BeliefProc` *assumes* in its segment reward/filter signature, not a theorem about it) | — |
 | The 90-world witness this page cites | PA-E10 (0) | **proved** — see [belief-vs-support](belief-vs-support.md) | `Witness.lean:728` |
 | QUO-01 / PLAY-07 physical congruence (reduced play state Markov for the hand) | PA-B12 (1) | **open** | — |
 | INFO-10 mechanical projection ≠ information state (the boundary the quotients respect) | PA-F05 (0) | **proved**: two `DealLocalInfo` records differing only in which losing seat bid `P(30)` are distinct with identical mechanical projections | `Information.lean:47` `mech_not_injective` |

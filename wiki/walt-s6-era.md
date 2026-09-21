@@ -11,7 +11,7 @@ and the retired design docs `PREDICTIVE-RANK`, `DEADNESS-PROBE` (retired 2026-08
 `walt/math/predictive_algebra_v0.6.md`,
 `walt/math/decision_sparse_exact_solving_v0.1.md` and its errata; `walt/CENSUS-RULINGS.md` (R-A1..R-A24,
 PG-A1..PG-A18, J-A1..J-A18, DS-A1..DS-A36, SEP-A1..SEP-A19, N4-A1..N4-A20, EC-A1..EC-A14, T1-A1..T1-A12,
-LD-A1..LD-A13, RW-A1..RW-A8, FT-A1..FT-A29, SR-A1..SR-A37, FF-A1..FF-A33, FC-A1..FC-A22); the results files now at
+LD-A1..LD-A13, RW-A1..RW-A8, FT-A1..FT-A29, SR-A1..SR-A37, FF-A1..FF-A33, FC-A1..FC-A23 — FC-A23 closed the range on 2026-08-16, after this page's first draft); the results files now at
 `walt/probes/factory-results/` (produced under the old `walt-factory/results/` path — the producing crate is
 archive-only at commit `648f93a` since the 2026-08-24 unification; path and crate names below are historical truth).
 Related: [walt](walt.md) (hub), [walt-census-era](walt-census-era.md) (what S6
@@ -437,7 +437,13 @@ freeze 44(e)): **NO-GO — and the gate failure is filed as a result**, the meas
 missing. What it measured: the **U side is affordable** at n = 4 (estimated whole-fiber revealed cost ≈ 4.33 × 10⁹
 walk-steps against the 4 × 10¹⁰ budget); the blocking objects are the **partition** — at (h0, action 0-0) the state
 count exceeds P_max = 32,000,000, where the design's explicitly-labelled estimate said 24.8M — and **per-unit
-wall-clock** (the largest unit extrapolates to ~58 minutes against the ten-minute gate). The declared fallback
+wall-clock** (the largest unit extrapolates to ~58 minutes against the ten-minute gate). (The artifact's partition
+line reads "STOPPED — states 0, walk-steps 10,000,000,000, cap_hit true"; N4-A13(i) rules that printed step count a
+**poison artifact** — the build zeroes the budget cell on cap exceedance — and confirms from the code that `cap_hit`
+is set only in the state-cap branch, so the stop was the 32,000,000-state cap and not the budget; the true charge at
+that stop is unknown and unrecoverable from the run. Row 10 of
+[walt-pre-pivot-results](walt-pre-pivot-results.md#appendix-c--prose-versus-artifact-disagreements) carries the
+reconciliation.) The declared fallback
 {h6, h4, h8} fails its own gate arithmetic at h8 (~648 s against 600 s by the quoted tree-v0 scaling), and per
 N4-A12(c) a second gate failure is a **return to the rulings file** — no second fallback, no nudging (F7). The n4
 machinery (three-tier H regime, checkpointing with the shared-call clause, DS-A36 blocks, real-deal fences) is built
@@ -896,6 +902,19 @@ there are. That last one was minted the hard way: a check written with a regex a
 matched nothing and returned a clean, confident zero violations. **A wrong predicate returned exactly the answer
 being hoped for**, and it was caught by implausibility across several simultaneous queries rather than by suspicion
 of the predicate.
+
+---
+
+## SS — 2026-08-15/16: the seed survey (owned elsewhere; pointer only)
+
+The last research run before the pivot was not an S6 session and has no session narrative here: the hundred-seed
+survey (SS-A1..SS-A18, freeze 54, `walt/probes/factory-results/seed_survey_2026-08-15.txt`, 400 units, 0 declared
+stops) — the branch's first carrier **not selected by outcome**. Its results are owned by
+[walt-pre-pivot-results](walt-pre-pivot-results.md#37-the-seed-survey-ss-2026-08-1516--the-ending) (the
+NOT-REPORTABLE association SS-A15, the refuted U-shape prediction SS-A17(iv), the smaller-frontier finding SS-A17,
+the 6.25% off-carrier tax sparsity) and its refutations by
+[walt-negative-results](walt-negative-results.md#the-seed-surveys-association-is-not-reportable-and-its-prediction-was-refuted-ss);
+the freeze is row 54 of [the register](walt-math-freezes.md). Nothing measured there is quoted for trick 1 (P-A21).
 
 ---
 

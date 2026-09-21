@@ -171,6 +171,15 @@ level-0 inner worlds / level-1 inner worlds.
 | **`walt2-wasm`** — level 2 in the browser | 8 / 2 / n₁ = 4 | `Refine` over `Field::Level(1)`, `n_inner = [n₀, n₁]`, same outer worlds and seed formula as `walt-wasm` (CRN across levels) | byte-identical to `walt-wasm`'s `bid` (pinned by `auction_matches_walt1`) | byte-identical to `walt-wasm`'s `declare` | inert | `DEFAULT_SEED` as above | `walt2 play` with the extra knob `n1`; response carries `level: 2`; never a default (PR #58, 2026-08-25) |
 | **experiments `l2-partner-default`** (family "L2 Partner") / `l2-partner-voids` | 40 / 8 / 2 (`players.json` defaults, same bin bounds as above) | `Fixed` / modeled `Fixed`; inner belief `voidless` / `voids-counted` | none (bid 30) | fixed, as above | 14 000 ms | as `l1-default` | `--mode partner [--inner-belief voids-counted]`; `--mode all-l1` is the separate family "L2 All" |
 
+The experiments' rows above are the families the batteries compare; the
+complete preset catalog — 18 named presets in
+`experiments/partnership/players.json` (`match.py players --all`),
+including `l1-race-small` (n = 8), `l1-refine-voids`, the `partner-race`
+/ `partner-race-fixedmind` / `partner-race-small` variants with and
+without counted voids, `partner-refine(-voids)` and `phone` — is tabulated
+verbatim on [walt-partnership-program §3.4](walt-partnership-program.md);
+a catalog edit cannot change a frozen campaign manifest.
+
 Probe epochs that are not players but appear in results: `level1.rs`
 (fixed carrier, receipt hand 8; up to n = 2000 / n₀ = 16 in
 `level1_results_2026-08-17.txt`), `level2.rs` (fixed carrier, `Field::Level(1)`,
@@ -403,7 +412,14 @@ the 6-4 at both nodes where it is legal — at trick 3 exactly over all
 17,640 void-consistent deals, 5-2 at 654‰ against 6-4 at 640‰ — declining
 a guaranteed +11; and the made hand G2 is exactly locked from trick 3
 (all 280 deals at trick 4 make whatever Gran plays, and level 1 gives the
-identical tie set). At an exact tie at P(make) = 1 the objective has no
+identical tie set). The same G1 trick-1 root read by the native
+partnership families on main (`experiments/partnership/REPORT.md`,
+2026-09-06, native 40/8 outer evidence under a fresh experiment seed;
+EXPLORATORY): the all-L0 baseline prices 6-2 and 6-4 both at 33/40 and
+plays 6-2 by index tie; partner-only (n₁ = 2) prices 34/40 vs 37/40 and
+plays 6-4; full L2 (n₁ = 2) prices 38/40 vs 36/40 and plays 6-2 — three
+field models, three one- to three-world margins at n = 40, no strength
+reading, and none of it composes with the 40-world phone panel. At an exact tie at P(make) = 1 the objective has no
 gradient; a modeled partner's reading can reach the decision only through
 P(make), which cannot exceed 1; refinement is the wrong instrument (no
 worlds remain to add); so the play falls out of tile-index order and the

@@ -129,7 +129,9 @@ whose identity the next stage names.
    implementer's guide v0.2 (82,740 bytes) is preserved byte-for-byte at
    `walt/math/gpu_native_trick1_implementers_guide_v0.2.md`, SHA-256
    `ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44`
-   (original source commit `ca18bc68…`, intake commit `c230949c`, 2026-08-16).
+   (original source commit `ca18bc68…` — a commit object present in this
+   repository's history, `git cat-file -t` = `commit`, checked 2026-09-14,
+   not a Pro-side tree; intake commit `c230949c`, 2026-08-16).
    Every `walt/ci/check.sh` run re-checks that hash. It records what was
    received; it is never silently repaired.
 2. **The repaired contract.** `walt/GPU-NATIVE-TRICK1.md` v0.3 (29,607 bytes,
@@ -459,6 +461,19 @@ two fresh complete runs that equal each other and the committed receipt.
 | Checked-in library | `walt/walt-metal/shaders/walt_m2.metallib`, 14,348 bytes, SHA-256 `2bc886eb…` (the M3 contract pins this value; a *pre-freeze* smoke produced 6,877-byte libraries at `7ee31770…` — a recipe smoke, not the final digest, by the contract's own words) | hashed 2026-09-13 |
 | Runner protocol | child polls a committed command ≤ 120,000 ms; parent watchdog 125,000 ms, unextendable; CPU phases 600,000 ms liveness; timed-out child exits 124; any failure yields a distinct 256-byte `W42M2F01` receipt with zero accepted counts | M2 §9–10.8; GT1-A14; `walt-m2-runner/src/protocol.rs` (32 unit tests) |
 
+**What the receipt says about the host.** The host/tool descriptor inside
+the receipt records the sanitized device name, the unified-memory flag,
+maximum buffer length, recommended working-set size, device maximum thread
+dimensions and threadgroup memory, and each pipeline's execution width,
+maximum threads and static threadgroup memory — as *observed values*, with
+registry IDs, serials, paths and timestamps excluded; the only device
+conjunct is flags `0x00000003` (unified memory present, Rust Gate 0 passed)
+(M2 contract §2 and §10, `walt/GPU-NATIVE-TRICK1-M2.md` lines 125–131 and
+655–660). Whether a fresh run on a different Apple GPU would be adjudicated
+as the same freeze-56 comparand, or whether freeze 56 is host-specific by
+construction, is not ruled anywhere; the receipt has only ever been earned
+on the Apple M5 Max (open, §8).
+
 **Why there is no speed claim.** M2 is deliberately sequential — no atomics,
 reductions, scans, indirect dispatch, slabs, adaptive batching or concurrent
 commands (GT1-A14); one thread owns one ordered response and ten fixed slots;
@@ -726,6 +741,19 @@ standing rule: no grade-4 quantity is evidence about trick 1). Executable
 parity is evidence for the last three, never a theorem that erases them. Plus
 the M3 tree's own build and audit, and its stale 94-of-103 receipt (regenerating
 it is a freeze event under FZ-A5).
+
+**Unruled questions the record leaves.** Whether freeze 57 is a live
+authorization or a historical artifact (§5.2); whether freeze 56 is
+host-specific — the receipt records device limits as observed values, not
+conjuncts (§4.2); whether M4's representation-growth design (v0.3 §9: a
+723-million-arrival wavefront, 44-byte particles, about 29.6 GiB) is
+superseded by the counted-belief factorization over 116,280 acting-seat
+hands that the live program adopted instead ([counted-belief
+era](walt-counted-belief-era.md)) — no document says so, and M4 has no
+design beyond v0.3 §9; and whether the probe-tier lead disagreement of
+§5.3 (55 under the trick-differential proxy, 33 under pmake) deserves a
+brief amendment that adds it to a receipt — until one exists it stays
+probe-tier.
 
 **Three open kanban cards** (all in `kanban/backlog/` as of 2026-09-07):
 

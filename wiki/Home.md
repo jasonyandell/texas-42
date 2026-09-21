@@ -27,13 +27,19 @@ exactly true*; walt is the seat that has to act.
   now, written for a technical reader who has never played — then
   [lineage](lineage.md) for why the project exists. The rest of this page assumes
   the vocabulary those two build; [vocabulary](vocabulary.md) fixes each term.
-- **Mathematician.** The tier ladder and citation convention below; then
-  [walt-math-reference](walt-math-reference.md) (the seat's mathematics organized
-  by idea, every object with the ruling that fixed it),
-  [claim-ledger](claim-ledger.md) (the claim-tier inventory and every exchange
-  result with its caveats verbatim), and
+- **Mathematician.** The tier ladder and citation convention below; then the
+  claim-tier chapters — [FINDINGS](FINDINGS.md), [claim-ledger](claim-ledger.md)
+  (the claim-tier inventory and every exchange result with its caveats verbatim)
+  and [open-problems](open-problems.md), whose claim-tier content has not moved
+  since the last exchange adjudication of 2026-08-25 —
+  then the seat's mathematics at the EXPLORATORY tier:
+  [walt-math-reference](walt-math-reference.md) (organized by idea, every object
+  with the ruling that fixed it; its siblings [walt-math-intakes](walt-math-intakes.md)
+  and [walt-math-freezes](walt-math-freezes.md), freezes 1–58) and
   [`walt/CENSUS-RULINGS.md`](../walt/CENSUS-RULINGS.md) (the append-only
-  adjudication record, every ruling family in order).
+  adjudication record, every ruling family in order — [walt](walt.md) lists the
+  families); the kernel side is [lean](lean.md) and
+  [`lean/PROOFS.md`](../lean/PROOFS.md).
 - **Engineer who wants to run the player.**
   [walt-architecture](walt-architecture.md) (one crate, ten modules; the gate and
   what it costs; the epochs every number is relative to),

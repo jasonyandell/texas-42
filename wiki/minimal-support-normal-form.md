@@ -28,6 +28,11 @@ Binary(inactive seat ι, W, q)     (every d∈W possible at both active seats; r
 Ternary(W, r0, r1, ε)             (ε: partial map d ↦ the one excluded seat)
 ```
 
+The construction is well-posed because a nonempty fiber **uniquely recovers** its
+pool, its labeled capacities and its marginal holder relation [Theorem — proved,
+CELL-11] — so "the normal form of a support" names one object, not one per cell
+system that happens to decode to it.
+
 **[Theorem — proved, CELL-13]**: `N(C) = ((K_s), ambiguity)` is in bijection with
 nonempty exact support fibers, eliminating the stored pool, all three possible-sets,
 certain-holder edges, zero-residual seats, the explicit binary pair, one capacity (by
@@ -129,7 +134,7 @@ singleton Hall inequalities through the generic capacitated Hall lemma.
 | Result on this page | Ledger row (priority) | Kernel status (d190b26) | Declaration (`lean/Texas42/`) |
 |---|---|---|---|
 | CELL-12 active-seat trichotomy `{0,2,3}` | PA-D01 (0) | **proved** | `NormalForm.lean:349` `active_trichotomy` |
-| CELL-13 normal form ↔ nonempty exact fibers: well-formed payload, decode feasible and marginal-exact, compile/decode inverse laws | PA-D02, PA-D03, PA-D04 (0) | **proved**: `SupportNF`, `SupportNF.WellFormed` (the TYPE-03 total well-formedness contract); `decode ∘ compile = red`, `compile ∘ decode = id` | `NormalForm.lean:849` `feasible_decode`, `:912` `decode_marginal`, `:1126` `decode_compile`, `:1251` `compile_decode` |
+| CELL-11 a nonempty fiber recovers pool, capacities and marginal holder relation; CELL-13 normal form ↔ nonempty exact fibers: well-formed payload, decode feasible and marginal-exact, compile/decode inverse laws | PA-D02, PA-D03, PA-D04 (0) | **proved**: `SupportNF`, `SupportNF.WellFormed` (the TYPE-03 total well-formedness contract); `decode ∘ compile = red`, `compile ∘ decode = id` (CELL-11 is not a separately named theorem; `decode_marginal` reconstructs exactly the declared marginal relation from the compiled form, and `fiber_eq_iff_red_eq` on [capacity-dp](capacity-dp.md) gives the recovery of the reduced system from the fiber) | `NormalForm.lean:849` `feasible_decode`, `:912` `decode_marginal`, `:1126` `decode_compile`, `:1251` `compile_decode` |
 | CELL-14 classification half (total form = quotient by support equality) | PA-D05 (0) | **proved** | `NormalForm.lean:1423` `fiber_eq_iff_totalNF_eq` |
 | CELL-14 global factorization half (every exact deterministic representation factors onto it) | PA-D06 (1) | **open — not kernel-proved** | — |
 | CELL-15/16 one-assignment SCC compiler; erasable witness | PA-D07 (2) | **open**; rob `r_nf_quotient` "22,620 SCC compilations" conformance | — |

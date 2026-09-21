@@ -332,13 +332,20 @@ the grade-3 receipt reproduced under the budgeted evaluators. Record:
 `walt/probes/factory-results/separation_n4_rung_2026-08-14.txt` (read in full;
 a cost-model input, no ratio, no dividend).
 
-**A disagreement to carry, not resolve here.** The results file prints the
+**The artifact and the prose agree, by ruling.** The results file prints the
 partition as "STOPPED — states 0, walk-steps 10000000000, cap_hit true", while
-the return ruling N4-A16 and [the S6 era page](walt-s6-era.md) attribute the
-NO-GO to the state count "having exceeded 32,000,000 states at (h0, first
-action)" (the design's estimate said 24,825,150). The results file governs for
-what the rung measured; where the > P_max count was measured is not visible in
-this artifact.
+the return ruling and [the S6 era page](walt-s6-era.md) attribute the NO-GO to
+the state count having exceeded P_max = 32,000,000 at (h0, first action) (the
+design's estimate said 24,825,150). N4-A13(i) reconciles the two readings: the
+printed step count is a **poison artifact** — `InfoPartition::build` zeroes the
+budget cell on cap exceedance, so the caller reads 10,000,000,000 whatever the
+traversal had charged — and `cap_hit` is set only in the state-cap branch, so
+the stop was the 32,000,000-state cap and not the walk-step budget; the true
+charge at that stop is unknown and unrecoverable from the run, the instrument
+was repaired to print the charge to the cap before the pass (N4-A13(ii)), and
+the 24,825,150 estimate is struck at N4-A4's superseded note. Row 10 of
+[walt-pre-pivot-results](walt-pre-pivot-results.md#appendix-c--prose-versus-artifact-disagreements)
+carries the same reconciliation.
 
 **What it rules out, and what it does not.** It rules out the v1 budgets, not
 the pass: the return (N4-A13..A20) re-authorized the rung at W = 8 with
@@ -433,8 +440,11 @@ SS-A1..SS-A18.
 
 **What it rules out, and what it does not.** The multiplicity → separation
 arrow of the fee-screening chain at unselected coordinates; the h2/h0 fee
-contrast is not refuted, merely not corroborated. No era page owns this probe;
-its numbers live only in the record and the rulings.
+contrast is not refuted, merely not corroborated. No era session narrates this
+probe; its results are owned by
+[walt-pre-pivot-results](walt-pre-pivot-results.md#37-the-seed-survey-ss-2026-08-1516--the-ending)
+§3.7 (the S6 era page carries only a pointer), and its numbers live in the
+record and the rulings.
 
 ## The sampling and evidence negatives (2026-08-24 to 2026-08-25)
 

@@ -74,11 +74,20 @@ The kernel is the **second** of the four evidentiary tiers, stated on
 > 1. **Corpus statuses** — the packages' own labels ("Theorem — proved",
 >    "Theorem — exhaustive finite verification", …); the ground truth.
 > 2. **Proof-assistant kernel** — the target tier; external `PASS` is never imported
->    as an axiom (TRUST-01). First theorems landed in `lean/`.
-> 3. **Exchange-adjudicated CONFIRMED** — external result; program executed ALL_PASS
->    plus 3/3 adversarial referees SOUND. Not a corpus theorem, not a kernel proof.
+>    as an axiom (TRUST-01). Priority 0 closed 2026-08-02, 42 of 42 rows
+>    ([lean](lean.md)); no `sorry`, no `native_decide`.
+> 3. **Exchange-adjudicated CONFIRMED** — external result. The verdict rule actually
+>    applied ([claim-ledger](claim-ledger.md)): the response's program executed
+>    `ALL_PASS` on its own claims and the proof chain survived three adversarial
+>    referees with **no referee demonstrating a real flaw**. One panel, REACH-20, was
+>    2/3 SOUND + 1 UNVERIFIABLE that found no defect — the dissent travels verbatim and
+>    is never presented as 3/3. Not a corpus theorem, not a kernel proof.
 > 4. **rob conformance receipts** — byte-diffed Rust reproductions; `x-` prefixed
 >    lines back exchange numbers. Evidence, never a status change.
+
+(Quoted from [Home](Home.md) as rewritten 2026-09-13; the 2026-08-13 version of this
+page quoted the earlier wording "First theorems landed" and "3/3 adversarial referees
+SOUND", which [exchange](exchange.md) §1.3 explains was stricter than the rule applied.)
 
 Below all four sits the exploratory tier — everything under `walt/`,
 `experiments/`, ideas and analysis — cited by nothing above it.

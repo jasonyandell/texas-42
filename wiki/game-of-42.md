@@ -8,7 +8,11 @@ the machinery can now do · Sources: [rules-profile](rules-profile.md),
 the tier of the page that owns it, and every walt number names the record or gate
 that pins it. Related: [rob](rob.md), [lean](lean.md), [walt hub](walt.md),
 [lineage](lineage.md). Repository state as of 2026-09-07 (c00717d1); fresh
-measurements on this page are dated 2026-09-12.
+measurements on this page are dated 2026-09-12 and ran the release binaries of
+the main checkout under `walt/target/release/` (built 2026-09-07; this worktree
+has no `target/`, so the build identity was not re-derived from `c00717d1` —
+the outputs matched the committed records; [walt-instruments](walt-instruments.md)
+states the same provenance for its own re-runs).
 
 This page is the doorway. It is written for someone technically literate who has
 never played 42 and never read a game-theory paper, and who wants an honest

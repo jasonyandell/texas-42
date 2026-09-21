@@ -13,10 +13,19 @@ likelihood functions [Theorem — proved, Math §6.7, INFO-11]. Legality fixes z
 likelihood for impossible actions and one for forced actions (singleton legal set,
 BEL-12); beyond that, discretionary likelihood ratios are policy-model-relative —
 different valid models reverse Bayes factors on the same action [Theorem — proved,
-Math §8.8, BEL-14].
+Math §8.8, BEL-14]. The separation also cuts the other way: a chance law with
+*structural zeros* can make the physical belief support **strictly smaller** than the
+exact rule fiber [Boundary, Math §6.7, INFO-12] — under the adopted uniform deal law
+this never happens (BEL-07 below), but "posterior support = rule fiber" is a
+consequence of the chance law, not of the rules.
 
 ## Belief machinery (Math §8, shared)
 
+- A behavioral *field* is two factors that must stay distinct: the legality indicator
+  and a normalized discretionary action kernel [Definition, BEL-01]; exact correlated
+  behavior across seats is represented by a joint history likelihood or a sufficient
+  augmented latent-state kernel, never by an unjustified product [Definition/Boundary,
+  BEL-02].
 - Augmented root world `ξ = (deal, inherited latent state)`; posterior = inherited
   prior × rule-compatibility indicator × within-attempt history likelihood, normalized
   [Theorem — proved (Bayes), BEL-04]. Two exact randomness representations — kernel
@@ -30,6 +39,14 @@ Math §8.8, BEL-14].
   law and no action-likelihood tilt, the posterior on any fixed-history fiber is
   uniform, and the count-ratio sampler ([capacity-dp](capacity-dp.md)) samples it
   exactly.
+- **Exponential tilt** [Theorem — proved, Math §8.5, BEL-08]: the posterior is the
+  normalized rule-only (physics-only) belief multiplied by the history likelihood —
+  so every field-induced belief is a tilt of the uniform fiber law, which is exactly
+  how the 90-world witness below is computed (`lA`, `lB` weights on the 90 worlds).
+- **Own-action cancellation** [Proposition, Math §8.7, BEL-13]: the viewer's own
+  action cancels from the viewer's own deal posterior when their private randomization
+  depends only on known information and is independent of the hidden uncertainty —
+  a proposition under explicit independence assumptions, not a theorem of the rules.
 - One public action has three separable effects — physical transition, support
   restriction/retyping, likelihood reweighting — plus, for deal-ending actions, a
   new-deal chance extension [Theorem — proved, BEL-11/11A]. All-pass creates a **new
@@ -98,8 +115,8 @@ independent tier. rob's `r_cell_ninety_world_support: 90` is conformance evidenc
 | BEL-04 Bayes posterior: normalization and the likelihood chain rule; within-attempt history likelihood product | PA-E02 (0) | **proved** | `Belief.lean` `FinPMF.condition`, `:97` `condition_mul`, `likelihoodFrom`, `:171` `likelihoodFrom_append`, `posterior` |
 | BEL-05 physical belief = pushforward through the remainder map; **support ⊆ fiber** | PA-E03 (0) | **proved** — the kernel statement of "support bounds belief without determining it" | `Belief.lean:274` `physicalBelief_support_isWorld` |
 | BEL-07/07A physics-only uniformity under the uniform deal law | PA-E04 (1) | **open** | — |
-| Finite exponential-tilt form; forced-action world-nondiscrimination (BEL-12) | PA-E05, PA-E06 (1) | **open** | — |
-| INFO-11, BEL-03A, BEL-06/06B, BEL-11/11A, BEL-14, BEL-15/OPEN-07, STR-11 | no rows | not mechanized | — |
+| Finite exponential-tilt form (BEL-08); forced-action world-nondiscrimination (BEL-12) | PA-E05, PA-E06 (1) | **open** (the finite Bayes conditioning that BEL-08 specializes is PA-E02, proved) | — |
+| INFO-11, INFO-12, BEL-01/02, BEL-03A, BEL-06/06B, BEL-11/11A, BEL-13, BEL-14, BEL-15/OPEN-07, STR-11 | no rows | not mechanized | — |
 | STR-06: the endpoint fiber is exactly 90 worlds, each rule-realized | PA-E10 (0) | **proved**: `worldPairs.card = 90`; fiber = cells (`isWorld_iff`); every world realized by a rule-compatible deal that legally replays the five-trick prefix (90 kernel replays) | `Witness.lean:99` `card_worldPairs`, `:590` `isWorld_iff`, `:692` `replay_check`, `:708` `rule_fiber` |
 | STR-07 pointwise anchors: two fiber members have `Q` tables `(10, −22)` and `(−22, 22)` | PA-E10 | **proved** | `Witness.lean:147` `anchor_values` |
 | STR-08 (setup): two distinct legal auction histories `α_A`, `α_B`, same result (`P(31)`, seat 3) | PA-E10 | **proved** | `Witness.lean:506` `auction_histories` |
