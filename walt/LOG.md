@@ -1118,3 +1118,19 @@ og-v1's +125.9‰ with the fixed library on disjoint deals. First promoted
 composite cleared at the first 1,024-deal checkpoint (+12.3%), equal to all
 of og-v1's final gain. EXPLORATORY, target-specific; adjudication (OG-A)
 still pending. Record: experiments/og-learning/campaigns/og-v2/RESULTS.md.
+
+## 2026-09-21 — og-v3: the open language holds against σ0 (exam +186‰)
+
+On Jason's go ("declare og-v3 against L0-8 and let it run"): same law and
+budgets as og-v2, fixed seats = Level0Field(8) — the σ0 modeled mind, a pure
+function of public state (0.70 ms/deal measured, so no downsizing and the §6
+multifidelity harness stays queued for genuinely expensive lineups). Four
+promotions in eight generations, declared budget stop; untouched exam 482‰ vs
+the uniform start's 296‰ — paired +186.0‰, exact CI [143.4, 228.6]‰. The
+constructor's generation-0 admissions switched from og-v2's count husbandry to
+trick contention (takes-trick/loses-trick under opponent-winning), then slough
+discipline and cheap steals — same language, same rule, different opponents.
+Three campaigns now stand: +125.9‰ (fixed library, random field), +201.1‰
+(open language, random field), +186.0‰ (open language, σ0 field), each on its
+own untouched exam. EXPLORATORY, target-specific; OG-A adjudication pending.
+Record: experiments/og-learning/campaigns/og-v3/RESULTS.md.

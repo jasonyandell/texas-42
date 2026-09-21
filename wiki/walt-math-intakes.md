@@ -809,8 +809,14 @@ adjudication PENDING; it is the last entry in this section.
   four promotions, declared budget stop; untouched exam 638‰ vs 437‰
   (paired +201.1‰, exact CI [158.5, 243.7]‰ at α = 1/20, disjoint deals
   from og-v1) — record `experiments/og-learning/campaigns/og-v2/RESULTS.md`.
-  All of it EXPLORATORY and target-specific; the adjudication agenda is
-  unchanged.
+  **And on Jason's go the same evening, campaign `og-v3` re-ran the open
+  language against σ0 defenders** (walt's `Level0Field(8)`, the field the
+  live level-1 player models; seed offset 200M): four promotions in eight
+  generations, declared budget stop, untouched exam 482‰ vs 296‰ (paired
+  +186.0‰, exact CI [143.4, 228.6]‰) — the constructor's admissions
+  switched from count husbandry to trick contention with the lineup;
+  record `experiments/og-learning/campaigns/og-v3/RESULTS.md`. All of it
+  EXPLORATORY and target-specific; the adjudication agenda is unchanged.
 
 ## 7. The pinned manifests
 
