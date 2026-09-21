@@ -1070,3 +1070,17 @@ survey survive saves; the shared play and partner rollout carry the actual bid.
 Independent replay of higher point and marks links agrees with Plunge. The old
 full counterfactual examiner remains explicitly bid-30-only. Reproduction and
 receipts: `walt-player/README.md`, `/Users/jason/data/texas-42/regular-bidding/`.
+
+## 2026-09-21 — outcome-grounded policy-learning intake filed, adjudication pending
+
+Jason hand-delivered *Outcome-grounded autonomous policy learning for Texas 42*
+v0.1 (session upload; the first parent filed after the consolidation ruling, on
+his explicit instruction). Filed under the standing convention: verbatim parent
+`walt/math/outcome_grounded_policy_learning_v0.1.md` with a `.sha256` pin
+(`bd259eff…`), maintained companion, and an intake-authored scratch verifier —
+the parent's own §10 verifier pair was not delivered. Verifier: 10 check
+families, 3,886 exact-rational instances, PASS twice, 0.72 s, stdlib only, no
+floats. Hand audit found no unsound claim. Adjudication PENDING (proposed
+family OG-A; agenda in the companion); proposed build program OG0–OG6 queued
+behind it; no build authorized, no default touched. Index:
+`wiki/walt-math-intakes.md`; card: `kanban/backlog/ogpl-intake-adjudication.md`.
