@@ -121,6 +121,7 @@ only from the results files it names.
 ### Front matter
 - [Home](Home.md) — this page: the table of contents, the tier ladder, the citation convention, the three doorways, the layer table.
 - [QUICKSTART](../QUICKSTART.md) — the on-ramp for a fresh session (repo root): the eight layers, the non-negotiables, the current state, the live frontier, the traps.
+- [curator](curator.md) — the curator charter: how the book is kept current with `main` (the cycle, the area/foundation sorting rule, the triggers, the baseline pointer, the cycle log).
 - [game-of-42](game-of-42.md) — the human-facing introduction to straight Texas 42 as a mathematical object: what the game is, what is proved, what is measured, and what the machinery can now do.
 - [timeline](timeline.md) — the dated record: every landing from the v0.7 ingest (2026-07-26) to `c00717d1` (2026-09-07), by wave, with commit hash and/or PR number, what each established at which tier, and the page that owns it.
 - [vocabulary](vocabulary.md) — the load-bearing vocabulary: one entry per term, its precise meaning, the typed distinction it guards, the ruling or source that fixed it, and the page that owns it.
