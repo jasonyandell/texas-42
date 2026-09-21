@@ -26,7 +26,8 @@ read from `main()`, not from prose); the probe records under
 [`walt/UNIFICATION-CENSUS.md`](../walt/UNIFICATION-CENSUS.md), [`walt/ARCHIVE.md`](../walt/ARCHIVE.md);
 `walt/walt-wasm/`, `walt/walt2-wasm/`, `walt/walt-m2-runner/src/main.rs`,
 `walt/walt-metal/tests/metal_device.rs`; the survey maps of 2026-09-07; fresh
-measurements made 2026-09-13 on this machine (labelled as such).
+measurements made 2026-09-13 and re-run 2026-09-20 on this machine (labelled
+as such).
 Related: [walt hub](walt.md), [walt-architecture](walt-architecture.md) (the
 crate: modules, seams, invariants, the gate — this page does not restate them),
 [walt-seat-play](walt-seat-play.md), [walt-calculated-evidence](walt-calculated-evidence.md),
@@ -116,7 +117,14 @@ Two HTML viewers under [`walt/viewer/`](../walt/viewer/) consume the records
 the seats write: `walt_viewer.html` renders `playout` JSON games ("level-1
 playouts"); `walt_table_viewer.html` renders the `playtable`/`webtable`
 cross-fiber review ("the informed table"). Open either in a browser and load a
-record; no server is needed.
+record; no server is needed. One more seat a person can play is Python, not
+a crate binary: `python3 experiments/partnership/table.py [--bid 30] [--decl
+0..6|7|9] [--deal-seed N] [--inner-belief voidless|voids-counted]
+[--selection fixed|refine|race-refine] [--modeled-selection …] [--n1 2]` —
+you at seat 0 declaring (no auction), the native `partnership` player as your
+partner at seat 2, the archived phone WASM as both opponents, 14 s per
+computer move ([walt-seat-play §7](walt-seat-play.md); needs the release
+`partnership` binary and Node ≥ 23.6).
 
 Three facts about the live player that a reader must not infer wrongly from
 older text:
@@ -335,7 +343,7 @@ then the proof state that turns exact masses into certified regret. All under
 
 | Binary | Purpose | Invocation | Runtime and output | Status | The sentence it earned |
 | --- | --- | --- | --- | --- | --- |
-| `rootinterval` | Slice A (§44): on six affordable receipt roots (h4-t6, h10-t6, h5-t6, h12-t6, h8-t5, h3-t5) per legal action the exact Q_a beside the δ-valid root interval — the pmake empirical-max upper (epoch 0) over a frozen `PinnedThenLevel1[2,2]` lower witness (epoch 1, provenance FIXED), δ = 1/20 per endpoint — with shortfall Q − L and excess U − Q, survivor-set evolution by prefix, worlds-to-singleton, the typed decision (DeltaRootWinner / DeltaRootSet / UnresolvedRootSet), wall per phase | `rootinterval run <out.txt> [prefix=16]` | ≈ 0.2 s; **measured 2026-09-13: 0.18 s; output identical to run1 except the six `wall-us` lines** | instrument (2026-08-30, #61) | h4-t6 settles `DeltaRootWinner{1-1; bar=7/10}` after 8 sampled worlds (the exact optimum, 13/15 vs 1/3); the four exact ties (h10-t6, h5-t6, h12-t6, h3-t5) come out `UnresolvedRootSet`, never a forced winner; all 14 rows satisfy L ≤ Q ≤ U (gated) |
+| `rootinterval` | Slice A (§44): on six affordable receipt roots (h4-t6, h10-t6, h5-t6, h12-t6, h8-t5, h3-t5) per legal action the exact Q_a beside the δ-valid root interval — the pmake empirical-max upper (epoch 0) over a frozen `PinnedThenLevel1[2,2]` lower witness (epoch 1, provenance FIXED), δ = 1/20 per endpoint — with shortfall Q − L and excess U − Q, survivor-set evolution by prefix, worlds-to-singleton, the typed decision (DeltaRootWinner / DeltaRootSet / UnresolvedRootSet), wall per phase | `rootinterval run <out.txt> [prefix=16]` | ≈ 0.2 s; **measured 2026-09-13: 0.18 s; output identical to run1 except the six `wall-us` lines** | instrument (2026-08-30, #61) | h4-t6 settles `DeltaRootWinner{1-1; bar=7/10}` after 8 sampled worlds (the exact optimum, 13/15 vs 1/3); h8-t5 (fiber 92) comes out `DeltaRootSet{survivors=2; bar=35/46}` — the weakest action 5-0 (exact 16/23) δ-excluded at prefix 15, the two survivors never split within the prefix (`run1.txt` lines 37–44); the four exact ties (h10-t6, h5-t6, h12-t6, h3-t5) come out `UnresolvedRootSet`, never a forced winner; all 14 rows satisfy L ≤ Q ≤ U (gated) |
 | `grammarsplit` | Slice B (§45): per fixture and grammar G1 = {lowest}, G2 = {lowest, highest}, G3 = {level-1 pinned [2,2], σ0 mind, count-preservation} the exact §12 triple free/gram/dev per legal root action, verdicts (closes / ties / counterexample / root-off-grammar), lazy first-deviation witnesses, the grammar census, the root-closure line; Section B the sampled route at a declared prefix and the §8 residual-upper identity asserted | `grammarsplit run <out.txt> [prefix=64]` (a bare run panics with the usage string) | seconds (G3 ≤ ≈ 105 ms per split) | instrument (2026-08-30, #63) | G2 and G3 attain the exact optimum on all six t5/t6 fixtures; the singleton G1 fails root closure at h4-t6 (30 vs 78) and h8-t5 (64 vs 91) with a depth-4 witness after 0-0, 3-0, 6-0, 6-6; the residual-upper identity holds byte-identically |
 | `factorbelief` | Slice C, four modes: `run` (C0 — one-ply branch masses by contraction over acting-seat hands vs complete-world enumeration, route parity and Z_h = Σ_t Z_ht asserted per row, six t5/t6 roots under trivial and σ0 fields plus the opening root under the trivial field); `opening-level0` (σ0 classification of all 116,280 opening hands); `cache` (C1 — first/repeat/bundled costs, extensional cache identity, cross-history sharing, opening-root identity cost); `c2` (C2 — all seven §46 coordinates from one opening-root run under σ0, declared byte accounting beside measured RSS via `/bin/ps`) | `factorbelief run <out.txt>` \| `opening-level0 <out.txt>` \| `cache <out.txt>` \| `c2 <out.txt>` | `run` seconds; `opening-level0` ≈ 5.6 s; `c2` ≈ 5.4 s cold | instrument (2026-08-30, #62 / #64 / #66) | The 399,072,960-world opening fiber stands behind 116,280 acting-seat hands (3,432 worlds per hand; gated): branch table in 8,671 µs under the trivial field; under σ0 the cold pass is 5,361,549 µs of which classification is 5,339,731 µs (45 µs/hand, 99%), the warm repeat 21,818 µs (187 ns/query, reuse ×245), cross-history cache hits 0 of 36, conservation exact at 399,072,960; memory as a declared 23,563,392-byte accounting beside a measured 63,340,544-byte maximum resident size, never one dressed as the other |
 | `factorrecursion` | Slice D (§23/§47): the factorized fixed-policy recursion over `SupportOracle` vs the bundled complete-world walk, value parity asserted per row; six t5/t6 roots × two focals × two fields plus the four trick-4 roots (16 post-root plies); prints M/Z, per-route µs, the node census, σ0 states materialized; the opening root deliberately not attempted | `factorrecursion report <out.txt>` | ≈ 10 s (h4-t4 under σ0: 7,172,768 µs) | instrument (2026-08-30, #65) | Parity on every row; deepest row h4-t4 M/Z = 25039/34650 (722‰) with 121,868 conditionings — and the honest negative: the bundled route is faster (2,367,679 µs) at worlds/hands ≈ 3 |
@@ -468,13 +476,13 @@ opening root is reached only by contraction or sampling — never by enumeration
 | Instrument (knobs) | Cost | Source |
 | --- | --- | --- |
 | `scheme` partner-count on h0-t6-S0 | ≈ 10 ms (11 ms wall; work 1084) | measured 2026-09-13 |
-| `rootinterval run` (prefix 16) | 0.17–0.18 s | run1; measured 2026-09-13: 0.18 s (0.177 s wall) |
+| `rootinterval run` (prefix 16) | 0.17–0.18 s | run1; measured 2026-09-13: 0.18 s (0.177 s wall); 2026-09-20: 0.18 s |
 | `bundle_bench` | ≈ 2 s | `probes/bundle/README.md` |
-| `ordering_bench` (default items) | 1.1–1.5 s; `hard` adds ≈ 3.1 s | measured 2026-09-13: 1.10 s |
+| `ordering_bench` (default items) | 1.1–1.5 s; `hard` adds ≈ 3.1 s | measured 2026-09-13: 1.10 s; 2026-09-20: 1.13 s |
 | `laydownreport` | < 1 s | `laydownreport_run1.txt` |
 | `factorbelief c2` (opening root under σ0) | 5.4 s cold, 22 ms warm | `c2_run1.txt` |
 | `modelbeliefreport` | 5.2 s | `modelbelief_run1.txt` |
-| `proofreport` | ≈ 14 s (run1's per-root walls sum to 14.1 s; no total line); 7.2–7.4 s measured 2026-09-13 (two runs) | `proofreport_run1.txt` |
+| `proofreport` | ≈ 14 s (run1's per-root walls sum to 14.1 s; no total line); 7.2–7.4 s measured 2026-09-13 (two runs); 7.28 s on 2026-09-20 | `proofreport_run1.txt` |
 | `frontierreport` / `bellmanreport` / `extractreport` | 13 s / 15.7 s / 29 s | the run1 records |
 | `m3probe` | ≈ 30 s single-threaded (28.85 s measured 2026-09-13) | `results_2026-08-17.txt` |
 | `unifiedreport report` | ≈ 32 s (lean 2.2 s, ample 21.6 s, model 8.6 s) | `unified_run2.txt` |
@@ -498,7 +506,12 @@ opening root is reached only by contraction or sampling — never by enumeration
 **Newcomer first-run order** — each step run 2026-09-13 (the two previously untimed parts of steps 5 and 7 on 2026-09-14) from the worktree root
 with the release binaries under `walt/target/release/` (built 2026-09-07 in
 the main checkout; the worktree has no `target/`) and `timeout 60`; walls are
-wall-clock seconds on this machine:
+wall-clock seconds on this machine. The non-interactive steps were re-run
+2026-09-20 on the same binaries (`/usr/bin/time -p`, `timeout 60`): step 1
+0.01 s, step 2 0.18 s (output identical to `run1.txt` except `wall-us`), step 3
+1.13 s (counters identical), step 4 7.28 s (`h3-t4 … survivors=[3-1]`), step 5
+lean walk 0.18 s (12 decisions, declaring MADE), step 8 0.01 s each part —
+every printed value the same as on 2026-09-13; only the walls moved:
 
 1. `scheme --query walt/scheme/examples/partner-count.scheme --hand 0 --trick 6 --seat 0` — real 0.01 s; prints the coordinate (viewer S0 hand {2-0 4-2}, 6 support worlds), `event-probability: 1/3`, `answer-presence: [count-tile=4-1] probability=1/3`, `work: 1084`. Teaches the coordinate/belief vocabulary.
 2. `rootinterval run /tmp/ri.txt` — real 0.18 s; six roots, exact Q beside [L, U] per action; `h4-t6 … decision: DeltaRootWinner{action=1-1;bar=7/10}`, `worlds-to-singleton: 8`; ties typed `UnresolvedRootSet`. Identical to `run1.txt` except the six `wall-us` lines.

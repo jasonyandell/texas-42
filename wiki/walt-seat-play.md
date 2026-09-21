@@ -419,7 +419,25 @@ EXPLORATORY): the all-L0 baseline prices 6-2 and 6-4 both at 33/40 and
 plays 6-2 by index tie; partner-only (n₁ = 2) prices 34/40 vs 37/40 and
 plays 6-4; full L2 (n₁ = 2) prices 38/40 vs 36/40 and plays 6-2 — three
 field models, three one- to three-world margins at n = 40, no strength
-reading, and none of it composes with the 40-world phone panel. At an exact tie at P(make) = 1 the objective has no
+reading, and none of it composes with the 40-world phone panel. The same
+launch batch (`experiments/partnership/REPORT.md`, 2026-09-06; EXPLORATORY,
+full Rust CI waived) played 12 hands / 336 driven decisions, all legal with
+independent leader/score agreement, and scored the partner-only candidate
+against the all-phone team on three fresh deals at **0 favorable contract
+flips / 1 unfavorable / 5 unchanged** — the one regression is the fixture
+`regression-602-t3-s0` (defender S0, ones trump, S3 bidding 30): after an
+identical public prefix the baseline prices the slough 4-2 at 20/40 against
+6-5 at 21/40 and plays 4-2 (as the phone does), while partner-only prices
+20/40 vs 19/40 and plays 6-5 — a **one-world margin out of forty** flips the
+choice and the complete-policy outcome goes from set to made (the record's
+own reading: a sampling-stability motive, not a structural L2 defect). The
+two larger voidless partner-only (40/8/2, fixed) campaigns against the phone
+before the default battery point the same way: the 100-deal random campaign
+`campaigns/random-420600-699/RESULTS.md` (300 games, 8,400 independently
+replay-verified moves) 15 favorable / 23 unfavorable / 156 ties on 97 fresh
+seeds, and the same-opening-hand panel `campaigns/worlds-520600-699/WORLD-RESULTS.md`
+(10 fixed opening hands × 10 hidden completions × 3 lineups = 300 games; ten
+hand clusters, not 100 independent positions) 21 / 27 / 152. At an exact tie at P(make) = 1 the objective has no
 gradient; a modeled partner's reading can reach the decision only through
 P(make), which cannot exceed 1; refinement is the wrong instrument (no
 worlds remain to add); so the play falls out of tile-index order and the
@@ -580,7 +598,10 @@ wake rate 1/34 checked decisions (the one wake, trick 5, exact route,
 moved the play; agreement with σ0 55/56); the exact route settled 13/13
 checks it reached (10 ties, 2 baseline-confirms, 1 rival) while all 21
 sampled checks above fiber 1024 stayed open; per-decision total p50
-14,337 µs, p90 21,665,288 µs, max 68,829,911 µs. **Affordability: NO, not
+14,337 µs, p90 21,665,288 µs, max 68,829,911 µs. Inside the one escalation
+the spend was the screen machinery, not σ1 values — `summary.txt`'s
+PhaseSpend breakdown: rung-e2 529‰, steering 328‰, baseline-σ0 139‰,
+stage4-σ1 2‰ of the escalation's 454,039 µs. **Affordability: NO, not
 as-is — minutes per natural hand.** The profile's purpose was
 attribution, and it targeted the 2026-08-25 speed campaign (#53/#55/#56),
 whose conclusion was that the modeled minds are the bill.
@@ -682,7 +703,15 @@ evaluation from the human's chair). Both grew `ctrl [cap=N]` seats on
 2026-08-24. Since PR #37 all three of `playout`, `playtable`, `webtable`
 domain-separate the deal stream from the per-decision belief streams
 (constant ^ session ^ own hand ^ record hash — the `walt_bridge` pattern),
-so session output is record-grade (the O27 audit finding).
+so session output is record-grade (the O27 audit finding). A third human
+table is Python, not one of the crate's binaries: `experiments/partnership/table.py`
+(2026-09-06) seats you at seat 0 to declare (no auction; `--bid 30..42`,
+`--decl 0..6|7|9`, `--deal-seed N`), your partner at seat 2 as the native
+`partnership` player (`--inner-belief voidless|voids-counted`, `--selection`
+and `--modeled-selection fixed|refine|race-refine`, `--n1 2`), and both
+opponents as the archived phone WASM through `player.py`, each computer move
+under the 14 s wrapper (`experiments/partnership/README.md` "Play a hand";
+EXPLORATORY, needs a built `walt/target/release/partnership` and Node ≥ 23.6).
 
 **The partnership oracle** (`walt/walt/src/bin/partnership.rs` +
 `experiments/partnership/player.py`, 2026-09-06). Native worker: a text
@@ -820,7 +849,7 @@ Each entry is parity-gated; none changed what plunge or the arena runs.
 | **The champion binary was never re-matched** | the 3×384 pool ran the pre-PiKey-fix bridge; every player since has been measured only against walt or the phone | §3 |
 | **CI waived 2026-09-06/07** | `walt/ci/check.sh` deliberately not run for the partnership and Scheme sessions (focused suites only: 44 then 36 Rust tests, 14 Python tests, clippy, wasm32 compile); no record says the central gate has been green at or after 9236ca7f / dbcc698f | `experiments/partnership/SCOPE.md`, `FOUNDATION.md` |
 | **[[plunge-walt-sync]] drift** | the committed `walt-wasm/pkg/walt.wasm` (SHA-256 `d7f61f22…`, rebuilt 2026-08-24 with the review column) differs from the phone's bytes (`af0200af…` = 9a056f20); the version on any actual phone was never independently verified (only the local plunge checkout 122ea7a5); race wiring is plunge's decision | kanban card, opened 2026-08-24 |
-| **G2/G3 deal unrecoverable** | six-trick prefix validated; S2's hand fully known; the residual {4-1, 4-4, 5-3} is 6-way ambiguous and mechanically undecidable; no driven run or `replay_hand` validation possible unless plunge recovers the seed | [[gran-anchor-reconstruction]] (open on two items) |
+| **G2/G3 deal unrecoverable** | six-trick prefix validated; S2's hand fully known; the residual {4-1, 4-4, 5-3} is 6-way ambiguous and mechanically undecidable; no driven run or `replay_hand` validation possible unless plunge recovers the seed. The G2 (trick-1) and G3 (trick-4) roots *are* fully determined as S2's information sets (own hand + public record), so a decision run at S2 — `granrun replay`-style, no deal needed — is possible and has not been done; whether one is wanted is unruled ([walt-gran-anchors §4](walt-gran-anchors.md)) | [[gran-anchor-reconstruction]] (open on two items) |
 | **`v5_literal_count_timing_position_reconstructs` still `#[ignore]`d** | `tests/solver_calibrate.rs:420`; its stated blocker (G1 reconstruction) was discharged 2026-09-04; whether G1 is the literal position it names is unverified | [walt-calculated-evidence](walt-calculated-evidence.md) |
 | **Tie-break at exact indifference unruled** | the lever named 2026-09-05 (objective + tie-break); Jason's calls (A)–(F) from the MORNING brief have no recorded decision after 2026-09-05 | MORNING items 4 and "Your calls" |
 | **"Level-1 walt" is not one thing** | §2; the book always names the configuration | — |
