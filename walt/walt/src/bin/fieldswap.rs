@@ -250,7 +250,7 @@ fn scan() {
                     let trump = match hand.decl {
                         Decl::PipTrump(p) => d.has(p),
                         Decl::DoublesTrump => d.is_double(),
-                        Decl::NoTrump => false,
+                        Decl::NoTrump | Decl::DoublesSuit => false,
                     };
                     format!(
                         "{}-{}{}{}",

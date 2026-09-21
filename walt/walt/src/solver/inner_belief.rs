@@ -151,8 +151,11 @@ fn contexts(dcl: Decl, mask: u32) -> ContextSet {
 /// One authority for deductions on both searched and replayed continuations.
 /// None stays None, so legacy keys never acquire unused history distinctions.
 pub(super) fn after_play(key: &Key, dcl: Decl, tile: Domino) -> Option<[u32; 4]> {
+    after_play_at(key, dcl, tile, (usize::from(key.leader) + key.plays.len()) % 4)
+}
+
+pub(super) fn after_play_at(key: &Key, dcl: Decl, tile: Domino, seat: usize) -> Option<[u32; 4]> {
     key.voids.map(|mut voids| {
-        let seat = (usize::from(key.leader) + key.plays.len()) % 4;
         assert_eq!(voids[seat] & bit(tile), 0, "play contradicts public voids");
         if let Some(&lead) = key.plays.first() {
             let context = dcl.led_context(Domino::from_index(usize::from(lead)).expect("lead"));

@@ -273,6 +273,26 @@ pub fn evaluate_with_cache(
     cfg: &Config,
     previous: &mut Option<Shared>,
 ) -> Result<Evaluation, Box<Refusal>> {
+    evaluate_contract_with_cache(dcl, bid, seat, hand, legal, key, sizes, voids,
+        trick_start_played, boundary_hand_size, cfg, previous, super::Contract::Straight { bid })
+}
+
+#[allow(clippy::too_many_arguments)]
+pub fn evaluate_contract_with_cache(
+    dcl: Decl,
+    bid: u8,
+    seat: Seat,
+    hand: u32,
+    legal: u32,
+    key: &Key,
+    sizes: [usize; 4],
+    voids: [u32; 4],
+    trick_start_played: u32,
+    boundary_hand_size: usize,
+    cfg: &Config,
+    previous: &mut Option<Shared>,
+    contract: super::Contract,
+) -> Result<Evaluation, Box<Refusal>> {
     assert!(
         cfg.n_outer > 0 && cfg.n1 > 0 && cfg.n0 > 0,
         "sample counts are positive"
@@ -296,6 +316,7 @@ pub fn evaluate_with_cache(
         boundary_hand_size,
         deadline,
     )
+    .with_contract(contract)
     .with_inner_belief(cfg.inner_belief)
     .with_modeled_selection(cfg.modeled_selection);
     // Experimental full-hand carry can retain an opening cache (often already

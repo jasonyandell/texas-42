@@ -76,6 +76,7 @@ pub struct MergeCall {
 
 fn request(a: Auction) -> Result<(Request, u64), String> {
     let req = Request {
+        contract: None,
         decl: 0,
         bid: a.bid,
         bidder: a.seat,

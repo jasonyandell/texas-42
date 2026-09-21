@@ -75,6 +75,7 @@ for, read [the game of 42, mathematically](game-of-42.md).
 
 | Piece | What it is |
 |---|---|
+| [`walt/NELLO-PLAYER.md`](../walt/NELLO-PLAYER.md) | Human-called own-suit Nel-O candidate: contract and active-seat extension, native/WASM parity, retained paired defense failures, and phone validation boundary |
 | [`walt/math/`](../walt/math/) | The frozen mathematical bases, never edited: `unified_information_geometry_v0.4.md` (the ~3,800-line basis with its own §17 claim ledger), `equivariant_lumpability_v0.5.md` (§12.6A, authored by Jason), `predictive_algebra_v0.6.md`, `decision_sparse_exact_solving_v0.1.md` and its maintained errata, the second-audit record, and the derived `implementers_guide.md` (non-authoritative; the basis wins on any conflict) |
 | [`gpu_native_trick1_implementers_guide_v0.2.md`](../walt/math/gpu_native_trick1_implementers_guide_v0.2.md) | Received Pro design input, preserved byte-for-byte. Original source commit `ca18bc6807b974b31d4640786d7a2d63ae0b79fe`; intake commit on this branch `c230949c77ff7e8e22f912ed70f8206488ac9022`; SHA-256 `ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44`. The adjudicated v0.3 contract governs wherever it repairs or narrows this source. |
 | [`walt/GPU-NATIVE-TRICK1.md`](../walt/GPU-NATIVE-TRICK1.md) | The adjudicated v0.3 first-build contract: binding inside this exploratory track, and authoritative wherever it narrows, repairs or rejects v0.2. It is a design authority, not a Metal result or an opening-root verdict. |

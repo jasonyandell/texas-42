@@ -27,6 +27,9 @@ mod cache;
 pub mod calibrate;
 #[cfg(feature = "sharded-root-memo")]
 mod root_memo;
+pub mod contract;
+pub use contract::Contract;
+
 #[cfg(feature = "sharded-root-memo")]
 use root_memo::RootMemo;
 #[cfg(feature = "bypass-l0-cache")]
@@ -256,7 +259,8 @@ pub struct Shared {
     modeled_selection: selection::Rule,
     inner_worlds_by_level: Vec<SumCounter>,
     pub dcl: Decl,
-    /// make ⇔ banked_t1 ≥ bid ⇔ banked_t0 ≤ 42 − bid.
+    pub contract: Contract,
+    /// Straight target; Nel-O carries its mark stake without a points target.
     pub bid: u8,
     /// n_inner[k] = belief sample size of a modeled level-k mind.
     pub n_inner: Vec<usize>,
@@ -306,6 +310,7 @@ impl Shared {
             modeled_selection: selection::Rule::Fixed,
             inner_worlds_by_level: (0..levels).map(|_| SumCounter::new(0)).collect(),
             dcl,
+            contract: Contract::Straight { bid },
             bid,
             n_inner,
             boundary_played,
@@ -332,6 +337,20 @@ impl Shared {
             bounded_choice_rejections: SumCounter::new(0),
             dead: AtomicBool::new(false),
         }
+    }
+
+    fn straight_fast_paths(&self) -> bool {
+        !self.contract.is_nello() && self.dcl.is_straight()
+    }
+
+    pub fn with_contract(mut self, contract: Contract) -> Self {
+        assert_eq!(self.pi_cache_len(), 0);
+        if let Contract::Nello { declarer } = contract {
+            assert_eq!(self.dcl, Decl::DoublesSuit);
+            assert_eq!(declarer.team(), Team::T1);
+        }
+        self.contract = contract;
+        self
     }
 
     /// Select before sharing an evaluation. One cache never mixes belief
@@ -388,15 +407,16 @@ impl Shared {
     }
 
     // A balanced boundary (B,H) reconstructs later hand sizes solely through
-    // C = H + |B|/4. Do not transfer from malformed or incompatible frames.
+    // C = H + |B|/active seats. The inactive Nel-O hand always has seven tiles.
+    // Do not transfer from malformed or incompatible frames.
     // See walt/CPU-SPEEDUPS.md for the cache transfer condition.
     #[cfg(feature = "hand-cache")]
     fn normalized_boundary(&self) -> Option<usize> {
         let played = self.boundary_played.count_ones() as usize;
-        if self.boundary_played & !FULL_MASK != 0 || !played.is_multiple_of(4) {
+        if self.boundary_played & !FULL_MASK != 0 || !played.is_multiple_of(self.contract.trick_size()) {
             return None;
         }
-        self.boundary_hand_size.checked_add(played / 4)
+        self.boundary_hand_size.checked_add(played / self.contract.trick_size())
     }
 
     fn same_policy_boundary(&self, previous: &Shared) -> bool {
@@ -419,7 +439,8 @@ impl Shared {
     /// Exclusive ownership of both contexts prevents use during a live solve.
     pub fn take_policy_cache_from(&mut self, previous: &mut Shared) -> usize {
         assert_eq!(self.pi_cache_len(), 0, "reuse only before evaluating");
-        if self.dcl != previous.dcl
+        if self.contract != previous.contract
+            || self.dcl != previous.dcl
             || self.bid != previous.bid
             || self.n_inner != previous.n_inner
             || !self.same_policy_boundary(previous)
@@ -702,6 +723,12 @@ impl Solver {
 
     pub fn child_after_play(&self, key: &Key, tile: Domino, alive: u32) -> Key {
         self.check_belief_key(key);
+        if self.sh.contract.is_nello() {
+            let mut next = key.clone();
+            next.alive = alive;
+            self.sh.contract.step(&mut next, self.sh.dcl, tile);
+            return next;
+        }
         let voids = inner_belief::after_play(key, self.sh.dcl, tile);
         let played = key.played | bit(tile);
         if key.plays.len() == 3 {
@@ -755,11 +782,8 @@ impl Solver {
         if !self.bump_node() {
             return None;
         }
-        if key.banked_t1 >= self.sh.bid {
-            return Some(self.alive_of(key.alive).len() as u64);
-        }
-        if key.banked_t0 > 42 - self.sh.bid {
-            return Some(0);
+        if let Some(made) = self.sh.contract.terminal(key) {
+            return Some(if made { self.alive_of(key.alive).len() as u64 } else { 0 });
         }
         let memo_key = MemoKey::from(key);
         #[cfg(not(feature = "sharded-root-memo"))]
@@ -776,7 +800,7 @@ impl Solver {
         }
         assert_ne!(key.played, FULL_MASK, "terminal states are always decided");
         let seat =
-            Seat::from_index((usize::from(key.leader) + key.plays.len()) % 4).expect("seat index");
+            self.sh.contract.actor(key.leader as usize, key.plays.len());
         let led: Option<Context> = key.plays.first().map(|&i| {
             self.sh
                 .dcl
@@ -823,7 +847,7 @@ impl Solver {
         let dcl = self.sh.dcl;
         // The standing winner/count are shared by all candidate priorities.
         // With zero or one candidate there is no ordering work to perform.
-        let needs_priority = legal.len() > 1 && self.ordering == MoveOrdering::CaptureFirst;
+        let needs_priority = legal.len() > 1 && self.ordering == MoveOrdering::CaptureFirst && self.sh.straight_fast_paths();
         let table = if needs_priority {
             led.map(|q| {
                 let mut best = None;
@@ -1188,16 +1212,7 @@ impl Solver {
     }
 
     fn hand_sizes_at(&self, key: &Key) -> [usize; 4] {
-        let played_since = (key.played.count_ones() - self.sh.boundary_played.count_ones())
-            as usize
-            - key.plays.len();
-        assert_eq!(played_since % 4, 0, "completed tricks are whole");
-        let completed = played_since / 4;
-        let mut sizes = [self.sh.boundary_hand_size - completed; 4];
-        for i in 0..key.plays.len() {
-            sizes[(usize::from(key.leader) + i) % 4] -= 1;
-        }
-        sizes
+        self.sh.contract.sizes(key, self.sh.boundary_played, self.sh.boundary_hand_size)
     }
 
     /// The level-k policy at a modeled seat's information state (pure in
@@ -1205,7 +1220,7 @@ impl Solver {
     fn pi(&self, k: usize, key: &Key, seat: Seat, hand: u32, legal_mask: u32) -> Option<u8> {
         self.check_belief_key(key);
         #[cfg(feature = "bypass-l0-cache")]
-        if k == 0 {
+        if k == 0 && self.sh.straight_fast_paths() {
             if let Some(choice) = self.uncached_l0(key, seat, hand, legal_mask) {
                 return choice;
             }
@@ -1246,7 +1261,7 @@ impl Solver {
         );
         let maximize = seat.team() == Team::T1;
         #[cfg(feature = "stack-dice")]
-        if k == 0 && (1..=8).contains(&n_k) && self.sh.inner_belief == InnerBelief::Voidless {
+        if k == 0 && self.sh.straight_fast_paths() && (1..=8).contains(&n_k) && self.sh.inner_belief == InnerBelief::Voidless {
             let choice = compact_dice::prepared_choice(
                 &self.sh,
                 key,
@@ -1293,7 +1308,7 @@ impl Solver {
             self.sh.modeled_selection
         };
         #[cfg(feature = "bounded-choice")]
-        if k == 0 && (1..=8).contains(&n_k) {
+        if k == 0 && self.sh.straight_fast_paths() && (1..=8).contains(&n_k) {
             let worlds = self.sh.inner_belief.sample(
                 self.sh.dcl,
                 seat,
@@ -1337,7 +1352,7 @@ impl Solver {
             return Some(choice);
         }
         #[cfg(feature = "fixed-policy-choice")]
-        if k > 0 && rule == selection::Rule::Fixed {
+        if k > 0 && self.sh.straight_fast_paths() && rule == selection::Rule::Fixed {
             let worlds = self.sh.inner_belief.sample(
                 self.sh.dcl,
                 seat,
@@ -1766,10 +1781,11 @@ pub fn bp(v: &BigRational) -> i64 {
 /// surface).
 pub fn decl_of(arena_id: usize) -> Decl {
     match arena_id {
-        p @ 0..=6 => Decl::ALL[p],
+        p @ 0..=6 => Decl::STRAIGHT[p],
         7 => Decl::DoublesTrump,
+        8 => Decl::DoublesSuit,
         9 => Decl::NoTrump,
-        other => panic!("declaration id {other} is not a straight-42 declaration"),
+        other => panic!("declaration id {other} is outside the suit algebra"),
     }
 }
 
@@ -1777,6 +1793,7 @@ pub fn arena_decl_id(d: Decl) -> usize {
     match d {
         Decl::PipTrump(p) => usize::from(p.value()),
         Decl::DoublesTrump => 7,
+        Decl::DoublesSuit => 8,
         Decl::NoTrump => 9,
     }
 }
@@ -1800,6 +1817,10 @@ pub struct Replayed {
 /// labels: turn order asserted, voids derived from failures to follow,
 /// banked totals per completed trick. `bidder_arena` leads trick one.
 pub fn replay(dcl: Decl, bidder_arena: usize, pairs: &[(usize, usize)]) -> Replayed {
+    replay_contract(dcl, bidder_arena, pairs, false)
+}
+
+pub fn replay_contract(dcl: Decl, bidder_arena: usize, pairs: &[(usize, usize)], nello: bool) -> Replayed {
     let r = if bidder_arena.is_multiple_of(2) { 1 } else { 0 };
     let mut st = Replayed {
         r,
@@ -1812,9 +1833,11 @@ pub fn replay(dcl: Decl, bidder_arena: usize, pairs: &[(usize, usize)]) -> Repla
         trick_start_played: 0,
         completed: 0,
     };
+    let contract = if nello { Contract::Nello { declarer: Seat::from_index((bidder_arena + r) % 4).unwrap() } }
+        else { Contract::Straight { bid: 42 } };
     for &(actor_arena, tile_id) in pairs {
         let actor = (actor_arena + r) % 4;
-        let expect = (usize::from(st.leader) + st.plays.len()) % 4;
+        let expect = contract.actor(st.leader as usize, st.plays.len()).index();
         assert_eq!(actor, expect, "history follows turn order");
         let tile = Domino::from_index(tile_id).expect("tile id 0..28");
         assert_eq!(st.played & bit(tile), 0, "tile played once");
@@ -1826,20 +1849,9 @@ pub fn replay(dcl: Decl, bidder_arena: usize, pairs: &[(usize, usize)]) -> Repla
         }
         st.played |= bit(tile);
         st.plays.push(tile.index() as u8);
-        if st.plays.len() == 4 {
-            let doms = [
-                Domino::from_index(usize::from(st.plays[0])).expect("p0"),
-                Domino::from_index(usize::from(st.plays[1])).expect("p1"),
-                Domino::from_index(usize::from(st.plays[2])).expect("p2"),
-                Domino::from_index(usize::from(st.plays[3])).expect("p3"),
-            ];
-            let trick = Trick::new(
-                Seat::from_index(usize::from(st.leader)).expect("leader"),
-                doms,
-            )
-            .expect("distinct");
-            let winner = trick.winner(dcl);
-            let pts = trick.points() as u8;
+        if st.plays.len() == contract.trick_size() {
+            let winner = contract.winner(dcl, st.leader as usize, &st.plays);
+            let pts = 1 + st.plays.iter().map(|&t| Domino::from_index(t as usize).unwrap().count() as u8).sum::<u8>();
             if winner.team() == Team::T1 {
                 st.banked_t1 += pts;
             } else {

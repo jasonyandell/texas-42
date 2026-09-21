@@ -2178,7 +2178,7 @@ fn generate_grade_matching_arm(tasks: &mut Vec<M2OpeningTaskV1>) -> Result<(), M
 
 fn generate_same_context_arm(tasks: &mut Vec<M2OpeningTaskV1>) -> Result<(), M2BridgeError> {
     let mut arm_ordinal = 0u32;
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         let mut declaration_pairs = 0u32;
         for first_index in 0..Domino::COUNT {
             let first = Domino::ALL[first_index];
@@ -2694,6 +2694,7 @@ fn decl_code_u32(decl: Decl) -> u32 {
         Decl::PipTrump(pip) => u32::from(pip.value()),
         Decl::DoublesTrump => 7,
         Decl::NoTrump => 8,
+        Decl::DoublesSuit => panic!("GPU arena supports straight declarations only"),
     }
 }
 

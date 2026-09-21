@@ -26,11 +26,11 @@ const EMPTY_RULES: Rules = Rules {
 };
 
 // Derived at compile time from the authoritative declaration/rank algebra.
-const RULES: [Rules; Decl::COUNT] = {
-    let mut all = [EMPTY_RULES; Decl::COUNT];
+const RULES: [Rules; Decl::STRAIGHT_COUNT] = {
+    let mut all = [EMPTY_RULES; Decl::STRAIGHT_COUNT];
     let mut di = 0;
-    while di < Decl::COUNT {
-        let d = Decl::ALL[di];
+    while di < Decl::STRAIGHT_COUNT {
+        let d = Decl::STRAIGHT[di];
         let mut tile = 0;
         while tile < Domino::COUNT {
             let domino = Domino::ALL[tile];
@@ -635,6 +635,7 @@ mod closed_bucket_tests {
 
 /// None means ineligible (use the general solver); Some(None) means refusal.
 pub(super) fn fixed_choice(solver: &Solver, key: &Key, tiles: &[u8]) -> Option<Option<u8>> {
+    if !solver.sh.straight_fast_paths() { return None; }
     let field_k = match solver.field {
         Field::Level(k) => k,
         _ => return None,
@@ -663,7 +664,7 @@ pub(super) fn fixed_choice(solver: &Solver, key: &Key, tiles: &[u8]) -> Option<O
         t0: key.banked_t0,
         alive: ((1u16 << solver.worlds.len()) - 1) as u8,
     };
-    let di = Decl::ALL
+    let di = Decl::STRAIGHT
         .iter()
         .position(|&d| d == solver.sh.dcl)
         .expect("declaration");

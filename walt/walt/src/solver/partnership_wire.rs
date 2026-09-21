@@ -19,7 +19,10 @@ pub fn run(input: &str) -> Result<String, String> {
 }
 
 /// Optional staged-call acceleration; context guards live in Shared.
-pub fn run_with_cache(input: &str, previous: &mut Option<solver::Shared>) -> Result<String, String> {
+pub fn run_with_cache(
+    input: &str,
+    previous: &mut Option<solver::Shared>,
+) -> Result<String, String> {
     let mut lines = input.lines();
     let mode = lines.next().ok_or("missing mode")?;
     let mut f = HashMap::new();
@@ -27,6 +30,7 @@ pub fn run_with_cache(input: &str, previous: &mut Option<solver::Shared>) -> Res
         let mut words = line.split_whitespace();
         let Some(name) = words.next() else { continue };
         if ![
+            "contract",
             "decl",
             "bid",
             "seat",
@@ -57,9 +61,16 @@ pub fn run_with_cache(input: &str, previous: &mut Option<solver::Shared>) -> Res
     let bid_raw = scalar(&f, "bid")?;
     let actor_raw = scalar(&f, "seat")?;
     let bidder_raw = scalar(&f, "bidder")?;
-    if ![0, 1, 2, 3, 4, 5, 6, 7, 9].contains(&decl_id)
-        || !(30..=42).contains(&bid_raw)
-        || actor_raw > 3
+    let nello = match f.get("contract").map(Vec::as_slice) {
+        None => false,
+        Some([1]) => true,
+        _ => return Err("invalid contract".into()),
+    };
+    if (if nello {
+        decl_id != 8 || !(1..=9).contains(&bid_raw)
+    } else {
+        ![0, 1, 2, 3, 4, 5, 6, 7, 9].contains(&decl_id) || !(30..=42).contains(&bid_raw)
+    }) || actor_raw > 3
         || bidder_raw > 3
     {
         return Err("invalid declaration, bid, or seat".into());
@@ -70,6 +81,14 @@ pub fn run_with_cache(input: &str, previous: &mut Option<solver::Shared>) -> Res
         actor_raw as usize,
         bidder_raw as usize,
     );
+    let rotation = if bidder.is_multiple_of(2) { 1 } else { 0 };
+    let contract = if nello {
+        solver::Contract::Nello {
+            declarer: Seat::from_index((bidder + rotation) % 4).unwrap(),
+        }
+    } else {
+        solver::Contract::Straight { bid }
+    };
     let ids = f.get("hand").ok_or("missing hand")?;
     if ids.len() != 7 || ids.iter().any(|&t| t >= 28) {
         return Err("hand needs seven tile ids 0..27".into());
@@ -79,7 +98,7 @@ pub fn run_with_cache(input: &str, previous: &mut Option<solver::Shared>) -> Res
         return Err("duplicate hand tile".into());
     }
     let plays = f.get("plays").cloned().unwrap_or_default();
-    if plays.len() % 2 != 0 || plays.len() > 56 {
+    if plays.len() % 2 != 0 || plays.len() > if nello { 42 } else { 56 } {
         return Err("invalid record length".into());
     }
     let mut pairs = Vec::new();
@@ -88,10 +107,18 @@ pub fn run_with_cache(input: &str, previous: &mut Option<solver::Shared>) -> Res
         if p[0] > 3 || p[1] >= 28 {
             return Err("invalid record actor/tile".into());
         }
-        let st = solver::replay(dcl, bidder, &pairs);
+        let st = solver::replay_contract(dcl, bidder, &pairs, nello);
+        if nello
+            && ((st.completed > 0 && st.leader as usize == (bidder + rotation) % 4)
+                || st.completed == 7)
+        {
+            return Err("record continues after Nel-O settlement".into());
+        }
         let s = (p[0] as usize + st.r) % 4;
         let tile = Domino::from_index(p[1] as usize).unwrap();
-        if s != (usize::from(st.leader) + st.plays.len()) % 4 || st.played & bit(tile) != 0 {
+        if s != contract.actor(st.leader as usize, st.plays.len()).index()
+            || st.played & bit(tile) != 0
+        {
             return Err("record violates turn order or repeats tile".into());
         }
         if st.voids[s] & bit(tile) != 0 {
@@ -111,9 +138,11 @@ pub fn run_with_cache(input: &str, previous: &mut Option<solver::Shared>) -> Res
         }
         pairs.push((p[0] as usize, p[1] as usize));
     }
-    let st = solver::replay(dcl, bidder, &pairs);
+    let st = solver::replay_contract(dcl, bidder, &pairs, nello);
     let seat = Seat::from_index((actor + st.r) % 4).unwrap();
-    if seat.index() != (usize::from(st.leader) + st.plays.len()) % 4 || st.completed == 7 {
+    if seat.index() != contract.actor(st.leader as usize, st.plays.len()).index()
+        || st.completed == 7
+    {
         return Err("not this seat's turn, or hand is complete".into());
     }
     let key = Key {
@@ -125,10 +154,10 @@ pub fn run_with_cache(input: &str, previous: &mut Option<solver::Shared>) -> Res
         banked_t0: st.banked_t0,
         alive: 0,
     };
-    let mut sizes = [7 - st.completed; 4];
-    for i in 0..st.plays.len() {
-        sizes[(st.leader as usize + i) % 4] -= 1;
+    if nello && contract.terminal(&key).is_some() {
+        return Err("Nel-O hand is settled".into());
     }
+    let sizes = contract.sizes(&key, 0, 7);
     solver::belief_frame_feasibility(seat.index(), current_hand, st.played, sizes, st.voids)
         .map_err(|e| e.to_string())?;
     let led = st
@@ -190,7 +219,7 @@ pub fn run_with_cache(input: &str, previous: &mut Option<solver::Shared>) -> Res
         seed,
         deadline: solver::Deadline::after(Duration::from_millis(ms)),
     };
-    let report = solver::partnership::evaluate_with_cache(
+    let report = solver::partnership::evaluate_contract_with_cache(
         dcl,
         bid,
         seat,
@@ -203,6 +232,7 @@ pub fn run_with_cache(input: &str, previous: &mut Option<solver::Shared>) -> Res
         7 - st.completed,
         &cfg,
         previous,
+        contract,
     )
     .map_err(|e| format!("{e:?}"))?;
     let options: Vec<String> = report

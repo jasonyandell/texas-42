@@ -225,14 +225,14 @@ mod tests {
             .unwrap();
         let mut objectives = [0usize; 2];
         let mut cases = 0;
-        for (di, decl) in Decl::ALL.into_iter().enumerate() {
+        for (di, decl) in Decl::STRAIGHT.into_iter().enumerate() {
             for partial in 0..4 {
                 let f = fixture(decl, 4, partial, 0x5151_7000 + di as u64);
                 compare(&pool, decl, 4, &f, &mut objectives);
                 cases += 1;
             }
         }
-        for (di, decl) in [Decl::ALL[0], Decl::ALL[7], Decl::ALL[8]]
+        for (di, decl) in [Decl::STRAIGHT[0], Decl::STRAIGHT[7], Decl::STRAIGHT[8]]
             .into_iter()
             .enumerate()
         {
@@ -313,7 +313,7 @@ mod tests {
             #[cfg(feature = "compact-depth")]
             tricks_left: super::super::tricks_left_at_root(&f.key),
         };
-        let di = Decl::ALL.iter().position(|&d| d == decl).unwrap();
+        let di = Decl::STRAIGHT.iter().position(|&d| d == decl).unwrap();
         let mut search = Search {
             rules: &super::super::RULES[di],
             sh: &shared,

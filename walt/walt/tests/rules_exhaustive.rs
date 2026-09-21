@@ -51,7 +51,7 @@ fn effective_incidence_sizes_by_declaration() {
                     assert_eq!(eff.len(), expected, "{decl} effective sigma_{p}");
                 }
             }
-            DeclClass::DoublesTrump => {
+            DeclClass::DoublesTrump | DeclClass::DoublesSuit => {
                 assert_eq!(called.len(), 7, "{decl} called set = the doubles");
                 for p in Pip::ALL {
                     assert_eq!(
@@ -90,7 +90,7 @@ fn effective_incidence_sizes_by_declaration() {
 
 #[test]
 fn led_context_is_a_context_the_tile_follows() {
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         for d in Domino::ALL {
             let q = decl.led_context(d);
             assert!(decl.follows(d, q), "{decl}: {d} must follow its own lead");
@@ -131,7 +131,7 @@ fn count_decoration_totals_35_and_a_hand_totals_42() {
 #[test]
 fn ranks_are_injective_within_every_nonzero_tier() {
     let mut checked = 0usize;
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         for led in Context::ALL {
             for (i, a) in Domino::ALL.into_iter().enumerate() {
                 for b in Domino::ALL.into_iter().skip(i + 1) {
@@ -149,7 +149,7 @@ fn ranks_are_injective_within_every_nonzero_tier() {
 
 #[test]
 fn every_precomputed_trick_key_matches_the_direct_rule_algebra() {
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         for led in Context::ALL {
             for tile in Domino::ALL {
                 let actual = decl.trick_key(tile, led);
@@ -165,7 +165,7 @@ fn every_precomputed_trick_key_matches_the_direct_rule_algebra() {
 #[test]
 fn every_four_tile_trick_has_a_unique_winner() {
     let mut tricks = 0usize;
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         for a in 0..Domino::COUNT {
             for b in (a + 1)..Domino::COUNT {
                 for c in (b + 1)..Domino::COUNT {
@@ -206,12 +206,12 @@ fn every_four_tile_trick_has_a_unique_winner() {
         }
     }
     // C(28,4) four-tile sets, four choices of lead, nine declarations.
-    assert_eq!(tricks, 20475 * 4 * Decl::COUNT);
+    assert_eq!(tricks, 20475 * 4 * Decl::STRAIGHT_COUNT);
 }
 
 #[test]
 fn beats_and_threat_are_consistent_with_the_trick_key() {
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         for d in Domino::ALL {
             let led = decl.led_context(d);
             let threat = decl.threat(d);
@@ -237,7 +237,7 @@ fn beats_and_threat_are_consistent_with_the_trick_key() {
 /// unbeatable in its own natural suit: seven of them.
 #[test]
 fn unbeatable_leads_by_declaration() {
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         let unbeatable: Vec<Domino> = Domino::ALL
             .into_iter()
             .filter(|d| decl.threat(*d).is_empty())
@@ -251,13 +251,14 @@ fn unbeatable_leads_by_declaration() {
                 assert_eq!(unbeatable, vec![Domino::new(Pip::ALL[6], Pip::ALL[6])])
             }
             Decl::PipTrump(p) => assert_eq!(unbeatable, vec![Domino::new(p, p)]),
+            Decl::DoublesSuit => unreachable!("straight-only theorem"),
         }
     }
 }
 
 #[test]
 fn legality_follows_when_able_and_sloughs_otherwise() {
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         for q in Context::ALL {
             let eff = decl.effective_incidence(q);
             for bits in [0b1u32, 0b101, 0b1010101, DominoSet::FULL.bits()] {
@@ -290,16 +291,16 @@ fn seats_and_teams() {
 }
 
 #[test]
-fn there_are_nine_declarations() {
-    assert_eq!(Decl::COUNT, 9);
+fn there_are_nine_straight_declarations() {
+    assert_eq!(Decl::STRAIGHT_COUNT, 9);
     let mut seen = std::collections::BTreeSet::new();
-    for d in Decl::ALL {
+    for d in Decl::STRAIGHT {
         assert!(seen.insert(d));
         assert_eq!(d.to_string().parse::<Decl>().expect("round trip"), d);
     }
     assert_eq!(seen.len(), 9);
     assert_eq!(
-        Decl::ALL
+        Decl::STRAIGHT
             .iter()
             .filter(|d| d.class() == DeclClass::PipTrump)
             .count(),

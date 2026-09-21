@@ -14,7 +14,7 @@ pub const TABLE_HEADER_BYTES: usize = 18;
 pub const MAX_LEGAL_ACTIONS: usize = 7;
 pub const MAX_CHOOSE_N: usize = 21;
 
-const DECL_COUNT: usize = Decl::COUNT;
+const DECL_COUNT: usize = Decl::STRAIGHT_COUNT;
 const CONTEXT_COUNT: usize = Context::COUNT;
 const DOMINO_COUNT: usize = Domino::COUNT;
 const CHOOSE_DIM: usize = MAX_CHOOSE_N + 1;
@@ -47,7 +47,7 @@ impl SemanticTables {
         let mut trick_keys = [[[0u16; DOMINO_COUNT]; CONTEXT_COUNT]; DECL_COUNT];
         let mut beats_masks = [[[0u32; DOMINO_COUNT]; CONTEXT_COUNT]; DECL_COUNT];
 
-        for (decl_index, decl) in Decl::ALL.into_iter().enumerate() {
+        for (decl_index, decl) in Decl::STRAIGHT.into_iter().enumerate() {
             for (context_index, context) in Context::ALL.into_iter().enumerate() {
                 context_masks[decl_index][context_index] = decl.effective_incidence(context).bits();
             }
@@ -234,10 +234,10 @@ impl SemanticTables {
 }
 
 fn decl_index(decl: Decl) -> usize {
-    Decl::ALL
+    Decl::STRAIGHT
         .into_iter()
         .position(|candidate| candidate == decl)
-        .expect("a declaration comes from Decl::ALL")
+        .expect("a declaration comes from Decl::STRAIGHT")
 }
 
 fn encode_trick_key(key: crate::rules::TrickKey) -> u16 {

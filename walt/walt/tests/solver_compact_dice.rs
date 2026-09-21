@@ -200,7 +200,7 @@ fn evaluate(
 #[test]
 fn matches_original_dice_for_partial_tricks_and_sample_id_multiplicity() {
     let mut cases = 0;
-    for (di, decl) in [Decl::ALL[0], Decl::ALL[7], Decl::ALL[8]]
+    for (di, decl) in [Decl::STRAIGHT[0], Decl::STRAIGHT[7], Decl::STRAIGHT[8]]
         .into_iter()
         .enumerate()
     {
@@ -236,13 +236,13 @@ fn matches_original_dice_for_partial_tricks_and_sample_id_multiplicity() {
 
 #[test]
 fn expired_deadline_refuses_the_whole_vector() {
-    let f = fixture(Decl::ALL[8], 4, 2, 8, 0xfeed_beef);
+    let f = fixture(Decl::STRAIGHT[8], 4, 2, 8, 0xfeed_beef);
     assert!(evaluate(&f, false, &f.tiles, Deadline::after(Duration::ZERO)).is_none());
 }
 
 #[test]
 fn counted_void_record_and_external_cancellation_keep_dice_values_sound() {
-    let f = fixture(Decl::ALL[7], 4, 2, 8, 0xface_600d);
+    let f = fixture(Decl::STRAIGHT[7], 4, 2, 8, 0xface_600d);
     let mut key = f.key.clone();
     key.voids = Some([0; 4]);
     let compact = evaluate_with(
@@ -372,7 +372,7 @@ fn bounded_l0_choice_matches_complete_fixed_comparison() {
     let mut rejections = 0;
     let mut objectives = [0; 2];
     let mut cases = 0;
-    for (di, decl) in [Decl::ALL[0], Decl::ALL[7], Decl::ALL[8]]
+    for (di, decl) in [Decl::STRAIGHT[0], Decl::STRAIGHT[7], Decl::STRAIGHT[8]]
         .into_iter()
         .enumerate()
     {
@@ -414,7 +414,7 @@ fn bounded_l0_choice_matches_complete_fixed_comparison() {
     );
     // Opening and last-trick cases exercise the same bounded entry point.
     for tricks in [1, 7] {
-        let f = fixture(Decl::ALL[8], tricks, 1, 8, 0x7770_0000 + tricks as u64);
+        let f = fixture(Decl::STRAIGHT[8], tricks, 1, 8, 0x7770_0000 + tricks as u64);
         let values = modeled_reference(&f, 8, &pool);
         let expected = solver::best_of(&values, f.viewer.team() == Team::T1);
         assert_eq!(
@@ -427,7 +427,7 @@ fn bounded_l0_choice_matches_complete_fixed_comparison() {
 #[test]
 #[cfg(feature = "bounded-choice")]
 fn aborted_bounded_choice_never_enters_policy_cache() {
-    let f = fixture(Decl::ALL[0], 5, 2, 8, 0xc001_cafe);
+    let f = fixture(Decl::STRAIGHT[0], 5, 2, 8, 0xc001_cafe);
     let (choice, shared) = modeled_bounded(&f, 8, Deadline::after(Duration::ZERO));
     assert_eq!(choice, None);
     assert_eq!(shared.pi_cache_len(), 0);

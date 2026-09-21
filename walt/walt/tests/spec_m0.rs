@@ -346,7 +346,7 @@ fn m0_normalization_advances_value_and_frame_together() {
 #[test]
 fn m0_semantic_tables_match_walt_core_exhaustively() {
     let tables = SemanticTables::from_walt_core();
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         for context in Context::ALL {
             assert_eq!(
                 tables.context_mask(decl, context),

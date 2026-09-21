@@ -170,7 +170,7 @@ fn joins_match_direct_relations_on_every_world_under_all_nine_declarations() {
         "(fix (roles (chair me) (chair partner) (domino d) (context suit)) (out d suit)
         (case (viewer me) (partner me partner) (holds partner d) (in d suit)))",
     );
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         let b = Belief::uniform(frame(decl), 90).unwrap();
         for (world, _) in b.worlds() {
             let expected: Answers = world
@@ -574,7 +574,7 @@ fn mastery_beating_and_negative_joins_match_direct_set_queries() {
         "(fix (roles (domino a) (domino witness)) (out a)
         (case (holds S2 a) (holds S1 witness) (beats a witness q*) (not (double a))))",
     );
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         let b = Belief::uniform(frame(decl), 90).unwrap();
         for (world, _) in b.worlds() {
             let expected = b

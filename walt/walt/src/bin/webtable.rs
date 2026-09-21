@@ -289,7 +289,7 @@ impl Game {
         worlds: Vec<[u32; 4]>,
         hand: u32,
     ) -> BigRational {
-        let dcl = Decl::ALL[decl_idx];
+        let dcl = Decl::STRAIGHT[decl_idx];
         let deadline = Deadline::after(std::time::Duration::from_secs(self.per_move_secs));
         let sh = Arc::new(Shared::new(dcl, b, vec![self.n0], 0, 7, deadline));
         let solver = Solver::new(
@@ -336,7 +336,7 @@ impl Game {
             self.auction_act(s, None);
             return;
         }
-        if self.auct_vals.len() < Decl::COUNT {
+        if self.auct_vals.len() < Decl::STRAIGHT_COUNT {
             if self.auct_worlds.is_empty() {
                 // O27: a per-seat auction stream — never the deal stream.
                 let mut rng = SplitMix64(
@@ -491,7 +491,7 @@ impl Game {
     /// Evaluate one declaration for the bid seat over the given worlds:
     /// best opening lead and its P(make bid).
     fn eval_decl(&mut self, decl_idx: usize, worlds: Vec<[u32; 4]>) -> (u8, BigRational) {
-        let dcl = Decl::ALL[decl_idx];
+        let dcl = Decl::STRAIGHT[decl_idx];
         let deadline = Deadline::after(std::time::Duration::from_secs(self.per_move_secs));
         let hand = self.hands[BIDDER];
         let seat = Seat::from_index(BIDDER).expect("bid seat");
@@ -527,7 +527,7 @@ impl Game {
     /// One trump-phase step: evaluate the next declaration, or (once all
     /// nine are in and the bidder is an AI) refine ties and announce.
     fn step_trump(&mut self) {
-        if self.trump_vals.len() < Decl::COUNT {
+        if self.trump_vals.len() < Decl::STRAIGHT_COUNT {
             let i = self.trump_vals.len();
             let worlds = self.trump_worlds.clone();
             let (t, v) = self.eval_decl(i, worlds);
@@ -592,7 +592,7 @@ impl Game {
     }
 
     fn announce(&mut self, decl_idx: usize, lead: Option<(u8, &BigRational)>) {
-        self.dcl = Some(Decl::ALL[decl_idx]);
+        self.dcl = Some(Decl::STRAIGHT[decl_idx]);
         self.decl_idx = Some(decl_idx);
         self.phase = Phase::Play;
         let who = if self.human == BIDDER {
@@ -919,7 +919,7 @@ impl Game {
     }
 
     fn human_pick(&mut self, decl_idx: usize) {
-        if self.phase != Phase::Trump || self.human != BIDDER || decl_idx >= Decl::COUNT {
+        if self.phase != Phase::Trump || self.human != BIDDER || decl_idx >= Decl::STRAIGHT_COUNT {
             return;
         }
         self.announce(decl_idx, None);
@@ -1282,12 +1282,12 @@ fn handle(game: &mut Game, stream: &mut TcpStream) {
 }
 
 fn main() {
-    // Pip trump ALL-ordering sanity: Decl::ALL[i] is PipTrump(pip i) for i<7.
-    for (i, d) in Decl::ALL.iter().enumerate().take(7) {
+    // Pip trump ALL-ordering sanity: Decl::STRAIGHT[i] is PipTrump(pip i) for i<7.
+    for (i, d) in Decl::STRAIGHT.iter().enumerate().take(7) {
         assert_eq!(
             *d,
             Decl::PipTrump(Pip::new(i as u8).expect("pip")),
-            "Decl::ALL pip order"
+            "Decl::STRAIGHT pip order"
         );
     }
     let raw: Vec<String> = std::env::args().collect();
