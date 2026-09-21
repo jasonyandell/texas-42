@@ -64,7 +64,7 @@ Receipts: [nello-player-2026-09-20](probes/nello-player-2026-09-20/).
   checkpoint. Malformed contract, hidden-hand, inactive-seat and post-set inputs
   are rejected. Cache tests reject reuse across contracts or inactive seats.
 - The original straight native/WASM check and the previous shipped versus
-  candidate comparison pass. Full Plunge suite: 222 tests. Focused Rust suites:
+  candidate comparison pass. Full Plunge suite after integrating saved-hint support: 229 tests. Focused Rust suites:
   21 tests. Python Nel-O, bridge, replay and table suites: 23 tests. Workspace
   compilation and the player without default features are also checked.
 - An unrelated existing `test_foundation` assertion still rejects a 15-second
@@ -90,7 +90,7 @@ All 726 Walt decisions in the mixed screen completed: 506 full comparisons and
 220 forced moves. The 362 defender decisions had 95th percentile 64.8 ms and
 maximum 506.9 ms native on this Mac. No partial comparison or legal fallback
 was selected. Hands and continuations are sampled, not a census or a calibrated
-strength result. A Pixel play/latency check remains a release follow-up.
+strength result. A local browser smoke check also passed ordinary bidding, three-player play, reload/resume, saved hints, immediate set, original scores and a 160-world recheck (0.39 s on this Mac). A Pixel play/latency check remains a release follow-up.
 
 ## Reproduce
 
