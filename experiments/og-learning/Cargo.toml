@@ -1,0 +1,22 @@
+[package]
+name = "og-learning"
+version = "0.1.0"
+edition = "2021"
+license = "UNLICENSED"
+publish = false
+
+# Exploratory instrument (outcome-grounded policy learning). Lives outside the
+# walt workspace on purpose: it consumes the walt crate read-only and never
+# modifies walt sources, so walt's own gate is not invalidated by work here.
+
+[dependencies]
+walt = { path = "../../walt/walt" }
+num-bigint = "0.4"
+num-rational = "0.4"
+num-integer = "0.1"
+num-traits = "0.2"
+
+[profile.release]
+debug = false
+
+[workspace]
