@@ -731,7 +731,7 @@ from a fixed point.
 *Owner.* [walt-seat-play](walt-seat-play.md),
 [walt-partnership-program](walt-partnership-program.md).
 
-### Mining vocabulary (Kiln §8) — threat Scheme · replicated · paired decision mining · whole-game contrast · witness prefix
+### Mining vocabulary (Kiln §8) — threat Scheme · replicated · paired decision mining · whole-game contrast · paired witness · preserved prefix
 
 *Plain.* The words the four studies over Kiln's played corpus use for what
 they found and how they kept it. (Added 2026-09-20, cycle 1.)
@@ -756,11 +756,16 @@ contrast** is a row (coordinate, alternative, world, D) with D =
 made(alternative) − made(original) ∈ {−1, 0, 1}; two sampled worlds at the
 same coordinate and action pair with different D form a witnessed contrast
 pair whose changed hidden holders are nominated, not blamed — "Contrasts are
-observations, not causal attributions." A **witness prefix** is the
+observations, not causal attributions." A **paired witness** is the
 preserved pair of complete trajectories (same world, same seed, alternative
-against original) and, for sample-history and refinement records, the exact
-ordered sample prefix whose next receipt moved an estimate — kept so that a
-reversal keeps its counterexamples.
+against original) published with every decision-mining miss ("published with
+paired witnesses", `decision-mining-v1/RESULTS.md`); a **preserved prefix**
+is, for the sample-history and refinement records, the exact ordered sample
+prefix whose next receipt moved an estimate, hash-bound to its receipts
+(`SAMPLE-HISTORY.md`; `40be1356` "with preserved prefixes") — kept so that a
+reversal keeps its counterexamples. (Corrected 2026-09-21: this entry first
+coined "witness prefix", a term no source or chapter uses; the sources' two
+words are restored.)
 
 *Guards.* Association from mechanism; a fresh gate from a theorem ("a
 research gate, not a theorem or a guarantee of player improvement"); a miss

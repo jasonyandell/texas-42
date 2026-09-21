@@ -644,7 +644,10 @@ The learner takes 64 distinct losing discovery worlds by a fixed hash order,
 describes each by its 21 hidden tile-ownership facts with chairs relative to
 the bidder (`after`, `mate`, `before`), retains every one-, two- and
 three-fact sub-conjunction ("bounded deletion generalization, not a library of
-tactical patterns"; physical tile identities retained in this first grammar),
+tactical patterns"; physical tile identities retained in this first grammar;
+the 2026-09-18 landing paragraph formerly on [walt-instruments](walt-instruments.md)
+added that this constructor "is separate from the Viewer-only relational actor
+constructor and never supplies hidden facts to a live player's policy guard"),
 requires ≥ 36 matching games spanning ≥ 6 discovery deals, ranks by positive
 squared within-cell failure excess divided by matching games (each cell
 supplying its own baseline failure rate), keeps eight candidates with
@@ -1182,7 +1185,12 @@ Verbatim, one line per source:
 While the scalar-price survey (§1) ran, its persistent native worker
 (`kiln-worker`, wrapping `walt_player::KilnPricer`) was used as the bench for
 a sequence of implementation changes to the shared sampled solver. Each was
-measured the same way: a **parity** run (`parity.py`: retained production
+measured the same way: a **parity** run (`parity.py`; every
+`*-parity-summary.json` carries schema `kiln-parity-v1`, every
+`*-timing-summary.json` `kiln-paired-timing-v1` or, for the carry-cache,
+packed-hash, rule-table and serial-grouping ladders, `kiln-carry-timing-v1` —
+added 2026-09-21 so the [vocabulary](vocabulary.md) entry's schema name has its
+home here: retained production
 receipts plus fresh 4/12/40/160-world cases repriced by the candidate binary,
 exact prices *and* work counters — nodes, policy calls, inner worlds — required
 to match; from `8ee0cb71` warm receipts are repriced by the baseline first, so

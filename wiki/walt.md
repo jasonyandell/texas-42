@@ -277,8 +277,10 @@ check" — neither a default: every ordinary-game panel tied (32 + 100 + 64
 mirrored pairs, 192 conditional), "no demonstrated strength gain"; the gym
 now names its continuation and the Mac table feeds flagged human-play moves
 into it ([walt-partnership-program §11](walt-partnership-program.md#11-sunshine-2026-09-13--09-15-the-partner-aware-live-player), [walt-gym §11](walt-gym.md#11-sunshine-2026-09-13-the-gym-under-deployed-continuations-and-the-live-move-intake), [walt-scheme-fix §10.4](walt-scheme-fix.md#104-sunshine-2026-09-13--09-15-the-count-offer-query-as-a-live-gate-and-recipes-with-a-selectable-continuation)). **Open, in the chapters' own
-words:** the partnership gap — "no tested partner model has beaten the phone
-or L1" and "The partnership gap is still open"; whether a bounded partner
+words:** the partnership gap — no tested partner model beat the phone or L1
+([walt-partnership-program §9](walt-partnership-program.md#9-what-is-settled-and-what-is-open);
+unquoted 2026-09-21: the chapter's sentence, not a source's) and "The
+partnership gap is still open" (`SUNSHINE-NOTES.md`); whether a bounded partner
 check should override L1 on sampled evidence at all; the human partner as a
 continuation condition; the Kiln calibration gap's cause; whether Plunge's
 forced last bid (2026-09-20) belongs to the straight-42 rules profile (a

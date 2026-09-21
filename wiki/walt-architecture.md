@@ -16,7 +16,7 @@
 
 | Crate | What it is | Depends on | Lints |
 |---|---|---|---|
-| `walt` | The whole seat: rules, kernel, and every solver stack, plus 54 binaries. Feature `parallel` (default) pulls in `rayon`; without it the crate compiles rayon out entirely (the wasm build). | `num-bigint`, `num-rational`, `num-traits`, optional `rayon` | `unsafe_code = "forbid"`, `float_arithmetic = "deny"` |
+| `walt` | The whole seat: rules, kernel, and every solver stack, plus 54 binaries (58 at `afd46420`, §3.9). Feature `parallel` (default) pulls in `rayon`; without it the crate compiles rayon out entirely (the wasm build). | `num-bigint`, `num-rational`, `num-traits`, optional `rayon` | `unsafe_code = "forbid"`, `float_arithmetic = "deny"` |
 | `walt-wasm` | The level-1 browser oracle plunge ships (`cdylib` + `rlib`; `pkg/walt.wasm`, `walt.ts`). | `walt` with `default-features = false` | `unsafe_code = "deny"` (a scoped allow for `#[no_mangle]` export attributes — no unsafe block anywhere), `float_arithmetic = "deny"` |
 | `walt2-wasm` | The level-2 sibling (2026-08-25): the same outer sampling and seed formula, every field seat a modeled level-1 mind. | `walt` (default-features off); dev-dependency on `walt-wasm` for the bid/declare byte-equality test | as `walt-wasm` |
 | `walt-gpu-ref` | The portable M1 reference projector and the M2 carrier/receipt codecs of the GPU-native trick-1 track. | `walt` (spec/rules/kernel); dev-deps reach across the tree into `rob/crates/{core,verify}` | `unsafe_code = "forbid"`, `float_arithmetic = "deny"` |
@@ -76,7 +76,7 @@ Line counts are `wc -l` over `walt/walt/src` on 2026-09-13 (total **82,324** lin
 
 ### 1.4 The solver's thirty-eight modules
 
-`solver/mod.rs` (1,943 lines) is the original sampling stack and still the live player's library: `Solver`, `Shared`, `Key`, `PiKey`, `Field::{Dice, Level(k), SeatLevels([usize; 4])}`, `Deadline` (a real monotonic deadline on native targets; on `wasm32` it never expires and the budget is carried by the sample counts — corrected 2026-09-20: since `cffd66fc` it is built on `crate::clock::Instant` and expires on `wasm32` too once the host installs a clock, §3.9), `INNER_SEED`, `level1_evaluate` (line 1340), `viewer_fiber_evaluate` (1419), `level1_race` / `level1_raced` / `level1_race_refined` (1666 / 1815 / 1886), `sample_open_belief` (1142). The thirty-eight modules beside it, by the stack they belong to (§2), with creation commit and the parent document each names in its header (tree facts, 2026-09-13). (Corrected 2026-09-20: **fifty-two** beside `mod.rs` at `afd46420` — the fifteen added between 2026-09-14 and 09-20 are the last group of the table; `mod.rs` grew from 1,943 to 2,883 lines at `701e8589` and the line numbers above moved: `sample_open_belief` 1696, `sample_belief` 1719, `level1_evaluate` 1894, `viewer_fiber_evaluate` 1973, `level1_race` / `level1_raced` / `level1_race_refined` 2220 / 2369 / 2440.)
+`solver/mod.rs` (1,943 lines) is the original sampling stack and still the live player's library: `Solver`, `Shared`, `Key`, `PiKey`, `Field::{Dice, Level(k), SeatLevels([usize; 4])}`, `Deadline` (a real monotonic deadline on native targets; on `wasm32` it never expires and the budget is carried by the sample counts — corrected 2026-09-20: since `cffd66fc` it is built on `crate::clock::Instant` and expires on `wasm32` too once the host installs a clock, §3.9), `INNER_SEED`, `level1_evaluate` (line 1340), `viewer_fiber_evaluate` (1419), `level1_race` / `level1_raced` / `level1_race_refined` (1666 / 1815 / 1886), `sample_open_belief` (1142). The thirty-eight modules beside it, by the stack they belong to (§2), with creation commit and the parent document each names in its header (tree facts, 2026-09-13). (Corrected 2026-09-20: **fifty-two** beside `mod.rs` at `afd46420` — the fourteen `.rs` files added between 2026-09-14 and 09-20 (plus `trick_table.bin`) are the last group of the table; `mod.rs` grew from 1,943 to 2,883 lines at `701e8589` and the line numbers above moved: `sample_open_belief` 1696, `sample_belief` 1719, `level1_evaluate` 1894, `viewer_fiber_evaluate` 1973, `level1_race` / `level1_raced` / `level1_race_refined` 2220 / 2369 / 2440.)
 
 | Module | Lines | Created | One line from its header |
 |---|---|---|---|
@@ -124,7 +124,7 @@ Line counts are `wc -l` over `walt/walt/src` on 2026-09-13 (total **82,324** lin
 | `horizon` | 635 | `62abe028` 09-03 | "The in-solve horizon census (slice U0b) — the §38/§40 God-gap census … run at EVERY belief node the exact recursion reaches at a declared depth below a root." |
 | `focal_horizon` | 758 | `1e213bdb` 09-04 | "The focal-horizon hierarchy, slice FH1 — the parent's §28 generic fixed-field engine (`focal_horizon_sandwich_v0.1.md`, cited by title only; the construction is the FOCAL-HORIZON HIERARCHY, FH-A2)." |
 | `focal_ladder` | 1,143 | `dc515ac0` 09-04 | "The focal-horizon ladder, slice FH2 — … an append-only store of NODE FACTS" walked in budgeted passes; the root is a derived view. |
-| **The deployed-player wire and the native CPU speedups v34 (2026-09-14 → 09-20; 15 files, all feature-gated except `partnership_wire`; added 2026-09-20 — see the correction above the table)** | | | |
+| **The deployed-player wire and the native CPU speedups v34 (2026-09-14 → 09-20; 14 `.rs` files plus `trick_table.bin`; `partnership_wire`, `cache`, `support` and `counters` are unconditional `mod`s in `mod.rs`, the other ten `cfg(feature)`-gated — corrected 2026-09-21 from "15 files, all feature-gated except `partnership_wire`"; added 2026-09-20 — see the correction above the table)** | | | |
 | `partnership_wire` | 221 | `cffd66fc` 09-14 | "Strict own/public wire adapter shared by the research worker and deployed player." (`pub`; consumed by `bin/partnership.rs`, `walt-player` and `walt-cpu-bench`.) |
 | `cache` | 190 | `662f298c` 09-18 | "Private search-table representation. Full equality still resolves hash collisions; these hashes never seed samples, choose actions, or identify persisted evidence." |
 | `support` | 139 | `1a43d763` 09-18 | "Allocation-free support identity for up to eight sampled world IDs. IDs identify samples, not distinct deals: duplicate deals keep separate bits." |
@@ -140,7 +140,7 @@ Line counts are `wc -l` over `walt/walt/src` on 2026-09-13 (total **82,324** lin
 | `root_memo` | 159 | `701e8589` | "Opt-in sharding of the general solver's exact count memo. Only large support bundles use shards. The key and value are identical to the single-map solver memo." (`cfg(feature = "sharded-root-memo")`) |
 | `uncached_l0` | 65 | `701e8589` | "Recompute cheap, pure L0 policies instead of looking up and retaining them. … no previously computed answer is substituted." (`cfg(feature = "bypass-l0-cache")`) |
 
-The feature umbrella that gates the last group: `cpu-speedups` in `walt/walt/Cargo.toml` ("Frozen v34 CPU implementation; --no-default-features retains the reference paths") names 26 features — `adaptive-parallel, aligned-cache, bounded-choice, bypass-l0-cache, bypass-l0-cache-all, closed-buckets, coalesced-deadlines, compact-depth, compact-dice, compact-policy, const-objective, fast-policy, fast-rng, fixed-policy-choice, hand-cache, lazy-record-hash, mask64-support-arena, parallel-roots, sharded-counters, sharded-root-memo, singleton-dice, stack-dice, trick-table, two-trick-single, two-trick-sum` — and is a default feature beside `parallel`; the receipts and the fence are on [walt-instruments §3.7](walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20). The 2026-09-13 import counts below were not re-derived for the new files.
+The feature umbrella that gates the last group: `cpu-speedups` in `walt/walt/Cargo.toml` ("Frozen v34 CPU implementation; --no-default-features retains the reference paths") names 25 features (corrected 2026-09-21 from "26"; the list is exhaustive) — `adaptive-parallel, aligned-cache, bounded-choice, bypass-l0-cache, bypass-l0-cache-all, closed-buckets, coalesced-deadlines, compact-depth, compact-dice, compact-policy, const-objective, fast-policy, fast-rng, fixed-policy-choice, hand-cache, lazy-record-hash, mask64-support-arena, parallel-roots, sharded-counters, sharded-root-memo, singleton-dice, stack-dice, trick-table, two-trick-single, two-trick-sum` — and is a default feature beside `parallel`; the receipts and the fence are on [walt-instruments §3.7](walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20). The 2026-09-13 import counts below were not re-derived for the new files.
 
 Two structural facts a reader of the table should hold: `adaptive` is imported by **33 of the other 37** solver modules (every one except `evidence`, `inner_belief`, `selection`, `partnership`; re-counted 2026-09-20 by grepping `adaptive::` per file — the 2026-09-07 survey's "36 of 38" names the same four non-importers and is an arithmetic slip); and `mod.rs` and its two 2026-09-06 companions are mutually dependent — `mod.rs` re-exports `inner_belief::InnerBelief` and stores a `selection::Rule` in `Shared`, while `selection.rs` uses `mod.rs`'s `best_of`, `BlockRace`, `Key` and `SplitMix64`. That is one module split across files, not a layering violation, but it is the only cycle in the crate and the table records it as such.
 
@@ -259,7 +259,7 @@ files outside `solver/` changed in the intake; each is stated with what the
 diff shows, and the one that touches the rules layer is flagged.
 
 **`rules/rules.rs` — a compile-time trick-key table (`91e8925e`,
-2026-09-18, "Precompute the finite trick-strength rule table"; +27/−4
+2026-09-18, "Precompute the finite trick-strength rule table"; +34/−4
 lines).** The diff adds one `const` and rewrites one method:
 
 ```rust
@@ -344,7 +344,7 @@ for existing partnership-gym cases") changed in place. The module count of
 at `afd46420`, from 54):** `partner_review` (47 lines) and
 `partner_review_ablation` (67; both `58e15cd1`), `partner_rollout` (90;
 `a4c2c20d`), `scheme_worlds` (116; `231eb1b0`, 2026-09-18). `bin/partnership.rs`
-shrank from 221 to 46 lines: its request parser moved into
+shrank from 261 to 46 lines (corrected 2026-09-21 from "221", which is `partnership_wire.rs`'s length): its request parser moved into
 `solver::partnership_wire` and it is now "Native transport for the shared
 partnership evaluator" (`cffd66fc`). `bin/partner_rollout.rs`'s header: "One
 bounded continuation check. Its caller retains the completed baseline and

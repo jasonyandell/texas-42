@@ -896,7 +896,7 @@ gate, selection, or fallbacks. The same complete sample produces the same
 values." The Rust wire adapter is `solver::partnership_wire` (`cffd66fc`;
 "Strict own/public wire adapter shared by the research worker and deployed
 player"), shared with the `partnership` research binary, which shrank from a
-221-line parser to a 46-line transport over it. `experiments/partnership/player.py`
+261-line parser (corrected 2026-09-21 from "221") to a 46-line transport over it. `experiments/partnership/player.py`
 "remains a reproducer for earlier experiments and selectable research
 profiles, including the archived phone comparand." Initial phone target,
 per the README: "Pixel 9 / Chrome installed web app; newer iPhones are a
@@ -955,7 +955,10 @@ stopping a declaration's pricing at value 1 — LOG: "A root-value query avoids
 computing unused opening scores, matching the full comparison on all nine
 declarations at bids 30/36/42 and three seats." Successive complete surveys
 at 4, 12, 40 and up to 160 worlds (`ROUNDS`, `auction.rs:40`) with eight inner
-worlds; "Only a whole nine-declaration sweep replaces the previous survey.
+worlds — the LOG entry for `83b712f0` records the first landing's "complete
+4/12/40-world sweeps and a 4.5-second bidder budget", and `657576e8` ("Deepen
+auction and bidder opening decisions", the same day) raised them to the 160
+worlds / 20 s that the README and `auction.rs` now state (added 2026-09-21); "Only a whole nine-declaration sweep replaces the previous survey.
 … A partial sweep contributes no prices; an entirely unpriced auction
 passes. Equal model prices use a public-seeded tie choice. This is a
 small-sample, optimistic model, not calibrated table odds." The policy: "The

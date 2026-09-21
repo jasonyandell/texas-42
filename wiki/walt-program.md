@@ -656,8 +656,11 @@ player on the Mac and phone" and built two optional, bounded second looks
 around L1 — a 250 ms partner review valued under the gym teacher's field and
 a 500 ms partner rollout valued under the deployed players' own continuations
 — then measured them the way the method above demands: on the intended
-situations (the review 24/30 → 29/30 on the teacher's exam, of which two of
-the six corrections hold and four reverse once deployed L1 plays on; the
+situations (the review 24/30 → 29/30 on the teacher's exam; of the six
+teacher-labelled misses, two offers still improve making the bid and four
+reverse once deployed L1 plays on — reworded 2026-09-21 from "two of the six
+corrections hold", the six being the exam's misses, not the review's
+corrections; the
 rollout 11 improved / 2 harmed development roots and 1 / 1 fresh, the fresh
 harm a deadline-truncated prefix that the full census would have reversed)
 and on ordinary games, where every panel tied — 32 + 100 + 64 mirrored pairs
@@ -686,7 +689,9 @@ in 4/5 of games), play unchanged. The calibration gap's cause is unmeasured
 `CALIBRATION-SIX36.md`). Then, on 2026-09-20, the CPU campaign's **v34**
 speedups became the native default (13.13× median on completed fixed solves,
 exact-equal on 12/12 paired games) and went to the phone the same day —
-portability evidence, "not evidence of improved game strength" — while the
+portability evidence, "Finite conformance, not a proof of equivalence or
+player strength" (`release.json`; corrected 2026-09-21 from `walt/MAP.md`'s
+2026-09-14 sentence, which is about the shared deployment) — while the
 full walt gate remained unrun on every landing since 2026-09-06
 ([walt-instruments §3.7](walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20)). *Stopped:* Kiln production and its monitor. *Frozen:* the
 scalar survey (never installed); RefineV1 (freeze 58) as before. *Deployed:*

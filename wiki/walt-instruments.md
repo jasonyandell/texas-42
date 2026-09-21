@@ -550,7 +550,7 @@ frozen archive SHA-256 `804261f2…` and 1,035 verified source-file hashes are
 in `checks.json`).
 
 **What is enabled** (`CPU-SPEEDUPS.md` "What is enabled"; the umbrella
-feature `cpu-speedups` in `walt/walt/Cargo.toml` names 26 features and is
+feature `cpu-speedups` in `walt/walt/Cargo.toml` names 25 features (corrected 2026-09-21 from "26") and is
 default in `walt`, `walt-player` and `walt-cpu-bench`; `--no-default-features`
 "retains the reference paths"):
 
@@ -583,7 +583,7 @@ completed-trick table" — `walt/walt/src/solver/compact_dice/trick_table.bin`,
 9 · 28⁴ bytes, "Completed-trick outcomes in actor order, with no runtime
 initialization"; regenerate or check it against the rule algebra with
 `cargo run --offline --release --manifest-path walt/Cargo.toml -p walt --example generate_trick_table -- --check`.
-The module-by-module map of the 14 solver files this added is
+The module-by-module map of the 14 solver `.rs` files added to `solver/` between 2026-09-14 and 09-20 (eleven of them, with `trick_table.bin`, by `701e8589`) is
 [walt-architecture §1.4](walt-architecture.md#14-the-solvers-thirty-eight-modules);
 the `rules.rs` change of the same round (a compile-time `TRICK_KEYS` table,
 gated by `rules_exhaustive`) is [walt-architecture §3.9](walt-architecture.md#39-the-2026-09-14--09-20-changes-to-rules-clock-gym-and-policy_search).
