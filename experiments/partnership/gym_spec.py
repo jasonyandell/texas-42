@@ -4,14 +4,11 @@ This module owns specification validation, input identity, and orchestration.
 The existing gym owns coordinate extraction, exact evaluation, auditing, and
 publication. Selection arguments never enter an evaluation or pupil request.
 """
-import argparse
 import copy
 from fractions import Fraction
 from itertools import islice
 import json
 from pathlib import Path
-import time
-from types import SimpleNamespace
 
 import gym
 
@@ -47,13 +44,14 @@ def arguments(value):
     if not isinstance(paths, list) or not paths or any(not isinstance(p, str) or not p for p in paths):
         raise ValueError("source.paths: expected nonempty path list")
     d = a["domain"]
-    fields(d, "tricks limit seed", "domain")
-    if not isinstance(d["tricks"], list) or len(d["tricks"]) != 2:
-        raise ValueError("domain.tricks: expected [first, last]")
-    for t in d["tricks"]:
-        integer(t, 5, 6, "domain.tricks")
-    if d["tricks"][0] > d["tricks"][1]:
-        raise ValueError("domain.tricks: reversed bounds")
+    stage = 'own_remaining' if 'own_remaining' in d else 'tricks'
+    fields(d, stage + " limit seed", "domain")
+    if not isinstance(d[stage], list) or len(d[stage]) != 2:
+        raise ValueError("domain stage: expected [first, last]")
+    for t in d[stage]:
+        integer(t, 2 if stage == 'own_remaining' else 5, 3 if stage == 'own_remaining' else 6, "domain." + stage)
+    if d[stage][0] > d[stage][1]:
+        raise ValueError("domain stage: reversed bounds")
     integer(d["limit"], 1, 10**9, "domain.limit")
     integer(d["seed"], 0, 2**64 - 1, "domain.seed")
     q = a["query"]
@@ -62,14 +60,19 @@ def arguments(value):
         raise ValueError("query: name and source must be nonempty strings")
     q["min_presence"] = probability(q["min_presence"], "query.min_presence", positive=True)
     e = a["evaluation"]
-    fields(e, "contract max_worlds partner_worlds", "evaluation")
-    if e["contract"] != "partnership-gym-v1":
+    if e.get('contract') == 'deployed-gym-v1':
+        from gym_deployed import validate_evaluation
+        validate_evaluation(e)
+    elif e.get('contract') == 'partnership-gym-v1':
+        fields(e, "contract max_worlds partner_worlds", "evaluation")
+        integer(e["partner_worlds"], 1, 640, "evaluation.partner_worlds")
+    else:
         raise ValueError("unsupported evaluation contract")
     integer(e["max_worlds"], 1, 10000, "evaluation.max_worlds")
-    integer(e["partner_worlds"], 1, 640, "evaluation.partner_worlds")
     s = a["selection"]
-    fields(s, "criterion side min_spread min_mistake max_optimal certain", "selection")
-    if s["criterion"] not in ("query", "query-required", "outcome") or s["side"] not in ("both", "declaring", "defending"):
+    fields(s, "criterion side min_spread min_mistake max_optimal certain" +
+           (" min_contrast" if "min_contrast" in s else ""), "selection")
+    if s["criterion"] not in ("query", "query-required", "query-avoided", "outcome") or s["side"] not in ("both", "declaring", "defending"):
         raise ValueError("unsupported selection criterion or side")
     for key in ("min_spread", "min_mistake"):
         s[key] = probability(s[key], "selection." + key)
@@ -77,6 +80,10 @@ def arguments(value):
         integer(s["max_optimal"], 1, 7, "selection.max_optimal")
     if type(s["certain"]) is not bool:
         raise ValueError("selection.certain: expected boolean")
+    if 'min_contrast' in s:
+        s['min_contrast'] = probability(s['min_contrast'], 'selection.min_contrast')
+    if s['certain'] and e.get('sample_worlds') is not None:
+        raise ValueError('certain selection requires full-support evaluation')
     return a
 
 
@@ -145,15 +152,26 @@ def inputs(a):
 
 
 def coordinates(a, paths):
-    first, last = a["domain"]["tricks"]
+    first, last = trick_range(a['domain'])
     for item in islice(gym.positions(paths, first, last), a["domain"]["limit"]):
         item["request"]["seed"] = a["domain"]["seed"]
         item["id"] = gym.digest(item["request"])[:20]
         yield item
 
 
+def trick_range(domain):
+    if 'own_remaining' in domain:
+        low, high = domain['own_remaining']
+        return 8 - high, 8 - low
+    return domain['tricks']
+
+
 def accepts(case, selection):
     p = gym.outcome_profile(case["key"])
+    if Fraction(selection.get('min_contrast', '0')):
+        contrast = gym.query_contrast(case['key'], case['target_actions'])
+        if contrast is None or abs(Fraction(contrast['gap'])) < Fraction(selection['min_contrast']):
+            return False
     return (p["strict"]
             and Fraction(p["spread"]) >= Fraction(selection["min_spread"])
             and Fraction(p["nearest_mistake"]) >= Fraction(selection["min_mistake"])
@@ -175,66 +193,13 @@ def add_parser(sub):
     p.add_argument("--workers", type=int, default=10)
     p.add_argument("--seconds", type=float, default=240)
     p.add_argument("--case-seconds", type=float, default=45)
+    diff = sub.add_parser('compare', help='Compare generated collections, values and Scheme membership')
+    diff.add_argument('before', type=Path)
+    diff.add_argument('after', type=Path)
+    diff.add_argument('--output', type=Path, required=True)
 
 
 def generate(args):
-    if not (1 <= args.workers <= 10 and 20 <= args.seconds <= 270 and 14 <= args.case_seconds < args.seconds):
-        raise ValueError("workers 1..10, seconds 20..270, case-seconds >=14 and <seconds; use the watchdog")
-    started = time.monotonic()
-    spec, a, expected = load(args.spec, args.overrides)
-    paths, source_hash = inputs(a)
-    if expected is not None and source_hash != expected["source_sha256"]:
-        raise ValueError("reference source changed; create a new specification/reference for the expanded corpus")
-    items = list(coordinates(a, paths))
-    identity = dict(schema="gym-generation-v1", source_sha256=source_hash,
-                    engine=gym.file_hash(gym.ENGINE), gym=gym.file_hash(gym.__file__),
-                    generator=gym.file_hash(__file__), rules=gym.file_hash(gym.HERE / "rules.py"),
-                    domain=a["domain"], query=a["query"], evaluation=a["evaluation"],
-                    coordinates_sha256=gym.digest(items))
-    evaluation_id = gym.digest(identity)
-    view_id = gym.digest(dict(evaluation=evaluation_id, selection=a["selection"]))
-    cache = args.output / "evaluations" / evaluation_id
-    view = args.output / "collections" / view_id
-    receipt_path = args.output / "latest.json"
-    resolved = dict(schema="gym-resolved-spec-v1", name=spec["name"], arguments=a,
-                    specification_sha256=gym.digest(spec), reference=expected,
-                    source_sha256=source_hash, evaluation_id=evaluation_id, collection_id=view_id)
-    # One coordinator owns the cache and its views. The inner gym locks protect
-    # direct low-level access too; separate output roots can run independently.
-    with gym.run_lock(args.output):
-        receipt = dict(schema="gym-generation-receipt-v1", complete=False,
-                       resolved=resolved, evaluation=str(cache.resolve()), gallery=None)
-        gym.atomic(receipt_path, receipt)
-        print(gym.canonical(dict(specification=spec["name"], reference_applicable=expected is not None,
-                                planned=len(items), evaluation_id=evaluation_id, collection_id=view_id)), flush=True)
-        first, last = a["domain"]["tricks"]
-        d = SimpleNamespace(source=paths, min_trick=first, max_trick=last, limit=a["domain"]["limit"],
-                output=cache, max_worlds=a["evaluation"]["max_worlds"],
-                partner_worlds=a["evaluation"]["partner_worlds"], min_presence=a["query"]["min_presence"],
-                case_seconds=args.case_seconds, seconds=args.seconds, workers=args.workers)
-        gym.discover(d, coordinates=items, query_source=a["query"]["source"],
-                     query_name=a["query"]["name"], identity=identity)
-        saved = {p.stem for p in (cache / "items").glob("*.json")}
-        pending = [i["id"] for i in items if i["id"] not in saved]
-        receipt.update(saved=len(saved), pending=len(pending))
-        if pending:
-            gym.atomic(receipt_path, receipt)
-            print(gym.canonical(dict(complete=False, pending=len(pending), resume="Repeat the same command")), flush=True)
-            return
-        if inputs(a)[1] != source_hash:
-            raise ValueError("source changed during evaluation; rerun against a stable corpus")
-        # Do not present a stale collection as a successful current generation.
-        gym.select(SimpleNamespace(source=cache, output=view, criterion=a["selection"]["criterion"],
-                                   side=a["selection"]["side"], all=True, each=1),
-                   predicate=lambda c: accepts(c, a["selection"]), allow_empty=True)
-        result = result_identity([c for _, c in gym.gallery(view)])
-        if expected is not None and any(result[k] != expected[k] for k in result):
-            receipt.update(result=result, error="reference result mismatch")
-            gym.atomic(receipt_path, receipt)
-            raise ValueError("generated collection differs from the frozen reference; see latest.json")
-        gym.atomic(view / "specification.json", resolved)
-        receipt.update(complete=True, gallery=str(view.resolve()), result=result,
-                       reference_verified=expected is not None,
-                       elapsed_seconds=round(time.monotonic() - started, 6))
-        gym.atomic(receipt_path, receipt)
-        print(gym.canonical(receipt), flush=True)
+    from gym_generation import generate as unified_generate
+    return unified_generate(args)
+

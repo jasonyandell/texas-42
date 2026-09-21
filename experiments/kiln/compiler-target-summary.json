@@ -1,0 +1,18 @@
+{
+  "schema": "kiln-compiler-target-inspection-v1",
+  "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+  "cpu": "Apple M5 Max",
+  "native_detection": [
+    "native          - Select the CPU of the current host (currently apple-m4)."
+  ],
+  "default_has_lse": true,
+  "default_has_neon": true,
+  "native_added": [
+    "target_feature=\"bf16\"",
+    "target_feature=\"bti\"",
+    "target_feature=\"i8mm\""
+  ],
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/compiler-target.json",
+  "evidence_sha256": "235ed901f9dfd02beb9073ce2686649b4d6ebb1b98ea25b397e5af5b2acfcc55",
+  "decision": "No new compiler build: default already provides modern integer atomics and NEON; no obvious missing instruction feature for this scalar workload. This is inspection, not a measured performance comparison."
+}

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/Users/jason/code/texas-42-cpu-speedups/walt/target/release/walt-cpu-bench",
+    "--fixture",
+    "shuffle",
+    "--deal-seed",
+    "420608",
+    "--repeats",
+    "1",
+    "--output",
+    "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420608-optimized.json"
+  ],
+  "rayon_num_threads": 18,
+  "process_wall_s": 0.13783995799999715,
+  "user_cpu_s": 0.9016369999999938,
+  "system_cpu_s": 0.10646000000000022
+}

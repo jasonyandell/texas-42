@@ -79,6 +79,33 @@ pub struct TrickKey {
     pub rank: Rank,
 }
 
+// The finite rule algebra is still defined by `tier` and `rank` below. Compute
+// its 9 * 8 * 28 answers at compile time so recursive play only performs a
+// lookup. This table contains rules, never hands, beliefs or policy answers.
+const TRICK_KEYS: [[[TrickKey; Domino::COUNT]; Context::COUNT]; Decl::COUNT] = {
+    let empty = TrickKey { tier: Tier::Slough, rank: Rank(0) };
+    let mut table = [[[empty; Domino::COUNT]; Context::COUNT]; Decl::COUNT];
+    let mut di = 0;
+    while di < Decl::COUNT {
+        let decl = Decl::ALL[di];
+        let mut qi = 0;
+        while qi < Context::COUNT {
+            let mut ti = 0;
+            while ti < Domino::COUNT {
+                let tile = Domino::ALL[ti];
+                table[di][qi][ti] = TrickKey {
+                    tier: decl.tier(tile, Context::ALL[qi]),
+                    rank: decl.rank(tile),
+                };
+                ti += 1;
+            }
+            qi += 1;
+        }
+        di += 1;
+    }
+    table
+};
+
 impl Decl {
     /// The called set `kappa_delta`. In Straight 42 every nonempty called set
     /// is powered, so `pi_delta = kappa_delta`.
@@ -143,11 +170,14 @@ impl Decl {
         }
     }
 
+    #[inline]
     pub const fn trick_key(self, d: Domino, led: Context) -> TrickKey {
-        TrickKey {
-            tier: self.tier(d, led),
-            rank: self.rank(d),
-        }
+        let di = match self {
+            Decl::PipTrump(p) => p.value() as usize,
+            Decl::DoublesTrump => 7,
+            Decl::NoTrump => 8,
+        };
+        TRICK_KEYS[di][led.index()][d.index()]
     }
 
     /// `BEATS_delta(q, d)`.

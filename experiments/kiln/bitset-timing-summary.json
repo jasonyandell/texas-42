@@ -1,0 +1,13 @@
+{
+  "baseline": "2119905effc9054d59792050a508660404b83d45210a04a434cd3662ce7e755a",
+  "candidate": "f138bd42fd581f09ecc84809215261a7ff9364a0f3b2a7b499187c8bd723c961",
+  "completed": 16,
+  "geometric_speedup": 1.0836745870602882,
+  "median_speedup": 1.0832095986161145,
+  "requested": 16,
+  "schema": "kiln-paired-timing-v1",
+  "workers": 4,
+  "worlds": 160,
+  "evidence_sha256": "b1d62a61fa393c48569854e5688949c7842aed283a3e7606cd24b13bcba29e63",
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/bitset-timing.json"
+}

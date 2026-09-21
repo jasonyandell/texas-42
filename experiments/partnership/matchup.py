@@ -16,12 +16,18 @@ class Player:
     n0: int = 8
     n1: int = 2
     budget_ms: int = 14000
+    review: str = "off"
 
     def __post_init__(self):
         if not isinstance(self.name, str) or not self.name.strip():
             raise ValueError("player needs a name")
         if self.mode not in ("phone", "baseline", "partner", "all-l1"):
             raise ValueError("unknown modeled-seat profile")
+        if self.review not in ("off", "partner-count", "partner-rollout") or (self.review != "off" and self.mode != "baseline"):
+            raise ValueError("partnership review requires the baseline profile")
+        if self.review == 'partner-rollout':
+            from partner_rollout import validate_configuration
+            validate_configuration(self.n,self.n0,self.inner_belief,self.selection)
         if self.inner_belief not in ("voidless", "voids-counted"):
             raise ValueError("unknown inner belief")
         if self.selection not in RULES or self.modeled_selection not in RULES:
@@ -30,7 +36,7 @@ class Player:
             ("n", 1, 640),
             ("n0", 1, 64),
             ("n1", 1, 64),
-            ("budget_ms", 100, 14000),
+            ("budget_ms", 100, 20000),
         ]:
             value = getattr(self, name)
             if type(value) is not int or not low <= value <= high:

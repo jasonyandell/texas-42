@@ -1,0 +1,9 @@
+{
+  "baseline": "c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1",
+  "candidate": "20722f673026bc853a12cadffa35cd3084a95b91c5652df1b2050e07ac5dff3c",
+  "cases": 64,
+  "passed": true,
+  "schema": "kiln-parity-v1",
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/lto-parity.json",
+  "evidence_sha256": "fc1e226f5569777a7da2543daf450bddf0dc2a53de1117ee8292725878b99187"
+}

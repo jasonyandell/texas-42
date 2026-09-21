@@ -88,6 +88,86 @@ The unified crate holds **54 binaries plus `webtable.html`** (counted at
 stale, so this page now counts by directory listing. The 54 are catalogued
 exactly once each: six play surfaces in §1 and forty-eight instruments in §3.
 
+> **Landings on main after `c00717d1` (2026-09-13 → 09-20), not yet curated into this chapter.** The paragraphs below were appended at their landing by the session that produced them; the curator folds them into the chapter in the next cycle.
+
+**Native CPU integration — EXPLORATORY:** the
+[validated v34 CPU implementation](../walt/CPU-SPEEDUPS.md) is enabled in the
+current native player and experiment workers. The complete-game benchmark,
+independent replay auditor, source/binary manifests, and portable exact-output
+comparison are maintained under `walt/`. The generic fallback remains available;
+completed-solve parity is distinct from wall-limited wrapper stage completion.
+
+
+**Whole-game contrast mining, 2026-09-18:** the
+[sampled extension](../experiments/kiln/whole-game-contrasts-v1/RESULTS.md)
+covers own-hand sizes seven through two using the existing exact capacity-DP
+sampler and actual ordinary-player continuations after every legal action.
+It keeps original played moves, complete hidden-world/action contrasts,
+progressive sample history and executable witness-derived Schemes. All 9,200
+branches and 46,452 native memberships passed independent checks. Three frozen
+descriptions failed the fresh transfer gate; no learned policy or sampling
+gain is claimed. This is the broader discovery domain; the earlier endgame
+census remains a useful bounded correctness instrument.
+
+**Paired decision mining, 2026-09-18:** the
+[two-tile continuation rig](../experiments/kiln/decision-mining-v1/RESULTS.md)
+uses the actual shared deployed player after each forced legal root action,
+enumerates compatible worlds, audits actor-only calls and Scheme memberships,
+and fits simple Viewer-only action descriptions before a fresh exam. It found
+13 distinct positions with model-relative misses, but selected no move override.
+The resumable queue, all controls, original responses and paired helpful/harmful
+witnesses remain available. This is a bounded analysis instrument, not a player
+strength gain or a new sampling policy.
+
+**Outcome-first Scheme discovery, 2026-09-18:** the bounded
+[`threat_probe.py`](../experiments/kiln/threat_probe.py) derives ownership
+conjunctions from actual losing worlds, deletes facts, emits executable Schemes,
+and audits associations on separate worlds and source deals. The
+[first probe](../experiments/kiln/threat-probe-v1/RESULTS.md) preserves mixed
+transfer evidence, post-hoc ablations, original receipts, and native membership
+checks. No claim of learned causal threats, revised beliefs, or stronger play;
+physical tile literals remain in this first grammar. It is separate from the
+Viewer-only relational actor constructor and never supplies hidden facts to a
+live player's policy guard.
+
+**Fresh relational mining, 2026-09-18:** the
+[v2 probe](../experiments/kiln/mining-v2/RESULTS.md) generates role/property
+Schemes from those losing examples and freezes hypotheses before 2,880 new
+played games. Both registered primary associations replicated; a learned
+top-trump control reduced measured fixed-player estimator variance by 2.34%.
+The bounded fit/evaluate/publication tools preserve a query evidence catalog,
+original witnesses, counterexamples and inconclusive results. These are opening
+outcome/measurement instruments, not live policy guards, causal threat proofs,
+or established player-strength gains.
+
+**Shared deployed player, 2026-09-14:** [`walt-player`](../walt/walt-player/README.md)
+owns the complete L1/fallback/partner-check procedure for native Plunge and the
+phone WebAssembly worker. Real browser deadlines, completed checkpoints,
+device-local move scores and portable gym observation links. Exact native/wasm
+option-vector and paired-prefix conformance checks; no new strength claim.
+
+**Mac play-to-gym loop, 2026-09-13:** the
+[local Plunge table](../experiments/partnership/PLUNGE.md) calls the measured
+native L1 or L1 + partner rollout for bid-30 practice. It saves original
+own/public decision receipts and imports flagged finished-hand moves into
+the deployed gym, with named continuation players and capped, resumable full
+comparisons. [The study and first live examples](../experiments/partnership/campaigns/sunshine-playable-v1/RESULTS.md)
+keep the existing override rule and demonstrate the workflow. The exact
+comparison claim remains relative to uniform mechanical support and frozen
+continuations; this is not a new general strength result.
+
+**Bounded partnership continuation check, 2026-09-13:** the optional
+[`l1-partner-rollout`](../experiments/partnership/PARTNER-ROLLOUT.md) composes a
+completed default L1 move, a public count-offer Scheme gate, and paired full
+continuations using the shared native L1 evaluator. It can reconsider offering
+or withholding count, uses at most 64 compatible worlds and 500 ms extra, and
+retains the baseline on inadequate evidence or failure. The
+[experiment](../experiments/partnership/campaigns/sunshine-rollout-v1/RESULTS.md)
+found 11 improved / two harmed development roots, one improved / one harmed
+fresh root, and 64 ordinary mirrored ties. The complete fresh counterexample
+exposes a misleading deadline-truncated sample. This adds a usable player
+option and an adapter audit, not a general partnership-strength claim.
+
 ## 1. The seats you can play
 
 **The standing fence (CE-A7 / `CONTROLLER-PLAYER.md` §20.16):** level-1 walt

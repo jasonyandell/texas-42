@@ -1,0 +1,67 @@
+{
+  "schema": "kiln-throughput-v1",
+  "host": "Apple M5 Max; 18 CPU cores; 48 GiB RAM",
+  "qualification": "Different production cells per run; some runs overlapped build or correctness checks. Not controlled same-job speedups; all work retained.",
+  "runs": [
+    {
+      "id": 1,
+      "workers": 8,
+      "threads": 1,
+      "completed": 2079,
+      "errors": 0,
+      "seconds": 60.09475922584534,
+      "producer": "14939b7ab95452efb82be60e2678081fe5bf32bdee0f7fe88c665ed620b4d08f",
+      "prices_per_second": 34.59536283666265
+    },
+    {
+      "id": 2,
+      "workers": 16,
+      "threads": 1,
+      "completed": 3608,
+      "errors": 0,
+      "seconds": 60.12430739402771,
+      "producer": "14939b7ab95452efb82be60e2678081fe5bf32bdee0f7fe88c665ed620b4d08f",
+      "prices_per_second": 60.009007278117785
+    },
+    {
+      "id": 3,
+      "workers": 12,
+      "threads": 1,
+      "completed": 2550,
+      "errors": 0,
+      "seconds": 60.09252977371216,
+      "producer": "14939b7ab95452efb82be60e2678081fe5bf32bdee0f7fe88c665ed620b4d08f",
+      "prices_per_second": 42.434558997639556
+    },
+    {
+      "id": 4,
+      "workers": 16,
+      "threads": 1,
+      "completed": 4239,
+      "errors": 0,
+      "seconds": 60.02289581298828,
+      "producer": "f00a7e54e39ff145a49139cbb8f00994f6ae3ebf4801e0b57adab76a5eecf1ca",
+      "prices_per_second": 70.62305046406522
+    },
+    {
+      "id": 5,
+      "workers": 24,
+      "threads": 1,
+      "completed": 4084,
+      "errors": 0,
+      "seconds": 60.04254221916199,
+      "producer": "f00a7e54e39ff145a49139cbb8f00994f6ae3ebf4801e0b57adab76a5eecf1ca",
+      "prices_per_second": 68.01843907762839
+    },
+    {
+      "id": 6,
+      "workers": 18,
+      "threads": 1,
+      "completed": 4315,
+      "errors": 0,
+      "seconds": 60.13795304298401,
+      "producer": "2b0adffe75e60312e5d8af8e1ac6091900b16850d6981a549a4392265da29094",
+      "prices_per_second": 71.75169392473043
+    }
+  ]
+}

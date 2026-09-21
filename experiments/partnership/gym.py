@@ -266,15 +266,16 @@ def outcome_profile(key):
     best, worst = max(masses.values()), min(masses.values())
     optimal = sorted(t for t, m in masses.items() if m == best)
     gaps = [best - m for m in masses.values() if m < best]
+    census = key.get('coverage', 'census') == 'census'
     return dict(schema="gym-outcome-v1", legal_count=len(masses), optimal=optimal,
                 optimal_count=len(optimal), strict=best > worst,
                 unique_best=len(optimal) == 1 and bool(gaps),
                 best_success=str(Fraction(best, total)), worst_success=str(Fraction(worst, total)),
                 spread=str(Fraction(best - worst, total)),
                 nearest_mistake=str(Fraction(min(gaps), total)) if gaps else None,
-                guaranteed_success=sorted(t for t, m in masses.items() if m == total),
-                guaranteed_failure=sorted(t for t, m in masses.items() if m == 0),
-                certain_success_failure_swing=best == total and worst == 0,
+                guaranteed_success=sorted(t for t, m in masses.items() if m == total) if census else [],
+                guaranteed_failure=sorted(t for t, m in masses.items() if m == 0) if census else [],
+                certain_success_failure_swing=census and best == total and worst == 0,
                 actions=[dict(tile=t, success=str(Fraction(m, total)),
                               regret=str(Fraction(best - m, total))) for t, m in sorted(masses.items())])
 
@@ -303,6 +304,9 @@ def case_pairs(case):
     if criterion == "query-required":
         contrast = query_contrast(case["key"], case["target_actions"])
         return classify(case["key"], case["target_actions"]) if contrast and contrast["target_required"] else []
+    if criterion == "query-avoided":
+        contrast = query_contrast(case["key"], case["target_actions"])
+        return classify(case["key"], case["target_actions"]) if contrast and Fraction(contrast["gap"]) < 0 else []
     if criterion == "query":
         return classify(case["key"], case.get("target_actions"))
     if criterion != "outcome":
@@ -336,6 +340,9 @@ def verify(case):
     Optimality is supplied by the exact Rust best-response recurrence. This
     audit verifies attained values and lawful witnesses, not a second optimizer.
     """
+    if case['key']['schema'] == 'deployed-gym-v1':
+        from gym_deployed import verify
+        return verify(case)
     req, key = pupil_request(case["request"]), case["key"]
     assert case["semantics"] == SEMANTICS
     state = information_state(req)
@@ -481,6 +488,7 @@ def bounded(items, job, directory, workers, seconds, case_seconds):
     finally:
         for sig, handler in old.items():
             signal.signal(sig, handler)
+    return dict(stopped=stopped.is_set(), completed=completed, failed=failed)
 
 
 def mine(args):
@@ -595,6 +603,8 @@ def select(args, *, predicate=None, allow_empty=False):
                   else ["advantage", "disadvantage"])
     if criterion == "query-required":
         categories = ["advantage"]
+    if criterion == "query-avoided":
+        categories = ["disadvantage"]
     if criterion == "outcome" and side != "both":
         categories = ["bid-making" if side == "declaring" else "bid-setting"]
     chosen, used = [], set()
@@ -614,10 +624,12 @@ def select(args, *, predicate=None, allow_empty=False):
             specimen = {**selection_case, "categories": all_pairs, "pair": pairs[0], "provenance": {
                 "engine_sha256": manifest["engine"], "runner_sha256": manifest["runner"],
                 "rules_sha256": manifest["rules"], "mining_manifest_sha256": digest(manifest)}}
-            if criterion in ("outcome", "query-required"):
+            if 'value_identity' in manifest:
+                specimen['provenance']['value_identity'] = manifest['value_identity']
+            if criterion in ("outcome", "query-required", "query-avoided"):
                 specimen["outcome"] = outcome_profile(case["key"])
                 specimen["paired_outcomes"] = paired_outcomes(case["key"], pairs[0])
-            if criterion == "query-required":
+            if criterion in ("query-required", "query-avoided"):
                 specimen["query_contrast"] = query_contrast(case["key"], case["target_actions"])
             verify(specimen)
             chosen.append(specimen)
@@ -638,14 +650,18 @@ def select(args, *, predicate=None, allow_empty=False):
                      if args.all else "First stable-id cases per category; diagnostic outcome-selected gallery, not a strength sample.")
         atomic(args.output / "catalog.json", dict(schema="gym-catalog-v1", scenarios=catalog,
                selection=selection, criterion=criterion, side=side))
-        if criterion in ("outcome", "query-required"):
+        if criterion in ("outcome", "query-required", "query-avoided", "query"):
             # Preserve denominators, including ties and cap skips, beside the
             # portable fixtures. Full unselected replays stay in the raw run.
             summaries = []
             for case in cases:
                 row = dict(id=case["id"], side=side_of(case))
                 if "key" in case:
-                    row.update(worlds=case["key"]["worlds"], outcome=outcome_profile(case["key"]))
+                    key = case['key']
+                    row.update(worlds=key["worlds"], outcome=outcome_profile(key),
+                               coverage=key.get('coverage', 'census'), support_worlds=key.get('support_worlds', key['worlds']),
+                               target_actions=case.get('target_actions', key['offers']),
+                               query_contrast=query_contrast(key, case.get('target_actions', key['offers'])))
                 else:
                     row.update(skipped=case.get("skipped"), worlds=case.get("worlds"))
                 summaries.append(row)
@@ -695,6 +711,12 @@ def run(args):
                     rayon_threads_per_process=1,
                     catalog_identity="questions-and-keys-v1", catalog=exam_identity(cases),
                     players={name: configs[name] for name in players})
+    if any(p.review != "off" for p in players.values()):
+        manifest.update(review=file_hash(HERE / "partner_review.py"),
+                        review_native=file_hash(BINARY.parent / "partner_review"))
+    if any(p.review == 'partner-rollout' for p in players.values()):
+        manifest.update(rollout_review=file_hash(HERE/'partner_rollout.py'),
+                        rollout_review_native=file_hash(BINARY.parent/'partner_rollout'))
 
     def job(item):
         case = cases[item["scenario"]]
@@ -712,14 +734,17 @@ def tile(t):
 
 def report(args):
     cases = list(gallery(args.gallery))
-    print("| Exercise | Role | Trick | Worlds | Query targets | Preferred | Comparison | Exact success | Gap |")
-    print("|---|---|---:|---:|---|---|---|---|---|")
+    print('Values are conditional on each key\'s frozen continuation and stated support coverage.')
+    print("| Exercise | Role | Own tiles | Coverage | Query targets | Preferred | Comparison | Success count | Gap |")
+    print("|---|---|---:|---|---|---|---|---|---|")
     for name, case in cases:
         key, pair, req = case["key"], case["pair"], case["request"]
         masses = {a["tile"]: a["success_mass"] for a in key["actions"]}
         role = "make 30" if req["seat"] % 2 == req["bidder"] % 2 else "set 30"
         preferred, comparison = pair["preferred"], pair["comparison"]
-        print(f"| {name} | {role} | {key['trick']} | {key['worlds']} | {', '.join(tile(t) for t in case.get('target_actions', key['offers']))} | {tile(preferred)} | {tile(comparison)} | {masses[preferred]}/{key['worlds']} vs {masses[comparison]}/{key['worlds']} | {Fraction(pair['gap_mass'], key['worlds'])} |")
+        coverage = ('census' if key.get('coverage', 'census') == 'census' else 'sample')
+        support = key.get('support_worlds', key['worlds'])
+        print(f"| {name} | {role} | {len(key['remaining'])} | {coverage} {key['worlds']}/{support} | {', '.join(tile(t) for t in case.get('target_actions', key['offers']))} | {tile(preferred)} | {tile(comparison)} | {masses[preferred]}/{key['worlds']} vs {masses[comparison]}/{key['worlds']} | {Fraction(pair['gap_mass'], key['worlds'])} |")
     if args.results:
         manifest = json.loads((args.results / "manifest.json").read_text())
         identity_kind = manifest.get("catalog_identity", "full-artifact-v1")
@@ -749,6 +774,11 @@ def show(args):
     req, key, pair = case["request"], case["key"], case["pair"]
     print(name, "\nSeat", req["seat"], "partner", req["seat"] ^ 2, "bidder", req["bidder"], "declaration", req["decl"])
     print("Own remaining:", " ".join(tile(t) for t in key["remaining"]), "banked:", key["banked"])
+    print('Continuation:', case['semantics']['continuation'])
+    if 'players' in key:
+        print('Players:', ', '.join(f'{role}={config["name"]}' for role, config in key['players'].items()))
+    print('Coverage:', key.get('coverage', 'census'), key['worlds'],
+          'of', key.get('support_worlds', key['worlds']), 'mechanically compatible worlds')
     print("Public history:", " ".join(f"{s}:{tile(t)}" for s, t in zip(req["plays"][::2], req["plays"][1::2])))
     for action in key["actions"]:
         print(f"  {tile(action['tile'])}: {action['success_mass']}/{key['worlds']} success", "optimal" if action["tile"] in key["best"] else "")
@@ -801,7 +831,7 @@ def main():
     s.add_argument("--output", type=Path, default=DEFAULT_GALLERY)
     s.add_argument("--each", type=int, default=3)
     s.add_argument("--all", action="store_true", help="Publish every strict coordinate once, using its strongest pair")
-    s.add_argument("--criterion", choices=("query", "query-required", "outcome"), default="query",
+    s.add_argument("--criterion", choices=("query", "query-required", "query-avoided", "outcome"), default="query",
                    help="Query target contrast, or any strict success-probability difference")
     s.add_argument("--side", choices=("both", "declaring", "defending"), default="both")
     r = sub.add_parser("run")
@@ -829,6 +859,9 @@ def main():
         parser.error("each must be positive")
     if args.command == "generate":
         generate(args)
+    elif args.command == 'compare':
+        from gym_compare import compare
+        compare(args)
     elif args.command == "verify":
         for name, case in gallery(args.gallery):
             print(name, verify(case))

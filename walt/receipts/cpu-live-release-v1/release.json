@@ -1,0 +1,102 @@
+{
+  "schema": "walt-cpu-phone-release-v1",
+  "status": "deployed-and-verified",
+  "date": "2026-09-20",
+  "source_commit": "1dfd0e22f5fe2a2ee266f166493442547ad33834",
+  "app_commit": "65f8f68b3d7d460a62abcfcc1ed00bc201331c6c",
+  "previous_app_commit": "c7a1215d4d1ece0e24e13fef693ed17f55475112",
+  "manifest": {
+    "player": "walt-table-v2",
+    "source_repository": "jasonyandell/texas-42",
+    "source_commit": "1dfd0e22f5fe2a2ee266f166493442547ad33834",
+    "source_sha256": "43e6ee1dfe83d6a186cc8ea10b96dc1ee0b7d95cf0787d6f108e2518094760d6",
+    "source_hash_schema": "walt-player-source-v2",
+    "wasm_sha256": "b3016e18e0b119a3967d42a901e51655e28176d3fce500f159501748de5a6fd4",
+    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+    "build": {
+      "target": "wasm32-unknown-unknown",
+      "default_features": false,
+      "features": [
+        "cpu-speedups"
+      ],
+      "profile": {
+        "opt_level": "3",
+        "lto": "thin",
+        "codegen_units": "1",
+        "overflow_checks": "true",
+        "debug": "false",
+        "strip": "debuginfo",
+        "panic": "unwind",
+        "incremental": "false"
+      },
+      "rustflags": [],
+      "locked": true
+    },
+    "worlds": 40,
+    "inner_worlds": 8,
+    "budget_ms": 14000,
+    "partner_ms": 500,
+    "auction_worlds": 160,
+    "auction_budget_ms": 20000,
+    "opening_worlds": 160,
+    "opening_budget_ms": 20000,
+    "opening_partner": false
+  },
+  "url": "https://plunge.jasonyandell.workers.dev/",
+  "deploy_run": "https://github.com/jasonyandell/plunge/actions/runs/35536524757",
+  "ci_run": "https://github.com/jasonyandell/plunge/actions/runs/35536524754",
+  "durable_evidence": "/Users/jason/data/texas-42/releases/cpu-speedup-65f8f68",
+  "native_tests": {
+    "optimized": {
+      "passed": 120,
+      "failed": 0,
+      "ignored": 1
+    },
+    "player": {
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0
+    },
+    "reference": {
+      "passed": 40,
+      "failed": 0,
+      "ignored": 0
+    }
+  },
+  "app_tests": 201,
+  "importer_tests": 4,
+  "trajectory_exact_comparisons": 112,
+  "native_wasm_and_auction_parity": "passed",
+  "deadline_checkpoint_and_cancellation": "passed",
+  "empirical_bid_book_and_logic": "byte-identical to prior deployed release",
+  "raw_wasm_bytes": 6265946,
+  "local_gzip_bytes": 383024,
+  "hosted_browser": {
+    "origin": "https://plunge.jasonyandell.workers.dev",
+    "completed_hand": true,
+    "points": [
+      31,
+      11
+    ],
+    "reshakes": 2,
+    "deeper_ms": 209,
+    "receipt_count": 21,
+    "source": "1dfd0e22f5fe2a2ee266f166493442547ad33834",
+    "wasm": "b3016e18e0b119a3967d42a901e51655e28176d3fce500f159501748de5a6fd4",
+    "auction_workers": 0,
+    "reload": true,
+    "next_hand": 4,
+    "javascript_errors": [],
+    "overflow": false
+  },
+  "hosted_opening_wall_ms": 265,
+  "local_browser_opening_wall_ms": 262.90000000596046,
+  "offline_app_play_and_bidding": "passed with verified deployed version and artifact",
+  "limits": [
+    "Finite conformance, not a proof of equivalence or player strength.",
+    "Mac Chrome/Node timings, not physical Pixel or iPhone results.",
+    "Unchanged wall deadlines may permit more completed work and different live decisions.",
+    "Bid book retains its original measured-player provenance.",
+    "Service-worker resource size fields are decoded sizes; zstd header verifies hosting compression, not compressed transfer byte count."
+  ]
+}

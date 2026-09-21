@@ -1,0 +1,186 @@
+# Removing redundant work in the current solver
+
+These changes preserve the finite sampled evaluator and its policy. They do not
+repair the calibration gap or claim stronger play.
+
+## Forced Dice choices
+
+When the legal set has one domino, select it directly. Dice's random stream is
+reconstructed from the sample seed and public-record hash at each state, then
+discarded. Skipping this local draw cannot change later draws. Lazily computing
+the public-record hash also avoids it when every surviving sample is forced.
+
+This passed 64 retained/fresh exact-fraction and work-counter comparisons. The
+paired deep timing measured 1.002x median and 1.001x geometric speedup: **no
+meaningful measured benefit**. The bounded production firing retained 796 prices.
+
+## Bitset access
+
+`DominoSet` already represents stable domino IDs as bits. `mask_of` now returns
+those bits directly and `set_of` uses the existing checked constructor, rather
+than iterating the tiles to reconstruct the same representation. Invalid high
+bits still cause an error. No rule is reimplemented.
+
+This passed 64 retained/fresh exact-fraction and work-counter comparisons, the
+exhaustive rules suite, and frozen ordering tests. A paired 16-case 160-world
+check measured 1.083x median / 1.084x geometric speedup against the preceding
+worker. The one-minute production firing retained 912 prices with zero errors.
+
+## Viewer move ordering
+
+The recursive solver now orders candidates in fixed stack storage. Its public
+ordering method still returns a vector for existing callers; both paths use one
+ordering implementation. The standing winner and count on the trick are computed
+once per decision, and no priorities are needed for a sole legal candidate.
+
+The priority formula, ascending-ID tie rule, legal set and visit sequence stay
+the same. In particular, this introduces no new partnership feature or heuristic.
+Forty retained/fresh cases matched exact fractions, nodes, policy calls and inner
+sample counts. Partnership, public-void sampler, selection and frozen ordering
+tests passed. A paired 16-case deep check measured 1.100x median / 1.099x geometric
+speedup against the bitset worker.
+The one-minute production firing retained 1,071 prices with zero errors.
+
+Each paired timing used four concurrent pairs with alternating old/new order and
+a 60-second bound, with no competing production process. Production firings ran
+different requests and sometimes overlapped builds/tests: their saved counts are
+progress, not controlled speedup factors. Compact summaries pin the full external
+evidence by SHA256. Immutable source/binary bundles remain in the campaign.
+
+## Worker-layout measurements
+
+`pool_benchmark.py` replays a fixed retained workload through persistent workers,
+with independently selectable process and thread counts. Every scalar must match
+the original receipt. Serial work counters must match too; concurrent cache
+misses can duplicate work, so parallel counter equality is not required.
+
+Each run is bounded to at most 60 seconds and saves completed cases. Compare
+elapsed time only when all layouts finish the same requested workload. Run with
+production stopped so competing jobs do not contaminate the comparison. A timed
+out run is explicitly incomplete and is not treated as an equivalent full run.
+
+All five checks completed the same 256 retained 160-world requests:
+
+| Processes × threads | Elapsed seconds |
+|---|---:|
+| 18 × 1 | 26.04 |
+| 9 × 2 | 33.59 |
+| 12 × 1 | 37.60 |
+| 24 × 1 | 28.72 |
+| 18 × 1, repeat | 28.79 |
+
+The repeated 18-worker run tied 24 workers. Production keeps 18 independent
+single-threaded workers; this is a measured practical choice, not a proof of
+universal optimality. All values agreed; all serial work counters agreed.
+See pool-timing-summary.json for hashes of the full request/timing records.
+
+## Compiler profile experiment: retain the existing release build
+
+A temporary Cargo profile inherited release's checked arithmetic and enabled
+ThinLTO with one codegen unit. Its build finished in 41.7 seconds under a
+60-second watchdog. All 64 retained/fresh exact-value and counter checks passed.
+On 32 paired deep requests it measured only 1.013x median / 1.011x geometric
+speedup. This small effect was not sufficient evidence to change production;
+the temporary profile was removed and the existing release worker resumed.
+
+The candidate is preserved, including the exact temporary Cargo configuration,
+under producer 20722f673026bc853a12cadffa35cd3084a95b91c5652df1b2050e07ac5dff3c.
+See lto-parity-summary.json, lto-timing-summary.json, and the campaign's
+lto-build/run.json. The phone build and the bidding model were unchanged.
+
+## Sparse Dice buckets
+
+A five-second sample of the running release worker still spent substantial time
+in the small-support Dice path. That path partitioned at most eight samples, then
+scanned all 28 domino buckets. It now records occupied buckets in a 28-bit mask
+and visits their ascending set bits. Nonempty buckets, sample membership, visit
+order and success mass are identical; empty buckets do no work.
+
+The candidate passed 64 retained/fresh exact-fraction and node/policy/inner-world
+counter comparisons, including 4/12/40/160-world cases. Partnership (12), selection
+(7), ordering (4) and public-void sampler (7, plus one historical ignored fixture
+generator) tests passed. Thirty-two paired 160-world requests, four concurrent
+pairs, alternating baseline/candidate order and a 60-second limit, measured
+**1.197x median / 1.198x geometric speedup**. Production was stopped for that
+timing, then the previous immutable worker was safely resumed before adoption.
+
+Candidate binary/source snapshot:
+`8b5e78750f9a7aca70b7c0e1a124976a148aff82faf2e633173156a4f3372aa5`.
+The snapshot records base commit 4bc60d64 and the exact modified source hashes.
+See sparse-buckets-parity-summary.json and sparse-buckets-timing-summary.json;
+the raw profile is profile-current-worker.txt in the campaign. This changes
+implementation cost, not the bidding model or its calibration evidence.
+
+## Packed hash experiment: retain the current key implementation
+
+A five-second profile after policy-cache carry still showed substantial table
+insertion/rehashing work. A bounded candidate hashed each private key's scalar
+fields as two packed words, retaining all fields and full equality, with a final
+avalanche so high packed bits also reached low table/shard bits. Its 64 cold
+retained/fresh exact-price and node/policy/world-counter checks passed.
+
+The isolated comparison completed 32 paired persistent-worker 8/40/160 ladders,
+all 96 prices equal, in 24.9 seconds. It measured only **1.012x median / 1.011x
+geometric speedup**. This was insufficient evidence to adopt the change. The
+source edit was reverted; production resumed on the existing carry-cache worker.
+The candidate remains archived as
+`bec66bf994ffe92ff49b1f932dcb650a4b3d867cd77da09d62f81a732281d6af`.
+See packed-hash-{parity,timing}-summary.json and profile-cache-carry.txt in the
+campaign. This negative result does not establish a universal performance ceiling.
+
+The comparison tools now also distinguish warm saved work counts from cold
+replay counts. `parity.py` reprices a warm receipt with the baseline before
+comparing counters; `benchmark.py` compares its two fresh workers to each other.
+Both still require the original saved price exactly. A fixture of 32 actual warm
+production receipts passed 36 parity cases and four paired diagnostic cases.
+All 32 warm receipts had different cold node counts, confirming why the old
+counter comparison was inappropriate. This validation ran alongside production;
+its timings are not performance evidence. See warm-checker-summary.json.
+
+## Precomputed trick strengths
+
+The same profile showed repeated declaration-relative tier/rank calculations.
+`Decl::trick_key` now reads a compile-time table containing every one of the
+9 declarations × 8 led contexts × 28 dominoes. The original `tier` and `rank`
+definitions generate this table; it contains no hands, beliefs or policies.
+All 2,016 entries are checked against the direct rule algebra, including the
+called context and every declaration. Public types, ordering and rules remain
+unchanged. The table occupies 4,032 bytes with the current two-byte `TrickKey`.
+
+All 44 focused rules/ordering/partnership/selection/void-sampler tests passed
+(one historical fixture generator ignored). Sixty-four retained/fresh prices
+and their cold search/policy/sample counters matched. An isolated 32-case paired
+8/40/160 ladder comparison measured 1.044x median / 1.044x geometric speedup;
+all 32 pairs improved. A larger 64-case repeat completed in39.4s and measured
+**1.047x median / 1.045x geometric speedup**, with all192 stage prices matching.
+Both runs used four concurrent pairs, alternating order and a60s limit, with
+production stopped. Their small but consistent gain supports retaining the
+lookup. The initial source/binary snapshot is
+`e6cea7cf0d62796e60f0756d849098a3fa64c2985c6dc207fac37ed65c0a748d`.
+See rule-table-{parity,timing,repeat}-summary.json and PROGRESS.md for adoption
+and the separate phone validation. This is an implementation speedup, not a
+change to the calibration finding or a new claim about playing strength.
+
+## Serial grouping experiment: no useful gain
+
+A small candidate skipped populating the distinct-hand grouping used only by
+parallel policy preloading when the solver ran serially. Sixty-four cold
+retained/fresh prices and work counts matched. An isolated 64-case persistent
+8/40/160 ladder comparison also matched all 192 prices, but measured only
+**1.004x median / 1.004x geometric speedup** in39.6s. The edit was reverted and
+the validated rule-table worker resumed. No additional source path or phone
+asset is retained for this negligible effect. The experimental binary/source
+snapshot is d94470d03e393c3f1fd286e3201d16786d0d6ab8f628ba405eccbfd8a1405c06;
+see serial-grouping-{parity,timing}-summary.json.
+
+## Compiler instruction target inspection
+
+The installed compiler's default Mac target already enables LSE integer atomics
+and NEON, among other modern instruction features. `target-cpu=native` adds
+BF16, integer matrix multiplication and branch-target identification; it reports
+the host as apple-m4 even though macOS identifies the machine as Apple M5 Max.
+This inspection found no obvious missing instruction feature for the current
+scalar search workload, so it did not trigger another rebuild or production
+interruption. It is not a timing comparison or a claim that CPU scheduling
+choices cannot help. See compiler-target-summary.json for the exact compiler
+version and the raw feature inventory's identity.

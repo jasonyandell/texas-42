@@ -192,6 +192,15 @@ constructing fresh evaluation state for every request. Belief work, fallback
 work, synchronization, and any startup are included in decision timing.
 The source packet is immutable; new findings live beside it.
 
+## Play and flag examples on the Mac
+
+The [local Plunge table](PLUNGE.md) offers the measured native L1 and optional
+partnership rollout, with fixed 30 bids, saved original decisions, and flagged
+move links. Finished-hand questions enter the same continuation-selectable gym;
+full comparisons can be paused and resumed. The
+[first study and played examples](campaigns/sunshine-playable-v1/RESULTS.md)
+record the override decision and end-to-end validation.
+
 ## Resumable 100-deal evaluation
 
 [CAMPAIGN.md](CAMPAIGN.md) defines the fixed-bid-30, make/set-only comparison,

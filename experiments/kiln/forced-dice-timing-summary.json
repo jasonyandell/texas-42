@@ -1,0 +1,13 @@
+{
+  "baseline": "751c14b2b695930d4465ba8ef9904cce31e1e1826488b104dff53ea24d371288",
+  "candidate": "2119905effc9054d59792050a508660404b83d45210a04a434cd3662ce7e755a",
+  "completed": 16,
+  "geometric_speedup": 1.0010784232474679,
+  "median_speedup": 1.0016912195158467,
+  "requested": 16,
+  "schema": "kiln-paired-timing-v1",
+  "workers": 4,
+  "worlds": 160,
+  "evidence_sha256": "44b103f5cda2e7c277451e1cf2c64240ed5e102c4088c7c3db8ec54c0b857756",
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/forced-dice-timing.json"
+}

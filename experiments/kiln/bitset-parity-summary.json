@@ -1,0 +1,9 @@
+{
+  "baseline": "751c14b2b695930d4465ba8ef9904cce31e1e1826488b104dff53ea24d371288",
+  "candidate": "f138bd42fd581f09ecc84809215261a7ff9364a0f3b2a7b499187c8bd723c961",
+  "cases": 64,
+  "passed": true,
+  "schema": "kiln-parity-v1",
+  "evidence_sha256": "809b3263734b9a7bc98d204caacdd975e883e52e29d8974ebb1754f0935d73fe",
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/bitset-parity.json"
+}

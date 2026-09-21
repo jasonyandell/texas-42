@@ -1,0 +1,40 @@
+{
+  "baseline": "14939b7ab95452efb82be60e2678081fe5bf32bdee0f7fe88c665ed620b4d08f",
+  "candidate": "0ecafddb4c5cca6259e48139657826f34f5a72ff8975630b09ac820eeb7a1e28",
+  "cases": 121,
+  "passed": true,
+  "schema": "kiln-parity-v1",
+  "world_counts": [
+    4,
+    8,
+    12,
+    40,
+    160
+  ],
+  "declarations": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9
+  ],
+  "targets": [
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42
+  ]
+}

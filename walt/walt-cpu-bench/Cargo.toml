@@ -1,0 +1,17 @@
+[package]
+name = "walt-cpu-bench"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[features]
+default = ["cpu-speedups"]
+cpu-speedups = ["walt/cpu-speedups", "compact-dice"]
+compact-dice = []
+mac-qos = ["dep:rayon"]
+
+[dependencies]
+walt = { path = "../walt", default-features = false, features = ["parallel"] }
+serde_json = "1"
+rayon = { workspace = true, optional = true }

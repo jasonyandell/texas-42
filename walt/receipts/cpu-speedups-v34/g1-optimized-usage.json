@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/Users/jason/code/texas-42-cpu-speedups/walt/target/release/walt-cpu-bench",
+    "--fixture",
+    "g1",
+    "--repeats",
+    "1",
+    "--output",
+    "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/g1-optimized.json"
+  ],
+  "rayon_num_threads": 18,
+  "process_wall_s": 0.47861979099999985,
+  "user_cpu_s": 1.050434000000001,
+  "system_cpu_s": 0.3498589999999999
+}

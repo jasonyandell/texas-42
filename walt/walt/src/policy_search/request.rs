@@ -10,6 +10,11 @@ use super::Fixture;
 /// Parse the seven-line partnership-gym wire format.  No hidden hand is an
 /// accepted field; the resulting root is reconstructed by `gym::from_request`.
 pub fn from_text(text: &str) -> Result<Fixture, String> {
+    from_text_with_seed(text).map(|(fixture, _)| fixture)
+}
+
+/// Preserve the public seed for consumers that reproduce deployed decisions.
+pub fn from_text_with_seed(text: &str) -> Result<(Fixture, u64), String> {
     if text.len() > 65_536 {
         return Err("request too large".into());
     }
@@ -39,12 +44,13 @@ pub fn from_text(text: &str) -> Result<Fixture, String> {
         }
     };
     let decl_id = scalar("decl")?;
-    if ![0, 1, 2, 3, 4, 5, 6, 7, 9].contains(&decl_id) || scalar("bid")? != 30 {
-        return Err("gym request needs a straight declaration and bid 30".into());
+    let bid = scalar("bid")?;
+    if ![0, 1, 2, 3, 4, 5, 6, 7, 9].contains(&decl_id) || !(30..=42).contains(&bid) {
+        return Err("request needs a straight declaration and bid 30..42".into());
     }
     // Required and range-checked even though synthesis uses its CLI seed for
     // sample streams.  This preserves the exact seven-field request identity.
-    let _request_seed = scalar("seed")?;
+    let request_seed = scalar("seed")?;
     let seat = |value: u64| {
         Seat::from_index(usize::try_from(value).unwrap_or(usize::MAX))
             .ok_or_else(|| "seat outside 0..3".to_owned())
@@ -73,18 +79,22 @@ pub fn from_text(text: &str) -> Result<Fixture, String> {
         .chunks(2)
         .map(|pair| Ok((seat(pair[0])?, tile(pair[1])?)))
         .collect::<Result<Vec<_>, String>>()?;
-    let exercise = gym::from_request(
+    let exercise = gym::from_request_bid(
         solver::decl_of(decl_id as usize),
+        bid as u32,
         bidder,
         viewer,
         hand,
         &history,
     )?;
-    Ok(Fixture {
-        exercise,
-        original: hand,
-        history,
-    })
+    Ok((
+        Fixture {
+            exercise,
+            original: hand,
+            history,
+        },
+        request_seed,
+    ))
 }
 
 #[cfg(test)]

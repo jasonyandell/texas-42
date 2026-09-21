@@ -30,6 +30,7 @@ Historical presets and campaign identities are preserved.
 | Modeled search | Fixed / Refine / Race | The same selection choices applied inside modeled L1 minds. Inactive for L1 itself; L0 stays fixed. |
 | Inner belief | Legacy / Voids | `voidless` ignores public void constraints in inner samples; `voids-counted` respects them through the existing exact uniform sampler. Outer samples already respect voids in both cases. |
 | Sample budget | Root / L0 / L1 | The separate sample counts at the real root and within modeled minds. |
+| Optional review | Off / Partner count / Partner rollout | A bounded investigation after a completed L1 choice. Independent of the modeled-mind family; existing presets keep review off. |
 | Execution allowance | Up to 14 seconds/move | The external wrapper's deadline, including fallback preparation and cleanup. |
 
 The default sample counts are **40 / 8 / 2**. L1's modeled-L1 count is inactive.
@@ -87,3 +88,27 @@ Fixed root/model search throughout. The [completed results](campaigns/default-pa
 are 14/14/72 for the level comparison and 12/17/71 for the void comparison
 (wins/losses/ties for the first named player). Neither establishes a strength
 gain. All 400 games completed; L1 was the cheapest measured default.
+
+The optional **L1 with partner-count review** (`l1-partner-count-review`) adds
+at most 250 ms of investigation when a late declaring-side L1 decision overlooks
+an available count offer to its currently winning partner. It uses Scheme to
+identify alternatives and a separate finite continuation model to compare them.
+This is an experimental preset, not a new default or an alias of L2 Partner.
+The [guide](PARTNER-REVIEW.md) defines its scope. The
+[first sunshine experiment](campaigns/sunshine-partner-count-v1/RESULTS.md)
+improved selected gym grades but changed no moves in 100 fresh paired deals;
+all 100 make/set comparisons tied. Practical strength improvement remains open.
+The [targeted continuation replay](campaigns/sunshine-gym-replay-v1/RESULTS.md)
+then found two useful offers and four reversed judgments on the six original
+misses. Review timed out on the strongest useful offer and changed the other
+five. Use this preset as an investigated candidate, not a validated partnership
+repair. The selected withholding controls incurred no additional harm.
+
+**L1 with partnership rollout** (`l1-partner-rollout`) investigates both offers
+and withholding, using completed default L1 at every future seat. It compares
+all legal root moves over up to 64 compatible worlds in at most 500 ms extra,
+keeping the completed L1 baseline on ties or insufficient evidence. This is an
+optional candidate for one late-game partnership skill. The
+[guide](PARTNER-ROLLOUT.md) defines its information and deadline boundaries;
+[fresh and development measurements](campaigns/sunshine-rollout-v1/RESULTS.md)
+separate conditional skill from ordinary-game strength.

@@ -896,3 +896,177 @@ into line with the book; the kanban board was reconciled
 [[scheme-compact-compiler]], [[inner-voids-default]],
 [[wiki-book-followups]]). No source of evidence changed; every tier label
 stands; the rewrite is documentation only.
+
+## 2026-09-13 — First sunshine cycle: bounded partnership review
+
+Added an optional Scheme-directed count-offer investigation after default L1,
+with a 250 ms allowance, exact finite model-relative comparison, and unchanged
+baseline on ties or refusal. Selected gym grades improved 24/30 to 29/30 and
+100/117 to 107/117 (overlapping galleries). The final 100 fresh paired bid-30
+deals changed no moves and all tied; 192 conditional hidden-hand pairs also
+tied. Mean live decision time was 0.18262s versus L1's 0.18245s; separately
+recorded review work averaged 0.463 ms per candidate move. No strength gain is
+established and default L1 remains unchanged. Post-hoc exact comparisons found
+two selected action preferences that reverse when only the checker's partner
+model changes; four other corrections also appear with the simpler model.
+Both experiment runners passed actual interruption/resume, with saved decisions
+and files preserved. 69 Python and 35 focused Rust tests, strict clippy, and
+648 independent full-game replays passed. POLICY-ANTS retrieval remains pending;
+its unread original is not claimed as a source. Full legacy CI remains waived.
+[Player guide](../experiments/partnership/PARTNER-REVIEW.md) and
+[protocol, results, and receipts](../experiments/partnership/campaigns/sunshine-partner-count-v1/RESULTS.md).
+
+## 2026-09-13 — Exact gym mistakes with deployed L1 continuations
+
+Jason clarified that rare, frustrating partner-count mistakes deserve a direct
+competence test even if they scarcely affect ordinary-game win rates. Added a
+resumable action-intervention replay using the existing frozen decision cache.
+The six original misses plus 38 withholding controls and one certain control
+cover 45 distinct roots, 24 source seeds, and all 1,919 compatible root/world
+pairs. Every legal first action and the reviewed-team arm completed: 7,338
+independently audited trajectories and 41,602 frozen decisions in 58.20 seconds
+including interruption/resume and the final audit. All 121 interrupted-run
+durable files remained unchanged; 76 Python tests passed. No player change.
+Two missed offers remain useful under deployed L1, while four reverse. The
+review times out on the strongest useful correction and changes the other five;
+the full reviewed partnership saves 21 worlds and loses 32 across the six cases.
+All withholding-control outcomes remain unchanged by review. A concrete world
+of advantage-27 makes 36 by giving 6–4 and sets at 25 by keeping it; across its
+90 worlds the correction saves one and loses none. The certain case retains
+3/3 versus 0/3. Teacher labels do not automatically transfer to deployed
+continuations. [Guide](../experiments/partnership/GYM-REPLAY.md),
+[results and paired witnesses](../experiments/partnership/campaigns/sunshine-gym-replay-v1/RESULTS.md).
+
+## 2026-09-13 — Continuation-selectable Scheme scenario recipes
+
+Connected the existing gym specification to named deployed focal, partner and
+opponent policies. Scheme matching and action valuation now have separate cache
+identities; query/filter/source membership changes reuse applicable measured
+values. Full-support and shared without-replacement sample modes carry distinct
+coverage claims. Added required/avoided query selection, minimum class contrast,
+own-tiles-remaining domains, collection comparisons and paired witnesses.
+
+The existing count-offer query matched 206 of 1,929 examined coordinates within
+the support cap. Full L1 continuation covered 9,188 worlds and 26,340 terminal
+trajectories. The declaring-side collection contains 27 required offers, 46
+withholding cases and three tied-class cases with a weaker third action.
+Default L1 chose a best action on 62/76. Four misses withhold useful count; six
+offer harmful count; four choose a weaker non-offer. This is conditional skill
+measurement, not an ordinary-game strength result.
+
+The original teacher's 30 complete keys reproduced exactly. Changing to L1
+continuation changes best-action sets on 35/206 common coordinates. All 45
+previous targeted replay roots agree exactly with the new generic evaluator.
+Four query/filter variants took approximately 11–12 seconds each, made no new
+deployed evaluations, and preserved all 192,693 saved value/trajectory/decision
+records. A deliberate interruption preserved 9,774 durable records. Independent
+replay and all 83 partnership Python tests passed; a native sampled smoke check
+matched its census subset and correctly refused certainty claims.
+
+No live player/reviewer changed. The next sunshine step remains an affordable
+deployed-consequence check, challenged on fresh source groups and measured for
+helpful and harmful interventions. See the
+[recipe guide](gym/SPECIFICATIONS.md) and
+[complete validation record](../experiments/partnership/campaigns/sunshine-recipes-v1/RESULTS.md).
+
+## 2026-09-13 — A bounded partnership check in the live L1 player
+
+Added optional `l1-partner-rollout`: completed default L1 plus a public
+count-offer Scheme gate and paired continuations using the shared native L1
+evaluator at every future seat. Both offering and withholding can be reviewed.
+All legal root actions share each sampled world; incomplete world comparisons
+do not count. Up to 64 worlds, 400-world support cap, 500 ms extra inside the
+existing 14-second ceiling. Exact own/public policy inputs and deadline/failure
+backstops are retained; sampled decisions remain fallible guesses.
+
+On 143 declaring development roots, L1 optimality changed 129 to 137:
+11 improved, two harmed. On 25 matched declaring roots from 64 fresh source
+deals, one improved and one was harmed: an 8 pp gain versus a 0.4762 pp loss in
+model-relative make probability. The harmed choice was favored by a
+52-world prefix but rejected by both the 64-world prefix and full census.
+All 64 mirrored ordinary pairs tied; one move changed without changing its
+realized make/set outcome. Mean investigation took about 112–123 ms. These
+measure one rare conditional skill and do not establish general strength.
+
+89 Python and 38 targeted native tests passed. Five independently replayed
+adapter examples matched 1,710 trajectories and 7,825 own/public decisions.
+SIGINT/resume preserved all 31 already committed pairs and completed 128 games.
+A final failure-reporting correction preserves infeasible-frame errors rather
+than labeling them deadlines; 20 relevant native tests and all five complete
+adapter audits passed again. Measured and release fingerprints are separate.
+See the [player guide](../experiments/partnership/PARTNER-ROLLOUT.md),
+[results, fresh recipe and counterexamples](../experiments/partnership/campaigns/sunshine-rollout-v1/RESULTS.md),
+and [sunshine notes](../experiments/partnership/SUNSHINE-NOTES.md).
+
+## 2026-09-13 — The Mac sunshine table and live-move gym intake
+
+A bounded override-margin study retained the current one-success rule: larger
+margins removed some harms but missed useful changes, giving slightly higher
+development regret. The 25 previously seen follow-up roots are explicitly
+regressions, not fresh evidence; repeated subsets are sensitivity measurements.
+Native player behavior and budgets are unchanged.
+
+Connected a separate Plunge worktree to native L1/L1 + partner rollout for
+assigned-bid-30 practice. Original own/public decisions are saved before play;
+finished hands can be flagged with a note and legal alternative and independently
+imported into the deployed gym. Named continuation models, a 400-world full
+comparison cap, progress and pause/resume are exposed in the table. Local
+offline caching is disabled so source and comparison status remain current.
+
+One browser-played hand produced 18 native receipts and two flagged examples.
+Earl's defending 6–4 scores 12/18 sets versus 6/18 for 2–2 under full L1
+continuations; this is competence already present in L1, not a new-check gain.
+Native interruption/resume retained all saved files unchanged, and the complete
+keys passed independent replay. 97 Python and 116 Plunge tests passed, plus
+typecheck/native-mode build. Plunge companion commit `adfd7d4`; both worktrees
+remain local. [Operating guide](../experiments/partnership/PLUNGE.md),
+[study and integration evidence](../experiments/partnership/campaigns/sunshine-playable-v1/RESULTS.md).
+
+## 2026-09-13 — General move stats beside the gym
+
+Restored the recorded native option estimates in Plunge's finished-hand review,
+with explicit make/set perspective, actor holdings, legal choices and trump.
+Added separate budgeted 40/160-world native reinspection and durable caching;
+original playing receipts remain untouched. Forced moves show the constraint
+instead of fabricated scores. No live player settings or policies changed.
+
+The user's double-six discard and forced partner-overtake flags now explain
+themselves in the review. 149 Plunge tests, 100 Python tests, the native-mode
+build, a live API audit and browser checks passed. Companion commit `ac7e65a`.
+[Operating guide](../experiments/partnership/PLUNGE.md),
+[stats evidence](../experiments/partnership/campaigns/sunshine-review-v1/RESULTS.md).
+
+## 2026-09-14 — shared native/browser sunshine player
+
+Moved live decision orchestration into `walt-player`, sharing the strict
+partnership wire adapter, L1 fixed 40/8 and optional count-offer paired rollout.
+Added browser monotonic deadlines and complete-decision checkpoints; native
+Plunge now uses the same crate through an independent rules-checking adapter.
+Plunge has device-local original scores, portable selected-move observation
+links and a source/wasm manifest import command. Native/wasm exact option vectors
+agreed on all nine declarations of the opening fixture plus a late-game root;
+the full 64-world paired partner prefix agreed too. An accelerated browser clock
+verified deadline fallback. The phone itself has not yet been timed. Guide:
+`walt-player/README.md`; receipts: `/Users/jason/data/texas-42/phone-v2/`.
+
+Port validation follow-up: 31 focused Rust, 103 Python and 157 UI tests passed.
+A real browser hand, saved-score reload, and 160-world recheck completed. The
+accelerated-clock assertion verifies a solver Deadline refusal in both stages,
+not merely skipping work at an already exhausted outer budget. Publishing was
+held at the authentication boundary: CLI login invalid and connected GitHub
+write endpoint 403; no remote release was changed by these attempts.
+
+## 2026-09-14 — regular auction for shared Walt
+
+Replaced the assigned-30 live table cadence with a once-around straight auction.
+The shared player surveys all nine declarations at the cheapest legal bid, using
+complete 4/12/40-world sweeps and a 4.5-second bidder budget. A root-value query
+avoids computing unused opening scores, matching the full comparison on all
+nine declarations at bids 30/36/42 and three seats. Equal sample prices use a
+public-seeded tie choice. The initial policy bids at modeled make >= 3/4 and
+passes over partner; this is deliberately an uncalibrated bidding policy, not
+a new strength finding. Normal human points/marks bids and the winning trump
+survey survive saves; the shared play and partner rollout carry the actual bid.
+Independent replay of higher point and marks links agrees with Plunge. The old
+full counterfactual examiner remains explicitly bid-30-only. Reproduction and
+receipts: `walt-player/README.md`, `/Users/jason/data/texas-42/regular-bidding/`.

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/pool.py", line 335, in <module>
+    advance(args.paths, args.workers, args.seconds, args.retries)
+  File "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/pool.py", line 120, in advance
+    specs = {p: c.load(p) for p in paths}
+  File "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/pool.py", line 120, in <dictcomp>
+    specs = {p: c.load(p) for p in paths}
+  File "/Users/jason/code/texas-42-partnership-launch/experiments/partnership/campaign.py", line 272, in load
+    raise ValueError("missing campaign manifest")
+ValueError: missing campaign manifest

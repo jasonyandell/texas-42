@@ -1,0 +1,9 @@
+{
+  "baseline": "8b5e78750f9a7aca70b7c0e1a124976a148aff82faf2e633173156a4f3372aa5",
+  "candidate": "77f81f56770c3cf166b15ab6b3742a1f43462b9c5814e2ee541a732373c2cbc4",
+  "cases": 36,
+  "passed": true,
+  "schema": "kiln-parity-v1",
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/carry-cache-cold-parity.json",
+  "evidence_sha256": "77dbdd3d7f9eed73a7359a0b6c9ca94c49388d08a06af111ce97cc4d53f2044f"
+}

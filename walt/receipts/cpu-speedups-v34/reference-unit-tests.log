@@ -1,0 +1,48 @@
+   Compiling walt v0.1.0 (/Users/jason/code/texas-42-cpu-speedups/walt/walt)
+    Finished `release` profile [optimized] target(s) in 2.51s
+     Running unittests src/lib.rs (walt/target/release/deps/walt-de51bba6e93d30e0)
+
+running 40 tests
+test geom::correspond::tests::a_boundary_tie_resolves_at_zero_plus ... ok
+test geom::correspond::tests::equal_envelopes_collapse_to_one_event ... ok
+test geom::correspond::tests::a_strict_crossing_is_a_three_phase_event ... ok
+test geom::correspond::tests::an_isolated_interior_tangency_is_kept_as_an_event ... ok
+test geom::correspond::tests::one_envelope_is_always_optimal ... ok
+test geom::envelope::tests::a_crossing_left_of_the_ray_never_breaks ... ok
+test geom::envelope::tests::a_single_line_owns_the_whole_ray ... ok
+test geom::envelope::tests::a_tie_at_zero_is_broken_by_slope ... ok
+test geom::envelope::tests::add_cancels_to_the_zero_envelope ... ok
+test geom::envelope::tests::affine_combination_of_lines_is_the_weighted_line ... ok
+test geom::envelope::tests::max_of_two_crossing_lines_breaks_at_the_crossing ... ok
+test geom::envelope::tests::nonnegativity_checks_starts_and_the_tail ... ok
+test geom::envelope::tests::sub_of_itself_is_zero_and_sub_undoes_add ... ok
+test geom::envelope::tests::sum_of_matches_sequential_addition ... ok
+test geom::envelope::tests::evaluation_off_the_ray_is_refused - should panic ... ok
+test geom::feature::tests::the_capture_identity_recognizes_legal_features ... ok
+test geom::feature::tests::support_is_the_max_over_points_and_matches_the_envelope ... ok
+test geom::feature::tests::the_gauge_line_is_invisible_on_legal_features ... ok
+test geom::line::tests::crossing_is_where_the_lines_meet ... ok
+test geom::feature::tests::zero_information_iff_an_exposed_generator_is_implementable ... ok
+test geom::feature::tests::a_dominated_point_never_moves_the_support ... ok
+test geom::line::tests::eval_add_scale ... ok
+test policy_search::request::tests::malformed_or_private_fields_are_rejected ... ok
+test policy_search::request::tests::public_request_constructs_the_same_root_fields ... ok
+test solver::act::tests::a_delta_settled_winner_routes_settled_inside_the_boundary ... ok
+test solver::act::tests::an_exact_winner_routes_settled_inside_the_boundary ... ok
+test solver::act::tests::an_honest_exact_tie_routes_fallback_among_the_tied_maxima ... ok
+test solver::act::tests::epsilon_equivalent_routes_fallback_among_the_survivors ... ok
+test solver::act::tests::the_route_alphabet_is_six_distinct_labels_three_settled ... ok
+test solver::act::tests::unresolved_routes_fallback_among_the_delta_survivors ... ok
+test solver::cache::tests::direct_policy_key_matches_represented_key ... ok
+test solver::counters::tests::sum_matches_atomic_wrapping ... ok
+test solver::counters::tests::sum_max_and_initial_values ... ok
+test solver::policy::tests::canonical_serialization_does_not_alias_adjacent_strings ... ok
+test solver::counters::tests::ordinary_threads_share_fallback_without_losing_updates ... ok
+test solver::policy::tests::sha256_matches_the_standard_test_vectors ... ok
+test spec::digest::tests::empty_updates_do_not_change_the_stream ... ok
+test solver::support::tests::every_small_support_roundtrips_in_original_sample_order ... ok
+test spec::digest::tests::streaming_matches_one_shot_at_every_block_boundary ... ok
+test solver::cache::tests::packed_tricks_are_injective_including_zero_and_length ... ok
+
+test result: ok. 40 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

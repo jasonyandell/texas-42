@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/private/tmp/walt-cpu-current-baseline/target/release/walt-cpu-baseline",
+    "--fixture",
+    "g1",
+    "--repeats",
+    "1",
+    "--output",
+    "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/g1-baseline.json"
+  ],
+  "rayon_num_threads": 18,
+  "process_wall_s": 1.354247042,
+  "user_cpu_s": 12.629969,
+  "system_cpu_s": 0.685611
+}

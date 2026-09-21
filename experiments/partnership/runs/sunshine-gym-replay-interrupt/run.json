@@ -1,0 +1,23 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-13T16:34:27.694326+00:00",
+  "cwd": "/Users/jason/code/texas-42-partnership-launch",
+  "command": [
+    "python3",
+    "experiments/partnership/campaigns/sunshine-gym-replay-v1/verify-interruption.py",
+    "experiments/partnership/campaigns/sunshine-gym-replay-v1/panel.json",
+    "/Users/jason/data/texas-42/sunshine-gym-replay-v1"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.48477,
+  "status": "completed",
+  "child_pid": 35920,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

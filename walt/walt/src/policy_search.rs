@@ -21,6 +21,8 @@ pub mod relational;
 pub mod prices;
 pub mod learning_io;
 pub mod learning_eval;
+pub mod partner_review;
+pub mod partner_rollout;
 
 /// Stable content identity for serialized executable experiment policies.
 pub fn program_digest(source: &str) -> String {
@@ -197,6 +199,39 @@ impl<'a> Search<'a> {
             &mut None,
             work,
         )
+    }
+    /// Compare a requested root-action set with unrestricted lawful future
+    /// choices. All actions use the same immutable finite prior and field.
+    /// A refusal returns no partial comparison; completed memo entries remain
+    /// valid because only the root action set was restricted.
+    pub fn compare_root(
+        &mut self,
+        actions: DominoSet,
+        work: &mut Work,
+    ) -> Result<BTreeMap<Domino, usize>, String> {
+        self.check_controller_scope()?;
+        let state = State::from_root(&self.root.position);
+        let legal = legal_plays(
+            self.root.position.decl,
+            self.root.root.kernel().viewer_hand(),
+            self.root.frame.led_context(),
+        );
+        if self.worlds.is_empty() || actions.is_empty()
+            || actions.intersection(legal) != actions
+            || state.success(&self.root.position).is_some()
+        {
+            return Err("root comparison needs a nonempty prior and legal actions at an unresolved root".into());
+        }
+        let ids = (0..self.worlds.len()).collect::<Vec<_>>();
+        let mut values = BTreeMap::new();
+        for action in actions.iter() {
+            let child = self.walk(
+                &state.step(self.root.position.decl, action), &ids,
+                None, &mut None, work,
+            )?;
+            values.insert(action, child.makes);
+        }
+        Ok(values)
     }
     /// Extract ALL successful singleton action alternatives, not just one
     /// selected optimizer. Disagreements between witnesses are not cuts.

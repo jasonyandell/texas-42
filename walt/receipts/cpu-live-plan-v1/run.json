@@ -1,0 +1,24 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-20T20:24:54.683513+00:00",
+  "cwd": "/Users/jason/code/texas-42-cpu-speedups",
+  "command": [
+    "node",
+    "/tmp/walt-live-speedup-plan-20260920T152434/compare.mjs",
+    "/tmp/walt-live-speedup-plan-20260920T152434/shipped.wasm",
+    "/tmp/walt-live-speedup-plan-20260920T152434/candidate.wasm",
+    "/tmp/walt-live-speedup-plan-20260920T152434/parity.json"
+  ],
+  "allowance_seconds": 90.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 38.806121,
+  "status": "completed",
+  "child_pid": 56651,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

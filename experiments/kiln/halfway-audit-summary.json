@@ -1,0 +1,57 @@
+{
+  "schema": "kiln-campaign-audit-v1",
+  "verified_structure": true,
+  "complete": false,
+  "required_deals": 1000,
+  "settled_deals": 502,
+  "covered_deals": 502,
+  "receipts": 589743,
+  "depth": {
+    "8": 234992,
+    "40": 215711,
+    "160": 139040
+  },
+  "states": {
+    "done": 589743,
+    "pending": 233004,
+    "running": 17
+  },
+  "audit_cells": {
+    "at_target_depth": 4711,
+    "preselected": 9420,
+    "screening": {
+      "40": {
+        "deep_at_least_half": 55,
+        "deep_eligible": 0,
+        "deep_eligible_wilson95": [
+          2.168404344971009e-19,
+          0.0019793475160466466
+        ],
+        "would_screen": 1937
+      },
+      "8": {
+        "deep_at_least_half": 1,
+        "deep_eligible": 0,
+        "deep_eligible_wilson95": [
+          0.0,
+          0.009905074649031977
+        ],
+        "would_screen": 384
+      },
+      "either": {
+        "deep_at_least_half": 55,
+        "deep_eligible": 0,
+        "deep_eligible_wilson95": [
+          -2.168404344971009e-19,
+          0.0019783282014351738
+        ],
+        "would_screen": 1938
+      }
+    }
+  },
+  "book_id": null,
+  "note": "Sampling depth and model scores are verified; calibration and actual player strength are separate evidence.",
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/audit-halfway.json",
+  "evidence_sha256": "fae1a24a1055114fe63b6722a0502c2e092893f7a035568edded164cf03c579d",
+  "producer_count": 12
+}

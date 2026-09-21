@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/private/tmp/walt-cpu-current-baseline/target/release/walt-cpu-baseline",
+    "--fixture",
+    "shuffle",
+    "--deal-seed",
+    "420604",
+    "--repeats",
+    "1",
+    "--output",
+    "/Users/jason/code/texas-42-cpu-speedups/walt/receipts/cpu-speedups-v34/shuffle-420604-baseline.json"
+  ],
+  "rayon_num_threads": 18,
+  "process_wall_s": 1.5259146659999985,
+  "user_cpu_s": 15.043783000000005,
+  "system_cpu_s": 0.5836749999999995
+}

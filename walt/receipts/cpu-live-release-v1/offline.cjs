@@ -1,0 +1,42 @@
+const {chromium}=require('/Users/jason/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const fs=require('fs'),assert=require('node:assert/strict');
+const origin='https://plunge.jasonyandell.workers.dev';
+const manifest=JSON.parse(fs.readFileSync('/Users/jason/code/plunge/src/ai/phone/manifest.json'));
+const expected='65f8f68b3d7d460a62abcfcc1ed00bc201331c6c';
+(async()=>{
+ const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
+ const context=await browser.newContext({viewport:{width:412,height:915}}),page=await context.newPage();
+ await page.goto(origin,{waitUntil:'networkidle'});
+ const version=await page.evaluate(async()=>{const r=await fetch('/version.json',{cache:'no-store'});if(!r.ok)throw Error('Version failed');return r.json();});
+ assert.equal(version.build,expected);
+ await page.evaluate(()=>navigator.serviceWorker.ready);
+ await page.reload({waitUntil:'networkidle'});
+ assert.equal(await page.evaluate(()=>!!navigator.serviceWorker.controller),true);
+ const worker='/assets/'+fs.readdirSync('/Users/jason/code/plunge/dist/assets').find(x=>/^worker-.*\.js$/.test(x));
+ const wasm='/assets/'+fs.readdirSync('/Users/jason/code/plunge/dist/assets').find(x=>x.endsWith('.wasm'));
+ const asset=await page.evaluate(async(url)=>{
+  const r=await fetch(url,{cache:'reload'}),bytes=await r.arrayBuffer();
+  const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('');
+  const t=performance.getEntriesByName(new URL(url,location.href).href).at(-1);
+  return {sha256:hash,bytes:bytes.byteLength,content_encoding:r.headers.get('content-encoding'),content_type:r.headers.get('content-type'),encoded_body_size:t?.encodedBodySize,decoded_body_size:t?.decodedBodySize};
+ },wasm);assert.equal(asset.sha256,manifest.wasm_sha256);
+ const run=()=>page.evaluate(url=>new Promise((resolve,reject)=>{
+  const w=new Worker(url,{type:'module'}),start=performance.now();
+  const timer=setTimeout(()=>{w.terminate();reject(Error('Offline worker timeout'));},25000);
+  w.onerror=e=>{clearTimeout(timer);w.terminate();reject(Error(e.message));};
+  w.onmessage=({data})=>{if(data.result){clearTimeout(timer);w.terminate();resolve({worlds:data.result.evaluation?.outer_worlds,choice:data.result.choice,ms:performance.now()-start});}};
+  w.postMessage({id:0,call:{request:{decl:6,bid:30,bidder:0,seat:0,hand:[1,6,8,19,20,23,27],plays:[],seed:420914},worlds:160,partner:false,budget_ms:20000}});
+ }),worker);
+ const online=await run();assert.equal(online.worlds,160);
+ await context.setOffline(true);
+ await page.reload({waitUntil:'domcontentloaded'});
+ const offline=await run();assert.equal(offline.worlds,160);assert.equal(offline.choice,online.choice);
+ await page.getByRole('button',{name:'Deal me in',exact:true}).click();
+ await page.waitForFunction(()=>JSON.parse(localStorage.getItem('plunge:save:v1'))?.game);
+ const s=await page.evaluate(()=>JSON.parse(localStorage.getItem('plunge:save:v1')));
+ if(s.game.turn===0)await page.getByRole('button',{name:'Pass',exact:true}).click();
+ await page.waitForFunction(()=>Object.values(JSON.parse(localStorage.getItem('plunge:save:v1'))?.auctionSurveys??{}).some(x=>x.schema==='plunge-played-auction-v1'),null,{timeout:5000});
+ const result={live_build:version.build,asset,online,offline,offline_app:true,offline_empirical_auction:true,service_worker_controlled:true};
+ fs.writeFileSync('/tmp/walt-cpu-live-release/hosted-offline.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));
+ await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

@@ -1,10 +1,34 @@
 # The partnership gym
 
+**Human-play intake, 2026-09-13:** the [Mac Plunge table](../../experiments/partnership/PLUNGE.md)
+now imports flagged human or native decisions from finished hands. It preserves
+the original native receipt, independently reconstructs the actor's own/public
+position, and offers capped, resumable censuses under named continuation
+players. [First examples and validation](../../experiments/partnership/campaigns/sunshine-playable-v1/RESULTS.md).
+
+**Current recipe workflow (2026-09-13):** the
+[continuation-selectable specification](SPECIFICATIONS.md) connects Scheme
+matching to either the original teacher or named deployed focal/partner/opponent
+players. [The L1 count-offer recipe](specs/partnership-count-l1.json) regenerated
+76 declaring-side exercises: 27 require an offer, 46 favor withholding, and
+three have a tied best offer/non-offer but a weaker third action. Query and
+filter changes reuse action values. The
+[validation record](../../experiments/partnership/campaigns/sunshine-recipes-v1/RESULTS.md)
+retains ties, exclusions, model disagreements and paired witnesses.
+
 **First composed exam:** [partnership query plus bid-making](PARTNERSHIP-COMPOSITION.md)
 defines 30 positions where offering count to partner is required for an optimal
 root choice. Default L1 chose optimally on 24/30; L2 Partner on 26/30, with
 three improvements and one regression. Exact teacher-relative diagnostic;
 the specification and all pupil responses are checked in.
+
+**Deployed continuation check (2026-09-13):** the
+[targeted replay](../../experiments/partnership/campaigns/sunshine-gym-replay-v1/RESULTS.md)
+tests those six missed root choices with actual L1 continuation over every
+compatible hidden hand. Two offers remain useful; four reverse. It also covers
+38 withholding controls and the already-correct certain case. This makes the
+teacher-versus-deployment distinction below measurable. The
+[replay guide](../../experiments/partnership/GYM-REPLAY.md) owns that instrument.
 
 **Start with a specification:** [one parameterized collection definition](SPECIFICATIONS.md)
 now generates the exercises. [specs/bid-making.json](specs/bid-making.json)
@@ -85,7 +109,7 @@ compatible remaining deals**, including public voids and exact capacities.
 It is an explicit experimental prior; earlier observed actions are not
 reweighted under an assumed historical player.
 
-The fixed future field is:
+Under the original `partnership-gym-v1` contract, the fixed future field is:
 
 - Teammate: the shared playable L1 evaluator, fixed search, 40 outer worlds,
   eight inner L0 worlds, voidless inner modeling, lowest-index ties.

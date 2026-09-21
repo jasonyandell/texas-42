@@ -1,5 +1,13 @@
 # walt on one page — what exists, what it costs, what is now redundant
 
+**Native CPU integration — EXPLORATORY:** the validated v34 solver implementation
+is now the native default in `walt` and `walt-player`. The existing experiment
+entry points use it after `bash walt/tools/build_cpu.sh`. Completed full-game
+40/8/2 action vectors and choices agree with the pre-change current player and
+frozen v34; deadline-limited stages may complete more work. The
+[CPU integration record](CPU-SPEEDUPS.md) owns the timing receipts, enabled paths,
+portable checks, and reproduction commands.
+
 **For Jason, to hold in his head.** Written 2026-09-04; rewritten at
 every landing (the orchestrating session owns it) — this rewrite
 2026-09-13, repository state as of 2026-09-07 (`c00717d1`), counts
@@ -156,3 +164,12 @@ word: the O5 flag default ([[inner-voids-default]]), the shape of the two
 unmerged branches, the partnership strength question
 ([[partnership-strength-question]]), and whether the phone still ships
 the archived build ([[plunge-walt-sync]]).
+
+## Shared phone and Mac deployment — 2026-09-14
+
+[`walt-player`](walt-player/README.md) is the live table procedure on both hosts.
+It shares the partnership evaluator and count-offer continuation check, and owns
+the complete fallback ordering and wall budget. Plunge imports one hashed wasm
+asset; native Plunge calls `walt-table`. Historical research profiles remain
+available for reproduction. This is portability/conformance work, not evidence
+of improved game strength.

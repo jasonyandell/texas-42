@@ -1,0 +1,3457 @@
+{
+  "batch_elapsed_us": 3633524,
+  "complete": true,
+  "games": [
+    {
+      "bid": 30,
+      "bidder": 0,
+      "budget_ms_per_call": 20000,
+      "cache": "cold",
+      "choice_value_digest_fnv1a64": "9f209d247f068dd1",
+      "deal_seed": 420602,
+      "decisions": [
+        {
+          "choice": 5,
+          "compact_dice": null,
+          "elapsed_us": 1413122,
+          "forced": false,
+          "legal": [
+            5,
+            9,
+            10,
+            12,
+            13,
+            17,
+            19
+          ],
+          "play": 1,
+          "policy_cache_entries": 672624,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              5,
+              9,
+              10,
+              12,
+              13,
+              17,
+              19
+            ],
+            "plays": [],
+            "seat": 0,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 5,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              5278624,
+              25592
+            ],
+            "leader": 0,
+            "legal": [
+              5,
+              9,
+              10,
+              12,
+              13,
+              17,
+              19
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 96548496,
+            "options": [
+              [
+                5,
+                "21",
+                "40"
+              ],
+              [
+                9,
+                "1",
+                "2"
+              ],
+              [
+                10,
+                "2",
+                "5"
+              ],
+              [
+                12,
+                "9",
+                "20"
+              ],
+              [
+                13,
+                "17",
+                "40"
+              ],
+              [
+                17,
+                "3",
+                "8"
+              ],
+              [
+                19,
+                "9",
+                "20"
+              ]
+            ],
+            "outer_draw_attempts": 40,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              659828,
+              12796
+            ],
+            "points": [
+              0,
+              0
+            ],
+            "selection": "fixed",
+            "solver_us": 1413104,
+            "trick": 1
+          },
+          "seat": 0,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 1,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 0\nbidder 0\nhand 5 9 10 12 13 17 19\nplays\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 4,
+          "compact_dice": null,
+          "elapsed_us": 180817,
+          "forced": false,
+          "legal": [
+            3,
+            4,
+            8
+          ],
+          "play": 2,
+          "policy_cache_entries": 53848,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              0,
+              3,
+              4,
+              8,
+              14,
+              23,
+              27
+            ],
+            "plays": [
+              0,
+              5
+            ],
+            "seat": 1,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 4,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              423872,
+              1728
+            ],
+            "leader": 0,
+            "legal": [
+              3,
+              4,
+              8
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 13217875,
+            "options": [
+              [
+                3,
+                "1",
+                "40"
+              ],
+              [
+                4,
+                "0",
+                "1"
+              ],
+              [
+                8,
+                "0",
+                "1"
+              ]
+            ],
+            "outer_draw_attempts": 40,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              52984,
+              864
+            ],
+            "points": [
+              0,
+              0
+            ],
+            "selection": "fixed",
+            "solver_us": 180806,
+            "trick": 1
+          },
+          "seat": 1,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 1,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 1\nbidder 0\nhand 0 3 4 8 14 23 27\nplays 0 5\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 11,
+          "compact_dice": null,
+          "elapsed_us": 696134,
+          "forced": false,
+          "legal": [
+            2,
+            7,
+            11,
+            18,
+            20,
+            22,
+            25
+          ],
+          "play": 3,
+          "policy_cache_entries": 332135,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              2,
+              7,
+              11,
+              18,
+              20,
+              22,
+              25
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4
+            ],
+            "seat": 2,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 11,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              2598848,
+              14558
+            ],
+            "leader": 0,
+            "legal": [
+              2,
+              7,
+              11,
+              18,
+              20,
+              22,
+              25
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 52478356,
+            "options": [
+              [
+                2,
+                "9",
+                "10"
+              ],
+              [
+                7,
+                "7",
+                "8"
+              ],
+              [
+                11,
+                "1",
+                "1"
+              ],
+              [
+                18,
+                "4",
+                "5"
+              ],
+              [
+                20,
+                "7",
+                "8"
+              ],
+              [
+                22,
+                "31",
+                "40"
+              ],
+              [
+                25,
+                "4",
+                "5"
+              ]
+            ],
+            "outer_draw_attempts": 40,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              324856,
+              7279
+            ],
+            "points": [
+              0,
+              0
+            ],
+            "selection": "fixed",
+            "solver_us": 696121,
+            "trick": 1
+          },
+          "seat": 2,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 1,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 2\nbidder 0\nhand 2 7 11 18 20 22 25\nplays 0 5 1 4\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 1,
+          "compact_dice": null,
+          "elapsed_us": 525352,
+          "forced": false,
+          "legal": [
+            1,
+            6,
+            15,
+            16,
+            21,
+            24,
+            26
+          ],
+          "play": 4,
+          "policy_cache_entries": 182562,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              1,
+              6,
+              15,
+              16,
+              21,
+              24,
+              26
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11
+            ],
+            "seat": 3,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 1,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              1417976,
+              10630
+            ],
+            "leader": 0,
+            "legal": [
+              1,
+              6,
+              15,
+              16,
+              21,
+              24,
+              26
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 35461851,
+            "options": [
+              [
+                1,
+                "0",
+                "1"
+              ],
+              [
+                6,
+                "0",
+                "1"
+              ],
+              [
+                15,
+                "3",
+                "40"
+              ],
+              [
+                16,
+                "1",
+                "20"
+              ],
+              [
+                21,
+                "1",
+                "40"
+              ],
+              [
+                24,
+                "1",
+                "20"
+              ],
+              [
+                26,
+                "3",
+                "40"
+              ]
+            ],
+            "outer_draw_attempts": 280,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              177247,
+              5315
+            ],
+            "points": [
+              0,
+              0
+            ],
+            "selection": "fixed",
+            "solver_us": 525339,
+            "trick": 1
+          },
+          "seat": 3,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 1,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 3\nbidder 0\nhand 1 6 15 16 21 24 26\nplays 0 5 1 4 2 11\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 10,
+          "compact_dice": null,
+          "elapsed_us": 250459,
+          "forced": false,
+          "legal": [
+            9,
+            10,
+            12,
+            13,
+            17,
+            19
+          ],
+          "play": 5,
+          "policy_cache_entries": 119294,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              5,
+              9,
+              10,
+              12,
+              13,
+              17,
+              19
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1
+            ],
+            "seat": 0,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 10,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              934304,
+              5012
+            ],
+            "leader": 0,
+            "legal": [
+              9,
+              10,
+              12,
+              13,
+              17,
+              19
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 18423940,
+            "options": [
+              [
+                9,
+                "3",
+                "5"
+              ],
+              [
+                10,
+                "5",
+                "8"
+              ],
+              [
+                12,
+                "11",
+                "20"
+              ],
+              [
+                13,
+                "21",
+                "40"
+              ],
+              [
+                17,
+                "1",
+                "2"
+              ],
+              [
+                19,
+                "3",
+                "8"
+              ]
+            ],
+            "outer_draw_attempts": 474,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              116788,
+              2506
+            ],
+            "points": [
+              6,
+              0
+            ],
+            "selection": "fixed",
+            "solver_us": 250446,
+            "trick": 2
+          },
+          "seat": 0,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 2,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 0\nbidder 0\nhand 5 9 10 12 13 17 19\nplays 0 5 1 4 2 11 3 1\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 14,
+          "compact_dice": null,
+          "elapsed_us": 19888,
+          "forced": true,
+          "legal": [
+            14
+          ],
+          "play": 6,
+          "policy_cache_entries": 7667,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              0,
+              3,
+              4,
+              8,
+              14,
+              23,
+              27
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10
+            ],
+            "seat": 1,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 14,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              59832,
+              376
+            ],
+            "leader": 0,
+            "legal": [
+              14
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 1557374,
+            "options": [
+              [
+                14,
+                "0",
+                "1"
+              ]
+            ],
+            "outer_draw_attempts": 483,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              7479,
+              188
+            ],
+            "points": [
+              6,
+              0
+            ],
+            "selection": "fixed",
+            "solver_us": 19877,
+            "trick": 2
+          },
+          "seat": 1,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 2,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 1\nbidder 0\nhand 0 3 4 8 14 23 27\nplays 0 5 1 4 2 11 3 1 0 10\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 25,
+          "compact_dice": null,
+          "elapsed_us": 274232,
+          "forced": false,
+          "legal": [
+            2,
+            7,
+            18,
+            20,
+            22,
+            25
+          ],
+          "play": 7,
+          "policy_cache_entries": 158875,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              2,
+              7,
+              11,
+              18,
+              20,
+              22,
+              25
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14
+            ],
+            "seat": 2,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 25,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              1229408,
+              10398
+            ],
+            "leader": 0,
+            "legal": [
+              2,
+              7,
+              18,
+              20,
+              22,
+              25
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 18242644,
+            "options": [
+              [
+                2,
+                "23",
+                "40"
+              ],
+              [
+                7,
+                "11",
+                "20"
+              ],
+              [
+                18,
+                "23",
+                "40"
+              ],
+              [
+                20,
+                "9",
+                "40"
+              ],
+              [
+                22,
+                "23",
+                "40"
+              ],
+              [
+                25,
+                "5",
+                "8"
+              ]
+            ],
+            "outer_draw_attempts": 347,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              153676,
+              5199
+            ],
+            "points": [
+              6,
+              0
+            ],
+            "selection": "fixed",
+            "solver_us": 274214,
+            "trick": 2
+          },
+          "seat": 2,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 2,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 2\nbidder 0\nhand 2 7 11 18 20 22 25\nplays 0 5 1 4 2 11 3 1 0 10 1 14\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 26,
+          "compact_dice": null,
+          "elapsed_us": 142768,
+          "forced": false,
+          "legal": [
+            6,
+            15,
+            16,
+            21,
+            24,
+            26
+          ],
+          "play": 8,
+          "policy_cache_entries": 75146,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              1,
+              6,
+              15,
+              16,
+              21,
+              24,
+              26
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25
+            ],
+            "seat": 3,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 26,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              578784,
+              5596
+            ],
+            "leader": 0,
+            "legal": [
+              6,
+              15,
+              16,
+              21,
+              24,
+              26
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 9512640,
+            "options": [
+              [
+                6,
+                "19",
+                "40"
+              ],
+              [
+                15,
+                "1",
+                "2"
+              ],
+              [
+                16,
+                "3",
+                "8"
+              ],
+              [
+                21,
+                "5",
+                "8"
+              ],
+              [
+                24,
+                "11",
+                "20"
+              ],
+              [
+                26,
+                "7",
+                "40"
+              ]
+            ],
+            "outer_draw_attempts": 1265,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              72348,
+              2798
+            ],
+            "points": [
+              6,
+              0
+            ],
+            "selection": "fixed",
+            "solver_us": 142753,
+            "trick": 2
+          },
+          "seat": 3,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 2,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 3\nbidder 0\nhand 1 6 15 16 21 24 26\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 15,
+          "compact_dice": null,
+          "elapsed_us": 35558,
+          "forced": false,
+          "legal": [
+            6,
+            15,
+            16,
+            21,
+            24
+          ],
+          "play": 9,
+          "policy_cache_entries": 17367,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              1,
+              6,
+              15,
+              16,
+              21,
+              24,
+              26
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26
+            ],
+            "seat": 3,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 15,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              134176,
+              1210
+            ],
+            "leader": 3,
+            "legal": [
+              6,
+              15,
+              16,
+              21,
+              24
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 2585289,
+            "options": [
+              [
+                6,
+                "9",
+                "40"
+              ],
+              [
+                15,
+                "3",
+                "40"
+              ],
+              [
+                16,
+                "3",
+                "20"
+              ],
+              [
+                21,
+                "9",
+                "40"
+              ],
+              [
+                24,
+                "17",
+                "40"
+              ]
+            ],
+            "outer_draw_attempts": 935,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              16772,
+              605
+            ],
+            "points": [
+              6,
+              11
+            ],
+            "selection": "fixed",
+            "solver_us": 35540,
+            "trick": 3
+          },
+          "seat": 3,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 3,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 3\nbidder 0\nhand 1 6 15 16 21 24 26\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 17,
+          "compact_dice": null,
+          "elapsed_us": 23711,
+          "forced": false,
+          "legal": [
+            17,
+            19
+          ],
+          "play": 10,
+          "policy_cache_entries": 13589,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              5,
+              9,
+              10,
+              12,
+              13,
+              17,
+              19
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15
+            ],
+            "seat": 0,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 17,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              104768,
+              986
+            ],
+            "leader": 3,
+            "legal": [
+              17,
+              19
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 1508686,
+            "options": [
+              [
+                17,
+                "3",
+                "8"
+              ],
+              [
+                19,
+                "7",
+                "20"
+              ]
+            ],
+            "outer_draw_attempts": 399,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              13096,
+              493
+            ],
+            "points": [
+              6,
+              11
+            ],
+            "selection": "fixed",
+            "solver_us": 23695,
+            "trick": 3
+          },
+          "seat": 0,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 3,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 0\nbidder 0\nhand 5 9 10 12 13 17 19\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 0,
+          "compact_dice": null,
+          "elapsed_us": 14441,
+          "forced": false,
+          "legal": [
+            0,
+            3,
+            8,
+            23,
+            27
+          ],
+          "play": 11,
+          "policy_cache_entries": 6999,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              0,
+              3,
+              4,
+              8,
+              14,
+              23,
+              27
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17
+            ],
+            "seat": 1,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 0,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              53480,
+              632
+            ],
+            "leader": 3,
+            "legal": [
+              0,
+              3,
+              8,
+              23,
+              27
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 764657,
+            "options": [
+              [
+                0,
+                "0",
+                "1"
+              ],
+              [
+                3,
+                "0",
+                "1"
+              ],
+              [
+                8,
+                "0",
+                "1"
+              ],
+              [
+                23,
+                "0",
+                "1"
+              ],
+              [
+                27,
+                "0",
+                "1"
+              ]
+            ],
+            "outer_draw_attempts": 2597,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              6685,
+              316
+            ],
+            "points": [
+              6,
+              11
+            ],
+            "selection": "fixed",
+            "solver_us": 14430,
+            "trick": 3
+          },
+          "seat": 1,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 3,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 1\nbidder 0\nhand 0 3 4 8 14 23 27\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 20,
+          "compact_dice": null,
+          "elapsed_us": 21509,
+          "forced": false,
+          "legal": [
+            18,
+            20
+          ],
+          "play": 12,
+          "policy_cache_entries": 13475,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              2,
+              7,
+              11,
+              18,
+              20,
+              22,
+              25
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0
+            ],
+            "seat": 2,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 20,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              102424,
+              1350
+            ],
+            "leader": 3,
+            "legal": [
+              18,
+              20
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 1177869,
+            "options": [
+              [
+                18,
+                "1",
+                "10"
+              ],
+              [
+                20,
+                "3",
+                "20"
+              ]
+            ],
+            "outer_draw_attempts": 1548,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              12803,
+              675
+            ],
+            "points": [
+              6,
+              11
+            ],
+            "selection": "fixed",
+            "solver_us": 21495,
+            "trick": 3
+          },
+          "seat": 2,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 3,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 2\nbidder 0\nhand 2 7 11 18 20 22 25\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 2,
+          "compact_dice": null,
+          "elapsed_us": 10757,
+          "forced": false,
+          "legal": [
+            2,
+            7,
+            18,
+            22
+          ],
+          "play": 13,
+          "policy_cache_entries": 6401,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              2,
+              7,
+              11,
+              18,
+              20,
+              22,
+              25
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20
+            ],
+            "seat": 2,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 2,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              48656,
+              646
+            ],
+            "leader": 2,
+            "legal": [
+              2,
+              7,
+              18,
+              22
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 573623,
+            "options": [
+              [
+                2,
+                "3",
+                "20"
+              ],
+              [
+                7,
+                "1",
+                "40"
+              ],
+              [
+                18,
+                "3",
+                "40"
+              ],
+              [
+                22,
+                "3",
+                "40"
+              ]
+            ],
+            "outer_draw_attempts": 1394,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              6082,
+              323
+            ],
+            "points": [
+              22,
+              11
+            ],
+            "selection": "fixed",
+            "solver_us": 10747,
+            "trick": 4
+          },
+          "seat": 2,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 4,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 2\nbidder 0\nhand 2 7 11 18 20 22 25\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 16,
+          "compact_dice": null,
+          "elapsed_us": 2458,
+          "forced": true,
+          "legal": [
+            16
+          ],
+          "play": 14,
+          "policy_cache_entries": 1517,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              1,
+              6,
+              15,
+              16,
+              21,
+              24,
+              26
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2
+            ],
+            "seat": 3,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 16,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              11464,
+              174
+            ],
+            "leader": 2,
+            "legal": [
+              16
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 139829,
+            "options": [
+              [
+                16,
+                "1",
+                "5"
+              ]
+            ],
+            "outer_draw_attempts": 940,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              1433,
+              87
+            ],
+            "points": [
+              22,
+              11
+            ],
+            "selection": "fixed",
+            "solver_us": 2450,
+            "trick": 4
+          },
+          "seat": 3,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 4,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 3\nbidder 0\nhand 1 6 15 16 21 24 26\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 13,
+          "compact_dice": null,
+          "elapsed_us": 7084,
+          "forced": false,
+          "legal": [
+            9,
+            12,
+            13,
+            19
+          ],
+          "play": 15,
+          "policy_cache_entries": 4329,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              5,
+              9,
+              10,
+              12,
+              13,
+              17,
+              19
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16
+            ],
+            "seat": 0,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 13,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              32232,
+              628
+            ],
+            "leader": 2,
+            "legal": [
+              9,
+              12,
+              13,
+              19
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 332687,
+            "options": [
+              [
+                9,
+                "11",
+                "40"
+              ],
+              [
+                12,
+                "1",
+                "4"
+              ],
+              [
+                13,
+                "7",
+                "20"
+              ],
+              [
+                19,
+                "3",
+                "10"
+              ]
+            ],
+            "outer_draw_attempts": 385,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              4029,
+              314
+            ],
+            "points": [
+              22,
+              11
+            ],
+            "selection": "fixed",
+            "solver_us": 7076,
+            "trick": 4
+          },
+          "seat": 0,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 4,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 0\nbidder 0\nhand 5 9 10 12 13 17 19\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 3,
+          "compact_dice": null,
+          "elapsed_us": 4701,
+          "forced": false,
+          "legal": [
+            3,
+            8,
+            23,
+            27
+          ],
+          "play": 16,
+          "policy_cache_entries": 2426,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              0,
+              3,
+              4,
+              8,
+              14,
+              23,
+              27
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13
+            ],
+            "seat": 1,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 3,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              17480,
+              488
+            ],
+            "leader": 2,
+            "legal": [
+              3,
+              8,
+              23,
+              27
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 151235,
+            "options": [
+              [
+                3,
+                "0",
+                "1"
+              ],
+              [
+                8,
+                "0",
+                "1"
+              ],
+              [
+                23,
+                "0",
+                "1"
+              ],
+              [
+                27,
+                "9",
+                "40"
+              ]
+            ],
+            "outer_draw_attempts": 771,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              2185,
+              244
+            ],
+            "points": [
+              22,
+              11
+            ],
+            "selection": "fixed",
+            "solver_us": 4691,
+            "trick": 4
+          },
+          "seat": 1,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 4,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 1\nbidder 0\nhand 0 3 4 8 14 23 27\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 22,
+          "compact_dice": null,
+          "elapsed_us": 2290,
+          "forced": false,
+          "legal": [
+            7,
+            18,
+            22
+          ],
+          "play": 17,
+          "policy_cache_entries": 795,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              2,
+              7,
+              11,
+              18,
+              20,
+              22,
+              25
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13,
+              1,
+              3
+            ],
+            "seat": 2,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 22,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              5816,
+              142
+            ],
+            "leader": 2,
+            "legal": [
+              7,
+              18,
+              22
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 44284,
+            "options": [
+              [
+                7,
+                "0",
+                "1"
+              ],
+              [
+                18,
+                "0",
+                "1"
+              ],
+              [
+                22,
+                "1",
+                "40"
+              ]
+            ],
+            "outer_draw_attempts": 363,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              727,
+              71
+            ],
+            "points": [
+              23,
+              11
+            ],
+            "selection": "fixed",
+            "solver_us": 2281,
+            "trick": 5
+          },
+          "seat": 2,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 5,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 2\nbidder 0\nhand 2 7 11 18 20 22 25\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13 1 3\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 21,
+          "compact_dice": null,
+          "elapsed_us": 1129,
+          "forced": false,
+          "legal": [
+            21,
+            24
+          ],
+          "play": 18,
+          "policy_cache_entries": 338,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              1,
+              6,
+              15,
+              16,
+              21,
+              24,
+              26
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13,
+              1,
+              3,
+              2,
+              22
+            ],
+            "seat": 3,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 21,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              2384,
+              80
+            ],
+            "leader": 2,
+            "legal": [
+              21,
+              24
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 12616,
+            "options": [
+              [
+                21,
+                "11",
+                "40"
+              ],
+              [
+                24,
+                "11",
+                "40"
+              ]
+            ],
+            "outer_draw_attempts": 1225,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              298,
+              40
+            ],
+            "points": [
+              23,
+              11
+            ],
+            "selection": "fixed",
+            "solver_us": 1119,
+            "trick": 5
+          },
+          "seat": 3,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 5,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 3\nbidder 0\nhand 1 6 15 16 21 24 26\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13 1 3 2 22\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 12,
+          "compact_dice": null,
+          "elapsed_us": 1325,
+          "forced": false,
+          "legal": [
+            9,
+            12,
+            19
+          ],
+          "play": 19,
+          "policy_cache_entries": 135,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              5,
+              9,
+              10,
+              12,
+              13,
+              17,
+              19
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13,
+              1,
+              3,
+              2,
+              22,
+              3,
+              21
+            ],
+            "seat": 0,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 12,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              952,
+              36
+            ],
+            "leader": 2,
+            "legal": [
+              9,
+              12,
+              19
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 5665,
+            "options": [
+              [
+                9,
+                "1",
+                "8"
+              ],
+              [
+                12,
+                "1",
+                "4"
+              ],
+              [
+                19,
+                "1",
+                "4"
+              ]
+            ],
+            "outer_draw_attempts": 197,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              119,
+              18
+            ],
+            "points": [
+              23,
+              11
+            ],
+            "selection": "fixed",
+            "solver_us": 1317,
+            "trick": 5
+          },
+          "seat": 0,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 5,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 0\nbidder 0\nhand 5 9 10 12 13 17 19\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13 1 3 2 22 3 21\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 23,
+          "compact_dice": null,
+          "elapsed_us": 1185,
+          "forced": false,
+          "legal": [
+            23,
+            27
+          ],
+          "play": 20,
+          "policy_cache_entries": 98,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              0,
+              3,
+              4,
+              8,
+              14,
+              23,
+              27
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13,
+              1,
+              3,
+              2,
+              22,
+              3,
+              21,
+              0,
+              12
+            ],
+            "seat": 1,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 23,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              648,
+              34
+            ],
+            "leader": 2,
+            "legal": [
+              23,
+              27
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 2228,
+            "options": [
+              [
+                23,
+                "0",
+                "1"
+              ],
+              [
+                27,
+                "13",
+                "40"
+              ]
+            ],
+            "outer_draw_attempts": 187,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              81,
+              17
+            ],
+            "points": [
+              23,
+              11
+            ],
+            "selection": "fixed",
+            "solver_us": 1176,
+            "trick": 5
+          },
+          "seat": 1,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 5,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 1\nbidder 0\nhand 0 3 4 8 14 23 27\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13 1 3 2 22 3 21 0 12\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 8,
+          "compact_dice": null,
+          "elapsed_us": 720,
+          "forced": false,
+          "legal": [
+            8,
+            27
+          ],
+          "play": 21,
+          "policy_cache_entries": 67,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              0,
+              3,
+              4,
+              8,
+              14,
+              23,
+              27
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13,
+              1,
+              3,
+              2,
+              22,
+              3,
+              21,
+              0,
+              12,
+              1,
+              23
+            ],
+            "seat": 1,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 8,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              432,
+              28
+            ],
+            "leader": 1,
+            "legal": [
+              8,
+              27
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 1157,
+            "options": [
+              [
+                8,
+                "0",
+                "1"
+              ],
+              [
+                27,
+                "0",
+                "1"
+              ]
+            ],
+            "outer_draw_attempts": 178,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              54,
+              14
+            ],
+            "points": [
+              23,
+              12
+            ],
+            "selection": "fixed",
+            "solver_us": 711,
+            "trick": 6
+          },
+          "seat": 1,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 6,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 1\nbidder 0\nhand 0 3 4 8 14 23 27\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13 1 3 2 22 3 21 0 12 1 23\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 7,
+          "compact_dice": null,
+          "elapsed_us": 193,
+          "forced": false,
+          "legal": [
+            7,
+            18
+          ],
+          "play": 22,
+          "policy_cache_entries": 2,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              2,
+              7,
+              11,
+              18,
+              20,
+              22,
+              25
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13,
+              1,
+              3,
+              2,
+              22,
+              3,
+              21,
+              0,
+              12,
+              1,
+              23,
+              1,
+              8
+            ],
+            "seat": 2,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 7,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              16,
+              0
+            ],
+            "leader": 1,
+            "legal": [
+              7,
+              18
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 46,
+            "options": [
+              [
+                7,
+                "0",
+                "1"
+              ],
+              [
+                18,
+                "0",
+                "1"
+              ]
+            ],
+            "outer_draw_attempts": 152,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              2,
+              0
+            ],
+            "points": [
+              23,
+              12
+            ],
+            "selection": "fixed",
+            "solver_us": 185,
+            "trick": 6
+          },
+          "seat": 2,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 6,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 2\nbidder 0\nhand 2 7 11 18 20 22 25\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13 1 3 2 22 3 21 0 12 1 23 1 8\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 6,
+          "compact_dice": null,
+          "elapsed_us": 73,
+          "forced": true,
+          "legal": [
+            6
+          ],
+          "play": 23,
+          "policy_cache_entries": 0,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              1,
+              6,
+              15,
+              16,
+              21,
+              24,
+              26
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13,
+              1,
+              3,
+              2,
+              22,
+              3,
+              21,
+              0,
+              12,
+              1,
+              23,
+              1,
+              8,
+              2,
+              7
+            ],
+            "seat": 3,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 6,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              0,
+              0
+            ],
+            "leader": 1,
+            "legal": [
+              6
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 14,
+            "options": [
+              [
+                6,
+                "13",
+                "40"
+              ]
+            ],
+            "outer_draw_attempts": 172,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              0,
+              0
+            ],
+            "points": [
+              23,
+              12
+            ],
+            "selection": "fixed",
+            "solver_us": 65,
+            "trick": 6
+          },
+          "seat": 3,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 6,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 3\nbidder 0\nhand 1 6 15 16 21 24 26\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13 1 3 2 22 3 21 0 12 1 23 1 8 2 7\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 9,
+          "compact_dice": null,
+          "elapsed_us": 127,
+          "forced": true,
+          "legal": [
+            9
+          ],
+          "play": 24,
+          "policy_cache_entries": 0,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              5,
+              9,
+              10,
+              12,
+              13,
+              17,
+              19
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13,
+              1,
+              3,
+              2,
+              22,
+              3,
+              21,
+              0,
+              12,
+              1,
+              23,
+              1,
+              8,
+              2,
+              7,
+              3,
+              6
+            ],
+            "seat": 0,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 9,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              0,
+              0
+            ],
+            "leader": 1,
+            "legal": [
+              9
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 12,
+            "options": [
+              [
+                9,
+                "7",
+                "20"
+              ]
+            ],
+            "outer_draw_attempts": 63,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              0,
+              0
+            ],
+            "points": [
+              23,
+              12
+            ],
+            "selection": "fixed",
+            "solver_us": 119,
+            "trick": 6
+          },
+          "seat": 0,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 6,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 0\nbidder 0\nhand 5 9 10 12 13 17 19\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13 1 3 2 22 3 21 0 12 1 23 1 8 2 7 3 6\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 19,
+          "compact_dice": null,
+          "elapsed_us": 30,
+          "forced": true,
+          "legal": [
+            19
+          ],
+          "play": 25,
+          "policy_cache_entries": 0,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              5,
+              9,
+              10,
+              12,
+              13,
+              17,
+              19
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13,
+              1,
+              3,
+              2,
+              22,
+              3,
+              21,
+              0,
+              12,
+              1,
+              23,
+              1,
+              8,
+              2,
+              7,
+              3,
+              6,
+              0,
+              9
+            ],
+            "seat": 0,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 19,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              0,
+              0
+            ],
+            "leader": 0,
+            "legal": [
+              19
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 11,
+            "options": [
+              [
+                19,
+                "1",
+                "5"
+              ]
+            ],
+            "outer_draw_attempts": 60,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              0,
+              0
+            ],
+            "points": [
+              29,
+              12
+            ],
+            "selection": "fixed",
+            "solver_us": 23,
+            "trick": 7
+          },
+          "seat": 0,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 7,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 0\nbidder 0\nhand 5 9 10 12 13 17 19\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13 1 3 2 22 3 21 0 12 1 23 1 8 2 7 3 6 0 9\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 27,
+          "compact_dice": null,
+          "elapsed_us": 24,
+          "forced": true,
+          "legal": [
+            27
+          ],
+          "play": 26,
+          "policy_cache_entries": 0,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              0,
+              3,
+              4,
+              8,
+              14,
+              23,
+              27
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13,
+              1,
+              3,
+              2,
+              22,
+              3,
+              21,
+              0,
+              12,
+              1,
+              23,
+              1,
+              8,
+              2,
+              7,
+              3,
+              6,
+              0,
+              9,
+              0,
+              19
+            ],
+            "seat": 1,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 27,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              0,
+              0
+            ],
+            "leader": 0,
+            "legal": [
+              27
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 5,
+            "options": [
+              [
+                27,
+                "0",
+                "1"
+              ]
+            ],
+            "outer_draw_attempts": 40,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              0,
+              0
+            ],
+            "points": [
+              29,
+              12
+            ],
+            "selection": "fixed",
+            "solver_us": 14,
+            "trick": 7
+          },
+          "seat": 1,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 7,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 1\nbidder 0\nhand 0 3 4 8 14 23 27\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13 1 3 2 22 3 21 0 12 1 23 1 8 2 7 3 6 0 9 0 19\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 18,
+          "compact_dice": null,
+          "elapsed_us": 10,
+          "forced": true,
+          "legal": [
+            18
+          ],
+          "play": 27,
+          "policy_cache_entries": 0,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              2,
+              7,
+              11,
+              18,
+              20,
+              22,
+              25
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13,
+              1,
+              3,
+              2,
+              22,
+              3,
+              21,
+              0,
+              12,
+              1,
+              23,
+              1,
+              8,
+              2,
+              7,
+              3,
+              6,
+              0,
+              9,
+              0,
+              19,
+              1,
+              27
+            ],
+            "seat": 2,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 18,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              0,
+              0
+            ],
+            "leader": 0,
+            "legal": [
+              18
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 2,
+            "options": [
+              [
+                18,
+                "0",
+                "1"
+              ]
+            ],
+            "outer_draw_attempts": 40,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              0,
+              0
+            ],
+            "points": [
+              29,
+              12
+            ],
+            "selection": "fixed",
+            "solver_us": 3,
+            "trick": 7
+          },
+          "seat": 2,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 7,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 2\nbidder 0\nhand 2 7 11 18 20 22 25\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13 1 3 2 22 3 21 0 12 1 23 1 8 2 7 3 6 0 9 0 19 1 27\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        },
+        {
+          "choice": 24,
+          "compact_dice": null,
+          "elapsed_us": 8,
+          "forced": true,
+          "legal": [
+            24
+          ],
+          "play": 28,
+          "policy_cache_entries": 0,
+          "request": {
+            "bid": 30,
+            "bidder": 0,
+            "decl": 6,
+            "hand": [
+              1,
+              6,
+              15,
+              16,
+              21,
+              24,
+              26
+            ],
+            "plays": [
+              0,
+              5,
+              1,
+              4,
+              2,
+              11,
+              3,
+              1,
+              0,
+              10,
+              1,
+              14,
+              2,
+              25,
+              3,
+              26,
+              3,
+              15,
+              0,
+              17,
+              1,
+              0,
+              2,
+              20,
+              2,
+              2,
+              3,
+              16,
+              0,
+              13,
+              1,
+              3,
+              2,
+              22,
+              3,
+              21,
+              0,
+              12,
+              1,
+              23,
+              1,
+              8,
+              2,
+              7,
+              3,
+              6,
+              0,
+              9,
+              0,
+              19,
+              1,
+              27,
+              2,
+              18
+            ],
+            "seat": 3,
+            "seed": 420600
+          },
+          "response": {
+            "choice": 24,
+            "inner_belief": "voidless",
+            "inner_worlds_by_level": [
+              0,
+              0
+            ],
+            "leader": 0,
+            "legal": [
+              24
+            ],
+            "modeled_selection": "fixed",
+            "nodes": 1,
+            "options": [
+              [
+                24,
+                "0",
+                "1"
+              ]
+            ],
+            "outer_draw_attempts": 40,
+            "outer_worlds": 40,
+            "pi_calls_by_level": [
+              0,
+              0
+            ],
+            "points": [
+              29,
+              12
+            ],
+            "selection": "fixed",
+            "solver_us": 2,
+            "trick": 7
+          },
+          "seat": 3,
+          "solver_settings": {
+            "budget_ms": 20000,
+            "inner_belief": 0,
+            "mode": "partner",
+            "modeled_selection": 0,
+            "n": 40,
+            "n0": 8,
+            "n1": 2,
+            "selection": 0
+          },
+          "trick": 7,
+          "wire_request": "partner\ndecl 6\nbid 30\nseat 3\nbidder 0\nhand 1 6 15 16 21 24 26\nplays 0 5 1 4 2 11 3 1 0 10 1 14 2 25 3 26 3 15 0 17 1 0 2 20 2 2 3 16 0 13 1 3 2 22 3 21 0 12 1 23 1 8 2 7 3 6 0 9 0 19 1 27 2 18\nseed 420600\nn 40\nn0 8\nn1 2\nbudget_ms 20000\ninner_belief 0\nselection 0\nmodeled_selection 0\n"
+        }
+      ],
+      "decl": 6,
+      "error": null,
+      "execution": {
+        "mac_qos": "default"
+      },
+      "failed_call": null,
+      "fixture": "shuffle",
+      "fixture_preparation_us": 1,
+      "full_game_elapsed_us": 3633494,
+      "hands_referee_only": [
+        [
+          5,
+          9,
+          10,
+          12,
+          13,
+          17,
+          19
+        ],
+        [
+          0,
+          3,
+          4,
+          8,
+          14,
+          23,
+          27
+        ],
+        [
+          2,
+          7,
+          11,
+          18,
+          20,
+          22,
+          25
+        ],
+        [
+          1,
+          6,
+          15,
+          16,
+          21,
+          24,
+          26
+        ]
+      ],
+      "inner_belief": "voidless",
+      "made": false,
+      "modeled_selection": "fixed",
+      "play_elapsed_us": 3633410,
+      "plays": [
+        0,
+        5,
+        1,
+        4,
+        2,
+        11,
+        3,
+        1,
+        0,
+        10,
+        1,
+        14,
+        2,
+        25,
+        3,
+        26,
+        3,
+        15,
+        0,
+        17,
+        1,
+        0,
+        2,
+        20,
+        2,
+        2,
+        3,
+        16,
+        0,
+        13,
+        1,
+        3,
+        2,
+        22,
+        3,
+        21,
+        0,
+        12,
+        1,
+        23,
+        1,
+        8,
+        2,
+        7,
+        3,
+        6,
+        0,
+        9,
+        0,
+        19,
+        1,
+        27,
+        2,
+        18,
+        3,
+        24
+      ],
+      "points": [
+        29,
+        13
+      ],
+      "profile": "partner",
+      "public_seed": 420600,
+      "repetition": 0,
+      "samples": {
+        "l0": 8,
+        "l1": 2,
+        "root": 40
+      },
+      "selection": "fixed",
+      "status": "complete"
+    }
+  ],
+  "schema": "walt-full-game-speed-v1"
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "kiln-warm-checker-validation-v1",
+  "retained_warm_receipts": 32,
+  "parity_cases": 36,
+  "retained_with_different_cold_node_counts": 32,
+  "paired_benchmark_cases": 4,
+  "passed": true,
+  "timing_is_performance_evidence": false,
+  "files": {
+    "/Users/jason/data/texas-42/kiln-v1/warm-checker-verification/parity.json": "4563426068d685cf36d5a57c957934eff693ac4397539485bf6916103a80a878",
+    "/Users/jason/data/texas-42/kiln-v1/warm-checker-verification/timing.json": "5778f62706ea4ab3764edf08552a63d4305368093cd6ee5d95404882bb453c90"
+  }
+}

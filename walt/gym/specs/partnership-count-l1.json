@@ -1,0 +1,45 @@
+{
+  "schema": "gym-spec-v1",
+  "name": "partnership-count-l1",
+  "arguments": {
+    "source": {
+      "paths": [
+        "experiments/partnership/campaigns/default-partner-battery"
+      ]
+    },
+    "domain": {
+      "own_remaining": [
+        2,
+        3
+      ],
+      "limit": 5000,
+      "seed": 420600
+    },
+    "query": {
+      "name": "offer-count",
+      "source": "; Return count plays that leave our currently winning partner ahead.\n; Every relation is public or own-hand. No bespoke gym predicate.\n(fix\n  (roles (chair me) (chair mate) (domino action) (domino incumbent) (context led))\n  (out action)\n  (case (viewer me) (partner me mate) (current-winner mate)\n        (trick-play mate incumbent) (led-context led)\n        (own-legal action) (count action 5) (beats incumbent action led))\n  (case (viewer me) (partner me mate) (current-winner mate)\n        (trick-play mate incumbent) (led-context led)\n        (own-legal action) (count action 10) (beats incumbent action led)))\n",
+      "min_presence": "1"
+    },
+    "evaluation": {
+      "contract": "deployed-gym-v1",
+      "max_worlds": 400,
+      "players": {
+        "focal": "l1-default",
+        "partner": "l1-default",
+        "opponents": "l1-default"
+      },
+      "sample_worlds": null,
+      "sample_seed": 420600
+    },
+    "selection": {
+      "criterion": "query",
+      "side": "declaring",
+      "min_spread": "0",
+      "min_mistake": "0",
+      "max_optimal": null,
+      "certain": false,
+      "min_contrast": "0"
+    }
+  },
+  "reference": null
+}

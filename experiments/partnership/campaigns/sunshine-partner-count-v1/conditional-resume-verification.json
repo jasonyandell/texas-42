@@ -1,0 +1,8 @@
+{
+  "schema": "sunshine-worlds-resume-verified-v1",
+  "interrupted_returncode": 75,
+  "completed_before_interrupt": 10,
+  "completed_after_resume": 192,
+  "durable_files_unchanged": 154,
+  "interruption_receipt_sha256": "34cd173af6a290d21c6978b7838fc1476f8e4d58a888286e218a9203502a1763"
+}

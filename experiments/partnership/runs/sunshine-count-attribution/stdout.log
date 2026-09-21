@@ -1,0 +1,43 @@
+{"category":null,"completed":"advantage-02","grade":null}
+{"category":null,"completed":"advantage-10","grade":null}
+{"category":null,"completed":"advantage-09","grade":null}
+{"category":null,"completed":"advantage-12","grade":null}
+{"category":null,"completed":"advantage-07","grade":null}
+{"category":null,"completed":"advantage-15","grade":null}
+{"category":null,"completed":"advantage-11","grade":null}
+{"category":null,"completed":"advantage-17","grade":null}
+{"category":null,"completed":"advantage-04","grade":null}
+{"category":null,"completed":"advantage-18","grade":null}
+{"category":null,"completed":"advantage-20","grade":null}
+{"category":null,"completed":"advantage-16","grade":null}
+{"category":null,"completed":"advantage-01","grade":null}
+{"category":null,"completed":"advantage-08","grade":null}
+{"category":null,"completed":"advantage-14","grade":null}
+{"category":null,"completed":"advantage-25","grade":null}
+{"category":null,"completed":"advantage-21","grade":null}
+{"category":null,"completed":"advantage-03","grade":null}
+{"category":null,"completed":"advantage-13","grade":null}
+{"category":null,"completed":"advantage-23","grade":null}
+{"category":null,"completed":"advantage-19","grade":null}
+{"category":null,"completed":"advantage-05","grade":null}
+{"category":null,"completed":"advantage-22","grade":null}
+{"category":null,"completed":"advantage-27","grade":null}
+{"category":null,"completed":"advantage-30","grade":null}
+{"category":null,"completed":"advantage-24","grade":null}
+{"category":null,"completed":"advantage-06","grade":null}
+{"category":null,"completed":"advantage-28","grade":null}
+{"category":null,"completed":"advantage-26","grade":null}
+{"category":null,"completed":"advantage-29","grade":null}
+{
+  "manifest": {
+    "schema": "sunshine-posthoc-attribution-v1",
+    "binary_sha256": "f938abebd3fd82bd1cff87b5778d760837bed0d619b997f53fc8f9eef3567abb",
+    "runner_sha256": "ec67e95e74395cc280c53b357563ce524bebc652dc95b2125cfc8c6a050169f7",
+    "baseline_sha256": "6659df12f6d2c6d1f2b58fb91ba139f990220cb16f63faa685332af73725a77a",
+    "cases_identity": "016c93190dc8a7761d72a345579abedc6f67d15bcf033db9d18542ddca875f03",
+    "scope": "old selected declaring-side gym; post-hoc mechanism diagnostic"
+  },
+  "original_misses": 6,
+  "l0_check_changes": 4,
+  "l1_partner_check_changes": 6
+}

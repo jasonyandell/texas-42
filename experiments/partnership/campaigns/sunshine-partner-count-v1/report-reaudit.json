@@ -1,0 +1,23 @@
+{
+  "schema": "sunshine-report-reaudit-v1",
+  "current_reporter_sha256": "5bed1474b50132e73b8efa5e3a693e257ec5943c0375a997e54f23ad0cc62ba0",
+  "note": "Original gym report bytes are preserved, including their earlier reporter identity. Current reporter independently re-audits the same raw artifacts and reproduces every result field; only reporter_sha256 is excluded from comparison. No player or experiment rerun.",
+  "reports": [
+    {
+      "report": "gym-30.json",
+      "report_sha256": "6659df12f6d2c6d1f2b58fb91ba139f990220cb16f63faa685332af73725a77a",
+      "original_reporter_sha256": "f817150a2bf9ea0abf2e4a4eccc95cd6d39f9a9e2bbcfc6480c31e7a0d5ce6d0",
+      "raw_directory": "/Users/jason/data/texas-42/sunshine-count-gym-30",
+      "gallery": "/Users/jason/data/texas-42/partnership-bid-making-v1",
+      "all_result_fields_equal": true
+    },
+    {
+      "report": "gym-broad.json",
+      "report_sha256": "1b9992fb9fbdd3946fcef7f68680ecc423047b3902f423c77b9f6dd05c2609d7",
+      "original_reporter_sha256": "f817150a2bf9ea0abf2e4a4eccc95cd6d39f9a9e2bbcfc6480c31e7a0d5ce6d0",
+      "raw_directory": "/Users/jason/data/texas-42/sunshine-count-gym-broad",
+      "gallery": "walt/gym/collections/scheme-v1/offer-count",
+      "all_result_fields_equal": true
+    }
+  ]
+}

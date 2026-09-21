@@ -1,0 +1,163 @@
+   Compiling walt v0.1.0 (/Users/jason/code/texas-42-cpu-speedups/walt/walt)
+    Finished `release` profile [optimized] target(s) in 12.11s
+     Running unittests src/lib.rs (walt/target/release/deps/walt-878d58b2b607f074)
+
+running 59 tests
+test geom::correspond::tests::a_strict_crossing_is_a_three_phase_event ... ok
+test geom::correspond::tests::an_isolated_interior_tangency_is_kept_as_an_event ... ok
+test geom::correspond::tests::a_boundary_tie_resolves_at_zero_plus ... ok
+test geom::correspond::tests::equal_envelopes_collapse_to_one_event ... ok
+test geom::correspond::tests::one_envelope_is_always_optimal ... ok
+test geom::envelope::tests::a_single_line_owns_the_whole_ray ... ok
+test geom::envelope::tests::a_crossing_left_of_the_ray_never_breaks ... ok
+test geom::envelope::tests::add_cancels_to_the_zero_envelope ... ok
+test geom::envelope::tests::a_tie_at_zero_is_broken_by_slope ... ok
+test geom::envelope::tests::affine_combination_of_lines_is_the_weighted_line ... ok
+test geom::envelope::tests::max_of_two_crossing_lines_breaks_at_the_crossing ... ok
+test geom::envelope::tests::sub_of_itself_is_zero_and_sub_undoes_add ... ok
+test geom::envelope::tests::nonnegativity_checks_starts_and_the_tail ... ok
+test geom::envelope::tests::evaluation_off_the_ray_is_refused - should panic ... ok
+test geom::envelope::tests::sum_of_matches_sequential_addition ... ok
+test geom::feature::tests::support_is_the_max_over_points_and_matches_the_envelope ... ok
+test geom::feature::tests::the_capture_identity_recognizes_legal_features ... ok
+test geom::feature::tests::zero_information_iff_an_exposed_generator_is_implementable ... ok
+test geom::feature::tests::the_gauge_line_is_invisible_on_legal_features ... ok
+test geom::line::tests::crossing_is_where_the_lines_meet ... ok
+test geom::line::tests::eval_add_scale ... ok
+test geom::feature::tests::a_dominated_point_never_moves_the_support ... ok
+test policy_search::request::tests::malformed_or_private_fields_are_rejected ... ok
+test policy_search::request::tests::public_request_constructs_the_same_root_fields ... ok
+test solver::act::tests::an_exact_winner_routes_settled_inside_the_boundary ... ok
+test solver::act::tests::an_honest_exact_tie_routes_fallback_among_the_tied_maxima ... ok
+test solver::act::tests::a_delta_settled_winner_routes_settled_inside_the_boundary ... ok
+test solver::act::tests::epsilon_equivalent_routes_fallback_among_the_survivors ... ok
+test solver::act::tests::the_route_alphabet_is_six_distinct_labels_three_settled ... ok
+test solver::act::tests::unresolved_routes_fallback_among_the_delta_survivors ... ok
+test solver::cache::tests::direct_policy_key_matches_represented_key ... ok
+test solver::compact_dice::stack_tests::stack_sampler_matches_worlds_dice_tapes_and_following_rng_state ... ok
+test solver::cache::tests::packed_tricks_are_injective_including_zero_and_length ... ok
+test solver::compact_policy::closed_bucket_tests::legal_exclusion_closes_only_complete_sample_buckets ... ok
+test solver::counters::tests::different_pool_sizes_remain_safe ... ok
+test solver::counters::tests::each_worker_updates_its_own_padded_slot ... ok
+test solver::counters::tests::ordinary_threads_share_fallback_without_losing_updates ... ok
+test solver::counters::tests::rayon_workers_and_external_writer_aggregate_exactly ... ok
+test solver::counters::tests::slots_have_128_byte_alignment_and_stride ... ok
+test solver::counters::tests::sum_matches_atomic_wrapping ... ok
+test solver::counters::tests::sum_max_and_initial_values ... ok
+test solver::fast_policy_tests::small_serial_policy_matches_parallel_field_at_partial_trick ... ok
+test solver::fixed_policy_choice_tests::choice_only_refuses_expired_deadline ... ok
+test solver::compact_dice::depth_tests::trick_coordinate_matches_public_mask_after_every_legal_play ... ok
+test solver::fixed_policy_choice_tests::modeled_fixed_choice_matches_complete_values_at_nonterminal_levels ... ok
+test solver::mask64_arena::tests::roundtrip_original_positions_at_nine_forty_and_sixty_four ... ok
+test solver::mask64_support_tests::solver_keeps_root_zero_and_falls_back_above_sixty_four_worlds ... ok
+test solver::parallel_schedule_tests::root_vectors_match_serial_at_support_one_two_eight_and_forty ... ok
+test solver::policy::tests::canonical_serialization_does_not_alias_adjacent_strings ... ok
+test solver::policy::tests::sha256_matches_the_standard_test_vectors ... ok
+test solver::compact_dice::singleton::tests::singleton_matches_original_all_declarations_partials_and_long_depth ... ok
+test solver::root_memo::tests::large_bundle_shards_concurrent_keys_and_resolves_shard_collisions ... ok
+test solver::root_memo::tests::small_bundle_keeps_single_map_and_full_key_equality ... ok
+test solver::rng_small::tests::frozen_outputs_and_rng_state_include_forced_rejections ... ok
+test spec::digest::tests::empty_updates_do_not_change_the_stream ... ok
+test solver::support::tests::every_small_support_roundtrips_in_original_sample_order ... ok
+test spec::digest::tests::streaming_matches_one_shot_at_every_block_boundary ... ok
+test solver::mask64_arena::tests::concurrent_interning_returns_one_id_per_mask ... ok
+test solver::compact_dice::trick_table::tests::every_distinct_ordered_trick_matches_canonical_rules ... ok
+
+test result: ok. 59 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/solver_compact_dice.rs (walt/target/release/deps/solver_compact_dice-0907f481a67666ac)
+
+running 5 tests
+test expired_deadline_refuses_the_whole_vector ... ok
+test aborted_bounded_choice_never_enters_policy_cache ... ok
+test counted_void_record_and_external_cancellation_keep_dice_values_sound ... ok
+test bounded_l0_choice_matches_complete_fixed_comparison ... ok
+test matches_original_dice_for_partial_tricks_and_sample_id_multiplicity ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/solver_hand_cache.rs (walt/target/release/deps/solver_hand_cache-8d6bd0b14e7039a7)
+
+running 2 tests
+test transfer_rejects_incompatible_or_malformed_contexts ... ok
+test equivalent_boundaries_reuse_identical_policies_at_every_partial_trick ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/solver_ordering.rs (walt/target/release/deps/solver_ordering-4a4dcdd353dec95d)
+
+running 4 tests
+test viewer_visit_order_is_a_canonical_permutation_of_the_legal_set ... ok
+test direct_solve_values_and_break_counters_are_sane ... ok
+test both_orderings_agree_on_every_exact_value ... ok
+test bench_root_exact_values_match_their_frozen_pins ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+     Running tests/solver_partnership.rs (walt/target/release/deps/solver_partnership-f0b8e44aaac5b608)
+
+running 13 tests
+test baseline_evaluator_uses_the_exact_common_world_stream_and_level_zero_field ... ok
+test bounded_evaluator_is_deterministic_and_reports_every_legal_action ... ok
+test counted_belief_runs_all_three_seat_profiles_and_refuses_expired_sampling ... ok
+test modeled_l1_inherits_selection_but_l0_keeps_its_fixed_dice_boundary ... ok
+test inner_cache_separates_void_profiles_and_remains_independent_of_host_worlds ... ok
+test modeled_level_one_is_independent_of_outer_completions_and_cache_order ... ok
+test seat_profiles_upgrade_exactly_the_declared_seats ... ok
+test seat_levels_all_one_is_exactly_the_uniform_level_one_field ... ok
+test seat_levels_all_zero_is_exactly_the_uniform_level_zero_field ... ok
+test zero_deadline_aborts_before_sampling_or_action_comparison ... ok
+test voids_survive_trick_resolution_and_use_declaration_relative_following ... ok
+test counted_inner_samples_belong_to_independently_replayed_receipt_fibers ... ok
+test staged_policy_cache_preserves_values_and_uses_a_fresh_deadline ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/solver_policy.rs (walt/target/release/deps/solver_policy-b5303ded007fcfcd)
+
+running 7 tests
+test equal_tuples_freeze_to_equal_policy_ids_and_the_label_names_the_id ... ok
+test discovery_streams_are_domain_separated_and_derive_from_the_information_state_alone ... ok
+test every_freeze_tuple_field_change_produces_a_new_policy_id ... ok
+test evaluate_pair_accepts_frozen_policies_and_walks_the_identical_stream ... ok
+test hidden_worlds_with_identical_focal_information_materialize_the_identical_action ... ok
+test the_cache_extends_on_new_states_and_never_changes_a_defined_action ... ok
+test replay_parity_the_frozen_pair_reproduces_the_pinned_78_34_split_and_replays_from_cache ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/solver_selection.rs (walt/target/release/deps/solver_selection-6e2ce9cbf55f1751)
+
+running 7 tests
+test forced_race_never_requests_an_evaluation ... ok
+test fixed_ties_use_tile_order_without_extra_sampling ... ok
+test refinement_reconsiders_formerly_lower_candidates ... ok
+test racing_uses_paired_blocks_and_both_objectives ... ok
+test refusal_discards_previous_completed_rounds ... ok
+test saturation_race_refines_only_tied_survivors ... ok
+test unresolved_ties_exhaust_exactly_the_historical_fresh_bundles ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/solver_sigma1_repair.rs (walt/target/release/deps/solver_sigma1_repair-5d741b70d93ecda1)
+
+running 8 tests
+test capture_before_side_fixture ... ignored, regenerates the committed before-side evidence; see the module doc
+test the_open_frame_entry_point_cannot_refuse ... ok
+test the_oracle_models_the_prefix_slicing_not_an_exact_partition ... ok
+test the_pinned_infeasible_specimen_refuses_instead_of_spinning ... ok
+test the_counting_oracle_agrees_with_exhaustive_partition_search ... ok
+test exactly_one_sampler_definition_survives_in_the_crate ... ok
+test the_repaired_sampler_reproduces_the_before_side_capture_exactly ... ok
+test the_blocked_roots_now_terminate_with_a_value_or_a_named_refusal ... ok
+
+test result: ok. 7 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.54s
+
+     Running tests/solver_viewer_fiber.rs (walt/target/release/deps/solver_viewer_fiber-464a2ac7d39b3ea8)
+
+running 2 tests
+test cross_fiber_lawful_and_deterministic ... ok
+test own_fiber_full_support_matches_plain_solver ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

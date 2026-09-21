@@ -1,0 +1,14 @@
+{
+  "shipped": {
+    "source": "/Users/jason/code/plunge/src/ai/phone/walt-player.wasm",
+    "sha256": "2730dc305e3399863235a273e5c0df8a4928a03a7671811a6f9772cfdebd6aa7",
+    "bytes": 786884,
+    "gzip_bytes": 266921
+  },
+  "candidate": {
+    "source": "/Users/jason/code/texas-42-cpu-speedups/walt/target/wasm32-unknown-unknown/release/walt_player.wasm",
+    "sha256": "bb50e08ea278886bb19616efce77a00fee0c75be321a0c406e1d0d8dcc79416e",
+    "bytes": 6404138,
+    "gzip_bytes": 404394
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "baseline": "8b5e78750f9a7aca70b7c0e1a124976a148aff82faf2e633173156a4f3372aa5",
+  "candidate": "bec66bf994ffe92ff49b1f932dcb650a4b3d867cd77da09d62f81a732281d6af",
+  "cases": 64,
+  "passed": true,
+  "schema": "kiln-parity-v1",
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/packed-hash-parity.json",
+  "evidence_sha256": "c2b391a1c02e2fe3635ea0cadd39480b5fa8cb117777c4720450f8aeba9f9e60",
+  "adopted": false
+}

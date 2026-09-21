@@ -1,0 +1,9 @@
+{
+  "baseline": "c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1",
+  "candidate": "8b5e78750f9a7aca70b7c0e1a124976a148aff82faf2e633173156a4f3372aa5",
+  "cases": 64,
+  "passed": true,
+  "schema": "kiln-parity-v1",
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/sparse-buckets-parity.json",
+  "evidence_sha256": "94e30e9260b103f0ed35466fa6f4716349e8d004e567e7bb1e68f615318809e6"
+}

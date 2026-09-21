@@ -1,0 +1,73 @@
+{
+  "schema": "kiln-pool-comparison-v1",
+  "same_requests": true,
+  "selected_workers": 18,
+  "selected_threads": 1,
+  "runs": [
+    {
+      "label": "18x1",
+      "binary": "c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1",
+      "workers": 18,
+      "threads": 1,
+      "worlds": 160,
+      "requested": 256,
+      "completed": 256,
+      "elapsed_seconds": 26.041069292000003,
+      "prices_per_second": 9.830625506558787,
+      "evidence_sha256": "88c22ed9ccf308f7c815eb23962c73ceadc24a021dac3122772a84d43bd7a5f2",
+      "evidence_file": "/Users/jason/data/texas-42/kiln-v1/pool-18x1.json"
+    },
+    {
+      "label": "9x2",
+      "binary": "c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1",
+      "workers": 9,
+      "threads": 2,
+      "worlds": 160,
+      "requested": 256,
+      "completed": 256,
+      "elapsed_seconds": 33.586890249999996,
+      "prices_per_second": 7.622021511801023,
+      "evidence_sha256": "4b179d7d3bd82323a0e297ed9e3b841182420bffe6909e804e58a530f9187d01",
+      "evidence_file": "/Users/jason/data/texas-42/kiln-v1/pool-9x2.json"
+    },
+    {
+      "label": "12x1",
+      "binary": "c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1",
+      "workers": 12,
+      "threads": 1,
+      "worlds": 160,
+      "requested": 256,
+      "completed": 256,
+      "elapsed_seconds": 37.598564542,
+      "prices_per_second": 6.808770577239236,
+      "evidence_sha256": "c23813face3bd034a162ce3f884e7918694d9be14d95d66a2819a516b7f3d6a6",
+      "evidence_file": "/Users/jason/data/texas-42/kiln-v1/pool-12x1.json"
+    },
+    {
+      "label": "24x1",
+      "binary": "c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1",
+      "workers": 24,
+      "threads": 1,
+      "worlds": 160,
+      "requested": 256,
+      "completed": 256,
+      "elapsed_seconds": 28.724255959,
+      "prices_per_second": 8.912328325071517,
+      "evidence_sha256": "c5918665424686775560edfd97053910144a3e5f58f3b6f4141548d2edc32e42",
+      "evidence_file": "/Users/jason/data/texas-42/kiln-v1/pool-24x1.json"
+    },
+    {
+      "label": "18x1-repeat",
+      "binary": "c46780919a239d8314e0abc9e06234eb6678c777e0490c3b966587f064d1d9a1",
+      "workers": 18,
+      "threads": 1,
+      "worlds": 160,
+      "requested": 256,
+      "completed": 256,
+      "elapsed_seconds": 28.792466417,
+      "prices_per_second": 8.89121467721325,
+      "evidence_sha256": "76a3fa714f1084fdd489bec689cd4acb7e64f081b6ddfa70b27ca7504e210fc5",
+      "evidence_file": "/Users/jason/data/texas-42/kiln-v1/pool-18x1-repeat.json"
+    }
+  ]
+}

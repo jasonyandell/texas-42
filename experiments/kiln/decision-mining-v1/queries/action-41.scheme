@@ -1,0 +1,1 @@
+(fix (roles (domino a) (context led)) (out a) (case (own-legal a) (leads-context a led) (count a 5) (not (boss a led))))

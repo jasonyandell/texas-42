@@ -23,6 +23,65 @@ Siblings: [walt hub](walt.md) · [the partnership gym](walt-gym.md) · [the part
 
 **How to read this page.** A newcomer to 42 needs §1–§2 (what the language says and one worked example). A mathematician needs §3–§8 (the semantics, the belief operations, the dynamics) and §11 (the one clean mathematical statement in the slice, which is a negative result). An engineer who wants to run it needs §13 and the invocations in §9–§10. The archived descriptor research — the reason the language exists at all — is §16, kept intact because its counterexample discipline is what the new layer inherited.
 
+> **Landings on main after `c00717d1` (2026-09-13 → 09-20), not yet curated into this chapter.** The paragraphs below were appended at their landing by the session that produced them; the curator folds them into the chapter in the next cycle.
+
+**Current continuation-selectable gym (2026-09-13):** the
+[same Scheme recipe interface](../walt/gym/SPECIFICATIONS.md) now evaluates
+actions with named deployed focal, partner and opponent policies, as well as
+the original fixed teacher. Matching and action values have separate caches;
+query/filter changes reuse applicable valuations. The
+[L1 count-offer validation](../experiments/partnership/campaigns/sunshine-recipes-v1/RESULTS.md)
+regenerates helpful and harmful examples and retains model disagreements.
+Support coverage is explicit: a census is exact for the frozen continuation;
+a without-replacement sample is an estimate. This connects the experiment to
+the deployed continuation; live player changes are measured separately below.
+
+**Bounded live continuation follow-up (2026-09-13):**
+[`l1-partner-rollout`](../experiments/partnership/PARTNER-ROLLOUT.md) now uses
+that own/public Scheme question to investigate both offering and withholding
+count through the shared native L1 evaluator. It compares complete paired
+worlds within 500 ms extra. The
+[frozen experiment](../experiments/partnership/campaigns/sunshine-rollout-v1/RESULTS.md)
+found 11 improvements and two harms on 143 development roots, then one
+improvement and one smaller harm on 25 fresh roots. All 64 mirrored ordinary
+pairs tied. A full census explains the fresh mistake: the deadline-truncated
+prefix briefly favored the wrong move. Mean investigation took 0.11–0.12 s.
+The candidate remains optional, with the successful example and counterexample
+both retained for the next decision-budget study.
+
+The [sunshine discussion notes](../experiments/partnership/SUNSHINE-NOTES.md)
+preserve the subsequent research direction: a fast partner-aware player using
+fallible guesses, targeted checks, and hindsight learning, with a reusable
+experimental method for later belief and dynamics studies. These are proposals,
+separate from the implemented capabilities and measured results below.
+
+**Future Sunshine harness (2026-09-15):** the
+[Scheme workshop direction](../experiments/partnership/SUNSHINE-NOTES.md#sunshine-harness-a-scheme-workshop)
+adds a designed 3D research bench with linked analytics, reproducible Scheme
+searches, comparative continuations, and shared human/agent operations. It is
+recorded for later; the immediate focus returns to the playable game.
+
+**2026-09-13:** the [first sunshine experiment](../experiments/partnership/campaigns/sunshine-partner-count-v1/RESULTS.md)
+implements an optional Scheme-directed count-offer review around default L1.
+It improved 24/30 to 29/30 on the selected composed exam and 100/117 to 107/117
+on the overlapping broader gallery. In 100 fresh paired bid-30 deals it changed
+no moves and all outcomes tied; 192 conditional hidden-hand pairs also tied.
+A post-hoc controlled check found two selected positions where changing only
+the modeled partner reverses an action preference. This is model-relative
+partnership evidence, not an established live strength gain. The existing
+default remains unchanged. The [review guide](../experiments/partnership/PARTNER-REVIEW.md)
+documents the 250 ms allowance, finite model, and interruption-safe backstop.
+
+The [subsequent replay of the exact gym misses](../experiments/partnership/campaigns/sunshine-gym-replay-v1/RESULTS.md)
+replaces the teacher continuation with deployed L1 at every seat. Two of six
+offers remain beneficial and four reverse. Across all 746 missed-case worlds,
+the reviewed partnership saves 21 and loses 32 compared with L1; its strongest
+useful root review times out. The 38 withholding controls incur no additional
+harm across 1,170 worlds, and the certain control retains 3/3 versus 0/3 action
+values. All 7,338 complete continuations were audited. This is a conditional
+competence test for a rare partnership annoyance, not a prevalence requirement;
+the deployed-continuation labels and paired witnesses are now reusable.
+
 ---
 
 ## 1. The redirection and the fence (2026-09-06)

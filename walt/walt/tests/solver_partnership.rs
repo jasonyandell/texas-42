@@ -346,7 +346,12 @@ fn modeled_l1_inherits_selection_but_l0_keeps_its_fixed_dice_boundary() {
                 sh.inner_worlds_by_level()[k],
                 if k == 0 { 2 } else { expected }
             );
-            let counts = sh.inner_worlds_by_level();
+            let mut counts = sh.inner_worlds_by_level();
+            if k == 0 && cfg!(feature = "bypass-l0-cache")
+                && (cfg!(feature = "bypass-l0-cache-all") || f.hand.count_ones() <= 2)
+            {
+                counts[0] += 2; // The cheap L0 policy deliberately recomputes.
+            }
             assert_eq!(
                 host.modeled_choice(k, &key, f.seat, f.hand, f.legal),
                 Some(choice)
@@ -354,7 +359,7 @@ fn modeled_l1_inherits_selection_but_l0_keeps_its_fixed_dice_boundary() {
             assert_eq!(
                 sh.inner_worlds_by_level(),
                 counts,
-                "warm cache does not resample"
+                "cached levels do not resample; bypassed L0 repeats its fixed sample"
             );
         }
     }
@@ -627,6 +632,36 @@ fn bounded_evaluator_is_deterministic_and_reports_every_legal_action() {
         a.stats.inner_worlds_by_level[1],
         a.stats.pi_calls_by_level[1] * 2
     );
+}
+
+#[test]
+fn staged_policy_cache_preserves_values_and_uses_a_fresh_deadline() {
+    let f = fixture();
+    for profile in [FieldProfile::Baseline, FieldProfile::PartnerOnly] {
+        let mut previous = None;
+        let run = |cfg: &Config, previous: &mut Option<Shared>| {
+            partnership::evaluate_with_cache(f.dcl, f.bid, f.seat, f.hand, f.legal,
+                &f.key, f.sizes, f.voids, f.trick_start_played,
+                f.boundary_hand_size, cfg, previous)
+        };
+        // Nine L0 worlds use the general cached fallback, so both profiles
+        // exercise an actual cache transfer even when cheap L0 bypass is on.
+        let cfg = Config { n0: 9, ..config(profile) };
+        run(&cfg, &mut previous).unwrap();
+        assert!(previous.as_ref().unwrap().pi_cache_len() > 0);
+        let deeper = Config { n_outer: 8, ..cfg };
+        let warm = run(&deeper, &mut previous).unwrap();
+        let cold = run(&deeper, &mut None).unwrap();
+        assert_eq!(warm.actions, cold.actions);
+        assert_eq!(warm.best(), cold.best());
+        assert_eq!(warm.stats.outer_worlds, cold.stats.outer_worlds);
+        assert!(warm.stats.pi_calls_by_level.iter().sum::<u64>()
+            < cold.stats.pi_calls_by_level.iter().sum::<u64>());
+        let expired = Config { deadline: Deadline::after(Duration::ZERO), ..deeper };
+        assert_eq!(run(&expired, &mut previous).unwrap_err().reason, RefusalReason::Deadline);
+        let recovered = run(&Config { deadline: Deadline::after(Duration::from_secs(30)), ..deeper }, &mut previous).unwrap();
+        assert_eq!(recovered.actions, cold.actions);
+    }
 }
 
 #[test]

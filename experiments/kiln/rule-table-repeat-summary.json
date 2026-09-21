@@ -1,0 +1,17 @@
+{
+  "baseline": "77f81f56770c3cf166b15ab6b3742a1f43462b9c5814e2ee541a732373c2cbc4",
+  "candidate": "e6cea7cf0d62796e60f0756d849098a3fa64c2985c6dc207fac37ed65c0a748d",
+  "completed": 64,
+  "geometric_speedup": 1.0451275237611066,
+  "median_speedup": 1.0471015155429653,
+  "requested": 64,
+  "schema": "kiln-carry-timing-v1",
+  "workers": 4,
+  "worlds": [
+    8,
+    40,
+    160
+  ],
+  "evidence_file": "/Users/jason/data/texas-42/kiln-v1/rule-table-repeat.json",
+  "evidence_sha256": "46443545e54c0113142af48081b9ced938f3774b04176d5a2eda509d1a8e18a6"
+}

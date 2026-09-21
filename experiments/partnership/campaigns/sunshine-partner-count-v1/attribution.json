@@ -1,0 +1,1745 @@
+{
+  "l0_check_changes": 4,
+  "l1_partner_check_changes": 6,
+  "manifest": {
+    "baseline_sha256": "6659df12f6d2c6d1f2b58fb91ba139f990220cb16f63faa685332af73725a77a",
+    "binary_sha256": "f938abebd3fd82bd1cff87b5778d760837bed0d619b997f53fc8f9eef3567abb",
+    "cases_identity": "016c93190dc8a7761d72a345579abedc6f67d15bcf033db9d18542ddca875f03",
+    "runner_sha256": "ec67e95e74395cc280c53b357563ce524bebc652dc95b2125cfc8c6a050169f7",
+    "schema": "sunshine-posthoc-attribution-v1",
+    "scope": "old selected declaring-side gym; post-hoc mechanism diagnostic"
+  },
+  "original_misses": 6,
+  "rows": [
+    {
+      "baseline": {
+        "choice": 20,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 50326,
+            "field_calls": 2730,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 1700,
+            "values": [
+              [
+                20,
+                210
+              ],
+              [
+                22,
+                193
+              ],
+              [
+                27,
+                193
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 198190,
+            "field_calls": 2738,
+            "field_id": "gym-field-v1/partner=S1/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 1762,
+            "values": [
+              [
+                20,
+                210
+              ],
+              [
+                22,
+                197
+              ],
+              [
+                27,
+                179
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 210
+      },
+      "l0_check_choice": 20,
+      "l1_partner_check_choice": 20,
+      "offers": [
+        20
+      ],
+      "scenario": "advantage-01"
+    },
+    {
+      "baseline": {
+        "choice": 20,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 606,
+            "field_calls": 48,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 37,
+            "values": [
+              [
+                20,
+                12
+              ],
+              [
+                27,
+                10
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 340,
+            "field_calls": 48,
+            "field_id": "gym-field-v1/partner=S0/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 37,
+            "values": [
+              [
+                20,
+                12
+              ],
+              [
+                27,
+                10
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 12
+      },
+      "l0_check_choice": 20,
+      "l1_partner_check_choice": 20,
+      "offers": [
+        20
+      ],
+      "scenario": "advantage-02"
+    },
+    {
+      "baseline": {
+        "choice": 20,
+        "optimal": true,
+        "regret": "0",
+        "success": "46/75"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 63383,
+            "field_calls": 4081,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 3457,
+            "values": [
+              [
+                19,
+                85
+              ],
+              [
+                20,
+                92
+              ],
+              [
+                26,
+                90
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 209366,
+            "field_calls": 4031,
+            "field_id": "gym-field-v1/partner=S1/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 3398,
+            "values": [
+              [
+                19,
+                83
+              ],
+              [
+                20,
+                92
+              ],
+              [
+                26,
+                91
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 150
+      },
+      "l0_check_choice": 20,
+      "l1_partner_check_choice": 20,
+      "offers": [
+        20
+      ],
+      "scenario": "advantage-03"
+    },
+    {
+      "baseline": {
+        "choice": 8,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 12752,
+            "field_calls": 676,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 590,
+            "values": [
+              [
+                8,
+                48
+              ],
+              [
+                19,
+                27
+              ],
+              [
+                24,
+                28
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 57212,
+            "field_calls": 652,
+            "field_id": "gym-field-v1/partner=S0/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 527,
+            "values": [
+              [
+                8,
+                48
+              ],
+              [
+                19,
+                36
+              ],
+              [
+                24,
+                34
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 48
+      },
+      "l0_check_choice": 8,
+      "l1_partner_check_choice": 8,
+      "offers": [
+        8
+      ],
+      "scenario": "advantage-04"
+    },
+    {
+      "baseline": {
+        "choice": 20,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 61279,
+            "field_calls": 3153,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 2406,
+            "values": [
+              [
+                12,
+                174
+              ],
+              [
+                19,
+                159
+              ],
+              [
+                20,
+                210
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 264414,
+            "field_calls": 3118,
+            "field_id": "gym-field-v1/partner=S1/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 2404,
+            "values": [
+              [
+                12,
+                160
+              ],
+              [
+                19,
+                162
+              ],
+              [
+                20,
+                210
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 210
+      },
+      "l0_check_choice": 20,
+      "l1_partner_check_choice": 20,
+      "offers": [
+        20
+      ],
+      "scenario": "advantage-05"
+    },
+    {
+      "baseline": {
+        "choice": 2,
+        "optimal": false,
+        "regret": "11/105",
+        "success": "131/210"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 78340,
+            "field_calls": 5071,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 4321,
+            "values": [
+              [
+                0,
+                140
+              ],
+              [
+                2,
+                133
+              ],
+              [
+                15,
+                150
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 392815,
+            "field_calls": 5076,
+            "field_id": "gym-field-v1/partner=S0/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 4366,
+            "values": [
+              [
+                0,
+                138
+              ],
+              [
+                2,
+                131
+              ],
+              [
+                15,
+                153
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 210
+      },
+      "l0_check_choice": 15,
+      "l1_partner_check_choice": 15,
+      "offers": [
+        15
+      ],
+      "scenario": "advantage-06"
+    },
+    {
+      "baseline": {
+        "choice": 11,
+        "optimal": true,
+        "regret": "0",
+        "success": "3/10"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 6980,
+            "field_calls": 273,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 281,
+            "values": [
+              [
+                11,
+                6
+              ],
+              [
+                16,
+                3
+              ],
+              [
+                20,
+                3
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 13237,
+            "field_calls": 264,
+            "field_id": "gym-field-v1/partner=S2/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 267,
+            "values": [
+              [
+                11,
+                6
+              ],
+              [
+                16,
+                3
+              ],
+              [
+                20,
+                3
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 20
+      },
+      "l0_check_choice": 11,
+      "l1_partner_check_choice": 11,
+      "offers": [
+        11,
+        20
+      ],
+      "scenario": "advantage-07"
+    },
+    {
+      "baseline": {
+        "choice": 25,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 53737,
+            "field_calls": 2650,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 1682,
+            "values": [
+              [
+                17,
+                140
+              ],
+              [
+                25,
+                210
+              ],
+              [
+                26,
+                133
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 210104,
+            "field_calls": 2623,
+            "field_id": "gym-field-v1/partner=S1/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 1662,
+            "values": [
+              [
+                17,
+                136
+              ],
+              [
+                25,
+                210
+              ],
+              [
+                26,
+                134
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 210
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-08"
+    },
+    {
+      "baseline": {
+        "choice": 15,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 167,
+            "field_calls": 15,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 17,
+            "values": [
+              [
+                7,
+                0
+              ],
+              [
+                15,
+                3
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 116,
+            "field_calls": 15,
+            "field_id": "gym-field-v1/partner=S0/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 17,
+            "values": [
+              [
+                7,
+                0
+              ],
+              [
+                15,
+                3
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 3
+      },
+      "l0_check_choice": 15,
+      "l1_partner_check_choice": 15,
+      "offers": [
+        15
+      ],
+      "scenario": "advantage-09"
+    },
+    {
+      "baseline": {
+        "choice": 25,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 497,
+            "field_calls": 60,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 52,
+            "values": [
+              [
+                24,
+                7
+              ],
+              [
+                25,
+                12
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 769,
+            "field_calls": 60,
+            "field_id": "gym-field-v1/partner=S0/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 52,
+            "values": [
+              [
+                24,
+                7
+              ],
+              [
+                25,
+                12
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 12
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-10"
+    },
+    {
+      "baseline": {
+        "choice": 15,
+        "optimal": true,
+        "regret": "0",
+        "success": "5/8"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 10136,
+            "field_calls": 705,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 653,
+            "values": [
+              [
+                15,
+                15
+              ],
+              [
+                18,
+                14
+              ],
+              [
+                26,
+                13
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 39486,
+            "field_calls": 726,
+            "field_id": "gym-field-v1/partner=S0/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 672,
+            "values": [
+              [
+                15,
+                15
+              ],
+              [
+                18,
+                14
+              ],
+              [
+                26,
+                13
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 24
+      },
+      "l0_check_choice": 15,
+      "l1_partner_check_choice": 15,
+      "offers": [
+        15
+      ],
+      "scenario": "advantage-11"
+    },
+    {
+      "baseline": {
+        "choice": 25,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 257,
+            "field_calls": 25,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 25,
+            "values": [
+              [
+                22,
+                3
+              ],
+              [
+                25,
+                5
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 184,
+            "field_calls": 25,
+            "field_id": "gym-field-v1/partner=S1/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 25,
+            "values": [
+              [
+                22,
+                3
+              ],
+              [
+                25,
+                5
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 5
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-12"
+    },
+    {
+      "baseline": {
+        "choice": 25,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 51481,
+            "field_calls": 2875,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 2020,
+            "values": [
+              [
+                19,
+                134
+              ],
+              [
+                25,
+                210
+              ],
+              [
+                26,
+                139
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 221466,
+            "field_calls": 2932,
+            "field_id": "gym-field-v1/partner=S1/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 2063,
+            "values": [
+              [
+                19,
+                132
+              ],
+              [
+                25,
+                210
+              ],
+              [
+                26,
+                137
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 210
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-13"
+    },
+    {
+      "baseline": {
+        "choice": 25,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 43866,
+            "field_calls": 2662,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 1683,
+            "values": [
+              [
+                9,
+                156
+              ],
+              [
+                24,
+                155
+              ],
+              [
+                25,
+                210
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 206643,
+            "field_calls": 2666,
+            "field_id": "gym-field-v1/partner=S2/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 1706,
+            "values": [
+              [
+                9,
+                156
+              ],
+              [
+                24,
+                155
+              ],
+              [
+                25,
+                210
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 210
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-14"
+    },
+    {
+      "baseline": {
+        "choice": 25,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 204,
+            "field_calls": 35,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 33,
+            "values": [
+              [
+                14,
+                5
+              ],
+              [
+                25,
+                7
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 152,
+            "field_calls": 35,
+            "field_id": "gym-field-v1/partner=S2/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 33,
+            "values": [
+              [
+                14,
+                5
+              ],
+              [
+                25,
+                7
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 7
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-15"
+    },
+    {
+      "baseline": {
+        "choice": 20,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 27340,
+            "field_calls": 2138,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 1583,
+            "values": [
+              [
+                5,
+                109
+              ],
+              [
+                20,
+                150
+              ],
+              [
+                24,
+                114
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 166020,
+            "field_calls": 2020,
+            "field_id": "gym-field-v1/partner=S0/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 1422,
+            "values": [
+              [
+                5,
+                114
+              ],
+              [
+                20,
+                150
+              ],
+              [
+                24,
+                129
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 150
+      },
+      "l0_check_choice": 20,
+      "l1_partner_check_choice": 20,
+      "offers": [
+        20
+      ],
+      "scenario": "advantage-16"
+    },
+    {
+      "baseline": {
+        "choice": 25,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 239,
+            "field_calls": 60,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 52,
+            "values": [
+              [
+                25,
+                12
+              ],
+              [
+                27,
+                6
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 177,
+            "field_calls": 60,
+            "field_id": "gym-field-v1/partner=S0/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 52,
+            "values": [
+              [
+                25,
+                12
+              ],
+              [
+                27,
+                6
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 12
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-17"
+    },
+    {
+      "baseline": {
+        "choice": 25,
+        "optimal": true,
+        "regret": "0",
+        "success": "36/37"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 7656,
+            "field_calls": 661,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 556,
+            "values": [
+              [
+                2,
+                26
+              ],
+              [
+                25,
+                36
+              ],
+              [
+                27,
+                29
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 44216,
+            "field_calls": 668,
+            "field_id": "gym-field-v1/partner=S3/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 557,
+            "values": [
+              [
+                2,
+                31
+              ],
+              [
+                25,
+                36
+              ],
+              [
+                27,
+                29
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 37
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-18"
+    },
+    {
+      "baseline": {
+        "choice": 25,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 40076,
+            "field_calls": 2989,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 1959,
+            "values": [
+              [
+                19,
+                180
+              ],
+              [
+                25,
+                210
+              ],
+              [
+                26,
+                181
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 202227,
+            "field_calls": 2985,
+            "field_id": "gym-field-v1/partner=S1/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 1963,
+            "values": [
+              [
+                19,
+                176
+              ],
+              [
+                25,
+                210
+              ],
+              [
+                26,
+                180
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 210
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-19"
+    },
+    {
+      "baseline": {
+        "choice": 3,
+        "optimal": false,
+        "regret": "1/20",
+        "success": "7/10"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 8911,
+            "field_calls": 844,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 788,
+            "values": [
+              [
+                3,
+                28
+              ],
+              [
+                8,
+                29
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 50725,
+            "field_calls": 765,
+            "field_id": "gym-field-v1/partner=S1/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 768,
+            "values": [
+              [
+                3,
+                28
+              ],
+              [
+                8,
+                30
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 40
+      },
+      "l0_check_choice": 8,
+      "l1_partner_check_choice": 8,
+      "offers": [
+        8
+      ],
+      "scenario": "advantage-20"
+    },
+    {
+      "baseline": {
+        "choice": 25,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 10846,
+            "field_calls": 1438,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 998,
+            "values": [
+              [
+                7,
+                76
+              ],
+              [
+                21,
+                71
+              ],
+              [
+                25,
+                100
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 72439,
+            "field_calls": 1481,
+            "field_id": "gym-field-v1/partner=S0/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 1040,
+            "values": [
+              [
+                7,
+                76
+              ],
+              [
+                21,
+                75
+              ],
+              [
+                25,
+                100
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 100
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-21"
+    },
+    {
+      "baseline": {
+        "choice": 10,
+        "optimal": false,
+        "regret": "1/38",
+        "success": "13/19"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 19233,
+            "field_calls": 2081,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 1871,
+            "values": [
+              [
+                10,
+                54
+              ],
+              [
+                14,
+                55
+              ],
+              [
+                25,
+                52
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 122913,
+            "field_calls": 1971,
+            "field_id": "gym-field-v1/partner=S2/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 1764,
+            "values": [
+              [
+                10,
+                52
+              ],
+              [
+                14,
+                50
+              ],
+              [
+                25,
+                54
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 76
+      },
+      "l0_check_choice": 10,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-22"
+    },
+    {
+      "baseline": {
+        "choice": 25,
+        "optimal": true,
+        "regret": "0",
+        "success": "17/27"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 5840,
+            "field_calls": 468,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 455,
+            "values": [
+              [
+                14,
+                12
+              ],
+              [
+                19,
+                17
+              ],
+              [
+                25,
+                15
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 53814,
+            "field_calls": 461,
+            "field_id": "gym-field-v1/partner=S2/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 460,
+            "values": [
+              [
+                14,
+                12
+              ],
+              [
+                19,
+                15
+              ],
+              [
+                25,
+                17
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 27
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-23"
+    },
+    {
+      "baseline": {
+        "choice": 15,
+        "optimal": true,
+        "regret": "0",
+        "success": "19/21"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 53584,
+            "field_calls": 4671,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 3022,
+            "values": [
+              [
+                1,
+                68
+              ],
+              [
+                8,
+                144
+              ],
+              [
+                15,
+                200
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 149042,
+            "field_calls": 5182,
+            "field_id": "gym-field-v1/partner=S0/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 3463,
+            "values": [
+              [
+                1,
+                68
+              ],
+              [
+                8,
+                166
+              ],
+              [
+                15,
+                190
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 210
+      },
+      "l0_check_choice": 15,
+      "l1_partner_check_choice": 15,
+      "offers": [
+        8,
+        15
+      ],
+      "scenario": "advantage-24"
+    },
+    {
+      "baseline": {
+        "choice": 11,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 201,
+            "field_calls": 60,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 41,
+            "values": [
+              [
+                3,
+                4
+              ],
+              [
+                11,
+                12
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 146,
+            "field_calls": 60,
+            "field_id": "gym-field-v1/partner=S3/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 41,
+            "values": [
+              [
+                3,
+                4
+              ],
+              [
+                11,
+                12
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 12
+      },
+      "l0_check_choice": 11,
+      "l1_partner_check_choice": 11,
+      "offers": [
+        11
+      ],
+      "scenario": "advantage-25"
+    },
+    {
+      "baseline": {
+        "choice": 25,
+        "optimal": true,
+        "regret": "0",
+        "success": "1"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 38509,
+            "field_calls": 3138,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 2259,
+            "values": [
+              [
+                19,
+                167
+              ],
+              [
+                25,
+                210
+              ],
+              [
+                26,
+                162
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 186134,
+            "field_calls": 3214,
+            "field_id": "gym-field-v1/partner=S1/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 2250,
+            "values": [
+              [
+                19,
+                161
+              ],
+              [
+                25,
+                210
+              ],
+              [
+                26,
+                171
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 210
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-26"
+    },
+    {
+      "baseline": {
+        "choice": 26,
+        "optimal": false,
+        "regret": "1/45",
+        "success": "29/45"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 18980,
+            "field_calls": 1758,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 1408,
+            "values": [
+              [
+                3,
+                54
+              ],
+              [
+                25,
+                60
+              ],
+              [
+                26,
+                58
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 81280,
+            "field_calls": 1710,
+            "field_id": "gym-field-v1/partner=S1/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 1348,
+            "values": [
+              [
+                3,
+                56
+              ],
+              [
+                25,
+                60
+              ],
+              [
+                26,
+                58
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 90
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-27"
+    },
+    {
+      "baseline": {
+        "choice": 11,
+        "optimal": true,
+        "regret": "0",
+        "success": "62/105"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 40604,
+            "field_calls": 4411,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 3327,
+            "values": [
+              [
+                11,
+                126
+              ],
+              [
+                18,
+                97
+              ],
+              [
+                26,
+                102
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 164486,
+            "field_calls": 4418,
+            "field_id": "gym-field-v1/partner=S2/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 3294,
+            "values": [
+              [
+                11,
+                124
+              ],
+              [
+                18,
+                103
+              ],
+              [
+                26,
+                112
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 210
+      },
+      "l0_check_choice": 11,
+      "l1_partner_check_choice": 11,
+      "offers": [
+        11
+      ],
+      "scenario": "advantage-28"
+    },
+    {
+      "baseline": {
+        "choice": 22,
+        "optimal": false,
+        "regret": "1/35",
+        "success": "86/105"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 57696,
+            "field_calls": 4893,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 4070,
+            "values": [
+              [
+                22,
+                164
+              ],
+              [
+                25,
+                174
+              ],
+              [
+                27,
+                147
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 268338,
+            "field_calls": 4903,
+            "field_id": "gym-field-v1/partner=S0/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 4088,
+            "values": [
+              [
+                22,
+                172
+              ],
+              [
+                25,
+                178
+              ],
+              [
+                27,
+                152
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 210
+      },
+      "l0_check_choice": 25,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-29"
+    },
+    {
+      "baseline": {
+        "choice": 21,
+        "optimal": false,
+        "regret": "1/120",
+        "success": "109/120"
+      },
+      "comparison": {
+        "arms": [
+          {
+            "elapsed_us": 24050,
+            "field_calls": 1543,
+            "field_id": "field:level0-n8-v1",
+            "nodes": 1204,
+            "values": [
+              [
+                21,
+                92
+              ],
+              [
+                25,
+                90
+              ]
+            ]
+          },
+          {
+            "elapsed_us": 96044,
+            "field_calls": 1723,
+            "field_id": "gym-field-v1/partner=S0/l1-fixed-40-8/inner=voidless/opponents=field:level0-n8-v1/seed=420600-state-v1/tie=lowest/fallback=none",
+            "nodes": 1379,
+            "values": [
+              [
+                21,
+                109
+              ],
+              [
+                25,
+                110
+              ]
+            ]
+          }
+        ],
+        "schema": "partner-review-attribution-v1",
+        "worlds": 120
+      },
+      "l0_check_choice": 21,
+      "l1_partner_check_choice": 25,
+      "offers": [
+        25
+      ],
+      "scenario": "advantage-30"
+    }
+  ]
+}
