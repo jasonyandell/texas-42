@@ -59,6 +59,9 @@ pub struct CampaignState {
     pub constructor: bool,
     pub dict_cap: usize,
     pub admit_k: usize,
+    /// Promotion mode for proxy-bearing targets: "mf" (two-batch
+    /// multifidelity) or "direct-eb" (direct expensive stream, EB radii).
+    pub promotion_mode: String,
     /// Admitted expressions in admission order: (id, canonical text).
     pub learned: Vec<(String, String)>,
     pub weights: Vec<BigRational>,
@@ -110,6 +113,7 @@ impl CampaignState {
             constructor,
             dict_cap: 60,
             admit_k: 3,
+            promotion_mode: "mf".to_string(),
             learned: Vec::new(),
             weights: vec![BigRational::one(); dict.len()],
         }
@@ -129,6 +133,7 @@ impl CampaignState {
         let _ = writeln!(out, "constructor={}", u8::from(self.constructor));
         let _ = writeln!(out, "dict_cap={}", self.dict_cap);
         let _ = writeln!(out, "admit_k={}", self.admit_k);
+        let _ = writeln!(out, "promotion_mode={}", self.promotion_mode);
         for (id, text) in &self.learned {
             assert!(!id.contains(' '), "expression ids carry no spaces");
             let _ = writeln!(out, "expr={id} {text}");
@@ -182,6 +187,7 @@ impl CampaignState {
             constructor: get_or("constructor", "0") == "1",
             dict_cap: get_or("dict_cap", "60").parse().map_err(|e| format!("{e}"))?,
             admit_k: get_or("admit_k", "3").parse().map_err(|e| format!("{e}"))?,
+            promotion_mode: get_or("promotion_mode", "mf"),
             learned,
             weights,
         })
@@ -504,7 +510,39 @@ pub fn run_generation(
         let mut n_done = 0u64;
         let mut sum_d = BigRational::zero();
         let mut mf_json = String::from("null");
-        if let Some(proxy_t) = &proxy {
+        if proxy.is_some() && state.promotion_mode == "direct-eb" {
+            // Pilot-informed direct stream on the expensive target with
+            // variance-sensitive empirical-Bernstein radii (og-v4 gen-0
+            // measured this proxy's correlation too weak for MF promotion
+            // to pay; the record carries the measurement).
+            let eb_rule = EvidenceRule::gym_direct();
+            let mut stats = BatchStats::default();
+            for (j0, n_target) in eb_rule.checkpoints.iter().enumerate() {
+                for i in stats.n..*n_target {
+                    let a = play_deal(target, dict, &cand, promo_base + i, false, &[])?;
+                    let b = play_deal(target, dict, &incumbent, promo_base + i, false, &[])?;
+                    stats.push(i64::from(a.y) - i64::from(b.y));
+                }
+                let v = eb_rule.judge_eb(k, (j0 + 1) as u64, &stats);
+                checkpoints_json.push(format!(
+                    "{{\"n\":{},\"sum_d\":{},\"var\":\"{}\",\"verdict\":\"{:?}\"}}",
+                    stats.n,
+                    stats.sum,
+                    rat_to_str(&stats.sample_variance()),
+                    v
+                ));
+                match v {
+                    Verdict::Continue { .. } => continue,
+                    other => {
+                        verdict = other;
+                        break;
+                    }
+                }
+            }
+            n_done = stats.n;
+            sum_d = stats.mean();
+            mf_json = format!("{{\"mode\":\"direct-eb\",\"tau\":\"1/100\",\"proxy_used_for\":\"training/construction/screening only\",\"target\":\"{}\"}}", target.id);
+        } else if let Some(proxy_t) = &proxy {
             // Multifidelity stream: cheap paired differences on the proxy
             // plus correction pairs evaluating BOTH lineups on the same
             // exogenous deals, in independent declared subregions.

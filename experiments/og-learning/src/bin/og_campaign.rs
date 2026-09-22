@@ -59,7 +59,7 @@ fn main() -> Result<(), String> {
             let dir = dir_arg();
             std::fs::create_dir_all(&dir).map_err(|e| e.to_string())?;
             let dict = ClauseDictionary::standard()?;
-            let state = CampaignState::fresh(
+            let mut state = CampaignState::fresh(
                 &target,
                 &dict,
                 arg("--train", 4096),
@@ -68,6 +68,8 @@ fn main() -> Result<(), String> {
                 arg("--offset", 0),
                 arg("--constructor", 0) == 1,
             );
+            state.promotion_mode = str_arg("--promotion", "mf");
+            assert!(["mf", "direct-eb"].contains(&state.promotion_mode.as_str()));
             state.save(&dir.join("state.txt"))?;
             println!(
                 "initialized {} at {} (train={}, dev={}, stall={}, offset={}, constructor={})",

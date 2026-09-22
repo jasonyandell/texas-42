@@ -72,6 +72,40 @@ impl EvidenceRule {
         }
     }
 
+    /// The pilot-informed og-v4b rule: DIRECT expensive-target promotion
+    /// with empirical-Bernstein radii (the og-v4 gen-0 pilot measured the
+    /// all-L0 proxy's correlation too weak for multifidelity promotion to
+    /// pay - parent §6's caveat, quantified in the og-v4 record). The
+    /// proxy still drives training, construction and screening.
+    pub fn gym_direct() -> Self {
+        EvidenceRule {
+            delta: BigRational::new(BigInt::from(1), BigInt::from(20)),
+            tau: BigRational::new(BigInt::from(1), BigInt::from(100)),
+            checkpoints: vec![2_048, 8_192, 32_768],
+        }
+    }
+
+    /// Judge with the variance-sensitive empirical-Bernstein radius
+    /// (range 2: paired make/set differences lie in [-1, 1]).
+    pub fn judge_eb(&self, k: u64, j: u64, stats: &BatchStats) -> Verdict {
+        assert_eq!(self.checkpoints[(j - 1) as usize], stats.n);
+        let alpha = self.alpha(k, j);
+        let r = crate::bounds::bernstein_radius_upper(&alpha, stats.n, &stats.sample_variance(), 2);
+        let mean = stats.mean();
+        if &mean - &r > self.tau {
+            return Verdict::Promoted;
+        }
+        if &mean + &r < self.tau {
+            return Verdict::NotPromoted;
+        }
+        match self.checkpoints.get(j as usize) {
+            Some(next) => Verdict::Continue {
+                next_checkpoint: *next,
+            },
+            None => Verdict::Unresolved,
+        }
+    }
+
     /// The whole run's alpha spend never exceeds delta (exact partial sums).
     pub fn alpha_budget_partial(&self, max_k: u64, max_j: u64) -> BigRational {
         let mut s = BigRational::zero();
