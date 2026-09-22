@@ -158,3 +158,20 @@ campaigns/og-v4/RESULTS.md): direct gym-field promotion streams with
 empirical-Bernstein radii, tau = 1/100, checkpoints 2048/8192/32768;
 campaign offset 400,000,000; proxy retained for training, construction and
 screening only.
+
+**og-v5 declaration** (2026-09-22, authorized "yes do that please" - the fair
+second pilot plus the CE anytime harvester): same gym-field target lineup as
+og-v4/og-v4b; declared proxy `GymField(S0, 4)` (same architecture, cheap L1
+partner, 3.6 ms/deal vs 24.7) used for training, construction and screening
+only. **The fair pilot** (og-v4b incumbent vs uniform, 1,024 paired seeds,
+both lineups; record `campaigns/og-v4b/pilot-og-v5-proxy.json`): rho = 0.38,
+Var(D_H-D_L) = 0.363 > Var(D_H) = 0.297, direct wins by 2.4x - the second
+independent measurement that make/set paired differences are proxy-resistant
+here. Promotion mode `anytime-direct`: the adjudicated CE-T4/T5 bounded-mean
+betting mixtures (`walt::solver::evidence::BoundedMeanMixture` is the
+authority; the count-based fast-exponent evaluation is gate-checked equal),
+lambda grid {1/64..1/2} equal-weighted, tau = 1/100, one alpha_k =
+delta/(k(k+1)) per candidate split across the promote (CE-T4) and futility
+(CE-T5) sides, judged every 512 paired deals, stream cap 65,536 - optional
+stopping valid at EVERY n, which is what harvests the 1-2% band the
+fixed-checkpoint rules leave unresolved. Campaign offset 500,000,000.

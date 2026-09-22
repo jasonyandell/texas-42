@@ -76,6 +76,30 @@ impl CampaignTarget {
         }
     }
 
+    /// og-v5: same lineup as og-v4 (the maintained gym field), but the
+    /// declared proxy is the SAME architecture with a cheap L1 partner
+    /// (GymField(S0, 4)) and promotion is anytime-valid (CE-T4/T5).
+    pub fn og_v5() -> Self {
+        CampaignTarget {
+            id: "og-v5/bid30-longest-pip/S0-learner/gym-field-l1p40-l0o8-v1".into(),
+            bid: 30,
+            bidder: Seat::S0,
+            learner_seats: vec![Seat::S0],
+            field: FieldKind::Gym { partner_worlds: 40 },
+        }
+    }
+
+    /// og-v5's declared cheap proxy: identical law, partner at n_outer = 4.
+    pub fn og_v5_proxy() -> Self {
+        CampaignTarget {
+            id: "og-v5-proxy/bid30-longest-pip/S0-learner/gym-field-l1p4-l0o8-v1".into(),
+            bid: 30,
+            bidder: Seat::S0,
+            learner_seats: vec![Seat::S0],
+            field: FieldKind::Gym { partner_worlds: 4 },
+        }
+    }
+
     /// og-v4's declared cheap proxy: identical law and learner, but S1, S2
     /// and S3 all play Level0Field(8). Used for training, construction and
     /// the multifidelity cheap batches; NEVER for a direct target claim.
@@ -93,6 +117,8 @@ impl CampaignTarget {
     pub fn proxy(&self) -> Option<CampaignTarget> {
         if self.id.starts_with("og-v4/") {
             Some(Self::og_v4_proxy())
+        } else if self.id.starts_with("og-v5/") {
+            Some(Self::og_v5_proxy())
         } else {
             None
         }
@@ -100,7 +126,14 @@ impl CampaignTarget {
 
     /// Resolve a target from a recorded identity (state files).
     pub fn from_id(id: &str) -> Result<Self, String> {
-        for t in [Self::og_v1(), Self::og_v3(), Self::og_v4(), Self::og_v4_proxy()] {
+        for t in [
+            Self::og_v1(),
+            Self::og_v3(),
+            Self::og_v4(),
+            Self::og_v4_proxy(),
+            Self::og_v5(),
+            Self::og_v5_proxy(),
+        ] {
             if t.id == id {
                 return Ok(t);
             }

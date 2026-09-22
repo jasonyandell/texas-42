@@ -37,7 +37,11 @@ fn field_target() -> Result<CampaignTarget, String> {
         "hash" => Ok(CampaignTarget::og_v1()),
         "l0-8" => Ok(CampaignTarget::og_v3()),
         "gym" => Ok(CampaignTarget::og_v4()),
-        other => Err(format!("unknown --field {other:?}; use hash | l0-8 | gym")),
+        "gym-v5" => Ok(CampaignTarget::og_v5()),
+        "gym4" => Ok(CampaignTarget::og_v5_proxy()),
+        other => Err(format!(
+            "unknown --field {other:?}; use hash | l0-8 | gym | gym-v5 | gym4"
+        )),
     }
 }
 
@@ -69,7 +73,9 @@ fn main() -> Result<(), String> {
                 arg("--constructor", 0) == 1,
             );
             state.promotion_mode = str_arg("--promotion", "mf");
-            assert!(["mf", "direct-eb"].contains(&state.promotion_mode.as_str()));
+            assert!(
+                ["mf", "direct-eb", "anytime-direct"].contains(&state.promotion_mode.as_str())
+            );
             state.save(&dir.join("state.txt"))?;
             println!(
                 "initialized {} at {} (train={}, dev={}, stall={}, offset={}, constructor={})",
@@ -207,6 +213,72 @@ fn main() -> Result<(), String> {
             println!("{json}");
             Ok(())
         }
+        "pilot" => {
+            // The §6 pilot, run properly: a REAL policy pair (the given
+            // campaign's incumbent vs uniform) evaluated under both the
+            // expensive target and its declared proxy on paired seeds.
+            let dir = dir_arg();
+            let m = arg("--deals", 1024);
+            let state = CampaignState::load(&dir.join("state.txt"))?;
+            let base_target = CampaignTarget::from_id(&state.target_id)?;
+            let proxy = match str_arg("--proxy", "declared").as_str() {
+                "declared" => base_target
+                    .proxy()
+                    .ok_or_else(|| "target declares no proxy".to_string())?,
+                "gym4" => CampaignTarget::og_v5_proxy(),
+                "l0-8" => CampaignTarget::og_v4_proxy(),
+                other => return Err(format!("unknown --proxy {other:?}")),
+            };
+            let dict = ClauseDictionary::with_learned(&state.learned)?;
+            let actor = og_learning::actor::RationalActor {
+                weights: state.weights.clone(),
+                dictionary_version: dict.version.clone(),
+            };
+            let uniform = RationalActor::uniform(dict.len(), &dict.version);
+            let base = 800_000_000u64 + state.seed_offset;
+            let mut dl = og_learning::promotion::BatchStats::default();
+            let mut dh = og_learning::promotion::BatchStats::default();
+            let mut dc = og_learning::promotion::BatchStats::default();
+            let mut sum_dhdl = 0i64;
+            let mut h_ms = 0u128;
+            let mut l_ms = 0u128;
+            for i in 0..m {
+                let t0 = Instant::now();
+                let ha = play_deal(&base_target, &dict, &actor, base + i, false, &[])?;
+                let hb = play_deal(&base_target, &dict, &uniform, base + i, false, &[])?;
+                h_ms += t0.elapsed().as_millis();
+                let t1 = Instant::now();
+                let la = play_deal(&proxy, &dict, &actor, base + i, false, &[])?;
+                let lb = play_deal(&proxy, &dict, &uniform, base + i, false, &[])?;
+                l_ms += t1.elapsed().as_millis();
+                let vh = i64::from(ha.y) - i64::from(hb.y);
+                let vl = i64::from(la.y) - i64::from(lb.y);
+                dh.push(vh);
+                dl.push(vl);
+                dc.push(vh - vl);
+                sum_dhdl += vh * vl;
+            }
+            let fr = |n: i64, d: u64| format!("{n}/{d}");
+            let json = format!(
+                "{{\"pilot\":{{\"target\":\"{}\",\"proxy\":\"{}\",\"actor_digest\":\"{:016x}\",\
+                 \"deals\":{m},\"mean_dh\":\"{}\",\"mean_dl\":\"{}\",\
+                 \"var_dh\":\"{}/{}\",\"var_dl\":\"{}/{}\",\"var_dc\":\"{}/{}\",\
+                 \"sum_dhdl\":{sum_dhdl},\"h_ms_per_pair\":{},\"l_ms_per_pair\":{}}}}}",
+                base_target.id,
+                proxy.id,
+                actor.digest(),
+                fr(dh.sum, m),
+                fr(dl.sum, m),
+                dh.sample_variance().numer(), dh.sample_variance().denom(),
+                dl.sample_variance().numer(), dl.sample_variance().denom(),
+                dc.sample_variance().numer(), dc.sample_variance().denom(),
+                h_ms / u128::from(m),
+                l_ms / u128::from(m)
+            );
+            std::fs::write(dir.join(format!("pilot-{}.json", proxy.id.split('/').next().unwrap_or("proxy"))), format!("{json}\n")).map_err(|e| e.to_string())?;
+            println!("{json}");
+            Ok(())
+        }
         "exam" => {
             let dir = dir_arg();
             let n = arg("--deals", 4096);
@@ -218,7 +290,7 @@ fn main() -> Result<(), String> {
             Ok(())
         }
         other => Err(format!(
-            "unknown subcommand {other:?}; use init | bench | train | panel | exam"
+            "unknown subcommand {other:?}; use init | bench | train | panel | pilot | exam"
         )),
     }
 }

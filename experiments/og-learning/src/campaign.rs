@@ -20,6 +20,7 @@ use crate::bounds::ln_upper;
 use crate::constructor::{generate_pool, panel_filter};
 use crate::features::{set_for, ClauseDictionary};
 use crate::gradient::{estimate, GradientEstimate};
+use crate::anytime::{judge as anytime_judge, AnytimeVerdict, DiffCounts};
 use crate::promotion::{BatchStats, EvidenceRule, MfEvidenceRule, Verdict};
 use crate::rollout::{collect_panel_decisions, play_deal, DealRecord, DEAL_WORK_BUDGET};
 use crate::target::CampaignTarget;
@@ -510,7 +511,60 @@ pub fn run_generation(
         let mut n_done = 0u64;
         let mut sum_d = BigRational::zero();
         let mut mf_json = String::from("null");
-        if proxy.is_some() && state.promotion_mode == "direct-eb" {
+        if proxy.is_some() && state.promotion_mode == "anytime-direct" {
+            // Anytime-valid direct stream on the expensive target (the
+            // adjudicated CE-T4/T5 betting mixtures - one alpha_k per
+            // candidate, optional stopping valid at every n, judged every
+            // JUDGE_EVERY deals up to the declared cap). This is the
+            // harvester for the 1-2% band the fixed-checkpoint rules leave
+            // unresolved.
+            const JUDGE_EVERY: u64 = 512;
+            const STREAM_CAP: u64 = 65_536;
+            let delta = BigRational::new(BigInt::from(1), BigInt::from(20));
+            let tau = BigRational::new(BigInt::from(1), BigInt::from(100));
+            let mut counts = DiffCounts::default();
+            let mut resolved: Option<Verdict> = None;
+            while counts.n() < STREAM_CAP {
+                let i = counts.n();
+                let a = play_deal(target, dict, &cand, promo_base + i, false, &[])?;
+                let b = play_deal(target, dict, &incumbent, promo_base + i, false, &[])?;
+                counts.push(i64::from(a.y) - i64::from(b.y));
+                if counts.n() % JUDGE_EVERY == 0 {
+                    let v = anytime_judge(&delta, &tau, k, &counts);
+                    if counts.n() % (JUDGE_EVERY * 8) == 0
+                        || v != AnytimeVerdict::Continue
+                    {
+                        checkpoints_json.push(format!(
+                            "{{\"n\":{},\"sum_d\":{},\"verdict\":\"{:?}\"}}",
+                            counts.n(),
+                            counts.sum(),
+                            v
+                        ));
+                    }
+                    match v {
+                        AnytimeVerdict::Promoted => {
+                            resolved = Some(Verdict::Promoted);
+                            break;
+                        }
+                        AnytimeVerdict::NotPromoted => {
+                            resolved = Some(Verdict::NotPromoted);
+                            break;
+                        }
+                        AnytimeVerdict::Continue => {}
+                    }
+                }
+            }
+            verdict = resolved.unwrap_or(Verdict::Unresolved);
+            n_done = counts.n();
+            sum_d = BigRational::new(BigInt::from(counts.sum()), BigInt::from(counts.n().max(1)));
+            mf_json = format!(
+                "{{\"mode\":\"anytime-direct\",\"tau\":\"1/100\",\"alpha_k\":\"delta/(k(k+1))\",\
+                 \"judge_every\":{JUDGE_EVERY},\"stream_cap\":{STREAM_CAP},\
+                 \"counts\":{{\"minus\":{},\"zero\":{},\"plus\":{}}},\
+                 \"proxy_used_for\":\"training/construction/screening only\",\"target\":\"{}\"}}",
+                counts.minus, counts.zero, counts.plus, target.id
+            );
+        } else if proxy.is_some() && state.promotion_mode == "direct-eb" {
             // Pilot-informed direct stream on the expensive target with
             // variance-sensitive empirical-Bernstein radii (og-v4 gen-0
             // measured this proxy's correlation too weak for MF promotion
