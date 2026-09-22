@@ -1,0 +1,26 @@
+{
+  "declaring": {
+    "clauses": [
+      5,
+      14,
+      2
+    ],
+    "lead_clauses": [
+      8,
+      2
+    ],
+    "schema": "scheme-relational-lead-follow-v1"
+  },
+  "defending": {
+    "clauses": [
+      5,
+      7,
+      14
+    ],
+    "lead_clauses": [
+      8
+    ],
+    "schema": "scheme-relational-lead-follow-v1"
+  },
+  "schema": "scheme-role-actors-v1"
+}

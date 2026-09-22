@@ -1,0 +1,27 @@
+{
+  "schema": "response-ladder-checkpoint-v1",
+  "base_commit": "f1a0fb045a316379a853b63df696d7e924349826",
+  "sources_sha256": {
+    "Cargo.toml": "2445cfe3de9196d36f9cdbd087d92b8754130b9164da51584110e29aeaa54d87",
+    "Cargo.lock": "1cb3a0aaf9bd349603f346e2b513dba3ca109241d9c712c5bd93e3a3283f4751",
+    "src/bin/response-player.rs": "4523d7fa5d08a55762339dd70883a02759db1f1695dd4057a0472bfa394abbe8",
+    "src/bin/rollout_bench.rs": "5385afd486ffbe667659a7b226c1968a5d28fcb73239242c75030f88c704ccac",
+    "src/core.rs": "bbf334f3d91463844f0df9b9a330a89b9c4ecf71d34850694bd27d7ca8db21a9",
+    "src/gpu.rs": "3161ccfcbb0670fef62f928b4a761976a2955487966079b5beea4c4db0bf1bbf",
+    "src/lib.rs": "dc08f0aad226886e6bd15732e031953cbed2e77436f6e6df04be5f21aeba0f7c",
+    "src/mechanics.rs": "69e67330c024c1435c9ba0575ae4d14d5f54c6664f057ddbb9c6f448020d1a55",
+    "src/model.rs": "105583d281cbca870a6d35ab0aa2cc1c18f80c7383ca5c5b341526e40c2984e0",
+    "src/player.rs": "5edf485a9670696c20ed7db008238290cb7732ca28dcec028111539d1adab41d",
+    "src/policy.rs": "d6a5d3f88cc9a5d38a49c8a460e289a6d963278121391d2d23bd46e7f8ef2c78",
+    "src/rollout.rs": "5108f754bcd7446fa186aabf519f4fc414fbfd003906b694647588e24cd53412",
+    "src/rollout.wgsl": "473d8060d2302f2bfda2c7714c9b36d82c74bfe232f15d9f573994e591daa3a0",
+    "tests/core_contract.rs": "17a5b72cc73c5368160e4e66ed26840cce3c95f6a83289d74b3d1539acb2e38d",
+    "tests/model_contract.rs": "86f0d8c99d36b099498d034804223da2d5af4a0fda4da5d9e33792792d2280ff",
+    "tests/rollout_contract.rs": "e5d2d13124969dd7b8b469b3f94a2f793757861b5697b72b75fcfd66c5c7883a"
+  },
+  "measured_binaries_sha256": {
+    "response-player": "006fa2d1f08fefc1e69726cbaf7cd6bb0f5deb3b85cadb9bd9d6e572b6286e10",
+    "rollout_bench": "bb98719a2c7a107f8b2a1ffebf8458d262b5d872bf76246a895a0256c027d001"
+  },
+  "rust_sources_identical_to_measured_directory": "/Users/jason/code/texas-42/experiments/response-ladder"
+}
