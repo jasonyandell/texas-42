@@ -4,6 +4,19 @@ Play straight 42 with the shared Walt player, save a particular decision,
 then compare its alternatives in the continuation-selectable gym. This is the
 human-play loop for the [sunshine goals](SUNSHINE-NOTES.md).
 
+## Hosted URLs (2026-09-21)
+
+The Cloudflare account subdomain is `texas42`; the production Worker is still
+`plunge`, at <https://plunge.texas42.workers.dev/>. Feature PR previews use
+`https://plunge-pr-<number>.texas42.workers.dev` and keep their own question
+databases. Production deploys from `main`; preview deploys follow each PR.
+
+The Plunge preview workflow reads the account subdomain from Cloudflare at deploy
+time. After an account rename, rerun **Actions → PR preview** for each open PR to
+refresh its GitHub deployment link, and update any links in the PR description.
+Worker and database names stay the same. Earlier release receipts retain the
+URLs at which their measurements were made.
+
 ## Forced last bid (2026-09-20)
 
 The live table uses straight 42 with a forced bid: after three passes, the
@@ -35,7 +48,7 @@ The empirical bid book and 160/40-world playing profiles retain their settings.
 
 ## Played-game bid book (2026-09-19)
 
-The [published game](https://plunge.jasonyandell.workers.dev/) now uses the
+The [published game](https://plunge.texas42.workers.dev/) now uses the
 [actual-play bid book](../kiln/PLAYED-BIDDER-RELEASE.md) for new matches and each
 new hand. It shuffles125 covered deals and looks up each bidder's own hand in
 305,440 completed games. The highest legal score reached in at least80% of its

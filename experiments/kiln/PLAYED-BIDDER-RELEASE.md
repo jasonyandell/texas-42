@@ -1,6 +1,6 @@
 # Actual-play bidder release
 
-The empirical bidder is now playable in [Plunge](https://plunge.jasonyandell.workers.dev/).
+The empirical bidder is now playable in [Plunge](https://plunge.texas42.workers.dev/).
 New matches and subsequent hands deal from a shuffled 125-deal catalogue with
 500 recorded bidder hands. Every covered auction is a table lookup; ordinary
 short presentation pauses remain. No live declaration-pricing workers run.
