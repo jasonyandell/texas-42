@@ -149,3 +149,12 @@ ratio computed from measured quantities. The exam is DIRECT gym-field
 paired deals (the direct-target-only control), n = 2,048. Measured at init:
 gym 24.7 ms/deal (rayon-parallel L1 partner), proxy 0.7 ms/deal; uniform S0
 makes 9/20 on bench seeds beside the L1 partner.
+
+**og-v4b declaration** (2026-09-22, pilot-informed continuation): identical
+to og-v4 except promotion mode `direct-eb` (the og-v4 gen-0 pilot measured
+Var(D_H - D_L) ~ 0.404 > Var(D_H) ~ 0.313 at correlation ~0.35, making MF
+promotion ~1.8x worse than direct at measured costs - see
+campaigns/og-v4/RESULTS.md): direct gym-field promotion streams with
+empirical-Bernstein radii, tau = 1/100, checkpoints 2048/8192/32768;
+campaign offset 400,000,000; proxy retained for training, construction and
+screening only.
