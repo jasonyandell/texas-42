@@ -1,0 +1,13 @@
+target=og-v4/bid30-longest-pip/S0-learner/gym-field-l1p40-l0o8-v1
+dictionary=scheme-relational-actor-v1/grammar-v1/straight-v0.4
+generation=0
+candidate_counter=0
+consecutive_failures=0
+train_deals=4096
+dev_deals=2048
+stall_after=3
+seed_offset=300000000
+constructor=1
+dict_cap=60
+admit_k=3
+weights=1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1
