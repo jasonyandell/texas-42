@@ -1,7 +1,7 @@
 # CPU speedups deployed to the phone — 2026-09-20
 
 **Deployed and verified; exploratory engineering evidence.**
-[Play Plunge](https://plunge.jasonyandell.workers.dev/).
+[Play Plunge](https://plunge.texas42.workers.dev/).
 App `65f8f68b3d7d460a62abcfcc1ed00bc201331c6c` ships shared source
 `1dfd0e22f5fe2a2ee266f166493442547ad33834`. The manifest and build identities are in
 [the release receipt](receipts/cpu-live-release-v1/release.json).
