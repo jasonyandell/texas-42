@@ -17,6 +17,10 @@ pub enum FieldKind {
     /// INNER_SEED derivation, best response against the Dice field - a pure
     /// function of seat, hand and record.
     Level0 { n0: usize },
+    /// walt's maintained `GymField`: the learner's partner is the L1
+    /// fixed-(w)/8 procedure, opponents are Level0Field(8); every choice is
+    /// a pure function of public state (seed = mix(420600 ^ key digest)).
+    Gym { partner_worlds: u64 },
 }
 
 #[derive(Clone, Debug)]
@@ -25,8 +29,9 @@ pub struct CampaignTarget {
     pub id: String,
     pub bid: u32,
     pub bidder: Seat,
-    /// The two decentralized learner invocations of one coefficient vector.
-    pub learner_seats: [Seat; 2],
+    /// The learner's seat(s): one shared coefficient vector, one lawful
+    /// invocation per seat.
+    pub learner_seats: Vec<Seat>,
     pub field: FieldKind,
 }
 
@@ -40,7 +45,7 @@ impl CampaignTarget {
             id: "og-v1/bid30-longest-pip/S0S2-learner/S1S3-hash-legal-v1".into(),
             bid: 30,
             bidder: Seat::S0,
-            learner_seats: [Seat::S0, Seat::S2],
+            learner_seats: vec![Seat::S0, Seat::S2],
             field: FieldKind::HashLegal,
         }
     }
@@ -52,14 +57,50 @@ impl CampaignTarget {
             id: "og-v3/bid30-longest-pip/S0S2-learner/S1S3-level0-n8-v1".into(),
             bid: 30,
             bidder: Seat::S0,
-            learner_seats: [Seat::S0, Seat::S2],
+            learner_seats: vec![Seat::S0, Seat::S2],
             field: FieldKind::Level0 { n0: 8 },
+        }
+    }
+
+    /// og-v4: the maintained gym field. The learner holds S0 ALONE; S2 is
+    /// the L1 fixed-40/8 partner, S1+S3 are Level0Field(8) - walt's
+    /// `GymField::new(S0, 40)`. The expensive target of the multifidelity
+    /// harness (parent §6).
+    pub fn og_v4() -> Self {
+        CampaignTarget {
+            id: "og-v4/bid30-longest-pip/S0-learner/gym-field-l1p40-l0o8-v1".into(),
+            bid: 30,
+            bidder: Seat::S0,
+            learner_seats: vec![Seat::S0],
+            field: FieldKind::Gym { partner_worlds: 40 },
+        }
+    }
+
+    /// og-v4's declared cheap proxy: identical law and learner, but S1, S2
+    /// and S3 all play Level0Field(8). Used for training, construction and
+    /// the multifidelity cheap batches; NEVER for a direct target claim.
+    pub fn og_v4_proxy() -> Self {
+        CampaignTarget {
+            id: "og-v4-proxy/bid30-longest-pip/S0-learner/S1S2S3-level0-n8-v1".into(),
+            bid: 30,
+            bidder: Seat::S0,
+            learner_seats: vec![Seat::S0],
+            field: FieldKind::Level0 { n0: 8 },
+        }
+    }
+
+    /// The declared cheap proxy lineup, when this target has one.
+    pub fn proxy(&self) -> Option<CampaignTarget> {
+        if self.id.starts_with("og-v4/") {
+            Some(Self::og_v4_proxy())
+        } else {
+            None
         }
     }
 
     /// Resolve a target from a recorded identity (state files).
     pub fn from_id(id: &str) -> Result<Self, String> {
-        for t in [Self::og_v1(), Self::og_v3()] {
+        for t in [Self::og_v1(), Self::og_v3(), Self::og_v4(), Self::og_v4_proxy()] {
             if t.id == id {
                 return Ok(t);
             }
@@ -73,6 +114,9 @@ impl CampaignTarget {
         match self.field {
             FieldKind::HashLegal => Box::new(walt::policy_search::HashField),
             FieldKind::Level0 { n0 } => Box::new(walt::solver::policy::Level0Field::new(n0)),
+            FieldKind::Gym { partner_worlds } => {
+                Box::new(walt::gym::GymField::new(self.learner_seats[0], partner_worlds))
+            }
         }
     }
 

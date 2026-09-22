@@ -20,7 +20,7 @@ use crate::bounds::ln_upper;
 use crate::constructor::{generate_pool, panel_filter};
 use crate::features::{set_for, ClauseDictionary};
 use crate::gradient::{estimate, GradientEstimate};
-use crate::promotion::{EvidenceRule, Verdict};
+use crate::promotion::{BatchStats, EvidenceRule, MfEvidenceRule, Verdict};
 use crate::rollout::{collect_panel_decisions, play_deal, DealRecord, DEAL_WORK_BUDGET};
 use crate::target::CampaignTarget;
 
@@ -379,13 +379,19 @@ pub fn run_generation(
     assert!(g < 20, "training seed regions are declared for g < 20");
     let train_base = TRAIN_BASE + state.seed_offset + g * 100_000;
 
+    // Multifidelity targets (parent §6): when the target declares a cheap
+    // proxy, training, construction and screening run on the proxy; only
+    // the promotion stream and the exam touch the expensive lineup.
+    let proxy = target.proxy();
+    let play_target = proxy.clone().unwrap_or_else(|| target.clone());
+
     // 0. Constructor: grow the dictionary before this generation's steps.
     let incumbent_before = RationalActor {
         weights: state.weights.clone(),
         dictionary_version: dict.version.clone(),
     };
     let constructor_json = if state.constructor {
-        run_constructor(state, target, dict, &incumbent_before, train_base)?
+        run_constructor(state, &play_target, dict, &incumbent_before, train_base)?
     } else {
         "null".to_string()
     };
@@ -413,7 +419,7 @@ pub fn run_generation(
         let mut records = Vec::with_capacity(state.train_deals as usize);
         for i in 0..state.train_deals {
             records.push(play_deal(
-                target,
+                &play_target,
                 dict,
                 &working_actor,
                 step_base + i,
@@ -439,7 +445,7 @@ pub fn run_generation(
     // 2. Development screening of the snapshot ladder on fresh paired seeds.
     let dev_base = DEV_BASE + state.seed_offset + g * 10_000;
     assert!(state.dev_deals <= 10_000);
-    let (inc_makes, inc_n) = measure(target, dict, &incumbent, dev_base, state.dev_deals)?;
+    let (inc_makes, inc_n) = measure(&play_target, dict, &incumbent, dev_base, state.dev_deals)?;
 
     let mut dev_rows = Vec::new();
     let mut best: Option<(u32, u64, Vec<BigRational>, u64)> = None;
@@ -451,7 +457,7 @@ pub fn run_generation(
             weights: weights.clone(),
             dictionary_version: dict.version.clone(),
         };
-        let (makes, n) = measure(target, dict, &cand, dev_base, state.dev_deals)?;
+        let (makes, n) = measure(&play_target, dict, &cand, dev_base, state.dev_deals)?;
         dev_rows.push(format!(
             "{{\"snapshot_steps\":{steps},\"moved_total\":{moved_total},\"dev_makes\":\"{makes}/{n}\"}}"
         ));
@@ -493,30 +499,134 @@ pub fn run_generation(
 
         assert!(k <= 100, "promotion seed regions are declared for k <= 100");
         let promo_base = PROMO_BASE + state.seed_offset + k * 100_000;
-        let mut sum_d = BigRational::zero();
-        let mut n_done = 0u64;
         let mut checkpoints_json = Vec::new();
         let mut verdict = Verdict::Unresolved;
-        for (j0, n_target) in rule.checkpoints.iter().enumerate() {
-            for i in n_done..*n_target {
-                let a = play_deal(target, dict, &cand, promo_base + i, false, &[])?;
-                let b = play_deal(target, dict, &incumbent, promo_base + i, false, &[])?;
-                let d = i64::from(a.y) - i64::from(b.y);
-                sum_d += BigRational::from_integer(BigInt::from(d));
+        let mut n_done = 0u64;
+        let mut sum_d = BigRational::zero();
+        let mut mf_json = String::from("null");
+        if let Some(proxy_t) = &proxy {
+            // Multifidelity stream: cheap paired differences on the proxy
+            // plus correction pairs evaluating BOTH lineups on the same
+            // exogenous deals, in independent declared subregions.
+            let mf_rule = MfEvidenceRule::gym();
+            let corr_base = promo_base + 70_000;
+            let mut cheap = BatchStats::default();
+            let mut corr = BatchStats::default();
+            let mut diag_sum_dh = 0i64;
+            let mut diag_sum_dl = 0i64;
+            let mut diag_sum_dhdl = 0i64;
+            let mut cheap_ms = 0u128;
+            let mut corr_ms = 0u128;
+            for (j0, (n_j, m_j)) in mf_rule.checkpoints.iter().enumerate() {
+                let t0 = Instant::now();
+                for i in cheap.n..*n_j {
+                    let a = play_deal(proxy_t, dict, &cand, promo_base + i, false, &[])?;
+                    let b = play_deal(proxy_t, dict, &incumbent, promo_base + i, false, &[])?;
+                    cheap.push(i64::from(a.y) - i64::from(b.y));
+                }
+                cheap_ms += t0.elapsed().as_millis();
+                let t1 = Instant::now();
+                for i in corr.n..*m_j {
+                    let seed = corr_base + i;
+                    let ha = play_deal(target, dict, &cand, seed, false, &[])?;
+                    let hb = play_deal(target, dict, &incumbent, seed, false, &[])?;
+                    let la = play_deal(proxy_t, dict, &cand, seed, false, &[])?;
+                    let lb = play_deal(proxy_t, dict, &incumbent, seed, false, &[])?;
+                    let dh = i64::from(ha.y) - i64::from(hb.y);
+                    let dl = i64::from(la.y) - i64::from(lb.y);
+                    corr.push(dh - dl);
+                    diag_sum_dh += dh;
+                    diag_sum_dl += dl;
+                    diag_sum_dhdl += dh * dl;
+                }
+                corr_ms += t1.elapsed().as_millis();
+                let v = mf_rule.judge(k, (j0 + 1) as u64, &cheap, &corr);
+                let estimate = cheap.mean() + corr.mean();
+                checkpoints_json.push(format!(
+                    "{{\"n_cheap\":{},\"m_corr\":{},\"cheap_sum\":{},\"corr_sum\":{},\
+                     \"cheap_var\":\"{}\",\"corr_var\":\"{}\",\"estimate\":\"{}\",\
+                     \"estimate_permille\":{},\"verdict\":\"{:?}\"}}",
+                    cheap.n,
+                    corr.n,
+                    cheap.sum,
+                    corr.sum,
+                    rat_to_str(&cheap.sample_variance()),
+                    rat_to_str(&corr.sample_variance()),
+                    rat_to_str(&estimate),
+                    permille(&estimate),
+                    v
+                ));
+                match v {
+                    Verdict::Continue { .. } => continue,
+                    other => {
+                        verdict = other;
+                        break;
+                    }
+                }
             }
-            n_done = *n_target;
-            let v = rule.judge(k, (j0 + 1) as u64, n_done, &sum_d);
-            checkpoints_json.push(format!(
-                "{{\"n\":{},\"sum_d\":\"{}\",\"verdict\":\"{:?}\"}}",
-                n_done,
-                rat_to_str(&sum_d),
-                v
-            ));
-            match v {
-                Verdict::Continue { .. } => continue,
-                other => {
-                    verdict = other;
-                    break;
+            n_done = cheap.n;
+            sum_d = cheap.mean() + corr.mean();
+            // Diagnostics the parent asks us to keep honest: the proxy's
+            // sample covariance with the target on the correction seeds,
+            // measured per-pair costs, and the §6 allocation ratio computed
+            // from the measured quantities (analysis, not an adaptive law).
+            let m = corr.n;
+            let cov = if m >= 2 {
+                let mr = BigRational::from_integer(BigInt::from(m));
+                let mh = BigRational::new(BigInt::from(diag_sum_dh), BigInt::from(m));
+                let ml = BigRational::new(BigInt::from(diag_sum_dl), BigInt::from(m));
+                (BigRational::from_integer(BigInt::from(diag_sum_dhdl)) - &mr * &mh * &ml)
+                    / (mr - BigRational::one())
+            } else {
+                BigRational::zero()
+            };
+            let c_l_ms = if cheap.n > 0 { cheap_ms / u128::from(cheap.n) } else { 0 };
+            let c_c_ms = if corr.n > 0 { corr_ms / u128::from(corr.n) } else { 0 };
+            let alloc = {
+                let vl = cheap.sample_variance();
+                let vc = corr.sample_variance();
+                if vc.is_zero() || c_l_ms == 0 {
+                    "\"degenerate\"".to_string()
+                } else {
+                    let ratio = &vl * BigRational::from_integer(BigInt::from(c_c_ms as u64))
+                        / (&vc * BigRational::from_integer(BigInt::from(c_l_ms.max(1) as u64)));
+                    format!("\"{}\"", rat_to_str(&crate::bounds::sqrt_upper(&ratio)))
+                }
+            };
+            mf_json = format!(
+                "{{\"proxy\":\"{}\",\"tau\":\"1/25\",\"sum_dh\":{},\"sum_dl_corr\":{},\
+                 \"cov_dh_dl\":\"{}\",\"cheap_ms_per_pair\":{},\"corr_ms_per_pair\":{},\
+                 \"alloc_ratio_n_over_m_upper\":{}}}",
+                proxy_t.id,
+                diag_sum_dh,
+                diag_sum_dl,
+                rat_to_str(&cov),
+                c_l_ms,
+                c_c_ms,
+                alloc
+            );
+        } else {
+            for (j0, n_target) in rule.checkpoints.iter().enumerate() {
+                for i in n_done..*n_target {
+                    let a = play_deal(target, dict, &cand, promo_base + i, false, &[])?;
+                    let b = play_deal(target, dict, &incumbent, promo_base + i, false, &[])?;
+                    let d = i64::from(a.y) - i64::from(b.y);
+                    sum_d += BigRational::from_integer(BigInt::from(d));
+                }
+                n_done = *n_target;
+                let v = rule.judge(k, (j0 + 1) as u64, n_done, &sum_d);
+                checkpoints_json.push(format!(
+                    "{{\"n\":{},\"sum_d\":\"{}\",\"verdict\":\"{:?}\"}}",
+                    n_done,
+                    rat_to_str(&sum_d),
+                    v
+                ));
+                match v {
+                    Verdict::Continue { .. } => continue,
+                    other => {
+                        verdict = other;
+                        break;
+                    }
                 }
             }
         }
@@ -525,7 +635,8 @@ pub fn run_generation(
             "{{\"candidate\":{},\"digest\":\"{:016x}\",\"snapshot_steps\":{},\
              \"inner_multiplier\":\"{}/{}\",\"moved_total\":{},\
              \"l1_upper\":\"{}\",\"alpha_bound\":\"{}\",\"checkpoints\":[{}],\
-             \"verdict\":\"{:?}\",\"final_n\":{},\"final_sum_d\":\"{}\"}}",
+             \"verdict\":\"{:?}\",\"final_n\":{},\"final_estimate\":\"{}\",\
+             \"multifidelity\":{}}}",
             k,
             cand.digest(),
             snapshot_steps,
@@ -537,7 +648,8 @@ pub fn run_generation(
             checkpoints_json.join(","),
             verdict,
             n_done,
-            rat_to_str(&sum_d)
+            rat_to_str(&sum_d),
+            mf_json
         );
         if promoted {
             state.weights = weights;

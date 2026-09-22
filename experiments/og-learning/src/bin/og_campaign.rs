@@ -36,7 +36,8 @@ fn field_target() -> Result<CampaignTarget, String> {
     match str_arg("--field", "hash").as_str() {
         "hash" => Ok(CampaignTarget::og_v1()),
         "l0-8" => Ok(CampaignTarget::og_v3()),
-        other => Err(format!("unknown --field {other:?}; use hash | l0-8")),
+        "gym" => Ok(CampaignTarget::og_v4()),
+        other => Err(format!("unknown --field {other:?}; use hash | l0-8 | gym")),
     }
 }
 

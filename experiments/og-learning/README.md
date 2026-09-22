@@ -125,3 +125,27 @@ like the gym field).
 - `src/campaign.rs` - the generation loop, state, records, exam.
 - `src/bin/og_campaign.rs` - init | bench | train | panel | exam.
 - `campaigns/<name>/` - run records; RESULTS.md + measurements govern prose.
+
+**og-v4 declaration** (`og-v4/bid30-longest-pip/S0-learner/gym-field-l1p40-l0o8-v1`,
+authorized by Jason 2026-09-22 "go - gym field target, use the multifidelity
+harness"): the learner holds S0 ALONE; the other seats are walt's maintained
+`GymField::new(S0, 40)` - S2 is the L1 fixed-40/8 partner, S1+S3 are
+Level0Field(8); every fixed choice is a pure function of public state (seed
+= mix(420600 ^ key digest)), so pairing and replay hold. Campaign offset
+300,000,000. **Declared cheap proxy** (parent §6):
+`og-v4-proxy/.../S1S2S3-level0-n8-v1` - same law and learner, all fixed
+seats Level0Field(8). Training, construction and development screening run
+on the proxy (selection only, no guarantee claimed); the promotion stream
+is the two-batch estimator Delta_hat = mean_N(D_L) + mean_M(D_H - D_L) over
+independent declared seed subregions (cheap pairs at promo_base+i,
+correction quadruples at promo_base+70,000+i), judged by
+`MfEvidenceRule::gym()`: delta = 1/20, practical threshold tau = 1/25
+(declared for this campaign; gym resolution economics are recorded, not
+hidden), checkpoints (N, M) = (16384, 256), (65536, 1024), (65536, 4096),
+per-batch exact empirical-Bernstein radii (Maurer-Pontil; D_L range 2,
+D_H - D_L range 4) at half the checkpoint alpha each. Every stream records
+the measured proxy-target covariance, per-pair costs, and the §6 allocation
+ratio computed from measured quantities. The exam is DIRECT gym-field
+paired deals (the direct-target-only control), n = 2,048. Measured at init:
+gym 24.7 ms/deal (rayon-parallel L1 partner), proxy 0.7 ms/deal; uniform S0
+makes 9/20 on bench seeds beside the L1 partner.

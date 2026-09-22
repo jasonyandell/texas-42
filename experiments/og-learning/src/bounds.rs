@@ -59,6 +59,33 @@ pub fn sqrt_upper(x: &BigRational) -> BigRational {
     BigRational::new(s, scale)
 }
 
+/// Upper bound on the two-sided empirical-Bernstein radius (Maurer-Pontil):
+/// with probability >= 1 - beta,
+///   |mean - mu| <= sqrt(2 V L / n) + 7 R L / (3 (n - 1)),
+/// where V is the EXACT sample variance, R the variable's range, and
+/// L = ln(4/beta) (one-sided at beta/2 in each direction). Every quantity
+/// here is an exact-rational upper bound; overstating the radius only
+/// delays decisions, never spends unbudgeted risk.
+pub fn bernstein_radius_upper(
+    beta: &BigRational,
+    n: u64,
+    sample_variance: &BigRational,
+    range: u32,
+) -> BigRational {
+    assert!(beta > &BigRational::zero() && beta < &BigRational::one());
+    assert!(n >= 2, "a sample variance needs two observations");
+    assert!(!sample_variance.is_negative());
+    let l = ln_upper(&(BigRational::new(BigInt::from(4u32), BigInt::one()) / beta));
+    let two = BigRational::new(BigInt::from(2u32), BigInt::one());
+    let term1 = sqrt_upper(
+        &(&two * sample_variance * &l / BigRational::new(BigInt::from(n), BigInt::one())),
+    );
+    let term2 = BigRational::new(BigInt::from(7 * range), BigInt::from(3u32))
+        * &l
+        / BigRational::new(BigInt::from(n - 1), BigInt::one());
+    term1 + term2
+}
+
 /// Upper bound on the two-sided Hoeffding radius sqrt(2 ln(2/alpha) / n) for
 /// means of n i.i.d. variables in [-1, 1].
 pub fn hoeffding_radius_upper(alpha: &BigRational, n: u64) -> BigRational {
@@ -109,6 +136,23 @@ mod tests {
         assert!(b >= rat(6_867, 1_000) && b <= rat(72, 10));
         // PINNED strictness witness: ln_upper(1) = 0 exactly.
         assert!(ln_upper(&rat(1, 1)).is_zero());
+    }
+
+    #[test]
+    fn bernstein_radius_is_variance_sensitive_and_monotone() {
+        // Law: at fixed n and beta, smaller sample variance gives a smaller
+        // radius; at fixed variance, larger n gives a smaller radius.
+        let beta = rat(1, 100);
+        let lo = bernstein_radius_upper(&beta, 1024, &rat(1, 100), 2);
+        let hi = bernstein_radius_upper(&beta, 1024, &rat(1, 4), 2);
+        assert!(lo < hi);
+        let later = bernstein_radius_upper(&beta, 4096, &rat(1, 4), 2);
+        assert!(later < hi);
+        // PINNED strictness witness: zero variance leaves exactly the
+        // deterministic 7RL/(3(n-1)) term.
+        let z = bernstein_radius_upper(&beta, 1024, &rat(0, 1), 4);
+        let l = ln_upper(&rat(400, 1));
+        assert_eq!(z, rat(28, 3) * l / rat(1023, 1));
     }
 
     #[test]
