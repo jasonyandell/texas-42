@@ -815,7 +815,18 @@ adjudication PENDING; it is the last entry in this section.
   generations, declared budget stop, untouched exam 482‰ vs 296‰ (paired
   +186.0‰, exact CI [143.4, 228.6]‰) — the constructor's admissions
   switched from count husbandry to trick contention with the lineup;
-  record `experiments/og-learning/campaigns/og-v3/RESULTS.md`. All of it
+  record `experiments/og-learning/campaigns/og-v3/RESULTS.md`. **On
+  2026-09-22, on Jason's go, the §6 multifidelity harness was built and run
+  against the maintained gym field** (L1-40/8 partner, L0-8 opponents,
+  learner at S0 alone): campaign og-v4 stalled honestly and doubled as the
+  §6 pilot — it MEASURED the all-L0 proxy's correlation (ρ ≈ 0.35,
+  Var(D_H−D_L) ≈ 0.404 > Var(D_H) ≈ 0.313) making MF promotion ~1.8×
+  worse than direct at measured costs, the parent's proxy caveat
+  quantified; og-v4b then ran the pilot-informed direct
+  empirical-Bernstein rule and certified the first gym-field promotions
+  (+2.9%, +4.1%), untouched direct exam 507‰ vs 431‰ beside the same L1
+  partner (paired +76.1‰, CI [15.9, 136.4]‰) — records
+  `campaigns/og-v4/RESULTS.md` and `campaigns/og-v4b/RESULTS.md`. All of it
   EXPLORATORY and target-specific; the adjudication agenda is unchanged.
 
 ## 7. The pinned manifests

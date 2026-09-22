@@ -1134,3 +1134,21 @@ Three campaigns now stand: +125.9‰ (fixed library, random field), +201.1‰
 (open language, random field), +186.0‰ (open language, σ0 field), each on its
 own untouched exam. EXPLORATORY, target-specific; OG-A adjudication pending.
 Record: experiments/og-learning/campaigns/og-v3/RESULTS.md.
+
+## 2026-09-22 — og-v4/og-v4b: the §6 multifidelity story, measured end to end
+
+On Jason's go ("gym field target, use the multifidelity harness"). og-v4:
+learner at S0 inside the maintained GymField(S0,40) (24.7 ms/deal), all-L0-8
+proxy (0.7 ms), two-batch MF promotion with exact empirical-Bernstein radii.
+It stalled honestly — three candidates estimated +4.7/+5.8/+6.2% but the
+gen-0 stream, doubling as the §6 pilot, measured why: Var(D_H−D_L)=0.404 >
+Var(D_H)=0.313 at ρ≈0.35 (the L1↔L0 partner swap decorrelates), so MF is
+~1.8× worse than direct at measured costs — "a proxy with poor correlation
+can cost more than it saves," quantified. og-v4b re-ran with the
+pilot-informed direct-EB rule (τ=1/100, checkpoints 2048/8192/32768):
+promotions at gens 0–1 (+2.9%, +4.1% — the first certified against the gym
+field), stall after three small Unresolveds; untouched DIRECT exam 507‰ vs
+the uniform start's 431‰ beside the same L1 partner — paired +76.1‰, CI
+[15.9, 136.4]‰. The constructor pulled lead discipline (trump|pos-lead,
+master|pos-lead) for this lineup. EXPLORATORY, target-specific; OG-A
+pending. Records: experiments/og-learning/campaigns/og-v4{,b}/RESULTS.md.
