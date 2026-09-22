@@ -89,6 +89,52 @@ pub fn evidence(null: MeanNull, tau: &BigRational, counts: &DiffCounts) -> BigRa
     total
 }
 
+/// Does the side's mixture evidence reach `threshold` (a positive rational
+/// Tn/Td)? Same value as `evidence(...) >= threshold`, computed WITHOUT any
+/// rational normalization: with tau = p/q and lambda = 1/d, each factor is
+/// an integer over q*d, every grid d divides 64, so the mixture comparison
+/// is pure BigUint powers plus one integer cross-multiplication. This is
+/// the hot path; `evidence()` (through walt's affine_factor) stays the
+/// gate-checked authority.
+pub fn crosses(
+    null: MeanNull,
+    tau: &BigRational,
+    counts: &DiffCounts,
+    threshold: &BigRational,
+) -> bool {
+    use num_bigint::BigUint;
+    let p = tau.numer().to_biguint().expect("tau positive");
+    let q = tau.denom().to_biguint().expect("tau positive");
+    let n = counts.n();
+    let grid: [u64; 6] = [64, 32, 16, 8, 4, 2];
+    let mut sum = BigUint::ZERO;
+    for d in grid {
+        let qd = &q * BigUint::from(d);
+        // factor numerators for v in {-1, 0, +1}:
+        //   AtMost:  qd + q*v - p ; AtLeast: qd - q*v + p
+        let f = |v: i64| -> BigUint {
+            let qv = &q * BigUint::from(v.unsigned_abs());
+            match (null, v >= 0) {
+                (MeanNull::AtMost, true) => &qd + qv - &p,
+                (MeanNull::AtMost, false) => &qd - qv - &p,
+                (MeanNull::AtLeast, true) => &qd - qv + &p,
+                (MeanNull::AtLeast, false) => &qd + qv + &p,
+            }
+        };
+        let mut prod = f(-1).pow(counts.minus as u32);
+        prod *= f(0).pow(counts.zero as u32);
+        prod *= f(1).pow(counts.plus as u32);
+        // scale to the common denominator (q*64)^n
+        prod *= BigUint::from(64u64 / d).pow(n as u32);
+        sum += prod;
+    }
+    // evidence = sum / (6 * (q*64)^n)  >=  Tn/Td
+    let tn = threshold.numer().to_biguint().expect("threshold positive");
+    let td = threshold.denom().to_biguint().expect("threshold positive");
+    let common = (&q * BigUint::from(64u64)).pow(n as u32) * BigUint::from(6u64);
+    sum * td >= tn * common
+}
+
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum AnytimeVerdict {
     Promoted,
@@ -109,10 +155,10 @@ pub fn judge(
     let alpha_k =
         delta / BigRational::from_integer(BigInt::from(k) * BigInt::from(k + 1));
     let threshold = BigRational::from_integer(BigInt::from(2)) / alpha_k;
-    if evidence(MeanNull::AtMost, tau, counts) >= threshold {
+    if crosses(MeanNull::AtMost, tau, counts, &threshold) {
         return AnytimeVerdict::Promoted;
     }
-    if evidence(MeanNull::AtLeast, tau, counts) >= threshold {
+    if crosses(MeanNull::AtLeast, tau, counts, &threshold) {
         return AnytimeVerdict::NotPromoted;
     }
     AnytimeVerdict::Continue
@@ -162,6 +208,43 @@ mod tests {
                 }
             }
         }
+    }
+
+    #[test]
+    fn integer_crossing_agrees_with_the_rational_evidence_exactly() {
+        // Law: crosses() == (evidence() >= threshold) across a sweep of
+        // counts, both sides, at several thresholds - the hot path never
+        // disagrees with the gate-checked authority form.
+        for null in [MeanNull::AtMost, MeanNull::AtLeast] {
+            for (minus, zero, plus) in [
+                (0u64, 0u64, 0u64),
+                (3, 5, 9),
+                (40, 100, 60),
+                (200, 500, 260),
+                (555, 1200, 640),
+            ] {
+                let counts = DiffCounts { minus, zero, plus };
+                let ev = evidence(null, &tau(), &counts);
+                for thr_num in [1i64, 2, 40, 4800] {
+                    let threshold = BigRational::from_integer(BigInt::from(thr_num));
+                    assert_eq!(
+                        crosses(null, &tau(), &counts, &threshold),
+                        ev >= threshold,
+                        "disagreement at {null:?} {counts:?} thr={thr_num}"
+                    );
+                }
+            }
+        }
+        // PINNED strictness witness: at zero observations evidence is one,
+        // so threshold 1 crosses and threshold 2 does not.
+        let empty = DiffCounts::default();
+        assert!(crosses(MeanNull::AtMost, &tau(), &empty, &BigRational::one()));
+        assert!(!crosses(
+            MeanNull::AtMost,
+            &tau(),
+            &empty,
+            &BigRational::from_integer(BigInt::from(2))
+        ));
     }
 
     #[test]
