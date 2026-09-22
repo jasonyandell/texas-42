@@ -1152,3 +1152,22 @@ the uniform start's 431‰ beside the same L1 partner — paired +76.1‰, CI
 [15.9, 136.4]‰. The constructor pulled lead discipline (trump|pos-lead,
 master|pos-lead) for this lineup. EXPLORATORY, target-specific; OG-A
 pending. Records: experiments/og-learning/campaigns/og-v4{,b}/RESULTS.md.
+
+## 2026-09-22 — og-v5: the CE anytime harvester delivers (exam +101‰)
+
+Second go executed: the fair §6 pilot (gym-4 proxy, same L1 architecture,
+real policy pair) measured ρ = 0.38, Var(D_H−D_L) > Var(D_H) — direct wins
+2.4×; proxy-resistance of paired make/set differences now measured twice.
+og-v5 then ran anytime-valid promotion on the gym target: per candidate, two
+adjudicated CE-T4/T5 bounded-mean betting mixtures (solver::evidence is the
+authority; the campaign's gcd-free integer evaluation is gate-checked equal —
+first version ground ~2 h/stream on 850k-bit gcds, fixed to 5 s per full
+stream), α_k = δ/(k(k+1)) whole-stream, judged every 512, cap 65,536. Eight
+generations: promotions at n = 6,656 / 12,288 / 60,416 — the +1.9% at 60,416
+is the first certified resolution inside the 1–2% band in six campaigns —
+futility dismissal at 22,528, four honest caps. Untouched direct exam: 518‰
+vs the uniform start's 417‰ — paired +101.0‰, CI [40.8, 161.3]‰, the
+program's strongest gym-field result. A 45-min send_later watchdog (Jason's
+ask) rode the whole run; one wall-budget pause was resumed from state.
+EXPLORATORY, target-specific; OG-A pending. Record:
+experiments/og-learning/campaigns/og-v5/RESULTS.md.

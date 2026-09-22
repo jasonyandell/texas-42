@@ -826,8 +826,19 @@ adjudication PENDING; it is the last entry in this section.
   empirical-Bernstein rule and certified the first gym-field promotions
   (+2.9%, +4.1%), untouched direct exam 507‰ vs 431‰ beside the same L1
   partner (paired +76.1‰, CI [15.9, 136.4]‰) — records
-  `campaigns/og-v4/RESULTS.md` and `campaigns/og-v4b/RESULTS.md`. All of it
-  EXPLORATORY and target-specific; the adjudication agenda is unchanged.
+  `campaigns/og-v4/RESULTS.md` and `campaigns/og-v4b/RESULTS.md`. **And on
+  the second go ("yes do that please"), the fair proxy pilot plus the CE
+  anytime harvester**: the same-architecture gym-4 proxy measured ρ = 0.38
+  (direct wins 2.4× — the §6 proxy-resistance now measured twice), and
+  campaign og-v5 ran anytime-valid promotion consuming the adjudicated
+  CE-T4/T5 betting mixtures (`solver::evidence::BoundedMeanMixture` the
+  authority, gate-checked integer hot path): three promotions at
+  n = 6,656/12,288/60,416 — **the +1.9% one is the first resolution inside
+  the 1–2% band across all six campaigns** — one futility dismissal at
+  22,528, untouched direct exam 518‰ vs 417‰ (paired +101.0‰, CI
+  [40.8, 161.3]‰), the program's strongest gym-field result; record
+  `campaigns/og-v5/RESULTS.md`. All of it EXPLORATORY and target-specific;
+  the adjudication agenda is unchanged.
 
 ## 7. The pinned manifests
 
