@@ -1,0 +1,9 @@
+target=og-v1/bid30-longest-pip/S0S2-learner/S1S3-hash-legal-v1
+dictionary=scheme-relational-actor-v1/grammar-v1/straight-v0.4
+generation=1
+candidate_counter=1
+consecutive_failures=1
+train_deals=8192
+dev_deals=2048
+stall_after=3
+weights=1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1,1/1

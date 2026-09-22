@@ -11,7 +11,8 @@ adjudications, through "The focal-horizon adjudication (2026-09-04)"),
 `exchange/README.md` (the courier ledger for the ferried dispatches),
 `experiments/partnership/packet/` (the manifests of the unintaken notes in §9);
 repository state as of 2026-09-07 (`c00717d1`), pins and verifiers re-run
-2026-09-12. Related: [the reference map](walt-math-reference.md),
+2026-09-12; the 2026-09-21 outcome-grounded policy-learning intake added at
+filing, adjudication PENDING. Related: [the reference map](walt-math-reference.md),
 [the freeze register](walt-math-freezes.md),
 [decision-sparse witnesses](walt-math-decision-sparse.md),
 [the GPU-native track](walt-gpu-native-trick1.md),
@@ -72,6 +73,7 @@ walt's exploratory fence, never the CONFIRMED pipeline.
 | **Model-belief base player** (Pro, side-channel — book-one closing round, half one) | `model_belief_base_player_v0.1.md` (SHA-256 `1ffabf86…`) | `model_belief_base_player_v0.1_intake.md` + `verify_model_belief_base_player_v0.1.py` (scratch tier) | **MB-A1..A8** (2026-09-01, same-day, hand-delivered by Jason; build authorized same-day) | The field model becomes hidden state: Ξ = Ω×Θ(×Z) lifts every fixed-field theorem verbatim (Thm 7.1); hand-type factors with exact posterior closure; the ladder demoted to basis (D = `FieldModel::Dice`, F₀ = σ0, F₁ = level-1 — registration corrected at intake, MB-A3); sep upper, type gluing, mandatory residual Other, VOI; verifier 40/40 PASS; build = MB0–MB5 restructure with §76 as the go/no-go |
 | **Salvation complex / information-cut calculus** (Pro, side-channel — book-one closing round, half two; arrived mid-adjudication resolving MB-A2) | `salvation_complex_v0.1.md` (SHA-256 `eca69bd5…`) | `salvation_complex_v0.1_intake.md` (**no verifier shipped** — U0's gates are the executable checks, SC-A2) | **SC-A1..A8** (2026-09-01, same session, same standing go) | The unifying fixed-field geometry: 1−Q = minimum belief-mass transversal of the salvation-conflict hypergraph; doom = singleton cuts, gluing = higher-order cuts, column-and-cut solver; God-tightness receiptable as lower-meets-doom-upper; §9's fourteen-coordinate d_info = 0 table verified against committed doomreport per-world truth (h5-t6 444‰ corroborated); the fusion horizon named as the round's key empirical object; build = U0 beside MB0, §47 doom preservation ruling adopted |
 | **Focal-horizon hierarchy** (Pro, side-channel — parent title "The Focal-Horizon Sandwich"; a design-with-measurements intake, Jason: "here is an idea to try with measurements") | `focal_horizon_sandwich_v0.1.md` (SHA-256 `892bc343…`) | `focal_horizon_sandwich_v0.1_intake.md` (intake + walt-math review) + `verify_focal_horizon_sandwich_v0.1.py` (scratch tier; its printed "24 CHECK FAMILIES" is a label — the nine sweep families over 4,096 × 8 are the theorem checks) | **FH-A1..A11** (2026-09-04, same-day, hand-delivered by Jason; BRIEF-FH0) | One canonical refinement hierarchy indexed by focal decisions: lawful tail below, world-revealed God tail above, `L_k ≤ Q ≤ U_k` nesting to exact collapse at `k ≥ h_f`; Theorems 1–6 proved in full, God tail proved a Bellman supersolution (FH-God), §23 interruption proved under intersection (FH-int); "sandwich" retired as a name (FH-A2); U0b's ply cuts identified as `U_{a,0}`/`U_{a,1}` on viewer-lead roots (FH-cut) and trick 7's forced layer shown to collapse trick-4 roots at k = 2 (FH-last); the U1 salvation-mask slice subsumed as an upper producer; tails ruled σ0-as-focal primary / lowest-first gate-only; build FH1–FH3 on the orchestrator's split, FH1 affordable-or-refuse first — all built the same day; the finding: at k ≥ 1 the residual width is the tail's policy gap, not the fusion price |
+| **Outcome-grounded policy learning** (side-channel — the autonomous-learning contract; the first parent filed after the 2026-09-04 consolidation ruling, on Jason's explicit 2026-09-21 instruction) | `outcome_grounded_policy_learning_v0.1.md` (SHA-256 `bd259eff…`) | `outcome_grounded_policy_learning_v0.1_intake.md` + `verify_outcome_grounded_policy_learning_v0.1_intake.py` (**intake-authored**, scratch tier — the parent's own §10 verifier pair was not delivered) | **PENDING — no rulings family yet** (proposed OG-A; agenda in the companion) | Proposed contract for outcome-grounded autonomous policy learning: relational softmax actor over a Scheme-expression dictionary, the outcome-gradient bridge (incl. decentralized shared-parameter teammates), an H(H−1)α² finite-step bound, multifidelity reuse of cheap lineups as control variates, risk-budgeted promotion; intake verifier 10 families / 3,886 exact instances PASS twice; **built and run the same day on Jason's in-session instruction** — record `experiments/og-learning/campaigns/og-v1/RESULTS.md` (untouched exam: learned 550‰ vs uniform 424‰ on the declared random-legal target, paired +125.9‰, exact CI [83, 168]‰ — EXPLORATORY, target-specific); adjudication still pending, nothing quotable above the exploratory fence |
 | **Unintaken received notes** (Pro, via the partnership experiment's packet — NOT under `walt/math/`) | `experiments/partnership/packet/texas42-partnership-launch-v0.1/math/TEXAS42-UNIFIED-REVIEW-v0.1.md`, `…/TEXAS42-IMPROVISATION-v0.1.md` (2026-09-05), `experiments/partnership/packet/texas42_relational_learning/PATH-TO-GENERALIZING-SCHEME-POLICIES-v0.1.md` (2026-09-07) — packet manifests only, see §9 | **none** | **none — MISSING intake** | Received text, below even the intaken corpus: no companion, no ruling family, no wiki index other than §9 below; already consumed by `experiments/partnership/` and `walt/scheme/INFORMATION-PRICES.md` at the exploratory-unadjudicated level |
 
 ## 1. The frozen bases
@@ -259,7 +261,7 @@ Artifact map only; the adjudicated content lives on
   and the honest negative on hand 8. Indexed with the scenario era on
   [the reference map](walt-math-reference.md#the-scenario-player-era--signed-pivotal-geometry-the-tilt-audit-and-the-level-2-detector).
 
-## 6. The side-channel intakes, 2026-08-24 → 2026-09-04 — hand-ferried, never courier dispatches
+## 6. The side-channel intakes, 2026-08-24 → 2026-09-04 and 2026-09-21 — hand-ferried, never courier dispatches
 
 Seven parents in eleven days, each hand-delivered by Jason from his Pro
 session, each intaken the day it arrived under one protocol: verbatim parent
@@ -273,6 +275,10 @@ TRUST-01), same-day rulings, obligations into a ledger. Two exchange
 `response_deferred_producers_triple_v0.1_intake.md`) and narrated on
 [walt-calculated-evidence](walt-calculated-evidence.md); they are not repeated
 here.
+
+An eighth parent arrived 2026-09-21 — after the consolidation ruling, on
+Jason's explicit instruction — and is filed under the same protocol with its
+adjudication PENDING; it is the last entry in this section.
 
 - **`walt/math/calculated_evidence_v0.1.md`** — *Calculated Evidence for
   Unified Walt* (received verbatim 2026-08-24, hand-ferried by Jason;
@@ -726,6 +732,114 @@ here.
   statistic of the record; the honest guarantee of the live decision at
   tricks 1–3. Narrative: [walt-focal-horizon-era](walt-focal-horizon-era.md).
 
+- **`walt/math/outcome_grounded_policy_learning_v0.1.md`** — *Outcome-grounded
+  autonomous policy learning for Texas 42* (received verbatim, hand-delivered
+  by Jason 2026-09-21 via session upload `dd7ce80a-MATHEMATICAL-CONTRACT.md`,
+  filed snake_case, recorded not repaired; checksum-pinned, SHA-256
+  `bd259eff…`; not a courier dispatch — the ledger is untouched). Written
+  against main `afd46420` — verified exactly main at intake; also inspected
+  the **unmerged** PR #93 head (`experiments/response-ladder/`). The proposed
+  learning contract: campaign targets as complete experimental authorities
+  (§1); the weighted relational softmax consumer over a bounded
+  typed-expression dictionary — explicitly *not* PR #93's ordered first-match
+  semantics (§2); the outcome-gradient bridge with fixed other players,
+  decentralized shared-parameter teammates, baselines under the
+  conditional-zero identity, and the covariance proposal score
+  g_F = E Σ_t Cov(x_F, Q^π) for fresh expressions at weight zero (§3); the
+  finite-step bound |J(π′) − J(π) − S_π(π′)| ≤ H(H−1)α² with the L1-to-TV
+  bound α ≤ min(1, ‖Δθ‖₁/4) (§4); the autonomous constructor loop (§5);
+  multifidelity reuse of cheap modeled players as control variates, never
+  teachers — E D_H = E D_L + E(D_H−D_L), the allocation ratio, the
+  first-disagreement transfer bound (§6); placement of the existing
+  mathematics (§7); risk-budgeted promotion with
+  α[k,j] = δ/(k(k+1)j(j+1)) and frozen candidates (§8); the old-data
+  boundary and honest stopping (§9). Its §10 names an included verifier pair
+  (`verify_learning_bridge.py`, `verification_results.json`) that was **not
+  delivered** with the upload. Of its four "recovered mathematical sources",
+  two are the §9 packet notes (MISSING intake), one
+  (`SCHEME-GEOMETRY-AND-SMOOTH-POLICIES-v0.1.md`) is nowhere in this
+  repository, and one is the never-retrieved POLICY-ANTS note
+  (`experiments/partnership/packet/policy-ants/INTAKE-STATUS.md`) — this
+  parent is the first filed artifact carrying any of that content, with no
+  authority inherited from the lost originals.
+- **`walt/math/outcome_grounded_policy_learning_v0.1_intake.md`** — **the
+  intake companion** (maintained) +
+  `verify_outcome_grounded_policy_learning_v0.1_intake.py` (**intake-authored**
+  — not the parent's missing verifier; scratch tier). Verifier run twice at
+  intake from the filed location (`python3 -I -B`): `10 CHECK FAMILIES / ALL
+  CHECKS PASS`, 3,886 exact instances, 0.72 s, exit 0, no `__pycache__`,
+  imports only `fractions`. Machine-checked in exact rationals on an
+  independent tiny-game family (three worlds, two teammate seats sharing one
+  coefficient vector, a reactive fixed opponent, rational
+  multiplicative-weight softmax): the score identity, the outcome-gradient
+  bridge with baseline invariance and the conditional-zero identity, the
+  fresh-expression covariance identity with Q^π by forcing then frozen
+  continuation, the exact telescope, the H(H−1)α² remainder (α over every
+  reachable controlled observation, |f_t| ≤ α pointwise, the α = 0
+  degenerate pair included), the TV-speed engine of the L1 bound, the
+  multifidelity variance split over enumerated independent batches and the
+  allocation stationarity, the two-deep first-disagreement coupling bound,
+  the pivotal identities (exhaustive denominator-12 grid), and the
+  risk-budget partial sums. Hand-checked: everything else; **no unsound
+  claim found** — the parent's own fences are unusually complete. The
+  companion records the vocabulary audit (six "certificate" stems, all fence
+  positions; zero "sandwich"; the θ-symbol collision with CE-A2's split,
+  repair proposed), the code-boundary audit (consumes `walt::scheme` and the
+  partnership campaign; consumer, estimator, constructor, promotion ledger
+  and multifidelity harness are green field; **the no-float discharge by
+  rational multiplicative weights** — θ = log r never materialized),
+  candidate obligations OG-O1..O10, the proposed build program OG0–OG6, and
+  the eight-item adjudication agenda. **Adjudication PENDING** — no OG-A
+  family exists; the consolidation-ruling disposition is agenda item 2.
+  Card: [[ogpl-intake-adjudication]]. **What came of it, the same day:**
+  Jason authorized the build in-session ("all the way to running it"); the
+  instrument landed at `experiments/og-learning/` (exact-rational
+  multiplicative-weights actor over the 14-clause library, on-policy
+  outcome gradients, risk-budgeted promotion; 21 law-sized gates) and the
+  first campaign `og-v1` ran to its registered stall stop: three promotions
+  in eight generations against the declared random-legal target, untouched
+  exam 550‰ vs 424‰ (paired +125.9‰, exact CI [83, 168]‰ at α = 1/20).
+  Record of record: `experiments/og-learning/campaigns/og-v1/RESULTS.md`;
+  the companion's dated 2026-09-21 marker records the authorization and the
+  two declared deviations from the proposed slice order. **Later the same
+  day, on Jason's direction that the grammar itself is the learned object,
+  the constructor slice (the companion's OG4) was built and campaign
+  `og-v2` ran with the language open** — 539 typed expressions generated,
+  panel-deduplicated and g_F-scored, 24 admitted over eight generations,
+  four promotions, declared budget stop; untouched exam 638‰ vs 437‰
+  (paired +201.1‰, exact CI [158.5, 243.7]‰ at α = 1/20, disjoint deals
+  from og-v1) — record `experiments/og-learning/campaigns/og-v2/RESULTS.md`.
+  **And on Jason's go the same evening, campaign `og-v3` re-ran the open
+  language against σ0 defenders** (walt's `Level0Field(8)`, the field the
+  live level-1 player models; seed offset 200M): four promotions in eight
+  generations, declared budget stop, untouched exam 482‰ vs 296‰ (paired
+  +186.0‰, exact CI [143.4, 228.6]‰) — the constructor's admissions
+  switched from count husbandry to trick contention with the lineup;
+  record `experiments/og-learning/campaigns/og-v3/RESULTS.md`. **On
+  2026-09-22, on Jason's go, the §6 multifidelity harness was built and run
+  against the maintained gym field** (L1-40/8 partner, L0-8 opponents,
+  learner at S0 alone): campaign og-v4 stalled honestly and doubled as the
+  §6 pilot — it MEASURED the all-L0 proxy's correlation (ρ ≈ 0.35,
+  Var(D_H−D_L) ≈ 0.404 > Var(D_H) ≈ 0.313) making MF promotion ~1.8×
+  worse than direct at measured costs, the parent's proxy caveat
+  quantified; og-v4b then ran the pilot-informed direct
+  empirical-Bernstein rule and certified the first gym-field promotions
+  (+2.9%, +4.1%), untouched direct exam 507‰ vs 431‰ beside the same L1
+  partner (paired +76.1‰, CI [15.9, 136.4]‰) — records
+  `campaigns/og-v4/RESULTS.md` and `campaigns/og-v4b/RESULTS.md`. **And on
+  the second go ("yes do that please"), the fair proxy pilot plus the CE
+  anytime harvester**: the same-architecture gym-4 proxy measured ρ = 0.38
+  (direct wins 2.4× — the §6 proxy-resistance now measured twice), and
+  campaign og-v5 ran anytime-valid promotion consuming the adjudicated
+  CE-T4/T5 betting mixtures (`solver::evidence::BoundedMeanMixture` the
+  authority, gate-checked integer hot path): three promotions at
+  n = 6,656/12,288/60,416 — **the +1.9% one is the first resolution inside
+  the 1–2% band across all six campaigns** — one futility dismissal at
+  22,528, untouched direct exam 518‰ vs 417‰ (paired +101.0‰, CI
+  [40.8, 161.3]‰), the program's strongest gym-field result; record
+  `campaigns/og-v5/RESULTS.md`. All of it EXPLORATORY and target-specific;
+  the adjudication agenda is unchanged.
+
 ## 7. The pinned manifests
 
 The `.sha256` files under `walt/math/` are **pinned freeze artifacts** — never
@@ -752,6 +866,7 @@ inside the files are relative to `walt/`; nine `OK`, in about a second).
 | `model_belief_base_player_v0.1.sha256` | The received model-belief parent's byte identity (`1ffabf86…`) | the 2026-09-01 intake (MB-A1) |
 | `salvation_complex_v0.1.sha256` | The received salvation-complex parent's byte identity (`eca69bd5…`) | the 2026-09-01 intake, same session (SC-A1) |
 | `focal_horizon_sandwich_v0.1.sha256` | The received focal-horizon parent's byte identity (`892bc343…`; re-hashed at intake, matches) | the 2026-09-04 intake (FH-A1) |
+| `outcome_grounded_policy_learning_v0.1.sha256` | The received outcome-grounded policy-learning parent's byte identity (`bd259eff…`) | the 2026-09-21 filing (adjudication PENDING) |
 
 The nine parent digests in full, as read from the `.sha256` files and matched
 against the parents on 2026-09-12 (verifier digests are in the companions and
@@ -767,6 +882,13 @@ eca69bd581d9d02466ea6dba29f4ba8fc19bf9e851639fd77d6741fac900604c  salvation_comp
 892bc343f1ada12013b2bbd674d46962bc0256a55170aa48075fea17c2592f04  focal_horizon_sandwich_v0.1.md
 b9d93715bf65cc29b2bbb1ce6775d00070449a01ef2fe58f7b3bba2a2b7f9630  signed_pivotal_geometry_v0.1.md
 ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44  gpu_native_trick1_implementers_guide_v0.2.md
+```
+
+A tenth parent pin was added 2026-09-21 at filing, verified byte-exact the
+same day:
+
+```
+bd259effaf78972aea9c78f5ff93abfbee8628accce4423003ac4d8f6902389e  outcome_grounded_policy_learning_v0.1.md
 ```
 
 ## 8. Where the builds are recorded, and what is genuinely pending
@@ -861,6 +983,13 @@ records they concern were not rewritten.
   the 2026-09-05 readout reported as unmerged (`walt-gran`, `walt-o5`,
   `walt-g1-l2`) are outside this page's scope — see
   [walt-gran-anchors](walt-gran-anchors.md).
+- **The outcome-grounded policy-learning adjudication** (2026-09-21) —
+  parent filed, companion written, intake verifier green twice; no OG-A
+  rulings family yet. Needs: retrieval or an unfiled declaration for the
+  parent's missing §10 verifier pair, the rulings over the companion's
+  eight-item agenda, the consolidation-ruling disposition, and a build
+  go/no-go on the proposed OG0–OG6 program. Card:
+  [[ogpl-intake-adjudication]].
 - **Cards the builds left open:** [[ladder-policy-store]] (FH2's 3.82M facts
   and 19.4 GB peak at h8-t3), [[gate-corpus-trim]] (`check.sh` at 308 s),
   [[m2-receipt-reearn]] (the standing M2 receipt is old-layout evidence since

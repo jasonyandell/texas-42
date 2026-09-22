@@ -1070,3 +1070,104 @@ survey survive saves; the shared play and partner rollout carry the actual bid.
 Independent replay of higher point and marks links agrees with Plunge. The old
 full counterfactual examiner remains explicitly bid-30-only. Reproduction and
 receipts: `walt-player/README.md`, `/Users/jason/data/texas-42/regular-bidding/`.
+
+## 2026-09-21 — outcome-grounded policy-learning intake filed, adjudication pending
+
+Jason hand-delivered *Outcome-grounded autonomous policy learning for Texas 42*
+v0.1 (session upload; the first parent filed after the consolidation ruling, on
+his explicit instruction). Filed under the standing convention: verbatim parent
+`walt/math/outcome_grounded_policy_learning_v0.1.md` with a `.sha256` pin
+(`bd259eff…`), maintained companion, and an intake-authored scratch verifier —
+the parent's own §10 verifier pair was not delivered. Verifier: 10 check
+families, 3,886 exact-rational instances, PASS twice, 0.72 s, stdlib only, no
+floats. Hand audit found no unsound claim. Adjudication PENDING (proposed
+family OG-A; agenda in the companion); proposed build program OG0–OG6 queued
+behind it; no build authorized, no default touched. Index:
+`wiki/walt-math-intakes.md`; card: `kanban/backlog/ogpl-intake-adjudication.md`.
+
+## 2026-09-21 — outcome-grounded learning: first campaign ran to completion
+
+Jason authorized the OGPL build in-session, hours after the intake. The
+instrument is `experiments/og-learning/` (outside the walt workspace; consumes
+the walt crate read-only): exact-rational multiplicative-weights softmax over
+the versioned 14-clause relational library, on-policy complete-deal outcome
+gradients with LOO baselines, multi-step generations with snapshot finalists,
+risk-budgeted promotion (δ=1/20, τ=1/100, exact-rational Hoeffding uppers),
+registered stall stop, untouched final exam. 21 law-sized gates, clippy clean,
+no floats. Campaign og-v1 (bid-30 longest-pip target, random-legal co-players):
+three promotions in eight generations, ~1.3M complete deals in ~15 min; exam
+550‰ vs the uniform start's 424‰, paired +125.9‰, exact CI [83,168]‰. The
+learned coefficients are powers of 9/8 and read as count husbandry and master
+timing — from make/set outcomes alone. EXPLORATORY, target-specific; parent
+adjudication still pending (OG-A agenda). Record of record:
+`experiments/og-learning/campaigns/og-v1/RESULTS.md`.
+
+## 2026-09-21 — the constructor: og-v2 opens the language, exam +201 permille
+
+Jason's direction after og-v1: the relational grammar is the learned object,
+not a fixture. Built the parent's §5 constructor into og-learning: a declared
+typed language of 539 bounded expressions over the scheme viewer predicates
+(negations, trump membership via the Called literal, a beats-the-current-
+winner composite, trick-position and hand-size qualifiers), panel dedup,
+covariance scores g_F at coefficient zero, top-3 admitted per generation at
+weight 1 (play-invisible until the gradient moves them). Campaign og-v2 (same
+target, all seeds offset 100M): four promotions in eight generations, 24
+expressions admitted, declared budget stop; untouched exam 638‰ vs the
+uniform start's 437‰ — paired +201.1‰, exact CI [158.5, 243.7]‰ — versus
+og-v1's +125.9‰ with the fixed library on disjoint deals. First promoted
+composite cleared at the first 1,024-deal checkpoint (+12.3%), equal to all
+of og-v1's final gain. EXPLORATORY, target-specific; adjudication (OG-A)
+still pending. Record: experiments/og-learning/campaigns/og-v2/RESULTS.md.
+
+## 2026-09-21 — og-v3: the open language holds against σ0 (exam +186‰)
+
+On Jason's go ("declare og-v3 against L0-8 and let it run"): same law and
+budgets as og-v2, fixed seats = Level0Field(8) — the σ0 modeled mind, a pure
+function of public state (0.70 ms/deal measured, so no downsizing and the §6
+multifidelity harness stays queued for genuinely expensive lineups). Four
+promotions in eight generations, declared budget stop; untouched exam 482‰ vs
+the uniform start's 296‰ — paired +186.0‰, exact CI [143.4, 228.6]‰. The
+constructor's generation-0 admissions switched from og-v2's count husbandry to
+trick contention (takes-trick/loses-trick under opponent-winning), then slough
+discipline and cheap steals — same language, same rule, different opponents.
+Three campaigns now stand: +125.9‰ (fixed library, random field), +201.1‰
+(open language, random field), +186.0‰ (open language, σ0 field), each on its
+own untouched exam. EXPLORATORY, target-specific; OG-A adjudication pending.
+Record: experiments/og-learning/campaigns/og-v3/RESULTS.md.
+
+## 2026-09-22 — og-v4/og-v4b: the §6 multifidelity story, measured end to end
+
+On Jason's go ("gym field target, use the multifidelity harness"). og-v4:
+learner at S0 inside the maintained GymField(S0,40) (24.7 ms/deal), all-L0-8
+proxy (0.7 ms), two-batch MF promotion with exact empirical-Bernstein radii.
+It stalled honestly — three candidates estimated +4.7/+5.8/+6.2% but the
+gen-0 stream, doubling as the §6 pilot, measured why: Var(D_H−D_L)=0.404 >
+Var(D_H)=0.313 at ρ≈0.35 (the L1↔L0 partner swap decorrelates), so MF is
+~1.8× worse than direct at measured costs — "a proxy with poor correlation
+can cost more than it saves," quantified. og-v4b re-ran with the
+pilot-informed direct-EB rule (τ=1/100, checkpoints 2048/8192/32768):
+promotions at gens 0–1 (+2.9%, +4.1% — the first certified against the gym
+field), stall after three small Unresolveds; untouched DIRECT exam 507‰ vs
+the uniform start's 431‰ beside the same L1 partner — paired +76.1‰, CI
+[15.9, 136.4]‰. The constructor pulled lead discipline (trump|pos-lead,
+master|pos-lead) for this lineup. EXPLORATORY, target-specific; OG-A
+pending. Records: experiments/og-learning/campaigns/og-v4{,b}/RESULTS.md.
+
+## 2026-09-22 — og-v5: the CE anytime harvester delivers (exam +101‰)
+
+Second go executed: the fair §6 pilot (gym-4 proxy, same L1 architecture,
+real policy pair) measured ρ = 0.38, Var(D_H−D_L) > Var(D_H) — direct wins
+2.4×; proxy-resistance of paired make/set differences now measured twice.
+og-v5 then ran anytime-valid promotion on the gym target: per candidate, two
+adjudicated CE-T4/T5 bounded-mean betting mixtures (solver::evidence is the
+authority; the campaign's gcd-free integer evaluation is gate-checked equal —
+first version ground ~2 h/stream on 850k-bit gcds, fixed to 5 s per full
+stream), α_k = δ/(k(k+1)) whole-stream, judged every 512, cap 65,536. Eight
+generations: promotions at n = 6,656 / 12,288 / 60,416 — the +1.9% at 60,416
+is the first certified resolution inside the 1–2% band in six campaigns —
+futility dismissal at 22,528, four honest caps. Untouched direct exam: 518‰
+vs the uniform start's 417‰ — paired +101.0‰, CI [40.8, 161.3]‰, the
+program's strongest gym-field result. A 45-min send_later watchdog (Jason's
+ask) rode the whole run; one wall-budget pause was resumed from state.
+EXPLORATORY, target-specific; OG-A pending. Record:
+experiments/og-learning/campaigns/og-v5/RESULTS.md.

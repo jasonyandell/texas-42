@@ -1,0 +1,1 @@
+Pilot under the superseded single-step-per-generation rule (see generations.jsonl): the 9/8 single-step candidate reached +299/65536 paired (~+4.6 permille), Unresolved at tau=1/100. Superseded by the multi-step generation design before the og-v1 launch; kept as provenance.
