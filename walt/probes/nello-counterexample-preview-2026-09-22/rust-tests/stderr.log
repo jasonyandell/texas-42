@@ -1,0 +1,28 @@
+   Compiling autocfg v1.5.1
+   Compiling crossbeam-utils v0.8.22
+   Compiling proc-macro2 v1.0.107
+   Compiling crossbeam-epoch v0.9.20
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.24
+   Compiling crossbeam-deque v0.8.7
+   Compiling serde_core v1.0.229
+   Compiling rayon-core v1.13.0
+   Compiling zmij v1.0.23
+   Compiling serde v1.0.229
+   Compiling either v1.17.0
+   Compiling serde_json v1.0.151
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling num-traits v0.2.19
+   Compiling rayon v1.12.0
+   Compiling syn v3.0.5
+   Compiling num-integer v0.1.47
+   Compiling num-bigint v0.4.8
+   Compiling serde_derive v1.0.229
+   Compiling num-rational v0.4.2
+   Compiling walt v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt)
+   Compiling walt-player v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player)
+    Finished `release` profile [optimized] target(s) in 9.40s
+     Running tests/contracts.rs (walt/target/release/deps/contracts-efa3bcac83069e26)
+     Running tests/counterexample.rs (walt/target/release/deps/counterexample-b1bf262ea2a21a1f)
+     Running tests/nello.rs (walt/target/release/deps/nello-ee1e533520fd11ee)

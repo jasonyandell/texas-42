@@ -92,6 +92,25 @@ maximum 506.9 ms native on this Mac. No partial comparison or legal fallback
 was selected. Hands and continuations are sampled, not a census or a calibrated
 strength result. A local browser smoke check also passed ordinary bidding, three-player play, reload/resume, saved hints, immediate set, original scores and a 160-world recheck (0.39 s on this Mac). A Pixel play/latency check remains a release follow-up.
 
+## Counterexample research
+
+The [2026-09-22 counterexample probe](probes/nello-counterexample-2026-09-22/REPORT.md)
+retains sampled failure witnesses, jointly replans candidates, and adapts the
+singleton fixed-field doom question to Nel-O. It demonstrates a 100% tie being
+broken and records a concrete 6-6 discard vulnerability. The two-root fresh-deal
+panel is mixed, with substantial off-tree L0 completion; it establishes neither
+calibrated probabilities nor stronger live play.
+
+The opt-in preview adapter accepts `nello_counterexamples:true` outside the
+actor-only request. After a complete ordinary comparison, Nel-O defenders may
+spend up to two seconds on three rounds of 256 candidate worlds, retaining at
+most four failures per round and jointly replanning all actions. Every complete
+round emits a checkpoint; interruption retains that round or the ordinary move.
+The `counterexample_result` stores the deliberately biased stress scores
+separately from `evaluation`. Each subsequent live decision replans normally.
+This is an experiment for playtesting, not an established strength improvement.
+Straight play, declarer play, and calls omitting the flag retain their behavior.
+
 ## Reproduce
 
 Use the packet `run_capped.py` watchdog with fresh output directories for each

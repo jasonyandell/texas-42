@@ -12,6 +12,7 @@ use walt::{
 
 pub const PLAYER_ID: &str = "walt-table-v2";
 mod auction;
+mod counterexample;
 #[cfg(not(target_arch = "wasm32"))]
 pub mod played;
 
@@ -79,6 +80,8 @@ pub struct Call {
     partner: bool,
     #[serde(default = "default_budget")]
     budget_ms: u64,
+    #[serde(default)]
+    nello_counterexamples: bool,
 }
 fn default_worlds() -> usize {
     40
@@ -144,6 +147,11 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
         value["inactive"] = json!((call.request.bidder + 2) % 4);
         value["review"] = json!("inapplicable-nello");
     }
+    if call.nello_counterexamples && nello && call.request.seat % 2 != call.request.bidder % 2 {
+        value["counterexample_result"] = json!({"schema":"nello-counterexamples-v1","status":"not-run",
+            "baseline":value["choice"],"choice":value["choice"],"ordinary_worlds":0,"witnesses":0,"rounds":0,
+            "options":[],"stop":if forced {"forced"} else {"no-completed-baseline"},"score_kind":"witness-mixture"});
+    }
     emit(&mut value, start, call.budget_ms, &mut checkpoint);
     if forced {
         return Ok(value);
@@ -205,6 +213,25 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
         emit(&mut value, start, call.budget_ms, &mut checkpoint);
     }
     drop(previous);
+    // Opt-in defense only. Keep ordinary estimates intact and expose the
+    // deliberately biased mixture separately. A stopped round cannot replace
+    // the last completed comparison, either in Rust or a host checkpoint.
+    if call.nello_counterexamples && nello && call.request.seat % 2 != call.request.bidder % 2
+        && value["route"] == "baseline" {
+        let baseline = value["choice"].as_u64().unwrap();
+        let worlds = value["evaluation"]["outer_worlds"].as_u64().unwrap() as usize;
+        let ms = remaining().min(2000);
+        let mut publish = |report: &Value| {
+            if report["status"] == "completed" {
+                value["choice"] = report["choice"].clone();
+                value["route"] = json!("baseline-counterexamples");
+            }
+            value["counterexample_result"] = report.clone();
+            emit(&mut value, start, call.budget_ms, &mut checkpoint);
+        };
+        let report = counterexample::review(&call.request, worlds, baseline, ms, &mut publish);
+        publish(&report);
+    }
     if call.partner && !nello && value["route"] == "baseline" {
         let baseline = value["choice"].as_u64().unwrap() as usize;
         let ms = remaining().min(500);
