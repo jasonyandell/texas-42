@@ -1,0 +1,361 @@
+{
+  "schema": "walt-build-comparison-v1",
+  "before": "b3016e18e0b119a3967d42a901e51655e28176d3fce500f159501748de5a6fd4",
+  "after": "3a2125ee9591f35edd4a3ffca3033a2779f4fd18e78a3b640442376dca674655",
+  "clock": "frozen",
+  "host": "Node WASM; not phone timing",
+  "requested": 12,
+  "completed": 12,
+  "all_completed": true,
+  "rows": [
+    {
+      "call": {
+        "request": {
+          "bid": 30,
+          "bidder": 0,
+          "seat": 0,
+          "hand": [
+            1,
+            6,
+            8,
+            19,
+            20,
+            23,
+            27
+          ],
+          "plays": [],
+          "seed": 420914,
+          "decl": 0
+        },
+        "worlds": 40,
+        "partner": false
+      },
+      "choice": 1,
+      "before_ms": 56.860417,
+      "after_ms": 57.17637499999999
+    },
+    {
+      "call": {
+        "request": {
+          "bid": 30,
+          "bidder": 0,
+          "seat": 0,
+          "hand": [
+            1,
+            6,
+            8,
+            19,
+            20,
+            23,
+            27
+          ],
+          "plays": [],
+          "seed": 420914,
+          "decl": 1
+        },
+        "worlds": 40,
+        "partner": false
+      },
+      "choice": 20,
+      "before_ms": 67.10058299999997,
+      "after_ms": 67.37870799999999
+    },
+    {
+      "call": {
+        "request": {
+          "bid": 30,
+          "bidder": 0,
+          "seat": 0,
+          "hand": [
+            1,
+            6,
+            8,
+            19,
+            20,
+            23,
+            27
+          ],
+          "plays": [],
+          "seed": 420914,
+          "decl": 2
+        },
+        "worlds": 40,
+        "partner": false
+      },
+      "choice": 27,
+      "before_ms": 55.65979199999998,
+      "after_ms": 56.149291000000005
+    },
+    {
+      "call": {
+        "request": {
+          "bid": 30,
+          "bidder": 0,
+          "seat": 0,
+          "hand": [
+            1,
+            6,
+            8,
+            19,
+            20,
+            23,
+            27
+          ],
+          "plays": [],
+          "seed": 420914,
+          "decl": 3
+        },
+        "worlds": 40,
+        "partner": false
+      },
+      "choice": 27,
+      "before_ms": 59.34145799999999,
+      "after_ms": 59.246375
+    },
+    {
+      "call": {
+        "request": {
+          "bid": 30,
+          "bidder": 0,
+          "seat": 0,
+          "hand": [
+            1,
+            6,
+            8,
+            19,
+            20,
+            23,
+            27
+          ],
+          "plays": [],
+          "seed": 420914,
+          "decl": 4
+        },
+        "worlds": 40,
+        "partner": false
+      },
+      "choice": 27,
+      "before_ms": 109.16045900000006,
+      "after_ms": 107.07529199999999
+    },
+    {
+      "call": {
+        "request": {
+          "bid": 30,
+          "bidder": 0,
+          "seat": 0,
+          "hand": [
+            1,
+            6,
+            8,
+            19,
+            20,
+            23,
+            27
+          ],
+          "plays": [],
+          "seed": 420914,
+          "decl": 5
+        },
+        "worlds": 40,
+        "partner": false
+      },
+      "choice": 27,
+      "before_ms": 62.511999999999944,
+      "after_ms": 62.46295800000007
+    },
+    {
+      "call": {
+        "request": {
+          "bid": 30,
+          "bidder": 0,
+          "seat": 0,
+          "hand": [
+            1,
+            6,
+            8,
+            19,
+            20,
+            23,
+            27
+          ],
+          "plays": [],
+          "seed": 420914,
+          "decl": 6
+        },
+        "worlds": 40,
+        "partner": false
+      },
+      "choice": 20,
+      "before_ms": 92.22395800000004,
+      "after_ms": 92.73754200000008
+    },
+    {
+      "call": {
+        "request": {
+          "bid": 30,
+          "bidder": 0,
+          "seat": 0,
+          "hand": [
+            1,
+            6,
+            8,
+            19,
+            20,
+            23,
+            27
+          ],
+          "plays": [],
+          "seed": 420914,
+          "decl": 7
+        },
+        "worlds": 40,
+        "partner": false
+      },
+      "choice": 19,
+      "before_ms": 62.01108299999987,
+      "after_ms": 61.68674999999985
+    },
+    {
+      "call": {
+        "request": {
+          "bid": 30,
+          "bidder": 0,
+          "seat": 0,
+          "hand": [
+            1,
+            6,
+            8,
+            19,
+            20,
+            23,
+            27
+          ],
+          "plays": [],
+          "seed": 420914,
+          "decl": 9
+        },
+        "worlds": 40,
+        "partner": false
+      },
+      "choice": 20,
+      "before_ms": 35.596041000000014,
+      "after_ms": 36.115291999999954
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 3,
+          "bid": 30,
+          "bidder": 0,
+          "seat": 2,
+          "hand": [
+            0,
+            2,
+            3,
+            15,
+            17,
+            21,
+            25
+          ],
+          "plays": [
+            0,
+            7,
+            1,
+            24,
+            2,
+            3,
+            3,
+            6,
+            1,
+            5,
+            2,
+            17,
+            3,
+            23,
+            0,
+            12,
+            1,
+            4,
+            2,
+            21,
+            3,
+            22,
+            0,
+            8,
+            0,
+            9,
+            1,
+            19,
+            2,
+            25,
+            3,
+            18,
+            0,
+            13,
+            1,
+            16
+          ],
+          "seed": 420600
+        },
+        "worlds": 40,
+        "partner": true
+      },
+      "choice": 15,
+      "before_ms": 67.86516600000004,
+      "after_ms": 67.1557499999999
+    },
+    {
+      "call": {
+        "request": {
+          "bid": 36,
+          "bidder": 0,
+          "seat": 0,
+          "hand": [
+            1,
+            6,
+            8,
+            19,
+            20,
+            23,
+            27
+          ],
+          "plays": [],
+          "seed": 420914,
+          "decl": 6
+        },
+        "worlds": 40,
+        "partner": false
+      },
+      "choice": 20,
+      "before_ms": 106.06666699999982,
+      "after_ms": 110.56849999999986
+    },
+    {
+      "call": {
+        "request": {
+          "bid": 42,
+          "bidder": 0,
+          "seat": 0,
+          "hand": [
+            1,
+            6,
+            8,
+            19,
+            20,
+            23,
+            27
+          ],
+          "plays": [],
+          "seed": 420914,
+          "decl": 6
+        },
+        "worlds": 40,
+        "partner": false
+      },
+      "choice": 19,
+      "before_ms": 69.60674999999992,
+      "after_ms": 75.19170900000017
+    }
+  ]
+}

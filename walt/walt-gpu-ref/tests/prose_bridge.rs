@@ -17,6 +17,7 @@ fn prose_is_trump(decl: Decl, domino: Domino) -> bool {
         Decl::PipTrump(pip) => domino.has(pip),
         Decl::DoublesTrump => domino.is_double(),
         Decl::NoTrump => false,
+        Decl::DoublesSuit => unreachable!("straight prose bridge"),
     }
 }
 
@@ -54,6 +55,7 @@ fn rob_declaration(decl: Decl) -> RobDeclaration {
         ),
         Decl::DoublesTrump => RobDeclaration::DoublesTrump,
         Decl::NoTrump => RobDeclaration::NoTrump,
+        Decl::DoublesSuit => unreachable!("straight Rob bridge"),
     }
 }
 
@@ -67,7 +69,7 @@ fn m0_prose_follow_and_led_context_agree_exhaustively() {
     let mut led_cases = 0usize;
     let mut follow_cases = 0usize;
 
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         for lead in Domino::ALL {
             assert_eq!(
                 decl.led_context(lead),
@@ -109,7 +111,7 @@ fn m0_prose_follow_and_led_context_agree_exhaustively() {
     let hands_per_context = Domino::COUNT + Domino::COUNT * (Domino::COUNT - 1) / 2;
     assert_eq!(
         follow_cases,
-        Decl::COUNT * Context::COUNT * hands_per_context
+        Decl::STRAIGHT_COUNT * Context::COUNT * hands_per_context
     );
     assert_eq!(follow_cases, 29_232);
 }
@@ -118,7 +120,7 @@ fn m0_prose_follow_and_led_context_agree_exhaustively() {
 fn m0_prose_resolver_agrees_on_every_actor_attributed_four_tile_trick() {
     let mut comparisons = 0usize;
 
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         let rob_decl = rob_declaration(decl);
         for lead_index in 0..Domino::COUNT {
             let remaining: Vec<Domino> = Domino::ALL

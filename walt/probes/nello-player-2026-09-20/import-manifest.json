@@ -1,0 +1,37 @@
+{
+  "player": "walt-table-v2",
+  "source_repository": "jasonyandell/texas-42",
+  "source_commit": "dba963feb112c0e11865181c51df6e02c556be5e",
+  "source_sha256": "93d0eb62f324ba98a49cce8d4270426f9e4543b3abfe75ad25933fe4e04ebecf",
+  "source_hash_schema": "walt-player-source-v2",
+  "wasm_sha256": "fe22d2d24c33e98327799e2e08972481b4e1ec4e48f40256b22b32d0ccd76398",
+  "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+  "build": {
+    "target": "wasm32-unknown-unknown",
+    "default_features": false,
+    "features": [
+      "cpu-speedups"
+    ],
+    "profile": {
+      "opt_level": "3",
+      "lto": "thin",
+      "codegen_units": "1",
+      "overflow_checks": "true",
+      "debug": "false",
+      "strip": "debuginfo",
+      "panic": "unwind",
+      "incremental": "false"
+    },
+    "rustflags": [],
+    "locked": true
+  },
+  "worlds": 40,
+  "inner_worlds": 8,
+  "budget_ms": 14000,
+  "partner_ms": 500,
+  "auction_worlds": 160,
+  "auction_budget_ms": 20000,
+  "opening_worlds": 160,
+  "opening_budget_ms": 20000,
+  "opening_partner": false
+}

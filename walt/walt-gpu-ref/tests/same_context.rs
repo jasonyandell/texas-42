@@ -38,7 +38,7 @@ fn m1_same_context_reuse_and_action_identity_hold_for_every_physical_lead_pair()
         BuildIdentityV1::new(TEST_BUILD_IDENTITY).expect("nonzero test build identity");
     let mut total_pairs = 0usize;
 
-    for decl in Decl::ALL {
+    for decl in Decl::STRAIGHT {
         let mut declaration_pairs = 0usize;
         for first_index in 0..Domino::COUNT {
             let first = Domino::ALL[first_index];
@@ -110,6 +110,6 @@ fn m1_same_context_reuse_and_action_identity_hold_for_every_physical_lead_pair()
         assert_eq!(declaration_pairs, 56, "pair census drift for {decl:?}");
     }
 
-    assert_eq!(total_pairs, Decl::COUNT * 56);
+    assert_eq!(total_pairs, Decl::STRAIGHT_COUNT * 56);
     assert_eq!(total_pairs, 504);
 }

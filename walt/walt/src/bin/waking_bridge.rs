@@ -242,9 +242,9 @@ fn decide(nums: &[usize], cfg: &Config, held: &mut Option<HeldSeat>) -> (usize, 
 fn declare_internal(bidder_i: usize, hand0: u32, cfg: &Config, full: bool) -> Decl {
     let seat = Seat::from_index(bidder_i).expect("bid seat");
     let candidates: Vec<Decl> = if full {
-        Decl::ALL.to_vec()
+        Decl::STRAIGHT.to_vec()
     } else {
-        Decl::ALL[..7].to_vec()
+        Decl::STRAIGHT[..7].to_vec()
     };
     let mut rng = SplitMix64(WAKING_DECLARE_SEED ^ mix(u64::from(hand0)) ^ mix(0xDEC1));
     let deadline = Deadline::after(Duration::from_secs(cfg.per_move_secs));

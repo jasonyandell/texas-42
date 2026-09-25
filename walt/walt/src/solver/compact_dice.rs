@@ -27,6 +27,7 @@ pub(super) fn trick_outcome(decl: Decl, packed_plays: u32) -> (u8, u8) {
         Decl::PipTrump(pip) => pip.value() as usize,
         Decl::DoublesTrump => 7,
         Decl::NoTrump => 8,
+        Decl::DoublesSuit => unreachable!("straight-only optimized path"),
     };
     trick_table::resolve(di, packed_plays)
 }
@@ -55,11 +56,11 @@ const EMPTY_RULES: Rules = Rules {
 
 // Build from the authoritative rule algebra at compile time. This adds no
 // first-decision initialization cost and stores no sampled or policy state.
-const RULES: [Rules; Decl::COUNT] = {
-    let mut all = [EMPTY_RULES; Decl::COUNT];
+const RULES: [Rules; Decl::STRAIGHT_COUNT] = {
+    let mut all = [EMPTY_RULES; Decl::STRAIGHT_COUNT];
     let mut di = 0;
-    while di < Decl::COUNT {
-        let decl = Decl::ALL[di];
+    while di < Decl::STRAIGHT_COUNT {
+        let decl = Decl::STRAIGHT[di];
         #[cfg(feature = "trick-table")]
         {
             all[di].declaration = di as u8;
@@ -613,6 +614,7 @@ impl Search<'_> {
 }
 
 fn start<'a>(solver: &'a Solver, key: &Key) -> Option<(Search<'a>, State)> {
+    if !solver.sh.straight_fast_paths() { return None; }
     if solver.field != super::Field::Dice
         || solver.parallel
         || !(1..=8).contains(&solver.worlds.len())
@@ -639,7 +641,7 @@ fn start<'a>(solver: &'a Solver, key: &Key) -> Option<(Search<'a>, State)> {
         #[cfg(feature = "compact-depth")]
         tricks_left: tricks_left_at_root(key),
     };
-    let di = Decl::ALL
+    let di = Decl::STRAIGHT
         .iter()
         .position(|&d| d == solver.sh.dcl)
         .expect("declaration");
@@ -979,7 +981,7 @@ pub(super) fn prepared_choice(
         #[cfg(feature = "compact-depth")]
         tricks_left: tricks_left_at_root(key),
     };
-    let di = Decl::ALL
+    let di = Decl::STRAIGHT
         .iter()
         .position(|&d| d == sh.dcl)
         .expect("declaration");
@@ -1050,7 +1052,7 @@ mod stack_tests {
             (&opening, 0usize, (1 << 7) - 1, [7; 4]),
             (&partial, 2usize, ((1 << 7) - 1) << 14, [6, 6, 7, 7]),
         ];
-        for decl in Decl::ALL {
+        for decl in Decl::STRAIGHT {
             for &(key, viewer, hand, sizes) in &frames {
                 for n in [1, 2, 8] {
                     let sh = Shared::new(
@@ -1104,7 +1106,7 @@ mod depth_tests {
         let hands = std::array::from_fn(|seat| ((1u32 << 7) - 1) << (7 * seat));
         let worlds = [hands];
         let seeds = [0u64];
-        for (di, decl) in Decl::ALL.into_iter().enumerate() {
+        for (di, decl) in Decl::STRAIGHT.into_iter().enumerate() {
             for leader in 0..4u8 {
                 let sh = Shared::new(
                     decl,

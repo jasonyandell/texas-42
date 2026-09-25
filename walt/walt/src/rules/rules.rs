@@ -80,7 +80,7 @@ pub struct TrickKey {
 }
 
 // The finite rule algebra is still defined by `tier` and `rank` below. Compute
-// its 9 * 8 * 28 answers at compile time so recursive play only performs a
+// its 10 * 8 * 28 answers at compile time so recursive play only performs a
 // lookup. This table contains rules, never hands, beliefs or policy answers.
 const TRICK_KEYS: [[[TrickKey; Domino::COUNT]; Context::COUNT]; Decl::COUNT] = {
     let empty = TrickKey { tier: Tier::Slough, rank: Rank(0) };
@@ -107,14 +107,18 @@ const TRICK_KEYS: [[[TrickKey; Domino::COUNT]; Context::COUNT]; Decl::COUNT] = {
 };
 
 impl Decl {
-    /// The called set `kappa_delta`. In Straight 42 every nonempty called set
-    /// is powered, so `pi_delta = kappa_delta`.
+    /// The original algebra's called set `kappa_delta`, separate from power.
     pub const fn called_set(self) -> DominoSet {
         match self {
             Decl::PipTrump(p) => NATURAL[p.value() as usize],
-            Decl::DoublesTrump => DOUBLES,
+            Decl::DoublesTrump | Decl::DoublesSuit => DOUBLES,
             Decl::NoTrump => DominoSet::EMPTY,
         }
+    }
+
+    /// The original power set: doubles-suit is called but unpowered.
+    pub const fn powered_set(self) -> DominoSet {
+        if matches!(self, Decl::DoublesSuit) { DominoSet::EMPTY } else { self.called_set() }
     }
 
     pub const fn is_called(self, d: Domino) -> bool {
@@ -147,7 +151,7 @@ impl Decl {
     }
 
     pub const fn tier(self, d: Domino, led: Context) -> Tier {
-        if self.is_called(d) {
+        if self.powered_set().contains(d) {
             Tier::Called
         } else if self.follows(d, led) {
             Tier::Follows
@@ -162,7 +166,7 @@ impl Decl {
                 // Under doubles-trump the doubles are the called suit and are
                 // ranked by pip; under every other declaration a natural
                 // double is top of its effective natural suit.
-                Decl::DoublesTrump => Rank(d.hi().value()),
+                Decl::DoublesTrump | Decl::DoublesSuit => Rank(d.hi().value()),
                 _ => Rank(DOUBLE_TOP),
             }
         } else {
@@ -176,6 +180,7 @@ impl Decl {
             Decl::PipTrump(p) => p.value() as usize,
             Decl::DoublesTrump => 7,
             Decl::NoTrump => 8,
+            Decl::DoublesSuit => 9,
         };
         TRICK_KEYS[di][led.index()][d.index()]
     }

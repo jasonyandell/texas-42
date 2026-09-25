@@ -33,6 +33,11 @@ def fields(value,names):
     if not isinstance(value,dict) or set(value)!=set(names.split()):raise ValueError('unexpected or missing fields: '+names)
 
 
+def play_request_fields(value):
+    fields(value, 'decl bid bidder seat hand plays seed' +
+           (' contract' if isinstance(value,dict) and 'contract' in value else ''))
+
+
 def identifier(value):
     if not isinstance(value,str) or not re.fullmatch('[a-zA-Z0-9_-]{1,80}',value):raise ValueError('invalid identifier')
     return value
@@ -52,7 +57,7 @@ class Store:
         fields(body,'request player game_id hand_number'+(' think_deeper' if optional else ''))
         think_deeper=body.get('think_deeper',False)
         if type(think_deeper) is not bool:raise ValueError('think_deeper must be boolean')
-        fields(body['request'],'decl bid bidder seat hand plays seed')
+        play_request_fields(body['request'])
         req=normalize(body['request'])
         information_state(req)
         game_id=identifier(body['game_id']);hand_number=body['hand_number']
@@ -93,7 +98,7 @@ class Store:
         Only completed primary estimates are cached; a timeout can be retried.
         """
         fields(body,'request worlds')
-        fields(body['request'],'decl bid bidder seat hand plays seed')
+        play_request_fields(body['request'])
         req=normalize(body['request']);worlds=body['worlds']
         information_state(req)
         if type(worlds) is not int or worlds not in (40,160):raise ValueError('choose 40 or 160 sampled worlds')

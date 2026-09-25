@@ -111,6 +111,7 @@ fixed on [vocabulary](vocabulary.md).
 
 | Piece | What it is |
 |---|---|
+| [`walt/NELLO-PLAYER.md`](../walt/NELLO-PLAYER.md) | Human-called own-suit Nel-O candidate: contract and active-seat extension, native/WASM parity, retained paired defense failures, and phone validation boundary |
 | [`walt/MAP.md`](../walt/MAP.md) | walt on one page, for Jason: the objects that exist and what each costs, the tree-shake list, the cost trend, what is next in order. Rewritten at landings by the orchestrating session (last rewrite 2026-09-13 for the state at `c00717d1`) |
 | [`walt/LOG.md`](../walt/LOG.md) | The session index. Entries through 2026-08-24 are summary lines pointing at the owning page here; the 2026-08-25 → 09-01 entries were logged retroactively; the 2026-09-06/07 entries are multi-paragraph session records. The full per-session records live in git history |
 | [`walt/CENSUS-RULINGS.md`](../walt/CENSUS-RULINGS.md) | The append-only adjudication record — every ruling, freeze and theorem that governs a probe (14,358 lines at `c00717d1`); the families are listed below and mapped with ranges on [walt-math-reference](walt-math-reference.md) Appendix C |
