@@ -2,7 +2,7 @@
 import json, sys, numpy as np, soundfile as sf
 tts = sys.argv[1]
 START = {"walt": 1.4, "see": 4.2, "deals": 7.7, "games": 12.1, "drives": 16.2, "handful": 21.2,
-         "imagine": 24.7, "book": 30.0, "peek": 35.3, "count": 38.7, "smart": 43.5, "phone": 50.0, "end": 55.1}
+         "imagine": 24.5, "book": 30.0, "peek": 35.3, "count": 38.7, "smart": 43.5, "phone": 50.0, "end": 55.1}
 DURATION = 59.5
 meta = json.load(open(f"{tts}/lines.json"))
 sr = 24000

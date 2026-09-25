@@ -589,8 +589,8 @@ function handSlots(who) {
 function scene4(t) {
   // camera: zoom in on Lefty's book, pan to Righty's, pull back out
   let cx = 960, cy = 540, z = 1;
-  const inL = eio(seg(t, 29.8, 30.45)), toR = eio(seg(t, 31.85, 32.4)), outU = eio(seg(t, 35.05, 35.55));
-  if (t > 29.8) { cx = lerp(960, 600, inL); cy = lerp(540, 470, inL); z = lerp(1, 1.85, inL); }
+  const inL = eio(seg(t, 29.95, 30.5)), toR = eio(seg(t, 31.85, 32.4)), outU = eio(seg(t, 35.05, 35.55));
+  if (t > 29.95) { cx = lerp(960, 600, inL); cy = lerp(540, 470, inL); z = lerp(1, 1.85, inL); }
   if (t > 31.85) { cx = lerp(600, 1320, toR); }
   if (t > 35.05) { cx = lerp(1320, 960, outU); cy = lerp(470, 540, outU); z = lerp(1.85, 1, outU); }
   // imagining Walt, bottom left, outside the camera move
@@ -610,7 +610,7 @@ function scene4(t) {
   walt(SEAT.walt[0], SEAT.walt[1] + 40, { s: 0.52 * popS(t, 25.55, 0.4), noLegs: true, armL: 0.3, armR: 0.3 });
   // hands, with the first trick played out and the two book lookups
   const played = { partner: [], lefty: [], righty: [], walt: [] };
-  const trick1 = [['walt', 0, 26.45], ['lefty', 1, 26.75], ['partner', 0, 27.05], ['righty', 0, 27.35]]; // (seat, tile index, time)
+  const trick1 = [['walt', 0, 28.85], ['lefty', 1, 29.05], ['partner', 0, 29.25], ['righty', 0, 29.45]]; // (seat, tile index, time)
   const centre = { walt: [960, 640], lefty: [880, 575], partner: [960, 510], righty: [1040, 575] };
   const hands = { walt: WALT_HAND, ...HANDS };
   for (const k of ['partner', 'lefty', 'righty', 'walt']) {
@@ -618,12 +618,11 @@ function scene4(t) {
     hands[k].forEach(([a, b], i) => {
       let [x, y, rot] = slots[i], sc = s, hl = 0;
       const tr = trick1.find(e => e[0] === k && e[1] === i);
-      if (tr && t > tr[2]) { const u = eio(seg(t, tr[2], tr[2] + 0.28)); x = lerp(x, centre[k][0], u); y = lerp(y, centre[k][1], u); rot = lerp(rot, 0, u); if (t > 27.85) { const v = eio(seg(t, 27.85, 28.2)); x = lerp(x, 960, v); y = lerp(y, 905, v); sc *= 1 - v; } }
+      if (tr && t > tr[2]) { const u = eio(seg(t, tr[2], tr[2] + 0.2)); x = lerp(x, centre[k][0], u); y = lerp(y, centre[k][1], u); rot = lerp(rot, 0, u); if (t > 29.62) { const v = eio(seg(t, 29.62, 29.92)); x = lerp(x, 960, v); y = lerp(y, 905, v); sc *= 1 - v; } }
       // Lefty plays the 5-4 from the book; Righty rolls a die and plays the 6-3
-      if (k === 'lefty' && i === 1 && t > 31.3) { if (t > 27.85) return; }
       if (k === 'lefty' && i === 0 && t > 30.75) { hl = seg(t, 30.75, 31.1); if (t > 31.35) { const u = eio(seg(t, 31.35, 31.7)); x = lerp(x, 880, u); y = lerp(y, 575, u); rot = lerp(rot, 0, u); } }
       if (k === 'righty' && i === 3 && t > 33.95) { hl = seg(t, 33.95, 34.3); if (t > 35.0) { const u = eio(seg(t, 35.0, 35.3)); x = lerp(x, 1040, u); y = lerp(y, 575, u); rot = lerp(rot, 0, u); } }
-      if (tr && t > 28.2) return;
+      if (tr && t > 29.92) return;
       const faceUp = !spot || spot === k;
       const flip = t > 36.3 && t < 36.7 ? Math.abs(Math.cos(seg(t, 36.3, 36.7) * PI)) : 1;
       domino(x, y, a, b, { w: 28, rot, s: sc, down: !faceUp || (t > 36.3 && t < 36.5), flip: t > 36.3 && t < 36.7 ? Math.max(0.05, flip) : 1, hl, k: i * 10 + k.length });
@@ -632,10 +631,12 @@ function scene4(t) {
   // the little handbooks
   const books = { partner: [1110, 250, '#c0392b'], lefty: [505, 395, '#2e86de'], righty: [1415, 395, '#27ae60'], walt: [1115, 905, '#8e44ad'] };
   let bi = 0;
-  for (const k of ['partner', 'lefty', 'righty', 'walt']) { const [x, y, c] = books[k]; notebook(x, y, 0.95 * popS(t, 28.2 + bi * 0.18, 0.4), c, { k: bi, rot: 0.1 - bi * 0.07 }); bi++; }
+  for (const k of ['partner', 'lefty', 'righty', 'walt']) { const [x, y, c] = books[k]; const tp = trick1.find(e => e[0] === k)[2], wig = Math.sin(seg(t, tp - 0.18, tp + 0.05) * PI) * 0.22; notebook(x, y - wig * 40, 0.95 * popS(t, 28.3 + bi * 0.12, 0.4) * (1 + wig), c, { k: bi, rot: 0.1 - bi * 0.07 + wig }); bi++; }
+  // nobody thinks hard: empty little thought bubbles with a lazy squiggle
+  if (t > 26.55 && t < 28.4) { const heads = [SEAT.partner, SEAT.lefty, SEAT.righty, SEAT.walt]; heads.forEach(([hx, hy], i) => { const s = popS(t, 26.6 + i * 0.12, 0.35) * (1 - seg(t, 28.1, 28.35)); if (s <= 0.01) return; ctx.save(); ctx.translate(hx + (i === 3 ? 160 : 85), hy + (i === 3 ? -70 : -125)); ctx.scale(s, s); dot(-48, 52, 7, '#fffef6'); thoughtCloud(0, 0, 58, 38, 1, 20 + i); KEY = 30 + i; sk(curvePts(-28, 4, -10, -16, 4, 2), { w: 4, color: '#8a8a95', passes: 1 }); sk(curvePts(4, 2, 18, 18, 30, -2), { w: 4, color: '#8a8a95', passes: 1, k: 1 }); ctx.restore(); }); }
   // Lefty: been here before? do what the book says
-  if (t > 30.35 && t < 31.95) {
-    const s = popS(t, 30.35, 0.35) * (1 - seg(t, 31.75, 31.95));
+  if (t > 30.45 && t < 31.95) {
+    const s = popS(t, 30.45, 0.35) * (1 - seg(t, 31.75, 31.95));
     openBook(560, 330, 300, [
       { row: 0, text: 'led 5-5? ...  2-1', color: BLUE },
       { row: 1, text: 'this spot: 6-2', color: BLUE, hl: seg(t, 30.8, 31.1) },
@@ -915,10 +916,11 @@ function synthesize(sr = SR_DEFAULT) {
   at(22.72, sfx.whoosh(0.6, 700, 2800), 0.3, -0.2); at(23.35, sfx.pop(1.1), 0.3); at(23.55, sfx.scratch(0.4), 0.2);
   at(24.5, sfx.scratch(0.8), 0.18); at(25.0, sfx.scratch(0.5), 0.15, -0.6);
   [25.2, 25.32, 25.44, 25.55].forEach((t, i) => at(t, sfx.pop(0.8 + i * 0.1), 0.25, [-0.3, -0.7, 0.7, 0][i]));
-  [26.73, 27.03, 27.33, 27.63].forEach((t, i) => at(t, sfx.clack(), 0.45, [0, -0.3, 0, 0.3][i]));
-  at(27.85, sfx.whoosh(0.4, 600, 2000), 0.25);
-  [28.2, 28.38, 28.56, 28.74].forEach((t, i) => at(t, sfx.pop(1.1 + i * 0.1), 0.25, [0, -0.6, 0.6, 0.1][i]));
-  at(29.8, sfx.whoosh(0.6, 400, 1600), 0.25, -0.4); at(30.35, sfx.whoosh(0.25, 1500, 4000), 0.2, -0.4);
+  [29.05, 29.25, 29.45, 29.65].forEach((t, i) => at(t, sfx.clack(), 0.4, [0, -0.3, 0, 0.3][i]));
+  [26.6, 26.72, 26.84, 26.96].forEach((t, i) => at(t, sfx.blip(0.7 + i * 0.05), 0.12, [0, -0.6, 0.6, 0][i]));
+  at(29.62, sfx.whoosh(0.35, 600, 2000), 0.2);
+  [28.3, 28.42, 28.54, 28.66].forEach((t, i) => at(t, sfx.pop(1.1 + i * 0.1), 0.25, [0, -0.6, 0.6, 0.1][i]));
+  at(29.95, sfx.whoosh(0.55, 400, 1600), 0.25, -0.4); at(30.45, sfx.whoosh(0.25, 1500, 4000), 0.2, -0.4);
   at(30.8, sfx.squeak(0.3), 0.12, -0.4); chime(30.95, [84, 88, 91], 0.16, 0.06, -0.4); at(31.68, sfx.clack(), 0.45, -0.2);
   at(31.85, sfx.whoosh(0.6, 500, 1800), 0.25, 0.3); at(32.4, sfx.whoosh(0.25, 1500, 4000), 0.2, 0.4); at(32.5, sfx.blip(0.8), 0.2, 0.4);
   [33.2, 33.55, 33.75, 33.88, 33.95].forEach((t, i) => at(t, sfx.knock(), 0.45 / (1 + i * 0.4), 0.5));
