@@ -72,3 +72,34 @@ history, and a natural DAG for memoization keyed on `(N, τ)` — see
 cells and certificates as state ([discrepancies D1/D2](discrepancies.md)); an
 implementation should realize the calculus under v0.7's derived-view, proof-irrelevant
 discipline.
+
+## Mechanization status (proof-assistant kernel tier)
+
+Rows are **v0.7** `65_MECHANIZATION_LEDGER.md` `PA-` rows; "proved" = a declaration
+under `lean/Texas42/` checked by the Lean kernel over at most
+`propext`/`Classical.choice`/`Quot.sound`, with no `sorry`, `native_decide` or local
+axiom (grep re-verified 2026-09-12), as of commit d190b26 (2026-08-02; all 42
+priority-0 rows closed). Map: [lean-row-index](lean-row-index.md). rob's
+`verify_dynamics` / `verify_symbolic` receipts and its invariants INV-11 EDGE-BUDGET
+and INV-12 MONOTONE-AMBIGUITY are conformance evidence, never a status change.
+
+**TRANS-08 through TRANS-14 are not mechanized.** They are rec-only rows: the v0.7
+mechanization ledger predates rec's mathematics and carries **no `PA-` row** for any
+of them; rec's own `60_PROOF_ASSISTANT_KERNEL.md` names them as spine section **K10
+(Dynamic support)** — "the direct proof should use the typed inverse transition; the
+finite verifier's small-domain exhaustion remains a receipt, not the general proof" —
+and no Lean declaration exists for that section. [FINDINGS](FINDINGS.md) §6 names
+TRANS-08/09 the weakest spot in the corpus: a prose proof exhausted only on ≤4-tile
+supports, with the slough case interacting with re-reduction in a way a proof
+assistant should re-derive carefully.
+
+What the kernel does cover is the *substrate* the calculus updates, at priority 0 and 1:
+
+| Object | Ledger row (priority) | Kernel status (d190b26) | Declaration (`lean/Texas42/`) |
+|---|---|---|---|
+| The typed transitions TRANS-01..05 (hidden removal is a bijection; viewer play is the identity) — the inverse transition the K10 proof is meant to use | PA-C09, PA-C10 (0) | **proved** | `Cells.lean:1075` `remainder_injective`, `:717` `allowed_step_viewer` |
+| The canonical reduction `red(C)` — fiber-preserving, contractive, idempotent, coarsest exact quotient — i.e. the "recompile matching-supported core" step's target | PA-C15 (1, backbone) | **proved** over the generic capacitated kernel | `Reduction.lean:90` `red_red`, `:112` `fiber_eq_iff_red_eq` |
+| The normal form `N` itself (compile/decode inverse laws, total classification) | PA-D01..D05 (0) | **proved** | `NormalForm.lean` |
+| TRANS-08 successor normal form `N' = N(ϑ_{s,d}(⟦N⟧ ∩ E_o))`; TRANS-09 matching-minor update ≡ conditioning + pushforward | none (rec K10) | **not mechanized** ([discrepancies D5](discrepancies.md): confidence medium-high for the theorem itself for exactly this reason) | — |
+| TRANS-10/11/12 holder-edge and ambiguity-phase monotonicity; the 63-edge budget | none (rec K10) | **not mechanized** | — |
+| TRANS-13/14 receipts (1,331 / 170,058 / 157,809 / 1,406,592; 108 / 3,024 / 6,804) | external finite receipts | not kernel targets; `verify_reduced_kernel.py` re-run 2026-09-12 on this machine, identical lines; rob `r_dyn_*`, `r_sym_budget` conformance | — |

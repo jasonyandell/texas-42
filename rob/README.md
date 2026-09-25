@@ -6,9 +6,10 @@ of the ingest packages' executable specification, built as the reconciled merge 
 is on its own.
 
 rob is an *executable mathematical specification with proof receipts*, not a game
-server. Its job is to reproduce, independently and exactly, every number the
-ingest verifiers certify, under invariants the ingest packages state but could
-not enforce.
+server. Its job is to reproduce, independently and exactly, the numbers the
+ingest verifiers certify — so far every slice-01 and slice-02 target (the
+reduced-kernel and belief-layer numbers belong to slices never begun) — under
+invariants the ingest packages state but could not enforce.
 
 **Full documentation lives in the wiki**, which is the reference this file points
 at rather than duplicates:
@@ -73,7 +74,11 @@ receipts/<stage>.txt` — and review the resulting diff.
 
 Slices 01 and 02 are green (S1–S10), as is the player track (P1–P5); twelve
 byte-diffed receipts sit under `receipts/`. Slice 03 and beyond are scoped in the
-briefs and not begun. The Lean 4 formalization ([`../lean/`](../lean/README.md),
+briefs and not begun. **Dormant since the 2026-08-17 pivot:** [`walt/`](../walt/) is
+the project's player; rob's code is unchanged since 2026-08-01 (cd51ce2e), its receipts
+since 2026-07-28, and slices 03–05 / P6 are neither scheduled nor cancelled by any
+ruling — an open call ([wiki/rob-slices](../wiki/rob-slices.md)). walt still compiles
+`rob-core`/`rob-verify` for its prose-resolver cross-check. The Lean 4 formalization ([`../lean/`](../lean/README.md),
 [wiki/lean](../wiki/lean.md)) is a companion track: rob is outside the proof
 kernel's trust boundary by design, and its receipts are evidence for us, never
 premises for the kernel (TRUST-01).

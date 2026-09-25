@@ -13,10 +13,19 @@ likelihood functions [Theorem — proved, Math §6.7, INFO-11]. Legality fixes z
 likelihood for impossible actions and one for forced actions (singleton legal set,
 BEL-12); beyond that, discretionary likelihood ratios are policy-model-relative —
 different valid models reverse Bayes factors on the same action [Theorem — proved,
-Math §8.8, BEL-14].
+Math §8.8, BEL-14]. The separation also cuts the other way: a chance law with
+*structural zeros* can make the physical belief support **strictly smaller** than the
+exact rule fiber [Boundary, Math §6.7, INFO-12] — under the adopted uniform deal law
+this never happens (BEL-07 below), but "posterior support = rule fiber" is a
+consequence of the chance law, not of the rules.
 
 ## Belief machinery (Math §8, shared)
 
+- A behavioral *field* is two factors that must stay distinct: the legality indicator
+  and a normalized discretionary action kernel [Definition, BEL-01]; exact correlated
+  behavior across seats is represented by a joint history likelihood or a sufficient
+  augmented latent-state kernel, never by an unjustified product [Definition/Boundary,
+  BEL-02].
 - Augmented root world `ξ = (deal, inherited latent state)`; posterior = inherited
   prior × rule-compatibility indicator × within-attempt history likelihood, normalized
   [Theorem — proved (Bayes), BEL-04]. Two exact randomness representations — kernel
@@ -30,6 +39,14 @@ Math §8.8, BEL-14].
   law and no action-likelihood tilt, the posterior on any fixed-history fiber is
   uniform, and the count-ratio sampler ([capacity-dp](capacity-dp.md)) samples it
   exactly.
+- **Exponential tilt** [Theorem — proved, Math §8.5, BEL-08]: the posterior is the
+  normalized rule-only (physics-only) belief multiplied by the history likelihood —
+  so every field-induced belief is a tilt of the uniform fiber law, which is exactly
+  how the 90-world witness below is computed (`lA`, `lB` weights on the 90 worlds).
+- **Own-action cancellation** [Proposition, Math §8.7, BEL-13]: the viewer's own
+  action cancels from the viewer's own deal posterior when their private randomization
+  depends only on known information and is independent of the hidden uncertainty —
+  a proposition under explicit independence assumptions, not a theorem of the rules.
 - One public action has three separable effects — physical transition, support
   restriction/retyping, likelihood reweighting — plus, for deal-ending actions, a
   new-deal chance extension [Theorem — proved, BEL-11/11A]. All-pass creates a **new
@@ -66,9 +83,49 @@ fusion [STR-10].
 
 **Moral**: a path-free mechanical coordinate is an exact *support* state but not an
 exact *strategic* state for history-sensitive fields. This witness guards the central
-boundary and both packages demand it become a named kernel theorem in mechanization
-(v0.7 Handoff §9).
+boundary, and both packages demanded it become a named kernel theorem in mechanization
+(v0.7 Handoff §9; rec Kernel K15). **It is one.** PA-E10 `Witness.ninety_world_witness`
+(`lean/Texas42/Witness.lean:728`) was kernel-proved on 2026-08-02 (commit d190b26 — the
+commit that closed the 42 priority-0 rows), internalized whole: the fiber is enumerated
+and proved equal to the cells, every world is replayed, the posteriors are exact
+rationals, and the values come from kernel-evaluated rollouts of the committed play
+machinery — no external receipt imported (TRUST-01). What the kernel settles is that
+the witness *holds*; whether 90 is the *smallest* such fiber remains **open**
+([open-problems](open-problems.md) item 3).
 
 Related pointwise fact: the same physical tile `4-1` at the same endpoint has exact
 world-conditional values −22 and +22 in two fiber members — **no context-free scalar
 domino value exists** [Constructed counterexample, Math §9.7, HAND-07].
+
+## Mechanization status (proof-assistant kernel tier)
+
+Rows are **v0.7** `65_MECHANIZATION_LEDGER.md` `PA-` rows (priority in parentheses);
+"proved" = a declaration under `lean/Texas42/` checked by the Lean kernel over at most
+`propext`/`Classical.choice`/`Quot.sound`, with no `sorry`, `native_decide` or local
+axiom (grep re-verified 2026-09-12), as of commit d190b26 (2026-08-02; all 42
+priority-0 rows closed). Map: [lean-row-index](lean-row-index.md). A kernel theorem
+never promotes a corpus status: STR-06..09 remain corpus THEOREM — finite verification
+(`verify_foundation.py`, re-run 2026-09-12 on this machine: "history witness fiber
+worlds: 90 … opposite best leads: PASS", identical); the kernel theorem is a second,
+independent tier. rob's `r_cell_ninety_world_support: 90` is conformance evidence only.
+
+| Result on this page | Ledger row (priority) | Kernel status (d190b26) | Declaration (`lean/Texas42/`) |
+|---|---|---|---|
+| Finite PMF prior; policy/field kernel | PA-E01 (0) | **proved / defined** — exact rational masses, finite-first (no measure theory in the native game) | `Belief.lean` `FinPMF`, `PolicyKernel` |
+| BEL-04 Bayes posterior: normalization and the likelihood chain rule; within-attempt history likelihood product | PA-E02 (0) | **proved** | `Belief.lean` `FinPMF.condition`, `:97` `condition_mul`, `likelihoodFrom`, `:171` `likelihoodFrom_append`, `posterior` |
+| BEL-05 physical belief = pushforward through the remainder map; **support ⊆ fiber** | PA-E03 (0) | **proved** — the kernel statement of "support bounds belief without determining it" | `Belief.lean:274` `physicalBelief_support_isWorld` |
+| BEL-07/07A physics-only uniformity under the uniform deal law | PA-E04 (1) | **open** | — |
+| Finite exponential-tilt form (BEL-08); forced-action world-nondiscrimination (BEL-12) | PA-E05, PA-E06 (1) | **open** (the finite Bayes conditioning that BEL-08 specializes is PA-E02, proved) | — |
+| INFO-11, INFO-12, BEL-01/02, BEL-03A, BEL-06/06B, BEL-11/11A, BEL-13, BEL-14, BEL-15/OPEN-07, STR-11 | no rows | not mechanized | — |
+| STR-06: the endpoint fiber is exactly 90 worlds, each rule-realized | PA-E10 (0) | **proved**: `worldPairs.card = 90`; fiber = cells (`isWorld_iff`); every world realized by a rule-compatible deal that legally replays the five-trick prefix (90 kernel replays) | `Witness.lean:99` `card_worldPairs`, `:590` `isWorld_iff`, `:692` `replay_check`, `:708` `rule_fiber` |
+| STR-07 pointwise anchors: two fiber members have `Q` tables `(10, −22)` and `(−22, 22)` | PA-E10 | **proved** | `Witness.lean:147` `anchor_values` |
+| STR-08 (setup): two distinct legal auction histories `α_A`, `α_B`, same result (`P(31)`, seat 3) | PA-E10 | **proved** | `Witness.lean:506` `auction_histories` |
+| STR-08: both posteriors give all 90 worlds positive mass (the opposite-lead half is the STR-09 row) | PA-E10 | **proved** (weights sum 210 and 120) | `Witness.lean:233` `same_full_support` |
+| STR-09: the lead flips under **all four** lenses | PA-E10 | **proved for two lenses** — expected signed differential (`−160/21, 10/7, −217/30, −52/5`) and contract-make probability (`1/3, 16/35, 1/3, 1/5`); the remaining two §10.4 lenses (expected declaring points; one-mark hand utility) are positive affine transforms of these and are **not separately stated** in Lean — the four-lens claim stays at corpus finite-verification tier | `Witness.lean:400` `expected_differentials`, `:438` `make_probabilities`, `:477` `posterior_action_reversal`, `:728` `ninety_world_witness` |
+| STR-10 no strategy fusion (every own action forced after the root lead) | — | not a named kernel theorem; the values `Q` come from 180 deterministic lowest-ID rollouts of the committed `PlayState.step` (`Witness.lowestLegal`, `rollout`) | — |
+| HAND-07 world-conditional values `−22` / `+22` of `4-1` | PA-E11 (1, WITNESS) | row **open**; the STR-07 anchor table (10, −22, −22, +22) is kernel-evaluated but not stated as the HAND-07 counterexample | `Witness.lean:147` `anchor_values` |
+| Minimality of 90 | no row | **open** | — |
+
+Cost record (engineering, not a game result): `Witness.lean` verifies in 33 s under
+`decide +kernel` (all 35 such uses in the library are in this file); the elaborator
+path was OOM-killed after 16 h; full library 47 s (commit d190b26 body; `lean/PROOFS.md`).

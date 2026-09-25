@@ -2,7 +2,8 @@
 
 Exact solution of straight points-and-marks Texas 42, mathematics proved before code
 is trusted. New session? Read `QUICKSTART.md` first; `wiki/Home.md` is the map.
-Binding work assignments live in `rob/BRIEF*.md`.
+Binding work assignments live in `rob/BRIEF*.md` and, for walt since 2026-09-01,
+`walt/briefs/BRIEF-*.md` (reports of record: `*-REPORT.md`).
 
 ## Hard rules
 

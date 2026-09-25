@@ -11,7 +11,10 @@ Jason has built 42 players since long before this repo (the dream dates to age
 
 - **The champion**: E[Q] n=10 — expected Q over ten sampled worlds consistent
   with public history, evaluated per move, average-then-max. Undefeated at pure
-  play against every learned challenger (zeb, burl, gus, jud's play half).
+  play against every learned challenger (zeb, burl, gus, jud's play half), and
+  against rob's exact seat under the dropped-30 protocol on 2026-07-30 (1,152
+  games, 6.5σ — `walt/probes/m3/arena_results_2026-08-17.txt` line 113; the
+  encounter is [rob](rob.md) §10).
 - **The wall** (the project's central question): *something that can reason
   with E[Q], do better, and have a plan that actually succeeds.* Learned
   approaches hit it repeatedly; the diagnosis matured into: the champion's
@@ -23,9 +26,14 @@ Jason has built 42 players since long before this repo (the dream dates to age
 
 ## How texas-42 answers it
 
-- The **evening player v0** (rob/crates/player) is the champion's law — one
-  common continuation policy, average-then-max, never per-world re-optimization
-  — rebuilt on *exact* fiber sampling (zero impossible worlds, by CELL-05).
+- rob's **baseline** — the evening player v0, demoted to that role on
+  2026-07-28 — is the champion's law rebuilt on *exact* fiber sampling: one
+  common continuation policy, average-then-max, never per-world re-optimization,
+  zero impossible worlds (CELL-05). **rob itself** (`rob/crates/player`, stages
+  P1–P5) is something the old project did not have: an exact information-set
+  best-response *plan* solver over the fiber, which beat that baseline net +718
+  over 200 mirrored hands — a frozen measurement, never a target
+  ([rob](rob.md) §7–§8).
 - The foundation's core objects (exact support normal form, support ≠ belief ≠
   reachability, the 90-world witness, the reduced viewer kernel and its
   adjudicated collapse) are precisely the machinery walt's success says is
@@ -46,3 +54,18 @@ field; whether it constitutes the *demonstrated strategic reason* this condition
 demands — a plan held and cashed, not a scoreline — is deliberately not ruled
 here. The obligations ledger in `walt/SCENARIO-PLAYER.md` is the path from the
 scoreline to the demonstration.
+
+*Status note (2026-09-12, exploratory tier).* The partnership program of
+2026-09-06/07 (`experiments/partnership/`, [walt-partnership-program](walt-partnership-program.md))
+introduced a second named reference beside the champion: **"phone"**, the archived
+walt WASM artifact that runs in the plunge client (40 outer worlds, 8 per modelled
+mind, racing), frozen byte-for-byte with hashes and provenance at
+`experiments/partnership/BASELINE.md` and `reference/phone/`. Against it, the
+thinking-partner candidate has **not** beaten its reference: the foundation battery's
+`l1-race vs phone` panel is 3 / 1 / 46 over 50 paired deals (52.0 %, interval
+including 50 %), and the default-partner battery's `l2-partner-default vs l1-default`
+is 14 / 14 / 72 over 100 paired deals (50.0 %) — the results files
+(`campaigns/foundation-battery/RESULTS.md`, `campaigns/default-partner-battery/RESULTS.md`)
+govern over any prose, and both call the strength evidence unresolved. Nothing here
+touches the wall's condition above; it records that the reference set now has two
+members and that neither has been cleared for a demonstrated strategic reason.

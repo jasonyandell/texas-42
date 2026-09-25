@@ -594,4 +594,4 @@ No preview is installed or eligible for production deployment.
 Deployment: Plunge GitHub Actions main uses Node22 and Cloudflare deploy. Existing
 scoped Cloudflare token service is cloudflare-table42; never print token values.
 Account eb6564e57c2aebe97bbc5d33a0ffe5cb. Production URL:
-https://plunge.jasonyandell.workers.dev/. Verify auth/workflow state when needed.
+https://plunge.texas42.workers.dev/. Verify auth/workflow state when needed.

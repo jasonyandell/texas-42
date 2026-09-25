@@ -14,7 +14,11 @@ for recompute rather than holding old versions).
   (`manifest.sha256`).
 - **HuggingFace**: dataset `jasonyandell/texas-42-walt-archive`
   (private until Jason rules otherwise) — the curated citable set:
-  everything EXCEPT the two exclusions below.
+  everything EXCEPT the two exclusions below. *Status (2026-09-13):*
+  the upload is tracked by [[hf-archive-upload]] (`kanban/doing/`) and
+  is **not confirmed in-tree** — no manifest, receipt or log in the
+  repository records a completed upload; treat the HF home as the
+  target, not the fact, until that card closes.
 
 ## Exclusions from HF (kept local only)
 

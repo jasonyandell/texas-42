@@ -1,35 +1,35 @@
+[Home](Home.md) · owns: the trust boundary, the K0–K15 spine, mechanization priorities, the scoreboard, and the queue of accepted Lean programs · Sources: **v0.7** `60_PROOF_ASSISTANT_HANDOFF.md` + `65_MECHANIZATION_LEDGER.md`; **rec** `60_PROOF_ASSISTANT_KERNEL.md` — complementary: v0.7 supplies the trust boundary, type discipline, priorities, and milestones; rec the dependency spine covering its new mathematics; `lean/Texas42/*` as of commit c00717d1 (2026-09-07); `walt/CENSUS-RULINGS.md` GT1-A8, GT1-A17, GT1-A23, GT1-A24, FZ-A4, CBS-A9; the walt math intakes. Related: [lean](lean.md) (the chapter), [lean-row-index](lean-row-index.md) (row → declaration), [verification](verification.md), [open-problems](open-problems.md).
+
 # Proof-Assistant Plan (Merged)
 
-[Home](Home.md) · owns: the trust boundary, the K0–K15 spine, mechanization
-priorities · Sources: **v0.7** `60_PROOF_ASSISTANT_HANDOFF.md` +
-`65_MECHANIZATION_LEDGER.md`; **rec** `60_PROOF_ASSISTANT_KERNEL.md` — complementary:
-v0.7 supplies the trust boundary, type discipline, priorities, and milestones; rec
-the dependency spine covering its new mathematics. Related:
-[verification](verification.md), [open-problems](open-problems.md).
-
-**Status (2026-08-02): all 42 priority-0 rows kernel-proved** — the scoreboard and
-what remains are at the end of this section; the paragraphs below walk the spine
-layer by layer in the order it landed. [`lean/`](../lean/README.md) is a Lean 4 +
-mathlib Lake project. Kernel theorems cover the K0/K1 layer —
-`Fintype.card Domino = 28` (PA-A02), the natural incidence covering and pair
-intersections (PA-A03), `∑ d, countPoints d = 35` (PA-A04) — and the K2/K3
-declaration algebra: nine declarations, effective suits with membership bounds and
-called absorption (PA-A05/A06), follow exactness (PA-A07), rank/tier/trick key
-(PA-A08), lead-nonzero-tier (PA-A09), key injectivity in nonzero tiers (PA-A10),
-and the **unique trick winner** (PA-A11) — proved via key injectivity as the spine
-demands, not by enumerating the 737,100 cases (that receipt stays PA-A12,
-reflection, open). **Layer A is now complete** apart from PA-A12: BEATS exactness
-(PA-A13), threat monotonicity (PA-A14), the lead-threat incompleteness witness
-(PA-A15), the count-preserving classification `σ ∈ {id, 2↔3}` by the analytic
-forcing argument (PA-A16), and the scoped `2↔3` transport — order-isomorphic
-exactly between layers 2 and 3 (PA-A17). All depend only on the standard axioms —
-no `sorry`, no `native_decide`. Working discipline: [`lean/PROOFS.md`](../lean/PROOFS.md).
+**Status (2026-08-02, re-audited 2026-09-07): all 42 priority-0 rows
+kernel-proved** — the scoreboard and what remains are at the end of the
+walk-through; the paragraphs below walk the spine layer by layer in the order it
+landed. Tier: **proof-assistant kernel** for every "landed" sentence unless a
+paragraph says otherwise; the two trick-1 paragraphs and the M3 paragraph carry
+their own labels. [`lean/`](../lean/README.md) is a Lean 4 + mathlib Lake
+project (toolchain v4.33.0-rc1, mathlib `79d0395a`). Kernel theorems cover the
+K0/K1 layer — `Fintype.card Domino = 28` (PA-A02), the natural incidence
+covering and pair intersections (PA-A03), `∑ d, countPoints d = 35` (PA-A04) —
+and the K2/K3 declaration algebra: nine declarations, effective suits with
+membership bounds and called absorption (PA-A05/A06), follow exactness (PA-A07),
+rank/tier/trick key (PA-A08), lead-nonzero-tier (PA-A09), key injectivity in
+nonzero tiers (PA-A10), and the **unique trick winner** (PA-A11) — proved via
+key injectivity as the spine demands, not by enumerating the 737,100 cases
+(that receipt stays PA-A12, reflection, open). **Layer A is complete** apart
+from PA-A12: BEATS exactness (PA-A13), threat monotonicity (PA-A14), the
+lead-threat incompleteness witness (PA-A15), the count-preserving classification
+`σ ∈ {id, 2↔3}` by the analytic forcing argument (PA-A16), and the scoped `2↔3`
+transport — order-isomorphic exactly between layers 2 and 3 (PA-A17). All depend
+on at most the standard axioms — no `sorry`, no `native_decide`. Working
+discipline: [`lean/PROOFS.md`](../lean/PROOFS.md).
 **Layer B core landed (K5)**: the auction machine with the `min(cap,5)` mark
 ceiling (PA-B01–B03), deal worlds (PA-B05 define), contract (PA-B06), the reduced
 play state with legal-set characterization (PA-B07/B08), invariant-preserving
 atomic transition (PA-B09), and conservation — 28 plays, seven tricks, 42 points
-(PA-B10). Open in B: deal cardinalities (B05), auction census (B04, reflect),
-graded-DAG/Markov/settlement rows (B11–B14).
+(PA-B10). Open in B: deal cardinalities (B05 prove half), auction census (B04,
+reflect, priority 3), the graded-DAG/Markov/settlement rows B11–B13 (priority 1)
+and B14 (priority 2).
 **Layer C keystone landed (K6/K8): the losslessness theorem is kernel-proved.**
 `lean/Texas42/Cells.lean` builds the public-record machine (played-by-seat,
 voids, upper-bound-only updates — PA-C01/C02/C06), the coherence invariant with
@@ -38,9 +38,11 @@ void soundness, the derived cells and fiber (PA-C03/C04), and proves
 four-case induction (PA-C05/C07), plus the fixed-history bijection (PA-C09) and
 viewer-play identity (PA-C10). Mechanization finding: the reverse construction
 uses a fact implicit in the prose — a hidden seat's played tile must respect its
-own previously recorded voids (derived from true-trajectory void soundness).
-Remaining P0 in C: none — C01–C07/C09/C10 are covered; C08 Hall (P1) and the
-counting DP (C11) are the next C-layer targets.
+own previously recorded voids (derived from true-trajectory void soundness,
+`hd_allowed`). Remaining P0 in C: none — C01–C07/C09/C10 are covered; C08 Hall
+(P1, generic groundwork proved), the counting DP (C11), the local-vs-marginal
+witness (C13) and the marginal-edge characterization (C14) are the next C-layer
+targets.
 **Also landed**: PA-D09/D10 (Reachable + CertifiedState), PA-F05 (mechanical ≠
 information, the §6.6 witness), the generic K7 cell kernel with the §7.9
 canonical reduction and its coarsest-exact-quotient theorem (PA-C15 backbone),
@@ -89,71 +91,136 @@ kernel-evaluated deterministic lowest-ID rollouts of the committed
 with `ninety_world_witness`: opposite optimal leads under both the
 expected-differential and contract-make lenses. Mechanical state alone is
 not an exact strategic state; no external receipt was imported (TRUST-01).
+Full scenario and the piece-by-piece table: [lean](lean.md) §6.
 **Priority-0 scoreboard: 42 of 42 rows kernel-proved. The first-release
-target of the mechanization ledger is closed.** Next tiers: priority-1 rows
-(C08 Hall specialization, C11 counting DP, D06 factorization, E04–E06,
-E08–E09, B11–B14, D11–D16), the PA-A12/B04 reflection targets, and the
-game-level `BeliefProc` instantiation.
+target of the mechanization ledger is closed.** Next tiers, corrected against
+the ledger on 2026-09-07 ([lean-row-index](lean-row-index.md) has the full
+table): the **20 open priority-1 rows** — B11, B12, B13 (graded play graph,
+Markov congruence, settlement); C11 (counting DP), C13 (local ≠ marginal
+holder), C14 (marginal-edge characterization); D06 (factorization), D11, D13,
+D14, D15, D16 (reachable image, seven lead contexts, lead-witness necessity,
+validator soundness, feasible-but-unreachable witness); E04, E05, E06
+(physics-only posterior, exponential tilt, forced-action nondiscrimination),
+E08, E09 (best-response existence, coordinate factorization criterion), E11
+(context-free domino value counterexample); F01 (hand-order gauge), F07 (shared
+utility does not centralize partner information) — plus the remaining halves
+of B05 (deal cardinalities), C08 (game-level Hall/max-flow equivalence) and C15
+(the specialization through C14); the reflection targets PA-A12 (priority 2)
+and PA-B04 (priority 3); the census rows PA-D17/D18 (priority 4); and the
+game-level `BeliefProc` instantiation. B14 and D12 are priority 2, not 1 (the
+list here said otherwise from 2026-08-02 to 2026-09-12).
 
-**GPU-native trick-1 foundation added 2026-08-16.**
-`lean/Texas42/Trick1Foundation.lean` kernel-proves the stable arithmetic and
-interval layer of the adjudicated GT1 design: the legal nonpass loss-budget
-bound including marks, the initialized and transition-preserved seven-tile hand
-cap, actual-live-legal-set `1..7` divisibility into 420, the concrete 212/217
-magnitude windows, and a `PlayState.Inv`-derived point invariant whose unbanked
-tile set provably contains the unresolved current-trick prefix and whose total
-is preserved after every legal step.  It also proves all seven opening-cell
-counts through `m = 6`, positive componentwise upper summation, one-shared-policy
-lower summation, action dominance, and the non-strict-member/strict-unique root
-distinction.  It does **not** yet prove that the Rust projector realizes the
+**GPU-native trick-1 foundation added 2026-08-16** (commit 3b4c6d60; tier:
+**kernel as statements about Lean-defined arithmetic; what walt cites them for
+is exploratory**). `lean/Texas42/Trick1Foundation.lean` (25 theorems)
+kernel-proves the stable arithmetic and interval layer of the adjudicated GT1
+design: the legal nonpass loss-budget bound including marks, the initialized and
+transition-preserved seven-tile hand cap, actual-live-legal-set `1..7`
+divisibility into 420, the concrete 212/217 magnitude windows, and a
+`PlayState.Inv`-derived point invariant whose unbanked tile set provably
+contains the unresolved current-trick prefix and whose total is preserved
+after every legal step. It also proves all seven opening-cell counts through
+`m = 6`, positive componentwise upper summation, one-shared-policy lower
+summation, action dominance, and the non-strict-member/strict-unique root
+distinction. It does **not** prove that the Rust projector realizes the
 `(response,e)` partition or that the Metal ABI refines the Rust arithmetic;
-those remain explicit successor obligations rather than imported executable
-facts.
+those remain explicit successor obligations (GT1-A8), not imported executable
+facts. Built by `walt/ci/check.sh` on every run.
 
-**M2 finite Metal-gate foundation added 2026-08-17.**
-`lean/Texas42/Trick1MetalFoundation.lean` discharges the seven finite obligations
-named by freeze 56: the 79,800-slot rectangular cap; the exact 5,109,296-byte
-projector and 2,359,424-byte arithmetic arena equalities; grade 1–7 coverage and
-the 46-task GradeMatching count; the at-most-ten matching-vector bound over the
-complete finite domain; stable-filter preservation of the frozen slot order; and
-the zero-task, zero-payload acceptance shape after any failed conjunct. The
-integrated gate audits every exported theorem with `#print axioms` and admits only
-the expected core axioms: `propext`, `Classical.choice` and `Quot.sound`.
-**M2 METAL PROJECTOR PARITY COMPLETE under freeze 56**.
-That exact engineering claim covers arithmetic/projector parity only: it computes
-no action value, selected lead, optimal set, information net, continuation,
-performance claim or player. The semantic response partition, `A/C/W`
-formulas and conservation, Rust/Lean correspondence, and Metal/Rust semantic
-correspondence remain named proof debt. The M2 receipt supplies fixed-carrier
-executable evidence bearing on the last relation, not a theorem or general
-correspondence proof.
+**M2 finite Metal-gate foundation added 2026-08-17** (commit 813d5e81; tier as
+above). `lean/Texas42/Trick1MetalFoundation.lean` (8 theorems) discharges the
+finite obligations named by freeze 56: the 79,800-slot rectangular cap; the
+exact 5,109,296-byte projector and 2,359,424-byte arithmetic arena equalities;
+grade 1–7 coverage and the 46-task GradeMatching count; the at-most-ten
+matching-vector bound over the complete finite domain; stable-filter
+preservation of the frozen slot order; and the zero-task, zero-payload
+acceptance shape after any failed conjunct. Its `#print axioms` transcript is a
+committed file, `lean/trick1_metal_foundation_axioms_v1.txt`, byte-diffed by
+`walt/ci/check.sh` and `check_m2_metal.sh`; four of the eight theorems depend on
+`propext` alone. The engineering status this supports — **[walt exploratory]**
+"M2 METAL PROJECTOR PARITY COMPLETE under freeze 56" (GT1-A17) — covers
+arithmetic/projector parity only: it computes no action value, selected lead,
+optimal set, information net, continuation, performance claim or player. The
+semantic response partition, `A/C/W` formulas and conservation, Rust/Lean
+correspondence, and Metal/Rust semantic correspondence remain named proof debt.
+The M2 receipt supplies fixed-carrier executable evidence bearing on the last
+relation, not a theorem or general correspondence proof.
 
-**M3 perfect-recall-net abstract gate added 2026-08-17.**
-`lean/Texas42/Trick1PerfectRecallNet.lean` integrates seven focused submodules
-covering the freeze-57 semantic spine: typed and disjoint H/C codecs; replay
+**M3 perfect-recall-net abstract gate: statements committed 2026-08-17; build
+and axiom audit unverified as of 2026-09-07** (tier: **unverified** — treated
+as exploratory until a build and a fresh receipt exist).
+`lean/Texas42/Trick1PerfectRecallNet.lean` is a facade of 103 `#print axioms`
+lines over **eight** submodules (`Types`, `CodecReplay`, `LineageNetting`,
+`Recurrence`, `MassObjectives`, `Reduction`, `Bounds`, `Evidence`; 103
+theorems, 1,555 lines) stating the freeze-57 semantic spine of
+`walt/GPU-NATIVE-TRICK1-M3.md` §12: typed and disjoint H/C codecs; replay
 determination and hidden-world exclusion; strict lineage and complete-run
 parent-local netting; revealed-world/block invariance; complete legal faces;
 the sum-before-max recurrence and its exact free-product policy theorem; exact
 carried-posterior mass and both M3 objective bridges; immutable reductions,
 explicit continuation-code injections, command and memory bounds; and the
-two-family/counter/writer/all-or-nothing evidence layer. Every exported theorem
-is inspected by `#print axioms`; the audit admits only `propext`,
-`Classical.choice`, and `Quot.sound`, with no `sorry`, `native_decide`, or new
-axiom. This is the abstract proof gate, not an implementation-refinement claim:
-Rust-to-Lean codecs/replay, Metal-to-Rust kernels, general independent-oracle
-correctness, and grade-4-to-trick-1 transport remain explicit correspondence
-debt and must be supported by the separate executable parity conjunction.
+two-family/counter/writer/all-or-nothing evidence layer. The evidence on its
+status: it entered in commit 97ce321a, titled "WIP: M3 perfect-recall net
+scaffolding (mid-flight, does not build)", "committed only so the work survives
+the worktree"; no build output for it exists in the main checkout's `.lake`
+(nor, per the 2026-09-07 survey, in any worktree's); no CI script builds or
+audits it; its committed receipt `lean/trick1_perfect_recall_net_axioms_v1.txt`
+names 94 of the facade's 103 theorems; only `Types.lean` has been shown to
+elaborate (read-only, 2026-09-12). GT1-A23 makes "must build and pass the
+axiom audit" an obligation; GT1-A24 (freeze 57) authorizes the gate and
+**records no M3 result**; FZ-A4's phrase "kernel-audited freeze-57 mathematics"
+is not supported by any artifact on this machine. The facade's own boundary
+holds regardless: Rust-to-Lean codecs/replay, Metal-to-Rust kernels, general
+independent-oracle correctness, and grade-4-to-trick-1 transport are explicit
+correspondence debt and would need the separate executable parity conjunction
+even after a green build. Details and the missing-name list: [lean](lean.md)
+§7.4.
+
+**After 2026-08-17.** No commit has touched the Lean sources since 97ce321a
+(this book rewrite adds only a status note to `lean/README.md`). What
+changed around it: the Lean step of `walt/ci/check.sh` (since 813d5e81) builds
+the two trick-1 modules and diffs the M2 receipt on every run — the first
+mechanical enforcement of PROOFS.md rule 2 — while the 20 other modules remain
+built by no gate; the freeze-56 v2 manifest (2026-08-24, FZ-A4) pins every
+`lean/` file by digest; the [[lean-catchup]] card (2026-08-24) asks for a
+triaged P1 list in `lean/` and a mechanization-cost assessment of the
+signed-pivotal identities, neither of which exists.
+
+## Queued Lean programs with no kernel coverage (walt exploratory)
+
+Accepted obligation lists that name Lean as their destination. **No file under
+`lean/` corresponds to any of them, none has a ledger row, and the "Lean
+side-project ledger" they are accepted into exists in no file** — only in the
+accepting sentences cited here.
+
+| Program | Source | Acceptance |
+|---|---|---|
+| CBS-O1..O15 (optimization-lock upper, independent lower witness, root survivor, cylinder partition, grammar/residual decomposition, cell aggregation, threat/safety bound, seat-factor closure, branch-mass ratio, factorized Bellman, refinement monotonicity, finite completeness, backend parity, factor identity sufficiency, risk composition) | `walt/math/counted_belief_sandwich_v0.1.md` Part XIII §54; candidate module map §55 | CBS-A9, 2026-08-30 |
+| PS-T1..T15 (top-state soundness … threshold-envelope non-realizability witness) + a 42 instance layer | `walt/math/anytime_proof_state_score_v0.1.md` Part XV §§75–76 | APS intake, 2026-08-31 |
+| MB-O1..O20 (augmented-world reduction … common-information prescription equivalence) | `walt/math/model_belief_base_player_v0.1.md` Part XII §70 | MB intake, Part XII row ("adopted verbatim as the round's gate language"; MB-O20 queued behind everything) |
+| SC-O1..O15 and the §60 Lean order (a generic finite set-system layer, eight candidate files) | `walt/math/salvation_complex_v0.1.md` §§59–60 | SC-A1..A8 |
+| the signed-pivotal boxed identities, the pmake objective, the seat-census rulings | [[lean-catchup]] | card opened 2026-08-24 |
+| the C1 suffix-factorization theorem | [idea-retrograde-rank](idea-retrograde-rank.md), x:009 | exchange tier; "Lean mechanization pending (dispatch 011)" |
 
 ## Trust boundary (v0.7 Handoff §2; TRUST-01)
 
 ```
-adopted rules → kernel-checked theorems → proved-refined executables
-             → external Python receipts / production implementations
+adopted Straight rule profile
+        ↓ definitions
+kernel-checked mathematical theorems
+        ↓ proved refinement
+extracted/reference executable functions
+        ↓ conformance
+external Python receipts and production implementations
 ```
 
-A finite receipt becomes a kernel theorem only via: (a) direct formal proof,
-(b) proved-sound internal decision procedure + kernel evaluation, or (c) proved
-reflection with kernel-checked certificate. **Never import `PASS` as an axiom.**
+A finite result becomes a kernel theorem only when, in the handoff's words,
+"it has a direct formal proof; an internal Boolean decision procedure is proved
+equivalent to the proposition and kernel evaluation closes the case; a
+reflection procedure is proved sound and the kernel checks its certificate."
+**Never import `PASS` as an axiom.** Walt's gates, rob's receipts and the
+exchange's programs are on the bottom rung of this ladder for the kernel's
+purposes — evidence, never premises.
 
 ## Non-negotiable design decisions (v0.7 Handoff §§3–6)
 
@@ -162,9 +229,10 @@ reflection with kernel-checked certificate. **Never import `PASS` as an axiom.**
 - **Phase-indexed state types** (auction / declarationPending / play / handComplete)
   so illegal field combinations are unconstructible.
 - **Reachability as a proof-irrelevant proposition**:
-  `CertifiedState := { s // Reachable(s) }`; equality/hashing/serialization through
-  the projection only; witnesses erasable. `ReachabilityOuterNecessaryProfile` never
-  constructs `Reachable`.
+  `CertifiedState := { s // Reachable(s) }` (the handoff's identifier); equality,
+  hashing and serialization through the projection only; witnesses erasable.
+  The wiki's word for the object is *necessary outer profile* (D3), and the
+  outer-profile check never constructs `Reachable`.
 - **Derived views, not fields**: `deriveRuleCells`, `supportReduction`,
   `compileExactSupport`, `remainderFiber` are functions; caches live in a separate
   `CompiledView` with a coherence proof, outside the information partition.
@@ -189,6 +257,9 @@ future-equivalence minimum (Myhill–Nerode) → K15 finite belief layer (Bayes,
 pushforward, uniform fiber law, **90-world witness as a named theorem**).
 
 K10–K14 exist only in rec; K0–K9 and K15 appear in both plans with matching content.
+Kernel coverage today: K0–K9 and K15 substantially (with the open rows above);
+K11 only the reachability predicate and proof-irrelevant state; K10, K12, K13,
+K14 none ([lean](lean.md) §5).
 
 ## Priorities and receipt-migration routes (v0.7 Ledger)
 
@@ -197,13 +268,14 @@ covering; count 35; effective suits; unique winner; legal-play characterization;
 transition invariants; 42-point conservation; perfect-recall records; cells/fiber
 definitions; losslessness induction; typed bijections; normal-form
 trichotomy/compile/decode; reachability predicate + proof irrelevance; finite PMF
-Bayes; strategic sufficiency; **the 90-world witness (PA-E10)**.
+Bayes; strategic sufficiency; **the 90-world witness (PA-E10)**. All closed.
 
 Receipt routes (Handoff §9): 737,100 winner cases → reflection; Hall corpus → prove
 Hall generally, demote corpus to implementation test; 81-bit census → proved
 enumerator + reflected cardinality or stay external; 26–46 interval → formal
 injections for the bounds, external count stays a receipt; feasible-unreachable and
-90-world witnesses → internal concrete witness proofs.
+90-world witnesses → internal concrete witness proofs. Of these, the 90-world
+witness is done and Hall is done generically; the rest are open.
 
 Deferred by both plans: CFR/equilibria, team-coordinator constructions, neural
 architectures, special contracts, full-match almost-sure termination, byte layouts,
@@ -224,3 +296,8 @@ proof/witness/cache/hash; one mechanical source of truth for support; informatio
 equality never silently coarsened to mechanical equality; the 90-world witness
 internalized; extraction separated from optimized encodings; (rec) symbolic
 reachability, reduced-kernel sufficiency, and output-relative minimality checked.
+Against this standard as of 2026-09-07: the priority-0 rows, proof-irrelevant
+reachability, derived views and the internalized witness are met; the
+"honestly marked external/open" clause is met by [lean-row-index](lean-row-index.md);
+the rec-only items (symbolic reachability soundness, reduced-kernel sufficiency,
+output-relative minimality) are not started.
