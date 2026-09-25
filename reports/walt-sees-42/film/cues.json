@@ -1,0 +1,83 @@
+{
+ "duration": 59.5,
+ "cues": [
+  {
+   "key": "walt",
+   "t0": 1.4,
+   "t1": 3.659,
+   "text": "This is Walt. Walt plays forty-two."
+  },
+  {
+   "key": "see",
+   "t0": 4.2,
+   "t1": 7.156,
+   "text": "He can see his own seven dominoes... and nothing else."
+  },
+  {
+   "key": "deals",
+   "t0": 7.7,
+   "t1": 11.68,
+   "text": "The other twenty-one could be dealt three hundred ninety-nine million ways."
+  },
+  {
+   "key": "games",
+   "t0": 12.1,
+   "t1": 15.686,
+   "text": "And every one of those deals can play out billions of different ways."
+  },
+  {
+   "key": "drives",
+   "t0": 16.2,
+   "t1": 20.427,
+   "text": "Write them all down, and you'd fill ten million hard drives. For one move!"
+  },
+  {
+   "key": "handful",
+   "t0": 21.2,
+   "t1": 24.197,
+   "text": "So Walt doesn't try everything. He tries a handful."
+  },
+  {
+   "key": "imagine",
+   "t0": 24.7,
+   "t1": 29.621,
+   "text": "He imagines one possible deal, and plays it out. Every seat keeps a little handbook."
+  },
+  {
+   "key": "book",
+   "t0": 30.0,
+   "t1": 34.871,
+   "text": "Been here before? Do what the book says. Never seen it? Roll a die, and scribble it down."
+  },
+  {
+   "key": "peek",
+   "t0": 35.3,
+   "t1": 38.295,
+   "text": "No peeking. Each player only knows their own hand."
+  },
+  {
+   "key": "count",
+   "t0": 38.7,
+   "t1": 42.992,
+   "text": "Forty imagined deals later, Walt counts. How often did we make the bid?"
+  },
+  {
+   "key": "smart",
+   "t0": 43.5,
+   "t1": 49.465,
+   "text": "Then he levels up. Dice aren't very smart. So now, instead of rolling, everyone picks their best play."
+  },
+  {
+   "key": "phone",
+   "t0": 50.0,
+   "t1": 54.502,
+   "text": "Forty little worlds. One pretty good move. Small enough to fit in your pocket."
+  },
+  {
+   "key": "end",
+   "t0": 55.1,
+   "t1": 56.941,
+   "text": "And that's how Walt sees forty-two."
+  }
+ ]
+}

@@ -1,0 +1,1076 @@
+<title>Walt Sees 42</title>
+<style>
+@font-face{font-family:'Caveat Brush';src:url(data:font/woff2;base64,__CAVEAT_BRUSH__) format('woff2');font-display:block}
+@font-face{font-family:'Caveat';font-weight:700;src:url(data:font/woff2;base64,__CAVEAT_700__) format('woff2');font-display:block}
+@font-face{font-family:'Patrick Hand';src:url(data:font/woff2;base64,__PATRICK_HAND__) format('woff2');font-display:block}
+:root{
+  --table:#24170f; --table-hi:#3b2619; --ivory:#fbf4df; --ink:#2a2a33; --marker:#e0443a;
+  --muted:#c7b49b; --pad:#fcf3bf; --rule:#9cc3e6; --focus:#ffd166;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{margin:0;background:radial-gradient(120% 90% at 50% 20%,var(--table-hi),var(--table) 70%);color:var(--ivory);
+  font-family:'Patrick Hand','Comic Sans MS','Segoe Print',system-ui,sans-serif;padding-inline:16px;padding-block:28px 44px;box-sizing:border-box}
+main{max-width:1180px;margin:0 auto;display:grid;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 20px}
+h1{font-family:'Caveat Brush','Patrick Hand',cursive;font-weight:400;font-size:clamp(34px,6vw,58px);line-height:1;margin:0;letter-spacing:.5px;text-wrap:balance}
+h1 b{color:var(--marker);font-weight:400}
+header p{margin:0;color:var(--muted);font-size:clamp(16px,2.2vw,20px)}
+.stage{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;border-radius:6px;overflow:hidden;
+  box-shadow:0 2px 0 #0006,0 18px 40px #000a,0 0 0 1px #0004;transform:rotate(-.35deg);background:var(--pad)}
+canvas{display:block;width:100%;height:100%}
+.big{position:absolute;inset:0;margin:auto;width:clamp(84px,14vw,132px);height:clamp(84px,14vw,132px);border-radius:50%;border:0;cursor:pointer;
+  background:#fffdf4;box-shadow:0 6px 0 #0003,0 10px 30px #0006;display:grid;place-items:center;transition:transform .15s}
+.big:hover{transform:scale(1.06) rotate(-3deg)}
+.big:focus-visible,.ctl button:focus-visible,.ctl input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.big svg{width:44%;height:44%;margin-left:8%}
+.big[hidden]{display:none!important}
+.ctl{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.ctl button{font:inherit;font-size:19px;color:var(--ink);background:var(--ivory);border:0;border-radius:10px;padding:7px 16px 6px;cursor:pointer;
+  box-shadow:0 3px 0 #0005;min-width:44px}
+.ctl button[aria-pressed="false"]{background:#8d7a63;color:#241a12}
+.ctl button:active{transform:translateY(2px);box-shadow:0 1px 0 #0005}
+.ctl input[type=range]{flex:1 1 220px;min-width:0;accent-color:var(--marker);height:28px}
+.time{font-variant-numeric:tabular-nums;color:var(--muted);font-size:18px;min-width:92px;text-align:right}
+.notes{color:var(--muted);font-size:17px;line-height:1.45;max-width:70ch;margin:4px 0 0}
+.notes b{color:var(--ivory);font-weight:400}
+.status{color:var(--muted);font-size:17px}
+@media (max-width:520px){ .stage{transform:none} .time{min-width:0} }
+</style>
+
+<main>
+  <header>
+    <h1>How Walt sees <b>42</b></h1>
+    <p>A one-minute sketch about playing dominoes with a handful of guesses.</p>
+  </header>
+  <div class="stage">
+    <canvas id="film" width="1920" height="1080" aria-label="Animated sketch: how Walt plays Texas 42 by sampling a handful of possible deals"></canvas>
+    <button class="big" id="big" aria-label="Play the film"><svg viewBox="0 0 10 10"><path d="M1.5 1 L9 5 L1.5 9 Z" fill="#e0443a" stroke="#2a2a33" stroke-width=".7" stroke-linejoin="round"/></svg></button>
+  </div>
+  <div class="ctl">
+    <button id="play" type="button">Play</button>
+    <button id="restart" type="button">Restart</button>
+    <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Position in the film">
+    <span class="time" id="time">0:00 / 1:00</span>
+    <button id="cc" type="button" aria-pressed="true">Captions</button>
+  </div>
+  <p class="status" id="status" aria-live="polite"></p>
+  <p class="notes">Everything here is drawn and scored by the page itself: the pictures are plain canvas JavaScript, and the music and sound effects are synthesized in the browser. The narration was spoken by the open Kokoro text-to-speech model. <b>399,072,960</b> is the exact number of ways to deal the other 21 dominoes. "Billions of ways" to play each deal and "ten million hard drives" are estimates: exact play-out counts for 12 random deals ranged from about 3&times;10<sup>8</sup> to 3&times;10<sup>11</sup>. Walt's tallies in the film are made up for the cartoon.</p>
+</main>
+
+<script>
+'use strict';
+// ============================================================================
+//  How Walt sees 42 — one deterministic render(t) and one deterministic synth.
+//  The live page and the MP4 export both run exactly this code.
+// ============================================================================
+const W = 1920, H = 1080;
+const CUES = __CUES__;
+const DUR = CUES.duration;
+const VO_B64 = '__VO_MP3__';
+const FB = "'Caveat Brush','Patrick Hand',cursive", FC = "'Caveat','Patrick Hand',cursive", FP = "'Patrick Hand','Comic Sans MS',sans-serif";
+
+// palette
+const INK = '#2a2a33', BLUE = '#27449a', RED = '#d8322a', PINK = '#ff8fb1', GREEN = '#3f8f4a', GOLD = '#f2b632';
+const IVORY = '#fffdf3', PAPER = '#fcf3bf', US = '#3d6fc4', THEM = '#e3862b', FELT = '#6fae62', DENIM = '#4b6fa8';
+
+// ---------------------------------------------------------------- utilities
+const PI = Math.PI, TAU = PI * 2;
+const clamp = (x, a = 0, b = 1) => (x < a ? a : x > b ? b : x);
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, u) => a + (b - a) * u;
+const eio = u => (u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2);
+const eo = u => 1 - Math.pow(1 - u, 3);
+const ei = u => u * u * u;
+const back = u => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(u - 1, 3) + c1 * Math.pow(u - 1, 2); };
+const elastic = u => (u <= 0 ? 0 : u >= 1 ? 1 : Math.pow(2, -9 * u) * Math.sin((u * 9 - 0.75) * TAU / 3) + 1);
+const popS = (t, t0, d = 0.38) => back(seg(t, t0, t0 + d));
+function mulberry(a) { return function () { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function hs() { let h = 2166136261 >>> 0; for (let i = 0; i < arguments.length; i++) { h ^= Math.round(arguments[i] * 7) | 0; h = Math.imul(h, 16777619) >>> 0; } return h; }
+
+// ---------------------------------------------------------------- drawing core
+let ctx = null;   // current 2D context
+let BOIL = 0;     // line-boil frame (8 per second, like hand-drawn animation "on twos")
+let KEY = 0;      // identity salt so identical shapes wobble differently
+let GA = 1;       // alpha multiplier for fades
+
+function wobble(pts, seed, amp) {
+  const r = mulberry(seed), n = pts.length, out = new Array(n);
+  const f1 = 0.004 + r() * 0.006, f2 = 0.014 + r() * 0.012, p1 = r() * TAU, p2 = r() * TAU;
+  const a1 = amp * (0.55 + r() * 0.6), a2 = amp * 0.4, dx = (r() - 0.5) * amp * 1.4, dy = (r() - 0.5) * amp * 1.4;
+  let s = 0;
+  for (let i = 0; i < n; i++) {
+    const p = pts[i], q = pts[i + 1 < n ? i + 1 : i], o = pts[i ? i - 1 : 0];
+    if (i) s += Math.hypot(p[0] - pts[i - 1][0], p[1] - pts[i - 1][1]);
+    let tx = q[0] - o[0], ty = q[1] - o[1]; const L = Math.hypot(tx, ty) || 1; tx /= L; ty /= L;
+    const off = a1 * Math.sin(s * f1 + p1) + a2 * Math.sin(s * f2 + p2), u = i / (n - 1 || 1);
+    out[i] = [p[0] - ty * off + dx * u, p[1] + tx * off + dy * u];
+  }
+  return out;
+}
+function strokePts(P, o) {
+  const n = P.length, prog = o.prog ?? 1; if (n < 2 || prog <= 0) return;
+  const cum = new Float64Array(n);
+  for (let i = 1; i < n; i++) cum[i] = cum[i - 1] + Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]);
+  const total = cum[n - 1] * prog, w = o.w ?? 4, tap = Math.min(o.taper ?? 16, total * 0.4) || 0.001;
+  ctx.strokeStyle = o.color || INK; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.globalAlpha = (o.alpha ?? 1) * GA;
+  let open = false;
+  for (let i = 1; i < n; i++) {
+    if (cum[i - 1] >= total) break;
+    let x1 = P[i - 1][0], y1 = P[i - 1][1], x2 = P[i][0], y2 = P[i][1];
+    if (cum[i] > total) { const u = (total - cum[i - 1]) / (cum[i] - cum[i - 1] || 1); x2 = lerp(x1, x2, u); y2 = lerp(y1, y2, u); }
+    const s = (cum[i - 1] + Math.min(cum[i], total)) / 2, f = Math.min(1, s / tap, (total - s) / tap);
+    if (f >= 0.999) { if (!open) { ctx.lineWidth = w; ctx.beginPath(); ctx.moveTo(x1, y1); open = true; } ctx.lineTo(x2, y2); }
+    else { if (open) { ctx.stroke(); open = false; } ctx.lineWidth = w * (0.35 + 0.65 * Math.max(0, f)); ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); }
+  }
+  if (open) ctx.stroke();
+  ctx.globalAlpha = GA;
+}
+// a sketchy stroke: two wobbly passes, like a quick pen that goes over the line twice
+function sk(pts, o = {}) {
+  const amp = o.amp ?? 2.2, seed = hs(pts[0][0], pts[0][1], pts[pts.length - 1][0], pts.length, BOIL, KEY, o.k || 0);
+  strokePts(wobble(pts, seed, amp), o);
+  if (o.passes !== 1) strokePts(wobble(pts, seed + 977, amp * 1.35), { ...o, w: (o.w ?? 4) * 0.5, alpha: (o.alpha ?? 1) * 0.45 });
+}
+function linePts(x1, y1, x2, y2) {
+  const n = Math.max(2, Math.ceil(Math.hypot(x2 - x1, y2 - y1) / 7)), p = [];
+  for (let i = 0; i <= n; i++) p.push([lerp(x1, x2, i / n), lerp(y1, y2, i / n)]);
+  return p;
+}
+function polyPts(vs, closed) {
+  const p = [], m = closed ? vs.length : vs.length - 1;
+  for (let k = 0; k < m; k++) { const a = vs[k], b = vs[(k + 1) % vs.length], n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 7)); for (let i = 0; i < n; i++) p.push([lerp(a[0], b[0], i / n), lerp(a[1], b[1], i / n)]); }
+  if (closed) p.push(p[0], p[1] || p[0]); else p.push(vs[vs.length - 1]);
+  return p;
+}
+function curvePts(x1, y1, cx, cy, x2, y2) {
+  const n = Math.max(6, Math.ceil((Math.hypot(cx - x1, cy - y1) + Math.hypot(x2 - cx, y2 - cy)) / 7)), p = [];
+  for (let i = 0; i <= n; i++) { const u = i / n, a = (1 - u) * (1 - u), b = 2 * u * (1 - u), c = u * u; p.push([a * x1 + b * cx + c * x2, a * y1 + b * cy + c * y2]); }
+  return p;
+}
+function ellPts(cx, cy, rx, ry, over = 0.09, k = 0) {
+  const r = mulberry(hs(cx, cy, rx, ry, KEY, k, BOIL)), a0 = r() * TAU;
+  const n = Math.max(16, Math.ceil((PI * (rx + ry)) / 7)), m = Math.ceil(n * (1 + over)), p = [];
+  for (let i = 0; i <= m; i++) { const u = i / n, a = a0 + TAU * u, g = 0.985 + 0.035 * (i / m); p.push([cx + rx * g * Math.cos(a), cy + ry * g * Math.sin(a)]); }
+  return p;
+}
+function rrPts(x, y, w, h, r, over = 0.05) {
+  r = Math.min(r, w / 2, h / 2); const p = [], st = 7;
+  const edge = (ax, ay, bx, by) => { const n = Math.max(1, Math.ceil(Math.hypot(bx - ax, by - ay) / st)); for (let i = 0; i < n; i++) p.push([lerp(ax, bx, i / n), lerp(ay, by, i / n)]); };
+  const arc = (cx, cy, a0, a1) => { const n = Math.max(2, Math.ceil((r * Math.abs(a1 - a0)) / st)); for (let i = 0; i < n; i++) { const a = lerp(a0, a1, i / n); p.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); } };
+  edge(x + r, y, x + w - r, y); arc(x + w - r, y + r, -PI / 2, 0); edge(x + w, y + r, x + w, y + h - r); arc(x + w - r, y + h - r, 0, PI / 2);
+  edge(x + w - r, y + h, x + r, y + h); arc(x + r, y + h - r, PI / 2, PI); edge(x, y + h - r, x, y + r); arc(x + r, y + r, PI, 1.5 * PI);
+  const k = Math.ceil(p.length * over); for (let i = 0; i <= k; i++) p.push(p[i]);
+  return p;
+}
+function cloudPts(cx, cy, rx, ry, bumps = 14, amt = 0.09) {
+  const p = [], n = Math.ceil((PI * (rx + ry)) / 6);
+  for (let i = 0; i <= n; i++) { const a = (i / n) * TAU, b = 1 + amt * Math.abs(Math.sin((a * bumps) / 2)); p.push([cx + rx * b * Math.cos(a), cy + ry * b * Math.sin(a)]); }
+  return p;
+}
+function pathOf(pts) { ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]); ctx.closePath(); }
+// flat marker fill, slightly out of register with its outline
+function fillP(pts, color, o = {}) {
+  const r = mulberry(hs(pts[0][0], pts[0][1], KEY, BOIL, 5)), dx = o.dx ?? (r() - 0.3) * 5, dy = o.dy ?? (r() - 0.3) * 5;
+  ctx.save(); ctx.translate(dx, dy); pathOf(pts); ctx.fillStyle = color; ctx.globalAlpha = (o.alpha ?? 1) * GA; ctx.fill(); ctx.restore(); ctx.globalAlpha = GA;
+}
+function hatch(pts, color, gap = 14, ang = -0.8, w = 2, alpha = 0.5) {
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  for (const [x, y] of pts) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
+  ctx.save(); pathOf(pts); ctx.clip(); ctx.strokeStyle = color; ctx.lineWidth = w; ctx.globalAlpha = alpha * GA; ctx.lineCap = 'round';
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, R = Math.hypot(x1 - x0, y1 - y0) / 2 + 10, c = Math.cos(ang), s = Math.sin(ang), r = mulberry(hs(cx, cy, BOIL, KEY));
+  ctx.beginPath();
+  for (let d = -R; d <= R; d += gap) { const j = (r() - 0.5) * 3; ctx.moveTo(cx + c * -R - s * (d + j), cy + s * -R + c * (d + j)); ctx.lineTo(cx + c * R - s * (d - j), cy + s * R + c * (d - j)); }
+  ctx.stroke(); ctx.restore(); ctx.globalAlpha = GA;
+}
+function txt(s, x, y, size, o = {}) {
+  if (size <= 0.5) return;
+  ctx.save(); ctx.translate(x, y);
+  const r = mulberry(hs(x, y, size, BOIL, s.length, KEY));
+  ctx.rotate((o.rot || 0) + (o.still ? 0 : (r() - 0.5) * 0.018));
+  ctx.font = `${o.weight || ''} ${size}px ${o.font || FB}`; ctx.textAlign = o.align || 'center'; ctx.textBaseline = 'middle';
+  if (o.prog !== undefined && o.prog < 1) {
+    if (o.prog <= 0) { ctx.restore(); return; }
+    const m = ctx.measureText(s).width, x0 = ctx.textAlign === 'center' ? -m / 2 : ctx.textAlign === 'left' ? 0 : -m;
+    ctx.beginPath(); ctx.rect(x0 - 12, -size, (m + 24) * o.prog, size * 2); ctx.clip();
+  }
+  ctx.globalAlpha = (o.alpha ?? 1) * GA;
+  if (o.halo) { ctx.lineWidth = o.halo; ctx.strokeStyle = o.haloColor || PAPER; ctx.lineJoin = 'round'; ctx.strokeText(s, 0, 0); }
+  ctx.fillStyle = o.color || INK; ctx.fillText(s, 0, 0);
+  ctx.restore(); ctx.globalAlpha = GA;
+}
+function dot(x, y, r, color) { ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fillStyle = color; ctx.globalAlpha = GA; ctx.fill(); }
+function arrow(x1, y1, x2, y2, o = {}) {
+  const cx = (x1 + x2) / 2 + (o.bend ?? 0.2) * (y2 - y1), cy = (y1 + y2) / 2 - (o.bend ?? 0.2) * (x2 - x1);
+  const prog = o.prog ?? 1; sk(curvePts(x1, y1, cx, cy, x2, y2), { ...o, prog: seg(prog, 0, 0.8) });
+  if (prog > 0.8) { const a = Math.atan2(y2 - cy, x2 - cx), L = o.head || 26, u = seg(prog, 0.8, 1);
+    sk(linePts(x2, y2, x2 - L * Math.cos(a - 0.5), y2 - L * Math.sin(a - 0.5)), { ...o, prog: u, k: 1 });
+    sk(linePts(x2, y2, x2 - L * Math.cos(a + 0.5), y2 - L * Math.sin(a + 0.5)), { ...o, prog: u, k: 2 }); }
+}
+function tally(x, y, n, o = {}) { // n marks, grouped in fives, laid out in rows
+  const per = o.per || 4, gw = o.gw || 86, gh = o.gh || 74, h = o.h || 56, col = o.color || BLUE, w = o.w || 5;
+  for (let i = 0; i < Math.floor(n); i++) {
+    const g = Math.floor(i / 5), m = i % 5, gx = x + (g % per) * gw, gy = y + Math.floor(g / per) * gh;
+    KEY = 700 + i;
+    if (m < 4) sk(linePts(gx + m * 14, gy, gx + m * 14 + 2, gy + h), { w, color: col, passes: 1, amp: 1.2 });
+    else sk(linePts(gx - 10, gy + h * 0.78, gx + 60, gy + h * 0.2), { w, color: col, passes: 1, amp: 1.2 });
+  }
+}
+function scribbleCircle(cx, cy, rx, ry, prog, color = RED, w = 6) { sk(ellPts(cx, cy, rx, ry, 0.25, 3), { prog, w, color, passes: 2, amp: 3 }); }
+function star(x, y, r, rot, color) { const v = []; for (let i = 0; i < 10; i++) { const a = rot + (i * PI) / 5 - PI / 2, rr = i % 2 ? r * 0.45 : r; v.push([x + rr * Math.cos(a), y + rr * Math.sin(a)]); } const p = polyPts(v, true); fillP(p, color); sk(p, { w: 3.5 }); }
+function sparkle(x, y, r, a = 1) { const u = r * 0.22; ctx.save(); ctx.globalAlpha = a * GA; ctx.fillStyle = GOLD; ctx.beginPath(); ctx.moveTo(x, y - r); ctx.quadraticCurveTo(x + u, y - u, x + r, y); ctx.quadraticCurveTo(x + u, y + u, x, y + r); ctx.quadraticCurveTo(x - u, y + u, x - r, y); ctx.quadraticCurveTo(x - u, y - u, x, y - r); ctx.fill(); ctx.restore(); ctx.globalAlpha = GA; }
+
+// ---------------------------------------------------------------- props
+const PIPS = { 0: [], 1: [[0, 0]], 2: [[-1, -1], [1, 1]], 3: [[-1, -1], [0, 0], [1, 1]], 4: [[-1, -1], [1, -1], [-1, 1], [1, 1]], 5: [[-1, -1], [1, -1], [0, 0], [-1, 1], [1, 1]], 6: [[-1, -1], [-1, 0], [-1, 1], [1, -1], [1, 0], [1, 1]] };
+function pips(n, cx, cy, s, color = INK) { for (const [a, b] of PIPS[n]) dot(cx + a * s * 0.27, cy + b * s * 0.27, s * 0.088, color); }
+// a domino, standing up, centred on (x,y); o.w is its width (height is 2w)
+function domino(x, y, a, b, o = {}) {
+  const w = o.w || 70, h = w * 2, s = o.s ?? 1; if (s <= 0.01) return;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot || 0); ctx.scale(s * (o.flip ?? 1), s);
+  KEY = hs(a, b, o.k || 0);
+  const p = rrPts(-w / 2, -h / 2, w, h, w * 0.18);
+  if (o.glow) { ctx.save(); ctx.shadowColor = GOLD; ctx.shadowBlur = 50 * o.glow; fillP(p, IVORY, { dx: 0, dy: 0 }); ctx.restore(); }
+  if (o.down) { fillP(p, o.back || '#34508a'); hatch(p, '#ffffff', w * 0.22, -0.8, 2, 0.25); }
+  else { fillP(p, o.fill || IVORY); sk(linePts(-w * 0.34, 0, w * 0.34, 0), { w: Math.max(1.5, w * 0.045), k: 9 }); pips(a, 0, -w / 2, w, o.pipColor); pips(b, 0, w / 2, w, o.pipColor); }
+  sk(p, { w: Math.max(1.8, w * 0.06) });
+  if (o.hl) sk(rrPts(-w / 2 - 12, -h / 2 - 12, w + 24, h + 24, w * 0.3), { w: 6, color: o.hlColor || RED, prog: o.hl, k: 4 });
+  ctx.restore();
+}
+function die(x, y, n, o = {}) {
+  const s = o.size || 90, sc = o.s ?? 1; if (sc <= 0.01) return;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot || 0); ctx.scale(sc, sc); KEY = 555 + (o.k || 0);
+  const p = rrPts(-s / 2, -s / 2, s, s, s * 0.2);
+  fillP(p, '#ffffff'); sk(p, { w: 4.5 });
+  if (o.derp) { // a very silly die
+    dot(-s * 0.2, -s * 0.12, s * 0.12, '#fff'); sk(ellPts(-s * 0.2, -s * 0.12, s * 0.13, s * 0.13, 0.05), { w: 3 }); dot(-s * 0.13, -s * 0.07, s * 0.055, INK);
+    dot(s * 0.2, -s * 0.12, s * 0.12, '#fff'); sk(ellPts(s * 0.2, -s * 0.12, s * 0.13, s * 0.13, 0.05, 1), { w: 3 }); dot(s * 0.13, -s * 0.17, s * 0.055, INK);
+    sk(curvePts(-s * 0.2, s * 0.16, 0, s * 0.3, s * 0.22, s * 0.14), { w: 4 });
+    const tg = rrPts(s * 0.02, s * 0.2, s * 0.14, s * 0.16, s * 0.07); fillP(tg, PINK, { dx: 0, dy: 0 }); sk(tg, { w: 2.5, k: 3 });
+  } else pips(n, 0, 0, s * 1.05, o.pipColor || INK);
+  ctx.restore();
+}
+function person(x, y, o = {}) { // head and shoulders; o.kind picks the doodle
+  const s = o.s ?? 1; if (s <= 0.01) return;
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.rotate(o.rot || 0);
+  const kind = o.kind || 'lefty'; KEY = kind.length * 31;
+  const shirt = o.shirt || (kind === 'partner' ? US : THEM), skin = { lefty: '#f1c6a1', partner: '#b98059', righty: '#8a5a3b' }[kind];
+  const sh = curvePts(-100, 160, 0, -10, 100, 160); sh.push([100, 160], [-100, 160]);
+  fillP(sh, shirt); sk(curvePts(-100, 160, 0, -10, 100, 160), { w: 4.5 });
+  let head;
+  if (kind === 'partner') head = rrPts(-58, -62, 116, 118, 44); else if (kind === 'righty') head = ellPts(0, -2, 55, 66, 0.07); else head = ellPts(0, 0, 62, 60, 0.07);
+  fillP(head, skin); sk(head, { w: 4.5 });
+  if (kind === 'lefty') { const v = []; for (let i = 0; i <= 8; i++) v.push([-58 + i * 14.5, i % 2 ? -92 : -48 - 6 * Math.abs(4 - i)]); const hp = polyPts(v, false); sk(hp, { w: 5 }); }
+  if (kind === 'partner') for (let i = 0; i < 6; i++) { const cx = -50 + i * 20, cy = -64 - (i % 2) * 8; const c = ellPts(cx, cy, 15, 14, 0.1, i); fillP(c, '#2b2522', { dx: 0, dy: 0 }); sk(c, { w: 3, k: i }); }
+  if (kind === 'righty') { const bp = curvePts(-58, -30, 0, -135, 58, -30); bp.push([58, -30]); fillP(bp, '#c0392b'); sk(curvePts(-58, -30, 0, -135, 58, -30), { w: 4.5 }); sk(linePts(-60, -30, 60, -30), { w: 7, color: '#8e2a20' }); const pb = ellPts(0, -92, 14, 14, 0.1); fillP(pb, '#f3d27a'); sk(pb, { w: 3 }); }
+  // face
+  const lx = (o.look || 0) * 6, ly = (o.lookY || 0) * 5, blink = o.blink ? 0.15 : 1;
+  ctx.save(); ctx.translate(-20 + lx, -6 + ly); ctx.scale(1, blink); dot(0, 0, 8, INK); ctx.restore();
+  ctx.save(); ctx.translate(20 + lx, -6 + ly); ctx.scale(1, blink); dot(0, 0, 8, INK); ctx.restore();
+  if (o.mood === 'o') { const m = ellPts(0, 28, 10, 13, 0.05); fillP(m, '#6b2b2b', { dx: 0, dy: 0 }); sk(m, { w: 3 }); }
+  else if (o.mood === 'sly') sk(curvePts(-18, 28, 0, 22, 20, 20), { w: 4 });
+  else sk(curvePts(-20, 22, 0, 38, 20, 22), { w: 4 });
+  ctx.restore();
+}
+// Walt: a domino with a hat. (x,y) = centre of his body.
+function walt(x, y, o = {}) {
+  const s = o.s ?? 1, pr = o.prog ?? 1; if (s <= 0.01 || pr <= 0) return;
+  ctx.save(); ctx.translate(x, y); ctx.scale(s * (o.sx ?? 1), s * (o.sy ?? 1)); ctx.rotate(o.rot || 0); KEY = 42;
+  const pb = seg(pr, 0, 0.45), pl = seg(pr, 0.35, 0.65), pf = seg(pr, 0.55, 0.85), ph = o.hat ?? seg(pr, 0.8, 1);
+  // legs and shoes
+  if (!o.noLegs) {
+    const st = o.step || 0;
+    sk(linePts(-34, 120, -44 - st * 10, 205), { w: 6, prog: pl, k: 1 }); sk(linePts(34, 120, 44 + st * 10, 205), { w: 6, prog: pl, k: 2 });
+    if (pl > 0.9) { const a = ellPts(-54 - st * 10, 210, 24, 11, 0.05, 1), b = ellPts(54 + st * 10, 210, 24, 11, 0.05, 2); fillP(a, INK, { dx: 0, dy: 0 }); fillP(b, INK, { dx: 0, dy: 0 }); }
+  }
+  // arms: angle 0 = hanging down, positive = raised outward
+  const arm = (side, ang, bend, k) => {
+    const sx = side * 72, sy = -8, L1 = 62, L2 = 58, a1 = side * ang, ex = sx + side * Math.sin(Math.abs(ang)) * L1 * Math.sign(a1 || 1) * side, ey = sy + Math.cos(ang) * L1;
+    const a2 = ang + (bend || 0), hx = ex + side * Math.sin(a2) * L2, hy = ey + Math.cos(a2) * L2;
+    sk(polyPts([[sx, sy], [ex, ey], [hx, hy]], false), { w: 6, prog: pl, k });
+    if (pl > 0.9) { const hp = ellPts(hx, hy, 12, 12, 0.05, k); fillP(hp, IVORY, { dx: 0, dy: 0 }); sk(hp, { w: 3.5, k }); }
+    return [hx, hy];
+  };
+  const hl = arm(-1, o.armL ?? 0.25, o.bendL ?? 0.2, 3), hr = arm(1, o.armR ?? 0.25, o.bendR ?? 0.2, 4);
+  // body
+  const body = rrPts(-75, -125, 150, 250, 28);
+  if (pb > 0.6) fillP(body, IVORY, { alpha: seg(pb, 0.6, 1) });
+  sk(body, { w: 6, prog: pb });
+  sk(linePts(-58, 2, 58, 2), { w: 4.5, prog: pf, k: 5 });
+  if (pf > 0.3) {
+    GA *= seg(pf, 0.3, 0.7);
+    for (const [a, b] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) dot(a * 30, 62 + b * 26, 11, INK); // the "4" on his belly
+    // eyes: the "2"
+    const lk = (o.look || 0) * 7, blink = o.blink ? 0.12 : 1, big = o.mood === 'shock' ? 1.25 : 1;
+    for (const ex of [-30, 30]) { ctx.save(); ctx.translate(ex, -68); ctx.scale(big, blink * big); dot(lk, 0, 15, INK); dot(lk - 5, -6, 5, '#fff'); ctx.restore(); }
+    if (o.mood === 'shock') { const m = ellPts(0, -26, 13, 16, 0.05); fillP(m, '#6b2b2b', { dx: 0, dy: 0 }); sk(m, { w: 3.5 }); sk(linePts(-44, -100, -18, -94), { w: 4, k: 7 }); sk(linePts(44, -100, 18, -94), { w: 4, k: 8 }); }
+    else if (o.mood === 'worry') { sk(curvePts(-20, -28, 0, -38, 20, -28), { w: 4 }); sk(linePts(-44, -94, -18, -99), { w: 4, k: 7 }); sk(linePts(44, -94, 18, -99), { w: 4, k: 8 }); }
+    else sk(curvePts(-26, -38, 0, -14, 26, -38), { w: 4.5 });
+    if (o.mood !== 'shock') { dot(-54, -40, 11, 'rgba(255,120,140,.35)'); dot(54, -40, 11, 'rgba(255,120,140,.35)'); }
+    if (o.sweat) { const d = [[88, -110], [80, -88], [88, -78], [96, -88]]; const dp = polyPts(d, true); fillP(dp, '#8fd0ff', { dx: 0, dy: 0 }); sk(dp, { w: 3 }); }
+    GA /= seg(pf, 0.3, 0.7) || 1;
+  }
+  // cowboy hat (can drop in, tilt and lift)
+  if (ph > 0) {
+    ctx.save(); ctx.translate(0, -124 - (1 - eo(ph)) * 240 - (o.hatLift || 0)); ctx.rotate(o.hatTilt || -0.06);
+    const brim = curvePts(-100, 0, 0, 26, 100, 0); const bp = brim.concat(curvePts(100, 0, 0, -14, -100, 0));
+    const crown = polyPts([[-52, -2], [-46, -62], [-18, -76], [0, -64], [18, -76], [46, -62], [52, -2]], false);
+    fillP(crown.concat([[52, -2], [-52, -2]]), '#a9642f'); sk(crown, { w: 5, k: 11 });
+    fillP(bp, '#9b5a2a'); sk(bp, { w: 5, k: 12 }); sk(linePts(-49, -14, 49, -14), { w: 8, color: '#5b3316', k: 13 });
+    ctx.restore();
+  }
+  if (o.badge) { ctx.save(); ctx.translate(0, 62); ctx.scale(o.badge, o.badge); star(0, 0, 42, 0.1, GOLD); txt('L1', 0, 4, 34, { font: FB, color: INK }); ctx.restore(); }
+  ctx.restore();
+  return { hl: [x + hl[0] * s, y + hl[1] * s], hr: [x + hr[0] * s, y + hr[1] * s] };
+}
+function hdd(x, y, rot = 0, k = 0) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); KEY = 900 + k;
+  const p = rrPts(-85, -38, 170, 76, 12); fillP(p, '#b6c0cc'); sk(p, { w: 4 });
+  const c = ellPts(-38, 0, 25, 25, 0.06); fillP(c, '#dfe6ee'); sk(c, { w: 3 }); dot(-38, 0, 5, INK);
+  const lb = rrPts(4, -18, 62, 36, 5); fillP(lb, '#fffdf3'); sk(lb, { w: 2.5, k: 1 }); txt('HDD', 35, 1, 22, { font: FB, still: true });
+  ctx.restore();
+}
+function notebook(x, y, s, color, o = {}) {
+  if (s <= 0.01) return; ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.rotate(o.rot || 0); KEY = 300 + (o.k || 0);
+  const p = rrPts(-34, -44, 68, 88, 8); fillP(p, color); sk(p, { w: 3.5 });
+  for (let i = 0; i < 5; i++) sk(ellPts(-24 + i * 12, -44, 4, 8, 0.1, i), { w: 2.2, passes: 1 });
+  const lb = rrPts(-20, -14, 40, 22, 3); fillP(lb, IVORY, { dx: 0, dy: 0 }); sk(lb, { w: 2, k: 5 });
+  ctx.restore();
+}
+// an open handbook, centred at (x,y), w wide
+function openBook(x, y, w, lines, o = {}) {
+  const s = o.s ?? 1; if (s <= 0.01) return; const h = w * 0.62;
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.rotate(o.rot || 0); KEY = 333;
+  ctx.save(); ctx.shadowColor = 'rgba(40,30,10,.35)'; ctx.shadowBlur = 24; ctx.shadowOffsetY = 10;
+  const L = rrPts(-w / 2, -h / 2, w / 2, h, 10), R = rrPts(0, -h / 2, w / 2, h, 10); fillP(L, '#fffef7', { dx: 0, dy: 0 }); fillP(R, '#fffef7', { dx: 0, dy: 0 }); ctx.restore();
+  sk(L, { w: 3.5, k: 1 }); sk(R, { w: 3.5, k: 2 });
+  for (let i = 0; i < 6; i++) { const yy = -h / 2 + h * 0.22 + i * h * 0.13; ctx.strokeStyle = '#9cc3e6'; ctx.globalAlpha = 0.7 * GA; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(-w / 2 + 14, yy); ctx.lineTo(-14, yy); ctx.moveTo(14, yy); ctx.lineTo(w / 2 - 14, yy); ctx.stroke(); ctx.globalAlpha = GA; }
+  txt(o.title || '', -w / 4, -h / 2 + h * 0.11, w * 0.06, { font: FC, weight: 700, color: o.titleColor || INK });
+  for (const ln of lines) {
+    const yy = -h / 2 + h * 0.22 + (ln.row + 0.5) * h * 0.13 - 3, xx = ln.page ? 22 : -w / 2 + 22;
+    if (ln.hl) { ctx.save(); ctx.globalAlpha = 0.55 * GA; ctx.fillStyle = PINK; ctx.fillRect(xx - 6, yy - h * 0.05, (w / 2 - 36) * ln.hl, h * 0.1); ctx.restore(); }
+    txt(ln.text, xx, yy, w * 0.052, { font: FC, weight: 700, color: ln.color || BLUE, align: 'left', prog: ln.prog, still: true });
+  }
+  ctx.restore();
+}
+function bulb(x, y, s, on) {
+  if (s <= 0.01) return; ctx.save(); ctx.translate(x, y); ctx.scale(s, s); KEY = 77;
+  if (on > 0) { ctx.save(); ctx.globalAlpha = 0.5 * on * GA; const g = ctx.createRadialGradient(0, -10, 5, 0, -10, 90); g.addColorStop(0, '#fff3a0'); g.addColorStop(1, 'rgba(255,243,160,0)'); ctx.fillStyle = g; ctx.fillRect(-90, -100, 180, 180); ctx.restore();
+    for (let i = 0; i < 7; i++) { const a = -PI / 2 + (i - 3) * 0.42; sk(linePts(Math.cos(a) * 52, -12 + Math.sin(a) * 52, Math.cos(a) * (52 + 22 * on), -12 + Math.sin(a) * (52 + 22 * on)), { w: 4, color: GOLD, k: i, passes: 1 }); } }
+  const g = ellPts(0, -12, 34, 36, 0.06); fillP(g, on > 0 ? '#fff176' : '#fffdf3'); sk(g, { w: 4 });
+  const base = rrPts(-16, 20, 32, 26, 5); fillP(base, '#9aa3ad'); sk(base, { w: 3.5, k: 1 }); sk(linePts(-16, 30, 16, 30), { w: 2.5, k: 2 }); sk(linePts(-16, 38, 16, 38), { w: 2.5, k: 3 });
+  sk(polyPts([[-9, 18], [-5, -8], [0, 0], [5, -8], [9, 18]], false), { w: 2.5, color: '#8a6d1f', k: 4 });
+  ctx.restore();
+}
+function checkMark(x, y, s, prog, color = GREEN) { sk(polyPts([[x - 30 * s, y], [x - 8 * s, y + 24 * s], [x + 36 * s, y - 30 * s]], false), { w: 9 * s, color, prog, passes: 1, amp: 1.5 }); }
+function crossMark(x, y, s, prog, color = RED) { const w = 9 * Math.min(s, 2.4); sk(linePts(x - 28 * s, y - 28 * s, x + 28 * s, y + 28 * s), { w, color, prog: seg(prog, 0, 0.5), passes: 1 }); sk(linePts(x + 28 * s, y - 28 * s, x - 28 * s, y + 28 * s), { w, color, prog: seg(prog, 0.5, 1), passes: 1, k: 1 }); }
+function tape(x, y, rot) { ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.globalAlpha = 0.55 * GA; ctx.fillStyle = '#f7f0d0'; ctx.fillRect(-45, -16, 90, 32); ctx.globalAlpha = 0.25 * GA; ctx.strokeStyle = '#9b8b5a'; ctx.strokeRect(-45, -16, 90, 32); ctx.restore(); ctx.globalAlpha = GA; }
+function note(x, y, w, h, rot, color = '#fffdf3', tapes = true) { ctx.save(); ctx.translate(x, y); ctx.rotate(rot); KEY = hs(w, h); ctx.save(); ctx.shadowColor = 'rgba(60,40,0,.25)'; ctx.shadowBlur = 16; ctx.shadowOffsetY = 6; const p = rrPts(-w / 2, -h / 2, w, h, 6); fillP(p, color, { dx: 0, dy: 0 }); ctx.restore(); sk(p, { w: 2.5, alpha: 0.5 }); if (tapes) { tape(-w / 2 + 30, -h / 2 + 4, -0.5); tape(w / 2 - 30, -h / 2 + 4, 0.45); } ctx.restore(); }
+// a whole deal in miniature: three hands of seven, for the "every possible deal" grid
+function dealCard(cx, cy, size, k, detail) {
+  const w = size, h = size * 0.62, r = mulberry(k * 7919 + 13);
+  ctx.fillStyle = '#fffdf3'; ctx.globalAlpha = GA; ctx.fillRect(cx - w / 2, cy - h / 2, w, h);
+  if (detail) { KEY = k; sk(rrPts(cx - w / 2, cy - h / 2, w, h, 6), { w: Math.max(1.5, size * 0.012), passes: 1 }); }
+  else { ctx.strokeStyle = INK; ctx.lineWidth = Math.max(0.6, size * 0.012); ctx.strokeRect(cx - w / 2, cy - h / 2, w, h); }
+  const cols = [THEM, US, THEM], tw = w * 0.1, th = h * 0.16;
+  for (let row = 0; row < 3; row++) for (let i = 0; i < 7; i++) {
+    const tx = cx - w / 2 + w * 0.08 + i * w * 0.124, ty = cy - h / 2 + h * 0.14 + row * h * 0.29;
+    ctx.fillStyle = cols[row]; ctx.globalAlpha = (0.5 + 0.4 * r()) * GA; ctx.fillRect(tx, ty, tw, th);
+    if (detail && size > 150) { ctx.globalAlpha = GA; ctx.fillStyle = INK; const pa = Math.floor(r() * 7); for (let p = 0; p < Math.min(pa, 3); p++) ctx.fillRect(tx + tw * 0.2 + p * tw * 0.25, ty + th * 0.4, tw * 0.14, th * 0.2); }
+  }
+  ctx.globalAlpha = GA;
+}
+function miniTable(cx, cy, r, k) { // a tiny imagined world: a felt table with four players
+  KEY = 4000 + k; const t = ellPts(cx, cy, r, r * 0.66, 0.05); fillP(t, FELT, { dx: 0, dy: 0 }); sk(t, { w: Math.max(1.5, r * 0.06), passes: 1 });
+  const c = [US, THEM, US, THEM]; for (let i = 0; i < 4; i++) { const a = PI / 2 + i * PI / 2; dot(cx + Math.cos(a) * r * 1.02, cy + Math.sin(a) * r * 0.7, r * 0.2, c[i]); }
+}
+function thoughtCloud(cx, cy, rx, ry, prog, k = 0) {
+  if (prog <= 0) return; KEY = 800 + k; const p = cloudPts(cx, cy, rx, ry, 16, 0.07);
+  fillP(p, '#fffef6', { dx: 0, dy: 0, alpha: 0.85 * seg(prog, 0.3, 1) }); sk(p, { w: 4.5, prog });
+}
+function spotlightMask(x, y, r, a) {
+  if (a <= 0) return; ctx.save(); ctx.globalAlpha = a * GA; ctx.beginPath(); ctx.rect(-200, -200, W + 400, H + 400); ctx.arc(x, y, r, 0, TAU, true);
+  ctx.fillStyle = 'rgba(40,30,20,.55)'; ctx.fill(); ctx.restore(); ctx.globalAlpha = GA;
+}
+
+// ---------------------------------------------------------------- paper
+let PAPER_C = null, GRAIN_C = null;
+function makePaper() {
+  const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d');
+  g.fillStyle = PAPER; g.fillRect(0, 0, W, H);
+  const r = mulberry(4242);
+  // soft blotches
+  for (let i = 0; i < 26; i++) { const x = r() * W, y = r() * H, rr = 200 + r() * 360; const gr = g.createRadialGradient(x, y, 0, x, y, rr); gr.addColorStop(0, r() > 0.5 ? 'rgba(255,255,235,.10)' : 'rgba(210,180,90,.025)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(x - rr, y - rr, rr * 2, rr * 2); }
+  // fibres
+  g.lineWidth = 1; for (let i = 0; i < 2600; i++) { const x = r() * W, y = r() * H, a = r() * TAU, l = 3 + r() * 10; g.strokeStyle = r() > 0.5 ? 'rgba(150,120,50,.10)' : 'rgba(255,255,255,.22)'; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke(); }
+  // ruled lines and the red margin of a legal pad
+  for (let y = 150; y < H; y += 62) { g.strokeStyle = 'rgba(95,150,205,.42)'; g.lineWidth = 2; g.beginPath(); g.moveTo(0, y + Math.sin(y) * 0.8); g.lineTo(W, y - Math.sin(y) * 0.8); g.stroke(); }
+  g.strokeStyle = 'rgba(214,80,80,.45)'; g.lineWidth = 2; for (const x of [168, 176]) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x + 1, H); g.stroke(); }
+  // grain
+  const id = g.getImageData(0, 0, W, H), d = id.data; for (let i = 0; i < d.length; i += 4) { const n = (r() - 0.5) * 16; d[i] += n; d[i + 1] += n; d[i + 2] += n * 0.8; } g.putImageData(id, 0, 0);
+  // vignette
+  const v = g.createRadialGradient(W / 2, H / 2, H * 0.45, W / 2, H / 2, H * 1.05); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(120,90,30,.13)'); g.fillStyle = v; g.fillRect(0, 0, W, H);
+  PAPER_C = c;
+  const gc = document.createElement('canvas'); gc.width = 256; gc.height = 256; const gg = gc.getContext('2d'); const gd = gg.createImageData(256, 256);
+  for (let i = 0; i < gd.data.length; i += 4) { const n = 225 + r() * 30; gd.data[i] = n; gd.data[i + 1] = n; gd.data[i + 2] = n - 6; gd.data[i + 3] = 255; } gg.putImageData(gd, 0, 0); GRAIN_C = gc;
+}
+
+// ---------------------------------------------------------------- the film
+// Seats: 0 Righty, 1 Walt, 2 Lefty, 3 Partner (Walt and Partner are a team).
+const WALT_HAND = [[5, 5], [5, 0], [5, 1], [6, 4], [4, 4], [6, 6], [3, 2]];
+const HANDS = { // the imagined world in scene 4 (the other hands of one sampled deal)
+  partner: [[6, 5], [5, 3], [2, 2], [6, 1], [4, 1], [3, 0], [1, 1]],
+  lefty: [[6, 2], [5, 4], [4, 3], [2, 1], [0, 0], [6, 0], [3, 3]],
+  righty: [[5, 2], [6, 3], [4, 2], [3, 1], [2, 0], [1, 0], [4, 0]],
+};
+const TRANS = [7.45, 15.95, 24.4, 38.45, 49.8]; // page flips between scenes
+
+function scene1(t) {
+  const wx = 470, wy = 650;
+  const hop = t > 0.9 && t < 1.5 ? Math.sin(seg(t, 0.9, 1.5) * PI) * 16 : 0;
+  const wave = t > 1.45 && t < 3.3 ? 1.9 + Math.sin((t - 1.45) * 10) * 0.35 : 0.25;
+  const holding = seg(t, 4.2, 4.6);
+  const mood = t > 6.2 ? 'worry' : 'happy';
+  walt(wx, wy - hop, { s: 1.25, prog: seg(t, 0.12, 1.25), hat: seg(t, 0.95, 1.35), armL: wave, bendL: t > 1.45 && t < 3.3 ? 0.5 : 0.2, armR: lerp(0.25, 1.35, eo(holding)), bendR: lerp(0.2, 0.3, holding), mood, look: t > 6.3 ? 1 : 0, blink: t > 3.9 && t < 4.0, sy: 1 + (hop ? 0.03 : 0) });
+  if (t > 1.6) { txt('Walt', 205, 330, 92, { color: RED, prog: seg(t, 1.6, 2.0), rot: -0.1 }); arrow(250, 385, 340, 470, { prog: seg(t, 1.9, 2.25), color: RED, w: 6 }); }
+  if (t > 2.65) { const s = popS(t, 2.65, 0.45); txt('42', 790, 250, 230 * s, { color: RED, rot: -0.05 }); scribbleCircle(790, 262, 175, 118, seg(t, 3.05, 3.55)); }
+  // Walt's seven dominoes, fanned in his hand
+  for (let i = 0; i < 7; i++) {
+    const t0 = 4.5 + i * 0.17; if (t < t0) continue;
+    const a = (i - 3) * 0.2, R = 190, px = 820 + Math.sin(a) * R, py = 800 - Math.cos(a) * R;
+    domino(px, py - 10 * (1 - eo(seg(t, t0, t0 + 0.3))), WALT_HAND[i][0], WALT_HAND[i][1], { w: 60, rot: a, s: popS(t, t0, 0.32), k: i });
+  }
+  if (t > 5.9) { txt('mine!', 820, 490, 56, { color: BLUE, font: FC, weight: 700, prog: seg(t, 5.9, 6.3), rot: -0.04 }); }
+  // everybody else: face-down and a question mark
+  const seats = [['lefty', 1230, 560, 6.25], ['partner', 1500, 380, 6.4], ['righty', 1770, 560, 6.55]];
+  for (const [kind, x, y, t0] of seats) {
+    if (t < t0) continue; const s = popS(t, t0, 0.4);
+    person(x, y, { kind, s: 0.85 * s, look: kind === 'lefty' ? -1 : 0, blink: Math.floor(t * 3 + x) % 11 === 0 });
+    for (let i = 0; i < 7; i++) domino(x - 105 + i * 35, y + 205, 0, 0, { w: 28, down: true, s, k: i + x });
+    txt('?', x + 88, y - 100, 110 * popS(t, t0 + 0.15, 0.4), { color: RED, rot: 0.15 });
+  }
+}
+
+function scene2(t) {
+  // A: the other 21 dominoes shuffle, and every possible deal fills the page
+  if (t < 8.75) {
+    const u = seg(t, 7.45, 8.75), sw = eio(u);
+    for (let i = 0; i < 21; i++) {
+      const a = (i / 21) * TAU + sw * 7, rad = lerp(330, 20, ei(u)) * (0.7 + 0.3 * Math.sin(i * 1.7));
+      const row = Math.floor(i / 7), col = i % 7, sx = 690 + col * 90, sy = 380 + row * 170;
+      const x = lerp(sx, 960 + Math.cos(a) * rad, eio(seg(t, 7.5, 8.0))), y = lerp(sy, 580 + Math.sin(a) * rad * 0.7, eio(seg(t, 7.5, 8.0)));
+      domino(x, y, 0, 0, { w: 44, down: true, rot: a * 0.7 + sw * 3, s: 1 - ei(seg(t, 8.45, 8.75)), k: i });
+    }
+  }
+  const zoomU = eio(seg(t, 9.0, 11.6)), z = Math.exp(lerp(0, Math.log(1 / 22), zoomU));
+  const dim = 1 - 0.8 * eo(seg(t, 11.9, 12.5));
+  if (t > 8.6) {
+    const P = 330 * z, cx = 960, cy = 610, size = 270 * z * popS(t, 8.6, 0.4);
+    const nx = Math.ceil(W / 2 / P) + 1, ny = Math.ceil(H / 2 / P) + 1;
+    GA = dim;
+    for (let j = -ny; j <= ny; j++) for (let i = -nx; i <= nx; i++) {
+      const ring = Math.max(Math.abs(i), Math.abs(j)), ta = 8.6 + 0.42 * Math.log2(1 + ring);
+      if (t < ta) continue;
+      const s = ring ? back(seg(t, ta, ta + 0.3)) : 1, x = cx + i * P, y = cy + j * P;
+      if (x < -P || x > W + P || y < -P || y > H + P) continue;
+      const k = (i * 7349 + j * 131) >>> 0;
+      if (i === 0 && j === 0) { dealCard(x, y, size, 1, size > 60); continue; }
+      if (P * s > 22) dealCard(x, y, 270 * z * s, k, P > 150);
+      else { ctx.fillStyle = (i + j) & 1 ? '#e9d9a6' : '#fffdf3'; ctx.globalAlpha = GA; ctx.fillRect(x - P * 0.41 * s, y - P * 0.26 * s, P * 0.82 * s, P * 0.52 * s); }
+    }
+    GA = 1;
+  }
+  // B: every deal branches into billions of ways to play it out
+  if (t > 12.0) {
+    const s = popS(t, 12.05, 0.45); ctx.save(); ctx.translate(250, 600); ctx.scale(s, s); dealCard(0, 0, 250, 1, true); scribbleCircle(0, 0, 160, 110, seg(t, 12.2, 12.6)); ctx.restore();
+    const depth = 5, B = 3, x0 = 400, dx = 280, yT = 170, yB = 960;
+    const lvl = d => { const out = []; const n = Math.pow(B, d), span = (yB - yT) / n; for (let i = 0; i < n; i++) out.push(yT + span * (i + 0.5)); return out; };
+    for (let d = 0; d < depth; d++) {
+      const prog = seg(t, 12.35 + d * 0.46, 12.35 + (d + 1) * 0.46); if (prog <= 0) continue;
+      const Y0 = d ? lvl(d) : [600], Y1 = lvl(d + 1), xa = x0 + d * dx, xb = x0 + (d + 1) * dx, w = Math.max(0.8, 5 - d * 0.8);
+      if (d < 3) { for (let i = 0; i < Y1.length; i++) { KEY = d * 100 + i; const p = Math.floor(i / B); sk(curvePts(xa, Y0[p], (xa + xb) / 2, Y1[i], xb, Y1[i]), { w, color: BLUE, prog, passes: 1, amp: 1.5 }); } }
+      else { ctx.strokeStyle = BLUE; ctx.lineWidth = w; ctx.globalAlpha = d > 3 ? 0.5 : 0.75; ctx.beginPath();
+        for (let i = 0; i < Y1.length; i++) { const p = Math.floor(i / B), ex = lerp(xa, xb, prog), ey = lerp(Y0[p], Y1[i], prog); ctx.moveTo(xa, Y0[p]); ctx.quadraticCurveTo((xa + ex) / 2, ey, ex, ey); }
+        ctx.stroke(); ctx.globalAlpha = 1; }
+    }
+    if (t > 14.35) { const s2 = popS(t, 14.35, 0.45); note(1600, 330, 470, 130, 0.05, '#ffe3ec'); txt('× billions', 1600, 330, 96 * s2, { color: RED, rot: 0.05 }); }
+  }
+  // the counter, taped to the page
+  if (t > 8.7) {
+    const mv = eio(seg(t, 11.95, 12.55)), s = popS(t, 8.7, 0.4) * lerp(1, 0.62, mv), x = lerp(960, 1540, mv), y = lerp(160, 118, mv);
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    note(0, 0, 880, 200, -0.02);
+    const u = seg(t, 8.75, 11.25), v = 1 - Math.pow(1 - u, 2.6), n = Math.round(399072960 * v);
+    txt(n.toLocaleString('en-US'), 0, -8, 140, { color: RED, still: true, rot: -0.02 });
+    txt('ways to deal the other 21', 0, 74, 44, { font: FC, weight: 700, color: BLUE, prog: seg(t, 10.9, 11.5), still: true });
+    ctx.restore();
+  }
+}
+
+function scene3(t) {
+  // Walt tries to write every game down; hard drives pile up to the sky
+  const z = lerp(1, 0.4, eio(seg(t, 17.5, 19.3))) + (1 - 0.4) * eio(seg(t, 20.7, 21.5));
+  const topple = t > 20.55, tt = t - 20.55;
+  const shake = topple ? Math.exp(-tt * 5) * 16 * Math.sin(tt * 70) : 0;
+  ctx.save(); ctx.translate(960 + shake, 1010); ctx.scale(z, z); ctx.translate(-960, -1010);
+  // ground line
+  KEY = 5; sk(linePts(-600, 1010, 2500, 1010), { w: 4, alpha: 0.6 });
+  const stacks = [900, 1110, 1320, 1530, 1740], per = 26;
+  for (let si = 0; si < stacks.length; si++) {
+    const start = 16.45 + si * 0.28, n = Math.min(per, Math.floor(Math.pow(Math.max(0, t - start), 1.6) * 11));
+    const wob = t > 19.8 && !topple ? Math.sin((t - 19.8) * 18 + si) * 0.03 * seg(t, 19.8, 20.5) : 0;
+    const r = mulberry(si * 77 + 3);
+    for (let k = 0; k < n; k++) {
+      let x = stacks[si] + (r() - 0.5) * 16, y = 1010 - 40 - k * 80, rot = (r() - 0.5) * 0.08;
+      const hx = stacks[si], hy = 1010; // wobble pivots at the base
+      const px = hx + (x - hx) * Math.cos(wob * (k / 8)) - (y - hy) * Math.sin(wob * (k / 8));
+      const py = hy + (x - hx) * Math.sin(wob * (k / 8)) + (y - hy) * Math.cos(wob * (k / 8));
+      x = px; y = py;
+      const land = start + Math.pow(k / 11, 1 / 1.6), drop = 1 - eo(seg(t, land - 0.12, land));
+      y -= drop * 300;
+      if (topple) { const vx = (r() - 0.5) * 900 + (si - 2) * 200, vy = -r() * 500; x += vx * tt; y += vy * tt + 0.5 * 9000 * tt * tt * (0.5 + k / per); rot += (r() - 0.5) * 9 * tt; }
+      else r(), r(), r();
+      if (y < 2600) hdd(x, y, rot, si * 40 + k);
+    }
+  }
+  // Walt, scribbling like mad
+  const writing = t < 19.0, scribble = writing ? Math.sin(t * 38) * 0.25 : 0;
+  const wx = lerp(330, 560, eio(seg(t, 21.4, 22.3))), hop = t > 21.4 && t < 22.3 ? Math.abs(Math.sin(seg(t, 21.4, 22.3) * PI * 2)) * 30 : 0;
+  const mood = t > 18.8 && t < 21.2 ? 'shock' : 'happy';
+  walt(wx, 770 - hop, { s: 1, armR: writing ? 1.1 + scribble : t > 22.5 ? lerp(0.3, 1.9, eo(seg(t, 22.5, 22.9))) : 0.3, bendR: writing ? 1.0 : 0.2, armL: writing ? 0.9 : 0.25, bendL: 0.9, mood, sweat: t > 19.0 && t < 21.2, look: t > 18.8 && t < 20.6 ? 1 : 0, step: hop ? Math.sin(t * 20) : 0 });
+  if (writing) { ctx.save(); ctx.translate(wx + 100, 815); ctx.rotate(-0.2); KEY = 61; const pad = rrPts(-40, -52, 80, 104, 6); fillP(pad, '#fffdf3'); sk(pad, { w: 3 }); for (let i = 0; i < 5; i++) sk(linePts(-28, -34 + i * 17, -28 + 56 * seg(t, 16.3 + i * 0.3, 16.6 + i * 0.3), -34 + i * 17), { w: 2.5, color: BLUE, k: i, passes: 1 }); ctx.restore(); }
+  // flying pages
+  for (let i = 0; i < 16; i++) {
+    const t0 = 16.35 + i * 0.16, u = seg(t, t0, t0 + 1.1); if (u <= 0 || u >= 1) continue;
+    const x = lerp(400, 900 + (i % 5) * 200, u), y = 700 - Math.sin(u * PI) * 380 - u * 200;
+    ctx.save(); ctx.translate(x, y); ctx.rotate(u * 6 + i); KEY = 1000 + i; const pg = rrPts(-26, -34, 52, 68, 3); fillP(pg, '#fffdf3', { dx: 0, dy: 0 }); sk(pg, { w: 2.5, passes: 1 }); ctx.restore();
+  }
+  ctx.restore();
+  // screen-space labels
+  if (t > 17.85 && t < 20.7) {
+    const s = popS(t, 17.85, 0.4), out = seg(t, 20.45, 20.7);
+    ctx.save(); ctx.translate(430, 230 - out * 400); ctx.rotate(-0.04); ctx.scale(s, s);
+    note(0, 0, 640, 150, 0, '#ffd6e2'); txt('10,000,000 hard drives', 0, 0, 70, { color: RED, still: true });
+    ctx.restore();
+    if (t > 19.15) txt('...for ONE move!', 480, 370 - out * 400, 76, { color: INK, prog: seg(t, 19.15, 19.7), rot: -0.05, halo: 10 });
+  }
+  // a handful instead: the jar of every deal, and Walt's pick
+  if (t > 21.5) {
+    const s = popS(t, 21.5, 0.45) * 0.88; ctx.save(); ctx.translate(1300, 560); ctx.scale(s, s); KEY = 71;
+    const jar = rrPts(-230, -250, 460, 520, 70); ctx.save(); pathOf(jar); ctx.clip();
+    const r = mulberry(99); for (let i = 0; i < 230; i++) { const x = -210 + r() * 420, y = -150 + r() * 400; ctx.save(); ctx.translate(x, y); ctx.rotate(r() * 6); dealCard(0, 0, 70, i, false); ctx.restore(); }
+    ctx.restore(); fillP(jar, 'rgba(190,225,240,.28)', { dx: 0, dy: 0 }); sk(jar, { w: 6 });
+    const lid = rrPts(-190, -300, 380, 60, 14); fillP(lid, '#c0392b'); sk(lid, { w: 5, k: 2 });
+    sk(curvePts(-150, -200, -170, -40, -150, 130), { w: 10, color: '#ffffff', alpha: 0.55, passes: 1, k: 3 });
+    note(0, 330, 470, 90, 0.02, '#fffdf3', false); txt('every possible deal', 0, 330, 50, { font: FC, weight: 700, color: BLUE, still: true });
+    ctx.restore();
+  }
+  if (t > 22.75) {
+    for (let i = 0; i < 5; i++) {
+      const t0 = 22.75 + i * 0.1, u = eo(seg(t, t0, t0 + 0.5)); if (u <= 0) continue;
+      const x = lerp(1300, 560 + (i - 2) * 95, u), y = lerp(330, 330 - Math.abs(i - 2) * 12, u) - Math.sin(u * PI) * 160;
+      ctx.save(); ctx.translate(x, y); ctx.rotate((i - 2) * 0.16 * u + (1 - u) * 3); dealCard(0, 0, 120, 50 + i, true); ctx.restore();
+    }
+    if (t > 23.35) { txt('just 40', 870, 200, 88 * popS(t, 23.35, 0.4), { color: RED, rot: 0.08 }); scribbleCircle(870, 205, 150, 70, seg(t, 23.55, 23.95)); }
+  }
+}
+
+// seat geometry for the imagined table
+const SEAT = { partner: [960, 250], lefty: [510, 560], righty: [1410, 560], walt: [960, 905] };
+function handSlots(who) {
+  const o = [], n = 7;
+  for (let i = 0; i < n; i++) {
+    if (who === 'partner') o.push([960 - 96 + i * 32, 395, 0]);
+    if (who === 'walt') o.push([960 - 96 + i * 32, 745, 0]);
+    if (who === 'lefty') o.push([655, 560 - 96 + i * 32, PI / 2]);
+    if (who === 'righty') o.push([1265, 560 - 96 + i * 32, PI / 2]);
+  }
+  return o;
+}
+function scene4(t) {
+  // camera: zoom in on Lefty's book, pan to Righty's, pull back out
+  let cx = 960, cy = 540, z = 1;
+  const inL = eio(seg(t, 29.8, 30.45)), toR = eio(seg(t, 31.85, 32.4)), outU = eio(seg(t, 35.05, 35.55));
+  if (t > 29.8) { cx = lerp(960, 600, inL); cy = lerp(540, 470, inL); z = lerp(1, 1.85, inL); }
+  if (t > 31.85) { cx = lerp(600, 1320, toR); }
+  if (t > 35.05) { cx = lerp(1320, 960, outU); cy = lerp(470, 540, outU); z = lerp(1.85, 1, outU); }
+  // imagining Walt, bottom left, outside the camera move
+  ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-cx, -cy);
+  thoughtCloud(960, 560, 820, 440, seg(t, 24.5, 25.3));
+  if (t > 25.0) txt('one imagined deal', 330, 170, 52, { font: FC, weight: 700, color: BLUE, prog: seg(t, 25.0, 25.5), rot: -0.06 });
+  const tbl = ellPts(960, 575, 330, 190, 0.05, 1); KEY = 12;
+  if (t > 24.8) { GA = seg(t, 24.8, 25.2); fillP(tbl, FELT); hatch(tbl, '#3d7a37', 16, -0.7, 2, 0.35); sk(tbl, { w: 5 }); GA = 1; }
+  const who = ['partner', 'lefty', 'righty'];
+  const spot = t > 36.3 && t < 38.45 ? ['lefty', 'partner', 'righty', 'walt'][Math.min(3, Math.floor((t - 36.3) / 0.52))] : null;
+  // players
+  for (let i = 0; i < 3; i++) {
+    const k = who[i], [x, y] = SEAT[k], s = popS(t, 25.2 + i * 0.12, 0.4);
+    const peeking = k === 'lefty' && t > 35.35 && t < 35.9;
+    person(x, y - 40, { kind: k, s: 0.62 * s, look: peeking ? 1 : 0, lookY: peeking ? 1 : 0, mood: peeking ? 'sly' : undefined, blink: Math.floor(t * 2.7 + i * 3) % 9 === 0 });
+  }
+  walt(SEAT.walt[0], SEAT.walt[1] + 40, { s: 0.52 * popS(t, 25.55, 0.4), noLegs: true, armL: 0.3, armR: 0.3 });
+  // hands, with the first trick played out and the two book lookups
+  const played = { partner: [], lefty: [], righty: [], walt: [] };
+  const trick1 = [['walt', 0, 26.45], ['lefty', 1, 26.75], ['partner', 0, 27.05], ['righty', 0, 27.35]]; // (seat, tile index, time)
+  const centre = { walt: [960, 640], lefty: [880, 575], partner: [960, 510], righty: [1040, 575] };
+  const hands = { walt: WALT_HAND, ...HANDS };
+  for (const k of ['partner', 'lefty', 'righty', 'walt']) {
+    const slots = handSlots(k), s = popS(t, 25.4 + (k === 'walt' ? 0.4 : who.indexOf(k) * 0.12), 0.4);
+    hands[k].forEach(([a, b], i) => {
+      let [x, y, rot] = slots[i], sc = s, hl = 0;
+      const tr = trick1.find(e => e[0] === k && e[1] === i);
+      if (tr && t > tr[2]) { const u = eio(seg(t, tr[2], tr[2] + 0.28)); x = lerp(x, centre[k][0], u); y = lerp(y, centre[k][1], u); rot = lerp(rot, 0, u); if (t > 27.85) { const v = eio(seg(t, 27.85, 28.2)); x = lerp(x, 960, v); y = lerp(y, 905, v); sc *= 1 - v; } }
+      // Lefty plays the 5-4 from the book; Righty rolls a die and plays the 6-3
+      if (k === 'lefty' && i === 1 && t > 31.3) { if (t > 27.85) return; }
+      if (k === 'lefty' && i === 0 && t > 30.75) { hl = seg(t, 30.75, 31.1); if (t > 31.35) { const u = eio(seg(t, 31.35, 31.7)); x = lerp(x, 880, u); y = lerp(y, 575, u); rot = lerp(rot, 0, u); } }
+      if (k === 'righty' && i === 3 && t > 33.95) { hl = seg(t, 33.95, 34.3); if (t > 35.0) { const u = eio(seg(t, 35.0, 35.3)); x = lerp(x, 1040, u); y = lerp(y, 575, u); rot = lerp(rot, 0, u); } }
+      if (tr && t > 28.2) return;
+      const faceUp = !spot || spot === k;
+      const flip = t > 36.3 && t < 36.7 ? Math.abs(Math.cos(seg(t, 36.3, 36.7) * PI)) : 1;
+      domino(x, y, a, b, { w: 28, rot, s: sc, down: !faceUp || (t > 36.3 && t < 36.5), flip: t > 36.3 && t < 36.7 ? Math.max(0.05, flip) : 1, hl, k: i * 10 + k.length });
+    });
+  }
+  // the little handbooks
+  const books = { partner: [1110, 250, '#c0392b'], lefty: [505, 395, '#2e86de'], righty: [1415, 395, '#27ae60'], walt: [1115, 905, '#8e44ad'] };
+  let bi = 0;
+  for (const k of ['partner', 'lefty', 'righty', 'walt']) { const [x, y, c] = books[k]; notebook(x, y, 0.95 * popS(t, 28.2 + bi * 0.18, 0.4), c, { k: bi, rot: 0.1 - bi * 0.07 }); bi++; }
+  // Lefty: been here before? do what the book says
+  if (t > 30.35 && t < 31.95) {
+    const s = popS(t, 30.35, 0.35) * (1 - seg(t, 31.75, 31.95));
+    openBook(560, 330, 300, [
+      { row: 0, text: 'led 5-5? ...  2-1', color: BLUE },
+      { row: 1, text: 'this spot: 6-2', color: BLUE, hl: seg(t, 30.8, 31.1) },
+      { row: 0, page: 1, text: '...', color: BLUE },
+    ], { s, title: "Lefty's book", titleColor: '#2e86de' });
+    if (t > 30.95) checkMark(705, 290, 0.8, seg(t, 30.95, 31.2));
+  }
+  // Righty: never seen it? roll a die, and scribble it down
+  if (t > 32.4 && t < 35.2) {
+    const s = popS(t, 32.4, 0.35) * (1 - seg(t, 35.0, 35.2));
+    openBook(1320, 330, 300, [
+      { row: 0, text: 'this spot: ???', color: RED, prog: t > 34.15 ? 0 : 1 },
+      { row: 0, text: 'this spot: 3-1', color: BLUE, prog: seg(t, 34.2, 34.95) },
+    ], { s, title: "Righty's book", titleColor: '#27ae60' });
+    if (t < 33.3) txt('?', 1430, 250, 90 * popS(t, 32.5, 0.4), { color: RED, rot: 0.1 });
+    // pencil
+    if (t > 34.15 && t < 35.0) { const u = seg(t, 34.2, 34.95), px = 1200 + u * 130, py = 322 + Math.sin(t * 50) * 4; ctx.save(); ctx.translate(px + 40, py - 50); ctx.rotate(0.6); KEY = 88; const pc = rrPts(-8, -60, 16, 110, 3); fillP(pc, GOLD, { dx: 0, dy: 0 }); sk(pc, { w: 2.5 }); const tip = polyPts([[-8, 50], [0, 68], [8, 50]], true); fillP(tip, '#e8c9a0', { dx: 0, dy: 0 }); sk(tip, { w: 2.5, k: 1 }); ctx.restore(); }
+  }
+  // the die tumbles onto the table
+  if (t > 33.2 && t < 35.0) {
+    const hits = [33.2, 33.55, 33.75, 33.88, 33.95], u = t;
+    let y = 600, x = lerp(1540, 1150, eo(seg(t, 33.2, 33.95)));
+    for (let i = 0; i < hits.length - 1; i++) if (u >= hits[i] && u < hits[i + 1]) { const v = seg(u, hits[i], hits[i + 1]); y = 600 - Math.sin(v * PI) * (160 / Math.pow(2.2, i)); }
+    if (u < 33.2) y = 200;
+    const face = t < 33.95 ? 1 + (Math.floor(t * 14) % 6) : 3, rot = t < 33.95 ? t * 9 : 0.12;
+    die(x, y, face, { size: 64, rot, s: 1 - seg(t, 34.8, 35.0) });
+    if (t > 33.95) txt('3!', x - 10, y - 75, 60 * popS(t, 33.95, 0.35), { color: RED });
+  }
+  ctx.restore();
+  // no peeking!
+  if (t > 35.5 && t < 36.35) {
+    const u = seg(t, 35.5, 35.65), s = lerp(2.4, 1, eo(u)), a = u * (1 - seg(t, 36.15, 36.35));
+    ctx.save(); ctx.translate(960, 520); ctx.rotate(-0.12); ctx.scale(s, s); GA = a; KEY = 17;
+    const r = rrPts(-380, -90, 760, 180, 20); sk(r, { w: 10, color: RED }); txt('NO PEEKING!', 0, 6, 128, { color: RED, still: true });
+    GA = 1; ctx.restore();
+  }
+  // each seat sees only its own hand
+  if (spot) {
+    const [x, y] = { lefty: [600, 560], partner: [960, 330], righty: [1320, 560], walt: [960, 800] }[spot];
+    spotlightMask(x, y, 220, seg(t, 36.3, 36.5) * (1 - seg(t, 38.2, 38.45)));
+  }
+}
+
+const RESULTS = (() => { const r = mulberry(40); const a = []; for (let i = 0; i < 40; i++) a.push(r() < 0.62); return a; })();
+function scene5(t) {
+  const fadeA = 1 - seg(t, 44.55, 44.95);
+  // the deck of imagined worlds flips by
+  if (fadeA > 0) {
+    GA = fadeA;
+    const k = Math.min(40, 1 + Math.floor(39 * seg(t, 38.75, 41.35)));
+    for (let i = 3; i >= 1; i--) { ctx.save(); ctx.translate(440 + i * 10, 440 + i * 12); ctx.rotate(-0.04 + i * 0.03); thoughtCloud(0, 0, 250, 170, 1, i); ctx.restore(); }
+    ctx.save(); ctx.translate(440, 440); ctx.rotate(-0.04 + (k % 2) * 0.03); thoughtCloud(0, 0, 250, 170, seg(t, 38.5, 38.9), 0);
+    if (t > 38.75) { miniTable(0, 10, 110, k); txt('world #' + k, 0, -120, 46, { font: FC, weight: 700, color: BLUE, still: true }); if (t > 38.9) (RESULTS[k - 1] ? checkMark : crossMark)(150, 70, 0.9, 1); }
+    ctx.restore();
+    // the score pad: made it vs set
+    ctx.save(); ctx.translate(1290, 520); ctx.rotate(0.02); KEY = 21;
+    note(0, 0, 720, 700, 0, '#fffdf3', true);
+    txt('made it', -180, -270, 64, { color: GREEN, still: true }); txt('set', 180, -270, 64, { color: RED, still: true });
+    sk(linePts(0, -310, 0, 320), { w: 4, k: 1 }); sk(linePts(-340, -225, 340, -225), { w: 4, k: 2 });
+    let made = 0, set = 0; for (let i = 0; i < k && t > 38.9; i++) RESULTS[i] ? made++ : set++;
+    tally(-330, -200, made, { color: GREEN, per: 4, gw: 80, gh: 90, h: 64 }); tally(30, -200, set, { color: RED, per: 4, gw: 80, gh: 90, h: 64 });
+    if (t > 42.3) scribbleCircle(-175, -120, 200, 125, seg(t, 42.3, 42.9), BLUE, 5);
+    ctx.restore();
+    GA = 1;
+  }
+  // Walt with a magnifying glass, then levelling up
+  const up = t > 43.55 && t < 44.2 ? Math.sin(seg(t, 43.55, 44.2) * PI) * 70 : 0;
+  const wx = lerp(250, 300, 0), wy = 790 - up;
+  if (t > 43.5) { for (let i = 0; i < 12; i++) { const a = (i / 12) * TAU + t * 0.6, r1 = 150, r2 = 150 + 60 * popS(t, 43.55, 0.5); GA = 1 - seg(t, 45.0, 45.4); KEY = 60 + i; sk(linePts(wx + Math.cos(a) * r1, wy - 40 + Math.sin(a) * r1, wx + Math.cos(a) * r2, wy - 40 + Math.sin(a) * r2), { w: 6, color: GOLD, passes: 1 }); GA = 1; } }
+  const walts = walt(wx, wy, { s: 0.85 * (1 - seg(t, 44.6, 44.95)), armR: t > 41.6 && t < 43.5 ? 1.7 : 0.3, bendR: 0.6, armL: up ? 2.4 : 0.25, bendL: 0.3, badge: t > 43.6 ? popS(t, 43.6, 0.45) : 0, look: 1, mood: 'happy' });
+  if (t > 41.6 && t < 43.5 && walts) {
+    const [hx, hy] = walts.hr; KEY = 90; const g = ellPts(hx + 40, hy - 50, 44, 44, 0.05); fillP(g, 'rgba(180,220,255,.35)', { dx: 0, dy: 0 }); sk(g, { w: 6 }); sk(linePts(hx + 10, hy - 18, hx - 6, hy + 4), { w: 9, k: 1 });
+    txt('?', hx + 42, hy - 52, 64 * popS(t, 41.8, 0.35), { color: RED });
+  }
+  if (t > 43.6 && t < 45.0) txt('LEVEL UP!', 560, 690, 76 * popS(t, 43.65, 0.4), { color: GOLD, halo: 10, haloColor: INK, rot: -0.08, alpha: 1 - seg(t, 44.6, 45.0) });
+  // dice aren't very smart
+  if (t > 44.85 && t < 47.0) {
+    const s = popS(t, 44.9, 0.45) * (1 - eo(seg(t, 46.5, 46.85))), wob = Math.sin(t * 7) * 0.12;
+    die(960, 470, 0, { size: 300, derp: true, s, rot: wob });
+    if (t > 45.2) txt('duh...', 1230, 290, 70 * popS(t, 45.2, 0.35) * (1 - seg(t, 46.5, 46.85)), { font: FC, weight: 700, color: BLUE, rot: 0.1 });
+    if (t > 45.85) { ctx.save(); ctx.translate(960, 470); ctx.scale(1 - eo(seg(t, 46.5, 46.85)), 1 - eo(seg(t, 46.5, 46.85))); crossMark(0, 0, 6.5, seg(t, 45.85, 46.3)); ctx.restore(); }
+  }
+  // everyone thinks instead: dice become light bulbs
+  if (t > 46.75) {
+    const kinds = ['lefty', 'partner', 'righty', 'walt'], xs = [420, 780, 1140, 1500];
+    for (let i = 0; i < 4; i++) {
+      const s = popS(t, 46.8 + i * 0.1, 0.4), x = xs[i], y = 640;
+      if (kinds[i] === 'walt') walt(x, y + 60, { s: 0.62 * s, noLegs: true, look: 0 }); else person(x, y, { kind: kinds[i], s: 0.85 * s });
+      const flip = seg(t, 47.35 + i * 0.2, 47.6 + i * 0.2);
+      if (flip < 0.5) die(x, y - 190, 1 + ((i * 2 + Math.floor(t * 8)) % 6), { size: 70, s: s * (1 - flip * 2), rot: Math.sin(t * 5 + i) * 0.2 });
+      else bulb(x, y - 190, 0.95 * back((flip - 0.5) * 2), seg(t, 47.6 + i * 0.2, 47.9 + i * 0.2));
+      if (t > 48.3 + i * 0.12) { domino(x + 115, y + 60, [6, 6, 5, 5][i], [5, 3, 4, 0][i], { w: 44, s: popS(t, 48.3 + i * 0.12, 0.35), rot: 0.15 }); checkMark(x + 150, y - 10, 0.55, seg(t, 48.45 + i * 0.12, 48.7 + i * 0.12)); }
+    }
+    txt('pick the best play', 960, 250, 84, { color: BLUE, prog: seg(t, 47.2, 47.9), rot: -0.03 });
+  }
+}
+
+function scene6(t) {
+  const gone = eio(seg(t, 54.85, 55.3));
+  // forty little worlds swirl in and merge into one good move
+  if (t < 52.2) {
+    for (let i = 0; i < 40; i++) {
+      const r = mulberry(i * 31 + 7), a0 = r() * TAU, d0 = 900 + r() * 400, t0 = 49.9 + r() * 0.8;
+      const u = eo(seg(t, t0, t0 + 1.3)), sw = eio(seg(t, 51.35, 52.0));
+      const ang = a0 + u * 2.2 + sw * 4, dist = lerp(d0, 230 + r() * 150, u) * (1 - sw);
+      const x = 960 + Math.cos(ang) * dist, y = 470 + Math.sin(ang) * dist * 0.62, s = (0.5 + r() * 0.5) * (1 - sw * 0.7);
+      if (u <= 0) continue;
+      ctx.save(); ctx.translate(x, y); ctx.scale(s, s); thoughtCloud(0, 0, 78, 56, 1, i); miniTable(0, 4, 36, i); ctx.restore();
+    }
+  }
+  if (t > 51.9 && t < 53.5) {
+    const s = popS(t, 51.9, 0.5), sh = 1 - eio(seg(t, 53.0, 53.5));
+    for (let i = 0; i < 10; i++) { const a = (i / 10) * TAU + t * 0.8, rr = 200 + Math.sin(t * 3 + i) * 20; sparkle(960 + Math.cos(a) * rr, 470 + Math.sin(a) * rr * 0.8, 18 * s * sh, sh); }
+    domino(960, lerp(470, 520, 1 - sh), 5, 0, { w: lerp(56, 120, sh), s: s, glow: sh, k: 3 });
+    if (sh > 0.5) checkMark(1110, 430, 1.2 * sh, seg(t, 52.2, 52.5));
+  }
+  // the phone rises, Walt waves from inside, and it all fits in a pocket
+  if (t > 52.85 && gone < 1) {
+    const rise = eo(seg(t, 52.85, 53.45)), sink = eio(seg(t, 54.2, 54.8));
+    const py = lerp(1350, 560, rise) + sink * 330 + gone * 700;
+    ctx.save(); ctx.translate(960, py); KEY = 51;
+    const ph = rrPts(-150, -280, 300, 560, 40); fillP(ph, '#343947'); sk(ph, { w: 6 });
+    const sc = rrPts(-128, -238, 256, 470, 16); fillP(sc, '#fff7d6', { dx: 0, dy: 0 }); sk(sc, { w: 3, k: 1 });
+    dot(0, -258, 6, '#8892a6');
+    if (t > 53.35) { walt(-40, -20, { s: 0.55 * popS(t, 53.35, 0.4), armL: 1.9 + Math.sin(t * 10) * 0.35, bendL: 0.5 }); domino(80, 60, 5, 0, { w: 40, rot: 0.2, s: popS(t, 53.45, 0.4) }); txt('walt', 0, 190, 40, { font: FC, weight: 700, color: BLUE, still: true }); }
+    ctx.restore();
+    if (t > 53.9) {
+      const pr = eo(seg(t, 53.9, 54.4)), yy = lerp(1300, 860, pr) + gone * 700; KEY = 52;
+      const pk = polyPts([[-330, -60], [330, -60], [300, 260], [-300, 260]], true); ctx.save(); ctx.translate(960, yy); fillP(pk, DENIM); hatch(pk, '#35568a', 10, 0.9, 2, 0.45);
+      sk(pk, { w: 6 }); sk(curvePts(-320, -40, 0, 40, 320, -40), { w: 3, color: GOLD, alpha: 0.9, k: 3 }); const st = curvePts(-300, -30, 0, 55, 300, -30);
+      ctx.setLineDash([14, 12]); sk(st, { w: 3, color: GOLD, passes: 1, k: 4 }); ctx.setLineDash([]); ctx.restore();
+    }
+  }
+  // the title card
+  if (t > 55.1) {
+    const hop = t > 55.9 && t < 56.5 ? Math.sin(seg(t, 55.9, 56.5) * PI) * 40 : 0, tip = t > 56.3 && t < 57.3 ? Math.sin(seg(t, 56.3, 57.3) * PI) : 0;
+    walt(420, 690 - hop, { s: 1.05 * popS(t, 55.75, 0.45), armR: 0.3 + tip * 2.6, bendR: tip * 0.6, hatLift: tip * 34, hatTilt: -0.06 - tip * 0.3, armL: 0.25, look: 1 });
+    txt('How Walt sees', 1080, 330, 124, { prog: seg(t, 55.2, 56.0), rot: -0.03 });
+    const s = popS(t, 56.0, 0.5); txt('42', 1080, 560, 300 * s, { color: RED, rot: -0.04 });
+    scribbleCircle(1080, 575, 230, 150, seg(t, 56.35, 56.9));
+    if (t > 57.4) txt('a Texas 42 player that plays out a handful of guesses', 1080, 800, 44, { font: FC, weight: 700, color: BLUE, prog: seg(t, 57.4, 58.4), still: true });
+    if (t > 57.9) for (let i = 0; i < 8; i++) { const a = (i < 4 ? 0 : PI) + (i % 4 - 1.5) * 0.35, u = eo(seg(t, 57.9, 58.6)); sparkle(1080 + Math.cos(a) * (270 + 90 * u), 575 + Math.sin(a) * (150 + 40 * u), 22 * Math.sin(seg(t, 57.9, 59.3) * PI), 1); }
+  }
+}
+
+const SCENES = [[0, scene1], [TRANS[0], scene2], [TRANS[1], scene3], [TRANS[2], scene4], [TRANS[3], scene5], [TRANS[4], scene6]];
+function sceneIndex(t) { let i = 0; for (let k = 0; k < SCENES.length; k++) if (t >= SCENES[k][0]) i = k; return i; }
+
+let BUF = null, SHOW_CC = true;
+function drawScene(i, t, g) {
+  const prev = ctx; ctx = g;
+  g.save(); g.drawImage(PAPER_C, 0, 0);
+  // a gentle hand-held drift
+  const dx = Math.sin(t * 0.7) * 3 + Math.sin(t * 1.9) * 1.2, dy = Math.cos(t * 0.6) * 2.5;
+  g.translate(dx, dy);
+  GA = 1; KEY = 0; SCENES[i][1](t);
+  g.restore(); ctx = prev;
+}
+function render(t) {
+  t = clamp(t, 0, DUR);
+  BOIL = Math.floor(t * 8);
+  const g = document.getElementById('film').getContext('2d');
+  const i = sceneIndex(t);
+  drawScene(i, t, g);
+  // page flip: the previous page lifts off the pad
+  const tb = TRANS[i - 1];
+  if (i > 0 && t < tb + 0.5) {
+    if (!BUF) { BUF = document.createElement('canvas'); BUF.width = W; BUF.height = H; }
+    const bg = BUF.getContext('2d'); drawScene(i - 1, Math.min(t, tb - 0.001), bg);
+    const p = eio(seg(t, tb - 0.02, tb + 0.48)), th = p * PI / 2, c = Math.cos(th);
+    // shadow on the new page under the lifting sheet
+    const edge = H * c; const sg = g.createLinearGradient(0, edge, 0, edge + 140); sg.addColorStop(0, `rgba(60,40,10,${0.35 * (1 - p)})`); sg.addColorStop(1, 'rgba(60,40,10,0)'); g.fillStyle = sg; g.fillRect(0, edge, W, 140);
+    g.save(); g.transform(1, 0, 0, c, 0, 0); g.drawImage(BUF, 0, 0); g.fillStyle = `rgba(80,60,20,${0.45 * p})`; g.fillRect(0, 0, W, H); g.restore();
+    // the page's curled bottom edge
+    const cg = g.createLinearGradient(0, edge - 60, 0, edge); cg.addColorStop(0, 'rgba(255,255,255,0)'); cg.addColorStop(1, `rgba(255,255,240,${0.8 * Math.sin(th)})`); g.fillStyle = cg; g.fillRect(0, edge - 60, W, 60);
+  }
+  // paper grain over everything, so ink sits in the paper
+  g.save(); g.globalCompositeOperation = 'multiply'; g.globalAlpha = 0.16; g.fillStyle = g.createPattern(GRAIN_C, 'repeat'); g.fillRect(0, 0, W, H); g.restore();
+  if (SHOW_CC) captions(t, g);
+}
+function captions(t, g) {
+  const c = CUES.cues.find(c => t >= c.t0 - 0.1 && t <= c.t1 + 0.35); if (!c) return;
+  const a = Math.min(seg(t, c.t0 - 0.1, c.t0 + 0.1), 1 - seg(t, c.t1 + 0.15, c.t1 + 0.35));
+  // size captions for the screen they end up on: never below ~15 css px
+  const css = EXPORT ? W : (cv.getBoundingClientRect().width || W), fs = Math.round(clamp(15 * W / css, 46, 100));
+  g.save(); g.font = `${fs}px ${FP}`; g.textAlign = 'center'; g.textBaseline = 'middle';
+  const lines = [], words = c.text.split(' '); let cur = '';
+  for (const wd of words) { const tr = cur ? cur + ' ' + wd : wd; if (g.measureText(tr).width > 1680 && cur) { lines.push(cur); cur = wd; } else cur = tr; }
+  lines.push(cur);
+  const lh = fs * 1.2, w = Math.min(1780, Math.max(...lines.map(l => g.measureText(l).width)) + fs * 1.3), h = lh * lines.length + fs * 0.45, y0 = 1050 - h;
+  g.globalAlpha = 0.9 * a; g.fillStyle = '#2a2a33'; roundRect(g, 960 - w / 2, y0, w, h, Math.min(22, fs * 0.4)); g.fill();
+  g.globalAlpha = a; g.fillStyle = '#fffdf3'; lines.forEach((l, i) => g.fillText(l, 960, y0 + fs * 0.225 + lh * (i + 0.5) + fs * 0.04)); g.restore();
+}
+function roundRect(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+
+// ============================================================================
+//  Sound: a synthesized score (ukulele-ish plucks, pizzicato bass, glockenspiel,
+//  shaker) plus foley, all computed sample by sample. Deterministic.
+// ============================================================================
+const SR_DEFAULT = 48000;
+function midiF(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+function biquad(type, f, q, sr) {
+  const w0 = TAU * f / sr, c = Math.cos(w0), s = Math.sin(w0), al = s / (2 * q); let b0, b1, b2, a0 = 1 + al, a1 = -2 * c, a2 = 1 - al;
+  if (type === 'bp') { b0 = al; b1 = 0; b2 = -al; } else if (type === 'lp') { b0 = (1 - c) / 2; b1 = 1 - c; b2 = (1 - c) / 2; } else { b0 = (1 + c) / 2; b1 = -(1 + c); b2 = (1 + c) / 2; }
+  return { b0: b0 / a0, b1: b1 / a0, b2: b2 / a0, a1: a1 / a0, a2: a2 / a0, x1: 0, x2: 0, y1: 0, y2: 0 };
+}
+function bq(f, x) { const y = f.b0 * x + f.b1 * f.x1 + f.b2 * f.x2 - f.a1 * f.y1 - f.a2 * f.y2; f.x2 = f.x1; f.x1 = x; f.y2 = f.y1; f.y1 = y; return y; }
+function synthesize(sr = SR_DEFAULT) {
+  const N = Math.ceil((DUR + 0.2) * sr);
+  const mL = new Float32Array(N), mR = new Float32Array(N), fL = new Float32Array(N), fR = new Float32Array(N);
+  const rnd = mulberry(20260925);
+  const put = (bufL, bufR, t, x, gain, pan) => { const i0 = Math.floor(t * sr), gl = gain * Math.cos((pan + 1) * PI / 4), gr = gain * Math.sin((pan + 1) * PI / 4); for (let i = 0; i < x.length; i++) { const j = i0 + i; if (j < 0 || j >= N) continue; bufL[j] += x[i] * gl; bufR[j] += x[i] * gr; } };
+  const M = (t, x, g, p = 0) => put(mL, mR, t, x, g, p), F = (t, x, g, p = 0) => put(fL, fR, t, x, g, p);
+  // ---- instruments
+  function pluck(f, dur, bright = 0.55, decay = 0.9965) {
+    const n = Math.floor(dur * sr), y = new Float32Array(n), D = sr / f - 0.5, i0 = Math.floor(D), fr = D - i0; let lp = 0;
+    for (let i = 0; i < n; i++) {
+      let e = 0; if (i < i0 + 1) { const w = rnd() * 2 - 1; lp += bright * (w - lp); e = lp; }
+      const a = i - i0 >= 0 ? y[i - i0] : 0, b = i - i0 - 1 >= 0 ? y[i - i0 - 1] : 0, c = i - i0 - 2 >= 0 ? y[i - i0 - 2] : 0;
+      const d1 = a * (1 - fr) + b * fr, d2 = b * (1 - fr) + c * fr; y[i] = e + decay * 0.5 * (d1 + d2);
+    }
+    for (let i = 0; i < 600 && i < n; i++) y[n - 1 - i] *= i / 600;
+    let px = 0, py = 0; for (let i = 0; i < n; i++) { const x = y[i]; py = x - px + 0.9975 * py; px = x; y[i] = py; } // DC blocker
+    return y;
+  }
+  function bell(f, dur, bright = 1) {
+    const n = Math.floor(dur * sr), y = new Float32Array(n), P = [[1, 1, 1.4], [2.76, 0.32 * bright, 0.45], [5.4, 0.12 * bright, 0.2], [8.93, 0.05 * bright, 0.1]];
+    for (let i = 0; i < n; i++) { const t = i / sr, at = Math.min(1, t / 0.002); let v = 0; for (const [m, a, d] of P) v += a * Math.sin(TAU * f * m * t) * Math.exp(-t / d); y[i] = v * at * 0.5; }
+    return y;
+  }
+  function pizz(f, dur) {
+    const n = Math.floor(dur * sr), y = new Float32Array(n);
+    for (let i = 0; i < n; i++) { const t = i / sr, e = Math.min(1, t / 0.006) * Math.exp(-t * 3.2); y[i] = e * (Math.sin(TAU * f * t) + 0.45 * Math.sin(TAU * 2 * f * t) * Math.exp(-t * 6) + 0.15 * Math.sin(TAU * 3 * f * t) * Math.exp(-t * 10)); }
+    return y;
+  }
+  function kick() { const n = Math.floor(0.35 * sr), y = new Float32Array(n); let ph = 0; for (let i = 0; i < n; i++) { const t = i / sr, f = 45 + 80 * Math.exp(-t * 30); ph += TAU * f / sr; y[i] = Math.sin(ph) * Math.exp(-t * 11); } return y; }
+  function noiseHit(dur, type, f, q, dec, att = 0.001) { const n = Math.floor(dur * sr), y = new Float32Array(n), fl = biquad(type, f, q, sr); for (let i = 0; i < n; i++) { const t = i / sr; y[i] = bq(fl, rnd() * 2 - 1) * Math.min(1, t / att) * Math.exp(-t * dec); } return y; }
+  function modal(freqs, dec, dur = 0.25) { const n = Math.floor(dur * sr), y = new Float32Array(n); for (let i = 0; i < n; i++) { const t = i / sr; let v = 0; for (const [f, a] of freqs) v += a * Math.sin(TAU * f * t); y[i] = v * Math.exp(-t * dec); } return y; }
+  // ---- sound effects
+  const sfx = {
+    pop: (p = 1) => { const n = Math.floor(0.14 * sr), y = new Float32Array(n); let ph = 0; for (let i = 0; i < n; i++) { const t = i / sr, f = (320 + 700 * Math.exp(-t * 40)) * p; ph += TAU * f / sr; y[i] = Math.sin(ph) * Math.min(1, t / 0.002) * Math.exp(-t * 28); } return y; },
+    blip: (p = 1) => bell(1320 * p, 0.35, 0.6),
+    tick: () => noiseHit(0.03, 'bp', 3200, 2.5, 180),
+    clack: () => { const a = modal([[1850, 0.6], [2950, 0.35], [620, 0.5]], 55, 0.2), b = noiseHit(0.02, 'hp', 2500, 0.7, 300); for (let i = 0; i < b.length; i++) a[i] += b[i] * 0.6; return a; },
+    knock: () => { const a = modal([[880, 0.6], [1460, 0.4], [300, 0.5]], 40, 0.22), b = noiseHit(0.02, 'bp', 1800, 1, 250); for (let i = 0; i < b.length; i++) a[i] += b[i] * 0.5; return a; },
+    thunk: () => { const a = modal([[92, 1], [180, 0.3], [640, 0.25]], 16, 0.35), b = noiseHit(0.05, 'lp', 900, 0.7, 60); for (let i = 0; i < b.length; i++) a[i] += b[i] * 0.4; return a; },
+    stamp: () => { const a = modal([[70, 1], [140, 0.4]], 10, 0.5), b = noiseHit(0.12, 'lp', 1500, 0.7, 30); for (let i = 0; i < b.length; i++) a[i] += b[i] * 0.8; return a; },
+    scratch: (dur) => { const n = Math.floor(dur * sr), y = new Float32Array(n), fl = biquad('bp', 3800, 0.9, sr), fl2 = biquad('bp', 1700, 1.2, sr); let ph = rnd() * TAU; const rate = 6 + rnd() * 3;
+      for (let i = 0; i < n; i++) { const t = i / sr; ph += TAU * (rate + 2 * Math.sin(t * 3)) / sr; const env = Math.pow(Math.abs(Math.sin(ph)), 0.7) * (0.6 + 0.4 * rnd()) * Math.min(1, t / 0.03, (dur - t) / 0.05); const w = rnd() * 2 - 1; y[i] = (bq(fl, w) * 0.8 + bq(fl2, w) * 0.4) * env; } return y; },
+    whoosh: (dur, f0 = 500, f1 = 2400) => { const n = Math.floor(dur * sr), y = new Float32Array(n); let fl = biquad('bp', f0, 1.2, sr);
+      for (let i = 0; i < n; i++) { const u = i / n; if (i % 64 === 0) { const f = f0 + (f1 - f0) * Math.sin(u * PI * 0.5), nf = biquad('bp', f, 1.2, sr); nf.x1 = fl.x1; nf.x2 = fl.x2; nf.y1 = fl.y1; nf.y2 = fl.y2; fl = nf; } y[i] = bq(fl, rnd() * 2 - 1) * Math.pow(Math.sin(u * PI), 2); } return y; },
+    slide: (dur, f0, f1) => { const n = Math.floor(dur * sr), y = new Float32Array(n); let ph = 0; for (let i = 0; i < n; i++) { const t = i / sr, u = i / n, f = f0 * Math.pow(f1 / f0, u) * (1 + 0.025 * Math.sin(TAU * 6 * t)); ph += TAU * f / sr; y[i] = (Math.sin(ph) + 0.08 * (rnd() - 0.5)) * Math.min(1, t / 0.03) * Math.min(1, (dur - t) / 0.08); } return y; },
+    boing: () => { const n = Math.floor(0.6 * sr), y = new Float32Array(n); let ph = 0; for (let i = 0; i < n; i++) { const t = i / sr, f = 190 * (1 + 0.6 * t) * (1 + 0.35 * Math.sin(TAU * 16 * t) * Math.exp(-t * 5)); ph += TAU * f / sr; y[i] = Math.sin(ph) * Math.exp(-t * 5) * Math.min(1, t / 0.004); } return y; },
+    squeak: (dur) => { const n = Math.floor(dur * sr), y = new Float32Array(n); let ph = 0; for (let i = 0; i < n; i++) { const t = i / sr, f = 2300 + 500 * Math.sin(t * 20) + 300 * rnd(); ph += TAU * f / sr; y[i] = Math.sin(ph) * 0.3 * Math.min(1, t / 0.02, (dur - t) / 0.03) * (0.6 + 0.4 * Math.sin(t * 90)); } return y; },
+  };
+  const NOTE = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11, Bb: 10, Eb: 3 };
+  const chime = (t, notes, g = 0.22, step = 0.075, pan = 0.2) => notes.forEach((m, i) => F(t + i * step, bell(midiF(m), 1.4), g, pan));
+  // ---- foley timeline (kept in step with the scenes above)
+  const fx = [];
+  const at = (t, x, g, p = 0) => fx.push([t, x, g, p]);
+  at(0.12, sfx.scratch(1.1), 0.25, -0.3); at(1.28, sfx.pop(0.8), 0.35, -0.3);
+  at(1.6, sfx.scratch(0.6), 0.2, -0.5); at(2.65, sfx.pop(1), 0.4, 0); at(3.05, sfx.scratch(0.5), 0.22, 0);
+  for (let i = 0; i < 7; i++) at(4.5 + i * 0.17, sfx.pop(1 + i * 0.09), 0.3, -0.1 + i * 0.03);
+  at(5.9, sfx.scratch(0.4), 0.15, 0); [6.25, 6.4, 6.55].forEach((t, i) => { at(t, sfx.pop(0.7), 0.25, 0.3 + i * 0.2); at(t + 0.15, sfx.blip(1 + i * 0.12), 0.18, 0.3 + i * 0.2); });
+  for (const tb of TRANS) { at(tb - 0.05, sfx.whoosh(0.5, 900, 3500), 0.35, 0); at(tb - 0.02, sfx.scratch(0.15), 0.15, 0); }
+  at(7.5, sfx.whoosh(1.1, 300, 1500), 0.3, 0); at(8.6, sfx.pop(0.9), 0.35);
+  { let t = 8.75; while (t < 11.25) { at(t, sfx.tick(), 0.35, (rnd() - 0.5) * 0.4); const u = (t - 8.75) / 2.5; t += 0.035 + 0.12 * u * u; } }
+  at(11.28, sfx.blip(1.5), 0.25); at(10.9, sfx.scratch(0.55), 0.14);
+  at(12.05, sfx.pop(0.8), 0.3, -0.5); at(12.2, sfx.scratch(0.4), 0.2, -0.5); at(12.35, sfx.scratch(2.4), 0.18, 0.2); at(14.35, sfx.pop(1.2), 0.35, 0.5);
+  at(16.2, sfx.scratch(2.7), 0.26, -0.5);
+  for (let si = 0; si < 5; si++) { const start = 16.45 + si * 0.28; for (let k = 0; k < 26; k++) { const land = start + Math.pow(k / 11, 1 / 1.6); if (land < 20.5 && k < 7) at(land, sfx.thunk(), 0.17 - k * 0.012, -0.2 + si * 0.15); } }
+  at(17.85, sfx.pop(0.9), 0.35, -0.4); at(19.15, sfx.scratch(0.5), 0.2, -0.4);
+  at(19.85, sfx.slide(0.65, 1500, 330), 0.2, 0.3);
+  for (let i = 0; i < 26; i++) at(20.55 + rnd() * 0.9, rnd() > 0.5 ? sfx.thunk() : sfx.clack(), 0.25 + rnd() * 0.2, (rnd() - 0.5) * 1.4);
+  at(20.55, sfx.stamp(), 0.5, 0); at(20.55, noiseHit(1.4, 'lp', 2400, 0.7, 3.5), 0.25, 0);
+  at(21.5, sfx.pop(0.7), 0.35, 0.4); [21.45, 21.95].forEach(t => at(t, sfx.boing(), 0.14, -0.2));
+  at(22.72, sfx.whoosh(0.6, 700, 2800), 0.3, -0.2); at(23.35, sfx.pop(1.1), 0.3); at(23.55, sfx.scratch(0.4), 0.2);
+  at(24.5, sfx.scratch(0.8), 0.18); at(25.0, sfx.scratch(0.5), 0.15, -0.6);
+  [25.2, 25.32, 25.44, 25.55].forEach((t, i) => at(t, sfx.pop(0.8 + i * 0.1), 0.25, [-0.3, -0.7, 0.7, 0][i]));
+  [26.73, 27.03, 27.33, 27.63].forEach((t, i) => at(t, sfx.clack(), 0.45, [0, -0.3, 0, 0.3][i]));
+  at(27.85, sfx.whoosh(0.4, 600, 2000), 0.25);
+  [28.2, 28.38, 28.56, 28.74].forEach((t, i) => at(t, sfx.pop(1.1 + i * 0.1), 0.25, [0, -0.6, 0.6, 0.1][i]));
+  at(29.8, sfx.whoosh(0.6, 400, 1600), 0.25, -0.4); at(30.35, sfx.whoosh(0.25, 1500, 4000), 0.2, -0.4);
+  at(30.8, sfx.squeak(0.3), 0.12, -0.4); chime(30.95, [84, 88, 91], 0.16, 0.06, -0.4); at(31.68, sfx.clack(), 0.45, -0.2);
+  at(31.85, sfx.whoosh(0.6, 500, 1800), 0.25, 0.3); at(32.4, sfx.whoosh(0.25, 1500, 4000), 0.2, 0.4); at(32.5, sfx.blip(0.8), 0.2, 0.4);
+  [33.2, 33.55, 33.75, 33.88, 33.95].forEach((t, i) => at(t, sfx.knock(), 0.45 / (1 + i * 0.4), 0.5));
+  for (let i = 0; i < 9; i++) at(33.22 + i * 0.08, sfx.tick(), 0.18, 0.5);
+  at(33.97, sfx.blip(1.2), 0.2, 0.5); at(34.15, sfx.scratch(0.85), 0.3, 0.4); at(35.28, sfx.clack(), 0.45, 0.2);
+  at(35.05, sfx.whoosh(0.5, 1600, 500), 0.2); at(35.52, sfx.stamp(), 0.55); at(35.52, sfx.whoosh(0.2, 2000, 400), 0.2);
+  [36.3, 36.82, 37.34, 37.86].forEach((t, i) => at(t, sfx.blip(0.8 + i * 0.15), 0.16, [-0.6, 0, 0.6, 0][i]));
+  for (let k = 1; k < 40; k++) { const t = 38.75 + (k - 1) * (2.6 / 39); at(t, sfx.tick(), 0.3, -0.4); at(t + 0.02, sfx.scratch(0.06), 0.14, 0.4); }
+  at(41.8, sfx.pop(1.1), 0.25, -0.5); at(42.3, sfx.scratch(0.6), 0.2, 0.3);
+  chime(43.55, [79, 83, 86, 91, 95], 0.2, 0.07, -0.3); at(43.6, sfx.pop(1.3), 0.3, -0.4);
+  at(44.9, sfx.boing(), 0.3, 0); at(45.85, sfx.squeak(0.22), 0.25); at(46.08, sfx.squeak(0.22), 0.25);
+  at(46.5, sfx.whoosh(0.4, 1500, 400), 0.2);
+  [46.8, 46.9, 47.0, 47.1].forEach((t, i) => at(t, sfx.pop(0.9 + i * 0.1), 0.25, -0.6 + i * 0.4));
+  [47.6, 47.8, 48.0, 48.2].forEach((t, i) => { at(t, sfx.pop(1.4), 0.18, -0.6 + i * 0.4); chime(t, [91 + [0, 2, 4, 7][i]], 0.2, 0, -0.6 + i * 0.4); });
+  [48.45, 48.57, 48.69, 48.81].forEach((t, i) => at(t, sfx.scratch(0.2), 0.15, -0.6 + i * 0.4));
+  at(47.2, sfx.scratch(0.7), 0.16);
+  for (let i = 0; i < 18; i++) chime(49.95 + i * 0.09, [96 + [0, 2, 4, 7, 9][i % 5] - 12 * (i % 2)], 0.07, 0, (rnd() - 0.5) * 1.4);
+  at(51.35, sfx.whoosh(0.7, 400, 2600), 0.3); at(51.9, sfx.pop(0.7), 0.4); chime(51.95, [84, 88, 91, 96], 0.2, 0.06);
+  at(52.2, sfx.scratch(0.3), 0.2, 0.3);
+  at(52.85, sfx.whoosh(0.6, 300, 1400), 0.3); at(53.35, sfx.pop(1.2), 0.25); at(53.9, sfx.whoosh(0.5, 300, 1200), 0.25); at(54.2, sfx.whoosh(0.6, 1400, 300), 0.3);
+  at(54.85, sfx.whoosh(0.5, 1200, 300), 0.2); at(55.2, sfx.scratch(0.8), 0.22, 0.3); at(55.75, sfx.pop(0.8), 0.3, -0.5); at(56.0, sfx.pop(1), 0.4, 0.3); at(56.35, sfx.scratch(0.55), 0.22, 0.3);
+  at(56.3, sfx.boing(), 0.12, -0.5); at(57.4, sfx.scratch(1.0), 0.13, 0.3);
+  for (let i = 0; i < 10; i++) chime(57.9 + i * 0.07, [96 + [0, 4, 7, 12, 16][i % 5]], 0.06, 0, (rnd() - 0.5) * 1.2);
+  for (const [t, x, g, p] of fx) F(t, x, g, p);
+
+  // ---- the score: 100 bpm, bars of 2.4 s starting at 0.3 s
+  const BAR = 2.4, B0 = 0.3, beat = BAR / 4;
+  const chords = ['F', 'C', 'Dm', 'Bb', 'Gm', 'C', 'A7', 'Dm', 'E7', 'F', 'Bb', 'F', 'Gm', 'C', 'F', 'Dm', 'Bb', 'C', 'G', 'Em', 'C', 'D', 'C', 'D', 'G'];
+  const tones = name => { const m = name.match(/^([A-G]b?)(m?)(7?)$/); const r = NOTE[m[1]]; const iv = m[2] ? [0, 3, 7] : [0, 4, 7]; if (m[3]) iv.push(10); return { root: r, iv }; };
+  const voice = (c, lo = 60) => { const out = c.iv.map(i => { let n = c.root + i; while (n < lo) n += 12; while (n >= lo + 12) n -= 12; return n; }).sort((a, b) => a - b); if (out.length < 4) out.push(out[0] + 12); return out; };
+  const silent = t => t > 20.5 && t < 21.88;
+  const strum = [0, 1.5, 2.5, 3, 3.5];
+  for (let b = 0; b < chords.length; b++) {
+    const t0 = B0 + b * BAR, c = tones(chords[b]), v = voice(c), last = b === chords.length - 1;
+    const intense = b >= 3 && b <= 8 ? 1 : 0;
+    // strums (ukulele-ish)
+    const pat = last ? [0] : b === 0 ? [0, 2, 3] : strum;
+    for (const s of pat) { const t = t0 + s * beat; if (silent(t)) continue; const down = Math.floor(s) === s; const order = down ? v : v.slice().reverse(); order.forEach((m, i) => M(t + i * 0.012, pluck(midiF(m), last ? 3.4 : 1.1, down ? 0.6 : 0.45), (down ? 0.2 : 0.13) * (last ? 1.5 : 1), -0.25 + i * 0.12)); }
+    // bass
+    const bass = (c.root % 12) + 36 + (c.root % 12 > 7 ? -12 : 0) + 12, fifth = bass + 7;
+    const bl = last ? [[0, bass]] : b >= 9 && b <= 17 ? [[0, bass], [1, bass + 4 - (c.iv[1] === 3 ? 1 : 0)], [2, fifth], [3, bass + 12]] : [[0, bass], [2, fifth]];
+    for (const [s, m] of bl) { const t = t0 + s * beat; if (silent(t)) continue; M(t, pizz(midiF(m), last ? 2.5 : 0.8), 0.33, 0); }
+    // percussion
+    if (!last && b > 0) for (let e = 0; e < 8; e++) { const t = t0 + e * beat / 2; if (silent(t)) continue; M(t, noiseHit(0.09, 'hp', 7000, 0.7, e % 2 ? 60 : 38, 0.012), e % 2 ? 0.05 : 0.08, 0.35); }
+    if (!last && b > 1) for (const s of [0, 2]) { const t = t0 + s * beat; if (!silent(t)) M(t, kick(), 0.3 + 0.1 * intense, 0); }
+    if (!last && b > 2) for (const s of [1, 3]) { const t = t0 + s * beat; if (!silent(t)) M(t, noiseHit(0.14, 'bp', 1900, 0.9, 32), 0.14, -0.1); }
+    // glockenspiel melody: a little tune from the chord tones
+    const r = mulberry(b * 97 + 5), mel = voice(c, 72);
+    if (!last && !(b >= 7 && b <= 8)) {
+      const rhythm = intense ? [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5] : [0, 1, 1.5, 2.5, 3];
+      rhythm.forEach((s, i) => { const t = t0 + s * beat; if (silent(t) || r() < 0.18) return; const m = mel[(i + Math.floor(r() * 3)) % mel.length] + (intense && i > 3 ? 12 : 0); M(t, bell(midiF(m), 0.9, 0.8), 0.11, 0.35); });
+    }
+    if (b === 7 || b === 8) for (let i = 0; i < 16; i++) { const t = t0 + i * beat / 4; if (!silent(t)) M(t, bell(midiF(mel[i % 4] + 12 * Math.floor(i / 8)), 0.4, 0.6), 0.06 + i * 0.004, 0.3); }
+    if (last) chime(t0, [79, 83, 86, 91, 95, 98], 0.12, 0.05, 0.1);
+  }
+  // ---- ducking under the narration, reverb, mix
+  const duck = new Float32Array(N);
+  for (let i = 0; i < N; i += 64) { const t = i / sr; let d = 0; for (const c of CUES.cues) d = Math.max(d, Math.min(seg(t, c.t0 - 0.25, c.t0 - 0.05), 1 - seg(t, c.t1 + 0.05, c.t1 + 0.45))); for (let j = i; j < i + 64 && j < N; j++) duck[j] = 1 - 0.5 * d; }
+  const combs = [1557, 1617, 1491, 1422, 1277, 1356, 1188, 1116].map(n => Math.round(n * sr / 44100)), alls = [556, 441, 341, 225].map(n => Math.round(n * sr / 44100));
+  function reverb(inp, spread) {
+    const out = new Float32Array(N);
+    for (const L of combs) { const n = L + spread, buf = new Float32Array(n); let idx = 0, store = 0; for (let i = 0; i < N; i++) { const y = buf[idx]; store = y * 0.7 + store * 0.3; buf[idx] = inp[i] + store * 0.8; out[i] += y; idx = idx + 1 === n ? 0 : idx + 1; } }
+    for (const L of alls) { const n = L + spread, buf = new Float32Array(n); let idx = 0; for (let i = 0; i < N; i++) { const b = buf[idx], x = out[i]; out[i] = -x + b; buf[idx] = x + b * 0.5; idx = idx + 1 === n ? 0 : idx + 1; } }
+    return out;
+  }
+  const sendL = new Float32Array(N), sendR = new Float32Array(N);
+  for (let i = 0; i < N; i++) { sendL[i] = (mL[i] + fL[i] * 0.35) * 0.015; sendR[i] = (mR[i] + fR[i] * 0.35) * 0.015; }
+  const rvL = reverb(sendL, 0), rvR = reverb(sendR, 23);
+  const L = new Float32Array(N), R = new Float32Array(N), fade = Math.floor(0.8 * sr), hpL = biquad('hp', 38, 0.7, sr), hpR = biquad('hp', 38, 0.7, sr);
+  for (let i = 0; i < N; i++) {
+    let l = mL[i] * duck[i] * 0.9 + fL[i] * 0.85 + rvL[i], r = mR[i] * duck[i] * 0.9 + fR[i] * 0.85 + rvR[i];
+    l = bq(hpL, l); r = bq(hpR, r);
+    if (i > N - fade) { const g = (N - i) / fade; l *= g; r *= g; }
+    L[i] = Math.tanh(l * 1.1) * 0.8; R[i] = Math.tanh(r * 1.1) * 0.8;
+  }
+  return { L, R, sr };
+}
+
+// ============================================================================
+//  Player
+// ============================================================================
+const cv = document.getElementById('film');
+const EXPORT = /[?&]export/.test(location.search);
+let actx = null, fxBuf = null, voBuf = null, srcs = [], playing = false, t0ctx = 0, offset = 0, building = null;
+function b64ToBytes(b) { const s = atob(b), a = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; }
+async function ensureAudio() {
+  if (building) return building;
+  building = (async () => {
+    const AC = window.AudioContext || window.webkitAudioContext; actx = new AC({ sampleRate: 48000 });
+    setStatus('Tuning the ukulele…');
+    const { L, R, sr } = await synthInWorker(actx.sampleRate);
+    fxBuf = actx.createBuffer(2, L.length, sr); fxBuf.copyToChannel(L, 0); fxBuf.copyToChannel(R, 1);
+    voBuf = await actx.decodeAudioData(b64ToBytes(VO_B64).buffer);
+    setStatus('');
+  })();
+  return building;
+}
+// build the soundtrack off the main thread (falls back to the main thread if workers are unavailable)
+function synthInWorker(sr) {
+  const src = [`const PI = Math.PI, TAU = PI * 2, SR_DEFAULT = 48000, CUES = ${JSON.stringify(CUES)}, DUR = ${DUR}, TRANS = ${JSON.stringify(TRANS)};`,
+    `const clamp = ${clamp}; const seg = ${seg};`, mulberry, midiF, biquad, bq, synthesize,
+    'onmessage = e => { const r = synthesize(e.data); postMessage(r, [r.L.buffer, r.R.buffer]); };'].map(String).join('\n');
+  return new Promise(resolve => {
+    try {
+      const w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
+      w.onmessage = e => { resolve(e.data); w.terminate(); };
+      w.onerror = () => { w.terminate(); resolve(synthesize(sr)); };
+      w.postMessage(sr);
+    } catch (e) { resolve(synthesize(sr)); }
+  });
+}
+function setStatus(s) { const el = document.getElementById('status'); if (el) el.textContent = s; }
+function now() { return playing ? offset + (actx.currentTime - t0ctx) : offset; }
+async function play() {
+  await ensureAudio(); if (actx.state === 'suspended') await actx.resume();
+  if (offset >= DUR - 0.05) offset = 0;
+  const comp = actx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 4; comp.connect(actx.destination);
+  const vg = actx.createGain(); vg.gain.value = 1; vg.connect(comp);
+  srcs = [[fxBuf, comp], [voBuf, vg]].map(([b, dest]) => { const s = actx.createBufferSource(); s.buffer = b; s.connect(dest); return s; });
+  t0ctx = actx.currentTime + 0.05; srcs.forEach(s => s.start(t0ctx, offset)); t0ctx -= 0; playing = true; ui();
+}
+function pause() { if (!playing) return; offset = Math.min(DUR, now()); srcs.forEach(s => { try { s.stop(); } catch (e) {} }); srcs = []; playing = false; ui(); }
+function seek(t) { const was = playing; if (was) pause(); offset = clamp(t, 0, DUR); if (was) play(); else { render(offset); ui(); } }
+function fmt(t) { t = Math.max(0, t); return Math.floor(t / 60) + ':' + String(Math.floor(t % 60)).padStart(2, '0'); }
+function ui() {
+  const t = now(); document.getElementById('play').textContent = playing ? 'Pause' : t > 0.05 && t < DUR - 0.05 ? 'Resume' : 'Play';
+  document.getElementById('big').hidden = playing || (t > 0.05 && t < DUR - 0.05);
+  document.getElementById('scrub').value = String(Math.round((t / DUR) * 1000));
+  document.getElementById('time').textContent = fmt(t) + ' / ' + fmt(DUR);
+}
+function loop() {
+  if (playing) { const t = now(); if (t >= DUR) { pause(); offset = DUR; } render(Math.min(t, DUR)); ui(); }
+  requestAnimationFrame(loop);
+}
+const POSTER = 58.6;
+async function boot() {
+  try { await document.fonts.load(`40px 'Caveat Brush'`); await document.fonts.load(`700 40px 'Caveat'`); await document.fonts.load(`40px 'Patrick Hand'`); } catch (e) {}
+  makePaper();
+  if (EXPORT) { window.FILM = { render, DUR, synthesize, setCC: v => { SHOW_CC = v; } }; window.FILM_READY = true; return; }
+  try { SHOW_CC = localStorage.getItem('walt42-cc') !== 'off'; } catch (e) {}
+  document.getElementById('cc').setAttribute('aria-pressed', String(SHOW_CC));
+  render(POSTER); offset = 0; ui(); document.getElementById('time').textContent = fmt(0) + ' / ' + fmt(DUR);
+  const toggle = () => (playing ? pause() : play());
+  document.getElementById('big').addEventListener('click', play);
+  cv.addEventListener('click', toggle);
+  document.getElementById('play').addEventListener('click', toggle);
+  document.getElementById('restart').addEventListener('click', () => { seek(0); if (!playing) play(); });
+  document.getElementById('scrub').addEventListener('input', e => seek((+e.target.value / 1000) * DUR));
+  document.getElementById('cc').addEventListener('click', e => { SHOW_CC = !SHOW_CC; e.target.setAttribute('aria-pressed', String(SHOW_CC)); try { localStorage.setItem('walt42-cc', SHOW_CC ? 'on' : 'off'); } catch (err) {} if (!playing) render(offset > 0 ? offset : POSTER); });
+  document.addEventListener('keydown', e => { if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); toggle(); } });
+  requestAnimationFrame(loop);
+  setTimeout(() => ensureAudio().catch(() => { building = null; }), 400);
+}
+boot();
+</script>

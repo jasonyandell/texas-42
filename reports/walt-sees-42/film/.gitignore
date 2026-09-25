@@ -1,0 +1,4 @@
+# rendered outputs and intermediates (rebuild with the steps in README.md)
+*.wav
+*.mp4
+seg*.mp4
