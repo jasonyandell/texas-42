@@ -383,7 +383,7 @@ async function playRollout(r, lead, w, opts = {}) {
     if (e.seat === WALT) {
       if (e.options && e.options.length > 1) {
         view.lift = { seat: WALT, set: new Set(e.options.map(o => o.t)), pick: null }; view.roll = null; drawTable(view);
-        say(`Walt’s turn. He doesn’t roll. He tries <b>each</b> tile he could play against every world that still fits the plays so far (${E.pop(e.alive)} of 8${E.pop(e.alive) < 8 ? '; the rolls so far ruled out the rest' : ''}): ` +
+        say(`Walt’s turn. He doesn’t roll. He tries <b>each</b> tile he could play (every try reads the same world tapes) against every world that still fits the plays so far (${E.pop(e.alive)} of 8${E.pop(e.alive) < 8 ? '; the rolls so far ruled out the rest' : ''}): ` +
           e.options.map(o => `${N(o.t)} makes in ${o.makes}`).join(', ') + '.');
         await wait(1700 * slow);
         view.lift.pick = e.t; drawTable(view);
@@ -399,7 +399,7 @@ async function playRollout(r, lead, w, opts = {}) {
         say(`${P.name} has <b>${n}</b> legal tile${n > 1 ? 's' : ''}. ${n > 1 ? `A fair ${n}-sided roll picks one. The tickertape says <b>${e.roll + 1}</b>.` : 'No choice to make.'}`);
         if (n > 1) while (performance.now() - t0 < spinT / speed) { view.roll = { seat: e.seat, face: 1 + Math.floor(Math.random() * n), spin: Math.random() * 40 - 20, text: `rolling 1–${n}` }; drawTable(view); await wait(60); }
         view.roll = { seat: e.seat, face: e.roll + 1, spin: 0, text: `tape: ${e.roll + 1} of ${n} → ${N(e.t)}` }; view.lift.pick = e.t; drawTable(view);
-        tapePrint(`world ${w + 1} · trick ${trickNo(st)} · ${P.name}: ${n} legal → <b>${e.roll + 1}</b> → ${N(e.t)}`);
+        tapePrint(`tape W${w + 1} · ${P.name}’s turn, trick ${trickNo(st)}, ${st.played ? E.bits(st.played).length + ' tiles gone' : 'nothing gone'} → #<b>${e.roll + 1}</b> of ${n} → ${N(e.t)}`);
         await wait(900 * slow);
       } else { // a thinking seat (level 0), glossed
         const th = e.think;
@@ -530,7 +530,7 @@ const SLIDES = [
       say(`Inside a world, Walt needs the other three to play. He doesn’t guess what they’d think. He <b>rolls a die</b>: every legal tile gets the same chance. Watch world 1, with Walt leading the ${N(SHOW_LEAD)}.`);
       await wait(2600);
       await playRollout(R0[SHOW_LEAD][SHOW_WORLD], SHOW_LEAD, SHOW_WORLD, { firstTrickOnly: true, slow: 1.4 });
-      say('The rolls come off a <b>tickertape</b>: a long, fixed strip of numbers for each world. Same world, same moment in the hand, same number. More on why that matters in a minute.');
+      say('The rolls come off a <b>tickertape</b>. Each imagined world has its own tape, and the tape answers one kind of question: <b>in this world, at this exact table, which tile?</b> Ask it again and it gives the same answer. More on that soon.');
     } },
   { k: 'step 4', title: 'One rollout, tick by tick',
     run: async () => {
@@ -564,7 +564,82 @@ const SLIDES = [
       const best = C0.reduce((a, b) => (b.makes > a.makes ? b : a));
       say(`Count the greens. Leading the <b>${N(best.t)}</b> makes in <b>${best.makes} of 8</b> worlds, more than any other lead. So that’s Walt’s play. Every number here is an exact count on these 8 worlds, and only an estimate of the real table.`);
     } },
-  { k: 'step 6', title: 'Why a tickertape?',
+  { k: 'step 6', title: 'One tape per world',
+    run: async () => {
+      resetStage({ worlds: NW, leads: true });
+      tapeClear();
+      const LEFTY = 2, W = SHOW_WORLD;
+      const read = (world, st) => {
+        const L = E.bits(E.legal(world.hands[LEFTY] & ~st.played, st.trick));
+        const raw = E.mix((world.seed ^ E.hashStr(E.recordKey(st))) >>> 0);
+        return { L, raw, i: raw % L.length, tile: L[raw % L.length] };
+      };
+      const log = [];
+      const draw = (o) => {
+        let g = '';
+        // reels: one tape per imagined world
+        const reels = o.reels || NW;
+        g += `<text x="16" y="30" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" letter-spacing="1.5" fill="${COL.dim}">ONE TAPE PER WORLD</text>`;
+        for (let i = 0; i < reels; i++) {
+          const x = 30 + i * (reels > 8 ? 440 / reels : 55), on = i === o.active, fresh = i >= NW;
+          g += `<g transform="translate(${x},62)"><circle r="17" fill="${on ? COL.gold : fresh ? '#b88fd8' : '#efe4c8'}" stroke="${COL.ink}" stroke-width="2"/><circle r="5" fill="${COL.ink}"/>` +
+               `<text y="36" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="${on ? COL.gold : fresh ? '#b88fd8' : COL.ivory}">W${i + 1}</text></g>`;
+        }
+        if (o.q) {
+          const q = o.q;
+          g += `<rect x="16" y="112" width="448" height="116" rx="12" fill="#26352f" stroke="${COL.gold}" stroke-width="2"/>`;
+          g += `<text x="30" y="136" font-family="Atkinson Hyperlegible, sans-serif" font-weight="700" font-size="14" fill="${COL.gold}">THE QUESTION</text>`;
+          const rows = [['world', `W${q.w + 1}`], ['tiles gone', q.gone], ['who’s up', 'Lefty'], ['trick so far', q.trick], ['score', '0 – 0']];
+          rows.forEach(([a, b], i) => { g += `<text x="30" y="${158 + i * 16}" font-family="JetBrains Mono, monospace" font-size="12.5" fill="${COL.dim}">${a}</text><text x="130" y="${158 + i * 16}" font-family="JetBrains Mono, monospace" font-size="12.5" font-weight="700" fill="${COL.ivory}">${b}</text>`; });
+          if (q.r) {
+            g += `<path d="M300,150 h40" stroke="${COL.ivory}" stroke-width="2"/><path d="M334,144 l8,6 l-8,6" fill="none" stroke="${COL.ivory}" stroke-width="2"/>`;
+            g += `<rect x="350" y="126" width="104" height="30" rx="4" fill="${CSS('--tape')}"/><text x="402" y="146" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" fill="${CSS('--tape-ink')}">${q.r.raw.toLocaleString()}</text>`;
+            g += `<text x="402" y="176" text-anchor="middle" font-family="Atkinson Hyperlegible, sans-serif" font-size="12" fill="${COL.ivory}">${q.r.L.length} legal → #${q.r.i + 1}</text>`;
+            const sp = q.r.L.length > 4 ? 19 : 26; q.r.L.forEach((t, i) => { g += domSVG(t, 392 + (i - (q.r.L.length - 1) / 2) * sp, 204, q.r.L.length > 4 ? 8 : 10, { ring: t === q.r.tile ? COL.gold : null, op: t === q.r.tile ? 1 : .45 }); });
+          }
+        }
+        // question log
+        g += `<text x="16" y="256" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11" letter-spacing="1.5" fill="${COL.dim}">QUESTIONS ASKED</text>`;
+        log.slice(-6).forEach((l, i) => {
+          const y = 280 + i * 24;
+          g += `<text x="16" y="${y}" font-family="JetBrains Mono, monospace" font-size="12.5" fill="${COL.ivory}">${l.text}</text>`;
+          g += `<text x="464" y="${y}" text-anchor="end" font-family="Atkinson Hyperlegible, sans-serif" font-weight="700" font-size="12.5" fill="${l.tag === 'REUSED' ? COL.make : l.tag === 'NEW TAPE' ? '#b88fd8' : COL.gold}">${l.tag}</text>`;
+        });
+        tableSVG.innerHTML = g;
+      };
+      const ask = (w, world, lead, tag) => {
+        const st = E.play(ST0, lead), r = read(world, st);
+        draw({ active: w, reels: Math.max(NW, w + 1), q: { w, gone: N(lead), trick: N(lead), r } });
+        log.push({ text: `W${w + 1} · after ${N(lead)} · Lefty → ${N(r.tile)}`, tag });
+        tapePrint(`tape W${w + 1} · Lefty’s turn after ${N(lead)} → ${r.raw.toLocaleString()} → #<b>${r.i + 1}</b> of ${r.L.length} → ${N(r.tile)}${tag === 'REUSED' ? ' · <b>same as before</b>' : ''}`);
+        return r;
+      };
+      draw({});
+      say('Every imagined world gets <b>its own tape</b>. Nobody prints it ahead of time. It’s a recipe: give it the world and the exact table, and it hands back a number. <b>The same question always gets the same number.</b>');
+      await wait(3600);
+      const A = E.idx(5, 1), B = E.idx(5, 4);
+      let r = ask(W, WORLDS[W], A, 'new question');
+      say(`<b>Question:</b> in world ${W + 1}, Walt leads the ${N(A)}. What does Lefty play? Lefty’s tape reads ${r.raw.toLocaleString()}. Lefty has ${r.L.length} legal tiles, and that number picks #${r.i + 1}: <b>${N(r.tile)}</b>.`);
+      await wait(4200);
+      r = ask(W, WORLDS[W], B, 'new question');
+      say(`Walt tries a different lead, the ${N(B)}. The table is different, so it’s a <b>different question</b>: same tape, different line. This time it’s #${r.i + 1}: <b>${N(r.tile)}</b>.`);
+      await wait(4200);
+      r = ask(W, WORLDS[W], A, 'REUSED');
+      say(`Walt comes back to the ${N(A)}. Same world, same table, <b>same question</b>, so the tape gives the same answer: <b>${N(r.tile)}</b>. The dice can’t change their mind.`);
+      await wait(4200);
+      say('What counts as “the same table”? <b>Which tiles are gone, who’s leading, what’s in the trick so far, and the score.</b> Change any of those and you read a different line of the <b>same</b> tape.');
+      await wait(4800);
+      say('So when does Walt need a <b>new</b> tape? Only when he imagines a <b>new world</b>. That happens three ways: <b>(1)</b> he wants more worlds, say to break a tie, and deals a fresh, bigger batch; <b>(2)</b> the real game moves on, Walt sees more, and he deals fresh worlds that fit what he now knows; <b>(3)</b> a thinking player deals its own worlds, each with its own tape.');
+      await wait(6500);
+      for (let i = 0; i < 3; i++) {
+        const nw = E.sampleWorlds(WALT, HM, ST0, 1, 5000 + i * 97, null)[0];
+        r = ask(NW + i, nw, A, 'NEW TAPE');
+        say(`A new world, W${NW + i + 1}: different hands, so a <b>new tape</b>. Same question (Walt leads the ${N(A)}, Lefty’s turn), but a new world can give a new answer: Lefty has ${r.L.length} legal tile${r.L.length > 1 ? 's' : ''} here and plays <b>${N(r.tile)}</b>.`);
+        await wait(3600);
+      }
+      say('That’s the whole rule. <b>Same world + same table → reuse the tape.</b> <b>New world → new tape.</b> Next: what goes wrong if you skip the tape and just roll fresh dice.');
+    } },
+  { k: 'step 7', title: 'Why a tickertape?',
     run: async () => {
       resetStage({ worlds: NW, leads: true });
       tapeClear();
@@ -593,9 +668,9 @@ const SLIDES = [
       };
       const fresh = () => { freshN++; row('fresh', E.makeSolver(WALT, WORLDS, E.diceField({ fresh: true, freshSeed: freshN * 7919 + 13 })).candidates(ST0)); tapePrint('recount with fresh dice → <b>new rolls every time</b>'); };
       $('again').onclick = tape; $('fresh').onclick = fresh;
-      say('What if we just ask again? With the <b>tickertape</b>, every recount is identical, because the same world at the same moment always gets the same roll.');
+      say('Recount all 56 rollouts. Same 8 worlds means the same 8 tapes, and every question the search asks is one it asked last time. So with the <b>tape</b>, every recount is identical.');
       for (let i = 0; i < 3; i++) { tape(); await wait(1100); }
-      say('Now throw the tape away and roll <b>fresh dice</b> every time the search looks at a turn. Same eight worlds, same hands.');
+      say('Now throw the tapes away and roll <b>fresh dice</b> every time the search asks a question, as if every look tore off a new tape. Same eight worlds, same hands.');
       await wait(2200);
       for (let i = 0; i < 5; i++) { fresh(); await wait(1300); }
       say(`Fresh dice make the answer <b>wobble</b>, and Walt’s pick jumps around. Worse, Walt is choosing the <b>best</b> option, so he ends up choosing whichever option happened to get lucky rolls. With fresh dice, 3-3 often looks as good as ${N(SHOW_LEAD)}. On the tape it isn’t.`);
@@ -603,7 +678,7 @@ const SLIDES = [
       $('labnote').innerHTML = `What the tape holds steady: <b>the dice can’t change their mind.</b> Across the tape recounts the search read the tape <b>${asks.toLocaleString()}</b> times. Only <b>${seenRoll.size.toLocaleString()}</b> were different questions; the other <b>${repeats.toLocaleString()}</b> were repeats, and <b>${mismatches === 0 ? 'every repeat got the same roll' : mismatches + ' repeats disagreed'}</b>.`;
       say('So the tape keeps three things steady: the same question gets the same answer, every option faces the same dice, and a world follows one path instead of splitting into every possible roll.');
     } },
-  { k: 'step 7', title: 'The ladder',
+  { k: 'step 8', title: 'The ladder',
     run: async () => {
       resetStage({ worlds: NW, leads: true });
       tapeClear();
@@ -626,9 +701,9 @@ const SLIDES = [
         const t0 = performance.now(); computeL1(); ov.remove();
         now(`solved in ${((performance.now() - t0) / 1000).toFixed(1)} s`);
       }
-      say('Every Level-0 player runs its own little version of what we just watched: its own 8 worlds, its own dice, its own count. We’ll skip the insides and just watch what they decide. Press <b>Next</b>.');
+      say('Every Level-0 player runs its own little version of what we just watched: its own 8 worlds, <b>its own tapes</b>, its own count. We’ll skip the insides and just watch what they decide. Press <b>Next</b>.');
     } },
-  { k: 'step 8', title: 'A rollout against thinking players',
+  { k: 'step 9', title: 'A rollout against thinking players',
     run: async () => {
       resetStage({ worlds: NW, leads: true });
       tapeClear(); computeL1();
@@ -639,7 +714,7 @@ const SLIDES = [
       const made = await playRollout(L1.R[SHOW_LEAD][W1], SHOW_LEAD, W1, { color: 0xb88fd8 });
       say(`Against thinking players, world ${W1 + 1} <b>${made === diceMade ? (made ? 'still makes' : 'is still set') : made ? 'now makes' : 'now gets set'}</b>. Thinking opponents found the hole that dice missed. The dice haven’t gone away; they’ve moved inside the other players’ heads.`);
     } },
-  { k: 'step 9', title: 'How it stacks up',
+  { k: 'step 10', title: 'How it stacks up',
     run: async () => {
       resetStage({ worlds: NW, leads: true });
       tapeClear(); computeL1();

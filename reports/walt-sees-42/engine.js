@@ -142,13 +142,13 @@
     const noMemo = field.kind === 'fresh';
     const viewerHand = worlds[0].hands[viewer];
     const maximize = team(viewer) === 1;
-    let nodes = 0;
+    let nodes = 0, hits = 0;
     function solve(st, alive) {
       nodes++;
       const d = decided(st);
       if (d >= 0) return d ? pop(alive) : 0;
       const k = noMemo ? null : recordKey(st) + '#' + alive;
-      if (k && memo.has(k)) return memo.get(k).v;
+      if (k && memo.has(k)) { hits++; return memo.get(k).v; }
       const seat = turn(st);
       let v, best = -1;
       if (seat === viewer) {
@@ -200,7 +200,7 @@
       }
       return { path, end: s };
     }
-    return { solve, candidates, trace, memo, get nodes() { return nodes; }, viewerHand };
+    return { solve, candidates, trace, memo, get nodes() { return nodes; }, get hits() { return hits; }, viewerHand };
   }
 
   // ---- level-0 mind: samples its own n0 worlds (no voids) and best-responds to dice ----
