@@ -168,7 +168,7 @@ fn price_with_cache(req: &Request, n: usize, ms: u64, seed: u64, previous: Optio
 {
     let started = Instant::now();
     let hand = req.hand.iter().fold(0u32, |mask, t| mask | (1u32 << t));
-    let leader = (req.seat + u64::from(req.seat % 2 == 0)) as u8;
+    let leader = (req.seat + u64::from(req.seat.is_multiple_of(2))) as u8;
     let key = Key {
         voids: None,
         played: 0,
