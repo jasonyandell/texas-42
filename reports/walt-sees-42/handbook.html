@@ -1,0 +1,500 @@
+<title>Walt's Handbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=Kalam:wght@400;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+  /* One committed look: a card-room at night, with notebooks on the table. Single theme by choice. */
+  :root {
+    color-scheme: dark;
+    --room: #17201c; --room2: #1f2b26; --line: #33443c; --felt: #24583f; --felt2: #2c6a4c; --rim: #5a3a22;
+    --ivory: #f4eedf; --ink: #1f1a14; --text: #eee8da; --dim: #a9b3aa;
+    --walt: #5b8fd6; --opp: #e0773a; --pard: #43b0a4; --dice: #d9472f; --gold: #f1c04a; --think: #b88fd8;
+    --make: #57c285; --set: #e25a4a; --paper: #f3ecd8; --paper-ink: #2d2a24; --rule: #c9d6e6;
+  }
+  html, body { height: 100%; }
+  body { background: var(--room); color: var(--text); font: 16px/1.45 "Atkinson Hyperlegible", system-ui, sans-serif; margin: 0; overflow: hidden; }
+  .app { height: 100%; display: grid; grid-template-rows: auto 1fr auto auto; gap: 10px; padding-inline: 16px; padding-block: 12px; box-sizing: border-box; }
+  .kicker { font: 700 12px "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+  h1 { font: 800 clamp(24px, 3.2vw, 40px)/1.05 "Bricolage Grotesque", sans-serif; margin: 2px 0 4px; text-wrap: balance; }
+  .say { max-width: 82ch; margin: 0; font-size: clamp(15px, 1.35vw, 19px); min-height: 2.9em; }
+  .say b { color: var(--gold); }
+  main { display: grid; grid-template-columns: minmax(0, 50fr) minmax(0, 50fr); gap: 12px; min-height: 0; }
+  .panel { background: var(--room2); border: 1px solid var(--line); border-radius: 10px; position: relative; min-height: 0; overflow: hidden; }
+  .panel svg { width: 100%; height: 100%; display: block; }
+  .tag { position: absolute; top: 8px; left: 10px; font: 700 11px "JetBrains Mono", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); pointer-events: none; }
+  /* handbooks */
+  #books { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; padding: 30px 10px 10px; box-sizing: border-box; height: 100%; }
+  .book { background: var(--paper); color: var(--paper-ink); border-radius: 4px 10px 10px 4px; box-shadow: inset 10px 0 0 rgba(0,0,0,.08), 0 2px 0 rgba(0,0,0,.35); padding: 8px 10px 8px 18px; display: flex; flex-direction: column; min-height: 0; position: relative;
+          background-image: repeating-linear-gradient(transparent 0 23px, var(--rule) 23px 24px); background-position: 0 38px; transition: box-shadow .2s; }
+  .book.active { box-shadow: inset 10px 0 0 rgba(0,0,0,.08), 0 0 0 3px var(--gold); }
+  .book h3 { margin: 0; font: 800 15px "Bricolage Grotesque", sans-serif; display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .book h3 small { font: 700 10.5px "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; color: #7c7462; }
+  .book .rows { margin-top: 6px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; flex: 1; min-height: 0; }
+  .row { font: 400 15px/24px "Kalam", cursive; display: flex; gap: 6px; white-space: nowrap; }
+  .row .spot { overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0; }
+  .book { min-width: 0; }
+  .row .pick { font-weight: 700; }
+  .row.hit { background: rgba(87,194,133,.35); }
+  .row .how { font: 700 10px/24px "JetBrains Mono", monospace; color: #7c7462; }
+  .look { position: absolute; left: 10px; right: 10px; bottom: 8px; padding: 6px 10px; border-radius: 6px; font: 700 13px "Atkinson Hyperlegible", sans-serif; display: none; }
+  .look.miss { display: block; background: #f7d9d3; color: #7a2418; }
+  .look.hit { display: block; background: #cfeedd; color: #1d5a37; }
+  .look.think { display: block; background: #e8dcf5; color: #4b2a6b; }
+  /* tally */
+  .tally { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; background: var(--room2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; min-height: 40px; }
+  .tally .lab { font: 700 11px "JetBrains Mono", monospace; letter-spacing: .1em; color: var(--dim); }
+  .tally .lead { display: flex; align-items: center; gap: 6px; font: 700 15px "JetBrains Mono", monospace; font-variant-numeric: tabular-nums; }
+  .tally .lead.best { color: var(--gold); }
+  .tally .pips { display: flex; gap: 2px; flex-wrap: wrap; max-width: 260px; }
+  .tally .pips i { width: 8px; height: 12px; border-radius: 2px; background: var(--make); }
+  .tally .pips i.s { background: var(--set); }
+  /* controls */
+  .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  button, select { font: 700 14px "Atkinson Hyperlegible", sans-serif; background: #2a3a33; color: var(--text); border: 1px solid #44574d; border-radius: 7px; padding: 7px 12px; cursor: pointer; }
+  button:hover { background: #33473e; } button:focus-visible, select:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  button.primary { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+  button:disabled { opacity: .4; cursor: default; }
+  .dots { display: flex; gap: 5px; margin-left: auto; }
+  .dots i { width: 9px; height: 9px; border-radius: 50%; background: #3b4c44; cursor: pointer; }
+  .dots i.on { background: var(--gold); }
+  .overlay { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(23,32,28,.8); font: 700 18px "Atkinson Hyperlegible", sans-serif; }
+  @media (max-width: 820px) {
+    body { overflow: auto; } .app { height: auto; }
+    main { grid-template-columns: 1fr; } #tablep { aspect-ratio: 1 / 1; } #bookp { height: 460px; }
+  }
+</style>
+
+<div class="app">
+  <header>
+    <div class="kicker" id="kicker">Walt’s handbook</div>
+    <h1 id="title">Walt’s handbook</h1>
+    <p class="say" id="say"></p>
+  </header>
+  <main>
+    <section class="panel" id="tablep"><svg id="table" viewBox="0 0 480 440" aria-label="The table"></svg></section>
+    <section class="panel" id="bookp"><span class="tag">everyone’s handbook</span><div id="books"></div></section>
+  </main>
+  <div class="tally" id="tally"></div>
+  <div class="bar">
+    <button id="prev">◀ Back</button>
+    <button id="next" class="primary">Next ▶</button>
+    <button id="pause">❚❚ Pause</button>
+    <button id="step">Step one tick</button>
+    <label for="speed" style="font-size:14px;color:var(--dim)">Speed</label>
+    <select id="speed"><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option><option value="12">12×</option></select>
+    <div class="dots" id="dots"></div>
+  </div>
+</div>
+
+<script src="engine.js"></script>
+<script>
+'use strict';
+const E = window.T42, $ = id => document.getElementById(id), N = t => E.name(t), I = (h, l) => E.idx(h, l);
+const CSS = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const C = { walt: CSS('--walt'), opp: CSS('--opp'), pard: CSS('--pard'), dice: CSS('--dice'), gold: CSS('--gold'), think: CSS('--think'), make: CSS('--make'), set: CSS('--set'), ivory: CSS('--ivory'), ink: CSS('--ink'), felt: CSS('--felt'), felt2: CSS('--felt2'), rim: CSS('--rim'), dim: CSS('--dim') };
+
+// ------------------------------------------------------------ the spot (a real midgame)
+// Fives are trump; Walt's team bid 30. Walt sits in seat 1 and is about to lead trick 4.
+// The first three tricks were played out by the engine's own level-0 players (seed 1472).
+const SEAT = { 1: { name: 'Walt', color: C.walt, pos: 'S' }, 2: { name: 'Lefty', color: C.opp, pos: 'W' }, 3: { name: 'Partner', color: C.pard, pos: 'N' }, 0: { name: 'Righty', color: C.opp, pos: 'E' } };
+const HISTORY = [[1, 5, 3], [2, 1, 0], [3, 5, 2], [0, 5, 4], [0, 0, 0], [1, 6, 0], [2, 2, 0], [3, 4, 0], [0, 3, 2], [1, 4, 3], [2, 3, 0], [3, 2, 2]];
+let SPOT = E.start(1); for (const [, h, l] of HISTORY) SPOT = E.play(SPOT, I(h, l));
+const MY = E.bitsOf([[5, 0], [5, 1], [5, 5], [6, 2]].map(([h, l]) => I(h, l)));
+const MOVES = E.bits(MY);
+const NW = 24, ALLW = (1 << NW) - 1;
+const WORLDS = E.sampleWorlds(1, MY, SPOT, NW, 11 * 1000 + 1472, E.publicVoids(SPOT));
+const SHOWN = [4, 11];                                   // the two worlds we tick through, in order
+const wname = w => { const k = SHOWN.indexOf(w); return k >= 0 ? `world ${k + 1}` : `world ${w + 1}`; };
+const FIVE5 = I(5, 5), FIVE0 = I(5, 0), SIX5 = I(6, 5);
+
+// level 0: everyone else rolls dice (each world keeps its own rolls)
+const DICE = E.diceField();
+const S0 = E.makeSolver(1, WORLDS, DICE);
+const C0 = S0.candidates(SPOT);
+// level 1: everyone else picks their best play (computed on demand)
+let L1 = null;
+function computeL1() { if (!L1) { const f = E.level0Field(8); const S = E.makeSolver(1, WORLDS, f); L1 = { f, S, C: S.candidates(SPOT) }; } return L1; }
+
+// one rollout as a list of events
+function rollout(S, field, move, w) {
+  const { path, end } = S.trace(SPOT, w, ALLW, move);
+  let st = SPOT; const ev = [];
+  for (const p of path) {
+    const e = { seat: p.seat, t: p.t, before: st, alive: p.alive };
+    if (p.seat !== 1) {
+      const hand = WORLDS[w].hands[p.seat] & ~st.played;
+      e.hand = hand;
+      e.legal = E.bits(E.legal(hand, st.trick));
+      if (field.kind === 'tape') e.roll = e.legal.indexOf(p.t);
+      else e.think = field.cache.get(p.seat + ':' + hand + ':' + E.recordKey(st));
+    } else if (st.log.length > SPOT.log.length) {
+      e.options = E.bits(E.legal(MY & ~st.played, st.trick)).map(t => ({ t, makes: S.solve(E.play(st, t), p.alive), of: E.pop(p.alive) }));
+    }
+    st = E.play(st, p.t); e.after = st; ev.push(e);
+  }
+  return { ev, end, made: end.banked[1] >= E.BID };
+}
+
+// ------------------------------------------------------------ run control
+let runId = 0, paused = false, stepReq = false, speed = 1;
+const STOP = Symbol('stop');
+function wait(ms) {
+  const id = runId;
+  return new Promise((res, rej) => {
+    let left = ms, last = performance.now();
+    (function tick(now) {
+      if (id !== runId) return rej(STOP);
+      const dt = now - last; last = now;
+      if (!paused) left -= dt * speed;
+      if (stepReq) { stepReq = false; left = 0; }
+      if (left <= 0) return res();
+      requestAnimationFrame(tick);
+    })(last);
+  });
+}
+$('pause').onclick = () => { paused = !paused; $('pause').textContent = paused ? '▶ Resume' : '❚❚ Pause'; };
+$('step').onclick = () => { if (!paused) { paused = true; $('pause').textContent = '▶ Resume'; } stepReq = true; };
+$('speed').onchange = e => { speed = +e.target.value; };
+const say = h => { $('say').innerHTML = h; };
+
+// ------------------------------------------------------------ table drawing
+const PIP = { 0: [], 1: [[0, 0]], 2: [[-1, -1], [1, 1]], 3: [[-1, -1], [0, 0], [1, 1]], 4: [[-1, -1], [1, -1], [-1, 1], [1, 1]], 5: [[-1, -1], [1, -1], [0, 0], [-1, 1], [1, 1]], 6: [[-1, -1], [-1, 0], [-1, 1], [1, -1], [1, 0], [1, 1]] };
+function dom(t, x, y, s, o = {}) {
+  let g = `<g transform="translate(${x},${y}) rotate(${o.rot || 0})" opacity="${o.op ?? 1}"><rect x="${-s / 2 + 2}" y="${-s + 3}" width="${s}" height="${2 * s}" rx="${s * .18}" fill="rgba(0,0,0,.35)"/>`;
+  if (o.down) g += `<rect x="${-s / 2}" y="${-s}" width="${s}" height="${2 * s}" rx="${s * .18}" fill="#264a6e" stroke="#9bbbe0" stroke-width="1.2"/>`;
+  else {
+    g += `<rect x="${-s / 2}" y="${-s}" width="${s}" height="${2 * s}" rx="${s * .18}" fill="${C.ivory}" stroke="${o.ring || '#6b604d'}" stroke-width="${o.ring ? 3 : 1}"/><line x1="${-s * .34}" y1="0" x2="${s * .34}" y2="0" stroke="${C.ink}"/>`;
+    for (const [v, cy] of [[E.HI[t], -s / 2], [E.LO[t], s / 2]]) for (const [px, py] of PIP[v]) g += `<circle cx="${px * s * .26}" cy="${cy + py * s * .26}" r="${s * .085}" fill="${v === E.TRUMP ? C.dice : C.ink}"/>`;
+  }
+  return g + '</g>';
+}
+const T = (x, y, s, o = {}) => `<text x="${x}" y="${y}" text-anchor="${o.a || 'middle'}" font-family="${o.mono ? 'JetBrains Mono, monospace' : o.disp ? 'Bricolage Grotesque, sans-serif' : 'Atkinson Hyperlegible, sans-serif'}" font-weight="${o.w || 700}" font-size="${o.size || 13}" fill="${o.fill || C.ivory}">${s}</text>`;
+const POS = { S: [240, 392], N: [240, 70], W: [58, 226], E: [422, 226] };
+const TRICK = { S: [240, 290], N: [240, 168], W: [176, 228], E: [304, 228] };
+function drawTable(v) {
+  let g = `<ellipse cx="240" cy="228" rx="186" ry="134" fill="${C.rim}"/><ellipse cx="240" cy="226" rx="176" ry="124" fill="${C.felt}"/><ellipse cx="240" cy="226" rx="160" ry="110" fill="none" stroke="${C.felt2}" stroke-width="2" stroke-dasharray="6 6"/>`;
+  for (const seat of [0, 1, 2, 3]) {
+    const P = SEAT[seat], [x, y] = POS[P.pos], vert = P.pos === 'W' || P.pos === 'E';
+    const hand = E.bits((v.hands ? v.hands[seat] : seat === 1 ? MY : 0) & ~(v.played ?? 0));
+    const n = seat === 1 ? hand.length : (v.hands ? hand.length : v.counts[seat]);
+    const s = seat === 1 ? 18 : 14, gap = seat === 1 ? 32 : 25;
+    for (let i = 0; i < n; i++) {
+      const t = hand[i], off = (i - (n - 1) / 2) * gap, up = seat === 1 || v.faceUp;
+      const lifted = v.lift && v.lift.seat === seat && v.lift.set.has(t);
+      const d = lifted ? 12 : 0, dx = vert ? (P.pos === 'W' ? d : -d) : 0, dy = vert ? 0 : (P.pos === 'N' ? d : -d);
+      g += dom(t, vert ? x + dx : x + off, vert ? y + off : y + dy, s, { down: !up, rot: vert ? 90 : 0, ring: v.lift && v.lift.seat === seat && v.lift.pick === t ? C.gold : null, op: v.lift && v.lift.seat === seat && !lifted ? .4 : 1 });
+    }
+    const ly = P.pos === 'N' ? y - 36 : P.pos === 'S' ? y + 38 : y - 72;
+    g += T(x, ly, P.name + (v.active === seat ? ' ◂' : ''), { fill: P.color, size: 14 });
+  }
+  (v.trick || []).forEach(({ seat, t }) => { const [x, y] = TRICK[SEAT[seat].pos]; g += dom(t, x, y, 16, { rot: (SEAT[seat].pos === 'W' || SEAT[seat].pos === 'E') ? 90 : 0, ring: SEAT[seat].color }); });
+  const [o, w] = v.banked || SPOT.banked;
+  g += T(12, 22, `Walt+Partner ${w} / 30`, { a: 'start', mono: 1, size: 12, fill: C.walt }) + `<rect x="12" y="28" width="130" height="7" rx="3" fill="#33443c"/><rect x="12" y="28" width="${Math.min(130, w * 130 / 30)}" height="7" rx="3" fill="${C.walt}"/>`;
+  g += T(468, 22, `Opponents ${o} (13 sets)`, { a: 'end', mono: 1, size: 12, fill: C.opp }) + `<rect x="338" y="28" width="130" height="7" rx="3" fill="#33443c"/><rect x="${468 - Math.min(130, o * 10)}" y="28" width="${Math.min(130, o * 10)}" height="7" rx="3" fill="${C.opp}"/>`;
+  if (v.die) g += `<g transform="translate(${v.die.x},${v.die.y}) rotate(${v.die.spin || 0})"><rect x="-20" y="-20" width="40" height="40" rx="8" fill="${C.dice}" stroke="${C.ivory}" stroke-width="2.5"/>${T(0, 8, v.die.face, { mono: 1, size: 22 })}</g>` + T(v.die.x, v.die.y + 36, v.die.text, { size: 12 });
+  if (v.note) g += T(240, 58, v.note, { size: 12.5, fill: C.dim, w: 400 });
+  if (v.stamp) g += `<g transform="translate(240,226) rotate(-8)"><rect x="-112" y="-34" width="224" height="68" rx="10" fill="rgba(23,32,28,.88)" stroke="${v.stamp.color}" stroke-width="5"/>${T(0, 14, v.stamp.text, { disp: 1, size: 38, fill: v.stamp.color })}</g>`;
+  if (v.extra) g += v.extra;
+  $('table').innerHTML = g;
+}
+const spotView = () => ({ hands: null, counts: { 0: 4, 2: 4, 3: 4 }, played: SPOT.played, trick: [], banked: SPOT.banked });
+
+// ------------------------------------------------------------ handbooks
+// Walt's book is keyed on what Walt sees; it lasts across worlds.
+// Dice books (level 0) belong to one world: a new world starts a fresh page.
+// Thinking players' books (level 1) are keyed on what that seat sees; they last across worlds.
+const BOOK = { 1: new Map(), 2: new Map(), 3: new Map(), 0: new Map() };
+const ORDER = [1, 2, 3, 0];
+let bookSub = {};
+function renderBooks(active, look) {
+  $('books').innerHTML = ORDER.map(s => {
+    const P = SEAT[s], rows = [...BOOK[s].values()].slice(-7);
+    const lk = look && look.seat === s ? `<div class="look ${look.kind}">${look.text}</div>` : '';
+    return `<div class="book ${active === s ? 'active' : ''}"><h3><span style="color:${P.color === C.walt ? '#2f5f9e' : P.color === C.pard ? '#1f7d73' : '#b0521c'}">${P.name}’s book</span><small>${bookSub[s] || ''}</small></h3>
+      <div class="rows">${rows.map(r => `<div class="row ${r.hit ? 'hit' : ''}"><span class="spot">${r.spot}</span><span class="pick">→ ${r.pick}</span><span class="how">${r.how}</span></div>`).join('')}</div>${lk}</div>`;
+  }).join('');
+}
+function clearBooks(sub) { for (const s of ORDER) BOOK[s].clear(); bookSub = sub || {}; renderBooks(); }
+// how a seat describes "this spot": what's on the table right now (and, for thinkers, their own tiles)
+function spotText(st, seat, withHand) {
+  const tr = st.trick.length ? st.trick.map(N).join(' ') : 'my lead';
+  const trickNo = Math.floor(st.log.length / 4) + 1;
+  return `trick ${trickNo} · ${tr}${withHand ? ' · mine ' + E.bits(withHand).map(N).join(' ') : ''}`;
+}
+
+// ------------------------------------------------------------ tally
+let TALLY = {};
+function resetTally() { TALLY = {}; for (const m of MOVES) TALLY[m] = []; renderTally(); }
+function renderTally(title = 'how often the bid made') {
+  const best = Math.max(...MOVES.map(m => TALLY[m].filter(Boolean).length));
+  const any = MOVES.some(m => TALLY[m].length);
+  $('tally').innerHTML = `<span class="lab">${title.toUpperCase()}</span>` + MOVES.map(m => {
+    const r = TALLY[m], k = r.filter(Boolean).length;
+    return `<span class="lead ${any && r.length && k === best ? 'best' : ''}">lead ${N(m)} <span class="pips">${r.map(x => `<i class="${x ? '' : 's'}"></i>`).join('')}</span>${r.length ? `${k}/${r.length}` : '–'}</span>`;
+  }).join('');
+}
+
+// ------------------------------------------------------------ tick one rollout
+async function tick(r, move, w, mode, opts = {}) {
+  const hands = WORLDS[w].hands;
+  const v = { hands, faceUp: true, played: SPOT.played, trick: [], banked: SPOT.banked };
+  drawTable(v);
+  const slow = opts.slow ?? 1;
+  for (let k = 0; k < r.ev.length; k++) {
+    const e = r.ev[k], st = e.before, P = SEAT[e.seat];
+    v.active = e.seat; v.lift = null; v.die = null; v.extra = null;
+    if (e.seat === 1) {
+      if (k === 0) {
+        say(`Walt tries the move he’s asking about: <b>lead the ${N(e.t)}</b>.`);
+        drawTable(v); renderBooks(1); await wait(1500 * slow);
+      } else {
+        const key = 'W|' + E.recordKey(st), sp = spotText(st, 1);
+        if (BOOK[1].has(key)) {
+          const row = BOOK[1].get(key); row.hit = true;
+          renderBooks(1, { seat: 1, kind: 'hit', text: `Been here before! Same tiles, same table. Play what’s in the book: ${N(row.t)}.` });
+          v.lift = { seat: 1, set: new Set([row.t]), pick: row.t }; drawTable(v);
+          say(`Walt’s turn. He checks his book: <b>he’s been in exactly this spot before</b>, in an earlier world. Same tiles in his hand, same table. So he plays what he wrote down: <b>${N(e.t)}</b>. He can’t play differently in two worlds that look the same from his chair.`);
+          await wait(3800 * slow);
+        } else {
+          renderBooks(1, { seat: 1, kind: 'miss', text: `Nothing written for this spot yet.` });
+          v.lift = { seat: 1, set: new Set((e.options || []).map(o => o.t)), pick: null }; drawTable(v);
+          const opts2 = e.options || [];
+          if (opts2.length > 1) {
+            say(`Walt’s turn. Nothing in his book for this spot. Walt doesn’t roll: he checks each tile against the ${opts2[0].of} world${opts2[0].of > 1 ? 's' : ''} that look${opts2[0].of > 1 ? '' : 's'} like this from his chair (${opts2.map(o => `${N(o.t)} makes in ${o.makes}`).join(', ')}) and writes down the best.`);
+          } else say('Walt’s turn. Only one tile is allowed here.');
+          await wait((opts2.length > 1 ? 3200 : 1200) * slow);
+          BOOK[1].set(key, { spot: sp, pick: N(e.t), t: e.t, how: opts2.length > 1 ? 'thought' : 'only one' });
+          v.lift.pick = e.t; drawTable(v); renderBooks(1); await wait(700 * slow);
+        }
+      }
+    } else if (mode === 'dice') {
+      const key = w + '|' + E.recordKey(st), sp = spotText(st, e.seat), n = e.legal.length;
+      v.lift = { seat: e.seat, set: new Set(e.legal), pick: null };
+      renderBooks(e.seat, { seat: e.seat, kind: 'miss', text: `Looked up “${sp}”: nothing here.` });
+      say(`${P.name} looks at <b>his own dominoes</b> and the table, nothing else. He checks his book for this spot: nothing. So he picks at random among the <b>${n}</b> tile${n > 1 ? 's' : ''} he’s allowed to play, and scribbles it down.`);
+      const [px, py] = POS[P.pos], dx = P.pos === 'W' ? 110 : P.pos === 'E' ? -110 : 150, dy = P.pos === 'N' ? 30 : P.pos === 'S' ? -60 : 110;
+      const t0 = performance.now();
+      if (n > 1) while (performance.now() - t0 < 900 * slow / speed) { v.die = { x: px + dx, y: py + dy, face: 1 + Math.floor(Math.random() * n), spin: Math.random() * 40 - 20, text: `rolling 1–${n}` }; drawTable(v); await wait(60); }
+      v.die = { x: px + dx, y: py + dy, face: e.roll + 1, text: n > 1 ? `#${e.roll + 1} of ${n} → ${N(e.t)}` : `only ${N(e.t)}` }; v.lift.pick = e.t; drawTable(v);
+      await wait(900 * slow);
+      BOOK[e.seat].set(key, { spot: sp, pick: N(e.t), how: n > 1 ? '🎲' : 'only one' });
+      renderBooks(e.seat); await wait(600 * slow);
+    } else { // thinking players
+      const key = e.seat + ':' + e.hand + ':' + E.recordKey(st), sp = spotText(st, e.seat, e.hand);
+      v.lift = { seat: e.seat, set: new Set(e.legal), pick: null };
+      if (BOOK[e.seat].has(key)) {
+        const row = BOOK[e.seat].get(key); row.hit = true;
+        renderBooks(e.seat, { seat: e.seat, kind: 'hit', text: `Been here before, same tiles too. Play ${N(e.t)}.` });
+        say(`${P.name} checks his book: same tiles, same table as in an earlier world. <b>Play what’s written: ${N(e.t)}.</b>`);
+        v.lift.pick = e.t; drawTable(v); await wait(2600 * slow);
+      } else if (e.legal.length === 1) {
+        renderBooks(e.seat, { seat: e.seat, kind: 'miss', text: `Only one tile allowed: ${N(e.t)}.` });
+        say(`${P.name} has only one tile he’s allowed to play: <b>${N(e.t)}</b>.`);
+        v.lift.pick = e.t; drawTable(v); await wait(1300 * slow);
+        BOOK[e.seat].set(key, { spot: sp, pick: N(e.t), how: 'only one' });
+      } else {
+        const th = e.think, good = E.team(e.seat) === 1;
+        renderBooks(e.seat, { seat: e.seat, kind: 'think', text: `Nothing here. Thinking it through…` });
+        v.extra = bubble(e.seat, th, good); drawTable(v);
+        say(`${P.name} looks at <b>his own dominoes</b> and the table. Nothing in his book, so instead of rolling he <b>thinks</b>: he imagines 8 worlds of his own (with dice for everyone else), tries each tile, and picks the one that’s best for ${good ? 'his team' : 'stopping Walt'}: <b>${N(e.t)}</b>.`);
+        await wait(3600 * slow);
+        BOOK[e.seat].set(key, { spot: sp, pick: N(e.t), how: 'thought' });
+        v.lift.pick = e.t; v.extra = null; drawTable(v); renderBooks(e.seat); await wait(600 * slow);
+      }
+    }
+    // play the tile
+    v.lift = null; v.die = null; v.extra = null;
+    v.played = e.after.played;
+    const cur = e.after.trick.length ? e.after.log.slice(e.after.log.length - e.after.trick.length) : e.before.log.slice(e.before.log.length - e.before.trick.length).concat([{ seat: e.seat, t: e.t }]);
+    v.trick = cur; drawTable(v);
+    await wait(450 * slow);
+    if (e.after.lastTrick) {
+      const L = e.after.lastTrick; v.banked = e.after.banked; drawTable(v);
+      say(`${SEAT[L.winner].name} wins the trick (${L.pts} point${L.pts > 1 ? 's' : ''}). Walt’s side ${e.after.banked[1]}, opponents ${e.after.banked[0]}.` + (opts.onTrick ? ' ' + opts.onTrick(L, e.after) : ''));
+      await wait(1900 * slow);
+      v.trick = []; drawTable(v);
+    }
+  }
+  v.active = null;
+  v.stamp = { text: r.made ? 'MADE 30' : 'SET', color: r.made ? C.make : C.set };
+  v.note = r.made ? `settled early: Walt’s side reached ${r.end.banked[1]}` : `settled early: opponents reached ${r.end.banked[0]}, and 13 sets a 30 bid`;
+  drawTable(v); renderBooks();
+  return r.made;
+}
+function bubble(seat, th, good) {
+  if (!th || !th.vals) return '';
+  const P = SEAT[seat], vals = th.vals, w = Math.max(250, 44 * vals.length + 30);
+  const bx = Math.max(8 + w / 2, Math.min(472 - w / 2, P.pos === 'W' ? 170 : P.pos === 'E' ? 310 : 240)), by = P.pos === 'N' ? 150 : 250;
+  let g = `<rect x="${bx - w / 2}" y="${by - 60}" width="${w}" height="120" rx="14" fill="${C.ivory}" stroke="${C.think}" stroke-width="3"/>`;
+  g += T(bx, by - 40, `${P.name}: “in my 8 worlds, Walt’s side makes…”`, { fill: C.ink, size: 12 });
+  vals.forEach((v, i) => {
+    const cx = bx - (vals.length - 1) * 22 + i * 44, h = 6 + v.makes / v.of * 40;
+    g += `<rect x="${cx - 10}" y="${by + 16 - h}" width="20" height="${h}" fill="${v.t === th.t ? C.gold : '#b8ad96'}"/>` + T(cx, by + 10 - h, v.makes, { fill: C.ink, size: 11, mono: 1 });
+    g += dom(v.t, cx, by + 38, 9, { ring: v.t === th.t ? C.gold : null });
+  });
+  return g;
+}
+
+// ------------------------------------------------------------ slides
+function historyExtra() {
+  let g = T(240, 146, 'three tricks so far', { size: 12, fill: C.dim });
+  const tricks = [HISTORY.slice(0, 4), HISTORY.slice(4, 8), HISTORY.slice(8, 12)];
+  tricks.forEach((tr, i) => tr.forEach(([s, h, l], j) => { g += dom(I(h, l), 150 + i * 90 + (j - 1.5) * 18, 186, 7, { ring: SEAT[s].color }); }));
+  g += T(240, 226, 'Lefty showed he’s out of trumps on trick 1', { size: 12.5, fill: C.gold });
+  g += T(240, 250, 'fives are trump · Walt’s team bid 30', { size: 12.5, fill: C.ivory, w: 400 });
+  return g;
+}
+const SLIDES = [
+  { k: 'the spot', title: 'Midgame. Walt’s lead.',
+    run: async () => {
+      clearBooks(); resetTally(); drawTable({ ...spotView(), extra: historyExtra() });
+      say('Three tricks are done. Fives are trump and Walt’s team bid 30. Walt holds four dominoes, 5-0, 5-1, 5-5 and 6-2, and it’s his lead. Everyone else’s tiles are face down. <b>Which one should he lead?</b>');
+    } },
+  { k: 'step 1', title: 'Imagine a world',
+    run: async () => {
+      clearBooks(); resetTally();
+      drawTable({ ...spotView(), extra: historyExtra() });
+      say('Walt can’t see the other hands, so he imagines them. He deals the 12 tiles he can’t see to the other three, <b>any way the rules allow</b>. (Lefty gets no trumps, because he already showed he’s out.)');
+      await wait(3200);
+      drawTable({ hands: WORLDS[SHOWN[0]].hands, faceUp: true, played: SPOT.played, trick: [], note: 'one imagined world: possible, not necessarily likely' });
+      say('That’s one <b>world</b>: a deal that could be real. Now Walt plays it out, to see how one move does here.');
+    } },
+  { k: 'step 2', title: 'Look it up. Nothing? Roll. Write it down.',
+    run: async () => {
+      clearBooks({ 1: 'every world', 2: 'this world', 3: 'this world', 0: 'this world' }); resetTally();
+      say('Everyone at the table has a handbook. On their turn they look at <b>their own dominoes</b> and the table, and check the book for this exact spot. Nothing there? <b>Roll a die, and write down what you played.</b>');
+      await wait(4200);
+      const w = SHOWN[0], r = rollout(S0, DICE, FIVE5, w);
+      const made = await tick(r, FIVE5, w, 'dice');
+      TALLY[FIVE5].push(made); renderTally();
+      say(`${made ? 'We made the bid' : 'We got set'}. How often does leading the 5-5 make? <b>So far, 1 for 1.</b>`);
+    } },
+  { k: 'step 3', title: 'New world, same move',
+    run: async () => {
+      // replay world 1 silently so the books hold what they held at the end of step 2
+      clearBooks({ 1: 'every world', 2: 'this world', 3: 'this world', 0: 'this world' }); resetTally();
+      const r1 = rollout(S0, DICE, FIVE5, SHOWN[0]); replayInto(r1, SHOWN[0], 'dice'); TALLY[FIVE5].push(r1.made);
+      for (const s of [2, 3, 0]) { BOOK[s].clear(); bookSub[s] = 'new world, new page'; }
+      renderBooks(); renderTally();
+      say('Deal a <b>new world</b> and try the same move again. The dice players start a fresh page (new world, new rolls). <b>Walt keeps his book</b>, because his tiles are the same in every world he imagines.');
+      await wait(4200);
+      const w = SHOWN[1], r = rollout(S0, DICE, FIVE5, w);
+      const made = await tick(r, FIVE5, w, 'dice');
+      TALLY[FIVE5].push(made); renderTally();
+      say(`${made ? 'Made it again' : 'Set this time'}: <b>${TALLY[FIVE5].filter(Boolean).length} for ${TALLY[FIVE5].length}</b>. See the green line in Walt’s book? That was a “been here before” moment.`);
+    } },
+  { k: 'step 4', title: 'Do it a lot',
+    run: async () => {
+      clearBooks(); resetTally();
+      drawTable({ ...spotView(), note: '24 worlds × 4 moves, dice everywhere else' });
+      say('Now the same thing for <b>every move Walt could make</b>, over 24 imagined worlds. Each little bar is one world played out: green made, red set.');
+      await wait(2600);
+      for (const m of MOVES) for (let w = 0; w < NW; w++) {
+        TALLY[m].push(rollout(S0, DICE, m, w).made); renderTally(); await wait(90);
+      }
+      const best = C0.reduce((a, b) => (b.makes > a.makes ? b : a));
+      say(`Against dice, <b>leading the ${N(best.t)} makes in ${best.makes} of 24</b>. Lead your biggest trump; nothing bad ever happens. That’s the level-0 answer. Hold that thought.`);
+    } },
+  { k: 'step 5', title: 'Dice aren’t smart',
+    run: async () => {
+      clearBooks({ 1: 'every world', 2: 'every world', 3: 'every world', 0: 'every world' }); resetTally();
+      drawTable({ ...spotView() });
+      say('Dice will play <i>anything</i>. Real players won’t. So upgrade everyone else: <b>instead of rolling, pick the best play</b>. Each of them does the exact trick we just watched, from his own chair, with his own dominoes. Their books are now worth keeping across worlds.');
+      if (!L1) {
+        const ov = document.createElement('div'); ov.className = 'overlay'; ov.textContent = 'everyone else is thinking…'; $('tablep').appendChild(ov);
+        await new Promise(r => setTimeout(r, 60)); computeL1(); ov.remove();
+      }
+      await wait(5200);
+      const w = SHOWN[1];
+      say(`Same world as before (${wname(w)}), same move: Walt leads the 5-5. Watch Partner.`);
+      await wait(2600);
+      const r = rollout(L1.S, L1.f, FIVE5, w);
+      const made = await tick(r, FIVE5, w, 'think', {
+        onTrick: (L) => (L.trick.includes(SIX5) && L.trick.includes(FIVE5) ? '<b>Partner had to play his 6-5 under Walt’s 5-5: two of the team’s trumps spent on one trick.</b>' : ''),
+      });
+      TALLY[FIVE5].push(made); renderTally();
+      say(`Against dice this world made. Against players who think, <b>leading the 5-5 gets set</b>. Walt dragged his own partner’s 6-5 down with it, and the opponents made them pay later.`);
+    } },
+  { k: 'step 6', title: 'Count again',
+    run: async () => {
+      clearBooks(); resetTally(); computeL1();
+      drawTable({ ...spotView(), note: '24 worlds × 4 moves, everyone else thinking' });
+      say('Same 24 worlds, same four moves, but now everyone else picks their best play instead of rolling.');
+      await wait(2400);
+      for (const m of MOVES) for (let w = 0; w < NW; w++) { TALLY[m].push(rollout(L1.S, L1.f, m, w).made); renderTally('vs players who think'); await wait(90); }
+      const cmp = C0.map(c => `${N(c.t)} ${c.makes}→${L1.C.find(x => x.t === c.t).makes}`).join(', ');
+      const best = L1.C.reduce((a, b) => (b.makes > a.makes ? b : a));
+      say(`Now <b>leading the ${N(best.t)} is best: ${best.makes} of 24</b>. Dice vs thinking players: ${cmp}. The big 5-5 lead fell the furthest.`);
+    } },
+  { k: 'step 7', title: 'Why the 5-0?',
+    run: async () => {
+      clearBooks(); computeL1();
+      const w = SHOWN[1];
+      const a = rollout(L1.S, L1.f, FIVE5, w), b = rollout(L1.S, L1.f, FIVE0, w);
+      const trickOf = r => { const e = r.ev.find(x => x.after.lastTrick); return e.after.lastTrick; };
+      const ta = trickOf(a), tb = trickOf(b);
+      const partnerWorlds = WORLDS.map((W, i) => i).filter(i => WORLDS[i].hands[3] & (1 << SIX5));
+      const mk = (m) => partnerWorlds.filter(i => rollout(L1.S, L1.f, m, i).made).length;
+      const k55 = mk(FIVE5), k50 = mk(FIVE0);
+      let g = T(240, 34, `${wname(w)}: Partner holds the 6-5, the last trump out`, { size: 14, fill: C.gold });
+      const row = (y, L, label, verdict, col) => {
+        let s = T(240, y - 58, label, { size: 15, disp: 1 });
+        L.trick.forEach((t, j) => { const seat = (L.leader + j) & 3; s += dom(t, 150 + j * 60, y, 20, { ring: SEAT[seat].color }) + T(150 + j * 60, y + 36, SEAT[seat].name, { size: 11, fill: SEAT[seat].color }); });
+        s += T(240, y + 60, verdict, { size: 13, fill: col });
+        return s;
+      };
+      g += row(140, ta, 'Lead the 5-5', 'Walt wins, but Partner’s 6-5 is gone too', C.set);
+      g += row(320, tb, 'Lead the 5-0', 'Partner’s 6-5 wins it. Walt still holds the 5-5', C.make);
+      g += T(240, 420, `In the ${partnerWorlds.length} worlds where Partner has the 6-5: lead 5-5 makes ${k55}, lead 5-0 makes ${k50}.`, { size: 13 });
+      $('table').innerHTML = g;
+      say('Look at the trick itself. Leading the 5-5 <b>forces Partner to play his 6-5 under it</b>, because he has to follow trumps. Leading the small 5-0 lets <b>Partner’s 6-5 win the trick</b>, and Walt keeps his 5-5 for later. Dice never punish wasting a trump. Players who think do.');
+    } },
+  { k: 'the recipe', title: 'That’s how Walt sees 42',
+    run: async () => {
+      clearBooks(); resetTally();
+      const lines = [
+        ['1', 'Deal the tiles you can’t see, any way the rules allow.'],
+        ['2', 'On every turn: look at your own dominoes and the table.'],
+        ['3', 'Been here before? Play what’s in your book.'],
+        ['4', 'New spot? Roll a die (level 0), or pick your|best play (level 1). Write it down.'],
+        ['5', 'Play it out. Do it a bunch of times. Lead the|move that made the bid most often.'],
+      ];
+      let g = '';
+      lines.forEach(([n, s], i) => { const y = 60 + i * 66; g += `<circle cx="36" cy="${y}" r="17" fill="${C.gold}"/>` + T(36, y + 6, n, { fill: C.ink, size: 16 }); s.split('|').forEach((ln, j) => { g += T(66, y + 6 + j * 20, ln, { a: 'start', size: 14.5, w: 400 }); }); });
+      g += T(240, 410, 'A teaching model: 24 worlds, thinkers imagine 8 of their own. Exploratory.', { size: 12, fill: C.dim, w: 400 });
+      $('table').innerHTML = g;
+      say('Nobody peeks. Every decision uses only that seat’s own dominoes and what’s on the table. The books make sure <b>the same spot always gets the same play</b>, and “smarter” just means filling the book by thinking instead of rolling.');
+    } },
+];
+// re-enact a rollout into the books without animation (used when jumping into a later slide)
+function replayInto(r, w, mode) {
+  for (const e of r.ev.slice(1)) {
+    const st = e.before;
+    if (e.seat === 1) { const key = 'W|' + E.recordKey(st); if (!BOOK[1].has(key)) BOOK[1].set(key, { spot: spotText(st, 1), pick: N(e.t), t: e.t, how: (e.options || []).length > 1 ? 'thought' : 'only one' }); }
+    else if (mode === 'dice') BOOK[e.seat].set(w + '|' + E.recordKey(st), { spot: spotText(st, e.seat), pick: N(e.t), how: e.legal.length > 1 ? '🎲' : 'only one' });
+  }
+}
+
+// ------------------------------------------------------------ navigation
+let cur = -1;
+SLIDES.forEach((s, i) => { const d = document.createElement('i'); d.title = s.title; d.onclick = () => go(i); $('dots').appendChild(d); });
+async function go(i) {
+  i = Math.max(0, Math.min(SLIDES.length - 1, i)); cur = i; runId++;
+  paused = false; $('pause').textContent = '❚❚ Pause';
+  const s = SLIDES[i];
+  $('kicker').textContent = `Walt’s handbook · ${s.k} · ${i + 1}/${SLIDES.length}`;
+  $('title').textContent = s.title;
+  [...$('dots').children].forEach((d, j) => d.classList.toggle('on', j === i));
+  $('prev').disabled = i === 0; $('next').disabled = i === SLIDES.length - 1;
+  try { await s.run(); } catch (e) { if (e !== STOP) console.error(e); }
+}
+$('prev').onclick = () => go(cur - 1);
+$('next').onclick = () => go(cur + 1);
+addEventListener('keydown', e => {
+  if (e.target.closest('select')) return;
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') go(cur + 1);
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(cur - 1);
+  else if (e.key === ' ') { e.preventDefault(); $('pause').click(); }
+  else if (e.key === '.') $('step').click();
+});
+go(0);
+</script>
