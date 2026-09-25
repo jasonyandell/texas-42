@@ -1,0 +1,33 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-25T12:16:42.405115+00:00",
+  "cwd": "/Users/jason/.codex/worktrees/nello-counterexamples/texas-42",
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--release",
+    "--manifest-path",
+    "walt/Cargo.toml",
+    "-p",
+    "walt-gpu-ref",
+    "--test",
+    "m1",
+    "--test",
+    "prose_bridge",
+    "--test",
+    "same_context"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 10.210348,
+  "status": "completed",
+  "child_pid": 69066,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

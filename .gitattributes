@@ -1,3 +1,9 @@
-
 # Generated completed-trick lookup; verify with generate_trick_table --check.
 walt/walt/src/solver/compact_dice/trick_table.bin binary
+
+# Collapse generated Nel-O evidence in reviews; preserve raw log/SVG whitespace.
+# Research prose and producers remain ordinary reviewable source files.
+walt/probes/nello-*/**/*.json linguist-generated=true
+walt/probes/nello-*/**/*.log linguist-generated=true -whitespace
+walt/probes/nello-*/**/*.svg linguist-generated=true -whitespace
+walt/probes/nello-*/**/*.png linguist-generated=true

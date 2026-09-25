@@ -1,0 +1,16 @@
+{"ply":6,"seed":1,"worlds":2000,"choice":"31","wall_ms":1814.55875,"solver_us":1771862,"peak_wasm_memory_bytes":53673984}
+{"ply":6,"seed":2,"worlds":2000,"choice":"44","wall_ms":1831.654,"solver_us":1799773,"peak_wasm_memory_bytes":53870592}
+{"ply":6,"seed":3,"worlds":2000,"choice":"44","wall_ms":1798.4681669999995,"solver_us":1764775,"peak_wasm_memory_bytes":52953088}
+{"ply":6,"seed":4,"worlds":2000,"choice":"51","wall_ms":1791.9669590000003,"solver_us":1761088,"peak_wasm_memory_bytes":53280768}
+{"ply":6,"seed":5,"worlds":2000,"choice":"51","wall_ms":1816.779375,"solver_us":1785298,"peak_wasm_memory_bytes":53870592}
+{"ply":6,"seed":6,"worlds":2000,"choice":"51","wall_ms":1868.1897499999995,"solver_us":1836974,"peak_wasm_memory_bytes":52035584}
+{"ply":6,"seed":7,"worlds":2000,"choice":"44","wall_ms":1783.5645410000016,"solver_us":1754746,"peak_wasm_memory_bytes":53739520}
+{"ply":6,"seed":8,"worlds":2000,"choice":"44","wall_ms":1804.2297500000004,"solver_us":1778581,"peak_wasm_memory_bytes":53411840}
+{"ply":9,"seed":1,"worlds":2000,"choice":"51","wall_ms":401.86191599999984,"solver_us":383075,"peak_wasm_memory_bytes":18677760}
+{"ply":9,"seed":2,"worlds":2000,"choice":"51","wall_ms":395.3231250000008,"solver_us":385916,"peak_wasm_memory_bytes":18481152}
+{"ply":9,"seed":3,"worlds":2000,"choice":"51","wall_ms":394.5539579999986,"solver_us":385915,"peak_wasm_memory_bytes":18677760}
+{"ply":9,"seed":4,"worlds":2000,"choice":"51","wall_ms":390.8547499999986,"solver_us":381449,"peak_wasm_memory_bytes":18481152}
+{"ply":9,"seed":5,"worlds":2000,"choice":"51","wall_ms":389.85983300000044,"solver_us":379272,"peak_wasm_memory_bytes":18612224}
+{"ply":9,"seed":6,"worlds":2000,"choice":"51","wall_ms":399.46800000000076,"solver_us":388533,"peak_wasm_memory_bytes":18153472}
+{"ply":9,"seed":7,"worlds":2000,"choice":"51","wall_ms":387.06512499999735,"solver_us":377394,"peak_wasm_memory_bytes":18350080}
+{"ply":9,"seed":8,"worlds":2000,"choice":"51","wall_ms":384.6374590000014,"solver_us":373755,"peak_wasm_memory_bytes":18612224}

@@ -1,0 +1,3293 @@
+{
+  "attack_pool": 256,
+  "attacks": [
+    {
+      "failures": [
+        {
+          "action": 4,
+          "failures": 102
+        },
+        {
+          "action": 7,
+          "failures": 98
+        },
+        {
+          "action": 14,
+          "failures": 101
+        },
+        {
+          "action": 16,
+          "failures": 79
+        }
+      ],
+      "new_witnesses": [
+        {
+          "before": [
+            {
+              "action": 4,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2,
+                    19
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    2,
+                    24
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    2,
+                    26
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    10
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 7,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    2,
+                    24
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    2,
+                    19
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    2,
+                    26
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    10
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 14,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    2,
+                    24
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2,
+                    19
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    2,
+                    26
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    10
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 16,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    2,
+                    17
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            }
+          ],
+          "doom": [
+            {
+              "action": 4,
+              "doomed": true
+            },
+            {
+              "action": 7,
+              "doomed": true
+            },
+            {
+              "action": 14,
+              "doomed": false
+            },
+            {
+              "action": 16,
+              "doomed": false
+            }
+          ],
+          "target_action": 14,
+          "world_internal_masks": [
+            82064,
+            263201,
+            84541440,
+            7373122
+          ]
+        },
+        {
+          "before": [
+            {
+              "action": 4,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    5
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            },
+            {
+              "action": 7,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    24
+                  ],
+                  [
+                    2,
+                    6
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            },
+            {
+              "action": 14,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    5
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    24
+                  ],
+                  [
+                    2,
+                    10
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    6
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    21
+                  ],
+                  [
+                    2,
+                    26
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 16,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    26
+                  ],
+                  [
+                    2,
+                    10
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    24
+                  ],
+                  [
+                    2,
+                    5
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    21
+                  ],
+                  [
+                    2,
+                    6
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            }
+          ],
+          "doom": [
+            {
+              "action": 4,
+              "doomed": false
+            },
+            {
+              "action": 7,
+              "doomed": false
+            },
+            {
+              "action": 14,
+              "doomed": false
+            },
+            {
+              "action": 16,
+              "doomed": true
+            }
+          ],
+          "target_action": 16,
+          "world_internal_masks": [
+            82064,
+            19005442,
+            67109984,
+            6062337
+          ]
+        },
+        {
+          "before": [
+            {
+              "action": 4,
+              "trace": {
+                "fallback_decisions": 2,
+                "plays_internal": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    26
+                  ],
+                  [
+                    2,
+                    8
+                  ],
+                  [
+                    2,
+                    21
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    2,
+                    5
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    6
+                  ],
+                  [
+                    2,
+                    17
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 7,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    2,
+                    8
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            },
+            {
+              "action": 14,
+              "trace": {
+                "fallback_decisions": 1,
+                "plays_internal": [
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    26
+                  ],
+                  [
+                    2,
+                    5
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    6
+                  ],
+                  [
+                    2,
+                    8
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    18
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 2
+              }
+            },
+            {
+              "action": 16,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    2,
+                    17
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            }
+          ],
+          "doom": [
+            {
+              "action": 4,
+              "doomed": true
+            },
+            {
+              "action": 7,
+              "doomed": false
+            },
+            {
+              "action": 14,
+              "doomed": false
+            },
+            {
+              "action": 16,
+              "doomed": false
+            }
+          ],
+          "target_action": 4,
+          "world_internal_masks": [
+            82064,
+            67371074,
+            2228512,
+            22578177
+          ]
+        },
+        {
+          "before": [
+            {
+              "action": 4,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    8
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            },
+            {
+              "action": 7,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    19
+                  ],
+                  [
+                    2,
+                    8
+                  ],
+                  [
+                    2,
+                    22
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    21
+                  ],
+                  [
+                    2,
+                    6
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    15
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    17
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 14,
+              "trace": {
+                "fallback_decisions": 1,
+                "plays_internal": [
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    19
+                  ],
+                  [
+                    2,
+                    8
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 1
+              }
+            },
+            {
+              "action": 16,
+              "trace": {
+                "fallback_decisions": 1,
+                "plays_internal": [
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    15
+                  ],
+                  [
+                    2,
+                    6
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    8
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 1
+              }
+            }
+          ],
+          "doom": [
+            {
+              "action": 4,
+              "doomed": false
+            },
+            {
+              "action": 7,
+              "doomed": true
+            },
+            {
+              "action": 14,
+              "doomed": false
+            },
+            {
+              "action": 16,
+              "doomed": false
+            }
+          ],
+          "target_action": 7,
+          "world_internal_masks": [
+            82064,
+            2785280,
+            4194626,
+            85197857
+          ]
+        }
+      ],
+      "pool_worlds": 256,
+      "replay_retained_witnesses": [
+        {
+          "action": 4,
+          "fallback_decisions": 0,
+          "sets": 2,
+          "viewer_decisions": 6,
+          "worlds": 4
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 0,
+          "sets": 2,
+          "viewer_decisions": 6,
+          "worlds": 4
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 0,
+          "sets": 4,
+          "viewer_decisions": 5,
+          "worlds": 4
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 0,
+          "sets": 3,
+          "viewer_decisions": 4,
+          "worlds": 4
+        }
+      ],
+      "retained_witnesses": 4,
+      "round": 1,
+      "training": [
+        {
+          "action": 4,
+          "declarer_make": [
+            "9",
+            "22"
+          ],
+          "policy_nodes": 72
+        },
+        {
+          "action": 7,
+          "declarer_make": [
+            "7",
+            "22"
+          ],
+          "policy_nodes": 57
+        },
+        {
+          "action": 14,
+          "declarer_make": [
+            "3",
+            "22"
+          ],
+          "policy_nodes": 54
+        },
+        {
+          "action": 16,
+          "declarer_make": [
+            "7",
+            "22"
+          ],
+          "policy_nodes": 55
+        }
+      ]
+    },
+    {
+      "failures": [
+        {
+          "action": 4,
+          "failures": 102
+        },
+        {
+          "action": 7,
+          "failures": 101
+        },
+        {
+          "action": 14,
+          "failures": 118
+        },
+        {
+          "action": 16,
+          "failures": 94
+        }
+      ],
+      "new_witnesses": [
+        {
+          "before": [
+            {
+              "action": 4,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    8
+                  ],
+                  [
+                    2,
+                    15
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            },
+            {
+              "action": 7,
+              "trace": {
+                "fallback_decisions": 2,
+                "plays_internal": [
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    6
+                  ],
+                  [
+                    2,
+                    18
+                  ],
+                  [
+                    2,
+                    20
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    8
+                  ],
+                  [
+                    2,
+                    21
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    22
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 2
+              }
+            },
+            {
+              "action": 14,
+              "trace": {
+                "fallback_decisions": 2,
+                "plays_internal": [
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    22
+                  ],
+                  [
+                    2,
+                    20
+                  ],
+                  [
+                    2,
+                    15
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    8
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    6
+                  ],
+                  [
+                    2,
+                    18
+                  ],
+                  [
+                    2,
+                    21
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    24
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 16,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    8
+                  ],
+                  [
+                    2,
+                    18
+                  ],
+                  [
+                    2,
+                    15
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    22
+                  ],
+                  [
+                    2,
+                    20
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    24
+                  ],
+                  [
+                    2,
+                    21
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    6
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            }
+          ],
+          "doom": [
+            {
+              "action": 4,
+              "doomed": false
+            },
+            {
+              "action": 7,
+              "doomed": false
+            },
+            {
+              "action": 14,
+              "doomed": false
+            },
+            {
+              "action": 16,
+              "doomed": false
+            }
+          ],
+          "target_action": 16,
+          "world_internal_masks": [
+            82064,
+            20971840,
+            3440640,
+            67765283
+          ]
+        },
+        {
+          "before": [
+            {
+              "action": 4,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    8
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    2,
+                    20
+                  ],
+                  [
+                    2,
+                    10
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    5
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 7,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    8
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            },
+            {
+              "action": 14,
+              "trace": {
+                "fallback_decisions": 1,
+                "plays_internal": [
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    2,
+                    20
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2,
+                    10
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    8
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 16,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    2,
+                    17
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            }
+          ],
+          "doom": [
+            {
+              "action": 4,
+              "doomed": true
+            },
+            {
+              "action": 7,
+              "doomed": false
+            },
+            {
+              "action": 14,
+              "doomed": false
+            },
+            {
+              "action": 16,
+              "doomed": false
+            }
+          ],
+          "target_action": 4,
+          "world_internal_masks": [
+            82064,
+            262433,
+            1180674,
+            90734656
+          ]
+        },
+        {
+          "before": [
+            {
+              "action": 4,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    19
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2,
+                    10
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    22
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    2,
+                    15
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    20
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 7,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    20
+                  ],
+                  [
+                    2,
+                    10
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    2,
+                    15
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    19
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2,
+                    22
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 14,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    2,
+                    15
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    19
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2,
+                    22
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    2,
+                    10
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    20
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 16,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    19
+                  ],
+                  [
+                    2,
+                    15
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            }
+          ],
+          "doom": [
+            {
+              "action": 4,
+              "doomed": true
+            },
+            {
+              "action": 7,
+              "doomed": false
+            },
+            {
+              "action": 14,
+              "doomed": false
+            },
+            {
+              "action": 16,
+              "doomed": false
+            }
+          ],
+          "target_action": 7,
+          "world_internal_masks": [
+            82064,
+            1572898,
+            4359168,
+            86245697
+          ]
+        },
+        {
+          "before": [
+            {
+              "action": 4,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    8
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    10
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    2,
+                    24
+                  ],
+                  [
+                    2,
+                    19
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    15
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 7,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    2,
+                    24
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    8
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    15
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2,
+                    19
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    10
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 14,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    2,
+                    19
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    8
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2,
+                    24
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    10
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    15
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 16,
+              "trace": {
+                "fallback_decisions": 2,
+                "plays_internal": [
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    15
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    18
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    8
+                  ],
+                  [
+                    2,
+                    19
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 2
+              }
+            }
+          ],
+          "doom": [
+            {
+              "action": 4,
+              "doomed": true
+            },
+            {
+              "action": 7,
+              "doomed": true
+            },
+            {
+              "action": 14,
+              "doomed": true
+            },
+            {
+              "action": 16,
+              "doomed": false
+            }
+          ],
+          "target_action": 14,
+          "world_internal_masks": [
+            82064,
+            296192,
+            17432578,
+            74448993
+          ]
+        }
+      ],
+      "pool_worlds": 256,
+      "replay_retained_witnesses": [
+        {
+          "action": 4,
+          "fallback_decisions": 0,
+          "sets": 3,
+          "viewer_decisions": 15,
+          "worlds": 8
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 0,
+          "sets": 5,
+          "viewer_decisions": 13,
+          "worlds": 8
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 0,
+          "sets": 7,
+          "viewer_decisions": 14,
+          "worlds": 8
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 0,
+          "sets": 7,
+          "viewer_decisions": 9,
+          "worlds": 8
+        }
+      ],
+      "retained_witnesses": 8,
+      "round": 2,
+      "training": [
+        {
+          "action": 4,
+          "declarer_make": [
+            "7",
+            "16"
+          ],
+          "policy_nodes": 79
+        },
+        {
+          "action": 7,
+          "declarer_make": [
+            "5",
+            "16"
+          ],
+          "policy_nodes": 64
+        },
+        {
+          "action": 14,
+          "declarer_make": [
+            "7",
+            "48"
+          ],
+          "policy_nodes": 61
+        },
+        {
+          "action": 16,
+          "declarer_make": [
+            "7",
+            "24"
+          ],
+          "policy_nodes": 60
+        }
+      ]
+    },
+    {
+      "failures": [
+        {
+          "action": 4,
+          "failures": 103
+        },
+        {
+          "action": 7,
+          "failures": 91
+        },
+        {
+          "action": 14,
+          "failures": 113
+        },
+        {
+          "action": 16,
+          "failures": 84
+        }
+      ],
+      "new_witnesses": [
+        {
+          "before": [
+            {
+              "action": 4,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    20
+                  ],
+                  [
+                    2,
+                    17
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    26
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    19
+                  ],
+                  [
+                    2,
+                    18
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    24
+                  ],
+                  [
+                    2,
+                    21
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 7,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    24
+                  ],
+                  [
+                    2,
+                    18
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            },
+            {
+              "action": 14,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    20
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            },
+            {
+              "action": 16,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    19
+                  ],
+                  [
+                    2,
+                    17
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            }
+          ],
+          "doom": [
+            {
+              "action": 4,
+              "doomed": false
+            },
+            {
+              "action": 7,
+              "doomed": false
+            },
+            {
+              "action": 14,
+              "doomed": false
+            },
+            {
+              "action": 16,
+              "doomed": false
+            }
+          ],
+          "target_action": 4,
+          "world_internal_masks": [
+            82064,
+            85458944,
+            2490370,
+            4228449
+          ]
+        },
+        {
+          "before": [
+            {
+              "action": 4,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    10
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            },
+            {
+              "action": 7,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    26
+                  ],
+                  [
+                    2,
+                    24
+                  ],
+                  [
+                    2,
+                    10
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    19
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    15
+                  ],
+                  [
+                    2,
+                    22
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 14,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    2,
+                    19
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    26
+                  ],
+                  [
+                    2,
+                    24
+                  ],
+                  [
+                    2,
+                    10
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    22
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    15
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 16,
+              "trace": {
+                "fallback_decisions": 1,
+                "plays_internal": [
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    15
+                  ],
+                  [
+                    2,
+                    19
+                  ],
+                  [
+                    2,
+                    24
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    26
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 1
+              }
+            }
+          ],
+          "doom": [
+            {
+              "action": 4,
+              "doomed": false
+            },
+            {
+              "action": 7,
+              "doomed": true
+            },
+            {
+              "action": 14,
+              "doomed": false
+            },
+            {
+              "action": 16,
+              "doomed": false
+            }
+          ],
+          "target_action": 7,
+          "world_internal_masks": [
+            82064,
+            67272705,
+            21496832,
+            3408226
+          ]
+        },
+        {
+          "before": [
+            {
+              "action": 4,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    1
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            },
+            {
+              "action": 7,
+              "trace": {
+                "fallback_decisions": 2,
+                "plays_internal": [
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    2,
+                    18
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    26
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    6
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 2
+              }
+            },
+            {
+              "action": 14,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    2,
+                    22
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    18
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    26
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    21
+                  ],
+                  [
+                    2,
+                    6
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 16,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    17
+                  ],
+                  [
+                    2,
+                    18
+                  ],
+                  [
+                    2,
+                    6
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    26
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    5
+                  ],
+                  [
+                    2,
+                    1
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    21
+                  ],
+                  [
+                    2,
+                    22
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            }
+          ],
+          "doom": [
+            {
+              "action": 4,
+              "doomed": false
+            },
+            {
+              "action": 7,
+              "doomed": false
+            },
+            {
+              "action": 14,
+              "doomed": false
+            },
+            {
+              "action": 16,
+              "doomed": true
+            }
+          ],
+          "target_action": 14,
+          "world_internal_masks": [
+            82064,
+            69337120,
+            4456514,
+            18384129
+          ]
+        },
+        {
+          "before": [
+            {
+              "action": 4,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    20
+                  ],
+                  [
+                    2,
+                    8
+                  ],
+                  [
+                    2,
+                    18
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    15
+                  ],
+                  [
+                    2,
+                    21
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    19
+                  ],
+                  [
+                    2,
+                    24
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    6
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 7,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    6
+                  ],
+                  [
+                    2,
+                    8
+                  ],
+                  [
+                    2,
+                    18
+                  ],
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    15
+                  ],
+                  [
+                    2,
+                    21
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    19
+                  ],
+                  [
+                    2,
+                    24
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    20
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            },
+            {
+              "action": 14,
+              "trace": {
+                "fallback_decisions": 0,
+                "plays_internal": [
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    20
+                  ],
+                  [
+                    2,
+                    8
+                  ]
+                ],
+                "set": true,
+                "viewer_decisions": 0
+              }
+            },
+            {
+              "action": 16,
+              "trace": {
+                "fallback_decisions": 3,
+                "plays_internal": [
+                  [
+                    0,
+                    16
+                  ],
+                  [
+                    1,
+                    15
+                  ],
+                  [
+                    2,
+                    18
+                  ],
+                  [
+                    2,
+                    8
+                  ],
+                  [
+                    0,
+                    7
+                  ],
+                  [
+                    1,
+                    6
+                  ],
+                  [
+                    2,
+                    21
+                  ],
+                  [
+                    0,
+                    4
+                  ],
+                  [
+                    1,
+                    19
+                  ],
+                  [
+                    2,
+                    24
+                  ],
+                  [
+                    0,
+                    14
+                  ],
+                  [
+                    1,
+                    20
+                  ]
+                ],
+                "set": false,
+                "viewer_decisions": 3
+              }
+            }
+          ],
+          "doom": [
+            {
+              "action": 4,
+              "doomed": true
+            },
+            {
+              "action": 7,
+              "doomed": true
+            },
+            {
+              "action": 14,
+              "doomed": false
+            },
+            {
+              "action": 16,
+              "doomed": true
+            }
+          ],
+          "target_action": 16,
+          "world_internal_masks": [
+            82064,
+            1605696,
+            19136768,
+            71435299
+          ]
+        }
+      ],
+      "pool_worlds": 256,
+      "replay_retained_witnesses": [
+        {
+          "action": 4,
+          "fallback_decisions": 0,
+          "sets": 6,
+          "viewer_decisions": 20,
+          "worlds": 12
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 0,
+          "sets": 7,
+          "viewer_decisions": 21,
+          "worlds": 12
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 0,
+          "sets": 11,
+          "viewer_decisions": 16,
+          "worlds": 12
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 0,
+          "sets": 9,
+          "viewer_decisions": 16,
+          "worlds": 12
+        }
+      ],
+      "retained_witnesses": 12,
+      "round": 3,
+      "training": [
+        {
+          "action": 4,
+          "declarer_make": [
+            "11",
+            "26"
+          ],
+          "policy_nodes": 84
+        },
+        {
+          "action": 7,
+          "declarer_make": [
+            "17",
+            "52"
+          ],
+          "policy_nodes": 72
+        },
+        {
+          "action": 14,
+          "declarer_make": [
+            "7",
+            "52"
+          ],
+          "policy_nodes": 63
+        },
+        {
+          "action": 16,
+          "declarer_make": [
+            "4",
+            "13"
+          ],
+          "policy_nodes": 67
+        }
+      ]
+    }
+  ],
+  "baseline_ties": [
+    14
+  ],
+  "claim": "exploratory single-world fixed-field doom and policy failures; no counted-mass or strength claim",
+  "counterexample_phase_ms": 114,
+  "evaluations": [
+    {
+      "choice": 14,
+      "examination": [
+        {
+          "action": 4,
+          "fallback_decisions": 5933,
+          "sets": 2416,
+          "viewer_decisions": 6200,
+          "worlds": 4096
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 5474,
+          "sets": 2653,
+          "viewer_decisions": 5850,
+          "worlds": 4096
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 5996,
+          "sets": 2416,
+          "viewer_decisions": 7446,
+          "worlds": 4096
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 4965,
+          "sets": 2760,
+          "viewer_decisions": 5301,
+          "worlds": 4096
+        }
+      ],
+      "label": "baseline",
+      "ordinary_replay": [
+        {
+          "action": 4,
+          "fallback_decisions": 0,
+          "sets": 24,
+          "viewer_decisions": 67,
+          "worlds": 40
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 0,
+          "sets": 28,
+          "viewer_decisions": 51,
+          "worlds": 40
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 0,
+          "sets": 34,
+          "viewer_decisions": 56,
+          "worlds": 40
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 0,
+          "sets": 27,
+          "viewer_decisions": 52,
+          "worlds": 40
+        }
+      ],
+      "tie_only_choice": 14,
+      "training": [
+        {
+          "action": 4,
+          "declarer_make": [
+            "2",
+            "5"
+          ],
+          "policy_nodes": 67
+        },
+        {
+          "action": 7,
+          "declarer_make": [
+            "3",
+            "10"
+          ],
+          "policy_nodes": 51
+        },
+        {
+          "action": 14,
+          "declarer_make": [
+            "3",
+            "20"
+          ],
+          "policy_nodes": 50
+        },
+        {
+          "action": 16,
+          "declarer_make": [
+            "13",
+            "40"
+          ],
+          "policy_nodes": 51
+        }
+      ]
+    },
+    {
+      "choice": 14,
+      "examination": [
+        {
+          "action": 4,
+          "fallback_decisions": 5928,
+          "sets": 2416,
+          "viewer_decisions": 6200,
+          "worlds": 4096
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 5460,
+          "sets": 2654,
+          "viewer_decisions": 5850,
+          "worlds": 4096
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 5911,
+          "sets": 2423,
+          "viewer_decisions": 7438,
+          "worlds": 4096
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 4929,
+          "sets": 2760,
+          "viewer_decisions": 5301,
+          "worlds": 4096
+        }
+      ],
+      "label": "round-1",
+      "ordinary_replay": [
+        {
+          "action": 4,
+          "fallback_decisions": 0,
+          "sets": 24,
+          "viewer_decisions": 67,
+          "worlds": 40
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 0,
+          "sets": 28,
+          "viewer_decisions": 51,
+          "worlds": 40
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 0,
+          "sets": 34,
+          "viewer_decisions": 56,
+          "worlds": 40
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 0,
+          "sets": 27,
+          "viewer_decisions": 52,
+          "worlds": 40
+        }
+      ],
+      "tie_only_choice": 14,
+      "training": [
+        {
+          "action": 4,
+          "declarer_make": [
+            "9",
+            "22"
+          ],
+          "policy_nodes": 72
+        },
+        {
+          "action": 7,
+          "declarer_make": [
+            "7",
+            "22"
+          ],
+          "policy_nodes": 57
+        },
+        {
+          "action": 14,
+          "declarer_make": [
+            "3",
+            "22"
+          ],
+          "policy_nodes": 54
+        },
+        {
+          "action": 16,
+          "declarer_make": [
+            "7",
+            "22"
+          ],
+          "policy_nodes": 55
+        }
+      ]
+    },
+    {
+      "choice": 14,
+      "examination": [
+        {
+          "action": 4,
+          "fallback_decisions": 5881,
+          "sets": 2415,
+          "viewer_decisions": 6201,
+          "worlds": 4096
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 5431,
+          "sets": 2655,
+          "viewer_decisions": 5849,
+          "worlds": 4096
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 5869,
+          "sets": 2419,
+          "viewer_decisions": 7442,
+          "worlds": 4096
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 4886,
+          "sets": 2761,
+          "viewer_decisions": 5301,
+          "worlds": 4096
+        }
+      ],
+      "label": "round-2",
+      "ordinary_replay": [
+        {
+          "action": 4,
+          "fallback_decisions": 0,
+          "sets": 24,
+          "viewer_decisions": 67,
+          "worlds": 40
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 0,
+          "sets": 28,
+          "viewer_decisions": 51,
+          "worlds": 40
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 0,
+          "sets": 34,
+          "viewer_decisions": 56,
+          "worlds": 40
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 0,
+          "sets": 27,
+          "viewer_decisions": 52,
+          "worlds": 40
+        }
+      ],
+      "tie_only_choice": 14,
+      "training": [
+        {
+          "action": 4,
+          "declarer_make": [
+            "7",
+            "16"
+          ],
+          "policy_nodes": 79
+        },
+        {
+          "action": 7,
+          "declarer_make": [
+            "5",
+            "16"
+          ],
+          "policy_nodes": 64
+        },
+        {
+          "action": 14,
+          "declarer_make": [
+            "7",
+            "48"
+          ],
+          "policy_nodes": 61
+        },
+        {
+          "action": 16,
+          "declarer_make": [
+            "7",
+            "24"
+          ],
+          "policy_nodes": 60
+        }
+      ]
+    },
+    {
+      "choice": 14,
+      "examination": [
+        {
+          "action": 4,
+          "fallback_decisions": 5871,
+          "sets": 2415,
+          "viewer_decisions": 6201,
+          "worlds": 4096
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 5412,
+          "sets": 2655,
+          "viewer_decisions": 5849,
+          "worlds": 4096
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 5815,
+          "sets": 2415,
+          "viewer_decisions": 7452,
+          "worlds": 4096
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 4859,
+          "sets": 2761,
+          "viewer_decisions": 5301,
+          "worlds": 4096
+        }
+      ],
+      "label": "round-3",
+      "ordinary_replay": [
+        {
+          "action": 4,
+          "fallback_decisions": 0,
+          "sets": 24,
+          "viewer_decisions": 67,
+          "worlds": 40
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 0,
+          "sets": 28,
+          "viewer_decisions": 51,
+          "worlds": 40
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 0,
+          "sets": 34,
+          "viewer_decisions": 56,
+          "worlds": 40
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 0,
+          "sets": 27,
+          "viewer_decisions": 52,
+          "worlds": 40
+        }
+      ],
+      "tie_only_choice": 14,
+      "training": [
+        {
+          "action": 4,
+          "declarer_make": [
+            "11",
+            "26"
+          ],
+          "policy_nodes": 84
+        },
+        {
+          "action": 7,
+          "declarer_make": [
+            "17",
+            "52"
+          ],
+          "policy_nodes": 72
+        },
+        {
+          "action": 14,
+          "declarer_make": [
+            "7",
+            "52"
+          ],
+          "policy_nodes": 63
+        },
+        {
+          "action": 16,
+          "declarer_make": [
+            "4",
+            "13"
+          ],
+          "policy_nodes": 67
+        }
+      ]
+    },
+    {
+      "choice": 14,
+      "examination": [
+        {
+          "action": 4,
+          "fallback_decisions": 5904,
+          "sets": 2416,
+          "viewer_decisions": 6199,
+          "worlds": 4096
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 5440,
+          "sets": 2652,
+          "viewer_decisions": 5854,
+          "worlds": 4096
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 5764,
+          "sets": 2401,
+          "viewer_decisions": 7467,
+          "worlds": 4096
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 4915,
+          "sets": 2759,
+          "viewer_decisions": 5302,
+          "worlds": 4096
+        }
+      ],
+      "label": "random-control",
+      "ordinary_replay": [
+        {
+          "action": 4,
+          "fallback_decisions": 0,
+          "sets": 24,
+          "viewer_decisions": 67,
+          "worlds": 40
+        },
+        {
+          "action": 7,
+          "fallback_decisions": 0,
+          "sets": 28,
+          "viewer_decisions": 51,
+          "worlds": 40
+        },
+        {
+          "action": 14,
+          "fallback_decisions": 0,
+          "sets": 34,
+          "viewer_decisions": 56,
+          "worlds": 40
+        },
+        {
+          "action": 16,
+          "fallback_decisions": 0,
+          "sets": 27,
+          "viewer_decisions": 52,
+          "worlds": 40
+        }
+      ],
+      "tie_only_choice": 14,
+      "training": [
+        {
+          "action": 4,
+          "declarer_make": [
+            "19",
+            "52"
+          ],
+          "policy_nodes": 79
+        },
+        {
+          "action": 7,
+          "declarer_make": [
+            "15",
+            "52"
+          ],
+          "policy_nodes": 65
+        },
+        {
+          "action": 14,
+          "declarer_make": [
+            "9",
+            "52"
+          ],
+          "policy_nodes": 65
+        },
+        {
+          "action": 16,
+          "declarer_make": [
+            "4",
+            "13"
+          ],
+          "policy_nodes": 62
+        }
+      ]
+    }
+  ],
+  "examination_worlds": 4096,
+  "field": "same deterministic L0/voidless player as discovery; no clairvoyant declarer",
+  "inner_worlds": 8,
+  "input": {
+    "attack_pool": 256,
+    "budget_ms": 240000,
+    "examination": 4096,
+    "n0": 8,
+    "ordinary": 40,
+    "request": {
+      "bid": 1,
+      "bidder": 0,
+      "contract": "nello",
+      "decl": 8,
+      "hand": [
+        4,
+        7,
+        12,
+        14,
+        16,
+        25,
+        27
+      ],
+      "plays": [
+        0,
+        3,
+        1,
+        23,
+        3,
+        12,
+        1,
+        11,
+        3,
+        25,
+        0,
+        13,
+        3,
+        27,
+        0,
+        9,
+        1,
+        2
+      ],
+      "seat": 3,
+      "seed": 2
+    },
+    "rounds": 3,
+    "witnesses_per_round": 4
+  },
+  "ordinary": 40,
+  "paired_augmented": [
+    1642,
+    38,
+    39,
+    2377
+  ],
+  "paired_order": [
+    "both_escape",
+    "candidate_only_set",
+    "baseline_only_set",
+    "both_set"
+  ],
+  "paired_random_control": [
+    1654,
+    26,
+    41,
+    2375
+  ],
+  "paired_tie_only": [
+    1642,
+    38,
+    39,
+    2377
+  ],
+  "policy_completion": "fixed own/public L0 on histories absent from extracted tree",
+  "rotation": 1,
+  "rounds": 3,
+  "schema": "nello-counterexample-probe-v1",
+  "seed": 2,
+  "status": "completed",
+  "total_ms": 518,
+  "witness_count": 12,
+  "witness_limit": 4
+}

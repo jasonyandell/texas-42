@@ -1,0 +1,24 @@
+
+running 4 tests
+test played::tests::malformed_game_never_reaches_player ... ok
+test auction::carry_tests::every_policy_context_change_refuses_reuse_and_budget_state_is_fresh ... ok
+test played::tests::host_finishes_all_tricks_and_exposes_only_own_hand ... ok
+test auction::carry_tests::retained_answers_match_cold_prices_across_refinement_and_changed_requests ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s
+
+
+running 1 test
+test higher_contracts_reach_the_root_and_continuation_policy ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 4 tests
+test budgeted_nello_preserves_legal_checkpoint_and_contract ... ok
+test contract_identity_prevents_cross_contract_policy_cache_reuse ... ok
+test pinned_plunge_histories_all_seats_and_hidden_capacities ... ok
+test original_doubles_suit_algebra_and_every_ordered_triple ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

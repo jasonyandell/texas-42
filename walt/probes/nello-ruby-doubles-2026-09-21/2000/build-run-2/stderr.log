@@ -1,0 +1,19 @@
+   Compiling autocfg v1.5.1
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.24
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling num-traits v0.2.19
+   Compiling num-integer v0.1.47
+   Compiling num-bigint v0.4.8
+   Compiling syn v3.0.5
+   Compiling num-rational v0.4.2
+   Compiling walt v0.1.0 (/private/tmp/nello-ruby-doubles-20260921-2000/walt-src/walt)
+   Compiling serde_derive v1.0.229
+   Compiling walt-player v0.1.0 (/private/tmp/nello-ruby-doubles-20260921-2000/walt-src/walt-player)
+    Finished `release` profile [optimized] target(s) in 7.08s

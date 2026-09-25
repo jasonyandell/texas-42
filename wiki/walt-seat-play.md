@@ -26,6 +26,11 @@ seat does at its turn; a mathematician who wants the objects and the
 fences; an engineer who wants to run the player and know which of its
 several configurations they are running.
 
+**2026-09-25 follow-up (EXPLORATORY):** [Walt and Nel-O](walt-nello.md)
+owns the shared `walt-player` contract extension, the large-sample double-lead
+investigation and counterexample preview. Its current browser configuration and
+merge checks are separate from the historical configurations recorded below.
+
 ## 1. The one decision procedure
 
 Plainly: at its turn walt asks one question — *of my legal tiles, which

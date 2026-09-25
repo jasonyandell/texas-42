@@ -1,0 +1,7 @@
+{
+  "observed_utc": "2026-09-22T05:50:03.767922+00:00",
+  "ram_bytes": 51539607552,
+  "memory_pressure": "The system has 51539607552 (3145728 pages with a page size of 16384).\nSystem-wide memory free percentage: 87%",
+  "swap": "vm.swapusage: total = 0.00M  used = 0.00M  free = 0.00M  (encrypted)",
+  "scope": "Live host check during the serial100k research panel; memory_pressure percentage is an OS metric, not a literal free-RAM count."
+}

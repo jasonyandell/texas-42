@@ -1,0 +1,54 @@
+    Checking walt-player v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player)
+error: manual implementation of `.is_multiple_of()`
+  --> walt-player/src/bin/kiln-scheme-contrast-worker.rs:22:63
+   |
+22 |     if r.bid!=30 || ![0,1,2,3,4,5,6,7,9].contains(&r.decl) || r.plays.len()%2!=0
+   |                                                               ^^^^^^^^^^^^^^^^^^ help: replace with: `!r.plays.len().is_multiple_of(2)`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#manual_is_multiple_of
+   = note: `-D clippy::manual-is-multiple-of` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::manual_is_multiple_of)]`
+
+error: usage of `contains_key` followed by `insert` on a `BTreeMap`
+  --> walt-player/src/bin/kiln-scheme-contrast-worker.rs:45:9
+   |
+45 | /         if !cache.contains_key(&key) {
+46 | |             let mut bound=query.clone();
+47 | |             for case in &mut bound.cases {
+48 | |                 for (name,n) in [("baseline",row.baseline),("alternative",row.alternative)] {
+...  |
+52 | |             cache.insert(key,bound.compile(&gym::registry()).map_err(|e|e.to_string())?);
+53 | |         }
+   | |_________^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#map_entry
+   = note: `-D clippy::map-entry` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::map_entry)]`
+help: try
+   |
+45 ~         if let std::collections::btree_map::Entry::Vacant(e) = cache.entry(key) {
+46 +             let mut bound=query.clone();
+47 +             for case in &mut bound.cases {
+48 +                 for (name,n) in [("baseline",row.baseline),("alternative",row.alternative)] {
+49 +                     case.atoms.insert(0,Atom{predicate:"tile".into(),args:vec![Term::Role(name.into()),Term::Literal(Value::Domino(tile(n)?))],negated:false});
+50 +                 }
+51 +             }
+52 +             e.insert(bound.compile(&gym::registry()).map_err(|e|e.to_string())?);
+53 +         }
+   |
+
+error: could not compile `walt-player` (bin "kiln-scheme-contrast-worker") due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `walt-player` (bin "kiln-scheme-contrast-worker" test) due to 2 previous errors
+error: manual implementation of `.is_multiple_of()`
+  --> walt-player/src/bin/kiln-decision-worker.rs:50:34
+   |
+50 |         || req.plays.len()>52 || req.plays.len()%2 != 0
+   |                                  ^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `!req.plays.len().is_multiple_of(2)`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#manual_is_multiple_of
+   = note: `-D clippy::manual-is-multiple-of` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::manual_is_multiple_of)]`
+
+error: could not compile `walt-player` (bin "kiln-decision-worker") due to 1 previous error
+error: could not compile `walt-player` (bin "kiln-decision-worker" test) due to 1 previous error

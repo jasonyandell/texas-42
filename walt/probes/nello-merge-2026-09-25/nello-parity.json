@@ -1,0 +1,2710 @@
+{
+  "rows": [
+    {
+      "kind": "set",
+      "declarer": 0,
+      "ply": 0,
+      "choice": 25,
+      "route": "baseline",
+      "native_us": 24841,
+      "wasm_us": 42213,
+      "options": [
+        [
+          1,
+          "0",
+          "1"
+        ],
+        [
+          12,
+          "0",
+          "1"
+        ],
+        [
+          13,
+          "0",
+          "1"
+        ],
+        [
+          14,
+          "0",
+          "1"
+        ],
+        [
+          19,
+          "0",
+          "1"
+        ],
+        [
+          23,
+          "0",
+          "1"
+        ],
+        [
+          25,
+          "1",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "set",
+      "declarer": 0,
+      "ply": 1,
+      "choice": 9,
+      "route": "forced",
+      "native_us": 33,
+      "wasm_us": 61
+    },
+    {
+      "kind": "set",
+      "declarer": 0,
+      "ply": 2,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 30077,
+      "wasm_us": 59851,
+      "options": [
+        [
+          0,
+          "0",
+          "1"
+        ],
+        [
+          5,
+          "0",
+          "1"
+        ],
+        [
+          20,
+          "1",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "set",
+      "declarer": 1,
+      "ply": 0,
+      "choice": 25,
+      "route": "baseline",
+      "native_us": 10663,
+      "wasm_us": 24011,
+      "options": [
+        [
+          1,
+          "0",
+          "1"
+        ],
+        [
+          12,
+          "0",
+          "1"
+        ],
+        [
+          13,
+          "0",
+          "1"
+        ],
+        [
+          14,
+          "0",
+          "1"
+        ],
+        [
+          19,
+          "0",
+          "1"
+        ],
+        [
+          23,
+          "0",
+          "1"
+        ],
+        [
+          25,
+          "1",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "set",
+      "declarer": 1,
+      "ply": 1,
+      "choice": 9,
+      "route": "forced",
+      "native_us": 23,
+      "wasm_us": 21
+    },
+    {
+      "kind": "set",
+      "declarer": 1,
+      "ply": 2,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 28693,
+      "wasm_us": 58165,
+      "options": [
+        [
+          0,
+          "0",
+          "1"
+        ],
+        [
+          5,
+          "0",
+          "1"
+        ],
+        [
+          20,
+          "1",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "set",
+      "declarer": 2,
+      "ply": 0,
+      "choice": 1,
+      "route": "baseline",
+      "native_us": 15136,
+      "wasm_us": 21710,
+      "options": [
+        [
+          1,
+          "0",
+          "1"
+        ],
+        [
+          12,
+          "0",
+          "1"
+        ],
+        [
+          13,
+          "0",
+          "1"
+        ],
+        [
+          14,
+          "0",
+          "1"
+        ],
+        [
+          19,
+          "0",
+          "1"
+        ],
+        [
+          23,
+          "0",
+          "1"
+        ],
+        [
+          25,
+          "0",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "set",
+      "declarer": 2,
+      "ply": 1,
+      "choice": 9,
+      "route": "forced",
+      "native_us": 23,
+      "wasm_us": 20
+    },
+    {
+      "kind": "set",
+      "declarer": 2,
+      "ply": 2,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 34682,
+      "wasm_us": 49048,
+      "options": [
+        [
+          0,
+          "0",
+          "1"
+        ],
+        [
+          5,
+          "0",
+          "1"
+        ],
+        [
+          20,
+          "0",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "set",
+      "declarer": 3,
+      "ply": 0,
+      "choice": 1,
+      "route": "baseline",
+      "native_us": 17150,
+      "wasm_us": 23090,
+      "options": [
+        [
+          1,
+          "0",
+          "1"
+        ],
+        [
+          12,
+          "0",
+          "1"
+        ],
+        [
+          13,
+          "0",
+          "1"
+        ],
+        [
+          14,
+          "0",
+          "1"
+        ],
+        [
+          19,
+          "0",
+          "1"
+        ],
+        [
+          23,
+          "0",
+          "1"
+        ],
+        [
+          25,
+          "0",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "set",
+      "declarer": 3,
+      "ply": 1,
+      "choice": 9,
+      "route": "forced",
+      "native_us": 27,
+      "wasm_us": 23
+    },
+    {
+      "kind": "set",
+      "declarer": 3,
+      "ply": 2,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 34546,
+      "wasm_us": 48959,
+      "options": [
+        [
+          0,
+          "0",
+          "1"
+        ],
+        [
+          5,
+          "0",
+          "1"
+        ],
+        [
+          20,
+          "0",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 0,
+      "choice": 16,
+      "route": "baseline",
+      "native_us": 28344,
+      "wasm_us": 42986,
+      "options": [
+        [
+          5,
+          "0",
+          "1"
+        ],
+        [
+          13,
+          "3",
+          "40"
+        ],
+        [
+          15,
+          "0",
+          "1"
+        ],
+        [
+          16,
+          "1",
+          "8"
+        ],
+        [
+          23,
+          "3",
+          "40"
+        ],
+        [
+          25,
+          "0",
+          "1"
+        ],
+        [
+          27,
+          "0",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 1,
+      "choice": 26,
+      "route": "forced",
+      "native_us": 23,
+      "wasm_us": 19
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 2,
+      "choice": 3,
+      "route": "baseline",
+      "native_us": 61251,
+      "wasm_us": 121719,
+      "options": [
+        [
+          3,
+          "0",
+          "1"
+        ],
+        [
+          7,
+          "1",
+          "40"
+        ],
+        [
+          8,
+          "1",
+          "40"
+        ],
+        [
+          10,
+          "1",
+          "40"
+        ],
+        [
+          12,
+          "1",
+          "40"
+        ],
+        [
+          14,
+          "0",
+          "1"
+        ],
+        [
+          17,
+          "1",
+          "20"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 3,
+      "choice": 20,
+      "route": "baseline",
+      "native_us": 41800,
+      "wasm_us": 87431,
+      "options": [
+        [
+          0,
+          "1",
+          "5"
+        ],
+        [
+          2,
+          "3",
+          "20"
+        ],
+        [
+          4,
+          "3",
+          "40"
+        ],
+        [
+          9,
+          "1",
+          "10"
+        ],
+        [
+          19,
+          "1",
+          "8"
+        ],
+        [
+          20,
+          "1",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 4,
+      "choice": 12,
+      "route": "baseline",
+      "native_us": 67300,
+      "wasm_us": 99651,
+      "options": [
+        [
+          3,
+          "7",
+          "40"
+        ],
+        [
+          8,
+          "1",
+          "8"
+        ],
+        [
+          12,
+          "1",
+          "20"
+        ],
+        [
+          17,
+          "1",
+          "20"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 5,
+      "choice": 13,
+      "route": "baseline",
+      "native_us": 37522,
+      "wasm_us": 63105,
+      "options": [
+        [
+          5,
+          "3",
+          "40"
+        ],
+        [
+          13,
+          "2",
+          "5"
+        ],
+        [
+          15,
+          "1",
+          "8"
+        ],
+        [
+          16,
+          "1",
+          "4"
+        ],
+        [
+          25,
+          "13",
+          "40"
+        ],
+        [
+          27,
+          "11",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 6,
+      "choice": 10,
+      "route": "baseline",
+      "native_us": 19187,
+      "wasm_us": 29547,
+      "options": [
+        [
+          3,
+          "7",
+          "40"
+        ],
+        [
+          8,
+          "7",
+          "40"
+        ],
+        [
+          10,
+          "1",
+          "20"
+        ],
+        [
+          14,
+          "3",
+          "40"
+        ],
+        [
+          17,
+          "1",
+          "10"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 7,
+      "choice": 5,
+      "route": "forced",
+      "native_us": 31,
+      "wasm_us": 36
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 8,
+      "choice": 9,
+      "route": "baseline",
+      "native_us": 35713,
+      "wasm_us": 47836,
+      "options": [
+        [
+          0,
+          "23",
+          "40"
+        ],
+        [
+          2,
+          "23",
+          "40"
+        ],
+        [
+          9,
+          "17",
+          "40"
+        ],
+        [
+          20,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 9,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 15419,
+      "wasm_us": 30501,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          2,
+          "1",
+          "1"
+        ],
+        [
+          9,
+          "1",
+          "1"
+        ],
+        [
+          19,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 10,
+      "choice": 10,
+      "route": "baseline",
+      "native_us": 9341,
+      "wasm_us": 11360,
+      "options": [
+        [
+          3,
+          "23",
+          "40"
+        ],
+        [
+          8,
+          "23",
+          "40"
+        ],
+        [
+          10,
+          "11",
+          "20"
+        ],
+        [
+          17,
+          "5",
+          "8"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 11,
+      "choice": 25,
+      "route": "baseline",
+      "native_us": 3316,
+      "wasm_us": 6151,
+      "options": [
+        [
+          13,
+          "19",
+          "40"
+        ],
+        [
+          15,
+          "3",
+          "10"
+        ],
+        [
+          16,
+          "1",
+          "2"
+        ],
+        [
+          25,
+          "21",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 12,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 5836,
+      "wasm_us": 5194,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          2,
+          "1",
+          "1"
+        ],
+        [
+          19,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 13,
+      "choice": 17,
+      "route": "forced",
+      "native_us": 26,
+      "wasm_us": 27
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 14,
+      "choice": 16,
+      "route": "baseline",
+      "native_us": 1031,
+      "wasm_us": 810,
+      "options": [
+        [
+          15,
+          "19",
+          "40"
+        ],
+        [
+          16,
+          "13",
+          "20"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 15,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 822,
+      "wasm_us": 757,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          2,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 16,
+      "choice": 8,
+      "route": "baseline",
+      "native_us": 569,
+      "wasm_us": 342,
+      "options": [
+        [
+          8,
+          "37",
+          "40"
+        ],
+        [
+          10,
+          "19",
+          "20"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 17,
+      "choice": 25,
+      "route": "baseline",
+      "native_us": 254,
+      "wasm_us": 130,
+      "options": [
+        [
+          16,
+          "23",
+          "40"
+        ],
+        [
+          25,
+          "37",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 18,
+      "choice": 2,
+      "route": "forced",
+      "native_us": 27,
+      "wasm_us": 31
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 19,
+      "choice": 8,
+      "route": "forced",
+      "native_us": 31,
+      "wasm_us": 26
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "ply": 20,
+      "choice": 16,
+      "route": "forced",
+      "native_us": 29,
+      "wasm_us": 22
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 0,
+      "choice": 16,
+      "route": "baseline",
+      "native_us": 19824,
+      "wasm_us": 42977,
+      "options": [
+        [
+          5,
+          "0",
+          "1"
+        ],
+        [
+          13,
+          "3",
+          "40"
+        ],
+        [
+          15,
+          "0",
+          "1"
+        ],
+        [
+          16,
+          "1",
+          "8"
+        ],
+        [
+          23,
+          "3",
+          "40"
+        ],
+        [
+          25,
+          "0",
+          "1"
+        ],
+        [
+          27,
+          "0",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 1,
+      "choice": 26,
+      "route": "forced",
+      "native_us": 22,
+      "wasm_us": 15
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 2,
+      "choice": 3,
+      "route": "baseline",
+      "native_us": 83494,
+      "wasm_us": 121682,
+      "options": [
+        [
+          3,
+          "0",
+          "1"
+        ],
+        [
+          7,
+          "1",
+          "40"
+        ],
+        [
+          8,
+          "1",
+          "40"
+        ],
+        [
+          10,
+          "1",
+          "40"
+        ],
+        [
+          12,
+          "1",
+          "40"
+        ],
+        [
+          14,
+          "0",
+          "1"
+        ],
+        [
+          17,
+          "1",
+          "20"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 3,
+      "choice": 20,
+      "route": "baseline",
+      "native_us": 42392,
+      "wasm_us": 87143,
+      "options": [
+        [
+          0,
+          "1",
+          "5"
+        ],
+        [
+          2,
+          "3",
+          "20"
+        ],
+        [
+          4,
+          "3",
+          "40"
+        ],
+        [
+          9,
+          "1",
+          "10"
+        ],
+        [
+          19,
+          "1",
+          "8"
+        ],
+        [
+          20,
+          "1",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 4,
+      "choice": 12,
+      "route": "baseline",
+      "native_us": 64178,
+      "wasm_us": 99663,
+      "options": [
+        [
+          3,
+          "7",
+          "40"
+        ],
+        [
+          8,
+          "1",
+          "8"
+        ],
+        [
+          12,
+          "1",
+          "20"
+        ],
+        [
+          17,
+          "1",
+          "20"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 5,
+      "choice": 13,
+      "route": "baseline",
+      "native_us": 26405,
+      "wasm_us": 56674,
+      "options": [
+        [
+          5,
+          "3",
+          "40"
+        ],
+        [
+          13,
+          "2",
+          "5"
+        ],
+        [
+          15,
+          "1",
+          "8"
+        ],
+        [
+          16,
+          "1",
+          "4"
+        ],
+        [
+          25,
+          "13",
+          "40"
+        ],
+        [
+          27,
+          "11",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 6,
+      "choice": 10,
+      "route": "baseline",
+      "native_us": 20319,
+      "wasm_us": 30425,
+      "options": [
+        [
+          3,
+          "7",
+          "40"
+        ],
+        [
+          8,
+          "7",
+          "40"
+        ],
+        [
+          10,
+          "1",
+          "20"
+        ],
+        [
+          14,
+          "3",
+          "40"
+        ],
+        [
+          17,
+          "1",
+          "10"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 7,
+      "choice": 5,
+      "route": "forced",
+      "native_us": 31,
+      "wasm_us": 30
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 8,
+      "choice": 9,
+      "route": "baseline",
+      "native_us": 25429,
+      "wasm_us": 47467,
+      "options": [
+        [
+          0,
+          "23",
+          "40"
+        ],
+        [
+          2,
+          "23",
+          "40"
+        ],
+        [
+          9,
+          "17",
+          "40"
+        ],
+        [
+          20,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 9,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 27982,
+      "wasm_us": 30327,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          2,
+          "1",
+          "1"
+        ],
+        [
+          9,
+          "1",
+          "1"
+        ],
+        [
+          19,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 10,
+      "choice": 10,
+      "route": "baseline",
+      "native_us": 5944,
+      "wasm_us": 11373,
+      "options": [
+        [
+          3,
+          "23",
+          "40"
+        ],
+        [
+          8,
+          "23",
+          "40"
+        ],
+        [
+          10,
+          "11",
+          "20"
+        ],
+        [
+          17,
+          "5",
+          "8"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 11,
+      "choice": 25,
+      "route": "baseline",
+      "native_us": 3438,
+      "wasm_us": 6108,
+      "options": [
+        [
+          13,
+          "19",
+          "40"
+        ],
+        [
+          15,
+          "3",
+          "10"
+        ],
+        [
+          16,
+          "1",
+          "2"
+        ],
+        [
+          25,
+          "21",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 12,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 5958,
+      "wasm_us": 5214,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          2,
+          "1",
+          "1"
+        ],
+        [
+          19,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 13,
+      "choice": 17,
+      "route": "forced",
+      "native_us": 33,
+      "wasm_us": 25
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 14,
+      "choice": 16,
+      "route": "baseline",
+      "native_us": 784,
+      "wasm_us": 818,
+      "options": [
+        [
+          15,
+          "19",
+          "40"
+        ],
+        [
+          16,
+          "13",
+          "20"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 15,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 829,
+      "wasm_us": 767,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          2,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 16,
+      "choice": 8,
+      "route": "baseline",
+      "native_us": 550,
+      "wasm_us": 398,
+      "options": [
+        [
+          8,
+          "37",
+          "40"
+        ],
+        [
+          10,
+          "19",
+          "20"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 17,
+      "choice": 25,
+      "route": "baseline",
+      "native_us": 258,
+      "wasm_us": 121,
+      "options": [
+        [
+          16,
+          "23",
+          "40"
+        ],
+        [
+          25,
+          "37",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 18,
+      "choice": 2,
+      "route": "forced",
+      "native_us": 32,
+      "wasm_us": 30
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 19,
+      "choice": 8,
+      "route": "forced",
+      "native_us": 31,
+      "wasm_us": 24
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "ply": 20,
+      "choice": 16,
+      "route": "forced",
+      "native_us": 36,
+      "wasm_us": 21
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 0,
+      "choice": 16,
+      "route": "baseline",
+      "native_us": 22606,
+      "wasm_us": 48580,
+      "options": [
+        [
+          5,
+          "0",
+          "1"
+        ],
+        [
+          13,
+          "1",
+          "40"
+        ],
+        [
+          15,
+          "1",
+          "40"
+        ],
+        [
+          16,
+          "3",
+          "20"
+        ],
+        [
+          23,
+          "3",
+          "20"
+        ],
+        [
+          25,
+          "0",
+          "1"
+        ],
+        [
+          27,
+          "0",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 1,
+      "choice": 26,
+      "route": "forced",
+      "native_us": 27,
+      "wasm_us": 17
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 2,
+      "choice": 7,
+      "route": "baseline",
+      "native_us": 91675,
+      "wasm_us": 140736,
+      "options": [
+        [
+          3,
+          "1",
+          "20"
+        ],
+        [
+          7,
+          "0",
+          "1"
+        ],
+        [
+          8,
+          "0",
+          "1"
+        ],
+        [
+          10,
+          "0",
+          "1"
+        ],
+        [
+          12,
+          "1",
+          "40"
+        ],
+        [
+          14,
+          "1",
+          "20"
+        ],
+        [
+          17,
+          "1",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 3,
+      "choice": 19,
+      "route": "baseline",
+      "native_us": 34908,
+      "wasm_us": 69464,
+      "options": [
+        [
+          0,
+          "1",
+          "10"
+        ],
+        [
+          2,
+          "1",
+          "40"
+        ],
+        [
+          4,
+          "3",
+          "40"
+        ],
+        [
+          9,
+          "3",
+          "40"
+        ],
+        [
+          19,
+          "0",
+          "1"
+        ],
+        [
+          20,
+          "1",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 4,
+      "choice": 12,
+      "route": "baseline",
+      "native_us": 64132,
+      "wasm_us": 132632,
+      "options": [
+        [
+          3,
+          "9",
+          "40"
+        ],
+        [
+          8,
+          "3",
+          "20"
+        ],
+        [
+          12,
+          "1",
+          "8"
+        ],
+        [
+          17,
+          "1",
+          "8"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 5,
+      "choice": 16,
+      "route": "baseline",
+      "native_us": 36886,
+      "wasm_us": 47988,
+      "options": [
+        [
+          5,
+          "1",
+          "10"
+        ],
+        [
+          13,
+          "13",
+          "40"
+        ],
+        [
+          15,
+          "1",
+          "10"
+        ],
+        [
+          16,
+          "7",
+          "20"
+        ],
+        [
+          25,
+          "13",
+          "40"
+        ],
+        [
+          27,
+          "1",
+          "4"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 6,
+      "choice": 8,
+      "route": "baseline",
+      "native_us": 12218,
+      "wasm_us": 26345,
+      "options": [
+        [
+          3,
+          "1",
+          "10"
+        ],
+        [
+          8,
+          "1",
+          "20"
+        ],
+        [
+          10,
+          "1",
+          "10"
+        ],
+        [
+          14,
+          "1",
+          "20"
+        ],
+        [
+          17,
+          "3",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 7,
+      "choice": 5,
+      "route": "forced",
+      "native_us": 26,
+      "wasm_us": 17
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 8,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 35288,
+      "wasm_us": 51947,
+      "options": [
+        [
+          0,
+          "3",
+          "5"
+        ],
+        [
+          2,
+          "3",
+          "5"
+        ],
+        [
+          9,
+          "3",
+          "5"
+        ],
+        [
+          20,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 9,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 23708,
+      "wasm_us": 31641,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          2,
+          "1",
+          "1"
+        ],
+        [
+          9,
+          "1",
+          "1"
+        ],
+        [
+          19,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 10,
+      "choice": 3,
+      "route": "baseline",
+      "native_us": 5085,
+      "wasm_us": 9681,
+      "options": [
+        [
+          3,
+          "17",
+          "40"
+        ],
+        [
+          8,
+          "17",
+          "40"
+        ],
+        [
+          10,
+          "9",
+          "20"
+        ],
+        [
+          17,
+          "17",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 11,
+      "choice": 25,
+      "route": "baseline",
+      "native_us": 6579,
+      "wasm_us": 6406,
+      "options": [
+        [
+          13,
+          "19",
+          "40"
+        ],
+        [
+          15,
+          "1",
+          "4"
+        ],
+        [
+          16,
+          "7",
+          "20"
+        ],
+        [
+          25,
+          "13",
+          "20"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 12,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 4440,
+      "wasm_us": 5081,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          2,
+          "1",
+          "1"
+        ],
+        [
+          19,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 13,
+      "choice": 17,
+      "route": "forced",
+      "native_us": 27,
+      "wasm_us": 17
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 14,
+      "choice": 16,
+      "route": "baseline",
+      "native_us": 1075,
+      "wasm_us": 961,
+      "options": [
+        [
+          15,
+          "3",
+          "8"
+        ],
+        [
+          16,
+          "1",
+          "2"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 15,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 944,
+      "wasm_us": 822,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          2,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 16,
+      "choice": 8,
+      "route": "baseline",
+      "native_us": 542,
+      "wasm_us": 372,
+      "options": [
+        [
+          8,
+          "17",
+          "20"
+        ],
+        [
+          10,
+          "7",
+          "8"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 17,
+      "choice": 25,
+      "route": "baseline",
+      "native_us": 268,
+      "wasm_us": 130,
+      "options": [
+        [
+          16,
+          "19",
+          "40"
+        ],
+        [
+          25,
+          "37",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 18,
+      "choice": 2,
+      "route": "forced",
+      "native_us": 28,
+      "wasm_us": 19
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 19,
+      "choice": 8,
+      "route": "forced",
+      "native_us": 28,
+      "wasm_us": 17
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "ply": 20,
+      "choice": 16,
+      "route": "forced",
+      "native_us": 27,
+      "wasm_us": 19
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 0,
+      "choice": 16,
+      "route": "baseline",
+      "native_us": 21344,
+      "wasm_us": 47766,
+      "options": [
+        [
+          5,
+          "0",
+          "1"
+        ],
+        [
+          13,
+          "1",
+          "40"
+        ],
+        [
+          15,
+          "1",
+          "40"
+        ],
+        [
+          16,
+          "3",
+          "20"
+        ],
+        [
+          23,
+          "3",
+          "20"
+        ],
+        [
+          25,
+          "0",
+          "1"
+        ],
+        [
+          27,
+          "0",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 1,
+      "choice": 26,
+      "route": "forced",
+      "native_us": 22,
+      "wasm_us": 13
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 2,
+      "choice": 7,
+      "route": "baseline",
+      "native_us": 92941,
+      "wasm_us": 140417,
+      "options": [
+        [
+          3,
+          "1",
+          "20"
+        ],
+        [
+          7,
+          "0",
+          "1"
+        ],
+        [
+          8,
+          "0",
+          "1"
+        ],
+        [
+          10,
+          "0",
+          "1"
+        ],
+        [
+          12,
+          "1",
+          "40"
+        ],
+        [
+          14,
+          "1",
+          "20"
+        ],
+        [
+          17,
+          "1",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 3,
+      "choice": 19,
+      "route": "baseline",
+      "native_us": 33415,
+      "wasm_us": 69464,
+      "options": [
+        [
+          0,
+          "1",
+          "10"
+        ],
+        [
+          2,
+          "1",
+          "40"
+        ],
+        [
+          4,
+          "3",
+          "40"
+        ],
+        [
+          9,
+          "3",
+          "40"
+        ],
+        [
+          19,
+          "0",
+          "1"
+        ],
+        [
+          20,
+          "1",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 4,
+      "choice": 12,
+      "route": "baseline",
+      "native_us": 69108,
+      "wasm_us": 132176,
+      "options": [
+        [
+          3,
+          "9",
+          "40"
+        ],
+        [
+          8,
+          "3",
+          "20"
+        ],
+        [
+          12,
+          "1",
+          "8"
+        ],
+        [
+          17,
+          "1",
+          "8"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 5,
+      "choice": 16,
+      "route": "baseline",
+      "native_us": 31835,
+      "wasm_us": 46642,
+      "options": [
+        [
+          5,
+          "1",
+          "10"
+        ],
+        [
+          13,
+          "13",
+          "40"
+        ],
+        [
+          15,
+          "1",
+          "10"
+        ],
+        [
+          16,
+          "7",
+          "20"
+        ],
+        [
+          25,
+          "13",
+          "40"
+        ],
+        [
+          27,
+          "1",
+          "4"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 6,
+      "choice": 8,
+      "route": "baseline",
+      "native_us": 21135,
+      "wasm_us": 26434,
+      "options": [
+        [
+          3,
+          "1",
+          "10"
+        ],
+        [
+          8,
+          "1",
+          "20"
+        ],
+        [
+          10,
+          "1",
+          "10"
+        ],
+        [
+          14,
+          "1",
+          "20"
+        ],
+        [
+          17,
+          "3",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 7,
+      "choice": 5,
+      "route": "forced",
+      "native_us": 25,
+      "wasm_us": 17
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 8,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 27178,
+      "wasm_us": 52165,
+      "options": [
+        [
+          0,
+          "3",
+          "5"
+        ],
+        [
+          2,
+          "3",
+          "5"
+        ],
+        [
+          9,
+          "3",
+          "5"
+        ],
+        [
+          20,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 9,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 17033,
+      "wasm_us": 31790,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          2,
+          "1",
+          "1"
+        ],
+        [
+          9,
+          "1",
+          "1"
+        ],
+        [
+          19,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 10,
+      "choice": 3,
+      "route": "baseline",
+      "native_us": 5153,
+      "wasm_us": 9672,
+      "options": [
+        [
+          3,
+          "17",
+          "40"
+        ],
+        [
+          8,
+          "17",
+          "40"
+        ],
+        [
+          10,
+          "9",
+          "20"
+        ],
+        [
+          17,
+          "17",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 11,
+      "choice": 25,
+      "route": "baseline",
+      "native_us": 3434,
+      "wasm_us": 6410,
+      "options": [
+        [
+          13,
+          "19",
+          "40"
+        ],
+        [
+          15,
+          "1",
+          "4"
+        ],
+        [
+          16,
+          "7",
+          "20"
+        ],
+        [
+          25,
+          "13",
+          "20"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 12,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 2998,
+      "wasm_us": 5084,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          2,
+          "1",
+          "1"
+        ],
+        [
+          19,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 13,
+      "choice": 17,
+      "route": "forced",
+      "native_us": 27,
+      "wasm_us": 17
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 14,
+      "choice": 16,
+      "route": "baseline",
+      "native_us": 1084,
+      "wasm_us": 866,
+      "options": [
+        [
+          15,
+          "3",
+          "8"
+        ],
+        [
+          16,
+          "1",
+          "2"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 15,
+      "choice": 0,
+      "route": "baseline",
+      "native_us": 761,
+      "wasm_us": 733,
+      "options": [
+        [
+          0,
+          "1",
+          "1"
+        ],
+        [
+          2,
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 16,
+      "choice": 8,
+      "route": "baseline",
+      "native_us": 540,
+      "wasm_us": 368,
+      "options": [
+        [
+          8,
+          "17",
+          "20"
+        ],
+        [
+          10,
+          "7",
+          "8"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 17,
+      "choice": 25,
+      "route": "baseline",
+      "native_us": 270,
+      "wasm_us": 101,
+      "options": [
+        [
+          16,
+          "19",
+          "40"
+        ],
+        [
+          25,
+          "37",
+          "40"
+        ]
+      ]
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 18,
+      "choice": 2,
+      "route": "forced",
+      "native_us": 27,
+      "wasm_us": 20
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 19,
+      "choice": 8,
+      "route": "forced",
+      "native_us": 27,
+      "wasm_us": 19
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "ply": 20,
+      "choice": 16,
+      "route": "forced",
+      "native_us": 27,
+      "wasm_us": 16
+    }
+  ],
+  "deadline": {
+    "result": {
+      "budget_ms": 1000,
+      "choice": 5,
+      "contract": "nello",
+      "declaration": "doubles-suit",
+      "elapsed_us": 890000,
+      "evaluation": null,
+      "fallback_evaluation": null,
+      "inactive": 2,
+      "inner_belief": "voidless",
+      "leader": 0,
+      "legal": [
+        5,
+        13,
+        15,
+        16,
+        23,
+        25,
+        27
+      ],
+      "mode": "baseline",
+      "modeled_selection": "fixed",
+      "n": 40,
+      "n0": 8,
+      "n1": 2,
+      "over_budget": false,
+      "phases": [
+        {
+          "name": "status-check",
+          "status": "completed"
+        },
+        {
+          "elapsed_us": 200000,
+          "name": "fallback-l1",
+          "status": "Refusal { reason: Deadline, stats: WorkStats { outer_worlds: 8, outer_draw_attempts: 8, pi_calls_by_level: [3, 0], inner_worlds_by_level: [6, 0], nodes: 598, elapsed: 185ms } }",
+          "worlds": 8
+        },
+        {
+          "elapsed_us": 650000,
+          "name": "baseline",
+          "status": "Refusal { reason: Deadline, stats: WorkStats { outer_worlds: 40, outer_draw_attempts: 40, pi_calls_by_level: [12, 0], inner_worlds_by_level: [96, 0], nodes: 5281, elapsed: 635ms } }",
+          "worlds": 40
+        }
+      ],
+      "player_version": "walt-table-v2",
+      "points": [
+        0,
+        0
+      ],
+      "review": "inapplicable-nello",
+      "review_result": null,
+      "route": "legal-fallback",
+      "schema": "partnership-decision-v1",
+      "selection": "fixed",
+      "trick": 1
+    },
+    "checkpoints": [
+      {
+        "budget_ms": 1000,
+        "choice": 5,
+        "contract": "nello",
+        "declaration": "doubles-suit",
+        "elapsed_us": 5000,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inactive": 2,
+        "inner_belief": "voidless",
+        "leader": 0,
+        "legal": [
+          5,
+          13,
+          15,
+          16,
+          23,
+          25,
+          27
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          0,
+          0
+        ],
+        "review": "inapplicable-nello",
+        "review_result": null,
+        "route": "legal-fallback",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 1
+      },
+      {
+        "budget_ms": 1000,
+        "choice": 5,
+        "contract": "nello",
+        "declaration": "doubles-suit",
+        "elapsed_us": 220000,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inactive": 2,
+        "inner_belief": "voidless",
+        "leader": 0,
+        "legal": [
+          5,
+          13,
+          15,
+          16,
+          23,
+          25,
+          27
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 200000,
+            "name": "fallback-l1",
+            "status": "Refusal { reason: Deadline, stats: WorkStats { outer_worlds: 8, outer_draw_attempts: 8, pi_calls_by_level: [3, 0], inner_worlds_by_level: [6, 0], nodes: 598, elapsed: 185ms } }",
+            "worlds": 8
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          0,
+          0
+        ],
+        "review": "inapplicable-nello",
+        "review_result": null,
+        "route": "legal-fallback",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 1
+      },
+      {
+        "budget_ms": 1000,
+        "choice": 5,
+        "contract": "nello",
+        "declaration": "doubles-suit",
+        "elapsed_us": 885000,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inactive": 2,
+        "inner_belief": "voidless",
+        "leader": 0,
+        "legal": [
+          5,
+          13,
+          15,
+          16,
+          23,
+          25,
+          27
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 200000,
+            "name": "fallback-l1",
+            "status": "Refusal { reason: Deadline, stats: WorkStats { outer_worlds: 8, outer_draw_attempts: 8, pi_calls_by_level: [3, 0], inner_worlds_by_level: [6, 0], nodes: 598, elapsed: 185ms } }",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 650000,
+            "name": "baseline",
+            "status": "Refusal { reason: Deadline, stats: WorkStats { outer_worlds: 40, outer_draw_attempts: 40, pi_calls_by_level: [12, 0], inner_worlds_by_level: [96, 0], nodes: 5281, elapsed: 635ms } }",
+            "worlds": 40
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          0,
+          0
+        ],
+        "review": "inapplicable-nello",
+        "review_result": null,
+        "route": "legal-fallback",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 1
+      },
+      {
+        "budget_ms": 1000,
+        "choice": 5,
+        "contract": "nello",
+        "declaration": "doubles-suit",
+        "elapsed_us": 890000,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inactive": 2,
+        "inner_belief": "voidless",
+        "leader": 0,
+        "legal": [
+          5,
+          13,
+          15,
+          16,
+          23,
+          25,
+          27
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 200000,
+            "name": "fallback-l1",
+            "status": "Refusal { reason: Deadline, stats: WorkStats { outer_worlds: 8, outer_draw_attempts: 8, pi_calls_by_level: [3, 0], inner_worlds_by_level: [6, 0], nodes: 598, elapsed: 185ms } }",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 650000,
+            "name": "baseline",
+            "status": "Refusal { reason: Deadline, stats: WorkStats { outer_worlds: 40, outer_draw_attempts: 40, pi_calls_by_level: [12, 0], inner_worlds_by_level: [96, 0], nodes: 5281, elapsed: 635ms } }",
+            "worlds": 40
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          0,
+          0
+        ],
+        "review": "inapplicable-nello",
+        "review_result": null,
+        "route": "legal-fallback",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 1
+      }
+    ]
+  }
+}

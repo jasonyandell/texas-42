@@ -1,0 +1,427 @@
+{
+  "binary_sha256": "b7d9578aac257b4eb9b16b0549354298b1191899b65dd65ccba10c2d1b4a4d64",
+  "source_sha256": {
+    "walt/walt/src/solver/mod.rs": "3e93d9878309bc0cbc8c408ee91219058229cb2f8c2b145a7f087e9b5e998e15",
+    "walt/walt/src/solver/nello_counterexample.rs": "ad179b5fb7eb8ca89b203aaaa91c3fa9e5c0b693a56656692e6d63b78a218167",
+    "walt/walt-player/src/bin/nello-counterexample.rs": "e0172f8965971d86a4bef889333daddf3257079003a6d67811dcf6ccf64806c2"
+  },
+  "pool_elapsed_seconds": 20.168284959,
+  "cases": [
+    {
+      "name": "ply6-n40-seed2",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1069,
+        688,
+        556,
+        1783
+      ],
+      "total_ms": 1860,
+      "stdout": "completed in 2.063s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n40-seed2/run.json"
+    },
+    {
+      "name": "ply6-n40-seed1",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1294,
+        4,
+        2,
+        2796
+      ],
+      "total_ms": 1835,
+      "stdout": "completed in 2.074s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n40-seed1/run.json"
+    },
+    {
+      "name": "ply6-n40-seed3",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1397,
+        14,
+        12,
+        2673
+      ],
+      "total_ms": 1824,
+      "stdout": "completed in 1.845s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n40-seed3/run.json"
+    },
+    {
+      "name": "ply6-n40-seed4",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1648,
+        25,
+        22,
+        2401
+      ],
+      "total_ms": 1804,
+      "stdout": "completed in 1.846s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n40-seed4/run.json"
+    },
+    {
+      "name": "ply6-n40-seed6",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1099,
+        625,
+        511,
+        1861
+      ],
+      "total_ms": 1791,
+      "stdout": "completed in 1.798s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n40-seed6/run.json"
+    },
+    {
+      "name": "ply6-n40-seed5",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1677,
+        82,
+        98,
+        2239
+      ],
+      "total_ms": 1814,
+      "stdout": "completed in 1.832s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n40-seed5/run.json"
+    },
+    {
+      "name": "ply6-n40-seed7",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1557,
+        104,
+        61,
+        2374
+      ],
+      "total_ms": 1813,
+      "stdout": "completed in 1.830s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n40-seed7/run.json"
+    },
+    {
+      "name": "ply6-n40-seed8",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1608,
+        47,
+        46,
+        2395
+      ],
+      "total_ms": 1785,
+      "stdout": "completed in 1.811s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n40-seed8/run.json"
+    },
+    {
+      "name": "ply6-n160-seed2",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1524,
+        53,
+        93,
+        2426
+      ],
+      "total_ms": 1888,
+      "stdout": "completed in 1.893s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n160-seed2/run.json"
+    },
+    {
+      "name": "ply6-n160-seed1",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1549,
+        28,
+        36,
+        2483
+      ],
+      "total_ms": 1891,
+      "stdout": "completed in 1.928s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n160-seed1/run.json"
+    },
+    {
+      "name": "ply6-n160-seed3",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1103,
+        585,
+        610,
+        1798
+      ],
+      "total_ms": 1899,
+      "stdout": "completed in 1.922s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n160-seed3/run.json"
+    },
+    {
+      "name": "ply6-n160-seed4",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1621,
+        92,
+        60,
+        2323
+      ],
+      "total_ms": 1882,
+      "stdout": "completed in 1.932s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n160-seed4/run.json"
+    },
+    {
+      "name": "ply6-n160-seed6",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1734,
+        8,
+        1,
+        2353
+      ],
+      "total_ms": 1895,
+      "stdout": "completed in 1.943s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n160-seed6/run.json"
+    },
+    {
+      "name": "ply6-n160-seed5",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1691,
+        25,
+        29,
+        2351
+      ],
+      "total_ms": 1930,
+      "stdout": "completed in 1.993s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n160-seed5/run.json"
+    },
+    {
+      "name": "ply6-n160-seed8",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1620,
+        15,
+        28,
+        2433
+      ],
+      "total_ms": 1877,
+      "stdout": "completed in 1.904s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n160-seed8/run.json"
+    },
+    {
+      "name": "ply6-n160-seed7",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1579,
+        58,
+        21,
+        2438
+      ],
+      "total_ms": 1932,
+      "stdout": "completed in 1.942s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply6-n160-seed7/run.json"
+    },
+    {
+      "name": "ply9-n40-seed1",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1621,
+        59,
+        53,
+        2363
+      ],
+      "total_ms": 525,
+      "stdout": "completed in 0.554s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n40-seed1/run.json"
+    },
+    {
+      "name": "ply9-n40-seed2",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1642,
+        38,
+        39,
+        2377
+      ],
+      "total_ms": 518,
+      "stdout": "completed in 0.540s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n40-seed2/run.json"
+    },
+    {
+      "name": "ply9-n40-seed3",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1522,
+        0,
+        0,
+        2574
+      ],
+      "total_ms": 510,
+      "stdout": "completed in 0.548s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n40-seed3/run.json"
+    },
+    {
+      "name": "ply9-n40-seed4",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1668,
+        1,
+        1,
+        2426
+      ],
+      "total_ms": 515,
+      "stdout": "completed in 0.553s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n40-seed4/run.json"
+    },
+    {
+      "name": "ply9-n40-seed5",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1735,
+        18,
+        13,
+        2330
+      ],
+      "total_ms": 525,
+      "stdout": "completed in 0.533s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n40-seed5/run.json"
+    },
+    {
+      "name": "ply9-n40-seed6",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1369,
+        1,
+        3,
+        2723
+      ],
+      "total_ms": 535,
+      "stdout": "completed in 0.559s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n40-seed6/run.json"
+    },
+    {
+      "name": "ply9-n40-seed7",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1746,
+        23,
+        15,
+        2312
+      ],
+      "total_ms": 522,
+      "stdout": "completed in 0.545s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n40-seed7/run.json"
+    },
+    {
+      "name": "ply9-n40-seed8",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1468,
+        9,
+        5,
+        2614
+      ],
+      "total_ms": 524,
+      "stdout": "completed in 0.544s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n40-seed8/run.json"
+    },
+    {
+      "name": "ply9-n160-seed1",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        827,
+        610,
+        513,
+        2146
+      ],
+      "total_ms": 537,
+      "stdout": "completed in 0.550s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n160-seed1/run.json"
+    },
+    {
+      "name": "ply9-n160-seed2",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1672,
+        28,
+        21,
+        2375
+      ],
+      "total_ms": 538,
+      "stdout": "completed in 0.542s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n160-seed2/run.json"
+    },
+    {
+      "name": "ply9-n160-seed3",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1521,
+        0,
+        0,
+        2575
+      ],
+      "total_ms": 539,
+      "stdout": "completed in 0.547s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n160-seed3/run.json"
+    },
+    {
+      "name": "ply9-n160-seed4",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1366,
+        3,
+        6,
+        2721
+      ],
+      "total_ms": 577,
+      "stdout": "completed in 0.592s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n160-seed4/run.json"
+    },
+    {
+      "name": "ply9-n160-seed5",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1721,
+        23,
+        13,
+        2339
+      ],
+      "total_ms": 548,
+      "stdout": "completed in 0.565s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n160-seed5/run.json"
+    },
+    {
+      "name": "ply9-n160-seed6",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1384,
+        0,
+        1,
+        2711
+      ],
+      "total_ms": 547,
+      "stdout": "completed in 0.555s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n160-seed6/run.json"
+    },
+    {
+      "name": "ply9-n160-seed7",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1491,
+        1,
+        1,
+        2603
+      ],
+      "total_ms": 540,
+      "stdout": "completed in 0.551s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n160-seed7/run.json"
+    },
+    {
+      "name": "ply9-n160-seed8",
+      "returncode": 0,
+      "status": "completed",
+      "paired_augmented": [
+        1470,
+        0,
+        1,
+        2625
+      ],
+      "total_ms": 547,
+      "stdout": "completed in 0.599s; record: /Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-counterexample-2026-09-22/runs/ply9-n160-seed8/run.json"
+    }
+  ]
+}

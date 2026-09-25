@@ -1,0 +1,16 @@
+{"ply":6,"seed":1,"worlds":2000,"choice":"31","wall_ms":1828.8428330000002,"solver_us":1785926,"peak_wasm_memory_bytes":53673984}
+{"ply":6,"seed":2,"worlds":2000,"choice":"44","wall_ms":1848.4234589999999,"solver_us":1816378,"peak_wasm_memory_bytes":53870592}
+{"ply":6,"seed":3,"worlds":2000,"choice":"44","wall_ms":1803.0639159999996,"solver_us":1769453,"peak_wasm_memory_bytes":52953088}
+{"ply":6,"seed":4,"worlds":2000,"choice":"51","wall_ms":1798.660833,"solver_us":1767773,"peak_wasm_memory_bytes":53280768}
+{"ply":6,"seed":5,"worlds":2000,"choice":"51","wall_ms":1819.2083749999993,"solver_us":1787622,"peak_wasm_memory_bytes":53870592}
+{"ply":6,"seed":6,"worlds":2000,"choice":"51","wall_ms":1870.8357090000009,"solver_us":1839704,"peak_wasm_memory_bytes":52035584}
+{"ply":6,"seed":7,"worlds":2000,"choice":"44","wall_ms":1782.576959,"solver_us":1753752,"peak_wasm_memory_bytes":53739520}
+{"ply":6,"seed":8,"worlds":2000,"choice":"44","wall_ms":1811.421209,"solver_us":1785744,"peak_wasm_memory_bytes":53411840}
+{"ply":9,"seed":1,"worlds":2000,"choice":"51","wall_ms":395.5531659999997,"solver_us":383871,"peak_wasm_memory_bytes":18677760}
+{"ply":9,"seed":2,"worlds":2000,"choice":"51","wall_ms":399.14337499999965,"solver_us":389678,"peak_wasm_memory_bytes":18481152}
+{"ply":9,"seed":3,"worlds":2000,"choice":"51","wall_ms":392.9904580000002,"solver_us":384523,"peak_wasm_memory_bytes":18677760}
+{"ply":9,"seed":4,"worlds":2000,"choice":"51","wall_ms":391.82808300000033,"solver_us":382561,"peak_wasm_memory_bytes":18481152}
+{"ply":9,"seed":5,"worlds":2000,"choice":"51","wall_ms":391.92633299999943,"solver_us":381335,"peak_wasm_memory_bytes":18612224}
+{"ply":9,"seed":6,"worlds":2000,"choice":"51","wall_ms":401.58166699999856,"solver_us":390683,"peak_wasm_memory_bytes":18153472}
+{"ply":9,"seed":7,"worlds":2000,"choice":"51","wall_ms":387.9354999999996,"solver_us":378215,"peak_wasm_memory_bytes":18350080}
+{"ply":9,"seed":8,"worlds":2000,"choice":"51","wall_ms":386.364708000001,"solver_us":375496,"peak_wasm_memory_bytes":18612224}

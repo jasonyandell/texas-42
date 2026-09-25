@@ -1,0 +1,61 @@
+{
+  "schema": "nello-ruby-doubles-100000-summary-v1",
+  "method": {
+    "runtime": "fresh Node WebAssembly process per case",
+    "modified_source": "only walt-player worlds/time validation 640->100000 and 20000ms->240000ms; partnership_wire n/time validation 640->100000 and 20000ms->240000ms",
+    "shipped_wasm_sha256": "fe22d2d24c33e98327799e2e08972481b4e1ec4e48f40256b22b32d0ccd76398",
+    "research_wasm_sha256": "f573f5fc65bd7e0bec788b7e96c555b83a0d304e87f8f80db1897c7f23ac30b1",
+    "research_wasm": "walt-player-100000.wasm",
+    "source_hashes": {
+      "walt-player-src-lib-rs": "ca207ba8b4c1a8f321d00e7872ccfefc130554f5bc3006110a683b232cc6968b",
+      "partnership-wire-rs": "5d838e3f6f4c4558d52f4bf3117fb30eb414e31ff512838e62ef54bf190abfc3"
+    },
+    "config": {
+      "positions": [6, 9],
+      "seeds": [1, 2, 3, 4, 5, 6, 7, 8],
+      "n0": 8,
+      "selection": "fixed",
+      "modeled_selection": "fixed",
+      "inner_belief": "voidless",
+      "partner": false,
+      "worlds": 100000,
+      "budget_ms": 240000,
+      "seed_mixing": "original wire seed ^ hand mask mix ^ record hash",
+      "hidden_hands_in_request": false,
+      "fresh_process_per_case": true
+    }
+  },
+  "pilot": {
+    "case": "ply6-seed1",
+    "completed_outer_worlds": 100000,
+    "wall_ms": 63047.715292,
+    "wasm_memory_bytes_peak": 1536491520,
+    "rss_bytes_peak_observed": 1606860800,
+    "memory_pressure_free_percent_start_end": [88, 88],
+    "run_receipt": "../100000-run-pilot-ply6-seed1/run.json"
+  },
+  "parity_10k": {
+    "cases": ["ply6-seed1", "ply9-seed1"],
+    "exact_options_and_choices_match_retained_10000_panel": true,
+    "budget_ms": 240000,
+    "run_receipts": ["../100000-run-parity10k-ply6-seed1/run.json", "../100000-run-parity10k-ply9-seed1/run.json"]
+  },
+  "run_100000": {
+    "rows": 16,
+    "completed_outer_worlds": 100000,
+    "outer_draw_attempts": 100000,
+    "all_phases_completed": true,
+    "standalone_case_wall_ms_sum": 556691.75896,
+    "standalone_case_solver_us_sum": 556226652,
+    "watchdog_wall_seconds_sum": 558.24436,
+    "peak_wasm_memory_bytes": 1536491520,
+    "peak_rss_bytes_observed": 1606860800,
+    "choices_ply6": {"51": 8},
+    "choices_ply9": {"51": 8},
+    "panel": "panel100000.json"
+  },
+  "mean_set_probability": {
+    "ply6": {"21": "16899/25000", "31": "583393/800000", "44": "571447/800000", "51": "148757/200000", "66": "141273/200000"},
+    "ply9": {"21": "3067/5000", "31": "66641/100000", "44": "496801/800000", "51": "546333/800000"}
+  }
+}

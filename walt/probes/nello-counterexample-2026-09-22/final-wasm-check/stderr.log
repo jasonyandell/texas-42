@@ -1,0 +1,19 @@
+   Compiling autocfg v1.5.1
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.47
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.151
+    Checking itoa v1.0.18
+    Checking memchr v2.8.3
+   Compiling num-traits v0.2.19
+   Compiling syn v3.0.5
+    Checking num-integer v0.1.47
+    Checking num-bigint v0.4.8
+   Compiling serde_derive v1.0.229
+    Checking num-rational v0.4.2
+    Checking walt v0.1.0 (/Users/jason/.codex/worktrees/nello-player/texas-42/walt/walt)
+    Checking walt-player v0.1.0 (/Users/jason/.codex/worktrees/nello-player/texas-42/walt/walt-player)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.46s

@@ -1,0 +1,32 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-25T12:18:07.468466+00:00",
+  "cwd": "/Users/jason/.codex/worktrees/nello-merge-prep/texas-42",
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--release",
+    "--manifest-path",
+    "walt/Cargo.toml",
+    "-p",
+    "walt-player",
+    "--lib",
+    "--test",
+    "contracts",
+    "--test",
+    "nello"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 7.286974,
+  "status": "completed",
+  "child_pid": 70632,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}
