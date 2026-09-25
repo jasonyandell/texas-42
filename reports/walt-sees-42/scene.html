@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>How Walt Sees 42</title>
+<!--
+  EXPLORATORY — an explainer animation, below every evidentiary tier and cited
+  by nothing. Every walt number shown comes from the probe record
+  walt/probes/m3/level1_results_2026-08-17.txt; the mechanism from
+  walt/SCENARIO-PLAYER.md §§3–7 and wiki/walt-seat-play.md §1.
+
+  The whole film is one pure function render(t) of the time in seconds, so
+  render.mjs can step it frame by frame. Open this file in a browser to
+  preview it live (space = pause, ←/→ = seek 5 s).
+-->
+<style>
+  html, body { margin: 0; background: #1d1a16; }
+  svg { display: block; width: 100vw; height: 56.25vw; max-height: 100vh; max-width: 177.78vh; margin: auto; }
+  text { font-family: "DejaVu Sans", "Liberation Sans", sans-serif; }
+</style>
+</head>
+<body>
+<svg id="stage" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+'use strict';
+// ---------------------------------------------------------------- helpers
+const INK = '#2a2118', PAPER = '#f4ead5', CREAM = '#fbf6e9', RED = '#d9483b',
+      GOLD = '#f2b632', TEAL = '#2f8f8a', PLUM = '#7a4e9c', ORANGE = '#e0782f',
+      FELT = '#2e7d4f', WALT = '#3b6fb6', GREEN = '#3a9d5d', SKIN = '#f1c27d';
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const lerp = (a, b, x) => a + (b - a) * x;
+const prog = (t, t0, d) => clamp((t - t0) / d);
+const ease = x => { x = clamp(x); return x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; };
+const back = x => { x = clamp(x); const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+function hash(a, b) {
+  let h = (Math.imul(a | 0, 374761393) + Math.imul(b | 0, 668265263)) >>> 0;
+  h = Math.imul(h ^ (h >>> 13), 1274126177) >>> 0;
+  return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+}
+// cutout "boil": a tiny jitter that changes 8 times a second, like stop-motion paper
+function boil(id, t, amp = 1.4) {
+  const k = Math.floor(t * 8);
+  return [(hash(id, k) - .5) * 2 * amp, (hash(id + 7919, k) - .5) * 2 * amp];
+}
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+function txt(x, y, s, o = {}) {
+  const size = o.size || 28, fill = o.fill || INK, anchor = o.anchor || 'middle',
+        weight = o.weight || 'bold', extra = o.extra || '';
+  const stroke = o.stroke ? `stroke="${o.stroke}" stroke-width="${o.sw || 8}" paint-order="stroke" stroke-linejoin="round"` : '';
+  return `<text x="${x}" y="${y}" font-size="${size}" fill="${fill}" text-anchor="${anchor}" font-weight="${weight}" ${stroke} ${extra}>${esc(s)}</text>`;
+}
+const G = (tr, inner, extra = '') => `<g transform="${tr}" ${extra}>${inner}</g>`;
+function popT(t, t0, x, y, d = .45) { // translate + overshoot scale-in about (x,y)
+  const s = back(prog(t, t0, d));
+  return `translate(${x},${y}) scale(${Math.max(s, 0.0001)})`;
+}
+
+// ---------------------------------------------------------------- props
+const PIPS = {
+  0: [], 1: [[0, 0]], 2: [[-.5, -.5], [.5, .5]], 3: [[-.5, -.5], [0, 0], [.5, .5]],
+  4: [[-.5, -.5], [.5, -.5], [-.5, .5], [.5, .5]],
+  5: [[-.5, -.5], [.5, -.5], [0, 0], [-.5, .5], [.5, .5]],
+  6: [[-.5, -.55], [-.5, 0], [-.5, .55], [.5, -.55], [.5, 0], [.5, .55]],
+};
+// vertical domino, width s, height 2s, centred on (x,y); a = top half, b = bottom
+function domino(a, b, o) {
+  const s = o.s || 40, r = o.rot || 0, sc = o.sc ?? 1;
+  let g = `<rect x="${-s / 2 + s * .08}" y="${-s + s * .1}" width="${s}" height="${2 * s}" rx="${s * .16}" fill="rgba(0,0,0,.28)"/>`;
+  if (o.down) {
+    g += `<rect x="${-s / 2}" y="${-s}" width="${s}" height="${2 * s}" rx="${s * .16}" fill="#2f5d8a" stroke="${CREAM}" stroke-width="${Math.max(2, s * .08)}"/>`;
+    g += `<rect x="${-s / 2 + s * .18}" y="${-s + s * .18}" width="${s * .64}" height="${2 * s - s * .36}" rx="${s * .1}" fill="none" stroke="#7fa9d4" stroke-width="${Math.max(1, s * .05)}" stroke-dasharray="${s * .12} ${s * .1}"/>`;
+  } else {
+    g += `<rect x="${-s / 2}" y="${-s}" width="${s}" height="${2 * s}" rx="${s * .16}" fill="${o.fill || CREAM}" stroke="${o.hl || INK}" stroke-width="${o.hl ? Math.max(3, s * .14) : Math.max(1.5, s * .06)}"/>`;
+    g += `<line x1="${-s * .36}" y1="0" x2="${s * .36}" y2="0" stroke="${INK}" stroke-width="${Math.max(1, s * .05)}"/>`;
+    const pr = s * .095, off = s * .27;
+    for (const [v, cy] of [[a, -s / 2], [b, s / 2]])
+      for (const [px, py] of PIPS[v]) g += `<circle cx="${px * off * 1.25}" cy="${cy + py * off * 1.25}" r="${pr}" fill="${v === 5 && o.trump ? RED : INK}"/>`;
+  }
+  return G(`translate(${o.x},${o.y}) rotate(${r}) scale(${sc})`, g);
+}
+function die(x, y, size, face, rot = 0, sc = 1) {
+  const h = size / 2;
+  let g = `<rect x="${-h + 5}" y="${-h + 6}" width="${size}" height="${size}" rx="${size * .2}" fill="rgba(0,0,0,.28)"/>`;
+  g += `<rect x="${-h}" y="${-h}" width="${size}" height="${size}" rx="${size * .2}" fill="${RED}" stroke="${CREAM}" stroke-width="${size * .07}"/>`;
+  for (const [px, py] of PIPS[face]) g += `<circle cx="${px * size * .56}" cy="${py * size * .56}" r="${size * .085}" fill="${CREAM}"/>`;
+  return G(`translate(${x},${y}) rotate(${rot}) scale(${sc})`, g);
+}
+// a paper-cutout person; (x,y) = bottom centre of the body
+function person(x, y, o) {
+  const sc = o.sc || 1, c = o.color || TEAL, t = o.t || 0, id = o.id || 1;
+  const [bx, by] = boil(id, t, 1.2 / sc);
+  const blink = (hash(id, Math.floor(t * 3)) > .9) ? .15 : 1;
+  const look = o.look || 0;
+  let g = '';
+  g += `<path d="M-58,0 L-46,-112 Q0,-134 46,-112 L58,0 Z" fill="${c}" stroke="${CREAM}" stroke-width="7" stroke-linejoin="round" paint-order="stroke"/>`;
+  g += `<path d="M-20,-118 L0,-92 L20,-118" fill="none" stroke="${CREAM}" stroke-width="5" stroke-linejoin="round"/>`;
+  g += `<circle cx="0" cy="-165" r="46" fill="${SKIN}" stroke="${CREAM}" stroke-width="7" paint-order="stroke"/>`;
+  g += `<ellipse cx="${-16 + look}" cy="-168" rx="5.5" ry="${6.5 * blink}" fill="${INK}"/><ellipse cx="${16 + look}" cy="-168" rx="5.5" ry="${6.5 * blink}" fill="${INK}"/>`;
+  g += o.frown ? `<path d="M-14,-138 Q0,-150 14,-138" stroke="${INK}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`
+               : `<path d="M-15,-144 Q0,-130 15,-144" stroke="${INK}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`;
+  if (o.glasses) g += `<circle cx="-16" cy="-168" r="13" fill="none" stroke="${INK}" stroke-width="3.5"/><circle cx="16" cy="-168" r="13" fill="none" stroke="${INK}" stroke-width="3.5"/><line x1="-3" y1="-168" x2="3" y2="-168" stroke="${INK}" stroke-width="3.5"/>`;
+  if (o.hat) {
+    const tip = o.tip || 0;
+    g += G(`rotate(${tip},0,-196)`,
+      `<ellipse cx="0" cy="-200" rx="78" ry="15" fill="#8a5a2b" stroke="${CREAM}" stroke-width="6" paint-order="stroke"/>` +
+      `<path d="M-38,-203 Q-44,-258 -8,-250 Q0,-240 8,-250 Q44,-258 38,-203 Z" fill="#9c6a35" stroke="${CREAM}" stroke-width="6" paint-order="stroke" stroke-linejoin="round"/>` +
+      `<rect x="-38" y="-216" width="76" height="11" fill="${INK}"/>`);
+  }
+  if (o.cap) g += `<path d="M-44,-190 Q0,-236 44,-190 Z" fill="${o.cap}" stroke="${CREAM}" stroke-width="6" paint-order="stroke"/><rect x="-6" y="-222" width="12" height="8" rx="3" fill="${o.cap}"/>`;
+  let body = G(`translate(${x + bx},${y + by}) scale(${sc})`, g, 'filter="url(#sh)"');
+  if (o.name) body += txt(x, y + 30 * Math.min(1, sc + .2), o.name, { size: o.nameSize || 20, fill: CREAM, stroke: INK, sw: 6 });
+  return body;
+}
+function cloud(cx, cy, w, h, tail, seed = 3) {
+  // puffy thought bubble: stroke pass then fill pass so the outline is a union
+  const bumps = [];
+  const n = Math.max(10, Math.round((w + h) / 55));
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2;
+    bumps.push([cx + Math.cos(a) * w / 2 * .92, cy + Math.sin(a) * h / 2 * .9, 34 + hash(seed, i) * 22]);
+  }
+  let s = '', f = '';
+  const core = `<ellipse cx="${cx}" cy="${cy}" rx="${w / 2}" ry="${h / 2}"`;
+  s += core + ` fill="none" stroke="${INK}" stroke-width="9"/>`;
+  f += core + ` fill="${CREAM}"/>`;
+  for (const [x, y, r] of bumps) { s += `<circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="${INK}" stroke-width="9"/>`; f += `<circle cx="${x}" cy="${y}" r="${r}" fill="${CREAM}"/>`; }
+  let tl = '';
+  if (tail) {
+    const [tx, ty] = tail;
+    for (let i = 0; i < 3; i++) {
+      const k = .25 + i * .25, x = lerp(tx, cx, 1 - k * 1.25 < 0 ? 0 : k * .55), y = lerp(ty, cy, k * .55);
+      const r = 8 + i * 5;
+      tl += `<circle cx="${lerp(tx, x, .9)}" cy="${lerp(ty, y, .9)}" r="${r}" fill="${CREAM}" stroke="${INK}" stroke-width="4"/>`;
+    }
+  }
+  return `<g filter="url(#sh)">${tl}${s}${f}</g>`;
+}
+function sticky(x, y, title, lines, t, t0, rot = 3) {
+  if (t < t0) return '';
+  let g = `<rect x="-150" y="-20" width="300" height="${56 + lines.length * 28}" fill="#ffe36e" stroke="${CREAM}" stroke-width="5" paint-order="stroke"/>`;
+  g += `<rect x="-38" y="-30" width="76" height="20" fill="rgba(255,255,255,.55)" transform="rotate(-4)"/>`;
+  g += txt(0, 12, title, { size: 15, fill: '#8a5a00' });
+  lines.forEach((l, i) => { g += txt(0, 46 + i * 28, l, { size: 21 }); });
+  return G(popT(t, t0, x, y) + ` rotate(${rot})`, g, 'filter="url(#sh)"');
+}
+function stamp(x, y, word, color, t, t0, rot = -12, size = 46) {
+  if (t < t0) return '';
+  const k = prog(t, t0, .25), sc = lerp(2.2, 1, ease(k));
+  const w = word.length * size * .68 + 40;
+  const g = `<rect x="${-w / 2}" y="${-size * .85}" width="${w}" height="${size * 1.3}" rx="10" fill="none" stroke="${color}" stroke-width="7"/>` +
+            txt(0, size * .3, word, { size, fill: color });
+  return G(`translate(${x},${y}) rotate(${rot}) scale(${sc})`, g, `opacity="${k}"`);
+}
+function strike(x1, y1, x2, y2, t, t0) {
+  if (t < t0) return '';
+  const k = ease(prog(t, t0, .3));
+  return `<line x1="${x1}" y1="${y1}" x2="${lerp(x1, x2, k)}" y2="${lerp(y1, y2, k)}" stroke="${RED}" stroke-width="8" stroke-linecap="round"/>`;
+}
+function stepBadge(n, label, t, t0) {
+  if (t < t0) return '';
+  const g = `<rect x="0" y="-30" width="${58 + label.length * 15.5}" height="52" rx="26" fill="${INK}" stroke="${CREAM}" stroke-width="5" paint-order="stroke"/>` +
+            `<circle cx="26" cy="-4" r="19" fill="${GOLD}"/>` + txt(26, 4, n, { size: 22 }) +
+            txt(54, 5, label, { size: 24, fill: CREAM, anchor: 'start' });
+  return G(popT(t, t0, 34, 58), g, 'filter="url(#sh)"');
+}
+
+// ---------------------------------------------------------------- the game facts
+// walt's dealt hand on the frozen carrier (receipt hand 8): fives are trump,
+// walt's team (T1) holds the 30 bid, walt (S1) leads trick 1. The seven
+// opening leads and their tallies are level1_results_2026-08-17.txt, t=1.
+const HAND = [[1, 1], [2, 1], [3, 1], [3, 3], [5, 2], [5, 4], [5, 5]];
+const ALL = []; for (let hi = 0; hi <= 6; hi++) for (let lo = 0; lo <= hi; lo++) ALL.push([hi, lo]);
+const HIDDEN = ALL.filter(([a, b]) => !HAND.some(([c, d]) => c === a && d === b));
+function world(seed) { // a lawful completion: the 21 unseen tiles dealt 7/7/7 (no voids yet at trick 1)
+  const tiles = HIDDEN.slice();
+  for (let i = tiles.length - 1; i > 0; i--) { const j = Math.floor(hash(seed, i) * (i + 1)); [tiles[i], tiles[j]] = [tiles[j], tiles[i]]; }
+  const hands = [tiles.slice(0, 7), tiles.slice(7, 14), tiles.slice(14)];
+  for (const h of hands) h.sort((p, q) => (q[0] * 7 + q[1]) - (p[0] * 7 + p[1]));
+  return hands; // [partner, oppL, oppR]
+}
+const SEATS = [ // who sits where around the table in the table shots
+  { key: 'P', name: 'Partner', color: TEAL, x: 700, y: 176, cap: '#1f5f5c' },
+  { key: 'L', name: 'Opp L', color: ORANGE, x: 318, y: 348, cap: null },
+  { key: 'R', name: 'Opp R', color: PLUM, x: 1082, y: 348, cap: null },
+];
+
+function table(cx = 700, cy = 340, rx = 330, ry = 150) {
+  return `<g filter="url(#sh)"><ellipse cx="${cx}" cy="${cy + 14}" rx="${rx + 18}" ry="${ry + 18}" fill="#7a4a24" stroke="${CREAM}" stroke-width="7" paint-order="stroke"/>` +
+         `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${FELT}"/>` +
+         `<ellipse cx="${cx}" cy="${cy}" rx="${rx - 16}" ry="${ry - 12}" fill="none" stroke="#3f9563" stroke-width="3" stroke-dasharray="10 10"/></g>`;
+}
+function handRow(tiles, cx, cy, o = {}) { // horizontal row of vertical tiles
+  const s = o.s || 18, gap = o.gap || s * 1.2, n = tiles.length;
+  let g = '';
+  tiles.forEach(([a, b], i) => {
+    const k = o.t === undefined ? 1 : back(prog(o.t, (o.t0 || 0) + i * (o.stagger ?? .06), .35));
+    if (k <= 0) return;
+    g += domino(a, b, { x: cx + (i - (n - 1) / 2) * gap, y: cy, s, down: o.down, sc: k, rot: o.rot || 0, trump: o.trump, hl: o.hl && o.hl(i) });
+  });
+  return g;
+}
+function handCol(tiles, cx, cy, o = {}) { // tiles lying sideways in a column
+  const s = o.s || 18, gap = o.gap || s * 1.2, n = tiles.length;
+  let g = '';
+  tiles.forEach(([a, b], i) => {
+    const k = o.t === undefined ? 1 : back(prog(o.t, (o.t0 || 0) + i * .06, .35));
+    if (k <= 0) return;
+    g += domino(a, b, { x: cx, y: cy + (i - (n - 1) / 2) * gap, s, down: o.down, sc: k, rot: 90 });
+  });
+  return g;
+}
+// a small "world card": the three hidden hands of one imagined deal, face up
+function worldCard(cx, cy, seed, o = {}) {
+  const sc = o.sc || 1, hands = world(seed);
+  let g = `<rect x="-205" y="-120" width="410" height="240" rx="18" fill="${o.bg || '#fffaf0'}" stroke="${INK}" stroke-width="5"/>`;
+  g += txt(-190, -88, o.label || `world #${seed}`, { size: 20, anchor: 'start', fill: '#7a6a55' });
+  const rows = o.rows || [['Partner', TEAL], ['Opp L', ORANGE], ['Opp R', PLUM]];
+  rows.forEach(([nm, c], r) => {
+    const y = -40 + r * 62;
+    g += `<rect x="-192" y="${y - 17}" width="88" height="34" rx="17" fill="${c}"/>` + txt(-148, y + 7, nm, { size: 16, fill: CREAM });
+    hands[r].forEach(([a, b], i) => { g += domino(a, b, { x: -70 + i * 38, y, s: 16, rot: 90, down: o.hideRow === r ? false : o.down && o.down(r) }); });
+  });
+  return G(`translate(${cx},${cy}) scale(${sc}) rotate(${o.rot || 0})`, g, 'filter="url(#sh)"');
+}
+
+// ---------------------------------------------------------------- captions
+// [start, end, text]; "|" breaks a line
+const CAPTIONS = [
+  [4.2, 8, 'Meet Walt. He plays one seat at a Texas 42 table.'],
+  [8.3, 14, 'Walt holds seven dominoes. Fives are trump, and his team bid 30.'],
+  [14, 20, 'The other 21 tiles are face down. It’s Walt’s lead.|What should he play?'],
+  [20.4, 26, 'Step 1: Walt imagines complete deals —|ways the hidden tiles could be sitting right now.'],
+  [26, 32, 'Each one is a “world.” Every world must be lawful:|the right hand sizes, nobody holding a suit they’ve shown void in.'],
+  [32, 38, 'What one world teaches: this deal is POSSIBLE.|Not likely — just possible. Support is not belief.'],
+  [38.4, 44, 'Step 2: in each world, Walt still has to guess|how the other three seats will play.'],
+  [44, 50, 'He models each of them as a level-0 mind:|it sees only its own hand and the public plays.'],
+  [50, 54.5, 'A level-0 mind does what Walt does:|it imagines its OWN worlds — 8 of them, by default.'],
+  [54.5, 58, 'One declared shortcut:|a level-0 mind doesn’t track voids.'],
+  [58.4, 64, 'Step 3: and inside THAT mind’s worlds,|everybody else is just… Dice.'],
+  [64, 70, 'Dice plays a uniformly random legal tile.|This is the bottom of the ladder.'],
+  [70, 76, 'The dice are a tickertape: same world, same record → same roll.|So worlds split by the roll instead of multiplying.'],
+  [76, 82, 'Why dice at the bottom? Every legal move gets a chance,|so no lawful world is ever ruled out.'],
+  [82.4, 88, 'Coming back up: the level-0 mind picks its best tile against Dice.|Now it’s a player, not a coin.'],
+  [88, 94, 'Back in Walt’s head, his worlds split up|by what each modeled player would do in them.'],
+  [94, 100, 'So a partner’s play becomes evidence —|Bayes on the sample, inside the model.'],
+  [100.4, 107, 'Step 4: every world, played out to the end,|answers one yes-or-no: did we make 30?'],
+  [107, 113, 'That’s what each sample finally teaches:|one make-or-set, for each tile Walt could lead.'],
+  [113, 119.5, '200 worlds: four leads tie at 100%.|Too few samples to tell them apart.'],
+  [119.5, 124, 'A tie on a sample isn’t certainty.|Walt samples more before he trusts it.'],
+  [124, 130, '2,000 worlds: 5-5 makes in every single one.|Every other lead loses at least 4.'],
+  [130.4, 137, 'The whole ladder, top to bottom —|and what each kind of sample teaches.'],
+  [137, 144, 'Worlds → minds → their worlds → Dice → one bit.|The bits roll back up into P(make).'],
+  [144, 150, 'Stack one more rung (level 2) and on this hand|the answer holds: 5-5.'],
+  [150.4, 158, 'The fine print travels with the numbers.'],
+  [158, 165, 'Level 1 → level 0 → Dice.|That’s how Walt sees 42.'],
+];
+function caption(t) {
+  const c = CAPTIONS.find(([a, b]) => t >= a && t < b);
+  if (!c) return '';
+  const [a, b, s] = c, lines = s.split('|');
+  const k = Math.min(prog(t, a, .25), 1 - prog(t, b - .2, .2));
+  const w = Math.max(...lines.map(l => l.length)) * 15.4 + 60, h = 22 + lines.length * 36;
+  let g = `<rect x="${-w / 2}" y="0" width="${w}" height="${h}" rx="16" fill="rgba(29,26,22,.88)" stroke="${CREAM}" stroke-width="3"/>`;
+  lines.forEach((l, i) => { g += txt(0, 40 + i * 36, l, { size: 26, fill: CREAM, weight: 'bold' }); });
+  return G(`translate(640,${708 - h + (1 - ease(k)) * 20})`, g, `opacity="${k}"`);
+}
+
+// ---------------------------------------------------------------- scenes
+function sTitle(t) {
+  let g = '';
+  // floating props
+  const props = [[150, 140, 6, 4, -18], [1150, 120, 5, 5, 16], [1080, 560, 3, 1, 28], [110, 520, 6, 6, -8]];
+  props.forEach(([x, y, a, b, r], i) => {
+    const bob = Math.sin(t * 1.3 + i) * 8;
+    g += G(popT(t, .2 + i * .15, x, y + bob), domino(a, b, { x: 0, y: 0, s: 38, rot: r + Math.sin(t + i) * 4 }));
+  });
+  g += G(popT(t, .9, 1150, 330), die(0, 0, 70, 1 + Math.floor(hash(9, Math.floor(t * 4)) * 6) % 6 + 0, Math.sin(t * 2) * 12));
+  const words = [['How', 110, 250, RED], ['Walt', 455, 250, WALT], ['Sees', 110, 395, GREEN], ['42', 480, 395, GOLD]];
+  words.forEach(([w, x, y, c], i) => {
+    g += G(popT(t, .3 + i * .28, x, y), txt(0, 0, w, { size: 128, fill: c, anchor: 'start', stroke: CREAM, sw: 14 }), 'filter="url(#sh)"');
+  });
+  g += G(popT(t, 1.8, 120, 470), txt(0, 0, 'a trip down the ladder, all the way to Dice', { size: 30, anchor: 'start', fill: INK }));
+  g += G(popT(t, 2.2, 120, 520), `<rect x="0" y="-26" width="370" height="38" rx="19" fill="${INK}"/>` + txt(185, 1, 'EXPLORATORY · an explainer', { size: 19, fill: GOLD }));
+  const wk = back(prog(t, 1, .6));
+  g += G(`translate(0,${(1 - wk) * 400})`, person(1010, 690, { sc: 1.45, color: WALT, hat: true, glasses: true, t, id: 11, tip: t > 5 && t < 6.2 ? Math.sin((t - 5) * Math.PI / 1.2) * -18 : 0, name: '' }));
+  return g;
+}
+
+function tableShot(t, o = {}) {
+  let g = '';
+  for (const [i, s] of SEATS.entries())
+    g += person(s.x, s.y, { sc: .62, color: s.color, t, id: 20 + i, cap: s.cap, name: s.name, nameSize: 18, look: s.key === 'L' ? 5 : s.key === 'R' ? -5 : 0 });
+  g += table();
+  return g;
+}
+
+function sTable(t) { // 8 → 20
+  const lt = t - 8;
+  let g = tableShot(t);
+  // face-down hidden hands dealt out
+  g += handRow(Array(7).fill([0, 0]), 700, 240, { s: 17, gap: 25, down: true, t: lt, t0: .2 });
+  g += handCol(Array(7).fill([0, 0]), 452, 340, { s: 17, gap: 25, down: true, t: lt, t0: .5 });
+  g += handCol(Array(7).fill([0, 0]), 948, 340, { s: 17, gap: 25, down: true, t: lt, t0: .8 });
+  g += person(150, 700, { sc: 1.05, color: WALT, hat: true, glasses: true, t, id: 11, look: 6 });
+  // walt's hand, flipping up
+  HAND.forEach(([a, b], i) => {
+    const k = back(prog(lt, 1.1 + i * .08, .35));
+    const flip = ease(prog(lt, 2.2 + i * .1, .3));
+    const sx = Math.abs(Math.cos(flip * Math.PI));
+    if (k <= 0) return;
+    g += G(`translate(${430 + i * 66},545) scale(${k * Math.max(sx, .05)},${k})`,
+      domino(a, b, { x: 0, y: 0, s: 34, down: flip < .5, trump: true, hl: lt > 3.4 && a === 5 ? GOLD : null }));
+  });
+  // the contract sign
+  g += G(popT(t, 9.2, 1120, 90) + ' rotate(4)', `<rect x="-120" y="-44" width="240" height="96" rx="12" fill="${INK}" stroke="${CREAM}" stroke-width="6" paint-order="stroke"/>` +
+    txt(0, -8, 'fives are trump', { size: 22, fill: GOLD }) + txt(0, 30, 'bid: 30', { size: 30, fill: CREAM }), 'filter="url(#sh)"');
+  if (lt > 6.4) {
+    const k = back(prog(lt, 6.4, .5)), bob = Math.sin(t * 5) * 5;
+    for (const [x, y] of [[480, 470], [700, 200], [370, 240], [1030, 240]].slice(0, 1 + Math.floor(clamp((lt - 6.4) * 2, 0, 3))))
+      g += G(`translate(${x},${y + bob}) scale(${k})`, txt(0, 0, '?', { size: 70, fill: RED, stroke: CREAM, sw: 10 }));
+  }
+  return g;
+}
+
+function worldCount(lt) { // world counter: slow, then racing to 2,000
+  if (lt < 3.5) return 1;
+  if (lt < 5) return 2 + Math.floor((lt - 3.5) * 2);
+  return Math.min(2000, Math.round(4 * Math.pow(500, clamp((lt - 5) / 7))));
+}
+function sWorlds(t) { // 20 → 38
+  const lt = t - 20;
+  let g = stepBadge(1, 'imagine worlds', t, 20.3);
+  g += person(150, 700, { sc: 1.05, color: WALT, hat: true, glasses: true, t, id: 11, look: 8 });
+  const ck = back(prog(lt, .5, .6));
+  g += G(`translate(${lerp(240, 0, ck)},${lerp(480, 0, ck)}) scale(${ck})`, cloud(740, 330, 820, 450, [260, 500], 5));
+  if (lt > 1) {
+    const n = worldCount(lt);
+    // a deck of imagined deals behind, the current one on top
+    for (let d = 3; d >= 1; d--) g += G(`translate(${800 + d * 12},${350 - d * 10}) rotate(${d * 2}) scale(.95)`, `<rect x="-205" y="-120" width="410" height="240" rx="18" fill="#efe3c8" stroke="${INK}" stroke-width="4"/>`);
+    const flipIn = n < 6 ? back(prog(lt % 1.5, 0, .3)) : 1;
+    g += G(popT(t, 21, 0, 0), worldCard(800, 350, n, { sc: .95 * (lt < 3.5 ? back(prog(lt, 1, .5)) : 1), label: `world #${n.toLocaleString('en-US')}` }));
+    g += G('translate(1150,560) rotate(6)', `<rect x="-78" y="-34" width="156" height="60" rx="12" fill="${INK}"/>` + txt(0, 6, `${n.toLocaleString('en-US')}`, { size: 34, fill: GOLD }), 'filter="url(#sh)"');
+    g += txt(1150, 612, 'worlds imagined', { size: 17, fill: '#7a6a55' });
+    void flipIn;
+  }
+  // lawfulness checklist
+  if (lt > 6.3) {
+    const items = ['7 · 7 · 7 tiles', 'no tile twice', 'voids respected'];
+    items.forEach((s, i) => {
+      if (lt < 6.3 + i * .6) return;
+      g += G(popT(t, 26.3 + i * .6, 370, 250 + i * 46), `<circle cx="0" cy="-8" r="15" fill="${GREEN}"/>` +
+        `<path d="M-7,-8 L-2,-2 L8,-15" stroke="${CREAM}" stroke-width="4" fill="none"/>` + txt(24, 0, s, { size: 21, anchor: 'start' }));
+    });
+  }
+  g += stamp(760, 505, 'POSSIBLE', GREEN, lt, 12.3, -8, 40);
+  if (lt > 13.3) {
+    g += G(popT(t, 33.3, 1000, 520), txt(0, 0, 'likely?', { size: 34, fill: '#7a6a55' }));
+    g += strike(940, 508, 1062, 508, lt, 14.1);
+  }
+  g += sticky(1110, 90, 'WHAT ONE WORLD TEACHES', ['what the hidden deal', 'COULD be'], t, 32.6, 4);
+  return g;
+}
+
+function sMinds(t) { // 38 → 58
+  const lt = t - 38, W = world(137);
+  let g = stepBadge(2, 'model the other seats', t, 38.3);
+  g += txt(1240, 60, 'inside world #137', { size: 22, anchor: 'end', fill: '#7a6a55' });
+  g += tableShot(t);
+  g += handRow(W[0], 700, 240, { s: 16, gap: 24, t: lt, t0: .2, stagger: .03 });
+  g += handCol(W[1], 452, 340, { s: 16, gap: 24, t: lt, t0: .3 });
+  g += handCol(W[2], 948, 340, { s: 16, gap: 24, t: lt, t0: .4 });
+  g += person(150, 700, { sc: 1.05, color: WALT, hat: true, glasses: true, t, id: 11 });
+  g += handRow(HAND, 530, 560, { s: 24, gap: 42, trump: true });
+  // "level-0" badges pop onto all three
+  SEATS.forEach((s, i) => {
+    g += G(popT(t, 40.5 + i * .35, s.x, s.y - 150), `<rect x="-56" y="-18" width="112" height="34" rx="17" fill="${GOLD}" stroke="${CREAM}" stroke-width="4" paint-order="stroke"/>` + txt(0, 7, 'level 0', { size: 19 }), 'filter="url(#sh)"');
+  });
+  // Opp R thinks: a bubble with ITS view — own hand up, everyone else's down
+  if (lt > 6) {
+    const k = back(prog(lt, 6, .6));
+    let b = cloud(640, 300, 700, 400, [1010, 180], 8);
+    b += txt(640, 150, 'Opp R’s view', { size: 26, fill: PLUM });
+    b += txt(640, 182, 'own hand + the public plays — nothing else', { size: 18, fill: '#7a6a55' });
+    b += txt(430, 236, 'mine:', { size: 18, anchor: 'end', fill: PLUM });
+    b += handRow(W[2], 640, 236, { s: 18, gap: 30 });
+    b += txt(430, 300, 'the other 21:', { size: 18, anchor: 'end', fill: '#7a6a55' });
+    b += handRow(Array(21).fill([0, 0]), 640, 300, { s: 10, gap: 17, down: true });
+    b += txt(470, 300, '', {});
+    // eight imagined worlds fanned out
+    if (lt > 12) {
+      for (let i = 0; i < 8; i++) {
+        const kk = back(prog(lt, 12 + i * .22, .4));
+        if (kk <= 0) continue;
+        const x = 400 + i * 68, y = 395 + Math.abs(i - 3.5) * 6;
+        b += G(`translate(${x},${y}) rotate(${(i - 3.5) * 5}) scale(${kk * .33})`, worldCard(0, 0, 900 + i, { label: `R’s world ${i + 1}`, bg: '#f3ecff', rows: [['Walt', WALT], ['Partner', TEAL], ['Opp L', ORANGE]] }));
+      }
+      b += G(popT(t, 52, 900, 470), `<rect x="-46" y="-22" width="92" height="40" rx="20" fill="${PLUM}"/>` + txt(0, 6, 'n₀ = 8', { size: 20, fill: CREAM }));
+    }
+    g += G(`translate(${lerp(1010, 0, k)},${lerp(180, 0, k)}) scale(${k})`, b);
+  }
+  if (lt > 16.6) g += G(popT(t, 54.6, 150, 330) + ' rotate(-5)', `<rect x="-110" y="-34" width="220" height="64" rx="8" fill="${CREAM}" stroke="${INK}" stroke-width="3"/>` +
+    txt(0, -6, 'voids: not tracked', { size: 19, fill: RED }) + txt(0, 20, '(declared shortcut)', { size: 16, fill: '#7a6a55' }), 'filter="url(#sh)"');
+  g += sticky(1105, 470, 'WHAT ITS SAMPLE TEACHES', ['what THAT seat', 'might believe'], t, 53, -3);
+  return g;
+}
+
+function sDice(t) { // 58 → 82
+  const lt = t - 58;
+  let g = stepBadge(3, 'all the way down to Dice', t, 58.3);
+  g += txt(1240, 60, 'inside Opp R’s world 3 of 8', { size: 22, anchor: 'end', fill: '#7a6a55' });
+  g += table(640, 330, 280, 130);
+  // Opp R stays a person; the other three become dice
+  g += person(1030, 520, { sc: .72, color: PLUM, t, id: 22, name: 'Opp R (thinking)', nameSize: 18 });
+  const morph = ease(prog(lt, 1.5, .8));
+  const diceSeats = [[640, 190, 'Partner'], [260, 400, 'Opp L'], [640, 500, 'Walt']];
+  diceSeats.forEach(([x, y, nm], i) => {
+    const rolling = lt > 5 && lt < 8.5;
+    const face = rolling ? 1 + Math.floor(hash(i + 3, Math.floor(t * 12)) * 6) : [4, 2, 6][i];
+    const rot = rolling ? (t * 540 + i * 70) % 360 : (i - 1) * 8;
+    const jump = rolling ? -Math.abs(Math.sin((t - 63) * 9 + i)) * 26 : 0;
+    const k = back(prog(lt, 2 + i * .2, .5));
+    if (morph < 1) g += G(`translate(0,0)`, `<g opacity="${1 - morph}">${person(x, y + 60, { sc: .5, color: i === 2 ? WALT : i === 0 ? TEAL : ORANGE, t, id: 30 + i, hat: i === 2 })}</g>`);
+    if (k > 0) g += die(x, y + jump, 84, face, rot, k);
+    g += txt(x, y + 72, nm, { size: 17, fill: CREAM, stroke: INK, sw: 5 });
+  });
+  // tickertape along the top
+  if (lt > 12) {
+    const k = ease(prog(lt, 12, .6));
+    let tape = `<rect x="-20" y="-30" width="1340" height="60" fill="${CREAM}" stroke="${INK}" stroke-width="3"/>`;
+    const off = (t * 70) % 260;
+    for (let i = -1; i < 7; i++) {
+      const x = i * 260 - off, seedw = 3, rec = Math.floor(t * 70 / 260) + i;
+      const roll = 1 + Math.floor(hash(seedw * 31 + 7, rec) * 5);
+      tape += `<line x1="${x}" y1="-30" x2="${x}" y2="30" stroke="#c9b893" stroke-width="2"/>`;
+      tape += txt(x + 130, 8, `record ${rec + 40} → roll ${roll}`, { size: 19, fill: INK, weight: 'normal' });
+    }
+    g += G(`translate(0,${lerp(-60, 112, k)})`, tape, 'filter="url(#sh)"');
+  }
+  // same world + same record = same roll → worlds partition
+  if (lt > 12.5 && lt < 18.2) {
+    const k = ease(prog(lt, 13.8, 1.2));
+    g += `<rect width="1280" height="720" fill="rgba(244,234,213,.55)"/>`;
+    let p = `<rect x="-200" y="-110" width="400" height="236" rx="16" fill="${CREAM}" stroke="${INK}" stroke-width="4"/>`;
+    p += txt(0, -78, '8 worlds at one dice node', { size: 18, fill: '#7a6a55' });
+    const buckets = [0, 1, 2, 0, 1, 0, 2, 1];
+    const bx = [-120, 0, 120];
+    const cnt = [0, 0, 0];
+    buckets.forEach((b, i) => {
+      const x0 = -150 + i * 43, y0 = -40;
+      const x1 = bx[b] + (cnt[b] - 1) * 28, y1 = 30 + 0;
+      cnt[b]++;
+      p += `<circle cx="${lerp(x0, x1, k)}" cy="${lerp(y0, y1, k)}" r="13" fill="${[TEAL, ORANGE, PLUM][b]}" stroke="${INK}" stroke-width="2.5"/>`;
+    });
+    ['plays 3-1', 'plays 6-4', 'plays 2-0'].forEach((s, i) => {
+      p += `<rect x="${bx[i] - 55}" y="58" width="110" height="34" rx="8" fill="none" stroke="${INK}" stroke-width="2.5" stroke-dasharray="6 4" opacity="${k}"/>`;
+      p += txt(bx[i], 81, s, { size: 16, extra: `opacity="${k}"` });
+    });
+    p += txt(0, 118, 'split, never multiplied', { size: 17, fill: GREEN, extra: `opacity="${k}"` });
+    g += G(popT(t, 70.5, 640, 380) + ' scale(1.25)', p, 'filter="url(#sh)"');
+  }
+  // every legal move gets a chance
+  if (lt > 18.2) {
+    g += `<rect width="1280" height="720" fill="rgba(244,234,213,.55)"/>`;
+    const legal = [[6, 4], [4, 1], [3, 1], [2, 0], [0, 0]];
+    let p = `<rect x="-235" y="-85" width="470" height="180" rx="16" fill="${CREAM}" stroke="${INK}" stroke-width="4"/>`;
+    p += txt(0, -52, 'a dice seat’s legal tiles', { size: 18, fill: '#7a6a55' });
+    legal.forEach(([a, b], i) => {
+      const x = -180 + i * 90, kk = back(prog(lt, 18.6 + i * .15, .35));
+      p += domino(a, b, { x, y: 5, s: 26, sc: kk });
+      p += G(popT(t, 77.4 + i * .15, x, 72), `<rect x="-26" y="-18" width="52" height="30" rx="15" fill="${GREEN}"/>` + txt(0, 4, '1/5', { size: 17, fill: CREAM }));
+    });
+    g += G(popT(t, 76.2, 640, 380) + ' scale(1.2)', p, 'filter="url(#sh)"');
+  }
+  g += sticky(1110, 220, 'WHAT A DICE ROLL TEACHES', ['what anyone could', 'LAWFULLY play'], t, 79.3, 4);
+  return g;
+}
+
+function sBackUp(t) { // 82 → 100
+  const lt = t - 82;
+  let g = stepBadge('↑', 'climbing back up', t, 82.3);
+  if (lt < 6.5) {
+    // Opp R compares its tiles against the dice field
+    g += person(190, 700, { sc: 1.05, color: PLUM, t, id: 22, look: 8 });
+    g += cloud(760, 340, 760, 420, [280, 470], 12);
+    g += txt(760, 190, 'Opp R (level 0): my best tile against Dice?', { size: 25, fill: PLUM });
+    const W = world(137)[2];
+    const scores = W.map((_, i) => .25 + hash(137, i) * .6);
+    const best = scores.indexOf(Math.max(...scores));
+    W.forEach(([a, b], i) => {
+      const x = 520 + i * 80, h = 190 * scores[i] * ease(prog(lt, .6 + i * .1, .7));
+      g += `<rect x="${x - 20}" y="${470 - h}" width="40" height="${h}" rx="6" fill="${i === best && lt > 2.8 ? GOLD : '#b9a6cf'}" stroke="${INK}" stroke-width="3"/>`;
+      g += domino(a, b, { x, y: 510, s: 20, hl: i === best && lt > 2.8 ? GOLD : null });
+    });
+    g += txt(760, 545, 'bars: its team’s chance vs the dice field (illustrative)', { size: 15, fill: '#7a6a55', weight: 'normal' });
+    if (lt > 2.8) g += stamp(1040, 250, 'PICKED', GOLD, lt, 2.8, 10, 34);
+  } else {
+    // Walt's worlds partition by what the modeled partner would lead back
+    g += person(150, 700, { sc: 1.05, color: WALT, hat: true, glasses: true, t, id: 11, look: 8 });
+    g += cloud(760, 330, 820, 440, [260, 500], 5);
+    g += txt(760, 215, 'Walt’s worlds, split by the modeled partner’s reply', { size: 22, fill: WALT });
+    const k = ease(prog(lt, 7.6, 1.4));
+    const N = 24, labels = ['partner plays 5-0', 'partner plays 6-5', 'partner plays 4-4'];
+    const bx = [520, 760, 1000], cnt = [0, 0, 0];
+    for (let i = 0; i < N; i++) {
+      const b = hash(51, i) < .55 ? 0 : hash(52, i) < .6 ? 1 : 2;
+      const x0 = 480 + (i % 12) * 50, y0 = 250 + Math.floor(i / 12) * 55;
+      const c = cnt[b]++;
+      const x1 = bx[b] - 55 + (c % 4) * 36, y1 = 330 + Math.floor(c / 4) * 36;
+      g += G(`translate(${lerp(x0, x1, k)},${lerp(y0, y1, k)}) rotate(${(hash(53, i) - .5) * 20})`,
+        `<rect x="-14" y="-11" width="28" height="22" rx="4" fill="${['#9fd0cd', '#f3c89f', '#d5c1e6'][b]}" stroke="${INK}" stroke-width="2.5"/>`);
+    }
+    labels.forEach((s, i) => { g += txt(bx[i], 470, s, { size: 17, extra: `opacity="${k}"` }); });
+    if (lt > 12) {
+      g += G(popT(t, 94.2, 1040, 560), `<circle cx="0" cy="0" r="46" fill="rgba(255,255,255,.4)" stroke="${INK}" stroke-width="9"/><line x1="32" y1="32" x2="78" y2="78" stroke="${INK}" stroke-width="14" stroke-linecap="round"/>` +
+        txt(0, 8, 'Bayes', { size: 18 }), 'filter="url(#sh)"');
+      g += sticky(1110, 100, 'WHAT A MODELED PLAY TEACHES', ['which worlds fit', 'the evidence'], t, 95.5, 3);
+    }
+  }
+  return g;
+}
+
+// level1_results_2026-08-17.txt, t=1, n_outer=2000, n0=16 (exploratory probe record)
+const LEADS = [ // [hi, lo, percent×100 at n=2000, losses of 2000, tied at 100% on 200?]
+  [1, 1, 9910, 18, false], [2, 1, 9980, 4, true], [3, 1, 9870, 26, false], [3, 3, 9975, 5, false],
+  [5, 2, 9880, 24, true], [5, 4, 9935, 13, true], [5, 5, 10000, 0, true],
+];
+function sTally(t) { // 100 → 130
+  const lt = t - 100;
+  let g = stepBadge(4, 'play every world out · count', t, 100.3);
+  const phase = lt < 13 ? 'stream' : lt < 24 ? 'n200' : 'n2000';
+  const rowY = i => 146 + i * 58;
+  // board
+  g += `<rect x="330" y="104" width="900" height="470" rx="20" fill="${CREAM}" stroke="${INK}" stroke-width="5" filter="url(#sh)"/>`;
+  const head = phase === 'n2000' ? 'worlds LOST out of 2,000' : phase === 'n200' ? 'makes out of 200' : 'each world: make ✓ or set ✗';
+  g += txt(780, 136, head, { size: 20, fill: '#7a6a55' });
+  g += person(150, 700, { sc: 1.05, color: WALT, hat: true, glasses: true, t, id: 11, look: 10, tip: phase === 'n2000' && lt > 27 ? -12 : 0 });
+  LEADS.forEach(([a, b, pc, lost, tie], i) => {
+    const y = rowY(i) + 32;
+    const isBest = a === 5 && b === 5;
+    g += domino(a, b, { x: 400, y, s: 21, rot: 90, trump: true, hl: phase === 'n2000' && isBest && lt > 26 ? GOLD : null });
+    g += txt(452, y + 7, `${a}-${b}`, { size: 20, anchor: 'start' });
+    if (phase === 'stream') {
+      // ticks stream in: one column per world (pattern illustrative)
+      const cols = Math.floor(clamp((lt - 1.5) * 4.2, 0, 40));
+      for (let c = 0; c < cols; c++) {
+        const lose = !isBest && hash(i * 97 + 5, c) < lost / 2000 * 14;
+        const x = 520 + c * 17;
+        g += lose ? `<path d="M${x - 5},${y - 5} L${x + 5},${y + 5} M${x + 5},${y - 5} L${x - 5},${y + 5}" stroke="${RED}" stroke-width="3.5"/>`
+                  : `<path d="M${x - 6},${y} L${x - 2},${y + 5} L${x + 6},${y - 6}" stroke="${GREEN}" stroke-width="3" fill="none"/>`;
+      }
+    } else if (phase === 'n200') {
+      const k = ease(prog(lt, 13.3 + i * .12, .8));
+      const full = tie;
+      const w = 450 * (full ? 1 : .93) * k;
+      g += `<rect x="520" y="${y - 14}" width="${w}" height="28" rx="8" fill="${full ? GREEN : '#a9c9b1'}"/>`;
+      g += txt(1100, y + 8, full ? (k >= 1 ? '200 / 200' : '') : (k >= 1 ? '< 200' : ''), { size: 20, anchor: 'end', fill: full ? INK : '#7a6a55' });
+      if (full && lt > 15.5) g += G(popT(t, 115.5 + i * .1, 1170, y), `<rect x="-30" y="-15" width="60" height="30" rx="15" fill="${GOLD}"/>` + txt(0, 6, 'TIE', { size: 16 }));
+    } else {
+      const k = ease(prog(lt, 25 + i * .1, 1.2));
+      const w = 440 * (lost / 26) * k;
+      if (lost > 0) g += `<rect x="520" y="${y - 14}" width="${w}" height="28" rx="8" fill="${RED}"/>`;
+      else if (k > .5) g += txt(575, y + 8, 'none — makes in all 2,000', { size: 20, anchor: 'start', fill: GREEN });
+      if (k >= 1) g += txt(1180, y + 8, `${lost}   ·   ${(pc / 100).toFixed(2)}%`, { size: 19, anchor: 'end', fill: lost ? INK : GREEN });
+    }
+  });
+  if (phase === 'n200' && lt > 19.5) g += stamp(800, 610, 'SAMPLE MORE', RED, lt, 19.8, -4, 34);
+  if (phase === 'n2000' && lt < 25) {
+    const n = Math.round(lerp(200, 2000, ease(prog(lt, 24, 1))));
+    g += G('translate(780,610)', `<rect x="-110" y="-28" width="220" height="50" rx="12" fill="${INK}"/>` + txt(0, 7, `n = ${n.toLocaleString('en-US')}`, { size: 26, fill: GOLD }));
+  }
+  if (phase === 'n2000' && lt > 26.5) g += G(popT(t, 126.5, 538, rowY(6) + 44), `<path d="M-30,10 L-34,-22 L-16,-6 L0,-30 L16,-6 L34,-22 L30,10 Z" fill="${GOLD}" stroke="${INK}" stroke-width="3"/>`);
+  g += sticky(165, 170, 'WHAT ONE PLAY-OUT TEACHES', ['one bit per lead:', 'make, or set'], t, 108, -4);
+  g += txt(1230, 592, 'numbers: walt/probes/m3/level1_results_2026-08-17.txt · t=1 · n₀=16 · exploratory probe record', { size: 12, anchor: 'end', fill: '#7a6a55', weight: 'normal' });
+  if (phase === 'stream') g += txt(1230, 592 - 16, 'tick pattern illustrative; totals below are the record’s', { size: 12, anchor: 'end', fill: '#7a6a55', weight: 'normal' });
+  return g;
+}
+
+function sLadder(t) { // 130 → 150
+  const lt = t - 130;
+  let g = '';
+  g += txt(150, 66, 'The ladder', { size: 44, fill: INK, stroke: CREAM, sw: 10, anchor: 'start' });
+  // rails
+  g += `<g filter="url(#sh)"><rect x="150" y="90" width="18" height="530" rx="6" fill="#9c6a35"/><rect x="330" y="90" width="18" height="530" rx="6" fill="#9c6a35"/>`;
+  const rungs = [
+    ['Walt · level 1', 'samples worlds', 'what the hidden deal COULD be', WALT],
+    ['each other seat · level 0', 'samples its OWN worlds', 'what that seat might believe', PLUM],
+    ['everyone else · Dice', 'rolls a legal tile', 'what anyone could lawfully play', RED],
+    ['play the world out', 'to the last trick', 'one bit: make or set', GREEN],
+  ];
+  rungs.forEach((_, i) => { g += `<rect x="160" y="${140 + i * 120}" width="180" height="16" rx="5" fill="#b07a42"/>`; });
+  g += '</g>';
+  rungs.forEach(([who, does, teaches, c], i) => {
+    const t0 = 130.6 + i * 1.3;
+    const y = 148 + i * 120;
+    g += G(popT(t, t0, 380, y), `<rect x="0" y="-44" width="800" height="88" rx="16" fill="${CREAM}" stroke="${c}" stroke-width="5"/>` +
+      `<circle cx="44" cy="0" r="26" fill="${c}"/>` + txt(44, 9, String(i + 1), { size: 26, fill: CREAM }) +
+      txt(88, -8, who, { size: 24, anchor: 'start' }) + txt(88, 24, does, { size: 19, anchor: 'start', fill: '#7a6a55', weight: 'normal' }) +
+      `<rect x="452" y="-28" width="336" height="56" rx="10" fill="#ffe36e"/>` + txt(620, -6, 'a sample teaches', { size: 14, fill: '#8a5a00' }) + txt(620, 18, teaches, { size: 17 }), 'filter="url(#sh)"');
+  });
+  // walt's head climbs down the rungs, then the bits float back up
+  const down = clamp((lt - .6) / 5.2) * 3;
+  const up = clamp((lt - 8) / 4);
+  const wy = 148 + (lt < 8 ? down : 3 * (1 - up)) * 120;
+  g += G(`translate(250,${wy - 60}) scale(.42)`, person(0, 200, { sc: 1, color: WALT, hat: true, glasses: true, t, id: 11 }));
+  if (lt > 7) {
+    for (let i = 0; i < 6; i++) {
+      const p = ((lt - 7) * .45 + i / 6) % 1;
+      g += `<text x="${1236 - (i % 2) * 18}" y="${lerp(540, 110, p)}" font-size="26" font-weight="bold" fill="${i % 3 ? GREEN : RED}" text-anchor="middle" opacity="${Math.sin(p * Math.PI)}">${i % 3 ? '1' : '0'}</text>`;
+    }
+    g += G(popT(t, 139, 1190, 62), `<rect x="-78" y="-22" width="156" height="40" rx="20" fill="${INK}"/>` + txt(0, 6, 'P(make)', { size: 20, fill: GOLD }));
+  }
+  if (lt > 14) {
+    let p = `<rect x="-190" y="-40" width="380" height="80" rx="14" fill="${INK}" stroke="${CREAM}" stroke-width="5" paint-order="stroke"/>`;
+    p += txt(0, -8, 'level 2 = one more rung on top', { size: 18, fill: CREAM }) + txt(0, 22, 'this hand: 5-5 again, 3200 / 3200', { size: 18, fill: GOLD });
+    g += G(popT(t, 144.2, 780, 58) + ' rotate(-2)', p, 'filter="url(#sh)"');
+  }
+  return g;
+}
+
+function sFine(t) { // 150 → 165
+  const lt = t - 150;
+  let g = '';
+  const cards = [
+    ['Exact on the sample,', 'an estimate off it.'],
+    ['A best response to a model,', 'not an equilibrium.'],
+    ['Support ≠ belief.', 'Possible is not probable.'],
+  ];
+  if (lt < 8) {
+    cards.forEach(([a, b], i) => {
+      const x = 240 + i * 400, r = (i - 1) * 3;
+      g += G(popT(t, 150.6 + i * .7, x, 300) + ` rotate(${r})`, `<rect x="-180" y="-110" width="360" height="220" rx="18" fill="${CREAM}" stroke="${INK}" stroke-width="5"/>` +
+        `<rect x="-180" y="-110" width="360" height="44" rx="18" fill="${[WALT, PLUM, RED][i]}"/>` + txt(0, -80, `fence ${i + 1}`, { size: 20, fill: CREAM }) +
+        txt(0, -10, a, { size: 21 }) + txt(0, 30, b, { size: 21 }), 'filter="url(#sh)"');
+    });
+    g += G(popT(t, 153, 640, 500), `<rect x="-420" y="-30" width="840" height="60" rx="30" fill="${INK}"/>` +
+      txt(0, 8, 'Tier: EXPLORATORY — a probe record, never a claim or a receipt.', { size: 21, fill: GOLD }));
+    g += txt(640, 560, 'sources: walt/SCENARIO-PLAYER.md §§3–7 · wiki/walt-seat-play.md §1 · walt/probes/m3/level1_results_2026-08-17.txt', { size: 15, fill: '#7a6a55', weight: 'normal' });
+  } else {
+    const words = [['Level 1', WALT], ['→', INK], ['level 0', PLUM], ['→', INK], ['Dice', RED]];
+    const xs = [90, 425, 505, 830, 910];
+    words.forEach(([w, c], i) => {
+      g += G(popT(t, 158.2 + i * .25, xs[i], 250), txt(0, 0, w, { size: 64, fill: c, anchor: 'start', stroke: CREAM, sw: 12 }), 'filter="url(#sh)"');
+    });
+    g += die(1160, 228, 90, 1 + Math.floor(hash(4, Math.floor(t * 5)) * 6), Math.sin(t * 3) * 14, back(prog(lt, 9.4, .5)));
+    g += person(640, 640, { sc: 1.05, color: WALT, hat: true, glasses: true, t, id: 11, tip: lt > 11 && lt < 12.5 ? Math.sin((lt - 11) * Math.PI / 1.5) * -22 : 0 });
+  }
+  return g;
+}
+
+const SCENES = [[0, 8, sTitle], [8, 20, sTable], [20, 38, sWorlds], [38, 58, sMinds], [58, 82, sDice], [82, 100, sBackUp], [100, 130, sTally], [130, 150, sLadder], [150, 166, sFine]];
+const DURATION = 166;
+
+function background(t) {
+  return `<rect width="1280" height="720" fill="${PAPER}"/><rect width="1280" height="720" filter="url(#paper)" opacity=".5"/>`;
+}
+const DEFS = `<defs>
+  <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="4" dy="6" stdDeviation="0" flood-color="#000" flood-opacity=".22"/></filter>
+  <filter id="paper"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 .55  0 0 0 0 .45  0 0 0 0 .3  0 0 0 .35 0"/></filter>
+</defs>`;
+function wipe(t) { // a paper panel sweeps across at each scene change
+  let g = '';
+  for (const [t0] of SCENES.slice(1)) {
+    const d = t - t0;
+    if (d > -.35 && d < .35) {
+      const x = lerp(-1400, 1400, (d + .35) / .7);
+      g += `<g transform="translate(${x},0) skewX(-12)"><rect x="-80" y="-20" width="1500" height="760" fill="${GOLD}"/><rect x="-80" y="-20" width="30" height="760" fill="${RED}"/><rect x="1390" y="-20" width="30" height="760" fill="${RED}"/></g>`;
+    }
+  }
+  return g;
+}
+function render(t) {
+  const sc = SCENES.find(([a, b]) => t >= a && t < b) || SCENES[SCENES.length - 1];
+  const fadeOut = 1 - prog(t, DURATION - .8, .8);
+  document.getElementById('stage').innerHTML = DEFS + background(t) +
+    `<g opacity="${fadeOut}">${sc[2](t)}${caption(t)}</g>` + wipe(t);
+}
+window.render = render; window.DURATION = DURATION;
+
+// live preview when opened directly (render.mjs sets ?frames to drive it itself)
+if (!location.search.includes('frames')) {
+  let t0 = performance.now(), off = 0, paused = false;
+  const seek = new URLSearchParams(location.search).get('t');
+  if (seek) off = +seek;
+  addEventListener('keydown', e => {
+    const now = (performance.now() - t0) / 1000 + off;
+    if (e.key === ' ') { paused = !paused; off = now; t0 = performance.now(); }
+    if (e.key === 'ArrowRight') { off = now + 5; t0 = performance.now(); }
+    if (e.key === 'ArrowLeft') { off = Math.max(0, now - 5); t0 = performance.now(); }
+  });
+  (function loop() {
+    const t = paused ? off : ((performance.now() - t0) / 1000 + off) % DURATION;
+    render(t); requestAnimationFrame(loop);
+  })();
+} else render(0);
+</script>
+</body>
+</html>

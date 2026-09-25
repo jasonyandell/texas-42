@@ -1,0 +1,218 @@
+<title>Walt Rolls Dice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Kalam:wght@400;700&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+  :root {
+    --paper: #e9ece6; --card: #f7f8f4; --ink: #1d2629; --soft: #5b686c; --rule: #c6ccc4;
+    --walt: #2f5f9e; --dice: #cf412c; --hi: #f3d34a; --hi-ink: #1d2629; --green: #2f8a57;
+    --frame: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #141a1c; --card: #1c2427; --ink: #e6ebe8; --soft: #9aa7a9; --rule: #34403f;
+      --walt: #7fa8e0; --dice: #ef6a55; --hi: #d9bb3a; --hi-ink: #141a1c; --green: #5cc189; --frame: #10161a;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #141a1c; --card: #1c2427; --ink: #e6ebe8; --soft: #9aa7a9; --rule: #34403f;
+    --walt: #7fa8e0; --dice: #ef6a55; --hi: #d9bb3a; --hi-ink: #141a1c; --green: #5cc189; --frame: #10161a;
+  }
+  body { background: var(--paper); color: var(--ink); font: 15px/1.55 "IBM Plex Sans", system-ui, sans-serif; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 36px 64px; }
+  h1, h2 { font-family: "Bricolage Grotesque", "IBM Plex Sans", sans-serif; text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(34px, 6vw, 64px); font-weight: 800; line-height: 1; letter-spacing: -.02em; }
+  h1 .d { color: var(--dice); }
+  .lede { max-width: 64ch; font-size: 17px; margin: 14px 0 0; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 18px; font-size: 13px; color: var(--soft); }
+  .meta b { color: var(--ink); font-weight: 600; }
+  .tag { display: inline-block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; padding: 2px 8px; border-radius: 3px; background: var(--ink); color: var(--paper); }
+  .spine { margin-top: 30px; padding: 16px 18px; background: var(--card); border: 1px solid var(--rule); border-radius: 6px; max-width: 760px; }
+  .spine p { margin: 6px 0 0; font-family: Kalam, cursive; font-size: 19px; line-height: 1.4; }
+  h2 { font-size: 24px; font-weight: 800; margin-top: 44px; display: flex; align-items: baseline; gap: 12px; }
+  h2 small { font: 400 14px "IBM Plex Sans", sans-serif; color: var(--soft); }
+  .board { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 22px; margin-top: 18px; }
+  .shot { display: flex; flex-direction: column; gap: 10px; }
+  .frame { aspect-ratio: 16 / 9; max-width: 100%; background: var(--frame); border: 2px solid var(--ink); border-radius: 4px; position: relative; overflow: hidden; }
+  .frame svg { width: 100%; height: 100%; display: block; }
+  .num { position: absolute; top: 6px; left: 8px; font: 700 13px "IBM Plex Sans", sans-serif; background: var(--ink); color: var(--frame); padding: 1px 7px; border-radius: 3px; font-variant-numeric: tabular-nums; }
+  .time { position: absolute; top: 6px; right: 8px; font: 600 12px "IBM Plex Sans", sans-serif; color: var(--soft); font-variant-numeric: tabular-nums; }
+  .shot h3 { margin: 0; font: 800 17px "Bricolage Grotesque", sans-serif; }
+  .row { display: grid; grid-template-columns: 58px 1fr; gap: 8px; font-size: 14px; }
+  .row > span:first-child { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--soft); padding-top: 3px; }
+  .vo { font-family: Kalam, cursive; font-size: 17px; line-height: 1.35; }
+  .learn { background: var(--hi); color: var(--hi-ink); padding: 6px 10px; border-radius: 3px; font-size: 14px; }
+  .learn b { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; display: block; opacity: .75; }
+  .qs { margin-top: 18px; display: grid; gap: 14px; max-width: 820px; counter-reset: q; }
+  .q { background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--dice); padding: 12px 16px; border-radius: 4px; }
+  .q h4 { margin: 0 0 4px; font: 700 16px "IBM Plex Sans", sans-serif; }
+  .q p { margin: 0; color: var(--soft); }
+  .notes { max-width: 760px; margin-top: 12px; color: var(--soft); }
+  .notes li { margin: 4px 0; }
+  code { font-size: 13px; }
+  @media (prefers-reduced-motion: no-preference) { .frame:hover .roll { animation: spin .6s ease-in-out; transform-origin: center; transform-box: fill-box; } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+
+<div class="wrap">
+  <span class="tag">Storyboard · draft 1 · exploratory</span>
+  <h1 style="margin-top:12px">Walt rolls <span class="d">dice</span>.</h1>
+  <p class="lede">An edutainment short for people who already keep support and belief in separate boxes. The reveal: under all the machinery, walt's seat is a random process. Take the hand you have and what you've seen, ask what could be there, roll uniform dice for everyone else, count, then stack that loop on itself.</p>
+  <div class="meta">
+    <span><b>Runtime</b> about 2:30</span>
+    <span><b>Look</b> paper cutouts, SVG, hard drop shadows</span>
+    <span><b>Audience</b> knows the vocabulary; no hand-holding on "support ≠ belief"</span>
+    <span><b>Sources</b> <code>walt/SCENARIO-PLAYER.md</code> §§3–7, <code>level1_results_2026-08-17.txt</code></span>
+  </div>
+
+  <div class="spine">
+    <span class="tag">The spine, in one breath</span>
+    <p>What I hold + what I've seen → what could be there (support) → draw a world → everyone else rolls a fair die over their legal tiles → play it out → one bit: make or set → count → P(make). Then put that whole loop in the other chairs and do it again.</p>
+  </div>
+
+  <h2>Act I <small>the setup and the gag</small></h2>
+  <div class="board" id="act1"></div>
+  <h2>Act II <small>one sample, all the way down</small></h2>
+  <div class="board" id="act2"></div>
+  <h2>Act III <small>how it stacks up</small></h2>
+  <div class="board" id="act3"></div>
+
+  <h2>Open questions for you <small>these decide draft 2</small></h2>
+  <div class="qs">
+    <div class="q"><h4>1 · What are the "8 random moves"?</h4><p>I read it as n₀ = 8, the eight worlds each level-0 mind draws (the live default). Walt's own root draws 50–200. If you meant eight dice rolls shown on screen as a demo, shots 6–7 change from "8 worlds" to "8 plays."</p></div>
+    <div class="q"><h4>2 · "How it stacks up": the ladder, the scoreboard, or both?</h4><p>Draft 1 does both: shot 10 stacks dice → level 0 → level 1 → level 2, and shot 11 shows the 5-5 tally. An arena result against the E[Q] champion could close the act, but I'd pull its exact numbers from <code>arena_results_2026-08-17.txt</code> before putting them on screen.</p></div>
+    <div class="q"><h4>3 · How hard do we lean on the ideology joke?</h4><p>Shot 3 has a soapbox pundit trying to sell walt a belief ("Opp L ALWAYS trumps in!"). It could be one beat, or a recurring heckler who gets refuted each act.</p></div>
+    <div class="q"><h4>4 · Voice</h4><p>This container can't reach a TTS voice, so draft 1 is captions only. If you record the VO lines below, I'll time the cuts to your audio.</p></div>
+  </div>
+
+  <h2>Production notes</h2>
+  <ul class="notes">
+    <li>Every walt number on screen comes from a probe record and carries its tier label. Illustrative visuals (bar heights, tick patterns) are labelled as illustrative in-frame.</li>
+    <li>The recurring device is the yellow card, <em>what this sample teaches</em>, one per rung. It's the thing to remember from the video.</li>
+    <li>The renderer from the first pass (<code>scene.html</code> + <code>render.mjs</code>) is reused. Only the script and shots change.</li>
+  </ul>
+</div>
+
+<script>
+// ------- tiny sketch kit for the thumbnails (viewBox 320×180) -------
+const C = { ink: 'var(--ink)', soft: 'var(--soft)', walt: 'var(--walt)', dice: 'var(--dice)', hi: 'var(--hi)', green: 'var(--green)', bg: 'var(--frame)' };
+const PIPS = {0:[],1:[[0,0]],2:[[-1,-1],[1,1]],3:[[-1,-1],[0,0],[1,1]],4:[[-1,-1],[1,-1],[-1,1],[1,1]],5:[[-1,-1],[1,-1],[0,0],[-1,1],[1,1]],6:[[-1,-1],[-1,0],[-1,1],[1,-1],[1,0],[1,1]]};
+const T = (x, y, s, o = {}) => `<text x="${x}" y="${y}" font-family="${o.hand ? 'Kalam, cursive' : 'IBM Plex Sans, sans-serif'}" font-size="${o.size || 11}" font-weight="${o.w || 600}" fill="${o.fill || C.ink}" text-anchor="${o.a || 'middle'}">${s}</text>`;
+function dom(x, y, a, b, s = 8, o = {}) {
+  let g = `<g transform="translate(${x},${y}) rotate(${o.rot || 0})"><rect x="${-s/2}" y="${-s}" width="${s}" height="${2*s}" rx="${s*.2}" fill="${o.down ? C.walt : C.bg}" stroke="${o.hl ? C.dice : C.ink}" stroke-width="${o.hl ? 1.8 : 1.1}"/>`;
+  if (!o.down) {
+    g += `<line x1="${-s*.35}" y1="0" x2="${s*.35}" y2="0" stroke="${C.ink}" stroke-width=".7"/>`;
+    for (const [v, cy] of [[a, -s/2], [b, s/2]]) for (const [px, py] of PIPS[v]) g += `<circle cx="${px*s*.25}" cy="${cy + py*s*.25}" r="${s*.08}" fill="${C.ink}"/>`;
+  }
+  return g + '</g>';
+}
+function die(x, y, s, f, cls = '') {
+  let g = `<g class="${cls}" transform="translate(${x},${y})"><rect x="${-s/2}" y="${-s/2}" width="${s}" height="${s}" rx="${s*.2}" fill="${C.dice}" stroke="${C.ink}" stroke-width="1.2"/>`;
+  for (const [px, py] of PIPS[f]) g += `<circle cx="${px*s*.27}" cy="${py*s*.27}" r="${s*.08}" fill="${C.bg}"/>`;
+  return g + '</g>';
+}
+function walt(x, y, sc = 1, o = {}) {
+  return `<g transform="translate(${x},${y}) scale(${sc})"><path d="M-16,0 L-13,-30 Q0,-35 13,-30 L16,0 Z" fill="${C.walt}" stroke="${C.ink}" stroke-width="1.2"/>` +
+    `<circle cx="0" cy="-44" r="12" fill="${C.bg}" stroke="${C.ink}" stroke-width="1.2"/>` +
+    `<circle cx="-4" cy="-45" r="3" fill="none" stroke="${C.ink}" stroke-width="1"/><circle cx="4" cy="-45" r="3" fill="none" stroke="${C.ink}" stroke-width="1"/>` +
+    `<ellipse cx="0" cy="-54" rx="20" ry="3.5" fill="${C.ink}"/><path d="M-10,-55 Q-11,-68 0,-66 Q11,-68 10,-55 Z" fill="${C.ink}"/>` +
+    (o.mouth === 'o' ? `<circle cx="0" cy="-38" r="2" fill="${C.ink}"/>` : `<path d="M-4,-39 Q0,-36 4,-39" stroke="${C.ink}" fill="none" stroke-width="1"/>`) + `</g>`;
+}
+function guy(x, y, sc = 1, fill = C.soft, o = {}) {
+  return `<g transform="translate(${x},${y}) scale(${sc})"><path d="M-14,0 L-11,-26 Q0,-30 11,-26 L14,0 Z" fill="${fill}" stroke="${C.ink}" stroke-width="1.2"/><circle cx="0" cy="-38" r="10" fill="${C.bg}" stroke="${C.ink}" stroke-width="1.2"/>` +
+    (o.shout ? `<ellipse cx="0" cy="-34" rx="3" ry="2.5" fill="${C.ink}"/>` : '') + `</g>`;
+}
+const table = (cx = 160, cy = 92, rx = 80, ry = 32) => `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="none" stroke="${C.ink}" stroke-width="1.4"/>`;
+const bubble = (cx, cy, w, h, tx, ty) => `<ellipse cx="${cx}" cy="${cy}" rx="${w/2}" ry="${h/2}" fill="${C.bg}" stroke="${C.ink}" stroke-width="1.3" stroke-dasharray="3 2"/><circle cx="${tx}" cy="${ty}" r="3" fill="none" stroke="${C.ink}"/><circle cx="${(tx*2+cx)/3}" cy="${(ty*2+cy)/3}" r="4.5" fill="none" stroke="${C.ink}"/>`;
+const card = (x, y, w, h, s) => `<g transform="rotate(-3 ${x} ${y})"><rect x="${x - w/2}" y="${y - h/2}" width="${w}" height="${h}" fill="${C.hi}" stroke="${C.ink}" stroke-width="1"/>${T(x, y + 4, s, { hand: true, size: 11, w: 700, fill: 'var(--hi-ink)' })}</g>`;
+const arrow = (x1, y1, x2, y2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${C.ink}" stroke-width="1.3" marker-end="url(#ah)"/>`;
+const HAND = [[1,1],[2,1],[3,1],[3,3],[5,2],[5,4],[5,5]];
+const handRow = (cx, y, s = 7, o = {}) => HAND.map(([a, b], i) => dom(cx + (i - 3) * s * 1.5, y, a, b, s, { hl: o.hl && a === 5 && b === 5 })).join('');
+const downRow = (cx, y, n = 7, s = 5, rot = 0) => Array.from({ length: n }, (_, i) => rot ? dom(cx, y + (i - (n-1)/2) * s * 1.4, 0, 0, s, { down: true, rot: 90 }) : dom(cx + (i - (n-1)/2) * s * 1.4, y, 0, 0, s, { down: true })).join('');
+
+const SHOTS = {
+act1: [
+ { t: '0:00–0:08', title: 'Cold open: "He\'s rolling dice."',
+   svg: () => walt(90, 160, 2) + die(200, 70, 34, 5, 'roll') + die(250, 110, 26, 2, 'roll') + T(215, 160, 'SMASH CUT', { size: 10, fill: C.soft }),
+   vo: 'This is walt, the best seat we\'ve built for Texas 42. Here\'s the secret: down deep, he\'s rolling dice.',
+   screen: 'Title card "Walt rolls dice." Walt tips his hat. Two dice clatter in from off-frame.' },
+ { t: '0:08–0:24', title: 'The honest inventory',
+   svg: () => walt(52, 170, 1.5) + table() + handRow(160, 150, 8, {}) + downRow(160, 70) + downRow(96, 92, 7, 4, 1) + downRow(224, 92, 7, 4, 1) + T(270, 30, 'fives trump · bid 30', { hand: true, size: 12 }),
+   vo: 'Here\'s everything walt actually has. Seven dominoes. Whatever\'s been played. That\'s the whole list.',
+   screen: 'Walt\'s real hand from the probe carrier: 1-1, 2-1, 3-1, 3-3, 5-2, 5-4, 5-5. Fives are trump, his team bid 30. Twenty-one tiles face down.' },
+ { t: '0:24–0:44', title: 'The heckler with a belief',
+   svg: () => walt(70, 170, 1.4) + `<rect x="190" y="130" width="60" height="18" fill="none" stroke="${C.ink}"/>` + guy(220, 130, 1.3, C.dice, { shout: true }) +
+     `<path d="M240,52 h70 v34 h-50 l-10,10 v-10 h-10 z" fill="${C.bg}" stroke="${C.ink}"/>` + T(275, 67, 'Opp L ALWAYS', { hand: true, size: 10 }) + T(275, 80, 'trumps in!', { hand: true, size: 10 }) +
+     `<path d="M20,40 h110 v30 h-80 l-10,10 v-10 h-20 z" fill="${C.bg}" stroke="${C.ink}"/>` + T(75, 59, 'support ≠ belief', { hand: true, size: 12, w: 700 }),
+   vo: 'Pundit: "Everybody knows Opp L always trumps in!" Walt: "Maybe. I don\'t carry opinions to the table. I carry what\'s possible."',
+   screen: 'A soapbox pundit (the ideology gag) tries to hand walt a belief. Walt hands back a support beam.',
+   learn: 'The rule of the film: walt asks what COULD be there, never what someone says WILL be.' },
+ { t: '0:44–1:00', title: 'Support, literally',
+   svg: () => `<rect x="60" y="40" width="200" height="14" fill="${C.soft}" stroke="${C.ink}"/>` + [80, 120, 160, 200, 240].map(x => `<rect x="${x - 5}" y="54" width="10" height="90" fill="${C.bg}" stroke="${C.ink}"/>`).join('') +
+     `<line x1="240" y1="54" x2="240" y2="144" stroke="${C.dice}" stroke-width="3"/>` + T(240, 162, 'void: this one can\'t exist', { hand: true, size: 10, fill: C.dice }) + T(130, 30, 'every lawful deal', { hand: true, size: 13, w: 700 }),
+   vo: 'That set of possible deals is walt\'s support. Every lawful way to deal the 21 unseen tiles: right hand sizes, and nobody holding a suit they\'ve already shown void in.',
+   screen: 'The table rests on support beams, one per lawful deal. A beam that breaks a void rule gets knocked out.' },
+],
+act2: [
+ { t: '1:00–1:12', title: 'Draw one world',
+   svg: () => walt(40, 170, 1.2) + bubble(190, 90, 220, 130, 70, 120) + [0, 1, 2].map(r => `<rect x="${110}" y="${50 + r * 25}" width="160" height="18" fill="none" stroke="${C.ink}" stroke-width=".8"/>` + Array.from({ length: 7 }, (_, i) => dom(125 + i * 20, 59 + r * 25, (i * 3 + r) % 7, (i + r * 2) % 7, 5, { rot: 90 })).join('')).join('') + T(190, 140, 'world #1', { hand: true, size: 12 }),
+   vo: 'Walt picks one of those deals uniformly at random. One world. Now the hidden hands are face up, in his head.',
+   screen: 'The face-down tiles flip inside a thought bubble. Counter: world #1.',
+   learn: 'One world: this deal is possible. Not likely, just possible.' },
+ { t: '1:12–1:30', title: 'Everybody else rolls a fair die',
+   svg: () => table() + die(160, 52, 22, 3, 'roll') + die(96, 92, 22, 5, 'roll') + die(224, 92, 22, 1, 'roll') + walt(160, 172, .9) +
+     [[6,4],[4,1],[3,1],[2,0]].map(([a,b], i) => dom(248 + (i % 2) * 22, 30 + Math.floor(i / 2) * 36, a, b, 7) + T(248 + (i % 2) * 22, 52 + Math.floor(i / 2) * 36, '¼', { size: 10, fill: C.green })).join(''),
+   vo: 'Inside that world, the other three seats don\'t think. They roll. Each one picks a legal tile, every legal tile equally likely. Uniform, for the purists.',
+   screen: 'The three other chairs turn into red dice. A side panel shows one seat\'s legal tiles, each tagged with the same exact fraction.',
+   learn: 'One roll: what somebody could lawfully play.' },
+ { t: '1:30–1:44', title: 'The tickertape',
+   svg: () => `<rect x="0" y="30" width="320" height="30" fill="${C.bg}" stroke="${C.ink}"/>` + [0,1,2,3].map(i => T(40 + i * 80, 50, `rec ${41 + i} → ${[4,1,1,4][i]}`, { size: 10 })).join('') +
+     [0,1,2,3,4,5,6,7].map(i => `<circle cx="${60 + i * 28}" cy="95" r="7" fill="${[C.walt, C.dice, C.green][i % 3]}" stroke="${C.ink}"/>`).join('') + arrow(160, 108, 160, 128) +
+     [0,1,2].map(b => `<rect x="${70 + b * 70}" y="132" width="55" height="26" fill="none" stroke="${C.ink}" stroke-dasharray="3 2"/>`).join('') + T(160, 172, 'worlds split, never multiply', { hand: true, size: 11 }),
+   vo: 'The dice aren\'t re-rolled every time walt looks. Same world, same point in the hand, same roll. So worlds split by what got rolled instead of branching forever.',
+   screen: 'A paper tickertape scrolls across the top: record → roll. Eight world-dots drop into buckets by roll.' },
+ { t: '1:44–1:58', title: 'Play it out: one bit',
+   svg: () => walt(40, 170, 1.2) + [0,1,2,3,4,5,6].map(i => dom(100 + i * 30, 70, HAND[i][0], HAND[i][1], 8) + T(100 + i * 30, 105, i === 2 ? '✗' : '✓', { size: 16, fill: i === 2 ? C.dice : C.green })).join('') + T(190, 140, 'world #1: each lead → make or set', { hand: true, size: 12 }),
+   vo: 'Walt tries each of his seven tiles as the lead and plays the world to the end against the dice. Did we make 30? Yes or no.',
+   screen: 'A check or a cross under each of walt\'s seven tiles.',
+   learn: 'One play-out: one bit per lead. Make, or set.' },
+ { t: '1:58–2:10', title: 'Do it again (the 8)',
+   svg: () => [0,1,2,3,4,5,6,7].map(i => `<rect x="${30 + i * 34}" y="${40 + (i % 2) * 8}" width="28" height="20" fill="${C.bg}" stroke="${C.ink}" transform="rotate(${(i - 3.5) * 3} ${44 + i * 34} 50)"/>`).join('') +
+     T(160, 100, '8 worlds → 8 bits per lead', { hand: true, size: 14, w: 700 }) + T(160, 128, 'P(make) = makes ÷ worlds', { size: 12 }) + T(160, 150, 'an exact fraction, no floats', { size: 10, fill: C.soft }),
+   vo: 'Then again, with a fresh world. Eight times is enough to show the idea. Count the makes, divide by the worlds. That\'s P(make), exact on the sample.',
+   screen: 'Eight world cards fan out. A running tally ticks up under each candidate lead.',
+   learn: 'Each new world adds one more bit. The fraction is exact on the sample and an estimate off it.' },
+],
+act3: [
+ { t: '2:10–2:24', title: 'Stack the loop on itself',
+   svg: () => die(160, 160, 26, 6) + `<rect x="120" y="112" width="80" height="22" fill="${C.bg}" stroke="${C.ink}"/>` + T(160, 127, 'level 0', { size: 11 }) +
+     `<rect x="110" y="84" width="100" height="22" fill="${C.bg}" stroke="${C.walt}" stroke-width="2"/>` + T(160, 99, 'level 1 · walt', { size: 11, fill: C.walt }) +
+     `<rect x="100" y="56" width="120" height="22" fill="${C.bg}" stroke="${C.ink}" stroke-dasharray="3 2"/>` + T(160, 71, 'level 2', { size: 11, fill: C.soft }) +
+     T(262, 125, 'best vs dice', { hand: true, size: 10 }) + T(262, 97, 'best vs level 0', { hand: true, size: 10 }) + T(262, 69, 'best vs level 1', { hand: true, size: 10 }) + T(60, 164, 'dice at the base', { hand: true, size: 10 }),
+   vo: 'Now the trick. That whole dice loop is a player. Call it level 0. Put a level-0 player in each other chair and run the loop again: that\'s walt, level 1. Stack once more and you get level 2. At the bottom it\'s always dice.',
+   screen: 'A tower of paper blocks builds up from a single die. Each block says who it best-responds to.',
+   learn: 'Dice at the base keep support honest: every legal move has a chance, so no lawful world gets thrown out.' },
+ { t: '2:24–2:40', title: 'How it stacks up: the 5-5',
+   svg: () => [[1,1,18],[2,1,4],[3,1,26],[3,3,5],[5,2,24],[5,4,13],[5,5,0]].map(([a,b,l], i) => dom(40, 22 + i * 22, a, b, 6, { rot: 90, hl: a === 5 && b === 5 }) + (l ? `<rect x="60" y="${16 + i * 22}" width="${l * 7}" height="12" fill="${C.dice}"/>` : T(64, 26 + i * 22, 'makes in all 2,000', { a: 'start', size: 10, fill: C.green })) + T(300, 26 + i * 22, String(l), { a: 'end', size: 10 })).join('') + T(250, 176, 'worlds lost / 2,000', { size: 9, fill: C.soft }),
+   vo: 'Here\'s the opening lead on this hand. With 200 worlds, four leads tie at 100%, so walt looks harder. With 2,000, the 5-5 makes in every one, and every other lead loses at least four. Stack to level 2 and the answer holds: 5-5, 3,200 out of 3,200.',
+   screen: 'The tally board, real numbers only, with the source line on screen: level1_results_2026-08-17.txt, t=1, n₀=16. Crown on the 5-5.' },
+ { t: '2:40–2:52', title: 'Fine print and bow',
+   svg: () => [['exact on sample,', 'estimate off it'], ['best response', 'to a model'], ['support', '≠ belief']].map(([a, b], i) => `<rect x="${18 + i * 100}" y="40" width="88" height="62" fill="${C.bg}" stroke="${C.ink}" transform="rotate(${(i - 1) * 3} ${62 + i * 100} 70)"/>` + T(62 + i * 100, 66, a, { size: 9 }) + T(62 + i * 100, 80, b, { size: 9 })).join('') + walt(160, 175, .9) + T(250, 160, 'EXPLORATORY', { size: 10, fill: C.dice }),
+   vo: 'The fine print travels with the numbers: exact on the sample, a best response to a model, not an equilibrium. Walt rolls dice. He just rolls a lot of them, very carefully.',
+   screen: 'Three index cards, the exploratory tier badge, walt tips his hat. End card.' },
+],
+};
+const defs = `<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/></marker></defs>`;
+let n = 0;
+for (const [act, shots] of Object.entries(SHOTS)) {
+  document.getElementById(act).innerHTML = shots.map(s => {
+    n++;
+    return `<article class="shot"><div class="frame"><svg viewBox="0 0 320 180" role="img" aria-label="${s.title}">${defs}${s.svg()}</svg><span class="num">${n}</span><span class="time">${s.t}</span></div>
+      <h3>${s.title}</h3>
+      <div class="row"><span>VO</span><span class="vo">${s.vo}</span></div>
+      <div class="row"><span>Screen</span><span>${s.screen}</span></div>
+      ${s.learn ? `<div class="learn"><b>What this sample teaches</b>${s.learn}</div>` : ''}</article>`;
+  }).join('');
+}
+</script>
