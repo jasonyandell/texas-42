@@ -1,4 +1,4 @@
-[Home](Home.md) · owns: the dated record — every landing from the v0.7 ingest (2026-07-26) to HEAD c00717d1 (2026-09-07), by wave, with commit hash and/or PR number, what each established at which tier, and the page that owns it · Sources: `git log` of `main` (first-parent line through `2de8a05` and `2de8a05..c00717d1`, 197 commits), the GitHub merged-PR list #1–#88, `exchange/README.md` ledger, `walt/LOG.md`, `walt/MAP.md`, `walt/briefs/`, `walt/CENSUS-RULINGS.md`, `experiments/partnership/SCOPE.md`, the survey maps of 2026-09-07
+[Home](Home.md) · owns: the dated record — every landing from the v0.7 ingest (2026-07-26) to HEAD `afd46420` (2026-09-20; through `c00717d1` in Parts A–D, `c00717d1..afd46420` in Part E, curated 2026-09-20), by wave, with commit hash and/or PR number, what each established at which tier, and the page that owns it · Sources: `git log` of `main` (first-parent line through `2de8a05`, `2de8a05..c00717d1`, 197 commits, and `c00717d1..afd46420`, 74 commits — 73 landings and the book merge itself), the GitHub PR list #1–#92, `exchange/README.md` ledger, `walt/LOG.md`, `walt/MAP.md`, `walt/briefs/`, `walt/CENSUS-RULINGS.md`, `experiments/partnership/SCOPE.md`, the survey maps of 2026-09-07
 
 # The record
 
@@ -256,7 +256,7 @@ repeats "full CI remains waived") — see Part D. Owners:
 
 ---
 
-## Part C — pull requests #1–#88: merge hash, branch, report of record
+## Part C — pull requests #1–#88: merge hash, branch, report of record (#90–#92 added 2026-09-20, Part E)
 
 Git author date of the merge on `main`; GitHub `mergedAt` (UTC) where it reads
 a day later is noted in the header of this page. "Report of record" is the
@@ -411,3 +411,108 @@ covers more than the experiment directory.
 - The live default player — untouched by every wave since 2026-08-17's seat
   (CE-A7, CBS-A9, APS-A9, MB-A7, FH-A10 restate it); the partnership
   program changed no phone default (`walt/MAP.md`).
+  (Corrected 2026-09-20: true as of `c00717d1`; from 2026-09-14 the seat
+  Plunge ships is the shared `walt-player` crate — Part E, Wave 8;
+  [walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward).)
+
+---
+
+## Part E — cycle 1: the landings `c00717d1..afd46420`, 2026-09-13 → 2026-09-20 (73 landings and the book merge; curated 2026-09-20)
+
+The intake of the first curation cycle ([curator](curator.md)): 74
+first-parent commits on `main` after `c00717d1` — the 73 landings the baseline
+pointer names, landed by fast-forward from Codex session branches, plus PR #91
+itself — none touching `ingest/`, and none
+touching `rob/` or `lean/` except PR #91's own documentation edits
+(`rob/README.md`, `rob/inspector/README.md`, `lean/README.md`,
+`lean/PROOFS.md`; no code, receipt or theorem — `git log --first-parent
+c00717d1..afd46420 -- ingest rob lean`). Every landing is EXPLORATORY and every one is sorted **adds to an
+area** by its owning chapter; no chapter found a foundation change (two
+questions for the Part I owner are flagged on
+[walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward)
+and [walt-architecture §3.9](walt-architecture.md#39-the-2026-09-14--09-20-changes-to-rules-clock-gym-and-policy_search):
+the forced last bid on Plunge's table, and the compile-time `TRICK_KEYS`
+table). **`walt/ci/check.sh` is not recorded run on any of these commits** —
+the Part D waiver continues; the v34 receipts say `full_workspace_ci: "not
+run"` ([walt-instruments §3.7](walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20)).
+`walt/LOG.md` has no entry after 2026-09-14. Dates are git author dates
+(UTC−5); PR #91's GitHub `mergedAt` reads 2026-09-21 for the same reason as
+the earlier late-evening merges.
+
+### Wave 7 — Sunshine: the partner-aware live player (2026-09-13 → 09-15; eight commits)
+
+Owners: [walt-partnership-program §11](walt-partnership-program.md#11-sunshine-2026-09-13--09-15-the-partner-aware-live-player),
+[walt-gym §11](walt-gym.md#11-sunshine-2026-09-13-the-gym-under-deployed-continuations-and-the-live-move-intake),
+[walt-scheme-fix §10.4](walt-scheme-fix.md#104-sunshine-2026-09-13--09-15-the-count-offer-query-as-a-live-gate-and-recipes-with-a-selectable-continuation).
+No live default changed in any of the eight; both new presets are optional.
+
+| Date | Commit | What it established | Record |
+|---|---|---|---|
+| 09-13 | `58e15cd1` | Sunshine begins: the optional `l1-partner-count-review` (a 250 ms teacher-field check after a completed L1 move); `sunshine-partner-count-v1`: 24 → 29 optimal of 30 and 100 → 107 of 117 on overlapping gym panels; **0 / 0 / 32**, **0 / 0 / 100** fresh mirrored pairs and **0 / 0 / 192** conditional hidden hands — "a useful diagnostic, no demonstrated strength gain" [EXPLORATORY] — partnership §11.2 | `experiments/partnership/campaigns/sunshine-partner-count-v1/RESULTS.md` |
+| 09-13 | `0727103e` | The targeted replay of the six composed-exam misses under deployed L1 at every seat: **two hold, four reverse**; the 38 withholding controls tie baseline on all 1,170 worlds; 7,338 audited trajectories in 58.20 s [EXPLORATORY] — gym §11.2 | `…/sunshine-gym-replay-v1/RESULTS.md` |
+| 09-13 | `7abf2aee` | Continuation-selectable gym recipes: `evaluation.contract = deployed-gym-v1` with named focal / partner / opponent presets, separate matching and valuation caches, `census` vs `sample-without-replacement` coverage in every key; `walt/gym/specs/partnership-count-l1.json` [process] — gym §11.1, scheme-fix §10.4 | `walt/gym/SPECIFICATIONS.md` |
+| 09-13 | `b11aa189` | `sunshine-recipes-v1`: 206 matched of 1,929 positions, 76 declaring exercises (27 required / 46 avoided / 3 tied); default L1 **62/76** under its own continuation; teacher → deployed L1 changes 35 of 206 best-action sets; `offer-five.scheme` changes **0** values ("exactly the intended separation between question and value") [EXPLORATORY] — partnership §11.4, gym §11.1 | `…/sunshine-recipes-v1/RESULTS.md` |
+| 09-13 | `a4c2c20d` | The optional `l1-partner-rollout` (every legal root action through completed deployed L1 at every seat, ≤ 64 of ≤ 400 worlds, ≤ 500 ms): development **11 improved / 2 harmed** of 143 roots, fresh **1 / 1** of 25, **0 / 0 / 64** mirrored pairs; the fresh harm explained by a deadline-truncated prefix (34–33 at 52 worlds against a 140/210 vs 139/210 census) — "an available experimental skill, not a new default" [EXPLORATORY] — partnership §11.3 | `…/sunshine-rollout-v1/RESULTS.md`, `summary.json` |
+| 09-13 | `5bdd8b48` | The Mac sunshine table: a localhost Plunge bridge to native **L1** / **L1 + partner check**, original decision receipts saved before replying, flag-to-gym intake under three named continuation models, 400-world cap; the override study keeps margin one [EXPLORATORY] — gym §11.3, partnership §11.5 | `experiments/partnership/PLUNGE.md`; `…/sunshine-playable-v1/RESULTS.md` |
+| 09-13 | `2c2d7ae2` | Isolated native 40/160-world move inspection in the Plunge stats view — "a review instrument change, not a player-strength experiment" [EXPLORATORY] — gym §11.3 | `…/sunshine-review-v1/RESULTS.md` |
+| 09-15 | `98648370` | The Sunshine harness (a Scheme workshop): goals recorded, not implemented; "The immediate focus returns to the playable game" [process] — partnership §11.7 | `experiments/partnership/SUNSHINE-NOTES.md` |
+
+### Wave 8 — the shared deployed player `walt-player` (2026-09-14; `cffd66fc`, `eb37fa14`, `83b712f0`, `7d5f3000`, `657576e8`, `5e8cd0f7`)
+
+Owner: [walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward).
+This is the wave that makes Part D's live-default bullet stale: the seat
+Plunge ships and the seat the Mac bridge runs became one crate and one
+procedure, under conformance receipts only (`walt/MAP.md`:
+"portability/conformance work, not evidence of improved game strength"); no
+record cites CE-A7 or an arena gate for the change, and §8A says so.
+
+| Date | Commit | What it established | Record |
+|---|---|---|---|
+| 09-14 | `cffd66fc` … `5e8cd0f7` | The `walt-player` crate (`PLAYER_ID = "walt-table-v2"`): one decision procedure on both hosts — WASM in a Plunge Web Worker, the native `walt-table` binary for the Mac bridge — fixed L1 40/8 with an 8/2 reserve (≤ 1.5 s) and an optional ≤ 500 ms partner rollout in a 14 s budget, level 1, voidless, fixed selection; the regular once-around auction at threshold 3/4 ("deliberately an uncalibrated bidding policy, not a new strength finding"); native/WASM exact agreement on nine declarations, a late root and the 64-world partner prefix; "The phone itself has not yet been timed" [EXPLORATORY, conformance receipts] — seat-play §8A | `walt/walt-player/README.md`; `walt/LOG.md` 2026-09-14; raw receipts `/Users/jason/data/texas-42/phone-v2/` |
+
+### Wave 9 — Kiln: the opening bidding book, the studies on its corpus, and the solver work measured through it (2026-09-18 → 09-19; `101d805b` … `5ab08bbc`)
+
+Owner: [walt-kiln](walt-kiln.md) (§1–§7 the book, §8 the mining studies, §9
+the solver work); the `rules.rs` change with
+[walt-architecture §3.9](walt-architecture.md#39-the-2026-09-14--09-20-changes-to-rules-clock-gym-and-policy_search).
+Kiln "removes bidding latency; it does not close the partnership gap"
+(`experiments/kiln/README.md`).
+
+| Date | Commit | What it established | Record |
+|---|---|---|---|
+| 09-18 | `101d805b` | Kiln begins: the durable scalar-price survey `kiln-v1` (profile `kiln-l1-fixed-inner8-voidless-v1`; seeds 420600–421599; 8 → 40 → 160 outer samples) with exact counted solver values (`COUNTED-VALUES.md`) [EXPLORATORY] — kiln §1.1–§1.2 | `experiments/kiln/README.md`, `COUNTED-VALUES.md` |
+| 09-18 | `9bb393d7`, `466db3f1` | The sixes/36 calibration: frozen model forecast **121/160 = 75.625 %** against **21/100** executed (Wilson 95 % 14.17–29.98 %); one hand; 1,808 decisions replayed through Plunge's engine; two structural mismatches recorded as candidate causes, "The causal contributions remain unmeasured" [EXPLORATORY] — kiln §1.4 | `experiments/kiln/CALIBRATION-SIX36.md`, `calibration-six36-summary.json` |
+| 09-18 | `be08f8ba`, `ec07af9a`, `619f222c` | Survey checkpoints: 251 / 335 / 502 settled deals; none of the preselected would-have-screened cells reached 75 % at depth 160 [EXPLORATORY] — kiln §1.3 | `experiments/kiln/one-third-audit-summary.json`, `halfway-audit-summary.json` |
+| 09-18 | — (`PROGRESS.md`) | The survey frozen, "superseded, not completed": **1,001,348 receipts / 851 of 1,000 deals settled**, 69,430 pending, partial book `89717b76…`, never installed [EXPLORATORY] — kiln §1.3, §6 | `experiments/kiln/survey-frozen-summary.json` |
+| 09-18 | `170178e2` → `4cc4bd73` | The actual-play campaign `kiln-played-v1` (Jason: "the unit is the player making bids"): 100 hands × 9 declarations = 900 panels, the deployed player at bid 30 through all 28 moves; **42,008 games / 1,176,224 audited moves**; 12 of 900 panels and 10 of 100 hands clear the 4/5 score-tail cutoff [EXPLORATORY] — kiln §2.1–§2.2 | `experiments/kiln/PLAYED.md`, `played-completion.json` |
+| 09-18 | `ec308ba7` | The sample-history instrument: every recommendation change reconstructed in trial order with both prefixes hash-bound to their receipts; first witness cell 351 (35 → 33 on game 17) [EXPLORATORY] — kiln §4 | `experiments/kiln/SAMPLE-HISTORY.md`, `sample-history-evidence.json` |
+| 09-18 | `e7d8216b`, `78b9cefc` | `backup.py`: verified SQLite snapshots to `~/data/texas-42/backups/` and the **private** HF dataset `jasonyandell/texas-42-walt-archive` (`kiln/snapshots/`) [process] — kiln §0, §5 | `experiments/kiln/backup-evidence.json` |
+| 09-18 → 09-19 | `4fff75ac`, `65d89676`, `84422556`, `4bc60d64`, `a8622306`, `93cf7be2`, `b6c8b273`, `cfea7eca`, `a653b932`, `e746263d`, `8b852dd2`, `a25e4b0c` | The running record of the same work — `PROGRESS.md` handoffs and compact evidence files, no instrument or result of their own (row added 2026-09-21 so that every intake landing is findable here by hash): the survey handoff with calibration, book integration and the 100-deal milestone audit (`4fff75ac`, `4bc60d64`); Plunge's repeated-hand reconciliation and the automatic book checks with the process-bound Mac sleep guard (`65d89676`, `84422556`); the three phone-rebuild records — sparse buckets, carry cache, rule table (`a8622306`, `93cf7be2`, `b6c8b273`); the live audit at 1,228 games (`cfea7eca`); the first sample-history witness and the 100-hand completion backup (`a653b932`, `e746263d`); the 500-hand startup and live-snapshot audits and the eight-game coverage of all 4,500 panels (`8b852dd2`, `a25e4b0c`) [process; EXPLORATORY where a count is quoted] — kiln §1.3, §1.5, §2.2, §2.3, §4, §5, §9 | `experiments/kiln/PROGRESS.md`; `played-live-audit.json`, `sample-history-evidence.json`, `completion-backup-evidence.json`, `extension-500-startup.json`, `extension-500-audit.json`, `extension-500-first-eight.json` |
+| 09-18 | `231eb1b0`; `bd5b248b`, `ddb3cadc`; `3545a3fe`, `0eeafcb3`, `0a8e2b6a`, `5a8dd401`, `57196c4e`; `313a12dd`, `6fbb8294`, `b8172ef9`, `86792586`, `d534f2ba`, `95e90444` (ranges spelled out 2026-09-21) | Four mining studies over the played corpus, each with a pre-committed protocol, a frozen fit and a consumed fresh set: the outcome-first Scheme discovery `threat-probe-v1` (primary +1.67 pp on new hands, p = .376); fresh relational mining `mining-v2` (both predeclared primaries replicated — `before holds 5-5` +4.65 pp, `before holds top trump` +10.13 pp, p = 1/2000 each — as outcome associations, not mechanisms); paired decision mining `decision-mining-v1` (Walt best or tied in **230/240** fresh two-tile comparisons; 17 misses across 13 positions preserved with paired witnesses); whole-game contrast mining `whole-game-contrasts-v1` (72 witnessed pairs → 220 Schemes, three frozen at `86792586`, none passed the fresh gate). **No move rule, sampler or player changed** [EXPLORATORY] — kiln §8 | `experiments/kiln/{threat-probe-v1,mining-v2,decision-mining-v1,whole-game-contrasts-v1}/RESULTS.md` and their `*.json` |
+| 09-18 | `662f298c`, `7377ff32`, `1a43d763`, `f91533cc`, `43a5a297`, `446a53da`, `1dbea2c0`, `850f589b`, `8ee0cb71`, `91e8925e`, `45f3c482`, `460fc77e` | Solver work measured through the `kiln-worker` bench: compact cache keys, allocation removal, small-support bitsets (new `solver/cache.rs`, `solver/support.rs`), move ordering, sparse buckets, the carry cache, the compile-time `TRICK_KEYS` rule table (`rules.rs`, 9 × 8 × 28 = 2,016 entries, gated by `rules_exhaustive`) — each parity-checked on exact prices *and* work counters and timed on a bounded Mac run; three phone WASM rebuilds (Node timings, not Pixel). All of it is inside the `5ab08bbc` baseline that v34 measured against [EXPLORATORY] — kiln §9; architecture §3.9 | `experiments/kiln/HOT-PATH.md` and the `*-parity-summary.json` / `*-timing-summary.json` pairs |
+| 09-19 | `40be1356` | The 500-hand expansion: 125 deals (seeds 420600–420724), **4,500 panels**, adaptive Wilson (z = 1.96) allocation 160 → 320 → 640 ("These intervals allocate compute; they are not simultaneous or anytime confidence guarantees"), the `capped-unsettled` label; the seed range "includes earlier research exam source seeds; they are consumed research data" [EXPLORATORY] — kiln §2.3 | `experiments/kiln/PLAYED.md`, `extension-500-*.json` |
+| 09-19 | `4e86a04f`, `4cd59ef7` | The Sunshine Atlas (36,000 games, trials 0–7, an owner-private static viewer; "descriptive stability, not six discovered threat types") and the Pattern Workshop (6×6 spectral biclustering; the pilot's strongest block fails its check; deeper blocks "to inspect, not a proved tactic") [EXPLORATORY] — kiln §4 | `experiments/kiln/ATLAS.md`, `BICLUSTERS.md` |
+| 09-19 | `5ab08bbc` | The 500-hand campaign complete — **305,440 games / 8,552,320 independently replayed moves**, 75 capped-unsettled panels, 80 qualifying panels / 61 hands / 52 deals, book `77cb49c7…` — and **the empirical bidder deployed in Plunge** (`c7a1215d`): catalogue-hand auctions are a table lookup (highest 30–42 target clearing 4/5, best declaration tail, pass over partner, forced 30 from the best panel, qualifying 42 → cheapest plain marks); "The playing WASM and manifest are unchanged"; production and monitor stopped [EXPLORATORY] — kiln §2.3, §3, §6 | `experiments/kiln/PLAYED-BIDDER-RELEASE.md`, `played-bidder-release.json` |
+
+### Wave 10 — the CPU speedups v34, the phone release, the table's last two changes, and the book (2026-09-20)
+
+Owners: [walt-instruments §3.7](walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20)
+(the release and its receipts), [walt-architecture §1.4](walt-architecture.md#14-the-solvers-thirty-eight-modules)
+(the modules), [walt-seat-play §8A](walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward)
+(the table), [curator](curator.md) (the book).
+
+| Date | Commit | What it established | Record |
+|---|---|---|---|
+| 09-20 | `701e8589`, `f1a0fb04` | Native CPU speedups **v34** enabled by default (the `cpu-speedups` umbrella, 26 features, default in `walt`, `walt-player`, `walt-cpu-bench`; `--no-default-features` keeps the reference paths): 12/12 paired L2 Partner 40/8/2 full games `all_choices_and_exact_values_equal`, median speedup **13.13×** (1,830,484.5 → 142,999.5 µs); "finite conformance receipts, not universal equivalence proofs"; `full_workspace_ci: "not run"` [EXPLORATORY, conformance receipts] — instruments §3.7 | `walt/CPU-SPEEDUPS.md`; `walt/receipts/cpu-speedups-v34/comparison.json`, `checks.json` |
+| 09-20 | `1dfd0e22`, `3cf2536d` | The release plan with shipped-WASM parity (15/15 comparisons, 21.35× Node median) and **the phone deployment**: Plunge app `65f8f68b…`, WASM SHA-256 `b3016e18…`, 6,265,946 raw bytes; 120 / 5 / 40 native tests, 112 exact live-wrapper comparisons, 201 app tests; hosted opening 265 ms — "Mac Chrome timings, not Pixel measurements"; "The bid catalogue and bidding logic are byte-identical to the previous release" [EXPLORATORY, conformance receipts] — instruments §3.7 | `walt/CPU-RELEASE-PLAN.md`, `walt/CPU-PHONE-RELEASE.md`; `walt/receipts/cpu-live-plan-v1/summary.json`, `cpu-live-release-v1/release.json` |
+| 09-20 | `2d18731e`, `d24eaefe` | Plunge's Mac bridge **Think deeper** (the 160-world / 20 s L1 profile for every computer play; skips the partner review; defaults off) and the forced last bid ("after three passes, the shaker must bid at least 30", `PLUNGE.md`; replay prefix `v1f`; the research importer accepts it, `d24eaefe`) — whether a forced last bid belongs to the straight-42 rules profile is flagged for the Part I owner [EXPLORATORY] — seat-play §8A | `experiments/partnership/PLUNGE.md`; `experiments/partnership/campaigns/forced-bidding-v1/codec.json` |
+| 09-20 | `afd46420` (PR #91) | **The book**: the comprehensive rewrite of this wiki, survey-driven and independently verified — 65 pages, five parts, ~5,200 numbers verified against their sources; the corpus curated as of `c00717d1` [process] — [Home](Home.md), [curator](curator.md) | `kanban/backlog/wiki-book-followups.md` |
+| — | PR #92 (branch `worktree-wiki-book`; **open, unmerged as of 2026-09-21**) | The curator charter ([curator](curator.md), `c74f2c96`) and, on the same branch, cycle 1's curation of this Part [process] | [curator](curator.md) |
+
+### Pull requests #90–#92 (state as of 2026-09-21, `gh pr view`)
+
+| PR | Date | Merge | Branch | Landed | Report of record |
+|---|---|---|---|---|---|
+| #90 | — (**open**) | — | codex/nello-player | "Add doubles-suit Nel-O to the shared Walt player" — unmerged; the book lists Nel-O as a formal exclusion ([rules-profile](rules-profile.md), [game-of-42](game-of-42.md), [open-problems](open-problems.md)); a merge would be the first expected foundation change ([curator](curator.md), "The sorting rule") | [walt](walt.md) "The unmerged branches" |
+| #91 | 09-20 | `afd46420` | worktree-wiki-book | The book on 42 — comprehensive rewrite (GitHub `mergedAt` 2026-09-21T04:17Z) | [curator](curator.md) cycle log, row 0 |
+| #92 | — (**open**) | — | worktree-wiki-book | The curator charter; cycle 1 rides the same branch | [curator](curator.md) |

@@ -101,3 +101,8 @@ re-run, programs executed, proofs step-checked — before anything touches the w
   is a bug (Home.md's exchange status line has gone stale this way before).
 - Dissents and caveats travel with results verbatim (e.g. REACH-20's 2/3-SOUND
   panel is never presented as 3/3).
+- The book is kept current by a standing curator session ([`wiki/curator.md`](wiki/curator.md):
+  the cycle, the area/foundation sorting rule, the baseline pointer). A landing
+  that changes the big picture may add one line `curator: <page> — <what changed>`
+  to its commit message or `walt/LOG.md` entry; optional, and never a substitute
+  for the source.
