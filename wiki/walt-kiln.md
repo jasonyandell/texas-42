@@ -318,7 +318,7 @@ Jason's request" (`PROGRESS.md`).
 
 `PLAYED-BIDDER-RELEASE.md`, commit `5ab08bbc`; Plunge main
 `c7a1215d4d1ece0e24e13fef693ed17f55475112`;
-`https://plunge.jasonyandell.workers.dev/`. New matches and subsequent hands
+`https://plunge.texas42.workers.dev/`. New matches and subsequent hands
 deal from a shuffled 125-deal catalogue with 500 recorded bidder hands; every
 covered auction is a table lookup; "No live declaration-pricing workers run."
 
