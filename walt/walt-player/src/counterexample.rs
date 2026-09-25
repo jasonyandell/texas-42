@@ -10,6 +10,10 @@ use walt::{
     },
 };
 
+// Preview headroom goes to finding failures, without changing their mixture weight.
+const ATTACK_WORLDS: usize = 768;
+pub const MAX_MS: u64 = 6000;
+
 pub fn review(
     req: &Request,
     worlds: usize,
@@ -58,7 +62,7 @@ pub fn review(
         let mut witnesses = Vec::new();
         for round in 0..3 {
             let pool = lab.root.sample(
-                256,
+                ATTACK_WORLDS,
                 seed ^ solver::mix(0x41545441434b + round as u64),
                 deadline,
             )?;

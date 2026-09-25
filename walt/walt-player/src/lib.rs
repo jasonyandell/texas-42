@@ -156,6 +156,12 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
     if forced {
         return Ok(value);
     }
+    // Leave an actual window for defense after ordinary comparisons, including
+    // when the larger comparison times out. Small caller budgets keep half for L1.
+    let counterexample_reserve = if call.nello_counterexamples && nello
+        && call.request.seat % 2 != call.request.bidder % 2 {
+        counterexample::MAX_MS.min(call.budget_ms / 2)
+    } else { 0 };
     let remaining = || {
         call.budget_ms
             .saturating_sub(start.elapsed().as_millis() as u64)
@@ -181,7 +187,7 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
     let mut previous = None;
     for (name, n, n0, ms) in stages {
         let ms = if name == "baseline" {
-            remaining().saturating_sub(40)
+            remaining().saturating_sub(counterexample_reserve).saturating_sub(40)
         } else {
             ms
         };
@@ -220,7 +226,7 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
         && value["route"] == "baseline" {
         let baseline = value["choice"].as_u64().unwrap();
         let worlds = value["evaluation"]["outer_worlds"].as_u64().unwrap() as usize;
-        let ms = remaining().min(2000);
+        let ms = remaining().min(counterexample_reserve);
         let mut publish = |report: &Value| {
             if report["status"] == "completed" {
                 value["choice"] = report["choice"].clone();

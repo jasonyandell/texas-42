@@ -103,9 +103,12 @@ calibrated probabilities nor stronger live play.
 
 The opt-in preview adapter accepts `nello_counterexamples:true` outside the
 actor-only request. After a complete ordinary comparison, Nel-O defenders may
-spend up to two seconds on three rounds of 256 candidate worlds, retaining at
+spend up to six reserved seconds on three rounds of 768 candidate worlds, retaining at
 most four failures per round and jointly replanning all actions. Every complete
 round emits a checkpoint; interruption retains that round or the ordinary move.
+The reservation is capped at half the total budget for short calls; the total
+14/20-second limits are unchanged. A deep comparison that runs out of its share
+leaves the completed 40-world checkpoint for counterexample refinement.
 The `counterexample_result` stores the deliberately biased stress scores
 separately from `evaluation`. Each subsequent live decision replans normally.
 This is an experiment for playtesting, not an established strength improvement.
