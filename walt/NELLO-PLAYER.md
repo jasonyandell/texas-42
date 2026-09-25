@@ -103,7 +103,7 @@ calibrated probabilities nor stronger live play.
 
 The opt-in preview adapter accepts `nello_counterexamples:true` outside the
 actor-only request. After a complete ordinary comparison, Nel-O defenders may
-spend up to six reserved seconds on three rounds of 768 candidate worlds, retaining at
+spend up to 4.2 reserved seconds on three rounds of 540 candidate worlds, retaining at
 most four failures per round and jointly replanning all actions. Every complete
 round emits a checkpoint; interruption retains that round or the ordinary move.
 The reservation is capped at half the total budget for short calls; the total

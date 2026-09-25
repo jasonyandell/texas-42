@@ -11,8 +11,8 @@ use walt::{
 };
 
 // Preview headroom goes to finding failures, without changing their mixture weight.
-const ATTACK_WORLDS: usize = 768;
-pub const MAX_MS: u64 = 6000;
+const ATTACK_WORLDS: usize = 540;
+pub const MAX_MS: u64 = 4200;
 
 pub fn review(
     req: &Request,
