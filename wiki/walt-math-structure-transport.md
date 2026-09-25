@@ -331,6 +331,59 @@ else in the branch currently is.**
 
 ---
 
+## The one later exercise of the ECL machinery — the pmake ruling's Q2 instance (2026-08-17)
+
+Jason's §12.6A theorem (`walt/math/equivariant_lumpability_v0.5.md` — the
+equivariant controlled lumpability condition and the lossless equivariant
+quotient) was stated in general; the branch exercised it concretely exactly
+once after the lemmas above, in the in-house pmake question/ruling pair of
+2026-08-17 (`walt/math/WALT-MATH-RULING-2026-08-17-pmake-and-the-walk-to-trick-1.md`,
+§ Q2 — **advisory mathematics, no ruling family, no `.sha256`**; indexed on
+[received artifacts § 5](walt-math-intakes.md)). Its basis was the exploratory
+ladder `ladder.rs` at commit `171cd22` (then `walt/walt-m3-probe/src/bin/`,
+folded into `walt/walt/src/bin/ladder.rs` on 2026-08-24 by the one-crate
+unification, commit `d1499d4`).
+
+**The invariance lemma (the concrete instance).** State X = (R, β) with
+R = (played, leader, in-trick plays, allowance) and β a primitive posterior.
+Let π permute tiles and θ permute effective contexts such that, on the live
+universe: (1) π fixes every played tile and every tile of the focal seat's
+remaining hand pointwise; (2) π(σ_q ∩ live) = σ_{θ(q)} ∩ live for every
+context q; (3) led(π t) = θ(led t), with θ fixing the current in-trick led
+context; (4) trick-key order is preserved in every context; (5) count(π t) =
+count(t). Then V(R, β) = V(R, π_#β) and the pmake argmax set is preserved
+tile-for-tile. The proof shape is the §12.6A proof: π induces a
+continuation-tree isomorphism with field plays transported and focal plays
+fixed; (2)–(3) give world-wise legal-set equivariance, hence equal likelihood
+factors — condition (ECL); (4) preserves winners; (5) with winners preserves the
+banked increments and the make indicator. Because the payoff is not count-free,
+this is the theorem's *tile-feature role re-entry* form: count and key-order are
+declared domino roles the transport must preserve — exactly the roles Lemma E
+and Lemma S do **not** preserve (E-A2), which is why those lemmas are
+count-free and this instance is not.
+
+**Relation to the r1/r3 quotients above.** The lemma's groupoid acts on
+canonical cells (the M1/M2 carrier): a cell mixture is a lossless encoding of
+the exact posterior, so the relation it induces is posterior equality —
+strictly finer than the lemma's quotient; the right object is the composition
+(canonicalize cells, then merge transport-equivalent shapes).
+
+**The honest negative, in the same key as S-rigid.** On the hand-8 carrier the
+group is nearly trivial: counts pin 5-0, 4-1, 3-2, 5-5, 6-4; the focal hand
+pins contexts 1, 2, 3 and the called suit; every candidate suit swap dies on a
+count tile or on incidence the focal hand keeps live. Checked directly on the
+t = 4 pool, **no nontrivial (π, θ) survives**; predicted compression among the
+139k measured t = 4 posteriors is < 2× and likely ≈ 1× — *conjectural pending a
+probe that was never run*, though the group computation is hand-checkable.
+The ruling's own summary: §12.6A "earns its keep across carriers and in late
+endgames where contexts die, not on this single mid-hand walk." That is the
+second concrete equivariance computation of the branch, and it lands where the
+first (Corollary S-rigid) did — compression is bought with deadness, and
+mid-hand there is little to buy it with. The counted-belief factorization that
+later made the opening root tractable (CBS Theorem 20.1, 2026-08-30) is a
+representation change, not a quotient — see
+[information geometry](walt-math-information-geometry.md).
+
 ## What is in force
 
 Each later ruling section names the standing set in its basis paragraph. As of the
@@ -338,3 +391,12 @@ Experiment E adjudication (2026-08-13), all eight objects on this page are in
 force unchanged, alongside Lemmas R, G, J, Propositions G-flat, J-0, J-1, J-win
 and the errata's E-series. The authoritative "what is in force" lines are the
 basis paragraphs opening each dated section of `walt/CENSUS-RULINGS.md`.
+**Checked 2026-09-07 at `c00717d1`:** no ruling section after 2026-08-13 —
+through "The focal-horizon adjudication (2026-09-04)", the last in the file —
+amends any of Lemmas V, X, E, S, S-fold, S-det or Corollaries S-rigid, R-fold,
+S-fold-val; the page is current for its scope.
+
+What these lemmas established *as results* — the counts 1,184,040 and 55,860,
+the 7:1 fold, the 49-pair fold receipt — is collected by result rather than by
+ruling on [walt-pre-pivot-results](walt-pre-pivot-results.md); the era pages
+([census](walt-census-era.md), [S6](walt-s6-era.md)) remain the provenance.

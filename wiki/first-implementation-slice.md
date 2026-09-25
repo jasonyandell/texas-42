@@ -5,13 +5,20 @@ Sources: both packages `docs/50_CODEX_IMPLEMENTATION_PROMPT.md` (rec's is a stri
 superset — merge resolution [D11](discrepancies.md)) and `Exec §26`. See also
 [FINDINGS.md](FINDINGS.md) §"What rob needs first".
 
-> **Status (2026-07-27): historical — executed and superseded.** rob executed this
-> slice in Rust per [rob/BRIEF.md](../rob/BRIEF.md), which supersedes this page's
-> Python file plan and extends it through S4 (normal form + capacity DP). Slice 02
-> (S5–S9, [rob/BRIEF_SLICE_02.md](../rob/BRIEF_SLICE_02.md)) and the S10 stretch
-> (the x:001 floor family, `verify_floor`) are also green — twelve byte-diffed
-> receipts, every ingest number reproduced exactly ([verification](verification.md)).
-> This page remains as the record of the original assignment.
+> **Status (2026-07-27; wording corrected 2026-09-12): historical — executed and
+> superseded.** rob executed this slice in Rust per [rob/BRIEF.md](../rob/BRIEF.md),
+> which supersedes this page's Python file plan and extends it through S4 (normal
+> form + capacity DP). Slice 02 (S5–S9, [rob/BRIEF_SLICE_02.md](../rob/BRIEF_SLICE_02.md))
+> and the S10 stretch (the x:001 floor family, `verify_floor`) are also green —
+> twelve byte-diffed receipts, **every slice-01 and slice-02 ingest number reproduced
+> exactly** ([verification](verification.md)). Not "every ingest number": the
+> reduced-kernel (slice 03) numbers — 2,211,300 sequential updates, 84 open-trick
+> shapes, 3,132 score-recovery prefixes, 8 dihedral frames, 5,898 / 17,560 future
+> equivalence — and the 90-world posterior flip **remain unreproduced**, as
+> `BRIEF.md` §8 and [rob-slices](rob-slices.md) state; the slices that would
+> reproduce them were named and never begun (rob's code is unchanged since
+> 2026-08-01). This page remains as the record of the original assignment; the
+> engine it became is [rob](rob.md).
 
 ## Scope: domino universe + declaration algebra only
 
@@ -69,5 +76,6 @@ The natural slice sequence implied by the specs: (2) auction/contract/objective 
 with phase-indexed states, (3) information + cells + fiber + losslessness parity
 tests, (4) normal form + SCC compiler + counting/sampling, (5) support dynamics +
 symbolic reachability (rec Exec §17A/§18), (6) belief/filtering + the 90-world
-regression. (2)–(5) are done through rob slice 02; (6) remains unassigned. Each must
-keep derived views derived and reachability proof-irrelevant.
+regression. (2)–(5) are done through rob slice 02; (6) remains unassigned — and, as of
+2026-09-07, unscheduled by any ruling ([rob-slices](rob-slices.md), "Named but never
+begun"). Each must keep derived views derived and reachability proof-irrelevant.

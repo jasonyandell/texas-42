@@ -3,16 +3,25 @@
 [Home](Home.md) · owns: the first-class index of walt's received mathematical
 artifacts — the frozen bases, the Pro-channel intakes and rebriefs, and their
 companions — what each is, where the verbatim parent lives, where its companion
-lives, what came of it, and at what tier · Sources: `walt/math/` (the artifacts
-themselves), `walt/CENSUS-RULINGS.md` (the adjudications), `exchange/README.md`
-(the courier ledger for the ferried dispatches). Related:
-[the reference map](walt-math-reference.md),
+lives, what came of it, and at what tier — including received notes that have
+NOT been intaken · Sources: `walt/math/` (the artifacts themselves, with their
+`.sha256` pins and intake companions), `walt/CENSUS-RULINGS.md` (the
+adjudications, through "The focal-horizon adjudication (2026-09-04)"),
+`walt/DISCREPANCIES.md` (the two 2026-09 corrections carried in §6 and §8),
+`exchange/README.md` (the courier ledger for the ferried dispatches),
+`experiments/partnership/packet/` (the manifests of the unintaken notes in §9);
+repository state as of 2026-09-07 (`c00717d1`), pins and verifiers re-run
+2026-09-12. Related: [the reference map](walt-math-reference.md),
 [the freeze register](walt-math-freezes.md),
 [decision-sparse witnesses](walt-math-decision-sparse.md),
 [the GPU-native track](walt-gpu-native-trick1.md),
 [walt-seat-play](walt-seat-play.md),
 [walt-calculated-evidence](walt-calculated-evidence.md) (the era the two
-2026-08-24 intakes opened).
+2026-08-24 intakes opened),
+[walt-counted-belief-era](walt-counted-belief-era.md) and
+[walt-focal-horizon-era](walt-focal-horizon-era.md) (where the builds the
+intakes authorized are narrated), [exchange](exchange.md) (the courier
+channel as a whole).
 
 > **Epistemic tier: EXPLORATORY — below every tier on
 > [Home](Home.md#evidentiary-tiers--never-promoted-never-blurred).** Every
@@ -50,7 +59,7 @@ walt's exploratory fence, never the CONFIRMED pipeline.
 | Lineage | Verbatim parent(s) | Maintained companion(s) | Adjudication | Outcome in one line |
 |---|---|---|---|---|
 | The frozen bases (Jason) | `unified_information_geometry_v0.4.md`, `equivariant_lumpability_v0.5.md`, `predictive_algebra_v0.6.md` | `implementers_guide.md` (derived, non-authoritative) | F-series census fork onward; R-A1..R-A24 for v0.6 | The substrate: everything census-era and after is proved relative to these |
-| Decision-sparse (Pro) | `decision_sparse_exact_solving_v0.1.md`, `decision_sparse_second_audit_v0.1.md`, `exchange/inbox/016…`, `exchange/inbox/017…` | `decision_sparse_exact_solving_v0.1_errata.md` | DS-A1..A36, SEP-A, FT-A, SR-A | The witness/sandwich mathematics; repaired where unsound, extended two rungs |
+| Decision-sparse (Pro) | `decision_sparse_exact_solving_v0.1.md`, `decision_sparse_second_audit_v0.1.md`, `exchange/inbox/016…`, `exchange/inbox/017…` | `decision_sparse_exact_solving_v0.1_errata.md` | DS-A1..A36, SEP-A, FT-A, SR-A | The witness mathematics — primal/upper witnesses, root-action separation, Theorem E6.3 (adjudicated name "value sandwich") — repaired where unsound, extended two rungs; the ancestor of every later root interval |
 | GPU-native (Pro) | `gpu_native_trick1_implementers_guide_v0.2.md`, the M2 and M3 rebriefs | `walt/GPU-NATIVE-TRICK1.md` (v0.3), `-M2.md`, `-M3.md` (frozen contracts) | GT1-A1..A24 | Portable M0/M1 and M2 Metal parity complete; M3 gate frozen, no M3 result |
 | Signed-pivotal (side-channel) | `signed_pivotal_geometry_v0.1.md` | `signed_pivotal_geometry_v0.1_intake.md` (intake audit) | SP-A1..A12 | Sound but for one repaired claim; spawned the tilt audit and obligations O12–O19 |
 | In-house question/ruling | `WALT-MATH-QUESTION-2026-08-17-…` | `WALT-MATH-RULING-2026-08-17-…` (advisory) | none — advisory, no ruling family | P1–P4 sound; the §12.6A instance stated; the path-dependence counterexample |
@@ -62,7 +71,8 @@ walt's exploratory fence, never the CONFIRMED pipeline.
 | Anytime proof-state / score calculus (Pro, side-channel, CBS follow-on) | `anytime_proof_state_score_v0.1.md` (SHA-256 `7a8c60fb…`) | `anytime_proof_state_score_v0.1_intake.md` + `verify_anytime_proof_state_score_v0.1.py` (scratch tier) | **APS-A1..A9** (2026-08-31, same-day, hand-delivered by Jason) | The epistemic container: append-only serializable proof state, facts-only authority, score layer (43-bin profiles, W_ρ(c) steering, rescue/fragile bands), typed laydown hierarchy, proof-bar/executable-bar split with certified regret Γ = U* − B_exec; §49 spike gate before commitment; RefineV1 frozen as reference; executed as Phases 0–8, COMPLETE (see [walt-counted-belief-era](walt-counted-belief-era.md)) |
 | **Model-belief base player** (Pro, side-channel — book-one closing round, half one) | `model_belief_base_player_v0.1.md` (SHA-256 `1ffabf86…`) | `model_belief_base_player_v0.1_intake.md` + `verify_model_belief_base_player_v0.1.py` (scratch tier) | **MB-A1..A8** (2026-09-01, same-day, hand-delivered by Jason; build authorized same-day) | The field model becomes hidden state: Ξ = Ω×Θ(×Z) lifts every fixed-field theorem verbatim (Thm 7.1); hand-type factors with exact posterior closure; the ladder demoted to basis (D = `FieldModel::Dice`, F₀ = σ0, F₁ = level-1 — registration corrected at intake, MB-A3); sep upper, type gluing, mandatory residual Other, VOI; verifier 40/40 PASS; build = MB0–MB5 restructure with §76 as the go/no-go |
 | **Salvation complex / information-cut calculus** (Pro, side-channel — book-one closing round, half two; arrived mid-adjudication resolving MB-A2) | `salvation_complex_v0.1.md` (SHA-256 `eca69bd5…`) | `salvation_complex_v0.1_intake.md` (**no verifier shipped** — U0's gates are the executable checks, SC-A2) | **SC-A1..A8** (2026-09-01, same session, same standing go) | The unifying fixed-field geometry: 1−Q = minimum belief-mass transversal of the salvation-conflict hypergraph; doom = singleton cuts, gluing = higher-order cuts, column-and-cut solver; God-tightness receiptable as lower-meets-doom-upper; §9's fourteen-coordinate d_info = 0 table verified against committed doomreport per-world truth (h5-t6 444‰ corroborated); the fusion horizon named as the round's key empirical object; build = U0 beside MB0, §47 doom preservation ruling adopted |
-| **Focal-horizon hierarchy** (Pro, side-channel — parent title "The Focal-Horizon Sandwich"; a design-with-measurements intake, Jason: "here is an idea to try with measurements") | `focal_horizon_sandwich_v0.1.md` (SHA-256 `892bc343…`) | `focal_horizon_sandwich_v0.1_intake.md` (intake + walt-math review) + `verify_focal_horizon_sandwich_v0.1.py` (scratch tier; its printed "24 CHECK FAMILIES" is a label — the nine sweep families over 4,096 × 8 are the theorem checks) | **FH-A1..A11** (2026-09-04, same-day, hand-delivered by Jason; BRIEF-FH0) | One canonical refinement hierarchy indexed by focal decisions: lawful tail below, world-revealed God tail above, `L_k ≤ Q ≤ U_k` nesting to exact collapse at `k ≥ h_f`; Theorems 1–6 proved in full, God tail proved a Bellman supersolution (FH-God), §23 interruption proved under intersection (FH-int); "sandwich" retired as a name (FH-A2); U0b's ply cuts identified as `U_{a,0}`/`U_{a,1}` on viewer-lead roots (FH-cut) and trick 7's forced layer shown to collapse trick-4 roots at k = 2 (FH-last); the U1 salvation-mask slice subsumed as an upper producer; tails ruled σ0-as-focal primary / lowest-first gate-only; build FH1–FH3 on the orchestrator's split, FH1 affordable-or-refuse first |
+| **Focal-horizon hierarchy** (Pro, side-channel — parent title "The Focal-Horizon Sandwich"; a design-with-measurements intake, Jason: "here is an idea to try with measurements") | `focal_horizon_sandwich_v0.1.md` (SHA-256 `892bc343…`) | `focal_horizon_sandwich_v0.1_intake.md` (intake + walt-math review) + `verify_focal_horizon_sandwich_v0.1.py` (scratch tier; its printed "24 CHECK FAMILIES" is a label — the nine sweep families over 4,096 × 8 are the theorem checks) | **FH-A1..A11** (2026-09-04, same-day, hand-delivered by Jason; BRIEF-FH0) | One canonical refinement hierarchy indexed by focal decisions: lawful tail below, world-revealed God tail above, `L_k ≤ Q ≤ U_k` nesting to exact collapse at `k ≥ h_f`; Theorems 1–6 proved in full, God tail proved a Bellman supersolution (FH-God), §23 interruption proved under intersection (FH-int); "sandwich" retired as a name (FH-A2); U0b's ply cuts identified as `U_{a,0}`/`U_{a,1}` on viewer-lead roots (FH-cut) and trick 7's forced layer shown to collapse trick-4 roots at k = 2 (FH-last); the U1 salvation-mask slice subsumed as an upper producer; tails ruled σ0-as-focal primary / lowest-first gate-only; build FH1–FH3 on the orchestrator's split, FH1 affordable-or-refuse first — all built the same day; the finding: at k ≥ 1 the residual width is the tail's policy gap, not the fusion price |
+| **Unintaken received notes** (Pro, via the partnership experiment's packet — NOT under `walt/math/`) | `experiments/partnership/packet/texas42-partnership-launch-v0.1/math/TEXAS42-UNIFIED-REVIEW-v0.1.md`, `…/TEXAS42-IMPROVISATION-v0.1.md` (2026-09-05), `experiments/partnership/packet/texas42_relational_learning/PATH-TO-GENERALIZING-SCHEME-POLICIES-v0.1.md` (2026-09-07) — packet manifests only, see §9 | **none** | **none — MISSING intake** | Received text, below even the intaken corpus: no companion, no ruling family, no wiki index other than §9 below; already consumed by `experiments/partnership/` and `walt/scheme/INFORMATION-PRICES.md` at the exploratory-unadjudicated level |
 
 ## 1. The frozen bases
 
@@ -118,8 +128,11 @@ as inferred.
 
 ## 2. The decision-sparse thread — Pro channel
 
-The thread that produced the witness/sandwich mathematics. Full object index on
-[decision-sparse witnesses](walt-math-decision-sparse.md) and
+The thread that produced the witness mathematics — primal and upper witnesses,
+root-action separation, Theorem E6.3 (adjudicated name "value sandwich") and
+the lineage that became the root interval, certified regret and the
+focal-horizon interval (traced on [decision-sparse witnesses](walt-math-decision-sparse.md)
+§ "What Theorems E6.3 and E6.4 became"). Full object index on that page and
 [the track page](walt-decision-sparse.md); this section is the artifact map.
 
 - **`walt/math/decision_sparse_exact_solving_v0.1.md`** — received verbatim
@@ -231,7 +244,14 @@ Artifact map only; the adjudicated content lives on
   `walt/math/` (not the wiki, not `walt/LOG.md`, not kanban). This page and
   [the reference map](walt-math-reference.md) are now its only inbound
   pointers; if its content is ever consumed by a design, it needs a series home
-  first. Rulings are against `ladder.rs` as of commit `171cd22`. Delivers the P1–P4 soundness verdicts
+  first. Rulings are against `ladder.rs` as of commit `171cd22` — then at
+  `walt/walt-m3-probe/src/bin/ladder.rs`. **That crate no longer exists on
+  main:** the 2026-08-24 unification (commit `d1499d4`, "THE FOLD — one
+  crate, seven modules; pure code motion, trace-identical") folded the file
+  into `walt/walt/src/bin/ladder.rs`, where its doc header still names the
+  2026-08-17 ruling and the pmake objective. The ruling's line citations
+  (e.g. `ladder.rs:402` in P1) are against the `171cd22` revision and resolve
+  with `git show 171cd22:walt/walt-m3-probe/src/bin/ladder.rs`. Delivers the P1–P4 soundness verdicts
   (decided cutoffs, viewer early exit, pmake key reduction, gcd-normalized
   posteriors), the **path-dependence counterexample** (the exact posterior is
   not a function of the reduced boundary key), the concrete **§12.6A invariance
@@ -239,7 +259,20 @@ Artifact map only; the adjudicated content lives on
   and the honest negative on hand 8. Indexed with the scenario era on
   [the reference map](walt-math-reference.md#the-scenario-player-era--signed-pivotal-geometry-the-tilt-audit-and-the-level-2-detector).
 
-## 6. The calculated-evidence thread — side-channel, hand-ferried
+## 6. The side-channel intakes, 2026-08-24 → 2026-09-04 — hand-ferried, never courier dispatches
+
+Seven parents in eleven days, each hand-delivered by Jason from his Pro
+session, each intaken the day it arrived under one protocol: verbatim parent
+with a `.sha256`, a maintained companion that governs where it narrows, a
+scratch-tier verifier re-run twice (session evidence, never a receipt —
+TRUST-01), same-day rulings, obligations into a ledger. Two exchange
+*responses* of the same days — the panel response x:019–023 (PANEL-A1..A8,
+2026-08-24) and the deferred-producers response x:024 (TRIPLE-A1..A7,
+2026-08-25) — are indexed in the table above with their companions
+(`response_walt_panel_and_cancellation_v0.1_intake.md`,
+`response_deferred_producers_triple_v0.1_intake.md`) and narrated on
+[walt-calculated-evidence](walt-calculated-evidence.md); they are not repeated
+here.
 
 - **`walt/math/calculated_evidence_v0.1.md`** — *Calculated Evidence for
   Unified Walt* (received verbatim 2026-08-24, hand-ferried by Jason;
@@ -314,7 +347,17 @@ Artifact map only; the adjudicated content lives on
   `controller`; `solver::field` / `exposure` / `field_swap` are green
   field), the LEVEL2-PROBE reconciliation (probe = detection layer inside
   the targeted controller), the Gran-anchor gap (game seeds not in-repo;
-  reconstruction pending on the plunge side), and the seven-point
+  reconstruction pending on the plunge side — **a note now stale**: the two
+  Plunge hands were transcribed tile by tile from the screenshots,
+  mechanically validated with the rules engine and committed 2026-09-04 at
+  `walt/probes/gran/` (commits `32aa14f1`, `8174fa83`): **G1 complete** —
+  the 28-tile partition closed exactly, 25–17 reproduced; **G2/G3 partial**
+  — the made hand's record stops at trick 6, so the deal is not recovered
+  but both roots are fully determined as information sets; seed provenance
+  unavailable for all three. The companion's gap note itself has **not**
+  been repointed at those files — the open item on
+  [[gran-anchor-reconstruction]]; narrative on
+  [walt-gran-anchors](walt-gran-anchors.md)), and the seven-point
   adjudication agenda.
   **Adjudicated same-day at L2-A1..A7** (`walt/CENSUS-RULINGS.md`,
   2026-08-24, filed under the standing same-lineage go — the
@@ -421,15 +464,279 @@ Artifact map only; the adjudicated content lives on
   correct-in-scope (APS-A8); the greenfield proof-state core adopted
   as candidate behind the §49 spike, `solver::refine` frozen as the
   RefineV1 reference, phases queued on Jason's word, default player
-  untouched (APS-A9).
+  untouched (APS-A9). **What came of it:** Phases 0–8 all landed
+  2026-08-31 → 09-01 (Phase 0 = freeze 58; Phase 8's opening-root verdict:
+  play 6-5, floor 732‰, at most 267‰ unclaimed, honest UNRESOLVED at
+  ε = 1/4 — probe record `walt/probes/factor_belief/openingreport_run1.txt`,
+  5 gates), then the doom census — narrated on
+  [walt-counted-belief-era](walt-counted-belief-era.md), recorded in
+  `walt/FACTOR-BELIEF.md`; pointers and the one correction in §8.
+
+- **`walt/math/model_belief_base_player_v0.1.md`** — *Model-Belief Walt
+  and the Closing of the First Book* (received verbatim, hand-delivered
+  by Jason 2026-09-01 — "big math intake coming… this next round is about
+  intake and collaboration"; checksum-pinned, SHA-256 `1ffabf86…`; not a
+  courier dispatch — the ledger is untouched; the upload arrived as
+  `THEORYwaltmodelbeliefbaseplayerv0.1.md`, filed snake_case, recorded
+  not repaired). Written against main `08fe3d2` (the PR #80 wiki
+  first-pass merge). The field model becomes hidden state: the augmented
+  latent Ξ = Ω×Θ (×Z under persistent randomness); **Theorem 7.1**, the
+  augmented-world reduction — a finite model-belief problem *is* a
+  fixed-semantics walt problem on Ξ, so every theorem whose proof used only
+  finiteness, lawful focal information, bounded utility and a fixed latent
+  distribution lifts verbatim; hand-type factors with exact posterior
+  closure (Thm 12.1 — the CBS closure over (H, θ)); the response-vector
+  geometry (Thm 17.1 convexity of Q in ν, Thm 18.1 the type-revealed
+  "sep" upper, Thm 19.1 zero model-fusion price iff one lawful policy is
+  pointwise optimal for every type); type-partition gluing; the mandatory
+  residual Other type (§15); value of information; the "gloriously boring
+  base player" (§43) with §48's completion criteria as book one's finish
+  line; slices M0–M7; obligations MB-O1..O20 and identity invariants
+  MB-I1..I10 (Part XII). Thread: primarily L2 — the field model as the
+  hidden coordinate; CE machinery consumed only through §20's risk-ledger
+  crossing.
+- **`walt/math/model_belief_base_player_v0.1_intake.md`** — **the intake
+  companion** (maintained) + `verify_model_belief_base_player_v0.1.py`
+  (SHA-256 `b5c81fb6…`, scratch tier). Verifier **40/40 PASS** twice at
+  intake, upload and filed location (re-run 2026-09-12 on this machine:
+  `40 CHECKS / ALL CHECKS PASS`, 0.06 s, no `__pycache__` created).
+  Load-bearing sweeps: all 64 Boolean 2-policy × 3-type value matrices ×
+  3 priors (point-mass upper dominates the mixture optimum; partition-
+  lattice endpoints and refinement monotonicity; convexity of Q in ν; the
+  zero-fusion-price biconditional per matrix) and the 256-utility
+  transfer-bound sweep. The companion records that several of the 40 are
+  **definitional illustrations, not theorem verifications** (one asserts
+  `4 == 4`, one `1 − 1 == 0`), so the count is never quoted as forty theorem
+  checks. Theorems 7.1, 12.1, 17.1, 18.1, 19.1 and the §13/§15 identities
+  step-checked sound. **Adjudicated same-day at MB-A1..A8**
+  (`walt/CENSUS-RULINGS.md` § "The model-belief base-player adjudication
+  (2026-09-01)"; Jason: "overall, agreed on your rulings", build "full
+  go"): the substrate adopted and the best-response ladder demoted from
+  ontology to basis — a fixed field is the point-mass case ν = δ_θ
+  (MB-A1); the cited-but-absent sibling parent delivered and intaken the
+  same session (MB-A2); **the rung registration CORRECTED at intake** —
+  the first reading "Dice = σ0" was wrong and retracted: D =
+  `FieldModel::Dice`, F₀ = BR(D) = σ0 (the banked-correct level-0 modeled
+  mind), F₁ = BR(F₀) = level-1 walt, F₂ = BR(F₁) unbuilt (MB-A3); two
+  transcription errata — the §8 display `Q_a(δ_{F_k})` never closes, §34's
+  disagreement operator prints as `e` for ≠ — recorded, companion governs
+  (MB-A4); the residual Other type mandatory from the first post-MB0 slice
+  (MB-A5); model type is genuine semantic hidden state, content-addressed
+  identities, one type per declared persistence scope (MB-A6); branch by
+  public action never by hidden type — the O34/CBS fence over Θ — and a
+  model-belief lower enters the executable bar only with a materialized
+  policy (MB-A7); the build restructured M0–M7 → **MB0–MB5** with MB0
+  gated by §76 verbatim and **U0 running beside MB0** (MB-A8); MB-O1..O20
+  accepted into the Lean side-project ledger (which, as of 2026-09-07,
+  exists as no file — §8). **What came of it:** MB0 (2026-09-01, PR #82,
+  the §74 exact vertical slice), σ1 repair (PR #83), **MB1** (2026-09-02,
+  PR #85 — the model-belief recursion joined to the solver, and the
+  model-fusion price Φ_a = U^sep_a − Q_a found **strictly positive at
+  trick 4** under the registered F₀/F₁ mixture, ν = (½, ½) per hidden
+  seat: the h8-t4 3-1 specimen **38/9600 is gate-pinned** as
+  `M6_SPECIMEN = (8_323, 8_361, 9_600)` in
+  `walt/walt/tests/solver_model_belief_recursion.rs`; the other rows —
+  h8-t4 2-1 47/9600, 3-3 90/9600, 5-5 58/9600, h3-t4 3-1 173/46200,
+  4-1 157/92400, 4-4 37/6600, 6-4 7/2200 — are probe record,
+  `walt/briefs/MB1-REPORT.md` and
+  `walt/probes/factor_belief/modelbelief_recursion_run1.txt`), then UP0
+  (PR #86) and UP1a, the unified player consuming both recursions.
+  MB2–MB5 unbuilt as of 2026-09-07. Narrative:
+  [walt-focal-horizon-era](walt-focal-horizon-era.md); running record
+  `walt/FACTOR-BELIEF.md`.
+
+- **`walt/math/salvation_complex_v0.1.md`** — *The Salvation Complex and
+  Information-Cut Calculus of Walt* (received verbatim, hand-delivered by
+  Jason 2026-09-01 mid-adjudication of the sibling — "oops missed a
+  file!" — resolving MB-A2; checksum-pinned, SHA-256 `eca69bd5…`; not a
+  courier dispatch; upload `THEORYwaltsalvationcomplexv0.1.md`, filed
+  snake_case, recorded not repaired). Written against main `08fe3d2`; SC-A6 recorded
+  its stated doom-census hash `eb5a459…` as one that "does not appear in
+  main's history (a branch-state hash from Pro's inspection); harmless,
+  recorded" — *correction, measured 2026-09-13 on this machine:*
+  `eb5a459d` **is** on main, the squash commit of PR #79 ("walt doom
+  census: counterexample mass as deterministic uppers", 2026-09-01), so the
+  parent's citation was exact and SC-A6's observation was wrong; nothing
+  rests on it either way, as the ruling itself says (SC-A1 verified the
+  empirical citations against the committed probes). The fixed-field unification: salvation
+  sets and the salvation-conflict hypergraph; Thm 6.1 (max-weight face);
+  Thm 7.1 (**God-tight** iff nonempty common intersection over saveable
+  worlds); the §8 three-part failure decomposition
+  1 − V(ρ) = d_phys + d_info + d_policy(ρ); **Thm 12.1: 1 − Q = the
+  minimum belief-mass transversal of the salvation-conflict hypergraph**;
+  the §13 split 1 − Q = β(D) + τ(H_{≥2}) (doom = singleton cuts,
+  information price = higher-order cuts); §14 any verified conflict family
+  gives an admissible upper; §15 rational packing as the cheap dual; the
+  §23 counterexample ({00,11} vs {01,10}: G neither submodular nor
+  supermodular) and the §26 counterexample ({00,01} vs {00,10}: optimizer
+  disagreement is not a cut); the fusion-free-suffix hypothesis (§37–38);
+  the tower as dynamics on complexes (§41–46); slices U0–U4 / T0–T1;
+  obligations SC-O1..O16 and a §60 Lean tranche. Thread: L2 throughout —
+  every salvation object is relative to one named fixed field.
+- **`walt/math/salvation_complex_v0.1_intake.md`** — **the intake
+  companion** (maintained). **No verifier was shipped with this parent** —
+  every theorem was walked by hand at intake (6.1, 7.1, 12.1, §13, §14,
+  §15, 19.1, §20, both counterexamples re-derived, §31 filtration nesting,
+  §44 periodicity), and SC-A2 makes U0's gate suite the executable check.
+  The §9 fourteen-coordinate d_info = 0 table verified against the
+  **per-world truth** column of
+  `walt/probes/factor_belief/doomreport_run1.txt` — all fourteen match;
+  h5-t6 gives 1 − 15/27 = 12/27 = 444‰, exactly Phase 3's recorded value;
+  Phase 6's "structural saturation" is these roots being God-tight.
+  **Correction on the record** (`walt/DISCREPANCIES.md`, "salvation-complex
+  intake companion: two divergence points named, three in the record",
+  2026-09-02): the companion names two coordinates where the class census
+  fell short of truth (h4-t6 0-0: truth 60/90, census 56; h8-t5 5-3: truth
+  1/92, census 0); U0's G1 gate found a **third**, h8-t5 0-0 (census 17 of
+  21, printed in the record's own recovery column as 809‰). The table is
+  unaffected — it cites truth at every coordinate — and the gate
+  `walt/walt/tests/solver_godgap.rs::the_section_nine_table_is_re_derived_from_the_committed_record`
+  asserts all three by exact value; the companion is a dated record and
+  was not rewritten. **Adjudicated same session at SC-A1..A8**
+  (`walt/CENSUS-RULINGS.md` § "The salvation-complex adjudication
+  (2026-09-01)"): the geometry adopted and the record corroborates it
+  (SC-A1); no verifier — the gates *are* the checks, U0 must re-derive the
+  §9 table mechanically, §60's Lean tranche accepted into the side-project
+  ledger (SC-A2); §47's immediate ruling — do not broaden the doom census
+  at the opening root; doom preserved as singleton-conflict producer, exact
+  God-upper truth on enumerable roots, suffix-candidate detector, and the
+  empty-mask base case of an action-indexed ceiling producer (SC-A3);
+  **the fusion horizon is an EMPIRICAL object first** — a theorem may be
+  proposed only after adversarial counterexample search; `UnknownGodGap` is
+  a distinct result type, and zero certified doom with no exact Q is never
+  `PositiveGodGap` (SC-A4); the two fences binding — an optimizer
+  disagreement is not a cut, and zero one-glue gain proves nothing, so the
+  scheduler must permit short gluing coalitions (SC-A5); provenance notes
+  (SC-A6); §45's three-way fact typing across the tower and tie-inertial
+  exact selection (SC-A7); the U/T program adopted with **U0 pulled
+  forward beside MB0** — §29's two-oracle race, construct a God-tight
+  policy vs exhibit a salvation conflict (SC-A8). **What came of it:**
+  **U0** (2026-09-02, PR #84 — `solver/godgap.rs`, the §8 decomposition
+  made mechanical; on the receipt-root corpus fourteen t5/t6 coordinates
+  God-tight, twelve trick-4 coordinates carrying information price 6–22‰
+  with d_policy = 0, the opening root typed `UnknownGodGap` on all seven
+  actions — record `walt/probes/factor_belief/godgap_run1.txt`, gates
+  `walt/walt/tests/solver_godgap.rs`); **U0b** (2026-09-03, the in-solve
+  horizon census — inside a trick-4 solve the conditioned trick-5 frontier
+  is **not** fusion-free, 13–14‰ mass-weighted at the receipt contract, and
+  the trick-6 frontier still flips the root play in 2 of 30 rows; h8-t3
+  solved exactly under σ0 for the first time, Q* = 28859/29988 (962‰),
+  argmax 1-1, 289,407,472 reads, 14 min 13 s — record
+  `walt/probes/factor_belief/horizon_run1.txt`, gates
+  `walt/walt/tests/solver_horizon.rs`; the exact value itself is probe
+  record and FH3's reproduction, pinned by no gate as of `c00717d1` — a
+  search for `28859` over `walt/walt/tests` finds nothing, 2026-09-12).
+  The fusion-free-suffix hypothesis therefore stands exactly as SC-A4 typed
+  it — empirical — and is false as stated inside trick-4 solves. U1 was
+  subsumed as an upper producer by FH Theorem 5 (FH-A5); U2+, T0 and T1
+  unbuilt. Narrative: [walt-focal-horizon-era](walt-focal-horizon-era.md).
+
+- **`walt/math/focal_horizon_sandwich_v0.1.md`** — *The Focal-Horizon
+  Sandwich: a Canonical Anytime Refinement Calculus for Walt* — the
+  parent's title; the object's adjudicated name is the **focal-horizon
+  hierarchy** (FH-A2). Received verbatim, hand-delivered by Jason
+  2026-09-04 ("here is an idea to try with measurements"; "you're the
+  engineer in charge"); checksum-pinned, SHA-256 `892bc343…`; not a
+  courier dispatch; upload `DESIGN-walt-focal-horizon-sandwich-v0.1.md`
+  with `verify_walt_focal_horizon_sandwich_v0_1.py`, filed snake_case,
+  recorded not repaired. Written against merged PR #87 `a80b9829…`
+  (UP1a + U0b), exactly main at intake. One canonical refinement
+  hierarchy indexed by focal decisions: a lawful tail π below and the
+  world-revealed God tail G above, `L_k(B) ≤ Q(B) ≤ U_k(B)` with k the
+  number of focal decisions made exact, nesting to exact collapse at
+  `k ≥ h_f` (the focal depth); **action intervals** `[L_{a,k}, U_{a,k}]`,
+  **bar** `B_k`, **survivor set** `S_k`; Theorems 1–6 (lower and upper
+  validity and monotonicity, the interval, finite exact collapse, the
+  one-step God upper = the salvation-mask upper `max_a Pr(S_a)`, survivor
+  monotonicity); §18's exact-action criterion; §19 certified regret `Γ_k`;
+  §22's exact-mass form; §23's interruption rule; §25 continuation
+  substitution; gates FH1–FH8; the §38 report of record. Thread:
+  fixed-field L2 with no sampling anywhere in the hierarchy; the Ω×Θ lift
+  deferred and staying deferred.
+- **`walt/math/focal_horizon_sandwich_v0.1_intake.md`** — **the intake
+  companion and walt-math review** (maintained; `walt/briefs/BRIEF-FH0.md`)
+  + `verify_focal_horizon_sandwich_v0.1.py` (SHA-256 `7700a35e…`, scratch
+  tier). Verifier run twice at intake, exit 0 both (re-run 2026-09-12 on
+  this machine: `ALL CHECKS PASS`, 0.66 s, no `__pycache__` — it imports
+  only `fractions`). **Its printed "24 CHECK FAMILIES" is a literal, never
+  a count**: 31 asserts in 18 blocks, of which nine inside the exhaustive
+  sweep (4,096 Boolean payoff systems × 8 lower tails on a three-world
+  two-layer toy) are theorem checks, two post-sweep specimens are genuine
+  strictness witnesses, and seven are illustrations carrying no weight
+  (FH-A1). Every Part I empirical citation checked against the committed
+  records (`UP1A-REPORT.md` gate UC5, `horizon_run1.txt`, `MB1-REPORT.md`)
+  — all MATCH, two restated loosely and sharpened. The companion carries
+  **full proofs** (P0–P14) of Theorems 1–6, §18, §19, §22, §23, §25 and
+  delivers five propositions, restated in standing form in the rulings
+  file: **FH-God** (under a deterministic field the world-revealed
+  continuation G is terminal-exact, public-branch harmonic and focally
+  optimistic, hence Q ≤ G and U_0 ≡ G); **FH-int** (§23 is sound under the
+  INTERSECTION discipline, with a stored policy travelling with every
+  lower fact; resume ≡ uninterrupted); **FH-tie** (the survivor set is
+  exact iff every survivor has collapsed); **FH-cut** (on viewer-lead
+  uniform roots the U0b ply cut at 4m plays equals `U_{a,m−1}`: cut-4 =
+  `U_{a,0}`, cut-8 = `U_{a,1}`); **FH-last** (trick 7 forced ⇒ the
+  hierarchy is exact at k = 6 − T: trick-4 roots at k = 2, trick-3 at
+  k = 3). **Adjudicated same-day at FH-A1..A11** (`walt/CENSUS-RULINGS.md`
+  § "The focal-horizon adjudication (2026-09-04)"): intake accepted at
+  instrument tier, the verifier's count ruled (FH-A1); **"sandwich" is not
+  a citable object name** — hierarchy / interval / action interval / bar /
+  survivor set / focal depth adopted (FH-A2); the upper tail admissible by
+  FH-God and **the trivial upper 1 is a refusal, never a fact** (FH-A3);
+  the lower tail ruled — σ0 driving the viewer seat, its identity
+  including the contract, `lowest_first` gate-only (FH-A4); existing
+  instruments identified — U0's `GodUpper` IS `U_{a,0}`, `price_node`'s
+  upper IS G, Theorem 5 subsumes the queued U1 slice, FH-cut corrects the
+  orchestrator's "cut-8 is not `U_{a,1}`" (FH-A5); `h_f` ruled through the
+  same `decided_success` predicate the value recursions use, forced focal
+  nodes consuming a unit (FH-A6); `TieRule::LowestTileIndex` materializes
+  `π_k`, FH5 is the lower-side no-fusion gate (FH-A7); the anchors
+  CONFIRMED from `horizon_run1.txt` and **the answer deliberately not
+  pinned** — the law already says k = 1 cannot settle 2-1 at h8-t4 bids
+  36/39 because `U_{5-5,1} = 757‰ > Q_{2-1} = 750‰` (FH-A8);
+  interruption, preserved facts and the suffix identity — which must
+  include the posterior itself; record alone is the PiKey defect reborn —
+  ruled (FH-A9); non-goals binding, no live default change (FH-A10); FH1
+  lands first only as affordable-or-refuse (FH-A11). **No freeze was
+  issued** by this lineage; FH-A6/A7/A9 fix identity coordinates carried
+  in code — see [the freeze register](walt-math-freezes.md). **What came
+  of it, the same day** (branch `walt-fh`, commits `fc171e1f` FH3,
+  `8aae7c79` FH4, `b6de5a25` FH5): FH1 (`solver/focal_horizon.rs`, 10
+  gates, `walt/probes/factor_belief/focal_run0.txt`), CI1, FH2
+  (`solver/focal_ladder.rs`, 9 gates at landing plus a tenth from FH5,
+  `focal_ladder_run1.txt`), FH3 (the report of record over 33 (root,
+  contract) coordinates × k ≤ 3, `focal_run1.txt`, 4 anchor gates in
+  `walt/walt/tests/solver_focal_anchors.rs`), FH4 (independent audit,
+  PASS with one vocabulary BLOCK — a gate named with "sandwich" — fixed
+  before the PR), FH5 (post-audit fixes). The direction-changing
+  measurement (probe record, `walt/briefs/FH3-REPORT.md`): every live
+  trick-4 coordinate settles by k ≤ 2 (five at k = 0, six at k = 1 with
+  Γ ≤ 45‰, three at the k = 2 collapse); h8-t3 settles only at k = 3
+  (survivors 5/5/3/1, Γ 141/100/34/0‰); the two U0b ply-cut flips are
+  upper-side artifacts, never certified; and **at k ≥ 1 the residual
+  width is the tail's policy gap (Q − L 9–41‰ at trick 4, 12–33‰ at
+  trick 3), not the fusion price (U − Q 0–3‰ / 1–2‰)**. Costs as
+  findings: 3.82M facts and 19.4 GB peak RSS at h8-t3
+  ([[ladder-policy-store]]); `check.sh` 230 s → 308 s
+  ([[gate-corpus-trim]]). Jason's ruling the same day: **no new
+  mathematical parent until a consolidation slice lands** (`walt/MAP.md`
+  § "Next, in order"); the letter back to Pro is a DRAFT at
+  `walt/briefs/FH-RESPONSE-TO-PRO.md`, asking three questions — the
+  cheapest lawful tail and a tail-improvement ladder; σ0's sufficient
+  statistic of the record; the honest guarantee of the live decision at
+  tricks 1–3. Narrative: [walt-focal-horizon-era](walt-focal-horizon-era.md).
 
 ## 7. The pinned manifests
 
 The `.sha256` files under `walt/math/` are **pinned freeze artifacts** — never
 edited, superseded only by append-only re-issue.
 
-Only the six received parents below carry companion `.sha256` files; the
-M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
+Twelve `.sha256` files sit under `walt/math/` as of 2026-09-07: **nine
+received parents** carry a companion pin, and three are the GPU source
+manifests. The M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10,
+GT1-A18). All nine parent pins were re-verified byte-exact on 2026-09-12 on
+this machine (`cd walt && shasum -a 256 -c math/<name>.sha256` — the paths
+inside the files are relative to `walt/`; nine `OK`, in about a second).
 
 | File | What it pins | Fixed at |
 |---|---|---|
@@ -442,552 +749,173 @@ M2 and M3 rebriefs' hashes are **ruling-carried only** (GT1-A10, GT1-A18).
 | `targeted_level2_field_stability_v0.1.sha256` | The received level-2 field-stability parent's byte identity (`597d33c3…`) | the 2026-08-24 intake (second drop, same day) |
 | `counted_belief_sandwich_v0.1.sha256` | The received counted-belief parent's byte identity (`4d2dfbe0…`) | the 2026-08-30 intake |
 | `anytime_proof_state_score_v0.1.sha256` | The received anytime proof-state parent's byte identity (`7a8c60fb…`) | the 2026-08-31 intake |
+| `model_belief_base_player_v0.1.sha256` | The received model-belief parent's byte identity (`1ffabf86…`) | the 2026-09-01 intake (MB-A1) |
+| `salvation_complex_v0.1.sha256` | The received salvation-complex parent's byte identity (`eca69bd5…`) | the 2026-09-01 intake, same session (SC-A1) |
+| `focal_horizon_sandwich_v0.1.sha256` | The received focal-horizon parent's byte identity (`892bc343…`; re-hashed at intake, matches) | the 2026-09-04 intake (FH-A1) |
 
-## 8. Pending, and deliberately not indexed as landed
+The nine parent digests in full, as read from the `.sha256` files and matched
+against the parents on 2026-09-12 (verifier digests are in the companions and
+are *not* pinned by a `.sha256`):
 
-- **The calculated-evidence build — steps 2–8 executed, step 9 pending**
-  *(updated 2026-08-24, later the same day)*: the §22 program landed
-  through the shadow instrument and its calibration (`solver::evidence` /
-  `adaptive`, frozen policies, the decision controller, exact endpoints,
-  the step-7 shadow run, and `solver::calibrate` for step 8 — mains
-  `5baad99`/`bf432be`/`636d306`/`0794ff8`/`e5a5f52`). Step 8's gates —
-  the V5 cap-ladder law and per-fixed-pair E0 calibration — passed with
-  instrument records at `walt/probes/step8/`; the old player stays the
-  default regardless (CE-A7/§20.16), and the opt-in play mode those gates
-  were the precondition for is unbuilt. Step 9 (the level-2 probe as
-  detection layer) is next. Build narrative and instrument records:
-  [walt-calculated-evidence](walt-calculated-evidence.md).
-- **The field-swap build — two slices landed** *(updated 2026-08-24,
-  later the same day)*: slice 1 merged `solver::field` and
-  `solver::exposure` plus the `fieldswap` bin (main `ffdc002`, its L2-A6
-  slot satisfied by the step-7 merge) and ran the §21 step-5 fixed-policy
-  smoke (`walt/probes/fieldswap/README.md` — `FrozenPolicyExposure` tier
-  only, never root-action screening, L2-A4). Slice 2 (§21 steps 6–8, main
-  `ca0483d`) added the exposure rungs E0–E2, the exact split-reach route
-  E4, and the L2-T4 admissible screen in `solver::field_swap`, with
-  records at `walt/probes/fieldswap_screen/`. Still unbuilt: the exact
-  root optimizer the `ExactRoot` tier needs (§15.3), and the targeted
-  field-1 controller the rungs are inputs to.
-- **The Gran anchor reconstruction** — G1–G4 required the two Plunge
-  game records; the three screenshots are now archived with a manifest
-  (`~/data/texas-42/gran-anchors-2026-08-24/`, `MANIFEST.sha256`) and
-  the carded path needs **no seeds** — the "How it went" grid is the
-  complete deal, transcribed then rules-engine-validated. Until the
-  validated records are committed the screenshots remain discovery
-  artifacts (parent §1.4, L2-A6). Carded as
-  [[gran-anchor-reconstruction]].
-- **The counted-belief build — Slice A landed** *(2026-08-30, same day,
-  on Jason's word)*: `solver::root_interval` (root intervals, survivor
-  sets, the typed decision ladder, the §6 discovery/evaluation lock, the
-  mirror lower endpoint) plus `exposure::sampled_root_optimum` (the
-  pmake empirical optimum — CBS-A2's one green-field producer),
-  gates at `tests/solver_root_interval.rs` (6/6, incl. realized
-  L ≤ Q ≤ U against `exact_root_value` and the adjudicated-11/128
-  mirror sweep), instrument `bin/rootinterval.rs` with records at
-  `walt/probes/root_interval/` (h4-t6 settles to the exact optimum in
-  8 worlds; four of six receipt roots are exact ties, honestly
-  `UnresolvedRootSet`), and the Slice C design skeleton
-  `walt/FACTOR-BELIEF.md` (§56's second output — types, oracle trait,
-  gates; no implementation). The default player is untouched (CBS-A9).
-- **The counted-belief build — Slice C stage C0 landed** *(2026-08-30,
-  the following session)*: `solver::factor_belief` — the §43-identity
-  `FactorBelief`, the `ExactCoverOracle` contraction trait, and backend
-  zero (`FiberOracle` wrapping the shipped `FiberDp` for 0/1 factors,
-  per CBS-A6), with the Theorem 20.1 conditioning route and the §46
-  mass-conservation gate asserted at every contraction. Gates at
-  `tests/solver_factor_belief.rs` (7/7, incl. branch-mass parity with
-  complete-world enumeration under three fields and the two-table
-  Slice-D boundary refused by panic); instrument `bin/factorbelief.rs`
-  with records at `walt/probes/factor_belief/` — the §22 opening root
-  contracted to its exact branch table in 8.7 ms (trivial field) and
-  5.6 s (σ0 level-0 classification of all 116,280 hands, the C2 shape),
-  399,072,960 worlds never materialized, conservation exact. Register
-  `walt/FACTOR-BELIEF.md` updated with the build-time trait deviations.
-  The default player is untouched (CBS-A9).
-- **The counted-belief build — Slice B landed** *(2026-08-30, the same
-  session's next round)*: `solver::grammar` — §11's induced
-  `PolicyGrammar` over `SlicePolicy` sources (legal combination by
-  information state, never by hidden world — type-enforced), one walk
-  producing the §12 triple `free`/`gram`/`dev` with Theorem 9.1's
-  `free = max(gram, dev)` asserted at EVERY node, verdicts under the
-  decided-truncation quotient, lazy first-deviation witnesses (CBS-A4),
-  the grammar-room census, the `CountPreservation` safety source, and
-  `residual_empirical_max_upper` — the §8 identity made mechanical: the
-  sampled residual upper IS the full-class upper (off-sample deviation
-  realizes the unrestricted optimum inside the residual; Corollary 5.2
-  refuses anything smaller), so sampled partitioning tightens nothing
-  and genuine residual bounds are the exact side's (`dev` over the
-  fiber). Gates at `tests/solver_grammar.rs` (8/8, incl. nodewise
-  identity against `exact_root_value`, singleton-grammar == §6 replay
-  count, and the frozen sweep finding: the two-preference grammar
-  leaves NO exact counterexample at tricks 5–6 while the singleton
-  does); instrument `bin/grammarsplit.rs` with records at
-  `walt/probes/grammar_residual/` — root closure attained by G2/G3 on
-  all six fixtures, the §12 boxed exclusion realized exactly with
-  margin 1 (h8-t5: gram 71 / dev 70), and one true counterexample with
-  its depth-4 witness. Recorded deviation: the level-2/waking grammar
-  source of §45 awaits a `SlicePolicy`-shaped continuation; the σ0 mind
-  stands in. The default player is untouched (CBS-A9).
-- **The counted-belief build — stage C1 landed** *(2026-08-30, the same
-  session's next round)*: the cache study proper, with ZERO library
-  code added — the C0 contraction plus `FieldModel`'s insert-only cache
-  already classify once per information state; C1 is the gates and the
-  measurements. Four new gates at `tests/solver_factor_belief.rs`
-  (11/11): σ0 branch parity with the bundled one-ply oracle
-  (`solver::bundle`'s field-ply partition idiom at one ply) on ALL six
-  receipt fibers, with the two routes' caches asserted EQUAL AS MAPS —
-  the feasible root hands exactly, one action each; classification once
-  per state (a repeat classifies nothing; conditioning adds exactly the
-  zero-completion support hands, once); the §43 identity law — zero
-  sharing across focal candidates or roots, because the full key
-  carries the public history; and the opening root's 116,280 hands
-  classified by σ0 exactly once. Instrument: `factorbelief cache` mode,
-  record `walt/probes/factor_belief/cache_run1.txt` — §26 coordinates:
-  46 µs/hand first classification (5.36 s total at the opening), 200
-  ns/query repeat identity cost (23.3 ms, ×230), conditioning at the
-  voidless opening materializes 0 new states (pure table filtering),
-  cross-history hits exactly 0 of 36 — the honest negative that routes
-  classifier compression to Slice F's proven state reductions, never a
-  looser key. The default player is untouched (CBS-A9).
-- **The counted-belief build — stage C2 landed, Slice C complete**
-  *(2026-08-30, the same session's next round)*: the §46 opening-root
-  report, again with ZERO library code and no new gate — C2 is a REPORT
-  stage, and every invariant its run asserts is already gated (gate 10
-  carries the opening root's hand count, once-per-hand σ0
-  classification, repeat-is-pure-identity, and `Z_h = Σ_t Z_ht` over
-  399,072,960). New `factorbelief c2` mode, record
-  `walt/probes/factor_belief/c2_run1.txt`: all seven coordinates §46
-  requires reported separately from ONE run at the frozen h0-t1 root
-  under the σ0 `Level0 { n0 = 2 }` field — 116,280 acting-seat hands
-  (asserted); contraction 5,933 µs for the completion weights alone and
-  21,818 µs warm (weights plus full §43-key identity, zero
-  classifications); field classification 5,339,731 µs derived by
-  subtraction from the 5,361,549 µs cold pass, 45 µs/hand and 99% of
-  the bill; 20 distinct branch tiles; cache reuse ×245 at 187 ns/query;
-  memory as TWO figures kept apart — a DECLARED ACCOUNTING of
-  23,563,392 bytes for the action cache (88-byte entries, 262,144
-  buckets by the documented map growth policy, one control byte each,
-  plus the key's one-tile history Vec) beside a MEASURED 63,340,544-byte
-  maximum resident size under `/usr/bin/time -l` (agreeing to the byte
-  with the in-run `/bin/ps` reading at exit; peak footprint 62,390,680
-  bytes); conservation exact at 399,072,960. The memory coordinate C1
-  deferred is thereby discharged, with no estimate presented as a
-  measurement. Beyond the seven, §26 item 5: conditioning on the
-  heaviest branch (1-0, mass 125,370,960) leaves 36,530 of 116,280 hands
-  in support, 0 new states. `walt/FACTOR-BELIEF.md` now reads SLICE C
-  COMPLETE. The default player is untouched (CBS-A9). Still unbuilt:
-  Slices E–G; Slice D's recursion landed the same day (next entry).
-- **The counted-belief build — Slice D landed** *(2026-08-30, the same
-  session's next round)*: the general support contraction
-  (`SupportOracle` — §25.2's acting-hand loop generalized to
-  conditioned completions, walking explicit supports so backend zero's
-  two-table refusal stays intact as the C0 boundary) and the §23
-  factorized fixed-policy recursion (`viewer_success_mass` — the
-  viewer-objective success mass `M` with `V = M/Z` the exact integer
-  pair, §23 cleared of denominators by conservation, no rationals
-  anywhere). Five gates at `tests/solver_factor_recursion.rs`:
-  C0-domain extensional parity with backend zero (through the opening
-  root's contraction); surviving-world mass parity beyond one table,
-  with backend zero refusing at the boundary; the §47 value gate — the
-  recursion equal to the bundled walk (`bundled_set_outcomes`) on every
-  enumerable root × two frozen focal policies × the trivial and σ0
-  fields; and the every-node checker — mass equals the surviving-world
-  count and branch masses equal the world partition at EVERY node of
-  the recursion tree. One law discovered at depth: `condition` now
-  restricts its support walk to hands consistent with the public
-  record — such hands are provably zero-mass and their action
-  likelihood is undefined; σ0's type-enforced information-state
-  constructor caught the unlawful classification, and the filter is a
-  no-op at one ply, so C1's conditioning-support law is unchanged.
-  Instrument: `factorrecursion report`, record
-  `walt/probes/factor_belief/recursion_run1.txt` — parity on every row
-  including trick-4 roots (deepest: fiber 34,650, 16 post-root plies,
-  121,868 conditionings under σ0); honest negatives: the bundled walk
-  is faster at worlds/hands ≈ 3, and the recursion classifies
-  record-consistent zero-completion hands the bundled route never
-  meets — the contraction advantage remains the worlds-to-hands ratio
-  (3,432 at the opening), and the opening-root recursion is
-  deliberately not attempted. The default player is untouched
-  (CBS-A9). Slice E landed in a following round (next entry).
-- **The counted-belief build — Slice E landed** *(2026-08-30, the round
-  after Slice D)*: the §48 factorized grammar best response
-  (`grammar_success_mass` in `solver/factor_belief.rs`) — the §23
-  recursion with the focal case's single frozen action replaced by a
-  MAX over the grammar's actions, `M^G(B) = max_{t ∈ G(I)} M^G(B·t)`,
-  lawful on the cleared side because every focal child shares `Z(B)`
-  (a focal play changes no factor), with nodewise max equal to the §12
-  policy-class optimum `Q^G` by the cylinder-partition argument; one
-  new library function plus a stats carrier, per-root-action values
-  needing no separate producer (`Q^G_a` is the recursion after
-  `focal_play(a)`). Four gates at `tests/solver_factor_response.rs`:
-  per-action parity with Slice B's `exact_grammar_split` grammar
-  optimum under σ0 (the enumeration-side authority), singleton-grammar
-  collapse to the Slice D recursion, source dominance with the
-  constraint proved to bind via singleton grammars, and the every-node
-  checker with the grammar-max structure enumerated. The §48 fence
-  kept: nothing maximizes over the full action set, and no
-  argmax/policy is extracted (that needs a declared tie order — not a
-  Slice E claim). Instrument: `factorresponse report`, record
-  `walt/probes/factor_belief/response_run1.txt` — the finding is that
-  AT DEPTH THE MIX PAYS: at trick-4 roots the grammar optimum strictly
-  beats every source (h4-t4 trivial: `Q^G = Z = 34,650`, certain make,
-  against 34,170 for the best source; gaps 90–753 worlds of
-  make-mass), while at trick-5/6 roots it never exceeds the best
-  source and the two-source grammar saturates every reached undecided
-  state (every §12 verdict "closes", no deviating continuation
-  exists). Honest negative: the Slice B enumeration split answers
-  30–40× faster at worlds/hands ≈ 3 — the contraction advantage
-  remains the ratio, and the opening-root recursion stays not
-  attempted. The default player is untouched (CBS-A9). Slice F landed
-  in a following round (next entry).
-- **The counted-belief build — Slice F landed** *(2026-08-30, the round
-  after Slice E)*: the §49 consequence CEGAR
-  (`refine_to_action_exact` in `solver/factor_belief.rs`) — §28's
-  feature map `κ` as `ClassSignature` (the §49 starting vocabulary:
-  critical-tile membership, trump count/highest trump, led-suit count,
-  count-tile possession, current-winner/ruff possibility) partitioning
-  the acting seat's support at the field-classification bottleneck
-  (99% of the opening-root bill, per C2), with the §30 loop aggregating
-  action-uniform classes exactly and splitting the largest-mass
-  non-uniform class by a WITNESS PAIR whose lowest differing tile
-  enters the §31 critical set — termination ≤ 28 refinements because a
-  witnessed discriminator is provably outside the critical set. Four
-  gates at `tests/solver_factor_consequence.rs`: Theorem 30.1's
-  monotone narrowing with nested per-branch intervals `[L_t, U_t]`;
-  endpoint parity with `branch_masses` tile for tile; the witness
-  requirement re-derived independently (the field itself re-consulted
-  on hand-built records); and non-vacuity. Instrument: `factorcegar
-  report`, record `walt/probes/factor_belief/cegar_run1.txt` — the
-  two-sided finding: MASS CONCENTRATES BUT THE TAIL FRAGMENTS. At the
-  opening root under σ0, 513‰ of the 399,072,960-world posterior mass
-  is action-exact at 5,387 classes (21 hands/class) and 805‰ at 36,923
-  (3 hands/class), with max branch-interval width falling 828‰ → 81‰ of
-  Z — §51's success signal ("most posterior mass in action-exact
-  classes"); but ZERO residual costs full fragmentation to 116,280
-  singleton classes over 15 refinements — §51's falsifier for the last
-  slice of mass, and it is a property of the SAMPLED σ0 mind, not the
-  vocabulary (trivial-field endpoints on the same roots aggregate:
-  255/495, 246/330, 147/495 at trick 4). Read as design guidance, §49's
-  own measurement discipline wins: carry small residual as sound
-  per-branch intervals (gated to nest, so any budgeted stop is sound);
-  don't chase the action-exact endpoint. The instrument pays the full
-  per-hand classification bill (5.4 s at the opening; the 16-stage
-  refinement loop itself is 183 ms of partition arithmetic) and claims
-  representational structure only — the §29 class-verifier interface is
-  named, not built. `count_cell` stays deferred: a hand class is a
-  one-seat predicate `marginal` counts exactly. The default player is
-  untouched (CBS-A9). Slice G landed in a following round (next
-  entry).
-- **The counted-belief build — Slice G landed, the C→G ladder
-  complete** *(2026-08-30, the round after Slice F)*: the §50
-  integrated refinement controller (`refine_root` in
-  `solver/refine.rs`), unifying the ladder's authorities under Part
-  VIII — per legal root action one TYPED interval `[L_a, U_a]` (§42's
-  constructor discipline: sampled δ bounds carry their full Slice A
-  record, exact bounds carry integer masses over the shared root `Z`),
-  the bar `B = max_a L_a`, exclusion exactly when `U_a < B`, permanent
-  because lowers only rise and uppers only fall. Work items (the
-  buildable §33 subset): `SampledLower`/`SampledUpper` (Slice A's
-  frozen-policy witness and optimization-lock upper, each endpoint a
-  distinct `ScopedDelta` against a declared root risk scope),
-  `ExactFixed`/`ExactGrammar` (the Slice D/E factorized recursions as
-  exact lowers), `EscalateExact` (the §36 endpoint: the full-action-set
-  recursion `response_success_mass` — §48's fence lifted on §48's own
-  sequencing, gated to extensional parity with the bundled exact
-  authority `exposure::exact_root_value` at every gated root and
-  action, the C→G cross-representation capstone), and
-  `ConsequenceCensus` (carried precisely so §34 can refuse it: zero
-  declared root-width reduction at every bar). Scheduling is §35 —
-  best-case reduction of the declared decision-width scalar
-  `D = (|survivors| − 1) + Σ (U_a − B)` per declared integer forecast,
-  exact rationals cross-multiplied; budgets charge FORECASTS, never
-  wall time, so a run is a pure function of its inputs. Results:
-  `Settled` / `Equivalent` (deterministic point intervals at the bar) /
-  `Unresolved` (honest surviving set, NAMED fallback, never promoted —
-  §37.9), `DeltaQualified` whenever a sampled side was decisive. Four
-  gates at `tests/solver_factor_refine.rs` (escalation parity +
-  containment; the §37 invariant walked with independent recomputation
-  of every exact bound; §34 refusals + bytewise determinism;
-  starvation honesty + the δ ledger through
-  `assert_screen_risk_allocation`). Instrument: `factorrefine report`,
-  record `walt/probes/factor_belief/refine_run1.txt` — findings: the
-  exact ladder settles all ten gated roots (six SETTLED, four honest
-  exact EQUIVALENT ties), twice WITHOUT escalating the winner (h4-t6,
-  h4-t4: the winner's exact-fixed lower cleared every rival's
-  escalated point — §36's one-witness promise on trace); the sampled
-  tier settles small fibers before ANY exact recursion runs (h4-t6 at
-  64 work units against 420 exact-only; h8-t5 at 3,776 against
-  13,860), correctly δ-qualified, while at trick 4 its uppers are too
-  loose to prune and the exact ladder does the work; and at the
-  opening root h0-t1 the controller walks the affordability cliff
-  honestly — every exact item refused by its own declared forecast
-  (the §40 walls, labeled), fourteen sampled endpoints producing real
-  δ intervals over the 399,072,960-world fiber, UNRESOLVED returned
-  with all seven actions and risk 7/10 inside the declared 4/5 scope.
-  The controller manufactures no bound (§37.8); grammar/residual
-  uppers are not wired as a work item (before escalation the only
-  nontrivial uppers are the sampled ones); the existing controller
-  player remains the fallback surface, and the default player is
-  untouched (CBS-A9). The Part XI C→G program of
-  `counted_belief_sandwich_v0.1.md` is COMPLETE; beyond it sit the §29
-  class verifier, the unbuilt §33 producers, cross-root reuse, and —
-  before any default change — arena and conformance gates.
-- **The anytime proof-state build — Phases 0 and 2 landed** *(2026-08-31,
-  the same day as the intake, on Jason's word — "we go with your
-  approach")*: Phase 0 is **freeze 58** (the freeze register's
-  2026-08-31 addendum): `solver/refine.rs` as merged at `25b40d9` is
-  the semantically frozen **RefineV1** reference — no new fields,
-  variants, or work items ever, gates never weaken, the coming
-  proof-state core must reproduce it wherever scopes overlap and stays
-  removable. The adopted landing shape (Jason's protect-Walt instinct,
-  sharpened at the engineering call): in-crate additive modules, never
-  a sibling crate — authorities extended only BESIDE themselves behind
-  parity gates, protection living in gates-plus-freeze, not in
-  Cargo.toml. Phase 2 is `viewer_score_profile` in
-  `solver/factor_belief.rs` beside its D/E/G siblings — the §18
-  fixed-policy recursion carrying the exact 43-bin declaring-score
-  object (viewer-independent, bid-blind: one run = the whole
-  bid-threshold curve), walking past the decided cutoff to true
-  terminals (§18's caveat; the probe priced the whole curve at ~7–12%
-  extra wall at trick 4). Five gates
-  (`tests/solver_factor_profile.rs`): conservation + tail projection
-  both parities, the tail-sum identity, bid-blind contract reuse
-  against independent re-runs, the reuse boundary as a frozen specimen
-  (σ0 reads the bid — its settled/desperation branches — so h10-t6's
-  projection at 42 gives 12 where the exact evaluation gives 9: under
-  a bid-reading field re-pricing is a re-run), and entrywise
-  complete-world replay parity. Probe `factorprofile report`
-  (`profile_run1.txt`, all ten gated roots × two focals, no drops):
-  certain outcomes now carry their explanation (h12-t6's miss = exactly
-  20 points in every world, entirely inside the d = 10 rescue band);
-  the σ0 make-mass SPIKES exactly at the bid (445‰ at s = 30 on h8-t5
-  — the modeled mind's settled branch made visible in the score
-  domain); first §10/§11 rescue/fragile band masses on real roots.
-  Next on Jason's word: the §49 architecture spike (in-crate
-  `solver::proof_state`, open producer registry), then Phase 3
-  (contract projection + certified regret).
-- **The anytime proof-state build — the §49 spike PASSED** *(2026-08-31,
-  the round after Phases 0+2, on Jason's "move on to the next
-  step")*: `solver::proof_state` — a persistent, serializable,
-  identity-scoped proof state over one root with an OPEN producer
-  registry (the deliberate break from RefineV1's closed work-item
-  enum). Six gates prove all seven §49 requirements: top-state
-  soundness with bytewise serialize/resume (`walt-proof-state-v1`,
-  exact rationals, per-fact FNV-1a content hashes re-validated on
-  parse); RefineV1's endpoints imported as typed facts — sampled
-  endpoints keep their full ScopedDelta provenance, exact
-  fixed-policy lowers are executable, grammar/response optima are
-  proof-bar-only (the APS-A6 audit finding, now load-bearing) — with
-  closure reproducing the controller's survivors, exclusions, bar,
-  and typed result on every enumerable root under both ample
-  configurations; closure idempotent and insertion-order-independent
-  (facts are the ONLY stored authority — installed intervals, bars,
-  survivors, results are derived views, per the repo's derived-views
-  rule); §51 identity fences (any-coordinate mismatch rejects) and
-  malformed-value fences, with full round-trips; §41 closure-aware
-  derivation live — a score-profile fact projects to a deterministic
-  EXECUTABLE lower, `B_exec ≤ B_proof` asserted inside every closure;
-  and the open registry proven literally: a banked-floor structural
-  producer (§5: a banked contract makes every continuation) defined
-  in the TEST FILE closes a repriced root to the exact
-  Equivalent-at-1 tie with no best-response solve and no module edit.
-  The §37 assert earned its keep in construction — it rejected a
-  contradictory toy fixture in the gate's first draft. Verdict:
-  in-crate shape CONFIRMED, zero duplication pressure, module
-  deletable (nothing imports it but the crate root). Phase 1
-  fleshing and Phase 3 (contract projection + certified regret)
-  queued on Jason's word.
-- **The anytime proof-state build — Phase 3 landed** *(2026-08-31, the
-  round after the spike, on Jason's "go ahead with the next phase")*:
-  contract projection and certified regret. The closure carries the
-  §31 global upper `U* = max_a U_a` and `Γ = U* − B_exec` (vacuous
-  floor at zero executable work); `ProofState::recommend()` derives
-  the full §33 block — recommended action and policy, pmake floor,
-  global upper, Γ, declaring score floor/ceiling, the §7 residual
-  (exactly 0 for exact profiles), the §10/§11 d = 1 bands, proof
-  class, sampled-scope summary. Five gates
-  (`tests/solver_proof_regret.rs`): exact projection at independently
-  recomputed values; regret containment against the bundled authority
-  (`Q* ≤ U*`, `0 ≤ Q* − V(π̂) ≤ Γ`) before and after the RefineV1
-  import; Γ/U*/B_exec monotone under fact-by-fact refinement; the
-  grammar fence (non-executable lowers raise only the proof bar —
-  nothing executable, nothing recommended); bid-blind cross-contract
-  reuse (the σ0 boundary stays with the profile gates' frozen
-  specimen). Probe `proofreport report` (`proofreport_run1.txt`, seven
-  roots, 14.1 s): **certified regret ZERO far from certain make**
-  (h5-t6: floor = upper = 444‰ — optimality certainty and make
-  certainty split, on trace); **§30's gap made flesh** (h3-t4: the
-  settled best ACTION is 3-1 at Q = 350‰ while the best MATERIALIZED
-  policy starts 4-4 at floor 267‰, Γ = 83‰ — 3-1's naive continuation
-  prices below 4-4's, so pmake belongs to the policy, not the first
-  tile; the next §33 work item is Phase 6's argmax extraction);
-  certain outcomes certify Γ = 0 in both directions with their score
-  explanations on the same block. Remaining phases (1's work
-  frontier/solve goals, 4+ envelopes and covers) queued on Jason's
-  word; default player untouched throughout.
-- **The anytime proof-state build — Phase 6 landed** *(2026-08-31,
-  same day, on Jason's "phase 6 it is")*: §63 argmax extraction and
-  residual policy bounds — the answer to Phase 3's h3-t4 finding.
-  `extract_success_policy` returns the §48/§36 optimum WITH one
-  policy attaining it (the argmax DAG under the declared
-  lowest-tile-index tie rule, history-keyed, on the Slice B decided
-  quotient, a total `SlicePolicy` re-priced unchanged by the
-  fixed-policy evaluators; content-addressed id — one realizable
-  policy, never an envelope); `residual_split` computes the exact
-  `(M*, D)` residual pair (empty deviating class = `None`; hidden
-  nodes deviate in at least one branch via the cheapest-downgrade
-  rule); `solver::extraction::ExtractionProducer` is the first
-  shipped ProofProducer — extract, re-price, install, and the
-  executable bar meets the proof bar (§30's bridge). Six gates
-  (`tests/solver_extraction.rs`), two forced discoveries: RefineV1
-  settles on cross-action dominance so a settled root can keep the
-  WINNER'S vacuous upper (Γ honestly positive until a §36 upper fact
-  prices it — h4-t6 at 2/15), and Slice E's "two-source grammar ties
-  free at t5/t6" is structural saturation (≤ 2-tile focal states ⇒
-  the deviating class is literally empty). Probe `extractreport
-  report` (`extractreport_run1.txt`, 29.2 s): **h3-t4 Γ 83‰ → 0‰
-  exactly** — the 12,420-state DAG materializes 3-1's optimal
-  continuation, `B_exec` rises 267‰ → 350‰, and the recommendation
-  switches from 4-4 to 3-1 under the extracted content id; h8-t5 Γ
-  282‰ → 10‰; the two-source grammar ESCAPES on every h3-t4 action
-  (the residual proves where trick-4 grammar room is real). Phase 4
-  envelope cells and Phase 5 count-threat covers stay unbuilt (the
-  exact residual is its own tightest cover); remaining phases queued
-  on Jason's word; default player and RefineV1 untouched.
-- **The anytime proof-state build — Phase 1 landed** *(2026-08-31,
-  same day, on Jason's "phase 1 up next then!")*: the Part IX work
-  frontier (the §58 skeleton half was the §49 spike's).
-  `solver::frontier`: four typed solve goals with debts in their own
-  units (§39's fence — never one scalar), four deterministic work
-  items (baseline profile; §36 exact value keeping the §30
-  executable/proof-bar split; §63 targeted extraction; the §41 macro
-  `ExactValueSurvivors`, load-bearing from the first step — every
-  standalone exact upper is provably useless for U* while any other
-  upper is vacuous), a declared Z/3Z forecast cost model, and
-  `Frontier::advance` — refuse zero-potential (§34 as amended by
-  §41), buy best bound-per-cost, install through the fence, assert
-  the §42 law per purchase. Six gates
-  (`tests/solver_frontier.rs`) including refusal honesty
-  (hand-executing a refused item moves exactly nothing — the specimen
-  is §39's sentence inverted: exact values are unconditionally
-  irrelevant to the profile goal), §43 containment with
-  byte-identical deterministic replays, and §44
-  resume-equals-uninterrupted. Probe `frontierreport`
-  (`frontierreport_run1.txt`, 13.3 s): **goal separation is real
-  money** — h10-t6/h3-t5 certify Γ = 0 for 1Z while SelectAction
-  costs 7–10Z; **h3-t4 SelectAction settles at 16Z without buying any
-  extraction** (only the ε-goal pays for the DAG, then reads 3-1 at
-  Γ = 0); h4-t6 SelectAction is 5Z. One honest waste recorded: under
-  vacuous uppers the §42 bounds cannot rank extractions, so h3-t4's
-  ε-goal spent 28Z where uppers-first pays ~15Z (§43 verbatim: a poor
-  forecast wastes, never weakens; bound refinement pricing
-  upper-information value = future frontier work). Remaining: Phases
-  4/5 (envelopes, covers), 7 (laydowns), 8 (opening-root iterative
-  run), all on Jason's word; default player and RefineV1 untouched.
-- **The anytime proof-state build — Phases 4 + 5 landed** *(2026-08-31,
-  same day, on Jason's "go for 4/5 and if it fits, 7")*: the §61
-  score-aware residual Bellman and the §62 count-threat covers. Phase
-  4: `staged_response_interval`/`staged_policy_envelope` in
-  `solver::factor_belief` (the capped Slice F CEGAR replayed
-  prefix-stably at each path's first field decision; exact classes
-  merged by public action per §23 and recursed through the exact §36
-  response; unresolved mass attached as the §5 envelope — at an
-  undecided node the width IS the residual mass), the ample producer
-  in new `solver::residual`, the §54 `Fact::Envelope` (executable
-  lower + the first nonzero §7 contract-sensitive residual on the
-  recommendation), and the frontier's `ResidualInterval` item under
-  the §41 census law (potential nonzero exactly where closure can
-  consume an open interval; zero at the ε-goal's top-state stall; the
-  exact item dominates at the flat 3Z forecast — honest, the staged
-  item's cost advantage waits on Phase 8's staged cost model). Phase
-  5: `solver::covers` — `Fact::Cover` with the §13 resource
-  decomposition (the §5 remainder decomposes exactly, asserted) and a
-  verified movement bound from the new `declaring_score_range` walk;
-  closure derives the §10/§11 rescue-band upper through the named
-  incumbent's profile; no incumbent → decline → no number. Ten gates
-  green (`solver_residual.rs` incl. the §23 cellwise-max
-  counterexample rejected LIVE on h3-t4 — the fused per-class sum
-  strictly exceeds the lawful merged optimum of its own domain;
-  `solver_covers.rs`). Probe `bellmanreport` (15.7 s): the staircase
-  is a real anytime object (h3-t4 [145,606]‰ → exact in 5–6 monotone
-  stages); decided cells stage for free; h12-t6's cover certifies
-  V* = 0 for one range walk; h4-t6's range walk beats arithmetic by
-  one point with the 5-5 hazard visible at 134‰; §70's caveat live at
-  rich roots (first-generation covers vacuous where every resource is
-  contested — richer structural producers are the declared answer).
-  Remaining: Phases 7 (laydowns) and 8 (opening-root iterative run);
-  default player and RefineV1 untouched.
-- **The anytime proof-state build — Phase 7 landed** *(2026-08-31,
-  same day, the "7 can follow" half of Jason's go)*: the §16 typed
-  laydown hierarchy. `universal_viewer_success` (one Boolean walk,
-  three focal regimes — Fixed/Exists/All — under ∀σ; overlapping
-  could-play posteriors, per-seat relaxation of the world set:
-  certification-sound, possibly conservative); `solver::laydown` —
-  `classify_root` four-tier census (PolicyCertainMake IS
-  `viewer_success_mass = Z`), `LaydownProducer` installing only
-  deterministic facts (§64's no-sampled-route law, gated), §17
-  zero-cost closure as the walk's first line. Four gates green;
-  probe `laydownreport`: boss-chain control = TRUE Laydown in 1.49M
-  nodes / 0.37s, already-made in 3 decided reads, loose-boss refutes
-  fail-fast, and h10-t6 is a REAL receipt-root Laydown (witness 2-2).
-  Boundary: endgame instrument — opening-depth certificates need a
-  future structural producer. Remaining: Phase 8 (opening-root
-  iterative run) on Jason's word; default player and RefineV1
-  untouched.
-- **The doom census — the first post-program structural producer**
-  *(2026-09-01, Jason's "construct and then size the number of beating
-  arrangements" with explicit solve-it-your-way latitude)*:
-  counterexample mass as deterministic uppers `(Z − M_doom)/Z` — the
-  ∀-fail dual of the Phase 7 laydown hierarchy, the §70 falsifier's
-  answer. `solver::doom` — `universal_viewer_failure` (viewer-∀,
-  σ0-partitioned hidden branches, per-seat relaxation sound in the
-  certifying direction), `doom_census` (the §28/§49 signature
-  vocabulary over one to three hidden seats, exact oracle masses, §46
-  partition law; a declared punish-priority mode for rich roots),
-  `doom_enumeration` (singleton classes make the exact recursion a
-  world-aware make check — the per-world ground truth), and
-  `DoomCensusProducer` in the open §49 registry. Eight gates
-  (`solver_doom.rs`), incl. the loose-boss census meeting the exact
-  recursion EXACTLY with phantom escapes defeated by tile
-  conservation. Probe `doomreport`: the census recovers 809–1000‰ of
-  true doom on enumerable receipt roots (h12-t6 whole-fiber in one
-  decided read), and at h0-t1 certifies an honest ZERO diagnosed by
-  singleton God-checks — two hand-built crusher worlds and a
-  228-point stride grid all let the world-aware viewer make 30
-  against σ0 after the 0-0 lead. Doom-family uppers are floored at
-  the God make rate, ≈ 1 at this root: the openingreport plateau's
-  remaining Γ is the info-consistency price, purchasable by floor
-  work and info-consistency-aware uppers, never by counterexample
-  counting; the census's working domain is the endgame and in-play
-  middlegame, where every played hand eventually arrives.
-- **The anytime proof-state build — Phase 8 landed, THE PROGRAM IS
-  COMPLETE** *(2026-08-31/09-01, the "bring us home" go)*: the §65
-  opening-root iterative run. `solver::opening` —
-  `OpeningLadder::run_stop` executes the §65 steps in declared order
-  against one append-only proof state (sampled Slice A endpoints under
-  fresh per-stop δ scopes through the §48 adapter; the §39–§43
-  frontier pass at a declared Z budget; §62 covers with the decline
-  path live; the §49 census as a reported coordinate; the full panel
-  with the typed verdict). Five gates green incl. §67.5 resume ≡
-  uninterrupted byte for byte. Probe `openingreport` at h0-t1, ladder
-  p=16/64/256/512: bar 0→407→594→732‰, Γ 1000→592→405→267‰,
-  recommendation migrates 0-0→2-1→6-5; the sampled tier PLATEAUS at
-  p=512 (U* 1000→999‰, bar holds) — remaining Γ = policy gap + lock
-  looseness, structural work only; 29 opening refusals all
-  affordability; 56 facts / 10,439 bytes resumable; verdict honest
-  UNRESOLVED at ε=1/4 — §65's first target met as a certified-regret
-  recommendation (play 6-5, floor 732‰, ≤267‰ unclaimed). Articulated
-  next boundary (Jason's framing, recorded): the counterexample-mass
-  structural producer — counted failing sub-fibers as deterministic
-  uppers, the ∀-fail dual of Phase 7's laydowns and §70's "richer
-  structural producers" answer. Default player and RefineV1 untouched.
-- **x:018's reply** — awaiting Pro; the correspondence itself is indexed in
-  §2 above.
+```
+9b32b14ffddbb19af42a4c0ec90edc0bf3d27506ec98c7d5c5058222a1b9e8f8  calculated_evidence_v0.1.md
+597d33c3227f7ed4e7d6c9287cfdf0433c2777e59909e38f76543ddcc9509e58  targeted_level2_field_stability_v0.1.md
+4d2dfbe0fd9a5fab1d555cda9095ee93f6b82f0755545070008df1cb190eab7c  counted_belief_sandwich_v0.1.md
+7a8c60fba5a37f6d8d4451cbf55d478f9d7faaf401b13e724e98c261df9d2e8b  anytime_proof_state_score_v0.1.md
+1ffabf86e3d46d81c78627e712ecf8663f5cdf9075d19fca6f33038e7836c1bd  model_belief_base_player_v0.1.md
+eca69bd581d9d02466ea6dba29f4ba8fc19bf9e851639fd77d6741fac900604c  salvation_complex_v0.1.md
+892bc343f1ada12013b2bbd674d46962bc0256a55170aa48075fea17c2592f04  focal_horizon_sandwich_v0.1.md
+b9d93715bf65cc29b2bbb1ce6775d00070449a01ef2fe58f7b3bba2a2b7f9630  signed_pivotal_geometry_v0.1.md
+ee2e78da20eb7d087fb121f467a56bafc0179a45fb692ca0b938f4c4210b6a44  gpu_native_trick1_implementers_guide_v0.2.md
+```
+
+## 8. Where the builds are recorded, and what is genuinely pending
+
+Until 2026-09-12 this section was a chronological build log — Slices A–G,
+Phases 0–8 and the doom census, some 550 lines — that duplicated two owning
+records and had started to drift (it still listed the calculated-evidence
+build's "step 9 pending" and the field-swap slices as if current, and it
+carried one sentence later corrected on the record). The log was collapsed to
+pointers; the builds are recorded once each, on the pages and files below.
+
+| Build | Owning wiki page | Running engineering record |
+|---|---|---|
+| Calculated-evidence §22 program (steps 2–8 landed 2026-08-24; step 9, the level-2 probe as detection layer, became the targeted controller) and the two field-swap slices (`solver::field`, `solver::exposure`, `solver::field_swap`) | [walt-calculated-evidence](walt-calculated-evidence.md) | `walt/probes/step8/`, `walt/probes/fieldswap*/`, `walt/probes/l2_controller/` |
+| Counted-belief C→G ladder — Slices A, C0–C2, B, D, E, F, G, all 2026-08-30 | [walt-counted-belief-era](walt-counted-belief-era.md) § "The C→G ladder" | `walt/FACTOR-BELIEF.md`; gates `walt/walt/tests/solver_root_interval.rs`, `solver_factor_belief.rs`, `solver_grammar.rs`, `solver_factor_recursion.rs`, `solver_factor_response.rs`, `solver_factor_consequence.rs`, `solver_factor_refine.rs`; records `walt/probes/root_interval/`, `walt/probes/grammar_residual/`, `walt/probes/factor_belief/{c2,cache,recursion,response,cegar,refine}_run1.txt` |
+| Anytime proof-state Phases 0–8, 2026-08-31 → 09-01 (Phase 0 = **freeze 58**, the RefineV1 semantic freeze — [register](walt-math-freezes.md)) | same page § "The anytime proof-state program" | `walt/FACTOR-BELIEF.md`; `solver::{proof_state,extraction,frontier,residual,covers,laydown,opening}`; records `walt/probes/factor_belief/{profile,proofreport,extractreport,frontierreport,bellmanreport,laydownreport,openingreport}_run1.txt` |
+| Doom census, 2026-09-01 — the ∀-fail dual of the laydown hierarchy | same page § "The doom census" | `walt/FACTOR-BELIEF.md`; `solver::doom`, 8 gates `walt/walt/tests/solver_doom.rs`; record `walt/probes/factor_belief/doomreport_run1.txt` |
+| MB0 / σ1 repair / U0 / MB1 / UP0 / UP1a / U0b (2026-09-01 → 09-03, PRs #82–#87) and FH0–FH5 (2026-09-04) | [walt-focal-horizon-era](walt-focal-horizon-era.md) | `walt/FACTOR-BELIEF.md`, `walt/MAP.md`, `walt/briefs/*-REPORT.md`; records `walt/probes/factor_belief/{modelbelief,modelbelief_recursion,godgap,horizon,unified,focal,focal_ladder}_run*.txt` |
+| The Gran anchors G1–G3 and the waking seat's first real hand (2026-09-04), the 6-4 readout (2026-09-05) | [walt-gran-anchors](walt-gran-anchors.md) | `walt/probes/gran/README.md`, `walt/briefs/MORNING-2026-09-05.md` |
+| Every instrument by name, invocation and record path | [walt-instruments](walt-instruments.md) | — |
+
+### Two corrections the collapsed log carried, kept here so they are not lost
+
+Both are in `walt/DISCREPANCIES.md` under "Reconciled, not discrepancies"; the
+records they concern were not rewritten.
+
+- **The doom-census sentence (2026-09-01), corrected 2026-09-03.** The log's
+  doom entry — like the paragraph in `walt/FACTOR-BELIEF.md` it mirrored —
+  closed with: the opening root's remaining Γ ≈ 267‰ "is the info-consistency
+  price, purchasable by floor work and info-consistency-aware uppers, never by
+  counterexample counting." That outran what was established. The salvation
+  parent adjudicated the same session (SC-A1) says in its §8–§9 that a zero
+  doom census moves only `d_phys` and does **not** by itself show the remaining
+  gap is information-consistency price — the unclaimed mass is
+  `d_info + d_policy`, and zero doom does not distinguish them; U0 then typed
+  the opening root `UnknownGodGap` on all seven actions (SC-A4). **The 267‰ is
+  UNKNOWN in its split**: the sampled 512-world optimization lock's looseness
+  (the opening upper of 999‰ is that lock, not a doom bound) and the policy gap
+  are both live candidates, and U0b's later finding that the residual width at
+  trick 4 is mostly policy gap (FH3) points one way without settling the
+  opening. What stands from the census: it recovers 809–1000‰ of per-world doom
+  truth on enumerable receipt roots and certifies an honest zero at h0-t1
+  (probe record `doomreport_run1.txt`; 8 gates); its working domain is the
+  endgame and in-play middlegame.
+- **The salvation-complex companion counts two truth-vs-census divergence
+  points; the record holds three** (h8-t5 0-0 joins h4-t6 0-0 and h8-t5 5-3).
+  Nothing above it moves; the gate asserts all three. Details under the SC
+  entry in §6.
+
+### Genuinely pending, as of 2026-09-07 (`c00717d1`)
+
+- **x:018, the fee-correlation correspondence** (2026-08-14) — still awaiting
+  Pro's reply: no inbox file exists, `exchange/submission_count.txt` reads 24,
+  and the last harvested response is 024 (2026-08-25). Every parent since (CE,
+  L2, CBS, APS, MB, SC, FH) bypassed the courier ledger by hand delivery, so
+  the ledger's row 018 is the last open dispatch. Indexed in §2 above; the
+  covering/fractional-covering-dual question it asked may survive in the
+  salvation complex's §15 rational packing — unexamined.
+- **The three partnership-packet notes** (2026-09-05/07) — received, hashed by
+  their own manifests, never intaken: §9 below.
+- **The consolidation slice** — Jason, 2026-09-04: no new mathematical parent
+  until it lands ("follow through on what we have, then invest in a
+  simplification/unification attempt"). Its shape per `walt/MAP.md` § "Next,
+  in order": the σ0 read-key study first (does σ0's answer depend on the full
+  record? if not the cache key coarsens and every recursion gets 10–100×
+  cheaper), then retire `godgap.rs` (933 lines), `horizon.rs` (635) and
+  `extraction.rs` (135) as measurement scaffolding around one recursion, with
+  `refine.rs` (917, freeze 58) already frozen and removable and `doom.rs`
+  (1,048) staying as the God tail's engine — line counts re-measured
+  2026-09-12. Not started as of `c00717d1`. The letter to Pro,
+  `walt/briefs/FH-RESPONSE-TO-PRO.md`, is a DRAFT and had not been sent.
+- **The Lean side-project ledger exists as no file.** Four ruling families
+  accept obligations "into the Lean side-project ledger" — CBS-O1..O15 (CBS-A9),
+  PS-T1..T15 plus the 42-instance layer (APS-A9), MB-O1..O20 (MB-A8), the SC
+  §60 tranche (SC-A2) — but as of 2026-09-07 the identifiers occur only in
+  `walt/CENSUS-RULINGS.md`, the CBS parent and companion,
+  `walt/FACTOR-BELIEF.md`, `solver/factor_belief.rs`, and on the pages that
+  record the same absence (this page, [lean](lean.md) §10,
+  `kanban/backlog/lean-catchup.md` — the only card); nothing under `lean/`
+  names them (grep `CBS-O1`, measured 2026-09-13). Where the ledger lives is
+  an open question ([open questions](walt-math-open-questions.md)).
+- **Errata §9 and §4.3 still owed** under DS-A28(ii) since 2026-08-14 — the FT
+  and SR objects (FT-A27(i), SEP-A2) and Corollary E4.1. Verified unfiled at
+  `c00717d1`: the errata's headings end at §8.6. Until the amendment lands,
+  `walt/CENSUS-RULINGS.md` is the only authority for those objects
+  ([decision-sparse witnesses](walt-math-decision-sparse.md)).
+- **The Gran anchors** — records committed and validated 2026-09-04 (G1
+  complete; G2/G3 partial, roots determined as information sets only), but the
+  L2 intake companion's "Gran-anchor gap" note is not yet repointed at
+  `walt/probes/gran/` and seed provenance is unavailable for all three;
+  [[gran-anchor-reconstruction]] stays open on those two items. The branches
+  the 2026-09-05 readout reported as unmerged (`walt-gran`, `walt-o5`,
+  `walt-g1-l2`) are outside this page's scope — see
+  [walt-gran-anchors](walt-gran-anchors.md).
+- **Cards the builds left open:** [[ladder-policy-store]] (FH2's 3.82M facts
+  and 19.4 GB peak at h8-t3), [[gate-corpus-trim]] (`check.sh` at 308 s),
+  [[m2-receipt-reearn]] (the standing M2 receipt is old-layout evidence since
+  freeze 56 v2), and [[adaptive-sampling-intake]], still in `kanban/doing/`
+  although its done-when (parent filed, verified, adjudicated, applied with
+  gates) was met on 2026-08-24.
+
+## 9. Unintaken received notes — the partnership packet (MISSING intake)
+
+Three mathematical notes from Pro arrived **outside** `walt/math/` on
+2026-09-05 and 2026-09-07, inside the partnership experiment's packet
+(`experiments/partnership/packet/`). **None has an intake companion, a
+`.sha256` beside it under the `walt/math/` convention, a `CENSUS-RULINGS.md`
+family, or a wiki index other than this section.** Their tier is therefore
+below even the intaken corpus — EXPLORATORY and **UNADJUDICATED**: received
+text, of which this project has checked nothing beyond the byte identities
+below. They are indexed here because this page's convention is that every
+received parent gets a row, and because code already consumes their ideas:
+`walt/scheme/INFORMATION-PRICES.md` ("Finite information-price teacher",
+`policy_search::prices`) implements an information-price instrument in the
+IMPROVISATION/PATH vocabulary and cites no adjudication — a vocabulary and
+tier hazard the book should watch (the notes use "certificate" freely; walt's
+D3 rule does not bind received text, but it binds anything built from it).
+Digests are the packet's own manifests, re-verified 2026-09-12 on this machine.
+
+| Note | Path | Dated | Manifest digest (SHA-256) | Companions | Status |
+|---|---|---|---|---|---|
+| *Texas 42: A Unified Mathematical Core — review, corrections, and a falsifiable research program*, v0.1 (809 lines). Claims one response-vector core gives the same object to the belief, continuation, gluing, sampling, score and model-belief work; separates a semantic question (answered yes under explicit assumptions) from a cost question (not established) | `experiments/partnership/packet/texas42-partnership-launch-v0.1/math/TEXAS42-UNIFIED-REVIEW-v0.1.md` | 2026-09-05 | `daae4332685f178c79205c6007747ac5abc70196800220ddd0ac85be9d73f0de` | names `verify_unification.py` and `verification_results.json` — **neither is in the packet** (the SP-A11 precedent for an unfiled import would apply at intake) | **MISSING intake**; "certificate" 10 times |
+| *Texas 42: Integrate the Worlds, Compress the Information Price*, v0.1 (528 lines). A capacity-saturated inclusion–exclusion (covering-convolution) exact normalizer for the posterior — it reports all 116,280 acting-hand completion weights matching an independent enumeration of all 399,072,960 legal ordered deals — and a centred-potential information-price upper; states that the broader compression hypothesis "is not established here" | `…/math/TEXAS42-IMPROVISATION-v0.1.md` | 2026-09-05 | `867db550e11c868c3490c0b666ecfd2e0bef9d6675cab9b265d5c99c3e419528` | its checks are described in-text; none filed in the packet | **MISSING intake**; "certificate" 4 times; aimed at the moment-compilation question ([open questions](walt-math-open-questions.md) item 4) and at the same posterior CBS Theorem 20.1 already factorizes |
+| *From sampled decision tables to generalizing Scheme policies*, v0.1 (404 lines; inspected `main` at `08fad726`). Regret rather than teacher-label agreement as the training cost for a small lawful controller; information prices bound the alternatives it may have missed; three objects kept separate (actor, teacher/evaluator, information-price program) | `experiments/partnership/packet/texas42_relational_learning/PATH-TO-GENERALIZING-SCHEME-POLICIES-v0.1.md` | 2026-09-07 | `deff51a34075204e0af2240938c03305914d01941d0eb3d51ea21fbb144246e1` (per `manifest.json`) | `verify.py` (`dbb0265cdeb4836519cd08caaa97a9f3c3ecabf5e611e96b1a60ef7bdec400bc`), `results.json` (`60dfdaf96887ca35a326e83b5b0cb0e923b5615e5126a4bff1cc17e115fde8b8`), `partner-count-candidate.scheme` (`a44737b8c271ea2b0ec7acae3174a5cb87b2971f661cd1620c92ae45204e66e0`) | **MISSING intake**; "certificate" 2 times; referenced only by `experiments/partnership/RELATIONAL-LEARNING.md` |
+
+**What was checked, and what was not.** The launch packet's
+`MANIFEST.sha256` verifies 6/6 (`shasum -a 256 -c`, run from the packet
+directory, 2026-09-12: `EXPERIMENT-BRIEF.md`, `RESULTS-TEMPLATE.md`,
+`START-HERE.md`, both math notes, `tools/run_capped.py`); the relational
+packet's `manifest.json` entries match `shasum -a 256` of its four files
+(2026-09-12); `verify.py` runs under `python3 -I -B` in 0.42 s, exit 0,
+printing a JSON block that ends with `constant_action_maximum_regret 1/100`,
+and creates no `__pycache__`. That is a session observation of a received
+program, never a receipt (TRUST-01), and it verifies the note's own generic
+exact-rational examples — not any claim about walt. Nothing in the three notes
+has been step-checked, and none of their numbers is quotable anywhere in this
+wiki. An intake would follow the §0 convention exactly: verbatim copies under
+`walt/math/` with `.sha256` pins, a companion per note, the two missing
+UNIFIED-REVIEW companions retrieved or declared unfiled, a scratch-tier re-run,
+rulings, and an obligations ledger. Whether to intake them at all is Jason's
+call and is blocked in any case by the consolidation ruling of 2026-09-04.
+
+## Out of scope here, by the fence above
+
 - **Exchange 001–015, the informal 014 capture, and the 2026-08-03
   constellation-theory capture**
   (`exchange/informal/2026-08-03-domino-constellations-theory.md` with its
   `.REVIEW.md`, both UNADJUDICATED; the review memo inherits the capture's
-  tier) — out of scope here by the fence above; owned by
-  [claim-ledger](claim-ledger.md)'s informal-captures section and
-  `exchange/README.md`. A retained failed harvest
-  (`inbox/010-…FAILED.md`) likewise stays with the ledger's record.
+  tier) — owned by [claim-ledger](claim-ledger.md)'s informal-captures section
+  and `exchange/README.md`. A retained failed harvest (`inbox/010-…FAILED.md`)
+  likewise stays with the ledger's record. The exchange as a whole, dispatch
+  table 001–024, is the subject of [exchange](exchange.md).

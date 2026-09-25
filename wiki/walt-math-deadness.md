@@ -59,6 +59,36 @@ other number here, 108 becomes quotable as a result only by brief amendment
 adding it to a verifier receipt. SEP-A17's phrase "the 108-decision playbook" is
 **DISAMBIGUATED, not corrected**.
 
+### Decision-dead is not decided is not laydown (note added 2026-09-12)
+
+Since this page was written, two later programs introduced neighbours a reader
+will confuse with decision-deadness. All three are typed distinctions, not
+degrees of the same thing, and all three are EXPLORATORY tier.
+
+| Word | Definition | Where it lives | How it differs from decision-dead |
+|---|---|---|---|
+| **decision-dead** | N_vec = 1: every information-consistent policy from the node has the identical value function on the node's fiber, under the declared field and a declared valuation class (Lemma E8 fixes the class) | this page; detectors J-0 / J-1 / J-win; `CENSUS-RULINGS.md` § "Decision-deadness probe rulings" | the base notion — a statement about *all lawful policies at once*, certified without knowing the outcome |
+| **decided** | the pmake indicator is already forced by the banked score: `banked_T1 ≥ 30` forces the make indicator to 1 at every terminal below (posterior-independent), `banked_T0 > 12` forces it to 0, and `T1 + T0 = 42` at every terminal makes one cutoff fire (totality) — the P1 device of the 2026-08-17 pmake ruling (`walt/math/WALT-MATH-RULING-2026-08-17-pmake-and-the-walk-to-trick-1.md`, advisory, no ruling family) | the pmake ruling's P1; the `decided_success` predicate in the solver's value recursions; FH-A6, which makes the focal depth `h_f` count only *undecided* focal decisions through that same predicate (a node decided early has `h_f = 0` with plays remaining) | an arithmetic cutoff on the banked score, specific to the pmake objective and the contract. A decided node is trivially decision-dead *under pmake at that contract* (every policy's value is 0 or 1 in every world), but says nothing under trick differential — P3's key reduction is explicitly unsound there — and a node certified dead by J-0/J-1 need not be decided at all: J-0 fires where the score is still open |
+| **laydown** | a *root* whose make is certain under a stated quantifier: APS-A5's four result types with strictly separating quantifiers — `PolicyCertainMake` (∀ω, one π one σ), `AdversarialPolicyMake` (∀ω ∀σ), `ForcedMake` (∃π ∀ω ∀σ), **`Laydown`** (∀ω ∀π ∀σ — every legal continuation makes). Bare "laydown" is reserved for the universal type; the others are always named in full; a model-relative pmake = 1 is never called a laydown; no sampled route constructs any of the four | APS-A5 (`CENSUS-RULINGS.md` § "The anytime-proof-state adjudication (2026-08-31)"); built as Phase 7 (`solver::laydown`, `classify_root`, 4 gates; probe `laydownreport_run1.txt`) — see [walt-counted-belief-era](walt-counted-belief-era.md) | quantifies over the *field* σ as well as the policy, which nothing on this page does (Lemma J's verdicts are relative to a declared field — the scope fence below). A `Laydown` root is decision-dead under pmake for every field at once; `PolicyCertainMake` is not deadness at all — it names one policy that makes for certain, and other policies may fail |
+
+Two further neighbours from the same round, named so they are not mistaken for
+deadness either: **God-tightness** (salvation complex Theorem 7.1, SC-A1,
+2026-09-01: `d_info = 0`, one lawful policy realizes every saveable world — the
+seat's choice still matters, but no information price is paid; Phase 6's
+"structural saturation" at the t5/t6 receipt roots is this), and the **doom
+census** (2026-09-01, `solver::doom`, 8 gates in
+`walt/walt/tests/solver_doom.rs`): the ∀-fail dual of the laydown hierarchy,
+counting worlds where the world-aware viewer cannot make so that
+`(Z − M_doom)/Z` is a deterministic upper. A doomed world is dead in the sense
+that nothing the seat does saves it, which is a per-world fact, not a per-node
+one; the census's certified zero at the opening root (h0-t1) is an honest
+statement about `d_phys` only (`walt/DISCREPANCIES.md`, 2026-09-03 entry).
+
+The ladder on this page — forced ⊂ dead ⊂ dominant — is unchanged by any of
+this; none of the later rulings amended Lemma J, J(c′), E8 or the detectors
+(checked against every `CENSUS-RULINGS.md` section after 2026-08-13, as of
+2026-09-07).
+
 ---
 
 ## Lemma J — non-interference ⇒ decision-deadness, and when count survives

@@ -158,12 +158,30 @@ editing the packages.
 
 ## D15. rec audit vs generated `__pycache__`
 
-- Not a package conflict but an operational trap: running the rec verifiers creates
-  `verification/__pycache__`, after which `audit_package.py` **fails** its
-  "no transient Python files" check. On a clean tree it passes and reproduces
-  `AUDIT_OUTPUT.txt` exactly. **Resolution:** run the audit first or delete
-  `__pycache__` before auditing; note that the checked-in `ingest/` copies currently
-  contain `__pycache__` directories (not covered by the MANIFESTs). Confidence: **high**.
+- Not a package conflict but an operational trap: running the rec verifiers *in
+  place* with a default `python3` invocation writes `verification/__pycache__`, after
+  which `audit_package.py` **fails** its "no transient Python files" check
+  (`check_no_transients`, which rejects any `__pycache__` directory or `.pyc` file
+  anywhere in the package). On a clean tree it passes and reproduces
+  `AUDIT_OUTPUT.txt` exactly.
+- The checked-in `ingest/` tree is clean and always has been: the repository has never
+  tracked a `__pycache__` directory or `.pyc` file under `ingest/` (zero tracked paths
+  match `pycache`; `find ingest -name __pycache__` finds nothing at c00717d1; re-checked
+  2026-09-12). An earlier wording of this entry said the copies "currently contain"
+  such directories — that described a working tree after an in-place run, never the
+  repository, and is withdrawn. ([verification](verification.md) caveat 1 and
+  [FINDINGS](FINDINGS.md) §3 carry the same correction.)
+- **Resolution:** never run the verifiers in place. Run them from a copy
+  (`cp -r ingest/<package> /tmp/…`) or with `python3 -B` (which writes no bytecode);
+  either keeps the audit green. Measured 2026-09-13 on this machine (re-run of the
+  2026-09-12 measurement): rec package copied out of the tree,
+  `verify_foundation.py` / `verify_minimality_and_reachability.py` /
+  `verify_reduced_kernel.py` run with `python3 -B` in 4.6 s / 3.3 s / 8.2 s, all PASS
+  with every output line identical to the committed `VERIFICATION_OUTPUT.txt` (which
+  adds only its three per-script headers), zero `__pycache__` created, and
+  `audit_package.py` then PASS in 0.02 s reproducing `AUDIT_OUTPUT.txt` byte-for-byte
+  (255 claim IDs, 8 documents, 17 kernel markers); the rec `MANIFEST.sha256` verifies
+  14/14. Confidence: **high**.
 
 ## D16. Exchange-side SHA provenance blemishes (non-load-bearing)
 
@@ -192,3 +210,36 @@ per-block partials). REACH-17's floor is unaffected (floors need only membership
 not completeness), but any future reading of 001's "exactly" as slice-completeness
 would be wrong. **Resolution:** scope annotation; both integers stand at their own
 scopes. Confidence: **high**.
+
+## Mechanization status (which resolutions the kernel realizes)
+
+Tier: proof-assistant kernel bookkeeping as of commit d190b26 (2026-08-02), re-checked
+2026-09-12; map in [lean-row-index](lean-row-index.md). These are the places where a
+resolution above stopped being a wiki ruling and became a checked definition — none
+of them changes a corpus status.
+
+- **D1 (proof-irrelevant reachability) — realized.** PA-D10 `CertifiedState :=
+  {P // Reachable K v P}` with `ext`/`ext_iff` (`lean/Texas42/Reachability.lean`):
+  equality flows through the projection alone; the witness is propositional and
+  erasable. The identity-bearing certificate design of rec Exec §10/§25 has no Lean
+  counterpart, by design.
+- **D2 (derived views, not stored cells) — realized by construction.** `Cells.lean`
+  computes pool, allowed sets and capacities from the public record plus the viewer
+  hand (PA-C02), and `Play.lean` derives `tricksDone`/`scoredTiles` (TYPE-02); no
+  Lean structure stores a cell system beside the state it derives from. The total
+  well-formedness contract (TYPE-03) is PA-D02 `SupportNF.WellFormed`.
+- **D3 (vocabulary) — respected.** No Lean source under `lean/Texas42/` uses the
+  word "certificate" for an outer profile (grep 2026-09-12: no occurrence outside
+  the walt-facing trick-1 modules); the TYPE-01 objects are named `CertifiedState`
+  and "witness". The 46-bit outer language itself (REACH-11) is not mechanized
+  (PA-D18, priority 4).
+- **D5 (TRANS-08 dynamic sufficiency) — unchanged: not mechanized.** No `PA-` row
+  exists for any rec-only TRANS row; the confidence caveat above stands
+  ([support-dynamics](support-dynamics.md)).
+- **D7 (OPEN-01) — the COLLAPSE (x:003) is exchange tier, not kernel.** Nothing of
+  the reduced viewer kernel or future-equivalence quotient is in Lean
+  ([reduced-viewer-kernel](reduced-viewer-kernel.md)).
+- **D8 (ledger union) — the kernel side is v0.7-only.** The mechanization ledger
+  exists in v0.7 alone; rec's K0–K15 spine (its `60_PROOF_ASSISTANT_KERNEL.md`)
+  guides layering but carries no rows ([package-provenance](package-provenance.md)).
+- **D16/D17 — exchange-side; no kernel bearing.**

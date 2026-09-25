@@ -121,3 +121,40 @@ cross `T_edge ≥ 400`) and the fallback tile equals the live ordering's
 choice; determinism per information state; the route alphabet is six
 distinct labels with exactly three settled; the 28-ply ordinal
 allocation stays under δ_run. Run via `walt` CI (`ci/check.sh`).
+
+## Dated notes (added 2026-09-13; repository state as of 2026-09-07, `c00717d1`)
+
+- **#55 (a28ddcef, 2026-08-25) — the cached `FieldModel` in `act`.** The
+  speed campaign's two surgical levers touched this surface: `solver/act.rs`
+  (30 changed lines) caches the field model across a decision's frozen
+  candidates instead of rebuilding it per candidate, and `adaptive.rs`
+  gained the decided cutoff in the per-world replay. Gate
+  `tests/solver_field_cache.rs`; record `walt/probes/field_cache/README.md`
+  (`bench_2026-08-25.log`). Routes, knobs and the action policy above are
+  unchanged. The campaign's conclusion — the modeled minds are the bill,
+  the sharing levers are exhausted (bundled evaluator wall ≈ 1.04× after
+  #55) — is on `wiki/walt-calculated-evidence.md`.
+- **#83 (161b0195, 2026-09-02) — σ1-repair.** The Level1 sampler's empty
+  acceptance region was found and terminated and five copies of the sampler
+  were deduplicated (`briefs/BRIEF-SIGMA1-REPAIR.md`; gate
+  `tests/solver_sigma1_repair.rs` against the pre-repair oracle
+  `tests/data/sigma1_before_v1.txt`). It touched this register's code —
+  `solver/act.rs` (4 lines), `bin/controller_bridge.rs` (6) — and rewrote
+  the two table surfaces `bin/webtable.rs` and `bin/playtable.rs` (with
+  `walt_bridge.rs`, `playout.rs`, `divergence.rs` and both wasm APIs). The
+  argv/env contracts listed under *Surfaces* were not re-verified against
+  the post-#83 bins in this pass; read a bin's header before relying on a
+  flag.
+- **Cards are cited by `[[card-id]]`**, never by path (kanban convention;
+  paths change when a card moves). This register's card is
+  [[playable-controller-walt]], now under `kanban/done/`. Several probe
+  READMEs still cite moved paths (`kanban/doing/slice3-cancellation-ladder.md`,
+  `kanban/backlog/slice3-deferred-producers.md` — both now in `kanban/done/`);
+  resolve those by token.
+- **Default status unchanged.** The level-1 sampling-stack seat remains the
+  default everywhere (`SCENARIO-PLAYER.md` §9; `walt/MAP.md` row 10); this
+  controller is the variant (MAP row 10b), as are the waking seat
+  (`solver::waking`, #54, `probes/waking/`, `probes/gran/`) and the unified
+  player (`solver/unified.rs`, #86/#87). The partnership program's players
+  (`experiments/partnership/PLAYERS.md`) extend the sampling stack, not this
+  controller.

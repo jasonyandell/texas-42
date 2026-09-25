@@ -217,8 +217,16 @@ inspection, and every run asserts L ≤ Q^H wherever treatment H completes.
 
 ### Corollary E4.1 — the primal ceiling, and the exact negative
 
-*Filed in `CENSUS-RULINGS.md` § "Experiment E adjudication" with full proof; to
-be filed as errata §4.3 at the next errata amendment, per DS-A28(ii).*
+*Filed in `CENSUS-RULINGS.md` § "Experiment E adjudication: the separation
+probe (2026-08-13)" with full proof; to be filed as errata §4.3 at the next
+errata amendment, per DS-A28(ii). **Still unfiled as of 2026-09-07
+(`c00717d1`)**: the errata's headings end at §8.6 "Index addendum" and carry no
+§4.3 and no §9, so the rulings file is the only authority for this corollary's
+proof — and likewise for the FT/SR/FF/FC objects owed to errata §9 since
+FT-A27(i) and SEP-A2 (their sections: "The fusion tax: inbox 016 adjudicated",
+"The second rung: inbox 017 adjudicated", "The feature-fee audition", "The
+fee-correlation chapter", all 2026-08-14). The debt is listed on [received
+artifacts § 8](walt-math-intakes.md).*
 
 1. **(Ceiling.)** L_a ≤ Q^H_B(a) for every candidate set, with equality iff some
    candidate attains the lawful maximum.
@@ -349,6 +357,76 @@ part of what it says.
   fiber; a "cut" applied to worlds is a declared exclusion remnant and carries
   none of these guarantees.
 
+### What Theorems E6.3 and E6.4 became (dated note, 2026-09-12)
+
+The object of E6.3 — a fixed lawful policy's exact value below, a relaxation
+above, `L_a ≤ Q^H_B(a) ≤ U_a` per root action, with E6.4's rule that an action
+whose upper falls below another's lower is out — is the one object every later
+walt program carried, renamed as it grew. The lineage, each step EXPLORATORY
+and with its record:
+
+1. **E6.3 / E6.4 (errata §6, 2026-08-13)** — the separation test, built as the
+   S6 economy/separation probes under freezes 36/37 (see
+   [the track page](walt-decision-sparse.md)). Adjudicated name of E6.3:
+   "value sandwich" (audit T7).
+2. **CBS Theorem 2.1, survivor soundness (2026-08-30)** —
+   `walt/math/counted_belief_sandwich_v0.1.md` §2, adopted at CBS-A1..A3: on
+   the event that every input interval is valid, every optimal root action lies
+   in the survivor set `S_t = {a : U_a^{(t)} ≥ B_t}` where the **bar** is
+   `B_t = max_b L_b^{(t)}`; an action outside `S_t` is safely excluded, and a
+   singleton survivor set is the unique exact optimum. The per-action pair is
+   now the **root interval** `[L_a, U_a]`, and exclusion is **permanent**
+   because lowers only rise and uppers only fall (Slice G's `refine_root`,
+   `walt/walt/src/solver/refine.rs`, frozen as freeze 58; 4 gates in
+   `walt/walt/tests/solver_factor_refine.rs`). The intake recognized the
+   parent's Theorem 5.1 as x:024's Theorem M1/M2 restated over pmake — no new
+   statistics (CBS-A2).
+3. **APS certified regret (2026-08-31)** — `walt/math/anytime_proof_state_score_v0.1.md`
+   Part VII, adopted at APS-A6/A7: the bar splits into a **proof bar**
+   `B_proof` (max over every valid lower, grammar lowers included) and an
+   **executable bar** `B_exec` (max over lowers that carry a materialized
+   policy), `B_exec ≤ B_proof ≤ Q*`; **certified regret** `Γ = U* − B_exec`
+   bounds the recommended executable policy's pmake regret on the joint-validity
+   event, is monotone under refinement, and `Γ ≤ ε` certifies ε-optimality
+   under the declared field and belief. Built as Phase 3 (`recommend()`, 5
+   gates `walt/walt/tests/solver_proof_regret.rs`); the h3-t4 specimen — settled
+   action 3-1 at Q = 350‰ while the best materialized policy started 4-4 at
+   floor 267‰, Γ = 83‰, closed to Γ = 0‰ exactly by Phase 6's argmax extraction
+   — is probe record (`walt/probes/factor_belief/proofreport_run1.txt`,
+   `extractreport_run1.txt`).
+4. **The focal-horizon action interval (2026-09-04)** —
+   `walt/math/focal_horizon_sandwich_v0.1.md` §16–19, adopted at FH-A1..A11:
+   `[L_{a,k}, U_{a,k}]` indexed by `k`, the number of focal decisions made
+   exact, with bar `B_k`, survivor set `S_k`, `S_{k+1} ⊆ S_k` (Theorem 6),
+   exact collapse at `k ≥ h_f` (Theorem 4), and `Γ_k` non-increasing when no
+   fact is discarded (FH-A9). Proposition FH-tie gives the tie form of E6.4:
+   the survivor set is exact iff every survivor has collapsed
+   (`L_{a,k} = U_{a,k}`); until then it is a superset in which the exact best
+   always survives. The endpoints turned out to be existing instruments —
+   `U_{a,0}` is the God-gap census, `U_{a,1}` the salvation-mask upper, the
+   U0b ply cut is `U_{a,m−1}` on viewer-lead roots (FH-cut). Built as FH1–FH3
+   (`solver::focal_horizon`, `solver::focal_ladder`; record
+   `walt/probes/factor_belief/focal_run1.txt`; 4 anchor gates in
+   `walt/walt/tests/solver_focal_anchors.rs`).
+
+**The naming rule (CBS-A3, restated at FH-A2).** "Sandwich" is **not a citable
+object name** anywhere in walt: it collides with three adjudicated things — this
+page's Theorem E6.3 *value sandwich*, the **REFUTED** T1-A trick-1 *bounded
+sandwich*, and SP-A7. The objects are called **root interval**, **survivor
+set**, **focal-horizon hierarchy / interval / action interval**, **bar**,
+**focal depth**. Two uses survive and only two: Theorem E6.3's adjudicated name
+as a *theorem name* (this page keeps it), and a received parent's title when
+the title is being cited (`counted_belief_sandwich_v0.1.md`,
+`focal_horizon_sandwich_v0.1.md` are filenames, not object names). FH4's audit
+found one gate named with the word and it was renamed before the PR
+(`b6de5a25`, "containment, never 'sandwich' as a name"). "Certified regret" is
+an APS term of art and does not collide with the D3 ban on "certificate".
+
+The whole chain is narrated on [walt-counted-belief-era](walt-counted-belief-era.md)
+and [walt-focal-horizon-era](walt-focal-horizon-era.md); the pre-pivot results
+the E-series established are collected on
+[walt-pre-pivot-results](walt-pre-pivot-results.md).
+
 ---
 
 ## 8.3. Lemma E7 — when dominance travels (DS-A25)
@@ -380,8 +458,9 @@ one.
 - **DS-A14.** Every L is produced by a fixed-policy evaluator satisfying the
   DS-A27 invariant, asserted **structurally, not by inspection**, plus L ≤ Q^H
   wherever H completes. If a candidate is priced by any world-informed
-  evaluator, the number returned is an **upper** bound, the sandwich inverts,
-  and the test separates the wrong action with a proof that looks valid.
+  evaluator, the number returned is an **upper** bound, the E6.3 chain
+  inverts, and the test separates the wrong action with a proof that looks
+  valid.
 - **DS-A15.** Seeds are heuristics for *finding* witnesses; witnesses are
   validated by exact evaluation, always. A library carries policies, not
   verdicts. "This policy was dominant at coordinate X" has no status at

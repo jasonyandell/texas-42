@@ -85,6 +85,46 @@ as **THEOREM rows** citing Lemma R(c)–(d) and are **not run**. A run returning
 anything else for them is a stop-and-report bug, because Lemma R(c) says what it
 must return.
 
+**Dated note (2026-09-12) — the "factorised representation" that Corollary
+E5.2 leaves open now has a built instance, and it is not a compression of
+dim V^val.** Corollary E5.2 on [the decision-sparse
+page](walt-math-decision-sparse.md#5-the-scheme-mass-closure-is-degenerate-in-this-game-5-ds-a5-ds-a20-ds-a21)
+narrows the E5 negative to "atom-mass *linear* filtering is noncompressive on
+this carrier" and lists what it does *not* rule out, among them "a factorised
+representation". The counted-belief parent supplied one. **CBS Theorem 20.1
+(seat-factor posterior closure)**, `walt/math/counted_belief_sandwich_v0.1.md`
+§20, adopted at CBS-A6 (2026-08-30, `CENSUS-RULINGS.md` § "The
+counted-belief-sandwich adjudication"): conditioned on the public history h,
+the exact posterior's unnormalized weight is `1{H covers U} · Π_s φ_{s,h}(H_s)`
+— a product of seat-local root-hand factors coupled only by the disjoint-cover
+constraint — under five declared boundaries, the binding one being that every
+field and belief must be seat-local (any cross-seat coupling voids the closure
+until it is represented as explicit additional factors, never silently
+projected). Built as Slice C (2026-08-30, `solver::factor_belief`, C0–C2): the
+opening root h0-t1 with 399,072,960 worlds = C(21,7) · C(14,7) = 116,280 ×
+3,432 was contracted to its exact branch table through the **116,280
+acting-seat hands**, no world ever materialized, conservation `Z_h = Σ_t Z_ht`
+asserted over 399,072,960 — gate-pinned in `walt/walt/tests/solver_factor_belief.rs`
+(11 gates, including the opening root's hand count and once-per-hand σ0
+classification); the timings (8.7 ms under the trivial field, 5.36 s under σ0,
+99% of it per-hand classification) are probe record,
+`walt/probes/factor_belief/c2_run1.txt`. Narrative on
+[walt-counted-belief-era](walt-counted-belief-era.md) § "The C→G ladder";
+running record `walt/FACTOR-BELIEF.md`.
+
+The typing matters. 116,280 is a **representational count** — the number of
+hands the acting seat's factor must be classified over — not a dimension of any
+family of continuation tests and not a coarser atom algebra. Lemma R(c) and
+Proposition E5 stand exactly as stated: the fiber is still |X| points, the
+predictive dimension of any constant-seeded closure is still |X|, and nothing
+about the factorization lowers dim V^val. What the factorization changes is
+*which object the solver carries* — a seat-local factor per hidden seat instead
+of a vector over worlds — which is E5.2's "change of target" made concrete.
+Read it beside the R-A23 fence below: "no dimension is quoted for the opening"
+remains true after Slice C; what the opening root has is an exact branch table
+computed through a representation, and the price of that representation is the
+per-hand classification bill, measured, not a rank.
+
 ---
 
 ## Lemma G — backward pruning: what it preserves and what it destroys
@@ -256,4 +296,10 @@ uniquely optimal for some belief, so they are one object under two names.
   licenses no runtime or tractability claim of any kind.** Moment compilation is
   a separate, unmeasured experiment, and a small dimension whose moments require
   enumerating the fiber solves nothing. Numbers are coordinate-relative and are
-  never quoted for the opening or for any grade not measured.
+  never quoted for the opening or for any grade not measured. *(2026-09-12:
+  the opening-root count 116,280 of the dated note under Lemma R is a
+  representational count under CBS-A6, not a predictive dimension; this fence
+  is unchanged by it. The moment-compilation experiment it names is still
+  unmeasured; an unadjudicated received note proposes an exact
+  inclusion–exclusion normalizer aimed at it — see
+  [received artifacts § 9](walt-math-intakes.md).)*

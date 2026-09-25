@@ -8,8 +8,9 @@ nothing here is a receipt or a claim.
 > defeated rob decisively (≈6.5σ). From rob's exact window onward — identical
 > mid-hand positions, both making and defending — the two are **statistically
 > indistinguishable**. Together the two results localize the entire full-hand
-> deficit to the first tricks, which rob currently plays with scaffolding that
-> was never intended to survive (see [directions](directions.md)). This is **not
+> deficit to the first tricks, which rob plays with an **exact one-trick window
+> and a banked-points leaf** — exact but myopic by budget, not a heuristic
+> (see "What the pair of results pins down" and [directions](directions.md)). This is **not
 > a wall-clearing** — [lineage](../lineage.md) requires *beating* the champion
 > for a demonstrated strategic reason. It is first contact, and the exact solver
 > did not lose it.
@@ -74,10 +75,40 @@ Artifacts (mk5 side, local): driver `arena/midhand_eval.py` (mk5 commit
 The full-hand deficit does **not** come from the exact solve: from trick 3
 onward, best-response-over-the-exact-fiber matches the champion on identical
 positions, on offense and defense alike. The deficit accumulates entirely in
-tricks 1–2(–3) — which rob currently plays with a convenience stand-in (a fast
-evaluator jammed into the opening to make full games tractable) that is
-explicitly **not** part of rob-proper and is slated for replacement, not tuning
-([directions](directions.md)). Nothing the mathematics certifies was outplayed.
+tricks 1–2(–3). What rob plays there is not a heuristic: it is **an exact
+one-trick window with a banked-points leaf**. Under the normative budget
+B = 2²⁸ (BRIEF_PLAYER_01 §7, amended 2026-07-28) the window depth is H = 1 at
+trick 1 and H ∈ {1, 2, 3} at trick 2 (the receipt's t=1 histogram is 85/23/0,
+`r_pos_schedule`), full depth from the third trick on; within the window every
+fiber world is visited, σ is applied exactly, and the frontier leaf is the banked
+team points and nothing else (INV-P7 — one unit variant, no tunable term). The
+solve is exact; only its horizon is short. This is the *window rent* the brief
+registered up front ([rob](../rob.md) §7), characterised by the B/2 and 2B
+ablation row rather than tuned. Nothing the mathematics certifies was outplayed.
+
+*Correction of the 2026-07-30 wording (2026-09-12).* This page and
+[directions](directions.md) originally called the opening a "convenience
+stand-in" and "a fast evaluator jammed into the opening", "slated for
+replacement, not tuning". The first phrase misdescribes the mechanism (it is
+the counting engine at window 1, exact by construction); the second never came
+true — after the 2026-08-17 pivot nobody replaced rob's opening, because
+[walt](../walt.md) superseded rob as the player instead (see the sequel below).
+The original claims are kept in the version history; the direction they pointed
+is mapped at the foot of [directions](directions.md).
+
+## The sequel — the same champion, the same protocol, walt (2026-08-17)
+
+Field tier, like everything on this page, and owned by [walt-seat-play](../walt-seat-play.md);
+recorded here so the two encounters are read beside their consequence. Eighteen days after
+first contact, `walt_bridge` — speaking the same line protocol as `rob_bridge`, zero arena
+changes, ~15k decisions rules-cross-checked with zero divergences — seated the level-1 walt
+against E[Q] n=10 under the same dropped-30, 3 × 384-game protocol. **walt 630/1152 games
+(54.7 %), McNemar z = +6.28 over 6,015 paired contracts; every seed's mark-margin CI excludes
+zero.** The signature was the opposite of rob's Points-lens play: walt loses ~4.7 points per
+hand and wins the marks — its pmake objective visible in data. Record:
+`walt/probes/m3/arena_results_2026-08-17.txt` (with its own honesty notes: a 4-game pilot that
+pointed the other way; one unresolved forensic). Exploratory arena outcome; the wall's
+"demonstrated strategic reason" is deliberately not ruled ([lineage](../lineage.md)).
 
 ## Caveats, all of them
 
@@ -94,3 +125,7 @@ explicitly **not** part of rob-proper and is slated for replacement, not tuning
   opponent/evaluation model* — the encounters measure that model as much as the
   solve.
 - All numbers computed by mk5 arena code, not by certified Rust. Field tier.
+- The "~180,000+ decisions, zero divergences" conformance figure is recorded
+  only in this area's prose; no log or artifact in this repository pins it, and
+  the mk5-side raw results directories were not located in the 2026-09-12 check
+  ([Field Home](Home.md), provenance convention).

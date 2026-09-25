@@ -90,3 +90,36 @@ evidence-rich mechanical state deriving `N`, or reduced kernel retaining `N` and
 shedding provenance — is exact; **storing both as independent authorities is
 forbidden** (this sentence is rec agreeing with v0.7's derived-view repair;
 [discrepancies D2](discrepancies.md)).
+
+## Mechanization status (proof-assistant kernel tier)
+
+Rows are **v0.7** `65_MECHANIZATION_LEDGER.md` `PA-` rows (priority in parentheses);
+"proved" = a declaration under `lean/Texas42/` checked by the Lean kernel over at most
+`propext`/`Classical.choice`/`Quot.sound`, with no `sorry`, `native_decide` or local
+axiom (grep re-verified 2026-09-12), as of commit d190b26 (2026-08-02; all 42
+priority-0 rows closed). Map: [lean-row-index](lean-row-index.md). A kernel theorem
+never promotes a corpus status; rob receipts are conformance evidence, never a status
+change; the OPEN-01 COLLAPSE (x:003) is **exchange-adjudicated tier — external, not a
+kernel proof** and stays labelled so.
+
+**PLAY-12 through PLAY-17, QUO-09 through QUO-11, FAC-02 and the rec §15
+factorization are not mechanized.** All are rec-only rows with **no `PA-` row** in
+the v0.7 ledger (which predates rec's mathematics); rec's `60_PROOF_ASSISTANT_KERNEL.md`
+lists them as spine sections **K12 (Folded play/support kernel)** and **K14
+(Future-equivalence minimum)**, for which no Lean declaration exists. [FINDINGS](FINDINGS.md)
+§6 flags PLAY-17's utility-accumulator interface ("supplies exactly the utility
+residue not represented as transition reward") as the boundary where double-counting
+bugs live — a prose proof composing four congruences, unmechanized.
+
+| Object on this page | Ledger row (priority) | Kernel status (d190b26) | Declaration (`lean/Texas42/`) |
+|---|---|---|---|
+| The objective reduced play state the fold reduces — hands, leader, trick prefix, banked scores, contract; `tricksDone` and `scoredTiles` **derived**, never stored (TYPE-02) | PA-B07, PA-B08, PA-B09, PA-B10 (0) | **proved** (legal set; invariant-preserving step; seven tricks, 28 plays, 42 points) | `Play.lean` `PlayState`, `:359` `inv_step`, `:559` `terminal_scores` |
+| `N`, the minimal exact support normal form (the kernel's third component) | PA-D01..D05 (0) | **proved** | `NormalForm.lean:1423` `fiber_eq_iff_totalNF_eq` |
+| Hidden-action acceptance and exact support transition (the typed transitions) | PA-C09, PA-C10 (0) | **proved** | `Cells.lean:1075`, `:717` |
+| PLAY-12/13 current-trick fold `χ = (q, r, w, z)`, chain ≤ 13, six pending values | none (rec K12) | **not mechanized**; rob `r_alg_competitive_ordinal` "max 13" conformance; `verify_reduced_kernel.py` "folded trick: 737,100 trick cases; 2,211,300 sequential updates" re-run 2026-09-12, identical | — |
+| PLAY-14 actor from capacities (84 shapes); PLAY-15/16 score recovery (3,132 prefixes), utility-relative residue | none (rec K12) | **not mechanized** | — |
+| PLAY-17 / FAC-02 reduced viewer kernel `K = (δ, H_m, N, τ, α_U)` | none (rec K12) | **not mechanized** | — |
+| QUO-01 / PLAY-07 physical Markov congruence (the reduced play state is Markov for the hand) | PA-B12 (1) | **open** | — |
+| QUO-09/10/11 mechanical Myhill–Nerode future equivalence (5,898 machines / 17,560 pairs) | none (rec K14) | **not mechanized** | — |
+| OPEN-01 COLLAPSE: `K` strictly finer than the future-equivalence quotient (dead-cut lemma) | exchange tier x:003; no row | **not a kernel proof**; not reproduced by rob either (a slice-03 regression target, [rob-slices](rob-slices.md)) | — |
+| "Storing both authorities is forbidden" (D2) | design discipline | realized by construction: `Cells.lean` computes cells as derived views of the public record, never as fields | `Cells.lean` module docstring |
