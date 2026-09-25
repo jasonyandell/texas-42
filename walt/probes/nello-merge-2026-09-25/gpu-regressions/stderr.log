@@ -1,0 +1,12 @@
+   Compiling num-integer v0.1.47
+   Compiling num-bigint v0.4.8
+   Compiling num-rational v0.4.2
+   Compiling rob-core v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/rob/crates/core)
+   Compiling walt v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt)
+   Compiling rob-player v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/rob/crates/player)
+   Compiling rob-verify v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/rob/crates/verify)
+   Compiling walt-gpu-ref v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-gpu-ref)
+    Finished `release` profile [optimized] target(s) in 6.53s
+     Running tests/m1.rs (walt/target/release/deps/m1-d08087763edcde87)
+     Running tests/prose_bridge.rs (walt/target/release/deps/prose_bridge-ed70d6f949647664)
+     Running tests/same_context.rs (walt/target/release/deps/same_context-7db7cdb12b5d6e3f)

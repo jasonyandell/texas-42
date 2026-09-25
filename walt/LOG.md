@@ -1070,3 +1070,21 @@ survey survive saves; the shared play and partner rollout carry the actual bid.
 Independent replay of higher point and marks links agrees with Plunge. The old
 full counterfactual examiner remains explicitly bid-30-only. Reproduction and
 receipts: `walt-player/README.md`, `/Users/jason/data/texas-42/regular-bidding/`.
+
+
+## 2026-09-25 — Nel-O research synthesis and merge preparation
+
+EXPLORATORY. [The Nel-O chapter](../wiki/walt-nello.md) reconciles the
+three-active-seat contract with the original doubles-suit algebra, the
+40/160/640/2k/10k/100k Ruby sample ladder, the concrete discard vulnerability,
+and retained-counterexample replanning. It preserves the mixed held-out panel,
+the frozen plans' off-tree L0 coverage limitation, and the distinction between
+policy failure, singleton fixed-field doom, and certified probability mass.
+The raw sample-ladder records were recovered from the original research worktree;
+both ladder and counterexample summaries reproduce byte for byte from raw data.
+
+Merge preparation keeps the mechanics in PR #90 and counterexamples/research
+in dependent PR #96, updates both over current main's wiki rewrite, and retains
+the current 350-world / 540-candidate / 4.2-second preview allocation. The
+[readiness record](NELLO-MERGE-READINESS.md) owns fresh checks and remaining scope.
+No claim-tier status changes, production publication or new strength result.

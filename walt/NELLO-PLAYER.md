@@ -94,6 +94,10 @@ strength result. A local browser smoke check also passed ordinary bidding, three
 
 ## Counterexample research
 
+The [wiki synthesis](../wiki/walt-nello.md) connects the sample ladder, tactical
+failures, doom semantics and held-out limitations. Current integration checks
+and merge order are in [merge readiness](NELLO-MERGE-READINESS.md).
+
 The [2026-09-22 counterexample probe](probes/nello-counterexample-2026-09-22/REPORT.md)
 retains sampled failure witnesses, jointly replans candidates, and adapts the
 singleton fixed-field doom question to Nel-O. It demonstrates a 100% tie being

@@ -1,0 +1,102 @@
+
+running 14 tests
+test effective_incidence_sizes_by_declaration ... ok
+test count_decoration_totals_35_and_a_hand_totals_42 ... ok
+test every_natural_incidence_set_has_seven_tiles ... ok
+test led_context_is_a_context_the_tile_follows ... ok
+test every_precomputed_trick_key_matches_the_direct_rule_algebra ... ok
+test legality_follows_when_able_and_sloughs_otherwise ... ok
+test seats_and_teams ... ok
+test seven_doubles_and_twenty_one_mixed ... ok
+test there_are_nine_straight_declarations ... ok
+test universe_has_28_dominoes ... ok
+test beats_and_threat_are_consistent_with_the_trick_key ... ok
+test unbeatable_leads_by_declaration ... ok
+test ranks_are_injective_within_every_nonzero_tier ... ok
+test every_four_tile_trick_has_a_unique_winner ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 19 tests
+test frames_reject_incoherent_history_and_do_not_invent_played_tiles ... ok
+test answer_multiplicity_is_not_a_probability_distribution ... ok
+test examples_parse_compile_and_roundtrip ... ok
+test certainty_does_not_confuse_existence_with_identity ... ok
+test declared_public_residue_drives_partial_trick_queries ... ok
+test equality_patterns_are_complete_and_quotient_before_injective_binding ... ok
+test syntax_and_type_errors_are_refused_before_evaluation ... ok
+test extension_registry_freezes_semantics_and_enforces_information_access ... ok
+test duplicate_worlds_merge_but_bad_measures_and_caps_are_refused ... ok
+test answer_equivalence_is_stronger_than_boolean_equivalence ... ok
+test undefined_is_not_false_and_never_satisfies_negation ... ok
+test empty_fix_false_empty_case_true_and_hidden_witnesses_are_existential ... ok
+test conditioning_uses_events_and_exact_likelihoods_transactionally ... ok
+test zero_weight_worlds_do_not_affect_belief_certainty ... ok
+test work_exhaustion_refuses_a_partial_query_or_summary ... ok
+test overlapping_branches_and_internal_witnesses_do_not_multiply_mass ... ok
+test mastery_beating_and_negative_joins_match_direct_set_queries ... ok
+test joins_match_direct_relations_on_every_world_under_all_nine_declarations ... ok
+test receipt_cli_queries_conditions_and_refuses_without_partial_reports ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+
+running 5 tests
+test expired_deadline_refuses_the_whole_vector ... ok
+test aborted_bounded_choice_never_enters_policy_cache ... ok
+test counted_void_record_and_external_cancellation_keep_dice_values_sound ... ok
+test bounded_l0_choice_matches_complete_fixed_comparison ... ok
+test matches_original_dice_for_partial_tricks_and_sample_id_multiplicity ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 2 tests
+test transfer_rejects_incompatible_or_malformed_contexts ... ok
+test equivalent_boundaries_reuse_identical_policies_at_every_partial_trick ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 7 tests
+test equal_tuples_freeze_to_equal_policy_ids_and_the_label_names_the_id ... ok
+test every_freeze_tuple_field_change_produces_a_new_policy_id ... ok
+test discovery_streams_are_domain_separated_and_derive_from_the_information_state_alone ... ok
+test hidden_worlds_with_identical_focal_information_materialize_the_identical_action ... ok
+test evaluate_pair_accepts_frozen_policies_and_walks_the_identical_stream ... ok
+test the_cache_extends_on_new_states_and_never_changes_a_defined_action ... ok
+test replay_parity_the_frozen_pair_reproduces_the_pinned_78_34_split_and_replays_from_cache ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 8 tests
+test capture_before_side_fixture ... ignored, regenerates the committed before-side evidence; see the module doc
+test the_oracle_models_the_prefix_slicing_not_an_exact_partition ... ok
+test the_open_frame_entry_point_cannot_refuse ... ok
+test the_pinned_infeasible_specimen_refuses_instead_of_spinning ... ok
+test the_counting_oracle_agrees_with_exhaustive_partition_search ... ok
+test exactly_one_sampler_definition_survives_in_the_crate ... ok
+test the_repaired_sampler_reproduces_the_before_side_capture_exactly ... ok
+test the_blocked_roots_now_terminate_with_a_value_or_a_named_refusal ... ok
+
+test result: ok. 7 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 1.51s
+
+
+running 12 tests
+test m0_layout_contracts_are_fixed ... ok
+test m0_opening_types_keep_coefficients_and_masses_distinct ... ok
+test m0_normalization_advances_value_and_frame_together ... ok
+test m0_scale_frame_is_explicit_and_validated ... ok
+test m0_scale_frame_rejects_unlike_mass_addition ... ok
+test m0_u256_limb_and_byte_order_are_little_endian ... ok
+test m0_u256_checked_boundaries_hold ... ok
+test m0_u256_matches_biguint_oracle ... ok
+test m0_small_scale_and_choose_tables_are_exact ... ok
+test m0_sha256_is_fips_anchored_and_pins_the_table_blob ... ok
+test m0_semantic_tables_match_walt_core_exhaustively ... ok
+test m0_canonical_table_bytes_are_fixed ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

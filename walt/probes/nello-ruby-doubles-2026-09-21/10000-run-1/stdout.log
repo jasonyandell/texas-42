@@ -1,0 +1,16 @@
+{"ply":6,"seed":1,"worlds":10000,"choice":"51","wall_ms":8799.157125,"solver_us":8756316,"peak_wasm_memory_bytes":195035136}
+{"ply":6,"seed":2,"worlds":10000,"choice":"51","wall_ms":8853.369333,"solver_us":8821215,"peak_wasm_memory_bytes":193069056}
+{"ply":6,"seed":3,"worlds":10000,"choice":"51","wall_ms":8641.470874999999,"solver_us":8607801,"peak_wasm_memory_bytes":190906368}
+{"ply":6,"seed":4,"worlds":10000,"choice":"51","wall_ms":8671.983667,"solver_us":8640961,"peak_wasm_memory_bytes":189530112}
+{"ply":6,"seed":5,"worlds":10000,"choice":"51","wall_ms":8852.95175,"solver_us":8821511,"peak_wasm_memory_bytes":192937984}
+{"ply":6,"seed":6,"worlds":10000,"choice":"51","wall_ms":8791.790125,"solver_us":8760766,"peak_wasm_memory_bytes":195756032}
+{"ply":6,"seed":7,"worlds":10000,"choice":"51","wall_ms":8703.232582999997,"solver_us":8674421,"peak_wasm_memory_bytes":196476928}
+{"ply":6,"seed":8,"worlds":10000,"choice":"51","wall_ms":8728.769916999998,"solver_us":8703116,"peak_wasm_memory_bytes":189071360}
+{"ply":9,"seed":1,"worlds":10000,"choice":"51","wall_ms":1474.0933750000113,"solver_us":1439648,"peak_wasm_memory_bytes":54329344}
+{"ply":9,"seed":2,"worlds":10000,"choice":"51","wall_ms":1461.7312079999974,"solver_us":1452280,"peak_wasm_memory_bytes":54984704}
+{"ply":9,"seed":3,"worlds":10000,"choice":"51","wall_ms":1453.6806249999936,"solver_us":1445203,"peak_wasm_memory_bytes":55050240}
+{"ply":9,"seed":4,"worlds":10000,"choice":"51","wall_ms":1455.6749160000036,"solver_us":1446250,"peak_wasm_memory_bytes":55115776}
+{"ply":9,"seed":5,"worlds":10000,"choice":"51","wall_ms":1457.2658749999973,"solver_us":1446619,"peak_wasm_memory_bytes":54919168}
+{"ply":9,"seed":6,"worlds":10000,"choice":"51","wall_ms":1466.6630420000001,"solver_us":1455695,"peak_wasm_memory_bytes":54788096}
+{"ply":9,"seed":7,"worlds":10000,"choice":"51","wall_ms":1449.9047909999936,"solver_us":1440187,"peak_wasm_memory_bytes":55115776}
+{"ply":9,"seed":8,"worlds":10000,"choice":"51","wall_ms":1442.377457999988,"solver_us":1431444,"peak_wasm_memory_bytes":54984704}

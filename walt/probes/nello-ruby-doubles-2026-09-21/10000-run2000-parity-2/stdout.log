@@ -1,0 +1,16 @@
+{"ply":6,"seed":1,"worlds":2000,"choice":"31","wall_ms":1831.6798339999998,"solver_us":1786842,"peak_wasm_memory_bytes":53673984}
+{"ply":6,"seed":2,"worlds":2000,"choice":"44","wall_ms":1838.909084,"solver_us":1807075,"peak_wasm_memory_bytes":53870592}
+{"ply":6,"seed":3,"worlds":2000,"choice":"44","wall_ms":1797.0237910000005,"solver_us":1763160,"peak_wasm_memory_bytes":52953088}
+{"ply":6,"seed":4,"worlds":2000,"choice":"51","wall_ms":1794.4267090000003,"solver_us":1763400,"peak_wasm_memory_bytes":53280768}
+{"ply":6,"seed":5,"worlds":2000,"choice":"51","wall_ms":1819.1170829999992,"solver_us":1787630,"peak_wasm_memory_bytes":53870592}
+{"ply":6,"seed":6,"worlds":2000,"choice":"51","wall_ms":1880.3767090000001,"solver_us":1849377,"peak_wasm_memory_bytes":52035584}
+{"ply":6,"seed":7,"worlds":2000,"choice":"44","wall_ms":1786.330167,"solver_us":1757538,"peak_wasm_memory_bytes":53739520}
+{"ply":6,"seed":8,"worlds":2000,"choice":"44","wall_ms":1812.482,"solver_us":1786775,"peak_wasm_memory_bytes":53411840}
+{"ply":9,"seed":1,"worlds":2000,"choice":"51","wall_ms":402.7537919999995,"solver_us":384149,"peak_wasm_memory_bytes":18677760}
+{"ply":9,"seed":2,"worlds":2000,"choice":"51","wall_ms":396.0537920000006,"solver_us":386613,"peak_wasm_memory_bytes":18481152}
+{"ply":9,"seed":3,"worlds":2000,"choice":"51","wall_ms":393.3718749999989,"solver_us":384831,"peak_wasm_memory_bytes":18677760}
+{"ply":9,"seed":4,"worlds":2000,"choice":"51","wall_ms":393.0779999999995,"solver_us":383799,"peak_wasm_memory_bytes":18481152}
+{"ply":9,"seed":5,"worlds":2000,"choice":"51","wall_ms":390.2607500000013,"solver_us":379712,"peak_wasm_memory_bytes":18612224}
+{"ply":9,"seed":6,"worlds":2000,"choice":"51","wall_ms":400.2412499999991,"solver_us":389308,"peak_wasm_memory_bytes":18153472}
+{"ply":9,"seed":7,"worlds":2000,"choice":"51","wall_ms":388.9311660000021,"solver_us":379247,"peak_wasm_memory_bytes":18350080}
+{"ply":9,"seed":8,"worlds":2000,"choice":"51","wall_ms":385.5337499999987,"solver_us":374606,"peak_wasm_memory_bytes":18612224}

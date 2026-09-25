@@ -1,0 +1,10 @@
+--- walt-player/src/lib.rs
++++ walt-player/src/lib.rs
+@@
+-    if !(100..=20_000).contains(&call.budget_ms) || !(1..=640).contains(&call.worlds) {
++    if !(100..=20_000).contains(&call.budget_ms) || !(1..=10_000).contains(&call.worlds) {
+--- walt/src/solver/partnership_wire.rs
++++ walt/src/solver/partnership_wire.rs
+@@
+-    if n == 0 || n > 640 || n0 == 0 || n0 > 64 || n1 == 0 || n1 > 64 || ms > 20000 {
++    if n == 0 || n > 10_000 || n0 == 0 || n0 > 64 || n1 == 0 || n1 > 64 || ms > 20000 {

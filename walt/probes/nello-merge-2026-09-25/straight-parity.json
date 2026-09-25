@@ -1,0 +1,302 @@
+{
+  "rows": [
+    {
+      "decl": 0,
+      "plays": 0,
+      "choice": 1,
+      "native_us": 21049,
+      "wasm_us": 57283
+    },
+    {
+      "decl": 1,
+      "plays": 0,
+      "choice": 20,
+      "native_us": 27843,
+      "wasm_us": 66547
+    },
+    {
+      "decl": 2,
+      "plays": 0,
+      "choice": 27,
+      "native_us": 22756,
+      "wasm_us": 55111
+    },
+    {
+      "decl": 3,
+      "plays": 0,
+      "choice": 27,
+      "native_us": 24051,
+      "wasm_us": 58317
+    },
+    {
+      "decl": 4,
+      "plays": 0,
+      "choice": 27,
+      "native_us": 45265,
+      "wasm_us": 108212
+    },
+    {
+      "decl": 5,
+      "plays": 0,
+      "choice": 27,
+      "native_us": 24503,
+      "wasm_us": 62463
+    },
+    {
+      "decl": 6,
+      "plays": 0,
+      "choice": 20,
+      "native_us": 37712,
+      "wasm_us": 93106
+    },
+    {
+      "decl": 7,
+      "plays": 0,
+      "choice": 19,
+      "native_us": 25276,
+      "wasm_us": 61407
+    },
+    {
+      "decl": 9,
+      "plays": 0,
+      "choice": 20,
+      "native_us": 14043,
+      "wasm_us": 35482
+    },
+    {
+      "decl": 3,
+      "plays": 18,
+      "choice": 2,
+      "native_us": 656,
+      "wasm_us": 922
+    }
+  ],
+  "partner": {
+    "native": {
+      "baseline": 2,
+      "cache_hits": 235,
+      "calls": 1189,
+      "choice": 15,
+      "coverage": "budgeted-sample-prefix",
+      "elapsed_us": 48795,
+      "field": "completed-deployed-l1-fixed-40-8-voidless-request-seed-v1",
+      "legal": [
+        0,
+        2,
+        15
+      ],
+      "offers": [
+        15
+      ],
+      "paired": [
+        [
+          3,
+          2,
+          41,
+          18
+        ],
+        [
+          0,
+          0,
+          43,
+          21
+        ],
+        [
+          8,
+          1,
+          42,
+          13
+        ]
+      ],
+      "requested": 64,
+      "samples": 64,
+      "schema": "partner-rollout-v1",
+      "status": "changed",
+      "stop": "sample-cap",
+      "support": 210,
+      "values": [
+        [
+          0,
+          44
+        ],
+        [
+          2,
+          43
+        ],
+        [
+          15,
+          50
+        ]
+      ]
+    },
+    "wasm": {
+      "baseline": 2,
+      "cache_hits": 235,
+      "calls": 1189,
+      "choice": 15,
+      "coverage": "budgeted-sample-prefix",
+      "elapsed_us": 0,
+      "field": "completed-deployed-l1-fixed-40-8-voidless-request-seed-v1",
+      "legal": [
+        0,
+        2,
+        15
+      ],
+      "offers": [
+        15
+      ],
+      "paired": [
+        [
+          3,
+          2,
+          41,
+          18
+        ],
+        [
+          0,
+          0,
+          43,
+          21
+        ],
+        [
+          8,
+          1,
+          42,
+          13
+        ]
+      ],
+      "requested": 64,
+      "samples": 64,
+      "schema": "partner-rollout-v1",
+      "status": "changed",
+      "stop": "sample-cap",
+      "support": 210,
+      "values": [
+        [
+          0,
+          44
+        ],
+        [
+          2,
+          43
+        ],
+        [
+          15,
+          50
+        ]
+      ]
+    },
+    "complete_native": {
+      "schema": "partner-rollout-v1",
+      "status": "changed",
+      "stop": "sample-cap",
+      "choice": 15,
+      "baseline": 2,
+      "offers": [
+        15
+      ],
+      "legal": [
+        0,
+        2,
+        15
+      ],
+      "values": [
+        [
+          0,
+          44
+        ],
+        [
+          2,
+          43
+        ],
+        [
+          15,
+          50
+        ]
+      ],
+      "paired": [
+        [
+          3,
+          2,
+          41,
+          18
+        ],
+        [
+          0,
+          0,
+          43,
+          21
+        ],
+        [
+          8,
+          1,
+          42,
+          13
+        ]
+      ],
+      "support": 210,
+      "samples": 64,
+      "requested": 64,
+      "coverage": "budgeted-sample-prefix",
+      "field": "completed-deployed-l1-fixed-40-8-voidless-request-seed-v1",
+      "calls": 1189,
+      "cache_hits": 235,
+      "elapsed_us": 192969,
+      "decisions": [],
+      "traces": []
+    }
+  },
+  "deadline": {
+    "budget_ms": 1000,
+    "choice": 1,
+    "elapsed_us": 890000,
+    "evaluation": null,
+    "fallback_evaluation": null,
+    "inner_belief": "voidless",
+    "leader": 0,
+    "legal": [
+      1,
+      6,
+      8,
+      19,
+      20,
+      23,
+      27
+    ],
+    "mode": "baseline",
+    "modeled_selection": "fixed",
+    "n": 40,
+    "n0": 8,
+    "n1": 2,
+    "over_budget": false,
+    "phases": [
+      {
+        "name": "status-check",
+        "status": "completed"
+      },
+      {
+        "elapsed_us": 200000,
+        "name": "fallback-l1",
+        "status": "Refusal { reason: Deadline, stats: WorkStats { outer_worlds: 8, outer_draw_attempts: 8, pi_calls_by_level: [5, 0], inner_worlds_by_level: [10, 0], nodes: 1623, elapsed: 185ms } }",
+        "worlds": 8
+      },
+      {
+        "elapsed_us": 650000,
+        "name": "baseline",
+        "status": "Refusal { reason: Deadline, stats: WorkStats { outer_worlds: 40, outer_draw_attempts: 40, pi_calls_by_level: [17, 0], inner_worlds_by_level: [136, 0], nodes: 10895, elapsed: 635ms } }",
+        "worlds": 40
+      }
+    ],
+    "player_version": "walt-table-v2",
+    "points": [
+      0,
+      0
+    ],
+    "review": "partner-rollout",
+    "review_result": null,
+    "route": "legal-fallback",
+    "schema": "partnership-decision-v1",
+    "selection": "fixed",
+    "trick": 1
+  }
+}

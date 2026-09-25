@@ -1,0 +1,56 @@
+[
+  {
+    "ply": 6,
+    "unknown_tiles": 17,
+    "unseen_doubles": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        5,
+        5
+      ]
+    ],
+    "declarer_remaining": 5,
+    "feasible_allocations": 4900896,
+    "declarer_void_doubles": "198/1547",
+    "declarer_only_double_55": "495/6188",
+    "claim_scope": "uniform mechanically feasible allocations, not behavioral belief"
+  },
+  {
+    "ply": 9,
+    "unknown_tiles": 15,
+    "unseen_doubles": [
+      [
+        0,
+        0
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        5,
+        5
+      ]
+    ],
+    "declarer_remaining": 4,
+    "feasible_allocations": 450450,
+    "declarer_void_doubles": "33/91",
+    "declarer_only_double_55": "44/273",
+    "claim_scope": "uniform mechanically feasible allocations, not behavioral belief"
+  }
+]

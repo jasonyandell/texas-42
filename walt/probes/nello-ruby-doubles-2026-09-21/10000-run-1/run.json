@@ -1,0 +1,23 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-22T05:13:20.590266+00:00",
+  "cwd": "/Users/jason/.codex/worktrees/nello-player/texas-42",
+  "command": [
+    "node",
+    "walt/probes/nello-ruby-doubles-2026-09-21/10000/panel.mjs",
+    "/private/tmp/nello-ruby-doubles-20260921-2000/walt-src/target/wasm32-unknown-unknown/release/walt_player.wasm",
+    "10000"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 81.84156,
+  "status": "completed",
+  "child_pid": 44411,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

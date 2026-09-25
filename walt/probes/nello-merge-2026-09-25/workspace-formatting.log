@@ -1,0 +1,1375 @@
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/gym.rs:129:
+     original: DominoSet,
+     history: &[(Seat, Domino)],
+ ) -> Result<ExerciseRoot, String> {
+-    if !(30..=42).contains(&bid) { return Err("bid outside 30..42".into()); }
++    if !(30..=42).contains(&bid) {
++        return Err("bid outside 30..42".into());
++    }
+     if original.len() != 7 || history.len() >= 28 {
+         return Err("need one seven-tile original hand and an unfinished history".into());
+     }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/policy_search/partner_rollout.rs:4:
+ //! deployed L1 procedure afterward. No perfect-information continuation is
+ //! substituted. A completed prefix of a shuffled finite support is a heuristic
+ //! sample, NOT a calibrated confidence claim; only a census is exact.
+-use std::collections::HashMap;
+ use crate::clock::Instant;
++use std::collections::HashMap;
+ 
+ use super::{Fixture, State};
+ use crate::gym;
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/policy_search/partner_rollout.rs:51:
+         Self::with_bid(decl, bidder, 30, seed, deadline)
+     }
+ 
+-    pub fn with_bid(decl: crate::rules::Decl, bidder: usize, bid: u8, seed: u64, deadline: Deadline) -> Self {
++    pub fn with_bid(
++        decl: crate::rules::Decl,
++        bidder: usize,
++        bid: u8,
++        seed: u64,
++        deadline: Deadline,
++    ) -> Self {
+         assert!((30..=42).contains(&bid));
+         Self {
+             decl,
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/policy_search/partner_rollout.rs:301:
+         .ok_or("late-game history required")?
+         .0
+         .index();
+-    let mut policy = L1::with_bid(ex.position.decl, bidder, ex.position.bid as u8, seed, deadline);
++    let mut policy = L1::with_bid(
++        ex.position.decl,
++        bidder,
++        ex.position.bid as u8,
++        seed,
++        deadline,
++    );
+     let mut worlds = ex.root.worlds().collect::<Vec<_>>();
+     KernelRng::new(seed ^ ex.position.identity() ^ STREAM_DOMAIN).shuffle(&mut worlds);
+     result.stop = if result.requested == result.support {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/policy_search.rs:16:
+ 
+ pub mod request;
+ 
+-pub mod program;
+-pub mod relational;
+-pub mod prices;
+-pub mod learning_io;
+ pub mod learning_eval;
++pub mod learning_io;
+ pub mod partner_review;
+ pub mod partner_rollout;
++pub mod prices;
++pub mod program;
++pub mod relational;
+ 
+ /// Stable content identity for serialized executable experiment policies.
+ pub fn program_digest(source: &str) -> String {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/policy_search.rs:216:
+             self.root.root.kernel().viewer_hand(),
+             self.root.frame.led_context(),
+         );
+-        if self.worlds.is_empty() || actions.is_empty()
++        if self.worlds.is_empty()
++            || actions.is_empty()
+             || actions.intersection(legal) != actions
+             || state.success(&self.root.position).is_some()
+         {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/policy_search.rs:223:
+-            return Err("root comparison needs a nonempty prior and legal actions at an unresolved root".into());
++            return Err(
++                "root comparison needs a nonempty prior and legal actions at an unresolved root"
++                    .into(),
++            );
+         }
+         let ids = (0..self.worlds.len()).collect::<Vec<_>>();
+         let mut values = BTreeMap::new();
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/policy_search.rs:227:
+         for action in actions.iter() {
+             let child = self.walk(
+-                &state.step(self.root.position.decl, action), &ids,
+-                None, &mut None, work,
++                &state.step(self.root.position.decl, action),
++                &ids,
++                None,
++                &mut None,
++                work,
+             )?;
+             values.insert(action, child.makes);
+         }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/rules/rules.rs:83:
+ // its 10 * 8 * 28 answers at compile time so recursive play only performs a
+ // lookup. This table contains rules, never hands, beliefs or policy answers.
+ const TRICK_KEYS: [[[TrickKey; Domino::COUNT]; Context::COUNT]; Decl::COUNT] = {
+-    let empty = TrickKey { tier: Tier::Slough, rank: Rank(0) };
++    let empty = TrickKey {
++        tier: Tier::Slough,
++        rank: Rank(0),
++    };
+     let mut table = [[[empty; Domino::COUNT]; Context::COUNT]; Decl::COUNT];
+     let mut di = 0;
+     while di < Decl::COUNT {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/rules/rules.rs:118:
+ 
+     /// The original power set: doubles-suit is called but unpowered.
+     pub const fn powered_set(self) -> DominoSet {
+-        if matches!(self, Decl::DoublesSuit) { DominoSet::EMPTY } else { self.called_set() }
++        if matches!(self, Decl::DoublesSuit) {
++            DominoSet::EMPTY
++        } else {
++            self.called_set()
++        }
+     }
+ 
+     pub const fn is_called(self, d: Domino) -> bool {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/scheme/dynamics.rs:278:
+         if play_is_legal(frame, &world, observation) {
+             let successor = step_world(frame, &world, observation)?;
+             if later.iter().any(|(w, a)| *w == successor && *a == answer)
+-                && !out.iter().any(|(w, a)| *w == world && *a == answer) {
++                && !out.iter().any(|(w, a)| *w == world && *a == answer)
++            {
+                 out.push((world, answer));
+             }
+         }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/compact_dice.rs:614:
+ }
+ 
+ fn start<'a>(solver: &'a Solver, key: &Key) -> Option<(Search<'a>, State)> {
+-    if !solver.sh.straight_fast_paths() { return None; }
++    if !solver.sh.straight_fast_paths() {
++        return None;
++    }
+     if solver.field != super::Field::Dice
+         || solver.parallel
+         || !(1..=8).contains(&solver.worlds.len())
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/compact_policy.rs:635:
+ 
+ /// None means ineligible (use the general solver); Some(None) means refusal.
+ pub(super) fn fixed_choice(solver: &Solver, key: &Key, tiles: &[u8]) -> Option<Option<u8>> {
+-    if !solver.sh.straight_fast_paths() { return None; }
++    if !solver.sh.straight_fast_paths() {
++        return None;
++    }
+     let field_k = match solver.field {
+         Field::Level(k) => k,
+         _ => return None,
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/inner_belief.rs:151:
+ /// One authority for deductions on both searched and replayed continuations.
+ /// None stays None, so legacy keys never acquire unused history distinctions.
+ pub(super) fn after_play(key: &Key, dcl: Decl, tile: Domino) -> Option<[u32; 4]> {
+-    after_play_at(key, dcl, tile, (usize::from(key.leader) + key.plays.len()) % 4)
++    after_play_at(
++        key,
++        dcl,
++        tile,
++        (usize::from(key.leader) + key.plays.len()) % 4,
++    )
+ }
+ 
+ pub(super) fn after_play_at(key: &Key, dcl: Decl, tile: Domino, seat: usize) -> Option<[u32; 4]> {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/mod.rs:25:
+ pub mod bundle;
+ mod cache;
+ pub mod calibrate;
++pub mod contract;
+ #[cfg(feature = "sharded-root-memo")]
+ mod root_memo;
+-pub mod contract;
+ pub use contract::Contract;
+ 
+ #[cfg(feature = "sharded-root-memo")]
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/mod.rs:68:
+ pub mod laydown;
+ pub mod model_belief;
+ pub mod model_recursion;
+-pub mod nello_counterexample;
+ pub mod motif;
++pub mod nello_counterexample;
+ pub mod opening;
+ pub mod partnership;
+ pub mod policy;
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/mod.rs:414:
+     #[cfg(feature = "hand-cache")]
+     fn normalized_boundary(&self) -> Option<usize> {
+         let played = self.boundary_played.count_ones() as usize;
+-        if self.boundary_played & !FULL_MASK != 0 || !played.is_multiple_of(self.contract.trick_size()) {
++        if self.boundary_played & !FULL_MASK != 0
++            || !played.is_multiple_of(self.contract.trick_size())
++        {
+             return None;
+         }
+-        self.boundary_hand_size.checked_add(played / self.contract.trick_size())
++        self.boundary_hand_size
++            .checked_add(played / self.contract.trick_size())
+     }
+ 
+     fn same_policy_boundary(&self, previous: &Shared) -> bool {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/mod.rs:784:
+             return None;
+         }
+         if let Some(made) = self.sh.contract.terminal(key) {
+-            return Some(if made { self.alive_of(key.alive).len() as u64 } else { 0 });
++            return Some(if made {
++                self.alive_of(key.alive).len() as u64
++            } else {
++                0
++            });
+         }
+         let memo_key = MemoKey::from(key);
+         #[cfg(not(feature = "sharded-root-memo"))]
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/mod.rs:800:
+             return Some(value);
+         }
+         assert_ne!(key.played, FULL_MASK, "terminal states are always decided");
+-        let seat =
+-            self.sh.contract.actor(key.leader as usize, key.plays.len());
++        let seat = self.sh.contract.actor(key.leader as usize, key.plays.len());
+         let led: Option<Context> = key.plays.first().map(|&i| {
+             self.sh
+                 .dcl
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/mod.rs:848:
+         let dcl = self.sh.dcl;
+         // The standing winner/count are shared by all candidate priorities.
+         // With zero or one candidate there is no ordering work to perform.
+-        let needs_priority = legal.len() > 1 && self.ordering == MoveOrdering::CaptureFirst && self.sh.straight_fast_paths();
++        let needs_priority = legal.len() > 1
++            && self.ordering == MoveOrdering::CaptureFirst
++            && self.sh.straight_fast_paths();
+         let table = if needs_priority {
+             led.map(|q| {
+                 let mut best = None;
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/mod.rs:1213:
+     }
+ 
+     fn hand_sizes_at(&self, key: &Key) -> [usize; 4] {
+-        self.sh.contract.sizes(key, self.sh.boundary_played, self.sh.boundary_hand_size)
++        self.sh
++            .contract
++            .sizes(key, self.sh.boundary_played, self.sh.boundary_hand_size)
+     }
+ 
+     /// The level-k policy at a modeled seat's information state (pure in
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/mod.rs:1262:
+         );
+         let maximize = seat.team() == Team::T1;
+         #[cfg(feature = "stack-dice")]
+-        if k == 0 && self.sh.straight_fast_paths() && (1..=8).contains(&n_k) && self.sh.inner_belief == InnerBelief::Voidless {
++        if k == 0
++            && self.sh.straight_fast_paths()
++            && (1..=8).contains(&n_k)
++            && self.sh.inner_belief == InnerBelief::Voidless
++        {
+             let choice = compact_dice::prepared_choice(
+                 &self.sh,
+                 key,
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/mod.rs:1821:
+     replay_contract(dcl, bidder_arena, pairs, false)
+ }
+ 
+-pub fn replay_contract(dcl: Decl, bidder_arena: usize, pairs: &[(usize, usize)], nello: bool) -> Replayed {
++pub fn replay_contract(
++    dcl: Decl,
++    bidder_arena: usize,
++    pairs: &[(usize, usize)],
++    nello: bool,
++) -> Replayed {
+     let r = if bidder_arena.is_multiple_of(2) { 1 } else { 0 };
+     let mut st = Replayed {
+         r,
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/mod.rs:1834:
+         trick_start_played: 0,
+         completed: 0,
+     };
+-    let contract = if nello { Contract::Nello { declarer: Seat::from_index((bidder_arena + r) % 4).unwrap() } }
+-        else { Contract::Straight { bid: 42 } };
++    let contract = if nello {
++        Contract::Nello {
++            declarer: Seat::from_index((bidder_arena + r) % 4).unwrap(),
++        }
++    } else {
++        Contract::Straight { bid: 42 }
++    };
+     for &(actor_arena, tile_id) in pairs {
+         let actor = (actor_arena + r) % 4;
+         let expect = contract.actor(st.leader as usize, st.plays.len()).index();
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/mod.rs:1852:
+         st.plays.push(tile.index() as u8);
+         if st.plays.len() == contract.trick_size() {
+             let winner = contract.winner(dcl, st.leader as usize, &st.plays);
+-            let pts = 1 + st.plays.iter().map(|&t| Domino::from_index(t as usize).unwrap().count() as u8).sum::<u8>();
++            let pts = 1 + st
++                .plays
++                .iter()
++                .map(|&t| Domino::from_index(t as usize).unwrap().count() as u8)
++                .sum::<u8>();
+             if winner.team() == Team::T1 {
+                 st.banked_t1 += pts;
+             } else {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/src/solver/partnership.rs:273:
+     cfg: &Config,
+     previous: &mut Option<Shared>,
+ ) -> Result<Evaluation, Box<Refusal>> {
+-    evaluate_contract_with_cache(dcl, bid, seat, hand, legal, key, sizes, voids,
+-        trick_start_played, boundary_hand_size, cfg, previous, super::Contract::Straight { bid })
++    evaluate_contract_with_cache(
++        dcl,
++        bid,
++        seat,
++        hand,
++        legal,
++        key,
++        sizes,
++        voids,
++        trick_start_played,
++        boundary_hand_size,
++        cfg,
++        previous,
++        super::Contract::Straight { bid },
++    )
+ }
+ 
+ #[allow(clippy::too_many_arguments)]
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/tests/learning_io.rs:1:
+ use std::collections::BTreeMap;
+-use walt::{policy_search::{fixture, learning_io::{lesson_text,rational,read_lessons,request_text}}, rules::legal_plays, solver::decl_of};
++use walt::{
++    policy_search::{
++        fixture,
++        learning_io::{lesson_text, rational, read_lessons, request_text},
++    },
++    rules::legal_plays,
++    solver::decl_of,
++};
+ 
+ #[test]
+ fn public_lesson_roundtrip_preserves_costs_weights_and_observation() {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/tests/learning_io.rs:6:
+-    let f=fixture(910002,decl_of(6),3,None).unwrap();
+-    let costs=legal_plays(f.exercise.position.decl,f.exercise.root.kernel().viewer_hand(),f.exercise.frame.led_context())
+-        .iter().enumerate().map(|(i,d)|(d,rational(if i==0{"0"}else{"1/3"}).unwrap())).collect::<BTreeMap<_,_>>();
+-    let text=lesson_text(&request_text(&f,&f.history,910002),&rational("2/7").unwrap(),&costs);
+-    let restored=read_lessons(&text).unwrap();
+-    assert_eq!(restored.len(),1);
+-    assert_eq!(restored[0].frame(),&f.exercise.frame);
+-    assert_eq!(restored[0].history(),f.history);
+-    assert_eq!(restored[0].costs(),&costs);
+-    assert_eq!(restored[0].group_weight(),&rational("2/7").unwrap());
+-    assert!(read_lessons(&text.replace("weight 2/7","weight 2/7\nworld 1 2 3")).is_err());
+-    assert!(read_lessons(&text.replace("weight 2/7","weight 2/7\nweight 1")).is_err());
++    let f = fixture(910002, decl_of(6), 3, None).unwrap();
++    let costs = legal_plays(
++        f.exercise.position.decl,
++        f.exercise.root.kernel().viewer_hand(),
++        f.exercise.frame.led_context(),
++    )
++    .iter()
++    .enumerate()
++    .map(|(i, d)| (d, rational(if i == 0 { "0" } else { "1/3" }).unwrap()))
++    .collect::<BTreeMap<_, _>>();
++    let text = lesson_text(
++        &request_text(&f, &f.history, 910002),
++        &rational("2/7").unwrap(),
++        &costs,
++    );
++    let restored = read_lessons(&text).unwrap();
++    assert_eq!(restored.len(), 1);
++    assert_eq!(restored[0].frame(), &f.exercise.frame);
++    assert_eq!(restored[0].history(), f.history);
++    assert_eq!(restored[0].costs(), &costs);
++    assert_eq!(restored[0].group_weight(), &rational("2/7").unwrap());
++    assert!(read_lessons(&text.replace("weight 2/7", "weight 2/7\nworld 1 2 3")).is_err());
++    assert!(read_lessons(&text.replace("weight 2/7", "weight 2/7\nweight 1")).is_err());
+ }
+ 
+ #[test]
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/tests/learning_io.rs:21:
+ fn rational_wire_format_refuses_undefined_or_ambiguous_numbers() {
+-    for bad in ["", "1/0", "1/-2", "1/2/3", "NaN", "0.5"] {assert!(rational(bad).is_err(),"{bad}");}
+-    assert_eq!(rational("2/4").unwrap(),rational("1/2").unwrap());
++    for bad in ["", "1/0", "1/-2", "1/2/3", "NaN", "0.5"] {
++        assert!(rational(bad).is_err(), "{bad}");
++    }
++    assert_eq!(rational("2/4").unwrap(), rational("1/2").unwrap());
+     assert!(read_lessons("\n---\n").is_err());
+ }
+ 
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/tests/relational_learning.rs:51:
+ 
+ #[test]
+ fn changing_only_a_state_common_upper_cannot_rerank_programs() {
+-    let base = (1..9).map(|seed| example(seed, |d| {
+-        if d.count()==5 {q(0,1)} else {q(1,4)}
+-    }).unwrap()).collect::<Vec<_>>();
+-    let shifted = (1..9).map(|seed| example(seed, |d| {
+-        let loss=if d.count()==5 {q(0,1)} else {q(1,4)};
+-        loss+q((seed%2+1) as i64,4)
+-    }).unwrap()).collect::<Vec<_>>();
+-    let learner=RelationalLearner::new(RelationalLimits::default()).unwrap();
+-    let a=learner.fit(&base,"upper-invariance").unwrap();
+-    let b=learner.fit(&shifted,"upper-invariance").unwrap();
+-    assert_eq!(a.program,b.program);
+-    assert_eq!(a.candidates.iter().map(|c|&c.digest).collect::<Vec<_>>(),b.candidates.iter().map(|c|&c.digest).collect::<Vec<_>>());
++    let base = (1..9)
++        .map(|seed| example(seed, |d| if d.count() == 5 { q(0, 1) } else { q(1, 4) }).unwrap())
++        .collect::<Vec<_>>();
++    let shifted = (1..9)
++        .map(|seed| {
++            example(seed, |d| {
++                let loss = if d.count() == 5 { q(0, 1) } else { q(1, 4) };
++                loss + q((seed % 2 + 1) as i64, 4)
++            })
++            .unwrap()
++        })
++        .collect::<Vec<_>>();
++    let learner = RelationalLearner::new(RelationalLimits::default()).unwrap();
++    let a = learner.fit(&base, "upper-invariance").unwrap();
++    let b = learner.fit(&shifted, "upper-invariance").unwrap();
++    assert_eq!(a.program, b.program);
++    assert_eq!(
++        a.candidates.iter().map(|c| &c.digest).collect::<Vec<_>>(),
++        b.candidates.iter().map(|c| &c.digest).collect::<Vec<_>>()
++    );
+ }
+ 
+ #[test]
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/tests/solver_partnership.rs:347:
+                 if k == 0 { 2 } else { expected }
+             );
+             let mut counts = sh.inner_worlds_by_level();
+-            if k == 0 && cfg!(feature = "bypass-l0-cache")
++            if k == 0
++                && cfg!(feature = "bypass-l0-cache")
+                 && (cfg!(feature = "bypass-l0-cache-all") || f.hand.count_ones() <= 2)
+             {
+                 counts[0] += 2; // The cheap L0 policy deliberately recomputes.
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/tests/solver_partnership.rs:640:
+     for profile in [FieldProfile::Baseline, FieldProfile::PartnerOnly] {
+         let mut previous = None;
+         let run = |cfg: &Config, previous: &mut Option<Shared>| {
+-            partnership::evaluate_with_cache(f.dcl, f.bid, f.seat, f.hand, f.legal,
+-                &f.key, f.sizes, f.voids, f.trick_start_played,
+-                f.boundary_hand_size, cfg, previous)
++            partnership::evaluate_with_cache(
++                f.dcl,
++                f.bid,
++                f.seat,
++                f.hand,
++                f.legal,
++                &f.key,
++                f.sizes,
++                f.voids,
++                f.trick_start_played,
++                f.boundary_hand_size,
++                cfg,
++                previous,
++            )
+         };
+         // Nine L0 worlds use the general cached fallback, so both profiles
+         // exercise an actual cache transfer even when cheap L0 bypass is on.
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/tests/solver_partnership.rs:649:
+-        let cfg = Config { n0: 9, ..config(profile) };
++        let cfg = Config {
++            n0: 9,
++            ..config(profile)
++        };
+         run(&cfg, &mut previous).unwrap();
+         assert!(previous.as_ref().unwrap().pi_cache_len() > 0);
+         let deeper = Config { n_outer: 8, ..cfg };
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt/tests/solver_partnership.rs:655:
+         assert_eq!(warm.actions, cold.actions);
+         assert_eq!(warm.best(), cold.best());
+         assert_eq!(warm.stats.outer_worlds, cold.stats.outer_worlds);
+-        assert!(warm.stats.pi_calls_by_level.iter().sum::<u64>()
+-            < cold.stats.pi_calls_by_level.iter().sum::<u64>());
+-        let expired = Config { deadline: Deadline::after(Duration::ZERO), ..deeper };
+-        assert_eq!(run(&expired, &mut previous).unwrap_err().reason, RefusalReason::Deadline);
+-        let recovered = run(&Config { deadline: Deadline::after(Duration::from_secs(30)), ..deeper }, &mut previous).unwrap();
++        assert!(
++            warm.stats.pi_calls_by_level.iter().sum::<u64>()
++                < cold.stats.pi_calls_by_level.iter().sum::<u64>()
++        );
++        let expired = Config {
++            deadline: Deadline::after(Duration::ZERO),
++            ..deeper
++        };
++        assert_eq!(
++            run(&expired, &mut previous).unwrap_err().reason,
++            RefusalReason::Deadline
++        );
++        let recovered = run(
++            &Config {
++                deadline: Deadline::after(Duration::from_secs(30)),
++                ..deeper
++            },
++            &mut previous,
++        )
++        .unwrap();
+         assert_eq!(recovered.actions, cold.actions);
+     }
+ }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:3:
+ use serde_json::{json, Value};
+ use std::collections::BTreeMap;
+ use std::io::{self, BufRead, Write};
++use walt::kernel::SplitMix64;
+ use walt::rules::{legal_plays, Domino, DominoSet, Seat};
+ use walt::scheme::{Access, Budget, Fix, Value as Answer};
+ use walt::{gym, solver};
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:9:
+-use walt::kernel::SplitMix64;
+ 
+ #[derive(Deserialize)]
+ #[serde(deny_unknown_fields)]
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:13:
+ struct Request {
+-    decl: usize, bid: usize, bidder: usize, seat: usize,
+-    hand: Vec<usize>, plays: Vec<usize>, seed: u32,
++    decl: usize,
++    bid: usize,
++    bidder: usize,
++    seat: usize,
++    hand: Vec<usize>,
++    plays: Vec<usize>,
++    seed: u32,
+ }
+ #[derive(Deserialize)]
+ #[serde(deny_unknown_fields)]
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:19:
+-struct Query { name: String, source: String }
++struct Query {
++    name: String,
++    source: String,
++}
+ #[derive(Deserialize)]
+ #[serde(deny_unknown_fields)]
+ struct Job {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:23:
+-    request: Request, queries: Vec<Query>,
+-    #[serde(default)] sample_seed: Option<u64>,
+-    #[serde(default)] baseline: Option<usize>,
+-    #[serde(default)] sample_only: bool,
++    request: Request,
++    queries: Vec<Query>,
++    #[serde(default)]
++    sample_seed: Option<u64>,
++    #[serde(default)]
++    baseline: Option<usize>,
++    #[serde(default)]
++    sample_only: bool,
+ }
+ 
+ fn tile(n: usize) -> Result<Domino, String> {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:39:
+ }
+ 
+ fn run(text: &str) -> Result<Value, String> {
+-    assess(text, |call| walt_player::decide(serde_json::from_value(call).map_err(|e| e.to_string())?, |_| {}))
++    assess(text, |call| {
++        walt_player::decide(
++            serde_json::from_value(call).map_err(|e| e.to_string())?,
++            |_| {},
++        )
++    })
+ }
+ 
+-fn assess(text: &str, mut choose: impl FnMut(Value) -> Result<Value,String>) -> Result<Value,String> {
++fn assess(
++    text: &str,
++    mut choose: impl FnMut(Value) -> Result<Value, String>,
++) -> Result<Value, String> {
+     let start = std::time::Instant::now();
+     let job: Job = serde_json::from_str(text).map_err(|e| e.to_string())?;
+     let req = &job.request;
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:49:
+-    if req.bid != 30 || ![0,1,2,3,4,5,6,7,9].contains(&req.decl)
+-        || req.plays.len()>52 || req.plays.len()%2 != 0
+-        || req.hand.len() != 7 || job.queries.len() > 80 {
++    if req.bid != 30
++        || ![0, 1, 2, 3, 4, 5, 6, 7, 9].contains(&req.decl)
++        || req.plays.len() > 52
++        || req.plays.len() % 2 != 0
++        || req.hand.len() != 7
++        || job.queries.len() > 80
++    {
+         return Err("expected bid30, unfinished history and at most 80 queries".into());
+     }
+-    let hand: DominoSet = req.hand.iter().map(|&t| tile(t)).collect::<Result<Vec<_>,_>>()?.into_iter().collect();
+-    let history = req.plays.chunks_exact(2).map(|p| Ok((seat(p[0])?,tile(p[1])?)))
+-        .collect::<Result<Vec<_>,String>>()?;
++    let hand: DominoSet = req
++        .hand
++        .iter()
++        .map(|&t| tile(t))
++        .collect::<Result<Vec<_>, _>>()?
++        .into_iter()
++        .collect();
++    let history = req
++        .plays
++        .chunks_exact(2)
++        .map(|p| Ok((seat(p[0])?, tile(p[1])?)))
++        .collect::<Result<Vec<_>, String>>()?;
+     let dcl = solver::decl_of(req.decl);
+     let ex = gym::from_request(dcl, seat(req.bidder)?, seat(req.seat)?, hand, &history)?;
+     let legal = legal_plays(dcl, ex.root.kernel().viewer_hand(), ex.frame.led_context())
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:60:
+-        .iter().map(Domino::index).collect::<Vec<_>>();
++        .iter()
++        .map(Domino::index)
++        .collect::<Vec<_>>();
+     let support = ex.root.count();
+     let worlds = if let Some(seed) = job.sample_seed {
+-        if legal.len()<2 || !job.baseline.is_some_and(|a|legal.contains(&a)) {
+-            return Err("sampled comparison requires a saved legal baseline and alternatives".into());
++        if legal.len() < 2 || !job.baseline.is_some_and(|a| legal.contains(&a)) {
++            return Err(
++                "sampled comparison requires a saved legal baseline and alternatives".into(),
++            );
+         }
+-        vec![ex.root.kernel().sample(&mut SplitMix64::new(seed)).ok_or("empty support")?]
++        vec![ex
++            .root
++            .kernel()
++            .sample(&mut SplitMix64::new(seed))
++            .ok_or("empty support")?]
+     } else {
+-        if !(40..=46).contains(&req.plays.len()) || ex.root.kernel().viewer_hand().len()!=2
+-            || legal.len()!=2 || support>90 || support==0 || job.baseline.is_some() || job.sample_only {
++        if !(40..=46).contains(&req.plays.len())
++            || ex.root.kernel().viewer_hand().len() != 2
++            || legal.len() != 2
++            || support > 90
++            || support == 0
++            || job.baseline.is_some()
++            || job.sample_only
++        {
+             return Err("census assessment requires two legal tiles and 1..90 worlds".into());
+         }
+         ex.root.worlds().collect::<Vec<_>>()
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:73:
+     };
+     let mut query_results = BTreeMap::new();
+     for q in &job.queries {
+-        if query_results.contains_key(&q.name) { return Err("duplicate query".into()); }
+-        let compiled = q.source.parse::<Fix>().map_err(|e|e.to_string())?
+-            .compile(&gym::registry()).map_err(|e|e.to_string())?;
+-        let public = compiled.predicate_specs().iter().all(|s|s.access==Access::Viewer);
++        if query_results.contains_key(&q.name) {
++            return Err("duplicate query".into());
++        }
++        let compiled = q
++            .source
++            .parse::<Fix>()
++            .map_err(|e| e.to_string())?
++            .compile(&gym::registry())
++            .map_err(|e| e.to_string())?;
++        let public = compiled
++            .predicate_specs()
++            .iter()
++            .all(|s| s.access == Access::Viewer);
+         let mut memberships = Vec::new();
+         for world in &worlds {
+-            let answers = compiled.evaluate(&ex.frame, world, &mut Budget::new(1_000_000))
++            let answers = compiled
++                .evaluate(&ex.frame, world, &mut Budget::new(1_000_000))
+                 .map_err(|e| e.to_string())?;
+             let mut actions = Vec::new();
+             for answer in &answers {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:86:
+                 match answer.0.as_slice() {
+-                    [] => {},
++                    [] => {}
+                     [Answer::Domino(d)] if legal.contains(&d.index()) => actions.push(d.index()),
+                     _ => return Err("query must return existence or legal actions".into()),
+                 }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:91:
+             }
+             memberships.push(json!({"exists":!answers.is_empty(),"actions":actions}));
+         }
+-        if public && memberships.windows(2).any(|w|w[0]!=w[1]) {
++        if public && memberships.windows(2).any(|w| w[0] != w[1]) {
+             return Err("Viewer query depends on hidden world".into());
+         }
+-        query_results.insert(q.name.clone(), json!({"public":public,"memberships":memberships}));
++        query_results.insert(
++            q.name.clone(),
++            json!({"public":public,"memberships":memberships}),
++        );
+     }
+-    let mut cache = BTreeMap::<String,usize>::new();
++    let mut cache = BTreeMap::<String, usize>::new();
+     let mut decisions = Vec::<Value>::new();
+-    let mut decision = |call: Value| -> Result<(usize,usize),String> {
++    let mut decision = |call: Value| -> Result<(usize, usize), String> {
+         let key = call.to_string();
+-        let index = if let Some(&index) = cache.get(&key) { index } else {
++        let index = if let Some(&index) = cache.get(&key) {
++            index
++        } else {
+             let response = choose(call.clone())?;
+             let index = decisions.len();
+             decisions.push(json!({"call":call,"response":response}));
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:107:
+-            cache.insert(key,index);
++            cache.insert(key, index);
+             index
+         };
+-        let choice = decisions[index]["response"]["choice"].as_u64().ok_or("missing choice")? as usize;
+-        Ok((choice,index))
++        let choice = decisions[index]["response"]["choice"]
++            .as_u64()
++            .ok_or("missing choice")? as usize;
++        Ok((choice, index))
+     };
+-    let pairs = history.iter().map(|(s,t)|(s.index(),t.index())).collect::<Vec<_>>();
+-    let (baseline,baseline_index) = if let Some(a) = job.baseline { (a,None) } else {
+-        let (a,i)=decision(policy_call(req,req.seat,&req.hand,&pairs))?; (a,Some(i))
++    let pairs = history
++        .iter()
++        .map(|(s, t)| (s.index(), t.index()))
++        .collect::<Vec<_>>();
++    let (baseline, baseline_index) = if let Some(a) = job.baseline {
++        (a, None)
++    } else {
++        let (a, i) = decision(policy_call(req, req.seat, &req.hand, &pairs))?;
++        (a, Some(i))
+     };
+-    if !legal.contains(&baseline) { return Err("illegal baseline".into()); }
++    if !legal.contains(&baseline) {
++        return Err("illegal baseline".into());
++    }
+     let mut traces = Vec::new();
+     let mut full_worlds = Vec::new();
+-    for (world_index,world) in worlds.iter().enumerate() {
+-        let mut hands = world.hands().map(|h|h.iter().map(Domino::index).collect::<Vec<_>>());
+-        for &(s,t) in &pairs { hands[s].push(t); }
+-        for h in &mut hands { h.sort_unstable(); }
+-        if hands[req.seat] != req.hand { return Err("original hand mismatch".into()); }
++    for (world_index, world) in worlds.iter().enumerate() {
++        let mut hands = world
++            .hands()
++            .map(|h| h.iter().map(Domino::index).collect::<Vec<_>>());
++        for &(s, t) in &pairs {
++            hands[s].push(t);
++        }
++        for h in &mut hands {
++            h.sort_unstable();
++        }
++        if hands[req.seat] != req.hand {
++            return Err("original hand mismatch".into());
++        }
+         full_worlds.push(hands.clone());
+-        if job.sample_only { continue; }
++        if job.sample_only {
++            continue;
++        }
+         for &action in &legal {
+             let mut record = pairs.clone();
+-            record.push((req.seat,action));
++            record.push((req.seat, action));
+             let mut ids = Vec::new();
+-            while record.len()<28 {
+-                let state = solver::replay(dcl,req.bidder,&record);
+-                let leader = (state.leader as usize + 4 - state.r)%4;
+-                let actor = (leader+state.plays.len())%4;
+-                let mask = hands[actor].iter().fold(0u32,|m,&t|m|(1<<t)) & !state.played;
+-                let led = state.plays.first().map(|&t|dcl.led_context(Domino::from_index(t as usize).unwrap()));
+-                let allowed = solver::mask_of(legal_plays(dcl,solver::set_of(mask),led));
+-                let (choice,index) = decision(policy_call(req,actor,&hands[actor],&record))?;
+-                if choice>=28 || allowed & (1<<choice)==0 { return Err("illegal continuation".into()); }
+-                record.push((actor,choice)); ids.push(index);
++            while record.len() < 28 {
++                let state = solver::replay(dcl, req.bidder, &record);
++                let leader = (state.leader as usize + 4 - state.r) % 4;
++                let actor = (leader + state.plays.len()) % 4;
++                let mask = hands[actor].iter().fold(0u32, |m, &t| m | (1 << t)) & !state.played;
++                let led = state
++                    .plays
++                    .first()
++                    .map(|&t| dcl.led_context(Domino::from_index(t as usize).unwrap()));
++                let allowed = solver::mask_of(legal_plays(dcl, solver::set_of(mask), led));
++                let (choice, index) = decision(policy_call(req, actor, &hands[actor], &record))?;
++                if choice >= 28 || allowed & (1 << choice) == 0 {
++                    return Err("illegal continuation".into());
++                }
++                record.push((actor, choice));
++                ids.push(index);
+             }
+-            let state = solver::replay(dcl,req.bidder,&record);
+-            let points = if state.r==0 {[state.banked_t0,state.banked_t1]} else {[state.banked_t1,state.banked_t0]};
++            let state = solver::replay(dcl, req.bidder, &record);
++            let points = if state.r == 0 {
++                [state.banked_t0, state.banked_t1]
++            } else {
++                [state.banked_t1, state.banked_t0]
++            };
+             traces.push(json!({"world":world_index,"action":action,
+                 "record":record.iter().flat_map(|&(a,t)|[a,t]).collect::<Vec<_>>(),
+                 "decisions":ids,"points":points,"made":points[req.bidder%2]>=30}));
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:147:
+         }
+     }
+-    Ok(json!({"schema":if job.sample_seed.is_some() {"kiln-sampled-contrast-v1"} else {"kiln-decision-assessment-v1"},
++    Ok(
++        json!({"schema":if job.sample_seed.is_some() {"kiln-sampled-contrast-v1"} else {"kiln-decision-assessment-v1"},
+         "request":serde_json::from_str::<Value>(text).unwrap()["request"],
+         "legal":legal,"worlds":full_worlds,"queries":query_results,"baseline":baseline,
+         "baseline_decision":baseline_index,"decisions":decisions,"traces":traces,
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:153:
+         "support_worlds":support.to_string(),"sample_seed":job.sample_seed,"sample_only":job.sample_only,
+-        "elapsed_us":start.elapsed().as_micros() as u64}))
++        "elapsed_us":start.elapsed().as_micros() as u64}),
++    )
+ }
+ 
+ fn main() {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:158:
+     for line in io::stdin().lock().lines() {
+         let line = line.expect("read assessment");
+-        let answer = if line.len()>100_000 { Err("job too large".into()) } else { run(&line) };
+-        println!("{}", answer.unwrap_or_else(|error|json!({"error":error})));
++        let answer = if line.len() > 100_000 {
++            Err("job too large".into())
++        } else {
++            run(&line)
++        };
++        println!("{}", answer.unwrap_or_else(|error| json!({"error":error})));
+         io::stdout().flush().expect("flush assessment");
+     }
+ }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-decision-worker.rs:170:
+     fn rejects_hidden_inputs_and_early_roots_before_calling_player() {
+         let req = json!({"decl":6,"bid":30,"bidder":0,"seat":0,"hand":[0,1,2,3,4,5,6],"plays":[],"seed":1});
+         let base = json!({"request":req,"queries":[]});
+-        assert!(assess(&base.to_string(), |_|panic!("invalid root reached player")).is_err());
++        assert!(assess(&base.to_string(), |_| panic!("invalid root reached player")).is_err());
+         let mut hidden = base;
+-        hidden["request"]["hands"] = json!([[0,1,2,3,4,5,6]]);
++        hidden["request"]["hands"] = json!([[0, 1, 2, 3, 4, 5, 6]]);
+         assert!(serde_json::from_value::<Job>(hidden).is_err());
+     }
+ }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-scheme-contrast-worker.rs:5:
+ use std::io::{self, BufRead, Write};
+ use walt::rules::{Domino, DominoSet, Seat};
+ use walt::scheme::{Atom, Budget, CompiledFix, Fix, Term, Value};
+-use walt::{gym,solver};
++use walt::{gym, solver};
+ 
+ #[derive(Deserialize)]
+ #[serde(deny_unknown_fields)]
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-scheme-contrast-worker.rs:12:
+-struct Request { decl:usize,bid:usize,bidder:usize,seat:usize,hand:Vec<usize>,plays:Vec<usize>,seed:u32 }
++struct Request {
++    decl: usize,
++    bid: usize,
++    bidder: usize,
++    seat: usize,
++    hand: Vec<usize>,
++    plays: Vec<usize>,
++    seed: u32,
++}
+ #[derive(Deserialize)]
+ #[serde(deny_unknown_fields)]
+-struct Row { request:Request,hands:[[usize;7];4],baseline:usize,alternative:usize }
+-fn tile(n:usize)->Result<Domino,String>{Domino::from_index(n).ok_or("tile outside range".into())}
+-fn seat(n:usize)->Result<Seat,String>{Seat::from_index(n).ok_or("chair outside range".into())}
++struct Row {
++    request: Request,
++    hands: [[usize; 7]; 4],
++    baseline: usize,
++    alternative: usize,
++}
++fn tile(n: usize) -> Result<Domino, String> {
++    Domino::from_index(n).ok_or("tile outside range".into())
++}
++fn seat(n: usize) -> Result<Seat, String> {
++    Seat::from_index(n).ok_or("chair outside range".into())
++}
+ 
+-fn run(text:&str, queries:&[Fix], cache:&mut BTreeMap<(usize,usize,usize),CompiledFix>) -> Result<serde_json::Value,String> {
+-    let row:Row=serde_json::from_str(text).map_err(|e|e.to_string())?;
+-    let r=&row.request;
+-    if r.bid!=30 || ![0,1,2,3,4,5,6,7,9].contains(&r.decl) || r.plays.len()%2!=0
+-        || r.plays.len()>52 || r.hand.len()!=7 || row.baseline==row.alternative {
++fn run(
++    text: &str,
++    queries: &[Fix],
++    cache: &mut BTreeMap<(usize, usize, usize), CompiledFix>,
++) -> Result<serde_json::Value, String> {
++    let row: Row = serde_json::from_str(text).map_err(|e| e.to_string())?;
++    let r = &row.request;
++    if r.bid != 30
++        || ![0, 1, 2, 3, 4, 5, 6, 7, 9].contains(&r.decl)
++        || r.plays.len() % 2 != 0
++        || r.plays.len() > 52
++        || r.hand.len() != 7
++        || row.baseline == row.alternative
++    {
+         return Err("invalid contrast request".into());
+     }
+-    let _policy_seed=r.seed; // Identity only; never an input to membership.
+-    let mut partition=row.hands.iter().flatten().copied().collect::<Vec<_>>();partition.sort_unstable();
+-    if partition!=(0..28).collect::<Vec<_>>() || row.hands[r.seat.min(3)].to_vec()!=r.hand {
++    let _policy_seed = r.seed; // Identity only; never an input to membership.
++    let mut partition = row.hands.iter().flatten().copied().collect::<Vec<_>>();
++    partition.sort_unstable();
++    if partition != (0..28).collect::<Vec<_>>() || row.hands[r.seat.min(3)].to_vec() != r.hand {
+         return Err("hands must partition the deck and preserve the actor hand".into());
+     }
+-    let history=r.plays.chunks_exact(2).map(|x|Ok((seat(x[0])?,tile(x[1])?)))
+-        .collect::<Result<Vec<_>,String>>()?;
+-    let mut hands=row.hands.map(|h|h.into_iter().map(tile).collect::<Result<Vec<_>,_>>().unwrap().into_iter().collect::<DominoSet>());
+-    let original=hands[r.seat.min(3)];
+-    for &(s,t) in &history {if !hands[s.index()].remove(t) {return Err("history/holder mismatch".into());}}
+-    let ex=gym::from_request(solver::decl_of(r.decl),seat(r.bidder)?,seat(r.seat)?,original,&history)?;
+-    let kernel=ex.root.kernel();
+-    let world=kernel.world(std::array::from_fn(|i|hands[kernel.hidden()[i].seat.index()]));
+-    if !kernel.contains(&world) {return Err("incompatible supplied world".into());}
+-    let legal=walt::rules::legal_plays(kernel.decl(),kernel.viewer_hand(),ex.frame.led_context());
+-    if !legal.contains(tile(row.baseline)?) || !legal.contains(tile(row.alternative)?) {return Err("illegal bound action".into());}
+-    let mut memberships=Vec::new();
+-    for (i,query) in queries.iter().enumerate() {
+-        let key=(i,row.baseline,row.alternative);
++    let history = r
++        .plays
++        .chunks_exact(2)
++        .map(|x| Ok((seat(x[0])?, tile(x[1])?)))
++        .collect::<Result<Vec<_>, String>>()?;
++    let mut hands = row.hands.map(|h| {
++        h.into_iter()
++            .map(tile)
++            .collect::<Result<Vec<_>, _>>()
++            .unwrap()
++            .into_iter()
++            .collect::<DominoSet>()
++    });
++    let original = hands[r.seat.min(3)];
++    for &(s, t) in &history {
++        if !hands[s.index()].remove(t) {
++            return Err("history/holder mismatch".into());
++        }
++    }
++    let ex = gym::from_request(
++        solver::decl_of(r.decl),
++        seat(r.bidder)?,
++        seat(r.seat)?,
++        original,
++        &history,
++    )?;
++    let kernel = ex.root.kernel();
++    let world = kernel.world(std::array::from_fn(|i| {
++        hands[kernel.hidden()[i].seat.index()]
++    }));
++    if !kernel.contains(&world) {
++        return Err("incompatible supplied world".into());
++    }
++    let legal =
++        walt::rules::legal_plays(kernel.decl(), kernel.viewer_hand(), ex.frame.led_context());
++    if !legal.contains(tile(row.baseline)?) || !legal.contains(tile(row.alternative)?) {
++        return Err("illegal bound action".into());
++    }
++    let mut memberships = Vec::new();
++    for (i, query) in queries.iter().enumerate() {
++        let key = (i, row.baseline, row.alternative);
+         if !cache.contains_key(&key) {
+-            let mut bound=query.clone();
++            let mut bound = query.clone();
+             for case in &mut bound.cases {
+-                for (name,n) in [("baseline",row.baseline),("alternative",row.alternative)] {
+-                    case.atoms.insert(0,Atom{predicate:"tile".into(),args:vec![Term::Role(name.into()),Term::Literal(Value::Domino(tile(n)?))],negated:false});
++                for (name, n) in [("baseline", row.baseline), ("alternative", row.alternative)] {
++                    case.atoms.insert(
++                        0,
++                        Atom {
++                            predicate: "tile".into(),
++                            args: vec![
++                                Term::Role(name.into()),
++                                Term::Literal(Value::Domino(tile(n)?)),
++                            ],
++                            negated: false,
++                        },
++                    );
+                 }
+             }
+-            cache.insert(key,bound.compile(&gym::registry()).map_err(|e|e.to_string())?);
++            cache.insert(
++                key,
++                bound.compile(&gym::registry()).map_err(|e| e.to_string())?,
++            );
+         }
+-        let answers=cache[&key].evaluate(&ex.frame,&world,&mut Budget::new(2_000_000)).map_err(|e|e.to_string())?;
++        let answers = cache[&key]
++            .evaluate(&ex.frame, &world, &mut Budget::new(2_000_000))
++            .map_err(|e| e.to_string())?;
+         for a in &answers {
+-            if a.0!=vec![Value::Domino(tile(row.alternative)?),Value::Domino(tile(row.baseline)?)] {
++            if a.0
++                != vec![
++                    Value::Domino(tile(row.alternative)?),
++                    Value::Domino(tile(row.baseline)?),
++                ]
++            {
+                 return Err("query must output the bound alternative/baseline pair".into());
+             }
+         }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-scheme-contrast-worker.rs:61:
+     }
+     Ok(json!({"memberships":memberships}))
+ }
+-fn main(){
+-    let queries=std::env::args().skip(1).map(|p|std::fs::read_to_string(p).expect("query file").parse::<Fix>().expect("Scheme syntax")).collect::<Vec<_>>();
+-    assert!(!queries.is_empty() && queries.len()<=64,"pass 1..64 query files");
+-    let mut cache=BTreeMap::new();
+-    for line in io::stdin().lock().lines(){
+-        let line=line.expect("contrast row");
+-        let result=if line.len()>100_000 {Err("row too large".into())} else {run(&line,&queries,&mut cache)};
+-        println!("{}",result.unwrap_or_else(|error|json!({"error":error})));
++fn main() {
++    let queries = std::env::args()
++        .skip(1)
++        .map(|p| {
++            std::fs::read_to_string(p)
++                .expect("query file")
++                .parse::<Fix>()
++                .expect("Scheme syntax")
++        })
++        .collect::<Vec<_>>();
++    assert!(
++        !queries.is_empty() && queries.len() <= 64,
++        "pass 1..64 query files"
++    );
++    let mut cache = BTreeMap::new();
++    for line in io::stdin().lock().lines() {
++        let line = line.expect("contrast row");
++        let result = if line.len() > 100_000 {
++            Err("row too large".into())
++        } else {
++            run(&line, &queries, &mut cache)
++        };
++        println!("{}", result.unwrap_or_else(|error| json!({"error":error})));
+         io::stdout().flush().expect("flush memberships");
+     }
+ }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/bin/kiln-worker.rs:7:
+         let line = line.expect("read kiln job");
+         let value = if line.len() > 16_384 {
+             serde_json::json!({"error":"request too large"})
+-        } else { pricer.price(&line) };
++        } else {
++            pricer.price(&line)
++        };
+         println!("{value}");
+         io::stdout().flush().expect("flush durable-job result");
+     }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/auction.rs:163:
+     price_with_cache(req, n, ms, seed, None).map(|(price, work, _)| (price, work))
+ }
+ 
+-fn price_with_cache(req: &Request, n: usize, ms: u64, seed: u64, previous: Option<&mut Shared>)
+-    -> Result<(Value, Value, Shared), String>
+-{
++fn price_with_cache(
++    req: &Request,
++    n: usize,
++    ms: u64,
++    seed: u64,
++    previous: Option<&mut Shared>,
++) -> Result<(Value, Value, Shared), String> {
+     let started = Instant::now();
+     let hand = req.hand.iter().fold(0u32, |mask, t| mask | (1u32 << t));
+     let leader = (req.seat + u64::from(req.seat % 2 == 0)) as u8;
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/auction.rs:208:
+         "policy_cache_entries":sh.pi_cache_len(),"search_cache_entries":solver.memo_len(),
+         "carried_policy_entries":carried});
+     drop(solver);
+-    let shared = Arc::try_unwrap(sh).unwrap_or_else(|_| panic!("completed auction still owns a solver"));
+-    Ok((json!([
+-        req.decl,
+-        v.numer().to_string(),
+-        v.denom().to_string()
+-    ]), work, shared))
++    let shared =
++        Arc::try_unwrap(sh).unwrap_or_else(|_| panic!("completed auction still owns a solver"));
++    Ok((
++        json!([req.decl, v.numer().to_string(), v.denom().to_string()]),
++        work,
++        shared,
++    ))
+ }
+ 
+ /// Native offline price producer. The same evaluator as the live auction,
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/auction.rs:236:
+     pub fn price(&mut self, text: &str) -> Value {
+         #[derive(Deserialize)]
+         #[serde(deny_unknown_fields)]
+-        struct Job { auction: Auction, decl: u64, worlds: usize, budget_ms: u64 }
++        struct Job {
++            auction: Auction,
++            decl: u64,
++            worlds: usize,
++            budget_ms: u64,
++        }
+         let mut run = || -> Result<Value, String> {
+             let job: Job = serde_json::from_str(text).map_err(|e| e.to_string())?;
+-            if !DECLS.contains(&job.decl) || ![4,8,12,40,160].contains(&job.worlds)
+-                || !(5..=600_000).contains(&job.budget_ms) { return Err("invalid kiln job".into()); }
++            if !DECLS.contains(&job.decl)
++                || ![4, 8, 12, 40, 160].contains(&job.worlds)
++                || !(5..=600_000).contains(&job.budget_ms)
++            {
++                return Err("invalid kiln job".into());
++            }
+             let (mut req, seed) = request(job.auction)?;
+             req.decl = job.decl;
+             // Bound retention by entry count. A single active solve retains its
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/auction.rs:247:
+             // ordinary working set; no collection of previous requests accumulates.
+-            if self.previous.as_ref().is_some_and(|s| s.pi_cache_len() > 100_000) {
++            if self
++                .previous
++                .as_ref()
++                .is_some_and(|s| s.pi_cache_len() > 100_000)
++            {
+                 self.previous = None;
+             }
+-            let (price, work, shared) = price_with_cache(&req, job.worlds, job.budget_ms, seed, self.previous.as_mut())?;
++            let (price, work, shared) = price_with_cache(
++                &req,
++                job.worlds,
++                job.budget_ms,
++                seed,
++                self.previous.as_mut(),
++            )?;
+             self.previous = Some(shared);
+-            Ok(json!({"schema":"kiln-price-v1","auction":identity(&req,seed),
+-                "worlds":job.worlds,"inner_worlds":8,"price":price,"work":work}))
++            Ok(
++                json!({"schema":"kiln-price-v1","auction":identity(&req,seed),
++                "worlds":job.worlds,"inner_worlds":8,"price":price,"work":work}),
++            )
+         };
+         run().unwrap_or_else(|error| json!({"error":error}))
+     }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/auction.rs:272:
+         let mut pricer = KilnPricer::default();
+         let mut carried = 0;
+         let mut jobs = vec![job(8), job(40), job(160), job(8)];
+-        let mut changed = job(8); changed["decl"] = json!(6); jobs.push(changed.clone());
+-        changed["auction"]["bid"] = json!(36); jobs.push(changed.clone());
+-        changed["auction"]["seed"] = json!(0); jobs.push(changed.clone());
+-        changed["auction"]["seat"] = json!(2); jobs.push(changed.clone());
+-        changed["auction"]["hand"] = json!([0,2,5,7,14,16,26]); jobs.push(changed);
++        let mut changed = job(8);
++        changed["decl"] = json!(6);
++        jobs.push(changed.clone());
++        changed["auction"]["bid"] = json!(36);
++        jobs.push(changed.clone());
++        changed["auction"]["seed"] = json!(0);
++        jobs.push(changed.clone());
++        changed["auction"]["seat"] = json!(2);
++        jobs.push(changed.clone());
++        changed["auction"]["hand"] = json!([0, 2, 5, 7, 14, 16, 26]);
++        jobs.push(changed);
+         for (index, job) in jobs.iter().enumerate() {
+             let cold = kiln(&job.to_string());
+             let warm = pricer.price(&job.to_string());
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/auction.rs:291:
+             }
+         }
+         if cfg!(feature = "cpu-speedups") {
+-            assert_eq!(carried, 0, "the auction deliberately recomputes cheap L0 policies");
++            assert_eq!(
++                carried, 0,
++                "the auction deliberately recomputes cheap L0 policies"
++            );
+         } else {
+-            assert!(carried > 0, "the reference path must actually carry completed answers");
++            assert!(
++                carried > 0,
++                "the reference path must actually carry completed answers"
++            );
+         }
+         assert!(pricer.price("{}").get("error").is_some());
+         let valid = job(8);
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/auction.rs:300:
+-        assert_eq!(pricer.price(&valid.to_string())["price"], kiln(&valid.to_string())["price"]);
++        assert_eq!(
++            pricer.price(&valid.to_string())["price"],
++            kiln(&valid.to_string())["price"]
++        );
+     }
+ 
+     #[test]
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/auction.rs:304:
+     fn every_policy_context_change_refuses_reuse_and_budget_state_is_fresh() {
+-        let (mut req, seed) = request(serde_json::from_value(job(8)["auction"].clone()).unwrap()).unwrap();
++        let (mut req, seed) =
++            request(serde_json::from_value(job(8)["auction"].clone()).unwrap()).unwrap();
+         req.decl = 5;
+         let (_, _, old) = price_with_cache(&req, 8, 60000, seed, None).unwrap();
+         // L0 can bypass its cache. Populate a real L1 answer so this still
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/auction.rs:309:
+         // checks nonempty transfer and every context refusal in both builds.
+         let hand = req.hand.iter().fold(0u32, |mask, t| mask | (1u32 << t));
+-        let key = Key { voids: None, played: 0, leader: 1, plays: vec![],
+-            banked_t1: 0, banked_t0: 0, alive: 0 };
++        let key = Key {
++            voids: None,
++            played: 0,
++            leader: 1,
++            plays: vec![],
++            banked_t1: 0,
++            banked_t0: 0,
++            alive: 0,
++        };
+         let old = Arc::new(old);
+-        Solver::new(Arc::clone(&old), Seat::S1, hand, true,
+-            vec![], vec![], Field::Level(0))
+-            .modeled_choice(1, &key, Seat::S1, hand, hand).unwrap();
+-        let mut old = Arc::try_unwrap(old).unwrap_or_else(|_| panic!("cache fixture owns a solver"));
++        Solver::new(
++            Arc::clone(&old),
++            Seat::S1,
++            hand,
++            true,
++            vec![],
++            vec![],
++            Field::Level(0),
++        )
++        .modeled_choice(1, &key, Seat::S1, hand, hand)
++        .unwrap();
++        let mut old =
++            Arc::try_unwrap(old).unwrap_or_else(|_| panic!("cache fixture owns a solver"));
+         let entries = old.pi_cache_len();
+         assert!(entries > 0);
+-        let fresh = || Shared::new(solver::decl_of(5),30,vec![8,2],0,7,Deadline::after(Duration::from_secs(60)));
++        let fresh = || {
++            Shared::new(
++                solver::decl_of(5),
++                30,
++                vec![8, 2],
++                0,
++                7,
++                Deadline::after(Duration::from_secs(60)),
++            )
++        };
+         for dimension in 0..7 {
+             let mut next = fresh();
+             match dimension {
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/auction.rs:324:
+                 0 => next.dcl = solver::decl_of(6),
+                 1 => next.bid = 31,
+-                2 => next.n_inner = vec![4,2],
++                2 => next.n_inner = vec![4, 2],
+                 3 => next.boundary_played = 15,
+                 4 => next.boundary_hand_size = 6,
+                 5 => next = next.with_inner_belief(solver::inner_belief::InnerBelief::VoidsCounted),
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/auction.rs:330:
+                 6 => next = next.with_modeled_selection(solver::selection::Rule::RaceRefine),
+                 _ => unreachable!(),
+             }
+-            assert_eq!(next.take_policy_cache_from(&mut old), 0, "dimension {dimension}");
++            assert_eq!(
++                next.take_policy_cache_from(&mut old),
++                0,
++                "dimension {dimension}"
++            );
+             assert_eq!(next.pi_cache_len(), 0);
+             assert_eq!(old.pi_cache_len(), entries);
+         }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/auction.rs:338:
+         old.deadline = Deadline::after(Duration::ZERO);
+         let mut next = fresh();
+         assert_eq!(next.take_policy_cache_from(&mut old), entries);
+-        assert_eq!(old.pi_cache_len(), 0, "ownership moves; storage is not duplicated");
++        assert_eq!(
++            old.pi_cache_len(),
++            0,
++            "ownership moves; storage is not duplicated"
++        );
+         assert_eq!(next.nodes.load(Ordering::Relaxed), 0);
+         assert_eq!(next.pi_calls.load(Ordering::Relaxed), 0);
+         assert!(!next.dead.load(Ordering::Relaxed));
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/lib.rs:29:
+ }
+ #[derive(Deserialize, Clone, Copy, PartialEq, Eq)]
+ #[serde(rename_all = "lowercase")]
+-enum PlayContract { Nello }
++enum PlayContract {
++    Nello,
++}
+ 
+ #[derive(Deserialize)]
+ #[serde(deny_unknown_fields)]
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/lib.rs:52:
+         };
+         let nello = self.contract == Some(PlayContract::Nello);
+         if nello {
+-            if self.decl != 8 || !(1..=9).contains(&self.bid) { return Err("Nel-O requires doubles-suit and 1..9 marks".into()); }
++            if self.decl != 8 || !(1..=9).contains(&self.bid) {
++                return Err("Nel-O requires doubles-suit and 1..9 marks".into());
++            }
+         } else if !(30..=42).contains(&self.bid) {
+             return Err("the table player requires a straight bid from 30 through 42".into());
+         }
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/lib.rs:93:
+     14_000
+ }
+ 
+-fn evaluation(text: &str, n: usize, n0: usize, ms: u64, previous: &mut Option<solver::Shared>) -> Result<Value, String> {
++fn evaluation(
++    text: &str,
++    n: usize,
++    n0: usize,
++    ms: u64,
++    previous: &mut Option<solver::Shared>,
++) -> Result<Value, String> {
+     let wire = format!("baseline\n{text}n {n}\nn0 {n0}\nn1 2\nbudget_ms {ms}\ninner_belief 0\nselection 0\nmodeled_selection 0\n");
+     let value = solver::partnership_wire::run_with_cache(&wire, previous)?;
+     serde_json::from_str(&value).map_err(|e| e.to_string())
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/lib.rs:158:
+     }
+     // Leave an actual window for defense after ordinary comparisons, including
+     // when the larger comparison times out. Small caller budgets keep half for L1.
+-    let counterexample_reserve = if call.nello_counterexamples && nello
+-        && call.request.seat % 2 != call.request.bidder % 2 {
++    let counterexample_reserve = if call.nello_counterexamples
++        && nello
++        && call.request.seat % 2 != call.request.bidder % 2
++    {
+         counterexample::MAX_MS.min(call.budget_ms / 2)
+-    } else { 0 };
++    } else {
++        0
++    };
+     let remaining = || {
+         call.budget_ms
+             .saturating_sub(start.elapsed().as_millis() as u64)
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/lib.rs:187:
+     let mut previous = None;
+     for (name, n, n0, ms) in stages {
+         let ms = if name == "baseline" {
+-            remaining().saturating_sub(counterexample_reserve).saturating_sub(40)
++            remaining()
++                .saturating_sub(counterexample_reserve)
++                .saturating_sub(40)
+         } else {
+             ms
+         };
+Diff in /Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player/src/lib.rs:222:
+     // Opt-in defense only. Keep ordinary estimates intact and expose the
+     // deliberately biased mixture separately. A stopped round cannot replace
+     // the last completed comparison, either in Rust or a host checkpoint.
+-    if call.nello_counterexamples && nello && call.request.seat % 2 != call.request.bidder % 2
+-        && value["route"] == "baseline" {
++    if call.nello_counterexamples
++        && nello
++        && call.request.seat % 2 != call.request.bidder % 2
++        && value["route"] == "baseline"
++    {
+         let baseline = value["choice"].as_u64().unwrap();
+         let worlds = value["evaluation"]["outer_worlds"].as_u64().unwrap() as usize;
+         let ms = remaining().min(counterexample_reserve);

@@ -1,0 +1,3 @@
+   Compiling walt v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt)
+    Finished `release` profile [optimized] target(s) in 2.88s
+     Running unittests src/lib.rs (walt/target/release/deps/walt-878d58b2b607f074)
