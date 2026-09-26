@@ -41,7 +41,7 @@ canvas{display:block;width:100%;height:100%}
 <main>
   <header>
     <h1>How Walt sees <b>42</b></h1>
-    <p>A 90-second sketch about playing dominoes with a handful of guesses.</p>
+    <p>A two-minute sketch about playing dominoes with a handful of guesses.</p>
   </header>
   <div class="stage">
     <canvas id="film" width="1920" height="1080" aria-label="Animated sketch: how Walt plays Texas 42 by sampling a handful of possible deals"></canvas>
@@ -348,7 +348,7 @@ function openBook(x, y, w, lines, o = {}) {
   for (const ln of lines) {
     const yy = -h / 2 + h * 0.22 + (ln.row + 0.5) * h * 0.13 - 3, xx = ln.page ? 22 : -w / 2 + 22;
     if (ln.hl) { ctx.save(); ctx.globalAlpha = 0.55 * GA; ctx.fillStyle = PINK; ctx.fillRect(xx - 6, yy - h * 0.05, (w / 2 - 36) * ln.hl, h * 0.1); ctx.restore(); }
-    txt(ln.text, xx, yy, w * 0.052, { font: FC, weight: 700, color: ln.color || BLUE, align: 'left', prog: ln.prog, still: true });
+    txt(ln.text, xx, yy, w * 0.052 * (o.big || 1), { font: FC, weight: 700, color: ln.color || BLUE, align: 'left', prog: ln.prog, still: true });
   }
   ctx.restore();
 }
@@ -427,9 +427,9 @@ const TRANS = [7.45, 15.95, 24.4, 38.45, 49.8]; // page flips between scenes, on
 // that clock so big ideas get room to land, and slots in a recap page before the ending.
 const KNOTS = [[0, 0], [7.2, 7.2], [9.6, 7.3], [14.1, 11.8], [16.9, 11.85], [20.8, 15.75], [21.6, 15.8], [24.8, 19.0], [29.8, 19.8],
   [32.5, 22.5], [33.6, 22.7], [34.4, 23.5], [38.3, 23.9], [57.5, 43.1], [58.8, 43.15], [65.4, 49.75], [66.0, 49.78]];
-const RECAP = [66.05, 74.3], TAIL = 74.3 - 49.75; // recap page, then the ending runs at N = O + TAIL
+const S6_START = 104.3, TAIL = S6_START - 49.75; // after the new pages, the ending runs at N = O + TAIL
 function toOld(n) {
-  if (n >= RECAP[1]) return n - TAIL;
+  if (n >= S6_START) return n - TAIL;
   for (let i = 1; i < KNOTS.length; i++) if (n <= KNOTS[i][0]) { const [a, c] = KNOTS[i - 1], [b, d] = KNOTS[i]; return c + (d - c) * (n - a) / (b - a); }
   return KNOTS[KNOTS.length - 1][1];
 }
@@ -439,7 +439,7 @@ function toNew(o) { // first film time showing scene-clock time o
   return o + TAIL;
 }
 // pages of the pad on the film clock: [start, draw]
-const FLIPS = [toNew(7.45), toNew(15.95), toNew(24.4), toNew(38.45), RECAP[0], RECAP[1]];
+const FLIPS = [toNew(7.45), toNew(15.95), toNew(24.4), toNew(38.45), 64.5, 74.3, 94.1, S6_START];
 let NT = 0; // film time, for overlays that belong to the new beats
 
 function scene1(t) {
@@ -708,76 +708,137 @@ function scene4(t) {
 }
 
 const RESULTS = (() => { const r = mulberry(40); const a = []; for (let i = 0; i < 40; i++) a.push(r() < 0.62); return a; })();
-function scene5(t) {
-  const fadeA = 1 - seg(t, 44.55, 44.95);
-  // the deck of imagined worlds flips by
-  if (fadeA > 0) {
-    GA = fadeA;
-    const k = Math.min(40, 1 + Math.floor(39 * seg(t, 38.75, 41.35)));
-    for (let i = 3; i >= 1; i--) { ctx.save(); ctx.translate(440 + i * 10, 440 + i * 12); ctx.rotate(-0.04 + i * 0.03); thoughtCloud(0, 0, 250, 170, 1, i); ctx.restore(); }
-    ctx.save(); ctx.translate(440, 440); ctx.rotate(-0.04 + (k % 2) * 0.03); thoughtCloud(0, 0, 250, 170, seg(t, 38.5, 38.9), 0);
-    if (t > 38.75) { miniTable(0, 10, 110, k); txt('world #' + k, 0, -120, 46, { font: FC, weight: 700, color: BLUE, still: true }); if (t > 38.9) (RESULTS[k - 1] ? checkMark : crossMark)(150, 70, 0.9, 1); }
+const CANDS = [[5, 5, 17], [5, 0, 29], [6, 4, 22], [3, 2, 11]]; // Walt's candidate plays and made-it counts (cartoon numbers)
+function pencil(x, y, rot, s = 1) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s, s); KEY = 88;
+  const pc = rrPts(-8, -60, 16, 110, 3); fillP(pc, GOLD, { dx: 0, dy: 0 }); sk(pc, { w: 2.5 });
+  const tip = polyPts([[-8, 50], [0, 68], [8, 50]], true); fillP(tip, '#e8c9a0', { dx: 0, dy: 0 }); sk(tip, { w: 2.5, k: 1 });
+  ctx.restore();
+}
+// Walt counts: first the deals, then each move he could make
+function countPage(n) {
+  const second = n > 58.3, k = Math.max(1, Math.ceil(40 * (second ? seg(n, 58.4, 61.6) : seg(n, 53.3, 55.5))));
+  for (let i = 3; i >= 1; i--) { ctx.save(); ctx.translate(360 + i * 10, 390 + i * 12); ctx.rotate(-0.04 + i * 0.03); thoughtCloud(0, 0, 230, 160, 1, i); ctx.restore(); }
+  ctx.save(); ctx.translate(360, 390); ctx.rotate(-0.04 + (k % 2) * 0.03); thoughtCloud(0, 0, 230, 160, seg(n, 52.9, 53.3), 0);
+  if (n > 53.2) { miniTable(0, 10, 100, k); txt('world #' + k, 0, -112, 44, { font: FC, weight: 700, color: BLUE, still: true }); if (!second && n > 53.35) (RESULTS[k - 1] ? checkMark : crossMark)(140, 70, 0.8, 1); }
+  ctx.restore();
+  walt(230, 830, { s: 0.7, look: 1, armR: n > 62.3 ? 1.6 : 0.3, bendR: 0.1, mood: 'happy' });
+  if (n > 55.9) {
+    const s = popS(n, 55.9, 0.45);
+    ctx.save(); ctx.translate(1230, 560); ctx.rotate(0.015); ctx.scale(s, s);
+    note(0, 0, 1060, 820, 0, '#fffdf3', true);
+    txt('made the bid, move by move', 0, -355, 50, { font: FC, weight: 700, color: BLUE, still: true });
+    CANDS.forEach(([a, b, m], i) => {
+      const x = -390 + i * 260;
+      if (i) { KEY = 660 + i; sk(linePts(x - 130, -310, x - 130, 380), { w: 3, alpha: 0.45 }); }
+      domino(x, -225, a, b, { w: 54, s: popS(n, 57.9 + i * 0.15, 0.35), k: 70 + i });
+      tally(x - 60, -130, Math.round(m * seg(n, 58.4, 61.6)), { color: i === 1 && n > 62.1 ? GREEN : BLUE, per: 2, gw: 78, gh: 80, h: 56, w: 4 });
+    });
+    if (n > 62.1) scribbleCircle(-130, 10, 128, 385, seg(n, 62.1, 62.7), RED, 6);
     ctx.restore();
-    // the score pad: made it vs set
-    ctx.save(); ctx.translate(1290, 520); ctx.rotate(0.02); KEY = 21;
-    note(0, 0, 720, 700, 0, '#fffdf3', true);
-    txt('made it', -180, -270, 64, { color: GREEN, still: true }); txt('set', 180, -270, 64, { color: RED, still: true });
-    sk(linePts(0, -310, 0, 320), { w: 4, k: 1 }); sk(linePts(-340, -225, 340, -225), { w: 4, k: 2 });
-    let made = 0, set = 0; for (let i = 0; i < k && t > 38.9; i++) RESULTS[i] ? made++ : set++;
-    tally(-330, -200, made, { color: GREEN, per: 4, gw: 80, gh: 90, h: 64 }); tally(30, -200, set, { color: RED, per: 4, gw: 80, gh: 90, h: 64 });
-    if (t > 42.3) scribbleCircle(-175, -120, 200, 125, seg(t, 42.3, 42.9), BLUE, 5);
-    ctx.restore();
-    GA = 1;
-  }
-  // Walt with a magnifying glass, then levelling up
-  const up = t > 43.55 && t < 44.2 ? Math.sin(seg(t, 43.55, 44.2) * PI) * 70 : 0;
-  const wx = lerp(250, 300, 0), wy = 790 - up;
-  if (t > 43.5) { for (let i = 0; i < 12; i++) { const a = (i / 12) * TAU + t * 0.6, r1 = 150, r2 = 150 + 60 * popS(t, 43.55, 0.5); GA = 1 - seg(t, 45.0, 45.4); KEY = 60 + i; sk(linePts(wx + Math.cos(a) * r1, wy - 40 + Math.sin(a) * r1, wx + Math.cos(a) * r2, wy - 40 + Math.sin(a) * r2), { w: 6, color: GOLD, passes: 1 }); GA = 1; } }
-  const walts = walt(wx, wy, { s: 0.85 * (1 - seg(t, 44.6, 44.95)), armR: t > 41.6 && t < 43.5 ? 1.7 : 0.3, bendR: 0.6, armL: up ? 2.4 : 0.25, bendL: 0.3, badge: t > 43.6 ? popS(t, 43.6, 0.45) : 0, look: 1, mood: 'happy' });
-  if (t > 41.6 && t < 43.5 && walts) {
-    const [hx, hy] = walts.hr; KEY = 90; const g = ellPts(hx + 40, hy - 50, 44, 44, 0.05); fillP(g, 'rgba(180,220,255,.35)', { dx: 0, dy: 0 }); sk(g, { w: 6 }); sk(linePts(hx + 10, hy - 18, hx - 6, hy + 4), { w: 9, k: 1 });
-    txt('?', hx + 42, hy - 52, 64 * popS(t, 41.8, 0.35), { color: RED });
-  }
-  if (t > 43.6 && t < 45.0) txt('LEVEL UP!', 560, 690, 76 * popS(t, 43.65, 0.4), { color: GOLD, halo: 10, haloColor: INK, rot: -0.08, alpha: 1 - seg(t, 44.6, 45.0) });
-  // dice aren't very smart
-  if (t > 44.85 && t < 47.0) {
-    const s = popS(t, 44.9, 0.45) * (1 - eo(seg(t, 46.5, 46.85))), wob = Math.sin(t * 7) * 0.12;
-    die(960, 470, 0, { size: 300, derp: true, s, rot: wob });
-    if (t > 45.2) txt('duh...', 1230, 290, 70 * popS(t, 45.2, 0.35) * (1 - seg(t, 46.5, 46.85)), { font: FC, weight: 700, color: BLUE, rot: 0.1 });
-    if (t > 45.85) { ctx.save(); ctx.translate(960, 470); ctx.scale(1 - eo(seg(t, 46.5, 46.85)), 1 - eo(seg(t, 46.5, 46.85))); crossMark(0, 0, 6.5, seg(t, 45.85, 46.3)); ctx.restore(); }
-  }
-  // everyone thinks instead: dice become light bulbs
-  if (t > 46.75) {
-    const kinds = ['lefty', 'partner', 'righty', 'walt'], xs = [420, 780, 1140, 1500];
-    for (let i = 0; i < 4; i++) {
-      const s = popS(t, 46.8 + i * 0.1, 0.4), x = xs[i], y = 640;
-      if (kinds[i] === 'walt') walt(x, y + 60, { s: 0.62 * s, noLegs: true, look: 0 }); else person(x, y, { kind: kinds[i], s: 0.85 * s });
-      const flip = seg(t, 47.35 + i * 0.2, 47.6 + i * 0.2);
-      if (flip < 0.5) die(x, y - 190, 1 + ((i * 2 + Math.floor(t * 8)) % 6), { size: 70, s: s * (1 - flip * 2), rot: Math.sin(t * 5 + i) * 0.2 });
-      else bulb(x, y - 190, 0.95 * back((flip - 0.5) * 2), seg(t, 47.6 + i * 0.2, 47.9 + i * 0.2));
-      if (t > 48.3 + i * 0.12) { domino(x + 115, y + 60, [6, 6, 5, 5][i], [5, 3, 4, 0][i], { w: 44, s: popS(t, 48.3 + i * 0.12, 0.35), rot: 0.15 }); checkMark(x + 150, y - 10, 0.55, seg(t, 48.45 + i * 0.12, 48.7 + i * 0.12)); }
-    }
-    txt('pick the best play', 960, 250, 84, { color: BLUE, prog: seg(t, 47.2, 47.9), rot: -0.03 });
+    if (n > 62.6) txt('his move!', 1100, 95, 78 * popS(n, 62.6, 0.4), { color: RED, rot: -0.05, halo: 10 });
   }
 }
-
-// So that's the whole trick: three callbacks
+// who writes in the handbook? a die... then a little Walt
+function bookPage(n) {
+  const bx = 960, by = 470, w = 820;
+  const neat = n > 72.75;
+  openBook(bx, by, w, [
+    { row: 0, page: 1, text: '5-5 ?!', color: '#7a7a86', prog: seg(n, 66.8, 67.2) },
+    { row: 1, page: 1, text: '1-0 !!!', color: '#7a7a86', prog: seg(n, 67.3, 67.7) },
+    { row: 2, page: 1, text: '6-6 ...?', color: '#7a7a86', prog: seg(n, 67.8, 68.2) },
+    { row: 3, page: 1, text: 'this spot: 5-4', color: BLUE, prog: seg(n, 72.8, 73.6), hl: neat ? seg(n, 73.6, 73.9) : 0 },
+  ], { s: popS(n, 64.6, 0.45), title: 'the handbook', titleColor: INK });
+  // the books stay
+  if (n > 70.75 && n < 71.9) for (let i = 0; i < 8; i++) { const a = (i / 8) * TAU + n; sparkle(bx + Math.cos(a) * 470, by + Math.sin(a) * 300, 20 * Math.sin(seg(n, 70.75, 71.9) * PI), 1); }
+  // the die author: pops in, scribbles nonsense, gets crossed out, hands over the pencil
+  if (n > 66.45 && n < 72.4) {
+    const s = popS(n, 66.45, 0.4) * (1 - eo(seg(n, 71.8, 72.3))), wob = Math.sin(n * 7) * 0.1, dx = 1520, dy = 420;
+    die(dx, dy, 0, { size: 160, derp: true, s, rot: wob });
+    if (n < 71.9) { const wr = n > 66.75 && n < 68.25, px = wr ? 1260 + ((n * 3) % 1) * 80 : dx - 90, py = wr ? 330 + Math.floor(seg(n, 66.8, 68.2) * 3) * 40 : dy + 40; pencil(px + 30, py - 50, 0.6, s); }
+    if (n > 68.3) { ctx.save(); ctx.translate(dx, dy); ctx.scale(s, s); crossMark(0, 0, 2.4, seg(n, 68.3, 68.7)); ctx.restore(); }
+  }
+  // the pencil flies to a little Walt
+  if (n > 71.9) {
+    const s = popS(n, 71.9, 0.4); walt(1540, 470, { s: 0.55 * s, armR: 1.2, bendR: 0.5, look: -1 });
+    const u = eio(seg(n, 72.0, 72.6)), wr = n > 72.8 && n < 73.6;
+    const px = wr ? 1190 + seg(n, 72.8, 73.6) * 170 + Math.sin(n * 50) * 3 : lerp(1430, 1600, 1 - u), py = wr ? 520 : lerp(470, 440, u) - Math.sin(u * PI) * 120;
+    pencil(px + 30, py - 50, 0.6);
+  }
+  // Walt levels up
+  if (n > 69.4) {
+    const up = n < 70.1 ? Math.sin(seg(n, 69.4, 70.1) * PI) * 60 : 0;
+    for (let i = 0; i < 12; i++) { const a = (i / 12) * TAU + n * 0.6, r1 = 140, r2 = 140 + 55 * popS(n, 69.45, 0.5); GA = 1 - seg(n, 70.8, 71.3); KEY = 60 + i; sk(linePts(260 + Math.cos(a) * r1, 690 + Math.sin(a) * r1, 260 + Math.cos(a) * r2, 690 + Math.sin(a) * r2), { w: 6, color: GOLD, passes: 1 }); GA = 1; }
+    walt(260, 730 - up, { s: 0.85 * popS(n, 69.4, 0.4), armL: up ? 2.4 : 0.3, bendL: 0.3, badge: popS(n, 69.6, 0.45), look: 1 });
+    if (n < 71.0) txt('LEVEL UP!', 290, 330, 76 * popS(n, 69.5, 0.4), { color: GOLD, halo: 10, haloColor: INK, rot: -0.08, alpha: 1 - seg(n, 70.7, 71.0) });
+  }
+  // the one-line summary of the whole idea
+  if (n > 72.6) { txt('level 0: a die writes the book', 960, 800, 54, { font: FC, weight: 700, color: '#7a7a86', prog: seg(n, 72.6, 73.2), still: true }); }
+  if (n > 73.2) { txt('level 1: a little Walt writes the book', 960, 868, 60, { font: FC, weight: 700, color: BLUE, prog: seg(n, 73.2, 73.9), still: true }); }
+}
+// how a little Walt fills in a page: the whole trick, from one seat
+const MSEAT = { lefty: [360, 600], partner: [760, 330], righty: [1160, 600], walt: [760, 860] };
+function mechPage(n) {
+  const tbl = ellPts(760, 600, 260, 150, 0.05, 2); KEY = 13; GA = seg(n, 74.35, 74.7); fillP(tbl, FELT); hatch(tbl, '#3d7a37', 16, -0.7, 2, 0.35); sk(tbl, { w: 5 }); GA = 1;
+  const kinds = ['partner', 'lefty', 'righty'];
+  kinds.forEach((k, i) => { const [x, y] = MSEAT[k]; person(x, y - 40, { kind: k, s: 0.6 * popS(n, 74.4 + i * 0.1, 0.4) }); });
+  walt(MSEAT.walt[0], MSEAT.walt[1] + 40, { s: 0.45 * popS(n, 74.7, 0.4), noLegs: true });
+  const hands = { walt: WALT_HAND, ...HANDS }, spot = n > 79.4, dim = seg(n, 79.4, 79.7) * (1 - seg(n, 82.5, 82.9));
+  for (const k of ['partner', 'lefty', 'righty', 'walt']) hands[k].forEach(([a, b], i) => {
+    const pos = { partner: [760 - 84 + i * 28, 440, 0], walt: [760 - 84 + i * 28, 755, 0], lefty: [480, 600 - 84 + i * 28, PI / 2], righty: [1040, 600 - 84 + i * 28, PI / 2] }[k];
+    domino(pos[0], pos[1], a, b, { w: 22, rot: pos[2], s: popS(n, 74.5, 0.4), down: spot && k !== 'lefty', k: i * 10 + k.length });
+  });
+  // Lefty hits a spot he has never seen
+  if (n > 76.3) openBook(320, 345, 440, [
+    { row: 0, text: 'this spot: ???', color: RED, prog: n > 87.25 ? 0 : 1 },
+    { row: 0, text: 'this spot: 5-4', color: BLUE, prog: seg(n, 87.3, 88.2) },
+  ], { s: popS(n, 76.3, 0.4), title: "Lefty's book", titleColor: '#2e86de', big: 1.55 });
+  spotlightMask(380, 480, 340, dim);
+  // a little Walt takes the pen
+  if (n > 77.35) {
+    walt(575, 420, { s: 0.36 * popS(n, 77.35, 0.4), armR: 1.0, bendR: 0.4, look: 1 });
+    const wr = n > 87.3 && n < 88.2;
+    pencil(wr ? 330 + seg(n, 87.3, 88.2) * 110 + 30 : 640, wr ? 360 + Math.sin(n * 50) * 3 - 50 : 410, 0.6, 0.7);
+  }
+  // ...and does the whole trick, from Lefty's seat
+  const cl = seg(n, 82.8, 83.5) * (1 - eio(seg(n, 88.6, 89.1)));
+  if (cl > 0) {
+    [[640, 330, 10], [690, 285, 14], [750, 245, 18]].forEach(([x, y, r], i) => { if (n > 82.8 + i * 0.1) dot(x, y, r * cl, '#fffef6'); });
+    ctx.save(); ctx.translate(1350, 290); ctx.scale(cl, cl); thoughtCloud(0, 0, 420, 200, 1, 31);
+    txt("from Lefty's seat", 0, -150, 40, { font: FC, weight: 700, color: '#2e86de', still: true });
+    if (n > 84.25) { const s = popS(n, 84.25, 0.4); for (let c = 0; c < 5; c++) { ctx.save(); ctx.translate(-250 + (c - 2) * 26, 0); ctx.rotate((c - 2) * 0.15); ctx.scale(s, s); dealCard(0, 0, 70, 90 + c, true); ctx.restore(); } txt('imagine', -250, 105, 38, { font: FC, weight: 700, color: BLUE, prog: seg(n, 84.3, 84.8), still: true }); }
+    if (n > 85.9) { const s = popS(n, 85.9, 0.4); ctx.save(); ctx.scale(s, s); miniTable(0, 0, 60, 3); [[-80, -40], [80, -40], [-80, 40], [80, 40]].forEach(([x, y], i) => die(x, y, 1 + ((i + Math.floor(n * 6)) % 6), { size: 26, rot: Math.sin(n * 6 + i) * 0.3, k: i })); ctx.restore(); txt('play out', 0, 105, 38, { font: FC, weight: 700, color: BLUE, prog: seg(n, 85.95, 86.4), still: true }); }
+    if (n > 86.7) { const s = popS(n, 86.7, 0.4); ctx.save(); ctx.translate(250, 0); ctx.scale(s, s); tally(-60, -35, 9, { color: GREEN, per: 2, gw: 70, gh: 70, h: 44, w: 4 }); ctx.restore(); txt('count', 250, 105, 38, { font: FC, weight: 700, color: BLUE, prog: seg(n, 86.75, 87.1), still: true }); }
+    ctx.restore();
+  }
+  // every player at the table thinks like Walt, one level down
+  if (n > 89.2) {
+    [['partner', 900, 300], ['righty', 1290, 560], ['walt', 900, 850]].forEach(([k, x, y], i) => {
+      const s = popS(n, 89.3 + i * 0.25, 0.4);
+      walt(x, y, { s: 0.3 * s, look: -1 }); ctx.save(); ctx.translate(x + 95, y - 95); ctx.scale(s, s); thoughtCloud(0, 0, 58, 40, 1, 40 + i); miniTable(0, 3, 24, 7 + i); ctx.restore();
+    });
+    const s = popS(n, 89.2, 0.4); ctx.save(); ctx.translate(670, 330); ctx.scale(s, s); thoughtCloud(0, 0, 58, 40, 1, 44); miniTable(0, 3, 24, 11); ctx.restore();
+  }
+  if (n > 91.8) { txt('just one level down', 1480, 330, 92, { color: RED, prog: seg(n, 91.8, 92.6), rot: -0.04 }); KEY = 670; sk(curvePts(1100, 400, 1480, 420, 1860, 392), { w: 6, color: RED, prog: seg(n, 92.5, 92.9), passes: 1 }); }
+}
+// So that's the whole trick
 function recap(n) {
-  txt("So that's the whole trick", 960, 175, 96, { prog: seg(n, 66.4, 67.3), rot: -0.02 });
-  KEY = 640; if (n > 67.3) sk(curvePts(560, 235, 960, 250, 1360, 228), { w: 6, color: RED, prog: seg(n, 67.3, 67.7), passes: 1 });
-  const cols = [[400, 68.05, '1. imagine a handful'], [960, 69.9, '2. play by the book'], [1520, 71.2, '3. count']];
+  txt("So that's the whole trick", 960, 175, 96, { prog: seg(n, 94.5, 95.4), rot: -0.02 });
+  KEY = 640; if (n > 95.4) sk(curvePts(560, 235, 960, 250, 1360, 228), { w: 6, color: RED, prog: seg(n, 95.4, 95.8), passes: 1 });
+  const cols = [[380, 95.9, '1. imagine a handful'], [960, 97.7, '2. play by the book'], [1540, 99.05, '3. count what wins']];
   cols.forEach(([x, t0, label], i) => {
-    if (n < t0) return; const s = popS(n, t0, 0.45), y = 540;
+    if (n < t0) return; const s = popS(n, t0, 0.45), y = 520;
     ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
     if (i === 0) { for (let k = 0; k < 5; k++) { ctx.save(); ctx.translate((k - 2) * 62, Math.abs(k - 2) * 10); ctx.rotate((k - 2) * 0.16); dealCard(0, 0, 130, 50 + k, true); ctx.restore(); } }
-    if (i === 1) { notebook(-70, 0, 1.9, '#2e86de', { k: 7, rot: -0.08 }); domino(95, 10, 6, 2, { w: 64, rot: 0.12, k: 5 }); }
-    if (i === 2) { note(0, 0, 300, 230, 0.03, '#fffdf3', false); tally(-110, -70, 14, { color: GREEN, per: 3, gw: 78, gh: 80, h: 56 }); checkMark(115, -75, 0.8, seg(n, t0 + 0.3, t0 + 0.6)); }
+    if (i === 1) { notebook(-70, 0, 1.9, '#2e86de', { k: 7, rot: -0.08 }); domino(95, 10, 5, 4, { w: 64, rot: 0.12, k: 5 }); }
+    if (i === 2) { note(0, 0, 320, 230, 0.03, '#fffdf3', false); [[3, 6], [8, 12], [5, 9]].forEach(([c], j) => tally(-125 + j * 95, -60, c, { color: j === 1 ? GREEN : BLUE, per: 1, gw: 70, gh: 64, h: 44, w: 4 })); scribbleCircle(-10, 0, 55, 100, seg(n, t0 + 0.4, t0 + 0.8), RED, 4); }
     ctx.restore();
-    txt(label, x, 790, 62, { font: FC, weight: 700, color: BLUE, prog: seg(n, t0 + 0.1, t0 + 0.7), still: true });
+    txt(label, x, 770, 60, { font: FC, weight: 700, color: BLUE, prog: seg(n, t0 + 0.1, t0 + 0.7), still: true });
   });
-  if (n > 71.3) { KEY = 650; arrow(560, 540, 770, 540, { prog: seg(n, 71.3, 71.6), color: INK, w: 5, bend: 0.05, head: 18 }); arrow(1150, 540, 1340, 540, { prog: seg(n, 71.5, 71.8), color: INK, w: 5, bend: 0.05, head: 18, k: 3 }); }
-  const hop = n > 72.7 && n < 73.3 ? Math.sin(seg(n, 72.7, 73.3) * PI) * 30 : 0;
-  walt(1800, 600 - hop, { s: 0.55 * popS(n, 66.5, 0.45), armL: n > 72.6 ? 2.2 + Math.sin(n * 10) * 0.3 : 0.3, bendL: 0.4, look: -1 });
+  // and to fill the book? the same trick, one level down
+  if (n > 100.25) { KEY = 650; arrow(1540, 370, 1010, 365, { prog: seg(n, 100.25, 100.9), color: RED, w: 6, bend: -0.35, head: 22 }); }
+  if (n > 101.35) { walt(1060, 470, { s: 0.36 * popS(n, 101.35, 0.4), look: -1 }); txt('same trick, one level down', 960, 860, 68, { color: RED, prog: seg(n, 101.4, 102.3), rot: -0.02 }); }
+  walt(1810, 610, { s: 0.55 * popS(n, 94.6, 0.45), armL: n > 102.6 ? 2.2 + Math.sin(n * 10) * 0.3 : 0.3, bendL: 0.4, look: -1 });
 }
 
 function scene6(t) {
@@ -828,13 +889,14 @@ function scene6(t) {
   }
 }
 
-const PAGES = [scene1, scene2, scene3, scene4, scene5, recap, scene6];
+const PAGES = [scene1, scene2, scene3, scene4, countPage, bookPage, mechPage, recap, scene6];
+const FILM_CLOCK = new Set([countPage, bookPage, mechPage, recap]);
 function pageIndex(n) { let i = 0; for (let k = 0; k < FLIPS.length; k++) if (n >= FLIPS[k]) i = k + 1; return i; }
 
 let BUF = null, SHOW_CC = true;
 function drawScene(i, n, g) {
   const prev = ctx, prevNT = NT; ctx = g; NT = n;
-  const t = PAGES[i] === recap ? n : toOld(n);
+  const t = FILM_CLOCK.has(PAGES[i]) ? n : toOld(n);
   g.save(); g.drawImage(PAPER_C, 0, 0);
   // a gentle hand-held drift
   const dx = Math.sin(t * 0.7) * 3 + Math.sin(t * 1.9) * 1.2, dy = Math.cos(t * 0.6) * 2.5;
@@ -867,15 +929,28 @@ function render(t) {
 function captions(t, g) {
   const c = CUES.cues.find(c => t >= c.t0 - 0.1 && t <= c.t1 + 0.35); if (!c) return;
   const a = Math.min(seg(t, c.t0 - 0.1, c.t0 + 0.1), 1 - seg(t, c.t1 + 0.15, c.t1 + 0.35));
+  // long lines are shown a phrase at a time, timed by their share of the words
+  const parts = captionParts(c.text), tot = parts.reduce((x, p) => x + p.length, 0);
+  let acc = 0, text = parts[parts.length - 1];
+  for (const p of parts) { const end = c.t0 + (c.t1 - c.t0) * (acc + p.length) / tot; acc += p.length; if (t < end) { text = p; break; } }
   // size captions for the screen they end up on: never below ~15 css px
   const css = EXPORT ? W : (cv.getBoundingClientRect().width || W), fs = Math.round(clamp(15 * W / css, 46, 100));
   g.save(); g.font = `${fs}px ${FP}`; g.textAlign = 'center'; g.textBaseline = 'middle';
-  const lines = [], words = c.text.split(' '); let cur = '';
+  const lines = [], words = text.split(' '); let cur = '';
   for (const wd of words) { const tr = cur ? cur + ' ' + wd : wd; if (g.measureText(tr).width > 1680 && cur) { lines.push(cur); cur = wd; } else cur = tr; }
   lines.push(cur);
   const lh = fs * 1.2, w = Math.min(1780, Math.max(...lines.map(l => g.measureText(l).width)) + fs * 1.3), h = lh * lines.length + fs * 0.45, y0 = 1050 - h;
   g.globalAlpha = 0.9 * a; g.fillStyle = '#2a2a33'; roundRect(g, 960 - w / 2, y0, w, h, Math.min(22, fs * 0.4)); g.fill();
   g.globalAlpha = a; g.fillStyle = '#fffdf3'; lines.forEach((l, i) => g.fillText(l, 960, y0 + fs * 0.225 + lh * (i + 0.5) + fs * 0.04)); g.restore();
+}
+function captionParts(text) {
+  const sent = text.match(/[^.?!:]+[.?!:]+\s*|[^.?!:]+$/g).map(x => x.trim()), out = [];
+  for (const x of sent) {
+    if (x.length <= 90) { out.push(x); continue; }
+    let cur = ''; for (const piece of x.split(/(?<=,)\s/)) { if (cur && (cur + ' ' + piece).length > 70) { out.push(cur); cur = piece; } else cur = cur ? cur + ' ' + piece : piece; } out.push(cur);
+  }
+  const merged = []; for (const x of out) { const last = merged[merged.length - 1]; if (last && (last.length < 26 || x.length < 16) && (last + ' ' + x).length <= 80) merged[merged.length - 1] = last + ' ' + x; else merged.push(x); }
+  return merged;
 }
 function roundRect(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
 
@@ -943,7 +1018,7 @@ function synthesize(sr = SR_DEFAULT) {
   const chime = (t, notes, g = 0.22, step = 0.075, pan = 0.2) => notes.forEach((m, i) => F(t + i * step, bell(midiF(m), 1.4), g, pan));
   // ---- foley timeline (kept in step with the scenes above)
   const fx = [];
-  const at = (t, x, g, p = 0) => fx.push([toNew(t), x, g, p]);   // scene-clock events
+  const at = (t, x, g, p = 0) => { if (t > 38.44 && t < 49.8) return; fx.push([toNew(t), x, g, p]); };   // scene-clock events (old scene 5 is replaced)
   const atN = (t, x, g, p = 0) => fx.push([t, x, g, p]);         // film-clock events
   at(0.12, sfx.scratch(1.1), 0.25, -0.3); at(1.28, sfx.pop(0.8), 0.35, -0.3);
   at(1.6, sfx.scratch(0.6), 0.2, -0.5); at(2.65, sfx.pop(1), 0.4, 0); at(3.05, sfx.scratch(0.5), 0.22, 0);
@@ -955,9 +1030,32 @@ function synthesize(sr = SR_DEFAULT) {
   atN(14.45, sfx.scratch(0.45), 0.28); atN(15.2, sfx.scratch(0.4), 0.24);
   atN(26.7, sfx.pop(1.0), 0.35, -0.4); chime(26.75, [84, 91, 96], 0.14, 0.05, -0.4); atN(29.2, sfx.scratch(0.6), 0.2, -0.3);
   atN(35.75, sfx.pop(0.9), 0.3, 0.3); atN(36.1, sfx.scratch(0.4), 0.18, 0.2);
-  atN(66.4, sfx.scratch(0.9), 0.22); atN(67.3, sfx.scratch(0.35), 0.18); atN(66.35, sfx.boing(), 0.1, 0.7);
-  [68.05, 69.9, 71.2].forEach((t, i) => { atN(t, sfx.pop(0.9 + i * 0.15), 0.35, -0.5 + i * 0.5); atN(t + 0.1, sfx.scratch(0.55), 0.16, -0.5 + i * 0.5); });
-  chime(71.5, [84, 88, 91], 0.14, 0.07, 0.4);
+  // count page
+  for (let k = 0; k < 40; k++) atN(53.3 + k * (2.2 / 40), sfx.tick(), 0.26, -0.5);
+  atN(55.9, sfx.pop(0.9), 0.35, 0.3); [0, 1, 2, 3].forEach(i => atN(57.9 + i * 0.15, sfx.pop(1 + i * 0.1), 0.28, -0.1 + i * 0.25));
+  for (let k = 0; k < 40; k++) { atN(58.4 + k * 0.08, sfx.tick(), 0.24, -0.5); if (k % 2) atN(58.42 + k * 0.08, sfx.scratch(0.07), 0.13, 0.3); }
+  atN(62.1, sfx.scratch(0.6), 0.24, 0); atN(62.6, sfx.pop(1.2), 0.35, 0); chime(62.65, [84, 88, 91, 96], 0.18, 0.06);
+  // book page
+  atN(64.6, sfx.pop(0.8), 0.35); atN(66.45, sfx.boing(), 0.28, 0.5); atN(66.75, sfx.scratch(1.5), 0.3, 0.3);
+  atN(68.3, sfx.squeak(0.2), 0.25, 0.5); atN(68.5, sfx.squeak(0.2), 0.25, 0.5);
+  chime(69.45, [79, 83, 86, 91, 95], 0.2, 0.07, -0.4); atN(69.5, sfx.pop(1.3), 0.3, -0.4);
+  for (let i = 0; i < 6; i++) chime(70.8 + i * 0.1, [91 + [0, 4, 7, 12, 7, 4][i]], 0.07, 0, (i % 2 ? 0.4 : -0.4));
+  atN(71.8, sfx.whoosh(0.4, 1500, 400), 0.2, 0.5); atN(71.9, sfx.pop(1.1), 0.3, 0.5); atN(72.0, sfx.whoosh(0.6, 700, 2600), 0.25, 0.3);
+  atN(72.6, sfx.scratch(0.6), 0.15); atN(72.8, sfx.scratch(0.8), 0.28, 0.2); atN(73.2, sfx.scratch(0.7), 0.15); chime(73.65, [88, 91, 96], 0.14, 0.06, 0.2);
+  // how a little Walt fills in a page
+  [74.4, 74.5, 74.6, 74.7].forEach((t, i) => atN(t, sfx.pop(0.8 + i * 0.1), 0.22, [0, -0.6, 0.6, 0][i]));
+  atN(76.3, sfx.whoosh(0.25, 1500, 4000), 0.2, -0.5); atN(76.45, sfx.blip(0.8), 0.18, -0.5); atN(77.35, sfx.pop(1.3), 0.3, -0.4);
+  atN(79.4, sfx.blip(0.7), 0.18, -0.5); for (let i = 0; i < 18; i++) atN(79.45 + i * 0.02, sfx.tick(), 0.12, 0.3);
+  atN(82.8, sfx.scratch(0.7), 0.2, 0.4); [82.8, 82.9, 83.0].forEach((t, i) => atN(t, sfx.pop(1.4 + i * 0.15), 0.18, 0.2));
+  atN(84.25, sfx.pop(0.9), 0.28, 0.2); atN(85.9, sfx.pop(1.0), 0.28, 0.4); for (let i = 0; i < 6; i++) atN(85.95 + i * 0.07, sfx.knock(), 0.12, 0.4);
+  atN(86.7, sfx.pop(1.1), 0.28, 0.6); atN(86.75, sfx.scratch(0.3), 0.15, 0.6);
+  atN(87.3, sfx.scratch(0.9), 0.3, -0.5); chime(88.25, [88, 91, 96], 0.12, 0.06, -0.5);
+  atN(88.6, sfx.whoosh(0.5, 1600, 500), 0.2, 0.4); [89.2, 89.3, 89.55, 89.8].forEach((t, i) => atN(t, sfx.pop(1.2 + i * 0.1), 0.25, [-0.2, 0, 0.5, 0][i]));
+  atN(91.8, sfx.scratch(0.8), 0.24, 0.5); atN(92.5, sfx.scratch(0.4), 0.2, 0.5); chime(92.9, [84, 88, 91], 0.14, 0.07, 0.5);
+  // recap
+  atN(94.5, sfx.scratch(0.9), 0.22); atN(95.4, sfx.scratch(0.35), 0.18); atN(94.6, sfx.boing(), 0.1, 0.7);
+  [95.9, 97.7, 99.05].forEach((t, i) => { atN(t, sfx.pop(0.9 + i * 0.15), 0.35, -0.5 + i * 0.5); atN(t + 0.1, sfx.scratch(0.55), 0.16, -0.5 + i * 0.5); });
+  atN(100.25, sfx.scratch(0.6), 0.22, 0.3); atN(101.35, sfx.pop(1.3), 0.3); atN(101.4, sfx.scratch(0.9), 0.2); chime(102.3, [84, 88, 91, 96], 0.14, 0.07);
   at(7.5, sfx.whoosh(1.1, 300, 1500), 0.3, 0); at(8.6, sfx.pop(0.9), 0.35);
   { let t = 8.75; while (t < 11.25) { at(t, sfx.tick(), 0.35, (rnd() - 0.5) * 0.4); const u = (t - 8.75) / 2.5; t += 0.035 + 0.12 * u * u; } }
   at(11.28, sfx.blip(1.5), 0.25); at(10.9, sfx.scratch(0.55), 0.14);
@@ -1004,7 +1102,7 @@ function synthesize(sr = SR_DEFAULT) {
 
   // ---- the score: 100 bpm, bars of 2.4 s starting at 0.3 s
   const BAR = 2.4, B0 = 0.3, beat = BAR / 4;
-  const chords = ['F', 'C', 'Dm', 'C', 'Gm', 'C', 'Dm', 'Bb', 'C', 'A7', 'Dm', 'Bb', 'E7', 'F', 'Bb', 'C', 'F', 'Bb', 'F', 'Gm', 'C', 'F', 'Dm', 'Bb', 'G', 'Em', 'C', 'D', 'G', 'C', 'D', 'G', 'C', 'D', 'G'];
+  const chords = ['F', 'C', 'Dm', 'C', 'Gm', 'C', 'Dm', 'Bb', 'C', 'A7', 'Dm', 'Bb', 'E7', 'F', 'Bb', 'C', 'F', 'Bb', 'F', 'Gm', 'C', 'F', 'Dm', 'Bb', 'C', 'F', 'Dm', 'Gm', 'C', 'G', 'Em', 'C', 'D', 'G', 'Em', 'C', 'D', 'G', 'C', 'D', 'G', 'C', 'D', 'G', 'C', 'D', 'G'];
   const tones = name => { const m = name.match(/^([A-G]b?)(m?)(7?)$/); const r = NOTE[m[1]]; const iv = m[2] ? [0, 3, 7] : [0, 4, 7]; if (m[3]) iv.push(10); return { root: r, iv }; };
   const voice = (c, lo = 60) => { const out = c.iv.map(i => { let n = c.root + i; while (n < lo) n += 12; while (n >= lo + 12) n -= 12; return n; }).sort((a, b) => a - b); if (out.length < 4) out.push(out[0] + 12); return out; };
   const silent = t => t > 30.5 && t < 31.48;
@@ -1017,7 +1115,7 @@ function synthesize(sr = SR_DEFAULT) {
     for (const s of pat) { const t = t0 + s * beat; if (silent(t)) continue; const down = Math.floor(s) === s; const order = down ? v : v.slice().reverse(); order.forEach((m, i) => M(t + i * 0.012, pluck(midiF(m), last ? 3.4 : 1.1, down ? 0.6 : 0.45), (down ? 0.2 : 0.13) * (last ? 1.5 : 1), -0.25 + i * 0.12)); }
     // bass
     const bass = (c.root % 12) + 36 + (c.root % 12 > 7 ? -12 : 0) + 12, fifth = bass + 7;
-    const bl = last ? [[0, bass]] : b >= 16 && b <= 23 ? [[0, bass], [1, bass + 4 - (c.iv[1] === 3 ? 1 : 0)], [2, fifth], [3, bass + 12]] : [[0, bass], [2, fifth]];
+    const bl = last ? [[0, bass]] : (b >= 16 && b <= 26) || (b >= 31 && b <= 36) ? [[0, bass], [1, bass + 4 - (c.iv[1] === 3 ? 1 : 0)], [2, fifth], [3, bass + 12]] : [[0, bass], [2, fifth]];
     for (const [s, m] of bl) { const t = t0 + s * beat; if (silent(t)) continue; M(t, pizz(midiF(m), last ? 2.5 : 0.8), 0.33, 0); }
     // percussion
     if (!last && b > 0) for (let e = 0; e < 8; e++) { const t = t0 + e * beat / 2; if (silent(t)) continue; M(t, noiseHit(0.09, 'hp', 7000, 0.7, e % 2 ? 60 : 38, 0.012), e % 2 ? 0.05 : 0.08, 0.35); }
@@ -1077,7 +1175,7 @@ async function ensureAudio() {
 // build the soundtrack off the main thread (falls back to the main thread if workers are unavailable)
 function synthInWorker(sr) {
   const src = [`const PI = Math.PI, TAU = PI * 2, SR_DEFAULT = 48000, CUES = ${JSON.stringify(CUES)}, DUR = ${DUR}, TRANS = ${JSON.stringify(TRANS)};`,
-    `const clamp = ${clamp}; const seg = ${seg}; const KNOTS = ${JSON.stringify(KNOTS)}, RECAP = ${JSON.stringify(RECAP)}, TAIL = ${TAIL};`, toOld, toNew, `const FLIPS = ${JSON.stringify(FLIPS)};`, mulberry, midiF, biquad, bq, synthesize,
+    `const clamp = ${clamp}; const seg = ${seg}; const KNOTS = ${JSON.stringify(KNOTS)}, S6_START = ${S6_START}, TAIL = ${TAIL};`, toOld, toNew, `const FLIPS = ${JSON.stringify(FLIPS)};`, mulberry, midiF, biquad, bq, synthesize,
     'onmessage = e => { const r = synthesize(e.data); postMessage(r, [r.L.buffer, r.R.buffer]); };'].map(String).join('\n');
   return new Promise(resolve => {
     try {

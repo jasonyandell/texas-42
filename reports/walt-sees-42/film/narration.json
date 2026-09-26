@@ -53,15 +53,27 @@
  ],
  [
   "count",
-  "Forty imagined deals later, Walt counts. How often did we make the bid?"
+  "Forty imagined deals later, Walt counts. And he doesn't just count once. He tries each domino he could play, and sees which one makes the bid most often. That's his move."
  ],
  [
-  "smart",
-  "Then he levels up. Dice aren't very smart. So now, instead of rolling, everyone picks their best play."
+  "catch",
+  "But who wrote everyone's handbook? A die. And dice aren't very smart."
+ ],
+ [
+  "levelup",
+  "So Walt levels up. The books stay. What changes is who writes in them."
+ ],
+ [
+  "mech",
+  "Now, when a player hits a spot they've never seen, a little Walt takes the pen. From that player's seat, seeing only that player's dominoes, he does the whole trick: imagine a handful of deals, play them out, count, and write down the winner."
+ ],
+ [
+  "land",
+  "So every player at the table is thinking like Walt. Just one level down."
  ],
  [
   "recap",
-  "So that's the whole trick. Imagine a handful of deals. Play them by the book. Count how often you make it."
+  "So that's the whole trick. Imagine a handful of deals. Play them by the book. Count what wins. And to fill the book? The same trick, one level down."
  ],
  [
   "phone",

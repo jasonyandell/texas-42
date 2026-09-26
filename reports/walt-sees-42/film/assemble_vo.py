@@ -3,8 +3,9 @@ import json, sys, numpy as np, soundfile as sf
 tts = sys.argv[1]
 START = {"walt": 1.4, "see": 4.2, "how": 7.45, "deals": 10.0, "deals2": 14.5, "games": 17.15,
          "drives": 22.0, "dollars": 25.9, "onemove": 29.2, "handful": 31.2, "imagine": 38.9, "book": 44.4,
-         "peek": 49.7, "count": 53.1, "smart": 59.15, "recap": 66.6, "phone": 74.55, "end": 79.65}
-DURATION = 84.05
+         "peek": 49.7, "count": 53.1, "catch": 64.8, "levelup": 69.4, "mech": 74.6, "land": 88.8,
+         "recap": 94.5, "phone": 104.55, "end": 109.65}
+DURATION = 114.05
 meta = json.load(open(f"{tts}/lines.json"))
 sr = 24000
 out = np.zeros(int(DURATION * sr), dtype=np.float32)

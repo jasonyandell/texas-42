@@ -1,6 +1,6 @@
 # How Walt sees 42 — the one-minute film
 
-A hand-drawn animated short (≈84 s) about Walt's sampling idea, for friends and family.
+A hand-drawn animated short (≈1:54) about Walt's sampling idea, for friends and family.
 `film.html` is the whole thing: pictures drawn by canvas JavaScript, score and foley synthesized
 in the page, narration embedded. EXPLORATORY teaching material, not a result: 399,072,960 is exact;
 "billions of ways", "ten million hard drives" and "three billion dollars" are estimates (exact play-out counts for 12 random

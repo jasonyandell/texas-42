@@ -1,5 +1,5 @@
 {
- "duration": 84.05,
+ "duration": 114.05,
  "cues": [
   {
    "key": "walt",
@@ -82,31 +82,49 @@
   {
    "key": "count",
    "t0": 53.1,
-   "t1": 57.392,
-   "text": "Forty imagined deals later, Walt counts. How often did we make the bid?"
+   "t1": 63.425,
+   "text": "Forty imagined deals later, Walt counts. And he doesn't just count once. He tries each domino he could play, and sees which one makes the bid most often. That's his move."
   },
   {
-   "key": "smart",
-   "t0": 59.15,
-   "t1": 65.115,
-   "text": "Then he levels up. Dice aren't very smart. So now, instead of rolling, everyone picks their best play."
+   "key": "catch",
+   "t0": 64.8,
+   "t1": 68.899,
+   "text": "But who wrote everyone's handbook? A die. And dice aren't very smart."
+  },
+  {
+   "key": "levelup",
+   "t0": 69.4,
+   "t1": 73.714,
+   "text": "So Walt levels up. The books stay. What changes is who writes in them."
+  },
+  {
+   "key": "mech",
+   "t0": 74.6,
+   "t1": 88.305,
+   "text": "Now, when a player hits a spot they've never seen, a little Walt takes the pen. From that player's seat, seeing only that player's dominoes, he does the whole trick: imagine a handful of deals, play them out, count, and write down the winner."
+  },
+  {
+   "key": "land",
+   "t0": 88.8,
+   "t1": 93.113,
+   "text": "So every player at the table is thinking like Walt. Just one level down."
   },
   {
    "key": "recap",
-   "t0": 66.6,
-   "t1": 72.576,
-   "text": "So that's the whole trick. Imagine a handful of deals. Play them by the book. Count how often you make it."
+   "t0": 94.5,
+   "t1": 103.249,
+   "text": "So that's the whole trick. Imagine a handful of deals. Play them by the book. Count what wins. And to fill the book? The same trick, one level down."
   },
   {
    "key": "phone",
-   "t0": 74.55,
-   "t1": 79.052,
+   "t0": 104.55,
+   "t1": 109.052,
    "text": "Forty little worlds. One pretty good move. Small enough to fit in your pocket."
   },
   {
    "key": "end",
-   "t0": 79.65,
-   "t1": 81.491,
+   "t0": 109.65,
+   "t1": 111.491,
    "text": "And that's how Walt sees forty-two."
   }
  ]
