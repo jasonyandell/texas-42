@@ -41,7 +41,7 @@ canvas{display:block;width:100%;height:100%}
 <main>
   <header>
     <h1>How Walt sees <b>42</b></h1>
-    <p>A one-minute sketch about playing dominoes with a handful of guesses.</p>
+    <p>A 90-second sketch about playing dominoes with a handful of guesses.</p>
   </header>
   <div class="stage">
     <canvas id="film" width="1920" height="1080" aria-label="Animated sketch: how Walt plays Texas 42 by sampling a handful of possible deals"></canvas>
@@ -55,7 +55,7 @@ canvas{display:block;width:100%;height:100%}
     <button id="cc" type="button" aria-pressed="true">Captions</button>
   </div>
   <p class="status" id="status" aria-live="polite"></p>
-  <p class="notes">Everything here is drawn and scored by the page itself: the pictures are plain canvas JavaScript, and the music and sound effects are synthesized in the browser. The narration was spoken by the open Kokoro text-to-speech model. <b>399,072,960</b> is the exact number of ways to deal the other 21 dominoes. "Billions of ways" to play each deal and "ten million hard drives" are estimates: exact play-out counts for 12 random deals ranged from about 3&times;10<sup>8</sup> to 3&times;10<sup>11</sup>. Walt's tallies in the film are made up for the cartoon.</p>
+  <p class="notes">Everything here is drawn and scored by the page itself: the pictures are plain canvas JavaScript, and the music and sound effects are synthesized in the browser. The narration was spoken by the open Kokoro text-to-speech model. <b>399,072,960</b> is the exact number of ways to deal the other 21 dominoes. "Billions of ways" to play each deal, "ten million hard drives" and "three billion dollars" (at roughly $300 a drive) are estimates: exact play-out counts for 12 random deals ranged from about 3&times;10<sup>8</sup> to 3&times;10<sup>11</sup>. Walt's tallies in the film are made up for the cartoon.</p>
 </main>
 
 <script>
@@ -422,7 +422,25 @@ const HANDS = { // the imagined world in scene 4 (the other hands of one sampled
   lefty: [[6, 2], [5, 4], [4, 3], [2, 1], [0, 0], [6, 0], [3, 3]],
   righty: [[5, 2], [6, 3], [4, 2], [3, 1], [2, 0], [1, 0], [4, 0]],
 };
-const TRANS = [7.45, 15.95, 24.4, 38.45, 49.8]; // page flips between scenes
+const TRANS = [7.45, 15.95, 24.4, 38.45, 49.8]; // page flips between scenes, on the scenes' own clock
+// The scenes were drawn on their own clock (O). The film runs on N: it holds and stretches
+// that clock so big ideas get room to land, and slots in a recap page before the ending.
+const KNOTS = [[0, 0], [7.2, 7.2], [9.6, 7.3], [14.1, 11.8], [16.9, 11.85], [20.8, 15.75], [21.6, 15.8], [24.8, 19.0], [29.8, 19.8],
+  [32.5, 22.5], [33.6, 22.7], [34.4, 23.5], [38.3, 23.9], [57.5, 43.1], [58.8, 43.15], [65.4, 49.75], [66.0, 49.78]];
+const RECAP = [66.05, 74.3], TAIL = 74.3 - 49.75; // recap page, then the ending runs at N = O + TAIL
+function toOld(n) {
+  if (n >= RECAP[1]) return n - TAIL;
+  for (let i = 1; i < KNOTS.length; i++) if (n <= KNOTS[i][0]) { const [a, c] = KNOTS[i - 1], [b, d] = KNOTS[i]; return c + (d - c) * (n - a) / (b - a); }
+  return KNOTS[KNOTS.length - 1][1];
+}
+function toNew(o) { // first film time showing scene-clock time o
+  if (o >= 49.8) return o + TAIL;
+  for (let i = 1; i < KNOTS.length; i++) if (o <= KNOTS[i][1]) { const [a, c] = KNOTS[i - 1], [b, d] = KNOTS[i]; return d === c ? a : a + (b - a) * (o - c) / (d - c); }
+  return o + TAIL;
+}
+// pages of the pad on the film clock: [start, draw]
+const FLIPS = [toNew(7.45), toNew(15.95), toNew(24.4), toNew(38.45), RECAP[0], RECAP[1]];
+let NT = 0; // film time, for overlays that belong to the new beats
 
 function scene1(t) {
   const wx = 470, wy = 650;
@@ -439,7 +457,13 @@ function scene1(t) {
     const a = (i - 3) * 0.2, R = 190, px = 820 + Math.sin(a) * R, py = 800 - Math.cos(a) * R;
     domino(px, py - 10 * (1 - eo(seg(t, t0, t0 + 0.3))), WALT_HAND[i][0], WALT_HAND[i][1], { w: 60, rot: a, s: popS(t, t0, 0.32), k: i });
   }
-  if (t > 5.9) { txt('mine!', 820, 490, 56, { color: BLUE, font: FC, weight: 700, prog: seg(t, 5.9, 6.3), rot: -0.04 }); }
+  if (NT > 7.5 && NT < 9.75) { // which one? an arrow hops along his hand
+    const u = seg(NT, 7.6, 9.4), k = Math.min(6, Math.floor(u * 7)), f = (u * 7) % 1, a = (k - 3) * 0.2;
+    const px = 820 + Math.sin(a) * 190, py = 800 - Math.cos(a) * 190 - 105 - Math.sin(f * PI) * 26;
+    KEY = 600; arrow(px + 6, py - 70, px, py, { color: RED, w: 6, bend: 0.1, head: 20 });
+    txt('which one?', 1000, 470, 58 * popS(NT, 7.55, 0.35), { color: RED, rot: 0.06 });
+  }
+  if (t > 5.9 && !(NT > 7.5 && NT < 9.75)) { txt('mine!', 820, 490, 56, { color: BLUE, font: FC, weight: 700, prog: seg(t, 5.9, 6.3), rot: -0.04 }); }
   // everybody else: face-down and a question mark
   const seats = [['lefty', 1230, 560, 6.25], ['partner', 1500, 380, 6.4], ['righty', 1770, 560, 6.55]];
   for (const [kind, x, y, t0] of seats) {
@@ -502,6 +526,7 @@ function scene2(t) {
     const u = seg(t, 8.75, 11.25), v = 1 - Math.pow(1 - u, 2.6), n = Math.round(399072960 * v);
     txt(n.toLocaleString('en-US'), 0, -8, 140, { color: RED, still: true, rot: -0.02 });
     txt('ways to deal the other 21', 0, 74, 44, { font: FC, weight: 700, color: BLUE, prog: seg(t, 10.9, 11.5), still: true });
+    if (NT > 14.45) { KEY = 610; sk(curvePts(-330, 36, 0, 48, 330, 30), { w: 7, color: RED, prog: seg(NT, 14.45, 14.9), passes: 1 }); sk(curvePts(-300, 50, 0, 60, 310, 44), { w: 5, color: RED, prog: seg(NT, 15.2, 15.6), passes: 1, k: 1 }); }
     ctx.restore();
   }
 }
@@ -546,12 +571,13 @@ function scene3(t) {
   }
   ctx.restore();
   // screen-space labels
-  if (t > 17.85 && t < 20.7) {
+  if (t > 17.85 && t < 20.7 && NT < 30.9) {
     const s = popS(t, 17.85, 0.4), out = seg(t, 20.45, 20.7);
     ctx.save(); ctx.translate(430, 230 - out * 400); ctx.rotate(-0.04); ctx.scale(s, s);
     note(0, 0, 640, 150, 0, '#ffd6e2'); txt('10,000,000 hard drives', 0, 0, 70, { color: RED, still: true });
     ctx.restore();
-    if (t > 19.15) txt('...for ONE move!', 480, 370 - out * 400, 76, { color: INK, prog: seg(t, 19.15, 19.7), rot: -0.05, halo: 10 });
+    if (NT > 26.7) { const s2 = popS(NT, 26.7, 0.4); ctx.save(); ctx.translate(460, 395 - out * 400); ctx.rotate(0.03); ctx.scale(s2, s2); note(0, 0, 560, 130, 0, '#dff5d8'); txt('≈ $3,000,000,000', 0, 2, 66, { color: GREEN, still: true }); ctx.restore(); }
+    if (NT > 29.2) txt('...for just ONE move!', 500, 560 - out * 400, 76, { color: INK, prog: seg(NT, 29.2, 29.9), rot: -0.05, halo: 10 });
   }
   // a handful instead: the jar of every deal, and Walt's pick
   if (t > 21.5) {
@@ -571,6 +597,7 @@ function scene3(t) {
       ctx.save(); ctx.translate(x, y); ctx.rotate((i - 2) * 0.16 * u + (1 - u) * 3); dealCard(0, 0, 120, 50 + i, true); ctx.restore();
     }
     if (t > 23.35) { txt('just 40', 870, 200, 88 * popS(t, 23.35, 0.4), { color: RED, rot: 0.08 }); scribbleCircle(870, 205, 150, 70, seg(t, 23.55, 23.95)); }
+    if (NT > 35.75) { txt('out of 399,072,960', 1300, 150, 64 * popS(NT, 35.75, 0.4), { color: BLUE, rot: -0.03, halo: 8 }); KEY = 620; arrow(1060, 175, 960, 205, { prog: seg(NT, 36.1, 36.5), color: BLUE, w: 5, bend: -0.3 }); }
   }
 }
 
@@ -734,6 +761,25 @@ function scene5(t) {
   }
 }
 
+// So that's the whole trick: three callbacks
+function recap(n) {
+  txt("So that's the whole trick", 960, 175, 96, { prog: seg(n, 66.4, 67.3), rot: -0.02 });
+  KEY = 640; if (n > 67.3) sk(curvePts(560, 235, 960, 250, 1360, 228), { w: 6, color: RED, prog: seg(n, 67.3, 67.7), passes: 1 });
+  const cols = [[400, 68.05, '1. imagine a handful'], [960, 69.9, '2. play by the book'], [1520, 71.2, '3. count']];
+  cols.forEach(([x, t0, label], i) => {
+    if (n < t0) return; const s = popS(n, t0, 0.45), y = 540;
+    ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    if (i === 0) { for (let k = 0; k < 5; k++) { ctx.save(); ctx.translate((k - 2) * 62, Math.abs(k - 2) * 10); ctx.rotate((k - 2) * 0.16); dealCard(0, 0, 130, 50 + k, true); ctx.restore(); } }
+    if (i === 1) { notebook(-70, 0, 1.9, '#2e86de', { k: 7, rot: -0.08 }); domino(95, 10, 6, 2, { w: 64, rot: 0.12, k: 5 }); }
+    if (i === 2) { note(0, 0, 300, 230, 0.03, '#fffdf3', false); tally(-110, -70, 14, { color: GREEN, per: 3, gw: 78, gh: 80, h: 56 }); checkMark(115, -75, 0.8, seg(n, t0 + 0.3, t0 + 0.6)); }
+    ctx.restore();
+    txt(label, x, 790, 62, { font: FC, weight: 700, color: BLUE, prog: seg(n, t0 + 0.1, t0 + 0.7), still: true });
+  });
+  if (n > 71.3) { KEY = 650; arrow(560, 540, 770, 540, { prog: seg(n, 71.3, 71.6), color: INK, w: 5, bend: 0.05, head: 18 }); arrow(1150, 540, 1340, 540, { prog: seg(n, 71.5, 71.8), color: INK, w: 5, bend: 0.05, head: 18, k: 3 }); }
+  const hop = n > 72.7 && n < 73.3 ? Math.sin(seg(n, 72.7, 73.3) * PI) * 30 : 0;
+  walt(1800, 600 - hop, { s: 0.55 * popS(n, 66.5, 0.45), armL: n > 72.6 ? 2.2 + Math.sin(n * 10) * 0.3 : 0.3, bendL: 0.4, look: -1 });
+}
+
 function scene6(t) {
   const gone = eio(seg(t, 54.85, 55.3));
   // forty little worlds swirl in and merge into one good move
@@ -782,27 +828,28 @@ function scene6(t) {
   }
 }
 
-const SCENES = [[0, scene1], [TRANS[0], scene2], [TRANS[1], scene3], [TRANS[2], scene4], [TRANS[3], scene5], [TRANS[4], scene6]];
-function sceneIndex(t) { let i = 0; for (let k = 0; k < SCENES.length; k++) if (t >= SCENES[k][0]) i = k; return i; }
+const PAGES = [scene1, scene2, scene3, scene4, scene5, recap, scene6];
+function pageIndex(n) { let i = 0; for (let k = 0; k < FLIPS.length; k++) if (n >= FLIPS[k]) i = k + 1; return i; }
 
 let BUF = null, SHOW_CC = true;
-function drawScene(i, t, g) {
-  const prev = ctx; ctx = g;
+function drawScene(i, n, g) {
+  const prev = ctx, prevNT = NT; ctx = g; NT = n;
+  const t = PAGES[i] === recap ? n : toOld(n);
   g.save(); g.drawImage(PAPER_C, 0, 0);
   // a gentle hand-held drift
   const dx = Math.sin(t * 0.7) * 3 + Math.sin(t * 1.9) * 1.2, dy = Math.cos(t * 0.6) * 2.5;
   g.translate(dx, dy);
-  GA = 1; KEY = 0; SCENES[i][1](t);
-  g.restore(); ctx = prev;
+  GA = 1; KEY = 0; PAGES[i](t);
+  g.restore(); ctx = prev; NT = prevNT;
 }
 function render(t) {
   t = clamp(t, 0, DUR);
   BOIL = Math.floor(t * 8);
   const g = document.getElementById('film').getContext('2d');
-  const i = sceneIndex(t);
+  const i = pageIndex(t);
   drawScene(i, t, g);
   // page flip: the previous page lifts off the pad
-  const tb = TRANS[i - 1];
+  const tb = FLIPS[i - 1];
   if (i > 0 && t < tb + 0.5) {
     if (!BUF) { BUF = document.createElement('canvas'); BUF.width = W; BUF.height = H; }
     const bg = BUF.getContext('2d'); drawScene(i - 1, Math.min(t, tb - 0.001), bg);
@@ -896,12 +943,21 @@ function synthesize(sr = SR_DEFAULT) {
   const chime = (t, notes, g = 0.22, step = 0.075, pan = 0.2) => notes.forEach((m, i) => F(t + i * step, bell(midiF(m), 1.4), g, pan));
   // ---- foley timeline (kept in step with the scenes above)
   const fx = [];
-  const at = (t, x, g, p = 0) => fx.push([t, x, g, p]);
+  const at = (t, x, g, p = 0) => fx.push([toNew(t), x, g, p]);   // scene-clock events
+  const atN = (t, x, g, p = 0) => fx.push([t, x, g, p]);         // film-clock events
   at(0.12, sfx.scratch(1.1), 0.25, -0.3); at(1.28, sfx.pop(0.8), 0.35, -0.3);
   at(1.6, sfx.scratch(0.6), 0.2, -0.5); at(2.65, sfx.pop(1), 0.4, 0); at(3.05, sfx.scratch(0.5), 0.22, 0);
   for (let i = 0; i < 7; i++) at(4.5 + i * 0.17, sfx.pop(1 + i * 0.09), 0.3, -0.1 + i * 0.03);
   at(5.9, sfx.scratch(0.4), 0.15, 0); [6.25, 6.4, 6.55].forEach((t, i) => { at(t, sfx.pop(0.7), 0.25, 0.3 + i * 0.2); at(t + 0.15, sfx.blip(1 + i * 0.12), 0.18, 0.3 + i * 0.2); });
-  for (const tb of TRANS) { at(tb - 0.05, sfx.whoosh(0.5, 900, 3500), 0.35, 0); at(tb - 0.02, sfx.scratch(0.15), 0.15, 0); }
+  for (const tb of FLIPS) { atN(tb - 0.05, sfx.whoosh(0.5, 900, 3500), 0.35, 0); atN(tb - 0.02, sfx.scratch(0.15), 0.15, 0); }
+  // the new beats
+  atN(7.55, sfx.pop(1.2), 0.25, 0.2); for (let k = 0; k < 7; k++) atN(7.6 + k * (1.8 / 7), sfx.blip(0.9 + k * 0.06), 0.1, -0.2 + k * 0.05);
+  atN(14.45, sfx.scratch(0.45), 0.28); atN(15.2, sfx.scratch(0.4), 0.24);
+  atN(26.7, sfx.pop(1.0), 0.35, -0.4); chime(26.75, [84, 91, 96], 0.14, 0.05, -0.4); atN(29.2, sfx.scratch(0.6), 0.2, -0.3);
+  atN(35.75, sfx.pop(0.9), 0.3, 0.3); atN(36.1, sfx.scratch(0.4), 0.18, 0.2);
+  atN(66.4, sfx.scratch(0.9), 0.22); atN(67.3, sfx.scratch(0.35), 0.18); atN(66.35, sfx.boing(), 0.1, 0.7);
+  [68.05, 69.9, 71.2].forEach((t, i) => { atN(t, sfx.pop(0.9 + i * 0.15), 0.35, -0.5 + i * 0.5); atN(t + 0.1, sfx.scratch(0.55), 0.16, -0.5 + i * 0.5); });
+  chime(71.5, [84, 88, 91], 0.14, 0.07, 0.4);
   at(7.5, sfx.whoosh(1.1, 300, 1500), 0.3, 0); at(8.6, sfx.pop(0.9), 0.35);
   { let t = 8.75; while (t < 11.25) { at(t, sfx.tick(), 0.35, (rnd() - 0.5) * 0.4); const u = (t - 8.75) / 2.5; t += 0.035 + 0.12 * u * u; } }
   at(11.28, sfx.blip(1.5), 0.25); at(10.9, sfx.scratch(0.55), 0.14);
@@ -909,7 +965,7 @@ function synthesize(sr = SR_DEFAULT) {
   at(16.2, sfx.scratch(2.7), 0.26, -0.5);
   for (let si = 0; si < 5; si++) { const start = 16.45 + si * 0.28; for (let k = 0; k < 26; k++) { const land = start + Math.pow(k / 11, 1 / 1.6); if (land < 20.5 && k < 7) at(land, sfx.thunk(), 0.17 - k * 0.012, -0.2 + si * 0.15); } }
   at(17.85, sfx.pop(0.9), 0.35, -0.4); at(19.15, sfx.scratch(0.5), 0.2, -0.4);
-  at(19.85, sfx.slide(0.65, 1500, 330), 0.2, 0.3);
+  at(19.85, sfx.slide(0.6, 1500, 330), 0.12, 0.3);
   for (let i = 0; i < 26; i++) at(20.55 + rnd() * 0.9, rnd() > 0.5 ? sfx.thunk() : sfx.clack(), 0.25 + rnd() * 0.2, (rnd() - 0.5) * 1.4);
   at(20.55, sfx.stamp(), 0.5, 0); at(20.55, noiseHit(1.4, 'lp', 2400, 0.7, 3.5), 0.25, 0);
   at(21.5, sfx.pop(0.7), 0.35, 0.4); [21.45, 21.95].forEach(t => at(t, sfx.boing(), 0.14, -0.2));
@@ -948,20 +1004,20 @@ function synthesize(sr = SR_DEFAULT) {
 
   // ---- the score: 100 bpm, bars of 2.4 s starting at 0.3 s
   const BAR = 2.4, B0 = 0.3, beat = BAR / 4;
-  const chords = ['F', 'C', 'Dm', 'Bb', 'Gm', 'C', 'A7', 'Dm', 'E7', 'F', 'Bb', 'F', 'Gm', 'C', 'F', 'Dm', 'Bb', 'C', 'G', 'Em', 'C', 'D', 'C', 'D', 'G'];
+  const chords = ['F', 'C', 'Dm', 'C', 'Gm', 'C', 'Dm', 'Bb', 'C', 'A7', 'Dm', 'Bb', 'E7', 'F', 'Bb', 'C', 'F', 'Bb', 'F', 'Gm', 'C', 'F', 'Dm', 'Bb', 'G', 'Em', 'C', 'D', 'G', 'C', 'D', 'G', 'C', 'D', 'G'];
   const tones = name => { const m = name.match(/^([A-G]b?)(m?)(7?)$/); const r = NOTE[m[1]]; const iv = m[2] ? [0, 3, 7] : [0, 4, 7]; if (m[3]) iv.push(10); return { root: r, iv }; };
   const voice = (c, lo = 60) => { const out = c.iv.map(i => { let n = c.root + i; while (n < lo) n += 12; while (n >= lo + 12) n -= 12; return n; }).sort((a, b) => a - b); if (out.length < 4) out.push(out[0] + 12); return out; };
-  const silent = t => t > 20.5 && t < 21.88;
+  const silent = t => t > 30.5 && t < 31.48;
   const strum = [0, 1.5, 2.5, 3, 3.5];
   for (let b = 0; b < chords.length; b++) {
     const t0 = B0 + b * BAR, c = tones(chords[b]), v = voice(c), last = b === chords.length - 1;
-    const intense = b >= 3 && b <= 8 ? 1 : 0;
+    const intense = b >= 4 && b <= 12 ? 1 : 0;
     // strums (ukulele-ish)
     const pat = last ? [0] : b === 0 ? [0, 2, 3] : strum;
     for (const s of pat) { const t = t0 + s * beat; if (silent(t)) continue; const down = Math.floor(s) === s; const order = down ? v : v.slice().reverse(); order.forEach((m, i) => M(t + i * 0.012, pluck(midiF(m), last ? 3.4 : 1.1, down ? 0.6 : 0.45), (down ? 0.2 : 0.13) * (last ? 1.5 : 1), -0.25 + i * 0.12)); }
     // bass
     const bass = (c.root % 12) + 36 + (c.root % 12 > 7 ? -12 : 0) + 12, fifth = bass + 7;
-    const bl = last ? [[0, bass]] : b >= 9 && b <= 17 ? [[0, bass], [1, bass + 4 - (c.iv[1] === 3 ? 1 : 0)], [2, fifth], [3, bass + 12]] : [[0, bass], [2, fifth]];
+    const bl = last ? [[0, bass]] : b >= 16 && b <= 23 ? [[0, bass], [1, bass + 4 - (c.iv[1] === 3 ? 1 : 0)], [2, fifth], [3, bass + 12]] : [[0, bass], [2, fifth]];
     for (const [s, m] of bl) { const t = t0 + s * beat; if (silent(t)) continue; M(t, pizz(midiF(m), last ? 2.5 : 0.8), 0.33, 0); }
     // percussion
     if (!last && b > 0) for (let e = 0; e < 8; e++) { const t = t0 + e * beat / 2; if (silent(t)) continue; M(t, noiseHit(0.09, 'hp', 7000, 0.7, e % 2 ? 60 : 38, 0.012), e % 2 ? 0.05 : 0.08, 0.35); }
@@ -969,11 +1025,11 @@ function synthesize(sr = SR_DEFAULT) {
     if (!last && b > 2) for (const s of [1, 3]) { const t = t0 + s * beat; if (!silent(t)) M(t, noiseHit(0.14, 'bp', 1900, 0.9, 32), 0.14, -0.1); }
     // glockenspiel melody: a little tune from the chord tones
     const r = mulberry(b * 97 + 5), mel = voice(c, 72);
-    if (!last && !(b >= 7 && b <= 8)) {
+    if (!last && !(b >= 11 && b <= 12)) {
       const rhythm = intense ? [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5] : [0, 1, 1.5, 2.5, 3];
       rhythm.forEach((s, i) => { const t = t0 + s * beat; if (silent(t) || r() < 0.18) return; const m = mel[(i + Math.floor(r() * 3)) % mel.length] + (intense && i > 3 ? 12 : 0); M(t, bell(midiF(m), 0.9, 0.8), 0.11, 0.35); });
     }
-    if (b === 7 || b === 8) for (let i = 0; i < 16; i++) { const t = t0 + i * beat / 4; if (!silent(t)) M(t, bell(midiF(mel[i % 4] + 12 * Math.floor(i / 8)), 0.4, 0.6), 0.06 + i * 0.004, 0.3); }
+    if (b === 11 || b === 12) for (let i = 0; i < 16; i++) { const t = t0 + i * beat / 4; if (!silent(t)) M(t, bell(midiF(mel[i % 4] + 12 * Math.floor(i / 8)), 0.4, 0.6), 0.06 + i * 0.004, 0.3); }
     if (last) chime(t0, [79, 83, 86, 91, 95, 98], 0.12, 0.05, 0.1);
   }
   // ---- ducking under the narration, reverb, mix
@@ -1021,7 +1077,7 @@ async function ensureAudio() {
 // build the soundtrack off the main thread (falls back to the main thread if workers are unavailable)
 function synthInWorker(sr) {
   const src = [`const PI = Math.PI, TAU = PI * 2, SR_DEFAULT = 48000, CUES = ${JSON.stringify(CUES)}, DUR = ${DUR}, TRANS = ${JSON.stringify(TRANS)};`,
-    `const clamp = ${clamp}; const seg = ${seg};`, mulberry, midiF, biquad, bq, synthesize,
+    `const clamp = ${clamp}; const seg = ${seg}; const KNOTS = ${JSON.stringify(KNOTS)}, RECAP = ${JSON.stringify(RECAP)}, TAIL = ${TAIL};`, toOld, toNew, `const FLIPS = ${JSON.stringify(FLIPS)};`, mulberry, midiF, biquad, bq, synthesize,
     'onmessage = e => { const r = synthesize(e.data); postMessage(r, [r.L.buffer, r.R.buffer]); };'].map(String).join('\n');
   return new Promise(resolve => {
     try {
@@ -1055,7 +1111,7 @@ function loop() {
   if (playing) { const t = now(); if (t >= DUR) { pause(); offset = DUR; } render(Math.min(t, DUR)); ui(); }
   requestAnimationFrame(loop);
 }
-const POSTER = 58.6;
+const POSTER = DUR - 0.9;
 async function boot() {
   try { await document.fonts.load(`40px 'Caveat Brush'`); await document.fonts.load(`700 40px 'Caveat'`); await document.fonts.load(`40px 'Patrick Hand'`); } catch (e) {}
   makePaper();
