@@ -1,0 +1,3 @@
+   Compiling walt v0.1.0 (/Users/jason/.codex/worktrees/nello-player/texas-42/walt/walt)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.15s
+     Running unittests src/lib.rs (walt/target/debug/deps/walt-d344f57d419c8148)

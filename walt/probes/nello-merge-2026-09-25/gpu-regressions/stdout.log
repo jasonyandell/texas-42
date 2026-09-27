@@ -1,0 +1,23 @@
+
+running 5 tests
+test m1_context_validation_fails_closed ... ok
+test m1_direct_preflight_uses_exact_complete_world_work_units ... ok
+test m1_full_grade_counts_and_mass_are_exact_without_physical_enumeration ... ok
+test m1_response_kernel_reuse_holds_for_every_declaration_and_lead_tile ... ok
+test m1_closed_form_matches_independent_physical_enumerator_at_grades_two_to_four ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.35s
+
+
+running 2 tests
+test m0_prose_follow_and_led_context_agree_exhaustively ... ok
+test m0_prose_resolver_agrees_on_every_actor_attributed_four_tile_trick ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+
+running 1 test
+test m1_same_context_reuse_and_action_identity_hold_for_every_physical_lead_pair ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.69s
+

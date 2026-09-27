@@ -1,0 +1,13 @@
+   Compiling either v1.17.0
+   Compiling crossbeam-utils v0.8.22
+   Compiling num-traits v0.2.19
+   Compiling crossbeam-epoch v0.9.20
+   Compiling crossbeam-deque v0.8.7
+   Compiling num-integer v0.1.47
+   Compiling rayon-core v1.13.0
+   Compiling num-bigint v0.4.8
+   Compiling rayon v1.12.0
+   Compiling num-rational v0.4.2
+   Compiling walt v0.1.0 (/Users/jason/.codex/worktrees/nello-player/texas-42/walt/walt)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.44s
+     Running unittests src/lib.rs (walt/target/debug/deps/walt-d1dd1ac5d40bcb35)

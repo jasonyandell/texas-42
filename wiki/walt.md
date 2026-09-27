@@ -87,6 +87,7 @@ read [walt-instruments](walt-instruments.md); to change something, read
 | [walt-negative-results](walt-negative-results.md) | The refutations and negative results as first-class findings — what each refuted, at what scope, under which pre-declared criterion | 2026-08-09 → 09-07 |
 | [walt-decision-sparse](walt-decision-sparse.md) | The decision-sparse architecture, its objects, audits and experiments, and its lineage into root intervals, certified regret and focal-horizon intervals | 2026-08-13 → 08-16; lineage to 09-04 |
 | **Part III — the programs, as records** | | |
+| [walt-nello](walt-nello.md) | Nel-O mechanics, sample-size reversal, retained escape deals, fixed-field doom, held-out limitations and the opt-in preview | 2026-09-20 → 09-25 |
 | [walt-foundation-era](walt-foundation-era.md) | *Provenance record.* S1–S4.5: the rules-to-operators stack, the control skeleton and its two exhaustive checkers | 2026-08-09 |
 | [walt-factory-era](walt-factory-era.md) | *Provenance record.* S5a–S5d: the conflict-driven lesson factory, the label-fragility discovery, the lesson economy, the re-tethering | 2026-08-10 |
 | [walt-census-era](walt-census-era.md) | *Provenance record.* S5e–S5k: the situation censuses, the retrograde quotient and railyard, the fiber and endgame probes, the seat census resolved by proof | 2026-08-10 → 08-11 |

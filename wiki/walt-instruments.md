@@ -66,6 +66,11 @@ interval `[L, U]`, the survivor set, and the focal-horizon hierarchy — never a
 "sandwich" (CBS-A3, FH-A2; the adjudicated theorem name and the package
 filenames may be quoted).
 
+**2026-09-25 follow-up (EXPLORATORY):** [Walt and Nel-O](walt-nello.md)
+owns the shared `walt-player` contract extension, the large-sample double-lead
+investigation and counterexample preview. Its current browser configuration and
+merge checks are separate from the historical configurations recorded below.
+
 ## 0. How to use this page
 
 Three readers, three doorways.

@@ -1,0 +1,15 @@
+    Checking walt v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt)
+    Checking walt-player v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player)
+error: manual implementation of `.is_multiple_of()`
+   --> walt-player/src/auction.rs:171:40
+    |
+171 |     let leader = (req.seat + u64::from(req.seat % 2 == 0)) as u8;
+    |                                        ^^^^^^^^^^^^^^^^^ help: replace with: `req.seat.is_multiple_of(2)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#manual_is_multiple_of
+    = note: `-D clippy::manual-is-multiple-of` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::manual_is_multiple_of)]`
+
+error: could not compile `walt-player` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `walt-player` (lib test) due to 1 previous error

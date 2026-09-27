@@ -1,0 +1,33 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-22T04:55:43.148118+00:00",
+  "cwd": "/Users/jason/.codex/worktrees/nello-player/texas-42",
+  "command": [
+    "cargo",
+    "build",
+    "--locked",
+    "--release",
+    "--manifest-path",
+    "/private/tmp/nello-ruby-doubles-20260921-2000/walt-src/Cargo.toml",
+    "-p",
+    "walt-player",
+    "--lib",
+    "--no-default-features",
+    "--features",
+    "cpu-speedups",
+    "--target",
+    "wasm32-unknown-unknown"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 7.140042,
+  "status": "completed",
+  "child_pid": 25519,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

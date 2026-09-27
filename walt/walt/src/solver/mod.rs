@@ -68,6 +68,7 @@ pub use inner_belief::InnerBelief;
 pub mod laydown;
 pub mod model_belief;
 pub mod model_recursion;
+pub mod nello_counterexample;
 pub mod motif;
 pub mod opening;
 pub mod partnership;

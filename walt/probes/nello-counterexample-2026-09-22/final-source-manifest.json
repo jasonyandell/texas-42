@@ -1,0 +1,14 @@
+{
+  "git_head": "e4c549e2fd533c942f39125bf3134ac707c4e638",
+  "files_sha256": {
+    "walt/walt/src/solver/mod.rs": "3e93d9878309bc0cbc8c408ee91219058229cb2f8c2b145a7f087e9b5e998e15",
+    "walt/walt/src/solver/nello_counterexample.rs": "5dc538dfa79487006fe283ad01f9a42dea61d8068dd2888920dea1b491d54e13",
+    "walt/walt-player/src/bin/nello-counterexample.rs": "2f8871c5f4ab486f85e1d9c0584b2fcc79fb4f9b33a44488415ef9b9443719f8",
+    "walt/NELLO-PLAYER.md": "8772b521a8bb4829d2bcc430b7d609eed67768d7fd825809b49540ed9cccbaf3",
+    "walt/probes/nello-counterexample-2026-09-22/REPORT.md": "d7ebfb04b525c343bffe65f536c6648bf8fbbdc08290ea3b24df9b93c8d57bb9",
+    "walt/probes/nello-counterexample-2026-09-22/summarize.py": "8f7d9a62b793792c2db88db74ddc48c29adb4f1b8ec9a5d692b9108e1fcb417c",
+    "walt/probes/nello-counterexample-2026-09-22/run-panel.py": "be0504ab42deeec9d7419366afc3b692cd2dd10118e444674cc05c234b5695d8"
+  },
+  "release_binary_sha256": "cd10229c61c4d2fa619e5b01d9ec660de0726205e32c357906dba09d212f42d5",
+  "note": "Final sources include the saturated-tie regression added after the panel; runtime source is unchanged."
+}

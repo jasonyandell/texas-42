@@ -1,0 +1,15 @@
+node:fs:556
+  return binding.open(
+                 ^
+
+Error: ENOENT: no such file or directory, open '/Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-ruby-doubles-2026-09-21/panel2000.json'
+    at Object.openSync (node:fs:556:18)
+    at readFileSync (node:fs:440:35)
+    at file:///Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-ruby-doubles-2026-09-21/10000/panel.mjs:15:26 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/jason/.codex/worktrees/nello-player/texas-42/walt/probes/nello-ruby-doubles-2026-09-21/panel2000.json'
+}
+
+Node.js v26.0.0

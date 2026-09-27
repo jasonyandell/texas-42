@@ -1,0 +1,21 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-09-22T05:52:13.257463+00:00",
+  "cwd": "/Users/jason/.codex/worktrees/nello-player/texas-42",
+  "command": [
+    "node",
+    "walt/probes/partnership/packet/texas42-partnership-launch-v0.1/tools/run_capped.py"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.083917,
+  "status": "failed",
+  "child_pid": 85012,
+  "child_returncode": 1,
+  "runner_returncode": 1,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

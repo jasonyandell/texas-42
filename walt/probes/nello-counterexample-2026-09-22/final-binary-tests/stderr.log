@@ -1,0 +1,10 @@
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling walt v0.1.0 (/Users/jason/.codex/worktrees/nello-player/texas-42/walt/walt)
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling walt-player v0.1.0 (/Users/jason/.codex/worktrees/nello-player/texas-42/walt/walt-player)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.83s
+     Running unittests src/bin/nello-counterexample.rs (walt/target/debug/deps/nello_counterexample-f50037ace3525c57)

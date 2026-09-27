@@ -1,0 +1,11 @@
+{
+  "tier": "exploratory engineering evidence",
+  "date": "2026-09-25",
+  "tested_combined_runtime_commit": "93293fb2094f7b3186160fe75fbd6d8bdf98587a",
+  "base_pr90_commit": "cc486780a0e48b43f5ebab21de4fd5deebc9d0f2",
+  "main_commit": "ee44cb5643631bb1d8995579c70094dc14acd96c",
+  "candidate_wasm_sha256": "affdeeece32aa8ce97a75a58f27b9c7921a303a00f9706f729c2a23121d85d92",
+  "preview_wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+  "full_legacy_ci": "not run; workspace formatting and unrelated all-target Kiln lints are not green",
+  "research_summary_reproduction": "both summaries byte-identical; all six patched source hashes reproduced from e4c549e2"
+}

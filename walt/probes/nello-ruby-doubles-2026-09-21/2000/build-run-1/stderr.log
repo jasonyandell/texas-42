@@ -1,0 +1,11 @@
+error: failed to load manifest for workspace member `/private/tmp/nello-ruby-doubles-20260921-2000/walt-src/walt-gpu-ref`
+referenced by workspace at `/private/tmp/nello-ruby-doubles-20260921-2000/walt-src/Cargo.toml`
+
+Caused by:
+  failed to load manifest for dependency `rob-core`
+
+Caused by:
+  failed to read `/private/tmp/nello-ruby-doubles-20260921-2000/rob/crates/core/Cargo.toml`
+
+Caused by:
+  No such file or directory (os error 2)

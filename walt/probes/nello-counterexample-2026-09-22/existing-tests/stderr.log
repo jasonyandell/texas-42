@@ -1,0 +1,4 @@
+   Compiling walt-player v0.1.0 (/Users/jason/.codex/worktrees/nello-player/texas-42/walt/walt-player)
+    Finished `release` profile [optimized] target(s) in 0.65s
+     Running tests/contracts.rs (walt/target/release/deps/contracts-efa3bcac83069e26)
+     Running tests/nello.rs (walt/target/release/deps/nello-ee1e533520fd11ee)

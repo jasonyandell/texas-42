@@ -1,0 +1,24 @@
+   Compiling objc2 v0.6.4
+    Checking objc2-encode v4.1.0
+    Checking bitflags v2.13.1
+    Checking objc2-core-foundation v0.3.2
+    Checking num-integer v0.1.47
+    Checking objc2-core-graphics v0.3.2
+    Checking num-bigint v0.4.8
+    Checking num-rational v0.4.2
+    Checking walt v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt)
+    Checking rob-core v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/rob/crates/core)
+    Checking block2 v0.6.2
+    Checking objc2-foundation v0.3.2
+    Checking dispatch2 v0.3.1
+    Checking rob-player v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/rob/crates/player)
+    Checking rob-verify v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/rob/crates/verify)
+    Checking objc2-metal v0.3.2
+    Checking walt-player v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-player)
+    Checking walt-gpu-ref v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-gpu-ref)
+    Checking walt-wasm v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-wasm)
+    Checking walt2-wasm v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt2-wasm)
+    Checking walt-cpu-bench v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-cpu-bench)
+    Checking walt-metal v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-metal)
+    Checking walt-m2-runner v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt-m2-runner)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.39s

@@ -1,0 +1,379 @@
+{
+  "schema": "nello-counterexample-summary-v1",
+  "groups": [
+    {
+      "ply": 6,
+      "ordinary": 40,
+      "cases": 8,
+      "examination_draws": 32768,
+      "baseline": {
+        "sets": 19830,
+        "worlds": 32768,
+        "viewer_free_decisions": 53801,
+        "fallback_free_decisions": 38676,
+        "choices": {
+          "5-1": 1,
+          "6-6": 5,
+          "3-1": 1,
+          "4-4": 1
+        }
+      },
+      "round-3": {
+        "sets": 20111,
+        "worlds": 32768,
+        "viewer_free_decisions": 52552,
+        "fallback_free_decisions": 38031,
+        "choices": {
+          "5-1": 1,
+          "4-4": 3,
+          "3-1": 1,
+          "6-6": 3
+        }
+      },
+      "random-control": {
+        "sets": 20218,
+        "worlds": 32768,
+        "viewer_free_decisions": 50579,
+        "fallback_free_decisions": 37716,
+        "choices": {
+          "5-1": 1,
+          "6-6": 3,
+          "3-1": 2,
+          "4-4": 2
+        }
+      },
+      "paired_augmented": [
+        11349,
+        1589,
+        1308,
+        18522
+      ],
+      "paired_random_control": [
+        11351,
+        1587,
+        1199,
+        18631
+      ],
+      "paired_tie_only": [
+        12534,
+        404,
+        371,
+        19459
+      ],
+      "baseline_ties": 1,
+      "saturated_baseline_leaders": 0,
+      "changed_root_choices": 2,
+      "changed_tie_only_choices": 0,
+      "counterexample_phase_ms": {
+        "min": 324,
+        "median": 332.0,
+        "max": 348
+      },
+      "total_ms": {
+        "min": 1797,
+        "median": 1815.0,
+        "max": 1842
+      },
+      "retained_witnesses": 96,
+      "target_action_doomed": 34
+    },
+    {
+      "ply": 6,
+      "ordinary": 160,
+      "cases": 8,
+      "examination_draws": 32768,
+      "baseline": {
+        "sets": 19483,
+        "worlds": 32768,
+        "viewer_free_decisions": 58945,
+        "fallback_free_decisions": 33559,
+        "choices": {
+          "4-4": 3,
+          "6-6": 5
+        }
+      },
+      "round-3": {
+        "sets": 19469,
+        "worlds": 32768,
+        "viewer_free_decisions": 58420,
+        "fallback_free_decisions": 33542,
+        "choices": {
+          "4-4": 4,
+          "6-6": 4
+        }
+      },
+      "random-control": {
+        "sets": 19572,
+        "worlds": 32768,
+        "viewer_free_decisions": 58114,
+        "fallback_free_decisions": 33511,
+        "choices": {
+          "5-1": 1,
+          "6-6": 6,
+          "4-4": 1
+        }
+      },
+      "paired_augmented": [
+        12421,
+        864,
+        878,
+        18605
+      ],
+      "paired_random_control": [
+        11943,
+        1342,
+        1253,
+        18230
+      ],
+      "paired_tie_only": [
+        12973,
+        312,
+        303,
+        19180
+      ],
+      "baseline_ties": 2,
+      "saturated_baseline_leaders": 0,
+      "changed_root_choices": 1,
+      "changed_tie_only_choices": 0,
+      "counterexample_phase_ms": {
+        "min": 416,
+        "median": 432.0,
+        "max": 464
+      },
+      "total_ms": {
+        "min": 1875,
+        "median": 1910.5,
+        "max": 1939
+      },
+      "retained_witnesses": 96,
+      "target_action_doomed": 37
+    },
+    {
+      "ply": 9,
+      "ordinary": 40,
+      "cases": 8,
+      "examination_draws": 32768,
+      "baseline": {
+        "sets": 19848,
+        "worlds": 32768,
+        "viewer_free_decisions": 29712,
+        "fallback_free_decisions": 23793,
+        "choices": {
+          "4-4": 4,
+          "3-1": 2,
+          "2-1": 1,
+          "5-1": 1
+        }
+      },
+      "round-3": {
+        "sets": 19868,
+        "worlds": 32768,
+        "viewer_free_decisions": 29691,
+        "fallback_free_decisions": 22992,
+        "choices": {
+          "4-4": 4,
+          "3-1": 2,
+          "2-1": 1,
+          "5-1": 1
+        }
+      },
+      "random-control": {
+        "sets": 19392,
+        "worlds": 32768,
+        "viewer_free_decisions": 31763,
+        "fallback_free_decisions": 23956,
+        "choices": {
+          "4-4": 5,
+          "3-1": 2,
+          "2-1": 1
+        }
+      },
+      "paired_augmented": [
+        12771,
+        149,
+        129,
+        19719
+      ],
+      "paired_random_control": [
+        12378,
+        542,
+        998,
+        18850
+      ],
+      "paired_tie_only": [
+        12771,
+        149,
+        129,
+        19719
+      ],
+      "baseline_ties": 2,
+      "saturated_baseline_leaders": 0,
+      "changed_root_choices": 0,
+      "changed_tie_only_choices": 0,
+      "counterexample_phase_ms": {
+        "min": 114,
+        "median": 116.0,
+        "max": 124
+      },
+      "total_ms": {
+        "min": 517,
+        "median": 526.5,
+        "max": 535
+      },
+      "retained_witnesses": 96,
+      "target_action_doomed": 61
+    },
+    {
+      "ply": 9,
+      "ordinary": 160,
+      "cases": 8,
+      "examination_draws": 32768,
+      "baseline": {
+        "sets": 20651,
+        "worlds": 32768,
+        "viewer_free_decisions": 25883,
+        "fallback_free_decisions": 18072,
+        "choices": {
+          "3-1": 4,
+          "4-4": 2,
+          "5-1": 2
+        }
+      },
+      "round-3": {
+        "sets": 20760,
+        "worlds": 32768,
+        "viewer_free_decisions": 25625,
+        "fallback_free_decisions": 17444,
+        "choices": {
+          "5-1": 3,
+          "4-4": 2,
+          "3-1": 3
+        }
+      },
+      "random-control": {
+        "sets": 20814,
+        "worlds": 32768,
+        "viewer_free_decisions": 24229,
+        "fallback_free_decisions": 17490,
+        "choices": {
+          "3-1": 6,
+          "4-4": 1,
+          "5-1": 1
+        }
+      },
+      "paired_augmented": [
+        11452,
+        665,
+        556,
+        20095
+      ],
+      "paired_random_control": [
+        10766,
+        1351,
+        1188,
+        19463
+      ],
+      "paired_tie_only": [
+        12057,
+        60,
+        51,
+        20600
+      ],
+      "baseline_ties": 0,
+      "saturated_baseline_leaders": 0,
+      "changed_root_choices": 1,
+      "changed_tie_only_choices": 0,
+      "counterexample_phase_ms": {
+        "min": 138,
+        "median": 141.5,
+        "max": 146
+      },
+      "total_ms": {
+        "min": 542,
+        "median": 546.5,
+        "max": 552
+      },
+      "retained_witnesses": 96,
+      "target_action_doomed": 62
+    }
+  ],
+  "overall": {
+    "cases": 32,
+    "examination_draws": 131072,
+    "baseline": {
+      "sets": 79812,
+      "worlds": 131072,
+      "viewer_free_decisions": 168341,
+      "fallback_free_decisions": 114100,
+      "choices": {
+        "4-4": 10,
+        "6-6": 10,
+        "5-1": 4,
+        "3-1": 7,
+        "2-1": 1
+      }
+    },
+    "round-3": {
+      "sets": 80208,
+      "worlds": 131072,
+      "viewer_free_decisions": 166288,
+      "fallback_free_decisions": 112009,
+      "choices": {
+        "4-4": 13,
+        "6-6": 7,
+        "5-1": 5,
+        "3-1": 6,
+        "2-1": 1
+      }
+    },
+    "random-control": {
+      "sets": 79996,
+      "worlds": 131072,
+      "viewer_free_decisions": 164685,
+      "fallback_free_decisions": 112673,
+      "choices": {
+        "5-1": 3,
+        "6-6": 9,
+        "4-4": 9,
+        "3-1": 10,
+        "2-1": 1
+      }
+    },
+    "paired_augmented": [
+      47993,
+      3267,
+      2871,
+      76941
+    ],
+    "paired_random_control": [
+      46438,
+      4822,
+      4638,
+      75174
+    ],
+    "paired_tie_only": [
+      50335,
+      925,
+      854,
+      78958
+    ],
+    "baseline_ties": 5,
+    "saturated_baseline_leaders": 0,
+    "changed_root_choices": 4,
+    "changed_tie_only_choices": 0,
+    "counterexample_phase_ms": {
+      "min": 114,
+      "median": 235.0,
+      "max": 464
+    },
+    "total_ms": {
+      "min": 517,
+      "median": 1174.5,
+      "max": 1939
+    },
+    "retained_witnesses": 384,
+    "target_action_doomed": 194
+  },
+  "v1_v2_outcome_parity": true,
+  "panel_wall_seconds": 20.125359916
+}

@@ -1,0 +1,210 @@
+[
+  {
+    "ply": 6,
+    "lead": "21",
+    "full_information_forced_set": true,
+    "first_trick": [
+      {
+        "you": "52",
+        "earl": "10",
+        "winner": 0
+      },
+      {
+        "you": "52",
+        "earl": "11",
+        "winner": 0
+      },
+      {
+        "you": "52",
+        "earl": "30",
+        "winner": 0
+      },
+      {
+        "you": "52",
+        "earl": "53",
+        "winner": 0
+      },
+      {
+        "you": "52",
+        "earl": "65",
+        "winner": 0
+      }
+    ]
+  },
+  {
+    "ply": 6,
+    "lead": "31",
+    "full_information_forced_set": true,
+    "first_trick": [
+      {
+        "you": "63",
+        "earl": "30",
+        "winner": 0
+      },
+      {
+        "you": "63",
+        "earl": "53",
+        "winner": 0
+      }
+    ]
+  },
+  {
+    "ply": 6,
+    "lead": "44",
+    "full_information_forced_set": true,
+    "first_trick": [
+      {
+        "you": "22",
+        "earl": "11",
+        "winner": 3
+      },
+      {
+        "you": "33",
+        "earl": "11",
+        "winner": 3
+      }
+    ]
+  },
+  {
+    "ply": 6,
+    "lead": "51",
+    "full_information_forced_set": true,
+    "first_trick": [
+      {
+        "you": "50",
+        "earl": "53",
+        "winner": 1
+      },
+      {
+        "you": "50",
+        "earl": "65",
+        "winner": 1
+      },
+      {
+        "you": "52",
+        "earl": "53",
+        "winner": 1
+      },
+      {
+        "you": "52",
+        "earl": "65",
+        "winner": 1
+      }
+    ]
+  },
+  {
+    "ply": 6,
+    "lead": "66",
+    "full_information_forced_set": true,
+    "first_trick": [
+      {
+        "you": "22",
+        "earl": "11",
+        "winner": 3
+      },
+      {
+        "you": "33",
+        "earl": "11",
+        "winner": 3
+      }
+    ]
+  },
+  {
+    "ply": 9,
+    "lead": "21",
+    "full_information_forced_set": true,
+    "first_trick": [
+      {
+        "you": "52",
+        "earl": "10",
+        "winner": 0
+      },
+      {
+        "you": "52",
+        "earl": "30",
+        "winner": 0
+      },
+      {
+        "you": "52",
+        "earl": "53",
+        "winner": 0
+      },
+      {
+        "you": "52",
+        "earl": "65",
+        "winner": 0
+      }
+    ]
+  },
+  {
+    "ply": 9,
+    "lead": "31",
+    "full_information_forced_set": true,
+    "first_trick": [
+      {
+        "you": "63",
+        "earl": "30",
+        "winner": 0
+      },
+      {
+        "you": "63",
+        "earl": "53",
+        "winner": 0
+      }
+    ]
+  },
+  {
+    "ply": 9,
+    "lead": "44",
+    "full_information_forced_set": true,
+    "first_trick": [
+      {
+        "you": "22",
+        "earl": "10",
+        "winner": 3
+      },
+      {
+        "you": "22",
+        "earl": "30",
+        "winner": 3
+      },
+      {
+        "you": "22",
+        "earl": "53",
+        "winner": 3
+      },
+      {
+        "you": "22",
+        "earl": "65",
+        "winner": 3
+      }
+    ]
+  },
+  {
+    "ply": 9,
+    "lead": "51",
+    "full_information_forced_set": true,
+    "first_trick": [
+      {
+        "you": "50",
+        "earl": "53",
+        "winner": 1
+      },
+      {
+        "you": "50",
+        "earl": "65",
+        "winner": 1
+      },
+      {
+        "you": "52",
+        "earl": "53",
+        "winner": 1
+      },
+      {
+        "you": "52",
+        "earl": "65",
+        "winner": 1
+      }
+    ]
+  }
+]

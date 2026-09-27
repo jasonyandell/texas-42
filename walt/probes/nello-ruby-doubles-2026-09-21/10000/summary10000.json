@@ -1,0 +1,100 @@
+{
+  "schema": "nello-ruby-doubles-10000-summary-v1",
+  "method": {
+    "runtime": "Node WebAssembly, temporary source copy",
+    "modified_source": "only walt-player adapter worlds ceiling 640->10000 and partnership_wire n ceiling 640->10000",
+    "shipped_wasm_sha256": "fe22d2d24c33e98327799e2e08972481b4e1ec4e48f40256b22b32d0ccd76398",
+    "research_wasm_sha256": "f939d200e5f9b818ce3aa2b276d2bdefdaf9bc0f50b022027ad25ed327edb329",
+    "research_wasm": "walt-player-10000.wasm",
+    "source_hashes": {
+      "walt-player-src-lib-rs": "820695217191f51a234f3016567f2cb124a5f97fc3adb4f7816e68adab2321bd",
+      "partnership-wire-rs": "05c3c9ab2dd97a0cd28ae6ff7409cf183bc2ad10fec349a898a55cc674b89544"
+    },
+    "config": {
+      "positions": [
+        6,
+        9
+      ],
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "n0": 8,
+      "selection": "fixed",
+      "modeled_selection": "fixed",
+      "inner_belief": "voidless",
+      "partner": false,
+      "budget_ms": 20000,
+      "seed_mixing": "original wire seed ^ hand mask mix ^ record hash",
+      "hidden_hands_in_request": false
+    }
+  },
+  "parity_gate_2000": {
+    "rows": 16,
+    "completed_outer_worlds": 2000,
+    "exact_options_and_choices_match_retained_panel2000": true,
+    "wall_ms_sum": 17653.035458,
+    "solver_us_sum": 17308406,
+    "run_receipt": "../10000-run2000-parity-3/run.json"
+  },
+  "run_10000": {
+    "rows": 16,
+    "completed_outer_worlds": 10000,
+    "outer_draw_attempts": 10000,
+    "all_phases_completed": true,
+    "wall_ms_sum": 81704.116665,
+    "solver_us_sum": 81343433,
+    "peak_wasm_memory_bytes": 196476928,
+    "choices_ply6": {
+      "51": 8
+    },
+    "choices_ply9": {
+      "51": 8
+    },
+    "panel": "panel10000.json",
+    "run_receipt": "../10000-run-1/run.json"
+  },
+  "timing_ratio_10000_over_2000": {
+    "wall": 4.628332439448726,
+    "solver": 4.6996490029180045,
+    "baseline": "same research WASM 2000 parity panel"
+  },
+  "mean_set_probability": {
+    "2000": {
+      "ply6": {
+        "21": "1459/2000",
+        "31": "6243/8000",
+        "44": "12651/16000",
+        "51": "3163/4000",
+        "66": "3121/4000"
+      },
+      "ply9": {
+        "21": "10327/16000",
+        "31": "689/1000",
+        "44": "5349/8000",
+        "51": "2823/4000"
+      }
+    },
+    "10000": {
+      "ply6": {
+        "21": "56483/80000",
+        "31": "6047/8000",
+        "44": "11933/16000",
+        "51": "15341/20000",
+        "66": "58791/80000"
+      },
+      "ply9": {
+        "21": "50127/80000",
+        "31": "10833/16000",
+        "44": "5117/8000",
+        "51": "13869/20000"
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+
+running 3 tests
+test solver::nello_counterexample::tests::invalid_worlds_and_expired_work_are_refused_not_scored ... ok
+test solver::nello_counterexample::tests::singleton_doom_matches_independent_focal_enumeration_and_known_double_trap ... ok
+test solver::nello_counterexample::tests::extracted_plans_replay_exactly_and_hidden_world_does_not_enter_policy_guard ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 59 filtered out; finished in 0.01s
+

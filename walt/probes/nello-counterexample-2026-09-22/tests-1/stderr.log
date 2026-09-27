@@ -1,0 +1,9 @@
+   Compiling walt v0.1.0 (/Users/jason/.codex/worktrees/nello-player/texas-42/walt/walt)
+error[E0282]: type annotations needed
+   --> walt/src/solver/nello_counterexample.rs:355:44
+    |
+355 |         let unused = mask_bits(FULL_MASK & !(hand | declarer | defender));
+    |                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ cannot infer type
+
+For more information about this error, try `rustc --explain E0282`.
+error: could not compile `walt` (lib test) due to 1 previous error

@@ -162,6 +162,7 @@ only from the results files it names.
 - [walt-decision-sparse](walt-decision-sparse.md) — the decision-sparse exact-solving architecture: thesis, objects, theorem inventory, audit history, the experiment program, and its lineage into root intervals, certified regret and focal-horizon intervals.
 
 ### Part III — The programs, as records (EXPLORATORY)
+- [walt-nello](walt-nello.md) — Nel-O mechanics, the 40-to-100,000-world double-lead investigation, counterexample/doom distinctions, held-out failures, and the bounded browser preview (2026-09-20 → 09-25).
 - [walt-foundation-era](walt-foundation-era.md) — *provenance record*: S1–S4.5, the rules-to-operators stack and the control-skeleton checkers.
 - [walt-factory-era](walt-factory-era.md) — *provenance record*: S5a–S5d, the conflict-driven lesson factory, the label-fragility discovery, the re-tethering.
 - [walt-census-era](walt-census-era.md) — *provenance record*: S5e–S5k, the situation censuses, the retrograde quotient and railyard, the fiber and endgame probes, the seat census resolved by proof.

@@ -29,6 +29,16 @@ for the default 40/8 profile and is not reinterpreted at 160 worlds. All later
 table play keeps the 40-world, 14-second profile and its selected difficulty's
 normal partner-review behavior.
 
+The Plunge browser preview's explicit **Think deeper** controls request 350 worlds
+for play and inspection. The automatic bidder opening remains 160 when that
+setting is off. Nel-O defender refinement searches 540 candidate deals in each
+of three rounds and reserves up to 4.2 seconds within the same total budget;
+it still retains at most four failures per round. Ordinary/straight callers
+keep their existing allocation. See [the timing probe](../probes/nello-headroom-2026-09-24/REPORT.md)
+for host-specific measurements of the earlier 500/768 configuration, not evidence
+of playing strength. The 350/540 configuration reduces those work requests by
+about 30% in response to browser playtesting.
+
 Both hosts call `handle` with a JSON object containing `request` (exactly the
 seven existing fields, plus `contract:"nello"` for Nel-O), `worlds`, `partner`,
 and optionally `budget_ms`. Nel-O uses declaration 8 and its actual mark stake;

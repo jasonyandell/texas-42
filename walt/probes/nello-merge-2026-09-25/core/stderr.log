@@ -1,0 +1,9 @@
+   Compiling walt v0.1.0 (/Users/jason/.codex/worktrees/nello-counterexamples/texas-42/walt/walt)
+    Finished `release` profile [optimized] target(s) in 9.09s
+     Running tests/rules_exhaustive.rs (walt/target/release/deps/rules_exhaustive-d67e838d01384c7c)
+     Running tests/scheme.rs (walt/target/release/deps/scheme-70bf5f82b329255f)
+     Running tests/solver_compact_dice.rs (walt/target/release/deps/solver_compact_dice-0907f481a67666ac)
+     Running tests/solver_hand_cache.rs (walt/target/release/deps/solver_hand_cache-8d6bd0b14e7039a7)
+     Running tests/solver_policy.rs (walt/target/release/deps/solver_policy-b5303ded007fcfcd)
+     Running tests/solver_sigma1_repair.rs (walt/target/release/deps/solver_sigma1_repair-5d741b70d93ecda1)
+     Running tests/spec_m0.rs (walt/target/release/deps/spec_m0-f4218b1cf8c3bf95)

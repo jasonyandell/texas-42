@@ -1,0 +1,11 @@
+{"decl":0,"plays":0,"choice":1,"native_us":21049,"wasm_us":57283}
+{"decl":1,"plays":0,"choice":20,"native_us":27843,"wasm_us":66547}
+{"decl":2,"plays":0,"choice":27,"native_us":22756,"wasm_us":55111}
+{"decl":3,"plays":0,"choice":27,"native_us":24051,"wasm_us":58317}
+{"decl":4,"plays":0,"choice":27,"native_us":45265,"wasm_us":108212}
+{"decl":5,"plays":0,"choice":27,"native_us":24503,"wasm_us":62463}
+{"decl":6,"plays":0,"choice":20,"native_us":37712,"wasm_us":93106}
+{"decl":7,"plays":0,"choice":19,"native_us":25276,"wasm_us":61407}
+{"decl":9,"plays":0,"choice":20,"native_us":14043,"wasm_us":35482}
+{"decl":3,"plays":18,"choice":2,"native_us":656,"wasm_us":922}
+Native/WASM, paired partner check, malformed input, and clock interruption checks passed.

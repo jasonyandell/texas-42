@@ -1,0 +1,16 @@
+{"ply":6,"seed":1,"worlds":640,"choice":"31","wall_ms":594.5009160000001,"solver_us":551395,"peak_wasm_memory_bytes":18743296}
+{"ply":6,"seed":2,"worlds":640,"choice":"44","wall_ms":581.302125,"solver_us":549298,"peak_wasm_memory_bytes":18677760}
+{"ply":6,"seed":3,"worlds":640,"choice":"44","wall_ms":553.3957500000001,"solver_us":519650,"peak_wasm_memory_bytes":19136512}
+{"ply":6,"seed":4,"worlds":640,"choice":"44","wall_ms":553.6003330000003,"solver_us":522807,"peak_wasm_memory_bytes":18415616}
+{"ply":6,"seed":5,"worlds":640,"choice":"66","wall_ms":579.5637500000003,"solver_us":547995,"peak_wasm_memory_bytes":18350080}
+{"ply":6,"seed":6,"worlds":640,"choice":"31","wall_ms":577.5289580000003,"solver_us":546402,"peak_wasm_memory_bytes":18612224}
+{"ply":6,"seed":7,"worlds":640,"choice":"66","wall_ms":541.240292,"solver_us":512413,"peak_wasm_memory_bytes":19267584}
+{"ply":6,"seed":8,"worlds":640,"choice":"51","wall_ms":580.3058750000005,"solver_us":554514,"peak_wasm_memory_bytes":18612224}
+{"ply":9,"seed":1,"worlds":640,"choice":"31","wall_ms":138.6656670000002,"solver_us":127174,"peak_wasm_memory_bytes":9764864}
+{"ply":9,"seed":2,"worlds":640,"choice":"51","wall_ms":135.54441700000007,"solver_us":126216,"peak_wasm_memory_bytes":9830400}
+{"ply":9,"seed":3,"worlds":640,"choice":"31","wall_ms":141.07074999999986,"solver_us":132661,"peak_wasm_memory_bytes":9764864}
+{"ply":9,"seed":4,"worlds":640,"choice":"51","wall_ms":144.51441599999998,"solver_us":135213,"peak_wasm_memory_bytes":9830400}
+{"ply":9,"seed":5,"worlds":640,"choice":"51","wall_ms":138.7072079999998,"solver_us":128147,"peak_wasm_memory_bytes":9961472}
+{"ply":9,"seed":6,"worlds":640,"choice":"51","wall_ms":135.148416,"solver_us":124231,"peak_wasm_memory_bytes":9764864}
+{"ply":9,"seed":7,"worlds":640,"choice":"51","wall_ms":135.95474999999988,"solver_us":126330,"peak_wasm_memory_bytes":9764864}
+{"ply":9,"seed":8,"worlds":640,"choice":"51","wall_ms":140.64108299999953,"solver_us":129778,"peak_wasm_memory_bytes":9830400}

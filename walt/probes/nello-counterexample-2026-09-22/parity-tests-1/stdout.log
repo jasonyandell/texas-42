@@ -1,0 +1,6 @@
+
+running 1 test
+test tests::discovery_values_match_live_wire_on_both_ruby_roots ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s
+
