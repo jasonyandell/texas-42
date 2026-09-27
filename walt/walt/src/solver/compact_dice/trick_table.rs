@@ -34,7 +34,7 @@ mod tests {
     #[test]
     fn every_distinct_ordered_trick_matches_canonical_rules() {
         let mut checked = 0u64;
-        for (di, decl) in Decl::ALL.into_iter().enumerate() {
+        for (di, decl) in Decl::STRAIGHT.into_iter().enumerate() {
             for a in 0..28 {
                 for b in 0..28 {
                     if b == a {

@@ -257,9 +257,9 @@ fn declare(nums: &[usize], cfg: &Config, full: bool) -> usize {
     assert_eq!(hand0.count_ones(), 7, "seven distinct dealt tiles");
 
     let candidates: Vec<Decl> = if full {
-        Decl::ALL.to_vec()
+        Decl::STRAIGHT.to_vec()
     } else {
-        Decl::ALL[..7].to_vec()
+        Decl::STRAIGHT[..7].to_vec()
     };
     let mut rng = SplitMix64(CTRL_DECLARE_SEED ^ mix(u64::from(hand0)) ^ mix(0xDEC1));
     let deadline = Deadline::after(Duration::from_secs(cfg.per_move_secs));

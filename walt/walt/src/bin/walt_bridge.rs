@@ -610,7 +610,7 @@ fn best_of(opts: &[(u8, BigRational)], maximize: bool) -> u8 {
 
 fn decl_of(arena_id: usize) -> Decl {
     match arena_id {
-        p @ 0..=6 => Decl::ALL[p],
+        p @ 0..=6 => Decl::STRAIGHT[p],
         7 => Decl::DoublesTrump,
         9 => Decl::NoTrump,
         other => panic!("declaration id {other} is not a straight-42 declaration"),
@@ -622,6 +622,7 @@ fn arena_decl_id(d: Decl) -> usize {
         Decl::PipTrump(p) => usize::from(p.value()),
         Decl::DoublesTrump => 7,
         Decl::NoTrump => 9,
+        Decl::DoublesSuit => 8,
     }
 }
 
@@ -853,18 +854,18 @@ fn declare(nums: &[usize], cfg: &Config, full: bool) -> usize {
 
     let candidates: Vec<Decl> = if full {
         vec![
-            Decl::ALL[0],
-            Decl::ALL[1],
-            Decl::ALL[2],
-            Decl::ALL[3],
-            Decl::ALL[4],
-            Decl::ALL[5],
-            Decl::ALL[6],
+            Decl::STRAIGHT[0],
+            Decl::STRAIGHT[1],
+            Decl::STRAIGHT[2],
+            Decl::STRAIGHT[3],
+            Decl::STRAIGHT[4],
+            Decl::STRAIGHT[5],
+            Decl::STRAIGHT[6],
             Decl::DoublesTrump,
             Decl::NoTrump,
         ]
     } else {
-        Decl::ALL[..7].to_vec()
+        Decl::STRAIGHT[..7].to_vec()
     };
 
     let mut rng = SplitMix64(BRIDGE_SEED ^ mix(u64::from(hand0)) ^ mix(0xDEC1));

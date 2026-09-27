@@ -1,0 +1,308 @@
+{
+  "schema": "nello-investigation-v1",
+  "scope": "mechanics witnesses and current support boundaries; no strength claim",
+  "plungeCommit": "8bc71ca6e8dc2775f5cc9e559c2b22cccd1c8755",
+  "texasCommit": "d24eaefe41a53dd625453253e021251281939d19",
+  "manifest": {
+    "player": "walt-table-v2",
+    "source_repository": "jasonyandell/texas-42",
+    "source_commit": "1dfd0e22f5fe2a2ee266f166493442547ad33834",
+    "source_sha256": "43e6ee1dfe83d6a186cc8ea10b96dc1ee0b7d95cf0787d6f108e2518094760d6",
+    "source_hash_schema": "walt-player-source-v2",
+    "wasm_sha256": "b3016e18e0b119a3967d42a901e51655e28176d3fce500f159501748de5a6fd4",
+    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+    "build": {
+      "target": "wasm32-unknown-unknown",
+      "default_features": false,
+      "features": [
+        "cpu-speedups"
+      ],
+      "profile": {
+        "opt_level": "3",
+        "lto": "thin",
+        "codegen_units": "1",
+        "overflow_checks": "true",
+        "debug": "false",
+        "strip": "debuginfo",
+        "panic": "unwind",
+        "incremental": "false"
+      },
+      "rustflags": [],
+      "locked": true
+    },
+    "worlds": 40,
+    "inner_worlds": 8,
+    "budget_ms": 14000,
+    "partner_ms": 500,
+    "auction_worlds": 160,
+    "auction_budget_ms": 20000,
+    "opening_worlds": 160,
+    "opening_budget_ms": 20000,
+    "opening_partner": false
+  },
+  "result": {
+    "fixtures": [
+      {
+        "kind": "set",
+        "declarer": 0,
+        "inactive": 2,
+        "seed": 0,
+        "replay": "v1c364625444434210635251333130206665535032211161605541402200.M1PPPDn443322",
+        "points": [
+          1,
+          0
+        ],
+        "trickWinners": [
+          0
+        ],
+        "remaining": [
+          6,
+          6,
+          7,
+          6
+        ],
+        "questionError": "This play cannot be examined."
+      },
+      {
+        "kind": "set",
+        "declarer": 1,
+        "inactive": 3,
+        "seed": 0,
+        "replay": "v1c061605541402200646254444342106352513331302066655350322111.M1PPPDn443322",
+        "points": [
+          0,
+          1
+        ],
+        "trickWinners": [
+          1
+        ],
+        "remaining": [
+          6,
+          6,
+          6,
+          7
+        ],
+        "questionError": "This play cannot be examined."
+      },
+      {
+        "kind": "set",
+        "declarer": 2,
+        "inactive": 0,
+        "seed": 0,
+        "replay": "v1c166655350322111616055414022006462544443421063525133313020.M1PPPDn443322",
+        "points": [
+          1,
+          0
+        ],
+        "trickWinners": [
+          2
+        ],
+        "remaining": [
+          7,
+          6,
+          6,
+          6
+        ],
+        "questionError": "This play cannot be examined."
+      },
+      {
+        "kind": "set",
+        "declarer": 3,
+        "inactive": 1,
+        "seed": 0,
+        "replay": "v1c263525133313020666553503221116160554140220064625444434210.M1PPPDn443322",
+        "points": [
+          0,
+          1
+        ],
+        "trickWinners": [
+          3
+        ],
+        "remaining": [
+          6,
+          7,
+          6,
+          6
+        ],
+        "questionError": "This play cannot be examined."
+      },
+      {
+        "kind": "make",
+        "declarer": 0,
+        "inactive": 2,
+        "seed": 20,
+        "replay": "v1c366646251504322655554332111006361605341301052444240323120.M1PPPDn626531214266442255332043545250004064113251",
+        "points": [
+          0,
+          37
+        ],
+        "trickWinners": [
+          1,
+          3,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "remaining": [
+          0,
+          0,
+          7,
+          0
+        ],
+        "questionError": "This play cannot be examined."
+      },
+      {
+        "kind": "make",
+        "declarer": 1,
+        "inactive": 3,
+        "seed": 20,
+        "replay": "v1c052444240323120666462515043226555543321110063616053413010.M1PPPDn626531214266442255332043545250004064113251",
+        "points": [
+          37,
+          0
+        ],
+        "trickWinners": [
+          2,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "remaining": [
+          0,
+          0,
+          0,
+          7
+        ],
+        "questionError": "This play cannot be examined."
+      },
+      {
+        "kind": "make",
+        "declarer": 2,
+        "inactive": 0,
+        "seed": 20,
+        "replay": "v1c163616053413010524442403231206664625150432265555433211100.M1PPPDn626531214266442255332043545250004064113251",
+        "points": [
+          0,
+          37
+        ],
+        "trickWinners": [
+          3,
+          1,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "remaining": [
+          7,
+          0,
+          0,
+          0
+        ],
+        "questionError": "This play cannot be examined."
+      },
+      {
+        "kind": "make",
+        "declarer": 3,
+        "inactive": 1,
+        "seed": 20,
+        "replay": "v1c265555433211100636160534130105244424032312066646251504322.M1PPPDn626531214266442255332043545250004064113251",
+        "points": [
+          37,
+          0
+        ],
+        "trickWinners": [
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "remaining": [
+          0,
+          7,
+          0,
+          0
+        ],
+        "questionError": "This play cannot be examined."
+      }
+    ],
+    "roundtrips": 96,
+    "observations": 96,
+    "rulesChecks": 4,
+    "proposedConfigReplay": {
+      "intended": "force-30",
+      "decoded": "reshake"
+    }
+  },
+  "rejected": [
+    {
+      "label": "explicit Nel-O contract is not in the wire schema",
+      "response": {
+        "error": "data did not match any variant of untagged enum Input"
+      }
+    },
+    {
+      "label": "unassigned declaration id 8 is rejected",
+      "response": {
+        "error": "invalid declaration, bid, or seat"
+      }
+    },
+    {
+      "label": "one mark cannot be passed as the straight points threshold",
+      "response": {
+        "error": "the table player requires a straight bid from 30 through 42"
+      }
+    }
+  ],
+  "pythonImporterRejections": [
+    {
+      "kind": "set",
+      "declarer": 0,
+      "error": "research import needs a straight declaration"
+    },
+    {
+      "kind": "set",
+      "declarer": 1,
+      "error": "research import needs a straight declaration"
+    },
+    {
+      "kind": "set",
+      "declarer": 2,
+      "error": "research import needs a straight declaration"
+    },
+    {
+      "kind": "set",
+      "declarer": 3,
+      "error": "research import needs a straight declaration"
+    },
+    {
+      "kind": "make",
+      "declarer": 0,
+      "error": "research import needs a straight declaration"
+    },
+    {
+      "kind": "make",
+      "declarer": 1,
+      "error": "research import needs a straight declaration"
+    },
+    {
+      "kind": "make",
+      "declarer": 2,
+      "error": "research import needs a straight declaration"
+    },
+    {
+      "kind": "make",
+      "declarer": 3,
+      "error": "research import needs a straight declaration"
+    }
+  ]
+}

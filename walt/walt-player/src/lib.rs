@@ -26,9 +26,15 @@ enum Seed {
     Integer(u64),
     Decimal(String),
 }
+#[derive(Deserialize, Clone, Copy, PartialEq, Eq)]
+#[serde(rename_all = "lowercase")]
+enum PlayContract { Nello }
+
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Request {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    contract: Option<PlayContract>,
     decl: u64,
     bid: u64,
     bidder: u64,
@@ -43,12 +49,16 @@ impl Request {
             Seed::Integer(n) => *n,
             Seed::Decimal(s) => s.parse::<u64>().map_err(|_| "invalid seed")?,
         };
-        if !(30..=42).contains(&self.bid) {
+        let nello = self.contract == Some(PlayContract::Nello);
+        if nello {
+            if self.decl != 8 || !(1..=9).contains(&self.bid) { return Err("Nel-O requires doubles-suit and 1..9 marks".into()); }
+        } else if !(30..=42).contains(&self.bid) {
             return Err("the table player requires a straight bid from 30 through 42".into());
         }
         let words = |xs: &[u64]| xs.iter().map(u64::to_string).collect::<Vec<_>>().join(" ");
         Ok(format!(
-            "decl {}\nbid {}\nbidder {}\nseat {}\nhand {}\nplays {}\nseed {seed}\n",
+            "{}decl {}\nbid {}\nbidder {}\nseat {}\nhand {}\nplays {}\nseed {seed}\n",
+            if nello { "contract 1\n" } else { "" },
             self.decl,
             self.bid,
             self.bidder,
@@ -109,7 +119,8 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
     if !(100..=20_000).contains(&call.budget_ms) || !(1..=640).contains(&call.worlds) {
         return Err("invalid time or sampling budget".into());
     }
-    if call.partner && call.worlds != 40 {
+    let nello = call.request.contract == Some(PlayContract::Nello);
+    if call.partner && !nello && call.worlds != 40 {
         return Err("partner check models default L1 40/8".into());
     }
     let text = call.request.text()?;
@@ -127,6 +138,12 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
         "review":if call.partner {"partner-rollout"} else {"off"},"review_result":null,
         "evaluation":null,"fallback_evaluation":null,"elapsed_us":0,"over_budget":false,
         "phases":[{"name":"status-check","status":"completed"}]});
+    if nello {
+        value["contract"] = json!("nello");
+        value["declaration"] = json!("doubles-suit");
+        value["inactive"] = json!((call.request.bidder + 2) % 4);
+        value["review"] = json!("inapplicable-nello");
+    }
     emit(&mut value, start, call.budget_ms, &mut checkpoint);
     if forced {
         return Ok(value);
@@ -188,7 +205,7 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
         emit(&mut value, start, call.budget_ms, &mut checkpoint);
     }
     drop(previous);
-    if call.partner && value["route"] == "baseline" {
+    if call.partner && !nello && value["route"] == "baseline" {
         let baseline = value["choice"].as_u64().unwrap() as usize;
         let ms = remaining().min(500);
         let result = if ms < 50 {

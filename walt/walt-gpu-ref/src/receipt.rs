@@ -1483,6 +1483,7 @@ fn decl_code(decl: Decl) -> u8 {
         Decl::PipTrump(pip) => pip.value(),
         Decl::DoublesTrump => 7,
         Decl::NoTrump => 8,
+        Decl::DoublesSuit => panic!("GPU receipt format supports straight declarations only"),
     }
 }
 

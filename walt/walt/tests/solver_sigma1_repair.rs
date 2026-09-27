@@ -89,7 +89,7 @@ struct SamplerFrame {
 /// witness that the frame is FEASIBLE — which is exactly why this corpus
 /// is a lawful before-side capture against an unbounded sampler.
 fn frame_at(gen_seed: u64, depth: usize) -> SamplerFrame {
-    let decl = Decl::ALL[(gen_seed as usize) % Decl::COUNT];
+    let decl = Decl::STRAIGHT[(gen_seed as usize) % Decl::STRAIGHT_COUNT];
     let mut rng = SplitMix64(mix(0xC0FF_EE00_5164_0001 ^ gen_seed));
     let mut tiles: Vec<usize> = (0..28).collect();
     for i in (1..tiles.len()).rev() {

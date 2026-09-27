@@ -1,11 +1,11 @@
-"""Independent Straight 42 rules and information-state validation."""
+"""Independent Straight 42 and own-suit Nel-O rules and information states."""
 
 TILES = [(hi, lo) for hi in range(7) for lo in range(hi + 1)]
 
 
 def called(tile, decl):
     hi, lo = TILES[tile]
-    return decl in (hi, lo) if decl < 7 else decl == 7 and hi == lo
+    return decl in (hi, lo) if decl < 7 else decl in (7, 8) and hi == lo
 
 
 def context(tile, decl):
@@ -29,8 +29,8 @@ def winner(trick, decl):
     def strength(play):
         t = play[1]
         hi, lo = TILES[t]
-        tier = 2 if called(t, decl) else 1 if follows(t, led, decl) else 0
-        rank = hi if hi == lo and decl == 7 else 12 if hi == lo else hi + lo
+        tier = 2 if decl != 8 and called(t, decl) else 1 if follows(t, led, decl) else 0
+        rank = hi if hi == lo and decl in (7, 8) else 12 if hi == lo else hi + lo
         return tier, rank
 
     return max(trick, key=strength)[0]
@@ -40,20 +40,31 @@ def trick_points(trick):
     return 1 + sum(sum(TILES[t]) if sum(TILES[t]) in (5, 10) else 0 for _, t in trick)
 
 
-def replay_record(hands, record, decl, bidder):
+def active_actor(leader, offset, bidder, contract=None):
+    actor = leader
+    for _ in range(offset):
+        actor = (actor + 1) % 4
+        if contract == 'nello' and actor == (bidder + 2) % 4:
+            actor = (actor + 1) % 4
+    return actor
+
+
+def replay_record(hands, record, decl, bidder, contract=None):
     remaining = [set(h) for h in hands]
     assert sorted(t for hand in hands for t in hand) == list(range(28))
     points = [0, 0]
-    lead, trick = bidder, []
+    lead, trick, completed = bidder, [], 0
     for actor, tile in zip(record[::2], record[1::2]):
-        assert actor == (lead + len(trick)) % 4
+        assert not (contract == 'nello' and completed and lead == bidder)
+        assert actor == active_actor(lead, len(trick), bidder, contract)
         assert tile in legal_tiles(remaining[actor], trick, decl)
         remaining[actor].remove(tile)
         trick.append((actor, tile))
-        if len(trick) == 4:
+        if len(trick) == (3 if contract == 'nello' else 4):
             lead = winner(trick, decl)
             points[lead % 2] += trick_points(trick)
             trick = []
+            completed += 1
     return points, lead, remaining, trick
 
 
@@ -64,10 +75,16 @@ def _request_fields(req):
         if type(req.get(key)) is not int:
             raise ValueError(key + " must be an integer")
     decl, bid, bidder, viewer = (req[k] for k in ("decl", "bid", "bidder", "seat"))
-    if decl not in (*range(8), 9) or not 30 <= bid <= 42:
+    contract = req.get('contract')
+    if 'contract' in req and contract != 'nello':
+        raise ValueError('unsupported contract')
+    if ((contract == 'nello' and (decl != 8 or not 1 <= bid <= 9))
+            or (contract is None and (decl not in (*range(8), 9) or not 30 <= bid <= 42))):
         raise ValueError("invalid declaration or bid")
     if bidder not in range(4) or viewer not in range(4):
         raise ValueError("invalid bidder or seat")
+    if contract == 'nello' and viewer == (bidder + 2) % 4:
+        raise ValueError('inactive seat cannot play')
 
     hand = req.get("hand")
     plays = req.get("plays", [])
@@ -77,7 +94,7 @@ def _request_fields(req):
         raise ValueError("hand needs tile ids 0..27")
     if len(set(hand)) != 7:
         raise ValueError("duplicate hand tile")
-    if not isinstance(plays, list) or len(plays) % 2 or len(plays) > 56:
+    if not isinstance(plays, list) or len(plays) % 2 or len(plays) > (42 if contract == 'nello' else 56):
         raise ValueError("invalid record length")
     if any(type(value) is not int or value < 0 for value in plays):
         raise ValueError("record needs unsigned integers")
@@ -110,6 +127,7 @@ def _hidden_completion_exists(viewer, own_remaining, played, sizes, void_tiles):
 def information_state(req):
     """Derive a lawful current state from one original hand and public play."""
     decl, bidder, viewer, original_hand, record = _request_fields(req)
+    contract = req.get('contract')
     own_remaining = set(original_hand)
     played = set()
     void_tiles = [set() for _ in range(4)]
@@ -118,9 +136,11 @@ def information_state(req):
     leader, trick, completed = bidder, [], 0
 
     for actor, tile in zip(record[::2], record[1::2]):
+        if contract == 'nello' and completed and leader == bidder:
+            raise ValueError('record continues after Nel-O was set')
         if actor not in range(4) or tile not in range(28):
             raise ValueError("invalid record actor or tile")
-        if actor != (leader + len(trick)) % 4:
+        if actor != active_actor(leader, len(trick), bidder, contract):
             raise ValueError("record violates turn order")
         if tile in played:
             raise ValueError("record repeats a tile")
@@ -146,15 +166,15 @@ def information_state(req):
         played.add(tile)
         play_counts[actor] += 1
         trick.append((actor, tile))
-        if len(trick) == 4:
+        if len(trick) == (3 if contract == 'nello' else 4):
             leader = winner(trick, decl)
             points[leader % 2] += trick_points(trick)
             trick = []
             completed += 1
 
-    if completed == 7:
+    if completed == 7 or (contract == 'nello' and completed and leader == bidder):
         raise ValueError("hand is complete")
-    if viewer != (leader + len(trick)) % 4:
+    if viewer != active_actor(leader, len(trick), bidder, contract):
         raise ValueError("not this seat's turn")
 
     sizes = [7 - count for count in play_counts]
@@ -166,4 +186,5 @@ def information_state(req):
     legal = legal_tiles(own_remaining, trick, decl)
     if not legal:
         raise ValueError("position has no legal move")
-    return {"legal": legal, "leader": leader, "points": points, "trick": completed + 1}
+    return {"legal": legal, "leader": leader, "points": points, "trick": completed + 1,
+            **({'contract': 'nello', 'inactive': (bidder + 2) % 4} if contract else {})}

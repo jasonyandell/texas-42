@@ -20,7 +20,7 @@ from rules import information_state
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 BINARY = ROOT / "walt/target/release/partnership"
-INPUT_KEYS = {"decl", "bid", "bidder", "seat", "hand", "plays", "seed"}
+INPUT_KEYS = {"decl", "bid", "bidder", "seat", "hand", "plays", "seed", "contract"}
 
 
 def native_text(
@@ -35,6 +35,10 @@ def native_text(
     modeled_selection="fixed",
 ):
     fields = {**req, "n": n, "n0": n0, "n1": n1, "budget_ms": budget_ms}
+    if 'contract' in fields:
+        if fields['contract'] != 'nello':
+            raise ValueError('unsupported contract')
+        fields['contract'] = 1
     fields["inner_belief"] = {"voidless": 0, "voids-counted": 1}[inner_belief]
     fields["selection"] = {"fixed": 0, "refine": 1, "race-refine": 2}[selection]
     fields["modeled_selection"] = {"fixed": 0, "refine": 1, "race-refine": 2}[
@@ -90,6 +94,8 @@ def checked_response(value, state):
         return None, "rejected: illegal-or-missing-choice"
     if value.get("leader") != state["leader"] or value.get("points") != state["points"]:
         return None, "rejected: leader-or-points-disagreement"
+    if state.get('contract') and any(value.get(k) != state[k] for k in ('contract', 'inactive')):
+        return None, 'rejected: contract-disagreement'
     return choice, "completed"
 
 
@@ -105,9 +111,11 @@ def checked_status(value, state):
 def normalize(raw):
     if not isinstance(raw, dict) or set(raw) - INPUT_KEYS:
         raise ValueError(
-            "request must contain only decl, bid, bidder, seat, hand, plays, seed"
+            "request accepts decl, bid, bidder, seat, hand, plays, seed and optional contract"
         )
     req = {**raw}
+    if 'contract' in req and req['contract'] != 'nello':
+        raise ValueError('unsupported contract')
     for key in ("decl", "bid", "bidder", "seat"):
         if type(req.get(key)) is not int:
             raise ValueError(key + " must be an integer")
@@ -174,6 +182,8 @@ def decide(
     deadline = start + budget_ms / 1000
     reserve = min(0.10, budget_ms / 10000)
     req = normalize(raw)
+    if req.get('contract'):
+        raise ValueError('Nel-O uses the shared table_player, not historical research profiles')
     state = information_state(req)
     legal = state["legal"]
     # This permanent fallback uses only own legal tiles. Its weakness is

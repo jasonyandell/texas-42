@@ -11,7 +11,7 @@ const TOTAL: usize = 9 * PER_DECL;
 
 fn table() -> Vec<u8> {
     let mut bytes = vec![0u8; TOTAL];
-    for (di, decl) in Decl::ALL.into_iter().enumerate() {
+    for (di, decl) in Decl::STRAIGHT.into_iter().enumerate() {
         for a in 0..SIDE {
             let led = decl.led_context(Domino::ALL[a]);
             for b in 0..SIDE {

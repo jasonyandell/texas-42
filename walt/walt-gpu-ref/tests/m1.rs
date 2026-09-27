@@ -223,7 +223,7 @@ fn m1_response_kernel_reuse_holds_for_every_declaration_and_lead_tile() {
     for hand_index in 0..4 {
         let start = hand_index * 7;
         let hand: DominoSet = Domino::ALL[start..start + 7].iter().copied().collect();
-        for decl in Decl::ALL {
+        for decl in Decl::STRAIGHT {
             let legal = legal_plays(decl, hand, None);
             assert_eq!(legal, hand);
             let mut by_context: BTreeMap<Context, walt_gpu_ref::OpeningProjection> =
@@ -247,6 +247,6 @@ fn m1_response_kernel_reuse_holds_for_every_declaration_and_lead_tile() {
         }
     }
 
-    assert_eq!(legal_leads_checked, Decl::COUNT * Domino::COUNT);
+    assert_eq!(legal_leads_checked, Decl::STRAIGHT_COUNT * Domino::COUNT);
     assert!(repeated_context_checks > 0);
 }

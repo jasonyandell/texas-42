@@ -1,5 +1,9 @@
 # One deployed Walt, two hosts
 
+The [human-called Nel-O candidate](../NELLO-PLAYER.md) adds the original
+doubles-suit declaration, three active players and a zero-trick objective.
+Computer auctions and the bid book remain straight-only.
+
 The [portable CPU speedup release](../CPU-PHONE-RELEASE.md) is live in Plunge as of
 2026-09-20. Its importer explicitly enables `cpu-speedups` with native parallelism
 disabled; the empirical bid book and playing budgets retain their settings.
@@ -26,7 +30,9 @@ table play keeps the 40-world, 14-second profile and its selected difficulty's
 normal partner-review behavior.
 
 Both hosts call `handle` with a JSON object containing `request` (exactly the
-seven existing fields), `worlds`, `partner`, and optionally `budget_ms`.
+seven existing fields, plus `contract:"nello"` for Nel-O), `worlds`, `partner`,
+and optionally `budget_ms`. Nel-O uses declaration 8 and its actual mark stake;
+its inactive partner remains a hidden seven-domino hand.
 Unknown fields, hidden hands and unsupported contracts are rejected. The Rust
 wire adapter is shared with the existing `partnership` research binary.
 Each completed stage emits a full checkpoint. A host that exhausts its outer

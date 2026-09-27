@@ -1,4 +1,5 @@
-//! The Straight declaration set `Delta_Str = P u {DT, NT}` (v0.4 §1.2).
+//! Original suit algebra: pip trumps, doubles-trump, doubles-suit, no-trump.
+//! `STRAIGHT` retains the nine-declaration formal/auction subdomain.
 
 use core::fmt;
 use core::str::FromStr;
@@ -10,6 +11,7 @@ pub enum Decl {
     PipTrump(Pip),
     DoublesTrump,
     NoTrump,
+    DoublesSuit,
 }
 
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
@@ -17,12 +19,14 @@ pub enum DeclClass {
     PipTrump,
     DoublesTrump,
     NoTrump,
+    DoublesSuit,
 }
 
 impl Decl {
-    pub const COUNT: usize = 9;
+    pub const COUNT: usize = 10;
+    pub const STRAIGHT_COUNT: usize = 9;
 
-    pub const ALL: [Decl; Self::COUNT] = [
+    pub const STRAIGHT: [Decl; Self::STRAIGHT_COUNT] = [
         Decl::PipTrump(Pip::ALL[0]),
         Decl::PipTrump(Pip::ALL[1]),
         Decl::PipTrump(Pip::ALL[2]),
@@ -34,11 +38,29 @@ impl Decl {
         Decl::NoTrump,
     ];
 
+    pub const ALL: [Decl; Self::COUNT] = [
+        Self::STRAIGHT[0],
+        Self::STRAIGHT[1],
+        Self::STRAIGHT[2],
+        Self::STRAIGHT[3],
+        Self::STRAIGHT[4],
+        Self::STRAIGHT[5],
+        Self::STRAIGHT[6],
+        Self::DoublesTrump,
+        Self::NoTrump,
+        Self::DoublesSuit,
+    ];
+
+    pub const fn is_straight(self) -> bool {
+        !matches!(self, Self::DoublesSuit)
+    }
+
     pub const fn class(self) -> DeclClass {
         match self {
             Decl::PipTrump(_) => DeclClass::PipTrump,
             Decl::DoublesTrump => DeclClass::DoublesTrump,
             Decl::NoTrump => DeclClass::NoTrump,
+            Decl::DoublesSuit => DeclClass::DoublesSuit,
         }
     }
 }
@@ -49,6 +71,7 @@ impl fmt::Display for Decl {
             Decl::PipTrump(p) => write!(f, "P{p}"),
             Decl::DoublesTrump => f.write_str("DT"),
             Decl::NoTrump => f.write_str("NT"),
+            Decl::DoublesSuit => f.write_str("DS"),
         }
     }
 }
@@ -71,6 +94,7 @@ impl FromStr for Decl {
         match s {
             "D" | "DT" => return Ok(Decl::DoublesTrump),
             "N" | "NT" => return Ok(Decl::NoTrump),
+            "DS" => return Ok(Decl::DoublesSuit),
             _ => {}
         }
         let err = || ParseDeclError(s.to_string());

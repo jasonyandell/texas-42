@@ -123,6 +123,7 @@ fn decl_code(decl: Decl) -> u64 {
         Decl::PipTrump(p) => u64::from(p.value()),
         Decl::DoublesTrump => 7,
         Decl::NoTrump => 8,
+        Decl::DoublesSuit => 9,
     }
 }
 

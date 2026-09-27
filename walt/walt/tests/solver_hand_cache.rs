@@ -140,7 +140,7 @@ fn transfer_rejects_incompatible_or_malformed_contexts() {
             5 => other = other.with_inner_belief(InnerBelief::VoidsCounted),
             6 => other = other.with_modeled_selection(Rule::Refine),
             7 => {
-                other.dcl = *walt::rules::Decl::ALL
+                other.dcl = *walt::rules::Decl::STRAIGHT
                     .iter()
                     .find(|&&d| d != other.dcl)
                     .unwrap()

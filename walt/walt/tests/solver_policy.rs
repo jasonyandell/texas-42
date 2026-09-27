@@ -128,7 +128,7 @@ fn every_freeze_tuple_field_change_produces_a_new_policy_id() {
     let r = receipt();
     let (_, position) = small_root(&r);
     let base = freeze(&position, descending());
-    let other_decl = Decl::ALL
+    let other_decl = Decl::STRAIGHT
         .into_iter()
         .find(|d| *d != base.decl)
         .expect("nine declarations");
