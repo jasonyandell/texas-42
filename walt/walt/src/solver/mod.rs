@@ -227,6 +227,30 @@ fn dice_tapes() -> usize {
     DICE_TAPES.load(Ordering::Relaxed)
 }
 
+/// EXPLORATORY ablation knob (probe branch only): no replay. 0 = main.
+/// 1 = every modeled-seat decision is recomputed at every visit with fresh
+/// randomness — no policy cache, no ticker tape, no per-hand sharing at a
+/// node, so two indistinguishable deals can get different moves. Beliefs are
+/// still sampled from the seat's own information (no peeking). The position
+/// memo is kept, so a memo hit at an exact transposition still replays a value.
+/// 2 = as 1 and the position memo is off too (nothing is ever reused).
+pub static FRESH_FIELD: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+static FRESH_NONCE: AtomicU64 = AtomicU64::new(0x6C8E_9CF5_7093_2BD5);
+
+fn fresh() -> usize {
+    FRESH_FIELD.load(Ordering::Relaxed)
+}
+
+/// A never-repeating stream salt; replaces replay with a new draw.
+fn fresh_salt() -> u64 {
+    mix(FRESH_NONCE.fetch_add(0x9E37_79B9_7F4A_7C15, Ordering::Relaxed))
+}
+
+/// True when decisions may be replayed (main behavior for the fast paths).
+fn replay_ok() -> bool {
+    dice_tapes() == 1 && fresh() == 0
+}
+
 /// How the field seats behave inside a solver: dice at the bottom, a
 /// level-k policy above it. THE FIELD MODEL IS A PARAMETER.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -798,15 +822,16 @@ impl Solver {
             return Some(if made { self.alive_of(key.alive).len() as u64 } else { 0 });
         }
         let memo_key = MemoKey::from(key);
+        let use_memo = fresh() < 2;
         #[cfg(not(feature = "sharded-root-memo"))]
-        let cached = self
+        let cached = if !use_memo { None } else { self
             .memo
             .lock()
             .expect("memo poisoned")
             .get(&memo_key)
-            .copied();
+            .copied() };
         #[cfg(feature = "sharded-root-memo")]
-        let cached = self.memo.get(&memo_key);
+        let cached = if use_memo { self.memo.get(&memo_key) } else { None };
         if let Some(value) = cached {
             return Some(value);
         }
@@ -830,12 +855,16 @@ impl Solver {
             }
         };
         #[cfg(not(feature = "sharded-root-memo"))]
-        self.memo
-            .lock()
-            .expect("memo poisoned")
-            .insert(memo_key, val);
+        if use_memo {
+            self.memo
+                .lock()
+                .expect("memo poisoned")
+                .insert(memo_key, val);
+        }
         #[cfg(feature = "sharded-root-memo")]
-        self.memo.insert(memo_key, val);
+        if use_memo {
+            self.memo.insert(memo_key, val);
+        }
         Some(val)
     }
 
@@ -982,7 +1011,8 @@ impl Solver {
                         lm.trailing_zeros()
                     } else {
                         let rh = *record.get_or_insert_with(|| record_hash(key));
-                        let idx = SplitMix64(self.seeds[sid as usize] ^ rh)
+                        let salt = if fresh() > 0 { fresh_salt() } else { 0 };
+                        let idx = SplitMix64(self.seeds[sid as usize] ^ rh ^ salt)
                             .below(u64::from(choices)) as u32;
                         nth_set_bit(lm, idx)
                     };
@@ -1025,8 +1055,9 @@ impl Solver {
                 lm.trailing_zeros()
             } else {
                 let rh = *record.get_or_insert_with(|| record_hash(key));
-                let idx =
-                    SplitMix64(self.seeds[sid as usize] ^ rh).below(u64::from(choices)) as u32;
+                let salt = if fresh() > 0 { fresh_salt() } else { 0 };
+                let idx = SplitMix64(self.seeds[sid as usize] ^ rh ^ salt)
+                    .below(u64::from(choices)) as u32;
                 nth_set_bit(lm, idx)
             };
             buckets[tile as usize].push(sid);
@@ -1042,6 +1073,22 @@ impl Solver {
         k: usize,
     ) -> Option<u64> {
         let alive = self.alive_of(key.alive);
+        if fresh() > 0 {
+            // No replay: every alive deal asks the modeled seat afresh, even
+            // when another deal presents it the identical information state.
+            let mut buckets: [Vec<u32>; 28] = std::array::from_fn(|_| Vec::new());
+            for sid in alive.iter() {
+                let hand = self.worlds[sid as usize][seat.index()] & !key.played;
+                let lm = mask_of(legal_plays(self.sh.dcl, set_of(hand), led));
+                let tile = if lm.count_ones() == 1 {
+                    lm.trailing_zeros() as u8
+                } else {
+                    self.pi(k, key, seat, hand, lm)?
+                };
+                buckets[usize::from(tile)].push(sid);
+            }
+            return self.combine_buckets(key, alive.len(), buckets);
+        }
         #[cfg(feature = "fast-policy")]
         if let Some(small) = &self.small_support {
             if !self.parallel || (cfg!(feature = "adaptive-parallel") && self.worlds.len() <= 2) {
@@ -1232,7 +1279,7 @@ impl Solver {
     fn pi(&self, k: usize, key: &Key, seat: Seat, hand: u32, legal_mask: u32) -> Option<u8> {
         self.check_belief_key(key);
         #[cfg(feature = "bypass-l0-cache")]
-        if k == 0 && dice_tapes() == 1 && self.sh.straight_fast_paths() {
+        if k == 0 && replay_ok() && self.sh.straight_fast_paths() {
             if let Some(choice) = self.uncached_l0(key, seat, hand, legal_mask) {
                 return choice;
             }
@@ -1245,14 +1292,16 @@ impl Solver {
             self.sh.inner_belief == InnerBelief::VoidsCounted,
         );
         let kb = k as u8;
-        if let Some(&t) = self
-            .sh
-            .pi_shard(kb, &cache_key)
-            .lock()
-            .expect("pi shard poisoned")
-            .get(&(kb, cache_key))
-        {
-            return Some(t);
+        if fresh() == 0 {
+            if let Some(&t) = self
+                .sh
+                .pi_shard(kb, &cache_key)
+                .lock()
+                .expect("pi shard poisoned")
+                .get(&(kb, cache_key))
+            {
+                return Some(t);
+            }
         }
 
         if self.sh.deadline.passed() {
@@ -1264,16 +1313,18 @@ impl Solver {
         let n_k = self.sh.n_inner[k];
         let sizes = self.hand_sizes_at(key);
         let level_tag = if k == 0 { 0 } else { mix(0x4C32 ^ k as u64) };
+        let salt = if fresh() > 0 { fresh_salt() } else { 0 };
         let mut rng = SplitMix64(
             INNER_SEED
                 ^ level_tag
                 ^ mix(seat.index() as u64)
                 ^ mix(u64::from(hand))
-                ^ record_hash(key),
+                ^ record_hash(key)
+                ^ salt,
         );
         let maximize = seat.team() == Team::T1;
         #[cfg(feature = "stack-dice")]
-        if k == 0 && dice_tapes() == 1 && self.sh.straight_fast_paths() && (1..=8).contains(&n_k) && self.sh.inner_belief == InnerBelief::Voidless {
+        if k == 0 && replay_ok() && self.sh.straight_fast_paths() && (1..=8).contains(&n_k) && self.sh.inner_belief == InnerBelief::Voidless {
             let choice = compact_dice::prepared_choice(
                 &self.sh,
                 key,
@@ -1320,7 +1371,7 @@ impl Solver {
             self.sh.modeled_selection
         };
         #[cfg(feature = "bounded-choice")]
-        if k == 0 && dice_tapes() == 1 && self.sh.straight_fast_paths() && (1..=8).contains(&n_k) {
+        if k == 0 && replay_ok() && self.sh.straight_fast_paths() && (1..=8).contains(&n_k) {
             let worlds = self.sh.inner_belief.sample(
                 self.sh.dcl,
                 seat,
@@ -1364,7 +1415,7 @@ impl Solver {
             return Some(choice);
         }
         #[cfg(feature = "fixed-policy-choice")]
-        if k > 0 && self.sh.straight_fast_paths() && rule == selection::Rule::Fixed {
+        if k > 0 && fresh() == 0 && self.sh.straight_fast_paths() && rule == selection::Rule::Fixed {
             let worlds = self.sh.inner_belief.sample(
                 self.sh.dcl,
                 seat,
@@ -1462,11 +1513,13 @@ impl Solver {
                 return None;
             }
         };
-        self.sh
-            .pi_shard(kb, &cache_key)
-            .lock()
-            .expect("pi shard poisoned")
-            .insert((kb, cache_key), choice);
+        if fresh() == 0 {
+            self.sh
+                .pi_shard(kb, &cache_key)
+                .lock()
+                .expect("pi shard poisoned")
+                .insert((kb, cache_key), choice);
+        }
         Some(choice)
     }
 
@@ -1515,7 +1568,7 @@ impl Solver {
     /// worlds. Statistics are flushed on success AND refusal.
     pub fn action_values(&self, key: &Key, tiles: &[u8]) -> Option<selection::Values> {
         #[cfg(feature = "compact-dice")]
-        if let Some(values) = compact_dice::action_values(self, key, tiles) {
+        if let Some(values) = replay_ok().then(|| compact_dice::action_values(self, key, tiles)).flatten() {
             // The compact recurrence counts successful sample IDs. Keep the
             // public exact rational boundary and the caller's candidate order.
             let result = values.map(|counts| {

@@ -12,7 +12,10 @@
 //!
 //! Usage: rollout_h2h A B deals first_seed [worlds rollouts]
 //!   players: walt | waltK (K dice tapes per level-0 world, e.g. walt16;
-//!   `walt` = walt1 = the frozen tickertape) | mc | random
+//!   `walt` = walt1 = the frozen tickertape) | fresh (no replay: every
+//!   modeled-seat decision and dice draw is redone at every visit with fresh
+//!   randomness, beliefs still from public information; position memo kept)
+//!   | fresh2 (as fresh, position memo off too) | mc | random
 //!
 //! Tickertape ablation (walt1 vs waltK): every non-forced walt decision is
 //! also SHADOW-evaluated under the other K, so the output counts how often
@@ -33,7 +36,8 @@ const RANDOM_SEED: u64 = 0x2545_F491_4F6C_DD1D;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Player {
-    Walt(usize),
+    /// (dice tapes, fresh level)
+    Walt(usize, usize),
     Mc,
     Random,
 }
@@ -43,14 +47,16 @@ struct Cfg {
     rollouts: usize,
     n_outer: usize,
     n0: usize,
-    /// Player A's tape count (to split timing by K).
-    ka: usize,
+    /// Player A (to split timing by player).
+    pa: Player,
 }
 
 fn parse(p: &str) -> Player {
     match p {
-        "walt" => Player::Walt(1),
-        w if w.starts_with("walt") => Player::Walt(w[4..].parse().expect("walt<K>")),
+        "walt" => Player::Walt(1, 0),
+        "fresh" => Player::Walt(1, 1),
+        "fresh2" => Player::Walt(1, 2),
+        w if w.starts_with("walt") => Player::Walt(w[4..].parse().expect("walt<K>"), 0),
         "mc" => Player::Mc,
         "random" => Player::Random,
         _ => panic!("player is walt | mc | random"),
@@ -152,13 +158,14 @@ impl Table {
 ///         ms at K of A, decisions at K of A, ms at K of B, decisions at K of B]
 type Stats = [u64; 7];
 
-fn walt_choice(tb: &Table, seat: usize, hand: u32, legal: u32, cfg: &Cfg, tapes: usize, stats: &mut Stats) -> (u8, u64) {
+fn walt_choice(tb: &Table, seat: usize, hand: u32, legal: u32, cfg: &Cfg, knobs: (usize, usize), stats: &mut Stats) -> (u8, u64) {
     let key = tb.key();
     let s = Seat::from_index(seat).expect("seat");
     let maximize = s.team() == Team::T1;
     let info_seed = mix(u64::from(tb.hands[seat])) ^ record_hash(&key);
     let mut rng = SplitMix64(WALT_SEED ^ info_seed);
-    walt::solver::DICE_TAPES.store(tapes, std::sync::atomic::Ordering::Relaxed);
+    walt::solver::DICE_TAPES.store(knobs.0, std::sync::atomic::Ordering::Relaxed);
+    walt::solver::FRESH_FIELD.store(knobs.1, std::sync::atomic::Ordering::Relaxed);
     let t0 = std::time::Instant::now();
     let r = level1_evaluate(
         tb.dcl,
@@ -202,16 +209,16 @@ fn decide(p: Player, other: Player, tb: &Table, seat: usize, cfg: &Cfg, stats: &
             let mut rng = SplitMix64(RANDOM_SEED ^ info_seed);
             pick_uniform(legal, &mut rng)
         }
-        Player::Walt(k) => {
-            let (c, ms) = walt_choice(tb, seat, hand, legal, cfg, k, stats);
+        Player::Walt(k, f) => {
+            let (c, ms) = walt_choice(tb, seat, hand, legal, cfg, (k, f), stats);
             stats[0] += 1;
-            let slot = if k == cfg.ka { 3 } else { 5 };
+            let slot = if p == cfg.pa { 3 } else { 5 };
             stats[slot] += ms;
             stats[slot + 1] += 1;
-            if let Player::Walt(j) = other {
-                if j != k {
-                    let (shadow, ms2) = walt_choice(tb, seat, hand, legal, cfg, j, stats);
-                    let slot = if j == cfg.ka { 3 } else { 5 };
+            if let Player::Walt(j, g) = other {
+                if (j, g) != (k, f) {
+                    let (shadow, ms2) = walt_choice(tb, seat, hand, legal, cfg, (j, g), stats);
+                    let slot = if other == cfg.pa { 3 } else { 5 };
                     stats[slot] += ms2;
                     stats[slot + 1] += 1;
                     if shadow != c {
@@ -384,10 +391,7 @@ fn main() {
         rollouts: a.get(6).map_or(20, |x| x.parse().expect("rollouts")),
         n_outer: 50,
         n0: 8,
-        ka: match pa {
-            Player::Walt(k) => k,
-            _ => 0,
-        },
+        pa,
     };
     let mut stats: Stats = [0; 7];
     let (mut aw, mut bw, mut ties) = (0, 0, 0);
@@ -416,7 +420,7 @@ fn main() {
         a[1], a[2], stats[2]
     );
     println!(
-        "walt decisions {} (nonforced), shadow disagreements {}; ms/decision A-K {} B-K {}",
+        "walt decisions {} (nonforced), shadow disagreements {}; ms/decision A {} B {}",
         stats[0],
         stats[1],
         stats[3] / stats[4].max(1),
