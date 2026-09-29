@@ -216,6 +216,17 @@ fn nth_set_bit(mask: u32, n: u32) -> u32 {
     m.trailing_zeros()
 }
 
+/// EXPLORATORY ablation knob (probe branch only): independent Dice tapes per
+/// level-0 inner world. 1 = the frozen tickertape (Def 3.5), bit-identical to
+/// main; K > 1 duplicates each inner world K times with independent seeds, so
+/// each world's dice move is a K-draw average — the true-dice expectation as
+/// K grows. Read at each level-0 cache miss.
+pub static DICE_TAPES: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(1);
+
+fn dice_tapes() -> usize {
+    DICE_TAPES.load(Ordering::Relaxed)
+}
+
 /// How the field seats behave inside a solver: dice at the bottom, a
 /// level-k policy above it. THE FIELD MODEL IS A PARAMETER.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -1221,7 +1232,7 @@ impl Solver {
     fn pi(&self, k: usize, key: &Key, seat: Seat, hand: u32, legal_mask: u32) -> Option<u8> {
         self.check_belief_key(key);
         #[cfg(feature = "bypass-l0-cache")]
-        if k == 0 && self.sh.straight_fast_paths() {
+        if k == 0 && dice_tapes() == 1 && self.sh.straight_fast_paths() {
             if let Some(choice) = self.uncached_l0(key, seat, hand, legal_mask) {
                 return choice;
             }
@@ -1262,7 +1273,7 @@ impl Solver {
         );
         let maximize = seat.team() == Team::T1;
         #[cfg(feature = "stack-dice")]
-        if k == 0 && self.sh.straight_fast_paths() && (1..=8).contains(&n_k) && self.sh.inner_belief == InnerBelief::Voidless {
+        if k == 0 && dice_tapes() == 1 && self.sh.straight_fast_paths() && (1..=8).contains(&n_k) && self.sh.inner_belief == InnerBelief::Voidless {
             let choice = compact_dice::prepared_choice(
                 &self.sh,
                 key,
@@ -1309,7 +1320,7 @@ impl Solver {
             self.sh.modeled_selection
         };
         #[cfg(feature = "bounded-choice")]
-        if k == 0 && self.sh.straight_fast_paths() && (1..=8).contains(&n_k) {
+        if k == 0 && dice_tapes() == 1 && self.sh.straight_fast_paths() && (1..=8).contains(&n_k) {
             let worlds = self.sh.inner_belief.sample(
                 self.sh.dcl,
                 seat,
@@ -1420,8 +1431,13 @@ impl Solver {
                     )
                     .ok_or(())?;
                 self.sh.inner_worlds_by_level[k].fetch_add(n as u64, Ordering::Relaxed);
+                let tapes = if k == 0 { dice_tapes() } else { 1 };
+                let worlds: Vec<[u32; 4]> = worlds
+                    .iter()
+                    .flat_map(|w| std::iter::repeat_n(*w, tapes))
+                    .collect();
                 let (field, seeds) = if k == 0 {
-                    (Field::Dice, (0..n).map(|_| rng.next_u64()).collect())
+                    (Field::Dice, (0..n * tapes).map(|_| rng.next_u64()).collect())
                 } else {
                     (Field::Level(k - 1), Vec::new())
                 };
