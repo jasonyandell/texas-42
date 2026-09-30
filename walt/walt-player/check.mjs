@@ -1,3 +1,4 @@
+// Historical v2 compatibility check. V3 conformance is tests/ladder-wasm.mjs.
 /** Native/browser conformance, frozen-time partner check, and accelerated
  * browser-deadline test. Run under the experiment watchdog. */
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -13,14 +14,14 @@ function wasm(call, clock = () => BigInt(Math.floor(performance.now()*1000))) {
   let x;
   const instance = new WebAssembly.Instance(module, { walt_host: { now_us: clock, checkpoint: (p,n) => checkpoints.push(JSON.parse(decoder.decode(new Uint8Array(x.memory.buffer,p,n)))) } });
   x=instance.exports;
-  const data=new TextEncoder().encode(JSON.stringify(call));
+  const data=new TextEncoder().encode(JSON.stringify({...call,legacy:true}));
   const ptr=x.walt_in_prepare(data.length);
   new Uint8Array(x.memory.buffer,ptr,data.length).set(data);
   const n=x.walt_call();
   return { value:JSON.parse(decoder.decode(new Uint8Array(x.memory.buffer,x.walt_out_ptr(),n))), checkpoints };
 }
 function native(call) {
-  const r=spawnSync(fileURLToPath(new URL('release/walt-table',root)),[],{input:JSON.stringify(call)+'\n',encoding:'utf8',timeout:19000,env:{...process.env,RAYON_NUM_THREADS:'2'}});
+  const r=spawnSync(fileURLToPath(new URL('release/walt-table',root)),[],{input:JSON.stringify({...call,legacy:true})+'\n',encoding:'utf8',timeout:19000,env:{...process.env,RAYON_NUM_THREADS:'2'}});
   assert.equal(r.status,0,r.stderr);
   return JSON.parse(r.stdout.trim().split('\n').at(-1)).result;
 }

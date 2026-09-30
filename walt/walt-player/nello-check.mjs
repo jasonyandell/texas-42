@@ -1,3 +1,4 @@
+// Historical v2 compatibility check. V3 conformance is tests/ladder-wasm.mjs.
 /** Frozen engine histories: same own/public decisions on native and WASM.
  * Run through the packet watchdog. Timings describe this host, not a phone. */
 import {readFileSync, writeFileSync} from 'node:fs';
@@ -11,7 +12,7 @@ const decoder=new TextDecoder();
 function wasm(call,clock=()=>BigInt(Math.floor(performance.now()*1000))) {
   let x;const checkpoints=[];
   x=new WebAssembly.Instance(module,{walt_host:{now_us:clock,checkpoint:(p,n)=>checkpoints.push(JSON.parse(decoder.decode(new Uint8Array(x.memory.buffer,p,n))))}}).exports;
-  const data=new TextEncoder().encode(JSON.stringify(call)),p=x.walt_in_prepare(data.length);
+  const data=new TextEncoder().encode(JSON.stringify({...call,legacy:true})),p=x.walt_in_prepare(data.length);
   new Uint8Array(x.memory.buffer,p,data.length).set(data);
   const n=x.walt_call();
   return {result:JSON.parse(decoder.decode(new Uint8Array(x.memory.buffer,x.walt_out_ptr(),n))),checkpoints};
@@ -24,7 +25,7 @@ const rows=[];
 for(const f of fixtures) {
   for(let ply=0;ply<f.plays.length/2;ply++) {
     const req=request(f,ply),call={request:req,worlds:40,partner:true,budget_ms:14000};
-    const process=spawnSync(fileURLToPath(new URL('release/walt-table',target)),[],{input:JSON.stringify(call)+'\n',encoding:'utf8',timeout:18000,env:{...globalThis.process.env,RAYON_NUM_THREADS:'2'}});
+    const process=spawnSync(fileURLToPath(new URL('release/walt-table',target)),[],{input:JSON.stringify({...call,legacy:true})+'\n',encoding:'utf8',timeout:18000,env:{...globalThis.process.env,RAYON_NUM_THREADS:'2'}});
     assert.equal(process.status,0,process.stderr);
     const a=JSON.parse(process.stdout.trim().split('\n').at(-1)).result;
     const b=wasm(call).result;

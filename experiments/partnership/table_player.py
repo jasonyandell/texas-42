@@ -22,11 +22,22 @@ def decide(raw, *, mode='baseline', n=40, n0=8, n1=2, budget_ms=14000,
         raise ValueError('shared table player requires default L1 or L1 + partner rollout')
     req = normalize(raw)
     state = information_state(req)
-    payload = dict(request=req, worlds=n, partner=review == 'partner-rollout', budget_ms=budget_ms)
+    payload = dict(legacy=True, request=req, worlds=n, partner=review == 'partner-rollout', budget_ms=budget_ms)
     def check(value):
         if checked_status(value,state) != 'completed' or checked_response(value,state)[0] is None:
             raise ValueError('shared player disagrees with independent rules')
     return call_player(payload, check)
+
+
+def decide_ladder(raw, *, profile, budget_ms=20000):
+    req=normalize(raw)
+    state=information_state(req)
+    if not isinstance(profile,list) or not 1<=len(profile)<=4 or any(type(n) is not int or not 1<=n<=640 for n in profile):
+        raise ValueError('invalid ladder profile')
+    def check(value):
+        if checked_status(value,state) != 'completed' or checked_response(value,state)[0] is None:
+            raise ValueError('shared ladder disagrees with independent rules')
+    return call_player(dict(request=req,profile=profile,worlds=profile[-1],partner=False,budget_ms=budget_ms),check)
 
 
 def auction(body):
