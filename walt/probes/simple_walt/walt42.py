@@ -12,7 +12,12 @@ BID, DEALS, INNER_DEALS = 30, 30, 8
 
 
 def tiles(mask):
-    return [t for t in range(28) if mask >> t & 1]
+    out = []
+    while mask:
+        low = mask & -mask
+        out.append(low.bit_length() - 1)
+        mask ^= low
+    return out
 
 
 def name(t):
@@ -28,22 +33,20 @@ class Rules:
         self.suit = [sum(1 << t for t, d in enumerate(TILES) if q in d) & ~trumps
                      for q in range(7)] + [trumps]
         self.lead = [7 if trumps >> t & 1 else TILES[t][0] for t in range(28)]
-        self.trumps = trumps
+        # power[led][t]: the highest power in a trick wins.
+        # Trumps beat the led suit, which beats everything else; within a
+        # suit a double is highest, then the larger pip sum.
+        self.power = [[(2 if trumps >> t & 1 else 1 if self.suit[q] >> t & 1 else 0) * 16
+                       + (12 if h == l else h + l) for t, (h, l) in enumerate(TILES)]
+                      for q in range(8)]
 
     def legal(self, hand, trick):
         if not trick:
             return hand
         return hand & self.suit[self.lead[trick[0]]] or hand
 
-    def strength(self, t, led):
-        tier = 2 if self.trumps >> t & 1 else 1 if self.suit[led] >> t & 1 else 0
-        h, l = TILES[t]
-        return tier, 12 if h == l else h + l
 
-
-def points(t):
-    s = sum(TILES[t])
-    return s if s in (5, 10) else 0
+POINTS = [sum(d) if sum(d) in (5, 10) else 0 for d in TILES]
 
 
 # ---- the public state: (played, leader, trick so far, points T1, points T0) --
@@ -62,9 +65,9 @@ def play(rules, state, t):
     trick, played = trick + (t,), played | 1 << t
     if len(trick) < 4:
         return played, leader, trick, t1, t0
-    led = rules.lead[trick[0]]
-    winner = (leader + max(range(4), key=lambda i: rules.strength(trick[i], led))) % 4
-    won = 1 + sum(points(x) for x in trick)
+    power = [rules.power[rules.lead[trick[0]]][x] for x in trick]
+    winner = (leader + power.index(max(power))) % 4
+    won = 1 + POINTS[trick[0]] + POINTS[trick[1]] + POINTS[trick[2]] + POINTS[trick[3]]
     if winner % 2:
         return played, winner, (), t1 + won, t0
     return played, winner, (), t1, t0 + won
@@ -96,8 +99,10 @@ def sample(seat, hand, state, n, rng, voids=(0, 0, 0, 0)):
 def decide(rules, seat, hand, state, level, rng, voids=(0, 0, 0, 0), n=INNER_DEALS):
     """The tile that makes (or sets) the bid most often, across the deals
     `seat` cannot rule out."""
-    deals = sample(seat, hand, state, n, rng, voids)
     options = tiles(rules.legal(hand, state[2]))
+    if len(options) == 1:
+        return options[0]
+    deals = sample(seat, hand, state, n, rng, voids)
     made = {t: value(rules, seat, play(rules, state, t), deals, level, rng) for t in options}
     return (max if seat % 2 else min)(options, key=made.get)
 
@@ -109,17 +114,17 @@ def value(rules, me, state, deals, level, rng):
         return len(deals) if done else 0
     seat, played, trick = turn(state), state[0], state[2]
     if seat == me:  # one tile for every deal I can't tell apart
-        results = [value(rules, me, play(rules, state, t), deals, level, rng)
-                   for t in tiles(rules.legal(deals[0][me] & ~played, trick))]
-        return max(results) if me % 2 else min(results)
+        better, best, goal = (max, 0, len(deals)) if me % 2 else (min, len(deals), 0)
+        for t in tiles(rules.legal(deals[0][me] & ~played, trick)):
+            best = better(best, value(rules, me, play(rules, state, t), deals, level, rng))
+            if best == goal:
+                break  # can't do better than that
+        return best
     groups = {}  # what does `seat` play in each deal?
     for deal in deals:
         hand = deal[seat] & ~played
-        options = tiles(rules.legal(hand, trick))
-        if len(options) == 1:
-            t = options[0]
-        elif level == 0:
-            t = rng.choice(options)
+        if level == 0:
+            t = rng.choice(tiles(rules.legal(hand, trick)))
         else:
             t = decide(rules, seat, hand, state, level - 1, rng)
         groups.setdefault(t, []).append(deal)
@@ -133,12 +138,10 @@ def main(seed):
     order = list(range(28))
     rng.shuffle(order)
     hands = [sum(1 << t for t in order[7 * i:7 * i + 7]) for i in range(4)]
-    # Contract: the seat and trump with the most trumps (then the trump double,
-    # then the most doubles) bids 30. Rotate so the bidder is seat 1.
-    score, bidder, trump = max(
-        ((sum(p in TILES[t] for t in tiles(hands[s])), hands[s] >> TILES.index((p, p)) & 1,
-          sum(TILES[t][0] == TILES[t][1] for t in tiles(hands[s]))), s, p)
-        for s in range(4) for p in range(7))
+    # Contract: whoever holds the most of one pip bids 30 with it as trump.
+    # Rotate so the bidder is seat 1.
+    _, bidder, trump = max((sum(p in TILES[t] for t in tiles(hands[s])), s, p)
+                           for s in range(4) for p in range(7))
     hands = [hands[(bidder + i + 3) % 4] for i in range(4)]
     rules = Rules(trump)
     print("trump %ds, seats 1+3 bid %d, seat 1 leads" % (trump, BID))
