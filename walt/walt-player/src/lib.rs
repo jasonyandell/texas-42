@@ -10,9 +10,10 @@ use walt::{
     solver,
 };
 
-pub const PLAYER_ID: &str = "walt-table-v2";
+pub const PLAYER_ID: &str = "walt-table-v3";
 mod auction;
 mod counterexample;
+pub mod ladder;
 #[cfg(not(target_arch = "wasm32"))]
 pub mod played;
 
@@ -29,7 +30,9 @@ enum Seed {
 }
 #[derive(Deserialize, Clone, Copy, PartialEq, Eq)]
 #[serde(rename_all = "lowercase")]
-enum PlayContract { Nello }
+enum PlayContract {
+    Nello,
+}
 
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -52,7 +55,9 @@ impl Request {
         };
         let nello = self.contract == Some(PlayContract::Nello);
         if nello {
-            if self.decl != 8 || !(1..=9).contains(&self.bid) { return Err("Nel-O requires doubles-suit and 1..9 marks".into()); }
+            if self.decl != 8 || !(1..=9).contains(&self.bid) {
+                return Err("Nel-O requires doubles-suit and 1..9 marks".into());
+            }
         } else if !(30..=42).contains(&self.bid) {
             return Err("the table player requires a straight bid from 30 through 42".into());
         }
@@ -82,6 +87,10 @@ pub struct Call {
     budget_ms: u64,
     #[serde(default)]
     nello_counterexamples: bool,
+    #[serde(default)]
+    profile: Option<Vec<usize>>,
+    #[serde(default)]
+    legacy: bool,
 }
 fn default_worlds() -> usize {
     40
@@ -93,7 +102,13 @@ fn default_budget() -> u64 {
     14_000
 }
 
-fn evaluation(text: &str, n: usize, n0: usize, ms: u64, previous: &mut Option<solver::Shared>) -> Result<Value, String> {
+fn evaluation(
+    text: &str,
+    n: usize,
+    n0: usize,
+    ms: u64,
+    previous: &mut Option<solver::Shared>,
+) -> Result<Value, String> {
     let wire = format!("baseline\n{text}n {n}\nn0 {n0}\nn1 2\nbudget_ms {ms}\ninner_belief 0\nselection 0\nmodeled_selection 0\n");
     let value = solver::partnership_wire::run_with_cache(&wire, previous)?;
     serde_json::from_str(&value).map_err(|e| e.to_string())
@@ -117,7 +132,7 @@ fn emit(value: &mut Value, start: Instant, budget_ms: u64, checkpoint: &mut impl
 
 /// Caller validates the returned position/choice against its independent game
 /// engine. The host receives a legal checkpoint before expensive evaluation.
-pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, String> {
+pub fn decide_legacy(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, String> {
     let start = Instant::now();
     if !(100..=20_000).contains(&call.budget_ms) || !(1..=640).contains(&call.worlds) {
         return Err("invalid time or sampling budget".into());
@@ -133,7 +148,7 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
     let legal = status["legal"].as_array().ok_or("missing legal choices")?;
     let first = legal.first().ok_or("no legal play")?.clone();
     let forced = legal.len() == 1;
-    let mut value = json!({"schema":"partnership-decision-v1","player_version":PLAYER_ID,
+    let mut value = json!({"schema":"partnership-decision-v1","player_version":"walt-table-v2",
         "choice":first,"legal":legal,"leader":status["leader"],"points":status["points"],"trick":status["trick"],
         "route":if forced {"forced"} else {"legal-fallback"},"mode":"baseline",
         "inner_belief":"voidless","selection":"fixed","modeled_selection":"fixed",
@@ -158,10 +173,14 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
     }
     // Leave an actual window for defense after ordinary comparisons, including
     // when the larger comparison times out. Small caller budgets keep half for L1.
-    let counterexample_reserve = if call.nello_counterexamples && nello
-        && call.request.seat % 2 != call.request.bidder % 2 {
+    let counterexample_reserve = if call.nello_counterexamples
+        && nello
+        && call.request.seat % 2 != call.request.bidder % 2
+    {
         counterexample::MAX_MS.min(call.budget_ms / 2)
-    } else { 0 };
+    } else {
+        0
+    };
     let remaining = || {
         call.budget_ms
             .saturating_sub(start.elapsed().as_millis() as u64)
@@ -187,7 +206,9 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
     let mut previous = None;
     for (name, n, n0, ms) in stages {
         let ms = if name == "baseline" {
-            remaining().saturating_sub(counterexample_reserve).saturating_sub(40)
+            remaining()
+                .saturating_sub(counterexample_reserve)
+                .saturating_sub(40)
         } else {
             ms
         };
@@ -222,8 +243,11 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
     // Opt-in defense only. Keep ordinary estimates intact and expose the
     // deliberately biased mixture separately. A stopped round cannot replace
     // the last completed comparison, either in Rust or a host checkpoint.
-    if call.nello_counterexamples && nello && call.request.seat % 2 != call.request.bidder % 2
-        && value["route"] == "baseline" {
+    if call.nello_counterexamples
+        && nello
+        && call.request.seat % 2 != call.request.bidder % 2
+        && value["route"] == "baseline"
+    {
         let baseline = value["choice"].as_u64().unwrap();
         let worlds = value["evaluation"]["outer_worlds"].as_u64().unwrap() as usize;
         let ms = remaining().min(counterexample_reserve);
@@ -266,6 +290,14 @@ pub fn decide(call: Call, mut checkpoint: impl FnMut(&Value)) -> Result<Value, S
     }
     emit(&mut value, start, call.budget_ms, &mut checkpoint);
     Ok(value)
+}
+
+pub fn decide(call: Call, checkpoint: impl FnMut(&Value)) -> Result<Value, String> {
+    if call.legacy {
+        decide_legacy(call, checkpoint)
+    } else {
+        ladder::decide(call, checkpoint)
+    }
 }
 
 pub fn handle(text: &str, checkpoint: impl FnMut(&Value)) -> Value {

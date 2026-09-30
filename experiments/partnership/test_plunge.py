@@ -143,30 +143,27 @@ class PlungeTests(unittest.TestCase):
             finally:store.close()
 
     def test_inspection_cache_is_separate_and_tracks_worlds_without_rewriting_play(self):
-        with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide',side_effect=lambda req,**kw:{**self.fake(req),'route':'baseline'}) as decide:
+        with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide_ladder',side_effect=lambda req,**kw:{**self.fake(req),'route':'baseline'}) as decide:
             store=Store(tmp)
             try:
-                body,_=self.body();original=deepcopy(store.decision(body))
+                body,_=self.body();body['player']='walt-l2';original=deepcopy(store.decision(body))
                 query=dict(request=body['request'],worlds=40)
                 first=store.estimate(query)
-                self.assertEqual(decide.call_args.kwargs['n'],40)
-                self.assertEqual(decide.call_args.kwargs['review'],'off')
-                self.assertIsNot(decide.call_args.kwargs['session'],store.session)
+                self.assertEqual(decide.call_args.kwargs['profile'],[24,40])
                 store.implementation['frontend']='presentation change'
                 self.assertEqual(store.estimate(query),first);self.assertEqual(decide.call_count,2)
                 closer=store.estimate({**query,'worlds':160})
-                self.assertNotEqual(first['id'],closer['id']);self.assertEqual(decide.call_args.kwargs['n'],160)
-                self.assertEqual(decide.call_args.kwargs['budget_ms'],20000)
+                self.assertNotEqual(first['id'],closer['id']);self.assertEqual(decide.call_args.kwargs['profile'],[24,160])
                 self.assertEqual(store.receipt(original['id']),original)
                 path=Path(tmp)/'estimates'/(first['id']+'.json');bad=deepcopy(first);bad['response']['choice']+=1;gym.atomic(path,bad)
                 with self.assertRaisesRegex(ValueError,'contents changed'):store.estimate(query)
             finally:store.close()
 
     def test_inspection_rejects_hidden_inputs_and_concurrency_but_does_not_lock_live_play(self):
-        with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide',side_effect=self.fake) as decide:
+        with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide_ladder',side_effect=self.fake) as decide:
             store=Store(tmp)
             try:
-                body,_=self.body();query=dict(request=body['request'],worlds=40)
+                body,_=self.body();body['player']='walt-l2';query=dict(request=body['request'],worlds=40)
                 for worlds in (True,0,41,100000):
                     with self.assertRaises(ValueError):store.estimate({**query,'worlds':worlds})
                 for extra in ('hands','worlds','teacher','dealt'):
@@ -180,14 +177,12 @@ class PlungeTests(unittest.TestCase):
             finally:store.close()
 
     def test_inspection_timeout_is_retryable_and_closes_its_worker(self):
-        with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide',side_effect=self.fake) as decide:
+        with tempfile.TemporaryDirectory() as tmp,patch('plunge_bridge.decide_ladder',side_effect=self.fake) as decide:
             store=Store(tmp)
             try:
-                body,_=self.body();query=dict(request=body['request'],worlds=160)
-                with patch('plunge_bridge.DecisionSession') as session:
-                    store.estimate(query);store.estimate(query)
-                    self.assertEqual(decide.call_count,2)
-                    self.assertEqual(session.return_value.__exit__.call_count,2)
+                body,_=self.body();body['player']='walt-l2';query=dict(request=body['request'],worlds=160)
+                store.estimate(query);store.estimate(query)
+                self.assertEqual(decide.call_count,2)
                 self.assertFalse(list((Path(tmp)/'estimates').glob('*.json')))
             finally:store.close()
 

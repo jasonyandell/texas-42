@@ -1,3 +1,4 @@
+// Historical v2 compatibility check. V3 conformance is tests/ladder-wasm.mjs.
 /** Run under run_capped.py. Uses frozen time for parity and an accelerated
  * clock after a completed round to exercise checkpoint retention. */
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -17,7 +18,7 @@ function wasm(call, stopAfterRound=false, reserveTest=false) {
       if(reserveTest && v.evaluation?.outer_worlds===40 && !v.counterexample_result?.rounds) ticks=16000000n;
       if(stopAfterRound && v.counterexample_result?.rounds===1)stop=true;}}});
   x=instance.exports;
-  const bytes=new TextEncoder().encode(JSON.stringify(call)); const ptr=x.walt_in_prepare(bytes.length);
+  const bytes=new TextEncoder().encode(JSON.stringify({...call,legacy:true})); const ptr=x.walt_in_prepare(bytes.length);
   new Uint8Array(x.memory.buffer,ptr,bytes.length).set(bytes);
   const len=x.walt_call();
   return {value:JSON.parse(decoder.decode(new Uint8Array(x.memory.buffer,x.walt_out_ptr(),len))),checkpoints};
@@ -27,7 +28,7 @@ const full=wasm(call), interrupted=wasm(call,true);
 assert.equal(full.value.counterexample_result.rounds,3);
 assert.equal(full.value.counterexample_result.witnesses,12);
 assert.equal(full.value.choice,16);
-const p=spawnSync(fileURLToPath(nativePath),[],{input:JSON.stringify(call)+'\n',encoding:'utf8',timeout:25000});
+const p=spawnSync(fileURLToPath(nativePath),[],{input:JSON.stringify({...call,legacy:true})+'\n',encoding:'utf8',timeout:25000});
 assert.equal(p.status,0,p.stderr);
 const native=JSON.parse(p.stdout.trim().split('\n').at(-1)).result;
 assert.deepEqual(native.counterexample_result,full.value.counterexample_result);

@@ -17,13 +17,14 @@ import campaign as c
 import gym
 from matchup import Player
 from player import normalize
-from table_player import decide, auction, BINARY as TABLE_BINARY
+from table_player import decide, decide_ladder, auction, BINARY as TABLE_BINARY
 from plunge_io import flag_root
 from rules import information_state
 from runtime import DecisionSession
 from plunge_analysis import FUTURES, identity_for
 
-PRESETS=('l1-default','l1-partner-rollout')
+LEGACY_PRESETS=('l1-default','l1-partner-rollout')
+PRESETS=(*LEGACY_PRESETS,'walt-l1','walt-l2')
 WATCHDOG=gym.HERE/'packet/texas42-partnership-launch-v0.1/tools/run_capped.py'
 OPENING_WORLDS=160
 OPENING_BUDGET_MS=20000
@@ -50,7 +51,7 @@ class Store:
                                  importer=gym.file_hash(gym.HERE/'plunge_io.py'),frontend=frontend)
         self.session=DecisionSession();self.lock=threading.Lock();self.job_lock=threading.Lock();self.jobs={}
         self.estimate_lock=threading.Lock()
-        self.players={name:Player(**c.read(gym.HERE/'players.json')[name]) for name in PRESETS}
+        self.players={name:Player(**c.read(gym.HERE/'players.json')[name]) for name in LEGACY_PRESETS}
 
     def decision(self,body):
         optional=isinstance(body,dict) and 'think_deeper' in body
@@ -62,13 +63,19 @@ class Store:
         information_state(req)
         game_id=identifier(body['game_id']);hand_number=body['hand_number']
         if type(hand_number) is not int or not 1<=hand_number<=10000:raise ValueError('invalid hand number')
-        if body['player'] not in self.players:raise ValueError('unknown live player')
-        player=self.players[body['player']]
-        # The bidder's opening and opt-in deeper play use the inspection
-        # profile. The bounded partner review requires 40/8, so stays off.
-        if think_deeper or (req['seat']==req['bidder'] and not req['plays']):
-            player=replace(player,n=OPENING_WORLDS,budget_ms=OPENING_BUDGET_MS,review='off')
-        identity=dict(request=req,player=c.asdict(player),implementation=self.implementation,
+        name=body['player']
+        if name not in PRESETS:raise ValueError('unknown live player')
+        ladder=name in ('walt-l1','walt-l2')
+        if ladder:
+            n=350 if think_deeper else 160
+            profile=[n] if name=='walt-l1' else [24,n]
+            player_identity=dict(name=name,n=n,profile=profile,budget_ms=20000)
+        else:
+            player=self.players[name]
+            if think_deeper or (req['seat']==req['bidder'] and not req['plays']):
+                player=replace(player,n=OPENING_WORLDS,budget_ms=OPENING_BUDGET_MS,review='off')
+            player_identity=c.asdict(player)
+        identity=dict(request=req,player=player_identity,implementation=self.implementation,
                       game_id=game_id,hand_number=hand_number)
         rid=gym.digest(identity);path=self.root/'decisions'/(rid+'.json')
         with self.lock:
@@ -76,7 +83,7 @@ class Store:
             if saved is not None:
                 if saved['identity']!=identity:raise ValueError('receipt identity mismatch')
                 return self.receipt(rid)
-            response=decide(req,session=self.session,**player.kwargs())
+            response=decide_ladder(req,profile=profile) if ladder else decide(req,session=self.session,**player.kwargs())
             saved=dict(schema='plunge-decision-v1',id=rid,identity=identity,response=response,created=c.now())
             saved['sha256']=gym.digest(saved)
             gym.atomic(path,saved)
@@ -97,14 +104,15 @@ class Store:
         concurrent inspections instead of queuing unbounded work behind a play.
         Only completed primary estimates are cached; a timeout can be retried.
         """
-        fields(body,'request worlds')
+        fields(body,'request worlds'+(' level' if 'level' in body else ''))
         play_request_fields(body['request'])
         req=normalize(body['request']);worlds=body['worlds']
         information_state(req)
-        if type(worlds) is not int or worlds not in (40,160):raise ValueError('choose 40 or 160 sampled worlds')
-        player=replace(self.players['l1-default'],n=worlds,
-                       budget_ms=OPENING_BUDGET_MS if worlds==OPENING_WORLDS else 14000)
-        identity=dict(request=req,player=c.asdict(player),implementation={
+        if type(worlds) is not int or worlds not in (40,160,350,500):raise ValueError('invalid recheck sample count')
+        level=body.get('level',2)
+        if type(level) is not int or level not in (1,2):raise ValueError('invalid recheck level')
+        profile=[worlds] if level==1 else [24,worlds]
+        identity=dict(request=req,player=dict(n=worlds,profile=profile),implementation={
             k:v for k,v in self.implementation.items() if k!='frontend'})
         eid=gym.digest(identity);path=self.root/'estimates'/(eid+'.json')
         if not self.estimate_lock.acquire(blocking=False):raise ValueError('another move is being inspected; retry in a moment')
@@ -115,8 +123,7 @@ class Store:
                 if saved.get('sha256')!=gym.digest({k:v for k,v in saved.items() if k!='sha256'}):
                     raise ValueError('estimate contents changed')
                 return saved
-            with DecisionSession() as session:
-                response=decide(req,session=session,**player.kwargs())
+            response=decide_ladder(req,profile=profile)
             saved=dict(schema='plunge-estimate-v1',id=eid,identity=identity,response=response,created=c.now())
             saved['sha256']=gym.digest(saved)
             if response['route'] in ('baseline','forced'):gym.atomic(path,saved)

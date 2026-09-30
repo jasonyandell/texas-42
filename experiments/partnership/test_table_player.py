@@ -3,7 +3,7 @@ import json
 import subprocess
 import unittest
 from unittest.mock import patch
-from table_player import decide, auction
+from table_player import decide, decide_ladder, auction
 
 REQUEST = dict(decl=3,bid=30,bidder=0,seat=2,hand=[0,2,3,15,17,21,25],
                plays=[0,7,1,24,2,3,3,6,1,5,2,17,3,23,0,12,1,4,2,21,3,22,0,8,0,9,1,19,2,25,3,18,0,13,1,16],seed=420600)
@@ -16,6 +16,13 @@ class SharedTableTests(unittest.TestCase):
         self.assertEqual(value['choice'],2)
         self.assertEqual(value['evaluation']['outer_worlds'],40)
         self.assertEqual(value['fallback_evaluation']['outer_worlds'],8)
+
+    def test_rust_ladder_uses_the_same_checked_transport(self):
+        value=decide_ladder(REQUEST,profile=[24,160])
+        self.assertEqual(value['player_version'],'walt-table-v3')
+        self.assertEqual(value['profile'],dict(delta=1,level=2,samples=[24,160]))
+        self.assertEqual(value['evaluation']['outer_worlds'],160)
+        with self.assertRaises(ValueError):decide_ladder({**REQUEST,'hands':[]},profile=[24,160])
 
     def test_host_timeout_keeps_the_complete_checkpoint_and_rechecks_rules(self):
         value=decide(REQUEST)

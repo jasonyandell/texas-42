@@ -1,0 +1,24 @@
+name: Shared Rust Walt
+on:
+  pull_request:
+    paths: ['walt/walt-player/**', '.github/workflows/walt-ladder.yml']
+  push:
+    branches: [main]
+    paths: ['walt/walt-player/**', '.github/workflows/walt-ladder.yml']
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: walt
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - run: rustup target add wasm32-unknown-unknown
+      - run: cargo test --locked --release -p walt-player --lib --no-default-features --features cpu-speedups
+      - run: cargo clippy --locked -p walt-player --lib --no-default-features --features cpu-speedups -- -D warnings
+      - run: cargo build --locked --release -p walt-player --bin walt-table --no-default-features --features cpu-speedups
+      - run: cargo build --locked --release -p walt-player --lib --no-default-features --features cpu-speedups --target wasm32-unknown-unknown
+      - run: node walt-player/tests/ladder-wasm.mjs

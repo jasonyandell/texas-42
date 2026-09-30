@@ -22,7 +22,7 @@ struct Game {
 /// One complete game per request. A killed host loses only this unfinished game.
 pub fn run(text: &str) -> Result<Value, String> {
     play(text, |call| {
-        crate::decide(
+        crate::decide_legacy(
             serde_json::from_value(call).map_err(|e| e.to_string())?,
             |_| {},
         )
