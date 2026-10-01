@@ -335,3 +335,210 @@ realized effect", the near-equality of `shuffle` and `both` is mechanical, and
 "either source alone carries the floor" is not measured. What survives: the
 `dice` arm is clean (worlds fixed) and reproduces the whole floor, 35.5%. A
 true S-only arm needs dice keyed by the hand that plays, not the slot.
+
+## Clean shuffle-only noise, and does K average the floor away? (`dice_noise.py`, 2026-10-01)
+
+EXPLORATORY. Follow-up to `noise_source.py` and its skeptic's review. Two
+questions. Q1: with the dice keyed so that a shuffle reseed cannot re-map the
+realized plays (the design confound the skeptic found), does shuffle-only noise
+still produce a floor, and how big is it against dice-only? Q2: if each modeled
+mind imagines every world K times (K independent dice tapes) and best-responds
+to the 8K copies, does the floor fall with K = 1, 4, 16 under `both`?
+
+Setup: same 273 frozen positions (16 games, seeds 4000-4015), fixed n0=8 worlds
+per modeled mind, same 30 own-seat root deals in every arm and in both halves of
+every pair. Dice are now keyed by (dice base, tape index, acting seat, that
+seat's REMAINING HAND in the world, public record), never by world slot;
+shuffles by (shuffle base, seat, hand, record) as before. Arms, each an A/B pair
+of independent evaluations (s, d = seed index): `shuffle_k1` A=(s1,d1) B=(s2,d1);
+`dice_k1` A=(s1,d1) B=(s1,d2); `both_k1/k4/k16` A=(s1,d1) B=(s2,d2). Floor and
+cross-regret as in earlier sections (flip = A and B pick different tiles;
+cross-regret = for a flip the larger loss of either pick under the other's
+option values, in deals of 30, averaged over ALL decisions, per-flip mean in
+brackets). Numbers re-derived from the five `dice_*.jsonl` files, not from the
+run summaries (those agree for the four complete arms). Intervals are 2 SE:
+binomial (pp) and cluster-by-game on `seed` (ratio estimator, G/(G-1)
+correction). Timings are s/evaluation from the per-row seconds.
+
+STATE OF `both_k16`: INCOMPLETE. A single K=16 evaluation of an opening position
+takes over 570 s, so the arm was finished by a detached job outside the 600 s
+rule, and that job is still appending to `dice_both_k16.jsonl` as this is
+written. Everything about K=16 below is computed from the FIRST 176 LINES of the
+file (175 unique positions: 0-175 minus position 174; position 77 appears twice
+with identical picks and values, last row kept), which are games 4000-4009 whole
+plus one position of 4010, an index prefix and not a random sample. K=16 is
+compared to the other arms only on those 175 positions ("matched" rows).
+Positions 176-272 (and 174) are unmeasured at K=16.
+
+| arm | decisions | floor (flips) | 2-SE binomial | 2-SE by game | cross-regret / decision +-2 SE [per flip] | s/evaluation |
+|---|---:|---:|---:|---:|---:|---:|
+| shuffle_k1 (S only) | 273 | 28.2% (77) | +-5.4 | +-5.5 | 0.73 +-0.17 [2.58] | 2.40 |
+| dice_k1 (D only) | 273 | 29.3% (80) | +-5.5 | +-3.2 | 0.88 +-0.20 [2.99] | 2.48 |
+| both_k1 | 273 | 32.2% (88) | +-5.7 | +-4.9 | 0.79 +-0.17 [2.45] | 2.46 |
+| both_k4 | 273 | 29.7% (81) | +-5.5 | +-5.8 | 0.71 +-0.17 [2.40] | 10.16 |
+| matched: shuffle_k1 | 175 | 30.3% (53) | +-6.9 | +-6.1 | 0.72 +-0.21 [2.38] | 2.48 |
+| matched: dice_k1 | 175 | 28.0% (49) | +-6.8 | +-4.4 | 0.78 +-0.22 [2.80] | 2.64 |
+| matched: both_k1 | 175 | 33.1% (58) | +-7.1 | +-5.7 | 0.78 +-0.21 [2.34] | 2.50 |
+| matched: both_k4 | 175 | 29.7% (52) | +-6.9 | +-6.7 | 0.66 +-0.18 [2.21] | 10.79 |
+| matched: both_k16 | 175 | 33.1% (58) | +-7.1 | +-5.9 | 0.78 +-0.21 [2.34] | 42.89 |
+
+World-copies per modeled decision: 8 (K=1), 32 (K=4), 128 (K=16); modeled
+decisions per evaluation 2440-2451 (K=1, 273 positions), 2630 (K=4), 2815
+(K=16, matched positions; the matched K=1 arms show 2473-2495 there).
+
+Paired differences (same positions, per-position differences; floor in pp,
+regret in deals/decision; +-2 SE iid / by game; time ratio in brackets):
+
+| contrast | positions | floor | regret |
+|---|---:|---|---|
+| shuffle_k1 - dice_k1 | 273 | -1.1 +-5.9 / +-5.9 | -0.15 +-0.20 / +-0.17 |
+| both_k1 - shuffle_k1 | 273 | +4.0 +-6.2 / +-6.2 | +0.06 +-0.19 / +-0.17 |
+| both_k1 - dice_k1 | 273 | +2.9 +-6.3 / +-3.9 | -0.08 +-0.19 / +-0.12 |
+| both_k4 - both_k1 [4.1x] | 273 | -2.6 +-6.8 / +-6.8 | -0.08 +-0.21 / +-0.15 |
+| both_k4 - both_k1 [4.3x] | 175 | -3.4 +-8.7 / +-10.2 | -0.12 +-0.25 / +-0.23 |
+| both_k16 - both_k1 [17.1x] | 175 | +0.0 +-8.3 / +-6.8 | +0.00 +-0.27 / +-0.22 |
+| both_k16 - both_k4 [4.0x] | 175 | +3.4 +-7.9 / +-8.9 | +0.12 +-0.24 / +-0.25 |
+
+Other re-derived quantities (matched 175 unless stated). Mean |A - B| of the
+root's option values, per option, in deals of 30: 1.13 (K=1), 1.15 (K=4), 1.08
+(K=16); 273 positions: 1.17 (shuffle), 1.13 (dice), 1.18 (both K=1), 1.20 (K=4).
+Flipped positions: shuffle and dice flips overlap on 46 of 77 / 80 (22.6
+expected if independent; union 111; 273 positions). Across K: 17 positions flip
+at all three K (5.7 expected if independent), 96 flip at some K; both_k1 and
+both_k16 flips overlap on 32 of 58 / 58 (19.2 expected). No flip in any arm is
+a zero-regret tie; flips losing 3+ deals: 34/77, 46/80, 36/88, 31/81 (K=4),
+22/58 (K=16 matched). Flip rate by the root's top-two option-value gap in A
+(matched `both_k16`): gap 0: 29/81, 1: 6/17, 2: 2/7, 3-4: 21/59, 5+: 0/11;
+`both_k1` and `both_k4` have the same shape (flips at gap 3-4 are 23/62 and
+25/63).
+
+Integrity checks run: A sides of `shuffle_k1`, `dice_k1`, `both_k1` are
+identical (pick and all option values) on 273/273 positions, so the arms differ
+only in B; seed and seat of every row equal `seq_positions.jsonl`; the
+duplicated K=16 row for position 77 reproduces picks and values bit-for-bit
+(timings differ, 51.9/53.7 vs 52.8/50.8 s). `dice_noise.py check --positions 200
+240` (run here at K=1 and K=4): under a shuffle reseed every shared
+(tape, seat, hand, record) dice site realized the identical tile (28,504 of
+28,504 shared sites at position 200 K=1; 84,190 of 84,190 at position 240 K=4),
+no within-run conflicts, and the check printed `check ok`; under a dice reseed
+only 68-70% of shared sites agree. The shared sites are only about 1-3% of all
+sites under a shuffle reseed (hands differ in different worlds), so see the
+caveat on what "shuffle-only" means.
+
+What it shows:
+- Q1: yes, the clean shuffle-only arm shows a floor, and it is the same size as
+  dice-only. Shuffle-only 28.2% (77/273, binomial 2-SE +-5.4, so the interval
+  excludes 0 by a wide margin) against dice-only 29.3% (80/273): shuffle - dice
+  is -1.1 pp +-5.9, regret 0.73 vs 0.88 (-0.15 +-0.20). Ratio of flips 77:80.
+  Neither is larger at this resolution, and both are within the +-6 pp pair
+  resolution of `both` (32.2%). This replaces the confounded 33.3% shuffle
+  figure of `noise_source.py`: with the dice table held fixed (the shared-site
+  check) the floor is 28.2%, not lower than the confounded figure by any amount
+  we can detect (-5.1 pp from 33.3 is inside the interval).
+- The sources saturate rather than add: S + D predicts 57.5%, the independent
+  union 49.2%, observed `both` is 32.2%. The flipped sets overlap about twice
+  chance (46 vs 22.6 expected) but are not identical (31 shuffle-only flips, 34
+  dice-only, 111 in the union).
+- Q2: the floor does not fall with K. 32.2% (K=1), 29.7% (K=4) on all 273;
+  matched 175: 33.1%, 29.7%, 33.1% for K = 1, 4, 16. Paired: K=4 - K=1 is -2.6
+  pp +-6.8 (273) and -3.4 +-8.7 / +-10.2 (175); K=16 - K=1 is +0.0 +-8.3 / +-6.8;
+  K=16 - K=4 is +3.4 +-7.9 / +-8.9. Regret is flat too (0.78, 0.66, 0.78; K=16 -
+  K=1 +0.00 +-0.27). The data exclude a K=1-to-K=16 drop larger than about 8 pp
+  (the lower end of the iid interval); they cannot exclude a few pp. A floor
+  that shrank toward zero would have needed -33 pp.
+- Cost of K: 4.3x the time per evaluation at K=4 (10.79 vs 2.50 s) and 17.1x at
+  K=16 (42.89 vs 2.50 s) on the matched positions, for a K=16 - K=1 floor
+  difference of +0.0 pp.
+- The values do not average out either, not just the picks: the root's option
+  values move by 1.13, 1.15, 1.08 deals per option between independent
+  evaluations at K = 1, 4, 16, with 16 times the dice copies. The floor sits on
+  a shared fragile set of positions (17 flip at all three K against 5.7 by
+  chance) and flips are not concentrated where the root's own top-two gap is
+  small (gap 3-4 flips 21/59 at K=16, gap 0 29/81), so it is not just root
+  near-ties.
+- What the flat K implies (interpretation, not a measurement): K multiplies the
+  dice tapes over the SAME 8 imagined worlds. It averages D but never touches
+  S. The floor is flat in K and the shuffle-only arm already carries it at K=1,
+  so K could not have removed it by construction unless D were the only source;
+  the clean S-only floor of 28.2% says D is not the only source. Together with
+  `seq_experiment.py` round 2 (floor flat when the modeled mind's worlds go 8 to
+  48, a different generator, same positions), this points to the modeled minds'
+  noisy picks not averaging out under either extra dice copies or extra worlds:
+  the root's sensitivity is to WHICH near-equivalent tile a modeled seat plays,
+  and where a modeled mind is genuinely indifferent between tiles no number of
+  playouts K settles the choice. That reading is consistent with the data and is
+  NOT confirmed by it. A competing reading that the data do not exclude: the
+  modeled mind's value estimate is an 8-world sample and its pick is sampling
+  noise of those 8 worlds that K cannot reduce (only n0 can); the two readings
+  differ in whether the population gap between the top two tiles is zero or
+  merely small.
+- Proposed diagnostic (one, not run; it needs K=16 and is the expensive part):
+  instrument `Walt.model` to log, for every modeled decision with 2+ legal tiles,
+  the top-two gap of its `made` counts expressed in worlds (gap in copies divided
+  by K), at K=16 on a fixed subset (for example the shortest 40 positions,
+  which finish in minutes). Report the fraction with gap exactly 0 (a tie, which
+  `max`/`min` break deterministically by tile order and so is not a noise
+  source), the fraction with 0 < gap <= 1 world, and the fraction with gap > 1
+  world, at K=4 and K=16. Confirmation of the indifference reading: a large
+  fraction at gap <= 1 world that does not shrink from K=4 to K=16 (the gap in
+  worlds converges to the 8-world gap, not to 0). Against it: mass moving to
+  gap > 1 world at K=16 while the flips stay put, which would point at the
+  8-world sampling reading instead. If the fraction at gap <= 1 world is large,
+  the follow-up that separates population indifference from 8-world noise is the
+  same instrument at n0 = 32, K=4 (same 128 copies, 4x the worlds).
+
+Caveats: 273 decisions from 16 games for K = 1 and 4; K=16 rests on 175
+decisions from 11 games (10 whole), an index prefix that is the early part of
+each of the earliest games, not a sample of all 16; the matched K=1 and K=4
+floors (33.1%, 29.7%) agree with their 273-position values (32.2%, 29.7%), so
+the prefix does not look unusual, but that is not a test. The cluster-by-game
+2 SE is unstable at 11-16 clusters of unequal size (dice_k1 +-3.2 pp against a
+binomial +-5.5; K=4 matched +-6.7 against +-6.9), so read the resolution as
+roughly +-6-9 pp for paired contrasts and do not lean on the small cluster
+figures. "Shuffle-only" means the dice TABLE is held fixed, not that realized
+plays are: only about 1-3% of dice sites are shared between a shuffle reseed's two
+halves, because different worlds give different hands, so most realized
+opponent plays are fresh draws in a shuffle reseed, as they must be in any new
+world; the clean statement is "a floor exists without reseeding the dice table",
+not "without re-rolling any realized play". Dice are keyed differently from
+`noise_source.py` (hand, not slot), so the dice-only floor here (29.3%) is not
+the 35.5% there; the 6 pp gap is inside noise but the keys are not identical.
+The gap-by-flip table uses A's root values only and 30-deal values carry their
+own noise. Cross-regret is scored from 30-deal option values. Timings come from
+foreground chunks on 4 cores with Pool(4); K=16 rows were produced by a detached
+job and the `check` run overlapped it for part of its time, so K=16 seconds may
+include contention (duplicate rows differ by about 1-2 s). The K=16 job was
+left running by the earlier worker and was not started or stopped here; K=16
+numbers are pinned to the first 176 lines (the file is append-only), and a
+complete K=16 arm needs the run to finish and `summarize both_k16` to be
+re-derived.
+
+Completion note: the K=16 arm finished after the analysis above was written
+(a worker left it running detached, against the no-background rule; it was
+waited for in the foreground and one duplicate row for position 77, identical
+picks and values, was removed). Full-set K=16: 92/273 = 33.7% flips,
+cross-regret 0.82 deals/decision (2.42 per flip), 46.7 s/evaluation (CPU-
+contended). Floor in K over all 273 positions: K=1 32.2%, K=4 29.7%, K=16
+33.7%. Flat.
+
+Skeptic's review (adversarial pass, same session). Mechanics hold: hand-keyed
+dice realize the same tile at the same (tape, seat, hand, record) under a
+shuffle reseed; the K copies have independent tapes and one joint solve; the
+root is unchanged; every number re-derives from the files. Refuted or
+corrected: (1) the gap-by-flip table in the section above does not reproduce,
+and under its stated definition flips DO concentrate at small root top-two gaps
+at K=16 (41% at gap 0-1 vs 16% at gap >=2); (2) the "shared fragile set"
+overlap baselines assume independent arms, but all K arms share the shuffle
+streams and the A side, so excess overlap is built in; (3) Q2 as run was
+circular: the K arms reseed both sources, and with a 28% shuffle-only floor
+already present a flat `both` floor in K could not show dice averaging out.
+The skeptic ran the missing dice-only K arms on the cheapest 150 (late-game)
+positions: dice_k1 19.3%, dice_k4 16.7%, dice_k16 16.7% (K16-K1 -2.7 +-7.3 pp;
+full averaging would predict about -19), and the proposed gap diagnostic on
+the cheapest 100: the modeled minds' top-two gap is <= 1 world in 74.6 /
+74.6 / 75.4% of modeled decisions at K = 1 / 4 / 16, with no mass moving to
+> 1 world. Both support the indifference reading on that subset; opening
+positions at K=16 dice-only remain untested. Also noted: "no flip is a
+zero-regret tie" is a tautology of the first-max tie-break; the hand-keying
+artifact (1-3% shared sites, ~7.5 effective worlds) does not move the floor
+in a slot-keyed control; K=16 timings are CPU-contended.
