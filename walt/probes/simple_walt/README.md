@@ -209,3 +209,129 @@ self-referential proxy, not play quality: "no quality gain" should read "no
 floor/cross-regret gain". What survives all of it: the fixed floor is flat in
 the modeled minds' world count from 8 to 48, as it was flat in root deals from
 15 to 60. The noise is not in either sample size.
+
+## Which random source carries the floor? (`noise_source.py`, 2026-10-01)
+
+EXPLORATORY. Question: the level-1 player's root move changes in about 30% of
+decisions when only the inner seed changes. Inside its model of the other seats
+there are two random sources, (S) the shuffles that decide which worlds a
+modeled level-0 mind imagines from its own chair, and (D) the dice that decide
+which legal tile each non-mind seat plays in each imagined world. Which one
+carries the floor, and do they add?
+
+Setup: the same 273 frozen positions (16 games, seeds 4000-4015), fixed n0=8,
+30 own-seat root deals drawn from the same `Random(base_of(seed, state))` in
+every arm and in both halves of every pair. Here S and D are separate keyed
+streams (pure functions of a base and a context; no running rng), so reseeding
+one base leaves the other source bit-identical. Four arms, each an A/B pair of
+independent evaluations: `both` reseeds S and D, `shuffle` reseeds S only,
+`dice` reseeds D only, `none` reseeds nothing (a determinism check; the pair
+really re-runs). Noise floor = A and B pick different tiles. Cross-regret as in
+rounds 1-2: for a flip, the larger of what either pick loses under the other's
+option values (deals of 30), averaged over ALL decisions, per-flip mean in
+brackets. Numbers re-derived from the four `noise_*.jsonl` files (all 273
+unique rows, same position set, seed/seat identical to `seq_positions.jsonl`),
+not from the run summaries. Intervals are 2 SE: binomial (percentage points),
+and cluster-by-game on the `seed` field (16 clusters of 6-22 decisions, ratio
+estimator with the G/(G-1) correction). Regret interval is +-2 SE of the mean
+over decisions.
+
+| arm | decisions | floor (flips) | 2-SE binomial | 2-SE by game | cross-regret / decision +-2 SE [per flip] |
+|---|---:|---:|---:|---:|---:|
+| both (S+D) | 273 | 32.60% (89) | +-5.67 | +-3.84 | 0.81 +-0.18 [2.47] |
+| shuffle (S) | 273 | 33.33% (91) | +-5.71 | +-7.05 | 0.82 +-0.18 [2.46] |
+| dice (D) | 273 | 35.53% (97) | +-5.79 | +-6.79 | 0.93 +-0.19 [2.62] |
+| none | 273 | 0.00% (0) | degenerate (0) | degenerate (0) | 0.00 [0.00] |
+
+Paired differences (same positions, per-position differences; floor in pp,
+regret in deals/decision; +-2 SE iid / by game):
+
+| contrast | floor | regret |
+|---|---|---|
+| shuffle - none | +33.3 +-5.7 / +-7.1 | +0.82 +-0.18 / +-0.18 |
+| dice - none | +35.5 +-5.8 / +-6.8 | +0.93 +-0.19 / +-0.24 |
+| dice - shuffle | +2.2 +-6.1 / +-6.0 | +0.11 +-0.21 / +-0.22 |
+| both - shuffle | -0.7 +-6.1 / +-6.6 | -0.01 +-0.22 / +-0.20 |
+| both - dice | -2.9 +-5.8 / +-6.8 | -0.12 +-0.22 / +-0.26 |
+| both - shuffle - dice (additivity) | -36.3 +-8.2 / +-11.6 | n/a |
+
+Overlap of the flipped positions (273 positions): shuffle flips 91, dice flips
+97, 60 flip under both single sources (32.3 expected if independent; chi2 = 55
+on 1 df), 128 under at least one; of the 89 `both` flips, 75 are in that union
+and 14 are not. Flip losses: 3+ deals in 34/89 (both), 37/91 (shuffle), 45/97
+(dice) flips; no flip in any arm is a zero-regret tie. Evaluation cost 2.23
+s/evaluation in the three active arms, 2.18 in `none` (the same code path
+without a reseed; A and B times match to a few ms, all rows).
+
+What it shows:
+- Either source alone produces the whole floor. Shuffle-only 33.3% and dice-only
+  35.5% against both 32.6%; every pairwise difference is inside 1 SE of its
+  paired interval (the largest, dice - both, is +2.9 pp against +-5.8 iid /
+  +-6.8 by game). Neither source carries it "more": dice - shuffle is +2.2 pp
+  +-6.0, and the 0.93 vs 0.82 regret is +0.11 +-0.21. The point estimates order
+  dice > shuffle > both, but that order is not a result.
+- The two sources are not additive; they saturate. Adding the single-source
+  floors predicts 68.9% against the observed 32.6% (-36.3 pp, 8.2 iid / 11.6 by
+  game past additive), and even the independent-union prediction 1-(1-p_S)(1-p_D)
+  = 57.0% is 24 pp above observed. The same arithmetic on regret gives 478 deals
+  (shuffle + dice) against 220 (both). Reseeding both together does not add
+  flips beyond reseeding one.
+- The flips concentrate on a shared set of positions: 60 of the 91 shuffle flips
+  also flip under dice-only (about twice the 32 expected under independence).
+  But the sets are not identical (31 flip only under shuffle, 37 only under
+  dice, 14 `both` flips under neither), so "a fixed fragile set that anything
+  tips" is too strong; what the data support is a position-dependent flip
+  probability that is high for many positions and roughly the same whichever
+  source is reseeded.
+- `none` is exactly 0, and not only in the picks: for all 273 positions A and B
+  agree on the pick AND on every recorded option value (`A_made == B_made`,
+  273/273). The player is a deterministic function of (position, root deals, S
+  base, D base): there is no hidden fifth source (clock, hash seed, process
+  scheduling, pool order). That is a determinism proof for this code path on
+  these positions, a different kind of statement from the nonzero rows, whose
+  binomial interval is not meaningful at 0/273 (it is a structural zero, not an
+  estimated rate). Also checked: in every arm, A's picks and values are
+  identical to `both`'s A (shared s1, d1), so the arms differ only in B.
+- The cost of a flip is the same everywhere: 2.46-2.62 deals per flip, no
+  zero-regret flips, 38-46% of flips lose 3+ deals. The floor is not made
+  harmless by the source that produces it.
+
+Caveats: 273 decisions from 16 games. The cluster-by-game 2 SE is not stable at
+16 clusters of unequal size (6 to 22 decisions): `both` gets +-3.8 pp but
+`shuffle` and `dice` +-7.0 and +-6.8, and the binomial figure sits between;
+read the resolution as roughly +-6-7 pp, so differences under ~7 pp paired (all
+contrasts among the three active arms) are not detectable, and a modest
+true difference between S and D (or a modest additivity from S+D) cannot be
+excluded. The additivity gap (-36.3 pp) is the exception: it is far outside
+every interval, but it measures sub-additivity of flip probabilities, which is
+automatic once single-source floors exceed 33% (they cannot add past 100%, and
+a union of independent effects would still be 57%), so "saturating" is the
+finding, not "S and D interact". Own-seat root deals are held fixed and
+identical in every arm, so this decomposes only the inner (modeled-seat)
+floor; the root-deal contribution is in `crn15/crn/crn60.jsonl` (flat from 15
+to 60 deals). Dice are keyed by (dice base, world id, seat, public record) with
+the world id a context hash, so "reseeding D" here means a different keyed
+table, not a different draw order; it is not claimed to match the running-rng
+floor of rounds 1-2 beyond the observed agreement (30.0% fixed8 there, 32.6-
+35.5% here, same positions, different generator). Cross-regret is scored from
+30-deal option values that carry their own noise. Timings come from four
+separate foreground runs of the arm, each in two chunks, on 4 cores with
+Pool(4); the per-row seconds reproduce the reported chunk walls (per-arm
+CPU-seconds / 4 = 105 s and 199 s for chunks 0-69 and 70-272, against 111 s
+and 201 s reported, 108 s and 197 s for `none`).
+
+Skeptic's review (adversarial pass, same session). Numbers reproduce exactly
+(16 rows re-run bit-for-bit; A sides identical across arms; `none` 273/273
+identical picks and values). Two corrections and one refutation: (1) "A and B
+times match to a few ms" is false (185/273 rows differ by >0.01 s, max 1.04 s);
+determinism holds for picks and values, not timings. (2) "sub-additivity is
+automatic above 33%" is wrong: additive predicts 68.9%, independent union 57%,
+observed 32.6% is far below both. (3) DESIGN CONFOUND: the dice draw is a pure
+function of (dice base, world slot, seat, record), but the realized tile is
+`legal[u % len(legal)]` and `legal` is that slot's hand in the world, so
+reseeding the SHUFFLES re-maps ~75% of the opponents' realized plays (dice
+reseed alone changes ~43%). The `shuffle` arm is therefore "S plus most of D's
+realized effect", the near-equality of `shuffle` and `both` is mechanical, and
+"either source alone carries the floor" is not measured. What survives: the
+`dice` arm is clean (worlds fixed) and reproduces the whole floor, 35.5%. A
+true S-only arm needs dice keyed by the hand that plays, not the slot.
