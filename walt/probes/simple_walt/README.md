@@ -35,3 +35,34 @@ in two sampled deals, so the decision cache rarely has anything to replay.
 One move per situation is carried by the structure instead: `decide` reads only
 (seat, hand, public), and the real seat's max in `value` is taken once over the
 whole group of deals.
+
+## Keying the model's randomness (`crn_experiment.py`, 2026-10-01)
+
+Question: does keying the model's randomness (level-0 dice and modeled seats'
+belief shuffles) on (world, seat, trick) instead of the public record make the
+root's argmax steadier, by making the noise common across candidate tiles?
+Noise floor = move changes when only the inner base seed changes, same
+own-seat deals. Positions from self-play; 30 own-seat deals, 8 per modeled
+mind. `crn.jsonl` (seeds 2000–2019) and `crnv.jsonl` (3000–3015, with option
+values recorded).
+
+| keying | noise floor, pooled 591 decisions |
+|---|---:|
+| running rng (walt42.py as committed) | 193 / 591 = 33% |
+| record-keyed (the Rust ticker tape) | 201 / 591 = 34% |
+| trick-keyed (world, seat, trick) | 192 / 591 = 32% |
+
+No effect. The root's candidate tiles diverge the play after one trick, so
+"the same random number at (world, seat, trick)" lands on different situations
+and the correlation the idea relied on decays almost immediately.
+
+Own-seat deals also barely move the floor (running keying, `crn15.jsonl`,
+`crn.jsonl`, `crn60.jsonl`): 15 deals 35%, 30 deals 36%, 60 deals 31%.
+
+The flips are not harmless ties. On the 270 decisions with values recorded,
+scoring one seed's pick with the other seed's values gives a mean cross-regret
+of ~2.5 deals of 30 (about 8 points of pmake), with ~40% of flips at 3+ deals;
+exact ties under both scorings are rare (0–4 of ~90). The noise is in the
+modeled seats (8-world best responses, reseeded in both arms), which neither
+keying nor outer deals address. The Rust player's saturation-tie refinement is
+aimed at the same symptom.
