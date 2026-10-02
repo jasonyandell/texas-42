@@ -542,3 +542,159 @@ positions at K=16 dice-only remain untested. Also noted: "no flip is a
 zero-regret tie" is a tautology of the first-max tie-break; the hand-keying
 artifact (1-3% shared sites, ~7.5 effective worlds) does not move the floor
 in a slot-keyed control; K=16 timings are CPU-contended.
+
+## Strength on mirrored deals, with a true positive control (`strength.py`, `strength_ctrl.py`, 2026-10-02)
+
+EXPLORATORY. Question from the keying/noise sections: the root's pick flips on
+~30% of positions when only the inner randomness is reseeded. Does that cost
+strength, and should anyone care about the Rust player's rule that the same world
+plays the same tile at the same record (the record-keyed tape of
+`crn_experiment.py`)?
+
+Setup (`strength.py`, docstring has the full spec): a pair is one deal played
+twice with X in seats 1,3 then X in seats 0,2; pair score = made(X declaring) -
+made(Y declaring), which equals (X's games won across the two) - 1. So the mean
+pair score is twice X's per-game win share minus 1. Contract by the walt42 rule,
+bidder at seat 1, bid 30. Level-1 players use 30 own-seat deals drawn from a
+stream keyed by (deal, position) alone, n0=8 modeled level-0 minds, voids
+observed. L1(s) seeds its inner rng from (s, deal, position): L1(1) and L1(2) see
+the same 30 root deals and differ ONLY in inner randomness. L0 = best response to
+uniformly random modeled seats, same root deals. RAND = uniform random legal tile
+(`strength_ctrl.py`, the new control). Deals 5000..; the two original matchups
+come from the earlier worker, the control and the agreement count were run here.
+Every number below was re-derived from the `strength_*.jsonl` files with
+`strength_audit.py` (exact integers and Fractions) and agrees with the earlier run
+summaries; the files are clean (unique contiguous seeds, `pair` = made1 - made2 on
+every row, declarer made iff declarer team >= 30 on every row, no tile played
+twice, game length a multiple of 4: games stop when the contract is decided, mean
+23.5 plays). Intervals are 2 SE on the pair score (pair SD about 0.51).
+
+| matchup | pairs | X wins / Y wins / ties | mean pair score X-Y (+-2 SE) | per-game win share of X | declaring make X / Y | both made / neither | sign test p (decisive) | s/pair, one core |
+|---|---:|---:|---|---:|---:|---:|---:|---:|
+| L1(1) vs L1(2) | 200 | 30 / 22 / 148 | +0.040 +-0.072 (-0.032 .. +0.112) | 52.0% +-3.6 | 139/200, 131/200 | 109 / 39 | 0.3317 | 43.7 |
+| L1(1) vs L0 | 100 | 13 / 13 / 74 | 0.000 +-0.102 (-0.102 .. +0.102) | 50.0% +-5.1 | 58/100, 58/100 | 45 / 29 | 1.0000 | 22.4 |
+| L1(1) vs RAND (control) | 100 | 56 / 0 / 44 | +0.560 +-0.100 (+0.460 .. +0.660) | 78.0% +-5.0 | 80/100, 24/100 | 24 / 20 | 2.8e-17 | 22.0 |
+
+Harness checks (`strength.py check 4`, re-run here): L1(1) vs L1(1) gives
+move-for-move identical games in both seat assignments on 4/4 pairs and pair 0;
+a fresh-process replay of the L1(1)-vs-L1(2) and mirror pairs is byte-identical.
+
+Do L1 and L0 pick the same tiles? (`strength_ctrl.py agree 5000 20`; replays the 40
+games of seeds 5000-5019 from `strength_L1_vs_L0.jsonl` and, at each of the 645
+non-forced positions, asks L1(1), L1(2) and L0 what they would play, with the
+position-keyed seeds. Replay check: the recomputed picks equal the recorded plays
+on 321/321 L1(1) decisions and 324/324 L0 decisions. Intervals: cluster by deal,
+20 clusters.)
+
+| disagreement | positions | rate (+-2 SE) |
+|---|---:|---:|
+| L1(1) vs L1(2) (the reseed floor) | 220 / 645 | 34.1% +-5.4 |
+| L1(1) vs L0 | 302 / 645 | 46.8% +-4.7 |
+| L1(2) vs L0 | 283 / 645 | 43.9% +-5.2 |
+| mean L1-vs-L0 minus reseed floor | | +11.2 +-5.8 pp |
+
+Where the two L1 seeds agree (425 positions) L0 agrees with them on 280 (65.9%);
+where they disagree (220) L0 equals one of them on 145 and neither on 75. Only 2 of
+the 100 L1(1)-declaring games are move-for-move identical across the L1(1)-vs-L1(2)
+and L1(1)-vs-L0 matchups.
+
+What it shows:
+- (1) Reseeding does not cost strength between two reseeds: pair mean +0.040 +-0.072,
+  sign test 30 vs 22, p 0.33. At 2 SE the data exclude a true L1(1)-over-L1(2) edge
+  above +0.112 pair score (a 55.6% per-game win share) and an L1(2)-over-L1(1) edge
+  above 0.032 (a 51.6% share). The 0.040 point estimate is inside noise. To
+  resolve +-0.05 (2.5 pp per game) takes about 416 pairs at this pair SD.
+- (2) The L1-vs-L0 run is NOT a positive control. It came out exactly 0.000, so it
+  shows no power; it could be a null in either direction. The control that has
+  power is L1 vs RAND: 56 / 0 / 44, +0.560 +-0.100, a 78% per-game share. Against
+  that gap the test sees a +0.560 move at about 11 SE and resolves +-0.072 at 200
+  pairs, i.e. about 13% of the L1-over-random gap; L1(1) vs L0 is bounded at
+  +-0.102 (+-18%). So the harness detects a gross strength difference easily and a
+  difference between two sensible players only above the intervals above.
+- The "oddity" in L1 vs L0 is one fact counted twice, not two. Make rates equal
+  because only-X (13) equals only-Y (13): X made = both made + only X. Chance of an
+  exact 13-13 split of 26 decisive pairs under a fair coin is C(26,13)/2^26 = 15.5%.
+  And it is not "same plays": L0 differs from L1 at 45% of positions (table above),
+  11 pp more than a reseed of L1 does. The equal result comes from two offsetting
+  role effects (exploratory, post hoc, uncorrected, same 100 deals 5000-5099): L1(1)
+  declaring made 70/100 against L1(2) defending but 58/100 against L0 defending
+  (discordant 18 down, 6 up, McNemar p 0.023); L0 declaring made 58/100 against L1(1)
+  defending where L1(2) declaring made 67/100 (17 down, 8 up, p 0.11). L0 looks
+  better on defense and worse on offense than L1; the mirrored pair subtracts
+  those out. Equal pair score does not mean equal play.
+- (3) The earlier floor and this result are consistent with "several near-equal
+  tiles at many information states", and they do not establish it. What the
+  strength data do say: two policies that pick different tiles at 34% (L1 vs its
+  reseed) and 45% (L1 vs L0) of positions are not separated by the game result
+  within +-0.07 / +-0.10 pair score, while an actual blunderer is separated by 0.56.
+  What they cannot say, and the earlier claim that cross-regret was scorer noise
+  rests on this: L1(1) vs L1(2) is symmetric by construction. Seeds enter only
+  through a hash of (seed, position), so L1(1) and L1(2) are exchangeable and the
+  expected pair score is exactly 0 whatever the noise costs; any loss from the
+  noise is paid equally by both. The test calibrates the instrument; it cannot
+  measure what noise costs against a noise-free player. Likewise a flip's
+  cross-regret is |difference of two noisy 30-deal estimates| and is positive even
+  when two tiles are truly tied (mean |A-B| of the root values is ~1.1 deals per
+  option in the dice_noise section), so "regret > 0" is not evidence of a real loss
+  and "equal strength" is not evidence of zero loss. The ~2.5-deals-per-flip
+  figures are therefore neither confirmed as real losses nor shown to be scorer
+  noise.
+- What would overturn "the floor is the game's": (a) a player that beats single
+  L1 head-to-head: for example an ensemble that picks by summing option values over
+  R=4 independent seeds (5x cost, about 110 core-s/pair, so about 27 s/pair wall and
+  ~7 chunks for 100 pairs); if the floor is population indifference the ensemble's
+  own flip rate stays ~34% between two ensembles and it does not win; if the floor is
+  8-world sampling noise its flip rate falls and it wins. (b) An independent scorer
+  of flipped pairs (playout equity from sampled worlds, shared continuation policy)
+  showing a mean true gap near the cross-regret rather than near zero. (c) L1 beating
+  L0 beyond +-0.1 at larger N (about 400 pairs resolves +-0.05; the role-offset above
+  hints L0 and L1 differ in style, so a decisive pair rate might still be found).
+  (d) The skeptic's gap diagnostic at opening positions at K=16, still untested.
+
+On the rule "same world plays the same tile at the same record": this test does not
+vary it. The inner rng here is a running generator seeded per decision from (seed,
+position) (the `running rng` arm of the keying section), not record- or hand-keyed.
+What the three experiments on it say together: record keying and trick keying did not
+move the floor (33% / 34% / 32%, `crn_experiment.py`), hand-keyed dice did not move it
+(`dice_noise.py`), and reseeding costs no detectable strength here. So no evidence in
+this probe that the rule buys strength; its remaining case is reproducibility (the
+position-keyed seeds already give exact replay, mirror exact above), not play quality.
+
+Skeptic's pass (adversarial reading of the earlier run summaries). Numbers all
+re-derive. Corrected: (i) "reseeding costs no measurable strength, so the user need
+not care" is true as a finding about the rule, but the test cannot support it as a
+finding about noise cost (symmetric by construction); (ii) "positive control L1 vs
+L0" was mislabeled, a null cannot calibrate power; replaced by L1 vs RAND; (iii) "I
+did not check whether they pick the same plays": checked, they differ at 45% of
+positions; (iv) "identical make rates and win counts" counted one fact twice; (v) the
+`strength.py` docstring says an earlier smoke test covers mirror/determinism; that
+check now has a recorded result above. Not refuted: no seed or seat bias in the
+harness, no data errors, the L1a-vs-L1b interval. RAND is far weaker than anything
+in play, so the control proves power for gross differences only; it is not a
+calibration for a +0.05 effect.
+
+Caveats: 100-200 pairs, 74% of L1-vs-L1 pairs and 74% of L1-vs-L0 pairs tied, so
+the effective sample is the 26-52 decisive pairs. Declaring make rates are
+dominated by the deal (58% to 80% across the matchups) and are
+not a strength measure on their own. Points were not used: games stop when the
+contract is decided, so final scores are partial. The agreement table takes
+positions from games played by L1 and L0 together, all tricks, 20 deals, and
+differs from the 273-position floor of earlier sections (34.1% here against
+28-34%); cluster 2 SE with 20 clusters is rough. The role-offset McNemar tests are
+post hoc, two of them, uncorrected. `strength_audit.py` and `strength_ctrl.py` are
+probe scripts below every tier; `strength_L1_vs_RAND.jsonl` and
+`strength_agree_5000_20.json` are their outputs.
+
+Skeptic's review (adversarial pass, same session). Harness sound: all 800
+games replay legally with the recorded outcomes; the mirror is exact; the
+three players draw identical root deals and differ only as specified; every
+number re-derives. Refuted as evidence: L1(1) vs L1(2) has expected pair score
+exactly 0 by exchangeability (seeds enter only through a hash), so "no
+detectable difference" and the exclusion bounds are tautological and say
+nothing about what inner noise costs; the strength test never varied the
+record-keying rule, so its effect on strength is UNTESTED, not null; the
+role-offset McNemar tests are post hoc and uncorrected. What stands: L1 vs L0
+is a genuine null (0.000 +-0.102 at 100 pairs despite 45% tile disagreement),
+L1 vs RAND (56/0/44, +0.56) shows the harness detects gross gaps only, and
+~24% of deals make themselves regardless of play. Inside L1 the modeled minds
+do not condition on voids (root only), as in walt42.
