@@ -1,0 +1,6 @@
+{
+  "archive": "native-v34-sources.tar.gz",
+  "sha256": "804261f2027f3b992043a4f786a66027f1415d12a5132cdce7766b06892f74bf",
+  "origin": "/Users/jason/code/texas-42/experiments/full-game-speed/results/native-v34-mask64-arena-sources.tar.gz",
+  "policy": "Unmodified frozen v34 reference. Run tools/prepare_reference.py before Cargo in a fresh checkout."
+}

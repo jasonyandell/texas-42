@@ -1,0 +1,41 @@
+{
+  "schema": "response-ladder-gpu-checkpoint-v1",
+  "base_commit": "43a01d98d7d75a942b966903e8092313f18389d0",
+  "cpu_head": "f1a0fb045a316379a853b63df696d7e924349826",
+  "reference_archive_sha256": "804261f2027f3b992043a4f786a66027f1415d12a5132cdce7766b06892f74bf",
+  "sources_sha256": {
+    "Cargo.toml": "4dd8ce63e1b7afbdab967da0121ef17ddca9b85a9474ea2e006ed294e4ddf554",
+    "Cargo.lock": "248a51a2a58b58dbff2dc4cb7d83259bef837d94c911fd4028d7cb8b982f0ac8",
+    "src/mechanics.rs": "93972b161c60657557099e8cf1c8a8c09dabedc0eec71f00d121f314c0a650a7",
+    "src/core.rs": "3d3c57e0ae7dd1624929269e2826e055d74162436b21b8c167e3e2dfde9b44fe",
+    "src/policy.rs": "d6a5d3f88cc9a5d38a49c8a460e289a6d963278121391d2d23bd46e7f8ef2c78",
+    "src/rollout.wgsl": "473d8060d2302f2bfda2c7714c9b36d82c74bfe232f15d9f573994e591daa3a0",
+    "src/gpu_epochs.rs": "932d1b86d211c65a0b9e2ac4138b3bf1d2842e96894f31f8755121a2b3aa2a3c",
+    "src/lib.rs": "81489764b75fd25339defa8d706e65d7c68c89bfd5fee425c3975e9e2aed8dc5",
+    "src/gpu.rs": "328e9be807e2d217cf0d4405d2c3dc2e139427248206e438d628fd49b58aa73e",
+    "src/epochs.wgsl": "8a85b2ac20a376fb7f293ece2199a9e6a17411d61b479c787025763218ca641e",
+    "src/rollout.rs": "5108f754bcd7446fa186aabf519f4fc414fbfd003906b694647588e24cd53412",
+    "src/model.rs": "f134bd50836edfa5fba0d928a87d34b576e3d34ce3bf1bad7a798bd190311cfa",
+    "src/player.rs": "937449481f4455a5409decd56a1971c1594c595b9bd9942ec564c15ba0a674b1",
+    "src/bin/rollout_bench.rs": "5385afd486ffbe667659a7b226c1968a5d28fcb73239242c75030f88c704ccac",
+    "src/bin/response-player.rs": "1a9f3d651abb131ee488dd82a37f85438529edd2d8fa789df43817e10a181fb3",
+    "tests/model_contract.rs": "86f0d8c99d36b099498d034804223da2d5af4a0fda4da5d9e33792792d2280ff",
+    "tests/rollout_contract.rs": "e5d2d13124969dd7b8b469b3f94a2f793757861b5697b72b75fcfd66c5c7883a",
+    "tests/epochs_contract.rs": "8aa245bd587421ddee87bd2815ca177ea7af323fdb94906ef5d04a588e4f0f5d",
+    "tests/core_contract.rs": "17a5b72cc73c5368160e4e66ed26840cce3c95f6a83289d74b3d1539acb2e38d",
+    "tools/h2h_current.py": "ed6bffe6fcf0946b68bcd0fe75bdc70e8b60dba6f6f073f2c2707d23fc0d4f42"
+  },
+  "measured_binary_sha256": "c761facb4a27ed909b01740647179d6aed6ac05ee004c8e8acfeeb04b100fcd9",
+  "protocol_sha256": "fb719ba02dd60daedb76151f59e135b1bb380f044e6c5b9b9c3ed0e772a98cbc",
+  "summary_sha256": "3a0b7a96c7e9bc6eb87c5a6003de3656bb2b0024decf2a718e0c20f1a67692a5",
+  "checks": {
+    "gpu_tests": 26,
+    "cpu_tests": 18,
+    "modeled_trace_pairs": 1480,
+    "h2h_complete_games": 144,
+    "h2h_replayed_plays": 4032,
+    "portable_cpu_wasm_check": "passed",
+    "independent_read_only_review": "no remaining correctness blocker"
+  },
+  "status": "native GPU player verified; current-CPU comparison complete; no production promotion"
+}

@@ -1,0 +1,25 @@
+{
+  "repository": "https://huggingface.co/datasets/jasonyandell/texas-42-walt-response-ladder",
+  "revision": "1c98c9a499ba76f2ad346f69fde6517b18177f16",
+  "source_commit": "25af9d07da66fe93229ada1f6122f2e6f08d34a9",
+  "source_prefix": "experiments/response-ladder/",
+  "license": "CC0-1.0",
+  "original_files": 36965,
+  "original_bytes": 6035584113,
+  "raw_archives": 49,
+  "raw_archive_bytes": 206861363,
+  "table_rows": {
+    "games": 4542,
+    "decisions": 127170,
+    "lessons": 15862,
+    "files": 36965
+  },
+  "publication_verification": {
+    "all_original_archive_members_sha256_verified": true,
+    "all_154_publication_files_remote_hash_verified": true,
+    "anonymous_download_samples_verified": true,
+    "fresh_C_D_recorded_outcomes_reproduced_from_tables": true,
+    "independent_final_scientific_audit_executed": false
+  },
+  "scope": "Full tracked experimental package, including failed/incomplete runs and negative diagnostics. No player experiments restarted. Observed decision rows are not a modeled FieldQuery census."
+}

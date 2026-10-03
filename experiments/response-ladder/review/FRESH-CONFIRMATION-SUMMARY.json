@@ -1,0 +1,80 @@
+{
+  "panels": {
+    "c": {
+      "all_fallbacks": {
+        "candidate": 0,
+        "cpu": 0
+      },
+      "all_replay_checks_pass": true,
+      "complete": true,
+      "games": 1152,
+      "losses": 83,
+      "mean_paired_delta": -0.034722222222222224,
+      "pairs": 576,
+      "partnership_time": {
+        "candidate": {
+          "count": 1152,
+          "max_ms": 102.44125099999835,
+          "mean_ms": 42.68523690798612,
+          "median_ms": 41.77291500000102,
+          "p90_ms": 69.66495500000391,
+          "p95_ms": 80.97849899999687,
+          "p99_ms": 95.61870799999639
+        },
+        "cpu": {
+          "count": 1152,
+          "max_ms": 450.04774999999415,
+          "mean_ms": 90.5264131397571,
+          "median_ms": 73.81512500000653,
+          "p90_ms": 178.13054100000159,
+          "p95_ms": 216.3344170000201,
+          "p99_ms": 285.25850000000014
+        }
+      },
+      "plays": 32256,
+      "source": "results/compiled-h2h-v5-confirm-c-20260921/summary.json",
+      "source_sha256": "85bae9a5266da329b8098d96dc6116bd543148df2121ac73cfddbed7f9f2d5ca",
+      "ties": 430,
+      "wins": 63
+    },
+    "d": {
+      "all_fallbacks": {
+        "candidate": 0,
+        "cpu": 0
+      },
+      "all_replay_checks_pass": true,
+      "complete": true,
+      "games": 1152,
+      "losses": 74,
+      "mean_paired_delta": -0.052083333333333336,
+      "pairs": 576,
+      "partnership_time": {
+        "candidate": {
+          "count": 1152,
+          "max_ms": 110.97658600000315,
+          "mean_ms": 42.53480890798607,
+          "median_ms": 41.64399899999971,
+          "p90_ms": 68.73195900000175,
+          "p95_ms": 77.07100200000383,
+          "p99_ms": 87.51904100000729
+        },
+        "cpu": {
+          "count": 1152,
+          "max_ms": 443.03416700000037,
+          "mean_ms": 90.67355312152789,
+          "median_ms": 76.9630420000027,
+          "p90_ms": 182.20187499999696,
+          "p95_ms": 218.5550829999998,
+          "p99_ms": 304.7788789999997
+        }
+      },
+      "plays": 32256,
+      "source": "results/compiled-h2h-v5-confirm-d-20260921/summary.json",
+      "source_sha256": "6a7b49d1f75154c0ef77c4ad6c352433eb444ef202d3ac3ce33497c3ecb51259",
+      "ties": 458,
+      "wins": 44
+    }
+  },
+  "schema": "compiled-confirmation-review-summary-v1",
+  "scope": "Selected fields copied from completed harness summaries; full original summaries in SELECTED-RESULTS.tar.gz; independent additional final audit not run."
+}

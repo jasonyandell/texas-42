@@ -1,0 +1,28 @@
+[package]
+name = "walt-response-ladder"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[workspace]
+exclude = ["reference/native", "reference/native/walt"]
+
+[features]
+default = []
+gpu = ["dep:wgpu", "dep:pollster", "dep:bytemuck", "dep:rayon", "walt/parallel"]
+
+[dependencies]
+walt = { path = "reference/native/walt", default-features = false, features = ["stack-dice", "fixed-policy-choice", "fast-policy", "sharded-counters", "fast-rng", "singleton-dice", "hand-cache", "compact-depth", "compact-policy", "aligned-cache", "closed-buckets", "trick-table", "const-objective", "bypass-l0-cache-all", "two-trick-single", "lazy-record-hash", "coalesced-deadlines", "sharded-root-memo", "mask64-support-arena"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rayon = { version = "1", optional = true }
+num-traits = "0.2"
+num-rational = "0.4"
+wgpu = { version = "=30.0.1", optional = true, default-features = false, features = ["std", "parking_lot", "metal", "wgsl"] }
+pollster = { version = "0.4", optional = true }
+bytemuck = { version = "1", optional = true }
+
+[profile.release]
+overflow-checks = true
+lto = "thin"
+codegen-units = 1
