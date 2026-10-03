@@ -1,7 +1,9 @@
 # Quickstart
 
-Orientation for a fresh session. Repository state described: **2026-09-07
-(`c00717d1`)**; this page rewritten 2026-09-13. The wiki is **the book on 42** and
+Orientation for a fresh session. Repository state described: **2026-09-20
+(`afd46420`)** for the walt layer — curated 2026-09-20 by cycle 1 of the
+[curator](wiki/curator.md); the claim tier and the era records still describe
+`c00717d1` (2026-09-07); this page rewritten 2026-09-13. The wiki is **the book on 42** and
 [wiki/Home.md](wiki/Home.md) is its table of contents; this page is the on-ramp.
 Read this, then follow links only as your task needs them.
 
@@ -14,7 +16,8 @@ technical reader who has never played. This page assumes that vocabulary
 **Want walt (the imperfect-information seat) on one page — what exists, what it
 costs, what is redundant, what is next?** Read [`walt/MAP.md`](walt/MAP.md); it is
 the orchestrating session's page, rewritten at landings (last rewrite 2026-09-13,
-for the state at `c00717d1`).
+for the state at `c00717d1`; its top paragraph carries the 2026-09-14 and 09-20
+landing sessions' own notes, and `walt/LOG.md` has no entry after 2026-09-14).
 
 **Want the whole book?** [wiki/Home.md](wiki/Home.md) — five parts, one line per
 chapter, and three doorways (newcomer, mathematician, engineer).
@@ -34,8 +37,8 @@ with exact information-set machinery.
 |---|---|---|
 | `ingest/` | Two immutable spec packages, **v0.7** and **rec**; unchanged since 2026-07-26 | **Never modify.** Each has a verifying `MANIFEST.sha256` |
 | `wiki/` | The book: what's proved, at what tier, what's open; [Home](wiki/Home.md) is the TOC | Yes — it's the living synthesis; keep the page convention (line 1: the Home link · owns: … · Sources: …) and the cross-referenced ledgers in step |
-| `walt/` | **The project's player** — the imperfect-information seat that acts from one chair. One crate `walt` of ten modules across six workspace members ([walt-architecture](wiki/walt-architecture.md)); hub [walt](wiki/walt.md) | Yes, per `kanban/` and the binding briefs `walt/briefs/BRIEF-*.md` — but **everything under it is EXPLORATORY tier**, below every tier below |
-| `experiments/` | `experiments/partnership/` — the 2026-09-06/07 partnership program (player families, matched batteries, the pool, policy synthesis, relational learning); owned by [walt-partnership-program](wiki/walt-partnership-program.md); its own entry point is [`experiments/partnership/README.md`](experiments/partnership/README.md) | Yes — but it is **EXPLORATORY and CI-waived** (`walt/ci/check.sh` was not run on its commits); its results files govern its prose |
+| `walt/` | **The project's player** — the imperfect-information seat that acts from one chair. One crate `walt` of ten modules across six workspace members ([walt-architecture](wiki/walt-architecture.md)) (corrected 2026-09-20: eleven modules across eight members — `walt-player`, the seat deployed on the phone and the Mac since 2026-09-14, and `walt-cpu-bench`; the v34 CPU speedups are the native default since 2026-09-20); hub [walt](wiki/walt.md) | Yes, per `kanban/` and the binding briefs `walt/briefs/BRIEF-*.md` — but **everything under it is EXPLORATORY tier**, below every tier below |
+| `experiments/` | `experiments/partnership/` — the 2026-09-06/07 partnership program (player families, matched batteries, the pool, policy synthesis, relational learning); owned by [walt-partnership-program](wiki/walt-partnership-program.md); its own entry point is [`experiments/partnership/README.md`](experiments/partnership/README.md). Since 2026-09-13 also Sunshine (the partner-aware presets and the Mac table; [walt-partnership-program §11](wiki/walt-partnership-program.md#11-sunshine-2026-09-13--09-15-the-partner-aware-live-player)), and since 2026-09-18 `experiments/kiln/` — the opening bidding book Plunge bids from and the mining studies on its played corpus ([walt-kiln](wiki/walt-kiln.md); entry point [`experiments/kiln/README.md`](experiments/kiln/README.md)) | Yes — but it is **EXPLORATORY and CI-waived** (`walt/ci/check.sh` was not run on its commits); its results files govern its prose |
 | `rob/` | The Rust exact engine: executable spec + twelve byte-diffed receipts, rob the exact plan solver, the demoted baseline (evening player v0), the HTML inspector — the receipt discipline walt aspires to. Artifact guide: [rob](wiki/rob.md) | Yes, per its BRIEFs; code dormant since 2026-08-01 |
 | `exchange/` | Courier channel to ChatGPT 5.6 Pro for adversarial research; dispatches authorized in batches, quota agreed per batch (count in `exchange/submission_count.txt`; batch ceiling `HARD_CAP` in `automation/submit.mjs`). Chapter: [exchange](wiki/exchange.md) | Per the [pro-exchange protocol](exchange/README.md); **never submit without Jason's explicit go** |
 | `lean/` | Lean 4 + mathlib kernel formalization — all 42 priority-0 rows kernel-proved (2026-08-02). Artifact guide: [lean](wiki/lean.md) | Yes, per [lean/PROOFS.md](lean/PROOFS.md) |
@@ -78,7 +81,10 @@ with exact information-set machinery.
   20 GB of test-binary RSS on the 48 GB machine
   ([walt-architecture](wiki/walt-architecture.md) §4 owns the numbers). **Full walt
   CI was waived on the 2026-09-06/07 landings** (`d8400713..c00717d1`); whether
-  `main` is green under the full gate at `c00717d1` is not known from any record.
+  `main` is green under the full gate at `c00717d1` is not known from any record
+  — and it is not recorded run on any of the 73 landings `c00717d1..afd46420`
+  (2026-09-13 → 09-20) either; the v34 receipts say `full_workspace_ci: "not
+  run"` ([walt-instruments §3.7](wiki/walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20)).
 - **Never end a turn with background work pending** (`CLAUDE.md`, "Agents"): a
   subagent that yields while a `run_in_background` job runs is never woken. Long jobs
   run in the foreground under the tool's timeout, split under it, or polled in a
@@ -108,13 +114,14 @@ shortcut. The minimal exact decision state is the reduced viewer kernel, proved
 strictly finer than the true quotient via the dead-cut lemma
 ([reduced-viewer-kernel](wiki/reduced-viewer-kernel.md), x:003).
 
-## Current state (2026-09-07)
+## Current state (2026-09-20 for the walt layer; the claim tier as of 2026-09-07)
 
 - **The claim tier has not moved.** Nothing at the corpus, kernel, exchange-CONFIRMED
   or rob-receipt tier has changed since the Lean priority-0 close (2026-08-02) and
   the ledger's last row (x:024, 2026-08-25); not one commit since 2026-08-24 touches
-  `ingest/`, `rob/`, or a Lean theorem ([timeline](wiki/timeline.md) Part D). Every
-  wave below is **EXPLORATORY**, one pointer each.
+  `ingest/`, `rob/`, or a Lean theorem ([timeline](wiki/timeline.md) Part D; through
+  `afd46420` the only touches under `rob/` and `lean/` are PR #91's README edits —
+  Part E). Every wave below is **EXPLORATORY**, one pointer each.
 - **Seat play and the match** (EXPLORATORY; [walt-seat-play](wiki/walt-seat-play.md)).
   Objective ruled 2026-08-17: **P(make the bid)** — pmake; trick differential is a
   proxy. The level-1 scenario-player seat played its first full hands 2026-08-17,
@@ -123,7 +130,9 @@ strictly finer than the true quotient via the dead-cut lemma
   `walt/probes/m3/arena_results_2026-08-17.txt`; an arena outcome about play, never a
   statement about exact values). Jason has played it live at the plunge table. **No
   default has changed since 2026-08-19** (θ = 11/16); every later change on the live
-  path is parity-gated.
+  path is parity-gated. (Corrected 2026-09-20: true through `c00717d1`; since
+  2026-09-14 the seat Plunge ships is the shared `walt-player` crate — the next
+  bullets — under conformance receipts, with no record citing the ruling for it.)
 - **Calculated evidence, 2026-08-24 → 08-29** (EXPLORATORY;
   [walt-calculated-evidence](wiki/walt-calculated-evidence.md)). Jason's two
   hand-ferried parents adjudicated same-day (CE-A1..A8, L2-A1..A7): anytime-valid
@@ -178,6 +187,50 @@ strictly finer than the true quotient via the dead-cut lemma
   dynamics, executable policies). The exact gym grew 6 → 170 → 433 → the 30-case
   composed exam (L1 24/30, L2 Partner 26/30). The relational learner's shared actors
   still trail sampled tables. No default changed.
+- **Sunshine, 2026-09-13 → 09-15** (EXPLORATORY, CI-waived; [walt-partnership-program §11](wiki/walt-partnership-program.md#11-sunshine-2026-09-13--09-15-the-partner-aware-live-player),
+  [walt-gym §11](wiki/walt-gym.md#11-sunshine-2026-09-13-the-gym-under-deployed-continuations-and-the-live-move-intake), [walt-scheme-fix §10.4](wiki/walt-scheme-fix.md#104-sunshine-2026-09-13--09-15-the-count-offer-query-as-a-live-gate-and-recipes-with-a-selectable-continuation); added 2026-09-20). Two optional partner-aware presets
+  around L1 — `l1-partner-count-review` (250 ms, valued under the gym teacher's
+  field) and `l1-partner-rollout` (500 ms, every legal root action through
+  completed deployed L1; Plunge's "L1 + partner check") — neither a default. Every
+  ordinary-game panel tied (32 + 100 + 64 mirrored pairs, 192 conditional): "no
+  demonstrated strength gain". Conditional skill is model-relative: the review
+  24/30 → 29/30 on the teacher's exam, two useful / four reversed under deployed
+  L1; the rollout 11 / 2 development, 1 / 1 fresh, the fresh harm a
+  deadline-truncated prefix (results files `experiments/partnership/campaigns/sunshine-*/RESULTS.md`).
+  The gym now names its continuation; the Mac table feeds flagged human-play moves
+  into it; the workshop harness is recorded (2026-09-15), not built.
+- **The shared deployed player, 2026-09-14** (EXPLORATORY, conformance receipts;
+  [walt-seat-play §8A](wiki/walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward); added 2026-09-20). The deployed Walt is **one crate on two hosts**:
+  `walt-player` — its WASM in Plunge on the phone, its native `walt-table` behind
+  the Mac bridge — fixed L1 40/8 with an 8/2 reserve and the optional 500 ms partner
+  rollout in 14 s (level 1, voidless, fixed selection), and a once-around auction at
+  threshold 3/4, "deliberately an uncalibrated bidding policy". Native/WASM exact
+  agreement on nine declarations, a late root and the 64-world partner prefix;
+  "The phone itself has not yet been timed" (`walt/walt-player/README.md`). No
+  strength claim; no arena run.
+- **Kiln, 2026-09-18 → 09-19** (EXPLORATORY; [walt-kiln](wiki/walt-kiln.md); added
+  2026-09-20). Plunge's table bids catalogue hands by lookup in Kiln's played book
+  since 2026-09-19 (Plunge `c7a1215d`): 500 hands / 125 deals / 4,500 panels /
+  **305,440 games** of the deployed player at bid 30, the recommendation the
+  highest 30–42 target reached in 4/5 of games, 75 panels `capped-unsettled`;
+  playing WASM unchanged; production stopped (`experiments/kiln/played-bidder-release.json`).
+  The scalar model survey that preceded it is frozen (1,001,348 receipts / 851
+  settled deals) after its one calibration check: forecast 121/160, executed
+  21/100 — "a candidate explanation, not a cause established by the experiment"
+  (`CALIBRATION-SIX36.md`). Four mining studies on the played corpus replicated two
+  opening outcome associations on fresh deals and changed no move rule (§8); the
+  solver work measured through the Kiln bench (§9) is inside the baseline v34
+  measured against.
+- **CPU speedups v34 and the phone release, 2026-09-20** (EXPLORATORY, conformance
+  receipts; [walt-instruments §3.7](wiki/walt-instruments.md#37-native-cpu-speedups-v34-and-the-phone-release-2026-09-18--09-20); added 2026-09-20). The `cpu-speedups` umbrella (26
+  features) is the native default in `walt`, `walt-player` and `walt-cpu-bench`:
+  12/12 paired L2 Partner 40/8/2 games exact-equal, median **13.13×**
+  (`walt/receipts/cpu-speedups-v34/comparison.json`); shipped to Plunge the same
+  day (app `65f8f68b…`, WASM `b3016e18…`; 15/15 shipped-WASM parity; hosted
+  opening 265 ms — "Mac Chrome timings, not Pixel measurements"). "Finite
+  conformance receipts, not universal equivalence proofs"; no strength claim;
+  `full_workspace_ci: "not run"`. Every walt number computed in a default build
+  after 2026-09-20 runs the v34 paths.
 - **Exchange: dispatches 001–024** (count 24; 016–024 hand-ferried by Jason;
   chapter [exchange](wiki/exchange.md)). 001–008 the foundation batch (adjudicated;
   007/008 CONFIRMED with caveats); 009 **PARTIAL**, 010 and 012 **CONFIRMED**; the
@@ -213,6 +266,19 @@ strictly finer than the true quotient via the dead-cut lemma
 
 ## The live frontier
 
+- **As of `afd46420` (2026-09-20; added 2026-09-20).** The deployed seat is
+  `walt-player` + v34 + the Kiln bid book on the phone and the Mac
+  ([walt-seat-play §8A](wiki/walt-seat-play.md#8a-the-shared-deployed-player-walt-player-2026-09-14-onward)); what the cycle's chapters name as open: the partnership gap ("The
+  partnership gap is still open", `SUNSHINE-NOTES.md`; whether a bounded partner
+  check should override L1 on sampled evidence at all — partnership §9 item 10;
+  the human partner as a continuation condition no census models), the Kiln
+  calibration gap's cause, and whether Plunge's forced last bid (2026-09-20)
+  belongs to the straight-42 rules profile (a question for Part I). **PR #90**
+  (`codex/nello-player`, "Add doubles-suit Nel-O to the shared Walt player") is
+  open and unmerged as of 2026-09-21; the book lists Nel-O as a formal exclusion,
+  so a merge would be the first foundation change under the
+  [curator](wiki/curator.md)'s sorting rule ([walt](wiki/walt.md), "The unmerged
+  branches").
 - **Jason's ruling of 2026-09-04**: "follow through on what we have, then invest in a
   simplification/unification attempt" — **no new mathematical parent until the
   consolidation slice lands.** The order (`walt/MAP.md`): the σ0 read-key study
@@ -288,7 +354,8 @@ strictly finer than the true quotient via the dead-cut lemma
   its in-flight jobs (8.8 GB in-gate after `b6de5a25`); the FH3 record run peaked
   at 19.4 GB ([walt-architecture](wiki/walt-architecture.md) §4). Don't run two
   gates at once.
-  And it was **not run on the 2026-09-06/07 commits** (session waiver).
+  And it was **not run on the 2026-09-06/07 commits** (session waiver), nor is it
+  recorded run on any landing through `afd46420` (2026-09-20).
 - **The wedge.** An agent that ends its turn with a background job running is never
   woken when the job finishes — the project's recurring stall (2026-09-04: gates and
   record finished at 02:11, agent silent for five hours). Foreground with the tool's

@@ -276,3 +276,33 @@ never claims, and nothing above the walt fence cites them.
   in the repository as of c00717d1. Owner:
   [walt-focal-horizon-era](walt-focal-horizon-era.md); record
   `walt/briefs/FH-RESPONSE-TO-PRO.md` §4.
+- **The Kiln calibration gap: why did the model forecast 121/160 for a hand the
+  table made 21/100?** (Added 2026-09-20, cycle 1.) The scalar-price survey's one
+  calibration check — a sixes/36 hand selected before any outcome was played —
+  forecast 121/160 = 75.625 % and made 21 of 100 fresh hidden completions when the
+  deployed L1+partner player actually played all four seats (Wilson 95 %
+  14.17–29.98 %); 1,808 decisions were replayed through Plunge's engine. The
+  diagnostic follow-up confirmed two structural mismatches from source (the
+  forecast prices against modeled level-0 seats while actual seats used the
+  deployed L1 player and partner review; the forecast optimizes over its original
+  sampled worlds while actual play samples anew at each decision) and stops there:
+  "This policy mismatch is a candidate explanation, not a cause established by the
+  experiment"; "The causal contributions remain unmeasured". The isolation it
+  proposes (held-out completions with the deployed bidder against the same modeled
+  field, then changed partner/opponent policies) has not been run; the survey was
+  frozen and replaced by the actual-play book. Owner: [walt-kiln](walt-kiln.md)
+  §1.4, §6; records `experiments/kiln/CALIBRATION-SIX36.md`,
+  `calibration-six36-summary.json`, commit `466db3f1`.
+- **Should a bounded partner check override L1 on sampled evidence at all?**
+  (Added 2026-09-20, cycle 1.) The partner rollout's one fresh harm: at the 500 ms
+  deadline 52 complete paired worlds favored withholding 34–33, the full 210-world
+  census favored offering 140/210 to 139/210, and the same shuffled stream at 64
+  worlds reads 41–40 for offering — "the budgeted prefix happened to stop while
+  the small difference pointed the other way." The override study (require one,
+  two or three extra sampled successes before changing L1) keeps margin one on
+  development regret (0.0608 / 0.0627 / 0.0740 pp) and says "The small
+  differences do not settle an optimal threshold." Every ordinary-game panel
+  tied, so no arena evidence bears on it. Owner:
+  [walt-partnership-program](walt-partnership-program.md) §11.3, §11.5, §9 item
+  10; records `experiments/partnership/campaigns/sunshine-rollout-v1/RESULTS.md`
+  (`summary.json` `prefixes`), `campaigns/sunshine-playable-v1/override-study.json`.
