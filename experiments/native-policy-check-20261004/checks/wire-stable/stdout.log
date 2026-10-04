@@ -1,0 +1,10 @@
+{
+  "exhausted_host_clock_retains_legal_checkpoint": 4,
+  "full_hybrid_native_wasm_vectors": 36,
+  "wasm_public_legal_checkpoints": 72,
+  "zero_budget_no_vector_refusals": 8,
+  "invalid_complete_profiles_each": 11,
+  "native_sha256": "51259e4088de71f813ab1c8ad0b81345129ea01c26dbefec60cba462c1878de7",
+  "wasm_sha256": "11e2f2ca71b14220d8cf76ac9b21e63450257ee1ec5b86cc765f66d250963f3d",
+  "scope": "Finite same-late-policy wire and checkpoint conformance; real elapsed clocks, canonical14s fullcalls. Zero budget tests are late audit interface. No physical-phone/browser timing."
+}

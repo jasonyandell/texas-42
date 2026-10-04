@@ -1,0 +1,2024 @@
+{
+  "schema": "native-policy-prespecified-panel-v1",
+  "source_checkpoint": "47db3c50",
+  "source_seed_generator": "Python Random(202610041130).sample(range(1008000,2008000),18)",
+  "independence_assumption": "Distinct PRNG source deals treated as independent draws; all4rotations and bothroles correlated within each source deal. Fixed9declaration stratification twice each. No outcome-dependent selection.",
+  "games": [
+    {
+      "seed": 1656160,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 0,
+      "backend": "native"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 1,
+      "backend": "native"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 2,
+      "backend": "native"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 3,
+      "backend": "native"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 4,
+      "backend": "native"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 5,
+      "backend": "native"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 6,
+      "backend": "native"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 7,
+      "backend": "native"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 9,
+      "backend": "native"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1656160,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1018886,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1480848,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1567341,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1482701,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1777652,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1850758,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1649340,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1409196,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1823378,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 0,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1355837,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 1,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1505032,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 2,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1914545,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 3,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1855597,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 4,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1274472,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 5,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1395893,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 6,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1848741,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 7,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 0,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 0,
+      "role": "defending",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 1,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 1,
+      "role": "defending",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 2,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 2,
+      "role": "defending",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 3,
+      "role": "declaring",
+      "decl": 9,
+      "backend": "wasm"
+    },
+    {
+      "seed": 1313268,
+      "rotation": 3,
+      "role": "defending",
+      "decl": 9,
+      "backend": "wasm"
+    }
+  ]
+}

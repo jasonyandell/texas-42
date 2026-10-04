@@ -1,0 +1,42 @@
+{
+  "source_checkpoint": "47db3c50ba8af31544e7de05bb2745b24f0abff5",
+  "independent_git_objects": true,
+  "historical_tracked_files_preserved": true,
+  "matched_native_wasm_games": 144,
+  "matched_native_wasm_moves": 4032,
+  "matched_late_vectors": 276,
+  "source_deals": 18,
+  "source_deals_not_doubled_across_backends": true,
+  "cold_vectors": 432,
+  "production_policy_comparisons": 84,
+  "capped_receipts": 78,
+  "failed_developmental_receipts": [
+    {
+      "path": "checks/independent-build/run.json",
+      "status": "failed",
+      "elapsed_seconds": 0.024283
+    },
+    {
+      "path": "checks/independent-fresh/run.json",
+      "status": "failed",
+      "elapsed_seconds": 0.325028
+    },
+    {
+      "path": "results/final-audit/run.json",
+      "status": "failed",
+      "elapsed_seconds": 0.140784
+    }
+  ],
+  "maximum_allowance_seconds": 295,
+  "maximum_elapsed_seconds": 28.015908,
+  "complete_batch_walls_s": {
+    "native": 96.911141,
+    "wasm": 96.66032100000001
+  },
+  "identities": {
+    "native_sha256": "51259e4088de71f813ab1c8ad0b81345129ea01c26dbefec60cba462c1878de7",
+    "rebuilt_wasm_sha256": "11e2f2ca71b14220d8cf76ac9b21e63450257ee1ec5b86cc765f66d250963f3d",
+    "pinned_wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119"
+  }
+}
+{"manifest_paths": 560}

@@ -1,0 +1,8 @@
+{"seed": 1823378, "rotation": 0, "role": "declaring", "decl": 0, "backend": "native", "points": [27, 15], "made": false, "game_seconds": 0.749172125}
+{"seed": 1823378, "rotation": 0, "role": "defending", "decl": 0, "backend": "native", "points": [11, 31], "made": false, "game_seconds": 0.7541218329999999}
+{"seed": 1823378, "rotation": 1, "role": "declaring", "decl": 0, "backend": "native", "points": [15, 27], "made": false, "game_seconds": 0.754876084}
+{"seed": 1823378, "rotation": 1, "role": "defending", "decl": 0, "backend": "native", "points": [31, 11], "made": false, "game_seconds": 0.7513907079999997}
+{"seed": 1823378, "rotation": 2, "role": "declaring", "decl": 0, "backend": "native", "points": [14, 28], "made": false, "game_seconds": 0.7893134170000002}
+{"seed": 1823378, "rotation": 2, "role": "defending", "decl": 0, "backend": "native", "points": [13, 29], "made": false, "game_seconds": 0.7931349999999999}
+{"seed": 1823378, "rotation": 3, "role": "declaring", "decl": 0, "backend": "native", "points": [28, 14], "made": false, "game_seconds": 0.7872961250000001}
+{"seed": 1823378, "rotation": 3, "role": "defending", "decl": 0, "backend": "native", "points": [29, 13], "made": false, "game_seconds": 0.793134792}

@@ -1,0 +1,10 @@
+{
+  "fresh_roots": 36,
+  "full_vectors": 36,
+  "independent_replayed_worlds": 1440,
+  "tied_vectors": 16,
+  "malformed_refusals": 17,
+  "ineligible_roots": 3,
+  "binary_sha256": "217e7a29b6297fb9db2ccfbee1a2a0d02583d2ffeb5e64147f90ef1ba1298c37",
+  "scope": "Finite complete late policy parity; native status replay shared, Python full deal replay independent. No strength inference."
+}

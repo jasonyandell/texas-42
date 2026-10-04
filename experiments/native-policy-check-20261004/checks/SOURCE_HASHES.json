@@ -1,0 +1,22 @@
+{
+  "experiments/native-policy-check-20261004/adapter/Cargo.toml": "e965b141edde08018eb308ae4470c6c00cc7a09310ee356466ce0913fde941ba",
+  "experiments/native-policy-check-20261004/adapter/src/lib.rs": "11cf8c59e8f4a1a1c51b05134e3854652026cff8e05157f2068643dcd25ab9ac",
+  "experiments/native-policy-check-20261004/adapter/src/main.rs": "d2ac8caf37d2f756435befe7f9bddc6d56c2b1e1e258e9e40c001ccf82ed83fa",
+  "experiments/native-policy-check-20261004/checks/PolicyEquivalence.lean": "0ac7ff1267ce554ddc280bb611bc2d8b0514a1c73dfd5bff426195af8bf15d16",
+  "experiments/native-policy-check-20261004/checks/audit_saved.py": "b81543d5f70f3b274486f07a2b77cc51deb269d09a4679db757e5745dbeeceed",
+  "experiments/native-policy-check-20261004/checks/check_adapter.py": "b78741a64ed67c804f6bc01a7c866736a88ca180698566534330f01ec3fcbdd1",
+  "experiments/native-policy-check-20261004/checks/check_cold.py": "ceeae45a7f38d61341c0f46b5e28d4ebb90f53acdf4edf38639541e9f31e80de",
+  "experiments/native-policy-check-20261004/checks/check_games.py": "abce4a6c8256425b6847b21a0bb9a7ee639f9c8d24c7ec67450bd0c1f0ca7186",
+  "experiments/native-policy-check-20261004/checks/check_wire.py": "70cfe18e1082c6fa6253ace86fd31e35d07662b60ff11032805e7d27870826a3",
+  "experiments/native-policy-check-20261004/checks/runner/Cargo.toml": "bef7911d3619689b77bd7291a9623748eb29c08b41abdee1c7d08e60f0f5e8be",
+  "experiments/native-policy-check-20261004/checks/runner/src/main.rs": "cac7a02174aea8ac8d242014e0944612ea3e8a0d03980db99106d68054d55b74",
+  "experiments/native-policy-check-20261004/checks/wasm_worker.mjs": "b42fdfbf9530164e84240d2b4a95aa55efa05ecf955285913d90f05a79699665",
+  "experiments/native-policy-check-20261004/plan.json": "25da704eb3f27bf2b811c8fb21ae43814ae0b75fe2a354e9ecba82f4dedd1e6c",
+  "experiments/native-policy-check-20261004/play.py": "f80b8e71f1c221290a6df0ece61c5b19b8cac3256bc4f8dc3ca6cf2cc13d63bb",
+  "experiments/native-policy-check-20261004/wasm_worker.mjs": "ceb5456fd988d91517b7e0e269314a6ec0afb3adfcc6181df84c51b89ea785d3",
+  "experiments/resumable-choice-20261004/arena.py": "c5e89aead7110faf8c4504d985728c2f017701335960e898aaea0ec89951c745",
+  "experiments/resumable-choice-20261004/integration/src/main.rs": "577d6d38acdff1e484209344b79a9b28a2318db72f1ecc952ecffa682fbe8a1e",
+  "experiments/resumable-choice-20261004/player.py": "18db7db06b16fb2664a7efaeef884939f9d8c391b656178032883d627863c9d1",
+  "experiments/native-policy-check-20261004/adapter/target/release/native-late-player": "51259e4088de71f813ab1c8ad0b81345129ea01c26dbefec60cba462c1878de7",
+  "experiments/native-policy-check-20261004/adapter/target/wasm32-unknown-unknown/release/native_late_player.wasm": "11e2f2ca71b14220d8cf76ac9b21e63450257ee1ec5b86cc765f66d250963f3d"
+}

@@ -1,0 +1,6 @@
+{
+  "native_wasm_matching_complete_game_trajectories": 144,
+  "matching_public_actor_requests_and_decisions": 4032,
+  "independent_source_deals": 18,
+  "scope": "Finite same prespecified game panel, excluding clock/accounting fields; does not prove policies globally equivalent or stronger than pinnedphone."
+}

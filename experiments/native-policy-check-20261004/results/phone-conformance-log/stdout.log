@@ -1,0 +1,30 @@
+{
+  "calls": 42,
+  "complete_semantic_comparisons": 84,
+  "late_public_inputs": 36,
+  "other_public_inputs": 6,
+  "native_sha256": "51259e4088de71f813ab1c8ad0b81345129ea01c26dbefec60cba462c1878de7",
+  "rebuilt_wasm_sha256": "11e2f2ca71b14220d8cf76ac9b21e63450257ee1ec5b86cc765f66d250963f3d",
+  "pinned_wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+  "phone_cpu_and_rss": [
+    {
+      "cpu_s": 1.803611,
+      "peak_rss_bytes": 162758656
+    }
+  ],
+  "rebuilt_cpu_and_rss": [
+    {
+      "cpu_s": 1.8019500000000002,
+      "peak_rss_bytes": 163397632
+    }
+  ],
+  "phone_linear_memory_peak": 22413312,
+  "rebuilt_linear_memory_peak": 22151168,
+  "elapsed_s": 5.061057624999999,
+  "excluded_fields": [
+    "elapsed_us",
+    "over_budget",
+    "solver_us"
+  ],
+  "scope": "All remaining recursive result fields identical across production L1/partner route native, rebuilt linked WASM and exact pinned production phone WASM. Public only requests, all9declarations, early/forced/settled/opening. Different late L3 policy checked separately; no L3-versus-L1 equivalence assertion or physical phone timing."
+}

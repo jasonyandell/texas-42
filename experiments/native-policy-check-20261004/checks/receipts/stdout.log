@@ -1,0 +1,156 @@
+{
+  "capped_receipts": 27,
+  "failed_receipts": [
+    {
+      "path": "independent-build/run.json",
+      "status": "failed",
+      "elapsed": 0.024283
+    },
+    {
+      "path": "independent-fresh/run.json",
+      "status": "failed",
+      "elapsed": 0.325028
+    }
+  ],
+  "all_allowances_at_most295": true,
+  "all_elapsed_below300": true,
+  "all_children_reaped": true,
+  "source_hashes": 20,
+  "receipts": [
+    {
+      "path": "cold-arithmetic/run.json",
+      "status": "completed",
+      "elapsed": 0.047985
+    },
+    {
+      "path": "game-traces/run.json",
+      "status": "completed",
+      "elapsed": 0.148136
+    },
+    {
+      "path": "games-native/run.json",
+      "status": "completed",
+      "elapsed": 1.503694
+    },
+    {
+      "path": "games-wasm/run.json",
+      "status": "completed",
+      "elapsed": 1.475324
+    },
+    {
+      "path": "generate-fresh/run.json",
+      "status": "completed",
+      "elapsed": 0.496984
+    },
+    {
+      "path": "history/run.json",
+      "status": "completed",
+      "elapsed": 0.265194
+    },
+    {
+      "path": "identity/run.json",
+      "status": "completed",
+      "elapsed": 0.089843
+    },
+    {
+      "path": "identity-final/run.json",
+      "status": "completed",
+      "elapsed": 0.089896
+    },
+    {
+      "path": "independent-build/run.json",
+      "status": "failed",
+      "elapsed": 0.024283
+    },
+    {
+      "path": "independent-build-counter-fixed/run.json",
+      "status": "completed",
+      "elapsed": 0.318261
+    },
+    {
+      "path": "independent-build-fixed/run.json",
+      "status": "completed",
+      "elapsed": 7.985711
+    },
+    {
+      "path": "independent-build-fresh/run.json",
+      "status": "completed",
+      "elapsed": 0.321955
+    },
+    {
+      "path": "independent-fresh/run.json",
+      "status": "failed",
+      "elapsed": 0.325028
+    },
+    {
+      "path": "independent-fresh-fixed/run.json",
+      "status": "completed",
+      "elapsed": 0.499035
+    },
+    {
+      "path": "lean-arena/run.json",
+      "status": "completed",
+      "elapsed": 0.263586
+    },
+    {
+      "path": "lean-bounds/run.json",
+      "status": "completed",
+      "elapsed": 0.312277
+    },
+    {
+      "path": "lean-policy/run.json",
+      "status": "completed",
+      "elapsed": 0.500523
+    },
+    {
+      "path": "lean-resumable/run.json",
+      "status": "completed",
+      "elapsed": 0.27027
+    },
+    {
+      "path": "native-adapter-final/run.json",
+      "status": "completed",
+      "elapsed": 0.665351
+    },
+    {
+      "path": "native-adapter-fresh/run.json",
+      "status": "completed",
+      "elapsed": 0.614581
+    },
+    {
+      "path": "native-adapter-stable/run.json",
+      "status": "completed",
+      "elapsed": 0.381902
+    },
+    {
+      "path": "phone-records/run.json",
+      "status": "completed",
+      "elapsed": 0.047838
+    },
+    {
+      "path": "wasm-adapter-final/run.json",
+      "status": "completed",
+      "elapsed": 3.306226
+    },
+    {
+      "path": "wasm-adapter-fresh/run.json",
+      "status": "completed",
+      "elapsed": 3.437104
+    },
+    {
+      "path": "wasm-adapter-stable/run.json",
+      "status": "completed",
+      "elapsed": 3.418379
+    },
+    {
+      "path": "wire-final/run.json",
+      "status": "completed",
+      "elapsed": 3.29179
+    },
+    {
+      "path": "wire-stable/run.json",
+      "status": "completed",
+      "elapsed": 3.56285
+    }
+  ]
+}

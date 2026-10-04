@@ -1,0 +1,7 @@
+'WaltResearch.ResumableChoice.nature_delta_exact' depends on axioms: [propext, Quot.sound]
+'WaltResearch.ResumableChoice.max_lower_incremental' depends on axioms: [propext, Quot.sound]
+'WaltResearch.ResumableChoice.min_upper_incremental' depends on axioms: [propext, Quot.sound]
+'WaltResearch.ResumableChoice.max_upper_unchanged' depends on axioms: [propext, Quot.sound]
+'WaltResearch.ResumableChoice.min_lower_unchanged' depends on axioms: [propext, Quot.sound]
+'WaltResearch.ResumableChoice.unchanged_ancestor' does not depend on any axioms
+'WaltResearch.ResumableChoice.completed_choice_recycling' does not depend on any axioms

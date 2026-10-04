@@ -1,0 +1,13 @@
+{
+  "historical_manifest_entries": {
+    "astra-sol-20261004": 176,
+    "adversarial-20261004": 420,
+    "native-frontier-20261004": 256,
+    "prefix-state-20261004": 251,
+    "demand-bounds-20261004": 232,
+    "choice-arena-20261004": 255,
+    "resumable-choice-20261004": 292
+  },
+  "total": 1882,
+  "all_file_bytes_preserved": true
+}

@@ -1,0 +1,95 @@
+{
+  "public_turns": 12,
+  "source_deals": 12,
+  "requests_per_variant": 72,
+  "repeats": 6,
+  "complete_vector_comparisons": 432,
+  "all_complete": true,
+  "variants": {
+    "resumable": {
+      "calls": 72,
+      "complete": 72,
+      "errors": [],
+      "panel_total_median_ms": 310.438999499999,
+      "cold_request_median_ms": 27.90518750000004,
+      "child_cpu_median_ms": 24.705,
+      "peak_rss_median_bytes": 6529024.0,
+      "sample_median_us": 5.0,
+      "wasm_linear_memory_peak": 0
+    },
+    "arena": {
+      "calls": 72,
+      "complete": 72,
+      "errors": [],
+      "panel_total_median_ms": 356.26748250000094,
+      "cold_request_median_ms": 30.56387500000035,
+      "child_cpu_median_ms": 29.176499999999997,
+      "peak_rss_median_bytes": 5767168.0,
+      "sample_median_us": 5.0,
+      "wasm_linear_memory_peak": 0
+    },
+    "lazy": {
+      "calls": 72,
+      "complete": 72,
+      "errors": [],
+      "panel_total_median_ms": 272.9635235000005,
+      "cold_request_median_ms": 23.10927199999968,
+      "child_cpu_median_ms": 21.712000000000003,
+      "peak_rss_median_bytes": 4972544.0,
+      "sample_median_us": 5.0,
+      "wasm_linear_memory_peak": 0
+    },
+    "control-native": {
+      "calls": 72,
+      "complete": 72,
+      "errors": [],
+      "panel_total_median_ms": 57.72929100000157,
+      "cold_request_median_ms": 4.939562499999884,
+      "child_cpu_median_ms": 5.329000000000001,
+      "peak_rss_median_bytes": 3932160.0,
+      "sample_median_us": 5.0,
+      "wasm_linear_memory_peak": 0
+    },
+    "native": {
+      "calls": 72,
+      "complete": 72,
+      "errors": [],
+      "panel_total_median_ms": 52.621980500000554,
+      "cold_request_median_ms": 4.338583500000492,
+      "child_cpu_median_ms": 2.9830000000000005,
+      "peak_rss_median_bytes": 3284992.0,
+      "sample_median_us": 7.0,
+      "wasm_linear_memory_peak": 0
+    },
+    "wasm": {
+      "calls": 72,
+      "complete": 72,
+      "errors": [],
+      "panel_total_median_ms": 692.5067105000021,
+      "cold_request_median_ms": 58.05422899999968,
+      "child_cpu_median_ms": 80.09749999999998,
+      "peak_rss_median_bytes": 86949888.0,
+      "sample_median_us": 76.0,
+      "wasm_linear_memory_peak": 7012352
+    }
+  },
+  "selection_of_saved_inputs_s": 0.008342791999999998,
+  "elapsed_s": 10.906215,
+  "binary_sha256": {
+    "control": "df904f6a4321f1b7b5bd88a5a99404bdd7616bd21623a5d884d5c412a38b3567",
+    "native": "51259e4088de71f813ab1c8ad0b81345129ea01c26dbefec60cba462c1878de7",
+    "wasm": "11e2f2ca71b14220d8cf76ac9b21e63450257ee1ec5b86cc765f66d250963f3d"
+  },
+  "workers_per_request": 1,
+  "outer_worlds": 40,
+  "budgets": [
+    4,
+    2,
+    2,
+    2
+  ],
+  "field": "Level(2)",
+  "inner_belief": "Voidless",
+  "ties": "ascending",
+  "scope": "Same12actual public late turns, one/source deal. Cold process/request. Includes request JSON, process startup/teardown, strict status/full-history replay, setup, every sampling attempt, solve, Node module compilation/instantiation and parse/tempfiles. Saved-referee setup is reported separately and shared; no unknown hands supplied. Frontier per-worker500k rows/20m work/50kqueries/50kcache/2s; recursive2s, own cache/work instrument. Logical caps not equivalent RSS budgets. Six rotated positions; refused observations excluded from speed claims. No whole-Walt phone performance, strength, arbitrary k, or parallel scaling inference."
+}

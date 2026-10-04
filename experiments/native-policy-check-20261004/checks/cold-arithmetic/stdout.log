@@ -1,0 +1,68 @@
+{
+  "actual_source_deals": 12,
+  "selected_public_turns": 12,
+  "rotated_repetitions": 6,
+  "full_vectors": 432,
+  "refusals": 0,
+  "balanced_process_positions": {
+    "resumable": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+    ],
+    "arena": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+    ],
+    "lazy": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+    ],
+    "control-native": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+    ],
+    "native": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+    ],
+    "wasm": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      12
+    ]
+  },
+  "checked_all_complete_cost_sums_and_medians": true,
+  "actual_binary_hashes_checked": true,
+  "cold_panel_median_ms": {
+    "resumable": 310.438999499999,
+    "arena": 356.26748250000094,
+    "lazy": 272.9635235000005,
+    "control-native": 57.72929100000157,
+    "native": 52.621980500000554,
+    "wasm": 692.5067105000021
+  },
+  "scope": "Retained same-policy actual-turn cold process/request arithmetic. Common persistent Python driver startup/imports and saved-referee selection are outside request intervals; selection reported separately. Node compilation/instantiation included. No timing rerun, physical-device or whole-game strength inference."
+}

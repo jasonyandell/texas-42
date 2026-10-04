@@ -1,0 +1,19 @@
+{
+  "backend": "native",
+  "complete_games": 144,
+  "independent_source_deals": 18,
+  "independently_replayed_moves": 4032,
+  "late_complete_vectors": 276,
+  "unique_late_vectors_freshly_native_revalidated": 276,
+  "late_refusals": 0,
+  "pair_wins": 0,
+  "pair_losses": 2,
+  "pair_ties": 70,
+  "mean_paired_make_advantage": -0.027777777777777776,
+  "hoeffding95": [
+    -0.6679929719910582,
+    0.6124374164355026
+  ],
+  "strength_claim": false,
+  "scope": "Finite prespecified balanced fixedbid30 panel. Intervals conditional on independent source-deal sampling, rotations clustered. No generic play-strength or phone-device timing theorem."
+}

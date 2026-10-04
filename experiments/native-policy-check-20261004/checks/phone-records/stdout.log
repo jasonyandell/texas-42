@@ -1,0 +1,18 @@
+{
+  "retained_calls": 42,
+  "recursive_non_clock_comparisons": 84,
+  "all9declarations": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9
+  ],
+  "public_only": true,
+  "phone_policy_distinct_from_late_policy": true,
+  "pinned_wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119"
+}

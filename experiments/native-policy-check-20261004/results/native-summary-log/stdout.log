@@ -1,0 +1,251 @@
+{
+  "schema": "native-policy-independent-deal-summary-v1",
+  "backend": "native",
+  "planned_games": 144,
+  "complete_games": 144,
+  "moves": 4032,
+  "complete_source_deals": 18,
+  "missing": [],
+  "independent_deal_clusters": [
+    {
+      "seed": 1018886,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1274472,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1313268,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1355837,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1395893,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1409196,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1480848,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1482701,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1505032,
+      "paired_mean": -0.5,
+      "rotation_differences": [
+        0,
+        0,
+        -1,
+        -1
+      ]
+    },
+    {
+      "seed": 1567341,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1649340,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1656160,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1777652,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1823378,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1848741,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1850758,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1855597,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "seed": 1914545,
+      "paired_mean": 0.0,
+      "rotation_differences": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "pair_wins": 0,
+  "pair_losses": 2,
+  "pair_ties": 70,
+  "strength_claim": false,
+  "mean_paired_make_advantage": -0.027777777777777776,
+  "hoeffding95": [
+    -0.6679929719910582,
+    0.6124374164355026
+  ],
+  "uncertainty": "Independent source-deal PRNG draws, fixed declared panel; source deal is the unit, four rotations correlated; bounded differences[-1,1]. Finite panel, no strength/equivalence conclusion.",
+  "phone": {
+    "turns": 2016,
+    "host_total_ms": 46842.25336299998,
+    "host_median_ms": 1.2691460000004984,
+    "host_p95_ms": 71.0110419999994,
+    "budget_total_ms": 28656000,
+    "routes": {
+      "forced": 714,
+      "baseline": 1302
+    },
+    "late_completed": 0,
+    "late_host_total_ms": 0,
+    "late_host_median_ms": null,
+    "late_refusals": 0,
+    "interruptions": 0
+  },
+  "candidate": {
+    "turns": 2016,
+    "host_total_ms": 47116.91618600001,
+    "host_median_ms": 1.3420834999999798,
+    "host_p95_ms": 71.80558299999973,
+    "budget_total_ms": 28656000,
+    "routes": {
+      "baseline": 1036,
+      "forced": 704,
+      "late-l3-native-40-4-2-2": 276
+    },
+    "late_completed": 276,
+    "late_host_total_ms": 539.1125049999987,
+    "late_host_median_ms": 0.408562499999654,
+    "late_refusals": 0,
+    "interruptions": 0
+  },
+  "game_total_seconds": 94.58169083200002,
+  "worker_processes": 388,
+  "worker_total_cpu_s": 104.75412299999994,
+  "worker_max_rss_bytes": 169639936,
+  "phone_linear_memory_peak": 36175872,
+  "candidate_linear_memory_peak": 36175872,
+  "identity": {
+    "candidate_binary_sha256": "51259e4088de71f813ab1c8ad0b81345129ea01c26dbefec60cba462c1878de7",
+    "phone_wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+    "source_sha256": {
+      "play.py": "f80b8e71f1c221290a6df0ece61c5b19b8cac3256bc4f8dc3ca6cf2cc13d63bb",
+      "wasm_worker.mjs": "ceb5456fd988d91517b7e0e269314a6ec0afb3adfcc6181df84c51b89ea785d3",
+      "adapter/src/lib.rs": "11cf8c59e8f4a1a1c51b05134e3854652026cff8e05157f2068643dcd25ab9ac",
+      "adapter/src/main.rs": "d2ac8caf37d2f756435befe7f9bddc6d56c2b1e1e258e9e40c001ccf82ed83fa",
+      "experiments/partnership/rules.py": "4393683bc431f868c6f20dc42a81124a8fee000ccfd848a021f8bafd85d109af"
+    }
+  }
+}
