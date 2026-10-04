@@ -1,0 +1,29 @@
+{
+  "retained_complete_vector_comparisons": 592,
+  "fresh_native_vector_comparisons": 37,
+  "fresh_rebuilt_comparator_sha256": "16b2c12281b9c3097af8acdba39c5d8c9c2eeb74a8e2394be8aae7c38d1d4785",
+  "historical_binary_identity_recorded_only": true,
+  "all_proposed_fixtures_regenerated": true,
+  "balanced_eight_pairs": true,
+  "panels": [
+    {
+      "folder": "pipeline-primary-final",
+      "proposed": 32,
+      "selected": 6,
+      "ratio": 2.373014240969264,
+      "original_pipeline_s": 0.051017333499999984,
+      "compiled_pipeline_s": 0.021498957999999957,
+      "shared_import_setup_s": 0.035387125
+    },
+    {
+      "folder": "pipeline-holdout-final",
+      "proposed": 128,
+      "selected": 31,
+      "ratio": 2.5668543743463066,
+      "original_pipeline_s": 0.18163660400000003,
+      "compiled_pipeline_s": 0.07076233300000001,
+      "shared_import_setup_s": 0.034927
+    }
+  ],
+  "qualification": "Direct generation+filter/payload+cold native+JSON/replay/tempfile/parse component. Shared imports and receipt writing outside component, within capped process. Parent RSS lifetime both variants; no per-variant RSS claim. Unchanged known-lawful support proposals; not a behavioral posterior, full phone player, playing strength or generic-k claim."
+}

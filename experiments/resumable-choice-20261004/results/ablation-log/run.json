@@ -1,0 +1,23 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T11:14:22.976674+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-7/research-worktree",
+  "command": [
+    "python3",
+    "experiments/resumable-choice-20261004/ablation.py",
+    "--out",
+    "experiments/resumable-choice-20261004/results/ablation"
+  ],
+  "allowance_seconds": 290.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 3.643071,
+  "status": "completed",
+  "child_pid": 29867,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

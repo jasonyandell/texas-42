@@ -1,0 +1,10 @@
+{
+  "experiments/resumable-choice-20261004/native/src/resumable.rs": "5f1a83d3bad64f89d81576417c455b9fb54b51af0ea61264130f8702d0a16b04",
+  "experiments/resumable-choice-20261004/native/src/lib.rs": "d025c123a4ec510556590890624aa62992ca202834be4c92f6e5fd973d018094",
+  "experiments/resumable-choice-20261004/native/src/bounds.rs": "d4cf9b2fc7c16c4688bc223d1ba36652c32465c2a3ac4c6307afc0d270f7ae42",
+  "experiments/resumable-choice-20261004/native/src/arena.rs": "07a729928abf93a08c9e6f2cb60ff95956abe2f041b6b90ca36ce5cb8f810960",
+  "experiments/resumable-choice-20261004/native/src/main.rs": "4416be45e4f95a5c36620dba365a4e6132f347423f165eaf42007a6b55d7b502",
+  "experiments/resumable-choice-20261004/native/Cargo.toml": "5e389798b3cd1158c5919698dc1ad3a34d1025b65ee00b199f60596a97f8da8f",
+  "experiments/resumable-choice-20261004/native/Cargo.lock": "510e366da63f9137506840183ca4e21132467ede3ef828229a617e40749844e2",
+  "experiments/resumable-choice-20261004/math/ResumableChoice.lean": "40cc6971f1a631387f4d0e812f2ef25eb63b99bb1275be0c6432f1b794f562b5"
+}

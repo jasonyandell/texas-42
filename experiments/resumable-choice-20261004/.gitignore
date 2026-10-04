@@ -1,0 +1,4 @@
+# Rebuildable native products; source, hashes and capped receipts retained.
+**/target/
+checks/*-target/
+__pycache__/

@@ -1,0 +1,6 @@
+'WaltResearch.ChoiceArena.following_absence_split' does not depend on any axioms
+'WaltResearch.ChoiceArena.all_observations_split' does not depend on any axioms
+'WaltResearch.ChoiceArena.indexed_group_values' depends on axioms: [propext]
+'WaltResearch.ChoiceArena.indexed_group_sum' depends on axioms: [propext]
+'WaltResearch.ChoiceArena.ordered_group_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WaltResearch.ChoiceArena.deduplicated_complete_view' depends on axioms: [propext]

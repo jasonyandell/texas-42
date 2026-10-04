@@ -1,0 +1,361 @@
+{
+  "manifest_entries": 292,
+  "receipts": [
+    {
+      "path": "checks/final-pipelines-audit/run.json",
+      "status": "completed",
+      "elapsed_s": 0.450166
+    },
+    {
+      "path": "checks/final-source-hashes/run.json",
+      "status": "completed",
+      "elapsed_s": 0.046117
+    },
+    {
+      "path": "checks/final-source-hashes-report/run.json",
+      "status": "completed",
+      "elapsed_s": 0.042248
+    },
+    {
+      "path": "checks/final-source-hashes-with-refusal/run.json",
+      "status": "completed",
+      "elapsed_s": 0.079707
+    },
+    {
+      "path": "checks/final-timing-audit/run.json",
+      "status": "completed",
+      "elapsed_s": 0.257158
+    },
+    {
+      "path": "checks/final-timing-audit-claim/run.json",
+      "status": "completed",
+      "elapsed_s": 0.269439
+    },
+    {
+      "path": "checks/final-timing-audit-report/run.json",
+      "status": "completed",
+      "elapsed_s": 0.270284
+    },
+    {
+      "path": "checks/full-games-audit/run.json",
+      "status": "failed",
+      "elapsed_s": 0.023924
+    },
+    {
+      "path": "checks/full-games-audit-fixed/run.json",
+      "status": "completed",
+      "elapsed_s": 0.199598
+    },
+    {
+      "path": "checks/historical-arithmetic/run.json",
+      "status": "completed",
+      "elapsed_s": 0.149953
+    },
+    {
+      "path": "checks/historical-cold/run.json",
+      "status": "completed",
+      "elapsed_s": 0.261671
+    },
+    {
+      "path": "checks/historical-pipeline/run.json",
+      "status": "completed",
+      "elapsed_s": 0.67494
+    },
+    {
+      "path": "checks/historical-support/run.json",
+      "status": "completed",
+      "elapsed_s": 1.089836
+    },
+    {
+      "path": "checks/identity/run.json",
+      "status": "completed",
+      "elapsed_s": 0.08604
+    },
+    {
+      "path": "checks/integration-build/run.json",
+      "status": "completed",
+      "elapsed_s": 7.937544
+    },
+    {
+      "path": "checks/integration-final-build/run.json",
+      "status": "completed",
+      "elapsed_s": 1.790492
+    },
+    {
+      "path": "checks/integration-final-parity/run.json",
+      "status": "completed",
+      "elapsed_s": 7.7675
+    },
+    {
+      "path": "checks/integration-parity/run.json",
+      "status": "completed",
+      "elapsed_s": 7.648849
+    },
+    {
+      "path": "checks/lean-inherited-arena/run.json",
+      "status": "completed",
+      "elapsed_s": 2.026947
+    },
+    {
+      "path": "checks/lean-inherited-bounds/run.json",
+      "status": "completed",
+      "elapsed_s": 0.328933
+    },
+    {
+      "path": "checks/lean-resumable/run.json",
+      "status": "completed",
+      "elapsed_s": 0.321296
+    },
+    {
+      "path": "checks/old-arena-build/run.json",
+      "status": "completed",
+      "elapsed_s": 7.967316
+    },
+    {
+      "path": "checks/old-arena-parity/run.json",
+      "status": "completed",
+      "elapsed_s": 2.515042
+    },
+    {
+      "path": "checks/old-demand-build/run.json",
+      "status": "completed",
+      "elapsed_s": 7.980411
+    },
+    {
+      "path": "checks/old-runner-build/run.json",
+      "status": "completed",
+      "elapsed_s": 2.038474
+    },
+    {
+      "path": "checks/preserved-history/run.json",
+      "status": "completed",
+      "elapsed_s": 0.270135
+    },
+    {
+      "path": "checks/preserved-history-final/run.json",
+      "status": "completed",
+      "elapsed_s": 0.270014
+    },
+    {
+      "path": "checks/receipts-audit/run.json",
+      "status": "completed",
+      "elapsed_s": 0.084069
+    },
+    {
+      "path": "checks/refusal-survivor-build/run.json",
+      "status": "completed",
+      "elapsed_s": 0.327251
+    },
+    {
+      "path": "checks/refusal-survivor-parity/run.json",
+      "status": "completed",
+      "elapsed_s": 0.369003
+    },
+    {
+      "path": "checks/resumable-eager-final-fixed-parity/run.json",
+      "status": "completed",
+      "elapsed_s": 2.290764
+    },
+    {
+      "path": "checks/resumable-eager-final-parity/run.json",
+      "status": "failed",
+      "elapsed_s": 0.439583
+    },
+    {
+      "path": "checks/resumable-final-fixed-parity/run.json",
+      "status": "completed",
+      "elapsed_s": 2.219294
+    },
+    {
+      "path": "checks/resumable-final-parity/run.json",
+      "status": "completed",
+      "elapsed_s": 2.469937
+    },
+    {
+      "path": "checks/resumable-parity/run.json",
+      "status": "completed",
+      "elapsed_s": 2.601794
+    },
+    {
+      "path": "checks/resumable-runner-build/run.json",
+      "status": "completed",
+      "elapsed_s": 8.33314
+    },
+    {
+      "path": "checks/resumable-runner-final-build/run.json",
+      "status": "completed",
+      "elapsed_s": 2.424622
+    },
+    {
+      "path": "checks/resumable-runner-final-fixed-build/run.json",
+      "status": "completed",
+      "elapsed_s": 0.966075
+    },
+    {
+      "path": "math/lean-first/run.json",
+      "status": "completed",
+      "elapsed_s": 0.269863
+    },
+    {
+      "path": "native/build-resumable-first/run.json",
+      "status": "completed",
+      "elapsed_s": 10.073615
+    },
+    {
+      "path": "native/build-resumable-fixed-stack/run.json",
+      "status": "completed",
+      "elapsed_s": 0.620182
+    },
+    {
+      "path": "native/build-resumable-release/run.json",
+      "status": "completed",
+      "elapsed_s": 0.629162
+    },
+    {
+      "path": "native/profile-build/run.json",
+      "status": "completed",
+      "elapsed_s": 8.383649
+    },
+    {
+      "path": "native/profile-fixed-stack/run.json",
+      "status": "completed",
+      "elapsed_s": 1.576544
+    },
+    {
+      "path": "native/profile-policy/run.json",
+      "status": "completed",
+      "elapsed_s": 0.73547
+    },
+    {
+      "path": "native/profile-resumable/run.json",
+      "status": "completed",
+      "elapsed_s": 1.386162
+    },
+    {
+      "path": "native/profile-run/run.json",
+      "status": "completed",
+      "elapsed_s": 0.322219
+    },
+    {
+      "path": "native/profile-run-fixed/run.json",
+      "status": "completed",
+      "elapsed_s": 0.190173
+    },
+    {
+      "path": "native/test-resumable/run.json",
+      "status": "completed",
+      "elapsed_s": 2.326951
+    },
+    {
+      "path": "native/test-resumable-fixed-stack/run.json",
+      "status": "completed",
+      "elapsed_s": 2.317457
+    },
+    {
+      "path": "results/ablation-log/run.json",
+      "status": "completed",
+      "elapsed_s": 3.643071
+    },
+    {
+      "path": "results/adapter-cold-log/run.json",
+      "status": "completed",
+      "elapsed_s": 1.903625
+    },
+    {
+      "path": "results/cold-holdout-log/run.json",
+      "status": "completed",
+      "elapsed_s": 11.733704
+    },
+    {
+      "path": "results/cold-primary-log/run.json",
+      "status": "completed",
+      "elapsed_s": 5.073962
+    },
+    {
+      "path": "results/final-four-log/run.json",
+      "status": "completed",
+      "elapsed_s": 9.671657
+    },
+    {
+      "path": "results/final-holdout-log/run.json",
+      "status": "completed",
+      "elapsed_s": 16.098844
+    },
+    {
+      "path": "results/final-one-log/run.json",
+      "status": "completed",
+      "elapsed_s": 11.840797
+    },
+    {
+      "path": "results/h2h-0-declaring-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.910504
+    },
+    {
+      "path": "results/h2h-0-defending-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.903209
+    },
+    {
+      "path": "results/h2h-1-declaring-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.860859
+    },
+    {
+      "path": "results/h2h-1-defending-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.907337
+    },
+    {
+      "path": "results/h2h-2-declaring-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.859494
+    },
+    {
+      "path": "results/h2h-2-defending-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.944158
+    },
+    {
+      "path": "results/h2h-3-declaring-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.858358
+    },
+    {
+      "path": "results/h2h-3-defending-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.916945
+    },
+    {
+      "path": "results/h2h-summary-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.047297
+    },
+    {
+      "path": "results/integration-build/run.json",
+      "status": "completed",
+      "elapsed_s": 7.967876
+    },
+    {
+      "path": "results/integration-build-final/run.json",
+      "status": "completed",
+      "elapsed_s": 1.719793
+    },
+    {
+      "path": "results/integration-pilot-log/run.json",
+      "status": "completed",
+      "elapsed_s": 1.266864
+    }
+  ],
+  "completed_service_vector_comparisons": 6180,
+  "refused_service_observations": 30,
+  "complete_h2h_games": 8,
+  "complete_h2h_moves": 224,
+  "historical_and_production_diff_empty": true,
+  "current_binaries": {
+    "native/target/release/native-frontier": "6a4c29edc5d323d076b3e4f03b7d988213e174b0cb3e48885e7f6c577f9a454e",
+    "integration/target/release/late-choice-player": "87677300f84dc0662bdd58eeebd8f8efbd128e9e19d443cf0a4f686746993380",
+    "checks/old-arena-target/release/native-frontier": "3293d47080586e09067b4fd575e3fd7e174c8eb0900dae1958b68c8a242b7a8d",
+    "checks/old-demand-target/release/native-frontier": "16b2c12281b9c3097af8acdba39c5d8c9c2eeb74a8e2394be8aae7c38d1d4785"
+  }
+}

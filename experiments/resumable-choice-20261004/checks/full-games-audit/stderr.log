@@ -1,0 +1,4 @@
+  File "/Users/jason/Documents/Codex/2026-10-04/task-7/research-worktree/experiments/resumable-choice-20261004/checks/check_games.py", line 29
+    opening=actor==r['bidder']and not plays;assert c['worlds']==(160 if opening else40) and c['partner']==(not opening) and c['budget_ms']==(20000 if opening else14000)
+                                                                                ^
+SyntaxError: invalid syntax

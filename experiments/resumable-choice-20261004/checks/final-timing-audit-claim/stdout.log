@@ -1,0 +1,1057 @@
+{
+  "completed_vector_comparisons": 6180,
+  "refused_variant_observations": 30,
+  "current_binary_identity_verified": true,
+  "all_worker_refusal_stats_summed": true,
+  "balanced_six_way_order": true,
+  "panels": [
+    {
+      "folder": "final-one",
+      "worlds": 2,
+      "field": 0,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.2889637742207245,
+          "standalone_s": 1.0773079536504888,
+          "total_with_generation_s": 1.030631337724986
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 0.9545071609098568,
+          "standalone_s": 0.9773068397303541,
+          "total_with_generation_s": 0.9910084043951102
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.7818028643639428,
+          "standalone_s": 0.9304195710554217,
+          "total_with_generation_s": 0.9724305001308581
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.30876158382476837,
+          "standalone_s": 0.7835609324981043,
+          "total_with_generation_s": 0.9142414478656982
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.18028643639427128,
+          "standalone_s": 0.6877321605097372,
+          "total_with_generation_s": 0.8762717003825709
+        }
+      },
+      "actor_misses": {
+        "resumable": 117,
+        "arena": 117,
+        "bounded": 117,
+        "full": 117,
+        "hybrid": 117,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-one",
+      "worlds": 2,
+      "field": 1,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.2022428831592065,
+          "standalone_s": 1.1269394990021144,
+          "total_with_generation_s": 1.0708841610253899
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 0.805904341991757,
+          "standalone_s": 0.8719074761017502,
+          "total_with_generation_s": 0.9284719794742463
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.7375635004313237,
+          "standalone_s": 0.8112039039876927,
+          "total_with_generation_s": 0.8945745573607595
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.11894948720406402,
+          "standalone_s": 0.42158130024728574,
+          "total_with_generation_s": 0.6770057816859271
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.08933192753762101,
+          "standalone_s": 0.3884593086881253,
+          "total_with_generation_s": 0.658510162894159
+        }
+      },
+      "actor_misses": {
+        "resumable": 784,
+        "arena": 784,
+        "bounded": 784,
+        "full": 1051,
+        "hybrid": 122,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-one",
+      "worlds": 2,
+      "field": 2,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.1504587728606204,
+          "standalone_s": 1.125822334064861,
+          "total_with_generation_s": 1.093971944046998
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 0.7454902939891391,
+          "standalone_s": 0.7849158567723885,
+          "total_with_generation_s": 0.8393617856241449
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.8672055427251731,
+          "standalone_s": 0.8931959602858385,
+          "total_with_generation_s": 0.9202321009333787
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.07558829036889084,
+          "standalone_s": 0.2204941103865666,
+          "total_with_generation_s": 0.41781652369206623
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.06644404219461955,
+          "standalone_s": 0.20441141728666948,
+          "total_with_generation_s": 0.40580496829261314
+        }
+      },
+      "actor_misses": {
+        "resumable": 2911,
+        "arena": 2911,
+        "bounded": 2911,
+        "full": 5352,
+        "hybrid": 124,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-one",
+      "worlds": 8,
+      "field": 0,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.3228346456692914,
+          "standalone_s": 1.1502869200125785,
+          "total_with_generation_s": 1.0515046451124106
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.078891580860085,
+          "standalone_s": 1.0278167498327968,
+          "total_with_generation_s": 1.0095330440480048
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.6735311932162326,
+          "standalone_s": 0.7989424921016344,
+          "total_with_generation_s": 0.9310958292935654
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.23076923076923078,
+          "standalone_s": 0.5816110915855578,
+          "total_with_generation_s": 0.8566144529074713
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.13234403391883706,
+          "standalone_s": 0.5056017829622826,
+          "total_with_generation_s": 0.8305653964389922
+        }
+      },
+      "actor_misses": {
+        "resumable": 446,
+        "arena": 446,
+        "bounded": 446,
+        "full": 446,
+        "hybrid": 446,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-one",
+      "worlds": 8,
+      "field": 1,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.2063623789764868,
+          "standalone_s": 1.1753409991846022,
+          "total_with_generation_s": 1.1114426509474564
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 0.9136376210235132,
+          "standalone_s": 0.919715750135143,
+          "total_with_generation_s": 0.9489732026401425
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.6990318118948824,
+          "standalone_s": 0.7449701901278688,
+          "total_with_generation_s": 0.8379089989509314
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.09784232365145229,
+          "standalone_s": 0.22672671278763076,
+          "total_with_generation_s": 0.5085255277741803
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.07477178423236515,
+          "standalone_s": 0.1957779542654403,
+          "total_with_generation_s": 0.4888552184381737
+        }
+      },
+      "actor_misses": {
+        "resumable": 3091,
+        "arena": 3091,
+        "bounded": 3091,
+        "full": 4075,
+        "hybrid": 468,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-one",
+      "worlds": 8,
+      "field": 2,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.234784115023169,
+          "standalone_s": 1.2228493829619111,
+          "total_with_generation_s": 1.185911421211051
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 0.8443722662509203,
+          "standalone_s": 0.8522907113615216,
+          "total_with_generation_s": 0.8767739743683901
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.8016196786626824,
+          "standalone_s": 0.8207117542566673,
+          "total_with_generation_s": 0.8504293252708887
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.07251310034212463,
+          "standalone_s": 0.12139053472346834,
+          "total_with_generation_s": 0.2670227208708044
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.0670217833788056,
+          "standalone_s": 0.11076577147865023,
+          "total_with_generation_s": 0.25815904438841236
+        }
+      },
+      "actor_misses": {
+        "resumable": 11666,
+        "arena": 11666,
+        "bounded": 11666,
+        "full": 19630,
+        "hybrid": 470,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-one",
+      "worlds": 40,
+      "field": 0,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.2977583281236045,
+          "standalone_s": 1.2207328502654708,
+          "total_with_generation_s": 1.0574079843892037
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.199919621327141,
+          "standalone_s": 1.1354398196724589,
+          "total_with_generation_s": 1.0352250561893341
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.6624095739930338,
+          "standalone_s": 0.7315803276870038,
+          "total_with_generation_s": 0.9301896734474863
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.20697508261141379,
+          "standalone_s": 0.3884793532374819,
+          "total_with_generation_s": 0.8409563066811446
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.17299276591944268,
+          "standalone_s": 0.3480959566265609,
+          "total_with_generation_s": 0.8304534322814594
+        }
+      },
+      "actor_misses": {
+        "resumable": 1738,
+        "arena": 1738,
+        "bounded": 1738,
+        "full": 1738,
+        "hybrid": 1738,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-one",
+      "worlds": 40,
+      "field": 1,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.2392257622473448,
+          "standalone_s": 1.2276212414980097,
+          "total_with_generation_s": 1.13590455987584
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.0212744090441932,
+          "standalone_s": 1.0226253187941212,
+          "total_with_generation_s": 1.0135087743680218
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.7387204522096608,
+          "standalone_s": 0.759389880960657,
+          "total_with_generation_s": 0.8563402426130723
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.09716512504282288,
+          "standalone_s": 0.14805348608150012,
+          "total_with_generation_s": 0.4913329913769834
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.08599691675231243,
+          "standalone_s": 0.13290151832505623,
+          "total_with_generation_s": 0.4822862895154156
+        }
+      },
+      "actor_misses": {
+        "resumable": 11288,
+        "arena": 11288,
+        "bounded": 11288,
+        "full": 15113,
+        "hybrid": 1747,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-one",
+      "worlds": 40,
+      "field": 2,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": false,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.1880101346053857,
+          "standalone_s": 1.1845095238414787,
+          "total_with_generation_s": 1.1506367292276638
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 0.883457540019862,
+          "standalone_s": 0.8871857991549947,
+          "total_with_generation_s": 0.9078965580100641
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.07764362171842633,
+          "standalone_s": 0.0962977193654551,
+          "total_with_generation_s": 0.26220201041044944
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.07465880987161182,
+          "standalone_s": 0.09028451807592609,
+          "total_with_generation_s": 0.25729273008939435
+        }
+      },
+      "actor_misses": {
+        "resumable": 39847,
+        "arena": 39847,
+        "bounded": 39847,
+        "full": 49534,
+        "hybrid": 1782,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-four",
+      "worlds": 2,
+      "field": 0,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.4915966386554622,
+          "standalone_s": 1.1095400477168853,
+          "total_with_generation_s": 1.0409956875033821
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.1717436974789914,
+          "standalone_s": 1.0318902426716265,
+          "total_with_generation_s": 1.0119350178334048
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.7605042016806722,
+          "standalone_s": 0.9100020969511369,
+          "total_with_generation_s": 0.9663180180559465
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.35556722689075626,
+          "standalone_s": 0.8003383664017731,
+          "total_with_generation_s": 0.9252760418859488
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.15388655462184875,
+          "standalone_s": 0.6882052219611879,
+          "total_with_generation_s": 0.8833098802485256
+        }
+      },
+      "actor_misses": {
+        "resumable": 117,
+        "arena": 117,
+        "bounded": 117,
+        "full": 117,
+        "hybrid": 117,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-four",
+      "worlds": 2,
+      "field": 1,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.3203063936220103,
+          "standalone_s": 1.1610051610953789,
+          "total_with_generation_s": 1.0785578453536873
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.2018133500078163,
+          "standalone_s": 1.103006673785708,
+          "total_with_generation_s": 1.0502591488036939
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.7666093481319369,
+          "standalone_s": 0.8816730593919743,
+          "total_with_generation_s": 0.9422657668970401
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.13443801782085352,
+          "standalone_s": 0.5400822585893406,
+          "total_with_generation_s": 0.7755963438727761
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.09598249179302798,
+          "standalone_s": 0.5043175106656566,
+          "total_with_generation_s": 0.7581459620503079
+        }
+      },
+      "actor_misses": {
+        "resumable": 784,
+        "arena": 784,
+        "bounded": 784,
+        "full": 1051,
+        "hybrid": 122,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-four",
+      "worlds": 2,
+      "field": 2,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.2364492130168532,
+          "standalone_s": 1.175595097243162,
+          "total_with_generation_s": 1.1168430334870094
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.1583582165089326,
+          "standalone_s": 1.1184542783126377,
+          "total_with_generation_s": 1.0788208635939125
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.788653271926717,
+          "standalone_s": 0.8579582415033026,
+          "total_with_generation_s": 0.9054837509409469
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.0833544207702819,
+          "standalone_s": 0.29487743107914893,
+          "total_with_generation_s": 0.5308031874103274
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.06660256085834303,
+          "standalone_s": 0.2636343424970043,
+          "total_with_generation_s": 0.5100136704889869
+        }
+      },
+      "actor_misses": {
+        "resumable": 2911,
+        "arena": 2911,
+        "bounded": 2911,
+        "full": 5352,
+        "hybrid": 124,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-four",
+      "worlds": 8,
+      "field": 0,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.41832283082889,
+          "standalone_s": 1.160000125232808,
+          "total_with_generation_s": 1.0490658607091572
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.3897237033446437,
+          "standalone_s": 1.212042021662862,
+          "total_with_generation_s": 1.065025100975763
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.6841977702375182,
+          "standalone_s": 0.879704731511909,
+          "total_with_generation_s": 0.9631100858263762
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.27702375181774114,
+          "standalone_s": 0.6829335166791797,
+          "total_with_generation_s": 0.9027679516905047
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.1282113427047988,
+          "standalone_s": 0.6117549160736796,
+          "total_with_generation_s": 0.8809402231327894
+        }
+      },
+      "actor_misses": {
+        "resumable": 446,
+        "arena": 446,
+        "bounded": 446,
+        "full": 446,
+        "hybrid": 446,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-four",
+      "worlds": 8,
+      "field": 1,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.3046172296622027,
+          "standalone_s": 1.2239768920286689,
+          "total_with_generation_s": 1.1181468037026823
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.2131221267239658,
+          "standalone_s": 1.1517350129389816,
+          "total_with_generation_s": 1.0800395372315066
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.6391665000999401,
+          "standalone_s": 0.7235476977033043,
+          "total_with_generation_s": 0.8541726532734388
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.09709174495302819,
+          "standalone_s": 0.3070220566829494,
+          "total_with_generation_s": 0.6344572500412755
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.06780931441135318,
+          "standalone_s": 0.2675534690579962,
+          "total_with_generation_s": 0.6136377474920992
+        }
+      },
+      "actor_misses": {
+        "resumable": 3091,
+        "arena": 3091,
+        "bounded": 3091,
+        "full": 4075,
+        "hybrid": 468,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-four",
+      "worlds": 8,
+      "field": 2,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.2508122264951598,
+          "standalone_s": 1.226478579014287,
+          "total_with_generation_s": 1.1671860519723216
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.536533616231269,
+          "standalone_s": 1.483042088591386,
+          "total_with_generation_s": 1.3565807418941984
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.749237501657605,
+          "standalone_s": 0.7856718319769791,
+          "total_with_generation_s": 0.8417833580809917
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.06870773107014985,
+          "standalone_s": 0.16312087145164483,
+          "total_with_generation_s": 0.38221743491595134
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.055281129823630815,
+          "standalone_s": 0.1395497970901013,
+          "total_with_generation_s": 0.3648173131013232
+        }
+      },
+      "actor_misses": {
+        "resumable": 11666,
+        "arena": 11666,
+        "bounded": 11666,
+        "full": 19630,
+        "hybrid": 470,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-four",
+      "worlds": 40,
+      "field": 0,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.3979840403191937,
+          "standalone_s": 1.262306932890311,
+          "total_with_generation_s": 1.0485120375121275
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.3731205375892481,
+          "standalone_s": 1.249061741499978,
+          "total_with_generation_s": 1.046062421657514
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.6561108777824444,
+          "standalone_s": 0.7775971650531859,
+          "total_with_generation_s": 0.9588679774763899
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.25157496850062994,
+          "standalone_s": 0.5317489792096314,
+          "total_with_generation_s": 0.9133998829715512
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.1752204955900882,
+          "standalone_s": 0.45913104224390355,
+          "total_with_generation_s": 0.8999696467085704
+        }
+      },
+      "actor_misses": {
+        "resumable": 1738,
+        "arena": 1738,
+        "bounded": 1738,
+        "full": 1738,
+        "hybrid": 1738,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-four",
+      "worlds": 40,
+      "field": 1,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.2555280514345522,
+          "standalone_s": 1.2260981099792536,
+          "total_with_generation_s": 1.1018721912934764
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.339325170700912,
+          "standalone_s": 1.2964310491333237,
+          "total_with_generation_s": 1.1335618442162423
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.6802950509195421,
+          "standalone_s": 0.7205601655567807,
+          "total_with_generation_s": 0.8740938247027845
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.09560912398451646,
+          "standalone_s": 0.18778492223763446,
+          "total_with_generation_s": 0.6340432488319084
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.08221886265844866,
+          "standalone_s": 0.16649974102114212,
+          "total_with_generation_s": 0.6244528632563644
+        }
+      },
+      "actor_misses": {
+        "resumable": 11288,
+        "arena": 11288,
+        "bounded": 11288,
+        "full": 15113,
+        "hybrid": 1747,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-four",
+      "worlds": 40,
+      "field": 2,
+      "roots": 6,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.1331815916435886,
+          "standalone_s": 1.1309994444953697,
+          "total_with_generation_s": 1.0930749198281935
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.009623437411691,
+          "standalone_s": 1.0095928600122266,
+          "total_with_generation_s": 1.006815713455889
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.7258579142882099,
+          "standalone_s": 0.7597728521256552,
+          "total_with_generation_s": 0.8293189515795959
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.07194200247650659,
+          "standalone_s": 0.10711007788753678,
+          "total_with_generation_s": 0.36560297460683594
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.06698898930786265,
+          "standalone_s": 0.09722705621299767,
+          "total_with_generation_s": 0.35858110170072194
+        }
+      },
+      "actor_misses": {
+        "resumable": 39847,
+        "arena": 39847,
+        "bounded": 39847,
+        "full": 67878,
+        "hybrid": 1782,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-holdout",
+      "worlds": 8,
+      "field": 1,
+      "roots": 31,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.2518117168980696,
+          "standalone_s": 1.2258698554477718,
+          "total_with_generation_s": 1.1055732782142835
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.059654588554013,
+          "standalone_s": 1.052435510269438,
+          "total_with_generation_s": 1.024508753959261
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.6009075516423975,
+          "standalone_s": 0.6513592399900859,
+          "total_with_generation_s": 0.8370426727355972
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.0893870640027091,
+          "standalone_s": 0.17522623229648943,
+          "total_with_generation_s": 0.6144945049484931
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.06492380629867932,
+          "standalone_s": 0.14152452692731982,
+          "total_with_generation_s": 0.5987420730439272
+        }
+      },
+      "actor_misses": {
+        "resumable": 16313,
+        "arena": 16313,
+        "bounded": 16313,
+        "full": 21468,
+        "hybrid": 2437,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-holdout",
+      "worlds": 8,
+      "field": 2,
+      "roots": 31,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.07093651011684,
+          "standalone_s": 1.0690898946187244,
+          "total_with_generation_s": 1.0503226400936552
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 0.8515128432462131,
+          "standalone_s": 0.8584059806393324,
+          "total_with_generation_s": 0.8968679151267683
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.6287175901066837,
+          "standalone_s": 0.6626462497653686,
+          "total_with_generation_s": 0.7542834382511665
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.06820177903206337,
+          "standalone_s": 0.09723761392187895,
+          "total_with_generation_s": 0.3424597490645672
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.05843666620879692,
+          "standalone_s": 0.08484431533216323,
+          "total_with_generation_s": 0.3334329079042907
+        }
+      },
+      "actor_misses": {
+        "resumable": 59603,
+        "arena": 59603,
+        "bounded": 59603,
+        "full": 101707,
+        "hybrid": 2440,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-holdout",
+      "worlds": 40,
+      "field": 1,
+      "roots": 31,
+      "completed": {
+        "resumable": true,
+        "arena": true,
+        "bounded": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {
+        "arena_over_resumable": {
+          "cold_or_refusal_s": 1.1297277664966239,
+          "standalone_s": 1.122836503748629,
+          "total_with_generation_s": 1.0552151521012911
+        },
+        "bounded_over_resumable": {
+          "cold_or_refusal_s": 1.1269336172882307,
+          "standalone_s": 1.1219888508672722,
+          "total_with_generation_s": 1.0548341311397293
+        },
+        "full_over_resumable": {
+          "cold_or_refusal_s": 0.60798953329041,
+          "standalone_s": 0.6474403528509326,
+          "total_with_generation_s": 0.8415240262621804
+        },
+        "hybrid_over_resumable": {
+          "cold_or_refusal_s": 0.09564905155762468,
+          "standalone_s": 0.13665239884872304,
+          "total_with_generation_s": 0.6119242435342865
+        },
+        "recursive_over_resumable": {
+          "cold_or_refusal_s": 0.08088174599243887,
+          "standalone_s": 0.11694896894426202,
+          "total_with_generation_s": 0.6030675287476278
+        }
+      },
+      "actor_misses": {
+        "resumable": 63603,
+        "arena": 63603,
+        "bounded": 63603,
+        "full": 83527,
+        "hybrid": 10044,
+        "recursive": null
+      }
+    },
+    {
+      "folder": "final-holdout",
+      "worlds": 40,
+      "field": 2,
+      "roots": 31,
+      "completed": {
+        "resumable": false,
+        "arena": false,
+        "bounded": false,
+        "full": false,
+        "hybrid": true,
+        "recursive": true
+      },
+      "ratios": {},
+      "actor_misses": {
+        "resumable": 198224,
+        "arena": 198224,
+        "bounded": 198224,
+        "full": 197987,
+        "hybrid": 10079,
+        "recursive": null
+      }
+    }
+  ],
+  "scope": "Local finite repeated component measurements. No refused speed ratio; phase scopes overlap, retained arena estimates exclude spare capacity/temporary storage/allocator/cache/query ownership. Whole PID RSS is total measurement."
+}

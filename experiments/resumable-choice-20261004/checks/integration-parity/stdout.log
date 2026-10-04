@@ -1,0 +1,45 @@
+{
+  "proposed_independent_deals": 93,
+  "fresh_public_roots": 36,
+  "declarations": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9
+  ],
+  "actor_seats": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "complete_variant_vectors": 144,
+  "independently_full_replayed_sampled_worlds": 1440,
+  "production_sample_and_rng_validation": true,
+  "ascending_ties": true,
+  "malformed_or_private_requests_refused": 29,
+  "ineligible_routes": [
+    "early",
+    "forced",
+    "settled"
+  ],
+  "mocked_phone_fallbacks": [
+    "early",
+    "settled",
+    "forced",
+    "kernel-refusal",
+    "spawn-failure"
+  ],
+  "binary_sha256": "3d7ac5d9801d8d59763c1b9be305146ac590a598441bbdddda3739fa0af1f807",
+  "source_sha256": {
+    "integration/src/main.rs": "577d6d38acdff1e484209344b79a9b28a2318db72f1ecc952ecffa682fbe8a1e",
+    "player.py": "9739c10381836cdba9486d7d7203addeddad14b2dc09ec1d612cc393e3e7fc26",
+    "checks/check_integration.py": "dd2f4478f7a4799fcc55994cff628e3fb1cf1a26d860c27dd613805f078bd450"
+  },
+  "scope": "Finite local late policy integration. Phone routing uses a mock here; actual complete games are separately audited. Native status/sampler/reference use existing production routines; Python full historical replay is independent. No phone deployment or strength conclusion."
+}

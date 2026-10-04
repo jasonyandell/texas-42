@@ -1,0 +1,17 @@
+{
+  "individual_receipts": 66,
+  "all_capped_and_reaped": true,
+  "failed_development_receipts": [
+    {
+      "path": "checks/full-games-audit/run.json",
+      "status": "failed",
+      "elapsed_s": 0.023924
+    },
+    {
+      "path": "checks/resumable-eager-final-parity/run.json",
+      "status": "failed",
+      "elapsed_s": 0.439583
+    }
+  ],
+  "scope": "Every retained run observed at audit time has\u2264295sallowance,<300selapsed and reaped child. Failures excluded from validation. This audits recorded process-group runner cleanup, not external jobs."
+}

@@ -1,0 +1,5882 @@
+[
+  {
+    "mode": "bounded",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          8781,
+          2684,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 270,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 11,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 51,
+        "fold_us": 44,
+        "forward_us": 48,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 24844,
+        "peak_counted_live_array_bytes": 26720,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11942,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 10,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          8781,
+          2684,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 270,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 11,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 51,
+        "fold_us": 44,
+        "forward_us": 48,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 24844,
+        "peak_counted_live_array_bytes": 26720,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11942,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 10,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "frontier_cold_us": 47696,
+      "frontier_warm_us": null,
+      "outer_validation_us": 30,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 47759,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            8781,
+            2684,
+            471
+          ],
+          "arena_batch_duplicates": 0,
+          "arena_batch_unique": 0,
+          "arena_expand_us": 0,
+          "arena_lower_us": 0,
+          "arena_prepared_before_solve": 0,
+          "arena_rounds": 0,
+          "arena_schedule_us": 0,
+          "arena_setup_us": 0,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 222544,
+          "bounded_children_unresolved": 14418,
+          "bounded_choice_calls": 11666,
+          "bounded_expansions": 162691,
+          "bounded_refinements": 538756,
+          "bounded_root_unresolved": 6847,
+          "cache_entries": 11672,
+          "cache_hits": 270,
+          "cache_key_bytes": 1495072,
+          "cache_lookup_us": 11,
+          "completed_actor_queries": 11666,
+          "demand_grouping_us": 51,
+          "fold_us": 44,
+          "forward_us": 48,
+          "generated_actor_queries": 11666,
+          "inner_worlds_by_level": [
+            34236,
+            5274,
+            940
+          ],
+          "native_choice_calls": 0,
+          "native_choice_declared_budget_sum_by_level": [],
+          "native_choice_us": 0,
+          "native_core_nodes": 0,
+          "native_core_pi_misses_by_level": [],
+          "native_core_policy_cache_entries": 0,
+          "native_core_reported_inner_worlds_by_level": [],
+          "peak_bounded_live_bytes": 24844,
+          "peak_counted_live_array_bytes": 26720,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 8,
+          "public_coordinates": 1708,
+          "public_record_calls": 92024,
+          "public_step_calls": 212266,
+          "query_lookups": 11942,
+          "raw_policy_consultations_by_level": [
+            9062,
+            2741,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 306960,
+          "sample_us": 10,
+          "unique_actor_misses_by_level": [
+            8559,
+            2637,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "bounded",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          8781,
+          2684,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 270,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 3,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 43,
+        "fold_us": 44,
+        "forward_us": 48,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 24844,
+        "peak_counted_live_array_bytes": 26720,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 7,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11942,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 8,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          8781,
+          2684,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 270,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 3,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 43,
+        "fold_us": 44,
+        "forward_us": 48,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 24844,
+        "peak_counted_live_array_bytes": 26720,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 7,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11942,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 8,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "frontier_cold_us": 47837,
+      "frontier_warm_us": null,
+      "outer_validation_us": 27,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 47896,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            8781,
+            2684,
+            471
+          ],
+          "arena_batch_duplicates": 0,
+          "arena_batch_unique": 0,
+          "arena_expand_us": 0,
+          "arena_lower_us": 0,
+          "arena_prepared_before_solve": 0,
+          "arena_rounds": 0,
+          "arena_schedule_us": 0,
+          "arena_setup_us": 0,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 222544,
+          "bounded_children_unresolved": 14418,
+          "bounded_choice_calls": 11666,
+          "bounded_expansions": 162691,
+          "bounded_refinements": 538756,
+          "bounded_root_unresolved": 6847,
+          "cache_entries": 11672,
+          "cache_hits": 270,
+          "cache_key_bytes": 1495072,
+          "cache_lookup_us": 3,
+          "completed_actor_queries": 11666,
+          "demand_grouping_us": 43,
+          "fold_us": 44,
+          "forward_us": 48,
+          "generated_actor_queries": 11666,
+          "inner_worlds_by_level": [
+            34236,
+            5274,
+            940
+          ],
+          "native_choice_calls": 0,
+          "native_choice_declared_budget_sum_by_level": [],
+          "native_choice_us": 0,
+          "native_core_nodes": 0,
+          "native_core_pi_misses_by_level": [],
+          "native_core_policy_cache_entries": 0,
+          "native_core_reported_inner_worlds_by_level": [],
+          "peak_bounded_live_bytes": 24844,
+          "peak_counted_live_array_bytes": 26720,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 7,
+          "public_coordinates": 1708,
+          "public_record_calls": 92024,
+          "public_step_calls": 212266,
+          "query_lookups": 11942,
+          "raw_policy_consultations_by_level": [
+            9062,
+            2741,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 306960,
+          "sample_us": 8,
+          "unique_actor_misses_by_level": [
+            8559,
+            2637,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "bounded",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          8781,
+          2684,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 270,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 3,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 45,
+        "fold_us": 39,
+        "forward_us": 54,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 24844,
+        "peak_counted_live_array_bytes": 26720,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11942,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 12,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          8781,
+          2684,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 270,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 3,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 45,
+        "fold_us": 39,
+        "forward_us": 54,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 24844,
+        "peak_counted_live_array_bytes": 26720,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11942,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 12,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "frontier_cold_us": 48673,
+      "frontier_warm_us": null,
+      "outer_validation_us": 29,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 48734,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            8781,
+            2684,
+            471
+          ],
+          "arena_batch_duplicates": 0,
+          "arena_batch_unique": 0,
+          "arena_expand_us": 0,
+          "arena_lower_us": 0,
+          "arena_prepared_before_solve": 0,
+          "arena_rounds": 0,
+          "arena_schedule_us": 0,
+          "arena_setup_us": 0,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 222544,
+          "bounded_children_unresolved": 14418,
+          "bounded_choice_calls": 11666,
+          "bounded_expansions": 162691,
+          "bounded_refinements": 538756,
+          "bounded_root_unresolved": 6847,
+          "cache_entries": 11672,
+          "cache_hits": 270,
+          "cache_key_bytes": 1495072,
+          "cache_lookup_us": 3,
+          "completed_actor_queries": 11666,
+          "demand_grouping_us": 45,
+          "fold_us": 39,
+          "forward_us": 54,
+          "generated_actor_queries": 11666,
+          "inner_worlds_by_level": [
+            34236,
+            5274,
+            940
+          ],
+          "native_choice_calls": 0,
+          "native_choice_declared_budget_sum_by_level": [],
+          "native_choice_us": 0,
+          "native_core_nodes": 0,
+          "native_core_pi_misses_by_level": [],
+          "native_core_policy_cache_entries": 0,
+          "native_core_reported_inner_worlds_by_level": [],
+          "peak_bounded_live_bytes": 24844,
+          "peak_counted_live_array_bytes": 26720,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 8,
+          "public_coordinates": 1708,
+          "public_record_calls": 92024,
+          "public_step_calls": 212266,
+          "query_lookups": 11942,
+          "raw_policy_consultations_by_level": [
+            9062,
+            2741,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 306960,
+          "sample_us": 12,
+          "unique_actor_misses_by_level": [
+            8559,
+            2637,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "bounded",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          8781,
+          2684,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 270,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 3,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 42,
+        "fold_us": 49,
+        "forward_us": 42,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 24844,
+        "peak_counted_live_array_bytes": 26720,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11942,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 2,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          8781,
+          2684,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 270,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 3,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 42,
+        "fold_us": 49,
+        "forward_us": 42,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 24844,
+        "peak_counted_live_array_bytes": 26720,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11942,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 2,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "frontier_cold_us": 47869,
+      "frontier_warm_us": null,
+      "outer_validation_us": 28,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 47927,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            8781,
+            2684,
+            471
+          ],
+          "arena_batch_duplicates": 0,
+          "arena_batch_unique": 0,
+          "arena_expand_us": 0,
+          "arena_lower_us": 0,
+          "arena_prepared_before_solve": 0,
+          "arena_rounds": 0,
+          "arena_schedule_us": 0,
+          "arena_setup_us": 0,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 222544,
+          "bounded_children_unresolved": 14418,
+          "bounded_choice_calls": 11666,
+          "bounded_expansions": 162691,
+          "bounded_refinements": 538756,
+          "bounded_root_unresolved": 6847,
+          "cache_entries": 11672,
+          "cache_hits": 270,
+          "cache_key_bytes": 1495072,
+          "cache_lookup_us": 3,
+          "completed_actor_queries": 11666,
+          "demand_grouping_us": 42,
+          "fold_us": 49,
+          "forward_us": 42,
+          "generated_actor_queries": 11666,
+          "inner_worlds_by_level": [
+            34236,
+            5274,
+            940
+          ],
+          "native_choice_calls": 0,
+          "native_choice_declared_budget_sum_by_level": [],
+          "native_choice_us": 0,
+          "native_core_nodes": 0,
+          "native_core_pi_misses_by_level": [],
+          "native_core_policy_cache_entries": 0,
+          "native_core_reported_inner_worlds_by_level": [],
+          "peak_bounded_live_bytes": 24844,
+          "peak_counted_live_array_bytes": 26720,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 8,
+          "public_coordinates": 1708,
+          "public_record_calls": 92024,
+          "public_step_calls": 212266,
+          "query_lookups": 11942,
+          "raw_policy_consultations_by_level": [
+            9062,
+            2741,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 306960,
+          "sample_us": 2,
+          "unique_actor_misses_by_level": [
+            8559,
+            2637,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "bounded",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          8781,
+          2684,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 270,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 3,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 48,
+        "fold_us": 40,
+        "forward_us": 40,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 24844,
+        "peak_counted_live_array_bytes": 26720,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11942,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 3,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          8781,
+          2684,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 270,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 3,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 48,
+        "fold_us": 40,
+        "forward_us": 40,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 24844,
+        "peak_counted_live_array_bytes": 26720,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11942,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 3,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "frontier_cold_us": 49431,
+      "frontier_warm_us": null,
+      "outer_validation_us": 26,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 49488,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            8781,
+            2684,
+            471
+          ],
+          "arena_batch_duplicates": 0,
+          "arena_batch_unique": 0,
+          "arena_expand_us": 0,
+          "arena_lower_us": 0,
+          "arena_prepared_before_solve": 0,
+          "arena_rounds": 0,
+          "arena_schedule_us": 0,
+          "arena_setup_us": 0,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 222544,
+          "bounded_children_unresolved": 14418,
+          "bounded_choice_calls": 11666,
+          "bounded_expansions": 162691,
+          "bounded_refinements": 538756,
+          "bounded_root_unresolved": 6847,
+          "cache_entries": 11672,
+          "cache_hits": 270,
+          "cache_key_bytes": 1495072,
+          "cache_lookup_us": 3,
+          "completed_actor_queries": 11666,
+          "demand_grouping_us": 48,
+          "fold_us": 40,
+          "forward_us": 40,
+          "generated_actor_queries": 11666,
+          "inner_worlds_by_level": [
+            34236,
+            5274,
+            940
+          ],
+          "native_choice_calls": 0,
+          "native_choice_declared_budget_sum_by_level": [],
+          "native_choice_us": 0,
+          "native_core_nodes": 0,
+          "native_core_pi_misses_by_level": [],
+          "native_core_policy_cache_entries": 0,
+          "native_core_reported_inner_worlds_by_level": [],
+          "peak_bounded_live_bytes": 24844,
+          "peak_counted_live_array_bytes": 26720,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 8,
+          "public_coordinates": 1708,
+          "public_record_calls": 92024,
+          "public_step_calls": 212266,
+          "query_lookups": 11942,
+          "raw_policy_consultations_by_level": [
+            9062,
+            2741,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 306960,
+          "sample_us": 3,
+          "unique_actor_misses_by_level": [
+            8559,
+            2637,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "arena",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          8758,
+          2675,
+          471
+        ],
+        "arena_batch_duplicates": 1,
+        "arena_batch_unique": 11666,
+        "arena_expand_us": 8482,
+        "arena_lower_us": 122275,
+        "arena_prepared_before_solve": 7643,
+        "arena_rounds": 73912,
+        "arena_schedule_us": 1702,
+        "arena_setup_us": 531,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 237,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 3,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 46,
+        "fold_us": 44,
+        "forward_us": 43,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 247884,
+        "peak_counted_live_array_bytes": 249760,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11910,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 17,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          8758,
+          2675,
+          471
+        ],
+        "arena_batch_duplicates": 1,
+        "arena_batch_unique": 11666,
+        "arena_expand_us": 8482,
+        "arena_lower_us": 122275,
+        "arena_prepared_before_solve": 7643,
+        "arena_rounds": 73912,
+        "arena_schedule_us": 1702,
+        "arena_setup_us": 531,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 237,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 3,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 46,
+        "fold_us": 44,
+        "forward_us": 43,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 247884,
+        "peak_counted_live_array_bytes": 249760,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11910,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 17,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "frontier_cold_us": 72904,
+      "frontier_warm_us": null,
+      "outer_validation_us": 27,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 72964,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            8758,
+            2675,
+            471
+          ],
+          "arena_batch_duplicates": 1,
+          "arena_batch_unique": 11666,
+          "arena_expand_us": 8482,
+          "arena_lower_us": 122275,
+          "arena_prepared_before_solve": 7643,
+          "arena_rounds": 73912,
+          "arena_schedule_us": 1702,
+          "arena_setup_us": 531,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 222544,
+          "bounded_children_unresolved": 14418,
+          "bounded_choice_calls": 11666,
+          "bounded_expansions": 162691,
+          "bounded_refinements": 538756,
+          "bounded_root_unresolved": 6847,
+          "cache_entries": 11672,
+          "cache_hits": 237,
+          "cache_key_bytes": 1495072,
+          "cache_lookup_us": 3,
+          "completed_actor_queries": 11666,
+          "demand_grouping_us": 46,
+          "fold_us": 44,
+          "forward_us": 43,
+          "generated_actor_queries": 11666,
+          "inner_worlds_by_level": [
+            34236,
+            5274,
+            940
+          ],
+          "native_choice_calls": 0,
+          "native_choice_declared_budget_sum_by_level": [],
+          "native_choice_us": 0,
+          "native_core_nodes": 0,
+          "native_core_pi_misses_by_level": [],
+          "native_core_policy_cache_entries": 0,
+          "native_core_reported_inner_worlds_by_level": [],
+          "peak_bounded_live_bytes": 247884,
+          "peak_counted_live_array_bytes": 249760,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 8,
+          "public_coordinates": 1708,
+          "public_record_calls": 92024,
+          "public_step_calls": 212266,
+          "query_lookups": 11910,
+          "raw_policy_consultations_by_level": [
+            9062,
+            2741,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 306960,
+          "sample_us": 17,
+          "unique_actor_misses_by_level": [
+            8559,
+            2637,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "arena",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          8758,
+          2675,
+          471
+        ],
+        "arena_batch_duplicates": 1,
+        "arena_batch_unique": 11666,
+        "arena_expand_us": 8910,
+        "arena_lower_us": 123678,
+        "arena_prepared_before_solve": 7643,
+        "arena_rounds": 73912,
+        "arena_schedule_us": 1549,
+        "arena_setup_us": 495,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 237,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 3,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 41,
+        "fold_us": 44,
+        "forward_us": 49,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 247884,
+        "peak_counted_live_array_bytes": 249760,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 12,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11910,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 14,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          8758,
+          2675,
+          471
+        ],
+        "arena_batch_duplicates": 1,
+        "arena_batch_unique": 11666,
+        "arena_expand_us": 8910,
+        "arena_lower_us": 123678,
+        "arena_prepared_before_solve": 7643,
+        "arena_rounds": 73912,
+        "arena_schedule_us": 1549,
+        "arena_setup_us": 495,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 237,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 3,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 41,
+        "fold_us": 44,
+        "forward_us": 49,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 247884,
+        "peak_counted_live_array_bytes": 249760,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 12,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11910,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 14,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "frontier_cold_us": 73742,
+      "frontier_warm_us": null,
+      "outer_validation_us": 30,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 73806,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            8758,
+            2675,
+            471
+          ],
+          "arena_batch_duplicates": 1,
+          "arena_batch_unique": 11666,
+          "arena_expand_us": 8910,
+          "arena_lower_us": 123678,
+          "arena_prepared_before_solve": 7643,
+          "arena_rounds": 73912,
+          "arena_schedule_us": 1549,
+          "arena_setup_us": 495,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 222544,
+          "bounded_children_unresolved": 14418,
+          "bounded_choice_calls": 11666,
+          "bounded_expansions": 162691,
+          "bounded_refinements": 538756,
+          "bounded_root_unresolved": 6847,
+          "cache_entries": 11672,
+          "cache_hits": 237,
+          "cache_key_bytes": 1495072,
+          "cache_lookup_us": 3,
+          "completed_actor_queries": 11666,
+          "demand_grouping_us": 41,
+          "fold_us": 44,
+          "forward_us": 49,
+          "generated_actor_queries": 11666,
+          "inner_worlds_by_level": [
+            34236,
+            5274,
+            940
+          ],
+          "native_choice_calls": 0,
+          "native_choice_declared_budget_sum_by_level": [],
+          "native_choice_us": 0,
+          "native_core_nodes": 0,
+          "native_core_pi_misses_by_level": [],
+          "native_core_policy_cache_entries": 0,
+          "native_core_reported_inner_worlds_by_level": [],
+          "peak_bounded_live_bytes": 247884,
+          "peak_counted_live_array_bytes": 249760,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 12,
+          "public_coordinates": 1708,
+          "public_record_calls": 92024,
+          "public_step_calls": 212266,
+          "query_lookups": 11910,
+          "raw_policy_consultations_by_level": [
+            9062,
+            2741,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 306960,
+          "sample_us": 14,
+          "unique_actor_misses_by_level": [
+            8559,
+            2637,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "arena",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          8758,
+          2675,
+          471
+        ],
+        "arena_batch_duplicates": 1,
+        "arena_batch_unique": 11666,
+        "arena_expand_us": 9242,
+        "arena_lower_us": 126005,
+        "arena_prepared_before_solve": 7643,
+        "arena_rounds": 73912,
+        "arena_schedule_us": 1698,
+        "arena_setup_us": 523,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 237,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 41,
+        "fold_us": 47,
+        "forward_us": 48,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 247884,
+        "peak_counted_live_array_bytes": 249760,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 11,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11910,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 33,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          8758,
+          2675,
+          471
+        ],
+        "arena_batch_duplicates": 1,
+        "arena_batch_unique": 11666,
+        "arena_expand_us": 9242,
+        "arena_lower_us": 126005,
+        "arena_prepared_before_solve": 7643,
+        "arena_rounds": 73912,
+        "arena_schedule_us": 1698,
+        "arena_setup_us": 523,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 237,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 41,
+        "fold_us": 47,
+        "forward_us": 48,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 247884,
+        "peak_counted_live_array_bytes": 249760,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 11,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11910,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 33,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "frontier_cold_us": 75144,
+      "frontier_warm_us": null,
+      "outer_validation_us": 30,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 75207,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            8758,
+            2675,
+            471
+          ],
+          "arena_batch_duplicates": 1,
+          "arena_batch_unique": 11666,
+          "arena_expand_us": 9242,
+          "arena_lower_us": 126005,
+          "arena_prepared_before_solve": 7643,
+          "arena_rounds": 73912,
+          "arena_schedule_us": 1698,
+          "arena_setup_us": 523,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 222544,
+          "bounded_children_unresolved": 14418,
+          "bounded_choice_calls": 11666,
+          "bounded_expansions": 162691,
+          "bounded_refinements": 538756,
+          "bounded_root_unresolved": 6847,
+          "cache_entries": 11672,
+          "cache_hits": 237,
+          "cache_key_bytes": 1495072,
+          "cache_lookup_us": 4,
+          "completed_actor_queries": 11666,
+          "demand_grouping_us": 41,
+          "fold_us": 47,
+          "forward_us": 48,
+          "generated_actor_queries": 11666,
+          "inner_worlds_by_level": [
+            34236,
+            5274,
+            940
+          ],
+          "native_choice_calls": 0,
+          "native_choice_declared_budget_sum_by_level": [],
+          "native_choice_us": 0,
+          "native_core_nodes": 0,
+          "native_core_pi_misses_by_level": [],
+          "native_core_policy_cache_entries": 0,
+          "native_core_reported_inner_worlds_by_level": [],
+          "peak_bounded_live_bytes": 247884,
+          "peak_counted_live_array_bytes": 249760,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 11,
+          "public_coordinates": 1708,
+          "public_record_calls": 92024,
+          "public_step_calls": 212266,
+          "query_lookups": 11910,
+          "raw_policy_consultations_by_level": [
+            9062,
+            2741,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 306960,
+          "sample_us": 33,
+          "unique_actor_misses_by_level": [
+            8559,
+            2637,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "arena",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          8758,
+          2675,
+          471
+        ],
+        "arena_batch_duplicates": 1,
+        "arena_batch_unique": 11666,
+        "arena_expand_us": 8314,
+        "arena_lower_us": 120984,
+        "arena_prepared_before_solve": 7643,
+        "arena_rounds": 73912,
+        "arena_schedule_us": 1378,
+        "arena_setup_us": 450,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 237,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 42,
+        "fold_us": 42,
+        "forward_us": 50,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 247884,
+        "peak_counted_live_array_bytes": 249760,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 10,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11910,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 32,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          8758,
+          2675,
+          471
+        ],
+        "arena_batch_duplicates": 1,
+        "arena_batch_unique": 11666,
+        "arena_expand_us": 8314,
+        "arena_lower_us": 120984,
+        "arena_prepared_before_solve": 7643,
+        "arena_rounds": 73912,
+        "arena_schedule_us": 1378,
+        "arena_setup_us": 450,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 237,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 42,
+        "fold_us": 42,
+        "forward_us": 50,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 247884,
+        "peak_counted_live_array_bytes": 249760,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 10,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11910,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 32,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "frontier_cold_us": 72060,
+      "frontier_warm_us": null,
+      "outer_validation_us": 32,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 72125,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            8758,
+            2675,
+            471
+          ],
+          "arena_batch_duplicates": 1,
+          "arena_batch_unique": 11666,
+          "arena_expand_us": 8314,
+          "arena_lower_us": 120984,
+          "arena_prepared_before_solve": 7643,
+          "arena_rounds": 73912,
+          "arena_schedule_us": 1378,
+          "arena_setup_us": 450,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 222544,
+          "bounded_children_unresolved": 14418,
+          "bounded_choice_calls": 11666,
+          "bounded_expansions": 162691,
+          "bounded_refinements": 538756,
+          "bounded_root_unresolved": 6847,
+          "cache_entries": 11672,
+          "cache_hits": 237,
+          "cache_key_bytes": 1495072,
+          "cache_lookup_us": 4,
+          "completed_actor_queries": 11666,
+          "demand_grouping_us": 42,
+          "fold_us": 42,
+          "forward_us": 50,
+          "generated_actor_queries": 11666,
+          "inner_worlds_by_level": [
+            34236,
+            5274,
+            940
+          ],
+          "native_choice_calls": 0,
+          "native_choice_declared_budget_sum_by_level": [],
+          "native_choice_us": 0,
+          "native_core_nodes": 0,
+          "native_core_pi_misses_by_level": [],
+          "native_core_policy_cache_entries": 0,
+          "native_core_reported_inner_worlds_by_level": [],
+          "peak_bounded_live_bytes": 247884,
+          "peak_counted_live_array_bytes": 249760,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 10,
+          "public_coordinates": 1708,
+          "public_record_calls": 92024,
+          "public_step_calls": 212266,
+          "query_lookups": 11910,
+          "raw_policy_consultations_by_level": [
+            9062,
+            2741,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 306960,
+          "sample_us": 32,
+          "unique_actor_misses_by_level": [
+            8559,
+            2637,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "arena",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          8758,
+          2675,
+          471
+        ],
+        "arena_batch_duplicates": 1,
+        "arena_batch_unique": 11666,
+        "arena_expand_us": 9385,
+        "arena_lower_us": 127363,
+        "arena_prepared_before_solve": 7643,
+        "arena_rounds": 73912,
+        "arena_schedule_us": 1675,
+        "arena_setup_us": 502,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 237,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 48,
+        "fold_us": 46,
+        "forward_us": 57,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 247884,
+        "peak_counted_live_array_bytes": 249760,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 11,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11910,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 47,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          8758,
+          2675,
+          471
+        ],
+        "arena_batch_duplicates": 1,
+        "arena_batch_unique": 11666,
+        "arena_expand_us": 9385,
+        "arena_lower_us": 127363,
+        "arena_prepared_before_solve": 7643,
+        "arena_rounds": 73912,
+        "arena_schedule_us": 1675,
+        "arena_setup_us": 502,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 222544,
+        "bounded_children_unresolved": 14418,
+        "bounded_choice_calls": 11666,
+        "bounded_expansions": 162691,
+        "bounded_refinements": 538756,
+        "bounded_root_unresolved": 6847,
+        "cache_entries": 11672,
+        "cache_hits": 237,
+        "cache_key_bytes": 1495072,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 11666,
+        "demand_grouping_us": 48,
+        "fold_us": 46,
+        "forward_us": 57,
+        "generated_actor_queries": 11666,
+        "inner_worlds_by_level": [
+          34236,
+          5274,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_bounded_live_bytes": 247884,
+        "peak_counted_live_array_bytes": 249760,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 11,
+        "public_coordinates": 1708,
+        "public_record_calls": 92024,
+        "public_step_calls": 212266,
+        "query_lookups": 11910,
+        "raw_policy_consultations_by_level": [
+          9062,
+          2741,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 306960,
+        "sample_us": 47,
+        "unique_actor_misses_by_level": [
+          8559,
+          2637,
+          470
+        ]
+      },
+      "frontier_cold_us": 75854,
+      "frontier_warm_us": null,
+      "outer_validation_us": 37,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 75925,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            8758,
+            2675,
+            471
+          ],
+          "arena_batch_duplicates": 1,
+          "arena_batch_unique": 11666,
+          "arena_expand_us": 9385,
+          "arena_lower_us": 127363,
+          "arena_prepared_before_solve": 7643,
+          "arena_rounds": 73912,
+          "arena_schedule_us": 1675,
+          "arena_setup_us": 502,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 222544,
+          "bounded_children_unresolved": 14418,
+          "bounded_choice_calls": 11666,
+          "bounded_expansions": 162691,
+          "bounded_refinements": 538756,
+          "bounded_root_unresolved": 6847,
+          "cache_entries": 11672,
+          "cache_hits": 237,
+          "cache_key_bytes": 1495072,
+          "cache_lookup_us": 4,
+          "completed_actor_queries": 11666,
+          "demand_grouping_us": 48,
+          "fold_us": 46,
+          "forward_us": 57,
+          "generated_actor_queries": 11666,
+          "inner_worlds_by_level": [
+            34236,
+            5274,
+            940
+          ],
+          "native_choice_calls": 0,
+          "native_choice_declared_budget_sum_by_level": [],
+          "native_choice_us": 0,
+          "native_core_nodes": 0,
+          "native_core_pi_misses_by_level": [],
+          "native_core_policy_cache_entries": 0,
+          "native_core_reported_inner_worlds_by_level": [],
+          "peak_bounded_live_bytes": 247884,
+          "peak_counted_live_array_bytes": 249760,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 11,
+          "public_coordinates": 1708,
+          "public_record_calls": 92024,
+          "public_step_calls": 212266,
+          "query_lookups": 11910,
+          "raw_policy_consultations_by_level": [
+            9062,
+            2741,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 306960,
+          "sample_us": 47,
+          "unique_actor_misses_by_level": [
+            8559,
+            2637,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "native",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          0,
+          0,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 0,
+        "bounded_children_unresolved": 0,
+        "bounded_choice_calls": 0,
+        "bounded_expansions": 0,
+        "bounded_refinements": 0,
+        "bounded_root_unresolved": 0,
+        "cache_entries": 476,
+        "cache_hits": 1,
+        "cache_key_bytes": 61984,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 470,
+        "demand_grouping_us": 43,
+        "fold_us": 45,
+        "forward_us": 74,
+        "generated_actor_queries": 470,
+        "inner_worlds_by_level": [],
+        "native_choice_calls": 470,
+        "native_choice_declared_budget_sum_by_level": [
+          0,
+          0,
+          940
+        ],
+        "native_choice_us": 4725,
+        "native_core_nodes": 90599,
+        "native_core_pi_misses_by_level": [
+          8297,
+          2582,
+          470,
+          0
+        ],
+        "native_core_policy_cache_entries": 3052,
+        "native_core_reported_inner_worlds_by_level": [
+          33188,
+          5164,
+          940,
+          0
+        ],
+        "peak_bounded_live_bytes": 0,
+        "peak_counted_live_array_bytes": 17044,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 9,
+        "public_coordinates": 1708,
+        "public_record_calls": 0,
+        "public_step_calls": 1388,
+        "query_lookups": 477,
+        "raw_policy_consultations_by_level": [
+          0,
+          0,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 2004,
+        "sample_us": 0,
+        "unique_actor_misses_by_level": [
+          0,
+          0,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          0,
+          0,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 0,
+        "bounded_children_unresolved": 0,
+        "bounded_choice_calls": 0,
+        "bounded_expansions": 0,
+        "bounded_refinements": 0,
+        "bounded_root_unresolved": 0,
+        "cache_entries": 476,
+        "cache_hits": 1,
+        "cache_key_bytes": 61984,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 470,
+        "demand_grouping_us": 43,
+        "fold_us": 45,
+        "forward_us": 74,
+        "generated_actor_queries": 470,
+        "inner_worlds_by_level": [],
+        "native_choice_calls": 470,
+        "native_choice_declared_budget_sum_by_level": [
+          0,
+          0,
+          940
+        ],
+        "native_choice_us": 4725,
+        "native_core_nodes": 90599,
+        "native_core_pi_misses_by_level": [
+          8297,
+          2582,
+          470,
+          0
+        ],
+        "native_core_policy_cache_entries": 3052,
+        "native_core_reported_inner_worlds_by_level": [
+          33188,
+          5164,
+          940,
+          0
+        ],
+        "peak_bounded_live_bytes": 0,
+        "peak_counted_live_array_bytes": 17044,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 9,
+        "public_coordinates": 1708,
+        "public_record_calls": 0,
+        "public_step_calls": 1388,
+        "query_lookups": 477,
+        "raw_policy_consultations_by_level": [
+          0,
+          0,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 2004,
+        "sample_us": 0,
+        "unique_actor_misses_by_level": [
+          0,
+          0,
+          470
+        ]
+      },
+      "frontier_cold_us": 5548,
+      "frontier_warm_us": null,
+      "outer_validation_us": 34,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 5615,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            0,
+            0,
+            471
+          ],
+          "arena_batch_duplicates": 0,
+          "arena_batch_unique": 0,
+          "arena_expand_us": 0,
+          "arena_lower_us": 0,
+          "arena_prepared_before_solve": 0,
+          "arena_rounds": 0,
+          "arena_schedule_us": 0,
+          "arena_setup_us": 0,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 0,
+          "bounded_children_unresolved": 0,
+          "bounded_choice_calls": 0,
+          "bounded_expansions": 0,
+          "bounded_refinements": 0,
+          "bounded_root_unresolved": 0,
+          "cache_entries": 476,
+          "cache_hits": 1,
+          "cache_key_bytes": 61984,
+          "cache_lookup_us": 4,
+          "completed_actor_queries": 470,
+          "demand_grouping_us": 43,
+          "fold_us": 45,
+          "forward_us": 74,
+          "generated_actor_queries": 470,
+          "inner_worlds_by_level": [],
+          "native_choice_calls": 470,
+          "native_choice_declared_budget_sum_by_level": [
+            0,
+            0,
+            940
+          ],
+          "native_choice_us": 4725,
+          "native_core_nodes": 90599,
+          "native_core_pi_misses_by_level": [
+            8297,
+            2582,
+            470,
+            0
+          ],
+          "native_core_policy_cache_entries": 3052,
+          "native_core_reported_inner_worlds_by_level": [
+            33188,
+            5164,
+            940,
+            0
+          ],
+          "peak_bounded_live_bytes": 0,
+          "peak_counted_live_array_bytes": 17044,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 9,
+          "public_coordinates": 1708,
+          "public_record_calls": 0,
+          "public_step_calls": 1388,
+          "query_lookups": 477,
+          "raw_policy_consultations_by_level": [
+            0,
+            0,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 2004,
+          "sample_us": 0,
+          "unique_actor_misses_by_level": [
+            0,
+            0,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "native",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          0,
+          0,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 0,
+        "bounded_children_unresolved": 0,
+        "bounded_choice_calls": 0,
+        "bounded_expansions": 0,
+        "bounded_refinements": 0,
+        "bounded_root_unresolved": 0,
+        "cache_entries": 476,
+        "cache_hits": 1,
+        "cache_key_bytes": 61984,
+        "cache_lookup_us": 5,
+        "completed_actor_queries": 470,
+        "demand_grouping_us": 45,
+        "fold_us": 40,
+        "forward_us": 47,
+        "generated_actor_queries": 470,
+        "inner_worlds_by_level": [],
+        "native_choice_calls": 470,
+        "native_choice_declared_budget_sum_by_level": [
+          0,
+          0,
+          940
+        ],
+        "native_choice_us": 3706,
+        "native_core_nodes": 90599,
+        "native_core_pi_misses_by_level": [
+          8297,
+          2582,
+          470,
+          0
+        ],
+        "native_core_policy_cache_entries": 3052,
+        "native_core_reported_inner_worlds_by_level": [
+          33188,
+          5164,
+          940,
+          0
+        ],
+        "peak_bounded_live_bytes": 0,
+        "peak_counted_live_array_bytes": 17044,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 9,
+        "public_coordinates": 1708,
+        "public_record_calls": 0,
+        "public_step_calls": 1388,
+        "query_lookups": 477,
+        "raw_policy_consultations_by_level": [
+          0,
+          0,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 2004,
+        "sample_us": 0,
+        "unique_actor_misses_by_level": [
+          0,
+          0,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          0,
+          0,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 0,
+        "bounded_children_unresolved": 0,
+        "bounded_choice_calls": 0,
+        "bounded_expansions": 0,
+        "bounded_refinements": 0,
+        "bounded_root_unresolved": 0,
+        "cache_entries": 476,
+        "cache_hits": 1,
+        "cache_key_bytes": 61984,
+        "cache_lookup_us": 5,
+        "completed_actor_queries": 470,
+        "demand_grouping_us": 45,
+        "fold_us": 40,
+        "forward_us": 47,
+        "generated_actor_queries": 470,
+        "inner_worlds_by_level": [],
+        "native_choice_calls": 470,
+        "native_choice_declared_budget_sum_by_level": [
+          0,
+          0,
+          940
+        ],
+        "native_choice_us": 3706,
+        "native_core_nodes": 90599,
+        "native_core_pi_misses_by_level": [
+          8297,
+          2582,
+          470,
+          0
+        ],
+        "native_core_policy_cache_entries": 3052,
+        "native_core_reported_inner_worlds_by_level": [
+          33188,
+          5164,
+          940,
+          0
+        ],
+        "peak_bounded_live_bytes": 0,
+        "peak_counted_live_array_bytes": 17044,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 9,
+        "public_coordinates": 1708,
+        "public_record_calls": 0,
+        "public_step_calls": 1388,
+        "query_lookups": 477,
+        "raw_policy_consultations_by_level": [
+          0,
+          0,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 2004,
+        "sample_us": 0,
+        "unique_actor_misses_by_level": [
+          0,
+          0,
+          470
+        ]
+      },
+      "frontier_cold_us": 4453,
+      "frontier_warm_us": null,
+      "outer_validation_us": 34,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 4521,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            0,
+            0,
+            471
+          ],
+          "arena_batch_duplicates": 0,
+          "arena_batch_unique": 0,
+          "arena_expand_us": 0,
+          "arena_lower_us": 0,
+          "arena_prepared_before_solve": 0,
+          "arena_rounds": 0,
+          "arena_schedule_us": 0,
+          "arena_setup_us": 0,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 0,
+          "bounded_children_unresolved": 0,
+          "bounded_choice_calls": 0,
+          "bounded_expansions": 0,
+          "bounded_refinements": 0,
+          "bounded_root_unresolved": 0,
+          "cache_entries": 476,
+          "cache_hits": 1,
+          "cache_key_bytes": 61984,
+          "cache_lookup_us": 5,
+          "completed_actor_queries": 470,
+          "demand_grouping_us": 45,
+          "fold_us": 40,
+          "forward_us": 47,
+          "generated_actor_queries": 470,
+          "inner_worlds_by_level": [],
+          "native_choice_calls": 470,
+          "native_choice_declared_budget_sum_by_level": [
+            0,
+            0,
+            940
+          ],
+          "native_choice_us": 3706,
+          "native_core_nodes": 90599,
+          "native_core_pi_misses_by_level": [
+            8297,
+            2582,
+            470,
+            0
+          ],
+          "native_core_policy_cache_entries": 3052,
+          "native_core_reported_inner_worlds_by_level": [
+            33188,
+            5164,
+            940,
+            0
+          ],
+          "peak_bounded_live_bytes": 0,
+          "peak_counted_live_array_bytes": 17044,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 9,
+          "public_coordinates": 1708,
+          "public_record_calls": 0,
+          "public_step_calls": 1388,
+          "query_lookups": 477,
+          "raw_policy_consultations_by_level": [
+            0,
+            0,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 2004,
+          "sample_us": 0,
+          "unique_actor_misses_by_level": [
+            0,
+            0,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "native",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          0,
+          0,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 0,
+        "bounded_children_unresolved": 0,
+        "bounded_choice_calls": 0,
+        "bounded_expansions": 0,
+        "bounded_refinements": 0,
+        "bounded_root_unresolved": 0,
+        "cache_entries": 476,
+        "cache_hits": 1,
+        "cache_key_bytes": 61984,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 470,
+        "demand_grouping_us": 62,
+        "fold_us": 42,
+        "forward_us": 42,
+        "generated_actor_queries": 470,
+        "inner_worlds_by_level": [],
+        "native_choice_calls": 470,
+        "native_choice_declared_budget_sum_by_level": [
+          0,
+          0,
+          940
+        ],
+        "native_choice_us": 3734,
+        "native_core_nodes": 90599,
+        "native_core_pi_misses_by_level": [
+          8297,
+          2582,
+          470,
+          0
+        ],
+        "native_core_policy_cache_entries": 3052,
+        "native_core_reported_inner_worlds_by_level": [
+          33188,
+          5164,
+          940,
+          0
+        ],
+        "peak_bounded_live_bytes": 0,
+        "peak_counted_live_array_bytes": 17044,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 0,
+        "public_step_calls": 1388,
+        "query_lookups": 477,
+        "raw_policy_consultations_by_level": [
+          0,
+          0,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 2004,
+        "sample_us": 0,
+        "unique_actor_misses_by_level": [
+          0,
+          0,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          0,
+          0,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 0,
+        "bounded_children_unresolved": 0,
+        "bounded_choice_calls": 0,
+        "bounded_expansions": 0,
+        "bounded_refinements": 0,
+        "bounded_root_unresolved": 0,
+        "cache_entries": 476,
+        "cache_hits": 1,
+        "cache_key_bytes": 61984,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 470,
+        "demand_grouping_us": 62,
+        "fold_us": 42,
+        "forward_us": 42,
+        "generated_actor_queries": 470,
+        "inner_worlds_by_level": [],
+        "native_choice_calls": 470,
+        "native_choice_declared_budget_sum_by_level": [
+          0,
+          0,
+          940
+        ],
+        "native_choice_us": 3734,
+        "native_core_nodes": 90599,
+        "native_core_pi_misses_by_level": [
+          8297,
+          2582,
+          470,
+          0
+        ],
+        "native_core_policy_cache_entries": 3052,
+        "native_core_reported_inner_worlds_by_level": [
+          33188,
+          5164,
+          940,
+          0
+        ],
+        "peak_bounded_live_bytes": 0,
+        "peak_counted_live_array_bytes": 17044,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 0,
+        "public_step_calls": 1388,
+        "query_lookups": 477,
+        "raw_policy_consultations_by_level": [
+          0,
+          0,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 2004,
+        "sample_us": 0,
+        "unique_actor_misses_by_level": [
+          0,
+          0,
+          470
+        ]
+      },
+      "frontier_cold_us": 4513,
+      "frontier_warm_us": null,
+      "outer_validation_us": 31,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 4579,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            0,
+            0,
+            471
+          ],
+          "arena_batch_duplicates": 0,
+          "arena_batch_unique": 0,
+          "arena_expand_us": 0,
+          "arena_lower_us": 0,
+          "arena_prepared_before_solve": 0,
+          "arena_rounds": 0,
+          "arena_schedule_us": 0,
+          "arena_setup_us": 0,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 0,
+          "bounded_children_unresolved": 0,
+          "bounded_choice_calls": 0,
+          "bounded_expansions": 0,
+          "bounded_refinements": 0,
+          "bounded_root_unresolved": 0,
+          "cache_entries": 476,
+          "cache_hits": 1,
+          "cache_key_bytes": 61984,
+          "cache_lookup_us": 4,
+          "completed_actor_queries": 470,
+          "demand_grouping_us": 62,
+          "fold_us": 42,
+          "forward_us": 42,
+          "generated_actor_queries": 470,
+          "inner_worlds_by_level": [],
+          "native_choice_calls": 470,
+          "native_choice_declared_budget_sum_by_level": [
+            0,
+            0,
+            940
+          ],
+          "native_choice_us": 3734,
+          "native_core_nodes": 90599,
+          "native_core_pi_misses_by_level": [
+            8297,
+            2582,
+            470,
+            0
+          ],
+          "native_core_policy_cache_entries": 3052,
+          "native_core_reported_inner_worlds_by_level": [
+            33188,
+            5164,
+            940,
+            0
+          ],
+          "peak_bounded_live_bytes": 0,
+          "peak_counted_live_array_bytes": 17044,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 8,
+          "public_coordinates": 1708,
+          "public_record_calls": 0,
+          "public_step_calls": 1388,
+          "query_lookups": 477,
+          "raw_policy_consultations_by_level": [
+            0,
+            0,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 2004,
+          "sample_us": 0,
+          "unique_actor_misses_by_level": [
+            0,
+            0,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "native",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          0,
+          0,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 0,
+        "bounded_children_unresolved": 0,
+        "bounded_choice_calls": 0,
+        "bounded_expansions": 0,
+        "bounded_refinements": 0,
+        "bounded_root_unresolved": 0,
+        "cache_entries": 476,
+        "cache_hits": 1,
+        "cache_key_bytes": 61984,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 470,
+        "demand_grouping_us": 44,
+        "fold_us": 41,
+        "forward_us": 42,
+        "generated_actor_queries": 470,
+        "inner_worlds_by_level": [],
+        "native_choice_calls": 470,
+        "native_choice_declared_budget_sum_by_level": [
+          0,
+          0,
+          940
+        ],
+        "native_choice_us": 3663,
+        "native_core_nodes": 90599,
+        "native_core_pi_misses_by_level": [
+          8297,
+          2582,
+          470,
+          0
+        ],
+        "native_core_policy_cache_entries": 3052,
+        "native_core_reported_inner_worlds_by_level": [
+          33188,
+          5164,
+          940,
+          0
+        ],
+        "peak_bounded_live_bytes": 0,
+        "peak_counted_live_array_bytes": 17044,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 9,
+        "public_coordinates": 1708,
+        "public_record_calls": 0,
+        "public_step_calls": 1388,
+        "query_lookups": 477,
+        "raw_policy_consultations_by_level": [
+          0,
+          0,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 2004,
+        "sample_us": 0,
+        "unique_actor_misses_by_level": [
+          0,
+          0,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          0,
+          0,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 0,
+        "bounded_children_unresolved": 0,
+        "bounded_choice_calls": 0,
+        "bounded_expansions": 0,
+        "bounded_refinements": 0,
+        "bounded_root_unresolved": 0,
+        "cache_entries": 476,
+        "cache_hits": 1,
+        "cache_key_bytes": 61984,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 470,
+        "demand_grouping_us": 44,
+        "fold_us": 41,
+        "forward_us": 42,
+        "generated_actor_queries": 470,
+        "inner_worlds_by_level": [],
+        "native_choice_calls": 470,
+        "native_choice_declared_budget_sum_by_level": [
+          0,
+          0,
+          940
+        ],
+        "native_choice_us": 3663,
+        "native_core_nodes": 90599,
+        "native_core_pi_misses_by_level": [
+          8297,
+          2582,
+          470,
+          0
+        ],
+        "native_core_policy_cache_entries": 3052,
+        "native_core_reported_inner_worlds_by_level": [
+          33188,
+          5164,
+          940,
+          0
+        ],
+        "peak_bounded_live_bytes": 0,
+        "peak_counted_live_array_bytes": 17044,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 9,
+        "public_coordinates": 1708,
+        "public_record_calls": 0,
+        "public_step_calls": 1388,
+        "query_lookups": 477,
+        "raw_policy_consultations_by_level": [
+          0,
+          0,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 2004,
+        "sample_us": 0,
+        "unique_actor_misses_by_level": [
+          0,
+          0,
+          470
+        ]
+      },
+      "frontier_cold_us": 4414,
+      "frontier_warm_us": null,
+      "outer_validation_us": 32,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 4479,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            0,
+            0,
+            471
+          ],
+          "arena_batch_duplicates": 0,
+          "arena_batch_unique": 0,
+          "arena_expand_us": 0,
+          "arena_lower_us": 0,
+          "arena_prepared_before_solve": 0,
+          "arena_rounds": 0,
+          "arena_schedule_us": 0,
+          "arena_setup_us": 0,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 0,
+          "bounded_children_unresolved": 0,
+          "bounded_choice_calls": 0,
+          "bounded_expansions": 0,
+          "bounded_refinements": 0,
+          "bounded_root_unresolved": 0,
+          "cache_entries": 476,
+          "cache_hits": 1,
+          "cache_key_bytes": 61984,
+          "cache_lookup_us": 4,
+          "completed_actor_queries": 470,
+          "demand_grouping_us": 44,
+          "fold_us": 41,
+          "forward_us": 42,
+          "generated_actor_queries": 470,
+          "inner_worlds_by_level": [],
+          "native_choice_calls": 470,
+          "native_choice_declared_budget_sum_by_level": [
+            0,
+            0,
+            940
+          ],
+          "native_choice_us": 3663,
+          "native_core_nodes": 90599,
+          "native_core_pi_misses_by_level": [
+            8297,
+            2582,
+            470,
+            0
+          ],
+          "native_core_policy_cache_entries": 3052,
+          "native_core_reported_inner_worlds_by_level": [
+            33188,
+            5164,
+            940,
+            0
+          ],
+          "peak_bounded_live_bytes": 0,
+          "peak_counted_live_array_bytes": 17044,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 9,
+          "public_coordinates": 1708,
+          "public_record_calls": 0,
+          "public_step_calls": 1388,
+          "query_lookups": 477,
+          "raw_policy_consultations_by_level": [
+            0,
+            0,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 2004,
+          "sample_us": 0,
+          "unique_actor_misses_by_level": [
+            0,
+            0,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  },
+  {
+    "mode": "native",
+    "output": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          0,
+          0,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 0,
+        "bounded_children_unresolved": 0,
+        "bounded_choice_calls": 0,
+        "bounded_expansions": 0,
+        "bounded_refinements": 0,
+        "bounded_root_unresolved": 0,
+        "cache_entries": 476,
+        "cache_hits": 1,
+        "cache_key_bytes": 61984,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 470,
+        "demand_grouping_us": 50,
+        "fold_us": 44,
+        "forward_us": 41,
+        "generated_actor_queries": 470,
+        "inner_worlds_by_level": [],
+        "native_choice_calls": 470,
+        "native_choice_declared_budget_sum_by_level": [
+          0,
+          0,
+          940
+        ],
+        "native_choice_us": 3641,
+        "native_core_nodes": 90599,
+        "native_core_pi_misses_by_level": [
+          8297,
+          2582,
+          470,
+          0
+        ],
+        "native_core_policy_cache_entries": 3052,
+        "native_core_reported_inner_worlds_by_level": [
+          33188,
+          5164,
+          940,
+          0
+        ],
+        "peak_bounded_live_bytes": 0,
+        "peak_counted_live_array_bytes": 17044,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 0,
+        "public_step_calls": 1388,
+        "query_lookups": 477,
+        "raw_policy_consultations_by_level": [
+          0,
+          0,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 2004,
+        "sample_us": 0,
+        "unique_actor_misses_by_level": [
+          0,
+          0,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          0,
+          0,
+          471
+        ],
+        "arena_batch_duplicates": 0,
+        "arena_batch_unique": 0,
+        "arena_expand_us": 0,
+        "arena_lower_us": 0,
+        "arena_prepared_before_solve": 0,
+        "arena_rounds": 0,
+        "arena_schedule_us": 0,
+        "arena_setup_us": 0,
+        "avoided_record_calls": 0,
+        "bounded_children_created": 0,
+        "bounded_children_unresolved": 0,
+        "bounded_choice_calls": 0,
+        "bounded_expansions": 0,
+        "bounded_refinements": 0,
+        "bounded_root_unresolved": 0,
+        "cache_entries": 476,
+        "cache_hits": 1,
+        "cache_key_bytes": 61984,
+        "cache_lookup_us": 4,
+        "completed_actor_queries": 470,
+        "demand_grouping_us": 50,
+        "fold_us": 44,
+        "forward_us": 41,
+        "generated_actor_queries": 470,
+        "inner_worlds_by_level": [],
+        "native_choice_calls": 470,
+        "native_choice_declared_budget_sum_by_level": [
+          0,
+          0,
+          940
+        ],
+        "native_choice_us": 3641,
+        "native_core_nodes": 90599,
+        "native_core_pi_misses_by_level": [
+          8297,
+          2582,
+          470,
+          0
+        ],
+        "native_core_policy_cache_entries": 3052,
+        "native_core_reported_inner_worlds_by_level": [
+          33188,
+          5164,
+          940,
+          0
+        ],
+        "peak_bounded_live_bytes": 0,
+        "peak_counted_live_array_bytes": 17044,
+        "peak_layer_rows": 44,
+        "peak_retained_array_bytes": 17044,
+        "prefix_lookup_probes": 810,
+        "preparation_us": 8,
+        "public_coordinates": 1708,
+        "public_record_calls": 0,
+        "public_step_calls": 1388,
+        "query_lookups": 477,
+        "raw_policy_consultations_by_level": [
+          0,
+          0,
+          488
+        ],
+        "refused_batches": 0,
+        "reused_public_steps": 268,
+        "row_edges": 2004,
+        "sample_us": 0,
+        "unique_actor_misses_by_level": [
+          0,
+          0,
+          470
+        ]
+      },
+      "frontier_cold_us": 4385,
+      "frontier_warm_us": null,
+      "outer_validation_us": 36,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 4455,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            0,
+            0,
+            471
+          ],
+          "arena_batch_duplicates": 0,
+          "arena_batch_unique": 0,
+          "arena_expand_us": 0,
+          "arena_lower_us": 0,
+          "arena_prepared_before_solve": 0,
+          "arena_rounds": 0,
+          "arena_schedule_us": 0,
+          "arena_setup_us": 0,
+          "avoided_record_calls": 0,
+          "bounded_children_created": 0,
+          "bounded_children_unresolved": 0,
+          "bounded_choice_calls": 0,
+          "bounded_expansions": 0,
+          "bounded_refinements": 0,
+          "bounded_root_unresolved": 0,
+          "cache_entries": 476,
+          "cache_hits": 1,
+          "cache_key_bytes": 61984,
+          "cache_lookup_us": 4,
+          "completed_actor_queries": 470,
+          "demand_grouping_us": 50,
+          "fold_us": 44,
+          "forward_us": 41,
+          "generated_actor_queries": 470,
+          "inner_worlds_by_level": [],
+          "native_choice_calls": 470,
+          "native_choice_declared_budget_sum_by_level": [
+            0,
+            0,
+            940
+          ],
+          "native_choice_us": 3641,
+          "native_core_nodes": 90599,
+          "native_core_pi_misses_by_level": [
+            8297,
+            2582,
+            470,
+            0
+          ],
+          "native_core_policy_cache_entries": 3052,
+          "native_core_reported_inner_worlds_by_level": [
+            33188,
+            5164,
+            940,
+            0
+          ],
+          "peak_bounded_live_bytes": 0,
+          "peak_counted_live_array_bytes": 17044,
+          "peak_layer_rows": 44,
+          "peak_retained_array_bytes": 17044,
+          "prefix_lookup_probes": 810,
+          "preparation_us": 8,
+          "public_coordinates": 1708,
+          "public_record_calls": 0,
+          "public_step_calls": 1388,
+          "query_lookups": 477,
+          "raw_policy_consultations_by_level": [
+            0,
+            0,
+            488
+          ],
+          "refused_batches": 0,
+          "reused_public_steps": 268,
+          "row_edges": 2004,
+          "sample_us": 0,
+          "unique_actor_misses_by_level": [
+            0,
+            0,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    }
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "base": "97c1c1759f2966e8b985d66b19d7cc4ddc08be42",
+  "owner": "sol_checker",
+  "writable": "checks only",
+  "adaptations": [
+    "prior preservation audit adds fifth manifest",
+    "prior arena arithmetic audit retains historical hashes, does not claim absent ignored binary identity",
+    "prior exhaustive sampling audit unchanged target"
+  ]
+}

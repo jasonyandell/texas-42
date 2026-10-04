@@ -1,0 +1,12 @@
+[package]
+name = "resumable-old-arena-independent-check"
+version = "0.1.0"
+edition = "2021"
+publish = false
+[workspace]
+[dependencies]
+native-frontier = { path = "../../../choice-arena-20261004/native" }
+walt = { path = "../../../../walt/walt", default-features = false, features = ["cpu-speedups", "parallel"] }
+serde_json = "1"
+[profile.release]
+overflow-checks = true

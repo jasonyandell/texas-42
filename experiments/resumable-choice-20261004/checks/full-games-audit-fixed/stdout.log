@@ -1,0 +1,19 @@
+{
+  "complete_games": 8,
+  "moves": 224,
+  "independent_local_mechanics_replay": true,
+  "regenerated_full_deal_and_rotations": true,
+  "seven_field_actor_boundary_every_turn": true,
+  "current_phone_source_and_compiled_candidate_identities": true,
+  "all_late_complete_vectors_fresh_native": 26,
+  "distinct_late_public_signatures": 26,
+  "late_completed": 26,
+  "paired_differences": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "summary_arithmetic_verified": true,
+  "scope": "One independent generating deal, four correlated rotations and two team assignments. Complete game/adapter smoke evidence; no independent-deal strength estimate. Conservative independent-deal95% interval remains[-1,1]. Early/forced/settled turns use pinned phone procedure; experimental late L3 policy differs from phone L1/partner."
+}

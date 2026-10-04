@@ -1,0 +1,28 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T11:00:35.704001+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-7/research-worktree",
+  "command": [
+    "cargo",
+    "build",
+    "--release",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "experiments/choice-arena-20261004/native/Cargo.toml",
+    "--target-dir",
+    "experiments/resumable-choice-20261004/checks/old-arena-target"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 7.967316,
+  "status": "completed",
+  "child_pid": 13150,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

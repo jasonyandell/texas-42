@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-04",
+  "authorization": "Jason's explicit fresh Sol6.1/Sol6.1 constructive overnight parallel Walt team",
+  "source_thread_id": "01a10305-b685-741e-9dce-d403e83c80d7",
+  "source_checkpoint": "97c1c1759f2966e8b985d66b19d7cc4ddc08be42",
+  "branch": "codex/walt-resumable-20261004",
+  "isolation": "Separate --no-hardlinks bare clone source.git + research-worktree in task-7; task-6 untouched.",
+  "agents": [
+    {
+      "name": "kernel_builder",
+      "requested_model": "gpt-6.1-sol",
+      "tool_accepted": true,
+      "role": "Constructive exact-kernel/profiles/conditional Lean",
+      "owned_paths": [
+        "native/",
+        "math/"
+      ]
+    },
+    {
+      "name": "sol_checker",
+      "requested_model": "gpt-6.1-sol",
+      "tool_accepted": true,
+      "role": "Fresh independent preservation/semantics/proofs/full traces/integration/timing review",
+      "owned_paths": [
+        "checks/"
+      ]
+    }
+  ],
+  "model_attestation_limit": "Requested identities accepted by tool; separate runtime attestation unavailable.",
+  "root_role": "Isolation, complete-cost comparisons, complete hybrid player adapter and balanced head-to-head, final documentation/audit/commit.",
+  "boundaries": "Local only; production merge/deploy/external/paid/credentials/persistent access unchanged. Blocked fixture transmission to Claude remains blocked."
+}

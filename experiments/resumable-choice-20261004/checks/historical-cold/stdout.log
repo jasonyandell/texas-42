@@ -1,0 +1,42 @@
+{
+  "complete_vector_comparisons": 592,
+  "all_proposed_input_hashes_freshly_regenerated": true,
+  "current_source_identities_verified": true,
+  "historical_binary_identities_recorded_only": true,
+  "balanced_eight_pairs": true,
+  "panels": [
+    {
+      "folder": "cold-primary",
+      "proposed": 32,
+      "roots": 6,
+      "original_cold_s": 0.10255427099999999,
+      "compiled_cold_s": 0.07257602049999998,
+      "ratio": 1.4130599927285903,
+      "frontend_RSS_medians": {
+        "original": 21831680.0,
+        "compiled": 21848064.0
+      },
+      "nested_native_RSS_medians": {
+        "original": 7168000.0,
+        "compiled": 7118848.0
+      }
+    },
+    {
+      "folder": "cold-holdout",
+      "proposed": 128,
+      "roots": 31,
+      "original_cold_s": 0.23554016700000008,
+      "compiled_cold_s": 0.12471016699999993,
+      "ratio": 1.8887005980835565,
+      "frontend_RSS_medians": {
+        "original": 25845760.0,
+        "compiled": 25845760.0
+      },
+      "nested_native_RSS_medians": {
+        "original": 10797056.0,
+        "compiled": 10829824.0
+      }
+    }
+  ],
+  "scope": "Fresh Python+native process per request. Matched harness imports sampling/compiled AST setup in both variants. Driver shared startup/aggregate receipt outside per-request wall. Frontend wait4 may include waited descendants: do not add nested CPU; no per-variant memory improvement established. Finite40world late Straight support component, no full player/strength/general-k claim."
+}

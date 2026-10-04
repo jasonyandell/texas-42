@@ -1,0 +1,20 @@
+{
+  "games": 8,
+  "moves": 224,
+  "source_deals": 1,
+  "missing_pairs": [],
+  "pair_wins": 0,
+  "pair_losses": 0,
+  "pair_ties": 4,
+  "late_completed": 26,
+  "late_refusals": 0,
+  "strength_claim": false,
+  "uncertainty": "One source-deal smoke block; four rotations are correlated. Conservative bounded independent-deal 95% interval is [-1,1]; no strength inference.",
+  "candidate_host_ms": 3408.2683730000003,
+  "phone_host_ms": 3085.2440859999997,
+  "late_host_ms": 408.492293,
+  "identity": "pinned-phone early/forced/settled/refusal; late uniform40 / voidless [4,2,2,2] Field::Level(2), ascending ties",
+  "binary_sha256": "87677300f84dc0662bdd58eeebd8f8efbd128e9e19d443cf0a4f686746993380",
+  "phone_wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+  "mean_paired_make_difference": 0.0
+}

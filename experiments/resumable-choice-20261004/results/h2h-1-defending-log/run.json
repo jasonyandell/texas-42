@@ -1,0 +1,30 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T11:15:41.102209+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-7/research-worktree",
+  "command": [
+    "python3",
+    "experiments/resumable-choice-20261004/arena.py",
+    "run",
+    "--seed",
+    "975102",
+    "--rotation",
+    "1",
+    "--role",
+    "defending",
+    "--out",
+    "experiments/resumable-choice-20261004/results/h2h/game-975102-1-defending.json"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.907337,
+  "status": "completed",
+  "child_pid": 31419,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}
