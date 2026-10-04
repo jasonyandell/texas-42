@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/jason/Documents/Codex/2026-10-04/task-9/research-worktree/experiments/higher-k-budget-20261004/checks/check_scalar_boundaries.py", line 5, in <module>
+    from check_adapter import CHECK,HERE,call
+ImportError: cannot import name 'HERE' from 'check_adapter' (/Users/jason/Documents/Codex/2026-10-04/task-9/research-worktree/experiments/higher-k-budget-20261004/checks/check_adapter.py)

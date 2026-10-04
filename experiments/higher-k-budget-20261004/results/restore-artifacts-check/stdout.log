@@ -1,0 +1,4 @@
+{"artifact": "measured_native", "sha256": "4a4899d77e6faa731e10ddff63f67bd0c485240d5c440623b3f11e18b700e779", "verified": true}
+{"artifact": "measured_wasm", "sha256": "a50f865ae39a439f510f7d9f032c62f4e53ccac70244b4660b8f48103cd25245", "verified": true}
+{"artifact": "final_native", "sha256": "2154b88b380822759a138937444c653be1b7644d138069eebaae4cf04cc12bd5", "verified": true}
+{"artifact": "final_wasm", "sha256": "fe04e6628166abb0917401393a3629d86125037edebd6d9e5f12d3bf7d460bab", "verified": true}

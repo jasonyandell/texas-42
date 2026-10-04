@@ -1,0 +1,12 @@
+{
+  "full_vectors": 45,
+  "independent_roots": 9,
+  "all9declarations": true,
+  "ordered_worlds_and_final_rng": true,
+  "independent_full_deal_replays": 1800,
+  "tied_vectors": 31,
+  "zero_budget_lawful_refusals": 45,
+  "malformed_refusals": 11,
+  "binary_sha256": "2154b88b380822759a138937444c653be1b7644d138069eebaae4cf04cc12bd5",
+  "scope": "Finite conformance and solver-returned refusal only; no browser/host-interruption, timing, or strength theorem."
+}

@@ -1,0 +1,14 @@
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling num-traits v0.2.19
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling num-integer v0.1.47
+   Compiling num-bigint v0.4.8
+   Compiling num-rational v0.4.2
+   Compiling walt v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-9/research-worktree/walt/walt)
+   Compiling walt-player v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-9/research-worktree/walt/walt-player)
+   Compiling higher-k-player v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-9/research-worktree/experiments/higher-k-budget-20261004/adapter)
+    Finished `release` profile [optimized] target(s) in 20.29s

@@ -1,0 +1,17 @@
+{
+  "schema": "higher-k-final-checkpoint-audit-v1",
+  "python_sources_parse": true,
+  "relative_document_links": 93,
+  "all_artifact_hashes": true,
+  "independent_git_objects": true,
+  "preserved_inherited_tracked_sources": true,
+  "receipts": 232,
+  "failed_development_receipts": [
+    "checks/build-runner/run.json",
+    "checks/scalar-boundaries/run.json",
+    "checks/scalar-boundaries-import-fixed/run.json"
+  ],
+  "max_allowance_seconds": 295.0,
+  "max_elapsed_seconds": 28.329739,
+  "no_cleanup_errors": true
+}

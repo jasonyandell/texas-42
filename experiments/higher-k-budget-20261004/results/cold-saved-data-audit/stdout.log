@@ -1,0 +1,824 @@
+{
+  "frozen_source_deals": 54,
+  "reconstructed_fixtures": 54,
+  "complete_root_deal_files": 54,
+  "complete_game_deal_files": 54,
+  "root_calls": 2160,
+  "earlier_root_calls": 2160,
+  "earlier_new_independent_deals": 0,
+  "independently_replayed_suffix_games": 3024,
+  "independently_replayed_suffix_moves": 36288,
+  "complete_panel": true,
+  "source_identity_matches": true,
+  "capped_receipts": [
+    {
+      "path": "results/analysis-fixed-log/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/analysis-log/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/budget-intervals-log/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/build-native/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/build-native-final/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/build-native-scalar-fixed/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/build-wasm/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/build-wasm-scalar-fixed/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-initialize/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3005757/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3013229/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3027345/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3043169/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3066600/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3068068/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3073786/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3115003/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3115119/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3131322/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3184382/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3205590/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3228844/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3243297/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3261375/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3289004/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3352168/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3360735/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3376823/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3383378/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3390781/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3403449/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3441316/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3460903/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3480769/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3491826/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3518964/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3523566/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3583188/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3591365/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3596875/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3608860/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3645423/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3646433/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3676409/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3677539/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3688765/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3727948/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3728369/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3749514/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3769904/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3788948/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3791984/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3798170/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3807030/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3837050/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3850700/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3851398/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3888629/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3899638/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3961751/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3975969/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3976200/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-log-3978330/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/earlier-summary-log/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/final-delivery-audit/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/final-static-audit/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/game-log-3851398/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3005757/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3013229/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3027345/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3043169/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3066600/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3068068/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3073786/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3115003/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3115119/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3131322/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3184382/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3205590/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3228844/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3243297/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3261375/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3289004/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3352168/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3360735/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3376823/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3383378/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3390781/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3403449/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3441316/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3460903/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3480769/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3491826/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3518964/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3523566/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3583188/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3591365/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3596875/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3608860/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3645423/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3646433/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3676409/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3677539/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3688765/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3727948/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3728369/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3749514/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3769904/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3788948/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3791984/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3798170/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3807030/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3837050/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3850700/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3888629/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3899638/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3961751/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3975969/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3976200/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/games-log-3978330/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/git-connectivity/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/initialize/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/parallel-log-1-0/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/parallel-log-1-1/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/parallel-log-1-2/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/parallel-log-1-3/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/parallel-log-1-4/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/parallel-log-1-5/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/parallel-log-4-0/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/parallel-log-4-1/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/parallel-log-4-2/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/parallel-log-4-3/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/parallel-log-4-4/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/parallel-log-4-5/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/reproduce-routing-check/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/reproduce-routing-log/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/restore-artifacts-check/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/root-log-3851398/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3005757/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3013229/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3027345/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3043169/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3066600/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3068068/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3073786/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3115003/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3115119/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3131322/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3184382/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3205590/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3228844/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3243297/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3261375/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3289004/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3352168/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3360735/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3376823/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3383378/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3390781/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3403449/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3441316/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3460903/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3480769/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3491826/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3518964/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3523566/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3583188/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3591365/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3596875/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3608860/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3645423/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3646433/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3676409/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3677539/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3688765/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3727948/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3728369/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3749514/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3769904/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3788948/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3791984/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3798170/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3807030/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3837050/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3850700/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3888629/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3899638/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3961751/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3975969/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3976200/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/roots-log-3978330/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/summarize-fixed-log/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/summarize-log/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/unconstrained-log-3043169/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/unconstrained-log-3066600/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/unconstrained-log-3360735/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/unconstrained-log-3491826/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/unconstrained-log-3591365/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/unconstrained-log-3791984/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/unconstrained-log-3850700/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/unconstrained-log-3851398/run.json",
+      "status": "completed"
+    },
+    {
+      "path": "results/unconstrained-log-3978330/run.json",
+      "status": "completed"
+    }
+  ],
+  "scope": "Finite public-state/referee/arithmetic audit; conditional PRNG deal independence, random-prefix suffix distribution, no fresh timing or player-strength theorem."
+}

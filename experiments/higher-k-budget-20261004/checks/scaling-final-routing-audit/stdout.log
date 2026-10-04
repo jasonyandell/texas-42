@@ -1,0 +1,440 @@
+{
+  "unconstrained_calls": 225,
+  "unconstrained_cost_panels": [
+    {
+      "plies": 12,
+      "k": 1,
+      "planned": 9,
+      "eligible": 4,
+      "complete": 4,
+      "censored": 0,
+      "completed_host_ms": {
+        "n": 4,
+        "sum": 5.5656250000001055,
+        "median": 1.548437500000055,
+        "p95": 1.6410419999999952,
+        "max": 1.6410419999999952
+      },
+      "completed_nodes": {
+        "n": 4,
+        "sum": 189640,
+        "median": 52943.5,
+        "p95": 56372,
+        "max": 56372
+      },
+      "completed_pi_computations": {
+        "n": 4,
+        "sum": 4253,
+        "median": 1199.0,
+        "p95": 1312,
+        "max": 1312
+      },
+      "completed_inner_samples": {
+        "n": 4,
+        "sum": 17012,
+        "median": 4796.0,
+        "p95": 5248,
+        "max": 5248
+      }
+    },
+    {
+      "plies": 12,
+      "k": 2,
+      "planned": 9,
+      "eligible": 4,
+      "complete": 4,
+      "censored": 0,
+      "completed_host_ms": {
+        "n": 4,
+        "sum": 30.46604199999996,
+        "median": 8.273458999999999,
+        "p95": 9.31120799999996,
+        "max": 9.31120799999996
+      },
+      "completed_nodes": {
+        "n": 4,
+        "sum": 1228491,
+        "median": 320180.5,
+        "p95": 397366,
+        "max": 397366
+      },
+      "completed_pi_computations": {
+        "n": 4,
+        "sum": 53947,
+        "median": 14981.0,
+        "p95": 16127,
+        "max": 16127
+      },
+      "completed_inner_samples": {
+        "n": 4,
+        "sum": 207126,
+        "median": 57387.0,
+        "p95": 61936,
+        "max": 61936
+      }
+    },
+    {
+      "plies": 12,
+      "k": 3,
+      "planned": 9,
+      "eligible": 4,
+      "complete": 4,
+      "censored": 0,
+      "completed_host_ms": {
+        "n": 4,
+        "sum": 149.447667,
+        "median": 39.845208,
+        "p95": 44.959792,
+        "max": 44.959792
+      },
+      "completed_nodes": {
+        "n": 4,
+        "sum": 5513313,
+        "median": 1414947.0,
+        "p95": 1757468,
+        "max": 1757468
+      },
+      "completed_pi_computations": {
+        "n": 4,
+        "sum": 356358,
+        "median": 97748.5,
+        "p95": 103555,
+        "max": 103555
+      },
+      "completed_inner_samples": {
+        "n": 4,
+        "sum": 1322632,
+        "median": 361685.0,
+        "p95": 385686,
+        "max": 385686
+      }
+    },
+    {
+      "plies": 12,
+      "k": 4,
+      "planned": 9,
+      "eligible": 4,
+      "complete": 4,
+      "censored": 0,
+      "completed_host_ms": {
+        "n": 4,
+        "sum": 570.445334,
+        "median": 147.8334585,
+        "p95": 182.61900000000003,
+        "max": 182.61900000000003
+      },
+      "completed_nodes": {
+        "n": 4,
+        "sum": 18290234,
+        "median": 4544508.0,
+        "p95": 6207079,
+        "max": 6207079
+      },
+      "completed_pi_computations": {
+        "n": 4,
+        "sum": 1656317,
+        "median": 441409.5,
+        "p95": 505146,
+        "max": 505146
+      },
+      "completed_inner_samples": {
+        "n": 4,
+        "sum": 5928918,
+        "median": 1570637.0,
+        "p95": 1816104,
+        "max": 1816104
+      }
+    },
+    {
+      "plies": 12,
+      "k": 5,
+      "planned": 9,
+      "eligible": 4,
+      "complete": 4,
+      "censored": 0,
+      "completed_host_ms": {
+        "n": 4,
+        "sum": 1789.963458,
+        "median": 438.9076665,
+        "p95": 603.0655830000001,
+        "max": 603.0655830000001
+      },
+      "completed_nodes": {
+        "n": 4,
+        "sum": 47167275,
+        "median": 10995383.0,
+        "p95": 16912697,
+        "max": 16912697
+      },
+      "completed_pi_computations": {
+        "n": 4,
+        "sum": 5666353,
+        "median": 1421657.0,
+        "p95": 1795822,
+        "max": 1795822
+      },
+      "completed_inner_samples": {
+        "n": 4,
+        "sum": 19421728,
+        "median": 4831026.0,
+        "p95": 6201070,
+        "max": 6201070
+      }
+    },
+    {
+      "plies": 16,
+      "k": 1,
+      "planned": 36,
+      "eligible": 8,
+      "complete": 8,
+      "censored": 0,
+      "completed_host_ms": {
+        "n": 8,
+        "sum": 5.3104590000000105,
+        "median": 0.4023124999999982,
+        "p95": 2.626166999999999,
+        "max": 2.626166999999999
+      },
+      "completed_nodes": {
+        "n": 8,
+        "sum": 74400,
+        "median": 9315.5,
+        "p95": 9835,
+        "max": 9835
+      },
+      "completed_pi_computations": {
+        "n": 8,
+        "sum": 3028,
+        "median": 379.5,
+        "p95": 416,
+        "max": 416
+      },
+      "completed_inner_samples": {
+        "n": 8,
+        "sum": 12112,
+        "median": 1518.0,
+        "p95": 1664,
+        "max": 1664
+      }
+    },
+    {
+      "plies": 16,
+      "k": 2,
+      "planned": 36,
+      "eligible": 8,
+      "complete": 8,
+      "censored": 0,
+      "completed_host_ms": {
+        "n": 8,
+        "sum": 7.54154299999999,
+        "median": 0.9312289999999952,
+        "p95": 1.0305000000000035,
+        "max": 1.0305000000000035
+      },
+      "completed_nodes": {
+        "n": 8,
+        "sum": 216868,
+        "median": 27231.5,
+        "p95": 29805,
+        "max": 29805
+      },
+      "completed_pi_computations": {
+        "n": 8,
+        "sum": 17174,
+        "median": 2180.0,
+        "p95": 2270,
+        "max": 2270
+      },
+      "completed_inner_samples": {
+        "n": 8,
+        "sum": 63472,
+        "median": 8129.0,
+        "p95": 8308,
+        "max": 8308
+      }
+    },
+    {
+      "plies": 16,
+      "k": 3,
+      "planned": 36,
+      "eligible": 8,
+      "complete": 8,
+      "censored": 0,
+      "completed_host_ms": {
+        "n": 8,
+        "sum": 19.657834999999995,
+        "median": 2.482166500000001,
+        "p95": 2.6927500000000077,
+        "max": 2.6927500000000077
+      },
+      "completed_nodes": {
+        "n": 8,
+        "sum": 505824,
+        "median": 64826.0,
+        "p95": 72712,
+        "max": 72712
+      },
+      "completed_pi_computations": {
+        "n": 8,
+        "sum": 61758,
+        "median": 7751.0,
+        "p95": 8321,
+        "max": 8321
+      },
+      "completed_inner_samples": {
+        "n": 8,
+        "sum": 214216,
+        "median": 26963.0,
+        "p95": 28994,
+        "max": 28994
+      }
+    },
+    {
+      "plies": 16,
+      "k": 4,
+      "planned": 36,
+      "eligible": 8,
+      "complete": 8,
+      "censored": 0,
+      "completed_host_ms": {
+        "n": 8,
+        "sum": 47.59099899999998,
+        "median": 5.412103999999994,
+        "p95": 8.370916000000003,
+        "max": 8.370916000000003
+      },
+      "completed_nodes": {
+        "n": 8,
+        "sum": 858672,
+        "median": 103363.5,
+        "p95": 133525,
+        "max": 133525
+      },
+      "completed_pi_computations": {
+        "n": 8,
+        "sum": 160016,
+        "median": 19329.0,
+        "p95": 23154,
+        "max": 23154
+      },
+      "completed_inner_samples": {
+        "n": 8,
+        "sum": 517864,
+        "median": 62439.0,
+        "p95": 76264,
+        "max": 76264
+      }
+    },
+    {
+      "plies": 16,
+      "k": 5,
+      "planned": 36,
+      "eligible": 8,
+      "complete": 8,
+      "censored": 0,
+      "completed_host_ms": {
+        "n": 8,
+        "sum": 77.38241799999999,
+        "median": 9.524312499999997,
+        "p95": 11.157292,
+        "max": 11.157292
+      },
+      "completed_nodes": {
+        "n": 8,
+        "sum": 1061546,
+        "median": 130795.5,
+        "p95": 155475,
+        "max": 155475
+      },
+      "completed_pi_computations": {
+        "n": 8,
+        "sum": 267704,
+        "median": 33108.0,
+        "p95": 37431,
+        "max": 37431
+      },
+      "completed_inner_samples": {
+        "n": 8,
+        "sum": 768088,
+        "median": 94717.0,
+        "p95": 110392,
+        "max": 110392
+      }
+    }
+  ],
+  "parallel_prespecified_queries": 36,
+  "parallel_eligible_queries_per_batch": 16,
+  "parallel_repetitions_per_worker_count": 6,
+  "semantic_response_comparisons": 432,
+  "completed_full_vector_comparisons": 192,
+  "lawful_ineligible_response_comparisons": 240,
+  "parallel_costs": {
+    "1": {
+      "repetitions": 6,
+      "batch_ms": {
+        "n": 6,
+        "sum": 42186.822082,
+        "median": 7026.2045,
+        "p95": 7071.182208000001,
+        "max": 7071.182208000001
+      },
+      "cpu_ms": {
+        "n": 6,
+        "sum": 42115.05100000001,
+        "median": 7015.095000000001,
+        "p95": 7058.955,
+        "max": 7058.955
+      },
+      "sum_pid_peak_rss_bytes": {
+        "n": 6,
+        "sum": 406208512,
+        "median": 67698688.0,
+        "p95": 67796992,
+        "max": 67796992
+      }
+    },
+    "4": {
+      "repetitions": 6,
+      "batch_ms": {
+        "n": 6,
+        "sum": 12003.646958,
+        "median": 1995.3503335,
+        "p95": 2022.7407079999998,
+        "max": 2022.7407079999998
+      },
+      "cpu_ms": {
+        "n": 6,
+        "sum": 47455.362,
+        "median": 7902.567499999999,
+        "p95": 7947.966,
+        "max": 7947.966
+      },
+      "sum_pid_peak_rss_bytes": {
+        "n": 6,
+        "sum": 1530806272,
+        "median": 254713856.0,
+        "p95": 256638976,
+        "max": 256638976
+      }
+    }
+  },
+  "complete_capped_walls_ms": {
+    "1": {
+      "n": 6,
+      "sum": 42697.108,
+      "median": 7118.9585,
+      "p95": 7166.386,
+      "max": 7166.386
+    },
+    "4": {
+      "n": 6,
+      "sum": 12392.607,
+      "median": 2066.365,
+      "p95": 2095.194,
+      "max": 2095.194
+    }
+  },
+  "complete_capped_wall_median_speed_ratio": 3.4451602209677383,
+  "internal_batch_median_speed_ratio": 3.5212886589571912,
+  "scope": "Finite unchanged whole-query policy batches. Complete cap wall charges Python driver/startup/hash/receipt; internal batch secondary excludes those. Sum PID maxima is an upper envelope rather than simultaneous RSS. Shared first9 deals are not additional independent strength observations. Censored cells excluded from unconstrained-complete cost."
+}

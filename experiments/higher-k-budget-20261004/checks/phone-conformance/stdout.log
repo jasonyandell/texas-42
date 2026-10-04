@@ -1,0 +1,13 @@
+{
+  "calls": 9,
+  "all9declarations": true,
+  "nominal_budget_ms": 200,
+  "full_nonclock_result_comparisons": 18,
+  "wasm_checkpoint_sequences_match": true,
+  "excluded_fields": [
+    "elapsed_us",
+    "solver_us",
+    "over_budget"
+  ],
+  "scope": "Finite unchanged production L1/partner profile with base8 samples at200ms; separate from ladderbase4. Local pinned blob, no device or current externaldeployment verification."
+}

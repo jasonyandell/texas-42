@@ -1,0 +1,16 @@
+{
+  "requested_primary_model": "gpt-6.1-sol",
+  "requested_independent_reviewer_model": "gpt-6.1-sol",
+  "reviewer_task": "/root/independent_reviewer",
+  "runtime_model_attestation": "Unavailable; requested model configuration is not independent runtime attestation",
+  "source_checkpoint": "56794dc321f3546223ff1359ed30b87911130fd9",
+  "source_thread_id": "01a10305-b685-741e-9dce-d403e83c80d7",
+  "scope": "Fresh primary and independently authored reviewer, all local; no additional agents",
+  "repository_instructions": [
+    "CLAUDE.md",
+    "QUICKSTART.md",
+    "wiki/walt-instruments.md",
+    "walt/MAP.md"
+  ],
+  "applicable_agents_or_local_skills": "No applicable AGENTS.md/.agents; pro-exchange exists but external exchange is outside this authorization"
+}

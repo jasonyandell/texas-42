@@ -1,0 +1,223 @@
+{
+  "parallel": {
+    "cells": [
+      {
+        "workers": 1,
+        "repetitions": 6,
+        "queries_per_batch": 36,
+        "eligible_per_batch": 16,
+        "complete_per_batch": 16,
+        "refusals_per_batch": 0,
+        "batch_ms": {
+          "n": 6,
+          "sum": 42186.822082,
+          "median": 7026.2045,
+          "p95": 7071.182208000001,
+          "max": 7071.182208000001
+        },
+        "complete_cap_wall_ms": {
+          "n": 6,
+          "sum": 42697.108,
+          "median": 7118.9585,
+          "p95": 7166.386,
+          "max": 7166.386
+        },
+        "cpu_ms": {
+          "n": 6,
+          "sum": 42115.05100000001,
+          "median": 7015.095000000001,
+          "p95": 7058.955,
+          "max": 7058.955
+        },
+        "sum_pid_peak_rss_bytes": {
+          "n": 6,
+          "sum": 406208512,
+          "median": 67698688.0,
+          "p95": 67796992,
+          "max": 67796992
+        }
+      },
+      {
+        "workers": 4,
+        "repetitions": 6,
+        "queries_per_batch": 36,
+        "eligible_per_batch": 16,
+        "complete_per_batch": 16,
+        "refusals_per_batch": 0,
+        "batch_ms": {
+          "n": 6,
+          "sum": 12003.646958,
+          "median": 1995.3503335,
+          "p95": 2022.7407079999998,
+          "max": 2022.7407079999998
+        },
+        "complete_cap_wall_ms": {
+          "n": 6,
+          "sum": 12392.607,
+          "median": 2066.365,
+          "p95": 2095.194,
+          "max": 2095.194
+        },
+        "cpu_ms": {
+          "n": 6,
+          "sum": 47455.362,
+          "median": 7902.567499999999,
+          "p95": 7947.966,
+          "max": 7947.966
+        },
+        "sum_pid_peak_rss_bytes": {
+          "n": 6,
+          "sum": 1530806272,
+          "median": 254713856.0,
+          "p95": 256638976,
+          "max": 256638976
+        }
+      }
+    ],
+    "complete_cap_wall_speed_ratio": 3.4451602209677383,
+    "scope": "Frozen36complete-query local batch from9source deals, same30s/query. Median6balanced repetitions. Whole capped walls charge Python import/referee/input construction/worker startup/sampling/cache/JSON/hash/output/reaping. CPU does not improve; sumPID peaks is an upper envelope, not measured simultaneous aggregate memory. No single-turn/device/browser speed claim.",
+    "full_nonclock_response_parity": true
+  },
+  "earlier": [
+    {
+      "k": 1,
+      "budget_ms": 20,
+      "eligible": 140,
+      "completed": 140,
+      "refused": 0,
+      "complete_host_ms": {
+        "n": 140,
+        "sum": 193.78841599999996,
+        "median": 1.3238334999999337,
+        "p95": 3.2275419999999997,
+        "max": 3.9183749999999984
+      }
+    },
+    {
+      "k": 2,
+      "budget_ms": 20,
+      "eligible": 140,
+      "completed": 140,
+      "refused": 0,
+      "complete_host_ms": {
+        "n": 140,
+        "sum": 913.5955869999995,
+        "median": 6.751333500000067,
+        "p95": 9.716333000000077,
+        "max": 10.559250000000002
+      }
+    },
+    {
+      "k": 3,
+      "budget_ms": 20,
+      "eligible": 140,
+      "completed": 23,
+      "refused": 117,
+      "complete_host_ms": {
+        "n": 23,
+        "sum": 329.6348769999997,
+        "median": 16.411707999999912,
+        "p95": 19.776000000000003,
+        "max": 19.903541999999995
+      }
+    },
+    {
+      "k": 4,
+      "budget_ms": 20,
+      "eligible": 140,
+      "completed": 0,
+      "refused": 140,
+      "complete_host_ms": {
+        "n": 0,
+        "sum": 0,
+        "median": null,
+        "p95": null,
+        "max": null
+      }
+    },
+    {
+      "k": 5,
+      "budget_ms": 20,
+      "eligible": 140,
+      "completed": 0,
+      "refused": 140,
+      "complete_host_ms": {
+        "n": 0,
+        "sum": 0,
+        "median": null,
+        "p95": null,
+        "max": null
+      }
+    },
+    {
+      "k": 1,
+      "budget_ms": 200,
+      "eligible": 140,
+      "completed": 140,
+      "refused": 0,
+      "complete_host_ms": {
+        "n": 140,
+        "sum": 172.1303779999991,
+        "median": 1.3020414999999619,
+        "p95": 1.67737499999987,
+        "max": 2.05074999999999
+      }
+    },
+    {
+      "k": 2,
+      "budget_ms": 200,
+      "eligible": 140,
+      "completed": 140,
+      "refused": 0,
+      "complete_host_ms": {
+        "n": 140,
+        "sum": 901.7520390000002,
+        "median": 6.738271000000038,
+        "p95": 9.588458999999993,
+        "max": 9.932249999999865
+      }
+    },
+    {
+      "k": 3,
+      "budget_ms": 200,
+      "eligible": 140,
+      "completed": 140,
+      "refused": 0,
+      "complete_host_ms": {
+        "n": 140,
+        "sum": 4323.475578999999,
+        "median": 29.85187449999998,
+        "p95": 50.13270800000002,
+        "max": 54.72654099999996
+      }
+    },
+    {
+      "k": 4,
+      "budget_ms": 200,
+      "eligible": 140,
+      "completed": 133,
+      "refused": 7,
+      "complete_host_ms": {
+        "n": 133,
+        "sum": 14642.307627000004,
+        "median": 106.38887500000016,
+        "p95": 189.81970800000013,
+        "max": 195.00837499999997
+      }
+    },
+    {
+      "k": 5,
+      "budget_ms": 200,
+      "eligible": 140,
+      "completed": 16,
+      "refused": 124,
+      "complete_host_ms": {
+        "n": 16,
+        "sum": 2117.8585,
+        "median": 133.596563,
+        "p95": 191.26704099999992,
+        "max": 191.26704099999992
+      }
+    }
+  ]
+}

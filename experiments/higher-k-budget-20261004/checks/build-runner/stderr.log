@@ -1,0 +1,29 @@
+     Locking 17 packages to latest compatible versions
+   Compiling autocfg v1.5.1
+   Compiling zmij v1.0.23
+   Compiling serde_core v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling num-traits v0.2.19
+   Compiling num-integer v0.1.47
+   Compiling num-bigint v0.4.8
+   Compiling num-rational v0.4.2
+   Compiling walt v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-9/research-worktree/walt/walt)
+   Compiling higher-k-independent-check v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-9/research-worktree/experiments/higher-k-budget-20261004/checks/runner)
+error[E0308]: mismatched types
+   --> src/main.rs:37:115
+    |
+ 37 |   let legal=solver::mask_bits(solver::mask_of(walt::rules::legal_plays(solver::decl_of(decl),solver::set_of(hand),led)));
+    |                                               ------------------------ arguments to this function are incorrect   ^^^ expected `Option<Context>`, found `Option<Domino>`
+    |
+    = note: expected enum `Option<walt::rules::Context>`
+               found enum `Option<walt::rules::Domino>`
+note: function defined here
+   --> /Users/jason/Documents/Codex/2026-10-04/task-9/research-worktree/walt/walt/src/rules/rules.rs:274:8
+    |
+274 | pub fn legal_plays(decl: Decl, hand: DominoSet, led: Option<Context>) -> DominoSet {
+    |        ^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `higher-k-independent-check` (bin "higher-k-independent-check") due to 1 previous error

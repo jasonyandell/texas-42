@@ -1,0 +1,33 @@
+{
+  "binary_archives": [
+    {
+      "key": "measured_native",
+      "compressed_bytes": 780217,
+      "raw_bytes": 6938016,
+      "actual_bytes_match": true
+    },
+    {
+      "key": "measured_wasm",
+      "compressed_bytes": 458802,
+      "raw_bytes": 6503372,
+      "actual_bytes_match": true
+    },
+    {
+      "key": "final_native",
+      "compressed_bytes": 780184,
+      "raw_bytes": 6938016,
+      "actual_bytes_match": true
+    },
+    {
+      "key": "final_wasm",
+      "compressed_bytes": 458800,
+      "raw_bytes": 6503456,
+      "actual_bytes_match": true
+    }
+  ],
+  "refusal_interval_cells": 20,
+  "clusters_per_cell": 54,
+  "rotations_correlated": true,
+  "radius": 0.184814207359163,
+  "scope": "Artifact-byte and pointwise conditional arithmetic audit, not proof of PRNG/runtime independence, simultaneous family or post-selection coverage, or universal latency."
+}

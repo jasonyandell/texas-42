@@ -1,0 +1,1156 @@
+{
+  "receipts": 226,
+  "failed_receipts": [
+    {
+      "path": "checks/build-runner/run.json",
+      "status": "failed",
+      "elapsed_seconds": 15.298723
+    },
+    {
+      "path": "checks/scalar-boundaries/run.json",
+      "status": "failed",
+      "elapsed_seconds": 0.045822
+    },
+    {
+      "path": "checks/scalar-boundaries-import-fixed/run.json",
+      "status": "failed",
+      "elapsed_seconds": 0.149587
+    }
+  ],
+  "source_and_actual_binary_hashes": 35,
+  "allowances_at_most295": true,
+  "elapsed_below300": true,
+  "all_children_reaped": true,
+  "receipts_checked": [
+    {
+      "path": "checks/build-runner/run.json",
+      "status": "failed",
+      "elapsed_seconds": 15.298723
+    },
+    {
+      "path": "checks/build-runner-fixed/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.656826
+    },
+    {
+      "path": "checks/data-audit/run.json",
+      "status": "completed",
+      "elapsed_seconds": 3.746691
+    },
+    {
+      "path": "checks/data-final-artifacts-audit/run.json",
+      "status": "completed",
+      "elapsed_seconds": 3.992403
+    },
+    {
+      "path": "checks/data-final-routing-audit/run.json",
+      "status": "completed",
+      "elapsed_seconds": 3.788774
+    },
+    {
+      "path": "checks/deeper-conformance/run.json",
+      "status": "completed",
+      "elapsed_seconds": 11.507835
+    },
+    {
+      "path": "checks/deeper-conformance-final/run.json",
+      "status": "completed",
+      "elapsed_seconds": 11.738636
+    },
+    {
+      "path": "checks/generate-roots/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.08995
+    },
+    {
+      "path": "checks/identity/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.084185
+    },
+    {
+      "path": "checks/independent-oracle/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.383329
+    },
+    {
+      "path": "checks/inherited-audit/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.264644
+    },
+    {
+      "path": "checks/inherited-k3-conformance/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.079249
+    },
+    {
+      "path": "checks/lean-counterexample/run.json",
+      "status": "completed",
+      "elapsed_seconds": 2.026655
+    },
+    {
+      "path": "checks/native-adapter/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.410746
+    },
+    {
+      "path": "checks/native-adapter-final/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.603721
+    },
+    {
+      "path": "checks/phone-conformance/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.180967
+    },
+    {
+      "path": "checks/phone-conformance-final/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.181271
+    },
+    {
+      "path": "checks/receipts/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.07894
+    },
+    {
+      "path": "checks/scalar-boundaries/run.json",
+      "status": "failed",
+      "elapsed_seconds": 0.045822
+    },
+    {
+      "path": "checks/scalar-boundaries-final/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.672049
+    },
+    {
+      "path": "checks/scalar-boundaries-import-fixed/run.json",
+      "status": "failed",
+      "elapsed_seconds": 0.149587
+    },
+    {
+      "path": "checks/scaling-audit/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.204195
+    },
+    {
+      "path": "checks/scaling-complete-wall-audit/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.1501
+    },
+    {
+      "path": "checks/scaling-final-artifacts-audit/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.207907
+    },
+    {
+      "path": "checks/scaling-final-count-audit/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149374
+    },
+    {
+      "path": "checks/scaling-final-routing-audit/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.144901
+    },
+    {
+      "path": "checks/wasm-adapter/run.json",
+      "status": "completed",
+      "elapsed_seconds": 5.340141
+    },
+    {
+      "path": "checks/wasm-adapter-final/run.json",
+      "status": "completed",
+      "elapsed_seconds": 5.232997
+    },
+    {
+      "path": "results/analysis-fixed-log/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.150155
+    },
+    {
+      "path": "results/analysis-log/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.142975
+    },
+    {
+      "path": "results/budget-intervals-log/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.09006
+    },
+    {
+      "path": "results/build-native/run.json",
+      "status": "completed",
+      "elapsed_seconds": 28.329739
+    },
+    {
+      "path": "results/build-native-final/run.json",
+      "status": "completed",
+      "elapsed_seconds": 3.55985
+    },
+    {
+      "path": "results/build-native-scalar-fixed/run.json",
+      "status": "completed",
+      "elapsed_seconds": 3.826089
+    },
+    {
+      "path": "results/build-wasm/run.json",
+      "status": "completed",
+      "elapsed_seconds": 20.344902
+    },
+    {
+      "path": "results/build-wasm-scalar-fixed/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.436097
+    },
+    {
+      "path": "results/earlier-initialize/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.048105
+    },
+    {
+      "path": "results/earlier-log-3005757/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.57108
+    },
+    {
+      "path": "results/earlier-log-3013229/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.934863
+    },
+    {
+      "path": "results/earlier-log-3027345/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.820272
+    },
+    {
+      "path": "results/earlier-log-3043169/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.087898
+    },
+    {
+      "path": "results/earlier-log-3066600/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.875162
+    },
+    {
+      "path": "results/earlier-log-3068068/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.80986
+    },
+    {
+      "path": "results/earlier-log-3073786/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.083652
+    },
+    {
+      "path": "results/earlier-log-3115003/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047629
+    },
+    {
+      "path": "results/earlier-log-3115119/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.046881
+    },
+    {
+      "path": "results/earlier-log-3131322/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.933843
+    },
+    {
+      "path": "results/earlier-log-3184382/run.json",
+      "status": "completed",
+      "elapsed_seconds": 2.20076
+    },
+    {
+      "path": "results/earlier-log-3205590/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047251
+    },
+    {
+      "path": "results/earlier-log-3228844/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.089991
+    },
+    {
+      "path": "results/earlier-log-3243297/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047645
+    },
+    {
+      "path": "results/earlier-log-3261375/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.905712
+    },
+    {
+      "path": "results/earlier-log-3289004/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.693709
+    },
+    {
+      "path": "results/earlier-log-3352168/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047625
+    },
+    {
+      "path": "results/earlier-log-3360735/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047704
+    },
+    {
+      "path": "results/earlier-log-3376823/run.json",
+      "status": "completed",
+      "elapsed_seconds": 2.228708
+    },
+    {
+      "path": "results/earlier-log-3383378/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.732594
+    },
+    {
+      "path": "results/earlier-log-3390781/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.974834
+    },
+    {
+      "path": "results/earlier-log-3403449/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.563146
+    },
+    {
+      "path": "results/earlier-log-3441316/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.698199
+    },
+    {
+      "path": "results/earlier-log-3460903/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.688063
+    },
+    {
+      "path": "results/earlier-log-3480769/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.631672
+    },
+    {
+      "path": "results/earlier-log-3491826/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.983212
+    },
+    {
+      "path": "results/earlier-log-3518964/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047613
+    },
+    {
+      "path": "results/earlier-log-3523566/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.911364
+    },
+    {
+      "path": "results/earlier-log-3583188/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.51743
+    },
+    {
+      "path": "results/earlier-log-3591365/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.080432
+    },
+    {
+      "path": "results/earlier-log-3596875/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.079911
+    },
+    {
+      "path": "results/earlier-log-3608860/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.690461
+    },
+    {
+      "path": "results/earlier-log-3645423/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047793
+    },
+    {
+      "path": "results/earlier-log-3646433/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.681846
+    },
+    {
+      "path": "results/earlier-log-3676409/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.32855
+    },
+    {
+      "path": "results/earlier-log-3677539/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.088783
+    },
+    {
+      "path": "results/earlier-log-3688765/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047861
+    },
+    {
+      "path": "results/earlier-log-3727948/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.809072
+    },
+    {
+      "path": "results/earlier-log-3728369/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.090055
+    },
+    {
+      "path": "results/earlier-log-3749514/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.343926
+    },
+    {
+      "path": "results/earlier-log-3769904/run.json",
+      "status": "completed",
+      "elapsed_seconds": 2.099533
+    },
+    {
+      "path": "results/earlier-log-3788948/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.742171
+    },
+    {
+      "path": "results/earlier-log-3791984/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047804
+    },
+    {
+      "path": "results/earlier-log-3798170/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.510981
+    },
+    {
+      "path": "results/earlier-log-3807030/run.json",
+      "status": "completed",
+      "elapsed_seconds": 2.164352
+    },
+    {
+      "path": "results/earlier-log-3837050/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.860212
+    },
+    {
+      "path": "results/earlier-log-3850700/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047824
+    },
+    {
+      "path": "results/earlier-log-3851398/run.json",
+      "status": "completed",
+      "elapsed_seconds": 2.126229
+    },
+    {
+      "path": "results/earlier-log-3888629/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.811481
+    },
+    {
+      "path": "results/earlier-log-3899638/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.509591
+    },
+    {
+      "path": "results/earlier-log-3961751/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.090038
+    },
+    {
+      "path": "results/earlier-log-3975969/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.813683
+    },
+    {
+      "path": "results/earlier-log-3976200/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.676139
+    },
+    {
+      "path": "results/earlier-log-3978330/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.686955
+    },
+    {
+      "path": "results/earlier-summary-log/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.089961
+    },
+    {
+      "path": "results/game-log-3851398/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.447324
+    },
+    {
+      "path": "results/games-log-3005757/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.208085
+    },
+    {
+      "path": "results/games-log-3013229/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.048423
+    },
+    {
+      "path": "results/games-log-3027345/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.323358
+    },
+    {
+      "path": "results/games-log-3043169/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.140619
+    },
+    {
+      "path": "results/games-log-3066600/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.354833
+    },
+    {
+      "path": "results/games-log-3068068/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.449237
+    },
+    {
+      "path": "results/games-log-3073786/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149842
+    },
+    {
+      "path": "results/games-log-3115003/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.148131
+    },
+    {
+      "path": "results/games-log-3115119/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.14963
+    },
+    {
+      "path": "results/games-log-3131322/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149847
+    },
+    {
+      "path": "results/games-log-3184382/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.262279
+    },
+    {
+      "path": "results/games-log-3205590/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.141667
+    },
+    {
+      "path": "results/games-log-3228844/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.209986
+    },
+    {
+      "path": "results/games-log-3243297/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149845
+    },
+    {
+      "path": "results/games-log-3261375/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.330005
+    },
+    {
+      "path": "results/games-log-3289004/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.389641
+    },
+    {
+      "path": "results/games-log-3352168/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.148239
+    },
+    {
+      "path": "results/games-log-3360735/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.209819
+    },
+    {
+      "path": "results/games-log-3376823/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.497717
+    },
+    {
+      "path": "results/games-log-3383378/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.14982
+    },
+    {
+      "path": "results/games-log-3390781/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149842
+    },
+    {
+      "path": "results/games-log-3403449/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149778
+    },
+    {
+      "path": "results/games-log-3441316/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.503972
+    },
+    {
+      "path": "results/games-log-3460903/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.323062
+    },
+    {
+      "path": "results/games-log-3480769/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.389025
+    },
+    {
+      "path": "results/games-log-3491826/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.194496
+    },
+    {
+      "path": "results/games-log-3518964/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149718
+    },
+    {
+      "path": "results/games-log-3523566/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.146102
+    },
+    {
+      "path": "results/games-log-3583188/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.329769
+    },
+    {
+      "path": "results/games-log-3591365/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.148166
+    },
+    {
+      "path": "results/games-log-3596875/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149872
+    },
+    {
+      "path": "results/games-log-3608860/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.67978
+    },
+    {
+      "path": "results/games-log-3645423/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149737
+    },
+    {
+      "path": "results/games-log-3646433/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.267454
+    },
+    {
+      "path": "results/games-log-3676409/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.485665
+    },
+    {
+      "path": "results/games-log-3677539/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.150053
+    },
+    {
+      "path": "results/games-log-3688765/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.142419
+    },
+    {
+      "path": "results/games-log-3727948/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.745128
+    },
+    {
+      "path": "results/games-log-3728369/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.209916
+    },
+    {
+      "path": "results/games-log-3749514/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149746
+    },
+    {
+      "path": "results/games-log-3769904/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.380734
+    },
+    {
+      "path": "results/games-log-3788948/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149722
+    },
+    {
+      "path": "results/games-log-3791984/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.200283
+    },
+    {
+      "path": "results/games-log-3798170/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.143387
+    },
+    {
+      "path": "results/games-log-3807030/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.434364
+    },
+    {
+      "path": "results/games-log-3837050/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.386975
+    },
+    {
+      "path": "results/games-log-3850700/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149917
+    },
+    {
+      "path": "results/games-log-3888629/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.73585
+    },
+    {
+      "path": "results/games-log-3899638/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.197088
+    },
+    {
+      "path": "results/games-log-3961751/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.204606
+    },
+    {
+      "path": "results/games-log-3975969/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.444867
+    },
+    {
+      "path": "results/games-log-3976200/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.386837
+    },
+    {
+      "path": "results/games-log-3978330/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.150057
+    },
+    {
+      "path": "results/initialize/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047939
+    },
+    {
+      "path": "results/parallel-log-1-0/run.json",
+      "status": "completed",
+      "elapsed_seconds": 7.128762
+    },
+    {
+      "path": "results/parallel-log-1-1/run.json",
+      "status": "completed",
+      "elapsed_seconds": 7.166386
+    },
+    {
+      "path": "results/parallel-log-1-2/run.json",
+      "status": "completed",
+      "elapsed_seconds": 7.056618
+    },
+    {
+      "path": "results/parallel-log-1-3/run.json",
+      "status": "completed",
+      "elapsed_seconds": 7.116998
+    },
+    {
+      "path": "results/parallel-log-1-4/run.json",
+      "status": "completed",
+      "elapsed_seconds": 7.107425
+    },
+    {
+      "path": "results/parallel-log-1-5/run.json",
+      "status": "completed",
+      "elapsed_seconds": 7.120919
+    },
+    {
+      "path": "results/parallel-log-4-0/run.json",
+      "status": "completed",
+      "elapsed_seconds": 2.095194
+    },
+    {
+      "path": "results/parallel-log-4-1/run.json",
+      "status": "completed",
+      "elapsed_seconds": 2.086626
+    },
+    {
+      "path": "results/parallel-log-4-2/run.json",
+      "status": "completed",
+      "elapsed_seconds": 2.035156
+    },
+    {
+      "path": "results/parallel-log-4-3/run.json",
+      "status": "completed",
+      "elapsed_seconds": 2.035931
+    },
+    {
+      "path": "results/parallel-log-4-4/run.json",
+      "status": "completed",
+      "elapsed_seconds": 2.093596
+    },
+    {
+      "path": "results/parallel-log-4-5/run.json",
+      "status": "completed",
+      "elapsed_seconds": 2.046104
+    },
+    {
+      "path": "results/reproduce-routing-check/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.023943
+    },
+    {
+      "path": "results/reproduce-routing-log/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.270417
+    },
+    {
+      "path": "results/root-log-3851398/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.504189
+    },
+    {
+      "path": "results/roots-log-3005757/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.147385
+    },
+    {
+      "path": "results/roots-log-3013229/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.491079
+    },
+    {
+      "path": "results/roots-log-3027345/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.209827
+    },
+    {
+      "path": "results/roots-log-3043169/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047817
+    },
+    {
+      "path": "results/roots-log-3066600/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.209916
+    },
+    {
+      "path": "results/roots-log-3068068/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.209809
+    },
+    {
+      "path": "results/roots-log-3073786/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047738
+    },
+    {
+      "path": "results/roots-log-3115003/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047739
+    },
+    {
+      "path": "results/roots-log-3115119/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.083943
+    },
+    {
+      "path": "results/roots-log-3131322/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047801
+    },
+    {
+      "path": "results/roots-log-3184382/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149734
+    },
+    {
+      "path": "results/roots-log-3205590/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047862
+    },
+    {
+      "path": "results/roots-log-3228844/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.086676
+    },
+    {
+      "path": "results/roots-log-3243297/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047861
+    },
+    {
+      "path": "results/roots-log-3261375/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.199572
+    },
+    {
+      "path": "results/roots-log-3289004/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.209963
+    },
+    {
+      "path": "results/roots-log-3352168/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.08975
+    },
+    {
+      "path": "results/roots-log-3360735/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047897
+    },
+    {
+      "path": "results/roots-log-3376823/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.269813
+    },
+    {
+      "path": "results/roots-log-3383378/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047668
+    },
+    {
+      "path": "results/roots-log-3390781/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.087198
+    },
+    {
+      "path": "results/roots-log-3403449/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047083
+    },
+    {
+      "path": "results/roots-log-3441316/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.322749
+    },
+    {
+      "path": "results/roots-log-3460903/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.202764
+    },
+    {
+      "path": "results/roots-log-3480769/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.258888
+    },
+    {
+      "path": "results/roots-log-3491826/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.08749
+    },
+    {
+      "path": "results/roots-log-3518964/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047894
+    },
+    {
+      "path": "results/roots-log-3523566/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.080152
+    },
+    {
+      "path": "results/roots-log-3583188/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.26059
+    },
+    {
+      "path": "results/roots-log-3591365/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047728
+    },
+    {
+      "path": "results/roots-log-3596875/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.04784
+    },
+    {
+      "path": "results/roots-log-3608860/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.44896
+    },
+    {
+      "path": "results/roots-log-3645423/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.086539
+    },
+    {
+      "path": "results/roots-log-3646433/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.149457
+    },
+    {
+      "path": "results/roots-log-3676409/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.329995
+    },
+    {
+      "path": "results/roots-log-3677539/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047756
+    },
+    {
+      "path": "results/roots-log-3688765/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.04772
+    },
+    {
+      "path": "results/roots-log-3727948/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.446395
+    },
+    {
+      "path": "results/roots-log-3728369/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.087058
+    },
+    {
+      "path": "results/roots-log-3749514/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047767
+    },
+    {
+      "path": "results/roots-log-3769904/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.269943
+    },
+    {
+      "path": "results/roots-log-3788948/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.04755
+    },
+    {
+      "path": "results/roots-log-3791984/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047759
+    },
+    {
+      "path": "results/roots-log-3798170/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.08305
+    },
+    {
+      "path": "results/roots-log-3807030/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.262374
+    },
+    {
+      "path": "results/roots-log-3837050/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.312896
+    },
+    {
+      "path": "results/roots-log-3850700/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047933
+    },
+    {
+      "path": "results/roots-log-3888629/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.440403
+    },
+    {
+      "path": "results/roots-log-3899638/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.089899
+    },
+    {
+      "path": "results/roots-log-3961751/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047716
+    },
+    {
+      "path": "results/roots-log-3975969/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.318069
+    },
+    {
+      "path": "results/roots-log-3976200/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.205782
+    },
+    {
+      "path": "results/roots-log-3978330/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047754
+    },
+    {
+      "path": "results/summarize-fixed-log/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.444459
+    },
+    {
+      "path": "results/summarize-log/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.45033
+    },
+    {
+      "path": "results/unconstrained-log-3043169/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047701
+    },
+    {
+      "path": "results/unconstrained-log-3066600/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.732134
+    },
+    {
+      "path": "results/unconstrained-log-3360735/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047781
+    },
+    {
+      "path": "results/unconstrained-log-3491826/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.746068
+    },
+    {
+      "path": "results/unconstrained-log-3591365/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047406
+    },
+    {
+      "path": "results/unconstrained-log-3791984/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047717
+    },
+    {
+      "path": "results/unconstrained-log-3850700/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.047945
+    },
+    {
+      "path": "results/unconstrained-log-3851398/run.json",
+      "status": "completed",
+      "elapsed_seconds": 1.026606
+    },
+    {
+      "path": "results/unconstrained-log-3978330/run.json",
+      "status": "completed",
+      "elapsed_seconds": 0.492075
+    }
+  ]
+}

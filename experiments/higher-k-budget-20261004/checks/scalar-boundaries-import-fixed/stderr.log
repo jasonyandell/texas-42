@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/jason/Documents/Codex/2026-10-04/task-9/research-worktree/experiments/higher-k-budget-20261004/checks/check_scalar_boundaries.py", line 17, in <module>
+    if __name__=='__main__':main()
+  File "/Users/jason/Documents/Codex/2026-10-04/task-9/research-worktree/experiments/higher-k-budget-20261004/checks/check_scalar_boundaries.py", line 15, in main
+    assert 'error'in a and 'error'in b,(k,a,b)
+AssertionError: (4294967297, {'error': 'invalid k/budget'}, {'budget_ms': 0, 'choice': 8, 'completed': False, 'elapsed_us': 1140, 'field_level': 0, 'inner_budgets': [4, 2, 2, 2, 2, 2], 'k': 1, 'leader': 3, 'legal': [8, 15], 'outer_accepted': 0, 'outer_attempts': 0, 'outer_sample_us': 85, 'outer_worlds': 40, 'points': [0, 15], 'policy': 'uniform40/Voidless-inner/fixed-selection/ascending-ties', 'refusal': 'outer-sampling-budget', 'route': 'ladder-legal-checkpoint', 'status_us': 828, 'trick': 6})

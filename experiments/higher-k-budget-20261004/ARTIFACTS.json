@@ -1,0 +1,44 @@
+{
+  "measured_native": {
+    "path": "experiments/higher-k-budget-20261004/adapter/target/measured/higher-k-player",
+    "sha256": "4a4899d77e6faa731e10ddff63f67bd0c485240d5c440623b3f11e18b700e779",
+    "bytes": 6938016,
+    "archive_path": "experiments/higher-k-budget-20261004/artifacts/measured_native.gz",
+    "archive_sha256": "4927918f925a1e2a69e025e7edf0459944d5706293416cd8809dc6e15995e861",
+    "archive_bytes": 780217
+  },
+  "measured_wasm": {
+    "path": "experiments/higher-k-budget-20261004/adapter/target/measured/higher_k_player.wasm",
+    "sha256": "a50f865ae39a439f510f7d9f032c62f4e53ccac70244b4660b8f48103cd25245",
+    "bytes": 6503372,
+    "archive_path": "experiments/higher-k-budget-20261004/artifacts/measured_wasm.gz",
+    "archive_sha256": "6b33946733fff57adad9e25b928e252a1e4d6081fbca5c5f745450061eb3ac2f",
+    "archive_bytes": 458802
+  },
+  "final_native": {
+    "path": "experiments/higher-k-budget-20261004/adapter/target/release/higher-k-player",
+    "sha256": "2154b88b380822759a138937444c653be1b7644d138069eebaae4cf04cc12bd5",
+    "bytes": 6938016,
+    "archive_path": "experiments/higher-k-budget-20261004/artifacts/final_native.gz",
+    "archive_sha256": "570d8a47f9957dc0305da4d3d93409bd663d9d8b2efee61db0268d78813a29a7",
+    "archive_bytes": 780184
+  },
+  "final_wasm": {
+    "path": "experiments/higher-k-budget-20261004/adapter/target/wasm32-unknown-unknown/release/higher_k_player.wasm",
+    "sha256": "fe04e6628166abb0917401393a3629d86125037edebd6d9e5f12d3bf7d460bab",
+    "bytes": 6503456,
+    "archive_path": "experiments/higher-k-budget-20261004/artifacts/final_wasm.gz",
+    "archive_sha256": "f3dcc858b08c118f8f3ee30aee8a73abe2bd5efa398419c9db1bf4e144807b8e",
+    "archive_bytes": 458800
+  },
+  "measured_adapter": {
+    "path": "experiments/higher-k-budget-20261004/snapshots/adapter-measured.rs",
+    "sha256": "7f6d10ef7651817d85a7faceef62e25dab65f506bcbcd8b384fba82bf7071053",
+    "bytes": 9012
+  },
+  "final_adapter": {
+    "path": "experiments/higher-k-budget-20261004/adapter/src/lib.rs",
+    "sha256": "2fd94c7664ff8075fff01a8b4af99a02af2ba54aad0ea538aeafb3fd0b8b8710",
+    "bytes": 9082
+  }
+}

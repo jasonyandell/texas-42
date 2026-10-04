@@ -1,0 +1,22 @@
+{
+  "fresh_roots": 9,
+  "all9declarations": true,
+  "complete_vector_ordered_world_final_rng_comparisons": 9,
+  "prefix_counter_comparisons": true,
+  "inherited_exact_native_sha256": "51259e4088de71f813ab1c8ad0b81345129ea01c26dbefec60cba462c1878de7",
+  "current_inner_vector": [
+    4,
+    2,
+    2,
+    2,
+    2,
+    2
+  ],
+  "inherited_inner_vector": [
+    4,
+    2,
+    2,
+    2
+  ],
+  "scope": "Finite same namedk3 policy, unusedextra budgets do not affect these executions. Exacttask8 executable read-only, no originalfilemodified."
+}

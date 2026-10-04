@@ -1,0 +1,24 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T12:14:13.243994+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-9/research-worktree",
+  "command": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "/Users/jason/Documents/Codex/2026-10-04/task-9/research-worktree/experiments/higher-k-budget-20261004/experiment.py",
+    "roots",
+    "--seed",
+    "3608860"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.44896,
+  "status": "completed",
+  "child_pid": 96200,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

@@ -1,0 +1,35 @@
+{
+  "source_checkpoint": "56794dc3",
+  "history_manifest_entries": {
+    "astra-sol-20261004": 176,
+    "adversarial-20261004": 420,
+    "native-frontier-20261004": 256,
+    "prefix-state-20261004": 251,
+    "demand-bounds-20261004": 232,
+    "choice-arena-20261004": 255,
+    "resumable-choice-20261004": 292,
+    "native-policy-check-20261004": 561
+  },
+  "unchanged_baseline_and_walt": true,
+  "game_rows": 144,
+  "source_deals": 18,
+  "paired_counts": {
+    "0": 70,
+    "-1": 2
+  },
+  "mean": -0.027777777777777776,
+  "hoeffding95": [
+    -0.6679929719910582,
+    0.6124374164355026
+  ],
+  "cold_complete_vector_comparisons": 432,
+  "cold_medians_ms": {
+    "arena": 356.26748250000094,
+    "control-native": 57.72929100000157,
+    "lazy": 272.9635235000005,
+    "native": 52.621980500000554,
+    "resumable": 310.438999499999,
+    "wasm": 692.5067105000021
+  },
+  "scope": "Saved artifact arithmetic/preservation only; no fresh timing, player strength, live deployment, or PRNG independence proof."
+}

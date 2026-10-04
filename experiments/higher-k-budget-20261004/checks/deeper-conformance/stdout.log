@@ -1,0 +1,9 @@
+{
+  "planned_first9_roots": 9,
+  "ineligible_roots": 5,
+  "eligible_roots": 4,
+  "independent_rung_vectors": 20,
+  "native_wasm_full_vector_sample_rng_counter_comparisons": 40,
+  "controlled_clock_checkpoint_refusals": 9,
+  "scope": "Finite12ply refinement on existing frozen source deals; no additional independent strength samples, actual browser interruptions or timings."
+}
