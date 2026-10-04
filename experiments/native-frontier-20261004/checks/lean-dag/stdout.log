@@ -1,0 +1,6 @@
+'WaltResearch.Phase3.Sol.fold_congr' depends on axioms: [propext, Quot.sound]
+'WaltResearch.Phase3.Sol.compiled_prefix_agrees' depends on axioms: [propext, Quot.sound]
+'WaltResearch.Phase3.Sol.compiled_root_equals_recursive' depends on axioms: [propext, Quot.sound]
+'WaltResearch.Phase3.Sol.two_evaluators_agree_for_every_graph' depends on axioms: [propext, Quot.sound]
+'WaltResearch.Phase3.Sol.world_first_max_changes_semantics' does not depend on any axioms
+'WaltResearch.Phase3.Sol.world_first_min_changes_semantics' does not depend on any axioms

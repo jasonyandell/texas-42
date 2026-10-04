@@ -1,0 +1,12 @@
+{
+  "roots": 38,
+  "partial_roots": 28,
+  "forced_rejection_roots": 31,
+  "bidder_counts": {
+    "0": 10,
+    "1": 8,
+    "2": 14,
+    "3": 6
+  },
+  "output": "/Users/jason/Documents/Codex/2026-10-04/task-3/research-worktree/experiments/native-frontier-20261004/checks/independent-panel.json"
+}

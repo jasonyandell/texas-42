@@ -1,0 +1,73 @@
+{
+  "requests": 11,
+  "all_guard_refusals_correct": true,
+  "process_survived_and_valid_request_completed": true,
+  "cases": [
+    {
+      "case": "unsupported doubles-suit",
+      "error": "unsupported outer frame",
+      "valid": false,
+      "cache_after_refusal": null
+    },
+    {
+      "case": "duplicate original tile",
+      "error": "invalid original hand",
+      "valid": false,
+      "cache_after_refusal": null
+    },
+    {
+      "case": "odd history length",
+      "error": "unsupported outer frame",
+      "valid": false,
+      "cache_after_refusal": null
+    },
+    {
+      "case": "unsupported actor",
+      "error": "unsupported outer frame",
+      "valid": false,
+      "cache_after_refusal": null
+    },
+    {
+      "case": "illegal exposed tile",
+      "error": "invalid exposed play",
+      "valid": false,
+      "cache_after_refusal": null
+    },
+    {
+      "case": "remaining overlap",
+      "error": "full deal capacity/overlap",
+      "valid": false,
+      "cache_after_refusal": null
+    },
+    {
+      "case": "tape dimensions",
+      "error": "tape dimensions",
+      "valid": false,
+      "cache_after_refusal": null
+    },
+    {
+      "case": "undeclared field rung",
+      "error": "unsupported field rung",
+      "valid": false,
+      "cache_after_refusal": 0
+    },
+    {
+      "case": "initial row cap",
+      "error": "initial row cap",
+      "valid": false,
+      "cache_after_refusal": 0
+    },
+    {
+      "case": "invalid cache cap",
+      "error": "invalid service budget",
+      "valid": false,
+      "cache_after_refusal": null
+    },
+    {
+      "case": "valid following refusals",
+      "error": null,
+      "valid": true,
+      "cache_after_refusal": null
+    }
+  ]
+}

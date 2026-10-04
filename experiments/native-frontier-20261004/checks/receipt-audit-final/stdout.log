@@ -1,0 +1,16 @@
+{
+  "receipts": 27,
+  "retained_failed_receipts": [
+    "native-independent-first/run.json",
+    "protocol-guards/run.json"
+  ],
+  "source_sha256": {
+    "experiments/native-frontier-20261004/native/src/lib.rs": "995064fa56678660b93188d91dc00a0e297530b129120b150f9c4726cc61e6eb",
+    "experiments/native-frontier-20261004/native/src/main.rs": "b2c6825d85cde52e569484f4be652815cb5642de60cd2969af2ee20dbcf20405",
+    "experiments/native-frontier-20261004/checks/runner/src/main.rs": "d3e5a4f9745282c99d1f92ec45e2da4531c6c0295e12ba2299150dcf7e22a32f",
+    "experiments/native-frontier-20261004/checks/scalar_oracle.py": "8e13990f65b34dfd04c5e8fe1cb110a200092d7af010143e40af38c581e719df",
+    "experiments/native-frontier-20261004/checks/independent-panel.json": "1c13c61858263f683369487eac44307790adb2c11cb465414c16b5990bcfe152",
+    "experiments/native-frontier-20261004/checks/parallel_protocol.py": "870ffad9c744eec6518c72d14287627b0fdd51b5563dd7c048fe44137566b3ac",
+    "experiments/native-frontier-20261004/checks/protocol_guards.py": "7b0216045258e8a49b1ec3ad312e7bf828b7d90daba1d8e1b653967d89da995b"
+  }
+}

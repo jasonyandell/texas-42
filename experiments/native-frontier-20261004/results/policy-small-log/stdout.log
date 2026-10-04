@@ -1,0 +1,116 @@
+{"worlds": 8, "repeat": 0, "roots": 10, "host_s": 0.03151179100000001, "frontier_us": 26310, "reference_us": 2070, "error": null}
+{"worlds": 8, "repeat": 1, "roots": 10, "host_s": 0.030670792000000002, "frontier_us": 25953, "reference_us": 1804, "error": null}
+{"worlds": 8, "repeat": 2, "roots": 10, "host_s": 0.030908750000000013, "frontier_us": 26447, "reference_us": 1755, "error": null}
+{"worlds": 8, "repeat": 3, "roots": 10, "host_s": 0.030232207999999983, "frontier_us": 25793, "reference_us": 1765, "error": null}
+{"worlds": 40, "repeat": 0, "roots": 10, "host_s": 0.13366079099999997, "frontier_us": 119495, "reference_us": 10096, "error": null}
+{"worlds": 40, "repeat": 1, "roots": 10, "host_s": 0.13687775000000002, "frontier_us": 122663, "reference_us": 10100, "error": null}
+{"worlds": 40, "repeat": 2, "roots": 10, "host_s": 0.13457679199999995, "frontier_us": 120614, "reference_us": 9849, "error": null}
+{"worlds": 40, "repeat": 3, "roots": 10, "host_s": 0.13652695799999992, "frontier_us": 121932, "reference_us": 10075, "error": null}
+{
+  "planned": 32,
+  "selected": 10,
+  "partial_roots": 6,
+  "panels": [
+    {
+      "worlds": 8,
+      "roots": 10,
+      "completed": 4,
+      "refused": 0,
+      "frontier_median_s": 0.0261315,
+      "reference_median_s": 0.0017845,
+      "reference_over_frontier": 0.06828922947400648,
+      "common_max_generation_s": 0.05880575,
+      "end_to_end_common_ratio": 0.7133530930186697,
+      "outer_validation_median_s": 3.45e-05,
+      "warm_median_s": 2e-06,
+      "serialization_median_s": 0.00015856250000000072,
+      "parse_median_s": 4.287550000001139e-05,
+      "host_median_s": 0.030789771000000007,
+      "peak_process_rss_bytes": 11567104,
+      "stats": {
+        "actor_demands_by_level": [
+          2168
+        ],
+        "cache_entries": 2178,
+        "cache_hits": 0,
+        "cache_key_bytes": 280544,
+        "cache_lookup_us": 381,
+        "completed_actor_queries": 2168,
+        "demand_grouping_us": 3048,
+        "fold_us": 3402,
+        "forward_us": 17429,
+        "generated_actor_queries": 2168,
+        "inner_worlds_by_level": [
+          8672
+        ],
+        "peak_counted_live_array_bytes": 3080344,
+        "peak_layer_rows": 6550,
+        "peak_retained_array_bytes": 3054488,
+        "preparation_us": 208,
+        "public_coordinates": 313365,
+        "query_lookups": 2178,
+        "raw_policy_consultations_by_level": [
+          2249
+        ],
+        "refused_batches": 0,
+        "row_edges": 361555,
+        "sample_us": 575,
+        "unique_actor_misses_by_level": [
+          2168
+        ]
+      }
+    },
+    {
+      "worlds": 40,
+      "roots": 10,
+      "completed": 4,
+      "refused": 0,
+      "frontier_median_s": 0.121273,
+      "reference_median_s": 0.0100855,
+      "reference_over_frontier": 0.0831636060788469,
+      "common_max_generation_s": 0.05880575,
+      "end_to_end_common_ratio": 0.3825617958809687,
+      "outer_validation_median_s": 7.05e-05,
+      "warm_median_s": 5e-06,
+      "serialization_median_s": 0.0005019170000000184,
+      "parse_median_s": 4.5270500000027525e-05,
+      "host_median_s": 0.13555187499999993,
+      "peak_process_rss_bytes": 43794432,
+      "stats": {
+        "actor_demands_by_level": [
+          10501
+        ],
+        "cache_entries": 10511,
+        "cache_hits": 0,
+        "cache_key_bytes": 1352288,
+        "cache_lookup_us": 1691,
+        "completed_actor_queries": 10501,
+        "demand_grouping_us": 14079,
+        "fold_us": 16708,
+        "forward_us": 82873,
+        "generated_actor_queries": 10501,
+        "inner_worlds_by_level": [
+          42004
+        ],
+        "peak_counted_live_array_bytes": 13979850,
+        "peak_layer_rows": 30035,
+        "peak_retained_array_bytes": 13826350,
+        "preparation_us": 955,
+        "public_coordinates": 1454377,
+        "query_lookups": 10511,
+        "raw_policy_consultations_by_level": [
+          11203
+        ],
+        "refused_batches": 0,
+        "row_edges": 1704047,
+        "sample_us": 2751,
+        "unique_actor_misses_by_level": [
+          10501
+        ]
+      }
+    }
+  ],
+  "all_complete_vectors_checked": true,
+  "elapsed_s": 0.675543208,
+  "scope": "Local native component throughput, pip trumps, finite frozen scenario bundles. Native production-core serial or existing four-thread root parallel reference; not full phone wrapper, no strength/k complexity claim. RSS is child high-water maximum so far; retained-array metric excludes maps, prepared queries, caches and allocator overhead. Source generation excluded solve and explicitly charged separately at maximum sample count."
+}

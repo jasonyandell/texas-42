@@ -1,0 +1,13 @@
+   Compiling native-frontier v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-3/research-worktree/experiments/native-frontier-20261004/native)
+error[E0382]: use of moved value: `inp.caps`
+  --> src/main.rs:26:117
+   |
+25 | ...rvice::new(inp.caps)?;let tick=Instant::now();let answer=match service.root_answers(&queries) {Ok(v)=>v,Err(e)=>return Ok(json!({...
+   |               -------- value moved here
+26 | ...& inp.reference_after {for q in &queries {let (v,us,nodes)=reference(q,inp.parallel_reference,inp.caps.seconds.min(10))?;ref_us+=...
+   |                                                                                                  ^^^^^^^^^^^^^^^^ value used here after move
+   |
+   = note: move occurs because `inp.caps` has type `Caps`, which does not implement the `Copy` trait
+
+For more information about this error, try `rustc --explain E0382`.
+error: could not compile `native-frontier` (bin "native-frontier") due to 1 previous error

@@ -1,0 +1,308 @@
+{
+  "final_panels_checked": 7,
+  "all_completed_standalone_vectors_equal": true,
+  "timing_formulas_reproduced": true,
+  "results": [
+    {
+      "directory": "final-native-four-batch",
+      "arguments": {
+        "mode": "native",
+        "field": 0,
+        "workers": 4,
+        "parallel_reference": false,
+        "batch_reference": true,
+        "standalone": true,
+        "native_choices": false
+      },
+      "panels": [
+        {
+          "worlds": 8,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.0016905,
+          "reference_wall_s": 0.0003715,
+          "frontier_over_reference_wall": 4.550471063257066,
+          "reference_over_frontier_standalone": 0.805270230629439,
+          "generation_charged_ratio": 0.9819402545430133,
+          "generated_queries": 0
+        },
+        {
+          "worlds": 40,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.0061655,
+          "reference_wall_s": 0.0041035,
+          "frontier_over_reference_wall": 1.5024978676739367,
+          "reference_over_frontier_standalone": 0.8359424038104548,
+          "generation_charged_ratio": 0.989235915683056,
+          "generated_queries": 0
+        },
+        {
+          "worlds": 128,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.0167565,
+          "reference_wall_s": 0.01181,
+          "frontier_over_reference_wall": 1.418839966130398,
+          "reference_over_frontier_standalone": 0.8508636723870449,
+          "generation_charged_ratio": 0.9914221836459696,
+          "generated_queries": 0
+        },
+        {
+          "worlds": 512,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.0642705,
+          "reference_wall_s": 0.0427265,
+          "frontier_over_reference_wall": 1.5042303956560914,
+          "reference_over_frontier_standalone": 0.836151522114189,
+          "generation_charged_ratio": 0.9910741898018723,
+          "generated_queries": 0
+        }
+      ],
+      "summary_sha256": "bfeebbf10bf698620e2e31f4a58f75b195deda298a1e62f120b9b92dc299deb1"
+    },
+    {
+      "directory": "final-native-one",
+      "arguments": {
+        "mode": "native",
+        "field": 0,
+        "workers": 1,
+        "parallel_reference": false,
+        "batch_reference": false,
+        "standalone": true,
+        "native_choices": false
+      },
+      "panels": [
+        {
+          "worlds": 8,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.0043595,
+          "reference_wall_s": 0.000889,
+          "frontier_over_reference_wall": 4.903824521934758,
+          "reference_over_frontier_standalone": 0.6095554455225238,
+          "generation_charged_ratio": 0.9449401478241423,
+          "generated_queries": 0
+        },
+        {
+          "worlds": 40,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.0147015,
+          "reference_wall_s": 0.010583,
+          "frontier_over_reference_wall": 1.3891618633657752,
+          "reference_over_frontier_standalone": 0.8166024628212826,
+          "generation_charged_ratio": 0.9818868731754528,
+          "generated_queries": 0
+        },
+        {
+          "worlds": 128,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.045285,
+          "reference_wall_s": 0.035292,
+          "frontier_over_reference_wall": 1.2831519891193472,
+          "reference_over_frontier_standalone": 0.8387225898019675,
+          "generation_charged_ratio": 0.9842040471907233,
+          "generated_queries": 0
+        },
+        {
+          "worlds": 512,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.170962,
+          "reference_wall_s": 0.1322555,
+          "frontier_over_reference_wall": 1.2926645772765595,
+          "reference_over_frontier_standalone": 0.8261375770905863,
+          "generation_charged_ratio": 0.9836163231514816,
+          "generated_queries": 0
+        }
+      ],
+      "summary_sha256": "0379ccbd912bc7f6733d56885c6f6a2aecb464cb563a8b5ca0d934a894c5df1f"
+    },
+    {
+      "directory": "final-policy-full",
+      "arguments": {
+        "mode": "policy",
+        "field": 0,
+        "workers": 1,
+        "parallel_reference": false,
+        "batch_reference": false,
+        "standalone": true,
+        "native_choices": false
+      },
+      "panels": [
+        {
+          "worlds": 8,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.121029,
+          "reference_wall_s": 0.00829,
+          "frontier_over_reference_wall": 14.599396863691194,
+          "reference_over_frontier_standalone": 0.09977047078000655,
+          "generation_charged_ratio": 0.3885235883015226,
+          "generated_queries": 10845
+        },
+        {
+          "worlds": 40,
+          "roots": 47,
+          "completed": 0,
+          "refused": 4,
+          "errors": [
+            "actor query cap"
+          ]
+        }
+      ],
+      "summary_sha256": "1bacc55a7f1e567b9fcbdfc8b0bd7362e0f9e96d6e3c100197bdf7a4556b68a5"
+    },
+    {
+      "directory": "final-policy-full-four",
+      "arguments": {
+        "mode": "policy",
+        "field": 0,
+        "workers": 4,
+        "parallel_reference": false,
+        "batch_reference": true,
+        "standalone": true,
+        "native_choices": false
+      },
+      "panels": [
+        {
+          "worlds": 8,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.055565,
+          "reference_wall_s": 0.002669,
+          "frontier_over_reference_wall": 20.818658673660547,
+          "reference_over_frontier_standalone": 0.1141079948468743,
+          "generation_charged_ratio": 0.5571627312510369,
+          "generated_queries": 10845
+        },
+        {
+          "worlds": 40,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.2370585,
+          "reference_wall_s": 0.0174165,
+          "frontier_over_reference_wall": 13.611144604254585,
+          "reference_over_frontier_standalone": 0.10716831373427442,
+          "generation_charged_ratio": 0.526757146780021,
+          "generated_queries": 51826
+        }
+      ],
+      "summary_sha256": "756ce26b5a04ff41164c3bf11dea91d23c6d9d901605f8f5e9fa968b3e567313"
+    },
+    {
+      "directory": "final-policy-hybrid-four",
+      "arguments": {
+        "mode": "policy",
+        "field": 0,
+        "workers": 4,
+        "parallel_reference": false,
+        "batch_reference": true,
+        "standalone": true,
+        "native_choices": true
+      },
+      "panels": [
+        {
+          "worlds": 8,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.0089445,
+          "reference_wall_s": 0.002564,
+          "frontier_over_reference_wall": 3.488494539781591,
+          "reference_over_frontier_standalone": 0.49728166942727575,
+          "generation_charged_ratio": 0.9073878333691642,
+          "generated_queries": 10845
+        },
+        {
+          "worlds": 40,
+          "roots": 47,
+          "completed": 4,
+          "refused": 0,
+          "frontier_cold_s": 0.0369615,
+          "reference_wall_s": 0.0176415,
+          "frontier_over_reference_wall": 2.0951449706657597,
+          "reference_over_frontier_standalone": 0.5644286795092538,
+          "generation_charged_ratio": 0.9233479161904904,
+          "generated_queries": 51826
+        }
+      ],
+      "summary_sha256": "255a4e8eb1409aa831e751ef5303d06797338402c6eaff27d92ce86bfbe6ce4d"
+    },
+    {
+      "directory": "final-rung1",
+      "arguments": {
+        "mode": "policy",
+        "field": 1,
+        "workers": 1,
+        "parallel_reference": false,
+        "batch_reference": false,
+        "standalone": true,
+        "native_choices": false
+      },
+      "panels": [
+        {
+          "worlds": 8,
+          "roots": 6,
+          "completed": 2,
+          "refused": 0,
+          "frontier_cold_s": 0.0206025,
+          "reference_wall_s": 0.0013915,
+          "frontier_over_reference_wall": 14.80596478620194,
+          "reference_over_frontier_standalone": 0.17851188930760895,
+          "generation_charged_ratio": 0.4592237674918196,
+          "generated_queries": 4075
+        }
+      ],
+      "summary_sha256": "81b9aaab9c25fd55dd34fcbfff45e443166af43c30a1cf80fe98a5a543ccd239"
+    },
+    {
+      "directory": "final-rung2",
+      "arguments": {
+        "mode": "policy",
+        "field": 2,
+        "workers": 1,
+        "parallel_reference": false,
+        "batch_reference": false,
+        "standalone": true,
+        "native_choices": false
+      },
+      "panels": [
+        {
+          "worlds": 8,
+          "roots": 6,
+          "completed": 2,
+          "refused": 0,
+          "frontier_cold_s": 0.078388,
+          "reference_wall_s": 0.0038005,
+          "frontier_over_reference_wall": 20.62570714379687,
+          "reference_over_frontier_standalone": 0.07984425511349581,
+          "generation_charged_ratio": 0.1956293814177952,
+          "generated_queries": 19630
+        }
+      ],
+      "summary_sha256": "8e15d09db2bb5d843bdcee9e9933f5288eee903777e3d620498699c6d21e8595"
+    }
+  ],
+  "limits": [
+    "No positive speed claim supported by equal-worker reference wall controls.",
+    "reference_solve_us sum and common-max-generation ratios are legacy diagnostics, not batch wall throughput.",
+    "CHILDREN ru_maxrss is cumulative high-water so far across prior frontend and baseline processes.",
+    "Summed worker peak arrays are separate maxima; unique misses are per-worker, not globally deduplicated.",
+    "Full-frontier refusals are not zero-valued answers; all-complete-vectors label means completed runs only."
+  ]
+}

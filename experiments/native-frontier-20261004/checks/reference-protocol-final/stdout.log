@@ -1,0 +1,268 @@
+{
+  "requests": 26,
+  "full_vectors_checked": 348,
+  "new_field2_frontier_roots": 12,
+  "reference_wall_scope_validated": true,
+  "cases": [
+    {
+      "counted": false,
+      "mode": "native",
+      "field": 0,
+      "batch": false,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 38,
+      "vectors_equal": true
+    },
+    {
+      "counted": false,
+      "mode": "native",
+      "field": 0,
+      "batch": true,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 38,
+      "vectors_equal": true
+    },
+    {
+      "counted": false,
+      "mode": "native",
+      "field": 0,
+      "batch": true,
+      "parallel": true,
+      "reference_only": true,
+      "roots": 38,
+      "vectors_equal": true
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 0,
+      "batch": false,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 0,
+      "batch": true,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 0,
+      "batch": true,
+      "parallel": true,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 1,
+      "batch": false,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 1,
+      "batch": true,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 1,
+      "batch": true,
+      "parallel": true,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 2,
+      "batch": false,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 2,
+      "batch": true,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 2,
+      "batch": true,
+      "parallel": true,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 2,
+      "batch": false,
+      "parallel": true,
+      "reference_only": false,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "native",
+      "field": 0,
+      "batch": false,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 38,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "native",
+      "field": 0,
+      "batch": true,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 38,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "native",
+      "field": 0,
+      "batch": true,
+      "parallel": true,
+      "reference_only": true,
+      "roots": 38,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 0,
+      "batch": false,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 0,
+      "batch": true,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 0,
+      "batch": true,
+      "parallel": true,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 1,
+      "batch": false,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 1,
+      "batch": true,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 1,
+      "batch": true,
+      "parallel": true,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 2,
+      "batch": false,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 2,
+      "batch": true,
+      "parallel": false,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 2,
+      "batch": true,
+      "parallel": true,
+      "reference_only": true,
+      "roots": 6,
+      "vectors_equal": true
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 2,
+      "batch": false,
+      "parallel": true,
+      "reference_only": false,
+      "roots": 6,
+      "vectors_equal": true
+    }
+  ]
+}

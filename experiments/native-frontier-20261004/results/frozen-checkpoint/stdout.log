@@ -1,0 +1,350 @@
+{
+  "frozen_files_unchanged": 612,
+  "phone_holdout_replayed_moves": 896,
+  "phone_source_deals": 4,
+  "phone_budget_ms_per_side": {
+    "true": 6368000,
+    "false": 6368000
+  },
+  "phone_replay_source_sha256": "72fda404a91582f216b04ab8fa3fd8c70099a0df0f37a7c6b4d2b9eb0c3f9650",
+  "frontier_final_source_sha256": "d2f27d1985e4b42877770b18fcbf03e84ce48e20f727409815cddb5cfcc6c842",
+  "all_run_receipts_within_cap": true,
+  "receipts": [
+    {
+      "path": "results/checkpoint-audit/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.195914
+    },
+    {
+      "path": "results/checkpoint-audit-final/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.202556
+    },
+    {
+      "path": "results/compiler-stress/run.json",
+      "status": "completed",
+      "allowance_seconds": 290.0,
+      "elapsed_seconds": 4.749051
+    },
+    {
+      "path": "results/cost-rerun-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 290.0,
+      "elapsed_seconds": 1.065009
+    },
+    {
+      "path": "results/demand-build/run.json",
+      "status": "failed",
+      "allowance_seconds": 295.0,
+      "elapsed_seconds": 0.024647
+    },
+    {
+      "path": "results/demand-build-2/run.json",
+      "status": "failed",
+      "allowance_seconds": 295.0,
+      "elapsed_seconds": 0.024519
+    },
+    {
+      "path": "results/demand-build-3/run.json",
+      "status": "completed",
+      "allowance_seconds": 295.0,
+      "elapsed_seconds": 7.855899
+    },
+    {
+      "path": "results/demand-late-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 290.0,
+      "elapsed_seconds": 0.442924
+    },
+    {
+      "path": "results/demand-mid-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 290.0,
+      "elapsed_seconds": 1.254644
+    },
+    {
+      "path": "results/frontier-final-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 290.0,
+      "elapsed_seconds": 2.45746
+    },
+    {
+      "path": "results/frontier-holdout-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 290.0,
+      "elapsed_seconds": 6.410412
+    },
+    {
+      "path": "results/frontier-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 290.0,
+      "elapsed_seconds": 2.51919
+    },
+    {
+      "path": "results/identity/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.084784
+    },
+    {
+      "path": "results/lead-bidder-counterexample/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.047713
+    },
+    {
+      "path": "results/lead-nesting-proof/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.206352
+    },
+    {
+      "path": "results/lead-priority-proof/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.270107
+    },
+    {
+      "path": "results/lead-settled-lean/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.240712
+    },
+    {
+      "path": "results/native-build/run.json",
+      "status": "completed",
+      "allowance_seconds": 295.0,
+      "elapsed_seconds": 7.635647
+    },
+    {
+      "path": "results/parallel-panel-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 290.0,
+      "elapsed_seconds": 15.377674
+    },
+    {
+      "path": "results/parallel-pilot-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 120.0,
+      "elapsed_seconds": 0.6189
+    },
+    {
+      "path": "results/phase3-rerun-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 60.0,
+      "elapsed_seconds": 7.509962
+    },
+    {
+      "path": "results/phone-audit/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.209194
+    },
+    {
+      "path": "results/phone-holdout-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 290.0,
+      "elapsed_seconds": 25.422634
+    },
+    {
+      "path": "results/phone-holdout-summary/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.047973
+    },
+    {
+      "path": "results/refined-orders-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 290.0,
+      "elapsed_seconds": 3.10594
+    },
+    {
+      "path": "results/shared-orders-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 290.0,
+      "elapsed_seconds": 4.42896
+    },
+    {
+      "path": "results/vector-orders-log/run.json",
+      "status": "completed",
+      "allowance_seconds": 290.0,
+      "elapsed_seconds": 2.33581
+    },
+    {
+      "path": "sol/receipts/batched-v2-audit/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.089932
+    },
+    {
+      "path": "sol/receipts/bidder-counterexample/run.json",
+      "status": "failed",
+      "allowance_seconds": 60.0,
+      "elapsed_seconds": 0.048265
+    },
+    {
+      "path": "sol/receipts/bidder-counterexample-numpy/run.json",
+      "status": "completed",
+      "allowance_seconds": 60.0,
+      "elapsed_seconds": 0.209919
+    },
+    {
+      "path": "sol/receipts/bidder-fixture-verify/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.089894
+    },
+    {
+      "path": "sol/receipts/final-packet/run.json",
+      "status": "failed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.047854
+    },
+    {
+      "path": "sol/receipts/final-packet-fixed/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.08828
+    },
+    {
+      "path": "sol/receipts/frontier-recheck/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 2.474667
+    },
+    {
+      "path": "sol/receipts/frontier-stress/run.json",
+      "status": "failed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.150144
+    },
+    {
+      "path": "sol/receipts/frontier-stress-final/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.383017
+    },
+    {
+      "path": "sol/receipts/nested-plans/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.26168
+    },
+    {
+      "path": "sol/receipts/nofusion-search/run.json",
+      "status": "failed",
+      "allowance_seconds": 60.0,
+      "elapsed_seconds": 7.860696
+    },
+    {
+      "path": "sol/receipts/nofusion-search-12/run.json",
+      "status": "failed",
+      "allowance_seconds": 60.0,
+      "elapsed_seconds": 50.386613
+    },
+    {
+      "path": "sol/receipts/ordering-trace-audit/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.389368
+    },
+    {
+      "path": "sol/receipts/phase1-lead/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 1.215243
+    },
+    {
+      "path": "sol/receipts/phase1-sol/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 1.095182
+    },
+    {
+      "path": "sol/receipts/phase2-coupling/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 1.119672
+    },
+    {
+      "path": "sol/receipts/phase2-teacher/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 1.154945
+    },
+    {
+      "path": "sol/receipts/phase3-dag/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 1.167411
+    },
+    {
+      "path": "sol/receipts/phase3-inner/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 1.104556
+    },
+    {
+      "path": "sol/receipts/priority-realization/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.266434
+    },
+    {
+      "path": "sol/receipts/receipt-audit/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.048187
+    },
+    {
+      "path": "sol/receipts/receipt-audit-final/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.04795
+    },
+    {
+      "path": "sol/receipts/receipt-audit-latest/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.040991
+    },
+    {
+      "path": "sol/receipts/refinement-full-audit/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 6.780458
+    },
+    {
+      "path": "sol/receipts/sampler-repair/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.132241
+    },
+    {
+      "path": "sol/receipts/settled-pruning/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.254124
+    },
+    {
+      "path": "sol/receipts/support-enumeration/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.084234
+    },
+    {
+      "path": "sol/receipts/teacher-data-split/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 0.205812
+    },
+    {
+      "path": "sol/receipts/vector-orders-recheck/run.json",
+      "status": "completed",
+      "allowance_seconds": 30.0,
+      "elapsed_seconds": 2.333993
+    }
+  ]
+}

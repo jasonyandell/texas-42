@@ -1,0 +1,81 @@
+{"worlds": 8, "repeat": 0, "roots": 6, "host_s": 0.023152584000000004, "frontier_us": 20667, "reference_us": 0, "error": null}
+{"worlds": 8, "repeat": 1, "roots": 6, "host_s": 0.0231035, "frontier_us": 20538, "reference_us": 0, "error": null}
+{
+  "planned": 32,
+  "selected": 6,
+  "partial_roots": 2,
+  "panels": [
+    {
+      "worlds": 8,
+      "roots": 6,
+      "completed": 2,
+      "refused": 0,
+      "frontier_median_s": 0.0206025,
+      "reference_median_s": 0.0013545,
+      "reference_over_frontier": 0.06574444848926102,
+      "common_max_generation_s": 0.012335166999999994,
+      "end_to_end_common_ratio": 0.41562345626968655,
+      "outer_validation_median_s": 2.55e-05,
+      "warm_median_s": 2e-06,
+      "serialization_median_s": 0.00010122900000000129,
+      "parse_median_s": 4.018750000000376e-05,
+      "host_median_s": 0.023128042,
+      "peak_process_rss_bytes": 8077312,
+      "stats": {
+        "actor_demands_by_level": [
+          3644,
+          468
+        ],
+        "cache_entries": 4081,
+        "cache_hits": 37,
+        "cache_key_bytes": 523424,
+        "cache_lookup_us": 925,
+        "completed_actor_queries": 4075,
+        "demand_grouping_us": 2068,
+        "fold_us": 2256,
+        "forward_us": 11313,
+        "generated_actor_queries": 4075,
+        "inner_worlds_by_level": [
+          14428,
+          936
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_counted_live_array_bytes": 654467,
+        "peak_layer_rows": 1564,
+        "peak_retained_array_bytes": 643691,
+        "preparation_us": 385,
+        "public_coordinates": 181922,
+        "query_lookups": 4118,
+        "raw_policy_consultations_by_level": [
+          3813,
+          490
+        ],
+        "refused_batches": 0,
+        "row_edges": 251201,
+        "sample_us": 1018,
+        "unique_actor_misses_by_level": [
+          3607,
+          468
+        ]
+      },
+      "actual_world_generation_s": 0.012078958,
+      "reference_total_median_s": 0.0013915,
+      "reference_total_over_frontier": 0.0675403470452615,
+      "frontier_standalone_median_s": 0.023269458500000006,
+      "reference_standalone_median_s": 0.004153875000000001,
+      "standalone_ratio": 0.17851188930760895,
+      "end_to_end_actual_generation_ratio": 0.4592237674918196,
+      "frontier_child_cpu_median_s": 0.022311499999999998,
+      "reference_child_cpu_median_s": 0.003032999999999999
+    }
+  ],
+  "all_complete_vectors_checked": true,
+  "elapsed_s": 0.067988084,
+  "scope": "Local native component throughput, pip trumps, finite frozen scenario bundles. Native production-core serial or existing four-thread root parallel or batch-recursive reference; not full phone wrapper, no strength/k complexity claim. reference_solve_us sums query solve intervals (not wall throughput for batch-reference); reference_total_us is actual reference wall interval including preparation. RSS is child high-water maximum so far; summed worker array peaks are an upper bound and exclude maps, prepared queries, caches and allocator overhead. Standalone timings alternate separate cold processes, include JSON/process/support validation and warm-lookup check on frontier; actual world-count generation separately charged over all proposed deals."
+}

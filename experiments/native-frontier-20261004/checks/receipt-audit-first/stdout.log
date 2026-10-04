@@ -1,0 +1,14 @@
+{
+  "receipts": 20,
+  "retained_failed_receipts": [
+    "native-independent-first/run.json",
+    "protocol-guards/run.json"
+  ],
+  "source_sha256": {
+    "experiments/native-frontier-20261004/native/src/lib.rs": "b4c3e099676675ea389ce52fbf0ef0b8a5e523c3aad60df3ec97676f69ca770a",
+    "experiments/native-frontier-20261004/native/src/main.rs": "9c7dcabc54d229d821d86fd0bc950439dbbb4d1c7231780783a655bfa0311954",
+    "experiments/native-frontier-20261004/checks/runner/src/main.rs": "c9202053608e88644944c080b7a8c1439cbdc7d5c25111de6b2849ac823f47f9",
+    "experiments/native-frontier-20261004/checks/scalar_oracle.py": "8e13990f65b34dfd04c5e8fe1cb110a200092d7af010143e40af38c581e719df",
+    "experiments/native-frontier-20261004/checks/independent-panel.json": "1c13c61858263f683369487eac44307790adb2c11cb465414c16b5990bcfe152"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T08:58:43.992412+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-3/research-worktree",
+  "command": [
+    "env",
+    "CARGO_TARGET_DIR=/Users/jason/Documents/Codex/2026-10-04/task-3/research-worktree/experiments/native-frontier-20261004/checks/runner-target",
+    "cargo",
+    "+1.95.0",
+    "run",
+    "--offline",
+    "--locked",
+    "--release",
+    "--manifest-path",
+    "experiments/native-frontier-20261004/checks/runner/Cargo.toml"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 2.751748,
+  "status": "completed",
+  "child_pid": 78742,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

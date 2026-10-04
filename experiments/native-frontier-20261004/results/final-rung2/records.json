@@ -1,0 +1,866 @@
+[
+  {
+    "worlds": 8,
+    "repeat": 0,
+    "roots": 6,
+    "mode": "policy",
+    "field": 2,
+    "result": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          15739,
+          3747,
+          470
+        ],
+        "cache_entries": 19636,
+        "cache_hits": 326,
+        "cache_key_bytes": 2514464,
+        "cache_lookup_us": 4523,
+        "completed_actor_queries": 19630,
+        "demand_grouping_us": 8636,
+        "fold_us": 8053,
+        "forward_us": 42340,
+        "generated_actor_queries": 19630,
+        "inner_worlds_by_level": [
+          61808,
+          7416,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_counted_live_array_bytes": 1968850,
+        "peak_layer_rows": 4675,
+        "peak_retained_array_bytes": 1937234,
+        "preparation_us": 1848,
+        "public_coordinates": 646154,
+        "query_lookups": 19962,
+        "raw_policy_consultations_by_level": [
+          16412,
+          3855,
+          488
+        ],
+        "refused_batches": 0,
+        "row_edges": 949728,
+        "sample_us": 4940,
+        "unique_actor_misses_by_level": [
+          15452,
+          3708,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          15739,
+          3747,
+          470
+        ],
+        "cache_entries": 19636,
+        "cache_hits": 332,
+        "cache_key_bytes": 2514464,
+        "cache_lookup_us": 4524,
+        "completed_actor_queries": 19630,
+        "demand_grouping_us": 8636,
+        "fold_us": 8053,
+        "forward_us": 42340,
+        "generated_actor_queries": 19630,
+        "inner_worlds_by_level": [
+          61808,
+          7416,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_counted_live_array_bytes": 1968850,
+        "peak_layer_rows": 4675,
+        "peak_retained_array_bytes": 1937234,
+        "preparation_us": 1848,
+        "public_coordinates": 646154,
+        "query_lookups": 19968,
+        "raw_policy_consultations_by_level": [
+          16412,
+          3855,
+          488
+        ],
+        "refused_batches": 0,
+        "row_edges": 949728,
+        "sample_us": 4940,
+        "unique_actor_misses_by_level": [
+          15452,
+          3708,
+          470
+        ]
+      },
+      "frontier_cold_us": 78411,
+      "frontier_warm_us": 2,
+      "outer_validation_us": 24,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 78455,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            15739,
+            3747,
+            470
+          ],
+          "cache_entries": 19636,
+          "cache_hits": 326,
+          "cache_key_bytes": 2514464,
+          "cache_lookup_us": 4523,
+          "completed_actor_queries": 19630,
+          "demand_grouping_us": 8636,
+          "fold_us": 8053,
+          "forward_us": 42340,
+          "generated_actor_queries": 19630,
+          "inner_worlds_by_level": [
+            61808,
+            7416,
+            940
+          ],
+          "native_choice_calls": 0,
+          "native_choice_declared_budget_sum_by_level": [],
+          "native_choice_us": 0,
+          "native_core_nodes": 0,
+          "native_core_pi_misses_by_level": [],
+          "native_core_policy_cache_entries": 0,
+          "native_core_reported_inner_worlds_by_level": [],
+          "peak_counted_live_array_bytes": 1968850,
+          "peak_layer_rows": 4675,
+          "peak_retained_array_bytes": 1937234,
+          "preparation_us": 1848,
+          "public_coordinates": 646154,
+          "query_lookups": 19962,
+          "raw_policy_consultations_by_level": [
+            16412,
+            3855,
+            488
+          ],
+          "refused_batches": 0,
+          "row_edges": 949728,
+          "sample_us": 4940,
+          "unique_actor_misses_by_level": [
+            15452,
+            3708,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    },
+    "serialization_s": 0.00010995799999999334,
+    "host_s": 0.081294834,
+    "output_parse_s": 4.445799999999722e-05,
+    "serialized_bytes": 15705,
+    "child_user_cpu_s": 0.078759,
+    "child_system_cpu_s": 0.0015519999999999998,
+    "child_process_peak_rss_bytes": 18284544,
+    "baseline": {
+      "result": {
+        "answers": [
+          {
+            "choice": 3,
+            "counts": [
+              2,
+              1,
+              2
+            ],
+            "tiles": [
+              3,
+              15,
+              27
+            ]
+          },
+          {
+            "choice": 11,
+            "counts": [
+              5,
+              4,
+              5
+            ],
+            "tiles": [
+              9,
+              11,
+              26
+            ]
+          },
+          {
+            "choice": 4,
+            "counts": [
+              4,
+              5,
+              4
+            ],
+            "tiles": [
+              4,
+              5,
+              8
+            ]
+          },
+          {
+            "choice": 10,
+            "counts": [
+              6,
+              4,
+              3
+            ],
+            "tiles": [
+              10,
+              17,
+              26
+            ]
+          },
+          {
+            "choice": 9,
+            "counts": [
+              0,
+              0,
+              0
+            ],
+            "tiles": [
+              9,
+              18,
+              22
+            ]
+          },
+          {
+            "choice": 1,
+            "counts": [
+              2,
+              2,
+              2
+            ],
+            "tiles": [
+              1,
+              6,
+              26
+            ]
+          }
+        ],
+        "batch_reference": false,
+        "outer_validation_us": 28,
+        "reference_nodes": 91733,
+        "reference_parallel": false,
+        "reference_solve_us": 3662,
+        "reference_total_us": 3703,
+        "request_total_us": 3734
+      },
+      "serialization_s": 9.02079999999944e-05,
+      "host_s": 0.006461499999999995,
+      "output_parse_s": 2.012499999999584e-05,
+      "serialized_bytes": 15729,
+      "child_user_cpu_s": 0.004487,
+      "child_system_cpu_s": 0.001027,
+      "child_process_peak_rss_bytes": 4866048
+    },
+    "standalone_vectors_and_choices_equal": true
+  },
+  {
+    "worlds": 8,
+    "repeat": 1,
+    "roots": 6,
+    "mode": "policy",
+    "field": 2,
+    "result": {
+      "all_vectors_and_choices_equal": false,
+      "answers": [
+        {
+          "choice": 3,
+          "counts": [
+            2,
+            1,
+            2
+          ],
+          "tiles": [
+            3,
+            15,
+            27
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            5,
+            4,
+            5
+          ],
+          "tiles": [
+            9,
+            11,
+            26
+          ]
+        },
+        {
+          "choice": 4,
+          "counts": [
+            4,
+            5,
+            4
+          ],
+          "tiles": [
+            4,
+            5,
+            8
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            6,
+            4,
+            3
+          ],
+          "tiles": [
+            10,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 9,
+          "counts": [
+            0,
+            0,
+            0
+          ],
+          "tiles": [
+            9,
+            18,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            2,
+            2,
+            2
+          ],
+          "tiles": [
+            1,
+            6,
+            26
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          15739,
+          3747,
+          470
+        ],
+        "cache_entries": 19636,
+        "cache_hits": 326,
+        "cache_key_bytes": 2514464,
+        "cache_lookup_us": 4638,
+        "completed_actor_queries": 19630,
+        "demand_grouping_us": 8595,
+        "fold_us": 7982,
+        "forward_us": 42078,
+        "generated_actor_queries": 19630,
+        "inner_worlds_by_level": [
+          61808,
+          7416,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_counted_live_array_bytes": 1968850,
+        "peak_layer_rows": 4675,
+        "peak_retained_array_bytes": 1937234,
+        "preparation_us": 1928,
+        "public_coordinates": 646154,
+        "query_lookups": 19962,
+        "raw_policy_consultations_by_level": [
+          16412,
+          3855,
+          488
+        ],
+        "refused_batches": 0,
+        "row_edges": 949728,
+        "sample_us": 5174,
+        "unique_actor_misses_by_level": [
+          15452,
+          3708,
+          470
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          15739,
+          3747,
+          470
+        ],
+        "cache_entries": 19636,
+        "cache_hits": 332,
+        "cache_key_bytes": 2514464,
+        "cache_lookup_us": 4639,
+        "completed_actor_queries": 19630,
+        "demand_grouping_us": 8595,
+        "fold_us": 7982,
+        "forward_us": 42078,
+        "generated_actor_queries": 19630,
+        "inner_worlds_by_level": [
+          61808,
+          7416,
+          940
+        ],
+        "native_choice_calls": 0,
+        "native_choice_declared_budget_sum_by_level": [],
+        "native_choice_us": 0,
+        "native_core_nodes": 0,
+        "native_core_pi_misses_by_level": [],
+        "native_core_policy_cache_entries": 0,
+        "native_core_reported_inner_worlds_by_level": [],
+        "peak_counted_live_array_bytes": 1968850,
+        "peak_layer_rows": 4675,
+        "peak_retained_array_bytes": 1937234,
+        "preparation_us": 1928,
+        "public_coordinates": 646154,
+        "query_lookups": 19968,
+        "raw_policy_consultations_by_level": [
+          16412,
+          3855,
+          488
+        ],
+        "refused_batches": 0,
+        "row_edges": 949728,
+        "sample_us": 5174,
+        "unique_actor_misses_by_level": [
+          15452,
+          3708,
+          470
+        ]
+      },
+      "frontier_cold_us": 78365,
+      "frontier_warm_us": 2,
+      "outer_validation_us": 26,
+      "prepared": [
+        [
+          {
+            "actor": 1,
+            "hand": 134250504,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 80945078,
+              "plays": [],
+              "t0": 7,
+              "t1": 17
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 67111424,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 165991607,
+              "plays": [],
+              "t0": 8,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 304,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 190807243,
+              "plays": [
+                14,
+                11,
+                7
+              ],
+              "t0": 12,
+              "t1": 12
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67240960,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 200041418,
+              "plays": [],
+              "t0": 1,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 4456960,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 202110015,
+              "plays": [],
+              "t0": 9,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 67108930,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 200012724,
+              "plays": [
+                5,
+                17,
+                9
+              ],
+              "t0": 1,
+              "t1": 23
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 0,
+      "reference_parallel": false,
+      "reference_solve_us": 0,
+      "reference_total_us": 0,
+      "request_total_us": 78412,
+      "worker_stats": [
+        {
+          "actor_demands_by_level": [
+            15739,
+            3747,
+            470
+          ],
+          "cache_entries": 19636,
+          "cache_hits": 326,
+          "cache_key_bytes": 2514464,
+          "cache_lookup_us": 4638,
+          "completed_actor_queries": 19630,
+          "demand_grouping_us": 8595,
+          "fold_us": 7982,
+          "forward_us": 42078,
+          "generated_actor_queries": 19630,
+          "inner_worlds_by_level": [
+            61808,
+            7416,
+            940
+          ],
+          "native_choice_calls": 0,
+          "native_choice_declared_budget_sum_by_level": [],
+          "native_choice_us": 0,
+          "native_core_nodes": 0,
+          "native_core_pi_misses_by_level": [],
+          "native_core_policy_cache_entries": 0,
+          "native_core_reported_inner_worlds_by_level": [],
+          "peak_counted_live_array_bytes": 1968850,
+          "peak_layer_rows": 4675,
+          "peak_retained_array_bytes": 1937234,
+          "preparation_us": 1928,
+          "public_coordinates": 646154,
+          "query_lookups": 19962,
+          "raw_policy_consultations_by_level": [
+            16412,
+            3855,
+            488
+          ],
+          "refused_batches": 0,
+          "row_edges": 949728,
+          "sample_us": 5174,
+          "unique_actor_misses_by_level": [
+            15452,
+            3708,
+            470
+          ]
+        }
+      ],
+      "workers": 1
+    },
+    "serialization_s": 9.583300000001738e-05,
+    "host_s": 0.08134708299999999,
+    "output_parse_s": 4.275000000000806e-05,
+    "serialized_bytes": 15704,
+    "child_user_cpu_s": 0.07876599999999999,
+    "child_system_cpu_s": 0.0015859999999999997,
+    "child_process_peak_rss_bytes": 18710528,
+    "baseline": {
+      "result": {
+        "answers": [
+          {
+            "choice": 3,
+            "counts": [
+              2,
+              1,
+              2
+            ],
+            "tiles": [
+              3,
+              15,
+              27
+            ]
+          },
+          {
+            "choice": 11,
+            "counts": [
+              5,
+              4,
+              5
+            ],
+            "tiles": [
+              9,
+              11,
+              26
+            ]
+          },
+          {
+            "choice": 4,
+            "counts": [
+              4,
+              5,
+              4
+            ],
+            "tiles": [
+              4,
+              5,
+              8
+            ]
+          },
+          {
+            "choice": 10,
+            "counts": [
+              6,
+              4,
+              3
+            ],
+            "tiles": [
+              10,
+              17,
+              26
+            ]
+          },
+          {
+            "choice": 9,
+            "counts": [
+              0,
+              0,
+              0
+            ],
+            "tiles": [
+              9,
+              18,
+              22
+            ]
+          },
+          {
+            "choice": 1,
+            "counts": [
+              2,
+              2,
+              2
+            ],
+            "tiles": [
+              1,
+              6,
+              26
+            ]
+          }
+        ],
+        "batch_reference": false,
+        "outer_validation_us": 25,
+        "reference_nodes": 91733,
+        "reference_parallel": false,
+        "reference_solve_us": 3853,
+        "reference_total_us": 3898,
+        "request_total_us": 3926
+      },
+      "serialization_s": 0.00012404200000001864,
+      "host_s": 0.006298667000000008,
+      "output_parse_s": 1.4874999999997529e-05,
+      "serialized_bytes": 15728,
+      "child_user_cpu_s": 0.004626999999999992,
+      "child_system_cpu_s": 0.0008740000000000006,
+      "child_process_peak_rss_bytes": 18710528
+    },
+    "standalone_vectors_and_choices_equal": true
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "base_checkpoint": "490997b13b161099dcfbcf19f2dec0819fd5a019",
+  "unchanged_preexisting_paths": true,
+  "source_sha256": {
+    "experiments/native-frontier-20261004/native/src/lib.rs": "995064fa56678660b93188d91dc00a0e297530b129120b150f9c4726cc61e6eb",
+    "experiments/native-frontier-20261004/native/src/main.rs": "60b3a85378e292f9cfef47bd4c277279a2bf1b2fd2bd343dff8dbfb3ec5544d6",
+    "experiments/native-frontier-20261004/panel.py": "cee8033a169bd885729619e7ad1be021bf27c2375e681555681b3702f737140d",
+    "experiments/native-frontier-20261004/verify.py": "740e985f878f9933dd3fd93bfe70cadd7cf07f999c09ba04296f54d5190b275d"
+  },
+  "binary_sha256": "937441d9f6445d8db9940d63b8974fe5b620be35979479ef987adf24b63ecb7b",
+  "final_completed_vector_checks": 2750,
+  "final_refusals": [
+    {
+      "panel": "final-policy-full",
+      "worlds": 40,
+      "reason": "actor query cap",
+      "refusal_us": 546379
+    },
+    {
+      "panel": "final-policy-full",
+      "worlds": 40,
+      "reason": "actor query cap",
+      "refusal_us": 546990
+    },
+    {
+      "panel": "final-policy-full",
+      "worlds": 40,
+      "reason": "actor query cap",
+      "refusal_us": 570039
+    },
+    {
+      "panel": "final-policy-full",
+      "worlds": 40,
+      "reason": "actor query cap",
+      "refusal_us": 553669
+    }
+  ],
+  "retained_failed_receipts": [
+    "checks/native-independent-first/run.json",
+    "checks/protocol-guards/run.json",
+    "results/build-cli/run.json",
+    "results/build-first/run.json"
+  ]
+}

@@ -1,0 +1,2954 @@
+[
+  {
+    "worlds": 8,
+    "repeat": 0,
+    "roots": 10,
+    "mode": "policy",
+    "field": 0,
+    "serialization_s": 0.0001395410000000069,
+    "host_s": 0.03151179100000001,
+    "output_parse_s": 4.158400000001117e-05,
+    "serialized_bytes": 32297,
+    "child_process_peak_rss_bytes": 11567104,
+    "result": {
+      "all_vectors_and_choices_equal": true,
+      "answers": [
+        {
+          "choice": 0,
+          "counts": [
+            1,
+            3,
+            7
+          ],
+          "tiles": [
+            0,
+            6,
+            15
+          ]
+        },
+        {
+          "choice": 8,
+          "counts": [
+            2,
+            3,
+            1,
+            2
+          ],
+          "tiles": [
+            6,
+            8,
+            15,
+            17
+          ]
+        },
+        {
+          "choice": 22,
+          "counts": [
+            3,
+            1,
+            2,
+            4
+          ],
+          "tiles": [
+            0,
+            14,
+            20,
+            22
+          ]
+        },
+        {
+          "choice": 12,
+          "counts": [
+            4,
+            2,
+            4,
+            4
+          ],
+          "tiles": [
+            1,
+            12,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 14,
+          "counts": [
+            6,
+            5,
+            5,
+            5
+          ],
+          "tiles": [
+            14,
+            15,
+            19,
+            20
+          ]
+        },
+        {
+          "choice": 2,
+          "counts": [
+            2,
+            0,
+            1,
+            0
+          ],
+          "tiles": [
+            2,
+            5,
+            9,
+            17
+          ]
+        },
+        {
+          "choice": 8,
+          "counts": [
+            3,
+            3,
+            4,
+            3
+          ],
+          "tiles": [
+            2,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            0,
+            0
+          ],
+          "tiles": [
+            11,
+            19
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            0,
+            0
+          ],
+          "tiles": [
+            10,
+            11
+          ]
+        },
+        {
+          "choice": 27,
+          "counts": [
+            5,
+            5,
+            6,
+            4
+          ],
+          "tiles": [
+            11,
+            22,
+            26,
+            27
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          2168
+        ],
+        "cache_entries": 2178,
+        "cache_hits": 0,
+        "cache_key_bytes": 280544,
+        "cache_lookup_us": 382,
+        "completed_actor_queries": 2168,
+        "demand_grouping_us": 3051,
+        "fold_us": 3475,
+        "forward_us": 17840,
+        "generated_actor_queries": 2168,
+        "inner_worlds_by_level": [
+          8672
+        ],
+        "peak_counted_live_array_bytes": 3080344,
+        "peak_layer_rows": 6550,
+        "peak_retained_array_bytes": 3054488,
+        "preparation_us": 224,
+        "public_coordinates": 313365,
+        "query_lookups": 2178,
+        "raw_policy_consultations_by_level": [
+          2249
+        ],
+        "refused_batches": 0,
+        "row_edges": 361555,
+        "sample_us": 581,
+        "unique_actor_misses_by_level": [
+          2168
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          2168
+        ],
+        "cache_entries": 2178,
+        "cache_hits": 10,
+        "cache_key_bytes": 280544,
+        "cache_lookup_us": 384,
+        "completed_actor_queries": 2168,
+        "demand_grouping_us": 3051,
+        "fold_us": 3475,
+        "forward_us": 17840,
+        "generated_actor_queries": 2168,
+        "inner_worlds_by_level": [
+          8672
+        ],
+        "peak_counted_live_array_bytes": 3080344,
+        "peak_layer_rows": 6550,
+        "peak_retained_array_bytes": 3054488,
+        "preparation_us": 224,
+        "public_coordinates": 313365,
+        "query_lookups": 2188,
+        "raw_policy_consultations_by_level": [
+          2249
+        ],
+        "refused_batches": 0,
+        "row_edges": 361555,
+        "sample_us": 581,
+        "unique_actor_misses_by_level": [
+          2168
+        ]
+      },
+      "frontier_cold_us": 26310,
+      "frontier_warm_us": 2,
+      "outer_validation_us": 35,
+      "prepared": [
+        [
+          {
+            "actor": 0,
+            "hand": 41025,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 251596826,
+              "plays": [
+                1,
+                17,
+                21
+              ],
+              "t0": 0,
+              "t1": 23
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 164160,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 230177793,
+              "plays": [],
+              "t0": 0,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 5259265,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 220402038,
+              "plays": [
+                17
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 67244034,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 199819972,
+              "plays": [],
+              "t0": 2,
+              "t1": 11
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 1622016,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 214370708,
+              "plays": [],
+              "t0": 0,
+              "t1": 13
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 131620,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 94668171,
+              "plays": [],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 900,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 74389610,
+              "plays": [
+                22
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 1640448,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 170029999,
+              "plays": [
+                14,
+                13,
+                25
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 3588,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 264536440,
+              "plays": [
+                25
+              ],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 205522944,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 37540600,
+              "plays": [
+                5,
+                4
+              ],
+              "t0": 6,
+              "t1": 22
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 65393,
+      "reference_parallel": false,
+      "reference_solve_us": 2070,
+      "request_total_us": 28492
+    }
+  },
+  {
+    "worlds": 8,
+    "repeat": 1,
+    "roots": 10,
+    "mode": "policy",
+    "field": 0,
+    "serialization_s": 0.00016745900000000868,
+    "host_s": 0.030670792000000002,
+    "output_parse_s": 4.962499999999759e-05,
+    "serialized_bytes": 32296,
+    "child_process_peak_rss_bytes": 11567104,
+    "result": {
+      "all_vectors_and_choices_equal": true,
+      "answers": [
+        {
+          "choice": 0,
+          "counts": [
+            1,
+            3,
+            7
+          ],
+          "tiles": [
+            0,
+            6,
+            15
+          ]
+        },
+        {
+          "choice": 8,
+          "counts": [
+            2,
+            3,
+            1,
+            2
+          ],
+          "tiles": [
+            6,
+            8,
+            15,
+            17
+          ]
+        },
+        {
+          "choice": 22,
+          "counts": [
+            3,
+            1,
+            2,
+            4
+          ],
+          "tiles": [
+            0,
+            14,
+            20,
+            22
+          ]
+        },
+        {
+          "choice": 12,
+          "counts": [
+            4,
+            2,
+            4,
+            4
+          ],
+          "tiles": [
+            1,
+            12,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 14,
+          "counts": [
+            6,
+            5,
+            5,
+            5
+          ],
+          "tiles": [
+            14,
+            15,
+            19,
+            20
+          ]
+        },
+        {
+          "choice": 2,
+          "counts": [
+            2,
+            0,
+            1,
+            0
+          ],
+          "tiles": [
+            2,
+            5,
+            9,
+            17
+          ]
+        },
+        {
+          "choice": 8,
+          "counts": [
+            3,
+            3,
+            4,
+            3
+          ],
+          "tiles": [
+            2,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            0,
+            0
+          ],
+          "tiles": [
+            11,
+            19
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            0,
+            0
+          ],
+          "tiles": [
+            10,
+            11
+          ]
+        },
+        {
+          "choice": 27,
+          "counts": [
+            5,
+            5,
+            6,
+            4
+          ],
+          "tiles": [
+            11,
+            22,
+            26,
+            27
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          2168
+        ],
+        "cache_entries": 2178,
+        "cache_hits": 0,
+        "cache_key_bytes": 280544,
+        "cache_lookup_us": 372,
+        "completed_actor_queries": 2168,
+        "demand_grouping_us": 3088,
+        "fold_us": 3479,
+        "forward_us": 17469,
+        "generated_actor_queries": 2168,
+        "inner_worlds_by_level": [
+          8672
+        ],
+        "peak_counted_live_array_bytes": 3080344,
+        "peak_layer_rows": 6550,
+        "peak_retained_array_bytes": 3054488,
+        "preparation_us": 220,
+        "public_coordinates": 313365,
+        "query_lookups": 2178,
+        "raw_policy_consultations_by_level": [
+          2249
+        ],
+        "refused_batches": 0,
+        "row_edges": 361555,
+        "sample_us": 574,
+        "unique_actor_misses_by_level": [
+          2168
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          2168
+        ],
+        "cache_entries": 2178,
+        "cache_hits": 10,
+        "cache_key_bytes": 280544,
+        "cache_lookup_us": 374,
+        "completed_actor_queries": 2168,
+        "demand_grouping_us": 3088,
+        "fold_us": 3479,
+        "forward_us": 17469,
+        "generated_actor_queries": 2168,
+        "inner_worlds_by_level": [
+          8672
+        ],
+        "peak_counted_live_array_bytes": 3080344,
+        "peak_layer_rows": 6550,
+        "peak_retained_array_bytes": 3054488,
+        "preparation_us": 220,
+        "public_coordinates": 313365,
+        "query_lookups": 2188,
+        "raw_policy_consultations_by_level": [
+          2249
+        ],
+        "refused_batches": 0,
+        "row_edges": 361555,
+        "sample_us": 574,
+        "unique_actor_misses_by_level": [
+          2168
+        ]
+      },
+      "frontier_cold_us": 25953,
+      "frontier_warm_us": 2,
+      "outer_validation_us": 34,
+      "prepared": [
+        [
+          {
+            "actor": 0,
+            "hand": 41025,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 251596826,
+              "plays": [
+                1,
+                17,
+                21
+              ],
+              "t0": 0,
+              "t1": 23
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 164160,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 230177793,
+              "plays": [],
+              "t0": 0,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 5259265,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 220402038,
+              "plays": [
+                17
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 67244034,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 199819972,
+              "plays": [],
+              "t0": 2,
+              "t1": 11
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 1622016,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 214370708,
+              "plays": [],
+              "t0": 0,
+              "t1": 13
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 131620,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 94668171,
+              "plays": [],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 900,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 74389610,
+              "plays": [
+                22
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 1640448,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 170029999,
+              "plays": [
+                14,
+                13,
+                25
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 3588,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 264536440,
+              "plays": [
+                25
+              ],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 205522944,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 37540600,
+              "plays": [
+                5,
+                4
+              ],
+              "t0": 6,
+              "t1": 22
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 65393,
+      "reference_parallel": false,
+      "reference_solve_us": 1804,
+      "request_total_us": 27868
+    }
+  },
+  {
+    "worlds": 8,
+    "repeat": 2,
+    "roots": 10,
+    "mode": "policy",
+    "field": 0,
+    "serialization_s": 0.00016370799999998464,
+    "host_s": 0.030908750000000013,
+    "output_parse_s": 4.4167000000011614e-05,
+    "serialized_bytes": 32297,
+    "child_process_peak_rss_bytes": 11567104,
+    "result": {
+      "all_vectors_and_choices_equal": true,
+      "answers": [
+        {
+          "choice": 0,
+          "counts": [
+            1,
+            3,
+            7
+          ],
+          "tiles": [
+            0,
+            6,
+            15
+          ]
+        },
+        {
+          "choice": 8,
+          "counts": [
+            2,
+            3,
+            1,
+            2
+          ],
+          "tiles": [
+            6,
+            8,
+            15,
+            17
+          ]
+        },
+        {
+          "choice": 22,
+          "counts": [
+            3,
+            1,
+            2,
+            4
+          ],
+          "tiles": [
+            0,
+            14,
+            20,
+            22
+          ]
+        },
+        {
+          "choice": 12,
+          "counts": [
+            4,
+            2,
+            4,
+            4
+          ],
+          "tiles": [
+            1,
+            12,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 14,
+          "counts": [
+            6,
+            5,
+            5,
+            5
+          ],
+          "tiles": [
+            14,
+            15,
+            19,
+            20
+          ]
+        },
+        {
+          "choice": 2,
+          "counts": [
+            2,
+            0,
+            1,
+            0
+          ],
+          "tiles": [
+            2,
+            5,
+            9,
+            17
+          ]
+        },
+        {
+          "choice": 8,
+          "counts": [
+            3,
+            3,
+            4,
+            3
+          ],
+          "tiles": [
+            2,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            0,
+            0
+          ],
+          "tiles": [
+            11,
+            19
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            0,
+            0
+          ],
+          "tiles": [
+            10,
+            11
+          ]
+        },
+        {
+          "choice": 27,
+          "counts": [
+            5,
+            5,
+            6,
+            4
+          ],
+          "tiles": [
+            11,
+            22,
+            26,
+            27
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          2168
+        ],
+        "cache_entries": 2178,
+        "cache_hits": 0,
+        "cache_key_bytes": 280544,
+        "cache_lookup_us": 381,
+        "completed_actor_queries": 2168,
+        "demand_grouping_us": 3063,
+        "fold_us": 3533,
+        "forward_us": 17864,
+        "generated_actor_queries": 2168,
+        "inner_worlds_by_level": [
+          8672
+        ],
+        "peak_counted_live_array_bytes": 3080344,
+        "peak_layer_rows": 6550,
+        "peak_retained_array_bytes": 3054488,
+        "preparation_us": 225,
+        "public_coordinates": 313365,
+        "query_lookups": 2178,
+        "raw_policy_consultations_by_level": [
+          2249
+        ],
+        "refused_batches": 0,
+        "row_edges": 361555,
+        "sample_us": 608,
+        "unique_actor_misses_by_level": [
+          2168
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          2168
+        ],
+        "cache_entries": 2178,
+        "cache_hits": 10,
+        "cache_key_bytes": 280544,
+        "cache_lookup_us": 383,
+        "completed_actor_queries": 2168,
+        "demand_grouping_us": 3063,
+        "fold_us": 3533,
+        "forward_us": 17864,
+        "generated_actor_queries": 2168,
+        "inner_worlds_by_level": [
+          8672
+        ],
+        "peak_counted_live_array_bytes": 3080344,
+        "peak_layer_rows": 6550,
+        "peak_retained_array_bytes": 3054488,
+        "preparation_us": 225,
+        "public_coordinates": 313365,
+        "query_lookups": 2188,
+        "raw_policy_consultations_by_level": [
+          2249
+        ],
+        "refused_batches": 0,
+        "row_edges": 361555,
+        "sample_us": 608,
+        "unique_actor_misses_by_level": [
+          2168
+        ]
+      },
+      "frontier_cold_us": 26447,
+      "frontier_warm_us": 2,
+      "outer_validation_us": 32,
+      "prepared": [
+        [
+          {
+            "actor": 0,
+            "hand": 41025,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 251596826,
+              "plays": [
+                1,
+                17,
+                21
+              ],
+              "t0": 0,
+              "t1": 23
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 164160,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 230177793,
+              "plays": [],
+              "t0": 0,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 5259265,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 220402038,
+              "plays": [
+                17
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 67244034,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 199819972,
+              "plays": [],
+              "t0": 2,
+              "t1": 11
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 1622016,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 214370708,
+              "plays": [],
+              "t0": 0,
+              "t1": 13
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 131620,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 94668171,
+              "plays": [],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 900,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 74389610,
+              "plays": [
+                22
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 1640448,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 170029999,
+              "plays": [
+                14,
+                13,
+                25
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 3588,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 264536440,
+              "plays": [
+                25
+              ],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 205522944,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 37540600,
+              "plays": [
+                5,
+                4
+              ],
+              "t0": 6,
+              "t1": 22
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 65393,
+      "reference_parallel": false,
+      "reference_solve_us": 1755,
+      "request_total_us": 28303
+    }
+  },
+  {
+    "worlds": 8,
+    "repeat": 3,
+    "roots": 10,
+    "mode": "policy",
+    "field": 0,
+    "serialization_s": 0.0001534170000000168,
+    "host_s": 0.030232207999999983,
+    "output_parse_s": 3.6042000000013896e-05,
+    "serialized_bytes": 32296,
+    "child_process_peak_rss_bytes": 11567104,
+    "result": {
+      "all_vectors_and_choices_equal": true,
+      "answers": [
+        {
+          "choice": 0,
+          "counts": [
+            1,
+            3,
+            7
+          ],
+          "tiles": [
+            0,
+            6,
+            15
+          ]
+        },
+        {
+          "choice": 8,
+          "counts": [
+            2,
+            3,
+            1,
+            2
+          ],
+          "tiles": [
+            6,
+            8,
+            15,
+            17
+          ]
+        },
+        {
+          "choice": 22,
+          "counts": [
+            3,
+            1,
+            2,
+            4
+          ],
+          "tiles": [
+            0,
+            14,
+            20,
+            22
+          ]
+        },
+        {
+          "choice": 12,
+          "counts": [
+            4,
+            2,
+            4,
+            4
+          ],
+          "tiles": [
+            1,
+            12,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 14,
+          "counts": [
+            6,
+            5,
+            5,
+            5
+          ],
+          "tiles": [
+            14,
+            15,
+            19,
+            20
+          ]
+        },
+        {
+          "choice": 2,
+          "counts": [
+            2,
+            0,
+            1,
+            0
+          ],
+          "tiles": [
+            2,
+            5,
+            9,
+            17
+          ]
+        },
+        {
+          "choice": 8,
+          "counts": [
+            3,
+            3,
+            4,
+            3
+          ],
+          "tiles": [
+            2,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            0,
+            0
+          ],
+          "tiles": [
+            11,
+            19
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            0,
+            0
+          ],
+          "tiles": [
+            10,
+            11
+          ]
+        },
+        {
+          "choice": 27,
+          "counts": [
+            5,
+            5,
+            6,
+            4
+          ],
+          "tiles": [
+            11,
+            22,
+            26,
+            27
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          2168
+        ],
+        "cache_entries": 2178,
+        "cache_hits": 0,
+        "cache_key_bytes": 280544,
+        "cache_lookup_us": 381,
+        "completed_actor_queries": 2168,
+        "demand_grouping_us": 3048,
+        "fold_us": 3402,
+        "forward_us": 17429,
+        "generated_actor_queries": 2168,
+        "inner_worlds_by_level": [
+          8672
+        ],
+        "peak_counted_live_array_bytes": 3080344,
+        "peak_layer_rows": 6550,
+        "peak_retained_array_bytes": 3054488,
+        "preparation_us": 208,
+        "public_coordinates": 313365,
+        "query_lookups": 2178,
+        "raw_policy_consultations_by_level": [
+          2249
+        ],
+        "refused_batches": 0,
+        "row_edges": 361555,
+        "sample_us": 575,
+        "unique_actor_misses_by_level": [
+          2168
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          2168
+        ],
+        "cache_entries": 2178,
+        "cache_hits": 10,
+        "cache_key_bytes": 280544,
+        "cache_lookup_us": 383,
+        "completed_actor_queries": 2168,
+        "demand_grouping_us": 3048,
+        "fold_us": 3402,
+        "forward_us": 17429,
+        "generated_actor_queries": 2168,
+        "inner_worlds_by_level": [
+          8672
+        ],
+        "peak_counted_live_array_bytes": 3080344,
+        "peak_layer_rows": 6550,
+        "peak_retained_array_bytes": 3054488,
+        "preparation_us": 208,
+        "public_coordinates": 313365,
+        "query_lookups": 2188,
+        "raw_policy_consultations_by_level": [
+          2249
+        ],
+        "refused_batches": 0,
+        "row_edges": 361555,
+        "sample_us": 575,
+        "unique_actor_misses_by_level": [
+          2168
+        ]
+      },
+      "frontier_cold_us": 25793,
+      "frontier_warm_us": 2,
+      "outer_validation_us": 40,
+      "prepared": [
+        [
+          {
+            "actor": 0,
+            "hand": 41025,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 251596826,
+              "plays": [
+                1,
+                17,
+                21
+              ],
+              "t0": 0,
+              "t1": 23
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 164160,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 230177793,
+              "plays": [],
+              "t0": 0,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 5259265,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 220402038,
+              "plays": [
+                17
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 67244034,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 199819972,
+              "plays": [],
+              "t0": 2,
+              "t1": 11
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 1622016,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 214370708,
+              "plays": [],
+              "t0": 0,
+              "t1": 13
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 131620,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 94668171,
+              "plays": [],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 900,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 74389610,
+              "plays": [
+                22
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 1640448,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 170029999,
+              "plays": [
+                14,
+                13,
+                25
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 3588,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 264536440,
+              "plays": [
+                25
+              ],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 205522944,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 37540600,
+              "plays": [
+                5,
+                4
+              ],
+              "t0": 6,
+              "t1": 22
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 65393,
+      "reference_parallel": false,
+      "reference_solve_us": 1765,
+      "request_total_us": 27672
+    }
+  },
+  {
+    "worlds": 40,
+    "repeat": 0,
+    "roots": 10,
+    "mode": "policy",
+    "field": 0,
+    "serialization_s": 0.0004806659999999907,
+    "host_s": 0.13366079099999997,
+    "output_parse_s": 4.933299999998475e-05,
+    "serialized_bytes": 146648,
+    "child_process_peak_rss_bytes": 43515904,
+    "result": {
+      "all_vectors_and_choices_equal": true,
+      "answers": [
+        {
+          "choice": 0,
+          "counts": [
+            1,
+            16,
+            31
+          ],
+          "tiles": [
+            0,
+            6,
+            15
+          ]
+        },
+        {
+          "choice": 6,
+          "counts": [
+            12,
+            8,
+            5,
+            11
+          ],
+          "tiles": [
+            6,
+            8,
+            15,
+            17
+          ]
+        },
+        {
+          "choice": 22,
+          "counts": [
+            8,
+            2,
+            5,
+            14
+          ],
+          "tiles": [
+            0,
+            14,
+            20,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            13,
+            15,
+            15,
+            14
+          ],
+          "tiles": [
+            1,
+            12,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 14,
+          "counts": [
+            26,
+            23,
+            19,
+            17
+          ],
+          "tiles": [
+            14,
+            15,
+            19,
+            20
+          ]
+        },
+        {
+          "choice": 2,
+          "counts": [
+            5,
+            2,
+            3,
+            1
+          ],
+          "tiles": [
+            2,
+            5,
+            9,
+            17
+          ]
+        },
+        {
+          "choice": 2,
+          "counts": [
+            10,
+            7,
+            7,
+            7
+          ],
+          "tiles": [
+            2,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            0,
+            0
+          ],
+          "tiles": [
+            11,
+            19
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            3,
+            2
+          ],
+          "tiles": [
+            10,
+            11
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            20,
+            23,
+            23,
+            21
+          ],
+          "tiles": [
+            11,
+            22,
+            26,
+            27
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          10501
+        ],
+        "cache_entries": 10511,
+        "cache_hits": 0,
+        "cache_key_bytes": 1352288,
+        "cache_lookup_us": 1735,
+        "completed_actor_queries": 10501,
+        "demand_grouping_us": 13966,
+        "fold_us": 16307,
+        "forward_us": 81094,
+        "generated_actor_queries": 10501,
+        "inner_worlds_by_level": [
+          42004
+        ],
+        "peak_counted_live_array_bytes": 13979850,
+        "peak_layer_rows": 30035,
+        "peak_retained_array_bytes": 13826350,
+        "preparation_us": 971,
+        "public_coordinates": 1454377,
+        "query_lookups": 10511,
+        "raw_policy_consultations_by_level": [
+          11203
+        ],
+        "refused_batches": 0,
+        "row_edges": 1704047,
+        "sample_us": 2662,
+        "unique_actor_misses_by_level": [
+          10501
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          10501
+        ],
+        "cache_entries": 10511,
+        "cache_hits": 10,
+        "cache_key_bytes": 1352288,
+        "cache_lookup_us": 1740,
+        "completed_actor_queries": 10501,
+        "demand_grouping_us": 13966,
+        "fold_us": 16307,
+        "forward_us": 81094,
+        "generated_actor_queries": 10501,
+        "inner_worlds_by_level": [
+          42004
+        ],
+        "peak_counted_live_array_bytes": 13979850,
+        "peak_layer_rows": 30035,
+        "peak_retained_array_bytes": 13826350,
+        "preparation_us": 971,
+        "public_coordinates": 1454377,
+        "query_lookups": 10521,
+        "raw_policy_consultations_by_level": [
+          11203
+        ],
+        "refused_batches": 0,
+        "row_edges": 1704047,
+        "sample_us": 2662,
+        "unique_actor_misses_by_level": [
+          10501
+        ]
+      },
+      "frontier_cold_us": 119495,
+      "frontier_warm_us": 5,
+      "outer_validation_us": 70,
+      "prepared": [
+        [
+          {
+            "actor": 0,
+            "hand": 41025,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 251596826,
+              "plays": [
+                1,
+                17,
+                21
+              ],
+              "t0": 0,
+              "t1": 23
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 164160,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 230177793,
+              "plays": [],
+              "t0": 0,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 5259265,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 220402038,
+              "plays": [
+                17
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 67244034,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 199819972,
+              "plays": [],
+              "t0": 2,
+              "t1": 11
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 1622016,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 214370708,
+              "plays": [],
+              "t0": 0,
+              "t1": 13
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 131620,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 94668171,
+              "plays": [],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 900,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 74389610,
+              "plays": [
+                22
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 1640448,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 170029999,
+              "plays": [
+                14,
+                13,
+                25
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 3588,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 264536440,
+              "plays": [
+                25
+              ],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 205522944,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 37540600,
+              "plays": [
+                5,
+                4
+              ],
+              "t0": 6,
+              "t1": 22
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 321715,
+      "reference_parallel": false,
+      "reference_solve_us": 10096,
+      "request_total_us": 129767
+    }
+  },
+  {
+    "worlds": 40,
+    "repeat": 1,
+    "roots": 10,
+    "mode": "policy",
+    "field": 0,
+    "serialization_s": 0.0005285830000000269,
+    "host_s": 0.13687775000000002,
+    "output_parse_s": 4.12080000000703e-05,
+    "serialized_bytes": 146647,
+    "child_process_peak_rss_bytes": 43794432,
+    "result": {
+      "all_vectors_and_choices_equal": true,
+      "answers": [
+        {
+          "choice": 0,
+          "counts": [
+            1,
+            16,
+            31
+          ],
+          "tiles": [
+            0,
+            6,
+            15
+          ]
+        },
+        {
+          "choice": 6,
+          "counts": [
+            12,
+            8,
+            5,
+            11
+          ],
+          "tiles": [
+            6,
+            8,
+            15,
+            17
+          ]
+        },
+        {
+          "choice": 22,
+          "counts": [
+            8,
+            2,
+            5,
+            14
+          ],
+          "tiles": [
+            0,
+            14,
+            20,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            13,
+            15,
+            15,
+            14
+          ],
+          "tiles": [
+            1,
+            12,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 14,
+          "counts": [
+            26,
+            23,
+            19,
+            17
+          ],
+          "tiles": [
+            14,
+            15,
+            19,
+            20
+          ]
+        },
+        {
+          "choice": 2,
+          "counts": [
+            5,
+            2,
+            3,
+            1
+          ],
+          "tiles": [
+            2,
+            5,
+            9,
+            17
+          ]
+        },
+        {
+          "choice": 2,
+          "counts": [
+            10,
+            7,
+            7,
+            7
+          ],
+          "tiles": [
+            2,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            0,
+            0
+          ],
+          "tiles": [
+            11,
+            19
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            3,
+            2
+          ],
+          "tiles": [
+            10,
+            11
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            20,
+            23,
+            23,
+            21
+          ],
+          "tiles": [
+            11,
+            22,
+            26,
+            27
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          10501
+        ],
+        "cache_entries": 10511,
+        "cache_hits": 0,
+        "cache_key_bytes": 1352288,
+        "cache_lookup_us": 1724,
+        "completed_actor_queries": 10501,
+        "demand_grouping_us": 14132,
+        "fold_us": 16779,
+        "forward_us": 83340,
+        "generated_actor_queries": 10501,
+        "inner_worlds_by_level": [
+          42004
+        ],
+        "peak_counted_live_array_bytes": 13979850,
+        "peak_layer_rows": 30035,
+        "peak_retained_array_bytes": 13826350,
+        "preparation_us": 1013,
+        "public_coordinates": 1454377,
+        "query_lookups": 10511,
+        "raw_policy_consultations_by_level": [
+          11203
+        ],
+        "refused_batches": 0,
+        "row_edges": 1704047,
+        "sample_us": 2771,
+        "unique_actor_misses_by_level": [
+          10501
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          10501
+        ],
+        "cache_entries": 10511,
+        "cache_hits": 10,
+        "cache_key_bytes": 1352288,
+        "cache_lookup_us": 1729,
+        "completed_actor_queries": 10501,
+        "demand_grouping_us": 14132,
+        "fold_us": 16779,
+        "forward_us": 83340,
+        "generated_actor_queries": 10501,
+        "inner_worlds_by_level": [
+          42004
+        ],
+        "peak_counted_live_array_bytes": 13979850,
+        "peak_layer_rows": 30035,
+        "peak_retained_array_bytes": 13826350,
+        "preparation_us": 1013,
+        "public_coordinates": 1454377,
+        "query_lookups": 10521,
+        "raw_policy_consultations_by_level": [
+          11203
+        ],
+        "refused_batches": 0,
+        "row_edges": 1704047,
+        "sample_us": 2771,
+        "unique_actor_misses_by_level": [
+          10501
+        ]
+      },
+      "frontier_cold_us": 122663,
+      "frontier_warm_us": 5,
+      "outer_validation_us": 71,
+      "prepared": [
+        [
+          {
+            "actor": 0,
+            "hand": 41025,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 251596826,
+              "plays": [
+                1,
+                17,
+                21
+              ],
+              "t0": 0,
+              "t1": 23
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 164160,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 230177793,
+              "plays": [],
+              "t0": 0,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 5259265,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 220402038,
+              "plays": [
+                17
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 67244034,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 199819972,
+              "plays": [],
+              "t0": 2,
+              "t1": 11
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 1622016,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 214370708,
+              "plays": [],
+              "t0": 0,
+              "t1": 13
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 131620,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 94668171,
+              "plays": [],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 900,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 74389610,
+              "plays": [
+                22
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 1640448,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 170029999,
+              "plays": [
+                14,
+                13,
+                25
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 3588,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 264536440,
+              "plays": [
+                25
+              ],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 205522944,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 37540600,
+              "plays": [
+                5,
+                4
+              ],
+              "t0": 6,
+              "t1": 22
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 321715,
+      "reference_parallel": false,
+      "reference_solve_us": 10100,
+      "request_total_us": 132938
+    }
+  },
+  {
+    "worlds": 40,
+    "repeat": 2,
+    "roots": 10,
+    "mode": "policy",
+    "field": 0,
+    "serialization_s": 0.0005027920000000297,
+    "host_s": 0.13457679199999995,
+    "output_parse_s": 3.9291999999968574e-05,
+    "serialized_bytes": 146648,
+    "child_process_peak_rss_bytes": 43794432,
+    "result": {
+      "all_vectors_and_choices_equal": true,
+      "answers": [
+        {
+          "choice": 0,
+          "counts": [
+            1,
+            16,
+            31
+          ],
+          "tiles": [
+            0,
+            6,
+            15
+          ]
+        },
+        {
+          "choice": 6,
+          "counts": [
+            12,
+            8,
+            5,
+            11
+          ],
+          "tiles": [
+            6,
+            8,
+            15,
+            17
+          ]
+        },
+        {
+          "choice": 22,
+          "counts": [
+            8,
+            2,
+            5,
+            14
+          ],
+          "tiles": [
+            0,
+            14,
+            20,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            13,
+            15,
+            15,
+            14
+          ],
+          "tiles": [
+            1,
+            12,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 14,
+          "counts": [
+            26,
+            23,
+            19,
+            17
+          ],
+          "tiles": [
+            14,
+            15,
+            19,
+            20
+          ]
+        },
+        {
+          "choice": 2,
+          "counts": [
+            5,
+            2,
+            3,
+            1
+          ],
+          "tiles": [
+            2,
+            5,
+            9,
+            17
+          ]
+        },
+        {
+          "choice": 2,
+          "counts": [
+            10,
+            7,
+            7,
+            7
+          ],
+          "tiles": [
+            2,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            0,
+            0
+          ],
+          "tiles": [
+            11,
+            19
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            3,
+            2
+          ],
+          "tiles": [
+            10,
+            11
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            20,
+            23,
+            23,
+            21
+          ],
+          "tiles": [
+            11,
+            22,
+            26,
+            27
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          10501
+        ],
+        "cache_entries": 10511,
+        "cache_hits": 0,
+        "cache_key_bytes": 1352288,
+        "cache_lookup_us": 1742,
+        "completed_actor_queries": 10501,
+        "demand_grouping_us": 13968,
+        "fold_us": 16561,
+        "forward_us": 81669,
+        "generated_actor_queries": 10501,
+        "inner_worlds_by_level": [
+          42004
+        ],
+        "peak_counted_live_array_bytes": 13979850,
+        "peak_layer_rows": 30035,
+        "peak_retained_array_bytes": 13826350,
+        "preparation_us": 1021,
+        "public_coordinates": 1454377,
+        "query_lookups": 10511,
+        "raw_policy_consultations_by_level": [
+          11203
+        ],
+        "refused_batches": 0,
+        "row_edges": 1704047,
+        "sample_us": 2777,
+        "unique_actor_misses_by_level": [
+          10501
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          10501
+        ],
+        "cache_entries": 10511,
+        "cache_hits": 10,
+        "cache_key_bytes": 1352288,
+        "cache_lookup_us": 1747,
+        "completed_actor_queries": 10501,
+        "demand_grouping_us": 13968,
+        "fold_us": 16561,
+        "forward_us": 81669,
+        "generated_actor_queries": 10501,
+        "inner_worlds_by_level": [
+          42004
+        ],
+        "peak_counted_live_array_bytes": 13979850,
+        "peak_layer_rows": 30035,
+        "peak_retained_array_bytes": 13826350,
+        "preparation_us": 1021,
+        "public_coordinates": 1454377,
+        "query_lookups": 10521,
+        "raw_policy_consultations_by_level": [
+          11203
+        ],
+        "refused_batches": 0,
+        "row_edges": 1704047,
+        "sample_us": 2777,
+        "unique_actor_misses_by_level": [
+          10501
+        ]
+      },
+      "frontier_cold_us": 120614,
+      "frontier_warm_us": 5,
+      "outer_validation_us": 69,
+      "prepared": [
+        [
+          {
+            "actor": 0,
+            "hand": 41025,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 251596826,
+              "plays": [
+                1,
+                17,
+                21
+              ],
+              "t0": 0,
+              "t1": 23
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 164160,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 230177793,
+              "plays": [],
+              "t0": 0,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 5259265,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 220402038,
+              "plays": [
+                17
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 67244034,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 199819972,
+              "plays": [],
+              "t0": 2,
+              "t1": 11
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 1622016,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 214370708,
+              "plays": [],
+              "t0": 0,
+              "t1": 13
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 131620,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 94668171,
+              "plays": [],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 900,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 74389610,
+              "plays": [
+                22
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 1640448,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 170029999,
+              "plays": [
+                14,
+                13,
+                25
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 3588,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 264536440,
+              "plays": [
+                25
+              ],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 205522944,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 37540600,
+              "plays": [
+                5,
+                4
+              ],
+              "t0": 6,
+              "t1": 22
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 321715,
+      "reference_parallel": false,
+      "reference_solve_us": 9849,
+      "request_total_us": 130626
+    }
+  },
+  {
+    "worlds": 40,
+    "repeat": 3,
+    "roots": 10,
+    "mode": "policy",
+    "field": 0,
+    "serialization_s": 0.0005010420000000071,
+    "host_s": 0.13652695799999992,
+    "output_parse_s": 5.1916999999956914e-05,
+    "serialized_bytes": 146647,
+    "child_process_peak_rss_bytes": 43794432,
+    "result": {
+      "all_vectors_and_choices_equal": true,
+      "answers": [
+        {
+          "choice": 0,
+          "counts": [
+            1,
+            16,
+            31
+          ],
+          "tiles": [
+            0,
+            6,
+            15
+          ]
+        },
+        {
+          "choice": 6,
+          "counts": [
+            12,
+            8,
+            5,
+            11
+          ],
+          "tiles": [
+            6,
+            8,
+            15,
+            17
+          ]
+        },
+        {
+          "choice": 22,
+          "counts": [
+            8,
+            2,
+            5,
+            14
+          ],
+          "tiles": [
+            0,
+            14,
+            20,
+            22
+          ]
+        },
+        {
+          "choice": 1,
+          "counts": [
+            13,
+            15,
+            15,
+            14
+          ],
+          "tiles": [
+            1,
+            12,
+            17,
+            26
+          ]
+        },
+        {
+          "choice": 14,
+          "counts": [
+            26,
+            23,
+            19,
+            17
+          ],
+          "tiles": [
+            14,
+            15,
+            19,
+            20
+          ]
+        },
+        {
+          "choice": 2,
+          "counts": [
+            5,
+            2,
+            3,
+            1
+          ],
+          "tiles": [
+            2,
+            5,
+            9,
+            17
+          ]
+        },
+        {
+          "choice": 2,
+          "counts": [
+            10,
+            7,
+            7,
+            7
+          ],
+          "tiles": [
+            2,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            0,
+            0
+          ],
+          "tiles": [
+            11,
+            19
+          ]
+        },
+        {
+          "choice": 10,
+          "counts": [
+            3,
+            2
+          ],
+          "tiles": [
+            10,
+            11
+          ]
+        },
+        {
+          "choice": 11,
+          "counts": [
+            20,
+            23,
+            23,
+            21
+          ],
+          "tiles": [
+            11,
+            22,
+            26,
+            27
+          ]
+        }
+      ],
+      "cold_stats": {
+        "actor_demands_by_level": [
+          10501
+        ],
+        "cache_entries": 10511,
+        "cache_hits": 0,
+        "cache_key_bytes": 1352288,
+        "cache_lookup_us": 1691,
+        "completed_actor_queries": 10501,
+        "demand_grouping_us": 14079,
+        "fold_us": 16708,
+        "forward_us": 82873,
+        "generated_actor_queries": 10501,
+        "inner_worlds_by_level": [
+          42004
+        ],
+        "peak_counted_live_array_bytes": 13979850,
+        "peak_layer_rows": 30035,
+        "peak_retained_array_bytes": 13826350,
+        "preparation_us": 955,
+        "public_coordinates": 1454377,
+        "query_lookups": 10511,
+        "raw_policy_consultations_by_level": [
+          11203
+        ],
+        "refused_batches": 0,
+        "row_edges": 1704047,
+        "sample_us": 2751,
+        "unique_actor_misses_by_level": [
+          10501
+        ]
+      },
+      "final_stats": {
+        "actor_demands_by_level": [
+          10501
+        ],
+        "cache_entries": 10511,
+        "cache_hits": 10,
+        "cache_key_bytes": 1352288,
+        "cache_lookup_us": 1696,
+        "completed_actor_queries": 10501,
+        "demand_grouping_us": 14079,
+        "fold_us": 16708,
+        "forward_us": 82873,
+        "generated_actor_queries": 10501,
+        "inner_worlds_by_level": [
+          42004
+        ],
+        "peak_counted_live_array_bytes": 13979850,
+        "peak_layer_rows": 30035,
+        "peak_retained_array_bytes": 13826350,
+        "preparation_us": 955,
+        "public_coordinates": 1454377,
+        "query_lookups": 10521,
+        "raw_policy_consultations_by_level": [
+          11203
+        ],
+        "refused_batches": 0,
+        "row_edges": 1704047,
+        "sample_us": 2751,
+        "unique_actor_misses_by_level": [
+          10501
+        ]
+      },
+      "frontier_cold_us": 121932,
+      "frontier_warm_us": 6,
+      "outer_validation_us": 77,
+      "prepared": [
+        [
+          {
+            "actor": 0,
+            "hand": 41025,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 251596826,
+              "plays": [
+                1,
+                17,
+                21
+              ],
+              "t0": 0,
+              "t1": 23
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 164160,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 230177793,
+              "plays": [],
+              "t0": 0,
+              "t1": 18
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 5259265,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 220402038,
+              "plays": [
+                17
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 0,
+            "hand": 67244034,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 199819972,
+              "plays": [],
+              "t0": 2,
+              "t1": 11
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 1622016,
+            "seeds": null,
+            "state": {
+              "leader": 1,
+              "played": 214370708,
+              "plays": [],
+              "t0": 0,
+              "t1": 13
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 131620,
+            "seeds": null,
+            "state": {
+              "leader": 3,
+              "played": 94668171,
+              "plays": [],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 1,
+            "hand": 900,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 74389610,
+              "plays": [
+                22
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 1640448,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 170029999,
+              "plays": [
+                14,
+                13,
+                25
+              ],
+              "t0": 8,
+              "t1": 0
+            }
+          },
+          {
+            "actor": 3,
+            "hand": 3588,
+            "seeds": null,
+            "state": {
+              "leader": 2,
+              "played": 264536440,
+              "plays": [
+                25
+              ],
+              "t0": 12,
+              "t1": 1
+            }
+          },
+          {
+            "actor": 2,
+            "hand": 205522944,
+            "seeds": null,
+            "state": {
+              "leader": 0,
+              "played": 37540600,
+              "plays": [
+                5,
+                4
+              ],
+              "t0": 6,
+              "t1": 22
+            }
+          }
+        ]
+      ],
+      "reference_nodes": 321715,
+      "reference_parallel": false,
+      "reference_solve_us": 10075,
+      "request_total_us": 132198
+    }
+  }
+]

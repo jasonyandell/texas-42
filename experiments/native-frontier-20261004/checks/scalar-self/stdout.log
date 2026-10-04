@@ -1,0 +1,6 @@
+{
+  "independent_native_scalar_roots": 105,
+  "tripled_scenario_weight_cases": 12,
+  "node_visits": 229654,
+  "note": "Scalar baseline created; this self-check is NOT a native implementation parity result."
+}

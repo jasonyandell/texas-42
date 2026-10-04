@@ -1,0 +1,209 @@
+{
+  "requests": 20,
+  "paired_worker1_worker4_checks": 10,
+  "full_vectors_checked": 344,
+  "scalar_native_vectors_checked": 152,
+  "worker_stats_sum_verified": true,
+  "cases": [
+    {
+      "counted": false,
+      "mode": "native",
+      "field": 0,
+      "hybrid": false,
+      "workers": 1,
+      "roots": 38,
+      "all_vectors_equal": true,
+      "warm_hits": 38
+    },
+    {
+      "counted": false,
+      "mode": "native",
+      "field": 0,
+      "hybrid": false,
+      "workers": 4,
+      "roots": 38,
+      "all_vectors_equal": true,
+      "warm_hits": 38
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 0,
+      "hybrid": false,
+      "workers": 1,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 0,
+      "hybrid": false,
+      "workers": 4,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 0,
+      "hybrid": true,
+      "workers": 1,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 0,
+      "hybrid": true,
+      "workers": 4,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 1,
+      "hybrid": false,
+      "workers": 1,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 1,
+      "hybrid": false,
+      "workers": 4,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 1,
+      "hybrid": true,
+      "workers": 1,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": false,
+      "mode": "policy",
+      "field": 1,
+      "hybrid": true,
+      "workers": 4,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": true,
+      "mode": "native",
+      "field": 0,
+      "hybrid": false,
+      "workers": 1,
+      "roots": 38,
+      "all_vectors_equal": true,
+      "warm_hits": 38
+    },
+    {
+      "counted": true,
+      "mode": "native",
+      "field": 0,
+      "hybrid": false,
+      "workers": 4,
+      "roots": 38,
+      "all_vectors_equal": true,
+      "warm_hits": 38
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 0,
+      "hybrid": false,
+      "workers": 1,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 0,
+      "hybrid": false,
+      "workers": 4,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 0,
+      "hybrid": true,
+      "workers": 1,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 0,
+      "hybrid": true,
+      "workers": 4,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 1,
+      "hybrid": false,
+      "workers": 1,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 1,
+      "hybrid": false,
+      "workers": 4,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 1,
+      "hybrid": true,
+      "workers": 1,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    },
+    {
+      "counted": true,
+      "mode": "policy",
+      "field": 1,
+      "hybrid": true,
+      "workers": 4,
+      "roots": 12,
+      "all_vectors_equal": true,
+      "warm_hits": 12
+    }
+  ]
+}

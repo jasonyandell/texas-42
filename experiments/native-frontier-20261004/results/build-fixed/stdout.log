@@ -1,0 +1,18 @@
+
+running 3 tests
+test tests::ascending_ties_both_teams ... ok
+test tests::cache_identity_uses_scores_budgets_belief_and_frame ... ok
+test tests::tables_match_native_all_leads_hands_and_tricks ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

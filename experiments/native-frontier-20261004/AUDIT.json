@@ -1,0 +1,465 @@
+{
+  "base_checkpoint": "490997b13b161099dcfbcf19f2dec0819fd5a019",
+  "unchanged_preexisting_paths": true,
+  "source_sha256": {
+    "experiments/native-frontier-20261004/native/src/lib.rs": "995064fa56678660b93188d91dc00a0e297530b129120b150f9c4726cc61e6eb",
+    "experiments/native-frontier-20261004/native/src/main.rs": "60b3a85378e292f9cfef47bd4c277279a2bf1b2fd2bd343dff8dbfb3ec5544d6",
+    "experiments/native-frontier-20261004/panel.py": "cee8033a169bd885729619e7ad1be021bf27c2375e681555681b3702f737140d",
+    "experiments/native-frontier-20261004/verify.py": "740e985f878f9933dd3fd93bfe70cadd7cf07f999c09ba04296f54d5190b275d"
+  },
+  "binary_sha256": "937441d9f6445d8db9940d63b8974fe5b620be35979479ef987adf24b63ecb7b",
+  "final_completed_vector_checks": 2750,
+  "final_refusals": [
+    {
+      "panel": "final-policy-full",
+      "worlds": 40,
+      "reason": "actor query cap",
+      "refusal_us": 546379
+    },
+    {
+      "panel": "final-policy-full",
+      "worlds": 40,
+      "reason": "actor query cap",
+      "refusal_us": 546990
+    },
+    {
+      "panel": "final-policy-full",
+      "worlds": 40,
+      "reason": "actor query cap",
+      "refusal_us": 570039
+    },
+    {
+      "panel": "final-policy-full",
+      "worlds": 40,
+      "reason": "actor query cap",
+      "refusal_us": 553669
+    }
+  ],
+  "final_panels": [
+    {
+      "name": "final-native-four-batch",
+      "roots": 47,
+      "panels": 4
+    },
+    {
+      "name": "final-native-one",
+      "roots": 47,
+      "panels": 4
+    },
+    {
+      "name": "final-policy-full",
+      "roots": 47,
+      "panels": 2
+    },
+    {
+      "name": "final-policy-full-four",
+      "roots": 47,
+      "panels": 2
+    },
+    {
+      "name": "final-policy-hybrid-four",
+      "roots": 47,
+      "panels": 2
+    },
+    {
+      "name": "final-rung1",
+      "roots": 6,
+      "panels": 1
+    },
+    {
+      "name": "final-rung2",
+      "roots": 6,
+      "panels": 1
+    },
+    {
+      "name": "final-tape",
+      "roots": 47,
+      "panels": 3
+    }
+  ],
+  "receipts": [
+    {
+      "path": "checks/final-results-audit/run.json",
+      "status": "completed",
+      "elapsed_s": 0.150158,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/fresh-panel-generation/run.json",
+      "status": "completed",
+      "elapsed_s": 0.089102,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/lean-dag/run.json",
+      "status": "completed",
+      "elapsed_s": 0.42871,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/lean-inner-fiber/run.json",
+      "status": "completed",
+      "elapsed_s": 0.407615,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/lean-nested/run.json",
+      "status": "completed",
+      "elapsed_s": 0.415663,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/lean-priority/run.json",
+      "status": "completed",
+      "elapsed_s": 0.407576,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/lean-pruning/run.json",
+      "status": "completed",
+      "elapsed_s": 0.425524,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/native-independent-final/run.json",
+      "status": "completed",
+      "elapsed_s": 0.740799,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/native-independent-first/run.json",
+      "status": "failed",
+      "elapsed_s": 7.941509,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/native-independent-guarded/run.json",
+      "status": "completed",
+      "elapsed_s": 2.489086,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/native-independent-hybrid/run.json",
+      "status": "completed",
+      "elapsed_s": 2.751748,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/native-source-tests-final/run.json",
+      "status": "completed",
+      "elapsed_s": 0.792041,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/parallel-protocol-final/run.json",
+      "status": "completed",
+      "elapsed_s": 0.496846,
+      "allowance_s": 90.0
+    },
+    {
+      "path": "checks/parallel-protocol-reference-extension/run.json",
+      "status": "completed",
+      "elapsed_s": 0.493006,
+      "allowance_s": 90.0
+    },
+    {
+      "path": "checks/pinned-cache-tests/run.json",
+      "status": "completed",
+      "elapsed_s": 0.045763,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/pinned-policy-test/run.json",
+      "status": "completed",
+      "elapsed_s": 0.04793,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/pinned-rng-test/run.json",
+      "status": "completed",
+      "elapsed_s": 5.122976,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/protocol-build/run.json",
+      "status": "completed",
+      "elapsed_s": 1.151537,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/protocol-build-guarded/run.json",
+      "status": "completed",
+      "elapsed_s": 1.158867,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/protocol-build-hybrid/run.json",
+      "status": "completed",
+      "elapsed_s": 1.327244,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/protocol-build-parallel/run.json",
+      "status": "completed",
+      "elapsed_s": 0.041883,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/protocol-build-reference-extension/run.json",
+      "status": "completed",
+      "elapsed_s": 0.605887,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "checks/protocol-guards/run.json",
+      "status": "failed",
+      "elapsed_s": 0.046675,
+      "allowance_s": 45.0
+    },
+    {
+      "path": "checks/protocol-guards-final/run.json",
+      "status": "completed",
+      "elapsed_s": 0.322576,
+      "allowance_s": 45.0
+    },
+    {
+      "path": "checks/protocol-guards-guarded/run.json",
+      "status": "completed",
+      "elapsed_s": 0.427094,
+      "allowance_s": 45.0
+    },
+    {
+      "path": "checks/protocol-guards-parallel/run.json",
+      "status": "completed",
+      "elapsed_s": 0.308623,
+      "allowance_s": 45.0
+    },
+    {
+      "path": "checks/protocol-guards-reference-extension/run.json",
+      "status": "completed",
+      "elapsed_s": 0.371333,
+      "allowance_s": 45.0
+    },
+    {
+      "path": "checks/receipt-audit-complete/run.json",
+      "status": "completed",
+      "elapsed_s": 0.047534,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/receipt-audit-final/run.json",
+      "status": "completed",
+      "elapsed_s": 0.023885,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/receipt-audit-first/run.json",
+      "status": "completed",
+      "elapsed_s": 0.023976,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/receipt-audit-reference-extension/run.json",
+      "status": "completed",
+      "elapsed_s": 0.023842,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/reference-protocol-final/run.json",
+      "status": "completed",
+      "elapsed_s": 0.494755,
+      "allowance_s": 90.0
+    },
+    {
+      "path": "checks/reference-protocol-final-metadata/run.json",
+      "status": "completed",
+      "elapsed_s": 0.208408,
+      "allowance_s": 90.0
+    },
+    {
+      "path": "checks/rng-boundaries/run.json",
+      "status": "completed",
+      "elapsed_s": 0.088473,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/scalar-self/run.json",
+      "status": "completed",
+      "elapsed_s": 0.727385,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "checks/support-repair/run.json",
+      "status": "completed",
+      "elapsed_s": 0.13767,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "results/build-cli/run.json",
+      "status": "failed",
+      "elapsed_s": 0.682503,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/build-cli-fixed/run.json",
+      "status": "completed",
+      "elapsed_s": 0.557933,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/build-controls/run.json",
+      "status": "completed",
+      "elapsed_s": 0.618734,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/build-first/run.json",
+      "status": "failed",
+      "elapsed_s": 7.694036,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/build-fixed/run.json",
+      "status": "completed",
+      "elapsed_s": 1.401249,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/build-grouped/run.json",
+      "status": "completed",
+      "elapsed_s": 1.285859,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/build-hybrid/run.json",
+      "status": "completed",
+      "elapsed_s": 1.263182,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/build-parallel/run.json",
+      "status": "completed",
+      "elapsed_s": 1.330475,
+      "allowance_s": 295.0
+    },
+    {
+      "path": "results/final-audit/run.json",
+      "status": "completed",
+      "elapsed_s": 0.2097,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "results/final-native-four-batch-log/run.json",
+      "status": "completed",
+      "elapsed_s": 8.020696,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-native-one-log/run.json",
+      "status": "completed",
+      "elapsed_s": 9.032361,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-policy-full-four-log/run.json",
+      "status": "completed",
+      "elapsed_s": 2.018219,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-policy-full-log/run.json",
+      "status": "completed",
+      "elapsed_s": 3.630622,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-policy-hybrid-four-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.968727,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-rung1-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.149976,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-rung2-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.26758,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/final-tape-log/run.json",
+      "status": "completed",
+      "elapsed_s": 3.22342,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/frozen-checkpoint/run.json",
+      "status": "completed",
+      "elapsed_s": 0.201457,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "results/hybrid-small-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.553799,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/identity/run.json",
+      "status": "completed",
+      "elapsed_s": 0.090029,
+      "allowance_s": 30.0
+    },
+    {
+      "path": "results/native-four-log/run.json",
+      "status": "completed",
+      "elapsed_s": 5.351101,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/native-grouped-log/run.json",
+      "status": "completed",
+      "elapsed_s": 5.28259,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/native-holdout-log/run.json",
+      "status": "completed",
+      "elapsed_s": 5.069042,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/native-small-log/run.json",
+      "status": "completed",
+      "elapsed_s": 1.640532,
+      "allowance_s": 290.0
+    },
+    {
+      "path": "results/policy-small-log/run.json",
+      "status": "completed",
+      "elapsed_s": 0.810323,
+      "allowance_s": 290.0
+    }
+  ],
+  "retained_failed_receipts": [
+    "checks/native-independent-first/run.json",
+    "checks/protocol-guards/run.json",
+    "results/build-cli/run.json",
+    "results/build-first/run.json"
+  ],
+  "production_identity": {
+    "production_commit": "a0d9fa806166b0e63fe016bb49d93f91f47b1af8",
+    "source_commit": "cb1ef3b23072e4c268f31f625f2b61d5facc1929",
+    "source_files": 202,
+    "source_sha256": "5bedf14af0e5a5ef354acca4765f67843469d074d163e8e4786631aa23436e32",
+    "wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+    "source_inputs_match": true,
+    "production_git_blobs_match": true,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "machine": "arm64"
+  }
+}

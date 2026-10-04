@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/jason/Documents/Codex/2026-10-04/task-3/research-worktree/experiments/native-frontier-20261004/checks/protocol_guards.py", line 24, in <module>
+    run=subprocess.run([str(binary)],input=''.join(json.dumps(x)+'\n' for _,x in cases),text=True,capture_output=True,timeout=30)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 505, in run
+    with Popen(*popenargs, **kwargs) as process:
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 951, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/subprocess.py", line 1821, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/jason/Documents/Codex/2026-10-04/task-3/research-worktree/experiments/native-frontier-20261004/native/target/release/native-frontier'

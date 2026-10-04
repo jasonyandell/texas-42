@@ -1,0 +1,3 @@
+   Compiling independent-frontier-check v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-3/research-worktree/experiments/native-frontier-20261004/checks/runner)
+    Finished `release` profile [optimized] target(s) in 0.31s
+     Running `experiments/native-frontier-20261004/checks/runner-target/release/independent-frontier-check`
