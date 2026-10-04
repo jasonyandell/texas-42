@@ -1,0 +1,16 @@
+{
+  "cases": 256,
+  "distinct_lawful_public_policies": 16,
+  "checked_policy_root_pairs": 8192,
+  "scenario_mass": 7,
+  "original_scenarios": 4,
+  "physical_worlds": 3,
+  "coupled_unflagged_replay_false_positives": 0,
+  "canonical_transport_acceptances": 65,
+  "canonical_transport_false_positives": 0,
+  "refused_queries_count_as_bad": true,
+  "incomplete_focal_branch_counterexample": true,
+  "lower_index_equality_counterexample": true,
+  "max_certificate_target_queries": 18,
+  "scope": "abstract exact finite-game correctness checks; not Walt speed or strength"
+}

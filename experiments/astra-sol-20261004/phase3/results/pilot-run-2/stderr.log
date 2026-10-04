@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree/experiments/astra-sol-20261004/phase3/run_panel.py", line 81, in <module>
+    if __name__=='__main__':main()
+  File "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree/experiments/astra-sol-20261004/phase3/run_panel.py", line 43, in main
+    references,reference_us=timed(lambda:{b:kernel.reference(tape,b) for b in receipt_plan['bids']})
+  File "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree/experiments/astra-sol-20261004/phase3/run_panel.py", line 8, in timed
+    t=time.perf_counter_ns();value=fn();return value,(time.perf_counter_ns()-t)/1000
+  File "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree/experiments/astra-sol-20261004/phase3/run_panel.py", line 43, in <lambda>
+    references,reference_us=timed(lambda:{b:kernel.reference(tape,b) for b in receipt_plan['bids']})
+  File "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree/experiments/astra-sol-20261004/phase3/run_panel.py", line 43, in <dictcomp>
+    references,reference_us=timed(lambda:{b:kernel.reference(tape,b) for b in receipt_plan['bids']})
+  File "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree/experiments/astra-sol-20261004/phase3/compiled_tape.py", line 110, in reference
+    values={t:rec(self.after(self.root,t),list(range(self.n)),1) for t in self.moves(self.root,0)}
+  File "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree/experiments/astra-sol-20261004/phase3/compiled_tape.py", line 110, in <dictcomp>
+    values={t:rec(self.after(self.root,t),list(range(self.n)),1) for t in self.moves(self.root,0)}
+  File "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree/experiments/astra-sol-20261004/phase3/compiled_tape.py", line 107, in rec
+    legal=self.moves(state,w);tile=pick(tape,w,depth,legal);groups.setdefault(tile,[]).append(w)
+  File "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree/experiments/astra-sol-20261004/phase3/compiled_tape.py", line 116, in pick
+    return legal[(tape[w][depth]*len(legal))>>64]
+IndexError: list index out of range

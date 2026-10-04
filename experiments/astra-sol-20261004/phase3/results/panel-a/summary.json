@@ -1,0 +1,39 @@
+{
+  "planned": 15,
+  "completed": 15,
+  "statuses": {
+    "completed": 15
+  },
+  "source_cases": [
+    100,
+    101,
+    104,
+    105,
+    107,
+    126,
+    127,
+    128,
+    132,
+    133,
+    165,
+    166,
+    167,
+    206,
+    211
+  ],
+  "tapes": 60,
+  "root_action_vectors_compared": 780,
+  "all_complete_vectors_equal": true,
+  "elapsed_seconds": 6.785214041,
+  "refused_attempt_seconds": 0,
+  "universal_compile_us": 2389289.416,
+  "universal_route_us": 51893.04199999999,
+  "universal_reduce_13_bids_us": 285472.66800000006,
+  "reference_13_bids_us": 894149.8319999998,
+  "adaptive_compile_us": 334269.465,
+  "adaptive_route_us": 2645.7920000000004,
+  "adaptive_reduce_13_bids_us": 233716.12600000002,
+  "universal_nodes": 592717,
+  "universal_max_python_object_bytes": 64894815,
+  "note": "Python research timing, each vector uses same frozen worlds and tape; no phone strength or speed claim. Includes compile costs explicitly; universal graph may hit node/time cap."
+}

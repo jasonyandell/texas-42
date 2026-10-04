@@ -1,0 +1,45 @@
+--- ZIP/exact_tape.py
++++ Drive/exact_tape.py
+@@ -1,4 +1,6 @@
+-"""L1 with an exact 'me': best response per sampled world on a fixed tape, enumerating only realized own-play sequences."""
++"""exact_tape.py — L1 with an exact 'me': best response per sampled world on a fixed tape, enumerating only realized own-play
++sequences (branch only at own plies; everyone else follows the tape). Verified identical to full-orderings L1 on the same worlds/tape.
++Also: orderings-based L1 (full or m sampled lines) and V0-greedy, for comparison. Depends on engine42.py."""
+ import numpy as np, itertools, time, sys, os, pickle
+ from engine42 import *
+ BID = 30
+@@ -21,9 +23,6 @@
+     h = Game(g.rules, g.hands[idx], g.bid, g.bidder, scores=(g.bid_pts[idx], g.def_pts[idx]), leader=g.leader[idx], table=g.table[idx], trick=g.trick[idx])
+     h.done = g.done[idx].copy(); return h
+ 
+-def jth_set_bit_rows(mask, j):
+-    return kth_set_bit(mask, j)
+-
+ def exact_tape(rules, bidder, seat, hand_now, history, deal_full, rng, W, return_cost=False):
+     """vals: tile -> mean over worlds of (best response value in that world); choice."""
+     rem, full = worlds(rng, rules, seat, hand_now, history, W); W = len(rem)
+@@ -41,7 +40,7 @@
+             n = np.where(mine, popcount(L), 1)                      # branch factor per row (1 for non-mine rows)
+             idx = np.repeat(np.arange(g.R), n); j = np.arange(len(idx)) - np.repeat(np.cumsum(n) - n, n)
+             g = clone_rows(g, idx); widx = widx[idx]; root = root[idx]; L = L[idx]; mine = mine[idx]; s = s[idx]
+-            t_mine = jth_set_bit_rows(L, j)
++            t_mine = kth_set_bit(L, j)
+         n_oth = popcount(L); k = np.minimum((tape[widx, ply] * n_oth).astype(np.int64), np.maximum(n_oth - 1, 0))
+         t = kth_set_bit(L, k)
+         if mine.any():
+@@ -89,6 +88,7 @@
+     return (vals, choice, rows, R) if return_cost else (vals, choice)
+ 
+ def v0(rules, bidder, seat, hand_now, history, deal_full, rng, W, T, return_cost=False):
++    """one-step best response with a random future self (biased values; decent ranking)."""
+     rem, full = worlds(rng, rules, seat, hand_now, history, W); g1 = public(rules, bidder, full[0], history)
+     L0 = g1.legal(np.array([seat]))[0]; legal = [t for t in range(28) if (L0 >> t) & 1]; side_bid = (seat % 2) == (bidder % 2)
+     tape = rng.random((len(rem) * T, 28)); vals = {}; rows = 0
+@@ -113,6 +113,7 @@
+     r = np.random.default_rng(seed); d = random_deals(r, 1)[0]; return Rules(pick_trump(int(d[bidder]))), int(d[my]), d
+ 
+ def sample_positions(rules, bidder, my, my_hand, r, n_games, quota):
++    """decision positions for seat `my` (>=2 legal tiles) from uniform-play games, quota per trick index."""
+     hands = random_deals(r, n_games, my, my_hand); g = Game(rules, hands, BID, bidder); tape = r.random((n_games, 28)); hist = [[] for _ in range(n_games)]; out = []; ply = 0
+     while not g.done.all():
+         seat = g.seat_to_play(); L = g.legal(seat); n = popcount(L)

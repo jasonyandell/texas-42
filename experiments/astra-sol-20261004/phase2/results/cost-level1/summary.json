@@ -1,0 +1,20 @@
+{
+  "planned": 36,
+  "eligible": 25,
+  "completed": 25,
+  "certified": 3,
+  "statuses": {
+    "completed": 25,
+    "excluded_before_probe": 11
+  },
+  "same_choice": 19,
+  "all_action_bounds_checked": true,
+  "elapsed_seconds": 1.31163275,
+  "total_cheap_us": 139464,
+  "total_certificate_us": 439897,
+  "total_target_us": 667401,
+  "certified_cheap_plus_certificate_us": 620,
+  "certified_target_us": 384,
+  "faster_certified": 0,
+  "caveat": "Native kernel timing, random-legal conditional positions; not phone head-to-head strength or phone-device speed. Fresh target comparison. No shared-target-cache fallback optimization."
+}

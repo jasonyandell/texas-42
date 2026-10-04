@@ -1,0 +1,533 @@
+{
+  "status": "completed",
+  "result": {
+    "bad_scenario_flags": [
+      [
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true
+      ],
+      [
+        true,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ]
+    ],
+    "certificate_us": 529,
+    "certificate_work": {
+      "cache_hits": 70,
+      "cheap_distinct_queries": 267,
+      "cheap_total_work": {
+        "inner_worlds": [
+          2808,
+          0
+        ],
+        "nodes": 18832,
+        "pi_calls": [
+          702,
+          0
+        ]
+      },
+      "disagreement_stops": 64,
+      "forced_steps": 182,
+      "memo_states": 541,
+      "target_distinct_queries": 267,
+      "target_work": {
+        "inner_worlds": [
+          2136,
+          0
+        ],
+        "nodes": 12986,
+        "pi_calls": [
+          267,
+          0
+        ]
+      },
+      "visits": 609
+    },
+    "certified": false,
+    "cheap_choice": 25,
+    "cheap_counts": [
+      34,
+      35,
+      30
+    ],
+    "cheap_n0": 4,
+    "cheap_us": 354,
+    "cheap_work": {
+      "inner_worlds": [
+        1740,
+        0
+      ],
+      "nodes": 11775,
+      "pi_calls": [
+        435,
+        0
+      ]
+    },
+    "error_counts": [
+      30,
+      21,
+      13
+    ],
+    "field_level": 0,
+    "lower": [
+      4,
+      14,
+      17
+    ],
+    "outer": 40,
+    "sampling_us": 2,
+    "schema": "walt-first-disagreement-v1",
+    "target_choice": 25,
+    "target_counts": [
+      30,
+      32,
+      32
+    ],
+    "target_first": true,
+    "target_n0": 8,
+    "target_us": 667,
+    "target_work": {
+      "inner_worlds": [
+        3704,
+        0
+      ],
+      "nodes": 22429,
+      "pi_calls": [
+        463,
+        0
+      ]
+    },
+    "tiles": [
+      10,
+      25,
+      26
+    ],
+    "total_us": 1576,
+    "upper": [
+      40,
+      40,
+      40
+    ],
+    "value_orientation": "focal team success counts",
+    "worlds": [
+      [
+        100664320,
+        2097218,
+        327684,
+        1179649
+      ],
+      [
+        100664320,
+        2359300,
+        131137,
+        1114114
+      ],
+      [
+        100664320,
+        2097217,
+        196612,
+        1310722
+      ],
+      [
+        100664320,
+        131075,
+        1114176,
+        2359300
+      ],
+      [
+        100664320,
+        2162689,
+        131140,
+        1310722
+      ],
+      [
+        100664320,
+        196612,
+        1048641,
+        2359298
+      ],
+      [
+        100664320,
+        1179649,
+        70,
+        2424832
+      ],
+      [
+        100664320,
+        7,
+        393280,
+        3211264
+      ],
+      [
+        100664320,
+        3276800,
+        65601,
+        262150
+      ],
+      [
+        100664320,
+        2162690,
+        1048644,
+        393217
+      ],
+      [
+        100664320,
+        3145792,
+        262149,
+        196610
+      ],
+      [
+        100664320,
+        3145792,
+        196610,
+        262149
+      ],
+      [
+        100664320,
+        327744,
+        1048581,
+        2228226
+      ],
+      [
+        100664320,
+        262212,
+        196609,
+        3145730
+      ],
+      [
+        100664320,
+        2490368,
+        69,
+        1114114
+      ],
+      [
+        100664320,
+        1179652,
+        327744,
+        2097155
+      ],
+      [
+        100664320,
+        3145729,
+        70,
+        458752
+      ],
+      [
+        100664320,
+        2228228,
+        1048641,
+        327682
+      ],
+      [
+        100664320,
+        65539,
+        1179712,
+        2359300
+      ],
+      [
+        100664320,
+        2097155,
+        196672,
+        1310724
+      ],
+      [
+        100664320,
+        131077,
+        65602,
+        3407872
+      ],
+      [
+        100664320,
+        2359298,
+        1179712,
+        65541
+      ],
+      [
+        100664320,
+        2490368,
+        65601,
+        1048582
+      ],
+      [
+        100664320,
+        65604,
+        1310722,
+        2228225
+      ],
+      [
+        100664320,
+        1179712,
+        65539,
+        2359300
+      ],
+      [
+        100664320,
+        2359297,
+        1048642,
+        196612
+      ],
+      [
+        100664320,
+        196672,
+        1048582,
+        2359297
+      ],
+      [
+        100664320,
+        1179649,
+        70,
+        2424832
+      ],
+      [
+        100664320,
+        2359300,
+        1179712,
+        65539
+      ],
+      [
+        100664320,
+        2162752,
+        1441792,
+        7
+      ],
+      [
+        100664320,
+        7,
+        327744,
+        3276800
+      ],
+      [
+        100664320,
+        262210,
+        1179652,
+        2162689
+      ],
+      [
+        100664320,
+        131140,
+        1310721,
+        2162690
+      ],
+      [
+        100664320,
+        131140,
+        65539,
+        3407872
+      ],
+      [
+        100664320,
+        2097157,
+        1114176,
+        393218
+      ],
+      [
+        100664320,
+        2490368,
+        65602,
+        1048581
+      ],
+      [
+        100664320,
+        1245184,
+        67,
+        2359300
+      ],
+      [
+        100664320,
+        131077,
+        1048642,
+        2424832
+      ],
+      [
+        100664320,
+        131075,
+        65604,
+        3407872
+      ],
+      [
+        100664320,
+        1048642,
+        393220,
+        2162689
+      ]
+    ]
+  },
+  "id": 167,
+  "host_seconds": 0.003677458999999994,
+  "input": {
+    "request": {
+      "decl": 5,
+      "bid": 30,
+      "bidder": 3,
+      "seat": 0,
+      "hand": [
+        10,
+        12,
+        14,
+        19,
+        24,
+        25,
+        26
+      ],
+      "plays": [
+        3,
+        22,
+        0,
+        24,
+        1,
+        27,
+        2,
+        15,
+        2,
+        3,
+        3,
+        4,
+        0,
+        12,
+        1,
+        23,
+        1,
+        8,
+        2,
+        7,
+        3,
+        5,
+        0,
+        14,
+        1,
+        9,
+        2,
+        13,
+        3,
+        11,
+        0,
+        19
+      ],
+      "seed": 7042104
+    },
+    "outer": 40,
+    "cheap_n0": 4,
+    "target_n0": 8,
+    "seconds": 20,
+    "target_first": true,
+    "field_level": 0
+  }
+}

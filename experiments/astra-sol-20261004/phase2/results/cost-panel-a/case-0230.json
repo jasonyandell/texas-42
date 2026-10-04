@@ -1,0 +1,573 @@
+{
+  "status": "completed",
+  "result": {
+    "bad_scenario_flags": [
+      [
+        true,
+        true,
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "certificate_us": 1380,
+    "certificate_work": {
+      "cache_hits": 16,
+      "cheap_distinct_queries": 408,
+      "cheap_total_work": {
+        "inner_worlds": [
+          1748,
+          0
+        ],
+        "nodes": 20942,
+        "pi_calls": [
+          1748,
+          0
+        ]
+      },
+      "disagreement_stops": 141,
+      "forced_steps": 239,
+      "memo_states": 731,
+      "target_distinct_queries": 408,
+      "target_work": {
+        "inner_worlds": [
+          3264,
+          0
+        ],
+        "nodes": 52015,
+        "pi_calls": [
+          408,
+          0
+        ]
+      },
+      "visits": 779
+    },
+    "certified": false,
+    "cheap_choice": 9,
+    "cheap_counts": [
+      15,
+      13,
+      17,
+      14
+    ],
+    "cheap_n0": 1,
+    "cheap_us": 885,
+    "cheap_work": {
+      "inner_worlds": [
+        1340,
+        0
+      ],
+      "nodes": 15096,
+      "pi_calls": [
+        1340,
+        0
+      ]
+    },
+    "error_counts": [
+      37,
+      29,
+      40,
+      35
+    ],
+    "field_level": 0,
+    "lower": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "outer": 40,
+    "sampling_us": 4,
+    "schema": "walt-first-disagreement-v1",
+    "target_choice": 8,
+    "target_counts": [
+      13,
+      15,
+      14,
+      10
+    ],
+    "target_first": false,
+    "target_n0": 8,
+    "target_us": 2627,
+    "target_work": {
+      "inner_worlds": [
+        11440,
+        0
+      ],
+      "nodes": 99143,
+      "pi_calls": [
+        1430,
+        0
+      ]
+    },
+    "tiles": [
+      0,
+      8,
+      9,
+      18
+    ],
+    "total_us": 4923,
+    "upper": [
+      40,
+      40,
+      40,
+      40
+    ],
+    "value_orientation": "focal team success counts",
+    "worlds": [
+      [
+        135266496,
+        41992192,
+        84541440,
+        262913
+      ],
+      [
+        16793792,
+        109576192,
+        135430144,
+        262913
+      ],
+      [
+        1065152,
+        192937984,
+        67796992,
+        262913
+      ],
+      [
+        671872,
+        51380288,
+        209747968,
+        262913
+      ],
+      [
+        101712000,
+        671808,
+        159416320,
+        262913
+      ],
+      [
+        68190336,
+        33701952,
+        159907840,
+        262913
+      ],
+      [
+        67158144,
+        51904512,
+        142737472,
+        262913
+      ],
+      [
+        101318656,
+        143671296,
+        16810176,
+        262913
+      ],
+      [
+        167805056,
+        92291072,
+        1704000,
+        262913
+      ],
+      [
+        34635904,
+        67649600,
+        159514624,
+        262913
+      ],
+      [
+        17858624,
+        101203968,
+        142737536,
+        262913
+      ],
+      [
+        67289088,
+        51904512,
+        142606528,
+        262913
+      ],
+      [
+        67796992,
+        43008000,
+        150995136,
+        262913
+      ],
+      [
+        101728256,
+        17301696,
+        142770176,
+        262913
+      ],
+      [
+        167788672,
+        92405760,
+        1605696,
+        262913
+      ],
+      [
+        84017216,
+        168312832,
+        9470080,
+        262913
+      ],
+      [
+        688192,
+        58736640,
+        202375296,
+        262913
+      ],
+      [
+        17334400,
+        168837120,
+        75628608,
+        262913
+      ],
+      [
+        67158080,
+        42467456,
+        152174592,
+        262913
+      ],
+      [
+        168312832,
+        68288576,
+        25198720,
+        262913
+      ],
+      [
+        16924736,
+        35160064,
+        209715328,
+        262913
+      ],
+      [
+        201326784,
+        33734656,
+        26738688,
+        262913
+      ],
+      [
+        33571008,
+        151158784,
+        77070336,
+        262913
+      ],
+      [
+        68190272,
+        167788672,
+        25821184,
+        262913
+      ],
+      [
+        34095168,
+        84049920,
+        143655040,
+        262913
+      ],
+      [
+        135921664,
+        41959552,
+        83918912,
+        262913
+      ],
+      [
+        168951808,
+        8405184,
+        84443136,
+        262913
+      ],
+      [
+        100827136,
+        9453632,
+        151519360,
+        262913
+      ],
+      [
+        50888704,
+        143671296,
+        67240128,
+        262913
+      ],
+      [
+        101728256,
+        17334400,
+        142737472,
+        262913
+      ],
+      [
+        167936000,
+        1589376,
+        92274752,
+        262913
+      ],
+      [
+        34209856,
+        25214976,
+        202375296,
+        262913
+      ],
+      [
+        100679744,
+        135430144,
+        25690240,
+        262913
+      ],
+      [
+        83902528,
+        176160896,
+        1736704,
+        262913
+      ],
+      [
+        202391552,
+        34111552,
+        25297024,
+        262913
+      ],
+      [
+        135397440,
+        117456896,
+        8945792,
+        262913
+      ],
+      [
+        34226176,
+        219152384,
+        8421568,
+        262913
+      ],
+      [
+        34603200,
+        83935232,
+        143261696,
+        262913
+      ],
+      [
+        68681856,
+        33734656,
+        159383616,
+        262913
+      ],
+      [
+        1196096,
+        117473280,
+        143130752,
+        262913
+      ]
+    ]
+  },
+  "id": 230,
+  "host_seconds": 0.006953250000000022,
+  "input": {
+    "request": {
+      "decl": 5,
+      "bid": 30,
+      "bidder": 2,
+      "seat": 2,
+      "hand": [
+        0,
+        3,
+        8,
+        9,
+        11,
+        16,
+        18
+      ],
+      "plays": [
+        2,
+        3,
+        3,
+        21,
+        0,
+        12,
+        1,
+        4,
+        0,
+        2,
+        1,
+        22,
+        2,
+        11,
+        3,
+        1,
+        0,
+        10,
+        1,
+        5,
+        2,
+        16,
+        3,
+        13
+      ],
+      "seed": 7042104
+    },
+    "outer": 40,
+    "cheap_n0": 1,
+    "target_n0": 8,
+    "seconds": 20,
+    "target_first": false,
+    "field_level": 0
+  }
+}

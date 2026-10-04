@@ -1,0 +1,48 @@
+--- ZIP/README.md
++++ Drive/README.md
+@@ -1,17 +1,30 @@
+-# walt-sense — handoff bundle (Oct 2026)
++# walt-sense — handoff (Oct 3–4, 2026)
+ 
+-Files
+-- engine42.py      vectorized 42 engine: bitmask hands, flat tape kernel, consistent-world sampling, orderings-based L1
+-- exact_tape.py    exact-tape L1 (branch only at own plies; realized sequences, not orderings) + comparison rungs
+-- nofusion_sc.py   information-set-exact expectimax (tail) and the no-fusion fold; self-contained
+-- walt.c           C port of walt42.py (Walt to the line) + new player (exact-tape 128 + exact tail) + two-sided match driver
+-                   build: gcc -O2 -o walt walt.c -lm ; match: ./walt <deals> <seed> new walt [outer] [worlds]
+-                   single decision: ./walt decide <seat> <bid> <bidder> <trump> <dealt-mask> [actor tile]...  (bidding team = odd seats)
+-- harness.mjs      node harness: real Plunge Walt (src/ai/phone/walt-player.wasm from jasonyandell/plunge) vs ./walt decide,
+-                   deals played twice with teams swapped, rules cross-checked against Walt's banked points each call
+-                   run: node harness.mjs <deals> <seed> [worlds=40] [partner=0|1]
+-- endgame.py       hand-rolled exact enumeration of the walkthrough position (560 deals; 515/2016 vs 449/2016)
+-- build.py/flat.py/data.json/tape.json   the Excel workbook generator ("Walt in Excel - All the Way Down.xlsx")
+-- plunge-match.log results vs real Walt
++## Files
++- `HANDOFF.md`       — the brief: definitions, advancements, measurements, negative results, Lean targets.
++- `TINY-MODEL.md`    — the per-hand tiny-net idea: promise, what was tried, why it failed, what remains open.
++- `engine42.py`      — vectorized 42 engine (bitmask hands, tape kernel, consistent-world sampling, orderings-based L1 reference).
++- `exact_tape.py`    — exact-tape L1: branch only at own plies (realized sequences, not orderings). Verified ≡ orderings L1.
++- `nofusion_sc.py`   — information-set-exact expectimax (the tail) and the no-fusion fold. Reproduces 515/2016, 449/2016.
++- `walt.c`           — C: `walt42.py` ported line for line (Walt = walt(walt(random,8),30)), the new player (exact-tape 128 + exact tail), two-sided match driver, and a `decide` mode.
++- `harness.mjs`      — Node: real Plunge Walt (`walt-player.wasm` from jasonyandell/plunge) vs `./walt decide`; each deal twice, teams swapped; rules cross-checked against Walt's banked points every call.
++- `plunge-match.log` — results vs the real wasm Walt.
+ 
+-Tile ids: triangular, id(h,l) = h(h+1)/2 + l (same in walt.c, Python and Plunge). Hands are 28-bit masks.
++## Build / run
++```
++gcc -O2 -o walt walt.c -lm
++./walt 100 7 new walt            # new player vs walt42-Walt (30 outer, 8 inner), 200 hands
++./walt decide 2 30 1 5 <mask> 1 25   # one decision (bidding team = odd seats; relabel so bidder is seat 1)
++WASM=path/to/walt-player.wasm node harness.mjs 120 11 40 0   # vs real Walt, native-l1
++WASM=path/to/walt-player.wasm node harness.mjs 120 11 40 1   # vs real Walt, native-partner (app default)
++```
++
++## Conventions
++Tile id = h(h+1)/2 + l (same in C, Python, Plunge). Hands are 28-bit masks. Bid 30, pip trump.
++Contract (walt42): the seat/pip with the most trumps, then the trump double, then the most doubles; bidder leads.
++Made ⇔ bidders ≥ 30 ⇔ ¬(defenders ≥ 13).
++
++## Headline numbers
++- Regret vs 512-world reference (4 hands): Walt's 8-world inner rung 0.010–0.023; exact-tape @128 0.0008–0.0018 at the same wall time.
++- vs walt42 inner rung: 64/36. vs real Plunge Walt (wasm, 40 worlds): 52.2% ± 1.9 at native-l1 (n=720); 48.3% ± 4.6 at native-partner (n=120).
++- Read: equal strength to shipped Walt at ~2–3× lower cost; not a new rung. Next: exact-tape kernel as Walt's inner rung, keep the partner check, re-measure.

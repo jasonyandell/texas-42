@@ -1,0 +1,27 @@
+{
+  "repository": "/Users/jason/code/texas-42",
+  "source_ref": "origin/ccr-7425ff15-uya1yg",
+  "commit": "d45b3998120999552e324a8b60d58f1fefba7f8f",
+  "files": {
+    "README.md": {
+      "bytes": 1935,
+      "sha256": "948b4cbf1db0d33ee791dd7ec75d2abb021414faf5f2d4e7565ac1bf5d88920b"
+    },
+    "simple_walt.py": {
+      "bytes": 9241,
+      "sha256": "775db5151578d0e3a88477fc7899c0dd6236fa89d755655afe0083382df9e77d"
+    },
+    "walt42.py": {
+      "bytes": 6324,
+      "sha256": "3d5f9b65e162fbfed860998d686be4fe2371a0ea366bf91d09547ee11a6e78df"
+    },
+    "experiment.py": {
+      "bytes": 2366,
+      "sha256": "b575cad289eebee3c0b2e02f5fad5cb6c88b3760fb36ddb562f9dcaee1556cbd"
+    },
+    "results.jsonl": {
+      "bytes": 59794,
+      "sha256": "c0a718912d93963173ae3ace47e52c86d38b4ace8a36ac51de691a413e2abcb7"
+    }
+  }
+}

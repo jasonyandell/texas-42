@@ -1,0 +1,31 @@
+{
+  "incoming_sha256": {
+    "README.md": "f8c272d02e6766243530255c96ee09b1d8bb9efaaecdc449f127434f23289254",
+    "build.py": "6e547c6a785a32eac7c4ea3566c2794e442fe5dd0b0c0dad3b8d3c9db27c5456",
+    "data.json": "6d68806c6862a46b7dac3e571454d6e1dada40365162847b6a84805770e980e5",
+    "endgame.py": "ce7381bf608167e3cf0398d02e1134ce36a9137aa5231bfb4751e98f6a4c478d",
+    "engine42.py": "94bdbf50b9596bf9788dd5e3a830ba21756565390844718461a2e570fd134199",
+    "exact_tape.py": "9bc7be9ec4ce0d3f3c3423c1a4bc9b76c19869cc75fa318ba34746a1452e6179",
+    "flat.py": "23c979d2ffceca16823a1b4bab4a312ef7c6ec47dd5b76613194443318c4b541",
+    "harness.mjs": "923b5ea3a08312d34259acb89d37c1436854778c964e85821836970a4e6cd3e6",
+    "nofusion_sc.py": "a1aed5815138c43a4dd72a090ee08a1342d9ead8a50e67e58b47de8dd42be62b",
+    "plunge-match.log": "6dc8eb7756474264381d0d120c516e4b0d3473d41134cdcb44d69fd5ba447626",
+    "tape.json": "aed83472b65088ee16306f992446b1e40d69575bcf2b03a15d254ab0f323792b",
+    "walt.c": "c5f8d6f58c02c436c17be30a3be012582f899f2ac6140314d2c46e6f6139a1d6"
+  },
+  "likelihood_witness": {
+    "unweighted": {
+      "X": 2,
+      "Y": 1
+    },
+    "weighted": {
+      "X": "2/3",
+      "Y": "1"
+    },
+    "wrong_unweighted_choice": "X",
+    "correct_weighted_choice": "Y"
+  },
+  "seed_recovers_deal_index_when_match_seed_known": true,
+  "imported_scripts_executed": false,
+  "scope": "Abstract fold witness and harness seed algebra; not a Texas42 replay or match result."
+}

@@ -1,0 +1,20 @@
+{
+  "source_cases": 15,
+  "tapes": 60,
+  "vectors_replayed": 780,
+  "all_values_calls_worlds_tapes_statistics_equal": true,
+  "compiler_sha256": "77e30a0df02852afd4730001e3996b3d68834966f73bbf109de373c4416e2fbd",
+  "universal_nodes_once_per_case": 592717,
+  "universal_nodes_four_tape_instances": 2370868,
+  "adaptive_nodes_across_all_tapes": 73104,
+  "universal_support_incidences_once_per_case": 674101,
+  "adaptive_support_incidences_across_all_tapes": 93703,
+  "universal_physical_to_adaptive_instance_ratio": 32.431440140074415,
+  "universal_total_us": 2726655.126,
+  "adaptive_total_us": 570631.383,
+  "recursive_13_bids_us": 894149.8319999998,
+  "universal_to_recursive_ratio": 3.049438727624791,
+  "adaptive_to_recursive_ratio": 0.6381831797962024,
+  "max_universal_python_object_bytes": 64894815,
+  "scope": "13-bid payoff repricing is real repeated graph reuse; fixed-bid production inference is a different workload. Timing is original retained panel, not this audit."
+}

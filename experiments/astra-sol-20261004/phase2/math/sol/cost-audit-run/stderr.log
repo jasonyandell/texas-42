@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree/experiments/astra-sol-20261004/phase2/math/sol/cost_audit.py", line 122, in <module>
+    assert mask.bit_count() == 7 - ply // 4
+AttributeError: 'int' object has no attribute 'bit_count'

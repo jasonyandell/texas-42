@@ -1,0 +1,19 @@
+--- ZIP/plunge-match.log
++++ Drive/plunge-match.log
+@@ -1,4 +1,12 @@
+-new vs PlungeWalt(wasm, worlds 40, partner 0): 240 hands, new wins 127 (52.9%)  | walt 1978 calls, 28 ms each; new 1986 calls, 11 ms each; 1978 rules checks passed
+-new vs PlungeWalt(wasm, worlds 40, partner 0): 240 hands, new wins 129 (53.8%)  | walt 1930 calls, 27 ms each; new 1925 calls, 11 ms each; 1930 rules checks passed
+-new vs PlungeWalt(wasm, worlds 40, partner 0): 240 hands, new wins 120 (50.0%)  | walt 1979 calls, 39 ms each; new 1974 calls, 18 ms each; 1979 rules checks passed
+-new vs PlungeWalt(wasm, worlds 40, partner 1): 120 hands, new wins 58 (48.3%)  | walt 982 calls, 27 ms each; new 947 calls, 11 ms each; 982 rules checks passed
++Match log — new player (exact-tape 128 + no-fusion exact tail, C) vs real Plunge Walt (walt-player.wasm, 40 worlds)
++Each deal played twice with teams swapped; contract per walt42 rule (bid 30, pip trump); rules cross-checked against Walt's banked points every call.
++
++harness.mjs 120 11 40 0 : 240 hands, new wins 127 (52.9%)  | walt 1978 calls, 28 ms each; new 1986 calls, 11 ms each; 1978 rules checks passed
++harness.mjs 120 12 40 0 : 240 hands, new wins 129 (53.8%)  | walt 1930 calls, 27 ms each; new 1925 calls, 11 ms each; 1930 rules checks passed
++harness.mjs 120 13 40 0 : 240 hands, new wins 120 (50.0%)  | walt 1979 calls, 39 ms each; new 1974 calls, 18 ms each; 1979 rules checks passed
++harness.mjs  60 21 40 1 : 120 hands, new wins  58 (48.3%)  | walt  982 calls, 27 ms each; new  947 calls              (native-partner, the app default)
++
++Totals: native-l1 376/720 = 52.2% ± 1.9.  native-partner 58/120 = 48.3% ± 4.6 (small sample).
++
++Earlier, vs walt42.py ported to C (Walt = walt(walt(random,8),30)), 12-hand chunks: 7,5,8,7,5 of 12 → 32/60 = 53.3% ± 6.4.
++Earlier, vs walt42's inner rung alone (walt(random,8)): 64.0% ± 2.8 (n=300); exact 32 vs same: 61.3% ± 2.8.

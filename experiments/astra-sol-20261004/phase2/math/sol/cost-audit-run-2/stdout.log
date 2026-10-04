@@ -1,0 +1,48 @@
+{
+  "planned_source_deals": 144,
+  "audited_eligible": 84,
+  "excluded_before_probe": 60,
+  "eligible_by_declaration": {
+    "1": 12,
+    "2": 8,
+    "5": 8,
+    "6": 11,
+    "9": 9,
+    "0": 11,
+    "4": 10,
+    "7": 8,
+    "3": 7
+  },
+  "eligible_by_prefix_plies": {
+    "20": 9,
+    "8": 30,
+    "12": 26,
+    "16": 19
+  },
+  "eligible_by_actor_team": {
+    "declaring": 48,
+    "defending": 36
+  },
+  "accepted_ids": [
+    213
+  ],
+  "same_choice": 46,
+  "all_bounds_and_flags_audited": true,
+  "cold_fallback_us": 487000,
+  "fresh_target_us": 288052,
+  "cold_fallback_ratio_exact": "121750/72013",
+  "cost_totals": {
+    "cheap_us": 77774,
+    "certificate_us": 121237,
+    "target_us": 288052,
+    "sampling_us": 431,
+    "cold_fallback_us": 487000,
+    "certified_method_us": 115,
+    "certified_target_us": 63,
+    "certificate_visits": 57649,
+    "certificate_target_queries": 27321
+  },
+  "acceptance_reproduced": true,
+  "equal_field_zero_disagreement_control": true,
+  "interpretation": "This certificate + fresh fallback is slower on the observed conditional panel; not a general impossibility or strength result."
+}

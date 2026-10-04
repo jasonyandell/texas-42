@@ -1,0 +1,533 @@
+{
+  "status": "completed",
+  "result": {
+    "bad_scenario_flags": [
+      [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true,
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ]
+    ],
+    "certificate_us": 1978,
+    "certificate_work": {
+      "cache_hits": 117,
+      "cheap_distinct_queries": 354,
+      "cheap_total_work": {
+        "inner_worlds": [
+          3121,
+          880
+        ],
+        "nodes": 20364,
+        "pi_calls": [
+          3121,
+          440
+        ]
+      },
+      "disagreement_stops": 29,
+      "forced_steps": 316,
+      "memo_states": 839,
+      "target_distinct_queries": 354,
+      "target_work": {
+        "inner_worlds": [
+          21144,
+          708
+        ],
+        "nodes": 67093,
+        "pi_calls": [
+          2643,
+          354
+        ]
+      },
+      "visits": 991
+    },
+    "certified": false,
+    "cheap_choice": 5,
+    "cheap_counts": [
+      29,
+      14,
+      24
+    ],
+    "cheap_n0": 1,
+    "cheap_us": 933,
+    "cheap_work": {
+      "inner_worlds": [
+        3119,
+        850
+      ],
+      "nodes": 20317,
+      "pi_calls": [
+        3119,
+        425
+      ]
+    },
+    "error_counts": [
+      7,
+      2,
+      20
+    ],
+    "field_level": 1,
+    "lower": [
+      22,
+      12,
+      4
+    ],
+    "outer": 40,
+    "sampling_us": 3,
+    "schema": "walt-first-disagreement-v1",
+    "target_choice": 5,
+    "target_counts": [
+      28,
+      14,
+      23
+    ],
+    "target_first": false,
+    "target_n0": 8,
+    "target_us": 2095,
+    "target_work": {
+      "inner_worlds": [
+        24856,
+        856
+      ],
+      "nodes": 76696,
+      "pi_calls": [
+        3107,
+        428
+      ]
+    },
+    "tiles": [
+      5,
+      12,
+      17
+    ],
+    "total_us": 5040,
+    "upper": [
+      36,
+      16,
+      40
+    ],
+    "value_orientation": "focal team success counts",
+    "worlds": [
+      [
+        138412040,
+        2576,
+        135200,
+        33571072
+      ],
+      [
+        138412048,
+        33556992,
+        135200,
+        16648
+      ],
+      [
+        37765120,
+        134219792,
+        135200,
+        776
+      ],
+      [
+        33572864,
+        134218256,
+        135200,
+        4194568
+      ],
+      [
+        134219784,
+        37748992,
+        135200,
+        16912
+      ],
+      [
+        33554456,
+        138412544,
+        135200,
+        18688
+      ],
+      [
+        37748744,
+        134234128,
+        135200,
+        2816
+      ],
+      [
+        4194328,
+        33571072,
+        135200,
+        134220288
+      ],
+      [
+        138412040,
+        16656,
+        135200,
+        33556992
+      ],
+      [
+        37765120,
+        134220288,
+        135200,
+        280
+      ],
+      [
+        4196360,
+        134234128,
+        135200,
+        33555200
+      ],
+      [
+        33556488,
+        138428416,
+        135200,
+        784
+      ],
+      [
+        167772168,
+        16912,
+        135200,
+        4196608
+      ],
+      [
+        18440,
+        4194576,
+        135200,
+        167772672
+      ],
+      [
+        37748744,
+        16912,
+        135200,
+        134220032
+      ],
+      [
+        4196368,
+        17152,
+        135200,
+        167772168
+      ],
+      [
+        33570824,
+        2320,
+        135200,
+        138412544
+      ],
+      [
+        16408,
+        4196864,
+        135200,
+        167772416
+      ],
+      [
+        167774208,
+        16912,
+        135200,
+        4194568
+      ],
+      [
+        37765120,
+        134218496,
+        135200,
+        2072
+      ],
+      [
+        4196360,
+        33571072,
+        135200,
+        134218256
+      ],
+      [
+        37748744,
+        134234624,
+        135200,
+        2320
+      ],
+      [
+        4194328,
+        134218496,
+        135200,
+        33572864
+      ],
+      [
+        138412040,
+        33572864,
+        135200,
+        784
+      ],
+      [
+        4212736,
+        167772176,
+        135200,
+        776
+      ],
+      [
+        134234128,
+        33556992,
+        135200,
+        4194568
+      ],
+      [
+        37748752,
+        134234368,
+        135200,
+        2568
+      ],
+      [
+        37748744,
+        134234128,
+        135200,
+        2816
+      ],
+      [
+        167788544,
+        4196864,
+        135200,
+        280
+      ],
+      [
+        167772168,
+        4196864,
+        135200,
+        16656
+      ],
+      [
+        16408,
+        4195072,
+        135200,
+        167774208
+      ],
+      [
+        37765120,
+        134220032,
+        135200,
+        536
+      ],
+      [
+        138412040,
+        33556992,
+        135200,
+        16656
+      ],
+      [
+        33572864,
+        4195072,
+        135200,
+        134217752
+      ],
+      [
+        4210696,
+        784,
+        135200,
+        167774208
+      ],
+      [
+        134219792,
+        4210944,
+        135200,
+        33554952
+      ],
+      [
+        4196368,
+        33571328,
+        135200,
+        134217992
+      ],
+      [
+        134219784,
+        33571072,
+        135200,
+        4194832
+      ],
+      [
+        4210696,
+        33556736,
+        135200,
+        134218256
+      ],
+      [
+        4196360,
+        134234368,
+        135200,
+        33554960
+      ]
+    ]
+  },
+  "id": 126,
+  "host_seconds": 0.007300124999999991,
+  "input": {
+    "request": {
+      "decl": 0,
+      "bid": 30,
+      "bidder": 2,
+      "seat": 1,
+      "hand": [
+        5,
+        12,
+        17,
+        19,
+        21,
+        24,
+        26
+      ],
+      "plays": [
+        2,
+        20,
+        3,
+        18,
+        0,
+        16,
+        1,
+        26,
+        2,
+        0,
+        3,
+        1,
+        0,
+        6,
+        1,
+        21,
+        2,
+        15,
+        3,
+        10,
+        0,
+        2,
+        1,
+        19,
+        2,
+        7,
+        3,
+        23,
+        0,
+        13,
+        1,
+        24
+      ],
+      "seed": 7042104
+    },
+    "outer": 40,
+    "cheap_n0": 1,
+    "target_n0": 8,
+    "seconds": 20,
+    "target_first": false,
+    "field_level": 1
+  }
+}

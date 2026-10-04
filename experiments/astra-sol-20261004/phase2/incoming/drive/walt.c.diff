@@ -1,0 +1,10 @@
+--- ZIP/walt.c
++++ Drive/walt.c
+@@ -1,4 +1,7 @@
+ // walt.c — Walt (walt42.py to the line) vs the new player (exact-tape L1 + no-fusion exact tail). Match driver.
++// build: gcc -O2 -o walt walt.c -lm
++// match:  ./walt <deals> <seed> <A> <B> [walt_outer=30] [new_worlds=128]   A,B in {new, walt, inner, random, tape}
++// decide: ./walt decide <seat> <bid> <bidder> <trump> <dealt-hand-mask> [actor tile]...   (bidding team = odd seats; relabel so bidder is seat 1)
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>

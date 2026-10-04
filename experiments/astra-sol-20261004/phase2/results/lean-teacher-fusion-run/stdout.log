@@ -1,0 +1,13 @@
+experiments/astra-sol-20261004/phase2/TeacherFusion.lean:18:44: warning: This simp argument is unused:
+  h
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [riskPayoff]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'WaltResearch.Phase2.Lead.lawful_risk_exact' depends on axioms: [propext, Quot.sound]
+'WaltResearch.Phase2.Lead.oracle_label_ranks_risk' does not depend on any axioms
+'WaltResearch.Phase2.Lead.every_lawful_policy_prefers_safe' depends on axioms: [propext, Quot.sound]
+'WaltResearch.Phase2.Lead.exact_oracle_student_is_wrong' depends on axioms: [propext, Quot.sound]
+'WaltResearch.Phase2.Lead.sampling_distribution_can_reverse_ranking' does not depend on any axioms
+'WaltResearch.Phase2.Lead.chosen_action_regret_bound' depends on axioms: [propext, Quot.sound]

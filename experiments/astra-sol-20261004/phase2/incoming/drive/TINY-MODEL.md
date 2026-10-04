@@ -1,0 +1,15 @@
+# The tiny per-hand model: promise, attempt, failure, what remains
+
+**The idea.** After the deal, before any play, train a very small network for *this hand only* — no engineered features, just the information set as a one-hot (which tiles are in my hand, which tile each seat played at which trick, trump, score, who leads) — by sampling huge numbers of random positions reachable from this hand and labeling them cheaply. Then use the net as the sense during play: microsecond evaluations instead of rollouts, and a cheap stand-in for the other seats so the ladder can climb (level k+1 is a search against the net for level k, then re-distill). NNUE-style: the first layer is linear in sparse binaries, so a play updates it with two vector adds.
+
+**Why it's attractive.** First: feed the net only what the seat can see but label with the full-information outcome, and the hidden part averages out in the regression — the Bayes-averaged value over consistent worlds for free, no world grouping, no strategy fusion, because the net can't fuse what it was never shown. Second: iterating it is policy iteration inside the hand — rollouts under uniform play give V0; greedy on V0 gives a policy; rollouts under that policy give V1; and so on — every rung embarrassingly parallel, nothing follows a tree.
+
+**What was tried.** (1) Value net, 276k single-rollout labels from uniform play, embedding-sum → 64 → 32 → 1. (2) Three rungs of policy iteration on top of it. (3) Policy net distilled from 8.7k paired-rollout labels (the choice V0-greedy makes), used alone and as "me" inside rollouts.
+
+**What happened.** The net learned the outcome (79% held-out accuracy from a 48% base) and nothing about the decision: regret 0.028 vs 0.031 for a random legal tile, vs 0.001 for Walt-grade search. Policy iteration didn't move it (P(made) 0.470 → 0.460 → 0.452 → 0.458). The distilled policy matched its own labels 56% of the time and played like random.
+
+**Why.** The decision lives in 1–5% differences between sibling tiles. Single binary rollout labels scattered across the position space can't resolve that; the search resolves it only because it is paired — same worlds, same dice, every candidate — a variance reduction the net never gets. The control that proved it: the same V0 target computed exactly (2,048 paired rollouts per candidate) gives regret 0.006 and 89% correct on clear positions. The target was fine; the fit failed. And the budget at which a per-hand net might learn already exceeds the cost of running the kernel directly for the whole hand on one CPU core.
+
+**What remains open.** Train on the *vector* (all candidates' values on common dice) rather than one game's outcome — distill the sense, not the game — and do it offline across hands rather than per hand, raw information-set encoding still (no features). That version has a real chance; it wasn't affordable here and was not tested. On a GPU it is minutes of rollouts per million positions.
+
+**Bottom line.** The promise is intact as stated; the per-hand, live, from-outcomes version is not viable at any budget we could reach, and the proof is the exact-target control, not the failed fit.

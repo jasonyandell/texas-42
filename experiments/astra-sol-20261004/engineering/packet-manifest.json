@@ -1,0 +1,78 @@
+[
+  {
+    "path": "experiments/astra-sol-20261004/PROVENANCE.json",
+    "sha256": "9d89a5b29bed7bc9c6514b7b3c51803df909278eea87fcd0d25c80be66bf5af0"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/CLAIMS.md",
+    "sha256": "de8a92082e41fdcfd4eb0531ba7f0f89793298a54f76270d2113504b52b0a1d2"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/phase2/REPORT.md",
+    "sha256": "a7a43417aea188514e138d8178833d7488229125f77727a60cc00b4b1cc7e0e4"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/phase3/REPORT.md",
+    "sha256": "e3271d7d0ca6c3e3ec03fb90a59dfab1b91b878ade1050a7a0e5e83adba4f7bc"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/phase3/compiled_tape.py",
+    "sha256": "77e30a0df02852afd4730001e3996b3d68834966f73bbf109de373c4416e2fbd"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/phase3/run_panel.py",
+    "sha256": "21b69fe2e7ffea26ba9c959518bd12f891eef369c2872002c2bbad1ad2646359"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/phase3/math/sol/CompiledDAG.lean",
+    "sha256": "23e61e0e02b31c1963126917847a98909632a5ba0fa42b27d8c0e245549c448b"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/phase3/math/sol/InnerFiber.lean",
+    "sha256": "4d8204d3a73bc6526e74f458c2f6ac6d7436b6ca07e59c2fe4746cbffb98c2e8"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/phase3/math/sol/lean-compiled-dag-final-run/stdout.log",
+    "sha256": "d52b80cf3f537e44e72ef820dd35525976862282c043bc9f7e599fab5d68ea27"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/phase3/math/sol/lean-inner-fiber-run/stdout.log",
+    "sha256": "ec4e115bc1e72a92d721fda23d9bb4434560c9bf6ab28af0d45ed87f015d5968"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/math/lead/Disagreement.lean",
+    "sha256": "82027d9c138a0f5db2eccbff8923d4342ec9f70f46ec0d0bec75af7dd299dd48"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/phase2/math/sol/FirstDivergence.lean",
+    "sha256": "38b8e9e2e5f2618301c24c886966e72fe8ed0ef46314f12ebcfdb1674f7a6bda"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/phase2/TeacherFusion.lean",
+    "sha256": "095ca1887536b417a30c0f2105c3b1c995c8f96f5ac47b4deee9c0a2a4f98d1e"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/tools/run_capped.py",
+    "sha256": "b4a5a17a9bf2497e439d8d2acd6c546faab1ed30c2e5be37eacd150459c93cb0"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/tools/arena.py",
+    "sha256": "653928d3e532cb01a9db75f911637b2c63b03d78b914fe63b999dee5b1ae7436"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/tools/phone_worker.mjs",
+    "sha256": "1e965dd5f92741864b0823b8c11e79887b4fb29fd7ed05c610febab92200161e"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/tools/run_panel.py",
+    "sha256": "ba727fb6266ad195360783f900bfcdaf9129be0788d4b01911394917b608a995"
+  },
+  {
+    "path": "experiments/astra-sol-20261004/phase3/results/panel-coverage/summary.json",
+    "sha256": "99bbeaee6823258c4616c0fc6d37a6f3adbc62ca3dcc1e34ab3c8729a3ec6a70"
+  },
+  {
+    "path": "experiments/partnership/rules.py",
+    "sha256": "4393683bc431f868c6f20dc42a81124a8fee000ccfd848a021f8bafd85d109af"
+  }
+]

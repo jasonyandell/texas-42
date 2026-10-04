@@ -1,0 +1,4 @@
+deals 560
+perfect-info leaves 45000 nodes 198460
+6-3 P(bid made | seat 2 plays it, others random, seat 2 best-responds) = 0.2554563492063492 = 515/2016  info-tree nodes 48795
+6-0 P(bid made | seat 2 plays it, others random, seat 2 best-responds) = 0.22271825396825398 = 449/2016  info-tree nodes 48709

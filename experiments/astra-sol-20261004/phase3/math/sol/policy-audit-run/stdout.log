@@ -1,0 +1,39 @@
+{
+  "source_case": 126,
+  "original_scenarios": 2,
+  "continuation_plies": 12,
+  "root_legal_actions": [
+    5,
+    12,
+    17
+  ],
+  "compiler_sha256": "77e30a0df02852afd4730001e3996b3d68834966f73bbf109de373c4416e2fbd",
+  "records": [
+    {
+      "seed": 790001,
+      "policies": 192,
+      "vectors": {
+        "5": 1,
+        "12": 0,
+        "17": 1
+      },
+      "nodes": 108,
+      "full_policy_enumeration_equal": true,
+      "incompatible_tape_rejected": true
+    },
+    {
+      "seed": 790002,
+      "policies": 192,
+      "vectors": {
+        "5": 1,
+        "12": 0,
+        "17": 1
+      },
+      "nodes": 108,
+      "full_policy_enumeration_equal": true,
+      "incompatible_tape_rejected": true
+    }
+  ],
+  "universal_nodes": 4059,
+  "scope": "Exhaustive deterministic public-history policies on one frozen late root; no production field, strength or speed conclusion."
+}

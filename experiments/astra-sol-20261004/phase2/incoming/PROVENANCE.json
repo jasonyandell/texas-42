@@ -1,0 +1,157 @@
+{
+  "source_url": "https://claude.ai/chat/58a73a5e-c5d2-4355-84a6-9f8234207aad",
+  "conversation_title": "Building an AI in Excel",
+  "source_message": 62,
+  "download_button": "Download Walt sense",
+  "downloaded_source": "/Users/jason/Downloads/walt-sense.zip",
+  "sha256": "df5fa7294cf41f334233aa4a0e864384ad18d555bf08c2819b6a8ed2eb49f326",
+  "bytes": 39874,
+  "entries": [
+    {
+      "name": "walt-sense/",
+      "size": 0
+    },
+    {
+      "name": "walt-sense/data.json",
+      "size": 21922
+    },
+    {
+      "name": "walt-sense/exact_tape.py",
+      "size": 7689
+    },
+    {
+      "name": "walt-sense/flat.py",
+      "size": 24234
+    },
+    {
+      "name": "walt-sense/endgame.py",
+      "size": 4517
+    },
+    {
+      "name": "walt-sense/tape.json",
+      "size": 2173
+    },
+    {
+      "name": "walt-sense/README.md",
+      "size": 1449
+    },
+    {
+      "name": "walt-sense/engine42.py",
+      "size": 11304
+    },
+    {
+      "name": "walt-sense/walt.c",
+      "size": 13626
+    },
+    {
+      "name": "walt-sense/build.py",
+      "size": 27463
+    },
+    {
+      "name": "walt-sense/plunge-match.log",
+      "size": 652
+    },
+    {
+      "name": "walt-sense/harness.mjs",
+      "size": 6326
+    },
+    {
+      "name": "walt-sense/nofusion_sc.py",
+      "size": 5380
+    }
+  ],
+  "execution": "endgame.py only after full source read; bounded 30s run reproduced exact fractions",
+  "note": "Browser download event waiter timed out but local download verified by zip parsing.",
+  "drive_folder_url": "https://drive.google.com/drive/folders/1-0rjkAYyIWZbb-Pg6cpqEn80T2wwNLMb",
+  "drive_folder_verified": true,
+  "drive_folder_files": [
+    "engine42.py",
+    "exact_tape.py",
+    "HANDOFF.md",
+    "harness.mjs",
+    "nofusion_sc.py",
+    "plunge-match.log",
+    "README.md",
+    "TINY-MODEL.md",
+    "walt.c"
+  ],
+  "conversation_visible_messages_read": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66
+  ],
+  "conversation_read_scope": "All 66 user/assistant message bodies as presented by the UI, including older messages; collapsed tool transcripts not yet exhaustively expanded. No messages sent or session content changed.",
+  "acquired_utc": "2026-10-04T06:53:13.101115+00:00",
+  "recovered_tiny_net": {
+    "path": "rollout_net.py",
+    "source_message": 22,
+    "tool_card": "Rollout-fit per-hand net vs Walt reference on sampled positions",
+    "download_menu": "Download as PY",
+    "bytes": 9019,
+    "sha256": "8b1d2bc68e9d2299031ce8393741bd7bdff9932dcd04dcb73e03217887710508",
+    "execution": "not executed; top-level training present; later modifications in tool transcripts not yet reconstructed"
+  }
+}

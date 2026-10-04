@@ -1,0 +1,29 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T07:02:36.888503+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree",
+  "command": [
+    "python3",
+    "experiments/astra-sol-20261004/phase3/run_panel.py",
+    "--out",
+    "experiments/astra-sol-20261004/phase3/results/pilot",
+    "--limit",
+    "2",
+    "--worlds",
+    "8",
+    "--tapes",
+    "2"
+  ],
+  "allowance_seconds": 290.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.04451,
+  "status": "failed",
+  "child_pid": 55292,
+  "child_returncode": 1,
+  "runner_returncode": 1,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

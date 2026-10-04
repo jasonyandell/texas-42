@@ -1,0 +1,74 @@
+{
+  "cases": 15,
+  "tapes": 60,
+  "all_coverage_and_single_bid_checks": true,
+  "compiler_sha256": "77e30a0df02852afd4730001e3996b3d68834966f73bbf109de373c4416e2fbd",
+  "universal_coordinates": 592717,
+  "union_used_coordinates": 58835,
+  "truly_unused_coordinates": 533882,
+  "truly_unused_fraction": 0.9007367765729682,
+  "union_support_incidences": 71816,
+  "repeated_tape_coordinate_visits": 73104,
+  "depth_counts": {
+    "0": {
+      "physical": 15,
+      "union_used": 15
+    },
+    "1": {
+      "physical": 39,
+      "union_used": 39
+    },
+    "2": {
+      "physical": 284,
+      "union_used": 284
+    },
+    "3": {
+      "physical": 1618,
+      "union_used": 1340
+    },
+    "4": {
+      "physical": 5284,
+      "union_used": 2732
+    },
+    "5": {
+      "physical": 13778,
+      "union_used": 4386
+    },
+    "6": {
+      "physical": 29349,
+      "union_used": 5931
+    },
+    "7": {
+      "physical": 54503,
+      "union_used": 7167
+    },
+    "8": {
+      "physical": 93546,
+      "union_used": 8130
+    },
+    "9": {
+      "physical": 96084,
+      "union_used": 7146
+    },
+    "10": {
+      "physical": 98861,
+      "union_used": 7211
+    },
+    "11": {
+      "physical": 99678,
+      "union_used": 7227
+    },
+    "12": {
+      "physical": 99678,
+      "union_used": 7227
+    }
+  },
+  "recursive_bid30_us": 120289.79500000003,
+  "universal_cold_bid30_us": 2472144.6620000005,
+  "universal_warm_bid30_us": 78225.03799999999,
+  "adaptive_cold_bid30_us": 359956.8340000001,
+  "universal_cold_ratio": 20.551574320997055,
+  "universal_warm_ratio": 0.6503048575317629,
+  "adaptive_cold_ratio": 2.992413728862037,
+  "scope": "Same frozen worlds, four tapes per root; universal compilation charged once across four bid30 queries. Retained Python timing only; no production speed/strength claim."
+}
