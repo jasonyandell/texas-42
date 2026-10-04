@@ -1,0 +1,27 @@
+{
+  "sha256": {
+    "native/src/lib.rs": "1bd9df57e13632b560a2de197baa6fa47ab5f22a69176d21bd1fdefe13243a07",
+    "native/src/arena.rs": "07a729928abf93a08c9e6f2cb60ff95956abe2f041b6b90ca36ce5cb8f810960",
+    "native/src/bounds.rs": "d4cf9b2fc7c16c4688bc223d1ba36652c32465c2a3ac4c6307afc0d270f7ae42",
+    "native/src/main.rs": "11344cdf98fe7a1321ab596a473fa75b1b05c0917d0ee2b1b783393be750f898",
+    "native/Cargo.toml": "5e389798b3cd1158c5919698dc1ad3a34d1025b65ee00b199f60596a97f8da8f",
+    "native/target/release/native-frontier": "39b9eca7c18624ebc3f2a46c863e8167984ca091c8fa48912494b068716fe0c1",
+    "math/ChoiceArena.lean": "7afefebba81ea61a29be8dce2f2d84d48bc2f016aa6e27bdb33eb4476098247b",
+    "math/DemandBounds.lean": "b72a6d21924b9812de530bd8150dfa4ad94fdae28c94213163c706997ec2bb27",
+    "checks/runner/src/main.rs": "fbc1a5e37669cd19d4ff735de166823d698002468d08245a3dcd9d47008855db",
+    "checks/candidate-target/release/choice-arena-independent-check": "82ae0c0b7bd53e25b34721993dd8c766f708e2f575b8cb19fa7052adea34b5de",
+    "checks/baseline-target/release/native-frontier": "e0b36027502c13c3454a77d23eb3d79bef3950a480c04f8f29cd1c046a48c932",
+    "sampling.py": "ddce50ce89635115157545d4017c87b43b732f59064ed2b9cddc0fab26a6565f",
+    "compare.py": "eb89ddf45e3f3080890b63714ff089f171115be84a5442b78d4631b6a5194f02",
+    "pipeline.py": "9aaa03e78bab6388128adc292d498429d8cef2e547edb51e9200aef8b5bdc426",
+    "checks/check_sampling.py": "0c77f198911ca7a868553335f4eaf5e0226a47bc0eb03f3ad5fe1e445d25b673",
+    "checks/check_pipeline.py": "3be5dbf85b1e3519ad9979da0f1255a2c5d0fe5f10f733ddd85368b46a4d4e42",
+    "checks/audit_arena_timings.py": "dc9a380a55246673c9e798e6cabcbc78bf6094173a09aebf39338eecf94b3402"
+  },
+  "unchanged_sampler_eager_fold_validation": {
+    "pub fn prepare_actor": true,
+    "fn solve_batch": true,
+    "fn validate_frame": true
+  },
+  "scope": "Final independent successful arena extended parity, Lean, sampling/pipeline and arithmetic check source identities. Any source edits need relevant rerun."
+}

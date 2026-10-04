@@ -1,0 +1,32 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T10:38:27.600447+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree",
+  "command": [
+    "python3",
+    "experiments/choice-arena-20261004/compare.py",
+    "--out",
+    "experiments/choice-arena-20261004/results/pilot",
+    "--workers",
+    "1",
+    "--repeats",
+    "1",
+    "--counts",
+    "8",
+    "40",
+    "--fields",
+    "2"
+  ],
+  "allowance_seconds": 290.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.090048,
+  "status": "failed",
+  "child_pid": 87757,
+  "child_returncode": 1,
+  "runner_returncode": 1,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

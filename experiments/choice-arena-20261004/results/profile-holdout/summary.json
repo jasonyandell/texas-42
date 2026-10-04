@@ -1,0 +1,489 @@
+{
+  "arguments": {
+    "out": "experiments/choice-arena-20261004/results/profile-holdout",
+    "start": 967000,
+    "count": 128,
+    "worlds": 40
+  },
+  "instrumented_wall_s": 0.29254375,
+  "instrumented_cpu_s": 0.29236799999999996,
+  "proposed": 128,
+  "selected": [
+    967000,
+    967001,
+    967008,
+    967009,
+    967016,
+    967024,
+    967025,
+    967028,
+    967032,
+    967033,
+    967036,
+    967037,
+    967045,
+    967052,
+    967053,
+    967054,
+    967059,
+    967065,
+    967080,
+    967082,
+    967087,
+    967092,
+    967096,
+    967097,
+    967104,
+    967108,
+    967115,
+    967124,
+    967125,
+    967126,
+    967127
+  ],
+  "attempts": 5481,
+  "ready_worlds": 1640,
+  "statuses": {
+    "preexcluded_forced_or_settled": 87,
+    "ready": 41
+  },
+  "exact_rows_sha256": "64b785cb7cedd22b6b6c09cc536e6279080b1243964aa0d44b6932e3607ed799",
+  "fixture_source_sha256": "b2da6c2cd211d1c4b340a10f9760a15b33f4765a33d99f438dec40f3d9f84aa6",
+  "top_cumulative": [
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/choice-arena-20261004/profile_generation.py",
+      "line": 19,
+      "name": "<lambda>",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "self_s": 9.58e-07,
+      "cumulative_s": 0.292534833
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/choice-arena-20261004/profile_generation.py",
+      "line": 19,
+      "name": "<listcomp>",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "self_s": 0.000163547,
+      "cumulative_s": 0.292533875
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/adversarial-20261004/parallel_roots.py",
+      "line": 29,
+      "name": "fixture",
+      "primitive_calls": 128,
+      "total_calls": 128,
+      "self_s": 0.010932055000000001,
+      "cumulative_s": 0.292370328
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 52,
+      "name": "replay_record",
+      "primitive_calls": 5609,
+      "total_calls": 5609,
+      "self_s": 0.038019402,
+      "cumulative_s": 0.237358287
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 19,
+      "name": "legal_tiles",
+      "primitive_calls": 70670,
+      "total_calls": 70670,
+      "self_s": 0.010644382,
+      "cumulative_s": 0.133459754
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 22,
+      "name": "<listcomp>",
+      "primitive_calls": 51458,
+      "total_calls": 51458,
+      "self_s": 0.036300788,
+      "cumulative_s": 0.116189261
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 15,
+      "name": "follows",
+      "primitive_calls": 353448,
+      "total_calls": 353448,
+      "self_s": 0.031421079000000005,
+      "cumulative_s": 0.050270422
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 11,
+      "name": "context",
+      "primitive_calls": 309176,
+      "total_calls": 309176,
+      "self_s": 0.023823757,
+      "cumulative_s": 0.040103684
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 6,
+      "name": "called",
+      "primitive_calls": 721092,
+      "total_calls": 721092,
+      "self_s": 0.038212008000000006,
+      "cumulative_s": 0.038212008000000006
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 26,
+      "name": "winner",
+      "primitive_calls": 14617,
+      "total_calls": 14617,
+      "self_s": 0.0026204970000000003,
+      "cumulative_s": 0.030049834
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method builtins.max>",
+      "primitive_calls": 14617,
+      "total_calls": 14617,
+      "self_s": 0.005247375,
+      "cumulative_s": 0.025539870000000003
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 29,
+      "name": "strength",
+      "primitive_calls": 58468,
+      "total_calls": 58468,
+      "self_s": 0.010836663,
+      "cumulative_s": 0.020292495
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method builtins.sorted>",
+      "primitive_calls": 76960,
+      "total_calls": 76960,
+      "self_s": 0.013999075000000001,
+      "cumulative_s": 0.01832365
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method builtins.sum>",
+      "primitive_calls": 20793,
+      "total_calls": 86392,
+      "self_s": 0.007696547000000001,
+      "cumulative_s": 0.015285364000000001
+    },
+    {
+      "file": "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/random.py",
+      "line": 348,
+      "name": "shuffle",
+      "primitive_calls": 5609,
+      "total_calls": 5609,
+      "self_s": 0.005155837,
+      "cumulative_s": 0.015093538
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 39,
+      "name": "trick_points",
+      "primitive_calls": 14105,
+      "total_calls": 14105,
+      "self_s": 0.001906724,
+      "cumulative_s": 0.014421879
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 127,
+      "name": "information_state",
+      "primitive_calls": 128,
+      "total_calls": 128,
+      "self_s": 0.002472761,
+      "cumulative_s": 0.013235791
+    },
+    {
+      "file": "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/random.py",
+      "line": 237,
+      "name": "_randbelow_with_getrandbits",
+      "primitive_calls": 43853,
+      "total_calls": 43853,
+      "self_s": 0.0074359330000000005,
+      "cumulative_s": 0.010411519000000001
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 43,
+      "name": "active_actor",
+      "primitive_calls": 70158,
+      "total_calls": 70158,
+      "self_s": 0.00959565,
+      "cumulative_s": 0.00959565
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 40,
+      "name": "<genexpr>",
+      "primitive_calls": 70525,
+      "total_calls": 70525,
+      "self_s": 0.00617554,
+      "cumulative_s": 0.009363693000000001
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method builtins.len>",
+      "primitive_calls": 188149,
+      "total_calls": 188149,
+      "self_s": 0.0043210110000000005,
+      "cumulative_s": 0.0043210110000000005
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 54,
+      "name": "<genexpr>",
+      "primitive_calls": 162661,
+      "total_calls": 162661,
+      "self_s": 0.004290914,
+      "cumulative_s": 0.004290914
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/adversarial-20261004/parallel_roots.py",
+      "line": 63,
+      "name": "<listcomp>",
+      "primitive_calls": 1640,
+      "total_calls": 1640,
+      "self_s": 0.000730327,
+      "cumulative_s": 0.003491249
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 104,
+      "name": "_hidden_completion_exists",
+      "primitive_calls": 128,
+      "total_calls": 128,
+      "self_s": 0.002713121,
+      "cumulative_s": 0.0031597120000000003
+    }
+  ],
+  "top_self": [
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 6,
+      "name": "called",
+      "primitive_calls": 721092,
+      "total_calls": 721092,
+      "self_s": 0.038212008000000006,
+      "cumulative_s": 0.038212008000000006
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 52,
+      "name": "replay_record",
+      "primitive_calls": 5609,
+      "total_calls": 5609,
+      "self_s": 0.038019402,
+      "cumulative_s": 0.237358287
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 22,
+      "name": "<listcomp>",
+      "primitive_calls": 51458,
+      "total_calls": 51458,
+      "self_s": 0.036300788,
+      "cumulative_s": 0.116189261
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 15,
+      "name": "follows",
+      "primitive_calls": 353448,
+      "total_calls": 353448,
+      "self_s": 0.031421079000000005,
+      "cumulative_s": 0.050270422
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 11,
+      "name": "context",
+      "primitive_calls": 309176,
+      "total_calls": 309176,
+      "self_s": 0.023823757,
+      "cumulative_s": 0.040103684
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method builtins.sorted>",
+      "primitive_calls": 76960,
+      "total_calls": 76960,
+      "self_s": 0.013999075000000001,
+      "cumulative_s": 0.01832365
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/adversarial-20261004/parallel_roots.py",
+      "line": 29,
+      "name": "fixture",
+      "primitive_calls": 128,
+      "total_calls": 128,
+      "self_s": 0.010932055000000001,
+      "cumulative_s": 0.292370328
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 29,
+      "name": "strength",
+      "primitive_calls": 58468,
+      "total_calls": 58468,
+      "self_s": 0.010836663,
+      "cumulative_s": 0.020292495
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 19,
+      "name": "legal_tiles",
+      "primitive_calls": 70670,
+      "total_calls": 70670,
+      "self_s": 0.010644382,
+      "cumulative_s": 0.133459754
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 43,
+      "name": "active_actor",
+      "primitive_calls": 70158,
+      "total_calls": 70158,
+      "self_s": 0.00959565,
+      "cumulative_s": 0.00959565
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method builtins.sum>",
+      "primitive_calls": 20793,
+      "total_calls": 86392,
+      "self_s": 0.007696547000000001,
+      "cumulative_s": 0.015285364000000001
+    },
+    {
+      "file": "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/random.py",
+      "line": 237,
+      "name": "_randbelow_with_getrandbits",
+      "primitive_calls": 43853,
+      "total_calls": 43853,
+      "self_s": 0.0074359330000000005,
+      "cumulative_s": 0.010411519000000001
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 40,
+      "name": "<genexpr>",
+      "primitive_calls": 70525,
+      "total_calls": 70525,
+      "self_s": 0.00617554,
+      "cumulative_s": 0.009363693000000001
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method builtins.max>",
+      "primitive_calls": 14617,
+      "total_calls": 14617,
+      "self_s": 0.005247375,
+      "cumulative_s": 0.025539870000000003
+    },
+    {
+      "file": "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/random.py",
+      "line": 348,
+      "name": "shuffle",
+      "primitive_calls": 5609,
+      "total_calls": 5609,
+      "self_s": 0.005155837,
+      "cumulative_s": 0.015093538
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "name": "<built-in method builtins.len>",
+      "primitive_calls": 188149,
+      "total_calls": 188149,
+      "self_s": 0.0043210110000000005,
+      "cumulative_s": 0.0043210110000000005
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 54,
+      "name": "<genexpr>",
+      "primitive_calls": 162661,
+      "total_calls": 162661,
+      "self_s": 0.004290914,
+      "cumulative_s": 0.004290914
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 104,
+      "name": "_hidden_completion_exists",
+      "primitive_calls": 128,
+      "total_calls": 128,
+      "self_s": 0.002713121,
+      "cumulative_s": 0.0031597120000000003
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 26,
+      "name": "winner",
+      "primitive_calls": 14617,
+      "total_calls": 14617,
+      "self_s": 0.0026204970000000003,
+      "cumulative_s": 0.030049834
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "name": "<method 'getrandbits' of '_random.Random' objects>",
+      "primitive_calls": 89343,
+      "total_calls": 89343,
+      "self_s": 0.002538452,
+      "cumulative_s": 0.002538452
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 127,
+      "name": "information_state",
+      "primitive_calls": 128,
+      "total_calls": 128,
+      "self_s": 0.002472761,
+      "cumulative_s": 0.013235791
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 53,
+      "name": "<listcomp>",
+      "primitive_calls": 5609,
+      "total_calls": 5609,
+      "self_s": 0.002344384,
+      "cumulative_s": 0.002344384
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "name": "<method 'append' of 'list' objects>",
+      "primitive_calls": 91993,
+      "total_calls": 91993,
+      "self_s": 0.002256038,
+      "cumulative_s": 0.002256038
+    },
+    {
+      "file": "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/partnership/rules.py",
+      "line": 39,
+      "name": "trick_points",
+      "primitive_calls": 14105,
+      "total_calls": 14105,
+      "self_s": 0.001906724,
+      "cumulative_s": 0.014421879
+    }
+  ],
+  "scope": "Unchanged Python support-rejection fixture, full-history replay. Instrumentation overhead included. Diagnostic only; solver speed cells use uninstrumented complete actual-n generation over every proposal."
+}

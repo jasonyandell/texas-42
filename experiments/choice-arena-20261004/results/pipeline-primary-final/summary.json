@@ -1,0 +1,53 @@
+{
+  "arguments": {
+    "out": "experiments/choice-arena-20261004/results/pipeline-primary-final",
+    "start": 962000,
+    "count": 32,
+    "worlds": 40,
+    "workers": 4,
+    "repeats": 8
+  },
+  "selected": [
+    962004,
+    962012,
+    962015,
+    962016,
+    962020,
+    962023
+  ],
+  "variants": {
+    "original": {
+      "generation_s": 0.041312604,
+      "complete_pipeline_s": 0.051017333499999984,
+      "parent_cpu_s": 0.04262399999999998,
+      "serialization_s": 0.00025806249999996145,
+      "host_s": 0.008907125000000016,
+      "output_parse_s": 3.333350000001012e-05,
+      "harness_overhead_s": 0.0004453959999999313,
+      "child_cpu_s": 0.019624,
+      "process_peak_rss_bytes": 7110656.0,
+      "native_wall_s": 0.0064315,
+      "replay_validation_s": 5.6e-05
+    },
+    "compiled": {
+      "generation_s": 0.011935270999999983,
+      "complete_pipeline_s": 0.021498957999999957,
+      "parent_cpu_s": 0.01319200000000001,
+      "serialization_s": 0.0002535624999999986,
+      "host_s": 0.00876645799999997,
+      "output_parse_s": 3.662549999998432e-05,
+      "harness_overhead_s": 0.00042091700000002064,
+      "child_cpu_s": 0.0195555,
+      "process_peak_rss_bytes": 7151616.0,
+      "native_wall_s": 0.0062965,
+      "replay_validation_s": 5.5e-05
+    }
+  },
+  "original_over_compiled": 2.373014240969264,
+  "exact_all_rows_and_vectors": true,
+  "vector_comparisons": 96,
+  "shared_python_import_setup_s": 0.035387125,
+  "parent_lifetime_peak_rss_bytes": 22937600,
+  "binary_sha256": "e0b36027502c13c3454a77d23eb3d79bef3950a480c04f8f29cd1c046a48c932",
+  "scope": "Finite late Straight component. Every run freshly regenerates every proposed deal and launches cold pinned native recursion; same worlds/RNG/order/tapes/workers/budgets. Direct complete time includes generation, input construction/filtering, JSON, process/replay/native scheduling, tempfile and parse. Shared script imports measured separately; capped receipt includes them plus verification/record writing. Parent RSS is lifetime max; child RSS PID-specific. No production phone latency/strength or generic higher-k inference."
+}

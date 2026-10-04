@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/choice-arena-20261004/checks/check_sampling.py", line 67, in <module>
+    assert rows==[m.original(a['start']+i,16+i%4,n) for i in range(a['count'])]
+AssertionError

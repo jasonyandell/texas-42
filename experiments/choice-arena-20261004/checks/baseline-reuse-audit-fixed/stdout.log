@@ -1,0 +1,84 @@
+{
+  "roots": 15,
+  "distinct_reduced_public_root_signatures": 15,
+  "generating_deals": 6,
+  "historically_legal_outer_world_checks": 120,
+  "selected_fixture_generation_reproduced": true,
+  "recorded_vector_checks": 90,
+  "fresh_rerun_counters_equal": false,
+  "arithmetic": [
+    {
+      "counted": false,
+      "field": 0,
+      "independent_cold_misses": 1225,
+      "successive_service_misses": 1219,
+      "actor_queries_avoided_by_cross_root_cache": 6,
+      "independent_inner_worlds": 4900,
+      "successive_inner_worlds": 4876,
+      "inner_worlds_avoided": 24
+    },
+    {
+      "counted": false,
+      "field": 1,
+      "independent_cold_misses": 7135,
+      "successive_service_misses": 7112,
+      "actor_queries_avoided_by_cross_root_cache": 23,
+      "independent_inner_worlds": 26162,
+      "successive_inner_worlds": 26074,
+      "inner_worlds_avoided": 88
+    },
+    {
+      "counted": false,
+      "field": 2,
+      "independent_cold_misses": 25169,
+      "successive_service_misses": 25004,
+      "actor_queries_avoided_by_cross_root_cache": 165,
+      "independent_inner_worlds": 86402,
+      "successive_inner_worlds": 85828,
+      "inner_worlds_avoided": 574
+    },
+    {
+      "counted": true,
+      "field": 0,
+      "independent_cold_misses": 1240,
+      "successive_service_misses": 1237,
+      "actor_queries_avoided_by_cross_root_cache": 3,
+      "independent_inner_worlds": 4960,
+      "successive_inner_worlds": 4948,
+      "inner_worlds_avoided": 12
+    },
+    {
+      "counted": true,
+      "field": 1,
+      "independent_cold_misses": 7382,
+      "successive_service_misses": 7338,
+      "actor_queries_avoided_by_cross_root_cache": 44,
+      "independent_inner_worlds": 27148,
+      "successive_inner_worlds": 26976,
+      "inner_worlds_avoided": 172
+    },
+    {
+      "counted": true,
+      "field": 2,
+      "independent_cold_misses": 24520,
+      "successive_service_misses": 24061,
+      "actor_queries_avoided_by_cross_root_cache": 459,
+      "independent_inner_worlds": 83630,
+      "successive_inner_worlds": 81906,
+      "inner_worlds_avoided": 1724
+    }
+  ],
+  "validation_process_cpu_s": 0.784662,
+  "validation_process_rss_bytes": 15794176,
+  "charged_generation_s": 0.036680875,
+  "charged_fixture_serialization_write_s": 0.00035383299999999784,
+  "recorded_profile_cost_s": 1.217072166,
+  "hashes": {
+    "reuse.py": "8f04ecc6afd36468721910f95ac95f397454fa3cddc4eba7d4dac21f2eafd7ba",
+    "reuse/src/main.rs": "33ba8dbcf1128ab187aa39094e7e0e4edb5e18b4cc4a867f28e13e3ca8c60b0d",
+    "results/reuse-final/inputs.json": "195e0b9d28ad8a6c16f7fb09bdbad1341a68d5439d40cad860497e6da50ac19d",
+    "results/reuse-final/result.json": "98d539e82d75375e4cd32c691d005309aa296172a381ee39febcb3ef5198de73",
+    "results/reuse-final/generation.json": "3fc76ae60da1422b2e10e4c8d483971e41a05173ddbbc88c455b329fa6be6aa1"
+  },
+  "qualification": "One sequence of distinct filtered positions, with independently sampled support worlds per root. Arithmetic/source assertions of90vector checks audited; independently rerun profile supplies parity. Service sums interleave cold,reused,native work and are illustrative. Whole-process resources include all validation; no standalone latency or natural-match cache rate. Recorded profile sum excludes local wrapper construction/chmod and writing result/generation artifacts."
+}

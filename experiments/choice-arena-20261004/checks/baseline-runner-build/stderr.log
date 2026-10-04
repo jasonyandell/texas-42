@@ -1,0 +1,4 @@
+     Locking 24 packages to latest compatible versions
+   Compiling native-frontier v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/demand-bounds-20261004/native)
+   Compiling choice-arena-baseline-check v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/choice-arena-20261004/checks/baseline-runner)
+    Finished `release` profile [optimized] target(s) in 1.59s

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/choice-arena-20261004/checks/audit_new_timings.py", line 33, in <module>
+    if folder.startswith('final-'):assert identity[name],(folder,name,'binary identity changed')
+AssertionError: ('final-one', 'bounded', 'binary identity changed')

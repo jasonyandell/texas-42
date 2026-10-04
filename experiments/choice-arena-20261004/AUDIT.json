@@ -1,0 +1,456 @@
+{
+  "base_checkpoint": "07ee42b9",
+  "only_new_experiment_changed": true,
+  "production_identity": {
+    "production_commit": "a0d9fa806166b0e63fe016bb49d93f91f47b1af8",
+    "source_commit": "cb1ef3b23072e4c268f31f625f2b61d5facc1929",
+    "source_files": 202,
+    "source_sha256": "5bedf14af0e5a5ef354acca4765f67843469d074d163e8e4786631aa23436e32",
+    "wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+    "source_inputs_match": true,
+    "production_git_blobs_match": true,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "machine": "arm64"
+  },
+  "completed_vector_comparisons": 6180,
+  "refused_observations": 30,
+  "arena_completed_cells": 21,
+  "arena_cells_slower_than_lazy": 20,
+  "all_completed_field2_arena_cells_slower_than_lazy": true,
+  "cold_panels": [
+    {
+      "folder": "cold-primary",
+      "ratio": 1.4130599927285903,
+      "variants": {
+        "original": {
+          "complete_cold_pipeline_s": 0.10255427099999999,
+          "python_process_host_s": 0.10244245849999999,
+          "wrapper_parse_s": 4.725000000002644e-05,
+          "wrapper_overhead_s": 8.087500000009129e-05,
+          "frontend_wait4_cpu_s": 0.11143699999999998,
+          "frontend_peak_rss_bytes": 21831680.0,
+          "python_import_s": 0.034954041,
+          "generation_s": 0.042170020999999995,
+          "python_cpu_after_import_s": 0.0443635,
+          "child_cpu_s": 0.019740999999999998,
+          "process_peak_rss_bytes": 7168000.0,
+          "serialization_s": 0.0002474374999999959,
+          "host_s": 0.009114499999999998,
+          "output_parse_s": 4.791649999999481e-05,
+          "harness_overhead_s": 0.0008321880000000115
+        },
+        "compiled": {
+          "complete_cold_pipeline_s": 0.07257602049999998,
+          "python_process_host_s": 0.07244445800000002,
+          "wrapper_parse_s": 4.610450000003263e-05,
+          "wrapper_overhead_s": 7.831250000009393e-05,
+          "frontend_wait4_cpu_s": 0.0820505,
+          "frontend_peak_rss_bytes": 21848064.0,
+          "python_import_s": 0.0350732295,
+          "generation_s": 0.012226624999999998,
+          "python_cpu_after_import_s": 0.014239000000000002,
+          "child_cpu_s": 0.019788,
+          "process_peak_rss_bytes": 7118848.0,
+          "serialization_s": 0.00024202049999999878,
+          "host_s": 0.008996896,
+          "output_parse_s": 3.718750000000076e-05,
+          "harness_overhead_s": 0.0008393954999999995
+        }
+      }
+    },
+    {
+      "folder": "cold-holdout",
+      "ratio": 1.8887005980835565,
+      "variants": {
+        "original": {
+          "complete_cold_pipeline_s": 0.23554016700000008,
+          "python_process_host_s": 0.23541277100000002,
+          "wrapper_parse_s": 6.189599999983919e-05,
+          "wrapper_overhead_s": 7.439549999987971e-05,
+          "frontend_wait4_cpu_s": 0.2940925,
+          "frontend_peak_rss_bytes": 25845760.0,
+          "python_import_s": 0.0349870415,
+          "generation_s": 0.154253229,
+          "python_cpu_after_import_s": 0.159059,
+          "child_cpu_s": 0.0867955,
+          "process_peak_rss_bytes": 10797056.0,
+          "serialization_s": 0.0012605625000000065,
+          "host_s": 0.025349833000000002,
+          "output_parse_s": 6.870800000001454e-05,
+          "harness_overhead_s": 0.0010104170000000134
+        },
+        "compiled": {
+          "complete_cold_pipeline_s": 0.12471016699999993,
+          "python_process_host_s": 0.12457843749999997,
+          "wrapper_parse_s": 6.225000000004144e-05,
+          "wrapper_overhead_s": 7.502049999985605e-05,
+          "frontend_wait4_cpu_s": 0.18643899999999997,
+          "frontend_peak_rss_bytes": 25845760.0,
+          "python_import_s": 0.0350405,
+          "generation_s": 0.0441550415,
+          "python_cpu_after_import_s": 0.04879700000000001,
+          "child_cpu_s": 0.088942,
+          "process_peak_rss_bytes": 10829824.0,
+          "serialization_s": 0.0012291045000000014,
+          "host_s": 0.026028438,
+          "output_parse_s": 6.416699999999692e-05,
+          "harness_overhead_s": 0.0009533119999999909
+        }
+      }
+    }
+  ],
+  "receipts": [
+    {
+      "path": "checks/arena-parity/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.783415
+    },
+    {
+      "path": "checks/arena-parity-extended/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 0.859921
+    },
+    {
+      "path": "checks/arena-parity-extended-fixed/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 2.578185
+    },
+    {
+      "path": "checks/arena-runner-build/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 8.274226
+    },
+    {
+      "path": "checks/arena-runner-build-extended/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.847501
+    },
+    {
+      "path": "checks/arena-runner-build-extended-fixed/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.850356
+    },
+    {
+      "path": "checks/arena-timing-audit/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.210279
+    },
+    {
+      "path": "checks/baseline-build/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 8.302777
+    },
+    {
+      "path": "checks/baseline-parity/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 1.148593
+    },
+    {
+      "path": "checks/baseline-reuse-audit/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 0.141871
+    },
+    {
+      "path": "checks/baseline-reuse-audit-fixed/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.089725
+    },
+    {
+      "path": "checks/baseline-runner-build/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 1.616552
+    },
+    {
+      "path": "checks/baseline-timing-audit/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 0.047955
+    },
+    {
+      "path": "checks/baseline-timing-audit-fixed/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.14998
+    },
+    {
+      "path": "checks/checkpoint-audit/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.330153
+    },
+    {
+      "path": "checks/cold-audit/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.268015
+    },
+    {
+      "path": "checks/identity/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.136799
+    },
+    {
+      "path": "checks/lean-arena/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.261274
+    },
+    {
+      "path": "checks/lean-bounds/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.318488
+    },
+    {
+      "path": "checks/pipeline-audit/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.321837
+    },
+    {
+      "path": "checks/pipeline-audit-final/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.330151
+    },
+    {
+      "path": "checks/preserved-history/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.210023
+    },
+    {
+      "path": "checks/preserved-history-final/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.20998
+    },
+    {
+      "path": "checks/sampling-support/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 0.804525
+    },
+    {
+      "path": "checks/sampling-support-final/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 1.08523
+    },
+    {
+      "path": "checks/sampling-support-fixed/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 1.077993
+    },
+    {
+      "path": "checks/source-hashes-cold-final/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.047885
+    },
+    {
+      "path": "checks/source-hashes-final/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.047922
+    },
+    {
+      "path": "checks/source-hashes-final-guard/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.044094
+    },
+    {
+      "path": "math/lean-direct/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 0.011986
+    },
+    {
+      "path": "math/lean-first/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 0.14613
+    },
+    {
+      "path": "math/lean-fixed/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.263653
+    },
+    {
+      "path": "math/lean-installed/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 1.889189
+    },
+    {
+      "path": "native/build-first/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 10.412156
+    },
+    {
+      "path": "native/test-arena/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 0.317442
+    },
+    {
+      "path": "native/test-arena-fixed/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 3.775749
+    },
+    {
+      "path": "results/build-final/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 8.300186
+    },
+    {
+      "path": "results/cold-holdout-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 2.958725
+    },
+    {
+      "path": "results/cold-primary-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 1.486412
+    },
+    {
+      "path": "results/final-audit/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 0.268356
+    },
+    {
+      "path": "results/final-audit-fixed/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.263189
+    },
+    {
+      "path": "results/final-four-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 9.709801
+    },
+    {
+      "path": "results/final-holdout-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 18.085924
+    },
+    {
+      "path": "results/final-one-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 11.817974
+    },
+    {
+      "path": "results/pilot-run/run.json",
+      "status": "failed",
+      "allowance": 290.0,
+      "elapsed": 0.090048
+    },
+    {
+      "path": "results/pipeline-holdout-final-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 2.149864
+    },
+    {
+      "path": "results/pipeline-holdout-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 2.155208
+    },
+    {
+      "path": "results/pipeline-primary-final-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 0.660764
+    },
+    {
+      "path": "results/pipeline-primary-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 0.678653
+    },
+    {
+      "path": "results/profile-holdout-run/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.389858
+    },
+    {
+      "path": "results/profile-primary-run/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.149946
+    },
+    {
+      "path": "results/sampling-holdout-final-run/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 2.442937
+    },
+    {
+      "path": "results/sampling-holdout-run/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 2.478033
+    },
+    {
+      "path": "results/sampling-primary-final-run/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.727474
+    },
+    {
+      "path": "results/sampling-primary-run/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.733795
+    }
+  ],
+  "failed_receipts": [
+    "checks/arena-parity-extended/run.json",
+    "checks/baseline-reuse-audit/run.json",
+    "checks/baseline-timing-audit/run.json",
+    "checks/sampling-support/run.json",
+    "math/lean-direct/run.json",
+    "math/lean-first/run.json",
+    "math/lean-installed/run.json",
+    "native/test-arena/run.json",
+    "results/final-audit/run.json",
+    "results/pilot-run/run.json"
+  ],
+  "source_sha256": {
+    "cold_worker.py": "73af76dd12e9dd00c966512e3f5ede93b89307473116305100a9f780c10ece63",
+    "profile_generation.py": "d03ef79369c2ce9ee6851110d38c140a90119d35a00723f30e7dbd99287b5724",
+    "cold_pipeline.py": "f798654e0435f10f58ca5df328aad92c67e611f9a7e6cb8d884bf821c7936e4d",
+    "pipeline.py": "9aaa03e78bab6388128adc292d498429d8cef2e547edb51e9200aef8b5bdc426",
+    "sampling.py": "ddce50ce89635115157545d4017c87b43b732f59064ed2b9cddc0fab26a6565f",
+    "verify.py": "6534e9e4d3b37dccd7c7052666da53e47581683c6599de112e44f859b112090e",
+    "compare.py": "eb89ddf45e3f3080890b63714ff089f171115be84a5442b78d4631b6a5194f02"
+  },
+  "scope": "Exploratory finite component only. Fresh independent Sol checker, conditional Lean, exact trace/group/key/stream checks. No whole phone player/strength/higher-k linearity. Shared cold harness import/AST costs and partial allocation/overlapping phase counters qualified."
+}

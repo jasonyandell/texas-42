@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-04",
+  "authorization": "Jason delegated a fresh Sol6.1 + Sol6.1 constructive checking team for local overnight Walt research.",
+  "source_thread_id": "01a10305-b685-741e-9dce-d403e83c80d7",
+  "source_checkpoint": "07ee42b9",
+  "branch": "codex/walt-choice-arena-20261004",
+  "isolation": "Separate bare local clone source.git and research-worktree inside task-6; task-5 source and Git administration untouched.",
+  "agents": [
+    {"name": "arena_builder", "requested_model": "gpt-6.1-sol", "tool_accepted": true, "role": "Constructive implementation and conditional Lean owner", "paths": ["native/", "math/"]},
+    {"name": "sol_checker", "requested_model": "gpt-6.1-sol", "tool_accepted": true, "role": "Independent source, exhaustive parity, support, Lean and timing/provenance checker", "paths": ["checks/"]}
+  ],
+  "model_attestation_limit": "No independent runtime model attestation is available; requested identities were accepted by the agent tool.",
+  "root_role": "Local isolation, profiles, matched timing and complete-cost harnesses, exact-stream frontend experiment, report and commit.",
+  "boundaries": "Local fixtures only. No production merge/deploy, paid resource, credentials or persistent access. Claude fixture transmission remains blocked pending human authorization."
+}

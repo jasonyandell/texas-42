@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/choice-arena-20261004/verify.py", line 77, in <module>
+    if __name__=='__main__':main()
+  File "/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/choice-arena-20261004/verify.py", line 39, in main
+    arena_completed+=1;assert b['completed'] and a['cold_or_refusal_s']>b['cold_or_refusal_s']
+AssertionError

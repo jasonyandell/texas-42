@@ -1,0 +1,38 @@
+{
+  "exhaustive_histories": 288,
+  "complete_unknown_partitions": 9936,
+  "accepted": 4866,
+  "rejected": 5070,
+  "all_nine_declarations": true,
+  "off_suit_observations": 1574,
+  "known_future_tiles_checked": 2672,
+  "histories_after_contract_settled": 184,
+  "fresh_exact_stream_rows": 384,
+  "sampling_timing_arithmetic": [
+    {
+      "folder": "sampling-primary",
+      "worlds": 8,
+      "ratio": 1.8951901633301578,
+      "proposed": 32
+    },
+    {
+      "folder": "sampling-primary",
+      "worlds": 40,
+      "ratio": 3.420974708935187,
+      "proposed": 32
+    },
+    {
+      "folder": "sampling-holdout",
+      "worlds": 8,
+      "ratio": 1.866856842391748,
+      "proposed": 128
+    },
+    {
+      "folder": "sampling-holdout",
+      "worlds": 40,
+      "ratio": 3.6213452690534194,
+      "proposed": 128
+    }
+  ],
+  "scope": "Known-lawful generator only. Full replay reference runs entire history. Complete capacity partitions finite20..23ply. No arbitrary malformed request validation or behavioral posterior claim."
+}

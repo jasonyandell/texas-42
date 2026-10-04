@@ -1,0 +1,19 @@
+{
+  "base_checkpoint": "07ee42b9",
+  "only_new_experiment_changed": true,
+  "completed_vector_comparisons": 6180,
+  "refused_observations": 30,
+  "arena_completed_cells": 21,
+  "failed_receipts": [
+    "checks/arena-parity-extended/run.json",
+    "checks/baseline-reuse-audit/run.json",
+    "checks/baseline-timing-audit/run.json",
+    "checks/sampling-support/run.json",
+    "math/lean-direct/run.json",
+    "math/lean-first/run.json",
+    "math/lean-installed/run.json",
+    "native/test-arena/run.json",
+    "results/final-audit/run.json",
+    "results/pilot-run/run.json"
+  ]
+}

@@ -1,0 +1,45 @@
+experiments/choice-arena-20261004/math/ChoiceArena.lean:37:18: error: Application type mismatch: The argument
+  fun x hx => rows x ?m.111
+has type
+  ∀ (x : Nat) (hx : ?m.112 x), lo x ≤ value x ∧ value x ≤ hi x
+but is expected to have type
+  groups.flatten = ws
+in the application
+  ih fun x hx => rows x ?m.111
+experiments/choice-arena-20261004/math/ChoiceArena.lean:37:48: error: Invalid argument: Variable `hx` is not a proposition or let-declaration
+experiments/choice-arena-20261004/math/ChoiceArena.lean:37:39: error: unsolved goals
+groups : List (List Nat)
+lo hi value : Nat → Nat
+covered : ∀ (g : List Nat), g ∈ groups → ∀ (w : Nat), w ∈ g → lo w ≤ value w ∧ value w ≤ hi w
+w : Nat
+ws : List Nat
+ih :
+  groups.flatten = ws →
+    (∀ (w : Nat), w ∈ ws → lo w ≤ value w ∧ value w ≤ hi w) →
+      (List.map lo ws).sum ≤ (List.map value ws).sum ∧ (List.map value ws).sum ≤ (List.map hi ws).sum
+h : groups.flatten = w :: ws
+rows : ∀ (w_1 : Nat), w_1 ∈ w :: ws → lo w_1 ≤ value w_1 ∧ value w_1 ≤ hi w_1
+hw : lo w ≤ value w ∧ value w ≤ hi w
+x : Nat
+hx : ?m.112 x
+⊢ x = w ∨ x ∈ ws
+experiments/choice-arena-20261004/math/ChoiceArena.lean:38:46: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  d ≥ 0
+  c ≥ 0
+  b ≥ 0
+  a ≥ 0
+  a - b ≥ 0
+  a - b - d + e ≤ -1
+  a - c ≤ 0
+where
+ a := ↑(value w)
+ b := ↑(lo w)
+ c := ↑(hi w)
+ d := ↑(List.map lo ws).sum
+ e := ↑(List.map value ws).sum
+'WaltResearch.ChoiceArena.indexed_group_values' depends on axioms: [propext]
+'WaltResearch.ChoiceArena.indexed_group_sum' depends on axioms: [propext]
+'WaltResearch.ChoiceArena.ordered_group_bounds' depends on axioms: [propext, sorryAx, Quot.sound]
+'WaltResearch.ChoiceArena.deduplicated_complete_view' depends on axioms: [propext]

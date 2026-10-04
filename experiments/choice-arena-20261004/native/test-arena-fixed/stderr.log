@@ -1,0 +1,5 @@
+   Compiling native-frontier v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/experiments/choice-arena-20261004/native)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.41s
+     Running unittests src/lib.rs (experiments/choice-arena-20261004/native/target/debug/deps/native_frontier-26982948e3793d1c)
+     Running unittests src/main.rs (experiments/choice-arena-20261004/native/target/debug/deps/native_frontier-341f2c987aedce0b)
+   Doc-tests native_frontier

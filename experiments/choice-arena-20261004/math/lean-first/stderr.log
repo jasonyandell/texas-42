@@ -1,0 +1,5 @@
+info: mathlib: cloning https://github.com/leanprover-community/mathlib4
+info: stderr:
+Cloning into '/Users/jason/Documents/Codex/2026-10-04/task-6/research-worktree/lean/.lake/packages/mathlib'...
+fatal: unable to access 'https://github.com/leanprover-community/mathlib4/': Could not resolve host: github.com
+error: external command 'git' exited with code 128

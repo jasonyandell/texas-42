@@ -1,0 +1,433 @@
+{
+  "arguments": {
+    "out": "experiments/choice-arena-20261004/results/sampling-primary-final",
+    "start": 962000,
+    "count": 32,
+    "worlds": [
+      8,
+      40
+    ],
+    "repeats": 8
+  },
+  "panels": [
+    {
+      "worlds": 8,
+      "proposed": 32,
+      "selected": [
+        962004,
+        962012,
+        962015,
+        962016,
+        962020,
+        962023
+      ],
+      "sampling_attempts": 306,
+      "all_proposal_rows_exact": true,
+      "all_ordered_worlds_and_tapes_exact": true,
+      "validation_s": 0.018348749999999997,
+      "variants": {
+        "original": {
+          "generation_s": 0.011693104000000003,
+          "generation_cpu_s": 0.011678000000000015
+        },
+        "compiled": {
+          "generation_s": 0.0061722705,
+          "generation_cpu_s": 0.006170500000000009
+        }
+      },
+      "exact_rows_sha256": {
+        "original": "6dad3045ad7e8907f6de40fb398297ff6fda2c21752f6d4afb4ed9a7a2ff011a",
+        "compiled": "6dad3045ad7e8907f6de40fb398297ff6fda2c21752f6d4afb4ed9a7a2ff011a"
+      },
+      "original_over_compiled": 1.8944574771957907
+    },
+    {
+      "worlds": 40,
+      "proposed": 32,
+      "selected": [
+        962004,
+        962012,
+        962015,
+        962016,
+        962020,
+        962023
+      ],
+      "sampling_attempts": 1714,
+      "all_proposal_rows_exact": true,
+      "all_ordered_worlds_and_tapes_exact": true,
+      "validation_s": 0.052585541999999985,
+      "variants": {
+        "original": {
+          "generation_s": 0.04064212549999999,
+          "generation_cpu_s": 0.04060399999999997
+        },
+        "compiled": {
+          "generation_s": 0.011682999999999999,
+          "generation_cpu_s": 0.011670000000000014
+        }
+      },
+      "exact_rows_sha256": {
+        "original": "9f98114eef465cee50a4d45a91c85f00552ab641ca4ae6ba4e586e3cc0b96dbf",
+        "compiled": "9f98114eef465cee50a4d45a91c85f00552ab641ca4ae6ba4e586e3cc0b96dbf"
+      },
+      "original_over_compiled": 3.4787405204142763
+    }
+  ],
+  "records": [
+    {
+      "worlds": 8,
+      "repeat": 0,
+      "variant": "original",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.012253707999999995,
+      "cpu_s": 0.012229999999999991
+    },
+    {
+      "worlds": 8,
+      "repeat": 0,
+      "variant": "compiled",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.007745665999999998,
+      "cpu_s": 0.007581000000000004
+    },
+    {
+      "worlds": 8,
+      "repeat": 1,
+      "variant": "compiled",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.006166083000000003,
+      "cpu_s": 0.006166000000000005
+    },
+    {
+      "worlds": 8,
+      "repeat": 1,
+      "variant": "original",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.011689708000000007,
+      "cpu_s": 0.011678000000000008
+    },
+    {
+      "worlds": 8,
+      "repeat": 2,
+      "variant": "original",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.01171937499999999,
+      "cpu_s": 0.011706999999999995
+    },
+    {
+      "worlds": 8,
+      "repeat": 2,
+      "variant": "compiled",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.006194833000000011,
+      "cpu_s": 0.00618500000000001
+    },
+    {
+      "worlds": 8,
+      "repeat": 3,
+      "variant": "compiled",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.006582333999999995,
+      "cpu_s": 0.0065739999999999965
+    },
+    {
+      "worlds": 8,
+      "repeat": 3,
+      "variant": "original",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.011736875000000008,
+      "cpu_s": 0.011724999999999985
+    },
+    {
+      "worlds": 8,
+      "repeat": 4,
+      "variant": "original",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.011463000000000001,
+      "cpu_s": 0.01145199999999999
+    },
+    {
+      "worlds": 8,
+      "repeat": 4,
+      "variant": "compiled",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.006125833999999997,
+      "cpu_s": 0.006113000000000007
+    },
+    {
+      "worlds": 8,
+      "repeat": 5,
+      "variant": "compiled",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.006178457999999998,
+      "cpu_s": 0.006175000000000014
+    },
+    {
+      "worlds": 8,
+      "repeat": 5,
+      "variant": "original",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.011421832999999992,
+      "cpu_s": 0.011411000000000004
+    },
+    {
+      "worlds": 8,
+      "repeat": 6,
+      "variant": "original",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.011696499999999999,
+      "cpu_s": 0.011678000000000022
+    },
+    {
+      "worlds": 8,
+      "repeat": 6,
+      "variant": "compiled",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.00610533399999999,
+      "cpu_s": 0.006101999999999996
+    },
+    {
+      "worlds": 8,
+      "repeat": 7,
+      "variant": "compiled",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.006104833000000004,
+      "cpu_s": 0.006094999999999989
+    },
+    {
+      "worlds": 8,
+      "repeat": 7,
+      "variant": "original",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.011646084000000001,
+      "cpu_s": 0.011636000000000007
+    },
+    {
+      "worlds": 40,
+      "repeat": 0,
+      "variant": "original",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.04057920799999998,
+      "cpu_s": 0.040540999999999994
+    },
+    {
+      "worlds": 40,
+      "repeat": 0,
+      "variant": "compiled",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.011770292000000016,
+      "cpu_s": 0.011759999999999993
+    },
+    {
+      "worlds": 40,
+      "repeat": 1,
+      "variant": "compiled",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.011699750000000009,
+      "cpu_s": 0.011687000000000003
+    },
+    {
+      "worlds": 40,
+      "repeat": 1,
+      "variant": "original",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.040651292000000006,
+      "cpu_s": 0.04061499999999996
+    },
+    {
+      "worlds": 40,
+      "repeat": 2,
+      "variant": "original",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.04063295899999997,
+      "cpu_s": 0.04059299999999999
+    },
+    {
+      "worlds": 40,
+      "repeat": 2,
+      "variant": "compiled",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.011762041,
+      "cpu_s": 0.01174200000000003
+    },
+    {
+      "worlds": 40,
+      "repeat": 3,
+      "variant": "compiled",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.01164000000000004,
+      "cpu_s": 0.011628000000000027
+    },
+    {
+      "worlds": 40,
+      "repeat": 3,
+      "variant": "original",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.040512833000000026,
+      "cpu_s": 0.04048099999999999
+    },
+    {
+      "worlds": 40,
+      "repeat": 4,
+      "variant": "original",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.04099341700000003,
+      "cpu_s": 0.040962
+    },
+    {
+      "worlds": 40,
+      "repeat": 4,
+      "variant": "compiled",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.011666249999999989,
+      "cpu_s": 0.011653000000000024
+    },
+    {
+      "worlds": 40,
+      "repeat": 5,
+      "variant": "compiled",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.011747375000000004,
+      "cpu_s": 0.011734000000000022
+    },
+    {
+      "worlds": 40,
+      "repeat": 5,
+      "variant": "original",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.04079674999999994,
+      "cpu_s": 0.04075800000000007
+    },
+    {
+      "worlds": 40,
+      "repeat": 6,
+      "variant": "original",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.040897957999999957,
+      "cpu_s": 0.04085800000000006
+    },
+    {
+      "worlds": 40,
+      "repeat": 6,
+      "variant": "compiled",
+      "order": [
+        "original",
+        "compiled"
+      ],
+      "wall_s": 0.011451875,
+      "cpu_s": 0.011439000000000088
+    },
+    {
+      "worlds": 40,
+      "repeat": 7,
+      "variant": "compiled",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.011596749999999934,
+      "cpu_s": 0.011570999999999998
+    },
+    {
+      "worlds": 40,
+      "repeat": 7,
+      "variant": "original",
+      "order": [
+        "compiled",
+        "original"
+      ],
+      "wall_s": 0.040537333999999925,
+      "cpu_s": 0.040498000000000034
+    }
+  ],
+  "process_lifetime_peak_rss_bytes": 23625728,
+  "source_sha256": "b2da6c2cd211d1c4b340a10f9760a15b33f4765a33d99f438dec40f3d9f84aa6",
+  "scope": "Known-lawful generated Straight fixtures only. Same proposal/shuffle/tape RNG stream and exact accepted multiplicity/order/attempt ceilings. Complete public history; no score cutoff. Single generator worker both variants. Setup+constraints+all proposed roots+sampling+tapes charged in generation. Python invocation/import and validation separately present in capped receipt but excluded from generation medians. Lifetime RSS includes both variants and validation; no variant RSS advantage claim. No policy, belief, sample budget, phone player or strength change."
+}

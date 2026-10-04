@@ -1,0 +1,11 @@
+{
+  "production_commit": "a0d9fa806166b0e63fe016bb49d93f91f47b1af8",
+  "source_commit": "cb1ef3b23072e4c268f31f625f2b61d5facc1929",
+  "source_files": 202,
+  "source_sha256": "5bedf14af0e5a5ef354acca4765f67843469d074d163e8e4786631aa23436e32",
+  "wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+  "source_inputs_match": true,
+  "production_git_blobs_match": true,
+  "platform": "macOS-26.5.1-arm64-arm-64bit",
+  "machine": "arm64"
+}
