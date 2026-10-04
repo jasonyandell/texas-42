@@ -1,0 +1,21 @@
+{
+  "sha256": {
+    "experiments/demand-bounds-20261004/native/src/lib.rs": "f2f89aaf04090a7b9570cbb3782293eb9bd384cdd397472606e9323b9f89dd2a",
+    "experiments/demand-bounds-20261004/native/src/bounds.rs": "d4cf9b2fc7c16c4688bc223d1ba36652c32465c2a3ac4c6307afc0d270f7ae42",
+    "experiments/demand-bounds-20261004/native/src/main.rs": "b2715047fa44f347af51bb5fa5d3dcb41e9ecbfa52af2b5f1216b239f37d00d5",
+    "experiments/demand-bounds-20261004/checks/runner/src/main.rs": "1094e304fc1d05dbf98127eb8fd30729689197ec5fecf46250841d0b6096cf65",
+    "experiments/prefix-state-20261004/native/src/lib.rs": "148556dd072d0642af74ad85207375356f6856f5df9281b8a58d5830cc514627",
+    "experiments/astra-sol-20261004/tools/run_capped.py": "b4a5a17a9bf2497e439d8d2acd6c546faab1ed30c2e5be37eacd150459c93cb0",
+    "experiments/demand-bounds-20261004/checks/candidate-target/release/demand-bounds-independent-check": "133d39a67686dbde02c65e5aa6ccfebc4c1ade906d646460afc277a34e98586e",
+    "experiments/demand-bounds-20261004/checks/prefix-target/release/native-frontier": "6713e9393825619fb92662de4ea0d5eee2c781d4e94e2bac0a330db0498a4818",
+    "experiments/demand-bounds-20261004/math/DemandBounds.lean": "b72a6d21924b9812de530bd8150dfa4ad94fdae28c94213163c706997ec2bb27",
+    "experiments/demand-bounds-20261004/compare.py": "704feb7db80fc202c4722003b8b5a19d721ae8da62e32260fdf7a328d2db0845",
+    "experiments/demand-bounds-20261004/checks/check_checkpoint.py": "32f54e1f7861a41d9f1d4dc9d35bc971c920750fbb4caead4e2c2a0959f26b56",
+    "experiments/demand-bounds-20261004/checks/audit_new_timings.py": "4d1673a5422fad4e02d2b07c8455a194088d2d5038fba3f0388f3b8f45fd9751",
+    "experiments/demand-bounds-20261004/checks/check_preserved.py": "9badf5ed227f7bb89dd3f477d15c59df85a1d0a8e87a4a1ae12c7135d5596d4e",
+    "experiments/demand-bounds-20261004/checks/trace-input.json": "9faa6b88d01d1f3a769500490f4be5cd98b95d71881ee0513d0c0d947d14cd83",
+    "experiments/demand-bounds-20261004/native/target/release/native-frontier": "a33895d3dd29bf721a80f41d718cf3ff5415732097d2a0f1fba0e6a4c98ba413"
+  },
+  "unchanged_old_sampler_eager_fold_validation_blocks": true,
+  "scope": "Hashes at independent parity test time. Source edits require relevant rerun."
+}

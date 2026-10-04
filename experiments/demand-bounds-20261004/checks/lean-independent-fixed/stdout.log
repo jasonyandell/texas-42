@@ -1,0 +1,7 @@
+'WaltResearch.DemandBounds.max_choice_sound' depends on axioms: [propext, Quot.sound]
+'WaltResearch.DemandBounds.min_choice_sound' depends on axioms: [propext, Quot.sound]
+'WaltResearch.DemandBounds.sum_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WaltResearch.DemandBounds.unit_mass_bounds' depends on axioms: [propext, Quot.sound]
+'WaltResearch.DemandBounds.pair_max_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WaltResearch.DemandBounds.pair_min_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WaltResearch.DemandBounds.pure_view_preserved' does not depend on any axioms

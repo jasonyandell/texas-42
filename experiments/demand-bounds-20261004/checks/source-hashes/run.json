@@ -1,0 +1,21 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T10:10:19.343113+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-5/research-worktree",
+  "command": [
+    "python3",
+    "experiments/demand-bounds-20261004/checks/hash_sources.py"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.047994,
+  "status": "completed",
+  "child_pid": 56260,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

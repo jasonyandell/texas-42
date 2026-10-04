@@ -1,0 +1,8 @@
+{
+  "historical_manifests_verified": {
+    "adversarial-20261004": 420,
+    "native-frontier-20261004": 256,
+    "prefix-state-20261004": 251
+  },
+  "all_file_bytes_preserved": true
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T10:13:37.318741+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-5/research-worktree",
+  "command": [
+    "python3",
+    "experiments/demand-bounds-20261004/checks/audit_new_timings.py",
+    "pilot",
+    "matrix-one",
+    "matrix-four",
+    "holdout-four"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.144941,
+  "status": "completed",
+  "child_pid": 60343,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

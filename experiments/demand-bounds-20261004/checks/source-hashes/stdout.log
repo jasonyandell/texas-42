@@ -1,0 +1,14 @@
+{
+  "sha256": {
+    "experiments/demand-bounds-20261004/native/src/lib.rs": "1fc40edbaf5a8d304c1b00133da2cf3ca59e4aca06b2dccda1752e1ab6ce8f0d",
+    "experiments/demand-bounds-20261004/native/src/bounds.rs": "64608e952f5f530b6c7b19f44d2bb6ddcd3c1cc8d94f005891bd95a57570c4f0",
+    "experiments/demand-bounds-20261004/native/src/main.rs": "c0928eb5efaf0cc06aa4d9c0edb8eb18bea6745d5386fa38448d410b369e3b04",
+    "experiments/demand-bounds-20261004/checks/runner/src/main.rs": "062a2719c884a6f362b60580a30d82a0702e0fd46f4b2ffe76c693128376ff81",
+    "experiments/prefix-state-20261004/native/src/lib.rs": "148556dd072d0642af74ad85207375356f6856f5df9281b8a58d5830cc514627",
+    "experiments/astra-sol-20261004/tools/run_capped.py": "b4a5a17a9bf2497e439d8d2acd6c546faab1ed30c2e5be37eacd150459c93cb0",
+    "experiments/demand-bounds-20261004/checks/candidate-target/release/demand-bounds-independent-check": "1359ac86c42cec65b2c13cb2218f67cb57e0d4af694555579d1102612fd9758e",
+    "experiments/demand-bounds-20261004/checks/prefix-target/release/native-frontier": "6713e9393825619fb92662de4ea0d5eee2c781d4e94e2bac0a330db0498a4818"
+  },
+  "unchanged_old_sampler_eager_fold_validation_blocks": true,
+  "scope": "Hashes at independent parity test time. Source edits require relevant rerun."
+}

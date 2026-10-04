@@ -1,0 +1,27 @@
+     Locking 24 packages to latest compatible versions
+   Compiling crossbeam-utils v0.8.23
+   Compiling autocfg v1.5.1
+   Compiling proc-macro2 v1.0.107
+   Compiling crossbeam-epoch v0.9.21
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling crossbeam-deque v0.8.8
+   Compiling rayon-core v1.13.0
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling either v1.18.0
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling num-traits v0.2.19
+   Compiling rayon v1.12.0
+   Compiling syn v3.0.6
+   Compiling num-integer v0.1.47
+   Compiling num-bigint v0.4.8
+   Compiling serde_derive v1.0.229
+   Compiling num-rational v0.4.2
+   Compiling walt v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-5/research-worktree/walt/walt)
+   Compiling native-frontier v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-5/research-worktree/experiments/demand-bounds-20261004/native)
+   Compiling demand-bounds-independent-check v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-5/research-worktree/experiments/demand-bounds-20261004/checks/runner)
+    Finished `release` profile [optimized] target(s) in 7.79s

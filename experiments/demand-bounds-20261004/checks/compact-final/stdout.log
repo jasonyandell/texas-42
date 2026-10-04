@@ -1,0 +1,412 @@
+[
+  {
+    "actual_tied_actor_cases": 37,
+    "bounded_full_native_policy_root_comparisons": 12,
+    "direct_actor_full_bounded_native_comparisons": 48,
+    "eager_zero": false,
+    "exact_choice_cache_hits": 96,
+    "exhaustive_interval_certainty_cases": 22220,
+    "key_distinction_checks": 384,
+    "permutation_and_tripled_multiplicity_vectors": 76,
+    "policy_transformed_vectors": 48,
+    "privacy_same_actor_view_sample_checks": 48,
+    "refusal_cache_survival": true,
+    "scalar_roots": 38,
+    "scope": "Finite component checks; sampler equality and privacy input audit, no Rust refinement or asymptotic claim.",
+    "semantic_cache_key_miss_then_hit_checks": 7
+  },
+  {
+    "all_demand_trace": true,
+    "all_trace_calls_equal_eager_full_and_native_choices": true,
+    "distinct_actor_specs": 11666,
+    "distinct_specs_by_level": [
+      8559,
+      2637,
+      470
+    ],
+    "eager_zero": false,
+    "every_demanded_actor_call_compared": 11936,
+    "roots": 6,
+    "trace_disabled_in_timings": true,
+    "validation_queries_cap": 100000,
+    "validation_work_cap": 100000000
+  },
+  {
+    "actual_tied_actor_cases": 37,
+    "bounded_full_native_policy_root_comparisons": 12,
+    "direct_actor_full_bounded_native_comparisons": 48,
+    "eager_zero": true,
+    "exact_choice_cache_hits": 96,
+    "exhaustive_interval_certainty_cases": 22220,
+    "key_distinction_checks": 384,
+    "permutation_and_tripled_multiplicity_vectors": 76,
+    "policy_transformed_vectors": 48,
+    "privacy_same_actor_view_sample_checks": 48,
+    "refusal_cache_survival": true,
+    "scalar_roots": 38,
+    "scope": "Finite component checks; sampler equality and privacy input audit, no Rust refinement or asymptotic claim.",
+    "semantic_cache_key_miss_then_hit_checks": 7
+  },
+  {
+    "all_demand_trace": true,
+    "all_trace_calls_equal_eager_full_and_native_choices": true,
+    "distinct_actor_specs": 11666,
+    "distinct_specs_by_level": [
+      8559,
+      2637,
+      470
+    ],
+    "eager_zero": true,
+    "every_demanded_actor_call_compared": 11936,
+    "roots": 6,
+    "trace_disabled_in_timings": true,
+    "validation_queries_cap": 100000,
+    "validation_work_cap": 100000000
+  }
+]
+{"completed_vector_comparisons": 4145, "refused_variant_observations": 20, "interpretation": "Local repeated finite components. Refusal time excluded from speed ratios. Counts are actual sampled actor misses; hybrid native counters separate. RSS total; counted allocations partial."}
+[
+  {
+    "directory": "final-one",
+    "worlds": 2,
+    "field": 2,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 1.1905991735537191,
+      "hybrid_over_bounded": 0.10511363636363637,
+      "recursive_over_bounded": 0.08867079889807164,
+      "full_over_eagerzero": 1.0381324125506681,
+      "hybrid_over_eagerzero": 0.09165290496922385,
+      "recursive_over_eagerzero": 0.07731571836060652
+    },
+    "misses": {
+      "bounded": [
+        2080,
+        707,
+        124
+      ],
+      "eagerzero": [
+        2080,
+        707,
+        124
+      ],
+      "full": [
+        4188,
+        1040,
+        124
+      ],
+      "hybrid": [
+        0,
+        0,
+        124
+      ],
+      "recursive": null
+    },
+    "complete": {
+      "bounded": true,
+      "eagerzero": true,
+      "full": true,
+      "hybrid": true,
+      "recursive": true
+    }
+  },
+  {
+    "directory": "final-one",
+    "worlds": 8,
+    "field": 2,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.9733522088520631,
+      "hybrid_over_bounded": 0.08360744472665195,
+      "recursive_over_bounded": 0.07717450139484532,
+      "full_over_eagerzero": 0.8582337500229454,
+      "hybrid_over_eagerzero": 0.07371918424289149,
+      "recursive_over_eagerzero": 0.06804706573416304
+    },
+    "misses": {
+      "bounded": [
+        8559,
+        2637,
+        470
+      ],
+      "eagerzero": [
+        8559,
+        2637,
+        470
+      ],
+      "full": [
+        15452,
+        3708,
+        470
+      ],
+      "hybrid": [
+        0,
+        0,
+        470
+      ],
+      "recursive": null
+    },
+    "complete": {
+      "bounded": true,
+      "eagerzero": true,
+      "full": true,
+      "hybrid": true,
+      "recursive": true
+    }
+  },
+  {
+    "directory": "final-one",
+    "worlds": 40,
+    "field": 2,
+    "roots": 6,
+    "ratios": {
+      "hybrid_over_bounded": 0.08675724852903477,
+      "recursive_over_bounded": 0.08303684760112301,
+      "hybrid_over_eagerzero": 0.07425345178208284,
+      "recursive_over_eagerzero": 0.07106924970566199
+    },
+    "misses": {
+      "bounded": [
+        28689,
+        9376,
+        1782
+      ],
+      "eagerzero": [
+        28689,
+        9376,
+        1782
+      ],
+      "full": [
+        38371,
+        9786,
+        1377
+      ],
+      "hybrid": [
+        0,
+        0,
+        1782
+      ],
+      "recursive": null
+    },
+    "complete": {
+      "bounded": true,
+      "eagerzero": true,
+      "full": false,
+      "hybrid": true,
+      "recursive": true
+    }
+  },
+  {
+    "directory": "final-four",
+    "worlds": 2,
+    "field": 2,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.7041316202976245,
+      "hybrid_over_bounded": 0.06719659857657824,
+      "recursive_over_bounded": 0.05989462981791293,
+      "full_over_eagerzero": 0.6591676040494938,
+      "hybrid_over_eagerzero": 0.06290559833866921,
+      "recursive_over_eagerzero": 0.05606991433763088
+    },
+    "misses": {
+      "bounded": [
+        2080,
+        707,
+        124
+      ],
+      "eagerzero": [
+        2080,
+        707,
+        124
+      ],
+      "full": [
+        4188,
+        1040,
+        124
+      ],
+      "hybrid": [
+        0,
+        0,
+        124
+      ],
+      "recursive": null
+    },
+    "complete": {
+      "bounded": true,
+      "eagerzero": true,
+      "full": true,
+      "hybrid": true,
+      "recursive": true
+    }
+  },
+  {
+    "directory": "final-four",
+    "worlds": 8,
+    "field": 2,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.8301454545454545,
+      "hybrid_over_bounded": 0.06858181818181819,
+      "recursive_over_bounded": 0.05596363636363636,
+      "full_over_eagerzero": 0.5159679059780766,
+      "hybrid_over_eagerzero": 0.04262628545598373,
+      "recursive_over_eagerzero": 0.03478359136625608
+    },
+    "misses": {
+      "bounded": [
+        8559,
+        2637,
+        470
+      ],
+      "eagerzero": [
+        8559,
+        2637,
+        470
+      ],
+      "full": [
+        15452,
+        3708,
+        470
+      ],
+      "hybrid": [
+        0,
+        0,
+        470
+      ],
+      "recursive": null
+    },
+    "complete": {
+      "bounded": true,
+      "eagerzero": true,
+      "full": true,
+      "hybrid": true,
+      "recursive": true
+    }
+  },
+  {
+    "directory": "final-four",
+    "worlds": 40,
+    "field": 2,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.7602283001808319,
+      "hybrid_over_bounded": 0.06968806509945749,
+      "recursive_over_bounded": 0.06518987341772152,
+      "full_over_eagerzero": 0.4211432506887053,
+      "hybrid_over_eagerzero": 0.03860505885299274,
+      "recursive_over_eagerzero": 0.03611319809666917
+    },
+    "misses": {
+      "bounded": [
+        28689,
+        9376,
+        1782
+      ],
+      "eagerzero": [
+        28689,
+        9376,
+        1782
+      ],
+      "full": [
+        52735,
+        13361,
+        1782
+      ],
+      "hybrid": [
+        0,
+        0,
+        1782
+      ],
+      "recursive": null
+    },
+    "complete": {
+      "bounded": true,
+      "eagerzero": true,
+      "full": true,
+      "hybrid": true,
+      "recursive": true
+    }
+  },
+  {
+    "directory": "final-holdout",
+    "worlds": 8,
+    "field": 2,
+    "roots": 31,
+    "ratios": {
+      "full_over_bounded": 0.6827705223880596,
+      "hybrid_over_bounded": 0.06525186567164179,
+      "recursive_over_bounded": 0.05174440298507462,
+      "full_over_eagerzero": 0.3859107996815404,
+      "hybrid_over_eagerzero": 0.03688120508480832,
+      "recursive_over_eagerzero": 0.02924661109441483
+    },
+    "misses": {
+      "bounded": [
+        43800,
+        13363,
+        2440
+      ],
+      "eagerzero": [
+        43800,
+        13363,
+        2440
+      ],
+      "full": [
+        80659,
+        18608,
+        2440
+      ],
+      "hybrid": [
+        0,
+        0,
+        2440
+      ],
+      "recursive": null
+    },
+    "complete": {
+      "bounded": true,
+      "eagerzero": true,
+      "full": true,
+      "hybrid": true,
+      "recursive": true
+    }
+  },
+  {
+    "directory": "final-holdout",
+    "worlds": 40,
+    "field": 2,
+    "roots": 31,
+    "ratios": {},
+    "misses": {
+      "bounded": [
+        145123,
+        44817,
+        8284
+      ],
+      "eagerzero": [
+        145123,
+        44817,
+        8284
+      ],
+      "full": [
+        159155,
+        34369,
+        4463
+      ],
+      "hybrid": [
+        0,
+        0,
+        10079
+      ],
+      "recursive": null
+    },
+    "complete": {
+      "bounded": false,
+      "eagerzero": false,
+      "full": false,
+      "hybrid": true,
+      "recursive": true
+    }
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T10:16:22.766936+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-5/research-worktree",
+  "command": [
+    "cargo",
+    "+1.95.0",
+    "build",
+    "--offline",
+    "--release",
+    "--manifest-path",
+    "experiments/demand-bounds-20261004/checks/runner/Cargo.toml",
+    "--target-dir",
+    "experiments/demand-bounds-20261004/checks/candidate-target"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 1.08738,
+  "status": "failed",
+  "child_pid": 63502,
+  "child_returncode": 101,
+  "runner_returncode": 101,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

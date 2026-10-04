@@ -1,0 +1,22 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T10:18:52.097337+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-5/research-worktree",
+  "command": [
+    "python3",
+    "-c",
+    "import json;from pathlib import Path;b=Path(\"experiments/demand-bounds-20261004/checks\"); print(json.dumps([{k:v for k,v in json.loads(line).items() if k!=\"representative_bounded_stats\"} for line in (b/\"candidate-parity-final/stdout.log\").read_text().splitlines()],indent=2));d=json.loads((b/\"new-timing-audit-final/stdout.log\").read_text());print(json.dumps({k:v for k,v in d.items() if k!=\"panels\"}));print(json.dumps([dict(directory=p[\"directory\"],worlds=p[\"worlds\"],field=p[\"field\"],roots=p[\"roots\"],ratios=p[\"complete_service_ratios\"],misses={n:x.get(\"misses\") for n,x in p[\"details\"].items()},complete={n:x[\"complete\"] for n,x in p[\"details\"].items()}) for p in d[\"panels\"] if p[\"field\"]==2],indent=2))"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.023977,
+  "status": "completed",
+  "child_pid": 66577,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

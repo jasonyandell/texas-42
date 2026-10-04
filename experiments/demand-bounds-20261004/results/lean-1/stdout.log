@@ -1,0 +1,38 @@
+experiments/demand-bounds-20261004/math/DemandBounds.lean:25:6: error: unsolved goals
+case neg
+n : Nat
+lo hi value : Fin n → Nat
+a : Fin n
+covered : ∀ (b : Fin n), lo b ≤ value b ∧ value b ≤ hi b
+cert : MaxCertificate lo hi a
+b : Fin n
+h : ¬b < a
+h' : ¬a < b
+eq : b = a
+⊢ value a ≤ value a
+experiments/demand-bounds-20261004/math/DemandBounds.lean:38:6: error: unsolved goals
+case neg
+n : Nat
+lo hi value : Fin n → Nat
+a : Fin n
+covered : ∀ (b : Fin n), lo b ≤ value b ∧ value b ≤ hi b
+cert : MinCertificate lo hi a
+b : Fin n
+h : ¬b < a
+h' : ¬a < b
+eq : b = a
+⊢ value a ≤ value a
+experiments/demand-bounds-20261004/math/DemandBounds.lean:55:2: error: Type mismatch: After simplification, term
+  h
+ has type
+  (List.map (fun x => 0) rows).sum ≤ (List.map value rows).sum ∧
+    (List.map value rows).sum ≤ (List.map (fun x => 1) rows).sum
+but is expected to have type
+  (List.map value rows).sum ≤ rows.length
+'WaltResearch.DemandBounds.max_choice_sound' depends on axioms: [propext, sorryAx, Quot.sound]
+'WaltResearch.DemandBounds.min_choice_sound' depends on axioms: [propext, sorryAx, Quot.sound]
+'WaltResearch.DemandBounds.sum_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WaltResearch.DemandBounds.unit_mass_bounds' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'WaltResearch.DemandBounds.pair_max_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WaltResearch.DemandBounds.pair_min_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'WaltResearch.DemandBounds.pure_view_preserved' does not depend on any axioms

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/jason/Documents/Codex/2026-10-04/task-5/research-worktree/experiments/demand-bounds-20261004/checks/audit_reuse.py", line 37, in <module>
+    assert x['boundary_size']+x['boundary'].bit_count()//4==7;assert x['boundary']&~played==0
+AttributeError: 'int' object has no attribute 'bit_count'

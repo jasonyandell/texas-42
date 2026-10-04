@@ -1,0 +1,1378 @@
+{
+  "arguments": {
+    "out": "experiments/demand-bounds-20261004/results/holdout-four",
+    "start": 967000,
+    "count": 128,
+    "min_ply": 16,
+    "counts": [
+      8,
+      40
+    ],
+    "fields": [
+      1,
+      2
+    ],
+    "workers": 4,
+    "repeats": 5,
+    "counted": false,
+    "budgets": [
+      4,
+      2,
+      2,
+      2
+    ]
+  },
+  "selected": [
+    967000,
+    967001,
+    967008,
+    967009,
+    967016,
+    967024,
+    967025,
+    967028,
+    967032,
+    967033,
+    967036,
+    967037,
+    967045,
+    967052,
+    967053,
+    967054,
+    967059,
+    967065,
+    967080,
+    967082,
+    967087,
+    967092,
+    967096,
+    967097,
+    967104,
+    967108,
+    967115,
+    967124,
+    967125,
+    967126,
+    967127
+  ],
+  "panels": [
+    {
+      "worlds": 8,
+      "field": 1,
+      "roots": 31,
+      "generation_actual_n_s": 0.04679695799999999,
+      "variants": {
+        "bounded": {
+          "serialization_s": 0.00036441600000003405,
+          "host_s": 0.038412875,
+          "output_parse_s": 9.949999999997461e-05,
+          "harness_overhead_s": 0.0005124170000000428,
+          "child_cpu_s": 0.13200499999999998,
+          "process_peak_rss_bytes": 10387456,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.035394,
+          "standalone_s": 0.03951700100000001,
+          "total_with_generation_s": 0.086313959,
+          "stats": {
+            "actor_demands_by_level": [
+              14116,
+              2441
+            ],
+            "avoided_record_calls": 0,
+            "bounded_children_created": 376801,
+            "bounded_children_unresolved": 25331,
+            "bounded_choice_calls": 16313,
+            "bounded_expansions": 279255,
+            "bounded_refinements": 1022364,
+            "bounded_root_unresolved": 10890,
+            "cache_entries": 16344,
+            "cache_hits": 244,
+            "cache_key_bytes": 2097488,
+            "cache_lookup_us": 77,
+            "completed_actor_queries": 16313,
+            "demand_grouping_us": 413,
+            "fold_us": 174,
+            "forward_us": 290,
+            "generated_actor_queries": 16313,
+            "inner_worlds_by_level": [
+              55504,
+              4874
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_bounded_live_bytes": 88076,
+            "peak_counted_live_array_bytes": 156983,
+            "peak_layer_rows": 425,
+            "peak_retained_array_bytes": 156983,
+            "prefix_lookup_probes": 4561,
+            "preparation_us": 53,
+            "public_coordinates": 9150,
+            "public_record_calls": 181109,
+            "public_step_calls": 366352,
+            "query_lookups": 16588,
+            "raw_policy_consultations_by_level": [
+              14366,
+              2581
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 1519,
+            "row_edges": 519337,
+            "sample_us": 2363,
+            "unique_actor_misses_by_level": [
+              13876,
+              2437
+            ]
+          }
+        },
+        "eagerzero": {
+          "serialization_s": 0.0003702500000000164,
+          "host_s": 0.06121120899999999,
+          "output_parse_s": 0.00010145799999999872,
+          "harness_overhead_s": 0.0007430409999999998,
+          "child_cpu_s": 0.213888,
+          "process_peak_rss_bytes": 13074432,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.058128,
+          "standalone_s": 0.06236341600000006,
+          "total_with_generation_s": 0.10916037400000006,
+          "stats": {
+            "actor_demands_by_level": [
+              14116,
+              2441
+            ],
+            "avoided_record_calls": 48870,
+            "bounded_children_created": 49987,
+            "bounded_children_unresolved": 2939,
+            "bounded_choice_calls": 2437,
+            "bounded_expansions": 38741,
+            "bounded_refinements": 155895,
+            "bounded_root_unresolved": 1506,
+            "cache_entries": 16344,
+            "cache_hits": 244,
+            "cache_key_bytes": 2097488,
+            "cache_lookup_us": 3744,
+            "completed_actor_queries": 16313,
+            "demand_grouping_us": 590,
+            "fold_us": 23511,
+            "forward_us": 26923,
+            "generated_actor_queries": 16313,
+            "inner_worlds_by_level": [
+              55504,
+              4874
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_bounded_live_bytes": 49432,
+            "peak_counted_live_array_bytes": 156983,
+            "peak_layer_rows": 425,
+            "peak_retained_array_bytes": 156983,
+            "prefix_lookup_probes": 395337,
+            "preparation_us": 1032,
+            "public_coordinates": 593120,
+            "public_record_calls": 79981,
+            "public_step_calls": 485496,
+            "query_lookups": 16588,
+            "raw_policy_consultations_by_level": [
+              14366,
+              2581
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 157768,
+            "row_edges": 854101,
+            "sample_us": 6721,
+            "unique_actor_misses_by_level": [
+              13876,
+              2437
+            ]
+          }
+        },
+        "full": {
+          "serialization_s": 0.0003831250000000397,
+          "host_s": 0.025930416999999983,
+          "output_parse_s": 9.587499999999527e-05,
+          "harness_overhead_s": 0.00048279100000003794,
+          "child_cpu_s": 0.08527,
+          "process_peak_rss_bytes": 18464768,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.022447,
+          "standalone_s": 0.02691700000000008,
+          "total_with_generation_s": 0.07371395800000008,
+          "stats": {
+            "actor_demands_by_level": [
+              19406,
+              2441
+            ],
+            "avoided_record_calls": 64627,
+            "cache_entries": 21499,
+            "cache_hits": 199,
+            "cache_key_bytes": 2757328,
+            "cache_lookup_us": 8692,
+            "completed_actor_queries": 21468,
+            "demand_grouping_us": 12626,
+            "fold_us": 12228,
+            "forward_us": 21703,
+            "generated_actor_queries": 21468,
+            "inner_worlds_by_level": [
+              76124,
+              4874
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 3986729,
+            "peak_layer_rows": 11036,
+            "peak_retained_array_bytes": 3894293,
+            "prefix_lookup_probes": 660498,
+            "preparation_us": 4198,
+            "public_coordinates": 960927,
+            "public_record_calls": 102633,
+            "public_step_calls": 636155,
+            "query_lookups": 21878,
+            "raw_policy_consultations_by_level": [
+              19731,
+              2581
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 221528,
+            "row_edges": 1354218,
+            "sample_us": 11047,
+            "unique_actor_misses_by_level": [
+              19031,
+              2437
+            ]
+          }
+        },
+        "hybrid": {
+          "serialization_s": 0.0003774579999999972,
+          "host_s": 0.0061063340000000466,
+          "output_parse_s": 9.095900000000157e-05,
+          "harness_overhead_s": 0.0005376259999999855,
+          "child_cpu_s": 0.013935,
+          "process_peak_rss_bytes": 10371072,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.003171,
+          "standalone_s": 0.007097499999999979,
+          "total_with_generation_s": 0.05389445799999997,
+          "stats": {
+            "actor_demands_by_level": [
+              0,
+              2441
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 2468,
+            "cache_hits": 4,
+            "cache_key_bytes": 321360,
+            "cache_lookup_us": 98,
+            "completed_actor_queries": 2437,
+            "demand_grouping_us": 411,
+            "fold_us": 197,
+            "forward_us": 246,
+            "generated_actor_queries": 2437,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 2437,
+            "native_choice_declared_budget_sum_by_level": [
+              0,
+              4874
+            ],
+            "native_choice_us": 6705,
+            "native_core_nodes": 179762,
+            "native_core_pi_misses_by_level": [
+              13967,
+              2437,
+              0,
+              0
+            ],
+            "native_core_policy_cache_entries": 2437,
+            "native_core_reported_inner_worlds_by_level": [
+              55868,
+              4874,
+              0,
+              0
+            ],
+            "peak_counted_live_array_bytes": 156983,
+            "peak_layer_rows": 425,
+            "peak_retained_array_bytes": 156983,
+            "prefix_lookup_probes": 4561,
+            "preparation_us": 47,
+            "public_coordinates": 9150,
+            "public_record_calls": 0,
+            "public_step_calls": 5864,
+            "query_lookups": 2472,
+            "raw_policy_consultations_by_level": [
+              0,
+              2581
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 1519,
+            "row_edges": 11264,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              0,
+              2437
+            ]
+          }
+        },
+        "recursive": {
+          "serialization_s": 0.0003633329999999657,
+          "host_s": 0.004911582999999997,
+          "output_parse_s": 3.9583000000009694e-05,
+          "harness_overhead_s": 0.0004768749999999877,
+          "child_cpu_s": 0.010688,
+          "process_peak_rss_bytes": 7553024,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.002329,
+          "standalone_s": 0.0057909170000000065,
+          "total_with_generation_s": 0.052587875
+        }
+      }
+    },
+    {
+      "worlds": 8,
+      "field": 2,
+      "roots": 31,
+      "generation_actual_n_s": 0.04679695799999999,
+      "variants": {
+        "bounded": {
+          "serialization_s": 0.0003707500000000863,
+          "host_s": 0.10376516700000016,
+          "output_parse_s": 0.00011183300000006113,
+          "harness_overhead_s": 0.0007748759999999244,
+          "child_cpu_s": 0.37010699999999996,
+          "process_peak_rss_bytes": 27885568,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.100055,
+          "standalone_s": 0.10502700000000065,
+          "total_with_generation_s": 0.15182395800000065,
+          "stats": {
+            "actor_demands_by_level": [
+              44795,
+              13576,
+              2445
+            ],
+            "avoided_record_calls": 0,
+            "bounded_children_created": 1100656,
+            "bounded_children_unresolved": 69051,
+            "bounded_choice_calls": 59603,
+            "bounded_expansions": 805281,
+            "bounded_refinements": 2640287,
+            "bounded_root_unresolved": 34488,
+            "cache_entries": 59634,
+            "cache_hits": 1213,
+            "cache_key_bytes": 7638608,
+            "cache_lookup_us": 46,
+            "completed_actor_queries": 59603,
+            "demand_grouping_us": 350,
+            "fold_us": 218,
+            "forward_us": 266,
+            "generated_actor_queries": 59603,
+            "inner_worlds_by_level": [
+              175200,
+              26726,
+              4880
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_bounded_live_bytes": 89996,
+            "peak_counted_live_array_bytes": 156722,
+            "peak_layer_rows": 423,
+            "peak_retained_array_bytes": 156722,
+            "prefix_lookup_probes": 4541,
+            "preparation_us": 62,
+            "public_coordinates": 9209,
+            "public_record_calls": 453130,
+            "public_step_calls": 1046805,
+            "query_lookups": 60847,
+            "raw_policy_consultations_by_level": [
+              46045,
+              13861,
+              2575
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 1468,
+            "row_edges": 1531145,
+            "sample_us": 15019,
+            "unique_actor_misses_by_level": [
+              43800,
+              13363,
+              2440
+            ]
+          }
+        },
+        "eagerzero": {
+          "serialization_s": 0.00038325000000005716,
+          "host_s": 0.1607178330000001,
+          "output_parse_s": 0.00013874999999963222,
+          "harness_overhead_s": 0.000717875000000312,
+          "child_cpu_s": 0.57424,
+          "process_peak_rss_bytes": 28590080,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.156552,
+          "standalone_s": 0.1619396679999996,
+          "total_with_generation_s": 0.2087366259999996,
+          "stats": {
+            "actor_demands_by_level": [
+              44795,
+              13576,
+              2445
+            ],
+            "avoided_record_calls": 114323,
+            "bounded_children_created": 249276,
+            "bounded_children_unresolved": 15743,
+            "bounded_choice_calls": 15803,
+            "bounded_expansions": 188991,
+            "bounded_refinements": 660174,
+            "bounded_root_unresolved": 9194,
+            "cache_entries": 59634,
+            "cache_hits": 1213,
+            "cache_key_bytes": 7638608,
+            "cache_lookup_us": 5738,
+            "completed_actor_queries": 59603,
+            "demand_grouping_us": 484,
+            "fold_us": 54782,
+            "forward_us": 30721,
+            "generated_actor_queries": 59603,
+            "inner_worlds_by_level": [
+              175200,
+              26726,
+              4880
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_bounded_live_bytes": 68280,
+            "peak_counted_live_array_bytes": 156722,
+            "peak_layer_rows": 423,
+            "peak_retained_array_bytes": 156722,
+            "prefix_lookup_probes": 1085466,
+            "preparation_us": 99,
+            "public_coordinates": 1318768,
+            "public_record_calls": 135474,
+            "public_step_calls": 1264524,
+            "query_lookups": 60847,
+            "raw_policy_consultations_by_level": [
+              46045,
+              13861,
+              2575
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 477421,
+            "row_edges": 2211244,
+            "sample_us": 7879,
+            "unique_actor_misses_by_level": [
+              43800,
+              13363,
+              2440
+            ]
+          }
+        },
+        "full": {
+          "serialization_s": 0.000387083999999982,
+          "host_s": 0.08153620900000003,
+          "output_parse_s": 0.00010075000000009382,
+          "harness_overhead_s": 0.0007332079999997632,
+          "child_cpu_s": 0.28571599999999997,
+          "process_peak_rss_bytes": 57786368,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.075231,
+          "standalone_s": 0.08277229300000011,
+          "total_with_generation_s": 0.1295692510000001,
+          "stats": {
+            "actor_demands_by_level": [
+              82728,
+              18935,
+              2445
+            ],
+            "avoided_record_calls": 202755,
+            "cache_entries": 101738,
+            "cache_hits": 1559,
+            "cache_key_bytes": 13027920,
+            "cache_lookup_us": 29446,
+            "completed_actor_queries": 101707,
+            "demand_grouping_us": 44331,
+            "fold_us": 39646,
+            "forward_us": 68711,
+            "generated_actor_queries": 101707,
+            "inner_worlds_by_level": [
+              322636,
+              37216,
+              4880
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 8950178,
+            "peak_layer_rows": 26464,
+            "peak_retained_array_bytes": 8562498,
+            "prefix_lookup_probes": 2606129,
+            "preparation_us": 12462,
+            "public_coordinates": 3255292,
+            "public_record_calls": 236536,
+            "public_step_calls": 2229202,
+            "query_lookups": 104139,
+            "raw_policy_consultations_by_level": [
+              85202,
+              19312,
+              2575
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 937425,
+            "row_edges": 4904440,
+            "sample_us": 34226,
+            "unique_actor_misses_by_level": [
+              80659,
+              18608,
+              2440
+            ]
+          }
+        },
+        "hybrid": {
+          "serialization_s": 0.0003880840000001218,
+          "host_s": 0.010159084000000096,
+          "output_parse_s": 0.00011375000000013458,
+          "harness_overhead_s": 0.00048012500000016445,
+          "child_cpu_s": 0.028121,
+          "process_peak_rss_bytes": 11567104,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.007257,
+          "standalone_s": 0.01113562499999965,
+          "total_with_generation_s": 0.05793258299999964,
+          "stats": {
+            "actor_demands_by_level": [
+              0,
+              0,
+              2445
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 2471,
+            "cache_hits": 5,
+            "cache_key_bytes": 321744,
+            "cache_lookup_us": 41,
+            "completed_actor_queries": 2440,
+            "demand_grouping_us": 300,
+            "fold_us": 176,
+            "forward_us": 222,
+            "generated_actor_queries": 2440,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 2440,
+            "native_choice_declared_budget_sum_by_level": [
+              0,
+              0,
+              4880
+            ],
+            "native_choice_us": 21526,
+            "native_core_nodes": 421484,
+            "native_core_pi_misses_by_level": [
+              43486,
+              13323,
+              2440,
+              0
+            ],
+            "native_core_policy_cache_entries": 15763,
+            "native_core_reported_inner_worlds_by_level": [
+              173944,
+              26646,
+              4880,
+              0
+            ],
+            "peak_counted_live_array_bytes": 156722,
+            "peak_layer_rows": 423,
+            "peak_retained_array_bytes": 156722,
+            "prefix_lookup_probes": 4541,
+            "preparation_us": 57,
+            "public_coordinates": 9209,
+            "public_record_calls": 0,
+            "public_step_calls": 5752,
+            "query_lookups": 2476,
+            "raw_policy_consultations_by_level": [
+              0,
+              0,
+              2575
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 1468,
+            "row_edges": 11268,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              0,
+              0,
+              2440
+            ]
+          }
+        },
+        "recursive": {
+          "serialization_s": 0.00037545799999971763,
+          "host_s": 0.008610666000000045,
+          "output_parse_s": 4.112500000008623e-05,
+          "harness_overhead_s": 0.0004882070000000738,
+          "child_cpu_s": 0.024465,
+          "process_peak_rss_bytes": 7929856,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.005808,
+          "standalone_s": 0.009412792000000447,
+          "total_with_generation_s": 0.05620975000000044
+        }
+      }
+    },
+    {
+      "worlds": 40,
+      "field": 1,
+      "roots": 31,
+      "generation_actual_n_s": 0.15406191699999994,
+      "variants": {
+        "bounded": {
+          "serialization_s": 0.0012788750000005678,
+          "host_s": 0.13407579199999997,
+          "output_parse_s": 0.00015291699999941955,
+          "harness_overhead_s": 0.0007706670000011684,
+          "child_cpu_s": 0.47499299999999994,
+          "process_peak_rss_bytes": 29884416,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.129887,
+          "standalone_s": 0.136232209000001,
+          "total_with_generation_s": 0.29029412600000093,
+          "stats": {
+            "actor_demands_by_level": [
+              56117,
+              10336
+            ],
+            "avoided_record_calls": 0,
+            "bounded_children_created": 1442656,
+            "bounded_children_unresolved": 96816,
+            "bounded_choice_calls": 63603,
+            "bounded_expansions": 1067221,
+            "bounded_refinements": 3889964,
+            "bounded_root_unresolved": 41800,
+            "cache_entries": 63634,
+            "cache_hits": 2850,
+            "cache_key_bytes": 8166480,
+            "cache_lookup_us": 103,
+            "completed_actor_queries": 63603,
+            "demand_grouping_us": 1293,
+            "fold_us": 493,
+            "forward_us": 905,
+            "generated_actor_queries": 63603,
+            "inner_worlds_by_level": [
+              214236,
+              20088
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_bounded_live_bytes": 99200,
+            "peak_counted_live_array_bytes": 702794,
+            "peak_layer_rows": 2125,
+            "peak_retained_array_bytes": 702794,
+            "prefix_lookup_probes": 42640,
+            "preparation_us": 46,
+            "public_coordinates": 34753,
+            "public_record_calls": 685185,
+            "public_step_calls": 1401610,
+            "query_lookups": 66484,
+            "raw_policy_consultations_by_level": [
+              57124,
+              12968
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 14413,
+            "row_edges": 2004573,
+            "sample_us": 707,
+            "unique_actor_misses_by_level": [
+              53559,
+              10044
+            ]
+          }
+        },
+        "eagerzero": {
+          "serialization_s": 0.0012832920000001025,
+          "host_s": 0.20644779199999963,
+          "output_parse_s": 0.0001183750000000039,
+          "harness_overhead_s": 0.0008297910000010233,
+          "child_cpu_s": 0.739482,
+          "process_peak_rss_bytes": 39043072,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.201221,
+          "standalone_s": 0.2086073759999998,
+          "total_with_generation_s": 0.3626692929999997,
+          "stats": {
+            "actor_demands_by_level": [
+              56117,
+              10336
+            ],
+            "avoided_record_calls": 188360,
+            "bounded_children_created": 201953,
+            "bounded_children_unresolved": 11997,
+            "bounded_choice_calls": 10044,
+            "bounded_expansions": 155988,
+            "bounded_refinements": 620287,
+            "bounded_root_unresolved": 6067,
+            "cache_entries": 63634,
+            "cache_hits": 2850,
+            "cache_key_bytes": 8166480,
+            "cache_lookup_us": 4037,
+            "completed_actor_queries": 63603,
+            "demand_grouping_us": 1778,
+            "fold_us": 84392,
+            "forward_us": 62842,
+            "generated_actor_queries": 63603,
+            "inner_worlds_by_level": [
+              214236,
+              20088
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_bounded_live_bytes": 53948,
+            "peak_counted_live_array_bytes": 702794,
+            "peak_layer_rows": 2125,
+            "peak_retained_array_bytes": 702794,
+            "prefix_lookup_probes": 1543208,
+            "preparation_us": 148,
+            "public_coordinates": 2234061,
+            "public_record_calls": 299718,
+            "public_step_calls": 1838554,
+            "query_lookups": 66484,
+            "raw_policy_consultations_by_level": [
+              57124,
+              12968
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 613375,
+            "row_edges": 3267857,
+            "sample_us": 7336,
+            "unique_actor_misses_by_level": [
+              53559,
+              10044
+            ]
+          }
+        },
+        "full": {
+          "serialization_s": 0.0013085000000003788,
+          "host_s": 0.07967100000000027,
+          "output_parse_s": 0.00014308300000021035,
+          "harness_overhead_s": 0.0008109159999998283,
+          "child_cpu_s": 0.27005599999999996,
+          "process_peak_rss_bytes": 62210048,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.073472,
+          "standalone_s": 0.0817558750000007,
+          "total_with_generation_s": 0.23581779200000064,
+          "stats": {
+            "actor_demands_by_level": [
+              77264,
+              10336
+            ],
+            "avoided_record_calls": 248119,
+            "cache_entries": 83558,
+            "cache_hits": 1592,
+            "cache_key_bytes": 10716752,
+            "cache_lookup_us": 25943,
+            "completed_actor_queries": 83527,
+            "demand_grouping_us": 49458,
+            "fold_us": 41953,
+            "forward_us": 75514,
+            "generated_actor_queries": 83527,
+            "inner_worlds_by_level": [
+              293932,
+              20088
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 12370548,
+            "peak_layer_rows": 34867,
+            "peak_retained_array_bytes": 12031748,
+            "prefix_lookup_probes": 2577069,
+            "preparation_us": 10081,
+            "public_coordinates": 3652260,
+            "public_record_calls": 384345,
+            "public_step_calls": 2420837,
+            "query_lookups": 87631,
+            "raw_policy_consultations_by_level": [
+              78600,
+              12968
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 863927,
+            "row_edges": 5193945,
+            "sample_us": 31756,
+            "unique_actor_misses_by_level": [
+              73483,
+              10044
+            ]
+          }
+        },
+        "hybrid": {
+          "serialization_s": 0.0013085410000002184,
+          "host_s": 0.014702750000000542,
+          "output_parse_s": 9.700000000023579e-05,
+          "harness_overhead_s": 0.0005408749999995521,
+          "child_cpu_s": 0.043272,
+          "process_peak_rss_bytes": 14172160,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.011118,
+          "standalone_s": 0.01665979200000045,
+          "total_with_generation_s": 0.1707217090000004,
+          "stats": {
+            "actor_demands_by_level": [
+              0,
+              10336
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 10075,
+            "cache_hits": 292,
+            "cache_key_bytes": 1310928,
+            "cache_lookup_us": 105,
+            "completed_actor_queries": 10044,
+            "demand_grouping_us": 1362,
+            "fold_us": 517,
+            "forward_us": 868,
+            "generated_actor_queries": 10044,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 10044,
+            "native_choice_declared_budget_sum_by_level": [
+              0,
+              20088
+            ],
+            "native_choice_us": 22063,
+            "native_core_nodes": 710906,
+            "native_core_pi_misses_by_level": [
+              55622,
+              10044,
+              0,
+              0
+            ],
+            "native_core_policy_cache_entries": 10044,
+            "native_core_reported_inner_worlds_by_level": [
+              222488,
+              20088,
+              0,
+              0
+            ],
+            "peak_counted_live_array_bytes": 702794,
+            "peak_layer_rows": 2125,
+            "peak_retained_array_bytes": 702794,
+            "prefix_lookup_probes": 42640,
+            "preparation_us": 62,
+            "public_coordinates": 34753,
+            "public_record_calls": 0,
+            "public_step_calls": 22557,
+            "query_lookups": 10367,
+            "raw_policy_consultations_by_level": [
+              0,
+              12968
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 14413,
+            "row_edges": 56376,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              0,
+              10044
+            ]
+          }
+        },
+        "recursive": {
+          "serialization_s": 0.0012524169999998946,
+          "host_s": 0.012017584000000081,
+          "output_parse_s": 4.379099999995972e-05,
+          "harness_overhead_s": 0.0004768339999996485,
+          "child_cpu_s": 0.036252999999999994,
+          "process_peak_rss_bytes": 8945664,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.008876,
+          "standalone_s": 0.013745249999999487,
+          "total_with_generation_s": 0.16780716699999942
+        }
+      }
+    },
+    {
+      "worlds": 40,
+      "field": 2,
+      "roots": 31,
+      "generation_actual_n_s": 0.15406191699999994,
+      "variants": {
+        "bounded": {
+          "serialization_s": 0.0012807910000001144,
+          "host_s": 0.3193583750000002,
+          "output_parse_s": 6.91669999994815e-05,
+          "harness_overhead_s": 0.0007686670000000007,
+          "child_cpu_s": 1.205858,
+          "process_peak_rss_bytes": 63422464,
+          "completed": false,
+          "errors": [
+            "actor query cap",
+            "actor query cap",
+            "actor query cap",
+            "actor query cap",
+            "actor query cap"
+          ],
+          "cold_or_refusal_s": 0.312787,
+          "standalone_s": 0.3213452080000003,
+          "total_with_generation_s": 0.47540712500000026,
+          "stats": {
+            "actor_demands_by_level": [
+              151097,
+              46794,
+              8450
+            ],
+            "avoided_record_calls": 0,
+            "bounded_children_created": 3643758,
+            "bounded_children_unresolved": 227454,
+            "bounded_choice_calls": 198219,
+            "bounded_expansions": 2664856,
+            "bounded_refinements": 8746204,
+            "bounded_root_unresolved": 113290,
+            "cache_entries": 198226,
+            "cache_hits": 8114,
+            "cache_key_bytes": 25377744,
+            "cache_lookup_us": 153,
+            "completed_actor_queries": 198219,
+            "demand_grouping_us": 1071,
+            "fold_us": 556,
+            "forward_us": 777,
+            "generated_actor_queries": 198224,
+            "inner_worlds_by_level": [
+              580492,
+              89634,
+              16568
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_bounded_live_bytes": 93988,
+            "peak_counted_live_array_bytes": 674599,
+            "peak_layer_rows": 2087,
+            "peak_retained_array_bytes": 674599,
+            "prefix_lookup_probes": 37541,
+            "preparation_us": 45,
+            "public_coordinates": 27911,
+            "public_record_calls": 1489860,
+            "public_step_calls": 3463169,
+            "query_lookups": 206372,
+            "raw_policy_consultations_by_level": [
+              155600,
+              47705,
+              10938
+            ],
+            "refused_batches": 3,
+            "reused_public_steps": 12793,
+            "row_edges": 5080689,
+            "sample_us": 16896,
+            "unique_actor_misses_by_level": [
+              145123,
+              44817,
+              8284
+            ]
+          }
+        },
+        "eagerzero": {
+          "serialization_s": 0.0013120420000003463,
+          "host_s": 0.5210332089999996,
+          "output_parse_s": 7.570799999978561e-05,
+          "harness_overhead_s": 0.0008567930000005219,
+          "child_cpu_s": 2.011532,
+          "process_peak_rss_bytes": 100040704,
+          "completed": false,
+          "errors": [
+            "actor query cap",
+            "actor query cap",
+            "actor query cap",
+            "actor query cap",
+            "actor query cap"
+          ],
+          "cold_or_refusal_s": 0.510992,
+          "standalone_s": 0.5232819590000002,
+          "total_with_generation_s": 0.6773438760000001,
+          "stats": {
+            "actor_demands_by_level": [
+              151098,
+              46794,
+              8450
+            ],
+            "avoided_record_calls": 371499,
+            "bounded_children_created": 838693,
+            "bounded_children_unresolved": 53590,
+            "bounded_choice_calls": 53096,
+            "bounded_expansions": 635011,
+            "bounded_refinements": 2226663,
+            "bounded_root_unresolved": 30923,
+            "cache_entries": 198226,
+            "cache_hits": 8114,
+            "cache_key_bytes": 25377744,
+            "cache_lookup_us": 61849,
+            "completed_actor_queries": 198219,
+            "demand_grouping_us": 2370,
+            "fold_us": 165178,
+            "forward_us": 165242,
+            "generated_actor_queries": 198224,
+            "inner_worlds_by_level": [
+              580492,
+              89634,
+              16568
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_bounded_live_bytes": 71424,
+            "peak_counted_live_array_bytes": 674599,
+            "peak_layer_rows": 2087,
+            "peak_retained_array_bytes": 674599,
+            "prefix_lookup_probes": 3592863,
+            "preparation_us": 16605,
+            "public_coordinates": 4329520,
+            "public_record_calls": 442012,
+            "public_step_calls": 4178996,
+            "query_lookups": 206373,
+            "raw_policy_consultations_by_level": [
+              155600,
+              47705,
+              10938
+            ],
+            "refused_batches": 5,
+            "reused_public_steps": 1585954,
+            "row_edges": 7298155,
+            "sample_us": 87177,
+            "unique_actor_misses_by_level": [
+              145123,
+              44817,
+              8284
+            ]
+          }
+        },
+        "full": {
+          "serialization_s": 0.001359332999999907,
+          "host_s": 0.14130595900000031,
+          "output_parse_s": 6.937500000070429e-05,
+          "harness_overhead_s": 0.000871165999998702,
+          "child_cpu_s": 0.519999,
+          "process_peak_rss_bytes": 124567552,
+          "completed": false,
+          "errors": [
+            "actor query cap",
+            "actor query cap",
+            "actor query cap",
+            "actor query cap",
+            "actor query cap"
+          ],
+          "cold_or_refusal_s": 0.130681,
+          "standalone_s": 0.14360924999999902,
+          "total_with_generation_s": 0.29767116699999896,
+          "stats": {
+            "actor_demands_by_level": [
+              172194,
+              36195,
+              4542
+            ],
+            "avoided_record_calls": 414622,
+            "cache_entries": 196298,
+            "cache_hits": 5674,
+            "cache_key_bytes": 25126144,
+            "cache_lookup_us": 62919,
+            "completed_actor_queries": 196298,
+            "demand_grouping_us": 90621,
+            "fold_us": 76094,
+            "forward_us": 131682,
+            "generated_actor_queries": 197987,
+            "inner_worlds_by_level": [
+              636620,
+              68738,
+              8926
+            ],
+            "native_choice_calls": 0,
+            "native_choice_declared_budget_sum_by_level": [],
+            "native_choice_us": 0,
+            "native_core_nodes": 0,
+            "native_core_pi_misses_by_level": [],
+            "native_core_policy_cache_entries": 0,
+            "native_core_reported_inner_worlds_by_level": [],
+            "peak_counted_live_array_bytes": 28446924,
+            "peak_layer_rows": 89719,
+            "peak_retained_array_bytes": 27209341,
+            "prefix_lookup_probes": 5211126,
+            "preparation_us": 23978,
+            "public_coordinates": 6555231,
+            "public_record_calls": 500377,
+            "public_step_calls": 4475940,
+            "query_lookups": 212962,
+            "raw_policy_consultations_by_level": [
+              177047,
+              36853,
+              5929
+            ],
+            "refused_batches": 15,
+            "reused_public_steps": 1852104,
+            "row_edges": 9848183,
+            "sample_us": 72189,
+            "unique_actor_misses_by_level": [
+              159155,
+              34369,
+              4463
+            ]
+          }
+        },
+        "hybrid": {
+          "serialization_s": 0.0013366250000004243,
+          "host_s": 0.029031958000000024,
+          "output_parse_s": 0.00010383300000071927,
+          "harness_overhead_s": 0.0006025420000002057,
+          "child_cpu_s": 0.091378,
+          "process_peak_rss_bytes": 19021824,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.024945,
+          "standalone_s": 0.031079249999999448,
+          "total_with_generation_s": 0.18514116699999938,
+          "stats": {
+            "actor_demands_by_level": [
+              0,
+              0,
+              10339
+            ],
+            "avoided_record_calls": 0,
+            "cache_entries": 10110,
+            "cache_hits": 260,
+            "cache_key_bytes": 1315408,
+            "cache_lookup_us": 109,
+            "completed_actor_queries": 10079,
+            "demand_grouping_us": 1188,
+            "fold_us": 549,
+            "forward_us": 849,
+            "generated_actor_queries": 10079,
+            "inner_worlds_by_level": [],
+            "native_choice_calls": 10079,
+            "native_choice_declared_budget_sum_by_level": [
+              0,
+              0,
+              20158
+            ],
+            "native_choice_us": 74310,
+            "native_core_nodes": 1597672,
+            "native_core_pi_misses_by_level": [
+              166437,
+              52554,
+              10079,
+              0
+            ],
+            "native_core_policy_cache_entries": 62633,
+            "native_core_reported_inner_worlds_by_level": [
+              665748,
+              105108,
+              20158,
+              0
+            ],
+            "peak_counted_live_array_bytes": 706661,
+            "peak_layer_rows": 2140,
+            "peak_retained_array_bytes": 706661,
+            "prefix_lookup_probes": 42562,
+            "preparation_us": 63,
+            "public_coordinates": 34924,
+            "public_record_calls": 0,
+            "public_step_calls": 22542,
+            "query_lookups": 10370,
+            "raw_policy_consultations_by_level": [
+              0,
+              0,
+              12976
+            ],
+            "refused_batches": 0,
+            "reused_public_steps": 14318,
+            "row_edges": 56575,
+            "sample_us": 0,
+            "unique_actor_misses_by_level": [
+              0,
+              0,
+              10079
+            ]
+          }
+        },
+        "recursive": {
+          "serialization_s": 0.0013115839999997547,
+          "host_s": 0.025239749999999894,
+          "output_parse_s": 4.845800000019551e-05,
+          "harness_overhead_s": 0.00048112499999941605,
+          "child_cpu_s": 0.085837,
+          "process_peak_rss_bytes": 10731520,
+          "completed": true,
+          "errors": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cold_or_refusal_s": 0.021882,
+          "standalone_s": 0.02708887599999965,
+          "total_with_generation_s": 0.1811507929999996
+        }
+      }
+    }
+  ],
+  "elapsed_s": 11.119922833,
+  "binary_sha256": {
+    "bounded": "87fd0b36a915862a276b6a8603f47dfd824ab44bdaa18c9998f6d21a1cae4d4e",
+    "eagerzero": "87fd0b36a915862a276b6a8603f47dfd824ab44bdaa18c9998f6d21a1cae4d4e",
+    "full": "6713e9393825619fb92662de4ea0d5eee2c781d4e94e2bac0a330db0498a4818",
+    "hybrid": "6713e9393825619fb92662de4ea0d5eee2c781d4e94e2bac0a330db0498a4818",
+    "recursive": "6713e9393825619fb92662de4ea0d5eee2c781d4e94e2bac0a330db0498a4818"
+  },
+  "vector_comparisons": 2015,
+  "scope": "Finite pip-trump late-root policy component. Equal native workers. Full root vectors; only lower consumers use lazy choices. Sampling actual n over every proposed deal, serialization, process/replay/service/partition setup, parse and temp-file harness charged. Separate wait4 CPU/RSS. Refusals excluded from speed ratios. No phone or generic-k inference."
+}

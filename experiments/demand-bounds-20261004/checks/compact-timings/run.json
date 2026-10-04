@@ -1,0 +1,22 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T10:14:41.236181+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-5/research-worktree",
+  "command": [
+    "python3",
+    "-c",
+    "import json;from pathlib import Path;d=json.loads(Path(\"experiments/demand-bounds-20261004/checks/new-timing-audit/stdout.log\").read_text());print(json.dumps([dict(directory=p[\"directory\"],worlds=p[\"worlds\"],field=p[\"field\"],roots=p[\"roots\"],ratios=p[\"complete_service_ratios\"],misses={n:x.get(\"misses\") for n,x in p[\"details\"].items()},cold_ms={n:x.get(\"cold_or_refusal_ms\",x.get(\"cold_ms\")) for n,x in p[\"details\"].items()}) for p in d[\"panels\"] if p[\"directory\"]!=\"pilot\"],indent=2))"
+  ],
+  "allowance_seconds": 295.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.023911,
+  "status": "completed",
+  "child_pid": 61457,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

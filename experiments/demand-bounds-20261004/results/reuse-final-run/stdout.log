@@ -1,0 +1,54 @@
+{
+  "roots": 15,
+  "vectors": 90,
+  "reuse": [
+    {
+      "counted": false,
+      "field": 0,
+      "independent_cold_misses": 1225,
+      "successive_service_misses": 1219,
+      "actor_queries_avoided_by_cross_root_cache": 6,
+      "inner_worlds_avoided": 24
+    },
+    {
+      "counted": false,
+      "field": 1,
+      "independent_cold_misses": 7135,
+      "successive_service_misses": 7112,
+      "actor_queries_avoided_by_cross_root_cache": 23,
+      "inner_worlds_avoided": 88
+    },
+    {
+      "counted": false,
+      "field": 2,
+      "independent_cold_misses": 25169,
+      "successive_service_misses": 25004,
+      "actor_queries_avoided_by_cross_root_cache": 165,
+      "inner_worlds_avoided": 574
+    },
+    {
+      "counted": true,
+      "field": 0,
+      "independent_cold_misses": 1240,
+      "successive_service_misses": 1237,
+      "actor_queries_avoided_by_cross_root_cache": 3,
+      "inner_worlds_avoided": 12
+    },
+    {
+      "counted": true,
+      "field": 1,
+      "independent_cold_misses": 7382,
+      "successive_service_misses": 7338,
+      "actor_queries_avoided_by_cross_root_cache": 44,
+      "inner_worlds_avoided": 172
+    },
+    {
+      "counted": true,
+      "field": 2,
+      "independent_cold_misses": 24520,
+      "successive_service_misses": 24061,
+      "actor_queries_avoided_by_cross_root_cache": 459,
+      "inner_worlds_avoided": 1724
+    }
+  ]
+}

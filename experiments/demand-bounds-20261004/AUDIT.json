@@ -1,0 +1,374 @@
+{
+  "base_checkpoint": "7f4c68a01a5d3caae5345695750cdd5b4ee8e736",
+  "unchanged_preexisting_paths": true,
+  "production_identity": {
+    "production_commit": "a0d9fa806166b0e63fe016bb49d93f91f47b1af8",
+    "source_commit": "cb1ef3b23072e4c268f31f625f2b61d5facc1929",
+    "source_files": 202,
+    "source_sha256": "5bedf14af0e5a5ef354acca4765f67843469d074d163e8e4786631aa23436e32",
+    "wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+    "source_inputs_match": true,
+    "production_git_blobs_match": true,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "machine": "arm64"
+  },
+  "completed_timed_vector_comparisons": 4145,
+  "refused_timed_observations": 20,
+  "reuse_vector_checks": 90,
+  "panels": [
+    {
+      "folder": "final-one",
+      "roots": 6,
+      "vector_comparisons": 1050
+    },
+    {
+      "folder": "final-four",
+      "roots": 6,
+      "vector_comparisons": 1080
+    },
+    {
+      "folder": "final-holdout",
+      "roots": 31,
+      "vector_comparisons": 2015
+    }
+  ],
+  "receipts": [
+    {
+      "path": "checks/candidate-build-1/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 7.837411
+    },
+    {
+      "path": "checks/candidate-build-2/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.552975
+    },
+    {
+      "path": "checks/candidate-build-3/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 1.040786
+    },
+    {
+      "path": "checks/candidate-build-4/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.560037
+    },
+    {
+      "path": "checks/candidate-build-final/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 1.08738
+    },
+    {
+      "path": "checks/candidate-build-final-fixed/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.728151
+    },
+    {
+      "path": "checks/candidate-parity-1/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.435973
+    },
+    {
+      "path": "checks/candidate-parity-2/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.611284
+    },
+    {
+      "path": "checks/candidate-parity-4/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.913518
+    },
+    {
+      "path": "checks/candidate-parity-final/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 1.090567
+    },
+    {
+      "path": "checks/checkpoint-audit/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.380839
+    },
+    {
+      "path": "checks/checkpoint-audit-native/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.382817
+    },
+    {
+      "path": "checks/compact-final/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.023977
+    },
+    {
+      "path": "checks/compact-timings/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.023911
+    },
+    {
+      "path": "checks/lean-independent/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 0.330045
+    },
+    {
+      "path": "checks/lean-independent-fixed/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.315114
+    },
+    {
+      "path": "checks/new-timing-audit/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.144941
+    },
+    {
+      "path": "checks/new-timing-audit-development/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.140662
+    },
+    {
+      "path": "checks/new-timing-audit-final/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.15009
+    },
+    {
+      "path": "checks/prefix-build/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 8.18892
+    },
+    {
+      "path": "checks/prefix-rerun/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.897952
+    },
+    {
+      "path": "checks/preserved-history/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.207705
+    },
+    {
+      "path": "checks/reuse-audit/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 0.09002
+    },
+    {
+      "path": "checks/reuse-audit-final/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.149996
+    },
+    {
+      "path": "checks/reuse-audit-fixed/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 0.146917
+    },
+    {
+      "path": "checks/reuse-audit-with-rerun/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.140424
+    },
+    {
+      "path": "checks/reuse-rerun/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.788044
+    },
+    {
+      "path": "checks/source-hashes/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.047994
+    },
+    {
+      "path": "checks/source-hashes-final/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.042666
+    },
+    {
+      "path": "checks/source-hashes-final-trace/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.047978
+    },
+    {
+      "path": "checks/source-hashes-with-reuse/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.047547
+    },
+    {
+      "path": "checks/trace-input-prepare/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.023912
+    },
+    {
+      "path": "results/build-1/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 7.957133
+    },
+    {
+      "path": "results/build-2/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 1.579895
+    },
+    {
+      "path": "results/build-3/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 1.569876
+    },
+    {
+      "path": "results/final-audit/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.261912
+    },
+    {
+      "path": "results/final-build/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 1.573313
+    },
+    {
+      "path": "results/final-four-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 5.76717
+    },
+    {
+      "path": "results/final-holdout-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 11.718011
+    },
+    {
+      "path": "results/final-one-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 7.06621
+    },
+    {
+      "path": "results/final-tests/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 2.074821
+    },
+    {
+      "path": "results/holdout-four-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 11.203386
+    },
+    {
+      "path": "results/identity/run.json",
+      "status": "completed",
+      "allowance": 30.0,
+      "elapsed": 0.083882
+    },
+    {
+      "path": "results/lean-1/run.json",
+      "status": "failed",
+      "allowance": 295.0,
+      "elapsed": 0.917853
+    },
+    {
+      "path": "results/lean-2/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.327314
+    },
+    {
+      "path": "results/matrix-four-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 5.534481
+    },
+    {
+      "path": "results/matrix-one-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 7.093611
+    },
+    {
+      "path": "results/pilot-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 1.078157
+    },
+    {
+      "path": "results/reuse-build/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 8.250134
+    },
+    {
+      "path": "results/reuse-build-final/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 0.329322
+    },
+    {
+      "path": "results/reuse-final-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 1.305696
+    },
+    {
+      "path": "results/reuse-run/run.json",
+      "status": "completed",
+      "allowance": 290.0,
+      "elapsed": 1.306329
+    },
+    {
+      "path": "results/tests-1/run.json",
+      "status": "completed",
+      "allowance": 295.0,
+      "elapsed": 1.025523
+    }
+  ],
+  "failed_receipts": [
+    "checks/candidate-build-3/run.json",
+    "checks/candidate-build-final/run.json",
+    "checks/lean-independent/run.json",
+    "checks/reuse-audit/run.json",
+    "checks/reuse-audit-fixed/run.json",
+    "results/lean-1/run.json"
+  ],
+  "source_sha256": {
+    "experiments/demand-bounds-20261004/native/src/lib.rs": "f2f89aaf04090a7b9570cbb3782293eb9bd384cdd397472606e9323b9f89dd2a",
+    "experiments/demand-bounds-20261004/native/src/bounds.rs": "d4cf9b2fc7c16c4688bc223d1ba36652c32465c2a3ac4c6307afc0d270f7ae42",
+    "experiments/demand-bounds-20261004/native/src/main.rs": "b2715047fa44f347af51bb5fa5d3dcb41e9ecbfa52af2b5f1216b239f37d00d5",
+    "experiments/demand-bounds-20261004/math/DemandBounds.lean": "b72a6d21924b9812de530bd8150dfa4ad94fdae28c94213163c706997ec2bb27",
+    "experiments/demand-bounds-20261004/compare.py": "704feb7db80fc202c4722003b8b5a19d721ae8da62e32260fdf7a328d2db0845",
+    "experiments/demand-bounds-20261004/reuse.py": "8f04ecc6afd36468721910f95ac95f397454fa3cddc4eba7d4dac21f2eafd7ba",
+    "experiments/demand-bounds-20261004/reuse/src/main.rs": "33ba8dbcf1128ab187aa39094e7e0e4edb5e18b4cc4a867f28e13e3ca8c60b0d",
+    "experiments/demand-bounds-20261004/verify.py": "c0ad7e60d6e9200fdf3379d4d262b3fc8761353391517785760d4fe1b7e7e38b"
+  },
+  "scope": "Finite exploratory component. Every demanded choice on six-root8field2trace separately checked by independent runner; seven conditional Lean arithmetic/view lemmas. No Rust refinement/privacy/phone/strength/generic-k claim. Timings include frontend components; reuse wait4 spans whole validation study."
+}

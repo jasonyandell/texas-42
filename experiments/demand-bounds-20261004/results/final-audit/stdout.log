@@ -1,0 +1,15 @@
+{
+  "base_checkpoint": "7f4c68a01a5d3caae5345695750cdd5b4ee8e736",
+  "unchanged_preexisting_paths": true,
+  "completed_timed_vector_comparisons": 4145,
+  "refused_timed_observations": 20,
+  "reuse_vector_checks": 90,
+  "failed_receipts": [
+    "checks/candidate-build-3/run.json",
+    "checks/candidate-build-final/run.json",
+    "checks/lean-independent/run.json",
+    "checks/reuse-audit/run.json",
+    "checks/reuse-audit-fixed/run.json",
+    "results/lean-1/run.json"
+  ]
+}

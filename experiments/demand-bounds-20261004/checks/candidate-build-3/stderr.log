@@ -1,0 +1,18 @@
+   Compiling native-frontier v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-5/research-worktree/experiments/demand-bounds-20261004/native)
+   Compiling demand-bounds-independent-check v0.1.0 (/Users/jason/Documents/Codex/2026-10-04/task-5/research-worktree/experiments/demand-bounds-20261004/checks/runner)
+error[E0618]: expected function, found `native_frontier::Service`
+  --> src/main.rs:56:76
+   |
+16 | fn bounded()->Service {config(service())}
+   | --------------------- this function of the same name is available here, but it's shadowed by the local binding
+...
+44 |     let mut bounded=bounded();let choice=bounded.actor_choices(&[spec.clone()]).unwrap()[0];assert_eq!(choice,full.choice);
+   |         ----------- `bounded` has type `native_frontier::Service`
+...
+56 |       let eager=service().root_answers(&[pq.clone()]).unwrap();let bounded=bounded().root_answers(&[pq.clone()]).unwrap();assert_eq!...
+   |                                                                            ^^^^^^^--
+   |                                                                            |
+   |                                                                            call expression requires function
+
+For more information about this error, try `rustc --explain E0618`.
+error: could not compile `demand-bounds-independent-check` (bin "demand-bounds-independent-check") due to 1 previous error

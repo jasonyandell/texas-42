@@ -1,0 +1,12 @@
+[package]
+name = "demand-bounds-independent-check"
+version = "0.1.0"
+edition = "2021"
+publish = false
+[workspace]
+[dependencies]
+native-frontier = { path = "../../native" }
+walt = { path = "../../../../walt/walt", default-features = false, features = ["cpu-speedups", "parallel"] }
+serde_json = "1"
+[profile.release]
+overflow-checks = true

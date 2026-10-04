@@ -1,0 +1,10 @@
+{"worlds": 2, "field": 0, "status": "parity and demand counts reproduced"}
+{"worlds": 2, "field": 1, "status": "parity and demand counts reproduced"}
+{"worlds": 2, "field": 2, "status": "parity and demand counts reproduced"}
+{"worlds": 8, "field": 0, "status": "parity and demand counts reproduced"}
+{"worlds": 8, "field": 1, "status": "parity and demand counts reproduced"}
+{"worlds": 8, "field": 2, "status": "parity and demand counts reproduced"}
+{"worlds": 40, "field": 0, "status": "parity and demand counts reproduced"}
+{"worlds": 40, "field": 1, "status": "parity and demand counts reproduced"}
+{"worlds": 40, "field": 2, "status": "parity and demand counts reproduced"}
+{"completed_vectors": 102, "full_refusals": 1, "all_completed_choices_and_vectors_equal": true}

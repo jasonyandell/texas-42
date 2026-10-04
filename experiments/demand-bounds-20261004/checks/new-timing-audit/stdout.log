@@ -1,0 +1,2311 @@
+{
+  "completed_vector_comparisons": 4247,
+  "refused_variant_observations": 21,
+  "panels": [
+    {
+      "directory": "pilot",
+      "current_binary_identity_matches": {
+        "bounded": false,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 8,
+      "field": 0,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 8.395,
+          "misses": [
+            446
+          ],
+          "inner_worlds": [
+            1784
+          ],
+          "native_misses": [],
+          "rss_bytes": 3620864
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 3.523,
+          "misses": [
+            446
+          ],
+          "inner_worlds": [
+            1784
+          ],
+          "native_misses": [],
+          "rss_bytes": 4636672
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 1.4040000000000001,
+          "misses": [
+            446
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            446,
+            0,
+            0,
+            0
+          ],
+          "rss_bytes": 5701632
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 0.707
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.4196545562835021,
+        "hybrid_over_bounded": 0.1672424061941632,
+        "recursive_over_bounded": 0.08421679571173317
+      }
+    },
+    {
+      "directory": "pilot",
+      "current_binary_identity_matches": {
+        "bounded": false,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 8,
+      "field": 1,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 22.258,
+          "misses": [
+            2623,
+            468
+          ],
+          "inner_worlds": [
+            10492,
+            936
+          ],
+          "native_misses": [],
+          "rss_bytes": 4538368
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 15.110999999999999,
+          "misses": [
+            3607,
+            468
+          ],
+          "inner_worlds": [
+            14428,
+            936
+          ],
+          "native_misses": [],
+          "rss_bytes": 8241152
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 2.022,
+          "misses": [
+            0,
+            468
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            2656,
+            468,
+            0,
+            0
+          ],
+          "rss_bytes": 5996544
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 1.522
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.6789019678317908,
+        "hybrid_over_bounded": 0.09084374157606254,
+        "recursive_over_bounded": 0.06837990834756043
+      }
+    },
+    {
+      "directory": "pilot",
+      "current_binary_identity_matches": {
+        "bounded": false,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 8,
+      "field": 2,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 50.751999999999995,
+          "misses": [
+            8559,
+            2637,
+            470
+          ],
+          "inner_worlds": [
+            34236,
+            5274,
+            940
+          ],
+          "native_misses": [],
+          "rss_bytes": 7389184
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 46.716,
+          "misses": [
+            15452,
+            3708,
+            470
+          ],
+          "inner_worlds": [
+            61808,
+            7416,
+            940
+          ],
+          "native_misses": [],
+          "rss_bytes": 18300928
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 4.0280000000000005,
+          "misses": [
+            0,
+            0,
+            470
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            8297,
+            2582,
+            470,
+            0
+          ],
+          "rss_bytes": 6160384
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 3.615
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.9204760403530896,
+        "hybrid_over_bounded": 0.07936633039092056,
+        "recursive_over_bounded": 0.07122872005044137
+      }
+    },
+    {
+      "directory": "pilot",
+      "current_binary_identity_matches": {
+        "bounded": false,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 40,
+      "field": 0,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 12.735,
+          "misses": [
+            1738
+          ],
+          "inner_worlds": [
+            6952
+          ],
+          "native_misses": [],
+          "rss_bytes": 4456448
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 7.5249999999999995,
+          "misses": [
+            1738
+          ],
+          "inner_worlds": [
+            6952
+          ],
+          "native_misses": [],
+          "rss_bytes": 6193152
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 2.33,
+          "misses": [
+            1738
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            1738,
+            0,
+            0,
+            0
+          ],
+          "rss_bytes": 6602752
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 1.9629999999999999
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.5908912446014919,
+        "hybrid_over_bounded": 0.18296034550451512,
+        "recursive_over_bounded": 0.1541421279937181
+      }
+    },
+    {
+      "directory": "pilot",
+      "current_binary_identity_matches": {
+        "bounded": false,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 40,
+      "field": 1,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 56.098,
+          "misses": [
+            9541,
+            1747
+          ],
+          "inner_worlds": [
+            38164,
+            3494
+          ],
+          "native_misses": [],
+          "rss_bytes": 7897088
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 43.255,
+          "misses": [
+            13366,
+            1747
+          ],
+          "inner_worlds": [
+            53464,
+            3494
+          ],
+          "native_misses": [],
+          "rss_bytes": 21102592
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 5.739,
+          "misses": [
+            0,
+            1747
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            9929,
+            1747,
+            0,
+            0
+          ],
+          "rss_bytes": 6881280
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 4.907
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.7710613569111199,
+        "hybrid_over_bounded": 0.10230311241042461,
+        "recursive_over_bounded": 0.08747192413276765
+      }
+    },
+    {
+      "directory": "pilot",
+      "current_binary_identity_matches": {
+        "bounded": false,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 40,
+      "field": 2,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 161.47400000000002,
+          "misses": [
+            28689,
+            9376,
+            1782
+          ],
+          "inner_worlds": [
+            114756,
+            18752,
+            3564
+          ],
+          "native_misses": [],
+          "rss_bytes": 19251200
+        },
+        "full": {
+          "complete": false,
+          "cold_or_refusal_ms": 118.978,
+          "misses": [
+            38371,
+            9786,
+            1377
+          ],
+          "inner_worlds": [
+            153484,
+            19572,
+            2754
+          ],
+          "native_misses": [],
+          "rss_bytes": 37142528
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 13.778,
+          "misses": [
+            0,
+            0,
+            1782
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            28940,
+            9298,
+            1782,
+            0
+          ],
+          "rss_bytes": 7798784
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 13.297
+        }
+      },
+      "complete_service_ratios": {
+        "hybrid_over_bounded": 0.08532643026121853,
+        "recursive_over_bounded": 0.08234762252746572
+      }
+    },
+    {
+      "directory": "matrix-one",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 2,
+      "field": 0,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 1.2260000000000002,
+          "misses": [
+            117
+          ],
+          "inner_worlds": [
+            468
+          ],
+          "native_misses": [],
+          "rss_bytes": 3080192
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 0.9560000000000001,
+          "misses": [
+            117
+          ],
+          "inner_worlds": [
+            468
+          ],
+          "native_misses": [],
+          "rss_bytes": 4145152
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 1.0510000000000002,
+          "misses": [
+            117
+          ],
+          "inner_worlds": [
+            468
+          ],
+          "native_misses": [],
+          "rss_bytes": 3932160
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 0.433,
+          "misses": [
+            117
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            117,
+            0,
+            0,
+            0
+          ],
+          "rss_bytes": 5046272
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 0.255
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.8572593800978793,
+        "hybrid_over_bounded": 0.3531810766721044,
+        "recursive_over_bounded": 0.20799347471451876,
+        "full_over_eagerzero": 1.0993723849372385,
+        "hybrid_over_eagerzero": 0.45292887029288703,
+        "recursive_over_eagerzero": 0.26673640167364016
+      }
+    },
+    {
+      "directory": "matrix-one",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 2,
+      "field": 1,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 4.15,
+          "misses": [
+            662,
+            122
+          ],
+          "inner_worlds": [
+            2648,
+            244
+          ],
+          "native_misses": [],
+          "rss_bytes": 3424256
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 4.675000000000001,
+          "misses": [
+            662,
+            122
+          ],
+          "inner_worlds": [
+            2648,
+            244
+          ],
+          "native_misses": [],
+          "rss_bytes": 4325376
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 3.8249999999999997,
+          "misses": [
+            929,
+            122
+          ],
+          "inner_worlds": [
+            3716,
+            244
+          ],
+          "native_misses": [],
+          "rss_bytes": 5226496
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 0.628,
+          "misses": [
+            0,
+            122
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            667,
+            122,
+            0,
+            0
+          ],
+          "rss_bytes": 5423104
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 0.44499999999999995
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.9216867469879517,
+        "hybrid_over_bounded": 0.15132530120481927,
+        "recursive_over_bounded": 0.1072289156626506,
+        "full_over_eagerzero": 0.8181818181818181,
+        "hybrid_over_eagerzero": 0.13433155080213902,
+        "recursive_over_eagerzero": 0.09518716577540105
+      }
+    },
+    {
+      "directory": "matrix-one",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 2,
+      "field": 2,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 11.629999999999999,
+          "misses": [
+            2080,
+            707,
+            124
+          ],
+          "inner_worlds": [
+            8320,
+            1414,
+            248
+          ],
+          "native_misses": [],
+          "rss_bytes": 4128768
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 13.24,
+          "misses": [
+            2080,
+            707,
+            124
+          ],
+          "inner_worlds": [
+            8320,
+            1414,
+            248
+          ],
+          "native_misses": [],
+          "rss_bytes": 5373952
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 13.619,
+          "misses": [
+            4188,
+            1040,
+            124
+          ],
+          "inner_worlds": [
+            16752,
+            2080,
+            248
+          ],
+          "native_misses": [],
+          "rss_bytes": 8421376
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 1.203,
+          "misses": [
+            0,
+            0,
+            124
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            2023,
+            693,
+            124,
+            0
+          ],
+          "rss_bytes": 5439488
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 1.0250000000000001
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 1.1710232158211522,
+        "hybrid_over_bounded": 0.10343938091143595,
+        "recursive_over_bounded": 0.08813413585554601,
+        "full_over_eagerzero": 1.0286253776435044,
+        "hybrid_over_eagerzero": 0.09086102719033233,
+        "recursive_over_eagerzero": 0.07741691842900303
+      }
+    },
+    {
+      "directory": "matrix-one",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 8,
+      "field": 0,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 3.492,
+          "misses": [
+            446
+          ],
+          "inner_worlds": [
+            1784
+          ],
+          "native_misses": [],
+          "rss_bytes": 3620864
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 2.21,
+          "misses": [
+            446
+          ],
+          "inner_worlds": [
+            1784
+          ],
+          "native_misses": [],
+          "rss_bytes": 4866048
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 2.18,
+          "misses": [
+            446
+          ],
+          "inner_worlds": [
+            1784
+          ],
+          "native_misses": [],
+          "rss_bytes": 4554752
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 0.772,
+          "misses": [
+            446
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            446,
+            0,
+            0,
+            0
+          ],
+          "rss_bytes": 5701632
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 0.42700000000000005
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.6242840778923253,
+        "hybrid_over_bounded": 0.22107674684994275,
+        "recursive_over_bounded": 0.1222794959908362,
+        "full_over_eagerzero": 0.9864253393665158,
+        "hybrid_over_eagerzero": 0.34932126696832577,
+        "recursive_over_eagerzero": 0.19321266968325793
+      }
+    },
+    {
+      "directory": "matrix-one",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 8,
+      "field": 1,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 16.628,
+          "misses": [
+            2623,
+            468
+          ],
+          "inner_worlds": [
+            10492,
+            936
+          ],
+          "native_misses": [],
+          "rss_bytes": 4489216
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 17.401,
+          "misses": [
+            2623,
+            468
+          ],
+          "inner_worlds": [
+            10492,
+            936
+          ],
+          "native_misses": [],
+          "rss_bytes": 5521408
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 12.515,
+          "misses": [
+            3607,
+            468
+          ],
+          "inner_worlds": [
+            14428,
+            936
+          ],
+          "native_misses": [],
+          "rss_bytes": 8536064
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 1.745,
+          "misses": [
+            0,
+            468
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            2656,
+            468,
+            0,
+            0
+          ],
+          "rss_bytes": 5947392
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 1.35
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.7526461390425788,
+        "hybrid_over_bounded": 0.10494346884772672,
+        "recursive_over_bounded": 0.08118835698821265,
+        "full_over_eagerzero": 0.7192115395666916,
+        "hybrid_over_eagerzero": 0.10028159301189588,
+        "recursive_over_eagerzero": 0.07758174817539222
+      }
+    },
+    {
+      "directory": "matrix-one",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 8,
+      "field": 2,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 47.591,
+          "misses": [
+            8559,
+            2637,
+            470
+          ],
+          "inner_worlds": [
+            34236,
+            5274,
+            940
+          ],
+          "native_misses": [],
+          "rss_bytes": 7389184
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 54.921,
+          "misses": [
+            8559,
+            2637,
+            470
+          ],
+          "inner_worlds": [
+            34236,
+            5274,
+            940
+          ],
+          "native_misses": [],
+          "rss_bytes": 9764864
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 46.514,
+          "misses": [
+            15452,
+            3708,
+            470
+          ],
+          "inner_worlds": [
+            61808,
+            7416,
+            940
+          ],
+          "native_misses": [],
+          "rss_bytes": 19136512
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 4.069999999999999,
+          "misses": [
+            0,
+            0,
+            470
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            8297,
+            2582,
+            470,
+            0
+          ],
+          "rss_bytes": 6144000
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 3.764
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.9773696707360635,
+        "hybrid_over_bounded": 0.0855203714988128,
+        "recursive_over_bounded": 0.07909058435418462,
+        "full_over_eagerzero": 0.8469255840206843,
+        "hybrid_over_eagerzero": 0.07410644380109611,
+        "recursive_over_eagerzero": 0.06853480453742648
+      }
+    },
+    {
+      "directory": "matrix-one",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 40,
+      "field": 0,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 13.359,
+          "misses": [
+            1738
+          ],
+          "inner_worlds": [
+            6952
+          ],
+          "native_misses": [],
+          "rss_bytes": 4472832
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 7.49,
+          "misses": [
+            1738
+          ],
+          "inner_worlds": [
+            6952
+          ],
+          "native_misses": [],
+          "rss_bytes": 6520832
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 7.327,
+          "misses": [
+            1738
+          ],
+          "inner_worlds": [
+            6952
+          ],
+          "native_misses": [],
+          "rss_bytes": 6537216
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 2.319,
+          "misses": [
+            1738
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            1738,
+            0,
+            0,
+            0
+          ],
+          "rss_bytes": 6586368
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 1.928
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.5484691967961675,
+        "hybrid_over_bounded": 0.1735908376375477,
+        "recursive_over_bounded": 0.14432217980387754,
+        "full_over_eagerzero": 0.978237650200267,
+        "hybrid_over_eagerzero": 0.3096128170894526,
+        "recursive_over_eagerzero": 0.25740987983978636
+      }
+    },
+    {
+      "directory": "matrix-one",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 40,
+      "field": 1,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 57.914,
+          "misses": [
+            9541,
+            1747
+          ],
+          "inner_worlds": [
+            38164,
+            3494
+          ],
+          "native_misses": [],
+          "rss_bytes": 7880704
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 64.009,
+          "misses": [
+            9541,
+            1747
+          ],
+          "inner_worlds": [
+            38164,
+            3494
+          ],
+          "native_misses": [],
+          "rss_bytes": 10403840
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 43.241,
+          "misses": [
+            13366,
+            1747
+          ],
+          "inner_worlds": [
+            53464,
+            3494
+          ],
+          "native_misses": [],
+          "rss_bytes": 21331968
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 5.671,
+          "misses": [
+            0,
+            1747
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            9929,
+            1747,
+            0,
+            0
+          ],
+          "rss_bytes": 6766592
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 5.0
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.7466415719860483,
+        "hybrid_over_bounded": 0.09792105535794454,
+        "recursive_over_bounded": 0.08633491038436303,
+        "full_over_eagerzero": 0.6755456263962881,
+        "hybrid_over_eagerzero": 0.08859691605867925,
+        "recursive_over_eagerzero": 0.07811401521661017
+      }
+    },
+    {
+      "directory": "matrix-one",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 40,
+      "field": 2,
+      "workers": 1,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 162.781,
+          "misses": [
+            28689,
+            9376,
+            1782
+          ],
+          "inner_worlds": [
+            114756,
+            18752,
+            3564
+          ],
+          "native_misses": [],
+          "rss_bytes": 19218432
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 187.556,
+          "misses": [
+            28689,
+            9376,
+            1782
+          ],
+          "inner_worlds": [
+            114756,
+            18752,
+            3564
+          ],
+          "native_misses": [],
+          "rss_bytes": 28049408
+        },
+        "full": {
+          "complete": false,
+          "cold_or_refusal_ms": 113.775,
+          "misses": [
+            38371,
+            9786,
+            1377
+          ],
+          "inner_worlds": [
+            153484,
+            19572,
+            2754
+          ],
+          "native_misses": [],
+          "rss_bytes": 35913728
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 13.961,
+          "misses": [
+            0,
+            0,
+            1782
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            28940,
+            9298,
+            1782,
+            0
+          ],
+          "rss_bytes": 7815168
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 13.304
+        }
+      },
+      "complete_service_ratios": {
+        "hybrid_over_bounded": 0.08576553774703435,
+        "recursive_over_bounded": 0.08172944016807858,
+        "hybrid_over_eagerzero": 0.07443643498475122,
+        "recursive_over_eagerzero": 0.07093348120028152
+      }
+    },
+    {
+      "directory": "matrix-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 2,
+      "field": 0,
+      "workers": 4,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 1.071,
+          "misses": [
+            117
+          ],
+          "inner_worlds": [
+            468
+          ],
+          "native_misses": [],
+          "rss_bytes": 3407872
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 0.694,
+          "misses": [
+            117
+          ],
+          "inner_worlds": [
+            468
+          ],
+          "native_misses": [],
+          "rss_bytes": 4177920
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 0.704,
+          "misses": [
+            117
+          ],
+          "inner_worlds": [
+            468
+          ],
+          "native_misses": [],
+          "rss_bytes": 4096000
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 0.359,
+          "misses": [
+            117
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            117,
+            0,
+            0,
+            0
+          ],
+          "rss_bytes": 5128192
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 0.162
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.6573295985060691,
+        "hybrid_over_bounded": 0.3352007469654529,
+        "recursive_over_bounded": 0.1512605042016807,
+        "full_over_eagerzero": 1.0144092219020173,
+        "hybrid_over_eagerzero": 0.5172910662824208,
+        "recursive_over_eagerzero": 0.23342939481268013
+      }
+    },
+    {
+      "directory": "matrix-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 2,
+      "field": 1,
+      "workers": 4,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 3.179,
+          "misses": [
+            662,
+            122
+          ],
+          "inner_worlds": [
+            2648,
+            244
+          ],
+          "native_misses": [],
+          "rss_bytes": 4046848
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 3.848,
+          "misses": [
+            662,
+            122
+          ],
+          "inner_worlds": [
+            2648,
+            244
+          ],
+          "native_misses": [],
+          "rss_bytes": 4669440
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 2.488,
+          "misses": [
+            929,
+            122
+          ],
+          "inner_worlds": [
+            3716,
+            244
+          ],
+          "native_misses": [],
+          "rss_bytes": 5488640
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 0.449,
+          "misses": [
+            0,
+            122
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            667,
+            122,
+            0,
+            0
+          ],
+          "rss_bytes": 5586944
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 0.29100000000000004
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.7826360490720353,
+        "hybrid_over_bounded": 0.14123938345391635,
+        "recursive_over_bounded": 0.09153821956590123,
+        "full_over_eagerzero": 0.6465696465696467,
+        "hybrid_over_eagerzero": 0.1166839916839917,
+        "recursive_over_eagerzero": 0.07562370062370063
+      }
+    },
+    {
+      "directory": "matrix-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 2,
+      "field": 2,
+      "workers": 4,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 8.527,
+          "misses": [
+            2080,
+            707,
+            124
+          ],
+          "inner_worlds": [
+            8320,
+            1414,
+            248
+          ],
+          "native_misses": [],
+          "rss_bytes": 4669440
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 10.43,
+          "misses": [
+            2080,
+            707,
+            124
+          ],
+          "inner_worlds": [
+            8320,
+            1414,
+            248
+          ],
+          "native_misses": [],
+          "rss_bytes": 5357568
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 7.801,
+          "misses": [
+            4188,
+            1040,
+            124
+          ],
+          "inner_worlds": [
+            16752,
+            2080,
+            248
+          ],
+          "native_misses": [],
+          "rss_bytes": 9224192
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 0.6809999999999999,
+          "misses": [
+            0,
+            0,
+            124
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            2023,
+            693,
+            124,
+            0
+          ],
+          "rss_bytes": 5652480
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 0.5810000000000001
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.9148586841796645,
+        "hybrid_over_bounded": 0.07986396153395098,
+        "recursive_over_bounded": 0.06813650756420782,
+        "full_over_eagerzero": 0.7479386385426654,
+        "hybrid_over_eagerzero": 0.06529242569511026,
+        "recursive_over_eagerzero": 0.055704697986577185
+      }
+    },
+    {
+      "directory": "matrix-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 8,
+      "field": 0,
+      "workers": 4,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 2.468,
+          "misses": [
+            446
+          ],
+          "inner_worlds": [
+            1784
+          ],
+          "native_misses": [],
+          "rss_bytes": 4177920
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 1.307,
+          "misses": [
+            446
+          ],
+          "inner_worlds": [
+            1784
+          ],
+          "native_misses": [],
+          "rss_bytes": 5210112
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 1.3259999999999998,
+          "misses": [
+            446
+          ],
+          "inner_worlds": [
+            1784
+          ],
+          "native_misses": [],
+          "rss_bytes": 4947968
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 0.574,
+          "misses": [
+            446
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            446,
+            0,
+            0,
+            0
+          ],
+          "rss_bytes": 5767168
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 0.262
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.5372771474878444,
+        "hybrid_over_bounded": 0.23257698541329008,
+        "recursive_over_bounded": 0.10615883306320908,
+        "full_over_eagerzero": 1.0145371078806427,
+        "hybrid_over_eagerzero": 0.4391736801836266,
+        "recursive_over_eagerzero": 0.2004590665646519
+      }
+    },
+    {
+      "directory": "matrix-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 8,
+      "field": 1,
+      "workers": 4,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 10.119,
+          "misses": [
+            2623,
+            468
+          ],
+          "inner_worlds": [
+            10492,
+            936
+          ],
+          "native_misses": [],
+          "rss_bytes": 5292032
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 12.496,
+          "misses": [
+            2623,
+            468
+          ],
+          "inner_worlds": [
+            10492,
+            936
+          ],
+          "native_misses": [],
+          "rss_bytes": 6029312
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 6.398,
+          "misses": [
+            3607,
+            468
+          ],
+          "inner_worlds": [
+            14428,
+            936
+          ],
+          "native_misses": [],
+          "rss_bytes": 8339456
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 0.9420000000000001,
+          "misses": [
+            0,
+            468
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            2656,
+            468,
+            0,
+            0
+          ],
+          "rss_bytes": 6029312
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 0.622
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.6322759165925487,
+        "hybrid_over_bounded": 0.09309220278683665,
+        "recursive_over_bounded": 0.06146852455776263,
+        "full_over_eagerzero": 0.5120038412291933,
+        "hybrid_over_eagerzero": 0.07538412291933419,
+        "recursive_over_eagerzero": 0.04977592829705506
+      }
+    },
+    {
+      "directory": "matrix-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 8,
+      "field": 2,
+      "workers": 4,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 28.755,
+          "misses": [
+            8559,
+            2637,
+            470
+          ],
+          "inner_worlds": [
+            34236,
+            5274,
+            940
+          ],
+          "native_misses": [],
+          "rss_bytes": 8486912
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 36.297999999999995,
+          "misses": [
+            8559,
+            2637,
+            470
+          ],
+          "inner_worlds": [
+            34236,
+            5274,
+            940
+          ],
+          "native_misses": [],
+          "rss_bytes": 8519680
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 21.908,
+          "misses": [
+            15452,
+            3708,
+            470
+          ],
+          "inner_worlds": [
+            61808,
+            7416,
+            940
+          ],
+          "native_misses": [],
+          "rss_bytes": 19316736
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 1.9829999999999999,
+          "misses": [
+            0,
+            0,
+            470
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            8297,
+            2582,
+            470,
+            0
+          ],
+          "rss_bytes": 6258688
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 1.547
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.7618848895844201,
+        "hybrid_over_bounded": 0.06896191966614502,
+        "recursive_over_bounded": 0.05379933924534864,
+        "full_over_eagerzero": 0.6035594247616949,
+        "hybrid_over_eagerzero": 0.0546311091520194,
+        "recursive_over_eagerzero": 0.042619428067662134
+      }
+    },
+    {
+      "directory": "matrix-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 40,
+      "field": 0,
+      "workers": 4,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 7.37,
+          "misses": [
+            1738
+          ],
+          "inner_worlds": [
+            6952
+          ],
+          "native_misses": [],
+          "rss_bytes": 5242880
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 3.813,
+          "misses": [
+            1738
+          ],
+          "inner_worlds": [
+            6952
+          ],
+          "native_misses": [],
+          "rss_bytes": 7946240
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 3.8249999999999997,
+          "misses": [
+            1738
+          ],
+          "inner_worlds": [
+            6952
+          ],
+          "native_misses": [],
+          "rss_bytes": 8044544
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 1.482,
+          "misses": [
+            1738
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            1738,
+            0,
+            0,
+            0
+          ],
+          "rss_bytes": 7127040
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 1.057
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.5189959294436907,
+        "hybrid_over_bounded": 0.20108548168249663,
+        "recursive_over_bounded": 0.14341926729986432,
+        "full_over_eagerzero": 1.003147128245476,
+        "hybrid_over_eagerzero": 0.3886703383162864,
+        "recursive_over_eagerzero": 0.2772095462890113
+      }
+    },
+    {
+      "directory": "matrix-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 40,
+      "field": 1,
+      "workers": 4,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 35.974,
+          "misses": [
+            9541,
+            1747
+          ],
+          "inner_worlds": [
+            38164,
+            3494
+          ],
+          "native_misses": [],
+          "rss_bytes": 9027584
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 46.449999999999996,
+          "misses": [
+            9541,
+            1747
+          ],
+          "inner_worlds": [
+            38164,
+            3494
+          ],
+          "native_misses": [],
+          "rss_bytes": 9863168
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 19.967,
+          "misses": [
+            13366,
+            1747
+          ],
+          "inner_worlds": [
+            53464,
+            3494
+          ],
+          "native_misses": [],
+          "rss_bytes": 16678912
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 2.798,
+          "misses": [
+            0,
+            1747
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            9929,
+            1747,
+            0,
+            0
+          ],
+          "rss_bytes": 7290880
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 2.125
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.555039750931228,
+        "hybrid_over_bounded": 0.0777783955078668,
+        "recursive_over_bounded": 0.05907043976205038,
+        "full_over_eagerzero": 0.42986006458557585,
+        "hybrid_over_eagerzero": 0.060236813778256196,
+        "recursive_over_eagerzero": 0.0457481162540366
+      }
+    },
+    {
+      "directory": "matrix-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 40,
+      "field": 2,
+      "workers": 4,
+      "roots": 6,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 89.571,
+          "misses": [
+            28689,
+            9376,
+            1782
+          ],
+          "inner_worlds": [
+            114756,
+            18752,
+            3564
+          ],
+          "native_misses": [],
+          "rss_bytes": 17088512
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 131.502,
+          "misses": [
+            28689,
+            9376,
+            1782
+          ],
+          "inner_worlds": [
+            114756,
+            18752,
+            3564
+          ],
+          "native_misses": [],
+          "rss_bytes": 20725760
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 68.16999999999999,
+          "misses": [
+            52735,
+            13361,
+            1782
+          ],
+          "inner_worlds": [
+            210940,
+            26722,
+            3564
+          ],
+          "native_misses": [],
+          "rss_bytes": 54149120
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 6.664,
+          "misses": [
+            0,
+            0,
+            1782
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            28940,
+            9298,
+            1782,
+            0
+          ],
+          "rss_bytes": 8355840
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 6.037
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.7610722220361501,
+        "hybrid_over_bounded": 0.07439908005939422,
+        "recursive_over_bounded": 0.067399046566411,
+        "full_over_eagerzero": 0.518395157488099,
+        "hybrid_over_eagerzero": 0.05067603534547003,
+        "recursive_over_eagerzero": 0.04590804702590074
+      }
+    },
+    {
+      "directory": "holdout-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 8,
+      "field": 1,
+      "workers": 4,
+      "roots": 31,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 35.394,
+          "misses": [
+            13876,
+            2437
+          ],
+          "inner_worlds": [
+            55504,
+            4874
+          ],
+          "native_misses": [],
+          "rss_bytes": 10387456
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 58.128,
+          "misses": [
+            13876,
+            2437
+          ],
+          "inner_worlds": [
+            55504,
+            4874
+          ],
+          "native_misses": [],
+          "rss_bytes": 13074432
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 22.447000000000003,
+          "misses": [
+            19031,
+            2437
+          ],
+          "inner_worlds": [
+            76124,
+            4874
+          ],
+          "native_misses": [],
+          "rss_bytes": 18464768
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 3.1710000000000003,
+          "misses": [
+            0,
+            2437
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            13967,
+            2437,
+            0,
+            0
+          ],
+          "rss_bytes": 10371072
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 2.3289999999999997
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.6342035373227101,
+        "hybrid_over_bounded": 0.08959145617901339,
+        "recursive_over_bounded": 0.06580211335254563,
+        "full_over_eagerzero": 0.3861650151390036,
+        "hybrid_over_eagerzero": 0.05455202312138729,
+        "recursive_over_eagerzero": 0.04006674924304982
+      }
+    },
+    {
+      "directory": "holdout-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 8,
+      "field": 2,
+      "workers": 4,
+      "roots": 31,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 100.055,
+          "misses": [
+            43800,
+            13363,
+            2440
+          ],
+          "inner_worlds": [
+            175200,
+            26726,
+            4880
+          ],
+          "native_misses": [],
+          "rss_bytes": 27885568
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 156.552,
+          "misses": [
+            43800,
+            13363,
+            2440
+          ],
+          "inner_worlds": [
+            175200,
+            26726,
+            4880
+          ],
+          "native_misses": [],
+          "rss_bytes": 28590080
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 75.23100000000001,
+          "misses": [
+            80659,
+            18608,
+            2440
+          ],
+          "inner_worlds": [
+            322636,
+            37216,
+            4880
+          ],
+          "native_misses": [],
+          "rss_bytes": 57786368
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 7.257000000000001,
+          "misses": [
+            0,
+            0,
+            2440
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            43486,
+            13323,
+            2440,
+            0
+          ],
+          "rss_bytes": 11567104
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 5.808
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.7518964569486782,
+        "hybrid_over_bounded": 0.0725301084403578,
+        "recursive_over_bounded": 0.058048073559542245,
+        "full_over_eagerzero": 0.48054959374520934,
+        "hybrid_over_eagerzero": 0.04635520466043232,
+        "recursive_over_eagerzero": 0.03709949409780776
+      }
+    },
+    {
+      "directory": "holdout-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 40,
+      "field": 1,
+      "workers": 4,
+      "roots": 31,
+      "details": {
+        "bounded": {
+          "complete": true,
+          "cold_or_refusal_ms": 129.887,
+          "misses": [
+            53559,
+            10044
+          ],
+          "inner_worlds": [
+            214236,
+            20088
+          ],
+          "native_misses": [],
+          "rss_bytes": 29884416
+        },
+        "eagerzero": {
+          "complete": true,
+          "cold_or_refusal_ms": 201.221,
+          "misses": [
+            53559,
+            10044
+          ],
+          "inner_worlds": [
+            214236,
+            20088
+          ],
+          "native_misses": [],
+          "rss_bytes": 39043072
+        },
+        "full": {
+          "complete": true,
+          "cold_or_refusal_ms": 73.472,
+          "misses": [
+            73483,
+            10044
+          ],
+          "inner_worlds": [
+            293932,
+            20088
+          ],
+          "native_misses": [],
+          "rss_bytes": 62210048
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 11.117999999999999,
+          "misses": [
+            0,
+            10044
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            55622,
+            10044,
+            0,
+            0
+          ],
+          "rss_bytes": 14172160
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 8.876
+        }
+      },
+      "complete_service_ratios": {
+        "full_over_bounded": 0.5656609206464079,
+        "hybrid_over_bounded": 0.08559748088723275,
+        "recursive_over_bounded": 0.0683363231116278,
+        "full_over_eagerzero": 0.3651308760020077,
+        "hybrid_over_eagerzero": 0.05525268237410608,
+        "recursive_over_eagerzero": 0.044110704151157185
+      }
+    },
+    {
+      "directory": "holdout-four",
+      "current_binary_identity_matches": {
+        "bounded": true,
+        "eagerzero": true,
+        "full": true,
+        "hybrid": true,
+        "recursive": true
+      },
+      "worlds": 40,
+      "field": 2,
+      "workers": 4,
+      "roots": 31,
+      "details": {
+        "bounded": {
+          "complete": false,
+          "cold_or_refusal_ms": 312.787,
+          "misses": [
+            37005,
+            10994,
+            2001
+          ],
+          "inner_worlds": [
+            148020,
+            21988,
+            4002
+          ],
+          "native_misses": [],
+          "rss_bytes": 63422464
+        },
+        "eagerzero": {
+          "complete": false,
+          "cold_or_refusal_ms": 510.992,
+          "misses": [
+            37005,
+            10994,
+            2001
+          ],
+          "inner_worlds": [
+            148020,
+            21988,
+            4002
+          ],
+          "native_misses": [],
+          "rss_bytes": 100040704
+        },
+        "full": {
+          "complete": false,
+          "cold_or_refusal_ms": 130.68099999999998,
+          "misses": [
+            39828,
+            8940,
+            1091
+          ],
+          "inner_worlds": [
+            159312,
+            17880,
+            2182
+          ],
+          "native_misses": [],
+          "rss_bytes": 124567552
+        },
+        "hybrid": {
+          "complete": true,
+          "cold_or_refusal_ms": 24.944999999999997,
+          "misses": [
+            0,
+            0,
+            10079
+          ],
+          "inner_worlds": [],
+          "native_misses": [
+            166437,
+            52554,
+            10079,
+            0
+          ],
+          "rss_bytes": 19021824
+        },
+        "recursive": {
+          "complete": true,
+          "cold_ms": 21.881999999999998
+        }
+      },
+      "complete_service_ratios": {}
+    }
+  ],
+  "interpretation": "Local repeated finite components. Refusal time excluded from speed ratios. Counts are actual sampled actor misses; hybrid native counters separate. RSS total; counted allocations partial."
+}

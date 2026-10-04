@@ -1,0 +1,465 @@
+{
+  "retained_timing_vector_comparisons": 9336,
+  "matrix_vector_comparisons": 102,
+  "timing_panels": [
+    {
+      "name": "final-one-v2",
+      "worlds": 8,
+      "native_over_linked": 0.3715316315205327,
+      "standalone_native_over_linked": 0.7556092194424758
+    },
+    {
+      "name": "final-one-v2",
+      "worlds": 40,
+      "native_over_linked": 1.3601886672190706,
+      "standalone_native_over_linked": 1.1594290153387785
+    },
+    {
+      "name": "final-one-v2",
+      "worlds": 128,
+      "native_over_linked": 1.500204182517678,
+      "standalone_native_over_linked": 1.2903625264317915
+    },
+    {
+      "name": "final-one-v2",
+      "worlds": 512,
+      "native_over_linked": 1.4731474996498108,
+      "standalone_native_over_linked": 1.2805222501770233
+    },
+    {
+      "name": "final-four-v2",
+      "worlds": 8,
+      "native_over_linked": 0.31845937059652424,
+      "standalone_native_over_linked": 0.7761887515858886
+    },
+    {
+      "name": "final-four-v2",
+      "worlds": 40,
+      "native_over_linked": 1.3979049405878674,
+      "standalone_native_over_linked": 1.0711253802973917
+    },
+    {
+      "name": "final-four-v2",
+      "worlds": 128,
+      "native_over_linked": 1.381867357863301,
+      "standalone_native_over_linked": 1.1018257925980555
+    },
+    {
+      "name": "final-four-v2",
+      "worlds": 512,
+      "native_over_linked": 1.351154595196142,
+      "standalone_native_over_linked": 1.1070505509191186
+    },
+    {
+      "name": "holdout-four",
+      "worlds": 8,
+      "native_over_linked": 0.41360946745562127,
+      "standalone_native_over_linked": 0.8493483436697237
+    },
+    {
+      "name": "holdout-four",
+      "worlds": 40,
+      "native_over_linked": 1.5488198335880456,
+      "standalone_native_over_linked": 1.082976961937931
+    },
+    {
+      "name": "holdout-four",
+      "worlds": 128,
+      "native_over_linked": 1.8055388722055388,
+      "standalone_native_over_linked": 1.2360648150916067
+    },
+    {
+      "name": "holdout-four",
+      "worlds": 512,
+      "native_over_linked": 1.6470448914152456,
+      "standalone_native_over_linked": 1.2030281793798203
+    },
+    {
+      "name": "final-policy0-four",
+      "worlds": 8,
+      "native_over_linked": 0.08407361416244787,
+      "standalone_native_over_linked": 0.18074376422669206
+    },
+    {
+      "name": "final-policy0-four",
+      "worlds": 40,
+      "native_over_linked": 0.14336476283918673,
+      "standalone_native_over_linked": 0.18103425049598235
+    },
+    {
+      "name": "final-hybrid0-four",
+      "worlds": 8,
+      "native_over_linked": 0.31055862492326586,
+      "standalone_native_over_linked": 0.5055750658073543
+    },
+    {
+      "name": "final-hybrid0-four",
+      "worlds": 40,
+      "native_over_linked": 0.5695312974318499,
+      "standalone_native_over_linked": 0.6235485248690892
+    },
+    {
+      "name": "rung0-one",
+      "worlds": 8,
+      "native_over_linked": 0.20790729379686435,
+      "standalone_native_over_linked": 0.6333659160302204
+    },
+    {
+      "name": "rung1-one",
+      "worlds": 8,
+      "native_over_linked": 0.11127656149388282,
+      "standalone_native_over_linked": 0.2706677478409721
+    },
+    {
+      "name": "rung2-one",
+      "worlds": 8,
+      "native_over_linked": 0.08393201331697914,
+      "standalone_native_over_linked": 0.1422496400279118
+    }
+  ],
+  "matrix": [
+    {
+      "worlds": 2,
+      "field": 0,
+      "roots": 6,
+      "details": {
+        "full": {
+          "complete": true,
+          "unique_misses": [
+            117
+          ],
+          "actor_demands": [
+            117
+          ],
+          "inner_worlds": [
+            468
+          ],
+          "generated": 117,
+          "completed": 117
+        },
+        "hybrid": {
+          "complete": true,
+          "unique_misses": [
+            117
+          ],
+          "actor_demands": [
+            117
+          ],
+          "inner_worlds": [],
+          "generated": 117,
+          "completed": 117
+        }
+      }
+    },
+    {
+      "worlds": 2,
+      "field": 1,
+      "roots": 6,
+      "details": {
+        "full": {
+          "complete": true,
+          "unique_misses": [
+            929,
+            122
+          ],
+          "actor_demands": [
+            936,
+            122
+          ],
+          "inner_worlds": [
+            3716,
+            244
+          ],
+          "generated": 1051,
+          "completed": 1051
+        },
+        "hybrid": {
+          "complete": true,
+          "unique_misses": [
+            0,
+            122
+          ],
+          "actor_demands": [
+            0,
+            122
+          ],
+          "inner_worlds": [],
+          "generated": 122,
+          "completed": 122
+        }
+      }
+    },
+    {
+      "worlds": 2,
+      "field": 2,
+      "roots": 6,
+      "details": {
+        "full": {
+          "complete": true,
+          "unique_misses": [
+            4188,
+            1040,
+            124
+          ],
+          "actor_demands": [
+            4268,
+            1045,
+            124
+          ],
+          "inner_worlds": [
+            16752,
+            2080,
+            248
+          ],
+          "generated": 5352,
+          "completed": 5352
+        },
+        "hybrid": {
+          "complete": true,
+          "unique_misses": [
+            0,
+            0,
+            124
+          ],
+          "actor_demands": [
+            0,
+            0,
+            124
+          ],
+          "inner_worlds": [],
+          "generated": 124,
+          "completed": 124
+        }
+      }
+    },
+    {
+      "worlds": 8,
+      "field": 0,
+      "roots": 6,
+      "details": {
+        "full": {
+          "complete": true,
+          "unique_misses": [
+            446
+          ],
+          "actor_demands": [
+            447
+          ],
+          "inner_worlds": [
+            1784
+          ],
+          "generated": 446,
+          "completed": 446
+        },
+        "hybrid": {
+          "complete": true,
+          "unique_misses": [
+            446
+          ],
+          "actor_demands": [
+            447
+          ],
+          "inner_worlds": [],
+          "generated": 446,
+          "completed": 446
+        }
+      }
+    },
+    {
+      "worlds": 8,
+      "field": 1,
+      "roots": 6,
+      "details": {
+        "full": {
+          "complete": true,
+          "unique_misses": [
+            3607,
+            468
+          ],
+          "actor_demands": [
+            3681,
+            470
+          ],
+          "inner_worlds": [
+            14428,
+            936
+          ],
+          "generated": 4075,
+          "completed": 4075
+        },
+        "hybrid": {
+          "complete": true,
+          "unique_misses": [
+            0,
+            468
+          ],
+          "actor_demands": [
+            0,
+            470
+          ],
+          "inner_worlds": [],
+          "generated": 468,
+          "completed": 468
+        }
+      }
+    },
+    {
+      "worlds": 8,
+      "field": 2,
+      "roots": 6,
+      "details": {
+        "full": {
+          "complete": true,
+          "unique_misses": [
+            15452,
+            3708,
+            470
+          ],
+          "actor_demands": [
+            15914,
+            3772,
+            471
+          ],
+          "inner_worlds": [
+            61808,
+            7416,
+            940
+          ],
+          "generated": 19630,
+          "completed": 19630
+        },
+        "hybrid": {
+          "complete": true,
+          "unique_misses": [
+            0,
+            0,
+            470
+          ],
+          "actor_demands": [
+            0,
+            0,
+            471
+          ],
+          "inner_worlds": [],
+          "generated": 470,
+          "completed": 470
+        }
+      }
+    },
+    {
+      "worlds": 40,
+      "field": 0,
+      "roots": 6,
+      "details": {
+        "full": {
+          "complete": true,
+          "unique_misses": [
+            1738
+          ],
+          "actor_demands": [
+            1784
+          ],
+          "inner_worlds": [
+            6952
+          ],
+          "generated": 1738,
+          "completed": 1738
+        },
+        "hybrid": {
+          "complete": true,
+          "unique_misses": [
+            1738
+          ],
+          "actor_demands": [
+            1784
+          ],
+          "inner_worlds": [],
+          "generated": 1738,
+          "completed": 1738
+        }
+      }
+    },
+    {
+      "worlds": 40,
+      "field": 1,
+      "roots": 6,
+      "details": {
+        "full": {
+          "complete": true,
+          "unique_misses": [
+            13366,
+            1747
+          ],
+          "actor_demands": [
+            14065,
+            1823
+          ],
+          "inner_worlds": [
+            53464,
+            3494
+          ],
+          "generated": 15113,
+          "completed": 15113
+        },
+        "hybrid": {
+          "complete": true,
+          "unique_misses": [
+            0,
+            1747
+          ],
+          "actor_demands": [
+            0,
+            1823
+          ],
+          "inner_worlds": [],
+          "generated": 1747,
+          "completed": 1747
+        }
+      }
+    },
+    {
+      "worlds": 40,
+      "field": 2,
+      "roots": 6,
+      "details": {
+        "full": {
+          "complete": false,
+          "unique_misses": [
+            38371,
+            9786,
+            1377
+          ],
+          "actor_demands": [
+            41294,
+            10257,
+            1429
+          ],
+          "inner_worlds": [
+            153484,
+            19572,
+            2754
+          ],
+          "generated": 49534,
+          "completed": 49202
+        },
+        "hybrid": {
+          "complete": true,
+          "unique_misses": [
+            0,
+            0,
+            1782
+          ],
+          "actor_demands": [
+            0,
+            0,
+            1839
+          ],
+          "inner_worlds": [],
+          "generated": 1782,
+          "completed": 1782
+        }
+      }
+    }
+  ],
+  "interpretation": "Finite retained receipts. Full samples count eager sampled queries; hybrid samples are native-reported. Refusal excludes root answers; no minimal-demand, phone, strength, or asymptotic claim."
+}

@@ -1,0 +1,881 @@
+[
+  {
+    "directory": "matrix-one",
+    "worlds": 2,
+    "field": 0,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.8572593800978793,
+      "hybrid_over_bounded": 0.3531810766721044,
+      "recursive_over_bounded": 0.20799347471451876,
+      "full_over_eagerzero": 1.0993723849372385,
+      "hybrid_over_eagerzero": 0.45292887029288703,
+      "recursive_over_eagerzero": 0.26673640167364016
+    },
+    "misses": {
+      "bounded": [
+        117
+      ],
+      "eagerzero": [
+        117
+      ],
+      "full": [
+        117
+      ],
+      "hybrid": [
+        117
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 1.2260000000000002,
+      "eagerzero": 0.9560000000000001,
+      "full": 1.0510000000000002,
+      "hybrid": 0.433,
+      "recursive": 0.255
+    }
+  },
+  {
+    "directory": "matrix-one",
+    "worlds": 2,
+    "field": 1,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.9216867469879517,
+      "hybrid_over_bounded": 0.15132530120481927,
+      "recursive_over_bounded": 0.1072289156626506,
+      "full_over_eagerzero": 0.8181818181818181,
+      "hybrid_over_eagerzero": 0.13433155080213902,
+      "recursive_over_eagerzero": 0.09518716577540105
+    },
+    "misses": {
+      "bounded": [
+        662,
+        122
+      ],
+      "eagerzero": [
+        662,
+        122
+      ],
+      "full": [
+        929,
+        122
+      ],
+      "hybrid": [
+        0,
+        122
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 4.15,
+      "eagerzero": 4.675000000000001,
+      "full": 3.8249999999999997,
+      "hybrid": 0.628,
+      "recursive": 0.44499999999999995
+    }
+  },
+  {
+    "directory": "matrix-one",
+    "worlds": 2,
+    "field": 2,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 1.1710232158211522,
+      "hybrid_over_bounded": 0.10343938091143595,
+      "recursive_over_bounded": 0.08813413585554601,
+      "full_over_eagerzero": 1.0286253776435044,
+      "hybrid_over_eagerzero": 0.09086102719033233,
+      "recursive_over_eagerzero": 0.07741691842900303
+    },
+    "misses": {
+      "bounded": [
+        2080,
+        707,
+        124
+      ],
+      "eagerzero": [
+        2080,
+        707,
+        124
+      ],
+      "full": [
+        4188,
+        1040,
+        124
+      ],
+      "hybrid": [
+        0,
+        0,
+        124
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 11.629999999999999,
+      "eagerzero": 13.24,
+      "full": 13.619,
+      "hybrid": 1.203,
+      "recursive": 1.0250000000000001
+    }
+  },
+  {
+    "directory": "matrix-one",
+    "worlds": 8,
+    "field": 0,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.6242840778923253,
+      "hybrid_over_bounded": 0.22107674684994275,
+      "recursive_over_bounded": 0.1222794959908362,
+      "full_over_eagerzero": 0.9864253393665158,
+      "hybrid_over_eagerzero": 0.34932126696832577,
+      "recursive_over_eagerzero": 0.19321266968325793
+    },
+    "misses": {
+      "bounded": [
+        446
+      ],
+      "eagerzero": [
+        446
+      ],
+      "full": [
+        446
+      ],
+      "hybrid": [
+        446
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 3.492,
+      "eagerzero": 2.21,
+      "full": 2.18,
+      "hybrid": 0.772,
+      "recursive": 0.42700000000000005
+    }
+  },
+  {
+    "directory": "matrix-one",
+    "worlds": 8,
+    "field": 1,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.7526461390425788,
+      "hybrid_over_bounded": 0.10494346884772672,
+      "recursive_over_bounded": 0.08118835698821265,
+      "full_over_eagerzero": 0.7192115395666916,
+      "hybrid_over_eagerzero": 0.10028159301189588,
+      "recursive_over_eagerzero": 0.07758174817539222
+    },
+    "misses": {
+      "bounded": [
+        2623,
+        468
+      ],
+      "eagerzero": [
+        2623,
+        468
+      ],
+      "full": [
+        3607,
+        468
+      ],
+      "hybrid": [
+        0,
+        468
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 16.628,
+      "eagerzero": 17.401,
+      "full": 12.515,
+      "hybrid": 1.745,
+      "recursive": 1.35
+    }
+  },
+  {
+    "directory": "matrix-one",
+    "worlds": 8,
+    "field": 2,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.9773696707360635,
+      "hybrid_over_bounded": 0.0855203714988128,
+      "recursive_over_bounded": 0.07909058435418462,
+      "full_over_eagerzero": 0.8469255840206843,
+      "hybrid_over_eagerzero": 0.07410644380109611,
+      "recursive_over_eagerzero": 0.06853480453742648
+    },
+    "misses": {
+      "bounded": [
+        8559,
+        2637,
+        470
+      ],
+      "eagerzero": [
+        8559,
+        2637,
+        470
+      ],
+      "full": [
+        15452,
+        3708,
+        470
+      ],
+      "hybrid": [
+        0,
+        0,
+        470
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 47.591,
+      "eagerzero": 54.921,
+      "full": 46.514,
+      "hybrid": 4.069999999999999,
+      "recursive": 3.764
+    }
+  },
+  {
+    "directory": "matrix-one",
+    "worlds": 40,
+    "field": 0,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.5484691967961675,
+      "hybrid_over_bounded": 0.1735908376375477,
+      "recursive_over_bounded": 0.14432217980387754,
+      "full_over_eagerzero": 0.978237650200267,
+      "hybrid_over_eagerzero": 0.3096128170894526,
+      "recursive_over_eagerzero": 0.25740987983978636
+    },
+    "misses": {
+      "bounded": [
+        1738
+      ],
+      "eagerzero": [
+        1738
+      ],
+      "full": [
+        1738
+      ],
+      "hybrid": [
+        1738
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 13.359,
+      "eagerzero": 7.49,
+      "full": 7.327,
+      "hybrid": 2.319,
+      "recursive": 1.928
+    }
+  },
+  {
+    "directory": "matrix-one",
+    "worlds": 40,
+    "field": 1,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.7466415719860483,
+      "hybrid_over_bounded": 0.09792105535794454,
+      "recursive_over_bounded": 0.08633491038436303,
+      "full_over_eagerzero": 0.6755456263962881,
+      "hybrid_over_eagerzero": 0.08859691605867925,
+      "recursive_over_eagerzero": 0.07811401521661017
+    },
+    "misses": {
+      "bounded": [
+        9541,
+        1747
+      ],
+      "eagerzero": [
+        9541,
+        1747
+      ],
+      "full": [
+        13366,
+        1747
+      ],
+      "hybrid": [
+        0,
+        1747
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 57.914,
+      "eagerzero": 64.009,
+      "full": 43.241,
+      "hybrid": 5.671,
+      "recursive": 5.0
+    }
+  },
+  {
+    "directory": "matrix-one",
+    "worlds": 40,
+    "field": 2,
+    "roots": 6,
+    "ratios": {
+      "hybrid_over_bounded": 0.08576553774703435,
+      "recursive_over_bounded": 0.08172944016807858,
+      "hybrid_over_eagerzero": 0.07443643498475122,
+      "recursive_over_eagerzero": 0.07093348120028152
+    },
+    "misses": {
+      "bounded": [
+        28689,
+        9376,
+        1782
+      ],
+      "eagerzero": [
+        28689,
+        9376,
+        1782
+      ],
+      "full": [
+        38371,
+        9786,
+        1377
+      ],
+      "hybrid": [
+        0,
+        0,
+        1782
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 162.781,
+      "eagerzero": 187.556,
+      "full": 113.775,
+      "hybrid": 13.961,
+      "recursive": 13.304
+    }
+  },
+  {
+    "directory": "matrix-four",
+    "worlds": 2,
+    "field": 0,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.6573295985060691,
+      "hybrid_over_bounded": 0.3352007469654529,
+      "recursive_over_bounded": 0.1512605042016807,
+      "full_over_eagerzero": 1.0144092219020173,
+      "hybrid_over_eagerzero": 0.5172910662824208,
+      "recursive_over_eagerzero": 0.23342939481268013
+    },
+    "misses": {
+      "bounded": [
+        117
+      ],
+      "eagerzero": [
+        117
+      ],
+      "full": [
+        117
+      ],
+      "hybrid": [
+        117
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 1.071,
+      "eagerzero": 0.694,
+      "full": 0.704,
+      "hybrid": 0.359,
+      "recursive": 0.162
+    }
+  },
+  {
+    "directory": "matrix-four",
+    "worlds": 2,
+    "field": 1,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.7826360490720353,
+      "hybrid_over_bounded": 0.14123938345391635,
+      "recursive_over_bounded": 0.09153821956590123,
+      "full_over_eagerzero": 0.6465696465696467,
+      "hybrid_over_eagerzero": 0.1166839916839917,
+      "recursive_over_eagerzero": 0.07562370062370063
+    },
+    "misses": {
+      "bounded": [
+        662,
+        122
+      ],
+      "eagerzero": [
+        662,
+        122
+      ],
+      "full": [
+        929,
+        122
+      ],
+      "hybrid": [
+        0,
+        122
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 3.179,
+      "eagerzero": 3.848,
+      "full": 2.488,
+      "hybrid": 0.449,
+      "recursive": 0.29100000000000004
+    }
+  },
+  {
+    "directory": "matrix-four",
+    "worlds": 2,
+    "field": 2,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.9148586841796645,
+      "hybrid_over_bounded": 0.07986396153395098,
+      "recursive_over_bounded": 0.06813650756420782,
+      "full_over_eagerzero": 0.7479386385426654,
+      "hybrid_over_eagerzero": 0.06529242569511026,
+      "recursive_over_eagerzero": 0.055704697986577185
+    },
+    "misses": {
+      "bounded": [
+        2080,
+        707,
+        124
+      ],
+      "eagerzero": [
+        2080,
+        707,
+        124
+      ],
+      "full": [
+        4188,
+        1040,
+        124
+      ],
+      "hybrid": [
+        0,
+        0,
+        124
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 8.527,
+      "eagerzero": 10.43,
+      "full": 7.801,
+      "hybrid": 0.6809999999999999,
+      "recursive": 0.5810000000000001
+    }
+  },
+  {
+    "directory": "matrix-four",
+    "worlds": 8,
+    "field": 0,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.5372771474878444,
+      "hybrid_over_bounded": 0.23257698541329008,
+      "recursive_over_bounded": 0.10615883306320908,
+      "full_over_eagerzero": 1.0145371078806427,
+      "hybrid_over_eagerzero": 0.4391736801836266,
+      "recursive_over_eagerzero": 0.2004590665646519
+    },
+    "misses": {
+      "bounded": [
+        446
+      ],
+      "eagerzero": [
+        446
+      ],
+      "full": [
+        446
+      ],
+      "hybrid": [
+        446
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 2.468,
+      "eagerzero": 1.307,
+      "full": 1.3259999999999998,
+      "hybrid": 0.574,
+      "recursive": 0.262
+    }
+  },
+  {
+    "directory": "matrix-four",
+    "worlds": 8,
+    "field": 1,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.6322759165925487,
+      "hybrid_over_bounded": 0.09309220278683665,
+      "recursive_over_bounded": 0.06146852455776263,
+      "full_over_eagerzero": 0.5120038412291933,
+      "hybrid_over_eagerzero": 0.07538412291933419,
+      "recursive_over_eagerzero": 0.04977592829705506
+    },
+    "misses": {
+      "bounded": [
+        2623,
+        468
+      ],
+      "eagerzero": [
+        2623,
+        468
+      ],
+      "full": [
+        3607,
+        468
+      ],
+      "hybrid": [
+        0,
+        468
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 10.119,
+      "eagerzero": 12.496,
+      "full": 6.398,
+      "hybrid": 0.9420000000000001,
+      "recursive": 0.622
+    }
+  },
+  {
+    "directory": "matrix-four",
+    "worlds": 8,
+    "field": 2,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.7618848895844201,
+      "hybrid_over_bounded": 0.06896191966614502,
+      "recursive_over_bounded": 0.05379933924534864,
+      "full_over_eagerzero": 0.6035594247616949,
+      "hybrid_over_eagerzero": 0.0546311091520194,
+      "recursive_over_eagerzero": 0.042619428067662134
+    },
+    "misses": {
+      "bounded": [
+        8559,
+        2637,
+        470
+      ],
+      "eagerzero": [
+        8559,
+        2637,
+        470
+      ],
+      "full": [
+        15452,
+        3708,
+        470
+      ],
+      "hybrid": [
+        0,
+        0,
+        470
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 28.755,
+      "eagerzero": 36.297999999999995,
+      "full": 21.908,
+      "hybrid": 1.9829999999999999,
+      "recursive": 1.547
+    }
+  },
+  {
+    "directory": "matrix-four",
+    "worlds": 40,
+    "field": 0,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.5189959294436907,
+      "hybrid_over_bounded": 0.20108548168249663,
+      "recursive_over_bounded": 0.14341926729986432,
+      "full_over_eagerzero": 1.003147128245476,
+      "hybrid_over_eagerzero": 0.3886703383162864,
+      "recursive_over_eagerzero": 0.2772095462890113
+    },
+    "misses": {
+      "bounded": [
+        1738
+      ],
+      "eagerzero": [
+        1738
+      ],
+      "full": [
+        1738
+      ],
+      "hybrid": [
+        1738
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 7.37,
+      "eagerzero": 3.813,
+      "full": 3.8249999999999997,
+      "hybrid": 1.482,
+      "recursive": 1.057
+    }
+  },
+  {
+    "directory": "matrix-four",
+    "worlds": 40,
+    "field": 1,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.555039750931228,
+      "hybrid_over_bounded": 0.0777783955078668,
+      "recursive_over_bounded": 0.05907043976205038,
+      "full_over_eagerzero": 0.42986006458557585,
+      "hybrid_over_eagerzero": 0.060236813778256196,
+      "recursive_over_eagerzero": 0.0457481162540366
+    },
+    "misses": {
+      "bounded": [
+        9541,
+        1747
+      ],
+      "eagerzero": [
+        9541,
+        1747
+      ],
+      "full": [
+        13366,
+        1747
+      ],
+      "hybrid": [
+        0,
+        1747
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 35.974,
+      "eagerzero": 46.449999999999996,
+      "full": 19.967,
+      "hybrid": 2.798,
+      "recursive": 2.125
+    }
+  },
+  {
+    "directory": "matrix-four",
+    "worlds": 40,
+    "field": 2,
+    "roots": 6,
+    "ratios": {
+      "full_over_bounded": 0.7610722220361501,
+      "hybrid_over_bounded": 0.07439908005939422,
+      "recursive_over_bounded": 0.067399046566411,
+      "full_over_eagerzero": 0.518395157488099,
+      "hybrid_over_eagerzero": 0.05067603534547003,
+      "recursive_over_eagerzero": 0.04590804702590074
+    },
+    "misses": {
+      "bounded": [
+        28689,
+        9376,
+        1782
+      ],
+      "eagerzero": [
+        28689,
+        9376,
+        1782
+      ],
+      "full": [
+        52735,
+        13361,
+        1782
+      ],
+      "hybrid": [
+        0,
+        0,
+        1782
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 89.571,
+      "eagerzero": 131.502,
+      "full": 68.16999999999999,
+      "hybrid": 6.664,
+      "recursive": 6.037
+    }
+  },
+  {
+    "directory": "holdout-four",
+    "worlds": 8,
+    "field": 1,
+    "roots": 31,
+    "ratios": {
+      "full_over_bounded": 0.6342035373227101,
+      "hybrid_over_bounded": 0.08959145617901339,
+      "recursive_over_bounded": 0.06580211335254563,
+      "full_over_eagerzero": 0.3861650151390036,
+      "hybrid_over_eagerzero": 0.05455202312138729,
+      "recursive_over_eagerzero": 0.04006674924304982
+    },
+    "misses": {
+      "bounded": [
+        13876,
+        2437
+      ],
+      "eagerzero": [
+        13876,
+        2437
+      ],
+      "full": [
+        19031,
+        2437
+      ],
+      "hybrid": [
+        0,
+        2437
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 35.394,
+      "eagerzero": 58.128,
+      "full": 22.447000000000003,
+      "hybrid": 3.1710000000000003,
+      "recursive": 2.3289999999999997
+    }
+  },
+  {
+    "directory": "holdout-four",
+    "worlds": 8,
+    "field": 2,
+    "roots": 31,
+    "ratios": {
+      "full_over_bounded": 0.7518964569486782,
+      "hybrid_over_bounded": 0.0725301084403578,
+      "recursive_over_bounded": 0.058048073559542245,
+      "full_over_eagerzero": 0.48054959374520934,
+      "hybrid_over_eagerzero": 0.04635520466043232,
+      "recursive_over_eagerzero": 0.03709949409780776
+    },
+    "misses": {
+      "bounded": [
+        43800,
+        13363,
+        2440
+      ],
+      "eagerzero": [
+        43800,
+        13363,
+        2440
+      ],
+      "full": [
+        80659,
+        18608,
+        2440
+      ],
+      "hybrid": [
+        0,
+        0,
+        2440
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 100.055,
+      "eagerzero": 156.552,
+      "full": 75.23100000000001,
+      "hybrid": 7.257000000000001,
+      "recursive": 5.808
+    }
+  },
+  {
+    "directory": "holdout-four",
+    "worlds": 40,
+    "field": 1,
+    "roots": 31,
+    "ratios": {
+      "full_over_bounded": 0.5656609206464079,
+      "hybrid_over_bounded": 0.08559748088723275,
+      "recursive_over_bounded": 0.0683363231116278,
+      "full_over_eagerzero": 0.3651308760020077,
+      "hybrid_over_eagerzero": 0.05525268237410608,
+      "recursive_over_eagerzero": 0.044110704151157185
+    },
+    "misses": {
+      "bounded": [
+        53559,
+        10044
+      ],
+      "eagerzero": [
+        53559,
+        10044
+      ],
+      "full": [
+        73483,
+        10044
+      ],
+      "hybrid": [
+        0,
+        10044
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 129.887,
+      "eagerzero": 201.221,
+      "full": 73.472,
+      "hybrid": 11.117999999999999,
+      "recursive": 8.876
+    }
+  },
+  {
+    "directory": "holdout-four",
+    "worlds": 40,
+    "field": 2,
+    "roots": 31,
+    "ratios": {},
+    "misses": {
+      "bounded": [
+        37005,
+        10994,
+        2001
+      ],
+      "eagerzero": [
+        37005,
+        10994,
+        2001
+      ],
+      "full": [
+        39828,
+        8940,
+        1091
+      ],
+      "hybrid": [
+        0,
+        0,
+        10079
+      ],
+      "recursive": null
+    },
+    "cold_ms": {
+      "bounded": 312.787,
+      "eagerzero": 510.992,
+      "full": 130.68099999999998,
+      "hybrid": 24.944999999999997,
+      "recursive": 21.881999999999998
+    }
+  }
+]
