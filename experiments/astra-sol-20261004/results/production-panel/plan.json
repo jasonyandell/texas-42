@@ -1,0 +1,202 @@
+{
+  "scope": "play-only; fixed bid30; four rotations and partnership swap per source deal",
+  "candidate_label": "phone-l1-ablation",
+  "candidate_partner": false,
+  "games": [
+    {
+      "seed": 104200,
+      "decl": 6,
+      "rotation": 0,
+      "role": "declaring"
+    },
+    {
+      "seed": 104200,
+      "decl": 6,
+      "rotation": 0,
+      "role": "defending"
+    },
+    {
+      "seed": 104200,
+      "decl": 6,
+      "rotation": 1,
+      "role": "defending"
+    },
+    {
+      "seed": 104200,
+      "decl": 6,
+      "rotation": 1,
+      "role": "declaring"
+    },
+    {
+      "seed": 104200,
+      "decl": 6,
+      "rotation": 2,
+      "role": "declaring"
+    },
+    {
+      "seed": 104200,
+      "decl": 6,
+      "rotation": 2,
+      "role": "defending"
+    },
+    {
+      "seed": 104200,
+      "decl": 6,
+      "rotation": 3,
+      "role": "defending"
+    },
+    {
+      "seed": 104200,
+      "decl": 6,
+      "rotation": 3,
+      "role": "declaring"
+    },
+    {
+      "seed": 104201,
+      "decl": 0,
+      "rotation": 0,
+      "role": "declaring"
+    },
+    {
+      "seed": 104201,
+      "decl": 0,
+      "rotation": 0,
+      "role": "defending"
+    },
+    {
+      "seed": 104201,
+      "decl": 0,
+      "rotation": 1,
+      "role": "defending"
+    },
+    {
+      "seed": 104201,
+      "decl": 0,
+      "rotation": 1,
+      "role": "declaring"
+    },
+    {
+      "seed": 104201,
+      "decl": 0,
+      "rotation": 2,
+      "role": "declaring"
+    },
+    {
+      "seed": 104201,
+      "decl": 0,
+      "rotation": 2,
+      "role": "defending"
+    },
+    {
+      "seed": 104201,
+      "decl": 0,
+      "rotation": 3,
+      "role": "defending"
+    },
+    {
+      "seed": 104201,
+      "decl": 0,
+      "rotation": 3,
+      "role": "declaring"
+    },
+    {
+      "seed": 104202,
+      "decl": 7,
+      "rotation": 0,
+      "role": "declaring"
+    },
+    {
+      "seed": 104202,
+      "decl": 7,
+      "rotation": 0,
+      "role": "defending"
+    },
+    {
+      "seed": 104202,
+      "decl": 7,
+      "rotation": 1,
+      "role": "defending"
+    },
+    {
+      "seed": 104202,
+      "decl": 7,
+      "rotation": 1,
+      "role": "declaring"
+    },
+    {
+      "seed": 104202,
+      "decl": 7,
+      "rotation": 2,
+      "role": "declaring"
+    },
+    {
+      "seed": 104202,
+      "decl": 7,
+      "rotation": 2,
+      "role": "defending"
+    },
+    {
+      "seed": 104202,
+      "decl": 7,
+      "rotation": 3,
+      "role": "defending"
+    },
+    {
+      "seed": 104202,
+      "decl": 7,
+      "rotation": 3,
+      "role": "declaring"
+    },
+    {
+      "seed": 104203,
+      "decl": 9,
+      "rotation": 0,
+      "role": "declaring"
+    },
+    {
+      "seed": 104203,
+      "decl": 9,
+      "rotation": 0,
+      "role": "defending"
+    },
+    {
+      "seed": 104203,
+      "decl": 9,
+      "rotation": 1,
+      "role": "defending"
+    },
+    {
+      "seed": 104203,
+      "decl": 9,
+      "rotation": 1,
+      "role": "declaring"
+    },
+    {
+      "seed": 104203,
+      "decl": 9,
+      "rotation": 2,
+      "role": "declaring"
+    },
+    {
+      "seed": 104203,
+      "decl": 9,
+      "rotation": 2,
+      "role": "defending"
+    },
+    {
+      "seed": 104203,
+      "decl": 9,
+      "rotation": 3,
+      "role": "defending"
+    },
+    {
+      "seed": 104203,
+      "decl": 9,
+      "rotation": 3,
+      "role": "declaring"
+    }
+  ],
+  "policy_seed": 7042104,
+  "panel_limit_seconds": 280,
+  "game_limit_seconds": 240
+}

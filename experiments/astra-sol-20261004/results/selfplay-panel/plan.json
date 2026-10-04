@@ -1,0 +1,58 @@
+{
+  "scope": "play-only; fixed bid30; four rotations and partnership swap per source deal",
+  "candidate_label": "phone-self-control",
+  "candidate_partner": true,
+  "games": [
+    {
+      "seed": 104204,
+      "decl": 6,
+      "rotation": 0,
+      "role": "declaring"
+    },
+    {
+      "seed": 104204,
+      "decl": 6,
+      "rotation": 0,
+      "role": "defending"
+    },
+    {
+      "seed": 104204,
+      "decl": 6,
+      "rotation": 1,
+      "role": "defending"
+    },
+    {
+      "seed": 104204,
+      "decl": 6,
+      "rotation": 1,
+      "role": "declaring"
+    },
+    {
+      "seed": 104204,
+      "decl": 6,
+      "rotation": 2,
+      "role": "declaring"
+    },
+    {
+      "seed": 104204,
+      "decl": 6,
+      "rotation": 2,
+      "role": "defending"
+    },
+    {
+      "seed": 104204,
+      "decl": 6,
+      "rotation": 3,
+      "role": "defending"
+    },
+    {
+      "seed": 104204,
+      "decl": 6,
+      "rotation": 3,
+      "role": "declaring"
+    }
+  ],
+  "policy_seed": 7042104,
+  "panel_limit_seconds": 280,
+  "game_limit_seconds": 240
+}

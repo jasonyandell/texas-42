@@ -1,0 +1,22 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T06:19:56.110325+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree",
+  "command": [
+    "python3",
+    "-c",
+    "import json,pathlib; p=pathlib.Path(\"experiments/astra-sol-20261004/results/selfplay-panel\"); rows=[json.loads(x.read_text()) for x in p.glob(\"game-*.json\")]; assert len(rows)==8; pairs=[]\nfor rotation in range(4):\n a,b=[x for x in rows if x[\"rotation\"]==rotation]; assert a[\"points\"]==b[\"points\"]; assert [m[\"call\"] for m in a[\"moves\"]]==[m[\"call\"] for m in b[\"moves\"]]; assert [m[\"response\"][\"choice\"] for m in a[\"moves\"]]==[m[\"response\"][\"choice\"] for m in b[\"moves\"]]; pairs.append(rotation)\nprint(json.dumps({\"games\":8,\"moves\":224,\"identical_call_and_choice_pairs\":pairs,\"result\":\"passed\"}))"
+  ],
+  "allowance_seconds": 20.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.04757,
+  "status": "completed",
+  "child_pid": 10334,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

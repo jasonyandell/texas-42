@@ -1,0 +1,116 @@
+[
+  {
+    "receipt": "math/sol/harness-audit-run/run.json",
+    "status": "completed",
+    "elapsed": 0.199574,
+    "cap": 45.0
+  },
+  {
+    "receipt": "math/sol/lead-final-independent-lean-run/run.json",
+    "status": "completed",
+    "elapsed": 0.314078,
+    "cap": 20.0
+  },
+  {
+    "receipt": "math/sol/lead-independent-lean-run/run.json",
+    "status": "completed",
+    "elapsed": 0.372112,
+    "cap": 20.0
+  },
+  {
+    "receipt": "math/sol/lean-run/run.json",
+    "status": "completed",
+    "elapsed": 0.150075,
+    "cap": 20.0
+  },
+  {
+    "receipt": "math/sol/panel-audit-run/run.json",
+    "status": "completed",
+    "elapsed": 0.265072,
+    "cap": 30.0
+  },
+  {
+    "receipt": "math/sol/witness-final-run/run.json",
+    "status": "completed",
+    "elapsed": 0.047585,
+    "cap": 20.0
+  },
+  {
+    "receipt": "math/sol/witness-run/run.json",
+    "status": "completed",
+    "elapsed": 0.042728,
+    "cap": 20.0
+  },
+  {
+    "receipt": "results/lead-recheck-sol/run.json",
+    "status": "completed",
+    "elapsed": 0.148024,
+    "cap": 30.0
+  },
+  {
+    "receipt": "results/lead-small-cases/run.json",
+    "status": "completed",
+    "elapsed": 0.043773,
+    "cap": 30.0
+  },
+  {
+    "receipt": "results/lean-disagreement-1/run.json",
+    "status": "completed",
+    "elapsed": 1.202739,
+    "cap": 30.0
+  },
+  {
+    "receipt": "results/lean-disagreement-final/run.json",
+    "status": "completed",
+    "elapsed": 0.321683,
+    "cap": 30.0
+  },
+  {
+    "receipt": "results/lean-version/run.json",
+    "status": "completed",
+    "elapsed": 0.210211,
+    "cap": 10.0
+  },
+  {
+    "receipt": "results/production-identity/run.json",
+    "status": "completed",
+    "elapsed": 0.086702,
+    "cap": 30.0
+  },
+  {
+    "receipt": "results/production-panel-run/run.json",
+    "status": "completed",
+    "elapsed": 19.460862,
+    "cap": 290.0
+  },
+  {
+    "receipt": "results/production-panel-summary/run.json",
+    "status": "completed",
+    "elapsed": 0.04815,
+    "cap": 20.0
+  },
+  {
+    "receipt": "results/selfplay-control-check/run.json",
+    "status": "completed",
+    "elapsed": 0.04757,
+    "cap": 20.0
+  },
+  {
+    "receipt": "results/selfplay-panel-run/run.json",
+    "status": "completed",
+    "elapsed": 6.460417,
+    "cap": 290.0
+  },
+  {
+    "receipt": "results/smoke-r0-declaring/run.json",
+    "status": "completed",
+    "elapsed": 0.857028,
+    "cap": 290.0
+  },
+  {
+    "receipt": "results/watchdog-enforcement/run.json",
+    "status": "timed_out",
+    "elapsed": 0.259555,
+    "cap": 0.25
+  }
+]

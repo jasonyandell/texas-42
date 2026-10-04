@@ -1,0 +1,19 @@
+ArgmaxAmplification.lean:60:53: warning: Variable name `hm` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hm
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+ArgmaxAmplification.lean:73:30: warning: This simp argument is unused:
+  Nat.mul_succ
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Nat.succ_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'WaltResearch.Sol.exact_field_false' depends on axioms: [propext]
+'WaltResearch.Sol.approximate_field_true' depends on axioms: [propext]
+'WaltResearch.Sol.action_error_one' depends on axioms: [propext]
+'WaltResearch.Sol.modeled_regret_one' depends on axioms: [propext]
+'WaltResearch.Sol.conditional_host_drop' depends on axioms: [propext]
+'WaltResearch.Sol.arbitrarily_small_error_full_drop' depends on axioms: [propext]

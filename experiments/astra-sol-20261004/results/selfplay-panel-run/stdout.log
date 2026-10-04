@@ -1,0 +1,8 @@
+{"seed": 104204, "decl": 6, "rotation": 0, "role": "declaring", "status": "completed", "exit_code": 0, "elapsed_seconds": 0.849544292}
+{"seed": 104204, "decl": 6, "rotation": 0, "role": "defending", "status": "completed", "exit_code": 0, "elapsed_seconds": 0.908035917}
+{"seed": 104204, "decl": 6, "rotation": 1, "role": "defending", "status": "completed", "exit_code": 0, "elapsed_seconds": 0.843690083}
+{"seed": 104204, "decl": 6, "rotation": 1, "role": "declaring", "status": "completed", "exit_code": 0, "elapsed_seconds": 0.8338571670000001}
+{"seed": 104204, "decl": 6, "rotation": 2, "role": "declaring", "status": "completed", "exit_code": 0, "elapsed_seconds": 0.7369427920000002}
+{"seed": 104204, "decl": 6, "rotation": 2, "role": "defending", "status": "completed", "exit_code": 0, "elapsed_seconds": 0.7345737080000001}
+{"seed": 104204, "decl": 6, "rotation": 3, "role": "defending", "status": "completed", "exit_code": 0, "elapsed_seconds": 0.7242512080000001}
+{"seed": 104204, "decl": 6, "rotation": 3, "role": "declaring", "status": "completed", "exit_code": 0, "elapsed_seconds": 0.7450047500000005}

@@ -1,0 +1,1 @@
+{"weighted_couplings": 5832, "action_transports": 11025, "equality_canonical_counterexample": {"old": [3, 1], "new": [2, 2], "errors": [1, 1], "tiles": [9, 2]}, "result": "passed"}

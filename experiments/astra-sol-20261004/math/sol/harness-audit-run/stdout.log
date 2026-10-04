@@ -1,0 +1,13 @@
+{
+  "production_wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+  "checked_decisions": 144,
+  "configurations": 36,
+  "declarations": 9,
+  "bidder_rotations": 4,
+  "routes": {
+    "forced": 144
+  },
+  "fresh_instances": true,
+  "policy_information_boundary": "own original hand and public record",
+  "limitation": "forced suffix ABI/profile checks; no playing-strength or nonforced solve claim"
+}

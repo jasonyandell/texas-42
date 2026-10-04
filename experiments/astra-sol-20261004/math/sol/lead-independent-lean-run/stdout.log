@@ -1,0 +1,5 @@
+'WaltResearch.payoff_le_disagreement' depends on axioms: [propext, Quot.sound]
+'WaltResearch.payoff_sandwich' depends on axioms: [propext, Quot.sound]
+'WaltResearch.strict_action_transport' depends on axioms: [propext, Quot.sound]
+'WaltResearch.weak_action_transport' depends on axioms: [propext, Quot.sound]
+'WaltResearch.canonical_interval_pruning' depends on axioms: [propext, Classical.choice, Quot.sound]

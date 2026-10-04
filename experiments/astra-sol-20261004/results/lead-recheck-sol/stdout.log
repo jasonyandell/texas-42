@@ -1,0 +1,6 @@
+'WaltResearch.Sol.exact_field_false' depends on axioms: [propext]
+'WaltResearch.Sol.approximate_field_true' depends on axioms: [propext]
+'WaltResearch.Sol.action_error_one' depends on axioms: [propext]
+'WaltResearch.Sol.modeled_regret_one' depends on axioms: [propext]
+'WaltResearch.Sol.conditional_host_drop' depends on axioms: [propext]
+'WaltResearch.Sol.arbitrarily_small_error_full_drop' depends on axioms: [propext]

@@ -1,0 +1,36 @@
+{
+  "schema": "walt-astra-sol-research-v1",
+  "date": "2026-10-04",
+  "workspace": "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree",
+  "source_identity": {
+    "production_commit": "a0d9fa806166b0e63fe016bb49d93f91f47b1af8",
+    "source_commit": "cb1ef3b23072e4c268f31f625f2b61d5facc1929",
+    "source_files": 202,
+    "source_sha256": "5bedf14af0e5a5ef354acca4765f67843469d074d163e8e4786631aa23436e32",
+    "wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+    "source_inputs_match": true,
+    "production_git_blobs_match": true,
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "machine": "arm64"
+  },
+  "initial_cpu_commit": "3cf2536dcbd6636bfff8ab814858ee00e8dc8b5e",
+  "local_plunge_commit": "aff966d65028e3a7813afdb6111562d3272f2556",
+  "registered_texas42_commit": "9d6a5a2e12958183d49d0cd95c8617c4ef7a12e4",
+  "generator_commit": "06bed7532de2015412e4808dae24a5cf6d95d38f",
+  "team": {
+    "lead": "Astra-designated delegated task; runtime identity not independently attested",
+    "collaborator": "gpt-6.1-sol explicitly requested and successfully launched via collaboration.spawn_agent",
+    "reasoning": "high",
+    "independent_context": true,
+    "mutual_review": true
+  },
+  "toolchain": {
+    "lean": "Lean (version 4.33.0-rc1, arm64-apple-darwin24.6.0, commit 62eed1db4d67327ec8120be05f1a1b0847d74561, Release)",
+    "node": "v26.0.0"
+  },
+  "untouched_sources": true,
+  "merged": false,
+  "deployed": false,
+  "baseline_scope": "exact supplied production WASM; straight bid-30 play with specified public seed; Mac Node host",
+  "remote_issue": "https://github.com/jasonyandell/texas-42/issues/99"
+}

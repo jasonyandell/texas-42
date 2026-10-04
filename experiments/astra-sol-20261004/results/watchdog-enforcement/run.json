@@ -1,0 +1,22 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T06:16:42.454212+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task/research-worktree",
+  "command": [
+    "python3",
+    "-c",
+    "import subprocess,time; p=subprocess.Popen([\"python3\",\"-c\",\"import time; time.sleep(30)\"]); print(p.pid,flush=True); time.sleep(30)"
+  ],
+  "allowance_seconds": 0.25,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 0.259555,
+  "status": "timed_out",
+  "child_pid": 6916,
+  "child_returncode": -9,
+  "runner_returncode": 124,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}
