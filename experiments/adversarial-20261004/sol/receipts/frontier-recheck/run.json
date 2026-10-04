@@ -1,0 +1,23 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T08:23:01.164839+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-2/research-worktree",
+  "command": [
+    "/Users/jason/code/mk5-main/.venv/bin/python",
+    "experiments/adversarial-20261004/frontier.py",
+    "--out",
+    "experiments/adversarial-20261004/sol/frontier-recheck"
+  ],
+  "allowance_seconds": 30.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 2.474667,
+  "status": "completed",
+  "child_pid": 40710,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/jason/Documents/Codex/2026-10-04/task-2/research-worktree/experiments/adversarial-20261004/sol/final_packet_audit.py", line 19, in <module>
+    import nofusion_sc
+ModuleNotFoundError: No module named 'nofusion_sc'

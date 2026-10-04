@@ -1,0 +1,62 @@
+{
+  "roots": 105,
+  "partial_roots": 69,
+  "all_full_action_vectors_equal": true,
+  "runs": [
+    {
+      "wall_s": 0.2085759579204023,
+      "preparation_s": 0.005387828219681978,
+      "forward_s": 0.1940508703701198,
+      "fold_s": 0.008879373781383038,
+      "peak_scenario_rows": 2997,
+      "total_scenario_ply_rows": 445890,
+      "grouped_coordinates_by_layer": 377330,
+      "peak_counted_array_bytes": 1290662,
+      "process_peak_rss_bytes": 61210624,
+      "reference_s": 0.3863487089984119,
+      "repeat": 0
+    },
+    {
+      "wall_s": 0.20981054194271564,
+      "preparation_s": 0.005186503520235419,
+      "forward_s": 0.19552175258286297,
+      "fold_s": 0.008855666732415557,
+      "peak_scenario_rows": 2997,
+      "total_scenario_ply_rows": 445890,
+      "grouped_coordinates_by_layer": 377330,
+      "peak_counted_array_bytes": 1290662,
+      "process_peak_rss_bytes": 61308928,
+      "reference_s": 0.39013816718943417,
+      "repeat": 1
+    },
+    {
+      "wall_s": 0.21140466700308025,
+      "preparation_s": 0.005360750248655677,
+      "forward_s": 0.19676495646126568,
+      "fold_s": 0.009026081068441272,
+      "peak_scenario_rows": 2997,
+      "total_scenario_ply_rows": 445890,
+      "grouped_coordinates_by_layer": 377330,
+      "peak_counted_array_bytes": 1290662,
+      "process_peak_rss_bytes": 61358080,
+      "reference_s": 0.3906532498076558,
+      "repeat": 2
+    },
+    {
+      "wall_s": 0.20921766688115895,
+      "preparation_s": 0.00523087359033525,
+      "forward_s": 0.19496912835165858,
+      "fold_s": 0.00879437429830432,
+      "peak_scenario_rows": 2997,
+      "total_scenario_ply_rows": 445890,
+      "grouped_coordinates_by_layer": 377330,
+      "peak_counted_array_bytes": 1290662,
+      "process_peak_rss_bytes": 61358080,
+      "reference_s": 0.39063033321872354,
+      "repeat": 3
+    }
+  ],
+  "source_sha256": "9984d25e6fde4e6ac722b20a7f046cf1d23ffc01f9112ec2e13a771539c49e4e",
+  "input_plan_sha256": "665cf1661f86f8ebaf860994761652a23ee3dea53b56f959e81c0df7c4fa506b",
+  "scope": "Pip trumps0..6, bid30, same full-history finite Dice bundle. Full own-choice tree; no restricted ordering class. Input preparation included; common fixture generation/import excluded. Sorting group IDs+branch materialization fully charged. Absorbed terminal rows remain until group completion. No higher-k or phone-strength claim."
+}

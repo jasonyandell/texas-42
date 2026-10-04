@@ -1,0 +1,29 @@
+{
+  "source_sha256": "a16a852f808a5b8aa4dfccb0d483224ebcae77daf9873f319830cda649adcb00",
+  "engine_sha256": "0f6a36b483ab7659ad7b23eed2c562cb06e90d8c2ecd69e17702d7f5daf52852",
+  "results": [
+    {
+      "tries": 0,
+      "filled": 0,
+      "unfilled": 128,
+      "all_reported_filled_worlds_independently_legal": true,
+      "unfilled_slots_zero": true
+    },
+    {
+      "tries": 1,
+      "filled": 117,
+      "unfilled": 11,
+      "all_reported_filled_worlds_independently_legal": true,
+      "unfilled_slots_zero": true
+    },
+    {
+      "tries": 6,
+      "filled": 128,
+      "unfilled": 0,
+      "all_reported_filled_worlds_independently_legal": true,
+      "unfilled_slots_zero": true
+    }
+  ],
+  "caller_l2_present": false,
+  "scope": "Valid unsettled bid30/pip-trump histories; fill-mask fixture check, not caller integration or universal sampler proof."
+}

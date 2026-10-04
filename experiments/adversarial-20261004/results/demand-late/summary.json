@@ -1,0 +1,10 @@
+{
+  "planned": 16,
+  "ready": 5,
+  "runs": 40,
+  "statuses": {
+    "complete": 40
+  },
+  "all_complete_mode_pairs_equal": true,
+  "elapsed_s": 0.365900666
+}

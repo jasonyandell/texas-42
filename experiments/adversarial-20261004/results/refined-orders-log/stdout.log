@@ -1,0 +1,53 @@
+{
+  "roots": 105,
+  "worlds": 40,
+  "plans_per_root": 96,
+  "base_value_gap": 181,
+  "refined_value_gap": 164,
+  "base_action_regret": 15,
+  "refined_action_regret": 11,
+  "roots_value_improved": 12,
+  "base_gap_roots": 51,
+  "refined_gap_roots": 47,
+  "root_regret_improved": 3,
+  "root_regret_worsened": 0,
+  "scalar_cells_checked": 57120,
+  "all_scalar_cells_equal": true,
+  "runs": [
+    {
+      "wall_s": 0.7517455827910453,
+      "preparation_s": 0.09114320576190948,
+      "simulation_s": 0.657509247539565,
+      "reduction_s": 0.002843120601028204,
+      "world_plan_rows": 403200,
+      "active_row_steps": 3473392,
+      "peak_counted_array_bytes": 16154880,
+      "process_peak_rss_bytes": 88768512,
+      "group_count": 27
+    },
+    {
+      "wall_s": 0.7486205829773098,
+      "preparation_s": 0.08818595786578953,
+      "simulation_s": 0.6584629560820758,
+      "reduction_s": 0.001747750211507082,
+      "world_plan_rows": 403200,
+      "active_row_steps": 3473392,
+      "peak_counted_array_bytes": 16154880,
+      "process_peak_rss_bytes": 93093888,
+      "group_count": 27
+    },
+    {
+      "wall_s": 0.7442164169624448,
+      "preparation_s": 0.08719012863002717,
+      "simulation_s": 0.6551310401409864,
+      "reduction_s": 0.0016901236958801746,
+      "world_plan_rows": 403200,
+      "active_row_steps": 3473392,
+      "peak_counted_array_bytes": 16154880,
+      "process_peak_rss_bytes": 93208576,
+      "group_count": 27
+    }
+  ],
+  "source_sha256": "f02fa9248996632d2c4d7b6282cf8235c63c35ca0f91850609bdf92bada8e196",
+  "caveat": "Nested policy class ensures nondecreasing objective, not monotone rootaction regret. Public partner-winning bit only. Same development roots used to select next hypothesis; independent holdout needed before a strength claim. Python/NumPy CPU timings, preprocessing included, imports/fixture generation excluded. First run retains matrix output; latter two timings omit that extra serialization."
+}

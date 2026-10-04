@@ -1,0 +1,53 @@
+{
+  "all_deals_worlds": 700,
+  "unique_worlds": 700,
+  "all_worlds_independently_legal": true,
+  "false_sampler_world_excluded": true,
+  "tape_u_zero_index": 0,
+  "finite_grid": 256,
+  "bucket_counts": {
+    "1": [
+      256
+    ],
+    "2": [
+      128,
+      128
+    ],
+    "3": [
+      86,
+      85,
+      85
+    ],
+    "4": [
+      64,
+      64,
+      64,
+      64
+    ],
+    "5": [
+      52,
+      51,
+      51,
+      51,
+      51
+    ],
+    "6": [
+      43,
+      43,
+      42,
+      43,
+      43,
+      42
+    ],
+    "7": [
+      37,
+      37,
+      36,
+      37,
+      36,
+      37,
+      36
+    ]
+  },
+  "scope": "One legal small-fiber fixture; finite-RNG mapping arithmetic, not universal support proof."
+}

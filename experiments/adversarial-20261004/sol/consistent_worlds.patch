@@ -1,0 +1,12 @@
+--- a/engine42.py
++++ b/engine42.py
+@@ -183,6 +183,9 @@ def consistent_worlds(rng, rules, my_seat, my_hand_now, history, n_want, max_tries=40):
+             L = g.legal(np.full(m, s))
+             ok &= ((L >> t) & 1) == 1
+             g.play(np.full(m, t))
++            # Historical legality replay must process all known-valid plays.
++            # The local bidder=0 score frame cannot terminate this replay.
++            g.done[:] = False
+         acc_now.append(rem[ok]); acc_full.append(full[ok])
+         if sum(len(a) for a in acc_now) >= n_want: break
+     now = np.concatenate(acc_now)[:n_want]; fl = np.concatenate(acc_full)[:n_want]

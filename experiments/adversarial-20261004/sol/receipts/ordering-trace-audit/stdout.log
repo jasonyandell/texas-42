@@ -1,0 +1,2825 @@
+{
+  "plan_sha256": "665cf1661f86f8ebaf860994761652a23ee3dea53b56f959e81c0df7c4fa506b",
+  "cases": 402,
+  "roots": 134,
+  "all_trace_sets_equal": true,
+  "orderings_checked": 9648,
+  "adaptive_leaves": 3718,
+  "scope": "Fixed physical world + fixed other-seat tape; not a shared-order completeness result across worlds.",
+  "rows": [
+    {
+      "seed": 930000,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930000,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930000,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930007,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930007,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930007,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930008,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 13
+    },
+    {
+      "seed": 930008,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 13
+    },
+    {
+      "seed": 930008,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930009,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930009,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930009,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930012,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930012,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930012,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930014,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930014,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930014,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930017,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 5
+    },
+    {
+      "seed": 930017,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930017,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 14
+    },
+    {
+      "seed": 930021,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930021,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 5
+    },
+    {
+      "seed": 930021,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930027,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930027,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930027,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930028,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930028,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930028,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930030,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930030,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930030,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930032,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930032,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 19
+    },
+    {
+      "seed": 930032,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 19
+    },
+    {
+      "seed": 930036,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 5
+    },
+    {
+      "seed": 930036,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930036,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930038,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930038,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930038,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930039,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930039,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930039,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930041,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930041,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930041,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930043,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930043,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930043,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930044,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930044,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930044,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930046,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930046,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930046,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 21
+    },
+    {
+      "seed": 930047,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930047,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 3
+    },
+    {
+      "seed": 930047,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930048,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 20
+    },
+    {
+      "seed": 930048,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930048,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 17
+    },
+    {
+      "seed": 930052,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930052,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930052,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930053,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930053,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930053,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930054,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930054,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930054,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930056,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930056,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930056,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930057,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 24
+    },
+    {
+      "seed": 930057,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 24
+    },
+    {
+      "seed": 930057,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 17
+    },
+    {
+      "seed": 930060,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930060,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930060,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930061,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930061,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930061,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930062,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930062,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930062,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930064,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930064,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930064,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930065,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930065,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930065,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930067,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930067,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930067,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930068,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930068,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930068,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930071,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930071,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 5
+    },
+    {
+      "seed": 930071,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930074,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930074,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930074,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930076,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 13
+    },
+    {
+      "seed": 930076,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 14
+    },
+    {
+      "seed": 930076,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 15
+    },
+    {
+      "seed": 930078,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930078,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930078,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930079,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930079,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 23
+    },
+    {
+      "seed": 930079,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930080,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930080,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930080,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930082,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930082,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930082,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930084,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930084,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930084,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930088,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930088,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930088,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930089,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930089,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930089,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930090,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930090,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930090,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930092,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930092,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930092,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930093,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930093,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930093,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930094,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930094,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930094,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930095,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930095,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930095,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930096,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930096,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930096,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930097,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930097,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930097,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930098,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 5
+    },
+    {
+      "seed": 930098,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 3
+    },
+    {
+      "seed": 930098,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 3
+    },
+    {
+      "seed": 930099,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930099,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930099,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930100,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 21
+    },
+    {
+      "seed": 930100,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 5
+    },
+    {
+      "seed": 930100,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 21
+    },
+    {
+      "seed": 930102,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930102,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930102,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930103,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930103,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930103,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930105,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930105,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930105,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930106,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930106,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930106,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930108,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930108,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930108,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930112,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930112,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930112,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930115,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930115,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930115,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930117,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930117,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930117,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930118,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930118,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930118,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930119,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930119,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930119,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930122,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930122,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930122,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930123,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930123,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930123,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930124,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930124,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 5
+    },
+    {
+      "seed": 930124,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930125,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 22
+    },
+    {
+      "seed": 930125,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 22
+    },
+    {
+      "seed": 930125,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 22
+    },
+    {
+      "seed": 930128,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930128,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930128,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930130,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930130,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930130,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930131,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930131,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930131,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930133,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930133,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 13
+    },
+    {
+      "seed": 930133,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930135,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930135,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930135,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930138,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930138,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930138,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 3
+    },
+    {
+      "seed": 930140,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930140,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930140,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 5
+    },
+    {
+      "seed": 930144,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930144,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930144,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 14
+    },
+    {
+      "seed": 930147,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930147,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930147,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930148,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930148,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930148,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930150,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 14
+    },
+    {
+      "seed": 930150,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 13
+    },
+    {
+      "seed": 930150,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930151,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930151,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 24
+    },
+    {
+      "seed": 930151,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930152,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930152,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930152,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 5
+    },
+    {
+      "seed": 930159,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930159,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930159,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930163,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930163,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930163,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930164,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930164,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 15
+    },
+    {
+      "seed": 930164,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 15
+    },
+    {
+      "seed": 930166,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930166,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 5
+    },
+    {
+      "seed": 930166,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930167,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930167,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 24
+    },
+    {
+      "seed": 930167,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930168,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 21
+    },
+    {
+      "seed": 930168,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930168,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 14
+    },
+    {
+      "seed": 930170,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930170,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930170,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930172,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930172,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930172,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 13
+    },
+    {
+      "seed": 930174,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930174,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930174,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930176,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930176,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 15
+    },
+    {
+      "seed": 930176,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 20
+    },
+    {
+      "seed": 930179,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930179,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930179,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930180,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930180,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930180,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930183,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 20
+    },
+    {
+      "seed": 930183,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 24
+    },
+    {
+      "seed": 930183,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 13
+    },
+    {
+      "seed": 930184,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930184,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930184,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930185,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930185,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930185,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930186,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 22
+    },
+    {
+      "seed": 930186,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 20
+    },
+    {
+      "seed": 930186,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 22
+    },
+    {
+      "seed": 930187,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930187,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 3
+    },
+    {
+      "seed": 930187,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930188,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930188,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 14
+    },
+    {
+      "seed": 930188,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 14
+    },
+    {
+      "seed": 930189,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930189,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 19
+    },
+    {
+      "seed": 930189,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930190,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930190,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930190,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930192,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930192,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 14
+    },
+    {
+      "seed": 930192,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 23
+    },
+    {
+      "seed": 930193,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930193,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930193,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930195,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930195,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930195,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930196,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930196,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930196,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930197,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 14
+    },
+    {
+      "seed": 930197,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930197,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 22
+    },
+    {
+      "seed": 930202,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930202,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930202,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930203,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930203,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930203,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930204,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 15
+    },
+    {
+      "seed": 930204,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930204,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930205,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930205,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930205,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930206,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 24
+    },
+    {
+      "seed": 930206,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930206,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930207,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930207,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930207,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 20
+    },
+    {
+      "seed": 930208,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 14
+    },
+    {
+      "seed": 930208,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930208,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930209,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930209,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930209,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930212,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930212,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930212,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930215,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930215,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930215,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930216,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930216,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930216,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 15
+    },
+    {
+      "seed": 930218,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930218,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 3
+    },
+    {
+      "seed": 930218,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930219,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 3
+    },
+    {
+      "seed": 930219,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930219,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930220,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930220,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930220,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930221,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930221,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930221,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930222,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 18
+    },
+    {
+      "seed": 930222,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930222,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 3
+    },
+    {
+      "seed": 930225,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930225,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930225,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930227,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930227,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 2
+    },
+    {
+      "seed": 930227,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930228,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930228,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930228,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930229,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930229,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930229,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 3
+    },
+    {
+      "seed": 930232,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 6
+    },
+    {
+      "seed": 930232,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930232,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930235,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930235,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930235,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930239,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    },
+    {
+      "seed": 930239,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930239,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930240,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 24
+    },
+    {
+      "seed": 930240,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 16
+    },
+    {
+      "seed": 930240,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 14
+    },
+    {
+      "seed": 930241,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930241,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930241,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 12
+    },
+    {
+      "seed": 930246,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930246,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 13
+    },
+    {
+      "seed": 930246,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 11
+    },
+    {
+      "seed": 930248,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 17
+    },
+    {
+      "seed": 930248,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 15
+    },
+    {
+      "seed": 930248,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 10
+    },
+    {
+      "seed": 930250,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 4
+    },
+    {
+      "seed": 930250,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 5
+    },
+    {
+      "seed": 930250,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 5
+    },
+    {
+      "seed": 930252,
+      "scenario": 0,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 7
+    },
+    {
+      "seed": 930252,
+      "scenario": 1,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 8
+    },
+    {
+      "seed": 930252,
+      "scenario": 2,
+      "own_cards": 4,
+      "orderings": 24,
+      "adaptive_leaves": 9
+    }
+  ]
+}

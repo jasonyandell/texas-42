@@ -1,0 +1,2 @@
+'AdversarialSol.Nested.nested_attained_value_monotone' depends on axioms: [propext, Quot.sound]
+'AdversarialSol.Nested.nested_action_improvements_can_increase_root_regret' does not depend on any axioms

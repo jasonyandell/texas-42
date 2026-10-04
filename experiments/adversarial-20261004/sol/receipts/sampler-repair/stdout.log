@@ -1,0 +1,16 @@
+{
+  "candidate_assignments": 1680,
+  "repaired_support": 700,
+  "exact_reference_support": 700,
+  "all_support_sets_equal": true,
+  "known_illegal_world_rejected": true,
+  "sampled_worlds_checked": 384,
+  "sampled_seeds": [
+    70002,
+    1,
+    999999
+  ],
+  "all_samples_independently_legal": true,
+  "own_remaining_preserved": true,
+  "scope": "Known valid public history; one exhaustive finite support and three sample-property checks, no statistical posterior/uniformity theorem."
+}

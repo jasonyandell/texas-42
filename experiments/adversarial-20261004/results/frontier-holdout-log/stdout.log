@@ -1,0 +1,178 @@
+{
+  "planned": 128,
+  "selected_pip": 52,
+  "ready_all": 62,
+  "generation_128_s": 0.3494607920292765,
+  "panels": [
+    {
+      "worlds": 8,
+      "roots": 52,
+      "all_vectors_equal": true,
+      "duplicate_weight_cases": 4,
+      "runs": [
+        {
+          "wall_s": 0.07813779194839299,
+          "preparation_s": 0.001711664255708456,
+          "forward_s": 0.07280299928970635,
+          "fold_s": 0.0034433756954967976,
+          "peak_scenario_rows": 367,
+          "total_scenario_ply_rows": 49764,
+          "grouped_coordinates_by_layer": 44934,
+          "peak_counted_array_bytes": 150927,
+          "process_peak_rss_bytes": 64045056,
+          "reference_s": 0.04744791681878269
+        },
+        {
+          "wall_s": 0.07648241706192493,
+          "preparation_s": 0.0015379590913653374,
+          "forward_s": 0.0715149138122797,
+          "fold_s": 0.0032655007671564817,
+          "peak_scenario_rows": 367,
+          "total_scenario_ply_rows": 49764,
+          "grouped_coordinates_by_layer": 44934,
+          "peak_counted_array_bytes": 150927,
+          "process_peak_rss_bytes": 64045056,
+          "reference_s": 0.04679266596212983
+        },
+        {
+          "wall_s": 0.07645737496204674,
+          "preparation_s": 0.0015294167678803205,
+          "forward_s": 0.07144924416206777,
+          "fold_s": 0.0033064954914152622,
+          "peak_scenario_rows": 367,
+          "total_scenario_ply_rows": 49764,
+          "grouped_coordinates_by_layer": 44934,
+          "peak_counted_array_bytes": 150927,
+          "process_peak_rss_bytes": 64045056,
+          "reference_s": 0.046900999965146184
+        },
+        {
+          "wall_s": 0.07572862505912781,
+          "preparation_s": 0.0015117537695914507,
+          "forward_s": 0.07081954251043499,
+          "fold_s": 0.0032371666748076677,
+          "peak_scenario_rows": 367,
+          "total_scenario_ply_rows": 49764,
+          "grouped_coordinates_by_layer": 44934,
+          "peak_counted_array_bytes": 150927,
+          "process_peak_rss_bytes": 64045056,
+          "reference_s": 0.04681791691109538
+        }
+      ]
+    },
+    {
+      "worlds": 40,
+      "roots": 52,
+      "all_vectors_equal": true,
+      "duplicate_weight_cases": 4,
+      "runs": [
+        {
+          "wall_s": 0.13769174995832145,
+          "preparation_s": 0.0030576251447200775,
+          "forward_s": 0.12846187315881252,
+          "fold_s": 0.005983291193842888,
+          "peak_scenario_rows": 1776,
+          "total_scenario_ply_rows": 247089,
+          "grouped_coordinates_by_layer": 206434,
+          "peak_counted_array_bytes": 743596,
+          "process_peak_rss_bytes": 65093632,
+          "reference_s": 0.21910833287984133
+        },
+        {
+          "wall_s": 0.13593404204584658,
+          "preparation_s": 0.002956622513011098,
+          "forward_s": 0.12691633054055274,
+          "fold_s": 0.005882542347535491,
+          "peak_scenario_rows": 1776,
+          "total_scenario_ply_rows": 247089,
+          "grouped_coordinates_by_layer": 206434,
+          "peak_counted_array_bytes": 743596,
+          "process_peak_rss_bytes": 65093632,
+          "reference_s": 0.2186391658615321
+        },
+        {
+          "wall_s": 0.13714983290992677,
+          "preparation_s": 0.00300783384591341,
+          "forward_s": 0.12796912575140595,
+          "fold_s": 0.00598928751423955,
+          "peak_scenario_rows": 1776,
+          "total_scenario_ply_rows": 247089,
+          "grouped_coordinates_by_layer": 206434,
+          "peak_counted_array_bytes": 743596,
+          "process_peak_rss_bytes": 65126400,
+          "reference_s": 0.21856704191304743
+        },
+        {
+          "wall_s": 0.13631233316846192,
+          "preparation_s": 0.002950088120996952,
+          "forward_s": 0.12736229039728642,
+          "fold_s": 0.0058208731934428215,
+          "peak_scenario_rows": 1776,
+          "total_scenario_ply_rows": 247089,
+          "grouped_coordinates_by_layer": 206434,
+          "peak_counted_array_bytes": 743596,
+          "process_peak_rss_bytes": 65126400,
+          "reference_s": 0.2186708750668913
+        }
+      ]
+    },
+    {
+      "worlds": 128,
+      "roots": 52,
+      "all_vectors_equal": true,
+      "duplicate_weight_cases": 4,
+      "runs": [
+        {
+          "wall_s": 0.31568041699938476,
+          "preparation_s": 0.007105667609721422,
+          "forward_s": 0.29559658584184945,
+          "fold_s": 0.012745251646265388,
+          "peak_scenario_rows": 5803,
+          "total_scenario_ply_rows": 791163,
+          "grouped_coordinates_by_layer": 612658,
+          "peak_counted_array_bytes": 2419283,
+          "process_peak_rss_bytes": 74907648,
+          "reference_s": 0.6647974590305239
+        },
+        {
+          "wall_s": 0.31315883388742805,
+          "preparation_s": 0.006867083953693509,
+          "forward_s": 0.2935118372552097,
+          "fold_s": 0.012555960332974792,
+          "peak_scenario_rows": 5803,
+          "total_scenario_ply_rows": 791163,
+          "grouped_coordinates_by_layer": 612658,
+          "peak_counted_array_bytes": 2419283,
+          "process_peak_rss_bytes": 74924032,
+          "reference_s": 0.662952917162329
+        },
+        {
+          "wall_s": 0.3126245408784598,
+          "preparation_s": 0.006977292941883206,
+          "forward_s": 0.29293283401057124,
+          "fold_s": 0.012494706083089113,
+          "peak_scenario_rows": 5803,
+          "total_scenario_ply_rows": 791163,
+          "grouped_coordinates_by_layer": 612658,
+          "peak_counted_array_bytes": 2419283,
+          "process_peak_rss_bytes": 74924032,
+          "reference_s": 0.6637799160089344
+        },
+        {
+          "wall_s": 0.31103779189288616,
+          "preparation_s": 0.006762331817299128,
+          "forward_s": 0.2917362891603261,
+          "fold_s": 0.012328834738582373,
+          "peak_scenario_rows": 5803,
+          "total_scenario_ply_rows": 791163,
+          "grouped_coordinates_by_layer": 612658,
+          "peak_counted_array_bytes": 2419283,
+          "process_peak_rss_bytes": 74940416,
+          "reference_s": 0.6630265000276268
+        }
+      ]
+    }
+  ],
+  "caveat": "Freshseed950000..950127,preexclude forced/settled and non-pip. All sample-sizepanels share nestedrandomworld/tapeprefixes. ConditionalfiniteDice only, batchthroughput notsingleturnlatency. Importexcluded;arrayprep included. Sampling128worlds chargedseparately; no runtime/memory/k linearitytheorem."
+}
+

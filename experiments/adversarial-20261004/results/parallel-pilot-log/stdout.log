@@ -1,0 +1,4 @@
+{"round": 0, "mode": "recursive", "workers": 4, "wall_s": 0.07987333399999996, "worker_cpu_s": 0.054634, "nodes": 15398}
+{"round": 0, "mode": "recursive", "workers": 0, "wall_s": 0.04902841699999999, "worker_cpu_s": 0.04893699999999995, "nodes": 15398}
+{"round": 0, "mode": "compiled", "workers": 4, "wall_s": 0.07075724999999994, "worker_cpu_s": 0.06114299999999996, "nodes": 15398}
+{"round": 0, "mode": "compiled", "workers": 0, "wall_s": 0.05526245800000007, "worker_cpu_s": 0.05515700000000012, "nodes": 15398}

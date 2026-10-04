@@ -1,0 +1,371 @@
+[
+  {
+    "id": "10BIAi6LuV8ZxVisdti0YnSO9CMOxMY0T",
+    "title": "MATH-TEAM-STATUS.v2.md",
+    "mime_type": "text/markdown",
+    "size": "3165",
+    "url": "https://drive.google.com/file/d/10BIAi6LuV8ZxVisdti0YnSO9CMOxMY0T/view?usp=drivesdk",
+    "display_url": "https://drive.google.com/file/d/10BIAi6LuV8ZxVisdti0YnSO9CMOxMY0T/view?usp=drivesdk",
+    "file_or_folder": "file",
+    "created_time": "2026-10-04T08:24:59.893Z",
+    "modified_time": "2026-10-04T08:24:59.893Z",
+    "parent_ids": null,
+    "drive_id": null,
+    "current_user_can_share": null,
+    "has_augmented_permissions": null,
+    "shared": false,
+    "permissions": null,
+    "source_visibility_status": "not_shared",
+    "can_download": true,
+    "can_list_children": false,
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "content": "# MATH-TEAM-STATUS (v2, Oct 4 2026) — supersedes MATH-TEAM-STATUS.md; caveats preserved in substance\n\n## 1. Vectorized flat shared-plan prototype (math team)\n105 pip-trump roots, 100,800 (world, shared-order) rows.\n- Exact terminal cells and action values matched the scalar oracle.\n- Pilot cold array prep + simulation + reduction: 0.182–0.186 s, versus 1.300 s for scalar plans and 0.385 s for the grouped tree,\n  in the same Python/NumPy runtime. Counted arrays 3.82 MB; process high-water 66.2 MB.\n- Broader 134-root audit: 65 strict best-value gaps, 11 worse root choices, mean root regret 0.003731 — CONDITIONAL ON THESE FIXTURES.\nCaveats: not population or phone-strength evidence; fixtures independently legality-replayed (avoiding the original sampler bug);\nexact uint64 high-multiply indexing; unsupported non-pip declarations excluded; no native, GPU, or phone speedup claim.\n\n## 2. frontier.py — ply-synchronous FULL own-choice tree (math team, validated)\n- Exact uint64 tapes; collision-free history IDs (parent-history ID, tile, root prefix).\n- On 105 pip roots and 69 partial tricks, EVERY action vector matched the lawful grouped recursion.\n- Four alternating runs: 0.209–0.216 s versus 0.389–0.403 s (~1.85x), including preparation, branching, group sort, and reverse fold.\n- Peak 2,997 scenario rows; 1.29 MB counted arrays.\n- This is full-tree semantics with NO restricted-plan gap.\nCaveats: makes no native, phone, or higher-k claim.\n\n## 3. Sol's consistent_worlds repair (math team, validated)\n- Disables settlement after every historical play (i.e., no early stop during the legality replay).\n- Reproduces 700 exact legal worlds and 384/384 legal samples; originals preserved.\nCaveat: these results do NOT replace testing the exact engine42 witness (bidder=1, trump=2, 16-ply, even=7/odd=17), which has not been\nrun in this workspace. The exact fixture is available from the math team on request; see \"Open\" below.\n\n## How these sit with the folder's existing results\n- Item 2 is the strongest result in the folder on the flattening question: a lawful full-tree frontier at ~1.85x the grouped recursion's\n  speed in NumPy, with no class gap. It supersedes the shared-plan rung as the recommended direction for the inner rung (shared plans\n  remain a defender-seat/first-pass candidate given flatplan.v3's class gap: 0.054 defending, 0.103 bidding, 0.336 on the opening lead).\n- Item 3 is the same fix as engine42.v2.py's `no_stop=True` replay (test_support.py: 0 violations / 37,872 worlds; old path 28% illegal\n  on odd-bidder positions), reached independently. Two implementations, same semantics; neither has yet been run on the exact witness.\n- Nothing here is population or phone-strength evidence. The only phone-strength numbers in the folder remain harness.mjs vs Plunge\n  a0d9fa80 / Rust cb1ef3b2: 52.2% ± 1.9 (native-l1, n=720), 48.3% ± 4.6 (native-partner, n=120).\n\n## Open\n- Run the exact engine42 witness fixture against engine42.v2.consistent_worlds and Sol's repair (requested from the math team).\n- Population-level test of frontier.py-style inner rung inside Walt's outer loop vs native-partner via harness.mjs.\n",
+        "title": "MATH-TEAM-STATUS.v2.md",
+        "url": "https://drive.google.com/file/d/10BIAi6LuV8ZxVisdti0YnSO9CMOxMY0T/view?usp=drivesdk",
+        "file_name": null,
+        "mime_type": "text/markdown",
+        "file_ext": null,
+        "b64_string": null,
+        "id": "10BIAi6LuV8ZxVisdti0YnSO9CMOxMY0T",
+        "parent_ids": [
+          "1-0rjkAYyIWZbb-Pg6cpqEn80T2wwNLMb"
+        ],
+        "drive_id": null,
+        "created_time": "2026-10-04T08:24:59.893Z",
+        "modified_time": "2026-10-04T08:24:59.893Z",
+        "is_empty": false,
+        "file_uri": null,
+        "file_size_bytes": null,
+        "display_url": "https://drive.google.com/file/d/10BIAi6LuV8ZxVisdti0YnSO9CMOxMY0T/view?usp=drivesdk",
+        "display_title": "MATH-TEAM-STATUS.v2.md",
+        "structuredContent": {
+          "title": "MATH-TEAM-STATUS.v2.md",
+          "content": "# MATH-TEAM-STATUS (v2, Oct 4 2026) — supersedes MATH-TEAM-STATUS.md; caveats preserved in substance\n\n## 1. Vectorized flat shared-plan prototype (math team)\n105 pip-trump roots, 100,800 (world, shared-order) rows.\n- Exact terminal cells and action values matched the scalar oracle.\n- Pilot cold array prep + simulation + reduction: 0.182–0.186 s, versus 1.300 s for scalar plans and 0.385 s for the grouped tree,\n  in the same Python/NumPy runtime. Counted arrays 3.82 MB; process high-water 66.2 MB.\n- Broader 134-root audit: 65 strict best-value gaps, 11 worse root choices, mean root regret 0.003731 — CONDITIONAL ON THESE FIXTURES.\nCaveats: not population or phone-strength evidence; fixtures independently legality-replayed (avoiding the original sampler bug);\nexact uint64 high-multiply indexing; unsupported non-pip declarations excluded; no native, GPU, or phone speedup claim.\n\n## 2. frontier.py — ply-synchronous FULL own-choice tree (math team, validated)\n- Exact uint64 tapes; collision-free history IDs (parent-history ID, tile, root prefix).\n- On 105 pip roots and 69 partial tricks, EVERY action vector matched the lawful grouped recursion.\n- Four alternating runs: 0.209–0.216 s versus 0.389–0.403 s (~1.85x), including preparation, branching, group sort, and reverse fold.\n- Peak 2,997 scenario rows; 1.29 MB counted arrays.\n- This is full-tree semantics with NO restricted-plan gap.\nCaveats: makes no native, phone, or higher-k claim.\n\n## 3. Sol's consistent_worlds repair (math team, validated)\n- Disables settlement after every historical play (i.e., no early stop during the legality replay).\n- Reproduces 700 exact legal worlds and 384/384 legal samples; originals preserved.\nCaveat: these results do NOT replace testing the exact engine42 witness (bidder=1, trump=2, 16-ply, even=7/odd=17), which has not been\nrun in this workspace. The exact fixture is available from the math team on request; see \"Open\" below.\n\n## How these sit with the folder's existing results\n- Item 2 is the strongest result in the folder on the flattening question: a lawful full-tree frontier at ~1.85x the grouped recursion's\n  speed in NumPy, with no class gap. It supersedes the shared-plan rung as the recommended direction for the inner rung (shared plans\n  remain a defender-seat/first-pass candidate given flatplan.v3's class gap: 0.054 defending, 0.103 bidding, 0.336 on the opening lead).\n- Item 3 is the same fix as engine42.v2.py's `no_stop=True` replay (test_support.py: 0 violations / 37,872 worlds; old path 28% illegal\n  on odd-bidder positions), reached independently. Two implementations, same semantics; neither has yet been run on the exact witness.\n- Nothing here is population or phone-strength evidence. The only phone-strength numbers in the folder remain harness.mjs vs Plunge\n  a0d9fa80 / Rust cb1ef3b2: 52.2% ± 1.9 (native-l1, n=720), 48.3% ± 4.6 (native-partner, n=120).\n\n## Open\n- Run the exact engine42 witness fixture against engine42.v2.consistent_worlds and Sol's repair (requested from the math team).\n- Population-level test of frontier.py-style inner rung inside Walt's outer loop vs native-partner via harness.mjs.\n",
+          "id": "10BIAi6LuV8ZxVisdti0YnSO9CMOxMY0T",
+          "parent_ids": [
+            "1-0rjkAYyIWZbb-Pg6cpqEn80T2wwNLMb"
+          ],
+          "drive_id": null,
+          "created_time": "2026-10-04T08:24:59.893Z",
+          "modified_time": "2026-10-04T08:24:59.893Z",
+          "is_empty": false,
+          "mime_type": "text/markdown",
+          "file_name": null,
+          "file_size_bytes": null,
+          "url": "https://drive.google.com/file/d/10BIAi6LuV8ZxVisdti0YnSO9CMOxMY0T"
+        }
+      },
+      "isError": false
+    }
+  },
+  {
+    "id": "1ESanL03E9qeJdfAjcWYuGOOLZAf5ImD3",
+    "title": "flatplan.v3.py",
+    "mime_type": "text/x-python",
+    "size": "7354",
+    "url": "https://drive.google.com/file/d/1ESanL03E9qeJdfAjcWYuGOOLZAf5ImD3/view?usp=drivesdk",
+    "display_url": "https://drive.google.com/file/d/1ESanL03E9qeJdfAjcWYuGOOLZAf5ImD3/view?usp=drivesdk",
+    "file_or_folder": "file",
+    "created_time": "2026-10-04T08:22:54.404Z",
+    "modified_time": "2026-10-04T08:22:54.404Z",
+    "parent_ids": null,
+    "drive_id": null,
+    "current_user_can_share": null,
+    "has_augmented_permissions": null,
+    "shared": false,
+    "permissions": null,
+    "source_visibility_status": "not_shared",
+    "can_download": true,
+    "can_list_children": false,
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "content": "",
+        "title": "flatplan.v3.py",
+        "url": "https://drive.google.com/file/d/1ESanL03E9qeJdfAjcWYuGOOLZAf5ImD3/view?usp=drivesdk",
+        "file_name": "flatplan.v3.py",
+        "mime_type": "text/x-python",
+        "file_ext": "py",
+        "b64_string": "IiIiZmxhdHBsYW4udjMucHkg4oCUIGZsYXQsIGZ1c2lvbi1mcmVlIEwxIChzaGFyZWQgcHJpb3JpdHktb3JkZXJpbmcgcGxhbnM7IHJvd3MgPSB3b3JsZHMgeCBwbGFuczsgU1VNIG92ZXIgd29ybGRzIHBlciBwbGFuOyBiZXN0IHBsYW4ncwpmaXJzdCBsZWdhbCB0aWxlKS4gUmVxdWlyZXMgZW5naW5lNDIudjIgKG5vX3N0b3AgcmVwbGF5KSwgZXhhY3RfdGFwZSwgbm9mdXNpb25fc2MgKHdpdGggdGhlIG5vX3N0b3AgcGF0Y2gpLgoKdjMgKGF1ZGl0KTogcmVwb3J0cyBUV08gZ2FwIG9iamVjdGl2ZXMgb24gdGhlIHNhbWUgd29ybGRzIGFuZCB0YXBlIOKAlAogIChhKSB2cyB0aGUgZnVzZWQgcGVyLXdvcmxkLWV4dHJlbWEgdHJlZSAgPSBwbGFuLWNsYXNzIHJlc3RyaWN0aW9uICsgZnVzaW9uIHNsYWNrICh1cHBlciBib3VuZCBvbiB0aGUgY2xhc3MgZ2FwKQogIChiKSB2cyB0aGUgTEFXRlVMIHNoYXJlZC1oaXN0b3J5IHRyZWUgICAgPSB0aGUgY2xhc3MgZ2FwIHByb3BlciAob25lIGRlY2lzaW9uIHBlciBpbmZvcm1hdGlvbiBzZXQ7IG5vZnVzaW9uX3NjLmV4cGVjdGltYXggd2l0aCB0YXBlKQphbmQgdGhlIHNoYXJlZCBwbGFuIGxpc3QgaXMgZHJhd24gb25jZSwgaW5kZXBlbmRlbnQgb2YgYW55IGhpZGRlbiB3b3JsZCwga2V5ZWQgYnkgY2Fub25pY2FsIG9yZGVyaW5nIHR1cGxlLCBkZWR1cGxpY2F0ZWQuCgpSRVNVTFQgKE9jdCA0IDIwMjYsIGZpeGVkIHNhbXBsZXIsIDEyOCB3b3JsZHMsIDUwIHBvc2l0aW9ucy9oYW5kLCByZWZlcmVuY2UgZXhhY3QtdGFwZUAzODQgPSBwZXItd29ybGQgZXh0cmVtYSk6CiAgZGVmZW5kaW5nIEM6IGZsYXQgdnMgbGF3ZnVsIHRyZWUgc2FtZSBkZWNpc2lvbiA5MiU7IGZsYXQgcmVncmV0IDAuMDA1MTsgY2xhc3MgZ2FwIHByb3BlciAwLjA1NCAoZnVzZWQgMC4wNjUpCiAgYmlkZGluZyBBOiAgIHNhbWUgZGVjaXNpb24gNzglICh0cmljayAxOiAyNSUpOyBmbGF0IHJlZ3JldCAwLjAxMzE7IGNsYXNzIGdhcCBwcm9wZXIgMC4xMDMsIHRyaWNrIDE6IDAuMzM2IChmdXNlZCAwLjMzOCkKdXNhZ2U6IHB5dGhvbjMgZmxhdHBsYW4udjMucHkgPHNlZWQ+IDxiaWRkZXItc2VhdD4gIjxsYWJlbD4iICAgKG15IHNlYXQgaXMgMikiIiIKaW1wb3J0IG51bXB5IGFzIG5wLCBpdGVydG9vbHMsIHRpbWUsIHN5cwpmcm9tIGVuZ2luZTQyIGltcG9ydCAqCmZyb20gZXhhY3RfdGFwZSBpbXBvcnQgd29ybGRzLCBwdWJsaWMsIGNsb25lX3Jvd3MsIGhhbmRfc2V0dXAsIHNhbXBsZV9wb3NpdGlvbnMsIGV4YWN0X3RhcGUsIEJJRAppbXBvcnQgbm9mdXNpb25fc2MKCmRlZiBwbGFuc19mb3Iocm5nLCBtaW5lLCBsZWdhbCwgbSk6CiAgICAiIiJPTkUgc2hhcmVkIHBsYW4gbGlzdCwgZHJhd24gaW5kZXBlbmRlbnRseSBvZiBhbnkgaGlkZGVuIHdvcmxkLCBrZXllZCBieSBjYW5vbmljYWwgb3JkZXJpbmcgdHVwbGUgKGRlZHVwbGljYXRlZCkuIiIiCiAgICBhbGxwID0gbGlzdChpdGVydG9vbHMucGVybXV0YXRpb25zKG1pbmUpKQogICAgaWYgbGVuKGFsbHApIDw9IG06IHJldHVybiBucC5hcnJheShhbGxwLCBucC5pbnQ2NCkKICAgIFAgPSB7fQogICAgZm9yIHQgaW4gbGVnYWw6IFBbdHVwbGUoW3RdICsgW2ludCh4KSBmb3IgeCBpbiBybmcucGVybXV0YXRpb24obWluZSkgaWYgeCAhPSB0XSldID0gVHJ1ZSAgICAgICAjIGV2ZXJ5IGxlZ2FsIHJvb3QgdGlsZSBjb3ZlcmVkCiAgICB3aGlsZSBsZW4oUCkgPCBtOiBQW3R1cGxlKGludCh4KSBmb3IgeCBpbiBybmcucGVybXV0YXRpb24obWluZSkpXSA9IFRydWUKICAgIHJldHVybiBucC5hcnJheShsaXN0KFAua2V5cygpKSwgbnAuaW50NjQpCgpkZWYgZmxhdF9hbmRfdHJlZShydWxlcywgYmlkZGVyLCBzZWF0LCBoYW5kX25vdywgaGlzdG9yeSwgZGVhbF9mdWxsLCBybmcsIFcsIG09NzIwKToKICAgIHJlbSwgZnVsbCA9IHdvcmxkcyhybmcsIHJ1bGVzLCBzZWF0LCBoYW5kX25vdywgaGlzdG9yeSwgVyk7IFcgPSBsZW4ocmVtKQogICAgZzEgPSBwdWJsaWMocnVsZXMsIGJpZGRlciwgZnVsbFswXSwgaGlzdG9yeSk7IEwwID0gaW50KGcxLmxlZ2FsKG5wLmFycmF5KFtzZWF0XSkpWzBdKTsgbGVnYWwgPSBbdCBmb3IgdCBpbiByYW5nZSgyOCkgaWYgKEwwID4+IHQpICYgMV0KICAgIHNpZGVfYmlkID0gKHNlYXQgJSAyKSA9PSAoYmlkZGVyICUgMik7IG1pbmUgPSBbdCBmb3IgdCBpbiByYW5nZSgyOCkgaWYgKGhhbmRfbm93ID4+IHQpICYgMV0KICAgIHRhcGUgPSBybmcucmFuZG9tKChXLCAyOCkpCiAgICAjIC0tLS0gZmxhdDogd29ybGRzIHggcGxhbnMgKG9uZSBzaGFyZWQgcGxhbiBsaXN0OyBlYWNoIHdvcmxkJ3MgdGFwZSByb3cgcmV1c2VkIGFjcm9zcyBwbGFucykKICAgIHBsYW5zID0gcGxhbnNfZm9yKHJuZywgbWluZSwgbGVnYWwsIG0pOyBQID0gbGVuKHBsYW5zKTsgUiA9IFcgKiBQCiAgICBnID0gR2FtZShydWxlcywgbnAucmVwZWF0KHJlbSwgUCwgYXhpcz0wKSwgQklELCBiaWRkZXIsIHNjb3Jlcz0obnAucmVwZWF0KGcxLmJpZF9wdHMsIFIpLCBucC5yZXBlYXQoZzEuZGVmX3B0cywgUikpLCBsZWFkZXI9bnAucmVwZWF0KGcxLmxlYWRlciwgUiksIHRhYmxlPW5wLnJlcGVhdChnMS50YWJsZSwgUiwgYXhpcz0wKSwgdHJpY2s9bnAucmVwZWF0KGcxLnRyaWNrLCBSKSkKICAgIG9yZGVycyA9IG5wLnRpbGUocGxhbnMsIChXLCAxKSk7IHRwID0gbnAucmVwZWF0KHRhcGUsIFAsIGF4aXM9MCkKICAgIHMwID0gZy5zZWF0X3RvX3BsYXkoKTsgcm9vdCA9IGZpcnN0X2luX29yZGVyKGcubGVnYWwoczApLCBvcmRlcnMpWzpQXQogICAgcnVuX291dChnLCB0cCwgbXlfc2VhdD1zZWF0LCBvcmRlcnM9b3JkZXJzKQogICAgbWFkZSA9IGcubWFkZSgpLnJlc2hhcGUoVywgUCkKICAgIHBlcl9wbGFuID0gbWFkZS5zdW0oMCkgLyBXICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIyBTVU0gb3ZlciB3b3JsZHMgZmlyc3Q6IG9uZSBwbGFuIGZvciBhbGwgd29ybGRzCiAgICBiZXN0ID0gaW50KHBlcl9wbGFuLmFyZ21heCgpIGlmIHNpZGVfYmlkIGVsc2UgcGVyX3BsYW4uYXJnbWluKCkpCiAgICBmbGF0X3ZhbHMgPSB7fQogICAgZm9yIHQgaW4gbGVnYWw6CiAgICAgICAgc2VsID0gcm9vdCA9PSB0CiAgICAgICAgZmxhdF92YWxzW3RdID0gZmxvYXQocGVyX3BsYW5bc2VsXS5tYXgoKSBpZiBzaWRlX2JpZCBlbHNlIHBlcl9wbGFuW3NlbF0ubWluKCkpIGlmIHNlbC5hbnkoKSBlbHNlIGZsb2F0KCduYW4nKQogICAgZmxhdF9jaG9pY2UgPSBpbnQocm9vdFtiZXN0XSkKICAgICMgLS0tLSAoYSkgZnVzZWQgdHJlZSBvbiB0aGUgU0FNRSB3b3JsZHMgYW5kIHRhcGU6IHBlci13b3JsZCBiZXN0IHJlc3BvbnNlIChwZXItd29ybGQgZXh0cmVtYSkKICAgIHRyZWVfdmFscyA9IHt9CiAgICBnVCA9IEdhbWUocnVsZXMsIHJlbSwgQklELCBiaWRkZXIsIHNjb3Jlcz0obnAucmVwZWF0KGcxLmJpZF9wdHMsIFcpLCBucC5yZXBlYXQoZzEuZGVmX3B0cywgVykpLCBsZWFkZXI9bnAucmVwZWF0KGcxLmxlYWRlciwgVyksIHRhYmxlPW5wLnJlcGVhdChnMS50YWJsZSwgVywgYXhpcz0wKSwgdHJpY2s9bnAucmVwZWF0KGcxLnRyaWNrLCBXKSkKICAgIHdpZHggPSBucC5hcmFuZ2UoVyk7IHJvb3RUID0gbnAuZnVsbChXLCAtMSwgbnAuaW50NjQpOyBwbHkgPSAwCiAgICB3aGlsZSBub3QgZ1QuZG9uZS5hbGwoKToKICAgICAgICBzID0gZ1Quc2VhdF90b19wbGF5KCk7IEwgPSBnVC5sZWdhbChzKTsgbW4gPSAocyA9PSBzZWF0KSAmIH5nVC5kb25lCiAgICAgICAgaWYgbW4uYW55KCk6CiAgICAgICAgICAgIG4gPSBucC53aGVyZShtbiwgcG9wY291bnQoTCksIDEpOyBpZHggPSBucC5yZXBlYXQobnAuYXJhbmdlKGdULlIpLCBuKTsgaiA9IG5wLmFyYW5nZShsZW4oaWR4KSkgLSBucC5yZXBlYXQobnAuY3Vtc3VtKG4pIC0gbiwgbikKICAgICAgICAgICAgZ1QgPSBjbG9uZV9yb3dzKGdULCBpZHgpOyB3aWR4ID0gd2lkeFtpZHhdOyByb290VCA9IHJvb3RUW2lkeF07IEwgPSBMW2lkeF07IG1uID0gbW5baWR4XTsgdG0gPSBrdGhfc2V0X2JpdChMLCBqKQogICAgICAgIG5vID0gcG9wY291bnQoTCk7IGsgPSBucC5taW5pbXVtKCh0YXBlW3dpZHgsIHBseV0gKiBubykuYXN0eXBlKG5wLmludDY0KSwgbnAubWF4aW11bShubyAtIDEsIDApKTsgdCA9IGt0aF9zZXRfYml0KEwsIGspCiAgICAgICAgaWYgbW4uYW55KCk6IHQgPSBucC53aGVyZShtbiwgdG0sIHQpOyBmID0gbW4gJiAocm9vdFQgPCAwKTsgcm9vdFRbZl0gPSB0W2ZdCiAgICAgICAgZ1QucGxheShucC53aGVyZShnVC5kb25lLCAtMSwgdCkpOyBwbHkgKz0gMQogICAgbVQgPSBnVC5tYWRlKCkKICAgIGZvciB0IGluIGxlZ2FsOgogICAgICAgIHNlbCA9IHJvb3RUID09IHQ7IHB3ID0gbnAuZnVsbChXLCAtOSBpZiBzaWRlX2JpZCBlbHNlIDksIG5wLmludDY0KQogICAgICAgIChucC5tYXhpbXVtLmF0IGlmIHNpZGVfYmlkIGVsc2UgbnAubWluaW11bS5hdCkocHcsIHdpZHhbc2VsXSwgbVRbc2VsXSk7IHRyZWVfdmFsc1t0XSA9IHB3Lm1lYW4oKQogICAgdHJlZV9jaG9pY2UgPSBtYXgobGVnYWwsIGtleT1sYW1iZGEgdDogKHRyZWVfdmFsc1t0XSwgLXQpKSBpZiBzaWRlX2JpZCBlbHNlIG1pbihsZWdhbCwga2V5PWxhbWJkYSB0OiAodHJlZV92YWxzW3RdLCB0KSkKICAgICMgLS0tLSAoYikgTEFXRlVMIHNoYXJlZC1oaXN0b3J5IHRyZWUgb24gdGhlIFNBTUUgd29ybGRzIGFuZCB0YXBlIChvbmUgZGVjaXNpb24gcGVyIGluZm9ybWF0aW9uIHNldCk6IHRoZSBjbGFzcyBnYXAgcHJvcGVyCiAgICBsYXdfdmFscywgbGF3X2Nob2ljZSwgXyA9IG5vZnVzaW9uX3NjLmV4cGVjdGltYXgocnVsZXMsIGJpZGRlciwgc2VhdCwgaGFuZF9ub3csIGhpc3RvcnksIGZ1bGxbMF0sIHJlbSwgdGFwZT10YXBlKQogICAgcmV0dXJuIGZsYXRfdmFscywgZmxhdF9jaG9pY2UsIHRyZWVfdmFscywgdHJlZV9jaG9pY2UsIGZsb2F0KHBlcl9wbGFuW2Jlc3RdKSwgUCwgUiwgbGF3X3ZhbHMsIGxhd19jaG9pY2UKCmlmIF9fbmFtZV9fID09ICdfX21haW5fXyc6CiAgICBzZWVkLCBteSwgYmlkZGVyLCBsYWJlbCA9IGludChzeXMuYXJndlsxXSksIDIsIGludChzeXMuYXJndlsyXSksIHN5cy5hcmd2WzNdCiAgICBydWxlcywgbXlfaGFuZCwgZDAgPSBoYW5kX3NldHVwKHNlZWQsIG15LCBiaWRkZXIpOyBiaWRzaWRlID0gKG15ICUgMikgPT0gKGJpZGRlciAlIDIpCiAgICB0ZXN0ID0gc2FtcGxlX3Bvc2l0aW9ucyhydWxlcywgYmlkZGVyLCBteSwgbXlfaGFuZCwgbnAucmFuZG9tLmRlZmF1bHRfcm5nKHNlZWQgKyA1KSwgMzAwLCB7MDogNCwgMTogOCwgMjogMTAsIDM6IDEwLCA0OiAxMCwgNTogOH0pCiAgICB0MCA9IHRpbWUudGltZSgpCiAgICBSRUYgPSBbZXhhY3RfdGFwZShydWxlcywgYmlkZGVyLCBteSwgcFsnaGFuZF9ub3cnXSwgcFsnaGlzdG9yeSddLCBwWydkZWFsJ10sIG5wLnJhbmRvbS5kZWZhdWx0X3JuZyg5MF8wMDAgKyBpKSwgMzg0KVswXSBmb3IgaSwgcCBpbiBlbnVtZXJhdGUodGVzdCldCiAgICB0cmVmID0gdGltZS50aW1lKCkgLSB0MAogICAgYWdyZWUgPSBbXTsgYWdyZWVfbGF3ID0gW107IHJlZ19mbGF0ID0gW107IHJlZ190cmVlID0gW107IHJlZ19sYXcgPSBbXTsgZ2FwX2Z1c2VkID0gW107IGdhcF9sYXcgPSBbXTsgcm93cyA9IFtdOyB0ZiA9IFtdCiAgICBmb3IgaSwgcCBpbiBlbnVtZXJhdGUodGVzdCk6CiAgICAgICAgYSA9IHRpbWUudGltZSgpOyBmdiwgZmMsIHR2LCB0YywgZmJlc3QsIFAsIFIsIGx2LCBsYyA9IGZsYXRfYW5kX3RyZWUocnVsZXMsIGJpZGRlciwgbXksIHBbJ2hhbmRfbm93J10sIHBbJ2hpc3RvcnknXSwgcFsnZGVhbCddLCBucC5yYW5kb20uZGVmYXVsdF9ybmcoaSksIDEyOCk7IHRmLmFwcGVuZCh0aW1lLnRpbWUoKSAtIGEpCiAgICAgICAgcmVmID0gUkVGW2ldOyBiZXN0ID0gbWF4KHJlZi52YWx1ZXMoKSkgaWYgYmlkc2lkZSBlbHNlIG1pbihyZWYudmFsdWVzKCkpCiAgICAgICAgYWdyZWUuYXBwZW5kKGZjID09IHRjKTsgYWdyZWVfbGF3LmFwcGVuZChmYyA9PSBsYyk7IHJlZ19mbGF0LmFwcGVuZChhYnMocmVmW2ZjXSAtIGJlc3QpKTsgcmVnX3RyZWUuYXBwZW5kKGFicyhyZWZbdGNdIC0gYmVzdCkpOyByZWdfbGF3LmFwcGVuZChhYnMocmVmW2xjXSAtIGJlc3QpKQogICAgICAgIGdhcF9mdXNlZC5hcHBlbmQoYWJzKHR2W3RjXSAtIGZiZXN0KSk7IGdhcF9sYXcuYXBwZW5kKGFicyhsdltsY10gLSBmYmVzdCkpOyByb3dzLmFwcGVuZChSKQogICAgcHJpbnQoZid7bGFiZWx9OiB7bGVuKHRlc3QpfSBwb3NpdGlvbnMgKHJlZiBleGFjdC10YXBlQDM4NCA9IHBlci13b3JsZCBleHRyZW1hLCB7dHJlZjouMGZ9cykuIFNhbWUgMTI4IHdvcmxkcyt0YXBlIGZvciBhbGwgdGhyZWUgZXN0aW1hdG9ycy4nKQogICAgcHJpbnQoZicgIGRlY2lzaW9uIGFncmVlbWVudDogZmxhdCB2cyBmdXNlZCB0cmVlIHsxMDAqbnAubWVhbihhZ3JlZSk6LjBmfSUsIGZsYXQgdnMgTEFXRlVMIGdyb3VwZWQgdHJlZSB7MTAwKm5wLm1lYW4oYWdyZWVfbGF3KTouMGZ9JScpCiAgICBwcmludChmJyAgcmVncmV0IHZzIHJlZjogZmxhdCB7bnAubWVhbihyZWdfZmxhdCk6LjRmfSwgZnVzZWQgdHJlZSB7bnAubWVhbihyZWdfdHJlZSk6LjRmfSwgbGF3ZnVsIHRyZWUge25wLm1lYW4ocmVnX2xhdyk6LjRmfScpCiAgICBwcmludChmJyAgdmFsdWUgZ2FwIG9mIGJlc3Qgc2hhcmVkIHBsYW46IHZzIGZ1c2VkIHRyZWUgKGNsYXNzICsgZnVzaW9uIHNsYWNrKSB7bnAubWVhbihnYXBfZnVzZWQpOi40Zn07IHZzIExBV0ZVTCB0cmVlIChjbGFzcyBnYXAgcHJvcGVyKSB7bnAubWVhbihnYXBfbGF3KTouNGZ9JykKICAgIHByaW50KGYnICByb3dzL2RlY2lzaW9uIHtucC5tZWFuKHJvd3MpOiwuMGZ9OyBtcy9kZWNpc2lvbiB7MTAwMCpucC5tZWFuKHRmKTouMGZ9JykKICAgIGZvciBrIGluIHJhbmdlKDYpOgogICAgICAgIGlkeCA9IFtpIGZvciBpLCBwIGluIGVudW1lcmF0ZSh0ZXN0KSBpZiBwWyd0cmljayddID09IGtdCiAgICAgICAgaWYgaWR4OiBwcmludChmJyAgdHJpY2sge2srMX06IGFncmVlKGxhd2Z1bCkgezEwMCpucC5tZWFuKFthZ3JlZV9sYXdbaV0gZm9yIGkgaW4gaWR4XSk6My4wZn0lICBmbGF0IHJlZ3JldCB7bnAubWVhbihbcmVnX2ZsYXRbaV0gZm9yIGkgaW4gaWR4XSk6LjRmfSAgbGF3ZnVsLXRyZWUgcmVncmV0IHtucC5tZWFuKFtyZWdfbGF3W2ldIGZvciBpIGluIGlkeF0pOi40Zn0gIGNsYXNzIGdhcCB7bnAubWVhbihbZ2FwX2xhd1tpXSBmb3IgaSBpbiBpZHhdKTouNGZ9ICAoK2Z1c2lvbiBzbGFjazoge25wLm1lYW4oW2dhcF9mdXNlZFtpXSBmb3IgaSBpbiBpZHhdKTouNGZ9KScpCg==",
+        "id": "1ESanL03E9qeJdfAjcWYuGOOLZAf5ImD3",
+        "parent_ids": [
+          "1-0rjkAYyIWZbb-Pg6cpqEn80T2wwNLMb"
+        ],
+        "drive_id": null,
+        "created_time": "2026-10-04T08:22:54.404Z",
+        "modified_time": "2026-10-04T08:22:54.404Z",
+        "is_empty": false,
+        "file_uri": {
+          "download_url": "https://sdmntprcentralus.oaiusercontent.com/files/00000000-56b0-81f5-8e69-a3ba819b42cc/raw?se=2026-10-04T08%3A35%3A45Z&sp=r&sv=2026-02-06&sr=b&scid=01a10606-0ef9-7b6a-be7f-0adcc37e35f7&skoid=add8ee7d-5fc7-451e-b06e-a82b2276cf62&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-03T17%3A34%3A03Z&ske=2026-10-04T17%3A34%3A03Z&sks=b&skv=2026-02-06&sig=NX0OUgnOvLYFoGSClPcGMNUeijskEQIdBiBmWwr20Eg%3D",
+          "file_id": "file_0000000056b081f58e69a3ba819b42cc",
+          "mime_type": "text/x-python",
+          "file_name": "flatplan.v3.py"
+        },
+        "file_size_bytes": 7354,
+        "display_url": "https://drive.google.com/file/d/1ESanL03E9qeJdfAjcWYuGOOLZAf5ImD3/view?usp=drivesdk",
+        "display_title": "flatplan.v3.py",
+        "structuredContent": {
+          "title": "flatplan.v3.py",
+          "content": "",
+          "id": "1ESanL03E9qeJdfAjcWYuGOOLZAf5ImD3",
+          "parent_ids": [
+            "1-0rjkAYyIWZbb-Pg6cpqEn80T2wwNLMb"
+          ],
+          "drive_id": null,
+          "created_time": "2026-10-04T08:22:54.404Z",
+          "modified_time": "2026-10-04T08:22:54.404Z",
+          "is_empty": false,
+          "mime_type": "text/x-python",
+          "file_name": "flatplan.v3.py",
+          "file_size_bytes": 7354,
+          "url": "https://drive.google.com/file/d/1ESanL03E9qeJdfAjcWYuGOOLZAf5ImD3",
+          "file_uri": {
+            "download_url": "https://sdmntprcentralus.oaiusercontent.com/files/00000000-56b0-81f5-8e69-a3ba819b42cc/raw?se=2026-10-04T08%3A35%3A45Z&sp=r&sv=2026-02-06&sr=b&scid=01a10606-0ef9-7b6a-be7f-0adcc37e35f7&skoid=add8ee7d-5fc7-451e-b06e-a82b2276cf62&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-03T17%3A34%3A03Z&ske=2026-10-04T17%3A34%3A03Z&sks=b&skv=2026-02-06&sig=NX0OUgnOvLYFoGSClPcGMNUeijskEQIdBiBmWwr20Eg%3D",
+            "file_id": "file_0000000056b081f58e69a3ba819b42cc",
+            "mime_type": "text/x-python",
+            "file_name": "flatplan.v3.py"
+          },
+          "download_url": "https://sdmntprcentralus.oaiusercontent.com/files/00000000-56b0-81f5-8e69-a3ba819b42cc/raw?se=2026-10-04T08%3A35%3A45Z&sp=r&sv=2026-02-06&sr=b&scid=01a10606-0ef9-7b6a-be7f-0adcc37e35f7&skoid=add8ee7d-5fc7-451e-b06e-a82b2276cf62&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-03T17%3A34%3A03Z&ske=2026-10-04T17%3A34%3A03Z&sks=b&skv=2026-02-06&sig=NX0OUgnOvLYFoGSClPcGMNUeijskEQIdBiBmWwr20Eg%3D",
+          "file_id": "file_0000000056b081f58e69a3ba819b42cc"
+        }
+      },
+      "isError": false
+    }
+  },
+  {
+    "id": "1xS04xM0eDGb0Otki6l-UpT4tbaMOciNH",
+    "title": "AUDIT-RESPONSE-2.md",
+    "mime_type": "text/markdown",
+    "size": "4140",
+    "url": "https://drive.google.com/file/d/1xS04xM0eDGb0Otki6l-UpT4tbaMOciNH/view?usp=drivesdk",
+    "display_url": "https://drive.google.com/file/d/1xS04xM0eDGb0Otki6l-UpT4tbaMOciNH/view?usp=drivesdk",
+    "file_or_folder": "file",
+    "created_time": "2026-10-04T08:22:18.809Z",
+    "modified_time": "2026-10-04T08:22:18.809Z",
+    "parent_ids": null,
+    "drive_id": null,
+    "current_user_can_share": null,
+    "has_augmented_permissions": null,
+    "shared": false,
+    "permissions": null,
+    "source_visibility_status": "not_shared",
+    "can_download": true,
+    "can_list_children": false,
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "content": "# AUDIT-RESPONSE-2 (Oct 4 2026) — supersedes AUDIT-RESPONSE.md item 2 and corrects the gap objectives\n\n## Correction 1: engine42.consistent_worlds WAS affected (AUDIT-RESPONSE.md item 2 was wrong)\nThe legality replay in v1 was `Game(rules, full, 30, 0)`: bidder hard-coded to 0, early-stop live. For an odd bidder the true\nbidders' points are attributed to the defenders, the replay marks the game `done` once they reach 13, `play()` becomes a no-op, and\nevery later legality check runs against stale table/hands and accepts follow-suit violations. This matches the independent witness\n(bidder=1, trump=2, 16-ply, even=7/odd=17: fake replay stops after trick 1, accepts seat 2's tile 0 after a 6 lead while holding 2 and 4).\nIt is separate from the batched.v1 unchecked fallback. It reaches exact_tape.worlds (and therefore every Python rung and reference\nthat sampled from an odd-bidder position).\n\nFix: `Game(..., no_stop=True)` — replay every ply, never mark done. Legality depends only on winners/leaders (bidder-independent), so a\nno-early-stop replay with any bidder label is exact. Applied to engine42.consistent_worlds (engine42.v2.py), nofusion_sc.all_deals\n(line: `g = Game(rules, full, BID, history[0][0], no_stop=True)`), and batched.batched_worlds (line: `g = Game(rules, full, BID, bidder, no_stop=True)`).\n\nRegression test (test_support.py, independent scalar bidder-aware no-early-stop checker):\n- FIXED samplers (consistent_worlds, all_deals, batched_worlds): 37,872 worlds checked across even and odd bidders, violations = 0.\n- OLD path reproduced: on 144 odd-bidder positions it accepted 13,288 candidate worlds, 3,731 (28%) illegal. Exit 0 iff both hold.\n\n### What is verified / not verified\n- Verified: the fixed samplers emit only legal worlds under the independent checker on 6 hands x ~36 positions each (includes the enumerated\n  tail and the batched sampler). The old path's failure class is reproduced.\n- NOT verified: the exact math-team fixture was not run here (available on request); results below are on my fixtures.\n- Prior results that sampled from odd-bidder positions in Python are CONTAMINATED and should be re-measured: regret tables for hands C\n  (bidder 3) and D (bidder 1); Python-engine tournaments (half the hands had an odd bidder; both sides used the same sampler, so\n  symmetric, but not trustworthy); flatplan hand C (re-measured below).\n- Prior results NOT affected: everything against the real Plunge Walt via harness.mjs (52.2% ± 1.9 native-l1 n=720; 48.3% ± 4.6\n  native-partner n=120) and the C-vs-C matches — walt.c samples by voids tracked from true play; the exact-tail validation on the\n  walkthrough (enumerated directly, 515/2016 & 449/2016); hands A and B tables and flatplan hand A (bidder = seat 2, even).\n\n## Correction 2: two gap objectives, not conflicting measurements\nflatplan.v2's \"tree\" comparator is per-world extrema (fused). Its gap therefore = plan-class restriction + fusion slack (an upper bound\non the class gap). The math team's gap is against the LAWFUL shared-history tree = the class gap proper. The v2 shared-plan estimator\nitself is lawful conditional on valid input. flatplan.v3 reports both on the same worlds and tape (fixed sampler, 128 worlds, 50 positions/hand;\nreference exact-tape@384 is itself per-world extrema, so \"lawful-tree regret\" below includes the reference's own slack):\n\n| | defending C (sampler fixed) | bidding A |\n|---|---|---|\n| flat vs LAWFUL tree, same decision | 92% (was 86% contaminated) | 78% (trick 1: 25%) |\n| flat regret / lawful-tree regret vs ref | 0.0051 / 0.0000 | 0.0131 / 0.0028 |\n| class gap proper (vs lawful tree) | 0.054 | 0.103 (trick 1: 0.336) |\n| gap vs fused tree (class + fusion slack) | 0.065 | 0.111 (trick 1: 0.338) |\n\nFusion slack is 0.01–0.02 on average and ~0.002 on the bidder's opening lead; the 0.34 there is class restriction. Conclusion unchanged:\nshared plans are lawful and fusion-free; beat the 8-world inner for defenders; worse for a bidder on the opening lead. The math team's\n0.003731 (134 roots) remains a different fixture set and reference and is recorded alongside, not combined.\n",
+        "title": "AUDIT-RESPONSE-2.md",
+        "url": "https://drive.google.com/file/d/1xS04xM0eDGb0Otki6l-UpT4tbaMOciNH/view?usp=drivesdk",
+        "file_name": null,
+        "mime_type": "text/markdown",
+        "file_ext": null,
+        "b64_string": null,
+        "id": "1xS04xM0eDGb0Otki6l-UpT4tbaMOciNH",
+        "parent_ids": [
+          "1-0rjkAYyIWZbb-Pg6cpqEn80T2wwNLMb"
+        ],
+        "drive_id": null,
+        "created_time": "2026-10-04T08:22:18.809Z",
+        "modified_time": "2026-10-04T08:22:18.809Z",
+        "is_empty": false,
+        "file_uri": null,
+        "file_size_bytes": null,
+        "display_url": "https://drive.google.com/file/d/1xS04xM0eDGb0Otki6l-UpT4tbaMOciNH/view?usp=drivesdk",
+        "display_title": "AUDIT-RESPONSE-2.md",
+        "structuredContent": {
+          "title": "AUDIT-RESPONSE-2.md",
+          "content": "# AUDIT-RESPONSE-2 (Oct 4 2026) — supersedes AUDIT-RESPONSE.md item 2 and corrects the gap objectives\n\n## Correction 1: engine42.consistent_worlds WAS affected (AUDIT-RESPONSE.md item 2 was wrong)\nThe legality replay in v1 was `Game(rules, full, 30, 0)`: bidder hard-coded to 0, early-stop live. For an odd bidder the true\nbidders' points are attributed to the defenders, the replay marks the game `done` once they reach 13, `play()` becomes a no-op, and\nevery later legality check runs against stale table/hands and accepts follow-suit violations. This matches the independent witness\n(bidder=1, trump=2, 16-ply, even=7/odd=17: fake replay stops after trick 1, accepts seat 2's tile 0 after a 6 lead while holding 2 and 4).\nIt is separate from the batched.v1 unchecked fallback. It reaches exact_tape.worlds (and therefore every Python rung and reference\nthat sampled from an odd-bidder position).\n\nFix: `Game(..., no_stop=True)` — replay every ply, never mark done. Legality depends only on winners/leaders (bidder-independent), so a\nno-early-stop replay with any bidder label is exact. Applied to engine42.consistent_worlds (engine42.v2.py), nofusion_sc.all_deals\n(line: `g = Game(rules, full, BID, history[0][0], no_stop=True)`), and batched.batched_worlds (line: `g = Game(rules, full, BID, bidder, no_stop=True)`).\n\nRegression test (test_support.py, independent scalar bidder-aware no-early-stop checker):\n- FIXED samplers (consistent_worlds, all_deals, batched_worlds): 37,872 worlds checked across even and odd bidders, violations = 0.\n- OLD path reproduced: on 144 odd-bidder positions it accepted 13,288 candidate worlds, 3,731 (28%) illegal. Exit 0 iff both hold.\n\n### What is verified / not verified\n- Verified: the fixed samplers emit only legal worlds under the independent checker on 6 hands x ~36 positions each (includes the enumerated\n  tail and the batched sampler). The old path's failure class is reproduced.\n- NOT verified: the exact math-team fixture was not run here (available on request); results below are on my fixtures.\n- Prior results that sampled from odd-bidder positions in Python are CONTAMINATED and should be re-measured: regret tables for hands C\n  (bidder 3) and D (bidder 1); Python-engine tournaments (half the hands had an odd bidder; both sides used the same sampler, so\n  symmetric, but not trustworthy); flatplan hand C (re-measured below).\n- Prior results NOT affected: everything against the real Plunge Walt via harness.mjs (52.2% ± 1.9 native-l1 n=720; 48.3% ± 4.6\n  native-partner n=120) and the C-vs-C matches — walt.c samples by voids tracked from true play; the exact-tail validation on the\n  walkthrough (enumerated directly, 515/2016 & 449/2016); hands A and B tables and flatplan hand A (bidder = seat 2, even).\n\n## Correction 2: two gap objectives, not conflicting measurements\nflatplan.v2's \"tree\" comparator is per-world extrema (fused). Its gap therefore = plan-class restriction + fusion slack (an upper bound\non the class gap). The math team's gap is against the LAWFUL shared-history tree = the class gap proper. The v2 shared-plan estimator\nitself is lawful conditional on valid input. flatplan.v3 reports both on the same worlds and tape (fixed sampler, 128 worlds, 50 positions/hand;\nreference exact-tape@384 is itself per-world extrema, so \"lawful-tree regret\" below includes the reference's own slack):\n\n| | defending C (sampler fixed) | bidding A |\n|---|---|---|\n| flat vs LAWFUL tree, same decision | 92% (was 86% contaminated) | 78% (trick 1: 25%) |\n| flat regret / lawful-tree regret vs ref | 0.0051 / 0.0000 | 0.0131 / 0.0028 |\n| class gap proper (vs lawful tree) | 0.054 | 0.103 (trick 1: 0.336) |\n| gap vs fused tree (class + fusion slack) | 0.065 | 0.111 (trick 1: 0.338) |\n\nFusion slack is 0.01–0.02 on average and ~0.002 on the bidder's opening lead; the 0.34 there is class restriction. Conclusion unchanged:\nshared plans are lawful and fusion-free; beat the 8-world inner for defenders; worse for a bidder on the opening lead. The math team's\n0.003731 (134 roots) remains a different fixture set and reference and is recorded alongside, not combined.\n",
+          "id": "1xS04xM0eDGb0Otki6l-UpT4tbaMOciNH",
+          "parent_ids": [
+            "1-0rjkAYyIWZbb-Pg6cpqEn80T2wwNLMb"
+          ],
+          "drive_id": null,
+          "created_time": "2026-10-04T08:22:18.809Z",
+          "modified_time": "2026-10-04T08:22:18.809Z",
+          "is_empty": false,
+          "mime_type": "text/markdown",
+          "file_name": null,
+          "file_size_bytes": null,
+          "url": "https://drive.google.com/file/d/1xS04xM0eDGb0Otki6l-UpT4tbaMOciNH"
+        }
+      },
+      "isError": false
+    }
+  },
+  {
+    "id": "1abD4D4Qd4h4QAG-UpXmcBcpaz0U1nEkQ",
+    "title": "engine42.v2.py",
+    "mime_type": "text/x-python",
+    "size": "11624",
+    "url": "https://drive.google.com/file/d/1abD4D4Qd4h4QAG-UpXmcBcpaz0U1nEkQ/view?usp=drivesdk",
+    "display_url": "https://drive.google.com/file/d/1abD4D4Qd4h4QAG-UpXmcBcpaz0U1nEkQ/view?usp=drivesdk",
+    "file_or_folder": "file",
+    "created_time": "2026-10-04T08:21:57.740Z",
+    "modified_time": "2026-10-04T08:21:57.740Z",
+    "parent_ids": null,
+    "drive_id": null,
+    "current_user_can_share": null,
+    "has_augmented_permissions": null,
+    "shared": false,
+    "permissions": null,
+    "source_visibility_status": "not_shared",
+    "can_download": true,
+    "can_list_children": false,
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "content": "",
+        "title": "engine42.v2.py",
+        "url": "https://drive.google.com/file/d/1abD4D4Qd4h4QAG-UpXmcBcpaz0U1nEkQ/view?usp=drivesdk",
+        "file_name": "engine42.v2.py",
+        "mime_type": "text/x-python",
+        "file_ext": "py",
+        "b64_string": "IiIiZW5naW5lNDIudjIucHkg4oCUIDQyIGVuZ2luZSwgdmVjdG9yaXplZCBvdmVyIHJvd3MgKHdvcmxkcyB4IGxpbmVzKS4gVGlsZXMgYXJlIGludHMgMC4uMjcgKHRyaWFuZ3VsYXIgaWQgaChoKzEpLzIrbCk7IGhhbmRzIGFyZSAyOC1iaXQgbWFza3MuCk9uZSBoYW5kIGlzIGZpeGVkOiB0cnVtcCwgYmlkLCBiaWRkZXIgc2VhdC4gVGhlICd0YXBlJyBpcyBhIChyb3dzLCAyOCkgYXJyYXkgb2YgdSBpbiBbMCwxKTogb3RoZXJzIHBsYXkgdGhlIGNlaWwodSpuKS10aCBsZWdhbCB0aWxlLgoKdjIgKGF1ZGl0IGZpeCwgT2N0IDQgMjAyNik6IEdhbWUoLi4uLCBub19zdG9wPVRydWUpIHJlcGxheXMgZXZlcnkgcGx5IGFuZCBuZXZlciBtYXJrcyBgZG9uZWA7IGNvbnNpc3RlbnRfd29ybGRzIHVzZXMgaXQuCnYxIGJ1aWx0IHRoZSBsZWdhbGl0eSByZXBsYXkgYXMgR2FtZShydWxlcywgZnVsbCwgMzAsIDApIHdpdGggYmlkZGVyIGhhcmQtY29kZWQgdG8gMCBhbmQgZWFybHktc3RvcCBsaXZlOiBmb3IgYW4gb2RkIGJpZGRlciB0aGUgdHJ1ZQpiaWRkZXJzJyBwb2ludHMgd2VyZSBhdHRyaWJ1dGVkIHRvIHRoZSBkZWZlbmRlcnMsIHRoZSByZXBsYXkgbWFya2VkIHRoZSBnYW1lIGRvbmUgb25jZSB0aGV5IHJlYWNoZWQgMTMsIHBsYXkoKSBiZWNhbWUgYSBuby1vcCwgYW5kCmxhdGVyIGxlZ2FsaXR5IGNoZWNrcyByYW4gYWdhaW5zdCBzdGFsZSBzdGF0ZSBhbmQgYWNjZXB0ZWQgZm9sbG93LXN1aXQgdmlvbGF0aW9ucyAoZmFsc2Ugc3VwcG9ydDsgMjglIG9mIGFjY2VwdGVkIGNhbmRpZGF0ZXMgaWxsZWdhbApvbiBvZGQtYmlkZGVyIHBvc2l0aW9ucyBpbiB0ZXN0X3N1cHBvcnQucHkpLiBMZWdhbGl0eSBuZXZlciBkZXBlbmRzIG9uIHNjb3JpbmcgYXR0cmlidXRpb24sIG9ubHkgb24gd2lubmVycy9sZWFkZXJzLCB3aGljaCBhcmUKYmlkZGVyLWluZGVwZW5kZW50LCBzbyBhIG5vLWVhcmx5LXN0b3AgcmVwbGF5IHdpdGggYW55IGJpZGRlciBsYWJlbCBpcyBleGFjdC4gUmVncmVzc2lvbiB0ZXN0OiB0ZXN0X3N1cHBvcnQucHkgKDAgdmlvbGF0aW9ucyAvIDM3LDg3MikuIiIiCmltcG9ydCBudW1weSBhcyBucAoKVElMRVMgPSBbKGEsIGIpIGZvciBhIGluIHJhbmdlKDcpIGZvciBiIGluIHJhbmdlKGEgKyAxKV0gICAgICAjIGluZGV4IC0+IChoaSwgbG8pCkhJID0gbnAuYXJyYXkoW2EgZm9yIGEsIGIgaW4gVElMRVNdKTsgTE8gPSBucC5hcnJheShbYiBmb3IgYSwgYiBpbiBUSUxFU10pCk5BTUUgPSBbZid7YX0te2J9JyBmb3IgYSwgYiBpbiBUSUxFU10KSURYID0ge246IGkgZm9yIGksIG4gaW4gZW51bWVyYXRlKE5BTUUpfQpDT1VOVCA9IG5wLndoZXJlKEhJICsgTE8gPT0gNSwgNSwgbnAud2hlcmUoSEkgKyBMTyA9PSAxMCwgMTAsIDApKQpCSVQgPSAoMSA8PCBucC5hcmFuZ2UoMjgpKS5hc3R5cGUobnAuaW50NjQpCgpjbGFzcyBSdWxlczoKICAgICIiIlByZWNvbXB1dGVkIHRhYmxlcyBmb3IgYSBnaXZlbiB0cnVtcCBwaXAgKDAuLjYpLiIiIgogICAgZGVmIF9faW5pdF9fKHNlbGYsIHRydW1wKToKICAgICAgICBzZWxmLnRydW1wID0gdHJ1bXAKICAgICAgICBzZWxmLmlzX3RydW1wID0gKEhJID09IHRydW1wKSB8IChMTyA9PSB0cnVtcCkKICAgICAgICBzZWxmLmxlZF9jb2RlID0gbnAud2hlcmUoc2VsZi5pc190cnVtcCwgNywgSEkpICAgICAgICAgICMgbGVkIHN1aXQgY29kZTogMC4uNiA9IHBpcCBzdWl0LCA3ID0gdHJ1bXAgc3VpdAogICAgICAgIEYgPSBucC56ZXJvcygoOCwgMjgpLCBib29sKSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICMgZm9sbG93ZXJzW3FdOiBhIG5vbi10cnVtcCB0aWxlIGZvbGxvd3MgZWl0aGVyIG9mIGl0cyBlbmRzCiAgICAgICAgZm9yIHEgaW4gcmFuZ2UoNyk6CiAgICAgICAgICAgIEZbcV0gPSAoKEhJID09IHEpIHwgKExPID09IHEpKSAmIH5zZWxmLmlzX3RydW1wCiAgICAgICAgRls3XSA9IHNlbGYuaXNfdHJ1bXAKICAgICAgICBzZWxmLmZvbGxvdyA9IEYKICAgICAgICBzZWxmLmZvbGxvd19tYXNrID0gbnAuYXJyYXkoW2ludCgoRltxXSAqIEJJVCkuc3VtKCkpIGZvciBxIGluIHJhbmdlKDgpXSwgZHR5cGU9bnAuaW50NjQpCiAgICAgICAgUyA9IG5wLnplcm9zKCg4LCAyOCksIG5wLmludDMyKSAgICAgICAgICAgICAgICAgICAgICAgICAgIyBzdHJlbmd0aFtxLCB0aWxlXTogdHJ1bXAgPiBmb2xsb3dlciA+IG9mZi1zdWl0OyBvdGhlciBlbmQgcmFua3M7IGRvdWJsZSBoaWdoZXN0CiAgICAgICAgZm9yIHEgaW4gcmFuZ2UoOCk6CiAgICAgICAgICAgIGZvciB0IGluIHJhbmdlKDI4KToKICAgICAgICAgICAgICAgIGEsIGIgPSBUSUxFU1t0XQogICAgICAgICAgICAgICAgaWYgc2VsZi5pc190cnVtcFt0XToKICAgICAgICAgICAgICAgICAgICBTW3EsIHRdID0gMTAwICsgKDcgaWYgYSA9PSBiIGVsc2UgYSArIGIgLSB0cnVtcCkKICAgICAgICAgICAgICAgIGVsaWYgcSA8IDcgYW5kIEZbcSwgdF06CiAgICAgICAgICAgICAgICAgICAgU1txLCB0XSA9IDEgKyAoNyBpZiBhID09IGIgZWxzZSBhICsgYiAtIHEpCiAgICAgICAgICAgICAgICBlbHNlOgogICAgICAgICAgICAgICAgICAgIFNbcSwgdF0gPSAwCiAgICAgICAgc2VsZi5zdHJlbmd0aCA9IFMKCmRlZiBwb3Bjb3VudCh4KToKICAgIHggPSB4LmFzdHlwZShucC5pbnQ2NCkKICAgIGMgPSBucC56ZXJvc19saWtlKHgpCiAgICBmb3IgaSBpbiByYW5nZSgyOCk6CiAgICAgICAgYyArPSAoeCA+PiBpKSAmIDEKICAgIHJldHVybiBjCgpkZWYga3RoX3NldF9iaXQobWFzaywgayk6CiAgICAiIiJ0aWxlIGluZGV4IG9mIHRoZSBrLXRoICgwLWJhc2VkKSBzZXQgYml0IG9mIGVhY2ggbWFzay4gQXNzdW1lcyBrIDwgcG9wY291bnQuIiIiCiAgICBvdXQgPSBucC5mdWxsKG1hc2suc2hhcGUsIC0xLCBucC5pbnQ2NCk7IGNudCA9IG5wLnplcm9zKG1hc2suc2hhcGUsIG5wLmludDY0KQogICAgZm9yIGkgaW4gcmFuZ2UoMjgpOgogICAgICAgIGhhcyA9IChtYXNrID4+IGkpICYgMQogICAgICAgIGhpdCA9IChoYXMgPT0gMSkgJiAoY250ID09IGspICYgKG91dCA8IDApCiAgICAgICAgb3V0W2hpdF0gPSBpCiAgICAgICAgY250ICs9IGhhcwogICAgcmV0dXJuIG91dAoKZGVmIGZpcnN0X2luX29yZGVyKG1hc2ssIG9yZGVyKToKICAgICIiIm9yZGVyOiAocm93cywgTCkgdGlsZSBpZHMgKC0xID0gbm9uZSkuIFJldHVybnMgZmlyc3QgdGlsZSBpbiBvcmRlciB3aG9zZSBiaXQgaXMgc2V0LCBlbHNlIC0xLiIiIgogICAgb3V0ID0gbnAuZnVsbChtYXNrLnNoYXBlLCAtMSwgbnAuaW50NjQpCiAgICBmb3IgaiBpbiByYW5nZShvcmRlci5zaGFwZVsxXSk6CiAgICAgICAgdCA9IG9yZGVyWzosIGpdCiAgICAgICAgb2sgPSAob3V0IDwgMCkgJiAodCA+PSAwKSAmICgoKG1hc2sgPj4gbnAubWF4aW11bSh0LCAwKSkgJiAxKSA9PSAxKQogICAgICAgIG91dFtva10gPSB0W29rXQogICAgcmV0dXJuIG91dAoKY2xhc3MgR2FtZToKICAgICIiIlZlY3Rvcml6ZWQgZ2FtZSBzdGF0ZSBvdmVyIFIgcm93cy4iIiIKICAgIGRlZiBfX2luaXRfXyhzZWxmLCBydWxlcywgaGFuZHMsIGJpZCwgYmlkZGVyLCBzY29yZXM9Tm9uZSwgbGVhZGVyPU5vbmUsIHRhYmxlPU5vbmUsIHRyaWNrPTAsIG5vX3N0b3A9RmFsc2UpOgogICAgICAgIHNlbGYuUiA9IGhhbmRzLnNoYXBlWzBdOyBzZWxmLnJ1bGVzID0gcnVsZXM7IHNlbGYubm9fc3RvcCA9IG5vX3N0b3AgICAjIG5vX3N0b3A6IHJlcGxheSBldmVyeSBwbHkgKGxlZ2FsaXR5IHJlcGxheXMpLCBuZXZlciBtYXJrIGRvbmUKICAgICAgICBzZWxmLmhhbmRzID0gaGFuZHMuY29weSgpICAgICAgICAgICAgICAgICAgICAgICMgKFIsNCkgaW50NjQgbWFza3MKICAgICAgICBzZWxmLmJpZCA9IGJpZDsgc2VsZi5iaWRkZXIgPSBiaWRkZXIKICAgICAgICBzZWxmLmJpZF9wdHMgPSBucC56ZXJvcyhzZWxmLlIsIG5wLmludDY0KSBpZiBzY29yZXMgaXMgTm9uZSBlbHNlIHNjb3Jlc1swXS5jb3B5KCkKICAgICAgICBzZWxmLmRlZl9wdHMgPSBucC56ZXJvcyhzZWxmLlIsIG5wLmludDY0KSBpZiBzY29yZXMgaXMgTm9uZSBlbHNlIHNjb3Jlc1sxXS5jb3B5KCkKICAgICAgICBzZWxmLmxlYWRlciA9IG5wLmZ1bGwoc2VsZi5SLCBiaWRkZXIsIG5wLmludDY0KSBpZiBsZWFkZXIgaXMgTm9uZSBlbHNlIG5wLmFzYXJyYXkobGVhZGVyLCBucC5pbnQ2NCkuY29weSgpCiAgICAgICAgc2VsZi50YWJsZSA9IG5wLmZ1bGwoKHNlbGYuUiwgNCksIC0xLCBucC5pbnQ2NCkgaWYgdGFibGUgaXMgTm9uZSBlbHNlIHRhYmxlLmNvcHkoKQogICAgICAgIHNlbGYubnBsID0gKHNlbGYudGFibGUgPj0gMCkuc3VtKDEpCiAgICAgICAgc2VsZi50cmljayA9IG5wLmZ1bGwoc2VsZi5SLCB0cmljaywgbnAuaW50NjQpIGlmIG5wLmlzc2NhbGFyKHRyaWNrKSBlbHNlIHRyaWNrLmNvcHkoKQogICAgICAgIHNlbGYuZG9uZSA9IG5wLnplcm9zKHNlbGYuUiwgYm9vbCkKICAgICAgICBzZWxmLnBseV9sb2cgPSBbXQoKICAgIGRlZiBzZWF0X3RvX3BsYXkoc2VsZik6CiAgICAgICAgcmV0dXJuIChzZWxmLmxlYWRlciArIHNlbGYubnBsKSAlIDQKCiAgICBkZWYgbGVnYWwoc2VsZiwgc2VhdCk6CiAgICAgICAgaCA9IHNlbGYuaGFuZHNbbnAuYXJhbmdlKHNlbGYuUiksIHNlYXRdCiAgICAgICAgbGVkID0gc2VsZi50YWJsZVs6LCAwXQogICAgICAgIHEgPSBucC53aGVyZShsZWQgPj0gMCwgc2VsZi5ydWxlcy5sZWRfY29kZVtucC5tYXhpbXVtKGxlZCwgMCldLCAtMSkKICAgICAgICBmbSA9IG5wLndoZXJlKHEgPj0gMCwgc2VsZi5ydWxlcy5mb2xsb3dfbWFza1tucC5tYXhpbXVtKHEsIDApXSwgLTEpCiAgICAgICAgZiA9IGggJiBmbQogICAgICAgIHJldHVybiBucC53aGVyZShmICE9IDAsIGYsIGgpCgogICAgZGVmIHBsYXkoc2VsZiwgdGlsZSk6CiAgICAgICAgIiIidGlsZTogKFIsKSB0aWxlIHBlciByb3cgKC0xIGZvciByb3dzIHRoYXQgYXJlIGRvbmUpLiBBcHBsaWVzIHRoZSBwbGF5IGFuZCByZXNvbHZlcyB0aGUgdHJpY2sgaWYgZnVsbC4iIiIKICAgICAgICByID0gbnAuYXJhbmdlKHNlbGYuUik7IHNlYXQgPSBzZWxmLnNlYXRfdG9fcGxheSgpCiAgICAgICAgYWN0ID0gKHRpbGUgPj0gMCkgJiB+c2VsZi5kb25lCiAgICAgICAgc2VsZi5oYW5kc1tyW2FjdF0sIHNlYXRbYWN0XV0gJj0gfkJJVFt0aWxlW2FjdF1dCiAgICAgICAgc2VsZi50YWJsZVtyW2FjdF0sIHNlbGYubnBsW2FjdF1dID0gdGlsZVthY3RdCiAgICAgICAgc2VsZi5ucGxbYWN0XSArPSAxCiAgICAgICAgc2VsZi5wbHlfbG9nLmFwcGVuZCgobnAud2hlcmUoYWN0LCBzZWF0LCAtMSksIG5wLndoZXJlKGFjdCwgdGlsZSwgLTEpKSkKICAgICAgICBmdWxsID0gYWN0ICYgKHNlbGYubnBsID09IDQpCiAgICAgICAgaWYgZnVsbC5hbnkoKToKICAgICAgICAgICAgdGIgPSBzZWxmLnRhYmxlW2Z1bGxdOyBsZWQgPSB0Yls6LCAwXQogICAgICAgICAgICBxID0gc2VsZi5ydWxlcy5sZWRfY29kZVtsZWRdCiAgICAgICAgICAgIHN0ID0gc2VsZi5ydWxlcy5zdHJlbmd0aFtxWzosIE5vbmVdLCB0Yl0KICAgICAgICAgICAgd3BvcyA9IHN0LmFyZ21heCgxKQogICAgICAgICAgICB3c2VhdCA9IChzZWxmLmxlYWRlcltmdWxsXSArIHdwb3MpICUgNAogICAgICAgICAgICBwdHMgPSBDT1VOVFt0Yl0uc3VtKDEpICsgMQogICAgICAgICAgICBiaWRzaWRlID0gKHdzZWF0ICUgMikgPT0gKHNlbGYuYmlkZGVyICUgMikKICAgICAgICAgICAgc2VsZi5iaWRfcHRzW2Z1bGxdICs9IG5wLndoZXJlKGJpZHNpZGUsIHB0cywgMCkKICAgICAgICAgICAgc2VsZi5kZWZfcHRzW2Z1bGxdICs9IG5wLndoZXJlKH5iaWRzaWRlLCBwdHMsIDApCiAgICAgICAgICAgIHNlbGYubGVhZGVyW2Z1bGxdID0gd3NlYXQKICAgICAgICAgICAgc2VsZi50YWJsZVtmdWxsXSA9IC0xOyBzZWxmLm5wbFtmdWxsXSA9IDA7IHNlbGYudHJpY2tbZnVsbF0gKz0gMQogICAgICAgICAgICBpZiBub3Qgc2VsZi5ub19zdG9wOiBzZWxmLmRvbmVbZnVsbF0gPSAoc2VsZi5iaWRfcHRzW2Z1bGxdID49IHNlbGYuYmlkKSB8IChzZWxmLmRlZl9wdHNbZnVsbF0gPj0gNDMgLSBzZWxmLmJpZCkgfCAoc2VsZi50cmlja1tmdWxsXSA+PSA3KQoKICAgIGRlZiBtYWRlKHNlbGYpOgogICAgICAgIHJldHVybiAoc2VsZi5iaWRfcHRzID49IHNlbGYuYmlkKS5hc3R5cGUobnAuaW50NjQpCgpkZWYgcnVuX291dChnLCB0YXBlLCBteV9zZWF0PU5vbmUsIG9yZGVycz1Ob25lLCBwb2xpY3k9Tm9uZSk6CiAgICAiIiJQbGF5IHRvIHRoZSBlbmQuIE90aGVycyBkcmF3IGZyb20gdGFwZVs6LCBwbHldLiBJZiBteV9zZWF0IGlzIGdpdmVuLCByb3dzIHBsYXkgbXlfc2VhdCBieSAnb3JkZXJzJyAoZmlyc3QgbGVnYWwgaW4gb3JkZXIpIG9yIGJ5ICdwb2xpY3knLiIiIgogICAgcGx5ID0gMAogICAgd2hpbGUgbm90IGcuZG9uZS5hbGwoKToKICAgICAgICBzZWF0ID0gZy5zZWF0X3RvX3BsYXkoKQogICAgICAgIEwgPSBnLmxlZ2FsKHNlYXQpCiAgICAgICAgbiA9IHBvcGNvdW50KEwpCiAgICAgICAgayA9IG5wLm1pbmltdW0oKHRhcGVbOiwgcGx5XSAqIG4pLmFzdHlwZShucC5pbnQ2NCksIG5wLm1heGltdW0obiAtIDEsIDApKQogICAgICAgIHQgPSBrdGhfc2V0X2JpdChMLCBrKQogICAgICAgIGlmIG15X3NlYXQgaXMgbm90IE5vbmU6CiAgICAgICAgICAgIG1pbmUgPSAoc2VhdCA9PSBteV9zZWF0KSAmIH5nLmRvbmUKICAgICAgICAgICAgaWYgbWluZS5hbnkoKToKICAgICAgICAgICAgICAgIHRfbWluZSA9IGZpcnN0X2luX29yZGVyKEwsIG9yZGVycykgaWYgb3JkZXJzIGlzIG5vdCBOb25lIGVsc2UgcG9saWN5KGcsIEwpCiAgICAgICAgICAgICAgICB0ID0gbnAud2hlcmUobWluZSwgdF9taW5lLCB0KQogICAgICAgIHQgPSBucC53aGVyZShnLmRvbmUsIC0xLCB0KQogICAgICAgIGcucGxheSh0KTsgcGx5ICs9IDEKICAgIHJldHVybiBnCgpkZWYgcmFuZG9tX2RlYWxzKHJuZywgbiwgZml4ZWRfc2VhdD1Ob25lLCBmaXhlZF9oYW5kPU5vbmUpOgogICAgIiIibiBkZWFscyBhcyAobiw0KSBtYXNrcy4gSWYgZml4ZWRfaGFuZCAoMjgtYml0IG1hc2spIGdpdmVuLCB0aGF0IHNlYXQgYWx3YXlzIGhvbGRzIGl0LiIiIgogICAgb3V0ID0gbnAuemVyb3MoKG4sIDQpLCBucC5pbnQ2NCkKICAgIGlmIGZpeGVkX2hhbmQgaXMgTm9uZToKICAgICAgICBmb3IgaSBpbiByYW5nZShuKToKICAgICAgICAgICAgcCA9IHJuZy5wZXJtdXRhdGlvbigyOCkKICAgICAgICAgICAgZm9yIHMgaW4gcmFuZ2UoNCk6IG91dFtpLCBzXSA9IGludChCSVRbcFs3KnM6NypzKzddXS5zdW0oKSkKICAgICAgICByZXR1cm4gb3V0CiAgICByZXN0ID0gbnAuYXJyYXkoW3QgZm9yIHQgaW4gcmFuZ2UoMjgpIGlmIG5vdCAoZml4ZWRfaGFuZCA+PiB0KSAmIDFdKQogICAgb3RoZXJzID0gW3MgZm9yIHMgaW4gcmFuZ2UoNCkgaWYgcyAhPSBmaXhlZF9zZWF0XQogICAgZm9yIGkgaW4gcmFuZ2Uobik6CiAgICAgICAgcCA9IHJuZy5wZXJtdXRhdGlvbihyZXN0KQogICAgICAgIG91dFtpLCBmaXhlZF9zZWF0XSA9IGZpeGVkX2hhbmQKICAgICAgICBmb3IgaiwgcyBpbiBlbnVtZXJhdGUob3RoZXJzKTogb3V0W2ksIHNdID0gaW50KEJJVFtwWzcqajo3KmorN11dLnN1bSgpKQogICAgcmV0dXJuIG91dAoKZGVmIGNvbnNpc3RlbnRfd29ybGRzKHJuZywgcnVsZXMsIG15X3NlYXQsIG15X2hhbmRfbm93LCBoaXN0b3J5LCBuX3dhbnQsIG1heF90cmllcz00MCk6CiAgICAiIiJTYW1wbGUgZnVsbCBkZWFscyBjb25zaXN0ZW50IHdpdGg6IG15IGN1cnJlbnQgaGFuZCwgYW5kIGV2ZXJ5IHBsYXkgaW4gaGlzdG9yeSBiZWluZyBsZWdhbCBmb3IgaXRzIHNlYXQKICAgIChiaWRkZXItaW5kZXBlbmRlbnQgRlVMTCByZXBsYXksIG5vIGVhcmx5IHN0b3ApLiBoaXN0b3J5OiBsaXN0IG9mIChzZWF0LCB0aWxlKS4gUmV0dXJucyAobiw0KSBDVVJSRU5UIHJlbWFpbmluZyBoYW5kcyBhbmQgdGhlIGZ1bGwgZGVhbHMuIiIiCiAgICBwbGF5ZWRfYnkgPSBbW3QgZm9yIHMsIHQgaW4gaGlzdG9yeSBpZiBzID09IHFdIGZvciBxIGluIHJhbmdlKDQpXQogICAgc2VlbiA9IHNldCh0IGZvciBfLCB0IGluIGhpc3RvcnkpIHwgc2V0KHQgZm9yIHQgaW4gcmFuZ2UoMjgpIGlmIChteV9oYW5kX25vdyA+PiB0KSAmIDEpCiAgICB1bnNlZW4gPSBucC5hcnJheShbdCBmb3IgdCBpbiByYW5nZSgyOCkgaWYgdCBub3QgaW4gc2Vlbl0pCiAgICBuZWVkID0ge3M6IDcgLSBsZW4ocGxheWVkX2J5W3NdKSBmb3IgcyBpbiByYW5nZSg0KSBpZiBzICE9IG15X3NlYXR9CiAgICBhc3NlcnQgc3VtKG5lZWQudmFsdWVzKCkpID09IGxlbih1bnNlZW4pCiAgICBhY2Nfbm93LCBhY2NfZnVsbCA9IFtdLCBbXQogICAgZm9yIF8gaW4gcmFuZ2UobWF4X3RyaWVzKToKICAgICAgICBtID0gbWF4KG5fd2FudCAqIDQsIDI1NikKICAgICAgICBwZXJtcyA9IG5wLmFycmF5KFtybmcucGVybXV0YXRpb24odW5zZWVuKSBmb3IgXyBpbiByYW5nZShtKV0pCiAgICAgICAgcmVtID0gbnAuemVyb3MoKG0sIDQpLCBucC5pbnQ2NCk7IGZ1bGwgPSBucC56ZXJvcygobSwgNCksIG5wLmludDY0KQogICAgICAgIG9mZiA9IDAKICAgICAgICBmb3IgcyBpbiByYW5nZSg0KToKICAgICAgICAgICAgaWYgcyA9PSBteV9zZWF0OgogICAgICAgICAgICAgICAgcmVtWzosIHNdID0gbXlfaGFuZF9ub3c7IGZ1bGxbOiwgc10gPSBteV9oYW5kX25vdyB8IGludChCSVRbcGxheWVkX2J5W3NdXS5zdW0oKSkgaWYgcGxheWVkX2J5W3NdIGVsc2UgbXlfaGFuZF9ub3cKICAgICAgICAgICAgICAgIGNvbnRpbnVlCiAgICAgICAgICAgIGsgPSBuZWVkW3NdOyBzbCA9IHBlcm1zWzosIG9mZjpvZmYra107IG9mZiArPSBrCiAgICAgICAgICAgIHJlbVs6LCBzXSA9IChCSVRbc2xdKS5zdW0oMSkKICAgICAgICAgICAgZnVsbFs6LCBzXSA9IHJlbVs6LCBzXSB8IChpbnQoQklUW3BsYXllZF9ieVtzXV0uc3VtKCkpIGlmIHBsYXllZF9ieVtzXSBlbHNlIDApCiAgICAgICAgb2sgPSBucC5vbmVzKG0sIGJvb2wpCiAgICAgICAgIyBiaWRkZXItaW5kZXBlbmRlbnQgRlVMTCByZXBsYXk6IG5vIGVhcmx5IHN0b3AgKGEgaGFyZC1jb2RlZCBiaWRkZXIgd2l0aCBlYXJseS1zdG9wIGxldCBzdGFsZSBzdGF0ZSBhY2NlcHQgaWxsZWdhbCBwbGF5cykKICAgICAgICBnID0gR2FtZShydWxlcywgZnVsbC5jb3B5KCksIDMwLCAwLCBub19zdG9wPVRydWUpCiAgICAgICAgZy5sZWFkZXJbOl0gPSBoaXN0b3J5WzBdWzBdIGlmIGhpc3RvcnkgZWxzZSAwCiAgICAgICAgaWYgbm90IGhpc3Rvcnk6CiAgICAgICAgICAgIGFjY19ub3cuYXBwZW5kKHJlbSk7IGFjY19mdWxsLmFwcGVuZChmdWxsKTsgYnJlYWsKICAgICAgICBmb3IgcywgdCBpbiBoaXN0b3J5OgogICAgICAgICAgICBMID0gZy5sZWdhbChucC5mdWxsKG0sIHMpKQogICAgICAgICAgICBvayAmPSAoKEwgPj4gdCkgJiAxKSA9PSAxCiAgICAgICAgICAgIGcucGxheShucC5mdWxsKG0sIHQpKQogICAgICAgIGFjY19ub3cuYXBwZW5kKHJlbVtva10pOyBhY2NfZnVsbC5hcHBlbmQoZnVsbFtva10pCiAgICAgICAgaWYgc3VtKGxlbihhKSBmb3IgYSBpbiBhY2Nfbm93KSA+PSBuX3dhbnQ6IGJyZWFrCiAgICBub3cgPSBucC5jb25jYXRlbmF0ZShhY2Nfbm93KVs6bl93YW50XTsgZmwgPSBucC5jb25jYXRlbmF0ZShhY2NfZnVsbClbOm5fd2FudF0KICAgIHJldHVybiBub3csIGZsCgpkZWYgcmVwbGF5KHJ1bGVzLCBkZWFsX2Z1bGwsIGJpZCwgYmlkZGVyLCBoaXN0b3J5KToKICAgICIiIlJldHVybiBhIDEtcm93IEdhbWUgYXQgdGhlIHBvc2l0aW9uIGFmdGVyIGhpc3RvcnksIGZyb20gYSBmdWxsIGRlYWwgKDEsNCkuIiIiCiAgICBnID0gR2FtZShydWxlcywgZGVhbF9mdWxsLCBiaWQsIGJpZGRlcikKICAgIGcubGVhZGVyWzpdID0gYmlkZGVyCiAgICBmb3IgcywgdCBpbiBoaXN0b3J5OgogICAgICAgIGcucGxheShucC5hcnJheShbdF0pKQogICAgcmV0dXJuIGcKCmltcG9ydCBpdGVydG9vbHMKZGVmIHdhbHRfZGVjaWRlKHJuZywgcnVsZXMsIGJpZCwgYmlkZGVyLCBteV9zZWF0LCBoaXN0b3J5LCBteV9oYW5kX25vdywgbl93b3JsZHM9MTI4KToKICAgICIiIlNhbXBsZWQgYmVzdCByZXNwb25zZSB0byB1bmlmb3JtIHZpYSBhbGwgb3duIG9yZGVyaW5ncyAocGVyLXdvcmxkIGV4dHJlbWE7IHJlZmVyZW5jZSB1c2Ugb25seSkuIFJldHVybnMgKGNvdW50cywgY2hvaWNlLCBsZWdhbCwgVykuIiIiCiAgICByZW0sIGZ1bGwgPSBjb25zaXN0ZW50X3dvcmxkcyhybmcsIHJ1bGVzLCBteV9zZWF0LCBteV9oYW5kX25vdywgaGlzdG9yeSwgbl93b3JsZHMpCiAgICBXID0gbGVuKHJlbSkKICAgIGcxID0gcmVwbGF5KHJ1bGVzLCBmdWxsWzoxXSwgYmlkLCBiaWRkZXIsIGhpc3RvcnkpCiAgICBteV90aWxlcyA9IFt0IGZvciB0IGluIHJhbmdlKDI4KSBpZiAobXlfaGFuZF9ub3cgPj4gdCkgJiAxXQogICAgTDEgPSBnMS5sZWdhbChucC5hcnJheShbbXlfc2VhdF0pKVswXQogICAgbGVnYWwgPSBbdCBmb3IgdCBpbiBteV90aWxlcyBpZiAoTDEgPj4gdCkgJiAxXQogICAgb3JkZXJzID0gbnAuYXJyYXkobGlzdChpdGVydG9vbHMucGVybXV0YXRpb25zKG15X3RpbGVzKSksIG5wLmludDY0KQogICAgUCA9IGxlbihvcmRlcnMpCiAgICB0YXBlID0gcm5nLnJhbmRvbSgoVywgMjgpKQogICAgaGFuZHMgPSBucC5yZXBlYXQocmVtLCBQLCBheGlzPTApOyB0cCA9IG5wLnJlcGVhdCh0YXBlLCBQLCBheGlzPTApCiAgICBvcmRzID0gbnAudGlsZShvcmRlcnMsIChXLCAxKSkKICAgIGcgPSBHYW1lKHJ1bGVzLCBoYW5kcywgYmlkLCBiaWRkZXIsCiAgICAgICAgICAgICBzY29yZXM9KG5wLnJlcGVhdChnMS5iaWRfcHRzLCBXKlApLCBucC5yZXBlYXQoZzEuZGVmX3B0cywgVypQKSksCiAgICAgICAgICAgICBsZWFkZXI9bnAucmVwZWF0KGcxLmxlYWRlciwgVypQKSwgdGFibGU9bnAucmVwZWF0KGcxLnRhYmxlLCBXKlAsIGF4aXM9MCksIHRyaWNrPW5wLnJlcGVhdChnMS50cmljaywgVypQKSkKICAgIHNlYXQgPSBnLnNlYXRfdG9fcGxheSgpOyBMID0gZy5sZWdhbChzZWF0KQogICAgcm9vdCA9IGZpcnN0X2luX29yZGVyKEwsIG9yZHMpCiAgICBydW5fb3V0KGcsIHRwLCBteV9zZWF0PW15X3NlYXQsIG9yZGVycz1vcmRzKQogICAgbWFkZSA9IGcubWFkZSgpLnJlc2hhcGUoVywgUCk7IHJvb3QgPSByb290LnJlc2hhcGUoVywgUCkKICAgIGJpZHNpZGUgPSAobXlfc2VhdCAlIDIpID09IChiaWRkZXIgJSAyKQogICAgY291bnRzID0ge30KICAgIGZvciB0IGluIGxlZ2FsOgogICAgICAgIHNlbCA9IChyb290ID09IHQpCiAgICAgICAgcGVyX3dvcmxkID0gbnAud2hlcmUoc2VsLCBtYWRlLCA5IGlmIG5vdCBiaWRzaWRlIGVsc2UgLTkpCiAgICAgICAgYmVzdCA9IHBlcl93b3JsZC5taW4oMSkgaWYgbm90IGJpZHNpZGUgZWxzZSBwZXJfd29ybGQubWF4KDEpCiAgICAgICAgY291bnRzW3RdID0gaW50KGJlc3Quc3VtKCkpCiAgICBjaG9pY2UgPSBtYXgobGVnYWwsIGtleT1sYW1iZGEgdDogKGNvdW50c1t0XSwgLXQpKSBpZiBiaWRzaWRlIGVsc2UgbWluKGxlZ2FsLCBrZXk9bGFtYmRhIHQ6IChjb3VudHNbdF0sIHQpKQogICAgcmV0dXJuIGNvdW50cywgY2hvaWNlLCBsZWdhbCwgVwo=",
+        "id": "1abD4D4Qd4h4QAG-UpXmcBcpaz0U1nEkQ",
+        "parent_ids": [
+          "1-0rjkAYyIWZbb-Pg6cpqEn80T2wwNLMb"
+        ],
+        "drive_id": null,
+        "created_time": "2026-10-04T08:21:57.740Z",
+        "modified_time": "2026-10-04T08:21:57.740Z",
+        "is_empty": false,
+        "file_uri": {
+          "download_url": "https://sdmntprcentralus.oaiusercontent.com/files/00000000-4f24-81f5-8817-ffd04f3fbba1/raw?se=2026-10-04T08%3A35%3A46Z&sp=r&sv=2026-02-06&sr=b&scid=01a10606-0ef9-7b6a-be7f-0adcc37e35f7&skoid=add8ee7d-5fc7-451e-b06e-a82b2276cf62&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-03T17%3A45%3A02Z&ske=2026-10-04T17%3A45%3A02Z&sks=b&skv=2026-02-06&sig=u3u1vwjqHRGJumpKcNK7D/JVkjkZZOrOtnNm079UOE4%3D",
+          "file_id": "file_000000004f2481f58817ffd04f3fbba1",
+          "mime_type": "text/x-python",
+          "file_name": "engine42.v2.py"
+        },
+        "file_size_bytes": 11624,
+        "display_url": "https://drive.google.com/file/d/1abD4D4Qd4h4QAG-UpXmcBcpaz0U1nEkQ/view?usp=drivesdk",
+        "display_title": "engine42.v2.py",
+        "structuredContent": {
+          "title": "engine42.v2.py",
+          "content": "",
+          "id": "1abD4D4Qd4h4QAG-UpXmcBcpaz0U1nEkQ",
+          "parent_ids": [
+            "1-0rjkAYyIWZbb-Pg6cpqEn80T2wwNLMb"
+          ],
+          "drive_id": null,
+          "created_time": "2026-10-04T08:21:57.740Z",
+          "modified_time": "2026-10-04T08:21:57.740Z",
+          "is_empty": false,
+          "mime_type": "text/x-python",
+          "file_name": "engine42.v2.py",
+          "file_size_bytes": 11624,
+          "url": "https://drive.google.com/file/d/1abD4D4Qd4h4QAG-UpXmcBcpaz0U1nEkQ",
+          "file_uri": {
+            "download_url": "https://sdmntprcentralus.oaiusercontent.com/files/00000000-4f24-81f5-8817-ffd04f3fbba1/raw?se=2026-10-04T08%3A35%3A46Z&sp=r&sv=2026-02-06&sr=b&scid=01a10606-0ef9-7b6a-be7f-0adcc37e35f7&skoid=add8ee7d-5fc7-451e-b06e-a82b2276cf62&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-03T17%3A45%3A02Z&ske=2026-10-04T17%3A45%3A02Z&sks=b&skv=2026-02-06&sig=u3u1vwjqHRGJumpKcNK7D/JVkjkZZOrOtnNm079UOE4%3D",
+            "file_id": "file_000000004f2481f58817ffd04f3fbba1",
+            "mime_type": "text/x-python",
+            "file_name": "engine42.v2.py"
+          },
+          "download_url": "https://sdmntprcentralus.oaiusercontent.com/files/00000000-4f24-81f5-8817-ffd04f3fbba1/raw?se=2026-10-04T08%3A35%3A46Z&sp=r&sv=2026-02-06&sr=b&scid=01a10606-0ef9-7b6a-be7f-0adcc37e35f7&skoid=add8ee7d-5fc7-451e-b06e-a82b2276cf62&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-03T17%3A45%3A02Z&ske=2026-10-04T17%3A45%3A02Z&sks=b&skv=2026-02-06&sig=u3u1vwjqHRGJumpKcNK7D/JVkjkZZOrOtnNm079UOE4%3D",
+          "file_id": "file_000000004f2481f58817ffd04f3fbba1"
+        }
+      },
+      "isError": false
+    }
+  },
+  {
+    "id": "1GwT6XEBRNPk8zvdDkypyJvbnjaR5ISmA",
+    "title": "test_support.py",
+    "mime_type": "text/x-python",
+    "size": "4632",
+    "url": "https://drive.google.com/file/d/1GwT6XEBRNPk8zvdDkypyJvbnjaR5ISmA/view?usp=drivesdk",
+    "display_url": "https://drive.google.com/file/d/1GwT6XEBRNPk8zvdDkypyJvbnjaR5ISmA/view?usp=drivesdk",
+    "file_or_folder": "file",
+    "created_time": "2026-10-04T08:21:09.386Z",
+    "modified_time": "2026-10-04T08:21:09.386Z",
+    "parent_ids": null,
+    "drive_id": null,
+    "current_user_can_share": null,
+    "has_augmented_permissions": null,
+    "shared": false,
+    "permissions": null,
+    "source_visibility_status": "not_shared",
+    "can_download": true,
+    "can_list_children": false,
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "content": "",
+        "title": "test_support.py",
+        "url": "https://drive.google.com/file/d/1GwT6XEBRNPk8zvdDkypyJvbnjaR5ISmA/view?usp=drivesdk",
+        "file_name": "test_support.py",
+        "mime_type": "text/x-python",
+        "file_ext": "py",
+        "b64_string": "IiIidGVzdF9zdXBwb3J0LnB5IOKAlCBsYXdmdWwtc3VwcG9ydCByZWdyZXNzaW9uIHRlc3QgZm9yIHRoZSBjb25zaXN0ZW50LXdvcmxkIHNhbXBsZXJzLgpJbmRlcGVuZGVudCBzY2FsYXIgY2hlY2tlcjogcmVwbGF5cyBhIChkZWFsLCBoaXN0b3J5KSB3aXRoIHRoZSBUUlVFIGJpZGRlciwgbm8gZWFybHkgc3RvcCwgYW5kIHZlcmlmaWVzIGV2ZXJ5IHBsYXkgZm9sbG93ZWQgc3VpdAp3aGVuIGl0IGNvdWxkLiAoMSkgUmVwcm9kdWNlcyB0aGUgYXVkaXQgd2l0bmVzcyBjbGFzczogYSBsZWdhbGl0eSByZXBsYXkgd2l0aCBiaWRkZXIgaGFyZC1jb2RlZCB0byAwIGFuZCBlYXJseS1zdG9wIGxpdmUgYWNjZXB0cwppbGxlZ2FsIHdvcmxkcyBvbiBvZGQtYmlkZGVyIHBvc2l0aW9ucy4gKDIpIFRoZSBmaXhlZCBzYW1wbGVycyAoZW5naW5lNDIuY29uc2lzdGVudF93b3JsZHMsIG5vZnVzaW9uX3NjLmFsbF9kZWFscywgYmF0Y2hlZC5iYXRjaGVkX3dvcmxkcykKeWllbGQgemVybyB2aW9sYXRpb25zIG92ZXIgbWFueSBwb3NpdGlvbnMgd2l0aCBib3RoIGV2ZW4gYW5kIG9kZCBiaWRkZXJzLgpSRVNVTFQgKE9jdCA0IDIwMjYpOiBGSVhFRCBzYW1wbGVycyAzNyw4NzIgd29ybGRzIGNoZWNrZWQsIHZpb2xhdGlvbnMgPSAwLiBPTEQgcGF0aCBvbiAxNDQgb2RkLWJpZGRlciBwb3NpdGlvbnM6IGFjY2VwdGVkIDEzLDI4OApjYW5kaWRhdGUgd29ybGRzLCBvZiB3aGljaCAzLDczMSBJTExFR0FMLiBFeGl0IGNvZGUgMCBpZmYgZml4ZWQgc2FtcGxlcnMgYXJlIGNsZWFuIEFORCB0aGUgb2xkIHBhdGgncyBidWcgaXMgcmVwcm9kdWNlZC4iIiIKaW1wb3J0IG51bXB5IGFzIG5wLCBzeXMKZnJvbSBlbmdpbmU0MiBpbXBvcnQgKgpmcm9tIGV4YWN0X3RhcGUgaW1wb3J0IGhhbmRfc2V0dXAsIHNhbXBsZV9wb3NpdGlvbnMsIEJJRAppbXBvcnQgbm9mdXNpb25fc2MsIGJhdGNoZWQKCmRlZiBzY2FsYXJfbGVnYWxfcmVwbGF5KHJ1bGVzLCBkZWFsX2Z1bGwsIGJpZGRlciwgaGlzdG9yeSk6CiAgICAiIiJUcnVlIGlmZiBldmVyeSBwbGF5IGluIGhpc3Rvcnkgd2FzIGxlZ2FsIGZvciBpdHMgc2VhdCB1bmRlciBkZWFsX2Z1bGwgKHNjYWxhciwgYmlkZGVyLWF3YXJlLCBubyBlYXJseSBzdG9wKS4iIiIKICAgIGhhbmRzID0gW2ludCh4KSBmb3IgeCBpbiBkZWFsX2Z1bGxdOyBsZWFkZXIgPSBiaWRkZXI7IHRhYmxlID0gW10KICAgIGZvciBzLCB0IGluIGhpc3Rvcnk6CiAgICAgICAgaWYgKGxlYWRlciArIGxlbih0YWJsZSkpICUgNCAhPSBzOiByZXR1cm4gRmFsc2UKICAgICAgICBoID0gaGFuZHNbc10KICAgICAgICBpZiBub3QgKGggPj4gdCkgJiAxOiByZXR1cm4gRmFsc2UKICAgICAgICBpZiB0YWJsZToKICAgICAgICAgICAgcSA9IGludChydWxlcy5sZWRfY29kZVt0YWJsZVswXV0pOyBmID0gaCAmIGludChydWxlcy5mb2xsb3dfbWFza1txXSkKICAgICAgICAgICAgaWYgZiBhbmQgbm90IChmID4+IHQpICYgMTogcmV0dXJuIEZhbHNlICAgICAgICAgICMgY291bGQgZm9sbG93LCBkaWRuJ3QKICAgICAgICBoYW5kc1tzXSAmPSB+KDEgPDwgdCk7IHRhYmxlLmFwcGVuZCh0KQogICAgICAgIGlmIGxlbih0YWJsZSkgPT0gNDoKICAgICAgICAgICAgcSA9IGludChydWxlcy5sZWRfY29kZVt0YWJsZVswXV0pOyBzdCA9IFtpbnQocnVsZXMuc3RyZW5ndGhbcSwgeF0pIGZvciB4IGluIHRhYmxlXQogICAgICAgICAgICBsZWFkZXIgPSAobGVhZGVyICsgaW50KG5wLmFyZ21heChzdCkpKSAlIDQ7IHRhYmxlID0gW10KICAgIHJldHVybiBUcnVlCgpkZWYgb2xkX3N0eWxlX3JlcGxheV9hY2NlcHRzKHJ1bGVzLCBmdWxsLCBoaXN0b3J5KToKICAgICIiInRoZSBwcmUtZml4IHBhdGg6IGJpZGRlciBoYXJkLWNvZGVkIHRvIDAsIGVhcmx5IHN0b3AgbGl2ZSAodmVjdG9yaXplZCBvdmVyIHdvcmxkcykuIiIiCiAgICBnID0gR2FtZShydWxlcywgZnVsbC5jb3B5KCksIDMwLCAwKTsgZy5sZWFkZXJbOl0gPSBoaXN0b3J5WzBdWzBdOyBvayA9IG5wLm9uZXMobGVuKGZ1bGwpLCBib29sKQogICAgZm9yIHMsIHQgaW4gaGlzdG9yeToKICAgICAgICBMID0gZy5sZWdhbChucC5mdWxsKGxlbihmdWxsKSwgcykpOyBvayAmPSAoKEwgPj4gdCkgJiAxKSA9PSAxOyBnLnBsYXkobnAuZnVsbChsZW4oZnVsbCksIHQpKQogICAgcmV0dXJuIG9rCgpkZWYgZnVsbF9vZihyZW0sIGhpc3RvcnkpOgogICAgZnVsbCA9IHJlbS5jb3B5KCkKICAgIGZvciBzIGluIHJhbmdlKDQpOgogICAgICAgIHBiID0gW3QgZm9yIHEsIHQgaW4gaGlzdG9yeSBpZiBxID09IHNdCiAgICAgICAgaWYgcGI6IGZ1bGxbOiwgc10gfD0gaW50KEJJVFtwYl0uc3VtKCkpCiAgICByZXR1cm4gZnVsbAoKaWYgX19uYW1lX18gPT0gJ19fbWFpbl9fJzoKICAgIHJuZyA9IG5wLnJhbmRvbS5kZWZhdWx0X3JuZygwKTsgdmlvbCA9IDA7IGNoZWNrZWQgPSAwOyBvbGRfYnVnID0gMDsgb2xkX2NoZWNrZWQgPSAwOyBub2RkID0gMAogICAgZm9yIHNlZWQsIGJpZGRlciBpbiAoKDExLCAxKSwgKDEyLCAzKSwgKDEzLCAwKSwgKDE0LCAyKSwgKDE1LCAxKSwgKDE2LCAzKSk6CiAgICAgICAgcnVsZXMsIG15X2hhbmQsIGQwID0gaGFuZF9zZXR1cChzZWVkLCAyLCBiaWRkZXIpCiAgICAgICAgZm9yIHAgaW4gc2FtcGxlX3Bvc2l0aW9ucyhydWxlcywgYmlkZGVyLCAyLCBteV9oYW5kLCBucC5yYW5kb20uZGVmYXVsdF9ybmcoc2VlZCksIDYwLCB7MTogNiwgMjogOCwgMzogOCwgNDogOCwgNTogNn0pOgogICAgICAgICAgICBoaXN0ID0gcFsnaGlzdG9yeSddCiAgICAgICAgICAgIHJlbSwgZnVsbCA9IGNvbnNpc3RlbnRfd29ybGRzKHJuZywgcnVsZXMsIDIsIHBbJ2hhbmRfbm93J10sIGhpc3QsIDY0KQogICAgICAgICAgICBmb3IgdyBpbiByYW5nZShsZW4oZnVsbCkpOgogICAgICAgICAgICAgICAgY2hlY2tlZCArPSAxOyB2aW9sICs9IG5vdCBzY2FsYXJfbGVnYWxfcmVwbGF5KHJ1bGVzLCBmdWxsW3ddLCBiaWRkZXIsIGhpc3QpCiAgICAgICAgICAgIGlmIDI4IC0gbGVuKGhpc3QpIDw9IDEyOgogICAgICAgICAgICAgICAgcmVtMiA9IG5vZnVzaW9uX3NjLmFsbF9kZWFscyhydWxlcywgMiwgcFsnaGFuZF9ub3cnXSwgaGlzdCkKICAgICAgICAgICAgICAgIGlmIHJlbTIgaXMgbm90IE5vbmU6CiAgICAgICAgICAgICAgICAgICAgZjIgPSBmdWxsX29mKHJlbTIsIGhpc3QpCiAgICAgICAgICAgICAgICAgICAgZm9yIHcgaW4gcmFuZ2UobGVuKGYyKSk6IGNoZWNrZWQgKz0gMTsgdmlvbCArPSBub3Qgc2NhbGFyX2xlZ2FsX3JlcGxheShydWxlcywgZjJbd10sIGJpZGRlciwgaGlzdCkKICAgICAgICAgICAgc19vdGhlciA9IGhpc3RbLTFdWzBdOyBwbGF5ZWRfYnkgPSBucC56ZXJvcygoMSwgNCksIG5wLmludDY0KQogICAgICAgICAgICBmb3IgcywgdCBpbiBoaXN0OiBwbGF5ZWRfYnlbMCwgc10gfD0gQklUW3RdCiAgICAgICAgICAgIGhhbmRzX25vdyA9IG5wLmFycmF5KFtpbnQocFsnZGVhbCddW3Nfb3RoZXJdKSAmIH5pbnQocGxheWVkX2J5WzAsIHNfb3RoZXJdKV0pCiAgICAgICAgICAgIHJiLCBmaWxsZWQgPSBiYXRjaGVkLmJhdGNoZWRfd29ybGRzKHJuZywgcnVsZXMsIGJpZGRlciwgbnAuYXJyYXkoW3Nfb3RoZXJdKSwgaGFuZHNfbm93LCBwbGF5ZWRfYnksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5wLmFycmF5KFtbcyBmb3IgcywgdCBpbiBoaXN0XV0pLCBucC5hcnJheShbW3QgZm9yIHMsIHQgaW4gaGlzdF1dKSwgOCkKICAgICAgICAgICAgZm9yIGsgaW4gcmFuZ2UoOCk6CiAgICAgICAgICAgICAgICBpZiBmaWxsZWRbMCwga106CiAgICAgICAgICAgICAgICAgICAgY2hlY2tlZCArPSAxOyB2aW9sICs9IG5vdCBzY2FsYXJfbGVnYWxfcmVwbGF5KHJ1bGVzLCBmdWxsX29mKHJiWzAsIGs6aysxXSwgaGlzdClbMF0sIGJpZGRlciwgaGlzdCkKICAgICAgICAgICAgaWYgYmlkZGVyICUgMiA9PSAxOgogICAgICAgICAgICAgICAgbm9kZCArPSAxCiAgICAgICAgICAgICAgICBjYW5kID0gcmFuZG9tX2RlYWxzKG5wLnJhbmRvbS5kZWZhdWx0X3JuZyg5OSksIDI1NiwgMiwgcFsnaGFuZF9ub3cnXSk7IGNmID0gZnVsbF9vZihjYW5kLCBoaXN0KQogICAgICAgICAgICAgICAgYWNjID0gb2xkX3N0eWxlX3JlcGxheV9hY2NlcHRzKHJ1bGVzLCBjZiwgaGlzdCkKICAgICAgICAgICAgICAgIGZvciB3IGluIG5wLm5vbnplcm8oYWNjKVswXToKICAgICAgICAgICAgICAgICAgICBvbGRfY2hlY2tlZCArPSAxOyBvbGRfYnVnICs9IG5vdCBzY2FsYXJfbGVnYWxfcmVwbGF5KHJ1bGVzLCBjZlt3XSwgYmlkZGVyLCBoaXN0KQogICAgcHJpbnQoZidGSVhFRCBzYW1wbGVyczoge2NoZWNrZWR9IHNhbXBsZWQvZW51bWVyYXRlZCB3b3JsZHMgY2hlY2tlZCBieSB0aGUgaW5kZXBlbmRlbnQgc2NhbGFyIHJlcGxheSwgdmlvbGF0aW9ucyA9IHt2aW9sfScpCiAgICBwcmludChmJ09MRCByZXBsYXkgcGF0aCAoYmlkZGVyPTAsIGVhcmx5IHN0b3ApIG9uIHtub2RkfSBvZGQtYmlkZGVyIHBvc2l0aW9uczogYWNjZXB0ZWQge29sZF9jaGVja2VkfSB3b3JsZHMsIG9mIHdoaWNoIElMTEVHQUwgPSB7b2xkX2J1Z30nKQogICAgc3lzLmV4aXQoMCBpZiB2aW9sID09IDAgYW5kIG9sZF9idWcgPiAwIGVsc2UgMSkK",
+        "id": "1GwT6XEBRNPk8zvdDkypyJvbnjaR5ISmA",
+        "parent_ids": [
+          "1-0rjkAYyIWZbb-Pg6cpqEn80T2wwNLMb"
+        ],
+        "drive_id": null,
+        "created_time": "2026-10-04T08:21:09.386Z",
+        "modified_time": "2026-10-04T08:21:09.386Z",
+        "is_empty": false,
+        "file_uri": {
+          "download_url": "https://sdmntprcentralus.oaiusercontent.com/files/00000000-5350-81f5-a4c6-6f432e90d358/raw?se=2026-10-04T08%3A35%3A45Z&sp=r&sv=2026-02-06&sr=b&scid=01a10606-0ef9-7b6a-be7f-0adcc37e35f7&skoid=add8ee7d-5fc7-451e-b06e-a82b2276cf62&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-03T13%3A45%3A15Z&ske=2026-10-04T13%3A45%3A15Z&sks=b&skv=2026-02-06&sig=UKrxg3SmeNyjqTZTjBp40uN6Pu8yHPlAeh%2BpP3f1eQw%3D",
+          "file_id": "file_00000000535081f5a4c66f432e90d358",
+          "mime_type": "text/x-python",
+          "file_name": "test_support.py"
+        },
+        "file_size_bytes": 4632,
+        "display_url": "https://drive.google.com/file/d/1GwT6XEBRNPk8zvdDkypyJvbnjaR5ISmA/view?usp=drivesdk",
+        "display_title": "test_support.py",
+        "structuredContent": {
+          "title": "test_support.py",
+          "content": "",
+          "id": "1GwT6XEBRNPk8zvdDkypyJvbnjaR5ISmA",
+          "parent_ids": [
+            "1-0rjkAYyIWZbb-Pg6cpqEn80T2wwNLMb"
+          ],
+          "drive_id": null,
+          "created_time": "2026-10-04T08:21:09.386Z",
+          "modified_time": "2026-10-04T08:21:09.386Z",
+          "is_empty": false,
+          "mime_type": "text/x-python",
+          "file_name": "test_support.py",
+          "file_size_bytes": 4632,
+          "url": "https://drive.google.com/file/d/1GwT6XEBRNPk8zvdDkypyJvbnjaR5ISmA",
+          "file_uri": {
+            "download_url": "https://sdmntprcentralus.oaiusercontent.com/files/00000000-5350-81f5-a4c6-6f432e90d358/raw?se=2026-10-04T08%3A35%3A45Z&sp=r&sv=2026-02-06&sr=b&scid=01a10606-0ef9-7b6a-be7f-0adcc37e35f7&skoid=add8ee7d-5fc7-451e-b06e-a82b2276cf62&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-03T13%3A45%3A15Z&ske=2026-10-04T13%3A45%3A15Z&sks=b&skv=2026-02-06&sig=UKrxg3SmeNyjqTZTjBp40uN6Pu8yHPlAeh%2BpP3f1eQw%3D",
+            "file_id": "file_00000000535081f5a4c66f432e90d358",
+            "mime_type": "text/x-python",
+            "file_name": "test_support.py"
+          },
+          "download_url": "https://sdmntprcentralus.oaiusercontent.com/files/00000000-5350-81f5-a4c6-6f432e90d358/raw?se=2026-10-04T08%3A35%3A45Z&sp=r&sv=2026-02-06&sr=b&scid=01a10606-0ef9-7b6a-be7f-0adcc37e35f7&skoid=add8ee7d-5fc7-451e-b06e-a82b2276cf62&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-03T13%3A45%3A15Z&ske=2026-10-04T13%3A45%3A15Z&sks=b&skv=2026-02-06&sig=UKrxg3SmeNyjqTZTjBp40uN6Pu8yHPlAeh%2BpP3f1eQw%3D",
+          "file_id": "file_00000000535081f5a4c66f432e90d358"
+        }
+      },
+      "isError": false
+    }
+  }
+]

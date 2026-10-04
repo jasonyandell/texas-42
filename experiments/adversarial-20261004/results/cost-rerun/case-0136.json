@@ -1,0 +1,493 @@
+{
+  "status": "completed",
+  "result": {
+    "bad_scenario_flags": [
+      [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ],
+    "certificate_us": 98,
+    "certificate_work": {
+      "cache_hits": 112,
+      "cheap_distinct_queries": 62,
+      "cheap_total_work": {
+        "inner_worlds": [
+          182,
+          0
+        ],
+        "nodes": 753,
+        "pi_calls": [
+          182,
+          0
+        ]
+      },
+      "disagreement_stops": 8,
+      "forced_steps": 227,
+      "memo_states": 383,
+      "target_distinct_queries": 62,
+      "target_work": {
+        "inner_worlds": [
+          496,
+          0
+        ],
+        "nodes": 375,
+        "pi_calls": [
+          62,
+          0
+        ]
+      },
+      "visits": 455
+    },
+    "certified": false,
+    "cheap_choice": 7,
+    "cheap_counts": [
+      31,
+      31
+    ],
+    "cheap_n0": 1,
+    "cheap_us": 96,
+    "cheap_work": {
+      "inner_worlds": [
+        120,
+        0
+      ],
+      "nodes": 592,
+      "pi_calls": [
+        120,
+        0
+      ]
+    },
+    "error_counts": [
+      3,
+      5
+    ],
+    "field_level": 0,
+    "lower": [
+      28,
+      26
+    ],
+    "outer": 40,
+    "sampling_us": 1,
+    "schema": "walt-first-disagreement-v1",
+    "target_choice": 7,
+    "target_counts": [
+      30,
+      30
+    ],
+    "target_first": false,
+    "target_n0": 8,
+    "target_us": 75,
+    "target_work": {
+      "inner_worlds": [
+        960,
+        0
+      ],
+      "nodes": 1253,
+      "pi_calls": [
+        120,
+        0
+      ]
+    },
+    "tiles": [
+      7,
+      16
+    ],
+    "total_us": 294,
+    "upper": [
+      34,
+      36
+    ],
+    "value_orientation": "focal team success counts",
+    "worlds": [
+      [
+        4196352,
+        1049600,
+        65664,
+        33
+      ],
+      [
+        2049,
+        1049600,
+        65664,
+        4194336
+      ],
+      [
+        33,
+        1050624,
+        65664,
+        4195328
+      ],
+      [
+        5242880,
+        1025,
+        65664,
+        2080
+      ],
+      [
+        4194336,
+        1050624,
+        65664,
+        1025
+      ],
+      [
+        1048608,
+        4195328,
+        65664,
+        2049
+      ],
+      [
+        5242880,
+        2080,
+        65664,
+        1025
+      ],
+      [
+        4194305,
+        1048608,
+        65664,
+        3072
+      ],
+      [
+        33,
+        5242880,
+        65664,
+        3072
+      ],
+      [
+        1048577,
+        1056,
+        65664,
+        4196352
+      ],
+      [
+        4194305,
+        1048608,
+        65664,
+        3072
+      ],
+      [
+        5242880,
+        1025,
+        65664,
+        2080
+      ],
+      [
+        2080,
+        5242880,
+        65664,
+        1025
+      ],
+      [
+        1048608,
+        3072,
+        65664,
+        4194305
+      ],
+      [
+        1048608,
+        4195328,
+        65664,
+        2049
+      ],
+      [
+        1048577,
+        4196352,
+        65664,
+        1056
+      ],
+      [
+        1048577,
+        4194336,
+        65664,
+        3072
+      ],
+      [
+        1049600,
+        2080,
+        65664,
+        4194305
+      ],
+      [
+        1049600,
+        33,
+        65664,
+        4196352
+      ],
+      [
+        1050624,
+        4194305,
+        65664,
+        1056
+      ],
+      [
+        1049600,
+        4194336,
+        65664,
+        2049
+      ],
+      [
+        4196352,
+        1048577,
+        65664,
+        1056
+      ],
+      [
+        1056,
+        1050624,
+        65664,
+        4194305
+      ],
+      [
+        4194305,
+        1050624,
+        65664,
+        1056
+      ],
+      [
+        4196352,
+        1048577,
+        65664,
+        1056
+      ],
+      [
+        1048577,
+        4195328,
+        65664,
+        2080
+      ],
+      [
+        5242880,
+        33,
+        65664,
+        3072
+      ],
+      [
+        5242880,
+        2049,
+        65664,
+        1056
+      ],
+      [
+        1048577,
+        1056,
+        65664,
+        4196352
+      ],
+      [
+        1025,
+        1048608,
+        65664,
+        4196352
+      ],
+      [
+        5242880,
+        1056,
+        65664,
+        2049
+      ],
+      [
+        1025,
+        5242880,
+        65664,
+        2080
+      ],
+      [
+        3072,
+        1048608,
+        65664,
+        4194305
+      ],
+      [
+        1056,
+        1050624,
+        65664,
+        4194305
+      ],
+      [
+        1050624,
+        33,
+        65664,
+        4195328
+      ],
+      [
+        2080,
+        1048577,
+        65664,
+        4195328
+      ],
+      [
+        4195328,
+        1050624,
+        65664,
+        33
+      ],
+      [
+        2049,
+        1049600,
+        65664,
+        4194336
+      ],
+      [
+        1048608,
+        1025,
+        65664,
+        4196352
+      ],
+      [
+        4196352,
+        1048577,
+        65664,
+        1056
+      ]
+    ]
+  },
+  "id": 136,
+  "host_seconds": 0.0023254160000000246,
+  "input": {
+    "request": {
+      "decl": 1,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 1,
+      "hand": [
+        1,
+        2,
+        6,
+        7,
+        12,
+        16,
+        19
+      ],
+      "plays": [
+        0,
+        14,
+        1,
+        12,
+        2,
+        25,
+        3,
+        13,
+        0,
+        26,
+        1,
+        1,
+        2,
+        24,
+        3,
+        27,
+        1,
+        6,
+        2,
+        8,
+        3,
+        9,
+        0,
+        18,
+        3,
+        17,
+        0,
+        15,
+        1,
+        19,
+        2,
+        4,
+        2,
+        21,
+        3,
+        3,
+        0,
+        23,
+        1,
+        2
+      ],
+      "seed": 7042104
+    },
+    "outer": 40,
+    "cheap_n0": 1,
+    "target_n0": 8,
+    "seconds": 20,
+    "target_first": false,
+    "field_level": 0
+  }
+}

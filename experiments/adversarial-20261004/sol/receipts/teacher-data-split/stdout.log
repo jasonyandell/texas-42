@@ -1,0 +1,26 @@
+{
+  "source_sha256": "8b1d2bc68e9d2299031ce8393741bd7bdff9932dcd04dcb73e03217887710508",
+  "total_games": 14000,
+  "own_hand": [
+    0,
+    3,
+    11,
+    12,
+    14,
+    15,
+    21
+  ],
+  "trump": 3,
+  "rows": 276244,
+  "training_rows": 256244,
+  "validation_rows": 20000,
+  "training_games": 14000,
+  "validation_games": 10375,
+  "games_in_both": 10375,
+  "validation_rows_with_same_game_in_training": 20000,
+  "same_game_label_repeated": true,
+  "parameters": 56577,
+  "trained": false,
+  "executed_top_level_source": false,
+  "scope": "Data/split audit, not recovered model validation accuracy."
+}

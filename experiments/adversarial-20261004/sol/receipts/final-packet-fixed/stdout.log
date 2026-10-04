@@ -1,0 +1,17 @@
+{
+  "engine_sha256": "db020fc8a47741c6de4596fad96950bd636af476ec7a6b4e2bcee50e5cd94a75",
+  "original_witness_reproduced": true,
+  "v2_rejects_exact_illegal_witness_at_ply": 7,
+  "candidate_assignments": 1680,
+  "v2_support": 700,
+  "all_support_sets_equal": true,
+  "sampled_worlds_independently_legal": 384,
+  "own_remaining_preserved": true,
+  "test_support_old_arm": {
+    "candidates": 256,
+    "invalid_original_deals": 256,
+    "accepted": 256,
+    "invalid_original_deals_among_accepted": 256
+  },
+  "scope": "One exact finite legal-history support; property checks, not a statistical uniformity or policy-posterior guarantee. Full incoming test_support result not rerun: its modified nofusion_sc and batched dependencies are absent."
+}

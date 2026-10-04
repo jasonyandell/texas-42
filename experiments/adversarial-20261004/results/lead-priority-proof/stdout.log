@@ -1,0 +1,4 @@
+'AdversarialSol.Priority.chronological_priority_selects_next' depends on axioms: [propext]
+'AdversarialSol.Priority.every_common_first_action_has_value_one' does not depend on any axioms
+'AdversarialSol.Priority.adaptive_public_policy_strictly_beats_common_order' does not depend on any axioms
+'AdversarialSol.Priority.any_shared_priority_list_is_incomplete' does not depend on any axioms

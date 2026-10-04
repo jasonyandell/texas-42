@@ -1,0 +1,19 @@
+{
+  "roots": 105,
+  "complete_scalar_cells": 403200,
+  "all_cells_match": true,
+  "distinct_plan_public_observations": 537144,
+  "repeated_observation_choices_checked": 468484,
+  "policies_shared_on_equal_public_observation": true,
+  "all_static_plans_included": true,
+  "all_action_values_nested_and_bounded": true,
+  "base_value_gap": 181,
+  "refined_value_gap": 164,
+  "base_action_regret": 15,
+  "refined_action_regret": 11,
+  "gap_improvement_roots": 12,
+  "regret_improvement_roots": 3,
+  "regret_worsening_roots": 0,
+  "source_sha256": "f02fa9248996632d2c4d7b6282cf8235c63c35ca0f91850609bdf92bada8e196",
+  "scope": "Exact declared finite-bundle policy evaluation, not held-out strength or native/GPU throughput."
+}

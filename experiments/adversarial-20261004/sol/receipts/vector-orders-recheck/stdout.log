@@ -1,0 +1,47 @@
+{
+  "planned": 134,
+  "pip_roots": 105,
+  "excluded_unsupported_declarations": 29,
+  "source_sha256": "af631e7faccbf1fde8f880f827754cc8584c1e8381b1d41aa7631b174b90c7b3",
+  "engine_sha256": "0f6a36b483ab7659ad7b23eed2c562cb06e90d8c2ecd69e17702d7f5daf52852",
+  "numpy": "2.4.4",
+  "scalar_plan_s": 1.3038210759405047,
+  "grouped_reference_s": 0.38833854300901294,
+  "values_and_full_tables_equal": true,
+  "runs": [
+    {
+      "wall_s": 0.18458124995231628,
+      "preparation_s": 0.025105750653892756,
+      "simulation_s": 0.15823808289133012,
+      "reduction_s": 0.0010521688964217901,
+      "world_plan_rows": 100800,
+      "active_row_steps": 868348,
+      "peak_counted_array_bytes": 3823680,
+      "process_peak_rss_bytes": 64684032,
+      "group_count": 27
+    },
+    {
+      "wall_s": 0.18361149984411895,
+      "preparation_s": 0.024234795477241278,
+      "simulation_s": 0.1582675010431558,
+      "reduction_s": 0.0009404185693711042,
+      "world_plan_rows": 100800,
+      "active_row_steps": 868348,
+      "peak_counted_array_bytes": 3823680,
+      "process_peak_rss_bytes": 64847872,
+      "group_count": 27
+    },
+    {
+      "wall_s": 0.1871046251617372,
+      "preparation_s": 0.02505283080972731,
+      "simulation_s": 0.1608935003168881,
+      "reduction_s": 0.0009670411236584187,
+      "world_plan_rows": 100800,
+      "active_row_steps": 868348,
+      "peak_counted_array_bytes": 3823680,
+      "process_peak_rss_bytes": 64995328,
+      "group_count": 27
+    }
+  ],
+  "caveat": "Pip trumps only; source engine supports0..6. Direct independently validated states bypass consistent_worlds. Cold data-array preparation included; interpreter/NumPy import and common fixture generation excluded. No GPU or native-Walt comparison."
+}

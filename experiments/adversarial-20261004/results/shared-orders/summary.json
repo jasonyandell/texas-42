@@ -1,0 +1,26 @@
+{
+  "planned": 134,
+  "complete": 134,
+  "refused": 0,
+  "vector_gap_cases": 82,
+  "positive_value_gap_cases": 65,
+  "positive_action_regret_cases": 11,
+  "sum_value_gap_counts": 222,
+  "sum_action_regret_counts": 20,
+  "max_value_gap_counts": 10,
+  "max_action_regret_counts": 4,
+  "worlds": 40,
+  "rollout_rows": 128640,
+  "simulated_plies": 1111896,
+  "plan_total_s": 3.145687545999995,
+  "lawful_total_s": 0.9190374140000016,
+  "table_bytes_total": 128640,
+  "table_bytes_max": 960,
+  "trace_worlds_checked": 16,
+  "witnesses": [
+    "witness-930000.json",
+    "witness-930008.json",
+    "witness-930021.json"
+  ],
+  "elapsed_s": 4.347951667
+}

@@ -1,0 +1,1746 @@
+[
+  {
+    "seed": 940000,
+    "ply": 16,
+    "level": 0,
+    "parallel": true,
+    "host_s": 0.234794333,
+    "result": {
+      "counts": [
+        5,
+        4,
+        5
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        404,
+        0,
+        0,
+        0
+      ],
+      "level": 0,
+      "nodes": 2374,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        101,
+        0,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 0,
+      "solve_us": 806,
+      "tiles": [
+        0,
+        3,
+        5
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940000,
+    "ply": 16,
+    "level": 0,
+    "parallel": false,
+    "host_s": 0.005232832999999992,
+    "result": {
+      "counts": [
+        5,
+        4,
+        5
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        404,
+        0,
+        0,
+        0
+      ],
+      "level": 0,
+      "nodes": 2373,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        101,
+        0,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 0,
+      "solve_us": 252,
+      "tiles": [
+        0,
+        3,
+        5
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940000,
+    "ply": 16,
+    "level": 1,
+    "parallel": false,
+    "host_s": 0.004089332999999973,
+    "result": {
+      "counts": [
+        5,
+        4,
+        5
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        2348,
+        200,
+        0,
+        0
+      ],
+      "level": 1,
+      "nodes": 7966,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        587,
+        100,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 100,
+      "solve_us": 663,
+      "tiles": [
+        0,
+        3,
+        5
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940000,
+    "ply": 16,
+    "level": 1,
+    "parallel": true,
+    "host_s": 0.003498000000000001,
+    "result": {
+      "counts": [
+        5,
+        4,
+        5
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        2348,
+        200,
+        0,
+        0
+      ],
+      "level": 1,
+      "nodes": 7966,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        587,
+        100,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 100,
+      "solve_us": 532,
+      "tiles": [
+        0,
+        3,
+        5
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940000,
+    "ply": 16,
+    "level": 2,
+    "parallel": true,
+    "host_s": 0.0026679170000000196,
+    "result": {
+      "counts": [
+        5,
+        4,
+        4
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        6332,
+        986,
+        190,
+        0
+      ],
+      "level": 2,
+      "nodes": 16670,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        1583,
+        493,
+        95,
+        0
+      ],
+      "retained_policy_cache_entries": 588,
+      "solve_us": 543,
+      "tiles": [
+        0,
+        3,
+        5
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940000,
+    "ply": 16,
+    "level": 2,
+    "parallel": false,
+    "host_s": 0.003553292000000041,
+    "result": {
+      "counts": [
+        5,
+        4,
+        4
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        6332,
+        986,
+        190,
+        0
+      ],
+      "level": 2,
+      "nodes": 16670,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        1583,
+        493,
+        95,
+        0
+      ],
+      "retained_policy_cache_entries": 588,
+      "solve_us": 1387,
+      "tiles": [
+        0,
+        3,
+        5
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940000,
+    "ply": 16,
+    "level": 3,
+    "parallel": false,
+    "host_s": 0.00483983299999996,
+    "result": {
+      "counts": [
+        5,
+        4,
+        5
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        15520,
+        3652,
+        1132,
+        198
+      ],
+      "level": 3,
+      "nodes": 35570,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        3880,
+        1826,
+        566,
+        99
+      ],
+      "retained_policy_cache_entries": 2491,
+      "solve_us": 2612,
+      "tiles": [
+        0,
+        3,
+        5
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940000,
+    "ply": 16,
+    "level": 3,
+    "parallel": true,
+    "host_s": 0.004334417000000035,
+    "result": {
+      "counts": [
+        5,
+        4,
+        5
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        15520,
+        3652,
+        1132,
+        198
+      ],
+      "level": 3,
+      "nodes": 35570,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        3880,
+        1826,
+        566,
+        99
+      ],
+      "retained_policy_cache_entries": 2491,
+      "solve_us": 1940,
+      "tiles": [
+        0,
+        3,
+        5
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940005,
+    "ply": 17,
+    "level": 0,
+    "parallel": true,
+    "host_s": 0.0030202079999999687,
+    "result": {
+      "counts": [
+        8,
+        4,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        388,
+        0,
+        0,
+        0
+      ],
+      "level": 0,
+      "nodes": 2396,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        97,
+        0,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 0,
+      "solve_us": 471,
+      "tiles": [
+        2,
+        20,
+        26
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940005,
+    "ply": 17,
+    "level": 0,
+    "parallel": false,
+    "host_s": 0.0023727920000000124,
+    "result": {
+      "counts": [
+        8,
+        4,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        372,
+        0,
+        0,
+        0
+      ],
+      "level": 0,
+      "nodes": 2321,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        93,
+        0,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 0,
+      "solve_us": 112,
+      "tiles": [
+        2,
+        20,
+        26
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940005,
+    "ply": 17,
+    "level": 1,
+    "parallel": false,
+    "host_s": 0.0031456249999999852,
+    "result": {
+      "counts": [
+        8,
+        5,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        2332,
+        192,
+        0,
+        0
+      ],
+      "level": 1,
+      "nodes": 7932,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        583,
+        96,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 96,
+      "solve_us": 439,
+      "tiles": [
+        2,
+        20,
+        26
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940005,
+    "ply": 17,
+    "level": 1,
+    "parallel": true,
+    "host_s": 0.0027051250000000304,
+    "result": {
+      "counts": [
+        8,
+        5,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        2332,
+        192,
+        0,
+        0
+      ],
+      "level": 1,
+      "nodes": 7932,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        583,
+        96,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 96,
+      "solve_us": 379,
+      "tiles": [
+        2,
+        20,
+        26
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940005,
+    "ply": 17,
+    "level": 2,
+    "parallel": false,
+    "host_s": 0.003603416000000026,
+    "result": {
+      "counts": [
+        8,
+        5,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        9364,
+        1336,
+        190,
+        0
+      ],
+      "level": 2,
+      "nodes": 21629,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        2341,
+        668,
+        95,
+        0
+      ],
+      "retained_policy_cache_entries": 763,
+      "solve_us": 1288,
+      "tiles": [
+        2,
+        20,
+        26
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940005,
+    "ply": 17,
+    "level": 2,
+    "parallel": true,
+    "host_s": 0.0031120829999999877,
+    "result": {
+      "counts": [
+        8,
+        5,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        9364,
+        1336,
+        190,
+        0
+      ],
+      "level": 2,
+      "nodes": 21629,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        2341,
+        668,
+        95,
+        0
+      ],
+      "retained_policy_cache_entries": 763,
+      "solve_us": 763,
+      "tiles": [
+        2,
+        20,
+        26
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940005,
+    "ply": 17,
+    "level": 3,
+    "parallel": false,
+    "host_s": 0.004326417000000027,
+    "result": {
+      "counts": [
+        8,
+        5,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        12540,
+        3688,
+        1180,
+        176
+      ],
+      "level": 3,
+      "nodes": 22931,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        3135,
+        1844,
+        590,
+        88
+      ],
+      "retained_policy_cache_entries": 2522,
+      "solve_us": 2043,
+      "tiles": [
+        2,
+        20,
+        26
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940005,
+    "ply": 17,
+    "level": 3,
+    "parallel": true,
+    "host_s": 0.0036551659999999875,
+    "result": {
+      "counts": [
+        8,
+        5,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        12540,
+        3688,
+        1180,
+        176
+      ],
+      "level": 3,
+      "nodes": 22931,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        3135,
+        1844,
+        590,
+        88
+      ],
+      "retained_policy_cache_entries": 2522,
+      "solve_us": 1305,
+      "tiles": [
+        2,
+        20,
+        26
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940007,
+    "ply": 19,
+    "level": 0,
+    "parallel": true,
+    "host_s": 0.0024860420000000216,
+    "result": {
+      "counts": [
+        4,
+        4,
+        0
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        264,
+        0,
+        0,
+        0
+      ],
+      "level": 0,
+      "nodes": 460,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        66,
+        0,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 0,
+      "solve_us": 258,
+      "tiles": [
+        3,
+        8,
+        24
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940007,
+    "ply": 19,
+    "level": 0,
+    "parallel": false,
+    "host_s": 0.0021981250000000507,
+    "result": {
+      "counts": [
+        4,
+        4,
+        0
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        184,
+        0,
+        0,
+        0
+      ],
+      "level": 0,
+      "nodes": 385,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        46,
+        0,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 0,
+      "solve_us": 45,
+      "tiles": [
+        3,
+        8,
+        24
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940007,
+    "ply": 19,
+    "level": 1,
+    "parallel": false,
+    "host_s": 0.002153333000000035,
+    "result": {
+      "counts": [
+        4,
+        4,
+        0
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        344,
+        92,
+        0,
+        0
+      ],
+      "level": 1,
+      "nodes": 538,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        86,
+        46,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 46,
+      "solve_us": 82,
+      "tiles": [
+        3,
+        8,
+        24
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940007,
+    "ply": 19,
+    "level": 1,
+    "parallel": true,
+    "host_s": 0.002305125000000019,
+    "result": {
+      "counts": [
+        4,
+        4,
+        0
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        344,
+        92,
+        0,
+        0
+      ],
+      "level": 1,
+      "nodes": 541,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        86,
+        46,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 46,
+      "solve_us": 238,
+      "tiles": [
+        3,
+        8,
+        24
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940007,
+    "ply": 19,
+    "level": 2,
+    "parallel": false,
+    "host_s": 0.0022034590000000187,
+    "result": {
+      "counts": [
+        4,
+        4,
+        0
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        296,
+        192,
+        92,
+        0
+      ],
+      "level": 2,
+      "nodes": 640,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        74,
+        96,
+        46,
+        0
+      ],
+      "retained_policy_cache_entries": 142,
+      "solve_us": 124,
+      "tiles": [
+        3,
+        8,
+        24
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940007,
+    "ply": 19,
+    "level": 2,
+    "parallel": true,
+    "host_s": 0.0023430420000000174,
+    "result": {
+      "counts": [
+        4,
+        4,
+        0
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        300,
+        194,
+        92,
+        0
+      ],
+      "level": 2,
+      "nodes": 644,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        75,
+        97,
+        46,
+        0
+      ],
+      "retained_policy_cache_entries": 142,
+      "solve_us": 252,
+      "tiles": [
+        3,
+        8,
+        24
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940007,
+    "ply": 19,
+    "level": 3,
+    "parallel": true,
+    "host_s": 0.002301042000000031,
+    "result": {
+      "counts": [
+        4,
+        5,
+        0
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        0,
+        132,
+        158,
+        92
+      ],
+      "level": 3,
+      "nodes": 567,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        0,
+        66,
+        79,
+        46
+      ],
+      "retained_policy_cache_entries": 191,
+      "solve_us": 259,
+      "tiles": [
+        3,
+        8,
+        24
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940007,
+    "ply": 19,
+    "level": 3,
+    "parallel": false,
+    "host_s": 0.002080833000000004,
+    "result": {
+      "counts": [
+        4,
+        5,
+        0
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        0,
+        132,
+        158,
+        92
+      ],
+      "level": 3,
+      "nodes": 567,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        0,
+        66,
+        79,
+        46
+      ],
+      "retained_policy_cache_entries": 191,
+      "solve_us": 120,
+      "tiles": [
+        3,
+        8,
+        24
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940010,
+    "ply": 18,
+    "level": 0,
+    "parallel": true,
+    "host_s": 0.002601416000000023,
+    "result": {
+      "counts": [
+        8,
+        8,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        216,
+        0,
+        0,
+        0
+      ],
+      "level": 0,
+      "nodes": 1237,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        54,
+        0,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 0,
+      "solve_us": 292,
+      "tiles": [
+        13,
+        14,
+        20
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940010,
+    "ply": 18,
+    "level": 0,
+    "parallel": false,
+    "host_s": 0.0022564589999999884,
+    "result": {
+      "counts": [
+        8,
+        8,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        212,
+        0,
+        0,
+        0
+      ],
+      "level": 0,
+      "nodes": 1215,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        53,
+        0,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 0,
+      "solve_us": 50,
+      "tiles": [
+        13,
+        14,
+        20
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940010,
+    "ply": 18,
+    "level": 1,
+    "parallel": true,
+    "host_s": 0.0023444169999999875,
+    "result": {
+      "counts": [
+        8,
+        8,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        1120,
+        100,
+        0,
+        0
+      ],
+      "level": 1,
+      "nodes": 3297,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        280,
+        50,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 50,
+      "solve_us": 202,
+      "tiles": [
+        13,
+        14,
+        20
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940010,
+    "ply": 18,
+    "level": 1,
+    "parallel": false,
+    "host_s": 0.0022110830000000026,
+    "result": {
+      "counts": [
+        8,
+        8,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        1120,
+        100,
+        0,
+        0
+      ],
+      "level": 1,
+      "nodes": 3297,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        280,
+        50,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 50,
+      "solve_us": 145,
+      "tiles": [
+        13,
+        14,
+        20
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940010,
+    "ply": 18,
+    "level": 2,
+    "parallel": false,
+    "host_s": 0.002238624999999994,
+    "result": {
+      "counts": [
+        8,
+        8,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        2612,
+        502,
+        100,
+        0
+      ],
+      "level": 2,
+      "nodes": 5326,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        653,
+        251,
+        50,
+        0
+      ],
+      "retained_policy_cache_entries": 301,
+      "solve_us": 308,
+      "tiles": [
+        13,
+        14,
+        20
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940010,
+    "ply": 18,
+    "level": 2,
+    "parallel": true,
+    "host_s": 0.0022536669999999592,
+    "result": {
+      "counts": [
+        8,
+        8,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        2612,
+        502,
+        100,
+        0
+      ],
+      "level": 2,
+      "nodes": 5326,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        653,
+        251,
+        50,
+        0
+      ],
+      "retained_policy_cache_entries": 301,
+      "solve_us": 319,
+      "tiles": [
+        13,
+        14,
+        20
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940010,
+    "ply": 18,
+    "level": 3,
+    "parallel": true,
+    "host_s": 0.0026481660000000073,
+    "result": {
+      "counts": [
+        8,
+        8,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        2984,
+        1216,
+        522,
+        100
+      ],
+      "level": 3,
+      "nodes": 6235,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        746,
+        608,
+        261,
+        50
+      ],
+      "retained_policy_cache_entries": 919,
+      "solve_us": 565,
+      "tiles": [
+        13,
+        14,
+        20
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940010,
+    "ply": 18,
+    "level": 3,
+    "parallel": false,
+    "host_s": 0.0026589580000000446,
+    "result": {
+      "counts": [
+        8,
+        8,
+        8
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        2984,
+        1216,
+        522,
+        100
+      ],
+      "level": 3,
+      "nodes": 6235,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        746,
+        608,
+        261,
+        50
+      ],
+      "retained_policy_cache_entries": 919,
+      "solve_us": 544,
+      "tiles": [
+        13,
+        14,
+        20
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940013,
+    "ply": 17,
+    "level": 0,
+    "parallel": false,
+    "host_s": 0.002026250000000007,
+    "result": {
+      "counts": [
+        1,
+        0
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        172,
+        0,
+        0,
+        0
+      ],
+      "level": 0,
+      "nodes": 869,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        43,
+        0,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 0,
+      "solve_us": 203,
+      "tiles": [
+        1,
+        16
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940013,
+    "ply": 17,
+    "level": 0,
+    "parallel": true,
+    "host_s": 0.0022210420000000064,
+    "result": {
+      "counts": [
+        1,
+        0
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        176,
+        0,
+        0,
+        0
+      ],
+      "level": 0,
+      "nodes": 890,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        44,
+        0,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 0,
+      "solve_us": 136,
+      "tiles": [
+        1,
+        16
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940013,
+    "ply": 17,
+    "level": 1,
+    "parallel": false,
+    "host_s": 0.0021288749999999745,
+    "result": {
+      "counts": [
+        1,
+        1
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        780,
+        72,
+        0,
+        0
+      ],
+      "level": 1,
+      "nodes": 3053,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        195,
+        36,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 36,
+      "solve_us": 129,
+      "tiles": [
+        1,
+        16
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940013,
+    "ply": 17,
+    "level": 1,
+    "parallel": true,
+    "host_s": 0.00221529199999998,
+    "result": {
+      "counts": [
+        1,
+        1
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        780,
+        72,
+        0,
+        0
+      ],
+      "level": 1,
+      "nodes": 3053,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        195,
+        36,
+        0,
+        0
+      ],
+      "retained_policy_cache_entries": 36,
+      "solve_us": 193,
+      "tiles": [
+        1,
+        16
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940013,
+    "ply": 17,
+    "level": 2,
+    "parallel": false,
+    "host_s": 0.002189584000000022,
+    "result": {
+      "counts": [
+        0,
+        1
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        2284,
+        356,
+        76,
+        0
+      ],
+      "level": 2,
+      "nodes": 5594,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        571,
+        178,
+        38,
+        0
+      ],
+      "retained_policy_cache_entries": 216,
+      "solve_us": 293,
+      "tiles": [
+        1,
+        16
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940013,
+    "ply": 17,
+    "level": 2,
+    "parallel": true,
+    "host_s": 0.0023624999999999896,
+    "result": {
+      "counts": [
+        0,
+        1
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        2284,
+        356,
+        76,
+        0
+      ],
+      "level": 2,
+      "nodes": 5594,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        571,
+        178,
+        38,
+        0
+      ],
+      "retained_policy_cache_entries": 216,
+      "solve_us": 317,
+      "tiles": [
+        1,
+        16
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940013,
+    "ply": 17,
+    "level": 3,
+    "parallel": false,
+    "host_s": 0.0023722080000000423,
+    "result": {
+      "counts": [
+        0,
+        0
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        3024,
+        938,
+        354,
+        74
+      ],
+      "level": 3,
+      "nodes": 6974,
+      "outer": 8,
+      "parallel": false,
+      "pi_calls": [
+        756,
+        469,
+        177,
+        37
+      ],
+      "retained_policy_cache_entries": 683,
+      "solve_us": 438,
+      "tiles": [
+        1,
+        16
+      ]
+    },
+    "status": "complete"
+  },
+  {
+    "seed": 940013,
+    "ply": 17,
+    "level": 3,
+    "parallel": true,
+    "host_s": 0.00313058300000002,
+    "result": {
+      "counts": [
+        0,
+        0
+      ],
+      "inner_budgets": [
+        4,
+        2,
+        2,
+        2
+      ],
+      "inner_worlds": [
+        3024,
+        938,
+        354,
+        74
+      ],
+      "level": 3,
+      "nodes": 6974,
+      "outer": 8,
+      "parallel": true,
+      "pi_calls": [
+        756,
+        469,
+        177,
+        37
+      ],
+      "retained_policy_cache_entries": 683,
+      "solve_us": 573,
+      "tiles": [
+        1,
+        16
+      ]
+    },
+    "status": "complete"
+  }
+]

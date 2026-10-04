@@ -1,0 +1,3 @@
+'AdversarialSol.made_stays_made' does not depend on any axioms
+'AdversarialSol.set_stays_set' depends on axioms: [propext, Quot.sound]
+'AdversarialSol.action_partition_preserves_Q' depends on axioms: [propext, Quot.sound]

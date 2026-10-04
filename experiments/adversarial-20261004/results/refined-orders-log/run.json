@@ -1,0 +1,23 @@
+{
+  "schema": "texas42-partnership-run-v1",
+  "started_utc": "2026-10-04T08:14:45.101552+00:00",
+  "cwd": "/Users/jason/Documents/Codex/2026-10-04/task-2/research-worktree",
+  "command": [
+    "/Users/jason/code/mk5-main/.venv/bin/python",
+    "experiments/adversarial-20261004/refined_orders.py",
+    "--out",
+    "experiments/adversarial-20261004/results/refined-orders"
+  ],
+  "allowance_seconds": 290.0,
+  "experiment_ceiling_seconds": 300,
+  "elapsed_seconds": 3.10594,
+  "status": "completed",
+  "child_pid": 32026,
+  "child_returncode": 0,
+  "runner_returncode": 0,
+  "interruption_signal": null,
+  "error": null,
+  "cleanup_errors": [],
+  "stdout": "stdout.log",
+  "stderr": "stderr.log"
+}

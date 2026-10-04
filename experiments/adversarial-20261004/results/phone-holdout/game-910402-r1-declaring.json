@@ -1,0 +1,5017 @@
+{
+  "schema": "walt-astra-sol-game-v1",
+  "seed": 910402,
+  "rotation": 1,
+  "role": "declaring",
+  "decl": 7,
+  "bid": 30,
+  "bidder": 1,
+  "hands": [
+    [
+      4,
+      15,
+      17,
+      23,
+      24,
+      25,
+      27
+    ],
+    [
+      0,
+      1,
+      3,
+      13,
+      18,
+      22,
+      26
+    ],
+    [
+      2,
+      5,
+      7,
+      8,
+      10,
+      11,
+      12
+    ],
+    [
+      6,
+      9,
+      14,
+      16,
+      19,
+      20,
+      21
+    ]
+  ],
+  "policy_seed": 7042104,
+  "candidate_label": "phone-l1-ablation",
+  "candidate_partner": false,
+  "candidate_wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+  "phone_wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+  "phone_profile": "a0d9fa80 native-partner; thinkDeeper=false; straight-42",
+  "referee_sha256": "4393683bc431f868c6f20dc42a81124a8fee000ccfd848a021f8bafd85d109af",
+  "arena_sha256": "653928d3e532cb01a9db75f911637b2c63b03d78b914fe63b999dee5b1ae7436",
+  "adapter_sha256": "1e965dd5f92741864b0823b8c11e79887b4fb29fd7ed05c610febab92200161e",
+  "node_version": "v26.0.0",
+  "python_version": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+  "game_seconds": 0.683707667,
+  "game_limit_seconds": 240.0,
+  "points": [
+    19,
+    23
+  ],
+  "made": false,
+  "moves": [
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 1,
+          "hand": [
+            0,
+            1,
+            3,
+            13,
+            18,
+            22,
+            26
+          ],
+          "plays": [],
+          "seed": 7042104
+        },
+        "worlds": 160,
+        "partner": false,
+        "budget_ms": 20000
+      },
+      "response": {
+        "budget_ms": 20000,
+        "choice": 0,
+        "elapsed_us": 346430,
+        "evaluation": {
+          "choice": 0,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            488944,
+            0
+          ],
+          "leader": 1,
+          "legal": [
+            0,
+            1,
+            3,
+            13,
+            18,
+            22,
+            26
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 9032082,
+          "options": [
+            [
+              0,
+              "37",
+              "80"
+            ],
+            [
+              1,
+              "27",
+              "80"
+            ],
+            [
+              3,
+              "27",
+              "80"
+            ],
+            [
+              13,
+              "51",
+              "160"
+            ],
+            [
+              18,
+              "57",
+              "160"
+            ],
+            [
+              22,
+              "47",
+              "160"
+            ],
+            [
+              26,
+              "33",
+              "80"
+            ]
+          ],
+          "outer_draw_attempts": 160,
+          "outer_worlds": 160,
+          "pi_calls_by_level": [
+            61118,
+            0
+          ],
+          "points": [
+            0,
+            0
+          ],
+          "selection": "fixed",
+          "solver_us": 277815,
+          "trick": 1
+        },
+        "fallback_evaluation": {
+          "choice": 0,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            3164,
+            0
+          ],
+          "leader": 1,
+          "legal": [
+            0,
+            1,
+            3,
+            13,
+            18,
+            22,
+            26
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 61586,
+          "options": [
+            [
+              0,
+              "3",
+              "4"
+            ],
+            [
+              1,
+              "3",
+              "8"
+            ],
+            [
+              3,
+              "5",
+              "8"
+            ],
+            [
+              13,
+              "1",
+              "2"
+            ],
+            [
+              18,
+              "1",
+              "2"
+            ],
+            [
+              22,
+              "1",
+              "2"
+            ],
+            [
+              26,
+              "3",
+              "4"
+            ]
+          ],
+          "outer_draw_attempts": 8,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            1582,
+            0
+          ],
+          "points": [
+            0,
+            0
+          ],
+          "selection": "fixed",
+          "solver_us": 5748,
+          "trick": 1
+        },
+        "inner_belief": "voidless",
+        "leader": 1,
+        "legal": [
+          0,
+          1,
+          3,
+          13,
+          18,
+          22,
+          26
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 160,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 6202,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 60828,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          },
+          {
+            "elapsed_us": 277901,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 160
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          0,
+          0
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 1
+      },
+      "timing": {
+        "host_ms": 392.236667,
+        "checkpoints": 5,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 2,
+          "hand": [
+            2,
+            5,
+            7,
+            8,
+            10,
+            11,
+            12
+          ],
+          "plays": [
+            1,
+            0
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 5,
+        "elapsed_us": 33270,
+        "evaluation": {
+          "choice": 5,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            53416,
+            0
+          ],
+          "leader": 1,
+          "legal": [
+            2,
+            5
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 747809,
+          "options": [
+            [
+              2,
+              "3",
+              "20"
+            ],
+            [
+              5,
+              "1",
+              "8"
+            ]
+          ],
+          "outer_draw_attempts": 40,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            6677,
+            0
+          ],
+          "points": [
+            0,
+            0
+          ],
+          "selection": "fixed",
+          "solver_us": 28156,
+          "trick": 1
+        },
+        "fallback_evaluation": {
+          "choice": 2,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            604,
+            0
+          ],
+          "leader": 1,
+          "legal": [
+            2,
+            5
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 12982,
+          "options": [
+            [
+              2,
+              "0",
+              "1"
+            ],
+            [
+              5,
+              "0",
+              "1"
+            ]
+          ],
+          "outer_draw_attempts": 8,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            302,
+            0
+          ],
+          "points": [
+            0,
+            0
+          ],
+          "selection": "fixed",
+          "solver_us": 2453,
+          "trick": 1
+        },
+        "inner_belief": "voidless",
+        "leader": 1,
+        "legal": [
+          2,
+          5
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 2893,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 28197,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          },
+          {
+            "name": "partner-rollout-review",
+            "status": "inactive"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          0,
+          0
+        ],
+        "review": "partner-rollout",
+        "review_result": {
+          "baseline": 5,
+          "cache_hits": 0,
+          "calls": 0,
+          "choice": 5,
+          "coverage": "none",
+          "elapsed_us": 0,
+          "field": "completed-deployed-l1-fixed-40-8-voidless-request-seed-v1",
+          "legal": [
+            2,
+            5
+          ],
+          "offers": [],
+          "paired": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "requested": 64,
+          "samples": 0,
+          "schema": "partner-rollout-v1",
+          "status": "inactive",
+          "stop": "scope",
+          "support": 133024320,
+          "values": [
+            [
+              2,
+              0
+            ],
+            [
+              5,
+              0
+            ]
+          ]
+        },
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 1
+      },
+      "timing": {
+        "host_ms": 81.14154200000002,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 3,
+          "hand": [
+            6,
+            9,
+            14,
+            16,
+            19,
+            20,
+            21
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 9,
+        "elapsed_us": 50155,
+        "evaluation": {
+          "choice": 9,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            81000,
+            0
+          ],
+          "leader": 1,
+          "legal": [
+            9,
+            14,
+            20
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 1592348,
+          "options": [
+            [
+              9,
+              "19",
+              "20"
+            ],
+            [
+              14,
+              "19",
+              "20"
+            ],
+            [
+              20,
+              "9",
+              "10"
+            ]
+          ],
+          "outer_draw_attempts": 40,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            10125,
+            0
+          ],
+          "points": [
+            0,
+            0
+          ],
+          "selection": "fixed",
+          "solver_us": 48800,
+          "trick": 1
+        },
+        "fallback_evaluation": {
+          "choice": 9,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            1498,
+            0
+          ],
+          "leader": 1,
+          "legal": [
+            9,
+            14,
+            20
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 28206,
+          "options": [
+            [
+              9,
+              "1",
+              "1"
+            ],
+            [
+              14,
+              "1",
+              "1"
+            ],
+            [
+              20,
+              "1",
+              "1"
+            ]
+          ],
+          "outer_draw_attempts": 8,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            749,
+            0
+          ],
+          "points": [
+            0,
+            0
+          ],
+          "selection": "fixed",
+          "solver_us": 1117,
+          "trick": 1
+        },
+        "inner_belief": "voidless",
+        "leader": 1,
+        "legal": [
+          9,
+          14,
+          20
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 1141,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 48821,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          0,
+          0
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 1
+      },
+      "timing": {
+        "host_ms": 50.78033300000001,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 0,
+          "hand": [
+            4,
+            15,
+            17,
+            23,
+            24,
+            25,
+            27
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 27,
+        "elapsed_us": 48,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inner_belief": "voidless",
+        "leader": 1,
+        "legal": [
+          27
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          0,
+          0
+        ],
+        "review": "partner-rollout",
+        "review_result": null,
+        "route": "forced",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 1
+      },
+      "timing": {
+        "host_ms": 0.5929170000000816,
+        "checkpoints": 1,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 0,
+          "hand": [
+            4,
+            15,
+            17,
+            23,
+            24,
+            25,
+            27
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 4,
+        "elapsed_us": 29402,
+        "evaluation": {
+          "choice": 4,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            38424,
+            0
+          ],
+          "leader": 0,
+          "legal": [
+            4,
+            15,
+            17,
+            23,
+            24,
+            25
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 927474,
+          "options": [
+            [
+              4,
+              "3",
+              "40"
+            ],
+            [
+              15,
+              "3",
+              "40"
+            ],
+            [
+              17,
+              "1",
+              "10"
+            ],
+            [
+              23,
+              "1",
+              "10"
+            ],
+            [
+              24,
+              "3",
+              "40"
+            ],
+            [
+              25,
+              "9",
+              "40"
+            ]
+          ],
+          "outer_draw_attempts": 40,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            4803,
+            0
+          ],
+          "points": [
+            1,
+            0
+          ],
+          "selection": "fixed",
+          "solver_us": 27382,
+          "trick": 2
+        },
+        "fallback_evaluation": {
+          "choice": 15,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            2074,
+            0
+          ],
+          "leader": 0,
+          "legal": [
+            4,
+            15,
+            17,
+            23,
+            24,
+            25
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 51011,
+          "options": [
+            [
+              4,
+              "1",
+              "8"
+            ],
+            [
+              15,
+              "0",
+              "1"
+            ],
+            [
+              17,
+              "1",
+              "4"
+            ],
+            [
+              23,
+              "1",
+              "8"
+            ],
+            [
+              24,
+              "1",
+              "8"
+            ],
+            [
+              25,
+              "3",
+              "8"
+            ]
+          ],
+          "outer_draw_attempts": 8,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            1037,
+            0
+          ],
+          "points": [
+            1,
+            0
+          ],
+          "selection": "fixed",
+          "solver_us": 1745,
+          "trick": 2
+        },
+        "inner_belief": "voidless",
+        "leader": 0,
+        "legal": [
+          4,
+          15,
+          17,
+          23,
+          24,
+          25
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 1770,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 27426,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          },
+          {
+            "name": "partner-rollout-review",
+            "status": "inactive"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          1,
+          0
+        ],
+        "review": "partner-rollout",
+        "review_result": {
+          "baseline": 4,
+          "cache_hits": 0,
+          "calls": 0,
+          "choice": 4,
+          "coverage": "none",
+          "elapsed_us": 0,
+          "field": "completed-deployed-l1-fixed-40-8-voidless-request-seed-v1",
+          "legal": [
+            4,
+            15,
+            17,
+            23,
+            24,
+            25
+          ],
+          "offers": [],
+          "paired": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "requested": 64,
+          "samples": 0,
+          "schema": "partner-rollout-v1",
+          "status": "inactive",
+          "stop": "scope",
+          "support": 17153136,
+          "values": [
+            [
+              4,
+              0
+            ],
+            [
+              15,
+              0
+            ],
+            [
+              17,
+              0
+            ],
+            [
+              23,
+              0
+            ],
+            [
+              24,
+              0
+            ],
+            [
+              25,
+              0
+            ]
+          ]
+        },
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 2
+      },
+      "timing": {
+        "host_ms": 29.94862499999995,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 1,
+          "hand": [
+            0,
+            1,
+            3,
+            13,
+            18,
+            22,
+            26
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 3,
+        "elapsed_us": 60,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inner_belief": "voidless",
+        "leader": 0,
+        "legal": [
+          3
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          1,
+          0
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "forced",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 2
+      },
+      "timing": {
+        "host_ms": 0.5658339999999873,
+        "checkpoints": 1,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 2,
+          "hand": [
+            2,
+            5,
+            7,
+            8,
+            10,
+            11,
+            12
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 8,
+        "elapsed_us": 9887,
+        "evaluation": {
+          "choice": 8,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            17120,
+            0
+          ],
+          "leader": 0,
+          "legal": [
+            8,
+            12
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 292691,
+          "options": [
+            [
+              8,
+              "3",
+              "40"
+            ],
+            [
+              12,
+              "3",
+              "20"
+            ]
+          ],
+          "outer_draw_attempts": 40,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            2140,
+            0
+          ],
+          "points": [
+            1,
+            0
+          ],
+          "selection": "fixed",
+          "solver_us": 9264,
+          "trick": 2
+        },
+        "fallback_evaluation": {
+          "choice": 12,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            632,
+            0
+          ],
+          "leader": 0,
+          "legal": [
+            8,
+            12
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 11282,
+          "options": [
+            [
+              8,
+              "1",
+              "8"
+            ],
+            [
+              12,
+              "0",
+              "1"
+            ]
+          ],
+          "outer_draw_attempts": 8,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            316,
+            0
+          ],
+          "points": [
+            1,
+            0
+          ],
+          "selection": "fixed",
+          "solver_us": 455,
+          "trick": 2
+        },
+        "inner_belief": "voidless",
+        "leader": 0,
+        "legal": [
+          8,
+          12
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 475,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 9284,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          },
+          {
+            "name": "partner-rollout-review",
+            "status": "inactive"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          1,
+          0
+        ],
+        "review": "partner-rollout",
+        "review_result": {
+          "baseline": 8,
+          "cache_hits": 0,
+          "calls": 0,
+          "choice": 8,
+          "coverage": "none",
+          "elapsed_us": 0,
+          "field": "completed-deployed-l1-fixed-40-8-voidless-request-seed-v1",
+          "legal": [
+            8,
+            12
+          ],
+          "offers": [],
+          "paired": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "requested": 64,
+          "samples": 0,
+          "schema": "partner-rollout-v1",
+          "status": "inactive",
+          "stop": "scope",
+          "support": 2018016,
+          "values": [
+            [
+              8,
+              0
+            ],
+            [
+              12,
+              0
+            ]
+          ]
+        },
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 2
+      },
+      "timing": {
+        "host_ms": 10.399959000000013,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 3,
+          "hand": [
+            6,
+            9,
+            14,
+            16,
+            19,
+            20,
+            21
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 20,
+        "elapsed_us": 38806,
+        "evaluation": {
+          "choice": 20,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            72248,
+            0
+          ],
+          "leader": 0,
+          "legal": [
+            6,
+            14,
+            16,
+            19,
+            20,
+            21
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 1013328,
+          "options": [
+            [
+              6,
+              "27",
+              "40"
+            ],
+            [
+              14,
+              "4",
+              "5"
+            ],
+            [
+              16,
+              "13",
+              "20"
+            ],
+            [
+              19,
+              "29",
+              "40"
+            ],
+            [
+              20,
+              "17",
+              "20"
+            ],
+            [
+              21,
+              "31",
+              "40"
+            ]
+          ],
+          "outer_draw_attempts": 40,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            9031,
+            0
+          ],
+          "points": [
+            1,
+            0
+          ],
+          "selection": "fixed",
+          "solver_us": 36580,
+          "trick": 2
+        },
+        "fallback_evaluation": {
+          "choice": 6,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            3286,
+            0
+          ],
+          "leader": 0,
+          "legal": [
+            6,
+            14,
+            16,
+            19,
+            20,
+            21
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 48013,
+          "options": [
+            [
+              6,
+              "7",
+              "8"
+            ],
+            [
+              14,
+              "7",
+              "8"
+            ],
+            [
+              16,
+              "3",
+              "4"
+            ],
+            [
+              19,
+              "7",
+              "8"
+            ],
+            [
+              20,
+              "7",
+              "8"
+            ],
+            [
+              21,
+              "7",
+              "8"
+            ]
+          ],
+          "outer_draw_attempts": 8,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            1643,
+            0
+          ],
+          "points": [
+            1,
+            0
+          ],
+          "selection": "fixed",
+          "solver_us": 1997,
+          "trick": 2
+        },
+        "inner_belief": "voidless",
+        "leader": 0,
+        "legal": [
+          6,
+          14,
+          16,
+          19,
+          20,
+          21
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 2023,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 36614,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          1,
+          0
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 2
+      },
+      "timing": {
+        "host_ms": 39.33654200000003,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 3,
+          "hand": [
+            6,
+            9,
+            14,
+            16,
+            19,
+            20,
+            21
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 19,
+        "elapsed_us": 11549,
+        "evaluation": {
+          "choice": 19,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            22240,
+            0
+          ],
+          "leader": 3,
+          "legal": [
+            6,
+            14,
+            16,
+            19,
+            21
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 312733,
+          "options": [
+            [
+              6,
+              "27",
+              "40"
+            ],
+            [
+              14,
+              "21",
+              "40"
+            ],
+            [
+              16,
+              "11",
+              "20"
+            ],
+            [
+              19,
+              "4",
+              "5"
+            ],
+            [
+              21,
+              "29",
+              "40"
+            ]
+          ],
+          "outer_draw_attempts": 40,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            2780,
+            0
+          ],
+          "points": [
+            1,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 10826,
+          "trick": 3
+        },
+        "fallback_evaluation": {
+          "choice": 14,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            928,
+            0
+          ],
+          "leader": 3,
+          "legal": [
+            6,
+            14,
+            16,
+            19,
+            21
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 12344,
+          "options": [
+            [
+              6,
+              "1",
+              "2"
+            ],
+            [
+              14,
+              "3",
+              "4"
+            ],
+            [
+              16,
+              "3",
+              "8"
+            ],
+            [
+              19,
+              "5",
+              "8"
+            ],
+            [
+              21,
+              "5",
+              "8"
+            ]
+          ],
+          "outer_draw_attempts": 8,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            464,
+            0
+          ],
+          "points": [
+            1,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 569,
+          "trick": 3
+        },
+        "inner_belief": "voidless",
+        "leader": 3,
+        "legal": [
+          6,
+          14,
+          16,
+          19,
+          21
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 593,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 10850,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          1,
+          16
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 3
+      },
+      "timing": {
+        "host_ms": 12.120458000000056,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 0,
+          "hand": [
+            4,
+            15,
+            17,
+            23,
+            24,
+            25,
+            27
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 15,
+        "elapsed_us": 3586,
+        "evaluation": {
+          "choice": 15,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            6208,
+            0
+          ],
+          "leader": 3,
+          "legal": [
+            15,
+            17
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 92509,
+          "options": [
+            [
+              15,
+              "3",
+              "20"
+            ],
+            [
+              17,
+              "1",
+              "5"
+            ]
+          ],
+          "outer_draw_attempts": 59,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            776,
+            0
+          ],
+          "points": [
+            1,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 3135,
+          "trick": 3
+        },
+        "fallback_evaluation": {
+          "choice": 17,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            338,
+            0
+          ],
+          "leader": 3,
+          "legal": [
+            15,
+            17
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 4845,
+          "options": [
+            [
+              15,
+              "1",
+              "4"
+            ],
+            [
+              17,
+              "1",
+              "8"
+            ]
+          ],
+          "outer_draw_attempts": 12,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            169,
+            0
+          ],
+          "points": [
+            1,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 244,
+          "trick": 3
+        },
+        "inner_belief": "voidless",
+        "leader": 3,
+        "legal": [
+          15,
+          17
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 269,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 3155,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          },
+          {
+            "name": "partner-rollout-review",
+            "status": "inactive"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          1,
+          16
+        ],
+        "review": "partner-rollout",
+        "review_result": {
+          "baseline": 15,
+          "cache_hits": 0,
+          "calls": 0,
+          "choice": 15,
+          "coverage": "none",
+          "elapsed_us": 0,
+          "field": "completed-deployed-l1-fixed-40-8-voidless-request-seed-v1",
+          "legal": [
+            15,
+            17
+          ],
+          "offers": [],
+          "paired": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "requested": 64,
+          "samples": 0,
+          "schema": "partner-rollout-v1",
+          "status": "inactive",
+          "stop": "scope",
+          "support": 180180,
+          "values": [
+            [
+              15,
+              0
+            ],
+            [
+              17,
+              0
+            ]
+          ]
+        },
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 3
+      },
+      "timing": {
+        "host_ms": 4.194999999999949,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 1,
+          "hand": [
+            0,
+            1,
+            3,
+            13,
+            18,
+            22,
+            26
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 18,
+        "elapsed_us": 4380,
+        "evaluation": {
+          "choice": 18,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            9776,
+            0
+          ],
+          "leader": 3,
+          "legal": [
+            18,
+            26
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 109325,
+          "options": [
+            [
+              18,
+              "27",
+              "40"
+            ],
+            [
+              26,
+              "5",
+              "8"
+            ]
+          ],
+          "outer_draw_attempts": 123,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            1222,
+            0
+          ],
+          "points": [
+            1,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 4047,
+          "trick": 3
+        },
+        "fallback_evaluation": {
+          "choice": 26,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            344,
+            0
+          ],
+          "leader": 3,
+          "legal": [
+            18,
+            26
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 4374,
+          "options": [
+            [
+              18,
+              "5",
+              "8"
+            ],
+            [
+              26,
+              "3",
+              "4"
+            ]
+          ],
+          "outer_draw_attempts": 16,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            172,
+            0
+          ],
+          "points": [
+            1,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 216,
+          "trick": 3
+        },
+        "inner_belief": "voidless",
+        "leader": 3,
+        "legal": [
+          18,
+          26
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 236,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 4066,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          1,
+          16
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 3
+      },
+      "timing": {
+        "host_ms": 4.922874999999993,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 2,
+          "hand": [
+            2,
+            5,
+            7,
+            8,
+            10,
+            11,
+            12
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 2,
+        "elapsed_us": 8746,
+        "evaluation": {
+          "choice": 2,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            22528,
+            0
+          ],
+          "leader": 3,
+          "legal": [
+            2,
+            7,
+            10,
+            11,
+            12
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 207636,
+          "options": [
+            [
+              2,
+              "13",
+              "40"
+            ],
+            [
+              7,
+              "1",
+              "2"
+            ],
+            [
+              10,
+              "1",
+              "2"
+            ],
+            [
+              11,
+              "19",
+              "40"
+            ],
+            [
+              12,
+              "11",
+              "20"
+            ]
+          ],
+          "outer_draw_attempts": 115,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            2816,
+            0
+          ],
+          "points": [
+            1,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 8032,
+          "trick": 3
+        },
+        "fallback_evaluation": {
+          "choice": 2,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            1024,
+            0
+          ],
+          "leader": 3,
+          "legal": [
+            2,
+            7,
+            10,
+            11,
+            12
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 10376,
+          "options": [
+            [
+              2,
+              "1",
+              "4"
+            ],
+            [
+              7,
+              "3",
+              "8"
+            ],
+            [
+              10,
+              "3",
+              "8"
+            ],
+            [
+              11,
+              "3",
+              "8"
+            ],
+            [
+              12,
+              "1",
+              "4"
+            ]
+          ],
+          "outer_draw_attempts": 33,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            512,
+            0
+          ],
+          "points": [
+            1,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 545,
+          "trick": 3
+        },
+        "inner_belief": "voidless",
+        "leader": 3,
+        "legal": [
+          2,
+          7,
+          10,
+          11,
+          12
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 568,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 8054,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          },
+          {
+            "name": "partner-rollout-review",
+            "status": "inactive"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          1,
+          16
+        ],
+        "review": "partner-rollout",
+        "review_result": {
+          "baseline": 2,
+          "cache_hits": 0,
+          "calls": 0,
+          "choice": 2,
+          "coverage": "none",
+          "elapsed_us": 0,
+          "field": "completed-deployed-l1-fixed-40-8-voidless-request-seed-v1",
+          "legal": [
+            2,
+            7,
+            10,
+            11,
+            12
+          ],
+          "offers": [],
+          "paired": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "requested": 64,
+          "samples": 0,
+          "schema": "partner-rollout-v1",
+          "status": "inactive",
+          "stop": "scope",
+          "support": 14700,
+          "values": [
+            [
+              2,
+              0
+            ],
+            [
+              7,
+              0
+            ],
+            [
+              10,
+              0
+            ],
+            [
+              11,
+              0
+            ],
+            [
+              12,
+              0
+            ]
+          ]
+        },
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 3
+      },
+      "timing": {
+        "host_ms": 9.262250000000027,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 2,
+          "hand": [
+            2,
+            5,
+            7,
+            8,
+            10,
+            11,
+            12
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 7,
+        "elapsed_us": 2948,
+        "evaluation": {
+          "choice": 7,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            7448,
+            0
+          ],
+          "leader": 2,
+          "legal": [
+            7,
+            10,
+            11,
+            12
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 65751,
+          "options": [
+            [
+              7,
+              "3",
+              "10"
+            ],
+            [
+              10,
+              "7",
+              "20"
+            ],
+            [
+              11,
+              "3",
+              "5"
+            ],
+            [
+              12,
+              "7",
+              "20"
+            ]
+          ],
+          "outer_draw_attempts": 94,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            931,
+            0
+          ],
+          "points": [
+            7,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 2607,
+          "trick": 4
+        },
+        "fallback_evaluation": {
+          "choice": 7,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            334,
+            0
+          ],
+          "leader": 2,
+          "legal": [
+            7,
+            10,
+            11,
+            12
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 3715,
+          "options": [
+            [
+              7,
+              "1",
+              "8"
+            ],
+            [
+              10,
+              "1",
+              "4"
+            ],
+            [
+              11,
+              "3",
+              "8"
+            ],
+            [
+              12,
+              "1",
+              "4"
+            ]
+          ],
+          "outer_draw_attempts": 23,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            167,
+            0
+          ],
+          "points": [
+            7,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 198,
+          "trick": 4
+        },
+        "inner_belief": "voidless",
+        "leader": 2,
+        "legal": [
+          7,
+          10,
+          11,
+          12
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 222,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 2628,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          },
+          {
+            "name": "partner-rollout-review",
+            "status": "inactive"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          7,
+          16
+        ],
+        "review": "partner-rollout",
+        "review_result": {
+          "baseline": 7,
+          "cache_hits": 0,
+          "calls": 0,
+          "choice": 7,
+          "coverage": "none",
+          "elapsed_us": 0,
+          "field": "completed-deployed-l1-fixed-40-8-voidless-request-seed-v1",
+          "legal": [
+            7,
+            10,
+            11,
+            12
+          ],
+          "offers": [],
+          "paired": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "requested": 64,
+          "samples": 0,
+          "schema": "partner-rollout-v1",
+          "status": "inactive",
+          "stop": "scope",
+          "support": 14700,
+          "values": [
+            [
+              7,
+              0
+            ],
+            [
+              10,
+              0
+            ],
+            [
+              11,
+              0
+            ],
+            [
+              12,
+              0
+            ]
+          ]
+        },
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 4
+      },
+      "timing": {
+        "host_ms": 3.475333000000025,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 3,
+          "hand": [
+            6,
+            9,
+            14,
+            16,
+            19,
+            20,
+            21
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 6,
+        "elapsed_us": 25,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inner_belief": "voidless",
+        "leader": 2,
+        "legal": [
+          6
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          7,
+          16
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "forced",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 4
+      },
+      "timing": {
+        "host_ms": 0.5286250000000603,
+        "checkpoints": 1,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 0,
+          "hand": [
+            4,
+            15,
+            17,
+            23,
+            24,
+            25,
+            27
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 24,
+        "elapsed_us": 18,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inner_belief": "voidless",
+        "leader": 2,
+        "legal": [
+          24
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          7,
+          16
+        ],
+        "review": "partner-rollout",
+        "review_result": null,
+        "route": "forced",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 4
+      },
+      "timing": {
+        "host_ms": 0.48270799999994285,
+        "checkpoints": 1,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 1,
+          "hand": [
+            0,
+            1,
+            3,
+            13,
+            18,
+            22,
+            26
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 13,
+        "elapsed_us": 24,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inner_belief": "voidless",
+        "leader": 2,
+        "legal": [
+          13
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          7,
+          16
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "forced",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 4
+      },
+      "timing": {
+        "host_ms": 0.5082499999999879,
+        "checkpoints": 1,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 0,
+          "hand": [
+            4,
+            15,
+            17,
+            23,
+            24,
+            25,
+            27
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24,
+            1,
+            13
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 17,
+        "elapsed_us": 1093,
+        "evaluation": {
+          "choice": 17,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            3536,
+            0
+          ],
+          "leader": 0,
+          "legal": [
+            17,
+            23,
+            25
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 17274,
+          "options": [
+            [
+              17,
+              "1",
+              "5"
+            ],
+            [
+              23,
+              "9",
+              "40"
+            ],
+            [
+              25,
+              "17",
+              "40"
+            ]
+          ],
+          "outer_draw_attempts": 114,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            442,
+            0
+          ],
+          "points": [
+            8,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 853,
+          "trick": 5
+        },
+        "fallback_evaluation": {
+          "choice": 23,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            190,
+            0
+          ],
+          "leader": 0,
+          "legal": [
+            17,
+            23,
+            25
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 1231,
+          "options": [
+            [
+              17,
+              "3",
+              "8"
+            ],
+            [
+              23,
+              "1",
+              "4"
+            ],
+            [
+              25,
+              "5",
+              "8"
+            ]
+          ],
+          "outer_draw_attempts": 18,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            95,
+            0
+          ],
+          "points": [
+            8,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 89,
+          "trick": 5
+        },
+        "inner_belief": "voidless",
+        "leader": 0,
+        "legal": [
+          17,
+          23,
+          25
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 115,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 877,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          },
+          {
+            "name": "partner-rollout-review",
+            "status": "inactive"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          8,
+          16
+        ],
+        "review": "partner-rollout",
+        "review_result": {
+          "baseline": 17,
+          "cache_hits": 0,
+          "calls": 0,
+          "choice": 17,
+          "coverage": "none",
+          "elapsed_us": 0,
+          "field": "completed-deployed-l1-fixed-40-8-voidless-request-seed-v1",
+          "legal": [
+            17,
+            23,
+            25
+          ],
+          "offers": [],
+          "paired": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "requested": 64,
+          "samples": 0,
+          "schema": "partner-rollout-v1",
+          "status": "inactive",
+          "stop": "scope",
+          "support": 500,
+          "values": [
+            [
+              17,
+              0
+            ],
+            [
+              23,
+              0
+            ],
+            [
+              25,
+              0
+            ]
+          ]
+        },
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 5
+      },
+      "timing": {
+        "host_ms": 1.5999589999999841,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 1,
+          "hand": [
+            0,
+            1,
+            3,
+            13,
+            18,
+            22,
+            26
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24,
+            1,
+            13,
+            0,
+            17
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 26,
+        "elapsed_us": 22,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inner_belief": "voidless",
+        "leader": 0,
+        "legal": [
+          26
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          8,
+          16
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "forced",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 5
+      },
+      "timing": {
+        "host_ms": 0.48529200000002604,
+        "checkpoints": 1,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 2,
+          "hand": [
+            2,
+            5,
+            7,
+            8,
+            10,
+            11,
+            12
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24,
+            1,
+            13,
+            0,
+            17,
+            1,
+            26
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 10,
+        "elapsed_us": 790,
+        "evaluation": {
+          "choice": 10,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            3472,
+            0
+          ],
+          "leader": 0,
+          "legal": [
+            10,
+            11,
+            12
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 9919,
+          "options": [
+            [
+              10,
+              "27",
+              "40"
+            ],
+            [
+              11,
+              "4",
+              "5"
+            ],
+            [
+              12,
+              "7",
+              "10"
+            ]
+          ],
+          "outer_draw_attempts": 71,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            434,
+            0
+          ],
+          "points": [
+            8,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 589,
+          "trick": 5
+        },
+        "fallback_evaluation": {
+          "choice": 11,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            164,
+            0
+          ],
+          "leader": 0,
+          "legal": [
+            10,
+            11,
+            12
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 768,
+          "options": [
+            [
+              10,
+              "7",
+              "8"
+            ],
+            [
+              11,
+              "3",
+              "4"
+            ],
+            [
+              12,
+              "3",
+              "4"
+            ]
+          ],
+          "outer_draw_attempts": 18,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            82,
+            0
+          ],
+          "points": [
+            8,
+            16
+          ],
+          "selection": "fixed",
+          "solver_us": 71,
+          "trick": 5
+        },
+        "inner_belief": "voidless",
+        "leader": 0,
+        "legal": [
+          10,
+          11,
+          12
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 93,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 611,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          },
+          {
+            "name": "partner-rollout-review",
+            "status": "inactive"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          8,
+          16
+        ],
+        "review": "partner-rollout",
+        "review_result": {
+          "baseline": 10,
+          "cache_hits": 0,
+          "calls": 0,
+          "choice": 10,
+          "coverage": "none",
+          "elapsed_us": 0,
+          "field": "completed-deployed-l1-fixed-40-8-voidless-request-seed-v1",
+          "legal": [
+            10,
+            11,
+            12
+          ],
+          "offers": [],
+          "paired": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "requested": 64,
+          "samples": 0,
+          "schema": "partner-rollout-v1",
+          "status": "inactive",
+          "stop": "scope",
+          "support": 120,
+          "values": [
+            [
+              10,
+              0
+            ],
+            [
+              11,
+              0
+            ],
+            [
+              12,
+              0
+            ]
+          ]
+        },
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 5
+      },
+      "timing": {
+        "host_ms": 2.602290999999979,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 3,
+          "hand": [
+            6,
+            9,
+            14,
+            16,
+            19,
+            20,
+            21
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24,
+            1,
+            13,
+            0,
+            17,
+            1,
+            26,
+            2,
+            10
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 16,
+        "elapsed_us": 26,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inner_belief": "voidless",
+        "leader": 0,
+        "legal": [
+          16
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          8,
+          16
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "forced",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 5
+      },
+      "timing": {
+        "host_ms": 2.2686669999999465,
+        "checkpoints": 1,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 1,
+          "hand": [
+            0,
+            1,
+            3,
+            13,
+            18,
+            22,
+            26
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24,
+            1,
+            13,
+            0,
+            17,
+            1,
+            26,
+            2,
+            10,
+            3,
+            16
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 1,
+        "elapsed_us": 277,
+        "evaluation": {
+          "choice": 1,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            1040,
+            0
+          ],
+          "leader": 1,
+          "legal": [
+            1,
+            22
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 1617,
+          "options": [
+            [
+              1,
+              "3",
+              "10"
+            ],
+            [
+              22,
+              "1",
+              "20"
+            ]
+          ],
+          "outer_draw_attempts": 82,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            130,
+            0
+          ],
+          "points": [
+            8,
+            17
+          ],
+          "selection": "fixed",
+          "solver_us": 128,
+          "trick": 6
+        },
+        "fallback_evaluation": {
+          "choice": 1,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            34,
+            0
+          ],
+          "leader": 1,
+          "legal": [
+            1,
+            22
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 122,
+          "options": [
+            [
+              1,
+              "5",
+              "8"
+            ],
+            [
+              22,
+              "0",
+              "1"
+            ]
+          ],
+          "outer_draw_attempts": 21,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            17,
+            0
+          ],
+          "points": [
+            8,
+            17
+          ],
+          "selection": "fixed",
+          "solver_us": 29,
+          "trick": 6
+        },
+        "inner_belief": "voidless",
+        "leader": 1,
+        "legal": [
+          1,
+          22
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 55,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 150,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          8,
+          17
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 6
+      },
+      "timing": {
+        "host_ms": 0.689957999999935,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 2,
+          "hand": [
+            2,
+            5,
+            7,
+            8,
+            10,
+            11,
+            12
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24,
+            1,
+            13,
+            0,
+            17,
+            1,
+            26,
+            2,
+            10,
+            3,
+            16,
+            1,
+            1
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 11,
+        "elapsed_us": 31,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inner_belief": "voidless",
+        "leader": 1,
+        "legal": [
+          11
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          8,
+          17
+        ],
+        "review": "partner-rollout",
+        "review_result": null,
+        "route": "forced",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 6
+      },
+      "timing": {
+        "host_ms": 0.4725420000000202,
+        "checkpoints": 1,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 3,
+          "hand": [
+            6,
+            9,
+            14,
+            16,
+            19,
+            20,
+            21
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24,
+            1,
+            13,
+            0,
+            17,
+            1,
+            26,
+            2,
+            10,
+            3,
+            16,
+            1,
+            1,
+            2,
+            11
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 14,
+        "elapsed_us": 148,
+        "evaluation": {
+          "choice": 14,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            320,
+            0
+          ],
+          "leader": 1,
+          "legal": [
+            14,
+            21
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 84,
+          "options": [
+            [
+              14,
+              "1",
+              "4"
+            ],
+            [
+              21,
+              "0",
+              "1"
+            ]
+          ],
+          "outer_draw_attempts": 40,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            40,
+            0
+          ],
+          "points": [
+            8,
+            17
+          ],
+          "selection": "fixed",
+          "solver_us": 38,
+          "trick": 6
+        },
+        "fallback_evaluation": {
+          "choice": 14,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            8,
+            0
+          ],
+          "leader": 1,
+          "legal": [
+            14,
+            21
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 30,
+          "options": [
+            [
+              14,
+              "1",
+              "8"
+            ],
+            [
+              21,
+              "0",
+              "1"
+            ]
+          ],
+          "outer_draw_attempts": 8,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            4,
+            0
+          ],
+          "points": [
+            8,
+            17
+          ],
+          "selection": "fixed",
+          "solver_us": 11,
+          "trick": 6
+        },
+        "inner_belief": "voidless",
+        "leader": 1,
+        "legal": [
+          14,
+          21
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 33,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 60,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          8,
+          17
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 6
+      },
+      "timing": {
+        "host_ms": 0.5514159999999713,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 0,
+          "hand": [
+            4,
+            15,
+            17,
+            23,
+            24,
+            25,
+            27
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24,
+            1,
+            13,
+            0,
+            17,
+            1,
+            26,
+            2,
+            10,
+            3,
+            16,
+            1,
+            1,
+            2,
+            11,
+            3,
+            14
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 23,
+        "elapsed_us": 181,
+        "evaluation": {
+          "choice": 23,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            0,
+            0
+          ],
+          "leader": 1,
+          "legal": [
+            23,
+            25
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 8,
+          "options": [
+            [
+              23,
+              "0",
+              "1"
+            ],
+            [
+              25,
+              "1",
+              "1"
+            ]
+          ],
+          "outer_draw_attempts": 112,
+          "outer_worlds": 40,
+          "pi_calls_by_level": [
+            0,
+            0
+          ],
+          "points": [
+            8,
+            17
+          ],
+          "selection": "fixed",
+          "solver_us": 13,
+          "trick": 6
+        },
+        "fallback_evaluation": {
+          "choice": 23,
+          "inner_belief": "voidless",
+          "inner_worlds_by_level": [
+            0,
+            0
+          ],
+          "leader": 1,
+          "legal": [
+            23,
+            25
+          ],
+          "modeled_selection": "fixed",
+          "nodes": 8,
+          "options": [
+            [
+              23,
+              "0",
+              "1"
+            ],
+            [
+              25,
+              "1",
+              "1"
+            ]
+          ],
+          "outer_draw_attempts": 15,
+          "outer_worlds": 8,
+          "pi_calls_by_level": [
+            0,
+            0
+          ],
+          "points": [
+            8,
+            17
+          ],
+          "selection": "fixed",
+          "solver_us": 11,
+          "trick": 6
+        },
+        "inner_belief": "voidless",
+        "leader": 1,
+        "legal": [
+          23,
+          25
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          },
+          {
+            "elapsed_us": 41,
+            "name": "fallback-l1",
+            "status": "completed",
+            "worlds": 8
+          },
+          {
+            "elapsed_us": 38,
+            "name": "baseline",
+            "status": "completed",
+            "worlds": 40
+          },
+          {
+            "name": "partner-rollout-review",
+            "status": "inactive"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          8,
+          17
+        ],
+        "review": "partner-rollout",
+        "review_result": {
+          "baseline": 23,
+          "cache_hits": 0,
+          "calls": 0,
+          "choice": 23,
+          "coverage": "none",
+          "elapsed_us": 0,
+          "field": "completed-deployed-l1-fixed-40-8-voidless-request-seed-v1",
+          "legal": [
+            23,
+            25
+          ],
+          "offers": [],
+          "paired": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "requested": 2,
+          "samples": 0,
+          "schema": "partner-rollout-v1",
+          "status": "inactive",
+          "stop": "scope",
+          "support": 2,
+          "values": [
+            [
+              23,
+              0
+            ],
+            [
+              25,
+              0
+            ]
+          ]
+        },
+        "route": "baseline",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 6
+      },
+      "timing": {
+        "host_ms": 0.6408749999999852,
+        "checkpoints": 4,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 3,
+          "hand": [
+            6,
+            9,
+            14,
+            16,
+            19,
+            20,
+            21
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24,
+            1,
+            13,
+            0,
+            17,
+            1,
+            26,
+            2,
+            10,
+            3,
+            16,
+            1,
+            1,
+            2,
+            11,
+            3,
+            14,
+            0,
+            23
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 21,
+        "elapsed_us": 27,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inner_belief": "voidless",
+        "leader": 3,
+        "legal": [
+          21
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          8,
+          23
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "forced",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 7
+      },
+      "timing": {
+        "host_ms": 0.450207999999952,
+        "checkpoints": 1,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 0,
+          "hand": [
+            4,
+            15,
+            17,
+            23,
+            24,
+            25,
+            27
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24,
+            1,
+            13,
+            0,
+            17,
+            1,
+            26,
+            2,
+            10,
+            3,
+            16,
+            1,
+            1,
+            2,
+            11,
+            3,
+            14,
+            0,
+            23,
+            3,
+            21
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 25,
+        "elapsed_us": 29,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inner_belief": "voidless",
+        "leader": 3,
+        "legal": [
+          25
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          8,
+          23
+        ],
+        "review": "partner-rollout",
+        "review_result": null,
+        "route": "forced",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 7
+      },
+      "timing": {
+        "host_ms": 0.4437919999999984,
+        "checkpoints": 1,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 1,
+          "hand": [
+            0,
+            1,
+            3,
+            13,
+            18,
+            22,
+            26
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24,
+            1,
+            13,
+            0,
+            17,
+            1,
+            26,
+            2,
+            10,
+            3,
+            16,
+            1,
+            1,
+            2,
+            11,
+            3,
+            14,
+            0,
+            23,
+            3,
+            21,
+            0,
+            25
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": false,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 22,
+        "elapsed_us": 24,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inner_belief": "voidless",
+        "leader": 3,
+        "legal": [
+          22
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          8,
+          23
+        ],
+        "review": "off",
+        "review_result": null,
+        "route": "forced",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 7
+      },
+      "timing": {
+        "host_ms": 0.4125830000000219,
+        "checkpoints": 1,
+        "interrupted": false,
+        "initialization_ms": 2.0046660000000003
+      },
+      "candidate": true
+    },
+    {
+      "call": {
+        "request": {
+          "decl": 7,
+          "bid": 30,
+          "bidder": 1,
+          "seat": 2,
+          "hand": [
+            2,
+            5,
+            7,
+            8,
+            10,
+            11,
+            12
+          ],
+          "plays": [
+            1,
+            0,
+            2,
+            5,
+            3,
+            9,
+            0,
+            27,
+            0,
+            4,
+            1,
+            3,
+            2,
+            8,
+            3,
+            20,
+            3,
+            19,
+            0,
+            15,
+            1,
+            18,
+            2,
+            2,
+            2,
+            7,
+            3,
+            6,
+            0,
+            24,
+            1,
+            13,
+            0,
+            17,
+            1,
+            26,
+            2,
+            10,
+            3,
+            16,
+            1,
+            1,
+            2,
+            11,
+            3,
+            14,
+            0,
+            23,
+            3,
+            21,
+            0,
+            25,
+            1,
+            22
+          ],
+          "seed": 7042104
+        },
+        "worlds": 40,
+        "partner": true,
+        "budget_ms": 14000
+      },
+      "response": {
+        "budget_ms": 14000,
+        "choice": 12,
+        "elapsed_us": 36,
+        "evaluation": null,
+        "fallback_evaluation": null,
+        "inner_belief": "voidless",
+        "leader": 3,
+        "legal": [
+          12
+        ],
+        "mode": "baseline",
+        "modeled_selection": "fixed",
+        "n": 40,
+        "n0": 8,
+        "n1": 2,
+        "over_budget": false,
+        "phases": [
+          {
+            "name": "status-check",
+            "status": "completed"
+          }
+        ],
+        "player_version": "walt-table-v2",
+        "points": [
+          8,
+          23
+        ],
+        "review": "partner-rollout",
+        "review_result": null,
+        "route": "forced",
+        "schema": "partnership-decision-v1",
+        "selection": "fixed",
+        "trick": 7
+      },
+      "timing": {
+        "host_ms": 0.43404199999996784,
+        "checkpoints": 1,
+        "interrupted": false,
+        "initialization_ms": 2.1592909999999996
+      },
+      "candidate": false
+    }
+  ],
+  "complete": true
+}

@@ -1,0 +1,27 @@
+{
+  "games": 32,
+  "independently_replayed_moves": 896,
+  "complete_source_deals": 4,
+  "paired_ties": 16,
+  "source_commit": "cb1ef3b23072e4c268f31f625f2b61d5facc1929",
+  "production_wasm_sha256": "40d7a1eea658627f7bab37d3c1888ad3bf00216fb23a5d2ceeb7d2d1f4219119",
+  "all_hashes_matched": true,
+  "own_public_request_boundary": true,
+  "matched_budget_ms_each": 6368000,
+  "routes": {
+    "phone": {
+      "baseline": 285,
+      "forced": 161,
+      "baseline-reviewed": 2
+    },
+    "candidate": {
+      "baseline": 288,
+      "forced": 160
+    }
+  },
+  "protocol_error_retains_checkpoint": true,
+  "protocol_eof_retains_checkpoint": true,
+  "result_error_remains_fatal": true,
+  "partial_and_wholly_absent_blocks_refuse_interval": true,
+  "scope": "descriptive play-only pilot; no phone latency or strength claim"
+}

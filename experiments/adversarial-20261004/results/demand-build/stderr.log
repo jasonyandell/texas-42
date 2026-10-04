@@ -1,0 +1,7 @@
+error: failed to load manifest for dependency `walt`
+
+Caused by:
+  failed to read `/Users/jason/Documents/Codex/2026-10-04/task-2/walt/walt/Cargo.toml`
+
+Caused by:
+  No such file or directory (os error 2)

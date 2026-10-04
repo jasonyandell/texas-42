@@ -1,0 +1,167 @@
+{
+  "high_multiply_checks": 30002,
+  "boundaries_and_random_tapes_exact": true,
+  "root_cases": 12,
+  "mixed_terminal_steps_observed": 216,
+  "all_reference_vectors_equal": true,
+  "cases": [
+    {
+      "seed": 930000,
+      "ply": 12,
+      "duplicate_roots_separate": true,
+      "mixed_sample_sizes": [
+        1,
+        1,
+        120,
+        40
+      ],
+      "duplicate_mass_exact": true,
+      "permutation_invariant": true
+    },
+    {
+      "seed": 930007,
+      "ply": 15,
+      "duplicate_roots_separate": true,
+      "mixed_sample_sizes": [
+        1,
+        1,
+        120,
+        40
+      ],
+      "duplicate_mass_exact": true,
+      "permutation_invariant": true
+    },
+    {
+      "seed": 930008,
+      "ply": 12,
+      "duplicate_roots_separate": true,
+      "mixed_sample_sizes": [
+        1,
+        1,
+        120,
+        40
+      ],
+      "duplicate_mass_exact": true,
+      "permutation_invariant": true
+    },
+    {
+      "seed": 930009,
+      "ply": 13,
+      "duplicate_roots_separate": true,
+      "mixed_sample_sizes": [
+        1,
+        1,
+        120,
+        40
+      ],
+      "duplicate_mass_exact": true,
+      "permutation_invariant": true
+    },
+    {
+      "seed": 930012,
+      "ply": 12,
+      "duplicate_roots_separate": true,
+      "mixed_sample_sizes": [
+        1,
+        1,
+        120,
+        40
+      ],
+      "duplicate_mass_exact": true,
+      "permutation_invariant": true
+    },
+    {
+      "seed": 930017,
+      "ply": 13,
+      "duplicate_roots_separate": true,
+      "mixed_sample_sizes": [
+        1,
+        1,
+        120,
+        40
+      ],
+      "duplicate_mass_exact": true,
+      "permutation_invariant": true
+    },
+    {
+      "seed": 930021,
+      "ply": 13,
+      "duplicate_roots_separate": true,
+      "mixed_sample_sizes": [
+        1,
+        1,
+        120,
+        40
+      ],
+      "duplicate_mass_exact": true,
+      "permutation_invariant": true
+    },
+    {
+      "seed": 930027,
+      "ply": 15,
+      "duplicate_roots_separate": true,
+      "mixed_sample_sizes": [
+        1,
+        1,
+        120,
+        40
+      ],
+      "duplicate_mass_exact": true,
+      "permutation_invariant": true
+    },
+    {
+      "seed": 930028,
+      "ply": 12,
+      "duplicate_roots_separate": true,
+      "mixed_sample_sizes": [
+        1,
+        1,
+        120,
+        40
+      ],
+      "duplicate_mass_exact": true,
+      "permutation_invariant": true
+    },
+    {
+      "seed": 930030,
+      "ply": 14,
+      "duplicate_roots_separate": true,
+      "mixed_sample_sizes": [
+        1,
+        1,
+        120,
+        40
+      ],
+      "duplicate_mass_exact": true,
+      "permutation_invariant": true
+    },
+    {
+      "seed": 930036,
+      "ply": 12,
+      "duplicate_roots_separate": true,
+      "mixed_sample_sizes": [
+        1,
+        1,
+        120,
+        40
+      ],
+      "duplicate_mass_exact": true,
+      "permutation_invariant": true
+    },
+    {
+      "seed": 930038,
+      "ply": 14,
+      "duplicate_roots_separate": true,
+      "mixed_sample_sizes": [
+        1,
+        1,
+        120,
+        40
+      ],
+      "duplicate_mass_exact": true,
+      "permutation_invariant": true
+    }
+  ],
+  "source_sha256": "9984d25e6fde4e6ac722b20a7f046cf1d23ffc01f9112ec2e13a771539c49e4e",
+  "scope": "Finite frozen Dice vectors, including singleton/scenario duplication/root permutation; no continuous chance or higher-k claim."
+}

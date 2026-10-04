@@ -1,0 +1,180 @@
+{
+  "proofs": [
+    {
+      "file": "math/lead/Disagreement.lean",
+      "sha256": "82027d9c138a0f5db2eccbff8923d4342ec9f70f46ec0d0bec75af7dd299dd48",
+      "declarations": 6,
+      "elapsed": 1.215243,
+      "axioms": [
+        "'WaltResearch.payoff_le_disagreement' depends on axioms: [propext, Quot.sound]",
+        "'WaltResearch.payoff_sandwich' depends on axioms: [propext, Quot.sound]",
+        "'WaltResearch.maximum_transport' depends on axioms: [propext, Quot.sound]",
+        "'WaltResearch.strict_action_transport' depends on axioms: [propext, Quot.sound]",
+        "'WaltResearch.weak_action_transport' depends on axioms: [propext, Quot.sound]",
+        "'WaltResearch.canonical_interval_pruning' depends on axioms: [propext, Classical.choice, Quot.sound]"
+      ]
+    },
+    {
+      "file": "math/sol/ArgmaxAmplification.lean",
+      "sha256": "b8938537d124bec47faf3403dd4d05dfc3a9e6a3aa054a65eb8d245af1ca195a",
+      "declarations": 6,
+      "elapsed": 1.095182,
+      "axioms": [
+        "'WaltResearch.Sol.exact_field_false' depends on axioms: [propext]",
+        "'WaltResearch.Sol.approximate_field_true' depends on axioms: [propext]",
+        "'WaltResearch.Sol.action_error_one' depends on axioms: [propext]",
+        "'WaltResearch.Sol.modeled_regret_one' depends on axioms: [propext]",
+        "'WaltResearch.Sol.conditional_host_drop' depends on axioms: [propext]",
+        "'WaltResearch.Sol.arbitrarily_small_error_full_drop' depends on axioms: [propext]"
+      ]
+    },
+    {
+      "file": "phase2/math/sol/FirstDivergence.lean",
+      "sha256": "38b8e9e2e5f2618301c24c886966e72fe8ed0ef46314f12ebcfdb1674f7a6bda",
+      "declarations": 4,
+      "elapsed": 1.119672,
+      "axioms": [
+        "'WaltResearch.Phase2.Sol.certified_complete_replay_equal' depends on axioms: [propext]",
+        "'WaltResearch.Phase2.Sol.certified_payoff_equal' depends on axioms: [propext]",
+        "'WaltResearch.Phase2.Sol.unequal_payoff_requires_uncertified' depends on axioms: [propext]",
+        "'WaltResearch.Phase2.Sol.unflagged_world_coupling' depends on axioms: [propext]"
+      ]
+    },
+    {
+      "file": "phase2/TeacherFusion.lean",
+      "sha256": "095ca1887536b417a30c0f2105c3b1c995c8f96f5ac47b4deee9c0a2a4f98d1e",
+      "declarations": 6,
+      "elapsed": 1.154945,
+      "axioms": [
+        "'WaltResearch.Phase2.Lead.lawful_risk_exact' depends on axioms: [propext, Quot.sound]",
+        "'WaltResearch.Phase2.Lead.oracle_label_ranks_risk' does not depend on any axioms",
+        "'WaltResearch.Phase2.Lead.every_lawful_policy_prefers_safe' depends on axioms: [propext, Quot.sound]",
+        "'WaltResearch.Phase2.Lead.exact_oracle_student_is_wrong' depends on axioms: [propext, Quot.sound]",
+        "'WaltResearch.Phase2.Lead.sampling_distribution_can_reverse_ranking' does not depend on any axioms",
+        "'WaltResearch.Phase2.Lead.chosen_action_regret_bound' depends on axioms: [propext, Quot.sound]"
+      ]
+    },
+    {
+      "file": "phase3/math/sol/CompiledDAG.lean",
+      "sha256": "23e61e0e02b31c1963126917847a98909632a5ba0fa42b27d8c0e245549c448b",
+      "declarations": 6,
+      "elapsed": 1.167411,
+      "axioms": [
+        "'WaltResearch.Phase3.Sol.fold_congr' depends on axioms: [propext, Quot.sound]",
+        "'WaltResearch.Phase3.Sol.compiled_prefix_agrees' depends on axioms: [propext, Quot.sound]",
+        "'WaltResearch.Phase3.Sol.compiled_root_equals_recursive' depends on axioms: [propext, Quot.sound]",
+        "'WaltResearch.Phase3.Sol.two_evaluators_agree_for_every_graph' depends on axioms: [propext, Quot.sound]",
+        "'WaltResearch.Phase3.Sol.world_first_max_changes_semantics' does not depend on any axioms",
+        "'WaltResearch.Phase3.Sol.world_first_min_changes_semantics' does not depend on any axioms"
+      ]
+    },
+    {
+      "file": "phase3/math/sol/InnerFiber.lean",
+      "sha256": "4d8204d3a73bc6526e74f458c2f6ac6d7436b6ca07e59c2fe4746cbffb98c2e8",
+      "declarations": 2,
+      "elapsed": 1.104556,
+      "axioms": [
+        "'WaltResearch.Phase3.Sol.outer_restriction_reverses_modeled_response' does not depend on any axioms",
+        "'WaltResearch.Phase3.Sol.outer_support_omits_inner_world' does not depend on any axioms"
+      ]
+    }
+  ],
+  "original_declarations": 30,
+  "additional_proofs": [
+    {
+      "file": "SettledPruning.lean",
+      "sha256": "3d8238eea3566c5acf9d39e6eda867a6e3bdf887005b18ba1b2c32e1916555ca",
+      "declarations": 3,
+      "elapsed": 0.254124,
+      "axioms": [
+        "'AdversarialSol.made_stays_made' does not depend on any axioms",
+        "'AdversarialSol.set_stays_set' depends on axioms: [propext, Quot.sound]",
+        "'AdversarialSol.action_partition_preserves_Q' depends on axioms: [propext, Quot.sound]"
+      ]
+    },
+    {
+      "file": "PriorityRealization.lean",
+      "sha256": "0c7fba9608789b512fe2d483fbf3164fa14b0962cd6a95ff75908b1cfb94393f",
+      "declarations": 4,
+      "elapsed": 0.266434,
+      "axioms": [
+        "'AdversarialSol.Priority.chronological_priority_selects_next' depends on axioms: [propext]",
+        "'AdversarialSol.Priority.every_common_first_action_has_value_one' does not depend on any axioms",
+        "'AdversarialSol.Priority.adaptive_public_policy_strictly_beats_common_order' does not depend on any axioms",
+        "'AdversarialSol.Priority.any_shared_priority_list_is_incomplete' does not depend on any axioms"
+      ]
+    },
+    {
+      "file": "NestedPlans.lean",
+      "sha256": "1bc19b9000c336a773186655aac3f6be9ccd1b3d7faaf1f2e0bbd89f86d9a9fa",
+      "declarations": 2,
+      "elapsed": 0.26168,
+      "axioms": [
+        "'AdversarialSol.Nested.nested_attained_value_monotone' depends on axioms: [propext, Quot.sound]",
+        "'AdversarialSol.Nested.nested_action_improvements_can_increase_root_regret' does not depend on any axioms"
+      ]
+    }
+  ],
+  "additional_declarations": 9,
+  "total_declarations": 39,
+  "parallel_wall_medians_s": {
+    "recursive/0": 0.9391206249999993,
+    "recursive/4": 0.31183304100000164,
+    "compiled/0": 1.052193875,
+    "compiled/4": 0.34258458299999894
+  },
+  "ready": 134,
+  "partial": 87,
+  "nodes": 292449,
+  "all_vectors_identical": true,
+  "generation_s": 0.434379125,
+  "recursive_wall_ratio": 3.011613592929026,
+  "compiled_wall_ratio": 3.0713404140547773,
+  "recursive_with_common_sampling_ratio": 1.8406289961238669,
+  "native_runs": 144,
+  "native_roots": 18,
+  "native_mode_pairs_equal": true,
+  "native_totals": {
+    "0/False": {
+      "nodes": 129984,
+      "solve_us": 4857,
+      "retained_policy_cache_entries": 0
+    },
+    "0/True": {
+      "nodes": 130590,
+      "solve_us": 6225,
+      "retained_policy_cache_entries": 0
+    },
+    "1/False": {
+      "nodes": 795414,
+      "solve_us": 21455,
+      "retained_policy_cache_entries": 3327
+    },
+    "1/True": {
+      "nodes": 795604,
+      "solve_us": 11011,
+      "retained_policy_cache_entries": 3327
+    },
+    "2/False": {
+      "nodes": 3367805,
+      "solve_us": 97919,
+      "retained_policy_cache_entries": 36308
+    },
+    "2/True": {
+      "nodes": 3367828,
+      "solve_us": 38771,
+      "retained_policy_cache_entries": 36308
+    },
+    "3/False": {
+      "nodes": 10874648,
+      "solve_us": 365610,
+      "retained_policy_cache_entries": 230999
+    },
+    "3/True": {
+      "nodes": 10874720,
+      "solve_us": 142790,
+      "retained_policy_cache_entries": 230999
+    }
+  },
+  "scope": "Arithmetic/source/receipt audit; not an independent timing rerun."
+}

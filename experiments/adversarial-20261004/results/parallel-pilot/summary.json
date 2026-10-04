@@ -1,0 +1,81 @@
+{
+  "planned": 24,
+  "ready": 8,
+  "statuses": {
+    "preexcluded_forced_or_settled": 16,
+    "ready": 8
+  },
+  "partial_trick_roots": 5,
+  "generation_s": 0.05780220899999999,
+  "original_reference_s": 0.047125582999999985,
+  "duplicate_weight_cases": [
+    930000,
+    930005,
+    930008,
+    930009,
+    930012,
+    930014,
+    930017,
+    930023
+  ],
+  "action_vectors_checked": 8,
+  "all_values_equal": true,
+  "timing_rows": [
+    {
+      "wall_s": 0.07987333399999996,
+      "worker_cpu_s": 0.054634,
+      "nodes": 15398,
+      "edges": 15371,
+      "compile_s": 0.054637665999999994,
+      "reduce_s": 0,
+      "packed_payload_bytes": 0,
+      "summed_worker_peak_rss_bytes": 82542592,
+      "serialized_job_bytes": 188144,
+      "round": 0,
+      "mode": "recursive",
+      "workers": 4
+    },
+    {
+      "wall_s": 0.04902841699999999,
+      "worker_cpu_s": 0.04893699999999995,
+      "nodes": 15398,
+      "edges": 15371,
+      "compile_s": 0.048966335999999944,
+      "reduce_s": 0,
+      "packed_payload_bytes": 0,
+      "summed_worker_peak_rss_bytes": 23101440,
+      "serialized_job_bytes": 188144,
+      "round": 0,
+      "mode": "recursive",
+      "workers": 0
+    },
+    {
+      "wall_s": 0.07075724999999994,
+      "worker_cpu_s": 0.06114299999999996,
+      "nodes": 15398,
+      "edges": 15371,
+      "compile_s": 0.057340836,
+      "reduce_s": 0.0037946650000000026,
+      "packed_payload_bytes": 323250,
+      "summed_worker_peak_rss_bytes": 83492864,
+      "serialized_job_bytes": 188117,
+      "round": 0,
+      "mode": "compiled",
+      "workers": 4
+    },
+    {
+      "wall_s": 0.05526245800000007,
+      "worker_cpu_s": 0.05515700000000012,
+      "nodes": 15398,
+      "edges": 15371,
+      "compile_s": 0.05153775299999941,
+      "reduce_s": 0.003626626999999938,
+      "packed_payload_bytes": 323250,
+      "summed_worker_peak_rss_bytes": 23183360,
+      "serialized_job_bytes": 188117,
+      "round": 0,
+      "mode": "compiled",
+      "workers": 0
+    }
+  ]
+}

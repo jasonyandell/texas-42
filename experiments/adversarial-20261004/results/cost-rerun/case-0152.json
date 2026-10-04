@@ -1,0 +1,613 @@
+{
+  "status": "completed",
+  "result": {
+    "bad_scenario_flags": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "certificate_us": 2264,
+    "certificate_work": {
+      "cache_hits": 5,
+      "cheap_distinct_queries": 470,
+      "cheap_total_work": {
+        "inner_worlds": [
+          3205,
+          0
+        ],
+        "nodes": 46264,
+        "pi_calls": [
+          3205,
+          0
+        ]
+      },
+      "disagreement_stops": 197,
+      "forced_steps": 342,
+      "memo_states": 934,
+      "target_distinct_queries": 470,
+      "target_work": {
+        "inner_worlds": [
+          3760,
+          0
+        ],
+        "nodes": 100666,
+        "pi_calls": [
+          470,
+          0
+        ]
+      },
+      "visits": 966
+    },
+    "certified": false,
+    "cheap_choice": 5,
+    "cheap_counts": [
+      34,
+      36,
+      34,
+      34,
+      23
+    ],
+    "cheap_n0": 1,
+    "cheap_us": 1979,
+    "cheap_work": {
+      "inner_worlds": [
+        2735,
+        0
+      ],
+      "nodes": 36835,
+      "pi_calls": [
+        2735,
+        0
+      ]
+    },
+    "error_counts": [
+      40,
+      40,
+      40,
+      40,
+      38
+    ],
+    "field_level": 0,
+    "lower": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "outer": 40,
+    "sampling_us": 5,
+    "schema": "walt-first-disagreement-v1",
+    "target_choice": 9,
+    "target_counts": [
+      27,
+      28,
+      30,
+      23,
+      19
+    ],
+    "target_first": false,
+    "target_n0": 8,
+    "target_us": 8511,
+    "target_work": {
+      "inner_worlds": [
+        32200,
+        0
+      ],
+      "nodes": 352276,
+      "pi_calls": [
+        4025,
+        0
+      ]
+    },
+    "tiles": [
+      0,
+      5,
+      9,
+      20,
+      21
+    ],
+    "total_us": 12783,
+    "upper": [
+      40,
+      40,
+      40,
+      40,
+      40
+    ],
+    "value_orientation": "focal team success counts",
+    "worlds": [
+      [
+        33595584,
+        218365956,
+        12664834,
+        3146273
+      ],
+      [
+        41156,
+        12910594,
+        251674624,
+        3146273
+      ],
+      [
+        251920384,
+        4292800,
+        8413190,
+        3146273
+      ],
+      [
+        251666432,
+        4292738,
+        8667204,
+        3146273
+      ],
+      [
+        67199104,
+        8683586,
+        188743684,
+        3146273
+      ],
+      [
+        71327748,
+        151289858,
+        42008768,
+        3146273
+      ],
+      [
+        58728450,
+        205848576,
+        49348,
+        3146273
+      ],
+      [
+        151011334,
+        8749184,
+        104865856,
+        3146273
+      ],
+      [
+        75513986,
+        21299264,
+        167813124,
+        3146273
+      ],
+      [
+        303110,
+        213909568,
+        50413696,
+        3146273
+      ],
+      [
+        67395586,
+        29392960,
+        167837828,
+        3146273
+      ],
+      [
+        71327746,
+        16842948,
+        176455680,
+        3146273
+      ],
+      [
+        146866178,
+        83918916,
+        33841280,
+        3146273
+      ],
+      [
+        58728576,
+        205783104,
+        114694,
+        3146273
+      ],
+      [
+        155189254,
+        75563200,
+        33873920,
+        3146273
+      ],
+      [
+        25468928,
+        205521026,
+        33636420,
+        3146273
+      ],
+      [
+        58785794,
+        134512708,
+        71327872,
+        3146273
+      ],
+      [
+        37814340,
+        8683650,
+        218128384,
+        3146273
+      ],
+      [
+        83927044,
+        138477634,
+        42221696,
+        3146273
+      ],
+      [
+        21053444,
+        209715330,
+        33857600,
+        3146273
+      ],
+      [
+        4505728,
+        209715266,
+        50405380,
+        3146273
+      ],
+      [
+        8462342,
+        155222144,
+        100941888,
+        3146273
+      ],
+      [
+        8478722,
+        71565504,
+        184582148,
+        3146273
+      ],
+      [
+        50339908,
+        4489346,
+        209797120,
+        3146273
+      ],
+      [
+        54526020,
+        75595904,
+        134504450,
+        3146273
+      ],
+      [
+        167796738,
+        25264132,
+        71565504,
+        3146273
+      ],
+      [
+        33898560,
+        218136580,
+        12591234,
+        3146273
+      ],
+      [
+        167772230,
+        79790080,
+        17064064,
+        3146273
+      ],
+      [
+        33570886,
+        75792512,
+        155262976,
+        3146273
+      ],
+      [
+        16793670,
+        213942272,
+        33890432,
+        3146273
+      ],
+      [
+        33857664,
+        146866178,
+        83902532,
+        3146273
+      ],
+      [
+        184819712,
+        71336068,
+        8470594,
+        3146273
+      ],
+      [
+        88129536,
+        142868546,
+        33628292,
+        3146273
+      ],
+      [
+        168067076,
+        79757376,
+        16801922,
+        3146273
+      ],
+      [
+        184557570,
+        360640,
+        79708164,
+        3146273
+      ],
+      [
+        12886016,
+        67174534,
+        184565824,
+        3146273
+      ],
+      [
+        4481088,
+        226492420,
+        33652866,
+        3146273
+      ],
+      [
+        17129472,
+        12615748,
+        234881154,
+        3146273
+      ],
+      [
+        50356288,
+        209715332,
+        4554754,
+        3146273
+      ],
+      [
+        83910658,
+        8487104,
+        172228612,
+        3146273
+      ]
+    ]
+  },
+  "id": 152,
+  "host_seconds": 0.014832166000000035,
+  "input": {
+    "request": {
+      "decl": 9,
+      "bid": 30,
+      "bidder": 0,
+      "seat": 2,
+      "hand": [
+        0,
+        3,
+        5,
+        9,
+        19,
+        20,
+        21
+      ],
+      "plays": [
+        0,
+        4,
+        1,
+        12,
+        2,
+        3,
+        3,
+        8,
+        1,
+        11,
+        2,
+        19,
+        3,
+        10,
+        0,
+        17
+      ],
+      "seed": 7042104
+    },
+    "outer": 40,
+    "cheap_n0": 1,
+    "target_n0": 8,
+    "seconds": 20,
+    "target_first": false,
+    "field_level": 0
+  }
+}

@@ -1,0 +1,5088 @@
+[
+  {
+    "seed": 930000,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 12500,
+    "enumerate_s": 1.1375000000000968e-05,
+    "rollout_s": 0.034181083,
+    "reduction_s": 0.0001732499999999998,
+    "plan_total_s": 0.034365708,
+    "lawful_s": 0.018665792,
+    "lawful_calls": 6441,
+    "restricted": {
+      "2": 34,
+      "13": 34,
+      "15": 26,
+      "19": 25
+    },
+    "lawful": {
+      "2": 36,
+      "13": 34,
+      "15": 28,
+      "19": 30
+    },
+    "fused": {
+      "2": 36,
+      "13": 34,
+      "15": 28,
+      "19": 30
+    },
+    "value_gap": 2,
+    "chosen": 2,
+    "lawful_chosen": 2,
+    "action_regret": 0,
+    "trace_checks": [
+      {
+        "world": 0,
+        "orderings": 24,
+        "distinct_traces": 10
+      },
+      {
+        "world": 1,
+        "orderings": 24,
+        "distinct_traces": 16
+      }
+    ],
+    "status": "completed"
+  },
+  {
+    "seed": 930007,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 960,
+    "enumerate_s": 1.1750000000004812e-05,
+    "rollout_s": 0.004813666999999994,
+    "reduction_s": 0.0001266659999999975,
+    "plan_total_s": 0.004952082999999996,
+    "lawful_s": 1.0083000000021825e-05,
+    "lawful_calls": 2,
+    "restricted": {
+      "9": 40,
+      "13": 40
+    },
+    "lawful": {
+      "9": 40,
+      "13": 40
+    },
+    "fused": {
+      "9": 40,
+      "13": 40
+    },
+    "value_gap": 0,
+    "chosen": 9,
+    "lawful_chosen": 9,
+    "action_regret": 0,
+    "trace_checks": [
+      {
+        "world": 0,
+        "orderings": 24,
+        "distinct_traces": 2
+      },
+      {
+        "world": 1,
+        "orderings": 24,
+        "distinct_traces": 2
+      }
+    ],
+    "status": "completed"
+  },
+  {
+    "seed": 930008,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9456,
+    "enumerate_s": 9.708999999996637e-06,
+    "rollout_s": 0.026324041999999992,
+    "reduction_s": 0.0001542089999999885,
+    "plan_total_s": 0.026487959999999977,
+    "lawful_s": 0.009006750000000008,
+    "lawful_calls": 2909,
+    "restricted": {
+      "2": 18,
+      "6": 13,
+      "10": 12,
+      "15": 9
+    },
+    "lawful": {
+      "2": 25,
+      "6": 16,
+      "10": 12,
+      "15": 9
+    },
+    "fused": {
+      "2": 27,
+      "6": 16,
+      "10": 12,
+      "15": 9
+    },
+    "value_gap": 7,
+    "chosen": 2,
+    "lawful_chosen": 2,
+    "action_regret": 0,
+    "trace_checks": [
+      {
+        "world": 0,
+        "orderings": 24,
+        "distinct_traces": 13
+      },
+      {
+        "world": 1,
+        "orderings": 24,
+        "distinct_traces": 13
+      }
+    ],
+    "status": "completed"
+  },
+  {
+    "seed": 930009,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10024,
+    "enumerate_s": 1.4167000000009367e-05,
+    "rollout_s": 0.028205166999999975,
+    "reduction_s": 0.00016970799999999064,
+    "plan_total_s": 0.028389041999999975,
+    "lawful_s": 0.008442000000000005,
+    "lawful_calls": 2578,
+    "restricted": {
+      "3": 14,
+      "10": 14,
+      "14": 14,
+      "17": 12
+    },
+    "lawful": {
+      "3": 14,
+      "10": 14,
+      "14": 14,
+      "17": 12
+    },
+    "fused": {
+      "3": 14,
+      "10": 14,
+      "14": 14,
+      "17": 12
+    },
+    "value_gap": 0,
+    "chosen": 3,
+    "lawful_chosen": 3,
+    "action_regret": 0,
+    "trace_checks": [
+      {
+        "world": 0,
+        "orderings": 24,
+        "distinct_traces": 6
+      },
+      {
+        "world": 1,
+        "orderings": 24,
+        "distinct_traces": 8
+      }
+    ],
+    "status": "completed"
+  },
+  {
+    "seed": 930012,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 6912,
+    "enumerate_s": 9.833999999986354e-06,
+    "rollout_s": 0.020494334000000003,
+    "reduction_s": 0.00017545899999998893,
+    "plan_total_s": 0.020679626999999978,
+    "lawful_s": 0.005645084000000022,
+    "lawful_calls": 1672,
+    "restricted": {
+      "15": 38,
+      "16": 38,
+      "17": 38,
+      "18": 34
+    },
+    "lawful": {
+      "15": 38,
+      "16": 38,
+      "17": 38,
+      "18": 34
+    },
+    "fused": {
+      "15": 38,
+      "16": 38,
+      "17": 38,
+      "18": 34
+    },
+    "value_gap": 0,
+    "chosen": 15,
+    "lawful_chosen": 15,
+    "action_regret": 0,
+    "trace_checks": [
+      {
+        "world": 0,
+        "orderings": 24,
+        "distinct_traces": 4
+      },
+      {
+        "world": 1,
+        "orderings": 24,
+        "distinct_traces": 9
+      }
+    ],
+    "status": "completed"
+  },
+  {
+    "seed": 930014,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11720,
+    "enumerate_s": 1.062499999998634e-05,
+    "rollout_s": 0.032835042000000036,
+    "reduction_s": 0.00014837499999997839,
+    "plan_total_s": 0.032994042,
+    "lawful_s": 0.010592832999999968,
+    "lawful_calls": 3421,
+    "restricted": {
+      "2": 27,
+      "22": 40
+    },
+    "lawful": {
+      "2": 33,
+      "22": 40
+    },
+    "fused": {
+      "2": 34,
+      "22": 40
+    },
+    "value_gap": 0,
+    "chosen": 22,
+    "lawful_chosen": 22,
+    "action_regret": 0,
+    "trace_checks": [
+      {
+        "world": 0,
+        "orderings": 24,
+        "distinct_traces": 12
+      },
+      {
+        "world": 1,
+        "orderings": 24,
+        "distinct_traces": 12
+      }
+    ],
+    "status": "completed"
+  },
+  {
+    "seed": 930017,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 5044,
+    "enumerate_s": 1.116699999997861e-05,
+    "rollout_s": 0.01577279199999998,
+    "reduction_s": 0.00017300000000003424,
+    "plan_total_s": 0.015956958999999993,
+    "lawful_s": 0.0030454999999999788,
+    "lawful_calls": 840,
+    "restricted": {
+      "5": 40,
+      "6": 40,
+      "13": 40,
+      "14": 40
+    },
+    "lawful": {
+      "5": 40,
+      "6": 40,
+      "13": 40,
+      "14": 40
+    },
+    "fused": {
+      "5": 40,
+      "6": 40,
+      "13": 40,
+      "14": 40
+    },
+    "value_gap": 0,
+    "chosen": 5,
+    "lawful_chosen": 5,
+    "action_regret": 0,
+    "trace_checks": [
+      {
+        "world": 0,
+        "orderings": 24,
+        "distinct_traces": 5
+      },
+      {
+        "world": 1,
+        "orderings": 24,
+        "distinct_traces": 4
+      }
+    ],
+    "status": "completed"
+  },
+  {
+    "seed": 930021,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11128,
+    "enumerate_s": 1.1375000000035662e-05,
+    "rollout_s": 0.03243616699999996,
+    "reduction_s": 0.000155209000000045,
+    "plan_total_s": 0.03260275100000004,
+    "lawful_s": 0.005922124999999945,
+    "lawful_calls": 1814,
+    "restricted": {
+      "7": 23,
+      "8": 21
+    },
+    "lawful": {
+      "7": 23,
+      "8": 24
+    },
+    "fused": {
+      "7": 23,
+      "8": 24
+    },
+    "value_gap": 1,
+    "chosen": 7,
+    "lawful_chosen": 8,
+    "action_regret": 1,
+    "trace_checks": [
+      {
+        "world": 0,
+        "orderings": 24,
+        "distinct_traces": 7
+      },
+      {
+        "world": 1,
+        "orderings": 24,
+        "distinct_traces": 5
+      }
+    ],
+    "status": "completed"
+  },
+  {
+    "seed": 930027,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 960,
+    "enumerate_s": 1.116699999997861e-05,
+    "rollout_s": 0.004806499999999991,
+    "reduction_s": 0.00014612499999999695,
+    "plan_total_s": 0.004963791999999967,
+    "lawful_s": 9.542000000029027e-06,
+    "lawful_calls": 2,
+    "restricted": {
+      "6": 0,
+      "8": 0
+    },
+    "lawful": {
+      "6": 0,
+      "8": 0
+    },
+    "fused": {
+      "6": 0,
+      "8": 0
+    },
+    "value_gap": 0,
+    "chosen": 6,
+    "lawful_chosen": 6,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930028,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8588,
+    "enumerate_s": 9.666999999990988e-06,
+    "rollout_s": 0.025000999999999995,
+    "reduction_s": 0.0001934579999999797,
+    "plan_total_s": 0.025204124999999966,
+    "lawful_s": 0.007892290999999996,
+    "lawful_calls": 2491,
+    "restricted": {
+      "3": 9,
+      "13": 4,
+      "14": 10,
+      "15": 9
+    },
+    "lawful": {
+      "3": 15,
+      "13": 5,
+      "14": 18,
+      "15": 10
+    },
+    "fused": {
+      "3": 15,
+      "13": 5,
+      "14": 18,
+      "15": 10
+    },
+    "value_gap": 8,
+    "chosen": 14,
+    "lawful_chosen": 14,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930030,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7004,
+    "enumerate_s": 1.1083000000022825e-05,
+    "rollout_s": 0.020385708000000002,
+    "reduction_s": 0.0001603330000000125,
+    "plan_total_s": 0.020557124000000038,
+    "lawful_s": 0.007177416999999964,
+    "lawful_calls": 2247,
+    "restricted": {
+      "6": 6,
+      "9": 6,
+      "18": 4,
+      "21": 10
+    },
+    "lawful": {
+      "6": 6,
+      "9": 6,
+      "18": 4,
+      "21": 12
+    },
+    "fused": {
+      "6": 6,
+      "9": 6,
+      "18": 4,
+      "21": 14
+    },
+    "value_gap": 2,
+    "chosen": 21,
+    "lawful_chosen": 21,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930032,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9620,
+    "enumerate_s": 8.833000000041391e-06,
+    "rollout_s": 0.026574083999999998,
+    "reduction_s": 0.00016858400000008267,
+    "plan_total_s": 0.026751501000000122,
+    "lawful_s": 0.010210874999999953,
+    "lawful_calls": 3369,
+    "restricted": {
+      "4": 16,
+      "6": 7,
+      "11": 7,
+      "14": 26
+    },
+    "lawful": {
+      "4": 17,
+      "6": 7,
+      "11": 8,
+      "14": 35
+    },
+    "fused": {
+      "4": 17,
+      "6": 7,
+      "11": 8,
+      "14": 35
+    },
+    "value_gap": 9,
+    "chosen": 14,
+    "lawful_chosen": 14,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930036,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8072,
+    "enumerate_s": 8.83299999998588e-06,
+    "rollout_s": 0.022246584000000014,
+    "reduction_s": 0.00018174999999998054,
+    "plan_total_s": 0.02243716699999998,
+    "lawful_s": 0.0050738750000000055,
+    "lawful_calls": 1416,
+    "restricted": {
+      "1": 6,
+      "3": 4,
+      "8": 6,
+      "11": 6
+    },
+    "lawful": {
+      "1": 7,
+      "3": 4,
+      "8": 6,
+      "11": 7
+    },
+    "fused": {
+      "1": 7,
+      "3": 4,
+      "8": 6,
+      "11": 7
+    },
+    "value_gap": 1,
+    "chosen": 1,
+    "lawful_chosen": 1,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930038,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8960,
+    "enumerate_s": 1.0124999999971962e-05,
+    "rollout_s": 0.025613999999999915,
+    "reduction_s": 0.00016787500000003952,
+    "plan_total_s": 0.025791999999999926,
+    "lawful_s": 0.006919834000000069,
+    "lawful_calls": 2210,
+    "restricted": {
+      "0": 15,
+      "3": 18,
+      "7": 14,
+      "22": 16
+    },
+    "lawful": {
+      "0": 15,
+      "3": 18,
+      "7": 14,
+      "22": 16
+    },
+    "fused": {
+      "0": 15,
+      "3": 18,
+      "7": 14,
+      "22": 16
+    },
+    "value_gap": 0,
+    "chosen": 3,
+    "lawful_chosen": 3,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930039,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 960,
+    "enumerate_s": 9.416999999900533e-06,
+    "rollout_s": 0.004243457999999922,
+    "reduction_s": 0.00015287500000005227,
+    "plan_total_s": 0.004405749999999875,
+    "lawful_s": 1.3333999999920465e-05,
+    "lawful_calls": 4,
+    "restricted": {
+      "10": 0,
+      "14": 0,
+      "15": 0,
+      "20": 0
+    },
+    "lawful": {
+      "10": 0,
+      "14": 0,
+      "15": 0,
+      "20": 0
+    },
+    "fused": {
+      "10": 0,
+      "14": 0,
+      "15": 0,
+      "20": 0
+    },
+    "value_gap": 0,
+    "chosen": 10,
+    "lawful_chosen": 10,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930041,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9944,
+    "enumerate_s": 1.262499999998834e-05,
+    "rollout_s": 0.028105625000000023,
+    "reduction_s": 0.0001474999999999671,
+    "plan_total_s": 0.02826574999999998,
+    "lawful_s": 0.0060011249999999405,
+    "lawful_calls": 1892,
+    "restricted": {
+      "21": 30,
+      "27": 35
+    },
+    "lawful": {
+      "21": 33,
+      "27": 39
+    },
+    "fused": {
+      "21": 33,
+      "27": 39
+    },
+    "value_gap": 4,
+    "chosen": 27,
+    "lawful_chosen": 27,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930043,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7500,
+    "enumerate_s": 1.0167000000005366e-05,
+    "rollout_s": 0.021601624999999958,
+    "reduction_s": 0.0001587499999999853,
+    "plan_total_s": 0.02177054199999995,
+    "lawful_s": 0.005687667000000007,
+    "lawful_calls": 1753,
+    "restricted": {
+      "5": 40,
+      "6": 40,
+      "16": 34,
+      "24": 40
+    },
+    "lawful": {
+      "5": 40,
+      "6": 40,
+      "16": 34,
+      "24": 40
+    },
+    "fused": {
+      "5": 40,
+      "6": 40,
+      "16": 36,
+      "24": 40
+    },
+    "value_gap": 0,
+    "chosen": 5,
+    "lawful_chosen": 5,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930044,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9348,
+    "enumerate_s": 8.750000000001812e-06,
+    "rollout_s": 0.026641999999999944,
+    "reduction_s": 0.00019124999999997616,
+    "plan_total_s": 0.02684199999999992,
+    "lawful_s": 0.008999791000000035,
+    "lawful_calls": 2811,
+    "restricted": {
+      "6": 15,
+      "14": 16,
+      "15": 13,
+      "25": 11
+    },
+    "lawful": {
+      "6": 18,
+      "14": 26,
+      "15": 13,
+      "25": 16
+    },
+    "fused": {
+      "6": 18,
+      "14": 26,
+      "15": 13,
+      "25": 16
+    },
+    "value_gap": 10,
+    "chosen": 14,
+    "lawful_chosen": 14,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930046,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7816,
+    "enumerate_s": 9.874999999937017e-06,
+    "rollout_s": 0.02196070899999991,
+    "reduction_s": 0.0001519589999999793,
+    "plan_total_s": 0.022122542999999828,
+    "lawful_s": 0.009302750000000026,
+    "lawful_calls": 3116,
+    "restricted": {
+      "10": 11,
+      "12": 9,
+      "19": 9,
+      "24": 12
+    },
+    "lawful": {
+      "10": 11,
+      "12": 11,
+      "19": 11,
+      "24": 12
+    },
+    "fused": {
+      "10": 11,
+      "12": 11,
+      "19": 11,
+      "24": 12
+    },
+    "value_gap": 0,
+    "chosen": 24,
+    "lawful_chosen": 24,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930047,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7088,
+    "enumerate_s": 1.1624999999959584e-05,
+    "rollout_s": 0.020987458000000014,
+    "reduction_s": 0.0001259580000000371,
+    "plan_total_s": 0.02112504100000001,
+    "lawful_s": 0.002283166999999975,
+    "lawful_calls": 708,
+    "restricted": {
+      "1": 5,
+      "21": 5
+    },
+    "lawful": {
+      "1": 5,
+      "21": 5
+    },
+    "fused": {
+      "1": 5,
+      "21": 5
+    },
+    "value_gap": 0,
+    "chosen": 1,
+    "lawful_chosen": 1,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930048,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10672,
+    "enumerate_s": 8.542000000000272e-06,
+    "rollout_s": 0.029081709000000067,
+    "reduction_s": 0.00016204200000002889,
+    "plan_total_s": 0.029252293000000096,
+    "lawful_s": 0.012090500000000004,
+    "lawful_calls": 3922,
+    "restricted": {
+      "2": 31,
+      "4": 27,
+      "11": 27,
+      "12": 24
+    },
+    "lawful": {
+      "2": 33,
+      "4": 27,
+      "11": 27,
+      "12": 25
+    },
+    "fused": {
+      "2": 33,
+      "4": 27,
+      "11": 27,
+      "12": 25
+    },
+    "value_gap": 2,
+    "chosen": 2,
+    "lawful_chosen": 2,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930052,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7000,
+    "enumerate_s": 9.207999999927274e-06,
+    "rollout_s": 0.01967929199999996,
+    "reduction_s": 0.00017066700000001322,
+    "plan_total_s": 0.0198591669999999,
+    "lawful_s": 0.004794208999999938,
+    "lawful_calls": 1472,
+    "restricted": {
+      "1": 40,
+      "4": 40,
+      "11": 40,
+      "22": 40
+    },
+    "lawful": {
+      "1": 40,
+      "4": 40,
+      "11": 40,
+      "22": 40
+    },
+    "fused": {
+      "1": 40,
+      "4": 40,
+      "11": 40,
+      "22": 40
+    },
+    "value_gap": 0,
+    "chosen": 1,
+    "lawful_chosen": 1,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930053,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 6800,
+    "enumerate_s": 9.416000000039837e-06,
+    "rollout_s": 0.019542999999999977,
+    "reduction_s": 0.0001860840000000863,
+    "plan_total_s": 0.019738500000000103,
+    "lawful_s": 0.005889582999999976,
+    "lawful_calls": 1856,
+    "restricted": {
+      "0": 3,
+      "6": 3,
+      "15": 2,
+      "21": 3
+    },
+    "lawful": {
+      "0": 3,
+      "6": 3,
+      "15": 2,
+      "21": 3
+    },
+    "fused": {
+      "0": 3,
+      "6": 3,
+      "15": 2,
+      "21": 3
+    },
+    "value_gap": 0,
+    "chosen": 0,
+    "lawful_chosen": 0,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930054,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 1920,
+    "enumerate_s": 1.0082999999938558e-05,
+    "rollout_s": 0.006763041999999997,
+    "reduction_s": 0.0001395840000000259,
+    "plan_total_s": 0.006912708999999961,
+    "lawful_s": 0.0001719580000000276,
+    "lawful_calls": 14,
+    "restricted": {
+      "8": 0,
+      "18": 0
+    },
+    "lawful": {
+      "8": 0,
+      "18": 0
+    },
+    "fused": {
+      "8": 0,
+      "18": 0
+    },
+    "value_gap": 0,
+    "chosen": 8,
+    "lawful_chosen": 8,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930056,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8964,
+    "enumerate_s": 9.125000000054229e-06,
+    "rollout_s": 0.025339583999999915,
+    "reduction_s": 0.00017137499999997363,
+    "plan_total_s": 0.025520083999999943,
+    "lawful_s": 0.005603541000000045,
+    "lawful_calls": 1599,
+    "restricted": {
+      "1": 16,
+      "8": 15,
+      "10": 15,
+      "21": 15
+    },
+    "lawful": {
+      "1": 16,
+      "8": 15,
+      "10": 15,
+      "21": 15
+    },
+    "fused": {
+      "1": 16,
+      "8": 15,
+      "10": 15,
+      "21": 15
+    },
+    "value_gap": 0,
+    "chosen": 1,
+    "lawful_chosen": 1,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930057,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11472,
+    "enumerate_s": 1.1709000000026393e-05,
+    "rollout_s": 0.03148937500000004,
+    "reduction_s": 0.00018733400000003897,
+    "plan_total_s": 0.03168841800000011,
+    "lawful_s": 0.014055041999999962,
+    "lawful_calls": 4471,
+    "restricted": {
+      "10": 12,
+      "14": 12,
+      "16": 10,
+      "20": 10
+    },
+    "lawful": {
+      "10": 13,
+      "14": 13,
+      "16": 12,
+      "20": 10
+    },
+    "fused": {
+      "10": 13,
+      "14": 13,
+      "16": 12,
+      "20": 10
+    },
+    "value_gap": 1,
+    "chosen": 10,
+    "lawful_chosen": 10,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930060,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10764,
+    "enumerate_s": 8.208999999981259e-06,
+    "rollout_s": 0.02909004100000001,
+    "reduction_s": 0.00021408400000000327,
+    "plan_total_s": 0.029312333999999995,
+    "lawful_s": 0.010283292,
+    "lawful_calls": 3403,
+    "restricted": {
+      "3": 20,
+      "19": 25,
+      "21": 35,
+      "24": 27
+    },
+    "lawful": {
+      "3": 20,
+      "19": 32,
+      "21": 39,
+      "24": 33
+    },
+    "fused": {
+      "3": 20,
+      "19": 32,
+      "21": 39,
+      "24": 33
+    },
+    "value_gap": 4,
+    "chosen": 21,
+    "lawful_chosen": 21,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930061,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10232,
+    "enumerate_s": 1.0999999999983245e-05,
+    "rollout_s": 0.028450874999999876,
+    "reduction_s": 0.0001275830000000422,
+    "plan_total_s": 0.0285894579999999,
+    "lawful_s": 0.0051160829999998825,
+    "lawful_calls": 1639,
+    "restricted": {
+      "1": 19,
+      "11": 18
+    },
+    "lawful": {
+      "1": 28,
+      "11": 23
+    },
+    "fused": {
+      "1": 28,
+      "11": 23
+    },
+    "value_gap": 9,
+    "chosen": 1,
+    "lawful_chosen": 1,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930062,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 4656,
+    "enumerate_s": 1.191699999991691e-05,
+    "rollout_s": 0.013861542000000115,
+    "reduction_s": 0.0001637909999998577,
+    "plan_total_s": 0.01403724999999989,
+    "lawful_s": 0.002983916000000031,
+    "lawful_calls": 904,
+    "restricted": {
+      "11": 40,
+      "16": 29,
+      "20": 40,
+      "24": 29
+    },
+    "lawful": {
+      "11": 40,
+      "16": 29,
+      "20": 40,
+      "24": 29
+    },
+    "fused": {
+      "11": 40,
+      "16": 29,
+      "20": 40,
+      "24": 29
+    },
+    "value_gap": 0,
+    "chosen": 11,
+    "lawful_chosen": 11,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930064,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8812,
+    "enumerate_s": 8.750000000112834e-06,
+    "rollout_s": 0.024848374999999923,
+    "reduction_s": 0.0001767500000000588,
+    "plan_total_s": 0.025033875000000094,
+    "lawful_s": 0.009051165999999888,
+    "lawful_calls": 2925,
+    "restricted": {
+      "6": 32,
+      "19": 40,
+      "20": 40,
+      "21": 37
+    },
+    "lawful": {
+      "6": 33,
+      "19": 40,
+      "20": 40,
+      "21": 38
+    },
+    "fused": {
+      "6": 33,
+      "19": 40,
+      "20": 40,
+      "21": 38
+    },
+    "value_gap": 0,
+    "chosen": 19,
+    "lawful_chosen": 19,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930065,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11424,
+    "enumerate_s": 9.9169999998594e-06,
+    "rollout_s": 0.030562291999999935,
+    "reduction_s": 0.00011841699999992628,
+    "plan_total_s": 0.03069062599999972,
+    "lawful_s": 0.008006458999999966,
+    "lawful_calls": 2716,
+    "restricted": {
+      "12": 33,
+      "14": 33
+    },
+    "lawful": {
+      "12": 38,
+      "14": 38
+    },
+    "fused": {
+      "12": 38,
+      "14": 38
+    },
+    "value_gap": 5,
+    "chosen": 12,
+    "lawful_chosen": 12,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930067,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7832,
+    "enumerate_s": 1.125000000001819e-05,
+    "rollout_s": 0.022695042000000054,
+    "reduction_s": 0.00019783399999995233,
+    "plan_total_s": 0.022904126000000025,
+    "lawful_s": 0.008435709000000013,
+    "lawful_calls": 2652,
+    "restricted": {
+      "0": 37,
+      "8": 37,
+      "9": 37,
+      "12": 39
+    },
+    "lawful": {
+      "0": 38,
+      "8": 39,
+      "9": 38,
+      "12": 40
+    },
+    "fused": {
+      "0": 39,
+      "8": 39,
+      "9": 39,
+      "12": 40
+    },
+    "value_gap": 1,
+    "chosen": 12,
+    "lawful_chosen": 12,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930068,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7496,
+    "enumerate_s": 9.874999999937017e-06,
+    "rollout_s": 0.020809958999999933,
+    "reduction_s": 0.0001755839999999509,
+    "plan_total_s": 0.02099541799999982,
+    "lawful_s": 0.007294082999999896,
+    "lawful_calls": 2230,
+    "restricted": {
+      "6": 6,
+      "7": 6,
+      "9": 18,
+      "26": 9
+    },
+    "lawful": {
+      "6": 6,
+      "7": 6,
+      "9": 23,
+      "26": 10
+    },
+    "fused": {
+      "6": 6,
+      "7": 6,
+      "9": 23,
+      "26": 10
+    },
+    "value_gap": 5,
+    "chosen": 9,
+    "lawful_chosen": 9,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930071,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8212,
+    "enumerate_s": 1.1084000000050054e-05,
+    "rollout_s": 0.023034750000000104,
+    "reduction_s": 0.0001454579999999872,
+    "plan_total_s": 0.02319129200000014,
+    "lawful_s": 0.0029285829999998736,
+    "lawful_calls": 897,
+    "restricted": {
+      "10": 6,
+      "14": 6
+    },
+    "lawful": {
+      "10": 6,
+      "14": 6
+    },
+    "fused": {
+      "10": 6,
+      "14": 6
+    },
+    "value_gap": 0,
+    "chosen": 10,
+    "lawful_chosen": 10,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930074,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9316,
+    "enumerate_s": 1.1084000000050054e-05,
+    "rollout_s": 0.026352041999999853,
+    "reduction_s": 0.00013366599999997675,
+    "plan_total_s": 0.02649679199999988,
+    "lawful_s": 0.003107874999999982,
+    "lawful_calls": 953,
+    "restricted": {
+      "3": 27,
+      "21": 31
+    },
+    "lawful": {
+      "3": 27,
+      "21": 32
+    },
+    "fused": {
+      "3": 27,
+      "21": 32
+    },
+    "value_gap": 1,
+    "chosen": 21,
+    "lawful_chosen": 21,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930076,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11376,
+    "enumerate_s": 9.29199999988306e-06,
+    "rollout_s": 0.030434457999999998,
+    "reduction_s": 0.00018616599999998762,
+    "plan_total_s": 0.030629915999999868,
+    "lawful_s": 0.010865166999999953,
+    "lawful_calls": 3613,
+    "restricted": {
+      "2": 21,
+      "7": 24,
+      "12": 24,
+      "15": 29
+    },
+    "lawful": {
+      "2": 33,
+      "7": 31,
+      "12": 29,
+      "15": 34
+    },
+    "fused": {
+      "2": 33,
+      "7": 31,
+      "12": 29,
+      "15": 34
+    },
+    "value_gap": 5,
+    "chosen": 15,
+    "lawful_chosen": 15,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930078,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 1920,
+    "enumerate_s": 1.1166000000173426e-05,
+    "rollout_s": 0.0067350829999999196,
+    "reduction_s": 0.00013312499999984517,
+    "plan_total_s": 0.006879373999999938,
+    "lawful_s": 0.00017191700000007692,
+    "lawful_calls": 16,
+    "restricted": {
+      "0": 40,
+      "21": 40
+    },
+    "lawful": {
+      "0": 40,
+      "21": 40
+    },
+    "fused": {
+      "0": 40,
+      "21": 40
+    },
+    "value_gap": 0,
+    "chosen": 0,
+    "lawful_chosen": 0,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930079,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8352,
+    "enumerate_s": 1.0499999999913356e-05,
+    "rollout_s": 0.02373449999999999,
+    "reduction_s": 0.00015795799999995808,
+    "plan_total_s": 0.023902957999999863,
+    "lawful_s": 0.00880254200000019,
+    "lawful_calls": 2743,
+    "restricted": {
+      "4": 15,
+      "6": 14,
+      "9": 14,
+      "27": 12
+    },
+    "lawful": {
+      "4": 15,
+      "6": 14,
+      "9": 14,
+      "27": 12
+    },
+    "fused": {
+      "4": 20,
+      "6": 14,
+      "9": 14,
+      "27": 12
+    },
+    "value_gap": 0,
+    "chosen": 4,
+    "lawful_chosen": 4,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930080,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 5896,
+    "enumerate_s": 9.54100000005731e-06,
+    "rollout_s": 0.016786500000000038,
+    "reduction_s": 0.0001631250000000417,
+    "plan_total_s": 0.016959166000000137,
+    "lawful_s": 0.00402679199999989,
+    "lawful_calls": 1197,
+    "restricted": {
+      "0": 40,
+      "4": 40,
+      "5": 40,
+      "23": 40
+    },
+    "lawful": {
+      "0": 40,
+      "4": 40,
+      "5": 40,
+      "23": 40
+    },
+    "fused": {
+      "0": 40,
+      "4": 40,
+      "5": 40,
+      "23": 40
+    },
+    "value_gap": 0,
+    "chosen": 0,
+    "lawful_chosen": 0,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930082,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9288,
+    "enumerate_s": 1.0749999999948301e-05,
+    "rollout_s": 0.02646908300000006,
+    "reduction_s": 0.00013837500000013492,
+    "plan_total_s": 0.026618208000000143,
+    "lawful_s": 0.004746624999999893,
+    "lawful_calls": 1324,
+    "restricted": {
+      "10": 29,
+      "19": 29
+    },
+    "lawful": {
+      "10": 30,
+      "19": 30
+    },
+    "fused": {
+      "10": 30,
+      "19": 30
+    },
+    "value_gap": 1,
+    "chosen": 10,
+    "lawful_chosen": 10,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930084,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8140,
+    "enumerate_s": 1.4249999999993435e-05,
+    "rollout_s": 0.022554375000000126,
+    "reduction_s": 0.0001670830000000123,
+    "plan_total_s": 0.022735708000000132,
+    "lawful_s": 0.007416499999999937,
+    "lawful_calls": 2250,
+    "restricted": {
+      "7": 10,
+      "12": 6,
+      "14": 13,
+      "16": 2
+    },
+    "lawful": {
+      "7": 11,
+      "12": 6,
+      "14": 15,
+      "16": 2
+    },
+    "fused": {
+      "7": 11,
+      "12": 6,
+      "14": 18,
+      "16": 2
+    },
+    "value_gap": 2,
+    "chosen": 14,
+    "lawful_chosen": 14,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930088,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9548,
+    "enumerate_s": 9.708999999968881e-06,
+    "rollout_s": 0.025532249999999923,
+    "reduction_s": 0.00016262499999997182,
+    "plan_total_s": 0.025704583999999864,
+    "lawful_s": 0.008537542000000009,
+    "lawful_calls": 2765,
+    "restricted": {
+      "0": 15,
+      "3": 24,
+      "12": 18,
+      "20": 31
+    },
+    "lawful": {
+      "0": 23,
+      "3": 25,
+      "12": 21,
+      "20": 31
+    },
+    "fused": {
+      "0": 24,
+      "3": 25,
+      "12": 21,
+      "20": 31
+    },
+    "value_gap": 0,
+    "chosen": 20,
+    "lawful_chosen": 20,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930089,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8500,
+    "enumerate_s": 1.2999999999818712e-05,
+    "rollout_s": 0.02436033400000004,
+    "reduction_s": 0.0001322079999999115,
+    "plan_total_s": 0.02450554199999977,
+    "lawful_s": 0.003426959000000007,
+    "lawful_calls": 1002,
+    "restricted": {
+      "7": 9,
+      "16": 10
+    },
+    "lawful": {
+      "7": 9,
+      "16": 10
+    },
+    "fused": {
+      "7": 9,
+      "16": 10
+    },
+    "value_gap": 0,
+    "chosen": 16,
+    "lawful_chosen": 16,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930090,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9360,
+    "enumerate_s": 1.229200000008035e-05,
+    "rollout_s": 0.026100374999999953,
+    "reduction_s": 0.0001629170000001512,
+    "plan_total_s": 0.026275584000000185,
+    "lawful_s": 0.009066707999999979,
+    "lawful_calls": 2812,
+    "restricted": {
+      "0": 27,
+      "4": 27,
+      "5": 27,
+      "23": 26
+    },
+    "lawful": {
+      "0": 27,
+      "4": 27,
+      "5": 27,
+      "23": 26
+    },
+    "fused": {
+      "0": 27,
+      "4": 27,
+      "5": 27,
+      "23": 26
+    },
+    "value_gap": 0,
+    "chosen": 0,
+    "lawful_chosen": 0,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930092,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8400,
+    "enumerate_s": 1.3792000000067972e-05,
+    "rollout_s": 0.02310220899999993,
+    "reduction_s": 0.00014854200000002926,
+    "plan_total_s": 0.023264543000000026,
+    "lawful_s": 0.006326249999999867,
+    "lawful_calls": 1949,
+    "restricted": {
+      "2": 9,
+      "4": 7,
+      "6": 6,
+      "10": 2
+    },
+    "lawful": {
+      "2": 9,
+      "4": 7,
+      "6": 6,
+      "10": 2
+    },
+    "fused": {
+      "2": 9,
+      "4": 7,
+      "6": 6,
+      "10": 2
+    },
+    "value_gap": 0,
+    "chosen": 2,
+    "lawful_chosen": 2,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930093,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10712,
+    "enumerate_s": 1.2000000000123023e-05,
+    "rollout_s": 0.028825291999999836,
+    "reduction_s": 0.0001151249999999937,
+    "plan_total_s": 0.028952416999999953,
+    "lawful_s": 0.00483525000000018,
+    "lawful_calls": 1555,
+    "restricted": {
+      "23": 40,
+      "25": 38
+    },
+    "lawful": {
+      "23": 40,
+      "25": 38
+    },
+    "fused": {
+      "23": 40,
+      "25": 38
+    },
+    "value_gap": 0,
+    "chosen": 23,
+    "lawful_chosen": 23,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930094,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 3240,
+    "enumerate_s": 1.0416999999929288e-05,
+    "rollout_s": 0.010680333000000042,
+    "reduction_s": 0.00016133300000009676,
+    "plan_total_s": 0.010852083000000068,
+    "lawful_s": 0.0017553750000001145,
+    "lawful_calls": 524,
+    "restricted": {
+      "15": 2,
+      "16": 2,
+      "17": 2,
+      "26": 1
+    },
+    "lawful": {
+      "15": 2,
+      "16": 2,
+      "17": 2,
+      "26": 1
+    },
+    "fused": {
+      "15": 2,
+      "16": 2,
+      "17": 2,
+      "26": 1
+    },
+    "value_gap": 0,
+    "chosen": 15,
+    "lawful_chosen": 15,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930095,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9128,
+    "enumerate_s": 1.0915999999916437e-05,
+    "rollout_s": 0.02506970900000005,
+    "reduction_s": 0.00011825000000009744,
+    "plan_total_s": 0.025198875000000065,
+    "lawful_s": 0.005098124999999953,
+    "lawful_calls": 1602,
+    "restricted": {
+      "2": 12,
+      "7": 18
+    },
+    "lawful": {
+      "2": 12,
+      "7": 18
+    },
+    "fused": {
+      "2": 14,
+      "7": 18
+    },
+    "value_gap": 0,
+    "chosen": 7,
+    "lawful_chosen": 7,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930096,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 6712,
+    "enumerate_s": 8.707999999968408e-06,
+    "rollout_s": 0.01945275000000013,
+    "reduction_s": 0.00014979100000012124,
+    "plan_total_s": 0.01961124900000022,
+    "lawful_s": 0.004420249999999903,
+    "lawful_calls": 1248,
+    "restricted": {
+      "4": 36,
+      "9": 38,
+      "14": 38,
+      "22": 36
+    },
+    "lawful": {
+      "4": 36,
+      "9": 38,
+      "14": 38,
+      "22": 36
+    },
+    "fused": {
+      "4": 36,
+      "9": 38,
+      "14": 38,
+      "22": 36
+    },
+    "value_gap": 0,
+    "chosen": 9,
+    "lawful_chosen": 9,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930097,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11124,
+    "enumerate_s": 1.191699999991691e-05,
+    "rollout_s": 0.03041070900000009,
+    "reduction_s": 0.00011275000000021684,
+    "plan_total_s": 0.030535376000000225,
+    "lawful_s": 0.005858416000000144,
+    "lawful_calls": 1974,
+    "restricted": {
+      "23": 20,
+      "24": 20
+    },
+    "lawful": {
+      "23": 21,
+      "24": 22
+    },
+    "fused": {
+      "23": 21,
+      "24": 22
+    },
+    "value_gap": 2,
+    "chosen": 23,
+    "lawful_chosen": 24,
+    "action_regret": 1,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930098,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10316,
+    "enumerate_s": 1.0999999999983245e-05,
+    "rollout_s": 0.02854441699999999,
+    "reduction_s": 0.00011145899999998043,
+    "plan_total_s": 0.028666875999999952,
+    "lawful_s": 0.003452791000000177,
+    "lawful_calls": 1161,
+    "restricted": {
+      "22": 24,
+      "25": 14
+    },
+    "lawful": {
+      "22": 28,
+      "25": 16
+    },
+    "fused": {
+      "22": 29,
+      "25": 16
+    },
+    "value_gap": 4,
+    "chosen": 22,
+    "lawful_chosen": 22,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930099,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 4608,
+    "enumerate_s": 9.832999999792591e-06,
+    "rollout_s": 0.014005540999999955,
+    "reduction_s": 0.00015116599999998037,
+    "plan_total_s": 0.014166539999999728,
+    "lawful_s": 0.004033125000000082,
+    "lawful_calls": 1314,
+    "restricted": {
+      "1": 36,
+      "7": 40,
+      "18": 40,
+      "21": 32
+    },
+    "lawful": {
+      "1": 37,
+      "7": 40,
+      "18": 40,
+      "21": 38
+    },
+    "fused": {
+      "1": 37,
+      "7": 40,
+      "18": 40,
+      "21": 39
+    },
+    "value_gap": 0,
+    "chosen": 7,
+    "lawful_chosen": 7,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930100,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9192,
+    "enumerate_s": 8.833999999957598e-06,
+    "rollout_s": 0.024649875000000154,
+    "reduction_s": 0.00014870900000008014,
+    "plan_total_s": 0.024807418000000192,
+    "lawful_s": 0.010685749999999938,
+    "lawful_calls": 3597,
+    "restricted": {
+      "0": 28,
+      "2": 26,
+      "16": 23,
+      "27": 25
+    },
+    "lawful": {
+      "0": 28,
+      "2": 26,
+      "16": 23,
+      "27": 25
+    },
+    "fused": {
+      "0": 28,
+      "2": 26,
+      "16": 23,
+      "27": 25
+    },
+    "value_gap": 0,
+    "chosen": 0,
+    "lawful_chosen": 0,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930102,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 4896,
+    "enumerate_s": 1.0625000000041851e-05,
+    "rollout_s": 0.014436499999999963,
+    "reduction_s": 0.00016654100000002003,
+    "plan_total_s": 0.014613666000000025,
+    "lawful_s": 0.0024323330000000087,
+    "lawful_calls": 688,
+    "restricted": {
+      "6": 10,
+      "9": 6,
+      "11": 0,
+      "15": 0
+    },
+    "lawful": {
+      "6": 11,
+      "9": 6,
+      "11": 0,
+      "15": 0
+    },
+    "fused": {
+      "6": 11,
+      "9": 6,
+      "11": 0,
+      "15": 0
+    },
+    "value_gap": 1,
+    "chosen": 6,
+    "lawful_chosen": 6,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930103,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9872,
+    "enumerate_s": 1.0583000000119469e-05,
+    "rollout_s": 0.025992832999999882,
+    "reduction_s": 0.00011541699999995103,
+    "plan_total_s": 0.026118832999999952,
+    "lawful_s": 0.00349508300000001,
+    "lawful_calls": 1188,
+    "restricted": {
+      "5": 35,
+      "14": 35
+    },
+    "lawful": {
+      "5": 37,
+      "14": 37
+    },
+    "fused": {
+      "5": 37,
+      "14": 37
+    },
+    "value_gap": 2,
+    "chosen": 5,
+    "lawful_chosen": 5,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930105,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11416,
+    "enumerate_s": 1.0250000000100457e-05,
+    "rollout_s": 0.03039316599999986,
+    "reduction_s": 0.00016570799999993113,
+    "plan_total_s": 0.030569123999999892,
+    "lawful_s": 0.009248125000000051,
+    "lawful_calls": 3041,
+    "restricted": {
+      "14": 18,
+      "20": 6,
+      "24": 21,
+      "27": 23
+    },
+    "lawful": {
+      "14": 21,
+      "20": 6,
+      "24": 22,
+      "27": 26
+    },
+    "fused": {
+      "14": 21,
+      "20": 6,
+      "24": 22,
+      "27": 26
+    },
+    "value_gap": 3,
+    "chosen": 27,
+    "lawful_chosen": 27,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930106,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9408,
+    "enumerate_s": 9.665999999963759e-06,
+    "rollout_s": 0.02554070899999994,
+    "reduction_s": 0.00014412500000005046,
+    "plan_total_s": 0.025694499999999953,
+    "lawful_s": 0.004698042000000013,
+    "lawful_calls": 1477,
+    "restricted": {
+      "4": 34,
+      "16": 30
+    },
+    "lawful": {
+      "4": 34,
+      "16": 30
+    },
+    "fused": {
+      "4": 34,
+      "16": 30
+    },
+    "value_gap": 0,
+    "chosen": 4,
+    "lawful_chosen": 4,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930108,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8248,
+    "enumerate_s": 8.50000000007789e-06,
+    "rollout_s": 0.023397791999999917,
+    "reduction_s": 0.00018445899999997017,
+    "plan_total_s": 0.023590750999999965,
+    "lawful_s": 0.008412500000000156,
+    "lawful_calls": 2566,
+    "restricted": {
+      "5": 2,
+      "10": 2,
+      "15": 2,
+      "24": 4
+    },
+    "lawful": {
+      "5": 6,
+      "10": 2,
+      "15": 2,
+      "24": 6
+    },
+    "fused": {
+      "5": 6,
+      "10": 2,
+      "15": 2,
+      "24": 6
+    },
+    "value_gap": 2,
+    "chosen": 24,
+    "lawful_chosen": 5,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930112,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 6196,
+    "enumerate_s": 9.167000000198655e-06,
+    "rollout_s": 0.01742900000000014,
+    "reduction_s": 0.00016333300000015427,
+    "plan_total_s": 0.017601500000000492,
+    "lawful_s": 0.004267790999999965,
+    "lawful_calls": 1157,
+    "restricted": {
+      "1": 0,
+      "10": 0,
+      "11": 0,
+      "26": 0
+    },
+    "lawful": {
+      "1": 0,
+      "10": 0,
+      "11": 0,
+      "26": 0
+    },
+    "fused": {
+      "1": 0,
+      "10": 0,
+      "11": 0,
+      "26": 0
+    },
+    "value_gap": 0,
+    "chosen": 1,
+    "lawful_chosen": 1,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930115,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8640,
+    "enumerate_s": 1.1082999999967313e-05,
+    "rollout_s": 0.023916666999999947,
+    "reduction_s": 0.00015054100000000403,
+    "plan_total_s": 0.02407829099999992,
+    "lawful_s": 0.009599333000000154,
+    "lawful_calls": 3118,
+    "restricted": {
+      "3": 18,
+      "6": 18,
+      "8": 20,
+      "24": 18
+    },
+    "lawful": {
+      "3": 20,
+      "6": 20,
+      "8": 20,
+      "24": 20
+    },
+    "fused": {
+      "3": 20,
+      "6": 20,
+      "8": 20,
+      "24": 20
+    },
+    "value_gap": 0,
+    "chosen": 8,
+    "lawful_chosen": 3,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930117,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8316,
+    "enumerate_s": 1.0958000000060863e-05,
+    "rollout_s": 0.023459333000000138,
+    "reduction_s": 0.00014812499999994344,
+    "plan_total_s": 0.023618416000000142,
+    "lawful_s": 0.007061541999999976,
+    "lawful_calls": 2254,
+    "restricted": {
+      "2": 7,
+      "4": 8,
+      "14": 7,
+      "17": 5
+    },
+    "lawful": {
+      "2": 7,
+      "4": 8,
+      "14": 7,
+      "17": 5
+    },
+    "fused": {
+      "2": 7,
+      "4": 8,
+      "14": 7,
+      "17": 5
+    },
+    "value_gap": 0,
+    "chosen": 4,
+    "lawful_chosen": 4,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930118,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7776,
+    "enumerate_s": 1.0999999999983245e-05,
+    "rollout_s": 0.022164291999999808,
+    "reduction_s": 0.00017416699999994734,
+    "plan_total_s": 0.02234945899999974,
+    "lawful_s": 0.006418749999999918,
+    "lawful_calls": 2056,
+    "restricted": {
+      "9": 6,
+      "16": 6,
+      "18": 6,
+      "27": 6
+    },
+    "lawful": {
+      "9": 6,
+      "16": 6,
+      "18": 6,
+      "27": 6
+    },
+    "fused": {
+      "9": 6,
+      "16": 6,
+      "18": 6,
+      "27": 6
+    },
+    "value_gap": 0,
+    "chosen": 9,
+    "lawful_chosen": 9,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930119,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 4608,
+    "enumerate_s": 1.1166999999812077e-05,
+    "rollout_s": 0.013669667000000274,
+    "reduction_s": 0.00010766599999989523,
+    "plan_total_s": 0.013788499999999981,
+    "lawful_s": 0.0021248329999998816,
+    "lawful_calls": 662,
+    "restricted": {
+      "16": 40,
+      "20": 40
+    },
+    "lawful": {
+      "16": 40,
+      "20": 40
+    },
+    "fused": {
+      "16": 40,
+      "20": 40
+    },
+    "value_gap": 0,
+    "chosen": 16,
+    "lawful_chosen": 16,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930122,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7148,
+    "enumerate_s": 9.665999999963759e-06,
+    "rollout_s": 0.019854458000000186,
+    "reduction_s": 0.0001441669999997508,
+    "plan_total_s": 0.0200082909999999,
+    "lawful_s": 0.005197833999999624,
+    "lawful_calls": 1787,
+    "restricted": {
+      "7": 24,
+      "9": 11,
+      "23": 22,
+      "27": 6
+    },
+    "lawful": {
+      "7": 24,
+      "9": 15,
+      "23": 23,
+      "27": 7
+    },
+    "fused": {
+      "7": 24,
+      "9": 15,
+      "23": 23,
+      "27": 7
+    },
+    "value_gap": 0,
+    "chosen": 7,
+    "lawful_chosen": 7,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930123,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8308,
+    "enumerate_s": 1.100000000020529e-05,
+    "rollout_s": 0.023671332999999795,
+    "reduction_s": 0.0001108340000000041,
+    "plan_total_s": 0.023793167000000004,
+    "lawful_s": 0.005049291000000178,
+    "lawful_calls": 1516,
+    "restricted": {
+      "18": 6,
+      "26": 6
+    },
+    "lawful": {
+      "18": 6,
+      "26": 6
+    },
+    "fused": {
+      "18": 8,
+      "26": 8
+    },
+    "value_gap": 0,
+    "chosen": 18,
+    "lawful_chosen": 18,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930124,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9220,
+    "enumerate_s": 8.832999999874858e-06,
+    "rollout_s": 0.024106333000000202,
+    "reduction_s": 0.00014162499999992306,
+    "plan_total_s": 0.024256791,
+    "lawful_s": 0.006051291999999986,
+    "lawful_calls": 1943,
+    "restricted": {
+      "1": 33,
+      "16": 32,
+      "20": 33,
+      "23": 30
+    },
+    "lawful": {
+      "1": 33,
+      "16": 34,
+      "20": 33,
+      "23": 31
+    },
+    "fused": {
+      "1": 33,
+      "16": 34,
+      "20": 33,
+      "23": 31
+    },
+    "value_gap": 1,
+    "chosen": 1,
+    "lawful_chosen": 16,
+    "action_regret": 1,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930125,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11176,
+    "enumerate_s": 1.1457999999908708e-05,
+    "rollout_s": 0.03134508300000016,
+    "reduction_s": 0.00015137500000017567,
+    "plan_total_s": 0.03150791600000025,
+    "lawful_s": 0.016464000000000034,
+    "lawful_calls": 5628,
+    "restricted": {
+      "4": 31,
+      "9": 20,
+      "12": 31,
+      "14": 22
+    },
+    "lawful": {
+      "4": 37,
+      "9": 22,
+      "12": 37,
+      "14": 23
+    },
+    "fused": {
+      "4": 37,
+      "9": 22,
+      "12": 37,
+      "14": 23
+    },
+    "value_gap": 6,
+    "chosen": 4,
+    "lawful_chosen": 4,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930128,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7836,
+    "enumerate_s": 9.624999999680028e-06,
+    "rollout_s": 0.021408333000000113,
+    "reduction_s": 0.00014829100000035567,
+    "plan_total_s": 0.02156624900000015,
+    "lawful_s": 0.006629166999999825,
+    "lawful_calls": 2093,
+    "restricted": {
+      "1": 32,
+      "5": 37,
+      "6": 32,
+      "14": 37
+    },
+    "lawful": {
+      "1": 33,
+      "5": 38,
+      "6": 32,
+      "14": 37
+    },
+    "fused": {
+      "1": 33,
+      "5": 38,
+      "6": 32,
+      "14": 37
+    },
+    "value_gap": 1,
+    "chosen": 5,
+    "lawful_chosen": 5,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930130,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9880,
+    "enumerate_s": 1.0833000000154414e-05,
+    "rollout_s": 0.02654720800000021,
+    "reduction_s": 0.0001304579999996669,
+    "plan_total_s": 0.026688499000000032,
+    "lawful_s": 0.0044909160000004,
+    "lawful_calls": 1406,
+    "restricted": {
+      "21": 17,
+      "22": 17
+    },
+    "lawful": {
+      "21": 17,
+      "22": 17
+    },
+    "fused": {
+      "21": 17,
+      "22": 17
+    },
+    "value_gap": 0,
+    "chosen": 21,
+    "lawful_chosen": 21,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930131,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 960,
+    "enumerate_s": 1.2207999999791497e-05,
+    "rollout_s": 0.004806499999999936,
+    "reduction_s": 0.0001551669999999561,
+    "plan_total_s": 0.004973874999999683,
+    "lawful_s": 1.5749999999759012e-05,
+    "lawful_calls": 4,
+    "restricted": {
+      "10": 0,
+      "14": 0,
+      "21": 0,
+      "23": 0
+    },
+    "lawful": {
+      "10": 0,
+      "14": 0,
+      "21": 0,
+      "23": 0
+    },
+    "fused": {
+      "10": 0,
+      "14": 0,
+      "21": 0,
+      "23": 0
+    },
+    "value_gap": 0,
+    "chosen": 10,
+    "lawful_chosen": 10,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930133,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7252,
+    "enumerate_s": 1.1290999999857831e-05,
+    "rollout_s": 0.02112849999999966,
+    "reduction_s": 0.00015104099999962983,
+    "plan_total_s": 0.02129083199999915,
+    "lawful_s": 0.007610624999999871,
+    "lawful_calls": 2383,
+    "restricted": {
+      "4": 13,
+      "6": 6,
+      "16": 9,
+      "18": 6
+    },
+    "lawful": {
+      "4": 21,
+      "6": 7,
+      "16": 11,
+      "18": 8
+    },
+    "fused": {
+      "4": 21,
+      "6": 7,
+      "16": 13,
+      "18": 8
+    },
+    "value_gap": 8,
+    "chosen": 4,
+    "lawful_chosen": 4,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930135,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 4408,
+    "enumerate_s": 1.1417000000069066e-05,
+    "rollout_s": 0.013714375000000167,
+    "reduction_s": 0.00015987500000003152,
+    "plan_total_s": 0.013885667000000268,
+    "lawful_s": 0.005270499999999956,
+    "lawful_calls": 1505,
+    "restricted": {
+      "8": 13,
+      "9": 3,
+      "10": 0,
+      "22": 0
+    },
+    "lawful": {
+      "8": 14,
+      "9": 4,
+      "10": 0,
+      "22": 0
+    },
+    "fused": {
+      "8": 15,
+      "9": 6,
+      "10": 0,
+      "22": 0
+    },
+    "value_gap": 1,
+    "chosen": 8,
+    "lawful_chosen": 8,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930138,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11604,
+    "enumerate_s": 1.3749999999923546e-05,
+    "rollout_s": 0.03220420800000001,
+    "reduction_s": 0.00011591599999993818,
+    "plan_total_s": 0.032333873999999874,
+    "lawful_s": 0.004418582999999643,
+    "lawful_calls": 1445,
+    "restricted": {
+      "15": 34,
+      "16": 35
+    },
+    "lawful": {
+      "15": 37,
+      "16": 38
+    },
+    "fused": {
+      "15": 37,
+      "16": 38
+    },
+    "value_gap": 3,
+    "chosen": 16,
+    "lawful_chosen": 16,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930140,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9140,
+    "enumerate_s": 8.916999999719621e-06,
+    "rollout_s": 0.024651250000000235,
+    "reduction_s": 0.00014775000000000205,
+    "plan_total_s": 0.024807916999999957,
+    "lawful_s": 0.006389415999999759,
+    "lawful_calls": 1980,
+    "restricted": {
+      "1": 26,
+      "6": 32,
+      "14": 37,
+      "23": 34
+    },
+    "lawful": {
+      "1": 26,
+      "6": 33,
+      "14": 38,
+      "23": 34
+    },
+    "fused": {
+      "1": 26,
+      "6": 33,
+      "14": 38,
+      "23": 34
+    },
+    "value_gap": 1,
+    "chosen": 14,
+    "lawful_chosen": 14,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930144,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10480,
+    "enumerate_s": 8.12499999991445e-06,
+    "rollout_s": 0.02785716700000007,
+    "reduction_s": 0.00016833400000004772,
+    "plan_total_s": 0.028033626000000034,
+    "lawful_s": 0.008077874999999679,
+    "lawful_calls": 2569,
+    "restricted": {
+      "3": 14,
+      "4": 14,
+      "12": 13,
+      "21": 8
+    },
+    "lawful": {
+      "3": 14,
+      "4": 14,
+      "12": 14,
+      "21": 8
+    },
+    "fused": {
+      "3": 14,
+      "4": 14,
+      "12": 14,
+      "21": 8
+    },
+    "value_gap": 0,
+    "chosen": 3,
+    "lawful_chosen": 3,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930147,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9936,
+    "enumerate_s": 1.0542000000057783e-05,
+    "rollout_s": 0.026753457999999952,
+    "reduction_s": 0.00014766699999979593,
+    "plan_total_s": 0.026911666999999806,
+    "lawful_s": 0.01039395799999987,
+    "lawful_calls": 3554,
+    "restricted": {
+      "1": 17,
+      "8": 11,
+      "18": 19,
+      "20": 15
+    },
+    "lawful": {
+      "1": 20,
+      "8": 16,
+      "18": 19,
+      "20": 19
+    },
+    "fused": {
+      "1": 20,
+      "8": 16,
+      "18": 19,
+      "20": 19
+    },
+    "value_gap": 1,
+    "chosen": 18,
+    "lawful_chosen": 1,
+    "action_regret": 1,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930148,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7328,
+    "enumerate_s": 9.083000000131847e-06,
+    "rollout_s": 0.019854666000000076,
+    "reduction_s": 0.0001441670000001949,
+    "plan_total_s": 0.020007916000000403,
+    "lawful_s": 0.004669042000000179,
+    "lawful_calls": 1461,
+    "restricted": {
+      "0": 38,
+      "1": 36,
+      "21": 35,
+      "24": 36
+    },
+    "lawful": {
+      "0": 38,
+      "1": 36,
+      "21": 35,
+      "24": 38
+    },
+    "fused": {
+      "0": 38,
+      "1": 36,
+      "21": 35,
+      "24": 38
+    },
+    "value_gap": 0,
+    "chosen": 0,
+    "lawful_chosen": 0,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930150,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8272,
+    "enumerate_s": 1.1207999999651719e-05,
+    "rollout_s": 0.02265583299999996,
+    "reduction_s": 0.00014591699999977337,
+    "plan_total_s": 0.022812957999999384,
+    "lawful_s": 0.008071334000000263,
+    "lawful_calls": 2687,
+    "restricted": {
+      "4": 24,
+      "5": 24,
+      "11": 25,
+      "25": 15
+    },
+    "lawful": {
+      "4": 25,
+      "5": 25,
+      "11": 25,
+      "25": 16
+    },
+    "fused": {
+      "4": 25,
+      "5": 25,
+      "11": 25,
+      "25": 16
+    },
+    "value_gap": 0,
+    "chosen": 11,
+    "lawful_chosen": 4,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930151,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8640,
+    "enumerate_s": 9.916000000220748e-06,
+    "rollout_s": 0.024454415999999757,
+    "reduction_s": 0.00016604200000003289,
+    "plan_total_s": 0.02463037400000001,
+    "lawful_s": 0.010803333000000137,
+    "lawful_calls": 3536,
+    "restricted": {
+      "0": 4,
+      "6": 4,
+      "13": 4,
+      "14": 4
+    },
+    "lawful": {
+      "0": 4,
+      "6": 4,
+      "13": 4,
+      "14": 4
+    },
+    "fused": {
+      "0": 4,
+      "6": 4,
+      "13": 4,
+      "14": 4
+    },
+    "value_gap": 0,
+    "chosen": 0,
+    "lawful_chosen": 0,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930152,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8840,
+    "enumerate_s": 8.08399999963072e-06,
+    "rollout_s": 0.025227249999999923,
+    "reduction_s": 0.00018087499999985823,
+    "plan_total_s": 0.025416208999999412,
+    "lawful_s": 0.005082875000000264,
+    "lawful_calls": 1421,
+    "restricted": {
+      "7": 6,
+      "12": 10,
+      "15": 12,
+      "25": 10
+    },
+    "lawful": {
+      "7": 9,
+      "12": 11,
+      "15": 12,
+      "25": 12
+    },
+    "fused": {
+      "7": 9,
+      "12": 11,
+      "15": 12,
+      "25": 12
+    },
+    "value_gap": 0,
+    "chosen": 15,
+    "lawful_chosen": 15,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930159,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8916,
+    "enumerate_s": 1.1457999999908708e-05,
+    "rollout_s": 0.024812792000000083,
+    "reduction_s": 0.00017962499999990555,
+    "plan_total_s": 0.025003874999999898,
+    "lawful_s": 0.009788707999999868,
+    "lawful_calls": 3052,
+    "restricted": {
+      "6": 27,
+      "21": 36,
+      "22": 35,
+      "27": 24
+    },
+    "lawful": {
+      "6": 30,
+      "21": 36,
+      "22": 38,
+      "27": 26
+    },
+    "fused": {
+      "6": 31,
+      "21": 39,
+      "22": 39,
+      "27": 28
+    },
+    "value_gap": 2,
+    "chosen": 21,
+    "lawful_chosen": 22,
+    "action_regret": 2,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930163,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7288,
+    "enumerate_s": 1.149999999983109e-05,
+    "rollout_s": 0.021198249999999863,
+    "reduction_s": 0.0001350829999999803,
+    "plan_total_s": 0.021344832999999674,
+    "lawful_s": 0.004025332999999964,
+    "lawful_calls": 1290,
+    "restricted": {
+      "21": 40,
+      "23": 40
+    },
+    "lawful": {
+      "21": 40,
+      "23": 40
+    },
+    "fused": {
+      "21": 40,
+      "23": 40
+    },
+    "value_gap": 0,
+    "chosen": 21,
+    "lawful_chosen": 21,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930164,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11724,
+    "enumerate_s": 9.292000000105105e-06,
+    "rollout_s": 0.03242066699999979,
+    "reduction_s": 0.000178458000000159,
+    "plan_total_s": 0.032608417000000056,
+    "lawful_s": 0.012550916999999995,
+    "lawful_calls": 4065,
+    "restricted": {
+      "0": 15,
+      "5": 12,
+      "11": 7,
+      "13": 9
+    },
+    "lawful": {
+      "0": 16,
+      "5": 14,
+      "11": 8,
+      "13": 9
+    },
+    "fused": {
+      "0": 17,
+      "5": 14,
+      "11": 8,
+      "13": 9
+    },
+    "value_gap": 1,
+    "chosen": 0,
+    "lawful_chosen": 0,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930166,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 5836,
+    "enumerate_s": 1.149999999983109e-05,
+    "rollout_s": 0.01732791599999972,
+    "reduction_s": 0.00012112500000016624,
+    "plan_total_s": 0.01746054099999972,
+    "lawful_s": 0.0021147919999999765,
+    "lawful_calls": 641,
+    "restricted": {
+      "23": 36,
+      "25": 36
+    },
+    "lawful": {
+      "23": 36,
+      "25": 36
+    },
+    "fused": {
+      "23": 36,
+      "25": 36
+    },
+    "value_gap": 0,
+    "chosen": 23,
+    "lawful_chosen": 23,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930167,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10368,
+    "enumerate_s": 1.0249999999878412e-05,
+    "rollout_s": 0.02832562499999991,
+    "reduction_s": 0.00017104099999976086,
+    "plan_total_s": 0.02850691599999955,
+    "lawful_s": 0.012155083000000122,
+    "lawful_calls": 4024,
+    "restricted": {
+      "3": 7,
+      "16": 7,
+      "17": 7,
+      "19": 7
+    },
+    "lawful": {
+      "3": 7,
+      "16": 7,
+      "17": 7,
+      "19": 7
+    },
+    "fused": {
+      "3": 7,
+      "16": 7,
+      "17": 7,
+      "19": 7
+    },
+    "value_gap": 0,
+    "chosen": 3,
+    "lawful_chosen": 3,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930168,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10772,
+    "enumerate_s": 9.16699999997661e-06,
+    "rollout_s": 0.02887070799999991,
+    "reduction_s": 0.00017479199999970163,
+    "plan_total_s": 0.02905466699999959,
+    "lawful_s": 0.011245500000000241,
+    "lawful_calls": 3583,
+    "restricted": {
+      "7": 15,
+      "14": 17,
+      "20": 14,
+      "22": 17
+    },
+    "lawful": {
+      "7": 23,
+      "14": 24,
+      "20": 14,
+      "22": 25
+    },
+    "fused": {
+      "7": 23,
+      "14": 24,
+      "20": 14,
+      "22": 25
+    },
+    "value_gap": 8,
+    "chosen": 14,
+    "lawful_chosen": 22,
+    "action_regret": 1,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930170,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 6296,
+    "enumerate_s": 1.0916000000360526e-05,
+    "rollout_s": 0.018451291999999953,
+    "reduction_s": 0.00012404099999985263,
+    "plan_total_s": 0.018586249000000166,
+    "lawful_s": 0.002528792000000113,
+    "lawful_calls": 776,
+    "restricted": {
+      "4": 37,
+      "12": 37
+    },
+    "lawful": {
+      "4": 39,
+      "12": 39
+    },
+    "fused": {
+      "4": 39,
+      "12": 39
+    },
+    "value_gap": 2,
+    "chosen": 4,
+    "lawful_chosen": 4,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930172,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11384,
+    "enumerate_s": 1.020799999995603e-05,
+    "rollout_s": 0.03148433399999995,
+    "reduction_s": 0.00018379200000007145,
+    "plan_total_s": 0.031678333999999975,
+    "lawful_s": 0.011202749999999817,
+    "lawful_calls": 3575,
+    "restricted": {
+      "6": 11,
+      "16": 13,
+      "21": 10,
+      "22": 10
+    },
+    "lawful": {
+      "6": 11,
+      "16": 13,
+      "21": 10,
+      "22": 10
+    },
+    "fused": {
+      "6": 11,
+      "16": 13,
+      "21": 10,
+      "22": 10
+    },
+    "value_gap": 0,
+    "chosen": 16,
+    "lawful_chosen": 16,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930174,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8840,
+    "enumerate_s": 1.0790999999787942e-05,
+    "rollout_s": 0.024671083000000316,
+    "reduction_s": 0.00011720799999981324,
+    "plan_total_s": 0.024799081999999917,
+    "lawful_s": 0.004017750000000042,
+    "lawful_calls": 1302,
+    "restricted": {
+      "1": 17,
+      "10": 17
+    },
+    "lawful": {
+      "1": 20,
+      "10": 20
+    },
+    "fused": {
+      "1": 20,
+      "10": 20
+    },
+    "value_gap": 3,
+    "chosen": 1,
+    "lawful_chosen": 1,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930176,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11200,
+    "enumerate_s": 9.625000000124118e-06,
+    "rollout_s": 0.031037167000000032,
+    "reduction_s": 0.00016179100000002222,
+    "plan_total_s": 0.03120858300000018,
+    "lawful_s": 0.013844542000000182,
+    "lawful_calls": 4709,
+    "restricted": {
+      "5": 39,
+      "6": 20,
+      "16": 18,
+      "20": 39
+    },
+    "lawful": {
+      "5": 40,
+      "6": 20,
+      "16": 19,
+      "20": 40
+    },
+    "fused": {
+      "5": 40,
+      "6": 20,
+      "16": 19,
+      "20": 40
+    },
+    "value_gap": 1,
+    "chosen": 5,
+    "lawful_chosen": 5,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930179,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9620,
+    "enumerate_s": 1.0416999999929288e-05,
+    "rollout_s": 0.02719787500000015,
+    "reduction_s": 0.00013762499999980804,
+    "plan_total_s": 0.027345916999999886,
+    "lawful_s": 0.0037354170000001297,
+    "lawful_calls": 1163,
+    "restricted": {
+      "25": 25,
+      "26": 18
+    },
+    "lawful": {
+      "25": 31,
+      "26": 25
+    },
+    "fused": {
+      "25": 31,
+      "26": 25
+    },
+    "value_gap": 6,
+    "chosen": 25,
+    "lawful_chosen": 25,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930180,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 5864,
+    "enumerate_s": 8.87499999979724e-06,
+    "rollout_s": 0.016642207999999936,
+    "reduction_s": 0.0001565829999998769,
+    "plan_total_s": 0.01680766599999961,
+    "lawful_s": 0.0029798750000002983,
+    "lawful_calls": 790,
+    "restricted": {
+      "9": 40,
+      "11": 40,
+      "15": 40,
+      "20": 40
+    },
+    "lawful": {
+      "9": 40,
+      "11": 40,
+      "15": 40,
+      "20": 40
+    },
+    "fused": {
+      "9": 40,
+      "11": 40,
+      "15": 40,
+      "20": 40
+    },
+    "value_gap": 0,
+    "chosen": 9,
+    "lawful_chosen": 9,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930183,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8324,
+    "enumerate_s": 1.075000000039239e-05,
+    "rollout_s": 0.02314566600000001,
+    "reduction_s": 0.00017179200000017048,
+    "plan_total_s": 0.023328208000000572,
+    "lawful_s": 0.011701167000000012,
+    "lawful_calls": 3714,
+    "restricted": {
+      "1": 17,
+      "21": 17,
+      "23": 15,
+      "27": 9
+    },
+    "lawful": {
+      "1": 26,
+      "21": 21,
+      "23": 19,
+      "27": 9
+    },
+    "fused": {
+      "1": 33,
+      "21": 33,
+      "23": 31,
+      "27": 11
+    },
+    "value_gap": 9,
+    "chosen": 1,
+    "lawful_chosen": 1,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930184,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10112,
+    "enumerate_s": 9.499999999995623e-06,
+    "rollout_s": 0.02648958300000004,
+    "reduction_s": 0.00017470799999985687,
+    "plan_total_s": 0.02667379099999989,
+    "lawful_s": 0.0087182910000001,
+    "lawful_calls": 2826,
+    "restricted": {
+      "3": 30,
+      "4": 30,
+      "8": 28,
+      "9": 25
+    },
+    "lawful": {
+      "3": 31,
+      "4": 31,
+      "8": 30,
+      "9": 26
+    },
+    "fused": {
+      "3": 31,
+      "4": 31,
+      "8": 30,
+      "9": 26
+    },
+    "value_gap": 1,
+    "chosen": 3,
+    "lawful_chosen": 3,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930185,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9264,
+    "enumerate_s": 1.1375000000146684e-05,
+    "rollout_s": 0.02635416700000004,
+    "reduction_s": 0.00017141700000022908,
+    "plan_total_s": 0.026536959000000415,
+    "lawful_s": 0.007543917000000011,
+    "lawful_calls": 2325,
+    "restricted": {
+      "0": 22,
+      "3": 23,
+      "23": 23,
+      "26": 21
+    },
+    "lawful": {
+      "0": 22,
+      "3": 23,
+      "23": 23,
+      "26": 21
+    },
+    "fused": {
+      "0": 22,
+      "3": 23,
+      "23": 23,
+      "26": 21
+    },
+    "value_gap": 0,
+    "chosen": 3,
+    "lawful_chosen": 3,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930186,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9784,
+    "enumerate_s": 1.0582999999897424e-05,
+    "rollout_s": 0.027255040999999647,
+    "reduction_s": 0.00016645799999981392,
+    "plan_total_s": 0.027432081999999358,
+    "lawful_s": 0.013547250000000233,
+    "lawful_calls": 4520,
+    "restricted": {
+      "6": 15,
+      "8": 24,
+      "10": 15,
+      "16": 24
+    },
+    "lawful": {
+      "6": 20,
+      "8": 28,
+      "10": 20,
+      "16": 31
+    },
+    "fused": {
+      "6": 21,
+      "8": 28,
+      "10": 21,
+      "16": 32
+    },
+    "value_gap": 7,
+    "chosen": 8,
+    "lawful_chosen": 16,
+    "action_regret": 3,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930187,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 4596,
+    "enumerate_s": 1.1416999999624977e-05,
+    "rollout_s": 0.013896917000000286,
+    "reduction_s": 0.0001238749999998845,
+    "plan_total_s": 0.014032208999999796,
+    "lawful_s": 0.0018002920000004252,
+    "lawful_calls": 567,
+    "restricted": {
+      "19": 29,
+      "20": 40
+    },
+    "lawful": {
+      "19": 29,
+      "20": 40
+    },
+    "fused": {
+      "19": 29,
+      "20": 40
+    },
+    "value_gap": 0,
+    "chosen": 20,
+    "lawful_chosen": 20,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930188,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11272,
+    "enumerate_s": 9.125000000054229e-06,
+    "rollout_s": 0.030695125000000267,
+    "reduction_s": 0.00016370800000009567,
+    "plan_total_s": 0.030867958000000417,
+    "lawful_s": 0.012596541999999822,
+    "lawful_calls": 4161,
+    "restricted": {
+      "0": 26,
+      "6": 19,
+      "19": 18,
+      "20": 27
+    },
+    "lawful": {
+      "0": 31,
+      "6": 21,
+      "19": 19,
+      "20": 29
+    },
+    "fused": {
+      "0": 31,
+      "6": 21,
+      "19": 20,
+      "20": 29
+    },
+    "value_gap": 4,
+    "chosen": 20,
+    "lawful_chosen": 0,
+    "action_regret": 2,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930189,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 6544,
+    "enumerate_s": 1.0334000000167265e-05,
+    "rollout_s": 0.018769208000000148,
+    "reduction_s": 0.0001542919999999448,
+    "plan_total_s": 0.01893383400000026,
+    "lawful_s": 0.007288416000000186,
+    "lawful_calls": 2363,
+    "restricted": {
+      "7": 39,
+      "9": 37,
+      "13": 39,
+      "16": 25
+    },
+    "lawful": {
+      "7": 39,
+      "9": 39,
+      "13": 39,
+      "16": 25
+    },
+    "fused": {
+      "7": 39,
+      "9": 40,
+      "13": 39,
+      "16": 25
+    },
+    "value_gap": 0,
+    "chosen": 7,
+    "lawful_chosen": 7,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930190,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9176,
+    "enumerate_s": 1.0083999999910276e-05,
+    "rollout_s": 0.025936249999999994,
+    "reduction_s": 0.00018487499999997326,
+    "plan_total_s": 0.026131208999999878,
+    "lawful_s": 0.01209041700000002,
+    "lawful_calls": 3890,
+    "restricted": {
+      "4": 27,
+      "12": 17,
+      "14": 17,
+      "16": 28
+    },
+    "lawful": {
+      "4": 31,
+      "12": 20,
+      "14": 20,
+      "16": 36
+    },
+    "fused": {
+      "4": 31,
+      "12": 24,
+      "14": 24,
+      "16": 36
+    },
+    "value_gap": 8,
+    "chosen": 16,
+    "lawful_chosen": 16,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930192,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8504,
+    "enumerate_s": 8.750000000112834e-06,
+    "rollout_s": 0.023355582999999847,
+    "reduction_s": 0.00015733399999984243,
+    "plan_total_s": 0.023521666999999802,
+    "lawful_s": 0.008529499999999857,
+    "lawful_calls": 2705,
+    "restricted": {
+      "1": 11,
+      "4": 11,
+      "12": 10,
+      "26": 16
+    },
+    "lawful": {
+      "1": 16,
+      "4": 12,
+      "12": 15,
+      "26": 26
+    },
+    "fused": {
+      "1": 16,
+      "4": 12,
+      "12": 15,
+      "26": 29
+    },
+    "value_gap": 10,
+    "chosen": 26,
+    "lawful_chosen": 26,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930193,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10076,
+    "enumerate_s": 9.791000000092254e-06,
+    "rollout_s": 0.026928374999999782,
+    "reduction_s": 0.00015287499999994125,
+    "plan_total_s": 0.027091040999999816,
+    "lawful_s": 0.007956917000000008,
+    "lawful_calls": 2593,
+    "restricted": {
+      "12": 35,
+      "17": 38,
+      "19": 33,
+      "24": 26
+    },
+    "lawful": {
+      "12": 38,
+      "17": 39,
+      "19": 33,
+      "24": 32
+    },
+    "fused": {
+      "12": 38,
+      "17": 39,
+      "19": 33,
+      "24": 32
+    },
+    "value_gap": 1,
+    "chosen": 17,
+    "lawful_chosen": 17,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930195,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 4240,
+    "enumerate_s": 1.0542000000057783e-05,
+    "rollout_s": 0.01336670799999995,
+    "reduction_s": 0.00015462499999996382,
+    "plan_total_s": 0.013531874999999971,
+    "lawful_s": 0.00357391699999976,
+    "lawful_calls": 959,
+    "restricted": {
+      "1": 40,
+      "15": 40,
+      "21": 40,
+      "22": 40
+    },
+    "lawful": {
+      "1": 40,
+      "15": 40,
+      "21": 40,
+      "22": 40
+    },
+    "fused": {
+      "1": 40,
+      "15": 40,
+      "21": 40,
+      "22": 40
+    },
+    "value_gap": 0,
+    "chosen": 1,
+    "lawful_chosen": 1,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930196,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 6624,
+    "enumerate_s": 9.958999999781781e-06,
+    "rollout_s": 0.01833862499999972,
+    "reduction_s": 0.00017437500000028194,
+    "plan_total_s": 0.018522958999999783,
+    "lawful_s": 0.005912125000000046,
+    "lawful_calls": 1830,
+    "restricted": {
+      "7": 40,
+      "14": 40,
+      "22": 40,
+      "27": 40
+    },
+    "lawful": {
+      "7": 40,
+      "14": 40,
+      "22": 40,
+      "27": 40
+    },
+    "fused": {
+      "7": 40,
+      "14": 40,
+      "22": 40,
+      "27": 40
+    },
+    "value_gap": 0,
+    "chosen": 7,
+    "lawful_chosen": 7,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930197,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9400,
+    "enumerate_s": 1.095899999992156e-05,
+    "rollout_s": 0.025888832999999778,
+    "reduction_s": 0.0001616250000000541,
+    "plan_total_s": 0.026061416999999754,
+    "lawful_s": 0.013514666999999925,
+    "lawful_calls": 4692,
+    "restricted": {
+      "3": 32,
+      "5": 36,
+      "9": 9,
+      "23": 36
+    },
+    "lawful": {
+      "3": 33,
+      "5": 39,
+      "9": 10,
+      "23": 39
+    },
+    "fused": {
+      "3": 33,
+      "5": 39,
+      "9": 10,
+      "23": 39
+    },
+    "value_gap": 3,
+    "chosen": 5,
+    "lawful_chosen": 5,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930202,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8264,
+    "enumerate_s": 1.179200000001046e-05,
+    "rollout_s": 0.022565749999999607,
+    "reduction_s": 0.00015274999999981276,
+    "plan_total_s": 0.02273029199999943,
+    "lawful_s": 0.006696457999999961,
+    "lawful_calls": 2188,
+    "restricted": {
+      "11": 33,
+      "12": 37,
+      "15": 34,
+      "23": 37
+    },
+    "lawful": {
+      "11": 35,
+      "12": 37,
+      "15": 37,
+      "23": 37
+    },
+    "fused": {
+      "11": 35,
+      "12": 37,
+      "15": 37,
+      "23": 37
+    },
+    "value_gap": 0,
+    "chosen": 12,
+    "lawful_chosen": 12,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930203,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9084,
+    "enumerate_s": 1.1541999999753472e-05,
+    "rollout_s": 0.025393250000000034,
+    "reduction_s": 0.00017104200000028769,
+    "plan_total_s": 0.025575834000000075,
+    "lawful_s": 0.010161375000000028,
+    "lawful_calls": 2986,
+    "restricted": {
+      "10": 26,
+      "15": 26,
+      "20": 9,
+      "27": 20
+    },
+    "lawful": {
+      "10": 30,
+      "15": 30,
+      "20": 10,
+      "27": 22
+    },
+    "fused": {
+      "10": 30,
+      "15": 30,
+      "20": 10,
+      "27": 22
+    },
+    "value_gap": 4,
+    "chosen": 10,
+    "lawful_chosen": 10,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930204,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11092,
+    "enumerate_s": 1.279199999970615e-05,
+    "rollout_s": 0.02989187499999968,
+    "reduction_s": 0.00015016599999961855,
+    "plan_total_s": 0.030054832999999004,
+    "lawful_s": 0.009633541999999995,
+    "lawful_calls": 3140,
+    "restricted": {
+      "12": 20,
+      "16": 18,
+      "24": 18,
+      "25": 17
+    },
+    "lawful": {
+      "12": 23,
+      "16": 23,
+      "24": 22,
+      "25": 17
+    },
+    "fused": {
+      "12": 23,
+      "16": 23,
+      "24": 22,
+      "25": 17
+    },
+    "value_gap": 3,
+    "chosen": 12,
+    "lawful_chosen": 12,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930205,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10792,
+    "enumerate_s": 1.1417000000069066e-05,
+    "rollout_s": 0.029748000000000108,
+    "reduction_s": 0.00011241699999997579,
+    "plan_total_s": 0.029871834000000153,
+    "lawful_s": 0.007293916000000067,
+    "lawful_calls": 2394,
+    "restricted": {
+      "9": 22,
+      "18": 18
+    },
+    "lawful": {
+      "9": 27,
+      "18": 18
+    },
+    "fused": {
+      "9": 28,
+      "18": 18
+    },
+    "value_gap": 5,
+    "chosen": 9,
+    "lawful_chosen": 9,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930206,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7680,
+    "enumerate_s": 1.0875000000076795e-05,
+    "rollout_s": 0.022234040999999927,
+    "reduction_s": 0.00017408299999965848,
+    "plan_total_s": 0.022418998999999662,
+    "lawful_s": 0.0071186670000003005,
+    "lawful_calls": 2310,
+    "restricted": {
+      "1": 24,
+      "2": 24,
+      "7": 24,
+      "22": 22
+    },
+    "lawful": {
+      "1": 24,
+      "2": 24,
+      "7": 24,
+      "22": 22
+    },
+    "fused": {
+      "1": 24,
+      "2": 24,
+      "7": 24,
+      "22": 22
+    },
+    "value_gap": 0,
+    "chosen": 1,
+    "lawful_chosen": 1,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930207,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8828,
+    "enumerate_s": 1.0458000000213019e-05,
+    "rollout_s": 0.02515912500000006,
+    "reduction_s": 0.0001502499999999074,
+    "plan_total_s": 0.02531983300000018,
+    "lawful_s": 0.011487041000000087,
+    "lawful_calls": 3634,
+    "restricted": {
+      "7": 29,
+      "15": 18,
+      "19": 18,
+      "24": 20
+    },
+    "lawful": {
+      "7": 30,
+      "15": 23,
+      "19": 22,
+      "24": 23
+    },
+    "fused": {
+      "7": 32,
+      "15": 28,
+      "19": 25,
+      "24": 25
+    },
+    "value_gap": 1,
+    "chosen": 7,
+    "lawful_chosen": 7,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930208,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9220,
+    "enumerate_s": 8.62499999998434e-06,
+    "rollout_s": 0.0246093329999999,
+    "reduction_s": 0.00016937500000002714,
+    "plan_total_s": 0.02478733299999991,
+    "lawful_s": 0.008421832999999879,
+    "lawful_calls": 2618,
+    "restricted": {
+      "2": 9,
+      "3": 7,
+      "12": 7,
+      "21": 7
+    },
+    "lawful": {
+      "2": 12,
+      "3": 8,
+      "12": 7,
+      "21": 7
+    },
+    "fused": {
+      "2": 14,
+      "3": 8,
+      "12": 7,
+      "21": 7
+    },
+    "value_gap": 3,
+    "chosen": 2,
+    "lawful_chosen": 2,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930209,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11172,
+    "enumerate_s": 1.0458000000213019e-05,
+    "rollout_s": 0.030229875000000295,
+    "reduction_s": 0.00012608300000005457,
+    "plan_total_s": 0.030366416000000562,
+    "lawful_s": 0.005980708000000057,
+    "lawful_calls": 1977,
+    "restricted": {
+      "17": 26,
+      "26": 22
+    },
+    "lawful": {
+      "17": 33,
+      "26": 29
+    },
+    "fused": {
+      "17": 33,
+      "26": 29
+    },
+    "value_gap": 7,
+    "chosen": 17,
+    "lawful_chosen": 17,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930212,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8476,
+    "enumerate_s": 9.292000000105105e-06,
+    "rollout_s": 0.024025541000000317,
+    "reduction_s": 0.0001465829999998114,
+    "plan_total_s": 0.024181416000000233,
+    "lawful_s": 0.008018999999999998,
+    "lawful_calls": 2474,
+    "restricted": {
+      "0": 40,
+      "1": 39,
+      "6": 35,
+      "20": 40
+    },
+    "lawful": {
+      "0": 40,
+      "1": 39,
+      "6": 35,
+      "20": 40
+    },
+    "fused": {
+      "0": 40,
+      "1": 39,
+      "6": 35,
+      "20": 40
+    },
+    "value_gap": 0,
+    "chosen": 0,
+    "lawful_chosen": 0,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930215,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 960,
+    "enumerate_s": 1.0875000000076795e-05,
+    "rollout_s": 0.0050096250000000175,
+    "reduction_s": 0.0001664999999997363,
+    "plan_total_s": 0.005186999999999831,
+    "lawful_s": 1.5832999999965125e-05,
+    "lawful_calls": 4,
+    "restricted": {
+      "1": 40,
+      "17": 40,
+      "24": 40,
+      "27": 40
+    },
+    "lawful": {
+      "1": 40,
+      "17": 40,
+      "24": 40,
+      "27": 40
+    },
+    "fused": {
+      "1": 40,
+      "17": 40,
+      "24": 40,
+      "27": 40
+    },
+    "value_gap": 0,
+    "chosen": 1,
+    "lawful_chosen": 1,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930216,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11360,
+    "enumerate_s": 8.792000000035216e-06,
+    "rollout_s": 0.031124499999999777,
+    "reduction_s": 0.0001878749999999485,
+    "plan_total_s": 0.03132116699999976,
+    "lawful_s": 0.011676749999999902,
+    "lawful_calls": 3601,
+    "restricted": {
+      "5": 13,
+      "6": 18,
+      "20": 23,
+      "25": 17
+    },
+    "lawful": {
+      "5": 18,
+      "6": 20,
+      "20": 25,
+      "25": 21
+    },
+    "fused": {
+      "5": 18,
+      "6": 20,
+      "20": 26,
+      "25": 21
+    },
+    "value_gap": 2,
+    "chosen": 20,
+    "lawful_chosen": 20,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930218,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10668,
+    "enumerate_s": 1.1124999999889695e-05,
+    "rollout_s": 0.03016791699999999,
+    "reduction_s": 0.00012145800000018525,
+    "plan_total_s": 0.030300500000000063,
+    "lawful_s": 0.006828500000000126,
+    "lawful_calls": 2167,
+    "restricted": {
+      "5": 24,
+      "8": 24
+    },
+    "lawful": {
+      "5": 24,
+      "8": 24
+    },
+    "fused": {
+      "5": 27,
+      "8": 24
+    },
+    "value_gap": 0,
+    "chosen": 5,
+    "lawful_chosen": 5,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930219,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9216,
+    "enumerate_s": 1.0708000000025919e-05,
+    "rollout_s": 0.026348458000000186,
+    "reduction_s": 0.00013654199999990624,
+    "plan_total_s": 0.026495708000000118,
+    "lawful_s": 0.004896667000000132,
+    "lawful_calls": 1501,
+    "restricted": {
+      "4": 24,
+      "17": 27
+    },
+    "lawful": {
+      "4": 27,
+      "17": 27
+    },
+    "fused": {
+      "4": 28,
+      "17": 27
+    },
+    "value_gap": 0,
+    "chosen": 17,
+    "lawful_chosen": 4,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930220,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8180,
+    "enumerate_s": 9.791999999730905e-06,
+    "rollout_s": 0.022421749999999907,
+    "reduction_s": 0.00017895900000031162,
+    "plan_total_s": 0.02261050099999995,
+    "lawful_s": 0.005434957999999934,
+    "lawful_calls": 1610,
+    "restricted": {
+      "9": 31,
+      "11": 38,
+      "13": 37,
+      "22": 38
+    },
+    "lawful": {
+      "9": 32,
+      "11": 38,
+      "13": 37,
+      "22": 39
+    },
+    "fused": {
+      "9": 32,
+      "11": 38,
+      "13": 37,
+      "22": 39
+    },
+    "value_gap": 1,
+    "chosen": 11,
+    "lawful_chosen": 22,
+    "action_regret": 1,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930221,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 4432,
+    "enumerate_s": 1.0749999999948301e-05,
+    "rollout_s": 0.014014334000000073,
+    "reduction_s": 0.0001347499999999613,
+    "plan_total_s": 0.014159833999999982,
+    "lawful_s": 0.0018158749999996893,
+    "lawful_calls": 519,
+    "restricted": {
+      "9": 39,
+      "13": 40
+    },
+    "lawful": {
+      "9": 39,
+      "13": 40
+    },
+    "fused": {
+      "9": 39,
+      "13": 40
+    },
+    "value_gap": 0,
+    "chosen": 13,
+    "lawful_chosen": 13,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930222,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9760,
+    "enumerate_s": 1.0667000000186277e-05,
+    "rollout_s": 0.027323291000000083,
+    "reduction_s": 0.00013170800000006366,
+    "plan_total_s": 0.027465666000000333,
+    "lawful_s": 0.007445042000000068,
+    "lawful_calls": 2499,
+    "restricted": {
+      "1": 39,
+      "3": 39,
+      "21": 37
+    },
+    "lawful": {
+      "1": 40,
+      "3": 40,
+      "21": 39
+    },
+    "fused": {
+      "1": 40,
+      "3": 40,
+      "21": 39
+    },
+    "value_gap": 1,
+    "chosen": 1,
+    "lawful_chosen": 1,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930225,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8276,
+    "enumerate_s": 1.075000000039239e-05,
+    "rollout_s": 0.024318082999999824,
+    "reduction_s": 0.00017683300000026492,
+    "plan_total_s": 0.02450566600000048,
+    "lawful_s": 0.006883874999999762,
+    "lawful_calls": 2054,
+    "restricted": {
+      "0": 28,
+      "5": 27,
+      "11": 29,
+      "25": 32
+    },
+    "lawful": {
+      "0": 29,
+      "5": 29,
+      "11": 30,
+      "25": 33
+    },
+    "fused": {
+      "0": 29,
+      "5": 29,
+      "11": 30,
+      "25": 33
+    },
+    "value_gap": 1,
+    "chosen": 25,
+    "lawful_chosen": 25,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930227,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9760,
+    "enumerate_s": 1.0749999999948301e-05,
+    "rollout_s": 0.026505583999999693,
+    "reduction_s": 0.00013570800000017869,
+    "plan_total_s": 0.02665204199999982,
+    "lawful_s": 0.0026884999999996495,
+    "lawful_calls": 835,
+    "restricted": {
+      "22": 26,
+      "25": 22
+    },
+    "lawful": {
+      "22": 26,
+      "25": 22
+    },
+    "fused": {
+      "22": 26,
+      "25": 22
+    },
+    "value_gap": 0,
+    "chosen": 22,
+    "lawful_chosen": 22,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930228,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10448,
+    "enumerate_s": 9.125000000054229e-06,
+    "rollout_s": 0.02870520800000076,
+    "reduction_s": 0.00017029099999987807,
+    "plan_total_s": 0.02888462400000069,
+    "lawful_s": 0.0077662499999995305,
+    "lawful_calls": 2393,
+    "restricted": {
+      "9": 28,
+      "17": 15,
+      "24": 21,
+      "25": 16
+    },
+    "lawful": {
+      "9": 29,
+      "17": 17,
+      "24": 24,
+      "25": 18
+    },
+    "fused": {
+      "9": 29,
+      "17": 17,
+      "24": 24,
+      "25": 18
+    },
+    "value_gap": 1,
+    "chosen": 9,
+    "lawful_chosen": 9,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930229,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8064,
+    "enumerate_s": 1.0249999999878412e-05,
+    "rollout_s": 0.02236387500000081,
+    "reduction_s": 0.0001562079999999355,
+    "plan_total_s": 0.022530333000000624,
+    "lawful_s": 0.0031909580000002435,
+    "lawful_calls": 965,
+    "restricted": {
+      "10": 25,
+      "12": 30,
+      "25": 33
+    },
+    "lawful": {
+      "10": 25,
+      "12": 30,
+      "25": 33
+    },
+    "fused": {
+      "10": 25,
+      "12": 30,
+      "25": 33
+    },
+    "value_gap": 0,
+    "chosen": 25,
+    "lawful_chosen": 25,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930232,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10952,
+    "enumerate_s": 1.1084000000494143e-05,
+    "rollout_s": 0.03020962500000035,
+    "reduction_s": 0.0001612499999996686,
+    "plan_total_s": 0.030381959000000514,
+    "lawful_s": 0.007973833000000319,
+    "lawful_calls": 2255,
+    "restricted": {
+      "4": 13,
+      "12": 13,
+      "15": 10,
+      "25": 11
+    },
+    "lawful": {
+      "4": 14,
+      "12": 14,
+      "15": 13,
+      "25": 11
+    },
+    "fused": {
+      "4": 14,
+      "12": 14,
+      "15": 13,
+      "25": 11
+    },
+    "value_gap": 1,
+    "chosen": 4,
+    "lawful_chosen": 4,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930235,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 960,
+    "enumerate_s": 1.1042000000571761e-05,
+    "rollout_s": 0.004915332999999578,
+    "reduction_s": 0.00015254200000036633,
+    "plan_total_s": 0.005078917000000516,
+    "lawful_s": 1.57500000002031e-05,
+    "lawful_calls": 4,
+    "restricted": {
+      "2": 0,
+      "9": 0,
+      "17": 0,
+      "23": 0
+    },
+    "lawful": {
+      "2": 0,
+      "9": 0,
+      "17": 0,
+      "23": 0
+    },
+    "fused": {
+      "2": 0,
+      "9": 0,
+      "17": 0,
+      "23": 0
+    },
+    "value_gap": 0,
+    "chosen": 2,
+    "lawful_chosen": 2,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930239,
+    "ply": 15,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 8048,
+    "enumerate_s": 9.66699999960241e-06,
+    "rollout_s": 0.022998083000000058,
+    "reduction_s": 0.00016875000000027285,
+    "plan_total_s": 0.023176499999999933,
+    "lawful_s": 0.005451458000000464,
+    "lawful_calls": 1615,
+    "restricted": {
+      "8": 4,
+      "16": 8,
+      "17": 7,
+      "19": 5
+    },
+    "lawful": {
+      "8": 4,
+      "16": 9,
+      "17": 7,
+      "19": 6
+    },
+    "fused": {
+      "8": 4,
+      "16": 9,
+      "17": 7,
+      "19": 6
+    },
+    "value_gap": 1,
+    "chosen": 16,
+    "lawful_chosen": 16,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930240,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10864,
+    "enumerate_s": 9.16699999997661e-06,
+    "rollout_s": 0.029015916999999725,
+    "reduction_s": 0.00015866599999991848,
+    "plan_total_s": 0.02918374999999962,
+    "lawful_s": 0.015808040999999662,
+    "lawful_calls": 5389,
+    "restricted": {
+      "0": 38,
+      "6": 17,
+      "10": 17,
+      "20": 30
+    },
+    "lawful": {
+      "0": 38,
+      "6": 17,
+      "10": 17,
+      "20": 35
+    },
+    "fused": {
+      "0": 38,
+      "6": 17,
+      "10": 17,
+      "20": 36
+    },
+    "value_gap": 0,
+    "chosen": 0,
+    "lawful_chosen": 0,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930241,
+    "ply": 13,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 10448,
+    "enumerate_s": 1.0833000000154414e-05,
+    "rollout_s": 0.03043541699999963,
+    "reduction_s": 0.00016041599999994105,
+    "plan_total_s": 0.030606665999999727,
+    "lawful_s": 0.011977500000000418,
+    "lawful_calls": 3953,
+    "restricted": {
+      "6": 17,
+      "8": 10,
+      "12": 16,
+      "14": 17
+    },
+    "lawful": {
+      "6": 18,
+      "8": 10,
+      "12": 17,
+      "14": 18
+    },
+    "fused": {
+      "6": 18,
+      "8": 10,
+      "12": 17,
+      "14": 18
+    },
+    "value_gap": 1,
+    "chosen": 6,
+    "lawful_chosen": 6,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930246,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 9668,
+    "enumerate_s": 1.2125000000473563e-05,
+    "rollout_s": 0.028320875000000356,
+    "reduction_s": 0.0001710419999998436,
+    "plan_total_s": 0.028504042000000673,
+    "lawful_s": 0.00960300000000025,
+    "lawful_calls": 2991,
+    "restricted": {
+      "6": 23,
+      "13": 23,
+      "20": 13,
+      "23": 25
+    },
+    "lawful": {
+      "6": 28,
+      "13": 27,
+      "20": 14,
+      "23": 25
+    },
+    "fused": {
+      "6": 28,
+      "13": 27,
+      "20": 14,
+      "23": 29
+    },
+    "value_gap": 3,
+    "chosen": 23,
+    "lawful_chosen": 6,
+    "action_regret": 3,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930248,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 11264,
+    "enumerate_s": 8.582999999617869e-06,
+    "rollout_s": 0.030884291999999647,
+    "reduction_s": 0.00017554099999994577,
+    "plan_total_s": 0.03106841599999921,
+    "lawful_s": 0.014027042000000378,
+    "lawful_calls": 4454,
+    "restricted": {
+      "19": 26,
+      "21": 28,
+      "25": 29,
+      "26": 25
+    },
+    "lawful": {
+      "19": 31,
+      "21": 34,
+      "25": 30,
+      "26": 32
+    },
+    "fused": {
+      "19": 31,
+      "21": 34,
+      "25": 30,
+      "26": 32
+    },
+    "value_gap": 5,
+    "chosen": 25,
+    "lawful_chosen": 21,
+    "action_regret": 4,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930250,
+    "ply": 14,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 6036,
+    "enumerate_s": 1.0582999999897424e-05,
+    "rollout_s": 0.01859725000000001,
+    "reduction_s": 0.00013254099999926439,
+    "plan_total_s": 0.01874037399999917,
+    "lawful_s": 0.0027305410000000307,
+    "lawful_calls": 809,
+    "restricted": {
+      "6": 17,
+      "9": 40
+    },
+    "lawful": {
+      "6": 18,
+      "9": 40
+    },
+    "fused": {
+      "6": 18,
+      "9": 40
+    },
+    "value_gap": 0,
+    "chosen": 9,
+    "lawful_chosen": 9,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  },
+  {
+    "seed": 930252,
+    "ply": 12,
+    "worlds": 40,
+    "plans": 24,
+    "rollout_rows": 960,
+    "table_bytes": 960,
+    "simulated_plies": 7108,
+    "enumerate_s": 8.541999999778227e-06,
+    "rollout_s": 0.020173584000000133,
+    "reduction_s": 0.0001715419999994694,
+    "plan_total_s": 0.02035366799999938,
+    "lawful_s": 0.0063475830000001565,
+    "lawful_calls": 1875,
+    "restricted": {
+      "4": 39,
+      "5": 40,
+      "11": 40,
+      "18": 40
+    },
+    "lawful": {
+      "4": 40,
+      "5": 40,
+      "11": 40,
+      "18": 40
+    },
+    "fused": {
+      "4": 40,
+      "5": 40,
+      "11": 40,
+      "18": 40
+    },
+    "value_gap": 0,
+    "chosen": 5,
+    "lawful_chosen": 4,
+    "action_regret": 0,
+    "trace_checks": [],
+    "status": "completed"
+  }
+]

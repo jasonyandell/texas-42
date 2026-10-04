@@ -1,0 +1,458 @@
+{
+  "folder": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "files": [
+        {
+          "id": "154RhJ7p01sokB5WUq-LLZ7KztL0CIy1H",
+          "title": "plunge-match.log",
+          "mime_type": "text/plain",
+          "size": "1184",
+          "url": "https://drive.google.com/file/d/154RhJ7p01sokB5WUq-LLZ7KztL0CIy1H/view?usp=drivesdk",
+          "display_url": "https://drive.google.com/file/d/154RhJ7p01sokB5WUq-LLZ7KztL0CIy1H/view?usp=drivesdk",
+          "file_or_folder": "file",
+          "created_time": "2026-10-04T06:47:45.835Z",
+          "modified_time": "2026-10-04T06:47:45.835Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": false,
+          "permissions": null,
+          "source_visibility_status": "not_shared",
+          "can_download": true,
+          "can_list_children": false
+        },
+        {
+          "id": "1rHiRhx3iNtN5-Tyhv3FQqdjzjy5ebrbu",
+          "title": "TINY-MODEL.md",
+          "mime_type": "text/markdown",
+          "size": "3197",
+          "url": "https://drive.google.com/file/d/1rHiRhx3iNtN5-Tyhv3FQqdjzjy5ebrbu/view?usp=drivesdk",
+          "display_url": "https://drive.google.com/file/d/1rHiRhx3iNtN5-Tyhv3FQqdjzjy5ebrbu/view?usp=drivesdk",
+          "file_or_folder": "file",
+          "created_time": "2026-10-04T06:47:33.526Z",
+          "modified_time": "2026-10-04T06:47:33.526Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": false,
+          "permissions": null,
+          "source_visibility_status": "not_shared",
+          "can_download": true,
+          "can_list_children": false
+        },
+        {
+          "id": "1id0xNmMDnTQI0CONctgbSmlpHn9Vd7KM",
+          "title": "HANDOFF.md",
+          "mime_type": "text/markdown",
+          "size": "4155",
+          "url": "https://drive.google.com/file/d/1id0xNmMDnTQI0CONctgbSmlpHn9Vd7KM/view?usp=drivesdk",
+          "display_url": "https://drive.google.com/file/d/1id0xNmMDnTQI0CONctgbSmlpHn9Vd7KM/view?usp=drivesdk",
+          "file_or_folder": "file",
+          "created_time": "2026-10-04T06:47:18.732Z",
+          "modified_time": "2026-10-04T06:47:18.732Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": false,
+          "permissions": null,
+          "source_visibility_status": "not_shared",
+          "can_download": true,
+          "can_list_children": false
+        },
+        {
+          "id": "1z9DzghRBMPhTFOh8sgORM1rnQMgM5pr_",
+          "title": "README.md",
+          "mime_type": "text/markdown",
+          "size": "2294",
+          "url": "https://drive.google.com/file/d/1z9DzghRBMPhTFOh8sgORM1rnQMgM5pr_/view?usp=drivesdk",
+          "display_url": "https://drive.google.com/file/d/1z9DzghRBMPhTFOh8sgORM1rnQMgM5pr_/view?usp=drivesdk",
+          "file_or_folder": "file",
+          "created_time": "2026-10-04T06:46:56.569Z",
+          "modified_time": "2026-10-04T06:46:56.569Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": false,
+          "permissions": null,
+          "source_visibility_status": "not_shared",
+          "can_download": true,
+          "can_list_children": false
+        },
+        {
+          "id": "1GqLcyzKCKMDUtT2trh0ZecgI-EAJJm9c",
+          "title": "engine42.py",
+          "mime_type": "text/x-python",
+          "size": "11158",
+          "url": "https://drive.google.com/file/d/1GqLcyzKCKMDUtT2trh0ZecgI-EAJJm9c/view?usp=drivesdk",
+          "display_url": "https://drive.google.com/file/d/1GqLcyzKCKMDUtT2trh0ZecgI-EAJJm9c/view?usp=drivesdk",
+          "file_or_folder": "file",
+          "created_time": "2026-10-04T06:46:37.667Z",
+          "modified_time": "2026-10-04T06:46:37.667Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": false,
+          "permissions": null,
+          "source_visibility_status": "not_shared",
+          "can_download": true,
+          "can_list_children": false
+        },
+        {
+          "id": "1XmfWFK3WBupRwa4vUDacl286h23KvS4h",
+          "title": "exact_tape.py",
+          "mime_type": "text/x-python",
+          "size": "8069",
+          "url": "https://drive.google.com/file/d/1XmfWFK3WBupRwa4vUDacl286h23KvS4h/view?usp=drivesdk",
+          "display_url": "https://drive.google.com/file/d/1XmfWFK3WBupRwa4vUDacl286h23KvS4h/view?usp=drivesdk",
+          "file_or_folder": "file",
+          "created_time": "2026-10-04T06:45:51.477Z",
+          "modified_time": "2026-10-04T06:45:51.477Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": false,
+          "permissions": null,
+          "source_visibility_status": "not_shared",
+          "can_download": true,
+          "can_list_children": false
+        },
+        {
+          "id": "1w4YLVmlPDh4uAOBiH8yJFeY7DutKvumZ",
+          "title": "nofusion_sc.py",
+          "mime_type": "text/x-python",
+          "size": "5667",
+          "url": "https://drive.google.com/file/d/1w4YLVmlPDh4uAOBiH8yJFeY7DutKvumZ/view?usp=drivesdk",
+          "display_url": "https://drive.google.com/file/d/1w4YLVmlPDh4uAOBiH8yJFeY7DutKvumZ/view?usp=drivesdk",
+          "file_or_folder": "file",
+          "created_time": "2026-10-04T06:45:13.569Z",
+          "modified_time": "2026-10-04T06:45:13.569Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": false,
+          "permissions": null,
+          "source_visibility_status": "not_shared",
+          "can_download": true,
+          "can_list_children": false
+        },
+        {
+          "id": "1oAnYVzin96VBs5H8i5SPGIQry0_7Mu35",
+          "title": "harness.mjs",
+          "mime_type": "text/javascript",
+          "size": "6610",
+          "url": "https://drive.google.com/file/d/1oAnYVzin96VBs5H8i5SPGIQry0_7Mu35/view?usp=drivesdk",
+          "display_url": "https://drive.google.com/file/d/1oAnYVzin96VBs5H8i5SPGIQry0_7Mu35/view?usp=drivesdk",
+          "file_or_folder": "file",
+          "created_time": "2026-10-04T06:44:41.668Z",
+          "modified_time": "2026-10-04T06:44:41.668Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": false,
+          "permissions": null,
+          "source_visibility_status": "not_shared",
+          "can_download": true,
+          "can_list_children": false
+        },
+        {
+          "id": "1DwZB_zJmbI2dVfbD0f3ZhiJ-Mfc8aXDV",
+          "title": "walt.c",
+          "mime_type": "text/x-csrc",
+          "size": "13926",
+          "url": "https://drive.google.com/file/d/1DwZB_zJmbI2dVfbD0f3ZhiJ-Mfc8aXDV/view?usp=drivesdk",
+          "display_url": "https://drive.google.com/file/d/1DwZB_zJmbI2dVfbD0f3ZhiJ-Mfc8aXDV/view?usp=drivesdk",
+          "file_or_folder": "file",
+          "created_time": "2026-10-04T06:44:00.031Z",
+          "modified_time": "2026-10-04T06:44:00.031Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": false,
+          "permissions": null,
+          "source_visibility_status": "not_shared",
+          "can_download": true,
+          "can_list_children": false
+        }
+      ]
+    },
+    "isError": false
+  },
+  "metadata": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "id": "154RhJ7p01sokB5WUq-LLZ7KztL0CIy1H",
+          "title": "plunge-match.log",
+          "mime_type": "text/plain",
+          "size": "1184",
+          "url": null,
+          "file_or_folder": "file",
+          "created_time": null,
+          "modified_time": "2026-10-04T06:47:45.835Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": null,
+          "permissions": null,
+          "source_visibility_status": "access_not_verified"
+        },
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "id": "1rHiRhx3iNtN5-Tyhv3FQqdjzjy5ebrbu",
+          "title": "TINY-MODEL.md",
+          "mime_type": "text/markdown",
+          "size": "3197",
+          "url": null,
+          "file_or_folder": "file",
+          "created_time": null,
+          "modified_time": "2026-10-04T06:47:33.526Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": null,
+          "permissions": null,
+          "source_visibility_status": "access_not_verified"
+        },
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "id": "1id0xNmMDnTQI0CONctgbSmlpHn9Vd7KM",
+          "title": "HANDOFF.md",
+          "mime_type": "text/markdown",
+          "size": "4155",
+          "url": null,
+          "file_or_folder": "file",
+          "created_time": null,
+          "modified_time": "2026-10-04T06:47:18.732Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": null,
+          "permissions": null,
+          "source_visibility_status": "access_not_verified"
+        },
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "id": "1z9DzghRBMPhTFOh8sgORM1rnQMgM5pr_",
+          "title": "README.md",
+          "mime_type": "text/markdown",
+          "size": "2294",
+          "url": null,
+          "file_or_folder": "file",
+          "created_time": null,
+          "modified_time": "2026-10-04T06:46:56.569Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": null,
+          "permissions": null,
+          "source_visibility_status": "access_not_verified"
+        },
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "id": "1GqLcyzKCKMDUtT2trh0ZecgI-EAJJm9c",
+          "title": "engine42.py",
+          "mime_type": "text/x-python",
+          "size": "11158",
+          "url": null,
+          "file_or_folder": "file",
+          "created_time": null,
+          "modified_time": "2026-10-04T06:46:37.667Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": null,
+          "permissions": null,
+          "source_visibility_status": "access_not_verified"
+        },
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "id": "1XmfWFK3WBupRwa4vUDacl286h23KvS4h",
+          "title": "exact_tape.py",
+          "mime_type": "text/x-python",
+          "size": "8069",
+          "url": null,
+          "file_or_folder": "file",
+          "created_time": null,
+          "modified_time": "2026-10-04T06:45:51.477Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": null,
+          "permissions": null,
+          "source_visibility_status": "access_not_verified"
+        },
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "id": "1w4YLVmlPDh4uAOBiH8yJFeY7DutKvumZ",
+          "title": "nofusion_sc.py",
+          "mime_type": "text/x-python",
+          "size": "5667",
+          "url": null,
+          "file_or_folder": "file",
+          "created_time": null,
+          "modified_time": "2026-10-04T06:45:13.569Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": null,
+          "permissions": null,
+          "source_visibility_status": "access_not_verified"
+        },
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "id": "1oAnYVzin96VBs5H8i5SPGIQry0_7Mu35",
+          "title": "harness.mjs",
+          "mime_type": "text/javascript",
+          "size": "6610",
+          "url": null,
+          "file_or_folder": "file",
+          "created_time": null,
+          "modified_time": "2026-10-04T06:44:41.668Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": null,
+          "permissions": null,
+          "source_visibility_status": "access_not_verified"
+        },
+        "isError": false
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Action completed."
+          }
+        ],
+        "structuredContent": {
+          "id": "1DwZB_zJmbI2dVfbD0f3ZhiJ-Mfc8aXDV",
+          "title": "walt.c",
+          "mime_type": "text/x-csrc",
+          "size": "13926",
+          "url": null,
+          "file_or_folder": "file",
+          "created_time": null,
+          "modified_time": "2026-10-04T06:44:00.031Z",
+          "parent_ids": null,
+          "drive_id": null,
+          "current_user_can_share": null,
+          "has_augmented_permissions": null,
+          "shared": null,
+          "permissions": null,
+          "source_visibility_status": "access_not_verified"
+        },
+        "isError": false
+      }
+    }
+  ]
+}
